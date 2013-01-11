@@ -29,6 +29,7 @@ Item {
     property alias canGoForward: forwardButton.enabled
     signal goForwardClicked
     signal reloadClicked
+    property alias loading: loading.running
 
     Rectangle {
         anchors.fill: parent
@@ -81,11 +82,18 @@ Item {
         id: addressBar
 
         anchors.left: buttons.right
-        anchors.right: parent.right
+        anchors.right: loading.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.margins: units.gu(2)
 
         onAccepted: chrome.urlValidated(text)
+    }
+
+    ActivityIndicator {
+        id: loading
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        height: units.gu(3)
     }
 }
