@@ -1,1 +1,3 @@
 *.qmlproject.user
+Makefile
+src/kalossi-browser
