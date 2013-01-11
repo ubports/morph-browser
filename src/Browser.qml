@@ -43,6 +43,11 @@ Item {
         anchors.bottom: parent.bottom
         height: units.gu(8)
 
+        canGoBack: webview.canGoBack
+        onGoBackClicked: webview.goBack()
+        canGoForward: webview.canGoForward
+        onGoForwardClicked: webview.goForward()
+        onReloadClicked: webview.reload()
         onUrlValidated: browser.url = url
     }
 }

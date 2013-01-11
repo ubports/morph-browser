@@ -24,11 +24,22 @@ Item {
 
     property alias url: addressBar.text
     signal urlValidated(url url)
+    property alias canGoBack: backButton.enabled
+    signal goBackClicked
+    property alias canGoForward: forwardButton.enabled
+    signal goForwardClicked
+    signal reloadClicked
 
     Rectangle {
         anchors.fill: parent
         color: "white"
         opacity: 0.9
+    }
+
+    MouseArea {
+        // Intercept mouse clicks that go through disabled buttons,
+        // to avoid forwarding them to the web page below.
+        anchors.fill: parent
     }
 
     Row {
@@ -41,20 +52,27 @@ Item {
         spacing: units.gu(2)
 
         Button {
+            id: backButton
             text: "⊲"
             width: units.gu(6)
+            onClicked: chrome.goBackClicked()
         }
         Button {
+            id: forwardButton
             text: "⊳"
             width: units.gu(6)
+            onClicked: chrome.goForwardClicked()
         }
         Button {
+            id: bookmarkButton
             text: "✩"
             width: units.gu(6)
         }
         Button {
+            id: refreshButton
             text: "↻"
             width: units.gu(6)
+            onClicked: chrome.reloadClicked()
         }
     }
 
