@@ -19,6 +19,7 @@
 import QtQuick 2.0
 import QtWebKit 3.0
 //import QtWebKit.experimental 1.0
+import Ubuntu.Components 0.1
 
 Item {
     id: browser
@@ -32,6 +33,16 @@ Item {
         anchors.fill: parent
 
         onUrlChanged: chrome.url = url
+    }
+
+    Scrollbar {
+        flickableItem: webview
+        align: Qt.AlignTrailing
+    }
+
+    Scrollbar {
+        flickableItem: webview
+        align: Qt.AlignBottom
     }
 
     Chrome {
