@@ -31,6 +31,7 @@ int main(int argc, char** argv)
     QStringList arguments = application.arguments();
     arguments.removeFirst();
     bool chromeless = arguments.contains("--chromeless");
+    bool fullscreen = arguments.contains("--fullscreen");
     QUrl url;
     Q_FOREACH(QString argument, arguments) {
         if (!argument.startsWith("--")) {
@@ -44,6 +45,10 @@ int main(int argc, char** argv)
     browser->setProperty("chromeless", chromeless);
     browser->setProperty("url", url);
 
-    view.show();
+    if (fullscreen) {
+        view.showFullScreen();
+    } else {
+        view.show();
+    }
     return application.exec();
 }
