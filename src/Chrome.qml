@@ -67,6 +67,7 @@ Item {
             id: bookmarkButton
             text: "✩"
             width: units.gu(6)
+            enabled: false
         }
         Button {
             id: refreshButton
