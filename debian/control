@@ -6,6 +6,7 @@ Build-Depends: debhelper (>= 8.0.0),
                cmake (>= 2.8.9),
                qtbase (>= 5.0),
                qtdeclarative (>= 5.0),
+               mesa-common-dev,
 Standards-Version: 3.9.3
 
 Package: kalossi-browser
@@ -16,3 +17,13 @@ Depends: ${shlibs:Depends},
 Description: Kalossi web browser
  Kalossi is a lightweight web browser tailored for Ubuntu, based on the Webkit
  rendering engine and using the Ubuntu UI components.
+
+Package: kalossi-browser-autopilot
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         kalossi-browser,
+Description: Kalossi web browser autopilot tests
+ Kalossi is a lightweight web browser tailored for Ubuntu, based on the Webkit
+ rendering engine and using the Ubuntu UI components. This package contains 
+ autopilot tests for it.

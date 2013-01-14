@@ -1,5 +1,9 @@
 kalossi-browser (0.1) UNRELEASED; urgency=low
 
+  [ Olivier Tilloy ]
   * Initial packaging.
+
+  [ Michael Zanetti ]
+  * Added initial autopilot tests and autopilot package
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 14 Jan 2013 13:02:15 +0100
