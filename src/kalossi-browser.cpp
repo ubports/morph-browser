@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Qt
 #include <QtCore/QtGlobal>
 #include <QtCore/QFileInfo>
 #include <QtCore/QTextStream>
@@ -23,7 +24,11 @@
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickView>
 
+// stdlib
 #include <cstdio>
+
+// local
+#include "config.h"
 
 static void fixPath()
 {
@@ -70,7 +75,7 @@ int main(int argc, char** argv)
         }
     }
 
-    view.setSource(QUrl::fromLocalFile("src/Browser.qml"));
+    view.setSource(QUrl::fromLocalFile(KalossiDataDirectory() + "/Browser.qml"));
     QQuickItem* browser = view.rootObject();
     browser->setProperty("chromeless", chromeless);
     browser->setProperty("url", url);

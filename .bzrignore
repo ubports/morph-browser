@@ -7,6 +7,7 @@ cmake_uninstall.cmake
 Makefile
 install_manifest.txt
 
+src/config.h
 src/*_automoc.cpp
 src/kalossi-browser
 
