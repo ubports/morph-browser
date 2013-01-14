@@ -6,7 +6,7 @@
 # by the Free Software Foundation.
 
 class MainWindow(object):
-    """An emulator class that makes it easy to interact with the kalossi browser."""
+    """An emulator class that makes it easy to interact with the ubuntu browser."""
 
     def __init__(self, app):
         self.app = app

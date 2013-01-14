@@ -12,7 +12,7 @@ from __future__ import absolute_import
 from testtools.matchers import Equals, NotEquals, GreaterThan
 from autopilot.matchers import Eventually
 
-from kalossi_browser.tests import BrowserTestCase
+from ubuntu_browser.tests import BrowserTestCase
 
 import unittest
 import time

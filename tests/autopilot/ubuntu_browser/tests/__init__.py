@@ -5,7 +5,7 @@
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
-"""Kalossi-browser autopilot tests."""
+"""Ubuntu-browser autopilot tests."""
 
 from os import remove
 import os.path
@@ -13,11 +13,11 @@ import os.path
 from autopilot.introspection.qt import QtIntrospectionTestMixin
 from autopilot.testcase import AutopilotTestCase
 
-from kalossi_browser.emulators.main_window import MainWindow
+from ubuntu_browser.emulators.main_window import MainWindow
 
 class BrowserTestCase(AutopilotTestCase, QtIntrospectionTestMixin):
 
-    """A common test case class that provides several useful methods for kalossi browser tests."""
+    """A common test case class that provides several useful methods for ubuntu browser tests."""
 
     def setUp(self):
         super(BrowserTestCase, self).setUp()
@@ -29,16 +29,16 @@ class BrowserTestCase(AutopilotTestCase, QtIntrospectionTestMixin):
 
     def launch_test_local(self):
         self.app = self.launch_test_application(
-            "../../src/kalossi-browser")
+            "../../src/ubuntu-browser")
 
     def launch_test_installed(self):
         if self.running_on_device():
             self.app = self.launch_test_application(
-               "kalossi-browser",
+               "ubuntu-browser",
                "--fullscreen")
         else:
             self.app = self.launch_test_application(
-               "kalossi-browser")
+               "ubuntu-browser")
 
     @staticmethod
     def running_on_device():
