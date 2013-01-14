@@ -16,9 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QtCore/QFileInfo>
+#include <QtCore/QTextStream>
 #include <QtWidgets/QApplication>
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickView>
+
+#include <cstdio>
+
+static void printUsage()
+{
+    QTextStream out(stdout);
+    QString command = QFileInfo(QApplication::applicationFilePath()).fileName();
+    out << "Usage: " << command << " [-h|--help] [--chromeless] [--fullscreen] [URL]" << endl;
+    out << "Options:" << endl;
+    out << "  -h, --help     display this help message and exit" << endl;
+    out << "  --chromeless   do not display any chrome (web application mode)" << endl;
+    out << "  --fullscreen   display full screen" << endl;
+}
 
 int main(int argc, char** argv)
 {
@@ -30,6 +45,10 @@ int main(int argc, char** argv)
 
     QStringList arguments = application.arguments();
     arguments.removeFirst();
+    if (arguments.contains("--help") || arguments.contains("-h")) {
+        printUsage();
+        return 0;
+    }
     bool chromeless = arguments.contains("--chromeless");
     bool fullscreen = arguments.contains("--fullscreen");
     QUrl url;
