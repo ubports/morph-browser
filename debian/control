@@ -22,7 +22,7 @@ Package: kalossi-browser-autopilot
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
-         kalossi-browser,
+         kalossi-browser (= ${binary:Version}),
 Description: Kalossi web browser autopilot tests
  Kalossi is a lightweight web browser tailored for Ubuntu, based on the Webkit
  rendering engine and using the Ubuntu UI components. This package contains 

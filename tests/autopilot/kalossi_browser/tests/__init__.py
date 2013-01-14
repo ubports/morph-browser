@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2012 Canonical
+# Copyright 2013 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -17,7 +17,7 @@ from kalossi_browser.emulators.main_window import MainWindow
 
 class BrowserTestCase(AutopilotTestCase, QtIntrospectionTestMixin):
 
-    """A common test case class that provides several useful methods for camera-app tests."""
+    """A common test case class that provides several useful methods for kalossi browser tests."""
 
     def setUp(self):
         super(BrowserTestCase, self).setUp()
