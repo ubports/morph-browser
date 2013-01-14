@@ -1,13 +1,13 @@
 /*
  * Copyright 2013 Canonical Ltd.
  *
- * This file is part of kalossi-browser.
+ * This file is part of ubuntu-browser.
  *
- * kalossi-browser is free software; you can redistribute it and/or modify
+ * ubuntu-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * kalossi-browser is distributed in the hope that it will be useful,
+ * ubuntu-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -20,5 +20,5 @@ Browser {
     width: 800
     height: 600
 
-    url: "http://www.ubuntu.com/devices/phone"
+    url: "http://www.ubuntu.com"
 }

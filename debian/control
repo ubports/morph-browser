@@ -1,4 +1,4 @@
-Source: kalossi-browser
+Source: ubuntu-browser
 Section: x11
 Priority: optional
 Maintainer: Olivier Tilloy <olivier.tilloy@canonical.com>
@@ -9,14 +9,14 @@ Build-Depends: debhelper (>= 8.0.0),
                mesa-common-dev,
 Standards-Version: 3.9.3
 
-Package: kalossi-browser
+Package: ubuntu-browser
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          qt-components-ubuntu,
-Description: Kalossi web browser
- Kalossi is a lightweight web browser tailored for Ubuntu, based on the Webkit
- rendering engine and using the Ubuntu UI components.
+Description: Ubuntu web browser
+ A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
+ engine and using the Ubuntu UI components.
 
 Package: ubuntu-browser-autopilot
 Architecture: any
@@ -24,6 +24,6 @@ Depends: ${shlibs:Depends},
          ${misc:Depends},
          ubuntu-browser (= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests
- Ubuntu-browser is a lightweight web browser tailored for Ubuntu, based on the
- Webkit rendering engine and using the Ubuntu UI components. This package
- contains autopilot tests for it.
+ A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
+ engine and using the Ubuntu UI components. This package contains autopilot
+ tests for it.

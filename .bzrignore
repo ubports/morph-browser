@@ -9,11 +9,11 @@ install_manifest.txt
 
 src/config.h
 src/*_automoc.cpp
-src/kalossi-browser
+src/ubuntu-browser
 
 obj-*
 debian/files
-debian/kalossi-browser/
+debian/ubuntu-browser/
 debian/*.debhelper
 debian/*.debhelper.log
 debian/*.substvars

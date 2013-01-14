@@ -1,4 +1,4 @@
-kalossi-browser (0.1) UNRELEASED; urgency=low
+ubuntu-browser (0.1) UNRELEASED; urgency=low
 
   [ Olivier Tilloy ]
   * Initial packaging.
@@ -7,3 +7,4 @@ kalossi-browser (0.1) UNRELEASED; urgency=low
   * Added initial autopilot tests and autopilot package
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 14 Jan 2013 13:02:15 +0100
+
