@@ -11,3 +11,11 @@ src/config.h
 src/*_automoc.cpp
 src/kalossi-browser
 
+obj-*
+debian/files
+debian/kalossi-browser/
+debian/*.debhelper
+debian/*.debhelper.log
+debian/*.substvars
+debian/stamp-*
+
