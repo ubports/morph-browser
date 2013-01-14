@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QFileInfo>
 #include <QtCore/QTextStream>
 #include <QtWidgets/QApplication>
@@ -23,6 +24,13 @@
 #include <QtQuick/QQuickView>
 
 #include <cstdio>
+
+static void fixPath()
+{
+    QByteArray path = qgetenv("PATH");
+    path.prepend("/opt/qt5/bin:");
+    qputenv("PATH", path);
+}
 
 static void printUsage()
 {
@@ -37,6 +45,9 @@ static void printUsage()
 
 int main(int argc, char** argv)
 {
+    // XXX: fix the PATH until Qt5 is properly installed on the system
+    fixPath();
+
     QApplication application(argc, argv);
     QQuickView view;
     view.setResizeMode(QQuickView::SizeRootObjectToView);
