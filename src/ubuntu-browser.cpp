@@ -1,13 +1,13 @@
 /*
  * Copyright 2013 Canonical Ltd.
  *
- * This file is part of kalossi-browser.
+ * This file is part of ubuntu-browser.
  *
- * kalossi-browser is free software; you can redistribute it and/or modify
+ * ubuntu-browser is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * kalossi-browser is distributed in the hope that it will be useful,
+ * ubuntu-browser is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -57,7 +57,7 @@ int main(int argc, char** argv)
     QQuickView view;
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     view.resize(800, 600);
-    view.setWindowTitle("Kalossi web browser");
+    view.setWindowTitle("Ubuntu web browser");
 
     QStringList arguments = application.arguments();
     arguments.removeFirst();
@@ -75,7 +75,7 @@ int main(int argc, char** argv)
         }
     }
 
-    view.setSource(QUrl::fromLocalFile(KalossiDataDirectory() + "/Browser.qml"));
+    view.setSource(QUrl::fromLocalFile(UbuntuBrowserDataDirectory() + "/Browser.qml"));
     QQuickItem* browser = view.rootObject();
     browser->setProperty("chromeless", chromeless);
     browser->setProperty("url", url);
