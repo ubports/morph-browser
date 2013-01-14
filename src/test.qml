@@ -20,5 +20,5 @@ Browser {
     width: 800
     height: 600
 
-    url: "http://www.ubuntu.com/devices/phone"
+    url: "http://www.ubuntu.com"
 }
