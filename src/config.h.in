@@ -23,6 +23,8 @@
 #include <QtCore/QDir>
 #include <QtCore/QString>
 
+#define DEFAULT_HOMEPAGE "http://www.ubuntu.com"
+
 inline bool isRunningInstalled() {
     static bool installed = (QCoreApplication::applicationDirPath() == QDir("@CMAKE_INSTALL_FULL_BINDIR@").canonicalPath());
     return installed;
