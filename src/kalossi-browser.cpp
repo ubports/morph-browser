@@ -51,7 +51,7 @@ int main(int argc, char** argv)
     }
     bool chromeless = arguments.contains("--chromeless");
     bool fullscreen = arguments.contains("--fullscreen");
-    QUrl url;
+    QUrl url("http://www.ubuntu.com");
     Q_FOREACH(QString argument, arguments) {
         if (!argument.startsWith("--")) {
             url = argument;
