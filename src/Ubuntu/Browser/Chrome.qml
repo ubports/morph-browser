@@ -80,6 +80,7 @@ Item {
 
     TextField {
         id: addressBar
+        objectName: "addressBar"
 
         anchors.left: buttons.right
         anchors.right: loading.left
