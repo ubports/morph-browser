@@ -7,6 +7,7 @@ Build-Depends: debhelper (>= 8.0.0),
                qtbase (>= 5.0),
                qtdeclarative (>= 5.0),
                libgles2-mesa-dev,
+               mesa-common-dev,
 Standards-Version: 3.9.3
 
 Package: ubuntu-browser
@@ -17,3 +18,13 @@ Depends: ${shlibs:Depends},
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.
+
+Package: ubuntu-browser-autopilot
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         ubuntu-browser (= ${binary:Version}),
+Description: Ubuntu web browser autopilot tests
+ A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
+ engine and using the Ubuntu UI components. This package contains autopilot
+ tests for it.
