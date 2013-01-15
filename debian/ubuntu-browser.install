@@ -1,2 +1,2 @@
 usr/bin/ubuntu-browser
-usr/share/ubuntu-browser/*
+opt/qt5/imports/Ubuntu/Browser/*
