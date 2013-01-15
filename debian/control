@@ -6,7 +6,6 @@ Build-Depends: debhelper (>= 8.0.0),
                cmake (>= 2.8.9),
                qtbase (>= 5.0),
                qtdeclarative (>= 5.0),
-               libgl-dev,
                libgles2-mesa-dev,
 Standards-Version: 3.9.3
 
