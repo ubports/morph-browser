@@ -25,16 +25,18 @@
 
 #define DEFAULT_HOMEPAGE "http://www.ubuntu.com"
 
-inline bool isRunningInstalled() {
+inline bool isRunningInstalled()
+{
     static bool installed = (QCoreApplication::applicationDirPath() == QDir("@CMAKE_INSTALL_FULL_BINDIR@").canonicalPath());
     return installed;
 }
 
-inline QString UbuntuBrowserDataDirectory() {
+inline QString UbuntuBrowserDirectory()
+{
     if (isRunningInstalled()) {
-        return QString("@CMAKE_INSTALL_FULL_DATADIR@/ubuntu-browser");
+        return QString("@UBUNTU_BROWSER_IMPORTS_DIR@");
     } else {
-        return QString("@CMAKE_SOURCE_DIR@/src");
+        return QString("@CMAKE_SOURCE_DIR@/src/Ubuntu/Browser");
     }
 }
 
