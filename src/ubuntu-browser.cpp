@@ -75,7 +75,7 @@ int main(int argc, char** argv)
         }
     }
 
-    view.setSource(QUrl::fromLocalFile(UbuntuBrowserDataDirectory() + "/Browser.qml"));
+    view.setSource(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/Browser.qml"));
     QQuickItem* browser = view.rootObject();
     browser->setProperty("chromeless", chromeless);
     browser->setProperty("url", url);

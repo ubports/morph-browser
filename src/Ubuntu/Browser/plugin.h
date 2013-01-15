@@ -16,11 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Ubuntu.Browser 0.1
+#ifndef __PLUGIN_H__
+#define __PLUGIN_H__
 
-Browser {
-    width: 800
-    height: 600
+// Qt
+#include <QtQml/QQmlExtensionPlugin>
 
-    url: "http://www.ubuntu.com"
-}
+class UbuntuBrowserPlugin : public QQmlExtensionPlugin
+{
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
+
+public:
+    void registerTypes(const char* uri);
+};
+
+#endif // __PLUGIN_H__
