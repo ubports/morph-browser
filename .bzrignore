@@ -6,11 +6,14 @@ cmake_install.cmake
 cmake_uninstall.cmake
 Makefile
 install_manifest.txt
+CTestTestfile.cmake
+Testing/
 
 moc_*.cpp
 *_automoc.cpp
 src/config.h
 src/ubuntu-browser
+tests/unittests/tst_QmlTests
 
 obj-*
 debian/files
