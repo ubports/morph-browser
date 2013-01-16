@@ -14,7 +14,9 @@ src/ubuntu-browser
 
 obj-*
 debian/files
+debian/tmp/
 debian/ubuntu-browser/
+debian/ubuntu-browser-autopilot/
 debian/*.debhelper
 debian/*.debhelper.log
 debian/*.substvars
