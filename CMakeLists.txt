@@ -28,4 +28,6 @@ add_custom_target(uninstall
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
 add_subdirectory(src)
+
+enable_testing()
 add_subdirectory(tests)
