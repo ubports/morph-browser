@@ -1,0 +1,4 @@
+module Ubuntu.Browser
+plugin ubuntubrowser
+Chrome 0.1 Chrome.qml
+Browser 0.1 Browser.qml

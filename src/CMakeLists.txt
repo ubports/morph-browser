@@ -1,5 +1,10 @@
 project(ubuntu-browser)
 
+set(QT_IMPORTS_DIR ${_qt5Quick_install_prefix}/imports)
+set(UBUNTU_BROWSER_IMPORTS_DIR "${QT_IMPORTS_DIR}/Ubuntu/Browser")
+
+add_subdirectory(Ubuntu)
+
 configure_file(
     config.h.in
     ${CMAKE_CURRENT_BINARY_DIR}/config.h
@@ -24,10 +29,3 @@ qt5_use_modules(${UBUNTU_BROWSER} Core Widgets Quick)
 install(TARGETS ${UBUNTU_BROWSER}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-set(UBUNTU_BROWSER_QML
-    Browser.qml
-    Chrome.qml
-)
-install(FILES ${UBUNTU_BROWSER_QML}
-    DESTINATION ${CMAKE_INSTALL_DATADIR}/ubuntu-browser
-    )

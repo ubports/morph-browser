@@ -16,11 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Ubuntu.Browser 0.1
+#include "plugin.h"
 
-Browser {
-    width: 800
-    height: 600
+// Qt
+#include <QtQml>
 
-    url: "http://www.ubuntu.com"
+void UbuntuBrowserPlugin::registerTypes(const char* uri)
+{
+    Q_ASSERT(uri == QLatin1String("Ubuntu.Browser"));
+    //qmlRegisterType<...>(uri, 0, 1, "...");
 }

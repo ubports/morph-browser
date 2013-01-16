@@ -7,8 +7,9 @@ cmake_uninstall.cmake
 Makefile
 install_manifest.txt
 
+moc_*.cpp
+*_automoc.cpp
 src/config.h
-src/*_automoc.cpp
 src/ubuntu-browser
 
 obj-*
