@@ -17,6 +17,7 @@ Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          qt-components-ubuntu,
+         qtwebkit,
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.
