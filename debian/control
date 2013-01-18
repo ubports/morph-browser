@@ -7,6 +7,8 @@ Build-Depends: debhelper (>= 8.0.0),
                qt5-qmake,
                qtbase5-dev,
                qtdeclarative5-dev,
+               qtdeclarative5-qtquick2-plugin,
+               qtdeclarative5-test-plugin,
                python,
                qt-components-ubuntu,
 Standards-Version: 3.9.3
