@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import QtWebKit 3.0
-//import QtWebKit.experimental 1.0
+import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 
 Item {
@@ -33,6 +33,43 @@ Item {
         anchors.fill: parent
 
         onUrlChanged: chrome.url = url
+    }
+
+    MouseArea {
+        anchors.top: parent.top
+        anchors.bottom: chrome.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+
+        onPressAndHold: {
+            selection.visible = false
+            var scale = webview.experimental.test.contentsScale
+            var x = parseInt(mouse.x / scale)
+            var y = parseInt(mouse.y / scale)
+            var query =
+                    "(function() {" +
+                    "    var element = document.elementFromPoint(" + x + "," + y + ");" +
+                    "    var rect = element.getBoundingClientRect();" +
+                    "    return [rect.left, rect.top, rect.right, rect.bottom, element.outerHTML];" +
+                    "})()"
+            webview.experimental.evaluateJavaScript(query,
+                function(r) {
+                    console.log("selected element:", r[4])
+                    var scale = webview.experimental.test.contentsScale
+                    selection.x = r[0] * scale
+                    selection.y = r[1] * scale
+                    selection.width = (r[2] - r[0]) * scale
+                    selection.height = (r[3] - r[1]) * scale
+                    selection.visible = true
+                })
+        }
+    }
+
+    Rectangle {
+        id: selection
+        color: "#F07846"
+        opacity: 0.4
+        visible: false
     }
 
     Scrollbar {
