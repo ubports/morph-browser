@@ -56,7 +56,7 @@ int main(int argc, char** argv)
     QApplication application(argc, argv);
     QQuickView view;
     view.setResizeMode(QQuickView::SizeRootObjectToView);
-    view.resize(800, 600);
+    view.resize(8*40, 8*68); // phone form factor, adapted to the desktop
     view.setWindowTitle("Ubuntu web browser");
 
     QStringList arguments = application.arguments();
