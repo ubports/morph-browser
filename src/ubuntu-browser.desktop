@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=Ubuntu Web Browser
+GenericName=Web Browser
+Comment=Browse the World Wide Web
+Type=Application
+Icon=ubuntu-browser
+Exec=ubuntu-browser %u
+Terminal=false
+Categories=Network;WebBrowser;
+Keywords=Internet;WWW;Browser;Web;Explorer
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
