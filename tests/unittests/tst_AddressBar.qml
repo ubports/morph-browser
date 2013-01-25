@@ -52,6 +52,13 @@ TestCase {
         compare(signalSpy.count, 4)
     }
 
+    function test_unhandled_scheme_no_rewrite() {
+        addressBar.url = "ftp://ubuntu.com"
+        addressBar.validate()
+        compare(addressBar.url, "ftp://ubuntu.com")
+        compare(signalSpy.count, 5)
+    }
+
     AddressBar {
         id: addressBar
         SignalSpy {

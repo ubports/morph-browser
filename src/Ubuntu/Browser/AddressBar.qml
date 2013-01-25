@@ -33,7 +33,8 @@ Item {
         var address = textField.text
         if (!address.match(/^http:\/\//) &&
             !address.match(/^https:\/\//) &&
-            !address.match(/^file:\/\//)) {
+            !address.match(/^file:\/\//) &&
+            !address.match(/^[a-z]+:\/\//)) {
             // This is not super smart, but it’s better than nothing…
             address = "http://" + address
         }
