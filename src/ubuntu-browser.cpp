@@ -95,7 +95,7 @@ bool UbuntuBrowser::initialize(int& argc, char** argv)
 
     m_view = new QQuickView;
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
-    m_view->setWindowTitle("Ubuntu web browser");
+    m_view->setWindowTitle(APP_TITLE);
     // phone form factor
     float gridUnit = getGridUnit();
     m_view->resize(40 * gridUnit, 68 * gridUnit);
@@ -114,6 +114,7 @@ bool UbuntuBrowser::initialize(int& argc, char** argv)
     QQuickItem* browser = m_view->rootObject();
     browser->setProperty("chromeless", chromeless);
     browser->setProperty("url", url);
+    connect(browser, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
 
     return true;
 }
@@ -129,4 +130,15 @@ int UbuntuBrowser::run()
         m_view->show();
     }
     return m_application->exec();
+}
+
+void UbuntuBrowser::onTitleChanged()
+{
+    QQuickItem* browser = m_view->rootObject();
+    QString title = browser->property("title").toString();
+    if (title.isEmpty()) {
+        m_view->setWindowTitle(APP_TITLE);
+    } else {
+        m_view->setWindowTitle(QString("%1 - %2").arg(title, APP_TITLE));
+    }
 }

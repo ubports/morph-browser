@@ -35,6 +35,9 @@ public:
     bool initialize(int& argc, char** argv);
     int run();
 
+private Q_SLOTS:
+    void onTitleChanged();
+
 private:
     QApplication* m_application;
     QQuickView* m_view;
