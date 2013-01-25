@@ -20,8 +20,8 @@
 
 int main(int argc, char** argv)
 {
-    UbuntuBrowser browser;
-    if (browser.initialize(argc, argv)) {
+    UbuntuBrowser browser(argc, argv);
+    if (browser.initialize()) {
         return browser.run();
     } else {
         return 0;

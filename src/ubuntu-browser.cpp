@@ -20,7 +20,6 @@
 #include <QtCore/QtGlobal>
 #include <QtCore/QFileInfo>
 #include <QtCore/QTextStream>
-#include <QtWidgets/QApplication>
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickView>
 
@@ -62,9 +61,8 @@ static void printUsage()
     out << "  --fullscreen   display full screen" << endl;
 }
 
-UbuntuBrowser::UbuntuBrowser(QObject* parent)
-    : QObject(parent)
-    , m_application(0)
+UbuntuBrowser::UbuntuBrowser(int& argc, char** argv)
+    : QApplication(argc, argv)
     , m_view(0)
     , m_fullscreen(false)
 {
@@ -72,21 +70,17 @@ UbuntuBrowser::UbuntuBrowser(QObject* parent)
 
 UbuntuBrowser::~UbuntuBrowser()
 {
-    if (m_application != 0) {
-        m_application->exit();
-    }
+    delete m_view;
 }
 
-bool UbuntuBrowser::initialize(int& argc, char** argv)
+bool UbuntuBrowser::initialize()
 {
-    Q_ASSERT(m_application == 0);
     Q_ASSERT(m_view == 0);
 
     // XXX: fix the PATH until Qt5 is properly installed on the system
     fixPath();
 
-    m_application = new QApplication(argc, argv);
-    QStringList arguments = m_application->arguments();
+    QStringList arguments = this->arguments();
     arguments.removeFirst();
     if (arguments.contains("--help") || arguments.contains("-h")) {
         printUsage();
@@ -121,7 +115,6 @@ bool UbuntuBrowser::initialize(int& argc, char** argv)
 
 int UbuntuBrowser::run()
 {
-    Q_ASSERT(m_application != 0);
     Q_ASSERT(m_view != 0);
 
     if (m_fullscreen) {
@@ -129,7 +122,7 @@ int UbuntuBrowser::run()
     } else {
         m_view->show();
     }
-    return m_application->exec();
+    return exec();
 }
 
 void UbuntuBrowser::onTitleChanged()

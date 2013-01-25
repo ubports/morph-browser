@@ -19,27 +19,25 @@
 #ifndef __UBUNTU_BROWSER_H__
 #define __UBUNTU_BROWSER_H__
 
-#include <QtCore/QObject>
+#include <QtWidgets/QApplication>
 
-class QApplication;
 class QQuickView;
 
-class UbuntuBrowser : public QObject
+class UbuntuBrowser : public QApplication
 {
     Q_OBJECT
 
 public:
-    UbuntuBrowser(QObject* parent=0);
+    UbuntuBrowser(int& argc, char** argv);
     ~UbuntuBrowser();
 
-    bool initialize(int& argc, char** argv);
+    bool initialize();
     int run();
 
 private Q_SLOTS:
     void onTitleChanged();
 
 private:
-    QApplication* m_application;
     QQuickView* m_view;
     bool m_fullscreen;
 };
