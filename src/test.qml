@@ -17,10 +17,12 @@
  */
 
 import Ubuntu.Browser 0.1
+import Ubuntu.Components 0.1
 
 Browser {
-    width: 800
-    height: 600
+    // phone form factor
+    width: units.gu(40)
+    height: units.gu(68)
 
     url: "http://www.ubuntu.com"
 }

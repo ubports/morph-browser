@@ -23,4 +23,4 @@ class MainWindow(object):
         return self.get_address_bar().get_children_by_type("AbstractButton")[0]
 
     def get_web_view(self):
-        return self.app.select_single("QQuickWebView")
+        return self.app.select_single("QQuickWebViewExperimentalExtension")
