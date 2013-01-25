@@ -50,30 +50,24 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.margins: units.gu(2)
-        spacing: units.gu(2)
+        spacing: units.gu(1)
 
         Button {
             id: backButton
             text: "⊲"
-            width: units.gu(6)
+            width: units.gu(5)
             onClicked: chrome.goBackClicked()
         }
         Button {
             id: forwardButton
             text: "⊳"
-            width: units.gu(6)
+            width: units.gu(5)
             onClicked: chrome.goForwardClicked()
-        }
-        Button {
-            id: bookmarkButton
-            text: "✩"
-            width: units.gu(6)
-            enabled: false
         }
         Button {
             id: refreshButton
             text: "↻"
-            width: units.gu(6)
+            width: units.gu(5)
             onClicked: chrome.reloadClicked()
         }
     }
