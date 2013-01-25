@@ -17,10 +17,10 @@ class MainWindow(object):
 
     def get_address_bar(self):
         """Get the browsers address bar"""
-        return self.app.select_single("TextField", objectName="addressBar")
+        return self.app.select_single("AddressBar", objectName="addressBar")
 
     def get_address_bar_clear_button(self):
-        return self.get_address_bar().get_children_by_type("AbstractButton")[0]
+        return self.get_address_bar().get_children_by_type("TextField")[0].get_children_by_type("AbstractButton")[0]
 
     def get_web_view(self):
         return self.app.select_single("QQuickWebViewExperimentalExtension")
