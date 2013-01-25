@@ -37,6 +37,19 @@ static void fixPath()
     qputenv("PATH", path);
 }
 
+static float getGridUnit()
+{
+    // Inspired by the UI toolkit’s code
+    // (modules/Ubuntu/Components/plugin/ucunits.cpp)
+    // as it is not publicly exposed.
+    const char* envVar = "GRID_UNIT_PX";
+    QByteArray stringValue = qgetenv(envVar);
+    bool ok;
+    float value = stringValue.toFloat(&ok);
+    float defaultValue = 8;
+    return ok ? value : defaultValue;
+}
+
 static void printUsage()
 {
     QTextStream out(stdout);
@@ -56,8 +69,11 @@ int main(int argc, char** argv)
     QApplication application(argc, argv);
     QQuickView view;
     view.setResizeMode(QQuickView::SizeRootObjectToView);
-    view.resize(8*40, 8*68); // phone form factor, adapted to the desktop
     view.setWindowTitle("Ubuntu web browser");
+
+    // phone form factor
+    float gridUnit = getGridUnit();
+    view.resize(40 * gridUnit, 68 * gridUnit);
 
     QStringList arguments = application.arguments();
     arguments.removeFirst();
