@@ -1,4 +1,5 @@
 module Ubuntu.Browser
 plugin ubuntubrowser
+AddressBar 0.1 AddressBar.qml
 Chrome 0.1 Chrome.qml
 Browser 0.1 Browser.qml
