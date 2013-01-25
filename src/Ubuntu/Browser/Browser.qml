@@ -26,8 +26,7 @@ Item {
 
     property bool chromeless: false
     property alias url: webview.url
-    property alias title: webview.title
-    onTitleChanged: ; // force the signal emission, otherwise it is optimized out
+    property string title: webview.title
 
     WebView {
         id: webview
