@@ -22,7 +22,7 @@ import Ubuntu.Components 0.1
 Item {
     id: chrome
 
-    property alias url: addressBar.text
+    property alias url: addressBar.url
     signal urlValidated(url url)
     property alias canGoBack: backButton.enabled
     signal goBackClicked
@@ -50,35 +50,29 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.margins: units.gu(2)
-        spacing: units.gu(2)
+        spacing: units.gu(1)
 
         Button {
             id: backButton
             text: "⊲"
-            width: units.gu(6)
+            width: units.gu(5)
             onClicked: chrome.goBackClicked()
         }
         Button {
             id: forwardButton
             text: "⊳"
-            width: units.gu(6)
+            width: units.gu(5)
             onClicked: chrome.goForwardClicked()
-        }
-        Button {
-            id: bookmarkButton
-            text: "✩"
-            width: units.gu(6)
-            enabled: false
         }
         Button {
             id: refreshButton
             text: "↻"
-            width: units.gu(6)
+            width: units.gu(5)
             onClicked: chrome.reloadClicked()
         }
     }
 
-    TextField {
+    AddressBar {
         id: addressBar
         objectName: "addressBar"
 
@@ -88,7 +82,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.margins: units.gu(2)
 
-        onAccepted: chrome.urlValidated(text)
+        onValidated: chrome.urlValidated(url)
     }
 
     ActivityIndicator {

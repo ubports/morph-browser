@@ -18,6 +18,7 @@ set(UBUNTU_BROWSER ubuntu-browser)
 
 set(UBUNTU_BROWSER_SRC
     ubuntu-browser.cpp
+    main.cpp
 )
 
 add_executable(${UBUNTU_BROWSER}
@@ -33,3 +34,5 @@ qt5_use_modules(${UBUNTU_BROWSER} Core Widgets Quick)
 install(TARGETS ${UBUNTU_BROWSER}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
+install(FILES ubuntu-browser.desktop
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)

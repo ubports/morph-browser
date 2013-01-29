@@ -16,13 +16,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Ubuntu.Browser 0.1
+import QtQuick 2.0
 import Ubuntu.Components 0.1
 
-Browser {
-    // phone form factor
-    width: units.gu(40)
-    height: units.gu(68)
+Item {
+    property string url
+    signal validated()
 
-    url: "http://www.ubuntu.com"
+    TextField {
+        id: textField
+        anchors.fill: parent
+        onAccepted: parent.validate()
+    }
+
+    function validate() {
+        var address = textField.text
+        if (!address.match(/^http:\/\//) &&
+            !address.match(/^https:\/\//) &&
+            !address.match(/^file:\/\//) &&
+            !address.match(/^[a-z]+:\/\//)) {
+            // This is not super smart, but it’s better than nothing…
+            address = "http://" + address
+        }
+        url = address
+        validated()
+    }
+
+    onUrlChanged: textField.text = url
 }

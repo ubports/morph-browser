@@ -16,13 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Ubuntu.Browser 0.1
-import Ubuntu.Components 0.1
+#include "ubuntu-browser.h"
 
-Browser {
-    // phone form factor
-    width: units.gu(40)
-    height: units.gu(68)
-
-    url: "http://www.ubuntu.com"
+int main(int argc, char** argv)
+{
+    UbuntuBrowser browser(argc, argv);
+    if (browser.initialize()) {
+        return browser.run();
+    } else {
+        return 0;
+    }
 }

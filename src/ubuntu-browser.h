@@ -16,13 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Ubuntu.Browser 0.1
-import Ubuntu.Components 0.1
+#ifndef __UBUNTU_BROWSER_H__
+#define __UBUNTU_BROWSER_H__
 
-Browser {
-    // phone form factor
-    width: units.gu(40)
-    height: units.gu(68)
+#include <QtWidgets/QApplication>
 
-    url: "http://www.ubuntu.com"
-}
+class QQuickView;
+
+class UbuntuBrowser : public QApplication
+{
+    Q_OBJECT
+
+public:
+    UbuntuBrowser(int& argc, char** argv);
+    ~UbuntuBrowser();
+
+    bool initialize();
+    int run();
+
+private Q_SLOTS:
+    void onTitleChanged();
+
+private:
+    QQuickView* m_view;
+    bool m_fullscreen;
+};
+
+#endif // __UBUNTU_BROWSER_H__
