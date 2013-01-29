@@ -19,7 +19,6 @@
 // Qt
 #include <QtCore/QFileInfo>
 #include <QtCore/QTextStream>
-#include <QtWidgets/QApplication>
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickView>
 
@@ -28,6 +27,20 @@
 
 // local
 #include "config.h"
+#include "ubuntu-browser.h"
+
+static float getGridUnit()
+{
+    // Inspired by the UI toolkit’s code
+    // (modules/Ubuntu/Components/plugin/ucunits.cpp)
+    // as it is not publicly exposed.
+    const char* envVar = "GRID_UNIT_PX";
+    QByteArray stringValue = qgetenv(envVar);
+    bool ok;
+    float value = stringValue.toFloat(&ok);
+    float defaultValue = 8;
+    return ok ? value : defaultValue;
+}
 
 static void printUsage()
 {
@@ -40,22 +53,38 @@ static void printUsage()
     out << "  --fullscreen   display full screen" << endl;
 }
 
-int main(int argc, char** argv)
+UbuntuBrowser::UbuntuBrowser(int& argc, char** argv)
+    : QApplication(argc, argv)
+    , m_view(0)
+    , m_fullscreen(false)
 {
-    QApplication application(argc, argv);
-    QQuickView view;
-    view.setResizeMode(QQuickView::SizeRootObjectToView);
-    view.resize(800, 600);
-    view.setTitle("Ubuntu web browser");
+}
 
-    QStringList arguments = application.arguments();
+UbuntuBrowser::~UbuntuBrowser()
+{
+    delete m_view;
+}
+
+bool UbuntuBrowser::initialize()
+{
+    Q_ASSERT(m_view == 0);
+
+    QStringList arguments = this->arguments();
     arguments.removeFirst();
     if (arguments.contains("--help") || arguments.contains("-h")) {
         printUsage();
-        return 0;
+        return false;
     }
+
+    m_view = new QQuickView;
+    m_view->setResizeMode(QQuickView::SizeRootObjectToView);
+    m_view->setTitle(APP_TITLE);
+    // phone form factor
+    float gridUnit = getGridUnit();
+    m_view->resize(40 * gridUnit, 68 * gridUnit);
+
     bool chromeless = arguments.contains("--chromeless");
-    bool fullscreen = arguments.contains("--fullscreen");
+    m_fullscreen = arguments.contains("--fullscreen");
     QUrl url(DEFAULT_HOMEPAGE);
     Q_FOREACH(QString argument, arguments) {
         if (!argument.startsWith("--")) {
@@ -64,15 +93,34 @@ int main(int argc, char** argv)
         }
     }
 
-    view.setSource(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/Browser.qml"));
-    QQuickItem* browser = view.rootObject();
+    m_view->setSource(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/Browser.qml"));
+    QQuickItem* browser = m_view->rootObject();
     browser->setProperty("chromeless", chromeless);
     browser->setProperty("url", url);
+    connect(browser, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
 
-    if (fullscreen) {
-        view.showFullScreen();
+    return true;
+}
+
+int UbuntuBrowser::run()
+{
+    Q_ASSERT(m_view != 0);
+
+    if (m_fullscreen) {
+        m_view->showFullScreen();
     } else {
-        view.show();
+        m_view->show();
     }
-    return application.exec();
+    return exec();
+}
+
+void UbuntuBrowser::onTitleChanged()
+{
+    QQuickItem* browser = m_view->rootObject();
+    QString title = browser->property("title").toString();
+    if (title.isEmpty()) {
+        m_view->setTitle(APP_TITLE);
+    } else {
+        m_view->setTitle(QString("%1 - %2").arg(title, APP_TITLE));
+    }
 }

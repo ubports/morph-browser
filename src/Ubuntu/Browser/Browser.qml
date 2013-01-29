@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import QtWebKit 3.0
-//import QtWebKit.experimental 1.0
+import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 
 Item {
@@ -26,11 +26,16 @@ Item {
 
     property bool chromeless: false
     property alias url: webview.url
+    // title is a bound property instead of an alias because of QTBUG-29141
+    property string title: webview.title
 
     WebView {
         id: webview
 
         anchors.fill: parent
+
+        // iOS 5.0’s iPhone user agent
+        experimental.userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
 
         onUrlChanged: chrome.url = url
     }
