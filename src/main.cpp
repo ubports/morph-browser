@@ -16,29 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __CONFIG_H__
-#define __CONFIG_H__
+#include "ubuntu-browser.h"
 
-#include <QtCore/QCoreApplication>
-#include <QtCore/QDir>
-#include <QtCore/QString>
-
-#define APP_TITLE "Ubuntu Web Browser"
-#define DEFAULT_HOMEPAGE "http://www.ubuntu.com"
-
-inline bool isRunningInstalled()
+int main(int argc, char** argv)
 {
-    static bool installed = (QCoreApplication::applicationDirPath() == QDir("@CMAKE_INSTALL_FULL_BINDIR@").canonicalPath());
-    return installed;
-}
-
-inline QString UbuntuBrowserDirectory()
-{
-    if (isRunningInstalled()) {
-        return QString("@UBUNTU_BROWSER_IMPORTS_DIR@");
+    UbuntuBrowser browser(argc, argv);
+    if (browser.initialize()) {
+        return browser.run();
     } else {
-        return QString("@CMAKE_SOURCE_DIR@/src/Ubuntu/Browser");
+        return 0;
     }
 }
-
-#endif // __CONFIG_H__

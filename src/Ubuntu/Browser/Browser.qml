@@ -26,6 +26,8 @@ Item {
 
     property bool chromeless: false
     property alias url: webview.url
+    // title is a bound property instead of an alias because of QTBUG-29141
+    property string title: webview.title
 
     WebView {
         id: webview

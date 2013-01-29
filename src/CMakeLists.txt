@@ -14,6 +14,7 @@ set(UBUNTU_BROWSER ubuntu-browser)
 
 set(UBUNTU_BROWSER_SRC
     ubuntu-browser.cpp
+    main.cpp
 )
 
 add_executable(${UBUNTU_BROWSER}
@@ -31,4 +32,3 @@ install(TARGETS ${UBUNTU_BROWSER}
 
 install(FILES ubuntu-browser.desktop
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
-
