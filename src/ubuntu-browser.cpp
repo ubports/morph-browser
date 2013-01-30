@@ -18,16 +18,12 @@
 
 // Qt
 #include <QtCore/QtGlobal>
-#include <QtCore/QFileInfo>
-#include <QtCore/QTextStream>
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickView>
 
-// stdlib
-#include <cstdio>
-
 // local
 #include "config.h"
+#include "commandline-parser.h"
 #include "ubuntu-browser.h"
 
 static void fixPath()
@@ -50,21 +46,10 @@ static float getGridUnit()
     return ok ? value : defaultValue;
 }
 
-static void printUsage()
-{
-    QTextStream out(stdout);
-    QString command = QFileInfo(QApplication::applicationFilePath()).fileName();
-    out << "Usage: " << command << " [-h|--help] [--chromeless] [--fullscreen] [URL]" << endl;
-    out << "Options:" << endl;
-    out << "  -h, --help     display this help message and exit" << endl;
-    out << "  --chromeless   do not display any chrome (web application mode)" << endl;
-    out << "  --fullscreen   display full screen" << endl;
-}
-
 UbuntuBrowser::UbuntuBrowser(int& argc, char** argv)
     : QApplication(argc, argv)
     , m_view(0)
-    , m_fullscreen(false)
+    , m_arguments(0)
 {
 }
 
@@ -80,10 +65,9 @@ bool UbuntuBrowser::initialize()
     // XXX: fix the PATH until Qt5 is properly installed on the system
     fixPath();
 
-    QStringList arguments = this->arguments();
-    arguments.removeFirst();
-    if (arguments.contains("--help") || arguments.contains("-h")) {
-        printUsage();
+    m_arguments = new CommandLineParser(arguments(), this);
+    if (m_arguments->help()) {
+        m_arguments->printUsage();
         return false;
     }
 
@@ -94,20 +78,10 @@ bool UbuntuBrowser::initialize()
     float gridUnit = getGridUnit();
     m_view->resize(40 * gridUnit, 68 * gridUnit);
 
-    bool chromeless = arguments.contains("--chromeless");
-    m_fullscreen = arguments.contains("--fullscreen");
-    QUrl url(DEFAULT_HOMEPAGE);
-    Q_FOREACH(QString argument, arguments) {
-        if (!argument.startsWith("--")) {
-            url = argument;
-            break;
-        }
-    }
-
     m_view->setSource(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/Browser.qml"));
     QQuickItem* browser = m_view->rootObject();
-    browser->setProperty("chromeless", chromeless);
-    browser->setProperty("url", url);
+    browser->setProperty("chromeless", m_arguments->chromeless());
+    browser->setProperty("url", m_arguments->url());
     connect(browser, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
 
     return true;
@@ -117,7 +91,7 @@ int UbuntuBrowser::run()
 {
     Q_ASSERT(m_view != 0);
 
-    if (m_fullscreen) {
+    if (m_arguments->fullscreen()) {
         m_view->showFullScreen();
     } else {
         m_view->show();

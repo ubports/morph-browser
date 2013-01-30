@@ -16,32 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __UBUNTU_BROWSER_H__
-#define __UBUNTU_BROWSER_H__
+#ifndef __COMMANDLINE_PARSER_H__
+#define __COMMANDLINE_PARSER_H__
 
-#include <QtWidgets/QApplication>
+// Qt
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QUrl>
 
-class QQuickView;
-
-class CommandLineParser;
-
-class UbuntuBrowser : public QApplication
+class CommandLineParser : public QObject
 {
     Q_OBJECT
 
 public:
-    UbuntuBrowser(int& argc, char** argv);
-    ~UbuntuBrowser();
+    CommandLineParser(QStringList arguments, QObject* parent=0);
 
-    bool initialize();
-    int run();
+    void printUsage() const;
 
-private Q_SLOTS:
-    void onTitleChanged();
+    bool help() const;
+
+    bool chromeless() const;
+    bool fullscreen() const;
+
+    QUrl url() const;
 
 private:
-    QQuickView* m_view;
-    CommandLineParser* m_arguments;
+    bool m_help;
+    bool m_chromeless;
+    bool m_fullscreen;
+    QUrl m_url;
 };
 
-#endif // __UBUNTU_BROWSER_H__
+#endif // __COMMANDLINE_PARSER_H__

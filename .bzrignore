@@ -9,11 +9,13 @@ install_manifest.txt
 CTestTestfile.cmake
 Testing/
 
+*.moc
 moc_*.cpp
 *_automoc.cpp
 src/config.h
 src/ubuntu-browser
 tests/unittests/tst_QmlTests
+tests/unittests/tst_CommandLineParserTests
 
 obj-*
 debian/files
