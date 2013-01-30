@@ -62,10 +62,20 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
         } else {
             // the remaining arguments should be URLs
             if (!args.isEmpty()) {
-                // consider only the first one, discard the others
-                QUrl url = QUrl::fromUserInput(args.first());
-                if (url.isValid()) {
-                    m_url = url;
+                // consider only the first valid URL, discard the others
+                bool foundValidURL = false;
+                Q_FOREACH(QString argument, args) {
+                    if (foundValidURL) {
+                        qWarning() << "WARNING: discarding extra URL" << argument;
+                    } else {
+                        QUrl url = QUrl::fromUserInput(argument);
+                        if (url.isValid()) {
+                            m_url = url;
+                            foundValidURL = true;
+                        } else {
+                            qWarning() << "WARNING: ignoring malformed URL" << argument;
+                        }
+                    }
                 }
             }
         }
