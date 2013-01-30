@@ -40,6 +40,7 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
     if (args.contains("--help") || args.contains("-h")) {
         m_help = true;
     } else {
+        QUrl homepage;
         for (int i = args.size() - 1; i >= 0; --i) {
             QString argument = args[i];
             if (argument.startsWith("--")) {
@@ -48,15 +49,21 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     m_chromeless = true;
                 } else if (argument == "--fullscreen") {
                     m_fullscreen = true;
+                } else if (argument.startsWith("--homepage=")) {
+                    homepage = QUrl::fromUserInput(argument.split("--homepage=")[1]);
                 }
             }
         }
-        // the remaining arguments should be URLs
-        if (!args.isEmpty()) {
-            // consider only the first one, discard the others
-            QUrl url = QUrl::fromUserInput(args.first());
-            if (url.isValid()) {
-                m_url = url;
+        if (!homepage.isEmpty()) {
+            m_url = homepage;
+        } else {
+            // the remaining arguments should be URLs
+            if (!args.isEmpty()) {
+                // consider only the first one, discard the others
+                QUrl url = QUrl::fromUserInput(args.first());
+                if (url.isValid()) {
+                    m_url = url;
+                }
             }
         }
     }
