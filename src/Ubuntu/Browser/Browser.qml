@@ -37,36 +37,57 @@ Item {
         // iOS 5.0’s iPhone user agent
         experimental.userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
 
-        onUrlChanged: chrome.url = url
-    }
-
-    MouseArea {
-        anchors.top: parent.top
-        anchors.bottom: chrome.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-
-        onPressAndHold: {
-            selection.visible = false
-            var scale = webview.experimental.test.contentsScale
-            var x = parseInt(mouse.x / scale)
-            var y = parseInt(mouse.y / scale)
-            var query =
-                    "(function() {" +
-                    "    var element = document.elementFromPoint(" + x + "," + y + ");" +
-                    "    var rect = element.getBoundingClientRect();" +
-                    "    return [rect.left, rect.top, rect.right, rect.bottom, element.outerHTML];" +
-                    "})()"
-            webview.experimental.evaluateJavaScript(query,
-                function(r) {
-                    console.log("selected element:", r[4])
-                    var scale = webview.experimental.test.contentsScale
-                    selection.x = r[0] * scale
-                    selection.y = r[1] * scale
-                    selection.width = (r[2] - r[0]) * scale
-                    selection.height = (r[3] - r[1]) * scale
+        experimental.preferences.navigatorQtObjectEnabled: true
+        experimental.onMessageReceived: {
+            var data = JSON.parse(message.data)
+            if ('event' in data) {
+                var event = data.event
+                delete data.event
+                if (event === 'longpress') {
+                    var scale = webview.experimental.test.contentsScale * webview.experimental.test.devicePixelRatio
+                    selection.x = data.left * scale
+                    selection.y = data.top * scale
+                    selection.width = data.width * scale
+                    selection.height = data.height * scale
                     selection.visible = true
+                    console.log("Selected HTML:", data.html)
+                }
+            }
+        }
+
+        onUrlChanged: chrome.url = url
+
+        onLoadingChanged: {
+            if (loadRequest.status === WebView.LoadSucceededStatus) {
+                var query = (function() {
+                    var doc = document.documentElement;
+                    doc.addEventListener('touchstart', function(event) {
+                        this.currentTouch = event.touches[0];
+                        this.longpressObserver = setTimeout(function(x, y) {
+                            var element = document.elementFromPoint(x, y);
+                            var data = element.getBoundingClientRect();
+                            data['event'] = 'longpress';
+                            data['html'] = element.outerHTML;
+                            navigator.qt.postMessage(JSON.stringify(data));
+                        }, 800, this.currentTouch.clientX, this.currentTouch.clientY);
+                    });
+                    doc.addEventListener('touchend', function(event) {
+                        clearTimeout(this.longpressObserver);
+                        delete this.longpressObserver;
+                        delete this.currentTouch;
+                    });
+                    doc.addEventListener('touchmove', function(event) {
+                          var touch = event.changedTouches[0];
+                          var distance = Math.sqrt(Math.pow(touch.clientX - this.currentTouch.clientX, 2) + Math.pow(touch.clientY - this.currentTouch.clientY, 2));
+                          if (distance > 3) {
+                              clearTimeout(this.longpressObserver);
+                              delete this.longpressObserver;
+                              delete this.currentTouch;
+                          }
+                    });
                 })
+                webview.experimental.evaluateJavaScript('(' + query.toString() + ')()')
+            }
         }
     }
 
