@@ -73,11 +73,12 @@ void CommandLineParser::printUsage() const
 {
     QTextStream out(stdout);
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
-    out << "Usage: " << command << " [-h|--help] [--chromeless] [--fullscreen] [URL]" << endl;
+    out << "Usage: " << command << " [-h|--help] [--chromeless] [--fullscreen] [--homepage=URL] [URL]" << endl;
     out << "Options:" << endl;
-    out << "  -h, --help     display this help message and exit" << endl;
-    out << "  --chromeless   do not display any chrome (web application mode)" << endl;
-    out << "  --fullscreen   display full screen" << endl;
+    out << "  -h, --help       display this help message and exit" << endl;
+    out << "  --chromeless     do not display any chrome (web application mode)" << endl;
+    out << "  --fullscreen     display full screen" << endl;
+    out << "  --homepage=URL   override any URL passed as an argument" << endl;
 }
 
 bool CommandLineParser::help() const
