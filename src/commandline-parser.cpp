@@ -54,7 +54,7 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
         // the remaining arguments should be URLs
         if (!args.isEmpty()) {
             // consider only the first one, discard the others
-            QUrl url(args.first());
+            QUrl url = QUrl::fromUserInput(args.first());
             if (url.isValid()) {
                 m_url = url;
             }

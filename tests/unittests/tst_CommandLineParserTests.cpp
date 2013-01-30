@@ -117,6 +117,7 @@ private Q_SLOTS:
         QTest::newRow("help precludes URL") << (QStringList() << BINARY << "--help" << URL1) << QUrl(DEFAULT);
         QTest::newRow("one URL") << (QStringList() << BINARY << URL1) << QUrl(URL1);
         QTest::newRow("several URLs") << (QStringList() << BINARY << URL1 << URL2) << QUrl(URL1);
+        QTest::newRow("missing scheme") << (QStringList() << BINARY << "ubuntu.com") << QUrl("http://ubuntu.com");
     }
 
     void shouldRecordURL()
