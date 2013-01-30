@@ -15,6 +15,6 @@ set(CLP_SRC
     tst_CommandLineParserTests.cpp
 )
 add_executable(tst_CommandLineParserTests ${CLP_SRC})
-include_directories(${ubuntu-browser_SOURCE_DIR})
+include_directories(${ubuntu-browser_SOURCE_DIR} ${ubuntu-browser_BINARY_DIR})
 qt5_use_modules(tst_CommandLineParserTests Core Test)
 add_test(tst_CommandLineParserTests ${CMAKE_CURRENT_BINARY_DIR}/tst_CommandLineParserTests)
