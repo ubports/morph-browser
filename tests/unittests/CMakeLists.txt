@@ -9,3 +9,12 @@ file(GLOB qmlTestFiles RELATIVE ${CMAKE_SOURCE_DIR}/tests/unittests/ *qml)
 foreach(qmlTestFile ${qmlTestFiles})
   file(COPY ${qmlTestFile} DESTINATION ${CMAKE_BINARY_DIR}/tests/unittests/)
 endforeach(qmlTestFile)
+
+set(CLP_SRC
+    ${ubuntu-browser_SOURCE_DIR}/commandline-parser.cpp
+    tst_CommandLineParserTests.cpp
+)
+add_executable(tst_CommandLineParserTests ${CLP_SRC})
+include_directories(${ubuntu-browser_SOURCE_DIR} ${ubuntu-browser_BINARY_DIR})
+qt5_use_modules(tst_CommandLineParserTests Core Test)
+add_test(tst_CommandLineParserTests ${CMAKE_CURRENT_BINARY_DIR}/tst_CommandLineParserTests)
