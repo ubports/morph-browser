@@ -22,6 +22,7 @@
 
 // Qt
 #include <QtCore/QCoreApplication>
+#include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
 #include <QtCore/QTextStream>
 
@@ -43,7 +44,7 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
         QUrl homepage;
         for (int i = args.size() - 1; i >= 0; --i) {
             QString argument = args[i];
-            if (argument.startsWith("--")) {
+            if (argument.startsWith("-")) {
                 args.removeAt(i);
                 if (argument == "--chromeless") {
                     m_chromeless = true;
@@ -51,6 +52,8 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     m_fullscreen = true;
                 } else if (argument.startsWith("--homepage=")) {
                     homepage = QUrl::fromUserInput(argument.split("--homepage=")[1]);
+                } else {
+                    qWarning() << "WARNING: ignoring unknown switch" << argument;
                 }
             }
         }
