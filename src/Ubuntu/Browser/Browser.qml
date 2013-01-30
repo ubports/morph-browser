@@ -56,7 +56,7 @@ Item {
         visible: !browser.chromeless
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.bottom: osk.top
         height: units.gu(8)
 
         canGoBack: webview.canGoBack
@@ -67,5 +67,9 @@ Item {
         onUrlValidated: browser.url = url
 
         loading: webview.loading
+    }
+
+    KeyboardRectangle {
+        id: osk
     }
 }
