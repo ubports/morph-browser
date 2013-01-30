@@ -118,6 +118,8 @@ private Q_SLOTS:
         QTest::newRow("one URL") << (QStringList() << BINARY << URL1) << QUrl(URL1);
         QTest::newRow("several URLs") << (QStringList() << BINARY << URL1 << URL2) << QUrl(URL1);
         QTest::newRow("missing scheme") << (QStringList() << BINARY << "ubuntu.com") << QUrl("http://ubuntu.com");
+        QTest::newRow("malformed URL") << (QStringList() << BINARY << "@") << QUrl(DEFAULT);
+        QTest::newRow("malformed URL") << (QStringList() << BINARY << "@" << URL1) << QUrl(URL1);
         QTest::newRow("homepage switch only") << (QStringList() << BINARY << "--homepage=http://example.com") << QUrl("http://example.com");
         QTest::newRow("homepage switch overrides URL") << (QStringList() << BINARY << "--homepage=http://example.com" << "http://ubuntu.com") << QUrl("http://example.com");
         QTest::newRow("empty homepage switch") << (QStringList() << BINARY << "--homepage=") << QUrl(DEFAULT);
