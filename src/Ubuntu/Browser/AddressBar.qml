@@ -26,7 +26,10 @@ Item {
     TextField {
         id: textField
         anchors.fill: parent
-        onAccepted: parent.validate()
+        onAccepted: {
+            parent.validate()
+            Qt.inputMethod.hide()
+        }
     }
 
     function validate() {
