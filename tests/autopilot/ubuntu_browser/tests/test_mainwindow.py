@@ -32,19 +32,25 @@ class TestMainWindow(BrowserTestCase):
     def tearDown(self):
         super(TestMainWindow, self).tearDown()
 
-    def reveal_chrome(self):
+    def swipe_chrome_up(self, distance):
         view = self.main_window.get_qml_view()
         x_line = view.x + view.width * 0.5
         start_y = view.y + view.height - 1
-        stop_y = start_y - 200
+        stop_y = start_y - distance
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
 
-    def hide_chrome(self):
+    def swipe_chrome_down(self, distance):
         view = self.main_window.get_qml_view()
         x_line = view.x + view.width * 0.5
-        start_y = view.y + view.height - 50
-        stop_y = start_y + 200
+        start_y = self.main_window.get_chrome().globalRect[1]
+        stop_y = start_y + distance
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
+
+    def reveal_chrome(self):
+        self.swipe_chrome_up(self.main_window.get_chrome().height)
+
+    def hide_chrome(self):
+        self.swipe_chrome_down(self.main_window.get_chrome().height)
 
     def test_reveal_chrome(self):
         view = self.main_window.get_qml_view()
@@ -58,7 +64,7 @@ class TestMainWindow(BrowserTestCase):
         chrome = self.main_window.get_chrome()
         self.reveal_chrome()
         self.hide_chrome()
-        self.assertThat(view.height, Eventually(Equals(chrome.globalRect[1] - view.y)))
+        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
 
     """Test opening a website"""
     def test_open_website(self):
