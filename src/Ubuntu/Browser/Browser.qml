@@ -79,7 +79,10 @@ FocusScope {
         canGoForward: webview.canGoForward
         onGoForwardClicked: webview.goForward()
         onReloadClicked: webview.reload()
-        onUrlValidated: browser.url = url
+        onUrlValidated: {
+            browser.url = url
+            webview.forceActiveFocus()
+        }
 
         loading: webview.loading
     }
