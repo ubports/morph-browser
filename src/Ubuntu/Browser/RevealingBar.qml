@@ -32,16 +32,6 @@ Item {
     anchors.bottom: parent.bottom
     height: bar.height - bar.y
 
-    function show() {
-        bar.y = 0
-        bar.shown = true
-    }
-
-    function hide() {
-        bar.y = bar.height
-        bar.shown = false
-    }
-
     MouseArea {
         anchors.left: parent.left
         anchors.right: parent.right
@@ -61,31 +51,28 @@ Item {
         }
 
         onReleased: {
-            var shown = !bar.shown
             // check if there was at least some movement to avoid displaying
             // the bar on clicking
             if (Math.abs(__pressedY - mouse.y) < units.gu(1)) {
-                shown = bar.shown
-            }
-            if (shown) {
-                show()
+                bar.shown = bar.shown
             } else {
-                hide()
+                bar.shown = !bar.shown
             }
         }
 
-        onCanceled: {
-            if (bar.shown) {
-                hide()
-            } else {
-                show()
-            }
-        }
+        onCanceled: bar.shown = !bar.shown
 
         Item {
             id: bar
 
             property bool shown: false
+            onShownChanged: {
+                if (shown) {
+                    y = 0
+                } else {
+                    y = height
+                }
+            }
 
             height: contents ? contents.height : 0
             anchors.left: parent.left
