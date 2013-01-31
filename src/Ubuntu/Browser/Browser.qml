@@ -64,7 +64,10 @@ Item {
         canGoForward: webview.canGoForward
         onGoForwardClicked: webview.goForward()
         onReloadClicked: webview.reload()
-        onUrlValidated: browser.url = url
+        onUrlValidated: {
+            browser.url = url
+            Qt.inputMethod.hide()
+        }
 
         loading: webview.loading
     }
