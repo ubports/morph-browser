@@ -50,6 +50,10 @@ Item {
         align: Qt.AlignBottom
     }
 
+    RevealingBar {
+        contents: chrome
+    }
+
     Chrome {
         id: chrome
 

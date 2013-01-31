@@ -37,12 +37,6 @@ Item {
         opacity: 0.9
     }
 
-    MouseArea {
-        // Intercept mouse clicks that go through disabled buttons,
-        // to avoid forwarding them to the web page below.
-        anchors.fill: parent
-    }
-
     Row {
         id: buttons
 
