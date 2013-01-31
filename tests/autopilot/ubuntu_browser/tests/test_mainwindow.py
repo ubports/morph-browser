@@ -9,7 +9,7 @@
 
 from __future__ import absolute_import
 
-from testtools.matchers import Equals, GreaterThan
+from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
 from ubuntu_browser.tests import BrowserTestCase
@@ -57,13 +57,41 @@ class TestMainWindow(BrowserTestCase):
         chrome = self.main_window.get_chrome()
         self.assertThat(view.height, Equals(chrome.globalRect[1] - view.y))
         self.reveal_chrome()
-        self.assertThat(view.height, GreaterThan(chrome.globalRect[1] - view.y))
+        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height - chrome.height)))
+
+    def test_reveal_chrome_with_partial_swipe(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.assertThat(view.height, Equals(chrome.globalRect[1] - view.y))
+        self.swipe_chrome_up(10)
+        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height - chrome.height)))
+
+    def test_reveal_chrome_with_long_swipe(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.assertThat(view.height, Equals(chrome.globalRect[1] - view.y))
+        self.swipe_chrome_up(chrome.height * 2)
+        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height - chrome.height)))
 
     def test_hide_chrome(self):
         view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
         self.reveal_chrome()
         self.hide_chrome()
+        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
+
+    def test_hide_chrome_with_partial_swipe(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.reveal_chrome()
+        self.swipe_chrome_down(10)
+        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
+
+    def test_hide_chrome_with_long_swipe(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.reveal_chrome()
+        self.swipe_chrome_down(chrome.height * 2)
         self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
 
     def test_unfocus_chrome_hides_it(self):
