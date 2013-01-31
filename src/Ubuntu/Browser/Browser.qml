@@ -63,9 +63,6 @@ Item {
         onGoBackClicked: webview.goBack()
         canGoForward: webview.canGoForward
         onGoForwardClicked: webview.goForward()
-        onReloadClicked: webview.reload()
         onUrlValidated: browser.url = url
-
-        loading: webview.loading
     }
 }
