@@ -21,7 +21,7 @@ import QtWebKit 3.0
 import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 
-Item {
+FocusScope {
     id: browser
 
     property bool chromeless: false
@@ -66,7 +66,7 @@ Item {
         onReloadClicked: webview.reload()
         onUrlValidated: {
             browser.url = url
-            Qt.inputMethod.hide()
+            webview.focus = true
         }
 
         loading: webview.loading
