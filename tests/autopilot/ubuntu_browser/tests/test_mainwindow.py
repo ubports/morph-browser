@@ -32,8 +32,16 @@ class TestMainWindow(BrowserTestCase):
     def tearDown(self):
         super(TestMainWindow, self).tearDown()
 
+    def reveal_chrome(self):
+        view = self.main_window.get_qml_view()
+        x_line = view.x + view.width * 0.5
+        start_y = view.y + view.height - 1
+        stop_y = start_y - 200
+        self.pointing_device.drag(x_line, start_y, x_line, stop_y)
+
     """Test opening a website"""
     def test_open_website(self):
+        self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
@@ -54,6 +62,7 @@ class TestMainWindow(BrowserTestCase):
         os.write(fd, "<html><title>Alice in Wonderland</title><body><p>Lorem ipsum dolor sit amet.</p></body></html>")
         os.close(fd)
 
+        self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
@@ -69,4 +78,3 @@ class TestMainWindow(BrowserTestCase):
         self.assertThat(window.title, Eventually(Equals("Alice in Wonderland - Ubuntu Web Browser")))
 
         os.remove(path)
-
