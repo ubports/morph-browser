@@ -74,6 +74,14 @@ Item {
             }
         }
 
+        onCanceled: {
+            if (bar.shown) {
+                hide()
+            } else {
+                show()
+            }
+        }
+
         Item {
             id: bar
 
