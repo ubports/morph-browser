@@ -78,7 +78,7 @@ class TestMainWindow(BrowserTestCase):
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
 
-        self.keyboard.type("http://www.canonical.com")
+        self.keyboard.type("http://www.canonical.com", delay=0.001)
         self.keyboard.press("Enter")
 
         web_view = self.main_window.get_web_view()
@@ -98,7 +98,7 @@ class TestMainWindow(BrowserTestCase):
         self.pointing_device.click()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
-        self.keyboard.type("file://" + path)
+        self.keyboard.type("file://" + path, delay=0.001)
         self.keyboard.press("Enter")
 
         window = self.main_window.get_qml_view()
