@@ -45,7 +45,7 @@ FocusScope {
 
         onActiveFocusChanged: {
             if (activeFocus) {
-                revealingBar.shown = false
+                revealingBar.hide()
             }
         }
     }
