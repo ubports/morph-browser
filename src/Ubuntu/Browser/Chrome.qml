@@ -28,13 +28,11 @@ Item {
     signal goBackClicked
     property alias canGoForward: forwardButton.enabled
     signal goForwardClicked
-    signal reloadClicked
-    property alias loading: loading.running
 
     Rectangle {
         anchors.fill: parent
         color: "white"
-        opacity: 0.9
+        opacity: 0.95
     }
 
     MouseArea {
@@ -43,52 +41,46 @@ Item {
         anchors.fill: parent
     }
 
-    Row {
-        id: buttons
-
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
+    ChromeButton {
+        id: backButton
         anchors.left: parent.left
-        anchors.margins: units.gu(2)
-        spacing: units.gu(1)
-
-        Button {
-            id: backButton
-            text: "⊲"
-            width: units.gu(5)
-            onClicked: chrome.goBackClicked()
-        }
-        Button {
-            id: forwardButton
-            text: "⊳"
-            width: units.gu(5)
-            onClicked: chrome.goForwardClicked()
-        }
-        Button {
-            id: refreshButton
-            text: "↻"
-            width: units.gu(5)
-            onClicked: chrome.reloadClicked()
-        }
+        anchors.margins: units.gu(1)
+        anchors.verticalCenter: parent.verticalCenter
+        width: units.gu(5)
+        height: width
+        icon: "assets/icon_back.png"
+        onClicked: chrome.goBackClicked()
     }
 
     AddressBar {
         id: addressBar
         objectName: "addressBar"
 
-        anchors.left: buttons.right
-        anchors.right: loading.left
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.margins: units.gu(2)
+        anchors.left: backButton.right
+        anchors.right: forwardButton.left
+        anchors.margins: units.gu(1)
+        anchors.verticalCenter: parent.verticalCenter
+        height: units.gu(5)
 
         onValidated: chrome.urlValidated(url)
     }
 
-    ActivityIndicator {
-        id: loading
+    ChromeButton {
+        id: forwardButton
         anchors.right: parent.right
+        anchors.margins: units.gu(1)
         anchors.verticalCenter: parent.verticalCenter
-        height: units.gu(3)
+        width: units.gu(5)
+        height: width
+        icon: "assets/icon_forward.png"
+        onClicked: chrome.goForwardClicked()
+    }
+
+    Image {
+        anchors.bottom: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        fillMode: Image.TileHorizontally
+        source: "assets/toolbar_dropshadow.png"
     }
 }
