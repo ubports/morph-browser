@@ -1,7 +1,11 @@
 project(ubuntu-browser)
 
-set(QT_IMPORTS_DIR ${_qt5Quick_install_prefix}/imports)
-set(UBUNTU_BROWSER_IMPORTS_DIR "${QT_IMPORTS_DIR}/Ubuntu/Browser")
+execute_process(
+    COMMAND qmake -query QT_INSTALL_QML
+    OUTPUT_VARIABLE QT_INSTALL_QML
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+set(UBUNTU_BROWSER_IMPORTS_DIR "${QT_INSTALL_QML}/Ubuntu/Browser")
 
 add_subdirectory(Ubuntu)
 

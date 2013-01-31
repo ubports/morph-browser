@@ -17,7 +17,6 @@
  */
 
 // Qt
-#include <QtCore/QtGlobal>
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickView>
 
@@ -25,13 +24,6 @@
 #include "config.h"
 #include "commandline-parser.h"
 #include "ubuntu-browser.h"
-
-static void fixPath()
-{
-    QByteArray path = qgetenv("PATH");
-    path.prepend("/opt/qt5/bin:");
-    qputenv("PATH", path);
-}
 
 static float getGridUnit()
 {
@@ -62,9 +54,6 @@ bool UbuntuBrowser::initialize()
 {
     Q_ASSERT(m_view == 0);
 
-    // XXX: fix the PATH until Qt5 is properly installed on the system
-    fixPath();
-
     m_arguments = new CommandLineParser(arguments(), this);
     if (m_arguments->help()) {
         m_arguments->printUsage();
@@ -73,7 +62,7 @@ bool UbuntuBrowser::initialize()
 
     m_view = new QQuickView;
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
-    m_view->setWindowTitle(APP_TITLE);
+    m_view->setTitle(APP_TITLE);
     // phone form factor
     float gridUnit = getGridUnit();
     m_view->resize(40 * gridUnit, 68 * gridUnit);
@@ -104,8 +93,8 @@ void UbuntuBrowser::onTitleChanged()
     QQuickItem* browser = m_view->rootObject();
     QString title = browser->property("title").toString();
     if (title.isEmpty()) {
-        m_view->setWindowTitle(APP_TITLE);
+        m_view->setTitle(APP_TITLE);
     } else {
-        m_view->setWindowTitle(QString("%1 - %2").arg(title, APP_TITLE));
+        m_view->setTitle(QString("%1 - %2").arg(title, APP_TITLE));
     }
 }

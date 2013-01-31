@@ -66,7 +66,7 @@ class TestMainWindow(BrowserTestCase):
         self.keyboard.press("Enter")
 
         window = self.main_window.get_qml_view()
-        self.assertThat(window.windowTitle, Eventually(Equals("Alice in Wonderland - Ubuntu Web Browser")))
+        self.assertThat(window.title, Eventually(Equals("Alice in Wonderland - Ubuntu Web Browser")))
 
         os.remove(path)
 
