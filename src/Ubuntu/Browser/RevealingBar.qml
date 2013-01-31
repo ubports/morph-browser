@@ -20,6 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 
 Item {
+    property alias shown: bar.shown
     property Item contents: null
     onContentsChanged: {
         if (contents) {
@@ -69,6 +70,9 @@ Item {
             onShownChanged: {
                 if (shown) {
                     y = 0
+                    if (contents) {
+                        contents.forceActiveFocus()
+                    }
                 } else {
                     y = height
                 }

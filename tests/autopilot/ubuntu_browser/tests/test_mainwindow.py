@@ -66,6 +66,15 @@ class TestMainWindow(BrowserTestCase):
         self.hide_chrome()
         self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
 
+    def test_unfocus_chrome_hides_it(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        webview = self.main_window.get_web_view()
+        self.reveal_chrome()
+        self.pointing_device.move_to_object(webview)
+        self.pointing_device.click()
+        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
+
     """Test opening a website"""
     def test_open_website(self):
         self.reveal_chrome()
