@@ -1,3 +1,9 @@
+ubuntu-browser (0.2) quantal; urgency=low
+
+  * latest release 
+
+ -- Bill Filler <bill.filler@canonical.com>  Thu, 31 Jan 2013 22:02:22 -0500
+
 ubuntu-browser (0.1) quantal; urgency=low
 
   [ Olivier Tilloy ]
