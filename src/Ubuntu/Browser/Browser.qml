@@ -62,7 +62,8 @@ FocusScope {
 
     RevealingBar {
         id: revealingBar
-        contents: chrome
+        enabled: !browser.chromeless
+        contents: enabled ? chrome : null
     }
 
     Chrome {

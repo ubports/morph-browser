@@ -9,10 +9,10 @@
 
 from __future__ import absolute_import
 
-from testtools.matchers import Equals
+from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
 
-from ubuntu_browser.tests import BrowserTestCase
+from ubuntu_browser.tests import BrowserTestCase, ChromelessBrowserTestCase
 
 import unittest
 import time
@@ -20,17 +20,17 @@ import os
 from os import path
 import tempfile
 
-class TestMainWindow(BrowserTestCase):
-    """Tests the main browser features"""
 
-    """ This is needed to wait for the application to start.
-        In the testfarm, the application may take some time to show up."""
+class TestMainWindowMixin(object):
+
     def setUp(self):
-        super(TestMainWindow, self).setUp()
+        super(TestMainWindowMixin, self).setUp()
+        # This is needed to wait for the application to start.
+        # In the testfarm, the application may take some time to show up.
         self.assertThat(self.main_window.get_qml_view().visible, Eventually(Equals(True)))
 
     def tearDown(self):
-        super(TestMainWindow, self).tearDown()
+        super(TestMainWindowMixin, self).tearDown()
 
     def swipe_chrome_up(self, distance):
         view = self.main_window.get_qml_view()
@@ -51,6 +51,11 @@ class TestMainWindow(BrowserTestCase):
 
     def hide_chrome(self):
         self.swipe_chrome_down(self.main_window.get_chrome().height)
+
+
+class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
+
+    """Tests the main browser features"""
 
     def test_reveal_chrome(self):
         view = self.main_window.get_qml_view()
@@ -103,7 +108,6 @@ class TestMainWindow(BrowserTestCase):
         self.pointing_device.click()
         self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
 
-    """Test opening a website"""
     def test_open_website(self):
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
@@ -142,3 +146,17 @@ class TestMainWindow(BrowserTestCase):
         self.assertThat(window.title, Eventually(Equals("Alice in Wonderland - Ubuntu Web Browser")))
 
         os.remove(path)
+
+
+class TestMainWindowChromeless(ChromelessBrowserTestCase, TestMainWindowMixin):
+
+    """Tests the main browser features when run in chromeless mode."""
+
+    def test_chrome_never_reveals(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.assertThat(chrome.visible, Equals(False))
+        self.assertThat(chrome.globalRect[1], GreaterThan(view.y + view.height))
+        self.reveal_chrome()
+        self.assertThat(chrome.visible, Equals(False))
+        self.assertThat(chrome.globalRect[1], GreaterThan(view.y + view.height))
