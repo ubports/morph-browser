@@ -55,6 +55,21 @@ class TestMainWindowMixin(object):
     def hide_chrome(self):
         self.swipe_chrome_down(self.main_window.get_chrome().height)
 
+    def assert_chrome_eventually_shown(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height - chrome.height)))
+
+    def assert_chrome_hidden(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.assertThat(chrome.globalRect[1], Equals(view.y + view.height))
+
+    def assert_chrome_eventually_hidden(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
+
 
 class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
 
@@ -63,44 +78,44 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
     def test_reveal_chrome(self):
         view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
-        self.assertThat(view.height, Equals(chrome.globalRect[1] - view.y))
+        self.assert_chrome_hidden()
         self.reveal_chrome()
-        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height - chrome.height)))
+        self.assert_chrome_eventually_shown()
 
     def test_reveal_chrome_with_partial_swipe(self):
         view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
-        self.assertThat(view.height, Equals(chrome.globalRect[1] - view.y))
+        self.assert_chrome_hidden()
         self.swipe_chrome_up(10)
-        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height - chrome.height)))
+        self.assert_chrome_eventually_shown()
 
     def test_reveal_chrome_with_long_swipe(self):
         view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
-        self.assertThat(view.height, Equals(chrome.globalRect[1] - view.y))
+        self.assert_chrome_hidden()
         self.swipe_chrome_up(chrome.height * 2)
-        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height - chrome.height)))
+        self.assert_chrome_eventually_shown()
 
     def test_hide_chrome(self):
         view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
         self.reveal_chrome()
         self.hide_chrome()
-        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
+        self.assert_chrome_eventually_hidden()
 
     def test_hide_chrome_with_partial_swipe(self):
         view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
         self.reveal_chrome()
         self.swipe_chrome_down(10)
-        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
+        self.assert_chrome_eventually_hidden()
 
     def test_hide_chrome_with_long_swipe(self):
         view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
         self.reveal_chrome()
         self.swipe_chrome_down(chrome.height * 2)
-        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
+        self.assert_chrome_eventually_hidden()
 
     def test_unfocus_chrome_hides_it(self):
         view = self.main_window.get_qml_view()
@@ -109,7 +124,7 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
         self.reveal_chrome()
         self.pointing_device.move_to_object(webview)
         self.pointing_device.click()
-        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
+        self.assert_chrome_eventually_hidden()
 
     def test_swipe_down_hidden_chrome_doesnt_reveal_it(self):
         view = self.main_window.get_qml_view()
@@ -118,7 +133,7 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
         start_y = view.y + view.height - 1
         stop_y = start_y + 20
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
-        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
+        self.assert_chrome_eventually_hidden()
 
     def test_swipe_shown_chrome_up_doesnt_hide_it(self):
         view = self.main_window.get_qml_view()
@@ -128,7 +143,7 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
         start_y = chrome.globalRect[1]
         stop_y = view.y - 1
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
-        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height - chrome.height)))
+        self.assert_chrome_eventually_shown()
 
     def test_open_website(self):
         self.reveal_chrome()
