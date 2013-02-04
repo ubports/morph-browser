@@ -15,13 +15,17 @@ from autopilot.testcase import AutopilotTestCase
 
 from ubuntu_browser.emulators.main_window import MainWindow
 
+
 class BrowserTestCase(AutopilotTestCase, QtIntrospectionTestMixin):
 
-    """A common test case class that provides several useful methods for ubuntu browser tests."""
+    """
+    A common test case class that provides several useful methods
+    for ubuntu browser tests.
+    """
 
     def setUp(self):
         super(BrowserTestCase, self).setUp()
-        # Lets assume we are installed system wide if this file is somewhere in /usr
+        # assume we are installed system-wide if this file is somewhere in /usr
         if os.path.realpath(__file__).startswith("/usr/"):
             self.launch_test_installed()
         else:
@@ -47,4 +51,3 @@ class BrowserTestCase(AutopilotTestCase, QtIntrospectionTestMixin):
     @property
     def main_window(self):
         return MainWindow(self.app)
-

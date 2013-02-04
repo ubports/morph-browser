@@ -31,7 +31,8 @@ class TestMainWindow(BrowserTestCase):
         In the testfarm, the application may take some time to show up."""
     def setUp(self):
         super(TestMainWindow, self).setUp()
-        self.assertThat(self.main_window.get_qml_view().visible, Eventually(Equals(True)))
+        self.assertThat(self.main_window.get_qml_view().visible,
+                        Eventually(Equals(True)))
 
     def tearDown(self):
         super(TestMainWindow, self).tearDown()
@@ -41,8 +42,8 @@ class TestMainWindow(BrowserTestCase):
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
-        address_bar_clear_button = self.main_window.get_address_bar_clear_button()
-        self.pointing_device.move_to_object(address_bar_clear_button)
+        clear_button = self.main_window.get_address_bar_clear_button()
+        self.pointing_device.move_to_object(clear_button)
         self.pointing_device.click()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
@@ -51,18 +52,20 @@ class TestMainWindow(BrowserTestCase):
         self.keyboard.press("Enter")
 
         web_view = self.main_window.get_web_view()
-        self.assertThat(web_view.url, Eventually(Equals("http://www.canonical.com/")))
+        self.assertThat(web_view.url,
+                        Eventually(Equals("http://www.canonical.com/")))
 
     def test_title(self):
         fd, path = tempfile.mkstemp(suffix=".html", text=True)
-        os.write(fd, "<html><title>Alice in Wonderland</title><body><p>Lorem ipsum dolor sit amet.</p></body></html>")
+        os.write(fd, "<html><title>Alice in Wonderland</title><body>"
+                        "<p>Lorem ipsum dolor sit amet.</p></body></html>")
         os.close(fd)
 
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
-        address_bar_clear_button = self.main_window.get_address_bar_clear_button()
-        self.pointing_device.move_to_object(address_bar_clear_button)
+        clear_button = self.main_window.get_address_bar_clear_button()
+        self.pointing_device.move_to_object(clear_button)
         self.pointing_device.click()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
@@ -70,7 +73,7 @@ class TestMainWindow(BrowserTestCase):
         self.keyboard.press("Enter")
 
         window = self.main_window.get_qml_view()
-        self.assertThat(window.title, Eventually(Equals("Alice in Wonderland - Ubuntu Web Browser")))
+        self.assertThat(window.title,
+            Eventually(Equals("Alice in Wonderland - Ubuntu Web Browser")))
 
         os.remove(path)
-
