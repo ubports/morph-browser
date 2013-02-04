@@ -17,6 +17,7 @@ configure_file(
 set(UBUNTU_BROWSER ubuntu-browser)
 
 set(UBUNTU_BROWSER_SRC
+    commandline-parser.cpp
     ubuntu-browser.cpp
     main.cpp
 )

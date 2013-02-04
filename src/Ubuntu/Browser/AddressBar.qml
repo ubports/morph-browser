@@ -25,7 +25,20 @@ Item {
 
     TextField {
         id: textField
+
         anchors.fill: parent
+
+        primaryItem: MouseArea {
+            width: __searchIcon.width + units.gu(2)
+            height: __searchIcon.height + units.gu(2)
+            Image {
+                id: __searchIcon
+                anchors.centerIn: parent
+                source: "assets/icon_search.png"
+            }
+            onClicked: textField.accepted()
+        }
+
         onAccepted: parent.validate()
     }
 

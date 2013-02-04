@@ -21,7 +21,7 @@ import QtWebKit 3.0
 import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 
-Item {
+FocusScope {
     id: browser
 
     property bool chromeless: false
@@ -29,10 +29,14 @@ Item {
     // title is a bound property instead of an alias because of QTBUG-29141
     property string title: webview.title
 
+    focus: true
+
     WebView {
         id: webview
 
         anchors.fill: parent
+
+        focus: true
 
         // iOS 5.0’s iPhone user agent
         experimental.userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
@@ -55,7 +59,17 @@ Item {
             }
         }
 
-        onUrlChanged: chrome.url = url
+        onUrlChanged: {
+            if (!browser.chromeless) {
+                chromeLoader.item.url = url
+            }
+        }
+
+        onActiveFocusChanged: {
+            if (activeFocus) {
+                revealingBar.hide()
+            }
+        }
 
         onLoadingChanged: {
             if (loadRequest.status === WebView.LoadSucceededStatus) {
@@ -108,22 +122,47 @@ Item {
         align: Qt.AlignBottom
     }
 
-    Chrome {
-        id: chrome
+    RevealingBar {
+        id: revealingBar
+        enabled: !browser.chromeless
+        contents: chromeLoader.item
+    }
 
-        visible: !browser.chromeless
+    Loader {
+        id: chromeLoader
+
+        active: !browser.chromeless
+        source: "Chrome.qml"
+
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.bottom: osk.top
         height: units.gu(8)
 
-        canGoBack: webview.canGoBack
-        onGoBackClicked: webview.goBack()
-        canGoForward: webview.canGoForward
-        onGoForwardClicked: webview.goForward()
-        onReloadClicked: webview.reload()
-        onUrlValidated: browser.url = url
+        Binding {
+            target: chromeLoader.item
+            property: "canGoBack"
+            value: webview.canGoBack
+        }
 
-        loading: webview.loading
+        Binding {
+            target: chromeLoader.item
+            property: "canGoForward"
+            value: webview.canGoForward
+        }
+
+        Connections {
+            target: chromeLoader.item
+            onGoBackClicked: webview.goBack()
+            onGoForwardClicked: webview.goForward()
+            onUrlValidated: {
+                browser.url = url
+                webview.forceActiveFocus()
+            }
+        }
+    }
+
+    KeyboardRectangle {
+        id: osk
     }
 }

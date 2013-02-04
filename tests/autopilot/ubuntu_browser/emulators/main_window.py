@@ -5,8 +5,11 @@
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
+
 class MainWindow(object):
-    """An emulator class that makes it easy to interact with the ubuntu browser."""
+    """
+    An emulator class that makes it easy to interact with the ubuntu browser.
+    """
 
     def __init__(self, app):
         self.app = app
@@ -15,12 +18,16 @@ class MainWindow(object):
         """Get the main QML view"""
         return self.app.select_single("QQuickView")
 
+    def get_chrome(self):
+        return self.app.select_single("Chrome")
+
     def get_address_bar(self):
         """Get the browsers address bar"""
         return self.app.select_single("AddressBar", objectName="addressBar")
 
     def get_address_bar_clear_button(self):
-        return self.get_address_bar().get_children_by_type("TextField")[0].get_children_by_type("AbstractButton")[0]
+        textfield = self.get_address_bar().get_children_by_type("TextField")[0]
+        return textfield.get_children_by_type("AbstractButton")[0]
 
     def get_web_view(self):
         return self.app.select_single("QQuickWebViewExperimentalExtension")

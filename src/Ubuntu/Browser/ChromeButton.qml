@@ -16,32 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __UBUNTU_BROWSER_H__
-#define __UBUNTU_BROWSER_H__
+import QtQuick 2.0
+import Ubuntu.Components 0.1
 
-#include <QtWidgets/QApplication>
+Item {
+    property alias icon: __image.source
+    signal clicked
 
-class QQuickView;
+    opacity: enabled ? 1.0 : 0.2
 
-class CommandLineParser;
+    Image {
+        id: __image
+        anchors.fill: parent
+        anchors.margins: units.gu(1)
+    }
 
-class UbuntuBrowser : public QApplication
-{
-    Q_OBJECT
-
-public:
-    UbuntuBrowser(int& argc, char** argv);
-    ~UbuntuBrowser();
-
-    bool initialize();
-    int run();
-
-private Q_SLOTS:
-    void onTitleChanged();
-
-private:
-    QQuickView* m_view;
-    CommandLineParser* m_arguments;
-};
-
-#endif // __UBUNTU_BROWSER_H__
+    MouseArea {
+        anchors.fill: parent
+        onClicked: parent.clicked()
+    }
+}

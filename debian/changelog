@@ -1,10 +1,21 @@
-ubuntu-browser (0.1) UNRELEASED; urgency=low
+ubuntu-browser (0.2) quantal; urgency=low
+
+  * latest release 
+
+ -- Bill Filler <bill.filler@canonical.com>  Thu, 31 Jan 2013 22:02:22 -0500
+
+ubuntu-browser (0.1) quantal; urgency=low
 
   [ Olivier Tilloy ]
   * Initial packaging.
+  * Set the user agent to the iPhone’s on iOS 5.0.
+  * Add a desktop file and a scalable icon.
+  * "Smart" address bar.
+  * Change the window’s title to reflect the current page’s title.
+  * Add support for a --homepage= command line switch. (LP: #1108757)
+  * Port code, build system and packaging information to a proper Qt5 release.
 
   [ Michael Zanetti ]
   * Added initial autopilot tests and autopilot package
 
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 14 Jan 2013 13:02:15 +0100
-
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 30 Jan 2013 23:01:00 +0000
