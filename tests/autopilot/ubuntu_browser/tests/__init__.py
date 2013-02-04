@@ -73,8 +73,8 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
     def make_html_page(self, title, body):
         """
         Write a web page using title and body onto a temporary file,
-        and return the corresponding local "file://…" URL.
-        The file is automatically deleted after running the calling test method.
+        and return the corresponding local "file://…" URL. The file
+        is automatically deleted after running the calling test method.
         """
         fd, path = tempfile.mkstemp(suffix=".html", text=True)
         os.write(fd,
