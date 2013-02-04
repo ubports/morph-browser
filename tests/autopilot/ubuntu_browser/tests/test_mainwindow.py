@@ -14,10 +14,7 @@ from autopilot.matchers import Eventually
 
 from ubuntu_browser.tests import BrowserTestCase, ChromelessBrowserTestCase
 
-import unittest
-import time
 import os
-from os import path
 import tempfile
 
 
