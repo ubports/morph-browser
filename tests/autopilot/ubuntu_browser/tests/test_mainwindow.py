@@ -56,7 +56,9 @@ class TestMainWindowMixin(object):
     def assert_chrome_eventually_shown(self):
         view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
-        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height - chrome.height)))
+        expected_y = view.y + view.height - chrome.height
+        self.assertThat(lambda: chrome.globalRect[1],
+                        Eventually(Equals(expected_y)))
 
     def assert_chrome_hidden(self):
         view = self.main_window.get_qml_view()
@@ -66,7 +68,8 @@ class TestMainWindowMixin(object):
     def assert_chrome_eventually_hidden(self):
         view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
-        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
+        self.assertThat(lambda: chrome.globalRect[1],
+                        Eventually(Equals(view.y + view.height)))
 
 
 class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
@@ -192,4 +195,3 @@ class TestMainWindowChromeless(ChromelessBrowserTestCase, TestMainWindowMixin):
 
     def test_chrome_is_not_loaded(self):
         self.assertThat(self.main_window.get_chrome(), Equals(None))
-
