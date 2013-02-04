@@ -14,28 +14,36 @@ from autopilot.testcase import AutopilotTestCase
 
 from ubuntu_browser.emulators.main_window import MainWindow
 
+
 class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
 
-    """A common test case class that provides several useful methods for ubuntu browser tests."""
+    """
+    A common test case class that provides several useful methods
+    for ubuntu browser tests.
+    """
 
     ARGS = []
 
     def setUp(self):
         super(BrowserTestCaseBase, self).setUp()
-        # Lets assume we are installed system wide if this file is somewhere in /usr
+        # assume we are installed system-wide if this file is somewhere in /usr
         if os.path.realpath(__file__).startswith("/usr/"):
             self.launch_test_installed()
         else:
             self.launch_test_local()
 
     def launch_test_local(self):
-        self.app = self.launch_test_application("../../src/ubuntu-browser", *self.ARGS)
+        self.app = self.launch_test_application("../../src/ubuntu-browser",
+                                                *self.ARGS)
 
     def launch_test_installed(self):
         if self.running_on_device():
-            self.app = self.launch_test_application("ubuntu-browser", "--fullscreen", *self.ARGS)
+            self.app = self.launch_test_application("ubuntu-browser",
+                                                    "--fullscreen",
+                                                    *self.ARGS)
         else:
-            self.app = self.launch_test_application("ubuntu-browser", *self.ARGS)
+            self.app = self.launch_test_application("ubuntu-browser",
+                                                    *self.ARGS)
 
     @staticmethod
     def running_on_device():
