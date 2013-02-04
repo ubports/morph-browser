@@ -41,7 +41,11 @@ FocusScope {
         // iOS 5.0’s iPhone user agent
         experimental.userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
 
-        onUrlChanged: chrome.url = url
+        onUrlChanged: {
+            if (!browser.chromeless) {
+                chromeLoader.item.url = url
+            }
+        }
 
         onActiveFocusChanged: {
             if (activeFocus) {
@@ -63,25 +67,40 @@ FocusScope {
     RevealingBar {
         id: revealingBar
         enabled: !browser.chromeless
-        contents: enabled ? chrome : null
+        contents: chromeLoader.item
     }
 
-    Chrome {
-        id: chrome
+    Loader {
+        id: chromeLoader
 
-        visible: !browser.chromeless
+        active: !browser.chromeless
+        source: "Chrome.qml"
+
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: osk.top
         height: units.gu(8)
 
-        canGoBack: webview.canGoBack
-        onGoBackClicked: webview.goBack()
-        canGoForward: webview.canGoForward
-        onGoForwardClicked: webview.goForward()
-        onUrlValidated: {
-            browser.url = url
-            webview.forceActiveFocus()
+        Binding {
+            target: chromeLoader.item
+            property: "canGoBack"
+            value: webview.canGoBack
+        }
+
+        Binding {
+            target: chromeLoader.item
+            property: "canGoForward"
+            value: webview.canGoForward
+        }
+
+        Connections {
+            target: chromeLoader.item
+            onGoBackClicked: webview.goBack()
+            onGoForwardClicked: webview.goForward()
+            onUrlValidated: {
+                browser.url = url
+                webview.forceActiveFocus()
+            }
         }
     }
 

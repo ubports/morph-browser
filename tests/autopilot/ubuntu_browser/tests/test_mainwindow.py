@@ -9,7 +9,7 @@
 
 from __future__ import absolute_import
 
-from testtools.matchers import Equals, GreaterThan
+from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
 from ubuntu_browser.tests import BrowserTestCase, ChromelessBrowserTestCase
@@ -152,11 +152,6 @@ class TestMainWindowChromeless(ChromelessBrowserTestCase, TestMainWindowMixin):
 
     """Tests the main browser features when run in chromeless mode."""
 
-    def test_chrome_never_reveals(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
-        self.assertThat(chrome.visible, Equals(False))
-        self.assertThat(chrome.globalRect[1], GreaterThan(view.y + view.height))
-        self.reveal_chrome()
-        self.assertThat(chrome.visible, Equals(False))
-        self.assertThat(chrome.globalRect[1], GreaterThan(view.y + view.height))
+    def test_chrome_is_not_loaded(self):
+        self.assertThat(self.main_window.get_chrome(), Equals(None))
+
