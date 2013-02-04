@@ -85,4 +85,3 @@ class TestMainWindowChromeless(ChromelessBrowserTestCase, TestMainWindowMixin):
 
     def test_chrome_is_not_loaded(self):
         self.assertThat(self.main_window.get_chrome(), Equals(None))
-

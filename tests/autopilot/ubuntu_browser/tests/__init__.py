@@ -33,13 +33,17 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
             self.launch_test_local()
 
     def launch_test_local(self):
-        self.app = self.launch_test_application("../../src/ubuntu-browser", *self.ARGS)
+        self.app = self.launch_test_application("../../src/ubuntu-browser",
+                                                *self.ARGS)
 
     def launch_test_installed(self):
         if self.running_on_device():
-            self.app = self.launch_test_application("ubuntu-browser", "--fullscreen", *self.ARGS)
+            self.app = self.launch_test_application("ubuntu-browser",
+                                                    "--fullscreen",
+                                                    *self.ARGS)
         else:
-            self.app = self.launch_test_application("ubuntu-browser", *self.ARGS)
+            self.app = self.launch_test_application("ubuntu-browser",
+                                                    *self.ARGS)
 
     @staticmethod
     def running_on_device():
@@ -56,4 +60,3 @@ class BrowserTestCase(BrowserTestCaseBase):
 
 class ChromelessBrowserTestCase(BrowserTestCaseBase):
     ARGS = ['--chromeless']
-
