@@ -34,16 +34,16 @@ class TestMainWindowMixin(object):
 
     def swipe_chrome_up(self, distance):
         view = self.main_window.get_qml_view()
-        x_line = view.x + view.width * 0.5
-        start_y = view.y + view.height - 1
-        stop_y = start_y - distance
+        x_line = int(view.x + view.width * 0.5)
+        start_y = int(view.y + view.height - 1)
+        stop_y = int(start_y - distance)
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
 
     def swipe_chrome_down(self, distance):
         view = self.main_window.get_qml_view()
-        x_line = view.x + view.width * 0.5
-        start_y = self.main_window.get_chrome().globalRect[1]
-        stop_y = start_y + distance
+        x_line = int(view.x + view.width * 0.5)
+        start_y = int(self.main_window.get_chrome().globalRect[1])
+        stop_y = int(start_y + distance)
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
 
     def reveal_chrome(self):
@@ -126,8 +126,8 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
     def test_swipe_down_hidden_chrome_doesnt_reveal_it(self):
         view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
-        x_line = view.x + view.width * 0.5
-        start_y = view.y + view.height - 1
+        x_line = int(view.x + view.width * 0.5)
+        start_y = int(view.y + view.height - 1)
         stop_y = start_y + 20
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
         self.assert_chrome_eventually_hidden()
@@ -136,9 +136,9 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
         view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
         self.reveal_chrome()
-        x_line = view.x + view.width * 0.5
-        start_y = chrome.globalRect[1]
-        stop_y = view.y - 1
+        x_line = int(view.x + view.width * 0.5)
+        start_y = int(chrome.globalRect[1])
+        stop_y = int(view.y - 1)
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
         self.assert_chrome_eventually_shown()
 
