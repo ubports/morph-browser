@@ -18,6 +18,9 @@ class MainWindow(object):
         """Get the main QML view"""
         return self.app.select_single("QQuickView")
 
+    def get_chrome(self):
+        return self.app.select_single("Chrome")
+
     def get_address_bar(self):
         """Get the browsers address bar"""
         return self.app.select_single("AddressBar", objectName="addressBar")
