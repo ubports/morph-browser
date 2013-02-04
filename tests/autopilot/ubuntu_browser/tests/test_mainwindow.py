@@ -77,50 +77,38 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
     """Tests the main browser features"""
 
     def test_reveal_chrome(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
         self.assert_chrome_hidden()
         self.reveal_chrome()
         self.assert_chrome_eventually_shown()
 
     def test_reveal_chrome_with_partial_swipe(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
         self.assert_chrome_hidden()
         self.swipe_chrome_up(10)
         self.assert_chrome_eventually_shown()
 
     def test_reveal_chrome_with_long_swipe(self):
-        view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
         self.assert_chrome_hidden()
         self.swipe_chrome_up(chrome.height * 2)
         self.assert_chrome_eventually_shown()
 
     def test_hide_chrome(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
         self.reveal_chrome()
         self.hide_chrome()
         self.assert_chrome_eventually_hidden()
 
     def test_hide_chrome_with_partial_swipe(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
         self.reveal_chrome()
         self.swipe_chrome_down(10)
         self.assert_chrome_eventually_hidden()
 
     def test_hide_chrome_with_long_swipe(self):
-        view = self.main_window.get_qml_view()
         chrome = self.main_window.get_chrome()
         self.reveal_chrome()
         self.swipe_chrome_down(chrome.height * 2)
         self.assert_chrome_eventually_hidden()
 
     def test_unfocus_chrome_hides_it(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
         webview = self.main_window.get_web_view()
         self.reveal_chrome()
         self.pointing_device.move_to_object(webview)
@@ -129,7 +117,6 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
 
     def test_swipe_down_hidden_chrome_doesnt_reveal_it(self):
         view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
         x_line = int(view.x + view.width * 0.5)
         start_y = int(view.y + view.height - 1)
         stop_y = start_y + 20
