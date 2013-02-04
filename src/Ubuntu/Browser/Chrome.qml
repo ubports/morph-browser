@@ -35,12 +35,6 @@ Item {
         opacity: 0.95
     }
 
-    MouseArea {
-        // Intercept mouse clicks that go through disabled buttons,
-        // to avoid forwarding them to the web page below.
-        anchors.fill: parent
-    }
-
     ChromeButton {
         id: backButton
         anchors.left: parent.left

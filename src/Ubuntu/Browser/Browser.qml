@@ -21,7 +21,7 @@ import QtWebKit 3.0
 import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 
-Item {
+FocusScope {
     id: browser
 
     property bool chromeless: false
@@ -29,10 +29,14 @@ Item {
     // title is a bound property instead of an alias because of QTBUG-29141
     property string title: webview.title
 
+    focus: true
+
     WebView {
         id: webview
 
         anchors.fill: parent
+
+        focus: true
 
         // iOS 5.0’s iPhone user agent
         experimental.userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
@@ -40,6 +44,12 @@ Item {
         onUrlChanged: {
             if (!browser.chromeless) {
                 chromeLoader.item.url = url
+            }
+        }
+
+        onActiveFocusChanged: {
+            if (activeFocus) {
+                revealingBar.hide()
             }
         }
     }
@@ -52,6 +62,12 @@ Item {
     Scrollbar {
         flickableItem: webview
         align: Qt.AlignBottom
+    }
+
+    RevealingBar {
+        id: revealingBar
+        enabled: !browser.chromeless
+        contents: chromeLoader.item
     }
 
     Loader {
