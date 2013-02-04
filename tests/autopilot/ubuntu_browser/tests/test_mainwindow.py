@@ -20,6 +20,10 @@ import os
 from os import path
 import tempfile
 
+
+TYPING_DELAY = 0.001
+
+
 class TestMainWindow(BrowserTestCase):
     """Tests the main browser features"""
 
@@ -43,7 +47,7 @@ class TestMainWindow(BrowserTestCase):
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
 
-        self.keyboard.type("http://www.canonical.com")
+        self.keyboard.type("http://www.canonical.com", delay=TYPING_DELAY)
         self.keyboard.press("Enter")
 
         web_view = self.main_window.get_web_view()
@@ -62,7 +66,7 @@ class TestMainWindow(BrowserTestCase):
         self.pointing_device.click()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
-        self.keyboard.type("file://" + path)
+        self.keyboard.type("file://" + path, delay=TYPING_DELAY)
         self.keyboard.press("Enter")
 
         window = self.main_window.get_qml_view()
