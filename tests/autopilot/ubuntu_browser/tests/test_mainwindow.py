@@ -9,10 +9,10 @@
 
 from __future__ import absolute_import
 
-from testtools.matchers import Equals, NotEquals, GreaterThan
+from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
-from ubuntu_browser.tests import BrowserTestCase
+from ubuntu_browser.tests import BrowserTestCase, ChromelessBrowserTestCase
 
 import unittest
 import time
@@ -20,19 +20,23 @@ import os
 from os import path
 import tempfile
 
-class TestMainWindow(BrowserTestCase):
-    """Tests the main browser features"""
 
-    """ This is needed to wait for the application to start.
-        In the testfarm, the application may take some time to show up."""
+class TestMainWindowMixin(object):
+
     def setUp(self):
-        super(TestMainWindow, self).setUp()
+        super(TestMainWindowMixin, self).setUp()
+        # This is needed to wait for the application to start.
+        # In the testfarm, the application may take some time to show up.
         self.assertThat(self.main_window.get_qml_view().visible, Eventually(Equals(True)))
 
     def tearDown(self):
-        super(TestMainWindow, self).tearDown()
+        super(TestMainWindowMixin, self).tearDown()
 
-    """Test opening a website"""
+
+class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
+
+    """Tests the main browser features."""
+
     def test_open_website(self):
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
@@ -70,3 +74,10 @@ class TestMainWindow(BrowserTestCase):
 
         os.remove(path)
 
+
+class TestMainWindowChromeless(ChromelessBrowserTestCase, TestMainWindowMixin):
+
+    """Tests the main browser features when run in chromeless mode."""
+
+    def test_chrome_is_not_loaded(self):
+        self.assertThat(self.main_window.get_chrome(), Equals(None))
