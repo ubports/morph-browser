@@ -12,7 +12,7 @@ from __future__ import absolute_import
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
-from ubuntu_browser.tests import BrowserTestCase, ChromelessBrowserTestCase
+from ubuntu_browser.tests import BrowserTestCaseBase
 
 import os
 import tempfile
@@ -72,7 +72,7 @@ class TestMainWindowMixin(object):
                         Eventually(Equals(view.y + view.height)))
 
 
-class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
+class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
 
     """Tests the main browser features"""
 
@@ -176,9 +176,11 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
         os.remove(path)
 
 
-class TestMainWindowChromeless(ChromelessBrowserTestCase, TestMainWindowMixin):
+class TestMainWindowChromeless(BrowserTestCaseBase, TestMainWindowMixin):
 
     """Tests the main browser features when run in chromeless mode."""
+
+    ARGS = ['--chromeless']
 
     def test_chrome_is_not_loaded(self):
         self.assertThat(self.main_window.get_chrome(), Equals(None))

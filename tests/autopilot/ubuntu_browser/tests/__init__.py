@@ -52,11 +52,3 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
     @property
     def main_window(self):
         return MainWindow(self.app)
-
-
-class BrowserTestCase(BrowserTestCaseBase):
-    pass
-
-
-class ChromelessBrowserTestCase(BrowserTestCaseBase):
-    ARGS = ['--chromeless']
