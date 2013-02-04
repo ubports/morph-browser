@@ -23,16 +23,6 @@ TYPING_DELAY = 0.001
 
 class TestMainWindowMixin(object):
 
-    def setUp(self):
-        super(TestMainWindowMixin, self).setUp()
-        # This is needed to wait for the application to start.
-        # In the testfarm, the application may take some time to show up.
-        self.assertThat(self.main_window.get_qml_view().visible,
-                        Eventually(Equals(True)))
-
-    def tearDown(self):
-        super(TestMainWindowMixin, self).tearDown()
-
     def make_html_page(self, title, body):
         fd, path = tempfile.mkstemp(suffix=".html", text=True)
         os.write(fd,
