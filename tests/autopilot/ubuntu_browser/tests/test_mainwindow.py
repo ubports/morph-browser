@@ -33,6 +33,16 @@ class TestMainWindowMixin(object):
     def tearDown(self):
         super(TestMainWindowMixin, self).tearDown()
 
+    def make_html_page(self, title, body):
+        fd, path = tempfile.mkstemp(suffix=".html", text=True)
+        os.write(fd,
+                    "<html>"
+                        "<title>" + title + "</title>"
+                        "<body>" + body + "</body>"
+                    "</html>")
+        os.close(fd)
+        return path
+
 
 class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
 
@@ -56,10 +66,8 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
                         Eventually(Equals("http://www.canonical.com/")))
 
     def test_title(self):
-        fd, path = tempfile.mkstemp(suffix=".html", text=True)
-        os.write(fd, "<html><title>Alice in Wonderland</title><body>"
-                        "<p>Lorem ipsum dolor sit amet.</p></body></html>")
-        os.close(fd)
+        path = self.make_html_page("Alice in Wonderland",
+                                    "<p>Lorem ipsum dolor sit amet.</p>")
 
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
