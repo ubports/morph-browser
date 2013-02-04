@@ -77,7 +77,7 @@ Item {
             }
         }
 
-        onReleased: {
+        function __doneDragging() {
             if (__lastDrag > 0) {
                 show()
             } else if (__lastDrag < 0) {
@@ -89,13 +89,8 @@ Item {
             }
         }
 
-        onCanceled: {
-            if (shown) {
-                hide()
-            } else {
-                show()
-            }
-        }
+        onReleased: __doneDragging()
+        onCanceled: __doneDragging()
 
         Item {
             id: bar

@@ -111,6 +111,25 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
         self.pointing_device.click()
         self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
 
+    def test_swipe_down_hidden_chrome_doesnt_reveal_it(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        x_line = view.x + view.width * 0.5
+        start_y = view.y + view.height - 1
+        stop_y = start_y + 20
+        self.pointing_device.drag(x_line, start_y, x_line, stop_y)
+        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height)))
+
+    def test_swipe_shown_chrome_up_doesnt_hide_it(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.reveal_chrome()
+        x_line = view.x + view.width * 0.5
+        start_y = chrome.globalRect[1]
+        stop_y = view.y - 1
+        self.pointing_device.drag(x_line, start_y, x_line, stop_y)
+        self.assertThat(lambda: chrome.globalRect[1], Eventually(Equals(view.y + view.height - chrome.height)))
+
     def test_open_website(self):
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
