@@ -43,6 +43,7 @@ Item {
 
     ChromeButton {
         id: backButton
+        objectName: "backButton"
         anchors.left: parent.left
         anchors.margins: units.gu(1)
         anchors.verticalCenter: parent.verticalCenter
@@ -67,6 +68,7 @@ Item {
 
     ChromeButton {
         id: forwardButton
+        objectName: "forwardButton"
         anchors.right: parent.right
         anchors.margins: units.gu(1)
         anchors.verticalCenter: parent.verticalCenter

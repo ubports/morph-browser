@@ -29,5 +29,13 @@ class MainWindow(object):
         textfield = self.get_address_bar().get_children_by_type("TextField")[0]
         return textfield.get_children_by_type("AbstractButton")[0]
 
+    def get_back_button(self):
+        return self.app.select_single("ChromeButton",
+                                        objectName="backButton")
+
+    def get_forward_button(self):
+        return self.app.select_single("ChromeButton",
+                                        objectName="forwardButton")
+
     def get_web_view(self):
         return self.app.select_single("QQuickWebViewExperimentalExtension")
