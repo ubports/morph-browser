@@ -7,7 +7,6 @@
 
 """Ubuntu-browser autopilot tests."""
 
-from os import remove
 import os.path
 
 from autopilot.introspection.qt import QtIntrospectionTestMixin

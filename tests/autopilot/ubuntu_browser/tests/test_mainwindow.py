@@ -9,15 +9,12 @@
 
 from __future__ import absolute_import
 
-from testtools.matchers import Equals, NotEquals, GreaterThan
+from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
 from ubuntu_browser.tests import BrowserTestCase
 
-import unittest
-import time
 import os
-from os import path
 import tempfile
 
 
