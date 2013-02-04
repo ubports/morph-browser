@@ -14,27 +14,11 @@ from autopilot.matchers import Eventually
 
 from ubuntu_browser.tests import BrowserTestCaseBase
 
-import os
-import tempfile
-
 
 TYPING_DELAY = 0.001
 
 
-class TestMainWindowMixin(object):
-
-    def make_html_page(self, title, body):
-        fd, path = tempfile.mkstemp(suffix=".html", text=True)
-        os.write(fd,
-                    "<html>"
-                        "<title>" + title + "</title>"
-                        "<body>" + body + "</body>"
-                    "</html>")
-        os.close(fd)
-        return path
-
-
-class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
+class TestMainWindow(BrowserTestCaseBase):
 
     """Tests the main browser features."""
 
@@ -56,7 +40,7 @@ class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
                         Eventually(Equals("http://www.canonical.com/")))
 
     def test_title(self):
-        path = self.make_html_page("Alice in Wonderland",
+        url = self.make_html_page("Alice in Wonderland",
                                     "<p>Lorem ipsum dolor sit amet.</p>")
 
         address_bar = self.main_window.get_address_bar()
@@ -67,17 +51,15 @@ class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
         self.pointing_device.click()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
-        self.keyboard.type("file://" + path, delay=TYPING_DELAY)
+        self.keyboard.type(url, delay=TYPING_DELAY)
         self.keyboard.press("Enter")
 
         window = self.main_window.get_qml_view()
         self.assertThat(window.title,
             Eventually(Equals("Alice in Wonderland - Ubuntu Web Browser")))
 
-        os.remove(path)
 
-
-class TestMainWindowChromeless(BrowserTestCaseBase, TestMainWindowMixin):
+class TestMainWindowChromeless(BrowserTestCaseBase):
 
     """Tests the main browser features when run in chromeless mode."""
 

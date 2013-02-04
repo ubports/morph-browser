@@ -7,7 +7,8 @@
 
 """Ubuntu-browser autopilot tests."""
 
-import os.path
+import os
+import tempfile
 
 from testtools.matchers import Equals
 
@@ -29,6 +30,7 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
 
     def setUp(self):
         super(BrowserTestCaseBase, self).setUp()
+        self._temp_pages = []
         # assume we are installed system-wide if this file is somewhere in /usr
         if os.path.realpath(__file__).startswith("/usr/"):
             self.launch_test_installed()
@@ -38,6 +40,14 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
         # In the testfarm, the application may take some time to show up.
         self.assertThat(self.main_window.get_qml_view().visible,
                         Eventually(Equals(True)))
+
+    def tearDown(self):
+        super(BrowserTestCaseBase, self).tearDown()
+        for page in self._temp_pages:
+            try:
+                os.remove(page)
+            except:
+                pass
 
     def launch_test_local(self):
         self.app = self.launch_test_application("../../src/ubuntu-browser",
@@ -59,3 +69,19 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
     @property
     def main_window(self):
         return MainWindow(self.app)
+
+    def make_html_page(self, title, body):
+        """
+        Write a web page using title and body onto a temporary file,
+        and return the corresponding local "file://…" URL.
+        The file is automatically deleted after running the calling test method.
+        """
+        fd, path = tempfile.mkstemp(suffix=".html", text=True)
+        os.write(fd,
+                    "<html>"
+                        "<title>" + title + "</title>"
+                        "<body>" + body + "</body>"
+                    "</html>")
+        os.close(fd)
+        self._temp_pages.append(path)
+        return "file://" + path
