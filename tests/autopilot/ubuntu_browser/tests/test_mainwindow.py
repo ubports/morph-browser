@@ -23,16 +23,6 @@ TYPING_DELAY = 0.001
 
 class TestMainWindowMixin(object):
 
-    def setUp(self):
-        super(TestMainWindowMixin, self).setUp()
-        # This is needed to wait for the application to start.
-        # In the testfarm, the application may take some time to show up.
-        self.assertThat(self.main_window.get_qml_view().visible,
-                        Eventually(Equals(True)))
-
-    def tearDown(self):
-        super(TestMainWindowMixin, self).tearDown()
-
     def swipe_chrome_up(self, distance):
         view = self.main_window.get_qml_view()
         x_line = int(view.x + view.width * 0.5)
@@ -176,7 +166,7 @@ class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
         os.remove(path)
 
 
-class TestMainWindowChromeless(BrowserTestCaseBase, TestMainWindowMixin):
+class TestMainWindowChromeless(BrowserTestCaseBase):
 
     """Tests the main browser features when run in chromeless mode."""
 

@@ -9,7 +9,10 @@
 
 import os.path
 
+from testtools.matchers import Equals
+
 from autopilot.introspection.qt import QtIntrospectionTestMixin
+from autopilot.matchers import Eventually
 from autopilot.testcase import AutopilotTestCase
 
 from ubuntu_browser.emulators.main_window import MainWindow
@@ -31,6 +34,10 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
             self.launch_test_installed()
         else:
             self.launch_test_local()
+        # This is needed to wait for the application to start.
+        # In the testfarm, the application may take some time to show up.
+        self.assertThat(self.main_window.get_qml_view().visible,
+                        Eventually(Equals(True)))
 
     def launch_test_local(self):
         self.app = self.launch_test_application("../../src/ubuntu-browser",
