@@ -69,6 +69,7 @@ FocusScope {
         enabled: !browser.chromeless
         contents: chromeLoader.item
         anchors.bottom: osk.top
+        locked: osk.height > 0
     }
 
     Loader {

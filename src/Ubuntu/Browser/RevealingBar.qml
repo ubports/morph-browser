@@ -21,6 +21,7 @@ import Ubuntu.Components 0.1
 
 Item {
     property bool shown: false
+    property bool locked: false
     property Item contents: null
     onContentsChanged: {
         if (contents) {
@@ -51,6 +52,7 @@ Item {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         height: bar.height
+        enabled: !parent.locked
 
         drag.target: bar
         drag.axis: Drag.YAxis
