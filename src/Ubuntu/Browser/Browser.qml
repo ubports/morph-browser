@@ -34,10 +34,12 @@ FocusScope {
     WebView {
         id: webview
 
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: osk.top
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+            bottom: osk.top
+        }
 
         focus: true
 
