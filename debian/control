@@ -29,6 +29,7 @@ Package: ubuntu-browser-autopilot
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
+         libautopilot-qt,
          ubuntu-browser (= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
