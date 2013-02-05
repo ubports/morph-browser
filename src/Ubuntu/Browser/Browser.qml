@@ -68,6 +68,7 @@ FocusScope {
         id: revealingBar
         enabled: !browser.chromeless
         contents: chromeLoader.item
+        anchors.bottom: osk.top
     }
 
     Loader {
@@ -78,7 +79,7 @@ FocusScope {
 
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: osk.top
+
         height: units.gu(8)
 
         Binding {

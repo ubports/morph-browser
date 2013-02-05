@@ -30,7 +30,7 @@ Item {
 
     anchors.left: parent.left
     anchors.right: parent.right
-    anchors.bottom: parent.bottom
+
     height: bar.height - bar.y
 
     function show() {
