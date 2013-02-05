@@ -18,6 +18,7 @@ Package: ubuntu-browser
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
+         qtdeclarative5-qtquick2-plugin,
          libqt5webkit5-qmlwebkitplugin,
          qt-components-ubuntu,
 Description: Ubuntu web browser
