@@ -27,10 +27,10 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
     """
 
     ARGS = []
+    _temp_pages = []
 
     def setUp(self):
         super(BrowserTestCaseBase, self).setUp()
-        self._temp_pages = []
         # assume we are installed system-wide if this file is somewhere in /usr
         if os.path.realpath(__file__).startswith("/usr/"):
             self.launch_test_installed()
@@ -48,6 +48,7 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
                 os.remove(page)
             except:
                 pass
+        self._temp_pages = []
 
     def launch_test_local(self):
         self.app = self.launch_test_application("../../src/ubuntu-browser",
