@@ -7,9 +7,13 @@
 
 """Ubuntu-browser autopilot tests."""
 
-import os.path
+import os
+import tempfile
+
+from testtools.matchers import Equals
 
 from autopilot.introspection.qt import QtIntrospectionTestMixin
+from autopilot.matchers import Eventually
 from autopilot.testcase import AutopilotTestCase
 
 from ubuntu_browser.emulators.main_window import MainWindow
@@ -23,6 +27,7 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
     """
 
     ARGS = []
+    _temp_pages = []
 
     def setUp(self):
         super(BrowserTestCaseBase, self).setUp()
@@ -31,6 +36,19 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
             self.launch_test_installed()
         else:
             self.launch_test_local()
+        # This is needed to wait for the application to start.
+        # In the testfarm, the application may take some time to show up.
+        self.assertThat(self.main_window.get_qml_view().visible,
+                        Eventually(Equals(True)))
+
+    def tearDown(self):
+        super(BrowserTestCaseBase, self).tearDown()
+        for page in self._temp_pages:
+            try:
+                os.remove(page)
+            except:
+                pass
+        self._temp_pages = []
 
     def launch_test_local(self):
         self.app = self.launch_test_application("../../src/ubuntu-browser",
@@ -53,10 +71,18 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
     def main_window(self):
         return MainWindow(self.app)
 
-
-class BrowserTestCase(BrowserTestCaseBase):
-    pass
-
-
-class ChromelessBrowserTestCase(BrowserTestCaseBase):
-    ARGS = ['--chromeless']
+    def make_html_page(self, title, body):
+        """
+        Write a web page using title and body onto a temporary file,
+        and return the corresponding local "file://…" URL. The file
+        is automatically deleted after running the calling test method.
+        """
+        fd, path = tempfile.mkstemp(suffix=".html", text=True)
+        os.write(fd,
+                    "<html>"
+                        "<title>" + title + "</title>"
+                        "<body>" + body + "</body>"
+                    "</html>")
+        os.close(fd)
+        self._temp_pages.append(path)
+        return "file://" + path

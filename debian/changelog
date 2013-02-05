@@ -1,3 +1,11 @@
+ubuntu-browser (0.3) quantal; urgency=low
+
+  * Do not instantiate the chrome in chromeless mode.
+  * Make the chrome hidden by default and revealed by swiping from the bottom
+    edge.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 04 Feb 2013 23:18:16 +0100
+
 ubuntu-browser (0.2) quantal; urgency=low
 
   * latest release 

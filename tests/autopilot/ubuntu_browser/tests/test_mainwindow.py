@@ -12,26 +12,14 @@ from __future__ import absolute_import
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
-from ubuntu_browser.tests import BrowserTestCase, ChromelessBrowserTestCase
-
-import os
-import tempfile
+from ubuntu_browser.tests import BrowserTestCaseBase
 
 
 TYPING_DELAY = 0.001
+LOREMIPSUM = "<p>Lorem ipsum dolor sit amet.</p>"
 
 
 class TestMainWindowMixin(object):
-
-    def setUp(self):
-        super(TestMainWindowMixin, self).setUp()
-        # This is needed to wait for the application to start.
-        # In the testfarm, the application may take some time to show up.
-        self.assertThat(self.main_window.get_qml_view().visible,
-                        Eventually(Equals(True)))
-
-    def tearDown(self):
-        super(TestMainWindowMixin, self).tearDown()
 
     def swipe_chrome_up(self, distance):
         view = self.main_window.get_qml_view()
@@ -72,7 +60,7 @@ class TestMainWindowMixin(object):
                         Eventually(Equals(view.y + view.height)))
 
 
-class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
+class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
 
     """Tests the main browser features"""
 
@@ -152,10 +140,7 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
                         Eventually(Equals("http://www.canonical.com/")))
 
     def test_title(self):
-        fd, path = tempfile.mkstemp(suffix=".html", text=True)
-        os.write(fd, "<html><title>Alice in Wonderland</title><body>"
-                        "<p>Lorem ipsum dolor sit amet.</p></body></html>")
-        os.close(fd)
+        url = self.make_html_page("Alice in Wonderland", LOREMIPSUM)
 
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
@@ -166,19 +151,81 @@ class TestMainWindow(BrowserTestCase, TestMainWindowMixin):
         self.pointing_device.click()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
-        self.keyboard.type("file://" + path, delay=TYPING_DELAY)
+        self.keyboard.type(url, delay=TYPING_DELAY)
         self.keyboard.press("Enter")
 
         window = self.main_window.get_qml_view()
         self.assertThat(window.title,
             Eventually(Equals("Alice in Wonderland - Ubuntu Web Browser")))
 
-        os.remove(path)
 
-
-class TestMainWindowChromeless(ChromelessBrowserTestCase, TestMainWindowMixin):
+class TestMainWindowChromeless(BrowserTestCaseBase):
 
     """Tests the main browser features when run in chromeless mode."""
 
+    ARGS = ['--chromeless']
+
     def test_chrome_is_not_loaded(self):
         self.assertThat(self.main_window.get_chrome(), Equals(None))
+
+
+class TestMainWindowHistory(BrowserTestCaseBase, TestMainWindowMixin):
+
+    """Tests the back and forward functionality."""
+
+    def setUp(self):
+        self.url = self.make_html_page("start page", LOREMIPSUM)
+        self.ARGS = [self.url]
+        super(TestMainWindowHistory, self).setUp()
+
+    def assert_page_eventually_loaded(self, url):
+        webview = self.main_window.get_web_view()
+        self.assertThat(webview.url, Eventually(Equals(url)))
+
+    def assert_home_page_eventually_loaded(self):
+        self.assert_page_eventually_loaded(self.url)
+
+    def go_to_url(self, url):
+        self.reveal_chrome()
+        address_bar = self.main_window.get_address_bar()
+        self.pointing_device.move_to_object(address_bar)
+        self.pointing_device.click()
+        clear_button = self.main_window.get_address_bar_clear_button()
+        self.pointing_device.move_to_object(clear_button)
+        self.pointing_device.click()
+        self.pointing_device.move_to_object(address_bar)
+        self.pointing_device.click()
+        self.keyboard.type(url, delay=TYPING_DELAY)
+        self.keyboard.press("Enter")
+        self.assert_page_eventually_loaded(url)
+
+    def click_back_button(self):
+        self.reveal_chrome()
+        back_button = self.main_window.get_back_button()
+        self.pointing_device.move_to_object(back_button)
+        self.pointing_device.click()
+
+    def test_homepage_no_history(self):
+        self.assert_home_page_eventually_loaded()
+        back_button = self.main_window.get_back_button()
+        self.assertThat(back_button.enabled, Equals(False))
+        forward_button = self.main_window.get_forward_button()
+        self.assertThat(forward_button.enabled, Equals(False))
+
+    def test_opening_new_page_enables_back_button(self):
+        self.assert_home_page_eventually_loaded()
+        back_button = self.main_window.get_back_button()
+        self.assertThat(back_button.enabled, Equals(False))
+        url = self.make_html_page("page 2", LOREMIPSUM)
+        self.go_to_url(url)
+        self.assertThat(back_button.enabled, Eventually(Equals(True)))
+
+    def test_navigating_back_enables_forward_button(self):
+        self.assert_home_page_eventually_loaded()
+        url = self.make_html_page("page 2", LOREMIPSUM)
+        self.go_to_url(url)
+        forward_button = self.main_window.get_forward_button()
+        self.assertThat(forward_button.enabled, Equals(False))
+        self.click_back_button()
+        self.assert_home_page_eventually_loaded()
+        self.assertThat(forward_button.enabled, Eventually(Equals(True)))

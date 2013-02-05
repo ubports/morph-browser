@@ -1,7 +1,7 @@
 Source: ubuntu-browser
 Section: x11
 Priority: optional
-Maintainer: Olivier Tilloy <olivier.tilloy@canonical.com>
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Build-Depends: debhelper (>= 8.0.0),
                cmake (>= 2.8.9),
                qt5-default,
@@ -10,14 +10,15 @@ Build-Depends: debhelper (>= 8.0.0),
                qtdeclarative5-dev,
                qtdeclarative5-qtquick2-plugin,
                qtdeclarative5-test-plugin,
-               python,
                qt-components-ubuntu,
+               python,
 Standards-Version: 3.9.3
 
 Package: ubuntu-browser
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
+         qtdeclarative5-qtquick2-plugin,
          libqt5webkit5-qmlwebkitplugin,
          qt-components-ubuntu,
 Description: Ubuntu web browser
@@ -28,6 +29,7 @@ Package: ubuntu-browser-autopilot
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
+         libautopilot-qt,
          ubuntu-browser (= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
