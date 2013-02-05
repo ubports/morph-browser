@@ -14,9 +14,6 @@ from autopilot.matchers import Eventually
 
 from ubuntu_browser.tests import BrowserTestCaseBase
 
-import os
-import tempfile
-
 
 TYPING_DELAY = 0.001
 
@@ -142,10 +139,8 @@ class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
                         Eventually(Equals("http://www.canonical.com/")))
 
     def test_title(self):
-        fd, path = tempfile.mkstemp(suffix=".html", text=True)
-        os.write(fd, "<html><title>Alice in Wonderland</title><body>"
-                        "<p>Lorem ipsum dolor sit amet.</p></body></html>")
-        os.close(fd)
+        url = self.make_html_page("Alice in Wonderland",
+                                    "<p>Lorem ipsum dolor sit amet.</p>")
 
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
@@ -156,14 +151,12 @@ class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
         self.pointing_device.click()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
-        self.keyboard.type("file://" + path, delay=TYPING_DELAY)
+        self.keyboard.type(url, delay=TYPING_DELAY)
         self.keyboard.press("Enter")
 
         window = self.main_window.get_qml_view()
         self.assertThat(window.title,
             Eventually(Equals("Alice in Wonderland - Ubuntu Web Browser")))
-
-        os.remove(path)
 
 
 class TestMainWindowChromeless(BrowserTestCaseBase):
