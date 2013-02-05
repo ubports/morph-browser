@@ -10,8 +10,8 @@ Build-Depends: debhelper (>= 8.0.0),
                qtdeclarative5-dev,
                qtdeclarative5-qtquick2-plugin,
                qtdeclarative5-test-plugin,
-               python,
                qt-components-ubuntu,
+               python,
 Standards-Version: 3.9.3
 
 Package: ubuntu-browser
