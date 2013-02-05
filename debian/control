@@ -1,7 +1,7 @@
 Source: ubuntu-browser
 Section: x11
 Priority: optional
-Maintainer: Olivier Tilloy <olivier.tilloy@canonical.com>
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Build-Depends: debhelper (>= 8.0.0),
                cmake (>= 2.8.9),
                qt5-default,
