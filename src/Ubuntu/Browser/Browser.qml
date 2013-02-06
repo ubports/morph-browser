@@ -49,10 +49,10 @@ FocusScope {
                 delete data.event
                 if (event === 'longpress') {
                     var scale = webview.experimental.test.contentsScale * webview.experimental.test.devicePixelRatio
-                    selection.x = data.left * scale
-                    selection.y = data.top * scale
-                    selection.width = data.width * scale
-                    selection.height = data.height * scale
+                    selection.rect.x = data.left * scale
+                    selection.rect.y = data.top * scale
+                    selection.rect.width = data.width * scale
+                    selection.rect.height = data.height * scale
                     selection.visible = true
                     console.log("Selected HTML:", data.html)
                 }
@@ -105,10 +105,9 @@ FocusScope {
         }
     }
 
-    Rectangle {
+    Selection {
         id: selection
-        color: "#F07846"
-        opacity: 0.4
+        anchors.fill: webview
         visible: false
     }
 
