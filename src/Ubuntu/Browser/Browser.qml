@@ -20,6 +20,7 @@ import QtQuick 2.0
 import QtWebKit 3.0
 import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Popups 0.1
 
 FocusScope {
     id: browser
@@ -54,11 +55,8 @@ FocusScope {
                 delete data.event
                 if (event === 'longpress') {
                     var scale = webview.experimental.test.contentsScale * webview.experimental.test.devicePixelRatio
-                    selection.rect.x = data.left * scale
-                    selection.rect.y = data.top * scale
-                    selection.rect.width = data.width * scale
-                    selection.rect.height = data.height * scale
-                    selection.visible = true
+                    selection.show(data.left * scale, data.top * scale,
+                                   data.width * scale, data.height * scale)
                     console.log("Selected HTML:", data.html)
                 }
             }
@@ -114,6 +112,21 @@ FocusScope {
         id: selection
         anchors.fill: webview
         visible: false
+
+        function __showPopover() {
+            PopupUtils.open(Qt.resolvedUrl("SelectionPopover.qml"), selection.rect)
+        }
+
+        function show(x, y, width, height) {
+            rect.x = x
+            rect.y = y
+            rect.width = width
+            rect.height = height
+            visible = true
+            __showPopover()
+        }
+
+        onResized: __showPopover()
     }
 
     Scrollbar {
