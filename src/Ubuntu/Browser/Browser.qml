@@ -34,7 +34,12 @@ FocusScope {
     WebView {
         id: webview
 
-        anchors.fill: parent
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+            bottom: osk.top
+        }
 
         focus: true
 
@@ -125,6 +130,8 @@ FocusScope {
         id: revealingBar
         enabled: !browser.chromeless
         contents: chromeLoader.item
+        anchors.bottom: osk.top
+        locked: osk.height > 0
     }
 
     Loader {
@@ -135,7 +142,7 @@ FocusScope {
 
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: osk.top
+
         height: units.gu(8)
 
         Binding {

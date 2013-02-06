@@ -1,3 +1,14 @@
+ubuntu-browser (0.4) quantal; urgency=low
+
+  * Add missing runtime dependencies on qtdeclarative5-qtquick2-plugin and
+    libautopilot-qt.
+  * Add some automated tests for back/forward buttons functionality.
+  * Change maintainer field to "Ubuntu Developers".
+  * Anchor the chrome and the webview to the OSK, and lock the chrome in place
+    when the OSK is visible (LP: #1115003, #1116300).
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 05 Feb 2013 18:44:35 +0100
+
 ubuntu-browser (0.3) quantal; urgency=low
 
   * Do not instantiate the chrome in chromeless mode.
