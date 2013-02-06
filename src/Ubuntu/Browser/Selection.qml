@@ -29,6 +29,12 @@ Item {
 
     signal resized()
 
+    MouseArea {
+        anchors.fill: parent
+        // dismiss the selection when tapping anywhere except for the handles
+        onClicked: __container.visible = false
+    }
+
     Item {
         id: __rect
     }
