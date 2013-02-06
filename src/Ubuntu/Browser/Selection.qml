@@ -27,6 +27,8 @@ Item {
     property real __minimumWidth: units.gu(5)
     property real __minimumHeight: units.gu(5)
 
+    signal resized()
+
     Item {
         id: __rect
     }
@@ -83,6 +85,7 @@ Item {
             if (!dragging) {
                 __rect.width = __rightHandle.x - __leftHandle.x
                 __rect.x = __leftHandle.x + __leftHandle.width / 2
+                __container.resized()
             }
         }
     }
@@ -98,6 +101,7 @@ Item {
             if (!dragging) {
                 __rect.height = __bottomHandle.y - __topHandle.y
                 __rect.y = __topHandle.y + __topHandle.height / 2
+                __container.resized()
             }
         }
     }
@@ -112,6 +116,7 @@ Item {
         onDraggingChanged: {
             if (!dragging) {
                 __rect.width = __rightHandle.x - __leftHandle.x
+                __container.resized()
             }
         }
     }
@@ -126,6 +131,7 @@ Item {
         onDraggingChanged: {
             if (!dragging) {
                 __rect.height = __bottomHandle.y - __topHandle.y
+                __container.resized()
             }
         }
     }
