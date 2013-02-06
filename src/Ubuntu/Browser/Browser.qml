@@ -110,11 +110,15 @@ FocusScope {
 
     Selection {
         id: selection
+
         anchors.fill: webview
         visible: false
 
+        property Item __popover: null
+
         function __showPopover() {
-            PopupUtils.open(Qt.resolvedUrl("SelectionPopover.qml"), selection.rect)
+            __popover = PopupUtils.open(Qt.resolvedUrl("SelectionPopover.qml"), selection.rect)
+            __popover.selection = selection
         }
 
         function show(x, y, width, height) {
@@ -126,7 +130,27 @@ FocusScope {
             __showPopover()
         }
 
+        function dismiss() {
+            visible = false
+            if (__popover != null) {
+                PopupUtils.close(__popover)
+                __popover = null
+            }
+        }
+
         onResized: __showPopover()
+
+        function share() {
+            console.log("TODO: share selection")
+        }
+
+        function save() {
+            console.log("TODO: save selection")
+        }
+
+        function copy() {
+            console.log("TODO: copy selection")
+        }
     }
 
     Scrollbar {

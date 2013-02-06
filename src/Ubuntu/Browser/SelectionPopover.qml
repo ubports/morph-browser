@@ -22,6 +22,10 @@ import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Popover {
+    id: __popover
+
+    property Item selection: null
+
     grabDismissAreaEvents: false
 
     Column {
@@ -35,17 +39,29 @@ Popover {
                 anchors.centerIn: parent
                 text: "Share"
             }
+            onClicked: {
+                __popover.selection.share()
+                __popover.selection.dismiss()
+            }
         }
         ListItem.Empty {
             Label {
                 anchors.centerIn: parent
                 text: "Save"
             }
+            onClicked: {
+                __popover.selection.save()
+                __popover.selection.dismiss()
+            }
         }
         ListItem.Empty {
             Label {
                 anchors.centerIn: parent
                 text: "Copy"
+            }
+            onClicked: {
+                __popover.selection.copy()
+                __popover.selection.dismiss()
             }
         }
     }
