@@ -53,7 +53,7 @@ Rectangle {
         Button {
             anchors.horizontalCenter: parent.horizontalCenter
             text: "Refresh page"
-            width: units.gu(16) // XXX: is there a way to make the button accommodate the width of its text?
+            width: units.gu(16)
             onClicked: refreshClicked()
         }
     }
