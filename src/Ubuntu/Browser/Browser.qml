@@ -198,7 +198,12 @@ FocusScope {
             }
         }
 
-        onResized: __showPopover()
+        onResized: {
+            // TODO: talk to the DOM to compute the block element below the
+            // selection, resize the rectangle to fit it, and update the
+            // contents of the corresponding MIME data.
+            __showPopover()
+        }
 
         function share() {
             console.log("TODO: share selection")
