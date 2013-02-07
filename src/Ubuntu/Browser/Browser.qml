@@ -64,6 +64,9 @@ FocusScope {
                         selection.mimedata.text = data.text
                     }
                     if ('images' in data) {
+                        // TODO: download and cache the images locally
+                        // (grab them from the webview’s cache, if possible),
+                        // and forward local URLs.
                         selection.mimedata.urls = data.images
                     }
                     selection.show(data.left * scale, data.top * scale,
