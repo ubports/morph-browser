@@ -59,6 +59,9 @@ FocusScope {
                     if ('html' in data) {
                         selection.mimedata.html = data.html
                     }
+                    if ('text' in data) {
+                        selection.mimedata.text = data.text
+                    }
                     selection.show(data.left * scale, data.top * scale,
                                    data.width * scale, data.height * scale)
                 }
@@ -88,6 +91,7 @@ FocusScope {
                             var data = element.getBoundingClientRect();
                             data['event'] = 'longpress';
                             data['html'] = element.outerHTML;
+                            data['text'] = element.textContent;
                             navigator.qt.postMessage(JSON.stringify(data));
                         }, 800, this.currentTouch.clientX, this.currentTouch.clientY);
                     });
