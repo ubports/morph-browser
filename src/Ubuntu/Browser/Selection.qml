@@ -43,6 +43,15 @@ Item {
         id: __outline
 
         color: "transparent"
+
+        Rectangle {
+            anchors.fill: parent
+            radius: parent.radius
+            color: parent.border.color
+            opacity: 0.1
+            z: -1
+        }
+
         border {
             width: units.dp(3)
             color: "#19B6EE"
