@@ -55,9 +55,12 @@ FocusScope {
                 delete data.event
                 if (event === 'longpress') {
                     var scale = webview.experimental.test.contentsScale * webview.experimental.test.devicePixelRatio
+                    selection.mimedata.clear()
+                    if ('html' in data) {
+                        selection.mimedata.html = data.html
+                    }
                     selection.show(data.left * scale, data.top * scale,
                                    data.width * scale, data.height * scale)
-                    console.log("Selected HTML:", data.html)
                 }
             }
         }
@@ -115,6 +118,15 @@ FocusScope {
         visible: false
 
         property Item __popover: null
+        property alias mimedata: mimedata
+
+        MimeData {
+            id: mimedata
+
+            function clear() {
+                data = null
+            }
+        }
 
         function __showPopover() {
             __popover = PopupUtils.open(Qt.resolvedUrl("SelectionPopover.qml"), selection.rect)
@@ -149,7 +161,8 @@ FocusScope {
         }
 
         function copy() {
-            console.log("TODO: copy selection")
+            console.log("pushing the following data to the clipboard:", mimedata.data)
+            Clipboard.push(mimedata)
         }
     }
 
