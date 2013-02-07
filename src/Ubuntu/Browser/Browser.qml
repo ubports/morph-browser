@@ -209,7 +209,6 @@ FocusScope {
         }
 
         function copy() {
-            console.log("pushing the following data to the clipboard:", mimedata.data)
             Clipboard.push(mimedata)
             clearData()
         }
