@@ -26,7 +26,7 @@ Description: Ubuntu web browser
  engine and using the Ubuntu UI components.
 
 Package: ubuntu-browser-autopilot
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          libautopilot-qt,
