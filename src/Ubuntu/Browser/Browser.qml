@@ -55,7 +55,8 @@ FocusScope {
                 delete data.event
                 if (event === 'longpress') {
                     var scale = webview.experimental.test.contentsScale * webview.experimental.test.devicePixelRatio
-                    selection.mimedata.clear()
+                    selection.clearData()
+                    selection.createData()
                     if ('html' in data) {
                         selection.mimedata.html = data.html
                     }
@@ -122,13 +123,18 @@ FocusScope {
         visible: false
 
         property Item __popover: null
-        property alias mimedata: mimedata
+        property var mimedata: null
 
-        MimeData {
-            id: mimedata
+        function createData() {
+            if (mimedata === null) {
+                mimedata = Clipboard.newData()
+            }
+        }
 
-            function clear() {
-                data = null
+        function clearData() {
+            if (mimedata !== null) {
+                delete mimedata
+                mimedata = null
             }
         }
 
@@ -167,6 +173,7 @@ FocusScope {
         function copy() {
             console.log("pushing the following data to the clipboard:", mimedata.data)
             Clipboard.push(mimedata)
+            clearData()
         }
     }
 
