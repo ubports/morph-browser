@@ -19,7 +19,7 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 
-Rectangle {
+Image {
     property int axis
     property real minimum
     property real maximum
@@ -30,9 +30,7 @@ Rectangle {
     width: units.gu(3)
     height: units.gu(3)
 
-    color: "#19B6EE"
-    radius: units.dp(8)
-    antialiasing: true
+    source: "assets/multi_selection_handle.png"
 
     MouseArea {
         id: __mousearea
