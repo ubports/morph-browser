@@ -229,3 +229,40 @@ class TestMainWindowHistory(BrowserTestCaseBase, TestMainWindowMixin):
         self.click_back_button()
         self.assert_home_page_eventually_loaded()
         self.assertThat(forward_button.enabled, Eventually(Equals(True)))
+
+
+class TestMainWindowErrorSheet(BrowserTestCaseBase, TestMainWindowMixin):
+
+    """Tests the error message functionality."""
+
+    def setUp(self):
+        self.url = self.make_html_page("start page", LOREMIPSUM)
+        self.ARGS = [self.url]
+        super(TestMainWindowErrorSheet, self).setUp()
+
+    def assert_page_eventually_loaded(self, url):
+        webview = self.main_window.get_web_view()
+        self.assertThat(webview.url, Eventually(Equals(url)))
+
+    def assert_home_page_eventually_loaded(self):
+        self.assert_page_eventually_loaded(self.url)
+
+    def go_to_url(self, url):
+        self.reveal_chrome()
+        address_bar = self.main_window.get_address_bar()
+        self.pointing_device.move_to_object(address_bar)
+        self.pointing_device.click()
+        clear_button = self.main_window.get_address_bar_clear_button()
+        self.pointing_device.move_to_object(clear_button)
+        self.pointing_device.click()
+        self.pointing_device.move_to_object(address_bar)
+        self.pointing_device.click()
+        self.keyboard.type(url, delay=TYPING_DELAY)
+        self.keyboard.press("Enter")
+
+    def test_invalid_url_triggers_error_message(self):
+        self.assert_home_page_eventually_loaded()
+        error = self.main_window.get_error_sheet()
+        self.assertThat(error.visible, Equals(False))
+        self.go_to_url("http://invalid")
+        self.assertThat(error.visible, Eventually(Equals(True)))
