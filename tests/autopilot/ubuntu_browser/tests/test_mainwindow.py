@@ -59,6 +59,23 @@ class TestMainWindowMixin(object):
         self.assertThat(lambda: chrome.globalRect[1],
                         Eventually(Equals(view.y + view.height)))
 
+    def go_to_url(self, url):
+        self.reveal_chrome()
+        address_bar = self.main_window.get_address_bar()
+        self.pointing_device.move_to_object(address_bar)
+        self.pointing_device.click()
+        clear_button = self.main_window.get_address_bar_clear_button()
+        self.pointing_device.move_to_object(clear_button)
+        self.pointing_device.click()
+        self.pointing_device.move_to_object(address_bar)
+        self.pointing_device.click()
+        self.keyboard.type(url, delay=TYPING_DELAY)
+        self.keyboard.press("Enter")
+
+    def assert_page_eventually_loaded(self, url):
+        webview = self.main_window.get_web_view()
+        self.assertThat(webview.url, Eventually(Equals(url)))
+
 
 class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
 
@@ -169,35 +186,25 @@ class TestMainWindowChromeless(BrowserTestCaseBase):
         self.assertThat(self.main_window.get_chrome(), Equals(None))
 
 
-class TestMainWindowHistory(BrowserTestCaseBase, TestMainWindowMixin):
+class TestMainWindowStartOpenLocalPageBase(BrowserTestCaseBase):
 
-    """Tests the back and forward functionality."""
+    """Helper test class that opens the browser at a local URL instead of
+    defaulting to the homepage."""
 
     def setUp(self):
         self.url = self.make_html_page("start page", LOREMIPSUM)
         self.ARGS = [self.url]
-        super(TestMainWindowHistory, self).setUp()
-
-    def assert_page_eventually_loaded(self, url):
-        webview = self.main_window.get_web_view()
-        self.assertThat(webview.url, Eventually(Equals(url)))
+        super(TestMainWindowStartOpenLocalPageBase, self).setUp()
+        self.assert_home_page_eventually_loaded()
 
     def assert_home_page_eventually_loaded(self):
         self.assert_page_eventually_loaded(self.url)
 
-    def go_to_url(self, url):
-        self.reveal_chrome()
-        address_bar = self.main_window.get_address_bar()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
-        clear_button = self.main_window.get_address_bar_clear_button()
-        self.pointing_device.move_to_object(clear_button)
-        self.pointing_device.click()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
-        self.keyboard.type(url, delay=TYPING_DELAY)
-        self.keyboard.press("Enter")
-        self.assert_page_eventually_loaded(url)
+
+class TestMainWindowHistory(TestMainWindowStartOpenLocalPageBase,
+                            TestMainWindowMixin):
+
+    """Tests the back and forward functionality."""
 
     def click_back_button(self):
         self.reveal_chrome()
@@ -206,26 +213,37 @@ class TestMainWindowHistory(BrowserTestCaseBase, TestMainWindowMixin):
         self.pointing_device.click()
 
     def test_homepage_no_history(self):
-        self.assert_home_page_eventually_loaded()
         back_button = self.main_window.get_back_button()
         self.assertThat(back_button.enabled, Equals(False))
         forward_button = self.main_window.get_forward_button()
         self.assertThat(forward_button.enabled, Equals(False))
 
     def test_opening_new_page_enables_back_button(self):
-        self.assert_home_page_eventually_loaded()
         back_button = self.main_window.get_back_button()
         self.assertThat(back_button.enabled, Equals(False))
         url = self.make_html_page("page 2", LOREMIPSUM)
         self.go_to_url(url)
+        self.assert_page_eventually_loaded(url)
         self.assertThat(back_button.enabled, Eventually(Equals(True)))
 
     def test_navigating_back_enables_forward_button(self):
-        self.assert_home_page_eventually_loaded()
         url = self.make_html_page("page 2", LOREMIPSUM)
         self.go_to_url(url)
+        self.assert_page_eventually_loaded(url)
         forward_button = self.main_window.get_forward_button()
         self.assertThat(forward_button.enabled, Equals(False))
         self.click_back_button()
         self.assert_home_page_eventually_loaded()
         self.assertThat(forward_button.enabled, Eventually(Equals(True)))
+
+
+class TestMainWindowErrorSheet(TestMainWindowStartOpenLocalPageBase,
+                               TestMainWindowMixin):
+
+    """Tests the error message functionality."""
+
+    def test_invalid_url_triggers_error_message(self):
+        error = self.main_window.get_error_sheet()
+        self.assertThat(error.visible, Equals(False))
+        self.go_to_url("http://invalid")
+        self.assertThat(error.visible, Eventually(Equals(True)))
