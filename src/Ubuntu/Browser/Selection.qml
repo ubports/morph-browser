@@ -45,7 +45,7 @@ Item {
         color: "transparent"
         border {
             width: units.dp(3)
-            color: "#13B1EC"
+            color: "#19B6EE"
         }
         radius: units.dp(3)
         antialiasing: true
