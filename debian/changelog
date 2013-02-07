@@ -1,3 +1,12 @@
+ubuntu-browser (0.5) quantal; urgency=low
+
+  * Fix some license headers that incorrectly referred to LGPLv3 instead of
+    GPLv3.
+  * Various minor packaging fixes to comply with standard Ubuntu packaging
+    guidelines.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 07 Feb 2013 11:08:36 +0100
+
 ubuntu-browser (0.4) quantal; urgency=low
 
   * Add missing runtime dependencies on qtdeclarative5-qtquick2-plugin and

@@ -2,7 +2,7 @@ Source: ubuntu-browser
 Section: x11
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
-Build-Depends: debhelper (>= 8.0.0),
+Build-Depends: debhelper (>= 9.0),
                cmake (>= 2.8.9),
                qt5-default,
                qt5-qmake,
@@ -26,11 +26,10 @@ Description: Ubuntu web browser
  engine and using the Ubuntu UI components.
 
 Package: ubuntu-browser-autopilot
-Architecture: any
-Depends: ${shlibs:Depends},
-         ${misc:Depends},
+Architecture: all
+Depends: ${misc:Depends},
          libautopilot-qt,
-         ubuntu-browser (= ${binary:Version}),
+         ubuntu-browser (= ${source:Version}),
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains autopilot

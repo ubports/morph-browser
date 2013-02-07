@@ -88,6 +88,7 @@ FocusScope {
         }
 
         onLoadingChanged: {
+            error.visible = (loadRequest.status === WebView.LoadFailedStatus)
             if (loadRequest.status === WebView.LoadSucceededStatus) {
                 var query = (function() {
                     var doc = document.documentElement;
@@ -220,6 +221,14 @@ FocusScope {
             Clipboard.push(mimedata)
             clearData()
         }
+    }
+
+    ErrorSheet {
+        id: error
+        anchors.fill: webview
+        visible: false
+        url: webview.url
+        onRefreshClicked: webview.reload()
     }
 
     Scrollbar {

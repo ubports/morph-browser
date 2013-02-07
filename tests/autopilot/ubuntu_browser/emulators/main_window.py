@@ -39,3 +39,6 @@ class MainWindow(object):
 
     def get_web_view(self):
         return self.app.select_single("QQuickWebViewExperimentalExtension")
+
+    def get_error_sheet(self):
+        return self.app.select_single("ErrorSheet")
