@@ -50,8 +50,15 @@ FocusScope {
         experimental.userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
 
         experimental.preferences.navigatorQtObjectEnabled: true
+        experimental.userScripts: [Qt.resolvedUrl("selection.js")]
         experimental.onMessageReceived: {
-            var data = JSON.parse(message.data)
+            var data = null
+            try {
+                data = JSON.parse(message.data)
+            } catch (error) {
+                console.debug('DEBUG:', message.data)
+                return
+            }
             if ('event' in data) {
                 var event = data.event
                 delete data.event
@@ -90,73 +97,6 @@ FocusScope {
 
         onLoadingChanged: {
             error.visible = (loadRequest.status === WebView.LoadFailedStatus)
-            if (loadRequest.status === WebView.LoadSucceededStatus) {
-                var query = (function() {
-                    var doc = document.documentElement;
-                    function getImgFullUri(uri) {
-                        if ((uri.slice(0, 7) === 'http://') ||
-                            (uri.slice(0, 8) === 'https://') ||
-                            (uri.slice(0, 7) === 'file://')) {
-                            return uri;
-                        } else if (uri.slice(0, 1) === '/') {
-                            var docuri = document.documentURI;
-                            var firstcolon = docuri.indexOf('://');
-                            var protocol = 'http://';
-                            if (firstcolon !== -1) {
-                                protocol = docuri.slice(0, firstcolon + 3);
-                            }
-                            return protocol + document.domain + uri;
-                        } else {
-                            var base = document.baseURI;
-                            var lastslash = base.lastIndexOf('/');
-                            if (lastslash === -1) {
-                                return base + '/' + uri;
-                            } else {
-                                return base.slice(0, lastslash + 1) + uri;
-                            }
-                        }
-                    }
-                    function longPressDetected(x, y) {
-                        var element = document.elementFromPoint(x, y);
-                        var data = element.getBoundingClientRect();
-                        data['event'] = 'longpress';
-                        data['html'] = element.outerHTML;
-                        data['text'] = element.textContent;
-                        var images = [];
-                        if (element.tagName.toLowerCase() === 'img') {
-                            images.push(getImgFullUri(element.getAttribute('src')));
-                        } else {
-                            var imgs = element.getElementsByTagName('img');
-                            for (var i = 0; i < imgs.length; i++) {
-                                images.push(getImgFullUri(img.getAttribute('src')));
-                            }
-                        }
-                        if (images.length > 0) {
-                            data['images'] = images;
-                        }
-                        navigator.qt.postMessage(JSON.stringify(data));
-                    }
-                    doc.addEventListener('touchstart', function(event) {
-                        this.currentTouch = event.touches[0];
-                        this.longpressObserver = setTimeout(longPressDetected, 800, this.currentTouch.clientX, this.currentTouch.clientY);
-                    });
-                    doc.addEventListener('touchend', function(event) {
-                        clearTimeout(this.longpressObserver);
-                        delete this.longpressObserver;
-                        delete this.currentTouch;
-                    });
-                    doc.addEventListener('touchmove', function(event) {
-                          var touch = event.changedTouches[0];
-                          var distance = Math.sqrt(Math.pow(touch.clientX - this.currentTouch.clientX, 2) + Math.pow(touch.clientY - this.currentTouch.clientY, 2));
-                          if (distance > 3) {
-                              clearTimeout(this.longpressObserver);
-                              delete this.longpressObserver;
-                              delete this.currentTouch;
-                          }
-                    });
-                })
-                webview.experimental.evaluateJavaScript('(' + query.toString() + ')()')
-            }
         }
     }
 
