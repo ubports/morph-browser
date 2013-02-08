@@ -77,6 +77,11 @@ function adjustSelection(selection) {
     return getSelectedData(element);
 }
 
+function distance(touch1, touch2) {
+    return Math.sqrt(Math.pow(touch2.clientX - touch1.clientX, 2) +
+                     Math.pow(touch2.clientY - touch1.clientY, 2));
+}
+
 navigator.qt.onmessage = function(message) {
     var data = null;
     try {
@@ -118,9 +123,7 @@ doc.addEventListener('touchend', function(event) {
 });
 
 doc.addEventListener('touchmove', function(event) {
-      var touch = event.changedTouches[0];
-      var distance = Math.sqrt(Math.pow(touch.clientX - this.currentTouch.clientX, 2) + Math.pow(touch.clientY - this.currentTouch.clientY, 2));
-      if (distance > 3) {
+      if (distance(event.changedTouches[0], this.currentTouch) > 3) {
           clearLongpressTimeout();
       }
 });
