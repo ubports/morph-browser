@@ -22,7 +22,7 @@ import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Popover {
-    id: __popover
+    id: popover
 
     property Item selection: null
 
@@ -40,8 +40,8 @@ Popover {
                 text: "Share"
             }
             onClicked: {
-                __popover.selection.share()
-                __popover.selection.dismiss()
+                popover.selection.share()
+                popover.selection.dismiss()
             }
         }
         ListItem.Empty {
@@ -50,8 +50,8 @@ Popover {
                 text: "Save"
             }
             onClicked: {
-                __popover.selection.save()
-                __popover.selection.dismiss()
+                popover.selection.save()
+                popover.selection.dismiss()
             }
         }
         ListItem.Empty {
@@ -60,8 +60,8 @@ Popover {
                 text: "Copy"
             }
             onClicked: {
-                __popover.selection.copy()
-                __popover.selection.dismiss()
+                popover.selection.copy()
+                popover.selection.dismiss()
             }
         }
     }
