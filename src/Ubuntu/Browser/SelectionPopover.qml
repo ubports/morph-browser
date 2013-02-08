@@ -43,7 +43,6 @@ Popover {
                 __popover.selection.share()
                 __popover.selection.dismiss()
             }
-            enabled: false // not implemented yet
         }
         ListItem.Empty {
             Label {
@@ -54,7 +53,6 @@ Popover {
                 __popover.selection.save()
                 __popover.selection.dismiss()
             }
-            enabled: false // not implemented yet
         }
         ListItem.Empty {
             Label {
