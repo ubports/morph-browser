@@ -43,6 +43,7 @@ FocusScope {
         }
 
         focus: true
+        interactive: !selection.visible
 
         property real scale: experimental.test.contentsScale * experimental.test.devicePixelRatio
 
