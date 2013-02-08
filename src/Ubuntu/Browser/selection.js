@@ -56,7 +56,7 @@ function getSelectedData(element) {
     } else {
         var imgs = element.getElementsByTagName('img');
         for (var i = 0; i < imgs.length; i++) {
-            images.push(getImgFullUri(img.getAttribute('src')));
+            images.push(getImgFullUri(imgs[i].getAttribute('src')));
         }
     }
     if (images.length > 0) {
