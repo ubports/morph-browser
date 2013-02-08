@@ -109,17 +109,20 @@ function longPressDetected(x, y) {
     navigator.qt.postMessage(JSON.stringify(data));
 }
 
+var longpressObserver = -1;
+var currentTouch = null;
+
 function clearLongpressTimeout() {
-    clearTimeout(this.longpressObserver);
-    delete this.longpressObserver;
-    delete this.currentTouch;
+    clearTimeout(longpressObserver);
+    longpressObserver = -1;
+    currentTouch = null;
 }
 
 var doc = document.documentElement;
 
 doc.addEventListener('touchstart', function(event) {
-    this.currentTouch = event.touches[0];
-    this.longpressObserver = setTimeout(longPressDetected, 800, this.currentTouch.clientX, this.currentTouch.clientY);
+    currentTouch = event.touches[0];
+    longpressObserver = setTimeout(longPressDetected, 800, currentTouch.clientX, currentTouch.clientY);
 });
 
 doc.addEventListener('touchend', function(event) {
@@ -127,7 +130,7 @@ doc.addEventListener('touchend', function(event) {
 });
 
 doc.addEventListener('touchmove', function(event) {
-      if (distance(event.changedTouches[0], this.currentTouch) > 3) {
+      if (distance(event.changedTouches[0], currentTouch) > 3) {
           clearLongpressTimeout();
       }
 });
