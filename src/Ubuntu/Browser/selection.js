@@ -49,6 +49,8 @@ function getImgFullUri(uri) {
 function getSelectedData(element) {
     var data = element.getBoundingClientRect();
     data.html = element.outerHTML;
+    // FIXME: extract the text and images in the order they appear in the block,
+    // so that this order is respected when the data is pushed to the clipboard.
     data.text = element.textContent;
     var images = [];
     if (element.tagName.toLowerCase() === 'img') {
@@ -66,6 +68,8 @@ function getSelectedData(element) {
 }
 
 function adjustSelection(selection) {
+    // FIXME: allow selecting two consecutive blocks, instead of
+    // interpolating to the containing block.
     var centerX = (selection.left + selection.right) / 2;
     var centerY = (selection.top + selection.bottom) / 2;
     var element = document.elementFromPoint(centerX, centerY);
