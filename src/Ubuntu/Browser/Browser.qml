@@ -20,6 +20,7 @@ import QtQuick 2.0
 import QtWebKit 3.0
 import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Popups 0.1
 
 FocusScope {
     id: browser
@@ -42,12 +43,43 @@ FocusScope {
         }
 
         focus: true
+        interactive: !selection.visible
+
+        property real scale: experimental.test.contentsScale * experimental.test.devicePixelRatio
 
         // iOS 5.0’s iPhone user agent
         experimental.userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
 
-        onLoadingChanged: {
-            error.visible = (loadRequest.status === WebView.LoadFailedStatus)
+        experimental.preferences.navigatorQtObjectEnabled: true
+        experimental.userScripts: [Qt.resolvedUrl("selection.js")]
+        experimental.onMessageReceived: {
+            var data = null
+            try {
+                data = JSON.parse(message.data)
+            } catch (error) {
+                console.debug('DEBUG:', message.data)
+                return
+            }
+            if ('event' in data) {
+                if (data.event === 'longpress') {
+                    selection.clearData()
+                    selection.createData()
+                    if ('html' in data) {
+                        selection.mimedata.html = data.html
+                    }
+                    if ('text' in data) {
+                        selection.mimedata.text = data.text
+                    }
+                    if ('images' in data) {
+                        // TODO: download and cache the images locally
+                        // (grab them from the webview’s cache, if possible),
+                        // and forward local URLs.
+                        selection.mimedata.urls = data.images
+                    }
+                    selection.show(data.left * scale, data.top * scale,
+                                   data.width * scale, data.height * scale)
+                }
+            }
         }
 
         onUrlChanged: {
@@ -60,6 +92,75 @@ FocusScope {
             if (activeFocus) {
                 revealingBar.hide()
             }
+        }
+
+        onLoadingChanged: {
+            error.visible = (loadRequest.status === WebView.LoadFailedStatus)
+        }
+    }
+
+    Selection {
+        id: selection
+
+        anchors.fill: webview
+        visible: false
+
+        property Item __popover: null
+        property var mimedata: null
+
+        function createData() {
+            if (mimedata === null) {
+                mimedata = Clipboard.newData()
+            }
+        }
+
+        function clearData() {
+            if (mimedata !== null) {
+                delete mimedata
+                mimedata = null
+            }
+        }
+
+        function __showPopover() {
+            __popover = PopupUtils.open(Qt.resolvedUrl("SelectionPopover.qml"), selection.rect)
+            __popover.selection = selection
+        }
+
+        function show(x, y, width, height) {
+            rect.x = x
+            rect.y = y
+            rect.width = width
+            rect.height = height
+            visible = true
+            __showPopover()
+        }
+
+        function dismiss() {
+            visible = false
+            if (__popover != null) {
+                PopupUtils.close(__popover)
+                __popover = null
+            }
+        }
+
+        onResized: {
+            // TODO: talk to the DOM to compute the block element below the
+            // selection, resize the rectangle to fit it, and update the
+            // contents of the corresponding MIME data.
+            __showPopover()
+        }
+
+        function share() {
+            console.log("TODO: share selection")
+        }
+
+        function save() {
+            console.log("TODO: save selection")
+        }
+
+        function copy() {
+            Clipboard.push(mimedata)
+            clearData()
         }
     }
 
