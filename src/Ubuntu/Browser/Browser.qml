@@ -67,6 +67,8 @@ FocusScope {
                     if ('html' in data) {
                         selection.mimedata.html = data.html
                     }
+                    // FIXME: push the text and image data in the order
+                    // they appear in the selected block.
                     if ('text' in data) {
                         selection.mimedata.text = data.text
                     }
