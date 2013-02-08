@@ -60,9 +60,7 @@ FocusScope {
                 return
             }
             if ('event' in data) {
-                var event = data.event
-                delete data.event
-                if (event === 'longpress') {
+                if (data.event === 'longpress') {
                     selection.clearData()
                     selection.createData()
                     if ('html' in data) {
