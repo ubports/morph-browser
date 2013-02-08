@@ -16,6 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+function elementContainedInBox(element, box) {
+    var rect = element.getBoundingClientRect();
+    return ((box.left <= rect.left) && (box.right >= rect.right) &&
+            (box.top <= rect.top) && (box.bottom >= rect.bottom));
+}
+
 function getImgFullUri(uri) {
     if ((uri.slice(0, 7) === 'http://') ||
         (uri.slice(0, 8) === 'https://') ||
@@ -59,6 +65,18 @@ function getSelectedData(element) {
     return data;
 }
 
+function adjustSelection(selection) {
+    var centerX = (selection.left + selection.right) / 2;
+    var centerY = (selection.top + selection.bottom) / 2;
+    var element = document.elementFromPoint(centerX, centerY);
+    var parent = element;
+    while (elementContainedInBox(parent, selection)) {
+        parent = parent.parentNode;
+    }
+    element = parent;
+    return getSelectedData(element);
+}
+
 navigator.qt.onmessage = function(message) {
     var data = null;
     try {
@@ -67,7 +85,11 @@ navigator.qt.onmessage = function(message) {
         return;
     }
     if ('query' in data) {
-        // TODO: handle query
+        if (data.query === 'adjustselection') {
+            var selection = adjustSelection(data);
+            selection.event = 'selectionadjusted';
+            navigator.qt.postMessage(JSON.stringify(selection));
+        }
     }
 }
 

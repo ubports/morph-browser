@@ -61,7 +61,7 @@ FocusScope {
                 return
             }
             if ('event' in data) {
-                if (data.event === 'longpress') {
+                if ((data.event === 'longpress') || (data.event === 'selectionadjusted')) {
                     selection.clearData()
                     selection.createData()
                     if ('html' in data) {
@@ -144,9 +144,15 @@ FocusScope {
         }
 
         onResized: {
-            // TODO: talk to the DOM to compute the block element below the
-            // selection, resize the rectangle to fit it, and update the
-            // contents of the corresponding MIME data.
+            var message = new Object
+            message.query = 'adjustselection'
+            var rect = selection.rect
+            var scale = webview.scale
+            message.left = rect.x / scale
+            message.right = (rect.x + rect.width) / scale
+            message.top = rect.y / scale
+            message.bottom = (rect.y + rect.height) / scale
+            webview.experimental.postMessage(JSON.stringify(message))
             __showPopover()
         }
 
