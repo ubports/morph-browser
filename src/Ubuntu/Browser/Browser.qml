@@ -116,28 +116,29 @@ FocusScope {
                             }
                         }
                     }
+                    function longPressDetected(x, y) {
+                        var element = document.elementFromPoint(x, y);
+                        var data = element.getBoundingClientRect();
+                        data['event'] = 'longpress';
+                        data['html'] = element.outerHTML;
+                        data['text'] = element.textContent;
+                        var images = [];
+                        if (element.tagName.toLowerCase() === 'img') {
+                            images.push(getImgFullUri(element.getAttribute('src')));
+                        } else {
+                            var imgs = element.getElementsByTagName('img');
+                            for (var i = 0; i < imgs.length; i++) {
+                                images.push(getImgFullUri(img.getAttribute('src')));
+                            }
+                        }
+                        if (images.length > 0) {
+                            data['images'] = images;
+                        }
+                        navigator.qt.postMessage(JSON.stringify(data));
+                    }
                     doc.addEventListener('touchstart', function(event) {
                         this.currentTouch = event.touches[0];
-                        this.longpressObserver = setTimeout(function(x, y) {
-                            var element = document.elementFromPoint(x, y);
-                            var data = element.getBoundingClientRect();
-                            data['event'] = 'longpress';
-                            data['html'] = element.outerHTML;
-                            data['text'] = element.textContent;
-                            var images = [];
-                            if (element.tagName.toLowerCase() === 'img') {
-                                images.push(getImgFullUri(element.getAttribute('src')));
-                            } else {
-                                var imgs = element.getElementsByTagName('img');
-                                for (var i = 0; i < imgs.length; i++) {
-                                    images.push(getImgFullUri(img.getAttribute('src')));
-                                }
-                            }
-                            if (images.length > 0) {
-                                data['images'] = images;
-                            }
-                            navigator.qt.postMessage(JSON.stringify(data));
-                        }, 800, this.currentTouch.clientX, this.currentTouch.clientY);
+                        this.longpressObserver = setTimeout(longPressDetected, 800, this.currentTouch.clientX, this.currentTouch.clientY);
                     });
                     doc.addEventListener('touchend', function(event) {
                         clearTimeout(this.longpressObserver);
