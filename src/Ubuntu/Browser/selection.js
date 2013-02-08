@@ -40,12 +40,10 @@ function getImgFullUri(uri) {
     }
 }
 
-function longPressDetected(x, y) {
-    var element = document.elementFromPoint(x, y);
+function getSelectedData(element) {
     var data = element.getBoundingClientRect();
-    data['event'] = 'longpress';
-    data['html'] = element.outerHTML;
-    data['text'] = element.textContent;
+    data.html = element.outerHTML;
+    data.text = element.textContent;
     var images = [];
     if (element.tagName.toLowerCase() === 'img') {
         images.push(getImgFullUri(element.getAttribute('src')));
@@ -56,8 +54,27 @@ function longPressDetected(x, y) {
         }
     }
     if (images.length > 0) {
-        data['images'] = images;
+        data.images = images;
     }
+    return data;
+}
+
+navigator.qt.onmessage = function(message) {
+    var data = null;
+    try {
+        data = JSON.parse(message.data);
+    } catch (error) {
+        return;
+    }
+    if ('query' in data) {
+        // TODO: handle query
+    }
+}
+
+function longPressDetected(x, y) {
+    var element = document.elementFromPoint(x, y);
+    var data = getSelectedData(element);
+    data.event = 'longpress';
     navigator.qt.postMessage(JSON.stringify(data));
 }
 
