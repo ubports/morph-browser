@@ -93,6 +93,29 @@ FocusScope {
             if (loadRequest.status === WebView.LoadSucceededStatus) {
                 var query = (function() {
                     var doc = document.documentElement;
+                    function getImgFullUri(uri) {
+                        if ((uri.slice(0, 7) === 'http://') ||
+                            (uri.slice(0, 8) === 'https://') ||
+                            (uri.slice(0, 7) === 'file://')) {
+                            return uri;
+                        } else if (uri.slice(0, 1) === '/') {
+                            var docuri = document.documentURI;
+                            var firstcolon = docuri.indexOf('://');
+                            var protocol = 'http://';
+                            if (firstcolon !== -1) {
+                                protocol = docuri.slice(0, firstcolon + 3);
+                            }
+                            return protocol + document.domain + uri;
+                        } else {
+                            var base = document.baseURI;
+                            var lastslash = base.lastIndexOf('/');
+                            if (lastslash === -1) {
+                                return base + '/' + uri;
+                            } else {
+                                return base.slice(0, lastslash + 1) + uri;
+                            }
+                        }
+                    }
                     doc.addEventListener('touchstart', function(event) {
                         this.currentTouch = event.touches[0];
                         this.longpressObserver = setTimeout(function(x, y) {
@@ -102,29 +125,6 @@ FocusScope {
                             data['html'] = element.outerHTML;
                             data['text'] = element.textContent;
                             var images = [];
-                            function getImgFullUri(uri) {
-                                if ((uri.slice(0, 7) === 'http://') ||
-                                    (uri.slice(0, 8) === 'https://') ||
-                                    (uri.slice(0, 7) === 'file://')) {
-                                    return uri;
-                                } else if (uri.slice(0, 1) === '/') {
-                                    var docuri = document.documentURI;
-                                    var firstcolon = docuri.indexOf('://');
-                                    var protocol = 'http://';
-                                    if (firstcolon !== -1) {
-                                        protocol = docuri.slice(0, firstcolon + 3);
-                                    }
-                                    return protocol + document.domain + uri;
-                                } else {
-                                    var base = document.baseURI;
-                                    var lastslash = base.lastIndexOf('/');
-                                    if (lastslash === -1) {
-                                        return base + '/' + uri;
-                                    } else {
-                                        return base.slice(0, lastslash + 1) + uri;
-                                    }
-                                }
-                            }
                             if (element.tagName.toLowerCase() === 'img') {
                                 images.push(getImgFullUri(element.getAttribute('src')));
                             } else {
