@@ -72,6 +72,24 @@ TestCase {
         verify(addressBar.url.indexOf("q=lorem+ipsum+dolor+sit+amet") > 0)
     }
 
+    function test_search_escape_html_entities() {
+        addressBar.url = "tom & jerry"
+        addressBar.validate()
+        verify(addressBar.url.indexOf("q=tom+%26+jerry") > 0)
+        addressBar.url = "a+ rating"
+        addressBar.validate()
+        verify(addressBar.url.indexOf("q=a%2b+rating") > 0)
+        addressBar.url = "\"kung fu\""
+        addressBar.validate()
+        verify(addressBar.url.indexOf("q=%22kung+fu%22") > 0)
+        addressBar.url = "surfin' usa"
+        addressBar.validate()
+        verify(addressBar.url.indexOf("q=surfin%27+usa") > 0)
+        addressBar.url = "to be or not to be?"
+        addressBar.validate()
+        verify(addressBar.url.indexOf("q=to+be+or+not+to+be%3f") > 0)
+    }
+
     AddressBar {
         id: addressBar
     }

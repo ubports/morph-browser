@@ -44,10 +44,18 @@ Item {
         onAccepted: parent.validate()
     }
 
+    function escapeHtmlEntities(query) {
+        function getEscapeCode(entity) {
+            return "%%1".arg(entity.charCodeAt(0).toString(16))
+        }
+        return query.replace(/\W/, getEscapeCode)
+    }
+
     function validate() {
         var address = textField.text.trim()
         var terms = address.split(/\s/)
         if (terms.length > 1) {
+            terms = terms.map(escapeHtmlEntities)
             var searchString = terms.join("+")
             address = __searchUrl.arg(searchString)
         } else if (!address.match(/^http:\/\//) &&
