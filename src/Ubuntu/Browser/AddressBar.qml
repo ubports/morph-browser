@@ -58,6 +58,8 @@ Item {
             terms = terms.map(escapeHtmlEntities)
             var searchString = terms.join("+")
             address = __searchUrl.arg(searchString)
+        } else if (address.indexOf("://") == -1 && address.indexOf(".") == -1) {
+            address = __searchUrl.arg(escapeHtmlEntities(address))
         } else if (!address.match(/^http:\/\//) &&
             !address.match(/^https:\/\//) &&
             !address.match(/^file:\/\//) &&

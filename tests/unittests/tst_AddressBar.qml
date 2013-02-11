@@ -72,6 +72,13 @@ TestCase {
         verify(addressBar.url.indexOf("q=lorem+ipsum+dolor+sit+amet") > 0)
     }
 
+    function test_search_url_single_word() {
+        addressBar.url = "ubuntu"
+        addressBar.validate()
+        compare(addressBar.url.indexOf("http://google.com"), 0)
+        verify(addressBar.url.indexOf("q=ubuntu") > 0)
+    }
+
     function test_search_escape_html_entities() {
         addressBar.url = "tom & jerry"
         addressBar.validate()
