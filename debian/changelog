@@ -1,3 +1,11 @@
+ubuntu-browser (0.7) quantal; urgency=low
+
+  * Cleverer address bar that tries to recognize search intents,
+    and rewrites the URL as a google search.
+  * Set the user-agent string based on screen width (LP: #1115317).
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 11 Feb 2013 22:48:52 +0100
+
 ubuntu-browser (0.6) quantal; urgency=low
 
   * Gracefully handle network errors by displaying an informative message.
