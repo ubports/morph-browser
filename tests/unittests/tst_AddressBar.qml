@@ -27,43 +27,77 @@ TestCase {
         addressBar.url = "file:///usr/share/doc/ubuntu-online-tour/index.html"
         addressBar.validate()
         compare(addressBar.url, "file:///usr/share/doc/ubuntu-online-tour/index.html")
-        compare(signalSpy.count, 1)
     }
 
     function test_http_no_rewrite() {
         addressBar.url = "http://ubuntu.com"
         addressBar.validate()
         compare(addressBar.url, "http://ubuntu.com")
-        compare(signalSpy.count, 2)
     }
 
     function test_https_no_rewrite() {
         addressBar.url = "https://google.com"
         addressBar.validate()
         compare(addressBar.url, "https://google.com")
-        compare(signalSpy.count, 3)
     }
 
     function test_no_scheme_rewrite() {
         addressBar.url = "ubuntu.com"
         addressBar.validate()
         compare(addressBar.url, "http://ubuntu.com")
-        compare(signalSpy.count, 4)
     }
 
     function test_unhandled_scheme_no_rewrite() {
         addressBar.url = "ftp://ubuntu.com"
         addressBar.validate()
         compare(addressBar.url, "ftp://ubuntu.com")
-        compare(signalSpy.count, 5)
+    }
+
+    function test_trim_whitespaces() {
+        addressBar.url = "   http://ubuntu.com"
+        addressBar.validate()
+        compare(addressBar.url, "http://ubuntu.com")
+        addressBar.url = "http://ubuntu.com  "
+        addressBar.validate()
+        compare(addressBar.url, "http://ubuntu.com")
+        addressBar.url = "  http://ubuntu.com   "
+        addressBar.validate()
+        compare(addressBar.url, "http://ubuntu.com")
+    }
+
+    function test_search_url() {
+        addressBar.url = "lorem ipsum dolor sit amet"
+        addressBar.validate()
+        compare(addressBar.url.indexOf("http://google.com"), 0)
+        verify(addressBar.url.indexOf("q=lorem+ipsum+dolor+sit+amet") > 0)
+    }
+
+    function test_search_url_single_word() {
+        addressBar.url = "ubuntu"
+        addressBar.validate()
+        compare(addressBar.url.indexOf("http://google.com"), 0)
+        verify(addressBar.url.indexOf("q=ubuntu") > 0)
+    }
+
+    function test_search_escape_html_entities() {
+        addressBar.url = "tom & jerry"
+        addressBar.validate()
+        verify(addressBar.url.indexOf("q=tom+%26+jerry") > 0)
+        addressBar.url = "a+ rating"
+        addressBar.validate()
+        verify(addressBar.url.indexOf("q=a%2b+rating") > 0)
+        addressBar.url = "\"kung fu\""
+        addressBar.validate()
+        verify(addressBar.url.indexOf("q=%22kung+fu%22") > 0)
+        addressBar.url = "surfin' usa"
+        addressBar.validate()
+        verify(addressBar.url.indexOf("q=surfin%27+usa") > 0)
+        addressBar.url = "to be or not to be?"
+        addressBar.validate()
+        verify(addressBar.url.indexOf("q=to+be+or+not+to+be%3f") > 0)
     }
 
     AddressBar {
         id: addressBar
-        SignalSpy {
-            id: signalSpy
-            target: parent
-            signalName: "validated"
-        }
     }
 }
