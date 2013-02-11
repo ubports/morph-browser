@@ -43,7 +43,7 @@ Item {
     }
 
     function validate() {
-        var address = textField.text
+        var address = textField.text.trim()
         if (!address.match(/^http:\/\//) &&
             !address.match(/^https:\/\//) &&
             !address.match(/^file:\/\//) &&

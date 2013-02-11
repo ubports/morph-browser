@@ -53,6 +53,18 @@ TestCase {
         compare(addressBar.url, "ftp://ubuntu.com")
     }
 
+    function test_trim_whitespaces() {
+        addressBar.url = "   http://ubuntu.com"
+        addressBar.validate()
+        compare(addressBar.url, "http://ubuntu.com")
+        addressBar.url = "http://ubuntu.com  "
+        addressBar.validate()
+        compare(addressBar.url, "http://ubuntu.com")
+        addressBar.url = "  http://ubuntu.com   "
+        addressBar.validate()
+        compare(addressBar.url, "http://ubuntu.com")
+    }
+
     AddressBar {
         id: addressBar
     }
