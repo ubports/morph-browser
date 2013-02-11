@@ -23,6 +23,8 @@ Item {
     property string url
     signal validated()
 
+    readonly property string __searchUrl: "http://google.com/search?client=ubuntu&q=%1&ie=utf-8&oe=utf-8"
+
     TextField {
         id: textField
 
@@ -44,7 +46,11 @@ Item {
 
     function validate() {
         var address = textField.text.trim()
-        if (!address.match(/^http:\/\//) &&
+        var terms = address.split(/\s/)
+        if (terms.length > 1) {
+            var searchString = terms.join("+")
+            address = __searchUrl.arg(searchString)
+        } else if (!address.match(/^http:\/\//) &&
             !address.match(/^https:\/\//) &&
             !address.match(/^file:\/\//) &&
             !address.match(/^[a-z]+:\/\//)) {

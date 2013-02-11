@@ -65,6 +65,13 @@ TestCase {
         compare(addressBar.url, "http://ubuntu.com")
     }
 
+    function test_search_url() {
+        addressBar.url = "lorem ipsum dolor sit amet"
+        addressBar.validate()
+        compare(addressBar.url.indexOf("http://google.com"), 0)
+        verify(addressBar.url.indexOf("q=lorem+ipsum+dolor+sit+amet") > 0)
+    }
+
     AddressBar {
         id: addressBar
     }
