@@ -35,16 +35,9 @@ FocusScope {
 
     focus: true
 
-    onDesktopFileHintChanged: {
-        if (desktopFileHint == "<not set>") {
-            hud.applicationIdentifier = "ubuntu-browser" // this must match the .desktop file!
-        } else {
-            hud.applicationIdentifier = desktopFileHint
-        }
-    }
-
     HUD.HUD {
         id: hud
+        applicationIdentifier: (browser.desktopFileHint == "<not set>") ? "ubuntu-browser" : browser.desktopFileHint
         HUD.Context {
             toolbar.quitAction.onTriggered: Qt.quit()
         }
