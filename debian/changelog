@@ -1,3 +1,10 @@
+ubuntu-browser (0.8) quantal; urgency=low
+
+  * Naïve implementation of selection resizing.
+  * Hook up with HUD Toolbar Quit action.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 12 Feb 2013 20:25:20 +0100
+
 ubuntu-browser (0.7) quantal; urgency=low
 
   * Cleverer address bar that tries to recognize search intents,
