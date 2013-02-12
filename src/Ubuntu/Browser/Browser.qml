@@ -37,6 +37,24 @@ FocusScope {
 
     HUD.HUD {
         id: hud
+        /*
+         * As an unfortunate implementation detail the applicationIdentifier is
+         * a bit special property of the HUD. It can only be set once; when it's set to
+         * anything else than an empty string (which happens to be the default value)
+         * the application gets registered to HUD with the given identifier which can not
+         * be changed afterwards.
+         *
+         * Therefore we need to have the special "<not set>" value to indicate that there was
+         * no hint set with the command line parameter and we should register as "ubuntu-browser".
+         *
+         * We need to have a different applicationIdentifier for the browser because of webapps.
+         *
+         * Webapps with desktop files are executed like this:
+         *
+         *     $ ubuntu-browser --chromeless http://m.amazon.com --desktop_file_hint=/usr/share/applications/amazon-webapp.desktop
+         *
+         * It is the Shell that adds the --desktop_file_hint command line argument.
+         */
         applicationIdentifier: (browser.desktopFileHint == "<not set>") ? "ubuntu-browser" : browser.desktopFileHint
         HUD.Context {
             toolbar.quitAction.onTriggered: Qt.quit()

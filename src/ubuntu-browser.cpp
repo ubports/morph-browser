@@ -74,6 +74,7 @@ bool UbuntuBrowser::initialize()
     browser->setProperty("chromeless", m_arguments->chromeless());
     browser->setProperty("url", m_arguments->url());
     if (m_arguments->desktopFileHint().isEmpty()) {
+        // see comments about this property in Browser.qml inside the HUD Component
         browser->setProperty("desktopFileHint", "<not set>");
     } else {
         browser->setProperty("desktopFileHint", m_arguments->desktopFileHint());
