@@ -38,7 +38,8 @@ To run the unit tests, you can use the commands below:
 = Automated UI tests =
 
 ubuntu-browser uses autopilot (https://launchpad.net/autopilot) to test its UI.
-To run the tests, do the following:
+To run the tests, you will need to install python-autopilot and libautopilot-qt.
+Then do the following:
 
     $ cd tests/autopilot/
     $ autopilot run ubuntu_browser
