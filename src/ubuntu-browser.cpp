@@ -19,7 +19,7 @@
 // Qt
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickView>
-#include <QQmlEngine>
+#include <QtQml/QQmlEngine>
 
 // local
 #include "config.h"
