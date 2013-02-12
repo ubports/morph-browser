@@ -40,11 +40,14 @@ public:
 
     QUrl url() const;
 
+    QString desktopFileHint() const;
+
 private:
     bool m_help;
     bool m_chromeless;
     bool m_fullscreen;
     QUrl m_url;
+    QString m_desktopFileHint;
 };
 
 #endif // __COMMANDLINE_PARSER_H__

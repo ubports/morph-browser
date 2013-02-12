@@ -22,6 +22,7 @@ Depends: ${shlibs:Depends},
          qtdeclarative5-qtquick2-plugin,
          libqt5webkit5-qmlwebkitplugin,
          qt-components-ubuntu,
+         libhud-qt-qml,
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.

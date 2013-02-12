@@ -131,6 +131,25 @@ private Q_SLOTS:
         QFETCH(QUrl, url);
         QCOMPARE(CommandLineParser(args).url(), url);
     }
+
+    void shouldHaveDesktopFileHint_data()
+    {
+        QTest::addColumn<QStringList>("args");
+        QTest::addColumn<QString>("hint");
+        QString BINARY("ubuntu-browser");
+
+        QTest::newRow("no hint") << (QStringList() << BINARY) << "";
+        QTest::newRow("full path hint") << (QStringList() << BINARY << "--desktop_file_hint=/usr/share/applications/ubuntu-browser.desktop") << "ubuntu-browser";
+        QTest::newRow("only .desktop file") << (QStringList() << BINARY << "--desktop_file_hint=ubuntu-browser.desktop") << "ubuntu-browser";
+        QTest::newRow("webapp") << (QStringList() << BINARY << "--desktop_file_hint=/usr/share/applications/amazon-webapp.desktop") << "amazon-webapp";
+    }
+
+    void shouldHaveDesktopFileHint()
+    {
+        QFETCH(QStringList, args);
+        QFETCH(QString, hint);
+        QCOMPARE(CommandLineParser(args).desktopFileHint(), hint);
+    }
 };
 
 QTEST_MAIN(CommandLineParserTests)
