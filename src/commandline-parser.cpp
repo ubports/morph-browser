@@ -53,9 +53,8 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                 } else if (argument.startsWith("--homepage=")) {
                     homepage = QUrl::fromUserInput(argument.split("--homepage=")[1]);
                 } else if (argument.startsWith("--desktop_file_hint=")) {
-                    m_desktopFileHint = argument.split("/").last().split(".").first();
-                }
-                else {
+                    m_desktopFileHint = argument.remove("--desktop_file_hint=").split("/").last().split(".").first();
+                } else {
                     qWarning() << "WARNING: ignoring unknown switch" << argument;
                 }
             }
