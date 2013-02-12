@@ -84,12 +84,14 @@ FocusScope {
                 return
             }
             if ('event' in data) {
-                if (data.event === 'longpress') {
+                if ((data.event === 'longpress') || (data.event === 'selectionadjusted')) {
                     selection.clearData()
                     selection.createData()
                     if ('html' in data) {
                         selection.mimedata.html = data.html
                     }
+                    // FIXME: push the text and image data in the order
+                    // they appear in the selected block.
                     if ('text' in data) {
                         selection.mimedata.text = data.text
                     }
@@ -167,9 +169,15 @@ FocusScope {
         }
 
         onResized: {
-            // TODO: talk to the DOM to compute the block element below the
-            // selection, resize the rectangle to fit it, and update the
-            // contents of the corresponding MIME data.
+            var message = new Object
+            message.query = 'adjustselection'
+            var rect = selection.rect
+            var scale = webview.scale
+            message.left = rect.x / scale
+            message.right = (rect.x + rect.width) / scale
+            message.top = rect.y / scale
+            message.bottom = (rect.y + rect.height) / scale
+            webview.experimental.postMessage(JSON.stringify(message))
             __showPopover()
         }
 

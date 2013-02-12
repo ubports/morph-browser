@@ -16,6 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+function elementContainedInBox(element, box) {
+    var rect = element.getBoundingClientRect();
+    return ((box.left <= rect.left) && (box.right >= rect.right) &&
+            (box.top <= rect.top) && (box.bottom >= rect.bottom));
+}
+
 function getImgFullUri(uri) {
     if ((uri.slice(0, 7) === 'http://') ||
         (uri.slice(0, 8) === 'https://') ||
@@ -40,24 +46,66 @@ function getImgFullUri(uri) {
     }
 }
 
-function longPressDetected(x, y) {
-    var element = document.elementFromPoint(x, y);
+function getSelectedData(element) {
     var data = element.getBoundingClientRect();
-    data['event'] = 'longpress';
-    data['html'] = element.outerHTML;
-    data['text'] = element.textContent;
+    data.html = element.outerHTML;
+    // FIXME: extract the text and images in the order they appear in the block,
+    // so that this order is respected when the data is pushed to the clipboard.
+    data.text = element.textContent;
     var images = [];
     if (element.tagName.toLowerCase() === 'img') {
         images.push(getImgFullUri(element.getAttribute('src')));
     } else {
         var imgs = element.getElementsByTagName('img');
         for (var i = 0; i < imgs.length; i++) {
-            images.push(getImgFullUri(img.getAttribute('src')));
+            images.push(getImgFullUri(imgs[i].getAttribute('src')));
         }
     }
     if (images.length > 0) {
-        data['images'] = images;
+        data.images = images;
     }
+    return data;
+}
+
+function adjustSelection(selection) {
+    // FIXME: allow selecting two consecutive blocks, instead of
+    // interpolating to the containing block.
+    var centerX = (selection.left + selection.right) / 2;
+    var centerY = (selection.top + selection.bottom) / 2;
+    var element = document.elementFromPoint(centerX, centerY);
+    var parent = element;
+    while (elementContainedInBox(parent, selection)) {
+        parent = parent.parentNode;
+    }
+    element = parent;
+    return getSelectedData(element);
+}
+
+function distance(touch1, touch2) {
+    return Math.sqrt(Math.pow(touch2.clientX - touch1.clientX, 2) +
+                     Math.pow(touch2.clientY - touch1.clientY, 2));
+}
+
+navigator.qt.onmessage = function(message) {
+    var data = null;
+    try {
+        data = JSON.parse(message.data);
+    } catch (error) {
+        return;
+    }
+    if ('query' in data) {
+        if (data.query === 'adjustselection') {
+            var selection = adjustSelection(data);
+            selection.event = 'selectionadjusted';
+            navigator.qt.postMessage(JSON.stringify(selection));
+        }
+    }
+}
+
+function longPressDetected(x, y) {
+    var element = document.elementFromPoint(x, y);
+    var data = getSelectedData(element);
+    data.event = 'longpress';
     navigator.qt.postMessage(JSON.stringify(data));
 }
 
@@ -82,9 +130,7 @@ doc.addEventListener('touchend', function(event) {
 });
 
 doc.addEventListener('touchmove', function(event) {
-      var touch = event.changedTouches[0];
-      var distance = Math.sqrt(Math.pow(touch.clientX - currentTouch.clientX, 2) + Math.pow(touch.clientY - currentTouch.clientY, 2));
-      if (distance > 3) {
+      if (distance(event.changedTouches[0], currentTouch) > 3) {
           clearLongpressTimeout();
       }
 });
