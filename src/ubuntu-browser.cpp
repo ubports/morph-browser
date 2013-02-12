@@ -19,6 +19,7 @@
 // Qt
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickView>
+#include <QQmlEngine>
 
 // local
 #include "config.h"
@@ -66,11 +67,17 @@ bool UbuntuBrowser::initialize()
     // phone form factor
     float gridUnit = getGridUnit();
     m_view->resize(40 * gridUnit, 68 * gridUnit);
+    connect(m_view->engine(), SIGNAL(quit()), SLOT(quit()));
 
     m_view->setSource(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/Browser.qml"));
     QQuickItem* browser = m_view->rootObject();
     browser->setProperty("chromeless", m_arguments->chromeless());
     browser->setProperty("url", m_arguments->url());
+    if (m_arguments->desktopFileHint().isEmpty()) {
+        browser->setProperty("desktopFileHint", "<not set>");
+    } else {
+        browser->setProperty("desktopFileHint", m_arguments->desktopFileHint());
+    }
     connect(browser, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
 
     return true;

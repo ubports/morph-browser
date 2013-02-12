@@ -21,6 +21,7 @@ import QtWebKit 3.0
 import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
+import Ubuntu.HUD 0.1 as HUD
 
 FocusScope {
     id: browser
@@ -29,8 +30,24 @@ FocusScope {
     property alias url: webview.url
     // title is a bound property instead of an alias because of QTBUG-29141
     property string title: webview.title
+    property string desktopFileHint: ""
 
     focus: true
+
+    onDesktopFileHintChanged: {
+        if (desktopFileHint == "<not set>") {
+            hud.applicationIdentifier = "ubuntu-browser" // this must match the .desktop file!
+        } else {
+            hud.applicationIdentifier = desktopFileHint
+        }
+    }
+
+    HUD.HUD {
+        id: hud
+        HUD.Context {
+            toolbar.quitAction.onTriggered: Qt.quit()
+        }
+    }
 
     WebView {
         id: webview
