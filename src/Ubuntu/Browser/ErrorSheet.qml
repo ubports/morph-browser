@@ -40,7 +40,7 @@ Rectangle {
 
         Label {
             width: parent.width
-            text: "It appears you are having trouble viewing %1.".arg(url)
+            text: "It appears you are having trouble viewing: %1.".arg(url)
             wrapMode: Text.Wrap
         }
 
