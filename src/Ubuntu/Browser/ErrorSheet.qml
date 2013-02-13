@@ -34,7 +34,7 @@ Rectangle {
 
         Label {
             width: parent.width
-            fontSize: "large"
+            fontSize: "x-large"
             text: "Network Error"
         }
 
