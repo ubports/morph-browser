@@ -1,3 +1,12 @@
+ubuntu-browser (0.9) quantal; urgency=low
+
+  * Add a progress bar (LP: #1124041).
+  * Various minor error sheet tweaks to comply with design review.
+  * Filter out <script> tags when pushing data to the clipboard (LP: #1122900).
+  * Chrome button tweaks to comply with the latest design spec.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 13 Feb 2013 19:12:06 +0100
+
 ubuntu-browser (0.8) quantal; urgency=low
 
   * Naïve implementation of selection resizing.
