@@ -51,7 +51,6 @@ Rectangle {
         }
 
         Button {
-            anchors.horizontalCenter: parent.horizontalCenter
             text: "Refresh page"
             width: units.gu(16)
             onClicked: refreshClicked()
