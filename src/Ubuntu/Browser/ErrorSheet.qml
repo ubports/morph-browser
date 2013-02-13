@@ -28,7 +28,7 @@ Rectangle {
 
     Column {
         anchors.fill: parent
-        anchors.margins: units.gu(2)
+        anchors.margins: units.gu(4)
 
         spacing: units.gu(3)
 
