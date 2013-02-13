@@ -47,29 +47,29 @@ Item {
         onClicked: chrome.goBackClicked()
     }
 
-    AddressBar {
-        id: addressBar
-        objectName: "addressBar"
-
-        anchors.left: backButton.right
-        anchors.right: forwardButton.left
-        anchors.margins: units.gu(1)
-        anchors.verticalCenter: parent.verticalCenter
-        height: units.gu(5)
-
-        onValidated: chrome.urlValidated(url)
-    }
-
     ChromeButton {
         id: forwardButton
         objectName: "forwardButton"
-        anchors.right: parent.right
+        anchors.left: backButton.right
         anchors.margins: units.gu(1)
         anchors.verticalCenter: parent.verticalCenter
         width: units.gu(5)
         height: width
         icon: "assets/icon_forward.png"
         onClicked: chrome.goForwardClicked()
+    }
+
+    AddressBar {
+        id: addressBar
+        objectName: "addressBar"
+
+        anchors.left: forwardButton.right
+        anchors.right: parent.right
+        anchors.margins: units.gu(1)
+        anchors.verticalCenter: parent.verticalCenter
+        height: units.gu(5)
+
+        onValidated: chrome.urlValidated(url)
     }
 
     Image {
