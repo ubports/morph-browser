@@ -249,6 +249,21 @@ FocusScope {
         locked: osk.height > 0
     }
 
+    ProgressBar {
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: revealingBar.enabled ? revealingBar.top : osk.top
+        }
+        height: units.gu(0.6)
+        visible: value < 100
+
+        minimumValue: 0
+        maximumValue: 100
+        indeterminate: value == 0
+        value: webview.loadProgress
+    }
+
     Loader {
         id: chromeLoader
 
