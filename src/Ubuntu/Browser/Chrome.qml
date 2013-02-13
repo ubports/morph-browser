@@ -44,32 +44,34 @@ Item {
         width: units.gu(5)
         height: width
         icon: "assets/icon_back.png"
+        label: "Back"
         onClicked: chrome.goBackClicked()
+    }
+
+    ChromeButton {
+        id: forwardButton
+        objectName: "forwardButton"
+        anchors.left: backButton.right
+        anchors.margins: units.gu(1)
+        anchors.verticalCenter: parent.verticalCenter
+        width: units.gu(5)
+        height: width
+        icon: "assets/icon_forward.png"
+        label: "Forward"
+        onClicked: chrome.goForwardClicked()
     }
 
     AddressBar {
         id: addressBar
         objectName: "addressBar"
 
-        anchors.left: backButton.right
-        anchors.right: forwardButton.left
+        anchors.left: forwardButton.right
+        anchors.right: parent.right
         anchors.margins: units.gu(1)
         anchors.verticalCenter: parent.verticalCenter
         height: units.gu(5)
 
         onValidated: chrome.urlValidated(url)
-    }
-
-    ChromeButton {
-        id: forwardButton
-        objectName: "forwardButton"
-        anchors.right: parent.right
-        anchors.margins: units.gu(1)
-        anchors.verticalCenter: parent.verticalCenter
-        width: units.gu(5)
-        height: width
-        icon: "assets/icon_forward.png"
-        onClicked: chrome.goForwardClicked()
     }
 
     Image {
