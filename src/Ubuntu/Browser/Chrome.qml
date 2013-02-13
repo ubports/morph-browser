@@ -44,6 +44,7 @@ Item {
         width: units.gu(5)
         height: width
         icon: "assets/icon_back.png"
+        label: "Back"
         onClicked: chrome.goBackClicked()
     }
 
@@ -56,6 +57,7 @@ Item {
         width: units.gu(5)
         height: width
         icon: "assets/icon_forward.png"
+        label: "Forward"
         onClicked: chrome.goForwardClicked()
     }
 

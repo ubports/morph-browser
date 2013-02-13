@@ -20,15 +20,32 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 
 Item {
-    property alias icon: __image.source
+    property alias icon: image.source
+    property alias label: label.text
     signal clicked
 
     opacity: enabled ? 1.0 : 0.2
 
     Image {
-        id: __image
-        anchors.fill: parent
-        anchors.margins: units.gu(1)
+        id: image
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+            margins: units.gu(1)
+        }
+        fillMode: Image.PreserveAspectFit
+    }
+
+    Label {
+        id: label
+        fontSize: "x-small"
+        horizontalAlignment: Text.AlignHCenter
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
     }
 
     MouseArea {
