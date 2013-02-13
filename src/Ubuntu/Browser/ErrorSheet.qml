@@ -28,19 +28,19 @@ Rectangle {
 
     Column {
         anchors.fill: parent
-        anchors.margins: units.gu(2)
+        anchors.margins: units.gu(4)
 
         spacing: units.gu(3)
 
         Label {
             width: parent.width
-            fontSize: "large"
+            fontSize: "x-large"
             text: "Network Error"
         }
 
         Label {
             width: parent.width
-            text: "It appears you are having trouble viewing %1.".arg(url)
+            text: "It appears you are having trouble viewing: %1.".arg(url)
             wrapMode: Text.Wrap
         }
 
@@ -51,7 +51,6 @@ Rectangle {
         }
 
         Button {
-            anchors.horizontalCenter: parent.horizontalCenter
             text: "Refresh page"
             width: units.gu(16)
             onClicked: refreshClicked()
