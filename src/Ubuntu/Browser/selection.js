@@ -48,15 +48,24 @@ function getImgFullUri(uri) {
 
 function getSelectedData(element) {
     var data = element.getBoundingClientRect();
-    data.html = element.outerHTML;
+    var node = element.cloneNode(true);
+    // filter out script nodes
+    var scripts = node.getElementsByTagName('script');
+    while (scripts.length > 0) {
+        var scriptNode = scripts[0];
+        if (scriptNode.parentNode) {
+            scriptNode.parentNode.removeChild(scriptNode);
+        }
+    }
+    data.html = node.outerHTML;
     // FIXME: extract the text and images in the order they appear in the block,
     // so that this order is respected when the data is pushed to the clipboard.
-    data.text = element.textContent;
+    data.text = node.textContent;
     var images = [];
-    if (element.tagName.toLowerCase() === 'img') {
-        images.push(getImgFullUri(element.getAttribute('src')));
+    if (node.tagName.toLowerCase() === 'img') {
+        images.push(getImgFullUri(node.getAttribute('src')));
     } else {
-        var imgs = element.getElementsByTagName('img');
+        var imgs = node.getElementsByTagName('img');
         for (var i = 0; i < imgs.length; i++) {
             images.push(getImgFullUri(imgs[i].getAttribute('src')));
         }
