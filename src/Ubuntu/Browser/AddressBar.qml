@@ -41,6 +41,8 @@ Item {
             onClicked: textField.accepted()
         }
 
+        highlighted: true
+
         onAccepted: parent.validate()
     }
 
