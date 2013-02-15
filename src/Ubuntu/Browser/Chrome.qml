@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
 
 Item {
@@ -46,7 +47,8 @@ Item {
         spacing: units.gu(1)
         clip: true
 
-        width: addressBar.activeFocus ? 0 : units.gu(12)
+        // XXX: we should use Screen.orientation, once orientation changes are properly notified
+        width: ((Screen.width < Screen.height) && addressBar.activeFocus) ? 0 : units.gu(12)
         Behavior on width {
             NumberAnimation { duration: 200 }
         }
