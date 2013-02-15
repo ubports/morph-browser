@@ -35,39 +35,45 @@ Item {
         opacity: 0.95
     }
 
-    ChromeButton {
-        id: backButton
-        objectName: "backButton"
-        anchors.left: parent.left
-        anchors.margins: units.gu(1)
-        anchors.verticalCenter: parent.verticalCenter
-        width: units.gu(5)
-        height: width
-        icon: "assets/icon_back.png"
-        label: "Back"
-        onClicked: chrome.goBackClicked()
-    }
+    Row {
+        id: buttons
 
-    ChromeButton {
-        id: forwardButton
-        objectName: "forwardButton"
-        anchors.left: backButton.right
-        anchors.margins: units.gu(1)
-        anchors.verticalCenter: parent.verticalCenter
-        width: units.gu(5)
-        height: width
-        icon: "assets/icon_forward.png"
-        label: "Forward"
-        onClicked: chrome.goForwardClicked()
+        anchors {
+            left: parent.left
+            verticalCenter: parent.verticalCenter
+            margins: units.gu(1)
+        }
+        spacing: units.gu(1)
+        width: units.gu(12)
+
+        ChromeButton {
+            id: backButton
+            objectName: "backButton"
+            width: units.gu(5)
+            height: width
+            icon: "assets/icon_back.png"
+            label: "Back"
+            onClicked: chrome.goBackClicked()
+        }
+
+        ChromeButton {
+            id: forwardButton
+            objectName: "forwardButton"
+            width: units.gu(5)
+            height: width
+            icon: "assets/icon_forward.png"
+            label: "Forward"
+            onClicked: chrome.goForwardClicked()
+        }
     }
 
     AddressBar {
         id: addressBar
         objectName: "addressBar"
 
-        anchors.left: forwardButton.right
+        anchors.left: buttons.right
         anchors.right: parent.right
-        anchors.margins: units.gu(1)
+        anchors.rightMargin: units.gu(1)
         anchors.verticalCenter: parent.verticalCenter
         height: units.gu(5)
 
