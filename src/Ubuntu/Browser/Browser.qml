@@ -32,6 +32,7 @@ FocusScope {
     // title is a bound property instead of an alias because of QTBUG-29141
     property string title: webview.title
     property string desktopFileHint: ""
+    property string qtwebkitdpr: "1.0"
 
     focus: true
 
@@ -101,6 +102,7 @@ FocusScope {
             }
         }
 
+        experimental.devicePixelRatio: browser.qtwebkitdpr
         experimental.preferences.navigatorQtObjectEnabled: true
         experimental.userScripts: [Qt.resolvedUrl("selection.js")]
         experimental.onMessageReceived: {

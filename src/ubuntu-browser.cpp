@@ -39,6 +39,16 @@ static float getGridUnit()
     return ok ? value : defaultValue;
 }
 
+static float getQtWebkitDpr()
+{
+    const char* envVar = "QTWEBKIT_DPR";
+    QByteArray stringValue = qgetenv(envVar);
+    bool ok;
+    float value = stringValue.toFloat(&ok);
+    float defaultValue = 1.0;
+    return ok ? value : defaultValue;
+}
+
 UbuntuBrowser::UbuntuBrowser(int& argc, char** argv)
     : QApplication(argc, argv)
     , m_view(0)
@@ -79,6 +89,12 @@ bool UbuntuBrowser::initialize()
     } else {
         browser->setProperty("desktopFileHint", m_arguments->desktopFileHint());
     }
+
+    // Set the desired pixel ratio (not needed once we use Qt's way of calculating
+    // the proper pixel ratio by device/screen)
+    float webkitDpr = getQtWebkitDpr();
+    browser->setProperty("qtwebkitdpr", webkitDpr);
+
     connect(browser, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
 
     return true;
