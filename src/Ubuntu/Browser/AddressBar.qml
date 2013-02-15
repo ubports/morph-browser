@@ -19,7 +19,7 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 
-Item {
+FocusScope {
     property string url
     signal validated()
 
@@ -40,6 +40,8 @@ Item {
             }
             onClicked: textField.accepted()
         }
+
+        focus: true
 
         onAccepted: parent.validate()
     }
