@@ -44,7 +44,12 @@ Item {
             margins: units.gu(1)
         }
         spacing: units.gu(1)
-        width: units.gu(12)
+        clip: true
+
+        width: addressBar.activeFocus ? 0 : units.gu(12)
+        Behavior on width {
+            NumberAnimation { duration: 200 }
+        }
 
         ChromeButton {
             id: backButton
