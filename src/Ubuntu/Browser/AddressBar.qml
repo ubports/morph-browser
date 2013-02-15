@@ -42,6 +42,18 @@ Item {
         }
 
         onAccepted: parent.validate()
+
+        function ensureSchemeVisibleWhenUnfocused() {
+            // Ensure the beginning of the URL is always visible when unfocused.
+            // In the future, we’ll have a smarter address bar that hides the
+            // scheme to save some extra space and display more of the
+            // meaningful part of the URL (domain name and path).
+            if (!activeFocus) {
+                cursorPosition = 0
+            }
+        }
+        onActiveFocusChanged: ensureSchemeVisibleWhenUnfocused()
+        onTextChanged: ensureSchemeVisibleWhenUnfocused()
     }
 
     function escapeHtmlEntities(query) {
