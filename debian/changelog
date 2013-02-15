@@ -1,3 +1,12 @@
+ubuntu-browser (0.11) quantal; urgency=low
+
+  * Ensure the beginning of the URL is always visible when unfocused.
+  * Ensure the address bar is not greyed out when unfocused.
+  * Make the address bar grow to occupy the whole width of the chrome when
+    focused and in portrait mode (where horizontal screen estate is scarce).
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 15 Feb 2013 19:42:23 +0100
+
 ubuntu-browser (0.10) quantal; urgency=low
 
   * Making the browser use the experimental.devicePixelRatio API to use our
