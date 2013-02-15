@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
 
 Item {
@@ -35,39 +36,51 @@ Item {
         opacity: 0.95
     }
 
-    ChromeButton {
-        id: backButton
-        objectName: "backButton"
-        anchors.left: parent.left
-        anchors.margins: units.gu(1)
-        anchors.verticalCenter: parent.verticalCenter
-        width: units.gu(5)
-        height: width
-        icon: "assets/icon_back.png"
-        label: "Back"
-        onClicked: chrome.goBackClicked()
-    }
+    Row {
+        id: buttons
 
-    ChromeButton {
-        id: forwardButton
-        objectName: "forwardButton"
-        anchors.left: backButton.right
-        anchors.margins: units.gu(1)
-        anchors.verticalCenter: parent.verticalCenter
-        width: units.gu(5)
-        height: width
-        icon: "assets/icon_forward.png"
-        label: "Forward"
-        onClicked: chrome.goForwardClicked()
+        anchors {
+            left: parent.left
+            verticalCenter: parent.verticalCenter
+            margins: units.gu(1)
+        }
+        spacing: units.gu(1)
+        clip: true
+
+        // XXX: we should use Screen.orientation, once orientation changes are properly notified
+        width: ((Screen.width < Screen.height) && addressBar.activeFocus) ? 0 : units.gu(12)
+        Behavior on width {
+            NumberAnimation { duration: 200 }
+        }
+
+        ChromeButton {
+            id: backButton
+            objectName: "backButton"
+            width: units.gu(5)
+            height: width
+            icon: "assets/icon_back.png"
+            label: "Back"
+            onClicked: chrome.goBackClicked()
+        }
+
+        ChromeButton {
+            id: forwardButton
+            objectName: "forwardButton"
+            width: units.gu(5)
+            height: width
+            icon: "assets/icon_forward.png"
+            label: "Forward"
+            onClicked: chrome.goForwardClicked()
+        }
     }
 
     AddressBar {
         id: addressBar
         objectName: "addressBar"
 
-        anchors.left: forwardButton.right
+        anchors.left: buttons.right
         anchors.right: parent.right
-        anchors.margins: units.gu(1)
+        anchors.rightMargin: units.gu(1)
         anchors.verticalCenter: parent.verticalCenter
         height: units.gu(5)
 

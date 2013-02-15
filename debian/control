@@ -10,6 +10,7 @@ Build-Depends: debhelper (>= 9.0),
                qtdeclarative5-dev,
                qtdeclarative5-qtquick2-plugin,
                qtdeclarative5-test-plugin,
+               qtdeclarative5-window-plugin,
                qt-components-ubuntu,
                python,
 Standards-Version: 3.9.3
