@@ -1,3 +1,10 @@
+ubuntu-browser (0.10) quantal; urgency=low
+
+  * Making the browser use the experimental.devicePixelRatio API to use our
+    own DPR values, available at the env var QTWEBKIT_DPR
+
+ -- Ricardo Salveti de Araujo <ricardo.salveti@canonical.com>  Fri, 15 Feb 2013 00:03:10 -0200
+
 ubuntu-browser (0.9) quantal; urgency=low
 
   * Add a progress bar (LP: #1124041).
