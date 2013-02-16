@@ -59,6 +59,30 @@ FocusScope {
         applicationIdentifier: (browser.desktopFileHint == "<not set>") ? "ubuntu-browser" : browser.desktopFileHint
         HUD.Context {
             toolbar.quitAction.onTriggered: Qt.quit()
+            HUD.Action {
+                label: "Goto"
+                keywords: "Address;URL;www"
+            }
+            HUD.Action {
+                label: "Back"
+                keywords: "Older Page"
+            }
+            HUD.Action {
+                label: "Forward"
+                keywords: "Newer Page"
+            }
+            HUD.Action {
+                label: "Reload"
+                keywords: "Leave Page"
+            }
+            HUD.Action {
+                label: "Bookmark"
+                keywords: "Add This Page to Bookmarks"
+            }
+            HUD.Action {
+                label: "New Tab"
+                keywords: "Open a New Tab"
+            }
         }
     }
 
