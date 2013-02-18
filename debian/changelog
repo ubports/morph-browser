@@ -1,3 +1,11 @@
+ubuntu-browser (0.12) quantal; urgency=low
+
+  * Add HUD dummy Actions (LP: #1125656).
+  * Change the name to "Browser" in the desktop file, to match design
+    and avoid an ellipsis in the dash (LP: #1126482).
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 18 Feb 2013 23:15:33 +0100
+
 ubuntu-browser (0.11) quantal; urgency=low
 
   * Ensure the beginning of the URL is always visible when unfocused.
