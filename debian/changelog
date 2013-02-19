@@ -1,3 +1,14 @@
+ubuntu-browser (0.13) quantal; urgency=low
+
+  * Do not instantiate a second popover when the selection is resized
+    (LP: #1130090).
+  * Do not consider a longpress event if there are multiple touch points
+    (e.g. a pinch-to-zoom gesture) (LP: #1129754).
+  * Temporary hardcoded URL rewrite rules to ensure we don’t have to rely
+    on connectivity for the MWC demo (LP: #1126742).
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 19 Feb 2013 22:25:02 +0100
+
 ubuntu-browser (0.12) quantal; urgency=low
 
   * Add HUD dummy Actions (LP: #1125656).
