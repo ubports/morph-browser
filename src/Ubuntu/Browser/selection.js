@@ -130,8 +130,10 @@ function clearLongpressTimeout() {
 var doc = document.documentElement;
 
 doc.addEventListener('touchstart', function(event) {
-    currentTouch = event.touches[0];
-    longpressObserver = setTimeout(longPressDetected, 800, currentTouch.clientX, currentTouch.clientY);
+    if (event.touches.length == 1) {
+        currentTouch = event.touches[0];
+        longpressObserver = setTimeout(longPressDetected, 800, currentTouch.clientX, currentTouch.clientY);
+    }
 });
 
 doc.addEventListener('touchend', function(event) {
@@ -139,7 +141,7 @@ doc.addEventListener('touchend', function(event) {
 });
 
 doc.addEventListener('touchmove', function(event) {
-      if (distance(event.changedTouches[0], currentTouch) > 3) {
+      if ((event.changedTouches.length > 1) || (distance(event.changedTouches[0], currentTouch) > 3)) {
           clearLongpressTimeout();
       }
 });
