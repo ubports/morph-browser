@@ -231,7 +231,6 @@ FocusScope {
             message.top = rect.y / scale
             message.bottom = (rect.y + rect.height) / scale
             webview.experimental.postMessage(JSON.stringify(message))
-            __showPopover()
         }
 
         function share() {
