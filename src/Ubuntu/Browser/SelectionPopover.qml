@@ -41,7 +41,7 @@ Popover {
             }
             onClicked: {
                 popover.selection.share()
-                popover.selection.dismiss()
+                popover.selection.visible = false
             }
         }
         ListItem.Empty {
@@ -51,7 +51,7 @@ Popover {
             }
             onClicked: {
                 popover.selection.save()
-                popover.selection.dismiss()
+                popover.selection.visible = false
             }
         }
         ListItem.Empty {
@@ -61,7 +61,7 @@ Popover {
             }
             onClicked: {
                 popover.selection.copy()
-                popover.selection.dismiss()
+                popover.selection.visible = false
             }
         }
     }

@@ -214,9 +214,8 @@ FocusScope {
             __showPopover()
         }
 
-        function dismiss() {
-            visible = false
-            if (__popover != null) {
+        onVisibleChanged: {
+            if (!visible && (__popover != null)) {
                 PopupUtils.close(__popover)
                 __popover = null
             }
