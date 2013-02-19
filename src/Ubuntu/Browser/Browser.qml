@@ -214,9 +214,8 @@ FocusScope {
             __showPopover()
         }
 
-        function dismiss() {
-            visible = false
-            if (__popover != null) {
+        onVisibleChanged: {
+            if (!visible && (__popover != null)) {
                 PopupUtils.close(__popover)
                 __popover = null
             }
@@ -232,7 +231,6 @@ FocusScope {
             message.top = rect.y / scale
             message.bottom = (rect.y + rect.height) / scale
             webview.experimental.postMessage(JSON.stringify(message))
-            __showPopover()
         }
 
         function share() {
