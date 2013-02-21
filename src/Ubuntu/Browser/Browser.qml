@@ -277,7 +277,7 @@ FocusScope {
         anchors {
             left: parent.left
             right: parent.right
-            bottom: revealingBar.enabled ? revealingBar.top : osk.top
+            bottom: osk.top
         }
         height: units.gu(0.6)
         visible: value < 100
