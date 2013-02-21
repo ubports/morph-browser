@@ -111,15 +111,17 @@ navigator.qt.onmessage = function(message) {
     }
 }
 
+var longpressObserver = -1;
+var currentTouch = null;
+var longpressDetected = false;
+
 function longPressDetected(x, y) {
+    longpressDetected = true;
     var element = document.elementFromPoint(x, y);
     var data = getSelectedData(element);
     data.event = 'longpress';
     navigator.qt.postMessage(JSON.stringify(data));
 }
-
-var longpressObserver = -1;
-var currentTouch = null;
 
 function clearLongpressTimeout() {
     clearTimeout(longpressObserver);
@@ -137,6 +139,10 @@ doc.addEventListener('touchstart', function(event) {
 });
 
 doc.addEventListener('touchend', function(event) {
+    if (longpressDetected) {
+        longpressDetected = false;
+        event.preventDefault();
+    }
     clearLongpressTimeout();
 });
 
