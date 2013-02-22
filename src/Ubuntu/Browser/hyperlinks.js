@@ -19,17 +19,21 @@
 var doc = document.documentElement;
 
 doc.addEventListener('click', function(event) {
-    var target = event.target;
-    if (target && target.nodeName.toLowerCase() == 'a') {
-        // Using event delegation to work around the lack of support for
-        // handling hyperlinks with a target attribute set to '_blank' in
-        // QtWebKit. See related upstream bug reports:
-        //    https://bugs.webkit.org/show_bug.cgi?id=76416
-        //    https://bugs.webkit.org/show_bug.cgi?id=91779
-        if (target.hasAttribute('target')) {
-            if (target.getAttribute('target').toLowerCase() == '_blank') {
-                window.location = target.getAttribute('href');
+    var node = event.target;
+    while (node) {
+        if (node.nodeName.toLowerCase() == 'a') {
+            // Using event delegation to work around the lack of support for
+            // handling hyperlinks with a target attribute set to '_blank' in
+            // QtWebKit. See related upstream bug reports:
+            //    https://bugs.webkit.org/show_bug.cgi?id=76416
+            //    https://bugs.webkit.org/show_bug.cgi?id=91779
+            if (node.hasAttribute('target')) {
+                if (node.getAttribute('target').toLowerCase() == '_blank') {
+                    window.location = node.getAttribute('href');
+                }
             }
+            break;
         }
+        node = node.parentNode;
     }
 });
