@@ -68,23 +68,6 @@ FocusScope {
 
     function validate() {
         var address = textField.text.trim()
-
-        // Hardcoded URL rewrites for demo purposes only.
-        // We don’t want to have to rely on connectivity at MWC, so we rewrite
-        // some well-known keywords to local URLs. This is temporary code that
-        // has to go away after the demo.
-        // BEGIN: temporary demo code
-        var rewrite_base = "file:///var/cache/ubuntu-browser/"
-        var rewrite_rules = {}
-        rewrite_rules["ubuntu"] = "www.ubuntu.com/devices.html"
-        rewrite_rules["etsy"] = "www.etsy.com/browse/mobile-accessories/headphones.html"
-        if (address.toLowerCase() in rewrite_rules) {
-            url = rewrite_base + rewrite_rules[address.toLowerCase()]
-            validated()
-            return
-        }
-        // END: temporary demo code
-
         var terms = address.split(/\s/)
         if (terms.length > 1) {
             terms = terms.map(escapeHtmlEntities)
