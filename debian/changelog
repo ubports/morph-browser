@@ -1,3 +1,9 @@
+webbrowser-app (0.14) quantal; urgency=low
+
+  * Rename the packages to webbrowser-app*.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 06 Mar 2013 15:55:03 +0100
+
 ubuntu-browser (0.13) quantal; urgency=low
 
   * Do not instantiate a second popover when the selection is resized

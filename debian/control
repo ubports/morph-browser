@@ -1,4 +1,4 @@
-Source: ubuntu-browser
+Source: webbrowser-app
 Section: x11
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
@@ -14,9 +14,9 @@ Build-Depends: debhelper (>= 9.0),
                qt-components-ubuntu,
                python,
 Standards-Version: 3.9.3
-Vcs-Bzr: lp:ubuntu-browser
+Vcs-Bzr: lp:webbrowser-app
 
-Package: ubuntu-browser
+Package: webbrowser-app
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
@@ -29,12 +29,12 @@ Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.
 
-Package: ubuntu-browser-autopilot
+Package: webbrowser-app-autopilot
 Architecture: all
 Depends: ${misc:Depends},
          libautopilot-qt,
          libqt5test5,
-         ubuntu-browser (= ${source:Version}),
+         webbrowser-app (= ${source:Version}),
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains autopilot
