@@ -1,13 +1,13 @@
 /*
  * Copyright 2013 Canonical Ltd.
  *
- * This file is part of ubuntu-browser.
+ * This file is part of webbrowser-app.
  *
- * ubuntu-browser is free software; you can redistribute it and/or modify
+ * webbrowser-app is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * ubuntu-browser is distributed in the hope that it will be useful,
+ * webbrowser-app is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -46,17 +46,17 @@ FocusScope {
          * be changed afterwards.
          *
          * Therefore we need to have the special "<not set>" value to indicate that there was
-         * no hint set with the command line parameter and we should register as "ubuntu-browser".
+         * no hint set with the command line parameter and we should register as "webbrowser-app".
          *
          * We need to have a different applicationIdentifier for the browser because of webapps.
          *
          * Webapps with desktop files are executed like this:
          *
-         *     $ ubuntu-browser --chromeless http://m.amazon.com --desktop_file_hint=/usr/share/applications/amazon-webapp.desktop
+         *     $ webbrowser-app --chromeless http://m.amazon.com --desktop_file_hint=/usr/share/applications/amazon-webapp.desktop
          *
          * It is the Shell that adds the --desktop_file_hint command line argument.
          */
-        applicationIdentifier: (browser.desktopFileHint == "<not set>") ? "ubuntu-browser" : browser.desktopFileHint
+        applicationIdentifier: (browser.desktopFileHint == "<not set>") ? "webbrowser-app" : browser.desktopFileHint
         HUD.Context {
             toolbar.quitAction.onTriggered: Qt.quit()
             HUD.Action {

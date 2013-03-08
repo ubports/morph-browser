@@ -1,13 +1,13 @@
 /*
  * Copyright 2013 Canonical Ltd.
  *
- * This file is part of ubuntu-browser.
+ * This file is part of webbrowser-app.
  *
- * ubuntu-browser is free software; you can redistribute it and/or modify
+ * webbrowser-app is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * ubuntu-browser is distributed in the hope that it will be useful,
+ * webbrowser-app is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -31,7 +31,7 @@ private Q_SLOTS:
     {
         QTest::addColumn<QStringList>("args");
         QTest::addColumn<bool>("help");
-        QString BINARY("ubuntu-browser");
+        QString BINARY("webbrowser-app");
         QString URL("http://ubuntu.com");
         QTest::newRow("no switch") << (QStringList() << BINARY) << false;
         QTest::newRow("no switch with URL") << (QStringList() << BINARY << URL) << false;
@@ -60,7 +60,7 @@ private Q_SLOTS:
     {
         QTest::addColumn<QStringList>("args");
         QTest::addColumn<bool>("chromeless");
-        QString BINARY("ubuntu-browser");
+        QString BINARY("webbrowser-app");
         QString URL("http://ubuntu.com");
         QTest::newRow("no switch") << (QStringList() << BINARY) << false;
         QTest::newRow("switch only") << (QStringList() << BINARY << "--chromeless") << true;
@@ -83,7 +83,7 @@ private Q_SLOTS:
     {
         QTest::addColumn<QStringList>("args");
         QTest::addColumn<bool>("fullscreen");
-        QString BINARY("ubuntu-browser");
+        QString BINARY("webbrowser-app");
         QString URL("http://ubuntu.com");
         QTest::newRow("no switch") << (QStringList() << BINARY) << false;
         QTest::newRow("switch only") << (QStringList() << BINARY << "--fullscreen") << true;
@@ -106,7 +106,7 @@ private Q_SLOTS:
     {
         QTest::addColumn<QStringList>("args");
         QTest::addColumn<QUrl>("url");
-        QString BINARY("ubuntu-browser");
+        QString BINARY("webbrowser-app");
         QString DEFAULT("http://www.ubuntu.com");
         QString URL1("http://example.org");
         QString URL2("http://example.com");
@@ -136,11 +136,11 @@ private Q_SLOTS:
     {
         QTest::addColumn<QStringList>("args");
         QTest::addColumn<QString>("hint");
-        QString BINARY("ubuntu-browser");
+        QString BINARY("webbrowser-app");
 
         QTest::newRow("no hint") << (QStringList() << BINARY) << "";
-        QTest::newRow("full path hint") << (QStringList() << BINARY << "--desktop_file_hint=/usr/share/applications/ubuntu-browser.desktop") << "ubuntu-browser";
-        QTest::newRow("only .desktop file") << (QStringList() << BINARY << "--desktop_file_hint=ubuntu-browser.desktop") << "ubuntu-browser";
+        QTest::newRow("full path hint") << (QStringList() << BINARY << "--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop") << "webbrowser-app";
+        QTest::newRow("only .desktop file") << (QStringList() << BINARY << "--desktop_file_hint=webbrowser-app.desktop") << "webbrowser-app";
         QTest::newRow("webapp") << (QStringList() << BINARY << "--desktop_file_hint=/usr/share/applications/amazon-webapp.desktop") << "amazon-webapp";
     }
 

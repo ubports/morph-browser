@@ -1,11 +1,11 @@
-project(ubuntu-browser)
+project(webbrowser-app)
 
 execute_process(
     COMMAND qmake -query QT_INSTALL_QML
     OUTPUT_VARIABLE QT_INSTALL_QML
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
-set(UBUNTU_BROWSER_IMPORTS_DIR "${QT_INSTALL_QML}/Ubuntu/Browser")
+set(WEBBROWSER_IMPORTS_DIR "${QT_INSTALL_QML}/Ubuntu/Browser")
 
 add_subdirectory(Ubuntu)
 
@@ -14,26 +14,26 @@ configure_file(
     ${CMAKE_CURRENT_BINARY_DIR}/config.h
     @ONLY)
 
-set(UBUNTU_BROWSER ubuntu-browser)
+set(WEBBROWSER_APP webbrowser-app)
 
-set(UBUNTU_BROWSER_SRC
+set(WEBBROWSER_SRC
     commandline-parser.cpp
-    ubuntu-browser.cpp
+    webbrowser-app.cpp
     main.cpp
 )
 
-add_executable(${UBUNTU_BROWSER}
-    ${UBUNTU_BROWSER_SRC}
+add_executable(${WEBBROWSER_APP}
+    ${WEBBROWSER_SRC}
 )
 
 include_directories(
     ${CMAKE_BINARY_DIR}
 )
 
-qt5_use_modules(${UBUNTU_BROWSER} Core Widgets Quick)
+qt5_use_modules(${WEBBROWSER_APP} Core Widgets Quick)
 
-install(TARGETS ${UBUNTU_BROWSER}
+install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-install(FILES ubuntu-browser.desktop
+install(FILES webbrowser-app.desktop
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)

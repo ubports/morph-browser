@@ -12,7 +12,7 @@ from __future__ import absolute_import
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
-from ubuntu_browser.tests import BrowserTestCaseBase
+from webbrowser_app.tests import BrowserTestCaseBase
 
 
 TYPING_DELAY = 0.001
