@@ -1,4 +1,4 @@
-project(ubuntu-browser-plugin)
+project(webbrowser-plugin)
 
 set(PLUGIN ubuntubrowser)
 

@@ -1,4 +1,4 @@
-project(ubuntu-browser)
+project(webbrowser-app)
 
 execute_process(
     COMMAND qmake -query QT_INSTALL_QML
