@@ -14,7 +14,7 @@ configure_file(
     ${CMAKE_CURRENT_BINARY_DIR}/config.h
     @ONLY)
 
-set(WEBBROWSER_APP ubuntu-browser)
+set(WEBBROWSER_APP webbrowser-app)
 
 set(WEBBROWSER_SRC
     commandline-parser.cpp

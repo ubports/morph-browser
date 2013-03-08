@@ -1,4 +1,4 @@
-usr/bin/ubuntu-browser
+usr/bin/webbrowser-app
 usr/lib/*/qt5/qml/Ubuntu/Browser/*
 usr/share/applications/ubuntu-browser.desktop
 usr/share/icons/hicolor/scalable/apps/ubuntu-browser.svg

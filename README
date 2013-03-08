@@ -16,12 +16,12 @@ To compile, simply invoke cmake and then make:
 ubuntu-browser can be run from the development branch without the need to
 install any files. Just run:
 
-    $ ./src/ubuntu-browser
+    $ ./src/webbrowser-app
 
 The executable accepts command line switches and parameters. To find out which,
 just run:
 
-    $ ./src/ubuntu-browser --help
+    $ ./src/webbrowser-app --help
 
 
 = Unit tests =

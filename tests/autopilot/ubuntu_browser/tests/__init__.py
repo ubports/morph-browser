@@ -51,16 +51,16 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
         self._temp_pages = []
 
     def launch_test_local(self):
-        self.app = self.launch_test_application("../../src/ubuntu-browser",
+        self.app = self.launch_test_application("../../src/webbrowser-app",
                                                 *self.ARGS)
 
     def launch_test_installed(self):
         if self.running_on_device():
-            self.app = self.launch_test_application("ubuntu-browser",
+            self.app = self.launch_test_application("webbrowser-app",
                                                     "--fullscreen",
                                                     *self.ARGS)
         else:
-            self.app = self.launch_test_application("ubuntu-browser",
+            self.app = self.launch_test_application("webbrowser-app",
                                                     *self.ARGS)
 
     @staticmethod

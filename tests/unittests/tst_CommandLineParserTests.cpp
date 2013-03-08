@@ -31,7 +31,7 @@ private Q_SLOTS:
     {
         QTest::addColumn<QStringList>("args");
         QTest::addColumn<bool>("help");
-        QString BINARY("ubuntu-browser");
+        QString BINARY("webbrowser-app");
         QString URL("http://ubuntu.com");
         QTest::newRow("no switch") << (QStringList() << BINARY) << false;
         QTest::newRow("no switch with URL") << (QStringList() << BINARY << URL) << false;
@@ -60,7 +60,7 @@ private Q_SLOTS:
     {
         QTest::addColumn<QStringList>("args");
         QTest::addColumn<bool>("chromeless");
-        QString BINARY("ubuntu-browser");
+        QString BINARY("webbrowser-app");
         QString URL("http://ubuntu.com");
         QTest::newRow("no switch") << (QStringList() << BINARY) << false;
         QTest::newRow("switch only") << (QStringList() << BINARY << "--chromeless") << true;
@@ -83,7 +83,7 @@ private Q_SLOTS:
     {
         QTest::addColumn<QStringList>("args");
         QTest::addColumn<bool>("fullscreen");
-        QString BINARY("ubuntu-browser");
+        QString BINARY("webbrowser-app");
         QString URL("http://ubuntu.com");
         QTest::newRow("no switch") << (QStringList() << BINARY) << false;
         QTest::newRow("switch only") << (QStringList() << BINARY << "--fullscreen") << true;
@@ -106,7 +106,7 @@ private Q_SLOTS:
     {
         QTest::addColumn<QStringList>("args");
         QTest::addColumn<QUrl>("url");
-        QString BINARY("ubuntu-browser");
+        QString BINARY("webbrowser-app");
         QString DEFAULT("http://www.ubuntu.com");
         QString URL1("http://example.org");
         QString URL2("http://example.com");
@@ -136,7 +136,7 @@ private Q_SLOTS:
     {
         QTest::addColumn<QStringList>("args");
         QTest::addColumn<QString>("hint");
-        QString BINARY("ubuntu-browser");
+        QString BINARY("webbrowser-app");
 
         QTest::newRow("no hint") << (QStringList() << BINARY) << "";
         QTest::newRow("full path hint") << (QStringList() << BINARY << "--desktop_file_hint=/usr/share/applications/ubuntu-browser.desktop") << "ubuntu-browser";

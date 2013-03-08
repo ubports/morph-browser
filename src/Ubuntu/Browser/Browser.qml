@@ -52,7 +52,7 @@ FocusScope {
          *
          * Webapps with desktop files are executed like this:
          *
-         *     $ ubuntu-browser --chromeless http://m.amazon.com --desktop_file_hint=/usr/share/applications/amazon-webapp.desktop
+         *     $ webbrowser-app --chromeless http://m.amazon.com --desktop_file_hint=/usr/share/applications/amazon-webapp.desktop
          *
          * It is the Shell that adds the --desktop_file_hint command line argument.
          */
