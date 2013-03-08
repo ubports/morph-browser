@@ -8,7 +8,7 @@
 
 class MainWindow(object):
     """
-    An emulator class that makes it easy to interact with the ubuntu browser.
+    An emulator class that makes it easy to interact with the webbrowser app.
     """
 
     def __init__(self, app):

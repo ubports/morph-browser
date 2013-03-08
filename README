@@ -42,9 +42,9 @@ To run the tests, you will need to install python-autopilot and libautopilot-qt.
 Then do the following:
 
     $ cd tests/autopilot/
-    $ autopilot run ubuntu_browser
+    $ autopilot run webbrowser_app
 
 You can get a list of all available tests with the following command:
 
-    $ autopilot list ubuntu_browser
+    $ autopilot list webbrowser_app
 

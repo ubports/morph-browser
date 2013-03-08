@@ -5,7 +5,7 @@
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
-"""Ubuntu-browser autopilot tests."""
+"""webbrowser-app autopilot tests."""
 
 import os
 import tempfile
@@ -16,14 +16,14 @@ from autopilot.introspection.qt import QtIntrospectionTestMixin
 from autopilot.matchers import Eventually
 from autopilot.testcase import AutopilotTestCase
 
-from ubuntu_browser.emulators.main_window import MainWindow
+from webbrowser_app.emulators.main_window import MainWindow
 
 
 class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
 
     """
     A common test case class that provides several useful methods
-    for ubuntu browser tests.
+    for webbrowser-app tests.
     """
 
     ARGS = []
