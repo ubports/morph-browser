@@ -30,6 +30,6 @@ add_subdirectory(src)
 enable_testing()
 add_subdirectory(tests)
 
-install(FILES ubuntu-browser.svg
+install(FILES webbrowser-app.svg
         DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps)
 
