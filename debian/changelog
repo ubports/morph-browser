@@ -1,3 +1,10 @@
+webbrowser-app (0.15) quantal; urgency=low
+
+  * Full renaming from ubuntu-browser to webbrowser-app
+    (project name, executable name, desktop file, …).
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 08 Mar 2013 15:58:20 +0100
+
 webbrowser-app (0.14) quantal; urgency=low
 
   * Rename the packages to webbrowser-app*.
