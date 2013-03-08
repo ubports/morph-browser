@@ -1,4 +1,4 @@
-ubuntu-browser is a lightweight web browser tailored for Ubuntu,
+webbrowser-app is a lightweight web browser tailored for Ubuntu,
 based on the Webkit rendering engine and using the Ubuntu UI components.
 
 
@@ -13,7 +13,7 @@ To compile, simply invoke cmake and then make:
 
 = Running =
 
-ubuntu-browser can be run from the development branch without the need to
+webbrowser-app can be run from the development branch without the need to
 install any files. Just run:
 
     $ ./src/webbrowser-app
@@ -37,7 +37,7 @@ To run the unit tests, you can use the commands below:
 
 = Automated UI tests =
 
-ubuntu-browser uses autopilot (https://launchpad.net/autopilot) to test its UI.
+webbrowser-app uses autopilot (https://launchpad.net/autopilot) to test its UI.
 To run the tests, you will need to install python-autopilot and libautopilot-qt.
 Then do the following:
 
