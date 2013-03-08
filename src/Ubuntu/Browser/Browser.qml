@@ -46,7 +46,7 @@ FocusScope {
          * be changed afterwards.
          *
          * Therefore we need to have the special "<not set>" value to indicate that there was
-         * no hint set with the command line parameter and we should register as "ubuntu-browser".
+         * no hint set with the command line parameter and we should register as "webbrowser-app".
          *
          * We need to have a different applicationIdentifier for the browser because of webapps.
          *
