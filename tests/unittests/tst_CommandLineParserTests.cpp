@@ -139,8 +139,8 @@ private Q_SLOTS:
         QString BINARY("webbrowser-app");
 
         QTest::newRow("no hint") << (QStringList() << BINARY) << "";
-        QTest::newRow("full path hint") << (QStringList() << BINARY << "--desktop_file_hint=/usr/share/applications/ubuntu-browser.desktop") << "ubuntu-browser";
-        QTest::newRow("only .desktop file") << (QStringList() << BINARY << "--desktop_file_hint=ubuntu-browser.desktop") << "ubuntu-browser";
+        QTest::newRow("full path hint") << (QStringList() << BINARY << "--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop") << "webbrowser-app";
+        QTest::newRow("only .desktop file") << (QStringList() << BINARY << "--desktop_file_hint=webbrowser-app.desktop") << "webbrowser-app";
         QTest::newRow("webapp") << (QStringList() << BINARY << "--desktop_file_hint=/usr/share/applications/amazon-webapp.desktop") << "amazon-webapp";
     }
 

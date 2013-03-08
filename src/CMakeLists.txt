@@ -35,5 +35,5 @@ qt5_use_modules(${WEBBROWSER_APP} Core Widgets Quick)
 install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-install(FILES ubuntu-browser.desktop
+install(FILES webbrowser-app.desktop
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)

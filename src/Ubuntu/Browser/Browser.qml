@@ -56,7 +56,7 @@ FocusScope {
          *
          * It is the Shell that adds the --desktop_file_hint command line argument.
          */
-        applicationIdentifier: (browser.desktopFileHint == "<not set>") ? "ubuntu-browser" : browser.desktopFileHint
+        applicationIdentifier: (browser.desktopFileHint == "<not set>") ? "webbrowser-app" : browser.desktopFileHint
         HUD.Context {
             toolbar.quitAction.onTriggered: Qt.quit()
             HUD.Action {
