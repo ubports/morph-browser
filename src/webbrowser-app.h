@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __UBUNTU_BROWSER_H__
-#define __UBUNTU_BROWSER_H__
+#ifndef __WEBBROWSER_APP_H__
+#define __WEBBROWSER_APP_H__
 
 #include <QtWidgets/QApplication>
 
@@ -25,13 +25,13 @@ class QQuickView;
 
 class CommandLineParser;
 
-class UbuntuBrowser : public QApplication
+class WebBrowserApp : public QApplication
 {
     Q_OBJECT
 
 public:
-    UbuntuBrowser(int& argc, char** argv);
-    ~UbuntuBrowser();
+    WebBrowserApp(int& argc, char** argv);
+    ~WebBrowserApp();
 
     bool initialize();
     int run();
@@ -44,4 +44,4 @@ private:
     CommandLineParser* m_arguments;
 };
 
-#endif // __UBUNTU_BROWSER_H__
+#endif // __WEBBROWSER_APP_H__

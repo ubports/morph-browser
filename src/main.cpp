@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ubuntu-browser.h"
+#include "webbrowser-app.h"
 
 int main(int argc, char** argv)
 {
-    UbuntuBrowser browser(argc, argv);
+    WebBrowserApp browser(argc, argv);
     if (browser.initialize()) {
         return browser.run();
     } else {

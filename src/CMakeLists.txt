@@ -18,7 +18,7 @@ set(WEBBROWSER_APP ubuntu-browser)
 
 set(WEBBROWSER_SRC
     commandline-parser.cpp
-    ubuntu-browser.cpp
+    webbrowser-app.cpp
     main.cpp
 )
 

@@ -24,7 +24,7 @@
 // local
 #include "config.h"
 #include "commandline-parser.h"
-#include "ubuntu-browser.h"
+#include "webbrowser-app.h"
 
 static float getGridUnit()
 {
@@ -49,19 +49,19 @@ static float getQtWebkitDpr()
     return ok ? value : defaultValue;
 }
 
-UbuntuBrowser::UbuntuBrowser(int& argc, char** argv)
+WebBrowserApp::WebBrowserApp(int& argc, char** argv)
     : QApplication(argc, argv)
     , m_view(0)
     , m_arguments(0)
 {
 }
 
-UbuntuBrowser::~UbuntuBrowser()
+WebBrowserApp::~WebBrowserApp()
 {
     delete m_view;
 }
 
-bool UbuntuBrowser::initialize()
+bool WebBrowserApp::initialize()
 {
     Q_ASSERT(m_view == 0);
 
@@ -100,7 +100,7 @@ bool UbuntuBrowser::initialize()
     return true;
 }
 
-int UbuntuBrowser::run()
+int WebBrowserApp::run()
 {
     Q_ASSERT(m_view != 0);
 
@@ -112,7 +112,7 @@ int UbuntuBrowser::run()
     return exec();
 }
 
-void UbuntuBrowser::onTitleChanged()
+void WebBrowserApp::onTitleChanged()
 {
     QQuickItem* browser = m_view->rootObject();
     QString title = browser->property("title").toString();
