@@ -17,6 +17,7 @@
  */
 
 // Qt
+#include <QtNetwork/QNetworkInterface>
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickView>
 #include <QtQml/QQmlEngine>
@@ -72,8 +73,20 @@ bool WebBrowserApp::initialize()
     }
 
     if (m_arguments->remoteInspector()) {
-        // TODO: prepend ip address and a colon to allow remote debugging
-        qputenv("QTWEBKIT_INSPECTOR_SERVER", QByteArray::number(REMOTE_INSPECTOR_PORT));
+        QString host;
+        Q_FOREACH(QHostAddress address, QNetworkInterface::allAddresses()) {
+            if (!address.isLoopback() && (address.protocol() == QAbstractSocket::IPv4Protocol)) {
+                host = address.toString();
+                break;
+            }
+        }
+        QString server;
+        if (host.isEmpty()) {
+            server = QString::number(REMOTE_INSPECTOR_PORT);
+        } else {
+            server = QString("%1:%2").arg(host, QString::number(REMOTE_INSPECTOR_PORT));
+        }
+        qputenv("QTWEBKIT_INSPECTOR_SERVER", server.toUtf8());
     }
 
     m_view = new QQuickView;
