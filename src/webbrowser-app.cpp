@@ -71,6 +71,11 @@ bool WebBrowserApp::initialize()
         return false;
     }
 
+    if (m_arguments->remoteInspector()) {
+        // TODO: prepend ip address and a colon to allow remote debugging
+        qputenv("QTWEBKIT_INSPECTOR_SERVER", QByteArray::number(REMOTE_INSPECTOR_PORT));
+    }
+
     m_view = new QQuickView;
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
     m_view->setTitle(APP_TITLE);
@@ -83,6 +88,7 @@ bool WebBrowserApp::initialize()
     QQuickItem* browser = m_view->rootObject();
     browser->setProperty("chromeless", m_arguments->chromeless());
     browser->setProperty("url", m_arguments->url());
+    browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
     if (m_arguments->desktopFileHint().isEmpty()) {
         // see comments about this property in Browser.qml inside the HUD Component
         browser->setProperty("desktopFileHint", "<not set>");

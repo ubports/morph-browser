@@ -42,12 +42,15 @@ public:
 
     QString desktopFileHint() const;
 
+    bool remoteInspector() const;
+
 private:
     bool m_help;
     bool m_chromeless;
     bool m_fullscreen;
     QUrl m_url;
     QString m_desktopFileHint;
+    bool m_remoteInspector;
 };
 
 #endif // __COMMANDLINE_PARSER_H__
