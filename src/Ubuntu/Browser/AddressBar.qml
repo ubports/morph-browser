@@ -28,8 +28,6 @@ FocusScope {
     signal requestReload()
     signal requestStop()
 
-    readonly property string __searchUrl: "http://google.com/search?client=ubuntu&q=%1&ie=utf-8&oe=utf-8"
-
     states: [
         State {
             name: "loading"
@@ -97,6 +95,30 @@ FocusScope {
         onTextChanged: ensureSchemeVisibleWhenUnfocused()
     }
 
+    function looksLikeAUrl(address) {
+        var terms = address.split(/\s/)
+        if (terms.length > 1) {
+            return false
+        }
+        if (address.match(/^https?:\/\//) ||
+            address.match(/^file:\/\//) ||
+            address.match(/^[a-z]+:\/\//)) {
+            return true
+        }
+        if (address.split('/', 1)[0].match(/\.[a-z]{2,4}$/)) {
+            return true
+        }
+        return false
+    }
+
+    function fixUrl(address) {
+        var url = address
+        if (address.indexOf("://") == -1) {
+            url = "http://" + address
+        }
+        return url
+    }
+
     function escapeHtmlEntities(query) {
         function getEscapeCode(entity) {
             return "%%1".arg(entity.charCodeAt(0).toString(16))
@@ -104,23 +126,19 @@ FocusScope {
         return query.replace(/\W/, getEscapeCode)
     }
 
+    function buildSearchUrl(query) {
+        var searchUrl = "http://google.com/search?client=ubuntu&q=%1&ie=utf-8&oe=utf-8"
+        var terms = query.split(/\s/).map(escapeHtmlEntities)
+        return searchUrl.arg(terms.join("+"))
+    }
+
     function validate() {
-        var address = textField.text.trim()
-        var terms = address.split(/\s/)
-        if (terms.length > 1) {
-            terms = terms.map(escapeHtmlEntities)
-            var searchString = terms.join("+")
-            address = __searchUrl.arg(searchString)
-        } else if (address.indexOf("://") == -1 && address.indexOf(".") == -1) {
-            address = __searchUrl.arg(escapeHtmlEntities(address))
-        } else if (!address.match(/^http:\/\//) &&
-            !address.match(/^https:\/\//) &&
-            !address.match(/^file:\/\//) &&
-            !address.match(/^[a-z]+:\/\//)) {
-            // This is not super smart, but it’s better than nothing…
-            address = "http://" + address
+        var query = textField.text.trim()
+        if (looksLikeAUrl(query)) {
+            url = fixUrl(query)
+        } else {
+            url = buildSearchUrl(query)
         }
-        url = address
         validated()
     }
 
