@@ -20,10 +20,26 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 
 FocusScope {
+    id: addressbar
+
     property string url
     signal validated()
+    property bool loading
+    signal requestReload()
+    signal requestStop()
 
     readonly property string __searchUrl: "http://google.com/search?client=ubuntu&q=%1&ie=utf-8&oe=utf-8"
+
+    states: [
+        State {
+            name: "loading"
+            when: addressBar.loading
+        },
+        State {
+            name: "editing"
+            when: textField.activeFocus
+        }
+    ]
 
     TextField {
         id: textField
@@ -36,9 +52,31 @@ FocusScope {
             Image {
                 id: __searchIcon
                 anchors.centerIn: parent
-                source: "assets/icon_search.png"
+                source: {
+                    switch (addressbar.state) {
+                    case "loading":
+                        return "assets/icon_clear.png"
+                    case "editing":
+                        // TODO: test if this matches a possible URL
+                        // and return either a go-to icon or a search icon.
+                        return "assets/icon_search.png"
+                    default:
+                        return "assets/icon_reload.png"
+                    }
+                }
             }
-            onClicked: textField.accepted()
+            onClicked: {
+                switch (addressbar.state) {
+                case "loading":
+                    addressbar.requestStop()
+                    break
+                case "editing":
+                    textField.accepted()
+                    break
+                default:
+                    addressbar.requestReload()
+                }
+            }
         }
 
         focus: true

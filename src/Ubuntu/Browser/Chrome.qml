@@ -25,10 +25,13 @@ Item {
 
     property alias url: addressBar.url
     signal urlValidated(url url)
+    property alias loading: addressBar.loading
     property alias canGoBack: backButton.enabled
     signal goBackClicked
     property alias canGoForward: forwardButton.enabled
     signal goForwardClicked
+    signal requestReload
+    signal requestStop
 
     Rectangle {
         anchors.fill: parent
@@ -85,6 +88,8 @@ Item {
         height: units.gu(5)
 
         onValidated: chrome.urlValidated(url)
+        onRequestReload: chrome.requestReload()
+        onRequestStop: chrome.requestStop()
     }
 
     Image {

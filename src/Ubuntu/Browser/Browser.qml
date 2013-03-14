@@ -301,6 +301,12 @@ FocusScope {
 
         Binding {
             target: chromeLoader.item
+            property: "loading"
+            value: webview.loading || (webview.progress == 0)
+        }
+
+        Binding {
+            target: chromeLoader.item
             property: "canGoBack"
             value: webview.canGoBack
         }
@@ -319,6 +325,8 @@ FocusScope {
                 browser.url = url
                 webview.forceActiveFocus()
             }
+            onRequestReload: webview.reload()
+            onRequestStop: webview.stop()
         }
     }
 
