@@ -33,6 +33,7 @@ FocusScope {
     property string title: webview.title
     property string desktopFileHint: ""
     property string qtwebkitdpr: "1.0"
+    property bool developerExtrasEnabled: false
 
     focus: true
 
@@ -127,6 +128,7 @@ FocusScope {
         }
 
         experimental.devicePixelRatio: browser.qtwebkitdpr
+        experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
         experimental.preferences.navigatorQtObjectEnabled: true
         experimental.userScripts: [Qt.resolvedUrl("selection.js")]
         experimental.onMessageReceived: {
