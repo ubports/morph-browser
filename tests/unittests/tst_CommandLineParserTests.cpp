@@ -150,6 +150,29 @@ private Q_SLOTS:
         QFETCH(QString, hint);
         QCOMPARE(CommandLineParser(args).desktopFileHint(), hint);
     }
+
+    void shouldRunRemoteInspector_data()
+    {
+        QTest::addColumn<QStringList>("args");
+        QTest::addColumn<bool>("inspector");
+        QString BINARY("webbrowser-app");
+        QString URL("http://ubuntu.com");
+        QTest::newRow("no switch") << (QStringList() << BINARY) << false;
+        QTest::newRow("switch only") << (QStringList() << BINARY << "--inspector") << true;
+        QTest::newRow("switch before URL") << (QStringList() << BINARY << "--inspector" << URL) << true;
+        QTest::newRow("switch after URL") << (QStringList() << BINARY << URL << "--inspector") << true;
+        QTest::newRow("switch typo") << (QStringList() << BINARY << "--ispector") << false;
+        QTest::newRow("switch uppercase") << (QStringList() << BINARY << "--INSPECTOR") << false;
+        QTest::newRow("help precludes other switches") << (QStringList() << BINARY << "-h" << "--inspector") << false;
+        QTest::newRow("help precludes other switches") << (QStringList() << BINARY << "--help" << "--inspector") << false;
+    }
+
+    void shouldRunRemoteInspector()
+    {
+        QFETCH(QStringList, args);
+        QFETCH(bool, inspector);
+        QCOMPARE(CommandLineParser(args).remoteInspector(), inspector);
+    }
 };
 
 QTEST_MAIN(CommandLineParserTests)
