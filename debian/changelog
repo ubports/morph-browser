@@ -1,3 +1,9 @@
+webbrowser-app (0.16-0ubuntu1) UNRELEASED; urgency=low
+
+  * Some minor fixes to the packaging.
+
+ -- Robert Bruce Park <robert.park@canonical.com>  Fri, 15 Mar 2013 21:44:59 -0700
+
 webbrowser-app (0.15) quantal; urgency=low
 
   * Full renaming from ubuntu-browser to webbrowser-app
@@ -107,7 +113,7 @@ ubuntu-browser (0.3) quantal; urgency=low
 
 ubuntu-browser (0.2) quantal; urgency=low
 
-  * latest release 
+  * latest release
 
  -- Bill Filler <bill.filler@canonical.com>  Thu, 31 Jan 2013 22:02:22 -0500
 

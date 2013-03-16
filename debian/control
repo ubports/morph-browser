@@ -2,8 +2,10 @@ Source: webbrowser-app
 Section: x11
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
-Build-Depends: debhelper (>= 9.0),
-               cmake (>= 2.8.9),
+Build-Depends: cmake (>= 2.8.9),
+               debhelper (>= 9),
+               python,
+               qt-components-ubuntu,
                qt5-default,
                qt5-qmake,
                qtbase5-dev,
@@ -11,30 +13,31 @@ Build-Depends: debhelper (>= 9.0),
                qtdeclarative5-qtquick2-plugin,
                qtdeclarative5-test-plugin,
                qtdeclarative5-window-plugin,
-               qt-components-ubuntu,
-               python,
 Standards-Version: 3.9.3
-Vcs-Bzr: lp:webbrowser-app
+Homepage: https://launchpad.net/webbrowser-app
+# If you aren't a member of ~phablet-team but need to upload packaging changes,
+# just go ahead.  ~phablet-team will notice and sync up the code again.
+Vcs-Bzr: https://code.launchpad.net/~phablet-team/webbrowser-app/trunk
 
 Package: webbrowser-app
 Architecture: any
-Depends: ${shlibs:Depends},
-         ${misc:Depends},
-         qtdeclarative5-qtquick2-plugin,
-         qtdeclarative5-window-plugin,
+Depends: libhud-qt-qml,
          libqt5webkit5-qmlwebkitplugin,
          qt-components-ubuntu,
-         libhud-qt-qml,
+         qtdeclarative5-qtquick2-plugin,
+         qtdeclarative5-window-plugin,
+         ${misc:Depends},
+         ${shlibs:Depends},
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.
 
 Package: webbrowser-app-autopilot
 Architecture: all
-Depends: ${misc:Depends},
-         libautopilot-qt,
+Depends: libautopilot-qt,
          libqt5test5,
          webbrowser-app (= ${source:Version}),
+         ${misc:Depends},
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains autopilot
