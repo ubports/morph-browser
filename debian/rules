@@ -10,4 +10,4 @@ export DPKG_GENSYMBOLS_CHECK_LEVEL=4
 	dh $@ --parallel
 
 override_dh_install:
-        dh_install --fail-missing
+	dh_install --fail-missing
