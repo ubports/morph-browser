@@ -1,3 +1,11 @@
+webbrowser-app (0.16) quantal; urgency=low
+
+  * Add a command line switch to allow running a remote inspector.
+  * Update build and runtime dependencies to account for the renaming
+    of the UI toolkit package.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 19 Mar 2013 15:27:38 +0100
+
 webbrowser-app (0.15) quantal; urgency=low
 
   * Full renaming from ubuntu-browser to webbrowser-app
