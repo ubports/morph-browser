@@ -11,7 +11,7 @@ Build-Depends: debhelper (>= 9.0),
                qtdeclarative5-qtquick2-plugin,
                qtdeclarative5-test-plugin,
                qtdeclarative5-window-plugin,
-               qt-components-ubuntu,
+               qtdeclarative5-ubuntu-ui-toolkit-plugin | qt-components-ubuntu,
                python,
 Standards-Version: 3.9.3
 Vcs-Bzr: lp:webbrowser-app
@@ -23,7 +23,7 @@ Depends: ${shlibs:Depends},
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-window-plugin,
          libqt5webkit5-qmlwebkitplugin,
-         qt-components-ubuntu,
+         qtdeclarative5-ubuntu-ui-toolkit-plugin | qt-components-ubuntu,
          libhud-qt-qml,
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
