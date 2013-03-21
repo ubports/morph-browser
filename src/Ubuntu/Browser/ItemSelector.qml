@@ -28,7 +28,8 @@ Popover {
 
     caller: parent
     contentWidth: Math.min(parent.width - units.gu(10), units.gu(40))
-    contentHeight: Math.min(parent.height - units.gu(10), view.contentHeight)
+    property real listContentHeight: 0 // intermediate property to avoid binding loop
+    contentHeight: Math.min(parent.height - units.gu(10), listContentHeight)
 
     ListView {
         id: view
@@ -49,6 +50,8 @@ Popover {
         section.delegate: ListItem.Header {
             text: section
         }
+
+        onContentHeightChanged: itemSelector.listContentHeight = contentHeight
     }
 
     Component.onCompleted: show()
