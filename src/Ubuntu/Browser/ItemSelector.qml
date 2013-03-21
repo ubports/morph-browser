@@ -45,7 +45,10 @@ Popover {
             onClicked: selectorModel.accept(model.index)
         }
 
-        // TODO: handle sections
+        section.property: "group"
+        section.delegate: ListItem.Header {
+            text: section
+        }
     }
 
     Component.onCompleted: show()
