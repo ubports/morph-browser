@@ -32,7 +32,6 @@ Popover {
     contentHeight: Math.min(parent.height - units.gu(10), listContentHeight)
 
     ListView {
-        id: view
         clip: true
         width: itemSelector.contentWidth
         height: itemSelector.contentHeight
