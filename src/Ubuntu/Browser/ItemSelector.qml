@@ -27,7 +27,7 @@ Popover {
     property QtObject selectorModel: model
 
     caller: parent
-    contentWidth: parent.width - units.gu(10)
+    contentWidth: Math.min(parent.width - units.gu(10), units.gu(40))
     contentHeight: Math.min(parent.height - units.gu(10), view.contentHeight)
 
     ListView {
