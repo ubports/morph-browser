@@ -41,6 +41,7 @@ Popover {
         delegate: ListItem.Standard {
             text: model.text
             enabled: model.enabled
+            selected: model.selected
             onClicked: selectorModel.accept(model.index)
         }
 
