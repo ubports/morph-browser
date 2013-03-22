@@ -163,6 +163,8 @@ FocusScope {
             }
         }
 
+        experimental.itemSelector: ItemSelector {}
+
         onUrlChanged: {
             if (!browser.chromeless) {
                 chromeLoader.item.url = url
