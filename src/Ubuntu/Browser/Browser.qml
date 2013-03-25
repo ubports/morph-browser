@@ -130,7 +130,8 @@ FocusScope {
         experimental.devicePixelRatio: browser.qtwebkitdpr
         experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
         experimental.preferences.navigatorQtObjectEnabled: true
-        experimental.userScripts: [Qt.resolvedUrl("selection.js")]
+        experimental.userScripts: [Qt.resolvedUrl("hyperlinks.js"),
+                                   Qt.resolvedUrl("selection.js")]
         experimental.onMessageReceived: {
             var data = null
             try {
