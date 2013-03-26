@@ -111,6 +111,7 @@ FocusScope {
 
         focus: true
         interactive: !selection.visible
+        maximumFlickVelocity: height * 5
 
         property real scale: experimental.test.contentsScale * experimental.test.devicePixelRatio
 
