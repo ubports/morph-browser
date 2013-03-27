@@ -1,3 +1,9 @@
+webbrowser-app (0.17-0ubuntu1) UNRELEASED; urgency=low
+
+  * Some minor fixes to the packaging.
+
+ -- Robert Bruce Park <robert.park@canonical.com>  Wed, 27 Mar 2013 11:34:51 -0700
+
 webbrowser-app (0.17) quantal; urgency=low
 
   * Add support for <select> dropdowns (LP: #1157764).
@@ -125,7 +131,7 @@ ubuntu-browser (0.3) quantal; urgency=low
 
 ubuntu-browser (0.2) quantal; urgency=low
 
-  * latest release 
+  * latest release
 
  -- Bill Filler <bill.filler@canonical.com>  Thu, 31 Jan 2013 22:02:22 -0500
 
