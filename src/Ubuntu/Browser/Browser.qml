@@ -111,6 +111,7 @@ FocusScope {
 
         focus: true
         interactive: !selection.visible
+        maximumFlickVelocity: height * 5
 
         property real scale: experimental.test.contentsScale * experimental.test.devicePixelRatio
 
@@ -127,10 +128,10 @@ FocusScope {
             }
         }
 
-        experimental.devicePixelRatio: browser.qtwebkitdpr
         experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
         experimental.preferences.navigatorQtObjectEnabled: true
-        experimental.userScripts: [Qt.resolvedUrl("selection.js")]
+        experimental.userScripts: [Qt.resolvedUrl("hyperlinks.js"),
+                                   Qt.resolvedUrl("selection.js")]
         experimental.onMessageReceived: {
             var data = null
             try {
@@ -179,6 +180,13 @@ FocusScope {
 
         onLoadingChanged: {
             error.visible = (loadRequest.status === WebView.LoadFailedStatus)
+        }
+    }
+
+    onQtwebkitdprChanged: {
+        // Do not make this patch to QtWebKit a hard requirement.
+        if (webview.experimental.hasOwnProperty('devicePixelRatio')) {
+            webview.experimental.devicePixelRatio = qtwebkitdpr
         }
     }
 

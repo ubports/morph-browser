@@ -1,8 +1,16 @@
-webbrowser-app (0.16-0ubuntu1) UNRELEASED; urgency=low
+webbrowser-app (0.17-0ubuntu1) quantal; urgency=low
 
+  [ Olivier Tilloy ]
+  * Add support for <select> dropdowns (LP: #1157764).
+  * Work around the lack of support for handling hyperlinks with a
+    target attribute set to '_blank' in QtWebKit (LP: #1129281).
+  * Allow faster scrolling, by making the maximum flick velocity of
+    the webview proportional to its height (LP: #1118501).
+
+  [ Robert Bruce Park ]
   * Some minor fixes to the packaging.
 
- -- Robert Bruce Park <robert.park@canonical.com>  Fri, 15 Mar 2013 21:44:59 -0700
+ -- Robert Bruce Park <robert.park@canonical.com>  Wed, 27 Mar 2013 11:07:38 -0700
 
 webbrowser-app (0.16) quantal; urgency=low
 
