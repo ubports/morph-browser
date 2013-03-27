@@ -53,13 +53,15 @@ FocusScope {
                 source: {
                     switch (addressbar.state) {
                     case "loading":
-                        return "assets/icon_clear.png"
+                        return "assets/cancel.png"
                     case "editing":
-                        // TODO: test if this matches a possible URL
-                        // and return either a go-to icon or a search icon.
-                        return "assets/icon_search.png"
+                        if (looksLikeAUrl(textField.text.trim())) {
+                            return "assets/go-to.png"
+                        } else {
+                            return "assets/search.png"
+                        }
                     default:
-                        return "assets/icon_reload.png"
+                        return "assets/reload.png"
                     }
                 }
             }

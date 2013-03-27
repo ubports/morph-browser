@@ -61,7 +61,7 @@ Item {
             objectName: "backButton"
             width: units.gu(5)
             height: width
-            icon: "assets/icon_back.png"
+            icon: "assets/go-previous.png"
             label: "Back"
             onClicked: chrome.goBackClicked()
         }
@@ -71,7 +71,7 @@ Item {
             objectName: "forwardButton"
             width: units.gu(5)
             height: width
-            icon: "assets/icon_forward.png"
+            icon: "assets/go-next.png"
             label: "Forward"
             onClicked: chrome.goForwardClicked()
         }
