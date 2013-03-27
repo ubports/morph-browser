@@ -17,6 +17,7 @@
  */
 
 // Qt
+#include <QtNetwork/QNetworkInterface>
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickView>
 #include <QtQml/QQmlEngine>
@@ -71,6 +72,23 @@ bool WebBrowserApp::initialize()
         return false;
     }
 
+    if (m_arguments->remoteInspector()) {
+        QString host;
+        Q_FOREACH(QHostAddress address, QNetworkInterface::allAddresses()) {
+            if (!address.isLoopback() && (address.protocol() == QAbstractSocket::IPv4Protocol)) {
+                host = address.toString();
+                break;
+            }
+        }
+        QString server;
+        if (host.isEmpty()) {
+            server = QString::number(REMOTE_INSPECTOR_PORT);
+        } else {
+            server = QString("%1:%2").arg(host, QString::number(REMOTE_INSPECTOR_PORT));
+        }
+        qputenv("QTWEBKIT_INSPECTOR_SERVER", server.toUtf8());
+    }
+
     m_view = new QQuickView;
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
     m_view->setTitle(APP_TITLE);
@@ -83,6 +101,7 @@ bool WebBrowserApp::initialize()
     QQuickItem* browser = m_view->rootObject();
     browser->setProperty("chromeless", m_arguments->chromeless());
     browser->setProperty("url", m_arguments->url());
+    browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
     if (m_arguments->desktopFileHint().isEmpty()) {
         // see comments about this property in Browser.qml inside the HUD Component
         browser->setProperty("desktopFileHint", "<not set>");

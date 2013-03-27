@@ -35,6 +35,7 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
     , m_chromeless(false)
     , m_fullscreen(false)
     , m_url(DEFAULT_HOMEPAGE)
+    , m_remoteInspector(false)
 {
     QStringList args = arguments;
     args.removeFirst();
@@ -50,6 +51,8 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     m_chromeless = true;
                 } else if (argument == "--fullscreen") {
                     m_fullscreen = true;
+                } else if (argument == "--inspector") {
+                    m_remoteInspector = true;
                 } else if (argument.startsWith("--homepage=")) {
                     homepage = QUrl::fromUserInput(argument.split("--homepage=")[1]);
                 } else if (argument.startsWith("--desktop_file_hint=")) {
@@ -94,6 +97,7 @@ void CommandLineParser::printUsage() const
     out << "  --chromeless     do not display any chrome (web application mode)" << endl;
     out << "  --fullscreen     display full screen" << endl;
     out << "  --homepage=URL   override any URL passed as an argument" << endl;
+    out << "  --inspector      run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
 }
 
 bool CommandLineParser::help() const
@@ -119,4 +123,9 @@ QUrl CommandLineParser::url() const
 QString CommandLineParser::desktopFileHint() const
 {
     return m_desktopFileHint;
+}
+
+bool CommandLineParser::remoteInspector() const
+{
+    return m_remoteInspector;
 }
