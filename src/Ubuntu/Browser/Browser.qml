@@ -345,4 +345,6 @@ FocusScope {
     KeyboardRectangle {
         id: osk
     }
+
+    Component.onCompleted: Theme.loadTheme(Qt.resolvedUrl("webbrowser-app.qmltheme"))
 }
