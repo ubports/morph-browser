@@ -59,6 +59,16 @@ FocusScope {
         onTextChanged: ensureSchemeVisibleWhenUnfocused()
     }
 
+    // Make sure that all the text is selected at the first click
+    MouseArea {
+        anchors.fill: parent
+        visible: textField.activeFocus === false
+        onClicked: {
+            textField.forceActiveFocus()
+            textField.selectAll()
+        }
+    }
+
     function escapeHtmlEntities(query) {
         function getEscapeCode(entity) {
             return "%%1".arg(entity.charCodeAt(0).toString(16))
