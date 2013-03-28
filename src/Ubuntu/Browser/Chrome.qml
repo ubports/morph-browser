@@ -27,11 +27,11 @@ Item {
     signal urlValidated(url url)
     property alias loading: addressBar.loading
     property alias canGoBack: backButton.enabled
-    signal goBackClicked
+    signal goBackClicked()
     property alias canGoForward: forwardButton.enabled
-    signal goForwardClicked
-    signal requestReload
-    signal requestStop
+    signal goForwardClicked()
+    signal requestReload()
+    signal requestStop()
 
     Rectangle {
         anchors.fill: parent
