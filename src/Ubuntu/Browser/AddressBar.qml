@@ -45,6 +45,7 @@ FocusScope {
         anchors.fill: parent
 
         primaryItem: MouseArea {
+            id: __actionButton
             width: __searchIcon.width + units.gu(2)
             height: __searchIcon.height + units.gu(2)
             Image {
@@ -99,8 +100,14 @@ FocusScope {
 
     // Make sure that all the text is selected at the first click
     MouseArea {
-        anchors.fill: parent
-        visible: textField.activeFocus === false
+        anchors {
+            top: textField.top
+            bottom: textField.bottom
+            right: textField.right
+            left: textField.left
+            leftMargin: __actionButton.width
+        }
+        visible: !textField.activeFocus
         onClicked: {
             textField.forceActiveFocus()
             textField.selectAll()
