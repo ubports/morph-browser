@@ -1,0 +1,5 @@
+@import url(system:/Ambiance/qmltheme/default.qmltheme);
+
+.textfield .clear-button {
+    iconSource: url("assets/clear-search.png");
+}

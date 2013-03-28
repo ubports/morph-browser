@@ -22,7 +22,7 @@ import Ubuntu.Components 0.1
 Item {
     property alias icon: image.source
     property alias label: label.text
-    signal clicked
+    signal clicked()
 
     opacity: enabled ? 1.0 : 0.2
 
