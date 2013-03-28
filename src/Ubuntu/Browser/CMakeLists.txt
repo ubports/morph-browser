@@ -10,7 +10,7 @@ add_library(${PLUGIN} MODULE ${PLUGIN_SRC})
 
 qt5_use_modules(${PLUGIN} Qml)
 
-file(GLOB QML_FILES *.qml qmldir *.js)
+file(GLOB QML_FILES *.qml qmldir *.js *.qmltheme)
 install(TARGETS ${PLUGIN} DESTINATION ${WEBBROWSER_IMPORTS_DIR})
 install(FILES ${QML_FILES} DESTINATION ${WEBBROWSER_IMPORTS_DIR})
 install(DIRECTORY assets DESTINATION ${WEBBROWSER_IMPORTS_DIR}

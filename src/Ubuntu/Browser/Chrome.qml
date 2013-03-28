@@ -25,10 +25,13 @@ Item {
 
     property alias url: addressBar.url
     signal urlValidated(url url)
+    property alias loading: addressBar.loading
     property alias canGoBack: backButton.enabled
-    signal goBackClicked
+    signal goBackClicked()
     property alias canGoForward: forwardButton.enabled
-    signal goForwardClicked
+    signal goForwardClicked()
+    signal requestReload()
+    signal requestStop()
 
     Rectangle {
         anchors.fill: parent
@@ -58,7 +61,7 @@ Item {
             objectName: "backButton"
             width: units.gu(5)
             height: width
-            icon: "assets/icon_back.png"
+            icon: "assets/go-previous.png"
             label: "Back"
             onClicked: chrome.goBackClicked()
         }
@@ -68,7 +71,7 @@ Item {
             objectName: "forwardButton"
             width: units.gu(5)
             height: width
-            icon: "assets/icon_forward.png"
+            icon: "assets/go-next.png"
             label: "Forward"
             onClicked: chrome.goForwardClicked()
         }
@@ -85,6 +88,8 @@ Item {
         height: units.gu(5)
 
         onValidated: chrome.urlValidated(url)
+        onRequestReload: chrome.requestReload()
+        onRequestStop: chrome.requestStop()
     }
 
     Image {
