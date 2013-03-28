@@ -26,11 +26,11 @@ class MainWindow(object):
         return self.app.select_single("AddressBar", objectName="addressBar")
 
     def get_address_bar_clear_button(self):
-        textfield = self.get_address_bar().get_children_by_type("TextField")[0]
+        textfield = self.get_address_bar_text_field()
         return textfield.get_children_by_type("AbstractButton")[0]
 
     def get_address_bar_action_button(self):
-        textfield = self.get_address_bar().get_children_by_type("TextField")[0]
+        textfield = self.get_address_bar_text_field()
         return textfield.get_children_by_type("QQuickItem")[0]
 
     def get_back_button(self):
@@ -46,3 +46,6 @@ class MainWindow(object):
 
     def get_error_sheet(self):
         return self.app.select_single("ErrorSheet")
+
+    def get_address_bar_text_field(self):
+        return self.get_address_bar().get_children_by_type("TextField")[0]

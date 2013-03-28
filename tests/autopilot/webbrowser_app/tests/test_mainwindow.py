@@ -302,3 +302,25 @@ class TestMainWindowAddressBarStates(TestMainWindowStartOpenRemotePageBase,
         self.assertThat(address_bar.state, Eventually(Equals("editing")))
         self.keyboard.press("Enter")
         self.assertThat(address_bar.state, Eventually(Equals("")))
+
+
+class TestMainWindowAddressBarSelection(TestMainWindowStartOpenRemotePageBase,
+                                        TestMainWindowMixin):
+
+    """Test the address bar selection"""
+    def test_click_to_select(self):
+        self.reveal_chrome()
+        address_bar = self.main_window.get_address_bar()
+        self.pointing_device.move_to_object(address_bar)
+        self.pointing_device.click()
+        text_field = self.main_window.get_address_bar_text_field()
+        self.assertThat(text_field.selectedText, Eventually(Equals(text_field.text)))
+
+    def test_click_on_action_button(self):
+        self.reveal_chrome()
+        action_button = self.main_window.get_address_bar_action_button()
+        self.pointing_device.move_to_object(action_button)
+        self.pointing_device.click()
+        text_field = self.main_window.get_address_bar_text_field()
+        self.assertThat(text_field.selectedText, Eventually(Equals("")))
+
