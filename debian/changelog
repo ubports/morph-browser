@@ -1,8 +1,13 @@
-webbrowser-app (0.17-0ubuntu1) UNRELEASED; urgency=low
+webbrowser-app (0.18) quantal; urgency=low
 
+  [ Robert Bruce Park ]
   * Some minor fixes to the packaging.
 
- -- Robert Bruce Park <robert.park@canonical.com>  Wed, 27 Mar 2013 11:34:51 -0700
+  [ Olivier Tilloy ]
+  * Allow running with stock QtWebKit as found in Ubuntu.
+  * Add states to the address bar.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 29 Mar 2013 15:20:28 +0100
 
 webbrowser-app (0.17) quantal; urgency=low
 
