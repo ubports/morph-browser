@@ -9,7 +9,7 @@
 
 from __future__ import absolute_import
 
-from testtools.matchers import Equals
+from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import BrowserTestCaseBase, \
@@ -323,4 +323,20 @@ class TestMainWindowAddressBarSelection(TestMainWindowStartOpenRemotePageBase,
         self.pointing_device.click()
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(text_field.selectedText, Eventually(Equals("")))
+
+    def test_second_click_deselect_text(self):
+        self.reveal_chrome()
+        address_bar = self.main_window.get_address_bar()
+        self.pointing_device.move_to_object(address_bar)
+        self.pointing_device.click()
+        addressBarRect = address_bar.globalRect        
+        # avoid double click
+        self.pointing_device.move(addressBarRect[0] + addressBarRect[2] / 2 + 10, addressBarRect[1] + addressBarRect[3] / 2)
+        self.pointing_device.click()
+        text_field = self.main_window.get_address_bar_text_field()
+        self.assertThat(text_field.selectedText, Eventually(Equals('')))
+        self.assertThat(text_field.cursorPosition, Eventually(GreaterThan(0)))         
+
+    
+
 
