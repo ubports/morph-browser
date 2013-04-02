@@ -1,3 +1,9 @@
+webbrowser-app (0.19) quantal; urgency=low
+
+  * Add X-Ubuntu-Touch field into desktop file.
+
+ -- Ying-Chun Liu (PaulLiu) <paul.liu@canonical.com>  Tue, 02 Apr 2013 22:55:34 +0800
+
 webbrowser-app (0.18) quantal; urgency=low
 
   [ Robert Bruce Park ]
