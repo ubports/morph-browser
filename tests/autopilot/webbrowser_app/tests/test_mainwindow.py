@@ -15,7 +15,7 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import BrowserTestCaseBase, \
                                     BrowserTestCaseBaseWithHTTPServer, \
                                     HTTP_SERVER_PORT
-
+import time
 
 TYPING_DELAY = 0.001
 LOREMIPSUM = "<p>Lorem ipsum dolor sit amet.</p>"
@@ -329,14 +329,19 @@ class TestMainWindowAddressBarSelection(TestMainWindowStartOpenRemotePageBase,
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
-        addressBarRect = address_bar.globalRect        
         # avoid double click
-        self.pointing_device.move(addressBarRect[0] + addressBarRect[2] / 2 + 10, addressBarRect[1] + addressBarRect[3] / 2)
+        time.sleep(1)
         self.pointing_device.click()
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(text_field.selectedText, Eventually(Equals('')))
-        self.assertThat(text_field.cursorPosition, Eventually(GreaterThan(0)))         
+        self.assertThat(text_field.cursorPosition, Eventually(GreaterThan(0)))
 
-    
-
+    def test_double_click_select_word(self):
+        self.reveal_chrome()
+        address_bar = self.main_window.get_address_bar()
+        self.pointing_device.move_to_object(address_bar)
+        self.pointing_device.click()
+        self.pointing_device.click()
+        text_field = self.main_window.get_address_bar_text_field()
+        self.assertGreater(len(text_field.selectedText), 0)
 
