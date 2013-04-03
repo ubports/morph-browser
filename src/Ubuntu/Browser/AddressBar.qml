@@ -96,21 +96,18 @@ FocusScope {
         }
         onActiveFocusChanged: ensureSchemeVisibleWhenUnfocused()
         onTextChanged: ensureSchemeVisibleWhenUnfocused()
-    }
 
-    // Make sure that all the text is selected at the first click
-    MouseArea {
-        anchors {
-            top: textField.top
-            bottom: textField.bottom
-            right: textField.right
-            left: textField.left
-            leftMargin: __actionButton.width
-        }
-        visible: !textField.activeFocus
-        onClicked: {
-            textField.forceActiveFocus()
-            textField.selectAll()
+        // Make sure that all the text is selected at the first click
+        MouseArea {
+            anchors {
+                fill: parent
+                leftMargin: __actionButton.width
+            }
+            visible: !textField.activeFocus
+            onClicked: {
+                textField.forceActiveFocus()
+                textField.selectAll()
+            }
         }
     }
 
