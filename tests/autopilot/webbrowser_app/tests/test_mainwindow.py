@@ -343,5 +343,5 @@ class TestMainWindowAddressBarSelection(TestMainWindowStartOpenRemotePageBase,
         self.pointing_device.click()
         self.pointing_device.click()
         text_field = self.main_window.get_address_bar_text_field()
-        self.assertGreater(len(text_field.selectedText), 0)
+        self.assertThat(lambda: len(text_field.selectedText), Eventually(GreaterThan(0)))
 
