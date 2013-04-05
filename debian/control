@@ -11,7 +11,7 @@ Build-Depends: cmake (>= 2.8.9),
                qtdeclarative5-dev,
                qtdeclarative5-qtquick2-plugin,
                qtdeclarative5-test-plugin,
-               qtdeclarative5-ubuntu-ui-toolkit-plugin | qt-components-ubuntu,
+               qtdeclarative5-ubuntu-ui-toolkit-plugin,
                qtdeclarative5-window-plugin,
 Standards-Version: 3.9.4
 Homepage: https://launchpad.net/webbrowser-app
@@ -24,7 +24,7 @@ Architecture: any
 Depends: libhud-qt-qml,
          libqt5webkit5-qmlwebkitplugin,
          qtdeclarative5-qtquick2-plugin,
-         qtdeclarative5-ubuntu-ui-toolkit-plugin | qt-components-ubuntu,
+         qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-window-plugin,
          ${misc:Depends},
          ${shlibs:Depends},
