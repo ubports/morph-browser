@@ -21,23 +21,23 @@ Vcs-Bzr: https://code.launchpad.net/~phablet-team/webbrowser-app/trunk
 
 Package: webbrowser-app
 Architecture: any
-Depends: libhud-qt-qml,
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libhud-qt-qml,
          libqt5webkit5-qmlwebkitplugin,
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-window-plugin,
-         ${misc:Depends},
-         ${shlibs:Depends},
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.
 
 Package: webbrowser-app-autopilot
 Architecture: all
-Depends: libautopilot-qt,
+Depends: ${misc:Depends},
+         libautopilot-qt,
          libqt5test5,
          webbrowser-app (= ${source:Version}),
-         ${misc:Depends},
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains autopilot
