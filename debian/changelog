@@ -1,3 +1,9 @@
+webbrowser-app (0.20) UNRELEASED; urgency=low
+
+  * Automatic snapshot from revision 108 (bootstrap)
+
+ -- Robert Bruce Park <robert.park@canonical.com>  Tue, 09 Apr 2013 09:35:44 -0700
+
 webbrowser-app (0.19) quantal; urgency=low
 
   * Add X-Ubuntu-Touch field into desktop file.
