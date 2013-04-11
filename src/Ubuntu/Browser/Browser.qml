@@ -22,7 +22,7 @@ import QtWebKit 3.0
 import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
-import Ubuntu.HUD 0.1 as HUD
+import Ubuntu.HUD 1.0 as HUD
 
 FocusScope {
     id: browser
@@ -59,7 +59,9 @@ FocusScope {
          */
         applicationIdentifier: (browser.desktopFileHint == "<not set>") ? "webbrowser-app" : browser.desktopFileHint
         HUD.Context {
-            toolbar.quitAction.onTriggered: Qt.quit()
+            HUD.QuitAction {
+                onTriggered: Qt.quit()
+            }
             HUD.Action {
                 label: "Goto"
                 keywords: "Address;URL;www"
