@@ -18,6 +18,7 @@ set(WEBBROWSER_APP webbrowser-app)
 
 set(WEBBROWSER_SRC
     commandline-parser.cpp
+    history-model.cpp
     webbrowser-app.cpp
     main.cpp
 )
@@ -30,7 +31,7 @@ include_directories(
     ${CMAKE_BINARY_DIR}
 )
 
-qt5_use_modules(${WEBBROWSER_APP} Core Widgets Quick)
+qt5_use_modules(${WEBBROWSER_APP} Core Sql Widgets Quick)
 
 install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

@@ -180,6 +180,9 @@ FocusScope {
 
         onLoadingChanged: {
             error.visible = (loadRequest.status === WebView.LoadFailedStatus)
+            if (loadRequest.status === WebView.LoadSucceededStatus) {
+                historyModel.add(webview.url, webview.title, webview.icon)
+            }
         }
     }
 

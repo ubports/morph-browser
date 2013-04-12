@@ -17,14 +17,18 @@
  */
 
 // Qt
+#include <QtCore/QDir>
+#include <QtCore/QStandardPaths>
 #include <QtNetwork/QNetworkInterface>
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickView>
+#include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
 
 // local
 #include "config.h"
 #include "commandline-parser.h"
+#include "history-model.h"
 #include "webbrowser-app.h"
 
 static float getGridUnit()
@@ -54,6 +58,7 @@ WebBrowserApp::WebBrowserApp(int& argc, char** argv)
     : QApplication(argc, argv)
     , m_view(0)
     , m_arguments(0)
+    , m_history(0)
 {
 }
 
@@ -108,6 +113,13 @@ bool WebBrowserApp::initialize()
     } else {
         browser->setProperty("desktopFileHint", m_arguments->desktopFileHint());
     }
+
+    QDir dataLocation(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    if (!dataLocation.exists()) {
+        QDir::root().mkpath(dataLocation.absolutePath());
+    }
+    m_history = new HistoryModel(dataLocation.filePath("history.sqlite"), this);
+    m_view->rootContext()->setContextProperty("historyModel", m_history);
 
     // Set the desired pixel ratio (not needed once we use Qt's way of calculating
     // the proper pixel ratio by device/screen)
