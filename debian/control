@@ -20,7 +20,7 @@ Homepage: https://launchpad.net/webbrowser-app
 Vcs-Bzr: https://code.launchpad.net/~phablet-team/webbrowser-app/trunk
 
 Package: webbrowser-app
-Architecture: any
+Architecture: i386 amd64 armhf
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          libhud-qt-qml,
