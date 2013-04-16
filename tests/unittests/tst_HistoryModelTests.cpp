@@ -48,6 +48,12 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 0);
     }
 
+    void shouldNotAddEmptyUrl()
+    {
+        QCOMPARE(model->add(QUrl(), "empty URL", QUrl()), 0);
+        QCOMPARE(model->rowCount(), 0);
+    }
+
     void shouldAddNewEntries()
     {
         QCOMPARE(model->add(QUrl("http://example.org/"), "Example Domain", QUrl()), 1);
