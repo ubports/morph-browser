@@ -67,28 +67,23 @@ void HistoryModel::createDatabaseSchema()
 
 void HistoryModel::populateFromDatabase()
 {
-    QSqlQuery countQuery(m_database);
-    QString query = QLatin1String("SELECT COUNT(*) FROM history;");
-    countQuery.prepare(query);
-    countQuery.exec();
-    int count = countQuery.first() ? countQuery.value(0).toInt() : 0;
-    if (count > 0) {
-        beginInsertRows(QModelIndex(), 0, count - 1);
-        QSqlQuery populateQuery(m_database);
-        query = QLatin1String("SELECT url, title, icon, visits, lastVisit "
-                              "FROM history ORDER BY lastVisit DESC;");
-        populateQuery.prepare(query);
-        populateQuery.exec();
-        while (populateQuery.next()) {
-            HistoryEntry entry;
-            entry.url = populateQuery.value(0).toUrl();
-            entry.title = populateQuery.value(1).toString();
-            entry.icon = populateQuery.value(2).toUrl();
-            entry.visits = populateQuery.value(3).toInt();
-            entry.lastVisit = QDateTime::fromTime_t(populateQuery.value(4).toInt());
-            m_entries.append(entry);
-        }
+    QSqlQuery populateQuery(m_database);
+    QString query = QLatin1String("SELECT url, title, icon, visits, lastVisit "
+                                  "FROM history ORDER BY lastVisit DESC;");
+    populateQuery.prepare(query);
+    populateQuery.exec();
+    int count = 0;
+    while (populateQuery.next()) {
+        HistoryEntry entry;
+        entry.url = populateQuery.value(0).toUrl();
+        entry.title = populateQuery.value(1).toString();
+        entry.icon = populateQuery.value(2).toUrl();
+        entry.visits = populateQuery.value(3).toInt();
+        entry.lastVisit = QDateTime::fromTime_t(populateQuery.value(4).toInt());
+        beginInsertRows(QModelIndex(), count, count);
+        m_entries.append(entry);
         endInsertRows();
+        ++count;
     }
 }
 
