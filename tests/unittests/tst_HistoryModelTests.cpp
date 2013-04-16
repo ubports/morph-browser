@@ -50,9 +50,9 @@ private Q_SLOTS:
 
     void shouldAddNewEntries()
     {
-        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        QCOMPARE(model->add(QUrl("http://example.org/"), "Example Domain", QUrl()), 1);
         QCOMPARE(model->rowCount(), 1);
-        model->add(QUrl("http://example.com/"), "Example Domain", QUrl());
+        QCOMPARE(model->add(QUrl("http://example.com/"), "Example Domain", QUrl()), 1);
         QCOMPARE(model->rowCount(), 2);
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Url).toString(),
                  QString("http://example.com/"));
@@ -79,9 +79,9 @@ private Q_SLOTS:
 
     void shouldUpdateExistingEntry()
     {
-        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        QCOMPARE(model->add(QUrl("http://example.org/"), "Example Domain", QUrl()), 1);
         QCOMPARE(model->rowCount(), 1);
-        model->add(QUrl("http://example.org/"), "Example Domain", QUrl("image://webicon/123"));
+        QCOMPARE(model->add(QUrl("http://example.org/"), "Example Domain", QUrl("image://webicon/123")), 2);
         QCOMPARE(model->rowCount(), 1);
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Url).toString(),
                  QString("http://example.org/"));
