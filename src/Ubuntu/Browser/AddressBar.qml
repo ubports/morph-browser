@@ -143,7 +143,7 @@ FocusScope {
     }
 
     function buildSearchUrl(query) {
-        var searchUrl = "http://google.com/search?client=ubuntu&q=%1&ie=utf-8&oe=utf-8"
+        var searchUrl = "https://google.com/search?client=ubuntu&q=%1&ie=utf-8&oe=utf-8"
         var terms = query.split(/\s/).map(escapeHtmlEntities)
         return searchUrl.arg(terms.join("+"))
     }
