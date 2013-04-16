@@ -144,8 +144,11 @@ int HistoryModel::getEntryIndex(const QUrl& url) const
 
 /*!
     Add an entry to the model.
+
     If an entry with the same URL already exists, it is updated.
     Otherwise a new entry is created and added to the model.
+
+    Return the total number of visits for the URL.
 */
 int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
 {
