@@ -28,18 +28,24 @@ HistoryModel::HistoryModel(const QString& databasePath, QObject* parent)
     m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), connectionName);
     m_database.setDatabaseName(databasePath);
     m_database.open();
+    createDatabaseSchema();
+    populateFromDatabase();
+}
 
-    // create the table if it doesn’t exist yet
+void HistoryModel::createDatabaseSchema()
+{
     QSqlQuery schemaQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS history "
                                   "(url VARCHAR, title VARCHAR, icon VARCHAR,"
                                   " visits INTEGER, lastVisit DATETIME);");
     schemaQuery.prepare(query);
     schemaQuery.exec();
+}
 
-    // initial population of the model
+void HistoryModel::populateFromDatabase()
+{
     QSqlQuery countQuery(m_database);
-    query = QLatin1String("SELECT COUNT(*) FROM history;");
+    QString query = QLatin1String("SELECT COUNT(*) FROM history;");
     countQuery.prepare(query);
     countQuery.exec();
     int count = countQuery.first() ? countQuery.value(0).toInt() : 0;
@@ -136,15 +142,7 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
         beginInsertRows(QModelIndex(), 0, 0);
         m_entries.prepend(entry);
         endInsertRows();
-        QSqlQuery query(m_database);
-        static QString insertStatement = QLatin1String("INSERT INTO history (url, title, icon, "
-                                                       "visits, lastVisit) VALUES (?, ?, ?, 1, ?);");
-        query.prepare(insertStatement);
-        query.addBindValue(url.toString());
-        query.addBindValue(title);
-        query.addBindValue(icon.toString());
-        query.addBindValue(now.toTime_t());
-        query.exec();
+        insertNewEntryInDatabase(entry);
     } else {
         QVector<int> roles;
         roles << Visits;
@@ -183,16 +181,34 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
             endMoveRows();
         }
         Q_EMIT dataChanged(this->index(0, 0), this->index(0, 0), roles);
-        QSqlQuery query(m_database);
-        static QString updateStatement = QLatin1String("UPDATE history SET title=?, icon=?, "
-                                                       "visits=?, lastVisit=? WHERE url=?;");
-        query.prepare(updateStatement);
-        query.addBindValue(title);
-        query.addBindValue(icon.toString());
-        query.addBindValue(count);
-        query.addBindValue(now.toTime_t());
-        query.addBindValue(url.toString());
-        query.exec();
+        updateExistingEntryInDatabase(m_entries.first());
     }
     return count;
+}
+
+void HistoryModel::insertNewEntryInDatabase(const HistoryEntry& entry)
+{
+    QSqlQuery query(m_database);
+    static QString insertStatement = QLatin1String("INSERT INTO history (url, title, icon, "
+                                                   "visits, lastVisit) VALUES (?, ?, ?, 1, ?);");
+    query.prepare(insertStatement);
+    query.addBindValue(entry.url.toString());
+    query.addBindValue(entry.title);
+    query.addBindValue(entry.icon.toString());
+    query.addBindValue(entry.lastVisit.toTime_t());
+    query.exec();
+}
+
+void HistoryModel::updateExistingEntryInDatabase(const HistoryEntry& entry)
+{
+    QSqlQuery query(m_database);
+    static QString updateStatement = QLatin1String("UPDATE history SET title=?, icon=?, "
+                                                   "visits=?, lastVisit=? WHERE url=?;");
+    query.prepare(updateStatement);
+    query.addBindValue(entry.title);
+    query.addBindValue(entry.icon.toString());
+    query.addBindValue(entry.visits);
+    query.addBindValue(entry.lastVisit.toTime_t());
+    query.addBindValue(entry.url.toString());
+    query.exec();
 }

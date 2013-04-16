@@ -63,6 +63,11 @@ private:
     };
     QList<HistoryEntry> m_entries;
     int getEntryIndex(const QUrl& url) const;
+
+    void createDatabaseSchema();
+    void populateFromDatabase();
+    void insertNewEntryInDatabase(const HistoryEntry& entry);
+    void updateExistingEntryInDatabase(const HistoryEntry& entry);
 };
 
 #endif // __HISTORY_MODEL_H__
