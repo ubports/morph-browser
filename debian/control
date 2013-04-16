@@ -24,6 +24,7 @@ Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          libhud-qt-qml,
+         libqt5sql5-sqlite,
          libqt5webkit5-qmlwebkitplugin,
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
