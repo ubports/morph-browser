@@ -21,6 +21,21 @@
 // Qt
 #include <QtSql/QSqlQuery>
 
+/*!
+    \class HistoryModel
+    \brief List model that stores information about navigation history.
+
+    HistoryModel is a list model that stores history entries that contain
+    metadata about navigation history. For a given URL, the following
+    information is stored: page title, URL to the favorite icon if any, total
+    number of visits, and timestamp of the most recent visit (UTC).
+    The model is sorted chronologically at all times (most recent visit first).
+
+    The information is persistently stored on disk in a SQLite database.
+    The database is read at startup to populate the model, and whenever a new
+    entry is added to the model the database is updated.
+    However the model doesn’t monitor the database for external changes.
+*/
 HistoryModel::HistoryModel(const QString& databasePath, QObject* parent)
     : QAbstractListModel(parent)
 {
@@ -124,6 +139,11 @@ int HistoryModel::getEntryIndex(const QUrl& url) const
     return -1;
 }
 
+/*!
+    Add an entry to the model.
+    If an entry with the same URL already exists, it is updated.
+    Otherwise a new entry is created and added to the model.
+*/
 int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
 {
     if (url.isEmpty()) {
