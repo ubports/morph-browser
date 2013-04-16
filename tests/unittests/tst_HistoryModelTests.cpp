@@ -91,7 +91,8 @@ private Q_SLOTS:
     void shouldNotifyWhenUpdatingExistingEntry()
     {
         QSignalSpy spyMoved(model, SIGNAL(rowsMoved(const QModelIndex&, int, int, const QModelIndex&, int)));
-        QSignalSpy spyChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)));
+        qRegisterMetaType<QVector<int> >();
+        QSignalSpy spyChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
         model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
         QCOMPARE(spyMoved.count(), 0);
         QCOMPARE(spyChanged.count(), 0);
@@ -101,10 +102,14 @@ private Q_SLOTS:
         QList<QVariant> args = spyChanged.takeFirst();
         QCOMPARE(args.at(0).toModelIndex().row(), 0);
         QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        QVector<int> roles = args.at(2).value<QVector<int> >();
+        QVERIFY(roles.size() >= 2);
+        QVERIFY(roles.contains(HistoryModel::Icon));
+        QVERIFY(roles.contains(HistoryModel::Visits));
         model->add(QUrl("http://example.com/"), "Example Domain", QUrl());
         QCOMPARE(spyMoved.count(), 0);
         QCOMPARE(spyChanged.count(), 0);
-        model->add(QUrl("http://example.org/"), "Example Domain", QUrl("image://webicon/456"));
+        model->add(QUrl("http://example.org/"), "Example D0ma1n", QUrl("image://webicon/456"));
         QCOMPARE(spyMoved.count(), 1);
         args = spyMoved.takeFirst();
         QCOMPARE(args.at(1).toInt(), 1);
@@ -114,6 +119,11 @@ private Q_SLOTS:
         args = spyChanged.takeFirst();
         QCOMPARE(args.at(0).toModelIndex().row(), 0);
         QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        roles = args.at(2).value<QVector<int> >();
+        QVERIFY(roles.size() >= 3);
+        QVERIFY(roles.contains(HistoryModel::Title));
+        QVERIFY(roles.contains(HistoryModel::Icon));
+        QVERIFY(roles.contains(HistoryModel::Visits));
     }
 
     void shouldUpdateTimestamp()

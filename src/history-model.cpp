@@ -145,24 +145,42 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
         query.addBindValue(now.toTime_t());
         query.exec();
     } else {
+        QVector<int> roles;
+        roles << Visits;
         if (index == 0) {
             HistoryEntry& entry = m_entries.first();
-            entry.title = title;
-            entry.icon = icon;
+            if (title != entry.title) {
+                entry.title = title;
+                roles << Title;
+            }
+            if (icon != entry.icon) {
+                entry.icon = icon;
+                roles << Icon;
+            }
             count = ++entry.visits;
-            entry.lastVisit = now;
+            if (now != entry.lastVisit) {
+                entry.lastVisit = now;
+                roles << LastVisit;
+            }
         } else {
             beginMoveRows(QModelIndex(), index, index, QModelIndex(), 0);
             HistoryEntry entry = m_entries.takeAt(index);
-            entry.title = title;
-            entry.icon = icon;
+            if (title != entry.title) {
+                entry.title = title;
+                roles << Title;
+            }
+            if (icon != entry.icon) {
+                entry.icon = icon;
+                roles << Icon;
+            }
             count = ++entry.visits;
-            entry.lastVisit = now;
+            if (now != entry.lastVisit) {
+                entry.lastVisit = now;
+                roles << LastVisit;
+            }
             m_entries.prepend(entry);
             endMoveRows();
         }
-        QVector<int> roles;
-        roles << Title << Icon << Visits << LastVisit;
         Q_EMIT dataChanged(this->index(0, 0), this->index(0, 0), roles);
         QSqlQuery query(m_database);
         static QString updateStatement = QLatin1String("UPDATE history SET title=?, icon=?, "
