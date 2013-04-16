@@ -24,7 +24,8 @@
 HistoryModel::HistoryModel(const QString& databasePath, QObject* parent)
     : QAbstractListModel(parent)
 {
-    m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"));
+    QString connectionName = "webbrowser-app-history";
+    m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), connectionName);
     m_database.setDatabaseName(databasePath);
     m_database.open();
 
