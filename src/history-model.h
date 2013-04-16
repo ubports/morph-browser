@@ -35,6 +35,7 @@ class HistoryModel : public QAbstractListModel
 
 public:
     HistoryModel(const QString& databasePath, QObject* parent=0);
+    ~HistoryModel();
 
     enum Roles {
         Url = Qt::UserRole + 1,

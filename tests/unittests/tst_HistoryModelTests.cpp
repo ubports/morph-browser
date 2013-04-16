@@ -150,13 +150,13 @@ private Q_SLOTS:
         QTemporaryFile tempFile;
         tempFile.open();
         QString fileName = tempFile.fileName();
-        HistoryModel* model2 = new HistoryModel(fileName);
-        model2->add(QUrl("http://example.org/"), "Example Domain", QUrl());
-        model2->add(QUrl("http://example.com/"), "Example Domain", QUrl());
-        delete model2;
-        model2 = new HistoryModel(fileName);
-        QCOMPARE(model2->rowCount(), 2);
-        delete model2;
+        delete model;
+        model = new HistoryModel(fileName);
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        model->add(QUrl("http://example.com/"), "Example Domain", QUrl());
+        delete model;
+        model = new HistoryModel(fileName);
+        QCOMPARE(model->rowCount(), 2);
     }
 };
 

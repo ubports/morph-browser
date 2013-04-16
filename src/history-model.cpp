@@ -21,6 +21,8 @@
 // Qt
 #include <QtSql/QSqlQuery>
 
+#define CONNECTION_NAME "webbrowser-app-history"
+
 /*!
     \class HistoryModel
     \brief List model that stores information about navigation history.
@@ -39,12 +41,18 @@
 HistoryModel::HistoryModel(const QString& databasePath, QObject* parent)
     : QAbstractListModel(parent)
 {
-    QString connectionName = "webbrowser-app-history";
-    m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), connectionName);
+    m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), CONNECTION_NAME);
     m_database.setDatabaseName(databasePath);
     m_database.open();
     createDatabaseSchema();
     populateFromDatabase();
+}
+
+HistoryModel::~HistoryModel()
+{
+    m_database.close();
+    m_database = QSqlDatabase();
+    QSqlDatabase::removeDatabase(CONNECTION_NAME);
 }
 
 void HistoryModel::createDatabaseSchema()
