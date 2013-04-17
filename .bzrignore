@@ -16,6 +16,7 @@ src/config.h
 src/webbrowser-app
 tests/unittests/tst_QmlTests
 tests/unittests/tst_CommandLineParserTests
+tests/unittests/tst_HistoryModelTests
 
 obj-*
 debian/files
