@@ -1,8 +1,20 @@
-webbrowser-app (0.20) UNRELEASED; urgency=low
+webbrowser-app (0.20) quantal; urgency=low
 
-  * Automatic snapshot from revision 108 (bootstrap)
+  [ Łukasz Zemczak ]
+  * Change arch from any to a specified list not to build powerpc needlessly.
 
- -- Robert Bruce Park <robert.park@canonical.com>  Tue, 09 Apr 2013 09:35:44 -0700
+  [ Olivier Tilloy ]
+  * Minor packaging tweaks.
+  * Remove the fallback dependency on qt-components-ubuntu.
+  * Expose the navigation history as a list model (HistoryModel class).
+
+  [ Renato Araujo Oliveira Filho ]
+  * Select the whole URL when clicking on the addressbar (LP: #1118586).
+
+  [ Robert Bruce Park ]
+  * Fix autopilot tests dependence on self.pointing_device which doesn't exist.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 17 Apr 2013 17:57:33 +0200
 
 webbrowser-app (0.19) quantal; urgency=low
 
