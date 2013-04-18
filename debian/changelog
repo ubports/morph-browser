@@ -1,5 +1,8 @@
 webbrowser-app (0.20) quantal; urgency=low
 
+  [ Adnane Belmadiaf ]
+  * Search over SSL.
+
   [ Łukasz Zemczak ]
   * Change arch from any to a specified list not to build powerpc needlessly.
 
@@ -14,7 +17,7 @@ webbrowser-app (0.20) quantal; urgency=low
   [ Robert Bruce Park ]
   * Fix autopilot tests dependence on self.pointing_device which doesn't exist.
 
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 17 Apr 2013 17:57:33 +0200
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 18 Apr 2013 14:16:17 +0200
 
 webbrowser-app (0.19) quantal; urgency=low
 
