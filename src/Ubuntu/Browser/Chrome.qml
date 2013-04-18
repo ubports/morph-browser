@@ -92,6 +92,18 @@ Item {
         onRequestStop: chrome.requestStop()
     }
 
+    Suggestions {
+        id: suggestions
+        visible: addressBar.focus && (count > 0)
+        anchors {
+            bottom: parent.top
+            horizontalCenter: parent.horizontalCenter
+        }
+        width: parent.width - units.gu(5)
+        height: Math.min(contentHeight, units.gu(40))
+        onSelected: chrome.urlValidated(url)
+    }
+
     Image {
         anchors.bottom: parent.top
         anchors.left: parent.left
