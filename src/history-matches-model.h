@@ -16,36 +16,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBBROWSER_APP_H__
-#define __WEBBROWSER_APP_H__
+#ifndef __HISTORY_MATCHES_MODEL_H__
+#define __HISTORY_MATCHES_MODEL_H__
 
-#include <QtWidgets/QApplication>
+// Qt
+#include <QtCore/QSortFilterProxyModel>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
-class QQuickView;
-
-class CommandLineParser;
 class HistoryModel;
-class HistoryMatchesModel;
 
-class WebBrowserApp : public QApplication
+class HistoryMatchesModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString query READ query WRITE setQuery NOTIFY queryChanged)
+
 public:
-    WebBrowserApp(int& argc, char** argv);
-    ~WebBrowserApp();
+    HistoryMatchesModel(HistoryModel* model, QObject* parent=0);
 
-    bool initialize();
-    int run();
+    const QString& query() const;
+    void setQuery(const QString& query);
 
-private Q_SLOTS:
-    void onTitleChanged();
+Q_SIGNALS:
+    void queryChanged() const;
+
+protected:
+    // reimplemented from QSortFilterProxyModel
+    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 
 private:
-    QQuickView* m_view;
-    CommandLineParser* m_arguments;
-    HistoryModel* m_history;
-    HistoryMatchesModel* m_historyMatches;
+    QString m_query;
+    QStringList m_terms;
 };
 
-#endif // __WEBBROWSER_APP_H__
+#endif // __HISTORY_MATCHES_MODEL_H__
