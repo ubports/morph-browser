@@ -50,9 +50,22 @@ Rectangle {
         model: historyMatches
 
         delegate: ListItem.Subtitled {
-            text: title
-            subText: url
+            text: highlightTerms(title, historyMatches.terms)
+            subText: highlightTerms(url, historyMatches.terms)
             onClicked: suggestions.selected(url)
+
+            function highlightTerms(text, terms) {
+                if (text === undefined) {
+                    return ''
+                }
+                var highlighted = text.toString()
+                var count = terms.length
+                for (var i = 0; i < count; ++i) {
+                    var term = terms[i]
+                    highlighted = highlighted.replace(new RegExp(term, 'i'), '<b>$&</b>')
+                }
+                return highlighted
+            }
         }
     }
 
