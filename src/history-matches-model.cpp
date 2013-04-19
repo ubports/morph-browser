@@ -50,7 +50,7 @@ void HistoryMatchesModel::setQuery(const QString& query)
 {
     if (query != m_query) {
         m_query = query;
-        m_terms = query.split(QRegExp("\\W+"), QString::SkipEmptyParts);
+        m_terms = query.split(QRegExp("\\s+"), QString::SkipEmptyParts);
         invalidateFilter();
         Q_EMIT queryChanged();
         Q_EMIT termsChanged();

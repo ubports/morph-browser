@@ -113,10 +113,10 @@ private Q_SLOTS:
         QCOMPARE(matches->terms(), QStringList() << "ubuntu");
         matches->setQuery("download ubuntu");
         QCOMPARE(matches->terms(), QStringList() << "download" << "ubuntu");
-        matches->setQuery("ubuntu,warty,warthog");
-        QCOMPARE(matches->terms(), QStringList() << "ubuntu" << "warty" << "warthog");
-        matches->setQuery("   ubuntu  ;  touch  ");
+        matches->setQuery("   ubuntu    touch  ");
         QCOMPARE(matches->terms(), QStringList() << "ubuntu" << "touch");
+        matches->setQuery("ubuntu+touch");
+        QCOMPARE(matches->terms(), QStringList() << "ubuntu+touch");
     }
 
     void shouldMatchAllTerms()
@@ -129,16 +129,6 @@ private Q_SLOTS:
         QCOMPARE(matches->rowCount(), 1);
         matches->setQuery("ubuntu wiki");
         QCOMPARE(matches->rowCount(), 0);
-    }
-
-    void shouldMatchAllTermsSeparatedByCommas()
-    {
-        model->add(QUrl("http://example.org"), "Example Domain", QUrl());
-        model->add(QUrl("http://ubuntu.com"), "Home | Ubuntu", QUrl());
-        model->add(QUrl("http://wikipedia.org"), "Wikipedia", QUrl());
-        model->add(QUrl("http://ubuntu.com/download"), "Download Ubuntu | Ubuntu", QUrl());
-        matches->setQuery("ubuntu,home");
-        QCOMPARE(matches->rowCount(), 1);
     }
 };
 
