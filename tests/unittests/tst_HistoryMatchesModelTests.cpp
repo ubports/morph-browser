@@ -107,6 +107,18 @@ private Q_SLOTS:
         QCOMPARE(matches->rowCount(), 1);
     }
 
+    void shouldExtractTermsFromQuery()
+    {
+        matches->setQuery("ubuntu");
+        QCOMPARE(matches->terms(), QStringList() << "ubuntu");
+        matches->setQuery("download ubuntu");
+        QCOMPARE(matches->terms(), QStringList() << "download" << "ubuntu");
+        matches->setQuery("ubuntu,warty,warthog");
+        QCOMPARE(matches->terms(), QStringList() << "ubuntu" << "warty" << "warthog");
+        matches->setQuery("   ubuntu  ;  touch  ");
+        QCOMPARE(matches->terms(), QStringList() << "ubuntu" << "touch");
+    }
+
     void shouldMatchAllTerms()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());

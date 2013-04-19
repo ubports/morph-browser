@@ -53,7 +53,13 @@ void HistoryMatchesModel::setQuery(const QString& query)
         m_terms = query.split(QRegExp("\\W+"), QString::SkipEmptyParts);
         invalidateFilter();
         Q_EMIT queryChanged();
+        Q_EMIT termsChanged();
     }
+}
+
+const QStringList& HistoryMatchesModel::terms() const
+{
+    return m_terms;
 }
 
 bool HistoryMatchesModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const

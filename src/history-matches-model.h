@@ -31,6 +31,7 @@ class HistoryMatchesModel : public QSortFilterProxyModel
     Q_OBJECT
 
     Q_PROPERTY(QString query READ query WRITE setQuery NOTIFY queryChanged)
+    Q_PROPERTY(QStringList terms READ terms NOTIFY termsChanged)
 
 public:
     HistoryMatchesModel(HistoryModel* model, QObject* parent=0);
@@ -38,8 +39,11 @@ public:
     const QString& query() const;
     void setQuery(const QString& query);
 
+    const QStringList& terms() const;
+
 Q_SIGNALS:
     void queryChanged() const;
+    void termsChanged() const;
 
 protected:
     // reimplemented from QSortFilterProxyModel
