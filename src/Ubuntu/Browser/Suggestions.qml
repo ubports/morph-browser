@@ -52,6 +52,7 @@ Rectangle {
         delegate: ListItem.Subtitled {
             text: highlightTerms(title, historyMatches.terms)
             subText: highlightTerms(url, historyMatches.terms)
+
             onClicked: suggestions.selected(url)
 
             function highlightTerms(text, terms) {
@@ -62,7 +63,7 @@ Rectangle {
                 var count = terms.length
                 for (var i = 0; i < count; ++i) {
                     var term = terms[i]
-                    highlighted = highlighted.replace(new RegExp(term, 'i'), '<b>$&</b>')
+                    highlighted = highlighted.replace(new RegExp(term, 'ig'), '<b>$&</b>')
                 }
                 return highlighted
             }
