@@ -65,6 +65,7 @@ Rectangle {
                     var term = terms[i]
                     highlighted = highlighted.replace(new RegExp(term, 'ig'), '<b>$&</b>')
                 }
+                highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
                 return highlighted
             }
         }
