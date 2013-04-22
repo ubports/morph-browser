@@ -1,3 +1,9 @@
+webbrowser-app (0.20-0ubuntu1) UNRELEASED; urgency=low
+
+  * Automatic snapshot from revision 115 (bootstrap)
+
+ -- Łukasz 'sil2100' Zemczak <lukasz.zemczak@canonical.com>  Mon, 22 Apr 2013 18:50:43 +0200
+
 webbrowser-app (0.20) quantal; urgency=low
 
   [ Adnane Belmadiaf ]
