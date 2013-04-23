@@ -24,7 +24,7 @@ Package: webbrowser-app
 Architecture: i386 amd64 armhf
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         libhud-qt-qml,
+         qtdeclarative5-hud1.0,
          libqt5sql5-sqlite,
          libqt5webkit5-qmlwebkitplugin,
          qtdeclarative5-qtquick2-plugin,
