@@ -14,7 +14,7 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import StartOpenLocalPageTestCaseBase
 
 
-class TestMainWindowErrorSheet(StartOpenLocalPageTestCaseBase):
+class TestErrorSheet(StartOpenLocalPageTestCaseBase):
 
     """Tests the error message functionality."""
 
