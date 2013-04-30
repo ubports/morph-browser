@@ -24,6 +24,7 @@ from webbrowser_app.emulators.main_window import MainWindow
 
 
 HTTP_SERVER_PORT = 8129
+TYPING_DELAY = 0.001
 
 
 class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
@@ -96,6 +97,61 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
         os.close(fd)
         self._temp_pages.append(path)
         return "file://" + path
+
+    def swipe_chrome_up(self, distance):
+        view = self.main_window.get_qml_view()
+        x_line = int(view.x + view.width * 0.5)
+        start_y = int(view.y + view.height - 1)
+        stop_y = int(start_y - distance)
+        self.mouse.drag(x_line, start_y, x_line, stop_y)
+
+    def swipe_chrome_down(self, distance):
+        view = self.main_window.get_qml_view()
+        x_line = int(view.x + view.width * 0.5)
+        start_y = int(self.main_window.get_chrome().globalRect[1])
+        stop_y = int(start_y + distance)
+        self.mouse.drag(x_line, start_y, x_line, stop_y)
+
+    def reveal_chrome(self):
+        self.swipe_chrome_up(self.main_window.get_chrome().height)
+
+    def hide_chrome(self):
+        self.swipe_chrome_down(self.main_window.get_chrome().height)
+
+    def assert_chrome_eventually_shown(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        expected_y = view.y + view.height - chrome.height
+        self.assertThat(lambda: chrome.globalRect[1],
+                        Eventually(Equals(expected_y)))
+
+    def assert_chrome_hidden(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.assertThat(chrome.globalRect[1], Equals(view.y + view.height))
+
+    def assert_chrome_eventually_hidden(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.assertThat(lambda: chrome.globalRect[1],
+                        Eventually(Equals(view.y + view.height)))
+
+    def go_to_url(self, url):
+        self.reveal_chrome()
+        address_bar = self.main_window.get_address_bar()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
+        clear_button = self.main_window.get_address_bar_clear_button()
+        self.mouse.move_to_object(clear_button)
+        self.mouse.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
+        self.keyboard.type(url, delay=TYPING_DELAY)
+        self.keyboard.press("Enter")
+
+    def assert_page_eventually_loaded(self, url):
+        webview = self.main_window.get_web_view()
+        self.assertThat(webview.url, Eventually(Equals(url)))
 
 
 class BrowserTestCaseBaseWithHTTPServer(BrowserTestCaseBase):

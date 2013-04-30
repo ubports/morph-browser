@@ -15,75 +15,17 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import \
     BrowserTestCaseBase, \
     BrowserTestCaseBaseWithHTTPServer, \
-    HTTP_SERVER_PORT
+    HTTP_SERVER_PORT, TYPING_DELAY
 import os.path
 import random
 import sqlite3
 import time
 
-TYPING_DELAY = 0.001
+
 LOREMIPSUM = "<p>Lorem ipsum dolor sit amet.</p>"
 
 
-class TestMainWindowMixin(object):
-
-    def swipe_chrome_up(self, distance):
-        view = self.main_window.get_qml_view()
-        x_line = int(view.x + view.width * 0.5)
-        start_y = int(view.y + view.height - 1)
-        stop_y = int(start_y - distance)
-        self.mouse.drag(x_line, start_y, x_line, stop_y)
-
-    def swipe_chrome_down(self, distance):
-        view = self.main_window.get_qml_view()
-        x_line = int(view.x + view.width * 0.5)
-        start_y = int(self.main_window.get_chrome().globalRect[1])
-        stop_y = int(start_y + distance)
-        self.mouse.drag(x_line, start_y, x_line, stop_y)
-
-    def reveal_chrome(self):
-        self.swipe_chrome_up(self.main_window.get_chrome().height)
-
-    def hide_chrome(self):
-        self.swipe_chrome_down(self.main_window.get_chrome().height)
-
-    def assert_chrome_eventually_shown(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
-        expected_y = view.y + view.height - chrome.height
-        self.assertThat(lambda: chrome.globalRect[1],
-                        Eventually(Equals(expected_y)))
-
-    def assert_chrome_hidden(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
-        self.assertThat(chrome.globalRect[1], Equals(view.y + view.height))
-
-    def assert_chrome_eventually_hidden(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
-        self.assertThat(lambda: chrome.globalRect[1],
-                        Eventually(Equals(view.y + view.height)))
-
-    def go_to_url(self, url):
-        self.reveal_chrome()
-        address_bar = self.main_window.get_address_bar()
-        self.mouse.move_to_object(address_bar)
-        self.mouse.click()
-        clear_button = self.main_window.get_address_bar_clear_button()
-        self.mouse.move_to_object(clear_button)
-        self.mouse.click()
-        self.mouse.move_to_object(address_bar)
-        self.mouse.click()
-        self.keyboard.type(url, delay=TYPING_DELAY)
-        self.keyboard.press("Enter")
-
-    def assert_page_eventually_loaded(self, url):
-        webview = self.main_window.get_web_view()
-        self.assertThat(webview.url, Eventually(Equals(url)))
-
-
-class TestMainWindowToolbar(BrowserTestCaseBase, TestMainWindowMixin):
+class TestMainWindowToolbar(BrowserTestCaseBase):
 
     """Tests interaction with the toolbar."""
 
@@ -145,7 +87,7 @@ class TestMainWindowToolbar(BrowserTestCaseBase, TestMainWindowMixin):
         self.assert_chrome_eventually_shown()
 
 
-class TestMainWindowTitle(BrowserTestCaseBase, TestMainWindowMixin):
+class TestMainWindowTitle(BrowserTestCaseBase):
 
     """Tests that the window’s title reflects the page title."""
 
@@ -192,8 +134,7 @@ class TestMainWindowStartOpenLocalPageBase(BrowserTestCaseBase):
         self.assert_page_eventually_loaded(self.url)
 
 
-class TestMainWindowBackForward(TestMainWindowStartOpenLocalPageBase,
-                                TestMainWindowMixin):
+class TestMainWindowBackForward(TestMainWindowStartOpenLocalPageBase):
 
     """Tests the back and forward functionality."""
 
@@ -228,8 +169,7 @@ class TestMainWindowBackForward(TestMainWindowStartOpenLocalPageBase,
         self.assertThat(forward_button.enabled, Eventually(Equals(True)))
 
 
-class TestMainWindowErrorSheet(TestMainWindowStartOpenLocalPageBase,
-                               TestMainWindowMixin):
+class TestMainWindowErrorSheet(TestMainWindowStartOpenLocalPageBase):
 
     """Tests the error message functionality."""
 
@@ -256,8 +196,7 @@ class TestMainWindowStartOpenRemotePageBase(BrowserTestCaseBaseWithHTTPServer):
         self.assert_page_eventually_loaded(self.url)
 
 
-class TestMainWindowAddressBarStates(TestMainWindowStartOpenRemotePageBase,
-                                     TestMainWindowMixin):
+class TestMainWindowAddressBarStates(TestMainWindowStartOpenRemotePageBase):
 
     """Tests the address bar states."""
 
@@ -293,8 +232,7 @@ class TestMainWindowAddressBarStates(TestMainWindowStartOpenRemotePageBase,
         self.assertThat(address_bar.state, Eventually(Equals("")))
 
 
-class TestMainWindowAddressBarSelection(TestMainWindowStartOpenRemotePageBase,
-                                        TestMainWindowMixin):
+class TestMainWindowAddressBarSelection(TestMainWindowStartOpenRemotePageBase):
 
     """Test the address bar selection"""
     def test_click_to_select(self):
@@ -375,7 +313,7 @@ class TestMainWindowPrepopulatedHistoryDatabase(BrowserTestCaseBase):
 
 
 class TestMainWindowHistorySuggestions(
-        TestMainWindowPrepopulatedHistoryDatabase, TestMainWindowMixin):
+        TestMainWindowPrepopulatedHistoryDatabase):
 
     """Test the address bar suggestions based on navigation history."""
 
