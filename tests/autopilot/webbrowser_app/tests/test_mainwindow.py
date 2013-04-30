@@ -354,7 +354,6 @@ class TestMainWindowPrepopulatedHistoryDatabase(BrowserTestCaseBase):
     """Helper test class that pre-populates the history database."""
 
     def setUp(self):
-        super(TestMainWindowPrepopulatedHistoryDatabase, self).setUp()
         self.clear_cache()
         db_path = os.path.join(os.path.expanduser("~"), ".local", "share",
                                "webbrowser-app", "history.sqlite")
@@ -377,6 +376,7 @@ class TestMainWindowPrepopulatedHistoryDatabase(BrowserTestCaseBase):
             connection.execute(query)
         connection.commit()
         connection.close()
+        super(TestMainWindowPrepopulatedHistoryDatabase, self).setUp()
 
 
 class TestMainWindowHistorySuggestions(TestMainWindowPrepopulatedHistoryDatabase,
