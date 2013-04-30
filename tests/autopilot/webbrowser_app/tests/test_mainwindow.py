@@ -408,6 +408,11 @@ class TestMainWindowHistorySuggestions(TestMainWindowPrepopulatedHistoryDatabase
         self.assertThat(listview.count, Eventually(Equals(5)))
         self.keyboard.type("leh", delay=TYPING_DELAY)
         self.assertThat(listview.count, Eventually(Equals(0)))
+        for i in range(5):
+            self.keyboard.press_and_release("BackSpace")
+        self.keyboard.type("xaMPL", delay=TYPING_DELAY)
+        self.assertThat(listview.count, Eventually(Equals(2)))
+
 
     def test_clear_address_bar_dismisses_suggestions(self):
         suggestions = self.main_window.get_address_bar_suggestions()
