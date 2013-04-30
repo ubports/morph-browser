@@ -1,25 +1,25 @@
-# -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
+# -*- coding: utf-8 -*-
+#
 # Copyright 2013 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
-"""Tests for the Browser"""
-
 from __future__ import absolute_import
+
+import time
 
 from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
-import time
 
-
-class TestMainWindowAddressBarSelection(StartOpenRemotePageTestCaseBase):
+class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
 
     """Test the address bar selection"""
+
     def test_click_to_select(self):
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
