@@ -7,19 +7,18 @@
 
 """webbrowser-app autopilot tests."""
 
-import BaseHTTPServer
 import os
 import os.path
 import shutil
 import tempfile
-import threading
-import time
 
 from testtools.matchers import Equals
 
 from autopilot.introspection.qt import QtIntrospectionTestMixin
 from autopilot.matchers import Eventually
 from autopilot.testcase import AutopilotTestCase
+
+import http_server
 
 from webbrowser_app.emulators.main_window import MainWindow
 
@@ -102,59 +101,6 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
         return "file://" + path
 
 
-class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
-
-    """
-    A custom HTTP request handler that serves GET resources.
-    """
-
-    def make_html(self, title, body):
-        return "<html><title>" + title + "</title>" + \
-               "<body>" + body + "</body></html>"
-
-    def send_html(self, html):
-        self.send_header("Content-Type", "text/html")
-        self.end_headers()
-        self.wfile.write(html)
-
-    def do_GET(self):
-        if self.path == "/loremipsum":
-            self.send_response(200)
-            title = "Lorem Ipsum"
-            body = "<p>Lorem ipsum dolor sit amet.</p>"
-            html = self.make_html(title, body)
-            self.send_html(html)
-        elif self.path.startswith("/wait/"):
-            delay = int(self.path[6:])
-            self.send_response(200)
-            title = "waiting %d seconds" % delay
-            body = "<p>this page took %d seconds to load</p>" % delay
-            html = self.make_html(title, body)
-            time.sleep(delay)
-            self.send_html(html)
-        else:
-            self.send_error(404)
-
-
-class HTTPServerInAThread(threading.Thread):
-
-    """
-    A simple custom HTTP server run in a separate thread.
-    """
-
-    def __init__(self, port):
-        super(HTTPServerInAThread, self).__init__()
-        self.server = BaseHTTPServer.HTTPServer(("", port), HTTPRequestHandler)
-        self.server.allow_reuse_address = True
-
-    def run(self):
-        self.server.serve_forever()
-
-    def shutdown(self):
-        self.server.shutdown()
-        self.server.server_close()
-
-
 class BrowserTestCaseBaseWithHTTPServer(BrowserTestCaseBase):
 
     """
@@ -163,7 +109,7 @@ class BrowserTestCaseBaseWithHTTPServer(BrowserTestCaseBase):
     """
 
     def setUp(self):
-        self.server = HTTPServerInAThread(HTTP_SERVER_PORT)
+        self.server = http_server.HTTPServerInAThread(HTTP_SERVER_PORT)
         self.server.start()
         super(BrowserTestCaseBaseWithHTTPServer, self).setUp()
 
