@@ -364,13 +364,20 @@ class TestMainWindowPrepopulatedHistoryDatabase(BrowserTestCaseBase):
         connection.execute("""CREATE TABLE IF NOT EXISTS history
                               (url VARCHAR, title VARCHAR, icon VARCHAR,
                                visits INTEGER, lastVisit DATETIME);""")
-        rows = [("http://www.ubuntu.com/", "Home | Ubuntu"),
-                ("http://www.google.com/search?client=ubuntu&q=ubuntu&ie=utf-8&oe=utf-8", "ubuntu - Google Search"),
-                ("http://en.wikipedia.org/wiki/Ubuntu_(operating_system)", "Ubuntu (operating system) - Wikipedia, the free encyclopedia"),
-                ("http://en.wikipedia.org/wiki/Ubuntu_(philosophy)", "Ubuntu (philosophy) - Wikipedia, the free encyclopedia"),
-                ("http://www.google.com/search?client=ubuntu&q=example&ie=utf-8&oe=utf-8", "example - Google Search"),
-                ("http://example.iana.org/", "Example Domain"),
-                ("http://www.iana.org/domains/special", "IANA — Special Use Domains")]
+        search_uri = \
+            "http://www.google.com/search?client=ubuntu&q=%s&ie=utf-8&oe=utf-8"
+        rows = [
+            ("http://www.ubuntu.com/", "Home | Ubuntu"),
+            (search_uri % "ubuntu", "ubuntu - Google Search"),
+            ("http://en.wikipedia.org/wiki/Ubuntu_(operating_system)",
+             "Ubuntu (operating system) - Wikipedia, the free encyclopedia"),
+            ("http://en.wikipedia.org/wiki/Ubuntu_(philosophy)",
+             "Ubuntu (philosophy) - Wikipedia, the free encyclopedia"),
+            (search_uri % "example", "example - Google Search"),
+            ("http://example.iana.org/", "Example Domain"),
+            ("http://www.iana.org/domains/special",
+             "IANA — Special Use Domains")
+        ]
         for i, row in enumerate(rows):
             visits = random.randint(1, 5)
             timestamp = int(time.time()) - i * 10
@@ -382,8 +389,8 @@ class TestMainWindowPrepopulatedHistoryDatabase(BrowserTestCaseBase):
         super(TestMainWindowPrepopulatedHistoryDatabase, self).setUp()
 
 
-class TestMainWindowHistorySuggestions(TestMainWindowPrepopulatedHistoryDatabase,
-                                       TestMainWindowMixin):
+class TestMainWindowHistorySuggestions(
+        TestMainWindowPrepopulatedHistoryDatabase, TestMainWindowMixin):
 
     """Test the address bar suggestions based on navigation history."""
 
@@ -463,7 +470,8 @@ class TestMainWindowHistorySuggestions(TestMainWindowPrepopulatedHistoryDatabase
         self.mouse.click()
         self.keyboard.type("ubuntu", delay=TYPING_DELAY)
         self.assertThat(listview.count, Eventually(Equals(5)))
-        entries = self.main_window.get_address_bar_suggestions_listview_entries()
+        entries = \
+            self.main_window.get_address_bar_suggestions_listview_entries()
         entry = entries[2]
         url = "http://en.wikipedia.org/wiki/<b>Ubuntu</b>_(operating_system)"
         self.assertThat(entry.subText, Equals(url))
