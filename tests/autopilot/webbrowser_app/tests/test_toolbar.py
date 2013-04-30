@@ -11,7 +11,7 @@ from __future__ import absolute_import
 from webbrowser_app.tests import BrowserTestCaseBase
 
 
-class TestMainWindowToolbar(BrowserTestCaseBase):
+class TestToolbar(BrowserTestCaseBase):
 
     """Tests interaction with the toolbar."""
 

@@ -13,7 +13,7 @@ from testtools.matchers import Equals
 from webbrowser_app.tests import BrowserTestCaseBase
 
 
-class TestMainWindowChromeless(BrowserTestCaseBase):
+class TestChromeless(BrowserTestCaseBase):
 
     """Tests the main browser features when run in chromeless mode."""
 

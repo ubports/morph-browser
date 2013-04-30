@@ -14,7 +14,7 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import BrowserTestCaseBase, TYPING_DELAY
 
 
-class TestMainWindowTitle(BrowserTestCaseBase):
+class TestWindowTitle(BrowserTestCaseBase):
 
     """Tests that the window’s title reflects the page title."""
 
