@@ -23,16 +23,6 @@ import time
 LOREMIPSUM = "<p>Lorem ipsum dolor sit amet.</p>"
 
 
-class TestMainWindowChromeless(BrowserTestCaseBase):
-
-    """Tests the main browser features when run in chromeless mode."""
-
-    ARGS = ['--chromeless']
-
-    def test_chrome_is_not_loaded(self):
-        self.assertThat(self.main_window.get_chrome(), Equals(None))
-
-
 class TestMainWindowStartOpenLocalPageBase(BrowserTestCaseBase):
 
     """Helper test class that opens the browser at a local URL instead of
