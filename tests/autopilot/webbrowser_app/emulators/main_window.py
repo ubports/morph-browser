@@ -49,3 +49,14 @@ class MainWindow(object):
 
     def get_address_bar_text_field(self):
         return self.get_address_bar().get_children_by_type("TextField")[0]
+
+    def get_address_bar_suggestions(self):
+        return self.app.select_single("Suggestions")
+
+    def get_address_bar_suggestions_listview(self):
+        suggestions = self.get_address_bar_suggestions()
+        return suggestions.get_children_by_type("QQuickListView")[0]
+
+    def get_address_bar_suggestions_listview_entries(self):
+        listview = self.get_address_bar_suggestions_listview()
+        return listview.get_children()[0].get_children_by_type("Subtitled")

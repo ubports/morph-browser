@@ -29,6 +29,7 @@
 #include "config.h"
 #include "commandline-parser.h"
 #include "history-model.h"
+#include "history-matches-model.h"
 #include "webbrowser-app.h"
 
 static float getGridUnit()
@@ -59,6 +60,7 @@ WebBrowserApp::WebBrowserApp(int& argc, char** argv)
     , m_view(0)
     , m_arguments(0)
     , m_history(0)
+    , m_historyMatches(0)
 {
 }
 
@@ -102,6 +104,15 @@ bool WebBrowserApp::initialize()
     m_view->resize(40 * gridUnit, 68 * gridUnit);
     connect(m_view->engine(), SIGNAL(quit()), SLOT(quit()));
 
+    QDir dataLocation(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    if (!dataLocation.exists()) {
+        QDir::root().mkpath(dataLocation.absolutePath());
+    }
+    m_history = new HistoryModel(dataLocation.filePath("history.sqlite"), this);
+    m_view->rootContext()->setContextProperty("historyModel", m_history);
+    m_historyMatches = new HistoryMatchesModel(m_history, this);
+    m_view->rootContext()->setContextProperty("historyMatches", m_historyMatches);
+
     m_view->setSource(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/Browser.qml"));
     QQuickItem* browser = m_view->rootObject();
     browser->setProperty("chromeless", m_arguments->chromeless());
@@ -113,13 +124,6 @@ bool WebBrowserApp::initialize()
     } else {
         browser->setProperty("desktopFileHint", m_arguments->desktopFileHint());
     }
-
-    QDir dataLocation(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
-    if (!dataLocation.exists()) {
-        QDir::root().mkpath(dataLocation.absolutePath());
-    }
-    m_history = new HistoryModel(dataLocation.filePath("history.sqlite"), this);
-    m_view->rootContext()->setContextProperty("historyModel", m_history);
 
     // Set the desired pixel ratio (not needed once we use Qt's way of calculating
     // the proper pixel ratio by device/screen)

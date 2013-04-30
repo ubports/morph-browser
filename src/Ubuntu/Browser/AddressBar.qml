@@ -95,7 +95,12 @@ FocusScope {
             }
         }
         onActiveFocusChanged: ensureSchemeVisibleWhenUnfocused()
-        onTextChanged: ensureSchemeVisibleWhenUnfocused()
+        onTextChanged: {
+            ensureSchemeVisibleWhenUnfocused()
+            try {
+                historyMatches.query = text
+            } catch (e) {}
+        }
 
         // Make sure that all the text is selected at the first click
         MouseArea {

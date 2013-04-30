@@ -9,6 +9,8 @@
 
 import BaseHTTPServer
 import os
+import os.path
+import shutil
 import tempfile
 import threading
 import time
@@ -68,6 +70,12 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
         else:
             self.app = self.launch_test_application("webbrowser-app",
                                                     *self.ARGS)
+
+    def clear_cache(self):
+        cachedir = os.path.join(os.path.expanduser("~"), ".local", "share",
+                                "webbrowser-app")
+        shutil.rmtree(cachedir, True)
+        os.makedirs(cachedir)
 
     @staticmethod
     def running_on_device():

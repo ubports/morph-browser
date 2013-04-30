@@ -15,6 +15,9 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import BrowserTestCaseBase, \
                                     BrowserTestCaseBaseWithHTTPServer, \
                                     HTTP_SERVER_PORT
+import os.path
+import random
+import sqlite3
 import time
 
 TYPING_DELAY = 0.001
@@ -203,8 +206,8 @@ class TestMainWindowStartOpenLocalPageBase(BrowserTestCaseBase):
         self.assert_page_eventually_loaded(self.url)
 
 
-class TestMainWindowHistory(TestMainWindowStartOpenLocalPageBase,
-                            TestMainWindowMixin):
+class TestMainWindowBackForward(TestMainWindowStartOpenLocalPageBase,
+                                TestMainWindowMixin):
 
     """Tests the back and forward functionality."""
 
@@ -344,3 +347,126 @@ class TestMainWindowAddressBarSelection(TestMainWindowStartOpenRemotePageBase,
         self.mouse.click()
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(lambda: len(text_field.selectedText), Eventually(GreaterThan(0)))
+
+
+class TestMainWindowPrepopulatedHistoryDatabase(BrowserTestCaseBase):
+
+    """Helper test class that pre-populates the history database."""
+
+    def setUp(self):
+        self.clear_cache()
+        db_path = os.path.join(os.path.expanduser("~"), ".local", "share",
+                               "webbrowser-app", "history.sqlite")
+        connection = sqlite3.connect(db_path)
+        connection.execute("""CREATE TABLE IF NOT EXISTS history
+                              (url VARCHAR, title VARCHAR, icon VARCHAR,
+                               visits INTEGER, lastVisit DATETIME);""")
+        rows = [("http://www.ubuntu.com/", "Home | Ubuntu"),
+                ("http://www.google.com/search?client=ubuntu&q=ubuntu&ie=utf-8&oe=utf-8", "ubuntu - Google Search"),
+                ("http://en.wikipedia.org/wiki/Ubuntu_(operating_system)", "Ubuntu (operating system) - Wikipedia, the free encyclopedia"),
+                ("http://en.wikipedia.org/wiki/Ubuntu_(philosophy)", "Ubuntu (philosophy) - Wikipedia, the free encyclopedia"),
+                ("http://www.google.com/search?client=ubuntu&q=example&ie=utf-8&oe=utf-8", "example - Google Search"),
+                ("http://example.iana.org/", "Example Domain"),
+                ("http://www.iana.org/domains/special", "IANA — Special Use Domains")]
+        for i, row in enumerate(rows):
+            visits = random.randint(1, 5)
+            timestamp = int(time.time()) - i * 10
+            query = "INSERT INTO history VALUES ('%s', '%s', '', %d, %d);" % \
+                    (row[0], row[1], visits, timestamp)
+            connection.execute(query)
+        connection.commit()
+        connection.close()
+        super(TestMainWindowPrepopulatedHistoryDatabase, self).setUp()
+
+
+class TestMainWindowHistorySuggestions(TestMainWindowPrepopulatedHistoryDatabase,
+                                       TestMainWindowMixin):
+
+    """Test the address bar suggestions based on navigation history."""
+
+    def test_show_list_of_suggestions(self):
+        suggestions = self.main_window.get_address_bar_suggestions()
+        listview = self.main_window.get_address_bar_suggestions_listview()
+        self.assertThat(suggestions.visible, Equals(False))
+        self.reveal_chrome()
+        self.assertThat(suggestions.visible, Equals(False))
+        address_bar = self.main_window.get_address_bar()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
+        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.assertThat(listview.count, Eventually(Equals(1)))
+        clear_button = self.main_window.get_address_bar_clear_button()
+        self.mouse.move_to_object(clear_button)
+        self.mouse.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
+        self.assertThat(suggestions.visible, Eventually(Equals(False)))
+        self.keyboard.type("u", delay=TYPING_DELAY)
+        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.assertThat(listview.count, Eventually(Equals(6)))
+        self.keyboard.type("b", delay=TYPING_DELAY)
+        self.assertThat(listview.count, Eventually(Equals(5)))
+        self.keyboard.type("leh", delay=TYPING_DELAY)
+        self.assertThat(listview.count, Eventually(Equals(0)))
+        for i in range(5):
+            self.keyboard.press_and_release("BackSpace")
+        self.keyboard.type("xaMPL", delay=TYPING_DELAY)
+        self.assertThat(listview.count, Eventually(Equals(2)))
+
+
+    def test_clear_address_bar_dismisses_suggestions(self):
+        suggestions = self.main_window.get_address_bar_suggestions()
+        self.reveal_chrome()
+        address_bar = self.main_window.get_address_bar()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
+        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        clear_button = self.main_window.get_address_bar_clear_button()
+        self.mouse.move_to_object(clear_button)
+        self.mouse.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
+        self.keyboard.type("ubuntu", delay=TYPING_DELAY)
+        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.mouse.move_to_object(clear_button)
+        self.mouse.click()
+        self.assertThat(suggestions.visible, Eventually(Equals(False)))
+
+    def test_addressbar_loosing_focus_dismisses_suggestions(self):
+        suggestions = self.main_window.get_address_bar_suggestions()
+        self.reveal_chrome()
+        address_bar = self.main_window.get_address_bar()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
+        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        coord = suggestions.globalRect
+        webview = self.main_window.get_web_view()
+        self.mouse.move(coord[0] + int(coord[2] / 2),
+                                  int((coord[1] + webview.globalRect[1]) / 2))
+        self.mouse.click()
+        self.assertThat(suggestions.visible, Eventually(Equals(False)))
+
+    def test_select_suggestion(self):
+        suggestions = self.main_window.get_address_bar_suggestions()
+        listview = self.main_window.get_address_bar_suggestions_listview()
+        self.reveal_chrome()
+        address_bar = self.main_window.get_address_bar()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
+        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        clear_button = self.main_window.get_address_bar_clear_button()
+        self.mouse.move_to_object(clear_button)
+        self.mouse.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
+        self.keyboard.type("ubuntu", delay=TYPING_DELAY)
+        self.assertThat(listview.count, Eventually(Equals(5)))
+        entries = self.main_window.get_address_bar_suggestions_listview_entries()
+        entry = entries[2]
+        url = "http://en.wikipedia.org/wiki/<b>Ubuntu</b>_(operating_system)"
+        self.assertThat(entry.subText, Equals(url))
+        self.mouse.move_to_object(entry)
+        self.mouse.click()
+        webview = self.main_window.get_web_view()
+        url = "http://en.wikipedia.org/wiki/Ubuntu_(operating_system)"
+        self.assertThat(webview.url, Eventually(Equals(url)))

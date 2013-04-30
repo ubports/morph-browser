@@ -25,6 +25,7 @@ class QQuickView;
 
 class CommandLineParser;
 class HistoryModel;
+class HistoryMatchesModel;
 
 class WebBrowserApp : public QApplication
 {
@@ -44,6 +45,7 @@ private:
     QQuickView* m_view;
     CommandLineParser* m_arguments;
     HistoryModel* m_history;
+    HistoryMatchesModel* m_historyMatches;
 };
 
 #endif // __WEBBROWSER_APP_H__
