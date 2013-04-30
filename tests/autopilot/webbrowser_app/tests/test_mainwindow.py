@@ -12,30 +12,12 @@ from __future__ import absolute_import
 from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
 
-from webbrowser_app.tests import \
-    BrowserTestCaseBaseWithHTTPServer, \
-    HTTP_SERVER_PORT
+from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 import time
 
 
-class TestMainWindowStartOpenRemotePageBase(BrowserTestCaseBaseWithHTTPServer):
-
-    """Helper test class that opens the browser at a remote URL instead of
-    defaulting to the homepage."""
-
-    def setUp(self):
-        self.base_url = "http://localhost:%d" % HTTP_SERVER_PORT
-        self.url = self.base_url + "/loremipsum"
-        self.ARGS = [self.url]
-        super(TestMainWindowStartOpenRemotePageBase, self).setUp()
-        self.assert_home_page_eventually_loaded()
-
-    def assert_home_page_eventually_loaded(self):
-        self.assert_page_eventually_loaded(self.url)
-
-
-class TestMainWindowAddressBarStates(TestMainWindowStartOpenRemotePageBase):
+class TestMainWindowAddressBarStates(StartOpenRemotePageTestCaseBase):
 
     """Tests the address bar states."""
 
@@ -71,7 +53,7 @@ class TestMainWindowAddressBarStates(TestMainWindowStartOpenRemotePageBase):
         self.assertThat(address_bar.state, Eventually(Equals("")))
 
 
-class TestMainWindowAddressBarSelection(TestMainWindowStartOpenRemotePageBase):
+class TestMainWindowAddressBarSelection(StartOpenRemotePageTestCaseBase):
 
     """Test the address bar selection"""
     def test_click_to_select(self):

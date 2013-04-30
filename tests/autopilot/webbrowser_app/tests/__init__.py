@@ -186,3 +186,19 @@ class BrowserTestCaseBaseWithHTTPServer(BrowserTestCaseBase):
     def tearDown(self):
         super(BrowserTestCaseBaseWithHTTPServer, self).tearDown()
         self.server.shutdown()
+
+
+class StartOpenRemotePageTestCaseBase(BrowserTestCaseBaseWithHTTPServer):
+
+    """Helper test class that opens the browser at a remote URL instead of
+    defaulting to the homepage."""
+
+    def setUp(self):
+        self.base_url = "http://localhost:%d" % HTTP_SERVER_PORT
+        self.url = self.base_url + "/loremipsum"
+        self.ARGS = [self.url]
+        super(StartOpenRemotePageTestCaseBase, self).setUp()
+        self.assert_home_page_eventually_loaded()
+
+    def assert_home_page_eventually_loaded(self):
+        self.assert_page_eventually_loaded(self.url)
