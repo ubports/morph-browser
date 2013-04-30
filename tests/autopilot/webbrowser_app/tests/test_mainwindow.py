@@ -83,9 +83,9 @@ class TestMainWindowMixin(object):
         self.assertThat(webview.url, Eventually(Equals(url)))
 
 
-class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
+class TestMainWindowToolbar(BrowserTestCaseBase, TestMainWindowMixin):
 
-    """Tests the main browser features"""
+    """Tests interaction with the toolbar."""
 
     def test_reveal_chrome(self):
         self.assert_chrome_hidden()
@@ -144,27 +144,13 @@ class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
         self.mouse.drag(x_line, start_y, x_line, stop_y)
         self.assert_chrome_eventually_shown()
 
-    def test_open_website(self):
-        self.reveal_chrome()
-        address_bar = self.main_window.get_address_bar()
-        self.mouse.move_to_object(address_bar)
-        self.mouse.click()
-        clear_button = self.main_window.get_address_bar_clear_button()
-        self.mouse.move_to_object(clear_button)
-        self.mouse.click()
-        self.mouse.move_to_object(address_bar)
-        self.mouse.click()
 
-        self.keyboard.type("http://www.canonical.com", delay=TYPING_DELAY)
-        self.keyboard.press("Enter")
+class TestMainWindowTitle(BrowserTestCaseBase, TestMainWindowMixin):
 
-        web_view = self.main_window.get_web_view()
-        self.assertThat(web_view.url,
-                        Eventually(Equals("http://www.canonical.com/")))
+    """Tests that the window’s title reflects the page title."""
 
-    def test_title(self):
+    def test_window_title(self):
         url = self.make_html_page("Alice in Wonderland", LOREMIPSUM)
-
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
         self.mouse.move_to_object(address_bar)
@@ -176,7 +162,6 @@ class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
         self.mouse.click()
         self.keyboard.type(url, delay=TYPING_DELAY)
         self.keyboard.press("Enter")
-
         window = self.main_window.get_qml_view()
         title = "Alice in Wonderland - Ubuntu Web Browser"
         self.assertThat(window.title, Eventually(Equals(title)))
