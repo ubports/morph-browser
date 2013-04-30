@@ -32,19 +32,6 @@
 #include "history-matches-model.h"
 #include "webbrowser-app.h"
 
-static float getGridUnit()
-{
-    // Inspired by the UI toolkit’s code
-    // (modules/Ubuntu/Components/plugin/ucunits.cpp)
-    // as it is not publicly exposed.
-    const char* envVar = "GRID_UNIT_PX";
-    QByteArray stringValue = qgetenv(envVar);
-    bool ok;
-    float value = stringValue.toFloat(&ok);
-    float defaultValue = 8;
-    return ok ? value : defaultValue;
-}
-
 static float getQtWebkitDpr()
 {
     const char* envVar = "QTWEBKIT_DPR";
@@ -99,9 +86,7 @@ bool WebBrowserApp::initialize()
     m_view = new QQuickView;
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
     m_view->setTitle(APP_TITLE);
-    // phone form factor
-    float gridUnit = getGridUnit();
-    m_view->resize(40 * gridUnit, 68 * gridUnit);
+    m_view->resize(800, 600);
     connect(m_view->engine(), SIGNAL(quit()), SLOT(quit()));
 
     QDir dataLocation(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
