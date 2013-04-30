@@ -154,6 +154,23 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
         self.assertThat(webview.url, Eventually(Equals(url)))
 
 
+class StartOpenLocalPageTestCaseBase(BrowserTestCaseBase):
+
+    """Helper test class that opens the browser at a local URL instead of
+    defaulting to the homepage."""
+
+    def setUp(self):
+        title = "start page"
+        body = "<p>Lorem ipsum dolor sit amet.</p>"
+        self.url = self.make_html_page(title, body)
+        self.ARGS = [self.url]
+        super(StartOpenLocalPageTestCaseBase, self).setUp()
+        self.assert_home_page_eventually_loaded()
+
+    def assert_home_page_eventually_loaded(self):
+        self.assert_page_eventually_loaded(self.url)
+
+
 class BrowserTestCaseBaseWithHTTPServer(BrowserTestCaseBase):
 
     """

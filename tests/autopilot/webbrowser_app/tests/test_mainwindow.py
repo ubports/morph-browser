@@ -13,67 +13,14 @@ from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import \
-    BrowserTestCaseBase, \
+    StartOpenLocalPageTestCaseBase, \
     BrowserTestCaseBaseWithHTTPServer, \
     HTTP_SERVER_PORT
 
 import time
 
 
-LOREMIPSUM = "<p>Lorem ipsum dolor sit amet.</p>"
-
-
-class TestMainWindowStartOpenLocalPageBase(BrowserTestCaseBase):
-
-    """Helper test class that opens the browser at a local URL instead of
-    defaulting to the homepage."""
-
-    def setUp(self):
-        self.url = self.make_html_page("start page", LOREMIPSUM)
-        self.ARGS = [self.url]
-        super(TestMainWindowStartOpenLocalPageBase, self).setUp()
-        self.assert_home_page_eventually_loaded()
-
-    def assert_home_page_eventually_loaded(self):
-        self.assert_page_eventually_loaded(self.url)
-
-
-class TestMainWindowBackForward(TestMainWindowStartOpenLocalPageBase):
-
-    """Tests the back and forward functionality."""
-
-    def click_back_button(self):
-        self.reveal_chrome()
-        back_button = self.main_window.get_back_button()
-        self.mouse.move_to_object(back_button)
-        self.mouse.click()
-
-    def test_homepage_no_history(self):
-        back_button = self.main_window.get_back_button()
-        self.assertThat(back_button.enabled, Equals(False))
-        forward_button = self.main_window.get_forward_button()
-        self.assertThat(forward_button.enabled, Equals(False))
-
-    def test_opening_new_page_enables_back_button(self):
-        back_button = self.main_window.get_back_button()
-        self.assertThat(back_button.enabled, Equals(False))
-        url = self.make_html_page("page 2", LOREMIPSUM)
-        self.go_to_url(url)
-        self.assert_page_eventually_loaded(url)
-        self.assertThat(back_button.enabled, Eventually(Equals(True)))
-
-    def test_navigating_back_enables_forward_button(self):
-        url = self.make_html_page("page 2", LOREMIPSUM)
-        self.go_to_url(url)
-        self.assert_page_eventually_loaded(url)
-        forward_button = self.main_window.get_forward_button()
-        self.assertThat(forward_button.enabled, Equals(False))
-        self.click_back_button()
-        self.assert_home_page_eventually_loaded()
-        self.assertThat(forward_button.enabled, Eventually(Equals(True)))
-
-
-class TestMainWindowErrorSheet(TestMainWindowStartOpenLocalPageBase):
+class TestMainWindowErrorSheet(StartOpenLocalPageTestCaseBase):
 
     """Tests the error message functionality."""
 
