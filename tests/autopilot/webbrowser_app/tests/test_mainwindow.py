@@ -12,9 +12,10 @@ from __future__ import absolute_import
 from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
 
-from webbrowser_app.tests import BrowserTestCaseBase, \
-                                    BrowserTestCaseBaseWithHTTPServer, \
-                                    HTTP_SERVER_PORT
+from webbrowser_app.tests import \
+    BrowserTestCaseBase, \
+    BrowserTestCaseBaseWithHTTPServer, \
+    HTTP_SERVER_PORT
 import os.path
 import random
 import sqlite3
@@ -177,8 +178,8 @@ class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
         self.keyboard.press("Enter")
 
         window = self.main_window.get_qml_view()
-        self.assertThat(window.title,
-            Eventually(Equals("Alice in Wonderland - Ubuntu Web Browser")))
+        title = "Alice in Wonderland - Ubuntu Web Browser"
+        self.assertThat(window.title, Eventually(Equals(title)))
 
 
 class TestMainWindowChromeless(BrowserTestCaseBase):
@@ -317,7 +318,8 @@ class TestMainWindowAddressBarSelection(TestMainWindowStartOpenRemotePageBase,
         self.mouse.move_to_object(address_bar)
         self.mouse.click()
         text_field = self.main_window.get_address_bar_text_field()
-        self.assertThat(text_field.selectedText, Eventually(Equals(text_field.text)))
+        self.assertThat(text_field.selectedText,
+                        Eventually(Equals(text_field.text)))
 
     def test_click_on_action_button(self):
         self.reveal_chrome()
@@ -346,7 +348,8 @@ class TestMainWindowAddressBarSelection(TestMainWindowStartOpenRemotePageBase,
         self.mouse.click()
         self.mouse.click()
         text_field = self.main_window.get_address_bar_text_field()
-        self.assertThat(lambda: len(text_field.selectedText), Eventually(GreaterThan(0)))
+        self.assertThat(lambda: len(text_field.selectedText),
+                        Eventually(GreaterThan(0)))
 
 
 class TestMainWindowPrepopulatedHistoryDatabase(BrowserTestCaseBase):
@@ -413,7 +416,6 @@ class TestMainWindowHistorySuggestions(TestMainWindowPrepopulatedHistoryDatabase
         self.keyboard.type("xaMPL", delay=TYPING_DELAY)
         self.assertThat(listview.count, Eventually(Equals(2)))
 
-
     def test_clear_address_bar_dismisses_suggestions(self):
         suggestions = self.main_window.get_address_bar_suggestions()
         self.reveal_chrome()
@@ -442,7 +444,7 @@ class TestMainWindowHistorySuggestions(TestMainWindowPrepopulatedHistoryDatabase
         coord = suggestions.globalRect
         webview = self.main_window.get_web_view()
         self.mouse.move(coord[0] + int(coord[2] / 2),
-                                  int((coord[1] + webview.globalRect[1]) / 2))
+                        int((coord[1] + webview.globalRect[1]) / 2))
         self.mouse.click()
         self.assertThat(suggestions.visible, Eventually(Equals(False)))
 

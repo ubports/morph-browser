@@ -91,11 +91,8 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
         is automatically deleted after running the calling test method.
         """
         fd, path = tempfile.mkstemp(suffix=".html", text=True)
-        os.write(fd,
-                    "<html>"
-                        "<title>" + title + "</title>"
-                        "<body>" + body + "</body>"
-                    "</html>")
+        html = "<html><title>%s</title><body>%s</body></html>" % (title, body)
+        os.write(fd, html)
         os.close(fd)
         self._temp_pages.append(path)
         return "file://" + path
