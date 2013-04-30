@@ -31,14 +31,14 @@ class TestMainWindowMixin(object):
         x_line = int(view.x + view.width * 0.5)
         start_y = int(view.y + view.height - 1)
         stop_y = int(start_y - distance)
-        self.pointing_device.drag(x_line, start_y, x_line, stop_y)
+        self.mouse.drag(x_line, start_y, x_line, stop_y)
 
     def swipe_chrome_down(self, distance):
         view = self.main_window.get_qml_view()
         x_line = int(view.x + view.width * 0.5)
         start_y = int(self.main_window.get_chrome().globalRect[1])
         stop_y = int(start_y + distance)
-        self.pointing_device.drag(x_line, start_y, x_line, stop_y)
+        self.mouse.drag(x_line, start_y, x_line, stop_y)
 
     def reveal_chrome(self):
         self.swipe_chrome_up(self.main_window.get_chrome().height)
@@ -67,13 +67,13 @@ class TestMainWindowMixin(object):
     def go_to_url(self, url):
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
         clear_button = self.main_window.get_address_bar_clear_button()
-        self.pointing_device.move_to_object(clear_button)
-        self.pointing_device.click()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+        self.mouse.move_to_object(clear_button)
+        self.mouse.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
         self.keyboard.type(url, delay=TYPING_DELAY)
         self.keyboard.press("Enter")
 
@@ -121,8 +121,8 @@ class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
     def test_unfocus_chrome_hides_it(self):
         webview = self.main_window.get_web_view()
         self.reveal_chrome()
-        self.pointing_device.move_to_object(webview)
-        self.pointing_device.click()
+        self.mouse.move_to_object(webview)
+        self.mouse.click()
         self.assert_chrome_eventually_hidden()
 
     def test_swipe_down_hidden_chrome_doesnt_reveal_it(self):
@@ -130,7 +130,7 @@ class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
         x_line = int(view.x + view.width * 0.5)
         start_y = int(view.y + view.height - 1)
         stop_y = start_y + 20
-        self.pointing_device.drag(x_line, start_y, x_line, stop_y)
+        self.mouse.drag(x_line, start_y, x_line, stop_y)
         self.assert_chrome_eventually_hidden()
 
     def test_swipe_shown_chrome_up_doesnt_hide_it(self):
@@ -140,19 +140,19 @@ class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
         x_line = int(view.x + view.width * 0.5)
         start_y = int(chrome.globalRect[1])
         stop_y = int(view.y - 1)
-        self.pointing_device.drag(x_line, start_y, x_line, stop_y)
+        self.mouse.drag(x_line, start_y, x_line, stop_y)
         self.assert_chrome_eventually_shown()
 
     def test_open_website(self):
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
         clear_button = self.main_window.get_address_bar_clear_button()
-        self.pointing_device.move_to_object(clear_button)
-        self.pointing_device.click()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+        self.mouse.move_to_object(clear_button)
+        self.mouse.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
 
         self.keyboard.type("http://www.canonical.com", delay=TYPING_DELAY)
         self.keyboard.press("Enter")
@@ -166,13 +166,13 @@ class TestMainWindow(BrowserTestCaseBase, TestMainWindowMixin):
 
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
         clear_button = self.main_window.get_address_bar_clear_button()
-        self.pointing_device.move_to_object(clear_button)
-        self.pointing_device.click()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+        self.mouse.move_to_object(clear_button)
+        self.mouse.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
         self.keyboard.type(url, delay=TYPING_DELAY)
         self.keyboard.press("Enter")
 
@@ -214,8 +214,8 @@ class TestMainWindowBackForward(TestMainWindowStartOpenLocalPageBase,
     def click_back_button(self):
         self.reveal_chrome()
         back_button = self.main_window.get_back_button()
-        self.pointing_device.move_to_object(back_button)
-        self.pointing_device.click()
+        self.mouse.move_to_object(back_button)
+        self.mouse.click()
 
     def test_homepage_no_history(self):
         back_button = self.main_window.get_back_button()
@@ -293,15 +293,15 @@ class TestMainWindowAddressBarStates(TestMainWindowStartOpenRemotePageBase,
         self.go_to_url(url)
         self.assertThat(address_bar.state, Eventually(Equals("loading")))
         self.reveal_chrome()
-        self.pointing_device.move_to_object(action_button)
-        self.pointing_device.click()
+        self.mouse.move_to_object(action_button)
+        self.mouse.click()
         self.assertThat(address_bar.state, Eventually(Equals("")))
 
     def test_state_editing(self):
         address_bar = self.main_window.get_address_bar()
         self.reveal_chrome()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
         self.assertThat(address_bar.state, Eventually(Equals("editing")))
         self.keyboard.press("Enter")
         self.assertThat(address_bar.state, Eventually(Equals("")))
@@ -314,27 +314,27 @@ class TestMainWindowAddressBarSelection(TestMainWindowStartOpenRemotePageBase,
     def test_click_to_select(self):
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(text_field.selectedText, Eventually(Equals(text_field.text)))
 
     def test_click_on_action_button(self):
         self.reveal_chrome()
         action_button = self.main_window.get_address_bar_action_button()
-        self.pointing_device.move_to_object(action_button)
-        self.pointing_device.click()
+        self.mouse.move_to_object(action_button)
+        self.mouse.click()
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(text_field.selectedText, Eventually(Equals("")))
 
     def test_second_click_deselect_text(self):
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
         # avoid double click
         time.sleep(1)
-        self.pointing_device.click()
+        self.mouse.click()
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(text_field.selectedText, Eventually(Equals('')))
         self.assertThat(text_field.cursorPosition, Eventually(GreaterThan(0)))
@@ -342,9 +342,9 @@ class TestMainWindowAddressBarSelection(TestMainWindowStartOpenRemotePageBase,
     def test_double_click_select_word(self):
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
-        self.pointing_device.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
+        self.mouse.click()
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(lambda: len(text_field.selectedText), Eventually(GreaterThan(0)))
 
