@@ -34,12 +34,11 @@ class MainWindow(object):
         return textfield.get_children_by_type("QQuickItem")[0]
 
     def get_back_button(self):
-        return self.app.select_single("ChromeButton",
-                                        objectName="backButton")
+        return self.app.select_single("ChromeButton", objectName="backButton")
 
     def get_forward_button(self):
         return self.app.select_single("ChromeButton",
-                                        objectName="forwardButton")
+                                      objectName="forwardButton")
 
     def get_web_view(self):
         return self.app.select_single("QQuickWebViewExperimentalExtension")

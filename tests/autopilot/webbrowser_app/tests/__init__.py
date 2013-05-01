@@ -7,13 +7,10 @@
 
 """webbrowser-app autopilot tests."""
 
-import BaseHTTPServer
 import os
 import os.path
 import shutil
 import tempfile
-import threading
-import time
 
 from testtools.matchers import Equals
 
@@ -21,10 +18,13 @@ from autopilot.introspection.qt import QtIntrospectionTestMixin
 from autopilot.matchers import Eventually
 from autopilot.testcase import AutopilotTestCase
 
+import http_server
+
 from webbrowser_app.emulators.main_window import MainWindow
 
 
 HTTP_SERVER_PORT = 8129
+TYPING_DELAY = 0.001
 
 
 class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
@@ -92,67 +92,83 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
         is automatically deleted after running the calling test method.
         """
         fd, path = tempfile.mkstemp(suffix=".html", text=True)
-        os.write(fd,
-                    "<html>"
-                        "<title>" + title + "</title>"
-                        "<body>" + body + "</body>"
-                    "</html>")
+        html = "<html><title>%s</title><body>%s</body></html>" % (title, body)
+        os.write(fd, html)
         os.close(fd)
         self._temp_pages.append(path)
         return "file://" + path
 
+    def swipe_chrome_up(self, distance):
+        view = self.main_window.get_qml_view()
+        x_line = int(view.x + view.width * 0.5)
+        start_y = int(view.y + view.height - 1)
+        stop_y = int(start_y - distance)
+        self.mouse.drag(x_line, start_y, x_line, stop_y)
 
-class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+    def swipe_chrome_down(self, distance):
+        view = self.main_window.get_qml_view()
+        x_line = int(view.x + view.width * 0.5)
+        start_y = int(self.main_window.get_chrome().globalRect[1])
+        stop_y = int(start_y + distance)
+        self.mouse.drag(x_line, start_y, x_line, stop_y)
 
-    """
-    A custom HTTP request handler that serves GET resources.
-    """
+    def reveal_chrome(self):
+        self.swipe_chrome_up(self.main_window.get_chrome().height)
 
-    def make_html(self, title, body):
-        return "<html><title>" + title + "</title>" + \
-               "<body>" + body + "</body></html>"
+    def hide_chrome(self):
+        self.swipe_chrome_down(self.main_window.get_chrome().height)
 
-    def send_html(self, html):
-        self.send_header("Content-Type", "text/html")
-        self.end_headers()
-        self.wfile.write(html)
+    def assert_chrome_eventually_shown(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        expected_y = view.y + view.height - chrome.height
+        self.assertThat(lambda: chrome.globalRect[1],
+                        Eventually(Equals(expected_y)))
 
-    def do_GET(self):
-        if self.path == "/loremipsum":
-            self.send_response(200)
-            title = "Lorem Ipsum"
-            body = "<p>Lorem ipsum dolor sit amet.</p>"
-            html = self.make_html(title, body)
-            self.send_html(html)
-        elif self.path.startswith("/wait/"):
-            delay = int(self.path[6:])
-            self.send_response(200)
-            title = "waiting %d seconds" % delay
-            body = "<p>this page took %d seconds to load</p>" % delay
-            html = self.make_html(title, body)
-            time.sleep(delay)
-            self.send_html(html)
-        else:
-            self.send_error(404)
+    def assert_chrome_hidden(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.assertThat(chrome.globalRect[1], Equals(view.y + view.height))
+
+    def assert_chrome_eventually_hidden(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.assertThat(lambda: chrome.globalRect[1],
+                        Eventually(Equals(view.y + view.height)))
+
+    def go_to_url(self, url):
+        self.reveal_chrome()
+        address_bar = self.main_window.get_address_bar()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
+        clear_button = self.main_window.get_address_bar_clear_button()
+        self.mouse.move_to_object(clear_button)
+        self.mouse.click()
+        self.mouse.move_to_object(address_bar)
+        self.mouse.click()
+        self.keyboard.type(url, delay=TYPING_DELAY)
+        self.keyboard.press("Enter")
+
+    def assert_page_eventually_loaded(self, url):
+        webview = self.main_window.get_web_view()
+        self.assertThat(webview.url, Eventually(Equals(url)))
 
 
-class HTTPServerInAThread(threading.Thread):
+class StartOpenLocalPageTestCaseBase(BrowserTestCaseBase):
 
-    """
-    A simple custom HTTP server run in a separate thread.
-    """
+    """Helper test class that opens the browser at a local URL instead of
+    defaulting to the homepage."""
 
-    def __init__(self, port):
-        super(HTTPServerInAThread, self).__init__()
-        self.server = BaseHTTPServer.HTTPServer(("", port), HTTPRequestHandler)
-        self.server.allow_reuse_address = True
+    def setUp(self):
+        title = "start page"
+        body = "<p>Lorem ipsum dolor sit amet.</p>"
+        self.url = self.make_html_page(title, body)
+        self.ARGS = [self.url]
+        super(StartOpenLocalPageTestCaseBase, self).setUp()
+        self.assert_home_page_eventually_loaded()
 
-    def run(self):
-        self.server.serve_forever()
-
-    def shutdown(self):
-        self.server.shutdown()
-        self.server.server_close()
+    def assert_home_page_eventually_loaded(self):
+        self.assert_page_eventually_loaded(self.url)
 
 
 class BrowserTestCaseBaseWithHTTPServer(BrowserTestCaseBase):
@@ -163,10 +179,26 @@ class BrowserTestCaseBaseWithHTTPServer(BrowserTestCaseBase):
     """
 
     def setUp(self):
-        self.server = HTTPServerInAThread(HTTP_SERVER_PORT)
+        self.server = http_server.HTTPServerInAThread(HTTP_SERVER_PORT)
         self.server.start()
         super(BrowserTestCaseBaseWithHTTPServer, self).setUp()
 
     def tearDown(self):
         super(BrowserTestCaseBaseWithHTTPServer, self).tearDown()
         self.server.shutdown()
+
+
+class StartOpenRemotePageTestCaseBase(BrowserTestCaseBaseWithHTTPServer):
+
+    """Helper test class that opens the browser at a remote URL instead of
+    defaulting to the homepage."""
+
+    def setUp(self):
+        self.base_url = "http://localhost:%d" % HTTP_SERVER_PORT
+        self.url = self.base_url + "/loremipsum"
+        self.ARGS = [self.url]
+        super(StartOpenRemotePageTestCaseBase, self).setUp()
+        self.assert_home_page_eventually_loaded()
+
+    def assert_home_page_eventually_loaded(self):
+        self.assert_page_eventually_loaded(self.url)
