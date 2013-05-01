@@ -282,21 +282,6 @@ FocusScope {
         align: Qt.AlignBottom
     }
 
-    ProgressBar {
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: osk.top
-        }
-        height: units.gu(0.6)
-        visible: value < 100
-
-        minimumValue: 0
-        maximumValue: 100
-        indeterminate: value == 0
-        value: webview.loadProgress
-    }
-
     Panel {
         id: panel
 
@@ -347,6 +332,21 @@ FocusScope {
                 onRequestStop: webview.stop()
             }
         }
+    }
+
+    ProgressBar {
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: osk.top
+        }
+        height: units.gu(0.6)
+        visible: value < 100
+
+        minimumValue: 0
+        maximumValue: 100
+        indeterminate: value == 0
+        value: webview.loadProgress
     }
 
     KeyboardRectangle {
