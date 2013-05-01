@@ -14,8 +14,9 @@ import tempfile
 
 from testtools.matchers import Equals
 
-from autopilot.introspection.qt import QtIntrospectionTestMixin
+from autopilot.input import Mouse, Touch, Pointer
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 from autopilot.testcase import AutopilotTestCase
 
 import http_server
@@ -27,17 +28,27 @@ HTTP_SERVER_PORT = 8129
 TYPING_DELAY = 0.001
 
 
-class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
+class BrowserTestCaseBase(AutopilotTestCase):
 
     """
     A common test case class that provides several useful methods
     for webbrowser-app tests.
     """
 
+    if model() == 'Desktop':
+        scenarios = [
+        ('with mouse', dict(input_device_class=Mouse)),
+        ]
+    else:
+        scenarios = [
+        ('with touch', dict(input_device_class=Touch)),
+        ]
+
     ARGS = []
     _temp_pages = []
 
     def setUp(self):
+        self.pointing_device = Pointer(self.input_device_class.create())
         super(BrowserTestCaseBase, self).setUp()
         # assume we are installed system-wide if this file is somewhere in /usr
         if os.path.realpath(__file__).startswith("/usr/"):
