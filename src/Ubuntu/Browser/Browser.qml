@@ -176,7 +176,7 @@ FocusScope {
 
         onActiveFocusChanged: {
             if (activeFocus) {
-                revealingBar.hide()
+                panel.opened = false
             }
         }
 
@@ -282,13 +282,6 @@ FocusScope {
         align: Qt.AlignBottom
     }
 
-    RevealingBar {
-        id: revealingBar
-        enabled: !browser.chromeless
-        contents: chromeLoader.item
-        anchors.bottom: shown ? osk.top : browser.bottom
-    }
-
     ProgressBar {
         anchors {
             left: parent.left
@@ -304,45 +297,55 @@ FocusScope {
         value: webview.loadProgress
     }
 
-    Loader {
-        id: chromeLoader
+    Panel {
+        id: panel
 
-        active: !browser.chromeless
-        source: "Chrome.qml"
+        locked: browser.chromeless
 
-        anchors.left: parent.left
-        anchors.right: parent.right
-
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: opened ? osk.top : browser.bottom
+        }
         height: units.gu(8)
 
-        Binding {
-            target: chromeLoader.item
-            property: "loading"
-            value: webview.loading || (webview.progress == 0)
-        }
+        Loader {
+            id: chromeLoader
 
-        Binding {
-            target: chromeLoader.item
-            property: "canGoBack"
-            value: webview.canGoBack
-        }
+            active: !browser.chromeless
+            source: "Chrome.qml"
 
-        Binding {
-            target: chromeLoader.item
-            property: "canGoForward"
-            value: webview.canGoForward
-        }
+            anchors.fill: parent
 
-        Connections {
-            target: chromeLoader.item
-            onGoBackClicked: webview.goBack()
-            onGoForwardClicked: webview.goForward()
-            onUrlValidated: {
-                browser.url = url
-                webview.forceActiveFocus()
+            Binding {
+                target: chromeLoader.item
+                property: "loading"
+                value: webview.loading || (webview.progress == 0)
             }
-            onRequestReload: webview.reload()
-            onRequestStop: webview.stop()
+
+            Binding {
+                target: chromeLoader.item
+                property: "canGoBack"
+                value: webview.canGoBack
+            }
+
+            Binding {
+                target: chromeLoader.item
+                property: "canGoForward"
+                value: webview.canGoForward
+            }
+
+            Connections {
+                target: chromeLoader.item
+                onGoBackClicked: webview.goBack()
+                onGoForwardClicked: webview.goForward()
+                onUrlValidated: {
+                    browser.url = url
+                    webview.forceActiveFocus()
+                }
+                onRequestReload: webview.reload()
+                onRequestStop: webview.stop()
+            }
         }
     }
 
