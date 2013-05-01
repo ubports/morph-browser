@@ -98,43 +98,21 @@ class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
         self._temp_pages.append(path)
         return "file://" + path
 
-    def swipe_chrome_up(self, distance):
+    def reveal_chrome(self):
+        distance = self.main_window.get_chrome().height
         view = self.main_window.get_qml_view()
         x_line = int(view.x + view.width * 0.5)
         start_y = int(view.y + view.height - 1)
         stop_y = int(start_y - distance)
         self.mouse.drag(x_line, start_y, x_line, stop_y)
 
-    def swipe_chrome_down(self, distance):
+    def hide_chrome(self):
+        distance = self.main_window.get_chrome().height
         view = self.main_window.get_qml_view()
         x_line = int(view.x + view.width * 0.5)
         start_y = int(self.main_window.get_chrome().globalRect[1])
         stop_y = int(start_y + distance)
         self.mouse.drag(x_line, start_y, x_line, stop_y)
-
-    def reveal_chrome(self):
-        self.swipe_chrome_up(self.main_window.get_chrome().height)
-
-    def hide_chrome(self):
-        self.swipe_chrome_down(self.main_window.get_chrome().height)
-
-    def assert_chrome_eventually_shown(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
-        expected_y = view.y + view.height - chrome.height
-        self.assertThat(lambda: chrome.globalRect[1],
-                        Eventually(Equals(expected_y)))
-
-    def assert_chrome_hidden(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
-        self.assertThat(chrome.globalRect[1], Equals(view.y + view.height))
-
-    def assert_chrome_eventually_hidden(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
-        self.assertThat(lambda: chrome.globalRect[1],
-                        Eventually(Equals(view.y + view.height)))
 
     def go_to_url(self, url):
         self.reveal_chrome()
