@@ -65,26 +65,34 @@ FocusScope {
             HUD.Action {
                 label: "Goto"
                 keywords: "Address;URL;www"
+                enabled: false // TODO: parametrized action
             }
             HUD.Action {
                 label: "Back"
                 keywords: "Older Page"
+                enabled: webview.canGoBack
+                onTriggered: webview.goBack()
             }
             HUD.Action {
                 label: "Forward"
                 keywords: "Newer Page"
+                enabled: webview.canGoForward
+                onTriggered: webview.goForward()
             }
             HUD.Action {
                 label: "Reload"
                 keywords: "Leave Page"
+                onTriggered: webview.reload()
             }
             HUD.Action {
                 label: "Bookmark"
                 keywords: "Add This Page to Bookmarks"
+                enabled: false // TODO: implement bookmarks
             }
             HUD.Action {
                 label: "New Tab"
                 keywords: "Open a New Tab"
+                enabled: false // TODO: implement tabs
             }
         }
     }
