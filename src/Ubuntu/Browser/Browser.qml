@@ -196,7 +196,7 @@ FocusScope {
 
             onActiveFocusChanged: {
                 if (activeFocus) {
-                    revealingBar.hide()
+                    panel.opened = false
                 }
             }
 
@@ -295,11 +295,56 @@ FocusScope {
             align: Qt.AlignBottom
         }
 
-        RevealingBar {
-            id: revealingBar
-            enabled: !browser.chromeless
-            contents: chromeLoader.item
-            anchors.bottom: shown ? osk.top : parent.bottom
+        Panel {
+            id: panel
+
+            locked: browser.chromeless
+
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: opened ? osk.top : parent.bottom
+            }
+            height: units.gu(8)
+
+            Loader {
+                id: chromeLoader
+
+                active: !browser.chromeless
+                source: "Chrome.qml"
+
+                anchors.fill: parent
+
+                Binding {
+                    target: chromeLoader.item
+                    property: "loading"
+                    value: webview.loading || (webview.progress == 0)
+                }
+
+                Binding {
+                    target: chromeLoader.item
+                    property: "canGoBack"
+                    value: webview.canGoBack
+                }
+
+                Binding {
+                    target: chromeLoader.item
+                    property: "canGoForward"
+                    value: webview.canGoForward
+                }
+
+                Connections {
+                    target: chromeLoader.item
+                    onGoBackClicked: webview.goBack()
+                    onGoForwardClicked: webview.goForward()
+                    onUrlValidated: {
+                        browser.url = url
+                        webview.forceActiveFocus()
+                    }
+                    onRequestReload: webview.reload()
+                    onRequestStop: webview.stop()
+                }
+            }
         }
 
         ProgressBar {
@@ -315,48 +360,6 @@ FocusScope {
             maximumValue: 100
             indeterminate: value == 0
             value: webview.loadProgress
-        }
-
-        Loader {
-            id: chromeLoader
-
-            active: !browser.chromeless
-            source: "Chrome.qml"
-
-            anchors.left: parent.left
-            anchors.right: parent.right
-
-            height: units.gu(8)
-
-            Binding {
-                target: chromeLoader.item
-                property: "loading"
-                value: webview.loading || (webview.progress == 0)
-            }
-
-            Binding {
-                target: chromeLoader.item
-                property: "canGoBack"
-                value: webview.canGoBack
-            }
-
-            Binding {
-                target: chromeLoader.item
-                property: "canGoForward"
-                value: webview.canGoForward
-            }
-
-            Connections {
-                target: chromeLoader.item
-                onGoBackClicked: webview.goBack()
-                onGoForwardClicked: webview.goForward()
-                onUrlValidated: {
-                    browser.url = url
-                    webview.forceActiveFocus()
-                }
-                onRequestReload: webview.reload()
-                onRequestStop: webview.stop()
-            }
         }
 
         KeyboardRectangle {

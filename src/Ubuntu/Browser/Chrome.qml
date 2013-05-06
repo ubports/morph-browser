@@ -94,7 +94,7 @@ Item {
 
     Suggestions {
         id: suggestions
-        visible: addressBar.focus && (count > 0)
+        visible: addressBar.activeFocus && (count > 0)
         anchors {
             bottom: parent.top
             horizontalCenter: parent.horizontalCenter
