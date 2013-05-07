@@ -44,6 +44,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
         ('with touch', dict(input_device_class=Touch)),
         ]
 
+    local_location = "../../src/webbrowser-app"
+
     ARGS = []
     _temp_pages = []
 
@@ -51,10 +53,10 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device = Pointer(self.input_device_class.create())
         super(BrowserTestCaseBase, self).setUp()
         # assume we are installed system-wide if this file is somewhere in /usr
-        if os.path.realpath(__file__).startswith("/usr/"):
-            self.launch_test_installed()
-        else:
+        if os.path.exists(self.local_location):
             self.launch_test_local()
+        else:
+            self.launch_test_installed()            
         # This is needed to wait for the application to start.
         # In the testfarm, the application may take some time to show up.
         self.assertThat(self.main_window.get_qml_view().visible,
@@ -70,27 +72,25 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self._temp_pages = []
 
     def launch_test_local(self):
-        self.app = self.launch_test_application("../../src/webbrowser-app",
+        self.app = self.launch_test_application(self.local_location,
                                                 *self.ARGS)
 
     def launch_test_installed(self):
-        if self.running_on_device():
+        if model() == 'Desktop':
             self.app = self.launch_test_application("webbrowser-app",
-                                                    "--fullscreen",
                                                     *self.ARGS)
         else:
             self.app = self.launch_test_application("webbrowser-app",
-                                                    *self.ARGS)
+                "--fullscreen",
+                "--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop",
+                app_type='qt',
+                *self.ARGS)
 
     def clear_cache(self):
         cachedir = os.path.join(os.path.expanduser("~"), ".local", "share",
                                 "webbrowser-app")
         shutil.rmtree(cachedir, True)
         os.makedirs(cachedir)
-
-    @staticmethod
-    def running_on_device():
-        return os.path.isfile('/system/usr/idc/autopilot-finger.idc')
 
     @property
     def main_window(self):
