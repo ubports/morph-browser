@@ -115,7 +115,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         x_line = int(view.x + view.width * 0.5)
         start_y = int(view.y + view.height - 1)
         stop_y = int(start_y - distance)
-        self.mouse.drag(x_line, start_y, x_line, stop_y)
+        self.pointing_device.drag(x_line, start_y, x_line, stop_y)
 
     def hide_chrome(self):
         distance = self.main_window.get_chrome().height
@@ -123,18 +123,18 @@ class BrowserTestCaseBase(AutopilotTestCase):
         x_line = int(view.x + view.width * 0.5)
         start_y = int(self.main_window.get_chrome().globalRect[1])
         stop_y = int(start_y + distance)
-        self.mouse.drag(x_line, start_y, x_line, stop_y)
+        self.pointing_device.drag(x_line, start_y, x_line, stop_y)
 
     def go_to_url(self, url):
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
-        self.mouse.move_to_object(address_bar)
-        self.mouse.click()
+        self.pointing_device.move_to_object(address_bar)
+        self.pointing_device.click()
         clear_button = self.main_window.get_address_bar_clear_button()
-        self.mouse.move_to_object(clear_button)
-        self.mouse.click()
-        self.mouse.move_to_object(address_bar)
-        self.mouse.click()
+        self.pointing_device.move_to_object(clear_button)
+        self.pointing_device.click()
+        self.pointing_device.move_to_object(address_bar)
+        self.pointing_device.click()
         self.keyboard.type(url, delay=TYPING_DELAY)
         self.keyboard.press("Enter")
 
