@@ -14,7 +14,7 @@ import tempfile
 
 from testtools.matchers import Equals
 
-from autopilot.introspection.qt import QtIntrospectionTestMixin
+from autopilot.introspection.qt import QtApplicationLauncher
 from autopilot.matchers import Eventually
 from autopilot.testcase import AutopilotTestCase
 
@@ -27,7 +27,7 @@ HTTP_SERVER_PORT = 8129
 TYPING_DELAY = 0.001
 
 
-class BrowserTestCaseBase(AutopilotTestCase, QtIntrospectionTestMixin):
+class BrowserTestCaseBase(AutopilotTestCase, QtApplicationLauncher):
 
     """
     A common test case class that provides several useful methods
