@@ -50,7 +50,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
     _temp_pages = []
 
     def setUp(self):
-        self.mouse = Pointer(self.input_device_class.create())
+        self.pointing_device = Pointer(self.input_device_class.create())
         super(BrowserTestCaseBase, self).setUp()
         if os.path.exists(self.local_location):
             self.launch_test_local()
