@@ -41,6 +41,6 @@ class TestToolbar(BrowserTestCaseBase):
     def test_unfocus_chrome_hides_it(self):
         webview = self.main_window.get_web_view()
         self.reveal_chrome()
-        self.mouse.move_to_object(webview)
-        self.mouse.click()
+        self.pointing_device.move_to_object(webview)
+        self.pointing_device.click()
         self.assert_chrome_eventually_hidden()
