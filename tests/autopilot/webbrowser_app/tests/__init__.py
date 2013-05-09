@@ -41,6 +41,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         scenarios = [('with touch', dict(input_device_class=Touch)), ]
 
     local_location = "../../src/webbrowser-app"
+    d_f = "--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop"
 
     ARGS = []
     _temp_pages = []
@@ -78,7 +79,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.app = self.launch_test_application(
                 "webbrowser-app",
                 "--fullscreen",
-                "--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop",
+                self.d_f,
                 *self.ARGS,
                 app_type='qt')
 

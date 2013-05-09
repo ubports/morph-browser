@@ -116,8 +116,9 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
         coord = suggestions.globalRect
         webview = self.main_window.get_web_view()
-        self.pointing_device.move(coord[0] + int(coord[2] / 2),
-                        int((coord[1] + webview.globalRect[1]) / 2))
+        self.pointing_device.move(
+            coord[0] + int(coord[2] / 2),
+            int((coord[1] + webview.globalRect[1]) / 2))
         self.pointing_device.click()
         self.assertThat(suggestions.visible, Eventually(Equals(False)))
 
