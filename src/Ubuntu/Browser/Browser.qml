@@ -318,7 +318,13 @@ FocusScope {
                 Binding {
                     target: chromeLoader.item
                     property: "loading"
-                    value: webview.loading || (webview.progress == 0)
+                    value: webview.loading || (webview.loadProgress == 0)
+                }
+
+                Binding {
+                    target: chromeLoader.item
+                    property: "loadProgress"
+                    value: webview.loadProgress
                 }
 
                 Binding {

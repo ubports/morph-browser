@@ -26,6 +26,7 @@ Item {
     property alias url: addressBar.url
     signal urlValidated(url url)
     property alias loading: addressBar.loading
+    property alias loadProgress: progressBar.value
     property alias canGoBack: backButton.enabled
     signal goBackClicked()
     property alias canGoForward: forwardButton.enabled
@@ -90,6 +91,16 @@ Item {
         onValidated: chrome.urlValidated(url)
         onRequestReload: chrome.requestReload()
         onRequestStop: chrome.requestStop()
+    }
+
+    EmbeddedProgressBar {
+        id: progressBar
+        visible: chrome.loading
+        source: visible ? addressBar : null
+        minimumValue: 0
+        maximumValue: 100
+        bgColor: "#DD4814" // Ubuntu orange
+        fgColor: "white"
     }
 
     Suggestions {
