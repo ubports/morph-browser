@@ -22,6 +22,7 @@ class TestWindowTitle(BrowserTestCaseBase):
         title = "Alice in Wonderland"
         body = "<p>Lorem ipsum dolor sit amet.</p>"
         url = self.make_html_page(title, body)
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)

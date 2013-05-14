@@ -122,7 +122,20 @@ class BrowserTestCaseBase(AutopilotTestCase):
         stop_y = int(start_y + distance)
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
 
+    def assert_chrome_eventually_hidden(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.assertThat(lambda: chrome.globalRect[1],
+                        Eventually(Equals(view.y + view.height)))
+
+    def ensure_chrome_is_hidden(self):
+        webview = self.main_window.get_web_view()
+        self.pointing_device.move_to_object(webview)
+        self.pointing_device.click()
+        self.assert_chrome_eventually_hidden()
+
     def go_to_url(self, url):
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)

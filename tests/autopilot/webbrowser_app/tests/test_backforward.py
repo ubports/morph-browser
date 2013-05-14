@@ -22,6 +22,7 @@ class TestBackForward(StartOpenLocalPageTestCaseBase):
     """Tests the back and forward functionality."""
 
     def click_back_button(self):
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         back_button = self.main_window.get_back_button()
         self.pointing_device.move_to_object(back_button)
