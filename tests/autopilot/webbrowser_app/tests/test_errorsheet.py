@@ -21,5 +21,5 @@ class TestErrorSheet(StartOpenLocalPageTestCaseBase):
     def test_invalid_url_triggers_error_message(self):
         error = self.main_window.get_error_sheet()
         self.assertThat(error.visible, Equals(False))
-        self.go_to_url("http://invalid")
+        self.go_to_url("htpp://invalid")
         self.assertThat(error.visible, Eventually(Equals(True)))
