@@ -131,7 +131,6 @@ FocusScope {
                 bottom: osk.top
             }
 
-            focus: true
             interactive: !selection.visible
             maximumFlickVelocity: height * 5
 
@@ -300,6 +299,8 @@ FocusScope {
 
             locked: browser.chromeless
 
+            focus: true
+
             anchors {
                 left: parent.left
                 right: parent.right
@@ -343,12 +344,23 @@ FocusScope {
                     target: chromeLoader.item
                     onGoBackClicked: webview.goBack()
                     onGoForwardClicked: webview.goForward()
-                    onUrlValidated: {
-                        browser.url = url
-                        webview.forceActiveFocus()
+                    onUrlValidated: browser.url = url
+                    property bool stopped: false
+                    onLoadingChanged: {
+                        if (chromeLoader.item.loading) {
+                            panel.opened = true
+                        } else if (stopped) {
+                            stopped = false
+                        } else if (!chromeLoader.item.addressBar.activeFocus) {
+                            panel.opened = false
+                            webview.forceActiveFocus()
+                        }
                     }
                     onRequestReload: webview.reload()
-                    onRequestStop: webview.stop()
+                    onRequestStop: {
+                        stopped = true
+                        webview.stop()
+                    }
                 }
             }
         }

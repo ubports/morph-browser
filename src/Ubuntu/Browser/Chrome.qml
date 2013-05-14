@@ -25,6 +25,7 @@ Item {
 
     property alias url: addressBar.url
     signal urlValidated(url url)
+    property alias addressBar: addressBar
     property alias loading: addressBar.loading
     property alias loadProgress: progressBar.value
     property alias canGoBack: backButton.enabled
@@ -122,4 +123,6 @@ Item {
         fillMode: Image.TileHorizontally
         source: "assets/toolbar_dropshadow.png"
     }
+
+    onUrlValidated: chrome.forceActiveFocus()
 }
