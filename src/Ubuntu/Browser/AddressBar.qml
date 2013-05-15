@@ -53,7 +53,7 @@ FocusScope {
             Image {
                 id: __searchIcon
                 anchors.centerIn: parent
-                opacity: __actionButton.enabled ? 1.0 : 0.3
+                opacity: __actionButton.enabled ? 1.0 : 0.2
                 source: {
                     switch (addressbar.state) {
                     case "loading":
