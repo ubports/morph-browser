@@ -193,12 +193,6 @@ FocusScope {
                 }
             }
 
-            onActiveFocusChanged: {
-                if (activeFocus) {
-                    panel.opened = false
-                }
-            }
-
             onLoadingChanged: {
                 error.visible = (loadRequest.status === WebView.LoadFailedStatus)
                 if (loadRequest.status === WebView.LoadSucceededStatus) {
@@ -298,8 +292,6 @@ FocusScope {
             id: panel
 
             locked: browser.chromeless
-
-            focus: true
 
             anchors {
                 left: parent.left
