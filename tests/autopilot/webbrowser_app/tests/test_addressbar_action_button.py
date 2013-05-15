@@ -30,11 +30,5 @@ class TestMainWindowAddressBarActionButton(BrowserTestCaseBase):
         action_button = self.main_window.get_address_bar_action_button()
         self.assertThat(action_button.enabled, Eventually(Equals(False)))
 
-        self.mouse.move_to_object(address_bar)
-        self.mouse.click()
-        self.keyboard.press("Enter")
-        self.assertThat(address_bar.loading, Eventually(Equals(False)))
-
         self.keyboard.type("ubuntu", delay=TYPING_DELAY)
-
         self.assertThat(action_button.enabled, Eventually(Equals(True)))
