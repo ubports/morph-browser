@@ -46,7 +46,7 @@ FocusScope {
 
         primaryItem: MouseArea {
             id: __actionButton
-            objectName: "__actionButton"
+            objectName: "actionButton"
             width: __searchIcon.width + units.gu(2)
             height: __searchIcon.height + units.gu(2)
             enabled: textField.text.trim().length > 0
