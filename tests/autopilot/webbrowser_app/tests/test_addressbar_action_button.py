@@ -13,6 +13,7 @@ from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import BrowserTestCaseBase, TYPING_DELAY
 
+
 class TestMainWindowAddressBarActionButton(BrowserTestCaseBase):
 
     def test_button_disabled_when_text_is_empty(self):
