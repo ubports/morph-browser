@@ -46,11 +46,14 @@ FocusScope {
 
         primaryItem: MouseArea {
             id: __actionButton
+            objectName: "__actionButton"
             width: __searchIcon.width + units.gu(2)
             height: __searchIcon.height + units.gu(2)
+            enabled: textField.text.trim().length > 0
             Image {
                 id: __searchIcon
                 anchors.centerIn: parent
+                opacity: __actionButton.enabled ? 1.0 : 0.3
                 source: {
                     switch (addressbar.state) {
                     case "loading":
@@ -83,7 +86,7 @@ FocusScope {
         focus: true
         highlighted: true
 
-        onAccepted: parent.validate()
+        onAccepted: if (__actionButton.enabled) parent.validate()
 
         function ensureSchemeVisibleWhenUnfocused() {
             // Ensure the beginning of the URL is always visible when unfocused.
