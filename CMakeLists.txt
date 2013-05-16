@@ -31,6 +31,8 @@ add_subdirectory(src)
 enable_testing()
 add_subdirectory(tests)
 
+add_subdirectory(po)
+
 install(FILES webbrowser-app.svg
         DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps)
 
