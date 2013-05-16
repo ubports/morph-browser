@@ -11,3 +11,4 @@ Categories=Network;WebBrowser;
 Keywords=Internet;WWW;Browser;Web;Explorer
 MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
 X-Ubuntu-Touch=true
+X-Ubuntu-Gettext-Domain=webbrowser-app
