@@ -44,11 +44,11 @@ ShaderEffect {
         uniform highp vec4 bgColor;
         uniform highp vec4 fgColor;
         uniform lowp float qt_Opacity;
-        uniform float _progress;
+        uniform lowp float _progress;
         void main() {
-            vec4 color = texture2D(_source, qt_TexCoord0);
+            highp vec4 color = texture2D(_source, qt_TexCoord0);
             if (qt_TexCoord0.x <= _progress) {
-                float luminance = dot(vec3(0.2126, 0.7152, 0.0722), color.rgb);
+                highp float luminance = dot(vec3(0.2126, 0.7152, 0.0722), color.rgb);
                 gl_FragColor = mix(fgColor, bgColor, luminance) * color.a * qt_Opacity;
             } else {
                 gl_FragColor = color * qt_Opacity;
