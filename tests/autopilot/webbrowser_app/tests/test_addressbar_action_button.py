@@ -18,17 +18,8 @@ class TestMainWindowAddressBarActionButton(BrowserTestCaseBase):
 
     def test_button_disabled_when_text_is_empty(self):
         self.reveal_chrome()
-
-        address_bar = self.main_window.get_address_bar()
-        self.mouse.move_to_object(address_bar)
-        self.mouse.click()
-
-        clear_button = self.main_window.get_address_bar_clear_button()
-        self.mouse.move_to_object(clear_button)
-        self.mouse.click()
-
+        self.clear_address_bar()
         action_button = self.main_window.get_address_bar_action_button()
         self.assertThat(action_button.enabled, Eventually(Equals(False)))
-
         self.keyboard.type("ubuntu", delay=TYPING_DELAY)
         self.assertThat(action_button.enabled, Eventually(Equals(True)))

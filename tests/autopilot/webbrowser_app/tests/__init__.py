@@ -122,16 +122,20 @@ class BrowserTestCaseBase(AutopilotTestCase):
         stop_y = int(start_y + distance)
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
 
-    def go_to_url(self, url):
-        self.reveal_chrome()
+    def focus_address_bar(self):
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
+
+    def clear_address_bar(self):
+        self.focus_address_bar()
         clear_button = self.main_window.get_address_bar_clear_button()
         self.pointing_device.move_to_object(clear_button)
         self.pointing_device.click()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+
+    def go_to_url(self, url):
+        self.reveal_chrome()
+        self.clear_address_bar()
         self.keyboard.type(url, delay=TYPING_DELAY)
         self.keyboard.press("Enter")
 
