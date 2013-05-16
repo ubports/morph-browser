@@ -132,6 +132,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
         clear_button = self.main_window.get_address_bar_clear_button()
         self.pointing_device.move_to_object(clear_button)
         self.pointing_device.click()
+        text_field = self.main_window.get_address_bar_text_field()
+        self.assertThat(text_field.text, Eventually(Equals("")))
 
     def go_to_url(self, url):
         self.reveal_chrome()
