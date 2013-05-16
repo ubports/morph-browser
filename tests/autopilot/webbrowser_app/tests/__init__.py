@@ -93,18 +93,21 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def main_window(self):
         return MainWindow(self.app)
 
+    def make_raw_html_page(self, html):
+        fd, path = tempfile.mkstemp(suffix=".html", text=True)
+        os.write(fd, html)
+        os.close(fd)
+        self._temp_pages.append(path)
+        return "file://" + path
+
     def make_html_page(self, title, body):
         """
         Write a web page using title and body onto a temporary file,
         and return the corresponding local "file://…" URL. The file
         is automatically deleted after running the calling test method.
         """
-        fd, path = tempfile.mkstemp(suffix=".html", text=True)
         html = "<html><title>%s</title><body>%s</body></html>" % (title, body)
-        os.write(fd, html)
-        os.close(fd)
-        self._temp_pages.append(path)
-        return "file://" + path
+        return self.make_raw_html_page(html)
 
     def reveal_chrome(self):
         distance = self.main_window.get_chrome().height
@@ -147,6 +150,13 @@ class BrowserTestCaseBase(AutopilotTestCase):
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(text_field.text, Eventually(Equals("")))
 
+    def assert_chrome_eventually_shown(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        expected_y = view.y + view.height - chrome.height
+        self.assertThat(lambda: chrome.globalRect[1],
+                        Eventually(Equals(expected_y)))
+
     def go_to_url(self, url):
         self.ensure_chrome_is_hidden()
         self.reveal_chrome()
@@ -154,8 +164,13 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.keyboard.type(url, delay=TYPING_DELAY)
         self.keyboard.press("Enter")
 
+    def assert_page_eventually_loading(self):
+        webview = self.main_window.get_web_view()
+        self.assertThat(webview.loading, Eventually(Equals(True)))
+
     def assert_page_eventually_loaded(self, url):
         webview = self.main_window.get_web_view()
+        self.assertThat(webview.loading, Eventually(Equals(False)))
         self.assertThat(webview.url, Eventually(Equals(url)))
 
 
