@@ -134,17 +134,23 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.click()
         self.assert_chrome_eventually_hidden()
 
-    def go_to_url(self, url):
-        self.ensure_chrome_is_hidden()
-        self.reveal_chrome()
+    def focus_address_bar(self):
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
+
+    def clear_address_bar(self):
+        self.focus_address_bar()
         clear_button = self.main_window.get_address_bar_clear_button()
         self.pointing_device.move_to_object(clear_button)
         self.pointing_device.click()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+        text_field = self.main_window.get_address_bar_text_field()
+        self.assertThat(text_field.text, Eventually(Equals("")))
+
+    def go_to_url(self, url):
+        self.ensure_chrome_is_hidden()
+        self.reveal_chrome()
+        self.clear_address_bar()
         self.keyboard.type(url, delay=TYPING_DELAY)
         self.keyboard.press("Enter")
 

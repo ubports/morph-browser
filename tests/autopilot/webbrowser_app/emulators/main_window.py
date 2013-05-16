@@ -31,7 +31,8 @@ class MainWindow(object):
 
     def get_address_bar_action_button(self):
         textfield = self.get_address_bar_text_field()
-        return textfield.get_children_by_type("QQuickItem")[0]
+        return textfield.select_single("QQuickMouseArea",
+                                       objectName="actionButton")
 
     def get_back_button(self):
         return self.app.select_single("ChromeButton", objectName="backButton")
