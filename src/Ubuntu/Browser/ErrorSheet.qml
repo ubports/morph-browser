@@ -35,23 +35,23 @@ Rectangle {
         Label {
             width: parent.width
             fontSize: "x-large"
-            text: "Network Error"
+            text: i18n.tr("Network Error")
         }
 
         Label {
             width: parent.width
-            text: "It appears you are having trouble viewing: %1.".arg(url)
+            text: i18n.tr("It appears you are having trouble viewing: %1.").arg(url)
             wrapMode: Text.Wrap
         }
 
         Label {
             width: parent.width
-            text: "Ubuntu suggests you check your network settings and try refreshing the page."
+            text: i18n.tr("Ubuntu suggests you check your network settings and try refreshing the page.")
             wrapMode: Text.Wrap
         }
 
         Button {
-            text: "Refresh page"
+            text: i18n.tr("Refresh page")
             width: units.gu(16)
             onClicked: refreshClicked()
         }

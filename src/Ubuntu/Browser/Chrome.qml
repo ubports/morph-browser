@@ -63,7 +63,7 @@ Item {
             width: units.gu(5)
             height: width
             icon: "assets/go-previous.png"
-            label: "Back"
+            label: i18n.tr("Back")
             onClicked: chrome.goBackClicked()
         }
 
@@ -73,7 +73,7 @@ Item {
             width: units.gu(5)
             height: width
             icon: "assets/go-next.png"
-            label: "Forward"
+            label: i18n.tr("Forward")
             onClicked: chrome.goForwardClicked()
         }
     }

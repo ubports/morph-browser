@@ -62,35 +62,35 @@ FocusScope {
         applicationIdentifier: (browser.desktopFileHint == "<not set>") ? "webbrowser-app" : browser.desktopFileHint
         HUD.Context {
             HUD.Action {
-                label: "Goto"
-                keywords: "Address;URL;www"
+                label: i18n.tr("Goto")
+                keywords: i18n.tr("Address;URL;www")
                 enabled: false // TODO: parametrized action
             }
             HUD.Action {
-                label: "Back"
-                keywords: "Older Page"
+                label: i18n.tr("Back")
+                keywords: i18n.tr("Older Page")
                 enabled: webview.canGoBack
                 onTriggered: webview.goBack()
             }
             HUD.Action {
-                label: "Forward"
-                keywords: "Newer Page"
+                label: i18n.tr("Forward")
+                keywords: i18n.tr("Newer Page")
                 enabled: webview.canGoForward
                 onTriggered: webview.goForward()
             }
             HUD.Action {
-                label: "Reload"
-                keywords: "Leave Page"
+                label: i18n.tr("Reload")
+                keywords: i18n.tr("Leave Page")
                 onTriggered: webview.reload()
             }
             HUD.Action {
-                label: "Bookmark"
-                keywords: "Add This Page to Bookmarks"
+                label: i18n.tr("Bookmark")
+                keywords: i18n.tr("Add This Page to Bookmarks")
                 enabled: false // TODO: implement bookmarks
             }
             HUD.Action {
-                label: "New Tab"
-                keywords: "Open a New Tab"
+                label: i18n.tr("New Tab")
+                keywords: i18n.tr("Open a New Tab")
                 enabled: false // TODO: implement tabs
             }
         }
@@ -364,5 +364,8 @@ FocusScope {
         }
     }
 
-    Component.onCompleted: Theme.loadTheme(Qt.resolvedUrl("webbrowser-app.qmltheme"))
+    Component.onCompleted: {
+        Theme.loadTheme(Qt.resolvedUrl("webbrowser-app.qmltheme"))
+        i18n.domain = "webbrowser-app"
+    }
 }
