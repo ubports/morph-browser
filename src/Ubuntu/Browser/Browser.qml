@@ -61,9 +61,6 @@ FocusScope {
          */
         applicationIdentifier: (browser.desktopFileHint == "<not set>") ? "webbrowser-app" : browser.desktopFileHint
         HUD.Context {
-            HUD.QuitAction {
-                onTriggered: Qt.quit()
-            }
             HUD.Action {
                 label: "Goto"
                 keywords: "Address;URL;www"
