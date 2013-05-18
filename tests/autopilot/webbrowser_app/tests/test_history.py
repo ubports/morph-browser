@@ -78,8 +78,9 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assertThat(listview.count, Eventually(Equals(5)))
         self.keyboard.type("leh", delay=TYPING_DELAY)
         self.assertThat(listview.count, Eventually(Equals(0)))
-        for i in range(5):
-            self.keyboard.press_and_release("BackSpace")
+        clear_button = self.main_window.get_address_bar_clear_button()
+        self.pointing_device.move_to_object(clear_button)
+        self.pointing_device.click()
         self.keyboard.type("xaMPL", delay=TYPING_DELAY)
         self.assertThat(listview.count, Eventually(Equals(2)))
 

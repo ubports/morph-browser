@@ -139,7 +139,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.reveal_chrome()
         self.clear_address_bar()
         self.keyboard.type(url, delay=TYPING_DELAY)
-        self.keyboard.press("Enter")
+        self.keyboard.press_and_release("Enter")
 
     def assert_page_eventually_loaded(self, url):
         webview = self.main_window.get_web_view()
