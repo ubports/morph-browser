@@ -1,4 +1,4 @@
-# French translation for webbrowser-app
+# Uzbek translation for webbrowser-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the webbrowser-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-05-16 18:13+0200\n"
-"PO-Revision-Date: 2013-05-17 14:00+0000\n"
-"Last-Translator: Olivier Tilloy <olivier.tilloy@canonical.com>\n"
-"Language-Team: French <fr@li.org>\n"
+"PO-Revision-Date: 2013-05-17 16:24+0000\n"
+"Last-Translator: Akmal Xushvaqov <akmalxster@gmail.com>\n"
+"Language-Team: Uzbek <uz@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,80 +19,78 @@ msgstr ""
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:40
 msgid "Share"
-msgstr "Partager"
+msgstr "Бўлишиш"
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:50
 msgid "Save"
-msgstr "Enregistrer"
+msgstr "Сақлаш"
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:60
 msgid "Copy"
-msgstr "Copier"
+msgstr "Нусха олиш"
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr "Erreur réseau"
+msgstr "Тармоқ хатоси"
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:43
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Il semblerait que vous rencontrez des problèmes pour voir %1."
+msgstr ""
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:49
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"Ubuntu suggère de vérifier votre configuration réseau et d’essayer "
-"d’actualiser la page."
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:54
 msgid "Refresh page"
-msgstr "Actualiser"
+msgstr ""
 
 #: src/Ubuntu/Browser/Chrome.qml:66 src/Ubuntu/Browser/Browser.qml:73
 msgid "Back"
-msgstr "Reculer"
+msgstr "Oрқага"
 
 #: src/Ubuntu/Browser/Chrome.qml:76 src/Ubuntu/Browser/Browser.qml:79
 msgid "Forward"
-msgstr "Avancer"
+msgstr "Олдинга"
 
 #: src/Ubuntu/Browser/Browser.qml:68
 msgid "Goto"
-msgstr "Aller à"
+msgstr "Ўтиш"
 
 #: src/Ubuntu/Browser/Browser.qml:69
 msgid "Address;URL;www"
-msgstr "Adresse;URL;www"
+msgstr ""
 
 #: src/Ubuntu/Browser/Browser.qml:74
 msgid "Older Page"
-msgstr "Page précédente"
+msgstr "Эскироқ саҳифа"
 
 #: src/Ubuntu/Browser/Browser.qml:80
 msgid "Newer Page"
-msgstr "Page suivante"
+msgstr "Янгироқ саҳифа"
 
 #: src/Ubuntu/Browser/Browser.qml:85
 msgid "Reload"
-msgstr "Actualiser"
+msgstr "Қайта юклаш"
 
 #: src/Ubuntu/Browser/Browser.qml:86
 msgid "Leave Page"
-msgstr "Fermer la page"
+msgstr "Саҳифадан чиқиш"
 
 #: src/Ubuntu/Browser/Browser.qml:90
 msgid "Bookmark"
-msgstr "Marquer"
+msgstr "Хатчўп"
 
 #: src/Ubuntu/Browser/Browser.qml:91
 msgid "Add This Page to Bookmarks"
-msgstr "Marquer cette page"
+msgstr "Бу саҳифани хатчўпларга қўшиш"
 
 #: src/Ubuntu/Browser/Browser.qml:95
 msgid "New Tab"
-msgstr "Nouvel onglet"
+msgstr "Янги ички ойна"
 
 #: src/Ubuntu/Browser/Browser.qml:96
 msgid "Open a New Tab"
-msgstr "Ouvrir un nouvel onglet"
+msgstr "Янги ички ойна очиш"
