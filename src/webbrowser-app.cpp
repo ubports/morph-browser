@@ -16,6 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+namespace C {
+#include <libintl.h>
+}
+
 // Qt
 #include <QtCore/QDir>
 #include <QtCore/QStandardPaths>
@@ -85,7 +89,7 @@ bool WebBrowserApp::initialize()
 
     m_view = new QQuickView;
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
-    m_view->setTitle(APP_TITLE);
+    m_view->setTitle(C::gettext("Ubuntu Web Browser"));
     m_view->resize(800, 600);
     connect(m_view->engine(), SIGNAL(quit()), SLOT(quit()));
 
@@ -137,8 +141,8 @@ void WebBrowserApp::onTitleChanged()
     QQuickItem* browser = m_view->rootObject();
     QString title = browser->property("title").toString();
     if (title.isEmpty()) {
-        m_view->setTitle(APP_TITLE);
+        m_view->setTitle(C::gettext("Ubuntu Web Browser"));
     } else {
-        m_view->setTitle(QString("%1 - %2").arg(title, APP_TITLE));
+        m_view->setTitle(QString(C::gettext("%1 - Ubuntu Web Browser")).arg(title));
     }
 }
