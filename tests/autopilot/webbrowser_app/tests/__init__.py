@@ -25,7 +25,7 @@ from webbrowser_app.emulators.main_window import MainWindow
 
 
 HTTP_SERVER_PORT = 8129
-TYPING_DELAY = 0.1
+TYPING_DELAY = 0.001
 
 
 class BrowserTestCaseBase(AutopilotTestCase):
