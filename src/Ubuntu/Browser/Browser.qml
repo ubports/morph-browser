@@ -128,6 +128,7 @@ FocusScope {
                 bottom: osk.top
             }
 
+            focus: true
             interactive: !selection.visible
             maximumFlickVelocity: height * 5
 
