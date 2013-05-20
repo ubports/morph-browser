@@ -107,7 +107,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         return "file://" + path
 
     def reveal_chrome(self):
-        chrome = self.app.select_single("Panel")
+        chrome = self.main_window.get_panel()
         distance = self.main_window.get_chrome().height
         view = self.main_window.get_qml_view()
         x_line = int(view.x + view.width * 0.5)
