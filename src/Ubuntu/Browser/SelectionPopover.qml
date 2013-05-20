@@ -37,7 +37,7 @@ Popover {
         ListItem.Empty {
             Label {
                 anchors.centerIn: parent
-                text: "Share"
+                text: i18n.tr("Share")
             }
             onClicked: {
                 popover.selection.share()
@@ -47,7 +47,7 @@ Popover {
         ListItem.Empty {
             Label {
                 anchors.centerIn: parent
-                text: "Save"
+                text: i18n.tr("Save")
             }
             onClicked: {
                 popover.selection.save()
@@ -57,7 +57,7 @@ Popover {
         ListItem.Empty {
             Label {
                 anchors.centerIn: parent
-                text: "Copy"
+                text: i18n.tr("Copy")
             }
             onClicked: {
                 popover.selection.copy()

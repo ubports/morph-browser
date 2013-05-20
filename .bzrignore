@@ -18,6 +18,7 @@ tests/unittests/tst_QmlTests
 tests/unittests/tst_CommandLineParserTests
 tests/unittests/tst_HistoryModelTests
 tests/unittests/tst_HistoryMatchesModelTests
+po/*.gmo
 
 obj-*
 debian/files

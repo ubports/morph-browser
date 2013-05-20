@@ -33,7 +33,7 @@ class TestWindowTitle(BrowserTestCaseBase):
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
         self.keyboard.type(url, delay=TYPING_DELAY)
-        self.keyboard.press("Enter")
+        self.keyboard.press_and_release("Enter")
         window = self.main_window.get_qml_view()
         title = "Alice in Wonderland - Ubuntu Web Browser"
         self.assertThat(window.title, Eventually(Equals(title)))

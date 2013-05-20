@@ -60,3 +60,6 @@ class MainWindow(object):
     def get_address_bar_suggestions_listview_entries(self):
         listview = self.get_address_bar_suggestions_listview()
         return listview.get_children()[0].get_children_by_type("Subtitled")
+
+    def get_panel(self):
+        return self.app.select_single("Panel")

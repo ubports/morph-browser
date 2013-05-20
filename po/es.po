@@ -1,0 +1,98 @@
+# Spanish translation for webbrowser-app
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-05-16 18:13+0200\n"
+"PO-Revision-Date: 2013-05-19 05:00+0000\n"
+"Last-Translator: Demuxer <demuxer@gmail.com>\n"
+"Language-Team: Spanish <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-05-20 06:32+0000\n"
+"X-Generator: Launchpad (build 16626)\n"
+
+#: src/Ubuntu/Browser/SelectionPopover.qml:40
+msgid "Share"
+msgstr "Compartir"
+
+#: src/Ubuntu/Browser/SelectionPopover.qml:50
+msgid "Save"
+msgstr "Guardar"
+
+#: src/Ubuntu/Browser/SelectionPopover.qml:60
+msgid "Copy"
+msgstr "Copiar"
+
+#: src/Ubuntu/Browser/ErrorSheet.qml:38
+msgid "Network Error"
+msgstr "Error de conexión"
+
+#: src/Ubuntu/Browser/ErrorSheet.qml:43
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr "Parece que hay problemas para ver: %1"
+
+#: src/Ubuntu/Browser/ErrorSheet.qml:49
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr ""
+"Ubuntu sugiere chequear las configuraciones de red e intentar refrescar la "
+"página."
+
+#: src/Ubuntu/Browser/ErrorSheet.qml:54
+msgid "Refresh page"
+msgstr "Refrescar página"
+
+#: src/Ubuntu/Browser/Chrome.qml:66 src/Ubuntu/Browser/Browser.qml:73
+msgid "Back"
+msgstr "Atrás"
+
+#: src/Ubuntu/Browser/Chrome.qml:76 src/Ubuntu/Browser/Browser.qml:79
+msgid "Forward"
+msgstr "Avanzar"
+
+#: src/Ubuntu/Browser/Browser.qml:68
+msgid "Goto"
+msgstr "Ir a"
+
+#: src/Ubuntu/Browser/Browser.qml:69
+msgid "Address;URL;www"
+msgstr "Dirección;URL;www"
+
+#: src/Ubuntu/Browser/Browser.qml:74
+msgid "Older Page"
+msgstr "Página Antigua"
+
+#: src/Ubuntu/Browser/Browser.qml:80
+msgid "Newer Page"
+msgstr "Página Nueva"
+
+#: src/Ubuntu/Browser/Browser.qml:85
+msgid "Reload"
+msgstr "Recargar"
+
+#: src/Ubuntu/Browser/Browser.qml:86
+msgid "Leave Page"
+msgstr "Abandonar Página"
+
+#: src/Ubuntu/Browser/Browser.qml:90
+msgid "Bookmark"
+msgstr "Marcador"
+
+#: src/Ubuntu/Browser/Browser.qml:91
+msgid "Add This Page to Bookmarks"
+msgstr "Añadir a Marcadores"
+
+#: src/Ubuntu/Browser/Browser.qml:95
+msgid "New Tab"
+msgstr "Pestaña nueva"
+
+#: src/Ubuntu/Browser/Browser.qml:96
+msgid "Open a New Tab"
+msgstr "Abrir una Pestaña Nueva"
