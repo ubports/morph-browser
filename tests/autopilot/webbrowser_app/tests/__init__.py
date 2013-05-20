@@ -164,6 +164,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.reveal_chrome()
         self.clear_address_bar()
         self.keyboard.type(url, delay=TYPING_DELAY)
+        text_field = self.main_window.get_address_bar_text_field()
+        self.assertThat(text_field.text, Eventually(Equals(url)))
         self.keyboard.press_and_release("Enter")
 
     def assert_page_eventually_loading(self):
