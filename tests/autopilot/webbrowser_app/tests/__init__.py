@@ -172,7 +172,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
     def assert_page_eventually_loaded(self, url):
         webview = self.main_window.get_web_view()
-        self.assertThat(webview.loading, Eventually(Equals(False)))
         self.assertThat(webview.url, Eventually(Equals(url)))
         self.assertThat(webview.loading, Eventually(Equals(False)))
 
