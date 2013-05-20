@@ -107,12 +107,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
         return "file://" + path
 
     def reveal_chrome(self):
+        panel = self.main_window.get_panel()
         distance = self.main_window.get_chrome().height
         view = self.main_window.get_qml_view()
         x_line = int(view.x + view.width * 0.5)
         start_y = int(view.y + view.height - 1)
         stop_y = int(start_y - distance)
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
+        self.assertThat(panel.state, Eventually(Equals("spread")))
 
     def hide_chrome(self):
         distance = self.main_window.get_chrome().height
@@ -139,7 +141,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.reveal_chrome()
         self.clear_address_bar()
         self.keyboard.type(url, delay=TYPING_DELAY)
-        self.keyboard.press("Enter")
+        self.keyboard.press_and_release("Enter")
 
     def assert_page_eventually_loaded(self, url):
         webview = self.main_window.get_web_view()

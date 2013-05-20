@@ -46,5 +46,5 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
         self.assertThat(address_bar.state, Eventually(Equals("editing")))
-        self.keyboard.press("Enter")
+        self.keyboard.press_and_release("Enter")
         self.assertThat(address_bar.state, Eventually(Equals("")))
