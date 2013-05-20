@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-05-16 18:13+0200\n"
-"PO-Revision-Date: 2013-05-17 19:03+0000\n"
+"PO-Revision-Date: 2013-05-19 09:04+0000\n"
 "Last-Translator: Илья Калитко <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-05-19 06:13+0000\n"
+"X-Launchpad-Export-Date: 2013-05-20 06:32+0000\n"
 "X-Generator: Launchpad (build 16626)\n"
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:40
@@ -36,16 +36,16 @@ msgstr "Ошибка сети"
 #: src/Ubuntu/Browser/ErrorSheet.qml:43
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "Похоже на то, что возникли проблемы с просмотром: %1."
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:49
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
-msgstr ""
+msgstr "Проверьте настройки вашей сети и обновите страницу."
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:54
 msgid "Refresh page"
-msgstr ""
+msgstr "Обновить страницу"
 
 #: src/Ubuntu/Browser/Chrome.qml:66 src/Ubuntu/Browser/Browser.qml:73
 msgid "Back"
@@ -57,7 +57,7 @@ msgstr "Вперед"
 
 #: src/Ubuntu/Browser/Browser.qml:68
 msgid "Goto"
-msgstr ""
+msgstr "Перейти к"
 
 #: src/Ubuntu/Browser/Browser.qml:69
 msgid "Address;URL;www"
@@ -65,11 +65,11 @@ msgstr ""
 
 #: src/Ubuntu/Browser/Browser.qml:74
 msgid "Older Page"
-msgstr ""
+msgstr "На предыдущую страницу"
 
 #: src/Ubuntu/Browser/Browser.qml:80
 msgid "Newer Page"
-msgstr ""
+msgstr "На следующую страницу"
 
 #: src/Ubuntu/Browser/Browser.qml:85
 msgid "Reload"
@@ -85,12 +85,12 @@ msgstr "Закладка"
 
 #: src/Ubuntu/Browser/Browser.qml:91
 msgid "Add This Page to Bookmarks"
-msgstr ""
+msgstr "Добавить в закладки."
 
 #: src/Ubuntu/Browser/Browser.qml:95
 msgid "New Tab"
-msgstr ""
+msgstr "Новая вкладка"
 
 #: src/Ubuntu/Browser/Browser.qml:96
 msgid "Open a New Tab"
-msgstr ""
+msgstr "Открыть новую вкладку"
