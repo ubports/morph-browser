@@ -64,6 +64,8 @@ bool WebBrowserApp::initialize()
 {
     Q_ASSERT(m_view == 0);
 
+    C::textdomain("webbrowser-app");
+
     m_arguments = new CommandLineParser(arguments(), this);
     if (m_arguments->help()) {
         m_arguments->printUsage();
