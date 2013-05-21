@@ -1,6 +1,6 @@
-# Ubuntu webbrowser app translation.
-# Copyright 2013 Canonical Ltd.
-# This file is distributed under the same license as the webbrowser-app package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-16 18:13+0200\n"
+"POT-Creation-Date: 2013-05-21 17:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,16 +17,52 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/Ubuntu/Browser/SelectionPopover.qml:40
-msgid "Share"
+#: src/Ubuntu/Browser/Browser.qml:65
+msgid "Goto"
 msgstr ""
 
-#: src/Ubuntu/Browser/SelectionPopover.qml:50
-msgid "Save"
+#: src/Ubuntu/Browser/Browser.qml:66
+msgid "Address;URL;www"
 msgstr ""
 
-#: src/Ubuntu/Browser/SelectionPopover.qml:60
-msgid "Copy"
+#: src/Ubuntu/Browser/Browser.qml:70 src/Ubuntu/Browser/Chrome.qml:66
+msgid "Back"
+msgstr ""
+
+#: src/Ubuntu/Browser/Browser.qml:71
+msgid "Older Page"
+msgstr ""
+
+#: src/Ubuntu/Browser/Browser.qml:76 src/Ubuntu/Browser/Chrome.qml:76
+msgid "Forward"
+msgstr ""
+
+#: src/Ubuntu/Browser/Browser.qml:77
+msgid "Newer Page"
+msgstr ""
+
+#: src/Ubuntu/Browser/Browser.qml:82
+msgid "Reload"
+msgstr ""
+
+#: src/Ubuntu/Browser/Browser.qml:83
+msgid "Leave Page"
+msgstr ""
+
+#: src/Ubuntu/Browser/Browser.qml:87
+msgid "Bookmark"
+msgstr ""
+
+#: src/Ubuntu/Browser/Browser.qml:88
+msgid "Add This Page to Bookmarks"
+msgstr ""
+
+#: src/Ubuntu/Browser/Browser.qml:92
+msgid "New Tab"
+msgstr ""
+
+#: src/Ubuntu/Browser/Browser.qml:93
+msgid "Open a New Tab"
 msgstr ""
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:38
@@ -47,50 +83,35 @@ msgstr ""
 msgid "Refresh page"
 msgstr ""
 
-#: src/Ubuntu/Browser/Chrome.qml:66 src/Ubuntu/Browser/Browser.qml:73
-msgid "Back"
+#: src/Ubuntu/Browser/SelectionPopover.qml:40
+msgid "Share"
 msgstr ""
 
-#: src/Ubuntu/Browser/Chrome.qml:76 src/Ubuntu/Browser/Browser.qml:79
-msgid "Forward"
+#: src/Ubuntu/Browser/SelectionPopover.qml:50
+msgid "Save"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:68
-msgid "Goto"
+#: src/Ubuntu/Browser/SelectionPopover.qml:60
+msgid "Copy"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:69
-msgid "Address;URL;www"
+#: src/webbrowser-app.cpp:92 src/webbrowser-app.cpp:144
+msgid "Ubuntu Web Browser"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:74
-msgid "Older Page"
+#: src/webbrowser-app.cpp:146
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:80
-msgid "Newer Page"
+#: src/webbrowser-app.desktop.in:3
+msgid "Browser"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:85
-msgid "Reload"
+#: src/webbrowser-app.desktop.in:4
+msgid "Web Browser"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:86
-msgid "Leave Page"
-msgstr ""
-
-#: src/Ubuntu/Browser/Browser.qml:90
-msgid "Bookmark"
-msgstr ""
-
-#: src/Ubuntu/Browser/Browser.qml:91
-msgid "Add This Page to Bookmarks"
-msgstr ""
-
-#: src/Ubuntu/Browser/Browser.qml:95
-msgid "New Tab"
-msgstr ""
-
-#: src/Ubuntu/Browser/Browser.qml:96
-msgid "Open a New Tab"
+#: src/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
 msgstr ""
