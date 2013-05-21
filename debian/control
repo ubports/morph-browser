@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Build-Depends: cmake (>= 2.8.9),
                debhelper (>= 9),
-               gettext,
+               dh-translations,
                libc6-dev,
                python,
                qt5-default,

@@ -7,7 +7,13 @@
 export DPKG_GENSYMBOLS_CHECK_LEVEL=4
 
 %:
-	dh $@ --parallel
+	dh $@ --parallel --with translations
 
 override_dh_install:
 	dh_install --fail-missing
+
+override_dh_translations:
+	# Unfortunately, the default build directory is not exposed
+	# (see http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=601774).
+	cd obj-$(DEB_HOST_GNU_TYPE); make webbrowser-app.pot
+
