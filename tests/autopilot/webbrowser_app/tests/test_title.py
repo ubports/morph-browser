@@ -8,7 +8,7 @@
 
 from __future__ import absolute_import
 
-from testtools.matchers import Equals
+from testtools.matchers import Contains
 from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import BrowserTestCaseBase, TYPING_DELAY
@@ -34,5 +34,4 @@ class TestWindowTitle(BrowserTestCaseBase):
         self.keyboard.type(url, delay=TYPING_DELAY)
         self.keyboard.press_and_release("Enter")
         window = self.main_window.get_qml_view()
-        title = "Alice in Wonderland - Ubuntu Web Browser"
-        self.assertThat(window.title, Eventually(Equals(title)))
+        self.assertThat(window.title, Eventually(Contains(title)))
