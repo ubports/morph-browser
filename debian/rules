@@ -15,5 +15,5 @@ override_dh_install:
 override_dh_translations:
 	# Unfortunately, the default build directory is not exposed
 	# (see http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=601774).
-	cd obj-$(DEB_HOST_GNU_TYPE); make webbrowser-app.pot
+	$(MAKE) -C obj-$(DEB_HOST_GNU_TYPE) webbrowser-app.pot
 
