@@ -1,10 +1,16 @@
 project(webbrowser-translations)
 
 include(FindGettext)
+find_program(GETTEXT_XGETTEXT_EXECUTABLE xgettext)
 
 set(DOMAIN webbrowser-app)
 set(POT_FILE ${DOMAIN}.pot)
 file(GLOB PO_FILES *.po)
+
+add_custom_target(${POT_FILE}
+                  COMMAND ${GETTEXT_XGETTEXT_EXECUTABLE} -o ${POT_FILE} -D ..
+                          --c++ --qt --add-comments=TRANSLATORS --keyword=tr
+                          ${I18N_SRC_FILES})
 
 foreach(PO_FILE ${PO_FILES})
     get_filename_component(LANG ${PO_FILE} NAME_WE)
