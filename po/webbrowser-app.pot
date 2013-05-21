@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) YEAR Canonical Ltd.
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-21 17:21+0200\n"
+"POT-Creation-Date: 2013-05-21 18:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,11 +95,11 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: src/webbrowser-app.cpp:92 src/webbrowser-app.cpp:144
+#: src/webbrowser-app.cpp:94 src/webbrowser-app.cpp:146
 msgid "Ubuntu Web Browser"
 msgstr ""
 
-#: src/webbrowser-app.cpp:146
+#: src/webbrowser-app.cpp:148
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
