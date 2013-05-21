@@ -23,7 +23,6 @@
 #include <QtCore/QDir>
 #include <QtCore/QString>
 
-#define APP_TITLE "Ubuntu Web Browser"
 #define DEFAULT_HOMEPAGE "http://www.ubuntu.com"
 #define REMOTE_INSPECTOR_PORT 9221
 
