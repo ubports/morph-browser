@@ -8,7 +8,8 @@ set(POT_FILE ${DOMAIN}.pot)
 file(GLOB PO_FILES *.po)
 
 add_custom_target(${POT_FILE}
-                  COMMAND ${GETTEXT_XGETTEXT_EXECUTABLE} -o ${POT_FILE} -D ..
+                  COMMAND ${GETTEXT_XGETTEXT_EXECUTABLE} -o ${POT_FILE}
+                          -D ${CMAKE_SOURCE_DIR}
                           --c++ --qt --add-comments=TRANSLATORS --keyword=tr
                           ${I18N_SRC_FILES})
 
