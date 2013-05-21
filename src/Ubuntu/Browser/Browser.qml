@@ -191,12 +191,6 @@ FocusScope {
                 }
             }
 
-            onActiveFocusChanged: {
-                if (activeFocus) {
-                    panel.opened = false
-                }
-            }
-
             onLoadingChanged: {
                 error.visible = (loadRequest.status === WebView.LoadFailedStatus)
                 if (loadRequest.status === WebView.LoadSucceededStatus) {
@@ -315,7 +309,13 @@ FocusScope {
                 Binding {
                     target: chromeLoader.item
                     property: "loading"
-                    value: webview.loading || (webview.progress == 0)
+                    value: webview.loading || (webview.loadProgress == 0)
+                }
+
+                Binding {
+                    target: chromeLoader.item
+                    property: "loadProgress"
+                    value: webview.loadProgress
                 }
 
                 Binding {
@@ -334,29 +334,25 @@ FocusScope {
                     target: chromeLoader.item
                     onGoBackClicked: webview.goBack()
                     onGoForwardClicked: webview.goForward()
-                    onUrlValidated: {
-                        browser.url = url
-                        webview.forceActiveFocus()
+                    onUrlValidated: browser.url = url
+                    property bool stopped: false
+                    onLoadingChanged: {
+                        if (chromeLoader.item.loading) {
+                            panel.opened = true
+                        } else if (stopped) {
+                            stopped = false
+                        } else if (!chromeLoader.item.addressBar.activeFocus) {
+                            panel.opened = false
+                            webview.forceActiveFocus()
+                        }
                     }
                     onRequestReload: webview.reload()
-                    onRequestStop: webview.stop()
+                    onRequestStop: {
+                        stopped = true
+                        webview.stop()
+                    }
                 }
             }
-        }
-
-        ProgressBar {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: osk.top
-            }
-            height: units.gu(0.6)
-            visible: value < 100
-
-            minimumValue: 0
-            maximumValue: 100
-            indeterminate: value == 0
-            value: webview.loadProgress
         }
 
         KeyboardRectangle {

@@ -64,6 +64,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         suggestions = self.main_window.get_address_bar_suggestions()
         listview = self.main_window.get_address_bar_suggestions_listview()
         self.assertThat(suggestions.visible, Equals(False))
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         self.assertThat(suggestions.visible, Equals(False))
         self.focus_address_bar()
@@ -84,6 +85,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
 
     def test_clear_address_bar_dismisses_suggestions(self):
         suggestions = self.main_window.get_address_bar_suggestions()
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         self.focus_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
@@ -95,6 +97,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
 
     def test_addressbar_loosing_focus_dismisses_suggestions(self):
         suggestions = self.main_window.get_address_bar_suggestions()
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         self.focus_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
@@ -109,6 +112,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
     def test_select_suggestion(self):
         suggestions = self.main_window.get_address_bar_suggestions()
         listview = self.main_window.get_address_bar_suggestions_listview()
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         self.focus_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(True)))

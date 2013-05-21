@@ -25,7 +25,9 @@ Item {
 
     property alias url: addressBar.url
     signal urlValidated(url url)
+    property alias addressBar: addressBar
     property alias loading: addressBar.loading
+    property alias loadProgress: progressBar.value
     property alias canGoBack: backButton.enabled
     signal goBackClicked()
     property alias canGoForward: forwardButton.enabled
@@ -93,6 +95,16 @@ Item {
         onRequestStop: chrome.requestStop()
     }
 
+    EmbeddedProgressBar {
+        id: progressBar
+        visible: chrome.loading
+        source: visible ? addressBar : null
+        minimumValue: 0
+        maximumValue: 100
+        bgColor: "#DD4814" // Ubuntu orange
+        fgColor: "white"
+    }
+
     Suggestions {
         id: suggestions
         visible: addressBar.activeFocus && (count > 0)
@@ -112,4 +124,6 @@ Item {
         fillMode: Image.TileHorizontally
         source: "assets/toolbar_dropshadow.png"
     }
+
+    onUrlValidated: chrome.forceActiveFocus()
 }
