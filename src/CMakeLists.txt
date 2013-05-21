@@ -45,5 +45,5 @@ foreach(LINE ${DESKTOP_FILE_CONTENTS})
     file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE} "${LINE}\n")
 endforeach(LINE)
 
-install(FILES webbrowser-app.desktop
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
