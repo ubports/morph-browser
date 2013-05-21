@@ -11,6 +11,8 @@ add_custom_target(${POT_FILE}
                   COMMAND ${GETTEXT_XGETTEXT_EXECUTABLE} -o ${POT_FILE}
                           -D ${CMAKE_SOURCE_DIR}
                           --c++ --qt --add-comments=TRANSLATORS --keyword=tr
+                          --package-name=webbrowser-app
+                          --copyright-holder='Canonical Ltd.'
                           ${I18N_SRC_FILES})
 
 foreach(PO_FILE ${PO_FILES})
