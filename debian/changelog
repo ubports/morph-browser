@@ -1,8 +1,52 @@
-webbrowser-app (0.20-0ubuntu1) UNRELEASED; urgency=low
+webbrowser-app (0.20daily13.05.22ubuntu.unity.next-0ubuntu1) raring; urgency=low
 
+  [ Łukasz 'sil2100' Zemczak ]
   * Automatic snapshot from revision 115 (bootstrap)
 
- -- Łukasz 'sil2100' Zemczak <lukasz.zemczak@canonical.com>  Mon, 22 Apr 2013 18:50:43 +0200
+  [ Michael Terry ]
+  * Port to HUD 1.0.
+
+  [ Omer Akram ]
+  * Port the webbrowser-app tests to autopilot 1.3.
+  * fix a few failing autopilot tests on the device.
+
+  [ Łukasz 'sil2100' Zemczak ]
+  * libhud-qt-qml has been renamed to qtdeclarative5-hud1.0.
+
+  [ Renato Araujo Oliveira Filho ]
+  * Check if hitting the Return key does not load search site when
+    TextField is empty;. (LP: #1161789)
+
+  [ Olivier Tilloy ]
+  * Display a list of suggestions based on navigation history as the
+    user types in the address bar.
+  * Remove the code that sets the size of the browser window to mimic
+    the phone form factor. On the desktop, we want a more sensible
+    default size.
+  * Refactor autopilot tests, separating test cases into their own
+    modules, to improve readability and maintenance.
+  * Wire up existing HUD actions, and disable those for which the
+    functionality is not implemented yet.
+  * React to orientation changes.
+  * Replace the custom RevealingBar component with the Panel from the
+    UITK. (LP: #1118536, #1130409, #1130446)
+  * Update autopilot tests to the upcoming 1.3 API.
+  * Ensure the autopilot tests pass even behind a proxy.
+  * Use Screen.orientation to compute the layout of the chrome.
+  * Factor out boiler-plate code into two helper methods:
+    focus_address_bar() and clear_address_bar().
+  * Remove the HUD Quit action as it is deprecated and will be removed
+    in the final 1.0 API.
+  * Enable translations.
+  * Really assert that a given page has eventually been loaded. This
+    should fix intermittent failures when run on jenkins.
+  * Embed the progress bar inside the address bar, and ensure it’s
+    always made visible when a page is loading.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 138 (ubuntu-unity/next)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 22 May 2013 05:01:47 +0000
 
 webbrowser-app (0.20) quantal; urgency=low
 
