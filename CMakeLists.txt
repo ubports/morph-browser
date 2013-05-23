@@ -36,6 +36,10 @@ file(GLOB_RECURSE I18N_SRC_FILES
      src/**.qml src/**.h src/**.cpp src/**.desktop.in)
 list(SORT I18N_SRC_FILES)
 
+# for dh_translations to extract the domain
+# (regarding syntax consistency, see http://pad.lv/1181187)
+set (GETTEXT_PACKAGE "webbrowser-app")
+
 add_subdirectory(po)
 
 install(FILES webbrowser-app.svg

@@ -3,7 +3,7 @@ project(webbrowser-translations)
 include(FindGettext)
 find_program(GETTEXT_XGETTEXT_EXECUTABLE xgettext)
 
-set(DOMAIN webbrowser-app)
+set(DOMAIN ${GETTEXT_PACKAGE})
 set(POT_FILE ${DOMAIN}.pot)
 file(GLOB PO_FILES *.po)
 
