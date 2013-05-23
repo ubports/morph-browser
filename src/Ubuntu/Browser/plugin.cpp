@@ -17,6 +17,7 @@
  */
 
 #include "plugin.h"
+#include "tabs-model.h"
 
 // Qt
 #include <QtQml>
@@ -24,5 +25,5 @@
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
 {
     Q_ASSERT(uri == QLatin1String("Ubuntu.Browser"));
-    //qmlRegisterType<...>(uri, 0, 1, "...");
+    qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
 }
