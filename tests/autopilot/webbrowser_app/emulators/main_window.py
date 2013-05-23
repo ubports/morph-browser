@@ -42,7 +42,7 @@ class MainWindow(object):
                                       objectName="forwardButton")
 
     def get_web_view(self):
-        return self.app.select_single("QQuickWebViewExperimentalExtension")
+        return self.app.select_single("UbuntuWebView")
 
     def get_error_sheet(self):
         return self.app.select_single("ErrorSheet")
