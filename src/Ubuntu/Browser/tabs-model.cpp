@@ -107,6 +107,11 @@ void TabsModel::setCurrentIndex(int index)
     Q_EMIT currentIndexChanged();
 }
 
+int TabsModel::count() const
+{
+    return rowCount();
+}
+
 /*!
     Add a tab to the model.
 
@@ -126,6 +131,7 @@ void TabsModel::add(QQuickItem* webview)
     connect(webview, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
     connect(webview, SIGNAL(iconChanged()), SLOT(onIconChanged()));
     endInsertRows();
+    Q_EMIT countChanged();
 }
 
 /*!
@@ -143,6 +149,7 @@ void TabsModel::remove(int index)
     QQuickItem* webview = m_webviews.takeAt(index);
     webview->disconnect(this);
     endRemoveRows();
+    Q_EMIT countChanged();
 }
 
 bool TabsModel::checkValidTabIndex(int index) const

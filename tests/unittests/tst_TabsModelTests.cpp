@@ -60,7 +60,7 @@ private Q_SLOTS:
 
     void shouldBeInitiallyEmpty()
     {
-        QCOMPARE(model->rowCount(), 0);
+        QCOMPARE(model->count(), 0);
         QCOMPARE(model->currentIndex(), -1);
     }
 
@@ -77,14 +77,26 @@ private Q_SLOTS:
     void shouldNotAddNullWebView()
     {
         model->add(0);
-        QCOMPARE(model->rowCount(), 0);
+        QCOMPARE(model->count(), 0);
     }
 
     void shouldUpdateCountWhenAddingWebView()
     {
+        QSignalSpy spy(model, SIGNAL(countChanged()));
         QQuickItem* webview = createWebView();
         model->add(webview);
-        QCOMPARE(model->rowCount(), 1);
+        QCOMPARE(spy.count(), 1);
+        QCOMPARE(model->count(), 1);
+    }
+
+    void shouldUpdateCountWhenRemovingWebView()
+    {
+        QQuickItem* webview = createWebView();
+        model->add(webview);
+        QSignalSpy spy(model, SIGNAL(countChanged()));
+        model->remove(0);
+        QCOMPARE(spy.count(), 1);
+        QCOMPARE(model->count(), 0);
     }
 
     void shouldNotChangeCurrentIndexWhenAddingWebView()
