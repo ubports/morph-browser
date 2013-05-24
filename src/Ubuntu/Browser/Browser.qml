@@ -187,7 +187,7 @@ FocusScope {
 
             onUrlChanged: {
                 if (!browser.chromeless) {
-                    chromeLoader.item.url = url
+                    panel.chrome.url = url
                 }
             }
 
@@ -286,70 +286,67 @@ FocusScope {
             align: Qt.AlignBottom
         }
 
-        Panel {
+        Loader {
             id: panel
 
-            locked: browser.chromeless
+            property Item chrome: item ? item.contents[0] : null
+
+            sourceComponent: browser.chromeless ? undefined : panelComponent
 
             anchors {
                 left: parent.left
                 right: parent.right
-                bottom: opened ? osk.top : parent.bottom
+                bottom: (item && item.opened) ? osk.top : parent.bottom
             }
-            height: units.gu(8)
 
-            Loader {
-                id: chromeLoader
+            Component {
+                id: panelComponent
 
-                active: !browser.chromeless
-                source: "Chrome.qml"
-
-                anchors.fill: parent
-
-                Binding {
-                    target: chromeLoader.item
-                    property: "loading"
-                    value: webview.loading || (webview.loadProgress == 0)
-                }
-
-                Binding {
-                    target: chromeLoader.item
-                    property: "loadProgress"
-                    value: webview.loadProgress
-                }
-
-                Binding {
-                    target: chromeLoader.item
-                    property: "canGoBack"
-                    value: webview.canGoBack
-                }
-
-                Binding {
-                    target: chromeLoader.item
-                    property: "canGoForward"
-                    value: webview.canGoForward
-                }
-
-                Connections {
-                    target: chromeLoader.item
-                    onGoBackClicked: webview.goBack()
-                    onGoForwardClicked: webview.goForward()
-                    onUrlValidated: browser.url = url
-                    property bool stopped: false
-                    onLoadingChanged: {
-                        if (chromeLoader.item.loading) {
-                            panel.opened = true
-                        } else if (stopped) {
-                            stopped = false
-                        } else if (!chromeLoader.item.addressBar.activeFocus) {
-                            panel.opened = false
-                            webview.forceActiveFocus()
-                        }
+                Panel {
+                    anchors {
+                        left: parent ? parent.left : undefined
+                        right: parent ? parent.right : undefined
+                        bottom: parent ? parent.bottom : undefined
                     }
-                    onRequestReload: webview.reload()
-                    onRequestStop: {
-                        stopped = true
-                        webview.stop()
+                    height: units.gu(8)
+
+                    opened: true
+
+                    Chrome {
+                        anchors.fill: parent
+
+                        loading: webview.loading || (webview.loadProgress == 0)
+                        loadProgress: webview.loadProgress
+
+                        canGoBack: webview.canGoBack
+                        onGoBackClicked: webview.goBack()
+
+                        canGoForward: webview.canGoForward
+                        onGoForwardClicked: webview.goForward()
+
+                        onUrlValidated: browser.url = url
+
+                        property bool stopped: false
+                        onLoadingChanged: {
+                            if (loading) {
+                                if (panel.item) {
+                                    panel.item.opened = true
+                                }
+                            } else if (stopped) {
+                                stopped = false
+                            } else if (!addressBar.activeFocus) {
+                                if (panel.item) {
+                                    panel.item.opened = false
+                                }
+                                webview.forceActiveFocus()
+                            }
+                        }
+
+                        onRequestReload: webview.reload()
+                        onRequestStop: {
+                            stopped = true
+                            webview.stop()
+                        }
                     }
                 }
             }
