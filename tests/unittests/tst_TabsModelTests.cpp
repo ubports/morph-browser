@@ -83,16 +83,14 @@ private Q_SLOTS:
     void shouldUpdateCountWhenAddingWebView()
     {
         QSignalSpy spy(model, SIGNAL(countChanged()));
-        QQuickItem* webview = createWebView();
-        model->add(webview);
+        model->add(createWebView());
         QCOMPARE(spy.count(), 1);
         QCOMPARE(model->count(), 1);
     }
 
     void shouldUpdateCountWhenRemovingWebView()
     {
-        QQuickItem* webview = createWebView();
-        model->add(webview);
+        model->add(createWebView());
         QSignalSpy spy(model, SIGNAL(countChanged()));
         model->remove(0);
         QCOMPARE(spy.count(), 1);
@@ -101,8 +99,7 @@ private Q_SLOTS:
 
     void shouldNotChangeCurrentIndexWhenAddingWebView()
     {
-        QQuickItem* webview = createWebView();
-        model->add(webview);
+        model->add(createWebView());
         QCOMPARE(model->currentIndex(), -1);
     }
 
