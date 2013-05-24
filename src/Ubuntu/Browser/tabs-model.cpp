@@ -115,6 +115,10 @@ void TabsModel::setCurrentIndex(int index)
 */
 void TabsModel::add(QQuickItem* webview)
 {
+    if (webview == 0) {
+        qWarning() << "Invalid WebView";
+        return;
+    }
     int count = m_webviews.count();
     beginInsertRows(QModelIndex(), count, count);
     m_webviews.append(webview);
