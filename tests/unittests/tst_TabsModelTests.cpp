@@ -77,8 +77,15 @@ private Q_SLOTS:
 
     void shouldNotAddNullWebView()
     {
-        model->add(0);
+        QCOMPARE(model->add(0), -1);
         QCOMPARE(model->count(), 0);
+    }
+
+    void shouldReturnIndexWhenAddingWebView()
+    {
+        for(int i = 0; i < 3; ++i) {
+            QCOMPARE(model->add(createWebView()), i);
+        }
     }
 
     void shouldUpdateCountWhenAddingWebView()

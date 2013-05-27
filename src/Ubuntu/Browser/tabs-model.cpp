@@ -123,25 +123,26 @@ int TabsModel::count() const
 }
 
 /*!
-    Add a tab to the model.
+    Add a tab to the model and return the corresponding index in the model.
 
     It is the responsibility of the caller to instantiate the corresponding
     WebView beforehand.
 */
-void TabsModel::add(QQuickItem* webview)
+int TabsModel::add(QQuickItem* webview)
 {
     if (webview == 0) {
         qWarning() << "Invalid WebView";
-        return;
+        return -1;
     }
-    int count = m_webviews.count();
-    beginInsertRows(QModelIndex(), count, count);
+    int index = m_webviews.count();
+    beginInsertRows(QModelIndex(), index, index);
     m_webviews.append(webview);
     connect(webview, SIGNAL(urlChanged()), SLOT(onUrlChanged()));
     connect(webview, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
     connect(webview, SIGNAL(iconChanged()), SLOT(onIconChanged()));
     endInsertRows();
     Q_EMIT countChanged();
+    return index;
 }
 
 /*!
