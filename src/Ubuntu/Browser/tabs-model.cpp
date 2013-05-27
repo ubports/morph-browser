@@ -105,6 +105,16 @@ void TabsModel::setCurrentIndex(int index)
     }
     m_currentIndex = index;
     Q_EMIT currentIndexChanged();
+    Q_EMIT currentWebviewChanged();
+}
+
+QQuickItem* TabsModel::currentWebview() const
+{
+    if (m_currentIndex >= 0) {
+        return m_webviews.at(m_currentIndex);
+    } else {
+        return 0;
+    }
 }
 
 int TabsModel::count() const

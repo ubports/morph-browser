@@ -32,6 +32,7 @@ class TabsModel : public QAbstractListModel
     Q_ENUMS(Roles)
 
     Q_PROPERTY(int currentIndex READ currentIndex WRITE setCurrentIndex NOTIFY currentIndexChanged)
+    Q_PROPERTY(QQuickItem* currentWebview READ currentWebview NOTIFY currentWebviewChanged)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
@@ -54,6 +55,8 @@ public:
     int currentIndex() const;
     void setCurrentIndex(int index);
 
+    QQuickItem* currentWebview() const;
+
     int count() const;
 
     Q_INVOKABLE void add(QQuickItem* webview);
@@ -61,6 +64,7 @@ public:
 
 Q_SIGNALS:
     void currentIndexChanged() const;
+    void currentWebviewChanged() const;
     void countChanged() const;
 
 private Q_SLOTS:

@@ -62,6 +62,7 @@ private Q_SLOTS:
     {
         QCOMPARE(model->count(), 0);
         QCOMPARE(model->currentIndex(), -1);
+        QCOMPARE(model->currentWebview(), (QQuickItem*) 0);
     }
 
     void shouldNotAllowSettingTheIndexToAnInvalidValue()
@@ -101,6 +102,7 @@ private Q_SLOTS:
     {
         model->add(createWebView());
         QCOMPARE(model->currentIndex(), -1);
+        QCOMPARE(model->currentWebview(), (QQuickItem*) 0);
     }
 
     void shouldNotDeleteWebViewWhenRemoving()
@@ -176,6 +178,18 @@ private Q_SLOTS:
         roles = args.at(2).value<QVector<int> >();
         QCOMPARE(roles.size(), 1);
         QVERIFY(roles.contains(TabsModel::Icon));
+    }
+
+    void shouldUpdateCurrentWebviewWhenSettingCurrentIndex()
+    {
+        QSignalSpy spyIndex(model, SIGNAL(currentIndexChanged()));
+        QSignalSpy spyWebview(model, SIGNAL(currentWebviewChanged()));
+        QQuickItem* webview = createWebView();
+        model->add(webview);
+        model->setCurrentIndex(0);
+        QCOMPARE(spyIndex.count(), 1);
+        QCOMPARE(spyWebview.count(), 1);
+        QCOMPARE(model->currentWebview(), webview);
     }
 };
 
