@@ -145,15 +145,16 @@ void TabsModel::add(QQuickItem* webview)
 }
 
 /*!
-    Given its index, remove a tab from the model.
+    Given its index, remove a tab from the model, and return the corresponding
+    WebView.
 
     It is the responsibility of the caller to destroy the corresponding
     WebView afterwards.
 */
-void TabsModel::remove(int index)
+QQuickItem* TabsModel::remove(int index)
 {
     if (!checkValidTabIndex(index)) {
-        return;
+        return 0;
     }
     beginRemoveRows(QModelIndex(), index, index);
     QQuickItem* webview = m_webviews.takeAt(index);
@@ -169,6 +170,7 @@ void TabsModel::remove(int index)
     if (removedCurrent) {
         Q_EMIT currentWebviewChanged();
     }
+    return webview;
 }
 
 bool TabsModel::checkValidTabIndex(int index) const

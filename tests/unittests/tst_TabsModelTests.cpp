@@ -98,6 +98,21 @@ private Q_SLOTS:
         QCOMPARE(model->count(), 0);
     }
 
+    void shouldNotAllowRemovingAtInvalidIndex()
+    {
+        QCOMPARE(model->remove(0), (QQuickItem*) 0);
+        QCOMPARE(model->remove(2), (QQuickItem*) 0);
+        QCOMPARE(model->remove(-2), (QQuickItem*) 0);
+    }
+
+    void shouldReturnWebViewWhenRemoving()
+    {
+        QQuickItem* webview = createWebView();
+        model->add(webview);
+        QQuickItem* removed = model->remove(0);
+        QCOMPARE(removed, webview);
+    }
+
     void shouldNotChangeCurrentIndexWhenAddingWebView()
     {
         QSignalSpy spyIndex(model, SIGNAL(currentIndexChanged()));

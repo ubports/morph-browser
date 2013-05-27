@@ -60,7 +60,7 @@ public:
     int count() const;
 
     Q_INVOKABLE void add(QQuickItem* webview);
-    Q_INVOKABLE void remove(int index);
+    Q_INVOKABLE QQuickItem* remove(int index);
 
 Q_SIGNALS:
     void currentIndexChanged() const;
