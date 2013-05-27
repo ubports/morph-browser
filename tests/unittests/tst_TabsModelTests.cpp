@@ -100,8 +100,12 @@ private Q_SLOTS:
 
     void shouldNotChangeCurrentIndexWhenAddingWebView()
     {
+        QSignalSpy spyIndex(model, SIGNAL(currentIndexChanged()));
+        QSignalSpy spyWebview(model, SIGNAL(currentWebviewChanged()));
         model->add(createWebView());
+        QCOMPARE(spyIndex.count(), 0);
         QCOMPARE(model->currentIndex(), -1);
+        QCOMPARE(spyWebview.count(), 0);
         QCOMPARE(model->currentWebview(), (QQuickItem*) 0);
     }
 
@@ -190,6 +194,76 @@ private Q_SLOTS:
         QCOMPARE(spyIndex.count(), 1);
         QCOMPARE(spyWebview.count(), 1);
         QCOMPARE(model->currentWebview(), webview);
+    }
+
+    void shouldUpdateCurrentIndexAndWebviewWhenRemoving()
+    {
+        QSignalSpy spyIndex(model, SIGNAL(currentIndexChanged()));
+        QSignalSpy spyWebview(model, SIGNAL(currentWebviewChanged()));
+
+        // When the current index hasn’t been set,
+        // it shouldn’t be updated upon removal.
+        model->add(createWebView());
+        model->remove(0);
+        QCOMPARE(spyIndex.count(), 0);
+        QCOMPARE(spyWebview.count(), 0);
+
+        // When removing a webview after the current one,
+        // the current index shouldn’t change.
+        model->add(createWebView());
+        model->add(createWebView());
+        model->setCurrentIndex(0);
+        spyIndex.clear();
+        spyWebview.clear();
+        model->remove(1);
+        QCOMPARE(model->currentIndex(), 0);
+        QCOMPARE(spyIndex.count(), 0);
+        QCOMPARE(spyWebview.count(), 0);
+
+        // When removing a webview before the current one,
+        // the current index should be updated.
+        model->add(createWebView());
+        model->setCurrentIndex(1);
+        spyIndex.clear();
+        spyWebview.clear();
+        model->remove(0);
+        QCOMPARE(spyIndex.count(), 1);
+        QCOMPARE(model->currentIndex(), 0);
+        QCOMPARE(spyWebview.count(), 0);
+
+        // When removing the current webview, if there is a webview after it,
+        // it becomes the current one, and the current index remains valid.
+        QQuickItem* webview1 = createWebView();
+        model->add(webview1);
+        spyIndex.clear();
+        spyWebview.clear();
+        model->remove(0);
+        QCOMPARE(spyIndex.count(), 0);
+        QCOMPARE(spyWebview.count(), 1);
+        QCOMPARE(model->currentWebview(), webview1);
+
+        // When removing the current webview, if there was no other webview
+        // after it, but there was at least one before it, the current index
+        // and current webview should be updated.
+        model->add(createWebView());
+        model->setCurrentIndex(1);
+        spyIndex.clear();
+        spyWebview.clear();
+        model->remove(1);
+        QCOMPARE(spyIndex.count(), 1);
+        QCOMPARE(model->currentIndex(), 0);
+        QCOMPARE(spyWebview.count(), 1);
+        QCOMPARE(model->currentWebview(), webview1);
+
+        // When removing the current webview, if it was the last one, the
+        // current index should be reset to -1 and the current webview to 0.
+        spyIndex.clear();
+        spyWebview.clear();
+        model->remove(0);
+        QCOMPARE(spyIndex.count(), 1);
+        QCOMPARE(model->currentIndex(), -1);
+        QCOMPARE(spyWebview.count(), 1);
+        QCOMPARE(model->currentWebview(), (QQuickItem*) 0);
     }
 };
 

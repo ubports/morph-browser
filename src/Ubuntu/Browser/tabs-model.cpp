@@ -160,6 +160,15 @@ void TabsModel::remove(int index)
     webview->disconnect(this);
     endRemoveRows();
     Q_EMIT countChanged();
+    bool currentWasLast = (m_currentIndex == m_webviews.count());
+    bool removedCurrent = (index == m_currentIndex);
+    if (currentWasLast) {
+        --m_currentIndex;
+        Q_EMIT currentIndexChanged();
+    }
+    if (removedCurrent) {
+        Q_EMIT currentWebviewChanged();
+    }
 }
 
 bool TabsModel::checkValidTabIndex(int index) const
