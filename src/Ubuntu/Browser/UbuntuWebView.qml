@@ -38,6 +38,14 @@ WebView {
     // FIXME: only handling phone and tablet for now
     property int formFactor: (Screen.width >= units.gu(60)) ? formFactor.tablet : formFactor.phone
 
+    property real devicePixelRatio: 1.0
+    onDevicePixelRatioChanged: {
+        // Do not make this patch to QtWebKit a hard requirement.
+        if (experimental.hasOwnProperty('devicePixelRatio')) {
+            experimental.devicePixelRatio = devicePixelRatio
+        }
+    }
+
     interactive: !selection.visible
     maximumFlickVelocity: height * 5
 
