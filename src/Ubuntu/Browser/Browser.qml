@@ -232,6 +232,9 @@ FocusScope {
         var index = tabsModel.add(webview)
         if (setCurrent) {
             tabsModel.currentIndex = index
+            if (!browser.chromeless) {
+                chromeLoader.item.url = url
+            }
         }
     }
 
