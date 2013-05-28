@@ -183,74 +183,72 @@ FocusScope {
             }
         }
 
-        Panel {
+        Loader {
             id: panel
 
-            locked: browser.chromeless
+            property Item chrome: item ? item.contents[0] : null
+
+            sourceComponent: browser.chromeless ? undefined : panelComponent
 
             anchors {
                 left: parent.left
                 right: parent.right
-                bottom: opened ? osk.top : parent.bottom
+                bottom: (item && item.opened) ? osk.top : parent.bottom
             }
-            height: units.gu(8)
 
-            Loader {
-                id: chromeLoader
+            Component {
+                id: panelComponent
 
-                active: !browser.chromeless
-                source: "Chrome.qml"
+                Panel {
+                    anchors {
+                        left: parent ? parent.left : undefined
+                        right: parent ? parent.right : undefined
+                        bottom: parent ? parent.bottom : undefined
+                    }
+                    height: units.gu(8)
 
-                anchors.fill: parent
+                    opened: true
 
-                Binding {
-                    target: chromeLoader.item
-                    property: "loading"
-                    value: currentWebview ? currentWebview.loading || (currentWebview.loadProgress == 0) : false
-                }
+                    Chrome {
+                        anchors.fill: parent
 
-                Binding {
-                    target: chromeLoader.item
-                    property: "loadProgress"
-                    value: currentWebview ? currentWebview.loadProgress : 0
-                }
+                        loading: currentWebview ? currentWebview.loading || (currentWebview.loadProgress == 0) : false
+                        loadProgress: currentWebview ? currentWebview.loadProgress : 0
 
-                Binding {
-                    target: chromeLoader.item
-                    property: "canGoBack"
-                    value: currentWebview ? currentWebview.canGoBack : false
-                }
+                        canGoBack: currentWebview ? currentWebview.canGoBack : false
+                        onGoBackClicked: currentWebview.goBack()
 
-                Binding {
-                    target: chromeLoader.item
-                    property: "canGoForward"
-                    value: currentWebview ? currentWebview.canGoForward : false
-                }
+                        canGoForward: currentWebview ? currentWebview.canGoForward : false
+                        onGoForwardClicked: currentWebview.goForward()
 
-                Connections {
-                    target: chromeLoader.item
-                    onGoBackClicked: currentWebview.goBack()
-                    onGoForwardClicked: currentWebview.goForward()
-                    onUrlValidated: currentWebview.url = url
-                    property bool stopped: false
-                    onLoadingChanged: {
-                        if (chromeLoader.item.loading) {
-                            panel.opened = true
-                        } else if (stopped) {
-                            stopped = false
-                        } else if (!chromeLoader.item.addressBar.activeFocus) {
-                            panel.opened = false
-                            if (currentWebview) {
-                                currentWebview.forceActiveFocus()
+                        onUrlValidated: currentWebview.url = url
+
+                        property bool stopped: false
+                        onLoadingChanged: {
+                            if (loading) {
+                                if (panel.item) {
+                                    panel.item.opened = true
+                                }
+                            } else if (stopped) {
+                                stopped = false
+                            } else if (!addressBar.activeFocus) {
+                                if (panel.item) {
+                                    panel.item.opened = false
+                                }
+                                if (currentWebview) {
+                                    currentWebview.forceActiveFocus()
+                                }
                             }
                         }
+
+                        onRequestReload: currentWebview.reload()
+                        onRequestStop: {
+                            stopped = true
+                            currentWebview.stop()
+                        }
+
+                        onToggleTabsClicked: tabsList.visible = !tabsList.visible
                     }
-                    onRequestReload: currentWebview.reload()
-                    onRequestStop: {
-                        stopped = true
-                        currentWebview.stop()
-                    }
-                    onToggleTabsClicked: tabsList.visible = !tabsList.visible
                 }
             }
         }
@@ -280,7 +278,7 @@ FocusScope {
 
             onUrlChanged: {
                 if (!browser.chromeless && visible) {
-                    chromeLoader.item.url = url
+                    panel.chrome.url = url
                 }
             }
 
@@ -301,9 +299,9 @@ FocusScope {
         if (setCurrent) {
             tabsModel.currentIndex = index
             if (!browser.chromeless) {
-                chromeLoader.item.url = url
+                panel.chrome.url = url
                 if (!url) {
-                    chromeLoader.item.addressBar.forceActiveFocus()
+                    panel.chrome.addressBar.forceActiveFocus()
                 }
             }
         }
