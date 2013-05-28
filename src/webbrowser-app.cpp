@@ -18,6 +18,7 @@
 
 // Qt
 #include <QtCore/QDir>
+#include <QtCore/QMetaObject>
 #include <QtCore/QStandardPaths>
 #include <QtNetwork/QNetworkInterface>
 #include <QtQuick/QQuickItem>
@@ -101,7 +102,6 @@ bool WebBrowserApp::initialize()
     m_view->setSource(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/Browser.qml"));
     QQuickItem* browser = m_view->rootObject();
     browser->setProperty("chromeless", m_arguments->chromeless());
-    browser->setProperty("url", m_arguments->url());
     browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
     if (m_arguments->desktopFileHint().isEmpty()) {
         // see comments about this property in Browser.qml inside the HUD Component
@@ -114,6 +114,10 @@ bool WebBrowserApp::initialize()
     // the proper pixel ratio by device/screen)
     float webkitDpr = getQtWebkitDpr();
     browser->setProperty("qtwebkitdpr", webkitDpr);
+
+    QMetaObject::invokeMethod(browser, "newTab",
+                              Q_ARG(QVariant, m_arguments->url()),
+                              Q_ARG(QVariant, true));
 
     connect(browser, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
 

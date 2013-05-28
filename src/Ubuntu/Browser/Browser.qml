@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import QtWebKit 3.0
+import Ubuntu.Browser 0.1
 import Ubuntu.Components 0.1
 import Ubuntu.HUD 1.0 as HUD
 
@@ -25,14 +26,14 @@ FocusScope {
     id: browser
 
     property bool chromeless: false
-    property alias url: webview.url
-    // title is a bound property instead of an alias because of QTBUG-29141
-    property string title: webview.title
     property string desktopFileHint: ""
-    property string qtwebkitdpr: "1.0"
+    property real qtwebkitdpr
     property bool developerExtrasEnabled: false
     // necessary so that all widgets (including popovers) follow that
     property alias automaticOrientation: orientationHelper.automaticOrientation
+
+    property alias currentWebview: tabsModel.currentWebview
+    property string title: currentWebview ? currentWebview.title : ""
 
     focus: true
 
@@ -66,19 +67,20 @@ FocusScope {
             HUD.Action {
                 label: i18n.tr("Back")
                 keywords: i18n.tr("Older Page")
-                enabled: webview.canGoBack
-                onTriggered: webview.goBack()
+                enabled: currentWebview ? currentWebview.canGoBack : false
+                onTriggered: currentWebview.goBack()
             }
             HUD.Action {
                 label: i18n.tr("Forward")
                 keywords: i18n.tr("Newer Page")
-                enabled: webview.canGoForward
-                onTriggered: webview.goForward()
+                enabled: currentWebview ? currentWebview.canGoForward : false
+                onTriggered: currentWebview.goForward()
             }
             HUD.Action {
                 label: i18n.tr("Reload")
                 keywords: i18n.tr("Leave Page")
-                onTriggered: webview.reload()
+                enabled: currentWebview != null
+                onTriggered: currentWebview.reload()
             }
             HUD.Action {
                 label: i18n.tr("Bookmark")
@@ -93,50 +95,25 @@ FocusScope {
         }
     }
 
-    onQtwebkitdprChanged: {
-        // Do not make this patch to QtWebKit a hard requirement.
-        if (webview.experimental.hasOwnProperty('devicePixelRatio')) {
-            webview.experimental.devicePixelRatio = qtwebkitdpr
-        }
-    }
-
     OrientationHelper {
         id: orientationHelper
 
-        UbuntuWebView {
-            id: webview
-
+        Item {
+            id: webviewContainer
             anchors {
                 left: parent.left
                 right: parent.right
                 top: parent.top
                 bottom: osk.top
             }
-
-            focus: true
-
-            experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
-
-            onUrlChanged: {
-                if (!browser.chromeless) {
-                    chromeLoader.item.url = url
-                }
-            }
-
-            onLoadingChanged: {
-                error.visible = (loadRequest.status === WebView.LoadFailedStatus)
-                if (loadRequest.status === WebView.LoadSucceededStatus) {
-                    historyModel.add(webview.url, webview.title, webview.icon)
-                }
-            }
         }
 
         ErrorSheet {
             id: error
-            anchors.fill: webview
+            anchors.fill: webviewContainer
             visible: false
-            url: webview.url
-            onRefreshClicked: webview.reload()
+            url: currentWebview ? currentWebview.url : ""
+            onRefreshClicked: currentWebview.reload()
         }
 
         Panel {
@@ -162,32 +139,32 @@ FocusScope {
                 Binding {
                     target: chromeLoader.item
                     property: "loading"
-                    value: webview.loading || (webview.loadProgress == 0)
+                    value: currentWebview ? currentWebview.loading || (currentWebview.loadProgress == 0) : false
                 }
 
                 Binding {
                     target: chromeLoader.item
                     property: "loadProgress"
-                    value: webview.loadProgress
+                    value: currentWebview ? currentWebview.loadProgress : 0
                 }
 
                 Binding {
                     target: chromeLoader.item
                     property: "canGoBack"
-                    value: webview.canGoBack
+                    value: currentWebview ? currentWebview.canGoBack : false
                 }
 
                 Binding {
                     target: chromeLoader.item
                     property: "canGoForward"
-                    value: webview.canGoForward
+                    value: currentWebview ? currentWebview.canGoForward : false
                 }
 
                 Connections {
                     target: chromeLoader.item
-                    onGoBackClicked: webview.goBack()
-                    onGoForwardClicked: webview.goForward()
-                    onUrlValidated: browser.url = url
+                    onGoBackClicked: currentWebview.goBack()
+                    onGoForwardClicked: currentWebview.goForward()
+                    onUrlValidated: currentWebview.url = url
                     property bool stopped: false
                     onLoadingChanged: {
                         if (chromeLoader.item.loading) {
@@ -196,13 +173,15 @@ FocusScope {
                             stopped = false
                         } else if (!chromeLoader.item.addressBar.activeFocus) {
                             panel.opened = false
-                            webview.forceActiveFocus()
+                            if (currentWebview) {
+                                currentWebview.forceActiveFocus()
+                            }
                         }
                     }
-                    onRequestReload: webview.reload()
+                    onRequestReload: currentWebview.reload()
                     onRequestStop: {
                         stopped = true
-                        webview.stop()
+                        currentWebview.stop()
                     }
                 }
             }
@@ -210,6 +189,56 @@ FocusScope {
 
         KeyboardRectangle {
             id: osk
+        }
+    }
+
+    TabsModel {
+        id: tabsModel
+    }
+
+    Component {
+        id: webviewComponent
+
+        UbuntuWebView {
+            id: webview
+
+            anchors.fill: parent
+
+            visible: tabsModel.currentWebview === webview
+
+            devicePixelRatio: browser.qtwebkitdpr
+
+            experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
+
+            onUrlChanged: {
+                if (!browser.chromeless && visible) {
+                    chromeLoader.item.url = url
+                }
+            }
+
+            onLoadingChanged: {
+                if (visible) {
+                    error.visible = (loadRequest.status === WebView.LoadFailedStatus)
+                }
+                if (loadRequest.status === WebView.LoadSucceededStatus) {
+                    historyModel.add(webview.url, webview.title, webview.icon)
+                }
+            }
+        }
+    }
+
+    function newTab(url, setCurrent) {
+        var webview = webviewComponent.createObject(webviewContainer, {"url": url})
+        var index = tabsModel.add(webview)
+        if (setCurrent) {
+            tabsModel.currentIndex = index
+        }
+    }
+
+    function closeTab(index) {
+        var webview = tabsModel.remove(index)
+        if (webview) {
+            webview.destroy()
         }
     }
 
