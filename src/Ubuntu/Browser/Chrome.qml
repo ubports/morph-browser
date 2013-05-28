@@ -34,6 +34,7 @@ Item {
     signal goForwardClicked()
     signal requestReload()
     signal requestStop()
+    signal toggleTabsClicked()
 
     Rectangle {
         anchors.fill: parent
@@ -84,15 +85,35 @@ Item {
         id: addressBar
         objectName: "addressBar"
 
-        anchors.left: buttons.right
-        anchors.right: parent.right
-        anchors.rightMargin: units.gu(1)
-        anchors.verticalCenter: parent.verticalCenter
+        anchors {
+            left: buttons.right
+            right: tabsButton.left
+            rightMargin: units.gu(1)
+            verticalCenter: parent.verticalCenter
+        }
         height: units.gu(5)
 
         onValidated: chrome.urlValidated(url)
         onRequestReload: chrome.requestReload()
         onRequestStop: chrome.requestStop()
+    }
+
+    ChromeButton {
+        id: tabsButton
+        objectName: "tabsButton"
+
+        anchors {
+            verticalCenter: parent.verticalCenter
+            right: parent.right
+            margins: units.gu(1)
+        }
+        width: units.gu(5)
+        height: width
+
+        icon: "assets/browser-tabs.png"
+        label: i18n.tr("Tabs")
+
+        onClicked: chrome.toggleTabsClicked()
     }
 
     EmbeddedProgressBar {

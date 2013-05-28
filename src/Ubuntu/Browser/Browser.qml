@@ -116,6 +116,73 @@ FocusScope {
             onRefreshClicked: currentWebview.reload()
         }
 
+        Item {
+            id: tabsList
+
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: osk.top
+            }
+            height: units.gu(30)
+
+            visible: false
+
+            Rectangle {
+                anchors.fill: parent
+                color: "darkgray"
+                opacity: 0.9
+
+                Item {
+                    anchors {
+                        fill: parent
+                        margins: units.gu(1)
+                    }
+
+                    PageDelegate {
+                        id: newTabDelegate
+                        anchors {
+                            left: parent.left
+                            top: parent.top
+                            bottom: parent.bottom
+                        }
+                        width: units.gu(20)
+                        Label {
+                            anchors.centerIn: parent
+                            fontSize: "x-large"
+                            text: i18n.tr("+")
+                        }
+                        onClicked: browser.newTab("", true)
+                    }
+
+                    ListView {
+                        anchors {
+                            left: newTabDelegate.right
+                            leftMargin: units.gu(1)
+                            right: parent.right
+                            top: parent.top
+                            bottom: parent.bottom
+                        }
+
+                        orientation: ListView.Horizontal
+                        spacing: units.gu(1)
+                        clip: true
+
+                        model: tabsModel
+                        currentIndex: tabsModel.currentIndex
+
+                        delegate: PageDelegate {
+                            width: units.gu(20)
+                            height: parent.height
+                            title: model.title
+                            url: model.url
+                            onClicked: tabsModel.currentIndex = index
+                        }
+                    }
+                }
+            }
+        }
+
         Panel {
             id: panel
 
@@ -183,6 +250,7 @@ FocusScope {
                         stopped = true
                         currentWebview.stop()
                     }
+                    onToggleTabsClicked: tabsList.visible = !tabsList.visible
                 }
             }
         }
@@ -234,6 +302,9 @@ FocusScope {
             tabsModel.currentIndex = index
             if (!browser.chromeless) {
                 chromeLoader.item.url = url
+                if (!url) {
+                    chromeLoader.item.addressBar.forceActiveFocus()
+                }
             }
         }
     }
