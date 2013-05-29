@@ -12,7 +12,7 @@ import os.path
 import shutil
 import tempfile
 
-from testtools.matchers import Equals
+from testtools.matchers import Contains, Equals
 
 from autopilot.input import Mouse, Touch, Pointer
 from autopilot.matchers import Eventually
@@ -143,6 +143,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
     def clear_address_bar(self):
         self.focus_address_bar()
@@ -159,13 +160,18 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.assertThat(lambda: chrome.globalRect[1],
                         Eventually(Equals(expected_y)))
 
+    def type_in_address_bar(self, text):
+        address_bar = self.main_window.get_address_bar()
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        self.keyboard.type(text, delay=TYPING_DELAY)
+        text_field = self.main_window.get_address_bar_text_field()
+        self.assertThat(text_field.text, Eventually(Contains(text)))
+
     def go_to_url(self, url):
         self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         self.clear_address_bar()
-        self.keyboard.type(url, delay=TYPING_DELAY)
-        text_field = self.main_window.get_address_bar_text_field()
-        self.assertThat(text_field.text, Eventually(Equals(url)))
+        self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
 
     def assert_page_eventually_loading(self):

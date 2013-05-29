@@ -16,7 +16,7 @@ import time
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
-from webbrowser_app.tests import BrowserTestCaseBase, TYPING_DELAY
+from webbrowser_app.tests import BrowserTestCaseBase
 
 
 class PrepopulatedHistoryDatabaseTestCaseBase(BrowserTestCaseBase):
@@ -72,15 +72,15 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assertThat(listview.count, Eventually(Equals(1)))
         self.clear_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(False)))
-        self.keyboard.type("u", delay=TYPING_DELAY)
+        self.type_in_address_bar("u")
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
         self.assertThat(listview.count, Eventually(Equals(6)))
-        self.keyboard.type("b", delay=TYPING_DELAY)
+        self.type_in_address_bar("b")
         self.assertThat(listview.count, Eventually(Equals(5)))
-        self.keyboard.type("leh", delay=TYPING_DELAY)
+        self.type_in_address_bar("leh")
         self.assertThat(listview.count, Eventually(Equals(0)))
         self.clear_address_bar()
-        self.keyboard.type("xaMPL", delay=TYPING_DELAY)
+        self.type_in_address_bar("xaMPL")
         self.assertThat(listview.count, Eventually(Equals(2)))
 
     def test_clear_address_bar_dismisses_suggestions(self):
@@ -90,7 +90,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.focus_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
         self.clear_address_bar()
-        self.keyboard.type("ubuntu", delay=TYPING_DELAY)
+        self.type_in_address_bar("ubuntu")
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
         self.clear_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(False)))
@@ -117,7 +117,8 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.focus_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
         self.clear_address_bar()
-        self.keyboard.type("ubuntu", delay=TYPING_DELAY)
+        self.type_in_address_bar("ubuntu")
+        self.assertThat(suggestions.visible, Eventually(Equals(True)))
         self.assertThat(listview.count, Eventually(Equals(5)))
         entries = \
             self.main_window.get_address_bar_suggestions_listview_entries()
