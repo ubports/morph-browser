@@ -49,9 +49,47 @@ Rectangle {
 
         model: historyMatches
 
-        delegate: ListItem.Subtitled {
-            text: highlightTerms(title, historyMatches.terms)
-            subText: highlightTerms(url, historyMatches.terms)
+        delegate: ListItem.Base {
+            // Not using ListItem.Subtitled because it’s not themable,
+            // and we want the subText to be on one line only.
+
+            property alias text: label.text
+            property alias subText: subLabel.text
+
+            __height: Math.max(middleVisuals.height, units.gu(6))
+
+            Item  {
+                id: middleVisuals
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    verticalCenter: parent.verticalCenter
+                }
+                height: childrenRect.height + label.anchors.topMargin + subLabel.anchors.bottomMargin
+
+                Label {
+                    id: label
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        right: parent.right
+                    }
+                    elide: Text.ElideRight
+                    text: highlightTerms(title, historyMatches.terms)
+                }
+
+                Label {
+                    id: subLabel
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        top: label.bottom
+                    }
+                    fontSize: "small"
+                    elide: Text.ElideRight
+                    text: highlightTerms(url, historyMatches.terms)
+                }
+            }
 
             onClicked: suggestions.selected(url)
 
