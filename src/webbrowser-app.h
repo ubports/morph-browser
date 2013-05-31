@@ -21,11 +21,11 @@
 
 #include <QtWidgets/QApplication>
 
-class QQuickView;
+class QQmlComponent;
+class QQmlEngine;
+class QQuickWindow;
 
 class CommandLineParser;
-class HistoryModel;
-class HistoryMatchesModel;
 
 class WebBrowserApp : public QApplication
 {
@@ -38,14 +38,11 @@ public:
     bool initialize();
     int run();
 
-private Q_SLOTS:
-    void onTitleChanged();
-
 private:
-    QQuickView* m_view;
     CommandLineParser* m_arguments;
-    HistoryModel* m_history;
-    HistoryMatchesModel* m_historyMatches;
+    QQmlEngine* m_engine;
+    QQmlComponent* m_component;
+    QQuickWindow* m_window;
 };
 
 #endif // __WEBBROWSER_APP_H__

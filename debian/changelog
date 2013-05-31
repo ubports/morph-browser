@@ -1,3 +1,18 @@
+webbrowser-app (0.20daily13.05.31ubuntu.unity.next-0ubuntu1) raring; urgency=low
+
+  [ Olivier Tilloy ]
+  * Define a type_in_address_bar helper method that asserts that the
+    text has actually been input in the address bar before continuing.
+    This should make autopilot tests more reliable on slow machines.
+  * Move the Panel inside the Loader, so that it is not instantiated
+    when in chromeless mode. (LP: #1183475)
+  * Enhanced qmlproject file for better integration in Qt Creator.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 146 (ubuntu-unity/next)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 31 May 2013 05:15:38 +0000
+
 webbrowser-app (0.20daily13.05.22ubuntu.unity.next-0ubuntu1) raring; urgency=low
 
   [ Łukasz 'sil2100' Zemczak ]

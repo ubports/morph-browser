@@ -308,9 +308,4 @@ FocusScope {
             webview.destroy()
         }
     }
-
-    Component.onCompleted: {
-        Theme.loadTheme(Qt.resolvedUrl("webbrowser-app.qmltheme"))
-        i18n.domain = "webbrowser-app"
-    }
 }
