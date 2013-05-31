@@ -123,7 +123,8 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         entries = \
             self.main_window.get_address_bar_suggestions_listview_entries()
         entry = entries[2]
-        url = "http://en.wikipedia.org/wiki/<b>Ubuntu</b>_(operating_system)"
+        highlight = '<b><font color="#DD4814">Ubuntu</font></b>'
+        url = "http://en.wikipedia.org/wiki/%s_(operating_system)" % highlight
         self.assertThat(entry.subText, Equals(url))
         self.pointing_device.move_to_object(entry)
         self.pointing_device.click()
