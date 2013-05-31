@@ -9,7 +9,7 @@ Project {
 
     Files {
         directory: "src"
-        filter: "*.h;*.cpp"
+        filter: "*.h;*.cpp;*.qmltheme"
     }
 
     Files {
