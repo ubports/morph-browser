@@ -56,6 +56,7 @@ Rectangle {
             onClicked: suggestions.selected(url)
 
             function highlightTerms(text, terms) {
+                // Highlight the matching terms (bold and Ubuntu orange)
                 if (text === undefined) {
                     return ''
                 }
@@ -63,7 +64,8 @@ Rectangle {
                 var count = terms.length
                 for (var i = 0; i < count; ++i) {
                     var term = terms[i]
-                    highlighted = highlighted.replace(new RegExp(term, 'ig'), '<b>$&</b>')
+                    highlighted = highlighted.replace(new RegExp(term, 'ig'),
+                                                      '<b><font color="#DD4814">$&</font></b>')
                 }
                 highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
                 return highlighted
