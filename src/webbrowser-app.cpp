@@ -20,10 +20,10 @@
 #include <QtCore/QDir>
 #include <QtCore/QStandardPaths>
 #include <QtNetwork/QNetworkInterface>
-#include <QtQuick/QQuickItem>
-#include <QtQuick/QQuickView>
+#include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include <QtQuick/QQuickWindow>
 
 // local
 #include "config.h"
@@ -44,21 +44,22 @@ static float getQtWebkitDpr()
 
 WebBrowserApp::WebBrowserApp(int& argc, char** argv)
     : QApplication(argc, argv)
-    , m_view(0)
     , m_arguments(0)
-    , m_history(0)
-    , m_historyMatches(0)
+    , m_engine(0)
+    , m_component(0)
+    , m_window(0)
 {
 }
 
 WebBrowserApp::~WebBrowserApp()
 {
-    delete m_view;
+    delete m_component;
+    delete m_engine;
 }
 
 bool WebBrowserApp::initialize()
 {
-    Q_ASSERT(m_view == 0);
+    Q_ASSERT(m_window == 0);
 
     m_arguments = new CommandLineParser(arguments(), this);
     if (m_arguments->help()) {
@@ -83,23 +84,27 @@ bool WebBrowserApp::initialize()
         qputenv("QTWEBKIT_INSPECTOR_SERVER", server.toUtf8());
     }
 
-    m_view = new QQuickView;
-    m_view->setResizeMode(QQuickView::SizeRootObjectToView);
-    m_view->setTitle(APP_TITLE);
-    m_view->resize(800, 600);
-    connect(m_view->engine(), SIGNAL(quit()), SLOT(quit()));
+    m_engine = new QQmlEngine;
+    connect(m_engine, SIGNAL(quit()), SLOT(quit()));
+    QQmlContext* context = m_engine->rootContext();
+    m_component = new QQmlComponent(m_engine);
+    m_component->loadUrl(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/webbrowser-app.qml"));
+    if (!m_component->isReady()) {
+        qWarning() << m_component->errorString();
+        return false;
+    }
 
     QDir dataLocation(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     if (!dataLocation.exists()) {
         QDir::root().mkpath(dataLocation.absolutePath());
     }
-    m_history = new HistoryModel(dataLocation.filePath("history.sqlite"), this);
-    m_view->rootContext()->setContextProperty("historyModel", m_history);
-    m_historyMatches = new HistoryMatchesModel(m_history, this);
-    m_view->rootContext()->setContextProperty("historyMatches", m_historyMatches);
+    HistoryModel* history = new HistoryModel(dataLocation.filePath("history.sqlite"), this);
+    context->setContextProperty("historyModel", history);
+    HistoryMatchesModel* historyMatches = new HistoryMatchesModel(history, this);
+    context->setContextProperty("historyMatches", historyMatches);
 
-    m_view->setSource(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/Browser.qml"));
-    QQuickItem* browser = m_view->rootObject();
+    QObject* browser = m_component->create();
+    m_window = qobject_cast<QQuickWindow*>(browser);
     browser->setProperty("chromeless", m_arguments->chromeless());
     browser->setProperty("url", m_arguments->url());
     browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
@@ -115,30 +120,17 @@ bool WebBrowserApp::initialize()
     float webkitDpr = getQtWebkitDpr();
     browser->setProperty("qtwebkitdpr", webkitDpr);
 
-    connect(browser, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
-
     return true;
 }
 
 int WebBrowserApp::run()
 {
-    Q_ASSERT(m_view != 0);
+    Q_ASSERT(m_window != 0);
 
     if (m_arguments->fullscreen()) {
-        m_view->showFullScreen();
+        m_window->showFullScreen();
     } else {
-        m_view->show();
+        m_window->show();
     }
     return exec();
-}
-
-void WebBrowserApp::onTitleChanged()
-{
-    QQuickItem* browser = m_view->rootObject();
-    QString title = browser->property("title").toString();
-    if (title.isEmpty()) {
-        m_view->setTitle(APP_TITLE);
-    } else {
-        m_view->setTitle(QString("%1 - %2").arg(title, APP_TITLE));
-    }
 }

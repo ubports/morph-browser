@@ -16,7 +16,7 @@ class MainWindow(object):
 
     def get_qml_view(self):
         """Get the main QML view"""
-        return self.app.select_single("QQuickView")
+        return self.app.select_single("QQuickWindow")
 
     def get_chrome(self):
         return self.app.select_single("Chrome")

@@ -29,8 +29,7 @@ FocusScope {
 
     property bool chromeless: false
     property alias url: webview.url
-    // title is a bound property instead of an alias because of QTBUG-29141
-    property string title: webview.title
+    property alias title: webview.title
     property string desktopFileHint: ""
     property string qtwebkitdpr: "1.0"
     property bool developerExtrasEnabled: false
@@ -355,10 +354,5 @@ FocusScope {
         KeyboardRectangle {
             id: osk
         }
-    }
-
-    Component.onCompleted: {
-        Theme.loadTheme(Qt.resolvedUrl("webbrowser-app.qmltheme"))
-        i18n.domain = "webbrowser-app"
     }
 }
