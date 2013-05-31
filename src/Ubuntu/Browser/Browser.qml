@@ -351,6 +351,17 @@ FocusScope {
             }
         }
 
+        Suggestions {
+            visible: panel.chrome && panel.chrome.addressBar.activeFocus && (count > 0)
+            anchors {
+                bottom: panel.top
+                horizontalCenter: parent.horizontalCenter
+            }
+            width: panel.width - units.gu(5)
+            height: Math.min(contentHeight, panel.y - units.gu(2))
+            onSelected: browser.url = url
+        }
+
         KeyboardRectangle {
             id: osk
         }
