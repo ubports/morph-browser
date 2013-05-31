@@ -22,7 +22,9 @@ import Ubuntu.Components 0.1
 FocusScope {
     id: addressbar
 
-    property string url
+    property alias text: textField.text
+    property url requestedUrl
+    property url actualUrl
     signal validated()
     property bool loading
     signal requestReload()
@@ -59,7 +61,7 @@ FocusScope {
                     case "loading":
                         return "assets/cancel.png"
                     case "editing":
-                        if (looksLikeAUrl(textField.text.trim())) {
+                        if (looksLikeAUrl(text.trim())) {
                             return "assets/go-to.png"
                         } else {
                             return "assets/search.png"
@@ -157,14 +159,14 @@ FocusScope {
     }
 
     function validate() {
-        var query = textField.text.trim()
+        var query = text.trim()
         if (looksLikeAUrl(query)) {
-            url = fixUrl(query)
+            requestedUrl = fixUrl(query)
         } else {
-            url = buildSearchUrl(query)
+            requestedUrl = buildSearchUrl(query)
         }
         validated()
     }
 
-    onUrlChanged: textField.text = url
+    onActualUrlChanged: text = actualUrl
 }

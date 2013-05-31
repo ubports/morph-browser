@@ -212,6 +212,8 @@ FocusScope {
                     Chrome {
                         anchors.fill: parent
 
+                        url: currentWebview ? currentWebview.url : ""
+
                         loading: currentWebview ? currentWebview.loading || (currentWebview.loadProgress == 0) : false
                         loadProgress: currentWebview ? currentWebview.loadProgress : 0
 
@@ -276,12 +278,6 @@ FocusScope {
 
             experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
 
-            onUrlChanged: {
-                if (!browser.chromeless && visible) {
-                    panel.chrome.url = url
-                }
-            }
-
             onLoadingChanged: {
                 if (visible) {
                     error.visible = (loadRequest.status === WebView.LoadFailedStatus)
@@ -299,7 +295,6 @@ FocusScope {
         if (setCurrent) {
             tabsModel.currentIndex = index
             if (!browser.chromeless) {
-                panel.chrome.url = url
                 if (!url) {
                     panel.chrome.addressBar.forceActiveFocus()
                 }

@@ -23,7 +23,7 @@ import Ubuntu.Components 0.1
 Item {
     id: chrome
 
-    property alias url: addressBar.url
+    property alias url: addressBar.actualUrl
     signal urlValidated(url url)
     property alias addressBar: addressBar
     property alias loading: addressBar.loading
@@ -93,7 +93,7 @@ Item {
         }
         height: units.gu(5)
 
-        onValidated: chrome.urlValidated(url)
+        onValidated: chrome.urlValidated(requestedUrl)
         onRequestReload: chrome.requestReload()
         onRequestStop: chrome.requestStop()
     }
