@@ -20,7 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 
 Rectangle {
-    color: "darkgray"
+    color: "#AEA79F"
     opacity: 0.9
 
     property alias model: listview.model
@@ -42,6 +42,7 @@ Rectangle {
                 bottom: parent.bottom
             }
             width: units.gu(20)
+            color: "white"
             Label {
                 anchors.centerIn: parent
                 fontSize: "x-large"
@@ -69,9 +70,9 @@ Rectangle {
 
             delegate: PageDelegate {
                 width: units.gu(20)
+                color: ListView.isCurrentItem ? "#2C001E" : "white"
                 height: parent.height
                 title: model.title
-                url: model.url
                 onClicked: switchToTabClicked(index)
             }
         }

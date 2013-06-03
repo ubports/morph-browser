@@ -19,42 +19,22 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 
-Rectangle {
+UbuntuShape {
     property alias title: title.text
-    property alias url: url.text
     signal clicked()
 
-    color: "white"
-    radius: units.gu(1)
-
-    Column {
+    Label {
+        id: title
         anchors {
             left: parent.left
             right: parent.right
-            margins: units.gu(1)
+            margins: units.gu(0.5)
             verticalCenter: parent.verticalCenter
         }
-        spacing: units.gu(2)
-
-        Label {
-            id: title
-            fontSize: "medium"
-            width: parent.width
-            wrapMode: Text.Wrap
-            elide: Text.ElideMiddle
-            horizontalAlignment: Text.AlignHCenter
-            height: units.gu(10)
-        }
-
-        Label {
-            id: url
-            fontSize: "small"
-            width: parent.width
-            wrapMode: Text.Wrap
-            elide: Text.ElideMiddle
-            horizontalAlignment: Text.AlignHCenter
-            height: units.gu(5)
-        }
+        height: parent.height / 3
+        fontSize: "small"
+        wrapMode: Text.Wrap
+        elide: Text.ElideMiddle
     }
 
     MouseArea {
