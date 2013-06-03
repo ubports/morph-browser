@@ -176,7 +176,7 @@ FocusScope {
                             height: parent.height
                             title: model.title
                             url: model.url
-                            onClicked: tabsModel.currentIndex = index
+                            onClicked: browser.switchToTab(index)
                         }
                     }
                 }
@@ -318,5 +318,10 @@ FocusScope {
         if (webview) {
             webview.destroy()
         }
+    }
+
+    function switchToTab(index) {
+        tabsModel.currentIndex = index
+        currentWebview.forceActiveFocus()
     }
 }
