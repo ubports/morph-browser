@@ -263,7 +263,7 @@ FocusScope {
             }
             width: panel.width - units.gu(5)
             height: Math.min(contentHeight, panel.y - units.gu(2))
-            onSelected: browser.url = url
+            onSelected: currentWebview.url = url
         }
 
         KeyboardRectangle {
