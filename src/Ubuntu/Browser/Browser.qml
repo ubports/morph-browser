@@ -220,7 +220,7 @@ FocusScope {
             height: Math.min(contentHeight, panel.y - units.gu(2))
             onSelected: {
                 currentWebview.url = url
-                webview.forceActiveFocus()
+                currentWebview.forceActiveFocus()
             }
         }
 
