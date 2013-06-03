@@ -206,7 +206,12 @@ FocusScope {
                             currentWebview.stop()
                         }
 
-                        onToggleTabsClicked: tabsList.visible = !tabsList.visible
+                        onToggleTabsClicked: {
+                            tabsList.visible = !tabsList.visible
+                            if (tabsList.visible) {
+                                panel.item.opened = false
+                            }
+                        }
                     }
                 }
             }
