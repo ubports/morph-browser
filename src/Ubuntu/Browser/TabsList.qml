@@ -41,7 +41,7 @@ Rectangle {
                 top: parent.top
                 bottom: parent.bottom
             }
-            width: units.gu(20)
+            width: units.gu(10)
             color: "white"
             Label {
                 anchors.centerIn: parent
@@ -69,7 +69,7 @@ Rectangle {
             currentIndex: model.currentIndex
 
             delegate: PageDelegate {
-                width: units.gu(20)
+                width: units.gu(10)
                 color: ListView.isCurrentItem ? "#2C001E" : "white"
                 height: parent.height
                 title: model.title

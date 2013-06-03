@@ -124,7 +124,7 @@ FocusScope {
                 right: parent.right
                 bottom: osk.top
             }
-            height: units.gu(30)
+            height: units.gu(15)
 
             visible: false
 

@@ -26,12 +26,10 @@ UbuntuShape {
     Label {
         id: title
         anchors {
-            left: parent.left
-            right: parent.right
+            fill: parent
             margins: units.gu(0.5)
             verticalCenter: parent.verticalCenter
         }
-        height: parent.height / 3
         fontSize: "small"
         wrapMode: Text.Wrap
         elide: Text.ElideMiddle
