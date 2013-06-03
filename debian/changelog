@@ -1,3 +1,18 @@
+webbrowser-app (0.20daily13.06.03ubuntu.unity.next-0ubuntu1) raring; urgency=low
+
+  [ Olivier Tilloy ]
+  * Use the Window component, in order to enable setting the title from
+    QML.
+  * Also display .qmltheme files in Qt Creator.
+  * Display the URLs in the suggestions list on one line only.
+  * Colour the matching terms in Ubuntu orange.
+  * Ensure the suggestions list never goes offscreen. (LP: #1185334)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 153 (ubuntu-unity/next)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 03 Jun 2013 05:03:23 +0000
+
 webbrowser-app (0.20daily13.05.31ubuntu.unity.next-0ubuntu1) raring; urgency=low
 
   [ Olivier Tilloy ]
