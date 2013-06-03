@@ -130,8 +130,14 @@ FocusScope {
 
             model: tabsModel
 
-            onNewTabClicked: browser.newTab("", true)
-            onSwitchToTabClicked: browser.switchToTab(index)
+            onNewTabClicked: {
+                browser.newTab("", true)
+                tabsList.visible = false
+            }
+            onSwitchToTabClicked: {
+                browser.switchToTab(index)
+                tabsList.visible = false
+            }
         }
 
         Loader {
