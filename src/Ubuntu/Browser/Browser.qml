@@ -308,6 +308,7 @@ FocusScope {
             if (!browser.chromeless) {
                 if (!url) {
                     panel.chrome.addressBar.forceActiveFocus()
+                    panel.item.opened = true
                 }
             }
         }
