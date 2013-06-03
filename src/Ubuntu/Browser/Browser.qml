@@ -116,27 +116,20 @@ FocusScope {
             onRefreshClicked: currentWebview.reload()
         }
 
-        TabsList {
-            id: tabsList
+        ActivityView {
+            id: activityView
 
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: osk.top
-            }
-            height: units.gu(15)
-
+            anchors.fill: parent
             visible: false
+            tabsModel: tabsModel
 
-            model: tabsModel
-
-            onNewTabClicked: {
+            onNewTabRequested: {
                 browser.newTab("", true)
-                tabsList.visible = false
+                visible = false
             }
-            onSwitchToTabClicked: {
+            onSwitchToTabRequested: {
                 browser.switchToTab(index)
-                tabsList.visible = false
+                visible = false
             }
         }
 
@@ -207,8 +200,8 @@ FocusScope {
                         }
 
                         onToggleTabsClicked: {
-                            tabsList.visible = !tabsList.visible
-                            if (tabsList.visible) {
+                            activityView.visible = !activityView.visible
+                            if (activityView.visible) {
                                 panel.item.opened = false
                             }
                         }

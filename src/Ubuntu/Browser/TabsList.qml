@@ -21,7 +21,6 @@ import Ubuntu.Components 0.1
 
 Rectangle {
     color: "#AEA79F"
-    opacity: 0.9
 
     property alias model: listview.model
 
