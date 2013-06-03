@@ -131,3 +131,4 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         webview = self.main_window.get_web_view()
         url = "http://en.wikipedia.org/wiki/Ubuntu_(operating_system)"
         self.assertThat(webview.url, Eventually(Equals(url)))
+        self.assertThat(suggestions.visible, Eventually(Equals(False)))
