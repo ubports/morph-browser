@@ -116,7 +116,7 @@ FocusScope {
             onRefreshClicked: currentWebview.reload()
         }
 
-        Item {
+        TabsList {
             id: tabsList
 
             anchors {
@@ -128,59 +128,10 @@ FocusScope {
 
             visible: false
 
-            Rectangle {
-                anchors.fill: parent
-                color: "darkgray"
-                opacity: 0.9
+            model: tabsModel
 
-                Item {
-                    anchors {
-                        fill: parent
-                        margins: units.gu(1)
-                    }
-
-                    PageDelegate {
-                        id: newTabDelegate
-                        anchors {
-                            left: parent.left
-                            top: parent.top
-                            bottom: parent.bottom
-                        }
-                        width: units.gu(20)
-                        Label {
-                            anchors.centerIn: parent
-                            fontSize: "x-large"
-                            text: i18n.tr("+")
-                        }
-                        onClicked: browser.newTab("", true)
-                    }
-
-                    ListView {
-                        anchors {
-                            left: newTabDelegate.right
-                            leftMargin: units.gu(1)
-                            right: parent.right
-                            top: parent.top
-                            bottom: parent.bottom
-                        }
-
-                        orientation: ListView.Horizontal
-                        spacing: units.gu(1)
-                        clip: true
-
-                        model: tabsModel
-                        currentIndex: tabsModel.currentIndex
-
-                        delegate: PageDelegate {
-                            width: units.gu(20)
-                            height: parent.height
-                            title: model.title
-                            url: model.url
-                            onClicked: browser.switchToTab(index)
-                        }
-                    }
-                }
-            }
+            onNewTabClicked: browser.newTab("", true)
+            onSwitchToTabClicked: browser.switchToTab(index)
         }
 
         Loader {
