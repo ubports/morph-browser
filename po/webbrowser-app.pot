@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-21 18:04+0200\n"
+"POT-Creation-Date: 2013-06-04 09:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,51 +17,51 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/Ubuntu/Browser/Browser.qml:65
+#: src/Ubuntu/Browser/Browser.qml:64
 msgid "Goto"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:66
+#: src/Ubuntu/Browser/Browser.qml:65
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:70 src/Ubuntu/Browser/Chrome.qml:66
+#: src/Ubuntu/Browser/Browser.qml:69 src/Ubuntu/Browser/Chrome.qml:68
 msgid "Back"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:71
+#: src/Ubuntu/Browser/Browser.qml:70
 msgid "Older Page"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:76 src/Ubuntu/Browser/Chrome.qml:76
+#: src/Ubuntu/Browser/Browser.qml:75 src/Ubuntu/Browser/Chrome.qml:78
 msgid "Forward"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:77
+#: src/Ubuntu/Browser/Browser.qml:76
 msgid "Newer Page"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:82
+#: src/Ubuntu/Browser/Browser.qml:81
 msgid "Reload"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:83
+#: src/Ubuntu/Browser/Browser.qml:82
 msgid "Leave Page"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:87
+#: src/Ubuntu/Browser/Browser.qml:86
 msgid "Bookmark"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:88
+#: src/Ubuntu/Browser/Browser.qml:87
 msgid "Add This Page to Bookmarks"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:92
+#: src/Ubuntu/Browser/Browser.qml:91
 msgid "New Tab"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:93
+#: src/Ubuntu/Browser/Browser.qml:92
 msgid "Open a New Tab"
 msgstr ""
 
@@ -95,13 +95,13 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: src/webbrowser-app.cpp:94 src/webbrowser-app.cpp:146
-msgid "Ubuntu Web Browser"
-msgstr ""
-
-#: src/webbrowser-app.cpp:148
+#: src/Ubuntu/Browser/webbrowser-app.qml:33
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
+msgstr ""
+
+#: src/Ubuntu/Browser/webbrowser-app.qml:34
+msgid "Ubuntu Web Browser"
 msgstr ""
 
 #: src/webbrowser-app.desktop.in:3
