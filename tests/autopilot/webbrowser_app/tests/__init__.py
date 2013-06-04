@@ -12,7 +12,7 @@ import os.path
 import shutil
 import tempfile
 
-from testtools.matchers import Equals
+from testtools.matchers import Contains, Equals
 
 from autopilot.input import Mouse, Touch, Pointer
 from autopilot.matchers import Eventually
@@ -93,18 +93,21 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def main_window(self):
         return MainWindow(self.app)
 
+    def make_raw_html_page(self, html):
+        fd, path = tempfile.mkstemp(suffix=".html", text=True)
+        os.write(fd, html)
+        os.close(fd)
+        self._temp_pages.append(path)
+        return "file://" + path
+
     def make_html_page(self, title, body):
         """
         Write a web page using title and body onto a temporary file,
         and return the corresponding local "file://…" URL. The file
         is automatically deleted after running the calling test method.
         """
-        fd, path = tempfile.mkstemp(suffix=".html", text=True)
         html = "<html><title>%s</title><body>%s</body></html>" % (title, body)
-        os.write(fd, html)
-        os.close(fd)
-        self._temp_pages.append(path)
-        return "file://" + path
+        return self.make_raw_html_page(html)
 
     def reveal_chrome(self):
         panel = self.main_window.get_panel()
@@ -124,10 +127,23 @@ class BrowserTestCaseBase(AutopilotTestCase):
         stop_y = int(start_y + distance)
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
 
+    def assert_chrome_eventually_hidden(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        self.assertThat(lambda: chrome.globalRect[1],
+                        Eventually(Equals(view.y + view.height)))
+
+    def ensure_chrome_is_hidden(self):
+        webview = self.main_window.get_web_view()
+        self.pointing_device.move_to_object(webview)
+        self.pointing_device.click()
+        self.assert_chrome_eventually_hidden()
+
     def focus_address_bar(self):
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
     def clear_address_bar(self):
         self.focus_address_bar()
@@ -137,11 +153,30 @@ class BrowserTestCaseBase(AutopilotTestCase):
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(text_field.text, Eventually(Equals("")))
 
+    def assert_chrome_eventually_shown(self):
+        view = self.main_window.get_qml_view()
+        chrome = self.main_window.get_chrome()
+        expected_y = view.y + view.height - chrome.height
+        self.assertThat(lambda: chrome.globalRect[1],
+                        Eventually(Equals(expected_y)))
+
+    def type_in_address_bar(self, text):
+        address_bar = self.main_window.get_address_bar()
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        self.keyboard.type(text, delay=TYPING_DELAY)
+        text_field = self.main_window.get_address_bar_text_field()
+        self.assertThat(text_field.text, Eventually(Contains(text)))
+
     def go_to_url(self, url):
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         self.clear_address_bar()
-        self.keyboard.type(url, delay=TYPING_DELAY)
+        self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
+
+    def assert_page_eventually_loading(self):
+        webview = self.main_window.get_web_view()
+        self.assertThat(webview.loading, Eventually(Equals(True)))
 
     def assert_page_eventually_loaded(self, url):
         webview = self.main_window.get_web_view()

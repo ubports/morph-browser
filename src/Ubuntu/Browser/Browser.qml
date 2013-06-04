@@ -29,8 +29,7 @@ FocusScope {
 
     property bool chromeless: false
     property alias url: webview.url
-    // title is a bound property instead of an alias because of QTBUG-29141
-    property string title: webview.title
+    property alias title: webview.title
     property string desktopFileHint: ""
     property string qtwebkitdpr: "1.0"
     property bool developerExtrasEnabled: false
@@ -187,13 +186,7 @@ FocusScope {
 
             onUrlChanged: {
                 if (!browser.chromeless) {
-                    chromeLoader.item.url = url
-                }
-            }
-
-            onActiveFocusChanged: {
-                if (activeFocus) {
-                    panel.opened = false
+                    panel.chrome.url = url
                 }
             }
 
@@ -292,77 +285,88 @@ FocusScope {
             align: Qt.AlignBottom
         }
 
-        Panel {
+        Loader {
             id: panel
 
-            locked: browser.chromeless
+            property Item chrome: item ? item.contents[0] : null
+
+            sourceComponent: browser.chromeless ? undefined : panelComponent
 
             anchors {
                 left: parent.left
                 right: parent.right
-                bottom: opened ? osk.top : parent.bottom
+                bottom: (item && item.opened) ? osk.top : parent.bottom
             }
-            height: units.gu(8)
 
-            Loader {
-                id: chromeLoader
+            Component {
+                id: panelComponent
 
-                active: !browser.chromeless
-                source: "Chrome.qml"
-
-                anchors.fill: parent
-
-                Binding {
-                    target: chromeLoader.item
-                    property: "loading"
-                    value: webview.loading || (webview.progress == 0)
-                }
-
-                Binding {
-                    target: chromeLoader.item
-                    property: "canGoBack"
-                    value: webview.canGoBack
-                }
-
-                Binding {
-                    target: chromeLoader.item
-                    property: "canGoForward"
-                    value: webview.canGoForward
-                }
-
-                Connections {
-                    target: chromeLoader.item
-                    onGoBackClicked: webview.goBack()
-                    onGoForwardClicked: webview.goForward()
-                    onUrlValidated: {
-                        browser.url = url
-                        webview.forceActiveFocus()
+                Panel {
+                    anchors {
+                        left: parent ? parent.left : undefined
+                        right: parent ? parent.right : undefined
+                        bottom: parent ? parent.bottom : undefined
                     }
-                    onRequestReload: webview.reload()
-                    onRequestStop: webview.stop()
+                    height: units.gu(8)
+
+                    opened: true
+
+                    Chrome {
+                        anchors.fill: parent
+
+                        loading: webview.loading || (webview.loadProgress == 0)
+                        loadProgress: webview.loadProgress
+
+                        canGoBack: webview.canGoBack
+                        onGoBackClicked: webview.goBack()
+
+                        canGoForward: webview.canGoForward
+                        onGoForwardClicked: webview.goForward()
+
+                        onUrlValidated: browser.url = url
+
+                        property bool stopped: false
+                        onLoadingChanged: {
+                            if (loading) {
+                                if (panel.item) {
+                                    panel.item.opened = true
+                                }
+                            } else if (stopped) {
+                                stopped = false
+                            } else if (!addressBar.activeFocus) {
+                                if (panel.item) {
+                                    panel.item.opened = false
+                                }
+                                webview.forceActiveFocus()
+                            }
+                        }
+
+                        onRequestReload: webview.reload()
+                        onRequestStop: {
+                            stopped = true
+                            webview.stop()
+                        }
+                    }
                 }
             }
         }
 
-        ProgressBar {
+        Suggestions {
+            visible: panel.chrome && panel.chrome.addressBar.activeFocus && (count > 0)
             anchors {
-                left: parent.left
-                right: parent.right
-                bottom: osk.top
+                bottom: panel.top
+                horizontalCenter: parent.horizontalCenter
             }
-            height: units.gu(0.6)
-            visible: value < 100
-
-            minimumValue: 0
-            maximumValue: 100
-            indeterminate: value == 0
-            value: webview.loadProgress
+            width: panel.width - units.gu(5)
+            height: Math.min(contentHeight, panel.y - units.gu(2))
+            onSelected: {
+                browser.url = url
+                webview.forceActiveFocus()
+            }
         }
 
         KeyboardRectangle {
             id: osk
         }
     }
-
-    Component.onCompleted: Theme.loadTheme(Qt.resolvedUrl("webbrowser-app.qmltheme"))
 }

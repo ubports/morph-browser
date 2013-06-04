@@ -35,6 +35,7 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         url = self.base_url + "/wait/5"
         self.go_to_url(url)
         self.assertThat(address_bar.state, Eventually(Equals("loading")))
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         self.pointing_device.move_to_object(action_button)
         self.pointing_device.click()
@@ -42,6 +43,7 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
 
     def test_state_editing(self):
         address_bar = self.main_window.get_address_bar()
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()

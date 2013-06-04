@@ -11,7 +11,7 @@ from __future__ import absolute_import
 from testtools.matchers import Contains
 from autopilot.matchers import Eventually
 
-from webbrowser_app.tests import BrowserTestCaseBase, TYPING_DELAY
+from webbrowser_app.tests import BrowserTestCaseBase
 
 
 class TestWindowTitle(BrowserTestCaseBase):
@@ -22,16 +22,6 @@ class TestWindowTitle(BrowserTestCaseBase):
         title = "Alice in Wonderland"
         body = "<p>Lorem ipsum dolor sit amet.</p>"
         url = self.make_html_page(title, body)
-        self.reveal_chrome()
-        address_bar = self.main_window.get_address_bar()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
-        clear_button = self.main_window.get_address_bar_clear_button()
-        self.pointing_device.move_to_object(clear_button)
-        self.pointing_device.click()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
-        self.keyboard.type(url, delay=TYPING_DELAY)
-        self.keyboard.press_and_release("Enter")
+        self.go_to_url(url)
         window = self.main_window.get_qml_view()
         self.assertThat(window.title, Eventually(Contains(title)))

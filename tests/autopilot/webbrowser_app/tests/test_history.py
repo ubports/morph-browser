@@ -16,7 +16,7 @@ import time
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
-from webbrowser_app.tests import BrowserTestCaseBase, TYPING_DELAY
+from webbrowser_app.tests import BrowserTestCaseBase
 
 
 class PrepopulatedHistoryDatabaseTestCaseBase(BrowserTestCaseBase):
@@ -64,6 +64,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         suggestions = self.main_window.get_address_bar_suggestions()
         listview = self.main_window.get_address_bar_suggestions_listview()
         self.assertThat(suggestions.visible, Equals(False))
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         self.assertThat(suggestions.visible, Equals(False))
         self.focus_address_bar()
@@ -71,30 +72,32 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assertThat(listview.count, Eventually(Equals(1)))
         self.clear_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(False)))
-        self.keyboard.type("u", delay=TYPING_DELAY)
+        self.type_in_address_bar("u")
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
         self.assertThat(listview.count, Eventually(Equals(6)))
-        self.keyboard.type("b", delay=TYPING_DELAY)
+        self.type_in_address_bar("b")
         self.assertThat(listview.count, Eventually(Equals(5)))
-        self.keyboard.type("leh", delay=TYPING_DELAY)
+        self.type_in_address_bar("leh")
         self.assertThat(listview.count, Eventually(Equals(0)))
         self.clear_address_bar()
-        self.keyboard.type("xaMPL", delay=TYPING_DELAY)
+        self.type_in_address_bar("xaMPL")
         self.assertThat(listview.count, Eventually(Equals(2)))
 
     def test_clear_address_bar_dismisses_suggestions(self):
         suggestions = self.main_window.get_address_bar_suggestions()
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         self.focus_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
         self.clear_address_bar()
-        self.keyboard.type("ubuntu", delay=TYPING_DELAY)
+        self.type_in_address_bar("ubuntu")
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
         self.clear_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(False)))
 
     def test_addressbar_loosing_focus_dismisses_suggestions(self):
         suggestions = self.main_window.get_address_bar_suggestions()
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         self.focus_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
@@ -109,19 +112,23 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
     def test_select_suggestion(self):
         suggestions = self.main_window.get_address_bar_suggestions()
         listview = self.main_window.get_address_bar_suggestions_listview()
+        self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         self.focus_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
         self.clear_address_bar()
-        self.keyboard.type("ubuntu", delay=TYPING_DELAY)
+        self.type_in_address_bar("ubuntu")
+        self.assertThat(suggestions.visible, Eventually(Equals(True)))
         self.assertThat(listview.count, Eventually(Equals(5)))
         entries = \
             self.main_window.get_address_bar_suggestions_listview_entries()
         entry = entries[2]
-        url = "http://en.wikipedia.org/wiki/<b>Ubuntu</b>_(operating_system)"
+        highlight = '<b><font color="#DD4814">Ubuntu</font></b>'
+        url = "http://en.wikipedia.org/wiki/%s_(operating_system)" % highlight
         self.assertThat(entry.subText, Equals(url))
         self.pointing_device.move_to_object(entry)
         self.pointing_device.click()
         webview = self.main_window.get_web_view()
         url = "http://en.wikipedia.org/wiki/Ubuntu_(operating_system)"
         self.assertThat(webview.url, Eventually(Equals(url)))
+        self.assertThat(suggestions.visible, Eventually(Equals(False)))
