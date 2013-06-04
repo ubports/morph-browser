@@ -8,13 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-04 09:26+0200\n"
+"POT-Creation-Date: 2013-06-04 10:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/Ubuntu/Browser/Browser.qml:64
@@ -69,17 +69,18 @@ msgstr ""
 msgid "Network Error"
 msgstr ""
 
-#: src/Ubuntu/Browser/ErrorSheet.qml:43
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/Ubuntu/Browser/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr ""
 
-#: src/Ubuntu/Browser/ErrorSheet.qml:49
+#: src/Ubuntu/Browser/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
 
-#: src/Ubuntu/Browser/ErrorSheet.qml:54
+#: src/Ubuntu/Browser/ErrorSheet.qml:55
 msgid "Refresh page"
 msgstr ""
 
@@ -95,12 +96,13 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: src/Ubuntu/Browser/webbrowser-app.qml:33
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/Ubuntu/Browser/webbrowser-app.qml:34
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
-#: src/Ubuntu/Browser/webbrowser-app.qml:34
+#: src/Ubuntu/Browser/webbrowser-app.qml:35
 msgid "Ubuntu Web Browser"
 msgstr ""
 

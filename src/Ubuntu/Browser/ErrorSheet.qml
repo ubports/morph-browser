@@ -40,6 +40,7 @@ Rectangle {
 
         Label {
             width: parent.width
+            // TRANSLATORS: %1 refers to the URL of the current page
             text: i18n.tr("It appears you are having trouble viewing: %1.").arg(url)
             wrapMode: Text.Wrap
         }

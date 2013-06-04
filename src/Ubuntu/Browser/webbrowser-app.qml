@@ -30,6 +30,7 @@ Window {
     width: 800
     height: 600
 
+    // TRANSLATORS: %1 refers to the current page’s title
     title: browser.title ? i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
                          : i18n.tr("Ubuntu Web Browser")
 
