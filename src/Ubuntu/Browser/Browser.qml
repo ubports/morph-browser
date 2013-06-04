@@ -202,6 +202,7 @@ FocusScope {
                         onToggleTabsClicked: {
                             activityView.visible = !activityView.visible
                             if (activityView.visible) {
+                                currentWebview.forceActiveFocus()
                                 panel.item.opened = false
                             }
                         }
