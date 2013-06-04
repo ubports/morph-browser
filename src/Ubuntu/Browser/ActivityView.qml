@@ -77,7 +77,7 @@ Item {
                         right: parent.right
                         bottom: parent.bottom
                     }
-                    height: units.gu(15)
+                    height: units.gu(18)
 
                     onNewTabClicked: newTabRequested()
                     onSwitchToTabClicked: switchToTabRequested(index)

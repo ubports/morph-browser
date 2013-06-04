@@ -27,9 +27,26 @@ Rectangle {
     signal newTabClicked()
     signal switchToTabClicked(int index)
 
+    Label {
+        id: heading
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+            margins: units.gu(1)
+        }
+        height: units.gu(2)
+        font.bold: true
+        // TRANSLATORS: %1 refers to the number of open tabs
+        text: i18n.tr("Open pages %1").arg(listview.count)
+    }
+
     Item {
         anchors {
-            fill: parent
+            top: heading.bottom
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
             margins: units.gu(1)
         }
 
