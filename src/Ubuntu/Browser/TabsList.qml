@@ -84,6 +84,8 @@ Rectangle {
 
             currentIndex: model.currentIndex
 
+            // FIXME: http://pad.lv/1187476 makes it impossible to swipe a
+            // delegate up/down to remove it from an horizontal listview.
             delegate: PageDelegate {
                 width: units.gu(10)
                 color: ListView.isCurrentItem ? "#2C001E" : "white"
