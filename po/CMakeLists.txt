@@ -10,6 +10,7 @@ file(GLOB PO_FILES *.po)
 add_custom_target(${POT_FILE}
                   COMMAND ${GETTEXT_XGETTEXT_EXECUTABLE} -o ${POT_FILE}
                           -D ${CMAKE_SOURCE_DIR}
+                          --from-code=UTF-8
                           --c++ --qt --add-comments=TRANSLATORS
                           --keyword=tr --keyword=tr:1,2
                           --package-name=webbrowser-app
