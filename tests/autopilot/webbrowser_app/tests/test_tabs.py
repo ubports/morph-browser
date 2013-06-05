@@ -22,17 +22,17 @@ class TestTabs(BrowserTestCaseBase):
         listview = self.main_window.get_tabslist_listview()
         self.assertThat(listview.count, Eventually(Equals(1)))
 
-    def test_toggle_tabslist(self):
+    def test_toggle_activity_view(self):
         self.ensure_chrome_is_hidden()
         self.reveal_chrome()
-        tabslist = self.main_window.get_tabslist()
-        self.assertThat(tabslist.visible, Equals(False))
+        activity_view = self.main_window.get_activity_view()
+        self.assertThat(activity_view.visible, Equals(False))
         tabs_button = self.main_window.get_tabs_button()
         self.pointing_device.move_to_object(tabs_button)
         self.pointing_device.click()
-        self.assertThat(tabslist.visible, Eventually(Equals(True)))
+        self.assertThat(activity_view.visible, Eventually(Equals(True)))
         self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
         self.pointing_device.move_to_object(tabs_button)
         self.pointing_device.click()
-        self.assertThat(tabslist.visible, Eventually(Equals(False)))
+        self.assertThat(activity_view.visible, Eventually(Equals(False)))
