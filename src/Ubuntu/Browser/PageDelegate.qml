@@ -27,10 +27,9 @@ UbuntuShape {
         anchors {
             fill: parent
             margins: units.gu(0.5)
-            verticalCenter: parent.verticalCenter
         }
         fontSize: "small"
         wrapMode: Text.Wrap
-        elide: Text.ElideMiddle
+        elide: Text.ElideRight
     }
 }
