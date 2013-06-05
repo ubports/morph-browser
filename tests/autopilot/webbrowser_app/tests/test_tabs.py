@@ -44,11 +44,13 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
 
     def test_open_new_tab(self):
         self.ensure_activity_view_visible()
+        listview = self.main_window.get_tabslist_listview()
+        self.assertThat(listview.currentIndex, Equals(0))
         newtab_delegate = self.main_window.get_tabslist_newtab_delegate()
         self.pointing_device.move_to_object(newtab_delegate)
         self.pointing_device.click()
-        listview = self.main_window.get_tabslist_listview()
         self.assertThat(listview.count, Eventually(Equals(2)))
+        self.assertThat(listview.currentIndex, Eventually(Equals(1)))
         activity_view = self.main_window.get_activity_view()
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
         self.assert_chrome_eventually_shown()
