@@ -11,10 +11,10 @@ from __future__ import absolute_import
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
-from webbrowser_app.tests import BrowserTestCaseBase
+from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
-class TestTabs(BrowserTestCaseBase):
+class TestTabs(StartOpenRemotePageTestCaseBase):
 
     """Tests tabs management."""
 
