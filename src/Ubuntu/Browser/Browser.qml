@@ -62,33 +62,45 @@ FocusScope {
         HUD.Context {
             HUD.Action {
                 label: i18n.tr("Goto")
+                // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Goto' action.
+                // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Address;URL;www")
                 enabled: false // TODO: parametrized action
             }
             HUD.Action {
                 label: i18n.tr("Back")
+                // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Back' action.
+                // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Older Page")
                 enabled: webview.canGoBack
                 onTriggered: webview.goBack()
             }
             HUD.Action {
                 label: i18n.tr("Forward")
+                // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Forward' action.
+                // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Newer Page")
                 enabled: webview.canGoForward
                 onTriggered: webview.goForward()
             }
             HUD.Action {
                 label: i18n.tr("Reload")
+                // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Reload' action.
+                // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Leave Page")
                 onTriggered: webview.reload()
             }
             HUD.Action {
                 label: i18n.tr("Bookmark")
+                // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Bookmark' action.
+                // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Add This Page to Bookmarks")
                 enabled: false // TODO: implement bookmarks
             }
             HUD.Action {
                 label: i18n.tr("New Tab")
+                // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'New Tab' action.
+                // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Open a New Tab")
                 enabled: false // TODO: implement tabs
             }
