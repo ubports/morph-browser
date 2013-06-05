@@ -8,10 +8,10 @@
 
 from __future__ import absolute_import
 
-from webbrowser_app.tests import BrowserTestCaseBase
+from webbrowser_app.tests import StartOpenLocalPageTestCaseBase
 
 
-class TestToolbar(BrowserTestCaseBase):
+class TestToolbar(StartOpenLocalPageTestCaseBase):
 
     """Tests interaction with the toolbar."""
 

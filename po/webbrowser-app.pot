@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-04 10:06+0200\n"
+"POT-Creation-Date: 2013-06-05 13:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,47 +21,59 @@ msgstr ""
 msgid "Goto"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:65
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:67
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:69 src/Ubuntu/Browser/Chrome.qml:68
+#: src/Ubuntu/Browser/Browser.qml:71 src/Ubuntu/Browser/Chrome.qml:68
 msgid "Back"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:70
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:74
 msgid "Older Page"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:75 src/Ubuntu/Browser/Chrome.qml:78
+#: src/Ubuntu/Browser/Browser.qml:79 src/Ubuntu/Browser/Chrome.qml:78
 msgid "Forward"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:76
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:82
 msgid "Newer Page"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:81
+#: src/Ubuntu/Browser/Browser.qml:87
 msgid "Reload"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:82
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:90
 msgid "Leave Page"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:86
+#: src/Ubuntu/Browser/Browser.qml:94
 msgid "Bookmark"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:87
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:97
 msgid "Add This Page to Bookmarks"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:91
+#: src/Ubuntu/Browser/Browser.qml:101
 msgid "New Tab"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:92
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:104
 msgid "Open a New Tab"
 msgstr ""
 
