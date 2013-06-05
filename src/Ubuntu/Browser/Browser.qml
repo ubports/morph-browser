@@ -131,6 +131,7 @@ FocusScope {
                 browser.switchToTab(index)
                 visible = false
             }
+            onCloseTabRequested: browser.closeTab(index)
         }
 
         Loader {

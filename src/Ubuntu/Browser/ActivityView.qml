@@ -24,6 +24,7 @@ Item {
 
     signal newTabRequested()
     signal switchToTabRequested(int index)
+    signal closeTabRequested(int index)
 
     MouseArea {
         // Prevent mouse/touch events from propagating to the webview below.
@@ -81,6 +82,7 @@ Item {
 
                     onNewTabClicked: newTabRequested()
                     onSwitchToTabClicked: switchToTabRequested(index)
+                    onTabRemoved: closeTabRequested(index)
                 }
             }
         }

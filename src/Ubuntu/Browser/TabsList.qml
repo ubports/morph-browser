@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Rectangle {
     color: "#AEA79F"
@@ -26,6 +27,7 @@ Rectangle {
 
     signal newTabClicked()
     signal switchToTabClicked(int index)
+    signal tabRemoved(int index)
 
     Label {
         id: heading
@@ -64,7 +66,10 @@ Rectangle {
                 fontSize: "x-large"
                 text: i18n.tr("+")
             }
-            onClicked: newTabClicked()
+            MouseArea {
+                anchors.fill: parent
+                onClicked: newTabClicked()
+            }
         }
 
         ListView {
@@ -84,13 +89,22 @@ Rectangle {
 
             currentIndex: model.currentIndex
 
-            // FIXME: http://pad.lv/1187476 makes it impossible to swipe a
-            // delegate up/down to remove it from an horizontal listview.
-            delegate: PageDelegate {
+            delegate: ListItem.Empty {
                 width: units.gu(10)
-                color: ListView.isCurrentItem ? "#2C001E" : "white"
                 height: parent.height
-                title: model.title
+                showDivider: false
+
+                // FIXME: http://pad.lv/1187476 makes it impossible to swipe a
+                // delegate up/down to remove it from an horizontal listview.
+                removable: true
+                onItemRemoved: tabRemoved(index)
+
+                PageDelegate {
+                    anchors.fill: parent
+                    color: (index == listview.currentIndex) ? "#2C001E" : "white"
+                    title: model.title
+                }
+
                 onClicked: switchToTabClicked(index)
             }
         }

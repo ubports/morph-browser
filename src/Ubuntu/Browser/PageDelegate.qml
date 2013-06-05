@@ -21,7 +21,6 @@ import Ubuntu.Components 0.1
 
 UbuntuShape {
     property alias title: title.text
-    signal clicked()
 
     Label {
         id: title
@@ -33,10 +32,5 @@ UbuntuShape {
         fontSize: "small"
         wrapMode: Text.Wrap
         elide: Text.ElideMiddle
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: parent.clicked()
     }
 }
