@@ -33,7 +33,7 @@ add_subdirectory(tests)
 
 file(GLOB_RECURSE I18N_SRC_FILES
      RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-     src/**.qml src/**.h src/**.cpp src/**.desktop.in)
+     src/**.qml src/**.desktop.in)
 list(SORT I18N_SRC_FILES)
 
 # for dh_translations to extract the domain
