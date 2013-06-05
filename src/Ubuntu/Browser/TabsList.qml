@@ -54,6 +54,7 @@ Rectangle {
 
         PageDelegate {
             id: newTabDelegate
+            objectName: "newTabDelegate"
             anchors {
                 left: parent.left
                 top: parent.top

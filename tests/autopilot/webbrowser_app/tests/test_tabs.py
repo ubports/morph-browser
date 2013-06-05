@@ -18,21 +18,39 @@ class TestTabs(BrowserTestCaseBase):
 
     """Tests tabs management."""
 
+    def ensure_activity_view_visible(self):
+        self.ensure_chrome_is_hidden()
+        self.reveal_chrome()
+        tabs_button = self.main_window.get_tabs_button()
+        self.pointing_device.move_to_object(tabs_button)
+        self.pointing_device.click()
+        activity_view = self.main_window.get_activity_view()
+        self.assertThat(activity_view.visible, Eventually(Equals(True)))
+
     def test_tabs_model(self):
         listview = self.main_window.get_tabslist_listview()
         self.assertThat(listview.count, Eventually(Equals(1)))
 
     def test_toggle_activity_view(self):
-        self.ensure_chrome_is_hidden()
-        self.reveal_chrome()
         activity_view = self.main_window.get_activity_view()
         self.assertThat(activity_view.visible, Equals(False))
         tabs_button = self.main_window.get_tabs_button()
-        self.pointing_device.move_to_object(tabs_button)
-        self.pointing_device.click()
-        self.assertThat(activity_view.visible, Eventually(Equals(True)))
+        self.ensure_activity_view_visible()
         self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
         self.pointing_device.move_to_object(tabs_button)
         self.pointing_device.click()
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
+
+    def test_open_new_tab(self):
+        self.ensure_activity_view_visible()
+        newtab_delegate = self.main_window.get_tabslist_newtab_delegate()
+        self.pointing_device.move_to_object(newtab_delegate)
+        self.pointing_device.click()
+        listview = self.main_window.get_tabslist_listview()
+        self.assertThat(listview.count, Eventually(Equals(2)))
+        activity_view = self.main_window.get_activity_view()
+        self.assertThat(activity_view.visible, Eventually(Equals(False)))
+        self.assert_chrome_eventually_shown()
+        address_bar = self.main_window.get_address_bar()
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
