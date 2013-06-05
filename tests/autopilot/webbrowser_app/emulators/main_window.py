@@ -63,3 +63,9 @@ class MainWindow(object):
 
     def get_panel(self):
         return self.app.select_single("Panel")
+
+    def get_tabs_list(self):
+        return self.app.select_single("TabsList")
+
+    def get_tabs_list_listview(self):
+        return self.get_tabs_list().select_single("QQuickListView")
