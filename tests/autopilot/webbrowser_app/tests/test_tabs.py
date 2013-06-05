@@ -27,6 +27,21 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         activity_view = self.main_window.get_activity_view()
         self.assertThat(activity_view.visible, Eventually(Equals(True)))
 
+    def open_new_tab(self):
+        # assumes the activity view is already visible
+        listview = self.main_window.get_tabslist_listview()
+        count = listview.count
+        newtab_delegate = self.main_window.get_tabslist_newtab_delegate()
+        self.pointing_device.move_to_object(newtab_delegate)
+        self.pointing_device.click()
+        self.assertThat(listview.count, Eventually(Equals(count + 1)))
+
+    def assert_current_url(self, url):
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.url, Eventually(Equals(url)))
+        addressbar = self.main_window.get_address_bar()
+        self.assertThat(addressbar.actualUrl, Eventually(Equals(url)))
+
     def test_tabs_model(self):
         listview = self.main_window.get_tabslist_listview()
         self.assertThat(listview.count, Eventually(Equals(1)))
@@ -46,13 +61,40 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.ensure_activity_view_visible()
         listview = self.main_window.get_tabslist_listview()
         self.assertThat(listview.currentIndex, Equals(0))
-        newtab_delegate = self.main_window.get_tabslist_newtab_delegate()
-        self.pointing_device.move_to_object(newtab_delegate)
-        self.pointing_device.click()
-        self.assertThat(listview.count, Eventually(Equals(2)))
+        self.open_new_tab()
         self.assertThat(listview.currentIndex, Eventually(Equals(1)))
         activity_view = self.main_window.get_activity_view()
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
         self.assert_chrome_eventually_shown()
         address_bar = self.main_window.get_address_bar()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+    def test_switch_tabs(self):
+        self.ensure_activity_view_visible()
+        self.open_new_tab()
+        url = self.base_url + "/aleaiactaest"
+        self.type_in_address_bar(url)
+        self.keyboard.press_and_release("Enter")
+        self.assert_page_eventually_loaded(url)
+        self.assert_current_url(url)
+
+        self.ensure_activity_view_visible()
+        listview = self.main_window.get_tabslist_listview()
+        tabs = self.main_window.get_tabslist_listview_delegates()
+        self.assertThat(len(tabs), Equals(2))
+        self.assertThat(listview.currentIndex, Equals(1))
+        self.pointing_device.move_to_object(tabs[0])
+        self.pointing_device.click()
+        self.assertThat(listview.currentIndex, Eventually(Equals(0)))
+        self.assert_current_url(self.url)
+        activity_view = self.main_window.get_activity_view()
+        self.assertThat(activity_view.visible, Eventually(Equals(False)))
+        self.assert_chrome_eventually_hidden()
+
+        self.ensure_activity_view_visible()
+        self.pointing_device.move_to_object(tabs[1])
+        self.pointing_device.click()
+        self.assertThat(listview.currentIndex, Eventually(Equals(1)))
+        self.assert_current_url(url)
+        self.assertThat(activity_view.visible, Eventually(Equals(False)))
+        self.assert_chrome_eventually_hidden()

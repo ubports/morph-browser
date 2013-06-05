@@ -32,6 +32,7 @@ FocusScope {
     // necessary so that all widgets (including popovers) follow that
     property alias automaticOrientation: orientationHelper.automaticOrientation
 
+    property alias currentIndex: tabsModel.currentIndex
     property alias currentWebview: tabsModel.currentWebview
     property string title: currentWebview ? currentWebview.title : ""
 

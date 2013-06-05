@@ -32,6 +32,12 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             body = "<p>Lorem ipsum dolor sit amet.</p>"
             html = self.make_html(title, body)
             self.send_html(html)
+        elif self.path == "/aleaiactaest":
+            self.send_response(200)
+            title = "Alea Iacta Est"
+            body = "<p>De vita Caesarum libri VIII</p>"
+            html = self.make_html(title, body)
+            self.send_html(html)
         elif self.path.startswith("/wait/"):
             delay = int(self.path[6:])
             self.send_response(200)

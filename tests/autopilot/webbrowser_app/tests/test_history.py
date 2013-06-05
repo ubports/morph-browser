@@ -102,7 +102,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.focus_address_bar()
         self.assertThat(suggestions.visible, Eventually(Equals(True)))
         coord = suggestions.globalRect
-        webview = self.main_window.get_web_view()
+        webview = self.main_window.get_current_webview()
         self.pointing_device.move(
             coord[0] + int(coord[2] / 2),
             int((coord[1] + webview.globalRect[1]) / 2))
@@ -128,7 +128,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assertThat(entry.subText, Equals(url))
         self.pointing_device.move_to_object(entry)
         self.pointing_device.click()
-        webview = self.main_window.get_web_view()
+        webview = self.main_window.get_current_webview()
         url = "http://en.wikipedia.org/wiki/Ubuntu_(operating_system)"
         self.assertThat(webview.url, Eventually(Equals(url)))
         self.assertThat(suggestions.visible, Eventually(Equals(False)))
