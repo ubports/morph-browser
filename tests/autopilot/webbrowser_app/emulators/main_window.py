@@ -41,6 +41,9 @@ class MainWindow(object):
         return self.app.select_single("ChromeButton",
                                       objectName="forwardButton")
 
+    def get_tabs_button(self):
+        return self.app.select_single("ChromeButton", objectName="tabsButton")
+
     def get_web_view(self):
         return self.app.select_single("UbuntuWebView")
 
@@ -64,8 +67,14 @@ class MainWindow(object):
     def get_panel(self):
         return self.app.select_single("Panel")
 
-    def get_tabs_list(self):
-        return self.app.select_single("TabsList")
+    def get_activity_view(self):
+        return self.app.select_single("ActivityView")
 
-    def get_tabs_list_listview(self):
-        return self.get_tabs_list().select_single("QQuickListView")
+    def get_tabslist(self):
+        return self.get_activity_view().select_single("TabsList")
+
+    def get_tabslist_newtab_delegate(self):
+        return self.get_tabslist().select_single("PageDelegate")
+
+    def get_tabslist_listview(self):
+        return self.get_tabslist().select_single("QQuickListView")

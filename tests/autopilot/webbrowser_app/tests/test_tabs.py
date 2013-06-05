@@ -19,5 +19,20 @@ class TestTabs(BrowserTestCaseBase):
     """Tests tabs management."""
 
     def test_tabs_model(self):
-        listview = self.main_window.get_tabs_list_listview()
+        listview = self.main_window.get_tabslist_listview()
         self.assertThat(listview.count, Eventually(Equals(1)))
+
+    def test_toggle_tabslist(self):
+        self.ensure_chrome_is_hidden()
+        self.reveal_chrome()
+        tabslist = self.main_window.get_tabslist()
+        self.assertThat(tabslist.visible, Equals(False))
+        tabs_button = self.main_window.get_tabs_button()
+        self.pointing_device.move_to_object(tabs_button)
+        self.pointing_device.click()
+        self.assertThat(tabslist.visible, Eventually(Equals(True)))
+        self.assert_chrome_eventually_hidden()
+        self.reveal_chrome()
+        self.pointing_device.move_to_object(tabs_button)
+        self.pointing_device.click()
+        self.assertThat(tabslist.visible, Eventually(Equals(False)))
