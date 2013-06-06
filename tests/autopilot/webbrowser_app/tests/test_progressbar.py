@@ -12,7 +12,9 @@ from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import \
-    BrowserTestCaseBaseWithHTTPServer, HTTP_SERVER_PORT
+    BrowserTestCaseBaseWithHTTPServer, \
+    StartOpenRemotePageTestCaseBase, \
+    HTTP_SERVER_PORT
 
 
 LOREMIPSUM = "<p>Lorem ipsum dolor sit amet.</p>"
@@ -35,13 +37,13 @@ class TestProgressBarAtStartup(BrowserTestCaseBaseWithHTTPServer):
         self.assert_chrome_eventually_hidden()
 
 
-class TestProgressBar(BrowserTestCaseBaseWithHTTPServer):
+class TestProgressBar(StartOpenRemotePageTestCaseBase):
 
     """Tests that the progress bar (embedded inside the address bar) is
     visible when a page is loading and hidden by default otherwise."""
 
     def test_chrome_hides_when_loaded(self):
-        self.ensure_chrome_is_hidden()
+        self.assert_chrome_eventually_hidden()
         url = "http://localhost:%d/wait/3" % HTTP_SERVER_PORT
         self.go_to_url(url)
         self.assert_chrome_eventually_shown()
@@ -67,7 +69,7 @@ class TestProgressBar(BrowserTestCaseBaseWithHTTPServer):
     def test_hide_chrome_while_loading(self):
         # simulate user interaction to hide the chrome while loading,
         # and ensure it doesn’t re-appear when loaded
-        self.ensure_chrome_is_hidden()
+        self.assert_chrome_eventually_hidden()
         url = "http://localhost:%d/wait/3" % HTTP_SERVER_PORT
         self.go_to_url(url)
         self.assert_chrome_eventually_shown()
@@ -81,7 +83,7 @@ class TestProgressBar(BrowserTestCaseBaseWithHTTPServer):
     def test_stop_loading(self):
         # ensure that the chrome is not automatically hidden
         # when the user interrupts a page that was loading
-        self.ensure_chrome_is_hidden()
+        self.assert_chrome_eventually_hidden()
         url = "http://localhost:%d/wait/5" % HTTP_SERVER_PORT
         self.go_to_url(url)
         self.assert_page_eventually_loading()

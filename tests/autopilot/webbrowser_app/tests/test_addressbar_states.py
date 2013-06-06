@@ -43,7 +43,7 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
 
     def test_state_editing(self):
         address_bar = self.main_window.get_address_bar()
-        self.ensure_chrome_is_hidden()
+        self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
