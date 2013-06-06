@@ -36,7 +36,6 @@ Item {
     Header {
         id: header
         title: tabs.selectedTab.title
-        //contents: tabs.__headerContents
     }
 
     Tabs {
