@@ -7,27 +7,75 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-05-16 18:13+0200\n"
+"POT-Creation-Date: 2013-06-05 09:59+0200\n"
 "PO-Revision-Date: 2013-05-18 07:29+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-05-19 06:13+0000\n"
-"X-Generator: Launchpad (build 16626)\n"
+"X-Launchpad-Export-Date: 2013-06-06 06:29+0000\n"
+"X-Generator: Launchpad (build 16667)\n"
 
-#: src/Ubuntu/Browser/SelectionPopover.qml:40
-msgid "Share"
-msgstr "Jaa"
+#: src/Ubuntu/Browser/Browser.qml:64
+msgid "Goto"
+msgstr "Siirry"
 
-#: src/Ubuntu/Browser/SelectionPopover.qml:50
-msgid "Save"
-msgstr "Tallenna"
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:67
+msgid "Address;URL;www"
+msgstr "Address;URL;www;osoite;internet;webbi;netti"
 
-#: src/Ubuntu/Browser/SelectionPopover.qml:60
-msgid "Copy"
-msgstr "Kopioi"
+#: src/Ubuntu/Browser/Browser.qml:71 src/Ubuntu/Browser/Chrome.qml:68
+msgid "Back"
+msgstr "Edellinen"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:74
+msgid "Older Page"
+msgstr "Vanhempi sivu"
+
+#: src/Ubuntu/Browser/Browser.qml:79 src/Ubuntu/Browser/Chrome.qml:78
+msgid "Forward"
+msgstr "Seuraava"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:82
+msgid "Newer Page"
+msgstr "Uudempi sivu"
+
+#: src/Ubuntu/Browser/Browser.qml:87
+msgid "Reload"
+msgstr "Päivitä"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:90
+msgid "Leave Page"
+msgstr "Poistu sivulta"
+
+#: src/Ubuntu/Browser/Browser.qml:94
+msgid "Bookmark"
+msgstr "Kirjanmerkki"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:97
+msgid "Add This Page to Bookmarks"
+msgstr "Lisää tämä sivu kirjanmerkkeihin"
+
+#: src/Ubuntu/Browser/Browser.qml:101
+msgid "New Tab"
+msgstr "Uusi välilehti"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:104
+msgid "Open a New Tab"
+msgstr "Avaa uusi välilehti"
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:38
 msgid "Network Error"
@@ -47,50 +95,23 @@ msgstr "Tarkista verkkoasetukset ja yritä päivittää sivu."
 msgid "Refresh page"
 msgstr "Päivitä sivu"
 
-#: src/Ubuntu/Browser/Chrome.qml:66 src/Ubuntu/Browser/Browser.qml:73
-msgid "Back"
-msgstr "Edellinen"
+#: src/Ubuntu/Browser/SelectionPopover.qml:40
+msgid "Share"
+msgstr "Jaa"
 
-#: src/Ubuntu/Browser/Chrome.qml:76 src/Ubuntu/Browser/Browser.qml:79
-msgid "Forward"
-msgstr "Seuraava"
+#: src/Ubuntu/Browser/SelectionPopover.qml:50
+msgid "Save"
+msgstr "Tallenna"
 
-#: src/Ubuntu/Browser/Browser.qml:68
-msgid "Goto"
-msgstr "Siirry"
+#: src/Ubuntu/Browser/SelectionPopover.qml:60
+msgid "Copy"
+msgstr "Kopioi"
 
-#: src/Ubuntu/Browser/Browser.qml:69
-msgid "Address;URL;www"
-msgstr "Address;URL;www;osoite;internet;webbi;netti"
+#: src/Ubuntu/Browser/webbrowser-app.qml:33
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:74
-msgid "Older Page"
-msgstr "Vanhempi sivu"
-
-#: src/Ubuntu/Browser/Browser.qml:80
-msgid "Newer Page"
-msgstr "Uudempi sivu"
-
-#: src/Ubuntu/Browser/Browser.qml:85
-msgid "Reload"
-msgstr "Päivitä"
-
-#: src/Ubuntu/Browser/Browser.qml:86
-msgid "Leave Page"
-msgstr "Poistu sivulta"
-
-#: src/Ubuntu/Browser/Browser.qml:90
-msgid "Bookmark"
-msgstr "Kirjanmerkki"
-
-#: src/Ubuntu/Browser/Browser.qml:91
-msgid "Add This Page to Bookmarks"
-msgstr "Lisää tämä sivu kirjanmerkkeihin"
-
-#: src/Ubuntu/Browser/Browser.qml:95
-msgid "New Tab"
-msgstr "Uusi välilehti"
-
-#: src/Ubuntu/Browser/Browser.qml:96
-msgid "Open a New Tab"
-msgstr "Avaa uusi välilehti"
+#: src/Ubuntu/Browser/webbrowser-app.qml:34
+msgid "Ubuntu Web Browser"
+msgstr ""
