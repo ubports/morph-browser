@@ -3,4 +3,4 @@ plugin ubuntubrowser
 AddressBar 0.1 AddressBar.qml
 Chrome 0.1 Chrome.qml
 ChromeButton 0.1 ChromeButton.qml
-Browser 0.1 Browser.qml
+UbuntuWebView 0.1 UbuntuWebView.qml

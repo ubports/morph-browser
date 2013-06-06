@@ -16,14 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "plugin.h"
-#include "tabs-model.h"
+import QtQuick 2.0
+import Ubuntu.Components 0.1
 
-// Qt
-#include <QtQml>
+UbuntuShape {
+    property alias title: title.text
 
-void UbuntuBrowserPlugin::registerTypes(const char* uri)
-{
-    Q_ASSERT(uri == QLatin1String("Ubuntu.Browser"));
-    qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
+    Label {
+        id: title
+        anchors {
+            fill: parent
+            margins: units.gu(0.5)
+        }
+        fontSize: "small"
+        wrapMode: Text.Wrap
+        elide: Text.ElideRight
+    }
 }

@@ -17,24 +17,24 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.0
 import QtWebKit 3.0
-import QtWebKit.experimental 1.0
+import Ubuntu.Browser 0.1
 import Ubuntu.Components 0.1
-import Ubuntu.Components.Popups 0.1
 import Ubuntu.HUD 1.0 as HUD
 
 FocusScope {
     id: browser
 
     property bool chromeless: false
-    property alias url: webview.url
-    property alias title: webview.title
     property string desktopFileHint: ""
-    property string qtwebkitdpr: "1.0"
+    property real qtwebkitdpr
     property bool developerExtrasEnabled: false
     // necessary so that all widgets (including popovers) follow that
     property alias automaticOrientation: orientationHelper.automaticOrientation
+
+    property alias currentIndex: tabsModel.currentIndex
+    property alias currentWebview: tabsModel.currentWebview
+    property string title: currentWebview ? currentWebview.title : ""
 
     focus: true
 
@@ -72,23 +72,24 @@ FocusScope {
                 // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Back' action.
                 // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Older Page")
-                enabled: webview.canGoBack
-                onTriggered: webview.goBack()
+                enabled: currentWebview ? currentWebview.canGoBack : false
+                onTriggered: currentWebview.goBack()
             }
             HUD.Action {
                 label: i18n.tr("Forward")
                 // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Forward' action.
                 // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Newer Page")
-                enabled: webview.canGoForward
-                onTriggered: webview.goForward()
+                enabled: currentWebview ? currentWebview.canGoForward : false
+                onTriggered: currentWebview.goForward()
             }
             HUD.Action {
                 label: i18n.tr("Reload")
                 // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Reload' action.
                 // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Leave Page")
-                onTriggered: webview.reload()
+                enabled: currentWebview != null
+                onTriggered: currentWebview.reload()
             }
             HUD.Action {
                 label: i18n.tr("Bookmark")
@@ -107,194 +108,48 @@ FocusScope {
         }
     }
 
-    QtObject {
-        // clumsy way of defining an enum in QML
-        id: formFactor
-        readonly property int desktop: 0
-        readonly property int phone: 1
-        readonly property int tablet: 2
-    }
-    // FIXME: this is a quick hack that will become increasingly unreliable
-    // as we support more devices, so we need a better solution for this
-    // FIXME: only handling phone and tablet for now
-    property int formFactor: (Screen.width >= units.gu(60)) ? formFactor.tablet : formFactor.phone
-
-    onQtwebkitdprChanged: {
-        // Do not make this patch to QtWebKit a hard requirement.
-        if (webview.experimental.hasOwnProperty('devicePixelRatio')) {
-            webview.experimental.devicePixelRatio = qtwebkitdpr
-        }
-    }
-
     OrientationHelper {
         id: orientationHelper
 
-        WebView {
-            id: webview
-
+        Item {
+            id: webviewContainer
             anchors {
                 left: parent.left
                 right: parent.right
                 top: parent.top
                 bottom: osk.top
             }
-
-            focus: true
-            interactive: !selection.visible
-            maximumFlickVelocity: height * 5
-
-            property real scale: experimental.test.contentsScale * experimental.test.devicePixelRatio
-
-            experimental.userAgent: {
-                // FIXME: using iOS 5.0’s iPhone/iPad user-agent strings
-                // (source: http://stackoverflow.com/questions/7825873/what-is-the-ios-5-0-user-agent-string),
-                // this should be changed to a more neutral user-agent in the
-                // future as we don’t want websites to recommend installing
-                // their iPhone/iPad apps.
-                if (browser.formFactor === formFactor.phone) {
-                    return "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
-                } else if (browser.formFactor === formFactor.tablet) {
-                    return "Mozilla/5.0 (iPad; CPU OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
-                }
-            }
-
-            experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
-            experimental.preferences.navigatorQtObjectEnabled: true
-            experimental.userScripts: [Qt.resolvedUrl("hyperlinks.js"),
-                                       Qt.resolvedUrl("selection.js")]
-            experimental.onMessageReceived: {
-                var data = null
-                try {
-                    data = JSON.parse(message.data)
-                } catch (error) {
-                    console.debug('DEBUG:', message.data)
-                    return
-                }
-                if ('event' in data) {
-                    if ((data.event === 'longpress') || (data.event === 'selectionadjusted')) {
-                        selection.clearData()
-                        selection.createData()
-                        if ('html' in data) {
-                            selection.mimedata.html = data.html
-                        }
-                        // FIXME: push the text and image data in the order
-                        // they appear in the selected block.
-                        if ('text' in data) {
-                            selection.mimedata.text = data.text
-                        }
-                        if ('images' in data) {
-                            // TODO: download and cache the images locally
-                            // (grab them from the webview’s cache, if possible),
-                            // and forward local URLs.
-                            selection.mimedata.urls = data.images
-                        }
-                        selection.show(data.left * scale, data.top * scale,
-                                       data.width * scale, data.height * scale)
-                    }
-                }
-            }
-
-            experimental.itemSelector: ItemSelector {}
-
-            onUrlChanged: {
-                if (!browser.chromeless) {
-                    panel.chrome.url = url
-                }
-            }
-
-            onLoadingChanged: {
-                error.visible = (loadRequest.status === WebView.LoadFailedStatus)
-                if (loadRequest.status === WebView.LoadSucceededStatus) {
-                    historyModel.add(webview.url, webview.title, webview.icon)
-                }
-            }
-        }
-
-        Selection {
-            id: selection
-
-            anchors.fill: webview
-            visible: false
-
-            property Item __popover: null
-            property var mimedata: null
-
-            function createData() {
-                if (mimedata === null) {
-                    mimedata = Clipboard.newData()
-                }
-            }
-
-            function clearData() {
-                if (mimedata !== null) {
-                    delete mimedata
-                    mimedata = null
-                }
-            }
-
-            function __showPopover() {
-                __popover = PopupUtils.open(Qt.resolvedUrl("SelectionPopover.qml"), selection.rect)
-                __popover.selection = selection
-            }
-
-            function show(x, y, width, height) {
-                rect.x = x
-                rect.y = y
-                rect.width = width
-                rect.height = height
-                visible = true
-                __showPopover()
-            }
-
-            onVisibleChanged: {
-                if (!visible && (__popover != null)) {
-                    PopupUtils.close(__popover)
-                    __popover = null
-                }
-            }
-
-            onResized: {
-                var message = new Object
-                message.query = 'adjustselection'
-                var rect = selection.rect
-                var scale = webview.scale
-                message.left = rect.x / scale
-                message.right = (rect.x + rect.width) / scale
-                message.top = rect.y / scale
-                message.bottom = (rect.y + rect.height) / scale
-                webview.experimental.postMessage(JSON.stringify(message))
-            }
-
-            function share() {
-                console.log("TODO: share selection")
-            }
-
-            function save() {
-                console.log("TODO: save selection")
-            }
-
-            function copy() {
-                Clipboard.push(mimedata)
-                clearData()
-            }
         }
 
         ErrorSheet {
             id: error
-            anchors.fill: webview
+            anchors.fill: webviewContainer
             visible: false
-            url: webview.url
-            onRefreshClicked: webview.reload()
+            url: currentWebview ? currentWebview.url : ""
+            onRefreshClicked: currentWebview.reload()
         }
 
-        Scrollbar {
-            flickableItem: webview
-            align: Qt.AlignTrailing
-        }
+        ActivityView {
+            id: activityView
 
-        Scrollbar {
-            flickableItem: webview
-            align: Qt.AlignBottom
+            anchors.fill: parent
+            visible: false
+            tabsModel: tabsModel
+
+            onNewTabRequested: {
+                browser.newTab("", true)
+                visible = false
+            }
+            onSwitchToTabRequested: {
+                browser.switchToTab(index)
+                visible = false
+            }
+            onCloseTabRequested: {
+                browser.closeTab(index)
+                if (tabsModel.count == 0) {
+                    newTabRequested()
+                }
+            }
         }
 
         Loader {
@@ -326,16 +181,18 @@ FocusScope {
                     Chrome {
                         anchors.fill: parent
 
-                        loading: webview.loading || (webview.loadProgress == 0)
-                        loadProgress: webview.loadProgress
+                        url: currentWebview ? currentWebview.url : ""
 
-                        canGoBack: webview.canGoBack
-                        onGoBackClicked: webview.goBack()
+                        loading: currentWebview ? currentWebview.loading || (currentWebview.loadProgress == 0) : false
+                        loadProgress: currentWebview ? currentWebview.loadProgress : 0
 
-                        canGoForward: webview.canGoForward
-                        onGoForwardClicked: webview.goForward()
+                        canGoBack: currentWebview ? currentWebview.canGoBack : false
+                        onGoBackClicked: currentWebview.goBack()
 
-                        onUrlValidated: browser.url = url
+                        canGoForward: currentWebview ? currentWebview.canGoForward : false
+                        onGoForwardClicked: currentWebview.goForward()
+
+                        onUrlValidated: currentWebview.url = url
 
                         property bool stopped: false
                         onLoadingChanged: {
@@ -349,14 +206,24 @@ FocusScope {
                                 if (panel.item) {
                                     panel.item.opened = false
                                 }
-                                webview.forceActiveFocus()
+                                if (currentWebview) {
+                                    currentWebview.forceActiveFocus()
+                                }
                             }
                         }
 
-                        onRequestReload: webview.reload()
+                        onRequestReload: currentWebview.reload()
                         onRequestStop: {
                             stopped = true
-                            webview.stop()
+                            currentWebview.stop()
+                        }
+
+                        onToggleTabsClicked: {
+                            activityView.visible = !activityView.visible
+                            if (activityView.visible) {
+                                currentWebview.forceActiveFocus()
+                                panel.item.opened = false
+                            }
                         }
                     }
                 }
@@ -372,13 +239,68 @@ FocusScope {
             width: panel.width - units.gu(5)
             height: Math.min(contentHeight, panel.y - units.gu(2))
             onSelected: {
-                browser.url = url
-                webview.forceActiveFocus()
+                currentWebview.url = url
+                currentWebview.forceActiveFocus()
             }
         }
 
         KeyboardRectangle {
             id: osk
         }
+    }
+
+    TabsModel {
+        id: tabsModel
+    }
+
+    Component {
+        id: webviewComponent
+
+        UbuntuWebView {
+            id: webview
+
+            anchors.fill: parent
+
+            visible: tabsModel.currentWebview === webview
+
+            devicePixelRatio: browser.qtwebkitdpr
+
+            experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
+
+            onLoadingChanged: {
+                if (visible) {
+                    error.visible = (loadRequest.status === WebView.LoadFailedStatus)
+                }
+                if (loadRequest.status === WebView.LoadSucceededStatus) {
+                    historyModel.add(webview.url, webview.title, webview.icon)
+                }
+            }
+        }
+    }
+
+    function newTab(url, setCurrent) {
+        var webview = webviewComponent.createObject(webviewContainer, {"url": url})
+        var index = tabsModel.add(webview)
+        if (setCurrent) {
+            tabsModel.currentIndex = index
+            if (!browser.chromeless) {
+                if (!url) {
+                    panel.chrome.addressBar.forceActiveFocus()
+                    panel.item.opened = true
+                }
+            }
+        }
+    }
+
+    function closeTab(index) {
+        var webview = tabsModel.remove(index)
+        if (webview) {
+            webview.destroy()
+        }
+    }
+
+    function switchToTab(index) {
+        tabsModel.currentIndex = index
+        currentWebview.forceActiveFocus()
     }
 }

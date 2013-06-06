@@ -37,3 +37,13 @@ add_executable(tst_HistoryMatchesModelTests ${HMM_SRC})
 include_directories(${webbrowser-app_SOURCE_DIR} ${webbrowser-app_BINARY_DIR})
 qt5_use_modules(tst_HistoryMatchesModelTests Core Sql Test)
 add_test(tst_HistoryMatchesModelTests ${CMAKE_CURRENT_BINARY_DIR}/tst_HistoryMatchesModelTests)
+
+set(TM_SRC
+    ${webbrowser-plugin_SOURCE_DIR}/tabs-model.cpp
+    tst_TabsModelTests.cpp
+)
+add_executable(tst_TabsModelTests ${TM_SRC})
+include_directories(${webbrowser-plugin_SOURCE_DIR})
+qt5_use_modules(tst_TabsModelTests Core Quick Test)
+add_test(tst_TabsModelTests ${CMAKE_CURRENT_BINARY_DIR}/tst_TabsModelTests)
+set_tests_properties(tst_TabsModelTests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=minimal")
