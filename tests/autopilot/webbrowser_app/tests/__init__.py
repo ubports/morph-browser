@@ -120,11 +120,11 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.assertThat(panel.state, Eventually(Equals("spread")))
 
     def hide_chrome(self):
-        distance = self.main_window.get_chrome().height
+        height = self.main_window.get_chrome().height
         view = self.main_window.get_qml_view()
         x_line = int(view.x + view.width * 0.5)
-        start_y = int(self.main_window.get_chrome().globalRect[1])
-        stop_y = int(start_y + distance)
+        start_y = int(self.main_window.get_chrome().globalRect[1] + 1)
+        stop_y = int(start_y + height - 2)
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
 
     def assert_chrome_eventually_hidden(self):
