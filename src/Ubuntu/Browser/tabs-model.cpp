@@ -117,11 +117,6 @@ QQuickItem* TabsModel::currentWebview() const
     }
 }
 
-int TabsModel::count() const
-{
-    return rowCount();
-}
-
 /*!
     Add a tab to the model and return the corresponding index in the model.
 

@@ -33,7 +33,7 @@ class TabsModel : public QAbstractListModel
 
     Q_PROPERTY(int currentIndex READ currentIndex WRITE setCurrentIndex NOTIFY currentIndexChanged)
     Q_PROPERTY(QQuickItem* currentWebview READ currentWebview NOTIFY currentWebviewChanged)
-    Q_PROPERTY(int count READ count NOTIFY countChanged)
+    Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
 
 public:
     TabsModel(QObject* parent=0);
@@ -56,8 +56,6 @@ public:
     void setCurrentIndex(int index);
 
     QQuickItem* currentWebview() const;
-
-    int count() const;
 
     Q_INVOKABLE int add(QQuickItem* webview);
     Q_INVOKABLE QQuickItem* remove(int index);

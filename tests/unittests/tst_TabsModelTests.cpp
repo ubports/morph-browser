@@ -60,7 +60,7 @@ private Q_SLOTS:
 
     void shouldBeInitiallyEmpty()
     {
-        QCOMPARE(model->count(), 0);
+        QCOMPARE(model->rowCount(), 0);
         QCOMPARE(model->currentIndex(), -1);
         QCOMPARE(model->currentWebview(), (QQuickItem*) 0);
     }
@@ -78,7 +78,7 @@ private Q_SLOTS:
     void shouldNotAddNullWebView()
     {
         QCOMPARE(model->add(0), -1);
-        QCOMPARE(model->count(), 0);
+        QCOMPARE(model->rowCount(), 0);
     }
 
     void shouldReturnIndexWhenAddingWebView()
@@ -93,7 +93,7 @@ private Q_SLOTS:
         QSignalSpy spy(model, SIGNAL(countChanged()));
         model->add(createWebView());
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->count(), 1);
+        QCOMPARE(model->rowCount(), 1);
     }
 
     void shouldUpdateCountWhenRemovingWebView()
@@ -102,7 +102,7 @@ private Q_SLOTS:
         QSignalSpy spy(model, SIGNAL(countChanged()));
         model->remove(0);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->count(), 0);
+        QCOMPARE(model->rowCount(), 0);
     }
 
     void shouldNotAllowRemovingAtInvalidIndex()
