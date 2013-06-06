@@ -109,6 +109,18 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.pointing_device.click()
         self.assertThat(suggestions.visible, Eventually(Equals(False)))
 
+    def test_hiding_chrome_dismisses_suggestions(self):
+        self.assert_chrome_eventually_hidden()
+        self.reveal_chrome()
+        self.focus_address_bar()
+        suggestions = self.main_window.get_address_bar_suggestions()
+        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.hide_chrome()
+        self.assert_chrome_eventually_hidden()
+        self.assertThat(suggestions.visible, Eventually(Equals(False)))
+        self.reveal_chrome()
+        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+
     def test_select_suggestion(self):
         suggestions = self.main_window.get_address_bar_suggestions()
         listview = self.main_window.get_address_bar_suggestions_listview()
