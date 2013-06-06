@@ -40,15 +40,12 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         # assumes the activity view is already visible
         # XXX: because of http://pad.lv/1187476, tabs have to be swiped
         # left/right instead of up/down to be removed.
-        listview = self.main_window.get_tabslist_listview()
-        count = listview.count
         tab = self.main_window.get_tabslist_listview_delegates()[index]
         x, y, w, h = tab.globalRect
         y_line = int(y + h / 2)
         start_x = int(x + w / 2)
         stop_x = int(start_x + w / 3)
         self.pointing_device.drag(start_x, y_line, stop_x, y_line)
-        self.assertThat(listview.count, Eventually(Equals(count - 1)))
 
     def assert_current_url(self, url):
         webview = self.main_window.get_current_webview()
@@ -127,5 +124,18 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
             lambda: len(self.main_window.get_tabslist_listview_delegates()),
             Eventually(Equals(1)))
         listview = self.main_window.get_tabslist_listview()
+        self.assertThat(listview.count, Eventually(Equals(1)))
         self.assertThat(listview.currentIndex, Eventually(Equals(0)))
         self.assert_current_url(url)
+
+    def test_close_last_open_tab(self):
+        self.ensure_activity_view_visible()
+        self.close_tab(0)
+        listview = self.main_window.get_tabslist_listview()
+        self.assertThat(listview.currentIndex, Eventually(Equals(0)))
+        self.assertThat(listview.count, Eventually(Equals(1)))
+        activity_view = self.main_window.get_activity_view()
+        self.assertThat(activity_view.visible, Eventually(Equals(False)))
+        self.assert_chrome_eventually_shown()
+        address_bar = self.main_window.get_address_bar()
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))

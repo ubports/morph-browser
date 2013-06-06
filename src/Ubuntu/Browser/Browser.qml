@@ -144,7 +144,12 @@ FocusScope {
                 browser.switchToTab(index)
                 visible = false
             }
-            onCloseTabRequested: browser.closeTab(index)
+            onCloseTabRequested: {
+                browser.closeTab(index)
+                if (tabsModel.count == 0) {
+                    newTabRequested()
+                }
+            }
         }
 
         Loader {
