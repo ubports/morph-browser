@@ -134,7 +134,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
                         Eventually(Equals(view.y + view.height)))
 
     def ensure_chrome_is_hidden(self):
-        webview = self.main_window.get_web_view()
+        webview = self.main_window.get_current_webview()
         self.pointing_device.move_to_object(webview)
         self.pointing_device.click()
         self.assert_chrome_eventually_hidden()
@@ -175,11 +175,11 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.keyboard.press_and_release("Enter")
 
     def assert_page_eventually_loading(self):
-        webview = self.main_window.get_web_view()
+        webview = self.main_window.get_current_webview()
         self.assertThat(webview.loading, Eventually(Equals(True)))
 
     def assert_page_eventually_loaded(self, url):
-        webview = self.main_window.get_web_view()
+        webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Eventually(Equals(url)))
         # loadProgress == 100 ensures that a page has actually loaded
         self.assertThat(webview.loadProgress, Eventually(Equals(100)))

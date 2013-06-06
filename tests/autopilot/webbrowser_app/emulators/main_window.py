@@ -18,6 +18,9 @@ class MainWindow(object):
         """Get the main QML view"""
         return self.app.select_single("QQuickWindow")
 
+    def get_browser(self):
+        return self.app.select_single("Browser")
+
     def get_chrome(self):
         return self.app.select_single("Chrome")
 
@@ -41,8 +44,13 @@ class MainWindow(object):
         return self.app.select_single("ChromeButton",
                                       objectName="forwardButton")
 
-    def get_web_view(self):
-        return self.app.select_single("QQuickWebViewExperimentalExtension")
+    def get_tabs_button(self):
+        return self.app.select_single("ChromeButton", objectName="tabsButton")
+
+    def get_current_webview(self):
+        browser = self.get_browser()
+        webviews = self.app.select_many("UbuntuWebView")
+        return webviews[browser.currentIndex]
 
     def get_error_sheet(self):
         return self.app.select_single("ErrorSheet")
@@ -63,3 +71,19 @@ class MainWindow(object):
 
     def get_panel(self):
         return self.app.select_single("Panel")
+
+    def get_activity_view(self):
+        return self.app.select_single("ActivityView")
+
+    def get_tabslist(self):
+        return self.get_activity_view().select_single("TabsList")
+
+    def get_tabslist_newtab_delegate(self):
+        return self.get_tabslist().select_single("PageDelegate",
+                                                 objectName="newTabDelegate")
+
+    def get_tabslist_listview(self):
+        return self.get_tabslist().select_single("QQuickListView")
+
+    def get_tabslist_listview_delegates(self):
+        return self.get_tabslist_listview().select_many("PageDelegate")

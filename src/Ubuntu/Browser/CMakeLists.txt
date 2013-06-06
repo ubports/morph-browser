@@ -3,6 +3,7 @@ project(webbrowser-plugin)
 set(PLUGIN ubuntubrowser)
 
 set(PLUGIN_SRC
+    tabs-model.cpp
     plugin.cpp
 )
 

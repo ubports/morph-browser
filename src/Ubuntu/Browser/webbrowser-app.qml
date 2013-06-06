@@ -22,7 +22,6 @@ import Ubuntu.Components 0.1
 
 Window {
     property alias chromeless: browser.chromeless
-    property alias url: browser.url
     property alias desktopFileHint: browser.desktopFileHint
     property alias qtwebkitdpr: browser.qtwebkitdpr
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
@@ -36,6 +35,10 @@ Window {
     Browser {
         id: browser
         anchors.fill: parent
+    }
+
+    function newTab(url, setCurrent) {
+        return browser.newTab(url, setCurrent)
     }
 
     Component.onCompleted: {

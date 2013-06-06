@@ -18,6 +18,7 @@ tests/unittests/tst_QmlTests
 tests/unittests/tst_CommandLineParserTests
 tests/unittests/tst_HistoryModelTests
 tests/unittests/tst_HistoryMatchesModelTests
+tests/unittests/tst_TabsModelTests
 po/*.gmo
 
 obj-*
