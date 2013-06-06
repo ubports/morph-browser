@@ -106,6 +106,7 @@ Rectangle {
                                                       '<b><font color="#DD4814">$&</font></b>')
                 }
                 highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
+                highlighted = '<html>' + highlighted + '</html>'
                 return highlighted
             }
         }

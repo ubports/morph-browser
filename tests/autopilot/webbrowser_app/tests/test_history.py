@@ -13,7 +13,7 @@ import random
 import sqlite3
 import time
 
-from testtools.matchers import Equals
+from testtools.matchers import Contains, Equals
 from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import BrowserTestCaseBase
@@ -125,7 +125,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         entry = entries[2]
         highlight = '<b><font color="#DD4814">Ubuntu</font></b>'
         url = "http://en.wikipedia.org/wiki/%s_(operating_system)" % highlight
-        self.assertThat(entry.subText, Equals(url))
+        self.assertThat(entry.subText, Contains(url))
         self.pointing_device.move_to_object(entry)
         self.pointing_device.click()
         webview = self.main_window.get_current_webview()
