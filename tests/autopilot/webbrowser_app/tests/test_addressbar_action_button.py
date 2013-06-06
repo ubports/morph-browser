@@ -11,12 +11,13 @@ from __future__ import absolute_import
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
-from webbrowser_app.tests import BrowserTestCaseBase
+from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
-class TestMainWindowAddressBarActionButton(BrowserTestCaseBase):
+class TestMainWindowAddressBarActionButton(StartOpenRemotePageTestCaseBase):
 
     def test_button_disabled_when_text_is_empty(self):
+        self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
         self.clear_address_bar()
         action_button = self.main_window.get_address_bar_action_button()
