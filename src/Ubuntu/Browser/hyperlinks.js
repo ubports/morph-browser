@@ -28,7 +28,8 @@ doc.addEventListener('click', function(event) {
             //    https://bugs.webkit.org/show_bug.cgi?id=76416
             //    https://bugs.webkit.org/show_bug.cgi?id=91779
             if (node.hasAttribute('target')) {
-                if (node.getAttribute('target').toLowerCase() == '_blank') {
+                var target = node.getAttribute('target').toLowerCase();
+                if ((target == '_blank') || (target == '"_blank"')) {
                     var link = {'event': 'newtab', 'url': node.getAttribute('href')};
                     navigator.qt.postMessage(JSON.stringify(link));
                 }
