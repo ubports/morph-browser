@@ -60,20 +60,27 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
 
     """Test the address bar suggestions based on navigation history."""
 
-    def test_show_list_of_suggestions(self):
+    def assert_suggestions_eventually_shown(self):
         suggestions = self.main_window.get_address_bar_suggestions()
+        self.assertThat(suggestions.opacity, Eventually(Equals(1)))
+
+    def assert_suggestions_eventually_hidden(self):
+        suggestions = self.main_window.get_address_bar_suggestions()
+        self.assertThat(suggestions.opacity, Eventually(Equals(0)))
+
+    def test_show_list_of_suggestions(self):
         listview = self.main_window.get_address_bar_suggestions_listview()
-        self.assertThat(suggestions.visible, Equals(False))
+        self.assert_suggestions_eventually_hidden()
         self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
-        self.assertThat(suggestions.visible, Equals(False))
+        self.assert_suggestions_eventually_hidden()
         self.focus_address_bar()
-        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.assert_suggestions_eventually_shown()
         self.assertThat(listview.count, Eventually(Equals(1)))
         self.clear_address_bar()
-        self.assertThat(suggestions.visible, Eventually(Equals(False)))
+        self.assert_suggestions_eventually_hidden()
         self.type_in_address_bar("u")
-        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.assert_suggestions_eventually_shown()
         self.assertThat(listview.count, Eventually(Equals(7)))
         self.type_in_address_bar("b")
         self.assertThat(listview.count, Eventually(Equals(5)))
@@ -84,53 +91,50 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assertThat(listview.count, Eventually(Equals(2)))
 
     def test_clear_address_bar_dismisses_suggestions(self):
-        suggestions = self.main_window.get_address_bar_suggestions()
         self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
         self.focus_address_bar()
-        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.assert_suggestions_eventually_shown()
         self.clear_address_bar()
         self.type_in_address_bar("ubuntu")
-        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.assert_suggestions_eventually_shown()
         self.clear_address_bar()
-        self.assertThat(suggestions.visible, Eventually(Equals(False)))
+        self.assert_suggestions_eventually_hidden()
 
     def test_addressbar_loosing_focus_dismisses_suggestions(self):
-        suggestions = self.main_window.get_address_bar_suggestions()
         self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
         self.focus_address_bar()
-        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.assert_suggestions_eventually_shown()
+        suggestions = self.main_window.get_address_bar_suggestions()
         coord = suggestions.globalRect
         webview = self.main_window.get_current_webview()
         self.pointing_device.move(
             coord[0] + int(coord[2] / 2),
             int((coord[1] + webview.globalRect[1]) / 2))
         self.pointing_device.click()
-        self.assertThat(suggestions.visible, Eventually(Equals(False)))
+        self.assert_suggestions_eventually_hidden()
 
     def test_hiding_chrome_dismisses_suggestions(self):
         self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
         self.focus_address_bar()
-        suggestions = self.main_window.get_address_bar_suggestions()
-        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.assert_suggestions_eventually_shown()
         self.hide_chrome()
         self.assert_chrome_eventually_hidden()
-        self.assertThat(suggestions.visible, Eventually(Equals(False)))
+        self.assert_suggestions_eventually_hidden()
         self.reveal_chrome()
-        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.assert_suggestions_eventually_shown()
 
     def test_select_suggestion(self):
-        suggestions = self.main_window.get_address_bar_suggestions()
         listview = self.main_window.get_address_bar_suggestions_listview()
         self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
         self.focus_address_bar()
-        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.assert_suggestions_eventually_shown()
         self.clear_address_bar()
         self.type_in_address_bar("ubuntu")
-        self.assertThat(suggestions.visible, Eventually(Equals(True)))
+        self.assert_suggestions_eventually_shown()
         self.assertThat(listview.count, Eventually(Equals(5)))
         entries = \
             self.main_window.get_address_bar_suggestions_listview_entries()
@@ -143,4 +147,4 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         webview = self.main_window.get_current_webview()
         url = "http://en.wikipedia.org/wiki/Ubuntu_(operating_system)"
         self.assertThat(webview.url, Eventually(Equals(url)))
-        self.assertThat(suggestions.visible, Eventually(Equals(False)))
+        self.assert_suggestions_eventually_hidden()
