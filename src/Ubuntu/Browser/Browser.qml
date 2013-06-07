@@ -231,28 +231,11 @@ FocusScope {
         }
 
         Suggestions {
-            id: suggestions
-
-            // Clumsy way of delaying the propagation of the value of
-            // panel.item.opened. When using the value of the property directly,
-            // as soon as a tap is registered on an item in the list, the
-            // panel’s inverse mouse area interprets it as a signal to hide the
-            // panel, and thus the suggestions are hidden before the tap gets a
-            // chance to be propagated to the item itself.
-            // FIXME: find a more elegant way of addressing this issue.
-            property bool panelOpened: true
-            Timer {
-                id: timer
-                interval: 1
-                onTriggered: suggestions.panelOpened = panel.item.opened
+            opacity: (panel.chrome && (panel.item.state == "spread") &&
+                      panel.chrome.addressBar.activeFocus && (count > 0)) ? 1.0 : 0.0
+            Behavior on opacity {
+                UbuntuNumberAnimation {}
             }
-            Connections {
-                target: panel.item
-                onOpenedChanged: timer.start()
-            }
-
-            visible: panel.chrome && panelOpened &&
-                     panel.chrome.addressBar.activeFocus && (count > 0)
             anchors {
                 bottom: panel.top
                 horizontalCenter: parent.horizontalCenter
