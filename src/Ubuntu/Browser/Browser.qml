@@ -231,7 +231,11 @@ FocusScope {
         }
 
         Suggestions {
-            visible: panel.chrome && panel.chrome.addressBar.activeFocus && (count > 0)
+            opacity: (panel.chrome && (panel.item.state == "spread") &&
+                      panel.chrome.addressBar.activeFocus && (count > 0)) ? 1.0 : 0.0
+            Behavior on opacity {
+                UbuntuNumberAnimation {}
+            }
             anchors {
                 bottom: panel.top
                 horizontalCenter: parent.horizontalCenter
