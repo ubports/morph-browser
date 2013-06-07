@@ -26,6 +26,8 @@ import Ubuntu.Components.Popups 0.1
 WebView {
     id: _webview
 
+    signal newTabRequested(url url)
+
     QtObject {
         // clumsy way of defining an enum in QML
         id: formFactor
@@ -97,6 +99,8 @@ WebView {
                 }
                 selection.show(data.left * scale, data.top * scale,
                                data.width * scale, data.height * scale)
+            } else if (data.event === 'newtab') {
+                newTabRequested(data.url)
             }
         }
     }
