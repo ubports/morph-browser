@@ -279,6 +279,8 @@ FocusScope {
                     historyModel.add(webview.url, webview.title, webview.icon)
                 }
             }
+
+            onNewTabRequested: browser.newTab(url, true)
         }
     }
 
