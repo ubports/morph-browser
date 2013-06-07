@@ -43,8 +43,10 @@ doc.addEventListener('click', handleClickEvent);
 
 var frames = doc.getElementsByTagName('iframe');
 for (var i = 0; i < frames.length; i++) {
-    var doc = frames[i].contentDocument;
-    if (doc) {
-        doc.documentElement.addEventListener('click', handleClickEvent);
-    }
+    frames[i].addEventListener('load', function() {
+        var doc = this.contentDocument;
+        if (doc) {
+            doc.documentElement.addEventListener('click', handleClickEvent);
+        }
+    });
 }
