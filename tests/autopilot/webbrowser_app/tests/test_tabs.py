@@ -139,3 +139,21 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assert_chrome_eventually_shown()
         address_bar = self.main_window.get_address_bar()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+    def test_open_target_blank_in_new_tab(self):
+        # craft a page that accepts clicks anywhere inside its window
+        # and that requests opening another page in a new tab
+        url2 = self.base_url + "/aleaiactaest"
+        html = '<html><body style="margin: 0">'
+        html += '<a href="%s" target="_blank">' % url2
+        html += '<div style="height: 100%"></div></a></body></html>'
+        url = self.make_raw_html_page(html)
+        self.go_to_url(url)
+        self.assert_page_eventually_loaded(url)
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.move_to_object(webview)
+        self.pointing_device.click()
+        listview = self.main_window.get_tabslist_listview()
+        self.assertThat(listview.count, Eventually(Equals(2)))
+        self.assertThat(listview.currentIndex, Eventually(Equals(1)))
+        self.assert_current_url(url2)
