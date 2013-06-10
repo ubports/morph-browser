@@ -16,9 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var doc = document.documentElement;
-
-doc.addEventListener('click', function(event) {
+function handleClickEvent(event) {
     var node = event.target;
     while (node) {
         if (node.nodeName.toLowerCase() == 'a') {
@@ -38,4 +36,17 @@ doc.addEventListener('click', function(event) {
         }
         node = node.parentNode;
     }
-});
+}
+
+var doc = document.documentElement;
+doc.addEventListener('click', handleClickEvent);
+
+var frames = doc.getElementsByTagName('iframe');
+for (var i = 0; i < frames.length; i++) {
+    frames[i].addEventListener('load', function() {
+        var doc = this.contentDocument;
+        if (doc) {
+            doc.documentElement.addEventListener('click', handleClickEvent);
+        }
+    });
+}

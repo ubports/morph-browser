@@ -46,6 +46,26 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             html = self.make_html(title, body)
             time.sleep(delay)
             self.send_html(html)
+        elif self.path == "/blanktargetlink":
+            # craft a page that accepts clicks anywhere inside its window
+            # and that requests opening another page in a new tab
+            self.send_response(200)
+            port = self.server.server_address[1]
+            url = 'http://localhost:%s/aleaiactaest' % port
+            html = '<html><body style="margin: 0">'
+            html += '<a href="%s" target="_blank">' % url
+            html += '<div style="height: 100%"></div></a>'
+            html += '</body></html>'
+            self.send_html(html)
+        elif self.path == "/fulliframewithblanktargetlink":
+            # iframe that takes up the whole page and that contains
+            # the page above
+            self.send_response(200)
+            html = '<html><body style="margin: 0">'
+            html += '<iframe height="100%" width="100%" '
+            html += 'src="/blanktargetlink" />'
+            html += '</body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 
