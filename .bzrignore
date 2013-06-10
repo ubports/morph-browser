@@ -14,6 +14,7 @@ moc_*.cpp
 *_automoc.cpp
 src/config.h
 src/webbrowser-app
+src/webbrowser-app.desktop
 tests/unittests/tst_QmlTests
 tests/unittests/tst_CommandLineParserTests
 tests/unittests/tst_HistoryModelTests

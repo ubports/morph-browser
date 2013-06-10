@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Name=Browser
-GenericName=Web Browser
-Comment=Browse the World Wide Web
+Name=tr("Browser")
+GenericName=tr("Web Browser")
+Comment=tr("Browse the World Wide Web")
 Type=Application
 Icon=webbrowser-app
 Exec=webbrowser-app %u

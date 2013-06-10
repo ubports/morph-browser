@@ -31,6 +31,15 @@ add_subdirectory(src)
 enable_testing()
 add_subdirectory(tests)
 
+file(GLOB_RECURSE I18N_SRC_FILES
+     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+     src/**.qml src/**.desktop.in)
+list(SORT I18N_SRC_FILES)
+
+# for dh_translations to extract the domain
+# (regarding syntax consistency, see http://pad.lv/1181187)
+set (GETTEXT_PACKAGE "webbrowser-app")
+
 add_subdirectory(po)
 
 install(FILES webbrowser-app.svg

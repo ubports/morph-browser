@@ -8,7 +8,7 @@
 
 from __future__ import absolute_import
 
-from testtools.matchers import Equals
+from testtools.matchers import Contains
 from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
@@ -24,5 +24,4 @@ class TestWindowTitle(StartOpenRemotePageTestCaseBase):
         url = self.make_html_page(title, body)
         self.go_to_url(url)
         window = self.main_window.get_qml_view()
-        title = "Alice in Wonderland - Ubuntu Web Browser"
-        self.assertThat(window.title, Eventually(Equals(title)))
+        self.assertThat(window.title, Eventually(Contains(title)))
