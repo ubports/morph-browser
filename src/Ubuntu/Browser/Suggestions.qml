@@ -93,6 +93,14 @@ Rectangle {
 
             onClicked: suggestions.selected(url)
 
+            function escapeTerm(term) {
+                // Build a regular expression suitable for highlighting a term
+                // in a case-insensitive manner and globally, by escaping
+                // special characters (a simpler version of preg_quote).
+                var escaped = term.replace(/[().?]/g, '\\$&')
+                return new RegExp(escaped, 'ig')
+            }
+
             function highlightTerms(text, terms) {
                 // Highlight the matching terms (bold and Ubuntu orange)
                 if (text === undefined) {
@@ -102,7 +110,7 @@ Rectangle {
                 var count = terms.length
                 for (var i = 0; i < count; ++i) {
                     var term = terms[i]
-                    highlighted = highlighted.replace(new RegExp(term, 'ig'),
+                    highlighted = highlighted.replace(escapeTerm(term),
                                                       '<b><font color="#DD4814">$&</font></b>')
                 }
                 highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')

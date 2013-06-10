@@ -148,3 +148,17 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         url = "http://en.wikipedia.org/wiki/Ubuntu_(operating_system)"
         self.assertThat(webview.url, Eventually(Equals(url)))
         self.assert_suggestions_eventually_hidden()
+
+    def test_special_characters(self):
+        self.assert_chrome_eventually_hidden()
+        self.reveal_chrome()
+        self.clear_address_bar()
+        self.type_in_address_bar("(phil")
+        self.assert_suggestions_eventually_shown()
+        listview = self.main_window.get_address_bar_suggestions_listview()
+        self.assertThat(listview.count, Eventually(Equals(1)))
+        entry = \
+            self.main_window.get_address_bar_suggestions_listview_entries()[0]
+        highlight = '<b><font color="#DD4814">(phil</font></b>'
+        url = "http://en.wikipedia.org/wiki/Ubuntu_%sosophy)" % highlight
+        self.assertThat(entry.subText, Contains(url))
