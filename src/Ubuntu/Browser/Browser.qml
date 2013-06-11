@@ -122,9 +122,8 @@ FocusScope {
         }
 
         ErrorSheet {
-            id: error
             anchors.fill: webviewContainer
-            visible: false
+            visible: currentWebview ? (currentWebview.lastLoadRequestStatus == WebView.LoadFailedStatus) : false
             url: currentWebview ? currentWebview.url : ""
             onRefreshClicked: currentWebview.reload()
         }
@@ -271,10 +270,9 @@ FocusScope {
 
             experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
 
+            property int lastLoadRequestStatus: -1
             onLoadingChanged: {
-                if (visible) {
-                    error.visible = (loadRequest.status === WebView.LoadFailedStatus)
-                }
+                lastLoadRequestStatus = loadRequest.status
                 if (loadRequest.status === WebView.LoadSucceededStatus) {
                     historyModel.add(webview.url, webview.title, webview.icon)
                 }
