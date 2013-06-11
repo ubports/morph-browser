@@ -7,15 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-05 09:59+0200\n"
+"POT-Creation-Date: 2013-06-06 12:51+0200\n"
 "PO-Revision-Date: 2013-05-17 16:24+0000\n"
 "Last-Translator: Akmal Xushvaqov <akmalxster@gmail.com>\n"
 "Language-Team: Uzbek <uz@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-06 06:29+0000\n"
+"X-Launchpad-Export-Date: 2013-06-11 06:33+0000\n"
 "X-Generator: Launchpad (build 16667)\n"
+
+#: src/Ubuntu/Browser/ActivityView.qml:54
+msgid "Activity"
+msgstr ""
 
 #: src/Ubuntu/Browser/Browser.qml:64
 msgid "Goto"
@@ -27,7 +31,7 @@ msgstr "Ўтиш"
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/Ubuntu/Browser/Browser.qml:71 src/Ubuntu/Browser/Chrome.qml:68
+#: src/Ubuntu/Browser/Browser.qml:71 src/Ubuntu/Browser/Chrome.qml:69
 msgid "Back"
 msgstr "Oрқага"
 
@@ -37,7 +41,7 @@ msgstr "Oрқага"
 msgid "Older Page"
 msgstr "Эскироқ саҳифа"
 
-#: src/Ubuntu/Browser/Browser.qml:79 src/Ubuntu/Browser/Chrome.qml:78
+#: src/Ubuntu/Browser/Browser.qml:79 src/Ubuntu/Browser/Chrome.qml:79
 msgid "Forward"
 msgstr "Олдинга"
 
@@ -57,41 +61,46 @@ msgstr "Қайта юклаш"
 msgid "Leave Page"
 msgstr "Саҳифадан чиқиш"
 
-#: src/Ubuntu/Browser/Browser.qml:94
+#: src/Ubuntu/Browser/Browser.qml:95
 msgid "Bookmark"
 msgstr "Хатчўп"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/Ubuntu/Browser/Browser.qml:97
+#: src/Ubuntu/Browser/Browser.qml:98
 msgid "Add This Page to Bookmarks"
 msgstr "Бу саҳифани хатчўпларга қўшиш"
 
-#: src/Ubuntu/Browser/Browser.qml:101
+#: src/Ubuntu/Browser/Browser.qml:102
 msgid "New Tab"
 msgstr "Янги ички ойна"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/Ubuntu/Browser/Browser.qml:104
+#: src/Ubuntu/Browser/Browser.qml:105
 msgid "Open a New Tab"
 msgstr "Янги ички ойна очиш"
+
+#: src/Ubuntu/Browser/Chrome.qml:114
+msgid "Tabs"
+msgstr ""
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:38
 msgid "Network Error"
 msgstr "Тармоқ хатоси"
 
-#: src/Ubuntu/Browser/ErrorSheet.qml:43
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/Ubuntu/Browser/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr ""
 
-#: src/Ubuntu/Browser/ErrorSheet.qml:49
+#: src/Ubuntu/Browser/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
 
-#: src/Ubuntu/Browser/ErrorSheet.qml:54
+#: src/Ubuntu/Browser/ErrorSheet.qml:55
 msgid "Refresh page"
 msgstr ""
 
@@ -107,6 +116,17 @@ msgstr "Сақлаш"
 msgid "Copy"
 msgstr "Нусха олиш"
 
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/Ubuntu/Browser/TabsList.qml:43
+#, qt-format
+msgid "Open pages %1"
+msgstr ""
+
+#: src/Ubuntu/Browser/TabsList.qml:68
+msgid "+"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the current page’s title
 #: src/Ubuntu/Browser/webbrowser-app.qml:33
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
@@ -114,4 +134,16 @@ msgstr ""
 
 #: src/Ubuntu/Browser/webbrowser-app.qml:34
 msgid "Ubuntu Web Browser"
+msgstr ""
+
+#: src/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr ""
+
+#: src/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr ""
+
+#: src/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
 msgstr ""
