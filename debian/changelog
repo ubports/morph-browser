@@ -1,3 +1,36 @@
+webbrowser-app (0.20daily13.06.11-0ubuntu1) saucy; urgency=low
+
+  [ Olivier Tilloy ]
+  * Ensure that the chrome won’t be automatically hidden while testing
+    interaction with the toolbar. This should fix flaky autopilot tests.
+  * More reliable way of asserting that a page has finished loading.
+    This should make tests more robust.
+  * Always format the suggestions as rich text, to ensure ampersands are
+    not incorrectly escaped. (LP: #1187432)
+  * Add translators comments for the keywords associated to HUD actions.
+  * Enable multiple tabs in the browser. Only the basic functionality is
+    in place, further iterations will refine the functionality and the
+    visuals.
+  * Make as many test cases as possible inherit from
+    StartOpenRemotePageTestCaseBase. This should make them overall more
+    robust by avoiding race conditions with the chrome automatically
+    hiding when the homepage has finished loading.
+  * Ensure the suggestions list is hidden when the panel is hidden. (LP:
+    #1187871)
+  * Open links with target="_blank" in a new tab.
+  * Install custom click event handler on all frames as well as on the
+    top-level document. (LP: #1159857, #1188575)
+  * Escape some special characters before highlighting them. (LP:
+    #1180521)
+  * Add a webbrowser-app.pot target to the build system and integrate
+    with dh_translations. Also internationalize the desktop file and
+    strings in C++ code.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 171
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 11 Jun 2013 05:03:08 +0000
+
 webbrowser-app (0.20daily13.06.05-0ubuntu1) saucy; urgency=low
 
   [ Michael Terry ]
