@@ -31,10 +31,12 @@ class HistoryModel : public QAbstractListModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString databasePath READ databasePath WRITE setDatabasePath NOTIFY databasePathChanged)
+
     Q_ENUMS(Roles)
 
 public:
-    HistoryModel(const QString& databasePath, QObject* parent=0);
+    HistoryModel(QObject* parent=0);
     ~HistoryModel();
 
     enum Roles {
@@ -50,7 +52,13 @@ public:
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex& index, int role) const;
 
+    const QString databasePath() const;
+    void setDatabasePath(const QString& path);
+
     Q_INVOKABLE int add(const QUrl& url, const QString& title, const QUrl& icon);
+
+Q_SIGNALS:
+    void databasePathChanged() const;
 
 private:
     QSqlDatabase m_database;
@@ -65,6 +73,7 @@ private:
     QList<HistoryEntry> m_entries;
     int getEntryIndex(const QUrl& url) const;
 
+    void resetDatabase(const QString& databaseName);
     void createDatabaseSchema();
     void populateFromDatabase();
     void insertNewEntryInDatabase(const HistoryEntry& entry);

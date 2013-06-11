@@ -99,7 +99,8 @@ bool WebBrowserApp::initialize()
     if (!dataLocation.exists()) {
         QDir::root().mkpath(dataLocation.absolutePath());
     }
-    HistoryModel* history = new HistoryModel(dataLocation.filePath("history.sqlite"), this);
+    HistoryModel* history = new HistoryModel(this);
+    history->setDatabasePath(dataLocation.filePath("history.sqlite"));
     context->setContextProperty("historyModel", history);
     HistoryMatchesModel* historyMatches = new HistoryMatchesModel(history, this);
     context->setContextProperty("historyMatches", historyMatches);
