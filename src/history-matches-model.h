@@ -24,8 +24,6 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
-class HistoryModel;
-
 class HistoryMatchesModel : public QSortFilterProxyModel
 {
     Q_OBJECT
@@ -34,7 +32,7 @@ class HistoryMatchesModel : public QSortFilterProxyModel
     Q_PROPERTY(QStringList terms READ terms NOTIFY termsChanged)
 
 public:
-    HistoryMatchesModel(HistoryModel* model, QObject* parent=0);
+    HistoryMatchesModel(QObject* parent=0);
 
     const QString& query() const;
     void setQuery(const QString& query);

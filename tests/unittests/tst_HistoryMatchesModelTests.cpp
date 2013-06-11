@@ -37,7 +37,8 @@ private Q_SLOTS:
     {
         model = new HistoryModel;
         model->setDatabasePath(":memory:");
-        matches = new HistoryMatchesModel(model);
+        matches = new HistoryMatchesModel;
+        matches->setSourceModel(model);
     }
 
     void cleanup()

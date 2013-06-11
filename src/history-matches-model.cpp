@@ -35,10 +35,9 @@
     An entry in the history model matches if all the terms are contained in
     either its URL or its title (inclusive OR).
 */
-HistoryMatchesModel::HistoryMatchesModel(HistoryModel* model, QObject* parent)
+HistoryMatchesModel::HistoryMatchesModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
-    setSourceModel(model);
 }
 
 const QString& HistoryMatchesModel::query() const

@@ -102,7 +102,8 @@ bool WebBrowserApp::initialize()
     HistoryModel* history = new HistoryModel(this);
     history->setDatabasePath(dataLocation.filePath("history.sqlite"));
     context->setContextProperty("historyModel", history);
-    HistoryMatchesModel* historyMatches = new HistoryMatchesModel(history, this);
+    HistoryMatchesModel* historyMatches = new HistoryMatchesModel(this);
+    historyMatches->setSourceModel(history);
     context->setContextProperty("historyMatches", historyMatches);
 
     QObject* browser = m_component->create();
