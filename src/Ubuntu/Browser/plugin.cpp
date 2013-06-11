@@ -20,7 +20,20 @@
 #include "tabs-model.h"
 
 // Qt
+#include <QtCore/QDir>
+#include <QtCore/QStandardPaths>
 #include <QtQml>
+
+void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
+{
+    Q_UNUSED(uri);
+    QDir dataLocation(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    if (!dataLocation.exists()) {
+        QDir::root().mkpath(dataLocation.absolutePath());
+    }
+    QQmlContext* context = engine->rootContext();
+    context->setContextProperty("dataLocation", dataLocation.absolutePath());
+}
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
 {
