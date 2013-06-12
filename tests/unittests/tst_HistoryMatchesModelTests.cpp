@@ -17,6 +17,7 @@
  */
 
 // Qt
+#include <QtTest/QSignalSpy>
 #include <QtTest/QtTest>
 
 // local
@@ -35,8 +36,10 @@ private:
 private Q_SLOTS:
     void init()
     {
-        model = new HistoryModel(":memory:");
-        matches = new HistoryMatchesModel(model);
+        model = new HistoryModel;
+        model->setDatabasePath(":memory:");
+        matches = new HistoryMatchesModel;
+        matches->setSourceModel(model);
     }
 
     void cleanup()
@@ -48,6 +51,21 @@ private Q_SLOTS:
     void shouldBeInitiallyEmpty()
     {
         QCOMPARE(matches->rowCount(), 0);
+    }
+
+    void shouldNotifyWhenChangingSourceModel()
+    {
+        QSignalSpy spy(matches, SIGNAL(sourceModelChanged()));
+        matches->setSourceModel(model);
+        QVERIFY(spy.isEmpty());
+        HistoryModel* model2 = new HistoryModel;
+        matches->setSourceModel(model2);
+        QCOMPARE(spy.count(), 1);
+        QCOMPARE(matches->sourceModel(), model2);
+        matches->setSourceModel(0);
+        QCOMPARE(spy.count(), 2);
+        QCOMPARE(matches->sourceModel(), (HistoryModel*) 0);
+        delete model2;
     }
 
     void shouldBeEmptyWhenQueryIsEmpty()

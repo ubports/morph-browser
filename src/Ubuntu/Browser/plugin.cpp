@@ -17,13 +17,30 @@
  */
 
 #include "plugin.h"
+#include "history-model.h"
+#include "history-matches-model.h"
 #include "tabs-model.h"
 
 // Qt
+#include <QtCore/QDir>
+#include <QtCore/QStandardPaths>
 #include <QtQml>
+
+void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
+{
+    Q_UNUSED(uri);
+    QDir dataLocation(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    if (!dataLocation.exists()) {
+        QDir::root().mkpath(dataLocation.absolutePath());
+    }
+    QQmlContext* context = engine->rootContext();
+    context->setContextProperty("dataLocation", dataLocation.absolutePath());
+}
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
 {
     Q_ASSERT(uri == QLatin1String("Ubuntu.Browser"));
+    qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
+    qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
 }

@@ -35,7 +35,8 @@ private:
 private Q_SLOTS:
     void init()
     {
-        model = new HistoryModel(":memory:");
+        model = new HistoryModel;
+        model->setDatabasePath(":memory:");
     }
 
     void cleanup()
@@ -145,17 +146,39 @@ private Q_SLOTS:
         QVERIFY(ts1 > now);
     }
 
+    void shouldReturnDatabasePath()
+    {
+        QCOMPARE(model->databasePath(), QString(":memory:"));
+    }
+
+    void shouldNotifyWhenSettingDatabasePath()
+    {
+        QSignalSpy spyPath(model, SIGNAL(databasePathChanged()));
+        QSignalSpy spyReset(model, SIGNAL(modelReset()));
+
+        model->setDatabasePath(":memory:");
+        QVERIFY(spyPath.isEmpty());
+        QVERIFY(spyReset.isEmpty());
+
+        model->setDatabasePath("");
+        QCOMPARE(spyPath.count(), 1);
+        QCOMPARE(spyReset.count(), 1);
+        QCOMPARE(model->databasePath(), QString(":memory:"));
+    }
+
     void shouldSerializeOnDisk()
     {
         QTemporaryFile tempFile;
         tempFile.open();
         QString fileName = tempFile.fileName();
         delete model;
-        model = new HistoryModel(fileName);
+        model = new HistoryModel;
+        model->setDatabasePath(fileName);
         model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
         model->add(QUrl("http://example.com/"), "Example Domain", QUrl());
         delete model;
-        model = new HistoryModel(fileName);
+        model = new HistoryModel;
+        model->setDatabasePath(fileName);
         QCOMPARE(model->rowCount(), 2);
     }
 };

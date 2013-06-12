@@ -38,14 +38,10 @@
     entry is added to the model the database is updated.
     However the model doesn’t monitor the database for external changes.
 */
-HistoryModel::HistoryModel(const QString& databasePath, QObject* parent)
+HistoryModel::HistoryModel(QObject* parent)
     : QAbstractListModel(parent)
 {
     m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), CONNECTION_NAME);
-    m_database.setDatabaseName(databasePath);
-    m_database.open();
-    createDatabaseSchema();
-    populateFromDatabase();
 }
 
 HistoryModel::~HistoryModel()
@@ -53,6 +49,18 @@ HistoryModel::~HistoryModel()
     m_database.close();
     m_database = QSqlDatabase();
     QSqlDatabase::removeDatabase(CONNECTION_NAME);
+}
+
+void HistoryModel::resetDatabase(const QString& databaseName)
+{
+    beginResetModel();
+    m_entries.clear();
+    m_database.close();
+    m_database.setDatabaseName(databaseName);
+    m_database.open();
+    createDatabaseSchema();
+    endResetModel();
+    populateFromDatabase();
 }
 
 void HistoryModel::createDatabaseSchema()
@@ -129,6 +137,23 @@ QVariant HistoryModel::data(const QModelIndex& index, int role) const
         return entry.lastVisit;
     default:
         return QVariant();
+    }
+}
+
+const QString HistoryModel::databasePath() const
+{
+    return m_database.databaseName();
+}
+
+void HistoryModel::setDatabasePath(const QString& path)
+{
+    if (path != databasePath()) {
+        if (path.isEmpty()) {
+            resetDatabase(":memory:");
+        } else {
+            resetDatabase(path);
+        }
+        Q_EMIT databasePathChanged();
     }
 }
 

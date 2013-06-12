@@ -17,9 +17,7 @@
  */
 
 // Qt
-#include <QtCore/QDir>
 #include <QtCore/QMetaObject>
-#include <QtCore/QStandardPaths>
 #include <QtNetwork/QNetworkInterface>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
@@ -29,8 +27,6 @@
 // local
 #include "config.h"
 #include "commandline-parser.h"
-#include "history-model.h"
-#include "history-matches-model.h"
 #include "webbrowser-app.h"
 
 static float getQtWebkitDpr()
@@ -94,15 +90,6 @@ bool WebBrowserApp::initialize()
         qWarning() << m_component->errorString();
         return false;
     }
-
-    QDir dataLocation(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
-    if (!dataLocation.exists()) {
-        QDir::root().mkpath(dataLocation.absolutePath());
-    }
-    HistoryModel* history = new HistoryModel(dataLocation.filePath("history.sqlite"), this);
-    context->setContextProperty("historyModel", history);
-    HistoryMatchesModel* historyMatches = new HistoryMatchesModel(history, this);
-    context->setContextProperty("historyMatches", historyMatches);
 
     QObject* browser = m_component->create();
     m_window = qobject_cast<QQuickWindow*>(browser);

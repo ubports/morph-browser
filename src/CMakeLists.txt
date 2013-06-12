@@ -18,8 +18,6 @@ set(WEBBROWSER_APP webbrowser-app)
 
 set(WEBBROWSER_SRC
     commandline-parser.cpp
-    history-model.cpp
-    history-matches-model.cpp
     webbrowser-app.cpp
     main.cpp
 )
