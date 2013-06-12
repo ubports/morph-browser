@@ -20,21 +20,21 @@ qt5_use_modules(tst_CommandLineParserTests Core Test)
 add_test(tst_CommandLineParserTests ${CMAKE_CURRENT_BINARY_DIR}/tst_CommandLineParserTests)
 
 set(HM_SRC
-    ${webbrowser-app_SOURCE_DIR}/history-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/history-model.cpp
     tst_HistoryModelTests.cpp
 )
 add_executable(tst_HistoryModelTests ${HM_SRC})
-include_directories(${webbrowser-app_SOURCE_DIR} ${webbrowser-app_BINARY_DIR})
+include_directories(${webbrowser-plugin_SOURCE_DIR})
 qt5_use_modules(tst_HistoryModelTests Core Sql Test)
 add_test(tst_HistoryModelTests ${CMAKE_CURRENT_BINARY_DIR}/tst_HistoryModelTests)
 
 set(HMM_SRC
-    ${webbrowser-app_SOURCE_DIR}/history-model.cpp
-    ${webbrowser-app_SOURCE_DIR}/history-matches-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/history-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/history-matches-model.cpp
     tst_HistoryMatchesModelTests.cpp
 )
 add_executable(tst_HistoryMatchesModelTests ${HMM_SRC})
-include_directories(${webbrowser-app_SOURCE_DIR} ${webbrowser-app_BINARY_DIR})
+include_directories(${webbrowser-plugin_SOURCE_DIR})
 qt5_use_modules(tst_HistoryMatchesModelTests Core Sql Test)
 add_test(tst_HistoryMatchesModelTests ${CMAKE_CURRENT_BINARY_DIR}/tst_HistoryMatchesModelTests)
 

@@ -3,13 +3,15 @@ project(webbrowser-plugin)
 set(PLUGIN ubuntubrowser)
 
 set(PLUGIN_SRC
+    history-model.cpp
+    history-matches-model.cpp
     tabs-model.cpp
     plugin.cpp
 )
 
 add_library(${PLUGIN} MODULE ${PLUGIN_SRC})
 
-qt5_use_modules(${PLUGIN} Qml)
+qt5_use_modules(${PLUGIN} Core Qml Sql)
 
 file(GLOB QML_FILES *.qml qmldir *.js *.qmltheme)
 install(TARGETS ${PLUGIN} DESTINATION ${WEBBROWSER_IMPORTS_DIR})

@@ -40,6 +40,19 @@ HistoryMatchesModel::HistoryMatchesModel(QObject* parent)
 {
 }
 
+HistoryModel* HistoryMatchesModel::sourceModel() const
+{
+    return qobject_cast<HistoryModel*>(QSortFilterProxyModel::sourceModel());
+}
+
+void HistoryMatchesModel::setSourceModel(HistoryModel* sourceModel)
+{
+    if (sourceModel != this->sourceModel()) {
+        QSortFilterProxyModel::setSourceModel(sourceModel);
+        Q_EMIT sourceModelChanged();
+    }
+}
+
 const QString& HistoryMatchesModel::query() const
 {
     return m_query;

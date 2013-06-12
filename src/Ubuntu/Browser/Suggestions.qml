@@ -23,6 +23,7 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 Rectangle {
     id: suggestions
 
+    property alias model: listview.model
     property alias count: listview.count
     property alias contentHeight: listview.contentHeight
 
@@ -46,8 +47,6 @@ Rectangle {
             right: parent.right
         }
         height: parent.height
-
-        model: historyMatches
 
         delegate: ListItem.Base {
             // Not using ListItem.Subtitled because it’s not themable,
@@ -75,7 +74,7 @@ Rectangle {
                         right: parent.right
                     }
                     elide: Text.ElideRight
-                    text: highlightTerms(title, historyMatches.terms)
+                    text: highlightTerms(title, suggestions.model.terms)
                 }
 
                 Label {
@@ -87,7 +86,7 @@ Rectangle {
                     }
                     fontSize: "small"
                     elide: Text.ElideRight
-                    text: highlightTerms(url, historyMatches.terms)
+                    text: highlightTerms(url, suggestions.model.terms)
                 }
             }
 

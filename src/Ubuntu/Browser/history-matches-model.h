@@ -24,15 +24,21 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
+class HistoryModel;
+
 class HistoryMatchesModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(HistoryModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(QString query READ query WRITE setQuery NOTIFY queryChanged)
     Q_PROPERTY(QStringList terms READ terms NOTIFY termsChanged)
 
 public:
     HistoryMatchesModel(QObject* parent=0);
+
+    HistoryModel* sourceModel() const;
+    void setSourceModel(HistoryModel* sourceModel);
 
     const QString& query() const;
     void setQuery(const QString& query);
@@ -40,6 +46,7 @@ public:
     const QStringList& terms() const;
 
 Q_SIGNALS:
+    void sourceModelChanged() const;
     void queryChanged() const;
     void termsChanged() const;
 

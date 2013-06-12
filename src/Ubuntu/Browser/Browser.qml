@@ -242,6 +242,7 @@ FocusScope {
             }
             width: panel.width - units.gu(5)
             height: Math.min(contentHeight, panel.y - units.gu(2))
+            model: historyMatches
             onSelected: {
                 currentWebview.url = url
                 currentWebview.forceActiveFocus()
@@ -251,6 +252,17 @@ FocusScope {
         KeyboardRectangle {
             id: osk
         }
+    }
+
+    HistoryModel {
+        id: historyModel
+        databasePath: dataLocation + "/history.sqlite"
+    }
+
+    HistoryMatchesModel {
+        id: historyMatches
+        sourceModel: historyModel
+        query: panel.chrome ? panel.chrome.addressBar.text : ""
     }
 
     TabsModel {
