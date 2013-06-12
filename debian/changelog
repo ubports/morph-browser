@@ -1,3 +1,15 @@
+webbrowser-app (0.20daily13.06.12-0ubuntu1) saucy; urgency=low
+
+  [ Olivier Tilloy ]
+  * Prevent mouse event from propagating to the suggestions list when
+    it’s not visible. (LP: #1189504)
+  * Display the error sheet only for the current tab. (LP: #1189483)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 175
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 12 Jun 2013 06:08:58 +0000
+
 webbrowser-app (0.20daily13.06.11-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
