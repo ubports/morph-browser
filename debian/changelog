@@ -1,3 +1,14 @@
+webbrowser-app (0.20daily13.06.13-0ubuntu1) saucy; urgency=low
+
+  [ Olivier Tilloy ]
+  * Move the HistoryModel and HistoryMatchesModel to the plugin, and
+    instantiate them in QML.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 178
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 13 Jun 2013 06:12:57 +0000
+
 webbrowser-app (0.20daily13.06.12-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
