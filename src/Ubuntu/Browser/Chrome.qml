@@ -35,7 +35,11 @@ Item {
     signal requestStop()
     signal toggleTabsClicked()
 
-    readonly property int widthThreshold: units.gu(55)
+    QtObject {
+        id: internal
+        // Arbitrary threshold for narrow screens.
+        readonly property bool isNarrow: width < units.gu(55)
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -51,7 +55,9 @@ Item {
             leftMargin: units.gu(1)
             verticalCenter: parent.verticalCenter
         }
-        width: ((chrome.width < chrome.widthThreshold) && addressBar.activeFocus) ? 0 : units.gu(5)
+        // On narrow screens, hide the button to maximize the
+        // address bar’s real estate when it has active focus.
+        width: (internal.isNarrow && addressBar.activeFocus) ? 0 : units.gu(5)
         Behavior on width {
             UbuntuNumberAnimation {}
         }
@@ -70,7 +76,9 @@ Item {
             leftMargin: units.gu(1)
             verticalCenter: parent.verticalCenter
         }
-        visible: chrome.width >= chrome.widthThreshold
+        // On narrow screen, hide the button to maximize
+        // the address bar’s real estate.
+        visible: !internal.isNarrow
         width: visible ? units.gu(5) : 0
         height: units.gu(5)
         icon: "assets/go-next.png"
