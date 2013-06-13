@@ -17,7 +17,6 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
 
 Item {
@@ -36,49 +35,55 @@ Item {
     signal requestStop()
     signal toggleTabsClicked()
 
+    QtObject {
+        id: internal
+        // Arbitrary threshold for narrow screens.
+        readonly property bool isNarrow: width < units.gu(55)
+    }
+
     Rectangle {
         anchors.fill: parent
         color: "white"
         opacity: 0.95
     }
 
-    Row {
-        id: buttons
-
+    ChromeButton {
+        id: backButton
+        objectName: "backButton"
         anchors {
             left: parent.left
+            leftMargin: units.gu(1)
             verticalCenter: parent.verticalCenter
-            margins: units.gu(1)
         }
-        spacing: units.gu(1)
-        clip: true
-
-        width: (((Screen.orientation == Qt.PortraitOrientation) ||
-                 (Screen.orientation == Qt.InvertedPortraitOrientation)) &&
-                addressBar.activeFocus) ? 0 : units.gu(12)
+        // On narrow screens, hide the button to maximize the
+        // address bar’s real estate when it has active focus.
+        width: (internal.isNarrow && addressBar.activeFocus) ? 0 : units.gu(5)
         Behavior on width {
-            NumberAnimation { duration: 200 }
+            UbuntuNumberAnimation {}
         }
+        height: units.gu(5)
+        clip: true
+        icon: "assets/go-previous.png"
+        label: i18n.tr("Back")
+        onClicked: chrome.goBackClicked()
+    }
 
-        ChromeButton {
-            id: backButton
-            objectName: "backButton"
-            width: units.gu(5)
-            height: width
-            icon: "assets/go-previous.png"
-            label: i18n.tr("Back")
-            onClicked: chrome.goBackClicked()
+    ChromeButton {
+        id: forwardButton
+        objectName: "forwardButton"
+        anchors {
+            left: backButton.right
+            leftMargin: units.gu(1)
+            verticalCenter: parent.verticalCenter
         }
-
-        ChromeButton {
-            id: forwardButton
-            objectName: "forwardButton"
-            width: units.gu(5)
-            height: width
-            icon: "assets/go-next.png"
-            label: i18n.tr("Forward")
-            onClicked: chrome.goForwardClicked()
-        }
+        // On narrow screen, hide the button to maximize
+        // the address bar’s real estate.
+        visible: !internal.isNarrow
+        width: visible ? units.gu(5) : 0
+        height: units.gu(5)
+        icon: "assets/go-next.png"
+        label: i18n.tr("Forward")
+        onClicked: chrome.goForwardClicked()
     }
 
     AddressBar {
@@ -86,7 +91,8 @@ Item {
         objectName: "addressBar"
 
         anchors {
-            left: buttons.right
+            left: forwardButton.right
+            leftMargin: units.gu(1)
             right: tabsButton.left
             rightMargin: units.gu(1)
             verticalCenter: parent.verticalCenter
