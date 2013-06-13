@@ -59,9 +59,9 @@ WebView {
         // this should be changed to a more neutral user-agent in the
         // future as we don’t want websites to recommend installing
         // their iPhone/iPad apps.
-        if (formFactor === formFactor.phone) {
+        if (_webview.formFactor === formFactor.phone) {
             return "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
-        } else if (formFactor === formFactor.tablet) {
+        } else if (_webview.formFactor === formFactor.tablet) {
             return "Mozilla/5.0 (iPad; CPU OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
         } else {
             return ""
