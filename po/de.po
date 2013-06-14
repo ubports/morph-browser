@@ -8,18 +8,18 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-06-06 12:51+0200\n"
-"PO-Revision-Date: 2013-06-12 14:26+0000\n"
+"PO-Revision-Date: 2013-06-13 09:25+0000\n"
 "Last-Translator: Phillip Sz <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-13 06:10+0000\n"
+"X-Launchpad-Export-Date: 2013-06-14 07:05+0000\n"
 "X-Generator: Launchpad (build 16667)\n"
 
 #: src/Ubuntu/Browser/ActivityView.qml:54
 msgid "Activity"
-msgstr ""
+msgstr "Aktivitäten"
 
 #: src/Ubuntu/Browser/Browser.qml:64
 msgid "Goto"
@@ -83,7 +83,7 @@ msgstr "Einen neuen Reiter öffnen"
 
 #: src/Ubuntu/Browser/Chrome.qml:114
 msgid "Tabs"
-msgstr ""
+msgstr "Reiter"
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:38
 msgid "Network Error"
@@ -122,11 +122,11 @@ msgstr "Kopieren"
 #: src/Ubuntu/Browser/TabsList.qml:43
 #, qt-format
 msgid "Open pages %1"
-msgstr ""
+msgstr "%1 offene Seiten"
 
 #: src/Ubuntu/Browser/TabsList.qml:68
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/Ubuntu/Browser/webbrowser-app.qml:33
@@ -140,12 +140,12 @@ msgstr "Ubuntu Internet-Browser"
 
 #: src/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr ""
+msgstr "Browser"
 
 #: src/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr ""
+msgstr "Internet-Browser"
 
 #: src/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "Im »World Wide Web« surfen"
