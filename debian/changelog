@@ -1,3 +1,17 @@
+webbrowser-app (0.20daily13.06.14-0ubuntu1) saucy; urgency=low
+
+  [ Olivier Tilloy ]
+  * Fix the conditional user-agent string based on form factor. (LP:
+    #1190409)
+  * Hide the forward button if there’s not enough screen real estate, as
+    per design request. The visibility of chrome buttons now depends on
+    the available width, regardless of orientation or form factor.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 181
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 14 Jun 2013 06:00:57 +0000
+
 webbrowser-app (0.20daily13.06.13-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
