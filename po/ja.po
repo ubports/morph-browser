@@ -1,4 +1,4 @@
-# Brazilian Portuguese translation for webbrowser-app
+# Japanese translation for webbrowser-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the webbrowser-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-06-06 12:51+0200\n"
-"PO-Revision-Date: 2013-06-14 14:56+0000\n"
-"Last-Translator: Rafael Neri <Unknown>\n"
-"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"PO-Revision-Date: 2013-06-14 22:27+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,133 +19,131 @@ msgstr ""
 
 #: src/Ubuntu/Browser/ActivityView.qml:54
 msgid "Activity"
-msgstr "Atividade"
+msgstr ""
 
 #: src/Ubuntu/Browser/Browser.qml:64
 msgid "Goto"
-msgstr "Ir para"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:67
 msgid "Address;URL;www"
-msgstr "Endereço;URL;www"
+msgstr ""
 
 #: src/Ubuntu/Browser/Browser.qml:71 src/Ubuntu/Browser/Chrome.qml:69
 msgid "Back"
-msgstr "Voltar"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:74
 msgid "Older Page"
-msgstr "Página mais antiga"
+msgstr ""
 
 #: src/Ubuntu/Browser/Browser.qml:79 src/Ubuntu/Browser/Chrome.qml:79
 msgid "Forward"
-msgstr "Avançar"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:82
 msgid "Newer Page"
-msgstr "Página mais nova"
+msgstr ""
 
 #: src/Ubuntu/Browser/Browser.qml:87
 msgid "Reload"
-msgstr "Recarregar"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:90
 msgid "Leave Page"
-msgstr "Deixar página"
+msgstr ""
 
 #: src/Ubuntu/Browser/Browser.qml:95
 msgid "Bookmark"
-msgstr "Favorito"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:98
 msgid "Add This Page to Bookmarks"
-msgstr "Adicionar esta página aos favoritos"
+msgstr ""
 
 #: src/Ubuntu/Browser/Browser.qml:102
 msgid "New Tab"
-msgstr "Nova aba"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:105
 msgid "Open a New Tab"
-msgstr "Abrir uma nova aba"
+msgstr ""
 
 #: src/Ubuntu/Browser/Chrome.qml:114
 msgid "Tabs"
-msgstr "Abas"
+msgstr ""
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr "Erro de conexão"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/Ubuntu/Browser/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Parece que você está tendo problemas de visualização: %1."
+msgstr ""
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"O Ubuntu sugere que você verifique suas configurações de rede e tente "
-"atualizar a página."
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr "Atualizar a página"
+msgstr ""
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:40
 msgid "Share"
-msgstr "Compartilhar"
+msgstr ""
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:50
 msgid "Save"
-msgstr "Salvar"
+msgstr ""
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:60
 msgid "Copy"
-msgstr "Copiar"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/Ubuntu/Browser/TabsList.qml:43
 #, qt-format
 msgid "Open pages %1"
-msgstr "Abrir %1 páginas"
+msgstr ""
 
 #: src/Ubuntu/Browser/TabsList.qml:68
 msgid "+"
-msgstr "+"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/Ubuntu/Browser/webbrowser-app.qml:33
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Navegador da internet"
+msgstr ""
 
 #: src/Ubuntu/Browser/webbrowser-app.qml:34
 msgid "Ubuntu Web Browser"
-msgstr "Navegador da internet"
+msgstr ""
 
 #: src/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr "Navegador"
+msgstr ""
 
 #: src/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr "Navegador da Internet"
+msgstr ""
 
 #: src/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr "Navegue na internet"
+msgstr ""
