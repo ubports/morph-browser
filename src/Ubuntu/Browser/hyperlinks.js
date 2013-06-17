@@ -28,7 +28,7 @@ function handleClickEvent(event) {
             if (node.hasAttribute('target')) {
                 var target = node.getAttribute('target').toLowerCase();
                 if ((target == '_blank') || (target == '"_blank"')) {
-                    var link = {'event': 'newtab', 'url': node.getAttribute('href')};
+                    var link = {'event': 'newtab', 'url': node.href};
                     navigator.qt.postMessage(JSON.stringify(link));
                 }
             }
