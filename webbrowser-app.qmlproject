@@ -8,6 +8,11 @@ Project {
     ImageFiles {}
 
     Files {
+        directory: "."
+        filter: "CMakeLists.txt"
+    }
+
+    Files {
         directory: "src"
         filter: "*.h;*.cpp;*.qmltheme"
     }
