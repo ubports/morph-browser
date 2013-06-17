@@ -119,6 +119,12 @@ FocusScope {
                 top: parent.top
                 bottom: osk.top
             }
+
+            WebviewThumbnailer {
+                id: thumbnailer
+                webview: currentWebview
+                onThumbnailRendered: console.log("thumbnail rendered to", thumbnail)
+            }
         }
 
         ErrorSheet {
@@ -288,6 +294,7 @@ FocusScope {
                 lastLoadRequestStatus = loadRequest.status
                 if (loadRequest.status === WebView.LoadSucceededStatus) {
                     historyModel.add(webview.url, webview.title, webview.icon)
+                    thumbnailer.renderThumbnail()
                 }
             }
 

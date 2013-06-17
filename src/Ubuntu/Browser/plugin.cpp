@@ -20,6 +20,8 @@
 #include "history-model.h"
 #include "history-matches-model.h"
 #include "tabs-model.h"
+#include "webview-thumbnailer.h"
+
 
 // Qt
 #include <QtCore/QDir>
@@ -43,4 +45,5 @@ void UbuntuBrowserPlugin::registerTypes(const char* uri)
     qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
     qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
+    qmlRegisterType<WebviewThumbnailer>(uri, 0, 1, "WebviewThumbnailer");
 }
