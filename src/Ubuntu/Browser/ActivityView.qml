@@ -21,7 +21,9 @@ import Ubuntu.Components 0.1
 
 Item {
     property alias tabsModel: tabsList.model
+    property alias historyModel: historyView.model
 
+    signal historyEntryRequested(url url)
     signal newTabRequested()
     signal switchToTabRequested(int index)
     signal closeTabRequested(int index)
@@ -59,14 +61,18 @@ Item {
                 anchors.fill: parent
                 opacity: 0.95
 
-                Rectangle {
-                    color: "white"
+                HistoryView {
+                    id: historyView
+
                     anchors {
                         top: parent.top
+                        bottom: tabsList.top
                         left: parent.left
                         right: parent.right
-                        bottom: tabsList.top
                     }
+                    color: "#D6CFC9"
+
+                    onHistoryEntryClicked: historyEntryRequested(url)
                 }
 
                 TabsList {

@@ -1,0 +1,149 @@
+/*
+ * Copyright 2013 Canonical Ltd.
+ *
+ * This file is part of webbrowser-app.
+ *
+ * webbrowser-app is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3.
+ *
+ * webbrowser-app is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+import QtQuick 2.0
+import Ubuntu.Browser 0.1
+import Ubuntu.Components 0.1
+
+Rectangle {
+    id: historyView
+
+    property var model
+
+    signal historyEntryClicked(url url)
+
+    ListView {
+
+        anchors.fill: parent
+        verticalLayoutDirection: ListView.BottomToTop
+        spacing: units.gu(1)
+        clip: true
+
+        model: ListModel {
+            ListElement { timeframe: "today" }
+            ListElement { timeframe: "yesterday" }
+            ListElement { timeframe: "last7days" }
+            ListElement { timeframe: "thismonth" }
+            ListElement { timeframe: "thisyear" }
+            ListElement { timeframe: "older" }
+        }
+
+        delegate: Item {
+            height: visible ? units.gu(18) : -units.gu(1)
+            visible: listview.count > 0
+            width: parent.width
+            clip: true
+
+            Label {
+                id: header
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                    margins: units.gu(1)
+                }
+                text: {
+                    if (model.timeframe == "today") {
+                        return i18n.tr("Today")
+                    } else if (model.timeframe == "yesterday") {
+                        return i18n.tr("Yesterday")
+                    } else if (model.timeframe == "last7days") {
+                        return i18n.tr("Last 7 Days")
+                    } else if (model.timeframe == "thismonth") {
+                        return i18n.tr("This Month")
+                    } else if (model.timeframe == "thisyear") {
+                        return i18n.tr("This Year")
+                    } else if (model.timeframe == "older") {
+                        return i18n.tr("Older")
+                    }
+                }
+            }
+
+            ListView {
+                id: listview
+                anchors {
+                    top: header.bottom
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
+                    margins: units.gu(1)
+                }
+
+                spacing: units.gu(1)
+                orientation: ListView.Horizontal
+
+                model: HistoryTimeframeModel {
+                    sourceModel: historyView.model
+                    start: {
+                        var date = new Date()
+                        if (model.timeframe == "yesterday") {
+                            date.setDate(date.getDate() - 1)
+                        } else if (model.timeframe == "last7days") {
+                            date.setDate(date.getDate() - 7)
+                        } else if (model.timeframe == "thismonth") {
+                            date.setDate(1)
+                        } else if (model.timeframe == "thisyear") {
+                            date.setMonth(0)
+                            date.setDate(1)
+                        } else if (model.timeframe == "older") {
+                            date.setFullYear(0, 0, 1)
+                        }
+                        date.setHours(0)
+                        date.setMinutes(0)
+                        date.setSeconds(0)
+                        date.setMilliseconds(0)
+                        return date
+                    }
+                    end: {
+                        var date = new Date()
+                        if (model.timeframe == "yesterday") {
+                            date.setDate(date.getDate() - 1)
+                        } else if (model.timeframe == "last7days") {
+                            date.setDate(date.getDate() - 2)
+                        } else if (model.timeframe == "thismonth") {
+                            date.setDate(date.getDate() - 8)
+                        } else if (model.timeframe == "thisyear") {
+                            date.setDate(0)
+                        } else if (model.timeframe == "older") {
+                            date.setMonth(0)
+                            date.setDate(0)
+                        }
+                        date.setHours(23)
+                        date.setMinutes(59)
+                        date.setSeconds(59)
+                        date.setMilliseconds(999)
+                        return date
+                    }
+                }
+
+                delegate: PageDelegate {
+                    width: units.gu(10)
+                    height: units.gu(13)
+                    color: "white"
+
+                    title: model.title
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: historyEntryClicked(model.url)
+                    }
+                }
+            }
+        }
+    }
+}

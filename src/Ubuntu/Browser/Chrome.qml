@@ -93,7 +93,7 @@ Item {
         anchors {
             left: forwardButton.right
             leftMargin: units.gu(1)
-            right: tabsButton.left
+            right: activityButton.left
             rightMargin: units.gu(1)
             verticalCenter: parent.verticalCenter
         }
@@ -105,8 +105,8 @@ Item {
     }
 
     ChromeButton {
-        id: tabsButton
-        objectName: "tabsButton"
+        id: activityButton
+        objectName: "activityButton"
 
         anchors {
             verticalCenter: parent.verticalCenter
@@ -117,7 +117,7 @@ Item {
         height: width
 
         icon: "assets/browser-tabs.png"
-        label: i18n.tr("Tabs")
+        label: i18n.tr("Activity")
 
         onClicked: chrome.toggleTabsClicked()
     }

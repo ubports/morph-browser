@@ -44,8 +44,8 @@ class MainWindow(object):
         return self.app.select_single("ChromeButton",
                                       objectName="forwardButton")
 
-    def get_tabs_button(self):
-        return self.app.select_single("ChromeButton", objectName="tabsButton")
+    def get_activity_button(self):
+        return self.app.select_single("ChromeButton", objectName="activityButton")
 
     def get_current_webview(self):
         browser = self.get_browser()
