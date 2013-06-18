@@ -19,6 +19,7 @@
 #include "plugin.h"
 #include "history-model.h"
 #include "history-matches-model.h"
+#include "history-timeframe-model.h"
 #include "tabs-model.h"
 
 // Qt
@@ -42,5 +43,6 @@ void UbuntuBrowserPlugin::registerTypes(const char* uri)
     Q_ASSERT(uri == QLatin1String("Ubuntu.Browser"));
     qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
     qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
+    qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
 }
