@@ -38,6 +38,16 @@ include_directories(${webbrowser-plugin_SOURCE_DIR})
 qt5_use_modules(tst_HistoryMatchesModelTests Core Sql Test)
 add_test(tst_HistoryMatchesModelTests ${CMAKE_CURRENT_BINARY_DIR}/tst_HistoryMatchesModelTests)
 
+set(HTM_SRC
+    ${webbrowser-plugin_SOURCE_DIR}/history-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/history-timeframe-model.cpp
+    tst_HistoryTimeframeModelTests.cpp
+)
+add_executable(tst_HistoryTimeframeModelTests ${HTM_SRC})
+include_directories(${webbrowser-plugin_SOURCE_DIR})
+qt5_use_modules(tst_HistoryTimeframeModelTests Core Sql Test)
+add_test(tst_HistoryTimeframeModelTests ${CMAKE_CURRENT_BINARY_DIR}/tst_HistoryTimeframeModelTests)
+
 set(TM_SRC
     ${webbrowser-plugin_SOURCE_DIR}/tabs-model.cpp
     tst_TabsModelTests.cpp

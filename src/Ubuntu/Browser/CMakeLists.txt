@@ -5,6 +5,7 @@ set(PLUGIN ubuntubrowser)
 set(PLUGIN_SRC
     history-model.cpp
     history-matches-model.cpp
+    history-timeframe-model.cpp
     tabs-model.cpp
     plugin.cpp
 )
