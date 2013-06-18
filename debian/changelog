@@ -1,3 +1,18 @@
+webbrowser-app (0.20daily13.06.18-0ubuntu1) saucy; urgency=low
+
+  [ Olivier Tilloy ]
+  * Reduce the spacing between the action icon and the text in the
+    address bar, per design request.
+  * Also display CMakeLists.txt files in Qt Creator.
+  * When redirecting a link with target="_blank" to a new tab, use the
+    computed value of the href to ensure the path is absolute. (LP:
+    #1191830)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 189
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 18 Jun 2013 08:24:18 +0000
+
 webbrowser-app (0.20daily13.06.14-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
