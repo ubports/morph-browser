@@ -22,7 +22,7 @@ Homepage: https://launchpad.net/webbrowser-app
 Vcs-Bzr: https://code.launchpad.net/~phablet-team/webbrowser-app/trunk
 
 Package: webbrowser-app
-Architecture: i386 amd64 armhf
+Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          qtdeclarative5-hud1.0,
@@ -40,7 +40,7 @@ Architecture: all
 Depends: ${misc:Depends},
          libautopilot-qt,
          libqt5test5,
-         webbrowser-app (= ${source:Version}),
+         webbrowser-app (>= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains autopilot
