@@ -31,9 +31,18 @@ Depends: ${misc:Depends},
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-window-plugin,
+         webbrowser-app-assets (>= ${binary:Version}),
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.
+
+Package: webbrowser-app-assets
+Architecture: all
+Depends: ${misc:Depends},
+Description: Ubuntu web browser icon assets
+ A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
+ engine and using the Ubuntu UI components. This package contains the
+ PNGs used as UI elements.
 
 Package: webbrowser-app-autopilot
 Architecture: all
