@@ -48,6 +48,29 @@ include_directories(${webbrowser-plugin_SOURCE_DIR})
 qt5_use_modules(tst_HistoryTimeframeModelTests Core Sql Test)
 add_test(tst_HistoryTimeframeModelTests ${CMAKE_CURRENT_BINARY_DIR}/tst_HistoryTimeframeModelTests)
 
+set(HHM_SRC
+    ${webbrowser-plugin_SOURCE_DIR}/history-host-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/history-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/history-timeframe-model.cpp
+    tst_HistoryHostModelTests.cpp
+)
+add_executable(tst_HistoryHostModelTests ${HHM_SRC})
+include_directories(${webbrowser-plugin_SOURCE_DIR})
+qt5_use_modules(tst_HistoryHostModelTests Core Sql Test)
+add_test(tst_HistoryHostModelTests ${CMAKE_CURRENT_BINARY_DIR}/tst_HistoryHostModelTests)
+
+set(HHLM_SRC
+    ${webbrowser-plugin_SOURCE_DIR}/history-host-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/history-hostlist-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/history-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/history-timeframe-model.cpp
+    tst_HistoryHostListModelTests.cpp
+)
+add_executable(tst_HistoryHostListModelTests ${HHLM_SRC})
+include_directories(${webbrowser-plugin_SOURCE_DIR})
+qt5_use_modules(tst_HistoryHostListModelTests Core Sql Test)
+add_test(tst_HistoryHostListModelTests ${CMAKE_CURRENT_BINARY_DIR}/tst_HistoryHostListModelTests)
+
 set(TM_SRC
     ${webbrowser-plugin_SOURCE_DIR}/tabs-model.cpp
     tst_TabsModelTests.cpp

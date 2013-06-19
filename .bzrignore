@@ -20,6 +20,8 @@ tests/unittests/tst_CommandLineParserTests
 tests/unittests/tst_HistoryModelTests
 tests/unittests/tst_HistoryMatchesModelTests
 tests/unittests/tst_HistoryTimeframeModelTests
+tests/unittests/tst_HistoryHostModelTests
+tests/unittests/tst_HistoryHostListModelTests
 tests/unittests/tst_TabsModelTests
 po/*.gmo
 
