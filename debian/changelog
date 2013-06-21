@@ -1,3 +1,14 @@
+webbrowser-app (0.20daily13.06.21-0ubuntu1) saucy; urgency=low
+
+  [ Robert Bruce Park ]
+  * Minor packaging fixes.
+  * Move assets under /usr/share, with symlinks.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 195
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 21 Jun 2013 07:09:12 +0000
+
 webbrowser-app (0.20daily13.06.18-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
