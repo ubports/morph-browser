@@ -47,7 +47,7 @@ Item {
         opacity: 0.95
     }
 
-    ChromeButton {
+    ToolbarButton {
         id: backButton
         objectName: "backButton"
         anchors {
@@ -63,12 +63,12 @@ Item {
         }
         height: units.gu(5)
         clip: true
-        icon: "assets/go-previous.png"
-        label: i18n.tr("Back")
-        onClicked: chrome.goBackClicked()
+        iconSource: "assets/go-previous.png"
+        text: i18n.tr("Back")
+        onTriggered: chrome.goBackClicked()
     }
 
-    ChromeButton {
+    ToolbarButton {
         id: forwardButton
         objectName: "forwardButton"
         anchors {
@@ -81,9 +81,9 @@ Item {
         visible: !internal.isNarrow
         width: visible ? units.gu(5) : 0
         height: units.gu(5)
-        icon: "assets/go-next.png"
-        label: i18n.tr("Forward")
-        onClicked: chrome.goForwardClicked()
+        iconSource: "assets/go-next.png"
+        text: i18n.tr("Forward")
+        onTriggered: chrome.goForwardClicked()
     }
 
     AddressBar {
@@ -104,7 +104,7 @@ Item {
         onRequestStop: chrome.requestStop()
     }
 
-    ChromeButton {
+    ToolbarButton {
         id: tabsButton
         objectName: "tabsButton"
 
@@ -116,10 +116,10 @@ Item {
         width: units.gu(5)
         height: width
 
-        icon: "assets/browser-tabs.png"
-        label: i18n.tr("Tabs")
+        iconSource: "assets/browser-tabs.png"
+        text: i18n.tr("Tabs")
 
-        onClicked: chrome.toggleTabsClicked()
+        onTriggered: chrome.toggleTabsClicked()
     }
 
     EmbeddedProgressBar {
