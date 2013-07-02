@@ -15,11 +15,7 @@ moc_*.cpp
 src/config.h
 src/webbrowser-app
 src/webbrowser-app.desktop
-tests/unittests/tst_QmlTests
-tests/unittests/tst_CommandLineParserTests
-tests/unittests/tst_HistoryModelTests
-tests/unittests/tst_HistoryMatchesModelTests
-tests/unittests/tst_TabsModelTests
+RE:tests/unittests/.+/tst_\w+Tests$
 po/*.gmo
 
 obj-*
