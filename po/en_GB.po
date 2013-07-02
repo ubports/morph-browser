@@ -1,4 +1,4 @@
-# Latvian translation for webbrowser-app
+# English (United Kingdom) translation for webbrowser-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the webbrowser-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,120 +8,120 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-06-06 12:51+0200\n"
-"PO-Revision-Date: 2013-06-18 15:07+0000\n"
-"Last-Translator: Klavs Anson <anson.klavs@gmail.com>\n"
-"Language-Team: Latvian <lv@li.org>\n"
+"PO-Revision-Date: 2013-06-24 16:34+0000\n"
+"Last-Translator: Andi Chandler <Unknown>\n"
+"Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-19 06:18+0000\n"
-"X-Generator: Launchpad (build 16673)\n"
+"X-Launchpad-Export-Date: 2013-06-25 05:58+0000\n"
+"X-Generator: Launchpad (build 16677)\n"
 
 #: src/Ubuntu/Browser/ActivityView.qml:54
 msgid "Activity"
-msgstr "Darbība"
+msgstr "Activity"
 
 #: src/Ubuntu/Browser/Browser.qml:64
 msgid "Goto"
-msgstr "Iet uz"
+msgstr "Goto"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:67
 msgid "Address;URL;www"
-msgstr "Adrese;URL;www"
+msgstr "Address;URL;www"
 
 #: src/Ubuntu/Browser/Browser.qml:71 src/Ubuntu/Browser/Chrome.qml:69
 msgid "Back"
-msgstr "Atpakaļ"
+msgstr "Back"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:74
 msgid "Older Page"
-msgstr "Vecāka lapa"
+msgstr "Older Page"
 
 #: src/Ubuntu/Browser/Browser.qml:79 src/Ubuntu/Browser/Chrome.qml:79
 msgid "Forward"
-msgstr "Uz priekšu"
+msgstr "Forward"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:82
 msgid "Newer Page"
-msgstr "Jaunaka lapa"
+msgstr "Newer Page"
 
 #: src/Ubuntu/Browser/Browser.qml:87
 msgid "Reload"
-msgstr "Pārielādēt"
+msgstr "Reload"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:90
 msgid "Leave Page"
-msgstr "Pamest lapu"
+msgstr "Leave Page"
 
 #: src/Ubuntu/Browser/Browser.qml:95
 msgid "Bookmark"
-msgstr "Grāmatzīme"
+msgstr "Bookmark"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:98
 msgid "Add This Page to Bookmarks"
-msgstr "Pievienot Šo Lapu Grāmatzīmēm"
+msgstr "Add This Page to Bookmarks"
 
 #: src/Ubuntu/Browser/Browser.qml:102
 msgid "New Tab"
-msgstr "Jauna cilne"
+msgstr "New Tab"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:105
 msgid "Open a New Tab"
-msgstr "Atvert jaunu cilni"
+msgstr "Open a New Tab"
 
 #: src/Ubuntu/Browser/Chrome.qml:114
 msgid "Tabs"
-msgstr "Cilnes"
+msgstr "Tabs"
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr "Tikla kļūda"
+msgstr "Network Error"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/Ubuntu/Browser/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Paradas ka jums ir problēma skatoties: %1."
+msgstr "It appears you are having trouble viewing: %1."
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"Ubuntu jums iesaka parbaudīt tīkla iestatījums un meģinat parieladet lapu."
+"Ubuntu suggests you check your network settings and try refreshing the page."
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr "Atjaunināt lapu"
+msgstr "Refresh page"
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:40
 msgid "Share"
-msgstr "Koplietot"
+msgstr "Share"
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:50
 msgid "Save"
-msgstr "Saglabāt"
+msgstr "Save"
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:60
 msgid "Copy"
-msgstr "Kopēt"
+msgstr "Copy"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/Ubuntu/Browser/TabsList.qml:43
 #, qt-format
 msgid "Open pages %1"
-msgstr "%1 atvertas lapas"
+msgstr "Open pages %1"
 
 #: src/Ubuntu/Browser/TabsList.qml:68
 msgid "+"
@@ -131,20 +131,20 @@ msgstr "+"
 #: src/Ubuntu/Browser/webbrowser-app.qml:33
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Ubuntu Web Pārlūks"
+msgstr "%1 - Ubuntu Web Browser"
 
 #: src/Ubuntu/Browser/webbrowser-app.qml:34
 msgid "Ubuntu Web Browser"
-msgstr "Ubuntu Web Pārlūks"
+msgstr "Ubuntu Web Browser"
 
 #: src/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr "Pārlūks"
+msgstr "Browser"
 
 #: src/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr "Tīmekļa Pārlūks"
+msgstr "Web Browser"
 
 #: src/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr "Pārlūkot World Wide Web"
+msgstr "Browse the World Wide Web"

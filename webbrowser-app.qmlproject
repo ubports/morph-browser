@@ -14,7 +14,7 @@ Project {
 
     Files {
         directory: "src"
-        filter: "*.h;*.cpp;*.qmltheme"
+        filter: "*.h;*.cpp"
     }
 
     Files {

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-06-06 12:51+0200\n"
-"PO-Revision-Date: 2013-06-14 22:27+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2013-06-18 17:16+0000\n"
+"Last-Translator: 173210 <root.3.173210@live.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-15 06:21+0000\n"
-"X-Generator: Launchpad (build 16667)\n"
+"X-Launchpad-Export-Date: 2013-06-19 06:18+0000\n"
+"X-Generator: Launchpad (build 16673)\n"
 
 #: src/Ubuntu/Browser/ActivityView.qml:54
 msgid "Activity"
@@ -29,31 +29,31 @@ msgstr ""
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:67
 msgid "Address;URL;www"
-msgstr ""
+msgstr "アドレス;Address;URL;www"
 
 #: src/Ubuntu/Browser/Browser.qml:71 src/Ubuntu/Browser/Chrome.qml:69
 msgid "Back"
-msgstr ""
+msgstr "戻る"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:74
 msgid "Older Page"
-msgstr ""
+msgstr "前のページ"
 
 #: src/Ubuntu/Browser/Browser.qml:79 src/Ubuntu/Browser/Chrome.qml:79
 msgid "Forward"
-msgstr ""
+msgstr "進む"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:82
 msgid "Newer Page"
-msgstr ""
+msgstr "次のページ"
 
 #: src/Ubuntu/Browser/Browser.qml:87
 msgid "Reload"
-msgstr ""
+msgstr "再読み込み"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -63,31 +63,31 @@ msgstr ""
 
 #: src/Ubuntu/Browser/Browser.qml:95
 msgid "Bookmark"
-msgstr ""
+msgstr "ブックマーク"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:98
 msgid "Add This Page to Bookmarks"
-msgstr ""
+msgstr "このページをブックマークに追加"
 
 #: src/Ubuntu/Browser/Browser.qml:102
 msgid "New Tab"
-msgstr ""
+msgstr "新しいタブ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:105
 msgid "Open a New Tab"
-msgstr ""
+msgstr "新しいタブを開く"
 
 #: src/Ubuntu/Browser/Chrome.qml:114
 msgid "Tabs"
-msgstr ""
+msgstr "タブ"
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr ""
+msgstr "ネットワークエラー"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/Ubuntu/Browser/ErrorSheet.qml:44
@@ -102,7 +102,7 @@ msgstr ""
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr ""
+msgstr "ページを再読み込み"
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:40
 msgid "Share"
@@ -114,7 +114,7 @@ msgstr ""
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:60
 msgid "Copy"
-msgstr ""
+msgstr "コピー"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/Ubuntu/Browser/TabsList.qml:43
@@ -124,26 +124,26 @@ msgstr ""
 
 #: src/Ubuntu/Browser/TabsList.qml:68
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/Ubuntu/Browser/webbrowser-app.qml:33
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - Ubuntuウェブブラウザー"
 
 #: src/Ubuntu/Browser/webbrowser-app.qml:34
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "Ubuntuウェブブラウザー"
 
 #: src/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr ""
+msgstr "ブラウザー"
 
 #: src/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr ""
+msgstr "ウェブブラウザー"
 
 #: src/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "ウェブを閲覧します"

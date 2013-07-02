@@ -51,9 +51,8 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             # and that requests opening another page in a new tab
             self.send_response(200)
             port = self.server.server_address[1]
-            url = 'http://localhost:%s/aleaiactaest' % port
             html = '<html><body style="margin: 0">'
-            html += '<a href="%s" target="_blank">' % url
+            html += '<a href="/aleaiactaest" target="_blank">'
             html += '<div style="height: 100%"></div></a>'
             html += '</body></html>'
             self.send_html(html)
