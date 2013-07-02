@@ -37,7 +37,7 @@ inline QString UbuntuBrowserDirectory()
     if (isRunningInstalled()) {
         return QString("@WEBBROWSER_IMPORTS_DIR@");
     } else {
-        return QString("@CMAKE_SOURCE_DIR@/src/Ubuntu/Browser");
+        return QString("@CMAKE_SOURCE_DIR@/src/Ubuntu/Components/Extras/Browser");
     }
 }
 
