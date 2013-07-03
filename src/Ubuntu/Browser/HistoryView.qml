@@ -154,8 +154,13 @@ Rectangle {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                timeline.currentIndex = timelineIndex
-                                entriesview.model = model.entries
+                                if ((timeline.currentIndex == timelineIndex) &&
+                                    (entriesview.model == model.entries)) {
+                                    timeline.currentIndex = -1
+                                } else {
+                                    timeline.currentIndex = timelineIndex
+                                    entriesview.model = model.entries
+                                }
                             }
                         }
                     }
