@@ -38,14 +38,13 @@ class MainWindow(object):
                                        objectName="actionButton")
 
     def get_back_button(self):
-        return self.app.select_single("ChromeButton", objectName="backButton")
+        return self.app.select_single("ActionItem", objectName="backButton")
 
     def get_forward_button(self):
-        return self.app.select_single("ChromeButton",
-                                      objectName="forwardButton")
+        return self.app.select_single("ActionItem", objectName="forwardButton")
 
     def get_activity_button(self):
-        return self.app.select_single("ChromeButton", objectName="activityButton")
+        return self.app.select_single("ActionItem", objectName="activityButton")
 
     def get_current_webview(self):
         browser = self.get_browser()

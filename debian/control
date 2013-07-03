@@ -25,16 +25,26 @@ Package: webbrowser-app
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         qtdeclarative5-hud1.0,
-         libqt5sql5-sqlite,
-         libqt5webkit5-qmlwebkitplugin,
-         qtdeclarative5-qtquick2-plugin,
-         qtdeclarative5-ubuntu-ui-toolkit-plugin,
-         qtdeclarative5-window-plugin,
-         webbrowser-app-assets (>= ${binary:Version}),
+         qtdeclarative5-ubuntu-ui-extras-browser-plugin (= ${binary:Version}),
+         webbrowser-app-assets (= ${binary:Version}),
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.
+
+Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libqt5sql5-sqlite,
+         libqt5webkit5-qmlwebkitplugin,
+         qtdeclarative5-hud1.0,
+         qtdeclarative5-qtquick2-plugin,
+         qtdeclarative5-ubuntu-ui-toolkit-plugin,
+         qtdeclarative5-window-plugin,
+Description: Ubuntu web browser QML plugin
+ A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
+ engine and using the Ubuntu UI components. This package contains a standalone
+ QML plugin that applications can use to embed a browser control.
 
 Package: webbrowser-app-assets
 Architecture: all
@@ -49,7 +59,7 @@ Architecture: all
 Depends: ${misc:Depends},
          libautopilot-qt,
          libqt5test5,
-         webbrowser-app (>= ${binary:Version}),
+         webbrowser-app (= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains autopilot

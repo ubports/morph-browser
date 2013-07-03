@@ -1,5 +1,3 @@
 usr/bin/webbrowser-app
-usr/lib/*/qt5/qml/Ubuntu/Browser/*
 usr/share/applications/webbrowser-app.desktop
 usr/share/icons/hicolor/scalable/apps/webbrowser-app.svg
-usr/share/locale/*/LC_MESSAGES/webbrowser-app.mo

@@ -21,7 +21,9 @@ po/*.gmo
 obj-*
 debian/files
 debian/tmp/
+debian/qtdeclarative5-ubuntu-ui-extras-browser-plugin/
 debian/webbrowser-app/
+debian/webbrowser-app-assets/
 debian/webbrowser-app-autopilot/
 debian/*.debhelper
 debian/*.debhelper.log
