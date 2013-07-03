@@ -81,8 +81,10 @@ class MainWindow(object):
         return self.get_tabslist().select_single("PageDelegate",
                                                  objectName="newTabDelegate")
 
-    def get_tabslist_listview(self):
-        return self.get_tabslist().select_single("QQuickListView")
+    def get_tabslist_view(self):
+        return self.get_tabslist().select_single("QQuickRepeater")
 
-    def get_tabslist_listview_delegates(self):
-        return self.get_tabslist_listview().select_many("PageDelegate")
+    def get_tabslist_view_delegates(self):
+        row = self.get_tabslist().select_single("QQuickRow")
+        delegates = row.select_many("PageDelegate")
+        return delegates[1:]
