@@ -19,6 +19,7 @@
 import QtQuick 2.0
 import Ubuntu.Browser 0.1
 import Ubuntu.Components 0.1
+import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Rectangle {
     id: historyView
@@ -28,10 +29,10 @@ Rectangle {
     signal historyEntryClicked(url url)
 
     ListView {
+        id: timeline
 
         anchors.fill: parent
         verticalLayoutDirection: ListView.BottomToTop
-        spacing: units.gu(1)
         clip: true
 
         model: ListModel {
@@ -42,105 +43,163 @@ Rectangle {
             ListElement { timeframe: "thisyear" }
             ListElement { timeframe: "older" }
         }
+        currentIndex: -1
 
         delegate: Item {
-            height: visible ? units.gu(18) : -units.gu(1)
-            visible: listview.count > 0
+            height: visible ? childrenRect.height : -units.gu(1)
+            visible: hostsview.count > 0
             width: parent.width
             clip: true
+            readonly property int timelineIndex: index
 
-            Label {
-                id: header
+            Column {
                 anchors {
+                    left: parent.left
+                    right: parent.right
                     top: parent.top
-                    left: parent.left
-                    right: parent.right
-                    margins: units.gu(1)
                 }
-                text: {
-                    if (model.timeframe == "today") {
-                        return i18n.tr("Today")
-                    } else if (model.timeframe == "yesterday") {
-                        return i18n.tr("Yesterday")
-                    } else if (model.timeframe == "last7days") {
-                        return i18n.tr("Last 7 Days")
-                    } else if (model.timeframe == "thismonth") {
-                        return i18n.tr("This Month")
-                    } else if (model.timeframe == "thisyear") {
-                        return i18n.tr("This Year")
-                    } else if (model.timeframe == "older") {
-                        return i18n.tr("Older")
-                    }
-                }
-            }
-
-            ListView {
-                id: listview
-                anchors {
-                    top: header.bottom
-                    left: parent.left
-                    right: parent.right
-                    bottom: parent.bottom
-                    margins: units.gu(1)
-                }
-
                 spacing: units.gu(1)
-                orientation: ListView.Horizontal
 
-                model: HistoryTimeframeModel {
-                    sourceModel: historyView.model
-                    start: {
-                        var date = new Date()
-                        if (model.timeframe == "yesterday") {
-                            date.setDate(date.getDate() - 1)
-                        } else if (model.timeframe == "last7days") {
-                            date.setDate(date.getDate() - 7)
-                        } else if (model.timeframe == "thismonth") {
-                            date.setDate(1)
-                        } else if (model.timeframe == "thisyear") {
-                            date.setMonth(0)
-                            date.setDate(1)
-                        } else if (model.timeframe == "older") {
-                            date.setFullYear(0, 0, 1)
-                        }
-                        date.setHours(0)
-                        date.setMinutes(0)
-                        date.setSeconds(0)
-                        date.setMilliseconds(0)
-                        return date
+                ListItem.Header {
+                    id: header
+                    anchors {
+                        left: parent.left
+                        right: parent.right
                     }
-                    end: {
-                        var date = new Date()
-                        if (model.timeframe == "yesterday") {
-                            date.setDate(date.getDate() - 1)
+                    height: units.gu(5)
+
+                    text: {
+                        if (model.timeframe == "today") {
+                            return i18n.tr("Today")
+                        } else if (model.timeframe == "yesterday") {
+                            return i18n.tr("Yesterday")
                         } else if (model.timeframe == "last7days") {
-                            date.setDate(date.getDate() - 2)
+                            return i18n.tr("Last 7 Days")
                         } else if (model.timeframe == "thismonth") {
-                            date.setDate(date.getDate() - 8)
+                            return i18n.tr("This Month")
                         } else if (model.timeframe == "thisyear") {
-                            date.setDate(0)
+                            return i18n.tr("This Year")
                         } else if (model.timeframe == "older") {
-                            date.setMonth(0)
-                            date.setDate(0)
+                            return i18n.tr("Older")
                         }
-                        date.setHours(23)
-                        date.setMinutes(59)
-                        date.setSeconds(59)
-                        date.setMilliseconds(999)
-                        return date
                     }
                 }
 
-                delegate: PageDelegate {
-                    width: units.gu(10)
-                    height: units.gu(13)
-                    color: "white"
+                ListView {
+                    id: hostsview
 
-                    title: model.title
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        margins: units.gu(1)
+                    }
+                    height: units.gu(14)
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: historyEntryClicked(model.url)
+                    spacing: units.gu(1)
+                    orientation: ListView.Horizontal
+
+                    model: HistoryHostListModel {
+                        sourceModel: HistoryTimeframeModel {
+                            sourceModel: historyView.model
+                            start: {
+                                var date = new Date()
+                                if (model.timeframe == "yesterday") {
+                                    date.setDate(date.getDate() - 1)
+                                } else if (model.timeframe == "last7days") {
+                                    date.setDate(date.getDate() - 7)
+                                } else if (model.timeframe == "thismonth") {
+                                    date.setDate(1)
+                                } else if (model.timeframe == "thisyear") {
+                                    date.setMonth(0)
+                                    date.setDate(1)
+                                } else if (model.timeframe == "older") {
+                                    date.setFullYear(0, 0, 1)
+                                }
+                                date.setHours(0)
+                                date.setMinutes(0)
+                                date.setSeconds(0)
+                                date.setMilliseconds(0)
+                                return date
+                            }
+                            end: {
+                                var date = new Date()
+                                if (model.timeframe == "yesterday") {
+                                    date.setDate(date.getDate() - 1)
+                                } else if (model.timeframe == "last7days") {
+                                    date.setDate(date.getDate() - 2)
+                                } else if (model.timeframe == "thismonth") {
+                                    date.setDate(date.getDate() - 8)
+                                } else if (model.timeframe == "thisyear") {
+                                    date.setDate(0)
+                                } else if (model.timeframe == "older") {
+                                    date.setMonth(0)
+                                    date.setDate(0)
+                                }
+                                date.setHours(23)
+                                date.setMinutes(59)
+                                date.setSeconds(59)
+                                date.setMilliseconds(999)
+                                return date
+                            }
+                        }
+                    }
+
+                    delegate: PageDelegate {
+                        width: units.gu(10)
+                        height: units.gu(13)
+                        color: "white"
+
+                        title: model.host ? model.host : i18n.tr("(local files)")
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                timeline.currentIndex = timelineIndex
+                                entriesview.model = model.entries
+                            }
+                        }
+                    }
+                }
+
+                ListView {
+                    id: entriesview
+
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        margins: units.gu(1)
+                    }
+                    height: 0
+                    clip: true
+
+                    spacing: units.gu(1)
+                    orientation: ListView.Horizontal
+
+                    delegate: PageDelegate {
+                        width: units.gu(10)
+                        height: units.gu(13)
+                        color: "white"
+
+                        title: model.title
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: historyEntryClicked(model.url)
+                        }
+                    }
+
+                    states: [
+                        State {
+                            name: "expanded"
+                            when: timelineIndex == timeline.currentIndex
+                            PropertyChanges {
+                                target: entriesview
+                                height: units.gu(14)
+                            }
+                        }
+                    ]
+                    Behavior on height {
+                        UbuntuNumberAnimation {}
                     }
                 }
             }
