@@ -39,7 +39,7 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
 {
-    Q_ASSERT(uri == QLatin1String("Ubuntu.Browser"));
+    Q_ASSERT(uri == QLatin1String("Ubuntu.Components.Extras.Browser"));
     qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
     qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");

@@ -18,8 +18,8 @@
 
 import QtQuick 2.0
 import QtWebKit 3.0
-import Ubuntu.Browser 0.1
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.HUD 1.0 as HUD
 
 FocusScope {
