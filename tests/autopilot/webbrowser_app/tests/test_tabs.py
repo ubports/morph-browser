@@ -32,6 +32,10 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         view = self.main_window.get_tabslist_view()
         count = view.count
         newtab_delegate = self.main_window.get_tabslist_newtab_delegate()
+        # XXX: This assumes the new tab delegate is in sight, which might not
+        # always be the case if there is a large number of tabs open. However
+        # this should be good enough for our tests that never open more than
+        # two tabs.
         self.pointing_device.move_to_object(newtab_delegate)
         self.pointing_device.click()
         self.assertThat(view.count, Eventually(Equals(count + 1)))
