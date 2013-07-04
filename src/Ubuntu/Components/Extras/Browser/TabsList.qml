@@ -45,7 +45,7 @@ Rectangle {
         text: i18n.tr("Open pages %1").arg(model.count)
     }
 
-    Flickable {
+    ListView {
         anchors {
             top: heading.bottom
             bottom: parent.bottom
@@ -53,22 +53,19 @@ Rectangle {
             right: parent.right
             margins: units.gu(1)
         }
+        spacing: units.gu(1)
 
-        flickableDirection: Flickable.HorizontalFlick
-        contentWidth: row.width
+        orientation: ListView.Horizontal
 
-        Row {
-            id: row
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-            }
-            spacing: units.gu(1)
+        model: tabsList.model
+        currentIndex: tabsList.model.currentIndex
+
+        header: Item {
+            width: units.gu(11)
+            height: parent.height
 
             PageDelegate {
-                id: newTabDelegate
                 objectName: "newTabDelegate"
-
                 width: units.gu(10)
                 height: parent.height
                 color: "white"
@@ -82,31 +79,26 @@ Rectangle {
                     onClicked: newTabClicked()
                 }
             }
+        }
 
-            Repeater {
-                property int currentIndex: tabsList.model.currentIndex
+        delegate: ListItem.Empty {
+            width: units.gu(10)
+            height: parent.height
+            showDivider: false
 
-                model: tabsList.model
+            // FIXME: http://pad.lv/1187476 makes it impossible to swipe a
+            // delegate up/down to remove it from an horizontal listview.
+            removable: true
+            onItemRemoved: tabRemoved(index)
 
-                ListItem.Empty {
-                    width: units.gu(10)
-                    height: parent.height
-                    showDivider: false
-
-                    // FIXME: http://pad.lv/1187476 makes it impossible to swipe a
-                    // delegate up/down to remove it from an horizontal listview.
-                    removable: true
-                    onItemRemoved: tabRemoved(index)
-
-                    PageDelegate {
-                        anchors.fill: parent
-                        color: (index == currentIndex) ? "#2C001E" : "white"
-                        title: model.title
-                    }
-
-                    onClicked: switchToTabClicked(index)
-                }
+            PageDelegate {
+                objectName: "openTabDelegate"
+                anchors.fill: parent
+                color: (index == currentIndex) ? "#2C001E" : "white"
+                title: model.title
             }
+
+            onClicked: switchToTabClicked(index)
         }
     }
 }
