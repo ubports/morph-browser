@@ -88,6 +88,8 @@ FocusScope {
             }
         }
 
+        inputMethodHints: Qt.ImhNoPredictiveText
+
         focus: true
         highlighted: true
 
