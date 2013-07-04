@@ -97,4 +97,8 @@ Rectangle {
             onClicked: switchToTabClicked(index)
         }
     }
+
+    function centerViewOnCurrentTab() {
+        listview.positionViewAtIndex(model.currentIndex, ListView.Center)
+    }
 }
