@@ -40,7 +40,7 @@ Rectangle {
         height: units.gu(2)
         font.bold: true
         // TRANSLATORS: %1 refers to the number of open tabs
-        text: i18n.tr("Currently viewing (%1)").arg(listview.count)
+        text: i18n.tr("Currently viewing (%1)").arg('<font color="#DD4814">%1</font>'.arg(listview.count))
     }
 
     Item {
