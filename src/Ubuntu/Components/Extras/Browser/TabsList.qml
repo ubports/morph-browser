@@ -21,9 +21,7 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Rectangle {
-    id: tabsList
-
-    property QtObject model
+    property alias model: listview.model
 
     signal newTabClicked()
     signal switchToTabClicked(int index)
@@ -46,6 +44,7 @@ Rectangle {
     }
 
     ListView {
+        id: listview
         anchors {
             top: heading.bottom
             bottom: parent.bottom
@@ -54,11 +53,8 @@ Rectangle {
             margins: units.gu(1)
         }
         spacing: units.gu(1)
-
         orientation: ListView.Horizontal
-
-        model: tabsList.model
-        currentIndex: tabsList.model.currentIndex
+        currentIndex: model.currentIndex
 
         header: Item {
             width: units.gu(11)
