@@ -29,7 +29,7 @@ Column {
 
     spacing: units.gu(2)
 
-    TimelineHeader {
+    ListItem.Header {
         // TRANSLATORS: %1 refers to the number of open tabs
         text: i18n.tr("Open pages %1").arg(model.count)
     }
