@@ -35,7 +35,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: "white"
+        color: "#F2EFEC"
     }
 
     ListView {
