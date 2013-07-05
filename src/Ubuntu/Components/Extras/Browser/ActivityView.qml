@@ -69,7 +69,6 @@ Item {
                 id: timelineView
 
                 anchors.fill: parent
-                opacity: 0.95
 
                 onNewTabRequested: activityView.newTabRequested()
                 onSwitchToTabRequested: activityView.switchToTabRequested(index)
