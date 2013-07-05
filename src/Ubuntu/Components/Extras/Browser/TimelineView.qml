@@ -86,7 +86,7 @@ Item {
                     left: parent.left
                     right: parent.right
                 }
-                height: units.gu(5)
+                height: units.gu(4)
 
                 text: {
                     if (model.timeframe == "today") {
