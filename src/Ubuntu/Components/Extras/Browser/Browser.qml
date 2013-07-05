@@ -277,6 +277,7 @@ FocusScope {
 
             anchors.fill: parent
 
+            enabled: !activityView.visible
             visible: tabsModel.currentWebview === webview
 
             devicePixelRatio: browser.qtwebkitdpr
