@@ -27,7 +27,7 @@ class TestProgressBarAtStartup(BrowserTestCaseBaseWithHTTPServer):
 
     def setUp(self):
         self.base_url = "http://localhost:%d" % HTTP_SERVER_PORT
-        self.url = self.base_url + "/wait/5"
+        self.url = self.base_url + "/wait/8"
         self.ARGS = [self.url]
         super(TestProgressBarAtStartup, self).setUp()
 

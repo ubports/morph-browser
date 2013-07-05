@@ -29,18 +29,22 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
 
     def open_new_tab(self):
         # assumes the activity view is already visible
-        listview = self.main_window.get_tabslist_listview()
-        count = listview.count
+        view = self.main_window.get_tabslist_view()
+        count = view.count
         newtab_delegate = self.main_window.get_tabslist_newtab_delegate()
+        # XXX: This assumes the new tab delegate is in sight, which might not
+        # always be the case if there is a large number of tabs open. However
+        # this should be good enough for our tests that never open more than
+        # two tabs.
         self.pointing_device.move_to_object(newtab_delegate)
         self.pointing_device.click()
-        self.assertThat(listview.count, Eventually(Equals(count + 1)))
+        self.assertThat(view.count, Eventually(Equals(count + 1)))
 
     def close_tab(self, index):
         # assumes the activity view is already visible
         # XXX: because of http://pad.lv/1187476, tabs have to be swiped
         # left/right instead of up/down to be removed.
-        tab = self.main_window.get_tabslist_listview_delegates()[index]
+        tab = self.main_window.get_tabslist_view_delegates()[index]
         x, y, w, h = tab.globalRect
         y_line = int(y + h / 2)
         start_x = int(x + w / 2)
@@ -54,8 +58,8 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assertThat(addressbar.actualUrl, Eventually(Equals(url)))
 
     def test_tabs_model(self):
-        listview = self.main_window.get_tabslist_listview()
-        self.assertThat(listview.count, Eventually(Equals(1)))
+        view = self.main_window.get_tabslist_view()
+        self.assertThat(view.count, Eventually(Equals(1)))
 
     def test_toggle_activity_view(self):
         activity_view = self.main_window.get_activity_view()
@@ -70,10 +74,10 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
 
     def test_open_new_tab(self):
         self.ensure_activity_view_visible()
-        listview = self.main_window.get_tabslist_listview()
-        self.assertThat(listview.currentIndex, Equals(0))
+        view = self.main_window.get_tabslist_view()
+        self.assertThat(view.currentIndex, Equals(0))
         self.open_new_tab()
-        self.assertThat(listview.currentIndex, Eventually(Equals(1)))
+        self.assertThat(view.currentIndex, Eventually(Equals(1)))
         activity_view = self.main_window.get_activity_view()
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
         self.assert_chrome_eventually_shown()
@@ -90,13 +94,13 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assert_current_url(url)
 
         self.ensure_activity_view_visible()
-        listview = self.main_window.get_tabslist_listview()
-        tabs = self.main_window.get_tabslist_listview_delegates()
+        view = self.main_window.get_tabslist_view()
+        tabs = self.main_window.get_tabslist_view_delegates()
         self.assertThat(len(tabs), Equals(2))
-        self.assertThat(listview.currentIndex, Equals(1))
+        self.assertThat(view.currentIndex, Equals(1))
         self.pointing_device.move_to_object(tabs[0])
         self.pointing_device.click()
-        self.assertThat(listview.currentIndex, Eventually(Equals(0)))
+        self.assertThat(view.currentIndex, Eventually(Equals(0)))
         self.assert_current_url(self.url)
         activity_view = self.main_window.get_activity_view()
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
@@ -105,7 +109,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.ensure_activity_view_visible()
         self.pointing_device.move_to_object(tabs[1])
         self.pointing_device.click()
-        self.assertThat(listview.currentIndex, Eventually(Equals(1)))
+        self.assertThat(view.currentIndex, Eventually(Equals(1)))
         self.assert_current_url(url)
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
         self.assert_chrome_eventually_hidden()
@@ -121,19 +125,19 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.ensure_activity_view_visible()
         self.close_tab(0)
         self.assertThat(
-            lambda: len(self.main_window.get_tabslist_listview_delegates()),
+            lambda: len(self.main_window.get_tabslist_view_delegates()),
             Eventually(Equals(1)))
-        listview = self.main_window.get_tabslist_listview()
-        self.assertThat(listview.count, Eventually(Equals(1)))
-        self.assertThat(listview.currentIndex, Eventually(Equals(0)))
+        view = self.main_window.get_tabslist_view()
+        self.assertThat(view.count, Eventually(Equals(1)))
+        self.assertThat(view.currentIndex, Eventually(Equals(0)))
         self.assert_current_url(url)
 
     def test_close_last_open_tab(self):
         self.ensure_activity_view_visible()
         self.close_tab(0)
-        listview = self.main_window.get_tabslist_listview()
-        self.assertThat(listview.currentIndex, Eventually(Equals(0)))
-        self.assertThat(listview.count, Eventually(Equals(1)))
+        view = self.main_window.get_tabslist_view()
+        self.assertThat(view.currentIndex, Eventually(Equals(0)))
+        self.assertThat(view.count, Eventually(Equals(1)))
         activity_view = self.main_window.get_activity_view()
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
         self.assert_chrome_eventually_shown()
@@ -147,9 +151,9 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         webview = self.main_window.get_current_webview()
         self.pointing_device.move_to_object(webview)
         self.pointing_device.click()
-        listview = self.main_window.get_tabslist_listview()
-        self.assertThat(listview.count, Eventually(Equals(2)))
-        self.assertThat(listview.currentIndex, Eventually(Equals(1)))
+        view = self.main_window.get_tabslist_view()
+        self.assertThat(view.count, Eventually(Equals(2)))
+        self.assertThat(view.currentIndex, Eventually(Equals(1)))
         self.assert_current_url(self.base_url + "/aleaiactaest")
 
     def test_open_iframe_target_blank_in_new_tab(self):
@@ -159,9 +163,9 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         webview = self.main_window.get_current_webview()
         self.pointing_device.move_to_object(webview)
         self.pointing_device.click()
-        listview = self.main_window.get_tabslist_listview()
-        self.assertThat(listview.count, Eventually(Equals(2)))
-        self.assertThat(listview.currentIndex, Eventually(Equals(1)))
+        view = self.main_window.get_tabslist_view()
+        self.assertThat(view.count, Eventually(Equals(2)))
+        self.assertThat(view.currentIndex, Eventually(Equals(1)))
         self.assert_current_url(self.base_url + "/aleaiactaest")
 
     def test_error_only_for_current_tab(self):
@@ -172,7 +176,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         error = self.main_window.get_error_sheet()
         self.assertThat(error.visible, Eventually(Equals(True)))
         self.ensure_activity_view_visible()
-        tabs = self.main_window.get_tabslist_listview_delegates()
+        tabs = self.main_window.get_tabslist_view_delegates()
         self.pointing_device.move_to_object(tabs[0])
         self.pointing_device.click()
         self.assertThat(error.visible, Eventually(Equals(False)))

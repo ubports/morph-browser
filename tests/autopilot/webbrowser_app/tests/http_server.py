@@ -50,7 +50,6 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             # craft a page that accepts clicks anywhere inside its window
             # and that requests opening another page in a new tab
             self.send_response(200)
-            port = self.server.server_address[1]
             html = '<html><body style="margin: 0">'
             html += '<a href="/aleaiactaest" target="_blank">'
             html += '<div style="height: 100%"></div></a>'
