@@ -50,20 +50,20 @@ Rectangle {
             bottom: parent.bottom
             left: parent.left
             right: parent.right
-            margins: units.gu(1)
+            margins: units.gu(2)
         }
-        spacing: units.gu(1)
+        spacing: units.gu(2)
         orientation: ListView.Horizontal
         currentIndex: model.currentIndex
 
         header: Item {
-            width: units.gu(11)
+            width: units.gu(14)
             height: parent.height
 
             PageDelegate {
                 objectName: "newTabDelegate"
-                width: units.gu(10)
-                height: parent.height
+                width: units.gu(12)
+                height: units.gu(12)
                 color: "white"
                 Label {
                     anchors.centerIn: parent
@@ -78,8 +78,8 @@ Rectangle {
         }
 
         delegate: ListItem.Empty {
-            width: units.gu(10)
-            height: parent.height
+            width: units.gu(12)
+            height: units.gu(12)
             showDivider: false
 
             // FIXME: http://pad.lv/1187476 makes it impossible to swipe a

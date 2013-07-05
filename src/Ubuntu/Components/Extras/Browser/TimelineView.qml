@@ -57,7 +57,7 @@ Item {
 
         header: TabsList {
             width: parent.width
-            height: units.gu(18)
+            height: units.gu(19)
 
             model: tabsModel
 
@@ -75,10 +75,10 @@ Item {
             readonly property int timelineIndex: index
 
             visible: hostsView.count > 0
-            height: visible ? childrenRect.height : -units.gu(1)
+            height: visible ? header.height + hostsView.height + entriesView.height + spacing * (2 + (timeline.currentIndex >= 0)) : 0
             width: parent.width
             clip: true
-            spacing: units.gu(1)
+            spacing: units.gu(2)
 
             ListItem.Header {
                 id: header
@@ -111,11 +111,11 @@ Item {
                 anchors {
                     left: parent.left
                     right: parent.right
-                    margins: units.gu(1)
+                    margins: units.gu(2)
                 }
-                height: units.gu(14)
+                height: units.gu(12)
 
-                spacing: units.gu(1)
+                spacing: units.gu(2)
                 orientation: ListView.Horizontal
 
                 model: HistoryHostListModel {
@@ -165,8 +165,8 @@ Item {
                 }
 
                 delegate: PageDelegate {
-                    width: units.gu(10)
-                    height: units.gu(13)
+                    width: units.gu(12)
+                    height: units.gu(12)
                     color: "white"
 
                     title: model.host ? model.host : i18n.tr("(local files)")
@@ -192,17 +192,17 @@ Item {
                 anchors {
                     left: parent.left
                     right: parent.right
-                    margins: units.gu(1)
+                    margins: units.gu(2)
                 }
                 height: 0
                 clip: true
 
-                spacing: units.gu(1)
+                spacing: units.gu(2)
                 orientation: ListView.Horizontal
 
                 delegate: PageDelegate {
-                    width: units.gu(10)
-                    height: units.gu(13)
+                    width: units.gu(12)
+                    height: units.gu(12)
                     color: "white"
 
                     title: model.title
@@ -219,7 +219,7 @@ Item {
                         when: timelineIndex == timeline.currentIndex
                         PropertyChanges {
                             target: entriesView
-                            height: units.gu(14)
+                            height: units.gu(12)
                         }
                     }
                 ]
