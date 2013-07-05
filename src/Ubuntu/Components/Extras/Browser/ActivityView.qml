@@ -20,8 +20,10 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 
 Item {
-    property alias tabsModel: tabsList.model
-    property alias historyModel: historyView.model
+    id: activityView
+
+    property alias tabsModel: timelineView.tabsModel
+    property alias historyModel: timelineView.historyModel
 
     signal historyEntryRequested(url url)
     signal newTabRequested()
@@ -30,7 +32,7 @@ Item {
 
     onVisibleChanged: {
         if (visible) {
-            tabsList.centerViewOnCurrentTab()
+            timelineView.resetPositionRequested()
         }
     }
 
@@ -63,38 +65,16 @@ Item {
 
             visible: true
 
-            Item {
+            TimelineView {
+                id: timelineView
+
                 anchors.fill: parent
                 opacity: 0.95
 
-                HistoryView {
-                    id: historyView
-
-                    anchors {
-                        top: parent.top
-                        bottom: tabsList.top
-                        left: parent.left
-                        right: parent.right
-                    }
-                    color: "#D6CFC9"
-
-                    onHistoryEntryClicked: historyEntryRequested(url)
-                }
-
-                TabsList {
-                    id: tabsList
-
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        bottom: parent.bottom
-                    }
-                    height: units.gu(18)
-
-                    onNewTabClicked: newTabRequested()
-                    onSwitchToTabClicked: switchToTabRequested(index)
-                    onTabRemoved: closeTabRequested(index)
-                }
+                onNewTabRequested: activityView.newTabRequested()
+                onSwitchToTabRequested: activityView.switchToTabRequested(index)
+                onCloseTabRequested: activityView.closeTabRequested(index)
+                onHistoryEntryClicked: activityView.historyEntryRequested(url)
             }
         }
     }
