@@ -20,25 +20,22 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 
-Rectangle {
+Column {
     property alias model: listview.model
 
     signal newTabClicked()
     signal switchToTabClicked(int index)
     signal tabRemoved(int index)
 
-    color: "#AEA79F"
+    spacing: units.gu(2)
 
-    Label {
-        id: heading
+    ListItem.Header {
+        id: header
         anchors {
-            top: parent.top
             left: parent.left
             right: parent.right
-            margins: units.gu(1)
         }
-        height: units.gu(2)
-        font.bold: true
+        height: units.gu(4)
         // TRANSLATORS: %1 refers to the number of open tabs
         text: i18n.tr("Open pages %1").arg(model.count)
     }
@@ -46,12 +43,11 @@ Rectangle {
     ListView {
         id: listview
         anchors {
-            top: heading.bottom
-            bottom: parent.bottom
             left: parent.left
             right: parent.right
             margins: units.gu(2)
         }
+        height: units.gu(14)
         spacing: units.gu(2)
         orientation: ListView.Horizontal
         currentIndex: model.currentIndex

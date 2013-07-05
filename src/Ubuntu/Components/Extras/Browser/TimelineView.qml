@@ -57,7 +57,7 @@ Item {
 
         header: TabsList {
             width: parent.width
-            height: units.gu(19)
+            height: units.gu(20)
 
             model: tabsModel
 
