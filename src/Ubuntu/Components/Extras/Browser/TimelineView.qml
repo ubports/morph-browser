@@ -19,7 +19,6 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
-import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Item {
     id: timelineView
@@ -35,7 +34,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: "#F2EFEC"
+        color: "#EEEEEE"
     }
 
     ListView {
@@ -80,14 +79,8 @@ Item {
             clip: true
             spacing: units.gu(2)
 
-            ListItem.Header {
+            TimelineHeader {
                 id: header
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-                height: units.gu(4)
-
                 text: {
                     if (model.timeframe == "today") {
                         return i18n.tr("Today")
