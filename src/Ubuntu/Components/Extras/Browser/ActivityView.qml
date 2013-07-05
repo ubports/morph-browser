@@ -36,13 +36,6 @@ Item {
         }
     }
 
-    MouseArea {
-        // Prevent mouse/touch events from propagating to the webview below.
-        anchors.fill: parent
-        hoverEnabled: true
-        onWheel: {}
-    }
-
     Header {
         id: header
         title: tabs.selectedTab.title
