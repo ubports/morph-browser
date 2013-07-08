@@ -27,7 +27,7 @@ Rectangle {
     signal switchToTabClicked(int index)
     signal tabRemoved(int index)
 
-    color: "#AEA79F"
+    color: UbuntuColors.warmGrey
 
     Label {
         id: heading
@@ -40,7 +40,7 @@ Rectangle {
         height: units.gu(2)
         font.bold: true
         // TRANSLATORS: %1 refers to the number of open tabs
-        text: i18n.tr("Currently viewing (%1)").arg('<font color="#DD4814">%1</font>'.arg(model.count))
+        text: i18n.tr("Currently viewing (%1)").arg('<font color="%1">%2</font>'.arg(UbuntuColors.orange).arg(model.count))
     }
 
     ListView {
@@ -90,7 +90,7 @@ Rectangle {
             PageDelegate {
                 objectName: "openTabDelegate"
                 anchors.fill: parent
-                color: (index == currentIndex) ? "#2C001E" : "white"
+                color: (index == currentIndex) ? UbuntuColors.darkAubergine : "white"
                 title: model.title
             }
 
