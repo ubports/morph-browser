@@ -128,7 +128,7 @@ Item {
         source: visible ? addressBar : null
         minimumValue: 0
         maximumValue: 100
-        bgColor: "#DD4814" // Ubuntu orange
+        bgColor: UbuntuColors.orange
         fgColor: "white"
     }
 

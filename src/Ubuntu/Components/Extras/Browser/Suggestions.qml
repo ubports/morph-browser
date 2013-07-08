@@ -32,7 +32,7 @@ Rectangle {
     radius: units.gu(0.5)
     color: "white"
     border {
-        color: "#c8c8c8"
+        color: UbuntuColors.warmGrey
         width: 1
     }
 
@@ -107,10 +107,10 @@ Rectangle {
                 }
                 var highlighted = text.toString()
                 var count = terms.length
+                var highlight = '<b><font color="%1">$&</font></b>'.arg(UbuntuColors.orange)
                 for (var i = 0; i < count; ++i) {
                     var term = terms[i]
-                    highlighted = highlighted.replace(escapeTerm(term),
-                                                      '<b><font color="#DD4814">$&</font></b>')
+                    highlighted = highlighted.replace(escapeTerm(term), highlight)
                 }
                 highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
                 highlighted = '<html>' + highlighted + '</html>'
