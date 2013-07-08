@@ -20,6 +20,7 @@
 #define __WEBVIEW_THUMBNAILER_H__
 
 // Qt
+#include <QtCore/QSize>
 #include <QtCore/QString>
 #include <QtQuick/private/qquickitem_p.h>
 
@@ -30,6 +31,7 @@ class WebviewThumbnailer : public QQuickItem
     Q_OBJECT
 
     Q_PROPERTY(QQuickWebView* webview READ webview WRITE setWebview NOTIFY webviewChanged)
+    Q_PROPERTY(QSize targetSize READ targetSize WRITE setTargetSize NOTIFY targetSizeChanged)
 
 public:
     WebviewThumbnailer(QQuickItem* parent=0);
@@ -38,10 +40,14 @@ public:
     QQuickWebView* webview() const;
     void setWebview(QQuickWebView* webview);
 
+    const QSize& targetSize() const;
+    void setTargetSize(const QSize& targetSize);
+
     Q_INVOKABLE void renderThumbnail();
 
 Q_SIGNALS:
     void webviewChanged() const;
+    void targetSizeChanged() const;
     void thumbnailRendered(QString thumbnail) const;
 
 protected:
@@ -49,6 +55,7 @@ protected:
 
 private:
     QQuickWebView* m_webview;
+    QSize m_targetSize;
 };
 
 #endif // __WEBVIEW_THUMBNAILER_H__

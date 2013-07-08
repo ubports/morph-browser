@@ -123,6 +123,7 @@ FocusScope {
             WebviewThumbnailer {
                 id: thumbnailer
                 webview: currentWebview
+                targetSize: Qt.size(units.gu(20), units.gu(20))
                 onThumbnailRendered: console.log("thumbnail rendered to", thumbnail)
             }
         }

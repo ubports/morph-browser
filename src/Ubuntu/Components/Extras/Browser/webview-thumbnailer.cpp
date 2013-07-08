@@ -57,6 +57,19 @@ void WebviewThumbnailer::setWebview(QQuickWebView* webview)
     }
 }
 
+const QSize& WebviewThumbnailer::targetSize() const
+{
+    return m_targetSize;
+}
+
+void WebviewThumbnailer::setTargetSize(const QSize& targetSize)
+{
+    if (targetSize != m_targetSize) {
+        m_targetSize = targetSize;
+        Q_EMIT targetSizeChanged();
+    }
+}
+
 void WebviewThumbnailer::renderThumbnail()
 {
     if (m_webview) {
@@ -92,7 +105,6 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
 
     QOpenGLFramebufferObject fbo(size);
 
-    // TODO: scale down to target thumbnail size
     renderer->setDeviceRect(size);
     renderer->setViewportRect(size);
     renderer->setProjectionMatrixToRect(QRectF(QPointF(), size));
@@ -102,10 +114,9 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
 
     fbo.release();
 
-    //Save our image from our fbo.
-    QImage image = fbo.toImage();
+    QImage image = fbo.toImage().scaled(m_targetSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
     QString filename = "test.png"; // XXX
-    image.save(filename);
+    bool saved = image.save(filename);
 
     root.removeChildNode(node);
 
@@ -117,7 +128,9 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
         }
     }
 
-    Q_EMIT thumbnailRendered(filename);
+    if (saved) {
+        Q_EMIT thumbnailRendered(filename);
+    }
 
     return oldNode;
 }
