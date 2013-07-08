@@ -75,9 +75,8 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
     setFlag(QQuickItem::ItemHasContents, false);
 
     QQuickWebPage* page = m_webview->page();
-    // TODO: get a square based on the smallest of the two dimensions
-    QSize size(page->width(), page->height());
-    //QSize size(512, 512);
+    qreal min = qMin(page->width(), page->height());
+    QSize size(min, min);
 
     QSGNode* node = QQuickItemPrivate::get(page)->itemNode();
     QSGNode* parent = node->QSGNode::parent();
