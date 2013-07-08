@@ -5,7 +5,7 @@ execute_process(
     OUTPUT_VARIABLE QT_INSTALL_QML
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
-set(WEBBROWSER_IMPORTS_DIR "${QT_INSTALL_QML}/Ubuntu/Browser")
+set(WEBBROWSER_IMPORTS_DIR "${QT_INSTALL_QML}/Ubuntu/Components/Extras/Browser")
 
 add_subdirectory(Ubuntu)
 

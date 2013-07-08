@@ -49,12 +49,15 @@ FocusScope {
         primaryItem: MouseArea {
             id: __actionButton
             objectName: "actionButton"
-            width: __searchIcon.width + units.gu(2)
+            width: __searchIcon.width + units.gu(1)
             height: __searchIcon.height + units.gu(2)
             enabled: textField.text.trim().length > 0
             Image {
                 id: __searchIcon
-                anchors.centerIn: parent
+                anchors {
+                    right: parent.right
+                    verticalCenter: parent.verticalCenter
+                }
                 opacity: __actionButton.enabled ? 1.0 : 0.2
                 source: {
                     switch (addressbar.state) {
@@ -84,6 +87,8 @@ FocusScope {
                 }
             }
         }
+
+        inputMethodHints: Qt.ImhNoPredictiveText
 
         focus: true
         highlighted: true

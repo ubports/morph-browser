@@ -26,11 +26,10 @@ Item {
     signal switchToTabRequested(int index)
     signal closeTabRequested(int index)
 
-    MouseArea {
-        // Prevent mouse/touch events from propagating to the webview below.
-        anchors.fill: parent
-        hoverEnabled: true
-        onWheel: {}
+    onVisibleChanged: {
+        if (visible) {
+            tabsList.centerViewOnCurrentTab()
+        }
     }
 
     Header {

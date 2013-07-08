@@ -38,14 +38,13 @@ class MainWindow(object):
                                        objectName="actionButton")
 
     def get_back_button(self):
-        return self.app.select_single("ChromeButton", objectName="backButton")
+        return self.app.select_single("ActionItem", objectName="backButton")
 
     def get_forward_button(self):
-        return self.app.select_single("ChromeButton",
-                                      objectName="forwardButton")
+        return self.app.select_single("ActionItem", objectName="forwardButton")
 
     def get_tabs_button(self):
-        return self.app.select_single("ChromeButton", objectName="tabsButton")
+        return self.app.select_single("ActionItem", objectName="tabsButton")
 
     def get_current_webview(self):
         browser = self.get_browser()
@@ -82,8 +81,9 @@ class MainWindow(object):
         return self.get_tabslist().select_single("PageDelegate",
                                                  objectName="newTabDelegate")
 
-    def get_tabslist_listview(self):
+    def get_tabslist_view(self):
         return self.get_tabslist().select_single("QQuickListView")
 
-    def get_tabslist_listview_delegates(self):
-        return self.get_tabslist_listview().select_many("PageDelegate")
+    def get_tabslist_view_delegates(self):
+        view = self.get_tabslist_view()
+        return view.select_many("PageDelegate", objectName="openTabDelegate")

@@ -1,6 +1,6 @@
 project(webbrowser-plugin)
 
-set(PLUGIN ubuntubrowser)
+set(PLUGIN ubuntu-ui-extras-browser-plugin)
 
 set(PLUGIN_SRC
     history-model.cpp
@@ -22,13 +22,13 @@ include_directories(${Qt5V8_PRIVATE_INCLUDE_DIRS}
                     ${Qt5Quick_PRIVATE_INCLUDE_DIRS}
                     ${Qt5WebKit_PRIVATE_INCLUDE_DIRS})
 
-file(GLOB QML_FILES *.qml qmldir *.js *.qmltheme)
+file(GLOB QML_FILES *.qml qmldir *.js)
 install(TARGETS ${PLUGIN} DESTINATION ${WEBBROWSER_IMPORTS_DIR})
 install(FILES ${QML_FILES} DESTINATION ${WEBBROWSER_IMPORTS_DIR})
-install(DIRECTORY assets DESTINATION ${WEBBROWSER_IMPORTS_DIR}
+install(DIRECTORY assets DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app
         FILES_MATCHING PATTERN *.png)
 
 # copy qml files over to build dir to be able to import them in tests
 foreach(qmlFile ${QML_FILES})
-  file(COPY ${qmlFile} DESTINATION ${CMAKE_BINARY_DIR}/src/Ubuntu/Browser/)
+  file(COPY ${qmlFile} DESTINATION ${CMAKE_BINARY_DIR}/src/Ubuntu/Components/Extras/Browser/)
 endforeach(qmlFile)

@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Ubuntu.Browser 0.1
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Extras.Browser 0.1
 
 Browser {
     // phone form factor
