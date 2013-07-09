@@ -5,6 +5,9 @@ set(PLUGIN ubuntu-ui-extras-browser-plugin)
 set(PLUGIN_SRC
     history-model.cpp
     history-matches-model.cpp
+    history-timeframe-model.cpp
+    history-host-model.cpp
+    history-hostlist-model.cpp
     tabs-model.cpp
     webthumbnail-provider.cpp
     webview-thumbnailer.cpp

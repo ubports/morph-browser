@@ -93,7 +93,7 @@ Item {
         anchors {
             left: forwardButton.right
             leftMargin: units.gu(1)
-            right: tabsButton.left
+            right: activityButton.left
             rightMargin: units.gu(1)
             verticalCenter: parent.verticalCenter
         }
@@ -105,8 +105,8 @@ Item {
     }
 
     ToolbarButton {
-        id: tabsButton
-        objectName: "tabsButton"
+        id: activityButton
+        objectName: "activityButton"
 
         anchors {
             verticalCenter: parent.verticalCenter
@@ -117,7 +117,7 @@ Item {
         height: width
 
         iconSource: "assets/browser-tabs.png"
-        text: i18n.tr("Tabs")
+        text: i18n.tr("Activity")
 
         onTriggered: chrome.toggleTabsClicked()
     }

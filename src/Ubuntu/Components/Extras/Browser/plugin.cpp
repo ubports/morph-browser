@@ -19,6 +19,9 @@
 #include "plugin.h"
 #include "history-model.h"
 #include "history-matches-model.h"
+#include "history-timeframe-model.h"
+#include "history-host-model.h"
+#include "history-hostlist-model.h"
 #include "tabs-model.h"
 #include "webthumbnail-provider.h"
 #include "webview-thumbnailer.h"
@@ -47,6 +50,9 @@ void UbuntuBrowserPlugin::registerTypes(const char* uri)
     Q_ASSERT(uri == QLatin1String("Ubuntu.Components.Extras.Browser"));
     qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
     qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
+    qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
+    qmlRegisterType<HistoryHostModel>(uri, 0, 1, "HistoryHostModel");
+    qmlRegisterType<HistoryHostListModel>(uri, 0, 1, "HistoryHostListModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<WebviewThumbnailer>(uri, 0, 1, "WebviewThumbnailer");
 }
