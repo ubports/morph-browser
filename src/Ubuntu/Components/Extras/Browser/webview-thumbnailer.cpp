@@ -21,6 +21,7 @@
 // Qt
 #include <QtCore/QCryptographicHash>
 #include <QtCore/QStandardPaths>
+#include <QtCore/QTimer>
 #include <QtQuick/private/qsgrenderer_p.h>
 #include <QtWebKit/private/qquickwebpage_p.h>
 #include <QtWebKit/private/qquickwebview_p.h>
@@ -84,6 +85,13 @@ bool WebviewThumbnailer::thumbnailExists() const
 }
 
 void WebviewThumbnailer::renderThumbnail()
+{
+    // Delay the actual rendering to give all elements on the page
+    // a chance to be fully rendered.
+    QTimer::singleShot(1000, this, SLOT(doRenderThumbnail()));
+}
+
+void WebviewThumbnailer::doRenderThumbnail()
 {
     if (m_webview) {
         setFlag(QQuickItem::ItemHasContents);

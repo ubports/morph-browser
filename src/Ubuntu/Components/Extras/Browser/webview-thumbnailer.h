@@ -60,6 +60,9 @@ Q_SIGNALS:
 protected:
     virtual QSGNode* updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* updatePaintNodeData);
 
+private Q_SLOTS:
+    void doRenderThumbnail();
+
 private:
     QQuickWebView* m_webview;
     QSize m_targetSize;
