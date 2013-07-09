@@ -123,8 +123,8 @@ FocusScope {
             WebviewThumbnailer {
                 id: thumbnailer
                 webview: currentWebview
-                targetSize: Qt.size(units.gu(20), units.gu(20))
-                onThumbnailRendered: console.log("thumbnail rendered to", thumbnail)
+                targetSize: Qt.size(units.gu(12), units.gu(12))
+                onThumbnailRendered: console.log("thumbnail rendered for", url)
             }
         }
 
@@ -301,7 +301,9 @@ FocusScope {
                 lastLoadRequestStatus = loadRequest.status
                 if (loadRequest.status === WebView.LoadSucceededStatus) {
                     historyModel.add(webview.url, webview.title, webview.icon)
-                    thumbnailer.renderThumbnail()
+                    if (!thumbnailer.thumbnailExists()) {
+                        thumbnailer.renderThumbnail()
+                    }
                 }
             }
 

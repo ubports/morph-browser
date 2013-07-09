@@ -20,7 +20,6 @@
 
 // Qt
 #include <QtCore/QCryptographicHash>
-#include <QtCore/QDir>
 #include <QtCore/QStandardPaths>
 #include <QtQuick/private/qsgrenderer_p.h>
 #include <QtWebKit/private/qquickwebpage_p.h>
@@ -73,6 +72,17 @@ void WebviewThumbnailer::setTargetSize(const QSize& targetSize)
     }
 }
 
+bool WebviewThumbnailer::thumbnailExists() const
+{
+    if (m_webview) {
+        QUrl url = m_webview->url();
+        if (url.isValid()) {
+            return thumbnailFile(url).exists();
+        }
+    }
+    return false;
+}
+
 void WebviewThumbnailer::renderThumbnail()
 {
     if (m_webview) {
@@ -81,9 +91,15 @@ void WebviewThumbnailer::renderThumbnail()
     }
 }
 
-QString WebviewThumbnailer::thumbnailFile(const QUrl& url)
+QDir WebviewThumbnailer::cacheLocation()
 {
-    return QCryptographicHash::hash(url.toEncoded(), QCryptographicHash::Md5).toHex() + ".png";
+    return QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/thumbnails";
+}
+
+QFileInfo WebviewThumbnailer::thumbnailFile(const QUrl& url)
+{
+    QString hash(QCryptographicHash::hash(url.toEncoded(), QCryptographicHash::Md5).toHex());
+    return cacheLocation().absoluteFilePath(hash + ".png");
 }
 
 QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* updatePaintNodeData)
@@ -124,12 +140,12 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
 
     QImage image = fbo.toImage().scaled(m_targetSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
 
-    QDir cacheLocation(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/thumbnails");
-    if (!cacheLocation.exists()) {
-        QDir::root().mkpath(cacheLocation.absolutePath());
+    QDir cache = cacheLocation();
+    if (!cache.exists()) {
+        QDir::root().mkpath(cache.absolutePath());
     }
-    QString filename = cacheLocation.absoluteFilePath(thumbnailFile(m_webview->url()));
-    bool saved = image.save(filename);
+    QUrl url = m_webview->url();
+    bool saved = image.save(thumbnailFile(url).absoluteFilePath());
 
     root.removeChildNode(node);
 
@@ -142,7 +158,7 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
     }
 
     if (saved) {
-        Q_EMIT thumbnailRendered(filename);
+        Q_EMIT thumbnailRendered(url);
     }
 
     return oldNode;

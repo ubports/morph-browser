@@ -32,21 +32,19 @@ WebThumbnailProvider::WebThumbnailProvider()
 
 QImage WebThumbnailProvider::requestImage(const QString& id, QSize* size, const QSize& requestedSize)
 {
-    QString filename = "thumbnails/" + WebviewThumbnailer::thumbnailFile(QUrl(id));
-    QString found = QStandardPaths::locate(QStandardPaths::CacheLocation, filename);
-    if (found.isEmpty()) {
-        return QImage();
-    } else {
-        QImageReader reader(found, "PNG");
+    QImage image;
+    QFileInfo cached = WebviewThumbnailer::thumbnailFile(QUrl(id));
+    if (cached.exists()) {
+        QImageReader reader(cached.absoluteFilePath(), "PNG");
         if (requestedSize.isValid()) {
             reader.setScaledSize(requestedSize);
         }
-        QImage image = reader.read();
+        reader.read(&image);
         if (image.isNull()) {
             qWarning() << "Failed to load cached thumbnail:" << reader.errorString();
         } else {
             *size = image.size();
         }
-        return image;
     }
+    return image;
 }

@@ -20,8 +20,11 @@
 #define __WEBVIEW_THUMBNAILER_H__
 
 // Qt
+#include <QtCore/QDir>
+#include <QtCore/QFileInfo>
 #include <QtCore/QSize>
 #include <QtCore/QString>
+#include <QtCore/QUrl>
 #include <QtQuick/private/qquickitem_p.h>
 
 class QQuickWebView;
@@ -43,14 +46,16 @@ public:
     const QSize& targetSize() const;
     void setTargetSize(const QSize& targetSize);
 
+    Q_INVOKABLE bool thumbnailExists() const;
     Q_INVOKABLE void renderThumbnail();
 
-    static QString thumbnailFile(const QUrl& url);
+    static QDir cacheLocation();
+    static QFileInfo thumbnailFile(const QUrl& url);
 
 Q_SIGNALS:
     void webviewChanged() const;
     void targetSizeChanged() const;
-    void thumbnailRendered(QString thumbnail) const;
+    void thumbnailRendered(const QUrl& url) const;
 
 protected:
     virtual QSGNode* updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* updatePaintNodeData);
