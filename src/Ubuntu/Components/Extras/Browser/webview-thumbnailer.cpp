@@ -19,6 +19,9 @@
 #include "webview-thumbnailer.h"
 
 // Qt
+#include <QtCore/QCryptographicHash>
+#include <QtCore/QDir>
+#include <QtCore/QStandardPaths>
 #include <QtQuick/private/qsgrenderer_p.h>
 #include <QtWebKit/private/qquickwebpage_p.h>
 #include <QtWebKit/private/qquickwebview_p.h>
@@ -115,7 +118,13 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
     fbo.release();
 
     QImage image = fbo.toImage().scaled(m_targetSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-    QString filename = "test.png"; // XXX
+
+    QDir cacheLocation(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/thumbnails");
+    if (!cacheLocation.exists()) {
+        QDir::root().mkpath(cacheLocation.absolutePath());
+    }
+    QString hash(QCryptographicHash::hash(m_webview->url().toEncoded(), QCryptographicHash::Md5).toHex());
+    QString filename = cacheLocation.absoluteFilePath(hash + ".png");
     bool saved = image.save(filename);
 
     root.removeChildNode(node);
