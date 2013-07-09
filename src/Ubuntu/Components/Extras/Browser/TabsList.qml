@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2013 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
@@ -22,6 +22,7 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Column {
     property alias model: listview.model
+    property Item thumbnailer
 
     signal newTabClicked()
     signal switchToTabClicked(int index)
@@ -78,10 +79,20 @@ Column {
             onItemRemoved: tabRemoved(index)
 
             PageDelegate {
+                id: openTabDelegate
                 objectName: "openTabDelegate"
                 anchors.fill: parent
-                color: (index == currentIndex) ? UbuntuColors.darkAubergine : "white"
-                title: model.title
+
+                property url thumbnailSource: "image://webthumbnail/" + model.url
+                thumbnail: thumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
+                Connections {
+                    target: thumbnailer
+                    onThumbnailRendered: {
+                        if (url == model.url) {
+                            openTabDelegate.thumbnail = openTabDelegate.thumbnailSource
+                        }
+                    }
+                }
             }
 
             onClicked: switchToTabClicked(index)

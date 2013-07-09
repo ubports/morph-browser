@@ -20,16 +20,10 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 
 UbuntuShape {
-    property alias title: title.text
+    property string title // XXX: unused property, for legacy reasons
+    property alias thumbnail: thumbnail.source
 
-    Label {
-        id: title
-        anchors {
-            fill: parent
-            margins: units.gu(0.5)
-        }
-        fontSize: "small"
-        wrapMode: Text.Wrap
-        elide: Text.ElideRight
+    image: Image {
+        id: thumbnail
     }
 }

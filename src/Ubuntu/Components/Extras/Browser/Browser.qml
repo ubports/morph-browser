@@ -124,7 +124,6 @@ FocusScope {
                 id: thumbnailer
                 webview: currentWebview
                 targetSize: Qt.size(units.gu(12), units.gu(12))
-                onThumbnailRendered: console.log("thumbnail rendered for", url)
             }
         }
 
@@ -142,6 +141,7 @@ FocusScope {
             visible: false
             tabsModel: tabsModel
             historyModel: historyModel
+            thumbnailer: thumbnailer
 
             onHistoryEntryRequested: {
                 currentWebview.url = url
