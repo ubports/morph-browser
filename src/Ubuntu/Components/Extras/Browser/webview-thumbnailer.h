@@ -45,6 +45,8 @@ public:
 
     Q_INVOKABLE void renderThumbnail();
 
+    static QString thumbnailFile(const QUrl& url);
+
 Q_SIGNALS:
     void webviewChanged() const;
     void targetSizeChanged() const;

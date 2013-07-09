@@ -81,6 +81,11 @@ void WebviewThumbnailer::renderThumbnail()
     }
 }
 
+QString WebviewThumbnailer::thumbnailFile(const QUrl& url)
+{
+    return QCryptographicHash::hash(url.toEncoded(), QCryptographicHash::Md5).toHex() + ".png";
+}
+
 QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* updatePaintNodeData)
 {
     Q_UNUSED(updatePaintNodeData);
@@ -123,8 +128,7 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
     if (!cacheLocation.exists()) {
         QDir::root().mkpath(cacheLocation.absolutePath());
     }
-    QString hash(QCryptographicHash::hash(m_webview->url().toEncoded(), QCryptographicHash::Md5).toHex());
-    QString filename = cacheLocation.absoluteFilePath(hash + ".png");
+    QString filename = cacheLocation.absoluteFilePath(thumbnailFile(m_webview->url()));
     bool saved = image.save(filename);
 
     root.removeChildNode(node);

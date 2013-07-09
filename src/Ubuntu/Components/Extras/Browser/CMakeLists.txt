@@ -6,6 +6,7 @@ set(PLUGIN_SRC
     history-model.cpp
     history-matches-model.cpp
     tabs-model.cpp
+    webthumbnail-provider.cpp
     webview-thumbnailer.cpp
     plugin.cpp
 )

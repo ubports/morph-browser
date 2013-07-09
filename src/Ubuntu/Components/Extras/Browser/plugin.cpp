@@ -20,6 +20,7 @@
 #include "history-model.h"
 #include "history-matches-model.h"
 #include "tabs-model.h"
+#include "webthumbnail-provider.h"
 #include "webview-thumbnailer.h"
 
 
@@ -37,6 +38,8 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     }
     QQmlContext* context = engine->rootContext();
     context->setContextProperty("dataLocation", dataLocation.absolutePath());
+
+    engine->addImageProvider(QLatin1String("webthumbnail"), new WebThumbnailProvider);
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
