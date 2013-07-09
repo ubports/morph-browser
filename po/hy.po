@@ -1,0 +1,149 @@
+# Armenian translation for webbrowser-app
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-06-06 12:51+0200\n"
+"PO-Revision-Date: 2013-07-08 16:41+0000\n"
+"Last-Translator: iAbaS <sosabazyan@yandex.ru>\n"
+"Language-Team: Armenian <hy@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-07-09 05:46+0000\n"
+"X-Generator: Launchpad (build 16696)\n"
+
+#: src/Ubuntu/Browser/ActivityView.qml:54
+msgid "Activity"
+msgstr "Գործունեություն"
+
+#: src/Ubuntu/Browser/Browser.qml:64
+msgid "Goto"
+msgstr "Գնալ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:67
+msgid "Address;URL;www"
+msgstr "Հասցե;URL;www"
+
+#: src/Ubuntu/Browser/Browser.qml:71 src/Ubuntu/Browser/Chrome.qml:69
+msgid "Back"
+msgstr "Ետ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:74
+msgid "Older Page"
+msgstr "Ավելի հին էջեր"
+
+#: src/Ubuntu/Browser/Browser.qml:79 src/Ubuntu/Browser/Chrome.qml:79
+msgid "Forward"
+msgstr "Առաջ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:82
+msgid "Newer Page"
+msgstr "Ավելի նոր էջեր"
+
+#: src/Ubuntu/Browser/Browser.qml:87
+msgid "Reload"
+msgstr "Թարմացնել"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:90
+msgid "Leave Page"
+msgstr "Լքել էջը"
+
+#: src/Ubuntu/Browser/Browser.qml:95
+msgid "Bookmark"
+msgstr "Նշել"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:98
+msgid "Add This Page to Bookmarks"
+msgstr "Ավելացնել էջը Նշումներում"
+
+#: src/Ubuntu/Browser/Browser.qml:102
+msgid "New Tab"
+msgstr "Նոր ներդիր"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/Ubuntu/Browser/Browser.qml:105
+msgid "Open a New Tab"
+msgstr "Բացել նոր ներդիր"
+
+#: src/Ubuntu/Browser/Chrome.qml:114
+msgid "Tabs"
+msgstr "Թաբեր"
+
+#: src/Ubuntu/Browser/ErrorSheet.qml:38
+msgid "Network Error"
+msgstr "Կապի սխալ"
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/Ubuntu/Browser/ErrorSheet.qml:44
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr "Կարծես թե խնդիր ունեք %1-ը դիտելիս։"
+
+#: src/Ubuntu/Browser/ErrorSheet.qml:50
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr "Ubuntu-ն առաջարկում է ստուգել կապի կարգավորումները և թարմացնել էջը։"
+
+#: src/Ubuntu/Browser/ErrorSheet.qml:55
+msgid "Refresh page"
+msgstr "Թարմացնել էջը"
+
+#: src/Ubuntu/Browser/SelectionPopover.qml:40
+msgid "Share"
+msgstr "Կիսվել"
+
+#: src/Ubuntu/Browser/SelectionPopover.qml:50
+msgid "Save"
+msgstr "Պահել"
+
+#: src/Ubuntu/Browser/SelectionPopover.qml:60
+msgid "Copy"
+msgstr "Պատճենել"
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/Ubuntu/Browser/TabsList.qml:43
+#, qt-format
+msgid "Open pages %1"
+msgstr "Բացել %1 էջեր"
+
+#: src/Ubuntu/Browser/TabsList.qml:68
+msgid "+"
+msgstr "+"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/Ubuntu/Browser/webbrowser-app.qml:33
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - Ubuntu Վեբ Բրոուզեր"
+
+#: src/Ubuntu/Browser/webbrowser-app.qml:34
+msgid "Ubuntu Web Browser"
+msgstr "Ubuntu Վեբ Բրոուզեր"
+
+#: src/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "Բրոուզեր"
+
+#: src/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "Վեբ Բրոուզեր"
+
+#: src/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "Մտնել ինտերնետ"
