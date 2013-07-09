@@ -139,7 +139,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         entries = \
             self.main_window.get_address_bar_suggestions_listview_entries()
         entry = entries[2]
-        highlight = '<b><font color="#DD4814">Ubuntu</font></b>'
+        highlight = '<b><font color="#dd4814">Ubuntu</font></b>'
         url = "http://en.wikipedia.org/wiki/%s_(operating_system)" % highlight
         self.assertThat(entry.subText, Contains(url))
         self.pointing_device.move_to_object(entry)
@@ -159,6 +159,6 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assertThat(listview.count, Eventually(Equals(1)))
         entry = \
             self.main_window.get_address_bar_suggestions_listview_entries()[0]
-        highlight = '<b><font color="#DD4814">(phil</font></b>'
+        highlight = '<b><font color="#dd4814">(phil</font></b>'
         url = "http://en.wikipedia.org/wiki/Ubuntu_%sosophy)" % highlight
         self.assertThat(entry.subText, Contains(url))

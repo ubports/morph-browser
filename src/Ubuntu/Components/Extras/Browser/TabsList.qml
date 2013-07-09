@@ -31,7 +31,7 @@ Column {
 
     ListItem.Header {
         // TRANSLATORS: %1 refers to the number of open tabs
-        text: i18n.tr("Currently viewing (%1)").arg('<font color="#DD4814">%1</font>'.arg(model.count))
+        text: i18n.tr("Currently viewing (%1)").arg('<font color="%1">%2</font>'.arg(UbuntuColors.orange).arg(model.count))
     }
 
     ListView {
@@ -80,7 +80,7 @@ Column {
             PageDelegate {
                 objectName: "openTabDelegate"
                 anchors.fill: parent
-                color: (index == currentIndex) ? "#2C001E" : "white"
+                color: (index == currentIndex) ? UbuntuColors.darkAubergine : "white"
                 title: model.title
             }
 
