@@ -1,7 +1,7 @@
 webbrowser-app (0.21) UNRELEASED; urgency=low
 
   * debian/control:
-    - Add the missing Replaces and Breaks due to the package split
+    - Add the missing Replaces and Breaks needed due to the package split
 
  -- Łukasz 'sil2100' Zemczak <lukasz.zemczak@canonical.com>  Tue, 09 Jul 2013 11:36:48 +0200
 
