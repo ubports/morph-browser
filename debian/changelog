@@ -1,3 +1,10 @@
+webbrowser-app (0.21) UNRELEASED; urgency=low
+
+  * debian/control:
+    - Add the missing Replaces and Breaks needed due to the package split
+
+ -- Łukasz 'sil2100' Zemczak <lukasz.zemczak@canonical.com>  Tue, 09 Jul 2013 11:36:48 +0200
+
 webbrowser-app (0.20daily13.06.21-0ubuntu1) saucy; urgency=low
 
   [ Robert Bruce Park ]
