@@ -43,7 +43,6 @@ public:
         Url = Qt::UserRole + 1,
         Title,
         Icon,
-        Thumbnail,
         WebView
     };
 
