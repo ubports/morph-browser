@@ -41,8 +41,8 @@ Depends: ${misc:Depends},
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-window-plugin,
-Replaces: webbrowser-app (<< 0.20+13.10.20130709-0ubuntu1)
-Breaks: webbrowser-app (<< 0.20+13.10.20130709-0ubuntu1)
+Replaces: webbrowser-app (<< 0.21)
+Breaks: webbrowser-app (<< 0.21)
 Description: Ubuntu web browser QML plugin
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains a standalone
