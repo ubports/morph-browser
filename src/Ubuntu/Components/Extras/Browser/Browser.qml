@@ -134,7 +134,12 @@ FocusScope {
             anchors.fill: parent
             visible: false
             tabsModel: tabsModel
+            historyModel: historyModel
 
+            onHistoryEntryRequested: {
+                currentWebview.url = url
+                visible = false
+            }
             onNewTabRequested: {
                 browser.newTab("", true)
                 visible = false

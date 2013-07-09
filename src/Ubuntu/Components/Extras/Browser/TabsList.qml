@@ -20,25 +20,16 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 
-Rectangle {
+Column {
     property alias model: listview.model
 
     signal newTabClicked()
     signal switchToTabClicked(int index)
     signal tabRemoved(int index)
 
-    color: UbuntuColors.warmGrey
+    spacing: units.gu(2)
 
-    Label {
-        id: heading
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-            margins: units.gu(1)
-        }
-        height: units.gu(2)
-        font.bold: true
+    ListItem.Header {
         // TRANSLATORS: %1 refers to the number of open tabs
         text: i18n.tr("Currently viewing (%1)").arg('<font color="%1">%2</font>'.arg(UbuntuColors.orange).arg(model.count))
     }
@@ -46,24 +37,23 @@ Rectangle {
     ListView {
         id: listview
         anchors {
-            top: heading.bottom
-            bottom: parent.bottom
             left: parent.left
             right: parent.right
-            margins: units.gu(1)
+            margins: units.gu(2)
         }
-        spacing: units.gu(1)
+        height: units.gu(14)
+        spacing: units.gu(2)
         orientation: ListView.Horizontal
         currentIndex: model.currentIndex
 
         header: Item {
-            width: units.gu(11)
+            width: units.gu(14)
             height: parent.height
 
             PageDelegate {
                 objectName: "newTabDelegate"
-                width: units.gu(10)
-                height: parent.height
+                width: units.gu(12)
+                height: units.gu(12)
                 color: "white"
                 Label {
                     anchors.centerIn: parent
@@ -78,8 +68,8 @@ Rectangle {
         }
 
         delegate: ListItem.Empty {
-            width: units.gu(10)
-            height: parent.height
+            width: units.gu(12)
+            height: units.gu(12)
             showDivider: false
 
             // FIXME: http://pad.lv/1187476 makes it impossible to swipe a

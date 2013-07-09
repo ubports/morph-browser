@@ -21,7 +21,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
     def ensure_activity_view_visible(self):
         self.ensure_chrome_is_hidden()
         self.reveal_chrome()
-        tabs_button = self.main_window.get_tabs_button()
+        tabs_button = self.main_window.get_activity_button()
         self.pointing_device.move_to_object(tabs_button)
         self.pointing_device.click()
         activity_view = self.main_window.get_activity_view()
@@ -64,7 +64,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
     def test_toggle_activity_view(self):
         activity_view = self.main_window.get_activity_view()
         self.assertThat(activity_view.visible, Equals(False))
-        tabs_button = self.main_window.get_tabs_button()
+        tabs_button = self.main_window.get_activity_button()
         self.ensure_activity_view_visible()
         self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
