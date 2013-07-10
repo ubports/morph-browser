@@ -198,6 +198,9 @@ Item {
 
                     label: model.title
 
+                    property url thumbnailSource: "image://webthumbnail/" + model.url
+                    thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
+
                     MouseArea {
                         anchors.fill: parent
                         onClicked: historyEntryClicked(model.url)

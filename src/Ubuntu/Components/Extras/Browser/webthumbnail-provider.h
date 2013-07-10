@@ -20,14 +20,19 @@
 #define __WEBTHUMBNAIL_PROVIDER_H__
 
 // Qt
+#include <QtCore/QObject>
 #include <QtQuick/QQuickImageProvider>
 
-class WebThumbnailProvider : public QQuickImageProvider
+class WebThumbnailProvider : public QObject, public QQuickImageProvider
 {
+    Q_OBJECT
+
 public:
-    WebThumbnailProvider();
+    WebThumbnailProvider(QObject* parent=0);
 
     virtual QImage requestImage(const QString& id, QSize* size, const QSize& requestedSize);
+
+    Q_INVOKABLE bool thumbnailExists(const QUrl& url) const;
 };
 
 #endif // __WEBTHUMBNAIL_PROVIDER_H__

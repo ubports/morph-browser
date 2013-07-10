@@ -25,8 +25,9 @@
 #include <QtCore/QUrl>
 #include <QtGui/QImageReader>
 
-WebThumbnailProvider::WebThumbnailProvider()
-    : QQuickImageProvider(QQuickImageProvider::Image)
+WebThumbnailProvider::WebThumbnailProvider(QObject* parent)
+    : QObject(parent)
+    , QQuickImageProvider(QQuickImageProvider::Image)
 {
 }
 
@@ -47,4 +48,9 @@ QImage WebThumbnailProvider::requestImage(const QString& id, QSize* size, const 
         }
     }
     return image;
+}
+
+bool WebThumbnailProvider::thumbnailExists(const QUrl& url) const
+{
+    return WebviewThumbnailer::thumbnailFile(url).exists();
 }

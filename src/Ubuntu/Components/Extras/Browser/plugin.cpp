@@ -26,7 +26,6 @@
 #include "webthumbnail-provider.h"
 #include "webview-thumbnailer.h"
 
-
 // Qt
 #include <QtCore/QDir>
 #include <QtCore/QStandardPaths>
@@ -42,7 +41,9 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     QQmlContext* context = engine->rootContext();
     context->setContextProperty("dataLocation", dataLocation.absolutePath());
 
-    engine->addImageProvider(QLatin1String("webthumbnail"), new WebThumbnailProvider);
+    WebThumbnailProvider* thumbnailer = new WebThumbnailProvider;
+    engine->addImageProvider(QLatin1String("webthumbnail"), thumbnailer);
+    context->setContextProperty("WebThumbnailer", thumbnailer);
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
