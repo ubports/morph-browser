@@ -197,7 +197,7 @@ Item {
                     width: units.gu(12)
                     height: units.gu(14)
 
-                    label: model.title
+                    label: model.title ? model.title : model.url
 
                     property url thumbnailSource: "image://webthumbnail/" + model.url
                     thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
