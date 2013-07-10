@@ -119,12 +119,6 @@ FocusScope {
                 top: parent.top
                 bottom: osk.top
             }
-
-            WebviewThumbnailer {
-                id: thumbnailer
-                webview: currentWebview
-                targetSize: Qt.size(units.gu(12), units.gu(12))
-            }
         }
 
         ErrorSheet {
@@ -141,7 +135,6 @@ FocusScope {
             visible: false
             tabsModel: tabsModel
             historyModel: historyModel
-            thumbnailer: thumbnailer
 
             onHistoryEntryRequested: {
                 currentWebview.url = url

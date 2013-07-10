@@ -26,7 +26,6 @@ Item {
 
     property QtObject tabsModel
     property QtObject historyModel
-    property Item thumbnailer
 
     signal resetPositionRequested()
     signal newTabRequested()
@@ -61,7 +60,6 @@ Item {
             height: units.gu(23)
 
             model: tabsModel
-            thumbnailer: timelineView.thumbnailer
 
             onNewTabClicked: newTabRequested()
             onSwitchToTabClicked: switchToTabRequested(index)

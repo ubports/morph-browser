@@ -22,7 +22,6 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Column {
     property alias model: listview.model
-    property Item thumbnailer
 
     signal newTabClicked()
     signal switchToTabClicked(int index)
@@ -86,9 +85,9 @@ Column {
                 label: model.url
 
                 property url thumbnailSource: "image://webthumbnail/" + model.url
-                thumbnail: thumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
+                thumbnail: (model.url && model.webview.thumbnailer.thumbnailExists()) ? thumbnailSource : ""
                 Connections {
-                    target: thumbnailer
+                    target: model.webview.thumbnailer
                     onThumbnailRendered: {
                         if (url == model.url) {
                             openTabDelegate.thumbnail = openTabDelegate.thumbnailSource

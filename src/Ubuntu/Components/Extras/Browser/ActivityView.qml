@@ -24,7 +24,6 @@ Item {
 
     property alias tabsModel: timelineView.tabsModel
     property alias historyModel: timelineView.historyModel
-    property alias thumbnailer: timelineView.thumbnailer
 
     signal historyEntryRequested(url url)
     signal newTabRequested()
