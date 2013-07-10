@@ -42,7 +42,7 @@ Column {
             right: parent.right
             margins: units.gu(2)
         }
-        height: units.gu(14)
+        height: units.gu(16)
         spacing: units.gu(2)
         orientation: ListView.Horizontal
         currentIndex: model.currentIndex
@@ -51,7 +51,7 @@ Column {
             width: units.gu(14)
             height: parent.height
 
-            PageDelegate {
+            UbuntuShape {
                 objectName: "newTabDelegate"
                 width: units.gu(12)
                 height: units.gu(12)
@@ -70,7 +70,7 @@ Column {
 
         delegate: ListItem.Empty {
             width: units.gu(12)
-            height: units.gu(12)
+            height: units.gu(14)
             showDivider: false
 
             // FIXME: http://pad.lv/1187476 makes it impossible to swipe a
@@ -82,6 +82,8 @@ Column {
                 id: openTabDelegate
                 objectName: "openTabDelegate"
                 anchors.fill: parent
+
+                label: model.url
 
                 property url thumbnailSource: "image://webthumbnail/" + model.url
                 thumbnail: thumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""

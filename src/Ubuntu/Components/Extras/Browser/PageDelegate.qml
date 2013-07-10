@@ -19,11 +19,34 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 
-UbuntuShape {
-    property string title // XXX: unused property, for legacy reasons
+Item {
     property alias thumbnail: thumbnail.source
+    property alias label: label.text
 
-    image: Image {
-        id: thumbnail
+    UbuntuShape {
+        id: shape
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        height: width
+
+        image: Image {
+            id: thumbnail
+        }
+    }
+
+    Label {
+        id: label
+        anchors {
+            top: shape.bottom
+            topMargin: units.gu(1)
+            left: parent.left
+            right: parent.right
+        }
+        height: units.gu(1)
+        fontSize: "small"
+        elide: Text.ElideRight
     }
 }
