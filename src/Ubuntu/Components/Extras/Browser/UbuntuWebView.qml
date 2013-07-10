@@ -189,10 +189,23 @@ WebView {
         align: Qt.AlignBottom
     }
 
-    readonly property alias thumbnailer: _thumbnailer
     WebviewThumbnailer {
-        id: _thumbnailer
+        id: thumbnailer
         webview: _webview
         targetSize: Qt.size(units.gu(12), units.gu(12))
+        property url thumbnailSource: "image://webthumbnail/" + _webview.url
+        onThumbnailRendered: {
+            if (url == _webview.url) {
+                _webview.thumbnail = thumbnailer.thumbnailSource
+            }
+        }
+    }
+    property url thumbnail: (url && thumbnailer.thumbnailExists()) ? thumbnailer.thumbnailSource : ""
+    onLoadingChanged: {
+        if (loadRequest.status === WebView.LoadSucceededStatus) {
+            if (!thumbnailer.thumbnailExists()) {
+                thumbnailer.renderThumbnail()
+            }
+        }
     }
 }

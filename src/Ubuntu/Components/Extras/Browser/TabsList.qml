@@ -83,17 +83,7 @@ Column {
                 anchors.fill: parent
 
                 label: model.url
-
-                property url thumbnailSource: "image://webthumbnail/" + model.url
-                thumbnail: (model.url && model.webview.thumbnailer.thumbnailExists()) ? thumbnailSource : ""
-                Connections {
-                    target: model.webview.thumbnailer
-                    onThumbnailRendered: {
-                        if (url == model.url) {
-                            openTabDelegate.thumbnail = openTabDelegate.thumbnailSource
-                        }
-                    }
-                }
+                thumbnail: model.webview.thumbnail
             }
 
             onClicked: switchToTabClicked(index)

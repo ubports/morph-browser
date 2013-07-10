@@ -294,9 +294,6 @@ FocusScope {
                 lastLoadRequestStatus = loadRequest.status
                 if (loadRequest.status === WebView.LoadSucceededStatus) {
                     historyModel.add(webview.url, webview.title, webview.icon)
-                    if (!thumbnailer.thumbnailExists()) {
-                        thumbnailer.renderThumbnail()
-                    }
                 }
             }
 
