@@ -39,11 +39,13 @@ private:
 WebviewThumbnailer::WebviewThumbnailer(QQuickItem* parent)
     : QQuickItem(parent)
     , m_webview(0)
+    , m_renderer(0)
 {
 }
 
 WebviewThumbnailer::~WebviewThumbnailer()
 {
+    delete m_renderer;
 }
 
 QQuickWebView* WebviewThumbnailer::webview() const
@@ -132,17 +134,19 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
     QSGRootNode root;
     root.appendChildNode(node);
 
-    QSGRenderer* renderer = QQuickItemPrivate::get(this)->sceneGraphContext()->createRenderer();
-    renderer->setRootNode(static_cast<QSGRootNode*>(&root));
+    if (m_renderer == 0) {
+        m_renderer = QQuickItemPrivate::get(this)->sceneGraphContext()->createRenderer();
+    }
+    m_renderer->setRootNode(static_cast<QSGRootNode*>(&root));
 
     QOpenGLFramebufferObject fbo(size);
 
-    renderer->setDeviceRect(size);
-    renderer->setViewportRect(size);
-    renderer->setProjectionMatrixToRect(QRectF(QPointF(), size));
-    renderer->setClearColor(Qt::transparent);
+    m_renderer->setDeviceRect(size);
+    m_renderer->setViewportRect(size);
+    m_renderer->setProjectionMatrixToRect(QRectF(QPointF(), size));
+    m_renderer->setClearColor(Qt::transparent);
 
-    renderer->renderScene(BindableFbo(&fbo));
+    m_renderer->renderScene(BindableFbo(&fbo));
 
     fbo.release();
 
