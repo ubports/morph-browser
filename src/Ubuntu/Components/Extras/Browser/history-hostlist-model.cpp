@@ -147,6 +147,7 @@ void HistoryHostListModel::populateModel()
 
 void HistoryHostListModel::onRowsInserted(const QModelIndex& parent, int start, int end)
 {
+    QStringList updated;
     for (int i = start; i <= end; ++i) {
         QString host = getHostFromSourceModel(m_sourceModel->index(i, 0, parent));
         if (!m_hosts.contains(host)) {
@@ -161,7 +162,15 @@ void HistoryHostListModel::onRowsInserted(const QModelIndex& parent, int start, 
             beginInsertRows(QModelIndex(), insertAt, insertAt);
             insertNewHost(host);
             endInsertRows();
+        } else {
+            updated.append(host);
         }
+    }
+    QVector<int> updatedRoles = QVector<int>() << Thumbnail << Entries;
+    QStringList hosts = m_hosts.keys();
+    Q_FOREACH(const QString& host, updated) {
+        QModelIndex index = this->index(hosts.indexOf(host), 0);
+        Q_EMIT dataChanged(index, index, updatedRoles);
     }
 }
 
@@ -183,6 +192,11 @@ void HistoryHostListModel::onRowsRemoved(const QModelIndex& parent, int start, i
         delete m_hosts.take(host);
         endRemoveRows();
     }
+    // XXX: unfortunately there is no way to get a list of hosts that had some
+    // (but not all) entries removed. To ensure the views are correctly updated,
+    // let’s emit the signal for all entries, even those that haven’t changed.
+    Q_EMIT dataChanged(this->index(0, 0), this->index(rowCount() - 1, 0),
+                       QVector<int>() << Thumbnail << Entries);
 }
 
 void HistoryHostListModel::onModelReset()
