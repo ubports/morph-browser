@@ -16,24 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBTHUMBNAIL_PROVIDER_H__
-#define __WEBTHUMBNAIL_PROVIDER_H__
+#include "webthumbnail-utils.h"
 
 // Qt
-#include <QtCore/QObject>
-#include <QtCore/QUrl>
-#include <QtQuick/QQuickImageProvider>
+#include <QtCore/QCryptographicHash>
+#include <QtCore/QStandardPaths>
 
-class WebThumbnailProvider : public QObject, public QQuickImageProvider
+QDir WebThumbnailUtils::cacheLocation()
 {
-    Q_OBJECT
+    return QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/thumbnails";
+}
 
-public:
-    WebThumbnailProvider(QObject* parent=0);
+void WebThumbnailUtils::ensureCacheLocation()
+{
+    QDir cache = cacheLocation();
+    if (!cache.exists()) {
+        QDir::root().mkpath(cache.absolutePath());
+    }
+}
 
-    virtual QImage requestImage(const QString& id, QSize* size, const QSize& requestedSize);
-
-    Q_INVOKABLE bool thumbnailExists(const QUrl& url) const;
-};
-
-#endif // __WEBTHUMBNAIL_PROVIDER_H__
+QFileInfo WebThumbnailUtils::thumbnailFile(const QUrl& url)
+{
+    QString hash(QCryptographicHash::hash(url.toEncoded(), QCryptographicHash::Md5).toHex());
+    return cacheLocation().absoluteFilePath(hash + ".png");
+}

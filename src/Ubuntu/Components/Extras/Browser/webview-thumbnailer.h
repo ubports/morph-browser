@@ -20,10 +20,7 @@
 #define __WEBVIEW_THUMBNAILER_H__
 
 // Qt
-#include <QtCore/QDir>
-#include <QtCore/QFileInfo>
 #include <QtCore/QSize>
-#include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtQuick/private/qquickitem_p.h>
 
@@ -49,9 +46,6 @@ public:
 
     Q_INVOKABLE bool thumbnailExists() const;
     Q_INVOKABLE void renderThumbnail();
-
-    static QDir cacheLocation();
-    static QFileInfo thumbnailFile(const QUrl& url);
 
 Q_SIGNALS:
     void webviewChanged() const;

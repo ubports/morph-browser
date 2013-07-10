@@ -41,6 +41,7 @@ public:
 
     enum Roles {
         Host = Qt::UserRole + 1,
+        Thumbnail,
         Entries
     };
 

@@ -17,10 +17,9 @@
  */
 
 #include "webview-thumbnailer.h"
+#include "webthumbnail-utils.h"
 
 // Qt
-#include <QtCore/QCryptographicHash>
-#include <QtCore/QStandardPaths>
 #include <QtCore/QTimer>
 #include <QtQuick/private/qsgrenderer_p.h>
 #include <QtWebKit/private/qquickwebpage_p.h>
@@ -80,7 +79,7 @@ bool WebviewThumbnailer::thumbnailExists() const
     if (m_webview) {
         QUrl url = m_webview->url();
         if (url.isValid()) {
-            return thumbnailFile(url).exists();
+            return WebThumbnailUtils::thumbnailFile(url).exists();
         }
     }
     return false;
@@ -99,17 +98,6 @@ void WebviewThumbnailer::doRenderThumbnail()
         setFlag(QQuickItem::ItemHasContents);
         update();
     }
-}
-
-QDir WebviewThumbnailer::cacheLocation()
-{
-    return QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/thumbnails";
-}
-
-QFileInfo WebviewThumbnailer::thumbnailFile(const QUrl& url)
-{
-    QString hash(QCryptographicHash::hash(url.toEncoded(), QCryptographicHash::Md5).toHex());
-    return cacheLocation().absoluteFilePath(hash + ".png");
 }
 
 QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* updatePaintNodeData)
@@ -152,12 +140,9 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
 
     QImage image = fbo.toImage().scaled(m_targetSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
 
-    QDir cache = cacheLocation();
-    if (!cache.exists()) {
-        QDir::root().mkpath(cache.absolutePath());
-    }
+    WebThumbnailUtils::ensureCacheLocation();
     QUrl url = m_webview->url();
-    bool saved = image.save(thumbnailFile(url).absoluteFilePath());
+    bool saved = image.save(WebThumbnailUtils::thumbnailFile(url).absoluteFilePath());
 
     root.removeChildNode(node);
 

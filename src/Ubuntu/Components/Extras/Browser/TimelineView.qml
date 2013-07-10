@@ -163,6 +163,7 @@ Item {
                     height: units.gu(14)
 
                     label: model.host ? model.host : i18n.tr("(local files)")
+                    thumbnail: model.thumbnail
 
                     MouseArea {
                         anchors.fill: parent

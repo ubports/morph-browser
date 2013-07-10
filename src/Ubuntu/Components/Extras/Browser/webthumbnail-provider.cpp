@@ -17,12 +17,10 @@
  */
 
 #include "webthumbnail-provider.h"
-#include "webview-thumbnailer.h"
+#include "webthumbnail-utils.h"
 
 // Qt
 #include <QtCore/QDebug>
-#include <QtCore/QStandardPaths>
-#include <QtCore/QUrl>
 #include <QtGui/QImageReader>
 
 WebThumbnailProvider::WebThumbnailProvider(QObject* parent)
@@ -34,7 +32,7 @@ WebThumbnailProvider::WebThumbnailProvider(QObject* parent)
 QImage WebThumbnailProvider::requestImage(const QString& id, QSize* size, const QSize& requestedSize)
 {
     QImage image;
-    QFileInfo cached = WebviewThumbnailer::thumbnailFile(QUrl(id));
+    QFileInfo cached = WebThumbnailUtils::thumbnailFile(QUrl(id));
     if (cached.exists()) {
         QImageReader reader(cached.absoluteFilePath(), "PNG");
         if (requestedSize.isValid()) {
@@ -52,5 +50,5 @@ QImage WebThumbnailProvider::requestImage(const QString& id, QSize* size, const 
 
 bool WebThumbnailProvider::thumbnailExists(const QUrl& url) const
 {
-    return WebviewThumbnailer::thumbnailFile(url).exists();
+    return WebThumbnailUtils::thumbnailFile(url).exists();
 }

@@ -20,6 +20,7 @@
 #include "history-model.h"
 #include "history-host-model.h"
 #include "history-timeframe-model.h"
+#include "webthumbnail-utils.h"
 
 // Qt
 #include <QtCore/QSet>
@@ -30,8 +31,9 @@
     \brief List model that exposes history entries grouped by host
 
     HistoryHostListModel is a list model that exposes history entries from a
-    HistoryTimeframeModel grouped by host. Each item in the list has two roles:
-    'host' for the host name, and 'entries' for the corresponding
+    HistoryTimeframeModel grouped by host. Each item in the list has three
+    roles: 'host' for the host name, 'thumbnail' for a thumbnail picture of a
+    page corresponding to this host, and 'entries' for the corresponding
     HistoryHostModel that contains all entries in this group.
 */
 HistoryHostListModel::HistoryHostListModel(QObject* parent)
@@ -50,6 +52,7 @@ QHash<int, QByteArray> HistoryHostListModel::roleNames() const
     static QHash<int, QByteArray> roles;
     if (roles.isEmpty()) {
         roles[Host] = "host";
+        roles[Thumbnail] = "thumbnail";
         roles[Entries] = "entries";
     }
     return roles;
@@ -74,6 +77,20 @@ QVariant HistoryHostListModel::data(const QModelIndex& index, int role) const
     switch (role) {
     case Host:
         return host;
+    case Thumbnail:
+    {
+        // Iterate over all the entries, and return the first valid thumbnail.
+        HistoryHostModel* entries = m_hosts.value(host);
+        int count = entries->rowCount();
+        for (int i = 0; i < count; ++i) {
+            QUrl url = entries->data(entries->index(i, 0), HistoryModel::Url).toUrl();
+            QFileInfo thumbnailFile = WebThumbnailUtils::thumbnailFile(url);
+            if (thumbnailFile.exists()) {
+                return thumbnailFile.absoluteFilePath();
+            }
+        }
+        return QUrl();
+    }
     case Entries:
         return QVariant::fromValue(m_hosts.value(host));
     default:

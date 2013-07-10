@@ -16,24 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBTHUMBNAIL_PROVIDER_H__
-#define __WEBTHUMBNAIL_PROVIDER_H__
+#ifndef __WEBTHUMBNAIL_UTILS_H__
+#define __WEBTHUMBNAIL_UTILS_H__
 
 // Qt
-#include <QtCore/QObject>
+#include <QtCore/QDir>
+#include <QtCore/QFileInfo>
 #include <QtCore/QUrl>
-#include <QtQuick/QQuickImageProvider>
 
-class WebThumbnailProvider : public QObject, public QQuickImageProvider
+class WebThumbnailUtils
 {
-    Q_OBJECT
-
 public:
-    WebThumbnailProvider(QObject* parent=0);
-
-    virtual QImage requestImage(const QString& id, QSize* size, const QSize& requestedSize);
-
-    Q_INVOKABLE bool thumbnailExists(const QUrl& url) const;
+    static QDir cacheLocation();
+    static void ensureCacheLocation();
+    static QFileInfo thumbnailFile(const QUrl& url);
 };
 
-#endif // __WEBTHUMBNAIL_PROVIDER_H__
+#endif // __WEBTHUMBNAIL_UTILS_H__

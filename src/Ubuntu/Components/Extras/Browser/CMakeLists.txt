@@ -9,6 +9,7 @@ set(PLUGIN_SRC
     history-host-model.cpp
     history-hostlist-model.cpp
     tabs-model.cpp
+    webthumbnail-utils.cpp
     webthumbnail-provider.cpp
     webview-thumbnailer.cpp
     plugin.cpp
