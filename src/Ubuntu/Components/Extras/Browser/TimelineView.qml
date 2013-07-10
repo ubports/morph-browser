@@ -188,6 +188,7 @@ Item {
                     margins: units.gu(2)
                 }
                 height: 0
+                clip: true
 
                 spacing: units.gu(2)
                 orientation: ListView.Horizontal
@@ -214,6 +215,7 @@ Item {
                         PropertyChanges {
                             target: entriesView
                             height: units.gu(14)
+                            clip: false
                         }
                     }
                 ]
