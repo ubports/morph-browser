@@ -189,9 +189,9 @@ WebView {
         align: Qt.AlignBottom
     }
 
-    readonly property alias thumbnailer: thumbnailer
+    readonly property alias thumbnailer: _thumbnailer
     WebviewThumbnailer {
-        id: thumbnailer
+        id: _thumbnailer
         webview: _webview
         targetSize: Qt.size(units.gu(12), units.gu(12))
     }
