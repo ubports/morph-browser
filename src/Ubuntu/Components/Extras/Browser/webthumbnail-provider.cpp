@@ -38,11 +38,10 @@ QImage WebThumbnailProvider::requestImage(const QString& id, QSize* size, const 
         if (requestedSize.isValid()) {
             reader.setScaledSize(requestedSize);
         }
+        *size = reader.size();
         reader.read(&image);
         if (image.isNull()) {
             qWarning() << "Failed to load cached thumbnail:" << reader.errorString();
-        } else {
-            *size = image.size();
         }
     }
     return image;
