@@ -46,7 +46,8 @@ private Q_SLOTS:
         QTest::newRow("two-component TLD with subdomain") << QUrl("http://www.foobar.bbc.co.uk") << QString("bbc.co.uk");
         QTest::newRow("local file") << QUrl("file:///home/foobar/test.txt") << DomainUtils::TOKEN_LOCAL;
         QTest::newRow("IPv4 address") << QUrl("http://192.168.1.1/config") << QString("192.168.1.1");
-        //QTest::newRow("IPv6 address") << QUrl("http://[2001:db8:85a3::8a2e:370:7334]/bleh") << QString("[2001:db8:85a3::8a2e:370:7334]");
+        QTest::newRow("IPv6 address") << QUrl("http://[2001:db8:85a3::8a2e:370:7334]/bleh") << QString("2001:db8:85a3::8a2e:370:7334");
+        QTest::newRow("localhost") << QUrl("http://localhost:8080/foobar") << QString("localhost");
     }
 
     void shouldExtractTopLevelDomainName()

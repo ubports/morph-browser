@@ -25,30 +25,6 @@
 const QString DomainUtils::TOKEN_LOCAL = "(local)";
 const QString DomainUtils::TOKEN_NONE = "(none)";
 
-static bool isAnIPV4Component(const QString& string)
-{
-    bool ok;
-    int component = string.toInt(&ok);
-    if (!ok) {
-        return false;
-    }
-    return ((component >= 0) && (component <= 255));
-}
-
-static bool isAnIPV4Address(const QString& host)
-{
-    QStringList parts = host.split(".");
-    if (parts.size() != 4) {
-        return false;
-    }
-    Q_FOREACH(const QString& component, parts) {
-        if (!isAnIPV4Component(component)) {
-            return false;
-        }
-    }
-    return true;
-}
-
 QString DomainUtils::extractTopLevelDomainName(const QUrl& url)
 {
     if (url.isLocalFile()) {
@@ -61,13 +37,7 @@ QString DomainUtils::extractTopLevelDomainName(const QUrl& url)
     }
     QString tld = url.topLevelDomain();
     if (tld.isEmpty()) {
-        // TODO: also detect IPv6 addresses
-        if (isAnIPV4Address(host)) {
-            return host;
-        } else {
-            // XXX: (when) can this happen?
-            return TOKEN_NONE;
-        }
+        return host;
     }
     host.chop(tld.size());
     QString sld = host.split(".").last();
