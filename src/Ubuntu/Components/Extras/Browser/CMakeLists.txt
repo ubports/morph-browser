@@ -3,11 +3,12 @@ project(webbrowser-plugin)
 set(PLUGIN ubuntu-ui-extras-browser-plugin)
 
 set(PLUGIN_SRC
+    domain-utils.cpp
     history-model.cpp
     history-matches-model.cpp
     history-timeframe-model.cpp
-    history-host-model.cpp
-    history-hostlist-model.cpp
+    history-domain-model.cpp
+    history-domainlist-model.cpp
     tabs-model.cpp
     webthumbnail-utils.cpp
     webthumbnail-provider.cpp

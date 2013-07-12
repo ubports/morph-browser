@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __HISTORY_HOST_MODEL_H__
-#define __HISTORY_HOST_MODEL_H__
+#ifndef __HISTORY_DOMAIN_MODEL_H__
+#define __HISTORY_DOMAIN_MODEL_H__
 
 // Qt
 #include <QtCore/QSortFilterProxyModel>
@@ -25,32 +25,32 @@
 
 class HistoryTimeframeModel;
 
-class HistoryHostModel : public QSortFilterProxyModel
+class HistoryDomainModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
     Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
-    Q_PROPERTY(QString host READ host WRITE setHost NOTIFY hostChanged)
+    Q_PROPERTY(QString domain READ domain WRITE setDomain NOTIFY domainChanged)
 
 public:
-    HistoryHostModel(QObject* parent=0);
+    HistoryDomainModel(QObject* parent=0);
 
     HistoryTimeframeModel* sourceModel() const;
     void setSourceModel(HistoryTimeframeModel* sourceModel);
 
-    const QString& host() const;
-    void setHost(const QString& host);
+    const QString& domain() const;
+    void setDomain(const QString& domain);
 
 Q_SIGNALS:
     void sourceModelChanged() const;
-    void hostChanged() const;
+    void domainChanged() const;
 
 protected:
     // reimplemented from QSortFilterProxyModel
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 
 private:
-    QString m_host;
+    QString m_domain;
 };
 
-#endif // __HISTORY_HOST_MODEL_H__
+#endif // __HISTORY_DOMAIN_MODEL_H__

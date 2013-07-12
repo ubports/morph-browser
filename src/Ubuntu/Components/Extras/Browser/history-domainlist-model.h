@@ -16,18 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __HISTORY_HOSTLIST_MODEL_H__
-#define __HISTORY_HOSTLIST_MODEL_H__
+#ifndef __HISTORY_DOMAINLIST_MODEL_H__
+#define __HISTORY_DOMAINLIST_MODEL_H__
 
 // Qt
 #include <QtCore/QAbstractListModel>
 #include <QtCore/QMap>
 #include <QtCore/QString>
 
-class HistoryHostModel;
+class HistoryDomainModel;
 class HistoryTimeframeModel;
 
-class HistoryHostListModel : public QAbstractListModel
+class HistoryDomainListModel : public QAbstractListModel
 {
     Q_OBJECT
 
@@ -36,11 +36,11 @@ class HistoryHostListModel : public QAbstractListModel
     Q_ENUMS(Roles)
 
 public:
-    HistoryHostListModel(QObject* parent=0);
-    ~HistoryHostListModel();
+    HistoryDomainListModel(QObject* parent=0);
+    ~HistoryDomainListModel();
 
     enum Roles {
-        Host = Qt::UserRole + 1,
+        Domain = Qt::UserRole + 1,
         Thumbnail,
         Entries
     };
@@ -63,12 +63,12 @@ private Q_SLOTS:
 
 private:
     HistoryTimeframeModel* m_sourceModel;
-    QMap<QString, HistoryHostModel*> m_hosts;
+    QMap<QString, HistoryDomainModel*> m_domains;
 
-    void clearHosts();
+    void clearDomains();
     void populateModel();
-    void insertNewHost(const QString& host);
-    QString getHostFromSourceModel(const QModelIndex& index) const;
+    void insertNewDomain(const QString& domain);
+    QString getDomainFromSourceModel(const QModelIndex& index) const;
 };
 
-#endif // __HISTORY_HOSTLIST_MODEL_H__
+#endif // __HISTORY_DOMAINLIST_MODEL_H__

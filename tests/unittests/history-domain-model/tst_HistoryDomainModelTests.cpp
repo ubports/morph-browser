@@ -22,18 +22,18 @@
 
 // local
 #include "history-model.h"
-#include "history-host-model.h"
+#include "history-domain-model.h"
 #include "history-timeframe-model.h"
 
 
-class HistoryHostModelTests : public QObject
+class HistoryDomainModelTests : public QObject
 {
     Q_OBJECT
 
 private:
     HistoryModel* history;
     HistoryTimeframeModel* timeframe;
-    HistoryHostModel* model;
+    HistoryDomainModel* model;
 
 private Q_SLOTS:
     void init()
@@ -42,7 +42,7 @@ private Q_SLOTS:
         history->setDatabasePath(":memory:");
         timeframe = new HistoryTimeframeModel;
         timeframe->setSourceModel(history);
-        model = new HistoryHostModel;
+        model = new HistoryDomainModel;
         model->setSourceModel(timeframe);
     }
 
@@ -72,42 +72,40 @@ private Q_SLOTS:
         QCOMPARE(model->sourceModel(), (HistoryTimeframeModel*) 0);
     }
 
-    void shouldNotifyWhenChangingHost()
+    void shouldNotifyWhenChangingDomain()
     {
-        QSignalSpy spy(model, SIGNAL(hostChanged()));
-        model->setHost(QString());
+        QSignalSpy spy(model, SIGNAL(domainChanged()));
+        model->setDomain(QString());
         QVERIFY(spy.isEmpty());
-        model->setHost(QString(""));
+        model->setDomain(QString(""));
+        QVERIFY(spy.isEmpty());
+        model->setDomain("example.org");
         QCOMPARE(spy.count(), 1);
-        model->setHost("example.org");
-        QCOMPARE(spy.count(), 2);
     }
 
-    void shouldMatchAllWhenNoHostSet()
+    void shouldMatchAllWhenNoDomainSet()
     {
         history->add(QUrl("http://example.org"), "Example Domain", QUrl());
         history->add(QUrl("http://example.com"), "Example Domain", QUrl());
         QCOMPARE(model->rowCount(), 2);
     }
 
-    void shouldFilterOutNonMatchingHosts()
+    void shouldFilterOutNonMatchingDomains()
     {
         history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
         history->add(QUrl("http://example.com/"), "Example Domain", QUrl());
-        model->setHost("example.org");
+        model->setDomain("example.org");
         QCOMPARE(model->rowCount(), 1);
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.org/"));
-        model->setHost("example.com");
+        model->setDomain("example.com");
         QCOMPARE(model->rowCount(), 1);
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.com/"));
-        model->setHost("ubuntu.com");
+        model->setDomain("ubuntu.com");
         QCOMPARE(model->rowCount(), 0);
-        model->setHost("");
-        QCOMPARE(model->rowCount(), 0);
-        model->setHost(QString());
+        model->setDomain("");
         QCOMPARE(model->rowCount(), 2);
     }
 };
 
-QTEST_MAIN(HistoryHostModelTests)
-#include "tst_HistoryHostModelTests.moc"
+QTEST_MAIN(HistoryDomainModelTests)
+#include "tst_HistoryDomainModelTests.moc"

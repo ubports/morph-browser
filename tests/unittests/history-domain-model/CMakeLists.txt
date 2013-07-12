@@ -1,11 +1,10 @@
-set(TEST tst_HistoryHostListModelTests)
+set(TEST tst_HistoryDomainModelTests)
 set(SOURCES
-    ${webbrowser-plugin_SOURCE_DIR}/history-host-model.cpp
-    ${webbrowser-plugin_SOURCE_DIR}/history-hostlist-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/domain-utils.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/history-domain-model.cpp
     ${webbrowser-plugin_SOURCE_DIR}/history-model.cpp
     ${webbrowser-plugin_SOURCE_DIR}/history-timeframe-model.cpp
-    ${webbrowser-plugin_SOURCE_DIR}/webthumbnail-utils.cpp
-    tst_HistoryHostListModelTests.cpp
+    tst_HistoryDomainModelTests.cpp
 )
 add_executable(${TEST} ${SOURCES})
 include_directories(${webbrowser-plugin_SOURCE_DIR})

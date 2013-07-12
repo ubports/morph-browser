@@ -16,7 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "history-host-model.h"
+#include "domain-utils.h"
+#include "history-domain-model.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
 
@@ -24,31 +25,29 @@
 #include <QtCore/QUrl>
 
 /*!
-    \class HistoryHostModel
+    \class HistoryDomainModel
     \brief Proxy model that filters the contents of a history model
-           based on a host name
+           based on a domain name
 
-    HistoryHostModel is a proxy model that filters the contents of a
-    history model based on a host name.
+    HistoryDomainModel is a proxy model that filters the contents of a
+    history model based on a domain name.
 
-    An entry in the history model matches if its URL’s host equals the filter
-    host (case-insensitive comparison).
+    An entry in the history model matches if the domain name extracted from
+    its URL equals the filter domain name (case-insensitive comparison).
 
-    When no host is set (null string), all entries match.
-    A non-null, empty host matches all the entries with an empty host, that is,
-    entries corresponding to local files.
+    When no domain name is set (null or empty string), all entries match.
 */
-HistoryHostModel::HistoryHostModel(QObject* parent)
+HistoryDomainModel::HistoryDomainModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
 }
 
-HistoryTimeframeModel* HistoryHostModel::sourceModel() const
+HistoryTimeframeModel* HistoryDomainModel::sourceModel() const
 {
     return qobject_cast<HistoryTimeframeModel*>(QSortFilterProxyModel::sourceModel());
 }
 
-void HistoryHostModel::setSourceModel(HistoryTimeframeModel* sourceModel)
+void HistoryDomainModel::setSourceModel(HistoryTimeframeModel* sourceModel)
 {
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);
@@ -56,28 +55,27 @@ void HistoryHostModel::setSourceModel(HistoryTimeframeModel* sourceModel)
     }
 }
 
-const QString& HistoryHostModel::host() const
+const QString& HistoryDomainModel::domain() const
 {
-    return m_host;
+    return m_domain;
 }
 
-void HistoryHostModel::setHost(const QString& host)
+void HistoryDomainModel::setDomain(const QString& domain)
 {
-    if ((host != m_host)
-            || (m_host.isNull() && !host.isNull())
-            || (!m_host.isNull() && host.isNull())) {
-        m_host = host;
+    if (domain != m_domain) {
+        m_domain = domain;
         invalidateFilter();
-        Q_EMIT hostChanged();
+        Q_EMIT domainChanged();
     }
 }
 
-bool HistoryHostModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+bool HistoryDomainModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
-    if (m_host.isNull()) {
+    if (m_domain.isEmpty()) {
         return true;
     }
     QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
     QUrl url = sourceModel()->data(index, HistoryModel::Url).toUrl();
-    return (url.host().compare(m_host, Qt::CaseInsensitive) == 0);
+    QString domain = DomainUtils::extractTopLevelDomainName(url);
+    return (domain.compare(m_domain, Qt::CaseInsensitive) == 0);
 }
