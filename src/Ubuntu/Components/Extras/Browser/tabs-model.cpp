@@ -28,7 +28,7 @@
 
     TabsModel is a list model that stores the list of currently open tabs.
     Each tab holds a pointer to a WebView and associated metadata (URL, title,
-    icon, thumbnail).
+    icon).
 
     The model doesn’t own the WebView, so it is the responsibility of whoever
     adds a tab to instantiate the corresponding WebView, and to destroy it after
@@ -51,7 +51,6 @@ QHash<int, QByteArray> TabsModel::roleNames() const
         roles[Url] = "url";
         roles[Title] = "title";
         roles[Icon] = "icon";
-        roles[Thumbnail] = "thumbnail";
         roles[WebView] = "webview";
     }
     return roles;
@@ -80,9 +79,6 @@ QVariant TabsModel::data(const QModelIndex& index, int role) const
         return webview->property("title");
     case Icon:
         return webview->property("icon");
-    case Thumbnail:
-        // XXX: not implemented yet
-        return QVariant();
     case WebView:
         return QVariant::fromValue(webview);
     default:

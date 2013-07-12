@@ -60,52 +60,75 @@ private Q_SLOTS:
 
     void shouldUpdateHostListWhenInsertingEntries()
     {
-        QSignalSpy spy(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)));
+        QSignalSpy spyRowsInserted(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)));
+        qRegisterMetaType<QVector<int> >();
+        QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
 
         history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
-        QCOMPARE(spy.count(), 1);
-        QList<QVariant> args = spy.takeFirst();
+        QVERIFY(spyDataChanged.isEmpty());
+        QCOMPARE(spyRowsInserted.count(), 1);
+        QList<QVariant> args = spyRowsInserted.takeFirst();
         QCOMPARE(args.at(1).toInt(), 0);
         QCOMPARE(args.at(2).toInt(), 0);
         QCOMPARE(model->rowCount(), 1);
         QCOMPARE(model->data(model->index(0, 0), HistoryHostListModel::Host).toString(), QString("example.org"));
 
         history->add(QUrl("http://example.com/"), "Example Domain", QUrl());
-        QCOMPARE(spy.count(), 1);
-        args = spy.takeFirst();
+        QVERIFY(spyDataChanged.isEmpty());
+        QCOMPARE(spyRowsInserted.count(), 1);
+        args = spyRowsInserted.takeFirst();
         QCOMPARE(args.at(1).toInt(), 0);
         QCOMPARE(args.at(2).toInt(), 0);
         QCOMPARE(model->rowCount(), 2);
         QCOMPARE(model->data(model->index(0, 0), HistoryHostListModel::Host).toString(), QString("example.com"));
 
         history->add(QUrl("http://example.org/test.html"), "Test page", QUrl());
-        QVERIFY(spy.isEmpty());
+        QVERIFY(spyRowsInserted.isEmpty());
+        QCOMPARE(spyDataChanged.count(), 1);
+        args = spyDataChanged.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 1);
+        QCOMPARE(args.at(1).toModelIndex().row(), 1);
         QCOMPARE(model->rowCount(), 2);
     }
 
     void shouldUpdateHostListWhenRemovingEntries()
     {
-        QSignalSpy spy(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)));
         history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
         QTest::qWait(100);
         QDateTime t0 = QDateTime::currentDateTimeUtc();
         QTest::qWait(100);
         history->add(QUrl("http://example.com/"), "Example Domain", QUrl());
+        QTest::qWait(100);
+        QDateTime t1 = QDateTime::currentDateTimeUtc();
+        QTest::qWait(100);
+        history->add(QUrl("http://example.org/test"), "Example Domain", QUrl());
         QCOMPARE(model->rowCount(), 2);
 
-        timeframe->setEnd(t0);
-        QCOMPARE(spy.count(), 1);
-        QList<QVariant> args = spy.takeFirst();
-        QCOMPARE(args.at(1).toInt(), 0);
-        QCOMPARE(args.at(2).toInt(), 0);
-        QCOMPARE(model->rowCount(), 1);
+        QSignalSpy spyRowsRemoved(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)));
+        qRegisterMetaType<QVector<int> >();
+        QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+
+        timeframe->setEnd(t1);
+        QVERIFY(spyRowsRemoved.isEmpty());
+        QVERIFY(!spyDataChanged.isEmpty());
+        QList<QVariant> args;
+        bool changed = false;
+        int expectedIndex = 1;
+        while(!changed && !spyDataChanged.isEmpty()) {
+            args = spyDataChanged.takeFirst();
+            int start = args.at(0).toModelIndex().row();
+            int end = args.at(1).toModelIndex().row();
+            changed = (start <= expectedIndex) && (expectedIndex <= end);
+        }
+        QVERIFY(changed);
+        QCOMPARE(model->rowCount(), 2);
 
         timeframe->setStart(t0);
-        QCOMPARE(spy.count(), 1);
-        args = spy.takeFirst();
-        QCOMPARE(args.at(1).toInt(), 0);
-        QCOMPARE(args.at(2).toInt(), 0);
-        QCOMPARE(model->rowCount(), 0);
+        QCOMPARE(spyRowsRemoved.count(), 1);
+        args = spyRowsRemoved.takeFirst();
+        QCOMPARE(args.at(1).toInt(), 1);
+        QCOMPARE(args.at(2).toInt(), 1);
+        QCOMPARE(model->rowCount(), 1);
     }
 
     void shouldUpdateWhenChangingSourceModel()

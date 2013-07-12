@@ -6,11 +6,15 @@ Build-Depends: cmake (>= 2.8.9),
                debhelper (>= 9),
                dh-translations,
                python,
+               libqt5sql5-sqlite,
+               libqt5v8-5-private-dev,
+               libqt5webkit5-dev,
                qt5-default,
                qt5-qmake,
                qtbase5-dev,
+               qtbase5-private-dev,
                qtdeclarative5-dev,
-               libqt5sql5-sqlite,
+               qtdeclarative5-private-dev,
                qtdeclarative5-qtquick2-plugin,
                qtdeclarative5-test-plugin,
                qtdeclarative5-ubuntu-ui-toolkit-plugin,
@@ -41,6 +45,8 @@ Depends: ${misc:Depends},
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-window-plugin,
+Replaces: webbrowser-app (<< 0.21)
+Breaks: webbrowser-app (<< 0.21)
 Description: Ubuntu web browser QML plugin
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains a standalone
@@ -59,7 +65,7 @@ Architecture: all
 Depends: ${misc:Depends},
          libautopilot-qt,
          libqt5test5,
-         webbrowser-app (= ${binary:Version}),
+         webbrowser-app (>= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains autopilot

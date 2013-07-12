@@ -1,3 +1,39 @@
+webbrowser-app (0.21+13.10.20130709-0ubuntu1) saucy; urgency=low
+
+  [ Łukasz 'sil2100' Zemczak ]
+  * debian/control:
+    - Add the missing Replaces and Breaks needed due to the package split
+
+  [ Kaleo ]
+  * Remove unnecessary use of theming.
+
+  [ Olivier Tilloy ]
+  * Move unit tests to separate directories.
+  * Separate the app and the plugin into two packages, and rename the
+    plugin and move it under Ubuntu.Components.Extras.Browser.
+  * Use standard toolbar buttons for the chrome.
+  * Remove an unused variable assignment.
+  * Increase a test’s timeout to ensure it passes even on really slow
+    configurations (like my laptop these days).
+  * Do not keep the new tab button always visible, per design request.
+  * Instruct the input method to not use predictive text in the address
+    bar.
+  * Center the tabs view on the current tab when showing the activity
+    view.
+  * Disable the current webview while the activity view is visible, thus
+    avoiding mouse events to go through.
+  * 10 seconds was too much, as it’s also the timeout threshold for the
+    Eventually matcher that verifies that the page has loaded. Lowering
+    the page load time to 8 seconds should do the trick.
+  * Update the tabs view header text to match the latest visual design.
+  * Use colors from the standard color palette, where available.
+  * Initial timeline view implementation.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 218
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 09 Jul 2013 11:41:04 +0000
+
 webbrowser-app (0.20daily13.06.21-0ubuntu1) saucy; urgency=low
 
   [ Robert Bruce Park ]

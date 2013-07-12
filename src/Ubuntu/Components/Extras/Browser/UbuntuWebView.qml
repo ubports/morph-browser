@@ -21,6 +21,7 @@ import QtQuick.Window 2.0
 import QtWebKit 3.0
 import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
 
 WebView {
@@ -186,5 +187,25 @@ WebView {
         parent: _webview.parent
         flickableItem: _webview
         align: Qt.AlignBottom
+    }
+
+    WebviewThumbnailer {
+        id: thumbnailer
+        webview: _webview
+        targetSize: Qt.size(units.gu(12), units.gu(12))
+        property url thumbnailSource: "image://webthumbnail/" + _webview.url
+        onThumbnailRendered: {
+            if (url == _webview.url) {
+                _webview.thumbnail = thumbnailer.thumbnailSource
+            }
+        }
+    }
+    property url thumbnail: (url && thumbnailer.thumbnailExists()) ? thumbnailer.thumbnailSource : ""
+    onLoadingChanged: {
+        if (loadRequest.status === WebView.LoadSucceededStatus) {
+            if (!thumbnailer.thumbnailExists()) {
+                thumbnailer.renderThumbnail()
+            }
+        }
     }
 }

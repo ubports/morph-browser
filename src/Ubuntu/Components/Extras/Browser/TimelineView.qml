@@ -57,7 +57,7 @@ Item {
 
         header: TabsList {
             width: parent.width
-            height: units.gu(20)
+            height: units.gu(23)
 
             model: tabsModel
 
@@ -107,7 +107,7 @@ Item {
                     right: parent.right
                     margins: units.gu(2)
                 }
-                height: units.gu(12)
+                height: units.gu(14)
 
                 spacing: units.gu(2)
                 orientation: ListView.Horizontal
@@ -160,10 +160,10 @@ Item {
 
                 delegate: PageDelegate {
                     width: units.gu(12)
-                    height: units.gu(12)
-                    color: "white"
+                    height: units.gu(14)
 
-                    title: model.host ? model.host : i18n.tr("(local files)")
+                    label: model.host ? model.host : i18n.tr("(local files)")
+                    thumbnail: model.thumbnail
 
                     MouseArea {
                         anchors.fill: parent
@@ -196,10 +196,12 @@ Item {
 
                 delegate: PageDelegate {
                     width: units.gu(12)
-                    height: units.gu(12)
-                    color: "white"
+                    height: units.gu(14)
 
-                    title: model.title
+                    label: model.title ? model.title : model.url
+
+                    property url thumbnailSource: "image://webthumbnail/" + model.url
+                    thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
 
                     MouseArea {
                         anchors.fill: parent
@@ -213,7 +215,8 @@ Item {
                         when: timelineIndex == timeline.currentIndex
                         PropertyChanges {
                             target: entriesView
-                            height: units.gu(12)
+                            height: units.gu(14)
+                            clip: false
                         }
                     }
                 ]

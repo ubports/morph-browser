@@ -23,6 +23,8 @@
 #include "history-host-model.h"
 #include "history-hostlist-model.h"
 #include "tabs-model.h"
+#include "webthumbnail-provider.h"
+#include "webview-thumbnailer.h"
 
 // Qt
 #include <QtCore/QDir>
@@ -38,6 +40,10 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     }
     QQmlContext* context = engine->rootContext();
     context->setContextProperty("dataLocation", dataLocation.absolutePath());
+
+    WebThumbnailProvider* thumbnailer = new WebThumbnailProvider;
+    engine->addImageProvider(QLatin1String("webthumbnail"), thumbnailer);
+    context->setContextProperty("WebThumbnailer", thumbnailer);
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
@@ -49,4 +55,5 @@ void UbuntuBrowserPlugin::registerTypes(const char* uri)
     qmlRegisterType<HistoryHostModel>(uri, 0, 1, "HistoryHostModel");
     qmlRegisterType<HistoryHostListModel>(uri, 0, 1, "HistoryHostListModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
+    qmlRegisterType<WebviewThumbnailer>(uri, 0, 1, "WebviewThumbnailer");
 }
