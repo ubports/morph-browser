@@ -79,7 +79,7 @@ class MainWindow(object):
         return self.get_activity_view().select_single("TabsList")
 
     def get_tabslist_newtab_delegate(self):
-        return self.get_tabslist().select_single("PageDelegate",
+        return self.get_tabslist().select_single("UbuntuShape",
                                                  objectName="newTabDelegate")
 
     def get_tabslist_view(self):
