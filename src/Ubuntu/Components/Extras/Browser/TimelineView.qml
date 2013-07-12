@@ -74,8 +74,8 @@ Item {
         delegate: Column {
             readonly property int timelineIndex: index
 
-            visible: hostsView.count > 0
-            height: visible ? header.height + hostsView.height + entriesView.height + spacing * (2 + (timeline.currentIndex >= 0)) : 0
+            visible: domainsView.count > 0
+            height: visible ? header.height + domainsView.height + entriesView.height + spacing * (2 + (timeline.currentIndex >= 0)) : 0
             width: parent.width
             clip: true
             spacing: units.gu(2)
@@ -100,7 +100,7 @@ Item {
             }
 
             ListView {
-                id: hostsView
+                id: domainsView
 
                 anchors {
                     left: parent.left
@@ -112,7 +112,7 @@ Item {
                 spacing: units.gu(2)
                 orientation: ListView.Horizontal
 
-                model: HistoryHostListModel {
+                model: HistoryDomainListModel {
                     sourceModel: HistoryTimeframeModel {
                         sourceModel: historyModel
                         start: {
@@ -162,7 +162,15 @@ Item {
                     width: units.gu(12)
                     height: units.gu(14)
 
-                    label: model.host ? model.host : i18n.tr("(local files)")
+                    label: {
+                        if (model.domain === "(local)") {
+                            return i18n.tr("(local files)")
+                        } else if (model.domain === "(none)") {
+                            return i18n.tr("(other)")
+                        } else {
+                            return model.domain
+                        }
+                    }
                     thumbnail: model.thumbnail
 
                     MouseArea {

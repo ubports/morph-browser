@@ -16,9 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "history-hostlist-model.h"
+#include "domain-utils.h"
+#include "history-domain-model.h"
+#include "history-domainlist-model.h"
 #include "history-model.h"
-#include "history-host-model.h"
 #include "history-timeframe-model.h"
 #include "webthumbnail-utils.h"
 
@@ -27,60 +28,60 @@
 #include <QtCore/QStringList>
 
 /*!
-    \class HistoryHostListModel
-    \brief List model that exposes history entries grouped by host
+    \class HistoryDomainListModel
+    \brief List model that exposes history entries grouped by domain name
 
-    HistoryHostListModel is a list model that exposes history entries from a
-    HistoryTimeframeModel grouped by host. Each item in the list has three
-    roles: 'host' for the host name, 'thumbnail' for a thumbnail picture of a
-    page corresponding to this host, and 'entries' for the corresponding
-    HistoryHostModel that contains all entries in this group.
+    HistoryDomainListModel is a list model that exposes history entries from a
+    HistoryTimeframeModel grouped by domain name. Each item in the list has
+    three roles: 'domain' for the domain name, 'thumbnail' for a thumbnail
+    picture of a page corresponding to this domain name, and 'entries' for the
+    corresponding HistoryDomainModel that contains all entries in this group.
 */
-HistoryHostListModel::HistoryHostListModel(QObject* parent)
+HistoryDomainListModel::HistoryDomainListModel(QObject* parent)
     : QAbstractListModel(parent)
     , m_sourceModel(0)
 {
 }
 
-HistoryHostListModel::~HistoryHostListModel()
+HistoryDomainListModel::~HistoryDomainListModel()
 {
-    clearHosts();
+    clearDomains();
 }
 
-QHash<int, QByteArray> HistoryHostListModel::roleNames() const
+QHash<int, QByteArray> HistoryDomainListModel::roleNames() const
 {
     static QHash<int, QByteArray> roles;
     if (roles.isEmpty()) {
-        roles[Host] = "host";
+        roles[Domain] = "domain";
         roles[Thumbnail] = "thumbnail";
         roles[Entries] = "entries";
     }
     return roles;
 }
 
-int HistoryHostListModel::rowCount(const QModelIndex& parent) const
+int HistoryDomainListModel::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent);
-    return m_hosts.count();
+    return m_domains.count();
 }
 
-QVariant HistoryHostListModel::data(const QModelIndex& index, int role) const
+QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid()) {
         return QVariant();
     }
     int row = index.row();
-    if ((row < 0) || (row >= m_hosts.count())) {
+    if ((row < 0) || (row >= m_domains.count())) {
         return QVariant();
     }
-    const QString& host = m_hosts.keys().at(row);
+    const QString& domain = m_domains.keys().at(row);
     switch (role) {
-    case Host:
-        return host;
+    case Domain:
+        return domain;
     case Thumbnail:
     {
         // Iterate over all the entries, and return the first valid thumbnail.
-        HistoryHostModel* entries = m_hosts.value(host);
+        HistoryDomainModel* entries = m_domains.value(domain);
         int count = entries->rowCount();
         for (int i = 0; i < count; ++i) {
             QUrl url = entries->data(entries->index(i, 0), HistoryModel::Url).toUrl();
@@ -92,25 +93,25 @@ QVariant HistoryHostListModel::data(const QModelIndex& index, int role) const
         return QUrl();
     }
     case Entries:
-        return QVariant::fromValue(m_hosts.value(host));
+        return QVariant::fromValue(m_domains.value(domain));
     default:
         return QVariant();
     }
 }
 
-HistoryTimeframeModel* HistoryHostListModel::sourceModel() const
+HistoryTimeframeModel* HistoryDomainListModel::sourceModel() const
 {
     return m_sourceModel;
 }
 
-void HistoryHostListModel::setSourceModel(HistoryTimeframeModel* sourceModel)
+void HistoryDomainListModel::setSourceModel(HistoryTimeframeModel* sourceModel)
 {
     if (sourceModel != m_sourceModel) {
         beginResetModel();
         if (m_sourceModel != 0) {
             m_sourceModel->disconnect(this);
         }
-        clearHosts();
+        clearDomains();
         m_sourceModel = sourceModel;
         populateModel();
         if (m_sourceModel != 0) {
@@ -125,98 +126,98 @@ void HistoryHostListModel::setSourceModel(HistoryTimeframeModel* sourceModel)
     }
 }
 
-void HistoryHostListModel::clearHosts()
+void HistoryDomainListModel::clearDomains()
 {
-    Q_FOREACH(const QString& host, m_hosts.keys()) {
-        delete m_hosts.take(host);
+    Q_FOREACH(const QString& domain, m_domains.keys()) {
+        delete m_domains.take(domain);
     }
 }
 
-void HistoryHostListModel::populateModel()
+void HistoryDomainListModel::populateModel()
 {
     if (m_sourceModel != 0) {
         int count = m_sourceModel->rowCount();
         for (int i = 0; i < count; ++i) {
-            QString host = getHostFromSourceModel(m_sourceModel->index(i, 0));
-            if (!m_hosts.contains(host)) {
-                insertNewHost(host);
+            QString domain = getDomainFromSourceModel(m_sourceModel->index(i, 0));
+            if (!m_domains.contains(domain)) {
+                insertNewDomain(domain);
             }
         }
     }
 }
 
-void HistoryHostListModel::onRowsInserted(const QModelIndex& parent, int start, int end)
+void HistoryDomainListModel::onRowsInserted(const QModelIndex& parent, int start, int end)
 {
     QStringList updated;
     for (int i = start; i <= end; ++i) {
-        QString host = getHostFromSourceModel(m_sourceModel->index(i, 0, parent));
-        if (!m_hosts.contains(host)) {
-            QStringList hosts = m_hosts.keys();
+        QString domain = getDomainFromSourceModel(m_sourceModel->index(i, 0, parent));
+        if (!m_domains.contains(domain)) {
+            QStringList domains = m_domains.keys();
             int insertAt = 0;
-            while (insertAt < hosts.count()) {
-                if (host.compare(hosts.at(insertAt)) < 0) {
+            while (insertAt < domains.count()) {
+                if (domain.compare(domains.at(insertAt)) < 0) {
                     break;
                 }
                 ++insertAt;
             }
             beginInsertRows(QModelIndex(), insertAt, insertAt);
-            insertNewHost(host);
+            insertNewDomain(domain);
             endInsertRows();
         } else {
-            updated.append(host);
+            updated.append(domain);
         }
     }
     QVector<int> updatedRoles = QVector<int>() << Thumbnail << Entries;
-    QStringList hosts = m_hosts.keys();
-    Q_FOREACH(const QString& host, updated) {
-        QModelIndex index = this->index(hosts.indexOf(host), 0);
+    QStringList domains = m_domains.keys();
+    Q_FOREACH(const QString& domain, updated) {
+        QModelIndex index = this->index(domains.indexOf(domain), 0);
         Q_EMIT dataChanged(index, index, updatedRoles);
     }
 }
 
-void HistoryHostListModel::onRowsRemoved(const QModelIndex& parent, int start, int end)
+void HistoryDomainListModel::onRowsRemoved(const QModelIndex& parent, int start, int end)
 {
     Q_UNUSED(parent);
     Q_UNUSED(start);
     Q_UNUSED(end);
-    QSet<QString> newHosts;
+    QSet<QString> newDomains;
     int count = m_sourceModel->rowCount();
     for (int i = 0; i < count; ++i) {
-        newHosts.insert(getHostFromSourceModel(m_sourceModel->index(i, 0)));
+        newDomains.insert(getDomainFromSourceModel(m_sourceModel->index(i, 0)));
     }
-    QSet<QString> removed = QSet<QString>::fromList(m_hosts.keys());
-    removed.subtract(newHosts);
-    Q_FOREACH(const QString& host, removed) {
-        int removeAt = m_hosts.keys().indexOf(host);
+    QSet<QString> removed = QSet<QString>::fromList(m_domains.keys());
+    removed.subtract(newDomains);
+    Q_FOREACH(const QString& domain, removed) {
+        int removeAt = m_domains.keys().indexOf(domain);
         beginRemoveRows(QModelIndex(), removeAt, removeAt);
-        delete m_hosts.take(host);
+        delete m_domains.take(domain);
         endRemoveRows();
     }
-    // XXX: unfortunately there is no way to get a list of hosts that had some
+    // XXX: unfortunately there is no way to get a list of domains that had some
     // (but not all) entries removed. To ensure the views are correctly updated,
     // let’s emit the signal for all entries, even those that haven’t changed.
     Q_EMIT dataChanged(this->index(0, 0), this->index(rowCount() - 1, 0),
                        QVector<int>() << Thumbnail << Entries);
 }
 
-void HistoryHostListModel::onModelReset()
+void HistoryDomainListModel::onModelReset()
 {
     beginResetModel();
-    clearHosts();
+    clearDomains();
     populateModel();
     endResetModel();
 }
 
-void HistoryHostListModel::insertNewHost(const QString& host)
+void HistoryDomainListModel::insertNewDomain(const QString& domain)
 {
-    HistoryHostModel* model = new HistoryHostModel(this);
+    HistoryDomainModel* model = new HistoryDomainModel(this);
     model->setSourceModel(m_sourceModel);
-    QString key = host.isNull() ? "" : host;
-    model->setHost(key);
-    m_hosts.insert(key, model);
+    model->setDomain(domain);
+    m_domains.insert(domain, model);
 }
 
-QString HistoryHostListModel::getHostFromSourceModel(const QModelIndex& index) const
+QString HistoryDomainListModel::getDomainFromSourceModel(const QModelIndex& index) const
 {
-    return m_sourceModel->data(index, HistoryModel::Url).toUrl().host().toLower();
+    QUrl url = m_sourceModel->data(index, HistoryModel::Url).toUrl();
+    return DomainUtils::extractTopLevelDomainName(url).toLower();
 }
