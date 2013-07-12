@@ -3,6 +3,7 @@ project(webbrowser-plugin)
 set(PLUGIN ubuntu-ui-extras-browser-plugin)
 
 set(PLUGIN_SRC
+    domain-utils.cpp
     history-model.cpp
     history-matches-model.cpp
     history-timeframe-model.cpp
