@@ -20,6 +20,7 @@
 #include "history-model.h"
 #include "history-host-model.h"
 #include "history-timeframe-model.h"
+#include "webthumbnail-utils.h"
 
 // Qt
 #include <QtCore/QSet>
@@ -30,8 +31,9 @@
     \brief List model that exposes history entries grouped by host
 
     HistoryHostListModel is a list model that exposes history entries from a
-    HistoryTimeframeModel grouped by host. Each item in the list has two roles:
-    'host' for the host name, and 'entries' for the corresponding
+    HistoryTimeframeModel grouped by host. Each item in the list has three
+    roles: 'host' for the host name, 'thumbnail' for a thumbnail picture of a
+    page corresponding to this host, and 'entries' for the corresponding
     HistoryHostModel that contains all entries in this group.
 */
 HistoryHostListModel::HistoryHostListModel(QObject* parent)
@@ -50,6 +52,7 @@ QHash<int, QByteArray> HistoryHostListModel::roleNames() const
     static QHash<int, QByteArray> roles;
     if (roles.isEmpty()) {
         roles[Host] = "host";
+        roles[Thumbnail] = "thumbnail";
         roles[Entries] = "entries";
     }
     return roles;
@@ -74,6 +77,20 @@ QVariant HistoryHostListModel::data(const QModelIndex& index, int role) const
     switch (role) {
     case Host:
         return host;
+    case Thumbnail:
+    {
+        // Iterate over all the entries, and return the first valid thumbnail.
+        HistoryHostModel* entries = m_hosts.value(host);
+        int count = entries->rowCount();
+        for (int i = 0; i < count; ++i) {
+            QUrl url = entries->data(entries->index(i, 0), HistoryModel::Url).toUrl();
+            QFileInfo thumbnailFile = WebThumbnailUtils::thumbnailFile(url);
+            if (thumbnailFile.exists()) {
+                return thumbnailFile.absoluteFilePath();
+            }
+        }
+        return QUrl();
+    }
     case Entries:
         return QVariant::fromValue(m_hosts.value(host));
     default:
@@ -130,6 +147,7 @@ void HistoryHostListModel::populateModel()
 
 void HistoryHostListModel::onRowsInserted(const QModelIndex& parent, int start, int end)
 {
+    QStringList updated;
     for (int i = start; i <= end; ++i) {
         QString host = getHostFromSourceModel(m_sourceModel->index(i, 0, parent));
         if (!m_hosts.contains(host)) {
@@ -144,7 +162,15 @@ void HistoryHostListModel::onRowsInserted(const QModelIndex& parent, int start, 
             beginInsertRows(QModelIndex(), insertAt, insertAt);
             insertNewHost(host);
             endInsertRows();
+        } else {
+            updated.append(host);
         }
+    }
+    QVector<int> updatedRoles = QVector<int>() << Thumbnail << Entries;
+    QStringList hosts = m_hosts.keys();
+    Q_FOREACH(const QString& host, updated) {
+        QModelIndex index = this->index(hosts.indexOf(host), 0);
+        Q_EMIT dataChanged(index, index, updatedRoles);
     }
 }
 
@@ -166,6 +192,11 @@ void HistoryHostListModel::onRowsRemoved(const QModelIndex& parent, int start, i
         delete m_hosts.take(host);
         endRemoveRows();
     }
+    // XXX: unfortunately there is no way to get a list of hosts that had some
+    // (but not all) entries removed. To ensure the views are correctly updated,
+    // let’s emit the signal for all entries, even those that haven’t changed.
+    Q_EMIT dataChanged(this->index(0, 0), this->index(rowCount() - 1, 0),
+                       QVector<int>() << Thumbnail << Entries);
 }
 
 void HistoryHostListModel::onModelReset()

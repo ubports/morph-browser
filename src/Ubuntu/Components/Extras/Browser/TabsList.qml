@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2013 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
@@ -41,7 +41,7 @@ Column {
             right: parent.right
             margins: units.gu(2)
         }
-        height: units.gu(14)
+        height: units.gu(16)
         spacing: units.gu(2)
         orientation: ListView.Horizontal
         currentIndex: model.currentIndex
@@ -50,7 +50,7 @@ Column {
             width: units.gu(14)
             height: parent.height
 
-            PageDelegate {
+            UbuntuShape {
                 objectName: "newTabDelegate"
                 width: units.gu(12)
                 height: units.gu(12)
@@ -69,7 +69,7 @@ Column {
 
         delegate: ListItem.Empty {
             width: units.gu(12)
-            height: units.gu(12)
+            height: units.gu(14)
             showDivider: false
 
             // FIXME: http://pad.lv/1187476 makes it impossible to swipe a
@@ -78,10 +78,12 @@ Column {
             onItemRemoved: tabRemoved(index)
 
             PageDelegate {
+                id: openTabDelegate
                 objectName: "openTabDelegate"
                 anchors.fill: parent
-                color: (index == currentIndex) ? UbuntuColors.darkAubergine : "white"
-                title: model.title
+
+                label: model.url
+                thumbnail: model.webview.thumbnail
             }
 
             onClicked: switchToTabClicked(index)

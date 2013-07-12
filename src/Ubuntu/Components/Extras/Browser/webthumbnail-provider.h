@@ -16,37 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 0.1
+#ifndef __WEBTHUMBNAIL_PROVIDER_H__
+#define __WEBTHUMBNAIL_PROVIDER_H__
 
-Item {
-    property alias thumbnail: thumbnail.source
-    property alias label: label.text
+// Qt
+#include <QtCore/QObject>
+#include <QtCore/QUrl>
+#include <QtQuick/QQuickImageProvider>
 
-    UbuntuShape {
-        id: shape
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        height: width
+class WebThumbnailProvider : public QObject, public QQuickImageProvider
+{
+    Q_OBJECT
 
-        image: Image {
-            id: thumbnail
-        }
-    }
+public:
+    WebThumbnailProvider(QObject* parent=0);
 
-    Label {
-        id: label
-        anchors {
-            top: shape.bottom
-            topMargin: units.gu(1)
-            left: parent.left
-            right: parent.right
-        }
-        height: units.gu(1)
-        fontSize: "small"
-        elide: Text.ElideRight
-    }
-}
+    virtual QImage requestImage(const QString& id, QSize* size, const QSize& requestedSize);
+
+    Q_INVOKABLE bool thumbnailExists(const QUrl& url) const;
+};
+
+#endif // __WEBTHUMBNAIL_PROVIDER_H__

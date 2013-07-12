@@ -16,37 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 0.1
+#include "webthumbnail-utils.h"
 
-Item {
-    property alias thumbnail: thumbnail.source
-    property alias label: label.text
+// Qt
+#include <QtCore/QCryptographicHash>
+#include <QtCore/QStandardPaths>
 
-    UbuntuShape {
-        id: shape
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        height: width
+QDir WebThumbnailUtils::cacheLocation()
+{
+    return QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/thumbnails";
+}
 
-        image: Image {
-            id: thumbnail
-        }
+void WebThumbnailUtils::ensureCacheLocation()
+{
+    QDir cache = cacheLocation();
+    if (!cache.exists()) {
+        QDir::root().mkpath(cache.absolutePath());
     }
+}
 
-    Label {
-        id: label
-        anchors {
-            top: shape.bottom
-            topMargin: units.gu(1)
-            left: parent.left
-            right: parent.right
-        }
-        height: units.gu(1)
-        fontSize: "small"
-        elide: Text.ElideRight
-    }
+QFileInfo WebThumbnailUtils::thumbnailFile(const QUrl& url)
+{
+    QString hash(QCryptographicHash::hash(url.toEncoded(), QCryptographicHash::Md5).toHex());
+    return cacheLocation().absoluteFilePath(hash + ".png");
 }
