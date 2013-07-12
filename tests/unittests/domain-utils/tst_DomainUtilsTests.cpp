@@ -42,6 +42,7 @@ private Q_SLOTS:
         QTest::newRow("two-letter SLD with www") << QUrl("http://www.fb.com/foobar") << QString("fb.com");
         QTest::newRow("two-letter SLD with subdomain") << QUrl("http://m.espn.go.com") << QString("go.com");
         QTest::newRow("two-component TLD") << QUrl("http://bbc.co.uk") << QString("bbc.co.uk");
+        QTest::newRow("another two-component TLD") << QUrl("http://disney.com.es") << QString("disney.com.es");
         QTest::newRow("two-component TLD with subdomain") << QUrl("http://www.foobar.bbc.co.uk") << QString("bbc.co.uk");
         QTest::newRow("local file") << QUrl("file:///home/foobar/test.txt") << DomainUtils::TOKEN_LOCAL;
         QTest::newRow("IPv4 address") << QUrl("http://192.168.1.1/config") << QString("192.168.1.1");
