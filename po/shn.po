@@ -8,142 +8,144 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-06-06 12:51+0200\n"
-"PO-Revision-Date: 2013-06-16 10:04+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2013-07-14 08:39+0000\n"
+"Last-Translator: Sai Mawn Kham <Unknown>\n"
 "Language-Team: Shan <shn@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-17 06:21+0000\n"
-"X-Generator: Launchpad (build 16667)\n"
+"X-Launchpad-Export-Date: 2013-07-15 05:14+0000\n"
+"X-Generator: Launchpad (build 16696)\n"
 
 #: src/Ubuntu/Browser/ActivityView.qml:54
 msgid "Activity"
-msgstr ""
+msgstr "ၵၢၼ်တူင့်ၼိုင်"
 
 #: src/Ubuntu/Browser/Browser.qml:64
 msgid "Goto"
-msgstr ""
+msgstr "ၵႂႃႇၸူး"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:67
 msgid "Address;URL;www"
-msgstr ""
+msgstr "ႁဵင်းလိၵ်ႈ;URL;www"
 
 #: src/Ubuntu/Browser/Browser.qml:71 src/Ubuntu/Browser/Chrome.qml:69
 msgid "Back"
-msgstr ""
+msgstr "ႁူၼ်လင်"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:74
 msgid "Older Page"
-msgstr ""
+msgstr "ၼႃႈလိၵ်ႈ ဢၼ်ၵဝ်ႇ"
 
 #: src/Ubuntu/Browser/Browser.qml:79 src/Ubuntu/Browser/Chrome.qml:79
 msgid "Forward"
-msgstr ""
+msgstr "ၵႂႃႇၼႃႈ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:82
 msgid "Newer Page"
-msgstr ""
+msgstr "ၼႃႈလိၵ်ႈ မႂ်ႇမႂ်ႇ"
 
 #: src/Ubuntu/Browser/Browser.qml:87
 msgid "Reload"
-msgstr ""
+msgstr "ၶိုၼ်းၼဵင်ႇပိုတ်ႇ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:90
 msgid "Leave Page"
-msgstr ""
+msgstr "ဢွၵ်ႈတီႈၼႃႈလိၵ်ႈၼႆ့ၵႂႃႇ"
 
 #: src/Ubuntu/Browser/Browser.qml:95
 msgid "Bookmark"
-msgstr ""
+msgstr "မၢႆဝႆ့"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:98
 msgid "Add This Page to Bookmarks"
-msgstr ""
+msgstr "ထႅမ်ၼႃႈလိၵ်ႈၼႆ့သႂ်ႇ ၼႂ်းမၢႆဝႆ့"
 
 #: src/Ubuntu/Browser/Browser.qml:102
 msgid "New Tab"
-msgstr ""
+msgstr "ထႅပ့်ဢၼ်မႂ်ႇ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/Ubuntu/Browser/Browser.qml:105
 msgid "Open a New Tab"
-msgstr ""
+msgstr "ပိုတ်ႇထႅပ်ႇဢၼ်မႂ်ႇ"
 
 #: src/Ubuntu/Browser/Chrome.qml:114
 msgid "Tabs"
-msgstr ""
+msgstr "ထႅပ့်"
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr ""
+msgstr "ၵွင့်သၢၼ် ၽိတ်းပိူင်ႈဝႆ့"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/Ubuntu/Browser/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "ဢွၵ်ႇမႃးၼႄ ဢၼ်ၸဝ်ႈၵဝ်ႇပိုတ်ႇတူၺ်း လွင်ႈပၼ်ႁႃ %1"
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
+"ဢူးပုၼ်းတု ပၼ်ၶေႃႈၶႂ်ႈၸႂ် တႃႇႁႂ်ႈၵူတ်ႇတူၺ်း ႁႅင်းပိူင်ၵွင့်သၢၼ် လႄႈ ၶတ်းၸႂ် "
+"ၶိုၼ်းယုၵ့်တူၺ်း ၼႃးလိၵ်ႈ"
 
 #: src/Ubuntu/Browser/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr ""
+msgstr "ၶိုၼ်းယုၵ့် ၼႃႈလိၵ်ႈ"
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:40
 msgid "Share"
-msgstr ""
+msgstr "ၽႄႈတိုၼ်း"
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:50
 msgid "Save"
-msgstr ""
+msgstr "သိမ်း"
 
 #: src/Ubuntu/Browser/SelectionPopover.qml:60
 msgid "Copy"
-msgstr ""
+msgstr "ၶွပ်ႇပီႇ"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/Ubuntu/Browser/TabsList.qml:43
 #, qt-format
 msgid "Open pages %1"
-msgstr ""
+msgstr "ပိုတ်ႇၼႃႈလိၵ်ႈ %1"
 
 #: src/Ubuntu/Browser/TabsList.qml:68
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/Ubuntu/Browser/webbrowser-app.qml:33
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - ၶိူင်ႈပိုတ်ႇဝႅပ့် ဢူးပုၼ်းတု"
 
 #: src/Ubuntu/Browser/webbrowser-app.qml:34
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "ၶိူင်ႈပိုတ်ႇဝႅပ့် ဢူးပုၼ်းထု"
 
 #: src/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr ""
+msgstr "ၶိူင်ႈပိုတ်ႇ"
 
 #: src/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr ""
+msgstr "ၶိူင်ႈပိုတ်ႇဝႅပ့်"
 
 #: src/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "ပိုတ်ႇၼႃႈလိၵ်ႈဝႅပ့် တၢင်းၵမ်ႇၽႃႇ"
