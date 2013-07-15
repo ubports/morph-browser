@@ -19,7 +19,7 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 
-Item {
+Rectangle {
     id: activityView
 
     property alias tabsModel: timelineView.tabsModel
@@ -29,6 +29,8 @@ Item {
     signal newTabRequested()
     signal switchToTabRequested(int index)
     signal closeTabRequested(int index)
+
+    color: "white"
 
     onVisibleChanged: {
         if (visible) {
