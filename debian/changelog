@@ -1,3 +1,16 @@
+webbrowser-app (0.21+13.10.20130716-0ubuntu1) saucy; urgency=low
+
+  [ Olivier Tilloy ]
+  * Display thumbnails of the web pages in the activity view.
+  * Refactor the models to group history entries by domain name, not by
+    host.
+  * Ensure the header of the activity view is opaque. (LP: #1201094)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 225
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 16 Jul 2013 08:26:00 +0000
+
 webbrowser-app (0.21+13.10.20130709-0ubuntu1) saucy; urgency=low
 
   [ Łukasz 'sil2100' Zemczak ]
