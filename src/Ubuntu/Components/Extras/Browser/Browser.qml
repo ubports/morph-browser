@@ -119,6 +119,7 @@ FocusScope {
                 top: parent.top
                 bottom: osk.top
             }
+            visible: !activityView.visible
         }
 
         ErrorSheet {
