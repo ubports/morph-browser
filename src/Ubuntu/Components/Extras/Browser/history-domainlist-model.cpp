@@ -74,7 +74,7 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
     if ((row < 0) || (row >= m_domains.count())) {
         return QVariant();
     }
-    const QString& domain = m_domains.keys().at(row);
+    const QString domain = m_domains.keys().at(row);
     switch (role) {
     case Domain:
         return domain;
