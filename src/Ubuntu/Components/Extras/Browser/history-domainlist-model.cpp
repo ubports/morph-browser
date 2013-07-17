@@ -119,6 +119,10 @@ void HistoryDomainListModel::setSourceModel(HistoryTimeframeModel* sourceModel)
                     SLOT(onRowsInserted(const QModelIndex&, int, int)));
             connect(m_sourceModel, SIGNAL(rowsRemoved(const QModelIndex&, int, int)),
                     SLOT(onRowsRemoved(const QModelIndex&, int, int)));
+            connect(m_sourceModel, SIGNAL(layoutChanged(const QList<QPersistentModelIndex>&, QAbstractItemModel::LayoutChangeHint)),
+                    SLOT(onLayoutChanged(const QList<QPersistentModelIndex>&, QAbstractItemModel::LayoutChangeHint)));
+            connect(m_sourceModel, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)),
+                    SLOT(onDataChanged(QModelIndex,QModelIndex,QVector<int>)));
             connect(m_sourceModel, SIGNAL(modelReset()), SLOT(onModelReset()));
         }
         endResetModel();
@@ -198,6 +202,29 @@ void HistoryDomainListModel::onRowsRemoved(const QModelIndex& parent, int start,
     // let’s emit the signal for all entries, even those that haven’t changed.
     Q_EMIT dataChanged(this->index(0, 0), this->index(rowCount() - 1, 0),
                        QVector<int>() << Thumbnail << Entries);
+}
+
+void HistoryDomainListModel::onLayoutChanged(const QList<QPersistentModelIndex>& parents, QAbstractItemModel::LayoutChangeHint hint)
+{
+    Q_UNUSED(parents);
+    Q_UNUSED(hint);
+    Q_EMIT dataChanged(this->index(0, 0), this->index(rowCount() - 1, 0),
+                       QVector<int>() << Thumbnail << Entries);
+}
+
+void HistoryDomainListModel::onDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>& roles)
+{
+    Q_UNUSED(roles);
+    int start = topLeft.row();
+    int end = bottomRight.row();
+    QSet<QString> changed;
+    for (int i = start; i <= end; ++i) {
+        changed.insert(getDomainFromSourceModel(m_sourceModel->index(i, 0)));
+    }
+    Q_FOREACH(const QString& domain, changed) {
+        QModelIndex index = this->index(m_domains.keys().indexOf(domain), 0);
+        Q_EMIT dataChanged(index, index, QVector<int>() << Thumbnail << Entries);
+    }
 }
 
 void HistoryDomainListModel::onModelReset()
