@@ -42,6 +42,7 @@ Depends: ${misc:Depends},
          libqt5webkit5-qmlwebkitplugin,
          qtdeclarative5-hud1.0,
          qtdeclarative5-qtquick2-plugin,
+         qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets (>= ${binary:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-window-plugin,
 Replaces: webbrowser-app (<< 0.21)
@@ -50,6 +51,14 @@ Description: Ubuntu web browser QML plugin
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains a standalone
  QML plugin that applications can use to embed a browser control.
+
+Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets
+Architecture: all
+Depends: ${misc:Depends},
+Description: Ubuntu web browser QML plugin assets
+ A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
+ engine and using the Ubuntu UI components. This package contains the
+ PNGs used as UI elements by the QML plugin.
 
 Package: webbrowser-app-autopilot
 Architecture: all

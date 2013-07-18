@@ -39,8 +39,8 @@ include_directories(${Qt5Core_PRIVATE_INCLUDE_DIRS}
 file(GLOB QML_FILES *.qml qmldir *.js)
 install(TARGETS ${PLUGIN} DESTINATION ${WEBBROWSER_IMPORTS_DIR})
 install(FILES ${QML_FILES} DESTINATION ${WEBBROWSER_IMPORTS_DIR})
-# FIXME: the desktop team won’t accept installing images under /usr/lib*
-install(DIRECTORY assets DESTINATION ${WEBBROWSER_IMPORTS_DIR}
+install(DIRECTORY assets
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/qtdeclarative5-ubuntu-ui-extras-browser-plugin
         FILES_MATCHING PATTERN *.png)
 
 # copy qml files and assets over to build dir to be able to import them uninstalled
