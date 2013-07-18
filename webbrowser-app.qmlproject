@@ -14,7 +14,7 @@ Project {
 
     Files {
         directory: "src"
-        filter: "*.h;*.cpp"
+        filter: "*.h;*.h.in;*.cpp;*.desktop.in"
     }
 
     Files {
