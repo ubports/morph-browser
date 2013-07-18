@@ -108,6 +108,8 @@ WebView {
 
     experimental.itemSelector: ItemSelector {}
 
+    property alias selection: selection
+    property ActionList selectionActions
     Selection {
         id: selection
 
@@ -121,20 +123,7 @@ WebView {
             id: selectionPopover
             ActionSelectionPopover {
                 grabDismissAreaEvents: false
-                actions: ActionList {
-                    Action {
-                        text: i18n.tr("Share")
-                        onTriggered: selection.share()
-                    }
-                    Action {
-                        text: i18n.tr("Save")
-                        onTriggered: selection.save()
-                    }
-                    Action {
-                        text: i18n.tr("Copy")
-                        onTriggered: selection.copy()
-                    }
-                }
+                actions: selectionActions
             }
         }
 
@@ -159,8 +148,7 @@ WebView {
             __popover = PopupUtils.open(selectionPopover, selection.rect)
             var actions = __popover.actions.actions
             for (var i in actions) {
-                var action = actions[i]
-                action['onTriggered'].connect(actionTriggered)
+                actions[i].onTriggered.connect(actionTriggered)
             }
         }
 
