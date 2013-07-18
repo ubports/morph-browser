@@ -117,6 +117,36 @@ WebView {
         property Item __popover: null
         property var mimedata: null
 
+        Component {
+            id: selectionPopover
+            ActionSelectionPopover {
+                grabDismissAreaEvents: false
+                actions: ActionList {
+                    Action {
+                        text: i18n.tr("Share")
+                        onTriggered: {
+                            selection.visible = false
+                            selection.share()
+                        }
+                    }
+                    Action {
+                        text: i18n.tr("Save")
+                        onTriggered: {
+                            selection.visible = false
+                            selection.save()
+                        }
+                    }
+                    Action {
+                        text: i18n.tr("Copy")
+                        onTriggered: {
+                            selection.visible = false
+                            selection.copy()
+                        }
+                    }
+                }
+            }
+        }
+
         function createData() {
             if (mimedata === null) {
                 mimedata = Clipboard.newData()
@@ -131,8 +161,7 @@ WebView {
         }
 
         function __showPopover() {
-            __popover = PopupUtils.open(Qt.resolvedUrl("SelectionPopover.qml"), selection.rect)
-            __popover.selection = selection
+            __popover = PopupUtils.open(selectionPopover, selection.rect)
         }
 
         function show(x, y, width, height) {
