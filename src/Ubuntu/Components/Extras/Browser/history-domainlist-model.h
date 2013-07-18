@@ -59,6 +59,8 @@ Q_SIGNALS:
 private Q_SLOTS:
     void onRowsInserted(const QModelIndex& parent, int start, int end);
     void onRowsRemoved(const QModelIndex& parent, int start, int end);
+    void onLayoutChanged(const QList<QPersistentModelIndex>& parents, QAbstractItemModel::LayoutChangeHint hint);
+    void onDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>& roles);
     void onModelReset();
 
 private:

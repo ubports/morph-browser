@@ -36,6 +36,19 @@ private:
     HistoryTimeframeModel* timeframe;
     HistoryDomainListModel* model;
 
+    void verifyDataChanged(QSignalSpy& spy, int row)
+    {
+        QList<QVariant> args;
+        bool changed = false;
+        while(!changed && !spy.isEmpty()) {
+            args = spy.takeFirst();
+            int start = args.at(0).toModelIndex().row();
+            int end = args.at(1).toModelIndex().row();
+            changed = (start <= row) && (row <= end);
+        }
+        QVERIFY(changed);
+    }
+
 private Q_SLOTS:
     void init()
     {
@@ -112,24 +125,47 @@ private Q_SLOTS:
         timeframe->setEnd(t1);
         QVERIFY(spyRowsRemoved.isEmpty());
         QVERIFY(!spyDataChanged.isEmpty());
-        QList<QVariant> args;
-        bool changed = false;
-        int expectedIndex = 1;
-        while(!changed && !spyDataChanged.isEmpty()) {
-            args = spyDataChanged.takeFirst();
-            int start = args.at(0).toModelIndex().row();
-            int end = args.at(1).toModelIndex().row();
-            changed = (start <= expectedIndex) && (expectedIndex <= end);
-        }
-        QVERIFY(changed);
+        verifyDataChanged(spyDataChanged, 1);
         QCOMPARE(model->rowCount(), 2);
 
         timeframe->setStart(t0);
         QCOMPARE(spyRowsRemoved.count(), 1);
-        args = spyRowsRemoved.takeFirst();
+        QList<QVariant> args = spyRowsRemoved.takeFirst();
         QCOMPARE(args.at(1).toInt(), 1);
         QCOMPARE(args.at(2).toInt(), 1);
         QCOMPARE(model->rowCount(), 1);
+    }
+
+    void shouldUpdateDataWhenMovingEntries()
+    {
+        history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        history->add(QUrl("http://example.com/"), "Example Domain", QUrl());
+        QTest::qWait(100);
+
+        QSignalSpy spyRowsMoved(model, SIGNAL(rowsMoved(const QModelIndex&, int, int, const QModelIndex&, int)));
+        qRegisterMetaType<QVector<int> >();
+        QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+
+        history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        QVERIFY(spyRowsMoved.isEmpty());
+        QVERIFY(!spyDataChanged.isEmpty());
+        verifyDataChanged(spyDataChanged, 1);
+    }
+
+    void shouldUpdateDataWhenDataChanges()
+    {
+        history->add(QUrl("http://example.com/"), "Example Domain", QUrl());
+        history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        QTest::qWait(100);
+
+        QSignalSpy spyRowsMoved(model, SIGNAL(rowsMoved(const QModelIndex&, int, int, const QModelIndex&, int)));
+        qRegisterMetaType<QVector<int> >();
+        QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+
+        history->add(QUrl("http://example.org/"), "New Example Domain", QUrl());
+        QVERIFY(spyRowsMoved.isEmpty());
+        QVERIFY(!spyDataChanged.isEmpty());
+        verifyDataChanged(spyDataChanged, 1);
     }
 
     void shouldUpdateWhenChangingSourceModel()
