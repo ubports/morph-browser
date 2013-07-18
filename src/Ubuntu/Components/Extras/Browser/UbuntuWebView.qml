@@ -124,24 +124,15 @@ WebView {
                 actions: ActionList {
                     Action {
                         text: i18n.tr("Share")
-                        onTriggered: {
-                            selection.visible = false
-                            selection.share()
-                        }
+                        onTriggered: selection.share()
                     }
                     Action {
                         text: i18n.tr("Save")
-                        onTriggered: {
-                            selection.visible = false
-                            selection.save()
-                        }
+                        onTriggered: selection.save()
                     }
                     Action {
                         text: i18n.tr("Copy")
-                        onTriggered: {
-                            selection.visible = false
-                            selection.copy()
-                        }
+                        onTriggered: selection.copy()
                     }
                 }
             }
@@ -160,8 +151,17 @@ WebView {
             }
         }
 
+        function actionTriggered() {
+            selection.visible = false
+        }
+
         function __showPopover() {
             __popover = PopupUtils.open(selectionPopover, selection.rect)
+            var actions = __popover.actions.actions
+            for (var i in actions) {
+                var action = actions[i]
+                action['onTriggered'].connect(actionTriggered)
+            }
         }
 
         function show(x, y, width, height) {
