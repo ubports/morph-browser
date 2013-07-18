@@ -40,7 +40,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
     else:
         scenarios = [('with touch', dict(input_device_class=Touch)), ]
 
-    local_location = "../../src/webbrowser-app"
+    local_location = "../../src/app/webbrowser-app"
     d_f = "--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop"
 
     ARGS = []

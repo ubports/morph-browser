@@ -83,6 +83,9 @@ bool WebBrowserApp::initialize()
 
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));
+    if (!isRunningInstalled()) {
+        m_engine->addImportPath(UbuntuBrowserImportsDirectory());
+    }
     QQmlContext* context = m_engine->rootContext();
     m_component = new QQmlComponent(m_engine);
     m_component->loadUrl(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/webbrowser-app.qml"));

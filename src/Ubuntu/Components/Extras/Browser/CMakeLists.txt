@@ -1,5 +1,12 @@
 project(webbrowser-plugin)
 
+execute_process(
+    COMMAND qmake -query QT_INSTALL_QML
+    OUTPUT_VARIABLE QT_INSTALL_QML
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+set(WEBBROWSER_IMPORTS_DIR "${QT_INSTALL_QML}/Ubuntu/Components/Extras/Browser")
+
 set(PLUGIN ubuntu-ui-extras-browser-plugin)
 
 set(PLUGIN_SRC
@@ -32,10 +39,13 @@ include_directories(${Qt5Core_PRIVATE_INCLUDE_DIRS}
 file(GLOB QML_FILES *.qml qmldir *.js)
 install(TARGETS ${PLUGIN} DESTINATION ${WEBBROWSER_IMPORTS_DIR})
 install(FILES ${QML_FILES} DESTINATION ${WEBBROWSER_IMPORTS_DIR})
-install(DIRECTORY assets DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app
+# FIXME: the desktop team won’t accept installing images under /usr/lib*
+install(DIRECTORY assets DESTINATION ${WEBBROWSER_IMPORTS_DIR}
         FILES_MATCHING PATTERN *.png)
 
-# copy qml files over to build dir to be able to import them in tests
+# copy qml files and assets over to build dir to be able to import them uninstalled
+# FIXME: when the source files are updated, they are not copied over again
 foreach(qmlFile ${QML_FILES})
-  file(COPY ${qmlFile} DESTINATION ${CMAKE_BINARY_DIR}/src/Ubuntu/Components/Extras/Browser/)
+  file(COPY ${qmlFile} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 endforeach(qmlFile)
+file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

@@ -30,7 +30,6 @@ Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          qtdeclarative5-ubuntu-ui-extras-browser-plugin (= ${binary:Version}),
-         webbrowser-app-assets (= ${binary:Version}),
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.
@@ -51,14 +50,6 @@ Description: Ubuntu web browser QML plugin
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains a standalone
  QML plugin that applications can use to embed a browser control.
-
-Package: webbrowser-app-assets
-Architecture: all
-Depends: ${misc:Depends},
-Description: Ubuntu web browser icon assets
- A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
- engine and using the Ubuntu UI components. This package contains the
- PNGs used as UI elements.
 
 Package: webbrowser-app-autopilot
 Architecture: all
