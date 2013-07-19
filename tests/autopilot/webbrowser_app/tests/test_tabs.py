@@ -12,7 +12,7 @@ from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
-
+import unittest
 
 class TestTabs(StartOpenRemotePageTestCaseBase):
 
@@ -114,6 +114,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
         self.assert_chrome_eventually_hidden()
 
+    @unittest.skip("skipping, tab close not implemented per design")
     def test_close_tab(self):
         self.ensure_activity_view_visible()
         self.open_new_tab()
@@ -132,6 +133,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assertThat(view.currentIndex, Eventually(Equals(0)))
         self.assert_current_url(url)
 
+    @unittest.skip("skipping, tab close not implemented per design")
     def test_close_last_open_tab(self):
         self.ensure_activity_view_visible()
         self.close_tab(0)
