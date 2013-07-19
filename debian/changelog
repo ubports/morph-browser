@@ -1,3 +1,14 @@
+webbrowser-app (0.21+13.10.20130719-0ubuntu1) saucy; urgency=low
+
+  [ Olivier Tilloy ]
+  * Notify of data updates when the data in the underlying model or its
+    ordering change.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 228
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 19 Jul 2013 06:39:36 +0000
+
 webbrowser-app (0.21+13.10.20130716-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
