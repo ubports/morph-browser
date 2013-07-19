@@ -25,7 +25,6 @@ from webbrowser_app.emulators.main_window import MainWindow
 
 
 HTTP_SERVER_PORT = 8129
-TYPING_DELAY = 0.001
 
 
 class BrowserTestCaseBase(AutopilotTestCase):
@@ -163,7 +162,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def type_in_address_bar(self, text):
         address_bar = self.main_window.get_address_bar()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
-        self.keyboard.type(text, delay=TYPING_DELAY)
+        self.keyboard.type(text)
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(text_field.text, Eventually(Contains(text)))
 
