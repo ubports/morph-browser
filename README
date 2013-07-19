@@ -16,12 +16,12 @@ To compile, simply invoke cmake and then make:
 webbrowser-app can be run from the development branch without the need to
 install any files. Just run:
 
-    $ ./src/webbrowser-app
+    $ ./src/app/webbrowser-app
 
 The executable accepts command line switches and parameters. To find out which,
 just run:
 
-    $ ./src/webbrowser-app --help
+    $ ./src/app/webbrowser-app --help
 
 
 = Unit tests =
