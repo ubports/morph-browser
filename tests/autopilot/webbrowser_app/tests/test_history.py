@@ -145,8 +145,8 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.pointing_device.move_to_object(entry)
         self.pointing_device.click()
         webview = self.main_window.get_current_webview()
-        url = "http://en.wikipedia.org/wiki/Ubuntu_(operating_system)"
-        self.assertThat(webview.url, Eventually(Equals(url)))
+        url = "wikipedia.org/wiki/Ubuntu_(operating_system)"
+        self.assertThat(webview.url, Eventually(Contains(url)))
         self.assert_suggestions_eventually_hidden()
 
     def test_special_characters(self):
