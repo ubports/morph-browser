@@ -108,6 +108,18 @@ class BrowserTestCaseBase(AutopilotTestCase):
         html = "<html><title>%s</title><body>%s</body></html>" % (title, body)
         return self.make_raw_html_page(html)
 
+    def assert_osk_eventually_shown(self):
+        if model() != 'Desktop':
+            keyboardRectangle = self.main_window.get_keyboard_rectangle()
+            self.assertThat(keyboardRectangle.state,
+                            Eventually(Equals("shown")))
+
+    def assert_osk_eventually_hidden(self):
+        if model() != 'Desktop':
+            keyboardRectangle = self.main_window.get_keyboard_rectangle()
+            self.assertThat(keyboardRectangle.state,
+                            Eventually(Equals("hidden")))
+
     def reveal_chrome(self):
         panel = self.main_window.get_panel()
         distance = self.main_window.get_chrome().height
@@ -137,20 +149,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.move_to_object(webview)
         self.pointing_device.click()
         self.assert_chrome_eventually_hidden()
-        if model() != 'Desktop':
-            keyboardRectangle = self.main_window.get_keyboard_rectangle()
-            self.assertThat(keyboardRectangle.state,
-                            Eventually(Equals("hidden")))
+        self.assert_osk_eventually_hidden()
 
     def focus_address_bar(self):
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
-        if model() != 'Desktop':
-            keyboardRectangle = self.main_window.get_keyboard_rectangle()
-            self.assertThat(keyboardRectangle.state,
-                            Eventually(Equals("shown")))
+        self.assert_osk_eventually_shown()
 
     def clear_address_bar(self):
         self.focus_address_bar()
@@ -180,6 +186,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.clear_address_bar()
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
+        self.assert_osk_eventually_hidden()
 
     def assert_page_eventually_loading(self):
         webview = self.main_window.get_current_webview()
