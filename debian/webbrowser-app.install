@@ -2,3 +2,4 @@ usr/bin/webbrowser-app
 usr/share/webbrowser-app/
 usr/share/applications/webbrowser-app.desktop
 usr/share/icons/hicolor/scalable/apps/webbrowser-app.svg
+usr/share/locale/*/LC_MESSAGES/webbrowser-app.mo
