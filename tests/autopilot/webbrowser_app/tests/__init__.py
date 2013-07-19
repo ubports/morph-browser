@@ -137,12 +137,20 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.move_to_object(webview)
         self.pointing_device.click()
         self.assert_chrome_eventually_hidden()
+        if model() != 'Desktop':
+            keyboardRectangle = self.main_window.get_keyboard_rectangle()
+            self.assertThat(keyboardRectangle.state,
+                            Eventually(Equals("hidden")))
 
     def focus_address_bar(self):
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        if model() != 'Desktop':
+            keyboardRectangle = self.main_window.get_keyboard_rectangle()
+            self.assertThat(keyboardRectangle.state,
+                            Eventually(Equals("shown")))
 
     def clear_address_bar(self):
         self.focus_address_bar()
