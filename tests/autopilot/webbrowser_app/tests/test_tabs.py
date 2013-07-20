@@ -14,6 +14,7 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 import unittest
 
+
 class TestTabs(StartOpenRemotePageTestCaseBase):
 
     """Tests tabs management."""
