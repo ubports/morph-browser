@@ -160,6 +160,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
     def clear_address_bar(self):
         self.focus_address_bar()
+        self.assert_osk_eventually_shown()
         clear_button = self.main_window.get_address_bar_clear_button()
         self.pointing_device.move_to_object(clear_button)
         self.pointing_device.click()
