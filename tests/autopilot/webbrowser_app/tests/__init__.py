@@ -123,9 +123,9 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def reveal_chrome(self):
         panel = self.main_window.get_panel()
         distance = self.main_window.get_chrome().height
-        view = self.main_window.get_qml_view()
-        x_line = int(view.x + view.width * 0.5)
-        start_y = int(view.y + view.height - 1)
+        x, y, w, h = self.main_window.get_current_webview().globalRect
+        x_line = int(x + w * 0.5)
+        start_y = int(y + h - 1)
         stop_y = int(start_y - distance)
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
         self.assertThat(panel.state, Eventually(Equals("spread")))
@@ -167,11 +167,10 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.assertThat(text_field.text, Eventually(Equals("")))
 
     def assert_chrome_eventually_shown(self):
-        view = self.main_window.get_qml_view()
+        x, y, w, h = self.main_window.get_current_webview().globalRect
         chrome = self.main_window.get_chrome()
-        expected_y = view.y + view.height - chrome.height
         self.assertThat(lambda: chrome.globalRect[1],
-                        Eventually(Equals(expected_y)))
+                        Eventually(Equals(y + h - chrome.height)))
 
     def type_in_address_bar(self, text):
         address_bar = self.main_window.get_address_bar()
