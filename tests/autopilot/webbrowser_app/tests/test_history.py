@@ -121,9 +121,11 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.focus_address_bar()
         self.assert_suggestions_eventually_shown()
         self.hide_chrome()
+        self.assert_osk_eventually_hidden()
         self.assert_chrome_eventually_hidden()
         self.assert_suggestions_eventually_hidden()
         self.reveal_chrome()
+        self.focus_address_bar()
         self.assert_suggestions_eventually_shown()
 
     def test_select_suggestion(self):
