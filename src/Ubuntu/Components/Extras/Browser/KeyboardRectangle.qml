@@ -21,6 +21,7 @@
 // until the shell/WM takes care of that on behalf of the applications.
 
 import QtQuick 2.0
+import Ubuntu.Components 0.1
 
 Item {
     id: keyboardRect
@@ -30,11 +31,19 @@ Item {
     height: Qt.inputMethod.visible ? Qt.inputMethod.keyboardRectangle.height : 0
 
     Behavior on height {
-        NumberAnimation {
-            duration: 300
-            easing.type: Easing.InOutQuad
-        }
+        UbuntuNumberAnimation {}
     }
+
+    states: [
+        State {
+            name: "hidden"
+            when: keyboardRect.height == 0
+        },
+        State {
+            name: "shown"
+            when: keyboardRect.height == Qt.inputMethod.keyboardRectangle.height
+        }
+    ]
 
     function recursiveFindFocusedItem(parent) {
         if (parent.activeFocus) {

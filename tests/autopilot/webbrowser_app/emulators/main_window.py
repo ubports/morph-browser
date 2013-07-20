@@ -21,6 +21,9 @@ class MainWindow(object):
     def get_browser(self):
         return self.app.select_single("Browser")
 
+    def get_keyboard_rectangle(self):
+        return self.app.select_single("KeyboardRectangle")
+
     def get_chrome(self):
         return self.app.select_single("Chrome")
 
