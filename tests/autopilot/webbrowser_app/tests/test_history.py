@@ -154,7 +154,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assert_suggestions_eventually_hidden()
 
     @unittest.skipIf(model() != 'Desktop',
-                     "missing character mapping in qtubuntu, " +
+                     "missing character mapping in qtubuntu, "
                      "see https://bugs.launchpad.net/qtubuntu/+bug/1203212")
     def test_special_characters(self):
         self.assert_chrome_eventually_hidden()
