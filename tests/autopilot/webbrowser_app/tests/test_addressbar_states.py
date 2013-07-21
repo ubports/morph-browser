@@ -23,6 +23,7 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         self.assertThat(address_bar.state, Eventually(Equals("")))
 
     def test_state_loading_then_idle(self):
+        self.assert_chrome_eventually_hidden()
         address_bar = self.main_window.get_address_bar()
         url = self.base_url + "/wait/2"
         self.go_to_url(url)
@@ -30,6 +31,7 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         self.assertThat(address_bar.state, Eventually(Equals("")))
 
     def test_cancel_state_loading(self):
+        self.assert_chrome_eventually_hidden()
         address_bar = self.main_window.get_address_bar()
         action_button = self.main_window.get_address_bar_action_button()
         url = self.base_url + "/wait/5"

@@ -14,6 +14,7 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 import unittest
 
+
 class TestTabs(StartOpenRemotePageTestCaseBase):
 
     """Tests tabs management."""
@@ -39,6 +40,12 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.pointing_device.move_to_object(newtab_delegate)
         self.pointing_device.click()
         self.assertThat(view.count, Eventually(Equals(count + 1)))
+        activity_view = self.main_window.get_activity_view()
+        self.assertThat(activity_view.visible, Eventually(Equals(False)))
+        self.assert_osk_eventually_shown()
+        self.assert_chrome_eventually_shown()
+        address_bar = self.main_window.get_address_bar()
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
     def close_tab(self, index):
         # assumes the activity view is already visible
@@ -78,11 +85,6 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assertThat(view.currentIndex, Equals(0))
         self.open_new_tab()
         self.assertThat(view.currentIndex, Eventually(Equals(1)))
-        activity_view = self.main_window.get_activity_view()
-        self.assertThat(activity_view.visible, Eventually(Equals(False)))
-        self.assert_chrome_eventually_shown()
-        address_bar = self.main_window.get_address_bar()
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
     def test_switch_tabs(self):
         self.ensure_activity_view_visible()
@@ -142,6 +144,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assertThat(view.count, Eventually(Equals(1)))
         activity_view = self.main_window.get_activity_view()
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
+        self.assert_osk_eventually_shown()
         self.assert_chrome_eventually_shown()
         address_bar = self.main_window.get_address_bar()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
