@@ -1,3 +1,24 @@
+webbrowser-app (0.21+13.10.20130722-0ubuntu1) saucy; urgency=low
+
+  [ Bill Filler ]
+  * skip close tab tests.
+
+  [ Olivier Tilloy ]
+  * Slow down the typing, as it seems a lot of characters are eaten up
+    when running the tests on a device.
+  * Do not check strictly the full URL, on mobile devices it may be
+    rewritten.
+  * Wait for the keyboard rectangle to finish its animation before
+    interacting with the UI when running autopilot tests on devices.
+    (LP: #1193012)
+  * Several autopilot tests improvements to make them more robust when
+    run on a device, mostly related to the OSK.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 234
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 22 Jul 2013 05:01:57 +0000
+
 webbrowser-app (0.21+13.10.20130719-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
