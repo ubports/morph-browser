@@ -117,12 +117,6 @@ void HistoryDomainListModel::setSourceModel(HistoryTimeframeModel* sourceModel)
         if (m_sourceModel != 0) {
             connect(m_sourceModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)),
                     SLOT(onRowsInserted(const QModelIndex&, int, int)));
-            connect(m_sourceModel, SIGNAL(rowsRemoved(const QModelIndex&, int, int)),
-                    SLOT(onRowsRemoved(const QModelIndex&, int, int)));
-            connect(m_sourceModel, SIGNAL(layoutChanged(const QList<QPersistentModelIndex>&, QAbstractItemModel::LayoutChangeHint)),
-                    SLOT(onLayoutChanged(const QList<QPersistentModelIndex>&, QAbstractItemModel::LayoutChangeHint)));
-            connect(m_sourceModel, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)),
-                    SLOT(onDataChanged(QModelIndex,QModelIndex,QVector<int>)));
             connect(m_sourceModel, SIGNAL(modelReset()), SLOT(onModelReset()));
         }
         endResetModel();
@@ -152,7 +146,6 @@ void HistoryDomainListModel::populateModel()
 
 void HistoryDomainListModel::onRowsInserted(const QModelIndex& parent, int start, int end)
 {
-    QStringList updated;
     for (int i = start; i <= end; ++i) {
         QString domain = getDomainFromSourceModel(m_sourceModel->index(i, 0, parent));
         if (!m_domains.contains(domain)) {
@@ -167,63 +160,7 @@ void HistoryDomainListModel::onRowsInserted(const QModelIndex& parent, int start
             beginInsertRows(QModelIndex(), insertAt, insertAt);
             insertNewDomain(domain);
             endInsertRows();
-        } else {
-            updated.append(domain);
         }
-    }
-    QVector<int> updatedRoles = QVector<int>() << Thumbnail << Entries;
-    QStringList domains = m_domains.keys();
-    Q_FOREACH(const QString& domain, updated) {
-        QModelIndex index = this->index(domains.indexOf(domain), 0);
-        Q_EMIT dataChanged(index, index, updatedRoles);
-    }
-}
-
-void HistoryDomainListModel::onRowsRemoved(const QModelIndex& parent, int start, int end)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(start);
-    Q_UNUSED(end);
-    QSet<QString> newDomains;
-    int count = m_sourceModel->rowCount();
-    for (int i = 0; i < count; ++i) {
-        newDomains.insert(getDomainFromSourceModel(m_sourceModel->index(i, 0)));
-    }
-    QSet<QString> removed = QSet<QString>::fromList(m_domains.keys());
-    removed.subtract(newDomains);
-    Q_FOREACH(const QString& domain, removed) {
-        int removeAt = m_domains.keys().indexOf(domain);
-        beginRemoveRows(QModelIndex(), removeAt, removeAt);
-        delete m_domains.take(domain);
-        endRemoveRows();
-    }
-    // XXX: unfortunately there is no way to get a list of domains that had some
-    // (but not all) entries removed. To ensure the views are correctly updated,
-    // let’s emit the signal for all entries, even those that haven’t changed.
-    Q_EMIT dataChanged(this->index(0, 0), this->index(rowCount() - 1, 0),
-                       QVector<int>() << Thumbnail << Entries);
-}
-
-void HistoryDomainListModel::onLayoutChanged(const QList<QPersistentModelIndex>& parents, QAbstractItemModel::LayoutChangeHint hint)
-{
-    Q_UNUSED(parents);
-    Q_UNUSED(hint);
-    Q_EMIT dataChanged(this->index(0, 0), this->index(rowCount() - 1, 0),
-                       QVector<int>() << Thumbnail << Entries);
-}
-
-void HistoryDomainListModel::onDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>& roles)
-{
-    Q_UNUSED(roles);
-    int start = topLeft.row();
-    int end = bottomRight.row();
-    QSet<QString> changed;
-    for (int i = start; i <= end; ++i) {
-        changed.insert(getDomainFromSourceModel(m_sourceModel->index(i, 0)));
-    }
-    Q_FOREACH(const QString& domain, changed) {
-        QModelIndex index = this->index(m_domains.keys().indexOf(domain), 0);
-        Q_EMIT dataChanged(index, index, QVector<int>() << Thumbnail << Entries);
     }
 }
 
@@ -240,6 +177,17 @@ void HistoryDomainListModel::insertNewDomain(const QString& domain)
     HistoryDomainModel* model = new HistoryDomainModel(this);
     model->setSourceModel(m_sourceModel);
     model->setDomain(domain);
+    connect(model, SIGNAL(rowsInserted(QModelIndex, int, int)),
+            SLOT(onDomainRowsInserted(QModelIndex, int, int)));
+    connect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)),
+            SLOT(onDomainRowsRemoved(QModelIndex, int, int)));
+    connect(model, SIGNAL(rowsMoved(QModelIndex, int, int, QModelIndex, int)),
+            SLOT(onDomainRowsMoved(QModelIndex, int, int, QModelIndex, int)));
+    connect(model, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)),
+            SLOT(onDomainLayoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)));
+    connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)),
+            SLOT(onDomainDataChanged(QModelIndex, QModelIndex)));
+    connect(model, SIGNAL(modelReset()), SLOT(onDomainModelReset()));
     m_domains.insert(domain, model);
 }
 
@@ -247,4 +195,81 @@ QString HistoryDomainListModel::getDomainFromSourceModel(const QModelIndex& inde
 {
     QUrl url = m_sourceModel->data(index, HistoryModel::Url).toUrl();
     return DomainUtils::extractTopLevelDomainName(url).toLower();
+}
+
+void HistoryDomainListModel::onDomainRowsInserted(const QModelIndex& parent, int start, int end)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(start);
+    Q_UNUSED(end);
+    HistoryDomainModel* model = qobject_cast<HistoryDomainModel*>(sender());
+    if (model != 0) {
+        const QString& domain = model->domain();
+        QModelIndex index = this->index(m_domains.keys().indexOf(domain), 0);
+        Q_EMIT dataChanged(index, index, QVector<int>() << Thumbnail << Entries);
+    }
+}
+
+void HistoryDomainListModel::onDomainRowsRemoved(const QModelIndex& parent, int start, int end)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(start);
+    Q_UNUSED(end);
+    HistoryDomainModel* model = qobject_cast<HistoryDomainModel*>(sender());
+    if (model != 0) {
+        const QString& domain = model->domain();
+        if (model->rowCount() == 0) {
+            int removeAt = m_domains.keys().indexOf(domain);
+            beginRemoveRows(QModelIndex(), removeAt, removeAt);
+            delete m_domains.take(domain);
+            endRemoveRows();
+        } else {
+            emitDataChanged(domain);
+        }
+    }
+}
+
+void HistoryDomainListModel::onDomainRowsMoved(const QModelIndex& sourceParent, int sourceStart, int sourceEnd, const QModelIndex& destinationParent, int destinationRow)
+{
+    HistoryDomainModel* model = qobject_cast<HistoryDomainModel*>(sender());
+    if (model != 0) {
+        emitDataChanged(model->domain());
+    }
+}
+
+void HistoryDomainListModel::onDomainLayoutChanged(const QList<QPersistentModelIndex>& parents, QAbstractItemModel::LayoutChangeHint hint)
+{
+    Q_UNUSED(parents);
+    Q_UNUSED(hint);
+    HistoryDomainModel* model = qobject_cast<HistoryDomainModel*>(sender());
+    if (model != 0) {
+        emitDataChanged(model->domain());
+    }
+}
+
+void HistoryDomainListModel::onDomainDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight)
+{
+    Q_UNUSED(topLeft);
+    Q_UNUSED(bottomRight);
+    HistoryDomainModel* model = qobject_cast<HistoryDomainModel*>(sender());
+    if (model != 0) {
+        emitDataChanged(model->domain());
+    }
+}
+
+void HistoryDomainListModel::onDomainModelReset()
+{
+    HistoryDomainModel* model = qobject_cast<HistoryDomainModel*>(sender());
+    if (model != 0) {
+        emitDataChanged(model->domain());
+    }
+}
+
+void HistoryDomainListModel::emitDataChanged(const QString& domain)
+{
+    int i = m_domains.keys().indexOf(domain);
+    if (i != -1) {
+        QModelIndex index = this->index(i, 0);
+        Q_EMIT dataChanged(index, index, QVector<int>() << Thumbnail << Entries);
+    }
 }

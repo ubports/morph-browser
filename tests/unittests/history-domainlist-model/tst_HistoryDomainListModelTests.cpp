@@ -156,13 +156,12 @@ private Q_SLOTS:
     {
         history->add(QUrl("http://example.com/"), "Example Domain", QUrl());
         history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
-        QTest::qWait(100);
 
         QSignalSpy spyRowsMoved(model, SIGNAL(rowsMoved(const QModelIndex&, int, int, const QModelIndex&, int)));
         qRegisterMetaType<QVector<int> >();
         QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
 
-        history->add(QUrl("http://example.org/"), "New Example Domain", QUrl());
+        history->add(QUrl("http://example.org/foobar"), "Example Domain", QUrl());
         QVERIFY(spyRowsMoved.isEmpty());
         QVERIFY(!spyDataChanged.isEmpty());
         verifyDataChanged(spyDataChanged, 1);
