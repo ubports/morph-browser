@@ -132,25 +132,6 @@ private Q_SLOTS:
         QCOMPARE(CommandLineParser(args).url(), url);
     }
 
-    void shouldHaveDesktopFileHint_data()
-    {
-        QTest::addColumn<QStringList>("args");
-        QTest::addColumn<QString>("hint");
-        QString BINARY("webbrowser-app");
-
-        QTest::newRow("no hint") << (QStringList() << BINARY) << "";
-        QTest::newRow("full path hint") << (QStringList() << BINARY << "--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop") << "webbrowser-app";
-        QTest::newRow("only .desktop file") << (QStringList() << BINARY << "--desktop_file_hint=webbrowser-app.desktop") << "webbrowser-app";
-        QTest::newRow("webapp") << (QStringList() << BINARY << "--desktop_file_hint=/usr/share/applications/amazon-webapp.desktop") << "amazon-webapp";
-    }
-
-    void shouldHaveDesktopFileHint()
-    {
-        QFETCH(QStringList, args);
-        QFETCH(QString, hint);
-        QCOMPARE(CommandLineParser(args).desktopFileHint(), hint);
-    }
-
     void shouldRunRemoteInspector_data()
     {
         QTest::addColumn<QStringList>("args");
