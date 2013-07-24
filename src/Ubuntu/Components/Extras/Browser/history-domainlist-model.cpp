@@ -53,6 +53,7 @@ QHash<int, QByteArray> HistoryDomainListModel::roleNames() const
     static QHash<int, QByteArray> roles;
     if (roles.isEmpty()) {
         roles[Domain] = "domain";
+        roles[LastVisit] = "lastVisit";
         roles[Thumbnail] = "thumbnail";
         roles[Entries] = "entries";
     }
@@ -65,6 +66,7 @@ int HistoryDomainListModel::rowCount(const QModelIndex& parent) const
     return m_domains.count();
 }
 
+#include <QDebug>
 QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid()) {
@@ -75,13 +77,24 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
         return QVariant();
     }
     const QString domain = m_domains.keys().at(row);
+    HistoryDomainModel* entries = m_domains.value(domain);
+
+    qDebug() << "getting data for domain" << domain << entries << entries->domain();
+    for (int i = 0; i < entries->rowCount(); ++i) {
+        QModelIndex j = entries->index(i, 0);
+        QUrl url = entries->data(j, HistoryModel::Url).toUrl();
+        QDateTime ts = entries->data(j, HistoryModel::LastVisit).toDateTime();
+        qDebug() << "   entry" << url << ts;
+    }
+
     switch (role) {
     case Domain:
         return domain;
+    case LastVisit:
+        return entries->data(entries->index(0, 0), HistoryModel::LastVisit).toDateTime();
     case Thumbnail:
     {
         // Iterate over all the entries, and return the first valid thumbnail.
-        HistoryDomainModel* entries = m_domains.value(domain);
         int count = entries->rowCount();
         for (int i = 0; i < count; ++i) {
             QUrl url = entries->data(entries->index(i, 0), HistoryModel::Url).toUrl();
@@ -93,7 +106,7 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
         return QUrl();
     }
     case Entries:
-        return QVariant::fromValue(m_domains.value(domain));
+        return QVariant::fromValue(entries);
     default:
         return QVariant();
     }
@@ -204,9 +217,7 @@ void HistoryDomainListModel::onDomainRowsInserted(const QModelIndex& parent, int
     Q_UNUSED(end);
     HistoryDomainModel* model = qobject_cast<HistoryDomainModel*>(sender());
     if (model != 0) {
-        const QString& domain = model->domain();
-        QModelIndex index = this->index(m_domains.keys().indexOf(domain), 0);
-        Q_EMIT dataChanged(index, index, QVector<int>() << Thumbnail << Entries);
+        emitDataChanged(model->domain());
     }
 }
 
@@ -270,6 +281,6 @@ void HistoryDomainListModel::emitDataChanged(const QString& domain)
     int i = m_domains.keys().indexOf(domain);
     if (i != -1) {
         QModelIndex index = this->index(i, 0);
-        Q_EMIT dataChanged(index, index, QVector<int>() << Thumbnail << Entries);
+        Q_EMIT dataChanged(index, index, QVector<int>() << LastVisit << Thumbnail << Entries);
     }
 }

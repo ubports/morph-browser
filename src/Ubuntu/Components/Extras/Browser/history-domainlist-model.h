@@ -41,6 +41,7 @@ public:
 
     enum Roles {
         Domain = Qt::UserRole + 1,
+        LastVisit,
         Thumbnail,
         Entries
     };

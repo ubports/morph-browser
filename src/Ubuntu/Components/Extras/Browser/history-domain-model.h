@@ -41,6 +41,9 @@ public:
     const QString& domain() const;
     void setDomain(const QString& domain);
 
+    // reimplemented for debugging purposes
+    QVariant data(const QModelIndex& index, int role=Qt::DisplayRole) const;
+
 Q_SIGNALS:
     void sourceModelChanged() const;
     void domainChanged() const;
