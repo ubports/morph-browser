@@ -28,7 +28,12 @@ Package: webbrowser-app
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends},
+         libqt5webkit5-qmlwebkitplugin,
+         qtdeclarative5-hud1.0,
+         qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-extras-browser-plugin (= ${binary:Version}),
+         qtdeclarative5-ubuntu-ui-toolkit-plugin,
+         qtdeclarative5-window-plugin,
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.
@@ -39,7 +44,6 @@ Depends: ${misc:Depends},
          ${shlibs:Depends},
          libqt5sql5-sqlite,
          libqt5webkit5-qmlwebkitplugin,
-         qtdeclarative5-hud1.0,
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets (>= ${binary:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
