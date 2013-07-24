@@ -18,7 +18,6 @@ Build-Depends: cmake (>= 2.8.9),
                qtdeclarative5-qtquick2-plugin,
                qtdeclarative5-test-plugin,
                qtdeclarative5-ubuntu-ui-toolkit-plugin,
-               qtdeclarative5-window-plugin,
 Standards-Version: 3.9.4
 Homepage: https://launchpad.net/webbrowser-app
 # If you aren't a member of ~phablet-team but need to upload packaging changes,
