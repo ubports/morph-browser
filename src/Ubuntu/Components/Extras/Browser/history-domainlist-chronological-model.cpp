@@ -19,12 +19,14 @@
 #include "history-domainlist-chronological-model.h"
 #include "history-domainlist-model.h"
 
-// Qt
-#include <QtCore/QDateTime>
-
 /*!
     \class HistoryDomainListChronologicalModel
-    \brief DOCME
+    \brief Proxy model that sorts a domain list model in reverse chronological
+           order
+
+    HistoryDomainListChronologicalModel is a proxy model that sorts a
+    HistoryDomainListModel in reverse chronological order
+    (i.e. the domain with the latest entry visited first).
 */
 HistoryDomainListChronologicalModel::HistoryDomainListChronologicalModel(QObject* parent)
     : QSortFilterProxyModel(parent)
