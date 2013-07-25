@@ -25,7 +25,6 @@ from webbrowser_app.emulators.main_window import MainWindow
 
 
 HTTP_SERVER_PORT = 8129
-TYPING_DELAY = 0.001
 
 
 class BrowserTestCaseBase(AutopilotTestCase):
@@ -109,12 +108,24 @@ class BrowserTestCaseBase(AutopilotTestCase):
         html = "<html><title>%s</title><body>%s</body></html>" % (title, body)
         return self.make_raw_html_page(html)
 
+    def assert_osk_eventually_shown(self):
+        if model() != 'Desktop':
+            keyboardRectangle = self.main_window.get_keyboard_rectangle()
+            self.assertThat(keyboardRectangle.state,
+                            Eventually(Equals("shown")))
+
+    def assert_osk_eventually_hidden(self):
+        if model() != 'Desktop':
+            keyboardRectangle = self.main_window.get_keyboard_rectangle()
+            self.assertThat(keyboardRectangle.state,
+                            Eventually(Equals("hidden")))
+
     def reveal_chrome(self):
         panel = self.main_window.get_panel()
         distance = self.main_window.get_chrome().height
-        view = self.main_window.get_qml_view()
-        x_line = int(view.x + view.width * 0.5)
-        start_y = int(view.y + view.height - 1)
+        x, y, w, h = self.main_window.get_current_webview().globalRect
+        x_line = int(x + w * 0.5)
+        start_y = int(y + h - 1)
         stop_y = int(start_y - distance)
         self.pointing_device.drag(x_line, start_y, x_line, stop_y)
         self.assertThat(panel.state, Eventually(Equals("spread")))
@@ -138,15 +149,18 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.move_to_object(webview)
         self.pointing_device.click()
         self.assert_chrome_eventually_hidden()
+        self.assert_osk_eventually_hidden()
 
     def focus_address_bar(self):
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.move_to_object(address_bar)
         self.pointing_device.click()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        self.assert_osk_eventually_shown()
 
     def clear_address_bar(self):
         self.focus_address_bar()
+        self.assert_osk_eventually_shown()
         clear_button = self.main_window.get_address_bar_clear_button()
         self.pointing_device.move_to_object(clear_button)
         self.pointing_device.click()
@@ -154,16 +168,15 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.assertThat(text_field.text, Eventually(Equals("")))
 
     def assert_chrome_eventually_shown(self):
-        view = self.main_window.get_qml_view()
+        x, y, w, h = self.main_window.get_current_webview().globalRect
         chrome = self.main_window.get_chrome()
-        expected_y = view.y + view.height - chrome.height
         self.assertThat(lambda: chrome.globalRect[1],
-                        Eventually(Equals(expected_y)))
+                        Eventually(Equals(y + h - chrome.height)))
 
     def type_in_address_bar(self, text):
         address_bar = self.main_window.get_address_bar()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
-        self.keyboard.type(text, delay=TYPING_DELAY)
+        self.keyboard.type(text)
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(text_field.text, Eventually(Contains(text)))
 
@@ -173,6 +186,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.clear_address_bar()
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
+        self.assert_osk_eventually_hidden()
 
     def assert_page_eventually_loading(self):
         webview = self.main_window.get_current_webview()

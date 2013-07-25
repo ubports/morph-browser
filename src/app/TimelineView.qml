@@ -112,48 +112,50 @@ Item {
                 spacing: units.gu(2)
                 orientation: ListView.Horizontal
 
-                model: HistoryDomainListModel {
-                    sourceModel: HistoryTimeframeModel {
-                        sourceModel: historyModel
-                        start: {
-                            var date = new Date()
-                            if (model.timeframe == "yesterday") {
-                                date.setDate(date.getDate() - 1)
-                            } else if (model.timeframe == "last7days") {
-                                date.setDate(date.getDate() - 7)
-                            } else if (model.timeframe == "thismonth") {
-                                date.setDate(1)
-                            } else if (model.timeframe == "thisyear") {
-                                date.setMonth(0)
-                                date.setDate(1)
-                            } else if (model.timeframe == "older") {
-                                date.setFullYear(0, 0, 1)
+                model: HistoryDomainListChronologicalModel {
+                    sourceModel: HistoryDomainListModel {
+                        sourceModel: HistoryTimeframeModel {
+                            sourceModel: historyModel
+                            start: {
+                                var date = new Date()
+                                if (model.timeframe == "yesterday") {
+                                    date.setDate(date.getDate() - 1)
+                                } else if (model.timeframe == "last7days") {
+                                    date.setDate(date.getDate() - 7)
+                                } else if (model.timeframe == "thismonth") {
+                                    date.setDate(1)
+                                } else if (model.timeframe == "thisyear") {
+                                    date.setMonth(0)
+                                    date.setDate(1)
+                                } else if (model.timeframe == "older") {
+                                    date.setFullYear(0, 0, 1)
+                                }
+                                date.setHours(0)
+                                date.setMinutes(0)
+                                date.setSeconds(0)
+                                date.setMilliseconds(0)
+                                return date
                             }
-                            date.setHours(0)
-                            date.setMinutes(0)
-                            date.setSeconds(0)
-                            date.setMilliseconds(0)
-                            return date
-                        }
-                        end: {
-                            var date = new Date()
-                            if (model.timeframe == "yesterday") {
-                                date.setDate(date.getDate() - 1)
-                            } else if (model.timeframe == "last7days") {
-                                date.setDate(date.getDate() - 2)
-                            } else if (model.timeframe == "thismonth") {
-                                date.setDate(date.getDate() - 8)
-                            } else if (model.timeframe == "thisyear") {
-                                date.setDate(0)
-                            } else if (model.timeframe == "older") {
-                                date.setMonth(0)
-                                date.setDate(0)
+                            end: {
+                                var date = new Date()
+                                if (model.timeframe == "yesterday") {
+                                    date.setDate(date.getDate() - 1)
+                                } else if (model.timeframe == "last7days") {
+                                    date.setDate(date.getDate() - 2)
+                                } else if (model.timeframe == "thismonth") {
+                                    date.setDate(date.getDate() - 8)
+                                } else if (model.timeframe == "thisyear") {
+                                    date.setDate(0)
+                                } else if (model.timeframe == "older") {
+                                    date.setMonth(0)
+                                    date.setDate(0)
+                                }
+                                date.setHours(23)
+                                date.setMinutes(59)
+                                date.setSeconds(59)
+                                date.setMilliseconds(999)
+                                return date
                             }
-                            date.setHours(23)
-                            date.setMinutes(59)
-                            date.setSeconds(59)
-                            date.setMilliseconds(999)
-                            return date
                         }
                     }
                 }

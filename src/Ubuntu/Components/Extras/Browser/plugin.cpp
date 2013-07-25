@@ -22,6 +22,7 @@
 #include "history-timeframe-model.h"
 #include "history-domain-model.h"
 #include "history-domainlist-model.h"
+#include "history-domainlist-chronological-model.h"
 #include "tabs-model.h"
 #include "webthumbnail-provider.h"
 #include "webview-thumbnailer.h"
@@ -54,6 +55,7 @@ void UbuntuBrowserPlugin::registerTypes(const char* uri)
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<HistoryDomainModel>(uri, 0, 1, "HistoryDomainModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
+    qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<WebviewThumbnailer>(uri, 0, 1, "WebviewThumbnailer");
 }

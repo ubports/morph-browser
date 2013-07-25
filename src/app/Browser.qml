@@ -182,6 +182,11 @@ FocusScope {
                     height: units.gu(8)
 
                     opened: true
+                    onOpenedChanged: {
+                        if (!opened) {
+                            Qt.inputMethod.hide()
+                        }
+                    }
 
                     Chrome {
                         anchors.fill: parent

@@ -41,6 +41,7 @@ public:
 
     enum Roles {
         Domain = Qt::UserRole + 1,
+        LastVisit,
         Thumbnail,
         Entries
     };
@@ -58,8 +59,14 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void onRowsInserted(const QModelIndex& parent, int start, int end);
-    void onRowsRemoved(const QModelIndex& parent, int start, int end);
     void onModelReset();
+
+    void onDomainRowsInserted(const QModelIndex& parent, int start, int end);
+    void onDomainRowsRemoved(const QModelIndex& parent, int start, int end);
+    void onDomainRowsMoved(const QModelIndex& sourceParent, int sourceStart, int sourceEnd, const QModelIndex& destinationParent, int destinationRow);
+    void onDomainLayoutChanged(const QList<QPersistentModelIndex>& parents, QAbstractItemModel::LayoutChangeHint hint);
+    void onDomainDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
+    void onDomainModelReset();
 
 private:
     HistoryTimeframeModel* m_sourceModel;
@@ -69,6 +76,7 @@ private:
     void populateModel();
     void insertNewDomain(const QString& domain);
     QString getDomainFromSourceModel(const QModelIndex& index) const;
+    void emitDataChanged(const QString& domain);
 };
 
 #endif // __HISTORY_DOMAINLIST_MODEL_H__

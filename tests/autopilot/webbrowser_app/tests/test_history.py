@@ -12,9 +12,11 @@ import os.path
 import random
 import sqlite3
 import time
+import unittest
 
 from testtools.matchers import Contains, Equals
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
@@ -121,9 +123,11 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.focus_address_bar()
         self.assert_suggestions_eventually_shown()
         self.hide_chrome()
+        self.assert_osk_eventually_hidden()
         self.assert_chrome_eventually_hidden()
         self.assert_suggestions_eventually_hidden()
         self.reveal_chrome()
+        self.focus_address_bar()
         self.assert_suggestions_eventually_shown()
 
     def test_select_suggestion(self):
@@ -145,10 +149,13 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.pointing_device.move_to_object(entry)
         self.pointing_device.click()
         webview = self.main_window.get_current_webview()
-        url = "http://en.wikipedia.org/wiki/Ubuntu_(operating_system)"
-        self.assertThat(webview.url, Eventually(Equals(url)))
+        url = "wikipedia.org/wiki/Ubuntu_(operating_system)"
+        self.assertThat(webview.url, Eventually(Contains(url)))
         self.assert_suggestions_eventually_hidden()
 
+    @unittest.skipIf(model() != 'Desktop',
+                     "missing character mapping in qtubuntu, "
+                     "see https://bugs.launchpad.net/qtubuntu/+bug/1203212")
     def test_special_characters(self):
         self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
