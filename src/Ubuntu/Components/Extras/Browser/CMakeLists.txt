@@ -9,6 +9,7 @@ set(PLUGIN_SRC
     history-timeframe-model.cpp
     history-domain-model.cpp
     history-domainlist-model.cpp
+    history-domainlist-chronological-model.cpp
     tabs-model.cpp
     webthumbnail-utils.cpp
     webthumbnail-provider.cpp
