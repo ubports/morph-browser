@@ -82,7 +82,7 @@ Column {
                 objectName: "openTabDelegate"
                 anchors.fill: parent
 
-                label: model.url
+                label: model.title ? model.title : model.url
                 thumbnail: model.webview.thumbnail
             }
 
