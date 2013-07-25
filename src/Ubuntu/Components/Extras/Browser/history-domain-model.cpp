@@ -79,12 +79,3 @@ bool HistoryDomainModel::filterAcceptsRow(int source_row, const QModelIndex& sou
     QString domain = DomainUtils::extractTopLevelDomainName(url);
     return (domain.compare(m_domain, Qt::CaseInsensitive) == 0);
 }
-
-// reimplemented for debugging purposes
-#include <QDebug>
-QVariant HistoryDomainModel::data(const QModelIndex& index, int role) const
-{
-    QVariant d = QSortFilterProxyModel::data(index, role);
-    //qDebug() << Q_FUNC_INFO << index << role << d;
-    return d;
-}
