@@ -66,7 +66,13 @@ int HistoryDomainListModel::rowCount(const QModelIndex& parent) const
     return m_domains.count();
 }
 
-#include <QDebug>
+static void ensureEntriesUpToDate(HistoryDomainModel* entries)
+{
+    entries->blockSignals(true);
+    entries->invalidate();
+    entries->blockSignals(false);
+}
+
 QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid()) {
@@ -79,22 +85,18 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
     const QString domain = m_domains.keys().at(row);
     HistoryDomainModel* entries = m_domains.value(domain);
 
-    qDebug() << "getting data for domain" << domain << entries << entries->domain();
-    for (int i = 0; i < entries->rowCount(); ++i) {
-        QModelIndex j = entries->index(i, 0);
-        QUrl url = entries->data(j, HistoryModel::Url).toUrl();
-        QDateTime ts = entries->data(j, HistoryModel::LastVisit).toDateTime();
-        qDebug() << "   entry" << url << ts;
-    }
-
     switch (role) {
     case Domain:
         return domain;
     case LastVisit:
+    {
+        ensureEntriesUpToDate(entries);
         return entries->data(entries->index(0, 0), HistoryModel::LastVisit).toDateTime();
+    }
     case Thumbnail:
     {
         // Iterate over all the entries, and return the first valid thumbnail.
+        ensureEntriesUpToDate(entries);
         int count = entries->rowCount();
         for (int i = 0; i < count; ++i) {
             QUrl url = entries->data(entries->index(i, 0), HistoryModel::Url).toUrl();
