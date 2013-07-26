@@ -64,6 +64,12 @@ bool WebBrowserApp::initialize()
         return false;
     }
 
+    // Handle legacy platforms (i.e. current desktop versions, where
+    // applications are not started by the Ubuntu ApplicationManager).
+    if (qgetenv("APP_ID").isEmpty()) {
+        qputenv("APP_ID", QString(APP_ID).toUtf8());
+    }
+
     if (m_arguments->remoteInspector()) {
         QString host;
         Q_FOREACH(QHostAddress address, QNetworkInterface::allAddresses()) {
