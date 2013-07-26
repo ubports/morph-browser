@@ -1,3 +1,16 @@
+webbrowser-app (0.21+13.10.20130726-0ubuntu1) saucy; urgency=low
+
+  [ Olivier Tilloy ]
+  * Display the title of the page if available for open tabs (and fall
+    back on the URL if not available).
+  * Keep the list of domain names sorted in reverse chronological order
+    (i.e. the domain with the latest entry visited first).
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 237
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 26 Jul 2013 07:34:17 +0000
+
 webbrowser-app (0.21+13.10.20130722-0ubuntu1) saucy; urgency=low
 
   [ Bill Filler ]
