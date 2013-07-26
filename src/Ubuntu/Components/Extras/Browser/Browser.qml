@@ -20,13 +20,12 @@ import QtQuick 2.0
 import QtWebKit 3.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
-import Ubuntu.HUD 1.0 as HUD
+import Ubuntu.Unity.Action 1.0 as UnityActions
 
 FocusScope {
     id: browser
 
     property bool chromeless: false
-    property string desktopFileHint: ""
     property real qtwebkitdpr
     property bool developerExtrasEnabled: false
     // necessary so that all widgets (including popovers) follow that
@@ -38,74 +37,55 @@ FocusScope {
 
     focus: true
 
-    HUD.HUD {
-        id: hud
-        /*
-         * As an unfortunate implementation detail the applicationIdentifier is
-         * a bit special property of the HUD. It can only be set once; when it's set to
-         * anything else than an empty string (which happens to be the default value)
-         * the application gets registered to HUD with the given identifier which can not
-         * be changed afterwards.
-         *
-         * Therefore we need to have the special "<not set>" value to indicate that there was
-         * no hint set with the command line parameter and we should register as "webbrowser-app".
-         *
-         * We need to have a different applicationIdentifier for the browser because of webapps.
-         *
-         * Webapps with desktop files are executed like this:
-         *
-         *     $ webbrowser-app --chromeless http://m.amazon.com --desktop_file_hint=/usr/share/applications/amazon-webapp.desktop
-         *
-         * It is the Shell that adds the --desktop_file_hint command line argument.
-         */
-        applicationIdentifier: (browser.desktopFileHint == "<not set>") ? "webbrowser-app" : browser.desktopFileHint
-        HUD.Context {
-            HUD.Action {
-                label: i18n.tr("Goto")
-                // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Goto' action.
+    UnityActions.ActionManager {
+        actions: [
+            UnityActions.Action {
+                text: i18n.tr("Goto")
+                // TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
                 // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Address;URL;www")
-                enabled: false // TODO: parametrized action
-            }
-            HUD.Action {
-                label: i18n.tr("Back")
-                // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Back' action.
+                parameterType: UnityActions.Action.String
+                onTriggered: currentWebview.url = value
+            },
+            UnityActions.Action {
+                text: i18n.tr("Back")
+                // TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
                 // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Older Page")
                 enabled: currentWebview ? currentWebview.canGoBack : false
                 onTriggered: currentWebview.goBack()
-            }
-            HUD.Action {
-                label: i18n.tr("Forward")
-                // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Forward' action.
+            },
+            UnityActions.Action {
+                text: i18n.tr("Forward")
+                // TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
                 // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Newer Page")
                 enabled: currentWebview ? currentWebview.canGoForward : false
                 onTriggered: currentWebview.goForward()
-            }
-            HUD.Action {
-                label: i18n.tr("Reload")
-                // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Reload' action.
+            },
+            UnityActions.Action {
+                text: i18n.tr("Reload")
+                // TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
                 // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Leave Page")
                 enabled: currentWebview != null
                 onTriggered: currentWebview.reload()
-            }
-            HUD.Action {
-                label: i18n.tr("Bookmark")
-                // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Bookmark' action.
+            },
+            UnityActions.Action {
+                text: i18n.tr("Bookmark")
+                // TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
                 // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Add This Page to Bookmarks")
                 enabled: false // TODO: implement bookmarks
-            }
-            HUD.Action {
-                label: i18n.tr("New Tab")
-                // TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'New Tab' action.
+            },
+            UnityActions.Action {
+                text: i18n.tr("New Tab")
+                // TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
                 // Keywords may actually be sentences, and must be separated by semi-colons.
                 keywords: i18n.tr("Open a New Tab")
-                enabled: false // TODO: implement tabs
+                onTriggered: browser.newTab("", true)
             }
-        }
+        ]
     }
 
     OrientationHelper {
