@@ -20,7 +20,7 @@ if(cmake_build_type_lower MATCHES coverage)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage" )
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} --coverage" )
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} --coverage" )
-    ENABLE_COVERAGE_REPORT(TARGETS)
+    ENABLE_COVERAGE_REPORT(EXCLUDES tests/*|.*moc_.*.cpp FILTER tests/* moc_*.cpp)
 endif()
 
 # enable QML debugging
