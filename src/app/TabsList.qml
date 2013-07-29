@@ -46,6 +46,10 @@ Column {
         orientation: ListView.Horizontal
         currentIndex: model.currentIndex
 
+        states: State {
+            name: "close"
+        }
+
         header: Item {
             width: units.gu(14)
             height: parent.height
@@ -67,26 +71,76 @@ Column {
             }
         }
 
-        delegate: ListItem.Empty {
+        delegate: PageDelegate {
+            objectName: "openTabDelegate"
+
             width: units.gu(12)
             height: units.gu(14)
-            showDivider: false
 
-            // FIXME: http://pad.lv/1187476 makes it impossible to swipe a
-            // delegate up/down to remove it from an horizontal listview.
-            removable: true
-            onItemRemoved: tabRemoved(index)
+            label: model.title ? model.title : model.url
+            thumbnail: model.webview.thumbnail
 
-            PageDelegate {
-                id: openTabDelegate
-                objectName: "openTabDelegate"
-                anchors.fill: parent
+            Item {
+                width: units.gu(5)
+                height: units.gu(5)
+                anchors {
+                    top: parent.top
+                    topMargin: -units.gu(1)
+                    right: parent.right
+                    rightMargin: -units.gu(1)
+                }
 
-                label: model.title ? model.title : model.url
-                thumbnail: model.webview.thumbnail
+                Image {
+                    id: closeButton
+
+                    source: "assets/close_btn.png"
+
+                    anchors.centerIn: parent
+                    width: units.gu(4)
+                    height: units.gu(4)
+
+                    states: State {
+                        name: "hidden"
+                        PropertyChanges {
+                            target: closeButton
+                            width: 0
+                            height: 0
+                        }
+                    }
+                    state: (listview.state == "close") ? "" : "hidden"
+
+                    transitions: Transition {
+                        UbuntuNumberAnimation {
+                            properties: "width,height"
+                        }
+                    }
+                }
             }
 
-            onClicked: switchToTabClicked(index)
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if (listview.state == "close") {
+                        tabRemoved(index)
+                    } else {
+                        switchToTabClicked(index)
+                    }
+                }
+                onPressAndHold: {
+                    if (listview.state == "close") {
+                        listview.state = ""
+                    } else {
+                        listview.state = "close"
+                    }
+                }
+            }
+        }
+
+        onVisibleChanged: {
+            if (!visible) {
+                state = ""
+            }
         }
     }
 
