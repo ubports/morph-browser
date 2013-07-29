@@ -8,6 +8,7 @@
 
 from __future__ import absolute_import
 
+import time
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
@@ -51,7 +52,10 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         previous_state = view.state
         self.assertIn(previous_state, ('', 'close'))
         tab = self.main_window.get_tabslist_view_delegates()[0]
-        self.pointing_device.click_object(tab, press_duration=0.9)
+        self.pointing_device.move_to_object(tab)
+        self.pointing_device.press()
+        time.sleep(1)
+        self.pointing_device.release()
         if (previous_state == ''):
             self.assertThat(view.state, Eventually(Equals('close')))
         elif (previous_state == 'close'):
