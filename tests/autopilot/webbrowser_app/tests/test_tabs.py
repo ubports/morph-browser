@@ -12,7 +12,6 @@ from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
-import unittest
 
 
 class TestTabs(StartOpenRemotePageTestCaseBase):
@@ -47,16 +46,16 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         address_bar = self.main_window.get_address_bar()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
-    def close_tab(self, index):
-        # assumes the activity view is already visible
-        # XXX: because of http://pad.lv/1187476, tabs have to be swiped
-        # left/right instead of up/down to be removed.
-        tab = self.main_window.get_tabslist_view_delegates()[index]
-        x, y, w, h = tab.globalRect
-        y_line = int(y + h / 2)
-        start_x = int(x + w / 2)
-        stop_x = int(start_x + w / 3)
-        self.pointing_device.drag(start_x, y_line, stop_x, y_line)
+    def toggle_close_tab_mode(self):
+        view = self.main_window.get_tabslist_view()
+        previous_state = view.state
+        self.assertIn(previous_state, ('', 'close'))
+        tab = self.main_window.get_tabslist_view_delegates()[0]
+        self.pointing_device.click_object(tab, press_duration=0.9)
+        if (previous_state == ''):
+            self.assertThat(view.state, Eventually(Equals('close')))
+        elif (previous_state == 'close'):
+            self.assertThat(view.state, Eventually(Equals('')))
 
     def assert_current_url(self, url):
         webview = self.main_window.get_current_webview()
@@ -116,17 +115,18 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
         self.assert_chrome_eventually_hidden()
 
-    @unittest.skip("skipping, tab close not implemented per design")
     def test_close_tab(self):
         self.ensure_activity_view_visible()
         self.open_new_tab()
         url = self.base_url + "/aleaiactaest"
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
+        self.assert_osk_eventually_hidden()
         self.assert_page_eventually_loaded(url)
-
         self.ensure_activity_view_visible()
-        self.close_tab(0)
+        self.toggle_close_tab_mode()
+        tab = self.main_window.get_tabslist_view_delegates()[0]
+        self.pointing_device.click_object(tab)
         self.assertThat(
             lambda: len(self.main_window.get_tabslist_view_delegates()),
             Eventually(Equals(1)))
@@ -135,10 +135,11 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assertThat(view.currentIndex, Eventually(Equals(0)))
         self.assert_current_url(url)
 
-    @unittest.skip("skipping, tab close not implemented per design")
     def test_close_last_open_tab(self):
         self.ensure_activity_view_visible()
-        self.close_tab(0)
+        self.toggle_close_tab_mode()
+        tab = self.main_window.get_tabslist_view_delegates()[0]
+        self.pointing_device.click_object(tab)
         view = self.main_window.get_tabslist_view()
         self.assertThat(view.currentIndex, Eventually(Equals(0)))
         self.assertThat(view.count, Eventually(Equals(1)))
