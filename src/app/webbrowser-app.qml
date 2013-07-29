@@ -25,6 +25,8 @@ Window {
     property alias qtwebkitdpr: browser.qtwebkitdpr
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
+    contentOrientation: browser.screenOrientation
+
     width: 800
     height: 600
 
@@ -34,6 +36,7 @@ Window {
 
     Browser {
         id: browser
+        property int screenOrientation: Screen.orientation
         anchors.fill: parent
     }
 
