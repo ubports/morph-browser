@@ -40,8 +40,6 @@ public:
 
     QUrl url() const;
 
-    QString desktopFileHint() const;
-
     bool remoteInspector() const;
 
 private:
@@ -49,7 +47,6 @@ private:
     bool m_chromeless;
     bool m_fullscreen;
     QUrl m_url;
-    QString m_desktopFileHint;
     bool m_remoteInspector;
 };
 

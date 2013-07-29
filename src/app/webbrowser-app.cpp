@@ -64,6 +64,12 @@ bool WebBrowserApp::initialize()
         return false;
     }
 
+    // Handle legacy platforms (i.e. current desktop versions, where
+    // applications are not started by the Ubuntu ApplicationManager).
+    if (qgetenv("APP_ID").isEmpty()) {
+        qputenv("APP_ID", QString(APP_ID).toUtf8());
+    }
+
     if (m_arguments->remoteInspector()) {
         QString host;
         Q_FOREACH(QHostAddress address, QNetworkInterface::allAddresses()) {
@@ -83,6 +89,9 @@ bool WebBrowserApp::initialize()
 
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));
+    if (!isRunningInstalled()) {
+        m_engine->addImportPath(UbuntuBrowserImportsDirectory());
+    }
     QQmlContext* context = m_engine->rootContext();
     m_component = new QQmlComponent(m_engine);
     m_component->loadUrl(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/webbrowser-app.qml"));
@@ -95,12 +104,6 @@ bool WebBrowserApp::initialize()
     m_window = qobject_cast<QQuickWindow*>(browser);
     browser->setProperty("chromeless", m_arguments->chromeless());
     browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
-    if (m_arguments->desktopFileHint().isEmpty()) {
-        // see comments about this property in Browser.qml inside the HUD Component
-        browser->setProperty("desktopFileHint", "<not set>");
-    } else {
-        browser->setProperty("desktopFileHint", m_arguments->desktopFileHint());
-    }
 
     // Set the desired pixel ratio (not needed once we use Qt's way of calculating
     // the proper pixel ratio by device/screen)

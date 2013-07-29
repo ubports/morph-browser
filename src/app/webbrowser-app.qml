@@ -22,7 +22,6 @@ import Ubuntu.Components 0.1
 
 Window {
     property alias chromeless: browser.chromeless
-    property alias desktopFileHint: browser.desktopFileHint
     property alias qtwebkitdpr: browser.qtwebkitdpr
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 

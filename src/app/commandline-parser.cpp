@@ -55,8 +55,6 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     m_remoteInspector = true;
                 } else if (argument.startsWith("--homepage=")) {
                     homepage = QUrl::fromUserInput(argument.split("--homepage=")[1]);
-                } else if (argument.startsWith("--desktop_file_hint=")) {
-                    m_desktopFileHint = argument.remove("--desktop_file_hint=").split("/").last().split(".").first();
                 } else {
                     qWarning() << "WARNING: ignoring unknown switch" << argument;
                 }
@@ -118,11 +116,6 @@ bool CommandLineParser::fullscreen() const
 QUrl CommandLineParser::url() const
 {
     return m_url;
-}
-
-QString CommandLineParser::desktopFileHint() const
-{
-    return m_desktopFileHint;
 }
 
 bool CommandLineParser::remoteInspector() const
