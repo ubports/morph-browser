@@ -48,3 +48,17 @@ You can get a list of all available tests with the following command:
 
     $ autopilot list webbrowser_app
 
+
+= Code coverage =
+
+To generate a report with detailed code coverage, you need to re-run cmake with
+"CMAKE_BUILD_TYPE=coverage":
+
+    $ cmake -DCMAKE_BUILD_TYPE=coverage .
+    $ make
+    $ make test
+    $ make coverage
+
+This will generate a coverage report in XML format (coverage.xml) and an
+interactive human-readable report in HTML format (coveragereport/index.html).
+
