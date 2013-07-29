@@ -1,3 +1,13 @@
+webbrowser-app (0.21+13.10.20130729-0ubuntu1) saucy; urgency=low
+
+  [ Olivier Tilloy ]
+  * Replace the HUD actions with the new Unity Actions API.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 240
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 29 Jul 2013 08:17:04 +0000
+
 webbrowser-app (0.21+13.10.20130726-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
