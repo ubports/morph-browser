@@ -1,5 +1,3 @@
 module Ubuntu.Components.Extras.Browser
 plugin ubuntu-ui-extras-browser-plugin
-AddressBar 0.1 AddressBar.qml
-Chrome 0.1 Chrome.qml
 UbuntuWebView 0.1 UbuntuWebView.qml

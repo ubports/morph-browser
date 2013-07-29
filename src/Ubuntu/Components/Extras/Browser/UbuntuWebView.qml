@@ -108,6 +108,8 @@ WebView {
 
     experimental.itemSelector: ItemSelector {}
 
+    property alias selection: selection
+    property ActionList selectionActions
     Selection {
         id: selection
 
@@ -116,6 +118,14 @@ WebView {
 
         property Item __popover: null
         property var mimedata: null
+
+        Component {
+            id: selectionPopover
+            ActionSelectionPopover {
+                grabDismissAreaEvents: false
+                actions: selectionActions
+            }
+        }
 
         function createData() {
             if (mimedata === null) {
@@ -130,9 +140,16 @@ WebView {
             }
         }
 
+        function actionTriggered() {
+            selection.visible = false
+        }
+
         function __showPopover() {
-            __popover = PopupUtils.open(Qt.resolvedUrl("SelectionPopover.qml"), selection.rect)
-            __popover.selection = selection
+            __popover = PopupUtils.open(selectionPopover, selection.rect)
+            var actions = __popover.actions.actions
+            for (var i in actions) {
+                actions[i].onTriggered.connect(actionTriggered)
+            }
         }
 
         function show(x, y, width, height) {

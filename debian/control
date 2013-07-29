@@ -18,7 +18,6 @@ Build-Depends: cmake (>= 2.8.9),
                qtdeclarative5-qtquick2-plugin,
                qtdeclarative5-test-plugin,
                qtdeclarative5-ubuntu-ui-toolkit-plugin,
-               qtdeclarative5-window-plugin,
 Standards-Version: 3.9.4
 Homepage: https://launchpad.net/webbrowser-app
 # If you aren't a member of ~phablet-team but need to upload packaging changes,
@@ -29,8 +28,12 @@ Package: webbrowser-app
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends},
+         libqt5webkit5-qmlwebkitplugin,
+         qtdeclarative5-hud1.0,
+         qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-extras-browser-plugin (= ${binary:Version}),
-         webbrowser-app-assets (= ${binary:Version}),
+         qtdeclarative5-ubuntu-ui-toolkit-plugin,
+         qtdeclarative5-window-plugin,
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.
@@ -42,6 +45,7 @@ Depends: ${misc:Depends},
          libqt5sql5-sqlite,
          libqt5webkit5-qmlwebkitplugin,
          qtdeclarative5-qtquick2-plugin,
+         qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets (>= ${binary:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-unity-action-plugin,
          qtdeclarative5-window-plugin,
@@ -52,13 +56,13 @@ Description: Ubuntu web browser QML plugin
  engine and using the Ubuntu UI components. This package contains a standalone
  QML plugin that applications can use to embed a browser control.
 
-Package: webbrowser-app-assets
+Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets
 Architecture: all
 Depends: ${misc:Depends},
-Description: Ubuntu web browser icon assets
+Description: Ubuntu web browser QML plugin assets
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains the
- PNGs used as UI elements.
+ PNGs used as UI elements by the QML plugin.
 
 Package: webbrowser-app-autopilot
 Architecture: all

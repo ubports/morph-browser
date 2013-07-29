@@ -36,10 +36,15 @@ inline bool isRunningInstalled()
 inline QString UbuntuBrowserDirectory()
 {
     if (isRunningInstalled()) {
-        return QString("@WEBBROWSER_IMPORTS_DIR@");
+        return QString("@CMAKE_INSTALL_FULL_DATADIR@/webbrowser-app");
     } else {
-        return QString("@CMAKE_SOURCE_DIR@/src/Ubuntu/Components/Extras/Browser");
+        return QString("@CMAKE_SOURCE_DIR@/src/app");
     }
+}
+
+inline QString UbuntuBrowserImportsDirectory()
+{
+    return QString("@CMAKE_BINARY_DIR@/src");
 }
 
 #endif // __CONFIG_H__
