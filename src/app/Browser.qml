@@ -273,16 +273,12 @@ FocusScope {
     }
 
     Loader {
-        id: webappsLoader
-
-        //FIXME: should we be using the currentIndex in the predicate
         sourceComponent: (browser.webapp && tabsModel.currentIndex > -1) ? webappsComponent : undefined
 
         Component {
             id: webappsComponent
 
             UnityWebApps.UnityWebApps {
-                id: webapps
                 name: browser.webappName
                 bindee: tabsModel.currentWebview
                 actionsContext: webappsActionsContext
