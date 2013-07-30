@@ -39,16 +39,14 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         self.assertThat(address_bar.state, Eventually(Equals("loading")))
         self.ensure_chrome_is_hidden()
         self.reveal_chrome()
-        self.pointing_device.move_to_object(action_button)
-        self.pointing_device.click()
+        self.pointing_device.click_object(action_button)
         self.assertThat(address_bar.state, Eventually(Equals("")))
 
     def test_state_editing(self):
         address_bar = self.main_window.get_address_bar()
         self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+        self.pointing_device.click_object(address_bar)
         self.assertThat(address_bar.state, Eventually(Equals("editing")))
         self.keyboard.press_and_release("Enter")
         self.assertThat(address_bar.state, Eventually(Equals("")))
