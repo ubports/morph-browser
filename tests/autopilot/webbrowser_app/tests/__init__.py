@@ -122,39 +122,36 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
     def reveal_chrome(self):
         panel = self.main_window.get_panel()
-        distance = self.main_window.get_chrome().height
-        x, y, w, h = self.main_window.get_current_webview().globalRect
-        x_line = int(x + w * 0.5)
-        start_y = int(y + h - 1)
-        stop_y = int(start_y - distance)
-        self.pointing_device.drag(x_line, start_y, x_line, stop_y)
+        x, y, w, h = panel.globalRect
+        tx = x + (w / 2)
+        ty = y + (h - h / 8)
+        self.pointing_device.drag(tx, ty, tx, ty - h)
+        self.assertThat(panel.animating, Eventually(Equals(False)))
         self.assertThat(panel.state, Eventually(Equals("spread")))
 
     def hide_chrome(self):
-        height = self.main_window.get_chrome().height
-        view = self.main_window.get_qml_view()
-        x_line = int(view.x + view.width * 0.5)
-        start_y = int(self.main_window.get_chrome().globalRect[1] + 1)
-        stop_y = int(start_y + height - 2)
-        self.pointing_device.drag(x_line, start_y, x_line, stop_y)
+        panel = self.main_window.get_panel()
+        x, y, w, h = panel.globalRect
+        tx = x + (w / 2)
+        ty = y + (h / 8)
+        self.pointing_device.drag(tx, ty, tx, ty + h)
+        self.assertThat(panel.animating, Eventually(Equals(False)))
+        self.assertThat(panel.state, Eventually(Equals("")))
 
     def assert_chrome_eventually_hidden(self):
-        view = self.main_window.get_qml_view()
-        chrome = self.main_window.get_chrome()
-        self.assertThat(lambda: chrome.globalRect[1],
-                        Eventually(Equals(view.y + view.height)))
+        panel = self.main_window.get_panel()
+        self.assertThat(panel.animating, Eventually(Equals(False)))
+        self.assertThat(panel.state, Eventually(Equals("")))
 
     def ensure_chrome_is_hidden(self):
         webview = self.main_window.get_current_webview()
-        self.pointing_device.move_to_object(webview)
-        self.pointing_device.click()
+        self.pointing_device.click_object(webview)
         self.assert_chrome_eventually_hidden()
         self.assert_osk_eventually_hidden()
 
     def focus_address_bar(self):
         address_bar = self.main_window.get_address_bar()
-        self.pointing_device.move_to_object(address_bar)
-        self.pointing_device.click()
+        self.pointing_device.click_object(address_bar)
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
         self.assert_osk_eventually_shown()
 
