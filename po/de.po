@@ -7,145 +7,173 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-06-06 12:51+0200\n"
+"POT-Creation-Date: 2013-07-19 16:34+0200\n"
 "PO-Revision-Date: 2013-06-13 09:25+0000\n"
 "Last-Translator: Phillip Sz <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-07-27 05:28+0000\n"
+"X-Launchpad-Export-Date: 2013-07-30 04:58+0000\n"
 "X-Generator: Launchpad (build 16700)\n"
 
-#: src/Ubuntu/Browser/ActivityView.qml:54
+#: src/app/ActivityView.qml:57 src/app/Chrome.qml:120
 msgid "Activity"
 msgstr "Aktivitäten"
 
-#: src/Ubuntu/Browser/Browser.qml:64
+#: src/app/Browser.qml:64
 msgid "Goto"
 msgstr "Wechseln zu"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/Ubuntu/Browser/Browser.qml:67
+#: src/app/Browser.qml:67
 msgid "Address;URL;www"
 msgstr "Adresse;URL;www"
 
-#: src/Ubuntu/Browser/Browser.qml:71 src/Ubuntu/Browser/Chrome.qml:69
+#: src/app/Browser.qml:71 src/app/Chrome.qml:67
 msgid "Back"
 msgstr "Zurück"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/Ubuntu/Browser/Browser.qml:74
+#: src/app/Browser.qml:74
 msgid "Older Page"
 msgstr "Ältere Seite"
 
-#: src/Ubuntu/Browser/Browser.qml:79 src/Ubuntu/Browser/Chrome.qml:79
+#: src/app/Browser.qml:79 src/app/Chrome.qml:85
 msgid "Forward"
 msgstr "Vor"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/Ubuntu/Browser/Browser.qml:82
+#: src/app/Browser.qml:82
 msgid "Newer Page"
 msgstr "Neuere Seite"
 
-#: src/Ubuntu/Browser/Browser.qml:87
+#: src/app/Browser.qml:87
 msgid "Reload"
 msgstr "Neu laden"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/Ubuntu/Browser/Browser.qml:90
+#: src/app/Browser.qml:90
 msgid "Leave Page"
 msgstr "Seite verlassen"
 
-#: src/Ubuntu/Browser/Browser.qml:95
+#: src/app/Browser.qml:95
 msgid "Bookmark"
 msgstr "Lesezeichen"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/Ubuntu/Browser/Browser.qml:98
+#: src/app/Browser.qml:98
 msgid "Add This Page to Bookmarks"
 msgstr "Diese Seite zu den Lesezeichen hinzufügen"
 
-#: src/Ubuntu/Browser/Browser.qml:102
+#: src/app/Browser.qml:102
 msgid "New Tab"
 msgstr "Neuer Reiter"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/Ubuntu/Browser/Browser.qml:105
+#: src/app/Browser.qml:105
 msgid "Open a New Tab"
 msgstr "Einen neuen Reiter öffnen"
 
-#: src/Ubuntu/Browser/Chrome.qml:114
-msgid "Tabs"
-msgstr "Reiter"
+#: src/app/Browser.qml:295
+msgid "Share"
+msgstr "Teilen"
 
-#: src/Ubuntu/Browser/ErrorSheet.qml:38
+#: src/app/Browser.qml:299
+msgid "Save"
+msgstr "Speichern"
+
+#: src/app/Browser.qml:303
+msgid "Copy"
+msgstr "Kopieren"
+
+#: src/app/ErrorSheet.qml:38
 msgid "Network Error"
 msgstr "Netzwerkfehler"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/Ubuntu/Browser/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "Anscheinend gibt es Probleme beim Anzeigen von %1."
 
-#: src/Ubuntu/Browser/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
 "Ubuntu empfiehlt, dass Sie die Netzwerkeinstellungen prüfen und versuchen, "
 "die Seite neu zu laden."
 
-#: src/Ubuntu/Browser/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
 msgstr "Seite neu laden"
 
-#: src/Ubuntu/Browser/SelectionPopover.qml:40
-msgid "Share"
-msgstr "Teilen"
-
-#: src/Ubuntu/Browser/SelectionPopover.qml:50
-msgid "Save"
-msgstr "Speichern"
-
-#: src/Ubuntu/Browser/SelectionPopover.qml:60
-msgid "Copy"
-msgstr "Kopieren"
-
 #. TRANSLATORS: %1 refers to the number of open tabs
-#: src/Ubuntu/Browser/TabsList.qml:43
+#: src/app/TabsList.qml:34
 #, qt-format
-msgid "Open pages %1"
-msgstr "%1 offene Seiten"
+msgid "Currently viewing (%1)"
+msgstr ""
 
-#: src/Ubuntu/Browser/TabsList.qml:68
+#: src/app/TabsList.qml:61
 msgid "+"
 msgstr "+"
 
+#: src/app/TimelineView.qml:87
+msgid "Today"
+msgstr ""
+
+#: src/app/TimelineView.qml:89
+msgid "Yesterday"
+msgstr ""
+
+#: src/app/TimelineView.qml:91
+msgid "Last 7 Days"
+msgstr ""
+
+#: src/app/TimelineView.qml:93
+msgid "This Month"
+msgstr ""
+
+#: src/app/TimelineView.qml:95
+msgid "This Year"
+msgstr ""
+
+#: src/app/TimelineView.qml:97
+msgid "Older"
+msgstr ""
+
+#: src/app/TimelineView.qml:167
+msgid "(local files)"
+msgstr ""
+
+#: src/app/TimelineView.qml:169
+msgid "(other)"
+msgstr ""
+
+#: src/app/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "Browser"
+
+#: src/app/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "Internet-Browser"
+
+#: src/app/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "Im »World Wide Web« surfen"
+
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/Ubuntu/Browser/webbrowser-app.qml:33
+#: src/app/webbrowser-app.qml:33
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 – Ubuntu Internet-Browser"
 
-#: src/Ubuntu/Browser/webbrowser-app.qml:34
+#: src/app/webbrowser-app.qml:34
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Internet-Browser"
-
-#: src/webbrowser-app.desktop.in:3
-msgid "Browser"
-msgstr "Browser"
-
-#: src/webbrowser-app.desktop.in:4
-msgid "Web Browser"
-msgstr "Internet-Browser"
-
-#: src/webbrowser-app.desktop.in:5
-msgid "Browse the World Wide Web"
-msgstr "Im »World Wide Web« surfen"
