@@ -40,20 +40,16 @@ FocusScope {
 
     focus: true
 
-    function runningAsWebapp() {
-        return browser.webappName && browser.webappName.length !== 0 && browser.webappName !== "";
-    }
-
     UnityActions.ActionManager {
         localContexts: [webbrowserActionsContext, webappsActionsContext]
     }
 
     UnityActions.ActionContext {
-        id: webbrowserActionsContext
+        id: webappsActionsContext
     }
 
     UnityActions.ActionContext {
-        id: webappsActionsContext
+        id: webbrowserActionsContext
         actions: [
             UnityActions.Action {
                 text: i18n.tr("Goto")
