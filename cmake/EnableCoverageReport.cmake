@@ -135,7 +135,7 @@ FUNCTION(ENABLE_COVERAGE_REPORT)
         
         ENDIF()
         
-        # provide a globa*l coverage target executing both steps if available
+        # provide a global coverage target executing both steps if available
         SET(GLOBAL_DEPENDS "")
         IF(LCOV_FOUND)
             LIST(APPEND GLOBAL_DEPENDS ${COVERAGE_REPORT_DIR})
