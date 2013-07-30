@@ -127,9 +127,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
         ty = y + (h - h / 8)
         self.pointing_device.drag(tx, ty, tx, ty - h)
         self.assertThat(panel.animating, Eventually(Equals(False)))
-        # incase the toolbar was not revealed with the first attempt
-        if panel.state != "spread":
-            self.pointing_device.drag(tx, ty, tx, ty - h)
         self.assertThat(panel.state, Eventually(Equals("spread")))
 
     def hide_chrome(self):
@@ -139,9 +136,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
         ty = y + (h / 8)
         self.pointing_device.drag(tx, ty, tx, ty + h)
         self.assertThat(panel.animating, Eventually(Equals(False)))
-        # incase the toolbar was not hidden with the first attempt
-        if panel.state != "":
-            self.pointing_device.drag(tx, ty, tx, ty + h)
         self.assertThat(panel.state, Eventually(Equals("")))
 
     def assert_chrome_eventually_hidden(self):
