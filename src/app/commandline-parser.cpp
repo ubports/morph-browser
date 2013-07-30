@@ -63,7 +63,6 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     QString tail = argument.split("--webapp")[1];
                     if ( ! tail.isEmpty() && tail.startsWith("="))
                     {
-                        qDebug() << tail;
                         tail = QUrl::fromPercentEncoding (tail.split("=")[1].toUtf8()).trimmed();
                         if (! tail.isEmpty())
                             m_webappName = tail;

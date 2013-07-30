@@ -332,7 +332,10 @@ FocusScope {
             onNewTabRequested: browser.newTab(url, true)
 
             // Small shim needed when running as a webapp just to wire-up
-            //  small connections w/ the webview (message received etc.)
+            //  small connections w/ the webview (message received etc.).
+            // This is being called (and expected) internally by the webapps component
+            //  as a way to bind to a webview lookalike w/o reaching out directly
+            //  to its guts (see it as an interface).
             function getUnityWebappsProxies() {
                 return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview);
             }
@@ -341,9 +344,13 @@ FocusScope {
                 // Update the currently valid hud context based on our runtime environment/context at
                 // creation time
                 if (browser.webapp)
+                {
                     webappsActionsContext.active = true;
+                }
                 else
+                {
                     webbrowserActionsContext.active = true;
+                }
             }
         }
     }

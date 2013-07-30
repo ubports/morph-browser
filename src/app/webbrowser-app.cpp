@@ -106,7 +106,6 @@ bool WebBrowserApp::initialize()
     browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
     browser->setProperty("webappName", m_arguments->webappName());
     browser->setProperty("webapp", m_arguments->webapp());
-    browser->setProperty("chromeless", m_arguments->chromeless());
 
     // Set the desired pixel ratio (not needed once we use Qt's way of calculating
     // the proper pixel ratio by device/screen)
