@@ -41,6 +41,8 @@ public:
     const QString& domain() const;
     void setDomain(const QString& domain);
 
+    bool sourceEntryMatchesDomain(int row, const QModelIndex& parent) const;
+
 Q_SIGNALS:
     void sourceModelChanged() const;
     void domainChanged() const;

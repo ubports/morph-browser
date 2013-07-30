@@ -66,13 +66,6 @@ int HistoryDomainListModel::rowCount(const QModelIndex& parent) const
     return m_domains.count();
 }
 
-static void ensureEntriesUpToDate(HistoryDomainModel* entries)
-{
-    entries->blockSignals(true);
-    entries->invalidate();
-    entries->blockSignals(false);
-}
-
 QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid()) {
@@ -90,19 +83,27 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
         return domain;
     case LastVisit:
     {
-        ensureEntriesUpToDate(entries);
-        return entries->data(entries->index(0, 0), HistoryModel::LastVisit).toDateTime();
+        // At this point, entries might not have been filtered yet,
+        // so the first entry is not guaranteed to be the one we want.
+        int count = entries->rowCount();
+        for (int i = 0; i < count; ++i) {
+            if (entries->sourceEntryMatchesDomain(i, QModelIndex())) {
+                return entries->data(entries->index(i, 0), HistoryModel::LastVisit).toDateTime();
+            }
+        }
+        return QDateTime();
     }
     case Thumbnail:
     {
         // Iterate over all the entries, and return the first valid thumbnail.
-        ensureEntriesUpToDate(entries);
         int count = entries->rowCount();
         for (int i = 0; i < count; ++i) {
-            QUrl url = entries->data(entries->index(i, 0), HistoryModel::Url).toUrl();
-            QFileInfo thumbnailFile = WebThumbnailUtils::thumbnailFile(url);
-            if (thumbnailFile.exists()) {
-                return thumbnailFile.absoluteFilePath();
+            if (entries->sourceEntryMatchesDomain(i, QModelIndex())) {
+                QUrl url = entries->data(entries->index(i, 0), HistoryModel::Url).toUrl();
+                QFileInfo thumbnailFile = WebThumbnailUtils::thumbnailFile(url);
+                if (thumbnailFile.exists()) {
+                    return thumbnailFile.absoluteFilePath();
+                }
             }
         }
         return QUrl();
