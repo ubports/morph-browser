@@ -123,8 +123,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def reveal_chrome(self):
         panel = self.main_window.get_panel()
         x, y, w, h = panel.globalRect
-        tx = int (x + (w / 2))
-        ty = int (y + (h - h / 8))
+        tx = int(x + (w / 2))
+        ty = int(y + (h - h / 8))
         self.pointing_device.drag(tx, ty, tx, ty - h)
         self.assertThat(panel.animating, Eventually(Equals(False)))
         self.assertThat(panel.state, Eventually(Equals("spread")))
@@ -132,8 +132,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def hide_chrome(self):
         panel = self.main_window.get_panel()
         x, y, w, h = panel.globalRect
-        tx = int (x + (w / 2))
-        ty = int (y + (h / 8))
+        tx = int(x + (w / 2))
+        ty = int(y + (h / 8))
         self.pointing_device.drag(tx, ty, tx, ty + h)
         self.assert_chrome_eventually_hidden()
 
