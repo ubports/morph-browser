@@ -104,14 +104,22 @@ bool WebBrowserApp::initialize()
     m_window = qobject_cast<QQuickWindow*>(browser);
     browser->setProperty("chromeless", m_arguments->chromeless());
     browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
+    browser->setProperty("webappName", m_arguments->webappName());
+    browser->setProperty("webapp", m_arguments->webapp());
 
     // Set the desired pixel ratio (not needed once we use Qt's way of calculating
     // the proper pixel ratio by device/screen)
     float webkitDpr = getQtWebkitDpr();
     browser->setProperty("qtwebkitdpr", webkitDpr);
 
+    // When a webapp is being launched (by name), the url
+    //  is pulled from the webapp 'homepage'.
+    QUrl url = m_arguments->url();
+    if ( ! m_arguments->webappName().isEmpty())
+        url = QUrl();
+
     QMetaObject::invokeMethod(browser, "newTab",
-                              Q_ARG(QVariant, m_arguments->url()),
+                              Q_ARG(QVariant, url),
                               Q_ARG(QVariant, true));
 
     return true;

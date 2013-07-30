@@ -21,6 +21,7 @@ import QtWebKit 3.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
+import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 
 FocusScope {
     id: browser
@@ -30,6 +31,8 @@ FocusScope {
     property bool developerExtrasEnabled: false
     // necessary so that all widgets (including popovers) follow that
     property alias automaticOrientation: orientationHelper.automaticOrientation
+    property bool webapp: false
+    property string webappName: ""
 
     property alias currentIndex: tabsModel.currentIndex
     property alias currentWebview: tabsModel.currentWebview
@@ -38,6 +41,15 @@ FocusScope {
     focus: true
 
     UnityActions.ActionManager {
+        localContexts: [webbrowserActionsContext, webappsActionsContext]
+    }
+
+    UnityActions.ActionContext {
+        id: webappsActionsContext
+    }
+
+    UnityActions.ActionContext {
+        id: webbrowserActionsContext
         actions: [
             UnityActions.Action {
                 text: i18n.tr("Goto")
@@ -260,6 +272,25 @@ FocusScope {
         id: tabsModel
     }
 
+    Loader {
+        id: webappsLoader
+
+        //FIXME: should we be using the currentIndex in the predicate
+        sourceComponent: (browser.webapp && tabsModel.currentIndex > -1) ? webappsComponent : undefined
+
+        Component {
+            id: webappsComponent
+
+            UnityWebApps.UnityWebApps {
+                id: webapps
+                name: browser.webappName
+                bindee: tabsModel.currentWebview
+                actionsContext: webappsActionsContext
+                model: UnityWebApps.UnityWebappsAppModel { }
+            }
+        }
+    }
+
     Component {
         id: webviewComponent
 
@@ -299,6 +330,28 @@ FocusScope {
             }
 
             onNewTabRequested: browser.newTab(url, true)
+
+            // Small shim needed when running as a webapp just to wire-up
+            //  small connections w/ the webview (message received etc.).
+            // This is being called (and expected) internally by the webapps component
+            //  as a way to bind to a webview lookalike w/o reaching out directly
+            //  to its guts (see it as an interface).
+            function getUnityWebappsProxies() {
+                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview);
+            }
+
+            Component.onCompleted: {
+                // Update the currently valid hud context based on our runtime environment/context at
+                // creation time
+                if (browser.webapp)
+                {
+                    webappsActionsContext.active = true;
+                }
+                else
+                {
+                    webbrowserActionsContext.active = true;
+                }
+            }
         }
     }
 
