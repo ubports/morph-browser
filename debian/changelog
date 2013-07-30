@@ -1,6 +1,6 @@
 webbrowser-app (0.22) UNRELEASED; urgency=low
 
-  * debian/control: add missing Replaces and Breaks fields to handle
+  * debian/control: add missing Replaces and Conflicts fields to handle
     gracefully upgrades after packages were re-organized.
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 30 Jul 2013 10:42:02 +0200
