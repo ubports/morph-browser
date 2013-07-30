@@ -36,6 +36,7 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
     , m_fullscreen(false)
     , m_url(DEFAULT_HOMEPAGE)
     , m_remoteInspector(false)
+    , m_webapp(false)
 {
     QStringList args = arguments;
     args.removeFirst();
@@ -62,6 +63,7 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     QString tail = argument.split("--webapp")[1];
                     if ( ! tail.isEmpty() && tail.startsWith("="))
                     {
+                        qDebug() << tail;
                         tail = QUrl::fromPercentEncoding (tail.split("=")[1].toUtf8()).trimmed();
                         if (! tail.isEmpty())
                             m_webappName = tail;
