@@ -260,6 +260,11 @@ FocusScope {
         id: tabsModel
     }
 
+    BookmarksModel {
+        id: bookmarksModel
+        databasePath: dataLocation + "/bookmarks.sqlite"
+    }
+
     Component {
         id: webviewComponent
 
