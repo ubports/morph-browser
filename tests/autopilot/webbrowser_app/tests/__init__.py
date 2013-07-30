@@ -135,8 +135,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         tx = x + (w / 2)
         ty = y + (h / 8)
         self.pointing_device.drag(tx, ty, tx, ty + h)
-        self.assertThat(panel.animating, Eventually(Equals(False)))
-        self.assertThat(panel.state, Eventually(Equals("")))
+        self.assert_chrome_eventually_hidden()
 
     def assert_chrome_eventually_hidden(self):
         panel = self.main_window.get_panel()
