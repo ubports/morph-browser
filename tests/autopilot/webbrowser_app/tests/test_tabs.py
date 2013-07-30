@@ -23,8 +23,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.ensure_chrome_is_hidden()
         self.reveal_chrome()
         tabs_button = self.main_window.get_activity_button()
-        self.pointing_device.move_to_object(tabs_button)
-        self.pointing_device.click()
+        self.pointing_device.click_object(tabs_button)
         activity_view = self.main_window.get_activity_view()
         self.assertThat(activity_view.visible, Eventually(Equals(True)))
 
@@ -37,8 +36,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         # always be the case if there is a large number of tabs open. However
         # this should be good enough for our tests that never open more than
         # two tabs.
-        self.pointing_device.move_to_object(newtab_delegate)
-        self.pointing_device.click()
+        self.pointing_device.click_object(newtab_delegate)
         self.assertThat(view.count, Eventually(Equals(count + 1)))
         activity_view = self.main_window.get_activity_view()
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
@@ -78,8 +76,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.ensure_activity_view_visible()
         self.assert_chrome_eventually_hidden()
         self.reveal_chrome()
-        self.pointing_device.move_to_object(tabs_button)
-        self.pointing_device.click()
+        self.pointing_device.click_object(tabs_button)
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
 
     def test_open_new_tab(self):
@@ -103,8 +100,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         tabs = self.main_window.get_tabslist_view_delegates()
         self.assertThat(len(tabs), Equals(2))
         self.assertThat(view.currentIndex, Equals(1))
-        self.pointing_device.move_to_object(tabs[0])
-        self.pointing_device.click()
+        self.pointing_device.click_object(tabs[0])
         self.assertThat(view.currentIndex, Eventually(Equals(0)))
         self.assert_current_url(self.url)
         activity_view = self.main_window.get_activity_view()
@@ -112,8 +108,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assert_chrome_eventually_hidden()
 
         self.ensure_activity_view_visible()
-        self.pointing_device.move_to_object(tabs[1])
-        self.pointing_device.click()
+        self.pointing_device.click_object(tabs[1])
         self.assertThat(view.currentIndex, Eventually(Equals(1)))
         self.assert_current_url(url)
         self.assertThat(activity_view.visible, Eventually(Equals(False)))
@@ -159,8 +154,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.go_to_url(url)
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
-        self.pointing_device.move_to_object(webview)
-        self.pointing_device.click()
+        self.pointing_device.click_object(webview)
         view = self.main_window.get_tabslist_view()
         self.assertThat(view.count, Eventually(Equals(2)))
         self.assertThat(view.currentIndex, Eventually(Equals(1)))
@@ -171,8 +165,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.go_to_url(url)
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
-        self.pointing_device.move_to_object(webview)
-        self.pointing_device.click()
+        self.pointing_device.click_object(webview)
         view = self.main_window.get_tabslist_view()
         self.assertThat(view.count, Eventually(Equals(2)))
         self.assertThat(view.currentIndex, Eventually(Equals(1)))
@@ -187,6 +180,5 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assertThat(error.visible, Eventually(Equals(True)))
         self.ensure_activity_view_visible()
         tabs = self.main_window.get_tabslist_view_delegates()
-        self.pointing_device.move_to_object(tabs[0])
-        self.pointing_device.click()
+        self.pointing_device.click_object(tabs[0])
         self.assertThat(error.visible, Eventually(Equals(False)))

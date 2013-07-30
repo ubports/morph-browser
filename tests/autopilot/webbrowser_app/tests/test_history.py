@@ -146,8 +146,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         highlight = '<b><font color="#dd4814">Ubuntu</font></b>'
         url = "http://en.wikipedia.org/wiki/%s_(operating_system)" % highlight
         self.assertThat(entry.subText, Contains(url))
-        self.pointing_device.move_to_object(entry)
-        self.pointing_device.click()
+        self.pointing_device.click_object(entry)
         webview = self.main_window.get_current_webview()
         url = "wikipedia.org/wiki/Ubuntu_(operating_system)"
         self.assertThat(webview.url, Eventually(Contains(url)))

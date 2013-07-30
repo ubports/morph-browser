@@ -30,6 +30,5 @@ class TestToolbar(StartOpenLocalPageTestCaseBase):
         webview = self.main_window.get_current_webview()
         self.ensure_chrome_is_hidden()
         self.reveal_chrome()
-        self.pointing_device.move_to_object(webview)
-        self.pointing_device.click()
+        self.pointing_device.click_object(webview)
         self.assert_chrome_eventually_hidden()
