@@ -37,6 +37,7 @@ Depends: ${misc:Depends},
 Replaces: webbrowser-app-assets (<< 0.22),
           qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22),
 Conflicts: webbrowser-app-assets (<< 0.22)
+Breaks: qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22)
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.
