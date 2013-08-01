@@ -134,6 +134,8 @@ void HistoryDomainListModel::setSourceModel(HistoryTimeframeModel* sourceModel)
             connect(m_sourceModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)),
                     SLOT(onRowsInserted(const QModelIndex&, int, int)));
             connect(m_sourceModel, SIGNAL(modelReset()), SLOT(onModelReset()));
+            connect(m_sourceModel, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)),
+                    SLOT(onModelReset()));
         }
         endResetModel();
         Q_EMIT sourceModelChanged();

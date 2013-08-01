@@ -58,7 +58,7 @@ void HistoryTimeframeModel::setStart(const QDateTime& start)
 {
     if (start != m_start) {
         m_start = start;
-        invalidateFilter();
+        invalidate();
         Q_EMIT startChanged();
     }
 }
@@ -72,7 +72,7 @@ void HistoryTimeframeModel::setEnd(const QDateTime& end)
 {
     if (end != m_end) {
         m_end = end;
-        invalidateFilter();
+        invalidate();
         Q_EMIT endChanged();
     }
 }

@@ -64,7 +64,7 @@ void HistoryDomainModel::setDomain(const QString& domain)
 {
     if (domain != m_domain) {
         m_domain = domain;
-        invalidateFilter();
+        invalidate();
         Q_EMIT domainChanged();
     }
 }
