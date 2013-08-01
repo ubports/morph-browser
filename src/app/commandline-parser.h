@@ -42,7 +42,10 @@ public:
 
     bool remoteInspector() const;
 
+    QString appId() const;
+
 private:
+    QString m_appid;
     bool m_help;
     bool m_chromeless;
     bool m_fullscreen;

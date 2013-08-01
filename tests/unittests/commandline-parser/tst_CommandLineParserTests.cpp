@@ -154,6 +154,29 @@ private Q_SLOTS:
         QFETCH(bool, inspector);
         QCOMPARE(CommandLineParser(args).remoteInspector(), inspector);
     }
+
+    void shouldUseAppId_data()
+    {
+        QTest::addColumn<QStringList>("args");
+        QTest::addColumn<QString>("appId");
+
+        QString BINARY("webbrowser-app");
+
+        QString APP_ID("webbrowser-app");
+
+        QTest::newRow("no switch") << (QStringList() << BINARY) << QString();
+        QTest::newRow("empty switch") << (QStringList() << BINARY << "--app-id=") << QString();
+        QTest::newRow("no value switch") << (QStringList() << BINARY << "--app-id") << QString();
+        QTest::newRow("valid appid switch") << (QStringList() << BINARY << (QString("--app-id=") + APP_ID)) << APP_ID;
+    }
+
+    void shouldUseAppId()
+    {
+        QFETCH(QStringList, args);
+        QFETCH(QString, appId);
+
+        QCOMPARE(CommandLineParser(args).appId(), appId);
+    }
 };
 
 QTEST_MAIN(CommandLineParserTests)

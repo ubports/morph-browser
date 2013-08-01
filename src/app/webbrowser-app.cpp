@@ -67,7 +67,8 @@ bool WebBrowserApp::initialize()
     // Handle legacy platforms (i.e. current desktop versions, where
     // applications are not started by the Ubuntu ApplicationManager).
     if (qgetenv("APP_ID").isEmpty()) {
-        qputenv("APP_ID", QString(APP_ID).toUtf8());
+        QString appId = m_arguments->appId().isEmpty() ? QString(APP_ID) : m_arguments->appId();
+        qputenv("APP_ID", appId.toUtf8());
     }
 
     if (m_arguments->remoteInspector()) {
