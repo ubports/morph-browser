@@ -37,8 +37,6 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
     def open_new_tab(self):
         # assumes the activity view is already visible
         self.assertIsNotNone(self.main_window.get_activity_view())
-        view = self.main_window.get_tabslist_view()
-        count = view.count
         newtab_delegate = self.main_window.get_tabslist_newtab_delegate()
         # XXX: This assumes the new tab delegate is in sight, which might not
         # always be the case if there is a large number of tabs open. However
