@@ -39,15 +39,12 @@ Window {
 
     Browser {
         id: browser
+        applicationName: "webbrowser-app"
         property int screenOrientation: Screen.orientation
         anchors.fill: parent
     }
 
     function newTab(url, setCurrent) {
         return browser.newTab(url, setCurrent)
-    }
-
-    Component.onCompleted: {
-        i18n.domain = "webbrowser-app"
     }
 }

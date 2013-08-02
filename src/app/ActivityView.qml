@@ -19,7 +19,7 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 
-Item {
+Tabs {
     id: activityView
 
     property alias tabsModel: timelineView.tabsModel
@@ -30,34 +30,9 @@ Item {
     signal switchToTabRequested(int index)
     signal closeTabRequested(int index)
 
-    onVisibleChanged: {
-        if (visible) {
-            timelineView.resetPositionRequested()
-        }
-    }
-
-    Header {
-        id: header
-        title: tabs.selectedTab.title
-    }
-
-    Tabs {
-        id: tabs
-
-        anchors {
-            fill: undefined
-            top: header.bottom
-            topMargin: units.dp(-1)
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-
-        Tab {
-            title: i18n.tr("Activity")
-
-            visible: true
-
+    Tab {
+        title: i18n.tr("Activity")
+        page: Page {
             TimelineView {
                 id: timelineView
 
@@ -70,4 +45,6 @@ Item {
             }
         }
     }
+
+    Component.onCompleted: timelineView.resetPositionRequested()
 }

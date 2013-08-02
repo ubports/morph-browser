@@ -71,11 +71,7 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
     if (!index.isValid()) {
         return QVariant();
     }
-    int row = index.row();
-    if ((row < 0) || (row >= m_domains.count())) {
-        return QVariant();
-    }
-    const QString domain = m_domains.keys().at(row);
+    const QString domain = m_domains.keys().at(index.row());
     HistoryDomainModel* entries = m_domains.value(domain);
 
     switch (role) {
@@ -134,6 +130,8 @@ void HistoryDomainListModel::setSourceModel(HistoryTimeframeModel* sourceModel)
             connect(m_sourceModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)),
                     SLOT(onRowsInserted(const QModelIndex&, int, int)));
             connect(m_sourceModel, SIGNAL(modelReset()), SLOT(onModelReset()));
+            connect(m_sourceModel, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)),
+                    SLOT(onModelReset()));
         }
         endResetModel();
         Q_EMIT sourceModelChanged();

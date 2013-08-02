@@ -73,6 +73,7 @@ private Q_SLOTS:
         QSignalSpy spy(timeframe, SIGNAL(startChanged()));
         QDateTime start = QDateTime::currentDateTimeUtc();
         timeframe->setStart(start);
+        QCOMPARE(timeframe->start(), start);
         QCOMPARE(spy.count(), 1);
         timeframe->setStart(start);
         QCOMPARE(spy.count(), 1);
@@ -88,6 +89,7 @@ private Q_SLOTS:
         QSignalSpy spy(timeframe, SIGNAL(endChanged()));
         QDateTime end = QDateTime::currentDateTimeUtc();
         timeframe->setEnd(end);
+        QCOMPARE(timeframe->end(), end);
         QCOMPARE(spy.count(), 1);
         timeframe->setEnd(end);
         QCOMPARE(spy.count(), 1);

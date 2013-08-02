@@ -45,6 +45,8 @@ public:
     bool webapp() const;
     QString webappName() const;
 
+    QString appId() const;
+
 private:
     bool m_help;
     bool m_chromeless;
@@ -53,6 +55,7 @@ private:
     bool m_remoteInspector;
     QString m_webappName;
     bool m_webapp;
+    QString m_appid;
 };
 
 #endif // __COMMANDLINE_PARSER_H__
