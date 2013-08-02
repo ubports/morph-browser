@@ -25,6 +25,9 @@ Window {
     property alias qtwebkitdpr: browser.qtwebkitdpr
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
+    property alias webapp: browser.webapp
+    property alias webappName: browser.webappName
+
     contentOrientation: browser.screenOrientation
 
     width: 800

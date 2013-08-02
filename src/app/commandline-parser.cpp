@@ -36,6 +36,7 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
     , m_fullscreen(false)
     , m_url(DEFAULT_HOMEPAGE)
     , m_remoteInspector(false)
+    , m_webapp(false)
 {
     QStringList args = arguments;
     args.removeFirst();
@@ -53,6 +54,19 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     m_fullscreen = true;
                 } else if (argument == "--inspector") {
                     m_remoteInspector = true;
+                } else if (argument.startsWith("--webapp")) {
+                    // We use the name as a reference instead of
+                    //  the url /w a subsequent step to match it w/ a webapp
+                    // TODO: validate that it is fine in all cases (country dependant, etc.)
+
+                    m_webapp = true;
+                    QString tail = argument.split("--webapp")[1];
+                    if ( ! tail.isEmpty() && tail.startsWith("="))
+                    {
+                        tail = QUrl::fromPercentEncoding (tail.split("=")[1].toUtf8()).trimmed();
+                        if (! tail.isEmpty())
+                            m_webappName = tail;
+                    }
                 } else if (argument.startsWith("--homepage=")) {
                     homepage = QUrl::fromUserInput(argument.split("--homepage=")[1]);
                 } else if (argument.startsWith("--app-id=")) {
@@ -99,6 +113,7 @@ void CommandLineParser::printUsage() const
     out << "  --fullscreen     display full screen" << endl;
     out << "  --homepage=URL   override any URL passed as an argument" << endl;
     out << "  --inspector      run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
+    out << "  --webapp[=name]  launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
     out << "  --app-id=APP_ID  run the application with a specific APP_ID" << endl;
 }
 
@@ -130,4 +145,14 @@ QUrl CommandLineParser::url() const
 bool CommandLineParser::remoteInspector() const
 {
     return m_remoteInspector;
+}
+
+QString CommandLineParser::webappName() const
+{
+    return m_webappName;
+}
+
+bool CommandLineParser::webapp() const
+{
+    return m_webapp;
 }
