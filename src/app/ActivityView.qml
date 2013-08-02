@@ -46,5 +46,14 @@ Tabs {
         }
     }
 
+    Tab {
+        title: i18n.tr("Bookmarks")
+        page: Page {
+            Rectangle {
+                anchors.fill: parent
+            }
+        }
+    }
+
     Component.onCompleted: timelineView.resetPositionRequested()
 }
