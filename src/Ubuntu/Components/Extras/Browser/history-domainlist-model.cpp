@@ -98,7 +98,7 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
                 QUrl url = entries->data(entries->index(i, 0), HistoryModel::Url).toUrl();
                 QFileInfo thumbnailFile = WebThumbnailUtils::thumbnailFile(url);
                 if (thumbnailFile.exists()) {
-                    return thumbnailFile.absoluteFilePath();
+                    return QUrl::fromLocalFile(thumbnailFile.absoluteFilePath());
                 }
             }
         }
@@ -222,6 +222,13 @@ void HistoryDomainListModel::onDomainRowsInserted(const QModelIndex& parent, int
     }
 }
 
+// It appears this is never called: in practice, for rows to be removed from
+// a domain model, they should be removed from the underlying history model,
+// and there is no API to remove history entries.
+// Changing the start and end markers of the timeframe model may remove rows,
+// but the implementation prefers to reset the entire model.
+// Since this is an implementation detail of QSortFilterProxyModel over which
+// we do not have any control, it is safer to keep this slot anyway.
 void HistoryDomainListModel::onDomainRowsRemoved(const QModelIndex& parent, int start, int end)
 {
     Q_UNUSED(parent);
@@ -241,6 +248,11 @@ void HistoryDomainListModel::onDomainRowsRemoved(const QModelIndex& parent, int 
     }
 }
 
+// It appears this is never called: in practice, when a row is moved in the
+// underlying history model, the timeframe model emits layoutChanged(), not
+// rowsMoved().
+// Since this is an implementation detail of QSortFilterProxyModel over which
+// we do not have any control, it is safer to keep this slot anyway.
 void HistoryDomainListModel::onDomainRowsMoved(const QModelIndex& sourceParent, int sourceStart, int sourceEnd, const QModelIndex& destinationParent, int destinationRow)
 {
     HistoryDomainModel* model = qobject_cast<HistoryDomainModel*>(sender());
@@ -249,6 +261,11 @@ void HistoryDomainListModel::onDomainRowsMoved(const QModelIndex& sourceParent, 
     }
 }
 
+// It appears this is never called: in practice, the layoutChanged() signal is
+// emitted only when the domain changes, which will not happen here.
+// Since the fact that layoutChanged() is emitted only in those conditions is
+// an implementation detail of QSortFilterProxyModel over which we do not have
+// any control, it is safer to keep this slot anyway.
 void HistoryDomainListModel::onDomainLayoutChanged(const QList<QPersistentModelIndex>& parents, QAbstractItemModel::LayoutChangeHint hint)
 {
     Q_UNUSED(parents);
@@ -269,6 +286,12 @@ void HistoryDomainListModel::onDomainDataChanged(const QModelIndex& topLeft, con
     }
 }
 
+// It appears this is never called: in practice reset() is emitted only when
+// the underlying timeframe model is itself reset, which happens only when
+// rows are removed from the history model and it reports inconsistent changes
+// (which should not happen anyway).
+// Since this is an implementation detail of QSortFilterProxyModel over which
+// we do not have any control, it is safer to keep this slot anyway.
 void HistoryDomainListModel::onDomainModelReset()
 {
     HistoryDomainModel* model = qobject_cast<HistoryDomainModel*>(sender());
