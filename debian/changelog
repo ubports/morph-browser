@@ -1,9 +1,41 @@
-webbrowser-app (0.22) UNRELEASED; urgency=low
+webbrowser-app (0.22+13.10.20130731.1-0ubuntu1) saucy; urgency=low
 
+  [ Olivier Tilloy ]
   * debian/control: add missing Replaces and Conflicts fields to handle
     gracefully upgrades after packages were re-organized.
 
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 30 Jul 2013 10:42:02 +0200
+  [ Sergio Schvezov ]
+  * Adding test xml output and coverage build targets.
+  * Adding file filters for test coverage.
+
+  [ Omer Akram ]
+  * Autopilot tests: introduce a simpler logic to reveal the chrome.
+
+  [ Olivier Tilloy ]
+  * Cleaner separation between the public plugin and the application: -
+    only expose QML files that should really be public in the plugin,
+    move the others over to the application - ensure the plugin doesn’t
+    contain any translatable string, and move translation catalogs to
+    the application’s package.
+  * Implement "close mode" for all open tabs, toggled by a long press on
+    any open tab. (LP: #1197835)
+  * Move an asset to where it belongs. (LP: #1197835)
+  * Add instructions on how to generate code coverage reports.
+  * Ensure the contentOrientation property of the window follows the
+    screen’s orientation.
+  * Ensure we’re accessing the correct data in a less aggressive, and
+    crash-free way. (LP: #1204996)
+  * Unskip an autopilot test now that the corresponding bug has been
+    fixed in qtubuntu.
+
+  [ Łukasz 'sil2100' Zemczak ]
+  * Missing Replaces in webbrowser-app for qtdeclarative5-ubuntu-ui-
+    extras-browser-plugin, fixed the replaces for webbrowser-app-assets.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 255
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 31 Jul 2013 10:35:29 +0000
 
 webbrowser-app (0.21+13.10.20130729-0ubuntu1) saucy; urgency=low
 

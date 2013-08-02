@@ -22,227 +22,240 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 
-FocusScope {
+MainView {
     id: browser
 
     property bool chromeless: false
     property real qtwebkitdpr
     property bool developerExtrasEnabled: false
-    // necessary so that all widgets (including popovers) follow that
-    property alias automaticOrientation: orientationHelper.automaticOrientation
 
     property alias currentIndex: tabsModel.currentIndex
     property alias currentWebview: tabsModel.currentWebview
     property string title: currentWebview ? currentWebview.title : ""
 
+    automaticOrientation: true
+
+    // XXX: not using this property yet since the MainView doesn’t provide
+    // a way to know when the keyboard animation has finished (needed for
+    // autopilot tests). See the KeyboardRectangle component.
+    //anchorToKeyboard: true
+
     focus: true
 
-    UnityActions.ActionManager {
-        actions: [
-            UnityActions.Action {
-                text: i18n.tr("Goto")
-                // TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
-                // Keywords may actually be sentences, and must be separated by semi-colons.
-                keywords: i18n.tr("Address;URL;www")
-                parameterType: UnityActions.Action.String
-                onTriggered: currentWebview.url = value
-            },
-            UnityActions.Action {
-                text: i18n.tr("Back")
-                // TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
-                // Keywords may actually be sentences, and must be separated by semi-colons.
-                keywords: i18n.tr("Older Page")
-                enabled: currentWebview ? currentWebview.canGoBack : false
-                onTriggered: currentWebview.goBack()
-            },
-            UnityActions.Action {
-                text: i18n.tr("Forward")
-                // TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
-                // Keywords may actually be sentences, and must be separated by semi-colons.
-                keywords: i18n.tr("Newer Page")
-                enabled: currentWebview ? currentWebview.canGoForward : false
-                onTriggered: currentWebview.goForward()
-            },
-            UnityActions.Action {
-                text: i18n.tr("Reload")
-                // TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
-                // Keywords may actually be sentences, and must be separated by semi-colons.
-                keywords: i18n.tr("Leave Page")
-                enabled: currentWebview != null
-                onTriggered: currentWebview.reload()
-            },
-            UnityActions.Action {
-                text: i18n.tr("Bookmark")
-                // TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
-                // Keywords may actually be sentences, and must be separated by semi-colons.
-                keywords: i18n.tr("Add This Page to Bookmarks")
-                enabled: false // TODO: implement bookmarks
-            },
-            UnityActions.Action {
-                text: i18n.tr("New Tab")
-                // TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
-                // Keywords may actually be sentences, and must be separated by semi-colons.
-                keywords: i18n.tr("Open a New Tab")
-                onTriggered: browser.newTab("", true)
+    actions: [
+        UnityActions.Action {
+            text: i18n.tr("Goto")
+            // TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+            // Keywords may actually be sentences, and must be separated by semi-colons.
+            keywords: i18n.tr("Address;URL;www")
+            parameterType: UnityActions.Action.String
+            onTriggered: currentWebview.url = value
+        },
+        UnityActions.Action {
+            text: i18n.tr("Back")
+            // TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+            // Keywords may actually be sentences, and must be separated by semi-colons.
+            keywords: i18n.tr("Older Page")
+            enabled: currentWebview ? currentWebview.canGoBack : false
+            onTriggered: currentWebview.goBack()
+        },
+        UnityActions.Action {
+            text: i18n.tr("Forward")
+            // TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+            // Keywords may actually be sentences, and must be separated by semi-colons.
+            keywords: i18n.tr("Newer Page")
+            enabled: currentWebview ? currentWebview.canGoForward : false
+            onTriggered: currentWebview.goForward()
+        },
+        UnityActions.Action {
+            text: i18n.tr("Reload")
+            // TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+            // Keywords may actually be sentences, and must be separated by semi-colons.
+            keywords: i18n.tr("Leave Page")
+            enabled: currentWebview != null
+            onTriggered: currentWebview.reload()
+        },
+        UnityActions.Action {
+            text: i18n.tr("Bookmark")
+            // TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+            // Keywords may actually be sentences, and must be separated by semi-colons.
+            keywords: i18n.tr("Add This Page to Bookmarks")
+            enabled: false // TODO: implement bookmarks
+        },
+        UnityActions.Action {
+            text: i18n.tr("New Tab")
+            // TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+            // Keywords may actually be sentences, and must be separated by semi-colons.
+            keywords: i18n.tr("Open a New Tab")
+            onTriggered: browser.newTab("", true)
+        }
+    ]
+
+    PageStack {
+        id: stack
+        Page {
+            Item {
+                id: webviewContainer
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    top: parent.top
+                }
+                height: browser.height - osk.height
             }
-        ]
+
+            ErrorSheet {
+                anchors.fill: webviewContainer
+                visible: currentWebview ? (currentWebview.lastLoadRequestStatus == WebView.LoadFailedStatus) : false
+                url: currentWebview ? currentWebview.url : ""
+                onRefreshClicked: currentWebview.reload()
+            }
+        }
     }
 
-    OrientationHelper {
-        id: orientationHelper
+    QtObject {
+        id: internal
 
-        Item {
-            id: webviewContainer
-            anchors {
-                left: parent.left
-                right: parent.right
-                top: parent.top
-                bottom: osk.top
-            }
-            visible: !activityView.visible
+        function onHistoryEntryRequested(url) {
+            currentWebview.url = url
+            toggleActivityView()
         }
 
-        ErrorSheet {
-            anchors.fill: webviewContainer
-            visible: currentWebview ? (currentWebview.lastLoadRequestStatus == WebView.LoadFailedStatus) : false
-            url: currentWebview ? currentWebview.url : ""
-            onRefreshClicked: currentWebview.reload()
+        function onNewTabRequested() {
+            toggleActivityView()
+            newTab("", true)
         }
 
-        ActivityView {
-            id: activityView
-
-            anchors.fill: parent
-            visible: false
-            tabsModel: tabsModel
-            historyModel: historyModel
-
-            onHistoryEntryRequested: {
-                currentWebview.url = url
-                visible = false
-            }
-            onNewTabRequested: {
-                browser.newTab("", true)
-                visible = false
-            }
-            onSwitchToTabRequested: {
-                browser.switchToTab(index)
-                visible = false
-            }
-            onCloseTabRequested: {
-                browser.closeTab(index)
-                if (tabsModel.count == 0) {
-                    newTabRequested()
-                }
-            }
+        function onSwitchToTabRequested(index) {
+            switchToTab(index)
+            toggleActivityView()
         }
 
-        Loader {
-            id: panel
-
-            property Item chrome: item ? item.contents[0] : null
-
-            sourceComponent: browser.chromeless ? undefined : panelComponent
-
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: (item && item.opened) ? osk.top : parent.bottom
-            }
-
-            Component {
-                id: panelComponent
-
-                Panel {
-                    anchors {
-                        left: parent ? parent.left : undefined
-                        right: parent ? parent.right : undefined
-                        bottom: parent ? parent.bottom : undefined
-                    }
-                    height: units.gu(8)
-
-                    opened: true
-                    onOpenedChanged: {
-                        if (!opened) {
-                            Qt.inputMethod.hide()
-                        }
-                    }
-
-                    Chrome {
-                        anchors.fill: parent
-
-                        url: currentWebview ? currentWebview.url : ""
-
-                        loading: currentWebview ? currentWebview.loading || (currentWebview.loadProgress == 0) : false
-                        loadProgress: currentWebview ? currentWebview.loadProgress : 0
-
-                        canGoBack: currentWebview ? currentWebview.canGoBack : false
-                        onGoBackClicked: currentWebview.goBack()
-
-                        canGoForward: currentWebview ? currentWebview.canGoForward : false
-                        onGoForwardClicked: currentWebview.goForward()
-
-                        onUrlValidated: currentWebview.url = url
-
-                        property bool stopped: false
-                        onLoadingChanged: {
-                            if (loading) {
-                                if (panel.item) {
-                                    panel.item.opened = true
-                                }
-                            } else if (stopped) {
-                                stopped = false
-                            } else if (!addressBar.activeFocus) {
-                                if (panel.item) {
-                                    panel.item.opened = false
-                                }
-                                if (currentWebview) {
-                                    currentWebview.forceActiveFocus()
-                                }
-                            }
-                        }
-
-                        onRequestReload: currentWebview.reload()
-                        onRequestStop: {
-                            stopped = true
-                            currentWebview.stop()
-                        }
-
-                        onToggleTabsClicked: {
-                            activityView.visible = !activityView.visible
-                            if (activityView.visible) {
-                                currentWebview.forceActiveFocus()
-                                panel.item.opened = false
-                            }
-                        }
-                    }
-                }
+        function onCloseTabRequested(index) {
+            closeTab(index)
+            if (tabsModel.count === 0) {
+                onNewTabRequested()
             }
         }
+    }
 
-        Suggestions {
-            opacity: (panel.chrome && (panel.item.state == "spread") &&
-                      panel.chrome.addressBar.activeFocus && (count > 0)) ? 1.0 : 0.0
-            Behavior on opacity {
-                UbuntuNumberAnimation {}
-            }
-            enabled: opacity > 0
-            anchors {
-                bottom: panel.top
-                horizontalCenter: parent.horizontalCenter
-            }
-            width: panel.width - units.gu(5)
-            height: Math.min(contentHeight, panel.y - units.gu(2))
-            model: historyMatches
-            onSelected: {
-                currentWebview.url = url
+    function toggleActivityView() {
+        if (stack.depth > 0) {
+            stack.pop()
+        } else {
+            stack.push(Qt.resolvedUrl("ActivityView.qml"),
+                       {tabsModel: tabsModel, historyModel: historyModel})
+            var view = stack.currentPage
+            view.onHistoryEntryRequested.connect(internal.onHistoryEntryRequested)
+            view.onNewTabRequested.connect(internal.onNewTabRequested)
+            view.onSwitchToTabRequested.connect(internal.onSwitchToTabRequested)
+            view.onCloseTabRequested.connect(internal.onCloseTabRequested)
+            if (currentWebview) {
                 currentWebview.forceActiveFocus()
             }
+            panel.item.opened = false
+        }
+    }
+
+    Loader {
+        id: panel
+
+        property Item chrome: item ? item.contents[0] : null
+
+        sourceComponent: browser.chromeless ? undefined : panelComponent
+
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: (item && item.opened) ? osk.top : parent.bottom
         }
 
-        KeyboardRectangle {
-            id: osk
+        Component {
+            id: panelComponent
+
+            Panel {
+                anchors {
+                    left: parent ? parent.left : undefined
+                    right: parent ? parent.right : undefined
+                    bottom: parent ? parent.bottom : undefined
+                }
+                height: units.gu(8)
+
+                opened: true
+                onOpenedChanged: {
+                    if (!opened) {
+                        Qt.inputMethod.hide()
+                    }
+                }
+
+                Chrome {
+                    anchors.fill: parent
+
+                    url: currentWebview ? currentWebview.url : ""
+
+                    loading: currentWebview ? currentWebview.loading || (currentWebview.loadProgress == 0) : false
+                    loadProgress: currentWebview ? currentWebview.loadProgress : 0
+
+                    canGoBack: currentWebview ? currentWebview.canGoBack : false
+                    onGoBackClicked: currentWebview.goBack()
+
+                    canGoForward: currentWebview ? currentWebview.canGoForward : false
+                    onGoForwardClicked: currentWebview.goForward()
+
+                    onUrlValidated: currentWebview.url = url
+
+                    property bool stopped: false
+                    onLoadingChanged: {
+                        if (loading) {
+                            if (panel.item) {
+                                panel.item.opened = true
+                            }
+                        } else if (stopped) {
+                            stopped = false
+                        } else if (!addressBar.activeFocus) {
+                            if (panel.item) {
+                                panel.item.opened = false
+                            }
+                            if (currentWebview) {
+                                currentWebview.forceActiveFocus()
+                            }
+                        }
+                    }
+
+                    onRequestReload: currentWebview.reload()
+                    onRequestStop: {
+                        stopped = true
+                        currentWebview.stop()
+                    }
+
+                    onToggleTabsClicked: toggleActivityView()
+                }
+            }
         }
+    }
+
+    Suggestions {
+        opacity: (panel.chrome && (panel.item.state == "spread") &&
+                  panel.chrome.addressBar.activeFocus && (count > 0)) ? 1.0 : 0.0
+        Behavior on opacity {
+            UbuntuNumberAnimation {}
+        }
+        enabled: opacity > 0
+        anchors {
+            bottom: panel.top
+            horizontalCenter: parent.horizontalCenter
+        }
+        width: panel.width - units.gu(5)
+        height: Math.min(contentHeight, panel.y - units.gu(2))
+        model: historyMatches
+        onSelected: {
+            currentWebview.url = url
+            currentWebview.forceActiveFocus()
+        }
+    }
+
+    KeyboardRectangle {
+        id: osk
     }
 
     HistoryModel {
@@ -273,7 +286,7 @@ FocusScope {
 
             anchors.fill: parent
 
-            enabled: !activityView.visible
+            enabled: stack.depth === 0
             visible: tabsModel.currentWebview === webview
 
             devicePixelRatio: browser.qtwebkitdpr

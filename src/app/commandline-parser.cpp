@@ -55,11 +55,14 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     m_remoteInspector = true;
                 } else if (argument.startsWith("--homepage=")) {
                     homepage = QUrl::fromUserInput(argument.split("--homepage=")[1]);
+                } else if (argument.startsWith("--app-id=")) {
+                    m_appid = argument.split("--app-id=")[1];
                 } else {
                     qWarning() << "WARNING: ignoring unknown switch" << argument;
                 }
             }
         }
+
         if (!homepage.isEmpty()) {
             m_url = homepage;
         } else {
@@ -96,6 +99,12 @@ void CommandLineParser::printUsage() const
     out << "  --fullscreen     display full screen" << endl;
     out << "  --homepage=URL   override any URL passed as an argument" << endl;
     out << "  --inspector      run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
+    out << "  --app-id=APP_ID  run the application with a specific APP_ID" << endl;
+}
+
+QString CommandLineParser::appId() const
+{
+    return m_appid;
 }
 
 bool CommandLineParser::help() const

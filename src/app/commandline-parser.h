@@ -42,12 +42,15 @@ public:
 
     bool remoteInspector() const;
 
+    QString appId() const;
+
 private:
     bool m_help;
     bool m_chromeless;
     bool m_fullscreen;
     QUrl m_url;
     bool m_remoteInspector;
+    QString m_appid;
 };
 
 #endif // __COMMANDLINE_PARSER_H__
