@@ -67,11 +67,7 @@ QVariant TabsModel::data(const QModelIndex& index, int role) const
     if (!index.isValid()) {
         return QVariant();
     }
-    int row = index.row();
-    if (!checkValidTabIndex(row)) {
-        return QVariant();
-    }
-    QQuickItem* webview = m_webviews.at(row);
+    QQuickItem* webview = m_webviews.at(index.row());
     switch (role) {
     case Url:
         return webview->property("url");
