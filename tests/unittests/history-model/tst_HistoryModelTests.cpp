@@ -146,6 +146,21 @@ private Q_SLOTS:
         QVERIFY(ts1 > now);
     }
 
+    void shouldReturnData()
+    {
+        QDateTime now = QDateTime::currentDateTimeUtc();
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl("image://webicon/123"));
+        QVERIFY(!model->data(QModelIndex(), HistoryModel::Url).isValid());
+        QVERIFY(!model->data(model->index(-1, 0), HistoryModel::Url).isValid());
+        QVERIFY(!model->data(model->index(3, 0), HistoryModel::Url).isValid());
+        QCOMPARE(model->data(model->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.org/"));
+        QCOMPARE(model->data(model->index(0, 0), HistoryModel::Title).toString(), QString("Example Domain"));
+        QCOMPARE(model->data(model->index(0, 0), HistoryModel::Icon).toUrl(), QUrl("image://webicon/123"));
+        QCOMPARE(model->data(model->index(0, 0), HistoryModel::Visits).toInt(), 1);
+        QVERIFY(model->data(model->index(0, 0), HistoryModel::LastVisit).toDateTime() >= now);
+        QVERIFY(!model->data(model->index(0, 0), HistoryModel::LastVisit + 3).isValid());
+    }
+
     void shouldReturnDatabasePath()
     {
         QCOMPARE(model->databasePath(), QString(":memory:"));
