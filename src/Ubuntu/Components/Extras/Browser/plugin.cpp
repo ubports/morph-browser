@@ -24,6 +24,7 @@
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
 #include "tabs-model.h"
+#include "bookmarks-model.h"
 #include "webthumbnail-provider.h"
 #include "webview-thumbnailer.h"
 
@@ -57,5 +58,6 @@ void UbuntuBrowserPlugin::registerTypes(const char* uri)
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
+    qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
     qmlRegisterType<WebviewThumbnailer>(uri, 0, 1, "WebviewThumbnailer");
 }

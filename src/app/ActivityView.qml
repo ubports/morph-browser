@@ -24,11 +24,13 @@ Tabs {
 
     property alias tabsModel: timelineView.tabsModel
     property alias historyModel: timelineView.historyModel
+    property alias bookmarksModel: bookmarksView.bookmarksModel
 
     signal historyEntryRequested(url url)
     signal newTabRequested()
     signal switchToTabRequested(int index)
     signal closeTabRequested(int index)
+    signal bookmarkRequested(url url)
 
     Tab {
         title: i18n.tr("Activity")
@@ -42,6 +44,19 @@ Tabs {
                 onSwitchToTabRequested: activityView.switchToTabRequested(index)
                 onCloseTabRequested: activityView.closeTabRequested(index)
                 onHistoryEntryClicked: activityView.historyEntryRequested(url)
+            }
+        }
+    }
+
+    Tab {
+        title: i18n.tr("Bookmarks")
+        page: Page {
+            BookmarksView {
+                id: bookmarksView
+
+                anchors.fill: parent
+
+                onBookmarkClicked: activityView.bookmarkRequested(url)
             }
         }
     }
