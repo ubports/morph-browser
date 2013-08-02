@@ -118,21 +118,10 @@ private Q_SLOTS:
         history->add(QUrl("http://example.org/test"), "Example Domain", QUrl());
         QCOMPARE(model->rowCount(), 2);
 
-        QSignalSpy spyRowsRemoved(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)));
-        qRegisterMetaType<QVector<int> >();
-        QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
-
         timeframe->setEnd(t1);
-        QVERIFY(spyRowsRemoved.isEmpty());
-        QVERIFY(!spyDataChanged.isEmpty());
-        verifyDataChanged(spyDataChanged, 1);
         QCOMPARE(model->rowCount(), 2);
 
         timeframe->setStart(t0);
-        QCOMPARE(spyRowsRemoved.count(), 1);
-        QList<QVariant> args = spyRowsRemoved.takeFirst();
-        QCOMPARE(args.at(1).toInt(), 1);
-        QCOMPARE(args.at(2).toInt(), 1);
         QCOMPARE(model->rowCount(), 1);
     }
 
@@ -148,8 +137,6 @@ private Q_SLOTS:
 
         history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
         QVERIFY(spyRowsMoved.isEmpty());
-        QVERIFY(!spyDataChanged.isEmpty());
-        verifyDataChanged(spyDataChanged, 1);
     }
 
     void shouldUpdateDataWhenDataChanges()
