@@ -305,14 +305,18 @@ MainView {
 
         /*
           Not implemented until MainView offers a way to properly access the actions
-          at runtime & dynamically
+          at runtime & dynamically:
+
+          See https://bugs.launchpad.net/ubuntu-ui-toolkit/+bug/1207804
          */
         function removeAction(action) {
             console.debug('Runtime action removed')
         }
         /*
           Not implemented until MainView offers a way to properly access the actions
-          at runtime & dynamically
+          at runtime & dynamically:
+
+          See https://bugs.launchpad.net/ubuntu-ui-toolkit/+bug/1207804
          */
         function addAction(action) {
             console.debug('Runtime action added')
