@@ -1,3 +1,21 @@
+webbrowser-app (0.22+13.10.20130802.1-0ubuntu1) saucy; urgency=low
+
+  [ Alexandre Abreu ]
+  * Add custome app-id launch argument to allow a more customizable
+    behavior (for webapps mostly).
+
+  [ Olivier Tilloy ]
+  * Use a MainView. This will allow adding new tabs to the activity view
+    in a clean way. As a side-effect benefit, the activity view is now
+    instantiated only when needed.
+  * Ensure that the timeframe models are invalidated when the start date
+    or the end date change. (LP: #1207233, #1204875)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 260
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 02 Aug 2013 09:09:45 +0000
+
 webbrowser-app (0.22+13.10.20130731.1-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
