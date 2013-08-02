@@ -206,14 +206,14 @@ void BookmarksModel::insertNewEntryInDatabase(const BookmarkEntry& entry)
 */
 void BookmarksModel::remove(const QUrl& url)
 {
-    int index = m_entries.keys().indexOf(url);
-    if (index == -1) {
-        qWarning() << "Invalid bookmark:" << url;
-    } else {
+    if (m_entries.contains(url)) {
+        int index = m_entries.keys().indexOf(url);
         beginRemoveRows(QModelIndex(), index, index);
         m_entries.remove(url);
         endRemoveRows();
         removeExistingEntryFromDatabase(url);
+    } else {
+        qWarning() << "Invalid bookmark:" << url;
     }
 }
 
