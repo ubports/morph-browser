@@ -18,6 +18,7 @@ set(PLUGIN_SRC
     history-domainlist-model.cpp
     history-domainlist-chronological-model.cpp
     tabs-model.cpp
+    bookmarks-model.cpp
     webthumbnail-utils.cpp
     webthumbnail-provider.cpp
     webview-thumbnailer.cpp

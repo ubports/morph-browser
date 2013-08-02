@@ -85,7 +85,8 @@ MainView {
             // TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
             // Keywords may actually be sentences, and must be separated by semi-colons.
             keywords: i18n.tr("Add This Page to Bookmarks")
-            enabled: false // TODO: implement bookmarks
+            enabled: currentWebview != null
+            onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         UnityActions.Action {
             text: i18n.tr("New Tab")
@@ -143,6 +144,11 @@ MainView {
                 onNewTabRequested()
             }
         }
+
+        function onBookmarkRequested(url) {
+            currentWebview.url = url
+            toggleActivityView()
+        }
     }
 
     function toggleActivityView() {
@@ -150,12 +156,15 @@ MainView {
             stack.pop()
         } else {
             stack.push(Qt.resolvedUrl("ActivityView.qml"),
-                       {tabsModel: tabsModel, historyModel: historyModel})
+                       {tabsModel: tabsModel,
+                        historyModel: historyModel,
+                        bookmarksModel: bookmarksModel})
             var view = stack.currentPage
             view.onHistoryEntryRequested.connect(internal.onHistoryEntryRequested)
             view.onNewTabRequested.connect(internal.onNewTabRequested)
             view.onSwitchToTabRequested.connect(internal.onSwitchToTabRequested)
             view.onCloseTabRequested.connect(internal.onCloseTabRequested)
+            view.onBookmarkRequested.connect(internal.onBookmarkRequested)
             if (currentWebview) {
                 currentWebview.forceActiveFocus()
             }
@@ -279,6 +288,7 @@ MainView {
         id: tabsModel
     }
 
+
     /*
       The webapps component below expects its actionsContext to be something
       that looks like a UnityActions.Context, i.e. with the capability to add
@@ -322,6 +332,12 @@ MainView {
                 model: UnityWebApps.UnityWebappsAppModel { }
             }
         }
+    }
+
+
+    BookmarksModel {
+        id: bookmarksModel
+        databasePath: dataLocation + "/bookmarks.sqlite"
     }
 
     Component {
