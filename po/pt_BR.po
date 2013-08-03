@@ -7,89 +7,93 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-07-19 16:34+0200\n"
+"POT-Creation-Date: 2013-08-02 10:44+0200\n"
 "PO-Revision-Date: 2013-06-14 14:56+0000\n"
 "Last-Translator: Rafael Neri <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-07-30 04:58+0000\n"
-"X-Generator: Launchpad (build 16700)\n"
+"X-Launchpad-Export-Date: 2013-08-03 06:14+0000\n"
+"X-Generator: Launchpad (build 16718)\n"
 
-#: src/app/ActivityView.qml:57 src/app/Chrome.qml:120
+#: src/app/ActivityView.qml:34 src/app/Chrome.qml:120
 msgid "Activity"
 msgstr "Atividade"
 
-#: src/app/Browser.qml:64
+#: src/app/ActivityView.qml:50
+msgid "Bookmarks"
+msgstr ""
+
+#: src/app/Browser.qml:47
 msgid "Goto"
 msgstr "Ir para"
 
-#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Goto' action.
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:67
+#: src/app/Browser.qml:50
 msgid "Address;URL;www"
 msgstr "Endereço;URL;www"
 
-#: src/app/Browser.qml:71 src/app/Chrome.qml:67
+#: src/app/Browser.qml:55 src/app/Chrome.qml:67
 msgid "Back"
 msgstr "Voltar"
 
-#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Back' action.
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:74
+#: src/app/Browser.qml:58
 msgid "Older Page"
 msgstr "Página mais antiga"
 
-#: src/app/Browser.qml:79 src/app/Chrome.qml:85
+#: src/app/Browser.qml:63 src/app/Chrome.qml:85
 msgid "Forward"
 msgstr "Avançar"
 
-#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Forward' action.
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:82
+#: src/app/Browser.qml:66
 msgid "Newer Page"
 msgstr "Página mais nova"
 
-#: src/app/Browser.qml:87
+#: src/app/Browser.qml:71
 msgid "Reload"
 msgstr "Recarregar"
 
-#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Reload' action.
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:90
+#: src/app/Browser.qml:74
 msgid "Leave Page"
 msgstr "Deixar página"
 
-#: src/app/Browser.qml:95
+#: src/app/Browser.qml:79
 msgid "Bookmark"
 msgstr "Favorito"
 
-#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'Bookmark' action.
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:98
+#: src/app/Browser.qml:82
 msgid "Add This Page to Bookmarks"
 msgstr "Adicionar esta página aos favoritos"
 
-#: src/app/Browser.qml:102
+#: src/app/Browser.qml:86
 msgid "New Tab"
 msgstr "Nova aba"
 
-#. TRANSLATORS: This is a free-form list of keywords associated to the HUD’s 'New Tab' action.
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:105
+#: src/app/Browser.qml:89
 msgid "Open a New Tab"
 msgstr "Abrir uma nova aba"
 
-#: src/app/Browser.qml:295
+#: src/app/Browser.qml:298
 msgid "Share"
 msgstr "Compartilhar"
 
-#: src/app/Browser.qml:299
+#: src/app/Browser.qml:302
 msgid "Save"
 msgstr "Salvar"
 
-#: src/app/Browser.qml:303
+#: src/app/Browser.qml:306
 msgid "Copy"
 msgstr "Copiar"
 
@@ -120,7 +124,7 @@ msgstr "Atualizar a página"
 msgid "Currently viewing (%1)"
 msgstr ""
 
-#: src/app/TabsList.qml:61
+#: src/app/TabsList.qml:65
 msgid "+"
 msgstr "+"
 
@@ -148,11 +152,11 @@ msgstr ""
 msgid "Older"
 msgstr ""
 
-#: src/app/TimelineView.qml:167
+#: src/app/TimelineView.qml:169
 msgid "(local files)"
 msgstr ""
 
-#: src/app/TimelineView.qml:169
+#: src/app/TimelineView.qml:171
 msgid "(other)"
 msgstr ""
 
@@ -169,11 +173,11 @@ msgid "Browse the World Wide Web"
 msgstr "Navegue na internet"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser-app.qml:33
+#: src/app/webbrowser-app.qml:34
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navegador da internet"
 
-#: src/app/webbrowser-app.qml:34
+#: src/app/webbrowser-app.qml:35
 msgid "Ubuntu Web Browser"
 msgstr "Navegador da internet"
