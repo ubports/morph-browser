@@ -22,6 +22,7 @@
 // Qt
 #include <QtCore/QSortFilterProxyModel>
 #include <QtCore/QString>
+#include <QtCore/QUrl>
 
 class HistoryTimeframeModel;
 
@@ -31,6 +32,7 @@ class HistoryDomainModel : public QSortFilterProxyModel
 
     Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(QString domain READ domain WRITE setDomain NOTIFY domainChanged)
+    Q_PROPERTY(QUrl thumbnail READ thumbnail NOTIFY thumbnailChanged)
 
 public:
     HistoryDomainModel(QObject* parent=0);
@@ -41,11 +43,14 @@ public:
     const QString& domain() const;
     void setDomain(const QString& domain);
 
+    const QUrl thumbnail() const;
+
     bool sourceEntryMatchesDomain(int row, const QModelIndex& parent) const;
 
 Q_SIGNALS:
     void sourceModelChanged() const;
     void domainChanged() const;
+    void thumbnailChanged() const;
 
 protected:
     // reimplemented from QSortFilterProxyModel

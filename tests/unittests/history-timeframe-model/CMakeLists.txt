@@ -2,6 +2,7 @@ set(TEST tst_HistoryTimeframeModelTests)
 set(SOURCES
     ${webbrowser-plugin_SOURCE_DIR}/history-model.cpp
     ${webbrowser-plugin_SOURCE_DIR}/history-timeframe-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/webthumbnail-utils.cpp
     tst_HistoryTimeframeModelTests.cpp
 )
 add_executable(${TEST} ${SOURCES})

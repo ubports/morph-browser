@@ -1,6 +1,7 @@
 set(TEST tst_HistoryModelTests)
 set(SOURCES
     ${webbrowser-plugin_SOURCE_DIR}/history-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/webthumbnail-utils.cpp
     tst_HistoryModelTests.cpp
 )
 add_executable(${TEST} ${SOURCES})

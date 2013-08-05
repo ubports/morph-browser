@@ -17,6 +17,7 @@
  */
 
 #include "history-model.h"
+#include "webthumbnail-utils.h"
 
 // Qt
 #include <QtSql/QSqlQuery>
@@ -104,6 +105,7 @@ QHash<int, QByteArray> HistoryModel::roleNames() const
         roles[Icon] = "icon";
         roles[Visits] = "visits";
         roles[LastVisit] = "lastVisit";
+        roles[Thumbnail] = "thumbnail";
     }
     return roles;
 }
@@ -135,6 +137,15 @@ QVariant HistoryModel::data(const QModelIndex& index, int role) const
         return entry.visits;
     case LastVisit:
         return entry.lastVisit;
+    case Thumbnail:
+    {
+        QFileInfo thumbnailFile = WebThumbnailUtils::thumbnailFile(entry.url);
+        if (thumbnailFile.exists()) {
+            return QUrl::fromLocalFile(thumbnailFile.absoluteFilePath());
+        } else {
+            return QUrl();
+        }
+    }
     default:
         return QVariant();
     }

@@ -2,6 +2,7 @@ set(TEST tst_HistoryMatchesModelTests)
 set(SOURCES
     ${webbrowser-plugin_SOURCE_DIR}/history-model.cpp
     ${webbrowser-plugin_SOURCE_DIR}/history-matches-model.cpp
+    ${webbrowser-plugin_SOURCE_DIR}/webthumbnail-utils.cpp
     tst_HistoryMatchesModelTests.cpp
 )
 add_executable(${TEST} ${SOURCES})
