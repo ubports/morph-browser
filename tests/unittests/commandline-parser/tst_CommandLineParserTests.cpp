@@ -27,6 +27,11 @@ class CommandLineParserTests : public QObject
     Q_OBJECT
 
 private Q_SLOTS:
+    void shouldPrintUsage()
+    {
+        CommandLineParser(QStringList() << "webbrowser-app").printUsage();
+    }
+
     void shouldDisplayHelp_data()
     {
         QTest::addColumn<QStringList>("args");

@@ -75,6 +75,13 @@ private Q_SLOTS:
         QCOMPARE(matches->rowCount(), 0);
     }
 
+    void shouldRecordQuery()
+    {
+        QVERIFY(matches->query().isEmpty());
+        matches->setQuery("example");
+        QCOMPARE(matches->query(), QString("example"));
+    }
+
     void shouldMatchUrl()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());

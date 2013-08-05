@@ -65,6 +65,15 @@ private Q_SLOTS:
         QCOMPARE(model->currentWebview(), (QQuickItem*) 0);
     }
 
+    void shouldExposeRoleNames()
+    {
+        QList<QByteArray> roleNames = model->roleNames().values();
+        QVERIFY(roleNames.contains("url"));
+        QVERIFY(roleNames.contains("title"));
+        QVERIFY(roleNames.contains("icon"));
+        QVERIFY(roleNames.contains("webview"));
+    }
+
     void shouldNotAllowSettingTheIndexToAnInvalidValue()
     {
         model->setCurrentIndex(0);
@@ -216,6 +225,8 @@ private Q_SLOTS:
         QCOMPARE(spyIndex.count(), 1);
         QCOMPARE(spyWebview.count(), 1);
         QCOMPARE(model->currentWebview(), webview);
+        model->setCurrentIndex(0);
+        QCOMPARE(spyIndex.count(), 1);
     }
 
     void shouldUpdateCurrentIndexAndWebviewWhenRemoving()
@@ -286,6 +297,23 @@ private Q_SLOTS:
         QCOMPARE(model->currentIndex(), -1);
         QCOMPARE(spyWebview.count(), 1);
         QCOMPARE(model->currentWebview(), (QQuickItem*) 0);
+    }
+
+    void shouldReturnData()
+    {
+        QQuickItem* webview = createWebView();
+        QQmlProperty(webview, "url").write(QUrl("http://ubuntu.com/"));
+        QQmlProperty(webview, "title").write(QString("Lorem Ipsum"));
+        QQmlProperty(webview, "icon").write(QUrl("image://webicon/123"));
+        model->add(webview);
+        QVERIFY(!model->data(QModelIndex(), TabsModel::Url).isValid());
+        QVERIFY(!model->data(model->index(-1, 0), TabsModel::Url).isValid());
+        QVERIFY(!model->data(model->index(3, 0), TabsModel::Url).isValid());
+        QCOMPARE(model->data(model->index(0, 0), TabsModel::Url).toUrl(), QUrl("http://ubuntu.com/"));
+        QCOMPARE(model->data(model->index(0, 0), TabsModel::Title).toString(), QString("Lorem Ipsum"));
+        QCOMPARE(model->data(model->index(0, 0), TabsModel::Icon).toUrl(), QUrl("image://webicon/123"));
+        QCOMPARE(model->data(model->index(0, 0), TabsModel::WebView).value<QQuickItem*>(), webview);
+        QVERIFY(!model->data(model->index(0, 0), TabsModel::WebView + 3).isValid());
     }
 };
 
