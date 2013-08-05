@@ -103,6 +103,7 @@ private Q_SLOTS:
         model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
         QCOMPARE(spyMoved.count(), 0);
         QCOMPARE(spyChanged.count(), 0);
+        QTest::qWait(100);
         model->add(QUrl("http://example.org/"), "Example Domain", QUrl("image://webicon/123"));
         QCOMPARE(spyMoved.count(), 0);
         QCOMPARE(spyChanged.count(), 1);
