@@ -55,17 +55,17 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                 } else if (argument == "--inspector") {
                     m_remoteInspector = true;
                 } else if (argument.startsWith("--webapp")) {
-                    // We use the name as a reference instead of
-                    //  the url /w a subsequent step to match it w/ a webapp
-                    // TODO: validate that it is fine in all cases (country dependant, etc.)
-
+                    // We use the name as a reference instead of the URL with a
+                    // subsequent step to match it with a webapp.
+                    // TODO: validate that it is fine in all cases
+                    // (country dependant, etc…).
                     m_webapp = true;
                     QString tail = argument.split("--webapp")[1];
-                    if ( ! tail.isEmpty() && tail.startsWith("="))
-                    {
-                        tail = QUrl::fromPercentEncoding (tail.split("=")[1].toUtf8()).trimmed();
-                        if (! tail.isEmpty())
+                    if (!tail.isEmpty() && tail.startsWith("=")) {
+                        tail = QUrl::fromPercentEncoding(tail.split("=")[1].toUtf8()).trimmed();
+                        if (!tail.isEmpty()) {
                             m_webappName = tail;
+                        }
                     }
                 } else if (argument.startsWith("--homepage=")) {
                     homepage = QUrl::fromUserInput(argument.split("--homepage=")[1]);
@@ -147,12 +147,12 @@ bool CommandLineParser::remoteInspector() const
     return m_remoteInspector;
 }
 
-QString CommandLineParser::webappName() const
-{
-    return m_webappName;
-}
-
 bool CommandLineParser::webapp() const
 {
     return m_webapp;
+}
+
+QString CommandLineParser::webappName() const
+{
+    return m_webappName;
 }

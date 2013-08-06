@@ -53,8 +53,8 @@ private:
     bool m_fullscreen;
     QUrl m_url;
     bool m_remoteInspector;
-    QString m_webappName;
     bool m_webapp;
+    QString m_webappName;
     QString m_appid;
 };
 
