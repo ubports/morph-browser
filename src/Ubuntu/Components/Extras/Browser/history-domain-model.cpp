@@ -79,20 +79,15 @@ const QDateTime& HistoryDomainModel::lastVisit() const
     return m_lastVisit;
 }
 
-bool HistoryDomainModel::sourceEntryMatchesDomain(int row, const QModelIndex& parent) const
+bool HistoryDomainModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     if (m_domain.isEmpty()) {
         return true;
     }
-    QModelIndex index = sourceModel()->index(row, 0, parent);
+    QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
     QUrl url = sourceModel()->data(index, HistoryModel::Url).toUrl();
     QString domain = DomainUtils::extractTopLevelDomainName(url);
     return (domain.compare(m_domain, Qt::CaseInsensitive) == 0);
-}
-
-bool HistoryDomainModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
-{
-    return sourceEntryMatchesDomain(source_row, source_parent);
 }
 
 void HistoryDomainModel::onModelChanged()

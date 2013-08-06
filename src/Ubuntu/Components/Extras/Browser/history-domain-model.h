@@ -45,8 +45,6 @@ public:
 
     const QDateTime& lastVisit() const;
 
-    bool sourceEntryMatchesDomain(int row, const QModelIndex& parent) const;
-
 Q_SIGNALS:
     void sourceModelChanged() const;
     void domainChanged() const;
