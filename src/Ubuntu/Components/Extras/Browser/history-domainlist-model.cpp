@@ -21,7 +21,6 @@
 #include "history-domainlist-model.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
-#include "webthumbnail-utils.h"
 
 // Qt
 #include <QtCore/QSet>
@@ -33,9 +32,9 @@
 
     HistoryDomainListModel is a list model that exposes history entries from a
     HistoryTimeframeModel grouped by domain name. Each item in the list has
-    three roles: 'domain' for the domain name, 'thumbnail' for a thumbnail
-    picture of a page corresponding to this domain name, and 'entries' for the
-    corresponding HistoryDomainModel that contains all entries in this group.
+    three roles: 'domain' for the domain name, 'lastVisit' for the timestamp
+    of the last page visited in this domain, and 'entries' for the corresponding
+    HistoryDomainModel that contains all entries in this group.
 */
 HistoryDomainListModel::HistoryDomainListModel(QObject* parent)
     : QAbstractListModel(parent)
@@ -54,7 +53,6 @@ QHash<int, QByteArray> HistoryDomainListModel::roleNames() const
     if (roles.isEmpty()) {
         roles[Domain] = "domain";
         roles[LastVisit] = "lastVisit";
-        roles[Thumbnail] = "thumbnail";
         roles[Entries] = "entries";
     }
     return roles;
@@ -88,21 +86,6 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
             }
         }
         return QDateTime();
-    }
-    case Thumbnail:
-    {
-        // Iterate over all the entries, and return the first valid thumbnail.
-        int count = entries->rowCount();
-        for (int i = 0; i < count; ++i) {
-            if (entries->sourceEntryMatchesDomain(i, QModelIndex())) {
-                QUrl url = entries->data(entries->index(i, 0), HistoryModel::Url).toUrl();
-                QFileInfo thumbnailFile = WebThumbnailUtils::thumbnailFile(url);
-                if (thumbnailFile.exists()) {
-                    return thumbnailFile.absoluteFilePath();
-                }
-            }
-        }
-        return QUrl();
     }
     case Entries:
         return QVariant::fromValue(entries);
@@ -282,6 +265,6 @@ void HistoryDomainListModel::emitDataChanged(const QString& domain)
     int i = m_domains.keys().indexOf(domain);
     if (i != -1) {
         QModelIndex index = this->index(i, 0);
-        Q_EMIT dataChanged(index, index, QVector<int>() << LastVisit << Thumbnail << Entries);
+        Q_EMIT dataChanged(index, index, QVector<int>() << LastVisit << Entries);
     }
 }
