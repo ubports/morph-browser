@@ -1,3 +1,21 @@
+webbrowser-app (0.22+13.10.20130806-0ubuntu1) saucy; urgency=low
+
+  [ Alexandre Abreu ]
+  * Add Webapps integration support.
+
+  [ Olivier Tilloy ]
+  * Initial implementation of bookmarks. As the design is essentially
+    missing, the UI will very probably change, thus there are no
+    autopilot tests. This is a limited implementation: there is no other
+    way of bookmarking a page than through the HUD, and there is no way
+    to remove a bookmark yet.
+  * Increase the code coverage of the unit tests (from 86.6% to 95%).
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 268
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 06 Aug 2013 09:43:04 +0000
+
 webbrowser-app (0.22+13.10.20130802.1-0ubuntu1) saucy; urgency=low
 
   [ Alexandre Abreu ]
