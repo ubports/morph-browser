@@ -61,12 +61,8 @@ private Q_SLOTS:
     void onRowsInserted(const QModelIndex& parent, int start, int end);
     void onModelReset();
 
-    void onDomainRowsInserted(const QModelIndex& parent, int start, int end);
     void onDomainRowsRemoved(const QModelIndex& parent, int start, int end);
-    void onDomainRowsMoved(const QModelIndex& sourceParent, int sourceStart, int sourceEnd, const QModelIndex& destinationParent, int destinationRow);
-    void onDomainLayoutChanged(const QList<QPersistentModelIndex>& parents, QAbstractItemModel::LayoutChangeHint hint);
-    void onDomainDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
-    void onDomainModelReset();
+    void onDomainDataChanged();
 
 private:
     HistoryTimeframeModel* m_sourceModel;
