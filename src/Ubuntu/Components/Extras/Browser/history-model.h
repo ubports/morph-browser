@@ -44,8 +44,7 @@ public:
         Title,
         Icon,
         Visits,
-        LastVisit,
-        Thumbnail
+        LastVisit
     };
 
     // reimplemented from QAbstractListModel

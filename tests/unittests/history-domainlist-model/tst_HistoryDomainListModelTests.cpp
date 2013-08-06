@@ -98,7 +98,7 @@ private Q_SLOTS:
 
         history->add(QUrl("http://example.org/test.html"), "Test page", QUrl());
         QVERIFY(spyRowsInserted.isEmpty());
-        QVERIFY(!spyDataChanged.isEmpty());
+        QCOMPARE(spyDataChanged.count(), 1);
         args = spyDataChanged.takeFirst();
         QCOMPARE(args.at(0).toModelIndex().row(), 1);
         QCOMPARE(args.at(1).toModelIndex().row(), 1);

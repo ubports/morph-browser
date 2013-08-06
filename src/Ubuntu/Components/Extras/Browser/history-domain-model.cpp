@@ -22,7 +22,6 @@
 #include "history-timeframe-model.h"
 
 // Qt
-#include <QtCore/QFileInfo>
 #include <QtCore/QUrl>
 
 /*!
@@ -41,15 +40,6 @@
 HistoryDomainModel::HistoryDomainModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
-    connect(this, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)),
-            SIGNAL(thumbnailChanged()));
-    connect(this, SIGNAL(modelReset()), SIGNAL(thumbnailChanged()));
-    connect(this, SIGNAL(rowsInserted(QModelIndex, int, int)),
-            SIGNAL(thumbnailChanged()));
-    connect(this, SIGNAL(rowsRemoved(QModelIndex, int, int)),
-            SIGNAL(thumbnailChanged()));
-    connect(this, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)),
-            SIGNAL(thumbnailChanged()));
 }
 
 HistoryTimeframeModel* HistoryDomainModel::sourceModel() const
@@ -77,18 +67,6 @@ void HistoryDomainModel::setDomain(const QString& domain)
         invalidate();
         Q_EMIT domainChanged();
     }
-}
-
-const QUrl HistoryDomainModel::thumbnail() const
-{
-    int count = rowCount();
-    for (int i = 0; i < count; ++i) {
-        QUrl url = data(index(i, 0), HistoryModel::Thumbnail).toUrl();
-        if (QFileInfo(url.toLocalFile()).exists()) {
-            return url;
-        }
-    }
-    return QUrl();
 }
 
 bool HistoryDomainModel::sourceEntryMatchesDomain(int row, const QModelIndex& parent) const

@@ -67,7 +67,6 @@ private Q_SLOTS:
     void onDomainLayoutChanged(const QList<QPersistentModelIndex>& parents, QAbstractItemModel::LayoutChangeHint hint);
     void onDomainDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
     void onDomainModelReset();
-    void onDomainThumbnailChanged();
 
 private:
     HistoryTimeframeModel* m_sourceModel;

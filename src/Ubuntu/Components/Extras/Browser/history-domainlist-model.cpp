@@ -90,7 +90,20 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
         return QDateTime();
     }
     case Thumbnail:
-        return entries->thumbnail();
+    {
+        // Iterate over all the entries, and return the first valid thumbnail.
+        int count = entries->rowCount();
+        for (int i = 0; i < count; ++i) {
+            if (entries->sourceEntryMatchesDomain(i, QModelIndex())) {
+                QUrl url = entries->data(entries->index(i, 0), HistoryModel::Url).toUrl();
+                QFileInfo thumbnailFile = WebThumbnailUtils::thumbnailFile(url);
+                if (thumbnailFile.exists()) {
+                    return thumbnailFile.absoluteFilePath();
+                }
+            }
+        }
+        return QUrl();
+    }
     case Entries:
         return QVariant::fromValue(entries);
     default:
@@ -189,7 +202,6 @@ void HistoryDomainListModel::insertNewDomain(const QString& domain)
     connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)),
             SLOT(onDomainDataChanged(QModelIndex, QModelIndex)));
     connect(model, SIGNAL(modelReset()), SLOT(onDomainModelReset()));
-    connect(model, SIGNAL(thumbnailChanged()), SLOT(onDomainThumbnailChanged()));
     m_domains.insert(domain, model);
 }
 
@@ -258,14 +270,6 @@ void HistoryDomainListModel::onDomainDataChanged(const QModelIndex& topLeft, con
 }
 
 void HistoryDomainListModel::onDomainModelReset()
-{
-    HistoryDomainModel* model = qobject_cast<HistoryDomainModel*>(sender());
-    if (model != 0) {
-        emitDataChanged(model->domain());
-    }
-}
-
-void HistoryDomainListModel::onDomainThumbnailChanged()
 {
     HistoryDomainModel* model = qobject_cast<HistoryDomainModel*>(sender());
     if (model != 0) {

@@ -4,7 +4,6 @@ set(SOURCES
     ${webbrowser-plugin_SOURCE_DIR}/history-domain-model.cpp
     ${webbrowser-plugin_SOURCE_DIR}/history-model.cpp
     ${webbrowser-plugin_SOURCE_DIR}/history-timeframe-model.cpp
-    ${webbrowser-plugin_SOURCE_DIR}/webthumbnail-utils.cpp
     tst_HistoryDomainModelTests.cpp
 )
 add_executable(${TEST} ${SOURCES})
