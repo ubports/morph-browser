@@ -40,6 +40,11 @@
 HistoryDomainModel::HistoryDomainModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
+    connect(this, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)), SLOT(onModelChanged()));
+    connect(this, SIGNAL(modelReset()), SLOT(onModelChanged()));
+    connect(this, SIGNAL(rowsInserted(QModelIndex, int, int)), SLOT(onModelChanged()));
+    connect(this, SIGNAL(rowsRemoved(QModelIndex, int, int)), SLOT(onModelChanged()));
+    connect(this, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)), SLOT(onModelChanged()));
 }
 
 HistoryTimeframeModel* HistoryDomainModel::sourceModel() const
@@ -69,6 +74,11 @@ void HistoryDomainModel::setDomain(const QString& domain)
     }
 }
 
+const QDateTime& HistoryDomainModel::lastVisit() const
+{
+    return m_lastVisit;
+}
+
 bool HistoryDomainModel::sourceEntryMatchesDomain(int row, const QModelIndex& parent) const
 {
     if (m_domain.isEmpty()) {
@@ -83,4 +93,14 @@ bool HistoryDomainModel::sourceEntryMatchesDomain(int row, const QModelIndex& pa
 bool HistoryDomainModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     return sourceEntryMatchesDomain(source_row, source_parent);
+}
+
+void HistoryDomainModel::onModelChanged()
+{
+    if (rowCount() > 0) {
+        m_lastVisit = data(index(0, 0), HistoryModel::LastVisit).toDateTime();
+    } else {
+        m_lastVisit = QDateTime();
+    }
+    Q_EMIT lastVisitChanged();
 }
