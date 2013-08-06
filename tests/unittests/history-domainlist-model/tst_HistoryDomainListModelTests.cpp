@@ -251,8 +251,6 @@ private Q_SLOTS:
         QVERIFY(!model->data(model->index(3, 0), HistoryDomainListModel::Domain).isValid());
         QCOMPARE(model->data(model->index(0, 0), HistoryDomainListModel::Domain).toString(), QString("example.org"));
         QVERIFY(model->data(model->index(0, 0), HistoryDomainListModel::LastVisit).toDateTime() >= now);
-        QUrl thumbnail = model->data(model->index(0, 0), HistoryDomainListModel::Thumbnail).toUrl();
-        Q_UNUSED(thumbnail); // do not check its value as there may be a thumbnail on disk for it
         HistoryDomainModel* entries = model->data(model->index(0, 0), HistoryDomainListModel::Entries).value<HistoryDomainModel*>();
         QVERIFY(entries != 0);
         QCOMPARE(entries->rowCount(), 1);
