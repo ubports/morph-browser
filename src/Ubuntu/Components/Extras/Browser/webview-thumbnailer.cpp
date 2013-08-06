@@ -16,10 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "webview-thumbnailer.h"
+#include "domain-utils.h"
 #include "webthumbnail-utils.h"
+#include "webview-thumbnailer.h"
 
 // Qt
+#include <QtCore/QFile>
 #include <QtCore/QTimer>
 #include <QtQuick/private/qsgrenderer_p.h>
 #include <QtWebKit/private/qquickwebpage_p.h>
@@ -142,7 +144,16 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
 
     WebThumbnailUtils::ensureCacheLocation();
     QUrl url = m_webview->url();
-    bool saved = image.save(WebThumbnailUtils::thumbnailFile(url).absoluteFilePath());
+    QFileInfo thumbnail = WebThumbnailUtils::thumbnailFile(url);
+    bool saved = image.save(thumbnail.absoluteFilePath());
+
+    // Make a link to the thumbnail file for the corresponding domain’s thumbnail.
+    QUrl domain(DomainUtils::extractTopLevelDomainName(url));
+    QString domainThumbnail = WebThumbnailUtils::thumbnailFile(domain).absoluteFilePath();
+    if (QFile::exists(domainThumbnail)) {
+        QFile::remove(domainThumbnail);
+    }
+    QFile::link(thumbnail.fileName(), domainThumbnail);
 
     root.removeChildNode(node);
 
