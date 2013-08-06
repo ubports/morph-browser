@@ -173,7 +173,9 @@ Item {
                             return model.domain
                         }
                     }
-                    thumbnail: model.thumbnail
+
+                    property url thumbnailSource: "image://webthumbnail/" + model.domain
+                    thumbnail: WebThumbnailer.thumbnailExists(model.domain) ? thumbnailSource : ""
 
                     MouseArea {
                         anchors.fill: parent
