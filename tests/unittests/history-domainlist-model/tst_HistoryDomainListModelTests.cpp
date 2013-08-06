@@ -152,6 +152,12 @@ private Q_SLOTS:
         QVERIFY(spyRowsMoved.isEmpty());
         QVERIFY(!spyDataChanged.isEmpty());
         verifyDataChanged(spyDataChanged, 1);
+
+        spyDataChanged.clear();
+        history->add(QUrl("http://example.org/foobar"), "Example Domain 2", QUrl());
+        QVERIFY(spyRowsMoved.isEmpty());
+        QVERIFY(!spyDataChanged.isEmpty());
+        verifyDataChanged(spyDataChanged, 1);
     }
 
     void shouldUpdateWhenChangingSourceModel()
@@ -234,6 +240,23 @@ private Q_SLOTS:
         entries = model->data(index, HistoryDomainListModel::Entries).value<HistoryDomainModel*>();
         QCOMPARE(entries->rowCount(), 1);
         QCOMPARE(entries->data(entries->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://ubuntu.com/"));
+    }
+
+    void shouldReturnData()
+    {
+        QDateTime now = QDateTime::currentDateTimeUtc();
+        history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        QVERIFY(!model->data(QModelIndex(), HistoryDomainListModel::Domain).isValid());
+        QVERIFY(!model->data(model->index(-1, 0), HistoryDomainListModel::Domain).isValid());
+        QVERIFY(!model->data(model->index(3, 0), HistoryDomainListModel::Domain).isValid());
+        QCOMPARE(model->data(model->index(0, 0), HistoryDomainListModel::Domain).toString(), QString("example.org"));
+        QVERIFY(model->data(model->index(0, 0), HistoryDomainListModel::LastVisit).toDateTime() >= now);
+        QUrl thumbnail = model->data(model->index(0, 0), HistoryDomainListModel::Thumbnail).toUrl();
+        Q_UNUSED(thumbnail); // do not check its value as there may be a thumbnail on disk for it
+        HistoryDomainModel* entries = model->data(model->index(0, 0), HistoryDomainListModel::Entries).value<HistoryDomainModel*>();
+        QVERIFY(entries != 0);
+        QCOMPARE(entries->rowCount(), 1);
+        QVERIFY(!model->data(model->index(0, 0), HistoryDomainListModel::Entries + 3).isValid());
     }
 };
 

@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-08-02 10:44+0200\n"
-"PO-Revision-Date: 2013-07-31 12:27+0000\n"
+"PO-Revision-Date: 2013-08-05 07:41+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-03 06:14+0000\n"
+"X-Launchpad-Export-Date: 2013-08-06 05:05+0000\n"
 "X-Generator: Launchpad (build 16718)\n"
 
 #: src/app/ActivityView.qml:34 src/app/Chrome.qml:120
@@ -23,7 +23,7 @@ msgstr "Toiminta"
 
 #: src/app/ActivityView.qml:50
 msgid "Bookmarks"
-msgstr ""
+msgstr "Kirjanmerkit"
 
 #: src/app/Browser.qml:47
 msgid "Goto"
