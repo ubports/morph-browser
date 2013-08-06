@@ -53,7 +53,7 @@ MainView {
             // Keywords may actually be sentences, and must be separated by semi-colons.
             keywords: i18n.tr("Address;URL;www")
             parameterType: UnityActions.Action.String
-            enabled: ! isRunningAsANamedWebapp()
+            enabled: !isRunningAsANamedWebapp()
             onTriggered: currentWebview.url = value
         },
         UnityActions.Action {
@@ -61,7 +61,7 @@ MainView {
             // TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
             // Keywords may actually be sentences, and must be separated by semi-colons.
             keywords: i18n.tr("Older Page")
-            enabled: currentWebview && ! isRunningAsANamedWebapp() ? currentWebview.canGoBack : false
+            enabled: currentWebview && !isRunningAsANamedWebapp() ? currentWebview.canGoBack : false
             onTriggered: currentWebview.goBack()
         },
         UnityActions.Action {
@@ -69,7 +69,7 @@ MainView {
             // TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
             // Keywords may actually be sentences, and must be separated by semi-colons.
             keywords: i18n.tr("Newer Page")
-            enabled: currentWebview && ! isRunningAsANamedWebapp() ? currentWebview.canGoForward : false
+            enabled: currentWebview && !isRunningAsANamedWebapp() ? currentWebview.canGoForward : false
             onTriggered: currentWebview.goForward()
         },
         UnityActions.Action {
@@ -77,7 +77,7 @@ MainView {
             // TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
             // Keywords may actually be sentences, and must be separated by semi-colons.
             keywords: i18n.tr("Leave Page")
-            enabled: currentWebview && ! isRunningAsANamedWebapp()
+            enabled: currentWebview && !isRunningAsANamedWebapp()
             onTriggered: currentWebview.reload()
         },
         UnityActions.Action {
@@ -93,7 +93,7 @@ MainView {
             // TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
             // Keywords may actually be sentences, and must be separated by semi-colons.
             keywords: i18n.tr("Open a New Tab")
-            enabled: ! isRunningAsANamedWebapp()
+            enabled: !isRunningAsANamedWebapp()
             onTriggered: browser.newTab("", true)
         }
     ]
@@ -294,11 +294,10 @@ MainView {
       that looks like a UnityActions.Context, i.e. with the capability to add
       and remove actions:
 
-      void addAction(UnityActions.Actions action)
-      void removeAction(UnityActions.Actions action)
+          void addAction(UnityActions.Actions action)
+          void removeAction(UnityActions.Actions action)
 
-      Since the webbrowser-app uses the MainView actions facility that
-      abtracts away the underlying actions
+      As we’re using a MainView, the underlying actions are abstracted away.
      */
     QtObject {
         id: unityActionsWebappsAdaptor
@@ -333,7 +332,7 @@ MainView {
                 name: browser.webappName
                 bindee: tabsModel.currentWebview
                 actionsContext: unityActionsWebappsAdaptor
-                model: UnityWebApps.UnityWebappsAppModel { }
+                model: UnityWebApps.UnityWebappsAppModel {}
             }
         }
     }
@@ -384,19 +383,19 @@ MainView {
 
             onNewTabRequested: browser.newTab(url, true)
 
-            // Small shim needed when running as a webapp just to wire-up
-            //  small connections w/ the webview (message received etc.).
-            // This is being called (and expected) internally by the webapps component
-            //  as a way to bind to a webview lookalike w/o reaching out directly
-            //  to its guts (see it as an interface).
+            // Small shim needed when running as a webapp to wire-up connections
+            // with the webview (message received, etc…).
+            // This is being called (and expected) internally by the webapps
+            // component as a way to bind to a webview lookalike without
+            // reaching out directly to its internals (see it as an interface).
             function getUnityWebappsProxies() {
-                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview);
+                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview)
             }
         }
     }
 
     function isRunningAsANamedWebapp() {
-        return browser.webappName && typeof(browser.webappName) === 'string' && browser.webappName.length != 0;
+        return browser.webappName && typeof(browser.webappName) === 'string' && browser.webappName.length != 0
     }
 
     function newTab(url, setCurrent) {
