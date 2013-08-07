@@ -20,6 +20,7 @@
 #define __HISTORY_DOMAIN_MODEL_H__
 
 // Qt
+#include <QtCore/QDateTime>
 #include <QtCore/QSortFilterProxyModel>
 #include <QtCore/QString>
 
@@ -31,6 +32,7 @@ class HistoryDomainModel : public QSortFilterProxyModel
 
     Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(QString domain READ domain WRITE setDomain NOTIFY domainChanged)
+    Q_PROPERTY(QDateTime lastVisit READ lastVisit NOTIFY lastVisitChanged)
 
 public:
     HistoryDomainModel(QObject* parent=0);
@@ -41,11 +43,12 @@ public:
     const QString& domain() const;
     void setDomain(const QString& domain);
 
-    bool sourceEntryMatchesDomain(int row, const QModelIndex& parent) const;
+    const QDateTime& lastVisit() const;
 
 Q_SIGNALS:
     void sourceModelChanged() const;
     void domainChanged() const;
+    void lastVisitChanged() const;
 
 protected:
     // reimplemented from QSortFilterProxyModel
@@ -53,6 +56,10 @@ protected:
 
 private:
     QString m_domain;
+    QDateTime m_lastVisit;
+
+private Q_SLOTS:
+    void onModelChanged();
 };
 
 #endif // __HISTORY_DOMAIN_MODEL_H__

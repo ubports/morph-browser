@@ -75,17 +75,7 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
     case Domain:
         return domain;
     case LastVisit:
-    {
-        // At this point, entries might not have been filtered yet,
-        // so the first entry is not guaranteed to be the one we want.
-        int count = entries->rowCount();
-        for (int i = 0; i < count; ++i) {
-            if (entries->sourceEntryMatchesDomain(i, QModelIndex())) {
-                return entries->data(entries->index(i, 0), HistoryModel::LastVisit).toDateTime();
-            }
-        }
-        return QDateTime();
-    }
+        return entries->lastVisit();
     case Entries:
         return QVariant::fromValue(entries);
     default:
@@ -179,6 +169,7 @@ void HistoryDomainListModel::insertNewDomain(const QString& domain)
     connect(model, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)), SLOT(onDomainDataChanged()));
     connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), SLOT(onDomainDataChanged()));
     connect(model, SIGNAL(modelReset()), SLOT(onDomainDataChanged()));
+    connect(model, SIGNAL(lastVisitChanged()), SLOT(onDomainDataChanged()));
     m_domains.insert(domain, model);
 }
 
