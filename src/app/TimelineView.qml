@@ -181,10 +181,11 @@ Item {
                         anchors.fill: parent
                         onClicked: {
                             if ((timeline.currentIndex == timelineIndex) &&
-                                (entriesView.model == model.entries)) {
+                                (entriesView.domain === model.domain)) {
                                 timeline.currentIndex = -1
                             } else {
                                 timeline.currentIndex = timelineIndex
+                                entriesView.domain = model.domain
                                 entriesView.model = model.entries
                             }
                         }
@@ -194,6 +195,8 @@ Item {
 
             ListView {
                 id: entriesView
+
+                property string domain: ""
 
                 anchors {
                     left: parent.left
