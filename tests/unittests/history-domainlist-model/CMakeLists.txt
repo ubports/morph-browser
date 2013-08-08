@@ -5,10 +5,9 @@ set(SOURCES
     ${webbrowser-plugin_SOURCE_DIR}/history-domainlist-model.cpp
     ${webbrowser-plugin_SOURCE_DIR}/history-model.cpp
     ${webbrowser-plugin_SOURCE_DIR}/history-timeframe-model.cpp
-    ${webbrowser-plugin_SOURCE_DIR}/webthumbnail-utils.cpp
     tst_HistoryDomainListModelTests.cpp
 )
 add_executable(${TEST} ${SOURCES})
 include_directories(${webbrowser-plugin_SOURCE_DIR})
-qt5_use_modules(${TEST} Core Gui Sql Test)
+qt5_use_modules(${TEST} Core Sql Test)
 add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -xunitxml -o ${TEST}.xml)
