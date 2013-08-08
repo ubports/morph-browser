@@ -45,6 +45,8 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     QQmlContext* context = engine->rootContext();
     context->setContextProperty("dataLocation", dataLocation.absolutePath());
 
+    // This singleton lives in its own thread to ensure that
+    // disk I/O is not performed in the UI thread.
     WebThumbnailUtils& utils = WebThumbnailUtils::instance();
     QThread* thumbnailUtilsThread = new QThread;
     utils.moveToThread(thumbnailUtilsThread);
