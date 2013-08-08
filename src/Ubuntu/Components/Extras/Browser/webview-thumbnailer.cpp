@@ -20,6 +20,7 @@
 #include "webview-thumbnailer.h"
 
 // Qt
+#include <QtCore/QMetaObject>
 #include <QtCore/QTimer>
 #include <QtQuick/private/qsgrenderer_p.h>
 #include <QtWebKit/private/qquickwebpage_p.h>
@@ -140,7 +141,8 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
 
     const QUrl& url = m_webview->url();
     QImage image = fbo.toImage().scaled(m_targetSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-    bool saved = WebThumbnailUtils::cacheThumbnail(url, image);
+    QMetaObject::invokeMethod(&WebThumbnailUtils::instance(), "cacheThumbnail",
+                              Q_ARG(QUrl, url), Q_ARG(QImage, image));
 
     root.removeChildNode(node);
 
@@ -152,9 +154,7 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
         }
     }
 
-    if (saved) {
-        Q_EMIT thumbnailRendered(url);
-    }
+    Q_EMIT thumbnailRendered(url);
 
     return oldNode;
 }

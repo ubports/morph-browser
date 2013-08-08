@@ -22,18 +22,30 @@
 // Qt
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
+#include <QtCore/QObject>
 
 class QImage;
 class QUrl;
 
-class WebThumbnailUtils
+class WebThumbnailUtils : public QObject
 {
+    Q_OBJECT
+
 public:
+    static WebThumbnailUtils& instance();
+    ~WebThumbnailUtils();
+
     static QDir cacheLocation();
     static void ensureCacheLocation();
     static QFileInfo thumbnailFile(const QUrl& url);
-    static bool cacheThumbnail(const QUrl& url, const QImage& thumbnail);
-    static void expireCache();
+
+public Q_SLOTS:
+    void cacheThumbnail(const QUrl& url, const QImage& thumbnail) const;
+
+private:
+    WebThumbnailUtils(QObject* parent=0);
+
+    void expireCache() const;
 };
 
 #endif // __WEBTHUMBNAIL_UTILS_H__

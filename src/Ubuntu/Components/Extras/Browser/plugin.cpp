@@ -26,11 +26,13 @@
 #include "tabs-model.h"
 #include "bookmarks-model.h"
 #include "webthumbnail-provider.h"
+#include "webthumbnail-utils.h"
 #include "webview-thumbnailer.h"
 
 // Qt
 #include <QtCore/QDir>
 #include <QtCore/QStandardPaths>
+#include <QtCore/QThread>
 #include <QtQml>
 
 void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
@@ -42,6 +44,11 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     }
     QQmlContext* context = engine->rootContext();
     context->setContextProperty("dataLocation", dataLocation.absolutePath());
+
+    WebThumbnailUtils& utils = WebThumbnailUtils::instance();
+    QThread* thumbnailUtilsThread = new QThread;
+    utils.moveToThread(thumbnailUtilsThread);
+    thumbnailUtilsThread->start();
 
     WebThumbnailProvider* thumbnailer = new WebThumbnailProvider;
     engine->addImageProvider(QLatin1String("webthumbnail"), thumbnailer);

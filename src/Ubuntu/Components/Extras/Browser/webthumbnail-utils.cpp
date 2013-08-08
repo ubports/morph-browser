@@ -28,6 +28,21 @@
 
 #define MAX_CACHE_SIZE_IN_BYTES 5 * 1024 * 1024 // 5MB
 
+WebThumbnailUtils::WebThumbnailUtils(QObject* parent)
+    : QObject(parent)
+{
+}
+
+WebThumbnailUtils& WebThumbnailUtils::instance()
+{
+    static WebThumbnailUtils utils;
+    return utils;
+}
+
+WebThumbnailUtils::~WebThumbnailUtils()
+{
+}
+
 QDir WebThumbnailUtils::cacheLocation()
 {
     return QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/thumbnails";
@@ -47,26 +62,26 @@ QFileInfo WebThumbnailUtils::thumbnailFile(const QUrl& url)
     return cacheLocation().absoluteFilePath(hash + ".png");
 }
 
-bool WebThumbnailUtils::cacheThumbnail(const QUrl& url, const QImage& thumbnail)
+void WebThumbnailUtils::cacheThumbnail(const QUrl& url, const QImage& thumbnail) const
 {
     ensureCacheLocation();
     QFileInfo file = thumbnailFile(url);
     bool saved = thumbnail.save(file.absoluteFilePath());
 
-    // Make a link to the thumbnail file for the corresponding domain’s thumbnail.
-    QUrl domain(DomainUtils::extractTopLevelDomainName(url));
-    QString domainThumbnail = WebThumbnailUtils::thumbnailFile(domain).absoluteFilePath();
-    if (QFile::exists(domainThumbnail)) {
-        QFile::remove(domainThumbnail);
+    if (saved) {
+        // Make a link to the thumbnail file for the corresponding domain’s thumbnail.
+        QUrl domain(DomainUtils::extractTopLevelDomainName(url));
+        QString domainThumbnail = WebThumbnailUtils::thumbnailFile(domain).absoluteFilePath();
+        if (QFile::exists(domainThumbnail)) {
+            QFile::remove(domainThumbnail);
+        }
+        QFile::link(file.fileName(), domainThumbnail);
     }
-    QFile::link(file.fileName(), domainThumbnail);
 
     expireCache();
-
-    return saved;
 }
 
-void WebThumbnailUtils::expireCache()
+void WebThumbnailUtils::expireCache() const
 {
     QDir cache = cacheLocation();
     if (!cache.exists()) {
