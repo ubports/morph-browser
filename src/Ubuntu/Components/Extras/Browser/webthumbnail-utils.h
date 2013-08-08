@@ -22,7 +22,9 @@
 // Qt
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
-#include <QtCore/QUrl>
+
+class QImage;
+class QUrl;
 
 class WebThumbnailUtils
 {
@@ -30,6 +32,7 @@ public:
     static QDir cacheLocation();
     static void ensureCacheLocation();
     static QFileInfo thumbnailFile(const QUrl& url);
+    static bool cacheThumbnail(const QUrl& url, const QImage& thumbnail);
 };
 
 #endif // __WEBTHUMBNAIL_UTILS_H__
