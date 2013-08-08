@@ -48,13 +48,15 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     // This singleton lives in its own thread to ensure that
     // disk I/O is not performed in the UI thread.
     WebThumbnailUtils& utils = WebThumbnailUtils::instance();
-    QThread* thumbnailUtilsThread = new QThread;
-    utils.moveToThread(thumbnailUtilsThread);
-    thumbnailUtilsThread->start();
+    m_thumbnailUtilsThread = new QThread;
+    utils.moveToThread(m_thumbnailUtilsThread);
+    m_thumbnailUtilsThread->start();
 
     WebThumbnailProvider* thumbnailer = new WebThumbnailProvider;
     engine->addImageProvider(QLatin1String("webthumbnail"), thumbnailer);
     context->setContextProperty("WebThumbnailer", thumbnailer);
+
+    connect(engine, SIGNAL(destroyed()), SLOT(onEngineDestroyed()));
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
@@ -69,4 +71,10 @@ void UbuntuBrowserPlugin::registerTypes(const char* uri)
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
     qmlRegisterType<WebviewThumbnailer>(uri, 0, 1, "WebviewThumbnailer");
+}
+
+void UbuntuBrowserPlugin::onEngineDestroyed()
+{
+    m_thumbnailUtilsThread->quit();
+    m_thumbnailUtilsThread->deleteLater();
 }
