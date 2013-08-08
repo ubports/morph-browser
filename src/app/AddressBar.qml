@@ -88,7 +88,7 @@ FocusScope {
             }
         }
 
-        inputMethodHints: Qt.ImhNoPredictiveText
+        inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
 
         focus: true
         highlighted: true
