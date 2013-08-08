@@ -21,10 +21,13 @@
 
 // Qt
 #include <QtCore/QCryptographicHash>
+#include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QStandardPaths>
 #include <QtCore/QUrl>
 #include <QtGui/QImage>
+
+#define MAX_CACHE_SIZE_IN_BYTES 5 * 1024 * 1024 // 5MB
 
 QDir WebThumbnailUtils::cacheLocation()
 {
@@ -59,5 +62,31 @@ bool WebThumbnailUtils::cacheThumbnail(const QUrl& url, const QImage& thumbnail)
     }
     QFile::link(file.fileName(), domainThumbnail);
 
+    expireCache();
+
     return saved;
+}
+
+void WebThumbnailUtils::expireCache()
+{
+    QDir cache = cacheLocation();
+    if (!cache.exists()) {
+        return;
+    }
+    QStringList nameFilters = QStringList() << "*.png";
+    QDir::Filters filters = QDir::Files | QDir::NoDotAndDotDot;
+    QDir::SortFlags sort = QDir::Time;
+    QFileInfoList entries = cache.entryInfoList(nameFilters, filters, sort);
+    qint64 currentSize = 0;
+    Q_FOREACH(const QFileInfo& entry, entries) {
+        currentSize += entry.size();
+    }
+    qint64 goal = MAX_CACHE_SIZE_IN_BYTES * 9 / 10;
+    while (!entries.isEmpty() && (currentSize > goal)) {
+        QFileInfo entry = entries.takeLast();
+        qint64 size = entry.size();
+        if (QFile::remove(entry.absoluteFilePath())) {
+            currentSize -= size;
+        }
+    }
 }

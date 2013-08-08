@@ -33,6 +33,7 @@ public:
     static void ensureCacheLocation();
     static QFileInfo thumbnailFile(const QUrl& url);
     static bool cacheThumbnail(const QUrl& url, const QImage& thumbnail);
+    static void expireCache();
 };
 
 #endif // __WEBTHUMBNAIL_UTILS_H__
