@@ -1,3 +1,21 @@
+webbrowser-app (0.22+13.10.20130808.1-0ubuntu1) saucy; urgency=low
+
+  [ Olivier Tilloy ]
+  * Factor out common code in HistoryDomainListModel.
+  * Cosmetics, for increased consistency across the code base.
+  * Generate a symbolic link to the latest thumbnail generated for a
+    given domain, and use it as thumbnail for this domain. (LP:
+    #1208450)
+  * Add a 'lastVisit' property to the HistoryDomainModel, update it
+    accordingly, and use it in the HistoryDomainListModel.
+  * Fix a crash that happened when collapsing a domain that had moved.
+    (LP: #1209129)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 275
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 08 Aug 2013 06:28:30 +0000
+
 webbrowser-app (0.22+13.10.20130806-0ubuntu1) saucy; urgency=low
 
   [ Alexandre Abreu ]
