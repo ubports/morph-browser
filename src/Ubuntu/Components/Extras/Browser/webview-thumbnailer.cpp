@@ -142,10 +142,9 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
     const QUrl& url = m_webview->url();
     QImage image = fbo.toImage().scaled(m_targetSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
 
-    // Since the WebThumbnailUtils instance lives in a separate thread,
-    // the method will be invoked asynchronously.
+    // Invoke the method asynchronously.
     QMetaObject::invokeMethod(&WebThumbnailUtils::instance(), "cacheThumbnail",
-                              Q_ARG(QUrl, url), Q_ARG(QImage, image));
+                              Qt::QueuedConnection, Q_ARG(QUrl, url), Q_ARG(QImage, image));
 
     root.removeChildNode(node);
 
