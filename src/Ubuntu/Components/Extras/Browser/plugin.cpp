@@ -76,5 +76,6 @@ void UbuntuBrowserPlugin::registerTypes(const char* uri)
 void UbuntuBrowserPlugin::onEngineDestroyed()
 {
     m_thumbnailUtilsThread->quit();
-    m_thumbnailUtilsThread->deleteLater();
+    m_thumbnailUtilsThread->wait();
+    delete m_thumbnailUtilsThread;
 }
