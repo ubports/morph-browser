@@ -1,3 +1,14 @@
+webbrowser-app (0.22+13.10.20130809-0ubuntu1) saucy; urgency=low
+
+  [ Thomas Moenicke ]
+  * adding Qt.ImhUrlCharactersOnly input method hint to browser url bar
+    .
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 277
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 09 Aug 2013 05:09:56 +0000
+
 webbrowser-app (0.22+13.10.20130808.1-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
