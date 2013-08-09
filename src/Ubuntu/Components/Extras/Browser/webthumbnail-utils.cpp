@@ -95,12 +95,14 @@ void WebThumbnailUtils::expireCache() const
     Q_FOREACH(const QFileInfo& entry, entries) {
         currentSize += entry.size();
     }
-    qint64 goal = MAX_CACHE_SIZE_IN_BYTES * 9 / 10;
-    while (!entries.isEmpty() && (currentSize > goal)) {
-        QFileInfo entry = entries.takeLast();
-        qint64 size = entry.size();
-        if (QFile::remove(entry.absoluteFilePath())) {
-            currentSize -= size;
+    if (currentSize > MAX_CACHE_SIZE_IN_BYTES) {
+        qint64 goal = MAX_CACHE_SIZE_IN_BYTES * 9 / 10;
+        while (!entries.isEmpty() && (currentSize > goal)) {
+            QFileInfo entry = entries.takeLast();
+            qint64 size = entry.size();
+            if (QFile::remove(entry.absoluteFilePath())) {
+                currentSize -= size;
+            }
         }
     }
 }
