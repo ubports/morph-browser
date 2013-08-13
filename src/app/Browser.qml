@@ -54,7 +54,7 @@ MainView {
             keywords: i18n.tr("Address;URL;www")
             parameterType: UnityActions.Action.String
             enabled: !isRunningAsANamedWebapp()
-            onTriggered: currentWebview.url = value
+            onTriggered: currentWebview.setUrl(value)
         },
         UnityActions.Action {
             text: i18n.tr("Back")
@@ -124,7 +124,7 @@ MainView {
         id: internal
 
         function onHistoryEntryRequested(url) {
-            currentWebview.url = url
+            currentWebview.setUrl(url)
             toggleActivityView()
         }
 
@@ -146,7 +146,7 @@ MainView {
         }
 
         function onBookmarkRequested(url) {
-            currentWebview.url = url
+            currentWebview.setUrl(url)
             toggleActivityView()
         }
     }
@@ -217,7 +217,7 @@ MainView {
                     canGoForward: currentWebview ? currentWebview.canGoForward : false
                     onGoForwardClicked: currentWebview.goForward()
 
-                    onUrlValidated: currentWebview.url = url
+                    onUrlValidated: currentWebview.setUrl(url)
 
                     property bool stopped: false
                     onLoadingChanged: {
@@ -264,7 +264,7 @@ MainView {
         height: Math.min(contentHeight, panel.y - units.gu(2))
         model: historyMatches
         onSelected: {
-            currentWebview.url = url
+            currentWebview.setUrl(url)
             currentWebview.forceActiveFocus()
         }
     }
@@ -399,7 +399,8 @@ MainView {
     }
 
     function newTab(url, setCurrent) {
-        var webview = webviewComponent.createObject(webviewContainer, {"url": url})
+        var webview = webviewComponent.createObject(webviewContainer)
+        webview.setUrl(url)
         var index = tabsModel.add(webview)
         if (setCurrent) {
             tabsModel.currentIndex = index
