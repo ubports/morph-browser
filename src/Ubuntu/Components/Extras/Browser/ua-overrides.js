@@ -31,4 +31,11 @@
 //     "example.com": ["Ubuntu", "Ubuntu Edge"]
 //     "google.com": [/mobi/i, "b"]
 var overrides = {
+    "google.com": ["Mobile", "Android; Mobile"],
+    "youtube.com": ["Mobile", "Android; Mobile"],
+    "yahoo.com": ["Mobile", "Android; Mobile"],
+    "baidu.com": ["Mobile", "Android; Mobile"],
+    "qq.com": [/WebKit\/[.0-9]*/, "Apple$& Mobile"],
+    "amazon.com": ["Mobile", "Android; Mobile"],
+    "linkedin.com": ["Mobile", "Android; Mobile"],
 };
