@@ -26,10 +26,16 @@
 // containing two values that are passed to the String.replace method (the
 // first value may be either a string or a regular expression, the second value
 // must be a string).
+
 // Examples of valid entries:
 //     "example.org": "full override"
 //     "example.com": ["Ubuntu", "Ubuntu Edge"]
 //     "google.com": [/mobi/i, "b"]
+
+// The original list was initially built from the top 100 entries
+// at http://www.alexa.com/topsites (2013-08-16), using Chrome on
+// Android as a reference.
+
 var overrides = {
     "google.com": ["Mobile", "Android; Mobile"],
     "youtube.com": ["Mobile", "Android; Mobile"],
