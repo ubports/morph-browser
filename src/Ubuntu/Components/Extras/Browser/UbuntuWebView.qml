@@ -47,9 +47,9 @@ WebView {
         id: userAgent
     }
     experimental.userAgent: userAgent.defaultUA
-    function setUrl(url) {
-        _webview.experimental.userAgent = userAgent.getUAString(url)
-        _webview.url = url
+    onNavigationRequested: {
+        _webview.experimental.userAgent = userAgent.getUAString(request.url)
+        request.action = WebView.AcceptRequest
     }
 
     experimental.preferences.navigatorQtObjectEnabled: true
