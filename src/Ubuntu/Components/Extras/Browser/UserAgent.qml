@@ -27,6 +27,7 @@ import "ua-overrides.js" as Overrides
  *   https://developer.mozilla.org/en-US/docs/Gecko_user_agent_string_reference
  *   https://wiki.mozilla.org/B2G/User_Agent
  *   https://github.com/mozilla-b2g/gaia/blob/master/build/ua-override-prefs.js
+ *   https://developers.google.com/chrome/mobile/docs/user-agent
  */
 
 // This is an Item, not a QtObject, because it needs information about the Screen.
