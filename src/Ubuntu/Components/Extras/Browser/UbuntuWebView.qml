@@ -41,8 +41,6 @@ WebView {
 
     property real scale: experimental.test.contentsScale * experimental.test.devicePixelRatio
 
-    // XXX: (known limitation) this UA string override mechanism works only when
-    // requesting a top-level page, not with iframes and XMLHttpRequest.
     UserAgent {
         id: userAgent
     }
