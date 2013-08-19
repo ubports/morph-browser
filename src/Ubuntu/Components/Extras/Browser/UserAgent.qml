@@ -49,8 +49,7 @@ Item {
 
     property var overrides: Overrides.overrides
 
-    function getUAString(url) {
-        var ua = defaultUA
+    function getDomain(url) {
         var domain = url.toString()
         var indexOfScheme = domain.indexOf("://")
         if (indexOfScheme !== -1) {
@@ -60,6 +59,12 @@ Item {
         if (indexOfPath !== -1) {
             domain = domain.slice(0, indexOfPath)
         }
+        return domain
+    }
+
+    function getUAString(url) {
+        var ua = defaultUA
+        var domain = getDomain(url)
         for (var override in overrides) {
             if (domain.indexOf(override, domain.length - override.length) !== -1) {
                 var form = overrides[override]

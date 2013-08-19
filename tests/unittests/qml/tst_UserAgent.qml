@@ -23,13 +23,28 @@ import "undertest"
 TestCase {
     name: "UserAgent"
 
+    function test_get_domain() {
+        compare(userAgent.getDomain("http://ubuntu.com"), "ubuntu.com")
+        compare(userAgent.getDomain("http://www.ubuntu.com"), "www.ubuntu.com")
+        compare(userAgent.getDomain("http://ubuntu.com/"), "ubuntu.com")
+        compare(userAgent.getDomain("http://www.ubuntu.com/"), "www.ubuntu.com")
+        compare(userAgent.getDomain("ubuntu.com"), "ubuntu.com")
+        compare(userAgent.getDomain("ubuntu.com/"), "ubuntu.com")
+        compare(userAgent.getDomain("ubuntu.com/phone"), "ubuntu.com")
+        compare(userAgent.getDomain("http://ubuntu.com/phone"), "ubuntu.com")
+        compare(userAgent.getDomain("www.ubuntu.com/phone"), "www.ubuntu.com")
+        compare(userAgent.getDomain("http://ubuntu.com/phone/index.html"), "ubuntu.com")
+        compare(userAgent.getDomain("ubuntu.com/phone/index.html"), "ubuntu.com")
+        compare(userAgent.getDomain("www.ubuntu.com/phone/index.html"), "www.ubuntu.com")
+        compare(userAgent.getDomain("http://ubuntu.com/phone/index.html?foo=bar&baz=bleh"), "ubuntu.com")
+    }
+
     function test_ua_unmodified() {
         compare(userAgent.getUAString("http://ubuntu.com"), userAgent.defaultUA)
     }
 
     function test_ua_full_override() {
-        compare(userAgent.getUAString("example.org"),
-                "full override")
+        compare(userAgent.getUAString("http://example.org"), "full override")
     }
 
     function test_ua_string_replace() {
