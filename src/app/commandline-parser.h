@@ -45,6 +45,8 @@ public:
     bool webapp() const;
     QString webappName() const;
 
+    bool maximized() const;
+
     QString appId() const;
 
 private:
@@ -54,6 +56,7 @@ private:
     QUrl m_url;
     bool m_remoteInspector;
     bool m_webapp;
+    bool m_maximized;
     QString m_webappName;
     QString m_appid;
 };
