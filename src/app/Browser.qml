@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import QtWebKit 3.0
+import QtWebKit 3.1
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
@@ -329,6 +329,7 @@ MainView {
             id: webappsComponent
 
             UnityWebApps.UnityWebApps {
+                id: webapps
                 name: browser.webappName
                 bindee: tabsModel.currentWebview
                 actionsContext: unityActionsWebappsAdaptor
@@ -381,6 +382,21 @@ MainView {
                 }
             }
 
+            onNavigationRequested: {
+                //TODO -> push to funct
+                if ( ! isRunningAsANamedWebapp() || ! webapps.model)
+                    return;
+
+                if ( ! webapps.model.exists(webapps.name))
+                    return;
+
+                var url = request.url + ' ';
+                if ( ! webapps.model.doesUrlMatchesWebapp(webapps.name, url) && request.isMainFrame) {
+                    request.action = WebView.IgnoreRequest;
+                    Qt.openUrlExternally(url);
+                }
+            }
+
             onNewTabRequested: browser.newTab(url, true)
 
             // Small shim needed when running as a webapp to wire-up connections
@@ -389,7 +405,8 @@ MainView {
             // component as a way to bind to a webview lookalike without
             // reaching out directly to its internals (see it as an interface).
             function getUnityWebappsProxies() {
-                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview)
+                var handlers = {};
+                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview, handlers)
             }
         }
     }
