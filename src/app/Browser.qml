@@ -383,7 +383,6 @@ MainView {
             }
 
             onNavigationRequested: {
-                //TODO -> push to funct
                 if ( ! isRunningAsANamedWebapp() || ! webapps.model)
                     return;
 
