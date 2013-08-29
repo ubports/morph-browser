@@ -12,6 +12,7 @@ import os.path
 import random
 import sqlite3
 import time
+import unittest
 
 from testtools.matchers import Contains, Equals
 from autopilot.matchers import Eventually
@@ -115,6 +116,8 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.pointing_device.click()
         self.assert_suggestions_eventually_hidden()
 
+    @unittest.skip("the chrome cannot be dismissed when the swipe gesture "
+                   "is initiated over the address bar")
     def test_hiding_chrome_dismisses_suggestions(self):
         self.assert_chrome_eventually_hidden()
         self.main_window.open_toolbar()
