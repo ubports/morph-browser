@@ -21,7 +21,9 @@ from autopilot.testcase import AutopilotTestCase
 
 import http_server
 
-from webbrowser_app.emulators.main_window import MainWindow
+from ubuntuuitoolkit.emulators import UbuntuUIToolkitEmulatorBase
+
+from webbrowser_app.emulators.browser import Browser
 
 
 HTTP_SERVER_PORT = 8129
@@ -52,10 +54,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.launch_test_local()
         else:
             self.launch_test_installed()
-        # This is needed to wait for the application to start.
-        # In the testfarm, the application may take some time to show up.
-        self.assertThat(self.main_window.get_qml_view().visible,
-                        Eventually(Equals(True)))
+        self.main_window.visible.wait_for(True)
 
     def tearDown(self):
         super(BrowserTestCaseBase, self).tearDown()
@@ -67,20 +66,25 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self._temp_pages = []
 
     def launch_test_local(self):
-        self.app = self.launch_test_application(self.local_location,
-                                                *self.ARGS)
+        self.app = self.launch_test_application(
+            self.local_location,
+            *self.ARGS,
+            emulator_base=UbuntuUIToolkitEmulatorBase)
 
     def launch_test_installed(self):
         if model() == 'Desktop':
-            self.app = self.launch_test_application("webbrowser-app",
-                                                    *self.ARGS)
+            self.app = self.launch_test_application(
+                "webbrowser-app",
+                *self.ARGS,
+                emulator_base=UbuntuUIToolkitEmulatorBase)
         else:
             self.app = self.launch_test_application(
                 "webbrowser-app",
                 "--fullscreen",
                 self.d_f,
                 *self.ARGS,
-                app_type='qt')
+                app_type='qt',
+                emulator_base=UbuntuUIToolkitEmulatorBase)
 
     def clear_cache(self):
         cachedir = os.path.join(os.path.expanduser("~"), ".local", "share",
@@ -90,7 +94,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
     @property
     def main_window(self):
-        return MainWindow(self.app)
+        return self.app.select_single(Browser)
 
     def make_raw_html_page(self, html):
         fd, path = tempfile.mkstemp(suffix=".html", text=True)
@@ -120,27 +124,15 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.assertThat(keyboardRectangle.state,
                             Eventually(Equals("hidden")))
 
-    def reveal_chrome(self):
-        panel = self.main_window.get_panel()
-        x, y, w, h = panel.globalRect
-        tx = int(x + (w / 2))
-        ty = int(y + (h - h / 8))
-        self.pointing_device.drag(tx, ty, tx, ty - h)
-        self.assertThat(panel.animating, Eventually(Equals(False)))
-        self.assertThat(panel.state, Eventually(Equals("spread")))
-
-    def hide_chrome(self):
-        panel = self.main_window.get_panel()
-        x, y, w, h = panel.globalRect
-        tx = int(x + (w / 2))
-        ty = int(y + (h / 8))
-        self.pointing_device.drag(tx, ty, tx, ty + h)
-        self.assert_chrome_eventually_hidden()
+    def assert_chrome_eventually_shown(self):
+        toolbar = self.main_window.get_toolbar()
+        self.assertThat(toolbar.opened, Eventually(Equals(True)))
+        self.assertThat(toolbar.animating, Eventually(Equals(False)))
 
     def assert_chrome_eventually_hidden(self):
-        panel = self.main_window.get_panel()
-        self.assertThat(panel.animating, Eventually(Equals(False)))
-        self.assertThat(panel.state, Eventually(Equals("")))
+        toolbar = self.main_window.get_toolbar()
+        self.assertThat(toolbar.opened, Eventually(Equals(False)))
+        self.assertThat(toolbar.animating, Eventually(Equals(False)))
 
     def ensure_chrome_is_hidden(self):
         webview = self.main_window.get_current_webview()
@@ -162,12 +154,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(text_field.text, Eventually(Equals("")))
 
-    def assert_chrome_eventually_shown(self):
-        x, y, w, h = self.main_window.get_current_webview().globalRect
-        chrome = self.main_window.get_chrome()
-        self.assertThat(lambda: chrome.globalRect[1],
-                        Eventually(Equals(y + h - chrome.height)))
-
     def type_in_address_bar(self, text):
         address_bar = self.main_window.get_address_bar()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
@@ -177,7 +163,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
     def go_to_url(self, url):
         self.ensure_chrome_is_hidden()
-        self.reveal_chrome()
+        self.main_window.open_toolbar()
         self.clear_address_bar()
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")

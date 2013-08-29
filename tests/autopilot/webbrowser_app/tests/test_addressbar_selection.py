@@ -22,7 +22,7 @@ class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
 
     def test_click_to_select(self):
         self.assert_chrome_eventually_hidden()
-        self.reveal_chrome()
+        self.main_window.open_toolbar()
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.click_object(address_bar)
         text_field = self.main_window.get_address_bar_text_field()
@@ -31,7 +31,7 @@ class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
 
     def test_click_on_action_button(self):
         self.assert_chrome_eventually_hidden()
-        self.reveal_chrome()
+        self.main_window.open_toolbar()
         action_button = self.main_window.get_address_bar_action_button()
         self.pointing_device.click_object(action_button)
         text_field = self.main_window.get_address_bar_text_field()
@@ -39,7 +39,7 @@ class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
 
     def test_second_click_deselect_text(self):
         self.assert_chrome_eventually_hidden()
-        self.reveal_chrome()
+        self.main_window.open_toolbar()
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.click_object(address_bar)
         # avoid double click
@@ -52,7 +52,7 @@ class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
 
     def test_double_click_select_word(self):
         self.assert_chrome_eventually_hidden()
-        self.reveal_chrome()
+        self.main_window.open_toolbar()
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.click_object(address_bar)
         self.pointing_device.click()

@@ -75,6 +75,7 @@ Architecture: all
 Depends: ${misc:Depends},
          libautopilot-qt,
          libqt5test5,
+         ubuntu-ui-toolkit-autopilot,
          webbrowser-app (>= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering

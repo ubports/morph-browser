@@ -18,7 +18,7 @@ class TestMainWindowAddressBarActionButton(StartOpenRemotePageTestCaseBase):
 
     def test_button_disabled_when_text_is_empty(self):
         self.assert_chrome_eventually_hidden()
-        self.reveal_chrome()
+        self.main_window.open_toolbar()
         self.clear_address_bar()
         action_button = self.main_window.get_address_bar_action_button()
         self.assertThat(action_button.enabled, Eventually(Equals(False)))
