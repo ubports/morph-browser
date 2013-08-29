@@ -23,9 +23,7 @@ class TestBackForward(StartOpenLocalPageTestCaseBase):
 
     def click_back_button(self):
         self.ensure_chrome_is_hidden()
-        self.reveal_chrome()
-        back_button = self.main_window.get_back_button()
-        self.pointing_device.click_object(back_button)
+        self.main_window.open_toolbar().click_button("backButton")
 
     def test_homepage_no_history(self):
         back_button = self.main_window.get_back_button()

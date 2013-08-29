@@ -5,31 +5,32 @@
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
+from ubuntuuitoolkit import emulators as uitk
 
-class MainWindow(object):
+
+class Panel(uitk.Toolbar):
+    pass
+
+
+class Browser(uitk.MainView):
+
     """
     An emulator class that makes it easy to interact with the webbrowser app.
     """
 
-    def __init__(self, app):
-        self.app = app
-
-    def get_qml_view(self):
-        """Get the main QML view"""
-        return self.app.select_single("QQuickWindow")
-
-    def get_browser(self):
-        return self.app.select_single("Browser")
+    def get_toolbar(self):
+        # Overridden since the browser doesn’t use the MainView’s Toolbar.
+        return self.select_single(Panel)
 
     def get_keyboard_rectangle(self):
-        return self.app.select_single("KeyboardRectangle")
+        return self.select_single("KeyboardRectangle")
 
     def get_chrome(self):
-        return self.app.select_single("Chrome")
+        return self.select_single("Chrome")
 
     def get_address_bar(self):
         """Get the browsers address bar"""
-        return self.app.select_single("AddressBar", objectName="addressBar")
+        return self.select_single("AddressBar", objectName="addressBar")
 
     def get_address_bar_clear_button(self):
         textfield = self.get_address_bar_text_field()
@@ -41,28 +42,23 @@ class MainWindow(object):
                                        objectName="actionButton")
 
     def get_back_button(self):
-        return self.app.select_single("ActionItem", objectName="backButton")
+        return self.select_single("ActionItem", objectName="backButton")
 
     def get_forward_button(self):
-        return self.app.select_single("ActionItem", objectName="forwardButton")
-
-    def get_activity_button(self):
-        return self.app.select_single("ActionItem",
-                                      objectName="activityButton")
+        return self.select_single("ActionItem", objectName="forwardButton")
 
     def get_current_webview(self):
-        browser = self.get_browser()
-        webviews = self.app.select_many("UbuntuWebView")
-        return webviews[browser.currentIndex]
+        webviews = self.select_many("UbuntuWebView")
+        return webviews[self.currentIndex]
 
     def get_error_sheet(self):
-        return self.app.select_single("ErrorSheet")
+        return self.select_single("ErrorSheet")
 
     def get_address_bar_text_field(self):
         return self.get_address_bar().get_children_by_type("TextField")[0]
 
     def get_address_bar_suggestions(self):
-        return self.app.select_single("Suggestions")
+        return self.select_single("Suggestions")
 
     def get_address_bar_suggestions_listview(self):
         suggestions = self.get_address_bar_suggestions()
@@ -72,11 +68,8 @@ class MainWindow(object):
         listview = self.get_address_bar_suggestions_listview()
         return listview.get_children()[0].get_children_by_type("Base")
 
-    def get_panel(self):
-        return self.app.select_single("Panel")
-
     def get_activity_view(self):
-        return self.app.select_single("ActivityView")
+        return self.select_single("ActivityView")
 
     def get_tabslist(self):
         return self.get_activity_view().select_single("TabsList")
