@@ -18,8 +18,10 @@
 
 import QtQuick 2.0
 import QtWebKit 3.0
+import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
+import Ubuntu.Components.Popups 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 
@@ -337,6 +339,18 @@ MainView {
                     text: i18n.tr("Copy")
                     onTriggered: selection.copy()
                 }
+            }
+
+            experimental.onPermissionRequested: {
+                if (permission.type == PermissionRequest.Geolocation) {
+                    var text = i18n.tr("This page wants to know your device’s location.")
+                    PopupUtils.open(Qt.resolvedUrl("PermissionRequest.qml"),
+                                    browser.currentWebview,
+                                    {"permission": permission, "text": text})
+                }
+                // TODO: handle other types of permission requests
+                // TODO: we might want to store the answer to avoid requesting
+                //       the permission everytime the user visits this site.
             }
 
             property int lastLoadRequestStatus: -1
