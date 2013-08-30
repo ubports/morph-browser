@@ -288,40 +288,6 @@ MainView {
         id: tabsModel
     }
 
-
-    /*
-      The webapps component below expects its actionsContext to be something
-      that looks like a UnityActions.Context, i.e. with the capability to add
-      and remove actions:
-
-          void addAction(UnityActions.Actions action)
-          void removeAction(UnityActions.Actions action)
-
-      As we’re using a MainView, the underlying actions are abstracted away.
-     */
-    QtObject {
-        id: unityActionsWebappsAdaptor
-
-        /*
-          Not implemented until MainView offers a way to properly access the actions
-          at runtime & dynamically:
-
-          See https://bugs.launchpad.net/ubuntu-ui-toolkit/+bug/1207804
-         */
-        function removeAction(action) {
-            console.debug('Runtime action removed')
-        }
-        /*
-          Not implemented until MainView offers a way to properly access the actions
-          at runtime & dynamically:
-
-          See https://bugs.launchpad.net/ubuntu-ui-toolkit/+bug/1207804
-         */
-        function addAction(action) {
-            console.debug('Runtime action added')
-        }
-    }
-
     Loader {
         sourceComponent: (browser.webapp && tabsModel.currentIndex > -1) ? webappsComponent : undefined
 
@@ -331,7 +297,7 @@ MainView {
             UnityWebApps.UnityWebApps {
                 name: browser.webappName
                 bindee: tabsModel.currentWebview
-                actionsContext: unityActionsWebappsAdaptor
+                actionsContext: browser.actionManager.globalContext
                 model: UnityWebApps.UnityWebappsAppModel {}
             }
         }
