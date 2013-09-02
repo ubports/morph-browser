@@ -177,7 +177,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Eventually(Equals(url)))
         # loadProgress == 100 ensures that a page has actually loaded
-        self.assertThat(webview.loadProgress, Eventually(Equals(100)))
+        self.assertThat(webview.loadProgress,
+                        Eventually(Equals(100), timeout=20))
         self.assertThat(webview.loading, Eventually(Equals(False)))
 
 
