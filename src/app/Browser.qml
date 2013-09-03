@@ -18,8 +18,10 @@
 
 import QtQuick 2.0
 import QtWebKit 3.1
+import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
+import Ubuntu.Components.Popups 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 
@@ -290,40 +292,6 @@ MainView {
         id: tabsModel
     }
 
-
-    /*
-      The webapps component below expects its actionsContext to be something
-      that looks like a UnityActions.Context, i.e. with the capability to add
-      and remove actions:
-
-          void addAction(UnityActions.Actions action)
-          void removeAction(UnityActions.Actions action)
-
-      As we’re using a MainView, the underlying actions are abstracted away.
-     */
-    QtObject {
-        id: unityActionsWebappsAdaptor
-
-        /*
-          Not implemented until MainView offers a way to properly access the actions
-          at runtime & dynamically:
-
-          See https://bugs.launchpad.net/ubuntu-ui-toolkit/+bug/1207804
-         */
-        function removeAction(action) {
-            console.debug('Runtime action removed')
-        }
-        /*
-          Not implemented until MainView offers a way to properly access the actions
-          at runtime & dynamically:
-
-          See https://bugs.launchpad.net/ubuntu-ui-toolkit/+bug/1207804
-         */
-        function addAction(action) {
-            console.debug('Runtime action added')
-        }
-    }
-
     Loader {
         sourceComponent: (browser.webapp && tabsModel.currentIndex > -1) ? webappsComponent : undefined
 
@@ -334,7 +302,7 @@ MainView {
                 id: webapps
                 name: browser.webappName
                 bindee: tabsModel.currentWebview
-                actionsContext: unityActionsWebappsAdaptor
+                actionsContext: browser.actionManager.globalContext
                 model: UnityWebApps.UnityWebappsAppModel {}
             }
         }
@@ -374,6 +342,18 @@ MainView {
                     text: i18n.tr("Copy")
                     onTriggered: selection.copy()
                 }
+            }
+
+            experimental.onPermissionRequested: {
+                if (permission.type == PermissionRequest.Geolocation) {
+                    var text = i18n.tr("This page wants to know your device’s location.")
+                    PopupUtils.open(Qt.resolvedUrl("PermissionRequest.qml"),
+                                    browser.currentWebview,
+                                    {"permission": permission, "text": text})
+                }
+                // TODO: handle other types of permission requests
+                // TODO: we might want to store the answer to avoid requesting
+                //       the permission everytime the user visits this site.
             }
 
             property int lastLoadRequestStatus: -1

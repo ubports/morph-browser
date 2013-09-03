@@ -29,9 +29,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
 
     def ensure_activity_view_visible(self):
         self.ensure_chrome_is_hidden()
-        self.reveal_chrome()
-        tabs_button = self.main_window.get_activity_button()
-        self.pointing_device.click_object(tabs_button)
+        self.main_window.open_toolbar().click_button("activityButton")
         self.assert_activity_view_eventually_visible()
 
     def open_new_tab(self):
@@ -76,19 +74,16 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
 
     def test_toggle_activity_view(self):
         self.assertIsNone(self.main_window.get_activity_view())
-        tabs_button = self.main_window.get_activity_button()
         self.ensure_activity_view_visible()
         self.assert_chrome_eventually_hidden()
-        self.reveal_chrome()
-        self.pointing_device.click_object(tabs_button)
+        self.main_window.open_toolbar().click_button("activityButton")
         self.assert_activity_view_eventually_hidden()
 
     def test_open_new_tab(self):
         self.ensure_activity_view_visible()
-        browser = self.main_window.get_browser()
-        self.assertThat(browser.currentIndex, Equals(0))
+        self.assertThat(self.main_window.currentIndex, Equals(0))
         self.open_new_tab()
-        self.assertThat(browser.currentIndex, Eventually(Equals(1)))
+        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
 
     def test_switch_tabs(self):
         self.ensure_activity_view_visible()
@@ -105,8 +100,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         view = self.main_window.get_tabslist_view()
         self.assertThat(view.currentIndex, Equals(1))
         self.pointing_device.click_object(tabs[0])
-        browser = self.main_window.get_browser()
-        self.assertThat(browser.currentIndex, Eventually(Equals(0)))
+        self.assertThat(self.main_window.currentIndex, Eventually(Equals(0)))
         self.assert_current_url(self.url)
         self.assert_activity_view_eventually_hidden()
         self.assert_chrome_eventually_hidden()
@@ -114,7 +108,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.ensure_activity_view_visible()
         tabs = self.main_window.get_tabslist_view_delegates()
         self.pointing_device.click_object(tabs[1])
-        self.assertThat(browser.currentIndex, Eventually(Equals(1)))
+        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
         self.assert_current_url(url)
         self.assert_activity_view_eventually_hidden()
         self.assert_chrome_eventually_hidden()
@@ -144,8 +138,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.toggle_close_tab_mode()
         tab = self.main_window.get_tabslist_view_delegates()[0]
         self.pointing_device.click_object(tab)
-        browser = self.main_window.get_browser()
-        self.assertThat(browser.currentIndex, Eventually(Equals(0)))
+        self.assertThat(self.main_window.currentIndex, Eventually(Equals(0)))
         self.assert_activity_view_eventually_hidden()
         self.assert_osk_eventually_shown()
         self.assert_chrome_eventually_shown()
@@ -158,8 +151,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
-        browser = self.main_window.get_browser()
-        self.assertThat(browser.currentIndex, Eventually(Equals(1)))
+        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
         self.assert_current_url(self.base_url + "/aleaiactaest")
 
     def test_open_iframe_target_blank_in_new_tab(self):
@@ -168,8 +160,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
-        browser = self.main_window.get_browser()
-        self.assertThat(browser.currentIndex, Eventually(Equals(1)))
+        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
         self.assert_current_url(self.base_url + "/aleaiactaest")
 
     def test_error_only_for_current_tab(self):

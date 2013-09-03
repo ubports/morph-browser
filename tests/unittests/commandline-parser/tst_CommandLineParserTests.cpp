@@ -184,14 +184,14 @@ private Q_SLOTS:
         QTest::addColumn<QStringList>("args");
         QTest::addColumn<bool>("webapp");
         QTest::addColumn<QString>("webappName");
+
         QString BINARY("webbrowser-app");
-        QString WEBAPPNAME("MyWebApp");
-        QString WEIRD_WEBAPPNAME("My Web App: Hi All!");
-        QString ESCAPED_WEBAPPNAME(QUrl::toPercentEncoding(WEIRD_WEBAPPNAME));
+        QString WEBAPPNAME("My Web App: Hi All!");
+        QString ESCAPED_WEBAPPNAME(WEBAPPNAME.toUtf8().toBase64());
+
         QTest::newRow("no switch") << (QStringList() << BINARY) << false << QString();
         QTest::newRow("switch only") << (QStringList() << BINARY << "--webapp") << true << QString();
-        QTest::newRow("switch and webapp name") << (QStringList() << BINARY << "--webapp=" + WEBAPPNAME) << true << WEBAPPNAME;
-        QTest::newRow("switch and escaped webapp name") << (QStringList() << BINARY << "--webapp=" + ESCAPED_WEBAPPNAME) << true << WEIRD_WEBAPPNAME;
+        QTest::newRow("switch and webapp name") << (QStringList() << BINARY << "--webapp=" + ESCAPED_WEBAPPNAME) << true << WEBAPPNAME;
         QTest::newRow("switch and escaped webapp name with typo") << (QStringList() << BINARY << "--webdapp=" + ESCAPED_WEBAPPNAME) << false << QString();
         QTest::newRow("switch uppercase") << (QStringList() << BINARY << "--WEBAPP") << false << QString();
     }

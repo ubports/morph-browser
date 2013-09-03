@@ -23,5 +23,5 @@ class TestWindowTitle(StartOpenRemotePageTestCaseBase):
         body = "<p>Lorem ipsum dolor sit amet.</p>"
         url = self.make_html_page(title, body)
         self.go_to_url(url)
-        window = self.main_window.get_qml_view()
+        window = self.app.select_single("QQuickWindow")
         self.assertThat(window.title, Eventually(Contains(title)))
