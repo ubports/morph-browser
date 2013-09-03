@@ -213,7 +213,7 @@ private Q_SLOTS:
         QString BINARY("webbrowser-app");
 
         QString CHROME_BACK_FORWARD("back-forward");
-        QString CHROME_RELOAD("reload");
+        QString CHROME_ACTIVIY("activity");
         QString CHROME_ADDRESS_BAR("addressbar");
 
         QTest::newRow("no switch") << (QStringList() << BINARY)
@@ -229,7 +229,7 @@ private Q_SLOTS:
                 << static_cast<int>(CommandLineParser::BACK_FORWARD_BUTTONS);
 
         QTest::newRow("switch and multiple trimmed chromes")
-                << (QStringList() << BINARY << (QString("--chrome=") + CHROME_BACK_FORWARD + " ; " + CHROME_RELOAD + " ;  ; " + CHROME_ADDRESS_BAR))
+                << (QStringList() << BINARY << (QString("--chrome=") + CHROME_BACK_FORWARD + " ; " + CHROME_ACTIVIY + " ;  ; " + CHROME_ADDRESS_BAR))
                 << static_cast<int>(CommandLineParser::BACK_FORWARD_BUTTONS
                                     | CommandLineParser::ACTIVITY_BUTTON
                                     | CommandLineParser::ADDRESS_BAR);
