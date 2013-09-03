@@ -41,11 +41,18 @@ WebView {
 
     property real scale: experimental.test.contentsScale * experimental.test.devicePixelRatio
 
+    property var onNavigationRequestedDelegate: null
     UserAgent {
         id: userAgent
     }
     experimental.userAgent: userAgent.defaultUA
     onNavigationRequested: {
+        if (onNavigationRequestedDelegate && typeof(onNavigationRequestedDelegate) == 'function') {
+            onNavigationRequestedDelegate (request);
+            if (request.action === WebView.IgnoreRequest)
+                return;
+        }
+
         _webview.experimental.userAgent = userAgent.getUAString(request.url)
         request.action = WebView.AcceptRequest
     }

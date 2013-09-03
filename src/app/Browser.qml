@@ -364,7 +364,7 @@ MainView {
                 }
             }
 
-            onNavigationRequested: {
+            onNavigationRequestedDelegate: function (request) {
                 if (! request.isMainFrame) {
                     request.action = WebView.AcceptRequest;
                     return;
