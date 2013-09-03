@@ -204,6 +204,37 @@ private Q_SLOTS:
         QCOMPARE(CommandLineParser(args).webapp(), webapp);
         QCOMPARE(CommandLineParser(args).webappName(), webappName);
     }
+
+    void shouldUseIncludes_data()
+    {
+        QTest::addColumn<QStringList>("args");
+        QTest::addColumn<QStringList>("patterns");
+
+        QString BINARY("webbrowser-app");
+        QString INCLUDE_PATTERN("http://www.ubuntu.*/*");
+        QString INCLUDE_PATTERN2("http://www.bbc.*/*");
+
+        QTest::newRow("no switch") << (QStringList() << BINARY) << QStringList();
+
+        QTest::newRow("switch only") << (QStringList() << BINARY << "--includes") << QStringList();
+        QTest::newRow("empty switch") << (QStringList() << BINARY << "--includes=") << QStringList();
+
+        QTest::newRow("switch and one pattern")
+                << (QStringList() << BINARY << (QString("--includes=") + INCLUDE_PATTERN))
+                << (QStringList() << INCLUDE_PATTERN);
+
+        QTest::newRow("switch and multiple trimmed pattern")
+                << (QStringList() << BINARY << (QString("--includes=") + INCLUDE_PATTERN + " ; " + INCLUDE_PATTERN2 + " ;  "))
+                << (QStringList() << INCLUDE_PATTERN << INCLUDE_PATTERN2);
+    }
+
+    void shouldUseIncludes()
+    {
+        QFETCH(QStringList, args);
+        QFETCH(QStringList, patterns);
+
+        QCOMPARE(CommandLineParser(args).includes(), patterns);
+    }
 };
 
 QTEST_MAIN(CommandLineParserTests)

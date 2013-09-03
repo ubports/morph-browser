@@ -30,6 +30,8 @@ MainView {
     property real qtwebkitdpr
     property bool developerExtrasEnabled: false
 
+    property var urlIncludesPatterns: null
+
     property bool webapp: false
     property string webappName: ""
 
@@ -383,15 +385,35 @@ MainView {
             }
 
             onNavigationRequested: {
-                if ( ! isRunningAsANamedWebapp() || ! webapps.model)
+                if (! request.isMainFrame) {
+                    request.action = WebView.AcceptRequest;
                     return;
+                }
 
-                if ( ! webapps.model.exists(webapps.name))
-                    return;
-
+                var action = WebView.AcceptRequest;
                 var url = request.url + ' ';
-                if ( ! webapps.model.doesUrlMatchesWebapp(webapps.name, url) && request.isMainFrame) {
-                    request.action = WebView.IgnoreRequest;
+
+                // The list of url patterns defined by the webapp takes precedence over command line
+                if (webapp && isRunningAsANamedWebapp() && webapps.model && webapps.model.exists(webapps.name)) {
+                    if ( ! webapps.model.doesUrlMatchesWebapp(webapps.name, url)) {
+                        action = WebView.IgnoreRequest;
+                    }
+                }
+                else if (browser.urlIncludesPatterns && browser.urlIncludesPatterns.length !== 0) {
+                    var matched = false;
+                    for (var i = 0; i < browser.urlIncludesPatterns.length; ++i) {
+                        var pattern = browser.urlIncludesPatterns[i].replace(/\*/g, '[^ ]*');
+                        if (url.match(pattern)) {
+                            matched = true;
+                            break;
+                        }
+                    }
+                    if (! matched)
+                        action = WebView.IgnoreRequest;
+                }
+
+                request.action = action;
+                if (action === WebView.IgnoreRequest) {
                     Qt.openUrlExternally(url);
                 }
             }

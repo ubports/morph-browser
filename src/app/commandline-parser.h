@@ -22,6 +22,7 @@
 // Qt
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 #include <QtCore/QUrl>
 
 class CommandLineParser : public QObject
@@ -47,6 +48,8 @@ public:
 
     QString appId() const;
 
+    QStringList includes() const;
+
 private:
     bool m_help;
     bool m_chromeless;
@@ -56,6 +59,7 @@ private:
     bool m_webapp;
     QString m_webappName;
     QString m_appid;
+    QStringList m_includes;
 };
 
 #endif // __COMMANDLINE_PARSER_H__

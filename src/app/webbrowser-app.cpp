@@ -108,6 +108,8 @@ bool WebBrowserApp::initialize()
     browser->setProperty("webapp", m_arguments->webapp());
     browser->setProperty("webappName", m_arguments->webappName());
 
+    browser->setProperty("includes", m_arguments->includes());
+
     // Set the desired pixel ratio (not needed once we use Qt's way of calculating
     // the proper pixel ratio by device/screen)
     float webkitDpr = getQtWebkitDpr();
