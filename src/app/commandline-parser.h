@@ -27,6 +27,19 @@
 class CommandLineParser : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(ChromeElementFlags)
+
+
+public:
+    enum ChromeElementFlags
+    {
+        NO_CHROME_FLAGS = 0,
+        CHROMELESS = 0x1,
+        BACK_FORWARD_BUTTONS = 0x2,
+        ACTIVITY_BUTTON = 0x4,
+        ADDRESS_BAR = 0x8
+    };
+
 
 public:
     CommandLineParser(QStringList arguments, QObject* parent=0);
@@ -47,15 +60,19 @@ public:
 
     QString appId() const;
 
+    size_t chrome() const;
+
 private:
+    void parseChrome(const QString & argument);
+
     bool m_help;
-    bool m_chromeless;
     bool m_fullscreen;
     QUrl m_url;
     bool m_remoteInspector;
     bool m_webapp;
     QString m_webappName;
     QString m_appid;
+    size_t m_chromeFlags;
 };
 
 #endif // __COMMANDLINE_PARSER_H__

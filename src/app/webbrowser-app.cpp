@@ -108,6 +108,18 @@ bool WebBrowserApp::initialize()
     browser->setProperty("webapp", m_arguments->webapp());
     browser->setProperty("webappName", m_arguments->webappName());
 
+    size_t chromeFlags = m_arguments->chrome();
+    if (chromeFlags != 0)
+    {
+        bool backForwardButtonsVisible = (chromeFlags & CommandLineParser::BACK_FORWARD_BUTTONS);
+        bool addressBarVisible = (chromeFlags & CommandLineParser::ADDRESS_BAR);
+        bool activityButtonVisible = (chromeFlags & CommandLineParser::ACTIVITY_BUTTON);
+
+        browser->setProperty("backForwardButtonsVisible", backForwardButtonsVisible);
+        browser->setProperty("addressBarVisible", addressBarVisible);
+        browser->setProperty("activityButtonVisible", activityButtonVisible);
+    }
+
     // Set the desired pixel ratio (not needed once we use Qt's way of calculating
     // the proper pixel ratio by device/screen)
     float webkitDpr = getQtWebkitDpr();

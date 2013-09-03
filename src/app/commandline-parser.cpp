@@ -32,11 +32,11 @@
 CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
     : QObject(parent)
     , m_help(false)
-    , m_chromeless(false)
     , m_fullscreen(false)
     , m_url(DEFAULT_HOMEPAGE)
     , m_remoteInspector(false)
     , m_webapp(false)
+    , m_chromeFlags(NO_CHROME_FLAGS)
 {
     QStringList args = arguments;
     args.removeFirst();
@@ -49,11 +49,13 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
             if (argument.startsWith("-")) {
                 args.removeAt(i);
                 if (argument == "--chromeless") {
-                    m_chromeless = true;
+                    m_chromeFlags |= CHROMELESS;
                 } else if (argument == "--fullscreen") {
                     m_fullscreen = true;
                 } else if (argument == "--inspector") {
                     m_remoteInspector = true;
+                } else if (argument.startsWith("--chrome=")) {
+                    parseChrome(argument);
                 } else if (argument.startsWith("--webapp")) {
                     // We use the name as a reference instead of the URL with a
                     // subsequent step to match it with a webapp.
@@ -109,13 +111,44 @@ void CommandLineParser::printUsage() const
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
     out << "Usage: " << command << " [-h|--help] [--chromeless] [--fullscreen] [--homepage=URL] [URL]" << endl;
     out << "Options:" << endl;
-    out << "  -h, --help       display this help message and exit" << endl;
-    out << "  --chromeless     do not display any chrome (web application mode)" << endl;
-    out << "  --fullscreen     display full screen" << endl;
-    out << "  --homepage=URL   override any URL passed as an argument" << endl;
-    out << "  --inspector      run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
-    out << "  --webapp[=name]  launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
-    out << "  --app-id=APP_ID  run the application with a specific APP_ID" << endl;
+    out << "  -h, --help                                    display this help message and exit" << endl;
+    out << "  --chromeless                                  do not display any chrome (web application mode)" << endl;
+    out << "  --fullscreen                                  display full screen" << endl;
+    out << "  --homepage=URL                                override any URL passed as an argument" << endl;
+    out << "  --inspector                                   run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
+    out << "  --webapp[=name]                               launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
+    out << "  --app-id=APP_ID                               run the application with a specific APP_ID" << endl;
+    out << "  --chrome=<back-forward|activity|addressbar>   selected which chrome to display, the selection is additive separated by ';'" << endl;
+}
+
+void CommandLineParser::parseChrome(const QString & argument)
+{
+    if ( ! argument.startsWith("--chrome="))
+        return;
+
+    QMap<QString, ChromeElementFlags>
+            chromeFlagPerDescription;
+    chromeFlagPerDescription.insert("back-forward", BACK_FORWARD_BUTTONS);
+    chromeFlagPerDescription.insert("activity", ACTIVITY_BUTTON);
+    chromeFlagPerDescription.insert("addressbar", ADDRESS_BAR);
+
+    QString tail = argument.split("--chrome=")[1];
+    if (!tail.isEmpty()) {
+        QStringList chromes = tail.split(";");
+        Q_FOREACH(const QString & chrome, chromes)
+        {
+            QString trimmedChrome = chrome.trimmed();
+            if (trimmedChrome.isEmpty())
+                continue;
+            if (chromeFlagPerDescription.contains(trimmedChrome))
+                m_chromeFlags |= chromeFlagPerDescription[trimmedChrome];
+        }
+    }
+}
+
+size_t CommandLineParser::chrome() const
+{
+    return m_chromeFlags;
 }
 
 QString CommandLineParser::appId() const
@@ -130,7 +163,7 @@ bool CommandLineParser::help() const
 
 bool CommandLineParser::chromeless() const
 {
-    return m_chromeless;
+    return CHROMELESS == m_chromeFlags;
 }
 
 bool CommandLineParser::fullscreen() const
