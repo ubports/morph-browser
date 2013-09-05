@@ -208,29 +208,24 @@ private Q_SLOTS:
     void shouldUseChrome_data()
     {
         QTest::addColumn<QStringList>("args");
-        QTest::addColumn<int>("chrome");
+        QTest::addColumn<uint>("chrome");
 
         QString BINARY("webbrowser-app");
 
-        QString CHROME_BACK_FORWARD("back-forward");
-        QString CHROME_ACTIVIY("activity");
-        QString CHROME_ADDRESS_BAR("addressbar");
+        QString CHROME_BACK_FORWARD("--enable-back-forward");
+        QString CHROME_ACTIVIY("--enable-activity");
+        QString CHROME_ADDRESS_BAR("--enable-addressbar");
 
         QTest::newRow("no switch") << (QStringList() << BINARY)
-                                   << static_cast<int>(CommandLineParser::NO_CHROME_FLAGS);
-
-        QTest::newRow("switch only") << (QStringList() << BINARY << "--chrome")
-                                     << static_cast<int>(CommandLineParser::NO_CHROME_FLAGS);
-        QTest::newRow("empty switch") << (QStringList() << BINARY << "--chrome=")
-                                      << static_cast<int>(CommandLineParser::NO_CHROME_FLAGS);
+                                   << static_cast<uint>(CommandLineParser::NO_CHROME_FLAGS);
 
         QTest::newRow("switch with one chrome")
-                << (QStringList() << BINARY << (QString("--chrome=") + CHROME_BACK_FORWARD))
-                << static_cast<int>(CommandLineParser::BACK_FORWARD_BUTTONS);
+                << (QStringList() << BINARY << CHROME_BACK_FORWARD)
+                << static_cast<uint>(CommandLineParser::BACK_FORWARD_BUTTONS);
 
         QTest::newRow("switch and multiple trimmed chromes")
-                << (QStringList() << BINARY << (QString("--chrome=") + CHROME_BACK_FORWARD + " ; " + CHROME_ACTIVIY + " ;  ; " + CHROME_ADDRESS_BAR))
-                << static_cast<int>(CommandLineParser::BACK_FORWARD_BUTTONS
+                << (QStringList() << BINARY << CHROME_BACK_FORWARD << CHROME_ACTIVIY << CHROME_ADDRESS_BAR)
+                << static_cast<uint>(CommandLineParser::BACK_FORWARD_BUTTONS
                                     | CommandLineParser::ACTIVITY_BUTTON
                                     | CommandLineParser::ADDRESS_BAR);
     }
@@ -238,7 +233,7 @@ private Q_SLOTS:
     void shouldUseChrome()
     {
         QFETCH(QStringList, args);
-        QFETCH(int, chrome);
+        QFETCH(uint, chrome);
         QVERIFY(CommandLineParser(args).chrome() == chrome);
     }
 };
