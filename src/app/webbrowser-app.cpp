@@ -108,7 +108,15 @@ bool WebBrowserApp::initialize()
     browser->setProperty("webapp", m_arguments->webapp());
     browser->setProperty("webappName", m_arguments->webappName());
 
-    browser->setProperty("includes", m_arguments->includes());
+    QStringList urlPatterns = m_arguments->includes();
+    if ( ! urlPatterns.isEmpty())
+    {
+        for (int i = 0; i < urlPatterns.count(); ++i)
+        {
+            urlPatterns[i].replace("*", "[^ ]*");
+        }
+        browser->setProperty("webappUrlPatterns", urlPatterns);
+    }
 
     // Set the desired pixel ratio (not needed once we use Qt's way of calculating
     // the proper pixel ratio by device/screen)

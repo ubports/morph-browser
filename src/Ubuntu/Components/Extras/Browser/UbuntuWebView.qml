@@ -47,14 +47,13 @@ WebView {
     }
     experimental.userAgent: userAgent.defaultUA
     onNavigationRequested: {
+        request.action = WebView.AcceptRequest;
         if (onNavigationRequestedDelegate && typeof(onNavigationRequestedDelegate) == 'function') {
             onNavigationRequestedDelegate (request);
             if (request.action === WebView.IgnoreRequest)
                 return;
-        }
-
-        _webview.experimental.userAgent = userAgent.getUAString(request.url)
-        request.action = WebView.AcceptRequest
+         }
+         _webview.experimental.userAgent = userAgent.getUAString(request.url)
     }
 
     experimental.preferences.navigatorQtObjectEnabled: true

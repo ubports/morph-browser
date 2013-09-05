@@ -58,7 +58,7 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                 } else if (argument.startsWith("--includes=")) {
                     QString tail = argument.split("--includes=")[1];
                     if (!tail.isEmpty()) {
-                        QStringList includes = tail.split(";");
+                        QStringList includes = tail.split(",");
                         Q_FOREACH(const QString & includePattern, includes)
                         {
                             QString url = includePattern.trimmed();
@@ -130,7 +130,7 @@ void CommandLineParser::printUsage() const
     out << "  --inspector              run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
     out << "  --webapp[=name]          launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
     out << "  --app-id=APP_ID          run the application with a specific APP_ID" << endl;
-    out << "  --includes=url-patterns  when running as a webapp (see --webapp), list of url patterns that the webapp can navigate to" << endl;
+    out << "  --includes=url-patterns  when running as a webapp (see --webapp), list of ',' separated url patterns (wildcard based) that the webapp can navigate to" << endl;
 }
 
 QString CommandLineParser::appId() const

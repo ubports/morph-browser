@@ -224,7 +224,7 @@ private Q_SLOTS:
                 << (QStringList() << INCLUDE_PATTERN);
 
         QTest::newRow("switch and multiple trimmed pattern")
-                << (QStringList() << BINARY << (QString("--includes=") + INCLUDE_PATTERN + " ; " + INCLUDE_PATTERN2 + " ;  "))
+                << (QStringList() << BINARY << (QString("--includes=") + INCLUDE_PATTERN + " , " + INCLUDE_PATTERN2 + " ,  "))
                 << (QStringList() << INCLUDE_PATTERN << INCLUDE_PATTERN2);
     }
 

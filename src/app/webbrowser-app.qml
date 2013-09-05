@@ -25,7 +25,7 @@ Window {
     property alias qtwebkitdpr: browser.qtwebkitdpr
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
-    property alias includes: browser.urlIncludesPatterns
+    property alias webappUrlPatterns: browser.webappUrlPatterns
 
     property alias webapp: browser.webapp
     property alias webappName: browser.webappName

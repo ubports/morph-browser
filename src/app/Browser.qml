@@ -32,7 +32,7 @@ MainView {
     property real qtwebkitdpr
     property bool developerExtrasEnabled: false
 
-    property var urlIncludesPatterns: null
+    property var webappUrlPatterns: null
 
     property bool webapp: false
     property string webappName: ""
@@ -371,7 +371,7 @@ MainView {
                 }
 
                 var action = WebView.AcceptRequest;
-                var url = request.url + ' ';
+                var url = request.url + '';
 
                 // The list of url patterns defined by the webapp takes precedence over command line
                 if (webapp && isRunningAsANamedWebapp() && webapps.model && webapps.model.exists(webapps.name)) {
@@ -379,17 +379,15 @@ MainView {
                         action = WebView.IgnoreRequest;
                     }
                 }
-                else if (browser.urlIncludesPatterns && browser.urlIncludesPatterns.length !== 0) {
-                    var matched = false;
-                    for (var i = 0; i < browser.urlIncludesPatterns.length; ++i) {
-                        var pattern = browser.urlIncludesPatterns[i].replace(/\*/g, '[^ ]*');
+                else if (browser.webappUrlPatterns && browser.webappUrlPatterns.length !== 0) {
+                    action = WebView.IgnoreRequest;
+                    for (var i = 0; i < browser.webappUrlPatterns.length; ++i) {
+                        var pattern = browser.webappUrlPatterns[i];
                         if (url.match(pattern)) {
-                            matched = true;
+                            action = WebView.AcceptRequest;
                             break;
                         }
                     }
-                    if (! matched)
-                        action = WebView.IgnoreRequest;
                 }
 
                 request.action = action;
