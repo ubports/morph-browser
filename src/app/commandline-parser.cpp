@@ -25,7 +25,6 @@
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
 #include <QtCore/QTextStream>
-#include <QtCore/QRegularExpression>
 
 // stdlib
 #include <cstdio>
