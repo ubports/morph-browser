@@ -33,7 +33,6 @@ class CommandLineParser : public QObject
 public:
     enum ChromeElementFlag
     {
-        NO_CHROME_FLAGS = 0,
         CHROMELESS = 0x1,
         BACK_FORWARD_BUTTONS = 0x2,
         ACTIVITY_BUTTON = 0x4,

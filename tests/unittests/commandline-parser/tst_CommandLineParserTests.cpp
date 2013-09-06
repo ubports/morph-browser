@@ -217,7 +217,7 @@ private Q_SLOTS:
         QString CHROME_ADDRESS_BAR("--enable-addressbar");
 
         QTest::newRow("no switch") << (QStringList() << BINARY)
-                                   << static_cast<uint>(CommandLineParser::NO_CHROME_FLAGS);
+                                   << 0U;
 
         QTest::newRow("switch with one chrome")
                 << (QStringList() << BINARY << CHROME_BACK_FORWARD)
