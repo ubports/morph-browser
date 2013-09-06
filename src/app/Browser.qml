@@ -364,14 +364,16 @@ MainView {
                 }
             }
 
-            onNavigationRequestedDelegate: function (request) {
+            function navigationRequestedDelegate(request) {
+                console.debug('navigation request specialized')
+
                 if (! request.isMainFrame) {
                     request.action = WebView.AcceptRequest;
                     return;
                 }
 
                 var action = WebView.AcceptRequest;
-                var url = request.url + '';
+                var url = request.url.toString();
 
                 // The list of url patterns defined by the webapp takes precedence over command line
                 if (webapp && isRunningAsANamedWebapp() && webapps.model && webapps.model.exists(webapps.name)) {

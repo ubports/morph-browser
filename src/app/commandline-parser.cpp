@@ -55,16 +55,16 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     m_fullscreen = true;
                 } else if (argument == "--inspector") {
                     m_remoteInspector = true;
-                } else if (argument.startsWith("--includes=")) {
-                    QString tail = argument.split("--includes=")[1];
+                } else if (argument.startsWith("--webappUrlPatterns=")) {
+                    QString tail = argument.split("--webappUrlPatterns=")[1];
                     if (!tail.isEmpty()) {
-                        QStringList includes = tail.split(",");
-                        Q_FOREACH(const QString & includePattern, includes)
+                        QStringList includePatterns = tail.split(",");
+                        Q_FOREACH(const QString & includePattern, includePatterns)
                         {
                             QString url = includePattern.trimmed();
                             if ( ! url.isEmpty())
                             {
-                                m_includes.append(url);
+                                m_webappUrlPatterns.append(url);
                             }
                         }
                     }
@@ -123,14 +123,14 @@ void CommandLineParser::printUsage() const
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
     out << "Usage: " << command << " [-h|--help] [--chromeless] [--fullscreen] [--homepage=URL] [URL]" << endl;
     out << "Options:" << endl;
-    out << "  -h, --help               display this help message and exit" << endl;
-    out << "  --chromeless             do not display any chrome (web application mode)" << endl;
-    out << "  --fullscreen             display full screen" << endl;
-    out << "  --homepage=URL           override any URL passed as an argument" << endl;
-    out << "  --inspector              run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
-    out << "  --webapp[=name]          launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
-    out << "  --app-id=APP_ID          run the application with a specific APP_ID" << endl;
-    out << "  --includes=url-patterns  when running as a webapp (see --webapp), list of ',' separated url patterns (wildcard based) that the webapp can navigate to" << endl;
+    out << "  -h, --help                        display this help message and exit" << endl;
+    out << "  --chromeless                      do not display any chrome (web application mode)" << endl;
+    out << "  --fullscreen                      display full screen" << endl;
+    out << "  --homepage=URL                    override any URL passed as an argument" << endl;
+    out << "  --inspector                       run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
+    out << "  --webapp[=name]                   launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
+    out << "  --app-id=APP_ID                   run the application with a specific APP_ID" << endl;
+    out << "  --webappUrlPatterns=url-patterns  when running as a webapp (see --webapp), list of ',' separated url patterns (wildcard based) that the webapp can navigate to" << endl;
 }
 
 QString CommandLineParser::appId() const
@@ -173,7 +173,7 @@ QString CommandLineParser::webappName() const
     return m_webappName;
 }
 
-QStringList CommandLineParser::includes() const
+QStringList CommandLineParser::webappUrlPatterns() const
 {
-    return m_includes;
+    return m_webappUrlPatterns;
 }

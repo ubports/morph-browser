@@ -216,15 +216,15 @@ private Q_SLOTS:
 
         QTest::newRow("no switch") << (QStringList() << BINARY) << QStringList();
 
-        QTest::newRow("switch only") << (QStringList() << BINARY << "--includes") << QStringList();
-        QTest::newRow("empty switch") << (QStringList() << BINARY << "--includes=") << QStringList();
+        QTest::newRow("switch only") << (QStringList() << BINARY << "--webappUrlPatterns") << QStringList();
+        QTest::newRow("empty switch") << (QStringList() << BINARY << "--webappUrlPatterns=") << QStringList();
 
         QTest::newRow("switch and one pattern")
-                << (QStringList() << BINARY << (QString("--includes=") + INCLUDE_PATTERN))
+                << (QStringList() << BINARY << (QString("--webappUrlPatterns=") + INCLUDE_PATTERN))
                 << (QStringList() << INCLUDE_PATTERN);
 
         QTest::newRow("switch and multiple trimmed pattern")
-                << (QStringList() << BINARY << (QString("--includes=") + INCLUDE_PATTERN + " , " + INCLUDE_PATTERN2 + " ,  "))
+                << (QStringList() << BINARY << (QString("--webappUrlPatterns=") + INCLUDE_PATTERN + " , " + INCLUDE_PATTERN2 + " ,  "))
                 << (QStringList() << INCLUDE_PATTERN << INCLUDE_PATTERN2);
     }
 
@@ -233,7 +233,7 @@ private Q_SLOTS:
         QFETCH(QStringList, args);
         QFETCH(QStringList, patterns);
 
-        QCOMPARE(CommandLineParser(args).includes(), patterns);
+        QCOMPARE(CommandLineParser(args).webappUrlPatterns(), patterns);
     }
 };
 

@@ -108,7 +108,7 @@ bool WebBrowserApp::initialize()
     browser->setProperty("webapp", m_arguments->webapp());
     browser->setProperty("webappName", m_arguments->webappName());
 
-    QStringList urlPatterns = m_arguments->includes();
+    QStringList urlPatterns = m_arguments->webappUrlPatterns();
     if ( ! urlPatterns.isEmpty())
     {
         for (int i = 0; i < urlPatterns.count(); ++i)

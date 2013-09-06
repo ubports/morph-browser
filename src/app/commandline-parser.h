@@ -48,7 +48,7 @@ public:
 
     QString appId() const;
 
-    QStringList includes() const;
+    QStringList webappUrlPatterns() const;
 
 private:
     bool m_help;
@@ -59,7 +59,7 @@ private:
     bool m_webapp;
     QString m_webappName;
     QString m_appid;
-    QStringList m_includes;
+    QStringList m_webappUrlPatterns;
 };
 
 #endif // __COMMANDLINE_PARSER_H__
