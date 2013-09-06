@@ -121,10 +121,11 @@ void CommandLineParser::printUsage() const
     out << "  --inspector            run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
     out << "  --webapp[=name]        launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
     out << "  --app-id=APP_ID        run the application with a specific APP_ID" << endl;
-    out << "  Chrome options (if none specified, the whole chrome is enabled by default): --chromeless           do not display any chrome (web application mode)" << endl;
-    out << "  Chrome options (if none specified, the whole chrome is enabled by default): --enable-back-forward  enable the display of the back and forward buttons" << endl;
-    out << "  Chrome options (if none specified, the whole chrome is enabled by default): --enable-activity      enable the display of the activity button, the address bar is also displayed" << endl;
-    out << "  Chrome options (if none specified, the whole chrome is enabled by default): --enable-addressbar    enable the display of the address bar" << endl;
+    out << "Chrome options (if none specified, the whole chrome is enabled by default):" << endl;
+    out << "  --chromeless           do not display any chrome (web application mode), if set it overrides the other chrome options" << endl;
+    out << "  --enable-back-forward  enable the display of the back and forward buttons" << endl;
+    out << "  --enable-activity      enable the display of the activity button, the address bar is also displayed" << endl;
+    out << "  --enable-addressbar    enable the display of the address bar" << endl;
 }
 
 uint CommandLineParser::chromeFlags() const
