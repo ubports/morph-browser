@@ -41,7 +41,13 @@ WebView {
 
     property real scale: experimental.test.contentsScale * experimental.test.devicePixelRatio
 
-    function navigationRequestedDelegate(request) { console.debug('navigation request original') }
+    /**
+     * Client overridable function called before the default treatment of a
+     *  valid navigation request. This function can stop the navigation request
+     *  if it sets the 'action' field of the request to IgnoreRequest.
+     *
+     */
+    function navigationRequestedDelegate(request) { }
 
     UserAgent {
         id: userAgent

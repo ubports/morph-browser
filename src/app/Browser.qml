@@ -365,8 +365,6 @@ MainView {
             }
 
             function navigationRequestedDelegate(request) {
-                console.debug('navigation request specialized')
-
                 if (! request.isMainFrame) {
                     request.action = WebView.AcceptRequest;
                     return;
