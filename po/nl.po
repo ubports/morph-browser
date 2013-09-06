@@ -1,0 +1,199 @@
+# Dutch translation for webbrowser-app
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-08-30 17:08+0200\n"
+"PO-Revision-Date: 2013-09-05 07:36+0000\n"
+"Last-Translator: Hannie Dumoleyn <Unknown>\n"
+"Language-Team: Dutch <nl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-09-06 06:08+0000\n"
+"X-Generator: Launchpad (build 16760)\n"
+
+#: src/app/ActivityView.qml:36 src/app/Chrome.qml:120
+msgid "Activity"
+msgstr "Activiteit"
+
+#: src/app/ActivityView.qml:52
+msgid "Bookmarks"
+msgstr "Bladwijzers"
+
+#: src/app/Browser.qml:53
+msgid "Goto"
+msgstr "Ga naar"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:56
+msgid "Address;URL;www"
+msgstr "Address;URL;www;adres"
+
+#: src/app/Browser.qml:62 src/app/Chrome.qml:67
+msgid "Back"
+msgstr "Vorige"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:65
+msgid "Older Page"
+msgstr "Oudere pagina"
+
+#: src/app/Browser.qml:70 src/app/Chrome.qml:85
+msgid "Forward"
+msgstr "Volgende"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:73
+msgid "Newer Page"
+msgstr "Nieuwere pagina"
+
+#: src/app/Browser.qml:78
+msgid "Reload"
+msgstr "Herladen"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:81
+msgid "Leave Page"
+msgstr "Pagina verlaten"
+
+#: src/app/Browser.qml:86
+msgid "Bookmark"
+msgstr "Bladwijzer"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:89
+msgid "Add This Page to Bookmarks"
+msgstr "Deze pagina toevoegen aan Bladwijzers"
+
+#: src/app/Browser.qml:94
+msgid "New Tab"
+msgstr "Nieuw tabblad"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:97
+msgid "Open a New Tab"
+msgstr "Een nieuw tabblad openen"
+
+#: src/app/Browser.qml:331
+msgid "Share"
+msgstr "Delen"
+
+#: src/app/Browser.qml:335
+msgid "Save"
+msgstr "Opslaan"
+
+#: src/app/Browser.qml:339
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: src/app/Browser.qml:346
+msgid "This page wants to know your device’s location."
+msgstr "Deze pagina wil weten wat de locatie van uw apparaat is."
+
+#: src/app/ErrorSheet.qml:38
+msgid "Network Error"
+msgstr "Netwerkfout"
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/app/ErrorSheet.qml:44
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr "Het lijkt erop dat u problemen ondervindt bij het bekijken van: %1."
+
+#: src/app/ErrorSheet.qml:50
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr ""
+"Ubuntu stelt voor dat u uw netwerkinstellingen controleert en probeert de "
+"pagina te vernieuwen."
+
+#: src/app/ErrorSheet.qml:55
+msgid "Refresh page"
+msgstr "Pagina vernieuwen"
+
+#: src/app/PermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "Verzoek om toestemming"
+
+#: src/app/PermissionRequest.qml:31
+msgid "Deny"
+msgstr "Weigeren"
+
+#: src/app/PermissionRequest.qml:40
+msgid "Allow"
+msgstr "Toestaan"
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/app/TabsList.qml:34
+#, qt-format
+msgid "Currently viewing (%1)"
+msgstr "Momenteel aan het bekijken (%1)"
+
+#: src/app/TabsList.qml:65
+msgid "+"
+msgstr "+"
+
+#: src/app/TimelineView.qml:87
+msgid "Today"
+msgstr "Vandaag"
+
+#: src/app/TimelineView.qml:89
+msgid "Yesterday"
+msgstr "Gisteren"
+
+#: src/app/TimelineView.qml:91
+msgid "Last 7 Days"
+msgstr "Laatste 7 dagen"
+
+#: src/app/TimelineView.qml:93
+msgid "This Month"
+msgstr "Deze maand"
+
+#: src/app/TimelineView.qml:95
+msgid "This Year"
+msgstr "Dit jaar"
+
+#: src/app/TimelineView.qml:97
+msgid "Older"
+msgstr "Ouder"
+
+#: src/app/TimelineView.qml:169
+msgid "(local files)"
+msgstr "(lokale bestanden)"
+
+#: src/app/TimelineView.qml:171
+msgid "(other)"
+msgstr "(overige)"
+
+#: src/app/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "Browser"
+
+#: src/app/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "Webbrowser"
+
+#: src/app/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "Surfen op internet"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webbrowser-app.qml:37
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - Ubuntu Webbrowser"
+
+#: src/app/webbrowser-app.qml:38
+msgid "Ubuntu Web Browser"
+msgstr "Ubuntu Webbrowser"
