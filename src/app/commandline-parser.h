@@ -60,7 +60,8 @@ public:
 
     QString appId() const;
 
-    uint chromeFlags() const;
+    ChromeElementFlags chromeFlags() const;
+
 
 private:
     bool m_help;
@@ -70,7 +71,7 @@ private:
     bool m_webapp;
     QString m_webappName;
     QString m_appid;
-    uint m_chromeFlags;
+    ChromeElementFlags m_chromeFlags;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(CommandLineParser::ChromeElementFlags)

@@ -128,7 +128,7 @@ void CommandLineParser::printUsage() const
     out << "  --enable-addressbar    enable the display of the address bar" << endl;
 }
 
-uint CommandLineParser::chromeFlags() const
+CommandLineParser::ChromeElementFlags CommandLineParser::chromeFlags() const
 {
     return m_chromeFlags;
 }
