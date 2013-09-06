@@ -61,7 +61,7 @@ public:
 
     QString appId() const;
 
-    uint chrome() const;
+    uint chromeFlags() const;
 
 private:
     bool m_help;

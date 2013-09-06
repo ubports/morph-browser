@@ -234,7 +234,7 @@ private Q_SLOTS:
     {
         QFETCH(QStringList, args);
         QFETCH(uint, chrome);
-        QVERIFY(CommandLineParser(args).chrome() == chrome);
+        QVERIFY(CommandLineParser(args).chromeFlags() == chrome);
     }
 };
 

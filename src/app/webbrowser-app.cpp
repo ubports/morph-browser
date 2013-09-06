@@ -108,7 +108,7 @@ bool WebBrowserApp::initialize()
     browser->setProperty("webapp", m_arguments->webapp());
     browser->setProperty("webappName", m_arguments->webappName());
 
-    size_t chromeFlags = m_arguments->chrome();
+    uint chromeFlags = m_arguments->chromeFlags();
     if (chromeFlags != 0)
     {
         bool backForwardButtonsVisible = (chromeFlags & CommandLineParser::BACK_FORWARD_BUTTONS);

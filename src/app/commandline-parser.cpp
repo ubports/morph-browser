@@ -116,18 +116,18 @@ void CommandLineParser::printUsage() const
     out << "Usage: " << command << " [-h|--help] [--chromeless] [--fullscreen] [--homepage=URL] [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help             display this help message and exit" << endl;
-    out << "  --chromeless           do not display any chrome (web application mode)" << endl;
     out << "  --fullscreen           display full screen" << endl;
     out << "  --homepage=URL         override any URL passed as an argument" << endl;
     out << "  --inspector            run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
     out << "  --webapp[=name]        launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
     out << "  --app-id=APP_ID        run the application with a specific APP_ID" << endl;
-    out << "  --enable-back-forward  enable the display of the back and forward buttons" << endl;
-    out << "  --enable-activity      enable the display of the activity button, the address bar is also displayed" << endl;
-    out << "  --enable-addressbar    enable the display of the address bar" << endl;
+    out << "  Chrome options (if none specified, the whole chrome is enabled by default): --chromeless           do not display any chrome (web application mode)" << endl;
+    out << "  Chrome options (if none specified, the whole chrome is enabled by default): --enable-back-forward  enable the display of the back and forward buttons" << endl;
+    out << "  Chrome options (if none specified, the whole chrome is enabled by default): --enable-activity      enable the display of the activity button, the address bar is also displayed" << endl;
+    out << "  Chrome options (if none specified, the whole chrome is enabled by default): --enable-addressbar    enable the display of the address bar" << endl;
 }
 
-uint CommandLineParser::chrome() const
+uint CommandLineParser::chromeFlags() const
 {
     return m_chromeFlags;
 }
@@ -144,7 +144,7 @@ bool CommandLineParser::help() const
 
 bool CommandLineParser::chromeless() const
 {
-    return CHROMELESS == m_chromeFlags;
+    return m_chromeFlags & CHROMELESS;
 }
 
 bool CommandLineParser::fullscreen() const
