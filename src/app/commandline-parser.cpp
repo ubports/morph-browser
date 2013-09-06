@@ -36,7 +36,7 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
     , m_url(DEFAULT_HOMEPAGE)
     , m_remoteInspector(false)
     , m_webapp(false)
-    , m_chromeFlags(0)
+    , m_chromeFlags(0U)
 {
     QStringList args = arguments;
     args.removeFirst();
