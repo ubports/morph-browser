@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-08-30 17:08+0200\n"
-"PO-Revision-Date: 2013-08-30 06:50+0000\n"
-"Last-Translator: Tiago Hillebrandt <tiagohillebrandt@gmail.com>\n"
+"PO-Revision-Date: 2013-09-06 18:09+0000\n"
+"Last-Translator: Rodrigo Zimmermann <bilufe@yahoo.com.br>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-31 05:29+0000\n"
-"X-Generator: Launchpad (build 16750)\n"
+"X-Launchpad-Export-Date: 2013-09-07 05:41+0000\n"
+"X-Generator: Launchpad (build 16760)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:120
 msgid "Activity"
@@ -99,7 +99,7 @@ msgstr "Copiar"
 
 #: src/app/Browser.qml:346
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "A página deseja saber a localização do seu dispositivo."
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -124,15 +124,15 @@ msgstr "Atualizar a página"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Requisição de permissão"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Negar"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "Permitir"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/TabsList.qml:34
