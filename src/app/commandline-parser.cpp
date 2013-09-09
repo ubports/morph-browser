@@ -54,6 +54,8 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     m_fullscreen = true;
                 } else if (argument == "--inspector") {
                     m_remoteInspector = true;
+                } else if (argument.startsWith("--webappModelSearchPath=")) {
+                    m_webappModelSearchPath = argument.split("--webappModelSearchPath=")[1];
                 } else if (argument.startsWith("--webapp")) {
                     // We use the name as a reference instead of the URL with a
                     // subsequent step to match it with a webapp.
@@ -109,13 +111,14 @@ void CommandLineParser::printUsage() const
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
     out << "Usage: " << command << " [-h|--help] [--chromeless] [--fullscreen] [--homepage=URL] [URL]" << endl;
     out << "Options:" << endl;
-    out << "  -h, --help       display this help message and exit" << endl;
-    out << "  --chromeless     do not display any chrome (web application mode)" << endl;
-    out << "  --fullscreen     display full screen" << endl;
-    out << "  --homepage=URL   override any URL passed as an argument" << endl;
-    out << "  --inspector      run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
-    out << "  --webapp[=name]  launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
-    out << "  --app-id=APP_ID  run the application with a specific APP_ID" << endl;
+    out << "  -h, --help                    display this help message and exit" << endl;
+    out << "  --chromeless                  do not display any chrome (web application mode)" << endl;
+    out << "  --fullscreen                  display full screen" << endl;
+    out << "  --homepage=URL                override any URL passed as an argument" << endl;
+    out << "  --inspector                   run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
+    out << "  --webapp[=name]               launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
+    out << "  --webappModelSearchPath=PATH  alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
+    out << "  --app-id=APP_ID               run the application with a specific APP_ID" << endl;
 }
 
 QString CommandLineParser::appId() const
@@ -156,4 +159,9 @@ bool CommandLineParser::webapp() const
 QString CommandLineParser::webappName() const
 {
     return m_webappName;
+}
+
+QString CommandLineParser::webappModelSearchPath() const
+{
+    return m_webappModelSearchPath;
 }

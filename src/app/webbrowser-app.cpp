@@ -18,6 +18,7 @@
 
 // Qt
 #include <QtCore/QMetaObject>
+#include <QtCore/QDir>
 #include <QtNetwork/QNetworkInterface>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
@@ -105,6 +106,19 @@ bool WebBrowserApp::initialize()
     m_window = qobject_cast<QQuickWindow*>(browser);
     browser->setProperty("chromeless", m_arguments->chromeless());
     browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
+
+    QString webappModelSearchPath = m_arguments->webappModelSearchPath();
+    if (! webappModelSearchPath.isEmpty())
+    {
+        QDir webappModelSearchDir(webappModelSearchPath);
+
+        // makeAbsolute is idempotent
+        webappModelSearchDir.makeAbsolute();
+        if (webappModelSearchDir.exists())
+        {
+            browser->setProperty("webappModelSearchPath", webappModelSearchDir.path());
+        }
+    }
     browser->setProperty("webapp", m_arguments->webapp());
     browser->setProperty("webappName", m_arguments->webappName());
 

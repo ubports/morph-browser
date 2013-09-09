@@ -27,6 +27,7 @@ Window {
 
     property alias webapp: browser.webapp
     property alias webappName: browser.webappName
+    property alias webappModelSearchPath: browser.webappModelSearchPath
 
     contentOrientation: browser.screenOrientation
 
