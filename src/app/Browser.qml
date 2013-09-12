@@ -170,7 +170,7 @@ MainView {
             if (currentWebview) {
                 currentWebview.forceActiveFocus()
             }
-            panel.item.opened = false
+            panel.item.close()
         }
     }
 
@@ -198,7 +198,7 @@ MainView {
                 }
                 height: units.gu(8)
 
-                opened: true
+                Component.onCompleted: open()
                 onOpenedChanged: {
                     if (!opened) {
                         Qt.inputMethod.hide()
@@ -225,13 +225,13 @@ MainView {
                     onLoadingChanged: {
                         if (loading) {
                             if (panel.item) {
-                                panel.item.opened = true
+                                panel.item.open()
                             }
                         } else if (stopped) {
                             stopped = false
                         } else if (!addressBar.activeFocus) {
                             if (panel.item) {
-                                panel.item.opened = false
+                                panel.item.close()
                             }
                             if (currentWebview) {
                                 currentWebview.forceActiveFocus()
@@ -386,7 +386,7 @@ MainView {
             if (!browser.chromeless) {
                 if (!url) {
                     panel.chrome.addressBar.forceActiveFocus()
-                    panel.item.opened = true
+                    panel.item.open()
                 }
             }
         }
