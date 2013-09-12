@@ -134,6 +134,16 @@ FocusScope {
         if (address.split('/', 1)[0].match(/\.[a-z]{2,4}$/)) {
             return true
         }
+        var terms = address.split('.');
+        if (terms.length != 4)
+            return false
+        for (var i=0; i<terms.length; i++) {
+            var s = terms[i];
+            if (s.length==0 || isNaN(s) || s<0 || s>255)
+                return false
+            else
+                return true
+        }
         return false
     }
 
