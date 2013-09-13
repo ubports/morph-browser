@@ -41,6 +41,10 @@ MainView {
     property alias currentWebview: tabsModel.currentWebview
     property string title: currentWebview ? currentWebview.title : ""
 
+    property bool backForwardButtonsVisible: true
+    property bool activityButtonVisible: true
+    property bool addressBarVisible: true
+
     automaticOrientation: true
 
     // XXX: not using this property yet since the MainView doesn’t provide
@@ -222,6 +226,10 @@ MainView {
                     onGoForwardClicked: currentWebview.goForward()
 
                     onUrlValidated: currentWebview.url = url
+
+                    backForwardButtonsVisible: browser.backForwardButtonsVisible
+                    activityButtonVisible: browser.activityButtonVisible
+                    addressBarVisible: browser.addressBarVisible
 
                     property bool stopped: false
                     onLoadingChanged: {

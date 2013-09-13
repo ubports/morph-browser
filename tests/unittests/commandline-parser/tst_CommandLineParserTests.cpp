@@ -232,8 +232,38 @@ private Q_SLOTS:
     {
         QFETCH(QStringList, args);
         QFETCH(QStringList, patterns);
-
         QCOMPARE(CommandLineParser(args).webappUrlPatterns(), patterns);
+    }
+
+    void shouldUseChrome_data()
+    {
+        QTest::addColumn<QStringList>("args");
+        QTest::addColumn<uint>("chrome");
+
+        QString BINARY("webbrowser-app");
+        QString CHROME_BACK_FORWARD("--enable-back-forward");
+        QString CHROME_ACTIVIY("--enable-activity");
+        QString CHROME_ADDRESS_BAR("--enable-addressbar");
+
+        QTest::newRow("no switch") << (QStringList() << BINARY)
+                                   << 0U;
+
+        QTest::newRow("switch with one chrome")
+                << (QStringList() << BINARY << CHROME_BACK_FORWARD)
+                << static_cast<uint>(CommandLineParser::BACK_FORWARD_BUTTONS);
+
+        QTest::newRow("switch and multiple trimmed chromes")
+                << (QStringList() << BINARY << CHROME_BACK_FORWARD << CHROME_ACTIVIY << CHROME_ADDRESS_BAR)
+                << static_cast<uint>(CommandLineParser::BACK_FORWARD_BUTTONS
+                                    | CommandLineParser::ACTIVITY_BUTTON
+                                    | CommandLineParser::ADDRESS_BAR);
+    }
+
+    void shouldUseChrome()
+    {
+        QFETCH(QStringList, args);
+        QFETCH(uint, chrome);
+        QVERIFY(CommandLineParser(args).chromeFlags() == chrome);
     }
 };
 
