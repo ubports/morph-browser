@@ -34,7 +34,7 @@ MainView {
 
     property bool webapp: false
     property string webappName: ""
-    property string webappModelSearchPath
+    property string webappModelSearchPath: ""
 
     property alias currentIndex: tabsModel.currentIndex
     property alias currentWebview: tabsModel.currentWebview
