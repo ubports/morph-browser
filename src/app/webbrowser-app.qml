@@ -34,8 +34,12 @@ Window {
     height: 600
 
     // TRANSLATORS: %1 refers to the current page’s title
-    title: browser.title ? i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
-                         : i18n.tr("Ubuntu Web Browser")
+    title: {
+        if (webapp && typeof(webappName) === 'string' && webappName.length !== 0)
+            return webappName;
+         return browser.title ? i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
+                              : i18n.tr("Ubuntu Web Browser")
+    }
 
     Browser {
         id: browser
