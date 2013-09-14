@@ -16,35 +16,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBBROWSER_APP_H__
-#define __WEBBROWSER_APP_H__
+#ifndef __WEBBROWSER_WINDOW_H__
+#define __WEBBROWSER_WINDOW_H__
 
-#include <QtWidgets/QApplication>
+#include <QObject>
+#include <QQuickWindow>
 
-class QQmlComponent;
-class QQmlEngine;
-class QQuickWindow;
-class WebBrowserWindow;
 
-class CommandLineParser;
-
-class WebBrowserApp : public QApplication
+class WebBrowserWindow : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QQuickWindow *window READ window WRITE setWindow NOTIFY windowChanged)
+
 
 public:
-    WebBrowserApp(int& argc, char** argv);
-    ~WebBrowserApp();
+    explicit WebBrowserWindow(QObject *parent = 0);
 
-    bool initialize();
-    int run();
+
+    QQuickWindow * window() const;
+    void setWindow(QQuickWindow *);
+
+
+public slots:
+
+    void raise();
+
+
+signals:
+
+    void windowChanged(QQuickWindow *);
+
 
 private:
-    CommandLineParser* m_arguments;
-    QQmlEngine* m_engine;
-    QQmlComponent* m_component;
-    QQuickWindow* m_window;
-    WebBrowserWindow *m_webbrowserWindowProxy;
+
+    QQuickWindow * _window;
 };
 
-#endif // __WEBBROWSER_APP_H__
+
+#endif // __WEBBROWSER_WINDOW_H__
+
