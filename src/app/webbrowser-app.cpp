@@ -28,6 +28,8 @@
 #include "config.h"
 #include "commandline-parser.h"
 #include "webbrowser-app.h"
+#include "webbrowser-window.h"
+
 
 static float getQtWebkitDpr()
 {
@@ -45,6 +47,7 @@ WebBrowserApp::WebBrowserApp(int& argc, char** argv)
     , m_engine(0)
     , m_component(0)
     , m_window(0)
+    , m_webbrowserWindowProxy(0)
 {
 }
 
@@ -52,6 +55,7 @@ WebBrowserApp::~WebBrowserApp()
 {
     delete m_component;
     delete m_engine;
+    delete m_webbrowserWindowProxy;
 }
 
 bool WebBrowserApp::initialize()
@@ -100,9 +104,13 @@ bool WebBrowserApp::initialize()
         qWarning() << m_component->errorString();
         return false;
     }
+    m_webbrowserWindowProxy = new WebBrowserWindow();
+    context->setContextProperty("webbrowserWindowProxy", m_webbrowserWindowProxy);
 
     QObject* browser = m_component->create();
     m_window = qobject_cast<QQuickWindow*>(browser);
+    m_webbrowserWindowProxy->setWindow(m_window);
+
     browser->setProperty("chromeless", m_arguments->chromeless());
     browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
     browser->setProperty("webapp", m_arguments->webapp());

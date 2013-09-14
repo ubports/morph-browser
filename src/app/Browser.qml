@@ -45,6 +45,8 @@ MainView {
     property bool activityButtonVisible: true
     property bool addressBarVisible: true
 
+    property var webbrowserWindow: null
+
     automaticOrientation: true
 
     // XXX: not using this property yet since the MainView doesn’t provide
@@ -412,8 +414,18 @@ MainView {
             // component as a way to bind to a webview lookalike without
             // reaching out directly to its internals (see it as an interface).
             function getUnityWebappsProxies() {
-                var handlers = {};
-                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview, handlers)
+                var eventHandlers = {
+                    onAppRaised: function () {
+                        if (webbrowserWindow) {
+                            try {
+                                webbrowserWindow.raise();
+                            } catch (e) {
+                                console.debug('Error while raising: ' + e);
+                            }
+                        }
+                    }
+                };
+                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview, eventHandlers)
             }
         }
     }

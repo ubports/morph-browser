@@ -48,6 +48,7 @@ Window {
         applicationName: "webbrowser-app"
         property int screenOrientation: Screen.orientation
         anchors.fill: parent
+        webbrowserWindow: webbrowserWindowProxy
     }
 
     function newTab(url, setCurrent) {
