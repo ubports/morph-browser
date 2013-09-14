@@ -120,6 +120,16 @@ bool WebBrowserApp::initialize()
         browser->setProperty("activityButtonVisible", activityButtonVisible);
     }
 
+    QStringList urlPatterns = m_arguments->webappUrlPatterns();
+    if ( ! urlPatterns.isEmpty())
+    {
+        for (int i = 0; i < urlPatterns.count(); ++i)
+        {
+            urlPatterns[i].replace("*", "[^ ]*");
+        }
+        browser->setProperty("webappUrlPatterns", urlPatterns);
+    }
+
     // Set the desired pixel ratio (not needed once we use Qt's way of calculating
     // the proper pixel ratio by device/screen)
     float webkitDpr = getQtWebkitDpr();

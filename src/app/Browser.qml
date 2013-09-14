@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import QtWebKit 3.0
+import QtWebKit 3.1
 import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
@@ -31,6 +31,8 @@ MainView {
     property bool chromeless: false
     property real qtwebkitdpr
     property bool developerExtrasEnabled: false
+
+    property var webappUrlPatterns: null
 
     property bool webapp: false
     property string webappName: ""
@@ -305,6 +307,7 @@ MainView {
             id: webappsComponent
 
             UnityWebApps.UnityWebApps {
+                id: webapps
                 name: browser.webappName
                 bindee: tabsModel.currentWebview
                 actionsContext: browser.actionManager.globalContext
@@ -369,6 +372,38 @@ MainView {
                 }
             }
 
+            function navigationRequestedDelegate(request) {
+                if (! request.isMainFrame) {
+                    request.action = WebView.AcceptRequest;
+                    return;
+                }
+
+                var action = WebView.AcceptRequest;
+                var url = request.url.toString();
+
+                // The list of url patterns defined by the webapp takes precedence over command line
+                if (webapp && isRunningAsANamedWebapp() && webapps.model && webapps.model.exists(webapps.name)) {
+                    if ( ! webapps.model.doesUrlMatchesWebapp(webapps.name, url)) {
+                        action = WebView.IgnoreRequest;
+                    }
+                }
+                else if (browser.webappUrlPatterns && browser.webappUrlPatterns.length !== 0) {
+                    action = WebView.IgnoreRequest;
+                    for (var i = 0; i < browser.webappUrlPatterns.length; ++i) {
+                        var pattern = browser.webappUrlPatterns[i];
+                        if (url.match(pattern)) {
+                            action = WebView.AcceptRequest;
+                            break;
+                        }
+                    }
+                }
+
+                request.action = action;
+                if (action === WebView.IgnoreRequest) {
+                    Qt.openUrlExternally(url);
+                }
+            }
+
             onNewTabRequested: browser.newTab(url, true)
 
             // Small shim needed when running as a webapp to wire-up connections
@@ -377,7 +412,8 @@ MainView {
             // component as a way to bind to a webview lookalike without
             // reaching out directly to its internals (see it as an interface).
             function getUnityWebappsProxies() {
-                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview)
+                var handlers = {};
+                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview, handlers)
             }
         }
     }

@@ -54,6 +54,19 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     m_fullscreen = true;
                 } else if (argument == "--inspector") {
                     m_remoteInspector = true;
+                } else if (argument.startsWith("--webappUrlPatterns=")) {
+                    QString tail = argument.split("--webappUrlPatterns=")[1];
+                    if (!tail.isEmpty()) {
+                        QStringList includePatterns = tail.split(",");
+                        Q_FOREACH(const QString & includePattern, includePatterns)
+                        {
+                            QString url = includePattern.trimmed();
+                            if ( ! url.isEmpty())
+                            {
+                                m_webappUrlPatterns.append(url);
+                            }
+                        }
+                    }
                 } else if (argument == "--enable-back-forward") {
                     m_chromeFlags |= BACK_FORWARD_BUTTONS;
                 } else if (argument == "--enable-activity") {
@@ -121,6 +134,7 @@ void CommandLineParser::printUsage() const
     out << "  --inspector            run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
     out << "  --webapp[=name]        launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
     out << "  --app-id=APP_ID        run the application with a specific APP_ID" << endl;
+    out << "  --webappUrlPatterns=url-patterns  when running as a webapp (see --webapp), list of ',' separated url patterns (wildcard based) that the webapp can navigate to" << endl;
     out << "Chrome options (if none specified, the whole chrome is enabled by default):" << endl;
     out << "  --chromeless           do not display any chrome (web application mode), if set it overrides the other chrome options" << endl;
     out << "  --enable-back-forward  enable the display of the back and forward buttons" << endl;
@@ -171,4 +185,9 @@ bool CommandLineParser::webapp() const
 QString CommandLineParser::webappName() const
 {
     return m_webappName;
+}
+
+QStringList CommandLineParser::webappUrlPatterns() const
+{
+    return m_webappUrlPatterns;
 }
