@@ -22,6 +22,7 @@
 // Qt
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 #include <QtCore/QUrl>
 
 class CommandLineParser : public QObject
@@ -60,8 +61,8 @@ public:
 
     QString appId() const;
 
+    QStringList webappUrlPatterns() const;
     ChromeElementFlags chromeFlags() const;
-
 
 private:
     bool m_help;
@@ -71,6 +72,7 @@ private:
     bool m_webapp;
     QString m_webappName;
     QString m_appid;
+    QStringList m_webappUrlPatterns;
     ChromeElementFlags m_chromeFlags;
 };
 
