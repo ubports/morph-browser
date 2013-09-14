@@ -22,11 +22,25 @@
 // Qt
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 #include <QtCore/QUrl>
 
 class CommandLineParser : public QObject
 {
     Q_OBJECT
+    Q_FLAGS(ChromeElementFlag)
+
+
+public:
+    enum ChromeElementFlag
+    {
+        CHROMELESS = 0x1,
+        BACK_FORWARD_BUTTONS = 0x2,
+        ACTIVITY_BUTTON = 0x4,
+        ADDRESS_BAR = 0x8
+    };
+    Q_DECLARE_FLAGS(ChromeElementFlags, ChromeElementFlag)
+
 
 public:
     CommandLineParser(QStringList arguments, QObject* parent=0);
@@ -48,9 +62,11 @@ public:
 
     QString appId() const;
 
+    QStringList webappUrlPatterns() const;
+    ChromeElementFlags chromeFlags() const;
+
 private:
     bool m_help;
-    bool m_chromeless;
     bool m_fullscreen;
     QUrl m_url;
     bool m_remoteInspector;
@@ -58,6 +74,10 @@ private:
     QString m_webappName;
     QString m_webappModelSearchPath;
     QString m_appid;
+    QStringList m_webappUrlPatterns;
+    ChromeElementFlags m_chromeFlags;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(CommandLineParser::ChromeElementFlags)
 
 #endif // __COMMANDLINE_PARSER_H__

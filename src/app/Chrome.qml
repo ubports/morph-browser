@@ -30,6 +30,11 @@ Item {
     property alias canGoBack: backButton.enabled
     signal goBackClicked()
     property alias canGoForward: forwardButton.enabled
+
+    property bool backForwardButtonsVisible: true
+    property bool activityButtonVisible: true
+    property bool addressBarVisible: true
+
     signal goForwardClicked()
     signal requestReload()
     signal requestStop()
@@ -66,6 +71,7 @@ Item {
         iconSource: "assets/go-previous.png"
         text: i18n.tr("Back")
         onTriggered: chrome.goBackClicked()
+        visible: backForwardButtonsVisible
     }
 
     ToolbarButton {
@@ -78,7 +84,7 @@ Item {
         }
         // On narrow screen, hide the button to maximize
         // the address bar’s real estate.
-        visible: !internal.isNarrow
+        visible: !internal.isNarrow && backForwardButtonsVisible
         width: visible ? units.gu(5) : 0
         height: units.gu(5)
         iconSource: "assets/go-next.png"
@@ -102,6 +108,7 @@ Item {
         onValidated: chrome.urlValidated(requestedUrl)
         onRequestReload: chrome.requestReload()
         onRequestStop: chrome.requestStop()
+        visible: addressBarVisible
     }
 
     ToolbarButton {
@@ -120,11 +127,12 @@ Item {
         text: i18n.tr("Activity")
 
         onTriggered: chrome.toggleTabsClicked()
+        visible: activityButtonVisible
     }
 
     EmbeddedProgressBar {
         id: progressBar
-        visible: chrome.loading
+        visible: chrome.loading && addressBarVisible
         source: visible ? addressBar : null
         minimumValue: 0
         maximumValue: 100

@@ -25,6 +25,12 @@ Window {
     property alias qtwebkitdpr: browser.qtwebkitdpr
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
+    property alias webappUrlPatterns: browser.webappUrlPatterns
+
+    property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
+    property alias activityButtonVisible: browser.activityButtonVisible
+    property alias addressBarVisible: browser.addressBarVisible
+
     property alias webapp: browser.webapp
     property alias webappName: browser.webappName
     property alias webappModelSearchPath: browser.webappModelSearchPath

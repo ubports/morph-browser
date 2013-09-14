@@ -205,6 +205,7 @@ private Q_SLOTS:
         QCOMPARE(CommandLineParser(args).webappName(), webappName);
     }
 
+
     void shouldUseWebappsModelSearchPath_data()
     {
         QTest::addColumn<QStringList>("args");
@@ -225,6 +226,67 @@ private Q_SLOTS:
         QFETCH(QString, webappModelSearchPath);
 
         QCOMPARE(CommandLineParser(args).webappModelSearchPath(), webappModelSearchPath);
+    }
+
+    void shouldUseIncludes_data()
+    {
+        QTest::addColumn<QStringList>("args");
+        QTest::addColumn<QStringList>("patterns");
+
+        QString BINARY("webbrowser-app");
+        QString INCLUDE_PATTERN("http://www.ubuntu.*/*");
+        QString INCLUDE_PATTERN2("http://www.bbc.*/*");
+
+        QTest::newRow("no switch") << (QStringList() << BINARY) << QStringList();
+
+        QTest::newRow("switch only") << (QStringList() << BINARY << "--webappUrlPatterns") << QStringList();
+        QTest::newRow("empty switch") << (QStringList() << BINARY << "--webappUrlPatterns=") << QStringList();
+
+        QTest::newRow("switch and one pattern")
+                << (QStringList() << BINARY << (QString("--webappUrlPatterns=") + INCLUDE_PATTERN))
+                << (QStringList() << INCLUDE_PATTERN);
+
+        QTest::newRow("switch and multiple trimmed pattern")
+                << (QStringList() << BINARY << (QString("--webappUrlPatterns=") + INCLUDE_PATTERN + " , " + INCLUDE_PATTERN2 + " ,  "))
+                << (QStringList() << INCLUDE_PATTERN << INCLUDE_PATTERN2);
+    }
+
+    void shouldUseIncludes()
+    {
+        QFETCH(QStringList, args);
+        QFETCH(QStringList, patterns);
+        QCOMPARE(CommandLineParser(args).webappUrlPatterns(), patterns);
+    }
+
+    void shouldUseChrome_data()
+    {
+        QTest::addColumn<QStringList>("args");
+        QTest::addColumn<uint>("chrome");
+
+        QString BINARY("webbrowser-app");
+        QString CHROME_BACK_FORWARD("--enable-back-forward");
+        QString CHROME_ACTIVIY("--enable-activity");
+        QString CHROME_ADDRESS_BAR("--enable-addressbar");
+
+        QTest::newRow("no switch") << (QStringList() << BINARY)
+                                   << 0U;
+
+        QTest::newRow("switch with one chrome")
+                << (QStringList() << BINARY << CHROME_BACK_FORWARD)
+                << static_cast<uint>(CommandLineParser::BACK_FORWARD_BUTTONS);
+
+        QTest::newRow("switch and multiple trimmed chromes")
+                << (QStringList() << BINARY << CHROME_BACK_FORWARD << CHROME_ACTIVIY << CHROME_ADDRESS_BAR)
+                << static_cast<uint>(CommandLineParser::BACK_FORWARD_BUTTONS
+                                    | CommandLineParser::ACTIVITY_BUTTON
+                                    | CommandLineParser::ADDRESS_BAR);
+    }
+
+    void shouldUseChrome()
+    {
+        QFETCH(QStringList, args);
+        QFETCH(uint, chrome);
+        QVERIFY(CommandLineParser(args).chromeFlags() == chrome);
     }
 };
 
