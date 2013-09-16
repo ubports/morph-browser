@@ -7,7 +7,7 @@ Popups.Dialog {
     id: authDialog
 
     title: i18n.tr("Authentication required.")
-    text: i18n.tr("The website " + model.hostname + " requires authentication.")
+    text: i18n.tr("The website %1 requires authentication.").arg(model.hostname)
 
     TextField {
         id: usernameInput
