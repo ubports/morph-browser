@@ -36,6 +36,7 @@ MainView {
 
     property bool webapp: false
     property string webappName: ""
+    property string webappModelSearchPath: ""
 
     property alias currentIndex: tabsModel.currentIndex
     property alias currentWebview: tabsModel.currentWebview
@@ -313,7 +314,7 @@ MainView {
                 name: browser.webappName
                 bindee: tabsModel.currentWebview
                 actionsContext: browser.actionManager.globalContext
-                model: UnityWebApps.UnityWebappsAppModel {}
+                model: UnityWebApps.UnityWebappsAppModel { searchPath: browser.webappModelSearchPath }
             }
         }
     }

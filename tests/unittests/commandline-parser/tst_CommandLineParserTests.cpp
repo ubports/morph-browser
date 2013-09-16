@@ -205,6 +205,29 @@ private Q_SLOTS:
         QCOMPARE(CommandLineParser(args).webappName(), webappName);
     }
 
+
+    void shouldUseWebappsModelSearchPath_data()
+    {
+        QTest::addColumn<QStringList>("args");
+        QTest::addColumn<QString>("webappModelSearchPath");
+
+        QString BINARY("webbrowser-app");
+
+        QTest::newRow("no switch") << (QStringList() << BINARY) << QString();
+        QTest::newRow("partial switch") << (QStringList() << BINARY << "--webappModelSearchPath") << QString();
+        QTest::newRow("switch with absolute path")
+                << (QStringList() << BINARY << "--webappModelSearchPath=/my/path")
+                << QString("/my/path");
+    }
+
+    void shouldUseWebappsModelSearchPath()
+    {
+        QFETCH(QStringList, args);
+        QFETCH(QString, webappModelSearchPath);
+
+        QCOMPARE(CommandLineParser(args).webappModelSearchPath(), webappModelSearchPath);
+    }
+
     void shouldUseIncludes_data()
     {
         QTest::addColumn<QStringList>("args");

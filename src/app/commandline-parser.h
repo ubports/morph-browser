@@ -58,6 +58,7 @@ public:
 
     bool webapp() const;
     QString webappName() const;
+    QString webappModelSearchPath() const;
 
     QString appId() const;
 
@@ -71,6 +72,7 @@ private:
     bool m_remoteInspector;
     bool m_webapp;
     QString m_webappName;
+    QString m_webappModelSearchPath;
     QString m_appid;
     QStringList m_webappUrlPatterns;
     ChromeElementFlags m_chromeFlags;

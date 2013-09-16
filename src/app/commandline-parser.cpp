@@ -54,6 +54,8 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     m_fullscreen = true;
                 } else if (argument == "--inspector") {
                     m_remoteInspector = true;
+                } else if (argument.startsWith("--webappModelSearchPath=")) {
+                    m_webappModelSearchPath = argument.split("--webappModelSearchPath=")[1];
                 } else if (argument.startsWith("--webappUrlPatterns=")) {
                     QString tail = argument.split("--webappUrlPatterns=")[1];
                     if (!tail.isEmpty()) {
@@ -134,6 +136,7 @@ void CommandLineParser::printUsage() const
     out << "  --inspector            run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
     out << "  --webapp[=name]        launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
     out << "  --app-id=APP_ID        run the application with a specific APP_ID" << endl;
+    out << "  --webappModelSearchPath=PATH  alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=url-patterns  when running as a webapp (see --webapp), list of ',' separated url patterns (wildcard based) that the webapp can navigate to" << endl;
     out << "Chrome options (if none specified, the whole chrome is enabled by default):" << endl;
     out << "  --chromeless           do not display any chrome (web application mode), if set it overrides the other chrome options" << endl;
@@ -185,6 +188,11 @@ bool CommandLineParser::webapp() const
 QString CommandLineParser::webappName() const
 {
     return m_webappName;
+}
+
+QString CommandLineParser::webappModelSearchPath() const
+{
+    return m_webappModelSearchPath;
 }
 
 QStringList CommandLineParser::webappUrlPatterns() const
