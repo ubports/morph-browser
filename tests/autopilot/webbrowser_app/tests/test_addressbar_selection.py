@@ -57,6 +57,10 @@ class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(address_bar)
         self.assert_osk_eventually_shown()
         self.pointing_device.click_object(address_bar)
+        # avoid double click
+        time.sleep(1)
+        # now simulate a double click
+        self.pointing_device.click()
         self.pointing_device.click()
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(lambda: len(text_field.selectedText),
