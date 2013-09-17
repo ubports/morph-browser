@@ -358,7 +358,7 @@ MainView {
             experimental.onPermissionRequested: {
                 if (permission.type == PermissionRequest.Geolocation) {
                     if (panel.item) {
-                        panel.item.opened = false
+                        panel.item.close()
                     }
                     var text = i18n.tr("This page wants to know your device’s location.")
                     PopupUtils.open(Qt.resolvedUrl("PermissionRequest.qml"),
