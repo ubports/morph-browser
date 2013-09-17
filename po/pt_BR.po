@@ -7,95 +7,99 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-08-02 10:44+0200\n"
-"PO-Revision-Date: 2013-08-04 20:47+0000\n"
-"Last-Translator: Jorge <jg.bosch6@gmail.com>\n"
+"POT-Creation-Date: 2013-08-30 17:08+0200\n"
+"PO-Revision-Date: 2013-09-06 18:09+0000\n"
+"Last-Translator: Rodrigo Zimmermann <bilufe@yahoo.com.br>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-05 06:31+0000\n"
-"X-Generator: Launchpad (build 16718)\n"
+"X-Launchpad-Export-Date: 2013-09-07 05:41+0000\n"
+"X-Generator: Launchpad (build 16760)\n"
 
-#: src/app/ActivityView.qml:34 src/app/Chrome.qml:120
+#: src/app/ActivityView.qml:36 src/app/Chrome.qml:120
 msgid "Activity"
 msgstr "Atividade"
 
-#: src/app/ActivityView.qml:50
+#: src/app/ActivityView.qml:52
 msgid "Bookmarks"
-msgstr ""
+msgstr "Favoritos"
 
-#: src/app/Browser.qml:47
+#: src/app/Browser.qml:53
 msgid "Goto"
 msgstr "Ir para"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:50
+#: src/app/Browser.qml:56
 msgid "Address;URL;www"
 msgstr "Endereço;URL;www"
 
-#: src/app/Browser.qml:55 src/app/Chrome.qml:67
+#: src/app/Browser.qml:62 src/app/Chrome.qml:67
 msgid "Back"
 msgstr "Voltar"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:58
+#: src/app/Browser.qml:65
 msgid "Older Page"
 msgstr "Página mais antiga"
 
-#: src/app/Browser.qml:63 src/app/Chrome.qml:85
+#: src/app/Browser.qml:70 src/app/Chrome.qml:85
 msgid "Forward"
 msgstr "Avançar"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:66
+#: src/app/Browser.qml:73
 msgid "Newer Page"
 msgstr "Página mais nova"
 
-#: src/app/Browser.qml:71
+#: src/app/Browser.qml:78
 msgid "Reload"
 msgstr "Recarregar"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:74
+#: src/app/Browser.qml:81
 msgid "Leave Page"
 msgstr "Deixar página"
 
-#: src/app/Browser.qml:79
+#: src/app/Browser.qml:86
 msgid "Bookmark"
 msgstr "Favorito"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:82
+#: src/app/Browser.qml:89
 msgid "Add This Page to Bookmarks"
 msgstr "Adicionar esta página aos favoritos"
 
-#: src/app/Browser.qml:86
+#: src/app/Browser.qml:94
 msgid "New Tab"
 msgstr "Nova aba"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:89
+#: src/app/Browser.qml:97
 msgid "Open a New Tab"
 msgstr "Abrir uma nova aba"
 
-#: src/app/Browser.qml:298
+#: src/app/Browser.qml:331
 msgid "Share"
 msgstr "Compartilhar"
 
-#: src/app/Browser.qml:302
+#: src/app/Browser.qml:335
 msgid "Save"
 msgstr "Salvar"
 
-#: src/app/Browser.qml:306
+#: src/app/Browser.qml:339
 msgid "Copy"
 msgstr "Copiar"
+
+#: src/app/Browser.qml:346
+msgid "This page wants to know your device’s location."
+msgstr "A página deseja saber a localização do seu dispositivo."
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -118,11 +122,23 @@ msgstr ""
 msgid "Refresh page"
 msgstr "Atualizar a página"
 
+#: src/app/PermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "Requisição de permissão"
+
+#: src/app/PermissionRequest.qml:31
+msgid "Deny"
+msgstr "Negar"
+
+#: src/app/PermissionRequest.qml:40
+msgid "Allow"
+msgstr "Permitir"
+
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/TabsList.qml:34
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr ""
+msgstr "Visualizando atualmente (%1)"
 
 #: src/app/TabsList.qml:65
 msgid "+"
@@ -130,27 +146,27 @@ msgstr "+"
 
 #: src/app/TimelineView.qml:87
 msgid "Today"
-msgstr ""
+msgstr "Hoje"
 
 #: src/app/TimelineView.qml:89
 msgid "Yesterday"
-msgstr ""
+msgstr "Ontem"
 
 #: src/app/TimelineView.qml:91
 msgid "Last 7 Days"
-msgstr ""
+msgstr "Últimos 7 dias"
 
 #: src/app/TimelineView.qml:93
 msgid "This Month"
-msgstr ""
+msgstr "Este mês"
 
 #: src/app/TimelineView.qml:95
 msgid "This Year"
-msgstr ""
+msgstr "Este ano"
 
 #: src/app/TimelineView.qml:97
 msgid "Older"
-msgstr ""
+msgstr "Mais antigo"
 
 #: src/app/TimelineView.qml:169
 msgid "(local files)"
@@ -166,18 +182,18 @@ msgstr "Navegador"
 
 #: src/app/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr "Navegador da Internet"
+msgstr "Navegador web"
 
 #: src/app/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
 msgstr "Navegue na internet"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser-app.qml:34
+#: src/app/webbrowser-app.qml:37
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Navegador da internet"
+msgstr "%1 - Navegador web do Ubuntu"
 
-#: src/app/webbrowser-app.qml:35
+#: src/app/webbrowser-app.qml:38
 msgid "Ubuntu Web Browser"
-msgstr "Navegador da internet"
+msgstr "Navegador web do Ubuntu"

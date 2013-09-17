@@ -32,12 +32,12 @@
 CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
     : QObject(parent)
     , m_help(false)
-    , m_chromeless(false)
     , m_fullscreen(false)
     , m_url(DEFAULT_HOMEPAGE)
     , m_remoteInspector(false)
     , m_webapp(false)
     , m_maximized(false)
+    , m_chromeFlags(0U)
 {
     QStringList args = arguments;
     args.removeFirst();
@@ -50,13 +50,34 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
             if (argument.startsWith("-")) {
                 args.removeAt(i);
                 if (argument == "--chromeless") {
-                    m_chromeless = true;
+                    m_chromeFlags |= CHROMELESS;
                 } else if (argument == "--fullscreen") {
                     m_fullscreen = true;
                 } else if (argument == "--maximized") {
                     m_maximized = true;
                 } else if (argument == "--inspector") {
                     m_remoteInspector = true;
+                } else if (argument.startsWith("--webappModelSearchPath=")) {
+                    m_webappModelSearchPath = argument.split("--webappModelSearchPath=")[1];
+                } else if (argument.startsWith("--webappUrlPatterns=")) {
+                    QString tail = argument.split("--webappUrlPatterns=")[1];
+                    if (!tail.isEmpty()) {
+                        QStringList includePatterns = tail.split(",");
+                        Q_FOREACH(const QString & includePattern, includePatterns)
+                        {
+                            QString url = includePattern.trimmed();
+                            if ( ! url.isEmpty())
+                            {
+                                m_webappUrlPatterns.append(url);
+                            }
+                        }
+                    }
+                } else if (argument == "--enable-back-forward") {
+                    m_chromeFlags |= BACK_FORWARD_BUTTONS;
+                } else if (argument == "--enable-activity") {
+                    m_chromeFlags |= ACTIVITY_BUTTON | ADDRESS_BAR;
+                } else if (argument == "--enable-addressbar") {
+                    m_chromeFlags |= ADDRESS_BAR;
                 } else if (argument.startsWith("--webapp")) {
                     // We use the name as a reference instead of the URL with a
                     // subsequent step to match it with a webapp.
@@ -65,7 +86,8 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     m_webapp = true;
                     QString tail = argument.split("--webapp")[1];
                     if (!tail.isEmpty() && tail.startsWith("=")) {
-                        tail = QUrl::fromPercentEncoding(tail.split("=")[1].toUtf8()).trimmed();
+                        QString webappName = tail.split("=")[1];
+                        tail = QByteArray::fromBase64(webappName.toUtf8()).trimmed();
                         if (!tail.isEmpty()) {
                             m_webappName = tail;
                         }
@@ -111,14 +133,25 @@ void CommandLineParser::printUsage() const
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
     out << "Usage: " << command << " [-h|--help] [--chromeless] [--fullscreen] [--homepage=URL] [URL]" << endl;
     out << "Options:" << endl;
-    out << "  -h, --help       display this help message and exit" << endl;
-    out << "  --chromeless     do not display any chrome (web application mode)" << endl;
-    out << "  --fullscreen     display full screen" << endl;
-    out << "  --homepage=URL   override any URL passed as an argument" << endl;
-    out << "  --inspector      run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
-    out << "  --webapp[=name]  launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
-    out << "  --app-id=APP_ID  run the application with a specific APP_ID" << endl;
-    out << "  --maximized      opens the application maximized" << endl;
+    out << "  -h, --help             display this help message and exit" << endl;
+    out << "  --fullscreen           display full screen" << endl;
+    out << "  --maximized            opens the application maximized" << endl;
+    out << "  --homepage=URL         override any URL passed as an argument" << endl;
+    out << "  --inspector            run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
+    out << "  --webapp[=name]        launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
+    out << "  --app-id=APP_ID        run the application with a specific APP_ID" << endl;
+    out << "  --webappModelSearchPath=PATH  alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
+    out << "  --webappUrlPatterns=url-patterns  when running as a webapp (see --webapp), list of ',' separated url patterns (wildcard based) that the webapp can navigate to" << endl;
+    out << "Chrome options (if none specified, the whole chrome is enabled by default):" << endl;
+    out << "  --chromeless           do not display any chrome (web application mode), if set it overrides the other chrome options" << endl;
+    out << "  --enable-back-forward  enable the display of the back and forward buttons" << endl;
+    out << "  --enable-activity      enable the display of the activity button, the address bar is also displayed" << endl;
+    out << "  --enable-addressbar    enable the display of the address bar" << endl;
+}
+
+CommandLineParser::ChromeElementFlags CommandLineParser::chromeFlags() const
+{
+    return m_chromeFlags;
 }
 
 QString CommandLineParser::appId() const
@@ -133,7 +166,7 @@ bool CommandLineParser::help() const
 
 bool CommandLineParser::chromeless() const
 {
-    return m_chromeless;
+    return m_chromeFlags & CHROMELESS;
 }
 
 bool CommandLineParser::fullscreen() const
@@ -164,4 +197,14 @@ QString CommandLineParser::webappName() const
 bool CommandLineParser::maximized() const
 {
     return m_maximized;
+}
+
+QString CommandLineParser::webappModelSearchPath() const
+{
+    return m_webappModelSearchPath;
+}
+
+QStringList CommandLineParser::webappUrlPatterns() const
+{
+    return m_webappUrlPatterns;
 }

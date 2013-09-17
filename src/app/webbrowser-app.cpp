@@ -18,6 +18,7 @@
 
 // Qt
 #include <QtCore/QMetaObject>
+#include <QtCore/QDir>
 #include <QtNetwork/QNetworkInterface>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
@@ -28,6 +29,8 @@
 #include "config.h"
 #include "commandline-parser.h"
 #include "webbrowser-app.h"
+#include "webbrowser-window.h"
+
 
 static float getQtWebkitDpr()
 {
@@ -45,6 +48,7 @@ WebBrowserApp::WebBrowserApp(int& argc, char** argv)
     , m_engine(0)
     , m_component(0)
     , m_window(0)
+    , m_webbrowserWindowProxy(0)
 {
 }
 
@@ -52,6 +56,7 @@ WebBrowserApp::~WebBrowserApp()
 {
     delete m_component;
     delete m_engine;
+    delete m_webbrowserWindowProxy;
 }
 
 bool WebBrowserApp::initialize()
@@ -100,13 +105,52 @@ bool WebBrowserApp::initialize()
         qWarning() << m_component->errorString();
         return false;
     }
+    m_webbrowserWindowProxy = new WebBrowserWindow();
+    context->setContextProperty("webbrowserWindowProxy", m_webbrowserWindowProxy);
 
     QObject* browser = m_component->create();
     m_window = qobject_cast<QQuickWindow*>(browser);
+    m_webbrowserWindowProxy->setWindow(m_window);
+
     browser->setProperty("chromeless", m_arguments->chromeless());
     browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
+
+    QString webappModelSearchPath = m_arguments->webappModelSearchPath();
+    if (! webappModelSearchPath.isEmpty())
+    {
+        QDir webappModelSearchDir(webappModelSearchPath);
+
+        // makeAbsolute is idempotent
+        webappModelSearchDir.makeAbsolute();
+        if (webappModelSearchDir.exists())
+        {
+            browser->setProperty("webappModelSearchPath", webappModelSearchDir.path());
+        }
+    }
     browser->setProperty("webapp", m_arguments->webapp());
     browser->setProperty("webappName", m_arguments->webappName());
+
+    CommandLineParser::ChromeElementFlags chromeFlags = m_arguments->chromeFlags();
+    if (chromeFlags != 0)
+    {
+        bool backForwardButtonsVisible = (chromeFlags & CommandLineParser::BACK_FORWARD_BUTTONS);
+        bool addressBarVisible = (chromeFlags & CommandLineParser::ADDRESS_BAR);
+        bool activityButtonVisible = (chromeFlags & CommandLineParser::ACTIVITY_BUTTON);
+
+        browser->setProperty("backForwardButtonsVisible", backForwardButtonsVisible);
+        browser->setProperty("addressBarVisible", addressBarVisible);
+        browser->setProperty("activityButtonVisible", activityButtonVisible);
+    }
+
+    QStringList urlPatterns = m_arguments->webappUrlPatterns();
+    if ( ! urlPatterns.isEmpty())
+    {
+        for (int i = 0; i < urlPatterns.count(); ++i)
+        {
+            urlPatterns[i].replace("*", "[^ ]*");
+        }
+        browser->setProperty("webappUrlPatterns", urlPatterns);
+    }
 
     // Set the desired pixel ratio (not needed once we use Qt's way of calculating
     // the proper pixel ratio by device/screen)

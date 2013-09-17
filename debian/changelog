@@ -1,3 +1,31 @@
+webbrowser-app (0.22+13.10.20130903.3-0ubuntu1) saucy; urgency=low
+
+  [ Olivier Tilloy ]
+  * Basic permission request dialog to allow/deny geolocation.
+  * Increase the timeout for assert_page_eventually_loaded to make tests
+    more reliable when in a slow environment.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 296
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 03 Sep 2013 15:58:52 +0000
+
+webbrowser-app (0.22+13.10.20130830.1-0ubuntu1) saucy; urgency=low
+
+  [ Alexandre Abreu ]
+  * Expect webapp names to be base64-encoded.
+  * properly setup the actions context property for WebApps now that the
+    action manager is available in the SDK.
+
+  [ Olivier Tilloy ]
+  * Port the autopilot tests over to using the standard emulators
+    provided by the UITK.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 290
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 30 Aug 2013 07:31:01 +0000
+
 webbrowser-app (0.22+13.10.20130820.2-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]

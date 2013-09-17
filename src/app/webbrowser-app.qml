@@ -25,23 +25,38 @@ Window {
     property alias qtwebkitdpr: browser.qtwebkitdpr
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
+    property alias webappUrlPatterns: browser.webappUrlPatterns
+
+    property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
+    property alias activityButtonVisible: browser.activityButtonVisible
+    property alias addressBarVisible: browser.addressBarVisible
+
     property alias webapp: browser.webapp
     property alias webappName: browser.webappName
+    property alias webappModelSearchPath: browser.webappModelSearchPath
 
     contentOrientation: browser.screenOrientation
 
     width: 800
     height: 600
 
-    // TRANSLATORS: %1 refers to the current page’s title
-    title: browser.title ? i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
-                         : i18n.tr("Ubuntu Web Browser")
+    title: {
+        if (webapp && typeof(webappName) === 'string' && webappName.length !== 0)
+            return webappName
+
+        if (browser.title)
+            // TRANSLATORS: %1 refers to the current page’s title
+            return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
+        else
+            return i18n.tr("Ubuntu Web Browser")
+    }
 
     Browser {
         id: browser
         applicationName: "webbrowser-app"
         property int screenOrientation: Screen.orientation
         anchors.fill: parent
+        webbrowserWindow: webbrowserWindowProxy
     }
 
     function newTab(url, setCurrent) {

@@ -17,9 +17,11 @@
  */
 
 import QtQuick 2.0
-import QtWebKit 3.0
+import QtWebKit 3.1
+import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
+import Ubuntu.Components.Popups 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 
@@ -30,12 +32,21 @@ MainView {
     property real qtwebkitdpr
     property bool developerExtrasEnabled: false
 
+    property var webappUrlPatterns: null
+
     property bool webapp: false
     property string webappName: ""
+    property string webappModelSearchPath: ""
 
     property alias currentIndex: tabsModel.currentIndex
     property alias currentWebview: tabsModel.currentWebview
     property string title: currentWebview ? currentWebview.title : ""
+
+    property bool backForwardButtonsVisible: true
+    property bool activityButtonVisible: true
+    property bool addressBarVisible: true
+
+    property var webbrowserWindow: null
 
     automaticOrientation: true
 
@@ -219,6 +230,10 @@ MainView {
 
                     onUrlValidated: currentWebview.url = url
 
+                    backForwardButtonsVisible: browser.backForwardButtonsVisible
+                    activityButtonVisible: browser.activityButtonVisible
+                    addressBarVisible: browser.addressBarVisible
+
                     property bool stopped: false
                     onLoadingChanged: {
                         if (loading) {
@@ -288,40 +303,6 @@ MainView {
         id: tabsModel
     }
 
-
-    /*
-      The webapps component below expects its actionsContext to be something
-      that looks like a UnityActions.Context, i.e. with the capability to add
-      and remove actions:
-
-          void addAction(UnityActions.Actions action)
-          void removeAction(UnityActions.Actions action)
-
-      As we’re using a MainView, the underlying actions are abstracted away.
-     */
-    QtObject {
-        id: unityActionsWebappsAdaptor
-
-        /*
-          Not implemented until MainView offers a way to properly access the actions
-          at runtime & dynamically:
-
-          See https://bugs.launchpad.net/ubuntu-ui-toolkit/+bug/1207804
-         */
-        function removeAction(action) {
-            console.debug('Runtime action removed')
-        }
-        /*
-          Not implemented until MainView offers a way to properly access the actions
-          at runtime & dynamically:
-
-          See https://bugs.launchpad.net/ubuntu-ui-toolkit/+bug/1207804
-         */
-        function addAction(action) {
-            console.debug('Runtime action added')
-        }
-    }
-
     Loader {
         sourceComponent: (browser.webapp && tabsModel.currentIndex > -1) ? webappsComponent : undefined
 
@@ -329,10 +310,11 @@ MainView {
             id: webappsComponent
 
             UnityWebApps.UnityWebApps {
+                id: webapps
                 name: browser.webappName
                 bindee: tabsModel.currentWebview
-                actionsContext: unityActionsWebappsAdaptor
-                model: UnityWebApps.UnityWebappsAppModel {}
+                actionsContext: browser.actionManager.globalContext
+                model: UnityWebApps.UnityWebappsAppModel { searchPath: browser.webappModelSearchPath }
             }
         }
     }
@@ -373,11 +355,55 @@ MainView {
                 }
             }
 
+            experimental.onPermissionRequested: {
+                if (permission.type == PermissionRequest.Geolocation) {
+                    var text = i18n.tr("This page wants to know your device’s location.")
+                    PopupUtils.open(Qt.resolvedUrl("PermissionRequest.qml"),
+                                    browser.currentWebview,
+                                    {"permission": permission, "text": text})
+                }
+                // TODO: handle other types of permission requests
+                // TODO: we might want to store the answer to avoid requesting
+                //       the permission everytime the user visits this site.
+            }
+
             property int lastLoadRequestStatus: -1
             onLoadingChanged: {
                 lastLoadRequestStatus = loadRequest.status
                 if (loadRequest.status === WebView.LoadSucceededStatus) {
                     historyModel.add(webview.url, webview.title, webview.icon)
+                }
+            }
+
+            function navigationRequestedDelegate(request) {
+                if (! request.isMainFrame) {
+                    request.action = WebView.AcceptRequest;
+                    return;
+                }
+
+                var action = WebView.AcceptRequest;
+                var url = request.url.toString();
+
+                // The list of url patterns defined by the webapp takes precedence over command line
+                if (webapp && isRunningAsANamedWebapp() && webapps.model && webapps.model.exists(webapps.name)) {
+                    if ( ! webapps.model.doesUrlMatchesWebapp(webapps.name, url)) {
+                        action = WebView.IgnoreRequest;
+                    }
+                }
+                else if (browser.webappUrlPatterns && browser.webappUrlPatterns.length !== 0) {
+                    action = WebView.IgnoreRequest;
+                    for (var i = 0; i < browser.webappUrlPatterns.length; ++i) {
+                        var pattern = browser.webappUrlPatterns[i];
+                        if (url.match(pattern)) {
+                            action = WebView.AcceptRequest;
+                            break;
+                        }
+                    }
+                }
+
+                request.action = action;
+                if (action === WebView.IgnoreRequest) {
+                    Qt.openUrlExternally(url);
                 }
             }
 
@@ -389,7 +415,18 @@ MainView {
             // component as a way to bind to a webview lookalike without
             // reaching out directly to its internals (see it as an interface).
             function getUnityWebappsProxies() {
-                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview)
+                var eventHandlers = {
+                    onAppRaised: function () {
+                        if (webbrowserWindow) {
+                            try {
+                                webbrowserWindow.raise();
+                            } catch (e) {
+                                console.debug('Error while raising: ' + e);
+                            }
+                        }
+                    }
+                };
+                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview, eventHandlers)
             }
         }
     }

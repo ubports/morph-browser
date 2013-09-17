@@ -47,6 +47,18 @@ TestCase {
         compare(addressBar.requestedUrl, "http://ubuntu.com")
     }
 
+    function test_no_ipadress_scheme_rewrite() {
+        addressBar.text = "192.168.1.1"
+        addressBar.validate()
+        compare(addressBar.requestedUrl, "http://192.168.1.1")
+        addressBar.text = "192.168.1.1:8000"
+        addressBar.validate()
+        compare(addressBar.requestedUrl, "http://192.168.1.1:8000")
+        addressBar.text = "192.168.1.1:8000/dummy.html"
+        addressBar.validate()
+        compare(addressBar.requestedUrl, "http://192.168.1.1:8000/dummy.html")
+    }
+
     function test_unhandled_scheme_no_rewrite() {
         addressBar.text = "ftp://ubuntu.com"
         addressBar.validate()

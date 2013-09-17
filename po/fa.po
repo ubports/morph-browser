@@ -7,175 +7,193 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-08-02 10:44+0200\n"
-"PO-Revision-Date: 2013-06-19 12:43+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-08-30 17:08+0200\n"
+"PO-Revision-Date: 2013-09-08 11:53+0000\n"
+"Last-Translator: Ahmad Sufi Mahmudi <Unknown>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-03 06:14+0000\n"
-"X-Generator: Launchpad (build 16718)\n"
+"X-Launchpad-Export-Date: 2013-09-09 05:00+0000\n"
+"X-Generator: Launchpad (build 16760)\n"
 
-#: src/app/ActivityView.qml:34 src/app/Chrome.qml:120
+#: src/app/ActivityView.qml:36 src/app/Chrome.qml:120
 msgid "Activity"
-msgstr ""
+msgstr "فعالیت"
 
-#: src/app/ActivityView.qml:50
+#: src/app/ActivityView.qml:52
 msgid "Bookmarks"
-msgstr ""
+msgstr "نشانک‌ها"
 
-#: src/app/Browser.qml:47
+#: src/app/Browser.qml:53
 msgid "Goto"
-msgstr ""
+msgstr "برو به"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:50
+#: src/app/Browser.qml:56
 msgid "Address;URL;www"
-msgstr ""
+msgstr "آدرس;URL;www"
 
-#: src/app/Browser.qml:55 src/app/Chrome.qml:67
+#: src/app/Browser.qml:62 src/app/Chrome.qml:67
 msgid "Back"
-msgstr ""
+msgstr "بازگشت"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:58
+#: src/app/Browser.qml:65
 msgid "Older Page"
-msgstr ""
+msgstr "صفحه قدیمی‌تر"
 
-#: src/app/Browser.qml:63 src/app/Chrome.qml:85
+#: src/app/Browser.qml:70 src/app/Chrome.qml:85
 msgid "Forward"
-msgstr ""
+msgstr "جلو"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:66
+#: src/app/Browser.qml:73
 msgid "Newer Page"
-msgstr ""
+msgstr "صفحه جدیدتر"
 
-#: src/app/Browser.qml:71
+#: src/app/Browser.qml:78
 msgid "Reload"
-msgstr ""
+msgstr "بارگیری دوباره"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:74
+#: src/app/Browser.qml:81
 msgid "Leave Page"
-msgstr ""
+msgstr "ترک صفحه"
 
-#: src/app/Browser.qml:79
+#: src/app/Browser.qml:86
 msgid "Bookmark"
-msgstr ""
+msgstr "نشانک"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:82
+#: src/app/Browser.qml:89
 msgid "Add This Page to Bookmarks"
-msgstr ""
+msgstr "اضافه کردن این صفحه به نشانک‌ها"
 
-#: src/app/Browser.qml:86
+#: src/app/Browser.qml:94
 msgid "New Tab"
-msgstr ""
+msgstr "زبانه تازه"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:89
+#: src/app/Browser.qml:97
 msgid "Open a New Tab"
-msgstr ""
+msgstr "بازکردن زبانه‌ی جدید"
 
-#: src/app/Browser.qml:298
+#: src/app/Browser.qml:331
 msgid "Share"
-msgstr ""
+msgstr "به‌اشتراک‌گذاری"
 
-#: src/app/Browser.qml:302
+#: src/app/Browser.qml:335
 msgid "Save"
-msgstr ""
+msgstr "ذخیره‌کردن"
 
-#: src/app/Browser.qml:306
+#: src/app/Browser.qml:339
 msgid "Copy"
-msgstr ""
+msgstr "رونوشت"
+
+#: src/app/Browser.qml:346
+msgid "This page wants to know your device’s location."
+msgstr "این صفحه میخواهد مکان دستگاه شما را بداند."
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr ""
+msgstr "خطای شبکه"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "به نظر می‌رسد که شما در دیدن %1 مشکل دارید."
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
+"اوبونتو پیشنهاد می‌کند که تنظیمات شبکه‌تان را بررسی کنید و برگه را بازآوری "
+"کنید."
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr ""
+msgstr "بازآوری صفحه"
+
+#: src/app/PermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "درخواست اجازه"
+
+#: src/app/PermissionRequest.qml:31
+msgid "Deny"
+msgstr "انکار"
+
+#: src/app/PermissionRequest.qml:40
+msgid "Allow"
+msgstr "اجازه دادن"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/TabsList.qml:34
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr ""
+msgstr "درحال دیدن (%1)"
 
 #: src/app/TabsList.qml:65
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #: src/app/TimelineView.qml:87
 msgid "Today"
-msgstr ""
+msgstr "امروز"
 
 #: src/app/TimelineView.qml:89
 msgid "Yesterday"
-msgstr ""
+msgstr "دیروز"
 
 #: src/app/TimelineView.qml:91
 msgid "Last 7 Days"
-msgstr ""
+msgstr "۷ روز گذشته"
 
 #: src/app/TimelineView.qml:93
 msgid "This Month"
-msgstr ""
+msgstr "این ماه"
 
 #: src/app/TimelineView.qml:95
 msgid "This Year"
-msgstr ""
+msgstr "امسال"
 
 #: src/app/TimelineView.qml:97
 msgid "Older"
-msgstr ""
+msgstr "قدیمی‌تر"
 
 #: src/app/TimelineView.qml:169
 msgid "(local files)"
-msgstr ""
+msgstr "(پرونده‌های محلی)"
 
 #: src/app/TimelineView.qml:171
 msgid "(other)"
-msgstr ""
+msgstr "(دیگر)"
 
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr ""
+msgstr "مرورگر"
 
 #: src/app/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr ""
+msgstr "مرورگر وب"
 
 #: src/app/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "در دنیای اینترنت گردش کنید"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser-app.qml:34
+#: src/app/webbrowser-app.qml:37
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - مرورگر وب اوبونتو"
 
-#: src/app/webbrowser-app.qml:35
+#: src/app/webbrowser-app.qml:38
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "مرورگر وب اوبونتو"

@@ -16,35 +16,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBBROWSER_APP_H__
-#define __WEBBROWSER_APP_H__
+import QtQuick 2.0
+import Ubuntu.Components 0.1
+import Ubuntu.Components.Popups 0.1
 
-#include <QtWidgets/QApplication>
+Dialog {
+    id: dialog
 
-class QQmlComponent;
-class QQmlEngine;
-class QQuickWindow;
-class WebBrowserWindow;
+    property QtObject permission: null
 
-class CommandLineParser;
+    title: i18n.tr("Permission Request")
 
-class WebBrowserApp : public QApplication
-{
-    Q_OBJECT
+    Button {
+        text: i18n.tr("Deny")
+        color: UbuntuColors.warmGrey
+        onClicked: {
+            permission.allow = false
+            PopupUtils.close(dialog)
+        }
+    }
 
-public:
-    WebBrowserApp(int& argc, char** argv);
-    ~WebBrowserApp();
-
-    bool initialize();
-    int run();
-
-private:
-    CommandLineParser* m_arguments;
-    QQmlEngine* m_engine;
-    QQmlComponent* m_component;
-    QQuickWindow* m_window;
-    WebBrowserWindow *m_webbrowserWindowProxy;
-};
-
-#endif // __WEBBROWSER_APP_H__
+    Button {
+        text: i18n.tr("Allow")
+        color: UbuntuColors.orange
+        onClicked: {
+            permission.allow = true
+            PopupUtils.close(dialog)
+        }
+    }
+}
