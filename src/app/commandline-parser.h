@@ -51,6 +51,7 @@ public:
 
     bool chromeless() const;
     bool fullscreen() const;
+    bool maximized() const;
 
     QUrl url() const;
 
@@ -60,8 +61,6 @@ public:
     QString webappName() const;
     QString webappModelSearchPath() const;
 
-    bool maximized() const;
-
     QString appId() const;
 
     QStringList webappUrlPatterns() const;
@@ -70,10 +69,10 @@ public:
 private:
     bool m_help;
     bool m_fullscreen;
+    bool m_maximized;
     QUrl m_url;
     bool m_remoteInspector;
     bool m_webapp;
-    bool m_maximized;
     QString m_webappName;
     QString m_webappModelSearchPath;
     QString m_appid;
