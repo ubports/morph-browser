@@ -33,10 +33,10 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
     : QObject(parent)
     , m_help(false)
     , m_fullscreen(false)
+    , m_maximized(false)
     , m_url(DEFAULT_HOMEPAGE)
     , m_remoteInspector(false)
     , m_webapp(false)
-    , m_maximized(false)
     , m_chromeFlags(0U)
 {
     QStringList args = arguments;
