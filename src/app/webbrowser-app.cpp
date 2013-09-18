@@ -179,6 +179,8 @@ int WebBrowserApp::run()
 
     if (m_arguments->fullscreen()) {
         m_window->showFullScreen();
+    } else if (m_arguments->maximized()) {
+        m_window->showMaximized();
     } else {
         m_window->show();
     }

@@ -205,6 +205,24 @@ private Q_SLOTS:
         QCOMPARE(CommandLineParser(args).webappName(), webappName);
     }
 
+    void shouldBeMaximized_data()
+    {
+        QTest::addColumn<QStringList>("args");
+        QTest::addColumn<bool>("maximized");
+
+        QString BINARY("webbrowser-app");
+
+        QTest::newRow("no switch") << (QStringList() << BINARY) << false;
+        QTest::newRow("maximized switch") << (QStringList() << BINARY << "--maximized") << true;
+        QTest::newRow("switch with typo") << (QStringList() << BINARY << "--maxidmized") << false;
+    }
+
+    void shouldBeMaximized()
+    {
+        QFETCH(QStringList, args);
+        QFETCH(bool, maximized);
+        QCOMPARE(CommandLineParser(args).maximized(), maximized);
+    }
 
     void shouldUseWebappsModelSearchPath_data()
     {
