@@ -56,6 +56,7 @@ public:
     void setDatabasePath(const QString& path);
 
     Q_INVOKABLE int add(const QUrl& url, const QString& title, const QUrl& icon);
+    Q_INVOKABLE void clearAll();
 
 Q_SIGNALS:
     void databasePathChanged() const;
@@ -78,6 +79,7 @@ private:
     void populateFromDatabase();
     void insertNewEntryInDatabase(const HistoryEntry& entry);
     void updateExistingEntryInDatabase(const HistoryEntry& entry);
+    void clearDatabase();
 };
 
 #endif // __HISTORY_MODEL_H__
