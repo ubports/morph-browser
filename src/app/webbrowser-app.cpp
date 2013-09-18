@@ -75,6 +75,9 @@ bool WebBrowserApp::initialize()
         QString appId = m_arguments->appId().isEmpty() ? QString(APP_ID) : m_arguments->appId();
         qputenv("APP_ID", appId.toUtf8());
     }
+    // Ensure that application-specific data is written where it ought to.
+    QString appPkgName = qgetenv("APP_ID").split('_').first();
+    QCoreApplication::setApplicationName(appPkgName);
 
     if (m_arguments->remoteInspector()) {
         QString host;
