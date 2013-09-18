@@ -93,4 +93,5 @@ var overrides = {
     "dailymotion.com": ["Mobile", "Android; Mobile Safari"],
     "amazon.co.uk": ["Mobile", "Android; Mobile"],
     "ebay.co.uk": ["Mobile", "Android; Mobile"],
+    "facebook.com": [/WebKit\/[.0-9]*/, "Apple$& Firefox/18"],
 };
