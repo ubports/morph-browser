@@ -58,6 +58,11 @@ function getSelectedData(element) {
         }
     }
     data.html = node.outerHTML;
+    data.nodeName = node.nodeName.toLowerCase();
+    if (data.nodeName == 'a') {
+        data.href = node.href;
+        data.title = node.title;
+    }
     // FIXME: extract the text and images in the order they appear in the block,
     // so that this order is respected when the data is pushed to the clipboard.
     data.text = node.textContent;

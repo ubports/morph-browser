@@ -75,6 +75,21 @@ WebView {
             return
         }
         if ('event' in data) {
+            if (data.event === 'longpress') {
+                if ('nodeName' in data) {
+                    contextualData.clear()
+                    if (data.nodeName === 'a') {
+                        contextualData.href = data.href
+                        contextualData.title = data.title
+                        PopupUtils.open(hyperlinkContextualPopover)
+                        return
+                    } else if (data.nodeName === 'img') {
+                        contextualData.src = data.images[0]
+                        PopupUtils.open(imageContextualPopover)
+                        return
+                    }
+                }
+            }
             if ((data.event === 'longpress') || (data.event === 'selectionadjusted')) {
                 selection.clearData()
                 selection.createData()
@@ -185,6 +200,37 @@ WebView {
         function copy() {
             Clipboard.push(mimedata)
             clearData()
+        }
+    }
+
+    property alias contextualData: _contextualData
+    QtObject {
+        id: _contextualData
+
+        property url href
+        property string title
+        property url src
+
+        function clear() {
+            url = ''
+            title = ''
+            src = ''
+        }
+    }
+
+    property ActionList hyperlinkContextualActions
+    Component {
+        id: hyperlinkContextualPopover
+        ActionSelectionPopover {
+            actions: hyperlinkContextualActions
+        }
+    }
+
+    property ActionList imageContextualActions
+    Component {
+        id: imageContextualPopover
+        ActionSelectionPopover {
+            actions: imageContextualActions
         }
     }
 

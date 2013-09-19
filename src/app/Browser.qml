@@ -355,6 +355,32 @@ MainView {
                 }
             }
 
+            hyperlinkContextualActions: ActionList {
+                Action {
+                    text: i18n.tr("Open link in new tab")
+                    onTriggered: browser.newTab(contextualData.href, true)
+                }
+                Action {
+                    text: i18n.tr("Bookmark link")
+                    onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "")
+                }
+                Action {
+                    text: i18n.tr("Copy link URL")
+                    onTriggered: Clipboard.push(contextualData.href)
+                }
+            }
+
+            imageContextualActions: ActionList {
+                Action {
+                    text: i18n.tr("Open image in new tab")
+                    onTriggered: browser.newTab(contextualData.src, true)
+                }
+                Action {
+                    text: i18n.tr("Copy image URL")
+                    onTriggered: Clipboard.push(contextualData.src)
+                }
+            }
+
             experimental.onPermissionRequested: {
                 if (permission.type == PermissionRequest.Geolocation) {
                     var text = i18n.tr("This page wants to know your device’s location.")
