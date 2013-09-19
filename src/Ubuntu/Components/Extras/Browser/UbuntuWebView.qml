@@ -81,11 +81,13 @@ WebView {
                     if (data.nodeName === 'a') {
                         contextualData.href = data.href
                         contextualData.title = data.title
-                        PopupUtils.open(hyperlinkContextualPopover)
+                        contextualRectangle.position(data)
+                        PopupUtils.open(hyperlinkContextualPopover, contextualRectangle)
                         return
                     } else if (data.nodeName === 'img') {
                         contextualData.src = data.images[0]
-                        PopupUtils.open(imageContextualPopover)
+                        contextualRectangle.position(data)
+                        PopupUtils.open(imageContextualPopover, contextualRectangle)
                         return
                     }
                 }
@@ -203,6 +205,18 @@ WebView {
         }
     }
 
+    Item {
+        id: contextualRectangle
+
+        visible: false
+
+        function position(data) {
+            x = data.left * _webview.scale
+            y = data.top * _webview.scale
+            width = data.width * _webview.scale
+            height = data.height * _webview.scale
+        }
+    }
     property alias contextualData: _contextualData
     QtObject {
         id: _contextualData
