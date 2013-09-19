@@ -1,3 +1,28 @@
+webbrowser-app (0.22+13.10.20130919.3-0ubuntu1) saucy; urgency=low
+
+  [ Alexandre Abreu ]
+  * Add a 'maximized' command line parameter mostly to enhance the
+    control for webapps launch.
+
+  [ Olivier Tilloy ]
+  * Use the value of APP_ID to set the application name. This ensures
+    that webapps (which run with a unique app ID) will write their data
+    where they ought to, and that they won’t have access to other apps’
+    cache and cookies. (LP: #1226085)
+  * Add a unity action to clear the navigation history.
+  * Override the UA string for facebook.com to ensure we’re getting
+    touch-enabled content. Without this override, we were getting
+    unstyled mobile content from the 90s. Impersonating an iphone or
+    android would offer to install the respective applications when
+    logging in. The 'Firefox' token gets us the right content (and
+    pretending to be AppleWebKit seems to be necessary too, otherwise
+    the layout is busted). (LP: #1215002)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 318
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 19 Sep 2013 15:52:17 +0000
+
 webbrowser-app (0.22+13.10.20130918.1-0ubuntu1) saucy; urgency=low
 
   [ Alexandre Abreu ]
