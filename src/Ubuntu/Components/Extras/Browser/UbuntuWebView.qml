@@ -101,8 +101,6 @@ WebView {
     }
 
     experimental.itemSelector: ItemSelector {}
-    experimental.authenticationDialog: AuthenticationDialog {}
-    experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}
 
     property alias selection: selection
     property ActionList selectionActions

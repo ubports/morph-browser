@@ -339,6 +339,8 @@ MainView {
             devicePixelRatio: browser.qtwebkitdpr
 
             experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
+            experimental.authenticationDialog: AuthenticationDialog {}
+            experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}
 
             selectionActions: ActionList {
                 Action {
