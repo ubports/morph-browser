@@ -211,10 +211,11 @@ WebView {
         visible: false
 
         function position(data) {
-            x = data.left * _webview.scale
-            y = data.top * _webview.scale
-            width = data.width * _webview.scale
-            height = data.height * _webview.scale
+            var scale = _webview.scale
+            x = data.left * scale
+            y = data.top * scale
+            width = data.width * scale
+            height = data.height * scale
         }
     }
     property alias contextualData: _contextualData
