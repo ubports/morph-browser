@@ -259,3 +259,21 @@ void HistoryModel::updateExistingEntryInDatabase(const HistoryEntry& entry)
     query.addBindValue(entry.url.toString());
     query.exec();
 }
+
+void HistoryModel::clearAll()
+{
+    if (!m_entries.isEmpty()) {
+        beginResetModel();
+        m_entries.clear();
+        endResetModel();
+        clearDatabase();
+    }
+}
+
+void HistoryModel::clearDatabase()
+{
+    QSqlQuery query(m_database);
+    QString deleteStatement = QLatin1String("DELETE FROM history;");
+    query.prepare(deleteStatement);
+    query.exec();
+}

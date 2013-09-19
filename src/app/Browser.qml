@@ -106,6 +106,13 @@ MainView {
             keywords: i18n.tr("Open a New Tab")
             enabled: !isRunningAsANamedWebapp()
             onTriggered: browser.newTab("", true)
+        },
+        UnityActions.Action {
+            text: i18n.tr("Clear History")
+            // TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+            // Keywords may actually be sentences, and must be separated by semi-colons.
+            keywords: i18n.tr("Clear Navigation History")
+            onTriggered: historyModel.clearAll()
         }
     ]
 

@@ -1,3 +1,43 @@
+webbrowser-app (0.22+13.10.20130918.1-0ubuntu1) saucy; urgency=low
+
+  [ Alexandre Abreu ]
+  * chrome selection.
+  * Navigation support. (LP: #1187917)
+  * Handle window raise event from webapps. The event might be occur for
+    example when the app is being raised from the messaging menu etc.
+    And additional proxy object is used to give access from the qml
+    browser back to the native window object.
+  * Add a command line argument for webapps that allows one to specify
+    the root path for installed webapp searches. The uses cases are
+    multiple, among other things local testing, and click packages
+    (where webapps are installed in /opt/) and should be looked up
+    there. For click webapps, the desktop-click hook will set the CWD
+    when starting the app to the local click app folder and aa_exec will
+    make sure that all is properly setup. Given the containment rules
+    for click apps, the webbrowser-app should be told where to look for
+    the webapp content (javascript snippet) and not follow the usual
+    desktop rules (and the Exec line from the webapp desktop file should
+    explicitly specify where to look for it based on CWD). .
+  * Tweak title to remove the ubuntu browser references when run as a
+    webapp.
+
+  [ daker ]
+  * Added support for IP adresses. (LP: #1166063)
+
+  [ Olivier Tilloy ]
+  * Temporarily skip a test that consistently fails on devices. This is
+    to unblock autolanding of a large number of valid merge requests
+    that have been sitting there for too long.
+  * Remove unused runtime dependency on qtdeclarative5-hud1.0. It had
+    crept back in by accident at revision 242. (LP: #1221344)
+  * Skip a test that is flaky (for a known reason) on slow
+    configurations.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 312
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 18 Sep 2013 08:02:09 +0000
+
 webbrowser-app (0.22+13.10.20130903.3-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
