@@ -100,6 +100,53 @@ Item {
             }
 
             ListView {
+                id: entriesView
+
+                property string domain: ""
+
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    margins: units.gu(2)
+                }
+                height: 0
+                clip: true
+
+                spacing: units.gu(2)
+                orientation: ListView.Horizontal
+
+                delegate: PageDelegate {
+                    width: units.gu(12)
+                    height: units.gu(14)
+
+                    label: model.title ? model.title : model.url
+
+                    property url thumbnailSource: "image://webthumbnail/" + model.url
+                    thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: historyEntryClicked(model.url)
+                    }
+                }
+
+                states: [
+                    State {
+                        name: "expanded"
+                        when: timelineIndex == timeline.currentIndex
+                        PropertyChanges {
+                            target: entriesView
+                            height: units.gu(14)
+                            clip: false
+                        }
+                    }
+                ]
+                Behavior on height {
+                    UbuntuNumberAnimation {}
+                }
+            }
+
+            ListView {
                 id: domainsView
 
                 anchors {
@@ -190,53 +237,6 @@ Item {
                             }
                         }
                     }
-                }
-            }
-
-            ListView {
-                id: entriesView
-
-                property string domain: ""
-
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    margins: units.gu(2)
-                }
-                height: 0
-                clip: true
-
-                spacing: units.gu(2)
-                orientation: ListView.Horizontal
-
-                delegate: PageDelegate {
-                    width: units.gu(12)
-                    height: units.gu(14)
-
-                    label: model.title ? model.title : model.url
-
-                    property url thumbnailSource: "image://webthumbnail/" + model.url
-                    thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: historyEntryClicked(model.url)
-                    }
-                }
-
-                states: [
-                    State {
-                        name: "expanded"
-                        when: timelineIndex == timeline.currentIndex
-                        PropertyChanges {
-                            target: entriesView
-                            height: units.gu(14)
-                            clip: false
-                        }
-                    }
-                ]
-                Behavior on height {
-                    UbuntuNumberAnimation {}
                 }
             }
         }
