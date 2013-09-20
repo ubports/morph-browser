@@ -106,6 +106,13 @@ MainView {
             keywords: i18n.tr("Open a New Tab")
             enabled: !isRunningAsANamedWebapp()
             onTriggered: browser.newTab("", true)
+        },
+        UnityActions.Action {
+            text: i18n.tr("Clear History")
+            // TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+            // Keywords may actually be sentences, and must be separated by semi-colons.
+            keywords: i18n.tr("Clear Navigation History")
+            onTriggered: historyModel.clearAll()
         }
     ]
 
@@ -179,7 +186,7 @@ MainView {
             if (currentWebview) {
                 currentWebview.forceActiveFocus()
             }
-            panel.item.opened = false
+            panel.item.close()
         }
     }
 
@@ -207,7 +214,7 @@ MainView {
                 }
                 height: units.gu(8)
 
-                opened: true
+                Component.onCompleted: open()
                 onOpenedChanged: {
                     if (!opened) {
                         Qt.inputMethod.hide()
@@ -238,13 +245,13 @@ MainView {
                     onLoadingChanged: {
                         if (loading) {
                             if (panel.item) {
-                                panel.item.opened = true
+                                panel.item.open()
                             }
                         } else if (stopped) {
                             stopped = false
                         } else if (!addressBar.activeFocus) {
                             if (panel.item) {
-                                panel.item.opened = false
+                                panel.item.close()
                             }
                             if (currentWebview) {
                                 currentWebview.forceActiveFocus()
@@ -445,7 +452,7 @@ MainView {
             if (!browser.chromeless) {
                 if (!url) {
                     panel.chrome.addressBar.forceActiveFocus()
-                    panel.item.opened = true
+                    panel.item.open()
                 }
             }
         }

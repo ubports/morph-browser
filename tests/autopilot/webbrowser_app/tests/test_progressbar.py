@@ -11,6 +11,8 @@ from __future__ import absolute_import
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
+import unittest
+
 from webbrowser_app.tests import \
     BrowserTestCaseBaseWithHTTPServer, \
     StartOpenRemotePageTestCaseBase, \
@@ -31,6 +33,9 @@ class TestProgressBarAtStartup(BrowserTestCaseBaseWithHTTPServer):
         self.ARGS = [self.url]
         super(TestProgressBarAtStartup, self).setUp()
 
+    @unittest.skip("This test is flaky on slow configurations where the "
+                   "autopilot machinery takes longer to initialize than the "
+                   "hardcoded page load delay.")
     def test_chrome_initially_shown_then_hides_when_loaded(self):
         self.assert_chrome_eventually_shown()
         self.assert_page_eventually_loaded(self.url)

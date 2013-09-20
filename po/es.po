@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-08-30 17:08+0200\n"
-"PO-Revision-Date: 2013-09-11 02:59+0000\n"
+"POT-Creation-Date: 2013-09-13 13:16+0200\n"
+"PO-Revision-Date: 2013-09-18 20:54+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-12 07:26+0000\n"
-"X-Generator: Launchpad (build 16761)\n"
+"X-Launchpad-Export-Date: 2013-09-19 04:57+0000\n"
+"X-Generator: Launchpad (build 16765)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:120
 msgid "Activity"
@@ -23,7 +23,7 @@ msgstr "Actividad"
 
 #: src/app/ActivityView.qml:52
 msgid "Bookmarks"
-msgstr ""
+msgstr "Marcadores"
 
 #: src/app/Browser.qml:53
 msgid "Goto"
@@ -47,7 +47,7 @@ msgstr "Página anterior"
 
 #: src/app/Browser.qml:70 src/app/Chrome.qml:85
 msgid "Forward"
-msgstr "Avanzar"
+msgstr "Adelante"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -85,19 +85,29 @@ msgstr "Pestaña nueva"
 msgid "Open a New Tab"
 msgstr "Abrir una pestaña nueva"
 
-#: src/app/Browser.qml:331
+#: src/app/Browser.qml:102
+msgid "Clear History"
+msgstr "Limpiar el histórico"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:105
+msgid "Clear Navigation History"
+msgstr "Limpiar el histórico de navegación"
+
+#: src/app/Browser.qml:338
 msgid "Share"
 msgstr "Compartir"
 
-#: src/app/Browser.qml:335
+#: src/app/Browser.qml:342
 msgid "Save"
 msgstr "Guardar"
 
-#: src/app/Browser.qml:339
+#: src/app/Browser.qml:346
 msgid "Copy"
 msgstr "Copiar"
 
-#: src/app/Browser.qml:346
+#: src/app/Browser.qml:353
 msgid "This page wants to know your device’s location."
 msgstr "Esta página quiere conocer la ubicación del dispositivo."
 
@@ -119,11 +129,11 @@ msgstr ""
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr "Recargar la página"
+msgstr "Recargar página"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Solicitud de permiso"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
@@ -173,7 +183,7 @@ msgstr "(archivos locales)"
 
 #: src/app/TimelineView.qml:171
 msgid "(other)"
-msgstr ""
+msgstr "(otro)"
 
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"

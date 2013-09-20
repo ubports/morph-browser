@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-20 17:30+0200\n"
+"POT-Creation-Date: 2013-09-20 17:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,19 +111,29 @@ msgstr ""
 msgid "Open a New Tab"
 msgstr ""
 
-#: src/app/Browser.qml:347
+#: src/app/Browser.qml:111
+msgid "Clear History"
+msgstr ""
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:114
+msgid "Clear Navigation History"
+msgstr ""
+
+#: src/app/Browser.qml:354
 msgid "Share"
 msgstr ""
 
-#: src/app/Browser.qml:351
+#: src/app/Browser.qml:358
 msgid "Save"
 msgstr ""
 
-#: src/app/Browser.qml:355
+#: src/app/Browser.qml:362
 msgid "Copy"
 msgstr ""
 
-#: src/app/Browser.qml:362
+#: src/app/Browser.qml:369
 msgid "This page wants to know your device’s location."
 msgstr ""
 
