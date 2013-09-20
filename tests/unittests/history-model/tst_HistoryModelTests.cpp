@@ -197,6 +197,20 @@ private Q_SLOTS:
         model->setDatabasePath(fileName);
         QCOMPARE(model->rowCount(), 2);
     }
+
+    void shouldClearAll()
+    {
+        QSignalSpy spyReset(model, SIGNAL(modelReset()));
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        model->add(QUrl("http://example.com/"), "Example Domain", QUrl());
+        QCOMPARE(model->rowCount(), 2);
+        QVERIFY(spyReset.isEmpty());
+        model->clearAll();
+        QCOMPARE(spyReset.count(), 1);
+        QCOMPARE(model->rowCount(), 0);
+        model->clearAll();
+        QCOMPARE(spyReset.count(), 1);
+    }
 };
 
 QTEST_MAIN(HistoryModelTests)

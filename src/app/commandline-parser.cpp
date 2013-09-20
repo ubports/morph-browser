@@ -33,6 +33,7 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
     : QObject(parent)
     , m_help(false)
     , m_fullscreen(false)
+    , m_maximized(false)
     , m_url(DEFAULT_HOMEPAGE)
     , m_remoteInspector(false)
     , m_webapp(false)
@@ -52,6 +53,8 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                     m_chromeFlags |= CHROMELESS;
                 } else if (argument == "--fullscreen") {
                     m_fullscreen = true;
+                } else if (argument == "--maximized") {
+                    m_maximized = true;
                 } else if (argument == "--inspector") {
                     m_remoteInspector = true;
                 } else if (argument.startsWith("--webappModelSearchPath=")) {
@@ -132,6 +135,7 @@ void CommandLineParser::printUsage() const
     out << "Options:" << endl;
     out << "  -h, --help             display this help message and exit" << endl;
     out << "  --fullscreen           display full screen" << endl;
+    out << "  --maximized            opens the application maximized" << endl;
     out << "  --homepage=URL         override any URL passed as an argument" << endl;
     out << "  --inspector            run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
     out << "  --webapp[=name]        launch the browser as a webapp trying to match it by name with an installed webapp integration script (if any)" << endl;
@@ -188,6 +192,11 @@ bool CommandLineParser::webapp() const
 QString CommandLineParser::webappName() const
 {
     return m_webappName;
+}
+
+bool CommandLineParser::maximized() const
+{
+    return m_maximized;
 }
 
 QString CommandLineParser::webappModelSearchPath() const
