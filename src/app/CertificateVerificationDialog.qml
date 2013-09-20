@@ -23,7 +23,7 @@ import Ubuntu.Components.Popups 0.1 as Popups
 Popups.Dialog {
     title: i18n.tr("This connection is untrusted")
     // TRANSLATORS: %1 refers to the URL of the current website
-    text: i18n.tr("You are trying to securely reach %1, but the security certificate of this website is not trusted!").arg(model.hostname)
+    text: i18n.tr("You are trying to securely reach %1, but the security certificate of this website is not trusted.").arg(model.hostname)
 
     Button {
         text: i18n.tr("Proceed anyway")
