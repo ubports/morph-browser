@@ -19,7 +19,6 @@
 import QtQuick 2.0
 
 AuthenticationDialog {
-    id: proxyAuthDialog
     title: i18n.tr("Proxy authentication required.")
     // TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
     text: i18n.tr("The website %1:%2 requires authentication.").arg(model.hostname).arg(model.port)

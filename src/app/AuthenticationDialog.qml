@@ -21,8 +21,6 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1 as Popups
 
 Popups.Dialog {
-    id: authDialog
-
     title: i18n.tr("Authentication required.")
     // TRANSLATORS: %1 refers to the URL of the current website
     text: i18n.tr("The website %1 requires authentication.").arg(model.hostname)
