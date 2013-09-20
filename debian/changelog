@@ -1,3 +1,17 @@
+webbrowser-app (0.22+13.10.20130920-0ubuntu1) saucy; urgency=low
+
+  [ Olivier Tilloy ]
+  * Use the new Panel API (open() and close() methods instead of setting
+    the value of the 'opened' property).
+  * Unskip a test. No clue why it started failing only recently, it
+    should have failed since the beginning, because the OSK animation
+    prevented a reliable double-click simulation.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 321
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 20 Sep 2013 11:24:43 +0000
+
 webbrowser-app (0.22+13.10.20130919.3-0ubuntu1) saucy; urgency=low
 
   [ Alexandre Abreu ]
