@@ -346,6 +346,8 @@ MainView {
             devicePixelRatio: browser.qtwebkitdpr
 
             experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
+            experimental.certificateVerificationDialog: CertificateVerificationDialog { }
+
 
             selectionActions: ActionList {
                 Action {
