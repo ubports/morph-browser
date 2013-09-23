@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-19 18:33+0200\n"
+"POT-Creation-Date: 2013-09-23 10:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -119,15 +119,15 @@ msgstr ""
 msgid "Copy link URL"
 msgstr ""
 
-#: src/app/Browser.qml:382
+#: src/app/Browser.qml:385
 msgid "Open image in new tab"
 msgstr ""
 
-#: src/app/Browser.qml:386
+#: src/app/Browser.qml:389
 msgid "Copy image URL"
 msgstr ""
 
-#: src/app/Browser.qml:393
+#: src/app/Browser.qml:396
 msgid "This page wants to know your device’s location."
 msgstr ""
 
