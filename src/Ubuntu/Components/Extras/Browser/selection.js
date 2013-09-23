@@ -47,8 +47,15 @@ function getImgFullUri(uri) {
 }
 
 function getSelectedData(element) {
-    var data = element.getBoundingClientRect();
-    var node = element.cloneNode(true);
+    var node = element;
+    // Hyperlinks are considered more important than other tags,
+    // so try to find an enclosing 'a' tag in the tree.
+    while (node && node.nodeName.toLowerCase() !== 'a') {
+        node = node.parentNode;
+    }
+    node = node || element;
+    var data = node.getBoundingClientRect();
+    node = node.cloneNode(true);
     // filter out script nodes
     var scripts = node.getElementsByTagName('script');
     while (scripts.length > 0) {
