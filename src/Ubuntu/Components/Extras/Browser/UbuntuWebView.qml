@@ -192,14 +192,6 @@ WebView {
             _webview.experimental.postMessage(JSON.stringify(message))
         }
 
-        function share() {
-            console.log("TODO: share selection")
-        }
-
-        function save() {
-            console.log("TODO: save selection")
-        }
-
         function copy() {
             Clipboard.push(mimedata)
             clearData()

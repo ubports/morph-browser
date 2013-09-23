@@ -349,14 +349,6 @@ MainView {
 
             selectionActions: ActionList {
                 Action {
-                    text: i18n.tr("Share")
-                    onTriggered: selection.share()
-                }
-                Action {
-                    text: i18n.tr("Save")
-                    onTriggered: selection.save()
-                }
-                Action {
                     text: i18n.tr("Copy")
                     onTriggered: selection.copy()
                 }
