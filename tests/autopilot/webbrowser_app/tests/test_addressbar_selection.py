@@ -13,8 +13,6 @@ import time
 from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
 
-import unittest
-
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
@@ -52,14 +50,17 @@ class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
         self.assertThat(text_field.selectedText, Eventually(Equals('')))
         self.assertThat(text_field.cursorPosition, Eventually(GreaterThan(0)))
 
-    # FIXME(oSoMoN): investigate why this test fails on devices
-    # (since 2013-09-13), and re-enable it (or remove it for good).
-    @unittest.skip("Temporarily skipped as it consistently fails on devices.")
     def test_double_click_select_word(self):
         self.assert_chrome_eventually_hidden()
         self.main_window.open_toolbar()
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.click_object(address_bar)
+        self.assert_osk_eventually_shown()
+        self.pointing_device.click_object(address_bar)
+        # avoid double click
+        time.sleep(1)
+        # now simulate a double click
+        self.pointing_device.click()
         self.pointing_device.click()
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(lambda: len(text_field.selectedText),
