@@ -373,7 +373,7 @@ MainView {
                 }
                 Action {
                     text: i18n.tr("Copy link URL")
-                    onTriggered: Clipboard.push(contextualData.href)
+                    onTriggered: Clipboard.push([contextualData.href])
                 }
             }
 
@@ -384,7 +384,7 @@ MainView {
                 }
                 Action {
                     text: i18n.tr("Copy image URL")
-                    onTriggered: Clipboard.push(contextualData.src)
+                    onTriggered: Clipboard.push([contextualData.src])
                 }
             }
 
