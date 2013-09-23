@@ -346,6 +346,7 @@ MainView {
             devicePixelRatio: browser.qtwebkitdpr
 
             experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
+            experimental.alertDialog: AlertDialog { }
 
             selectionActions: ActionList {
                 Action {
