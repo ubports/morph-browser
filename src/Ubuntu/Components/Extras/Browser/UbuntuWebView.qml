@@ -80,6 +80,7 @@ WebView {
                     contextualData.clear()
                     if (data.nodeName === 'a') {
                         contextualData.href = data.href
+                        contextualData.text = data.href
                         contextualData.title = data.title
                         contextualRectangle.position(data)
                         PopupUtils.open(hyperlinkContextualPopover, contextualRectangle)
@@ -223,11 +224,13 @@ WebView {
         id: _contextualData
 
         property url href
+        property string text
         property string title
         property url src
 
         function clear() {
-            url = ''
+            href = ''
+            text = ''
             title = ''
             src = ''
         }

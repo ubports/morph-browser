@@ -373,7 +373,10 @@ MainView {
                 }
                 Action {
                     text: i18n.tr("Copy link URL")
-                    onTriggered: Clipboard.push([contextualData.href])
+                    onTriggered: {
+                        Clipboard.push([contextualData.href])
+                        Clipboard.push(contextualData.text)
+                    }
                 }
             }
 
