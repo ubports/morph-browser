@@ -346,25 +346,55 @@ MainView {
             devicePixelRatio: browser.qtwebkitdpr
 
             experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
+
+            experimental.certificateVerificationDialog: CertificateVerificationDialog { }
+            experimental.authenticationDialog: AuthenticationDialog {}
+            experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}
+            experimental.alertDialog: AlertDialog { }
+            experimental.confirmDialog: ConfirmDialog { }
             experimental.promptDialog: PromptDialog { }
 
             selectionActions: ActionList {
-                Action {
-                    text: i18n.tr("Share")
-                    onTriggered: selection.share()
-                }
-                Action {
-                    text: i18n.tr("Save")
-                    onTriggered: selection.save()
-                }
                 Action {
                     text: i18n.tr("Copy")
                     onTriggered: selection.copy()
                 }
             }
 
+            hyperlinkContextualActions: ActionList {
+                Action {
+                    text: i18n.tr("Open link in new tab")
+                    onTriggered: browser.newTab(contextualData.href, true)
+                }
+                Action {
+                    text: i18n.tr("Bookmark link")
+                    onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "")
+                }
+                Action {
+                    text: i18n.tr("Copy link URL")
+                    onTriggered: {
+                        Clipboard.push([contextualData.href])
+                        Clipboard.push(contextualData.text)
+                    }
+                }
+            }
+
+            imageContextualActions: ActionList {
+                Action {
+                    text: i18n.tr("Open image in new tab")
+                    onTriggered: browser.newTab(contextualData.src, true)
+                }
+                Action {
+                    text: i18n.tr("Copy image URL")
+                    onTriggered: Clipboard.push([contextualData.src])
+                }
+            }
+
             experimental.onPermissionRequested: {
                 if (permission.type == PermissionRequest.Geolocation) {
+                    if (panel.item) {
+                        panel.item.close()
+                    }
                     var text = i18n.tr("This page wants to know your device’s location.")
                     PopupUtils.open(Qt.resolvedUrl("PermissionRequest.qml"),
                                     browser.currentWebview,
