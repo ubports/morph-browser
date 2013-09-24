@@ -57,7 +57,7 @@ Item {
         objectName: "backButton"
         anchors {
             left: parent.left
-            leftMargin: units.gu(1)
+            leftMargin: units.gu(2)
             verticalCenter: parent.verticalCenter
         }
         // On narrow screens, hide the button to maximize the
@@ -79,7 +79,7 @@ Item {
         objectName: "forwardButton"
         anchors {
             left: backButton.right
-            leftMargin: units.gu(1)
+            leftMargin: visible ? units.gu(1) : 0
             verticalCenter: parent.verticalCenter
         }
         // On narrow screen, hide the button to maximize
@@ -118,7 +118,7 @@ Item {
         anchors {
             verticalCenter: parent.verticalCenter
             right: parent.right
-            margins: units.gu(1)
+            rightMargin: units.gu(2)
         }
         width: units.gu(5)
         height: width
