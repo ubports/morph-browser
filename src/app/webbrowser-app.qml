@@ -21,7 +21,6 @@ import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
 
 Window {
-    id: root
     property alias chromeless: browser.chromeless
     property alias qtwebkitdpr: browser.qtwebkitdpr
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
