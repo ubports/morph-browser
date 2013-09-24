@@ -36,8 +36,6 @@ Window {
     property alias webappName: browser.webappName
     property alias webappModelSearchPath: browser.webappModelSearchPath
 
-    property string applicationName: ""
-
     contentOrientation: browser.screenOrientation
 
     width: 800
@@ -56,10 +54,11 @@ Window {
 
     Browser {
         id: browser
-        applicationName: root.applicationName
         property int screenOrientation: Screen.orientation
         anchors.fill: parent
         webbrowserWindow: webbrowserWindowProxy
+
+        Component.onCompleted: i18n.domain = "webbrowser-app"
     }
 
     function newTab(url, setCurrent) {

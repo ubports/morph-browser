@@ -115,7 +115,6 @@ bool WebBrowserApp::initialize()
     m_window = qobject_cast<QQuickWindow*>(browser);
     m_webbrowserWindowProxy->setWindow(m_window);
 
-    browser->setProperty("applicationName", appPkgName);
     browser->setProperty("chromeless", m_arguments->chromeless());
     browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
 
