@@ -99,34 +99,89 @@ Item {
                 }
             }
 
-            ListView {
+            Item {
                 id: entriesView
 
+                property var model
                 property string domain: ""
 
                 anchors {
                     left: parent.left
                     right: parent.right
-                    margins: units.gu(2)
                 }
                 height: 0
                 clip: true
 
-                spacing: units.gu(2)
-                orientation: ListView.Horizontal
+                Rectangle {
+                    anchors.fill: parent
+                    color: "black"
+                    opacity: 0.1
+                }
 
-                delegate: PageDelegate {
-                    width: units.gu(12)
-                    height: units.gu(14)
+                Image {
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        right: parent.right
+                    }
+                    fillMode: Image.TileHorizontally
+                    source: "assets/expanded_top_innershadow.png"
+                }
 
-                    label: model.title ? model.title : model.url
+                Image {
+                    id: arrow
+                    anchors.top: parent.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter // FIXME
+                    source: "assets/expanded_tooltip.png"
+                }
 
-                    property url thumbnailSource: "image://webthumbnail/" + model.url
-                    thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
+                Image {
+                    anchors {
+                        top: parent.bottom
+                        left: parent.left
+                        right: arrow.left
+                    }
+                    fillMode: Image.TileHorizontally
+                    source: "assets/expanded_bottom_highlight.png"
+                }
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: historyEntryClicked(model.url)
+                Image {
+                    anchors {
+                        top: parent.bottom
+                        left: arrow.right
+                        right: parent.right
+                    }
+                    fillMode: Image.TileHorizontally
+                    source: "assets/expanded_bottom_highlight.png"
+                }
+
+                ListView {
+                    id: entriesListView
+
+                    anchors {
+                        fill: parent
+                        margins: units.gu(2)
+                        topMargin: units.gu(1.5)
+                    }
+
+                    spacing: units.gu(2)
+                    orientation: ListView.Horizontal
+
+                    model: entriesView.model
+
+                    delegate: PageDelegate {
+                        width: units.gu(12)
+                        height: units.gu(14)
+
+                        label: model.title ? model.title : model.url
+
+                        property url thumbnailSource: "image://webthumbnail/" + model.url
+                        thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: historyEntryClicked(model.url)
+                        }
                     }
                 }
 
@@ -136,7 +191,7 @@ Item {
                         when: timelineIndex == timeline.currentIndex
                         PropertyChanges {
                             target: entriesView
-                            height: units.gu(14)
+                            height: units.gu(18)
                             clip: false
                         }
                     }
