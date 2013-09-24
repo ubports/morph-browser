@@ -131,7 +131,7 @@ Item {
                 Image {
                     id: arrow
                     anchors.top: parent.bottom
-                    anchors.horizontalCenter: parent.horizontalCenter // FIXME
+                    x: domainsView.currentItem ? domainsView.currentItem.x + (domainsView.currentItem.width + width) / 2 - domainsView.contentX : 0
                     source: "assets/expanded_tooltip.png"
                 }
 
@@ -284,8 +284,10 @@ Item {
                         onClicked: {
                             if ((timeline.currentIndex == timelineIndex) &&
                                 (entriesView.domain === model.domain)) {
+                                domainsView.currentIndex = -1
                                 timeline.currentIndex = -1
                             } else {
+                                domainsView.currentIndex = index
                                 timeline.currentIndex = timelineIndex
                                 entriesView.domain = model.domain
                                 entriesView.model = model.entries
