@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-20 17:41+0200\n"
+"POT-Creation-Date: 2013-09-24 07:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,14 @@ msgstr ""
 
 #: src/app/ActivityView.qml:52
 msgid "Bookmarks"
+msgstr ""
+
+#: src/app/AlertDialog.qml:24
+msgid "JavaScript Alert"
+msgstr ""
+
+#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+msgid "OK"
 msgstr ""
 
 #: src/app/AuthenticationDialog.qml:24
@@ -41,10 +49,6 @@ msgstr ""
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
-
-#: src/app/AuthenticationDialog.qml:47
-msgid "OK"
 msgstr ""
 
 #: src/app/AuthenticationDialog.qml:53
@@ -121,19 +125,31 @@ msgstr ""
 msgid "Clear Navigation History"
 msgstr ""
 
-#: src/app/Browser.qml:354
-msgid "Share"
-msgstr ""
-
-#: src/app/Browser.qml:358
-msgid "Save"
-msgstr ""
-
-#: src/app/Browser.qml:362
+#: src/app/Browser.qml:355
 msgid "Copy"
 msgstr ""
 
-#: src/app/Browser.qml:369
+#: src/app/Browser.qml:362
+msgid "Open link in new tab"
+msgstr ""
+
+#: src/app/Browser.qml:366
+msgid "Bookmark link"
+msgstr ""
+
+#: src/app/Browser.qml:370
+msgid "Copy link URL"
+msgstr ""
+
+#: src/app/Browser.qml:380
+msgid "Open image in new tab"
+msgstr ""
+
+#: src/app/Browser.qml:384
+msgid "Copy image URL"
+msgstr ""
+
+#: src/app/Browser.qml:391
 msgid "This page wants to know your device’s location."
 msgstr ""
 

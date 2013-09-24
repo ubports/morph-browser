@@ -73,6 +73,24 @@ WebView {
             return
         }
         if ('event' in data) {
+            if (data.event === 'longpress') {
+                if ('nodeName' in data) {
+                    contextualData.clear()
+                    if (data.nodeName === 'a') {
+                        contextualData.href = data.href
+                        contextualData.text = data.href
+                        contextualData.title = data.title
+                        contextualRectangle.position(data)
+                        PopupUtils.open(hyperlinkContextualPopover, contextualRectangle)
+                        return
+                    } else if (data.nodeName === 'img') {
+                        contextualData.src = data.images[0]
+                        contextualRectangle.position(data)
+                        PopupUtils.open(imageContextualPopover, contextualRectangle)
+                        return
+                    }
+                }
+            }
             if ((data.event === 'longpress') || (data.event === 'selectionadjusted')) {
                 selection.clearData()
                 selection.createData()
@@ -172,17 +190,55 @@ WebView {
             _webview.experimental.postMessage(JSON.stringify(message))
         }
 
-        function share() {
-            console.log("TODO: share selection")
-        }
-
-        function save() {
-            console.log("TODO: save selection")
-        }
-
         function copy() {
             Clipboard.push(mimedata)
             clearData()
+        }
+    }
+
+    Item {
+        id: contextualRectangle
+
+        visible: false
+
+        function position(data) {
+            var scale = _webview.scale
+            x = data.left * scale
+            y = data.top * scale
+            width = data.width * scale
+            height = data.height * scale
+        }
+    }
+    property alias contextualData: _contextualData
+    QtObject {
+        id: _contextualData
+
+        property url href
+        property string text
+        property string title
+        property url src
+
+        function clear() {
+            href = ''
+            text = ''
+            title = ''
+            src = ''
+        }
+    }
+
+    property ActionList hyperlinkContextualActions
+    Component {
+        id: hyperlinkContextualPopover
+        ActionSelectionPopover {
+            actions: hyperlinkContextualActions
+        }
+    }
+
+    property ActionList imageContextualActions
+    Component {
+        id: imageContextualPopover
+        ActionSelectionPopover {
+            actions: imageContextualActions
         }
     }
 
