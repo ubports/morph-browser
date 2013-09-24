@@ -28,6 +28,7 @@
 // local
 #include "config.h"
 #include "commandline-parser.h"
+#include "settings.h"
 #include "webbrowser-app.h"
 #include "webbrowser-window.h"
 
@@ -78,6 +79,8 @@ bool WebBrowserApp::initialize()
     // Ensure that application-specific data is written where it ought to.
     QString appPkgName = qgetenv("APP_ID").split('_').first();
     QCoreApplication::setApplicationName(appPkgName);
+
+    Settings settings;
 
     if (m_arguments->remoteInspector()) {
         QString host;
@@ -164,6 +167,9 @@ bool WebBrowserApp::initialize()
     QUrl url;
     if (m_arguments->webappName().isEmpty()) {
         url = m_arguments->url();
+        if (url.isEmpty()) {
+            url = settings.homepage();
+        }
     }
 
     QMetaObject::invokeMethod(browser, "newTab",

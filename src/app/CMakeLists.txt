@@ -9,6 +9,7 @@ set(WEBBROWSER_APP webbrowser-app)
 
 set(WEBBROWSER_SRC
     commandline-parser.cpp
+    settings.cpp
     webbrowser-app.cpp
     webbrowser-window.cpp
     main.cpp
