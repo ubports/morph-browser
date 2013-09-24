@@ -1,3 +1,32 @@
+webbrowser-app (0.22+13.10.20130924.1-0ubuntu1) saucy; urgency=low
+
+  [ Ted Gould ]
+  * Adding single instance marker to the desktop file.
+
+  [ daker ]
+  * Added support for Alert dialogs. (LP: #1169757)
+  * Added support for HTTP/Proxy auth. (LP: #1212980)
+  * Added certificateVerificationDialog component. (LP: #1227055)
+
+  [ Adnane Belmadiaf ]
+  * Added support for HTTP/Proxy auth. (LP: #1212980)
+  * Added certificateVerificationDialog component. (LP: #1227055)
+
+  [ Olivier Tilloy ]
+  * Generate translation templates only for files under src/app/. Files
+    under src/Ubuntu/… are the UbuntuWebView component, and they
+    shouldn’t have any translatable strings.
+  * Fix the selection rectangle size and position when zoomed and
+    scrolled. (LP: #1131160)
+  * Added support for HTTP/Proxy auth. (LP: #1212980)
+  * Ensure the chrome is hidden when the permission request dialog is
+    shown. (LP: #1226635)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 331
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 24 Sep 2013 07:05:03 +0000
+
 webbrowser-app (0.22+13.10.20130920-0ubuntu1) saucy; urgency=low
 
   [ Olivier Tilloy ]
