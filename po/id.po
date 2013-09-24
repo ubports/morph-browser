@@ -1,4 +1,4 @@
-# Finnish translation for webbrowser-app
+# Indonesian translation for webbrowser-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the webbrowser-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,200 +8,200 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-13 13:16+0200\n"
-"PO-Revision-Date: 2013-09-20 08:32+0000\n"
-"Last-Translator: Jiri Grönroos <Unknown>\n"
-"Language-Team: Finnish <fi@li.org>\n"
+"PO-Revision-Date: 2013-09-21 06:33+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Indonesian <id@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-21 05:59+0000\n"
+"X-Launchpad-Export-Date: 2013-09-22 05:35+0000\n"
 "X-Generator: Launchpad (build 16765)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:120
 msgid "Activity"
-msgstr "Toiminta"
+msgstr ""
 
 #: src/app/ActivityView.qml:52
 msgid "Bookmarks"
-msgstr "Kirjanmerkit"
+msgstr ""
 
 #: src/app/Browser.qml:53
 msgid "Goto"
-msgstr "Siirry"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:56
 msgid "Address;URL;www"
-msgstr "Address;URL;www;osoite;internet;webbi;netti"
+msgstr ""
 
 #: src/app/Browser.qml:62 src/app/Chrome.qml:67
 msgid "Back"
-msgstr "Edellinen"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:65
 msgid "Older Page"
-msgstr "Vanhempi sivu"
+msgstr ""
 
 #: src/app/Browser.qml:70 src/app/Chrome.qml:85
 msgid "Forward"
-msgstr "Seuraava"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:73
 msgid "Newer Page"
-msgstr "Uudempi sivu"
+msgstr ""
 
 #: src/app/Browser.qml:78
 msgid "Reload"
-msgstr "Päivitä"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:81
 msgid "Leave Page"
-msgstr "Poistu sivulta"
+msgstr ""
 
 #: src/app/Browser.qml:86
 msgid "Bookmark"
-msgstr "Kirjanmerkki"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:89
 msgid "Add This Page to Bookmarks"
-msgstr "Lisää tämä sivu kirjanmerkkeihin"
+msgstr ""
 
 #: src/app/Browser.qml:94
 msgid "New Tab"
-msgstr "Uusi välilehti"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:97
 msgid "Open a New Tab"
-msgstr "Avaa uusi välilehti"
+msgstr ""
 
 #: src/app/Browser.qml:102
 msgid "Clear History"
-msgstr "Tyhjennä historia"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:105
 msgid "Clear Navigation History"
-msgstr "Tyhjennä sivuhistoria"
+msgstr ""
 
 #: src/app/Browser.qml:338
 msgid "Share"
-msgstr "Jaa"
+msgstr ""
 
 #: src/app/Browser.qml:342
 msgid "Save"
-msgstr "Tallenna"
+msgstr ""
 
 #: src/app/Browser.qml:346
 msgid "Copy"
-msgstr "Kopioi"
+msgstr ""
 
 #: src/app/Browser.qml:353
 msgid "This page wants to know your device’s location."
-msgstr "Tämä sivu haluaa tietää laitteesi sijainnin."
+msgstr ""
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr "Verkkovirhe"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Ongelmia selatessa: %1."
+msgstr ""
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
-msgstr "Tarkista verkkoasetukset ja yritä päivittää sivu."
+msgstr ""
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr "Päivitä sivu"
+msgstr ""
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "Lupapyyntö"
+msgstr ""
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr "Estä"
+msgstr ""
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr "Salli"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/TabsList.qml:34
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr "Avoinna nyt (%1)"
+msgstr ""
 
 #: src/app/TabsList.qml:65
 msgid "+"
-msgstr "+"
+msgstr ""
 
 #: src/app/TimelineView.qml:87
 msgid "Today"
-msgstr "Tänään"
+msgstr ""
 
 #: src/app/TimelineView.qml:89
 msgid "Yesterday"
-msgstr "Eilen"
+msgstr ""
 
 #: src/app/TimelineView.qml:91
 msgid "Last 7 Days"
-msgstr "Viimeiset 7 päivää"
+msgstr ""
 
 #: src/app/TimelineView.qml:93
 msgid "This Month"
-msgstr "Tässä kuussa"
+msgstr ""
 
 #: src/app/TimelineView.qml:95
 msgid "This Year"
-msgstr "Tänä vuonna"
+msgstr ""
 
 #: src/app/TimelineView.qml:97
 msgid "Older"
-msgstr "Vanhempi"
+msgstr ""
 
 #: src/app/TimelineView.qml:169
 msgid "(local files)"
-msgstr "(paikalliset tiedostot)"
+msgstr ""
 
 #: src/app/TimelineView.qml:171
 msgid "(other)"
-msgstr "(muu)"
+msgstr ""
 
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr "Selain"
+msgstr ""
 
 #: src/app/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr "Internet-selain"
+msgstr ""
 
 #: src/app/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr "Selaa Internetin WWW-sivuja"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser-app.qml:37
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Ubuntun internetselain"
+msgstr ""
 
 #: src/app/webbrowser-app.qml:38
 msgid "Ubuntu Web Browser"
-msgstr "Ubuntun internetselain"
+msgstr ""
