@@ -21,6 +21,7 @@ import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
 
 Window {
+    id: root
     property alias chromeless: browser.chromeless
     property alias qtwebkitdpr: browser.qtwebkitdpr
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
@@ -34,6 +35,8 @@ Window {
     property alias webapp: browser.webapp
     property alias webappName: browser.webappName
     property alias webappModelSearchPath: browser.webappModelSearchPath
+
+    property string applicationName: ""
 
     contentOrientation: browser.screenOrientation
 
@@ -53,7 +56,7 @@ Window {
 
     Browser {
         id: browser
-        applicationName: "webbrowser-app"
+        applicationName: root.applicationName
         property int screenOrientation: Screen.orientation
         anchors.fill: parent
         webbrowserWindow: webbrowserWindowProxy
