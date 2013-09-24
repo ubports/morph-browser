@@ -352,6 +352,7 @@ MainView {
             experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}
             experimental.alertDialog: AlertDialog { }
             experimental.confirmDialog: ConfirmDialog { }
+            experimental.promptDialog: PromptDialog { }
 
             selectionActions: ActionList {
                 Action {
