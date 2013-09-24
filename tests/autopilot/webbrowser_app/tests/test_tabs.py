@@ -20,11 +20,11 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
     """Tests tabs management."""
 
     def assert_activity_view_eventually_visible(self):
-        self.assertThat(lambda: self.main_window.get_activity_view(),
+        self.assertThat(self.main_window.get_activity_view,
                         Eventually(Not(Is(None))))
 
     def assert_activity_view_eventually_hidden(self):
-        self.assertThat(lambda: self.main_window.get_activity_view(),
+        self.assertThat(self.main_window.get_activity_view,
                         Eventually(Is(None)))
 
     def ensure_activity_view_visible(self):
