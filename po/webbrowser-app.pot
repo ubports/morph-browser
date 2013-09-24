@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-23 10:35+0200\n"
+"POT-Creation-Date: 2013-09-24 07:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,36 @@ msgstr ""
 
 #: src/app/ActivityView.qml:52
 msgid "Bookmarks"
+msgstr ""
+
+#: src/app/AlertDialog.qml:24
+msgid "JavaScript Alert"
+msgstr ""
+
+#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+msgid "OK"
+msgstr ""
+
+#: src/app/AuthenticationDialog.qml:24
+msgid "Authentication required."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the URL of the current website
+#: src/app/AuthenticationDialog.qml:26
+#, qt-format
+msgid "The website %1 requires authentication."
+msgstr ""
+
+#: src/app/AuthenticationDialog.qml:34
+msgid "Username"
+msgstr ""
+
+#: src/app/AuthenticationDialog.qml:41
+msgid "Password"
+msgstr ""
+
+#: src/app/AuthenticationDialog.qml:53
+msgid "Cancel"
 msgstr ""
 
 #: src/app/Browser.qml:62
@@ -95,31 +125,31 @@ msgstr ""
 msgid "Clear Navigation History"
 msgstr ""
 
-#: src/app/Browser.qml:352
+#: src/app/Browser.qml:355
 msgid "Copy"
 msgstr ""
 
-#: src/app/Browser.qml:359
+#: src/app/Browser.qml:362
 msgid "Open link in new tab"
 msgstr ""
 
-#: src/app/Browser.qml:363
+#: src/app/Browser.qml:366
 msgid "Bookmark link"
 msgstr ""
 
-#: src/app/Browser.qml:367
+#: src/app/Browser.qml:370
 msgid "Copy link URL"
 msgstr ""
 
-#: src/app/Browser.qml:377
+#: src/app/Browser.qml:380
 msgid "Open image in new tab"
 msgstr ""
 
-#: src/app/Browser.qml:381
+#: src/app/Browser.qml:384
 msgid "Copy image URL"
 msgstr ""
 
-#: src/app/Browser.qml:388
+#: src/app/Browser.qml:391
 msgid "This page wants to know your device’s location."
 msgstr ""
 
@@ -152,6 +182,16 @@ msgstr ""
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
+msgstr ""
+
+#: src/app/ProxyAuthenticationDialog.qml:22
+msgid "Proxy authentication required."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
+#: src/app/ProxyAuthenticationDialog.qml:24
+#, qt-format
+msgid "The website %1:%2 requires authentication."
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the number of open tabs

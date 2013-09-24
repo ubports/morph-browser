@@ -39,8 +39,6 @@ WebView {
     interactive: !selection.visible
     maximumFlickVelocity: height * 5
 
-    property real scale: experimental.test.contentsScale * experimental.test.devicePixelRatio
-
     /**
      * Client overridable function called before the default treatment of a
      *  valid navigation request. This function can stop the navigation request
@@ -110,8 +108,7 @@ WebView {
                     // and forward local URLs.
                     selection.mimedata.urls = data.images
                 }
-                selection.show(data.left * scale, data.top * scale,
-                               data.width * scale, data.height * scale)
+                selection.show(data.left, data.top, data.width, data.height)
             } else if (data.event === 'newtab') {
                 newTabRequested(data.url)
             }
@@ -165,10 +162,11 @@ WebView {
         }
 
         function show(x, y, width, height) {
-            rect.x = x
-            rect.y = y
-            rect.width = width
-            rect.height = height
+            var scale = _webview.experimental.test.contentsScale * _webview.experimental.test.devicePixelRatio
+            rect.x = x * scale + _webview.contentX
+            rect.y = y * scale + _webview.contentY
+            rect.width = width * scale
+            rect.height = height * scale
             visible = true
             __showPopover()
         }
@@ -184,11 +182,11 @@ WebView {
             var message = new Object
             message.query = 'adjustselection'
             var rect = selection.rect
-            var scale = _webview.scale
-            message.left = rect.x / scale
-            message.right = (rect.x + rect.width) / scale
-            message.top = rect.y / scale
-            message.bottom = (rect.y + rect.height) / scale
+            var scale = _webview.experimental.test.contentsScale * _webview.experimental.test.devicePixelRatio
+            message.left = (rect.x - _webview.contentX) / scale
+            message.right = (rect.x + rect.width - _webview.contentX) / scale
+            message.top = (rect.y - _webview.contentY) / scale
+            message.bottom = (rect.y + rect.height - _webview.contentY) / scale
             _webview.experimental.postMessage(JSON.stringify(message))
         }
 
