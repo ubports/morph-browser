@@ -53,10 +53,11 @@ Window {
 
     Browser {
         id: browser
-        applicationName: "webbrowser-app"
         property int screenOrientation: Screen.orientation
         anchors.fill: parent
         webbrowserWindow: webbrowserWindowProxy
+
+        Component.onCompleted: i18n.domain = "webbrowser-app"
     }
 
     function newTab(url, setCurrent) {
