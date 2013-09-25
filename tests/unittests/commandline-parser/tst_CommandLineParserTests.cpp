@@ -112,21 +112,20 @@ private Q_SLOTS:
         QTest::addColumn<QStringList>("args");
         QTest::addColumn<QUrl>("url");
         QString BINARY("webbrowser-app");
-        QString DEFAULT("http://www.ubuntu.com");
         QString URL1("http://example.org");
         QString URL2("http://example.com");
-        QTest::newRow("no URL") << (QStringList() << BINARY) << QUrl(DEFAULT);
-        QTest::newRow("no URL with switches") << (QStringList() << BINARY << "--chromeless" << "--fullscreen") << QUrl(DEFAULT);
-        QTest::newRow("help precludes URL") << (QStringList() << BINARY << "-h" << URL1) << QUrl(DEFAULT);
-        QTest::newRow("help precludes URL") << (QStringList() << BINARY << "--help" << URL1) << QUrl(DEFAULT);
+        QTest::newRow("no URL") << (QStringList() << BINARY) << QUrl();
+        QTest::newRow("no URL with switches") << (QStringList() << BINARY << "--chromeless" << "--fullscreen") << QUrl();
+        QTest::newRow("help precludes URL") << (QStringList() << BINARY << "-h" << URL1) << QUrl();
+        QTest::newRow("help precludes URL") << (QStringList() << BINARY << "--help" << URL1) << QUrl();
         QTest::newRow("one URL") << (QStringList() << BINARY << URL1) << QUrl(URL1);
         QTest::newRow("several URLs") << (QStringList() << BINARY << URL1 << URL2) << QUrl(URL1);
         QTest::newRow("missing scheme") << (QStringList() << BINARY << "ubuntu.com") << QUrl("http://ubuntu.com");
-        QTest::newRow("malformed URL") << (QStringList() << BINARY << "@") << QUrl(DEFAULT);
+        QTest::newRow("malformed URL") << (QStringList() << BINARY << "@") << QUrl();
         QTest::newRow("malformed URL") << (QStringList() << BINARY << "@" << URL1) << QUrl(URL1);
         QTest::newRow("homepage switch only") << (QStringList() << BINARY << "--homepage=http://example.com") << QUrl("http://example.com");
         QTest::newRow("homepage switch overrides URL") << (QStringList() << BINARY << "--homepage=http://example.com" << "http://ubuntu.com") << QUrl("http://example.com");
-        QTest::newRow("empty homepage switch") << (QStringList() << BINARY << "--homepage=") << QUrl(DEFAULT);
+        QTest::newRow("empty homepage switch") << (QStringList() << BINARY << "--homepage=") << QUrl();
         QTest::newRow("homepage switch missing scheme") << (QStringList() << BINARY << "--homepage=example.com") << QUrl("http://example.com");
     }
 
