@@ -22,11 +22,24 @@ import Ubuntu.Components 0.1
 Item {
     id: pageDelegate
 
+    property url url
     property alias thumbnail: thumbnail.source
     property alias label: label.text
     property bool canClose: false
+    property bool canBookmark: false
+    property alias bookmarked: bookmarker.checked
+    property QtObject bookmarksModel
 
     signal clicked()
+
+    onBookmarkedChanged: {
+        var previouslyBookmarked = bookmarksModel.contains(pageDelegate.url)
+        if (bookmarked && !previouslyBookmarked) {
+            bookmarksModel.add(pageDelegate.url, pageDelegate.label, "")
+        } else if (!bookmarked && previouslyBookmarked) {
+            bookmarksModel.remove(pageDelegate.url)
+        }
+    }
 
     Column {
         anchors.fill: parent
@@ -98,6 +111,23 @@ Item {
                     properties: "width,height"
                 }
             }
+        }
+    }
+
+    // Temporary placeholder until design provides assets
+    CheckBox {
+        id: bookmarker
+
+        visible: pageDelegate.canBookmark
+
+        anchors {
+            top: parent.top
+            right: parent.right
+        }
+    }
+    onBookmarksModelChanged: {
+        if (bookmarksModel) {
+            bookmarked = bookmarksModel.contains(url)
         }
     }
 }

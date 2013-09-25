@@ -20,6 +20,8 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 
 Item {
+    id: bookmarksView
+
     property QtObject bookmarksModel
 
     signal bookmarkClicked(url url)
@@ -45,10 +47,14 @@ Item {
             width: units.gu(12)
             height: units.gu(12)
 
+            url: model.url
             label: model.title ? model.title : model.url
 
             property url thumbnailSource: "image://webthumbnail/" + model.url
             thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
+
+            canBookmark: true
+            bookmarksModel: bookmarksView.bookmarksModel
 
             onClicked: bookmarkClicked(model.url)
         }

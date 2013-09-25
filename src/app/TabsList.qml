@@ -21,7 +21,10 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Column {
-    property alias model: listview.model
+    id: tabsList
+
+    property alias tabsModel: listview.model
+    property QtObject bookmarksModel
 
     signal newTabClicked()
     signal switchToTabClicked(int index)
@@ -31,7 +34,7 @@ Column {
 
     ListItem.Header {
         // TRANSLATORS: %1 refers to the number of open tabs
-        text: i18n.tr("Currently viewing (%1)").arg('<font color="%1">%2</font>'.arg(UbuntuColors.orange).arg(model.count))
+        text: i18n.tr("Currently viewing (%1)").arg('<font color="%1">%2</font>'.arg(UbuntuColors.orange).arg(tabsModel.count))
     }
 
     ListView {
@@ -77,6 +80,7 @@ Column {
             width: units.gu(12)
             height: units.gu(14)
 
+            url: model.url
             label: model.title ? model.title : model.url
             thumbnail: model.webview.thumbnail
             canClose: true
@@ -86,6 +90,9 @@ Column {
                 target: listview
                 onStateChanged: state = listview.state
             }
+
+            canBookmark: url && (state === "")
+            bookmarksModel: tabsList.bookmarksModel
 
             onClicked: {
                 if (state === "close") {
@@ -104,6 +111,6 @@ Column {
     }
 
     function centerViewOnCurrentTab() {
-        listview.positionViewAtIndex(model.currentIndex, ListView.Center)
+        listview.positionViewAtIndex(tabsModel.currentIndex, ListView.Center)
     }
 }

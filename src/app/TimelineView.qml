@@ -26,6 +26,7 @@ Item {
 
     property QtObject tabsModel
     property QtObject historyModel
+    property QtObject bookmarksModel
 
     signal resetPositionRequested()
     signal newTabRequested()
@@ -59,7 +60,8 @@ Item {
             width: parent.width
             height: units.gu(23)
 
-            model: tabsModel
+            tabsModel: timelineView.tabsModel
+            bookmarksModel: timelineView.bookmarksModel
 
             onNewTabClicked: newTabRequested()
             onSwitchToTabClicked: switchToTabRequested(index)
@@ -173,10 +175,14 @@ Item {
                         width: units.gu(12)
                         height: units.gu(14)
 
+                        url: model.url
                         label: model.title ? model.title : model.url
 
                         property url thumbnailSource: "image://webthumbnail/" + model.url
                         thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
+
+                        canBookmark: true
+                        bookmarksModel: timelineView.bookmarksModel
 
                         onClicked: historyEntryClicked(model.url)
                     }

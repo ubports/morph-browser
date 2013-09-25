@@ -24,7 +24,7 @@ Tabs {
 
     property alias tabsModel: timelineView.tabsModel
     property alias historyModel: timelineView.historyModel
-    property alias bookmarksModel: bookmarksView.bookmarksModel
+    property QtObject bookmarksModel
 
     signal historyEntryRequested(url url)
     signal newTabRequested()
@@ -37,6 +37,8 @@ Tabs {
         page: Page {
             TimelineView {
                 id: timelineView
+
+                bookmarksModel: activityView.bookmarksModel
 
                 anchors.fill: parent
 
@@ -53,6 +55,8 @@ Tabs {
         page: Page {
             BookmarksView {
                 id: bookmarksView
+
+                bookmarksModel: activityView.bookmarksModel
 
                 anchors.fill: parent
 
