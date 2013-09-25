@@ -39,6 +39,17 @@ TestCase {
         compare(userAgent.getDomain("http://ubuntu.com/phone/index.html?foo=bar&baz=bleh"), "ubuntu.com")
     }
 
+    function test_get_domains_data() {
+        return [
+            {domain: "ubuntu.com", domains: ["ubuntu.com", "com"]},
+            {domain: "test.example.org", domains: ["test.example.org", "example.org", "org"]}
+        ]
+    }
+
+    function test_get_domains(data) {
+        compare(userAgent.getDomains(data.domain), data.domains)
+    }
+
     function test_ua_unmodified() {
         compare(userAgent.getUAString("http://ubuntu.com"), userAgent.defaultUA)
     }
@@ -57,6 +68,11 @@ TestCase {
                 "Mozilla/5.0 (Ubuntu; ble) WebKit/537.21")
     }
 
+    function test_ua_complete_domain_override() {
+        compare(userAgent.getUAString("https://mail.google.com/"),
+                "Mozilla/5.0 (Ubuntu; Touch) WebKit/537.21")
+    }
+
     UserAgent {
         id: userAgent
 
@@ -66,6 +82,7 @@ TestCase {
             "example.org": "full override",
             "example.com": ["Ubuntu", "Ubuntu Edge"],
             "google.com": [/mobi/i, "b"],
+            "mail.google.com": [/mobile/i, "Touch"],
         }
     }
 }
