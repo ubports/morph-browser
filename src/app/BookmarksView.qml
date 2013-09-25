@@ -39,7 +39,7 @@ Item {
         model: bookmarksModel
 
         cellWidth: units.gu(14)
-        cellHeight: units.gu(14)
+        cellHeight: units.gu(16)
 
         delegate: PageDelegate {
             width: units.gu(12)
