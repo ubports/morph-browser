@@ -220,7 +220,7 @@ void BookmarksModel::remove(const QUrl& url)
 void BookmarksModel::removeExistingEntryFromDatabase(const QUrl& url)
 {
     QSqlQuery query(m_database);
-    static QString deleteStatement = QLatin1String("DELETE FROM bookmarks WHERE url='?';");
+    static QString deleteStatement = QLatin1String("DELETE FROM bookmarks WHERE url=?;");
     query.prepare(deleteStatement);
     query.addBindValue(url.toString());
     query.exec();
