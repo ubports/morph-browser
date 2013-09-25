@@ -183,6 +183,7 @@ void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon
         entry.icon = icon;
         m_entries.insert(url, entry);
         endInsertRows();
+        Q_EMIT added(url);
         insertNewEntryInDatabase(entry);
     }
 }
@@ -211,6 +212,7 @@ void BookmarksModel::remove(const QUrl& url)
         beginRemoveRows(QModelIndex(), index, index);
         m_entries.remove(url);
         endRemoveRows();
+        Q_EMIT removed(url);
         removeExistingEntryFromDatabase(url);
     } else {
         qWarning() << "Invalid bookmark:" << url;

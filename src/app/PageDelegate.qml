@@ -32,15 +32,6 @@ Item {
 
     signal clicked()
 
-    onBookmarkedChanged: {
-        var previouslyBookmarked = bookmarksModel.contains(pageDelegate.url)
-        if (bookmarked && !previouslyBookmarked) {
-            bookmarksModel.add(pageDelegate.url, pageDelegate.label, "")
-        } else if (!bookmarked && previouslyBookmarked) {
-            bookmarksModel.remove(pageDelegate.url)
-        }
-    }
-
     Column {
         anchors.fill: parent
         spacing: units.gu(1)
@@ -125,9 +116,25 @@ Item {
             right: parent.right
         }
     }
+
     onBookmarksModelChanged: {
         if (bookmarksModel) {
             bookmarked = bookmarksModel.contains(url)
         }
+    }
+
+    onBookmarkedChanged: {
+        var previouslyBookmarked = bookmarksModel.contains(pageDelegate.url)
+        if (bookmarked && !previouslyBookmarked) {
+            bookmarksModel.add(pageDelegate.url, pageDelegate.label, "")
+        } else if (!bookmarked && previouslyBookmarked) {
+            bookmarksModel.remove(pageDelegate.url)
+        }
+    }
+
+    Connections {
+        target: bookmarksModel
+        onAdded: if (url === pageDelegate.url) bookmarked = true
+        onRemoved: if (url === pageDelegate.url) bookmarked = false
     }
 }
