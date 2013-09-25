@@ -50,10 +50,7 @@ Item {
             property url thumbnailSource: "image://webthumbnail/" + model.url
             thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: bookmarkClicked(model.url)
-            }
+            onClicked: bookmarkClicked(model.url)
         }
     }
 }

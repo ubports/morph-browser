@@ -20,33 +20,84 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 
 Item {
+    id: pageDelegate
+
     property alias thumbnail: thumbnail.source
     property alias label: label.text
+    property bool canClose: false
 
-    UbuntuShape {
-        id: shape
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
+    signal clicked()
+
+    Column {
+        anchors.fill: parent
+        spacing: units.gu(1)
+
+        UbuntuShape {
+            width: parent.width
+            height: width
+
+            image: Image {
+                id: thumbnail
+            }
         }
-        height: width
 
-        image: Image {
-            id: thumbnail
+        Label {
+            id: label
+            width: parent.width
+            height: units.gu(1)
+            fontSize: "small"
+            elide: Text.ElideRight
         }
     }
 
-    Label {
-        id: label
-        anchors {
-            top: shape.bottom
-            topMargin: units.gu(1)
-            left: parent.left
-            right: parent.right
+    states: State {
+        name: "close"
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: pageDelegate.clicked()
+        onPressAndHold: {
+            if (pageDelegate.canClose) {
+                pageDelegate.state = (pageDelegate.state === "" ? "close" : "")
+            }
         }
-        height: units.gu(1)
-        fontSize: "small"
-        elide: Text.ElideRight
+    }
+
+    Item {
+        width: units.gu(5)
+        height: units.gu(5)
+        anchors {
+            top: parent.top
+            topMargin: -units.gu(1)
+            right: parent.right
+            rightMargin: -units.gu(1)
+        }
+
+        Image {
+            id: closeButton
+
+            source: "assets/close_btn.png"
+
+            anchors.centerIn: parent
+            width: units.gu(4)
+            height: units.gu(4)
+
+            states: State {
+                name: "hidden"
+                PropertyChanges {
+                    target: closeButton
+                    width: 0
+                    height: 0
+                }
+            }
+            state: (pageDelegate.state === "close") ? "" : "hidden"
+
+            transitions: Transition {
+                UbuntuNumberAnimation {
+                    properties: "width,height"
+                }
+            }
+        }
     }
 }

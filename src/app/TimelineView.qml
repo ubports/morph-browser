@@ -178,10 +178,7 @@ Item {
                         property url thumbnailSource: "image://webthumbnail/" + model.url
                         thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
 
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: historyEntryClicked(model.url)
-                        }
+                        onClicked: historyEntryClicked(model.url)
                     }
                 }
 
@@ -279,19 +276,16 @@ Item {
                     property url thumbnailSource: "image://webthumbnail/" + model.domain
                     thumbnail: WebThumbnailer.thumbnailExists(model.domain) ? thumbnailSource : ""
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            if ((timeline.currentIndex == timelineIndex) &&
-                                (entriesView.domain === model.domain)) {
-                                domainsView.currentIndex = -1
-                                timeline.currentIndex = -1
-                            } else {
-                                domainsView.currentIndex = index
-                                timeline.currentIndex = timelineIndex
-                                entriesView.domain = model.domain
-                                entriesView.model = model.entries
-                            }
+                    onClicked: {
+                        if ((timeline.currentIndex == timelineIndex) &&
+                            (entriesView.domain === model.domain)) {
+                            domainsView.currentIndex = -1
+                            timeline.currentIndex = -1
+                        } else {
+                            domainsView.currentIndex = index
+                            timeline.currentIndex = timelineIndex
+                            entriesView.domain = model.domain
+                            entriesView.model = model.entries
                         }
                     }
                 }

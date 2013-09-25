@@ -79,60 +79,19 @@ Column {
 
             label: model.title ? model.title : model.url
             thumbnail: model.webview.thumbnail
+            canClose: true
 
-            Item {
-                width: units.gu(5)
-                height: units.gu(5)
-                anchors {
-                    top: parent.top
-                    topMargin: -units.gu(1)
-                    right: parent.right
-                    rightMargin: -units.gu(1)
-                }
-
-                Image {
-                    id: closeButton
-
-                    source: "assets/close_btn.png"
-
-                    anchors.centerIn: parent
-                    width: units.gu(4)
-                    height: units.gu(4)
-
-                    states: State {
-                        name: "hidden"
-                        PropertyChanges {
-                            target: closeButton
-                            width: 0
-                            height: 0
-                        }
-                    }
-                    state: (listview.state == "close") ? "" : "hidden"
-
-                    transitions: Transition {
-                        UbuntuNumberAnimation {
-                            properties: "width,height"
-                        }
-                    }
-                }
+            onStateChanged: listview.state = state
+            Connections {
+                target: listview
+                onStateChanged: state = listview.state
             }
 
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    if (listview.state == "close") {
-                        tabRemoved(index)
-                    } else {
-                        switchToTabClicked(index)
-                    }
-                }
-                onPressAndHold: {
-                    if (listview.state == "close") {
-                        listview.state = ""
-                    } else {
-                        listview.state = "close"
-                    }
+            onClicked: {
+                if (state === "close") {
+                    tabRemoved(index)
+                } else {
+                    switchToTabClicked(index)
                 }
             }
         }
