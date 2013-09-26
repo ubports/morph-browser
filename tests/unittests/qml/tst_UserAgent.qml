@@ -23,38 +23,48 @@ import "undertest"
 TestCase {
     name: "UserAgent"
 
-    function test_get_domain() {
-        compare(userAgent.getDomain("http://ubuntu.com"), "ubuntu.com")
-        compare(userAgent.getDomain("http://www.ubuntu.com"), "www.ubuntu.com")
-        compare(userAgent.getDomain("http://ubuntu.com/"), "ubuntu.com")
-        compare(userAgent.getDomain("http://www.ubuntu.com/"), "www.ubuntu.com")
-        compare(userAgent.getDomain("ubuntu.com"), "ubuntu.com")
-        compare(userAgent.getDomain("ubuntu.com/"), "ubuntu.com")
-        compare(userAgent.getDomain("ubuntu.com/phone"), "ubuntu.com")
-        compare(userAgent.getDomain("http://ubuntu.com/phone"), "ubuntu.com")
-        compare(userAgent.getDomain("www.ubuntu.com/phone"), "www.ubuntu.com")
-        compare(userAgent.getDomain("http://ubuntu.com/phone/index.html"), "ubuntu.com")
-        compare(userAgent.getDomain("ubuntu.com/phone/index.html"), "ubuntu.com")
-        compare(userAgent.getDomain("www.ubuntu.com/phone/index.html"), "www.ubuntu.com")
-        compare(userAgent.getDomain("http://ubuntu.com/phone/index.html?foo=bar&baz=bleh"), "ubuntu.com")
+    function test_get_domain_data() {
+        return [
+            {url: "http://ubuntu.com", domain: "ubuntu.com"},
+            {url: "http://www.ubuntu.com", domain: "www.ubuntu.com"},
+            {url: "http://ubuntu.com/", domain: "ubuntu.com"},
+            {url: "http://www.ubuntu.com/", domain: "www.ubuntu.com"},
+            {url: "ubuntu.com", domain: "ubuntu.com"},
+            {url: "ubuntu.com/", domain: "ubuntu.com"},
+            {url: "ubuntu.com/phone", domain: "ubuntu.com"},
+            {url: "http://ubuntu.com/phone", domain: "ubuntu.com"},
+            {url: "www.ubuntu.com/phone", domain: "www.ubuntu.com"},
+            {url: "http://ubuntu.com/phone/index.html", domain: "ubuntu.com"},
+            {url: "ubuntu.com/phone/index.html", domain: "ubuntu.com"},
+            {url: "www.ubuntu.com/phone/index.html", domain: "www.ubuntu.com"},
+            {url: "http://ubuntu.com/phone/index.html?foo=bar&baz=bleh", domain: "ubuntu.com"},
+        ]
+    }
+    function test_get_domain(data) {
+        compare(userAgent.getDomain(data.url), data.domain)
     }
 
-    function test_ua_unmodified() {
-        compare(userAgent.getUAString("http://ubuntu.com"), userAgent.defaultUA)
+    function test_get_domains_data() {
+        return [
+            {domain: "ubuntu.com", domains: ["ubuntu.com", "com"]},
+            {domain: "test.example.org", domains: ["test.example.org", "example.org", "org"]},
+        ]
+    }
+    function test_get_domains(data) {
+        compare(userAgent.getDomains(data.domain), data.domains)
     }
 
-    function test_ua_full_override() {
-        compare(userAgent.getUAString("http://example.org"), "full override")
+    function test_get_ua_string_data() {
+        return [
+            {url: "http://ubuntu.com", ua: userAgent.defaultUA},
+            {url: "http://example.org", ua: "full override"},
+            {url: "http://example.com/test", ua: "Mozilla/5.0 (Ubuntu Edge; Mobile) WebKit/537.21"},
+            {url: "http://www.google.com/", ua: "Mozilla/5.0 (Ubuntu; ble) WebKit/537.21"},
+            {url: "https://mail.google.com/", ua: "Mozilla/5.0 (Ubuntu; Touch) WebKit/537.21"},
+        ]
     }
-
-    function test_ua_string_replace() {
-        compare(userAgent.getUAString("http://example.com/test"),
-                "Mozilla/5.0 (Ubuntu Edge; Mobile) WebKit/537.21")
-    }
-
-    function test_ua_regexp_replace() {
-        compare(userAgent.getUAString("http://www.google.com/"),
-                "Mozilla/5.0 (Ubuntu; ble) WebKit/537.21")
+    function test_get_ua_string(data) {
+        compare(userAgent.getUAString(data.url), data.ua)
     }
 
     UserAgent {
@@ -66,6 +76,7 @@ TestCase {
             "example.org": "full override",
             "example.com": ["Ubuntu", "Ubuntu Edge"],
             "google.com": [/mobi/i, "b"],
+            "mail.google.com": [/mobile/i, "Touch"],
         }
     }
 }
