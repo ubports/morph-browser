@@ -99,6 +99,108 @@ Item {
                 }
             }
 
+            Item {
+                id: entriesView
+
+                property var model
+                property string domain: ""
+
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                height: 0
+                clip: true
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: "black"
+                    opacity: 0.1
+                }
+
+                Image {
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        right: parent.right
+                    }
+                    fillMode: Image.TileHorizontally
+                    source: "assets/expanded_top_innershadow.png"
+                }
+
+                Image {
+                    id: arrow
+                    anchors.top: parent.bottom
+                    x: domainsView.currentItem ? domainsView.currentItem.x + (domainsView.currentItem.width + width) / 2 - domainsView.contentX : 0
+                    source: "assets/expanded_tooltip.png"
+                }
+
+                Image {
+                    anchors {
+                        top: parent.bottom
+                        left: parent.left
+                        right: arrow.left
+                    }
+                    fillMode: Image.TileHorizontally
+                    source: "assets/expanded_bottom_highlight.png"
+                }
+
+                Image {
+                    anchors {
+                        top: parent.bottom
+                        left: arrow.right
+                        right: parent.right
+                    }
+                    fillMode: Image.TileHorizontally
+                    source: "assets/expanded_bottom_highlight.png"
+                }
+
+                ListView {
+                    id: entriesListView
+
+                    anchors {
+                        fill: parent
+                        margins: units.gu(2)
+                        topMargin: units.gu(1.5)
+                    }
+
+                    spacing: units.gu(2)
+                    orientation: ListView.Horizontal
+
+                    model: entriesView.model
+
+                    delegate: PageDelegate {
+                        width: units.gu(12)
+                        height: units.gu(14)
+
+                        label: model.title ? model.title : model.url
+
+                        property url thumbnailSource: "image://webthumbnail/" + model.url
+                        thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: historyEntryClicked(model.url)
+                        }
+                    }
+                }
+
+                states: [
+                    State {
+                        name: "expanded"
+                        when: timelineIndex == timeline.currentIndex
+                        PropertyChanges {
+                            target: entriesView
+                            height: units.gu(18)
+                            clip: false
+                        }
+                    }
+                ]
+                Behavior on height {
+                    UbuntuNumberAnimation {}
+                }
+            }
+
             ListView {
                 id: domainsView
 
@@ -182,61 +284,20 @@ Item {
                         onClicked: {
                             if ((timeline.currentIndex == timelineIndex) &&
                                 (entriesView.domain === model.domain)) {
+                                domainsView.currentIndex = -1
                                 timeline.currentIndex = -1
                             } else {
-                                timeline.currentIndex = timelineIndex
+                                domainsView.currentIndex = index
                                 entriesView.domain = model.domain
                                 entriesView.model = model.entries
+                                if (model.entries.count === 1) {
+                                    historyEntryClicked(model.entries.firstUrl)
+                                } else {
+                                    timeline.currentIndex = timelineIndex
+                                }
                             }
                         }
                     }
-                }
-            }
-
-            ListView {
-                id: entriesView
-
-                property string domain: ""
-
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    margins: units.gu(2)
-                }
-                height: 0
-                clip: true
-
-                spacing: units.gu(2)
-                orientation: ListView.Horizontal
-
-                delegate: PageDelegate {
-                    width: units.gu(12)
-                    height: units.gu(14)
-
-                    label: model.title ? model.title : model.url
-
-                    property url thumbnailSource: "image://webthumbnail/" + model.url
-                    thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: historyEntryClicked(model.url)
-                    }
-                }
-
-                states: [
-                    State {
-                        name: "expanded"
-                        when: timelineIndex == timeline.currentIndex
-                        PropertyChanges {
-                            target: entriesView
-                            height: units.gu(14)
-                            clip: false
-                        }
-                    }
-                ]
-                Behavior on height {
-                    UbuntuNumberAnimation {}
                 }
             }
         }

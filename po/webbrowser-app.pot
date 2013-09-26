@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-24 07:25+0200\n"
+"POT-Creation-Date: 2013-09-24 17:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,6 +30,7 @@ msgid "JavaScript Alert"
 msgstr ""
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
 msgstr ""
 
@@ -51,7 +52,8 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: src/app/AuthenticationDialog.qml:53
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
+#: src/app/PromptDialog.qml:40
 msgid "Cancel"
 msgstr ""
 
@@ -125,32 +127,56 @@ msgstr ""
 msgid "Clear Navigation History"
 msgstr ""
 
-#: src/app/Browser.qml:355
+#: src/app/Browser.qml:359
 msgid "Copy"
 msgstr ""
 
-#: src/app/Browser.qml:362
+#: src/app/Browser.qml:366
 msgid "Open link in new tab"
 msgstr ""
 
-#: src/app/Browser.qml:366
+#: src/app/Browser.qml:370
 msgid "Bookmark link"
 msgstr ""
 
-#: src/app/Browser.qml:370
+#: src/app/Browser.qml:374
 msgid "Copy link URL"
 msgstr ""
 
-#: src/app/Browser.qml:380
+#: src/app/Browser.qml:384
 msgid "Open image in new tab"
 msgstr ""
 
-#: src/app/Browser.qml:384
+#: src/app/Browser.qml:388
 msgid "Copy image URL"
 msgstr ""
 
-#: src/app/Browser.qml:391
+#: src/app/Browser.qml:398
 msgid "This page wants to know your device’s location."
+msgstr ""
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+
+#: src/app/CertificateVerificationDialog.qml:29
+msgid "Proceed anyway"
+msgstr ""
+
+#: src/app/CertificateVerificationDialog.qml:35
+msgid "Back to safety"
+msgstr ""
+
+#: src/app/ConfirmDialog.qml:24
+msgid "JavaScript Confirmation"
 msgstr ""
 
 #: src/app/ErrorSheet.qml:38
@@ -182,6 +208,10 @@ msgstr ""
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
+msgstr ""
+
+#: src/app/PromptDialog.qml:24
+msgid "JavaScript Prompt"
 msgstr ""
 
 #: src/app/ProxyAuthenticationDialog.qml:22
