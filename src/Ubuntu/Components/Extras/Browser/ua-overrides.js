@@ -37,6 +37,8 @@
 // Android as a reference.
 
 var overrides = {
+    "mail.google.com": ["Mobile) WebKit/537.21", "Mobile; Linux; Android 4.2.2) AppleWebKit/537.21 Mobile Safari/53
+7.21"],
     "google.com": ["Mobile", "Android; Mobile"],
     "youtube.com": ["Mobile", "Android; Mobile"],
     "yahoo.com": ["Mobile", "Android; Mobile"],
