@@ -30,14 +30,11 @@ class TestProgressBarAtStartup(BrowserTestCaseBase):
     def setUp(self):
         self.server = http_server.HTTPServerInAThread()
         self.server.start()
+        self.addCleanup(self.server.shutdown)
         self.base_url = "http://localhost:%d" % self.server.port
         self.url = self.base_url + "/wait/8"
         self.ARGS = [self.url]
         super(TestProgressBarAtStartup, self).setUp()
-
-    def tearDown(self):
-        super(TestProgressBarAtStartup, self).tearDown()
-        self.server.shutdown()
 
     @unittest.skip("This test is flaky on slow configurations where the "
                    "autopilot machinery takes longer to initialize than the "

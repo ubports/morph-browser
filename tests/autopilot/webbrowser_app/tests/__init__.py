@@ -47,14 +47,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def setUp(self):
         self.pointing_device = Pointer(self.input_device_class.create())
         super(BrowserTestCaseBase, self).setUp()
+        self.addCleanup(self.cleanup)
         if os.path.exists(self.local_location):
             self.launch_test_local()
         else:
             self.launch_test_installed()
         self.main_window.visible.wait_for(True)
 
-    def tearDown(self):
-        super(BrowserTestCaseBase, self).tearDown()
+    def cleanup(self):
         for page in self._temp_pages:
             try:
                 os.remove(page)
@@ -211,15 +211,12 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
     def setUp(self):
         self.server = http_server.HTTPServerInAThread()
         self.server.start()
+        self.addCleanup(self.server.shutdown)
         self.base_url = "http://localhost:%d" % self.server.port
         self.url = self.base_url + "/loremipsum"
         self.ARGS = [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()
         self.assert_home_page_eventually_loaded()
-
-    def tearDown(self):
-        super(StartOpenRemotePageTestCaseBase, self).tearDown()
-        self.server.shutdown()
 
     def assert_home_page_eventually_loaded(self):
         self.assert_page_eventually_loaded(self.url)
