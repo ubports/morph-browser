@@ -26,9 +26,6 @@ from ubuntuuitoolkit.emulators import UbuntuUIToolkitEmulatorBase
 from webbrowser_app.emulators.browser import Browser
 
 
-HTTP_SERVER_PORT = 8129
-
-
 class BrowserTestCaseBase(AutopilotTestCase):
 
     """
@@ -199,24 +196,7 @@ class StartOpenLocalPageTestCaseBase(BrowserTestCaseBase):
         self.assert_page_eventually_loaded(self.url)
 
 
-class BrowserTestCaseBaseWithHTTPServer(BrowserTestCaseBase):
-
-    """
-    A specialization of the common test case class that runs
-    a simple custom HTTP server in a separate thread.
-    """
-
-    def setUp(self):
-        self.server = http_server.HTTPServerInAThread(HTTP_SERVER_PORT)
-        self.server.start()
-        super(BrowserTestCaseBaseWithHTTPServer, self).setUp()
-
-    def tearDown(self):
-        super(BrowserTestCaseBaseWithHTTPServer, self).tearDown()
-        self.server.shutdown()
-
-
-class StartOpenRemotePageTestCaseBase(BrowserTestCaseBaseWithHTTPServer):
+class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
 
     """
     Helper test class that opens the browser at a remote URL instead of
@@ -229,11 +209,17 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBaseWithHTTPServer):
     """
 
     def setUp(self):
-        self.base_url = "http://localhost:%d" % HTTP_SERVER_PORT
+        self.server = http_server.HTTPServerInAThread()
+        self.server.start()
+        self.base_url = "http://localhost:%d" % self.server.port
         self.url = self.base_url + "/loremipsum"
         self.ARGS = [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()
         self.assert_home_page_eventually_loaded()
+
+    def tearDown(self):
+        super(StartOpenRemotePageTestCaseBase, self).tearDown()
+        self.server.shutdown()
 
     def assert_home_page_eventually_loaded(self):
         self.assert_page_eventually_loaded(self.url)

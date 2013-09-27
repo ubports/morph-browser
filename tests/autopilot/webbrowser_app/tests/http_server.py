@@ -7,6 +7,8 @@
 # by the Free Software Foundation.
 
 import BaseHTTPServer
+import errno
+import socket
 import threading
 import time
 
@@ -74,12 +76,26 @@ class HTTPServerInAThread(threading.Thread):
     A simple custom HTTP server run in a separate thread.
     """
 
-    def __init__(self, port):
+    def __init__(self):
         super(HTTPServerInAThread, self).__init__()
-        self.server = BaseHTTPServer.HTTPServer(("", port), HTTPRequestHandler)
+        port = 12345
+        self.server = None
+        while self.server is None:
+            try:
+                self.server = BaseHTTPServer.HTTPServer(("", port),
+                                                        HTTPRequestHandler)
+            except socket.error, error:
+                if (error.errno == errno.EADDRINUSE):
+                    print "port %d is already in use" % port
+                    port += 1
         self.server.allow_reuse_address = True
 
+    @property
+    def port(self):
+        return self.server.server_port
+
     def run(self):
+        print "now serving on port %d" % self.port
         self.server.serve_forever()
 
     def shutdown(self):
