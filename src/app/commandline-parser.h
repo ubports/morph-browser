@@ -67,6 +67,11 @@ public:
     ChromeElementFlags chromeFlags() const;
 
 private:
+
+    bool isValidWebappUrlPattern(const QString & pattern) const;
+
+
+private:
     bool m_help;
     bool m_fullscreen;
     bool m_maximized;

@@ -66,9 +66,15 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                         Q_FOREACH(const QString & includePattern, includePatterns)
                         {
                             QString url = includePattern.trimmed();
-                            if ( ! url.isEmpty())
+                            if ( ! url.isEmpty() && isValidWebappUrlPattern(url))
                             {
                                 m_webappUrlPatterns.append(url);
+                            }
+                            else
+                            {
+                                qDebug() << "Ignoring empty or invalid webapp url pattern: '"
+                                         << url
+                                         << "'";
                             }
                         }
                     }
@@ -147,6 +153,64 @@ void CommandLineParser::printUsage() const
     out << "  --enable-back-forward  enable the display of the back and forward buttons" << endl;
     out << "  --enable-activity      enable the display of the activity button, the address bar is also displayed" << endl;
     out << "  --enable-addressbar    enable the display of the address bar" << endl;
+}
+
+
+/**
+ * Tests for the validity of a given webapp url pattern. It follows
+ *  the following grammar:
+ *
+ * <url-pattern> := <scheme>://<host><path>
+ * <scheme> := 'http' | 'https'
+ * <host> := '*' <any char except '/' and '.'>+ <hostpart> <hostpart>+
+ * <hostpart> := '.' <any char except '/', '*', '?' and '.'>+
+ * <path> := '/' <any chars>
+ *
+ * @param urlPattern pattern that is to be tested for validity
+ * @return if the url is valid or not
+ */
+bool CommandLineParser::isValidWebappUrlPattern(const QString & urlPattern) const
+{
+    if ( ! urlPattern.contains("://"))
+    {
+        return false;
+    }
+
+    // only allow: http, https or https?
+    QString scheme = urlPattern.left(urlPattern.indexOf("://"));
+    if (scheme.compare("http") && scheme.compare("https") && scheme.compare("https?"))
+    {
+        return false;
+    }
+
+    QString fullpath = urlPattern.mid(urlPattern.indexOf("://") + 3);
+    QString hostname = fullpath.left(fullpath.indexOf("/"));
+    hostname = hostname.trimmed();
+
+    if (hostname.isEmpty())
+    {
+        return false;
+    }
+
+    QStringList parts = hostname.split(".");
+    if (parts.count() < 3)
+    {
+        return false;
+    }
+
+    // only allow patterns in the first hostname 'part'
+    {
+        int i = 1;
+        for (; i < parts.count() && ! parts[i].contains("*") && ! parts[i].contains("?"); ++i);
+        if (i != parts.count())
+            return false;
+    }
+
+    QString path = fullpath.mid(fullpath.indexOf("/") == -1);
+    if (path.isEmpty())
+        return false;
+
+    return true;
 }
 
 CommandLineParser::ChromeElementFlags CommandLineParser::chromeFlags() const
