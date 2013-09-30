@@ -8,6 +8,7 @@
 
 import BaseHTTPServer
 import errno
+import os
 import socket
 import threading
 import time
@@ -86,8 +87,11 @@ class HTTPServerInAThread(threading.Thread):
                                                         HTTPRequestHandler)
             except socket.error, error:
                 if (error.errno == errno.EADDRINUSE):
-                    print "port %d is already in use" % port
+                    print "Port %d is already in use" % port
                     port += 1
+                else:
+                    print os.strerror(error.errno)
+                    raise
         self.server.allow_reuse_address = True
 
     @property
