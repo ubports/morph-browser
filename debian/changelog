@@ -1,3 +1,20 @@
+webbrowser-app (0.22+13.10.20130930.1-0ubuntu1) saucy; urgency=low
+
+  [ Bill Filler ]
+  * add user-agent override for mail.google.com. (LP: #1227941)
+
+  [ Alexandre Abreu ]
+  * Fix issue w/ with invalid webapp component id/access when filtering
+    urls. (LP: #1231228)
+
+  [ Olivier Tilloy ]
+  * Update the licensing information for assets. (LP: #1194916)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 354
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 30 Sep 2013 16:32:46 +0000
+
 webbrowser-app (0.22+13.10.20130926.1-0ubuntu1) saucy; urgency=low
 
   [ daker ]
