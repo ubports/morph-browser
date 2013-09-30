@@ -25,6 +25,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
 #include <QtCore/QTextStream>
+#include <QtCore/QRegularExpression>
 
 // stdlib
 #include <cstdio>
@@ -171,46 +172,8 @@ void CommandLineParser::printUsage() const
  */
 bool CommandLineParser::isValidWebappUrlPattern(const QString & urlPattern) const
 {
-    if ( ! urlPattern.contains("://"))
-    {
-        return false;
-    }
-
-    // only allow: http, https or https?
-    QString scheme = urlPattern.left(urlPattern.indexOf("://"));
-    if (scheme.compare("http") && scheme.compare("https") && scheme.compare("https?"))
-    {
-        return false;
-    }
-
-    QString fullpath = urlPattern.mid(urlPattern.indexOf("://") + 3);
-    QString hostname = fullpath.left(fullpath.indexOf("/"));
-    hostname = hostname.trimmed();
-
-    if (hostname.isEmpty())
-    {
-        return false;
-    }
-
-    QStringList parts = hostname.split(".");
-    if (parts.count() < 3)
-    {
-        return false;
-    }
-
-    // only allow patterns in the first hostname 'part'
-    {
-        int i = 1;
-        for (; i < parts.count() && ! parts[i].contains("*") && ! parts[i].contains("?"); ++i);
-        if (i != parts.count())
-            return false;
-    }
-
-    QString path = fullpath.mid(fullpath.indexOf("/") == -1);
-    if (path.isEmpty())
-        return false;
-
-    return true;
+    QRegularExpression urlPatternTemplate("^http(s|s\\?)?://[^\\.]+\\.[^\\.\\*\\?]+\\.[^\\.\\*\\?]+(\\.[^\\.\\*\\?/]+)*/.*$");
+    return urlPatternTemplate.match(urlPattern).hasMatch();
 }
 
 CommandLineParser::ChromeElementFlags CommandLineParser::chromeFlags() const
