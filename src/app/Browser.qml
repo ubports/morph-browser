@@ -449,7 +449,15 @@ MainView {
                 }
             }
 
-            onNewTabRequested: browser.newTab(url, true)
+            onNewTabRequested: {
+
+                if (webapp && isRunningAsANamedWebapp()) {
+                    Qt.openUrlExternally(url);
+                }
+                else {
+                    browser.newTab(url, true);
+                }
+            }
 
             // Small shim needed when running as a webapp to wire-up connections
             // with the webview (message received, etc…).
