@@ -8,54 +8,54 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-24 17:56+0200\n"
-"PO-Revision-Date: 2013-05-17 16:42+0000\n"
-"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
+"PO-Revision-Date: 2013-09-30 15:33+0000\n"
+"Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-26 05:55+0000\n"
-"X-Generator: Launchpad (build 16771)\n"
+"X-Launchpad-Export-Date: 2013-10-01 05:39+0000\n"
+"X-Generator: Launchpad (build 16774)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
-msgstr ""
+msgstr "Actividade"
 
 #: src/app/ActivityView.qml:52
 msgid "Bookmarks"
-msgstr ""
+msgstr "Marcadores"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "Alerta de JavaScript"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "Aceptar"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Precisa autenticación."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "A web %1 precisa autenticación."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Nome de usuario"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "Contrasinal"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/app/Browser.qml:62
 msgid "Goto"
@@ -95,7 +95,7 @@ msgstr "Recargar"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:90
 msgid "Leave Page"
-msgstr "Abandonar a páxina"
+msgstr "Saír da páxina"
 
 #: src/app/Browser.qml:95
 msgid "Bookmark"
@@ -105,7 +105,7 @@ msgstr "Marcador"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:98
 msgid "Add This Page to Bookmarks"
-msgstr "Engadir esta páxina a marcadores"
+msgstr "Engadir páxina aos marcadores"
 
 #: src/app/Browser.qml:103
 msgid "New Tab"
@@ -119,13 +119,13 @@ msgstr "Abrir unha nova lapela"
 
 #: src/app/Browser.qml:111
 msgid "Clear History"
-msgstr ""
+msgstr "Limpar historial"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:114
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Limpar historial de navegación"
 
 #: src/app/Browser.qml:359
 msgid "Copy"
@@ -133,31 +133,31 @@ msgstr "Copiar"
 
 #: src/app/Browser.qml:366
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Abrir ligazón nunha nova lapela"
 
 #: src/app/Browser.qml:370
 msgid "Bookmark link"
-msgstr ""
+msgstr "Ligazón do marcador"
 
 #: src/app/Browser.qml:374
 msgid "Copy link URL"
-msgstr ""
+msgstr "Copiar URL da ligazón"
 
 #: src/app/Browser.qml:384
 msgid "Open image in new tab"
-msgstr ""
+msgstr "Abrir imaxe nunha nova lapela"
 
 #: src/app/Browser.qml:388
 msgid "Copy image URL"
-msgstr ""
+msgstr "Copiar URL da imaxe"
 
 #: src/app/Browser.qml:398
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Esta páxina quere coñecer a localización do dispositivo."
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "Esta conexión non é confiábel"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -166,22 +166,24 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"Está tentando acceder con seguranza a %1 pero o certificado de seguranza da "
+"web non é confiábel."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Continuar de todas formas"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "Volver á seguranza"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "Confirmación de JavaScript"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr "Produciuse un erro na rede"
+msgstr "Erro de rede"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:44
@@ -193,8 +195,8 @@ msgstr "Parece que está a ter problemas para ver: %1."
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"Ubuntu recoméndalle que comprobe os axustes da súa rede e que tente "
-"actualizar a páxina"
+"Ubuntu recomenda que comprobe os axustes da rede e que tente actualizar a "
+"páxina."
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
@@ -202,90 +204,90 @@ msgstr "Actualizar a páxina"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Petición de permiso"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Denegar"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "Permitir"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "Aviso de JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Precisa autenticación no proxy"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "A web %1:%2 precisa autenticación."
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/TabsList.qml:34
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr ""
+msgstr "Vendo actualmente (%1)"
 
 #: src/app/TabsList.qml:65
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #: src/app/TimelineView.qml:87
 msgid "Today"
-msgstr ""
+msgstr "Hoxe"
 
 #: src/app/TimelineView.qml:89
 msgid "Yesterday"
-msgstr ""
+msgstr "Onte"
 
 #: src/app/TimelineView.qml:91
 msgid "Last 7 Days"
-msgstr ""
+msgstr "Últimos 7 días"
 
 #: src/app/TimelineView.qml:93
 msgid "This Month"
-msgstr ""
+msgstr "Este mes"
 
 #: src/app/TimelineView.qml:95
 msgid "This Year"
-msgstr ""
+msgstr "Este ano"
 
 #: src/app/TimelineView.qml:97
 msgid "Older"
-msgstr ""
+msgstr "Máis antigas"
 
 #: src/app/TimelineView.qml:169
 msgid "(local files)"
-msgstr ""
+msgstr "(ficheiros locais)"
 
 #: src/app/TimelineView.qml:171
 msgid "(other)"
-msgstr ""
+msgstr "(outros)"
 
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr ""
+msgstr "Navegador"
 
 #: src/app/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr ""
+msgstr "Navegador web"
 
 #: src/app/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "Navegue pola World Wide Web"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser-app.qml:49
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - Navegador web de Ubuntu"
 
 #: src/app/webbrowser-app.qml:51
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "Navegador web de Ubuntu"

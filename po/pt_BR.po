@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-24 17:56+0200\n"
-"PO-Revision-Date: 2013-09-23 20:07+0000\n"
-"Last-Translator: Tiago Hillebrandt <tiagohillebrandt@gmail.com>\n"
+"PO-Revision-Date: 2013-09-30 12:17+0000\n"
+"Last-Translator: Rafael Neri <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-26 05:55+0000\n"
-"X-Generator: Launchpad (build 16771)\n"
+"X-Launchpad-Export-Date: 2013-10-01 05:39+0000\n"
+"X-Generator: Launchpad (build 16774)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
@@ -27,7 +27,7 @@ msgstr "Favoritos"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "Alerta JavaScript"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
@@ -133,23 +133,23 @@ msgstr "Copiar"
 
 #: src/app/Browser.qml:366
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Abrir link em nova aba"
 
 #: src/app/Browser.qml:370
 msgid "Bookmark link"
-msgstr ""
+msgstr "Link de favorito"
 
 #: src/app/Browser.qml:374
 msgid "Copy link URL"
-msgstr ""
+msgstr "Copiar URL do link"
 
 #: src/app/Browser.qml:384
 msgid "Open image in new tab"
-msgstr ""
+msgstr "Abrir imagem em nova aba"
 
 #: src/app/Browser.qml:388
 msgid "Copy image URL"
-msgstr ""
+msgstr "Copiar URL da imagem"
 
 #: src/app/Browser.qml:398
 msgid "This page wants to know your device’s location."
@@ -157,7 +157,7 @@ msgstr "A página deseja saber a localização do seu dispositivo."
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "Esta conexão não é confiável"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -166,18 +166,20 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"Você está tentando acessar com segurança %1, mas o certificado de segurança "
+"deste site não é confiável."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Continuar mesmo assim"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "Voltar à segurança"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "Confirmação JavaScript"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -214,7 +216,7 @@ msgstr "Permitir"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "Prompt do JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
