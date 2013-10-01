@@ -25,10 +25,13 @@
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
 #include <QtCore/QTextStream>
-#include <QtCore/QRegularExpression>
 
 // stdlib
 #include <cstdio>
+
+QRegularExpression
+CommandLineParser::m_webappUrlPatternTemplate("^http(s|s\\?)?://[^\\.]+\\.[^\\.\\*\\?]+\\.[^\\.\\*\\?]+(\\.[^\\.\\*\\?/]+)*/.*$");
+
 
 CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
     : QObject(parent)
@@ -73,9 +76,7 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                             }
                             else
                             {
-                                qDebug() << "Ignoring empty or invalid webapp url pattern: '"
-                                         << url
-                                         << "'";
+                                qDebug() << "Ignoring empty or invalid webapp url pattern:" << url;
                             }
                         }
                     }
