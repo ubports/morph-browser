@@ -91,7 +91,7 @@ Column {
                 onStateChanged: state = listview.state
             }
 
-            canBookmark: url && (state === "")
+            canBookmark: url.toString() && (state === "")
             bookmarksModel: tabsList.bookmarksModel
 
             onClicked: {
