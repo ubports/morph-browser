@@ -173,8 +173,7 @@ void CommandLineParser::printUsage() const
  */
 bool CommandLineParser::isValidWebappUrlPattern(const QString & urlPattern) const
 {
-    QRegularExpression urlPatternTemplate("^http(s|s\\?)?://[^\\.]+\\.[^\\.\\*\\?]+\\.[^\\.\\*\\?]+(\\.[^\\.\\*\\?/]+)*/.*$");
-    return urlPatternTemplate.match(urlPattern).hasMatch();
+    return m_webappUrlPatternTemplate.match(urlPattern).hasMatch();
 }
 
 CommandLineParser::ChromeElementFlags CommandLineParser::chromeFlags() const
