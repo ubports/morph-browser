@@ -58,7 +58,7 @@ Item {
 
         header: TabsList {
             width: parent.width
-            height: units.gu(23)
+            height: units.gu(24)
 
             tabsModel: timelineView.tabsModel
             bookmarksModel: timelineView.bookmarksModel
@@ -173,7 +173,7 @@ Item {
 
                     delegate: PageDelegate {
                         width: units.gu(12)
-                        height: units.gu(14)
+                        height: units.gu(15)
 
                         url: model.url
                         label: model.title ? model.title : model.url
@@ -194,7 +194,7 @@ Item {
                         when: timelineIndex == timeline.currentIndex
                         PropertyChanges {
                             target: entriesView
-                            height: units.gu(18)
+                            height: units.gu(19)
                             clip: false
                         }
                     }
@@ -212,7 +212,7 @@ Item {
                     right: parent.right
                     margins: units.gu(2)
                 }
-                height: units.gu(14)
+                height: units.gu(15)
 
                 spacing: units.gu(2)
                 orientation: ListView.Horizontal
@@ -267,7 +267,7 @@ Item {
 
                 delegate: PageDelegate {
                     width: units.gu(12)
-                    height: units.gu(14)
+                    height: units.gu(15)
 
                     label: {
                         if (model.domain === "(local)") {

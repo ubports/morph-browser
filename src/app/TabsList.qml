@@ -44,7 +44,7 @@ Column {
             right: parent.right
             margins: units.gu(2)
         }
-        height: units.gu(16)
+        height: units.gu(17)
         spacing: units.gu(2)
         orientation: ListView.Horizontal
         currentIndex: model.currentIndex
@@ -78,7 +78,7 @@ Column {
             objectName: "openTabDelegate"
 
             width: units.gu(12)
-            height: units.gu(14)
+            height: units.gu(15)
 
             url: model.url
             label: model.title ? model.title : model.url

@@ -27,10 +27,20 @@ Item {
     property alias label: label.text
     property bool canClose: false
     property bool canBookmark: false
-    property alias bookmarked: bookmarker.checked
+    property bool bookmarked
     property QtObject bookmarksModel
 
     signal clicked()
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: pageDelegate.clicked()
+        onPressAndHold: {
+            if (pageDelegate.canClose) {
+                pageDelegate.state = (pageDelegate.state === "" ? "close" : "")
+            }
+        }
+    }
 
     Column {
         anchors.fill: parent
@@ -45,27 +55,38 @@ Item {
             }
         }
 
-        Label {
-            id: label
+        Row {
             width: parent.width
-            height: units.gu(1)
-            fontSize: "small"
-            elide: Text.ElideRight
+            height: units.gu(3)
+            spacing: units.gu(1)
+
+            Image {
+                id: starIcon
+                source: pageDelegate.bookmarked ? "assets/browser_favourite_on.png"
+                                                : "assets/browser_favourite_off.png"
+                visible: pageDelegate.canBookmark
+                width: visible ? units.gu(2) : 0
+                height: units.gu(2)
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: pageDelegate.bookmarked = !pageDelegate.bookmarked
+                }
+            }
+
+            Label {
+                id: label
+                fontSize: "small"
+                width: parent.width - starIcon.width - (starIcon.visible ? parent.spacing : 0)
+                wrapMode: Text.Wrap
+                elide: Text.ElideRight
+                maximumLineCount: 2
+            }
         }
     }
 
     states: State {
         name: "close"
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: pageDelegate.clicked()
-        onPressAndHold: {
-            if (pageDelegate.canClose) {
-                pageDelegate.state = (pageDelegate.state === "" ? "close" : "")
-            }
-        }
     }
 
     Item {
@@ -102,18 +123,6 @@ Item {
                     properties: "width,height"
                 }
             }
-        }
-    }
-
-    // Temporary placeholder until design provides assets
-    CheckBox {
-        id: bookmarker
-
-        visible: pageDelegate.canBookmark
-
-        anchors {
-            top: parent.top
-            right: parent.right
         }
     }
 
