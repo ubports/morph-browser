@@ -451,7 +451,7 @@ MainView {
 
             onNewTabRequested: {
 
-                if (webapp && isRunningAsANamedWebapp()) {
+                if (webapp) {
                     Qt.openUrlExternally(url);
                 }
                 else {
