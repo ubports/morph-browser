@@ -1,3 +1,13 @@
+webbrowser-app (0.22+13.10.20131001.2-0ubuntu1) saucy; urgency=low
+
+  [ Omer Akram ]
+  * use input_device creation from the uitoolkit emulators.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 357
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 01 Oct 2013 19:49:31 +0000
+
 webbrowser-app (0.22+13.10.20130930.1-0ubuntu1) saucy; urgency=low
 
   [ Bill Filler ]
