@@ -311,13 +311,13 @@ MainView {
     }
 
     Loader {
+        id: webappsComponentLoader
         sourceComponent: (browser.webapp && tabsModel.currentIndex > -1) ? webappsComponent : undefined
 
         Component {
             id: webappsComponent
 
             UnityWebApps.UnityWebApps {
-                id: webapps
                 name: browser.webappName
                 bindee: tabsModel.currentWebview
                 actionsContext: browser.actionManager.globalContext
@@ -423,8 +423,12 @@ MainView {
                 var url = request.url.toString();
 
                 // The list of url patterns defined by the webapp takes precedence over command line
-                if (webapp && isRunningAsANamedWebapp() && webapps.model && webapps.model.exists(webapps.name)) {
-                    if ( ! webapps.model.doesUrlMatchesWebapp(webapps.name, url)) {
+                if (webapp && isRunningAsANamedWebapp()) {
+                    var webappComponent = webappsComponentLoader.item;
+
+                    if (webappComponent != null &&
+                        webappComponent.model.exists(webappComponent.name) &&
+                        ! webappComponent.model.doesUrlMatchesWebapp(webappComponent.name, url)) {
                         action = WebView.IgnoreRequest;
                     }
                 }

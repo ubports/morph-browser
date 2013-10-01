@@ -14,14 +14,13 @@ import tempfile
 
 from testtools.matchers import Contains, Equals
 
-from autopilot.input import Mouse, Touch, Pointer
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 from autopilot.testcase import AutopilotTestCase
 
 import http_server
 
-from ubuntuuitoolkit.emulators import UbuntuUIToolkitEmulatorBase
+from ubuntuuitoolkit import emulators as toolkit_emulators
 
 from webbrowser_app.emulators.browser import Browser
 
@@ -36,11 +35,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
     for webbrowser-app tests.
     """
 
-    if model() == 'Desktop':
-        scenarios = [('with mouse', dict(input_device_class=Mouse)), ]
-    else:
-        scenarios = [('with touch', dict(input_device_class=Touch)), ]
-
     local_location = "../../src/app/webbrowser-app"
     d_f = "--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop"
 
@@ -48,7 +42,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
     _temp_pages = []
 
     def setUp(self):
-        self.pointing_device = Pointer(self.input_device_class.create())
+        self.pointing_device = toolkit_emulators.get_pointing_device()
         super(BrowserTestCaseBase, self).setUp()
         if os.path.exists(self.local_location):
             self.launch_test_local()
@@ -69,14 +63,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.app = self.launch_test_application(
             self.local_location,
             *self.ARGS,
-            emulator_base=UbuntuUIToolkitEmulatorBase)
+            emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def launch_test_installed(self):
         if model() == 'Desktop':
             self.app = self.launch_test_application(
                 "webbrowser-app",
                 *self.ARGS,
-                emulator_base=UbuntuUIToolkitEmulatorBase)
+                emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
         else:
             self.app = self.launch_test_application(
                 "webbrowser-app",
@@ -84,7 +78,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
                 self.d_f,
                 *self.ARGS,
                 app_type='qt',
-                emulator_base=UbuntuUIToolkitEmulatorBase)
+                emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
 
     def clear_cache(self):
         cachedir = os.path.join(os.path.expanduser("~"), ".local", "share",

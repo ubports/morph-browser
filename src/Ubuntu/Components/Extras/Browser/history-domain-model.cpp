@@ -79,6 +79,16 @@ const QDateTime& HistoryDomainModel::lastVisit() const
     return m_lastVisit;
 }
 
+const int HistoryDomainModel::count() const
+{
+    return rowCount();
+}
+
+const QUrl HistoryDomainModel::firstUrl() const
+{
+    return data(index(0, 0), HistoryModel::Url).toUrl();
+}
+
 bool HistoryDomainModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     if (m_domain.isEmpty()) {

@@ -1,3 +1,71 @@
+webbrowser-app (0.22+13.10.20130930.1-0ubuntu1) saucy; urgency=low
+
+  [ Bill Filler ]
+  * add user-agent override for mail.google.com. (LP: #1227941)
+
+  [ Alexandre Abreu ]
+  * Fix issue w/ with invalid webapp component id/access when filtering
+    urls. (LP: #1231228)
+
+  [ Olivier Tilloy ]
+  * Update the licensing information for assets. (LP: #1194916)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 354
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 30 Sep 2013 16:32:46 +0000
+
+webbrowser-app (0.22+13.10.20130926.1-0ubuntu1) saucy; urgency=low
+
+  [ daker ]
+  * Added support for confirm dialogs. (LP: #1169758)
+  * Added support for Prompt dialogs. (LP: #1169759)
+
+  [ Adnane Belmadiaf ]
+  * Added support for confirm dialogs. (LP: #1169758)
+  * Added support for Prompt dialogs. (LP: #1169759)
+
+  [ Alexandre Abreu ]
+  * The application name is being set from the APP_ID during the init
+    phase of the webbrowser app but it is later being overwritten
+    because of the applicationName property in the browser MainView. One
+    option could be to get rid of the applicationName property update
+    altogether but it is being used by the MainView to update the domain
+    for the i18n plugin which is itself flawed in a way since it does
+    not fallback on the Qtcore::applicationName but requires the
+    applicationName property of a MainView to be set explicitely. . (LP:
+    #1229942)
+
+  [ Olivier Tilloy ]
+  * When the activity view cannot be found, return None instead of
+    raising an exception, as that’s what tests expect.
+  * Contextual menus with specific actions for links and images when
+    they are long-pressed.
+  * Fix dependencies alignment in debian/control.
+  * Adjust margins in the chrome to be consistent with the default
+    toolbar. (LP: #1223946)
+  * New assets and visual tweaks for the expanded activity view. (LP:
+    #1223952)
+  * Updated translation template.
+  * Go directly to the entry instead of expanding the timeline view when
+    there is only one entry for a given domain. This change has been
+    requested by design.
+  * Very basic support for ini-style read-only settings. This is a
+    temporary solution until Settings support lands in the SDK. At the
+    moment, only the default homepage can be customized. To change the
+    default homepage, one can write the following line to
+    ~/.config/webbrowser-app/settings.conf:     homepage =
+    http://example.org.
+  * Match domains for overriding the UA string by starting from the full
+    domain name, and iterating down to the TLD. This ensures that if
+    there is an override rule for "b.a.c", it will get precedence over
+    another existing rule for "a.c".
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 346
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 26 Sep 2013 08:47:31 +0000
+
 webbrowser-app (0.22+13.10.20130924.1-0ubuntu1) saucy; urgency=low
 
   [ Ted Gould ]

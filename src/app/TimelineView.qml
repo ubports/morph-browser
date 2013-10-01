@@ -289,9 +289,13 @@ Item {
                             timeline.currentIndex = -1
                         } else {
                             domainsView.currentIndex = index
-                            timeline.currentIndex = timelineIndex
                             entriesView.domain = model.domain
                             entriesView.model = model.entries
+                            if (model.entries.count === 1) {
+                                historyEntryClicked(model.entries.firstUrl)
+                            } else {
+                                timeline.currentIndex = timelineIndex
+                            }
                         }
                     }
                 }

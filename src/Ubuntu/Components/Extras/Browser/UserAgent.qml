@@ -62,12 +62,22 @@ Item {
         return domain
     }
 
+    function getDomains(domain) {
+        var components = domain.split(".")
+        var domains = []
+        for (var i = 0; i < components.length; i++) {
+            domains.push(components.slice(i).join("."))
+        }
+        return domains
+    }
+
     function getUAString(url) {
         var ua = defaultUA
-        var domain = getDomain(url)
-        for (var override in overrides) {
-            if (domain.indexOf(override, domain.length - override.length) !== -1) {
-                var form = overrides[override]
+        var domains = getDomains(getDomain(url))
+        for (var i = 0; i < domains.length; i++) {
+            var domain = domains[i]
+            if (domain in overrides) {
+                var form = overrides[domain]
                 if (typeof form == "string") {
                     return form
                 } else if (typeof form == "object") {

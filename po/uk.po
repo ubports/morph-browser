@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-09-24 07:25+0200\n"
-"PO-Revision-Date: 2013-06-13 09:34+0000\n"
+"POT-Creation-Date: 2013-09-24 17:56+0200\n"
+"PO-Revision-Date: 2013-09-28 08:13+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-25 05:50+0000\n"
-"X-Generator: Launchpad (build 16771)\n"
+"X-Launchpad-Export-Date: 2013-09-29 05:46+0000\n"
+"X-Generator: Launchpad (build 16774)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
@@ -23,37 +23,39 @@ msgstr "Дії"
 
 #: src/app/ActivityView.qml:52
 msgid "Bookmarks"
-msgstr ""
+msgstr "Закладки"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "Сповіщення JavaScript"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "Гаразд"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Слід пройти розпізнавання."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "Для доступ до сайта %1 слід пройти розпізнавання"
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Користувач"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
-#: src/app/AuthenticationDialog.qml:53
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
+#: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "Скасувати"
 
 #: src/app/Browser.qml:62
 msgid "Goto"
@@ -117,41 +119,68 @@ msgstr "Відкрити у новій вкладці"
 
 #: src/app/Browser.qml:111
 msgid "Clear History"
-msgstr ""
+msgstr "Спорожнити журнал"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:114
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "спорожнити;журнал;навігація;clear"
 
-#: src/app/Browser.qml:355
+#: src/app/Browser.qml:359
 msgid "Copy"
 msgstr "Копіювати"
 
-#: src/app/Browser.qml:362
-msgid "Open link in new tab"
-msgstr ""
-
 #: src/app/Browser.qml:366
-msgid "Bookmark link"
-msgstr ""
+msgid "Open link in new tab"
+msgstr "Відкрити посилання у новій вкладці"
 
 #: src/app/Browser.qml:370
-msgid "Copy link URL"
-msgstr ""
+msgid "Bookmark link"
+msgstr "Створити закладку для посилання"
 
-#: src/app/Browser.qml:380
-msgid "Open image in new tab"
-msgstr ""
+#: src/app/Browser.qml:374
+msgid "Copy link URL"
+msgstr "Копіювати адресу посилання"
 
 #: src/app/Browser.qml:384
-msgid "Copy image URL"
-msgstr ""
+msgid "Open image in new tab"
+msgstr "Відкрити зображення у новій вкладці"
 
-#: src/app/Browser.qml:391
+#: src/app/Browser.qml:388
+msgid "Copy image URL"
+msgstr "Копіювати адресу зображення"
+
+#: src/app/Browser.qml:398
 msgid "This page wants to know your device’s location."
 msgstr ""
+"Код цієї сторінки намагається визначити розташування вашого пристрою."
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "Це з’єднання не є довіреним"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+"Ви намагаєтеся встановити безпечне з’єднання з %1, але сертифікат захисту "
+"цього сайте не є довіреним."
+
+#: src/app/CertificateVerificationDialog.qml:29
+msgid "Proceed anyway"
+msgstr "Продовжити"
+
+#: src/app/CertificateVerificationDialog.qml:35
+msgid "Back to safety"
+msgstr "Повернутися до безпечного режиму"
+
+#: src/app/ConfirmDialog.qml:24
+msgid "JavaScript Confirmation"
+msgstr "Підтвердження дій JavaScript"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -176,31 +205,35 @@ msgstr "Перезавантажити"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Запит щодо прав доступу"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Заборонити"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "Дозволити"
+
+#: src/app/PromptDialog.qml:24
+msgid "JavaScript Prompt"
+msgstr "Запит JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Слід пройти розпізнавання на проксі-сервері"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "Для доступу до сайта %1:%2 слід пройти розпізнавання."
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/TabsList.qml:34
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr ""
+msgstr "Зараз переглядаємо (%1)"
 
 #: src/app/TabsList.qml:65
 msgid "+"
@@ -208,35 +241,35 @@ msgstr "+"
 
 #: src/app/TimelineView.qml:87
 msgid "Today"
-msgstr ""
+msgstr "Сьогодні"
 
 #: src/app/TimelineView.qml:89
 msgid "Yesterday"
-msgstr ""
+msgstr "Вчора"
 
 #: src/app/TimelineView.qml:91
 msgid "Last 7 Days"
-msgstr ""
+msgstr "Останні 7 днів"
 
 #: src/app/TimelineView.qml:93
 msgid "This Month"
-msgstr ""
+msgstr "Цього місяця"
 
 #: src/app/TimelineView.qml:95
 msgid "This Year"
-msgstr ""
+msgstr "Цього року"
 
 #: src/app/TimelineView.qml:97
 msgid "Older"
-msgstr ""
+msgstr "Давніше"
 
 #: src/app/TimelineView.qml:169
 msgid "(local files)"
-msgstr ""
+msgstr "(локальні файли)"
 
 #: src/app/TimelineView.qml:171
 msgid "(other)"
-msgstr ""
+msgstr "(інше)"
 
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"

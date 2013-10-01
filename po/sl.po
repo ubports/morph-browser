@@ -7,53 +7,55 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-09-24 07:25+0200\n"
-"PO-Revision-Date: 2013-05-18 19:06+0000\n"
-"Last-Translator: Andrej Znidarsic <andrej.znidarsic@gmail.com>\n"
+"POT-Creation-Date: 2013-09-24 17:56+0200\n"
+"PO-Revision-Date: 2013-09-28 10:21+0000\n"
+"Last-Translator: Damir Jerovšek <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-25 05:50+0000\n"
-"X-Generator: Launchpad (build 16771)\n"
+"X-Launchpad-Export-Date: 2013-09-29 05:46+0000\n"
+"X-Generator: Launchpad (build 16774)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
-msgstr ""
+msgstr "Dejavnost"
 
 #: src/app/ActivityView.qml:52
 msgid "Bookmarks"
-msgstr ""
+msgstr "Zaznamki"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "Opozorilo JavaScript"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "V redu"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Zahtevana je overitev."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "Spletna stran %1 zahteva overitev."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Uporabniško ime"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "Geslo"
 
-#: src/app/AuthenticationDialog.qml:53
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
+#: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "Prekliči"
 
 #: src/app/Browser.qml:62
 msgid "Goto"
@@ -117,41 +119,67 @@ msgstr "Odpre nov zavihek"
 
 #: src/app/Browser.qml:111
 msgid "Clear History"
-msgstr ""
+msgstr "Počisti zgodovino"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:114
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Počisti zgodovino krmarjenja"
 
-#: src/app/Browser.qml:355
+#: src/app/Browser.qml:359
 msgid "Copy"
 msgstr "Kopiraj"
 
-#: src/app/Browser.qml:362
-msgid "Open link in new tab"
-msgstr ""
-
 #: src/app/Browser.qml:366
-msgid "Bookmark link"
-msgstr ""
+msgid "Open link in new tab"
+msgstr "Odpri povezavo v novem zavihku"
 
 #: src/app/Browser.qml:370
-msgid "Copy link URL"
-msgstr ""
+msgid "Bookmark link"
+msgstr "Zaznamuj povezavo"
 
-#: src/app/Browser.qml:380
-msgid "Open image in new tab"
-msgstr ""
+#: src/app/Browser.qml:374
+msgid "Copy link URL"
+msgstr "Kopiraj URL povezave"
 
 #: src/app/Browser.qml:384
-msgid "Copy image URL"
-msgstr ""
+msgid "Open image in new tab"
+msgstr "Odpri sliko v novem zavihku"
 
-#: src/app/Browser.qml:391
+#: src/app/Browser.qml:388
+msgid "Copy image URL"
+msgstr "Kopiraj URL slike"
+
+#: src/app/Browser.qml:398
 msgid "This page wants to know your device’s location."
+msgstr "Ta stran želi izvedeti mesto Vaše naprave."
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "Ta povezava je nepreverjena"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
 msgstr ""
+"Poskušate varno dostopati do %1, toda varnostno potrdilo te spletne strani "
+"ni vredno zaupanja."
+
+#: src/app/CertificateVerificationDialog.qml:29
+msgid "Proceed anyway"
+msgstr "Vseeno nadaljuj"
+
+#: src/app/CertificateVerificationDialog.qml:35
+msgid "Back to safety"
+msgstr "Nazaj na varnost"
+
+#: src/app/ConfirmDialog.qml:24
+msgid "JavaScript Confirmation"
+msgstr "Potrditev JavaScript"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -175,86 +203,90 @@ msgstr "Osveži stran"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Zahteva za dovoljenje"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Zavrni"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "Dovoli"
+
+#: src/app/PromptDialog.qml:24
+msgid "JavaScript Prompt"
+msgstr "Poziv JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Zahtevana je overitev posredniškega strežnika."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "Spletna stran %1:%2 zahteva overitev"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/TabsList.qml:34
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr ""
+msgstr "Trenutnih ogledov (%1)"
 
 #: src/app/TabsList.qml:65
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #: src/app/TimelineView.qml:87
 msgid "Today"
-msgstr ""
+msgstr "Danes"
 
 #: src/app/TimelineView.qml:89
 msgid "Yesterday"
-msgstr ""
+msgstr "Včeraj"
 
 #: src/app/TimelineView.qml:91
 msgid "Last 7 Days"
-msgstr ""
+msgstr "Zadnjih 7 dni"
 
 #: src/app/TimelineView.qml:93
 msgid "This Month"
-msgstr ""
+msgstr "Ta mesec"
 
 #: src/app/TimelineView.qml:95
 msgid "This Year"
-msgstr ""
+msgstr "To leto"
 
 #: src/app/TimelineView.qml:97
 msgid "Older"
-msgstr ""
+msgstr "Starejše"
 
 #: src/app/TimelineView.qml:169
 msgid "(local files)"
-msgstr ""
+msgstr "(krajevne datoteke)"
 
 #: src/app/TimelineView.qml:171
 msgid "(other)"
-msgstr ""
+msgstr "(drugo)"
 
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr ""
+msgstr "Brskalnik"
 
 #: src/app/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr ""
+msgstr "Spletni brskalnik"
 
 #: src/app/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "Brskajte po svetovnem spletu"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser-app.qml:49
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - Spletni brskalnik Ubuntu"
 
 #: src/app/webbrowser-app.qml:51
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "Spletni brskalnik Ubuntu"

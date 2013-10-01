@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-09-24 07:25+0200\n"
-"PO-Revision-Date: 2013-09-23 20:07+0000\n"
-"Last-Translator: Tiago Hillebrandt <tiagohillebrandt@gmail.com>\n"
+"POT-Creation-Date: 2013-09-24 17:56+0200\n"
+"PO-Revision-Date: 2013-09-30 12:17+0000\n"
+"Last-Translator: Rafael Neri <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-25 05:50+0000\n"
-"X-Generator: Launchpad (build 16771)\n"
+"X-Launchpad-Export-Date: 2013-10-01 05:39+0000\n"
+"X-Generator: Launchpad (build 16774)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
@@ -27,9 +27,10 @@ msgstr "Favoritos"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "Alerta JavaScript"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
 msgstr "OK"
 
@@ -51,7 +52,8 @@ msgstr "Nome de usuário"
 msgid "Password"
 msgstr "Senha"
 
-#: src/app/AuthenticationDialog.qml:53
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
+#: src/app/PromptDialog.qml:40
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -125,33 +127,59 @@ msgstr "Limpar histórico"
 msgid "Clear Navigation History"
 msgstr "Limpar histórico de navegação"
 
-#: src/app/Browser.qml:355
+#: src/app/Browser.qml:359
 msgid "Copy"
 msgstr "Copiar"
 
-#: src/app/Browser.qml:362
-msgid "Open link in new tab"
-msgstr ""
-
 #: src/app/Browser.qml:366
-msgid "Bookmark link"
-msgstr ""
+msgid "Open link in new tab"
+msgstr "Abrir link em nova aba"
 
 #: src/app/Browser.qml:370
-msgid "Copy link URL"
-msgstr ""
+msgid "Bookmark link"
+msgstr "Link de favorito"
 
-#: src/app/Browser.qml:380
-msgid "Open image in new tab"
-msgstr ""
+#: src/app/Browser.qml:374
+msgid "Copy link URL"
+msgstr "Copiar URL do link"
 
 #: src/app/Browser.qml:384
-msgid "Copy image URL"
-msgstr ""
+msgid "Open image in new tab"
+msgstr "Abrir imagem em nova aba"
 
-#: src/app/Browser.qml:391
+#: src/app/Browser.qml:388
+msgid "Copy image URL"
+msgstr "Copiar URL da imagem"
+
+#: src/app/Browser.qml:398
 msgid "This page wants to know your device’s location."
 msgstr "A página deseja saber a localização do seu dispositivo."
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "Esta conexão não é confiável"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+"Você está tentando acessar com segurança %1, mas o certificado de segurança "
+"deste site não é confiável."
+
+#: src/app/CertificateVerificationDialog.qml:29
+msgid "Proceed anyway"
+msgstr "Continuar mesmo assim"
+
+#: src/app/CertificateVerificationDialog.qml:35
+msgid "Back to safety"
+msgstr "Voltar à segurança"
+
+#: src/app/ConfirmDialog.qml:24
+msgid "JavaScript Confirmation"
+msgstr "Confirmação JavaScript"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -185,6 +213,10 @@ msgstr "Negar"
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "Permitir"
+
+#: src/app/PromptDialog.qml:24
+msgid "JavaScript Prompt"
+msgstr "Prompt do JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
