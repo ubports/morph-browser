@@ -361,32 +361,31 @@ MainView {
                 }
             }
 
-            hyperlinkContextualActions: ActionList {
+            contextualActions: ActionList {
                 Action {
                     text: i18n.tr("Open link in new tab")
+                    enabled: contextualData.href.toString()
                     onTriggered: browser.newTab(contextualData.href, true)
                 }
                 Action {
                     text: i18n.tr("Bookmark link")
+                    enabled: contextualData.href.toString()
                     onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "")
                 }
                 Action {
                     text: i18n.tr("Copy link URL")
-                    onTriggered: {
-                        Clipboard.push([contextualData.href])
-                        Clipboard.push(contextualData.text)
-                    }
+                    enabled: contextualData.href.toString()
+                    onTriggered: Clipboard.push([contextualData.href])
                 }
-            }
-
-            imageContextualActions: ActionList {
                 Action {
                     text: i18n.tr("Open image in new tab")
-                    onTriggered: browser.newTab(contextualData.src, true)
+                    enabled: contextualData.img.toString()
+                    onTriggered: browser.newTab(contextualData.img, true)
                 }
                 Action {
                     text: i18n.tr("Copy image URL")
-                    onTriggered: Clipboard.push([contextualData.src])
+                    enabled: contextualData.img.toString()
+                    onTriggered: Clipboard.push([contextualData.img])
                 }
             }
 

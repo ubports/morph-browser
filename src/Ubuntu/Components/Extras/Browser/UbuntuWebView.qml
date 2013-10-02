@@ -74,21 +74,18 @@ WebView {
         }
         if ('event' in data) {
             if (data.event === 'longpress') {
-                if ('nodeName' in data) {
+                if (('img' in data) || ('href' in data)) {
                     contextualData.clear()
-                    if (data.nodeName === 'a') {
-                        contextualData.href = data.href
-                        contextualData.text = data.href
-                        contextualData.title = data.title
-                        contextualRectangle.position(data)
-                        PopupUtils.open(hyperlinkContextualPopover, contextualRectangle)
-                        return
-                    } else if (data.nodeName === 'img') {
-                        contextualData.src = data.images[0]
-                        contextualRectangle.position(data)
-                        PopupUtils.open(imageContextualPopover, contextualRectangle)
-                        return
+                    if ('img' in data) {
+                        contextualData.img = data.img
                     }
+                    if ('href' in data) {
+                        contextualData.href = data.href
+                        contextualData.title = data.title
+                    }
+                    contextualRectangle.position(data)
+                    PopupUtils.open(contextualPopover, contextualRectangle)
+                    return
                 }
             }
             if ((data.event === 'longpress') || (data.event === 'selectionadjusted')) {
@@ -209,36 +206,23 @@ WebView {
             height = data.height * scale
         }
     }
-    property alias contextualData: _contextualData
-    QtObject {
-        id: _contextualData
-
+    property QtObject contextualData: QtObject {
         property url href
-        property string text
         property string title
-        property url src
+        property url img
 
         function clear() {
             href = ''
-            text = ''
             title = ''
-            src = ''
+            img = ''
         }
     }
 
-    property ActionList hyperlinkContextualActions
+    property ActionList contextualActions
     Component {
-        id: hyperlinkContextualPopover
+        id: contextualPopover
         ActionSelectionPopover {
-            actions: hyperlinkContextualActions
-        }
-    }
-
-    property ActionList imageContextualActions
-    Component {
-        id: imageContextualPopover
-        ActionSelectionPopover {
-            actions: imageContextualActions
+            actions: contextualActions
         }
     }
 
