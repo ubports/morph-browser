@@ -29,6 +29,10 @@
 // stdlib
 #include <cstdio>
 
+QRegularExpression
+CommandLineParser::m_webappUrlPatternTemplate("^http(s|s\\?)?://[^\\.]+\\.[^\\.\\*\\?]+\\.[^\\.\\*\\?]+(\\.[^\\.\\*\\?/]+)*/.*$");
+
+
 CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
     : QObject(parent)
     , m_help(false)
@@ -65,9 +69,13 @@ CommandLineParser::CommandLineParser(QStringList arguments, QObject* parent)
                         Q_FOREACH(const QString & includePattern, includePatterns)
                         {
                             QString url = includePattern.trimmed();
-                            if ( ! url.isEmpty())
+                            if ( ! url.isEmpty() && isValidWebappUrlPattern(url))
                             {
                                 m_webappUrlPatterns.append(url);
+                            }
+                            else
+                            {
+                                qDebug() << "Ignoring empty or invalid webapp url pattern:" << url;
                             }
                         }
                     }
@@ -146,6 +154,25 @@ void CommandLineParser::printUsage() const
     out << "  --enable-back-forward  enable the display of the back and forward buttons" << endl;
     out << "  --enable-activity      enable the display of the activity button, the address bar is also displayed" << endl;
     out << "  --enable-addressbar    enable the display of the address bar" << endl;
+}
+
+
+/**
+ * Tests for the validity of a given webapp url pattern. It follows
+ *  the following grammar:
+ *
+ * <url-pattern> := <scheme>://<host><path>
+ * <scheme> := 'http' | 'https'
+ * <host> := '*' <any char except '/' and '.'>+ <hostpart> <hostpart>+
+ * <hostpart> := '.' <any char except '/', '*', '?' and '.'>+
+ * <path> := '/' <any chars>
+ *
+ * @param urlPattern pattern that is to be tested for validity
+ * @return if the url is valid or not
+ */
+bool CommandLineParser::isValidWebappUrlPattern(const QString & urlPattern) const
+{
+    return m_webappUrlPatternTemplate.match(urlPattern).hasMatch();
 }
 
 CommandLineParser::ChromeElementFlags CommandLineParser::chromeFlags() const

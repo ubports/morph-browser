@@ -251,8 +251,8 @@ private Q_SLOTS:
         QTest::addColumn<QStringList>("patterns");
 
         QString BINARY("webbrowser-app");
-        QString INCLUDE_PATTERN("http://www.ubuntu.*/*");
-        QString INCLUDE_PATTERN2("http://www.bbc.*/*");
+        QString INCLUDE_PATTERN("https?://*.ubuntu.com/*");
+        QString INCLUDE_PATTERN2("https?://www.bbc.co.uk/*");
 
         QTest::newRow("no switch") << (QStringList() << BINARY) << QStringList();
 
@@ -266,6 +266,28 @@ private Q_SLOTS:
         QTest::newRow("switch and multiple trimmed pattern")
                 << (QStringList() << BINARY << (QString("--webappUrlPatterns=") + INCLUDE_PATTERN + " , " + INCLUDE_PATTERN2 + " ,  "))
                 << (QStringList() << INCLUDE_PATTERN << INCLUDE_PATTERN2);
+
+#define WEBAPP_INVALID_URL_PATTERN_TEST(id,invalid_url_pattern) \
+        QTest::newRow("switch and invalid pattern " #id) \
+                << (QStringList() << BINARY << (QString("--webappUrlPatterns=") + INCLUDE_PATTERN + "," + invalid_url_pattern)) \
+                << (QStringList() << INCLUDE_PATTERN)
+
+        WEBAPP_INVALID_URL_PATTERN_TEST(1, "http");
+        WEBAPP_INVALID_URL_PATTERN_TEST(2, "://");
+        WEBAPP_INVALID_URL_PATTERN_TEST(3, "file://");
+        WEBAPP_INVALID_URL_PATTERN_TEST(4, "https?://");
+        WEBAPP_INVALID_URL_PATTERN_TEST(5, "https?://*");
+        WEBAPP_INVALID_URL_PATTERN_TEST(6, "https?://foo.*");
+        WEBAPP_INVALID_URL_PATTERN_TEST(7, "https?://foo.ba*r.com");
+        WEBAPP_INVALID_URL_PATTERN_TEST(8, "https?://foo.*.com/");
+        WEBAPP_INVALID_URL_PATTERN_TEST(9, "https?://foo.bar.*/");
+        WEBAPP_INVALID_URL_PATTERN_TEST(10, "https?://*.bar.*");
+        WEBAPP_INVALID_URL_PATTERN_TEST(11, "https?://*.bar.*/");
+        WEBAPP_INVALID_URL_PATTERN_TEST(12, "https?://*.bar.*/");
+        WEBAPP_INVALID_URL_PATTERN_TEST(13, "httpsfoo?://*.bar.com/");
+        WEBAPP_INVALID_URL_PATTERN_TEST(14, "httppoo://*.bar.com/");
+
+#undef WEBAPP_INVALID_URL_PATTERN_TEST
     }
 
     void shouldUseIncludes()

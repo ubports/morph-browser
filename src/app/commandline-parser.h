@@ -21,9 +21,11 @@
 
 // Qt
 #include <QtCore/QObject>
+#include <QtCore/QRegularExpression>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QUrl>
+
 
 class CommandLineParser : public QObject
 {
@@ -67,6 +69,11 @@ public:
     ChromeElementFlags chromeFlags() const;
 
 private:
+
+    bool isValidWebappUrlPattern(const QString & pattern) const;
+
+
+private:
     bool m_help;
     bool m_fullscreen;
     bool m_maximized;
@@ -78,6 +85,8 @@ private:
     QString m_appid;
     QStringList m_webappUrlPatterns;
     ChromeElementFlags m_chromeFlags;
+
+    static QRegularExpression m_webappUrlPatternTemplate;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(CommandLineParser::ChromeElementFlags)
