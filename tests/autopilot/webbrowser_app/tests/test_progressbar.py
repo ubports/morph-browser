@@ -14,21 +14,24 @@ from autopilot.matchers import Eventually
 import unittest
 
 from webbrowser_app.tests import \
-    BrowserTestCaseBaseWithHTTPServer, \
-    StartOpenRemotePageTestCaseBase, \
-    HTTP_SERVER_PORT
+    http_server, \
+    BrowserTestCaseBase, \
+    StartOpenRemotePageTestCaseBase
 
 
 LOREMIPSUM = "<p>Lorem ipsum dolor sit amet.</p>"
 
 
-class TestProgressBarAtStartup(BrowserTestCaseBaseWithHTTPServer):
+class TestProgressBarAtStartup(BrowserTestCaseBase):
 
     """Tests that the progress bar (embedded inside the address bar) is
     initially visible when loading a page."""
 
     def setUp(self):
-        self.base_url = "http://localhost:%d" % HTTP_SERVER_PORT
+        self.server = http_server.HTTPServerInAThread()
+        self.server.start()
+        self.addCleanup(self.server.shutdown)
+        self.base_url = "http://localhost:%d" % self.server.port
         self.url = self.base_url + "/wait/8"
         self.ARGS = [self.url]
         super(TestProgressBarAtStartup, self).setUp()
@@ -49,7 +52,7 @@ class TestProgressBar(StartOpenRemotePageTestCaseBase):
 
     def test_chrome_hides_when_loaded(self):
         self.assert_chrome_eventually_hidden()
-        url = "http://localhost:%d/wait/3" % HTTP_SERVER_PORT
+        url = "http://localhost:%d/wait/3" % self.server.port
         self.go_to_url(url)
         self.assert_chrome_eventually_shown()
         self.assert_page_eventually_loaded(url)
@@ -58,7 +61,7 @@ class TestProgressBar(StartOpenRemotePageTestCaseBase):
     def test_load_page_from_link_reveals_chrome(self):
         # craft a page that accepts clicks anywhere inside its window
         style = "'margin: 0; height: 100%'"
-        url = "http://localhost:%d/wait/3" % HTTP_SERVER_PORT
+        url = "http://localhost:%d/wait/3" % self.server.port
         script = "'window.location = \"%s\"'" % url
         html = "<html><body style=%s onclick=%s></body></html>" % \
             (style, script)
@@ -74,7 +77,7 @@ class TestProgressBar(StartOpenRemotePageTestCaseBase):
         # simulate user interaction to hide the chrome while loading,
         # and ensure it doesn’t re-appear when loaded
         self.assert_chrome_eventually_hidden()
-        url = "http://localhost:%d/wait/3" % HTTP_SERVER_PORT
+        url = "http://localhost:%d/wait/3" % self.server.port
         self.go_to_url(url)
         self.assert_chrome_eventually_shown()
         webview = self.main_window.get_current_webview()
@@ -87,7 +90,7 @@ class TestProgressBar(StartOpenRemotePageTestCaseBase):
         # ensure that the chrome is not automatically hidden
         # when the user interrupts a page that was loading
         self.assert_chrome_eventually_hidden()
-        url = "http://localhost:%d/wait/5" % HTTP_SERVER_PORT
+        url = "http://localhost:%d/wait/5" % self.server.port
         self.go_to_url(url)
         self.assert_page_eventually_loading()
         self.assert_chrome_eventually_shown()

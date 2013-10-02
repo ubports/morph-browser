@@ -25,9 +25,6 @@ from ubuntuuitoolkit import emulators as toolkit_emulators
 from webbrowser_app.emulators.browser import Browser
 
 
-HTTP_SERVER_PORT = 8129
-
-
 class BrowserTestCaseBase(AutopilotTestCase):
 
     """
@@ -44,14 +41,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def setUp(self):
         self.pointing_device = toolkit_emulators.get_pointing_device()
         super(BrowserTestCaseBase, self).setUp()
+        self.addCleanup(self.cleanup)
         if os.path.exists(self.local_location):
             self.launch_test_local()
         else:
             self.launch_test_installed()
         self.main_window.visible.wait_for(True)
 
-    def tearDown(self):
-        super(BrowserTestCaseBase, self).tearDown()
+    def cleanup(self):
         for page in self._temp_pages:
             try:
                 os.remove(page)
@@ -193,24 +190,7 @@ class StartOpenLocalPageTestCaseBase(BrowserTestCaseBase):
         self.assert_page_eventually_loaded(self.url)
 
 
-class BrowserTestCaseBaseWithHTTPServer(BrowserTestCaseBase):
-
-    """
-    A specialization of the common test case class that runs
-    a simple custom HTTP server in a separate thread.
-    """
-
-    def setUp(self):
-        self.server = http_server.HTTPServerInAThread(HTTP_SERVER_PORT)
-        self.server.start()
-        super(BrowserTestCaseBaseWithHTTPServer, self).setUp()
-
-    def tearDown(self):
-        super(BrowserTestCaseBaseWithHTTPServer, self).tearDown()
-        self.server.shutdown()
-
-
-class StartOpenRemotePageTestCaseBase(BrowserTestCaseBaseWithHTTPServer):
+class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
 
     """
     Helper test class that opens the browser at a remote URL instead of
@@ -223,7 +203,10 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBaseWithHTTPServer):
     """
 
     def setUp(self):
-        self.base_url = "http://localhost:%d" % HTTP_SERVER_PORT
+        self.server = http_server.HTTPServerInAThread()
+        self.server.start()
+        self.addCleanup(self.server.shutdown)
+        self.base_url = "http://localhost:%d" % self.server.port
         self.url = self.base_url + "/loremipsum"
         self.ARGS = [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()
