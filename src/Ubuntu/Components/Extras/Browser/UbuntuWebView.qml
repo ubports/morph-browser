@@ -199,7 +199,7 @@ WebView {
         visible: false
 
         function position(data) {
-            var scale = _webview.scale
+            var scale = _webview.experimental.test.contentsScale * _webview.experimental.test.devicePixelRatio
             x = data.left * scale
             y = data.top * scale
             width = data.width * scale
