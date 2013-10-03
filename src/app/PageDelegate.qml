@@ -55,33 +55,35 @@ Item {
             }
         }
 
-        Row {
+        MouseArea {
             width: parent.width
             height: units.gu(3)
-            spacing: units.gu(1)
 
-            Image {
-                id: starIcon
-                source: pageDelegate.bookmarked ? "assets/browser_favourite_on.png"
-                                                : "assets/browser_favourite_off.png"
-                visible: pageDelegate.canBookmark
-                width: visible ? units.gu(2) : 0
-                height: units.gu(2)
+            Row {
+                anchors.fill: parent
+                spacing: units.gu(1)
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: pageDelegate.bookmarked = !pageDelegate.bookmarked
+                Image {
+                    id: starIcon
+                    source: pageDelegate.bookmarked ? "assets/browser_favourite_on.png"
+                                                    : "assets/browser_favourite_off.png"
+                    visible: pageDelegate.canBookmark
+                    width: visible ? units.gu(2) : 0
+                    height: units.gu(2)
+                }
+
+                Label {
+                    id: label
+                    fontSize: "small"
+                    width: parent.width - starIcon.width - (starIcon.visible ? parent.spacing : 0)
+                    wrapMode: Text.Wrap
+                    elide: Text.ElideRight
+                    maximumLineCount: 2
                 }
             }
 
-            Label {
-                id: label
-                fontSize: "small"
-                width: parent.width - starIcon.width - (starIcon.visible ? parent.spacing : 0)
-                wrapMode: Text.Wrap
-                elide: Text.ElideRight
-                maximumLineCount: 2
-            }
+            enabled: pageDelegate.canBookmark
+            onClicked: pageDelegate.bookmarked = !pageDelegate.bookmarked
         }
     }
 
