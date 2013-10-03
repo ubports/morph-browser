@@ -188,19 +188,27 @@ Item {
                     }
                 }
 
-                states: [
-                    State {
-                        name: "expanded"
-                        when: timelineIndex == timeline.currentIndex
-                        PropertyChanges {
-                            target: entriesView
-                            height: units.gu(19)
-                            clip: false
+                states: State {
+                    name: "expanded"
+                    when: timelineIndex == timeline.currentIndex
+                    PropertyChanges {
+                        target: entriesView
+                        height: units.gu(19)
+                        clip: false
+                    }
+                }
+
+                transitions: Transition {
+                    SequentialAnimation {
+                        UbuntuNumberAnimation { property: "height" }
+                        ScriptAction {
+                            // XXX: This action is instantaneous, the view jumps to the index
+                            // without animating contentY. Unfortunately, manipulating contentY
+                            // to position the view at a given index is unreliable and discouraged
+                            // (see http://qt-project.org/doc/qt-5.0/qtquick/qml-qtquick2-listview.html#positionViewAtIndex-method).
+                            script: timeline.positionViewAtIndex(timelineIndex, ListView.Center)
                         }
                     }
-                ]
-                Behavior on height {
-                    UbuntuNumberAnimation {}
                 }
             }
 
