@@ -21,7 +21,10 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Column {
-    property alias model: listview.model
+    id: tabsList
+
+    property alias tabsModel: listview.model
+    property QtObject bookmarksModel
 
     signal newTabClicked()
     signal switchToTabClicked(int index)
@@ -31,7 +34,7 @@ Column {
 
     ListItem.Header {
         // TRANSLATORS: %1 refers to the number of open tabs
-        text: i18n.tr("Currently viewing (%1)").arg('<font color="%1">%2</font>'.arg(UbuntuColors.orange).arg(model.count))
+        text: i18n.tr("Currently viewing (%1)").arg('<font color="%1">%2</font>'.arg(UbuntuColors.orange).arg(tabsModel.count))
     }
 
     ListView {
@@ -41,7 +44,7 @@ Column {
             right: parent.right
             margins: units.gu(2)
         }
-        height: units.gu(16)
+        height: units.gu(17)
         spacing: units.gu(2)
         orientation: ListView.Horizontal
         currentIndex: model.currentIndex
@@ -75,64 +78,27 @@ Column {
             objectName: "openTabDelegate"
 
             width: units.gu(12)
-            height: units.gu(14)
+            height: units.gu(15)
 
+            url: model.url
             label: model.title ? model.title : model.url
             thumbnail: model.webview.thumbnail
+            canClose: true
 
-            Item {
-                width: units.gu(5)
-                height: units.gu(5)
-                anchors {
-                    top: parent.top
-                    topMargin: -units.gu(1)
-                    right: parent.right
-                    rightMargin: -units.gu(1)
-                }
-
-                Image {
-                    id: closeButton
-
-                    source: "assets/close_btn.png"
-
-                    anchors.centerIn: parent
-                    width: units.gu(4)
-                    height: units.gu(4)
-
-                    states: State {
-                        name: "hidden"
-                        PropertyChanges {
-                            target: closeButton
-                            width: 0
-                            height: 0
-                        }
-                    }
-                    state: (listview.state == "close") ? "" : "hidden"
-
-                    transitions: Transition {
-                        UbuntuNumberAnimation {
-                            properties: "width,height"
-                        }
-                    }
-                }
+            onStateChanged: listview.state = state
+            Connections {
+                target: listview
+                onStateChanged: state = listview.state
             }
 
+            canBookmark: url.toString() && (state === "")
+            bookmarksModel: tabsList.bookmarksModel
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    if (listview.state == "close") {
-                        tabRemoved(index)
-                    } else {
-                        switchToTabClicked(index)
-                    }
-                }
-                onPressAndHold: {
-                    if (listview.state == "close") {
-                        listview.state = ""
-                    } else {
-                        listview.state = "close"
-                    }
+            onClicked: {
+                if (state === "close") {
+                    tabRemoved(index)
+                } else {
+                    switchToTabClicked(index)
                 }
             }
         }
@@ -145,6 +111,6 @@ Column {
     }
 
     function centerViewOnCurrentTab() {
-        listview.positionViewAtIndex(model.currentIndex, ListView.Center)
+        listview.positionViewAtIndex(tabsModel.currentIndex, ListView.Center)
     }
 }

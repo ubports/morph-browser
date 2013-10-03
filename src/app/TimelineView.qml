@@ -26,8 +26,8 @@ Item {
 
     property QtObject tabsModel
     property QtObject historyModel
+    property QtObject bookmarksModel
 
-    signal resetPositionRequested()
     signal newTabRequested()
     signal switchToTabRequested(int index)
     signal closeTabRequested(int index)
@@ -57,18 +57,14 @@ Item {
 
         header: TabsList {
             width: parent.width
-            height: units.gu(23)
+            height: units.gu(24)
 
-            model: tabsModel
+            tabsModel: timelineView.tabsModel
+            bookmarksModel: timelineView.bookmarksModel
 
             onNewTabClicked: newTabRequested()
             onSwitchToTabClicked: switchToTabRequested(index)
             onTabRemoved: closeTabRequested(index)
-
-            Connections {
-                target: timelineView
-                onResetPositionRequested: centerViewOnCurrentTab()
-            }
         }
 
         delegate: Column {
@@ -171,33 +167,42 @@ Item {
 
                     delegate: PageDelegate {
                         width: units.gu(12)
-                        height: units.gu(14)
+                        height: units.gu(15)
 
+                        url: model.url
                         label: model.title ? model.title : model.url
 
                         property url thumbnailSource: "image://webthumbnail/" + model.url
                         thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
 
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: historyEntryClicked(model.url)
-                        }
+                        canBookmark: true
+                        bookmarksModel: timelineView.bookmarksModel
+
+                        onClicked: historyEntryClicked(model.url)
                     }
                 }
 
-                states: [
-                    State {
-                        name: "expanded"
-                        when: timelineIndex == timeline.currentIndex
-                        PropertyChanges {
-                            target: entriesView
-                            height: units.gu(18)
-                            clip: false
+                states: State {
+                    name: "expanded"
+                    when: timelineIndex == timeline.currentIndex
+                    PropertyChanges {
+                        target: entriesView
+                        height: units.gu(19)
+                        clip: false
+                    }
+                }
+
+                transitions: Transition {
+                    SequentialAnimation {
+                        UbuntuNumberAnimation { property: "height" }
+                        ScriptAction {
+                            // XXX: This action is instantaneous, the view jumps to the index
+                            // without animating contentY. Unfortunately, manipulating contentY
+                            // to position the view at a given index is unreliable and discouraged
+                            // (see http://qt-project.org/doc/qt-5.0/qtquick/qml-qtquick2-listview.html#positionViewAtIndex-method).
+                            script: timeline.positionViewAtIndex(timelineIndex, ListView.Center)
                         }
                     }
-                ]
-                Behavior on height {
-                    UbuntuNumberAnimation {}
                 }
             }
 
@@ -209,7 +214,7 @@ Item {
                     right: parent.right
                     margins: units.gu(2)
                 }
-                height: units.gu(14)
+                height: units.gu(15)
 
                 spacing: units.gu(2)
                 orientation: ListView.Horizontal
@@ -264,7 +269,7 @@ Item {
 
                 delegate: PageDelegate {
                     width: units.gu(12)
-                    height: units.gu(14)
+                    height: units.gu(15)
 
                     label: {
                         if (model.domain === "(local)") {
@@ -279,22 +284,19 @@ Item {
                     property url thumbnailSource: "image://webthumbnail/" + model.domain
                     thumbnail: WebThumbnailer.thumbnailExists(model.domain) ? thumbnailSource : ""
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            if ((timeline.currentIndex == timelineIndex) &&
-                                (entriesView.domain === model.domain)) {
-                                domainsView.currentIndex = -1
-                                timeline.currentIndex = -1
+                    onClicked: {
+                        if ((timeline.currentIndex == timelineIndex) &&
+                            (entriesView.domain === model.domain)) {
+                            domainsView.currentIndex = -1
+                            timeline.currentIndex = -1
+                        } else {
+                            domainsView.currentIndex = index
+                            entriesView.domain = model.domain
+                            entriesView.model = model.entries
+                            if (model.entries.count === 1) {
+                                historyEntryClicked(model.entries.firstUrl)
                             } else {
-                                domainsView.currentIndex = index
-                                entriesView.domain = model.domain
-                                entriesView.model = model.entries
-                                if (model.entries.count === 1) {
-                                    historyEntryClicked(model.entries.firstUrl)
-                                } else {
-                                    timeline.currentIndex = timelineIndex
-                                }
+                                timeline.currentIndex = timelineIndex
                             }
                         }
                     }
@@ -303,5 +305,14 @@ Item {
         }
     }
 
-    onResetPositionRequested: timeline.positionViewAtBeginning()
+    onVisibleChanged: {
+        if (visible) {
+            timeline.positionViewAtBeginning()
+            // Ensure that the header (currently viewing) is fully visible
+            timeline.contentY += timeline.headerItem.height
+            timeline.headerItem.centerViewOnCurrentTab()
+        } else {
+            timeline.currentIndex = -1
+        }
+    }
 }

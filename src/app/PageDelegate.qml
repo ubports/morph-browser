@@ -20,33 +20,132 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 
 Item {
+    id: pageDelegate
+
+    property url url
     property alias thumbnail: thumbnail.source
     property alias label: label.text
+    property bool canClose: false
+    property bool canBookmark: false
+    property bool bookmarked
+    property QtObject bookmarksModel
 
-    UbuntuShape {
-        id: shape
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        height: width
+    signal clicked()
 
-        image: Image {
-            id: thumbnail
+    MouseArea {
+        anchors.fill: parent
+        onClicked: pageDelegate.clicked()
+        onPressAndHold: {
+            if (pageDelegate.canClose) {
+                pageDelegate.state = (pageDelegate.state === "" ? "close" : "")
+            }
         }
     }
 
-    Label {
-        id: label
-        anchors {
-            top: shape.bottom
-            topMargin: units.gu(1)
-            left: parent.left
-            right: parent.right
+    Column {
+        anchors.fill: parent
+        spacing: units.gu(1)
+
+        UbuntuShape {
+            width: parent.width
+            height: width
+
+            image: Image {
+                id: thumbnail
+            }
         }
-        height: units.gu(1)
-        fontSize: "small"
-        elide: Text.ElideRight
+
+        MouseArea {
+            width: parent.width
+            height: units.gu(3)
+
+            Row {
+                anchors.fill: parent
+                spacing: units.gu(1)
+
+                Image {
+                    id: starIcon
+                    source: pageDelegate.bookmarked ? "assets/browser_favourite_on.png"
+                                                    : "assets/browser_favourite_off.png"
+                    visible: pageDelegate.canBookmark
+                    width: visible ? units.gu(2) : 0
+                    height: units.gu(2)
+                }
+
+                Label {
+                    id: label
+                    fontSize: "small"
+                    width: parent.width - starIcon.width - (starIcon.visible ? parent.spacing : 0)
+                    wrapMode: Text.Wrap
+                    elide: Text.ElideRight
+                    maximumLineCount: 2
+                }
+            }
+
+            enabled: pageDelegate.canBookmark
+            onClicked: pageDelegate.bookmarked = !pageDelegate.bookmarked
+        }
+    }
+
+    states: State {
+        name: "close"
+    }
+
+    Item {
+        width: units.gu(5)
+        height: units.gu(5)
+        anchors {
+            top: parent.top
+            topMargin: -units.gu(1)
+            right: parent.right
+            rightMargin: -units.gu(1)
+        }
+
+        Image {
+            id: closeButton
+
+            source: "assets/close_btn.png"
+
+            anchors.centerIn: parent
+            width: units.gu(4)
+            height: units.gu(4)
+
+            states: State {
+                name: "hidden"
+                PropertyChanges {
+                    target: closeButton
+                    width: 0
+                    height: 0
+                }
+            }
+            state: (pageDelegate.state === "close") ? "" : "hidden"
+
+            transitions: Transition {
+                UbuntuNumberAnimation {
+                    properties: "width,height"
+                }
+            }
+        }
+    }
+
+    onBookmarksModelChanged: {
+        if (bookmarksModel) {
+            bookmarked = bookmarksModel.contains(url)
+        }
+    }
+
+    onBookmarkedChanged: {
+        var previouslyBookmarked = bookmarksModel.contains(pageDelegate.url)
+        if (bookmarked && !previouslyBookmarked) {
+            bookmarksModel.add(pageDelegate.url, pageDelegate.label, "")
+        } else if (!bookmarked && previouslyBookmarked) {
+            bookmarksModel.remove(pageDelegate.url)
+        }
+    }
+
+    Connections {
+        target: bookmarksModel
+        onAdded: if (url === pageDelegate.url) bookmarked = true
+        onRemoved: if (url === pageDelegate.url) bookmarked = false
     }
 }

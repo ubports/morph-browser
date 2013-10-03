@@ -58,6 +58,8 @@ public:
 
 Q_SIGNALS:
     void databasePathChanged() const;
+    void added(const QUrl& url) const;
+    void removed(const QUrl& url) const;
 
 private:
     QSqlDatabase m_database;

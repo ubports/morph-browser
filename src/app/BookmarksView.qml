@@ -20,6 +20,8 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 
 Item {
+    id: bookmarksView
+
     property QtObject bookmarksModel
 
     signal bookmarkClicked(url url)
@@ -39,21 +41,22 @@ Item {
         model: bookmarksModel
 
         cellWidth: units.gu(14)
-        cellHeight: units.gu(14)
+        cellHeight: units.gu(18)
 
         delegate: PageDelegate {
             width: units.gu(12)
             height: units.gu(12)
 
+            url: model.url
             label: model.title ? model.title : model.url
 
             property url thumbnailSource: "image://webthumbnail/" + model.url
             thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: bookmarkClicked(model.url)
-            }
+            canBookmark: true
+            bookmarksModel: bookmarksView.bookmarksModel
+
+            onClicked: bookmarkClicked(model.url)
         }
     }
 }
