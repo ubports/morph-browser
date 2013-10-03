@@ -64,6 +64,4 @@ Tabs {
             }
         }
     }
-
-    Component.onCompleted: timelineView.resetPositionRequested()
 }

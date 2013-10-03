@@ -28,7 +28,6 @@ Item {
     property QtObject historyModel
     property QtObject bookmarksModel
 
-    signal resetPositionRequested()
     signal newTabRequested()
     signal switchToTabRequested(int index)
     signal closeTabRequested(int index)
@@ -66,11 +65,6 @@ Item {
             onNewTabClicked: newTabRequested()
             onSwitchToTabClicked: switchToTabRequested(index)
             onTabRemoved: closeTabRequested(index)
-
-            Connections {
-                target: timelineView
-                onResetPositionRequested: centerViewOnCurrentTab()
-            }
         }
 
         delegate: Column {
@@ -311,5 +305,14 @@ Item {
         }
     }
 
-    onResetPositionRequested: timeline.positionViewAtBeginning()
+    onVisibleChanged: {
+        if (visible) {
+            timeline.positionViewAtBeginning()
+            // Ensure that the header (currently viewing) is fully visible
+            timeline.contentY += timeline.headerItem.height
+            timeline.headerItem.centerViewOnCurrentTab()
+        } else {
+            timeline.currentIndex = -1
+        }
+    }
 }
