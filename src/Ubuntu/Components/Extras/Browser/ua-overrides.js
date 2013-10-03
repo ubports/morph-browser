@@ -58,6 +58,9 @@ var overrides = {
 
     "mobile.twitter.com": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
 
+    // while this issue gets resolved (https://bugs.launchpad.net/ubuntu/+source/ubuntu-keyboard/+bug/1233207)
+    "login.ubuntu.com": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
+
     "yahoo.com": ["Mobile", "Android; Mobile"],
     "baidu.com": ["Mobile", "Android; Mobile"],
     "qq.com": [/WebKit\/[.0-9]*/, "Apple$& Mobile"],
