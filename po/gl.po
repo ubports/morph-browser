@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-24 17:56+0200\n"
-"PO-Revision-Date: 2013-09-30 15:33+0000\n"
+"PO-Revision-Date: 2013-10-02 11:05+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-01 05:39+0000\n"
-"X-Generator: Launchpad (build 16774)\n"
+"X-Launchpad-Export-Date: 2013-10-03 05:56+0000\n"
+"X-Generator: Launchpad (build 16791)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
@@ -75,7 +75,7 @@ msgstr "Atrás"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:74
 msgid "Older Page"
-msgstr "Páxina antiga"
+msgstr "Páxina máis antiga"
 
 #: src/app/Browser.qml:79 src/app/Chrome.qml:91
 msgid "Forward"
@@ -85,7 +85,7 @@ msgstr "Adiante"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:82
 msgid "Newer Page"
-msgstr "Páxina nova"
+msgstr "Páxina máis nova"
 
 #: src/app/Browser.qml:87
 msgid "Reload"
@@ -119,13 +119,13 @@ msgstr "Abrir unha nova lapela"
 
 #: src/app/Browser.qml:111
 msgid "Clear History"
-msgstr "Limpar historial"
+msgstr "Borrar historial"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:114
 msgid "Clear Navigation History"
-msgstr "Limpar historial de navegación"
+msgstr "Borrar historial de navegación"
 
 #: src/app/Browser.qml:359
 msgid "Copy"
@@ -157,7 +157,7 @@ msgstr "Esta páxina quere coñecer a localización do dispositivo."
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "Esta conexión non é confiábel"
+msgstr "Esta conexión non é fiábel"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -167,11 +167,11 @@ msgid ""
 "website is not trusted."
 msgstr ""
 "Está tentando acceder con seguranza a %1 pero o certificado de seguranza da "
-"web non é confiábel."
+"web non é fiábel."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr "Continuar de todas formas"
+msgstr "Continuar aínda así"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
@@ -195,12 +195,12 @@ msgstr "Parece que está a ter problemas para ver: %1."
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"Ubuntu recomenda que comprobe os axustes da rede e que tente actualizar a "
+"Ubuntu suxire que comprobe os axustes da rede e que tente actualizar a "
 "páxina."
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr "Actualizar a páxina"
+msgstr "Actualizar páxina"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"

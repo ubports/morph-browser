@@ -1,4 +1,4 @@
-# Polish translation for webbrowser-app
+# Lao translation for webbrowser-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the webbrowser-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-24 17:56+0200\n"
-"PO-Revision-Date: 2013-10-03 05:53+0000\n"
-"Last-Translator: GTriderXC <gtriderxc@yahoo.com>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"PO-Revision-Date: 2013-10-03 04:33+0000\n"
+"Last-Translator: Anousak <anousak@gmail.com>\n"
+"Language-Team: Lao <lo@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,107 +19,107 @@ msgstr ""
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
-msgstr "Aktywność"
+msgstr ""
 
 #: src/app/ActivityView.qml:52
 msgid "Bookmarks"
-msgstr "Zakładki"
+msgstr ""
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr "Alert JavaScript"
+msgstr ""
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr "OK"
+msgstr "ຕົກລົງ"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr "Wymagana autoryzacja."
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Strona %1 wymaga autoryzacji."
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr "Użytkownik"
+msgstr "ຊື່ຜູ້ໃຊ້"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr "Hasło"
+msgstr "ລະຫັດຜ່ານ"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr "Anuluj"
+msgstr "ຍົກເລີກ"
 
 #: src/app/Browser.qml:62
 msgid "Goto"
-msgstr "Idź do"
+msgstr "ໄປເຖີງ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:65
 msgid "Address;URL;www"
-msgstr "Adres;URL;www"
+msgstr "Address;URL;www"
 
 #: src/app/Browser.qml:71 src/app/Chrome.qml:72
 msgid "Back"
-msgstr "Powrót"
+msgstr "ກັບ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:74
 msgid "Older Page"
-msgstr "Starsza strona"
+msgstr "ໜ້າເກົ່າ"
 
 #: src/app/Browser.qml:79 src/app/Chrome.qml:91
 msgid "Forward"
-msgstr "Do przodu"
+msgstr "ໄປໜ້າ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:82
 msgid "Newer Page"
-msgstr "Nowsza strona"
+msgstr "ໜ້າໃໝ່"
 
 #: src/app/Browser.qml:87
 msgid "Reload"
-msgstr "Wczytaj ponownie"
+msgstr "ໂລດອີກ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:90
 msgid "Leave Page"
-msgstr "Opuść stronę"
+msgstr "ອອກຈາກໜ້າ"
 
 #: src/app/Browser.qml:95
 msgid "Bookmark"
-msgstr "Zakładka"
+msgstr "ບຸກມາກ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:98
 msgid "Add This Page to Bookmarks"
-msgstr "Dodaj tę stronę do zakładek"
+msgstr "ເພີ່ມໜ້ານີ້ໃສ່ບຸກມາກ"
 
 #: src/app/Browser.qml:103
 msgid "New Tab"
-msgstr "Nowa karta"
+msgstr "ໜ້າໃມ່"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:106
 msgid "Open a New Tab"
-msgstr "Otwarcie nowej karty"
+msgstr ""
 
 #: src/app/Browser.qml:111
 msgid "Clear History"
-msgstr "Wyczyść historię"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -129,7 +129,7 @@ msgstr ""
 
 #: src/app/Browser.qml:359
 msgid "Copy"
-msgstr "Kopiuj"
+msgstr "ສໍາເນົາ"
 
 #: src/app/Browser.qml:366
 msgid "Open link in new tab"
@@ -181,23 +181,22 @@ msgstr ""
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr "Błąd sieci"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Wystąpił problem z wyświetleniem: %1."
+msgstr ""
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"Zalecane jest sprawdzenie połączenia sieciowego oraz odświeżenie strony"
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr "Odśwież stronę"
+msgstr ""
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
@@ -205,11 +204,11 @@ msgstr ""
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "ປະຕິເສດ"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "ອະນຸຍາດ"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
@@ -237,27 +236,27 @@ msgstr ""
 
 #: src/app/TimelineView.qml:87
 msgid "Today"
-msgstr ""
+msgstr "ວັນນີ້"
 
 #: src/app/TimelineView.qml:89
 msgid "Yesterday"
-msgstr ""
+msgstr "ມື້ວານນີ້"
 
 #: src/app/TimelineView.qml:91
 msgid "Last 7 Days"
-msgstr ""
+msgstr "7 ວັນກອນ"
 
 #: src/app/TimelineView.qml:93
 msgid "This Month"
-msgstr ""
+msgstr "ເດືອນນີ້"
 
 #: src/app/TimelineView.qml:95
 msgid "This Year"
-msgstr ""
+msgstr "ປີນີ້"
 
 #: src/app/TimelineView.qml:97
 msgid "Older"
-msgstr ""
+msgstr "ເກົ່າ"
 
 #: src/app/TimelineView.qml:169
 msgid "(local files)"
@@ -265,11 +264,11 @@ msgstr ""
 
 #: src/app/TimelineView.qml:171
 msgid "(other)"
-msgstr ""
+msgstr "(ອື່ນ)"
 
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr ""
+msgstr "ບາວເຊິ"
 
 #: src/app/webbrowser-app.desktop.in:4
 msgid "Web Browser"
