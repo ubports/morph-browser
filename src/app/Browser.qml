@@ -373,7 +373,7 @@ MainView {
                     onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "")
                 }
                 Action {
-                    text: i18n.tr("Copy link URL")
+                    text: i18n.tr("Copy link")
                     enabled: contextualData.href.toString()
                     onTriggered: Clipboard.push([contextualData.href])
                 }
@@ -383,7 +383,7 @@ MainView {
                     onTriggered: browser.newTab(contextualData.img, true)
                 }
                 Action {
-                    text: i18n.tr("Copy image URL")
+                    text: i18n.tr("Copy image")
                     enabled: contextualData.img.toString()
                     onTriggered: Clipboard.push([contextualData.img])
                 }
