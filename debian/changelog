@@ -1,3 +1,30 @@
+webbrowser-app (0.22+13.10.20131004.1-0ubuntu1) saucy; urgency=low
+
+  [ Alexandre Abreu ]
+  * Harden the set of accepted url patterns. (LP: #1226690)
+  * When the browser is requested to create a new tab (from a new window
+    request), open the new tab externally when in webapp mode. (LP:
+    #1221824)
+
+  [ Robert Bruce Park ]
+  * Enable hardening, and fix some lintian warnings.
+
+  [ Olivier Tilloy ]
+  * Use a different port for the test server when a zombie process
+    doesn’t release the default one, and use cleanup functions instead
+    of tearDown() for improved robustness. (LP: #1231492)
+  * Live bookmarking functionality in the activity view. Known
+    shortcoming: in the activity view, one should be allowed to bookmark
+    a domain that contains only one page. This is currently not the
+    case, it will be addressed separately.
+  * Expose a single contextual menu for both images and hyperlinks. (LP:
+    #1233282)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 367
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 04 Oct 2013 07:22:38 +0000
+
 webbrowser-app (0.22+13.10.20131001.2-0ubuntu1) saucy; urgency=low
 
   [ Omer Akram ]
