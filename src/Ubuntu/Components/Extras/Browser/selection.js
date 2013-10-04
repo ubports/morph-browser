@@ -48,13 +48,30 @@ function getImgFullUri(uri) {
 
 function getSelectedData(element) {
     var node = element;
-    // Hyperlinks are considered more important than other tags,
-    // so try to find an enclosing 'a' tag in the tree.
-    while (node && node.nodeName.toLowerCase() !== 'a') {
-        node = node.parentNode;
+    var data = new Object;
+
+    var nodeName = node.nodeName.toLowerCase();
+    if (nodeName === 'img') {
+        data.img = getImgFullUri(node.getAttribute('src'));
+    } else if (nodeName === 'a') {
+        data.href = node.href;
+        data.title = node.title;
     }
-    node = node || element;
-    var data = node.getBoundingClientRect();
+
+    // If the parent tag is a hyperlink, we want it too.
+    var parent = node.parentNode;
+    if ((nodeName !== 'a') && parent && (parent.nodeName.toLowerCase() === 'a')) {
+        data.href = parent.href;
+        data.title = parent.title;
+        node = parent;
+    }
+
+    var boundingRect = node.getBoundingClientRect();
+    data.left = boundingRect.left;
+    data.top = boundingRect.top;
+    data.width = boundingRect.width;
+    data.height = boundingRect.height;
+
     node = node.cloneNode(true);
     // filter out script nodes
     var scripts = node.getElementsByTagName('script');
@@ -66,25 +83,18 @@ function getSelectedData(element) {
     }
     data.html = node.outerHTML;
     data.nodeName = node.nodeName.toLowerCase();
-    if (data.nodeName == 'a') {
-        data.href = node.href;
-        data.title = node.title;
-    }
     // FIXME: extract the text and images in the order they appear in the block,
     // so that this order is respected when the data is pushed to the clipboard.
     data.text = node.textContent;
     var images = [];
-    if (node.tagName.toLowerCase() === 'img') {
-        images.push(getImgFullUri(node.getAttribute('src')));
-    } else {
-        var imgs = node.getElementsByTagName('img');
-        for (var i = 0; i < imgs.length; i++) {
-            images.push(getImgFullUri(imgs[i].getAttribute('src')));
-        }
+    var imgs = node.getElementsByTagName('img');
+    for (var i = 0; i < imgs.length; i++) {
+        images.push(getImgFullUri(imgs[i].getAttribute('src')));
     }
     if (images.length > 0) {
         data.images = images;
     }
+
     return data;
 }
 
@@ -159,7 +169,7 @@ doc.addEventListener('touchend', function(event) {
 });
 
 doc.addEventListener('touchmove', function(event) {
-      if ((event.changedTouches.length > 1) || (distance(event.changedTouches[0], currentTouch) > 3)) {
-          clearLongpressTimeout();
-      }
+    if ((event.changedTouches.length > 1) || (distance(event.changedTouches[0], currentTouch) > 3)) {
+        clearLongpressTimeout();
+    }
 });
