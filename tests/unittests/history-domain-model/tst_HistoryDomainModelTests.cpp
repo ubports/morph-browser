@@ -105,18 +105,6 @@ private Q_SLOTS:
         model->setDomain("");
         QCOMPARE(model->rowCount(), 2);
     }
-
-    void shouldExposeCountAndFirstUrl()
-    {
-        QCOMPARE(model->count(), 0);
-        QVERIFY(model->firstUrl().isEmpty());
-        history->add(QUrl("http://example.org"), "Example Domain", QUrl());
-        QCOMPARE(model->count(), 1);
-        QCOMPARE(model->firstUrl(), QUrl("http://example.org"));
-        history->add(QUrl("http://example.com"), "Example Domain", QUrl());
-        QCOMPARE(model->count(), 2);
-        QCOMPARE(model->firstUrl(), QUrl("http://example.com"));
-    }
 };
 
 QTEST_MAIN(HistoryDomainModelTests)
