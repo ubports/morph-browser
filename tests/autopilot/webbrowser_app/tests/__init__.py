@@ -12,7 +12,7 @@ import os.path
 import shutil
 import tempfile
 
-from testtools.matchers import Contains, Equals
+from testtools.matchers import Contains, Equals, Is, Not
 
 from autopilot.matchers import Eventually
 from autopilot.platform import model
@@ -171,6 +171,19 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.assertThat(webview.loadProgress,
                         Eventually(Equals(100), timeout=20))
         self.assertThat(webview.loading, Eventually(Equals(False)))
+
+    def assert_activity_view_eventually_visible(self):
+        self.assertThat(self.main_window.get_activity_view,
+                        Eventually(Not(Is(None))))
+
+    def assert_activity_view_eventually_hidden(self):
+        self.assertThat(self.main_window.get_activity_view,
+                        Eventually(Is(None)))
+
+    def ensure_activity_view_visible(self):
+        self.ensure_chrome_is_hidden()
+        self.main_window.open_toolbar().click_button("activityButton")
+        self.assert_activity_view_eventually_visible()
 
 
 class StartOpenLocalPageTestCaseBase(BrowserTestCaseBase):

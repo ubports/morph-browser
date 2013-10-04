@@ -9,7 +9,7 @@
 from __future__ import absolute_import
 
 import time
-from testtools.matchers import Equals, Is, Not
+from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
@@ -18,19 +18,6 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestTabs(StartOpenRemotePageTestCaseBase):
 
     """Tests tabs management."""
-
-    def assert_activity_view_eventually_visible(self):
-        self.assertThat(self.main_window.get_activity_view,
-                        Eventually(Not(Is(None))))
-
-    def assert_activity_view_eventually_hidden(self):
-        self.assertThat(self.main_window.get_activity_view,
-                        Eventually(Is(None)))
-
-    def ensure_activity_view_visible(self):
-        self.ensure_chrome_is_hidden()
-        self.main_window.open_toolbar().click_button("activityButton")
-        self.assert_activity_view_eventually_visible()
 
     def open_new_tab(self):
         # assumes the activity view is already visible

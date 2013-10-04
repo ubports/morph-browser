@@ -169,24 +169,34 @@ MainView {
         }
     }
 
+    property bool activityViewVisible: stack.depth > 0
+
+    function showActivityView() {
+        stack.push(Qt.resolvedUrl("ActivityView.qml"),
+                   {tabsModel: tabsModel,
+                    historyModel: historyModel,
+                    bookmarksModel: bookmarksModel})
+        var view = stack.currentPage
+        view.onHistoryEntryRequested.connect(internal.onHistoryEntryRequested)
+        view.onNewTabRequested.connect(internal.onNewTabRequested)
+        view.onSwitchToTabRequested.connect(internal.onSwitchToTabRequested)
+        view.onCloseTabRequested.connect(internal.onCloseTabRequested)
+        view.onBookmarkRequested.connect(internal.onBookmarkRequested)
+        if (currentWebview) {
+            currentWebview.forceActiveFocus()
+        }
+        panel.item.close()
+    }
+
+    function hideActivityView() {
+        stack.pop()
+    }
+
     function toggleActivityView() {
-        if (stack.depth > 0) {
-            stack.pop()
+        if (activityViewVisible) {
+            hideActivityView()
         } else {
-            stack.push(Qt.resolvedUrl("ActivityView.qml"),
-                       {tabsModel: tabsModel,
-                        historyModel: historyModel,
-                        bookmarksModel: bookmarksModel})
-            var view = stack.currentPage
-            view.onHistoryEntryRequested.connect(internal.onHistoryEntryRequested)
-            view.onNewTabRequested.connect(internal.onNewTabRequested)
-            view.onSwitchToTabRequested.connect(internal.onSwitchToTabRequested)
-            view.onCloseTabRequested.connect(internal.onCloseTabRequested)
-            view.onBookmarkRequested.connect(internal.onBookmarkRequested)
-            if (currentWebview) {
-                currentWebview.forceActiveFocus()
-            }
-            panel.item.close()
+            showActivityView()
         }
     }
 
@@ -235,7 +245,12 @@ MainView {
                     canGoForward: currentWebview ? currentWebview.canGoForward : false
                     onGoForwardClicked: currentWebview.goForward()
 
-                    onUrlValidated: currentWebview.url = url
+                    onUrlValidated: {
+                        currentWebview.url = url
+                        if (activityViewVisible) {
+                            hideActivityView()
+                        }
+                    }
 
                     backForwardButtonsVisible: browser.backForwardButtonsVisible
                     activityButtonVisible: browser.activityButtonVisible
