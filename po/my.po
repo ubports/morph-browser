@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-09-24 17:56+0200\n"
+"POT-Creation-Date: 2013-10-03 10:18+0200\n"
 "PO-Revision-Date: 2013-05-18 10:50+0000\n"
 "Last-Translator: Pyae Sone <Unknown>\n"
 "Language-Team: Burmese <my@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-26 05:55+0000\n"
-"X-Generator: Launchpad (build 16771)\n"
+"X-Launchpad-Export-Date: 2013-10-04 05:45+0000\n"
+"X-Generator: Launchpad (build 16791)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
@@ -135,23 +135,23 @@ msgstr "မိတ္တူကူးပါ"
 msgid "Open link in new tab"
 msgstr ""
 
-#: src/app/Browser.qml:370
+#: src/app/Browser.qml:371
 msgid "Bookmark link"
 msgstr ""
 
-#: src/app/Browser.qml:374
-msgid "Copy link URL"
+#: src/app/Browser.qml:376
+msgid "Copy link"
 msgstr ""
 
-#: src/app/Browser.qml:384
+#: src/app/Browser.qml:381
 msgid "Open image in new tab"
 msgstr ""
 
-#: src/app/Browser.qml:388
-msgid "Copy image URL"
+#: src/app/Browser.qml:386
+msgid "Copy image"
 msgstr ""
 
-#: src/app/Browser.qml:398
+#: src/app/Browser.qml:397
 msgid "This page wants to know your device’s location."
 msgstr ""
 
@@ -258,11 +258,11 @@ msgstr ""
 msgid "Older"
 msgstr ""
 
-#: src/app/TimelineView.qml:169
+#: src/app/TimelineView.qml:271
 msgid "(local files)"
 msgstr ""
 
-#: src/app/TimelineView.qml:171
+#: src/app/TimelineView.qml:273
 msgid "(other)"
 msgstr ""
 

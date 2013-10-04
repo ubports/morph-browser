@@ -7,27 +7,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-09-24 17:56+0200\n"
-"PO-Revision-Date: 2013-10-03 04:33+0000\n"
+"POT-Creation-Date: 2013-10-03 10:18+0200\n"
+"PO-Revision-Date: 2013-10-04 04:39+0000\n"
 "Last-Translator: Anousak <anousak@gmail.com>\n"
 "Language-Team: Lao <lo@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-03 05:56+0000\n"
+"X-Launchpad-Export-Date: 2013-10-04 05:46+0000\n"
 "X-Generator: Launchpad (build 16791)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
-msgstr ""
+msgstr "ກິດຈະກໍາ"
 
 #: src/app/ActivityView.qml:52
 msgid "Bookmarks"
-msgstr ""
+msgstr "ບຸກມາກ"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "ຈາວາສະກິບ ຕົວເຕືອນ"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
@@ -36,13 +36,13 @@ msgstr "ຕົກລົງ"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "ຕ້ອງການພ່ານກວດສອບ"
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "ເວບໄຊ້ທ໌ %1ຕ້ອງການພ່ານກວດສອບ"
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
@@ -65,7 +65,7 @@ msgstr "ໄປເຖີງ"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:65
 msgid "Address;URL;www"
-msgstr "Address;URL;www"
+msgstr "ທີ່ຢູ່;URL;www"
 
 #: src/app/Browser.qml:71 src/app/Chrome.qml:72
 msgid "Back"
@@ -115,17 +115,17 @@ msgstr "ໜ້າໃມ່"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:106
 msgid "Open a New Tab"
-msgstr ""
+msgstr "ເປີດໜ້າໃໝ່"
 
 #: src/app/Browser.qml:111
 msgid "Clear History"
-msgstr ""
+msgstr "ລ້າງປະຫວັດ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:114
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "ລ້າງປະຫວັດການເຂັ້າຫາ"
 
 #: src/app/Browser.qml:359
 msgid "Copy"
@@ -133,31 +133,31 @@ msgstr "ສໍາເນົາ"
 
 #: src/app/Browser.qml:366
 msgid "Open link in new tab"
-msgstr ""
+msgstr "ເປີດລີ້ງໃນໜ້າໃໝ່"
 
-#: src/app/Browser.qml:370
+#: src/app/Browser.qml:371
 msgid "Bookmark link"
-msgstr ""
+msgstr "ບຸກມາກລີ້ງ"
 
-#: src/app/Browser.qml:374
-msgid "Copy link URL"
-msgstr ""
+#: src/app/Browser.qml:376
+msgid "Copy link"
+msgstr "ສໍາເນົາລີ້ງ"
 
-#: src/app/Browser.qml:384
+#: src/app/Browser.qml:381
 msgid "Open image in new tab"
-msgstr ""
+msgstr "ເປີກຮູບພາບໃນໜ້າໃໝ່"
 
-#: src/app/Browser.qml:388
-msgid "Copy image URL"
-msgstr ""
+#: src/app/Browser.qml:386
+msgid "Copy image"
+msgstr "ສໍາເນົາລຮູບພາຍ"
 
-#: src/app/Browser.qml:398
+#: src/app/Browser.qml:397
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "ຫນ້ານີ້ຕ້ອງການຮູ້ຈັກສະຖານທີ່ເຄື່ອງອຸປະກອນຂອງເຈົ້າ"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "ການເຊື່ອມຕໍ່ນີ້ແມ່ນບໍ່ໜ້າເຊື່ອຖື"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -166,41 +166,44 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"ເຈົ້າກໍາລັງພະຍາຍາມເພື່ອບັນຄວາມລຸປອດໄພ %1, "
+"ແຕ່ວ່າໃບຢັ້ງຢືນຄວາມປອດໄພຂອງເວັບໄຊທ໌ນີ້ບໍ່ໄວ້ວາງໃຈ."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "ເເນວໃດກໍ່ດໍາເນີນ"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "ກັບຄືນໄປບ່ອນປອດໄພ"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "ການຢັ້ງຢືນຈາວາສະກິບ"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr ""
+msgstr "ຄວາມຜິດພາດເຄືອຂ່າຍ"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "ມັນປະກົດວ່າເຈົ້າກໍາລັງມີບັນຫາໃນການເບີ່ງ: %1."
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
+"ອູບັນຕູຊີ້ໃຫ້ເຈົ້າກວດກາເບິ່ງການຕັ້ງຂ່າເຄືອຂ່າຍຂອງເຈົ້າ ແລະ ພະຍາຍາມໂລດໜ້າໃໝ່."
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr ""
+msgstr "ໂລດໜ້າໃໝ່"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "ຄໍາຮ້ອງຂໍອະນຸຍາດ"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
@@ -212,27 +215,27 @@ msgstr "ອະນຸຍາດ"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "ຈາວາສະກິບລໍຖ້າ"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "ພຣອກຊີຕ້ອງກວດສອບຄວາມຖືກຕ້ອງ."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "ເວັບໄຊທ໌: %1: %2 ຮຽກຮ້ອງໃຫ້ກວດສອບໃຫ້ຖືກຕ້ອງ"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/TabsList.qml:34
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr ""
+msgstr "ປະຈຸບັນກໍາລັງເບີ່ງ (%1)"
 
 #: src/app/TabsList.qml:65
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #: src/app/TimelineView.qml:87
 msgid "Today"
@@ -258,11 +261,11 @@ msgstr "ປີນີ້"
 msgid "Older"
 msgstr "ເກົ່າ"
 
-#: src/app/TimelineView.qml:169
+#: src/app/TimelineView.qml:271
 msgid "(local files)"
-msgstr ""
+msgstr "(ເເຟ້ມທ້ອງທີ່ນ)"
 
-#: src/app/TimelineView.qml:171
+#: src/app/TimelineView.qml:273
 msgid "(other)"
 msgstr "(ອື່ນ)"
 
@@ -272,18 +275,18 @@ msgstr "ບາວເຊິ"
 
 #: src/app/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr ""
+msgstr "ເວັບບາວເຊິ"
 
 #: src/app/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "ບາວເຊິ www"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser-app.qml:49
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - ອູບັນຕູເວັບບາວເຊິ"
 
 #: src/app/webbrowser-app.qml:51
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "ອູບັນຕູເວັບບາວເຊິ"
