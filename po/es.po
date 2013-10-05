@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-04 05:46+0000\n"
+"X-Launchpad-Export-Date: 2013-10-05 06:17+0000\n"
 "X-Generator: Launchpad (build 16791)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
@@ -288,9 +288,3 @@ msgstr "%1 - Navegador web de Ubuntu"
 #: src/app/webbrowser-app.qml:51
 msgid "Ubuntu Web Browser"
 msgstr "Navegador web de Ubuntu"
-
-#~ msgid "Copy link URL"
-#~ msgstr "Copiar URL del enlace"
-
-#~ msgid "Copy image URL"
-#~ msgstr "Copiar URL de imagen"
