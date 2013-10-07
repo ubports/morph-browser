@@ -56,7 +56,7 @@ var overrides = {
 
     "m.youtube.com": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
 
-    "mobile.twitter.com": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
+    "twitter.com": ["Mobile)", "Mobile) Firefox"],
 
     // while this issue gets resolved (https://bugs.launchpad.net/ubuntu/+source/ubuntu-keyboard/+bug/1233207)
     "login.ubuntu.com": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
