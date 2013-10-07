@@ -126,7 +126,7 @@ MainView {
                     right: parent.right
                     top: parent.top
                 }
-                height: browser.height - osk.height
+                height: parent.height - osk.height
             }
 
             ErrorSheet {
