@@ -23,7 +23,6 @@
 #include <QtCore/QDateTime>
 #include <QtCore/QSortFilterProxyModel>
 #include <QtCore/QString>
-#include <QtCore/QUrl>
 
 class HistoryTimeframeModel;
 
@@ -34,8 +33,6 @@ class HistoryDomainModel : public QSortFilterProxyModel
     Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(QString domain READ domain WRITE setDomain NOTIFY domainChanged)
     Q_PROPERTY(QDateTime lastVisit READ lastVisit NOTIFY lastVisitChanged)
-    Q_PROPERTY(int count READ count)
-    Q_PROPERTY(QUrl firstUrl READ firstUrl)
 
 public:
     HistoryDomainModel(QObject* parent=0);
@@ -47,10 +44,6 @@ public:
     void setDomain(const QString& domain);
 
     const QDateTime& lastVisit() const;
-
-    const int count() const;
-
-    const QUrl firstUrl() const;
 
 Q_SIGNALS:
     void sourceModelChanged() const;
