@@ -136,6 +136,11 @@ bool WebBrowserApp::initialize()
     browser->setProperty("webapp", m_arguments->webapp());
     browser->setProperty("webappName", m_arguments->webappName());
 
+    if ( ! m_arguments->webapp())
+    {
+        browser->setProperty("enableUriHandling", true);
+    }
+
     CommandLineParser::ChromeElementFlags chromeFlags = m_arguments->chromeFlags();
     if (chromeFlags != 0)
     {
