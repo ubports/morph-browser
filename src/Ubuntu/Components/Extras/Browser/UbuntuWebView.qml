@@ -50,6 +50,19 @@ WebView {
     UserAgent {
         id: userAgent
     }
+    function getSystemWideUAString(url) {
+        return userAgent.getUAString(url)
+    }
+    /**
+     * This function can be overridden by client applications that embed an
+     * UbuntuWebView to provide a custom UA string override mechanism.
+     * The default implementation calls the default override mechanism.
+     * To get the value that the default override mechanism would return,
+     * client applications can call getSystemWideUAString(url).
+     */
+    function getUAString(url) {
+        return getSystemWideUAString(url)
+    }
     experimental.userAgent: userAgent.defaultUA
     onNavigationRequested: {
         request.action = WebView.AcceptRequest;
@@ -58,7 +71,7 @@ WebView {
         if (request.action === WebView.IgnoreRequest)
             return;
 
-        _webview.experimental.userAgent = userAgent.getUAString(request.url)
+        _webview.experimental.userAgent = _webview.getUAString(request.url)
     }
 
     experimental.preferences.navigatorQtObjectEnabled: true

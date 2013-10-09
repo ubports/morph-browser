@@ -1,7 +1,7 @@
 set(TEST tst_QmlTests)
 add_executable(${TEST} tst_QmlTests.cpp)
 qt5_use_modules(${TEST} Core Qml Quick Test QuickTest)
-add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST})
+add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -import ${CMAKE_BINARY_DIR}/src)
 set_tests_properties(${TEST} PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=minimal")
 
 # copy qml files under test to build dir
@@ -11,14 +11,6 @@ foreach(qmlFile ${qmlFiles})
   add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile}
                      DEPENDS ${webbrowser-app_SOURCE_DIR}/${qmlFile}
                      COMMAND ${CMAKE_COMMAND} -E copy_if_different ${webbrowser-app_SOURCE_DIR}/${qmlFile} ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile})
-  list(APPEND out_qml_files undertest/${qmlFile})
-endforeach(qmlFile)
-file(GLOB qmlFiles RELATIVE ${webbrowser-plugin_SOURCE_DIR} ${webbrowser-plugin_SOURCE_DIR}/*.qml
-                            ${webbrowser-plugin_SOURCE_DIR} ${webbrowser-plugin_SOURCE_DIR}/*.js)
-foreach(qmlFile ${qmlFiles})
-  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile}
-                     DEPENDS ${webbrowser-plugin_SOURCE_DIR}/${qmlFile}
-                     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${webbrowser-plugin_SOURCE_DIR}/${qmlFile} ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile})
   list(APPEND out_qml_files undertest/${qmlFile})
 endforeach(qmlFile)
 add_custom_target(copy_qml_files_under_test_to_build_dir DEPENDS ${out_qml_files})
