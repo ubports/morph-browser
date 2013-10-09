@@ -36,7 +36,7 @@ class Browser(uitk.MainView):
 
     def get_address_bar_clear_button(self):
         textfield = self.get_address_bar_text_field()
-        return textfield.get_children_by_type("AbstractButton")[0]
+        return textfield.select_single("AbstractButton")
 
     def get_address_bar_action_button(self):
         textfield = self.get_address_bar_text_field()
@@ -57,18 +57,18 @@ class Browser(uitk.MainView):
         return self.select_single("ErrorSheet")
 
     def get_address_bar_text_field(self):
-        return self.get_address_bar().get_children_by_type("TextField")[0]
+        return self.get_address_bar().select_single("TextField")
 
     def get_address_bar_suggestions(self):
         return self.select_single("Suggestions")
 
     def get_address_bar_suggestions_listview(self):
         suggestions = self.get_address_bar_suggestions()
-        return suggestions.get_children_by_type("QQuickListView")[0]
+        return suggestions.select_single("QQuickListView")
 
     def get_address_bar_suggestions_listview_entries(self):
         listview = self.get_address_bar_suggestions_listview()
-        return listview.get_children()[0].get_children_by_type("Base")
+        return listview.select_many("Base")
 
     def get_activity_view(self):
         try:
