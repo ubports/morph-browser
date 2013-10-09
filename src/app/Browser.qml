@@ -29,7 +29,6 @@ MainView {
     id: browser
 
     property bool chromeless: false
-    property real qtwebkitdpr
     property bool developerExtrasEnabled: false
 
     property var webappUrlPatterns: null
@@ -357,8 +356,6 @@ MainView {
 
             enabled: stack.depth === 0
             visible: tabsModel.currentWebview === webview
-
-            devicePixelRatio: browser.qtwebkitdpr
 
             experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
 

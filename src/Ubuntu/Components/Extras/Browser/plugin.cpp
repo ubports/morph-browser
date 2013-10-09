@@ -35,15 +35,28 @@
 #include <QtCore/QThread>
 #include <QtQml>
 
+static float getQtWebkitDpr()
+{
+    QByteArray stringValue = qgetenv("QTWEBKIT_DPR");
+    bool ok = false;
+    float value = stringValue.toFloat(&ok);
+    return ok ? value : 1.0;
+}
+
 void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
 {
     Q_UNUSED(uri);
+
     QDir dataLocation(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     if (!dataLocation.exists()) {
         QDir::root().mkpath(dataLocation.absolutePath());
     }
     QQmlContext* context = engine->rootContext();
     context->setContextProperty("dataLocation", dataLocation.absolutePath());
+
+    // Set the desired pixel ratio (not needed once we use Qt’s way of
+    // calculating the proper pixel ratio by device/screen).
+    context->setContextProperty("QtWebKitDPR", getQtWebkitDpr());
 
     // This singleton lives in its own thread to ensure that
     // disk I/O is not performed in the UI thread.

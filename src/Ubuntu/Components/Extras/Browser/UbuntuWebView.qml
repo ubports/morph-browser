@@ -28,11 +28,13 @@ WebView {
 
     signal newTabRequested(url url)
 
-    property real devicePixelRatio: 1.0
-    onDevicePixelRatioChanged: {
-        // Do not make this patch to QtWebKit a hard requirement.
-        if (experimental.hasOwnProperty('devicePixelRatio')) {
-            experimental.devicePixelRatio = devicePixelRatio
+    QtObject {
+        property real devicePixelRatio: QtWebKitDPR
+        onDevicePixelRatioChanged: {
+            // Do not make this patch to QtWebKit a hard requirement.
+            if (_webview.experimental.hasOwnProperty('devicePixelRatio')) {
+                _webview.experimental.devicePixelRatio = devicePixelRatio
+            }
         }
     }
 
