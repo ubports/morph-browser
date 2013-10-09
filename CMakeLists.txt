@@ -62,4 +62,5 @@ add_subdirectory(po)
 
 install(FILES webbrowser-app.svg
         DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps)
-
+install(FILES screenshot.png
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app)
