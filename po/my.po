@@ -8,54 +8,54 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-03 10:18+0200\n"
-"PO-Revision-Date: 2013-05-18 10:50+0000\n"
+"PO-Revision-Date: 2013-10-09 11:30+0000\n"
 "Last-Translator: Pyae Sone <Unknown>\n"
 "Language-Team: Burmese <my@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-05 06:16+0000\n"
-"X-Generator: Launchpad (build 16791)\n"
+"X-Launchpad-Export-Date: 2013-10-10 05:26+0000\n"
+"X-Generator: Launchpad (build 16799)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
-msgstr ""
+msgstr "လုပ်ဆောင်ချက်များ"
 
 #: src/app/ActivityView.qml:52
 msgid "Bookmarks"
-msgstr ""
+msgstr "မှတ်သားချက်များ"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "JavaScript သတိပေးချက်"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "အိုကေ"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "ခွင့်ပြုချက်လိုအပ်သည်"
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "Website %1 သည်ခွင့်ပြုချက်လိုအပ်သည်။"
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "အသုံးပြုသူအမည်"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "စကားဝှက်"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "ပယ်ဖျက်မည်"
 
 #: src/app/Browser.qml:62
 msgid "Goto"
@@ -119,7 +119,7 @@ msgstr "Tab အသစ်ဖွင့်မည်"
 
 #: src/app/Browser.qml:111
 msgid "Clear History"
-msgstr ""
+msgstr "ယခင်သမိုင်းများကိုရှင်းမည်။"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -133,31 +133,31 @@ msgstr "မိတ္တူကူးပါ"
 
 #: src/app/Browser.qml:366
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Tab အသစ်တွင် Link ကိုဖွင့်မည်"
 
 #: src/app/Browser.qml:371
 msgid "Bookmark link"
-msgstr ""
+msgstr "link ကိုမှတ်ထားမည်"
 
 #: src/app/Browser.qml:376
 msgid "Copy link"
-msgstr ""
+msgstr "Link ကိုကူးမည်"
 
 #: src/app/Browser.qml:381
 msgid "Open image in new tab"
-msgstr ""
+msgstr "ပုံကို Tab အသစ်နှင့်ဖွင့်မည်"
 
 #: src/app/Browser.qml:386
 msgid "Copy image"
-msgstr ""
+msgstr "ပုံကိုကူးမည်"
 
 #: src/app/Browser.qml:397
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "ဒီစာမျက်နှာသည်သင်၏ ကိရိယာတည်နေရာကိုသိချင်သည်"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "ဒီချိတ်ဆက်မှုသည် မယုံကြည်ရပါ"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -169,15 +169,15 @@ msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "မရမကရှေ့ဆက်လုပ်မည်"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "လုံခြုံသည့်နေရာသို့ပြန်သွားမည်"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "JavaScript အတည်ပြုခြင်း"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -200,15 +200,15 @@ msgstr "စာမျက်နှာကိုပြန်ဖွင့်မည်
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "ခွင့်ပြုချက်တောင်းခံခြင်း"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "ငြင်းပယ်"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "ခွင့်ပြု"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
@@ -216,13 +216,13 @@ msgstr ""
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Proxy ခွင့်ပြုချက်လိုအပ်သည်"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "Website %1:%2 သည်ခွင့်ပြုချက်ကိုလိုအပ်သည်။"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/TabsList.qml:34
@@ -232,31 +232,31 @@ msgstr ""
 
 #: src/app/TabsList.qml:65
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #: src/app/TimelineView.qml:87
 msgid "Today"
-msgstr ""
+msgstr "ယနေ့"
 
 #: src/app/TimelineView.qml:89
 msgid "Yesterday"
-msgstr ""
+msgstr "မနေ့က"
 
 #: src/app/TimelineView.qml:91
 msgid "Last 7 Days"
-msgstr ""
+msgstr "လွန်ခဲ့သော ၇ ရက်က"
 
 #: src/app/TimelineView.qml:93
 msgid "This Month"
-msgstr ""
+msgstr "ဒီလ"
 
 #: src/app/TimelineView.qml:95
 msgid "This Year"
-msgstr ""
+msgstr "ဒီနှစ်"
 
 #: src/app/TimelineView.qml:97
 msgid "Older"
-msgstr ""
+msgstr "အဟောင်း"
 
 #: src/app/TimelineView.qml:271
 msgid "(local files)"
@@ -264,7 +264,7 @@ msgstr ""
 
 #: src/app/TimelineView.qml:273
 msgid "(other)"
-msgstr ""
+msgstr "(တခြား)"
 
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"
