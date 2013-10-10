@@ -100,6 +100,10 @@ var overrides = {
     "dailymotion.com": ["Mobile", "Android; Mobile Safari"],
     "amazon.co.uk": ["Mobile", "Android; Mobile"],
     "ebay.co.uk": ["Mobile", "Android; Mobile"],
-    "facebook.com": [/WebKit\/[.0-9]*/, "Apple$& Firefox/18"],
+
+    "facebook.com": [/Mobile\) WebKit\/([.0-9]*)/, "Linux 3.4.0-3-mako armv7l) WebKit/$1 (like Android 4.3) AppleWebKit/$1 (KHTML, like Gecko) Ubuntu Mobile/89 WebBrowserApp/0.22"],
+    // Akamai serves images for Facebook
+    "akamaihd.net": [/Mobile\) WebKit\/([.0-9]*)/, "Linux 3.4.0-3-mako armv7l) WebKit/$1 (like Android 4.3) AppleWebKit/$1 (KHTML, like Gecko) Ubuntu Mobile/89 WebBrowserApp/0.22"],
+
     "nytimes.com": ["Mobile", "Android; Mobile Safari"],
 };
