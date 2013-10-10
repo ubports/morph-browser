@@ -169,6 +169,9 @@ doc.addEventListener('touchend', function(event) {
 });
 
 doc.addEventListener('touchmove', function(event) {
+    if (!currentTouch) {
+        return;
+    } 
     if ((event.changedTouches.length > 1) || (distance(event.changedTouches[0], currentTouch) > 3)) {
         clearLongpressTimeout();
     }
