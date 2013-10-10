@@ -37,6 +37,9 @@
 // Android as a reference.
 
 var overrides = {
+    // Google+ is special, scroll doesn't work with an AppleWebkit personality
+    "plus.google.com": ["Mobile", "Android; Mobile"],
+
     "google.com": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
     "google.co.in": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
     "google.de": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
