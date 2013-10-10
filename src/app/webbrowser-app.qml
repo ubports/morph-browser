@@ -75,10 +75,8 @@ Window {
     Connections {
         target: enableUriHandling ? UriHandler : null
         onOpened: {
-            if ( ! webapp) {
-                for (var i = 0; i < uris.length; ++i) {
-                    newTab(uris[i], i == uris.length - 1);
-                }
+            for (var i = 0; i < uris.length; ++i) {
+                newTab(uris[i], i == uris.length - 1);
             }
         }
     }
