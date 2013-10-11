@@ -101,9 +101,9 @@ var overrides = {
     "amazon.co.uk": ["Mobile", "Android; Mobile"],
     "ebay.co.uk": ["Mobile", "Android; Mobile"],
 
-    "facebook.com": [/Mobile\) WebKit\/([.0-9]*)/, "Linux) WebKit/$1 (like Android 4.3) AppleWebKit/$1 Ubuntu Mobile WebBrowserApp"],
+    "facebook.com": [/Mobile\) WebKit\/([.0-9]*)/, "Linux) WebKit/$1 (like Android 4.3) AppleWebKit/$1 Ubuntu Mobile"],
     // Akamai serves images for Facebook
-    "akamaihd.net": [/Mobile\) WebKit\/([.0-9]*)/, "Linux) WebKit/$1 (like Android 4.3) AppleWebKit/$1 Ubuntu Mobile WebBrowserApp"],
+    "akamaihd.net": [/Mobile\) WebKit\/([.0-9]*)/, "Linux) WebKit/$1 (like Android 4.3) AppleWebKit/$1 Ubuntu Mobile"],
 
     "nytimes.com": ["Mobile", "Android; Mobile Safari"],
 };
