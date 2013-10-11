@@ -1,0 +1,293 @@
+# Khmer translation for webbrowser-app
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-10-03 10:18+0200\n"
+"PO-Revision-Date: 2013-10-11 03:05+0000\n"
+"Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
+"Language-Team: Khmer <km@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-10-11 05:30+0000\n"
+"X-Generator: Launchpad (build 16799)\n"
+
+#: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
+msgid "Activity"
+msgstr "សកម្មភាព"
+
+#: src/app/ActivityView.qml:52
+msgid "Bookmarks"
+msgstr "ចំណាំ"
+
+#: src/app/AlertDialog.qml:24
+msgid "JavaScript Alert"
+msgstr "ការ​ជូន​ដំណឹង JavaScript"
+
+#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
+msgid "OK"
+msgstr "យល់ព្រម"
+
+#: src/app/AuthenticationDialog.qml:24
+msgid "Authentication required."
+msgstr "ទាមទារ​ការ​ផ្ទៀងផ្ទាត់។"
+
+#. TRANSLATORS: %1 refers to the URL of the current website
+#: src/app/AuthenticationDialog.qml:26
+#, qt-format
+msgid "The website %1 requires authentication."
+msgstr "តំបន់​បណ្ដាញ %1 ទាមទារ​ការ​ផ្ទៀងផ្ទាត់។"
+
+#: src/app/AuthenticationDialog.qml:34
+msgid "Username"
+msgstr "អ្នក​ប្រើ"
+
+#: src/app/AuthenticationDialog.qml:41
+msgid "Password"
+msgstr "ពាក្យសម្ងាត់"
+
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
+#: src/app/PromptDialog.qml:40
+msgid "Cancel"
+msgstr "បោះ​បង់"
+
+#: src/app/Browser.qml:62
+msgid "Goto"
+msgstr "ទៅ​កាន់"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:65
+msgid "Address;URL;www"
+msgstr "អាសយដ្ឋាន;URL;www"
+
+#: src/app/Browser.qml:71 src/app/Chrome.qml:72
+msgid "Back"
+msgstr "ថយក្រោយ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:74
+msgid "Older Page"
+msgstr "ទំព័រ​ចាស់ជាង"
+
+#: src/app/Browser.qml:79 src/app/Chrome.qml:91
+msgid "Forward"
+msgstr "ទៅមុខ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:82
+msgid "Newer Page"
+msgstr "ទំព័រ​ថ្មី​ជាង"
+
+#: src/app/Browser.qml:87
+msgid "Reload"
+msgstr "ផ្ទុក​ឡើង​វិញ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:90
+msgid "Leave Page"
+msgstr "ចេញ​ពីទំព័រ"
+
+#: src/app/Browser.qml:95
+msgid "Bookmark"
+msgstr "ចំណាំ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:98
+msgid "Add This Page to Bookmarks"
+msgstr "បន្ថែម​ទំព័រ​នេះ​ទៅ​ចំណាំ"
+
+#: src/app/Browser.qml:103
+msgid "New Tab"
+msgstr "ផ្ទាំង​ថ្មី"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:106
+msgid "Open a New Tab"
+msgstr "បើក​ផ្ទាំង​ថ្មី"
+
+#: src/app/Browser.qml:111
+msgid "Clear History"
+msgstr "សម្អាត​​ប្រវត្តិ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:114
+msgid "Clear Navigation History"
+msgstr "សម្អាត​ប្រវត្តិ​រុករក"
+
+#: src/app/Browser.qml:359
+msgid "Copy"
+msgstr "ចម្លង"
+
+#: src/app/Browser.qml:366
+msgid "Open link in new tab"
+msgstr "បើក​តំណ​ក្នុង​ផ្ទាំង​ថ្មី"
+
+#: src/app/Browser.qml:371
+msgid "Bookmark link"
+msgstr "តំណ​ចំណាំ"
+
+#: src/app/Browser.qml:376
+msgid "Copy link"
+msgstr "ចម្លង​តំណ"
+
+#: src/app/Browser.qml:381
+msgid "Open image in new tab"
+msgstr "បើក​រូបភាព​ក្នុង​ផ្ទាំង​ថ្មី"
+
+#: src/app/Browser.qml:386
+msgid "Copy image"
+msgstr "ចម្លង​រូបភាព"
+
+#: src/app/Browser.qml:397
+msgid "This page wants to know your device’s location."
+msgstr "ទំព័រ​នេះ​ចង់​​ដឹង​ទីតាំង​នៃ​ឧបករណ៍​របស់​អ្នក។"
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "ការ​ភ្ជាប់​នេះ​មិន​​ទុក​ចិត្ត"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+"អ្នក​កំពុង​ព្យាយាម​ចូល %1 ដោយ​សុវត្ថិភាព, "
+"ប៉ុន្តែ​វិញ្ញាបនបត្រ​សុវត្ថិភាព​របស់​តំបន់បណ្ដាញ​មិន​ទុក​ចិត្ត។"
+
+#: src/app/CertificateVerificationDialog.qml:29
+msgid "Proceed anyway"
+msgstr "អញ្ចឹង បន្ត"
+
+#: src/app/CertificateVerificationDialog.qml:35
+msgid "Back to safety"
+msgstr "ត្រឡប់​ទៅ​សុវត្ថិភាព"
+
+#: src/app/ConfirmDialog.qml:24
+msgid "JavaScript Confirmation"
+msgstr "ការ​បញ្ជាក់ JavaScript"
+
+#: src/app/ErrorSheet.qml:38
+msgid "Network Error"
+msgstr "កំហុស​បណ្ដាញ"
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/app/ErrorSheet.qml:44
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr "វា​បង្ហាញ​ថា អ្នក​កំពុង​មាន​បញ្ហា​ក្នុង​ការ​មើល៖ %1 ។"
+
+#: src/app/ErrorSheet.qml:50
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr ""
+"Ubuntu ស្នើ​ឲ្យ​អ្នក​ពិនិត្យ​ការ​កំណត់​បណ្ដាញ​របស់​អ្នក "
+"និង​ព្យាយាម​ផ្ទុក​ទំព័រ​ឡើងវិញ។"
+
+#: src/app/ErrorSheet.qml:55
+msgid "Refresh page"
+msgstr "ផ្ទុក​ទំព័រ​ឡើងវិញ"
+
+#: src/app/PermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "ស្នើ​សិទ្ធិ"
+
+#: src/app/PermissionRequest.qml:31
+msgid "Deny"
+msgstr "បដិសេធ"
+
+#: src/app/PermissionRequest.qml:40
+msgid "Allow"
+msgstr "អនុញ្ញាត"
+
+#: src/app/PromptDialog.qml:24
+msgid "JavaScript Prompt"
+msgstr "ប្រាប់ JavaScript"
+
+#: src/app/ProxyAuthenticationDialog.qml:22
+msgid "Proxy authentication required."
+msgstr "ទាមទារ​ការ​ផ្ទៀងផ្ទាត់​ប្រូកស៊ី។"
+
+#. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
+#: src/app/ProxyAuthenticationDialog.qml:24
+#, qt-format
+msgid "The website %1:%2 requires authentication."
+msgstr "តំបន់បណ្ដាញ %1:%2 ទាមទារ​ការ​ផ្ទៀងផ្ទាត់។"
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/app/TabsList.qml:34
+#, qt-format
+msgid "Currently viewing (%1)"
+msgstr "បច្ចុប្បន្ន​មើល (%1)"
+
+#: src/app/TabsList.qml:65
+msgid "+"
+msgstr "+"
+
+#: src/app/TimelineView.qml:87
+msgid "Today"
+msgstr "ថ្ងៃ​នេះ"
+
+#: src/app/TimelineView.qml:89
+msgid "Yesterday"
+msgstr "ម្សិល​មិញ"
+
+#: src/app/TimelineView.qml:91
+msgid "Last 7 Days"
+msgstr "៧ ថ្ងៃ​ចុងក្រោយ"
+
+#: src/app/TimelineView.qml:93
+msgid "This Month"
+msgstr "ខែ​នេះ"
+
+#: src/app/TimelineView.qml:95
+msgid "This Year"
+msgstr "ឆ្នាំ​នេះ"
+
+#: src/app/TimelineView.qml:97
+msgid "Older"
+msgstr "ចាស់​ជាង"
+
+#: src/app/TimelineView.qml:271
+msgid "(local files)"
+msgstr "(ឯកសារ​មូលដ្ឋាន)"
+
+#: src/app/TimelineView.qml:273
+msgid "(other)"
+msgstr "(ផ្សេងៗ)"
+
+#: src/app/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "កម្មវិធី​រុករក"
+
+#: src/app/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "កម្មវិធី​រុករក​បណ្ដាញ"
+
+#: src/app/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "រកមើល​វើលវ៉ាយវិប"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webbrowser-app.qml:49
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
+
+#: src/app/webbrowser-app.qml:51
+msgid "Ubuntu Web Browser"
+msgstr "កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
