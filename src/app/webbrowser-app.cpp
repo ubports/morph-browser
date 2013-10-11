@@ -32,17 +32,6 @@
 #include "webbrowser-app.h"
 #include "webbrowser-window.h"
 
-
-static float getQtWebkitDpr()
-{
-    const char* envVar = "QTWEBKIT_DPR";
-    QByteArray stringValue = qgetenv(envVar);
-    bool ok;
-    float value = stringValue.toFloat(&ok);
-    float defaultValue = 1.0;
-    return ok ? value : defaultValue;
-}
-
 WebBrowserApp::WebBrowserApp(int& argc, char** argv)
     : QApplication(argc, argv)
     , m_arguments(0)
@@ -162,11 +151,6 @@ bool WebBrowserApp::initialize()
         }
         browser->setProperty("webappUrlPatterns", urlPatterns);
     }
-
-    // Set the desired pixel ratio (not needed once we use Qt's way of calculating
-    // the proper pixel ratio by device/screen)
-    float webkitDpr = getQtWebkitDpr();
-    browser->setProperty("qtwebkitdpr", webkitDpr);
 
     // When a webapp is being launched (by name), the url is pulled from its 'homepage'.
     QUrl url;
