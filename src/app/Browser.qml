@@ -495,23 +495,6 @@ MainView {
         }
     }
 
-    // Handle runtime requests to open urls as defined
-    // by the freedesktop application dbus interface's open
-    // method for DBUS application activation:
-    // http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus
-    // The dispatch on the org.freedesktop.Application if is done per appId at the
-    // url-dispatcher/upstart level.
-    Connections {
-        target: UriHandler
-        onOpened: {
-            if ( ! webapp) {
-                for (var i = 0; i < uris.length; ++i) {
-                    newTab(uris[i], i == uris.length - 1);
-                }
-            }
-        }
-    }
-
     function isRunningAsANamedWebapp() {
         return browser.webappName && typeof(browser.webappName) === 'string' && browser.webappName.length != 0
     }
