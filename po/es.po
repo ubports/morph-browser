@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-03 10:18+0200\n"
-"PO-Revision-Date: 2013-09-28 09:45+0000\n"
-"Last-Translator: Paco Molinero <paco@byasl.com>\n"
+"PO-Revision-Date: 2013-10-12 07:02+0000\n"
+"Last-Translator: Edwin Pujols <edwinpm5@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-05 06:17+0000\n"
-"X-Generator: Launchpad (build 16791)\n"
+"X-Launchpad-Export-Date: 2013-10-13 05:39+0000\n"
+"X-Generator: Launchpad (build 16799)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
@@ -141,7 +141,7 @@ msgstr "Añadir a marcadores"
 
 #: src/app/Browser.qml:376
 msgid "Copy link"
-msgstr ""
+msgstr "Copiar enlace"
 
 #: src/app/Browser.qml:381
 msgid "Open image in new tab"
@@ -149,7 +149,7 @@ msgstr "Abrir imagen en pestaña nueva"
 
 #: src/app/Browser.qml:386
 msgid "Copy image"
-msgstr ""
+msgstr "Copiar imagen"
 
 #: src/app/Browser.qml:397
 msgid "This page wants to know your device’s location."
@@ -213,7 +213,7 @@ msgstr "Permitir"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "Diálogo de JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
