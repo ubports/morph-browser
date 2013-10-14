@@ -1,3 +1,26 @@
+webbrowser-app (0.22+13.10.20131011.1-0ubuntu1) saucy; urgency=low
+
+  [ Bill Filler ]
+  * fixes a regression with the G+ homepage not scrolling properly
+    without a proper user-agent string
+  * Ship a screenshot of the app for the apps lens.
+  * Use consistently select_single(…) and select_many(…) in the
+    emulator.
+  * Allow client applications that embed an UbuntuWebView to define
+    their own override mechanism that will take precedence over the
+    default one.
+  * Fix 1237548: webapps shouldn't expose a org.freedesktop.Application
+    interface on DBUS (LP: #1237548)
+  * Expose the correct DPR on the UbuntuWebView component.
+
+  [ David Barth ]
+  * Fix a problem with Facebook images being served at low-resolution.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 386
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 11 Oct 2013 11:17:44 +0000
+
 webbrowser-app (0.22+13.10.20131007.2-0ubuntu1) saucy; urgency=low
 
   [ Alexandre Abreu ]
