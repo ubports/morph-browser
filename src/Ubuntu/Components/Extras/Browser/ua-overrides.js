@@ -57,7 +57,8 @@ var overrides = {
     "google.com.au": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
     "google.pl": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
 
-    "m.youtube.com": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
+    "youtube.com": [/Mobile\) WebKit\/([.0-9]*)/, "Linux) WebKit/$1 (like Android 4.3) Ubuntu Mobile"],
+    // "youtube.com": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
 
     "twitter.com": ["Mobile)", "Mobile) Firefox"],
 
