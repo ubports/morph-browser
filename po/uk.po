@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-03 10:18+0200\n"
-"PO-Revision-Date: 2013-09-28 08:13+0000\n"
+"PO-Revision-Date: 2013-10-19 16:50+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-05 06:17+0000\n"
-"X-Generator: Launchpad (build 16791)\n"
+"X-Launchpad-Export-Date: 2013-10-20 05:05+0000\n"
+"X-Generator: Launchpad (build 16807)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
@@ -141,7 +141,7 @@ msgstr "Створити закладку для посилання"
 
 #: src/app/Browser.qml:376
 msgid "Copy link"
-msgstr ""
+msgstr "Копіювати адресу посилання"
 
 #: src/app/Browser.qml:381
 msgid "Open image in new tab"
@@ -149,7 +149,7 @@ msgstr "Відкрити зображення у новій вкладці"
 
 #: src/app/Browser.qml:386
 msgid "Copy image"
-msgstr ""
+msgstr "Копіювати зображення"
 
 #: src/app/Browser.qml:397
 msgid "This page wants to know your device’s location."
