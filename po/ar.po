@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-03 10:18+0200\n"
-"PO-Revision-Date: 2013-08-03 21:46+0000\n"
+"PO-Revision-Date: 2013-10-20 19:59+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-05 06:16+0000\n"
-"X-Generator: Launchpad (build 16791)\n"
+"X-Launchpad-Export-Date: 2013-10-21 04:57+0000\n"
+"X-Generator: Launchpad (build 16807)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
@@ -32,30 +32,30 @@ msgstr ""
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "حسنا"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "الاستيثاق مطلوب."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "موق الويب \"%1\" يحتاج للاستيثاق."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "اسم المستخدم"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "كلمة السر"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "إلغاء"
 
 #: src/app/Browser.qml:62
 msgid "Goto"
@@ -119,13 +119,13 @@ msgstr "افتح لسانا جديدا"
 
 #: src/app/Browser.qml:111
 msgid "Clear History"
-msgstr ""
+msgstr "مسح التأريخ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/Browser.qml:114
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "مسح تأريخ التنقل"
 
 #: src/app/Browser.qml:359
 msgid "Copy"
@@ -133,31 +133,31 @@ msgstr "إنسخ"
 
 #: src/app/Browser.qml:366
 msgid "Open link in new tab"
-msgstr ""
+msgstr "افتح الرابط في لسان جديد"
 
 #: src/app/Browser.qml:371
 msgid "Bookmark link"
-msgstr ""
+msgstr "رابط العلامة"
 
 #: src/app/Browser.qml:376
 msgid "Copy link"
-msgstr ""
+msgstr "انسخ الرابط"
 
 #: src/app/Browser.qml:381
 msgid "Open image in new tab"
-msgstr ""
+msgstr "افتح الصورة في لسان جديد"
 
 #: src/app/Browser.qml:386
 msgid "Copy image"
-msgstr ""
+msgstr "انسخ الصورة"
 
 #: src/app/Browser.qml:397
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "هذه الصفحة تريد معرفة المكان الجغرافي لجهازك."
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "هذا الاتصال غير موثوق"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -169,11 +169,11 @@ msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "متابعة على كل حال"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "عودة إلى الأمان"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -200,15 +200,15 @@ msgstr "حدّث الصفحة"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "الإذن مطلوب"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "ارفض"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "اسمح"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
@@ -222,7 +222,7 @@ msgstr ""
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "موق الويب \"%1:%2\" يحتاج للاستيثاق."
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/TabsList.qml:34
