@@ -97,8 +97,8 @@ Item {
         anchors {
             top: parent.top
             topMargin: -units.gu(1)
-            right: parent.right
-            rightMargin: -units.gu(1)
+            left: parent.left
+            leftMargin: -units.gu(1)
         }
 
         Image {
