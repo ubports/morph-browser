@@ -131,7 +131,7 @@ FocusScope {
             address.match(/^[a-z]+:\/\//)) {
             return true
         }
-        if (address.split('/', 1)[0].match(/\.[a-z]{2,4}$/)) {
+        if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,4}$/)) {
             return true
         }
         if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
