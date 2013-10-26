@@ -1,0 +1,293 @@
+# Tamil translation for webbrowser-app
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-10-03 10:18+0200\n"
+"PO-Revision-Date: 2013-10-25 09:43+0000\n"
+"Last-Translator: Thangamani Arun - தங்கமணி அருண் <thangam.arunx@gmail.com>\n"
+"Language-Team: Tamil <ta@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-10-26 06:26+0000\n"
+"X-Generator: Launchpad (build 16810)\n"
+
+#: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
+msgid "Activity"
+msgstr "செயற்பாடு"
+
+#: src/app/ActivityView.qml:52
+msgid "Bookmarks"
+msgstr "புத்தகக்குறிகள்"
+
+#: src/app/AlertDialog.qml:24
+msgid "JavaScript Alert"
+msgstr "Javascript விழிப்பூட்டல்"
+
+#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
+msgid "OK"
+msgstr "சரி"
+
+#: src/app/AuthenticationDialog.qml:24
+msgid "Authentication required."
+msgstr "அங்கீகாரம் தேவை."
+
+#. TRANSLATORS: %1 refers to the URL of the current website
+#: src/app/AuthenticationDialog.qml:26
+#, qt-format
+msgid "The website %1 requires authentication."
+msgstr "இணையத்தளம் %1 க்கு அங்கீகாரம் தேவைப்படுகிறது."
+
+#: src/app/AuthenticationDialog.qml:34
+msgid "Username"
+msgstr "பயனர்பெயர்"
+
+#: src/app/AuthenticationDialog.qml:41
+msgid "Password"
+msgstr "கடவுச்சொல்"
+
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
+#: src/app/PromptDialog.qml:40
+msgid "Cancel"
+msgstr "ரத்துசெய்"
+
+#: src/app/Browser.qml:62
+msgid "Goto"
+msgstr "க்கு செல்"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:65
+msgid "Address;URL;www"
+msgstr "முகவரி;URL;www"
+
+#: src/app/Browser.qml:71 src/app/Chrome.qml:72
+msgid "Back"
+msgstr "பின்னால்"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:74
+msgid "Older Page"
+msgstr "பழைய பக்கம்"
+
+#: src/app/Browser.qml:79 src/app/Chrome.qml:91
+msgid "Forward"
+msgstr "முன் அனுப்பு"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:82
+msgid "Newer Page"
+msgstr "புதிய பக்கம்"
+
+#: src/app/Browser.qml:87
+msgid "Reload"
+msgstr "மீளேற்று"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:90
+msgid "Leave Page"
+msgstr "பக்கத்திலருந்து விலகு"
+
+#: src/app/Browser.qml:95
+msgid "Bookmark"
+msgstr "புத்தகக்குறிகள்"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:98
+msgid "Add This Page to Bookmarks"
+msgstr "இந்த பக்கத்தை புத்தகக்குறிகளில் சேர்"
+
+#: src/app/Browser.qml:103
+msgid "New Tab"
+msgstr "புதிய கீற்று"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:106
+msgid "Open a New Tab"
+msgstr "புதிய கீற்றை திற"
+
+#: src/app/Browser.qml:111
+msgid "Clear History"
+msgstr "வரலாற்றை நீக்கு"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/Browser.qml:114
+msgid "Clear Navigation History"
+msgstr "ஊடுருவல் வரலாற்றை நீக்கு"
+
+#: src/app/Browser.qml:359
+msgid "Copy"
+msgstr "படியெடு"
+
+#: src/app/Browser.qml:366
+msgid "Open link in new tab"
+msgstr "தொணைப்பை புதிய கீற்றில் திற"
+
+#: src/app/Browser.qml:371
+msgid "Bookmark link"
+msgstr "தொடுப்பை புத்தகக்குறியிடு"
+
+#: src/app/Browser.qml:376
+msgid "Copy link"
+msgstr "தொடுப்பை நகலெடு"
+
+#: src/app/Browser.qml:381
+msgid "Open image in new tab"
+msgstr "படத்தை புதிய கீற்றில் திற"
+
+#: src/app/Browser.qml:386
+msgid "Copy image"
+msgstr "படத்தை நகலெடு"
+
+#: src/app/Browser.qml:397
+msgid "This page wants to know your device’s location."
+msgstr "இந்த பக்கம் உங்கள் தொலைபேசியின் இடத்தை அறிய வேண்டுகிறது."
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "இந்த இணைப்பு நம்பகமற்றது"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+"நீங்க பாதுகாப்பாக %1 அடைய முயற்சி செய்கிறீர்கள், ஆனால் இந்த இணையதளத்தின் "
+"பாதுபாப்பு சான்றிதழ் நம்பக்கூடியதாக இல்லை."
+
+#: src/app/CertificateVerificationDialog.qml:29
+msgid "Proceed anyway"
+msgstr "இருப்பினும் தொடர்க"
+
+#: src/app/CertificateVerificationDialog.qml:35
+msgid "Back to safety"
+msgstr "பாதுகாப்பான நிலைக்குத் திரும்பு"
+
+#: src/app/ConfirmDialog.qml:24
+msgid "JavaScript Confirmation"
+msgstr "ஜாவாஸ்கிரிப்ட்டை உறுதிப்படுத்து"
+
+#: src/app/ErrorSheet.qml:38
+msgid "Network Error"
+msgstr "பிணையத்தில் பிழை"
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/app/ErrorSheet.qml:44
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr "இதை பார்ப்பதில் சிக்கல்  இருப்பதாக தெரிகிறது: %1."
+
+#: src/app/ErrorSheet.qml:50
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr ""
+"உங்களுடைய பிணைய அமைப்புகளை சரிபார்க்குமாறு உபுண்டு பரிந்துரைக்கிறத மேலும் "
+"பக்கத்தை மீளேற்றி முயற்சி."
+
+#: src/app/ErrorSheet.qml:55
+msgid "Refresh page"
+msgstr "பக்கத்தை மீளேற்று"
+
+#: src/app/PermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "அனுமதிக்கான கோரிக்கை"
+
+#: src/app/PermissionRequest.qml:31
+msgid "Deny"
+msgstr "மறுக்கவும்"
+
+#: src/app/PermissionRequest.qml:40
+msgid "Allow"
+msgstr "அனுமதி"
+
+#: src/app/PromptDialog.qml:24
+msgid "JavaScript Prompt"
+msgstr "ஜாவாஸ்கிரிப்ட் செயலிடம்"
+
+#: src/app/ProxyAuthenticationDialog.qml:22
+msgid "Proxy authentication required."
+msgstr "பதிலாளின் அங்கீகாரம் தேவைப்படுகிறது."
+
+#. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
+#: src/app/ProxyAuthenticationDialog.qml:24
+#, qt-format
+msgid "The website %1:%2 requires authentication."
+msgstr "இணையத்தளங்கள் %1:%2 அனுமதியை வேண்டுகிறது."
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/app/TabsList.qml:34
+#, qt-format
+msgid "Currently viewing (%1)"
+msgstr "தற்போது (%1) பார்க்கிறீர்கள்"
+
+#: src/app/TabsList.qml:65
+msgid "+"
+msgstr "+"
+
+#: src/app/TimelineView.qml:87
+msgid "Today"
+msgstr "இன்று"
+
+#: src/app/TimelineView.qml:89
+msgid "Yesterday"
+msgstr "நேற்று"
+
+#: src/app/TimelineView.qml:91
+msgid "Last 7 Days"
+msgstr "கடைசி 7 நாட்கள்"
+
+#: src/app/TimelineView.qml:93
+msgid "This Month"
+msgstr "இந்த மாதம்"
+
+#: src/app/TimelineView.qml:95
+msgid "This Year"
+msgstr "இந்த வருடம்"
+
+#: src/app/TimelineView.qml:97
+msgid "Older"
+msgstr "பழையவை"
+
+#: src/app/TimelineView.qml:271
+msgid "(local files)"
+msgstr "(உள்ளூர் கோப்புகள்)"
+
+#: src/app/TimelineView.qml:273
+msgid "(other)"
+msgstr "(மற்ற)"
+
+#: src/app/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "உலாவி"
+
+#: src/app/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "இணைய உலாவி"
+
+#: src/app/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "உலகளாவிய அளிவில் உலாவு"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webbrowser-app.qml:49
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - உபுண்டு இணைய உலாவி"
+
+#: src/app/webbrowser-app.qml:51
+msgid "Ubuntu Web Browser"
+msgstr "உபுண்டு இணைய உலாவி"
