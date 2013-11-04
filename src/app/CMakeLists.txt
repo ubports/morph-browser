@@ -12,7 +12,6 @@ set(WEBBROWSER_SRC
     settings.cpp
     webbrowser-app.cpp
     webbrowser-window.cpp
-    main.cpp
 )
 
 add_executable(${WEBBROWSER_APP}

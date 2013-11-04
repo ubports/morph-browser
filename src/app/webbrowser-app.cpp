@@ -181,3 +181,13 @@ int WebBrowserApp::run()
     }
     return exec();
 }
+
+int main(int argc, char** argv)
+{
+    WebBrowserApp browser(argc, argv);
+    if (browser.initialize()) {
+        return browser.run();
+    } else {
+        return 0;
+    }
+}
