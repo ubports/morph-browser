@@ -51,7 +51,10 @@ class Browser(uitk.MainView):
 
     def get_current_webview(self):
         webviews = self.select_many("UbuntuWebView")
-        return webviews[self.currentIndex]
+        for webview in webviews:
+            if webview.visible:
+                return webview
+        return None
 
     def get_error_sheet(self):
         return self.select_single("ErrorSheet")
@@ -88,4 +91,6 @@ class Browser(uitk.MainView):
 
     def get_tabslist_view_delegates(self):
         view = self.get_tabslist_view()
-        return view.select_many("PageDelegate", objectName="openTabDelegate")
+        tabs = view.select_many("PageDelegate", objectName="openTabDelegate")
+        tabs.sort(key=lambda tab: tab.x)
+        return tabs
