@@ -8,7 +8,7 @@
 
 from __future__ import absolute_import
 
-from testtools.matchers import Equals
+from autopilot.introspection import dbus
 
 from webbrowser_app.tests import BrowserTestCaseBase
 
@@ -20,4 +20,9 @@ class TestChromeless(BrowserTestCaseBase):
     ARGS = ['--chromeless']
 
     def test_chrome_is_not_loaded(self):
-        self.assertThat(self.main_window.get_chrome(), Equals(None))
+        try:
+            self.main_window.get_chrome()
+        except dbus.StateNotFoundError:
+            pass
+        else:
+            self.fail("the chrome should not be loaded")
