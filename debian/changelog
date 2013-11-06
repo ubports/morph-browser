@@ -1,3 +1,16 @@
+webbrowser-app (0.22+14.04.20131106-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Do not rely on the order of the items returned by select_many(…).
+
+  [ Chris Gagnon ]
+  * Update to autopilot 1.4.
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 399
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 06 Nov 2013 13:29:31 +0000
+
 webbrowser-app (0.22+13.10.20131011.1-0ubuntu1) saucy; urgency=low
 
   [ Bill Filler ]
