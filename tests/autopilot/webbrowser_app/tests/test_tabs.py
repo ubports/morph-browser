@@ -21,7 +21,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
 
     def open_new_tab(self):
         # assumes the activity view is already visible
-        self.assertIsNotNone(self.main_window.get_activity_view())
+        self.main_window.get_activity_view()
         newtab_delegate = self.main_window.get_tabslist_newtab_delegate()
         # XXX: This assumes the new tab delegate is in sight, which might not
         # always be the case if there is a large number of tabs open. However
@@ -60,7 +60,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assertThat(view.count, Eventually(Equals(1)))
 
     def test_toggle_activity_view(self):
-        self.assertIsNone(self.main_window.get_activity_view())
+        self.assert_activity_view_eventually_hidden()
         self.ensure_activity_view_visible()
         self.assert_chrome_eventually_hidden()
         self.main_window.open_toolbar().click_button("activityButton")

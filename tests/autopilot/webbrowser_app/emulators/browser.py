@@ -5,8 +5,6 @@
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
-from autopilot.introspection.dbus import StateNotFoundError
-
 from ubuntuuitoolkit import emulators as uitk
 
 
@@ -73,11 +71,11 @@ class Browser(uitk.MainView):
         listview = self.get_address_bar_suggestions_listview()
         return listview.select_many("Base")
 
+    def get_many_activity_view(self):
+        return self.select_many("ActivityView")
+
     def get_activity_view(self):
-        try:
-            return self.select_single("ActivityView")
-        except StateNotFoundError:
-            return None
+        return self.wait_select_single("ActivityView")
 
     def get_tabslist(self):
         return self.get_activity_view().select_single("TabsList")
