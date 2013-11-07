@@ -22,8 +22,8 @@ import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
-import Ubuntu.Unity.Action 1.0 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
+import "actions" as Actions
 
 MainView {
     id: browser
@@ -57,60 +57,31 @@ MainView {
     focus: true
 
     actions: [
-        UnityActions.Action {
-            text: i18n.tr("Goto")
-            // TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
-            // Keywords may actually be sentences, and must be separated by semi-colons.
-            keywords: i18n.tr("Address;URL;www")
-            parameterType: UnityActions.Action.String
+        Actions.GoTo {
             enabled: !isRunningAsANamedWebapp()
             onTriggered: currentWebview.url = value
         },
-        UnityActions.Action {
-            text: i18n.tr("Back")
-            // TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
-            // Keywords may actually be sentences, and must be separated by semi-colons.
-            keywords: i18n.tr("Older Page")
+        Actions.Back {
             enabled: currentWebview && !isRunningAsANamedWebapp() ? currentWebview.canGoBack : false
             onTriggered: currentWebview.goBack()
         },
-        UnityActions.Action {
-            text: i18n.tr("Forward")
-            // TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
-            // Keywords may actually be sentences, and must be separated by semi-colons.
-            keywords: i18n.tr("Newer Page")
+        Actions.Forward {
             enabled: currentWebview && !isRunningAsANamedWebapp() ? currentWebview.canGoForward : false
             onTriggered: currentWebview.goForward()
         },
-        UnityActions.Action {
-            text: i18n.tr("Reload")
-            // TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
-            // Keywords may actually be sentences, and must be separated by semi-colons.
-            keywords: i18n.tr("Leave Page")
+        Actions.Reload {
             enabled: currentWebview && !isRunningAsANamedWebapp()
             onTriggered: currentWebview.reload()
         },
-        UnityActions.Action {
-            text: i18n.tr("Bookmark")
-            // TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
-            // Keywords may actually be sentences, and must be separated by semi-colons.
-            keywords: i18n.tr("Add This Page to Bookmarks")
+        Actions.Bookmark {
             enabled: currentWebview != null
             onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
-        UnityActions.Action {
-            text: i18n.tr("New Tab")
-            // TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
-            // Keywords may actually be sentences, and must be separated by semi-colons.
-            keywords: i18n.tr("Open a New Tab")
+        Actions.NewTab {
             enabled: !isRunningAsANamedWebapp()
             onTriggered: browser.newTab("", true)
         },
-        UnityActions.Action {
-            text: i18n.tr("Clear History")
-            // TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
-            // Keywords may actually be sentences, and must be separated by semi-colons.
-            keywords: i18n.tr("Clear Navigation History")
+        Actions.ClearHistory {
             onTriggered: historyModel.clearAll()
         }
     ]
@@ -367,35 +338,29 @@ MainView {
             experimental.promptDialog: PromptDialog { }
 
             selectionActions: ActionList {
-                Action {
-                    text: i18n.tr("Copy")
+                Actions.Copy {
                     onTriggered: selection.copy()
                 }
             }
 
             contextualActions: ActionList {
-                Action {
-                    text: i18n.tr("Open link in new tab")
+                Actions.OpenLinkInNewTab {
                     enabled: contextualData.href.toString()
                     onTriggered: browser.newTab(contextualData.href, true)
                 }
-                Action {
-                    text: i18n.tr("Bookmark link")
+                Actions.BookmarkLink {
                     enabled: contextualData.href.toString()
                     onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "")
                 }
-                Action {
-                    text: i18n.tr("Copy link")
+                Actions.CopyLink {
                     enabled: contextualData.href.toString()
                     onTriggered: Clipboard.push([contextualData.href])
                 }
-                Action {
-                    text: i18n.tr("Open image in new tab")
+                Actions.OpenImageInNewTab {
                     enabled: contextualData.img.toString()
                     onTriggered: browser.newTab(contextualData.img, true)
                 }
-                Action {
-                    text: i18n.tr("Copy image")
+                Actions.CopyImage {
                     enabled: contextualData.img.toString()
                     onTriggered: Clipboard.push([contextualData.img])
                 }
