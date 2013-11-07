@@ -50,7 +50,7 @@ class Browser(uitk.MainView):
         return self.select_single("ActionItem", objectName="forwardButton")
 
     def get_current_webview(self):
-        webviews = self.select_many("UbuntuWebView")
+        webviews = self.select_many("WebViewImpl")
         return webviews[self.currentIndex]
 
     def get_error_sheet(self):

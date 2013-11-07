@@ -21,7 +21,6 @@ import QtWebKit 3.1
 import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
-import Ubuntu.Components.Popups 0.1
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import "actions" as Actions
 
@@ -320,8 +319,11 @@ MainView {
     Component {
         id: webviewComponent
 
-        UbuntuWebView {
+        WebViewImpl {
             id: webview
+
+            currentWebview: browser.currentWebview
+            toolbar: panel.item
 
             anchors.fill: parent
 
@@ -329,19 +331,6 @@ MainView {
             visible: tabsModel.currentWebview === webview
 
             experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
-
-            experimental.certificateVerificationDialog: CertificateVerificationDialog { }
-            experimental.authenticationDialog: AuthenticationDialog {}
-            experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}
-            experimental.alertDialog: AlertDialog { }
-            experimental.confirmDialog: ConfirmDialog { }
-            experimental.promptDialog: PromptDialog { }
-
-            selectionActions: ActionList {
-                Actions.Copy {
-                    onTriggered: selection.copy()
-                }
-            }
 
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
@@ -363,29 +352,6 @@ MainView {
                 Actions.CopyImage {
                     enabled: contextualData.img.toString()
                     onTriggered: Clipboard.push([contextualData.img])
-                }
-            }
-
-            experimental.onPermissionRequested: {
-                if (permission.type == PermissionRequest.Geolocation) {
-                    if (panel.item) {
-                        panel.item.close()
-                    }
-                    var text = i18n.tr("This page wants to know your device’s location.")
-                    PopupUtils.open(Qt.resolvedUrl("PermissionRequest.qml"),
-                                    browser.currentWebview,
-                                    {"permission": permission, "text": text})
-                }
-                // TODO: handle other types of permission requests
-                // TODO: we might want to store the answer to avoid requesting
-                //       the permission everytime the user visits this site.
-            }
-
-            property int lastLoadRequestStatus: -1
-            onLoadingChanged: {
-                lastLoadRequestStatus = loadRequest.status
-                if (loadRequest.status === WebView.LoadSucceededStatus) {
-                    historyModel.add(webview.url, webview.title, webview.icon)
                 }
             }
 
