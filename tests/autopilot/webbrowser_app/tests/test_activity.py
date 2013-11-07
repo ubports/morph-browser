@@ -20,7 +20,7 @@ class TestActivity(StartOpenRemotePageTestCaseBase):
         self.assert_chrome_eventually_hidden()
         self.main_window.open_toolbar()
         self.clear_address_bar()
-        url = "http://localhost:%d/aleaiactaest" % self.server.port
+        url = self.base_url + "/aleaiactaest"
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
         self.assert_activity_view_eventually_hidden()

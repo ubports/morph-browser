@@ -11,13 +11,13 @@ from __future__ import absolute_import
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
-from webbrowser_app.tests import StartOpenLocalPageTestCaseBase
+from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
 LOREMIPSUM = "<p>Lorem ipsum dolor sit amet.</p>"
 
 
-class TestBackForward(StartOpenLocalPageTestCaseBase):
+class TestBackForward(StartOpenRemotePageTestCaseBase):
 
     """Tests the back and forward functionality."""
 
@@ -34,13 +34,13 @@ class TestBackForward(StartOpenLocalPageTestCaseBase):
     def test_opening_new_page_enables_back_button(self):
         back_button = self.main_window.get_back_button()
         self.assertThat(back_button.enabled, Equals(False))
-        url = self.make_html_page("page 2", LOREMIPSUM)
+        url = self.base_url + "/aleaiactaest"
         self.go_to_url(url)
         self.assert_page_eventually_loaded(url)
         self.assertThat(back_button.enabled, Eventually(Equals(True)))
 
     def test_navigating_back_enables_forward_button(self):
-        url = self.make_html_page("page 2", LOREMIPSUM)
+        url = self.base_url + "/aleaiactaest"
         self.go_to_url(url)
         self.assert_page_eventually_loaded(url)
         forward_button = self.main_window.get_forward_button()

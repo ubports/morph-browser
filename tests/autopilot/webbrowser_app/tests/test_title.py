@@ -19,10 +19,7 @@ class TestWindowTitle(StartOpenRemotePageTestCaseBase):
     """Tests that the window’s title reflects the page title."""
 
     def test_window_title(self):
-        title = "Alice in Wonderland"
-        body = "<p>Lorem ipsum dolor sit amet.</p>"
-        url = self.make_html_page(title, body)
-        self.go_to_url(url)
+        self.go_to_url(self.base_url + "/aleaiactaest")
         #window = self.app.select_single("QQuickWindow")
         # XXX: for some reason, autopilot finds two instances of QQuickWindow.
         # One is the correct one, and the other one is not visible, its
@@ -30,4 +27,4 @@ class TestWindowTitle(StartOpenRemotePageTestCaseBase):
         # object, and it has no children.
         windows = self.app.select_many("QQuickWindow")
         window = [w for w in windows if w.visible][0]
-        self.assertThat(window.title, Eventually(Contains(title)))
+        self.assertThat(window.title, Eventually(Contains("Alea Iacta Est")))
