@@ -5,8 +5,6 @@
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
-from autopilot.introspection.dbus import StateNotFoundError
-
 from ubuntuuitoolkit import emulators as uitk
 
 
@@ -51,7 +49,10 @@ class Browser(uitk.MainView):
 
     def get_current_webview(self):
         webviews = self.select_many("WebViewImpl")
-        return webviews[self.currentIndex]
+        for webview in webviews:
+            if webview.visible:
+                return webview
+        return None
 
     def get_error_sheet(self):
         return self.select_single("ErrorSheet")
@@ -70,11 +71,11 @@ class Browser(uitk.MainView):
         listview = self.get_address_bar_suggestions_listview()
         return listview.select_many("Base")
 
+    def get_many_activity_view(self):
+        return self.select_many("ActivityView")
+
     def get_activity_view(self):
-        try:
-            return self.select_single("ActivityView")
-        except StateNotFoundError:
-            return None
+        return self.wait_select_single("ActivityView")
 
     def get_tabslist(self):
         return self.get_activity_view().select_single("TabsList")
@@ -88,4 +89,6 @@ class Browser(uitk.MainView):
 
     def get_tabslist_view_delegates(self):
         view = self.get_tabslist_view()
-        return view.select_many("PageDelegate", objectName="openTabDelegate")
+        tabs = view.select_many("PageDelegate", objectName="openTabDelegate")
+        tabs.sort(key=lambda tab: tab.x)
+        return tabs

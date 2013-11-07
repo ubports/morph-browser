@@ -143,10 +143,11 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assertThat(listview.count, Eventually(Equals(5)))
         entries = \
             self.main_window.get_address_bar_suggestions_listview_entries()
-        entry = entries[2]
         highlight = '<b><font color="#dd4814">Ubuntu</font></b>'
         url = "http://en.wikipedia.org/wiki/%s_(operating_system)" % highlight
-        self.assertThat(entry.subText, Contains(url))
+        entries = [entry for entry in entries if url in entry.subText]
+        entry = entries[0] if len(entries) == 1 else None
+        self.assertIsNotNone(entry)
         self.pointing_device.click_object(entry)
         webview = self.main_window.get_current_webview()
         url = "wikipedia.org/wiki/Ubuntu_(operating_system)"

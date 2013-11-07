@@ -74,7 +74,7 @@ Description: Ubuntu web browser QML plugin assets
 Package: webbrowser-app-autopilot
 Architecture: all
 Depends: ${misc:Depends},
-         libautopilot-qt,
+         libautopilot-qt (>= 1.4),
          libqt5test5,
          ubuntu-ui-toolkit-autopilot,
          webbrowser-app (>= ${binary:Version}),
