@@ -1,3 +1,17 @@
+webbrowser-app (0.22+14.04.20131107-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Fix a test failing with autopilot 1.4. This is likely a bug in
+    autopilot (or its Qt layer) itself, needs more investigation. In the
+    meantime, this fix should be safe.
+  * Do not handle a touchmove event if there is no current touch. (LP:
+    #1237513)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 402
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 07 Nov 2013 14:37:10 +0000
+
 webbrowser-app (0.22+14.04.20131106-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
