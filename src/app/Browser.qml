@@ -24,11 +24,8 @@ import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import "actions" as Actions
 
-MainView {
+BrowserView {
     id: browser
-
-    property bool chromeless: false
-    property bool developerExtrasEnabled: false
 
     property var webappUrlPatterns: null
 
@@ -37,23 +34,7 @@ MainView {
     property string webappModelSearchPath: ""
 
     property alias currentIndex: tabsModel.currentIndex
-    property alias currentWebview: tabsModel.currentWebview
-    property string title: currentWebview ? currentWebview.title : ""
-
-    property bool backForwardButtonsVisible: true
-    property bool activityButtonVisible: true
-    property bool addressBarVisible: true
-
-    property var webbrowserWindow: null
-
-    automaticOrientation: true
-
-    // XXX: not using this property yet since the MainView doesn’t provide
-    // a way to know when the keyboard animation has finished (needed for
-    // autopilot tests). See the KeyboardRectangle component.
-    //anchorToKeyboard: true
-
-    focus: true
+    currentWebview: tabsModel.currentWebview
 
     actions: [
         Actions.GoTo {
@@ -207,10 +188,6 @@ MainView {
             currentWebview.url = url
             currentWebview.forceActiveFocus()
         }
-    }
-
-    KeyboardRectangle {
-        id: osk
     }
 
     HistoryModel {
