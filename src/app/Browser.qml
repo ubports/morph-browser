@@ -177,7 +177,7 @@ MainView {
         anchors {
             left: parent.left
             right: parent.right
-            bottom: (item && item.opened) ? osk.top : parent.bottom
+            bottom: panel.opened ? osk.top : parent.bottom
         }
 
         onUrlValidated: {

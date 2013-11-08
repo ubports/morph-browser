@@ -26,6 +26,8 @@ Loader {
     property var panel: item ? item : null
     property Item chrome: item ? item.contents[0] : null
 
+    property bool opened: panel ? panel.opened : false
+
     property bool backForwardButtonsVisible: true
     property bool activityButtonVisible: true
     property bool addressBarVisible: true
