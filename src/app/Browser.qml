@@ -154,7 +154,7 @@ MainView {
         if (currentWebview) {
             currentWebview.forceActiveFocus()
         }
-        panel.item.close()
+        panel.close()
     }
 
     function hideActivityView() {
@@ -169,12 +169,10 @@ MainView {
         }
     }
 
-    Loader {
+    PanelLoader {
         id: panel
 
-        property Item chrome: item ? item.contents[0] : null
-
-        sourceComponent: browser.chromeless ? undefined : panelComponent
+        currentWebview: browser.currentWebview
 
         anchors {
             left: parent.left
@@ -182,81 +180,17 @@ MainView {
             bottom: (item && item.opened) ? osk.top : parent.bottom
         }
 
-        Component {
-            id: panelComponent
-
-            Panel {
-                anchors {
-                    left: parent ? parent.left : undefined
-                    right: parent ? parent.right : undefined
-                    bottom: parent ? parent.bottom : undefined
-                }
-                height: units.gu(8)
-
-                Component.onCompleted: open()
-                onOpenedChanged: {
-                    if (!opened) {
-                        Qt.inputMethod.hide()
-                    }
-                }
-
-                Chrome {
-                    anchors.fill: parent
-
-                    url: currentWebview ? currentWebview.url : ""
-
-                    loading: currentWebview ? currentWebview.loading || (currentWebview.loadProgress == 0) : false
-                    loadProgress: currentWebview ? currentWebview.loadProgress : 0
-
-                    canGoBack: currentWebview ? currentWebview.canGoBack : false
-                    onGoBackClicked: currentWebview.goBack()
-
-                    canGoForward: currentWebview ? currentWebview.canGoForward : false
-                    onGoForwardClicked: currentWebview.goForward()
-
-                    onUrlValidated: {
-                        currentWebview.url = url
-                        if (activityViewVisible) {
-                            hideActivityView()
-                        }
-                    }
-
-                    backForwardButtonsVisible: browser.backForwardButtonsVisible
-                    activityButtonVisible: browser.activityButtonVisible
-                    addressBarVisible: browser.addressBarVisible
-
-                    property bool stopped: false
-                    onLoadingChanged: {
-                        if (loading) {
-                            if (panel.item) {
-                                panel.item.open()
-                            }
-                        } else if (stopped) {
-                            stopped = false
-                        } else if (!addressBar.activeFocus) {
-                            if (panel.item) {
-                                panel.item.close()
-                            }
-                            if (currentWebview) {
-                                currentWebview.forceActiveFocus()
-                            }
-                        }
-                    }
-
-                    onRequestReload: currentWebview.reload()
-                    onRequestStop: {
-                        stopped = true
-                        currentWebview.stop()
-                    }
-
-                    onToggleTabsClicked: toggleActivityView()
-                }
+        onUrlValidated: {
+            if (activityViewVisible) {
+                hideActivityView()
             }
         }
+
+        onToggleActivityViewClicked: toggleActivityView()
     }
 
     Suggestions {
-        opacity: (panel.chrome && (panel.item.state == "spread") &&
+        opacity: (panel.chrome && (panel.state == "spread") &&
                   panel.chrome.addressBar.activeFocus && (count > 0)) ? 1.0 : 0.0
         Behavior on opacity {
             UbuntuNumberAnimation {}
@@ -323,12 +257,12 @@ MainView {
             id: webview
 
             currentWebview: browser.currentWebview
-            toolbar: panel.item
+            toolbar: panel.panel
 
             anchors.fill: parent
 
             enabled: stack.depth === 0
-            visible: tabsModel.currentWebview === webview
+            visible: currentWebview === webview
 
             experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
 
@@ -435,7 +369,7 @@ MainView {
             if (!browser.chromeless) {
                 if (!url) {
                     panel.chrome.addressBar.forceActiveFocus()
-                    panel.item.open()
+                    panel.open()
                 }
             }
         }
