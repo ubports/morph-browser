@@ -6,15 +6,19 @@
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
-import BaseHTTPServer
 import errno
 import os
 import socket
 import threading
 import time
 
+try:
+    import http.server as http
+except ImportError:
+    import BaseHTTPServer as http
 
-class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+
+class HTTPRequestHandler(http.BaseHTTPRequestHandler):
 
     """
     A custom HTTP request handler that serves GET resources.
@@ -83,14 +87,13 @@ class HTTPServerInAThread(threading.Thread):
         self.server = None
         while self.server is None:
             try:
-                self.server = BaseHTTPServer.HTTPServer(("", port),
-                                                        HTTPRequestHandler)
-            except socket.error, error:
+                self.server = http.HTTPServer(("", port), HTTPRequestHandler)
+            except socket.error as error:
                 if (error.errno == errno.EADDRINUSE):
-                    print "Port %d is already in use" % port
+                    print("Port {} is already in use".format(port))
                     port += 1
                 else:
-                    print os.strerror(error.errno)
+                    print(os.strerror(error.errno))
                     raise
         self.server.allow_reuse_address = True
 
@@ -99,7 +102,7 @@ class HTTPServerInAThread(threading.Thread):
         return self.server.server_port
 
     def run(self):
-        print "now serving on port %d" % self.port
+        print("now serving on port {}".format(self.port))
         self.server.serve_forever()
 
     def shutdown(self):
