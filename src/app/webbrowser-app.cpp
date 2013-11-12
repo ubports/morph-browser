@@ -16,177 +16,61 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Qt
-#include <QtCore/QMetaObject>
-#include <QtCore/QDir>
-#include <QtNetwork/QNetworkInterface>
-#include <QtQml/QQmlComponent>
-#include <QtQml/QQmlContext>
-#include <QtQml/QQmlEngine>
-#include <QtQuick/QQuickWindow>
-
-// local
 #include "config.h"
-#include "commandline-parser.h"
 #include "settings.h"
 #include "webbrowser-app.h"
-#include "webbrowser-window.h"
 
-WebBrowserApp::WebBrowserApp(int& argc, char** argv)
-    : QApplication(argc, argv)
-    , m_arguments(0)
-    , m_engine(0)
-    , m_component(0)
-    , m_window(0)
-    , m_webbrowserWindowProxy(0)
+// Qt
+#include <QtCore/QCoreApplication>
+#include <QtCore/QFileInfo>
+#include <QtCore/QMetaObject>
+#include <QtCore/QString>
+#include <QtCore/QTextStream>
+#include <QtQuick/QQuickWindow>
+
+WebbrowserApp::WebbrowserApp(int& argc, char** argv)
+    : BrowserApplication(argc, argv)
 {
 }
 
-WebBrowserApp::~WebBrowserApp()
+bool WebbrowserApp::initialize()
 {
-    delete m_component;
-    delete m_engine;
-    delete m_webbrowserWindowProxy;
-}
-
-bool WebBrowserApp::initialize()
-{
-    Q_ASSERT(m_window == 0);
-
-    m_arguments = new CommandLineParser(arguments(), this);
-    if (m_arguments->help()) {
-        m_arguments->printUsage();
-        return false;
-    }
-
-    // Handle legacy platforms (i.e. current desktop versions, where
-    // applications are not started by the Ubuntu ApplicationManager).
-    if (qgetenv("APP_ID").isEmpty()) {
-        QString appId = m_arguments->appId().isEmpty() ? QString(APP_ID) : m_arguments->appId();
-        qputenv("APP_ID", appId.toUtf8());
-    }
-    // Ensure that application-specific data is written where it ought to.
-    QString appPkgName = qgetenv("APP_ID").split('_').first();
-    QCoreApplication::setApplicationName(appPkgName);
-
-    Settings settings;
-
-    if (m_arguments->remoteInspector()) {
-        QString host;
-        Q_FOREACH(QHostAddress address, QNetworkInterface::allAddresses()) {
-            if (!address.isLoopback() && (address.protocol() == QAbstractSocket::IPv4Protocol)) {
-                host = address.toString();
-                break;
-            }
+    if (BrowserApplication::initialize("webbrowser-app.qml")) {
+        m_window->setProperty("chromeless", m_arguments.contains("--chromeless"));
+        QList<QUrl> urls = this->urls();
+        if (urls.isEmpty()) {
+            Settings settings;
+            urls.append(settings.homepage());
         }
-        QString server;
-        if (host.isEmpty()) {
-            server = QString::number(REMOTE_INSPECTOR_PORT);
-        } else {
-            server = QString("%1:%2").arg(host, QString::number(REMOTE_INSPECTOR_PORT));
+        QObject* browser = (QObject*) m_window;
+        Q_FOREACH(const QUrl& url, urls) {
+            QMetaObject::invokeMethod(browser, "newTab", Q_ARG(QVariant, url), Q_ARG(QVariant, true));
         }
-        qputenv("QTWEBKIT_INSPECTOR_SERVER", server.toUtf8());
-    }
-
-    m_engine = new QQmlEngine;
-    connect(m_engine, SIGNAL(quit()), SLOT(quit()));
-    if (!isRunningInstalled()) {
-        m_engine->addImportPath(UbuntuBrowserImportsDirectory());
-    }
-    QQmlContext* context = m_engine->rootContext();
-    m_component = new QQmlComponent(m_engine);
-    m_component->loadUrl(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/webbrowser-app.qml"));
-    if (!m_component->isReady()) {
-        qWarning() << m_component->errorString();
-        return false;
-    }
-    m_webbrowserWindowProxy = new WebBrowserWindow();
-    context->setContextProperty("webbrowserWindowProxy", m_webbrowserWindowProxy);
-
-    QObject* browser = m_component->create();
-    m_window = qobject_cast<QQuickWindow*>(browser);
-    m_webbrowserWindowProxy->setWindow(m_window);
-
-    browser->setProperty("chromeless", m_arguments->chromeless());
-    browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
-
-    QString webappModelSearchPath = m_arguments->webappModelSearchPath();
-    if (! webappModelSearchPath.isEmpty())
-    {
-        QDir webappModelSearchDir(webappModelSearchPath);
-
-        // makeAbsolute is idempotent
-        webappModelSearchDir.makeAbsolute();
-        if (webappModelSearchDir.exists())
-        {
-            browser->setProperty("webappModelSearchPath", webappModelSearchDir.path());
-        }
-    }
-    browser->setProperty("webapp", m_arguments->webapp());
-    browser->setProperty("webappName", m_arguments->webappName());
-
-    if ( ! m_arguments->webapp())
-    {
-        browser->setProperty("enableUriHandling", true);
-    }
-
-    CommandLineParser::ChromeElementFlags chromeFlags = m_arguments->chromeFlags();
-    if (chromeFlags != 0)
-    {
-        bool backForwardButtonsVisible = (chromeFlags & CommandLineParser::BACK_FORWARD_BUTTONS);
-        bool addressBarVisible = (chromeFlags & CommandLineParser::ADDRESS_BAR);
-        bool activityButtonVisible = (chromeFlags & CommandLineParser::ACTIVITY_BUTTON);
-
-        browser->setProperty("backForwardButtonsVisible", backForwardButtonsVisible);
-        browser->setProperty("addressBarVisible", addressBarVisible);
-        browser->setProperty("activityButtonVisible", activityButtonVisible);
-    }
-
-    QStringList urlPatterns = m_arguments->webappUrlPatterns();
-    if ( ! urlPatterns.isEmpty())
-    {
-        for (int i = 0; i < urlPatterns.count(); ++i)
-        {
-            urlPatterns[i].replace("*", "[^ ]*");
-        }
-        browser->setProperty("webappUrlPatterns", urlPatterns);
-    }
-
-    // When a webapp is being launched (by name), the url is pulled from its 'homepage'.
-    QUrl url;
-    if (m_arguments->webappName().isEmpty()) {
-        url = m_arguments->url();
-        if (url.isEmpty()) {
-            url = settings.homepage();
-        }
-    }
-
-    QMetaObject::invokeMethod(browser, "newTab",
-                              Q_ARG(QVariant, url),
-                              Q_ARG(QVariant, true));
-
-    return true;
-}
-
-int WebBrowserApp::run()
-{
-    Q_ASSERT(m_window != 0);
-
-    if (m_arguments->fullscreen()) {
-        m_window->showFullScreen();
-    } else if (m_arguments->maximized()) {
-        m_window->showMaximized();
+        return true;
     } else {
-        m_window->show();
+        return false;
     }
-    return exec();
+}
+
+void WebbrowserApp::printUsage() const
+{
+    QTextStream out(stdout);
+    QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
+    out << "Usage: " << command << " [-h|--help] [--chromeless] [--fullscreen] [--maximized] [--inspector] [--app-id=APP_ID] [URL]" << endl;
+    out << "Options:" << endl;
+    out << "  -h, --help         display this help message and exit" << endl;
+    out << "  --chromeless       do not display any chrome" << endl;
+    out << "  --fullscreen       display full screen" << endl;
+    out << "  --maximized        opens the application maximized" << endl;
+    out << "  --inspector        run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
+    out << "  --app-id=APP_ID    run the application with a specific APP_ID" << endl;
 }
 
 int main(int argc, char** argv)
 {
-    WebBrowserApp browser(argc, argv);
-    if (browser.initialize()) {
-        return browser.run();
+    WebbrowserApp app(argc, argv);
+    if (app.initialize()) {
+        return app.run();
     } else {
         return 0;
     }

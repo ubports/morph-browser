@@ -5,26 +5,40 @@ configure_file(
     ${CMAKE_CURRENT_BINARY_DIR}/config.h
     @ONLY)
 
+include_directories(
+    ${CMAKE_BINARY_DIR}
+)
+
 set(WEBBROWSER_APP webbrowser-app)
 
-set(WEBBROWSER_SRC
-    commandline-parser.cpp
+set(WEBBROWSER_APP_SRC
+    browserapplication.cpp
     settings.cpp
     webbrowser-app.cpp
     webbrowser-window.cpp
 )
 
 add_executable(${WEBBROWSER_APP}
-    ${WEBBROWSER_SRC}
-)
-
-include_directories(
-    ${CMAKE_BINARY_DIR}
+    ${WEBBROWSER_APP_SRC}
 )
 
 qt5_use_modules(${WEBBROWSER_APP} Core Widgets Quick)
 
-install(TARGETS ${WEBBROWSER_APP}
+set(WEBAPP_CONTAINER webapp-container)
+
+set(WEBAPP_CONTAINER_SRC
+    browserapplication.cpp
+    webapp-container.cpp
+    webbrowser-window.cpp
+)
+
+add_executable(${WEBAPP_CONTAINER}
+    ${WEBAPP_CONTAINER_SRC}
+)
+
+qt5_use_modules(${WEBAPP_CONTAINER} Core Widgets Quick)
+
+install(TARGETS ${WEBBROWSER_APP} ${WEBAPP_CONTAINER}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 file(GLOB QML_FILES *.qml)

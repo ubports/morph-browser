@@ -21,8 +21,15 @@ import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
 
 Window {
-    property alias chromeless: browser.chromeless
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
+
+    property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
+    property alias addressBarVisible: browser.addressBarVisible
+
+    property alias url: browser.url
+    property alias webappName: browser.webappName
+    property alias webappModelSearchPath: browser.webappModelSearchPath
+    property alias webappUrlPatterns: browser.webappUrlPatterns
 
     contentOrientation: browser.screenOrientation
 
@@ -30,7 +37,9 @@ Window {
     height: 600
 
     title: {
-        if (browser.title) {
+        if (typeof(webappName) === 'string' && webappName.length !== 0) {
+            return webappName
+        } else if (browser.title) {
             // TRANSLATORS: %1 refers to the current page’s title
             return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
         } else {
@@ -38,31 +47,16 @@ Window {
         }
     }
 
-    Browser {
+    WebApp {
         id: browser
+
         property int screenOrientation: Screen.orientation
-        anchors.fill: parent
+
+        chromeless: !backForwardButtonsVisible && !addressBarVisible
         webbrowserWindow: webbrowserWindowProxy
 
+        anchors.fill: parent
+
         Component.onCompleted: i18n.domain = "webbrowser-app"
-    }
-
-    function newTab(url, setCurrent) {
-        return browser.newTab(url, setCurrent)
-    }
-
-    // Handle runtime requests to open urls as defined
-    // by the freedesktop application dbus interface's open
-    // method for DBUS application activation:
-    // http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus
-    // The dispatch on the org.freedesktop.Application if is done per appId at the
-    // url-dispatcher/upstart level.
-    Connections {
-        target: UriHandler
-        onOpened: {
-            for (var i = 0; i < uris.length; ++i) {
-                newTab(uris[i], i == uris.length - 1)
-            }
-        }
     }
 }

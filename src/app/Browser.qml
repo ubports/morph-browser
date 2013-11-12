@@ -21,48 +21,39 @@ import QtWebKit 3.1
 import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
-import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import "actions" as Actions
 
 BrowserView {
     id: browser
-
-    property var webappUrlPatterns: null
-
-    property bool webapp: false
-    property string webappName: ""
-    property string webappModelSearchPath: ""
 
     property alias currentIndex: tabsModel.currentIndex
     currentWebview: tabsModel.currentWebview
 
     actions: [
         Actions.GoTo {
-            enabled: !isRunningAsANamedWebapp()
             onTriggered: currentWebview.url = value
         },
         Actions.Back {
-            enabled: currentWebview && !isRunningAsANamedWebapp() ? currentWebview.canGoBack : false
+            enabled: currentWebview ? currentWebview.canGoBack : false
             onTriggered: currentWebview.goBack()
         },
         Actions.Forward {
-            enabled: currentWebview && !isRunningAsANamedWebapp() ? currentWebview.canGoForward : false
+            enabled: currentWebview ? currentWebview.canGoForward : false
             onTriggered: currentWebview.goForward()
         },
         Actions.Reload {
-            enabled: currentWebview && !isRunningAsANamedWebapp()
+            enabled: currentWebview
             onTriggered: currentWebview.reload()
         },
         Actions.Bookmark {
-            enabled: currentWebview != null
+            enabled: currentWebview
             onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
-            enabled: !isRunningAsANamedWebapp()
-            onTriggered: browser.newTab("", true)
+            onTriggered: newTab("", true)
         },
         Actions.ClearHistory {
-            onTriggered: historyModel.clearAll()
+            onTriggered: _historyModel.clearAll()
         }
     ]
 
@@ -81,7 +72,7 @@ BrowserView {
 
             ErrorSheet {
                 anchors.fill: webviewContainer
-                visible: currentWebview ? (currentWebview.lastLoadRequestStatus == WebView.LoadFailedStatus) : false
+                visible: currentWebview ? (currentWebview.lastLoadRequestStatus === WebView.LoadFailedStatus) : false
                 url: currentWebview ? currentWebview.url : ""
                 onRefreshClicked: currentWebview.reload()
             }
@@ -124,7 +115,7 @@ BrowserView {
     function showActivityView() {
         stack.push(Qt.resolvedUrl("ActivityView.qml"),
                    {tabsModel: tabsModel,
-                    historyModel: historyModel,
+                    historyModel: _historyModel,
                     bookmarksModel: bookmarksModel})
         var view = stack.currentPage
         view.onHistoryEntryRequested.connect(internal.onHistoryEntryRequested)
@@ -191,36 +182,19 @@ BrowserView {
     }
 
     HistoryModel {
-        id: historyModel
+        id: _historyModel
         databasePath: dataLocation + "/history.sqlite"
     }
 
     HistoryMatchesModel {
         id: historyMatches
-        sourceModel: historyModel
+        sourceModel: _historyModel
         query: panel.chrome ? panel.chrome.addressBar.text : ""
     }
 
     TabsModel {
         id: tabsModel
     }
-
-    Loader {
-        id: webappsComponentLoader
-        sourceComponent: (browser.webapp && tabsModel.currentIndex > -1) ? webappsComponent : undefined
-
-        Component {
-            id: webappsComponent
-
-            UnityWebApps.UnityWebApps {
-                name: browser.webappName
-                bindee: tabsModel.currentWebview
-                actionsContext: browser.actionManager.globalContext
-                model: UnityWebApps.UnityWebappsAppModel { searchPath: browser.webappModelSearchPath }
-            }
-        }
-    }
-
 
     BookmarksModel {
         id: bookmarksModel
@@ -235,18 +209,19 @@ BrowserView {
 
             currentWebview: browser.currentWebview
             toolbar: panel.panel
+            historyModel: _historyModel
 
             anchors.fill: parent
 
             enabled: stack.depth === 0
             visible: currentWebview === webview
 
-            experimental.preferences.developerExtrasEnabled: browser.developerExtrasEnabled
+            experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
 
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
                     enabled: contextualData.href.toString()
-                    onTriggered: browser.newTab(contextualData.href, true)
+                    onTriggered: newTab(contextualData.href, true)
                 }
                 Actions.BookmarkLink {
                     enabled: contextualData.href.toString()
@@ -258,7 +233,7 @@ BrowserView {
                 }
                 Actions.OpenImageInNewTab {
                     enabled: contextualData.img.toString()
-                    onTriggered: browser.newTab(contextualData.img, true)
+                    onTriggered: newTab(contextualData.img, true)
                 }
                 Actions.CopyImage {
                     enabled: contextualData.img.toString()
@@ -266,76 +241,8 @@ BrowserView {
                 }
             }
 
-            function navigationRequestedDelegate(request) {
-                if (! request.isMainFrame) {
-                    request.action = WebView.AcceptRequest;
-                    return;
-                }
-
-                var action = WebView.AcceptRequest;
-                var url = request.url.toString();
-
-                // The list of url patterns defined by the webapp takes precedence over command line
-                if (webapp && isRunningAsANamedWebapp()) {
-                    var webappComponent = webappsComponentLoader.item;
-
-                    if (webappComponent != null &&
-                        webappComponent.model.exists(webappComponent.name) &&
-                        ! webappComponent.model.doesUrlMatchesWebapp(webappComponent.name, url)) {
-                        action = WebView.IgnoreRequest;
-                    }
-                }
-                else if (browser.webappUrlPatterns && browser.webappUrlPatterns.length !== 0) {
-                    action = WebView.IgnoreRequest;
-                    for (var i = 0; i < browser.webappUrlPatterns.length; ++i) {
-                        var pattern = browser.webappUrlPatterns[i];
-                        if (url.match(pattern)) {
-                            action = WebView.AcceptRequest;
-                            break;
-                        }
-                    }
-                }
-
-                request.action = action;
-                if (action === WebView.IgnoreRequest) {
-                    Qt.openUrlExternally(url);
-                }
-            }
-
-            onNewTabRequested: {
-
-                if (webapp) {
-                    Qt.openUrlExternally(url);
-                }
-                else {
-                    browser.newTab(url, true);
-                }
-            }
-
-            // Small shim needed when running as a webapp to wire-up connections
-            // with the webview (message received, etc…).
-            // This is being called (and expected) internally by the webapps
-            // component as a way to bind to a webview lookalike without
-            // reaching out directly to its internals (see it as an interface).
-            function getUnityWebappsProxies() {
-                var eventHandlers = {
-                    onAppRaised: function () {
-                        if (webbrowserWindow) {
-                            try {
-                                webbrowserWindow.raise();
-                            } catch (e) {
-                                console.debug('Error while raising: ' + e);
-                            }
-                        }
-                    }
-                };
-                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview, eventHandlers)
-            }
+            onNewTabRequested: newTab(url, true)
         }
-    }
-
-    function isRunningAsANamedWebapp() {
-        return browser.webappName && typeof(browser.webappName) === 'string' && browser.webappName.length != 0
     }
 
     function newTab(url, setCurrent) {
@@ -343,7 +250,7 @@ BrowserView {
         var index = tabsModel.add(webview)
         if (setCurrent) {
             tabsModel.currentIndex = index
-            if (!browser.chromeless) {
+            if (!chromeless) {
                 if (!url) {
                     panel.chrome.addressBar.forceActiveFocus()
                     panel.open()
