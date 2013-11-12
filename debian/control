@@ -35,7 +35,6 @@ Depends: ${misc:Depends},
          qtdeclarative5-ubuntu-ui-extras-browser-plugin (= ${binary:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-window-plugin,
-         unity-webapps-qml,
 Replaces: webbrowser-app-assets,
           qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22),
 Conflicts: webbrowser-app-assets
@@ -44,6 +43,16 @@ Breaks: qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22)
 Description: Ubuntu web browser
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components.
+
+Package: webapp-container
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         unity-webapps-qml,
+         webbrowser-app (= ${binary:Version}),
+Description: Ubuntu web applications container
+ A lightweight webapps container tailored for Ubuntu, based on the Webkit
+ rendering engine and using the Ubuntu UI components.
 
 Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin
 Architecture: any
