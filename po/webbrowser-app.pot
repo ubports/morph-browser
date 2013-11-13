@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-07 14:03+0100\n"
+"POT-Creation-Date: 2013-11-13 09:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,10 +55,6 @@ msgstr ""
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
-
-#: src/app/Browser.qml:374
-msgid "This page wants to know your device’s location."
 msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:24
@@ -180,6 +176,10 @@ msgstr ""
 msgid "(other)"
 msgstr ""
 
+#: src/app/WebViewImpl.qml:52
+msgid "This page wants to know your device’s location."
+msgstr ""
+
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
@@ -266,6 +266,16 @@ msgstr ""
 msgid "Leave Page"
 msgstr ""
 
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr ""
+
+#: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
+msgid "Ubuntu Web Browser"
+msgstr ""
+
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"
 msgstr ""
@@ -276,14 +286,4 @@ msgstr ""
 
 #: src/app/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr ""
-
-#. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser-app.qml:50
-#, qt-format
-msgid "%1 - Ubuntu Web Browser"
-msgstr ""
-
-#: src/app/webbrowser-app.qml:52
-msgid "Ubuntu Web Browser"
 msgstr ""
