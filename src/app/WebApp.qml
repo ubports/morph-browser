@@ -144,6 +144,7 @@ BrowserView {
         id: panel
 
         currentWebview: webview
+        chromeless: webapp.chromeless
 
         backForwardButtonsVisible: webapp.backForwardButtonsVisible
         activityButtonVisible: false

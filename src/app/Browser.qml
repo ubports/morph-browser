@@ -145,6 +145,7 @@ BrowserView {
         id: panel
 
         currentWebview: browser.currentWebview
+        chromeless: browser.chromeless
 
         anchors {
             left: parent.left

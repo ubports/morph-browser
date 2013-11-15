@@ -26,6 +26,7 @@ Loader {
     property var panel: item ? item : null
     property Item chrome: item ? item.contents[0] : null
 
+    property bool chromeless: false
     property bool opened: panel ? panel.opened : false
 
     property bool backForwardButtonsVisible: true
@@ -49,7 +50,7 @@ Loader {
 
     state: panel ? panel.state : ""
 
-    sourceComponent: browser.chromeless ? undefined : panelComponent
+    sourceComponent: chromePanel.chromeless ? undefined : panelComponent
 
     Component {
         id: panelComponent
