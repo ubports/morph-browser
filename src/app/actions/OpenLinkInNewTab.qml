@@ -16,22 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBBROWSER_APP_H__
-#define __WEBBROWSER_APP_H__
+import Ubuntu.Components 0.1
 
-#include "browserapplication.h"
-
-class WebbrowserApp : public BrowserApplication
-{
-    Q_OBJECT
-
-public:
-    WebbrowserApp(int& argc, char** argv);
-
-    bool initialize();
-
-private:
-    virtual void printUsage() const;
-};
-
-#endif // __WEBBROWSER_APP_H__
+Action {
+    text: i18n.tr("Open link in new tab")
+}

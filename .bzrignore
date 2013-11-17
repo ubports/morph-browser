@@ -13,6 +13,7 @@ Testing/
 moc_*.cpp
 *_automoc.cpp
 src/app/config.h
+src/app/webapp-container
 src/app/webbrowser-app
 src/app/webbrowser-app.desktop
 src/app/webbrowser-app.desktop.in
@@ -25,6 +26,7 @@ debian/files
 debian/tmp/
 debian/qtdeclarative5-ubuntu-ui-extras-browser-plugin/
 debian/qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets/
+debian/webapp-container/
 debian/webbrowser-app/
 debian/webbrowser-app-autopilot/
 debian/*.debhelper
