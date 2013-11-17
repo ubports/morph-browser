@@ -109,6 +109,20 @@ TestCase {
         verify(addressBar.requestedUrl.toString().indexOf("q=to+be+or+not+to+be%3F") > 0)
     }
 
+    function test_url_uppercase_rewrite() {
+        addressBar.text = "WWW.UBUNTU.COM"
+        addressBar.validate()
+        compare(addressBar.requestedUrl, "http://www.ubuntu.com")
+
+        addressBar.text = "EN.WIKIPEDIA.ORG/wiki/Ubuntu"
+        addressBar.validate()
+        compare(addressBar.requestedUrl, "http://en.wikipedia.org/wiki/Ubuntu")
+
+        addressBar.text = "EN.WIKIPEDIA.ORG/wiki/UBUNTU"
+        addressBar.validate()
+        compare(addressBar.requestedUrl, "http://en.wikipedia.org/wiki/UBUNTU")
+    }
+
     AddressBar {
         id: addressBar
     }
