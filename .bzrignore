@@ -8,6 +8,7 @@ Makefile
 install_manifest.txt
 CTestTestfile.cmake
 Testing/
+*.ninja*
 
 *.moc
 moc_*.cpp
