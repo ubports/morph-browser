@@ -24,32 +24,18 @@ Window {
     property alias chromeless: browser.chromeless
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
-    property alias webappUrlPatterns: browser.webappUrlPatterns
-
-    property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
-    property alias activityButtonVisible: browser.activityButtonVisible
-    property alias addressBarVisible: browser.addressBarVisible
-
-    property alias webapp: browser.webapp
-    property alias webappName: browser.webappName
-    property alias webappModelSearchPath: browser.webappModelSearchPath
-
-    property bool enableUriHandling: false
-
     contentOrientation: browser.screenOrientation
 
     width: 800
     height: 600
 
     title: {
-        if (webapp && typeof(webappName) === 'string' && webappName.length !== 0)
-            return webappName
-
-        if (browser.title)
+        if (browser.title) {
             // TRANSLATORS: %1 refers to the current page’s title
             return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
-        else
+        } else {
             return i18n.tr("Ubuntu Web Browser")
+        }
     }
 
     Browser {
@@ -72,12 +58,11 @@ Window {
     // The dispatch on the org.freedesktop.Application if is done per appId at the
     // url-dispatcher/upstart level.
     Connections {
-        target: enableUriHandling ? UriHandler : null
+        target: UriHandler
         onOpened: {
             for (var i = 0; i < uris.length; ++i) {
-                newTab(uris[i], i == uris.length - 1);
+                newTab(uris[i], i == uris.length - 1)
             }
         }
     }
-
 }

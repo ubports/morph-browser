@@ -19,32 +19,19 @@
 #ifndef __WEBBROWSER_APP_H__
 #define __WEBBROWSER_APP_H__
 
-#include <QtWidgets/QApplication>
+#include "browserapplication.h"
 
-class QQmlComponent;
-class QQmlEngine;
-class QQuickWindow;
-class WebBrowserWindow;
-
-class CommandLineParser;
-
-class WebBrowserApp : public QApplication
+class WebbrowserApp : public BrowserApplication
 {
     Q_OBJECT
 
 public:
-    WebBrowserApp(int& argc, char** argv);
-    ~WebBrowserApp();
+    WebbrowserApp(int& argc, char** argv);
 
     bool initialize();
-    int run();
 
 private:
-    CommandLineParser* m_arguments;
-    QQmlEngine* m_engine;
-    QQmlComponent* m_component;
-    QQuickWindow* m_window;
-    WebBrowserWindow *m_webbrowserWindowProxy;
+    virtual void printUsage() const;
 };
 
 #endif // __WEBBROWSER_APP_H__

@@ -25,6 +25,6 @@ class TestWindowTitle(StartOpenRemotePageTestCaseBase):
         # One is the correct one, and the other one is not visible, its
         # dimensions are 0×0, it has no title, its parent is the webbrowser-app
         # object, and it has no children.
-        windows = self.app.select_many("QQuickWindow")
-        window = [w for w in windows if w.visible][0]
+        # See https://bugs.launchpad.net/bugs/1248620.
+        window = self.app.select_single("QQuickWindow", visible=True)
         self.assertThat(window.title, Eventually(Contains("Alea Iacta Est")))

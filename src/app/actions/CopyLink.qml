@@ -16,14 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "webbrowser-app.h"
+import Ubuntu.Components 0.1
 
-int main(int argc, char** argv)
-{
-    WebBrowserApp browser(argc, argv);
-    if (browser.initialize()) {
-        return browser.run();
-    } else {
-        return 0;
-    }
+Action {
+    text: i18n.tr("Copy link")
 }
