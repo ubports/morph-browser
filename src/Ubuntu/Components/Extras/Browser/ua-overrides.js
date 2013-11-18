@@ -18,7 +18,7 @@
 
 .pragma library
 
-// B2G’s list of overrides: https://github.com/mozilla-b2g/gaia/blob/master/build/ua-override-prefs.js
+// B2G’s list of overrides: https://hg.mozilla.org/mozilla-central/raw-file/tip/b2g/app/ua-update.json.in
 
 // List of user agent string overrides in the form of an object.
 // Each key is a domain name for which the default user agent string doesn’t
