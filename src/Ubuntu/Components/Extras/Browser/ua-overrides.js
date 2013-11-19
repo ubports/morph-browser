@@ -109,4 +109,7 @@ var overrides = {
     "akamaihd.net": [/Mobile\) WebKit\/([.0-9]*)/, "Linux) WebKit/$1 (like Android 4.3) AppleWebKit/$1 Ubuntu Mobile"],
 
     "nytimes.com": ["Mobile", "Android; Mobile Safari"],
+
+    // http://pad.lv/1223937
+    "huffpost.com": ["Mobile)", "Mobile) Firefox"],
 };
