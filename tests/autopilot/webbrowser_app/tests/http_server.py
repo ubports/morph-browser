@@ -49,6 +49,16 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             html = self.make_html(title, body)
             time.sleep(delay)
             self.send_html(html)
+        elif self.path.startswith("/clickanywherethenwait/"):
+            # craft a page that accepts clicks anywhere inside its window
+            # and that redirects to a page that takes some time to load
+            delay = int(self.path[23:])
+            self.send_response(200)
+            html = '<html><body style="margin: 0">'
+            html += '<a href="/wait/%d">' % delay
+            html += '<div style="height: 100%"></div></a>'
+            html += '</body></html>'
+            self.send_html(html)
         elif self.path == "/blanktargetlink":
             # craft a page that accepts clicks anywhere inside its window
             # and that requests opening another page in a new tab
