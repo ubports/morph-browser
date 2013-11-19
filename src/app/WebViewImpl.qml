@@ -37,6 +37,7 @@ UbuntuWebView {
     experimental.alertDialog: AlertDialog {}
     experimental.confirmDialog: ConfirmDialog {}
     experimental.promptDialog: PromptDialog {}
+    experimental.filePicker: ContentPickerDialog {}
 
     selectionActions: ActionList {
         Actions.Copy {
