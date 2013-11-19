@@ -110,6 +110,6 @@ var overrides = {
 
     "nytimes.com": ["Mobile", "Android; Mobile Safari"],
 
-    // pad.lv/1223937
+    // http://pad.lv/1223937
     "huffpost.com": ["Mobile)", "Mobile) Firefox"],
 };
