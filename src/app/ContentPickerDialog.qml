@@ -23,20 +23,32 @@ import Ubuntu.Content 0.1
 
 Popups.Dialog {
     id: picker
-    title: i18n.tr("Content Picker")
+    title: i18n.tr("Pick content to upload")
     property var activeTransfer
 
-    Image {
-        id: preview
-        anchors.left: parent.left
-        anchors.right: parent.right
-        height: units.gu(10)
+    UbuntuShape {
+        height: width
+        image: Image {
+            id: preview
+            fillMode: Image.PreserveAspectCrop
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: startContentPicking()
+        }
+
+        ContentImportHint {
+            anchors.fill: parent
+            activeTransfer: picker.activeTransfer
+        }
     }
 
     Button {
         text: i18n.tr("OK")
         color: "green"
-        onClicked: model.accept(preview.source)
+        enabled: preview.source
+        onClicked: model.accept(String(preview.source).replace("file://", ""))
     }
 
     Button {
@@ -45,20 +57,23 @@ Popups.Dialog {
         onClicked: model.reject()
     }
 
-    Component.onCompleted: {
-        console.log(">>>>>>> INSTANTIATED")
-        show()
+    function startContentPicking() {
         activeTransfer = ContentHub.importContent(ContentType.Pictures);
-        activeTransfer.selectionType = ContentTransfer.Multiple;
+        activeTransfer.selectionType = ContentTransfer.Single;
         activeTransfer.start();
+    }
+
+    Component.onCompleted: {
+        show();
+        startContentPicking();
     }
 
     Connections {
         target: picker.activeTransfer
         onStateChanged: {
             if (picker.activeTransfer.state === ContentTransfer.Charged) {
-                var importItmes = picker.activeTransfer.items;
-                console.log(importItems);
+                var importItem = picker.activeTransfer.items[0];
+                preview.source = importItem.url
             }
         }
     }
