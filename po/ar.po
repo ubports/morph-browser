@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-11-13 09:10+0100\n"
-"PO-Revision-Date: 2013-10-21 19:24+0000\n"
-"Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
+"PO-Revision-Date: 2013-11-20 22:04+0000\n"
+"Last-Translator: Ahmad Nader <nadeaa0a@hotmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-18 05:53+0000\n"
+"X-Launchpad-Export-Date: 2013-11-21 06:39+0000\n"
 "X-Generator: Launchpad (build 16831)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
@@ -27,7 +27,7 @@ msgstr "العلامات"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "تنبيه جافا سكريبت"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
@@ -89,7 +89,7 @@ msgstr "تقدّم"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "تأكيد جافا سكريبت"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -124,11 +124,11 @@ msgstr "اسمح"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "طلب جافا سكريبت"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "مطلوب الاستيثاق من الوكيل."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
