@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
+#include "../config.h"
 #include "webapp-container.h"
 
 // Qt
@@ -34,7 +34,7 @@ WebappContainer::WebappContainer(int& argc, char** argv)
 
 bool WebappContainer::initialize()
 {
-    if (BrowserApplication::initialize("webapp-container.qml")) {
+    if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
         QString searchPath = webappModelSearchPath();
         if (!searchPath.isEmpty())
         {

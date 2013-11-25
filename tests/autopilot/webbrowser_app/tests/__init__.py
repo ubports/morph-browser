@@ -32,7 +32,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
     for webbrowser-app tests.
     """
 
-    local_location = "../../src/app/webbrowser-app"
+    local_location = "../../src/app/webbrowser/webbrowser-app"
     d_f = "--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop"
 
     ARGS = []
