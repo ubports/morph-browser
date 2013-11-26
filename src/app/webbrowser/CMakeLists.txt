@@ -2,6 +2,7 @@ project(webbrowser-app)
 
 include_directories(
     ${CMAKE_BINARY_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}/..
 )
 
 set(WEBBROWSER_APP webbrowser-app)

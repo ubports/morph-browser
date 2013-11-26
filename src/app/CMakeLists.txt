@@ -13,3 +13,4 @@ install(DIRECTORY assets DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app
 
 add_subdirectory(webbrowser)
 add_subdirectory(webcontainer)
+
