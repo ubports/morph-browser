@@ -19,9 +19,9 @@ set(PLUGIN_SRC
     history-domainlist-chronological-model.cpp
     tabs-model.cpp
     bookmarks-model.cpp
-    webthumbnail-utils.cpp
-    webthumbnail-provider.cpp
-    webview-thumbnailer.cpp
+#    webthumbnail-utils.cpp
+#    webthumbnail-provider.cpp
+#    webview-thumbnailer.cpp
     plugin.cpp
 )
 
@@ -30,13 +30,13 @@ add_library(${PLUGIN} MODULE ${PLUGIN_SRC})
 qt5_use_modules(${PLUGIN} Core Qml Quick Sql WebKit)
 
 # work around the lack of a public cmake module for Qt5V8
-set(Qt5V8_PRIVATE_INCLUDE_DIRS
-    "/usr/include/qt5/QtV8/${Qt5Qml_VERSION_STRING}"
-    "/usr/include/qt5/QtV8/${Qt5Qml_VERSION_STRING}/QtV8")
-include_directories(${Qt5Core_PRIVATE_INCLUDE_DIRS}
-                    ${Qt5V8_PRIVATE_INCLUDE_DIRS}
-                    ${Qt5Quick_PRIVATE_INCLUDE_DIRS}
-                    ${Qt5WebKit_PRIVATE_INCLUDE_DIRS})
+#set(Qt5V8_PRIVATE_INCLUDE_DIRS
+#    "/usr/include/qt5/QtV8/${Qt5Qml_VERSION_STRING}"
+#    "/usr/include/qt5/QtV8/${Qt5Qml_VERSION_STRING}/QtV8")
+#include_directories(${Qt5Core_PRIVATE_INCLUDE_DIRS}
+#                    ${Qt5V8_PRIVATE_INCLUDE_DIRS}
+#                    ${Qt5Quick_PRIVATE_INCLUDE_DIRS}
+#                    ${Qt5WebKit_PRIVATE_INCLUDE_DIRS})
 
 file(GLOB QML_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.qml qmldir *.js)
 install(TARGETS ${PLUGIN} DESTINATION ${WEBBROWSER_IMPORTS_DIR})

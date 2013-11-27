@@ -76,7 +76,7 @@ Loader {
                 url: currentWebview ? currentWebview.url : ""
 
                 loading: currentWebview ? currentWebview.loading || (currentWebview.loadProgress === 0) : false
-                loadProgress: currentWebview ? currentWebview.loadProgress : 0
+                //loadProgress: currentWebview ? currentWebview.loadProgress : 0
 
                 canGoBack: currentWebview ? currentWebview.canGoBack : false
                 onGoBackClicked: currentWebview.goBack()

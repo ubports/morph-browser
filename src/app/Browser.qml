@@ -17,8 +17,8 @@
  */
 
 import QtQuick 2.0
-import QtWebKit 3.1
-import QtWebKit.experimental 1.0
+//import QtWebKit 3.1
+//import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import "actions" as Actions
@@ -47,7 +47,7 @@ BrowserView {
         },
         Actions.Bookmark {
             enabled: currentWebview
-            onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
+            onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, "")//currentWebview.icon)
         },
         Actions.NewTab {
             onTriggered: newTab("", true)
@@ -72,7 +72,8 @@ BrowserView {
 
             ErrorSheet {
                 anchors.fill: webviewContainer
-                visible: currentWebview ? (currentWebview.lastLoadRequestStatus === WebView.LoadFailedStatus) : false
+                //visible: currentWebview ? (currentWebview.lastLoadRequestStatus === WebView.LoadFailedStatus) : false
+                visible: false
                 url: currentWebview ? currentWebview.url : ""
                 onRefreshClicked: currentWebview.reload()
             }
@@ -217,7 +218,7 @@ BrowserView {
             enabled: stack.depth === 0
             visible: currentWebview === webview
 
-            experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
+            //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
 
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {

@@ -22,7 +22,7 @@
 // Qt
 #include <QtQml/QQmlExtensionPlugin>
 
-class QThread;
+//class QThread;
 
 class UbuntuBrowserPlugin : public QQmlExtensionPlugin
 {
@@ -33,11 +33,11 @@ public:
     void initializeEngine(QQmlEngine* engine, const char* uri);
     void registerTypes(const char* uri);
 
-private:
+/*private:
     QThread* m_thumbnailUtilsThread;
 
 private Q_SLOTS:
-    void onEngineDestroyed();
+    void onEngineDestroyed();*/
 };
 
 #endif // __PLUGIN_H__

@@ -172,8 +172,8 @@ Item {
                         url: model.url
                         label: model.title ? model.title : model.url
 
-                        property url thumbnailSource: "image://webthumbnail/" + model.url
-                        thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
+                        //property url thumbnailSource: "image://webthumbnail/" + model.url
+                        //thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
 
                         canBookmark: true
                         bookmarksModel: timelineView.bookmarksModel
@@ -281,8 +281,8 @@ Item {
                         }
                     }
 
-                    property url thumbnailSource: "image://webthumbnail/" + model.domain
-                    thumbnail: WebThumbnailer.thumbnailExists(model.domain) ? thumbnailSource : ""
+                    //property url thumbnailSource: "image://webthumbnail/" + model.domain
+                    //thumbnail: WebThumbnailer.thumbnailExists(model.domain) ? thumbnailSource : ""
 
                     onClicked: {
                         if ((timeline.currentIndex == timelineIndex) &&

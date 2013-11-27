@@ -25,9 +25,9 @@
 #include "history-domainlist-chronological-model.h"
 #include "tabs-model.h"
 #include "bookmarks-model.h"
-#include "webthumbnail-provider.h"
-#include "webthumbnail-utils.h"
-#include "webview-thumbnailer.h"
+//#include "webthumbnail-provider.h"
+//#include "webthumbnail-utils.h"
+//#include "webview-thumbnailer.h"
 
 // Qt
 #include <QtCore/QDir>
@@ -60,7 +60,7 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
 
     // This singleton lives in its own thread to ensure that
     // disk I/O is not performed in the UI thread.
-    WebThumbnailUtils& utils = WebThumbnailUtils::instance();
+    /*WebThumbnailUtils& utils = WebThumbnailUtils::instance();
     m_thumbnailUtilsThread = new QThread;
     utils.moveToThread(m_thumbnailUtilsThread);
     m_thumbnailUtilsThread->start();
@@ -69,7 +69,7 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     engine->addImageProvider(QLatin1String("webthumbnail"), thumbnailer);
     context->setContextProperty("WebThumbnailer", thumbnailer);
 
-    connect(engine, SIGNAL(destroyed()), SLOT(onEngineDestroyed()));
+    connect(engine, SIGNAL(destroyed()), SLOT(onEngineDestroyed()));*/
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
@@ -83,12 +83,12 @@ void UbuntuBrowserPlugin::registerTypes(const char* uri)
     qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
-    qmlRegisterType<WebviewThumbnailer>(uri, 0, 1, "WebviewThumbnailer");
+    //qmlRegisterType<WebviewThumbnailer>(uri, 0, 1, "WebviewThumbnailer");
 }
 
-void UbuntuBrowserPlugin::onEngineDestroyed()
+/*void UbuntuBrowserPlugin::onEngineDestroyed()
 {
     m_thumbnailUtilsThread->quit();
     m_thumbnailUtilsThread->wait();
     delete m_thumbnailUtilsThread;
-}
+}*/

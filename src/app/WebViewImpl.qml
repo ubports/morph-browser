@@ -17,11 +17,11 @@
  */
 
 import QtQuick 2.0
-import QtWebKit 3.1
-import QtWebKit.experimental 1.0
+//import QtWebKit 3.1
+//import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
-import Ubuntu.Components.Popups 0.1
+//import Ubuntu.Components.Popups 0.1
 import "actions" as Actions
 
 UbuntuWebView {
@@ -31,20 +31,20 @@ UbuntuWebView {
     property var toolbar: null
     property QtObject historyModel: null
 
-    experimental.certificateVerificationDialog: CertificateVerificationDialog {}
+    /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}
     experimental.alertDialog: AlertDialog {}
     experimental.confirmDialog: ConfirmDialog {}
-    experimental.promptDialog: PromptDialog {}
+    experimental.promptDialog: PromptDialog {}*/
 
-    selectionActions: ActionList {
+    /*selectionActions: ActionList {
         Actions.Copy {
             onTriggered: selection.copy()
         }
-    }
+    }*/
 
-    experimental.onPermissionRequested: {
+    /*experimental.onPermissionRequested: {
         if (permission.type === PermissionRequest.Geolocation) {
             if (webview.toolbar) {
                 webview.toolbar.close()
@@ -65,5 +65,5 @@ UbuntuWebView {
         if (historyModel && (loadRequest.status === WebView.LoadSucceededStatus)) {
             historyModel.add(webview.url, webview.title, webview.icon)
         }
-    }
+    }*/
 }

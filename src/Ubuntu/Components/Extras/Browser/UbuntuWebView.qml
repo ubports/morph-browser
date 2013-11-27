@@ -17,8 +17,7 @@
  */
 
 import QtQuick 2.0
-import QtWebKit 3.1
-import QtWebKit.experimental 1.0
+import com.canonical.Oxide 0.1
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
@@ -28,7 +27,7 @@ WebView {
 
     signal newTabRequested(url url)
 
-    QtObject {
+    /*QtObject {
         property real devicePixelRatio: QtWebKitDPR
         onDevicePixelRatioChanged: {
             // Do not make this patch to QtWebKit a hard requirement.
@@ -36,10 +35,10 @@ WebView {
                 _webview.experimental.devicePixelRatio = devicePixelRatio
             }
         }
-    }
+    }*/
 
-    interactive: !selection.visible
-    maximumFlickVelocity: height * 5
+    //interactive: !selection.visible
+    //maximumFlickVelocity: height * 5
 
     /**
      * Client overridable function called before the default treatment of a
@@ -65,8 +64,9 @@ WebView {
     function getUAString(url) {
         return getSystemWideUAString(url)
     }
-    experimental.userAgent: userAgent.defaultUA
-    onNavigationRequested: {
+    //experimental.userAgent: userAgent.defaultUA
+    //context.userAgent: userAgent.defaultUA
+    /*onNavigationRequested: {
         request.action = WebView.AcceptRequest;
 
         navigationRequestedDelegate (request);
@@ -74,9 +74,9 @@ WebView {
             return;
 
         _webview.experimental.userAgent = _webview.getUAString(request.url)
-    }
+    }*/
 
-    experimental.preferences.navigatorQtObjectEnabled: true
+    /*experimental.preferences.navigatorQtObjectEnabled: true
     experimental.userScripts: [Qt.resolvedUrl("hyperlinks.js"),
                                Qt.resolvedUrl("selection.js")]
     experimental.onMessageReceived: {
@@ -220,7 +220,7 @@ WebView {
             width = data.width * scale
             height = data.height * scale
         }
-    }
+    }*/
     property QtObject contextualData: QtObject {
         property url href
         property string title
@@ -241,7 +241,7 @@ WebView {
         }
     }
 
-    Scrollbar {
+    /*Scrollbar {
         parent: _webview.parent
         flickableItem: _webview
         align: Qt.AlignTrailing
@@ -251,9 +251,9 @@ WebView {
         parent: _webview.parent
         flickableItem: _webview
         align: Qt.AlignBottom
-    }
+    }*/
 
-    WebviewThumbnailer {
+    /*WebviewThumbnailer {
         id: thumbnailer
         webview: _webview
         targetSize: Qt.size(units.gu(12), units.gu(12))
@@ -271,5 +271,5 @@ WebView {
                 thumbnailer.renderThumbnail()
             }
         }
-    }
+    }*/
 }
