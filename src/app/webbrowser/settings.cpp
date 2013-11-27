@@ -18,7 +18,7 @@
 
 // local
 #include "settings.h"
-#include "../config.h"
+#include "config.h"
 
 // Qt
 #include <QtCore/QSettings>

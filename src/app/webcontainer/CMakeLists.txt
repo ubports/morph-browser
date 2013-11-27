@@ -2,7 +2,7 @@ project(webapp-container)
 
 include_directories(
     ${CMAKE_BINARY_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}/..
+    ${webbrowser-common_BINARY_DIR}
 )
 
 set(WEBAPP_CONTAINER webapp-container)
