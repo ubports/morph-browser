@@ -19,7 +19,7 @@
 #ifndef __WEBAPP_CONTAINER_H__
 #define __WEBAPP_CONTAINER_H__
 
-#include "browserapplication.h"
+#include "../browserapplication.h"
 
 // Qt
 #include <QString>

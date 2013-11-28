@@ -39,7 +39,7 @@ public:
     BrowserApplication(int& argc, char** argv);
     ~BrowserApplication();
 
-    bool initialize(const QString& qmlFile);
+    bool initialize(const QString& qmlFileSubPath);
     int run();
 
 protected:

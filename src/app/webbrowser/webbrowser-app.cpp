@@ -35,7 +35,7 @@ WebbrowserApp::WebbrowserApp(int& argc, char** argv)
 
 bool WebbrowserApp::initialize()
 {
-    if (BrowserApplication::initialize("webbrowser-app.qml")) {
+    if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         m_window->setProperty("chromeless", m_arguments.contains("--chromeless"));
         QList<QUrl> urls = this->urls();
         if (urls.isEmpty()) {
