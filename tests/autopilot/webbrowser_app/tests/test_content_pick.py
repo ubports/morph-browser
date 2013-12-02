@@ -64,40 +64,77 @@ class TestContentPickerIntegration(StartOpenRemotePageTestCaseBase):
     def get_app_pid(self, app):
         try:
             return int(subprocess.check_output(["pidof", app]).strip())
-        except CalledProcessError:
+        except subprocess.CalledProcessError:
             return -1
 
+    def wait_app_focused(self, name):
+        unity8 = self.get_unity8_proxy_object()
+        shell = unity8.select_single("Shell")
+        self.assertThat(
+            lambda: self.get_current_focused_appid(unity8),
+            Eventually(Equals(name))
+        )
+
     def test_image_picker_is_gallery(self):
+        """ Tests that the gallery shows up when we are picking images """
+
+        # Go to a page where clicking anywhere equals clicking on the
+        # file selection button of an upload form
         url = self.base_url + "/uploadform"
         self.go_to_url(url)
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
 
-        unity8 = self.get_unity8_proxy_object()
-        shell = unity8.select_single("Shell")
-        self.assertThat(
-            lambda: self.get_current_focused_appid(unity8),
-            Eventually(Equals("gallery-app"))
-        )
+        # Verify that such a click brings up the gallery to select images
+        self.wait_app_focused("gallery-app")
 
     def test_image_picker_pick_image(self):
+        """ Tests that the we can select an image in the gallery and
+            control will return to the browser with the choosen image
+            picked."""
         self.set_testability_environment_variable()
         self.test_image_picker_is_gallery()
 
         unity8 = self.get_unity8_proxy_object()
         self.assertThat(lambda: self.get_app_pid("gallery-app"), Eventually(NotEquals(-1)))
 
-        gallery_proxy = get_proxy_object_for_existing_process(
+        gallery = get_proxy_object_for_existing_process(
             self.get_app_pid("gallery-app"),
             emulator_base = toolkit_emulators.UbuntuUIToolkitEmulatorBase
         )
 
-        print gallery_proxy
-        print gallery_proxy.wait_select_single("QQuickView") # This works
-        print gallery_proxy.wait_select_single("Loader", objectName="pickLoader") # This doesn't
-        print gallery_proxy.wait_select_single("PickerMainView", objectName="pickerMainView") # This doesn't too
-        print gallery_proxy.wait_select_single("MainView", objectName="pickerMainView") # This doesn't too
+        view = gallery.wait_select_single("QQuickView")
+        self.assertThat(view.visible, Eventually(Equals(True)))
 
+        # Select the first picture on the picker by clicking on it
+        grid = gallery.wait_select_single("MediaGrid")
+        photo = grid.select_many("OrganicItemInteraction")[0]
+        self.pointing_device.move_to_object(photo)
+        self.pointing_device.click()
+        self.assertThat(photo.isSelected, Eventually(Equals(True)))
 
+        # This will enable the "Pick" button, and we will click on it
+        button = gallery.select_single("Button", objectName="pickButton")
+        self.assertThat(button.enabled, Eventually(Equals(True)))
+        self.pointing_device.move_to_object(button)
+        self.pointing_device.click()
 
+        # The gallery should close and focus returned to the browser
+        self.wait_app_focused("webbrowser-app")
+
+        # Verify that an image has actually been selected
+#         This will currently fail because of bug #184753, so it's
+#         disabled for now.
+#        dialog = self.main_window.select_single("ContentPickerDialog")
+#        self.assertThat(dialog.visible, Equals(True))
+#        preview = dialog.select_single("Image", objectName="mediaPreview")
+#        self.assertThat(preview.source, Eventually(NotEquals("")))
+
+#        # Verify that now we can click the "OK" button and it closes the dialog
+#        button = dialog.select_single("Button", objectName="ok")
+#        self.assertThat(button.enabled, Eventually(Equals(True)))
+#        self.pointing_device.move_to_object(button)
+#        self.pointing_device.click()
+
+#        self.assertThat(dialog.visible, Eventually(Equals(False)))

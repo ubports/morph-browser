@@ -29,6 +29,7 @@ Popups.Dialog {
     UbuntuShape {
         height: width
         image: Image {
+            objectName: "mediaPreview"
             id: preview
             fillMode: Image.PreserveAspectCrop
         }
@@ -45,6 +46,7 @@ Popups.Dialog {
     }
 
     Button {
+        objectName: "ok"
         text: i18n.tr("OK")
         color: "green"
         enabled: preview.source
