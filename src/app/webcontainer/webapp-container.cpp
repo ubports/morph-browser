@@ -49,6 +49,7 @@ bool WebappContainer::initialize()
         m_window->setProperty("backForwardButtonsVisible", m_arguments.contains("--enable-back-forward"));
         m_window->setProperty("addressBarVisible", m_arguments.contains("--enable-addressbar"));
         m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
+        m_window->setProperty("accountProvider", accountProvider());
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (name.isEmpty()) {
             QList<QUrl> urls = this->urls();
@@ -77,6 +78,7 @@ void WebappContainer::printUsage() const
     out << "  --webapp[=name]                     try to match the webapp by name with an installed integration script (if any)" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
+    out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
     out << "  --enable-addressbar                 enable the display of the address bar" << endl;
@@ -90,6 +92,18 @@ QString WebappContainer::webappModelSearchPath() const
         }
     }
     return QString();
+}
+
+QString WebappContainer::accountProvider() const
+{
+    QString accountProvider;
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument.startsWith("--accountProvider=")) {
+            accountProvider = argument.split("--accountProvider=")[1];
+            break;
+        }
+    }
+    return accountProvider;
 }
 
 QString WebappContainer::webappName() const

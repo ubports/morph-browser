@@ -19,6 +19,7 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
+
 import ".."
 
 Window {
@@ -27,10 +28,12 @@ Window {
     property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
     property alias addressBarVisible: browser.addressBarVisible
 
-    property alias url: browser.url
+    property string url: ""
     property alias webappName: browser.webappName
     property alias webappModelSearchPath: browser.webappModelSearchPath
     property alias webappUrlPatterns: browser.webappUrlPatterns
+
+    property string accountProvider: ""
 
     contentOrientation: browser.screenOrientation
 
@@ -42,22 +45,70 @@ Window {
             return webappName
         } else if (browser.title) {
             // TRANSLATORS: %1 refers to the current page’s title
-            return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
+            return i18n.tr("%1 - Ubuntu Web Application").arg(browser.title)
         } else {
-            return i18n.tr("Ubuntu Web Browser")
+            return i18n.tr("Ubuntu Web Application")
         }
     }
 
-    WebApp {
-        id: browser
+    PageStack {
+        id: stack
 
-        property int screenOrientation: Screen.orientation
+        Page {
+            id: webappPage
 
-        chromeless: !backForwardButtonsVisible && !addressBarVisible
-        webbrowserWindow: webbrowserWindowProxy
+            visible: false
 
-        anchors.fill: parent
+            WebApp {
+                id: browser
 
-        Component.onCompleted: i18n.domain = "webbrowser-app"
+                anchors.fill: parent
+
+                property int screenOrientation: Screen.orientation
+
+                chromeless: !backForwardButtonsVisible && !addressBarVisible
+                webbrowserWindow: webbrowserWindowProxy
+
+                Component.onCompleted: i18n.domain = "webbrowser-app"
+            }
+        }
+
+        Page {
+            id: accountsPage
+
+            visible: false
+
+            AccountsLogin {
+                id: accountsLogin
+
+                anchors.fill: parent
+
+                accountProvider: accountProvider
+                applicationName: applicationName
+                onDone: {
+                    console.log(credentialId)
+                    advanceToWebappStep();
+                }
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        if (accountProvider.length !== 0) {
+            stack.push(accountsPage);
+        }
+        else {
+            advanceToWebappStep();
+        }
+    }
+
+    function advanceToWebappStep() {
+        // when calling the container w/ a names webapp param,
+        //  (e.g. --webapp=facebook), the webview is automagically
+        //  set up to browse to the 'homepage' param specified in the
+        //  webapp manifest.json file so it doesn't need to be set.
+        if (webappPage.url && webappPage.url.length === 0)
+            webappPage.url = url;
+        stack.push(webappPage)
     }
 }

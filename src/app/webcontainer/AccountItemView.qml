@@ -16,30 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBAPP_CONTAINER_H__
-#define __WEBAPP_CONTAINER_H__
+import QtQuick 2.0
+import Ubuntu.Components 0.1
+import Ubuntu.Components.ListItems 0.1 as ListItem
 
-#include "../browserapplication.h"
+Item {
+    id: root
 
-// Qt
-#include <QString>
-#include <QStringList>
+    property string accountName
 
-class WebappContainer : public BrowserApplication
-{
-    Q_OBJECT
+    signal clicked()
 
-public:
-    WebappContainer(int& argc, char** argv);
+    MouseArea {
+        anchors.fill: parent
+        onClicked: pageDelegate.clicked()
+    }
 
-    bool initialize();
+    Row {
+        anchors.fill: parent
+        spacing: units.gu(1)
 
-private:
-    virtual void printUsage() const;
-    QString webappModelSearchPath() const;
-    QString webappName() const;
-    QStringList webappUrlPatterns() const;
-    QString accountProvider() const;
-};
+        Label {
+            id: label
+            text: accountName
+            fontSize: "small"
+            wrapMode: Text.Wrap
+            elide: Text.ElideRight
+            maximumLineCount: 2
+        }
+    }
+}
 
-#endif // __WEBAPP_CONTAINER_H__
+

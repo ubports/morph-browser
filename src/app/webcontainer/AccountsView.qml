@@ -16,30 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBAPP_CONTAINER_H__
-#define __WEBAPP_CONTAINER_H__
+import QtQuick 2.0
+import Ubuntu.Components 0.1
+import Ubuntu.Components.ListItems 0.1 as ListItem
 
-#include "../browserapplication.h"
+Item {
+    id: root
 
-// Qt
-#include <QString>
-#include <QStringList>
+    property var model
 
-class WebappContainer : public BrowserApplication
-{
-    Q_OBJECT
+    signal clicked(QtObject accountServiceHandle)
 
-public:
-    WebappContainer(int& argc, char** argv);
+    ListView {
+        id: accounts
 
-    bool initialize();
+        anchors.fill: parent
+        model: root.model
 
-private:
-    virtual void printUsage() const;
-    QString webappModelSearchPath() const;
-    QString webappName() const;
-    QStringList webappUrlPatterns() const;
-    QString accountProvider() const;
-};
+        delegate: AccountItemView {
 
-#endif // __WEBAPP_CONTAINER_H__
+            accountName: model.displayName
+            visible: enabled
+            height: units.gu(15)
+            width: units.gu(12)
+            onClicked: {
+                clicked(accountServiceHandle)
+            }
+            Component.onCompleted: console.log(model)
+        }
+    }
+}
+
+

@@ -16,30 +16,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBAPP_CONTAINER_H__
-#define __WEBAPP_CONTAINER_H__
+import QtQuick 2.0
+import Ubuntu.OnlineAccounts 0.1
+import Ubuntu.OnlineAccounts.Client 0.1
 
-#include "../browserapplication.h"
+Item {
+    id: root
+    property string accountProvider: ""
+    property string applicationName: ""
 
-// Qt
-#include <QString>
-#include <QStringList>
+    /*!
 
-class WebappContainer : public BrowserApplication
-{
-    Q_OBJECT
+     */
+    readonly property alias model: accountsModel
 
-public:
-    WebappContainer(int& argc, char** argv);
+    AccountServiceModel {
+        id: accountsModel
+        includeDisabled: false
+        serviceType: "webapps"
+    }
 
-    bool initialize();
+/*
+    Setup {
+        id: setup
+        providerId: root.accountProvider
+        applicationId: root.applicationName
+    }
+    */
+}
 
-private:
-    virtual void printUsage() const;
-    QString webappModelSearchPath() const;
-    QString webappName() const;
-    QStringList webappUrlPatterns() const;
-    QString accountProvider() const;
-};
 
-#endif // __WEBAPP_CONTAINER_H__
