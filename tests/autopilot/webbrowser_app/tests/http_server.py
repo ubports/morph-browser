@@ -89,6 +89,12 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         else:
             self.send_error(404)
 
+    def log_message(self, format, *args):
+        logger.info(format % args)
+
+    def log_error(self, format, *args):
+        logger.error(format % args)
+
 
 class HTTPServerInAThread(threading.Thread):
 
