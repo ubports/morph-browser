@@ -33,7 +33,12 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         self.wfile.write(html)
 
     def do_GET(self):
-        if self.path == "/loremipsum":
+        if self.path == "/ping":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.end_headers()
+            self.wfile.write("pong")
+        elif self.path == "/loremipsum":
             self.send_response(200)
             title = "Lorem Ipsum"
             body = "<p>Lorem ipsum dolor sit amet.</p>"
