@@ -90,3 +90,15 @@ Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
  engine and using the Ubuntu UI components. This package contains autopilot
  tests for it.
+
+Package: webapp-container-autopilot
+Architecture: all
+Depends: ${misc:Depends},
+         libautopilot-qt (>= 1.4),
+         libqt5test5,
+         ubuntu-ui-toolkit-autopilot,
+         webapp-container (>= ${binary:Version}),
+Description: Webapp container autopilot tests
+ A lightweight webapps container tailored for Ubuntu, based on the Webkit
+ rendering engine and using the Ubuntu UI components. This package contains autopilot
+ tests for it.

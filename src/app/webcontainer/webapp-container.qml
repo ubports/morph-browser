@@ -22,6 +22,8 @@ import Ubuntu.Components 0.1
 import ".."
 
 Window {
+    objectName: "webappContainer"
+
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
     property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
