@@ -8,10 +8,14 @@
 
 import BaseHTTPServer
 import errno
+import logging
 import os
 import socket
 import threading
 import time
+
+
+logger = logging.getLogger(__name__)
 
 
 class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
@@ -97,10 +101,10 @@ class HTTPServerInAThread(threading.Thread):
                                                         HTTPRequestHandler)
             except socket.error, error:
                 if (error.errno == errno.EADDRINUSE):
-                    print "Port %d is already in use" % port
+                    logging.error("Port %d is already in use" % port)
                     port += 1
                 else:
-                    print os.strerror(error.errno)
+                    logging.error(os.strerror(error.errno))
                     raise
         self.server.allow_reuse_address = True
 
@@ -109,7 +113,7 @@ class HTTPServerInAThread(threading.Thread):
         return self.server.server_port
 
     def run(self):
-        print "now serving on port %d" % self.port
+        logging.info("now serving on port %d" % self.port)
         self.server.serve_forever()
 
     def shutdown(self):
