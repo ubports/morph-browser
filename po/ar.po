@@ -7,27 +7,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-10-03 10:18+0200\n"
-"PO-Revision-Date: 2013-10-21 19:24+0000\n"
-"Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
+"POT-Creation-Date: 2013-11-13 09:10+0100\n"
+"PO-Revision-Date: 2013-11-20 22:04+0000\n"
+"Last-Translator: Ahmad Nader <nadeaa0a@hotmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-22 05:15+0000\n"
-"X-Generator: Launchpad (build 16807)\n"
+"X-Launchpad-Export-Date: 2013-12-06 06:25+0000\n"
+"X-Generator: Launchpad (build 16863)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
 msgstr "النشاط"
 
-#: src/app/ActivityView.qml:52
+#: src/app/ActivityView.qml:54
 msgid "Bookmarks"
 msgstr "العلامات"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "تنبيه جافا سكريبت"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
@@ -57,104 +57,6 @@ msgstr "كلمة السر"
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: src/app/Browser.qml:62
-msgid "Goto"
-msgstr "اذهب إلى"
-
-#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
-#. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:65
-msgid "Address;URL;www"
-msgstr "عنوان;رابط;انترنت;إنترنت;شبكة"
-
-#: src/app/Browser.qml:71 src/app/Chrome.qml:72
-msgid "Back"
-msgstr "عودة"
-
-#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
-#. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:74
-msgid "Older Page"
-msgstr "أقدم صفحة"
-
-#: src/app/Browser.qml:79 src/app/Chrome.qml:91
-msgid "Forward"
-msgstr "تقدّم"
-
-#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
-#. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:82
-msgid "Newer Page"
-msgstr "أحدث صفحة"
-
-#: src/app/Browser.qml:87
-msgid "Reload"
-msgstr "أعد التحميل"
-
-#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
-#. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:90
-msgid "Leave Page"
-msgstr "غادر الصفحة"
-
-#: src/app/Browser.qml:95
-msgid "Bookmark"
-msgstr "العلامات"
-
-#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
-#. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:98
-msgid "Add This Page to Bookmarks"
-msgstr "أضف هذه الصفحة إلى العلامات"
-
-#: src/app/Browser.qml:103
-msgid "New Tab"
-msgstr "لسان جديد"
-
-#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
-#. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:106
-msgid "Open a New Tab"
-msgstr "افتح لسانا جديدا"
-
-#: src/app/Browser.qml:111
-msgid "Clear History"
-msgstr "مسح التأريخ"
-
-#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
-#. Keywords may actually be sentences, and must be separated by semi-colons.
-#: src/app/Browser.qml:114
-msgid "Clear Navigation History"
-msgstr "مسح تأريخ التنقل"
-
-#: src/app/Browser.qml:359
-msgid "Copy"
-msgstr "إنسخ"
-
-#: src/app/Browser.qml:366
-msgid "Open link in new tab"
-msgstr "افتح الرابط في لسان جديد"
-
-#: src/app/Browser.qml:371
-msgid "Bookmark link"
-msgstr "رابط العلامة"
-
-#: src/app/Browser.qml:376
-msgid "Copy link"
-msgstr "انسخ الرابط"
-
-#: src/app/Browser.qml:381
-msgid "Open image in new tab"
-msgstr "افتح الصورة في لسان جديد"
-
-#: src/app/Browser.qml:386
-msgid "Copy image"
-msgstr "انسخ الصورة"
-
-#: src/app/Browser.qml:397
-msgid "This page wants to know your device’s location."
-msgstr "هذه الصفحة تريد معرفة المكان الجغرافي لجهازك."
-
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
 msgstr "هذا الاتصال غير موثوق"
@@ -177,9 +79,17 @@ msgstr "متابعة على كل حال"
 msgid "Back to safety"
 msgstr "عودة إلى الأمان"
 
+#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "عودة"
+
+#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "تقدّم"
+
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "تأكيد جافا سكريبت"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -214,11 +124,11 @@ msgstr "اسمح"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "طلب جافا سكريبت"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "مطلوب الاستيثاق من الوكيل."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
@@ -227,46 +137,146 @@ msgid "The website %1:%2 requires authentication."
 msgstr "موق الويب \"%1:%2\" يحتاج للاستيثاق."
 
 #. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/TabsList.qml:34
+#: src/app/TabsList.qml:37
 #, qt-format
 msgid "Currently viewing (%1)"
 msgstr "تتصفح حاليا (%1) صفحات"
 
-#: src/app/TabsList.qml:65
+#: src/app/TabsList.qml:68
 msgid "+"
 msgstr "+"
 
-#: src/app/TimelineView.qml:87
+#: src/app/TimelineView.qml:83
 msgid "Today"
 msgstr "اليوم"
 
-#: src/app/TimelineView.qml:89
+#: src/app/TimelineView.qml:85
 msgid "Yesterday"
 msgstr "أمس"
 
-#: src/app/TimelineView.qml:91
+#: src/app/TimelineView.qml:87
 msgid "Last 7 Days"
 msgstr "آخر ٧ أيام"
 
-#: src/app/TimelineView.qml:93
+#: src/app/TimelineView.qml:89
 msgid "This Month"
 msgstr "هذا الشهر"
 
-#: src/app/TimelineView.qml:95
+#: src/app/TimelineView.qml:91
 msgid "This Year"
 msgstr "هذا العام"
 
-#: src/app/TimelineView.qml:97
+#: src/app/TimelineView.qml:93
 msgid "Older"
 msgstr "أقدم"
 
-#: src/app/TimelineView.qml:271
+#: src/app/TimelineView.qml:276
 msgid "(local files)"
 msgstr "(ملفات محلية)"
 
-#: src/app/TimelineView.qml:273
+#: src/app/TimelineView.qml:278
 msgid "(other)"
 msgstr "(أخرى)"
+
+#: src/app/WebViewImpl.qml:52
+msgid "This page wants to know your device’s location."
+msgstr "هذه الصفحة تريد معرفة المكان الجغرافي لجهازك."
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Back.qml:26
+msgid "Older Page"
+msgstr "أقدم صفحة"
+
+#: src/app/actions/Bookmark.qml:23
+msgid "Bookmark"
+msgstr "العلامات"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Bookmark.qml:26
+msgid "Add This Page to Bookmarks"
+msgstr "أضف هذه الصفحة إلى العلامات"
+
+#: src/app/actions/BookmarkLink.qml:22
+msgid "Bookmark link"
+msgstr "رابط العلامة"
+
+#: src/app/actions/ClearHistory.qml:23
+msgid "Clear History"
+msgstr "مسح التأريخ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/ClearHistory.qml:26
+msgid "Clear Navigation History"
+msgstr "مسح تأريخ التنقل"
+
+#: src/app/actions/Copy.qml:22
+msgid "Copy"
+msgstr "إنسخ"
+
+#: src/app/actions/CopyImage.qml:22
+msgid "Copy image"
+msgstr "انسخ الصورة"
+
+#: src/app/actions/CopyLink.qml:22
+msgid "Copy link"
+msgstr "انسخ الرابط"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Forward.qml:26
+msgid "Newer Page"
+msgstr "أحدث صفحة"
+
+#: src/app/actions/GoTo.qml:23
+msgid "Goto"
+msgstr "اذهب إلى"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/GoTo.qml:26
+msgid "Address;URL;www"
+msgstr "عنوان;رابط;انترنت;إنترنت;شبكة"
+
+#: src/app/actions/NewTab.qml:23
+msgid "New Tab"
+msgstr "لسان جديد"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/NewTab.qml:26
+msgid "Open a New Tab"
+msgstr "افتح لسانا جديدا"
+
+#: src/app/actions/OpenImageInNewTab.qml:22
+msgid "Open image in new tab"
+msgstr "افتح الصورة في لسان جديد"
+
+#: src/app/actions/OpenLinkInNewTab.qml:22
+msgid "Open link in new tab"
+msgstr "افتح الرابط في لسان جديد"
+
+#: src/app/actions/Reload.qml:23
+msgid "Reload"
+msgstr "أعد التحميل"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Reload.qml:26
+msgid "Leave Page"
+msgstr "غادر الصفحة"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - متصفح ويب أبونتو"
+
+#: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
+msgid "Ubuntu Web Browser"
+msgstr "متصفح ويب أبونتو"
 
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -279,13 +289,3 @@ msgstr "متصفح الويب"
 #: src/app/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
 msgstr "تصفح الشبكة العنكبوتية العالمية"
-
-#. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser-app.qml:49
-#, qt-format
-msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - متصفح ويب أبونتو"
-
-#: src/app/webbrowser-app.qml:51
-msgid "Ubuntu Web Browser"
-msgstr "متصفح ويب أبونتو"

@@ -48,7 +48,7 @@ class Browser(uitk.MainView):
         return self.select_single("ActionItem", objectName="forwardButton")
 
     def get_current_webview(self):
-        webviews = self.select_many("UbuntuWebView")
+        webviews = self.select_many("WebViewImpl")
         for webview in webviews:
             if webview.visible:
                 return webview

@@ -32,6 +32,7 @@ class TestProgressBarAtStartup(BrowserTestCaseBase):
         self.server.start()
         self.addCleanup(self.server.shutdown)
         self.base_url = "http://localhost:%d" % self.server.port
+        self.ping_server()
         self.url = self.base_url + "/wait/8"
         self.ARGS = [self.url]
         super(TestProgressBarAtStartup, self).setUp()
@@ -52,20 +53,14 @@ class TestProgressBar(StartOpenRemotePageTestCaseBase):
 
     def test_chrome_hides_when_loaded(self):
         self.assert_chrome_eventually_hidden()
-        url = "http://localhost:%d/wait/3" % self.server.port
+        url = self.base_url + "/wait/3"
         self.go_to_url(url)
         self.assert_chrome_eventually_shown()
         self.assert_page_eventually_loaded(url)
         self.assert_chrome_eventually_hidden()
 
     def test_load_page_from_link_reveals_chrome(self):
-        # craft a page that accepts clicks anywhere inside its window
-        style = "'margin: 0; height: 100%'"
-        url = "http://localhost:%d/wait/3" % self.server.port
-        script = "'window.location = \"%s\"'" % url
-        html = "<html><body style=%s onclick=%s></body></html>" % \
-            (style, script)
-        url = self.make_raw_html_page(html)
+        url = self.base_url + "/clickanywherethenwait/3"
         self.go_to_url(url)
         self.assert_page_eventually_loaded(url)
         self.assert_chrome_eventually_hidden()
@@ -77,7 +72,7 @@ class TestProgressBar(StartOpenRemotePageTestCaseBase):
         # simulate user interaction to hide the chrome while loading,
         # and ensure it doesn’t re-appear when loaded
         self.assert_chrome_eventually_hidden()
-        url = "http://localhost:%d/wait/3" % self.server.port
+        url = self.base_url + "/wait/3"
         self.go_to_url(url)
         self.assert_chrome_eventually_shown()
         webview = self.main_window.get_current_webview()
@@ -90,7 +85,7 @@ class TestProgressBar(StartOpenRemotePageTestCaseBase):
         # ensure that the chrome is not automatically hidden
         # when the user interrupts a page that was loading
         self.assert_chrome_eventually_hidden()
-        url = "http://localhost:%d/wait/5" % self.server.port
+        url = self.base_url + "/wait/5"
         self.go_to_url(url)
         self.assert_page_eventually_loading()
         self.assert_chrome_eventually_shown()

@@ -10,7 +10,7 @@
 import os
 import os.path
 import shutil
-import tempfile
+import urllib2
 
 from testtools.matchers import Contains, Equals
 
@@ -32,29 +32,19 @@ class BrowserTestCaseBase(AutopilotTestCase):
     for webbrowser-app tests.
     """
 
-    local_location = "../../src/app/webbrowser-app"
+    local_location = "../../src/app/webbrowser/webbrowser-app"
     d_f = "--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop"
 
     ARGS = []
-    _temp_pages = []
 
     def setUp(self):
         self.pointing_device = toolkit_emulators.get_pointing_device()
         super(BrowserTestCaseBase, self).setUp()
-        self.addCleanup(self.cleanup)
         if os.path.exists(self.local_location):
             self.launch_test_local()
         else:
             self.launch_test_installed()
         self.main_window.visible.wait_for(True)
-
-    def cleanup(self):
-        for page in self._temp_pages:
-            try:
-                os.remove(page)
-            except:
-                pass
-        self._temp_pages = []
 
     def launch_test_local(self):
         self.app = self.launch_test_application(
@@ -86,22 +76,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
     @property
     def main_window(self):
         return self.app.select_single(Browser)
-
-    def make_raw_html_page(self, html):
-        fd, path = tempfile.mkstemp(suffix=".html", text=True)
-        os.write(fd, html)
-        os.close(fd)
-        self._temp_pages.append(path)
-        return "file://" + path
-
-    def make_html_page(self, title, body):
-        """
-        Write a web page using title and body onto a temporary file,
-        and return the corresponding local "file://…" URL. The file
-        is automatically deleted after running the calling test method.
-        """
-        html = "<html><title>%s</title><body>%s</body></html>" % (title, body)
-        return self.make_raw_html_page(html)
 
     def assert_osk_eventually_shown(self):
         if model() != 'Desktop':
@@ -181,22 +155,9 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.main_window.open_toolbar().click_button("activityButton")
         self.main_window.get_activity_view()
 
-
-class StartOpenLocalPageTestCaseBase(BrowserTestCaseBase):
-
-    """Helper test class that opens the browser at a local URL instead of
-    defaulting to the homepage."""
-
-    def setUp(self):
-        title = "start page"
-        body = "<p>Lorem ipsum dolor sit amet.</p>"
-        self.url = self.make_html_page(title, body)
-        self.ARGS = [self.url]
-        super(StartOpenLocalPageTestCaseBase, self).setUp()
-        self.assert_home_page_eventually_loaded()
-
-    def assert_home_page_eventually_loaded(self):
-        self.assert_page_eventually_loaded(self.url)
+    def ping_server(self):
+        ping = urllib2.urlopen(self.base_url + "/ping")
+        self.assertThat(ping.read(), Equals("pong"))
 
 
 class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
@@ -216,6 +177,7 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
         self.server.start()
         self.addCleanup(self.server.shutdown)
         self.base_url = "http://localhost:%d" % self.server.port
+        self.ping_server()
         self.url = self.base_url + "/loremipsum"
         self.ARGS = [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()

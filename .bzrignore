@@ -8,14 +8,16 @@ Makefile
 install_manifest.txt
 CTestTestfile.cmake
 Testing/
+*.ninja*
 
 *.moc
 moc_*.cpp
 *_automoc.cpp
 src/app/config.h
-src/app/webbrowser-app
-src/app/webbrowser-app.desktop
-src/app/webbrowser-app.desktop.in
+src/app/webcontainer/webapp-container
+src/app/webbrowser/webbrowser-app
+src/app/webbrowser/webbrowser-app.desktop
+src/app/webbrowser/webbrowser-app.desktop.in
 RE:tests/unittests/.+/tst_\w+Tests$
 tests/unittests/qml/undertest
 po/*.gmo
@@ -25,6 +27,7 @@ debian/files
 debian/tmp/
 debian/qtdeclarative5-ubuntu-ui-extras-browser-plugin/
 debian/qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets/
+debian/webapp-container/
 debian/webbrowser-app/
 debian/webbrowser-app-autopilot/
 debian/*.debhelper

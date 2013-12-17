@@ -16,35 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBBROWSER_APP_H__
-#define __WEBBROWSER_APP_H__
+import Ubuntu.Components 0.1
 
-#include <QtWidgets/QApplication>
-
-class QQmlComponent;
-class QQmlEngine;
-class QQuickWindow;
-class WebBrowserWindow;
-
-class CommandLineParser;
-
-class WebBrowserApp : public QApplication
-{
-    Q_OBJECT
-
-public:
-    WebBrowserApp(int& argc, char** argv);
-    ~WebBrowserApp();
-
-    bool initialize();
-    int run();
-
-private:
-    CommandLineParser* m_arguments;
-    QQmlEngine* m_engine;
-    QQmlComponent* m_component;
-    QQuickWindow* m_window;
-    WebBrowserWindow *m_webbrowserWindowProxy;
-};
-
-#endif // __WEBBROWSER_APP_H__
+Action {
+    text: i18n.tr("Copy link")
+}

@@ -1,5 +1,4 @@
 add_subdirectory(qml)
-add_subdirectory(commandline-parser)
 add_subdirectory(domain-utils)
 add_subdirectory(history-model)
 add_subdirectory(history-matches-model)

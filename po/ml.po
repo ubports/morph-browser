@@ -1,0 +1,289 @@
+# Malayalam translation for webbrowser-app
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-11-13 09:10+0100\n"
+"PO-Revision-Date: 2013-11-22 04:38+0000\n"
+"Last-Translator: STyM Alfazz <Unknown>\n"
+"Language-Team: Malayalam <ml@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-12-06 06:25+0000\n"
+"X-Generator: Launchpad (build 16863)\n"
+
+#: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
+msgid "Activity"
+msgstr "പ്രവർത്തനം"
+
+#: src/app/ActivityView.qml:54
+msgid "Bookmarks"
+msgstr "സൂചിതസ്ഥാനങ്ങള്‍"
+
+#: src/app/AlertDialog.qml:24
+msgid "JavaScript Alert"
+msgstr "ജാവാസ്ക്രിപ്റ്റ് ജാഗ്രത"
+
+#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
+msgid "OK"
+msgstr "ശരി"
+
+#: src/app/AuthenticationDialog.qml:24
+msgid "Authentication required."
+msgstr "ആധികാരികത ആവശ്യമാണ്."
+
+#. TRANSLATORS: %1 refers to the URL of the current website
+#: src/app/AuthenticationDialog.qml:26
+#, qt-format
+msgid "The website %1 requires authentication."
+msgstr "%1 എന്ന വെബ്സൈറ്റിന്  ആധികാരികത ആവശ്യമാണ്."
+
+#: src/app/AuthenticationDialog.qml:34
+msgid "Username"
+msgstr "ഉപയോക്തൃനാമം"
+
+#: src/app/AuthenticationDialog.qml:41
+msgid "Password"
+msgstr "രഹസ്യവാക്ക്"
+
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
+#: src/app/PromptDialog.qml:40
+msgid "Cancel"
+msgstr "റദ്ദാക്കുക"
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "ഈ ബന്ധം വിശ്വാസയോഗ്യമല്ല"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+
+#: src/app/CertificateVerificationDialog.qml:29
+msgid "Proceed anyway"
+msgstr "എങ്ങനെയാണെങ്കിലും മുന്നോട്ട് പോകുക"
+
+#: src/app/CertificateVerificationDialog.qml:35
+msgid "Back to safety"
+msgstr "സുരക്ഷയിലേക്ക് തിരികെ"
+
+#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "പിന്നോട്ട്"
+
+#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "മുമ്പോട്ട്"
+
+#: src/app/ConfirmDialog.qml:24
+msgid "JavaScript Confirmation"
+msgstr "ജാവാസ്ക്രിപ്റ്റ് സ്ഥിരീകരണം"
+
+#: src/app/ErrorSheet.qml:38
+msgid "Network Error"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/app/ErrorSheet.qml:44
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr ""
+
+#: src/app/ErrorSheet.qml:50
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr ""
+
+#: src/app/ErrorSheet.qml:55
+msgid "Refresh page"
+msgstr ""
+
+#: src/app/PermissionRequest.qml:28
+msgid "Permission Request"
+msgstr ""
+
+#: src/app/PermissionRequest.qml:31
+msgid "Deny"
+msgstr "നിഷേധിക്കുക"
+
+#: src/app/PermissionRequest.qml:40
+msgid "Allow"
+msgstr "അനുവദിക്കുക"
+
+#: src/app/PromptDialog.qml:24
+msgid "JavaScript Prompt"
+msgstr ""
+
+#: src/app/ProxyAuthenticationDialog.qml:22
+msgid "Proxy authentication required."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
+#: src/app/ProxyAuthenticationDialog.qml:24
+#, qt-format
+msgid "The website %1:%2 requires authentication."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/app/TabsList.qml:37
+#, qt-format
+msgid "Currently viewing (%1)"
+msgstr ""
+
+#: src/app/TabsList.qml:68
+msgid "+"
+msgstr "+"
+
+#: src/app/TimelineView.qml:83
+msgid "Today"
+msgstr "ഇന്ന്"
+
+#: src/app/TimelineView.qml:85
+msgid "Yesterday"
+msgstr "ഇന്നലെ"
+
+#: src/app/TimelineView.qml:87
+msgid "Last 7 Days"
+msgstr "അവസാന 7 ദിവസങ്ങള്‍"
+
+#: src/app/TimelineView.qml:89
+msgid "This Month"
+msgstr "ഈ മാസം"
+
+#: src/app/TimelineView.qml:91
+msgid "This Year"
+msgstr "ഈ വര്‍ഷം"
+
+#: src/app/TimelineView.qml:93
+msgid "Older"
+msgstr "പഴയവ"
+
+#: src/app/TimelineView.qml:276
+msgid "(local files)"
+msgstr "(പ്രാദേശിക രേഖകള്‍)"
+
+#: src/app/TimelineView.qml:278
+msgid "(other)"
+msgstr "(മറ്റുള്ളവ)"
+
+#: src/app/WebViewImpl.qml:52
+msgid "This page wants to know your device’s location."
+msgstr ""
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Back.qml:26
+msgid "Older Page"
+msgstr "പഴയ താള്‍"
+
+#: src/app/actions/Bookmark.qml:23
+msgid "Bookmark"
+msgstr "സൂചിതസ്ഥാനം"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Bookmark.qml:26
+msgid "Add This Page to Bookmarks"
+msgstr "ഈ താള്‍ സൂചിതാസ്ഥാനങ്ങളിലേക്ക് ചേര്‍ക്കുക"
+
+#: src/app/actions/BookmarkLink.qml:22
+msgid "Bookmark link"
+msgstr "സൂചിതാസ്ഥാനകണ്ണി"
+
+#: src/app/actions/ClearHistory.qml:23
+msgid "Clear History"
+msgstr "ചരിത്രം മായ്ക്കുക"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/ClearHistory.qml:26
+msgid "Clear Navigation History"
+msgstr ""
+
+#: src/app/actions/Copy.qml:22
+msgid "Copy"
+msgstr "പകര്‍ത്തുക"
+
+#: src/app/actions/CopyImage.qml:22
+msgid "Copy image"
+msgstr "ചിത്രം പകര്‍ത്തുക"
+
+#: src/app/actions/CopyLink.qml:22
+msgid "Copy link"
+msgstr "കണ്ണി പകര്‍ത്തുക"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Forward.qml:26
+msgid "Newer Page"
+msgstr "പുതിയ താള്‍"
+
+#: src/app/actions/GoTo.qml:23
+msgid "Goto"
+msgstr ""
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/GoTo.qml:26
+msgid "Address;URL;www"
+msgstr ""
+
+#: src/app/actions/NewTab.qml:23
+msgid "New Tab"
+msgstr "പുതിയ ടാബ്"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/NewTab.qml:26
+msgid "Open a New Tab"
+msgstr "പുതിയൊരു ടാബ് തുറക്കുക"
+
+#: src/app/actions/OpenImageInNewTab.qml:22
+msgid "Open image in new tab"
+msgstr "ചിത്രം പുതിയ ടാബില്‍ തുറക്കുക"
+
+#: src/app/actions/OpenLinkInNewTab.qml:22
+msgid "Open link in new tab"
+msgstr "കണ്ണി പുതിയ ടാബില്‍ തുറക്കുക"
+
+#: src/app/actions/Reload.qml:23
+msgid "Reload"
+msgstr "പുനഃശേഖരിക്കുക"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Reload.qml:26
+msgid "Leave Page"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - ഉബുണ്ടു വെബ് ദര്‍ശിനി"
+
+#: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
+msgid "Ubuntu Web Browser"
+msgstr "ഉബുണ്ടു വെബ് ദര്‍ശിനി"
+
+#: src/app/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "ബ്രൗസര്‍"
+
+#: src/app/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "വെബ് ബ്രൗസര്‍"
+
+#: src/app/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr ""

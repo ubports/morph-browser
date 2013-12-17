@@ -18,7 +18,7 @@
 
 .pragma library
 
-// B2G’s list of overrides: https://github.com/mozilla-b2g/gaia/blob/master/build/ua-override-prefs.js
+// B2G’s list of overrides: https://hg.mozilla.org/mozilla-central/raw-file/tip/b2g/app/ua-update.json.in
 
 // List of user agent string overrides in the form of an object.
 // Each key is a domain name for which the default user agent string doesn’t
@@ -57,7 +57,7 @@ var overrides = {
     "google.com.au": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
     "google.pl": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
 
-    "m.youtube.com": [/Mobile\) WebKit\/[.0-9]*/, "Android 4.3) AppleWebKit Mobile Safari"],
+    "youtube.com": [/Mobile\) WebKit\/([.0-9]*)/, "Linux) WebKit/$1 (like Android 4.3) Ubuntu Mobile"],
 
     "twitter.com": ["Mobile)", "Mobile) Firefox"],
 
@@ -109,4 +109,7 @@ var overrides = {
     "akamaihd.net": [/Mobile\) WebKit\/([.0-9]*)/, "Linux) WebKit/$1 (like Android 4.3) AppleWebKit/$1 Ubuntu Mobile"],
 
     "nytimes.com": ["Mobile", "Android; Mobile Safari"],
+
+    // http://pad.lv/1223937
+    "huffpost.com": ["Mobile)", "Mobile) Firefox"],
 };

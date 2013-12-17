@@ -7,6 +7,7 @@
 # by the Free Software Foundation.
 
 import errno
+import logging
 import os
 import socket
 import threading
@@ -16,6 +17,8 @@ try:
     import http.server as http
 except ImportError:
     import BaseHTTPServer as http
+
+logger = logging.getLogger(__name__)
 
 
 class HTTPRequestHandler(http.BaseHTTPRequestHandler):
@@ -33,7 +36,12 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
         self.wfile.write(html)
 
     def do_GET(self):
-        if self.path == "/loremipsum":
+        if self.path == "/ping":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.end_headers()
+            self.wfile.write("pong")
+        elif self.path == "/loremipsum":
             self.send_response(200)
             title = "Lorem Ipsum"
             body = "<p>Lorem ipsum dolor sit amet.</p>"
@@ -52,6 +60,16 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             body = "<p>this page took %d seconds to load</p>" % delay
             html = self.make_html(title, body)
             time.sleep(delay)
+            self.send_html(html)
+        elif self.path.startswith("/clickanywherethenwait/"):
+            # craft a page that accepts clicks anywhere inside its window
+            # and that redirects to a page that takes some time to load
+            delay = int(self.path[23:])
+            self.send_response(200)
+            html = '<html><body style="margin: 0">'
+            html += '<a href="/wait/%d">' % delay
+            html += '<div style="height: 100%"></div></a>'
+            html += '</body></html>'
             self.send_html(html)
         elif self.path == "/blanktargetlink":
             # craft a page that accepts clicks anywhere inside its window
@@ -74,6 +92,12 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
         else:
             self.send_error(404)
 
+    def log_message(self, format, *args):
+        logger.info(format % args)
+
+    def log_error(self, format, *args):
+        logger.error(format % args)
+
 
 class HTTPServerInAThread(threading.Thread):
 
@@ -90,10 +114,10 @@ class HTTPServerInAThread(threading.Thread):
                 self.server = http.HTTPServer(("", port), HTTPRequestHandler)
             except socket.error as error:
                 if (error.errno == errno.EADDRINUSE):
-                    print("Port {} is already in use".format(port))
+                    logging.error("Port {} is already in use".format(port))
                     port += 1
                 else:
-                    print(os.strerror(error.errno))
+                    logging.error(os.strerror(error.errno))
                     raise
         self.server.allow_reuse_address = True
 
@@ -102,7 +126,7 @@ class HTTPServerInAThread(threading.Thread):
         return self.server.server_port
 
     def run(self):
-        print("now serving on port {}".format(self.port))
+        logging.info("now serving on port {}".format(self.port))
         self.server.serve_forever()
 
     def shutdown(self):

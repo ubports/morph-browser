@@ -17,8 +17,6 @@
  */
 
 // Qt
-#include <QtCore/QMetaObject>
-#include <QtCore/QDir>
 #include <QtNetwork/QNetworkInterface>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
@@ -26,52 +24,62 @@
 #include <QtQuick/QQuickWindow>
 
 // local
+#include "browserapplication.h"
 #include "config.h"
-#include "commandline-parser.h"
-#include "settings.h"
-#include "webbrowser-app.h"
 #include "webbrowser-window.h"
 
-WebBrowserApp::WebBrowserApp(int& argc, char** argv)
+BrowserApplication::BrowserApplication(int& argc, char** argv)
     : QApplication(argc, argv)
-    , m_arguments(0)
     , m_engine(0)
     , m_component(0)
     , m_window(0)
     , m_webbrowserWindowProxy(0)
 {
+    m_arguments = arguments();
+    m_arguments.removeFirst();
 }
 
-WebBrowserApp::~WebBrowserApp()
+BrowserApplication::~BrowserApplication()
 {
     delete m_component;
     delete m_engine;
     delete m_webbrowserWindowProxy;
 }
 
-bool WebBrowserApp::initialize()
+QString BrowserApplication::appId() const
+{
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument.startsWith("--app-id=")) {
+            return argument.split("--app-id=")[1];
+        }
+    }
+    return QString();
+}
+
+bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 {
     Q_ASSERT(m_window == 0);
 
-    m_arguments = new CommandLineParser(arguments(), this);
-    if (m_arguments->help()) {
-        m_arguments->printUsage();
+    if (m_arguments.contains("--help") || m_arguments.contains("-h")) {
+        printUsage();
         return false;
     }
 
     // Handle legacy platforms (i.e. current desktop versions, where
     // applications are not started by the Ubuntu ApplicationManager).
     if (qgetenv("APP_ID").isEmpty()) {
-        QString appId = m_arguments->appId().isEmpty() ? QString(APP_ID) : m_arguments->appId();
-        qputenv("APP_ID", appId.toUtf8());
+        QString id = appId();
+        if (id.isEmpty()) {
+            id = QString(APP_ID);
+        }
+        qputenv("APP_ID", id.toUtf8());
     }
     // Ensure that application-specific data is written where it ought to.
     QString appPkgName = qgetenv("APP_ID").split('_').first();
     QCoreApplication::setApplicationName(appPkgName);
 
-    Settings settings;
-
-    if (m_arguments->remoteInspector()) {
+    bool inspector = m_arguments.contains("--inspector");
+    if (inspector) {
         QString host;
         Q_FOREACH(QHostAddress address, QNetworkInterface::allAddresses()) {
             if (!address.isLoopback() && (address.protocol() == QAbstractSocket::IPv4Protocol)) {
@@ -95,7 +103,7 @@ bool WebBrowserApp::initialize()
     }
     QQmlContext* context = m_engine->rootContext();
     m_component = new QQmlComponent(m_engine);
-    m_component->loadUrl(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/webbrowser-app.qml"));
+    m_component->loadUrl(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/" + qmlFileSubPath));
     if (!m_component->isReady()) {
         qWarning() << m_component->errorString();
         return false;
@@ -107,77 +115,35 @@ bool WebBrowserApp::initialize()
     m_window = qobject_cast<QQuickWindow*>(browser);
     m_webbrowserWindowProxy->setWindow(m_window);
 
-    browser->setProperty("chromeless", m_arguments->chromeless());
-    browser->setProperty("developerExtrasEnabled", m_arguments->remoteInspector());
-
-    QString webappModelSearchPath = m_arguments->webappModelSearchPath();
-    if (! webappModelSearchPath.isEmpty())
-    {
-        QDir webappModelSearchDir(webappModelSearchPath);
-
-        // makeAbsolute is idempotent
-        webappModelSearchDir.makeAbsolute();
-        if (webappModelSearchDir.exists())
-        {
-            browser->setProperty("webappModelSearchPath", webappModelSearchDir.path());
-        }
-    }
-    browser->setProperty("webapp", m_arguments->webapp());
-    browser->setProperty("webappName", m_arguments->webappName());
-
-    if ( ! m_arguments->webapp())
-    {
-        browser->setProperty("enableUriHandling", true);
-    }
-
-    CommandLineParser::ChromeElementFlags chromeFlags = m_arguments->chromeFlags();
-    if (chromeFlags != 0)
-    {
-        bool backForwardButtonsVisible = (chromeFlags & CommandLineParser::BACK_FORWARD_BUTTONS);
-        bool addressBarVisible = (chromeFlags & CommandLineParser::ADDRESS_BAR);
-        bool activityButtonVisible = (chromeFlags & CommandLineParser::ACTIVITY_BUTTON);
-
-        browser->setProperty("backForwardButtonsVisible", backForwardButtonsVisible);
-        browser->setProperty("addressBarVisible", addressBarVisible);
-        browser->setProperty("activityButtonVisible", activityButtonVisible);
-    }
-
-    QStringList urlPatterns = m_arguments->webappUrlPatterns();
-    if ( ! urlPatterns.isEmpty())
-    {
-        for (int i = 0; i < urlPatterns.count(); ++i)
-        {
-            urlPatterns[i].replace("*", "[^ ]*");
-        }
-        browser->setProperty("webappUrlPatterns", urlPatterns);
-    }
-
-    // When a webapp is being launched (by name), the url is pulled from its 'homepage'.
-    QUrl url;
-    if (m_arguments->webappName().isEmpty()) {
-        url = m_arguments->url();
-        if (url.isEmpty()) {
-            url = settings.homepage();
-        }
-    }
-
-    QMetaObject::invokeMethod(browser, "newTab",
-                              Q_ARG(QVariant, url),
-                              Q_ARG(QVariant, true));
+    browser->setProperty("developerExtrasEnabled", inspector);
 
     return true;
 }
 
-int WebBrowserApp::run()
+int BrowserApplication::run()
 {
     Q_ASSERT(m_window != 0);
 
-    if (m_arguments->fullscreen()) {
+    if (m_arguments.contains("--fullscreen")) {
         m_window->showFullScreen();
-    } else if (m_arguments->maximized()) {
+    } else if (m_arguments.contains("--maximized")) {
         m_window->showMaximized();
     } else {
         m_window->show();
     }
     return exec();
+}
+
+QList<QUrl> BrowserApplication::urls() const
+{
+    QList<QUrl> urls;
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (!argument.startsWith("-")) {
+            QUrl url = QUrl::fromUserInput(argument);
+            if (url.isValid()) {
+                urls.append(url);
+            }
+        }
+    }
+    return urls;
 }
