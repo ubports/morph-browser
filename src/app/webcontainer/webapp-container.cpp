@@ -19,6 +19,10 @@
 #include "config.h"
 #include "webapp-container.h"
 
+#include "sqlitecookiestore.h"
+#include "onlineaccountscookiestore.h"
+
+
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
@@ -26,6 +30,9 @@
 #include <QtCore/QRegularExpression>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
+#include <QtQml/QQmlEngine>
+#include <QtQml>
+
 
 WebappContainer::WebappContainer(int& argc, char** argv)
     : BrowserApplication(argc, argv)
@@ -57,17 +64,37 @@ bool WebappContainer::initialize()
                 m_window->setProperty("url", urls.first());
             }
         }
+
         return true;
     } else {
         return false;
     }
 }
 
+void WebappContainer::qmlEngineCreated(QQmlEngine * engine)
+{
+    registerCookieQmlTypes(engine);
+}
+
+bool WebappContainer::registerCookieQmlTypes(QQmlEngine * engine)
+{
+    if (engine)
+    {
+        qmlRegisterType<SqliteCookieStore>("Ubuntu.WebContainer.Components", 1, 0, "SqliteCookieStore");
+        qmlRegisterType<OnlineAccountsCookieStore>("Ubuntu.WebContainer.Components", 1, 0, "OnlineAccountsCookieStore");
+        return true;
+    }
+    return false;
+}
+
 void WebappContainer::printUsage() const
 {
     QTextStream out(stdout);
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
-    out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector] [--app-id=APP_ID] [--homepage=URL] [--webapp[=name]] [--webappModelSearchPath=PATH] [--webappUrlPatterns=URL_PATTERNS] [--enable-back-forward] [--enable-addressbar] [URL]" << endl;
+    out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector] "
+                                   "[--app-id=APP_ID] [--homepage=URL] [--webapp[=name]] "
+                                   "[--webappModelSearchPath=PATH] [--webappUrlPatterns=URL_PATTERNS] "
+                                   "[--enable-back-forward] [--enable-addressbar] [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help                          display this help message and exit" << endl;
     out << "  --fullscreen                        display full screen" << endl;
@@ -97,9 +124,11 @@ QString WebappContainer::webappModelSearchPath() const
 QString WebappContainer::accountProvider() const
 {
     QString accountProvider;
+    qDebug() << "accountProvider " << accountProvider;
     Q_FOREACH(const QString& argument, m_arguments) {
         if (argument.startsWith("--accountProvider=")) {
             accountProvider = argument.split("--accountProvider=")[1];
+            qDebug() << accountProvider;
             break;
         }
     }

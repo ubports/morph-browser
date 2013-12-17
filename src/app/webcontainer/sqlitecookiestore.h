@@ -16,32 +16,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.OnlineAccounts 0.1
-import Ubuntu.OnlineAccounts.Client 0.1
+#ifndef SQLITECOOKIESTORE_H
+#define SQLITECOOKIESTORE_H
 
-Item {
-    id: root
-    property string accountProvider: ""
-    property string applicationName: ""
-
-    /*!
-
-     */
-    readonly property alias model: accountsModel
-
-    AccountServiceModel {
-        id: accountsModel
-        includeDisabled: false
-        serviceType: "webapps"
-        provider: root.accountProvider
-    }
-
-    Setup {
-        id: setup
-        providerId: root.accountProvider
-        applicationId: root.applicationName
-    }
-}
+#include "cookiestore.h"
+#include <QString>
 
 
+class SqliteCookieStore : public CookieStore
+{
+    Q_OBJECT
+    Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
+
+
+public:
+    SqliteCookieStore(QObject *parent = 0);
+
+    void setDbPath (const QString & path);
+    QString dbPath () const;
+
+
+Q_SIGNALS:
+
+    void dbPathChanged();
+
+
+private:
+
+    virtual Cookies doGetCookies() const;
+    virtual void doSetCookies(Cookies);
+
+    QString getFullDbPathName();
+
+
+private:
+    QString m_dbPath;
+};
+
+#endif // SQLITECOOKIESTORE_H

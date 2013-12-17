@@ -19,10 +19,13 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.WebContainer.Components 0.1
 
 import ".."
 
 Window {
+    id: root
+
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
     property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
@@ -58,6 +61,7 @@ Window {
             id: webappPage
 
             visible: false
+            anchors.fill: parent
 
             WebApp {
                 id: browser
@@ -77,24 +81,53 @@ Window {
             id: accountsPage
 
             visible: false
+            anchors.fill: parent
 
-            AccountsLogin {
+            AccountsLoginPage {
                 id: accountsLogin
 
                 anchors.fill: parent
 
-                accountProvider: accountProvider
+                accountProvider: root.accountProvider
                 applicationName: applicationName
+
+                QtObject {
+                    id: internal
+                    function onMoved (result) {
+                        webappCookieStore.moved.disconnect(internal.onMoved)
+                        if (! result) {
+                            console.log("Unable to move cookies")
+                        }
+                        advanceToWebappStep();
+                    }
+                }
+
                 onDone: {
-                    console.log(credentialId)
-                    advanceToWebappStep();
+                    if ( ! credentialsId) {
+                        advanceToWebappStep();
+                    }
+                    var instance = onlineAccountStoreComponent.createObject(accountsLogin, {accountId: credentialsId});
+
+                    webappCookieStore.moved.connect(internal.onMoved)
+                    webappCookieStore.moveFrom(instance);
                 }
             }
         }
     }
 
-    Component.onCompleted: {
+    SqliteCookieStore {
+        id: webappCookieStore
+        dbPath: ".local/share/" + applicationName + "/.QtWebKit/cookies.db"
+    }
+
+    Component {
+        id: onlineAccountStoreComponent
+        OnlineAccountsCookieStore { }
+    }
+
+    onAccountProviderChanged: {
         if (accountProvider.length !== 0) {
+            accountsLogin.accountProvider = accountProvider
             stack.push(accountsPage);
         }
         else {
@@ -107,8 +140,8 @@ Window {
         //  (e.g. --webapp=facebook), the webview is automagically
         //  set up to browse to the 'homepage' param specified in the
         //  webapp manifest.json file so it doesn't need to be set.
-        if (webappPage.url && webappPage.url.length === 0)
-            webappPage.url = url;
-        stack.push(webappPage)
+        if (url && url.length !== 0)
+            browser.url = url;
+        stack.push(webappPage);
     }
 }

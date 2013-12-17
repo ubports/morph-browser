@@ -20,31 +20,14 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 
-Item {
+ListItem.Standard {
     id: root
 
     property string accountName
 
-    signal clicked()
+    text: accountName
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: pageDelegate.clicked()
-    }
-
-    Row {
-        anchors.fill: parent
-        spacing: units.gu(1)
-
-        Label {
-            id: label
-            text: accountName
-            fontSize: "small"
-            wrapMode: Text.Wrap
-            elide: Text.ElideRight
-            maximumLineCount: 2
-        }
-    }
+    iconSource: Qt.resolvedUrl("/usr/share/icons/ubuntu-mobile/actions/scalable/contact.svg")
 }
 
 

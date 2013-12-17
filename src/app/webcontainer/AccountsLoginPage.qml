@@ -27,7 +27,7 @@ Item {
     property string accountProvider: ""
     property string applicationName: ""
 
-    signal done(string credentialId)
+    signal done(variant credentialId)
 
     AccountsModel {
         id: accountsModel
@@ -45,30 +45,43 @@ Item {
         }
     }
 
+    Rectangle {
+        anchors.fill: parent
+        color: "#EEEEEE"
+    }
+
     Loader {
         id: accountsSelectionViewLoader
-        sourceComponent: accountsModel.model.count === 0 ? undefined : accountsSelectionViewComponent
+        anchors.fill: parent
+        sourceComponent: accountsModel.model.count !== 0 && accountProvider.length !== 0 ? accountsSelectionViewComponent: undefined
+    }
 
-        Component {
-            id: accountsSelectionViewComponent
-            AccountsView {
-                model: accountsModel
-                onClicked: {
-                    account.objectHandle = accountServiceHandle;
-                    account.authenticate(null);
-                }
+    Component {
+        id: accountsSelectionViewComponent
+        AccountsView {
+            model: accountsModel.model
+
+            function accountItemDataRequestedDelegate(accountServiceHandle) {
+                var instance = accountComponent.createObject(root, {objectHandle: accountServiceHandle});
+                return instance;
+            }
+
+            onAccountSelected: {
+                var account = accountServiceHandle;
+                account.authenticated.connect(function () {
+                    done(account.authData.credentialsId);
+                });
+                account.authenticationError.connect(function () {
+                    done(null);
+                });
+                account.authenticate(null);
             }
         }
     }
 
-    AccountService {
-        id: account
-        onAuthenticated: {
-            done(authData.credentialsId);
-        }
-        onAuthenticationError: {
-            done(null);
-        }
+    Component {
+        id: accountComponent
+        AccountService { }
     }
 }
 

@@ -25,24 +25,34 @@ Item {
 
     property var model
 
-    signal clicked(QtObject accountServiceHandle)
+    function accountItemDataRequestedDelegate (accountServiceHandle) { }
+
+    signal accountSelected(QtObject accountServiceHandle)
 
     ListView {
         id: accounts
 
         anchors.fill: parent
+
         model: root.model
 
-        delegate: AccountItemView {
+        header: ListItem.Header { text: i18n.tr("Accounts") }
 
-            accountName: model.displayName
+        delegate: AccountItemView {
+            id: account
+
             visible: enabled
-            height: units.gu(15)
-            width: units.gu(12)
+            property var __accountViewData: null
+
+            accountName: __accountViewData ? __accountViewData.displayName : "(unknown)"
+
             onClicked: {
-                clicked(accountServiceHandle)
+                root.accountSelected(__accountViewData)
             }
-            Component.onCompleted: console.log(model)
+
+            Component.onCompleted: {
+                 __accountViewData = accountItemDataRequestedDelegate(accountServiceHandle);
+            }
         }
     }
 }

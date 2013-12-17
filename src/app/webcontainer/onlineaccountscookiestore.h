@@ -16,34 +16,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBAPP_CONTAINER_H__
-#define __WEBAPP_CONTAINER_H__
+#ifndef ONLINEACCOUNTSCOOKIESTORE_H
+#define ONLINEACCOUNTSCOOKIESTORE_H
 
-#include "../browserapplication.h"
+#include "cookiestore.h"
 
-// Qt
-#include <QString>
-#include <QStringList>
+class OnlineAccountsCookieStorePrivate;
 
-class WebappContainer : public BrowserApplication
+class OnlineAccountsCookieStore : public CookieStore
 {
     Q_OBJECT
+    Q_PROPERTY(quint32 accountId READ accountId WRITE setAccountId NOTIFY accountIdChanged)
+
 
 public:
-    WebappContainer(int& argc, char** argv);
+    OnlineAccountsCookieStore(QObject *parent = 0);
+    ~OnlineAccountsCookieStore();
 
-    bool initialize();
+    quint32 accountId () const;
+    void setAccountId (quint32);
 
-protected:
-    void qmlEngineCreated(QQmlEngine *);
+
+Q_SIGNALS:
+
+    void accountIdChanged();
+
 
 private:
-    virtual void printUsage() const;
-    QString webappModelSearchPath() const;
-    QString webappName() const;
-    QStringList webappUrlPatterns() const;
-    QString accountProvider() const;
-    bool registerCookieQmlTypes(QQmlEngine * engine);
+
+    virtual Cookies doGetCookies() const;
+    virtual void doSetCookies(Cookies);
+
+
+private:
+
+    OnlineAccountsCookieStorePrivate * d_ptr;
+    Q_DECLARE_PRIVATE(OnlineAccountsCookieStore)
 };
 
-#endif // __WEBAPP_CONTAINER_H__
+#endif // ONLINEACCOUNTSCOOKIESTORE_H
