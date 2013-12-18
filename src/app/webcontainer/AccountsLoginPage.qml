@@ -51,6 +51,8 @@ Item {
         Item {
             id: addAccountView
 
+            visible: accountsModel.model.count === 0 && accountProvider.length !== 0
+
             Label {
                 id: label
                 anchors.centerIn: parent
@@ -90,7 +92,6 @@ Item {
                     bottom: parent.bottom
                 }
 
-                opened: true
                 locked: true
 
                 height: units.gu(8)
@@ -123,6 +124,8 @@ Item {
                         }
                     }
                 }
+
+                Component.onCompleted: panel.open()
             }
         }
     }
@@ -135,7 +138,11 @@ Item {
     Component {
         id: accountsSelectionViewComponent
         AccountsView {
+            id: accountsView
+
             model: accountsModel.model
+
+            visible: accountsModel.model.count !== 0 && accountProvider.length !== 0
 
             function accountItemDataRequestedDelegate(accountServiceHandle) {
                 var instance = accountComponent.createObject(root, {objectHandle: accountServiceHandle});

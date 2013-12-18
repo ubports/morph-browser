@@ -29,6 +29,8 @@ Item {
         setup.exec();
     }
 
+    signal countChanged();
+
     /*!
 
      */
@@ -39,6 +41,7 @@ Item {
         includeDisabled: false
         serviceType: "webapps"
         provider: root.accountProvider
+        onCountChanged: root.countChanged()
     }
 
     Setup {
