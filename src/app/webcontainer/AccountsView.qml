@@ -36,15 +36,25 @@ Item {
 
         model: root.model
 
-        header: ListItem.Header { text: i18n.tr("Accounts") }
+        header: ListItem.Header {
+            text: i18n.tr("Select an account");
+        }
 
         delegate: AccountItemView {
             id: account
 
-            visible: enabled
+            function __getAccountInfoDisplay(accountViewData) {
+                return accountViewData ?
+                    accountViewData.provider.displayName
+                            + ": "
+                            + accountViewData.displayName
+                    : i18n.tr("(unknown)");
+            }
             property var __accountViewData: null
 
-            accountName: __accountViewData ? __accountViewData.displayName : "(unknown)"
+            visible: enabled
+
+            accountName: __getAccountInfoDisplay(__accountViewData)
 
             onClicked: {
                 root.accountSelected(__accountViewData)

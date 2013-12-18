@@ -21,28 +21,19 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import Ubuntu.OnlineAccounts 0.1
 
+
 Item {
     id: root
 
     property string accountProvider: ""
     property string applicationName: ""
 
-    signal done(variant credentialId)
+    signal done(variant credentialsId)
 
     AccountsModel {
         id: accountsModel
         accountProvider: accountProvider
         applicationName: applicationName
-        Component.onCompleted: {
-            if (accountsModel.model.count === 0) {
-                if (accountProvider.length !== 0) {
-                    // TODO propose account creation
-                }
-
-                // TODO proper value
-                done(null);
-            }
-        }
     }
 
     Rectangle {
@@ -51,11 +42,96 @@ Item {
     }
 
     Loader {
+        id: accountsAdditionToolbarViewLoader
+        anchors.fill: parent
+        sourceComponent: accountsModel.model.count === 0 && accountProvider.length !== 0 ? accountsAdditionToolbarViewComponent: undefined
+    }
+    Component {
+        id: accountsAdditionToolbarViewComponent
+        Item {
+            id: addAccountView
+
+            Label {
+                id: label
+                anchors.centerIn: parent
+                text: i18n.tr("No local account found for ") + accountProvider + "."
+            }
+
+            Label {
+                id: skipLabel
+                text: i18n.tr("Skip account creation step")
+                color: UbuntuColors.orange
+                fontSize: "small"
+
+                anchors.top: label.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                Icon {
+                    anchors.left: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: units.dp(12)
+                    width: units.dp(12)
+                    name: "chevron"
+                    color: UbuntuColors.orange
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    anchors.margins: -units.gu(5)
+                    onClicked: root.done(null)
+                }
+            }
+
+            Panel {
+                id: panel
+                anchors {
+                    right: parent.right
+                    left: parent.left
+                    bottom: parent.bottom
+                }
+
+                opened: true
+                locked: true
+
+                height: units.gu(8)
+
+                Rectangle {
+                    color: Theme.palette.normal.overlay
+                    anchors.fill: parent
+                    Item {
+                        height: units.gu(8)
+                        width: units.gu(8)
+
+                        anchors {
+                            right: parent.right
+                            bottom: parent.bottom
+                        }
+
+                        ToolbarButton {
+                            action: Action {
+                                text: i18n.tr("Add account")
+                                iconSource: Qt.resolvedUrl("/usr/share/icons/ubuntu-mobile/actions/scalable/add.svg")
+                                onTriggered: {
+                                    accountsModel.createNewAccount();
+                                }
+                            }
+                        }
+
+                        signal clicked()
+                        onClicked: {
+                            accountsModel.createNewAccount();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Loader {
         id: accountsSelectionViewLoader
         anchors.fill: parent
         sourceComponent: accountsModel.model.count !== 0 && accountProvider.length !== 0 ? accountsSelectionViewComponent: undefined
     }
-
     Component {
         id: accountsSelectionViewComponent
         AccountsView {

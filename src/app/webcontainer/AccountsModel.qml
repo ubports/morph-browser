@@ -25,6 +25,10 @@ Item {
     property string accountProvider: ""
     property string applicationName: ""
 
+    function createNewAccount() {
+        setup.exec();
+    }
+
     /*!
 
      */

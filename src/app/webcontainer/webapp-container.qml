@@ -31,6 +31,7 @@ Window {
     property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
     property alias addressBarVisible: browser.addressBarVisible
 
+    property string applicationName: ""
     property string url: ""
     property alias webappName: browser.webappName
     property alias webappModelSearchPath: browser.webappModelSearchPath
@@ -94,17 +95,20 @@ Window {
                 QtObject {
                     id: internal
                     function onMoved (result) {
-                        webappCookieStore.moved.disconnect(internal.onMoved)
+                        webappCookieStore.moved.disconnect(internal.onMoved);
                         if (! result) {
-                            console.log("Unable to move cookies")
+                            console.log("Unable to move cookies");
                         }
                         advanceToWebappStep();
                     }
                 }
 
                 onDone: {
+                    if ( ! accountsPage.visible)
+                        return;
                     if ( ! credentialsId) {
                         advanceToWebappStep();
+                        return;
                     }
                     var instance = onlineAccountStoreComponent.createObject(accountsLogin, {accountId: credentialsId});
 
@@ -145,3 +149,5 @@ Window {
         stack.push(webappPage);
     }
 }
+
+

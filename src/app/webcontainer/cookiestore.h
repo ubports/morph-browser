@@ -46,7 +46,7 @@ public:
 
     QDateTime timeStamp() const;
 
-    Q_INVOKABLE void moveFrom (const CookieStore * store);
+    Q_INVOKABLE void moveFrom (CookieStore * store);
 
 Q_SIGNALS:
 

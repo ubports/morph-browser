@@ -19,6 +19,7 @@
 #include "config.h"
 #include "webapp-container.h"
 
+#include "cookiestore.h"
 #include "sqlitecookiestore.h"
 #include "onlineaccountscookiestore.h"
 
@@ -53,6 +54,7 @@ bool WebappContainer::initialize()
         }
         QString name = webappName();
         m_window->setProperty("webappName", name);
+        m_window->setProperty("applicationName", QCoreApplication::applicationName());
         m_window->setProperty("backForwardButtonsVisible", m_arguments.contains("--enable-back-forward"));
         m_window->setProperty("addressBarVisible", m_arguments.contains("--enable-addressbar"));
         m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
@@ -80,8 +82,9 @@ bool WebappContainer::registerCookieQmlTypes(QQmlEngine * engine)
 {
     if (engine)
     {
-        qmlRegisterType<SqliteCookieStore>("Ubuntu.WebContainer.Components", 1, 0, "SqliteCookieStore");
-        qmlRegisterType<OnlineAccountsCookieStore>("Ubuntu.WebContainer.Components", 1, 0, "OnlineAccountsCookieStore");
+        qmlRegisterType<CookieStore>("Ubuntu.WebContainer.Components", 0, 1, "CookieStore");
+        qmlRegisterType<SqliteCookieStore>("Ubuntu.WebContainer.Components", 0, 1, "SqliteCookieStore");
+        qmlRegisterType<OnlineAccountsCookieStore>("Ubuntu.WebContainer.Components", 0, 1, "OnlineAccountsCookieStore");
         return true;
     }
     return false;

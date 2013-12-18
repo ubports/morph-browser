@@ -31,7 +31,7 @@ QDateTime CookieStore::timeStamp() const
     return _timeStamp;
 }
 
-void CookieStore::moveFrom(const CookieStore *store)
+void CookieStore::moveFrom(CookieStore *store)
 {
     if (! store)
         return;
