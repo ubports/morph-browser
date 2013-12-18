@@ -39,15 +39,14 @@ BrowserView {
 
     actions: [
         Actions.Back {
-            enabled: backForwardButtonsVisible && currentWebview && currentWebview.canGoBack
+            enabled: backForwardButtonsVisible && currentWebview.canGoBack
             onTriggered: webview.goBack()
         },
         Actions.Forward {
-            enabled: backForwardButtonsVisible && currentWebview && currentWebview.canGoForward
+            enabled: backForwardButtonsVisible && currentWebview.canGoForward
             onTriggered: webview.goForward()
         },
         Actions.Reload {
-            enabled: currentWebview != null
             onTriggered: webview.reload()
         }
     ]
