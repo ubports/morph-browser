@@ -41,13 +41,12 @@ Item {
         includeDisabled: false
         serviceType: "webapps"
         provider: root.accountProvider
-        onCountChanged: root.countChanged()
     }
 
     Setup {
         id: setup
-        providerId: root.accountProvider
         applicationId: root.applicationName
+        providerId: root.accountProvider
     }
 }
 

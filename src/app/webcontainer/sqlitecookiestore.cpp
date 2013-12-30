@@ -40,7 +40,7 @@ void SqliteCookieStore::doSetCookies(Cookies cookies)
 
     if ( ! db.open())
     {
-        qCritical() << "Could not open cookie database: " << dbPath();
+        qCritical() << "Could not open cookie database: " << getFullDbPathName();
         Q_EMIT moved(false);
         return;
     }

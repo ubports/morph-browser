@@ -54,7 +54,6 @@ bool WebappContainer::initialize()
         }
         QString name = webappName();
         m_window->setProperty("webappName", name);
-        m_window->setProperty("applicationName", QCoreApplication::applicationName());
         m_window->setProperty("backForwardButtonsVisible", m_arguments.contains("--enable-back-forward"));
         m_window->setProperty("addressBarVisible", m_arguments.contains("--enable-addressbar"));
         m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
@@ -66,6 +65,7 @@ bool WebappContainer::initialize()
                 m_window->setProperty("url", urls.first());
             }
         }
+        m_window->setProperty("applicationName", QCoreApplication::applicationName());
 
         return true;
     } else {
@@ -127,11 +127,9 @@ QString WebappContainer::webappModelSearchPath() const
 QString WebappContainer::accountProvider() const
 {
     QString accountProvider;
-    qDebug() << "accountProvider " << accountProvider;
     Q_FOREACH(const QString& argument, m_arguments) {
         if (argument.startsWith("--accountProvider=")) {
             accountProvider = argument.split("--accountProvider=")[1];
-            qDebug() << accountProvider;
             break;
         }
     }

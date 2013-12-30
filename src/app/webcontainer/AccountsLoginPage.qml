@@ -32,8 +32,8 @@ Item {
 
     AccountsModel {
         id: accountsModel
-        accountProvider: accountProvider
-        applicationName: applicationName
+        accountProvider: root.accountProvider
+        applicationName: root.applicationName
     }
 
     Rectangle {
@@ -44,19 +44,21 @@ Item {
     Loader {
         id: accountsAdditionToolbarViewLoader
         anchors.fill: parent
-        sourceComponent: accountsModel.model.count === 0 && accountProvider.length !== 0 ? accountsAdditionToolbarViewComponent: undefined
+        sourceComponent: root.applicationName.length !== 0 &&
+                         accountsModel.model.count === 0 &&
+                         root.accountProvider.length !== 0
+                         ? accountsAdditionToolbarViewComponent: undefined
     }
     Component {
         id: accountsAdditionToolbarViewComponent
         Item {
             id: addAccountView
 
-            visible: accountsModel.model.count === 0 && accountProvider.length !== 0
-
+            visible: accountsModel.model.count === 0 && root.accountProvider.length !== 0
             Label {
                 id: label
                 anchors.centerIn: parent
-                text: i18n.tr("No local account found for ") + accountProvider + "."
+                text: i18n.tr("No local account found for ") + root.accountProvider + "."
             }
 
             Label {
@@ -127,13 +129,17 @@ Item {
 
                 Component.onCompleted: panel.open()
             }
+
         }
     }
 
     Loader {
         id: accountsSelectionViewLoader
         anchors.fill: parent
-        sourceComponent: accountsModel.model.count !== 0 && accountProvider.length !== 0 ? accountsSelectionViewComponent: undefined
+        sourceComponent: root.applicationName.length !== 0 &&
+                         accountsModel.model.count !== 0 &&
+                         root.accountProvider.length !== 0
+                         ? accountsSelectionViewComponent: undefined
     }
     Component {
         id: accountsSelectionViewComponent
@@ -142,7 +148,7 @@ Item {
 
             model: accountsModel.model
 
-            visible: accountsModel.model.count !== 0 && accountProvider.length !== 0
+            visible: accountsModel.model.count !== 0 && root.accountProvider.length !== 0
 
             function accountItemDataRequestedDelegate(accountServiceHandle) {
                 var instance = accountComponent.createObject(root, {objectHandle: accountServiceHandle});

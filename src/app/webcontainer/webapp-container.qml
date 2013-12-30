@@ -90,7 +90,7 @@ Window {
                 anchors.fill: parent
 
                 accountProvider: root.accountProvider
-                applicationName: applicationName
+                applicationName: root.applicationName
 
                 QtObject {
                     id: internal
