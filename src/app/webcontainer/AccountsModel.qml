@@ -31,9 +31,6 @@ Item {
 
     signal countChanged();
 
-    /*!
-
-     */
     readonly property alias model: accountsModel
 
     AccountServiceModel {

@@ -42,19 +42,16 @@ Item {
     }
 
     Loader {
-        id: accountsAdditionToolbarViewLoader
+        id: accountsViewLoader
         anchors.fill: parent
-        sourceComponent: root.applicationName.length !== 0 &&
-                         accountsModel.model.count === 0 &&
-                         root.accountProvider.length !== 0
-                         ? accountsAdditionToolbarViewComponent: undefined
+        sourceComponent: accountsModel.model.count === 0 ?
+                             accountsAdditionToolbarViewComponent : accountsSelectionViewComponent
     }
     Component {
         id: accountsAdditionToolbarViewComponent
         Item {
             id: addAccountView
 
-            visible: accountsModel.model.count === 0 && root.accountProvider.length !== 0
             Label {
                 id: label
                 anchors.centerIn: parent
@@ -133,22 +130,12 @@ Item {
         }
     }
 
-    Loader {
-        id: accountsSelectionViewLoader
-        anchors.fill: parent
-        sourceComponent: root.applicationName.length !== 0 &&
-                         accountsModel.model.count !== 0 &&
-                         root.accountProvider.length !== 0
-                         ? accountsSelectionViewComponent: undefined
-    }
     Component {
         id: accountsSelectionViewComponent
         AccountsView {
             id: accountsView
 
             model: accountsModel.model
-
-            visible: accountsModel.model.count !== 0 && root.accountProvider.length !== 0
 
             function accountItemDataRequestedDelegate(accountServiceHandle) {
                 var instance = accountComponent.createObject(root, {objectHandle: accountServiceHandle});

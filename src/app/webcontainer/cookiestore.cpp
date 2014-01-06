@@ -54,7 +54,6 @@ void CookieStore::moveFrom(CookieStore *store)
     if (! store)
         return;
 
-    // TODO timestamp logic
     Cookies cookies = store->cookies();
     setCookies(cookies);
 }

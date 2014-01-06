@@ -101,8 +101,6 @@ Cookies OnlineAccountsCookieStore::doGetCookies() const
 
     message.setArguments(QVariantList() << accountId());
 
-    // setMSecsSinceEpoch
-
     QDBusMessage reply = d->m_connection.call(message);
 
     if (reply.type() == QDBusMessage::ErrorMessage)
