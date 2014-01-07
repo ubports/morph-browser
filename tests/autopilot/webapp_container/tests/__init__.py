@@ -2,29 +2,34 @@
 # Copyright 2013 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
-# under the terms of the GNU Lesser General Public License version 3, as published
-# by the Free Software Foundation.
+# under the terms of the GNU Lesser General Public License version 3, as
+# published by the Free Software Foundation.
 
 """ Autopilot tests for the webapp_container package """
 
 import os
-import json
 import BaseHTTPServer
 import threading
 import subprocess
 
-from testtools.matchers import Contains, Equals, GreaterThan, NotEquals
-from autopilot.matchers import Eventually
 from autopilot.testcase import AutopilotTestCase
-from autopilot.input import Mouse, Touch, Pointer
+from autopilot.input import Mouse, Pointer
 
 from ubuntuuitoolkit import emulators as toolkit_emulators
 
-class WebappContainerTestCaseBase(AutopilotTestCase):
-    LOCAL_BROWSER_CONTAINER_PATH = "%s/%s" % (os.path.dirname(os.path.realpath(__file__)), '../../../../src/app/webcontainer/webapp-container')
-    INSTALLED_BROWSER_CONTAINER_PATH = subprocess.check_output(
+BASE_FILE_PATH = os.path.dirname(os.path.realpath(__file__))
+CONTAINER_EXEC_REL_PATH = '../../../../src/app/webcontainer/webapp-container'
+INSTALLED_BROWSER_CONTAINER_PATH_NAME = 'webapp-container'
+try:
+    INSTALLED_BROWSER_CONTAINER_PATH_NAME = subprocess.check_output(
         ['which', 'webapp-container']).strip()
+except:
+    pass
 
+
+class WebappContainerTestCaseBase(AutopilotTestCase):
+    LOCAL_BROWSER_CONTAINER_PATH_NAME = "%s/%s" % (BASE_FILE_PATH,
+                                                   CONTAINER_EXEC_REL_PATH)
     ARGS = []
 
     def setUp(self):
@@ -35,9 +40,9 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
         super(WebappContainerTestCaseBase, self).tearDown()
 
     def get_webcontainer_app_path(self):
-        if os.path.exists(self.LOCAL_BROWSER_CONTAINER_PATH):
-            return self.LOCAL_BROWSER_CONTAINER_PATH
-        return self.INSTALLED_BROWSER_CONTAINER_PATH
+        if os.path.exists(self.LOCAL_BROWSER_CONTAINER_PATH_NAME):
+            return self.LOCAL_BROWSER_CONTAINER_PATH_NAME
+        return INSTALLED_BROWSER_CONTAINER_PATH_NAME
 
     def launch_webcontainer_app(self):
         try:
@@ -62,6 +67,7 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
 
 
 HTTP_SERVER_PORT = 8383
+
 
 class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def serve_content(self, content, mime_type='text/html'):
@@ -117,6 +123,3 @@ class WebappContainerTestCaseWithLocalContentBase(WebappContainerTestCaseBase):
         self.url = self.base_url + path
         self.ARGS.append(self.url)
         self.launch_webcontainer_app()
-
-
-

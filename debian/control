@@ -98,7 +98,7 @@ Depends: ${misc:Depends},
          libqt5test5,
          ubuntu-ui-toolkit-autopilot,
          webapp-container (>= ${binary:Version}),
-Description: Webapp container autopilot tests
+Description: Ubuntu web applications container autopilot tests
  A lightweight webapps container tailored for Ubuntu, based on the Webkit
  rendering engine and using the Ubuntu UI components. This package contains autopilot
  tests for it.

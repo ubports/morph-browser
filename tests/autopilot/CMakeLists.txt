@@ -1,15 +1,7 @@
 execute_process(COMMAND python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()"
     OUTPUT_VARIABLE PYTHON_PACKAGE_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-set(WEBBROWSER_APP_AUTOPILOT_DIR webbrowser_app)
-
-install(DIRECTORY ${WEBBROWSER_APP_AUTOPILOT_DIR}
-    DESTINATION ${PYTHON_PACKAGE_DIR}
-    )
-
-set(WEBCONTAINER_AUTOPILOT_DIR webapp_container)
-
-install(DIRECTORY ${WEBCONTAINER_AUTOPILOT_DIR}
-    DESTINATION ${PYTHON_PACKAGE_DIR}
-    )
+install(DIRECTORY webbrowser_app webapp_container
+  DESTINATION ${PYTHON_PACKAGE_DIR}
+  )
 
