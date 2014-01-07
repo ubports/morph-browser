@@ -23,13 +23,14 @@ INSTALLED_BROWSER_CONTAINER_PATH_NAME = 'webapp-container'
 try:
     INSTALLED_BROWSER_CONTAINER_PATH_NAME = subprocess.check_output(
         ['which', 'webapp-container']).strip()
-except:
+except CalledProcessError:
     pass
+
+LOCAL_BROWSER_CONTAINER_PATH_NAME = "%s/%s" % (BASE_FILE_PATH,
+                                               CONTAINER_EXEC_REL_PATH)
 
 
 class WebappContainerTestCaseBase(AutopilotTestCase):
-    LOCAL_BROWSER_CONTAINER_PATH_NAME = "%s/%s" % (BASE_FILE_PATH,
-                                                   CONTAINER_EXEC_REL_PATH)
     ARGS = []
 
     def setUp(self):
@@ -40,8 +41,8 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
         super(WebappContainerTestCaseBase, self).tearDown()
 
     def get_webcontainer_app_path(self):
-        if os.path.exists(self.LOCAL_BROWSER_CONTAINER_PATH_NAME):
-            return self.LOCAL_BROWSER_CONTAINER_PATH_NAME
+        if os.path.exists(LOCAL_BROWSER_CONTAINER_PATH_NAME):
+            return LOCAL_BROWSER_CONTAINER_PATH_NAME
         return INSTALLED_BROWSER_CONTAINER_PATH_NAME
 
     def launch_webcontainer_app(self):
