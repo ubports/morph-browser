@@ -1,3 +1,9 @@
+webbrowser-app (0.23) UNRELEASED; urgency=medium
+
+  * Bump version to 0.23 in preparation for the next major release.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 08 Jan 2014 17:37:47 +0100
+
 webbrowser-app (0.22+14.04.20131107-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
