@@ -13,7 +13,6 @@ import threading
 import subprocess
 
 from autopilot.testcase import AutopilotTestCase
-from autopilot.input import Mouse, Pointer
 
 from ubuntuuitoolkit import emulators as toolkit_emulators
 
@@ -23,7 +22,7 @@ INSTALLED_BROWSER_CONTAINER_PATH_NAME = 'webapp-container'
 try:
     INSTALLED_BROWSER_CONTAINER_PATH_NAME = subprocess.check_output(
         ['which', 'webapp-container']).strip()
-except CalledProcessError:
+except subprocess.CalledProcessError:
     pass
 
 LOCAL_BROWSER_CONTAINER_PATH_NAME = "%s/%s" % (BASE_FILE_PATH,
@@ -32,13 +31,6 @@ LOCAL_BROWSER_CONTAINER_PATH_NAME = "%s/%s" % (BASE_FILE_PATH,
 
 class WebappContainerTestCaseBase(AutopilotTestCase):
     ARGS = []
-
-    def setUp(self):
-        super(WebappContainerTestCaseBase, self).setUp()
-        self.pointer = Pointer(Mouse.create())
-
-    def tearDown(self):
-        super(WebappContainerTestCaseBase, self).tearDown()
 
     def get_webcontainer_app_path(self):
         if os.path.exists(LOCAL_BROWSER_CONTAINER_PATH_NAME):

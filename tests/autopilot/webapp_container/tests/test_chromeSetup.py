@@ -15,9 +15,6 @@ from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 class WebappContainerChromeSetupTestCase(
         WebappContainerTestCaseWithLocalContentBase):
 
-    def setUp(self):
-        super(WebappContainerChromeSetupTestCase, self).setUp()
-
     def test_container_does_not_load_with_no_webapp_and_url(self):
         self.ARGS = ['--webapp']
         self.launch_webcontainer_app()
