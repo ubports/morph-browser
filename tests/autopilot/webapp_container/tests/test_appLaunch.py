@@ -16,12 +16,11 @@ class WebappContainerAppLaunchTestCase(
         WebappContainerTestCaseWithLocalContentBase):
 
     def test_container_does_not_load_with_no_webapp_name_and_url(self):
-        self.ARGS = ['--webapp']
+        self.ARGS.append('--webapp')
         self.launch_webcontainer_app()
         self.assertThat(self.get_webcontainer_proxy(), Equals(None))
 
     def test_loads_with_url(self):
-        self.ARGS = ['']
         self.launch_webcontainer_app_with_local_http_server()
         self.assertThat(self.get_webcontainer_proxy(), NotEquals(None))
         self.assertThat(self.get_webcontainer_window().url, Equals(self.url))
