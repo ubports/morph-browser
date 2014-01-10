@@ -23,10 +23,6 @@
 #include <QtQml/QQmlEngine>
 #include <QtQuick/QQuickWindow>
 
-// System
-#include <unistd.h>
-#include <stdio.h>
-
 // local
 #include "browserapplication.h"
 #include "config.h"
@@ -67,25 +63,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     if (m_arguments.contains("--help") || m_arguments.contains("-h")) {
         printUsage();
         return false;
-    }
-
-    // Re-direct webapps to the dedicated container for backward compatibility
-    // with 13.10
-    if (m_arguments.contains("--webapp")
-	|| m_arguments.contains("--webappModelSearchPath")
-	|| m_arguments.contains("--webappUrlPatterns")) {
-        char **argv = new char*[m_arguments.size() + 1];
-	for (int i = 0; i < m_arguments.size(); i++) {
-	  const char *string = m_arguments.at(i).toStdString().c_str();
-	  argv[i] = new char[strlen(string) + 1];
-	  memcpy(argv[i], string, strlen(string) + 1);
-	}
-	argv[m_arguments.size()] = ((char)NULL);
-
-	QTextStream out(stdout);
-	out << "WARNING: Deprecated options, Use the webapp-container program instead" << endl;
-
-        _exit(execvp("webapp-container", argv));
     }
 
     // Handle legacy platforms (i.e. current desktop versions, where

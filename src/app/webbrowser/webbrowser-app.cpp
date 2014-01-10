@@ -27,6 +27,11 @@
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
+#include <QDebug>
+
+// System
+#include <unistd.h>
+#include <stdio.h>
 
 WebbrowserApp::WebbrowserApp(int& argc, char** argv)
     : BrowserApplication(argc, argv)
@@ -35,6 +40,25 @@ WebbrowserApp::WebbrowserApp(int& argc, char** argv)
 
 bool WebbrowserApp::initialize()
 {
+    // Re-direct webapps to the dedicated container for backward compatibility
+    // with 13.10
+    if (m_arguments.contains("--webapp")
+        || m_arguments.contains("--webappModelSearchPath")
+        || m_arguments.contains("--webappUrlPatterns")) {
+
+        int size = m_arguments.size();
+        char **argv = new char*[size + 2];
+        argv[0] = (char *)"webapp-container";
+        for (int i = 0; i < size; ++i) {
+            argv[i+1] = m_arguments.at(i).toLocal8Bit().data();
+        }
+        argv[size] = (char) NULL;
+
+        qWarning() << "Deprecated webapp options: use the webapp-container program instead" << endl;
+
+        _exit(execvp(argv[0], argv));
+    }
+
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         m_window->setProperty("chromeless", m_arguments.contains("--chromeless"));
         QList<QUrl> urls = this->urls();
