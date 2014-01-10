@@ -22,12 +22,12 @@
 
 // Qt
 #include <QtCore/QCoreApplication>
+#include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
 #include <QtCore/QMetaObject>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
-#include <QDebug>
 
 // System
 #include <unistd.h>
@@ -42,21 +42,23 @@ bool WebbrowserApp::initialize()
 {
     // Re-direct webapps to the dedicated container for backward compatibility
     // with 13.10
-    if (m_arguments.contains("--webapp")
-        || m_arguments.contains("--webappModelSearchPath")
-        || m_arguments.contains("--webappUrlPatterns")) {
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument.startsWith("--webapp")) {
+            qWarning() << "Deprecated webapp options: use the webapp-container program instead" << endl;
 
-        int size = m_arguments.size();
-        char **argv = new char*[size + 2];
-        argv[0] = (char *)"webapp-container";
-        for (int i = 0; i < size; ++i) {
-            argv[i+1] = m_arguments.at(i).toLocal8Bit().data();
+            int size = m_arguments.size();
+            char *argv[size + 2];
+            argv[0] = (char *)"webapp-container";
+            int i = 0;
+            foreach(QString s, m_arguments) {
+                argv[i+1] = new char[s.toLocal8Bit().size()+1];
+                strcpy(argv[i+1], s.toLocal8Bit().constData());
+                i++;
+            }
+            argv[i+1] = (char) NULL;
+
+            exit(execvp(argv[0], argv));
         }
-        argv[size] = (char) NULL;
-
-        qWarning() << "Deprecated webapp options: use the webapp-container program instead" << endl;
-
-        _exit(execvp(argv[0], argv));
     }
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
