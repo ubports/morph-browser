@@ -47,15 +47,16 @@ bool WebbrowserApp::initialize()
             qWarning() << "Deprecated webapp options: use the webapp-container program instead";
 
             int size = m_arguments.size();
-            char *argv[size + 2];
-            argv[0] = (char *)"webapp-container";
+            char* argv[size + 2];
+            argv[0] = (char*) "webapp-container";
             int i = 0;
-            foreach(QString s, m_arguments) {
-                argv[i+1] = new char[s.toLocal8Bit().size()+1];
-                strcpy(argv[i+1], s.toLocal8Bit().constData());
+            Q_FOREACH(const QString& arg, m_arguments) {
+                QByteArray bytes = arg.toLocal8Bit();
+                argv[i + 1] = new char[bytes.size() + 1];
+                strcpy(argv[i + 1], bytes.constData());
                 i++;
             }
-            argv[i+1] = (char) NULL;
+            argv[i + 1] = (char) NULL;
 
             exit(execvp(argv[0], argv));
         }
