@@ -58,7 +58,8 @@ bool WebbrowserApp::initialize()
             }
             argv[i + 1] = (char) NULL;
 
-            exit(execvp(argv[0], argv));
+            QCoreApplication::exit(execvp(argv[0], argv));
+            return false;
         }
     }
 
