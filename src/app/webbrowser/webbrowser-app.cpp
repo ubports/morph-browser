@@ -20,6 +20,10 @@
 #include "settings.h"
 #include "webbrowser-app.h"
 
+// system
+#include <string.h>
+#include <unistd.h>
+
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
@@ -28,10 +32,6 @@
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
-
-// System
-#include <unistd.h>
-#include <string.h>
 
 WebbrowserApp::WebbrowserApp(int& argc, char** argv)
     : BrowserApplication(argc, argv)
