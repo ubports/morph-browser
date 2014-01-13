@@ -31,7 +31,7 @@
 
 // System
 #include <unistd.h>
-#include <stdio.h>
+#include <string.h>
 
 WebbrowserApp::WebbrowserApp(int& argc, char** argv)
     : BrowserApplication(argc, argv)
@@ -44,7 +44,7 @@ bool WebbrowserApp::initialize()
     // with 13.10
     Q_FOREACH(const QString& argument, m_arguments) {
         if (argument.startsWith("--webapp")) {
-            qWarning() << "Deprecated webapp options: use the webapp-container program instead" << endl;
+            qWarning() << "Deprecated webapp options: use the webapp-container program instead";
 
             int size = m_arguments.size();
             char *argv[size + 2];
