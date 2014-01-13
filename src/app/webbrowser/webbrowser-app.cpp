@@ -49,14 +49,12 @@ bool WebbrowserApp::initialize()
             int size = m_arguments.size();
             char* argv[size + 2];
             argv[0] = (char*) "webapp-container";
-            int i = 0;
-            Q_FOREACH(const QString& arg, m_arguments) {
-                QByteArray bytes = arg.toLocal8Bit();
+            for (int i = 0; i < size; ++i) {
+                QByteArray bytes = m_arguments.at(i).toLocal8Bit();
                 argv[i + 1] = new char[bytes.size() + 1];
                 strcpy(argv[i + 1], bytes.constData());
-                i++;
             }
-            argv[i + 1] = (char) NULL;
+            argv[size + 1] = (char) NULL;
 
             QCoreApplication::exit(execvp(argv[0], argv));
             return false;
