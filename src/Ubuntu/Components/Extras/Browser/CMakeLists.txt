@@ -27,7 +27,7 @@ set(PLUGIN_SRC
 
 add_library(${PLUGIN} MODULE ${PLUGIN_SRC})
 
-qt5_use_modules(${PLUGIN} Core Qml Quick Sql WebKit)
+qt5_use_modules(${PLUGIN} Core Qml Quick Sql) #WebKit)
 
 # work around the lack of a public cmake module for Qt5V8
 #set(Qt5V8_PRIVATE_INCLUDE_DIRS
