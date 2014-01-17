@@ -126,7 +126,7 @@ int TabsModel::add(QQuickItem* webview)
     m_webviews.append(webview);
     connect(webview, SIGNAL(urlChanged()), SLOT(onUrlChanged()));
     connect(webview, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
-    //connect(webview, SIGNAL(iconChanged()), SLOT(onIconChanged()));
+    connect(webview, SIGNAL(iconChanged()), SLOT(onIconChanged()));
     endInsertRows();
     Q_EMIT countChanged();
     return index;
