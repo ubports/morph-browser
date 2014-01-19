@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-11-13 09:10+0100\n"
-"PO-Revision-Date: 2013-10-25 09:43+0000\n"
-"Last-Translator: Thangamani Arun - தங்கமணி அருண் <thangam.arunx@gmail.com>\n"
+"PO-Revision-Date: 2014-01-18 17:47+0000\n"
+"Last-Translator: solomon sunder <Unknown>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-12-24 05:52+0000\n"
-"X-Generator: Launchpad (build 16877)\n"
+"X-Launchpad-Export-Date: 2014-01-19 06:00+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
@@ -99,7 +99,7 @@ msgstr "பிணையத்தில் பிழை"
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "இதை பார்ப்பதில் சிக்கல்  இருப்பதாக தெரிகிறது: %1."
+msgstr "இதை பார்ப்பதில் உங்களுக்கு சிக்கல்  இருப்பதாக தெரிகிறது: %1."
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
