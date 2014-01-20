@@ -51,7 +51,7 @@ BrowserView {
         }
     ]
 
-    Page {
+    Item {
         anchors.fill: parent
 
         WebViewImpl {
