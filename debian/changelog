@@ -1,3 +1,14 @@
+webbrowser-app (0.23+14.04.20140120-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Work around a bug (regression?) in the UITK by replacing the use of
+    Page by a simple Item. (LP: #1270848)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 439
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 20 Jan 2014 16:38:10 +0000
+
 webbrowser-app (0.23+14.04.20140115.1-0ubuntu1) trusty; urgency=medium
 
   [ Olivier Tilloy ]
