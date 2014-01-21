@@ -20,6 +20,7 @@
 #include "webview-thumbnailer.h"
 
 // Qt
+#include <QtCore/QtGlobal>
 #include <QtCore/QMetaObject>
 #include <QtCore/QTimer>
 #include <QtQuick/private/qsgrenderer_p.h>
@@ -124,7 +125,11 @@ QSGNode* WebviewThumbnailer::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeDa
     root.appendChildNode(node);
 
     if (m_renderer == 0) {
+#if QT_VERSION < QT_VERSION_CHECK(5, 2, 0)
         m_renderer = QQuickItemPrivate::get(this)->sceneGraphContext()->createRenderer();
+#else
+        m_renderer = QQuickItemPrivate::get(this)->sceneGraphRenderContext()->createRenderer();
+#endif
     }
     m_renderer->setRootNode(static_cast<QSGRootNode*>(&root));
 

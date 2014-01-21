@@ -20,6 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import ".."
 
 Item {
     id: timelineView
@@ -121,14 +122,14 @@ Item {
                         right: parent.right
                     }
                     fillMode: Image.TileHorizontally
-                    source: "assets/expanded_top_innershadow.png"
+                    source: "../assets/expanded_top_innershadow.png"
                 }
 
                 Image {
                     id: arrow
                     anchors.top: parent.bottom
                     x: domainsView.currentItem ? domainsView.currentItem.x + (domainsView.currentItem.width + width) / 2 - domainsView.contentX : 0
-                    source: "assets/expanded_tooltip.png"
+                    source: "../assets/expanded_tooltip.png"
                 }
 
                 Image {
@@ -138,7 +139,7 @@ Item {
                         right: arrow.left
                     }
                     fillMode: Image.TileHorizontally
-                    source: "assets/expanded_bottom_highlight.png"
+                    source: "../assets/expanded_bottom_highlight.png"
                 }
 
                 Image {
@@ -148,7 +149,7 @@ Item {
                         right: parent.right
                     }
                     fillMode: Image.TileHorizontally
-                    source: "assets/expanded_bottom_highlight.png"
+                    source: "../assets/expanded_bottom_highlight.png"
                 }
 
                 ListView {

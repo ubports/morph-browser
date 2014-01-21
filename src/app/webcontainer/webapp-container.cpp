@@ -34,7 +34,7 @@ WebappContainer::WebappContainer(int& argc, char** argv)
 
 bool WebappContainer::initialize()
 {
-    if (BrowserApplication::initialize("webapp-container.qml")) {
+    if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
         QString searchPath = webappModelSearchPath();
         if (!searchPath.isEmpty())
         {
@@ -136,7 +136,26 @@ QStringList WebappContainer::webappUrlPatterns() const
                 Q_FOREACH(const QString& includePattern, includePatterns) {
                     QString pattern = includePattern.trimmed();
                     if (!pattern.isEmpty() && isValidWebappUrlPattern(pattern)) {
-                        patterns.append(pattern.replace("*", "[^ ]*"));
+                        QRegularExpression urlRe("(.+://)([^/]+)(.+)");
+                        QRegularExpressionMatch match = urlRe.match(pattern);
+                        if (match.hasMatch())
+                        {
+                            // We make a distinction between the wildcard found in the
+                            //  hostname part and the one found later. The former being more
+                            //  restricted and should not be replaced by the same regexp pattern
+                            //  as the latter.
+                            // A less restrictive hostname pattern might lead to the following
+                            //  situation where e.g.
+                            // http://bady.guy.com/phishing.ebay.com/
+                            // matches
+                            // https?://*.ebay.com/*
+                            QString scheme = match.captured(1);
+                            QString hostname = match.captured(2).replace("*", "[^\\./]*");
+                            QString tail = match.captured(3).replace("*", "[^\\s]*");
+
+                            // reconstruct
+                            patterns.append(QString("%1%2%3").arg(scheme).arg(hostname).arg(tail));
+                        }
                     } else {
                         qDebug() << "Ignoring empty or invalid webapp URL pattern:" << pattern;
                     }

@@ -41,6 +41,7 @@ BrowserApplication::BrowserApplication(int& argc, char** argv)
 
 BrowserApplication::~BrowserApplication()
 {
+    m_webbrowserWindowProxy->setWindow(NULL);
     delete m_window;
     delete m_webbrowserWindowProxy;
     delete m_component;
@@ -57,7 +58,7 @@ QString BrowserApplication::appId() const
     return QString();
 }
 
-bool BrowserApplication::initialize(const QString& qmlFile)
+bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 {
     Q_ASSERT(m_window == 0);
 
@@ -104,7 +105,7 @@ bool BrowserApplication::initialize(const QString& qmlFile)
     }
     QQmlContext* context = m_engine->rootContext();
     m_component = new QQmlComponent(m_engine);
-    m_component->loadUrl(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/" + qmlFile));
+    m_component->loadUrl(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/" + qmlFileSubPath));
     if (!m_component->isReady()) {
         qWarning() << m_component->errorString();
         return false;

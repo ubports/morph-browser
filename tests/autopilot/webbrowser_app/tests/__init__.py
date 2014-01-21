@@ -10,6 +10,7 @@
 import os
 import os.path
 import shutil
+import urllib2
 
 from testtools.matchers import Contains, Equals
 
@@ -31,7 +32,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
     for webbrowser-app tests.
     """
 
-    local_location = "../../src/app/webbrowser-app"
+    local_location = "../../src/app/webbrowser/webbrowser-app"
     d_f = "--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop"
 
     ARGS = []
@@ -154,6 +155,10 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.main_window.open_toolbar().click_button("activityButton")
         self.main_window.get_activity_view()
 
+    def ping_server(self):
+        ping = urllib2.urlopen(self.base_url + "/ping")
+        self.assertThat(ping.read(), Equals("pong"))
+
 
 class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
 
@@ -172,6 +177,7 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
         self.server.start()
         self.addCleanup(self.server.shutdown)
         self.base_url = "http://localhost:%d" % self.server.port
+        self.ping_server()
         self.url = self.base_url + "/loremipsum"
         self.ARGS = [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()
