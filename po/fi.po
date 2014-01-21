@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-11-13 09:10+0100\n"
-"PO-Revision-Date: 2013-10-04 22:03+0000\n"
-"Last-Translator: Jiri Grönroos <Unknown>\n"
+"PO-Revision-Date: 2014-01-20 21:33+0000\n"
+"Last-Translator: Aleksi Kinnunen <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-12-24 05:52+0000\n"
-"X-Generator: Launchpad (build 16877)\n"
+"X-Launchpad-Export-Date: 2014-01-21 06:21+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
@@ -59,7 +59,7 @@ msgstr "Peru"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "Yhteys ei ole luotettu"
+msgstr "Yhteys ei ole luotettava"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -68,8 +68,8 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Yritit tavoittaa sivuston %1 suojatulla yhteydellä, mutta sivuston varmenne "
-"ei ole luotettu."
+"Sivusto %1 yritettiin avata suojatulla yhteydellä, mutta sivuston varmenne "
+"ei ole luotettava."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
@@ -180,13 +180,13 @@ msgstr "(muu)"
 
 #: src/app/WebViewImpl.qml:52
 msgid "This page wants to know your device’s location."
-msgstr "Tämä sivu haluaa tietää laitteesi sijainnin."
+msgstr "Tämä sivu haluaa käyttää sijaintitietoasi."
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Vanhempi sivu"
+msgstr ""
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
@@ -272,11 +272,11 @@ msgstr "Poistu sivulta"
 #: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Ubuntun internetselain"
+msgstr "%1 - Ubuntun verkkoselain"
 
 #: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
 msgid "Ubuntu Web Browser"
-msgstr "Ubuntun internetselain"
+msgstr "Ubuntun verkkoselain"
 
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -284,7 +284,7 @@ msgstr "Selain"
 
 #: src/app/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr "Internet-selain"
+msgstr "Verkkoselain"
 
 #: src/app/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
