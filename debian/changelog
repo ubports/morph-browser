@@ -1,3 +1,18 @@
+webbrowser-app (0.23+14.04.20140122-0ubuntu1) trusty; urgency=low
+
+  [ Ted Gould ]
+  * Add URL Dispatcher configuration file.
+
+  [ Olivier Tilloy ]
+  * Fix a memory leak when exiting the application.
+  * Work around bug #1270848 in a different manner to avoid introducing
+    another regression. (LP: #1270848, #1271436)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 444
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 22 Jan 2014 11:01:33 +0000
+
 webbrowser-app (0.23+14.04.20140120-0ubuntu1~withoxide1) trusty; urgency=medium
 
   * Build webbrowser-app against oxide.
