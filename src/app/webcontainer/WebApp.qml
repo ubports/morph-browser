@@ -17,8 +17,8 @@
  */
 
 import QtQuick 2.0
-import QtWebKit 3.1
-import QtWebKit.experimental 1.0
+//import QtWebKit 3.1
+//import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
@@ -72,7 +72,7 @@ BrowserView {
             }
             height: parent.height - osk.height
 
-            experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
+            //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
 
             contextualActions: ActionList {
                 Actions.CopyLink {
@@ -85,7 +85,7 @@ BrowserView {
                 }
             }
 
-            function navigationRequestedDelegate(request) {
+            /*function navigationRequestedDelegate(request) {
                 if (!request.isMainFrame) {
                     request.action = WebView.AcceptRequest
                     return
@@ -115,7 +115,7 @@ BrowserView {
                 if (action === WebView.IgnoreRequest) {
                     Qt.openUrlExternally(url)
                 }
-            }
+            }*/
 
             onNewTabRequested: Qt.openUrlExternally(url)
 
@@ -142,7 +142,8 @@ BrowserView {
 
         ErrorSheet {
             anchors.fill: webview
-            visible: webview.lastLoadRequestStatus == WebView.LoadFailedStatus
+            //visible: webview.lastLoadRequestStatus == WebView.LoadFailedStatus
+            visible: false
             url: webview.url
             onRefreshClicked: webview.reload()
         }
