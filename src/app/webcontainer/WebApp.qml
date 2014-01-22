@@ -51,8 +51,13 @@ BrowserView {
         }
     ]
 
-    Item {
+    Page {
         anchors.fill: parent
+
+        // Work around https://bugs.launchpad.net/webbrowser-app/+bug/1270848 and
+        // https://bugs.launchpad.net/ubuntu/+source/webbrowser-app/+bug/1271436.
+        // The UITK is trying too hard to be clever about the header and toolbar.
+        flickable: null
 
         WebViewImpl {
             id: webview
