@@ -8,10 +8,14 @@
 
 import BaseHTTPServer
 import errno
+import logging
 import os
 import socket
 import threading
 import time
+
+
+logger = logging.getLogger(__name__)
 
 
 class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
@@ -29,7 +33,12 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         self.wfile.write(html)
 
     def do_GET(self):
-        if self.path == "/loremipsum":
+        if self.path == "/ping":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.end_headers()
+            self.wfile.write("pong")
+        elif self.path == "/loremipsum":
             self.send_response(200)
             title = "Lorem Ipsum"
             body = "<p>Lorem ipsum dolor sit amet.</p>"
@@ -95,6 +104,12 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         else:
             self.send_error(404)
 
+    def log_message(self, format, *args):
+        logger.info(format % args)
+
+    def log_error(self, format, *args):
+        logger.error(format % args)
+
 
 class HTTPServerInAThread(threading.Thread):
 
@@ -112,10 +127,10 @@ class HTTPServerInAThread(threading.Thread):
                                                         HTTPRequestHandler)
             except socket.error, error:
                 if (error.errno == errno.EADDRINUSE):
-                    print "Port %d is already in use" % port
+                    logging.error("Port %d is already in use" % port)
                     port += 1
                 else:
-                    print os.strerror(error.errno)
+                    logging.error(os.strerror(error.errno))
                     raise
         self.server.allow_reuse_address = True
 
@@ -124,7 +139,7 @@ class HTTPServerInAThread(threading.Thread):
         return self.server.server_port
 
     def run(self):
-        print "now serving on port %d" % self.port
+        logging.info("now serving on port %d" % self.port)
         self.server.serve_forever()
 
     def shutdown(self):

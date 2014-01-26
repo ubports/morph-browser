@@ -32,6 +32,7 @@ class TestProgressBarAtStartup(BrowserTestCaseBase):
         self.server.start()
         self.addCleanup(self.server.shutdown)
         self.base_url = "http://localhost:%d" % self.server.port
+        self.ping_server()
         self.url = self.base_url + "/wait/8"
         self.ARGS = [self.url]
         super(TestProgressBarAtStartup, self).setUp()
