@@ -20,6 +20,7 @@
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QFileInfo>
 #include <QStandardPaths>
 #include <QDebug>
 
@@ -28,9 +29,15 @@ SqliteCookieStore::SqliteCookieStore(QObject *parent)
     : CookieStore(parent)
 {}
 
-Cookies SqliteCookieStore::doGetCookies() const
+Cookies SqliteCookieStore::doGetCookies()
 {
     return Cookies();
+}
+
+QDateTime SqliteCookieStore::lastUpdateTimeStamp() const
+{
+    QFileInfo dbFileInfo(getFullDbPathName ());
+    return dbFileInfo.lastModified();
 }
 
 void SqliteCookieStore::doSetCookies(Cookies cookies)
@@ -68,7 +75,7 @@ void SqliteCookieStore::doSetCookies(Cookies cookies)
     Q_EMIT moved(true);
 }
 
-QString SqliteCookieStore::getFullDbPathName()
+QString SqliteCookieStore::getFullDbPathName() const
 {
     return QStandardPaths::standardLocations(QStandardPaths::HomeLocation)[0] + "/" + dbPath();
 }

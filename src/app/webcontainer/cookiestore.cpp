@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QDebug>
+
 #include "cookiestore.h"
 
 CookieStore::CookieStore(QObject *parent)
@@ -24,7 +26,7 @@ CookieStore::CookieStore(QObject *parent)
     qRegisterMetaType<Cookies>("Cookies");
 }
 
-Cookies CookieStore::cookies() const
+Cookies CookieStore::cookies()
 {
     return doGetCookies();
 }
@@ -34,7 +36,7 @@ void CookieStore::setCookies(Cookies cookies)
     doSetCookies(cookies);
 }
 
-Cookies CookieStore::doGetCookies() const
+Cookies CookieStore::doGetCookies()
 {
     return Cookies();
 }
@@ -44,9 +46,14 @@ void CookieStore::doSetCookies(Cookies cookies)
     Q_UNUSED(cookies);
 }
 
-QDateTime CookieStore::timeStamp() const
+QDateTime CookieStore::lastUpdateTimeStamp() const
 {
-    return _timeStamp;
+    return _lastUpdateTimeStamp;
+}
+
+void CookieStore::updateLastUpdateTimestamp(const QDateTime & timestamp)
+{
+    _lastUpdateTimeStamp = timestamp;
 }
 
 void CookieStore::moveFrom(CookieStore *store)
@@ -54,7 +61,23 @@ void CookieStore::moveFrom(CookieStore *store)
     if (! store)
         return;
 
-    Cookies cookies = store->cookies();
+    Cookies cookies =
+            store->cookies();
+
+    QDateTime lastRemoteCookieUpdate =
+            store->lastUpdateTimeStamp();
+
+    QDateTime lastLocalCookieUpdate =
+            lastUpdateTimeStamp();
+
+    if (lastRemoteCookieUpdate.isValid()
+            && lastLocalCookieUpdate.isValid()
+            && (lastRemoteCookieUpdate < lastLocalCookieUpdate))
+    {
+        Q_EMIT moved(false);
+        return;
+    }
+
     setCookies(cookies);
 }
 

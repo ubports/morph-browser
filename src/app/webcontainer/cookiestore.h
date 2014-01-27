@@ -33,18 +33,21 @@ Q_DECLARE_METATYPE(Cookies);
 class CookieStore : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(Cookies cookies READ cookies WRITE setCookies NOTIFY cookiesChanged)
-    Q_PROPERTY(QDateTime timeStamp READ timeStamp NOTIFY timeStampChanged)
-
+    Q_PROPERTY(Cookies cookies READ \
+               cookies WRITE setCookies \
+               NOTIFY cookiesChanged)
+    Q_PROPERTY(QDateTime lastUpdateTimeStamp \
+               READ lastUpdateTimeStamp \
+               NOTIFY lastUpdateTimeStampChanged)
 
 public:
 
     CookieStore(QObject *parent = 0);
 
-    Cookies cookies() const;
+    Cookies cookies();
     void setCookies(Cookies);
 
-    QDateTime timeStamp() const;
+    virtual QDateTime lastUpdateTimeStamp() const;
 
     Q_INVOKABLE void moveFrom (CookieStore * store);
 
@@ -52,16 +55,21 @@ Q_SIGNALS:
 
     void moved(bool);
     void cookiesChanged();
-    void timeStampChanged();
+    void lastUpdateTimeStampChanged();
+
+protected:
+
+    void updateLastUpdateTimestamp(const QDateTime & timestamp);
+
 
 private:
 
-    virtual Cookies doGetCookies() const;
+    virtual Cookies doGetCookies();
     virtual void doSetCookies(Cookies);
 
 private:
 
-    QDateTime _timeStamp;
+    QDateTime _lastUpdateTimeStamp;
 };
 
 

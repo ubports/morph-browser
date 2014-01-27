@@ -35,6 +35,8 @@ public:
     void setDbPath (const QString & path);
     QString dbPath () const;
 
+    QDateTime lastUpdateTimeStamp() const Q_DECL_OVERRIDE;
+
 
 Q_SIGNALS:
 
@@ -43,10 +45,10 @@ Q_SIGNALS:
 
 private:
 
-    virtual Cookies doGetCookies() const;
-    virtual void doSetCookies(Cookies);
+    virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
+    virtual void doSetCookies(Cookies) Q_DECL_OVERRIDE;
 
-    QString getFullDbPathName();
+    QString getFullDbPathName() const;
 
 
 private:

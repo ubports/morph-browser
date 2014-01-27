@@ -44,8 +44,8 @@ Q_SIGNALS:
 
 private:
 
-    virtual Cookies doGetCookies() const;
-    virtual void doSetCookies(Cookies);
+    virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
+    virtual void doSetCookies(Cookies) Q_DECL_OVERRIDE;
 
 
 private:

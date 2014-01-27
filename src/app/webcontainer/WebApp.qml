@@ -30,9 +30,6 @@ import ".."
 BrowserView {
     id: webapp
 
-    width: 800
-    height: 600
-
     currentWebview: webview
 
     property alias url: webview.url

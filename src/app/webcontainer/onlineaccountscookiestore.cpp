@@ -89,7 +89,7 @@ void OnlineAccountsCookieStore::setAccountId (quint32 id)
     }
 }
 
-Cookies OnlineAccountsCookieStore::doGetCookies() const
+Cookies OnlineAccountsCookieStore::doGetCookies()
 {
     Q_D(const OnlineAccountsCookieStore);
 
@@ -115,6 +115,21 @@ Cookies OnlineAccountsCookieStore::doGetCookies() const
     {
         qWarning() << "Invalid number arguments to get online accounts cookies call.";
         return Cookies();
+    }
+
+    if (arguments.count() > 1)
+    {
+        QDateTime t;
+        QVariant timeStampVariant(arguments.at(1));
+        if (timeStampVariant.canConvert(QMetaType::LongLong))
+        {
+            qDebug() << "Got a cookie timestamp of"
+                     << arguments.at(1).toLongLong()
+                     << "from Online Accounts DBUS cookiesForIdentity() call.";
+
+            t.fromMSecsSinceEpoch(arguments.at(1).toLongLong() * 1000);
+            updateLastUpdateTimestamp(t);
+        }
     }
 
     return qdbus_cast<Cookies>(arguments.front());
