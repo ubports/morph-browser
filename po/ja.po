@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-11-13 09:10+0100\n"
-"PO-Revision-Date: 2013-06-18 17:16+0000\n"
+"PO-Revision-Date: 2014-01-18 07:16+0000\n"
 "Last-Translator: 173210 <root.3.173210@live.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-12-06 06:25+0000\n"
-"X-Generator: Launchpad (build 16863)\n"
+"X-Launchpad-Export-Date: 2014-01-19 05:59+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
@@ -23,16 +23,16 @@ msgstr ""
 
 #: src/app/ActivityView.qml:54
 msgid "Bookmarks"
-msgstr ""
+msgstr "ブックマーク"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "JavaScriptのアラート"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
@@ -46,16 +46,16 @@ msgstr ""
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "ユーザー名"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "パスワード"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -75,7 +75,7 @@ msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "セキュリティで保護されたページに戻る"
 
 #: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
 msgid "Back"
@@ -97,16 +97,16 @@ msgstr "ネットワークエラー"
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "次のページを表示する際に問題が発生しました : %1"
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
-msgstr ""
+msgstr "ネットワーク設定を確認してページを更新してみてください"
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr "ページを再読み込み"
+msgstr "ページを更新"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
@@ -114,11 +114,11 @@ msgstr ""
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "拒否"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "許可"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
@@ -126,7 +126,7 @@ msgstr ""
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "プロキシ認証が必要です。"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
@@ -146,11 +146,11 @@ msgstr "+"
 
 #: src/app/TimelineView.qml:83
 msgid "Today"
-msgstr ""
+msgstr "今日"
 
 #: src/app/TimelineView.qml:85
 msgid "Yesterday"
-msgstr ""
+msgstr "昨日"
 
 #: src/app/TimelineView.qml:87
 msgid "Last 7 Days"
@@ -158,11 +158,11 @@ msgstr ""
 
 #: src/app/TimelineView.qml:89
 msgid "This Month"
-msgstr ""
+msgstr "今月"
 
 #: src/app/TimelineView.qml:91
 msgid "This Year"
-msgstr ""
+msgstr "今年"
 
 #: src/app/TimelineView.qml:93
 msgid "Older"
@@ -202,7 +202,7 @@ msgstr ""
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "履歴をクリア"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -220,7 +220,7 @@ msgstr ""
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "リンクをコピー"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -230,7 +230,7 @@ msgstr "次のページ"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr ""
+msgstr "移動"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
