@@ -15,6 +15,8 @@ override_dh_install:
 	$(CURDIR)/debian/tmp/usr/lib/*/qt5/qml/Ubuntu/Components/Extras/Browser
 	dh_install --fail-missing
 
+override_dh_auto_test:
+
 override_dh_translations:
 	# Override dh_translations to work around http://pad.lv/1183262.
 	# Unfortunately, the default build directory is not exposed
