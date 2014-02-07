@@ -19,6 +19,7 @@
 import QtQuick 2.0
 //import QtWebKit 3.1
 //import QtWebKit.experimental 1.0
+import com.canonical.Oxide 0.1
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import "../actions" as Actions
@@ -73,8 +74,7 @@ BrowserView {
 
             ErrorSheet {
                 anchors.fill: webviewContainer
-                //visible: currentWebview ? (currentWebview.lastLoadRequestStatus === WebView.LoadFailedStatus) : false
-                visible: false
+                visible: currentWebview ? (currentWebview.lastLoadRequestStatus === LoadEvent.TypeFailed) : false
                 url: currentWebview ? currentWebview.url : ""
                 onRefreshClicked: currentWebview.reload()
             }

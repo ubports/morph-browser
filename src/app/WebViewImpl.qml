@@ -19,6 +19,7 @@
 import QtQuick 2.0
 //import QtWebKit 3.1
 //import QtWebKit.experimental 1.0
+import com.canonical.Oxide 0.1
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 //import Ubuntu.Components.Popups 0.1
@@ -57,13 +58,13 @@ UbuntuWebView {
         // TODO: handle other types of permission requests
         // TODO: we might want to store the answer to avoid requesting
         //       the permission everytime the user visits this site.
-    }
+    }*/
 
     property int lastLoadRequestStatus: -1
     onLoadingChanged: {
-        lastLoadRequestStatus = loadRequest.status
-        if (historyModel && (loadRequest.status === WebView.LoadSucceededStatus)) {
-            historyModel.add(webview.url, webview.title, webview.icon)
+        lastLoadRequestStatus = loadEvent.type
+        if (historyModel && (loadEvent.type === LoadEvent.TypeSucceeded)) {
+            historyModel.add(webview.url, webview.title, "")//webview.icon)
         }
-    }*/
+    }
 }

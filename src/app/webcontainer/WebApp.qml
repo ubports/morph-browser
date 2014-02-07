@@ -142,8 +142,7 @@ BrowserView {
 
         ErrorSheet {
             anchors.fill: webview
-            //visible: webview.lastLoadRequestStatus == WebView.LoadFailedStatus
-            visible: false
+            visible: webview.lastLoadRequestStatus === LoadEvent.TypeFailed
             url: webview.url
             onRefreshClicked: webview.reload()
         }
