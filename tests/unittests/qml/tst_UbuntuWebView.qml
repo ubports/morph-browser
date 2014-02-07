@@ -23,9 +23,7 @@ import Ubuntu.Components.Extras.Browser 0.1
 TestCase {
     name: "UbuntuWebView"
 
-    // XXX: commented out for the moment because of
-    // https://bugs.launchpad.net/oxide/+bug/1270217
-    /*function test_custom_UA_override() {
+    function test_custom_UA_override() {
         var url = "http://example.com"
         compare(webview1.getUAString(url), benchmark.getSystemWideUAString(url))
         webview2.customUA = false
@@ -54,5 +52,5 @@ TestCase {
                 return getSystemWideUAString(url)
             }
         }
-    }*/
+    }
 }
