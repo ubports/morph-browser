@@ -42,7 +42,10 @@ Popover {
             text: model.text
             enabled: model.enabled
             selected: model.selected
-            onClicked: selectorModel.accept(model.index)
+            onClicked: {
+                selectorModel.items.select(model.index)
+                selectorModel.accept()
+            }
         }
 
         section.property: "group"
@@ -57,7 +60,7 @@ Popover {
 
     onVisibleChanged: {
         if (!visible) {
-            selectorModel.reject()
+            selectorModel.cancel()
         }
     }
 }

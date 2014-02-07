@@ -125,11 +125,11 @@ WebView {
                 newTabRequested(data.url)
             }
         }
-    }
+    }*/
 
-    experimental.itemSelector: ItemSelector {}
+    popupMenu: ItemSelector {}
 
-    property alias selection: selection
+    /*property alias selection: selection
     property ActionList selectionActions
     Selection {
         id: selection
