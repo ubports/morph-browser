@@ -19,6 +19,7 @@
 #include "sqlitecookiestore.h"
 
 #include <QSqlDatabase>
+#include <QSqlError>
 #include <QSqlQuery>
 #include <QFileInfo>
 #include <QStandardPaths>
@@ -47,12 +48,14 @@ void SqliteCookieStore::doSetCookies(Cookies cookies)
 
     if ( ! db.open())
     {
-        qCritical() << "Could not open cookie database: " << getFullDbPathName();
+        qCritical() << "Could not open cookie database: " << getFullDbPathName() << db.lastError();
         Q_EMIT moved(false);
         return;
     }
 
     QSqlQuery q(db);
+    q.exec("CREATE TABLE IF NOT EXISTS cookies "
+           "(cookieId VARCHAR PRIMARY KEY, cookie BLOB)");
     q.exec ("DELETE FROM cookies;");
 
     q.prepare("INSERT INTO cookies (cookieId, cookie) "
