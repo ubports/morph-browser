@@ -152,7 +152,15 @@ Window {
         OnlineAccountsCookieStore { }
     }
 
+    Component.onCompleted: updateCurrentView()
+
     onAccountProviderChanged: {
+        updateCurrentView();
+    }
+
+    function updateCurrentView() {
+        // check if we are to display the OS login view
+        // or directly switch to the webapp view
         if (accountProvider.length !== 0) {
             loadLoginView();
         }
