@@ -39,9 +39,11 @@ BrowserView {
 
     actions: [
         Actions.Back {
+            enabled: backForwardButtonsVisible && currentWebview.canGoBack
             onTriggered: webview.goBack()
         },
         Actions.Forward {
+            enabled: backForwardButtonsVisible && currentWebview.canGoForward
             onTriggered: webview.goForward()
         },
         Actions.Reload {
@@ -51,6 +53,11 @@ BrowserView {
 
     Page {
         anchors.fill: parent
+
+        // Work around https://bugs.launchpad.net/webbrowser-app/+bug/1270848 and
+        // https://bugs.launchpad.net/ubuntu/+source/webbrowser-app/+bug/1271436.
+        // The UITK is trying too hard to be clever about the header and toolbar.
+        flickable: null
 
         WebViewImpl {
             id: webview

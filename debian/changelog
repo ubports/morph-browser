@@ -1,3 +1,91 @@
+webbrowser-app (0.23+14.04.20140122-0ubuntu1) trusty; urgency=low
+
+  [ Ted Gould ]
+  * Add URL Dispatcher configuration file.
+
+  [ Olivier Tilloy ]
+  * Fix a memory leak when exiting the application.
+  * Work around bug #1270848 in a different manner to avoid introducing
+    another regression. (LP: #1270848, #1271436)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 444
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 22 Jan 2014 11:01:33 +0000
+
+webbrowser-app (0.23+14.04.20140120-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Work around a bug (regression?) in the UITK by replacing the use of
+    Page by a simple Item. (LP: #1270848)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 439
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 20 Jan 2014 16:38:10 +0000
+
+webbrowser-app (0.23+14.04.20140115.1-0ubuntu1) trusty; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Bump version to 0.23 in preparation for the next major release.
+  * Split the app into two executables: webbrowser-app and webapp-
+    container.
+  * Cleaner workaround for bug #1248620. Thanks Thomi for the
+    suggestion!. (LP: #1248620)
+  * Update the link to the list of overrides for B2G.
+  * Add ignore rules for generated ninja files.
+  * Use the local test server everywhere instead of writing temporary
+    html pages on disk.
+  * Fix FTBFS with Qt 5.2. (LP: #1258038)
+  * Ensure the test server is up and responding before starting the
+    tests, and use standard logging everywhere.
+  * Re-execute web application in the dedicated container (compatibility
+    mode for legacy webapps).
+
+  [ Omer Akram ]
+  * move the close button of the running activity to the left.
+
+  [ Alexandre Abreu ]
+  * Further separate the two webbrowser-app & webapp-container projects.
+    (LP: #1246935)
+  * Restrict url webapps pattern replacement depending on which part is
+    being affected. (LP: #1240685)
+  * Fix back forward hud actions.
+
+  [ daker ]
+  * Fix for uppercase urls. (LP: #1244329)
+  * Fixed UA string for huffpost.com. (LP: #1223937)
+
+  [ Timo Jyrinki ]
+  * libqt5v8-5-private-dev will be dropped from Qt 5.2. qtdeclarate-
+    private-dev 5.0.2 now depends on it until then.
+
+  [ Adnane Belmadiaf ]
+  * Change the default homepage to start.ubuntu.com. (LP: #1250995)
+  * Fixed UA string for huffpost.com. (LP: #1223937)
+
+  [ David Barth ]
+  * Make sure we are redirected to the mobile version automatically, by
+    presenting a mobile user-agent string on the /whole/ youtube domain
+    (not just m.youtube.com). The string is also changed to the simpler
+    ua string used for facebook.com. It gives the same UI, but avoids
+    being seen as an Apple browser, which itself prevents rtsp/3gp
+    content to be served to our browser. We (barely) support html5 video
+    now.
+  * Re-execute web application in the dedicated container (compatibility
+    mode for legacy webapps).
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 435
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 15 Jan 2014 19:37:19 +0000
+
+webbrowser-app (0.22+14.04.20131107-0ubuntu3) trusty; urgency=medium
+
+  * Add OA integration.
+
+ -- Alberto Mardegan <alberto.mardegan@canonical.com>  Tue, 04 Feb 2014 12:22:20 +0200
+
 webbrowser-app (0.22+14.04.20131107-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
