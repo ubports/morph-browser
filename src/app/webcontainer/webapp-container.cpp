@@ -65,8 +65,7 @@ bool WebappContainer::initialize()
                 m_window->setProperty("url", urls.first());
             }
         }
-        QByteArray appId = qgetenv("APP_ID");
-        m_window->setProperty("applicationName", QString::fromUtf8(appId));
+        m_window->setProperty("applicationName", QCoreApplication::applicationName());
 
         return true;
     } else {
