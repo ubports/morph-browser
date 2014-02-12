@@ -1,3 +1,9 @@
+webbrowser-app (0.23+14.04.20140122-0ubuntu1~withoxide2) trusty; urgency=medium
+
+  * New build against oxide.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 12 Feb 2014 22:05:21 +0100
+
 webbrowser-app (0.23+14.04.20140122-0ubuntu1~withoxide1) trusty; urgency=medium
 
   * New build against oxide.
