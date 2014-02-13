@@ -1,8 +1,15 @@
+set(XVFB_COMMAND)
+find_program(XVFBRUN xvfb-run)
+if(XVFBRUN)
+  set(XVFB_COMMAND ${XVFBRUN} -a)
+else()
+  message(WARNING "Cannot find xvfb-run.")
+endif()
+
 set(TEST tst_QmlTests)
 add_executable(${TEST} tst_QmlTests.cpp)
 qt5_use_modules(${TEST} Core Qml Quick Test QuickTest)
-add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -import ${CMAKE_BINARY_DIR}/src)
-#set_tests_properties(${TEST} PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=minimal")
+add_test(${TEST} ${XVFB_COMMAND} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -import ${CMAKE_BINARY_DIR}/src)
 
 # copy qml files under test to build dir
 set(out_qml_files)
