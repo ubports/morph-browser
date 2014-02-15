@@ -166,7 +166,12 @@ FocusScope {
         if (looksLikeAUrl(query)) {
             requestedUrl = fixUrl(query)
         } else {
-            requestedUrl = buildSearchUrl(query)
+            if (query.substr(0, 1) == "/") {
+                requestedUrl = "file://" + query
+            }
+            else {
+                requestedUrl = buildSearchUrl(query)
+            }
         }
         validated()
     }
