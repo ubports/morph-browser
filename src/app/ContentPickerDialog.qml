@@ -50,7 +50,13 @@ Popups.Dialog {
         text: i18n.tr("OK")
         color: "green"
         enabled: preview.source
-        onClicked: model.accept(String(preview.source).replace("file://", ""))
+        onClicked: {
+            var selectedItems = [];
+            for(var i in picker.activeTransfer.items) {
+                selectedItems.push(String(picker.activeTransfer.items[i].url).replace("file://", ""));
+            }
+            model.accept(selectedItems);
+        }
     }
 
     Button {
@@ -61,7 +67,11 @@ Popups.Dialog {
 
     function startContentPicking() {
         activeTransfer = ContentHub.importContent(ContentType.Pictures);
-        activeTransfer.selectionType = ContentTransfer.Single;
+        if (model.allowMultipleFiles) {
+            activeTransfer.selectionType = ContentTransfer.Multiple;
+        } else {
+            activeTransfer.selectionType = ContentTransfer.Single;
+        }
         activeTransfer.start();
     }
 
