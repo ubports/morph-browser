@@ -176,3 +176,10 @@ doc.addEventListener('touchmove', function(event) {
         clearLongpressTimeout();
     }
 });
+
+doc.addEventListener('touchcancel', function(event) {
+    if (longpressDetected) {
+        longpressDetected = false;
+    }
+    clearLongpressTimeout();
+});
