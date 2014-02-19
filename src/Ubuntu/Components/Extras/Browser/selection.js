@@ -183,4 +183,11 @@ if (blacklist.indexOf(document.domain) === -1) {
         }
     });
 
+    doc.addEventListener('touchcancel', function(event) {
+        if (longpressDetected) {
+            longpressDetected = false;
+        }
+        clearLongpressTimeout();
+    });
+
 }
