@@ -24,14 +24,14 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QUrl>
-#include <QtWidgets/QApplication>
+#include <QtGui/QGuiApplication>
 
 class QQmlComponent;
 class QQmlEngine;
 class QQuickWindow;
 class WebBrowserWindow;
 
-class BrowserApplication : public QApplication
+class BrowserApplication : public QGuiApplication
 {
     Q_OBJECT
 

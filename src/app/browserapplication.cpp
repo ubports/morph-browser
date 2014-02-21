@@ -18,9 +18,11 @@
 
 // Qt
 #include <QtNetwork/QNetworkInterface>
+#include <QtGui/QOpenGLContext>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include <QtQuick/private/qsgcontext_p.h>
 #include <QtQuick/QQuickWindow>
 
 // local
@@ -29,7 +31,7 @@
 #include "webbrowser-window.h"
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
-    : QApplication(argc, argv)
+    : QGuiApplication(argc, argv)
     , m_engine(0)
     , m_component(0)
     , m_window(0)
@@ -79,6 +81,11 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     // Ensure that application-specific data is written where it ought to.
     QString appPkgName = qgetenv("APP_ID").split('_').first();
     QCoreApplication::setApplicationName(appPkgName);
+
+    // Enable compositing in oxide
+    QOpenGLContext* glcontext = new QOpenGLContext(this);
+    glcontext->create();
+    QSGContext::setSharedOpenGLContext(glcontext);
 
     bool inspector = m_arguments.contains("--inspector");
     if (inspector) {
