@@ -64,8 +64,11 @@ WebView {
     function getUAString(url) {
         return getSystemWideUAString(url)
     }
-    //experimental.userAgent: userAgent.defaultUA
-    //context.userAgent: userAgent.defaultUA
+
+    context: WebContext {
+        userAgent: userAgent.defaultUA
+    }
+
     /*onNavigationRequested: {
         request.action = WebView.AcceptRequest;
 

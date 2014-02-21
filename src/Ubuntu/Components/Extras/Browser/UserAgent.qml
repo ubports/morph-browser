@@ -36,9 +36,9 @@ Item {
     // %2: WebKit version
     readonly property string _template: "Mozilla/5.0 (Ubuntu; %1) WebKit/%2"
 
-    // See Source/WebCore/Configurations/Version.xcconfig in QtWebKit’s source tree
+    // See chromium/src/webkit/build/webkit_version.h.in in oxide’s source tree
     // TODO: determine this value at runtime
-    readonly property string _webkitVersion: "537.21"
+    readonly property string _webkitVersion: "537.36"
 
     // FIXME: this is a quick hack that will become increasingly unreliable
     // as we support more devices, so we need a better solution for this
