@@ -6,6 +6,7 @@ configure_file(
     @ONLY)
 
 include_directories(${Qt5Quick_PRIVATE_INCLUDE_DIRS})
+include_directories(${Qt5Gui_PRIVATE_INCLUDE_DIRS})
 
 file(GLOB QML_FILES *.qml)
 install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app)
