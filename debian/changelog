@@ -1,3 +1,11 @@
+webbrowser-app (0.23+14.04.20140219-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Do not install the selection event handlers on certain domains known
+    to interfere with touch events. (LP: #1279903)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Feb 2014 18:36:27 +0000
+
 webbrowser-app (0.23+14.04.20140122-0ubuntu1~withoxide3) trusty; urgency=medium
 
   * New build against oxide.

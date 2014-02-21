@@ -1,65 +1,65 @@
-# Brazilian Portuguese translation for webbrowser-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Bulgarian translation for webbrowser-app
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the webbrowser-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-11-13 09:10+0100\n"
-"PO-Revision-Date: 2014-02-05 12:21+0000\n"
-"Last-Translator: Eduardo Gomes Santos <edugatogsantos@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"PO-Revision-Date: 2014-01-25 21:41+0000\n"
+"Last-Translator: Gangov <Unknown>\n"
+"Language-Team: Bulgarian <bg@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-02-06 06:25+0000\n"
-"X-Generator: Launchpad (build 16916)\n"
+"X-Launchpad-Export-Date: 2014-01-26 05:16+0000\n"
+"X-Generator: Launchpad (build 16914)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
-msgstr "Atividade"
+msgstr "Дейност"
 
 #: src/app/ActivityView.qml:54
 msgid "Bookmarks"
-msgstr "Favoritos"
+msgstr "Отметки"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr "Alerta JavaScript"
+msgstr "Уведомление за JavaScript"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr "OK"
+msgstr "ОК"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr "Autenticação necessária."
+msgstr "Необходима е оторизация"
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "O website %1 requer autenticação."
+msgstr "Уебадресът %1 изисква оторизация"
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr "Nome de usuário"
+msgstr "Потребителско име"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr "Senha"
+msgstr "Парола"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Отмени"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "Esta conexão não é confiável"
+msgstr "Тази връзка е несигурна"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -68,81 +68,81 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Você está tentando acessar com segurança %1, mas o certificado de segurança "
-"deste site não é confiável."
+"Вие се опитвате безопасно да влезнете в %1, но сертификатът за сигурност на "
+"този уебадрес е несигурен."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr "Continuar mesmo assim"
+msgstr "Продължаване напред въпреки това"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr "Voltar à segurança"
+msgstr "Назад към безопасната страница"
 
 #: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "Voltar"
+msgstr "Назад"
 
 #: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Avançar"
+msgstr "Напред"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr "Confirmação JavaScript"
+msgstr "Потвърждение за JavaScript"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr "Erro de conexão"
+msgstr "Мрежова грешка"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Parece que você está tendo problemas de visualização: %1."
+msgstr "Изглежда имате проблем да видите %1."
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"O Ubuntu sugere que você verifique suas configurações de rede e tente "
-"atualizar a página."
+"Убунту Ви съветва да проверите мрежовите си настройки и да се опитате да "
+"презаредите страницата."
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr "Atualizar a página"
+msgstr "Презареди страницата"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "Requisição de permissão"
+msgstr "Необходимо е разрешение"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr "Negar"
+msgstr "Откажи"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr "Permitir"
+msgstr "Разреши"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr "Prompt do JavaScript"
+msgstr "Напомняне за JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "Autenticação proxy necessária."
+msgstr "Необходима е идентификация за прокси"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "O website %1:%2 requer autenticação."
+msgstr "Уебадресът %1:%2 изисква оторизация."
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/TabsList.qml:37
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr "Visualizando atualmente (%1)"
+msgstr "В момента се гледа (%1)"
 
 #: src/app/TabsList.qml:68
 msgid "+"
@@ -150,144 +150,144 @@ msgstr "+"
 
 #: src/app/TimelineView.qml:83
 msgid "Today"
-msgstr "Hoje"
+msgstr "Днес"
 
 #: src/app/TimelineView.qml:85
 msgid "Yesterday"
-msgstr "Ontem"
+msgstr "Вчера"
 
 #: src/app/TimelineView.qml:87
 msgid "Last 7 Days"
-msgstr "Últimos 7 dias"
+msgstr "Последните 7 дни"
 
 #: src/app/TimelineView.qml:89
 msgid "This Month"
-msgstr "Este mês"
+msgstr "Този месец"
 
 #: src/app/TimelineView.qml:91
 msgid "This Year"
-msgstr "Este ano"
+msgstr "Тази година"
 
 #: src/app/TimelineView.qml:93
 msgid "Older"
-msgstr "Mais antigo"
+msgstr "По-стари"
 
 #: src/app/TimelineView.qml:276
 msgid "(local files)"
-msgstr "(arquivos locais)"
+msgstr "(местни файлове)"
 
 #: src/app/TimelineView.qml:278
 msgid "(other)"
-msgstr "(outro)"
+msgstr "(други)"
 
 #: src/app/WebViewImpl.qml:52
 msgid "This page wants to know your device’s location."
-msgstr "A página deseja saber a localização do seu dispositivo."
+msgstr "Тази страница иска да знае местонахождението на вашето устройство."
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Página mais antiga"
+msgstr "По-стара страница"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr "Favorito"
+msgstr "Отметка"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Adicionar esta página aos favoritos"
+msgstr "Добави страницата към отметки"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "Link de favorito"
+msgstr "Постави линка в отметки"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "Limpar histórico"
+msgstr "Изчисти историята"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Limpar histórico de navegação"
+msgstr "Изчисти историята за навигация"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr "Copiar"
+msgstr "Копирай"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr "Copiar imagem"
+msgstr "Кобирай изображение"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr "Copiar link"
+msgstr "Копиране на линка"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Página mais nova"
+msgstr "По-нова страница"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr "Ir para"
+msgstr "Отиди на"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Endereço;URL;www"
+msgstr "Адрес;URL;www"
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
-msgstr "Nova aba"
+msgstr "Нов подпрозорец"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Abrir uma nova aba"
+msgstr "Отвори нов подпрозорец"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "Abrir imagem em nova aba"
+msgstr "Отвори изображението в нов подпрозорец"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "Abrir link em nova aba"
+msgstr "Отвори линка в нов подпрозорец"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr "Recarregar"
+msgstr "Презареди"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "Deixar página"
+msgstr "Напусни страницата"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Navegador web do Ubuntu"
+msgstr "%1 - Убунту Уеб Браузър"
 
 #: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
 msgid "Ubuntu Web Browser"
-msgstr "Navegador web do Ubuntu"
+msgstr "Убунту Уеб Браузър"
 
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr "Navegador"
+msgstr "Браузър"
 
 #: src/app/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr "Navegador web"
+msgstr "Уеб браузър"
 
 #: src/app/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr "Navegue na internet"
+msgstr "Браузване на World Wide Web"
