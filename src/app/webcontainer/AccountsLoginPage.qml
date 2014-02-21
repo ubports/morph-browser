@@ -50,9 +50,9 @@ Item {
     Component.onCompleted: checkAccounts()
 
     function checkAccounts() {
-        if (accountsModel.model.count === 0) {
+        if (accountsModel.count === 0) {
             accountsViewLoader.sourceComponent = accountsAdditionToolbarViewComponent
-        } else if (accountsModel.model.count === 1) {
+        } else if (accountsModel.count === 1) {
             doLogin(accountsModel.model.get(0, "accountServiceHandle"))
         } else {
             accountsViewLoader.sourceComponent = accountsSelectionViewComponent

@@ -24,12 +24,11 @@ Item {
     id: root
     property string accountProvider: ""
     property string applicationName: ""
+    property alias count: accountsModel.count
 
     function createNewAccount() {
         setup.exec();
     }
-
-    signal countChanged();
 
     readonly property alias model: accountsModel
 
