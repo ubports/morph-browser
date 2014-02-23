@@ -126,6 +126,10 @@ FocusScope {
         if (terms.length > 1) {
             return false
         }
+
+        if (address.substr(0, 1) == "/") {
+            return true
+        }
         if (address.match(/^https?:\/\//) ||
             address.match(/^file:\/\//) ||
             address.match(/^[a-z]+:\/\//)) {
@@ -144,6 +148,9 @@ FocusScope {
         var url = address
         if (address.indexOf("://") == -1) {
             url = "http://" + address
+        }
+        if (address.substr(0, 1) == "/") {
+            url = "file://" + address
         }
         return url
     }
@@ -166,12 +173,7 @@ FocusScope {
         if (looksLikeAUrl(query)) {
             requestedUrl = fixUrl(query)
         } else {
-            if (query.substr(0, 1) == "/") {
-                requestedUrl = "file://" + query
-            }
-            else {
-                requestedUrl = buildSearchUrl(query)
-            }
+            requestedUrl = buildSearchUrl(query)
         }
         validated()
     }
