@@ -25,8 +25,6 @@ Item {
 
     property var model
 
-    function accountItemDataRequestedDelegate (accountServiceHandle) { }
-
     signal accountSelected(QtObject accountServiceHandle)
 
     ListView {
@@ -41,27 +39,12 @@ Item {
         }
 
         delegate: AccountItemView {
-            id: account
-
-            function __getAccountInfoDisplay(accountViewData) {
-                return accountViewData ?
-                    accountViewData.provider.displayName
-                            + ": "
-                            + accountViewData.displayName
-                    : i18n.tr("(unknown)");
-            }
-            property var __accountViewData: null
-
             visible: enabled
 
-            accountName: __getAccountInfoDisplay(__accountViewData)
+            accountName: providerName + ": " + displayName
 
             onClicked: {
-                root.accountSelected(__accountViewData)
-            }
-
-            Component.onCompleted: {
-                 __accountViewData = accountItemDataRequestedDelegate(accountServiceHandle);
+                root.accountSelected(accountServiceHandle)
             }
         }
     }

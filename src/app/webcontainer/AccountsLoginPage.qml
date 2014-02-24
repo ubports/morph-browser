@@ -34,6 +34,7 @@ Item {
         id: accountsModel
         accountProvider: root.accountProvider
         applicationName: root.applicationName
+        onCountChanged: checkAccounts()
     }
 
     Rectangle {
@@ -44,9 +45,20 @@ Item {
     Loader {
         id: accountsViewLoader
         anchors.fill: parent
-        sourceComponent: accountsModel.model.count === 0 ?
-                             accountsAdditionToolbarViewComponent : accountsSelectionViewComponent
     }
+
+    Component.onCompleted: checkAccounts()
+
+    function checkAccounts() {
+        if (accountsModel.count === 0) {
+            accountsViewLoader.sourceComponent = accountsAdditionToolbarViewComponent
+        } else if (accountsModel.count === 1) {
+            doLogin(accountsModel.model.get(0, "accountServiceHandle"))
+        } else {
+            accountsViewLoader.sourceComponent = accountsSelectionViewComponent
+        }
+    }
+
     Component {
         id: accountsAdditionToolbarViewComponent
         Item {
@@ -137,22 +149,19 @@ Item {
 
             model: accountsModel.model
 
-            function accountItemDataRequestedDelegate(accountServiceHandle) {
-                var instance = accountComponent.createObject(root, {objectHandle: accountServiceHandle});
-                return instance;
-            }
-
-            onAccountSelected: {
-                var account = accountServiceHandle;
-                account.authenticated.connect(function () {
-                    done(account.authData.credentialsId);
-                });
-                account.authenticationError.connect(function () {
-                    done(null);
-                });
-                account.authenticate(null);
-            }
+            onAccountSelected: doLogin(accountServiceHandle)
         }
+    }
+
+    function doLogin(accountHandle) {
+        var account = accountComponent.createObject(root, {objectHandle: accountHandle});
+        account.authenticated.connect(function () {
+            done(account.authData.credentialsId);
+        });
+        account.authenticationError.connect(function () {
+            done(null);
+        });
+        account.authenticate(null);
     }
 
     Component {
