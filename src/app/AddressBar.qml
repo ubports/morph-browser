@@ -126,7 +126,6 @@ FocusScope {
         if (terms.length > 1) {
             return false
         }
-
         if (address.substr(0, 1) == "/") {
             return true
         }
@@ -146,12 +145,11 @@ FocusScope {
 
     function fixUrl(address) {
         var url = address
-        if (address.indexOf("://") == -1) {
-            url = "http://" + address
-        }
         if (address.substr(0, 1) == "/") {
             url = "file://" + address
-        }
+        }else if (address.indexOf("://") == -1) {
+            url = "http://" + address
+        } 
         return url
     }
 
