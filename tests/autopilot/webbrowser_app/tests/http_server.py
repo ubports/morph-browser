@@ -7,10 +7,7 @@
 # by the Free Software Foundation.
 
 import BaseHTTPServer
-import errno
 import logging
-import os
-import socket
 import threading
 import time
 
@@ -96,40 +93,29 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         logger.error(format % args)
 
 
-class HTTPServerInAThread(threading.Thread):
+class HTTPServerInAThread(object):
 
     """
     A simple custom HTTP server run in a separate thread.
     """
 
     def __init__(self):
-        super(HTTPServerInAThread, self).__init__()
-        port = 12345
-        self.server = None
-        while self.server is None:
-            try:
-                self.server = BaseHTTPServer.HTTPServer(("", port),
-                                                        HTTPRequestHandler)
-            except socket.error, error:
-                if (error.errno == errno.EADDRINUSE):
-                    logging.error("Port %d is already in use" % port)
-                    port += 1
-                else:
-                    logging.error(os.strerror(error.errno))
-                    raise
+        random_port = 0
+        self.server = BaseHTTPServer.HTTPServer(("", random_port),
+                                                HTTPRequestHandler)
         self.server.allow_reuse_address = True
+        self.server_thread = threading.Thread(target=self.server.serve_forever)
+        self.server_thread.start()
+        logging.info("now serving on port {}".format(self.server.server_port))
+
+    def cleanup(self):
+        self.server.shutdown()
+        self.server.server_close()
+        self.server_thread.join()
 
     @property
     def port(self):
         return self.server.server_port
-
-    def run(self):
-        logging.info("now serving on port %d" % self.port)
-        self.server.serve_forever()
-
-    def shutdown(self):
-        self.server.shutdown()
-        self.server.server_close()
 
 
 __all__ = ["HTTPServerInAThread"]
