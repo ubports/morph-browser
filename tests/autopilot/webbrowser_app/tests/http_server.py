@@ -100,9 +100,8 @@ class HTTPServerInAThread(object):
     """
 
     def __init__(self):
-        random_port = 0
-        self.server = BaseHTTPServer.HTTPServer(("", random_port),
-                                                HTTPRequestHandler)
+        # port == 0 will assign a random free port
+        self.server = BaseHTTPServer.HTTPServer(("", 0), HTTPRequestHandler)
         self.server.allow_reuse_address = True
         self.server_thread = threading.Thread(target=self.server.serve_forever)
         self.server_thread.start()
