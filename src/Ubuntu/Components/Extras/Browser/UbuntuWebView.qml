@@ -67,7 +67,36 @@ WebView {
 
     context: WebContext {
         userAgent: userAgent.defaultUA
+        userScripts: [
+            UserScript {
+                worldId: "Selection"
+                url: Qt.resolvedUrl("selection.js")
+                incognitoEnabled: true
+                matchAllFrames: true
+            }
+        ]
     }
+
+    messageHandlers: [
+        MessageHandler {
+            msgId: "longpress"
+            worldIds: ["Selection"]
+            callback: function(msg, frame) {
+                if (('img' in msg.args) || ('href' in msg.args)) {
+                    contextualData.clear()
+                    if ('img' in msg.args) {
+                        contextualData.img = msg.args.img
+                    }
+                    if ('href' in msg.args) {
+                        contextualData.href = msg.args.href
+                        contextualData.title = msg.args.title
+                    }
+                    contextualRectangle.position(msg.args)
+                    PopupUtils.open(contextualPopover, contextualRectangle)
+                }
+            }
+        }
+    ]
 
     /*onNavigationRequested: {
         request.action = WebView.AcceptRequest;
@@ -209,7 +238,7 @@ WebView {
             Clipboard.push(mimedata)
             clearData()
         }
-    }
+    }*/
 
     Item {
         id: contextualRectangle
@@ -217,13 +246,14 @@ WebView {
         visible: false
 
         function position(data) {
-            var scale = _webview.experimental.test.contentsScale * _webview.experimental.test.devicePixelRatio
+            //var scale = _webview.experimental.test.contentsScale * _webview.experimental.test.devicePixelRatio
+            var scale = 1.0
             x = data.left * scale
             y = data.top * scale
             width = data.width * scale
             height = data.height * scale
         }
-    }*/
+    }
     property QtObject contextualData: QtObject {
         property url href
         property string title

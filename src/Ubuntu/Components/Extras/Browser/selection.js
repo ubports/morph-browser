@@ -123,7 +123,7 @@ if (blacklist.indexOf(document.domain) === -1) {
                          Math.pow(touch2.clientY - touch1.clientY, 2));
     }
 
-    navigator.qt.onmessage = function(message) {
+    /*navigator.qt.onmessage = function(message) {
         var data = null;
         try {
             data = JSON.parse(message.data);
@@ -137,7 +137,7 @@ if (blacklist.indexOf(document.domain) === -1) {
                 navigator.qt.postMessage(JSON.stringify(selection));
             }
         }
-    }
+    }*/
 
     var longpressObserver = -1;
     var currentTouch = null;
@@ -147,8 +147,7 @@ if (blacklist.indexOf(document.domain) === -1) {
         longpressDetected = true;
         var element = document.elementFromPoint(x, y);
         var data = getSelectedData(element);
-        data.event = 'longpress';
-        navigator.qt.postMessage(JSON.stringify(data));
+        oxide.sendMessage('longpress', data);
     }
 
     function clearLongpressTimeout() {
@@ -188,6 +187,11 @@ if (blacklist.indexOf(document.domain) === -1) {
             longpressDetected = false;
         }
         clearLongpressTimeout();
+    });
+
+    // Right-click emulate long press for testing purposes
+    doc.addEventListener('contextmenu', function(event) {
+        longPressDetected(event.clientX, event.clientY);
     });
 
 }
