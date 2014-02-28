@@ -197,4 +197,8 @@ if (blacklist.indexOf(document.domain) === -1) {
         longPressDetected(event.clientX, event.clientY);
     });
 
+    document.defaultView.addEventListener('scroll', function(event) {
+        oxide.sendMessage('scroll', {});
+    });
+
 }

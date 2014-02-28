@@ -100,6 +100,15 @@ WebView {
                     PopupUtils.close(internal.currentContextulMenu)
                 }
             }
+        },
+        MessageHandler {
+            msgId: "scroll"
+            worldIds: ["Selection"]
+            callback: function(msg, frame) {
+                if (internal.currentContextulMenu != null) {
+                    PopupUtils.close(internal.currentContextulMenu)
+                }
+            }
         }
     ]
 
