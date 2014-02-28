@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Window 2.0
 import com.canonical.Oxide 0.1
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
@@ -289,6 +290,13 @@ WebView {
     QtObject {
         id: internal
         property Item currentContextulMenu: null
+    }
+
+    readonly property int screenOrientation: Screen.orientation
+    onScreenOrientationChanged: {
+        if (internal.currentContextulMenu != null) {
+            PopupUtils.close(internal.currentContextulMenu)
+        }
     }
 
     /*Scrollbar {
