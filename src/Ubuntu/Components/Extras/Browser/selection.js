@@ -147,6 +147,9 @@ if (blacklist.indexOf(document.domain) === -1) {
         longpressDetected = true;
         var element = document.elementFromPoint(x, y);
         var data = getSelectedData(element);
+        var w = document.defaultView;
+        data['scaleX'] = w.outerWidth / w.innerWidth * w.devicePixelRatio;
+        data['scaleY'] = w.outerHeight / w.innerHeight * w.devicePixelRatio;
         oxide.sendMessage('longpress', data);
     }
 

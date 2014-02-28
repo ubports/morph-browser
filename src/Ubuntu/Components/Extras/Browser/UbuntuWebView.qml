@@ -251,12 +251,10 @@ WebView {
         visible: false
 
         function position(data) {
-            //var scale = _webview.experimental.test.contentsScale * _webview.experimental.test.devicePixelRatio
-            var scale = 1.0
-            x = data.left * scale
-            y = data.top * scale
-            width = data.width * scale
-            height = data.height * scale
+            x = data.left * data.scaleX
+            y = data.top * data.scaleY
+            width = data.width * data.scaleX
+            height = data.height * data.scaleY
         }
     }
     property QtObject contextualData: QtObject {
