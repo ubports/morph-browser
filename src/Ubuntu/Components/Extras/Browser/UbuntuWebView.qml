@@ -96,6 +96,8 @@ WebView {
                     }
                     contextualRectangle.position(msg.args)
                     internal.currentContextulMenu = PopupUtils.open(contextualPopover, contextualRectangle)
+                } else if (internal.currentContextulMenu != null) {
+                    PopupUtils.close(internal.currentContextulMenu)
                 }
             }
         }
