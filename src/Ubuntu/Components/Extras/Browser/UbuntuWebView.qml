@@ -83,6 +83,9 @@ WebView {
             worldIds: ["Selection"]
             callback: function(msg, frame) {
                 if (('img' in msg.args) || ('href' in msg.args)) {
+                    if (internal.currentContextulMenu != null) {
+                        PopupUtils.close(internal.currentContextulMenu)
+                    }
                     contextualData.clear()
                     if ('img' in msg.args) {
                         contextualData.img = msg.args.img
@@ -92,7 +95,7 @@ WebView {
                         contextualData.title = msg.args.title
                     }
                     contextualRectangle.position(msg.args)
-                    PopupUtils.open(contextualPopover, contextualRectangle)
+                    internal.currentContextulMenu = PopupUtils.open(contextualPopover, contextualRectangle)
                 }
             }
         }
@@ -272,6 +275,11 @@ WebView {
         ActionSelectionPopover {
             actions: contextualActions
         }
+    }
+
+    QtObject {
+        id: internal
+        property Item currentContextulMenu: null
     }
 
     /*Scrollbar {
