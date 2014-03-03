@@ -133,17 +133,13 @@ function distance(touch1, touch2) {
     }
 }*/
 
-function longPressDetected(x, y) {
-    var element = document.elementFromPoint(x, y);
+document.documentElement.addEventListener('contextmenu', function(event) {
+    var element = document.elementFromPoint(event.clientX, event.clientY);
     var data = getSelectedData(element);
     var w = document.defaultView;
     data['scaleX'] = w.outerWidth / w.innerWidth * w.devicePixelRatio;
     data['scaleY'] = w.outerHeight / w.innerHeight * w.devicePixelRatio;
-    oxide.sendMessage('longpress', data);
-}
-
-document.documentElement.addEventListener('contextmenu', function(event) {
-    longPressDetected(event.clientX, event.clientY);
+    oxide.sendMessage('contextmenu', data);
 });
 
 document.defaultView.addEventListener('scroll', function(event) {

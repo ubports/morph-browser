@@ -80,7 +80,7 @@ WebView {
 
     messageHandlers: [
         MessageHandler {
-            msgId: "longpress"
+            msgId: "contextmenu"
             worldIds: ["Selection"]
             callback: function(msg, frame) {
                 if (('img' in msg.args) || ('href' in msg.args)) {
