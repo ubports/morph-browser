@@ -84,8 +84,8 @@ WebView {
             worldIds: ["Selection"]
             callback: function(msg, frame) {
                 if (('img' in msg.args) || ('href' in msg.args)) {
-                    if (internal.currentContextulMenu != null) {
-                        PopupUtils.close(internal.currentContextulMenu)
+                    if (internal.currentContextualMenu != null) {
+                        PopupUtils.close(internal.currentContextualMenu)
                     }
                     contextualData.clear()
                     if ('img' in msg.args) {
@@ -96,9 +96,9 @@ WebView {
                         contextualData.title = msg.args.title
                     }
                     contextualRectangle.position(msg.args)
-                    internal.currentContextulMenu = PopupUtils.open(contextualPopover, contextualRectangle)
-                } else if (internal.currentContextulMenu != null) {
-                    PopupUtils.close(internal.currentContextulMenu)
+                    internal.currentContextualMenu = PopupUtils.open(contextualPopover, contextualRectangle)
+                } else if (internal.currentContextualMenu != null) {
+                    PopupUtils.close(internal.currentContextualMenu)
                 }
             }
         },
@@ -106,8 +106,8 @@ WebView {
             msgId: "scroll"
             worldIds: ["Selection"]
             callback: function(msg, frame) {
-                if (internal.currentContextulMenu != null) {
-                    PopupUtils.close(internal.currentContextulMenu)
+                if (internal.currentContextualMenu != null) {
+                    PopupUtils.close(internal.currentContextualMenu)
                 }
             }
         }
@@ -289,13 +289,13 @@ WebView {
 
     QtObject {
         id: internal
-        property Item currentContextulMenu: null
+        property Item currentContextualMenu: null
     }
 
     readonly property int screenOrientation: Screen.orientation
     onScreenOrientationChanged: {
-        if (internal.currentContextulMenu != null) {
-            PopupUtils.close(internal.currentContextulMenu)
+        if (internal.currentContextualMenu != null) {
+            PopupUtils.close(internal.currentContextualMenu)
         }
     }
 
