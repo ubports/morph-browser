@@ -24,6 +24,7 @@ import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
+import com.canonical.Oxide 0.1
 import "../actions" as Actions
 import ".."
 
@@ -168,7 +169,6 @@ BrowserView {
     UnityWebApps.UnityWebApps {
         id: unityWebapps
         name: webappName
-        bindee: webview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
     }
