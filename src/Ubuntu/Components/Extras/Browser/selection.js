@@ -139,12 +139,7 @@ if (blacklist.indexOf(document.domain) === -1) {
         }
     }*/
 
-    var longpressObserver = -1;
-    var currentTouch = null;
-    var longpressDetected = false;
-
     function longPressDetected(x, y) {
-        longpressDetected = true;
         var element = document.elementFromPoint(x, y);
         var data = getSelectedData(element);
         var w = document.defaultView;
@@ -153,47 +148,7 @@ if (blacklist.indexOf(document.domain) === -1) {
         oxide.sendMessage('longpress', data);
     }
 
-    function clearLongpressTimeout() {
-        clearTimeout(longpressObserver);
-        longpressObserver = -1;
-        currentTouch = null;
-    }
-
-    var doc = document.documentElement;
-
-    doc.addEventListener('touchstart', function(event) {
-        if (event.touches.length == 1) {
-            currentTouch = event.touches[0];
-            longpressObserver = setTimeout(longPressDetected, 800, currentTouch.clientX, currentTouch.clientY);
-        }
-    });
-
-    doc.addEventListener('touchend', function(event) {
-        if (longpressDetected) {
-            longpressDetected = false;
-            event.preventDefault();
-        }
-        clearLongpressTimeout();
-    });
-
-    doc.addEventListener('touchmove', function(event) {
-        if (!currentTouch) {
-            return;
-        } 
-        if ((event.changedTouches.length > 1) || (distance(event.changedTouches[0], currentTouch) > 3)) {
-            clearLongpressTimeout();
-        }
-    });
-
-    doc.addEventListener('touchcancel', function(event) {
-        if (longpressDetected) {
-            longpressDetected = false;
-        }
-        clearLongpressTimeout();
-    });
-
-    // Right-click emulate long press for testing purposes
-    doc.addEventListener('contextmenu', function(event) {
+    document.documentElement.addEventListener('contextmenu', function(event) {
         longPressDetected(event.clientX, event.clientY);
     });
 
