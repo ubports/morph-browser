@@ -70,7 +70,7 @@ WebView {
         userAgent: userAgent.defaultUA
         userScripts: [
             UserScript {
-                worldId: "Selection"
+                context: "oxide://selection/"
                 url: Qt.resolvedUrl("selection.js")
                 incognitoEnabled: true
                 matchAllFrames: true
@@ -79,9 +79,9 @@ WebView {
     }
 
     messageHandlers: [
-        MessageHandler {
+        ScriptMessageHandler {
             msgId: "contextmenu"
-            worldIds: ["Selection"]
+            contexts: ["oxide://selection/"]
             callback: function(msg, frame) {
                 if (('img' in msg.args) || ('href' in msg.args)) {
                     if (internal.currentContextualMenu != null) {
@@ -102,9 +102,9 @@ WebView {
                 }
             }
         },
-        MessageHandler {
+        ScriptMessageHandler {
             msgId: "scroll"
-            worldIds: ["Selection"]
+            contexts: ["oxide://selection/"]
             callback: function(msg, frame) {
                 if (internal.currentContextualMenu != null) {
                     PopupUtils.close(internal.currentContextualMenu)
