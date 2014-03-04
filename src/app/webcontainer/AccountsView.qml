@@ -16,34 +16,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBAPP_CONTAINER_H__
-#define __WEBAPP_CONTAINER_H__
+import QtQuick 2.0
+import Ubuntu.Components 0.1
+import Ubuntu.Components.ListItems 0.1 as ListItem
 
-#include "../browserapplication.h"
+Item {
+    id: root
 
-// Qt
-#include <QString>
-#include <QStringList>
+    property var model
 
-class WebappContainer : public BrowserApplication
-{
-    Q_OBJECT
+    signal accountSelected(QtObject accountServiceHandle)
 
-public:
-    WebappContainer(int& argc, char** argv);
+    ListView {
+        id: accounts
 
-    bool initialize();
+        anchors.fill: parent
 
-protected:
-    void qmlEngineCreated(QQmlEngine *);
+        model: root.model
 
-private:
-    virtual void printUsage() const;
-    QString webappModelSearchPath() const;
-    QString webappName() const;
-    QStringList webappUrlPatterns() const;
-    QString accountProvider() const;
-    bool registerCookieQmlTypes(QQmlEngine * engine);
-};
+        header: ListItem.Header {
+            text: i18n.tr("Select an account");
+        }
 
-#endif // __WEBAPP_CONTAINER_H__
+        delegate: AccountItemView {
+            visible: enabled
+
+            accountName: providerName + ": " + displayName
+
+            onClicked: {
+                root.accountSelected(accountServiceHandle)
+            }
+        }
+    }
+}
+
+

@@ -88,6 +88,12 @@ webbrowser-app (0.23+14.04.20140115.1-0ubuntu1) trusty; urgency=medium
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 15 Jan 2014 19:37:19 +0000
 
+webbrowser-app (0.22+14.04.20131107-0ubuntu3) trusty; urgency=medium
+
+  * Add OA integration.
+
+ -- Alberto Mardegan <alberto.mardegan@canonical.com>  Tue, 04 Feb 2014 12:22:20 +0200
+
 webbrowser-app (0.22+14.04.20131107-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
