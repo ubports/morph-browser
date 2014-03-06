@@ -18,6 +18,7 @@
 
 #include "sqlitecookiestore.h"
 
+#include <QDir>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
@@ -43,6 +44,13 @@ QDateTime SqliteCookieStore::lastUpdateTimeStamp() const
 
 void SqliteCookieStore::doSetCookies(Cookies cookies)
 {
+    QString dbPath(getFullDbPathName());
+
+    /* Make sure that the parent directory exists */
+    QDir databaseAsDir(dbPath);
+    databaseAsDir.mkpath("..");
+
+    /* Open the DB; if it doesn't exist, it will get created */
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName (getFullDbPathName ());
 

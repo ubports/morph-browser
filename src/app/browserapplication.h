@@ -36,10 +36,16 @@ class BrowserApplication : public QApplication
     Q_OBJECT
 
 public:
+    enum CreationMode {
+        CompleteCreation = 0,
+        BeginCreation,
+    };
+
     BrowserApplication(int& argc, char** argv);
     ~BrowserApplication();
 
-    bool initialize(const QString& qmlFileSubPath);
+    bool initialize(const QString& qmlFileSubPath,
+                    CreationMode creationMode = CompleteCreation);
     int run();
 
 protected:
@@ -50,12 +56,12 @@ protected:
 
     QStringList m_arguments;
     QQuickWindow* m_window;
+    QQmlComponent* m_component;
 
 private:
     QString appId() const;
 
     QQmlEngine* m_engine;
-    QQmlComponent* m_component;
     WebBrowserWindow *m_webbrowserWindowProxy;
 };
 
