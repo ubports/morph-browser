@@ -50,10 +50,10 @@ Page {
 
         onDone: {
             if (!accountsPage.visible)
-                return;
+                return
             if (!credentialsId) {
                 accountsPage.done()
-                return;
+                return
             }
             var instance = onlineAccountStoreComponent.createObject(accountsLogin, {accountId: credentialsId})
 
