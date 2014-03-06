@@ -55,9 +55,9 @@ Page {
                 accountsPage.done()
                 return
             }
-            var instance = onlineAccountStoreComponent.createObject(accountsLogin, {accountId: credentialsId})
 
             if (webappCookieStore) {
+                var instance = onlineAccountStoreComponent.createObject(accountsLogin, {accountId: credentialsId})
                 webappCookieStore.moved.connect(internal.onMoved)
                 webappCookieStore.moveFrom(instance)
             } else {
