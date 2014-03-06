@@ -48,7 +48,6 @@ Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          unity-webapps-qml,
-         qtdeclarative5-online-accounts-client0.1 (>= 0.3),
          qtdeclarative5-accounts-plugin,
          signon-ui (>= 0.16),
          webbrowser-app (= ${binary:Version}),
