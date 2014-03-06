@@ -51,6 +51,7 @@ Depends: ${misc:Depends},
          qtdeclarative5-accounts-plugin,
          signon-ui (>= 0.16),
          webbrowser-app (= ${binary:Version}),
+Suggests: qtdeclarative5-online-accounts-client0.1 (>= 0.3),
 Description: Ubuntu web applications container
  A lightweight webapps container tailored for Ubuntu, based on the Webkit
  rendering engine and using the Ubuntu UI components.

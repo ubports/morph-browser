@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -40,25 +40,25 @@ Page {
         QtObject {
             id: internal
             function onMoved (result) {
-                webappCookieStore.moved.disconnect(internal.onMoved);
+                webappCookieStore.moved.disconnect(internal.onMoved)
                 if (! result) {
-                    console.log("Unable to move cookies");
+                    console.error("Unable to move cookies")
                 }
-                accountsPage.done();
+                accountsPage.done()
             }
         }
 
         onDone: {
-            if ( ! accountsPage.visible)
+            if (!accountsPage.visible)
                 return;
-            if ( ! credentialsId) {
-                accountsPage.done();
+            if (!credentialsId) {
+                accountsPage.done()
                 return;
             }
-            var instance = onlineAccountStoreComponent.createObject(accountsLogin, {accountId: credentialsId});
+            var instance = onlineAccountStoreComponent.createObject(accountsLogin, {accountId: credentialsId})
 
             webappCookieStore.moved.connect(internal.onMoved)
-            webappCookieStore.moveFrom(instance);
+            webappCookieStore.moveFrom(instance)
         }
     }
 

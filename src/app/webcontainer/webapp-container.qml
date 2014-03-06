@@ -140,7 +140,7 @@ Window {
             "accountProvider": root.accountProvider,
             "applicationName": root.applicationName,
             "webappCookieStore": webappCookieStore,
-        });
+        })
     }
 
     function loadWebAppView() {
