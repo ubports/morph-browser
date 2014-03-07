@@ -86,7 +86,7 @@ BrowserView {
             }
 
             function haveValidUrlPatterns() {
-                return webappUrlPatterns && webappUrlPatterns.length !== 0;
+                return webappUrlPatterns && webappUrlPatterns.length !== 0
             }
 
             function navigationRequestedDelegate(request) {
@@ -110,14 +110,15 @@ BrowserView {
                 if (isRunningAsANamedWebapp()) {
                     if (unityWebapps.model.exists(unityWebapps.name) &&
                         unityWebapps.model.doesUrlMatchesWebapp(unityWebapps.name, url)) {
-                        action = WebView.AcceptRequest
+                        request.action = WebView.AcceptRequest
+                        return;
                     }
                 }
 
                 // We still take the possible additional patterns specified in the command line
                 // (the in the case of finer grained ones specifically for the container and not
                 // as an 'install source' for the webapp).
-                if (webappUrlPatterns && webappUrlPatterns.length !== 0 && action === WebView.IgnoreRequest) {
+                if (webappUrlPatterns && webappUrlPatterns.length !== 0) {
                     for (var i = 0; i < webappUrlPatterns.length; ++i) {
                         var pattern = webappUrlPatterns[i]
                         if (url.match(pattern)) {
