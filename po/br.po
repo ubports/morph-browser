@@ -1,0 +1,293 @@
+# Breton translation for webbrowser-app
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-11-13 09:10+0100\n"
+"PO-Revision-Date: 2014-03-06 13:44+0000\n"
+"Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
+"Language-Team: Breton <br@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-03-07 07:25+0000\n"
+"X-Generator: Launchpad (build 16948)\n"
+
+#: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
+msgid "Activity"
+msgstr "Oberiantiz"
+
+#: src/app/ActivityView.qml:54
+msgid "Bookmarks"
+msgstr "Sinedoù"
+
+#: src/app/AlertDialog.qml:24
+msgid "JavaScript Alert"
+msgstr "Kemenn JavaScript"
+
+#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
+msgid "OK"
+msgstr "Mat eo"
+
+#: src/app/AuthenticationDialog.qml:24
+msgid "Authentication required."
+msgstr "Dilesadur rekis"
+
+#. TRANSLATORS: %1 refers to the URL of the current website
+#: src/app/AuthenticationDialog.qml:26
+#, qt-format
+msgid "The website %1 requires authentication."
+msgstr "Al lec'hienn web %1 a c'houlenn un dilesadur."
+
+#: src/app/AuthenticationDialog.qml:34
+msgid "Username"
+msgstr "Anv implijer"
+
+#: src/app/AuthenticationDialog.qml:41
+msgid "Password"
+msgstr "Ger-tremen"
+
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
+#: src/app/PromptDialog.qml:40
+msgid "Cancel"
+msgstr "Nullañ"
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "N'eo ket suraet ar c'hevreadur-mañ"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+"Emaoc'h o klask tizhout %1 en un doare suraet, met n'eo ket aotreet testeni "
+"surentez al lec'hienn Web-mañ."
+
+#: src/app/CertificateVerificationDialog.qml:29
+msgid "Proceed anyway"
+msgstr "Kenderc'hel memes tra"
+
+#: src/app/CertificateVerificationDialog.qml:35
+msgid "Back to safety"
+msgstr "Distro d'ar surentez"
+
+#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Distreiñ"
+
+#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "War-raok"
+
+#: src/app/ConfirmDialog.qml:24
+msgid "JavaScript Confirmation"
+msgstr "Kadarnadur JavaScript"
+
+#: src/app/ErrorSheet.qml:38
+msgid "Network Error"
+msgstr "Fazi gant ar rouedad"
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/app/ErrorSheet.qml:44
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr "War a seblant ez oc'h lakaet diaes evit gwelet : %1."
+
+#: src/app/ErrorSheet.qml:50
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr ""
+"Ubuntu a ali deoc'h gwiriañ arventennoù ho rouedad ha klask freskaat ar "
+"bajenn."
+
+#: src/app/ErrorSheet.qml:55
+msgid "Refresh page"
+msgstr "Freskaat ar bajenn"
+
+#: src/app/PermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "Goulenn aotre"
+
+#: src/app/PermissionRequest.qml:31
+msgid "Deny"
+msgstr "Nac'hañ"
+
+#: src/app/PermissionRequest.qml:40
+msgid "Allow"
+msgstr "Aotren"
+
+#: src/app/PromptDialog.qml:24
+msgid "JavaScript Prompt"
+msgstr "Ped JavaScript"
+
+#: src/app/ProxyAuthenticationDialog.qml:22
+msgid "Proxy authentication required."
+msgstr "Dilesadur proksi rekis"
+
+#. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
+#: src/app/ProxyAuthenticationDialog.qml:24
+#, qt-format
+msgid "The website %1:%2 requires authentication."
+msgstr "Al lec'hienn web %1:%2 a c'houlenn un dilesadur."
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/app/TabsList.qml:37
+#, qt-format
+msgid "Currently viewing (%1)"
+msgstr "Diswelet brema#n (%1)"
+
+#: src/app/TabsList.qml:68
+msgid "+"
+msgstr "+"
+
+#: src/app/TimelineView.qml:83
+msgid "Today"
+msgstr "Hiziv"
+
+#: src/app/TimelineView.qml:85
+msgid "Yesterday"
+msgstr "Dec'h"
+
+#: src/app/TimelineView.qml:87
+msgid "Last 7 Days"
+msgstr "Ar 7 deiz diwezhañ"
+
+#: src/app/TimelineView.qml:89
+msgid "This Month"
+msgstr "Ar miz-mañ"
+
+#: src/app/TimelineView.qml:91
+msgid "This Year"
+msgstr "Ar bloaz-mañ"
+
+#: src/app/TimelineView.qml:93
+msgid "Older"
+msgstr "Koshoc'h"
+
+#: src/app/TimelineView.qml:276
+msgid "(local files)"
+msgstr "(restroù lec'hel)"
+
+#: src/app/TimelineView.qml:278
+msgid "(other)"
+msgstr "(tra all)"
+
+#: src/app/WebViewImpl.qml:52
+msgid "This page wants to know your device’s location."
+msgstr "Fellout a ra d'ar bajenn-mañ gouzout pelec'h emañ ho penveg."
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Back.qml:26
+msgid "Older Page"
+msgstr "Pajenn goshoc'h"
+
+#: src/app/actions/Bookmark.qml:23
+msgid "Bookmark"
+msgstr "Sined"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Bookmark.qml:26
+msgid "Add This Page to Bookmarks"
+msgstr "Ouzhpennañ ar bajenn-mañ d'ar sinedoù"
+
+#: src/app/actions/BookmarkLink.qml:22
+msgid "Bookmark link"
+msgstr "Ouzhpennañ al liamm d'ar sinedoù"
+
+#: src/app/actions/ClearHistory.qml:23
+msgid "Clear History"
+msgstr "Diverkañ an istor"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/ClearHistory.qml:26
+msgid "Clear Navigation History"
+msgstr "Diverkañ an istor merdeiñ"
+
+#: src/app/actions/Copy.qml:22
+msgid "Copy"
+msgstr "Eilañ"
+
+#: src/app/actions/CopyImage.qml:22
+msgid "Copy image"
+msgstr "Eilañ ar skeudenn"
+
+#: src/app/actions/CopyLink.qml:22
+msgid "Copy link"
+msgstr "Eilañ al liamm"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Forward.qml:26
+msgid "Newer Page"
+msgstr "Pajenn nevesoc'h"
+
+#: src/app/actions/GoTo.qml:23
+msgid "Goto"
+msgstr "Mont da"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/GoTo.qml:26
+msgid "Address;URL;www"
+msgstr "Chomlec'h;URL;www"
+
+#: src/app/actions/NewTab.qml:23
+msgid "New Tab"
+msgstr "Ivinell nevez"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/NewTab.qml:26
+msgid "Open a New Tab"
+msgstr "Digeriñ un ivinell nevez"
+
+#: src/app/actions/OpenImageInNewTab.qml:22
+msgid "Open image in new tab"
+msgstr "Digeriñ ar skeudenn en un ivinell nevez"
+
+#: src/app/actions/OpenLinkInNewTab.qml:22
+msgid "Open link in new tab"
+msgstr "Digeriñ al liamm en un ivinell nevez"
+
+#: src/app/actions/Reload.qml:23
+msgid "Reload"
+msgstr "Adkargañ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Reload.qml:26
+msgid "Leave Page"
+msgstr "Kuitaat ar bajenn"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - Merdeer Web Ubuntu"
+
+#: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
+msgid "Ubuntu Web Browser"
+msgstr "Merdeer Web Ubuntu"
+
+#: src/app/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "Merdeer"
+
+#: src/app/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "Merdeer web"
+
+#: src/app/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "Merdeiñ war ar Web"
