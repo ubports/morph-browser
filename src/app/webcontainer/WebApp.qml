@@ -169,6 +169,7 @@ BrowserView {
     UnityWebApps.UnityWebApps {
         id: unityWebapps
         name: webappName
+        bindee: currentWebview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
     }
