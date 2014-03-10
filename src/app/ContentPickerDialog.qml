@@ -21,72 +21,69 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1 as Popups
 import Ubuntu.Content 0.1
 
-Popups.Dialog {
+Popups.PopupBase {
     id: picker
-    title: i18n.tr("Pick content to upload")
     property var activeTransfer
+    property var selectedItems
 
-    UbuntuShape {
-        height: width
-        image: Image {
-            objectName: "mediaPreview"
-            id: preview
-            fillMode: Image.PreserveAspectCrop
-        }
+    Rectangle {
+        anchors.fill: parent
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: startContentPicking()
-        }
-
-        ContentImportHint {
+        ContentTransferHint {
             anchors.fill: parent
             activeTransfer: picker.activeTransfer
         }
-    }
 
-    Button {
-        objectName: "ok"
-        text: i18n.tr("OK")
-        color: "green"
-        enabled: preview.source
-        onClicked: {
-            var selectedItems = [];
-            for(var i in picker.activeTransfer.items) {
-                selectedItems.push(String(picker.activeTransfer.items[i].url).replace("file://", ""));
+        ContentPeerPicker {
+            id: peerPicker
+            anchors.fill: parent
+            visible: true
+            contentType: ContentType.All
+            handler: ContentHandler.Source
+
+            onPeerSelected: {
+                if (model.allowMultipleFiles) {
+                    peer.selectionType = ContentTransfer.Multiple;
+                } else {
+                    peer.selectionType = ContentTransfer.Single;
+                }
+                picker.activeTransfer = peer.request()
             }
-            model.accept(selectedItems);
+
+            onCancelPressed: {
+                model.dismiss();
+            }
         }
-    }
-
-    Button {
-        text: i18n.tr("Cancel")
-        color: UbuntuColors.coolGrey
-        onClicked: model.reject()
-    }
-
-    function startContentPicking() {
-        activeTransfer = ContentHub.importContent(ContentType.Pictures);
-        if (model.allowMultipleFiles) {
-            activeTransfer.selectionType = ContentTransfer.Multiple;
-        } else {
-            activeTransfer.selectionType = ContentTransfer.Single;
-        }
-        activeTransfer.start();
-    }
-
-    Component.onCompleted: {
-        show();
-        startContentPicking();
     }
 
     Connections {
         target: picker.activeTransfer
         onStateChanged: {
             if (picker.activeTransfer.state === ContentTransfer.Charged) {
-                var importItem = picker.activeTransfer.items[0];
-                preview.source = importItem.url
+                selectedItems = [];
+                for(var i in picker.activeTransfer.items) {
+                    selectedItems.push(String(picker.activeTransfer.items[i].url).replace("file://", ""));
+                }
+                acceptTimer.running = true
             }
         }
     }
+
+    // FIXME: Work around for browser becoming insensitive to touch events
+    // if the dialog is dismissed while the application is inactive
+    Timer {
+        id: acceptTimer
+        interval: 100
+        repeat: true
+        onTriggered: {
+            if(Qt.application.active) {
+                model.accept(selectedItems);
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        show();
+    }
+
 }
