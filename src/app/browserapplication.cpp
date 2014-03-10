@@ -17,6 +17,7 @@
  */
 
 // Qt
+#include <QtCore/QLibrary>
 #include <QtNetwork/QNetworkInterface>
 #include <QtGui/QOpenGLContext>
 #include <QtQml/QQmlComponent>
@@ -39,6 +40,25 @@ BrowserApplication::BrowserApplication(int& argc, char** argv)
 {
     m_arguments = arguments();
     m_arguments.removeFirst();
+
+    // The testability driver is only loaded by QApplication but not by
+    // QGuiApplication (see https://codereview.qt-project.org/#change,66513).
+    // Let’s load the testability driver on our own.
+    if (m_arguments.contains(QLatin1String("-testability")) ||
+        qgetenv("QT_LOAD_TESTABILITY") == "1") {
+        QLibrary testLib(QLatin1String("qttestability"));
+        if (testLib.load()) {
+            typedef void (*TasInitialize)(void);
+            TasInitialize initFunction = (TasInitialize)testLib.resolve("qt_testability_init");
+            if (initFunction) {
+                initFunction();
+            } else {
+                qCritical("Library qttestability resolve failed!");
+            }
+        } else {
+            qCritical("Library qttestability load failed!");
+        }
+    }
 }
 
 BrowserApplication::~BrowserApplication()
