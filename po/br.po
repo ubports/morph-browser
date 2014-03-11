@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-11-13 09:10+0100\n"
-"PO-Revision-Date: 2014-03-06 13:44+0000\n"
+"PO-Revision-Date: 2014-03-10 12:41+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-03-07 07:25+0000\n"
+"X-Launchpad-Export-Date: 2014-03-11 06:10+0000\n"
 "X-Generator: Launchpad (build 16948)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
@@ -68,8 +68,8 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Emaoc'h o klask tizhout %1 en un doare suraet, met n'eo ket aotreet testeni "
-"surentez al lec'hienn Web-mañ."
+"Emaoc'h o klask tizhout %1 en un doare suraet, met ne c'haller ket fiziout e "
+"testeni surentez al lec'hienn Web-mañ."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
@@ -105,8 +105,8 @@ msgstr "War a seblant ez oc'h lakaet diaes evit gwelet : %1."
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"Ubuntu a ali deoc'h gwiriañ arventennoù ho rouedad ha klask freskaat ar "
-"bajenn."
+"Ubuntu a ali ac'hanoc'h da wiriañ arventennoù ho rouedad ha da glask "
+"freskaat ar bajenn."
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
@@ -142,7 +142,7 @@ msgstr "Al lec'hienn web %1:%2 a c'houlenn un dilesadur."
 #: src/app/TabsList.qml:37
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr "Diswelet brema#n (%1)"
+msgstr "Diskwelet bremañ (%1)"
 
 #: src/app/TabsList.qml:68
 msgid "+"
