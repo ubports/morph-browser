@@ -67,6 +67,7 @@ WebView {
     }
 
     context: WebContext {
+        dataPath: dataLocation
         userAgent: userAgent.defaultUA
         userScripts: [
             UserScript {
