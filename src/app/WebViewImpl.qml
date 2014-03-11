@@ -62,9 +62,11 @@ UbuntuWebView {
 
     property int lastLoadRequestStatus: -1
     onLoadingChanged: {
-        if (loadEvent.url.toString() !== "data:text/html,chromewebdata") {
-            lastLoadRequestStatus = loadEvent.type
-        } else if (historyModel && (loadEvent.type === LoadEvent.TypeSucceeded)) {
+        if (loadEvent.url.toString() === "data:text/html,chromewebdata") {
+            return
+        }
+        lastLoadRequestStatus = loadEvent.type
+        if (historyModel && (loadEvent.type === LoadEvent.TypeSucceeded)) {
             historyModel.add(webview.url, webview.title, "")//webview.icon)
         }
     }
