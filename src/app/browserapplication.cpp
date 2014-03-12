@@ -41,7 +41,9 @@ BrowserApplication::BrowserApplication(int& argc, char** argv)
 
 BrowserApplication::~BrowserApplication()
 {
-    m_webbrowserWindowProxy->setWindow(NULL);
+    if (m_webbrowserWindowProxy) {
+        m_webbrowserWindowProxy->setWindow(NULL);
+    }
     delete m_window;
     delete m_webbrowserWindowProxy;
     delete m_component;
