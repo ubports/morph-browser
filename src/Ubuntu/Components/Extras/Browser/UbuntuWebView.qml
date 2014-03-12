@@ -300,18 +300,6 @@ WebView {
         }
     }
 
-    /*Scrollbar {
-        parent: _webview.parent
-        flickableItem: _webview
-        align: Qt.AlignTrailing
-    }
-
-    Scrollbar {
-        parent: _webview.parent
-        flickableItem: _webview
-        align: Qt.AlignBottom
-    }*/
-
     /*WebviewThumbnailer {
         id: thumbnailer
         webview: _webview
