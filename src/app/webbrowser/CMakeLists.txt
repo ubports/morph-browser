@@ -34,6 +34,10 @@ install(TARGETS ${WEBBROWSER_APP}
 file(GLOB QML_FILES *.qml)
 install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser)
 
+install(DIRECTORY assets
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
+        FILES_MATCHING PATTERN *.png)
+
 set(DESKTOP_FILE webbrowser-app.desktop)
 configure_file(${DESKTOP_FILE}.in.in ${DESKTOP_FILE}.in @ONLY)
 file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE})

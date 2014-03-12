@@ -21,8 +21,6 @@ import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.WebContainer.Components 0.1
 
-import ".."
-
 Window {
     id: root
 
