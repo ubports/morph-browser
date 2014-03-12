@@ -21,7 +21,7 @@ import QtWebKit 3.1
 import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
-import Ubuntu.Components.Extras.Browser.private 0.1
+import webbrowserapp.private 0.1
 import "../actions" as Actions
 import ".."
 

@@ -69,7 +69,7 @@ bool WebbrowserApp::initialize()
         }
     }
 
-    const char* uri = "Ubuntu.Components.Extras.Browser.private";
+    const char* uri = "webbrowserapp.private";
     qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
     qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
