@@ -20,7 +20,7 @@ import QtQuick 2.0
 import QtQuick.Window 2.0
 import com.canonical.Oxide 0.1
 import Ubuntu.Components 0.1
-import Ubuntu.Components.Extras.Browser 0.1
+//import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
 
 WebView {
@@ -72,7 +72,7 @@ WebView {
         userScripts: [
             UserScript {
                 context: "oxide://selection/"
-                url: Qt.resolvedUrl("selection.js")
+                url: Qt.resolvedUrl("selection02.js")
                 incognitoEnabled: true
                 matchAllFrames: true
             }
@@ -175,7 +175,7 @@ WebView {
         }
     }*/
 
-    popupMenu: ItemSelector {}
+    popupMenu: ItemSelector02 {}
 
     /*property alias selection: selection
     property ActionList selectionActions
