@@ -49,7 +49,7 @@ WebView {
      */
     function navigationRequestedDelegate(request) { }
 
-    UserAgent {
+    UserAgent01 {
         id: userAgent
     }
     function getSystemWideUAString(url) {
