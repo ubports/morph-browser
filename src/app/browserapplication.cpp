@@ -17,7 +17,6 @@
  */
 
 // Qt
-#include <QtCore/QThread>
 #include <QtNetwork/QNetworkInterface>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
@@ -28,15 +27,11 @@
 #include "browserapplication.h"
 #include "config.h"
 #include "webbrowser-window.h"
-#include "webthumbnail-provider.h"
-#include "webthumbnail-utils.h"
-#include "webview-thumbnailer.h"
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
     : QApplication(argc, argv)
-    , m_window(0)
     , m_engine(0)
-    , m_thumbnailUtilsThread(0)
+    , m_window(0)
     , m_component(0)
     , m_webbrowserWindowProxy(0)
 {
@@ -50,11 +45,6 @@ BrowserApplication::~BrowserApplication()
     delete m_window;
     delete m_webbrowserWindowProxy;
     delete m_component;
-    if (m_thumbnailUtilsThread) {
-        m_thumbnailUtilsThread->quit();
-        m_thumbnailUtilsThread->wait();
-        delete m_thumbnailUtilsThread;
-    }
     delete m_engine;
 }
 
@@ -108,25 +98,11 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
         qputenv("QTWEBKIT_INSPECTOR_SERVER", server.toUtf8());
     }
 
-    const char* uri = "webbrowserapp.private";
-    qmlRegisterType<WebviewThumbnailer>(uri, 0, 1, "WebviewThumbnailer");
-
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));
     if (!isRunningInstalled()) {
         m_engine->addImportPath(UbuntuBrowserImportsDirectory());
     }
-
-    // This singleton lives in its own thread to ensure that
-    // disk I/O is not performed in the UI thread.
-    WebThumbnailUtils& utils = WebThumbnailUtils::instance();
-    m_thumbnailUtilsThread = new QThread;
-    utils.moveToThread(m_thumbnailUtilsThread);
-    m_thumbnailUtilsThread->start();
-
-    WebThumbnailProvider* thumbnailer = new WebThumbnailProvider;
-    m_engine->addImageProvider(QLatin1String("webthumbnail"), thumbnailer);
-    m_engine->rootContext()->setContextProperty("WebThumbnailer", thumbnailer);
 
     qmlEngineCreated(m_engine);
 

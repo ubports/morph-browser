@@ -22,7 +22,6 @@ import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
-import webbrowserapp.private 0.1
 import "actions" as Actions
 
 UbuntuWebView {
@@ -60,30 +59,11 @@ UbuntuWebView {
         //       the permission everytime the user visits this site.
     }
 
-    WebviewThumbnailer {
-        id: thumbnailer
-        webview: _webview
-        targetSize: Qt.size(units.gu(12), units.gu(12))
-        property url thumbnailSource: "image://webthumbnail/" + _webview.url
-        onThumbnailRendered: {
-            if (url == _webview.url) {
-                _webview.thumbnail = thumbnailer.thumbnailSource
-            }
-        }
-    }
-    property url thumbnail: (url && thumbnailer.thumbnailExists()) ? thumbnailer.thumbnailSource : ""
-
     property int lastLoadRequestStatus: -1
-
     onLoadingChanged: {
         lastLoadRequestStatus = loadRequest.status
-        if (loadRequest.status === WebView.LoadSucceededStatus) {
-            if (historyModel) {
-                historyModel.add(_webview.url, _webview.title, _webview.icon)
-            }
-            if (!thumbnailer.thumbnailExists()) {
-                thumbnailer.renderThumbnail()
-            }
+        if (historyModel && (loadRequest.status === WebView.LoadSucceededStatus)) {
+            historyModel.add(_webview.url, _webview.title, _webview.icon)
         }
     }
 }
