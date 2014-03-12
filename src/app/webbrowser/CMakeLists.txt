@@ -2,6 +2,7 @@ project(webbrowser-app)
 
 include_directories(
     ${CMAKE_BINARY_DIR}
+    ${webbrowser-common_SOURCE_DIR}
     ${webbrowser-common_BINARY_DIR}
     ${srcdir_SOURCE_DIR}
 )
@@ -17,17 +18,15 @@ set(WEBBROWSER_APP_SRC
     history-domainlist-chronological-model.cpp
     tabs-model.cpp
     bookmarks-model.cpp
-    ../browserapplication.cpp
     settings.cpp
     webbrowser-app.cpp
-    ../webbrowser-window.cpp
 )
 
-add_executable(${WEBBROWSER_APP}
-    ${WEBBROWSER_APP_SRC}
-)
+add_executable(${WEBBROWSER_APP} ${WEBBROWSER_APP_SRC})
 
-qt5_use_modules(${WEBBROWSER_APP} Core Quick Sql Widgets)
+target_link_libraries(${WEBBROWSER_APP} ${COMMONLIB})
+
+qt5_use_modules(${WEBBROWSER_APP} Core Quick Sql)
 
 install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

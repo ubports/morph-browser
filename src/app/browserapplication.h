@@ -29,6 +29,7 @@
 class QQmlComponent;
 class QQmlEngine;
 class QQuickWindow;
+class QThread;
 class WebBrowserWindow;
 
 class BrowserApplication : public QApplication
@@ -55,6 +56,7 @@ private:
     QString appId() const;
 
     QQmlEngine* m_engine;
+    QThread* m_thumbnailUtilsThread;
     QQmlComponent* m_component;
     WebBrowserWindow *m_webbrowserWindowProxy;
 };

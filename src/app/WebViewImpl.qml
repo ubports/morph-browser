@@ -22,12 +22,13 @@ import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
+import webbrowserapp.private 0.1
 import "actions" as Actions
 
 UbuntuWebView {
-    id: webview
+    id: _webview
 
-    property var currentWebview: webview
+    property var currentWebview: _webview
     property var toolbar: null
     property QtObject historyModel: null
 
@@ -46,12 +47,12 @@ UbuntuWebView {
 
     experimental.onPermissionRequested: {
         if (permission.type === PermissionRequest.Geolocation) {
-            if (webview.toolbar) {
-                webview.toolbar.close()
+            if (_webview.toolbar) {
+                _webview.toolbar.close()
             }
             var text = i18n.tr("This page wants to know your device’s location.")
             PopupUtils.open(Qt.resolvedUrl("PermissionRequest.qml"),
-                            webview.currentWebview,
+                            _webview.currentWebview,
                             {"permission": permission, "text": text})
         }
         // TODO: handle other types of permission requests
@@ -59,11 +60,30 @@ UbuntuWebView {
         //       the permission everytime the user visits this site.
     }
 
+    WebviewThumbnailer {
+        id: thumbnailer
+        webview: _webview
+        targetSize: Qt.size(units.gu(12), units.gu(12))
+        property url thumbnailSource: "image://webthumbnail/" + _webview.url
+        onThumbnailRendered: {
+            if (url == _webview.url) {
+                _webview.thumbnail = thumbnailer.thumbnailSource
+            }
+        }
+    }
+    property url thumbnail: (url && thumbnailer.thumbnailExists()) ? thumbnailer.thumbnailSource : ""
+
     property int lastLoadRequestStatus: -1
+
     onLoadingChanged: {
         lastLoadRequestStatus = loadRequest.status
-        if (historyModel && (loadRequest.status === WebView.LoadSucceededStatus)) {
-            historyModel.add(webview.url, webview.title, webview.icon)
+        if (loadRequest.status === WebView.LoadSucceededStatus) {
+            if (historyModel) {
+                historyModel.add(_webview.url, _webview.title, _webview.icon)
+            }
+            if (!thumbnailer.thumbnailExists()) {
+                thumbnailer.renderThumbnail()
+            }
         }
     }
 }
