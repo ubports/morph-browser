@@ -10,24 +10,17 @@ set(WEBBROWSER_IMPORTS_DIR "${QT_INSTALL_QML}/Ubuntu/Components/Extras/Browser")
 set(PLUGIN ubuntu-ui-extras-browser-plugin)
 
 set(PLUGIN_SRC
-    domain-utils.cpp
-    history-model.cpp
-    history-matches-model.cpp
-    history-timeframe-model.cpp
-    history-domain-model.cpp
-    history-domainlist-model.cpp
-    history-domainlist-chronological-model.cpp
-    tabs-model.cpp
-    bookmarks-model.cpp
 #    webthumbnail-utils.cpp
 #    webthumbnail-provider.cpp
 #    webview-thumbnailer.cpp
     plugin.cpp
 )
 
+include_directories(${srcdir_SOURCE_DIR})
+
 add_library(${PLUGIN} MODULE ${PLUGIN_SRC})
 
-qt5_use_modules(${PLUGIN} Core Qml Quick Sql) #WebKit)
+qt5_use_modules(${PLUGIN} Core Qml Quick) #WebKit)
 
 # work around the lack of a public cmake module for Qt5V8
 #set(Qt5V8_PRIVATE_INCLUDE_DIRS

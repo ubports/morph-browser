@@ -22,6 +22,7 @@ import QtQuick 2.0
 import com.canonical.Oxide 0.1
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
+import webbrowserapp.private 0.1
 import "../actions" as Actions
 import ".."
 

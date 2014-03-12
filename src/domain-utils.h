@@ -16,16 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "domain-utils.h"
+#ifndef __DOMAIN_UTILS_H__
+#define __DOMAIN_UTILS_H__
 
 // Qt
+#include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QUrl>
 
-const QString DomainUtils::TOKEN_LOCAL = "(local)";
-const QString DomainUtils::TOKEN_NONE = "(none)";
+namespace DomainUtils {
 
-QString DomainUtils::extractTopLevelDomainName(const QUrl& url)
+static const QString TOKEN_LOCAL = "(local)";
+static const QString TOKEN_NONE = "(none)";
+
+static QString extractTopLevelDomainName(const QUrl& url)
 {
     if (url.isLocalFile()) {
         return TOKEN_LOCAL;
@@ -43,3 +47,7 @@ QString DomainUtils::extractTopLevelDomainName(const QUrl& url)
     QString sld = host.split(".").last();
     return sld + tld;
 }
+
+} // namespace DomainUtils
+
+#endif // __DOMAIN_UTILS_H__

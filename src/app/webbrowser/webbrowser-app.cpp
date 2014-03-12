@@ -16,8 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "bookmarks-model.h"
 #include "config.h"
+#include "history-model.h"
+#include "history-matches-model.h"
+#include "history-timeframe-model.h"
+#include "history-domainlist-model.h"
+#include "history-domainlist-chronological-model.h"
 #include "settings.h"
+#include "tabs-model.h"
 #include "webbrowser-app.h"
 
 // system
@@ -31,6 +38,7 @@
 #include <QtCore/QMetaObject>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
+#include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
 
 WebbrowserApp::WebbrowserApp(int& argc, char** argv)
@@ -60,6 +68,15 @@ bool WebbrowserApp::initialize()
             return false;
         }
     }
+
+    const char* uri = "webbrowserapp.private";
+    qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
+    qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
+    qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
+    qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
+    qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
+    qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
+    qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         m_window->setProperty("chromeless", m_arguments.contains("--chromeless"));
