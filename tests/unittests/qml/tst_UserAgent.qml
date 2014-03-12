@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import QtTest 1.0
-import Ubuntu.Components.Extras.Browser 0.2
+import "undertest"
 
 TestCase {
     name: "UserAgent"

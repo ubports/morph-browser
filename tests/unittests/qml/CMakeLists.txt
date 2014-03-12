@@ -20,6 +20,13 @@ foreach(qmlFile ${qmlFiles})
                      COMMAND ${CMAKE_COMMAND} -E copy_if_different ${webbrowser-common_SOURCE_DIR}/${qmlFile} ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile})
   list(APPEND out_qml_files undertest/${qmlFile})
 endforeach(qmlFile)
+set(privateApiQmlFiles UserAgent.qml ua-overrides.js)
+foreach(qmlFile ${privateApiQmlFiles})
+  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile}
+                     DEPENDS ${webbrowser-plugin_SOURCE_DIR}/${qmlFile}
+                     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${webbrowser-plugin_SOURCE_DIR}/${qmlFile} ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile})
+  list(APPEND out_qml_files undertest/${qmlFile})
+endforeach(qmlFile)
 add_custom_target(copy_qml_files_under_test_to_build_dir DEPENDS ${out_qml_files})
 add_dependencies(${TEST} copy_qml_files_under_test_to_build_dir)
 
