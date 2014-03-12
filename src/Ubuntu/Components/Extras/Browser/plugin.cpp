@@ -17,14 +17,6 @@
  */
 
 #include "plugin.h"
-#include "history-model.h"
-#include "history-matches-model.h"
-#include "history-timeframe-model.h"
-#include "history-domain-model.h"
-#include "history-domainlist-model.h"
-#include "history-domainlist-chronological-model.h"
-#include "tabs-model.h"
-#include "bookmarks-model.h"
 #include "webthumbnail-provider.h"
 #include "webthumbnail-utils.h"
 #include "webview-thumbnailer.h"
@@ -75,14 +67,6 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
 {
     Q_ASSERT(uri == QLatin1String("Ubuntu.Components.Extras.Browser"));
-    qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
-    qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
-    qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
-    qmlRegisterType<HistoryDomainModel>(uri, 0, 1, "HistoryDomainModel");
-    qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
-    qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
-    qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
-    qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
     qmlRegisterType<WebviewThumbnailer>(uri, 0, 1, "WebviewThumbnailer");
 }
 

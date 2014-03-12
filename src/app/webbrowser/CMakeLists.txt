@@ -3,11 +3,20 @@ project(webbrowser-app)
 include_directories(
     ${CMAKE_BINARY_DIR}
     ${webbrowser-common_BINARY_DIR}
+    ${srcdir_SOURCE_DIR}
 )
 
 set(WEBBROWSER_APP webbrowser-app)
 
 set(WEBBROWSER_APP_SRC
+    history-model.cpp
+    history-matches-model.cpp
+    history-timeframe-model.cpp
+    history-domain-model.cpp
+    history-domainlist-model.cpp
+    history-domainlist-chronological-model.cpp
+    tabs-model.cpp
+    bookmarks-model.cpp
     ../browserapplication.cpp
     settings.cpp
     webbrowser-app.cpp
@@ -18,7 +27,7 @@ add_executable(${WEBBROWSER_APP}
     ${WEBBROWSER_APP_SRC}
 )
 
-qt5_use_modules(${WEBBROWSER_APP} Core Widgets Quick)
+qt5_use_modules(${WEBBROWSER_APP} Core Quick Sql Widgets)
 
 install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
