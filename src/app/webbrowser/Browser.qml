@@ -209,7 +209,6 @@ BrowserView {
 
             currentWebview: browser.currentWebview
             toolbar: panel.panel
-            historyModel: _historyModel
 
             anchors.fill: parent
 
@@ -242,6 +241,12 @@ BrowserView {
             }
 
             onNewTabRequested: newTab(url, true)
+
+            onLoadingChanged: {
+                if (lastLoadSucceeded) {
+                    _historyModel.add(webview.url, webview.title, webview.icon)
+                }
+            }
         }
     }
 

@@ -28,7 +28,6 @@ UbuntuWebView {
 
     property var currentWebview: webview
     property var toolbar: null
-    property QtObject historyModel: null
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
@@ -66,12 +65,8 @@ UbuntuWebView {
     readonly property bool lastLoadStopped: internal.lastLoadRequestStatus === LoadEvent.TypeStopped
     readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === LoadEvent.TypeFailed
     onLoadingChanged: {
-        if (loadEvent.url.toString() === "data:text/html,chromewebdata") {
-            return
-        }
-        internal.lastLoadRequestStatus = loadEvent.type
-        if (historyModel && (loadEvent.type === LoadEvent.TypeSucceeded)) {
-            historyModel.add(webview.url, webview.title, "")//webview.icon)
+        if (loadEvent.url.toString() !== "data:text/html,chromewebdata") {
+            internal.lastLoadRequestStatus = loadEvent.type
         }
     }
 }
