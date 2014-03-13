@@ -142,7 +142,11 @@ Window {
 
     SqliteCookieStore {
         id: webappCookieStore
-        // FIXME: use dataLocation
+        // FIXME: use dataLocation. This will require changes:
+        //  - import Ubuntu.Components.Extras.Browser 0.1 here
+        //  - remove SqliteCookieStore::getFullDbPathName()
+        //  - use chromium’s cookie db schema in SqliteCookieStore::doSetCookies(…)
+        // dbPath: dataLocation + "/cookies.db"
         dbPath: ".local/share/" + applicationName + "/.QtWebKit/cookies.db"
     }
 
