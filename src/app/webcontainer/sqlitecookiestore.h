@@ -16,34 +16,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBAPP_CONTAINER_H__
-#define __WEBAPP_CONTAINER_H__
+#ifndef SQLITECOOKIESTORE_H
+#define SQLITECOOKIESTORE_H
 
-#include "../browserapplication.h"
-
-// Qt
+#include "cookiestore.h"
 #include <QString>
-#include <QStringList>
 
-class WebappContainer : public BrowserApplication
+
+class SqliteCookieStore : public CookieStore
 {
     Q_OBJECT
+    Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
+
 
 public:
-    WebappContainer(int& argc, char** argv);
+    SqliteCookieStore(QObject *parent = 0);
 
-    bool initialize();
+    void setDbPath (const QString & path);
+    QString dbPath () const;
 
-protected:
-    void qmlEngineCreated(QQmlEngine *);
+    QDateTime lastUpdateTimeStamp() const Q_DECL_OVERRIDE;
+
+
+Q_SIGNALS:
+
+    void dbPathChanged();
+
 
 private:
-    virtual void printUsage() const;
-    QString webappModelSearchPath() const;
-    QString webappName() const;
-    QStringList webappUrlPatterns() const;
-    QString accountProvider() const;
-    bool registerCookieQmlTypes(QQmlEngine * engine);
+
+    virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
+    virtual void doSetCookies(Cookies) Q_DECL_OVERRIDE;
+
+    QString getFullDbPathName() const;
+
+
+private:
+    QString m_dbPath;
 };
 
-#endif // __WEBAPP_CONTAINER_H__
+#endif // SQLITECOOKIESTORE_H

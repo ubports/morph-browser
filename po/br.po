@@ -1,65 +1,65 @@
-# Persian translation for webbrowser-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Breton translation for webbrowser-app
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the webbrowser-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-11-13 09:10+0100\n"
-"PO-Revision-Date: 2013-09-08 11:53+0000\n"
-"Last-Translator: Ahmad Sufi Mahmudi <Unknown>\n"
-"Language-Team: Persian <fa@li.org>\n"
+"PO-Revision-Date: 2014-03-11 07:56+0000\n"
+"Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
+"Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-02-27 06:30+0000\n"
-"X-Generator: Launchpad (build 16935)\n"
+"X-Launchpad-Export-Date: 2014-03-12 05:28+0000\n"
+"X-Generator: Launchpad (build 16963)\n"
 
 #: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
 msgid "Activity"
-msgstr "فعالیت"
+msgstr "Oberiantiz"
 
 #: src/app/ActivityView.qml:54
 msgid "Bookmarks"
-msgstr "نشانک‌ها"
+msgstr "Sinedoù"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "Kemenn JavaScript"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "Mat eo"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Dilesadur rekis."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "Al lec'hienn web %1 a c'houlenn un dilesadur."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Anv implijer"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "Ger-tremen"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "Nullañ"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "Ne c'haller ket fiziout er c'hevreadur-mañ"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -68,79 +68,81 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"Emaoc'h o klask tizhout %1 en un doare suraet, met ne c'haller ket fiziout e "
+"testeni surentez al lec'hienn Web-mañ."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Kenderc'hel memes tra"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "Distro d'ar surentez"
 
 #: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "بازگشت"
+msgstr "Distreiñ"
 
 #: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "جلو"
+msgstr "War-raok"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "Kadarnadur JavaScript"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr "خطای شبکه"
+msgstr "Fazi gant ar rouedad"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "به نظر می‌رسد که شما در دیدن %1 مشکل دارید."
+msgstr "War a seblant ez oc'h lakaet diaes evit gwelet : %1."
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"اوبونتو پیشنهاد می‌کند که تنظیمات شبکه‌تان را بررسی کنید و برگه را بازآوری "
-"کنید."
+"Ubuntu a ali ac'hanoc'h da wiriañ arventennoù ho rouedad ha da glask "
+"freskaat ar bajenn."
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr "بازآوری صفحه"
+msgstr "Freskaat ar bajenn"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "درخواست اجازه"
+msgstr "Goulenn aotre"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr "انکار"
+msgstr "Nac'h"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr "اجازه دادن"
+msgstr "Aotren"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "Ped JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Dilesadur proksi rekis."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "Al lec'hienn web %1:%2 a c'houlenn un dilesadur."
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/TabsList.qml:37
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr "درحال دیدن (%1)"
+msgstr "Diskwelet bremañ (%1)"
 
 #: src/app/TabsList.qml:68
 msgid "+"
@@ -148,144 +150,144 @@ msgstr "+"
 
 #: src/app/TimelineView.qml:83
 msgid "Today"
-msgstr "امروز"
+msgstr "Hiziv"
 
 #: src/app/TimelineView.qml:85
 msgid "Yesterday"
-msgstr "دیروز"
+msgstr "Dec'h"
 
 #: src/app/TimelineView.qml:87
 msgid "Last 7 Days"
-msgstr "۷ روز گذشته"
+msgstr "Ar 7 deiz diwezhañ"
 
 #: src/app/TimelineView.qml:89
 msgid "This Month"
-msgstr "این ماه"
+msgstr "Ar miz-mañ"
 
 #: src/app/TimelineView.qml:91
 msgid "This Year"
-msgstr "امسال"
+msgstr "Ar bloaz-mañ"
 
 #: src/app/TimelineView.qml:93
 msgid "Older"
-msgstr "قدیمی‌تر"
+msgstr "Koshoc'h"
 
 #: src/app/TimelineView.qml:276
 msgid "(local files)"
-msgstr "(پرونده‌های محلی)"
+msgstr "(restroù lec'hel)"
 
 #: src/app/TimelineView.qml:278
 msgid "(other)"
-msgstr "(دیگر)"
+msgstr "(tra all)"
 
 #: src/app/WebViewImpl.qml:52
 msgid "This page wants to know your device’s location."
-msgstr "این صفحه میخواهد مکان دستگاه شما را بداند."
+msgstr "Fellout a ra d'ar bajenn-mañ gouzout pelec'h emañ ho penveg."
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "صفحه قدیمی‌تر"
+msgstr "Pajenn goshoc'h"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr "نشانک"
+msgstr "Sined"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "اضافه کردن این صفحه به نشانک‌ها"
+msgstr "Ouzhpennañ ar bajenn-mañ d'ar sinedoù"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "Ouzhpennañ al liamm d'ar sinedoù"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Diverkañ an istor"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Diverkañ an istor merdeiñ"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr "رونوشت"
+msgstr "Eilañ"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Eilañ ar skeudenn"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Eilañ al liamm"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "صفحه جدیدتر"
+msgstr "Pajenn nevesoc'h"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr "برو به"
+msgstr "Mont da"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "آدرس;URL;www"
+msgstr "Chomlec'h;URL;www"
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
-msgstr "زبانه تازه"
+msgstr "Ivinell nevez"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "بازکردن زبانه‌ی جدید"
+msgstr "Digeriñ un ivinell nevez"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "Digeriñ ar skeudenn en un ivinell nevez"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Digeriñ al liamm en un ivinell nevez"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr "بارگیری دوباره"
+msgstr "Adkargañ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "ترک صفحه"
+msgstr "Kuitaat ar bajenn"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - مرورگر وب اوبونتو"
+msgstr "%1 - Merdeer Web Ubuntu"
 
 #: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
 msgid "Ubuntu Web Browser"
-msgstr "مرورگر وب اوبونتو"
+msgstr "Merdeer Web Ubuntu"
 
 #: src/app/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr "مرورگر"
+msgstr "Merdeer"
 
 #: src/app/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr "مرورگر وب"
+msgstr "Merdeer web"
 
 #: src/app/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr "در دنیای اینترنت گردش کنید"
+msgstr "Merdeiñ war ar Web"

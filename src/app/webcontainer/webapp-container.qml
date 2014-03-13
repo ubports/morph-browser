@@ -19,20 +19,28 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.WebContainer.Components 0.1
+
 import ".."
 
 Window {
-    property alias developerExtrasEnabled: browser.developerExtrasEnabled
+    id: root
 
-    property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
-    property alias addressBarVisible: browser.addressBarVisible
+    property bool developerExtrasEnabled: false
 
-    property alias url: browser.url
-    property alias webappName: browser.webappName
-    property alias webappModelSearchPath: browser.webappModelSearchPath
-    property alias webappUrlPatterns: browser.webappUrlPatterns
+    property bool backForwardButtonsVisible: false
+    property bool addressBarVisible: false
 
-    contentOrientation: browser.screenOrientation
+    property string webappName: ""
+    property string webappModelSearchPath: ""
+    property string webappUrlPatterns: ""
+
+    property string applicationName: ""
+    property string url: ""
+
+    property string webappTitle
+
+    property string accountProvider: ""
 
     width: 800
     height: 600
@@ -40,24 +48,138 @@ Window {
     title: {
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
             return webappName
-        } else if (browser.title) {
+        } else if (root.webappTitle && root.webappTitle.length !== 0) {
             // TRANSLATORS: %1 refers to the current page’s title
-            return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
+            return i18n.tr("%1 - Ubuntu Web Application").arg(root.webappTitle)
         } else {
-            return i18n.tr("Ubuntu Web Browser")
+            return i18n.tr("Ubuntu Web Application")
         }
     }
 
-    WebApp {
-        id: browser
-
-        property int screenOrientation: Screen.orientation
-
-        chromeless: !backForwardButtonsVisible && !addressBarVisible
-        webbrowserWindow: webbrowserWindowProxy
-
+    Loader {
+        id: webappPageComponentLoader
         anchors.fill: parent
+    }
+    Component {
+        id: webappPageComponent
 
-        Component.onCompleted: i18n.domain = "webbrowser-app"
+        Page {
+            id: webappPage
+
+            visible: false
+            anchors.fill: parent
+
+            WebApp {
+                id: browser
+
+                anchors.fill: parent
+                url: root.url
+                onTitleChanged: root.title = title
+
+                property int screenOrientation: Screen.orientation
+                onScreenOrientationChanged: root.contentOrientation = screenOrientation
+
+                chromeless: !backForwardButtonsVisible && !addressBarVisible
+                webbrowserWindow: webbrowserWindowProxy
+
+                Component.onCompleted: i18n.domain = "webbrowser-app"
+
+                developerExtrasEnabled: root.developerExtrasEnabled
+                backForwardButtonsVisible: root.backForwardButtonsVisible
+                addressBarVisible: root.addressBarVisible
+                webappName: root.webappName
+                webappModelSearchPath: root.webappModelSearchPath
+                webappUrlPatterns: root.webappUrlPatterns
+            }
+        }
+    }
+
+    Loader {
+        id: accountsPageComponentLoader
+        anchors.fill: parent
+    }
+    Component {
+        id: accountsPageComponent
+
+        Page {
+            id: accountsPage
+
+            visible: false
+            anchors.fill: parent
+
+            AccountsLoginPage {
+                id: accountsLogin
+
+                anchors.fill: parent
+
+                accountProvider: root.accountProvider
+                applicationName: root.applicationName
+
+                QtObject {
+                    id: internal
+                    function onMoved (result) {
+                        webappCookieStore.moved.disconnect(internal.onMoved);
+                        if (! result) {
+                            console.log("Unable to move cookies");
+                        }
+                        loadWebAppView();
+                    }
+                }
+
+                onDone: {
+                    if ( ! accountsPage.visible)
+                        return;
+                    if ( ! credentialsId) {
+                        loadWebAppView();
+                        return;
+                    }
+                    var instance = onlineAccountStoreComponent.createObject(accountsLogin, {accountId: credentialsId});
+
+                    webappCookieStore.moved.connect(internal.onMoved)
+                    webappCookieStore.moveFrom(instance);
+                }
+            }
+        }
+    }
+
+    SqliteCookieStore {
+        id: webappCookieStore
+        dbPath: ".local/share/" + applicationName + "/.QtWebKit/cookies.db"
+    }
+
+    Component {
+        id: onlineAccountStoreComponent
+        OnlineAccountsCookieStore { }
+    }
+
+    Component.onCompleted: updateCurrentView()
+
+    onAccountProviderChanged: {
+        updateCurrentView();
+    }
+
+    function updateCurrentView() {
+        // check if we are to display the OS login view
+        // or directly switch to the webapp view
+        if (accountProvider.length !== 0) {
+            loadLoginView();
+        }
+        else {
+            loadWebAppView();
+        }
+    }
+
+    function loadLoginView() {
+        accountsPageComponentLoader.sourceComponent = accountsPageComponent;
+        accountsPageComponentLoader.item.visible = true;
+    }
+
+    function loadWebAppView() {
+        webappPageComponentLoader.sourceComponent = webappPageComponent;
+        if (accountsPageComponentLoader.item)
+            accountsPageComponentLoader.item.visible = false;
+        webappPageComponentLoader.item.visible = true;
     }
 }
+
+
