@@ -23,6 +23,15 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
 
+/*!
+    \qmltype MainView
+    \inqmlmodule Ubuntu.Components.Extras.Browser 0.1
+    \obsolete
+    \brief Custom Ubuntu WebView extending QtWebKit’s WebView
+
+    This version of UbuntuWebView is deprecated and shouldn’t be used in new
+    code. Use version 0.2 or higher instead.
+*/
 WebView {
     id: _webview
 
