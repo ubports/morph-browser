@@ -7,6 +7,6 @@ set(SOURCES
     tst_HistoryDomainListModelTests.cpp
 )
 add_executable(${TEST} ${SOURCES})
-include_directories(${srcdir_SOURCE_DIR} ${webbrowser-app_SOURCE_DIR})
+include_directories(${webbrowser-app_SOURCE_DIR})
 qt5_use_modules(${TEST} Core Sql Test)
 add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -xunitxml -o ${TEST}.xml)

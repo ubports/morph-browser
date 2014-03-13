@@ -4,7 +4,6 @@ include_directories(
     ${CMAKE_BINARY_DIR}
     ${webbrowser-common_SOURCE_DIR}
     ${webbrowser-common_BINARY_DIR}
-    ${srcdir_SOURCE_DIR}
 )
 
 set(WEBBROWSER_APP webbrowser-app)
