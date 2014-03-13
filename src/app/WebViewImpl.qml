@@ -58,12 +58,18 @@ UbuntuWebView {
         //       the permission everytime the user visits this site.
     }*/
 
-    property int lastLoadRequestStatus: -1
+    QtObject {
+        id: internal
+        property int lastLoadRequestStatus: -1
+    }
+    readonly property bool lastLoadSucceeded: internal.lastLoadRequestStatus === LoadEvent.TypeSucceeded
+    readonly property bool lastLoadStopped: internal.lastLoadRequestStatus === LoadEvent.TypeStopped
+    readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === LoadEvent.TypeFailed
     onLoadingChanged: {
         if (loadEvent.url.toString() === "data:text/html,chromewebdata") {
             return
         }
-        lastLoadRequestStatus = loadEvent.type
+        internal.lastLoadRequestStatus = loadEvent.type
         if (historyModel && (loadEvent.type === LoadEvent.TypeSucceeded)) {
             historyModel.add(webview.url, webview.title, "")//webview.icon)
         }

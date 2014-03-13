@@ -21,7 +21,6 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
-import com.canonical.Oxide 0.1
 import "../actions" as Actions
 import ".."
 
@@ -140,7 +139,7 @@ BrowserView {
 
         ErrorSheet {
             anchors.fill: webview
-            visible: webview.lastLoadRequestStatus === LoadEvent.TypeFailed
+            visible: webview.lastLoadFailed
             url: webview.url
             onRefreshClicked: webview.reload()
         }

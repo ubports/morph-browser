@@ -17,7 +17,6 @@
  */
 
 import QtQuick 2.0
-import com.canonical.Oxide 0.1
 import Ubuntu.Components 0.1
 
 Loader {
@@ -78,7 +77,7 @@ Loader {
 
                 loading: currentWebview ? currentWebview.loading
                          // workaround for https://bugs.launchpad.net/oxide/+bug/1290821
-                         && (currentWebview.lastLoadRequestStatus !== LoadEvent.TypeStopped)
+                         && !currentWebview.lastLoadStopped
                          : false
                 loadProgress: currentWebview ? currentWebview.loadProgress : 0
 

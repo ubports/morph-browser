@@ -17,7 +17,6 @@
  */
 
 import QtQuick 2.0
-import com.canonical.Oxide 0.1
 import Ubuntu.Components 0.1
 import webbrowserapp.private 0.1
 import "../actions" as Actions
@@ -72,7 +71,7 @@ BrowserView {
 
             ErrorSheet {
                 anchors.fill: webviewContainer
-                visible: currentWebview ? (currentWebview.lastLoadRequestStatus === LoadEvent.TypeFailed) : false
+                visible: currentWebview ? currentWebview.lastLoadFailed : false
                 url: currentWebview ? currentWebview.url : ""
                 onRefreshClicked: currentWebview.reload()
             }
