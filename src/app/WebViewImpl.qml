@@ -17,11 +17,10 @@
  */
 
 import QtQuick 2.0
-import com.canonical.Oxide 0.1
-import Ubuntu.Components 0.1
+//import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.2
 //import Ubuntu.Components.Popups 0.1
-import "actions" as Actions
+//import "actions" as Actions
 
 UbuntuWebView {
     id: webview
@@ -56,17 +55,4 @@ UbuntuWebView {
         // TODO: we might want to store the answer to avoid requesting
         //       the permission everytime the user visits this site.
     }*/
-
-    QtObject {
-        id: internal
-        property int lastLoadRequestStatus: -1
-    }
-    readonly property bool lastLoadSucceeded: internal.lastLoadRequestStatus === LoadEvent.TypeSucceeded
-    readonly property bool lastLoadStopped: internal.lastLoadRequestStatus === LoadEvent.TypeStopped
-    readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === LoadEvent.TypeFailed
-    onLoadingChanged: {
-        if (loadEvent.url.toString() !== "data:text/html,chromewebdata") {
-            internal.lastLoadRequestStatus = loadEvent.type
-        }
-    }
 }

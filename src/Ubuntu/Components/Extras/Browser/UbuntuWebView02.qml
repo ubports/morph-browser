@@ -279,7 +279,17 @@ WebView {
 
     QtObject {
         id: internal
+        property int lastLoadRequestStatus: -1
         property Item currentContextualMenu: null
+    }
+
+    readonly property bool lastLoadSucceeded: internal.lastLoadRequestStatus === LoadEvent.TypeSucceeded
+    readonly property bool lastLoadStopped: internal.lastLoadRequestStatus === LoadEvent.TypeStopped
+    readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === LoadEvent.TypeFailed
+    onLoadingChanged: {
+        if (loadEvent.url.toString() !== "data:text/html,chromewebdata") {
+            internal.lastLoadRequestStatus = loadEvent.type
+        }
     }
 
     readonly property int screenOrientation: Screen.orientation
