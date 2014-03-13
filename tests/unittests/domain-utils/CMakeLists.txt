@@ -1,5 +1,5 @@
 set(TEST tst_DomainUtilsTests)
 add_executable(${TEST} tst_DomainUtilsTests.cpp)
-include_directories(${srcdir_SOURCE_DIR} ${webbrowser-plugin_SOURCE_DIR})
+include_directories(${webbrowser-app_SOURCE_DIR} ${webbrowser-plugin_SOURCE_DIR})
 qt5_use_modules(${TEST} Core Test)
 add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -xunitxml -o ${TEST}.xml)

@@ -245,6 +245,24 @@ BrowserView {
             }
 
             onNewTabRequested: newTab(url, true)
+
+            WebviewThumbnailer {
+                id: thumbnailer
+                webview: webview
+                targetSize: Qt.size(units.gu(12), units.gu(12))
+                property url thumbnailSource: "image://webthumbnail/" + webview.url
+                onThumbnailRendered: {
+                    if (url == webview.url) {
+                        webview.thumbnail = thumbnailer.thumbnailSource
+                    }
+                }
+            }
+            property url thumbnail: (url && thumbnailer.thumbnailExists()) ? thumbnailer.thumbnailSource : ""
+            onLoadingChanged: {
+                if ((loadRequest.status === WebView.LoadSucceededStatus) && !thumbnailer.thumbnailExists()) {
+                    thumbnailer.renderThumbnail()
+                }
+            }
         }
     }
 
