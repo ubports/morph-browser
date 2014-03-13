@@ -25,9 +25,9 @@ import Ubuntu.Components.Popups 0.1
 import "actions" as Actions
 
 UbuntuWebView {
-    id: _webview
+    id: webview
 
-    property var currentWebview: _webview
+    property var currentWebview: webview
     property var toolbar: null
     property QtObject historyModel: null
 
@@ -46,12 +46,12 @@ UbuntuWebView {
 
     experimental.onPermissionRequested: {
         if (permission.type === PermissionRequest.Geolocation) {
-            if (_webview.toolbar) {
-                _webview.toolbar.close()
+            if (webview.toolbar) {
+                webview.toolbar.close()
             }
             var text = i18n.tr("This page wants to know your device’s location.")
             PopupUtils.open(Qt.resolvedUrl("PermissionRequest.qml"),
-                            _webview.currentWebview,
+                            webview.currentWebview,
                             {"permission": permission, "text": text})
         }
         // TODO: handle other types of permission requests
@@ -63,7 +63,7 @@ UbuntuWebView {
     onLoadingChanged: {
         lastLoadRequestStatus = loadRequest.status
         if (historyModel && (loadRequest.status === WebView.LoadSucceededStatus)) {
-            historyModel.add(_webview.url, _webview.title, _webview.icon)
+            historyModel.add(webview.url, webview.title, webview.icon)
         }
     }
 }
