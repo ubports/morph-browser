@@ -33,8 +33,8 @@
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
     : QGuiApplication(argc, argv)
-    , m_engine(0)
     , m_window(0)
+    , m_engine(0)
     , m_component(0)
     , m_webbrowserWindowProxy(0)
 {

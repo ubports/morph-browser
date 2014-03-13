@@ -142,6 +142,7 @@ Window {
 
     SqliteCookieStore {
         id: webappCookieStore
+        // FIXME: use dataLocation
         dbPath: ".local/share/" + applicationName + "/.QtWebKit/cookies.db"
     }
 

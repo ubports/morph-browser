@@ -17,8 +17,6 @@
  */
 
 import QtQuick 2.0
-//import QtWebKit 3.1
-//import QtWebKit.experimental 1.0
 import com.canonical.Oxide 0.1
 import Ubuntu.Components 0.1
 import webbrowserapp.private 0.1
@@ -245,24 +243,6 @@ BrowserView {
             }
 
             onNewTabRequested: newTab(url, true)
-
-            WebviewThumbnailer {
-                id: thumbnailer
-                webview: webview
-                targetSize: Qt.size(units.gu(12), units.gu(12))
-                property url thumbnailSource: "image://webthumbnail/" + webview.url
-                onThumbnailRendered: {
-                    if (url == webview.url) {
-                        webview.thumbnail = thumbnailer.thumbnailSource
-                    }
-                }
-            }
-            property url thumbnail: (url && thumbnailer.thumbnailExists()) ? thumbnailer.thumbnailSource : ""
-            onLoadingChanged: {
-                if ((loadRequest.status === WebView.LoadSucceededStatus) && !thumbnailer.thumbnailExists()) {
-                    thumbnailer.renderThumbnail()
-                }
-            }
         }
     }
 

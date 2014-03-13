@@ -28,18 +28,7 @@ WebView {
 
     signal newTabRequested(url url)
 
-    /*QtObject {
-        property real devicePixelRatio: QtWebKitDPR
-        onDevicePixelRatioChanged: {
-            // Do not make this patch to QtWebKit a hard requirement.
-            if (_webview.experimental.hasOwnProperty('devicePixelRatio')) {
-                _webview.experimental.devicePixelRatio = devicePixelRatio
-            }
-        }
-    }*/
-
     //interactive: !selection.visible
-    //maximumFlickVelocity: height * 5
 
     /**
      * Client overridable function called before the default treatment of a

@@ -49,12 +49,12 @@ protected:
     virtual void qmlEngineCreated(QQmlEngine *);
 
     QStringList m_arguments;
-    QQmlEngine* m_engine;
     QQuickWindow* m_window;
 
 private:
     QString appId() const;
 
+    QQmlEngine* m_engine;
     QQmlComponent* m_component;
     WebBrowserWindow *m_webbrowserWindowProxy;
 };
