@@ -10,9 +10,6 @@ set(WEBAPP_CONTAINER webapp-container)
 set(WEBAPP_CONTAINER_SRC
     ../browserapplication.cpp
     webapp-container.cpp
-    cookiestore.cpp
-    onlineaccountscookiestore.cpp
-    sqlitecookiestore.cpp
     ../webbrowser-window.cpp
 )
 
@@ -20,7 +17,7 @@ add_executable(${WEBAPP_CONTAINER}
     ${WEBAPP_CONTAINER_SRC}
 )
 
-qt5_use_modules(${WEBAPP_CONTAINER} Core Widgets Quick Sql DBus)
+qt5_use_modules(${WEBAPP_CONTAINER} Core Widgets Quick)
 
 install(TARGETS ${WEBAPP_CONTAINER}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
