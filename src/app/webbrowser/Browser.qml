@@ -211,7 +211,6 @@ BrowserView {
 
             currentWebview: browser.currentWebview
             toolbar: panel.panel
-            historyModel: _historyModel
 
             anchors.fill: parent
 
@@ -257,9 +256,13 @@ BrowserView {
                 }
             }
             property url thumbnail: (url && thumbnailer.thumbnailExists()) ? thumbnailer.thumbnailSource : ""
+
             onLoadingChanged: {
-                if ((loadRequest.status === WebView.LoadSucceededStatus) && !thumbnailer.thumbnailExists()) {
-                    thumbnailer.renderThumbnail()
+                if (loadRequest.status === WebView.LoadSucceededStatus) {
+                    _historyModel.add(webview.url, webview.title, webview.icon)
+                    if (!thumbnailer.thumbnailExists()) {
+                        thumbnailer.renderThumbnail()
+                    }
                 }
             }
         }
