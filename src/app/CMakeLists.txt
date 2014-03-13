@@ -12,8 +12,6 @@ set(COMMONLIB_SRC
     webbrowser-window.cpp
 )
 
-include_directories(${srcdir_SOURCE_DIR})
-
 add_library(${COMMONLIB} STATIC ${COMMONLIB_SRC})
 
 qt5_use_modules(${COMMONLIB} Core Network Qml Quick Widgets)

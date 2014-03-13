@@ -11,8 +11,6 @@ set(PLUGIN ubuntu-ui-extras-browser-plugin)
 
 set(PLUGIN_SRC plugin.cpp)
 
-include_directories(${srcdir_SOURCE_DIR})
-
 add_library(${PLUGIN} MODULE ${PLUGIN_SRC})
 
 qt5_use_modules(${PLUGIN} Core Qml)
