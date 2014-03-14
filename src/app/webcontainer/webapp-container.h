@@ -34,16 +34,11 @@ public:
 
     bool initialize();
 
-protected:
-    void qmlEngineCreated(QQmlEngine *);
-
 private:
     virtual void printUsage() const;
     QString webappModelSearchPath() const;
     QString webappName() const;
     QStringList webappUrlPatterns() const;
-    QString accountProvider() const;
-    bool registerCookieQmlTypes(QQmlEngine * engine);
 };
 
 #endif // __WEBAPP_CONTAINER_H__
