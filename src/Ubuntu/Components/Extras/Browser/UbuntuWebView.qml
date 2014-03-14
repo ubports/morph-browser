@@ -76,7 +76,7 @@ WebView {
         if (request.action === WebView.IgnoreRequest)
             return;
 
-        var staticUA =_webview.getUAString()
+        var staticUA = _webview.getUAString()
         if (staticUA === undefined) {
             _webview.experimental.userAgent = userAgent.getUAString(request.url)
         } else {
