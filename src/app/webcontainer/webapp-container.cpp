@@ -19,11 +19,6 @@
 #include "config.h"
 #include "webapp-container.h"
 
-#include "cookiestore.h"
-#include "sqlitecookiestore.h"
-#include "onlineaccountscookiestore.h"
-
-
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
@@ -31,9 +26,6 @@
 #include <QtCore/QRegularExpression>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
-#include <QtQml/QQmlEngine>
-#include <QtQml>
-
 
 WebappContainer::WebappContainer(int& argc, char** argv)
     : BrowserApplication(argc, argv)
@@ -57,7 +49,6 @@ bool WebappContainer::initialize()
         m_window->setProperty("backForwardButtonsVisible", m_arguments.contains("--enable-back-forward"));
         m_window->setProperty("addressBarVisible", m_arguments.contains("--enable-addressbar"));
         m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
-        m_window->setProperty("accountProvider", accountProvider());
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (name.isEmpty()) {
             QList<QUrl> urls = this->urls();
@@ -65,39 +56,17 @@ bool WebappContainer::initialize()
                 m_window->setProperty("url", urls.first());
             }
         }
-        m_window->setProperty("applicationName", QCoreApplication::applicationName());
-
         return true;
     } else {
         return false;
     }
 }
 
-void WebappContainer::qmlEngineCreated(QQmlEngine * engine)
-{
-    registerCookieQmlTypes(engine);
-}
-
-bool WebappContainer::registerCookieQmlTypes(QQmlEngine * engine)
-{
-    if (engine)
-    {
-        qmlRegisterType<CookieStore>("Ubuntu.WebContainer.Components", 0, 1, "CookieStore");
-        qmlRegisterType<SqliteCookieStore>("Ubuntu.WebContainer.Components", 0, 1, "SqliteCookieStore");
-        qmlRegisterType<OnlineAccountsCookieStore>("Ubuntu.WebContainer.Components", 0, 1, "OnlineAccountsCookieStore");
-        return true;
-    }
-    return false;
-}
-
 void WebappContainer::printUsage() const
 {
     QTextStream out(stdout);
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
-    out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector] "
-                                   "[--app-id=APP_ID] [--homepage=URL] [--webapp[=name]] "
-                                   "[--webappModelSearchPath=PATH] [--webappUrlPatterns=URL_PATTERNS] "
-                                   "[--enable-back-forward] [--enable-addressbar] [URL]" << endl;
+    out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector] [--app-id=APP_ID] [--homepage=URL] [--webapp[=name]] [--webappModelSearchPath=PATH] [--webappUrlPatterns=URL_PATTERNS] [--enable-back-forward] [--enable-addressbar] [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help                          display this help message and exit" << endl;
     out << "  --fullscreen                        display full screen" << endl;
@@ -108,7 +77,6 @@ void WebappContainer::printUsage() const
     out << "  --webapp[=name]                     try to match the webapp by name with an installed integration script (if any)" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
-    out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
     out << "  --enable-addressbar                 enable the display of the address bar" << endl;
@@ -122,18 +90,6 @@ QString WebappContainer::webappModelSearchPath() const
         }
     }
     return QString();
-}
-
-QString WebappContainer::accountProvider() const
-{
-    QString accountProvider;
-    Q_FOREACH(const QString& argument, m_arguments) {
-        if (argument.startsWith("--accountProvider=")) {
-            accountProvider = argument.split("--accountProvider=")[1];
-            break;
-        }
-    }
-    return accountProvider;
 }
 
 QString WebappContainer::webappName() const

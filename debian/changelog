@@ -1,3 +1,9 @@
+webbrowser-app (0.23+14.04.20140313-0ubuntu1) trusty; urgency=low
+
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 13 Mar 2014 15:19:23 +0000
+
 webbrowser-app (0.23+14.04.20140311-0ubuntu1~withoxide1) trusty; urgency=medium
 
   * New build against oxide.
@@ -9,6 +15,13 @@ webbrowser-app (0.23+14.04.20140306-0ubuntu1~withoxide1) trusty; urgency=medium
   * New build against oxide.
 
  -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 06 Mar 2014 17:55:40 +0100
+
+webbrowser-app (0.23+14.04.20140304.is.0.23+14.04.20140219-0ubuntu1) trusty; urgency=medium
+
+  * Reverting as desktop image isn't installable (main/universe
+    mismatch) and causing all signon-ui tests on Touch failing
+
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 05 Mar 2014 12:19:42 +0100
 
 webbrowser-app (0.23+14.04.20140304-0ubuntu1) trusty; urgency=low
 
