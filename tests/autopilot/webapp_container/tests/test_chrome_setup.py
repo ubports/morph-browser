@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2013 Canonical
+# Copyright 2014 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License version 3, as
@@ -16,20 +16,19 @@ class WebappContainerChromeSetupTestCase(
         WebappContainerTestCaseWithLocalContentBase):
 
     def test_container_does_not_load_with_no_webapp_and_url(self):
-        self.ARGS.append('--webapp')
-        self.launch_webcontainer_app()
+        args = ['--webapp']
+        self.launch_webcontainer_app(args)
         self.assertThat(self.get_webcontainer_proxy(), Equals(None))
 
     def test_default_to_chromeless(self):
-        self.launch_webcontainer_app_with_local_http_server()
+        self.launch_webcontainer_app_with_local_http_server([])
         self.assertThat(self.get_webcontainer_proxy(), NotEquals(None))
         self.assertThat(self.get_webcontainer_webview().chromeless,
                         Equals(True))
 
     def test_enable_chrome_back_forward(self):
-        self.ARGS.append('--enable-back-forward')
-        self.launch_webcontainer_app_with_local_http_server()
-        self.assertThat(self.get_webcontainer_proxy(), NotEquals(None))
+        args = ['--enable-back-forward']
+        self.launch_webcontainer_app_with_local_http_server(args)
         self.assertThat(self.get_webcontainer_webview().chromeless,
                         Equals(False))
         panel = self.get_webcontainer_panel()
@@ -37,8 +36,8 @@ class WebappContainerChromeSetupTestCase(
                         Equals(True))
 
     def test_enable_chrome_address_bar(self):
-        self.ARGS.append('--enable-addressbar')
-        self.launch_webcontainer_app_with_local_http_server()
+        args = ['--enable-addressbar']
+        self.launch_webcontainer_app_with_local_http_server(args)
         self.assertThat(self.get_webcontainer_proxy(), NotEquals(None))
         self.assertThat(self.get_webcontainer_webview().chromeless,
                         Equals(False))
