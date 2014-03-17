@@ -37,8 +37,7 @@ class TestProgressBarAtStartup(BrowserTestCaseBase):
 
     def setUp(self):
         self.server = http_server.HTTPServerInAThread()
-        self.server.start()
-        self.addCleanup(self.server.shutdown)
+        self.addCleanup(self.server.cleanup)
         self.base_url = "http://localhost:%d" % self.server.port
         self.ping_server()
         self.url = self.base_url + "/wait/8"
