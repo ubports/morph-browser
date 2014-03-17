@@ -6,17 +6,24 @@ include_directories(
     ${webbrowser-common_BINARY_DIR}
 )
 
-set(WEBBROWSER_APP webbrowser-app)
+set(WEBBROWSER_APP_MODELS_SRC
+    bookmarks-model.cpp
+    history-domain-model.cpp
+    history-domainlist-chronological-model.cpp
+    history-domainlist-model.cpp
+    history-matches-model.cpp
+    history-model.cpp
+    history-timeframe-model.cpp
+    tabs-model.cpp
+)
+
+set(WEBBROWSER_APP_MODELS webbrowser-app-models)
+
+add_library(${WEBBROWSER_APP_MODELS} STATIC ${WEBBROWSER_APP_MODELS_SRC})
+
+qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Quick Sql)
 
 set(WEBBROWSER_APP_SRC
-    history-model.cpp
-    history-matches-model.cpp
-    history-timeframe-model.cpp
-    history-domain-model.cpp
-    history-domainlist-model.cpp
-    history-domainlist-chronological-model.cpp
-    tabs-model.cpp
-    bookmarks-model.cpp
     settings.cpp
     webbrowser-app.cpp
     webthumbnail-provider.cpp
@@ -24,11 +31,13 @@ set(WEBBROWSER_APP_SRC
     webview-thumbnailer.cpp
 )
 
+set(WEBBROWSER_APP webbrowser-app)
+
 add_executable(${WEBBROWSER_APP} ${WEBBROWSER_APP_SRC})
 
-target_link_libraries(${WEBBROWSER_APP} ${COMMONLIB})
+target_link_libraries(${WEBBROWSER_APP} ${COMMONLIB} ${WEBBROWSER_APP_MODELS})
 
-qt5_use_modules(${WEBBROWSER_APP} Core Gui Quick Sql WebKit)
+qt5_use_modules(${WEBBROWSER_APP} Core Gui Qml Quick WebKit)
 
 # work around the lack of a public cmake module for Qt5V8
 set(Qt5V8_PRIVATE_INCLUDE_DIRS
