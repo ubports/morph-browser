@@ -41,23 +41,20 @@ WebView {
     UserAgent02 {
         id: userAgent
     }
-    function getSystemWideUAString(url) {
-        return userAgent.getUAString(url)
-    }
+
     /**
      * This function can be overridden by client applications that embed an
-     * UbuntuWebView to provide a custom UA string override mechanism.
-     * The default implementation calls the default override mechanism.
-     * To get the value that the default override mechanism would return,
-     * client applications can call getSystemWideUAString(url).
+     * UbuntuWebView to provide a static overridden UA string.
+     * If not overridden, the default UA string and the default override
+     * mechanism will be used.
      */
-    function getUAString(url) {
-        return getSystemWideUAString(url)
+    function getUAString() {
+        return undefined
     }
 
     context: WebContext {
         dataPath: dataLocation
-        userAgent: userAgent.defaultUA
+        userAgent: (_webview.getUAString() === undefined) ? userAgent.defaultUA : _webview.getUAString()
         userScripts: [
             UserScript {
                 context: "oxide://selection/"
@@ -110,7 +107,12 @@ WebView {
         if (request.action === WebView.IgnoreRequest)
             return;
 
-        _webview.experimental.userAgent = _webview.getUAString(request.url)
+        var staticUA = _webview.getUAString()
+        if (staticUA === undefined) {
+            _webview.experimental.userAgent = userAgent.getUAString(request.url)
+        } else {
+            _webview.experimental.userAgent = staticUA
+        }
     }*/
 
     /*experimental.preferences.navigatorQtObjectEnabled: true

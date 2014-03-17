@@ -46,8 +46,6 @@ protected:
     virtual void printUsage() const = 0;
     QList<QUrl> urls() const;
 
-    virtual void qmlEngineCreated(QQmlEngine *);
-
     QStringList m_arguments;
     QQuickWindow* m_window;
 
