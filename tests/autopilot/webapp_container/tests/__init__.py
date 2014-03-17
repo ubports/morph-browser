@@ -13,6 +13,7 @@ import threading
 import subprocess
 
 from autopilot.testcase import AutopilotTestCase
+from autopilot.platform import model
 
 from ubuntuuitoolkit import emulators as toolkit_emulators
 from webapp_container.tests import fake_servers
@@ -37,6 +38,8 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
         return INSTALLED_BROWSER_CONTAINER_PATH_NAME
 
     def launch_webcontainer_app(self, args):
+        if model() == 'Desktop':
+            args.append('--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop')
         try:
             self.app = self.launch_test_application(
                 self.get_webcontainer_app_path(),
