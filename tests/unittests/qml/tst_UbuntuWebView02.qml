@@ -18,16 +18,13 @@
 
 import QtQuick 2.0
 import QtTest 1.0
-import Ubuntu.Components.Extras.Browser 0.1
+import Ubuntu.Components.Extras.Browser 0.2
 
 TestCase {
     name: "UbuntuWebView"
 
     function test_custom_UA_override() {
         compare(webview1.getUAString(), undefined)
-        // passing a 'url' parameter to getUAString()
-        // (as was the API before) shouldn’t hurt:
-        compare(webview1.getUAString("http://example.com"), undefined)
         verify(webview1.context.userAgent !== undefined)
         compare(webview2.context.userAgent, "custom UA")
     }

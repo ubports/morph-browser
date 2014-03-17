@@ -17,18 +17,27 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.0
-import com.canonical.Oxide 0.1
+import QtWebKit 3.1
+import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
 
+/*!
+    \qmltype MainView
+    \inqmlmodule Ubuntu.Components.Extras.Browser 0.1
+    \obsolete
+    \brief Custom Ubuntu WebView extending QtWebKit’s WebView
+
+    This version of UbuntuWebView is deprecated and shouldn’t be used in new
+    code. Use version 0.2 or higher instead.
+*/
 WebView {
     id: _webview
 
     signal newTabRequested(url url)
 
-    /*QtObject {
+    QtObject {
         property real devicePixelRatio: QtWebKitDPR
         onDevicePixelRatioChanged: {
             // Do not make this patch to QtWebKit a hard requirement.
@@ -36,10 +45,10 @@ WebView {
                 _webview.experimental.devicePixelRatio = devicePixelRatio
             }
         }
-    }*/
+    }
 
-    //interactive: !selection.visible
-    //maximumFlickVelocity: height * 5
+    interactive: !selection.visible
+    maximumFlickVelocity: height * 5
 
     /**
      * Client overridable function called before the default treatment of a
@@ -49,7 +58,7 @@ WebView {
      */
     function navigationRequestedDelegate(request) { }
 
-    UserAgent {
+    UserAgent01 {
         id: userAgent
     }
 
@@ -68,56 +77,8 @@ WebView {
         // slot.
         return undefined
     }
-
-    context: WebContext {
-        dataPath: dataLocation
-        userAgent: (_webview.getUAString() === undefined) ? userAgent.defaultUA : _webview.getUAString()
-        userScripts: [
-            UserScript {
-                context: "oxide://selection/"
-                url: Qt.resolvedUrl("selection.js")
-                incognitoEnabled: true
-                matchAllFrames: true
-            }
-        ]
-    }
-
-    messageHandlers: [
-        ScriptMessageHandler {
-            msgId: "contextmenu"
-            contexts: ["oxide://selection/"]
-            callback: function(msg, frame) {
-                if (('img' in msg.args) || ('href' in msg.args)) {
-                    if (internal.currentContextualMenu != null) {
-                        PopupUtils.close(internal.currentContextualMenu)
-                    }
-                    contextualData.clear()
-                    if ('img' in msg.args) {
-                        contextualData.img = msg.args.img
-                    }
-                    if ('href' in msg.args) {
-                        contextualData.href = msg.args.href
-                        contextualData.title = msg.args.title
-                    }
-                    contextualRectangle.position(msg.args)
-                    internal.currentContextualMenu = PopupUtils.open(contextualPopover, contextualRectangle)
-                } else if (internal.currentContextualMenu != null) {
-                    PopupUtils.close(internal.currentContextualMenu)
-                }
-            }
-        },
-        ScriptMessageHandler {
-            msgId: "scroll"
-            contexts: ["oxide://selection/"]
-            callback: function(msg, frame) {
-                if (internal.currentContextualMenu != null) {
-                    PopupUtils.close(internal.currentContextualMenu)
-                }
-            }
-        }
-    ]
-
-    /*onNavigationRequested: {
+    experimental.userAgent: (_webview.getUAString() === undefined) ? userAgent.defaultUA : _webview.getUAString()
+    onNavigationRequested: {
         request.action = WebView.AcceptRequest;
 
         navigationRequestedDelegate (request);
@@ -130,11 +91,11 @@ WebView {
         } else {
             _webview.experimental.userAgent = staticUA
         }
-    }*/
+    }
 
-    /*experimental.preferences.navigatorQtObjectEnabled: true
+    experimental.preferences.navigatorQtObjectEnabled: true
     experimental.userScripts: [Qt.resolvedUrl("hyperlinks.js"),
-                               Qt.resolvedUrl("selection.js")]
+                               Qt.resolvedUrl("selection01.js")]
     experimental.onMessageReceived: {
         var data = null
         try {
@@ -181,11 +142,11 @@ WebView {
                 newTabRequested(data.url)
             }
         }
-    }*/
+    }
 
-    popupMenu: ItemSelector {}
+    experimental.itemSelector: ItemSelector01 {}
 
-    /*property alias selection: selection
+    property alias selection: selection
     property ActionList selectionActions
     Selection {
         id: selection
@@ -262,7 +223,7 @@ WebView {
             Clipboard.push(mimedata)
             clearData()
         }
-    }*/
+    }
 
     Item {
         id: contextualRectangle
@@ -270,10 +231,11 @@ WebView {
         visible: false
 
         function position(data) {
-            x = data.left * data.scaleX
-            y = data.top * data.scaleY
-            width = data.width * data.scaleX
-            height = data.height * data.scaleY
+            var scale = _webview.experimental.test.contentsScale * _webview.experimental.test.devicePixelRatio
+            x = data.left * scale
+            y = data.top * scale
+            width = data.width * scale
+            height = data.height * scale
         }
     }
     property QtObject contextualData: QtObject {
@@ -296,15 +258,15 @@ WebView {
         }
     }
 
-    QtObject {
-        id: internal
-        property Item currentContextualMenu: null
+    Scrollbar {
+        parent: _webview.parent
+        flickableItem: _webview
+        align: Qt.AlignTrailing
     }
 
-    readonly property int screenOrientation: Screen.orientation
-    onScreenOrientationChanged: {
-        if (internal.currentContextualMenu != null) {
-            PopupUtils.close(internal.currentContextualMenu)
-        }
+    Scrollbar {
+        parent: _webview.parent
+        flickableItem: _webview
+        align: Qt.AlignBottom
     }
 }
