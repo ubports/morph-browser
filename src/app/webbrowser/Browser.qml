@@ -21,7 +21,7 @@ import QtQuick 2.0
 //import QtWebKit.experimental 1.0
 import com.canonical.Oxide 0.1
 import Ubuntu.Components 0.1
-import Ubuntu.Components.Extras.Browser 0.1
+import webbrowserapp.private 0.1
 import "../actions" as Actions
 import ".."
 
@@ -212,7 +212,6 @@ BrowserView {
 
             currentWebview: browser.currentWebview
             toolbar: panel.panel
-            historyModel: _historyModel
 
             anchors.fill: parent
 
@@ -245,6 +244,28 @@ BrowserView {
             }
 
             onNewTabRequested: newTab(url, true)
+
+            WebviewThumbnailer {
+                id: thumbnailer
+                webview: webview
+                targetSize: Qt.size(units.gu(12), units.gu(12))
+                property url thumbnailSource: "image://webthumbnail/" + webview.url
+                onThumbnailRendered: {
+                    if (url == webview.url) {
+                        webview.thumbnail = thumbnailer.thumbnailSource
+                    }
+                }
+            }
+            property url thumbnail: (url && thumbnailer.thumbnailExists()) ? thumbnailer.thumbnailSource : ""
+
+            onLoadingChanged: {
+                if (loadRequest.status === WebView.LoadSucceededStatus) {
+                    _historyModel.add(webview.url, webview.title, webview.icon)
+                    if (!thumbnailer.thumbnailExists()) {
+                        thumbnailer.renderThumbnail()
+                    }
+                }
+            }
         }
     }
 

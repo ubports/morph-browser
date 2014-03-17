@@ -24,16 +24,12 @@ TestCase {
     name: "UbuntuWebView"
 
     function test_custom_UA_override() {
-        var url = "http://example.com"
-        compare(webview1.getUAString(url), benchmark.getSystemWideUAString(url))
-        webview2.customUA = false
-        compare(webview2.getUAString(url), benchmark.getSystemWideUAString(url))
-        webview2.customUA = true
-        compare(webview2.getUAString(url), "custom UA")
-    }
-
-    UbuntuWebView {
-        id: benchmark
+        compare(webview1.getUAString(), undefined)
+        // passing a 'url' parameter to getUAString()
+        // (as was the API before) shouldn’t hurt:
+        compare(webview1.getUAString("http://example.com"), undefined)
+        verify(webview1.context.userAgent !== undefined)
+        compare(webview2.context.userAgent, "custom UA")
     }
 
     UbuntuWebView {
@@ -43,14 +39,8 @@ TestCase {
     UbuntuWebView {
         id: webview2
 
-        property bool customUA
-
         function getUAString(url) {
-            if (customUA) {
-                return "custom UA"
-            } else {
-                return getSystemWideUAString(url)
-            }
+            return "custom UA"
         }
     }
 }

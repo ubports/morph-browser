@@ -22,8 +22,6 @@
 // Qt
 #include <QtQml/QQmlExtensionPlugin>
 
-//class QThread;
-
 class UbuntuBrowserPlugin : public QQmlExtensionPlugin
 {
     Q_OBJECT
@@ -32,12 +30,6 @@ class UbuntuBrowserPlugin : public QQmlExtensionPlugin
 public:
     void initializeEngine(QQmlEngine* engine, const char* uri);
     void registerTypes(const char* uri);
-
-/*private:
-    QThread* m_thumbnailUtilsThread;
-
-private Q_SLOTS:
-    void onEngineDestroyed();*/
 };
 
 #endif // __PLUGIN_H__

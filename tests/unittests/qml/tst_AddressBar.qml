@@ -123,6 +123,12 @@ TestCase {
         compare(addressBar.requestedUrl, "http://en.wikipedia.org/wiki/UBUNTU")
     }
 
+    function test_local_file_no_scheme() {
+        addressBar.text = "/usr/share/doc/ubuntu-online-tour/index.html"
+        addressBar.validate()
+        compare(addressBar.requestedUrl, "file:///usr/share/doc/ubuntu-online-tour/index.html")
+    }
+
     AddressBar {
         id: addressBar
     }

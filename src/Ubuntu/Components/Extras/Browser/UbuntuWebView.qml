@@ -52,23 +52,26 @@ WebView {
     UserAgent {
         id: userAgent
     }
-    function getSystemWideUAString(url) {
-        return userAgent.getUAString(url)
-    }
+
     /**
      * This function can be overridden by client applications that embed an
-     * UbuntuWebView to provide a custom UA string override mechanism.
-     * The default implementation calls the default override mechanism.
-     * To get the value that the default override mechanism would return,
-     * client applications can call getSystemWideUAString(url).
+     * UbuntuWebView to provide a static overridden UA string.
+     * If not overridden, the default UA string and the default override
+     * mechanism will be used.
      */
-    function getUAString(url) {
-        return getSystemWideUAString(url)
+    function getUAString() {
+        // Note that this function used to accept a 'url' parameter to allow
+        // embedders to implement a custom override mechanism. It was removed
+        // after observing that no application was using it, and to simplify
+        // the API. Embedders willing to provide a custom override mechanism
+        // can always override (at their own risk) the onNavigationRequested
+        // slot.
+        return undefined
     }
 
     context: WebContext {
         dataPath: dataLocation
-        userAgent: userAgent.defaultUA
+        userAgent: (_webview.getUAString() === undefined) ? userAgent.defaultUA : _webview.getUAString()
         userScripts: [
             UserScript {
                 context: "oxide://selection/"
@@ -121,7 +124,12 @@ WebView {
         if (request.action === WebView.IgnoreRequest)
             return;
 
-        _webview.experimental.userAgent = _webview.getUAString(request.url)
+        var staticUA = _webview.getUAString()
+        if (staticUA === undefined) {
+            _webview.experimental.userAgent = userAgent.getUAString(request.url)
+        } else {
+            _webview.experimental.userAgent = staticUA
+        }
     }*/
 
     /*experimental.preferences.navigatorQtObjectEnabled: true
@@ -299,24 +307,4 @@ WebView {
             PopupUtils.close(internal.currentContextualMenu)
         }
     }
-
-    /*WebviewThumbnailer {
-        id: thumbnailer
-        webview: _webview
-        targetSize: Qt.size(units.gu(12), units.gu(12))
-        property url thumbnailSource: "image://webthumbnail/" + _webview.url
-        onThumbnailRendered: {
-            if (url == _webview.url) {
-                _webview.thumbnail = thumbnailer.thumbnailSource
-            }
-        }
-    }
-    property url thumbnail: (url && thumbnailer.thumbnailExists()) ? thumbnailer.thumbnailSource : ""
-    onLoadingChanged: {
-        if (loadRequest.status === WebView.LoadSucceededStatus) {
-            if (!thumbnailer.thumbnailExists()) {
-                thumbnailer.renderThumbnail()
-            }
-        }
-    }*/
 }

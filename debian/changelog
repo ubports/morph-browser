@@ -1,3 +1,23 @@
+webbrowser-app (0.23+14.04.20140317-0ubuntu1) trusty; urgency=low
+
+  [ daker ]
+  * Fix to open URL that start with / (local files)
+
+  [ Leo Arias ]
+  * Updated the copyright header on all the python files.
+
+  [ Adnane Belmadiaf ]
+  * Fix to open URL that start with / (local files)
+
+  [ Olivier Tilloy ]
+  * Do not register private types in the public plugin. Register them in
+    the webbrowser application scope instead. I have made sure that
+    private types that were previously public are currently not being
+    used by any application in the store, so this refactoring is safe.
+  * Refactor the test HTTP server to use a random port at startup.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 17 Mar 2014 11:57:27 +0000
+
 webbrowser-app (0.23+14.04.20140313-0ubuntu1) trusty; urgency=low
 
   * New rebuild forced

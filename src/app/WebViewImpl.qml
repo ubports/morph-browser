@@ -30,7 +30,6 @@ UbuntuWebView {
 
     property var currentWebview: webview
     property var toolbar: null
-    property QtObject historyModel: null
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
