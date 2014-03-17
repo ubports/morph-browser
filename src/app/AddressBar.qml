@@ -126,6 +126,9 @@ FocusScope {
         if (terms.length > 1) {
             return false
         }
+        if (address.substr(0, 1) == "/") {
+            return true
+        }
         if (address.match(/^https?:\/\//) ||
             address.match(/^file:\/\//) ||
             address.match(/^[a-z]+:\/\//)) {
@@ -142,7 +145,9 @@ FocusScope {
 
     function fixUrl(address) {
         var url = address
-        if (address.indexOf("://") == -1) {
+        if (address.substr(0, 1) == "/") {
+            url = "file://" + address
+        } else if (address.indexOf("://") == -1) {
             url = "http://" + address
         }
         return url
