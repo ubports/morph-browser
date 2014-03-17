@@ -29,7 +29,6 @@ UbuntuWebView {
 
     property var currentWebview: webview
     property var toolbar: null
-    property QtObject historyModel: null
 
     experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
@@ -60,10 +59,5 @@ UbuntuWebView {
     }
 
     property int lastLoadRequestStatus: -1
-    onLoadingChanged: {
-        lastLoadRequestStatus = loadRequest.status
-        if (historyModel && (loadRequest.status === WebView.LoadSucceededStatus)) {
-            historyModel.add(webview.url, webview.title, webview.icon)
-        }
-    }
+    onLoadingChanged: lastLoadRequestStatus = loadRequest.status
 }

@@ -16,9 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "bookmarks-model.h"
 #include "config.h"
+#include "history-model.h"
+#include "history-matches-model.h"
+#include "history-timeframe-model.h"
+#include "history-domainlist-model.h"
+#include "history-domainlist-chronological-model.h"
 #include "settings.h"
+#include "tabs-model.h"
 #include "webbrowser-app.h"
+#include "webthumbnail-provider.h"
+#include "webthumbnail-utils.h"
+#include "webview-thumbnailer.h"
 
 // system
 #include <string.h>
@@ -31,11 +41,23 @@
 #include <QtCore/QMetaObject>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
+#include <QtCore/QThread>
+#include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
 
 WebbrowserApp::WebbrowserApp(int& argc, char** argv)
     : BrowserApplication(argc, argv)
+    , m_thumbnailUtilsThread(0)
 {
+}
+
+WebbrowserApp::~WebbrowserApp()
+{
+    if (m_thumbnailUtilsThread) {
+        m_thumbnailUtilsThread->quit();
+        m_thumbnailUtilsThread->wait();
+        delete m_thumbnailUtilsThread;
+    }
 }
 
 bool WebbrowserApp::initialize()
@@ -61,8 +83,30 @@ bool WebbrowserApp::initialize()
         }
     }
 
+    const char* uri = "webbrowserapp.private";
+    qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
+    qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
+    qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
+    qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
+    qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
+    qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
+    qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
+    qmlRegisterType<WebviewThumbnailer>(uri, 0, 1, "WebviewThumbnailer");
+
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         m_window->setProperty("chromeless", m_arguments.contains("--chromeless"));
+
+        // This singleton lives in its own thread to ensure that
+        // disk I/O is not performed in the UI thread.
+        WebThumbnailUtils& utils = WebThumbnailUtils::instance();
+        m_thumbnailUtilsThread = new QThread;
+        utils.moveToThread(m_thumbnailUtilsThread);
+        m_thumbnailUtilsThread->start();
+
+        WebThumbnailProvider* thumbnailer = new WebThumbnailProvider;
+        m_engine->addImageProvider(QLatin1String("webthumbnail"), thumbnailer);
+        m_engine->rootContext()->setContextProperty("WebThumbnailer", thumbnailer);
+
         QList<QUrl> urls = this->urls();
         if (urls.isEmpty()) {
             Settings settings;

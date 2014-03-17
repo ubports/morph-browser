@@ -19,7 +19,9 @@
 #ifndef __WEBBROWSER_APP_H__
 #define __WEBBROWSER_APP_H__
 
-#include "../browserapplication.h"
+#include "browserapplication.h"
+
+class QThread;
 
 class WebbrowserApp : public BrowserApplication
 {
@@ -27,11 +29,14 @@ class WebbrowserApp : public BrowserApplication
 
 public:
     WebbrowserApp(int& argc, char** argv);
+    ~WebbrowserApp();
 
     bool initialize();
 
 private:
     virtual void printUsage() const;
+
+    QThread* m_thumbnailUtilsThread;
 };
 
 #endif // __WEBBROWSER_APP_H__
