@@ -35,19 +35,26 @@ QtObject {
     // %4: WebKit version, e.g. "537.36"
     // %5: Chromium version, e.g. "35.0.1870.2"
     // %6: optional token to provide additional free-form information (must start with a whitespace), e.g. "Mobile"
+    // note #1: "Mozilla/5.0" is misinformation, but it is a legacy token that
+    //   virtually every single UA out there has, it seems unwise to remove it
+    // note #2: "AppleWebKit", as opposed to plain "WebKit", does make a
+    //   difference in the content served by certain sites (e.g. gmail.com)
     readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chromium/%5%6"
 
-    // FIXME: compute at build/run time (using lsb_release)
+    // FIXME: compute at build time (using lsb_release)
     readonly property string _ubuntuVersion: "14.04"
 
     readonly property string _attributes: (formFactor === "mobile") ? " like Android 4.4" : ""
 
     readonly property string _hardwareID: ""
 
-    // See chromium/src/webkit/build/webkit_version.h.in in oxide’s source tree
+    // See chromium/src/webkit/build/webkit_version.h.in in oxide’s source tree.
     readonly property string _webkitVersion: "537.36"
 
-    // FIXME: add a comment specifying where to find it, or that it’s unnecessary to update it every time.
+    // See chromium/src/chrome/VERSION in oxide’s source tree.
+    // Note: the actual version number probably doesn’t matter that much,
+    //       however its format does, so we probably don’t need to bump it
+    //       every time we rebase on a newer chromium.
     readonly property string _chromiumVersion: "35.0.1870.2"
 
     readonly property string _more: (formFactor === "mobile") ? " Mobile" : ""
