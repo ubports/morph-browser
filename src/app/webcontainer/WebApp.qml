@@ -69,8 +69,6 @@ BrowserView {
             }
             height: parent.height - osk.height
 
-            //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
-
             contextualActions: ActionList {
                 Actions.CopyLink {
                     enabled: webview.contextualData.href.toString()
@@ -116,6 +114,8 @@ BrowserView {
 
             onNewTabRequested: Qt.openUrlExternally(url)
 
+	    preferences.localStorageEnabled: true
+
             // Small shim needed when running as a webapp to wire-up connections
             // with the webview (message received, etc…).
             // This is being called (and expected) internally by the webapps
@@ -133,7 +133,7 @@ BrowserView {
                         }
                     }
                 };
-                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview, eventHandlers)
+                return UnityWebAppsUtils.makeProxiesForWebViewBindee(webview, eventHandlers)
             }
         }
 
