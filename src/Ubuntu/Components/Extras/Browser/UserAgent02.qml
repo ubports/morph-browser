@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,9 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import QtQuick.Window 2.0
-import Ubuntu.Components 0.1
+import QtQml 2.0
 import "ua-overrides.js" as Overrides
 
 /*
@@ -30,22 +28,31 @@ import "ua-overrides.js" as Overrides
  *   https://developers.google.com/chrome/mobile/docs/user-agent
  */
 
-// This is an Item, not a QtObject, because it needs information about the Screen.
-Item {
-    // %1: form factor (Mobile, Tablet, Desktop)
-    // %2: WebKit version
-    readonly property string _template: "Mozilla/5.0 (Ubuntu; %1) WebKit/%2"
+QtObject {
+    // %1: Ubuntu version, e.g. "14.04"
+    // %2: optional token to specify further attributes of the platform (must start with a whitespace), e.g. "like Android"
+    // %3: optional hardware ID token (must start with a semi-colon if present)
+    // %4: WebKit version, e.g. "537.36"
+    // %5: Chromium version, e.g. "35.0.1870.2"
+    // %6: optional token to provide additional free-form information (must start with a whitespace), e.g. "Mobile"
+    readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chromium/%5%6"
+
+    // FIXME: compute at build/run time (using lsb_release)
+    readonly property string _ubuntuVersion: "14.04"
+
+    readonly property string _attributes: (formFactor === "mobile") ? " like Android 4.4" : ""
+
+    readonly property string _hardwareID: ""
 
     // See chromium/src/webkit/build/webkit_version.h.in in oxide’s source tree
-    // TODO: determine this value at runtime
     readonly property string _webkitVersion: "537.36"
 
-    // FIXME: this is a quick hack that will become increasingly unreliable
-    // as we support more devices, so we need a better solution for this
-    // FIXME: only handling phone and tablet for now, need to handle desktop too
-    readonly property string _formFactor: (Screen.width >= units.gu(60)) ? "Tablet" : "Mobile"
+    // FIXME: add a comment specifying where to find it, or that it’s unnecessary to update it every time.
+    readonly property string _chromiumVersion: "35.0.1870.2"
 
-    property string defaultUA: _template.arg(_formFactor).arg(_webkitVersion)
+    readonly property string _more: (formFactor === "mobile") ? " Mobile" : ""
+
+    property string defaultUA: _template.arg(_ubuntuVersion).arg(_attributes).arg(_hardwareID).arg(_webkitVersion).arg(_chromiumVersion).arg(_more)
 
     property var overrides: Overrides.overrides
 
