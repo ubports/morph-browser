@@ -21,7 +21,7 @@ set(WEBBROWSER_APP_MODELS webbrowser-app-models)
 
 add_library(${WEBBROWSER_APP_MODELS} STATIC ${WEBBROWSER_APP_MODELS_SRC})
 
-qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Quick Sql)
+qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Sql)
 
 set(WEBBROWSER_APP_SRC
     settings.cpp
