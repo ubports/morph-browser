@@ -25,6 +25,7 @@ Popups.PopupBase {
     id: picker
     property var activeTransfer
     property var selectedItems
+    property alias customPeerModelLoader: peerPicker.customPeerModelLoader
 
     Rectangle {
         anchors.fill: parent

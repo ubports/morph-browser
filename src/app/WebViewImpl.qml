@@ -22,6 +22,7 @@ import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
+import Ubuntu.Content 0.1
 import "actions" as Actions
 
 UbuntuWebView {
@@ -37,7 +38,7 @@ UbuntuWebView {
     experimental.alertDialog: AlertDialog {}
     experimental.confirmDialog: ConfirmDialog {}
     experimental.promptDialog: PromptDialog {}
-    experimental.filePicker: ContentPickerDialog {}
+    experimental.filePicker: ContentPickerDialog { customPeerModelLoader: peerModelLoader }
 
     selectionActions: ActionList {
         Actions.Copy {
@@ -65,6 +66,15 @@ UbuntuWebView {
         lastLoadRequestStatus = loadRequest.status
         if (historyModel && (loadRequest.status === WebView.LoadSucceededStatus)) {
             historyModel.add(webview.url, webview.title, webview.icon)
+        }
+    }
+
+    Loader {
+        id: peerModelLoader
+        active: false
+        sourceComponent: ContentPeerModel {
+            contentType: ContentType.All
+            handler: ContentHandler.Source
         }
     }
 }
