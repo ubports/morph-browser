@@ -1,3 +1,11 @@
+webbrowser-app (0.23+14.04.20140319-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Use the renderer only once when rendering a thumbnail. This seems to
+    fix the crash that was happening at destruction time. (LP: #1294219)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Mar 2014 14:58:21 +0000
+
 webbrowser-app (0.23+14.04.20140317.1-0ubuntu1) trusty; urgency=low
 
   [ Colin Watson ]
