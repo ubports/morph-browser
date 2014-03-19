@@ -34,6 +34,10 @@
 #include <string.h>
 #include <unistd.h>
 
+// system
+#include <string.h>
+#include <unistd.h>
+
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
