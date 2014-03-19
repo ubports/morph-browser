@@ -54,8 +54,9 @@ static QString getFormFactor()
     }
 
     // XXX: Assume that QtUbuntu means mobile, which is currently the case,
-    // but won’t remain true forever.
-    if (QGuiApplication::platformName() == "ubuntu") {
+    // but may not remain true forever.
+    QString platform = QGuiApplication::platformName();
+    if ((platform == "ubuntu") || (platform == "ubuntumirclient")) {
         return MOBILE;
     }
 
