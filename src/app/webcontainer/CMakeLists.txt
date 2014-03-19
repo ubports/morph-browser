@@ -13,7 +13,6 @@ set(WEBAPP_CONTAINER_SRC
     onlineaccountscookiestore.cpp
     sqlitecookiestore.cpp
     webapp-container.cpp
-    ../webbrowser-window.cpp
 )
 
 add_executable(${WEBAPP_CONTAINER} ${WEBAPP_CONTAINER_SRC})
