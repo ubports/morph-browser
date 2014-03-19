@@ -95,59 +95,25 @@ Window {
     Loader {
         id: accountsPageComponentLoader
         anchors.fill: parent
-    }
-    Component {
-        id: accountsPageComponent
-
-        Page {
-            id: accountsPage
-
-            visible: false
-            anchors.fill: parent
-
-            AccountsLoginPage {
-                id: accountsLogin
-
-                anchors.fill: parent
-
-                accountProvider: root.accountProvider
-                applicationName: root.applicationName
-
-                QtObject {
-                    id: internal
-                    function onMoved (result) {
-                        webappCookieStore.moved.disconnect(internal.onMoved);
-                        if (! result) {
-                            console.log("Unable to move cookies");
-                        }
-                        loadWebAppView();
-                    }
-                }
-
-                onDone: {
-                    if ( ! accountsPage.visible)
-                        return;
-                    if ( ! credentialsId) {
-                        loadWebAppView();
-                        return;
-                    }
-                    var instance = onlineAccountStoreComponent.createObject(accountsLogin, {accountId: credentialsId});
-
-                    webappCookieStore.moved.connect(internal.onMoved)
-                    webappCookieStore.moveFrom(instance);
-                }
+        onStatusChanged: {
+            if (status == Loader.Error) {
+                // Happens on the desktop, if Ubuntu.OnlineAccounts.Client
+                // can't be imported
+                loadWebAppView()
+            } else if (status == Loader.Ready) {
+                item.visible = true
             }
         }
+    }
+
+    Connections {
+        target: accountsPageComponentLoader.item
+        onDone: loadWebAppView()
     }
 
     SqliteCookieStore {
         id: webappCookieStore
         dbPath: ".local/share/" + applicationName + "/.QtWebKit/cookies.db"
-    }
-
-    Component {
-        id: onlineAccountStoreComponent
-        OnlineAccountsCookieStore { }
     }
 
     Component.onCompleted: updateCurrentView()
@@ -168,8 +134,11 @@ Window {
     }
 
     function loadLoginView() {
-        accountsPageComponentLoader.sourceComponent = accountsPageComponent;
-        accountsPageComponentLoader.item.visible = true;
+        accountsPageComponentLoader.setSource("AccountsPage.qml", {
+            "accountProvider": root.accountProvider,
+            "applicationName": root.applicationName,
+            "webappCookieStore": webappCookieStore,
+        })
     }
 
     function loadWebAppView() {
