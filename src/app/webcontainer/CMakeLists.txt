@@ -13,6 +13,7 @@ set(WEBAPP_CONTAINER_SRC
     cookiestore.cpp
     onlineaccountscookiestore.cpp
     sqlitecookiestore.cpp
+    url-pattern-utils.cpp
     ../webbrowser-window.cpp
 )
 
