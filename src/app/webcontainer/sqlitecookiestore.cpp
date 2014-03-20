@@ -22,7 +22,6 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QFileInfo>
-#include <QStandardPaths>
 #include <QDebug>
 
 
