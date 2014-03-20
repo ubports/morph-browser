@@ -37,18 +37,18 @@ Cookies SqliteCookieStore::doGetCookies()
 
 QDateTime SqliteCookieStore::lastUpdateTimeStamp() const
 {
-    QFileInfo dbFileInfo(getFullDbPathName ());
+    QFileInfo dbFileInfo(dbPath());
     return dbFileInfo.lastModified();
 }
 
 void SqliteCookieStore::doSetCookies(Cookies cookies)
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName (getFullDbPathName ());
+    db.setDatabaseName(dbPath());
 
     if ( ! db.open())
     {
-        qCritical() << "Could not open cookie database: " << getFullDbPathName() << db.lastError();
+        qCritical() << "Could not open cookie database: " << dbPath() << db.lastError();
         Q_EMIT moved(false);
         return;
     }
@@ -76,11 +76,6 @@ void SqliteCookieStore::doSetCookies(Cookies cookies)
     }
 
     Q_EMIT moved(true);
-}
-
-QString SqliteCookieStore::getFullDbPathName() const
-{
-    return QStandardPaths::standardLocations(QStandardPaths::HomeLocation)[0] + "/" + dbPath();
 }
 
 void SqliteCookieStore::setDbPath(const QString &path)

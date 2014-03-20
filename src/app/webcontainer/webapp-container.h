@@ -43,7 +43,7 @@ private:
     QString webappName() const;
     QStringList webappUrlPatterns() const;
     QString accountProvider() const;
-    bool registerCookieQmlTypes(QQmlEngine * engine);
+    void registerCookieQmlTypes(QQmlEngine * engine);
 };
 
 #endif // __WEBAPP_CONTAINER_H__

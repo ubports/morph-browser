@@ -19,7 +19,8 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
-import Ubuntu.WebContainer.Components 0.1
+import Ubuntu.Components.Extras.Browser 0.1
+import webcontainer.private 0.1
 
 Window {
     id: root
@@ -33,7 +34,7 @@ Window {
     property string webappModelSearchPath: ""
     property string webappUrlPatterns: ""
 
-    property string applicationName: ""
+    property string applicationName: Qt.application.name
     property string url: ""
 
     property string webappTitle
@@ -113,7 +114,7 @@ Window {
 
     SqliteCookieStore {
         id: webappCookieStore
-        dbPath: ".local/share/" + applicationName + "/.QtWebKit/cookies.db"
+        dbPath: dataLocation + "/.QtWebKit/cookies.db"
     }
 
     Component.onCompleted: updateCurrentView()
@@ -148,5 +149,3 @@ Window {
         webappPageComponentLoader.item.visible = true;
     }
 }
-
-

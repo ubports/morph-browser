@@ -23,17 +23,17 @@
 #include "sqlitecookiestore.h"
 #include "onlineaccountscookiestore.h"
 
-
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
 #include <QtCore/QRegularExpression>
 #include <QtCore/QTextStream>
-#include <QtQuick/QQuickWindow>
 #include <QtQml/QQmlEngine>
 #include <QtQml>
+#include <QtQuick/QQuickWindow>
 
+static const char privateModuleUri[] = "webcontainer.private";
 
 WebappContainer::WebappContainer(int& argc, char** argv)
     : BrowserApplication(argc, argv)
@@ -65,7 +65,6 @@ bool WebappContainer::initialize()
                 m_window->setProperty("url", urls.first());
             }
         }
-        m_window->setProperty("applicationName", QCoreApplication::applicationName());
 
         return true;
     } else {
@@ -78,16 +77,14 @@ void WebappContainer::qmlEngineCreated(QQmlEngine * engine)
     registerCookieQmlTypes(engine);
 }
 
-bool WebappContainer::registerCookieQmlTypes(QQmlEngine * engine)
+void WebappContainer::registerCookieQmlTypes(QQmlEngine * engine)
 {
     if (engine)
     {
-        qmlRegisterType<CookieStore>("Ubuntu.WebContainer.Components", 0, 1, "CookieStore");
-        qmlRegisterType<SqliteCookieStore>("Ubuntu.WebContainer.Components", 0, 1, "SqliteCookieStore");
-        qmlRegisterType<OnlineAccountsCookieStore>("Ubuntu.WebContainer.Components", 0, 1, "OnlineAccountsCookieStore");
-        return true;
+        qmlRegisterType<CookieStore>(privateModuleUri, 0, 1, "CookieStore");
+        qmlRegisterType<SqliteCookieStore>(privateModuleUri, 0, 1, "SqliteCookieStore");
+        qmlRegisterType<OnlineAccountsCookieStore>(privateModuleUri, 0, 1, "OnlineAccountsCookieStore");
     }
-    return false;
 }
 
 void WebappContainer::printUsage() const
@@ -97,6 +94,7 @@ void WebappContainer::printUsage() const
     out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector] "
                                    "[--app-id=APP_ID] [--homepage=URL] [--webapp[=name]] "
                                    "[--webappModelSearchPath=PATH] [--webappUrlPatterns=URL_PATTERNS] "
+                                   "[--accountProvider=PROVIDER_NAME] "
                                    "[--enable-back-forward] [--enable-addressbar] [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help                          display this help message and exit" << endl;

@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
-import Ubuntu.WebContainer.Components 0.1
+import webcontainer.private 0.1
 
 Page {
     id: accountsPage

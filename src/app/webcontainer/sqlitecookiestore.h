@@ -48,8 +48,6 @@ private:
     virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
     virtual void doSetCookies(Cookies) Q_DECL_OVERRIDE;
 
-    QString getFullDbPathName() const;
-
 
 private:
     QString m_dbPath;
