@@ -65,7 +65,6 @@ bool WebappContainer::initialize()
                 m_window->setProperty("url", urls.first());
             }
         }
-
         return true;
     } else {
         return false;
