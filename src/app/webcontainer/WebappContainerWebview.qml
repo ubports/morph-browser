@@ -1,0 +1,110 @@
+import QtQuick 2.0
+import Ubuntu.Components 0.1
+import Ubuntu.Unity.Action 1.0 as UnityActions
+import Ubuntu.UnityWebApps 0.1 as UnityWebApps
+import "../actions" as Actions
+import ".."
+
+Item {
+    id: containerWebview
+
+    property string url: ""
+    property bool withOxide: false
+    property var currentWebview: webappContainerWebViewLoader.item
+    property var toolbar: null
+
+    Loader {
+        id: webappContainerWebViewLoader
+        anchors.fill: parent
+        sourceComponent: withOxide ? webappContainerWebViewOxide : webappContainerWebViewWebkit
+    }
+
+    Component {
+        id: webappContainerWebViewWebkit
+
+        WebViewImplWebkit {
+            id: webview
+            property var toolbar: containerWebview.toolbar
+            url: containerWebview.url
+        }
+    }
+
+    Component {
+        id: webappContainerWebViewOxide
+
+        WebViewImpl {
+            id: webview
+
+            url: containerWebview.url
+            currentWebview: webview
+            toolbar: panel.panel
+
+            //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
+
+            contextualActions: ActionList {
+                Actions.CopyLink {
+                    enabled: webview.contextualData.href.toString()
+                    onTriggered: Clipboard.push([webview.contextualData.href])
+                }
+                Actions.CopyImage {
+                    enabled: webview.contextualData.img.toString()
+                    onTriggered: Clipboard.push([webview.contextualData.img])
+                }
+            }
+
+            /*function navigationRequestedDelegate(request) {
+                if (!request.isMainFrame) {
+                    request.action = WebView.AcceptRequest
+                    return
+                }
+
+                var action = WebView.AcceptRequest
+                var url = request.url.toString()
+
+                // The list of url patterns defined by the webapp takes precedence over command line
+                if (isRunningAsANamedWebapp()) {
+                    if (unityWebapps.model.exists(unityWebapps.name) &&
+                        !unityWebapps.model.doesUrlMatchesWebapp(unityWebapps.name, url)) {
+                        action = WebView.IgnoreRequest
+                    }
+                } else if (webappUrlPatterns && webappUrlPatterns.length !== 0) {
+                    action = WebView.IgnoreRequest
+                    for (var i = 0; i < webappUrlPatterns.length; ++i) {
+                        var pattern = webappUrlPatterns[i]
+                        if (url.match(pattern)) {
+                            action = WebView.AcceptRequest
+                            break
+                        }
+                    }
+                }
+
+                request.action = action
+                if (action === WebView.IgnoreRequest) {
+                    Qt.openUrlExternally(url)
+                }
+            }*/
+
+            onNewTabRequested: Qt.openUrlExternally(url)
+
+            // Small shim needed when running as a webapp to wire-up connections
+            // with the webview (message received, etc…).
+            // This is being called (and expected) internally by the webapps
+            // component as a way to bind to a webview lookalike without
+            // reaching out directly to its internals (see it as an interface).
+            function getUnityWebappsProxies() {
+                var eventHandlers = {
+                    onAppRaised: function () {
+                        if (webbrowserWindow) {
+                            try {
+                                webbrowserWindow.raise();
+                            } catch (e) {
+                                console.debug('Error while raising: ' + e);
+                            }
+                        }
+                    }
+                };
+                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview, eventHandlers)
+            }
+        }
+    }
+}

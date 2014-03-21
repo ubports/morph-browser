@@ -27,20 +27,21 @@ import ".."
 BrowserView {
     id: webapp
 
-    currentWebview: webview
+    currentWebview: webview.currentWebview
 
-    property alias url: webview.url
+    property alias oxide: webview.withOxide
+    property string url: ""
     property string webappName: ""
     property string webappModelSearchPath: ""
     property var webappUrlPatterns: null
 
     actions: [
         Actions.Back {
-            enabled: backForwardButtonsVisible && currentWebview.canGoBack
+            enabled: backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoBack
             onTriggered: webview.goBack()
         },
         Actions.Forward {
-            enabled: backForwardButtonsVisible && currentWebview.canGoForward
+            enabled: backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoForward
             onTriggered: webview.goForward()
         },
         Actions.Reload {
@@ -56,11 +57,10 @@ BrowserView {
         // The UITK is trying too hard to be clever about the header and toolbar.
         flickable: null
 
-        WebViewImpl {
+        WebappContainerWebview {
             id: webview
-
-            currentWebview: webview
             toolbar: panel.panel
+            url: webapp.url
 
             anchors {
                 left: parent.left
@@ -68,79 +68,15 @@ BrowserView {
                 top: parent.top
             }
             height: parent.height - osk.height
-
-            //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
-
-            contextualActions: ActionList {
-                Actions.CopyLink {
-                    enabled: webview.contextualData.href.toString()
-                    onTriggered: Clipboard.push([webview.contextualData.href])
-                }
-                Actions.CopyImage {
-                    enabled: webview.contextualData.img.toString()
-                    onTriggered: Clipboard.push([webview.contextualData.img])
-                }
-            }
-
-            /*function navigationRequestedDelegate(request) {
-                if (!request.isMainFrame) {
-                    request.action = WebView.AcceptRequest
-                    return
-                }
-
-                var action = WebView.AcceptRequest
-                var url = request.url.toString()
-
-                // The list of url patterns defined by the webapp takes precedence over command line
-                if (isRunningAsANamedWebapp()) {
-                    if (unityWebapps.model.exists(unityWebapps.name) &&
-                        !unityWebapps.model.doesUrlMatchesWebapp(unityWebapps.name, url)) {
-                        action = WebView.IgnoreRequest
-                    }
-                } else if (webappUrlPatterns && webappUrlPatterns.length !== 0) {
-                    action = WebView.IgnoreRequest
-                    for (var i = 0; i < webappUrlPatterns.length; ++i) {
-                        var pattern = webappUrlPatterns[i]
-                        if (url.match(pattern)) {
-                            action = WebView.AcceptRequest
-                            break
-                        }
-                    }
-                }
-
-                request.action = action
-                if (action === WebView.IgnoreRequest) {
-                    Qt.openUrlExternally(url)
-                }
-            }*/
-
-            onNewTabRequested: Qt.openUrlExternally(url)
-
-            // Small shim needed when running as a webapp to wire-up connections
-            // with the webview (message received, etc…).
-            // This is being called (and expected) internally by the webapps
-            // component as a way to bind to a webview lookalike without
-            // reaching out directly to its internals (see it as an interface).
-            function getUnityWebappsProxies() {
-                var eventHandlers = {
-                    onAppRaised: function () {
-                        if (webbrowserWindow) {
-                            try {
-                                webbrowserWindow.raise();
-                            } catch (e) {
-                                console.debug('Error while raising: ' + e);
-                            }
-                        }
-                    }
-                };
-                return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview, eventHandlers)
-            }
         }
 
         ErrorSheet {
             anchors.fill: webview
-            visible: webview.lastLoadFailed
-            url: webview.url
+            visible: Qt.binding(function() {
+                webview.lastLoadRequestStatus == WebView.LoadFailedStatus
+                webview.currentWebview && webview.currentWebview.lastLoadFailed
+            }
+            url: webview.currentWebview.url
             onRefreshClicked: webview.reload()
         }
     }
@@ -148,7 +84,7 @@ BrowserView {
     PanelLoader {
         id: panel
 
-        currentWebview: webview
+        currentWebview: webview.currentWebview
         chromeless: webapp.chromeless
 
         backForwardButtonsVisible: webapp.backForwardButtonsVisible
@@ -165,7 +101,7 @@ BrowserView {
     UnityWebApps.UnityWebApps {
         id: unityWebapps
         name: webappName
-        bindee: currentWebview
+        bindee: webview.currentWebview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
     }

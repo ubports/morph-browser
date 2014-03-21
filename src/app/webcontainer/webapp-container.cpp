@@ -26,6 +26,7 @@
 #include <QtCore/QRegularExpression>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
+#include <QtQml/QQmlComponent>
 
 WebappContainer::WebappContainer(int& argc, char** argv)
     : BrowserApplication(argc, argv)
@@ -34,7 +35,8 @@ WebappContainer::WebappContainer(int& argc, char** argv)
 
 bool WebappContainer::initialize()
 {
-    if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
+    if (BrowserApplication::initialize("webcontainer/webapp-container.qml",
+                                       BrowserApplication::DelayedCreation)) {
         QString searchPath = webappModelSearchPath();
         if (!searchPath.isEmpty())
         {
@@ -49,6 +51,8 @@ bool WebappContainer::initialize()
         m_window->setProperty("backForwardButtonsVisible", m_arguments.contains("--enable-back-forward"));
         m_window->setProperty("addressBarVisible", m_arguments.contains("--enable-addressbar"));
         m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
+        m_window->setProperty("oxide", withOxide());
+        qDebug() << withOxide();
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (name.isEmpty()) {
             QList<QUrl> urls = this->urls();
@@ -56,6 +60,9 @@ bool WebappContainer::initialize()
                 m_window->setProperty("url", urls.first());
             }
         }
+
+        m_component->completeCreate();
+
         return true;
     } else {
         return false;
@@ -80,6 +87,18 @@ void WebappContainer::printUsage() const
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
     out << "  --enable-addressbar                 enable the display of the address bar" << endl;
+}
+
+bool WebappContainer::withOxide() const
+{
+    bool oxide = false;
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument == "--oxide") {
+            oxide = true;
+            break;
+        }
+    }
+    return oxide;
 }
 
 QString WebappContainer::webappModelSearchPath() const
