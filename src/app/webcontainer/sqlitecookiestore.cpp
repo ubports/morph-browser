@@ -43,10 +43,8 @@ QDateTime SqliteCookieStore::lastUpdateTimeStamp() const
 
 void SqliteCookieStore::doSetCookies(Cookies cookies)
 {
-    QString dbPath(getFullDbPathName());
-
     /* Make sure that the parent directory exists */
-    QDir databaseAsDir(dbPath);
+    QDir databaseAsDir(dbPath());
     databaseAsDir.mkpath("..");
 
     /* Open the DB; if it doesn't exist, it will get created */
