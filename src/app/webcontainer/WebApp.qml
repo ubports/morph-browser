@@ -72,9 +72,10 @@ BrowserView {
 
         ErrorSheet {
             anchors.fill: webview
-            visible: Qt.binding(function() {
-                webview.lastLoadRequestStatus == WebView.LoadFailedStatus
-                webview.currentWebview && webview.currentWebview.lastLoadFailed
+            visible: {
+                if (webview.lastLoadFailed !== undefined)
+                    return webview.lastLoadFailed
+                return webview.currentWebview && webview.currentWebview.lastLoadFailed
             }
             url: webview.currentWebview.url
             onRefreshClicked: webview.reload()

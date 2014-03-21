@@ -45,6 +45,13 @@ UbuntuWebView {
         }
     }
 
+    property bool lastLoadFailed: false
+    onLoadingChanged: {
+        lastLoadFailed = (loadRequest.status === WebView.LoadFailedStatus)
+    }
+
+    experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
+
     experimental.onPermissionRequested: {
         if (permission.type === PermissionRequest.Geolocation) {
             if (webview.toolbar) {
@@ -58,6 +65,49 @@ UbuntuWebView {
         // TODO: handle other types of permission requests
         // TODO: we might want to store the answer to avoid requesting
         //       the permission everytime the user visits this site.
+    }
+
+    contextualActions: ActionList {
+        Actions.CopyLink {
+            enabled: webview.contextualData.href.toString()
+            onTriggered: Clipboard.push([webview.contextualData.href])
+        }
+        Actions.CopyImage {
+            enabled: webview.contextualData.img.toString()
+            onTriggered: Clipboard.push([webview.contextualData.img])
+        }
+    }
+
+    function navigationRequestedDelegate(request) {
+        if (!request.isMainFrame) {
+            request.action = WebView.AcceptRequest
+            return
+        }
+
+        var action = WebView.AcceptRequest
+        var url = request.url.toString()
+
+        // The list of url patterns defined by the webapp takes precedence over command line
+        if (isRunningAsANamedWebapp()) {
+            if (unityWebapps.model.exists(unityWebapps.name) &&
+                !unityWebapps.model.doesUrlMatchesWebapp(unityWebapps.name, url)) {
+                action = WebView.IgnoreRequest
+            }
+        } else if (webappUrlPatterns && webappUrlPatterns.length !== 0) {
+            action = WebView.IgnoreRequest
+            for (var i = 0; i < webappUrlPatterns.length; ++i) {
+                var pattern = webappUrlPatterns[i]
+                if (url.match(pattern)) {
+                    action = WebView.AcceptRequest
+                    break
+                }
+            }
+        }
+
+        request.action = action
+        if (action === WebView.IgnoreRequest) {
+            Qt.openUrlExternally(url)
+        }
     }
 
     onNewTabRequested: Qt.openUrlExternally(url)
@@ -81,7 +131,4 @@ UbuntuWebView {
         };
         return UnityWebAppsUtils.makeProxiesForQtWebViewBindee(webview, eventHandlers)
     }
-
-    property int lastLoadRequestStatus: -1
-    onLoadingChanged: lastLoadRequestStatus = loadRequest.status
 }

@@ -52,7 +52,6 @@ bool WebappContainer::initialize()
         m_window->setProperty("addressBarVisible", m_arguments.contains("--enable-addressbar"));
         m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
         m_window->setProperty("oxide", withOxide());
-        qDebug() << withOxide();
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (name.isEmpty()) {
             QList<QUrl> urls = this->urls();
