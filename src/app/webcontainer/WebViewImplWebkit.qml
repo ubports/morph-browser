@@ -31,6 +31,7 @@ UbuntuWebView {
 
     property var currentWebview: webview
     property var toolbar: null
+    property string webappName: ""
 
     experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
@@ -78,6 +79,10 @@ UbuntuWebView {
         }
     }
 
+    function isRunningAsANamedWebapp() {
+        return webappName && typeof(webappName) === 'string' && webappName.length != 0
+    }
+
     function navigationRequestedDelegate(request) {
         if (!request.isMainFrame) {
             request.action = WebView.AcceptRequest
@@ -89,8 +94,8 @@ UbuntuWebView {
 
         // The list of url patterns defined by the webapp takes precedence over command line
         if (isRunningAsANamedWebapp()) {
-            if (unityWebapps.model.exists(unityWebapps.name) &&
-                !unityWebapps.model.doesUrlMatchesWebapp(unityWebapps.name, url)) {
+            if (unityWebapps.model.exists(webappName) &&
+                !unityWebapps.model.doesUrlMatchesWebapp(webappName, url)) {
                 action = WebView.IgnoreRequest
             }
         } else if (webappUrlPatterns && webappUrlPatterns.length !== 0) {

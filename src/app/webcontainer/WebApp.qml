@@ -61,6 +61,7 @@ BrowserView {
             id: webview
             toolbar: panel.panel
             url: webapp.url
+            webappName: webapp.webappName
 
             anchors {
                 left: parent.left
@@ -105,9 +106,5 @@ BrowserView {
         bindee: webview.currentWebview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
-    }
-
-    function isRunningAsANamedWebapp() {
-        return webappName && typeof(webappName) === 'string' && webappName.length != 0
     }
 }

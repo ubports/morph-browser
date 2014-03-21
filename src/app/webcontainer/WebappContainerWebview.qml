@@ -28,8 +28,13 @@ Item {
 
     property string url: ""
     property bool withOxide: false
+    property string webappName: ""
     property var currentWebview: webappContainerWebViewLoader.item
     property var toolbar: null
+
+    function isRunningAsANamedWebapp() {
+        return false;
+    }
 
     Loader {
         id: webappContainerWebViewLoader
@@ -44,6 +49,7 @@ Item {
             id: webview
             property var toolbar: containerWebview.toolbar
             url: containerWebview.url
+            webappName: containerWebview.webappName
         }
     }
 
