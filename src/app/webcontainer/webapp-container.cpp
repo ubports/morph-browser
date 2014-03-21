@@ -42,7 +42,8 @@ WebappContainer::WebappContainer(int& argc, char** argv)
 
 bool WebappContainer::initialize()
 {
-    if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
+    if (BrowserApplication::initialize("webcontainer/webapp-container.qml",
+                                       BrowserApplication::BeginCreation)) {
         QString searchPath = webappModelSearchPath();
         if (!searchPath.isEmpty())
         {
@@ -65,6 +66,8 @@ bool WebappContainer::initialize()
                 m_window->setProperty("url", urls.first());
             }
         }
+
+        m_component->completeCreate();
         return true;
     } else {
         return false;

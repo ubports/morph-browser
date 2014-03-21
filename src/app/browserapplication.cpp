@@ -58,7 +58,8 @@ QString BrowserApplication::appId() const
     return QString();
 }
 
-bool BrowserApplication::initialize(const QString& qmlFileSubPath)
+bool BrowserApplication::initialize(const QString& qmlFileSubPath,
+                                    CreationMode creationMode)
 {
     Q_ASSERT(m_window == 0);
 
@@ -116,11 +117,15 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     m_webbrowserWindowProxy = new WebBrowserWindow();
     context->setContextProperty("webbrowserWindowProxy", m_webbrowserWindowProxy);
 
-    QObject* browser = m_component->create();
+    QObject* browser = m_component->beginCreate(context);
     m_window = qobject_cast<QQuickWindow*>(browser);
     m_webbrowserWindowProxy->setWindow(m_window);
 
     browser->setProperty("developerExtrasEnabled", inspector);
+
+    if (creationMode == CompleteCreation) {
+        m_component->completeCreate();
+    }
 
     return true;
 }
