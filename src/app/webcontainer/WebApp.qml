@@ -62,6 +62,7 @@ BrowserView {
             toolbar: panel.panel
             url: webapp.url
             webappName: webapp.webappName
+            webappUrlPatterns: webapp.webappUrlPatterns
 
             anchors {
                 left: parent.left

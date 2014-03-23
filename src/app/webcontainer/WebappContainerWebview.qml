@@ -31,6 +31,7 @@ Item {
     property string webappName: ""
     property var currentWebview: webappContainerWebViewLoader.item
     property var toolbar: null
+    property var webappUrlPatterns: null
 
     function isRunningAsANamedWebapp() {
         return false;
@@ -50,6 +51,7 @@ Item {
             property var toolbar: containerWebview.toolbar
             url: containerWebview.url
             webappName: containerWebview.webappName
+            webappUrlPatterns: containerWebview.webappUrlPatterns
         }
     }
 

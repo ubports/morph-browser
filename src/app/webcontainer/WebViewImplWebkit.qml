@@ -32,6 +32,7 @@ UbuntuWebView {
     property var currentWebview: webview
     property var toolbar: null
     property string webappName: ""
+    property var webappUrlPatterns: null
 
     experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
