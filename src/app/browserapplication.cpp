@@ -58,8 +58,7 @@ QString BrowserApplication::appId() const
     return QString();
 }
 
-bool BrowserApplication::initialize(const QString& qmlFileSubPath,
-                                    CreationMode creationMode)
+bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 {
     Q_ASSERT(m_window == 0);
 
@@ -122,10 +121,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath,
     m_webbrowserWindowProxy->setWindow(m_window);
 
     browser->setProperty("developerExtrasEnabled", inspector);
-
-    if (creationMode == CompleteCreation) {
-        m_component->completeCreate();
-    }
 
     return true;
 }

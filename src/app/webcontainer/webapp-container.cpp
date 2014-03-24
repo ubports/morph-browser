@@ -42,8 +42,7 @@ WebappContainer::WebappContainer(int& argc, char** argv)
 
 bool WebappContainer::initialize()
 {
-    if (BrowserApplication::initialize("webcontainer/webapp-container.qml",
-                                       BrowserApplication::BeginCreation)) {
+    if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
         QString searchPath = webappModelSearchPath();
         if (!searchPath.isEmpty())
         {
