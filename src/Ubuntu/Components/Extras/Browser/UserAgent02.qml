@@ -17,7 +17,6 @@
  */
 
 import QtQml 2.0
-import "ua-overrides.js" as Overrides
 
 /*
  * Useful documentation:
@@ -60,45 +59,4 @@ QtObject {
     readonly property string _more: (formFactor === "mobile") ? " Mobile" : ""
 
     property string defaultUA: _template.arg(_ubuntuVersion).arg(_attributes).arg(_hardwareID).arg(_webkitVersion).arg(_chromiumVersion).arg(_more)
-
-    property var overrides: Overrides.overrides
-
-    function getDomain(url) {
-        var domain = url.toString()
-        var indexOfScheme = domain.indexOf("://")
-        if (indexOfScheme !== -1) {
-            domain = domain.slice(indexOfScheme + 3)
-        }
-        var indexOfPath = domain.indexOf("/")
-        if (indexOfPath !== -1) {
-            domain = domain.slice(0, indexOfPath)
-        }
-        return domain
-    }
-
-    function getDomains(domain) {
-        var components = domain.split(".")
-        var domains = []
-        for (var i = 0; i < components.length; i++) {
-            domains.push(components.slice(i).join("."))
-        }
-        return domains
-    }
-
-    function getUAString(url) {
-        var ua = defaultUA
-        var domains = getDomains(getDomain(url))
-        for (var i = 0; i < domains.length; i++) {
-            var domain = domains[i]
-            if (domain in overrides) {
-                var form = overrides[domain]
-                if (typeof form == "string") {
-                    return form
-                } else if (typeof form == "object") {
-                    return ua.replace(form[0], form[1])
-                }
-            }
-        }
-        return ua
-    }
 }

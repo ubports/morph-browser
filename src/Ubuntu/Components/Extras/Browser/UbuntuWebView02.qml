@@ -54,6 +54,11 @@ WebView {
     context: WebContext {
         dataPath: dataLocation
         userAgent: (_webview.getUAString() === undefined) ? userAgent.defaultUA : _webview.getUAString()
+        networkRequestDelegate: WebContextDelegateWorker {
+            source: (formFactor === "mobile") ? Qt.resolvedUrl("ua-override-worker.js") : ""
+            onMessage: console.log("Overriden UA for", message.url, ":", message.override)
+        }
+        userAgentOverrideDelegate: networkRequestDelegate
         userScripts: [
             UserScript {
                 context: "oxide://selection/"
