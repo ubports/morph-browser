@@ -1,0 +1,293 @@
+# Uyghur translation for webbrowser-app
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-11-13 09:10+0100\n"
+"PO-Revision-Date: 2014-02-11 10:18+0000\n"
+"Last-Translator: omarjan <bahadiromar@outlook.com>\n"
+"Language-Team: Uyghur <ug@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-03-21 06:53+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
+
+#: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
+msgid "Activity"
+msgstr "پائالىيەت"
+
+#: src/app/ActivityView.qml:54
+msgid "Bookmarks"
+msgstr "خەتكۈشلەر"
+
+#: src/app/AlertDialog.qml:24
+msgid "JavaScript Alert"
+msgstr "JavaScript ئاگاھلاندۇرۇشى"
+
+#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
+msgid "OK"
+msgstr "تامام"
+
+#: src/app/AuthenticationDialog.qml:24
+msgid "Authentication required."
+msgstr "دەلىللەش لازىم"
+
+#. TRANSLATORS: %1 refers to the URL of the current website
+#: src/app/AuthenticationDialog.qml:26
+#, qt-format
+msgid "The website %1 requires authentication."
+msgstr "The website %1 requires authentication."
+
+#: src/app/AuthenticationDialog.qml:34
+msgid "Username"
+msgstr "ئىشلەتكۈچى ئاتى"
+
+#: src/app/AuthenticationDialog.qml:41
+msgid "Password"
+msgstr "ئىم"
+
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
+#: src/app/PromptDialog.qml:40
+msgid "Cancel"
+msgstr "ۋاز كەچ"
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "بۇ ئۇلىنىش ئىشەنچسىز"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+
+#: src/app/CertificateVerificationDialog.qml:29
+msgid "Proceed anyway"
+msgstr "يەنىلا داۋاملاشتۇر"
+
+#: src/app/CertificateVerificationDialog.qml:35
+msgid "Back to safety"
+msgstr "بىخەتەر ئۇلىنىشقا قايت"
+
+#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "كەينى"
+
+#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "ئالدى"
+
+#: src/app/ConfirmDialog.qml:24
+msgid "JavaScript Confirmation"
+msgstr "JavaScriptنى جەزملە"
+
+#: src/app/ErrorSheet.qml:38
+msgid "Network Error"
+msgstr "تور خاتالىقى"
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/app/ErrorSheet.qml:44
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr "It appears you are having trouble viewing: %1."
+
+#: src/app/ErrorSheet.qml:50
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr ""
+"ئۇبۇنتۇ سىستىمسى تور تەڭشىكىڭىزنى تەكشۈرۈپ بەتنى يېڭىلاپ بېقىشىڭىزنى "
+"تەۋىسىيە قىلىدۇ."
+
+#: src/app/ErrorSheet.qml:55
+msgid "Refresh page"
+msgstr "بەتن يېڭىلا"
+
+#: src/app/PermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "ھوقۇق ئىلتىماسى"
+
+#: src/app/PermissionRequest.qml:31
+msgid "Deny"
+msgstr "رەت قىل"
+
+#: src/app/PermissionRequest.qml:40
+msgid "Allow"
+msgstr "ئىجازەت"
+
+#: src/app/PromptDialog.qml:24
+msgid "JavaScript Prompt"
+msgstr "JavaScriptكۆرسەتمىسى"
+
+#: src/app/ProxyAuthenticationDialog.qml:22
+msgid "Proxy authentication required."
+msgstr "ۋاكالەتچى ئېھتىياجى دەلىللەندى"
+
+#. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
+#: src/app/ProxyAuthenticationDialog.qml:24
+#, qt-format
+msgid "The website %1:%2 requires authentication."
+msgstr "The website %1:%2 requires authentication."
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/app/TabsList.qml:37
+#, qt-format
+msgid "Currently viewing (%1)"
+msgstr "1%????????? ???????Currently viewing (%1)"
+
+#: src/app/TabsList.qml:68
+msgid "+"
+msgstr "+"
+
+#: src/app/TimelineView.qml:83
+msgid "Today"
+msgstr "بۈگۈن"
+
+#: src/app/TimelineView.qml:85
+msgid "Yesterday"
+msgstr "تۈنۈگۈن"
+
+#: src/app/TimelineView.qml:87
+msgid "Last 7 Days"
+msgstr "ئالدىنقى 7كۈن"
+
+#: src/app/TimelineView.qml:89
+msgid "This Month"
+msgstr "بۇ ئاي"
+
+#: src/app/TimelineView.qml:91
+msgid "This Year"
+msgstr "بۇ يىل"
+
+#: src/app/TimelineView.qml:93
+msgid "Older"
+msgstr "كونا"
+
+#: src/app/TimelineView.qml:276
+msgid "(local files)"
+msgstr "(يەرلىك ھۆججەتلەر)"
+
+#: src/app/TimelineView.qml:278
+msgid "(other)"
+msgstr "باشقا"
+
+#: src/app/WebViewImpl.qml:52
+msgid "This page wants to know your device’s location."
+msgstr "بۇبەت  ئۈسكۈنىڭىزنى بايقايدۇ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Back.qml:26
+msgid "Older Page"
+msgstr "باشقا بەت"
+
+#: src/app/actions/Bookmark.qml:23
+msgid "Bookmark"
+msgstr "بەتكۈش"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Bookmark.qml:26
+msgid "Add This Page to Bookmarks"
+msgstr "بۇ بەتنى بەتكۈشكە قوش"
+
+#: src/app/actions/BookmarkLink.qml:22
+msgid "Bookmark link"
+msgstr "بەتكۈش ئۇلانمىسى"
+
+#: src/app/actions/ClearHistory.qml:23
+msgid "Clear History"
+msgstr "تارىخنى تازىلاش"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/ClearHistory.qml:26
+msgid "Clear Navigation History"
+msgstr "يولباشچى تارىخى ئۇچۇرلارنى تازىلا"
+
+#: src/app/actions/Copy.qml:22
+msgid "Copy"
+msgstr "كۆچۈر"
+
+#: src/app/actions/CopyImage.qml:22
+msgid "Copy image"
+msgstr "سۈرەت كۈچۈر"
+
+#: src/app/actions/CopyLink.qml:22
+msgid "Copy link"
+msgstr "ئۇلانما كۆچۈر"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Forward.qml:26
+msgid "Newer Page"
+msgstr "يېڭى بەت"
+
+#: src/app/actions/GoTo.qml:23
+msgid "Goto"
+msgstr "يۆتكەل"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/GoTo.qml:26
+msgid "Address;URL;www"
+msgstr "ئادىرىس;url;www url"
+
+#: src/app/actions/NewTab.qml:23
+msgid "New Tab"
+msgstr "يېڭى بەتكۈچ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/NewTab.qml:26
+msgid "Open a New Tab"
+msgstr "يېڭى بەتكۇچ ئاچ"
+
+#: src/app/actions/OpenImageInNewTab.qml:22
+msgid "Open image in new tab"
+msgstr "سۈرەتنى يېڭى بەتكۇچتە ئاچ"
+
+#: src/app/actions/OpenLinkInNewTab.qml:22
+msgid "Open link in new tab"
+msgstr "ئۇلانمىنى يېڭى بەتكۈچتە ئاچ"
+
+#: src/app/actions/Reload.qml:23
+msgid "Reload"
+msgstr "قايتا يۈكلە"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Reload.qml:26
+msgid "Leave Page"
+msgstr "بەتتن ئايرىل"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "1%-%1 -?????????? ??? ??????? Ubuntu Web Browser"
+
+#: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
+msgid "Ubuntu Web Browser"
+msgstr "ubuntuتور كۆرگۈسى"
+
+#: src/app/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "توركۆرگۈ"
+
+#: src/app/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "توركۆرگۈ"
+
+#: src/app/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "توربەت زىيارەت قىلىش"

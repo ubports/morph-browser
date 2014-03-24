@@ -1,3 +1,65 @@
+webbrowser-app (0.23+14.04.20140319-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Use the renderer only once when rendering a thumbnail. This seems to
+    fix the crash that was happening at destruction time. (LP: #1294219)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Mar 2014 14:58:21 +0000
+
+webbrowser-app (0.23+14.04.20140317.1-0ubuntu1) trusty; urgency=low
+
+  [ Colin Watson ]
+  * Add multiarch annotations.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 17 Mar 2014 23:18:34 +0000
+
+webbrowser-app (0.23+14.04.20140317-0ubuntu1) trusty; urgency=low
+
+  [ daker ]
+  * Fix to open URL that start with / (local files)
+
+  [ Leo Arias ]
+  * Updated the copyright header on all the python files.
+
+  [ Adnane Belmadiaf ]
+  * Fix to open URL that start with / (local files)
+
+  [ Olivier Tilloy ]
+  * Do not register private types in the public plugin. Register them in
+    the webbrowser application scope instead. I have made sure that
+    private types that were previously public are currently not being
+    used by any application in the store, so this refactoring is safe.
+  * Refactor the test HTTP server to use a random port at startup.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 17 Mar 2014 11:57:27 +0000
+
+webbrowser-app (0.23+14.04.20140313-0ubuntu1) trusty; urgency=low
+
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 13 Mar 2014 15:19:23 +0000
+
+webbrowser-app (0.23+14.04.20140304.is.0.23+14.04.20140219-0ubuntu1) trusty; urgency=medium
+
+  * Reverting as desktop image isn't installable (main/universe
+    mismatch) and causing all signon-ui tests on Touch failing
+
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 05 Mar 2014 12:19:42 +0100
+
+webbrowser-app (0.23+14.04.20140304-0ubuntu1) trusty; urgency=low
+
+  * 
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 04 Mar 2014 15:07:25 +0000
+
+webbrowser-app (0.23+14.04.20140219-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Do not install the selection event handlers on certain domains known
+    to interfere with touch events. (LP: #1279903)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Feb 2014 18:36:27 +0000
+
 webbrowser-app (0.23+14.04.20140122-0ubuntu1) trusty; urgency=low
 
   [ Ted Gould ]
@@ -79,6 +141,12 @@ webbrowser-app (0.23+14.04.20140115.1-0ubuntu1) trusty; urgency=medium
   * Automatic snapshot from revision 435
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 15 Jan 2014 19:37:19 +0000
+
+webbrowser-app (0.22+14.04.20131107-0ubuntu3) trusty; urgency=medium
+
+  * Add OA integration.
+
+ -- Alberto Mardegan <alberto.mardegan@canonical.com>  Tue, 04 Feb 2014 12:22:20 +0200
 
 webbrowser-app (0.22+14.04.20131107-0ubuntu1) trusty; urgency=low
 

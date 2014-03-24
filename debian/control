@@ -27,6 +27,7 @@ Vcs-Bzr: https://code.launchpad.net/~phablet-team/webbrowser-app/trunk
 
 Package: webbrowser-app
 Architecture: any
+Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          libqt5webkit5-qmlwebkitplugin,
@@ -45,6 +46,7 @@ Description: Ubuntu web browser
 
 Package: webapp-container
 Architecture: any
+Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          unity-webapps-qml,
@@ -55,6 +57,7 @@ Description: Ubuntu web applications container
 
 Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin
 Architecture: any
+Multi-Arch: same
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          libqt5sql5-sqlite,
@@ -73,6 +76,7 @@ Description: Ubuntu web browser QML plugin
 
 Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets
 Architecture: all
+Multi-Arch: foreign
 Depends: ${misc:Depends},
 Description: Ubuntu web browser QML plugin assets
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
@@ -81,6 +85,7 @@ Description: Ubuntu web browser QML plugin assets
 
 Package: webbrowser-app-autopilot
 Architecture: all
+Multi-Arch: foreign
 Depends: ${misc:Depends},
          libautopilot-qt (>= 1.4),
          libqt5test5,

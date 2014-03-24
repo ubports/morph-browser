@@ -1,4 +1,3 @@
 module Ubuntu.Components.Extras.Browser
 plugin ubuntu-ui-extras-browser-plugin
 UbuntuWebView 0.1 UbuntuWebView.qml
-UserAgent 0.1 UserAgent.qml

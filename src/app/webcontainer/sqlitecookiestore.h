@@ -16,21 +16,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __DOMAIN_UTILS_H__
-#define __DOMAIN_UTILS_H__
+#ifndef SQLITECOOKIESTORE_H
+#define SQLITECOOKIESTORE_H
 
-// Qt
-#include <QtCore/QString>
+#include "cookiestore.h"
+#include <QString>
 
-class QUrl;
 
-class DomainUtils
+class SqliteCookieStore : public CookieStore
 {
-public:
-    static const QString TOKEN_LOCAL;
-    static const QString TOKEN_NONE;
+    Q_OBJECT
+    Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
 
-    static QString extractTopLevelDomainName(const QUrl& url);
+
+public:
+    SqliteCookieStore(QObject *parent = 0);
+
+    void setDbPath (const QString & path);
+    QString dbPath () const;
+
+    QDateTime lastUpdateTimeStamp() const Q_DECL_OVERRIDE;
+
+
+Q_SIGNALS:
+
+    void dbPathChanged();
+
+
+private:
+
+    virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
+    virtual void doSetCookies(Cookies) Q_DECL_OVERRIDE;
+
+    QString getFullDbPathName() const;
+
+
+private:
+    QString m_dbPath;
 };
 
-#endif // __DOMAIN_UTILS_H__
+#endif // SQLITECOOKIESTORE_H

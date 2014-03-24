@@ -25,7 +25,6 @@
 #include <QtQuick/private/qquickitem_p.h>
 
 class QQuickWebView;
-class QSGRenderer;
 
 class WebviewThumbnailer : public QQuickItem
 {
@@ -36,7 +35,6 @@ class WebviewThumbnailer : public QQuickItem
 
 public:
     WebviewThumbnailer(QQuickItem* parent=0);
-    ~WebviewThumbnailer();
 
     QQuickWebView* webview() const;
     void setWebview(QQuickWebView* webview);
@@ -61,7 +59,6 @@ private Q_SLOTS:
 private:
     QQuickWebView* m_webview;
     QSize m_targetSize;
-    QSGRenderer* m_renderer;
 };
 
 #endif // __WEBVIEW_THUMBNAILER_H__
