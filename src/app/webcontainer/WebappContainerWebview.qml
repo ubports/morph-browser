@@ -33,10 +33,6 @@ Item {
     property var toolbar: null
     property var webappUrlPatterns: null
 
-    function isRunningAsANamedWebapp() {
-        return false;
-    }
-
     Loader {
         id: webappContainerWebViewLoader
         anchors.fill: parent
@@ -48,7 +44,7 @@ Item {
 
         WebViewImplWebkit {
             id: webview
-            property var toolbar: containerWebview.toolbar
+            toolbar: containerWebview.toolbar
             url: containerWebview.url
             webappName: containerWebview.webappName
             webappUrlPatterns: containerWebview.webappUrlPatterns

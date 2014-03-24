@@ -29,10 +29,11 @@ BrowserView {
 
     currentWebview: webview.currentWebview
 
-    property string url: ""
-    property alias oxide: webview.withOxide
+    property alias url: webview.url
 
     property string webappModelSearchPath: ""
+
+    property alias oxide: webview.withOxide
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
 
@@ -61,7 +62,6 @@ BrowserView {
         WebappContainerWebview {
             id: webview
             toolbar: panel.panel
-            url: webapp.url
 
             anchors {
                 left: parent.left

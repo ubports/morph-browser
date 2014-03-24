@@ -81,7 +81,7 @@ UbuntuWebView {
     }
 
     function isRunningAsANamedWebapp() {
-        return webappName && typeof(webappName) === 'string' && webappName.length != 0
+        return webview.webappName && typeof(webview.webappName) === 'string' && webview.webappName.length != 0
     }
 
     function navigationRequestedDelegate(request) {
@@ -95,14 +95,14 @@ UbuntuWebView {
 
         // The list of url patterns defined by the webapp takes precedence over command line
         if (isRunningAsANamedWebapp()) {
-            if (unityWebapps.model.exists(webappName) &&
-                !unityWebapps.model.doesUrlMatchesWebapp(webappName, url)) {
+            if (unityWebapps.model.exists(webview.webappName) &&
+                !unityWebapps.model.doesUrlMatchesWebapp(webview.webappName, url)) {
                 action = WebView.IgnoreRequest
             }
-        } else if (webappUrlPatterns && webappUrlPatterns.length !== 0) {
+        } else if (webview.webappUrlPatterns && webview.webappUrlPatterns.length !== 0) {
             action = WebView.IgnoreRequest
-            for (var i = 0; i < webappUrlPatterns.length; ++i) {
-                var pattern = webappUrlPatterns[i]
+            for (var i = 0; i < webview.webappUrlPatterns.length; ++i) {
+                var pattern = webview.webappUrlPatterns[i]
                 if (url.match(pattern)) {
                     action = WebView.AcceptRequest
                     break
