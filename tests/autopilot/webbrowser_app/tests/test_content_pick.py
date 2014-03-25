@@ -18,7 +18,7 @@ from unity8 import process_helpers as helpers
 from ubuntuuitoolkit import emulators as toolkit_emulators
 import os, subprocess
 
-@skip("Will not work until bug #1255077 is solved")
+@skip("Will not work until bug #1218971 is solved")
 class TestContentPick(StartOpenRemotePageTestCaseBase):
 
     """Tests that content picking dialog show up."""
@@ -33,7 +33,8 @@ class TestContentPick(StartOpenRemotePageTestCaseBase):
         dialog = self.app.wait_select_single("ContentPickerDialog")
         self.assertThat(dialog.visible, Equals(True))
 
-@skipIf(model() == 'Desktop', "Phablet only")
+#@skipIf(model() == 'Desktop', "Phablet only")
+@skip("Currently unable to fetch dynamically created dialogs (bug #1218971)")
 class TestContentPickerIntegration(StartOpenRemotePageTestCaseBase):
 
     """Tests that the gallery app is brought up to choose image content"""
