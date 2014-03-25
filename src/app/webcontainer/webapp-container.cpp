@@ -19,6 +19,9 @@
 #include "config.h"
 #include "webapp-container.h"
 
+#include <fcntl.h>
+#include <unistd.h>
+
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
@@ -90,14 +93,35 @@ void WebappContainer::printUsage() const
     out << "  --enable-addressbar                 enable the display of the address bar" << endl;
 }
 
+QString currentArchitecturePathName()
+{
+#if defined(__i386__)
+    return QLatin1String("i386-linux-gnu");
+#elif defined(__x86_64__)
+    return QLatin1String("x86_64-linux-gnu");
+#elif defined(__arm__)
+    return QLatin1String("arm-linux-gnueabihf");
+#else
+#error Unable to determine target architecture
+#endif
+}
+
 bool WebappContainer::withOxide() const
 {
-    bool oxide = false;
     Q_FOREACH(const QString& argument, m_arguments) {
-        if (argument == "--oxide") {
-            oxide = true;
-            break;
+        if (argument == "--webkit") {
+            // force webkit
+            return false;
         }
+    }
+
+    bool oxide = false;
+    int fd =
+        open(QString("/usr/lib/%1/oxide-qt/oxide-renderer")
+                  .arg(currentArchitecturePathName()).toStdString().c_str(), O_RDONLY);
+    if (fd >=0) {
+        oxide = true;
+        close(fd);
     }
     return oxide;
 }
