@@ -35,6 +35,7 @@ Depends: ${misc:Depends},
          qtdeclarative5-ubuntu-ui-extras-browser-plugin (= ${binary:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-window-plugin,
+         qtdeclarative5-ubuntu-content0.1,
 Replaces: webbrowser-app-assets,
           qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22),
 Conflicts: webbrowser-app-assets
@@ -67,6 +68,7 @@ Depends: ${misc:Depends},
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-unity-action-plugin,
          qtdeclarative5-window-plugin,
+         qtdeclarative5-ubuntu-content0.1,
 Replaces: webbrowser-app (<< 0.21)
 Breaks: webbrowser-app (<< 0.21)
 Description: Ubuntu web browser QML plugin
