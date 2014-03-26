@@ -84,25 +84,42 @@ UbuntuWebView {
         return webview.webappName && typeof(webview.webappName) === 'string' && webview.webappName.length != 0
     }
 
+    function haveValidUrlPatterns() {
+        return webappUrlPatterns && webappUrlPatterns.length !== 0
+    }
+
     function navigationRequestedDelegate(request) {
         if (!request.isMainFrame) {
             request.action = WebView.AcceptRequest
             return
         }
 
-        var action = WebView.AcceptRequest
+        // Pass-through if we are not running as a named webapp (--webapp='Gmail')
+        // or if we dont have a list of url patterns specified to filter the
+        // browsing actions
+        if ( ! haveValidUrlPatterns() && ! isRunningAsANamedWebapp()) {
+            request.action = WebView.AcceptRequest
+            return
+        }
+
+        var action = WebView.IgnoreRequest
         var url = request.url.toString()
 
         // The list of url patterns defined by the webapp takes precedence over command line
         if (isRunningAsANamedWebapp()) {
-            if (unityWebapps.model.exists(webview.webappName) &&
-                !unityWebapps.model.doesUrlMatchesWebapp(webview.webappName, url)) {
-                action = WebView.IgnoreRequest
+            if (unityWebapps.model.exists(unityWebapps.name) &&
+                unityWebapps.model.doesUrlMatchesWebapp(unityWebapps.name, url)) {
+                request.action = WebView.AcceptRequest
+                return;
             }
-        } else if (webview.webappUrlPatterns && webview.webappUrlPatterns.length !== 0) {
-            action = WebView.IgnoreRequest
-            for (var i = 0; i < webview.webappUrlPatterns.length; ++i) {
-                var pattern = webview.webappUrlPatterns[i]
+        }
+
+        // We still take the possible additional patterns specified in the command line
+        // (the in the case of finer grained ones specifically for the container and not
+        // as an 'install source' for the webapp).
+        if (webappUrlPatterns && webappUrlPatterns.length !== 0) {
+            for (var i = 0; i < webappUrlPatterns.length; ++i) {
+                var pattern = webappUrlPatterns[i]
                 if (url.match(pattern)) {
                     action = WebView.AcceptRequest
                     break
@@ -112,6 +129,7 @@ UbuntuWebView {
 
         request.action = action
         if (action === WebView.IgnoreRequest) {
+            console.debug('Opening: ' + url + ' in the browser window.')
             Qt.openUrlExternally(url)
         }
     }

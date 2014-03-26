@@ -28,6 +28,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
+#include <QString>
 #include <QtCore/QRegularExpression>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
@@ -55,7 +56,10 @@ bool WebappContainer::initialize()
         m_window->setProperty("webappName", name);
         m_window->setProperty("backForwardButtonsVisible", m_arguments.contains("--enable-back-forward"));
         m_window->setProperty("addressBarVisible", m_arguments.contains("--enable-addressbar"));
-        m_window->setProperty("oxide", withOxide());
+
+        bool oxide = withOxide();
+        qDebug() << "Using" << (oxide ? "Oxide" : "QtWebkit") << "as the web engine backend";
+        m_window->setProperty("oxide", oxide);
 
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (name.isEmpty()) {
@@ -118,9 +122,15 @@ bool WebappContainer::withOxide() const
     }
 
     bool oxide = false;
-    int fd =
-        open(QString("/usr/lib/%1/oxide-qt/oxide-renderer")
-                  .arg(currentArchitecturePathName()).toStdString().c_str(), O_RDONLY);
+
+    // Use a runtime hint to transparently know if oxide
+    // can be used as a backend without the user/dev having
+    // to update its app or change somehting in the Exec args.
+    QString oxideHintLocation =
+        QString("/usr/lib/%1/oxide-qt/oxide-renderer")
+            .arg(currentArchitecturePathName());
+
+    int fd = open(oxideHintLocation.toLatin1().data(), O_RDONLY);
     if (fd >=0) {
         oxide = true;
         close(fd);
