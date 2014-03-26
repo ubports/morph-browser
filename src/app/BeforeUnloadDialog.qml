@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -21,31 +21,17 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1 as Popups
 
 Popups.Dialog {
-    title: i18n.tr("JavaScript Prompt")
+    title: i18n.tr("Confirm Navigation")
     text: model.message
 
-    TextField {
-        id: input
-        text: model.defaultValue
-        onAccepted: model.accept(input.text)
+    Button {
+        text: i18n.tr("Leave")
+        onClicked: model.accept()
     }
 
     Button {
-        text: i18n.tr("OK")
-        color: "green"
-        onClicked: model.accept(input.text)
-    }
-
-    Button {
-        text: i18n.tr("Cancel")
-        color: UbuntuColors.coolGrey
+        text: i18n.tr("Stay")
         onClicked: model.reject()
-    }
-
-    Binding {
-        target: model
-        property: "currentValue"
-        value: input.text
     }
 
     Component.onCompleted: show()

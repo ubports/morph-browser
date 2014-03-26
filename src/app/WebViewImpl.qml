@@ -30,10 +30,11 @@ UbuntuWebView {
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
-    experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}
-    experimental.alertDialog: AlertDialog {}
-    experimental.confirmDialog: ConfirmDialog {}
-    experimental.promptDialog: PromptDialog {}*/
+    experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
+    alertDialog: AlertDialog {}
+    confirmDialog: ConfirmDialog {}
+    promptDialog: PromptDialog {}
+    beforeUnloadDialog: BeforeUnloadDialog {}
 
     /*selectionActions: ActionList {
         Actions.Copy {
