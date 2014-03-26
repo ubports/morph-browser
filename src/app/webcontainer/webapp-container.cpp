@@ -21,6 +21,9 @@
 
 #include "url-pattern-utils.h"
 
+#include <fcntl.h>
+#include <unistd.h>
+
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
@@ -28,6 +31,7 @@
 #include <QtCore/QRegularExpression>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
+#include <QtQml/QQmlComponent>
 
 WebappContainer::WebappContainer(int& argc, char** argv)
     : BrowserApplication(argc, argv)
@@ -36,7 +40,8 @@ WebappContainer::WebappContainer(int& argc, char** argv)
 
 bool WebappContainer::initialize()
 {
-    if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
+    if (BrowserApplication::initialize("webcontainer/webapp-container.qml",
+                                       BrowserApplication::DelayedCreation)) {
         QString searchPath = webappModelSearchPath();
         if (!searchPath.isEmpty())
         {
@@ -50,7 +55,8 @@ bool WebappContainer::initialize()
         m_window->setProperty("webappName", name);
         m_window->setProperty("backForwardButtonsVisible", m_arguments.contains("--enable-back-forward"));
         m_window->setProperty("addressBarVisible", m_arguments.contains("--enable-addressbar"));
-        m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
+        m_window->setProperty("oxide", withOxide());
+
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (name.isEmpty()) {
             QList<QUrl> urls = this->urls();
@@ -58,6 +64,11 @@ bool WebappContainer::initialize()
                 m_window->setProperty("url", urls.first());
             }
         }
+
+        m_component->completeCreate();
+
+        m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
+
         return true;
     } else {
         return false;
@@ -82,6 +93,39 @@ void WebappContainer::printUsage() const
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
     out << "  --enable-addressbar                 enable the display of the address bar" << endl;
+}
+
+QString currentArchitecturePathName()
+{
+#if defined(__i386__)
+    return QLatin1String("i386-linux-gnu");
+#elif defined(__x86_64__)
+    return QLatin1String("x86_64-linux-gnu");
+#elif defined(__arm__)
+    return QLatin1String("arm-linux-gnueabihf");
+#else
+#error Unable to determine target architecture
+#endif
+}
+
+bool WebappContainer::withOxide() const
+{
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument == "--webkit") {
+            // force webkit
+            return false;
+        }
+    }
+
+    bool oxide = false;
+    int fd =
+        open(QString("/usr/lib/%1/oxide-qt/oxide-renderer")
+                  .arg(currentArchitecturePathName()).toStdString().c_str(), O_RDONLY);
+    if (fd >=0) {
+        oxide = true;
+        close(fd);
+    }
+    return oxide;
 }
 
 QString WebappContainer::webappModelSearchPath() const
