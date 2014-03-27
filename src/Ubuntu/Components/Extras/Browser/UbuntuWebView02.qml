@@ -21,6 +21,7 @@ import QtQuick.Window 2.0
 import com.canonical.Oxide 0.1
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
+import "."
 
 WebView {
     id: _webview
@@ -37,36 +38,27 @@ WebView {
      */
     function navigationRequestedDelegate(request) { }
 
-    UserAgent02 {
-        id: userAgent
-    }
-
     /**
      * This function can be overridden by client applications that embed an
      * UbuntuWebView to provide a static overridden UA string.
      * If not overridden, the default UA string and the default override
      * mechanism will be used.
+     *
+     * Note: as the UA string is a property of the shared context,
+     * an application that embeds several UbuntuWebViews that define different
+     * custom UA strings will result in the last view instantiated setting the
+     * UA for all the views.
      */
     function getUAString() {
         return undefined
     }
 
-    context: WebContext {
-        dataPath: dataLocation
-        userAgent: (_webview.getUAString() === undefined) ? userAgent.defaultUA : _webview.getUAString()
-        networkRequestDelegate: WebContextDelegateWorker {
-            source: (formFactor === "mobile") ? Qt.resolvedUrl("ua-override-worker.js") : ""
-            onMessage: console.log("Overriden UA for", message.url, ":", message.override)
+    context: UbuntuWebContext.sharedContext
+    Component.onCompleted: {
+        var customUA = getUAString()
+        if (customUA !== undefined) {
+            UbuntuWebContext.customUA = customUA
         }
-        userAgentOverrideDelegate: networkRequestDelegate
-        userScripts: [
-            UserScript {
-                context: "oxide://selection/"
-                url: Qt.resolvedUrl("selection02.js")
-                incognitoEnabled: true
-                matchAllFrames: true
-            }
-        ]
     }
 
     messageHandlers: [
