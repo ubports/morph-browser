@@ -37,15 +37,10 @@ class BrowserApplication : public QGuiApplication
 
 public:
 
-    enum ComponentCreation {
-        DelayedCreation,
-        CompleteCreation
-    };
-
     BrowserApplication(int& argc, char** argv);
     ~BrowserApplication();
 
-    bool initialize(const QString& qmlFileSubPath, ComponentCreation creation = CompleteCreation);
+    bool initialize(const QString& qmlFileSubPath);
     int run();
 
 protected:

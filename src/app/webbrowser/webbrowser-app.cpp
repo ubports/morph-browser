@@ -89,6 +89,9 @@ bool WebbrowserApp::initialize()
         Q_FOREACH(const QUrl& url, urls) {
             QMetaObject::invokeMethod(browser, "newTab", Q_ARG(QVariant, url), Q_ARG(QVariant, true));
         }
+
+        m_component->completeCreate();
+
         return true;
     } else {
         return false;

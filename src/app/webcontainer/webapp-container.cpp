@@ -28,7 +28,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
-#include <QString>
+#include <QtCore/QtGlobal>
 #include <QtCore/QRegularExpression>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
@@ -41,8 +41,7 @@ WebappContainer::WebappContainer(int& argc, char** argv)
 
 bool WebappContainer::initialize()
 {
-    if (BrowserApplication::initialize("webcontainer/webapp-container.qml",
-                                       BrowserApplication::DelayedCreation)) {
+    if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
         QString searchPath = webappModelSearchPath();
         if (!searchPath.isEmpty())
         {
@@ -101,11 +100,11 @@ void WebappContainer::printUsage() const
 
 QString currentArchitecturePathName()
 {
-#if defined(__i386__)
+#if defined(Q_PROCESSOR_X86_32)
     return QLatin1String("i386-linux-gnu");
-#elif defined(__x86_64__)
+#elif defined(Q_PROCESSOR_X86_64)
     return QLatin1String("x86_64-linux-gnu");
-#elif defined(__arm__)
+#elif defined(Q_PROCESSOR_ARM)
     return QLatin1String("arm-linux-gnueabihf");
 #else
 #error Unable to determine target architecture

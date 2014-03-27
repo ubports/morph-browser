@@ -31,7 +31,6 @@ Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         libqt5webkit5-qmlwebkitplugin,
          liboxideqt-qmlplugin,
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-extras-browser-plugin (= ${binary:Version}),
@@ -52,6 +51,7 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          unity-webapps-qml,
+         libqt5webkit5-qmlwebkitplugin, 
          webbrowser-app (= ${binary:Version}),
 Description: Ubuntu web applications container
  A lightweight webapps container tailored for Ubuntu, based on the Webkit

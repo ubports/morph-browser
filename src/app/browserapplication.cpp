@@ -80,7 +80,7 @@ QString BrowserApplication::appId() const
     return QString();
 }
 
-bool BrowserApplication::initialize(const QString& qmlFileSubPath, ComponentCreation creation)
+bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 {
     Q_ASSERT(m_window == 0);
 
@@ -145,9 +145,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath, ComponentCrea
     m_webbrowserWindowProxy->setWindow(m_window);
 
     browser->setProperty("developerExtrasEnabled", inspector);
-
-    if (creation == CompleteCreation)
-        m_component->completeCreate();
 
     return true;
 }
