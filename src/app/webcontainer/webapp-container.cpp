@@ -21,12 +21,10 @@
 
 #include "url-pattern-utils.h"
 
-#include <fcntl.h>
-#include <unistd.h>
-
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
+#include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QtGlobal>
 #include <QtCore/QRegularExpression>
@@ -118,21 +116,26 @@ bool WebappContainer::withOxide() const
             // force webkit
             return false;
         }
+        if (argument == "--oxide") {
+            // force oxide
+            return true;
+        }
     }
 
     bool oxide = false;
 
     // Use a runtime hint to transparently know if oxide
     // can be used as a backend without the user/dev having
-    // to update its app or change somehting in the Exec args.
+    // to update its app or change something in the Exec args.
+    // Version 1.1 of ubuntu apparmor policy allows this file to
+    // be accessed whereas v1.0 only knows about qtwebkit.
     QString oxideHintLocation =
         QString("/usr/lib/%1/oxide-qt/oxide-renderer")
             .arg(currentArchitecturePathName());
 
-    int fd = open(oxideHintLocation.toLatin1().data(), O_RDONLY);
-    if (fd >=0) {
+    QFile f(oxideHintLocation);
+    if (f.exists()) {
         oxide = true;
-        close(fd);
     }
     return oxide;
 }

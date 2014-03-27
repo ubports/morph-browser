@@ -36,7 +36,6 @@ class BrowserApplication : public QGuiApplication
     Q_OBJECT
 
 public:
-
     BrowserApplication(int& argc, char** argv);
     ~BrowserApplication();
 
