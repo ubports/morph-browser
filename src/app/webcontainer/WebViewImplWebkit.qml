@@ -29,6 +29,7 @@ import ".."
 UbuntuWebView {
     id: webview
 
+    property bool developerExtrasEnabled: false
     property var currentWebview: webview
     property var toolbar: null
     property string webappName: ""

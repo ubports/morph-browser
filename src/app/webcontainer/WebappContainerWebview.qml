@@ -28,6 +28,7 @@ Item {
 
     property string url: ""
     property bool withOxide: false
+    property bool developerExtrasEnabled: false
     property string webappName: ""
     property var currentWebview: webappContainerWebViewLoader.item
     property var toolbar: null
@@ -47,6 +48,7 @@ Item {
             url: containerWebview.url
             webappName: containerWebview.webappName
             webappUrlPatterns: containerWebview.webappUrlPatterns
+            developerExtrasEnabled: containerWebview.developerExtrasEnabled
         }
     }
 

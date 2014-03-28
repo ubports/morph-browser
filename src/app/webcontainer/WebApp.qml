@@ -33,6 +33,7 @@ BrowserView {
 
     property string webappModelSearchPath: ""
 
+    property alias developerExtrasEnabled: webview.developerExtrasEnabled
     property alias oxide: webview.withOxide
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
