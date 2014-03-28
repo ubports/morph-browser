@@ -122,8 +122,6 @@ bool WebappContainer::withOxide() const
         }
     }
 
-    bool oxide = false;
-
     // Use a runtime hint to transparently know if oxide
     // can be used as a backend without the user/dev having
     // to update its app or change something in the Exec args.
@@ -133,11 +131,7 @@ bool WebappContainer::withOxide() const
         QString("/usr/lib/%1/oxide-qt/oxide-renderer")
             .arg(currentArchitecturePathName());
 
-    QFile f(oxideHintLocation);
-    if (f.exists()) {
-        oxide = true;
-    }
-    return oxide;
+    return QFile(oxideHintLocation).open(QIODevice::ReadOnly);
 }
 
 QString WebappContainer::webappModelSearchPath() const
