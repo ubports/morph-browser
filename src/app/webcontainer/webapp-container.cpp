@@ -58,6 +58,8 @@ bool WebappContainer::initialize()
         qDebug() << "Using" << (oxide ? "Oxide" : "QtWebkit") << "as the web engine backend";
         m_window->setProperty("oxide", oxide);
 
+        m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
+
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (name.isEmpty()) {
             QList<QUrl> urls = this->urls();
@@ -67,8 +69,6 @@ bool WebappContainer::initialize()
         }
 
         m_component->completeCreate();
-
-        m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
 
         return true;
     } else {
