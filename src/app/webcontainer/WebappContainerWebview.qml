@@ -43,7 +43,6 @@ Item {
         id: webappContainerWebViewWebkit
 
         WebViewImplWebkit {
-            id: webview
             toolbar: containerWebview.toolbar
             url: containerWebview.url
             webappName: containerWebview.webappName
@@ -59,7 +58,7 @@ Item {
 
             url: containerWebview.url
             currentWebview: webview
-            toolbar: panel.panel
+            toolbar: containerWebview.toolbar
 
             contextualActions: ActionList {
                 Actions.CopyLink {

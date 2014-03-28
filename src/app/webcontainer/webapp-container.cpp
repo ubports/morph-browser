@@ -32,6 +32,25 @@
 #include <QtQuick/QQuickWindow>
 #include <QtQml/QQmlComponent>
 
+
+namespace
+{
+
+QString currentArchitecturePathName()
+{
+#if defined(Q_PROCESSOR_X86_32)
+    return QLatin1String("i386-linux-gnu");
+#elif defined(Q_PROCESSOR_X86_64)
+    return QLatin1String("x86_64-linux-gnu");
+#elif defined(Q_PROCESSOR_ARM)
+    return QLatin1String("arm-linux-gnueabihf");
+#else
+#error Unable to determine target architecture
+#endif
+}
+
+}
+
 WebappContainer::WebappContainer(int& argc, char** argv)
     : BrowserApplication(argc, argv)
 {
@@ -94,19 +113,6 @@ void WebappContainer::printUsage() const
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
     out << "  --enable-addressbar                 enable the display of the address bar" << endl;
-}
-
-QString currentArchitecturePathName()
-{
-#if defined(Q_PROCESSOR_X86_32)
-    return QLatin1String("i386-linux-gnu");
-#elif defined(Q_PROCESSOR_X86_64)
-    return QLatin1String("x86_64-linux-gnu");
-#elif defined(Q_PROCESSOR_ARM)
-    return QLatin1String("arm-linux-gnueabihf");
-#else
-#error Unable to determine target architecture
-#endif
 }
 
 bool WebappContainer::withOxide() const
