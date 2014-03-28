@@ -28,7 +28,7 @@ if(CMAKE_BUILD_TYPE MATCHES DEBUG OR CMAKE_BUILD_TYPE MATCHES "Debug")
     add_definitions(-DQT_QML_DEBUG)
 endif()
 
-find_package(Qt5Core REQUIRED)
+include(qt5)
 find_package(Qt5Sql REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Quick REQUIRED)
