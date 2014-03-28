@@ -24,10 +24,32 @@
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
+#include <QtCore/QFile>
 #include <QtCore/QFileInfo>
+#include <QtCore/QtGlobal>
 #include <QtCore/QRegularExpression>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
+#include <QtQml/QQmlComponent>
+
+
+namespace
+{
+
+QString currentArchitecturePathName()
+{
+#if defined(Q_PROCESSOR_X86_32)
+    return QLatin1String("i386-linux-gnu");
+#elif defined(Q_PROCESSOR_X86_64)
+    return QLatin1String("x86_64-linux-gnu");
+#elif defined(Q_PROCESSOR_ARM)
+    return QLatin1String("arm-linux-gnueabihf");
+#else
+#error Unable to determine target architecture
+#endif
+}
+
+}
 
 WebappContainer::WebappContainer(int& argc, char** argv)
     : BrowserApplication(argc, argv)
@@ -50,7 +72,13 @@ bool WebappContainer::initialize()
         m_window->setProperty("webappName", name);
         m_window->setProperty("backForwardButtonsVisible", m_arguments.contains("--enable-back-forward"));
         m_window->setProperty("addressBarVisible", m_arguments.contains("--enable-addressbar"));
+
+        bool oxide = withOxide();
+        qDebug() << "Using" << (oxide ? "Oxide" : "QtWebkit") << "as the web engine backend";
+        m_window->setProperty("oxide", oxide);
+
         m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
+
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (name.isEmpty()) {
             QList<QUrl> urls = this->urls();
@@ -58,6 +86,9 @@ bool WebappContainer::initialize()
                 m_window->setProperty("url", urls.first());
             }
         }
+
+        m_component->completeCreate();
+
         return true;
     } else {
         return false;
@@ -82,6 +113,31 @@ void WebappContainer::printUsage() const
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
     out << "  --enable-addressbar                 enable the display of the address bar" << endl;
+}
+
+bool WebappContainer::withOxide() const
+{
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument == "--webkit") {
+            // force webkit
+            return false;
+        }
+        if (argument == "--oxide") {
+            // force oxide
+            return true;
+        }
+    }
+
+    // Use a runtime hint to transparently know if oxide
+    // can be used as a backend without the user/dev having
+    // to update its app or change something in the Exec args.
+    // Version 1.1 of ubuntu apparmor policy allows this file to
+    // be accessed whereas v1.0 only knows about qtwebkit.
+    QString oxideHintLocation =
+        QString("/usr/lib/%1/oxide-qt/oxide-renderer")
+            .arg(currentArchitecturePathName());
+
+    return QFile(oxideHintLocation).open(QIODevice::ReadOnly);
 }
 
 QString WebappContainer::webappModelSearchPath() const
