@@ -29,24 +29,6 @@ webbrowser-app (0.23+14.04.20140324-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 24 Mar 2014 19:14:54 +0000
 
-webbrowser-app (0.23+14.04.20140324-0ubuntu1~withoxide2) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 24 Mar 2014 15:00:34 +0100
-
-webbrowser-app (0.23+14.04.20140324-0ubuntu1~withoxide1) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 24 Mar 2014 14:07:24 +0100
-
-webbrowser-app (0.23+14.04.20140319-0ubuntu2~withoxide1) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 19 Mar 2014 23:17:53 +0100
-
 webbrowser-app (0.23+14.04.20140319-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
@@ -54,12 +36,6 @@ webbrowser-app (0.23+14.04.20140319-0ubuntu1) trusty; urgency=low
     fix the crash that was happening at destruction time. (LP: #1294219)
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Mar 2014 14:58:21 +0000
-
-webbrowser-app (0.23+14.04.20140319-0ubuntu1~withoxide1) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 19 Mar 2014 16:42:51 +0100
 
 webbrowser-app (0.23+14.04.20140317.1-0ubuntu1) trusty; urgency=low
 
@@ -94,18 +70,6 @@ webbrowser-app (0.23+14.04.20140313-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 13 Mar 2014 15:19:23 +0000
 
-webbrowser-app (0.23+14.04.20140311-0ubuntu1~withoxide1) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 11 Mar 2014 23:29:27 +0100
-
-webbrowser-app (0.23+14.04.20140306-0ubuntu1~withoxide1) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 06 Mar 2014 17:55:40 +0100
-
 webbrowser-app (0.23+14.04.20140304.is.0.23+14.04.20140219-0ubuntu1) trusty; urgency=medium
 
   * Reverting as desktop image isn't installable (main/universe
@@ -119,30 +83,6 @@ webbrowser-app (0.23+14.04.20140304-0ubuntu1) trusty; urgency=low
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 04 Mar 2014 15:07:25 +0000
 
-webbrowser-app (0.23+14.04.20140303-0ubuntu1~withoxide1) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 03 Mar 2014 15:16:19 +0100
-
-webbrowser-app (0.23+14.04.20140228-0ubuntu1~withoxide1) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 28 Feb 2014 12:37:39 +0100
-
-webbrowser-app (0.23+14.04.20140219-0ubuntu1~withoxide2) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 21 Feb 2014 23:43:37 +0100
-
-webbrowser-app (0.23+14.04.20140219-0ubuntu1~withoxide1) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 21 Feb 2014 23:23:50 +0100
-
 webbrowser-app (0.23+14.04.20140219-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]
@@ -150,24 +90,6 @@ webbrowser-app (0.23+14.04.20140219-0ubuntu1) trusty; urgency=low
     to interfere with touch events. (LP: #1279903)
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Feb 2014 18:36:27 +0000
-
-webbrowser-app (0.23+14.04.20140122-0ubuntu1~withoxide3) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 13 Feb 2014 17:33:50 +0100
-
-webbrowser-app (0.23+14.04.20140122-0ubuntu1~withoxide2) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 12 Feb 2014 22:05:21 +0100
-
-webbrowser-app (0.23+14.04.20140122-0ubuntu1~withoxide1) trusty; urgency=medium
-
-  * New build against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 07 Feb 2014 15:20:55 -0500
 
 webbrowser-app (0.23+14.04.20140122-0ubuntu1) trusty; urgency=low
 
@@ -183,12 +105,6 @@ webbrowser-app (0.23+14.04.20140122-0ubuntu1) trusty; urgency=low
   * Automatic snapshot from revision 444
 
  -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 22 Jan 2014 11:01:33 +0000
-
-webbrowser-app (0.23+14.04.20140120-0ubuntu1~withoxide1) trusty; urgency=medium
-
-  * Build webbrowser-app against oxide.
-
- -- Olivier Tilloy <olivier.tilloy@canonical.com>  Wed, 22 Jan 2014 10:18:54 +0100
 
 webbrowser-app (0.23+14.04.20140120-0ubuntu1) trusty; urgency=low
 
