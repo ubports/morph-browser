@@ -75,7 +75,10 @@ Loader {
 
                 url: currentWebview ? currentWebview.url : ""
 
-                loading: currentWebview ? currentWebview.loading || (currentWebview.loadProgress === 0) : false
+                loading: currentWebview ? currentWebview.loading
+                         // workaround for https://bugs.launchpad.net/oxide/+bug/1290821
+                         && !currentWebview.lastLoadStopped
+                         : false
                 loadProgress: currentWebview ? currentWebview.loadProgress : 0
 
                 canGoBack: currentWebview ? currentWebview.canGoBack : false

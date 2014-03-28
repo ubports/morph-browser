@@ -16,36 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBTHUMBNAIL_UTILS_H__
-#define __WEBTHUMBNAIL_UTILS_H__
+import QtQuick 2.0
+import QtTest 1.0
+import Ubuntu.Components.Extras.Browser 0.2
 
-// Qt
-#include <QtCore/QDir>
-#include <QtCore/QFileInfo>
-#include <QtCore/QObject>
+TestCase {
+    name: "UbuntuWebView"
 
-class QImage;
-class QUrl;
+    function test_custom_UA_override() {
+        compare(webview1.getUAString(), undefined)
+        verify(webview1.context.userAgent !== undefined)
+        compare(webview2.context.userAgent, "custom UA")
+    }
 
-class WebThumbnailUtils : public QObject
-{
-    Q_OBJECT
+    UbuntuWebView {
+        id: webview1
+    }
 
-public:
-    static WebThumbnailUtils& instance();
-    ~WebThumbnailUtils();
+    UbuntuWebView {
+        id: webview2
 
-    static QDir cacheLocation();
-    static void ensureCacheLocation();
-    static QFileInfo thumbnailFile(const QUrl& url);
-
-public Q_SLOTS:
-    void cacheThumbnail(const QUrl& url, const QImage& thumbnail) const;
-
-private:
-    WebThumbnailUtils(QObject* parent=0);
-
-    void expireCache() const;
-};
-
-#endif // __WEBTHUMBNAIL_UTILS_H__
+        function getUAString(url) {
+            return "custom UA"
+        }
+    }
+}

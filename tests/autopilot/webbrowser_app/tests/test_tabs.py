@@ -17,6 +17,7 @@
 from __future__ import absolute_import
 
 import time
+import unittest
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
@@ -140,6 +141,8 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         address_bar = self.main_window.get_address_bar()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
+    # FIXME: re-enable when implemented in oxide
+    @unittest.skip("not implemented in oxide yet")
     def test_open_target_blank_in_new_tab(self):
         url = self.base_url + "/blanktargetlink"
         self.go_to_url(url)
@@ -149,6 +152,8 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
         self.assert_current_url(self.base_url + "/aleaiactaest")
 
+    # FIXME: re-enable when implemented in oxide
+    @unittest.skip("not implemented in oxide yet")
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
         self.go_to_url(url)

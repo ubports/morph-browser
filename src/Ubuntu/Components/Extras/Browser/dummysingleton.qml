@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,22 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBBROWSER_APP_H__
-#define __WEBBROWSER_APP_H__
+// This file is not really used, but without it importing version 0.1 of
+// Ubuntu.Components.Extras.Browser fails because the QML engine requests type
+// UbuntuWebContext, despite it being specific to version 0.2 of the module.
 
-#include "browserapplication.h"
+pragma Singleton
 
-class WebbrowserApp : public BrowserApplication
-{
-    Q_OBJECT
+import QtQml 2.0
 
-public:
-    WebbrowserApp(int& argc, char** argv);
-
-    bool initialize();
-
-private:
-    virtual void printUsage() const;
-};
-
-#endif // __WEBBROWSER_APP_H__
+QtObject {}
