@@ -31,7 +31,8 @@
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
 #include <QtQml/QQmlComponent>
-
+#include <QStandardPaths>
+#include <QSettings>
 
 namespace
 {
@@ -163,35 +164,61 @@ QString WebappContainer::webappName() const
     return QString();
 }
 
-
 QStringList WebappContainer::webappUrlPatterns() const
 {
+    static const QString PATTERN_SEPARATOR = ",";
+
     QStringList patterns;
     Q_FOREACH(const QString& argument, m_arguments) {
         if (argument.startsWith("--webappUrlPatterns=")) {
             QString tail = argument.split("--webappUrlPatterns=")[1];
             if (!tail.isEmpty()) {
-                QStringList includePatterns = tail.split(",");
-                Q_FOREACH(const QString& includePattern, includePatterns) {
-                    QString pattern = includePattern.trimmed();
-
-                    if (pattern.isEmpty())
-                        continue;
-
-                    QString safePattern =
-                            UrlPatternUtils::transformWebappSearchPatternToSafePattern(pattern);
-
-                    if ( ! safePattern.isEmpty()) {
-                        patterns.append(safePattern);
-                    } else {
-                        qDebug() << "Ignoring empty or invalid webapp URL pattern:" << pattern;
-                    }
-                }
+                QStringList includePatterns = tail.split(PATTERN_SEPARATOR);
+                patterns = UrlPatternUtils::filterAndTransformUrlPatterns(includePatterns);
             }
             break;
         }
     }
+
+    patterns.append(UrlPatternUtils::filterAndTransformUrlPatterns(getExtraWebappUrlPatterns().split(PATTERN_SEPARATOR)));
     return patterns;
+}
+
+QString WebappContainer::getExtraWebappUrlPatterns() const
+{
+    static const QString EXTRA_APP_URL_PATTERNS_CONF_FILENAME =
+            "extra-url-patterns.conf";
+
+    QString extraUrlPatternsFilename =
+            QString("%1/%2")
+                .arg(QStandardPaths::writableLocation(QStandardPaths::DataLocation))
+                .arg(EXTRA_APP_URL_PATTERNS_CONF_FILENAME);
+
+    QString extraPatterns;
+    QFileInfo f(extraUrlPatternsFilename);
+    if (f.exists() && f.isReadable())
+    {
+        QSettings extraUrlPatternsSetting(f.absoluteFilePath(), QSettings::IniFormat);
+        extraUrlPatternsSetting.beginGroup("Extra Patterns");
+
+        QVariant patternsValue = extraUrlPatternsSetting.value("Patterns");
+
+        // The line can contain comma separated args Patterns=1,2,3. In this case
+        // QSettings interprets this as a StringList instead of giving us
+        // the raw value.
+        if (patternsValue.type() == QVariant::StringList)
+             extraPatterns = patternsValue.toStringList().join(",");
+        else
+            extraPatterns = patternsValue.toString();
+
+        if ( ! extraPatterns.isEmpty())
+        {
+            qDebug() << "Found extra url patterns to be added to the list of allowed urls: "
+                     << extraPatterns;
+        }
+        extraUrlPatternsSetting.endGroup();
+    }
+    return extraPatterns;
 }
 
 int main(int argc, char** argv)
