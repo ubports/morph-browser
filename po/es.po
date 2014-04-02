@@ -7,23 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-11-13 09:10+0100\n"
+"POT-Creation-Date: 2014-03-26 10:59+0100\n"
 "PO-Revision-Date: 2013-11-02 19:19+0000\n"
 "Last-Translator: Jorge Luis Granda <costeelation@hotmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-01 06:54+0000\n"
+"X-Launchpad-Export-Date: 2014-04-02 06:46+0000\n"
 "X-Generator: Launchpad (build 16967)\n"
-
-#: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
-msgid "Activity"
-msgstr "Actividad"
-
-#: src/app/ActivityView.qml:54
-msgid "Bookmarks"
-msgstr "Marcadores"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -57,6 +49,18 @@ msgstr "Contraseña"
 msgid "Cancel"
 msgstr "Cancelar"
 
+#: src/app/BeforeUnloadDialog.qml:24
+msgid "Confirm Navigation"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:28
+msgid "Leave"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:33
+msgid "Stay"
+msgstr ""
+
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
 msgstr "Esta conexión no es de confianza"
@@ -86,6 +90,10 @@ msgstr "Anterior"
 #: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "Adelante"
+
+#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
+msgid "Activity"
+msgstr "Actividad"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -136,52 +144,6 @@ msgstr "Se necesita autenticación de proxy."
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr "El sitio %1:%2 necesita autenticación."
-
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/TabsList.qml:37
-#, qt-format
-msgid "Currently viewing (%1)"
-msgstr "Actualmente viendo (%1)"
-
-#: src/app/TabsList.qml:68
-msgid "+"
-msgstr "+"
-
-#: src/app/TimelineView.qml:83
-msgid "Today"
-msgstr "Hoy"
-
-#: src/app/TimelineView.qml:85
-msgid "Yesterday"
-msgstr "Ayer"
-
-#: src/app/TimelineView.qml:87
-msgid "Last 7 Days"
-msgstr "Últimos 7 días"
-
-#: src/app/TimelineView.qml:89
-msgid "This Month"
-msgstr "Este mes"
-
-#: src/app/TimelineView.qml:91
-msgid "This Year"
-msgstr "Este año"
-
-#: src/app/TimelineView.qml:93
-msgid "Older"
-msgstr "Anteriores"
-
-#: src/app/TimelineView.qml:276
-msgid "(local files)"
-msgstr "(archivos locales)"
-
-#: src/app/TimelineView.qml:278
-msgid "(other)"
-msgstr "(otro)"
-
-#: src/app/WebViewImpl.qml:52
-msgid "This page wants to know your device’s location."
-msgstr "Esta página quiere conocer la ubicación del dispositivo."
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -269,24 +231,88 @@ msgstr "Recargar"
 msgid "Leave Page"
 msgstr "Abandonar la página"
 
+#: src/app/webbrowser/ActivityView.qml:54
+msgid "Bookmarks"
+msgstr "Marcadores"
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/app/webbrowser/TabsList.qml:37
+#, qt-format
+msgid "Currently viewing (%1)"
+msgstr "Actualmente viendo (%1)"
+
+#: src/app/webbrowser/TabsList.qml:68
+msgid "+"
+msgstr "+"
+
+#: src/app/webbrowser/TimelineView.qml:84
+msgid "Today"
+msgstr "Hoy"
+
+#: src/app/webbrowser/TimelineView.qml:86
+msgid "Yesterday"
+msgstr "Ayer"
+
+#: src/app/webbrowser/TimelineView.qml:88
+msgid "Last 7 Days"
+msgstr "Últimos 7 días"
+
+#: src/app/webbrowser/TimelineView.qml:90
+msgid "This Month"
+msgstr "Este mes"
+
+#: src/app/webbrowser/TimelineView.qml:92
+msgid "This Year"
+msgstr "Este año"
+
+#: src/app/webbrowser/TimelineView.qml:94
+msgid "Older"
+msgstr "Anteriores"
+
+#: src/app/webbrowser/TimelineView.qml:277
+msgid "(local files)"
+msgstr "(archivos locales)"
+
+#: src/app/webbrowser/TimelineView.qml:279
+msgid "(other)"
+msgstr "(otro)"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "Navegador"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "Navegador web"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "Explore la Red Global Mundial"
+
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:44
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navegador web de Ubuntu"
 
-#: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:46
 msgid "Ubuntu Web Browser"
 msgstr "Navegador web de Ubuntu"
 
-#: src/app/webbrowser-app.desktop.in:3
-msgid "Browser"
-msgstr "Navegador"
+#: src/app/webcontainer/AccountsLoginPage.qml:70
+msgid "No local account found for "
+msgstr ""
 
-#: src/app/webbrowser-app.desktop.in:4
-msgid "Web Browser"
-msgstr "Navegador web"
+#: src/app/webcontainer/AccountsLoginPage.qml:75
+msgid "Skip account creation step"
+msgstr ""
 
-#: src/app/webbrowser-app.desktop.in:5
-msgid "Browse the World Wide Web"
-msgstr "Explore la Red Global Mundial"
+#: src/app/webcontainer/AccountsLoginPage.qml:124
+msgid "Add account"
+msgstr ""
+
+#: src/app/webcontainer/AccountsView.qml:38
+msgid "Select an account"
+msgstr ""
