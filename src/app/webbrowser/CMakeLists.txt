@@ -26,9 +26,6 @@ qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Sql)
 set(WEBBROWSER_APP_SRC
     settings.cpp
     webbrowser-app.cpp
-    webthumbnail-provider.cpp
-    webthumbnail-utils.cpp
-    webview-thumbnailer.cpp
 )
 
 set(WEBBROWSER_APP webbrowser-app)
@@ -37,16 +34,7 @@ add_executable(${WEBBROWSER_APP} ${WEBBROWSER_APP_SRC})
 
 target_link_libraries(${WEBBROWSER_APP} ${COMMONLIB} ${WEBBROWSER_APP_MODELS})
 
-qt5_use_modules(${WEBBROWSER_APP} Core Gui Qml Quick WebKit)
-
-# work around the lack of a public cmake module for Qt5V8
-set(Qt5V8_PRIVATE_INCLUDE_DIRS
-    "/usr/include/qt5/QtV8/${Qt5Qml_VERSION_STRING}"
-    "/usr/include/qt5/QtV8/${Qt5Qml_VERSION_STRING}/QtV8")
-include_directories(${Qt5Core_PRIVATE_INCLUDE_DIRS}
-                    ${Qt5V8_PRIVATE_INCLUDE_DIRS}
-                    ${Qt5Quick_PRIVATE_INCLUDE_DIRS}
-                    ${Qt5WebKit_PRIVATE_INCLUDE_DIRS})
+qt5_use_modules(${WEBBROWSER_APP} Core Gui Qml Quick)
 
 install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

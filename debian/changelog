@@ -1,3 +1,77 @@
+webbrowser-app (0.23+14.04.20140328.3-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Land the master Oxide support branch. See individual revisions for
+    details. (LP: #1271756)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 28 Mar 2014 17:07:09 +0000
+
+webbrowser-app (0.23+14.04.20140324-0ubuntu1) trusty; urgency=low
+
+  [ Alexandre Abreu ]
+  * There are 2 ways for the webapp-container to receive a list of
+    patterns to filter url browsing in a webapp container: through the
+    manifest.json file that comes with a given (named) webapp, or
+    through the command line. At the moment, the 2 mechanisms are
+    exclusive in the sense that from the webapp-container's perspective
+    it only considers one or another when filtering navigation (the
+    webapp manifest one being preferred) but they are NOT semantically
+    equivalent. The list of url patterns in the manifest.json file is
+    use as a mean to filter the urls that are being browsed to, but ALSO
+    in the chromium & FF browsers to know if a webapp is to be
+    installed/enabled when browsing in a given url. For example, for
+    Gmail, the hostname mail.google.com is used as a trigger to ask the
+    user for an installation/enablement of a webapp in the browser. It
+    is also implicitely used as a filter for browser once in the
+    container. The issue is that for applications like google services,
+    the authentication mechanism is common. So when launched in the
+    container, the user will be redirected to e.g.
+    https://accounts.google.com or https://accounts.google.ca, etc. So,
+    the manifest.json cannot be modified to account for those, since we
+    dont want to install a webapp from those URLs but we need a way to
+    add extra navigation url patterns to allow google service webapps to
+    be redirected to e.g. https://accounts.google.* etc. We provide here
+    2 things: an way for the url patterns passed down from the command
+    line to be also considered in the navigation filtering,. a way to
+    simplify url patterns for google apps (LP: #1288982)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 24 Mar 2014 19:14:54 +0000
+
+webbrowser-app (0.23+14.04.20140319-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Use the renderer only once when rendering a thumbnail. This seems to
+    fix the crash that was happening at destruction time. (LP: #1294219)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Mar 2014 14:58:21 +0000
+
+webbrowser-app (0.23+14.04.20140317.1-0ubuntu1) trusty; urgency=low
+
+  [ Colin Watson ]
+  * Add multiarch annotations.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 17 Mar 2014 23:18:34 +0000
+
+webbrowser-app (0.23+14.04.20140317-0ubuntu1) trusty; urgency=low
+
+  [ daker ]
+  * Fix to open URL that start with / (local files)
+
+  [ Leo Arias ]
+  * Updated the copyright header on all the python files.
+
+  [ Adnane Belmadiaf ]
+  * Fix to open URL that start with / (local files)
+
+  [ Olivier Tilloy ]
+  * Do not register private types in the public plugin. Register them in
+    the webbrowser application scope instead. I have made sure that
+    private types that were previously public are currently not being
+    used by any application in the store, so this refactoring is safe.
+  * Refactor the test HTTP server to use a random port at startup.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 17 Mar 2014 11:57:27 +0000
+
 webbrowser-app (0.23+14.04.20140313-0ubuntu1) trusty; urgency=low
 
   * New rebuild forced

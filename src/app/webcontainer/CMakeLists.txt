@@ -10,6 +10,7 @@ set(WEBAPP_CONTAINER webapp-container)
 
 set(WEBAPP_CONTAINER_SRC
     webapp-container.cpp
+    url-pattern-utils.cpp
 )
 
 add_executable(${WEBAPP_CONTAINER} ${WEBAPP_CONTAINER_SRC})
@@ -25,4 +26,3 @@ file(GLOB QML_FILES *.qml)
 install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer)
 install(DIRECTORY actions DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer
         FILES_MATCHING PATTERN *.qml)
-

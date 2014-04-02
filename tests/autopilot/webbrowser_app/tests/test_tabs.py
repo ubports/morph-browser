@@ -1,14 +1,23 @@
-# -*- coding: utf-8 -*-
+# -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
 # Copyright 2013 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import absolute_import
 
 import time
+import unittest
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
@@ -132,6 +141,8 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         address_bar = self.main_window.get_address_bar()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
+    # FIXME: re-enable when implemented in oxide
+    @unittest.skip("not implemented in oxide yet")
     def test_open_target_blank_in_new_tab(self):
         url = self.base_url + "/blanktargetlink"
         self.go_to_url(url)
@@ -141,6 +152,8 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
         self.assert_current_url(self.base_url + "/aleaiactaest")
 
+    # FIXME: re-enable when implemented in oxide
+    @unittest.skip("not implemented in oxide yet")
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
         self.go_to_url(url)

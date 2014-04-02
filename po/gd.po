@@ -7,23 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-11-13 09:10+0100\n"
+"POT-Creation-Date: 2014-03-26 10:59+0100\n"
 "PO-Revision-Date: 2013-09-29 21:42+0000\n"
 "Last-Translator: Akerbeltz <fios@akerbeltz.org>\n"
 "Language-Team: Gaelic; Scottish <gd@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-12-24 05:52+0000\n"
-"X-Generator: Launchpad (build 16877)\n"
-
-#: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
-msgid "Activity"
-msgstr "Gnìomhachd"
-
-#: src/app/ActivityView.qml:54
-msgid "Bookmarks"
-msgstr "Comharran-lìn"
+"X-Launchpad-Export-Date: 2014-04-02 06:46+0000\n"
+"X-Generator: Launchpad (build 16967)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -57,6 +49,18 @@ msgstr "Facal-faire"
 msgid "Cancel"
 msgstr "Sguir dheth"
 
+#: src/app/BeforeUnloadDialog.qml:24
+msgid "Confirm Navigation"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:28
+msgid "Leave"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:33
+msgid "Stay"
+msgstr ""
+
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
 msgstr "Chan eil earbsa sa cheangal seo"
@@ -86,6 +90,10 @@ msgstr "Air ais"
 #: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "Air adhart"
+
+#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
+msgid "Activity"
+msgstr "Gnìomhachd"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
@@ -137,52 +145,6 @@ msgstr "Feumaidh tu am progsaidh a dhearbhadh."
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr "Feumaidh an làrach-lìn %1:%2 dearbhadh."
-
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/TabsList.qml:37
-#, qt-format
-msgid "Currently viewing (%1)"
-msgstr "A' coimhead air %1 dhiubh an-dràsta"
-
-#: src/app/TabsList.qml:68
-msgid "+"
-msgstr "+"
-
-#: src/app/TimelineView.qml:83
-msgid "Today"
-msgstr "An-diugh"
-
-#: src/app/TimelineView.qml:85
-msgid "Yesterday"
-msgstr "An-dè"
-
-#: src/app/TimelineView.qml:87
-msgid "Last 7 Days"
-msgstr "Na 7 làithean seo chaidh"
-
-#: src/app/TimelineView.qml:89
-msgid "This Month"
-msgstr "Am mìos seo"
-
-#: src/app/TimelineView.qml:91
-msgid "This Year"
-msgstr "Am bliadhna"
-
-#: src/app/TimelineView.qml:93
-msgid "Older"
-msgstr "Nas sine"
-
-#: src/app/TimelineView.qml:276
-msgid "(local files)"
-msgstr "(faidhlichean ionadail)"
-
-#: src/app/TimelineView.qml:278
-msgid "(other)"
-msgstr "(feadhainn eile)"
-
-#: src/app/WebViewImpl.qml:52
-msgid "This page wants to know your device’s location."
-msgstr "Tha an duilleag seo ag iarraidh ionad an uidheim agad."
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -270,24 +232,88 @@ msgstr "Ath-luchdaich"
 msgid "Leave Page"
 msgstr "Fàg an duilleag"
 
+#: src/app/webbrowser/ActivityView.qml:54
+msgid "Bookmarks"
+msgstr "Comharran-lìn"
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/app/webbrowser/TabsList.qml:37
+#, qt-format
+msgid "Currently viewing (%1)"
+msgstr "A' coimhead air %1 dhiubh an-dràsta"
+
+#: src/app/webbrowser/TabsList.qml:68
+msgid "+"
+msgstr "+"
+
+#: src/app/webbrowser/TimelineView.qml:84
+msgid "Today"
+msgstr "An-diugh"
+
+#: src/app/webbrowser/TimelineView.qml:86
+msgid "Yesterday"
+msgstr "An-dè"
+
+#: src/app/webbrowser/TimelineView.qml:88
+msgid "Last 7 Days"
+msgstr "Na 7 làithean seo chaidh"
+
+#: src/app/webbrowser/TimelineView.qml:90
+msgid "This Month"
+msgstr "Am mìos seo"
+
+#: src/app/webbrowser/TimelineView.qml:92
+msgid "This Year"
+msgstr "Am bliadhna"
+
+#: src/app/webbrowser/TimelineView.qml:94
+msgid "Older"
+msgstr "Nas sine"
+
+#: src/app/webbrowser/TimelineView.qml:277
+msgid "(local files)"
+msgstr "(faidhlichean ionadail)"
+
+#: src/app/webbrowser/TimelineView.qml:279
+msgid "(other)"
+msgstr "(feadhainn eile)"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "Brabhsair"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "Brabhsair-lìn"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "Brabhsaich an t-eadar-lìon"
+
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:44
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Brabhsair-lìn Ubuntu"
 
-#: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:46
 msgid "Ubuntu Web Browser"
 msgstr "Brabhsair-lìn Ubuntu"
 
-#: src/app/webbrowser-app.desktop.in:3
-msgid "Browser"
-msgstr "Brabhsair"
+#: src/app/webcontainer/AccountsLoginPage.qml:70
+msgid "No local account found for "
+msgstr ""
 
-#: src/app/webbrowser-app.desktop.in:4
-msgid "Web Browser"
-msgstr "Brabhsair-lìn"
+#: src/app/webcontainer/AccountsLoginPage.qml:75
+msgid "Skip account creation step"
+msgstr ""
 
-#: src/app/webbrowser-app.desktop.in:5
-msgid "Browse the World Wide Web"
-msgstr "Brabhsaich an t-eadar-lìon"
+#: src/app/webcontainer/AccountsLoginPage.qml:124
+msgid "Add account"
+msgstr ""
+
+#: src/app/webcontainer/AccountsView.qml:38
+msgid "Select an account"
+msgstr ""

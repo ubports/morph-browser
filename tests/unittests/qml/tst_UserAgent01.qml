@@ -67,7 +67,7 @@ TestCase {
         compare(userAgent.getUAString(data.url), data.ua)
     }
 
-    UserAgent {
+    UserAgent01 {
         id: userAgent
 
         defaultUA: "Mozilla/5.0 (Ubuntu; Mobile) WebKit/537.21"

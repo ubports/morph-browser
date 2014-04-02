@@ -1,10 +1,18 @@
-# -*- coding: utf-8 -*-
+# -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
 # Copyright 2013 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import absolute_import
 
@@ -29,8 +37,7 @@ class TestProgressBarAtStartup(BrowserTestCaseBase):
 
     def setUp(self):
         self.server = http_server.HTTPServerInAThread()
-        self.server.start()
-        self.addCleanup(self.server.shutdown)
+        self.addCleanup(self.server.cleanup)
         self.base_url = "http://localhost:%d" % self.server.port
         self.ping_server()
         self.url = self.base_url + "/wait/8"

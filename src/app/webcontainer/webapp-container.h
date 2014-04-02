@@ -39,6 +39,7 @@ private:
     QString webappModelSearchPath() const;
     QString webappName() const;
     QStringList webappUrlPatterns() const;
+    bool withOxide() const;
 };
 
 #endif // __WEBAPP_CONTAINER_H__

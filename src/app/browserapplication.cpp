@@ -17,10 +17,13 @@
  */
 
 // Qt
+#include <QtCore/QLibrary>
 #include <QtNetwork/QNetworkInterface>
+#include <QtGui/QOpenGLContext>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include <QtQuick/private/qsgcontext_p.h>
 #include <QtQuick/QQuickWindow>
 
 // local
@@ -29,7 +32,7 @@
 #include "webbrowser-window.h"
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
-    : QApplication(argc, argv)
+    : QGuiApplication(argc, argv)
     , m_engine(0)
     , m_window(0)
     , m_component(0)
@@ -37,6 +40,25 @@ BrowserApplication::BrowserApplication(int& argc, char** argv)
 {
     m_arguments = arguments();
     m_arguments.removeFirst();
+
+    // The testability driver is only loaded by QApplication but not by
+    // QGuiApplication (see https://codereview.qt-project.org/#change,66513).
+    // Let’s load the testability driver on our own.
+    if (m_arguments.contains(QLatin1String("-testability")) ||
+        qgetenv("QT_LOAD_TESTABILITY") == "1") {
+        QLibrary testLib(QLatin1String("qttestability"));
+        if (testLib.load()) {
+            typedef void (*TasInitialize)(void);
+            TasInitialize initFunction = (TasInitialize)testLib.resolve("qt_testability_init");
+            if (initFunction) {
+                initFunction();
+            } else {
+                qCritical("Library qttestability resolve failed!");
+            }
+        } else {
+            qCritical("Library qttestability load failed!");
+        }
+    }
 }
 
 BrowserApplication::~BrowserApplication()
@@ -80,6 +102,11 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     QString appPkgName = qgetenv("APP_ID").split('_').first();
     QCoreApplication::setApplicationName(appPkgName);
 
+    // Enable compositing in oxide
+    QOpenGLContext* glcontext = new QOpenGLContext(this);
+    glcontext->create();
+    QSGContext::setSharedOpenGLContext(glcontext);
+
     bool inspector = m_arguments.contains("--inspector");
     if (inspector) {
         QString host;
@@ -113,7 +140,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     m_webbrowserWindowProxy = new WebBrowserWindow();
     context->setContextProperty("webbrowserWindowProxy", m_webbrowserWindowProxy);
 
-    QObject* browser = m_component->create();
+    QObject* browser = m_component->beginCreate(context);
     m_window = qobject_cast<QQuickWindow*>(browser);
     m_webbrowserWindowProxy->setWindow(m_window);
 
