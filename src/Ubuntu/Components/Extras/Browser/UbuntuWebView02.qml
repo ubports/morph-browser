@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import QtQuick.Window 2.0
-import com.canonical.Oxide 0.1
+import com.canonical.Oxide 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
 import "."
@@ -96,11 +96,23 @@ WebView {
         }
     ]
 
-    /*onNavigationRequested: {
-        request.action = WebView.AcceptRequest;
+    onNewViewRequested: {
+        // TODO: at this point request.disposition should be
+        // NewViewRequest.DispositionNewPopup, not sure if it
+        // is safer to add an extra level of filtering to avoid
+        // e.g. NewViewRequest.DispositionCurrentTab being opened
+        // as new tabs (although should never happen)
 
-        navigationRequestedDelegate (request);
-        if (request.action === WebView.IgnoreRequest)
+        newTabRequested(request.url)
+    }
+
+    onNavigationRequested: {
+        request.action = NavigationRequest.ActionAccept;
+
+        navigationRequestedDelegate(request);
+
+        /*
+        if (request.action === NavigationRequest.ActionReject)
             return;
 
         var staticUA = _webview.getUAString()
@@ -109,7 +121,8 @@ WebView {
         } else {
             _webview.experimental.userAgent = staticUA
         }
-    }*/
+        */
+    }
 
     /*experimental.preferences.navigatorQtObjectEnabled: true
     experimental.userScripts: [Qt.resolvedUrl("hyperlinks.js"),
