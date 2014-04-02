@@ -26,6 +26,7 @@ import ".."
 
 BrowserView {
     id: webapp
+    objectName: "webappBrowserView"
 
     currentWebview: webview.currentWebview
 
@@ -86,6 +87,7 @@ BrowserView {
 
     PanelLoader {
         id: panel
+	objectName: "panel"
 
         currentWebview: webview.currentWebview
         chromeless: webapp.chromeless
