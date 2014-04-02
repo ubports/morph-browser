@@ -40,6 +40,7 @@ private:
     QString webappName() const;
     QStringList webappUrlPatterns() const;
     bool withOxide() const;
+    bool firstRun(const QString &webappName) const;
 };
 
 #endif // __WEBAPP_CONTAINER_H__

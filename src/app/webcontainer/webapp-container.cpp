@@ -23,11 +23,13 @@
 
 // Qt
 #include <QtCore/QCoreApplication>
+#include <QtCore/QDateTime>
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QtGlobal>
 #include <QtCore/QRegularExpression>
+#include <QtCore/QStandardPaths>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
 #include <QtQml/QQmlComponent>
@@ -78,6 +80,7 @@ bool WebappContainer::initialize()
         m_window->setProperty("oxide", oxide);
 
         m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
+        m_window->setProperty("firstRun", firstRun(name));
 
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (name.isEmpty()) {
@@ -192,6 +195,45 @@ QStringList WebappContainer::webappUrlPatterns() const
         }
     }
     return patterns;
+}
+
+bool WebappContainer::firstRun(const QString &webappName) const {
+    /* Return true if this is the first time that the webapp "webappName" is
+     * run in the current user's session. */
+    if (Q_UNLIKELY(webappName.isEmpty())) {
+        /* Assume first run */
+        return true;
+    }
+
+    QString xdgRuntimeDir(QStandardPaths::writableLocation(QStandardPaths::RuntimeLocation));
+    QFileInfo timestampFile(QString("%1/webapp-container/%2.stamp").
+                            arg(xdgRuntimeDir).arg(webappName));
+    if (!timestampFile.exists()) {
+        // Create the file and return true
+        QFile file(timestampFile.filePath());
+        file.open(QIODevice::WriteOnly);
+        return true;
+    }
+
+    /* If the file stamp is there, it might be a stale file from a previous
+     * session (XDG_RUNTIME_DIR is cleared only when rebooting, not when
+     * logging out); in order to detect this situation, we compare the time of
+     * the file with the time of when the user session started.
+     * We use the upstart timestamp files to obtain the latter.
+     */
+    QDir upstartSessionDir("%1/upstart/sessions");
+    upstartSessionDir.setNameFilters(QStringList() << "*.session");
+    /* We want the newest file there */
+    upstartSessionDir.setSorting(QDir::Time | QDir::Reversed);
+    QFileInfoList sessionFiles = upstartSessionDir.entryInfoList();
+    if (sessionFiles.isEmpty()) {
+        /* This shouldn't happen in Unity; play safe and assume it's the first
+         * run */
+        return true;
+    }
+
+    const QFileInfo &lastSession = sessionFiles.first();
+    return timestampFile.lastModified() < lastSession.lastModified();
 }
 
 int main(int argc, char** argv)
