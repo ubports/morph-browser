@@ -59,7 +59,7 @@ bool SessionUtils::firstRun(const QString &webappName) {
     QDir upstartSessionDir(QString("%1/upstart/sessions").arg(xdgRuntimeDir));
     upstartSessionDir.setNameFilters(QStringList() << "*.session");
     /* We want the newest file there */
-    upstartSessionDir.setSorting(QDir::Time | QDir::Reversed);
+    upstartSessionDir.setSorting(QDir::Time);
     QFileInfoList sessionFiles = upstartSessionDir.entryInfoList();
     if (sessionFiles.isEmpty()) {
         /* This shouldn't happen in Unity; play safe and assume it's the first
