@@ -33,6 +33,8 @@
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
 #include <QtQml/QQmlComponent>
+#include <QtQml/QQmlContext>
+#include <QtQml/QQmlEngine>
 
 
 namespace
@@ -80,7 +82,10 @@ bool WebappContainer::initialize()
         m_window->setProperty("oxide", oxide);
 
         m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
-        m_window->setProperty("firstRun", firstRun(name));
+        QQmlContext* context = m_engine->rootContext();
+        QString sessionCookieMode = firstRun(name) ?
+            QStringLiteral("persistent") : QStringLiteral("restored");
+        context->setContextProperty("webContextSessionCookieMode", sessionCookieMode);
 
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (name.isEmpty()) {
@@ -197,6 +202,12 @@ QStringList WebappContainer::webappUrlPatterns() const
     return patterns;
 }
 
+static void createTimestampFile(const QFileInfo &timestampFile) {
+    timestampFile.dir().mkpath(".");
+    QFile file(timestampFile.filePath());
+    file.open(QIODevice::WriteOnly);
+}
+
 bool WebappContainer::firstRun(const QString &webappName) const {
     /* Return true if this is the first time that the webapp "webappName" is
      * run in the current user's session. */
@@ -209,9 +220,7 @@ bool WebappContainer::firstRun(const QString &webappName) const {
     QFileInfo timestampFile(QString("%1/webapp-container/%2.stamp").
                             arg(xdgRuntimeDir).arg(webappName));
     if (!timestampFile.exists()) {
-        // Create the file and return true
-        QFile file(timestampFile.filePath());
-        file.open(QIODevice::WriteOnly);
+        createTimestampFile(timestampFile);
         return true;
     }
 
@@ -221,7 +230,7 @@ bool WebappContainer::firstRun(const QString &webappName) const {
      * the file with the time of when the user session started.
      * We use the upstart timestamp files to obtain the latter.
      */
-    QDir upstartSessionDir("%1/upstart/sessions");
+    QDir upstartSessionDir(QString("%1/upstart/sessions").arg(xdgRuntimeDir));
     upstartSessionDir.setNameFilters(QStringList() << "*.session");
     /* We want the newest file there */
     upstartSessionDir.setSorting(QDir::Time | QDir::Reversed);
@@ -233,7 +242,12 @@ bool WebappContainer::firstRun(const QString &webappName) const {
     }
 
     const QFileInfo &lastSession = sessionFiles.first();
-    return timestampFile.lastModified() < lastSession.lastModified();
+    if (timestampFile.lastModified() < lastSession.lastModified()) {
+        createTimestampFile(timestampFile);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 int main(int argc, char** argv)

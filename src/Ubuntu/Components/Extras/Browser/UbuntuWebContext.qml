@@ -28,6 +28,16 @@ Item {
         dataPath: dataLocation
         userAgent: customUA
         networkRequestDelegate: uaOverrideWorker.item
+        sessionCookieMode: {
+            if (typeof webContextSessionCookieMode !== 'undefined') {
+                if (webContextSessionCookieMode === "persistent") {
+                    return WebContext.SessionCookieModePersistent
+                } else if (webContextSessionCookieMode === "restored") {
+                    return WebContext.SessionCookieModeRestored
+                } 
+            }
+            return WebContext.SessionCookieModeEphemeral
+        }
         userAgentOverrideDelegate: networkRequestDelegate
         userScripts: [
             UserScript {
