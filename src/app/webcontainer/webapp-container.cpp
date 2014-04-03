@@ -85,6 +85,9 @@ bool WebappContainer::initialize()
             if (!urls.isEmpty()) {
                 m_window->setProperty("url", urls.first());
             }
+            else {
+                return false;
+            }
         }
 
         m_component->completeCreate();
