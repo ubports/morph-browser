@@ -19,17 +19,16 @@
 #include "config.h"
 #include "webapp-container.h"
 
+#include "session-utils.h"
 #include "url-pattern-utils.h"
 
 // Qt
 #include <QtCore/QCoreApplication>
-#include <QtCore/QDateTime>
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QtGlobal>
 #include <QtCore/QRegularExpression>
-#include <QtCore/QStandardPaths>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
 #include <QtQml/QQmlComponent>
@@ -83,7 +82,7 @@ bool WebappContainer::initialize()
 
         m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
         QQmlContext* context = m_engine->rootContext();
-        QString sessionCookieMode = firstRun(name) ?
+        QString sessionCookieMode = SessionUtils::firstRun(name) ?
             QStringLiteral("persistent") : QStringLiteral("restored");
         context->setContextProperty("webContextSessionCookieMode", sessionCookieMode);
 
@@ -200,54 +199,6 @@ QStringList WebappContainer::webappUrlPatterns() const
         }
     }
     return patterns;
-}
-
-static void createTimestampFile(const QFileInfo &timestampFile) {
-    timestampFile.dir().mkpath(".");
-    QFile file(timestampFile.filePath());
-    file.open(QIODevice::WriteOnly);
-}
-
-bool WebappContainer::firstRun(const QString &webappName) const {
-    /* Return true if this is the first time that the webapp "webappName" is
-     * run in the current user's session. */
-    if (Q_UNLIKELY(webappName.isEmpty())) {
-        /* Assume first run */
-        return true;
-    }
-
-    QString xdgRuntimeDir(QStandardPaths::writableLocation(QStandardPaths::RuntimeLocation));
-    QFileInfo timestampFile(QString("%1/webapp-container/%2.stamp").
-                            arg(xdgRuntimeDir).arg(webappName));
-    if (!timestampFile.exists()) {
-        createTimestampFile(timestampFile);
-        return true;
-    }
-
-    /* If the file stamp is there, it might be a stale file from a previous
-     * session (XDG_RUNTIME_DIR is cleared only when rebooting, not when
-     * logging out); in order to detect this situation, we compare the time of
-     * the file with the time of when the user session started.
-     * We use the upstart timestamp files to obtain the latter.
-     */
-    QDir upstartSessionDir(QString("%1/upstart/sessions").arg(xdgRuntimeDir));
-    upstartSessionDir.setNameFilters(QStringList() << "*.session");
-    /* We want the newest file there */
-    upstartSessionDir.setSorting(QDir::Time | QDir::Reversed);
-    QFileInfoList sessionFiles = upstartSessionDir.entryInfoList();
-    if (sessionFiles.isEmpty()) {
-        /* This shouldn't happen in Unity; play safe and assume it's the first
-         * run */
-        return true;
-    }
-
-    const QFileInfo &lastSession = sessionFiles.first();
-    if (timestampFile.lastModified() < lastSession.lastModified()) {
-        createTimestampFile(timestampFile);
-        return true;
-    } else {
-        return false;
-    }
 }
 
 int main(int argc, char** argv)

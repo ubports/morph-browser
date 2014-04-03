@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,30 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBAPP_CONTAINER_H__
-#define __WEBAPP_CONTAINER_H__
+#ifndef SESSIONUTILS_H
+#define SESSIONUTILS_H
 
-#include "browserapplication.h"
+#include <QtCore/QString>
 
-// Qt
-#include <QString>
-#include <QStringList>
+namespace SessionUtils {
 
-class WebappContainer : public BrowserApplication
-{
-    Q_OBJECT
+bool firstRun(const QString &webappName);
 
-public:
-    WebappContainer(int& argc, char** argv);
+}
 
-    bool initialize();
-
-private:
-    virtual void printUsage() const;
-    QString webappModelSearchPath() const;
-    QString webappName() const;
-    QStringList webappUrlPatterns() const;
-    bool withOxide() const;
-};
-
-#endif // __WEBAPP_CONTAINER_H__
+#endif // SESSIONUTILS_H
