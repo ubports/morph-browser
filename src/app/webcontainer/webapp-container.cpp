@@ -52,7 +52,7 @@ static QString currentArchitecturePathName()
 #endif
 }
 
-bool canUseOxide()
+static bool canUseOxide()
 {
     // Use a runtime hint to transparently know if oxide
     // can be used as a backend without the user/dev having
