@@ -19,7 +19,7 @@
 pragma Singleton
 
 import QtQuick 2.0
-import com.canonical.Oxide 0.1
+import com.canonical.Oxide 1.0
 
 Item {
     property string customUA: userAgent.defaultUA
