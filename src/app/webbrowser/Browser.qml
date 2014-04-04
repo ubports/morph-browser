@@ -18,6 +18,9 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Popups 0.1
+import Ubuntu.Content 0.1
+import UbuntuDownloadManager 0.1
 import webbrowserapp.private 0.1
 import "../actions" as Actions
 import ".."
@@ -27,6 +30,7 @@ BrowserView {
 
     property alias currentIndex: tabsModel.currentIndex
     currentWebview: tabsModel.currentWebview
+    property var activeTransfer
 
     actions: [
         Actions.GoTo {
@@ -238,6 +242,10 @@ BrowserView {
                     enabled: contextualData.img.toString()
                     onTriggered: Clipboard.push([contextualData.img])
                 }
+                Actions.SaveImage {
+                    enabled: contextualData.img.toString()
+                    onTriggered: download(contextualData.img, ContentType.Pictures)
+                }
             }
 
             onNewTabRequested: newTab(url, true)
@@ -248,6 +256,46 @@ BrowserView {
                 }
             }
         }
+    }
+
+    SingleDownload {
+        id: singleDownload
+        autoStart: false
+    }
+
+    PopupBase {
+        id: downloadDialog
+        anchors.fill: parent
+
+        Rectangle {
+            anchors.fill: parent
+            ContentPeerPicker {
+                id: peerPicker
+                handler: ContentHandler.Destination
+                visible: parent.visible
+
+                onPeerSelected: {
+                    browser.activeTransfer = peer.request()
+                    browser.activeTransfer.downloadId = singleDownload.downloadId
+                    browser.activeTransfer.state = ContentTransfer.Downloading
+                    downloadDialog.hide()
+                }
+
+                onCancelPressed: {
+                    downloadDialog.hide()
+                }
+            }
+        }
+    }
+
+    function download(url, contentType) {
+        if(contentType) {
+            peerPicker.contentType = contentType
+        } else {
+            peerPicker.contentType = ContentType.All
+        }
+        singleDownload.download(url)
+        downloadDialog.show()
     }
 
     function newTab(url, setCurrent) {
