@@ -33,12 +33,13 @@ QtObject {
     // %3: optional hardware ID token (must start with a semi-colon if present)
     // %4: WebKit version, e.g. "537.36"
     // %5: Chromium version, e.g. "35.0.1870.2"
-    // %6: optional token to provide additional free-form information (must start with a whitespace), e.g. "Mobile"
+    // %6: Safari version, e.g. "537.36"
+    // %7: optional token to provide additional free-form information (must start with a whitespace), e.g. "Mobile"
     // note #1: "Mozilla/5.0" is misinformation, but it is a legacy token that
     //   virtually every single UA out there has, it seems unwise to remove it
     // note #2: "AppleWebKit", as opposed to plain "WebKit", does make a
     //   difference in the content served by certain sites (e.g. gmail.com)
-    readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chromium/%5%6"
+    readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chromium/%5 Safari/%6%7"
 
     // FIXME: compute at build time (using lsb_release)
     readonly property string _ubuntuVersion: "14.04"
@@ -48,6 +49,8 @@ QtObject {
     readonly property string _hardwareID: ""
 
     // See chromium/src/webkit/build/webkit_version.h.in in oxide’s source tree.
+    // Also used for the safari version that usually sticks with the underlying webkit
+    // version.
     readonly property string _webkitVersion: "537.36"
 
     // See chromium/src/chrome/VERSION in oxide’s source tree.
@@ -58,5 +61,5 @@ QtObject {
 
     readonly property string _more: (formFactor === "mobile") ? " Mobile" : ""
 
-    property string defaultUA: _template.arg(_ubuntuVersion).arg(_attributes).arg(_hardwareID).arg(_webkitVersion).arg(_chromiumVersion).arg(_more)
+    property string defaultUA: _template.arg(_ubuntuVersion).arg(_attributes).arg(_hardwareID).arg(_webkitVersion).arg(_chromiumVersion).arg(_webkitVersion).arg(_more)
 }
