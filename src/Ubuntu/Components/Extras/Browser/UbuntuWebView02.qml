@@ -26,7 +26,8 @@ import "."
 WebView {
     id: _webview
 
-    signal newTabRequested(url url)
+    // TODO Should be renamed to newViewRequested
+    signal newTabRequested(var request)
 
     //interactive: !selection.visible
 
@@ -98,12 +99,11 @@ WebView {
 
     onNewViewRequested: {
         // TODO: at this point request.disposition should be
-        // NewViewRequest.DispositionNewPopup, not sure if it
-        // is safer to add an extra level of filtering to avoid
+        // NewViewRequest.DispositionNewPopup (all dispositions are coerced to it),
+        // not sure if it is safer to add an extra level of filtering to avoid
         // e.g. NewViewRequest.DispositionCurrentTab being opened
         // as new tabs (although should never happen)
-
-        newTabRequested(request.url)
+        newTabRequested(request)
     }
 
     onNavigationRequested: {

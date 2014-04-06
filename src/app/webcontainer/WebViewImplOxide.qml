@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Window 2.0
 import com.canonical.Oxide 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.2
@@ -54,24 +55,12 @@ WebViewImpl {
         return webappUrlPatterns && webappUrlPatterns.length !== 0
     }
 
-    function navigationRequestedDelegate(request) {
-        // Pass-through if we are not running as a named webapp (--webapp='Gmail')
-        // or if we dont have a list of url patterns specified to filter the
-        // browsing actions
-        if ( ! haveValidUrlPatterns() && ! isRunningAsANamedWebapp()) {
-            request.action = NavigationRequest.ActionAccept
-            return
-        }
-
-        var action = NavigationRequest.ActionReject
-        var url = request.url.toString()
-
+    function shouldAllowNavigationTo(url) {
         // The list of url patterns defined by the webapp takes precedence over command line
         if (isRunningAsANamedWebapp()) {
             if (unityWebapps.model.exists(unityWebapps.name) &&
                 unityWebapps.model.doesUrlMatchesWebapp(unityWebapps.name, url)) {
-                request.action = NavigationRequest.ActionAccept
-                return;
+                return true;
             }
         }
 
@@ -82,20 +71,56 @@ WebViewImpl {
             for (var i = 0; i < webappUrlPatterns.length; ++i) {
                 var pattern = webappUrlPatterns[i]
                 if (url.match(pattern)) {
-                    action = NavigationRequest.ActionAccept
-                    break
+                    return true;
                 }
             }
         }
 
-        request.action = action
-        if (action === NavigationRequest.ActionReject) {
+        return false;
+    }
+
+    function navigationRequestedDelegate(request) {
+        // Pass-through if we are not running as a named webapp (--webapp='Gmail')
+        // or if we dont have a list of url patterns specified to filter the
+        // browsing actions
+        if ( ! haveValidUrlPatterns() && ! isRunningAsANamedWebapp()) {
+            request.action = NavigationRequest.ActionAccept
+            return
+        }
+
+        var url = request.url.toString()
+
+        if (shouldAllowNavigationTo(url))
+            request.action = NavigationRequest.ActionAccept
+
+        if ( ! isRunningAsANamedWebapp() && request.disposition === NavigationRequest.DispositionNewPopup) {
+            console.debug('Opening: popup window ' + url + ' in the browser window.')
+            Qt.openUrlExternally(url);
+            return;
+        }
+
+        if (request.action === NavigationRequest.ActionReject) {
             console.debug('Opening: ' + url + ' in the browser window.')
             Qt.openUrlExternally(url)
         }
     }
 
-    onNewTabRequested: Qt.openUrlExternally(url)
+    Component {
+        id: popupWebViewFactory
+        Window {
+            id: popup
+            property alias request: popupBrowser.request
+            WebView {
+                id: popupBrowser
+                anchors.fill: parent
+            }
+            Component.onCompleted: popup.show()
+        }
+    }
+
+    onNewTabRequested: {
+        popupWebViewFactory.createObject(webview, { request: request, width: 500, height: 800 });
+    }
 
     preferences.localStorageEnabled: true
 
