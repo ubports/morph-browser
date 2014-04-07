@@ -39,7 +39,7 @@ QtObject {
     //   virtually every single UA out there has, it seems unwise to remove it
     // note #2: "AppleWebKit", as opposed to plain "WebKit", does make a
     //   difference in the content served by certain sites (e.g. gmail.com)
-    readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chromium/%5 Safari/%6%7"
+    readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chromium/%5 %6Safari/%7%8"
 
     // FIXME: compute at build time (using lsb_release)
     readonly property string _ubuntuVersion: "14.04"
@@ -59,7 +59,10 @@ QtObject {
     //       every time we rebase on a newer chromium.
     readonly property string _chromiumVersion: "35.0.1870.2"
 
-    readonly property string _more: (formFactor === "mobile") ? " Mobile" : ""
+    readonly property string _formFactor: (formFactor === "mobile") ? "Mobile " : ""
 
-    property string defaultUA: _template.arg(_ubuntuVersion).arg(_attributes).arg(_hardwareID).arg(_webkitVersion).arg(_chromiumVersion).arg(_webkitVersion).arg(_more)
+    // In case some extra bits are needed to make things work (e.g. an extra formfactor info etc.)
+    readonly property string _more: ""
+
+    property string defaultUA: _template.arg(_ubuntuVersion).arg(_attributes).arg(_hardwareID).arg(_webkitVersion).arg(_chromiumVersion).arg(_formFactor).arg(_webkitVersion).arg(_more)
 }
