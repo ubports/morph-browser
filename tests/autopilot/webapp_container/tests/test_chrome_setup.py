@@ -23,11 +23,6 @@ from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 class WebappContainerChromeSetupTestCase(
         WebappContainerTestCaseWithLocalContentBase):
 
-    def test_container_does_not_load_with_no_webapp_and_url(self):
-        args = ['--webapp']
-        self.launch_webcontainer_app(args)
-        self.assertThat(self.get_webcontainer_proxy(), Equals(None))
-
     def test_default_to_chromeless(self):
         self.launch_webcontainer_app_with_local_http_server([])
         self.assertThat(self.get_webcontainer_proxy(), NotEquals(None))

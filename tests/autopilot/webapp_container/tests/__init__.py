@@ -73,7 +73,6 @@ class WebappContainerTestCaseWithLocalContentBase(WebappContainerTestCaseBase):
     def setUp(self):
         super(WebappContainerTestCaseWithLocalContentBase, self).setUp()
         self.http_server = fake_servers.WebappContainerContentHttpServer()
-        self.http_server.start()
         port = self.http_server.server.server_port
         self.base_url = "http://localhost:%d" % port
 

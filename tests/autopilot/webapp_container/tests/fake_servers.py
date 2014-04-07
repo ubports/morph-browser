@@ -16,12 +16,12 @@
 """ Autopilot tests for the webapp_container package """
 
 import BaseHTTPServer
+import logging
 import threading
 
 
 class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def serve_content(self, content, mime_type='text/html'):
-        self.send_response(200)
         self.send_header('Content-type', mime_type)
         self.end_headers()
         self.wfile.write(content)
@@ -46,11 +46,14 @@ This is some content
             self.send_error(404)
 
 
-class WebappContainerContentHttpServer(threading.Thread):
+class WebappContainerContentHttpServer(object):
     def __init__(self):
         super(WebappContainerContentHttpServer, self).__init__()
         self.server = BaseHTTPServer.HTTPServer(("", 0), RequestHandler)
         self.server.allow_reuse_address = True
+        self.server_thread = threading.Thread(target=self.server.serve_forever)
+        self.server_thread.start()
+        logging.info("now serving on port {}".format(self.server.server_port))
 
     def run(self):
         self.server.serve_forever()
@@ -58,3 +61,4 @@ class WebappContainerContentHttpServer(threading.Thread):
     def shutdown(self):
         self.server.shutdown()
         self.server.server_close()
+        self.server_thread.join()
