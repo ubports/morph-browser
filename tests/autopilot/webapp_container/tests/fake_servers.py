@@ -7,14 +7,8 @@
 
 """ Autopilot tests for the webapp_container package """
 
-import os
 import BaseHTTPServer
 import threading
-import subprocess
-
-from autopilot.testcase import AutopilotTestCase
-
-from ubuntuuitoolkit import emulators as toolkit_emulators
 
 
 class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
@@ -43,6 +37,7 @@ This is some content
         else:
             self.send_error(404)
 
+
 class WebappContainerContentHttpServer(threading.Thread):
     def __init__(self):
         super(WebappContainerContentHttpServer, self).__init__()
@@ -55,4 +50,3 @@ class WebappContainerContentHttpServer(threading.Thread):
     def shutdown(self):
         self.server.shutdown()
         self.server.server_close()
-

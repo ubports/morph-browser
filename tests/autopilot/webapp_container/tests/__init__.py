@@ -8,8 +8,6 @@
 """ Autopilot tests for the webapp_container package """
 
 import os
-import BaseHTTPServer
-import threading
 import subprocess
 
 from autopilot.testcase import AutopilotTestCase
@@ -39,7 +37,9 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
 
     def launch_webcontainer_app(self, args):
         if model() != 'Desktop':
-            args.append('--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop')
+            args.append(
+                '--desktop_file_hint=/usr/share/applications/\
+                webbrowser-app.desktop')
         try:
             self.app = self.launch_test_application(
                 self.get_webcontainer_app_path(),
@@ -60,12 +60,14 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
     def get_webcontainer_panel(self):
         return self.app.select_single(objectName="panel")
 
+
 class WebappContainerTestCaseWithLocalContentBase(WebappContainerTestCaseBase):
     def setUp(self):
         super(WebappContainerTestCaseWithLocalContentBase, self).setUp()
         self.http_server = fake_servers.WebappContainerContentHttpServer()
         self.http_server.start()
-        self.base_url = "http://localhost:%d" % self.http_server.server.server_port
+        port = self.http_server.server.server_port
+        self.base_url = "http://localhost:%d" % port
 
     def tearDown(self):
         super(WebappContainerTestCaseWithLocalContentBase, self).tearDown()
