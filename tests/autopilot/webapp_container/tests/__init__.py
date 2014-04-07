@@ -46,8 +46,8 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
     def launch_webcontainer_app(self, args):
         if model() != 'Desktop':
             args.append(
-                '--desktop_file_hint=/usr/share/applications/\
-                webbrowser-app.desktop')
+                '--desktop_file_hint=/usr/share/applications/'
+                'webbrowser-app.desktop')
         try:
             self.app = self.launch_test_application(
                 self.get_webcontainer_app_path(),
