@@ -33,8 +33,10 @@ QtObject {
     // %3: optional hardware ID token (must start with a semi-colon if present)
     // %4: WebKit version, e.g. "537.36"
     // %5: Chromium version, e.g. "35.0.1870.2"
-    // %6: Safari version, e.g. "537.36"
-    // %7: optional token to provide additional free-form information (must start with a whitespace), e.g. "Mobile"
+    // %6: Optional token to provide additional free-form information (must end with a whitespace), e.g. "Mobile "
+    // %7: Safari version, e.g. "537.36"
+    // %8: Optional token, in case some extra bits are needed to make things work (e.g. an extra formfactor info etc.)
+    // 
     // note #1: "Mozilla/5.0" is misinformation, but it is a legacy token that
     //   virtually every single UA out there has, it seems unwise to remove it
     // note #2: "AppleWebKit", as opposed to plain "WebKit", does make a
@@ -49,8 +51,6 @@ QtObject {
     readonly property string _hardwareID: ""
 
     // See chromium/src/webkit/build/webkit_version.h.in in oxide’s source tree.
-    // Also used for the safari version that usually sticks with the underlying webkit
-    // version.
     readonly property string _webkitVersion: "537.36"
 
     // See chromium/src/chrome/VERSION in oxide’s source tree.
@@ -61,7 +61,6 @@ QtObject {
 
     readonly property string _formFactor: (formFactor === "mobile") ? "Mobile " : ""
 
-    // In case some extra bits are needed to make things work (e.g. an extra formfactor info etc.)
     readonly property string _more: ""
 
     property string defaultUA: _template.arg(_ubuntuVersion).arg(_attributes).arg(_hardwareID).arg(_webkitVersion).arg(_chromiumVersion).arg(_formFactor).arg(_webkitVersion).arg(_more)
