@@ -16,43 +16,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-pragma Singleton
-
 import QtQuick 2.0
 import com.canonical.Oxide 0.1
 
-Item {
-    property string customUA: userAgent.defaultUA
-
-    property QtObject sharedContext: WebContext {
-        dataPath: dataLocation
-        userAgent: customUA
-        networkRequestDelegate: uaOverrideWorker.item
-        userAgentOverrideDelegate: networkRequestDelegate
-        userScripts: [
-            UserScript {
-                context: "oxide://selection/"
-                url: Qt.resolvedUrl("selection02.js")
-                incognitoEnabled: true
-                matchAllFrames: true
-            }
-        ]
-    }
-
-    Component {
-        id: uaOverrideWorkerComponent
-
-        WebContextDelegateWorker {
-            source: Qt.resolvedUrl("ua-override-worker.js")
-            onMessage: console.log("Overriden UA for", message.url, ":", message.override)
+WebContext {
+    dataPath: dataLocation
+    userAgent: userAgent02.defaultUA
+    networkRequestDelegate: uaOverrideWorker.item
+    userAgentOverrideDelegate: networkRequestDelegate
+    userScripts: [
+        UserScript {
+            context: "oxide://selection/"
+            url: Qt.resolvedUrl("selection02.js")
+            incognitoEnabled: true
+            matchAllFrames: true
         }
-    }
-    Loader {
+    ]
+
+    property Item __loader: Loader {
         id: uaOverrideWorker
         sourceComponent: (formFactor === "mobile") ? uaOverrideWorkerComponent : undefined
-    }
 
-    UserAgent02 {
-        id: userAgent
+        Component {
+            id: uaOverrideWorkerComponent
+
+            WebContextDelegateWorker {
+                source: Qt.resolvedUrl("ua-override-worker.js")
+                onMessage: console.log("Overriden UA for", message.url, ":", message.override)
+            }
+        }
+
+        UserAgent02 {
+            id: userAgent02
+        }
     }
 }
