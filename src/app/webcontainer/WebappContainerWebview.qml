@@ -32,7 +32,7 @@ Item {
     property string webappName: ""
     property var currentWebview: webappContainerWebViewLoader.item
     property var toolbar: null
-    property var webappUrlPatterns: null
+    property var webappUrlPatterns
 
     Loader {
         id: webappContainerWebViewLoader

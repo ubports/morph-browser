@@ -37,6 +37,7 @@ public:
 private:
     virtual void printUsage() const;
     void parseCommandLine();
+    QString getExtraWebappUrlPatterns() const;
 
 private:
     QString m_webappName;
