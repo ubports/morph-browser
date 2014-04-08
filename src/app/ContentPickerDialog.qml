@@ -48,6 +48,7 @@ Popups.PopupBase {
                     peer.selectionType = ContentTransfer.Single
                 }
                 picker.activeTransfer = peer.request()
+                stateChangeConnection.target = picker.activeTransfer
             }
 
             onCancelPressed: {
@@ -57,7 +58,7 @@ Popups.PopupBase {
     }
 
     Connections {
-        target: picker.activeTransfer
+        id: stateChangeConnection
         onStateChanged: {
             if (picker.activeTransfer.state === ContentTransfer.Charged) {
                 var selectedItems = []
