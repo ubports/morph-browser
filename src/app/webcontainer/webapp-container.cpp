@@ -19,13 +19,37 @@
 #include "config.h"
 #include "webapp-container.h"
 
+#include "url-pattern-utils.h"
+
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
+#include <QtCore/QFile>
 #include <QtCore/QFileInfo>
+#include <QtCore/QtGlobal>
 #include <QtCore/QRegularExpression>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
+#include <QtQml/QQmlComponent>
+
+
+namespace
+{
+
+QString currentArchitecturePathName()
+{
+#if defined(Q_PROCESSOR_X86_32)
+    return QLatin1String("i386-linux-gnu");
+#elif defined(Q_PROCESSOR_X86_64)
+    return QLatin1String("x86_64-linux-gnu");
+#elif defined(Q_PROCESSOR_ARM)
+    return QLatin1String("arm-linux-gnueabihf");
+#else
+#error Unable to determine target architecture
+#endif
+}
+
+}
 
 WebappContainer::WebappContainer(int& argc, char** argv)
     : BrowserApplication(argc, argv)
@@ -48,7 +72,13 @@ bool WebappContainer::initialize()
         m_window->setProperty("webappName", name);
         m_window->setProperty("backForwardButtonsVisible", m_arguments.contains("--enable-back-forward"));
         m_window->setProperty("addressBarVisible", m_arguments.contains("--enable-addressbar"));
+
+        bool oxide = withOxide();
+        qDebug() << "Using" << (oxide ? "Oxide" : "QtWebkit") << "as the web engine backend";
+        m_window->setProperty("oxide", oxide);
+
         m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
+
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (name.isEmpty()) {
             QList<QUrl> urls = this->urls();
@@ -56,6 +86,9 @@ bool WebappContainer::initialize()
                 m_window->setProperty("url", urls.first());
             }
         }
+
+        m_component->completeCreate();
+
         return true;
     } else {
         return false;
@@ -66,7 +99,7 @@ void WebappContainer::printUsage() const
 {
     QTextStream out(stdout);
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
-    out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector] [--app-id=APP_ID] [--homepage=URL] [--webapp[=name]] [--webappModelSearchPath=PATH] [--webappUrlPatterns=URL_PATTERNS] [--enable-back-forward] [--enable-addressbar] [URL]" << endl;
+    out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector] [--app-id=APP_ID] [--homepage=URL] [--webapp=name] [--webappModelSearchPath=PATH] [--webappUrlPatterns=URL_PATTERNS] [--enable-back-forward] [--enable-addressbar] [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help                          display this help message and exit" << endl;
     out << "  --fullscreen                        display full screen" << endl;
@@ -74,12 +107,37 @@ void WebappContainer::printUsage() const
     out << "  --inspector                         run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
     out << "  --app-id=APP_ID                     run the application with a specific APP_ID" << endl;
     out << "  --homepage=URL                      override any URL passed as an argument" << endl;
-    out << "  --webapp[=name]                     try to match the webapp by name with an installed integration script (if any)" << endl;
+    out << "  --webapp=name                       try to match the webapp by name with an installed integration script" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
     out << "  --enable-addressbar                 enable the display of the address bar" << endl;
+}
+
+bool WebappContainer::withOxide() const
+{
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument == "--webkit") {
+            // force webkit
+            return false;
+        }
+        if (argument == "--oxide") {
+            // force oxide
+            return true;
+        }
+    }
+
+    // Use a runtime hint to transparently know if oxide
+    // can be used as a backend without the user/dev having
+    // to update its app or change something in the Exec args.
+    // Version 1.1 of ubuntu apparmor policy allows this file to
+    // be accessed whereas v1.0 only knows about qtwebkit.
+    QString oxideHintLocation =
+        QString("/usr/lib/%1/oxide-qt/oxide-renderer")
+            .arg(currentArchitecturePathName());
+
+    return QFile(oxideHintLocation).open(QIODevice::ReadOnly);
 }
 
 QString WebappContainer::webappModelSearchPath() const
@@ -105,25 +163,6 @@ QString WebappContainer::webappName() const
     return QString();
 }
 
-/**
- * Tests for the validity of a given webapp url pattern. It follows
- *  the following grammar:
- *
- * <url-pattern> := <scheme>://<host><path>
- * <scheme> := 'http' | 'https'
- * <host> := '*' <any char except '/' and '.'>+ <hostpart> <hostpart>+
- * <hostpart> := '.' <any char except '/', '*', '?' and '.'>+
- * <path> := '/' <any chars>
- *
- * @param pattern pattern that is to be tested for validity
- * @return true if the url is valid, false otherwise
- */
-static bool isValidWebappUrlPattern(const QString& pattern)
-{
-    static QRegularExpression grammar("^http(s|s\\?)?://[^\\.]+\\.[^\\.\\*\\?]+\\.[^\\.\\*\\?]+(\\.[^\\.\\*\\?/]+)*/.*$");
-    return grammar.match(pattern).hasMatch();
-}
-
 
 QStringList WebappContainer::webappUrlPatterns() const
 {
@@ -135,27 +174,15 @@ QStringList WebappContainer::webappUrlPatterns() const
                 QStringList includePatterns = tail.split(",");
                 Q_FOREACH(const QString& includePattern, includePatterns) {
                     QString pattern = includePattern.trimmed();
-                    if (!pattern.isEmpty() && isValidWebappUrlPattern(pattern)) {
-                        QRegularExpression urlRe("(.+://)([^/]+)(.+)");
-                        QRegularExpressionMatch match = urlRe.match(pattern);
-                        if (match.hasMatch())
-                        {
-                            // We make a distinction between the wildcard found in the
-                            //  hostname part and the one found later. The former being more
-                            //  restricted and should not be replaced by the same regexp pattern
-                            //  as the latter.
-                            // A less restrictive hostname pattern might lead to the following
-                            //  situation where e.g.
-                            // http://bady.guy.com/phishing.ebay.com/
-                            // matches
-                            // https?://*.ebay.com/*
-                            QString scheme = match.captured(1);
-                            QString hostname = match.captured(2).replace("*", "[^\\./]*");
-                            QString tail = match.captured(3).replace("*", "[^\\s]*");
 
-                            // reconstruct
-                            patterns.append(QString("%1%2%3").arg(scheme).arg(hostname).arg(tail));
-                        }
+                    if (pattern.isEmpty())
+                        continue;
+
+                    QString safePattern =
+                            UrlPatternUtils::transformWebappSearchPatternToSafePattern(pattern);
+
+                    if ( ! safePattern.isEmpty()) {
+                        patterns.append(safePattern);
                     } else {
                         qDebug() << "Ignoring empty or invalid webapp URL pattern:" << pattern;
                     }

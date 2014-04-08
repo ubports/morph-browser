@@ -17,29 +17,18 @@
  */
 
 import QtQuick 2.0
-import QtWebKit 3.1
-import QtWebKit.experimental 1.0
+import QtQuick.Window 2.0
+import com.canonical.Oxide 1.0
 import Ubuntu.Components 0.1
-import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
+import "."
 
 WebView {
     id: _webview
 
     signal newTabRequested(url url)
 
-    QtObject {
-        property real devicePixelRatio: QtWebKitDPR
-        onDevicePixelRatioChanged: {
-            // Do not make this patch to QtWebKit a hard requirement.
-            if (_webview.experimental.hasOwnProperty('devicePixelRatio')) {
-                _webview.experimental.devicePixelRatio = devicePixelRatio
-            }
-        }
-    }
-
-    interactive: !selection.visible
-    maximumFlickVelocity: height * 5
+    //interactive: !selection.visible
 
     /**
      * Client overridable function called before the default treatment of a
@@ -49,27 +38,65 @@ WebView {
      */
     function navigationRequestedDelegate(request) { }
 
-    UserAgent {
-        id: userAgent
-    }
-
     /**
      * This function can be overridden by client applications that embed an
      * UbuntuWebView to provide a static overridden UA string.
      * If not overridden, the default UA string and the default override
      * mechanism will be used.
+     *
+     * Note: as the UA string is a property of the shared context,
+     * an application that embeds several UbuntuWebViews that define different
+     * custom UA strings will result in the last view instantiated setting the
+     * UA for all the views.
      */
     function getUAString() {
-        // Note that this function used to accept a 'url' parameter to allow
-        // embedders to implement a custom override mechanism. It was removed
-        // after observing that no application was using it, and to simplify
-        // the API. Embedders willing to provide a custom override mechanism
-        // can always override (at their own risk) the onNavigationRequested
-        // slot.
         return undefined
     }
-    experimental.userAgent: (_webview.getUAString() === undefined) ? userAgent.defaultUA : _webview.getUAString()
-    onNavigationRequested: {
+
+    context: UbuntuWebContext.sharedContext
+    Component.onCompleted: {
+        var customUA = getUAString()
+        if (customUA !== undefined) {
+            UbuntuWebContext.customUA = customUA
+        }
+    }
+
+    messageHandlers: [
+        ScriptMessageHandler {
+            msgId: "contextmenu"
+            contexts: ["oxide://selection/"]
+            callback: function(msg, frame) {
+                if (('img' in msg.args) || ('href' in msg.args)) {
+                    if (internal.currentContextualMenu != null) {
+                        PopupUtils.close(internal.currentContextualMenu)
+                    }
+                    contextualData.clear()
+                    if ('img' in msg.args) {
+                        contextualData.img = msg.args.img
+                    }
+                    if ('href' in msg.args) {
+                        contextualData.href = msg.args.href
+                        contextualData.title = msg.args.title
+                    }
+                    contextualRectangle.position(msg.args)
+                    internal.currentContextualMenu = PopupUtils.open(contextualPopover, contextualRectangle)
+                } else if (internal.currentContextualMenu != null) {
+                    PopupUtils.close(internal.currentContextualMenu)
+                }
+            }
+        },
+        ScriptMessageHandler {
+            msgId: "scroll"
+            contexts: ["oxide://selection/"]
+            callback: function(msg, frame) {
+                if (internal.currentContextualMenu != null) {
+                    PopupUtils.close(internal.currentContextualMenu)
+                }
+            }
+        }
+    ]
+
+    /*onNavigationRequested: {
         request.action = WebView.AcceptRequest;
 
         navigationRequestedDelegate (request);
@@ -82,9 +109,9 @@ WebView {
         } else {
             _webview.experimental.userAgent = staticUA
         }
-    }
+    }*/
 
-    experimental.preferences.navigatorQtObjectEnabled: true
+    /*experimental.preferences.navigatorQtObjectEnabled: true
     experimental.userScripts: [Qt.resolvedUrl("hyperlinks.js"),
                                Qt.resolvedUrl("selection.js")]
     experimental.onMessageReceived: {
@@ -133,11 +160,11 @@ WebView {
                 newTabRequested(data.url)
             }
         }
-    }
+    }*/
 
-    experimental.itemSelector: ItemSelector {}
+    popupMenu: ItemSelector02 {}
 
-    property alias selection: selection
+    /*property alias selection: selection
     property ActionList selectionActions
     Selection {
         id: selection
@@ -214,7 +241,7 @@ WebView {
             Clipboard.push(mimedata)
             clearData()
         }
-    }
+    }*/
 
     Item {
         id: contextualRectangle
@@ -222,11 +249,10 @@ WebView {
         visible: false
 
         function position(data) {
-            var scale = _webview.experimental.test.contentsScale * _webview.experimental.test.devicePixelRatio
-            x = data.left * scale
-            y = data.top * scale
-            width = data.width * scale
-            height = data.height * scale
+            x = data.left * data.scaleX
+            y = data.top * data.scaleY
+            width = data.width * data.scaleX
+            height = data.height * data.scaleY
         }
     }
     property QtObject contextualData: QtObject {
@@ -249,15 +275,25 @@ WebView {
         }
     }
 
-    Scrollbar {
-        parent: _webview.parent
-        flickableItem: _webview
-        align: Qt.AlignTrailing
+    QtObject {
+        id: internal
+        property int lastLoadRequestStatus: -1
+        property Item currentContextualMenu: null
     }
 
-    Scrollbar {
-        parent: _webview.parent
-        flickableItem: _webview
-        align: Qt.AlignBottom
+    readonly property bool lastLoadSucceeded: internal.lastLoadRequestStatus === LoadEvent.TypeSucceeded
+    readonly property bool lastLoadStopped: internal.lastLoadRequestStatus === LoadEvent.TypeStopped
+    readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === LoadEvent.TypeFailed
+    onLoadingChanged: {
+        if (loadEvent.url.toString() !== "data:text/html,chromewebdata") {
+            internal.lastLoadRequestStatus = loadEvent.type
+        }
+    }
+
+    readonly property int screenOrientation: Screen.orientation
+    onScreenOrientationChanged: {
+        if (internal.currentContextualMenu != null) {
+            PopupUtils.close(internal.currentContextualMenu)
+        }
     }
 }

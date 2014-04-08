@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,24 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBTHUMBNAIL_PROVIDER_H__
-#define __WEBTHUMBNAIL_PROVIDER_H__
+import QtQuick 2.0
+import Ubuntu.Components 0.1
+import Ubuntu.Components.Popups 0.1 as Popups
 
-// Qt
-#include <QtCore/QObject>
-#include <QtCore/QUrl>
-#include <QtQuick/QQuickImageProvider>
+Popups.Dialog {
+    title: i18n.tr("Confirm Navigation")
+    text: model.message
 
-class WebThumbnailProvider : public QObject, public QQuickImageProvider
-{
-    Q_OBJECT
+    Button {
+        text: i18n.tr("Leave")
+        onClicked: model.accept()
+    }
 
-public:
-    WebThumbnailProvider(QObject* parent=0);
+    Button {
+        text: i18n.tr("Stay")
+        onClicked: model.reject()
+    }
 
-    virtual QImage requestImage(const QString& id, QSize* size, const QSize& requestedSize);
-
-    Q_INVOKABLE bool thumbnailExists(const QUrl& url) const;
-};
-
-#endif // __WEBTHUMBNAIL_PROVIDER_H__
+    Component.onCompleted: show()
+}

@@ -82,7 +82,7 @@ Column {
 
             url: model.url
             label: model.title ? model.title : model.url
-            thumbnail: model.webview.thumbnail
+            //thumbnail: model.webview.thumbnail
             canClose: true
 
             onStateChanged: listview.state = state

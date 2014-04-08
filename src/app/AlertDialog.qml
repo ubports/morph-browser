@@ -26,7 +26,7 @@ Popups.Dialog {
 
     Button {
         text: i18n.tr("OK")
-        onClicked: model.dismiss()
+        onClicked: model.accept()
     }
 
     Component.onCompleted: show()

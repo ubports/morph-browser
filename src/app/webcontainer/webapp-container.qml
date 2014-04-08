@@ -30,6 +30,7 @@ Window {
     property alias webappName: browser.webappName
     property alias webappModelSearchPath: browser.webappModelSearchPath
     property alias webappUrlPatterns: browser.webappUrlPatterns
+    property alias oxide: browser.oxide
 
     contentOrientation: browser.screenOrientation
 
