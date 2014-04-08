@@ -59,9 +59,6 @@ UbuntuWebView {
         //       the permission everytime the user visits this site.
     }*/
 
-    property int lastLoadRequestStatus: -1
-    onLoadingChanged: lastLoadRequestStatus = loadRequest.status
-
     Loader {
         id: peerModelLoader
         active: false
