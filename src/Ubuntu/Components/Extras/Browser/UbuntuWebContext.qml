@@ -30,7 +30,12 @@ Item {
         networkRequestDelegate: WebContextDelegateWorker {
             source: Qt.resolvedUrl("ua-override-worker.js")
             onMessage: console.log("Overriden UA for", message.url, ":", message.override)
-            Component.onCompleted: sendMessage({formFactor: formFactor})
+            Component.onCompleted: {
+                var script = "ua-overrides-%1.js".arg(formFactor)
+                var temp = Qt.createQmlObject('import QtQml 2.0; import "%1" as Overrides; QtObject { readonly property var overrides: Overrides.overrides }'.arg(script), userAgent)
+                sendMessage({overrides: temp.overrides})
+                temp.destroy()
+            }
         }
         userAgentOverrideDelegate: networkRequestDelegate
         userScripts: [
