@@ -19,5 +19,5 @@
 .pragma library
 
 var overrides = [
-      [/^https?:\/\/(www.)?google.com\/calendar/, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chromium/33.0.1750.152 Chrome/33.0.1750.152 Safari/537.36"],
+      [/^https?:\/\/(www.)?google.com\/calendar/, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chromium/35.0.1870.2 Chrome/35.0.1870.2 Safari/537.36"],
 ];
