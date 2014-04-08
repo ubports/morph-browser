@@ -24,7 +24,6 @@ import Ubuntu.Content 0.1
 Popups.PopupBase {
     id: picker
     property var activeTransfer
-    property var selectedItems
     property alias customPeerModelLoader: peerPicker.customPeerModelLoader
 
     Rectangle {
@@ -61,24 +60,12 @@ Popups.PopupBase {
         target: picker.activeTransfer
         onStateChanged: {
             if (picker.activeTransfer.state === ContentTransfer.Charged) {
-                selectedItems = [];
+                var selectedItems = [];
                 for(var i in picker.activeTransfer.items) {
                     selectedItems.push(String(picker.activeTransfer.items[i].url).replace("file://", ""));
                 }
-                acceptTimer.running = true
-            }
-        }
-    }
-
-    // FIXME: Work around for browser becoming insensitive to touch events
-    // if the dialog is dismissed while the application is inactive
-    Timer {
-        id: acceptTimer
-        interval: 100
-        repeat: true
-        onTriggered: {
-            if(Qt.application.active) {
                 model.accept(selectedItems);
+                acceptTimer.running = true
             }
         }
     }
