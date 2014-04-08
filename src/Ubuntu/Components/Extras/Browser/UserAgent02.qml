@@ -50,7 +50,7 @@ QtObject {
 
     readonly property string _hardwareID: ""
 
-    // See chromium/src/webkit/build/webkit_version.h.in in oxide’s source tree.
+    // See chromium/src/content/webkit_version.h.in in oxide’s source tree.
     readonly property string _webkitVersion: "537.36"
 
     // See chromium/src/chrome/VERSION in oxide’s source tree.
