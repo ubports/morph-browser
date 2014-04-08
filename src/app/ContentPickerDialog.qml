@@ -51,7 +51,7 @@ Popups.PopupBase {
             }
 
             onCancelPressed: {
-                model.dismiss();
+                model.reject();
             }
         }
     }
