@@ -88,8 +88,9 @@ WebViewImpl {
             return
         }
 
-        var url = request.url.toString()
+        var url = request.url
 
+        request.action = NavigationRequest.ActionReject
         if (shouldAllowNavigationTo(url))
             request.action = NavigationRequest.ActionAccept
 
