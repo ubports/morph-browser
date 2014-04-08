@@ -70,6 +70,9 @@ static bool canUseOxide()
 
 }
 
+const QString WebappContainer::URL_PATTERN_SEPARATOR = ",";
+
+
 WebappContainer::WebappContainer(int& argc, char** argv):
     BrowserApplication(argc, argv),
     m_withOxide(canUseOxide()),
@@ -83,6 +86,7 @@ bool WebappContainer::initialize()
 {
     if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
         parseCommandLine();
+        parseExtraConfiguration();
 
         if (!m_webappModelSearchPath.isEmpty())
         {
@@ -159,8 +163,6 @@ void WebappContainer::printUsage() const
 
 void WebappContainer::parseCommandLine()
 {
-    static const QString PATTERN_SEPARATOR = ",";
-
     Q_FOREACH(const QString& argument, m_arguments) {
         if (argument == "--webkit") {
             // force webkit
@@ -178,9 +180,8 @@ void WebappContainer::parseCommandLine()
         } else if (argument.startsWith("--webappUrlPatterns=")) {
             QString tail = argument.split("--webappUrlPatterns=")[1];
             if (!tail.isEmpty()) {
-                QStringList includePatterns = tail.split(PATTERN_SEPARATOR);
+                QStringList includePatterns = tail.split(URL_PATTERN_SEPARATOR);
                 m_webappUrlPatterns = UrlPatternUtils::filterAndTransformUrlPatterns(includePatterns);
-                m_webappUrlPatterns.append(UrlPatternUtils::filterAndTransformUrlPatterns(getExtraWebappUrlPatterns().split(PATTERN_SEPARATOR)));
             }
         } else if (argument == "--store-session-cookies") {
             m_storeSessionCookies = true;
@@ -190,6 +191,14 @@ void WebappContainer::parseCommandLine()
             m_addressBarVisible = true;
         }
     }
+}
+
+void WebappContainer::parseExtraConfiguration()
+{
+    // Add potential extra url patterns not listed in the command line
+    m_webappUrlPatterns.append(
+                UrlPatternUtils::filterAndTransformUrlPatterns(
+                    getExtraWebappUrlPatterns().split(URL_PATTERN_SEPARATOR)));
 }
 
 QString WebappContainer::getExtraWebappUrlPatterns() const

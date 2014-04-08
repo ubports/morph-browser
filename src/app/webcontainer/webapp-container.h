@@ -37,6 +37,7 @@ public:
 private:
     virtual void printUsage() const;
     void parseCommandLine();
+    void parseExtraConfiguration();
     QString getExtraWebappUrlPatterns() const;
 
 private:
@@ -47,6 +48,8 @@ private:
     bool m_storeSessionCookies;
     bool m_backForwardButtonsVisible;
     bool m_addressBarVisible;
+
+    static const QString URL_PATTERN_SEPARATOR;
 };
 
 #endif // __WEBAPP_CONTAINER_H__
