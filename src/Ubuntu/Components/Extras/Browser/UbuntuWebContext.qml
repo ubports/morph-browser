@@ -27,7 +27,11 @@ Item {
     property QtObject sharedContext: WebContext {
         dataPath: dataLocation
         userAgent: customUA
-        networkRequestDelegate: uaOverrideWorker.item
+        networkRequestDelegate: WebContextDelegateWorker {
+            source: Qt.resolvedUrl("ua-override-worker.js")
+            onMessage: console.log("Overriden UA for", message.url, ":", message.override)
+            Component.onCompleted: sendMessage({formFactor: formFactor})
+        }
         userAgentOverrideDelegate: networkRequestDelegate
         userScripts: [
             UserScript {
@@ -37,19 +41,6 @@ Item {
                 matchAllFrames: true
             }
         ]
-    }
-
-    Component {
-        id: uaOverrideWorkerComponent
-
-        WebContextDelegateWorker {
-            source: Qt.resolvedUrl("ua-override-worker.js")
-            onMessage: console.log("Overriden UA for", message.url, ":", message.override)
-        }
-    }
-    Loader {
-        id: uaOverrideWorker
-        sourceComponent: (formFactor === "mobile") ? uaOverrideWorkerComponent : undefined
     }
 
     UserAgent02 {

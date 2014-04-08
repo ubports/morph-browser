@@ -16,13 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var overrides = [
+var formFactor = "";
+
+oxide.onMessage = function(msg) {
+    if ("formFactor" in msg) {
+        formFactor = msg["formFactor"];
+    }
+}
+
+var overrides = {};
+overrides["desktop"] = [
+    [/^http:\/\/(www.)?whatsmyuseragent.com\//, "bleh desktop"]
+];
+
+overrides["mobile"] = [
+    [/^http:\/\/(www.)?whatsmyuseragent.com\//, "bleh mobile"],
     [/^https?:\/\/mail.google.com\//, "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4) AppleWebKit/537.36 Chromium/35.0.1870.2 Mobile Safari"]
 ];
 
 function getUAoverride(url) {
-    for (var i = 0; i < overrides.length; i++) {
-        var override = overrides[i];
+    var o = overrides[formFactor];
+    for (var i = 0; i < o.length; i++) {
+        var override = o[i];
         if (override[0].test(url)) {
             return override[1];
         }
