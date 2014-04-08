@@ -29,11 +29,11 @@ import QtQml 2.0
 
 QtObject {
     // %1: Ubuntu version, e.g. "14.04"
-    // %2: optional token to specify further attributes of the platform (must start with a whitespace), e.g. "like Android"
-    // %3: optional hardware ID token (must start with a semi-colon if present)
+    // %2: optional token to specify further attributes of the platform, e.g. "like Android"
+    // %3: optional hardware ID token
     // %4: WebKit version, e.g. "537.36"
     // %5: Chromium version, e.g. "35.0.1870.2"
-    // %6: Optional token to provide additional free-form information (must end with a whitespace), e.g. "Mobile "
+    // %6: Optional token to provide additional free-form information, e.g. "Mobile"
     // %7: Safari version, e.g. "537.36"
     // %8: Optional token, in case some extra bits are needed to make things work (e.g. an extra formfactor info etc.)
     //
@@ -46,7 +46,7 @@ QtObject {
     // FIXME: compute at build time (using lsb_release)
     readonly property string _ubuntuVersion: "14.04"
 
-    readonly property string _attributes: (formFactor === "mobile") ? " like Android 4.4" : ""
+    readonly property string _attributes: (formFactor === "mobile") ? "like Android 4.4" : ""
 
     readonly property string _hardwareID: ""
 
@@ -63,5 +63,16 @@ QtObject {
 
     readonly property string _more: ""
 
-    property string defaultUA: _template.arg(_ubuntuVersion).arg(_attributes).arg(_hardwareID).arg(_webkitVersion).arg(_chromiumVersion).arg(_formFactor).arg(_webkitVersion).arg(_more)
+    property string defaultUA: {
+        var ua = _template
+        ua = ua.arg(_ubuntuVersion) // %1
+        ua = ua.arg((_attributes !== "") ? " %1".arg(_attributes) : "") // %2
+        ua = ua.arg((_hardwareID !== "") ? "; %1".arg(_hardwareID) : "") // %3
+        ua = ua.arg(_webkitVersion) // %4
+        ua = ua.arg(_chromiumVersion) // %5
+        ua = ua.arg((_formFactor !== "") ? "%1 ".arg(_formFactor) : "") // %6
+        ua = ua.arg(_webkitVersion) // %7
+        ua = ua.arg((_more !== "") ? " %1".arg(_more) : "") // %8
+        return ua
+    }
 }
