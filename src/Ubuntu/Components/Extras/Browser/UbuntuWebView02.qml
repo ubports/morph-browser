@@ -296,4 +296,19 @@ WebView {
             PopupUtils.close(internal.currentContextualMenu)
         }
     }
+
+    onJavaScriptConsoleMessage: {
+        var msg = "[JS] (%1:%2) %3".arg(sourceId).arg(lineNumber).arg(message)
+        if (level === WebView.LogSeverityVerbose) {
+            console.log(msg)
+        } else if (level === WebView.LogSeverityInfo) {
+            console.info(msg)
+        } else if (level === WebView.LogSeverityWarning) {
+            console.warn(msg)
+        } else if ((level === WebView.LogSeverityError) ||
+                   (level === WebView.LogSeverityErrorReport) ||
+                   (level === WebView.LogSeverityFatal)) {
+            console.error(msg)
+        }
+    }
 }
