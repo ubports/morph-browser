@@ -43,15 +43,15 @@ Popups.PopupBase {
 
             onPeerSelected: {
                 if (model.allowMultipleFiles) {
-                    peer.selectionType = ContentTransfer.Multiple;
+                    peer.selectionType = ContentTransfer.Multiple
                 } else {
-                    peer.selectionType = ContentTransfer.Single;
+                    peer.selectionType = ContentTransfer.Single
                 }
                 picker.activeTransfer = peer.request()
             }
 
             onCancelPressed: {
-                model.reject();
+                model.reject()
             }
         }
     }
@@ -60,18 +60,18 @@ Popups.PopupBase {
         target: picker.activeTransfer
         onStateChanged: {
             if (picker.activeTransfer.state === ContentTransfer.Charged) {
-                var selectedItems = [];
+                var selectedItems = []
                 for(var i in picker.activeTransfer.items) {
-                    selectedItems.push(String(picker.activeTransfer.items[i].url).replace("file://", ""));
+                    selectedItems.push(String(picker.activeTransfer.items[i].url).replace("file://", ""))
                 }
-                model.accept(selectedItems);
+                model.accept(selectedItems)
                 acceptTimer.running = true
             }
         }
     }
 
     Component.onCompleted: {
-        show();
+        show()
     }
 
 }
