@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Dialogs 1.0
 //import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.2
 import Ubuntu.Content 0.1
@@ -36,9 +37,19 @@ UbuntuWebView {
     confirmDialog: ConfirmDialog {}
     promptDialog: PromptDialog {}
     beforeUnloadDialog: BeforeUnloadDialog {}
-    filePicker: ContentPickerDialog {
-        customPeerModelLoader: peerModelLoader 
-        onDismissed: { webview.focus = true } 
+    filePicker: formFactor == "desktop" ? filePickerDialog : contentPickerDialog
+
+    Component {
+        id: contentPickerDialog
+        ContentPickerDialog {
+            customPeerModelLoader: peerModelLoader 
+            onDismissed: { webview.focus = true } 
+        }
+    }
+    
+    Component {
+        id: filePickerDialog
+        FilePickerDialog {}
     }
 
     /*selectionActions: ActionList {
