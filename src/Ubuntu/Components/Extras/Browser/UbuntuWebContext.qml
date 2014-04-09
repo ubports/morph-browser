@@ -32,9 +32,16 @@ Item {
             onMessage: console.log("Overriden UA for", message.url, ":", message.override)
             Component.onCompleted: {
                 var script = "ua-overrides-%1.js".arg(formFactor)
-                var temp = Qt.createQmlObject('import QtQml 2.0; import "%1" as Overrides; QtObject { readonly property var overrides: Overrides.overrides }'.arg(script), userAgent)
-                sendMessage({overrides: temp.overrides})
-                temp.destroy()
+                var temp = null
+                try {
+                    temp = Qt.createQmlObject('import QtQml 2.0; import "%1" as Overrides; QtObject { readonly property var overrides: Overrides.overrides }'.arg(script), userAgent)
+                } catch (e) {
+                    console.error("No overrides found for", formFactor)
+                }
+                if (temp !== null) {
+                    sendMessage({overrides: temp.overrides})
+                    temp.destroy()
+                }
             }
         }
         userAgentOverrideDelegate: networkRequestDelegate
