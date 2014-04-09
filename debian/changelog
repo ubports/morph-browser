@@ -1,3 +1,29 @@
+webbrowser-app (0.23+14.04.20140409-0ubuntu1) trusty; urgency=low
+
+  [ Alexandre Abreu ]
+  * Add support for Oxide's onNavigationRequested in the container (LP:
+    #1302769)
+  * Webapps: maintain the session cookies for the user session Instruct
+    Oxide to store/load the session cookies on disk in a per-webapp
+    directory under XDG_RUNTIME_DIR. The first time in a user session
+    that the webapp is launched, the session cookies (leftover from
+    previous sessions) are not loaded, but only stored (this is the
+    chrome's "persistent" sessionCookieMode). The next times, session
+    cookies are both loaded and stored (chrome's "restored"
+    sessionCookieMode).
+
+  [ Alberto Mardegan ]
+  * Webapps: maintain the session cookies for the user session Instruct
+    Oxide to store/load the session cookies on disk in a per-webapp
+    directory under XDG_RUNTIME_DIR. The first time in a user session
+    that the webapp is launched, the session cookies (leftover from
+    previous sessions) are not loaded, but only stored (this is the
+    chrome's "persistent" sessionCookieMode). The next times, session
+    cookies are both loaded and stored (chrome's "restored"
+    sessionCookieMode).
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 09 Apr 2014 13:34:57 +0000
+
 webbrowser-app (0.23+14.04.20140407.1-0ubuntu1) trusty; urgency=low
 
   [ Ubuntu daily release ]
