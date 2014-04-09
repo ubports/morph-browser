@@ -39,6 +39,7 @@ Item {
                     console.error("No overrides found for", formFactor)
                 }
                 if (temp !== null) {
+                    console.log("Loaded %1 UA override(s) from %2".arg(temp.overrides.length).arg(Qt.resolvedUrl(script)))
                     sendMessage({overrides: temp.overrides})
                     temp.destroy()
                 }
