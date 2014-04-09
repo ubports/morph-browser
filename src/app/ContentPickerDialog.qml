@@ -27,6 +27,8 @@ Popups.PopupBase {
     property var selectedItems
     property alias customPeerModelLoader: peerPicker.customPeerModelLoader
 
+    signal dismissed();
+
     Rectangle {
         anchors.fill: parent
 
@@ -53,6 +55,7 @@ Popups.PopupBase {
             }
 
             onCancelPressed: {
+                dismissed()
                 model.reject()
             }
         }
@@ -79,6 +82,7 @@ Popups.PopupBase {
         repeat: true
         onTriggered: {
             if(Qt.application.active) {
+                dismissed()
                 model.accept(selectedItems);
             }
         }

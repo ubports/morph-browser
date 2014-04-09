@@ -36,7 +36,10 @@ UbuntuWebView {
     confirmDialog: ConfirmDialog {}
     promptDialog: PromptDialog {}
     beforeUnloadDialog: BeforeUnloadDialog {}
-    filePicker: ContentPickerDialog { customPeerModelLoader: peerModelLoader }
+    filePicker: ContentPickerDialog {
+        customPeerModelLoader: peerModelLoader 
+        onDismissed: { webview.focus = true } 
+    }
 
     /*selectionActions: ActionList {
         Actions.Copy {
