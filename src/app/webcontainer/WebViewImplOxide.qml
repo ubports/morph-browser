@@ -90,6 +90,15 @@ WebViewImpl {
 
         var url = request.url.toString()
 
+        // Covers some edge cases corresponding to current Oxide potential issues (to be
+        // confirmed) that for e.g GooglePlus when a window.open() happens (or equivalent)
+        // the url that we are given (for the corresponding window.open() is 'about:blank')
+        if (url == 'about:blank') {
+            console.log('Ignoring the request to navigate to "about:blank"')
+            request.action = NavigationRequest.ActionReject
+            return;
+        }
+
         request.action = NavigationRequest.ActionReject
         if (webview.shouldAllowNavigationTo(url))
             request.action = NavigationRequest.ActionAccept
