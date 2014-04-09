@@ -57,7 +57,7 @@ class WebappContainerContentHttpServer(object):
 
     @property
     def port(self):
-        if self.server and self.server:
+        if self.server:
             return self.server.server_port
         return 0
 
