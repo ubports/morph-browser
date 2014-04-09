@@ -19,6 +19,7 @@
 #include "url-pattern-utils.h"
 
 #include <QtCore/QRegularExpression>
+#include <QDebug>
 
 
 /**
@@ -127,3 +128,25 @@ QString UrlPatternUtils::transformWebappSearchPatternToSafePattern(const QString
 
     return transformedPattern;
 }
+
+QStringList UrlPatternUtils::filterAndTransformUrlPatterns(const QStringList & includePatterns)
+{
+    QStringList patterns;
+    Q_FOREACH(const QString& includePattern, includePatterns) {
+        QString pattern = includePattern.trimmed();
+
+        if (pattern.isEmpty())
+            continue;
+
+        QString safePattern =
+                transformWebappSearchPatternToSafePattern(pattern);
+
+        if ( ! safePattern.isEmpty()) {
+            patterns.append(safePattern);
+        } else {
+            qDebug() << "Ignoring empty or invalid webapp URL pattern:" << pattern;
+        }
+    }
+    return patterns;
+}
+
