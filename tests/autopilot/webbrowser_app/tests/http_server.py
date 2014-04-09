@@ -90,11 +90,14 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             # upload field when it changes
             self.send_response(200)
             html = '<html><body style="margin: 0">'
-            html = '<form action="upload" method="post" enctype="multipart/form-data">'
-            html += '<input type="file" name="file" id="file" onchange="alert(this.value)"><br>'
+            html += '<form action="upload" method="post" '
+            html += 'enctype="multipart/form-data">'
+            html += '<input type="file" name="file" id="file" '
+            html += 'onchange="alert(this.value)"><br>'
             html += '<input type="submit" name="submit" value="Submit">'
             html += '</form>'
-            html += '<a href="javascript:document.getElementById(\'file\').click()">'
+            html += '<a href="javascript:'
+            html += 'document.getElementById(\'file\').click()">'
             html += '<div style="height: 100%"></div></a>'
             html += '</body></html>'
             self.send_html(html)

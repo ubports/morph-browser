@@ -17,14 +17,15 @@
 from __future__ import absolute_import
 
 from autopilot.introspection import get_proxy_object_for_existing_process
-from autopilot.platform import model
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals, NotEquals
-from testtools import skipIf, skip
+from testtools import skip
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 from unity8 import process_helpers as helpers
 from ubuntuuitoolkit import emulators as toolkit_emulators
-import os, subprocess
+import os
+import subprocess
+
 
 @skip("Will not work until bug #1218971 is solved")
 class TestContentPick(StartOpenRemotePageTestCaseBase):
@@ -40,6 +41,7 @@ class TestContentPick(StartOpenRemotePageTestCaseBase):
 
         dialog = self.app.wait_select_single("ContentPickerDialog")
         self.assertThat(dialog.visible, Equals(True))
+
 
 #@skipIf(model() == 'Desktop', "Phablet only")
 @skip("Currently unable to fetch dynamically created dialogs (bug #1218971)")
@@ -83,7 +85,6 @@ class TestContentPickerIntegration(StartOpenRemotePageTestCaseBase):
         currently focused one"""
 
         unity8 = self.get_unity8_proxy_object()
-        shell = unity8.select_single("Shell")
         self.assertThat(
             lambda: self.get_current_focused_appid(unity8),
             Eventually(Equals(name))
@@ -117,13 +118,14 @@ class TestContentPickerIntegration(StartOpenRemotePageTestCaseBase):
         # NOTE: this will not work unless run on a device where unity8 runs in
         # testability mode. To manually restart unity8 in this mode run from a
         # python shell:
-        # from unity8 import process_helpers as p; p.restart_unity_with_testability()
-        unity8 = self.get_unity8_proxy_object()
-        self.assertThat(lambda: self.get_app_pid("gallery-app"), Eventually(NotEquals(-1)))
+        # from unity8 import process_helpers as p
+        # p.restart_unity_with_testability()
+        self.assertThat(lambda: self.get_app_pid("gallery-app"),
+                        Eventually(NotEquals(-1)))
 
         gallery = get_proxy_object_for_existing_process(
             self.get_app_pid("gallery-app"),
-            emulator_base = toolkit_emulators.UbuntuUIToolkitEmulatorBase
+            emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase
         )
 
         # Wait for the gallery UI to completely display
@@ -131,9 +133,10 @@ class TestContentPickerIntegration(StartOpenRemotePageTestCaseBase):
         self.assertThat(view.visible, Eventually(Equals(True)))
 
         # Select the first picture on the picker by clicking on it
-        # NOTE: this is currently failing if there is anything except two pictures
-        # in the gallery (at least on a Maguro device), so I'm putting a temporary
-        # stop to the test here so that it won't break in Jenkins
+        # NOTE: this is currently failing if there is anything except two
+        # pictures in the gallery (at least on a Maguro device), so I'm
+        # putting a temporary stop to the test here so that it won't break
+        # in Jenkins
         return
 
         grid = gallery.wait_select_single("MediaGrid")
@@ -152,7 +155,8 @@ class TestContentPickerIntegration(StartOpenRemotePageTestCaseBase):
         # Verify that an image has actually been selected
         dialog = self.app.wait_select_single("ContentPickerDialog")
         self.assertThat(dialog.visible, Equals(True))
-        preview = dialog.wait_select_single("QQuickImage", objectName="mediaPreview")
+        preview = dialog.wait_select_single("QQuickImage",
+                                            objectName="mediaPreview")
         self.assertThat(preview.source, Eventually(NotEquals("")))
 
         # Verify that now we can click the "OK" button and it closes the dialog
