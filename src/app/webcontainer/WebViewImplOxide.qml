@@ -83,7 +83,7 @@ WebViewImpl {
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')
         // or if we dont have a list of url patterns specified to filter the
         // browsing actions
-        if ( ! haveValidUrlPatterns() && ! isRunningAsANamedWebapp()) {
+        if ( ! webview.haveValidUrlPatterns() && ! webview.isRunningAsANamedWebapp()) {
             request.action = NavigationRequest.ActionAccept
             return
         }
@@ -91,10 +91,10 @@ WebViewImpl {
         var url = request.url.toString()
 
         request.action = NavigationRequest.ActionReject
-        if (shouldAllowNavigationTo(url))
+        if (webview.shouldAllowNavigationTo(url))
             request.action = NavigationRequest.ActionAccept
 
-        if ( ! isRunningAsANamedWebapp() && request.disposition === NavigationRequest.DispositionNewPopup) {
+        if ( ! webview.isRunningAsANamedWebapp() && request.disposition === NavigationRequest.DispositionNewPopup) {
             console.debug('Opening: popup window ' + url + ' in the browser window.')
             Qt.openUrlExternally(url);
             return;
@@ -106,21 +106,44 @@ WebViewImpl {
         }
     }
 
+    function createPopupWindow(request) {
+        popupWebViewFactory.createObject(webview, { request: request, width: 500, height: 800 });
+    }
+
     Component {
         id: popupWebViewFactory
         Window {
             id: popup
             property alias request: popupBrowser.request
-            WebView {
+            UbuntuWebView {
                 id: popupBrowser
                 anchors.fill: parent
+
+                function navigationRequestedDelegate(request) {
+                    var url = request.url.toString()
+
+                    // If we are to browse in the popup to a place where we are not allows
+                    if (request.disposition !== NavigationRequest.DispositionNewPopup &&
+                            ! webview.shouldAllowNavigationTo(url)) {
+                        Qt.openUrlExternally(url);
+                        popup.close()
+                        return;
+                    }
+
+                    // Fallback to regulat checks (there is a bit of overlap)
+                    webview.navigationRequestedDelegate(request)
+                }
+
+                onNewTabRequested: {
+                    webview.createPopupWindow(request)
+                }
             }
             Component.onCompleted: popup.show()
         }
     }
 
     onNewTabRequested: {
-        popupWebViewFactory.createObject(webview, { request: request, width: 500, height: 800 });
+        createPopupWindow(request)
     }
 
     preferences.localStorageEnabled: true
