@@ -55,6 +55,12 @@ class WebappContainerContentHttpServer(object):
         self.server_thread.start()
         logging.info("now serving on port {}".format(self.server.server_port))
 
+    @property
+    def port(self):
+        if self.server and self.server:
+            return self.server.server_port
+        return 0
+
     def run(self):
         self.server.serve_forever()
 
