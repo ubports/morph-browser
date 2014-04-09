@@ -59,6 +59,9 @@ UbuntuWebView {
         //       the permission everytime the user visits this site.
     }*/
 
+    // The file picker dialog gets recreated every time a file upload
+    // is requested, so we keep the ContentPeerModel separate so as to
+    // avoid requerying the content-hub every time the dialog is used.
     Loader {
         id: peerModelLoader
         active: false
