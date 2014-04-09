@@ -83,7 +83,7 @@ Popups.PopupBase {
         onTriggered: {
             if(Qt.application.active) {
                 dismissed()
-                model.accept(selectedItems);
+                model.accept(selectedItems)
             }
         }
     }
