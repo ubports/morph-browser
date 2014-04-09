@@ -34,7 +34,7 @@ Item {
                 var script = "ua-overrides-%1.js".arg(formFactor)
                 var temp = null
                 try {
-                    temp = Qt.createQmlObject('import QtQml 2.0; import "%1" as Overrides; QtObject { readonly property var overrides: Overrides.overrides }'.arg(script), userAgent)
+                    temp = Qt.createQmlObject('import QtQml 2.0; import "%1" as Overrides; QtObject { readonly property var overrides: Overrides.overrides }'.arg(script), this)
                 } catch (e) {
                     console.error("No overrides found for", formFactor)
                 }
