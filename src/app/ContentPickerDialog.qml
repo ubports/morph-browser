@@ -75,7 +75,11 @@ Popups.PopupBase {
     }
 
     // FIXME: Work around for browser becoming insensitive to touch events
-    // if the dialog is dismissed while the application is inactive
+    // if the dialog is dismissed while the application is inactive.
+    // Just listening for changes to Qt.application.active doesn't appear
+    // to be enough to resolve this, so it seems that something else needs
+    // to be happening first. As such there's a potential for a race
+    // condition here, although as yet no problem has been encountered.
     Timer {
         id: acceptTimer
         interval: 100
