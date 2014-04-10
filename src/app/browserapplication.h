@@ -24,7 +24,7 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QUrl>
-#include <QApplication>
+#include <QtWidgets/QApplication>
 
 class QQmlComponent;
 class QQmlEngine;
