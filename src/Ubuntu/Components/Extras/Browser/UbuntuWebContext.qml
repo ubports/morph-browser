@@ -46,6 +46,16 @@ Item {
             }
         }
         userAgentOverrideDelegate: networkRequestDelegate
+        sessionCookieMode: {
+            if (typeof webContextSessionCookieMode !== 'undefined') {
+                if (webContextSessionCookieMode === "persistent") {
+                    return WebContext.SessionCookieModePersistent
+                } else if (webContextSessionCookieMode === "restored") {
+                    return WebContext.SessionCookieModeRestored
+                } 
+            }
+            return WebContext.SessionCookieModeEphemeral
+        }
         userScripts: [
             UserScript {
                 context: "oxide://selection/"

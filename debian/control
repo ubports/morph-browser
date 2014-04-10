@@ -31,7 +31,7 @@ Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         liboxideqt-qmlplugin,
+         liboxideqt-qmlplugin (>= 1.0.0~bzr452),
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-extras-browser-plugin (= ${binary:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
