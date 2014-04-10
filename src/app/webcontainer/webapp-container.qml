@@ -39,10 +39,7 @@ Window {
 
     title: {
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
-            // to prevent https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-toolkit/+bug/1305834
-            // caused by a recent UI toolkit change, we are returning an empty title for now:
-            // return webappName
-            return ""
+            return webappName
         } else if (browser.title) {
             // TRANSLATORS: %1 refers to the current page’s title
             return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
