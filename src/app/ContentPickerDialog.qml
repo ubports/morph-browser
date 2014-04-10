@@ -27,7 +27,7 @@ Popups.PopupBase {
     property var selectedItems
     property alias customPeerModelLoader: peerPicker.customPeerModelLoader
 
-    signal dismissed();
+    signal dismissed()
 
     Rectangle {
         anchors.fill: parent
