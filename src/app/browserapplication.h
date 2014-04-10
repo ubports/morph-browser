@@ -24,14 +24,17 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QUrl>
-#include <QtGui/QGuiApplication>
+#include <QApplication>
 
 class QQmlComponent;
 class QQmlEngine;
 class QQuickWindow;
 class WebBrowserWindow;
 
-class BrowserApplication : public QGuiApplication
+// We want the browser to be QApplication based rather than QGuiApplication
+// to provide a widget based file picker on the desktop, rather than the
+// QML fall back picker.
+class BrowserApplication : public QApplication
 {
     Q_OBJECT
 
