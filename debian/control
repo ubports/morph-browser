@@ -32,7 +32,7 @@ Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         liboxideqt-qmlplugin (>= 1.0.0~bzr452),
+         liboxideqt-qmlplugin (>= 1.0.0~bzr490),
          qtdeclarative5-dialogs-plugin,
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-content0.1,
