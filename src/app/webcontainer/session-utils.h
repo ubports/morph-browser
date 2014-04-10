@@ -16,20 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef URLPATTERNUTILS_H
-#define URLPATTERNUTILS_H
+#ifndef SESSIONUTILS_H
+#define SESSIONUTILS_H
 
 #include <QtCore/QString>
-#include <QtCore/QStringList>
 
+namespace SessionUtils {
 
-namespace UrlPatternUtils {
-
-QString transformWebappSearchPatternToSafePattern(const QString&);
-
-QStringList filterAndTransformUrlPatterns(const QStringList & includePatterns);
+bool firstRun(const QString &webappName);
 
 }
 
-
-#endif // URLPATTERNUTILS_H
+#endif // SESSIONUTILS_H
