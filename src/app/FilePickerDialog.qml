@@ -31,7 +31,7 @@ Popups.Dialog {
             for(var i in fileDialog.fileUrls) {
                 selectedFiles.push(fileDialog.fileUrls[i].replace("file://", ""))
             }
-	        model.accept(selectedFiles)
+            model.accept(selectedFiles)
         }
 
         onRejected: {
