@@ -27,8 +27,6 @@ Component {
         property var activeTransfer
         property var selectedItems
     
-        signal dismissed()
-    
         Rectangle {
             anchors.fill: parent
     
@@ -55,7 +53,7 @@ Component {
                 }
     
                 onCancelPressed: {
-                    dismissed()
+                    webview.focus = true
                     model.reject()
                 }
             }
@@ -86,7 +84,7 @@ Component {
             repeat: true
             onTriggered: {
                 if(Qt.application.active) {
-                    dismissed()
+                    webview.focus = true
                     model.accept(selectedItems)
                 }
             }
