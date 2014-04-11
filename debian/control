@@ -31,7 +31,8 @@ Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         liboxideqt-qmlplugin (>= 1.0.0~bzr452),
+         liboxideqt-qmlplugin (>= 1.0.0~bzr490),
+         qtdeclarative5-dialogs-plugin,
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-extras-browser-plugin (= ${binary:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
@@ -93,6 +94,7 @@ Depends: ${misc:Depends},
          libautopilot-qt (>= 1.4),
          libqt5test5,
          ubuntu-ui-toolkit-autopilot,
+         unity8-autopilot,
          webbrowser-app (>= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
