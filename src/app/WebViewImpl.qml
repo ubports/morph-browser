@@ -20,7 +20,6 @@ import QtQuick 2.0
 import QtQuick.Dialogs 1.0
 //import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.2
-import Ubuntu.Content 0.1
 //import Ubuntu.Components.Popups 0.1
 //import "actions" as Actions
 
@@ -37,19 +36,11 @@ UbuntuWebView {
     confirmDialog: ConfirmDialog {}
     promptDialog: PromptDialog {}
     beforeUnloadDialog: BeforeUnloadDialog {}
-    filePicker: formFactor == "desktop" ? filePickerDialog : contentPickerDialog
+    filePicker: filePickerLoader.item
 
-    Component {
-        id: contentPickerDialog
-        ContentPickerDialog {
-            customPeerModelLoader: peerModelLoader 
-            onDismissed: { webview.focus = true } 
-        }
-    }
-    
-    Component {
-        id: filePickerDialog
-        FilePickerDialog {}
+    Loader {
+        id: filePickerLoader
+        source: formFactor == "desktop" ? "FilePickerDialog.qml" : "ContentPickerDialog.qml"
     }
 
     /*selectionActions: ActionList {
@@ -73,15 +64,4 @@ UbuntuWebView {
         //       the permission everytime the user visits this site.
     }*/
 
-    // The file picker dialog gets recreated every time a file upload
-    // is requested, so we keep the ContentPeerModel separate so as to
-    // avoid requerying the content-hub every time the dialog is used.
-    Loader {
-        id: peerModelLoader
-        active: false
-        sourceComponent: ContentPeerModel {
-            contentType: ContentType.All
-            handler: ContentHandler.Source
-        }
-    }
 }

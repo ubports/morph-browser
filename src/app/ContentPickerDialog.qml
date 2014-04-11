@@ -21,79 +21,81 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1 as Popups
 import Ubuntu.Content 0.1
 
-Popups.PopupBase {
-    id: picker
-    property var activeTransfer
-    property var selectedItems
-    property alias customPeerModelLoader: peerPicker.customPeerModelLoader
-
-    signal dismissed()
-
-    Rectangle {
-        anchors.fill: parent
-
-        ContentTransferHint {
+Component {
+    Popups.PopupBase {
+        id: picker
+        property var activeTransfer
+        property var selectedItems
+        property alias customPeerModelLoader: peerPicker.customPeerModelLoader
+    
+        signal dismissed()
+    
+        Rectangle {
             anchors.fill: parent
-            activeTransfer: picker.activeTransfer
-        }
-
-        ContentPeerPicker {
-            id: peerPicker
-            anchors.fill: parent
-            visible: true
-            contentType: ContentType.All
-            handler: ContentHandler.Source
-
-            onPeerSelected: {
-                if (model.allowMultipleFiles) {
-                    peer.selectionType = ContentTransfer.Multiple
-                } else {
-                    peer.selectionType = ContentTransfer.Single
+    
+            ContentTransferHint {
+                anchors.fill: parent
+                activeTransfer: picker.activeTransfer
+            }
+    
+            ContentPeerPicker {
+                id: peerPicker
+                anchors.fill: parent
+                visible: true
+                contentType: ContentType.All
+                handler: ContentHandler.Source
+    
+                onPeerSelected: {
+                    if (model.allowMultipleFiles) {
+                        peer.selectionType = ContentTransfer.Multiple
+                    } else {
+                        peer.selectionType = ContentTransfer.Single
+                    }
+                    picker.activeTransfer = peer.request()
+                    stateChangeConnection.target = picker.activeTransfer
                 }
-                picker.activeTransfer = peer.request()
-                stateChangeConnection.target = picker.activeTransfer
-            }
-
-            onCancelPressed: {
-                dismissed()
-                model.reject()
-            }
-        }
-    }
-
-    Connections {
-        id: stateChangeConnection
-        onStateChanged: {
-            if (picker.activeTransfer.state === ContentTransfer.Charged) {
-                selectedItems = []
-                for(var i in picker.activeTransfer.items) {
-                    selectedItems.push(String(picker.activeTransfer.items[i].url).replace("file://", ""))
+    
+                onCancelPressed: {
+                    dismissed()
+                    model.reject()
                 }
-                acceptTimer.running = true
             }
         }
-    }
-
-    // FIXME: Work around for browser becoming insensitive to touch events
-    // if the dialog is dismissed while the application is inactive.
-    // Just listening for changes to Qt.application.active doesn't appear
-    // to be enough to resolve this, so it seems that something else needs
-    // to be happening first. As such there's a potential for a race
-    // condition here, although as yet no problem has been encountered.
-    Timer {
-        id: acceptTimer
-        interval: 100
-        repeat: true
-        onTriggered: {
-            if(Qt.application.active) {
-                dismissed()
-                model.accept(selectedItems)
+    
+        Connections {
+            id: stateChangeConnection
+            onStateChanged: {
+                if (picker.activeTransfer.state === ContentTransfer.Charged) {
+                    selectedItems = []
+                    for(var i in picker.activeTransfer.items) {
+                        selectedItems.push(String(picker.activeTransfer.items[i].url).replace("file://", ""))
+                    }
+                    acceptTimer.running = true
+                }
             }
         }
+    
+        // FIXME: Work around for browser becoming insensitive to touch events
+        // if the dialog is dismissed while the application is inactive.
+        // Just listening for changes to Qt.application.active doesn't appear
+        // to be enough to resolve this, so it seems that something else needs
+        // to be happening first. As such there's a potential for a race
+        // condition here, although as yet no problem has been encountered.
+        Timer {
+            id: acceptTimer
+            interval: 100
+            repeat: true
+            onTriggered: {
+                if(Qt.application.active) {
+                    dismissed()
+                    model.accept(selectedItems)
+                }
+            }
+        }
+    
+        Component.onCompleted: {
+            show()
+        }
+    
     }
-
-    Component.onCompleted: {
-        show()
-    }
-
 }
