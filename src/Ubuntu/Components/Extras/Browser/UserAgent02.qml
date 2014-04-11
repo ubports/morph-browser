@@ -29,25 +29,28 @@ import QtQml 2.0
 
 QtObject {
     // %1: Ubuntu version, e.g. "14.04"
-    // %2: optional token to specify further attributes of the platform (must start with a whitespace), e.g. "like Android"
-    // %3: optional hardware ID token (must start with a semi-colon if present)
+    // %2: optional token to specify further attributes of the platform, e.g. "like Android"
+    // %3: optional hardware ID token
     // %4: WebKit version, e.g. "537.36"
     // %5: Chromium version, e.g. "35.0.1870.2"
-    // %6: optional token to provide additional free-form information (must start with a whitespace), e.g. "Mobile"
+    // %6: Optional token to provide additional free-form information, e.g. "Mobile"
+    // %7: Safari version, e.g. "537.36"
+    // %8: Optional token, in case some extra bits are needed to make things work (e.g. an extra formfactor info etc.)
+    //
     // note #1: "Mozilla/5.0" is misinformation, but it is a legacy token that
     //   virtually every single UA out there has, it seems unwise to remove it
     // note #2: "AppleWebKit", as opposed to plain "WebKit", does make a
     //   difference in the content served by certain sites (e.g. gmail.com)
-    readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chromium/%5%6"
+    readonly property string _template: "Mozilla/5.0 (Linux; Ubuntu %1%2%3) AppleWebKit/%4 Chromium/%5 %6Safari/%7%8"
 
     // FIXME: compute at build time (using lsb_release)
     readonly property string _ubuntuVersion: "14.04"
 
-    readonly property string _attributes: (formFactor === "mobile") ? " like Android 4.4" : ""
+    readonly property string _attributes: (formFactor === "mobile") ? "like Android 4.4" : ""
 
     readonly property string _hardwareID: ""
 
-    // See chromium/src/webkit/build/webkit_version.h.in in oxide’s source tree.
+    // See chromium/src/content/webkit_version.h.in in oxide’s source tree.
     readonly property string _webkitVersion: "537.36"
 
     // See chromium/src/chrome/VERSION in oxide’s source tree.
@@ -56,7 +59,20 @@ QtObject {
     //       every time we rebase on a newer chromium.
     readonly property string _chromiumVersion: "35.0.1870.2"
 
-    readonly property string _more: (formFactor === "mobile") ? " Mobile" : ""
+    readonly property string _formFactor: (formFactor === "mobile") ? "Mobile " : ""
 
-    property string defaultUA: _template.arg(_ubuntuVersion).arg(_attributes).arg(_hardwareID).arg(_webkitVersion).arg(_chromiumVersion).arg(_more)
+    readonly property string _more: ""
+
+    property string defaultUA: {
+        var ua = _template
+        ua = ua.arg(_ubuntuVersion) // %1
+        ua = ua.arg((_attributes !== "") ? " %1".arg(_attributes) : "") // %2
+        ua = ua.arg((_hardwareID !== "") ? "; %1".arg(_hardwareID) : "") // %3
+        ua = ua.arg(_webkitVersion) // %4
+        ua = ua.arg(_chromiumVersion) // %5
+        ua = ua.arg((_formFactor !== "") ? "%1 ".arg(_formFactor) : "") // %6
+        ua = ua.arg(_webkitVersion) // %7
+        ua = ua.arg((_more !== "") ? " %1".arg(_more) : "") // %8
+        return ua
+    }
 }

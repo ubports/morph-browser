@@ -10,6 +10,7 @@ set(WEBAPP_CONTAINER webapp-container)
 
 set(WEBAPP_CONTAINER_SRC
     webapp-container.cpp
+    session-utils.cpp
     url-pattern-utils.cpp
 )
 

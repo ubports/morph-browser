@@ -16,20 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef URLPATTERNUTILS_H
-#define URLPATTERNUTILS_H
+.pragma library
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-
-
-namespace UrlPatternUtils {
-
-QString transformWebappSearchPatternToSafePattern(const QString&);
-
-QStringList filterAndTransformUrlPatterns(const QStringList & includePatterns);
-
-}
-
-
-#endif // URLPATTERNUTILS_H
+var overrides = [
+      [/^https?:\/\/(www.)?google.com\/calendar/, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chromium/35.0.1870.2 Chrome/35.0.1870.2 Safari/537.36"],
+];
