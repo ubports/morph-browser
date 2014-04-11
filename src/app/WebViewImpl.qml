@@ -62,5 +62,4 @@ UbuntuWebView {
         // TODO: we might want to store the answer to avoid requesting
         //       the permission everytime the user visits this site.
     }*/
-
 }
