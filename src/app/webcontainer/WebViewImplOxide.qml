@@ -143,6 +143,30 @@ WebViewImpl {
                     webview.navigationRequestedDelegate(request)
                 }
 
+                // Oxide (and Chromium) does not inform of non user
+                // driven navigations (or more specifically redirects that
+                // would be part of an popup/webview load (after its been
+                // granted). Quite a few sites (e.g. Youtube),
+                // create popups when clicking on links (or following a window.open())
+                // with proper youtube.com address but w/ redirection
+                // params, e.g.:
+                // http://www.youtube.com/redirect?q=http%3A%2F%2Fgodzillamovie.com%2F&redir_token=b8WPI1pq9FHXeHm2bN3KVLAJSfp8MTM5NzI2NDg3NEAxMzk3MTc4NDc0
+                // In this instance the popup & navigation is granted, but then
+                // a redirect happens inside the popup to the real target url (here http://godzillamovie.com)
+                // which is not trapped by a navigation requested and therefore not filtered.
+                // The only way to do it atm is to listen to url changed in popups & also
+                // filter there.
+                onUrlChanged: {
+                    var _url = url.toString();
+                    if (_url.trim().length === 0)
+                        return;
+
+                    if (! webview.shouldAllowNavigationTo(_url)) {
+                        Qt.openUrlExternally(_url);
+                        popup.close()
+                    }
+                }
+
                 onNewTabRequested: {
                     webview.createPopupWindow(request)
                 }
