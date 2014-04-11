@@ -37,30 +37,13 @@ Item {
     Loader {
         id: webappContainerWebViewLoader
         anchors.fill: parent
-        sourceComponent: withOxide ? webappContainerWebViewOxide : webappContainerWebViewWebkit
-    }
-
-    Component {
-        id: webappContainerWebViewWebkit
-
-        WebViewImplWebkit {
-            toolbar: containerWebview.toolbar
-            url: containerWebview.url
-            webappName: containerWebview.webappName
-            webappUrlPatterns: containerWebview.webappUrlPatterns
-            developerExtrasEnabled: containerWebview.developerExtrasEnabled
-        }
-    }
-
-    Component {
-        id: webappContainerWebViewOxide
-
-        WebViewImplOxide {
-            toolbar: containerWebview.toolbar
-            url: containerWebview.url
-            webappName: containerWebview.webappName
-            webappUrlPatterns: containerWebview.webappUrlPatterns
-            developerExtrasEnabled: containerWebview.developerExtrasEnabled
+        source: withOxide ? Qt.resolvedUrl("WebViewImplOxide.qml") : Qt.resolvedUrl("WebViewImplWebkit.qml")
+        onLoaded: {
+            webappContainerWebViewLoader.item.toolbar = containerWebview.toolbar
+            webappContainerWebViewLoader.item.url = containerWebview.url
+            webappContainerWebViewLoader.item.webappName = containerWebview.webappName
+            webappContainerWebViewLoader.item.webappUrlPatterns = containerWebview.webappUrlPatterns
+            webappContainerWebViewLoader.item.developerExtrasEnabled = containerWebview.developerExtrasEnabled
         }
     }
 }
