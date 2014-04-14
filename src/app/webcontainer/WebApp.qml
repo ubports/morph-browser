@@ -26,6 +26,7 @@ import ".."
 
 BrowserView {
     id: webapp
+    objectName: "webappBrowserView"
 
     currentWebview: webview.currentWebview
 
@@ -59,6 +60,11 @@ BrowserView {
         // The UITK is trying too hard to be clever about the header and toolbar.
         flickable: null
 
+
+        // to prevent https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-toolkit/+bug/1305834
+        // caused by a recent UI toolkit change, we are returning an empty title for now:
+        title: ""
+
         WebappContainerWebview {
             id: webview
             toolbar: panel.panel
@@ -86,6 +92,7 @@ BrowserView {
 
     PanelLoader {
         id: panel
+	objectName: "panel"
 
         currentWebview: webview.currentWebview
         chromeless: webapp.chromeless

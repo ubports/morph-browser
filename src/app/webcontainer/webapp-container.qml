@@ -21,6 +21,8 @@ import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
 
 Window {
+    objectName: "webappContainer"
+
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
     property alias backForwardButtonsVisible: browser.backForwardButtonsVisible

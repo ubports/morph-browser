@@ -35,6 +35,12 @@ UbuntuWebView {
     confirmDialog: ConfirmDialog {}
     promptDialog: PromptDialog {}
     beforeUnloadDialog: BeforeUnloadDialog {}
+    filePicker: filePickerLoader.item
+
+    Loader {
+        id: filePickerLoader
+        source: formFactor == "desktop" ? "FilePickerDialog.qml" : "ContentPickerDialog.qml"
+    }
 
     /*selectionActions: ActionList {
         Actions.Copy {
