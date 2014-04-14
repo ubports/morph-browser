@@ -32,6 +32,7 @@ WebViewImpl {
     property bool developerExtrasEnabled: false
     property var toolbar: null
     property string webappName: ""
+    property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
 
     currentWebview: webview
@@ -45,6 +46,10 @@ WebViewImpl {
             enabled: webview.contextualData.img.toString()
             onTriggered: Clipboard.push([webview.contextualData.img])
         }
+    }
+
+    function getUAString() {
+        return webview.localUserAgentOverride
     }
 
     function isRunningAsANamedWebapp() {

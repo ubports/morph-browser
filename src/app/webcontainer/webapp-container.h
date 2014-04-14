@@ -39,6 +39,7 @@ private:
     void parseCommandLine();
     void parseExtraConfiguration();
     QString getExtraWebappUrlPatterns() const;
+    QString getLocalUserAgentOverride() const;
 
 private:
     QString m_webappName;
@@ -46,6 +47,7 @@ private:
     QStringList m_webappUrlPatterns;
     bool m_withOxide;
     bool m_storeSessionCookies;
+    bool m_withLocalUserAgentOverride;
     bool m_backForwardButtonsVisible;
     bool m_addressBarVisible;
 

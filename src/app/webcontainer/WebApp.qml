@@ -37,6 +37,7 @@ BrowserView {
     property alias oxide: webview.withOxide
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
+    property alias localUserAgentOverride: webview.localUserAgentOverride
 
     actions: [
         Actions.Back {
@@ -92,7 +93,7 @@ BrowserView {
 
     PanelLoader {
         id: panel
-	objectName: "panel"
+        objectName: "panel"
 
         currentWebview: webview.currentWebview
         chromeless: webapp.chromeless
