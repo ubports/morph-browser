@@ -1,3 +1,75 @@
+webbrowser-app (0.23+14.04.20140411.1-0ubuntu1) trusty; urgency=low
+
+  [ Michael Sheldon ]
+  * Add support for file upload via content-hub
+
+  [ Ugo Riboni ]
+  * Add support for file upload via content-hub
+
+  [ Alexandre Abreu ]
+  * Make sure that we dont load unecessary libs (oxide or qtwebkit)
+    correspnding to the webengine that we dont use. (LP: #1306037)
+  * Add a basic set of integration tests for the webapp container
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Enable UA overrides for all form factors, each in a separate file.
+    Add an override for google calendar on desktop. Clean up the
+    construction of the default UA string for easier reading and
+    maintenance.
+
+  [ Bill Filler ]
+  * Add support for file upload via content-hub
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 11 Apr 2014 15:53:56 +0000
+
+webbrowser-app (0.23+14.04.20140410-0ubuntu1) trusty; urgency=low
+
+  [ David Barth ]
+  * To prevent https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-
+    toolkit/+bug/1305834 caused by a recent UI toolkit change, we are
+    returning an empty title for now. (LP: #1305834)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 10 Apr 2014 13:22:24 +0000
+
+webbrowser-app (0.23+14.04.20140409-0ubuntu1) trusty; urgency=low
+
+  [ Alexandre Abreu ]
+  * Add support for Oxide's onNavigationRequested in the container (LP:
+    #1302769)
+  * Webapps: maintain the session cookies for the user session Instruct
+    Oxide to store/load the session cookies on disk in a per-webapp
+    directory under XDG_RUNTIME_DIR. The first time in a user session
+    that the webapp is launched, the session cookies (leftover from
+    previous sessions) are not loaded, but only stored (this is the
+    chrome's "persistent" sessionCookieMode). The next times, session
+    cookies are both loaded and stored (chrome's "restored"
+    sessionCookieMode).
+
+  [ Alberto Mardegan ]
+  * Webapps: maintain the session cookies for the user session Instruct
+    Oxide to store/load the session cookies on disk in a per-webapp
+    directory under XDG_RUNTIME_DIR. The first time in a user session
+    that the webapp is launched, the session cookies (leftover from
+    previous sessions) are not loaded, but only stored (this is the
+    chrome's "persistent" sessionCookieMode). The next times, session
+    cookies are both loaded and stored (chrome's "restored"
+    sessionCookieMode).
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 09 Apr 2014 13:34:57 +0000
+
+webbrowser-app (0.23+14.04.20140407.1-0ubuntu1) trusty; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Update to oxide 1.0.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 07 Apr 2014 14:07:25 +0000
+
 webbrowser-app (0.23+14.04.20140403-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]

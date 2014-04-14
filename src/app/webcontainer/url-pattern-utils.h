@@ -20,11 +20,14 @@
 #define URLPATTERNUTILS_H
 
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 
 
 namespace UrlPatternUtils {
 
 QString transformWebappSearchPatternToSafePattern(const QString&);
+
+QStringList filterAndTransformUrlPatterns(const QStringList & includePatterns);
 
 }
 

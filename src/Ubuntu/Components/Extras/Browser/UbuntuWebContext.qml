@@ -19,7 +19,7 @@
 pragma Singleton
 
 import QtQuick 2.0
-import com.canonical.Oxide 0.1
+import com.canonical.Oxide 1.0
 
 Item {
     property string customUA: userAgent.defaultUA
@@ -27,8 +27,35 @@ Item {
     property QtObject sharedContext: WebContext {
         dataPath: dataLocation
         userAgent: customUA
-        networkRequestDelegate: uaOverrideWorker.item
+        networkRequestDelegate: WebContextDelegateWorker {
+            source: Qt.resolvedUrl("ua-override-worker.js")
+            onMessage: console.log("Overriden UA for", message.url, ":", message.override)
+            Component.onCompleted: {
+                var script = "ua-overrides-%1.js".arg(formFactor)
+                var temp = null
+                try {
+                    temp = Qt.createQmlObject('import QtQml 2.0; import "%1" as Overrides; QtObject { readonly property var overrides: Overrides.overrides }'.arg(script), this)
+                } catch (e) {
+                    console.error("No overrides found for", formFactor)
+                }
+                if (temp !== null) {
+                    console.log("Loaded %1 UA override(s) from %2".arg(temp.overrides.length).arg(Qt.resolvedUrl(script)))
+                    sendMessage({overrides: temp.overrides})
+                    temp.destroy()
+                }
+            }
+        }
         userAgentOverrideDelegate: networkRequestDelegate
+        sessionCookieMode: {
+            if (typeof webContextSessionCookieMode !== 'undefined') {
+                if (webContextSessionCookieMode === "persistent") {
+                    return WebContext.SessionCookieModePersistent
+                } else if (webContextSessionCookieMode === "restored") {
+                    return WebContext.SessionCookieModeRestored
+                } 
+            }
+            return WebContext.SessionCookieModeEphemeral
+        }
         userScripts: [
             UserScript {
                 context: "oxide://selection/"
@@ -37,19 +64,6 @@ Item {
                 matchAllFrames: true
             }
         ]
-    }
-
-    Component {
-        id: uaOverrideWorkerComponent
-
-        WebContextDelegateWorker {
-            source: Qt.resolvedUrl("ua-override-worker.js")
-            onMessage: console.log("Overriden UA for", message.url, ":", message.override)
-        }
-    }
-    Loader {
-        id: uaOverrideWorker
-        sourceComponent: (formFactor === "mobile") ? uaOverrideWorkerComponent : undefined
     }
 
     UserAgent02 {

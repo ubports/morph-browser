@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import QtQuick.Window 2.0
-import com.canonical.Oxide 0.1
+import com.canonical.Oxide 1.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
 import "."
@@ -26,7 +26,8 @@ import "."
 WebView {
     id: _webview
 
-    signal newTabRequested(url url)
+    // TODO Should be renamed to newViewRequested
+    signal newTabRequested(var request)
 
     //interactive: !selection.visible
 
@@ -96,11 +97,22 @@ WebView {
         }
     ]
 
-    /*onNavigationRequested: {
-        request.action = WebView.AcceptRequest;
+    onNewViewRequested: {
+        // TODO: at this point request.disposition should be
+        // NewViewRequest.DispositionNewPopup (all dispositions are coerced to it),
+        // not sure if it is safer to add an extra level of filtering to avoid
+        // e.g. NewViewRequest.DispositionCurrentTab being opened
+        // as new tabs (although should never happen)
+        newTabRequested(request)
+    }
 
-        navigationRequestedDelegate (request);
-        if (request.action === WebView.IgnoreRequest)
+    onNavigationRequested: {
+        request.action = NavigationRequest.ActionAccept;
+
+        navigationRequestedDelegate(request);
+
+        /*
+        if (request.action === NavigationRequest.ActionReject)
             return;
 
         var staticUA = _webview.getUAString()
@@ -109,7 +121,8 @@ WebView {
         } else {
             _webview.experimental.userAgent = staticUA
         }
-    }*/
+        */
+    }
 
     /*experimental.preferences.navigatorQtObjectEnabled: true
     experimental.userScripts: [Qt.resolvedUrl("hyperlinks.js"),

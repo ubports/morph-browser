@@ -32,120 +32,18 @@ Item {
     property string webappName: ""
     property var currentWebview: webappContainerWebViewLoader.item
     property var toolbar: null
-    property var webappUrlPatterns: null
+    property var webappUrlPatterns
 
     Loader {
         id: webappContainerWebViewLoader
         anchors.fill: parent
-        sourceComponent: withOxide ? webappContainerWebViewOxide : webappContainerWebViewWebkit
-    }
-
-    Component {
-        id: webappContainerWebViewWebkit
-
-        WebViewImplWebkit {
-            toolbar: containerWebview.toolbar
-            url: containerWebview.url
-            webappName: containerWebview.webappName
-            webappUrlPatterns: containerWebview.webappUrlPatterns
-            developerExtrasEnabled: containerWebview.developerExtrasEnabled
-        }
-    }
-
-    Component {
-        id: webappContainerWebViewOxide
-
-        WebViewImpl {
-            id: webview
-
-            url: containerWebview.url
-            currentWebview: webview
-            toolbar: containerWebview.toolbar
-
-            contextualActions: ActionList {
-                Actions.CopyLink {
-                    enabled: webview.contextualData.href.toString()
-                    onTriggered: Clipboard.push([webview.contextualData.href])
-                }
-                Actions.CopyImage {
-                    enabled: webview.contextualData.img.toString()
-                    onTriggered: Clipboard.push([webview.contextualData.img])
-                }
-            }
-
-            function haveValidUrlPatterns() {
-                return webappUrlPatterns && webappUrlPatterns.length !== 0
-            }
-
-            /*function navigationRequestedDelegate(request) {
-                if (!request.isMainFrame) {
-                    request.action = WebView.AcceptRequest
-                    return
-                }
-
-                // Pass-through if we are not running as a named webapp (--webapp='Gmail')
-                // or if we dont have a list of url patterns specified to filter the
-                // browsing actions
-                if ( ! haveValidUrlPatterns() && ! isRunningAsANamedWebapp()) {
-                    request.action = WebView.AcceptRequest
-                    return
-                }
-
-                var action = WebView.IgnoreRequest
-                var url = request.url.toString()
-
-                // The list of url patterns defined by the webapp takes precedence over command line
-                if (isRunningAsANamedWebapp()) {
-                    if (unityWebapps.model.exists(unityWebapps.name) &&
-                        unityWebapps.model.doesUrlMatchesWebapp(unityWebapps.name, url)) {
-                        request.action = WebView.AcceptRequest
-                        return;
-                    }
-                }
-
-                // We still take the possible additional patterns specified in the command line
-                // (the in the case of finer grained ones specifically for the container and not
-                // as an 'install source' for the webapp).
-                if (webappUrlPatterns && webappUrlPatterns.length !== 0) {
-                    for (var i = 0; i < webappUrlPatterns.length; ++i) {
-                        var pattern = webappUrlPatterns[i]
-                        if (url.match(pattern)) {
-                            action = WebView.AcceptRequest
-                            break
-                        }
-                    }
-                }
-
-                request.action = action
-                if (action === WebView.IgnoreRequest) {
-                    console.debug('Opening: ' + url + ' in the browser window.')
-                    Qt.openUrlExternally(url)
-                }
-            }*/
-
-            onNewTabRequested: Qt.openUrlExternally(url)
-
-            preferences.localStorageEnabled: true
-
-            // Small shim needed when running as a webapp to wire-up connections
-            // with the webview (message received, etc…).
-            // This is being called (and expected) internally by the webapps
-            // component as a way to bind to a webview lookalike without
-            // reaching out directly to its internals (see it as an interface).
-            function getUnityWebappsProxies() {
-                var eventHandlers = {
-                    onAppRaised: function () {
-                        if (webbrowserWindow) {
-                            try {
-                                webbrowserWindow.raise();
-                            } catch (e) {
-                                console.debug('Error while raising: ' + e);
-                            }
-                        }
-                    }
-                };
-                return UnityWebAppsUtils.makeProxiesForWebViewBindee(webview, eventHandlers)
-            }
+        source: withOxide ? Qt.resolvedUrl("WebViewImplOxide.qml") : Qt.resolvedUrl("WebViewImplWebkit.qml")
+        onLoaded: {
+            webappContainerWebViewLoader.item.toolbar = containerWebview.toolbar
+            webappContainerWebViewLoader.item.url = containerWebview.url
+            webappContainerWebViewLoader.item.webappName = containerWebview.webappName
+            webappContainerWebViewLoader.item.webappUrlPatterns = containerWebview.webappUrlPatterns
+            webappContainerWebViewLoader.item.developerExtrasEnabled = containerWebview.developerExtrasEnabled
         }
     }
 }
