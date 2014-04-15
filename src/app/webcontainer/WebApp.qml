@@ -37,19 +37,19 @@ BrowserView {
     property alias oxide: webview.withOxide
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
-    property alias localUserAgentOverride: webview.localUserAgentOverride
+    property alias openPopupsInDefaultBrowser: webview.openPopupsInDefaultBrowser
 
     actions: [
         Actions.Back {
             enabled: backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoBack
-            onTriggered: webview.goBack()
+            onTriggered: currentWebview.goBack()
         },
         Actions.Forward {
             enabled: backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoForward
-            onTriggered: webview.goForward()
+            onTriggered: currentWebview.goForward()
         },
         Actions.Reload {
-            onTriggered: webview.reload()
+            onTriggered: currentWebview.reload()
         }
     ]
 
@@ -77,6 +77,8 @@ BrowserView {
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
+            localUserAgentOverride: webappName && unityWebapps.model.exists(webappName) ?
+                                      unityWebapps.model.userAgentOverrideFor(webappName) : ""
         }
 
         ErrorSheet {

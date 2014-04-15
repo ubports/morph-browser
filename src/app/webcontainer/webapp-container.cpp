@@ -79,7 +79,7 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     BrowserApplication(argc, argv),
     m_withOxide(canUseOxide()),
     m_storeSessionCookies(false),
-    m_withLocalUserAgentOverride(false),
+    m_openPopupsInDefaultBrowser(false),
     m_backForwardButtonsVisible(false),
     m_addressBarVisible(false)
 {
@@ -115,13 +115,7 @@ bool WebappContainer::initialize()
             context->setContextProperty("webContextSessionCookieMode", sessionCookieMode);
         }
 
-        if (m_withLocalUserAgentOverride) {
-            QString localOverride = getLocalUserAgentOverride();
-            if ( ! localOverride.isEmpty()) {
-                qDebug() << "Using local override:" << localOverride;
-                m_window->setProperty("localUserAgentOverride", localOverride);
-            }
-        }
+        m_window->setProperty("openPopupsInDefaultBrowser", m_openPopupsInDefaultBrowser);
 
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (m_webappName.isEmpty()) {
@@ -168,60 +162,11 @@ void WebappContainer::printUsage() const
     out << "  --webapp=name                       try to match the webapp by name with an installed integration script" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
-    out << "  --with-local-ua-override            the default ua string is to be overriden by a webapp locally specified one" << endl;
+    out << "  --open-popups-externally            the window popup creation requests (e.g. from window.open) are delegated to the default browser" << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
     out << "  --enable-addressbar                 enable the display of the address bar" << endl;
-}
-
-QString WebappContainer::getLocalUserAgentOverride() const
-{
-    static const QString USER_AGENT_OVERRIDE_FILENAME =
-            "user-agent-override.conf";
-
-    QString userAgentOverrideFilepath =
-            QString("%1/%2")
-                .arg(QStandardPaths::writableLocation(QStandardPaths::DataLocation))
-                .arg(USER_AGENT_OVERRIDE_FILENAME);
-
-    QFile f(userAgentOverrideFilepath);
-    if (! f.open(QIODevice::Text | QIODevice::ReadOnly))
-        return QString();
-
-    QByteArray content = f.readAll();
-
-    QJsonParseError parseError;
-    QJsonDocument doc(QJsonDocument::fromJson(content, &parseError));
-    if (parseError.error != QJsonParseError::NoError) {
-        qDebug() << "Invalid local user agent override json document:"
-                 << userAgentOverrideFilepath
-                 << ", error:"
-                 << parseError.errorString();
-        return QString();
-    }
-
-    if (doc.isEmpty() || doc.isNull() || ! doc.isObject()) {
-        qDebug() << "Found empty or invalid local user agent override file:"
-                 << userAgentOverrideFilepath;
-        return QString();
-    }
-
-    static const QString GLOBAL_OVERRIDE_KEY = "global-override";
-    QJsonObject object = doc.object();
-    if ( ! object.keys().contains(GLOBAL_OVERRIDE_KEY)) {
-        qDebug() << "Global override key not found:"
-                 << userAgentOverrideFilepath;
-        return QString();
-    }
-
-    QJsonValue v = object.value(GLOBAL_OVERRIDE_KEY);
-    if ( ! v.isString()) {
-        qDebug() << "Found invalid local user agent override value:"
-                 << userAgentOverrideFilepath;
-        return QString();
-    }
-    return v.toString();
 }
 
 void WebappContainer::parseCommandLine()
@@ -252,8 +197,8 @@ void WebappContainer::parseCommandLine()
             m_backForwardButtonsVisible = true;
         } else if (argument == "--enable-addressbar") {
             m_addressBarVisible = true;
-        } else if (argument == "--with-local-ua-override") {
-            m_withLocalUserAgentOverride = true;
+        } else if (argument == "--open-popups-externally") {
+            m_openPopupsInDefaultBrowser = true;
         }
     }
 }

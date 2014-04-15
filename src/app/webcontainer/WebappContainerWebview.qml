@@ -33,7 +33,8 @@ Item {
     property var currentWebview: webappContainerWebViewLoader.item
     property var toolbar: null
     property var webappUrlPatterns
-    property string localUserAgentOverride: ""
+    property string localUserAgentOverride
+    property bool openPopupsInDefaultBrowser: false
 
     Loader {
         id: webappContainerWebViewLoader
@@ -53,7 +54,8 @@ Item {
                     , url: containerWebview.url
                     , webappName: containerWebview.webappName
                     , webappUrlPatterns: containerWebview.webappUrlPatterns
-                    , developerExtrasEnabled: containerWebview.developerExtrasEnabled})
+                    , developerExtrasEnabled: containerWebview.developerExtrasEnabled
+                    , openPopupsInDefaultBrowser: containerWebview.openPopupsInDefaultBrowser})
     }
 }
 

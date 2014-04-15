@@ -34,10 +34,11 @@ UbuntuWebView {
     property var toolbar: null
     property string webappName: ""
     property var webappUrlPatterns: null
+    property bool openPopupsInDefaultBrowser: false
     property string localUserAgentOverride
 
     function getUAString() {
-        return webview.localUserAgentOverride
+        return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride
     }
 
     experimental.certificateVerificationDialog: CertificateVerificationDialog {}
