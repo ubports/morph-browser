@@ -242,7 +242,7 @@ BrowserView {
 
             onNewViewRequested: {
                 var webview = webviewComponent.createObject(webviewContainer, {"request": request})
-                addTab(webview, true)
+                addTab(webview, true, false)
             }
 
             onLoadingChanged: {
@@ -253,12 +253,12 @@ BrowserView {
         }
     }
 
-    function addTab(webview, setCurrent) {
+    function addTab(webview, setCurrent, focusAddressBar) {
         var index = tabsModel.add(webview)
         if (setCurrent) {
             tabsModel.currentIndex = index
             if (!chromeless) {
-                if (!webview.url.toString()) {
+                if (focusAddressBar) {
                     panel.chrome.addressBar.forceActiveFocus()
                     panel.open()
                 }
@@ -268,7 +268,7 @@ BrowserView {
 
     function openUrlInNewTab(url, setCurrent) {
         var webview = webviewComponent.createObject(webviewContainer, {"url": url})
-        addTab(webview, setCurrent)
+        addTab(webview, setCurrent, !url.toString())
     }
 
     function closeTab(index) {
