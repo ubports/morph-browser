@@ -49,7 +49,7 @@ BrowserView {
             onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, "")//currentWebview.icon)
         },
         Actions.NewTab {
-            onTriggered: newTab("", true)
+            onTriggered: openUrlInNewTab("", true)
         },
         Actions.ClearHistory {
             onTriggered: _historyModel.clearAll()
@@ -88,7 +88,7 @@ BrowserView {
 
         function onNewTabRequested() {
             toggleActivityView()
-            newTab("", true)
+            openUrlInNewTab("", true)
         }
 
         function onSwitchToTabRequested(index) {
@@ -220,7 +220,7 @@ BrowserView {
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
                     enabled: contextualData.href.toString()
-                    onTriggered: newTab(contextualData.href, true)
+                    onTriggered: openUrlInNewTab(contextualData.href, true)
                 }
                 Actions.BookmarkLink {
                     enabled: contextualData.href.toString()
@@ -232,7 +232,7 @@ BrowserView {
                 }
                 Actions.OpenImageInNewTab {
                     enabled: contextualData.img.toString()
-                    onTriggered: newTab(contextualData.img, true)
+                    onTriggered: openUrlInNewTab(contextualData.img, true)
                 }
                 Actions.CopyImage {
                     enabled: contextualData.img.toString()
@@ -240,7 +240,10 @@ BrowserView {
                 }
             }
 
-            onNewTabRequested: newTab(url, true)
+            onNewViewRequested: {
+                var webview = webviewComponent.createObject(webviewContainer, {"request": request})
+                addTab(webview, true)
+            }
 
             onLoadingChanged: {
                 if (lastLoadSucceeded) {
@@ -250,18 +253,22 @@ BrowserView {
         }
     }
 
-    function newTab(url, setCurrent) {
-        var webview = webviewComponent.createObject(webviewContainer, {"url": url})
+    function addTab(webview, setCurrent) {
         var index = tabsModel.add(webview)
         if (setCurrent) {
             tabsModel.currentIndex = index
             if (!chromeless) {
-                if (!url) {
+                if (!webview.url.toString()) {
                     panel.chrome.addressBar.forceActiveFocus()
                     panel.open()
                 }
             }
         }
+    }
+
+    function openUrlInNewTab(url, setCurrent) {
+        var webview = webviewComponent.createObject(webviewContainer, {"url": url})
+        addTab(webview, setCurrent)
     }
 
     function closeTab(index) {
