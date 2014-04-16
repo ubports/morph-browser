@@ -47,7 +47,7 @@ WebContext {
                 return WebContext.SessionCookieModePersistent
             } else if (webContextSessionCookieMode === "restored") {
                 return WebContext.SessionCookieModeRestored
-            } 
+            }
         }
         return WebContext.SessionCookieModeEphemeral
     }
