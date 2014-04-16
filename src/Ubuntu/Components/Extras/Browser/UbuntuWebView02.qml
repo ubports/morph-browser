@@ -26,9 +26,6 @@ import "."
 WebView {
     id: _webview
 
-    // TODO Should be renamed to newViewRequested
-    signal newTabRequested(var request)
-
     //interactive: !selection.visible
 
     /**
@@ -97,36 +94,13 @@ WebView {
         }
     ]
 
-    onNewViewRequested: {
-        // TODO: at this point request.disposition should be
-        // NewViewRequest.DispositionNewPopup (all dispositions are coerced to it),
-        // not sure if it is safer to add an extra level of filtering to avoid
-        // e.g. NewViewRequest.DispositionCurrentTab being opened
-        // as new tabs (although should never happen)
-        newTabRequested(request)
-    }
-
     onNavigationRequested: {
         request.action = NavigationRequest.ActionAccept;
-
         navigationRequestedDelegate(request);
-
-        /*
-        if (request.action === NavigationRequest.ActionReject)
-            return;
-
-        var staticUA = _webview.getUAString()
-        if (staticUA === undefined) {
-            _webview.experimental.userAgent = userAgent.getUAString(request.url)
-        } else {
-            _webview.experimental.userAgent = staticUA
-        }
-        */
     }
 
     /*experimental.preferences.navigatorQtObjectEnabled: true
-    experimental.userScripts: [Qt.resolvedUrl("hyperlinks.js"),
-                               Qt.resolvedUrl("selection.js")]
+    experimental.userScripts: [Qt.resolvedUrl("selection.js")]
     experimental.onMessageReceived: {
         var data = null
         try {
@@ -169,8 +143,6 @@ WebView {
                     selection.mimedata.urls = data.images
                 }
                 selection.show(data.left, data.top, data.width, data.height)
-            } else if (data.event === 'newtab') {
-                newTabRequested(data.url)
             }
         }
     }*/
