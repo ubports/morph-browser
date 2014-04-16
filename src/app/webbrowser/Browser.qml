@@ -18,7 +18,6 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
-import Ubuntu.Components.Popups 0.1
 import Ubuntu.Content 0.1
 import UbuntuDownloadManager 0.1
 import webbrowserapp.private 0.1
@@ -30,7 +29,6 @@ BrowserView {
 
     property alias currentIndex: tabsModel.currentIndex
     currentWebview: tabsModel.currentWebview
-    property var activeTransfer
 
     actions: [
         Actions.GoTo {
@@ -243,7 +241,7 @@ BrowserView {
                     onTriggered: Clipboard.push([contextualData.img])
                 }
                 Actions.SaveImage {
-                    enabled: contextualData.img.toString()
+                    enabled: contextualData.img.toString() && formFactor != "desktop"
                     onTriggered: download(contextualData.img, ContentType.Pictures)
                 }
             }
@@ -261,41 +259,24 @@ BrowserView {
     SingleDownload {
         id: singleDownload
         autoStart: false
+        onDownloadIdChanged: {
+            downloadDialogLoader.item.downloadId = singleDownload.downloadId
+            downloadDialogLoader.item.show()
+        }
     }
 
-    PopupBase {
-        id: downloadDialog
-        anchors.fill: parent
-
-        Rectangle {
-            anchors.fill: parent
-            ContentPeerPicker {
-                id: peerPicker
-                handler: ContentHandler.Destination
-                visible: parent.visible
-
-                onPeerSelected: {
-                    browser.activeTransfer = peer.request()
-                    browser.activeTransfer.downloadId = singleDownload.downloadId
-                    browser.activeTransfer.state = ContentTransfer.Downloading
-                    downloadDialog.hide()
-                }
-
-                onCancelPressed: {
-                    downloadDialog.hide()
-                }
-            }
-        }
+    Loader {
+        id: downloadDialogLoader
+        source: formFactor == "desktop" ? "" : "../ContentDownloadDialog.qml"
     }
 
     function download(url, contentType) {
         if(contentType) {
-            peerPicker.contentType = contentType
+            downloadDialogLoader.item.contentType = contentType
         } else {
-            peerPicker.contentType = ContentType.All
+            downloaddialogLoader.item.contentType = ContentType.All
         }
         singleDownload.download(url)
-        downloadDialog.show()
     }
 
     function newTab(url, setCurrent) {
