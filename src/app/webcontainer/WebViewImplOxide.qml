@@ -47,12 +47,21 @@ WebViewImpl {
         }
     }
 
+    function shouldOpenPopupsInDefaultBrowser() {
+        return openPopupsInDefaultBrowser || formFactor !== "desktop";
+    }
+
     function isRunningAsANamedWebapp() {
         return webview.webappName && typeof(webview.webappName) === 'string' && webview.webappName.length != 0
     }
 
     function haveValidUrlPatterns() {
         return webappUrlPatterns && webappUrlPatterns.length !== 0
+    }
+
+    function isNewForegroundWebViewDisposition(disposition) {
+        return disposition === NavigationRequest.DispositionNewPopup ||
+               disposition === NavigationRequest.DispositionNewForegroundTab;
     }
 
     function shouldAllowNavigationTo(url) {
@@ -80,6 +89,27 @@ WebViewImpl {
     }
 
     function navigationRequestedDelegate(request) {
+        var newForegroundPageRequest = isNewForegroundWebViewDisposition(request.disposition)
+        var url = request.url.toString()
+
+        // Covers some edge cases corresponding to the default window.open() behavior.
+        // When it is being called, the targetted URL will not load right away but
+        // will first round trip to an "about:blank".
+        // See https://developer.mozilla.org/en-US/docs/Web/API/Window.open
+        if (newForegroundPageRequest && url == 'about:blank') {
+            console.log('Accepting a new window request to navigate to "about:blank"')
+            request.action = NavigationRequest.ActionAccept
+            return;
+        }
+
+        if (newForegroundPageRequest && shouldOpenPopupsInDefaultBrowser()) {
+            console.debug('Opening: popup window ' + url + ' in the browser window.')
+
+            request.action = NavigationRequest.ActionReject
+            Qt.openUrlExternally(url);
+            return;
+        }
+
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')
         // or if we dont have a list of url patterns specified to filter the
         // browsing actions
@@ -88,26 +118,9 @@ WebViewImpl {
             return
         }
 
-        var url = request.url.toString()
-
-        // Covers some edge cases corresponding to current Oxide potential issues (to be
-        // confirmed) that for e.g GooglePlus when a window.open() happens (or equivalent)
-        // the url that we are given (for the corresponding window.open() is 'about:blank')
-        if (url == 'about:blank') {
-            console.log('Ignoring the request to navigate to "about:blank"')
-            request.action = NavigationRequest.ActionReject
-            return;
-        }
-
         request.action = NavigationRequest.ActionReject
         if (webview.shouldAllowNavigationTo(url))
             request.action = NavigationRequest.ActionAccept
-
-        if ( ! webview.isRunningAsANamedWebapp() && request.disposition === NavigationRequest.DispositionNewPopup) {
-            console.debug('Opening: popup window ' + url + ' in the browser window.')
-            Qt.openUrlExternally(url);
-            return;
-        }
 
         if (request.action === NavigationRequest.ActionReject) {
             console.debug('Opening: ' + url + ' in the browser window.')
@@ -132,8 +145,9 @@ WebViewImpl {
                     var url = request.url.toString()
 
                     // If we are to browse in the popup to a place where we are not allows
-                    if (request.disposition !== NavigationRequest.DispositionNewPopup &&
+                    if ( ! isNewForegroundWebViewDisposition(request.disposition) &&
                             ! webview.shouldAllowNavigationTo(url)) {
+                        request.action = NavigationRequest.ActionReject
                         Qt.openUrlExternally(url);
                         popup.close()
                         return;
@@ -161,7 +175,7 @@ WebViewImpl {
                     if (_url.trim().length === 0)
                         return;
 
-                    if (! webview.shouldAllowNavigationTo(_url)) {
+                    if (_url != 'about:blank' && ! webview.shouldAllowNavigationTo(_url)) {
                         Qt.openUrlExternally(_url);
                         popup.close()
                     }
