@@ -1,3 +1,11 @@
+webbrowser-app (0.23+14.04.20140414-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Force the page title to be reset to an empty string when the
+    activity view is being hidden. (LP: #1307420)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 14 Apr 2014 19:38:12 +0000
+
 webbrowser-app (0.23+14.04.20140411.1-0ubuntu1) trusty; urgency=low
 
   [ Michael Sheldon ]

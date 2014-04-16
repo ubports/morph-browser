@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-04-10 16:28+0100\n"
-"PO-Revision-Date: 2014-04-07 07:28+0000\n"
+"PO-Revision-Date: 2014-04-14 06:16+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-12 09:42+0000\n"
+"X-Launchpad-Export-Date: 2014-04-16 07:07+0000\n"
 "X-Generator: Launchpad (build 16976)\n"
 
 #: src/app/AlertDialog.qml:24
@@ -122,7 +122,7 @@ msgstr "Freskaat ar bajenn"
 
 #: src/app/FilePickerDialog.qml:26
 msgid "Please choose a file"
-msgstr ""
+msgstr "Dibabit ur restr, mar plij"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
@@ -324,4 +324,4 @@ msgstr "Diuzañ ur gont"
 
 #: src/app/webcontainer/WebViewImplWebkit.qml:63
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Fellout a ra d'ar bajenn-mañ gouzout pelec'h emañ ho penveg."
