@@ -48,7 +48,7 @@ WebViewImpl {
     }
 
     function shouldOpenPopupsInDefaultBrowser() {
-        return openPopupsInDefaultBrowser || formFactor !== "desktop";
+        return formFactor !== "desktop";
     }
 
     function isRunningAsANamedWebapp() {
