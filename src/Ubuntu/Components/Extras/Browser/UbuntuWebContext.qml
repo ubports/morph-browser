@@ -21,7 +21,7 @@ import com.canonical.Oxide 1.0
 
 WebContext {
     dataPath: dataLocation
-    userAgent: userAgent02.defaultUA
+    userAgent: __ua.defaultUA
     networkRequestDelegate: WebContextDelegateWorker {
         source: Qt.resolvedUrl("ua-override-worker.js")
         onMessage: console.log("Overriden UA for", message.url, ":", message.override)
@@ -60,7 +60,5 @@ WebContext {
         }
     ]
 
-    property QtObject __ua: UserAgent02 {
-        id: userAgent02
-    }
+    property QtObject __ua: UserAgent02 {}
 }

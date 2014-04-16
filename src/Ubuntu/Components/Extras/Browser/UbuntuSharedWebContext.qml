@@ -18,9 +18,9 @@
 
 pragma Singleton
 
-import QtQuick 2.0
+import QtQml 2.0
 
-Item {
+QtObject {
     property alias customUA: context.userAgent
 
     property QtObject sharedContext: UbuntuWebContext {
