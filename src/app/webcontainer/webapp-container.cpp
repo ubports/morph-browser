@@ -79,7 +79,6 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     BrowserApplication(argc, argv),
     m_withOxide(canUseOxide()),
     m_storeSessionCookies(false),
-    m_openPopupsInDefaultBrowser(false),
     m_backForwardButtonsVisible(false),
     m_addressBarVisible(false)
 {
@@ -114,8 +113,6 @@ bool WebappContainer::initialize()
             qDebug() << "Setting session cookie mode to" << sessionCookieMode;
             context->setContextProperty("webContextSessionCookieMode", sessionCookieMode);
         }
-
-        m_window->setProperty("openPopupsInDefaultBrowser", m_openPopupsInDefaultBrowser);
 
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (m_webappName.isEmpty()) {
@@ -162,7 +159,6 @@ void WebappContainer::printUsage() const
     out << "  --webapp=name                       try to match the webapp by name with an installed integration script" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
-    out << "  --open-popups-externally            the window popup creation requests (e.g. from window.open) are delegated to the default browser" << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
@@ -197,8 +193,6 @@ void WebappContainer::parseCommandLine()
             m_backForwardButtonsVisible = true;
         } else if (argument == "--enable-addressbar") {
             m_addressBarVisible = true;
-        } else if (argument == "--open-popups-externally") {
-            m_openPopupsInDefaultBrowser = true;
         }
     }
 }

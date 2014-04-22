@@ -37,19 +37,18 @@ BrowserView {
     property alias oxide: webview.withOxide
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
-    property alias openPopupsInDefaultBrowser: webview.openPopupsInDefaultBrowser
 
     actions: [
         Actions.Back {
             enabled: backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoBack
-            onTriggered: currentWebview.goBack()
+            onTriggered: webview.goBack()
         },
         Actions.Forward {
             enabled: backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoForward
-            onTriggered: currentWebview.goForward()
+            onTriggered: webview.goForward()
         },
         Actions.Reload {
-            onTriggered: currentWebview.reload()
+            onTriggered: webview.reload()
         }
     ]
 

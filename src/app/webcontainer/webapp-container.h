@@ -46,7 +46,6 @@ private:
     QStringList m_webappUrlPatterns;
     bool m_withOxide;
     bool m_storeSessionCookies;
-    bool m_openPopupsInDefaultBrowser;
     bool m_backForwardButtonsVisible;
     bool m_addressBarVisible;
 

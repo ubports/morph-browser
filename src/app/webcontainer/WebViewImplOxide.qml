@@ -33,7 +33,6 @@ WebViewImpl {
     property var toolbar: null
     property string webappName: ""
     property string localUserAgentOverride
-    property bool openPopupsInDefaultBrowser: false
     property var webappUrlPatterns: null
 
     currentWebview: webview
@@ -49,12 +48,9 @@ WebViewImpl {
         }
     }
 
+    // Function defined by the UbuntuWebView and overrided here to handle potential webapp defined UA overrides
     function getUAString() {
         return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride
-    }
-
-    function shouldOpenPopupsInDefaultBrowser() {
-        return openPopupsInDefaultBrowser || formFactor !== "desktop";
     }
 
     function isRunningAsANamedWebapp() {
@@ -90,30 +86,6 @@ WebViewImpl {
     }
 
     function navigationRequestedDelegate(request) {
-        var newForegroundPageRequest =
-                request.disposition === NavigationRequest.DispositionNewPopup ||
-                request.disposition === NavigationRequest.DispositionNewForegroundTab;
-
-        var url = request.url.toString()
-
-        // Covers some edge cases corresponding to the default window.open() behavior.
-        // When it is being called, the targetted URL will not load right away but
-        // will first round trip to an "about:blank".
-        // See https://developer.mozilla.org/en-US/docs/Web/API/Window.open
-        if (newForegroundPageRequest && url == 'about:blank') {
-            console.log('Accepting a new window request to navigate to "about:blank"')
-            request.action = NavigationRequest.ActionAccept
-            return;
-        }
-
-        if (newForegroundPageRequest && shouldOpenPopupsInDefaultBrowser()) {
-            console.debug('Opening: popup window ' + url + ' in the browser window.')
-
-            request.action = NavigationRequest.ActionReject
-            Qt.openUrlExternally(url);
-            return;
-        }
-
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')
         // or if we dont have a list of url patterns specified to filter the
         // browsing actions
@@ -122,9 +94,26 @@ WebViewImpl {
             return
         }
 
+        var url = request.url.toString()
+
+        // Covers some edge cases corresponding to current Oxide potential issues (to be
+        // confirmed) that for e.g GooglePlus when a window.open() happens (or equivalent)
+        // the url that we are given (for the corresponding window.open() is 'about:blank')
+        if (url == 'about:blank') {
+            console.log('Ignoring the request to navigate to "about:blank"')
+            request.action = NavigationRequest.ActionReject
+            return;
+        }
+
         request.action = NavigationRequest.ActionReject
         if (webview.shouldAllowNavigationTo(url))
             request.action = NavigationRequest.ActionAccept
+
+        if ( ! webview.isRunningAsANamedWebapp() && request.disposition === NavigationRequest.DispositionNewPopup) {
+            console.debug('Opening: popup window ' + url + ' in the browser window.')
+            Qt.openUrlExternally(url);
+            return;
+        }
 
         if (request.action === NavigationRequest.ActionReject) {
             console.debug('Opening: ' + url + ' in the browser window.')

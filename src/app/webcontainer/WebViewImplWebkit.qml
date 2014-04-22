@@ -34,7 +34,6 @@ UbuntuWebView {
     property var toolbar: null
     property string webappName: ""
     property var webappUrlPatterns: null
-    property bool openPopupsInDefaultBrowser: false
     property string localUserAgentOverride
 
     function getUAString() {
