@@ -34,7 +34,13 @@ function getImgFullUri(uri) {
         if (firstcolon !== -1) {
             protocol = docuri.slice(0, firstcolon + 3);
         }
-        return protocol + document.domain + uri;
+        if (uri.slice(0, 2) === '//') {
+            // URLs beginning with a // should just inherit the protocol
+            // from the current page
+            return protocol + uri;
+        } else {
+            return protocol + document.domain + uri;
+        }
     } else {
         var base = document.baseURI;
         var lastslash = base.lastIndexOf('/');
