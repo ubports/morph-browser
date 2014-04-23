@@ -143,17 +143,13 @@ WebViewImpl {
                     webview.navigationRequestedDelegate(request)
                 }
 
-                onNewTabRequested: {
-                    webview.createPopupWindow(request)
-                }
+                onNewViewRequested: webview.createPopupWindow(request)
             }
             Component.onCompleted: popup.show()
         }
     }
 
-    onNewTabRequested: {
-        createPopupWindow(request)
-    }
+    onNewViewRequested: createPopupWindow(request)
 
     preferences.localStorageEnabled: true
 
