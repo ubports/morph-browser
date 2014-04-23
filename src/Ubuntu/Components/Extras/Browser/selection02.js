@@ -37,7 +37,7 @@ function getImgFullUri(uri) {
         if (uri.slice(0, 2) === '//') {
             // URLs beginning with a // should just inherit the protocol
             // from the current page
-            return protocol + uri;
+            return protocol + uri.slice(2);
         } else {
             return protocol + document.domain + uri;
         }
