@@ -6,14 +6,10 @@
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
+import http.server as http
 import logging
 import threading
 import time
-
-try:
-    import http.server as http
-except ImportError:
-    import BaseHTTPServer as http
 
 logger = logging.getLogger(__name__)
 

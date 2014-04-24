@@ -15,13 +15,9 @@
 
 """ Autopilot tests for the webapp_container package """
 
+import http.server as http
 import logging
 import threading
-
-try:
-    import http.server as http
-except ImportError:
-    import BaseHTTPServer as http
 
 
 class RequestHandler(http.BaseHTTPRequestHandler):

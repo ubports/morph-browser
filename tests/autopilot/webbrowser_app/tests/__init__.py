@@ -19,11 +19,7 @@
 import os
 import os.path
 import shutil
-
-try:
-    import urllib.request as urllib
-except ImportError:
-    import urllib2 as urllib
+import urllib.request
 
 from testtools.matchers import Contains, Equals
 
@@ -169,7 +165,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.main_window.get_activity_view()
 
     def ping_server(self):
-        ping = urllib.urlopen(self.base_url + "/ping")
+        ping = urllib.request.urlopen(self.base_url + "/ping")
         self.assertThat(ping.read(), Equals(b"pong"))
 
 
