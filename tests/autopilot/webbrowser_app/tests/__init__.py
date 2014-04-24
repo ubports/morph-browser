@@ -31,7 +31,7 @@ from autopilot.matchers import Eventually
 from autopilot.platform import model
 from autopilot.testcase import AutopilotTestCase
 
-import http_server
+from . import http_server
 
 from ubuntuuitoolkit import emulators as toolkit_emulators
 
@@ -170,7 +170,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
     def ping_server(self):
         ping = urllib.urlopen(self.base_url + "/ping")
-        self.assertThat(ping.read(), Equals("pong"))
+        self.assertThat(ping.read(), Equals(b"pong"))
 
 
 class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
@@ -188,7 +188,7 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
     def setUp(self):
         self.server = http_server.HTTPServerInAThread()
         self.addCleanup(self.server.cleanup)
-        self.base_url = "http://localhost:%d" % self.server.port
+        self.base_url = "http://localhost:{}".format(self.server.port)
         self.ping_server()
         self.url = self.base_url + "/loremipsum"
         self.ARGS = [self.url]

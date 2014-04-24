@@ -15,7 +15,7 @@
 
 """ Autopilot tests for the webapp_container package """
 
-import os
+import os.path
 import subprocess
 
 from autopilot.testcase import AutopilotTestCase
@@ -33,8 +33,8 @@ try:
 except subprocess.CalledProcessError:
     pass
 
-LOCAL_BROWSER_CONTAINER_PATH_NAME = "%s/%s" % (BASE_FILE_PATH,
-                                               CONTAINER_EXEC_REL_PATH)
+LOCAL_BROWSER_CONTAINER_PATH_NAME = \
+    os.path.join(BASE_FILE_PATH, CONTAINER_EXEC_REL_PATH)
 
 
 class WebappContainerTestCaseBase(AutopilotTestCase):
@@ -74,7 +74,7 @@ class WebappContainerTestCaseWithLocalContentBase(WebappContainerTestCaseBase):
         super(WebappContainerTestCaseWithLocalContentBase, self).setUp()
         self.http_server = fake_servers.WebappContainerContentHttpServer()
         self.addCleanup(self.http_server.shutdown)
-        self.base_url = "http://localhost:%d" % self.http_server.port
+        self.base_url = "http://localhost:{}".format(self.http_server.port)
 
     def launch_webcontainer_app_with_local_http_server(self, args, path='/'):
         self.url = self.base_url + path

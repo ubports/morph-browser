@@ -25,19 +25,20 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
     """
 
     def make_html(self, title, body):
-        return "<html><title>%s</title><body>%s</body></html>" % (title, body)
+        html = "<html><title>{}</title><body>{}</body></html>"
+        return html.format(title, body)
 
     def send_html(self, html):
         self.send_header("Content-Type", "text/html")
         self.end_headers()
-        self.wfile.write(html)
+        self.wfile.write(html.encode())
 
     def do_GET(self):
         if self.path == "/ping":
             self.send_response(200)
             self.send_header("Content-Type", "text/plain")
             self.end_headers()
-            self.wfile.write("pong")
+            self.wfile.write(b"pong")
         elif self.path == "/loremipsum":
             self.send_response(200)
             title = "Lorem Ipsum"
@@ -53,8 +54,8 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
         elif self.path.startswith("/wait/"):
             delay = int(self.path[6:])
             self.send_response(200)
-            title = "waiting %d seconds" % delay
-            body = "<p>this page took %d seconds to load</p>" % delay
+            title = "waiting {} seconds".format(delay)
+            body = "<p>this page took {} seconds to load</p>".format(delay)
             html = self.make_html(title, body)
             time.sleep(delay)
             self.send_html(html)
@@ -64,7 +65,7 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             delay = int(self.path[23:])
             self.send_response(200)
             html = '<html><body style="margin: 0">'
-            html += '<a href="/wait/%d">' % delay
+            html += '<a href="/wait/{}">'.format(delay)
             html += '<div style="height: 100%"></div></a>'
             html += '</body></html>'
             self.send_html(html)
@@ -108,10 +109,10 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             self.send_error(404)
 
     def log_message(self, format, *args):
-        logger.info(format % args)
+        logger.info(format.format(args))
 
     def log_error(self, format, *args):
-        logger.error(format % args)
+        logger.error(format.format(args))
 
 
 class HTTPServerInAThread(object):

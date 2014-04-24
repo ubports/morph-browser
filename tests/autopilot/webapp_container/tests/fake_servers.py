@@ -28,7 +28,7 @@ class RequestHandler(http.BaseHTTPRequestHandler):
     def serve_content(self, content, mime_type='text/html'):
         self.send_header('Content-type', mime_type)
         self.end_headers()
-        self.wfile.write(content)
+        self.wfile.write(content.encode())
 
     def basic_html_content(self):
         return """
