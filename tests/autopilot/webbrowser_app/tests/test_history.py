@@ -117,8 +117,8 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         coord = suggestions.globalRect
         webview = self.main_window.get_current_webview()
         self.pointing_device.move(
-            coord[0] + int(coord[2] / 2),
-            int((coord[1] + webview.globalRect[1]) / 2))
+            coord[0] + coord[2] // 2,
+            (coord[1] + webview.globalRect[1]) // 2)
         self.pointing_device.click()
         self.assert_suggestions_eventually_hidden()
 
