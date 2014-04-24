@@ -19,9 +19,10 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
-import ".."
 
 Window {
+    objectName: "webappContainer"
+
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
     property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
@@ -31,6 +32,7 @@ Window {
     property alias webappName: browser.webappName
     property alias webappModelSearchPath: browser.webappModelSearchPath
     property alias webappUrlPatterns: browser.webappUrlPatterns
+    property alias oxide: browser.oxide
 
     contentOrientation: browser.screenOrientation
 

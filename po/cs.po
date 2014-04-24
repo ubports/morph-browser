@@ -7,59 +7,63 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-11-13 09:10+0100\n"
-"PO-Revision-Date: 2013-08-19 11:51+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-04-10 16:28+0100\n"
+"PO-Revision-Date: 2014-01-08 10:01+0000\n"
+"Last-Translator: Tadeáš Pařík <tadeas.parik@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-12-06 06:25+0000\n"
-"X-Generator: Launchpad (build 16863)\n"
-
-#: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
-msgid "Activity"
-msgstr ""
-
-#: src/app/ActivityView.qml:54
-msgid "Bookmarks"
-msgstr ""
+"X-Launchpad-Export-Date: 2014-04-12 09:42+0000\n"
+"X-Generator: Launchpad (build 16976)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "Varování JavaScriptu"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Je požadováno ověření."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "Webová stránka %1 požaduje ověření."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Uživatelské jméno"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "Heslo"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
+msgstr "Zrušit"
+
+#: src/app/BeforeUnloadDialog.qml:24
+msgid "Confirm Navigation"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:28
+msgid "Leave"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:33
+msgid "Stay"
 msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "Toto spojení není důvěryhodné"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -68,222 +72,254 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"Pokoušíte se bezpečně spojit s %1, ale bezpečnostní certifikát této stránky "
+"není důvěryhodný."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Přesto pokračovat"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "Zpět na bezpečnější stránku"
 
 #: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
 msgid "Back"
-msgstr ""
+msgstr "Zpět"
 
 #: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr ""
+msgstr "Vpřed"
+
+#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
+msgid "Activity"
+msgstr "Aktivita"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "Potvrezení JavaScriptu"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr ""
+msgstr "Chyba sítě"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "Zdá se, že máte potíže se zobrazením %1."
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
-msgstr ""
+msgstr "Zkontrolujte vaše síťová nastavení a znovu zkuste načíst stránku."
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
+msgstr "Obnovit stránku"
+
+#: src/app/FilePickerDialog.qml:26
+msgid "Please choose a file"
 msgstr ""
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Je požadováno povolení"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Odmítnout"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "Povolit"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "Výzva JavaScriptu"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Je vyžadována proxy autorizace."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
-
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/TabsList.qml:37
-#, qt-format
-msgid "Currently viewing (%1)"
-msgstr ""
-
-#: src/app/TabsList.qml:68
-msgid "+"
-msgstr ""
-
-#: src/app/TimelineView.qml:83
-msgid "Today"
-msgstr ""
-
-#: src/app/TimelineView.qml:85
-msgid "Yesterday"
-msgstr ""
-
-#: src/app/TimelineView.qml:87
-msgid "Last 7 Days"
-msgstr ""
-
-#: src/app/TimelineView.qml:89
-msgid "This Month"
-msgstr ""
-
-#: src/app/TimelineView.qml:91
-msgid "This Year"
-msgstr ""
-
-#: src/app/TimelineView.qml:93
-msgid "Older"
-msgstr ""
-
-#: src/app/TimelineView.qml:276
-msgid "(local files)"
-msgstr ""
-
-#: src/app/TimelineView.qml:278
-msgid "(other)"
-msgstr ""
-
-#: src/app/WebViewImpl.qml:52
-msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Stránka %1:%2 vyžaduje ověření."
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr ""
+msgstr "Starší stránka"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr ""
+msgstr "Záložka"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr ""
+msgstr "Přidat stránku do záložek"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "Záložka odkazu"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Vymazat historii"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Smazat historii procházení"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr ""
+msgstr "Kopírovat"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Kopírovat obrázek"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Kopírovat odkaz"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr ""
+msgstr "Novější stránka"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr ""
+msgstr "Přejít na"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr ""
+msgstr "Adresa;URL;www"
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
-msgstr ""
+msgstr "Nový panel"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr ""
+msgstr "Otevřít v novém panelu"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "Otevřít obrázek v novém panelu"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Otevřít odkaz v novém panelu"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr ""
+msgstr "Obnovit"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr ""
+msgstr "Opustit stránku"
+
+#: src/app/webbrowser/ActivityView.qml:54
+msgid "Bookmarks"
+msgstr "Záložky"
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/app/webbrowser/TabsList.qml:37
+#, qt-format
+msgid "Currently viewing (%1)"
+msgstr "Počet prohlížených stránek: (%1)"
+
+#: src/app/webbrowser/TabsList.qml:68
+msgid "+"
+msgstr "+"
+
+#: src/app/webbrowser/TimelineView.qml:84
+msgid "Today"
+msgstr "Dnes"
+
+#: src/app/webbrowser/TimelineView.qml:86
+msgid "Yesterday"
+msgstr "Včera"
+
+#: src/app/webbrowser/TimelineView.qml:88
+msgid "Last 7 Days"
+msgstr "Posledních 7 dní"
+
+#: src/app/webbrowser/TimelineView.qml:90
+msgid "This Month"
+msgstr "Tento měsíc"
+
+#: src/app/webbrowser/TimelineView.qml:92
+msgid "This Year"
+msgstr "Tento rok"
+
+#: src/app/webbrowser/TimelineView.qml:94
+msgid "Older"
+msgstr "Starší"
+
+#: src/app/webbrowser/TimelineView.qml:277
+msgid "(local files)"
+msgstr "(místní soubory)"
+
+#: src/app/webbrowser/TimelineView.qml:279
+msgid "(other)"
+msgstr "(ostatní)"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "Prohlížeč"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "Internetový prohlížeč"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "Prohlížeč World Wide Webu"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:45
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - Internetový prohlížeč Ubuntu"
 
-#: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:47
 msgid "Ubuntu Web Browser"
+msgstr "Internetový prohlížeč Ubuntu"
+
+#: src/app/webcontainer/AccountsLoginPage.qml:70
+msgid "No local account found for "
 msgstr ""
 
-#: src/app/webbrowser-app.desktop.in:3
-msgid "Browser"
+#: src/app/webcontainer/AccountsLoginPage.qml:75
+msgid "Skip account creation step"
 msgstr ""
 
-#: src/app/webbrowser-app.desktop.in:4
-msgid "Web Browser"
+#: src/app/webcontainer/AccountsLoginPage.qml:124
+msgid "Add account"
 msgstr ""
 
-#: src/app/webbrowser-app.desktop.in:5
-msgid "Browse the World Wide Web"
+#: src/app/webcontainer/AccountsView.qml:38
+msgid "Select an account"
+msgstr ""
+
+#: src/app/webcontainer/WebViewImplWebkit.qml:63
+msgid "This page wants to know your device’s location."
 msgstr ""

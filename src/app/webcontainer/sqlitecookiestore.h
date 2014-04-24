@@ -16,36 +16,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __WEBTHUMBNAIL_UTILS_H__
-#define __WEBTHUMBNAIL_UTILS_H__
+#ifndef SQLITECOOKIESTORE_H
+#define SQLITECOOKIESTORE_H
 
-// Qt
-#include <QtCore/QDir>
-#include <QtCore/QFileInfo>
-#include <QtCore/QObject>
+#include "cookiestore.h"
+#include <QString>
 
-class QImage;
-class QUrl;
 
-class WebThumbnailUtils : public QObject
+class SqliteCookieStore : public CookieStore
 {
     Q_OBJECT
+    Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
+
 
 public:
-    static WebThumbnailUtils& instance();
-    ~WebThumbnailUtils();
+    SqliteCookieStore(QObject *parent = 0);
 
-    static QDir cacheLocation();
-    static void ensureCacheLocation();
-    static QFileInfo thumbnailFile(const QUrl& url);
+    void setDbPath (const QString & path);
+    QString dbPath () const;
 
-public Q_SLOTS:
-    void cacheThumbnail(const QUrl& url, const QImage& thumbnail) const;
+    QDateTime lastUpdateTimeStamp() const Q_DECL_OVERRIDE;
+
+
+Q_SIGNALS:
+
+    void dbPathChanged();
+
 
 private:
-    WebThumbnailUtils(QObject* parent=0);
 
-    void expireCache() const;
+    virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
+    virtual void doSetCookies(Cookies) Q_DECL_OVERRIDE;
+
+    QString getFullDbPathName() const;
+
+
+private:
+    QString m_dbPath;
 };
 
-#endif // __WEBTHUMBNAIL_UTILS_H__
+#endif // SQLITECOOKIESTORE_H

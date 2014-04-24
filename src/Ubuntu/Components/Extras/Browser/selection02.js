@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -117,7 +117,7 @@ function distance(touch1, touch2) {
                      Math.pow(touch2.clientY - touch1.clientY, 2));
 }
 
-navigator.qt.onmessage = function(message) {
+/*navigator.qt.onmessage = function(message) {
     var data = null;
     try {
         data = JSON.parse(message.data);
@@ -131,48 +131,17 @@ navigator.qt.onmessage = function(message) {
             navigator.qt.postMessage(JSON.stringify(selection));
         }
     }
-}
+}*/
 
-var longpressObserver = -1;
-var currentTouch = null;
-var longpressDetected = false;
-
-function longPressDetected(x, y) {
-    longpressDetected = true;
-    var element = document.elementFromPoint(x, y);
+document.documentElement.addEventListener('contextmenu', function(event) {
+    var element = document.elementFromPoint(event.clientX, event.clientY);
     var data = getSelectedData(element);
-    data.event = 'longpress';
-    navigator.qt.postMessage(JSON.stringify(data));
-}
-
-function clearLongpressTimeout() {
-    clearTimeout(longpressObserver);
-    longpressObserver = -1;
-    currentTouch = null;
-}
-
-var doc = document.documentElement;
-
-doc.addEventListener('touchstart', function(event) {
-    if (event.touches.length == 1) {
-        currentTouch = event.touches[0];
-        longpressObserver = setTimeout(longPressDetected, 800, currentTouch.clientX, currentTouch.clientY);
-    }
+    var w = document.defaultView;
+    data['scaleX'] = w.outerWidth / w.innerWidth * w.devicePixelRatio;
+    data['scaleY'] = w.outerHeight / w.innerHeight * w.devicePixelRatio;
+    oxide.sendMessage('contextmenu', data);
 });
 
-doc.addEventListener('touchend', function(event) {
-    if (longpressDetected) {
-        longpressDetected = false;
-        event.preventDefault();
-    }
-    clearLongpressTimeout();
-});
-
-doc.addEventListener('touchmove', function(event) {
-    if (!currentTouch) {
-        return;
-    } 
-    if ((event.changedTouches.length > 1) || (distance(event.changedTouches[0], currentTouch) > 3)) {
-        clearLongpressTimeout();
-    }
+document.defaultView.addEventListener('scroll', function(event) {
+    oxide.sendMessage('scroll', {});
 });

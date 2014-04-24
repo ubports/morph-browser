@@ -17,22 +17,12 @@
  */
 
 #include "plugin.h"
-#include "history-model.h"
-#include "history-matches-model.h"
-#include "history-timeframe-model.h"
-#include "history-domain-model.h"
-#include "history-domainlist-model.h"
-#include "history-domainlist-chronological-model.h"
-#include "tabs-model.h"
-#include "bookmarks-model.h"
-#include "webthumbnail-provider.h"
-#include "webthumbnail-utils.h"
-#include "webview-thumbnailer.h"
 
 // Qt
 #include <QtCore/QDir>
 #include <QtCore/QStandardPaths>
-#include <QtCore/QThread>
+#include <QtCore/QtGlobal>
+#include <QtGui/QGuiApplication>
 #include <QtQml>
 
 static float getQtWebkitDpr()
@@ -41,6 +31,36 @@ static float getQtWebkitDpr()
     bool ok = false;
     float value = stringValue.toFloat(&ok);
     return ok ? value : 1.0;
+}
+
+static QString getFormFactor()
+{
+    // This implementation only considers two possible form factors: desktop,
+    // and mobile (which includes phones and tablets).
+    // XXX: do we need to consider other form factors, such as tablet?
+    const char* DESKTOP = "desktop";
+    const char* MOBILE = "mobile";
+
+    // The "DESKTOP_MODE" environment variable can be used to force the form
+    // factor to desktop, when set to any valid value other than 0.
+    const char* DESKTOP_MODE_ENV_VAR = "DESKTOP_MODE";
+    if (qEnvironmentVariableIsSet(DESKTOP_MODE_ENV_VAR)) {
+        QByteArray stringValue = qgetenv(DESKTOP_MODE_ENV_VAR);
+        bool ok = false;
+        int value = stringValue.toInt(&ok);
+        if (ok) {
+            return (value == 0) ? MOBILE : DESKTOP;
+        }
+    }
+
+    // XXX: Assume that QtUbuntu means mobile, which is currently the case,
+    // but may not remain true forever.
+    QString platform = QGuiApplication::platformName();
+    if ((platform == "ubuntu") || (platform == "ubuntumirclient")) {
+        return MOBILE;
+    }
+
+    return DESKTOP;
 }
 
 void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
@@ -58,37 +78,10 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     // calculating the proper pixel ratio by device/screen).
     context->setContextProperty("QtWebKitDPR", getQtWebkitDpr());
 
-    // This singleton lives in its own thread to ensure that
-    // disk I/O is not performed in the UI thread.
-    WebThumbnailUtils& utils = WebThumbnailUtils::instance();
-    m_thumbnailUtilsThread = new QThread;
-    utils.moveToThread(m_thumbnailUtilsThread);
-    m_thumbnailUtilsThread->start();
-
-    WebThumbnailProvider* thumbnailer = new WebThumbnailProvider;
-    engine->addImageProvider(QLatin1String("webthumbnail"), thumbnailer);
-    context->setContextProperty("WebThumbnailer", thumbnailer);
-
-    connect(engine, SIGNAL(destroyed()), SLOT(onEngineDestroyed()));
+    context->setContextProperty("formFactor", getFormFactor());
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
 {
     Q_ASSERT(uri == QLatin1String("Ubuntu.Components.Extras.Browser"));
-    qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
-    qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
-    qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
-    qmlRegisterType<HistoryDomainModel>(uri, 0, 1, "HistoryDomainModel");
-    qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
-    qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
-    qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
-    qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
-    qmlRegisterType<WebviewThumbnailer>(uri, 0, 1, "WebviewThumbnailer");
-}
-
-void UbuntuBrowserPlugin::onEngineDestroyed()
-{
-    m_thumbnailUtilsThread->quit();
-    m_thumbnailUtilsThread->wait();
-    delete m_thumbnailUtilsThread;
 }

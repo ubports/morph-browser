@@ -19,7 +19,7 @@
 #ifndef __WEBAPP_CONTAINER_H__
 #define __WEBAPP_CONTAINER_H__
 
-#include "../browserapplication.h"
+#include "browserapplication.h"
 
 // Qt
 #include <QString>
@@ -36,9 +36,20 @@ public:
 
 private:
     virtual void printUsage() const;
-    QString webappModelSearchPath() const;
-    QString webappName() const;
-    QStringList webappUrlPatterns() const;
+    void parseCommandLine();
+    void parseExtraConfiguration();
+    QString getExtraWebappUrlPatterns() const;
+
+private:
+    QString m_webappName;
+    QString m_webappModelSearchPath;
+    QStringList m_webappUrlPatterns;
+    bool m_withOxide;
+    bool m_storeSessionCookies;
+    bool m_backForwardButtonsVisible;
+    bool m_addressBarVisible;
+
+    static const QString URL_PATTERN_SEPARATOR;
 };
 
 #endif // __WEBAPP_CONTAINER_H__

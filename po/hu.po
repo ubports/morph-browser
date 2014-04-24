@@ -7,59 +7,63 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-11-13 09:10+0100\n"
-"PO-Revision-Date: 2013-06-13 09:29+0000\n"
-"Last-Translator: Bence Lukács <Unknown>\n"
+"POT-Creation-Date: 2014-04-10 16:28+0100\n"
+"PO-Revision-Date: 2014-01-04 16:16+0000\n"
+"Last-Translator: Mátó Péter <Unknown>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-12-06 06:25+0000\n"
-"X-Generator: Launchpad (build 16863)\n"
-
-#: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
-msgid "Activity"
-msgstr "Tevékenység"
-
-#: src/app/ActivityView.qml:54
-msgid "Bookmarks"
-msgstr ""
+"X-Launchpad-Export-Date: 2014-04-12 09:43+0000\n"
+"X-Generator: Launchpad (build 16976)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "JavaScript figyelmeztetés"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Hitelesítés szükséges."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "A(z) %1  oldal hitelesítést igényel."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Felhasználói név"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "Jelszó"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
+msgstr "Mégse"
+
+#: src/app/BeforeUnloadDialog.qml:24
+msgid "Confirm Navigation"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:28
+msgid "Leave"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:33
+msgid "Stay"
 msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "A kapcsolat nem biztonságos"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -67,15 +71,15 @@ msgstr ""
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
-msgstr ""
+msgstr "A(z) %1 által használt biztonsági tanúsítvány nem megbízható."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Folytatás mindenképp"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "Visszalépés"
 
 #: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
 msgid "Back"
@@ -85,9 +89,13 @@ msgstr "Vissza"
 msgid "Forward"
 msgstr "Előre"
 
+#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
+msgid "Activity"
+msgstr "Tevékenység"
+
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "JavaScript futtatásának jóváhagyása"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -108,77 +116,35 @@ msgstr "Ellenőrizze a hálózati beállításait, és frissítse az oldalt."
 msgid "Refresh page"
 msgstr "Oldal frissítése"
 
+#: src/app/FilePickerDialog.qml:26
+msgid "Please choose a file"
+msgstr ""
+
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Jogosultság igénylés"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Tiltás"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "Engedélyezés"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "JavaScript parancssor"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Proxy hitelesítés szükséges."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
-
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/TabsList.qml:37
-#, qt-format
-msgid "Currently viewing (%1)"
-msgstr ""
-
-#: src/app/TabsList.qml:68
-msgid "+"
-msgstr "+"
-
-#: src/app/TimelineView.qml:83
-msgid "Today"
-msgstr ""
-
-#: src/app/TimelineView.qml:85
-msgid "Yesterday"
-msgstr ""
-
-#: src/app/TimelineView.qml:87
-msgid "Last 7 Days"
-msgstr ""
-
-#: src/app/TimelineView.qml:89
-msgid "This Month"
-msgstr ""
-
-#: src/app/TimelineView.qml:91
-msgid "This Year"
-msgstr ""
-
-#: src/app/TimelineView.qml:93
-msgid "Older"
-msgstr ""
-
-#: src/app/TimelineView.qml:276
-msgid "(local files)"
-msgstr ""
-
-#: src/app/TimelineView.qml:278
-msgid "(other)"
-msgstr ""
-
-#: src/app/WebViewImpl.qml:52
-msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "A %1:%2 proxy használatához hitelesítés szükséges."
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -198,17 +164,17 @@ msgstr "Oldal hozzáadása a könyvjelzőkhöz"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "Mentés könyvjelzőként"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Előzmények törlése"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Böngészési előzmények törlése"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -216,11 +182,11 @@ msgstr "Másolás"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Kép másolása"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Hivatkozás másolása"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -250,11 +216,11 @@ msgstr "Megnyitás új lapon"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "Kép megnyitása új lapon"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Hivatkozás megnyitása új lapon"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -266,24 +232,92 @@ msgstr "Újratöltés"
 msgid "Leave Page"
 msgstr "Oldal elhagyása"
 
+#: src/app/webbrowser/ActivityView.qml:54
+msgid "Bookmarks"
+msgstr "Könyvjelzők"
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/app/webbrowser/TabsList.qml:37
+#, qt-format
+msgid "Currently viewing (%1)"
+msgstr "Nyitott lapok (%1)"
+
+#: src/app/webbrowser/TabsList.qml:68
+msgid "+"
+msgstr "+"
+
+#: src/app/webbrowser/TimelineView.qml:84
+msgid "Today"
+msgstr "Ma"
+
+#: src/app/webbrowser/TimelineView.qml:86
+msgid "Yesterday"
+msgstr "Tegnap"
+
+#: src/app/webbrowser/TimelineView.qml:88
+msgid "Last 7 Days"
+msgstr "Utolsó 7 nap"
+
+#: src/app/webbrowser/TimelineView.qml:90
+msgid "This Month"
+msgstr "Ebben a hónapban"
+
+#: src/app/webbrowser/TimelineView.qml:92
+msgid "This Year"
+msgstr "Ebben az évben"
+
+#: src/app/webbrowser/TimelineView.qml:94
+msgid "Older"
+msgstr "Régebbi"
+
+#: src/app/webbrowser/TimelineView.qml:277
+msgid "(local files)"
+msgstr "(helyi fájlok)"
+
+#: src/app/webbrowser/TimelineView.qml:279
+msgid "(other)"
+msgstr "(egyéb)"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "Böngésző"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "Webböngésző"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "A világháló böngészése"
+
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:45
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu webböngésző"
 
-#: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:47
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu webböngésző"
 
-#: src/app/webbrowser-app.desktop.in:3
-msgid "Browser"
-msgstr "Böngésző"
+#: src/app/webcontainer/AccountsLoginPage.qml:70
+msgid "No local account found for "
+msgstr ""
 
-#: src/app/webbrowser-app.desktop.in:4
-msgid "Web Browser"
-msgstr "Webböngésző"
+#: src/app/webcontainer/AccountsLoginPage.qml:75
+msgid "Skip account creation step"
+msgstr ""
 
-#: src/app/webbrowser-app.desktop.in:5
-msgid "Browse the World Wide Web"
-msgstr "A világháló böngészése"
+#: src/app/webcontainer/AccountsLoginPage.qml:124
+msgid "Add account"
+msgstr ""
+
+#: src/app/webcontainer/AccountsView.qml:38
+msgid "Select an account"
+msgstr ""
+
+#: src/app/webcontainer/WebViewImplWebkit.qml:63
+msgid "This page wants to know your device’s location."
+msgstr ""

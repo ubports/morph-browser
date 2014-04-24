@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,21 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __DOMAIN_UTILS_H__
-#define __DOMAIN_UTILS_H__
+#ifndef URLPATTERNUTILS_H
+#define URLPATTERNUTILS_H
 
-// Qt
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 
-class QUrl;
 
-class DomainUtils
-{
-public:
-    static const QString TOKEN_LOCAL;
-    static const QString TOKEN_NONE;
+namespace UrlPatternUtils {
 
-    static QString extractTopLevelDomainName(const QUrl& url);
-};
+QString transformWebappSearchPatternToSafePattern(const QString&);
 
-#endif // __DOMAIN_UTILS_H__
+QStringList filterAndTransformUrlPatterns(const QStringList & includePatterns);
+
+}
+
+
+#endif // URLPATTERNUTILS_H

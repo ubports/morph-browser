@@ -19,43 +19,111 @@
 #include "config.h"
 #include "webapp-container.h"
 
+#include "session-utils.h"
+#include "url-pattern-utils.h"
+
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
+#include <QtCore/QFile>
 #include <QtCore/QFileInfo>
+#include <QtCore/QtGlobal>
 #include <QtCore/QRegularExpression>
 #include <QtCore/QTextStream>
 #include <QtQuick/QQuickWindow>
+#include <QtQml/QQmlComponent>
+#include <QtQml/QQmlContext>
+#include <QtQml/QQmlEngine>
 
-WebappContainer::WebappContainer(int& argc, char** argv)
-    : BrowserApplication(argc, argv)
+#include <QStandardPaths>
+#include <QSettings>
+
+namespace
+{
+
+static QString currentArchitecturePathName()
+{
+#if defined(Q_PROCESSOR_X86_32)
+    return QLatin1String("i386-linux-gnu");
+#elif defined(Q_PROCESSOR_X86_64)
+    return QLatin1String("x86_64-linux-gnu");
+#elif defined(Q_PROCESSOR_ARM)
+    return QLatin1String("arm-linux-gnueabihf");
+#else
+#error Unable to determine target architecture
+#endif
+}
+
+static bool canUseOxide()
+{
+    // Use a runtime hint to transparently know if oxide
+    // can be used as a backend without the user/dev having
+    // to update its app or change something in the Exec args.
+    // Version 1.1 of ubuntu apparmor policy allows this file to
+    // be accessed whereas v1.0 only knows about qtwebkit.
+    QString oxideHintLocation =
+        QString("/usr/lib/%1/oxide-qt/oxide-renderer")
+            .arg(currentArchitecturePathName());
+
+    return QFile(oxideHintLocation).open(QIODevice::ReadOnly);
+}
+
+}
+
+const QString WebappContainer::URL_PATTERN_SEPARATOR = ",";
+
+
+WebappContainer::WebappContainer(int& argc, char** argv):
+    BrowserApplication(argc, argv),
+    m_withOxide(canUseOxide()),
+    m_storeSessionCookies(false),
+    m_backForwardButtonsVisible(false),
+    m_addressBarVisible(false)
 {
 }
 
 bool WebappContainer::initialize()
 {
     if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
-        QString searchPath = webappModelSearchPath();
-        if (!searchPath.isEmpty())
+        parseCommandLine();
+        parseExtraConfiguration();
+
+        if (!m_webappModelSearchPath.isEmpty())
         {
-            QDir searchDir(searchPath);
+            QDir searchDir(m_webappModelSearchPath);
             searchDir.makeAbsolute();
             if (searchDir.exists()) {
                 m_window->setProperty("webappModelSearchPath", searchDir.path());
             }
         }
-        QString name = webappName();
-        m_window->setProperty("webappName", name);
-        m_window->setProperty("backForwardButtonsVisible", m_arguments.contains("--enable-back-forward"));
-        m_window->setProperty("addressBarVisible", m_arguments.contains("--enable-addressbar"));
-        m_window->setProperty("webappUrlPatterns", webappUrlPatterns());
+        m_window->setProperty("webappName", m_webappName);
+        m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
+        m_window->setProperty("addressBarVisible", m_addressBarVisible);
+
+        qDebug() << "Using" << (m_withOxide ? "Oxide" : "QtWebkit") << "as the web engine backend";
+        m_window->setProperty("oxide", m_withOxide);
+
+        m_window->setProperty("webappUrlPatterns", m_webappUrlPatterns);
+        QQmlContext* context = m_engine->rootContext();
+        if (m_storeSessionCookies) {
+            QString sessionCookieMode = SessionUtils::firstRun(m_webappName) ?
+                QStringLiteral("persistent") : QStringLiteral("restored");
+            qDebug() << "Setting session cookie mode to" << sessionCookieMode;
+            context->setContextProperty("webContextSessionCookieMode", sessionCookieMode);
+        }
+
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
-        if (name.isEmpty()) {
+        if (m_webappName.isEmpty()) {
             QList<QUrl> urls = this->urls();
             if (!urls.isEmpty()) {
                 m_window->setProperty("url", urls.first());
-            }
+            } else {
+	        return false;
+	    }
         }
+
+        m_component->completeCreate();
+
         return true;
     } else {
         return false;
@@ -66,7 +134,19 @@ void WebappContainer::printUsage() const
 {
     QTextStream out(stdout);
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
-    out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector] [--app-id=APP_ID] [--homepage=URL] [--webapp[=name]] [--webappModelSearchPath=PATH] [--webappUrlPatterns=URL_PATTERNS] [--enable-back-forward] [--enable-addressbar] [URL]" << endl;
+    out << "Usage: " << command << " [-h|--help]"
+       " [--fullscreen]"
+       " [--maximized]"
+       " [--inspector]"
+       " [--app-id=APP_ID]"
+       " [--homepage=URL]"
+       " [--webapp=name]"
+       " [--webappModelSearchPath=PATH]"
+       " [--webappUrlPatterns=URL_PATTERNS]"
+       " [--enable-back-forward]"
+       " [--enable-addressbar]"
+       " [--store-session-cookies]"
+       " [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help                          display this help message and exit" << endl;
     out << "  --fullscreen                        display full screen" << endl;
@@ -74,97 +154,90 @@ void WebappContainer::printUsage() const
     out << "  --inspector                         run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
     out << "  --app-id=APP_ID                     run the application with a specific APP_ID" << endl;
     out << "  --homepage=URL                      override any URL passed as an argument" << endl;
-    out << "  --webapp[=name]                     try to match the webapp by name with an installed integration script (if any)" << endl;
+    out << "  --webapp=name                       try to match the webapp by name with an installed integration script" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
     out << "  --enable-addressbar                 enable the display of the address bar" << endl;
+    out << "  --store-session-cookies             store session cookies on disk" << endl;
 }
 
-QString WebappContainer::webappModelSearchPath() const
+void WebappContainer::parseCommandLine()
 {
     Q_FOREACH(const QString& argument, m_arguments) {
-        if (argument.startsWith("--webappModelSearchPath=")) {
-            return argument.split("--webappModelSearchPath=")[1];
-        }
-    }
-    return QString();
-}
-
-QString WebappContainer::webappName() const
-{
-    Q_FOREACH(const QString& argument, m_arguments) {
-        if (argument.startsWith("--webapp=")) {
+        if (argument == "--webkit") {
+            // force webkit
+            m_withOxide = false;
+        } else if (argument == "--oxide") {
+            // force oxide
+            m_withOxide = true;
+        } else if (argument.startsWith("--webappModelSearchPath=")) {
+            m_webappModelSearchPath = argument.split("--webappModelSearchPath=")[1];
+        } else if (argument.startsWith("--webapp=")) {
             // We use the name as a reference instead of the URL with a subsequent step to match it with a webapp.
             // TODO: validate that it is fine in all cases (country dependent, etc…).
             QString name = argument.split("--webapp=")[1];
-            return QByteArray::fromBase64(name.toUtf8()).trimmed();
-        }
-    }
-    return QString();
-}
-
-/**
- * Tests for the validity of a given webapp url pattern. It follows
- *  the following grammar:
- *
- * <url-pattern> := <scheme>://<host><path>
- * <scheme> := 'http' | 'https'
- * <host> := '*' <any char except '/' and '.'>+ <hostpart> <hostpart>+
- * <hostpart> := '.' <any char except '/', '*', '?' and '.'>+
- * <path> := '/' <any chars>
- *
- * @param pattern pattern that is to be tested for validity
- * @return true if the url is valid, false otherwise
- */
-static bool isValidWebappUrlPattern(const QString& pattern)
-{
-    static QRegularExpression grammar("^http(s|s\\?)?://[^\\.]+\\.[^\\.\\*\\?]+\\.[^\\.\\*\\?]+(\\.[^\\.\\*\\?/]+)*/.*$");
-    return grammar.match(pattern).hasMatch();
-}
-
-
-QStringList WebappContainer::webappUrlPatterns() const
-{
-    QStringList patterns;
-    Q_FOREACH(const QString& argument, m_arguments) {
-        if (argument.startsWith("--webappUrlPatterns=")) {
+            m_webappName = QByteArray::fromBase64(name.toUtf8()).trimmed();
+        } else if (argument.startsWith("--webappUrlPatterns=")) {
             QString tail = argument.split("--webappUrlPatterns=")[1];
             if (!tail.isEmpty()) {
-                QStringList includePatterns = tail.split(",");
-                Q_FOREACH(const QString& includePattern, includePatterns) {
-                    QString pattern = includePattern.trimmed();
-                    if (!pattern.isEmpty() && isValidWebappUrlPattern(pattern)) {
-                        QRegularExpression urlRe("(.+://)([^/]+)(.+)");
-                        QRegularExpressionMatch match = urlRe.match(pattern);
-                        if (match.hasMatch())
-                        {
-                            // We make a distinction between the wildcard found in the
-                            //  hostname part and the one found later. The former being more
-                            //  restricted and should not be replaced by the same regexp pattern
-                            //  as the latter.
-                            // A less restrictive hostname pattern might lead to the following
-                            //  situation where e.g.
-                            // http://bady.guy.com/phishing.ebay.com/
-                            // matches
-                            // https?://*.ebay.com/*
-                            QString scheme = match.captured(1);
-                            QString hostname = match.captured(2).replace("*", "[^\\./]*");
-                            QString tail = match.captured(3).replace("*", "[^\\s]*");
-
-                            // reconstruct
-                            patterns.append(QString("%1%2%3").arg(scheme).arg(hostname).arg(tail));
-                        }
-                    } else {
-                        qDebug() << "Ignoring empty or invalid webapp URL pattern:" << pattern;
-                    }
-                }
+                QStringList includePatterns = tail.split(URL_PATTERN_SEPARATOR);
+                m_webappUrlPatterns = UrlPatternUtils::filterAndTransformUrlPatterns(includePatterns);
             }
-            break;
+        } else if (argument == "--store-session-cookies") {
+            m_storeSessionCookies = true;
+        } else if (argument == "--enable-back-forward") {
+            m_backForwardButtonsVisible = true;
+        } else if (argument == "--enable-addressbar") {
+            m_addressBarVisible = true;
         }
     }
-    return patterns;
+}
+
+void WebappContainer::parseExtraConfiguration()
+{
+    // Add potential extra url patterns not listed in the command line
+    m_webappUrlPatterns.append(
+                UrlPatternUtils::filterAndTransformUrlPatterns(
+                    getExtraWebappUrlPatterns().split(URL_PATTERN_SEPARATOR)));
+}
+
+QString WebappContainer::getExtraWebappUrlPatterns() const
+{
+    static const QString EXTRA_APP_URL_PATTERNS_CONF_FILENAME =
+            "extra-url-patterns.conf";
+
+    QString extraUrlPatternsFilename =
+            QString("%1/%2")
+                .arg(QStandardPaths::writableLocation(QStandardPaths::DataLocation))
+                .arg(EXTRA_APP_URL_PATTERNS_CONF_FILENAME);
+
+    QString extraPatterns;
+    QFileInfo f(extraUrlPatternsFilename);
+    if (f.exists() && f.isReadable())
+    {
+        QSettings extraUrlPatternsSetting(f.absoluteFilePath(), QSettings::IniFormat);
+        extraUrlPatternsSetting.beginGroup("Extra Patterns");
+
+        QVariant patternsValue = extraUrlPatternsSetting.value("Patterns");
+
+        // The line can contain comma separated args Patterns=1,2,3. In this case
+        // QSettings interprets this as a StringList instead of giving us
+        // the raw value.
+        if (patternsValue.type() == QVariant::StringList)
+             extraPatterns = patternsValue.toStringList().join(",");
+        else
+            extraPatterns = patternsValue.toString();
+
+        if ( ! extraPatterns.isEmpty())
+        {
+            qDebug() << "Found extra url patterns to be added to the list of allowed urls: "
+                     << extraPatterns;
+        }
+        extraUrlPatternsSetting.endGroup();
+    }
+    return extraPatterns;
 }
 
 int main(int argc, char** argv)

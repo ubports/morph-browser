@@ -18,22 +18,15 @@
 
 import QtQuick 2.0
 import QtTest 1.0
-import Ubuntu.Components.Extras.Browser 0.1
+import Ubuntu.Components.Extras.Browser 0.2
 
 TestCase {
     name: "UbuntuWebView"
 
     function test_custom_UA_override() {
-        var url = "http://example.com"
-        compare(webview1.getUAString(url), benchmark.getSystemWideUAString(url))
-        webview2.customUA = false
-        compare(webview2.getUAString(url), benchmark.getSystemWideUAString(url))
-        webview2.customUA = true
-        compare(webview2.getUAString(url), "custom UA")
-    }
-
-    UbuntuWebView {
-        id: benchmark
+        compare(webview1.getUAString(), undefined)
+        verify(webview1.context.userAgent !== undefined)
+        compare(webview2.context.userAgent, "custom UA")
     }
 
     UbuntuWebView {
@@ -43,14 +36,8 @@ TestCase {
     UbuntuWebView {
         id: webview2
 
-        property bool customUA
-
         function getUAString(url) {
-            if (customUA) {
-                return "custom UA"
-            } else {
-                return getSystemWideUAString(url)
-            }
+            return "custom UA"
         }
     }
 }

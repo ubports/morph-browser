@@ -6,10 +6,7 @@
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
-import errno
 import logging
-import os
-import socket
 import threading
 import time
 
@@ -89,6 +86,24 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += 'src="/blanktargetlink" />'
             html += '</body></html>'
             self.send_html(html)
+        elif self.path == "/uploadform":
+            # craft a page that accepts clicks anywhere inside its window
+            # and on a click opens up the content picker.
+            # It also pops up an alert with the new content of the file
+            # upload field when it changes
+            self.send_response(200)
+            html = '<html><body style="margin: 0">'
+            html += '<form action="upload" method="post" '
+            html += 'enctype="multipart/form-data">'
+            html += '<input type="file" name="file" id="file" '
+            html += 'onchange="alert(this.value)"><br>'
+            html += '<input type="submit" name="submit" value="Submit">'
+            html += '</form>'
+            html += '<a href="javascript:'
+            html += 'document.getElementById(\'file\').click()">'
+            html += '<div style="height: 100%"></div></a>'
+            html += '</body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 
@@ -99,39 +114,28 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
         logger.error(format % args)
 
 
-class HTTPServerInAThread(threading.Thread):
+class HTTPServerInAThread(object):
 
     """
     A simple custom HTTP server run in a separate thread.
     """
 
     def __init__(self):
-        super(HTTPServerInAThread, self).__init__()
-        port = 12345
-        self.server = None
-        while self.server is None:
-            try:
-                self.server = http.HTTPServer(("", port), HTTPRequestHandler)
-            except socket.error as error:
-                if (error.errno == errno.EADDRINUSE):
-                    logging.error("Port {} is already in use".format(port))
-                    port += 1
-                else:
-                    logging.error(os.strerror(error.errno))
-                    raise
+        # port == 0 will assign a random free port
+        self.server = http.HTTPServer(("", 0), HTTPRequestHandler)
         self.server.allow_reuse_address = True
+        self.server_thread = threading.Thread(target=self.server.serve_forever)
+        self.server_thread.start()
+        logging.info("now serving on port {}".format(self.server.server_port))
+
+    def cleanup(self):
+        self.server.shutdown()
+        self.server.server_close()
+        self.server_thread.join()
 
     @property
     def port(self):
         return self.server.server_port
-
-    def run(self):
-        logging.info("now serving on port {}".format(self.port))
-        self.server.serve_forever()
-
-    def shutdown(self):
-        self.server.shutdown()
-        self.server.server_close()
 
 
 __all__ = ["HTTPServerInAThread"]

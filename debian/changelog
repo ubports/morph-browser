@@ -1,3 +1,303 @@
+webbrowser-app (0.23+14.04.20140416-0ubuntu1) trusty; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Olivier Tilloy ]
+  * Handle new view requests in the browser. (LP: #1307735)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 16 Apr 2014 22:53:18 +0000
+
+webbrowser-app (0.23+14.04.20140414-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Force the page title to be reset to an empty string when the
+    activity view is being hidden. (LP: #1307420)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 14 Apr 2014 19:38:12 +0000
+
+webbrowser-app (0.23+14.04.20140411.1-0ubuntu1) trusty; urgency=low
+
+  [ Michael Sheldon ]
+  * Add support for file upload via content-hub
+
+  [ Ugo Riboni ]
+  * Add support for file upload via content-hub
+
+  [ Alexandre Abreu ]
+  * Make sure that we dont load unecessary libs (oxide or qtwebkit)
+    correspnding to the webengine that we dont use. (LP: #1306037)
+  * Add a basic set of integration tests for the webapp container
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Enable UA overrides for all form factors, each in a separate file.
+    Add an override for google calendar on desktop. Clean up the
+    construction of the default UA string for easier reading and
+    maintenance.
+
+  [ Bill Filler ]
+  * Add support for file upload via content-hub
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 11 Apr 2014 15:53:56 +0000
+
+webbrowser-app (0.23+14.04.20140410-0ubuntu1) trusty; urgency=low
+
+  [ David Barth ]
+  * To prevent https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-
+    toolkit/+bug/1305834 caused by a recent UI toolkit change, we are
+    returning an empty title for now. (LP: #1305834)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 10 Apr 2014 13:22:24 +0000
+
+webbrowser-app (0.23+14.04.20140409-0ubuntu1) trusty; urgency=low
+
+  [ Alexandre Abreu ]
+  * Add support for Oxide's onNavigationRequested in the container (LP:
+    #1302769)
+  * Webapps: maintain the session cookies for the user session Instruct
+    Oxide to store/load the session cookies on disk in a per-webapp
+    directory under XDG_RUNTIME_DIR. The first time in a user session
+    that the webapp is launched, the session cookies (leftover from
+    previous sessions) are not loaded, but only stored (this is the
+    chrome's "persistent" sessionCookieMode). The next times, session
+    cookies are both loaded and stored (chrome's "restored"
+    sessionCookieMode).
+
+  [ Alberto Mardegan ]
+  * Webapps: maintain the session cookies for the user session Instruct
+    Oxide to store/load the session cookies on disk in a per-webapp
+    directory under XDG_RUNTIME_DIR. The first time in a user session
+    that the webapp is launched, the session cookies (leftover from
+    previous sessions) are not loaded, but only stored (this is the
+    chrome's "persistent" sessionCookieMode). The next times, session
+    cookies are both loaded and stored (chrome's "restored"
+    sessionCookieMode).
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 09 Apr 2014 13:34:57 +0000
+
+webbrowser-app (0.23+14.04.20140407.1-0ubuntu1) trusty; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Update to oxide 1.0.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 07 Apr 2014 14:07:25 +0000
+
+webbrowser-app (0.23+14.04.20140403-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Re-enable javascript dialogs, now that they are available in oxide.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 03 Apr 2014 13:38:41 +0000
+
+webbrowser-app (0.23+14.04.20140402-0ubuntu1) trusty; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Alexandre Abreu ]
+  * Small update to the --webapp flag documentation
+
+  [ Olivier Tilloy ]
+  * Null-check to fix a segmentation fault when --help is passed to the
+    executable.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 02 Apr 2014 15:15:46 +0000
+
+webbrowser-app (0.23+14.04.20140328.3-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Land the master Oxide support branch. See individual revisions for
+    details. (LP: #1271756)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 28 Mar 2014 17:07:09 +0000
+
+webbrowser-app (0.23+14.04.20140324-0ubuntu1) trusty; urgency=low
+
+  [ Alexandre Abreu ]
+  * There are 2 ways for the webapp-container to receive a list of
+    patterns to filter url browsing in a webapp container: through the
+    manifest.json file that comes with a given (named) webapp, or
+    through the command line. At the moment, the 2 mechanisms are
+    exclusive in the sense that from the webapp-container's perspective
+    it only considers one or another when filtering navigation (the
+    webapp manifest one being preferred) but they are NOT semantically
+    equivalent. The list of url patterns in the manifest.json file is
+    use as a mean to filter the urls that are being browsed to, but ALSO
+    in the chromium & FF browsers to know if a webapp is to be
+    installed/enabled when browsing in a given url. For example, for
+    Gmail, the hostname mail.google.com is used as a trigger to ask the
+    user for an installation/enablement of a webapp in the browser. It
+    is also implicitely used as a filter for browser once in the
+    container. The issue is that for applications like google services,
+    the authentication mechanism is common. So when launched in the
+    container, the user will be redirected to e.g.
+    https://accounts.google.com or https://accounts.google.ca, etc. So,
+    the manifest.json cannot be modified to account for those, since we
+    dont want to install a webapp from those URLs but we need a way to
+    add extra navigation url patterns to allow google service webapps to
+    be redirected to e.g. https://accounts.google.* etc. We provide here
+    2 things: an way for the url patterns passed down from the command
+    line to be also considered in the navigation filtering,. a way to
+    simplify url patterns for google apps (LP: #1288982)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 24 Mar 2014 19:14:54 +0000
+
+webbrowser-app (0.23+14.04.20140319-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Use the renderer only once when rendering a thumbnail. This seems to
+    fix the crash that was happening at destruction time. (LP: #1294219)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Mar 2014 14:58:21 +0000
+
+webbrowser-app (0.23+14.04.20140317.1-0ubuntu1) trusty; urgency=low
+
+  [ Colin Watson ]
+  * Add multiarch annotations.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 17 Mar 2014 23:18:34 +0000
+
+webbrowser-app (0.23+14.04.20140317-0ubuntu1) trusty; urgency=low
+
+  [ daker ]
+  * Fix to open URL that start with / (local files)
+
+  [ Leo Arias ]
+  * Updated the copyright header on all the python files.
+
+  [ Adnane Belmadiaf ]
+  * Fix to open URL that start with / (local files)
+
+  [ Olivier Tilloy ]
+  * Do not register private types in the public plugin. Register them in
+    the webbrowser application scope instead. I have made sure that
+    private types that were previously public are currently not being
+    used by any application in the store, so this refactoring is safe.
+  * Refactor the test HTTP server to use a random port at startup.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 17 Mar 2014 11:57:27 +0000
+
+webbrowser-app (0.23+14.04.20140313-0ubuntu1) trusty; urgency=low
+
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 13 Mar 2014 15:19:23 +0000
+
+webbrowser-app (0.23+14.04.20140304.is.0.23+14.04.20140219-0ubuntu1) trusty; urgency=medium
+
+  * Reverting as desktop image isn't installable (main/universe
+    mismatch) and causing all signon-ui tests on Touch failing
+
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 05 Mar 2014 12:19:42 +0100
+
+webbrowser-app (0.23+14.04.20140304-0ubuntu1) trusty; urgency=low
+
+  * 
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 04 Mar 2014 15:07:25 +0000
+
+webbrowser-app (0.23+14.04.20140219-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Do not install the selection event handlers on certain domains known
+    to interfere with touch events. (LP: #1279903)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 19 Feb 2014 18:36:27 +0000
+
+webbrowser-app (0.23+14.04.20140122-0ubuntu1) trusty; urgency=low
+
+  [ Ted Gould ]
+  * Add URL Dispatcher configuration file.
+
+  [ Olivier Tilloy ]
+  * Fix a memory leak when exiting the application.
+  * Work around bug #1270848 in a different manner to avoid introducing
+    another regression. (LP: #1270848, #1271436)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 444
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 22 Jan 2014 11:01:33 +0000
+
+webbrowser-app (0.23+14.04.20140120-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Work around a bug (regression?) in the UITK by replacing the use of
+    Page by a simple Item. (LP: #1270848)
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 439
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 20 Jan 2014 16:38:10 +0000
+
+webbrowser-app (0.23+14.04.20140115.1-0ubuntu1) trusty; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Bump version to 0.23 in preparation for the next major release.
+  * Split the app into two executables: webbrowser-app and webapp-
+    container.
+  * Cleaner workaround for bug #1248620. Thanks Thomi for the
+    suggestion!. (LP: #1248620)
+  * Update the link to the list of overrides for B2G.
+  * Add ignore rules for generated ninja files.
+  * Use the local test server everywhere instead of writing temporary
+    html pages on disk.
+  * Fix FTBFS with Qt 5.2. (LP: #1258038)
+  * Ensure the test server is up and responding before starting the
+    tests, and use standard logging everywhere.
+  * Re-execute web application in the dedicated container (compatibility
+    mode for legacy webapps).
+
+  [ Omer Akram ]
+  * move the close button of the running activity to the left.
+
+  [ Alexandre Abreu ]
+  * Further separate the two webbrowser-app & webapp-container projects.
+    (LP: #1246935)
+  * Restrict url webapps pattern replacement depending on which part is
+    being affected. (LP: #1240685)
+  * Fix back forward hud actions.
+
+  [ daker ]
+  * Fix for uppercase urls. (LP: #1244329)
+  * Fixed UA string for huffpost.com. (LP: #1223937)
+
+  [ Timo Jyrinki ]
+  * libqt5v8-5-private-dev will be dropped from Qt 5.2. qtdeclarate-
+    private-dev 5.0.2 now depends on it until then.
+
+  [ Adnane Belmadiaf ]
+  * Change the default homepage to start.ubuntu.com. (LP: #1250995)
+  * Fixed UA string for huffpost.com. (LP: #1223937)
+
+  [ David Barth ]
+  * Make sure we are redirected to the mobile version automatically, by
+    presenting a mobile user-agent string on the /whole/ youtube domain
+    (not just m.youtube.com). The string is also changed to the simpler
+    ua string used for facebook.com. It gives the same UI, but avoids
+    being seen as an Apple browser, which itself prevents rtsp/3gp
+    content to be served to our browser. We (barely) support html5 video
+    now.
+  * Re-execute web application in the dedicated container (compatibility
+    mode for legacy webapps).
+
+  [ Ubuntu daily release ]
+  * Automatic snapshot from revision 435
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 15 Jan 2014 19:37:19 +0000
+
+webbrowser-app (0.22+14.04.20131107-0ubuntu3) trusty; urgency=medium
+
+  * Add OA integration.
+
+ -- Alberto Mardegan <alberto.mardegan@canonical.com>  Tue, 04 Feb 2014 12:22:20 +0200
+
 webbrowser-app (0.22+14.04.20131107-0ubuntu1) trusty; urgency=low
 
   [ Olivier Tilloy ]

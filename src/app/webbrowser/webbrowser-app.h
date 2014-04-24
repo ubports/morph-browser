@@ -19,7 +19,7 @@
 #ifndef __WEBBROWSER_APP_H__
 #define __WEBBROWSER_APP_H__
 
-#include "../browserapplication.h"
+#include "browserapplication.h"
 
 class WebbrowserApp : public BrowserApplication
 {

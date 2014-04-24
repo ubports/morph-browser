@@ -18,7 +18,6 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
-import ".."
 
 Item {
     id: bookmarksView
@@ -51,8 +50,8 @@ Item {
             url: model.url
             label: model.title ? model.title : model.url
 
-            property url thumbnailSource: "image://webthumbnail/" + model.url
-            thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
+            //property url thumbnailSource: "image://webthumbnail/" + model.url
+            //thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""
 
             canBookmark: true
             bookmarksModel: bookmarksView.bookmarksModel

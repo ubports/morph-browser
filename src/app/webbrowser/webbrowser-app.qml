@@ -19,7 +19,6 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
-import ".."
 
 Window {
     property alias chromeless: browser.chromeless
@@ -49,7 +48,7 @@ Window {
     }
 
     function newTab(url, setCurrent) {
-        return browser.newTab(url, setCurrent)
+        return browser.openUrlInNewTab(url, setCurrent)
     }
 
     // Handle runtime requests to open urls as defined
