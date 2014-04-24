@@ -32,7 +32,7 @@ WebViewImpl {
     property bool developerExtrasEnabled: false
     property var toolbar: null
     property string webappName: ""
-    property string localUserAgentOverride
+    property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
 
     currentWebview: webview
@@ -48,7 +48,7 @@ WebViewImpl {
         }
     }
 
-    // Function defined by the UbuntuWebView and overrided here to handle potential webapp defined UA overrides
+    // Function defined by the UbuntuWebView and overridden here to handle potential webapp defined UA overrides
     function getUAString() {
         return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride
     }

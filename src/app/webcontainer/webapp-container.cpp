@@ -34,8 +34,6 @@
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
-#include <QJsonDocument>
-#include <QJsonObject>
 
 #include <QStandardPaths>
 #include <QSettings>

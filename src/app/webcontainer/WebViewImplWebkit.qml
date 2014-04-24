@@ -34,7 +34,7 @@ UbuntuWebView {
     property var toolbar: null
     property string webappName: ""
     property var webappUrlPatterns: null
-    property string localUserAgentOverride
+    property string localUserAgentOverride: ""
 
     function getUAString() {
         return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride

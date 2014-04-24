@@ -33,7 +33,7 @@ Item {
     property var currentWebview: webappContainerWebViewLoader.item
     property var toolbar: null
     property var webappUrlPatterns
-    property string localUserAgentOverride
+    property string localUserAgentOverride: ""
 
     Loader {
         id: webappContainerWebViewLoader
