@@ -76,7 +76,15 @@ Loader {
                 anchors.fill: parent
 
                 Connections {
-                    target: currentWebview
+                    target: chromePanel
+                    onCurrentWebviewChanged: {
+                        if (currentWebview !== undefined) {
+                            chrome.url = currentWebview.url
+                        }
+                    }
+                }
+                Connections {
+                    target: chromePanel.currentWebview
                     onUrlChanged: {
                         // ensure that the URL actually changes so that the
                         // address bar is updated in case the user has entered a
