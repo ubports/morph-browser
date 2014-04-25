@@ -71,9 +71,21 @@ Loader {
             }
 
             Chrome {
+                id: chrome
+
                 anchors.fill: parent
 
-                url: currentWebview ? currentWebview.url : ""
+                Connections {
+                    target: currentWebview
+                    onUrlChanged: {
+                        // ensure that the URL actually changes so that the
+                        // address bar is updated in case the user has entered a
+                        // new address that redirects to where she previously was
+                        // (https://bugs.launchpad.net/webbrowser-app/+bug/1306615)
+                        chrome.url = ""
+                        chrome.url = currentWebview.url
+                    }
+                }
 
                 loading: currentWebview ? currentWebview.loading
                          // workaround for https://bugs.launchpad.net/oxide/+bug/1290821
