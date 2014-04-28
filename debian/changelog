@@ -1,3 +1,27 @@
+webbrowser-app (0.23+14.04.20140422-0ubuntu1) trusty; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Fix the network dialog reload (LP: #1309138)
+  * Oxide (and Chromium) does not inform of non user driven navigations
+    (or more specifically redirects that would be part of an
+    popup/webview load (after its been granted). Quite a few sites (e.g.
+    Youtube), create popups when clicking on links (or following a
+    window.open()) with proper youtube.com address but w/ redirection
+    params, e.g.:
+    http://www.youtube.com/redirect?q=http%3A%2F%2Fgodzillamovie.com%2F&
+    redir_token=b8WPI1pq9FHXeHm2bN3KVLAJSfp8MTM5NzI2NDg3NEAxMzk3MTc4NDc0
+    In this instance the popup & navigation is granted, but then a
+    redirect happens inside the popup to the real target url (here
+    http://godzillamovie.com) which is not trapped by a navigation
+    requested and therefore not filtered. The only way to do it atm is
+    to listen to url changes in popups & also filter there. (LP:
+    #1294279)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 22 Apr 2014 16:55:41 +0000
+
 webbrowser-app (0.23+14.04.20140416-0ubuntu1) trusty; urgency=low
 
   [ CI bot ]

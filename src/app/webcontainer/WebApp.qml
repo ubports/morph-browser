@@ -80,13 +80,12 @@ BrowserView {
 
         ErrorSheet {
             anchors.fill: webview
-            visible: {
-                if (webview.lastLoadFailed !== undefined)
-                    return webview.lastLoadFailed
-                return webview.currentWebview && webview.currentWebview.lastLoadFailed
-            }
+            visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
             url: webview.currentWebview.url
-            onRefreshClicked: webview.reload()
+            onRefreshClicked: {
+                if (webview.currentWebview)
+                    webview.currentWebview.reload()
+            }
         }
     }
 
