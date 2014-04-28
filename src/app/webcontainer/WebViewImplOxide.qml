@@ -122,6 +122,23 @@ WebViewImpl {
         if (webview.shouldAllowNavigationTo(url))
             request.action = NavigationRequest.ActionAccept
 
+        // SAML requests are used for instance by Google Apps for your domain;
+        // they are implemented as a HTTP redirect to a URL containing the
+        // query parameter called "SAMLRequest".
+        // Besides letting the request through, we must also add the SAML
+        // domain to the list of the allowed hosts.
+        if (request.disposition === NavigationRequest.DispositionCurrentTab &&
+            url.indexOf("SAMLRequest") > 0) {
+            var urlRegExp = new RegExp("https?://([^?/]+)")
+            var match = urlRegExp.exec(url)
+            var host = match[1]
+            var escapeDotsRegExp = new RegExp("\\.", "g")
+            var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/"
+            console.log("SAML request detected. Adding host pattern: " + hostPattern)
+            webappUrlPatterns.push(hostPattern)
+            request.action = NavigationRequest.ActionAccept
+        }
+
         if (request.action === NavigationRequest.ActionReject) {
             console.debug('Opening: ' + url + ' in the browser window.')
             Qt.openUrlExternally(url)
