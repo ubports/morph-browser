@@ -1,3 +1,20 @@
+webbrowser-app (0.23+14.04.20140428-0ubuntu1) trusty; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Alberto Mardegan ]
+  * Webapps: let SAML requests through SAML requests are used for
+    instance by Google Apps for your domain; they are implemented as a
+    HTTP redirect to a URL containing the query parameter called
+    "SAMLRequest". Besides letting the request through, we must also add
+    the SAML domain to the list of the allowed hosts. (LP: #1302780)
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 28 Apr 2014 07:53:21 +0000
+
 webbrowser-app (0.23+14.04.20140422-0ubuntu1) trusty; urgency=low
 
   [ Ubuntu daily release ]
