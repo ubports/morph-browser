@@ -221,8 +221,6 @@ BrowserView {
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
 
-            preferences.passwordEchoEnabled: formFactor === "mobile"
-
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
                     enabled: contextualData.href.toString()
