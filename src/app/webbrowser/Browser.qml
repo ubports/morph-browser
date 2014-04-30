@@ -19,7 +19,6 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Content 0.1
-import UbuntuDownloadManager 0.1
 import webbrowserapp.private 0.1
 import "../actions" as Actions
 import ".."
@@ -246,7 +245,7 @@ BrowserView {
                 }
                 Actions.SaveImage {
                     enabled: contextualData.img.toString() && formFactor != "desktop"
-                    onTriggered: download(contextualData.img, ContentType.Pictures)
+                    onTriggered: downloadLoader.item.download(contextualData.img, ContentType.Pictures)
                 }
             }
 
@@ -263,27 +262,9 @@ BrowserView {
         }
     }
 
-    SingleDownload {
-        id: singleDownload
-        autoStart: false
-        onDownloadIdChanged: {
-            downloadDialogLoader.item.downloadId = singleDownload.downloadId
-            downloadDialogLoader.item.show()
-        }
-    }
-
     Loader {
-        id: downloadDialogLoader
-        source: formFactor == "desktop" ? "" : "../ContentDownloadDialog.qml"
-    }
-
-    function download(url, contentType) {
-        if(contentType) {
-            downloadDialogLoader.item.contentType = contentType
-        } else {
-            downloaddialogLoader.item.contentType = ContentType.All
-        }
-        singleDownload.download(url)
+        id: downloadLoader
+        source: formFactor == "desktop" ? "" : "../Downloader.qml"
     }
 
     function addTab(webview, setCurrent, focusAddressBar) {
