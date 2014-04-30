@@ -105,10 +105,10 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             self.send_error(404)
 
     def log_message(self, format, *args):
-        logger.info(format.format(args))
+        logger.info(format % args)
 
     def log_error(self, format, *args):
-        logger.error(format.format(args))
+        logger.error(format % args)
 
 
 class HTTPServerInAThread(object):
