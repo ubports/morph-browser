@@ -76,6 +76,8 @@ BrowserView {
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
+            localUserAgentOverride: webappName && unityWebapps.model.exists(webappName) ?
+                                      unityWebapps.model.userAgentOverrideFor(webappName) : ""
         }
 
         ErrorSheet {
@@ -91,7 +93,7 @@ BrowserView {
 
     PanelLoader {
         id: panel
-	objectName: "panel"
+        objectName: "panel"
 
         currentWebview: webview.currentWebview
         chromeless: webapp.chromeless

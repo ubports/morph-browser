@@ -118,8 +118,8 @@ bool WebappContainer::initialize()
             if (!urls.isEmpty()) {
                 m_window->setProperty("url", urls.first());
             } else {
-	        return false;
-	    }
+                return false;
+            }
         }
 
         m_component->completeCreate();
@@ -157,10 +157,10 @@ void WebappContainer::printUsage() const
     out << "  --webapp=name                       try to match the webapp by name with an installed integration script" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
+    out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
     out << "  --enable-addressbar                 enable the display of the address bar" << endl;
-    out << "  --store-session-cookies             store session cookies on disk" << endl;
 }
 
 void WebappContainer::parseCommandLine()
