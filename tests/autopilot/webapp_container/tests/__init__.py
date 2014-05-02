@@ -15,7 +15,7 @@
 
 """ Autopilot tests for the webapp_container package """
 
-import os.path
+import os
 import subprocess
 
 from autopilot.testcase import AutopilotTestCase

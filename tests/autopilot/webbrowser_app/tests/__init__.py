@@ -17,7 +17,6 @@
 """webbrowser-app autopilot tests."""
 
 import os
-import os.path
 import shutil
 import urllib.request
 
