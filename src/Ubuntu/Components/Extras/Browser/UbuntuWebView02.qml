@@ -99,6 +99,8 @@ WebView {
         navigationRequestedDelegate(request);
     }
 
+    preferences.passwordEchoEnabled: formFactor === "mobile"
+
     /*experimental.preferences.navigatorQtObjectEnabled: true
     experimental.userScripts: [Qt.resolvedUrl("selection.js")]
     experimental.onMessageReceived: {
