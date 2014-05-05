@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-20 10:45+0200\n"
+"POT-Creation-Date: 2014-05-05 13:50+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,6 +47,18 @@ msgstr ""
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:24
+msgid "Confirm Navigation"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:28
+msgid "Leave"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:33
+msgid "Stay"
 msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:24
@@ -104,6 +116,10 @@ msgstr ""
 msgid "Refresh page"
 msgstr ""
 
+#: src/app/FilePickerDialog.qml:27
+msgid "Please choose a file"
+msgstr ""
+
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr ""
@@ -128,10 +144,6 @@ msgstr ""
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
-
-#: src/app/WebViewImpl.qml:51
-msgid "This page wants to know your device’s location."
 msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
@@ -304,12 +316,16 @@ msgstr ""
 msgid "Select an account"
 msgstr ""
 
+#: src/app/webcontainer/WebViewImplWebkit.qml:63
+msgid "This page wants to know your device’s location."
+msgstr ""
+
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webcontainer/webapp-container.qml:51
+#: src/app/webcontainer/webapp-container.qml:69
 #, qt-format
 msgid "%1 - Ubuntu Web Application"
 msgstr ""
 
-#: src/app/webcontainer/webapp-container.qml:53
+#: src/app/webcontainer/webapp-container.qml:71
 msgid "Ubuntu Web Application"
 msgstr ""

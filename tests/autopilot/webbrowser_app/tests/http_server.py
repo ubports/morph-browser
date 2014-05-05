@@ -83,6 +83,24 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             html += 'src="/blanktargetlink" />'
             html += '</body></html>'
             self.send_html(html)
+        elif self.path == "/uploadform":
+            # craft a page that accepts clicks anywhere inside its window
+            # and on a click opens up the content picker.
+            # It also pops up an alert with the new content of the file
+            # upload field when it changes
+            self.send_response(200)
+            html = '<html><body style="margin: 0">'
+            html += '<form action="upload" method="post" '
+            html += 'enctype="multipart/form-data">'
+            html += '<input type="file" name="file" id="file" '
+            html += 'onchange="alert(this.value)"><br>'
+            html += '<input type="submit" name="submit" value="Submit">'
+            html += '</form>'
+            html += '<a href="javascript:'
+            html += 'document.getElementById(\'file\').click()">'
+            html += '<div style="height: 100%"></div></a>'
+            html += '</body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 

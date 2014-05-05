@@ -23,23 +23,21 @@ import Ubuntu.Components.Extras.Browser 0.1
 import webcontainer.private 0.1
 
 Window {
-    id: root
+    objectName: "webappContainer"
 
-    property bool developerExtrasEnabled: false
+    property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
-    property bool backForwardButtonsVisible: false
-    property bool addressBarVisible: false
+    property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
+    property alias addressBarVisible: browser.addressBarVisible
 
-    property string webappName: ""
-    property string webappModelSearchPath: ""
-    property string webappUrlPatterns: ""
-
-    property string applicationName: Qt.application.name
-    property string url: ""
-
-    property string webappTitle
-
+    property alias url: browser.url
+    property alias webappName: browser.webappName
+    property alias webappModelSearchPath: browser.webappModelSearchPath
+    property alias webappUrlPatterns: browser.webappUrlPatterns
+    property alias oxide: browser.oxide
     property string accountProvider: ""
+
+    contentOrientation: browser.screenOrientation
 
     width: 800
     height: 600
@@ -136,8 +134,8 @@ Window {
 
     function loadLoginView() {
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
-            "accountProvider": root.accountProvider,
-            "applicationName": root.applicationName,
+            "accountProvider": accountProvider,
+            "applicationName": Qt.application.name,
             "webappCookieStore": webappCookieStore,
         })
     }

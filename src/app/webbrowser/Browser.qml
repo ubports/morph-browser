@@ -17,8 +17,6 @@
  */
 
 import QtQuick 2.0
-import QtWebKit 3.1
-import QtWebKit.experimental 1.0
 import Ubuntu.Components 0.1
 import webbrowserapp.private 0.1
 import "../actions" as Actions
@@ -48,10 +46,10 @@ BrowserView {
         },
         Actions.Bookmark {
             enabled: currentWebview
-            onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
+            onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, "")//currentWebview.icon)
         },
         Actions.NewTab {
-            onTriggered: newTab("", true)
+            onTriggered: openUrlInNewTab("", true)
         },
         Actions.ClearHistory {
             onTriggered: _historyModel.clearAll()
@@ -61,6 +59,10 @@ BrowserView {
     PageStack {
         id: stack
         Page {
+            // Work around http://pad.lv/1305834 by forcing the page title to be
+            // reset to an empty string when the activity view is being hidden.
+            title: activityViewVisible ? " " : ""
+
             Item {
                 id: webviewContainer
                 anchors {
@@ -73,7 +75,7 @@ BrowserView {
 
             ErrorSheet {
                 anchors.fill: webviewContainer
-                visible: currentWebview ? (currentWebview.lastLoadRequestStatus === WebView.LoadFailedStatus) : false
+                visible: currentWebview ? currentWebview.lastLoadFailed : false
                 url: currentWebview ? currentWebview.url : ""
                 onRefreshClicked: currentWebview.reload()
             }
@@ -90,7 +92,7 @@ BrowserView {
 
         function onNewTabRequested() {
             toggleActivityView()
-            newTab("", true)
+            openUrlInNewTab("", true)
         }
 
         function onSwitchToTabRequested(index) {
@@ -217,12 +219,12 @@ BrowserView {
             enabled: stack.depth === 0
             visible: currentWebview === webview
 
-            experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
+            //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
 
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
                     enabled: contextualData.href.toString()
-                    onTriggered: newTab(contextualData.href, true)
+                    onTriggered: openUrlInNewTab(contextualData.href, true)
                 }
                 Actions.BookmarkLink {
                     enabled: contextualData.href.toString()
@@ -234,7 +236,7 @@ BrowserView {
                 }
                 Actions.OpenImageInNewTab {
                     enabled: contextualData.img.toString()
-                    onTriggered: newTab(contextualData.img, true)
+                    onTriggered: openUrlInNewTab(contextualData.img, true)
                 }
                 Actions.CopyImage {
                     enabled: contextualData.img.toString()
@@ -242,44 +244,35 @@ BrowserView {
                 }
             }
 
-            onNewTabRequested: newTab(url, true)
-
-            WebviewThumbnailer {
-                id: thumbnailer
-                webview: webview
-                targetSize: Qt.size(units.gu(12), units.gu(12))
-                property url thumbnailSource: "image://webthumbnail/" + webview.url
-                onThumbnailRendered: {
-                    if (url == webview.url) {
-                        webview.thumbnail = thumbnailer.thumbnailSource
-                    }
-                }
+            onNewViewRequested: {
+                var webview = webviewComponent.createObject(webviewContainer, {"request": request})
+                addTab(webview, true, false)
             }
-            property url thumbnail: (url && thumbnailer.thumbnailExists()) ? thumbnailer.thumbnailSource : ""
 
             onLoadingChanged: {
-                if (loadRequest.status === WebView.LoadSucceededStatus) {
+                if (lastLoadSucceeded) {
                     _historyModel.add(webview.url, webview.title, webview.icon)
-                    if (!thumbnailer.thumbnailExists()) {
-                        thumbnailer.renderThumbnail()
-                    }
                 }
             }
         }
     }
 
-    function newTab(url, setCurrent) {
-        var webview = webviewComponent.createObject(webviewContainer, {"url": url})
+    function addTab(webview, setCurrent, focusAddressBar) {
         var index = tabsModel.add(webview)
         if (setCurrent) {
             tabsModel.currentIndex = index
             if (!chromeless) {
-                if (!url) {
+                if (focusAddressBar) {
                     panel.chrome.addressBar.forceActiveFocus()
                     panel.open()
                 }
             }
         }
+    }
+
+    function openUrlInNewTab(url, setCurrent) {
+        var webview = webviewComponent.createObject(webviewContainer, {"url": url})
+        addTab(webview, setCurrent, !url.toString())
     }
 
     function closeTab(index) {

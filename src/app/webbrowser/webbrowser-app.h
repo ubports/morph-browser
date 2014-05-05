@@ -21,22 +21,17 @@
 
 #include "browserapplication.h"
 
-class QThread;
-
 class WebbrowserApp : public BrowserApplication
 {
     Q_OBJECT
 
 public:
     WebbrowserApp(int& argc, char** argv);
-    ~WebbrowserApp();
 
     bool initialize();
 
 private:
     virtual void printUsage() const;
-
-    QThread* m_thumbnailUtilsThread;
 };
 
 #endif // __WEBBROWSER_APP_H__

@@ -39,11 +39,21 @@ protected:
 
 private:
     virtual void printUsage() const;
-    QString webappModelSearchPath() const;
-    QString webappName() const;
-    QStringList webappUrlPatterns() const;
-    QString accountProvider() const;
-    void registerCookieQmlTypes(QQmlEngine * engine);
+    void parseCommandLine();
+    void parseExtraConfiguration();
+    QString getExtraWebappUrlPatterns() const;
+
+private:
+    QString m_webappName;
+    QString m_webappModelSearchPath;
+    QStringList m_webappUrlPatterns;
+    QString m_accountProvider;
+    bool m_withOxide;
+    bool m_storeSessionCookies;
+    bool m_backForwardButtonsVisible;
+    bool m_addressBarVisible;
+
+    static const QString URL_PATTERN_SEPARATOR;
 };
 
 #endif // __WEBAPP_CONTAINER_H__

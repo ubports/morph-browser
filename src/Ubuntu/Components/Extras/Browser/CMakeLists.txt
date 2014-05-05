@@ -13,7 +13,7 @@ set(PLUGIN_SRC plugin.cpp)
 
 add_library(${PLUGIN} MODULE ${PLUGIN_SRC})
 
-qt5_use_modules(${PLUGIN} Core Qml)
+qt5_use_modules(${PLUGIN} Core Gui Qml)
 
 file(GLOB QML_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.qml qmldir *.js)
 install(TARGETS ${PLUGIN} DESTINATION ${WEBBROWSER_IMPORTS_DIR})

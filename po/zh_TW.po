@@ -7,23 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-11-13 09:10+0100\n"
+"POT-Creation-Date: 2014-04-10 16:28+0100\n"
 "PO-Revision-Date: 2013-10-19 13:33+0000\n"
 "Last-Translator: Walter Cheuk <wwycheuk@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-12-24 05:52+0000\n"
-"X-Generator: Launchpad (build 16877)\n"
-
-#: src/app/ActivityView.qml:36 src/app/Chrome.qml:127
-msgid "Activity"
-msgstr "活動"
-
-#: src/app/ActivityView.qml:54
-msgid "Bookmarks"
-msgstr "書籤"
+"X-Launchpad-Export-Date: 2014-04-26 07:11+0000\n"
+"X-Generator: Launchpad (build 16985)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -57,6 +49,18 @@ msgstr "密碼"
 msgid "Cancel"
 msgstr "取消"
 
+#: src/app/BeforeUnloadDialog.qml:24
+msgid "Confirm Navigation"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:28
+msgid "Leave"
+msgstr ""
+
+#: src/app/BeforeUnloadDialog.qml:33
+msgid "Stay"
+msgstr ""
+
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
 msgstr "本連線未獲信任"
@@ -85,6 +89,10 @@ msgstr "返回"
 msgid "Forward"
 msgstr "前進"
 
+#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
+msgid "Activity"
+msgstr "活動"
+
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "JavaScript 確認"
@@ -107,6 +115,10 @@ msgstr "Ubuntu 建議您檢查網路設定，並嘗試重新整理該頁面。"
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
 msgstr "重新整理頁面"
+
+#: src/app/FilePickerDialog.qml:26
+msgid "Please choose a file"
+msgstr ""
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
@@ -133,52 +145,6 @@ msgstr "代理伺服器需要核對身分。"
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr "%1:%2 網站需要核對身分。"
-
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/TabsList.qml:37
-#, qt-format
-msgid "Currently viewing (%1)"
-msgstr "目前開啟 (%1 個分頁)"
-
-#: src/app/TabsList.qml:68
-msgid "+"
-msgstr "+"
-
-#: src/app/TimelineView.qml:83
-msgid "Today"
-msgstr "今天"
-
-#: src/app/TimelineView.qml:85
-msgid "Yesterday"
-msgstr "昨天"
-
-#: src/app/TimelineView.qml:87
-msgid "Last 7 Days"
-msgstr "最近 7 天"
-
-#: src/app/TimelineView.qml:89
-msgid "This Month"
-msgstr "本月"
-
-#: src/app/TimelineView.qml:91
-msgid "This Year"
-msgstr "本年"
-
-#: src/app/TimelineView.qml:93
-msgid "Older"
-msgstr "更舊"
-
-#: src/app/TimelineView.qml:276
-msgid "(local files)"
-msgstr "(本機檔案)"
-
-#: src/app/TimelineView.qml:278
-msgid "(other)"
-msgstr "(其他)"
-
-#: src/app/WebViewImpl.qml:52
-msgid "This page wants to know your device’s location."
-msgstr "本頁面想知道您裝置的位置。"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -266,24 +232,92 @@ msgstr "重新載入"
 msgid "Leave Page"
 msgstr "離開頁面;重新載入;重新整理"
 
+#: src/app/webbrowser/ActivityView.qml:54
+msgid "Bookmarks"
+msgstr "書籤"
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/app/webbrowser/TabsList.qml:37
+#, qt-format
+msgid "Currently viewing (%1)"
+msgstr "目前開啟 (%1 個分頁)"
+
+#: src/app/webbrowser/TabsList.qml:68
+msgid "+"
+msgstr "+"
+
+#: src/app/webbrowser/TimelineView.qml:84
+msgid "Today"
+msgstr "今天"
+
+#: src/app/webbrowser/TimelineView.qml:86
+msgid "Yesterday"
+msgstr "昨天"
+
+#: src/app/webbrowser/TimelineView.qml:88
+msgid "Last 7 Days"
+msgstr "最近 7 天"
+
+#: src/app/webbrowser/TimelineView.qml:90
+msgid "This Month"
+msgstr "本月"
+
+#: src/app/webbrowser/TimelineView.qml:92
+msgid "This Year"
+msgstr "本年"
+
+#: src/app/webbrowser/TimelineView.qml:94
+msgid "Older"
+msgstr "更舊"
+
+#: src/app/webbrowser/TimelineView.qml:277
+msgid "(local files)"
+msgstr "(本機檔案)"
+
+#: src/app/webbrowser/TimelineView.qml:279
+msgid "(other)"
+msgstr "(其他)"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "瀏覽器"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "網頁瀏覽器"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "瀏覽全球資訊網"
+
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webapp-container.qml:44 src/app/webbrowser-app.qml:35
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:45
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu 網頁瀏覽器"
 
-#: src/app/webapp-container.qml:46 src/app/webbrowser-app.qml:37
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:47
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu 網頁瀏覽器"
 
-#: src/app/webbrowser-app.desktop.in:3
-msgid "Browser"
-msgstr "瀏覽器"
+#: src/app/webcontainer/AccountsLoginPage.qml:70
+msgid "No local account found for "
+msgstr ""
 
-#: src/app/webbrowser-app.desktop.in:4
-msgid "Web Browser"
-msgstr "網頁瀏覽器"
+#: src/app/webcontainer/AccountsLoginPage.qml:75
+msgid "Skip account creation step"
+msgstr ""
 
-#: src/app/webbrowser-app.desktop.in:5
-msgid "Browse the World Wide Web"
-msgstr "瀏覽全球資訊網"
+#: src/app/webcontainer/AccountsLoginPage.qml:124
+msgid "Add account"
+msgstr ""
+
+#: src/app/webcontainer/AccountsView.qml:38
+msgid "Select an account"
+msgstr ""
+
+#: src/app/webcontainer/WebViewImplWebkit.qml:63
+msgid "This page wants to know your device’s location."
+msgstr ""
