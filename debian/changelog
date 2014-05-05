@@ -1,3 +1,11 @@
+webbrowser-app (0.23+14.10.20140505-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Work around a recent regression by forcing the OSK to show up when
+    the address bar is being focused. (LP: #1316057)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 05 May 2014 12:15:51 +0000
+
 webbrowser-app (0.23+14.04.20140428-0ubuntu1) trusty; urgency=low
 
   [ CI bot ]
