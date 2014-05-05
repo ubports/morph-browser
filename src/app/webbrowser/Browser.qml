@@ -220,6 +220,7 @@ BrowserView {
             visible: currentWebview === webview
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
+            preferences.localStorageEnabled: true
 
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
