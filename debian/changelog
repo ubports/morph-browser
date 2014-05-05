@@ -1,3 +1,32 @@
+webbrowser-app (0.23+14.10.20140505.1-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Resolve image URLs beginning with a double slash correctly for
+    context menu items (LP: #1311626)
+
+  [ Adnane Belmadiaf ]
+  * Enabled passwordEchoEnabled (LP: #1314251)
+
+  [ Alberto Mardegan ]
+  * Split UbuntuWebContext into two different components:
+    UbuntuWebContext, which is a WebContext derivative with the UA
+    overrides for Ubuntu. UbuntuSharedWebContext, which is a singleton
+    for UbuntuWebContext .
+
+  [ Olivier Tilloy ]
+  * Build the models in a separate static lib, and link the unit tests
+    against it. This speeds up build time by avoiding having to
+    recompile the models’ source for each unit test.
+  * Handle javascript console messages.
+  * Escape literal dots in UA override matching regular expressions.
+  * Enable localStorage by default in the browser. (LP: #1309673)
+  * Ensure that the URL actually changes so that the address bar is
+    updated in case the user has entered a new address that redirects to
+    where she previously was. (LP: #1306615)
+  * Update bzr ignore rules.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 05 May 2014 20:47:19 +0000
+
 webbrowser-app (0.23+14.10.20140505-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
