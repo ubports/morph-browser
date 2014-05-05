@@ -51,11 +51,11 @@ WebView {
         return undefined
     }
 
-    context: UbuntuWebContext.sharedContext
+    context: UbuntuSharedWebContext.sharedContext
     Component.onCompleted: {
         var customUA = getUAString()
         if (customUA !== undefined) {
-            UbuntuWebContext.customUA = customUA
+            UbuntuSharedWebContext.customUA = customUA
         }
     }
 
