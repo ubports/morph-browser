@@ -126,4 +126,4 @@ private Q_SLOTS:
 };
 
 QTEST_MAIN(ContainerUrlPatternsTests)
-#include "tst_ContainerUrlPatterns.moc"
+#include "tst_ContainerUrlPatternsTests.moc"
