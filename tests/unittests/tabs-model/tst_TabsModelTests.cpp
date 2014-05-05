@@ -125,7 +125,7 @@ private Q_SLOTS:
     {
         QQuickItem* webview = createWebView();
         model->add(webview);
-        QQuickItem* removed = model->remove(0);
+        QObject* removed = model->remove(0);
         QCOMPARE(removed, webview);
     }
 

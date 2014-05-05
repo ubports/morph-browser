@@ -20,7 +20,7 @@
 
 // Qt
 #include <QtCore/QDebug>
-#include <QtQuick/QQuickItem>
+#include <QtCore/QObject>
 
 /*!
     \class TabsModel
@@ -67,7 +67,7 @@ QVariant TabsModel::data(const QModelIndex& index, int role) const
     if (!index.isValid()) {
         return QVariant();
     }
-    QQuickItem* webview = m_webviews.at(index.row());
+    QObject* webview = m_webviews.at(index.row());
     switch (role) {
     case Url:
         return webview->property("url");
@@ -100,7 +100,7 @@ void TabsModel::setCurrentIndex(int index)
     Q_EMIT currentWebviewChanged();
 }
 
-QQuickItem* TabsModel::currentWebview() const
+QObject* TabsModel::currentWebview() const
 {
     if (m_currentIndex >= 0) {
         return m_webviews.at(m_currentIndex);
@@ -115,7 +115,7 @@ QQuickItem* TabsModel::currentWebview() const
     It is the responsibility of the caller to instantiate the corresponding
     WebView beforehand.
 */
-int TabsModel::add(QQuickItem* webview)
+int TabsModel::add(QObject* webview)
 {
     if (webview == 0) {
         qWarning() << "Invalid WebView";
@@ -139,13 +139,13 @@ int TabsModel::add(QQuickItem* webview)
     It is the responsibility of the caller to destroy the corresponding
     WebView afterwards.
 */
-QQuickItem* TabsModel::remove(int index)
+QObject* TabsModel::remove(int index)
 {
     if (!checkValidTabIndex(index)) {
         return 0;
     }
     beginRemoveRows(QModelIndex(), index, index);
-    QQuickItem* webview = m_webviews.takeAt(index);
+    QObject* webview = m_webviews.takeAt(index);
     webview->disconnect(this);
     endRemoveRows();
     Q_EMIT countChanged();
@@ -170,7 +170,7 @@ bool TabsModel::checkValidTabIndex(int index) const
     return true;
 }
 
-void TabsModel::onDataChanged(QQuickItem* webview, int role)
+void TabsModel::onDataChanged(QObject* webview, int role)
 {
     int index = m_webviews.indexOf(webview);
     if (checkValidTabIndex(index)) {
@@ -180,15 +180,15 @@ void TabsModel::onDataChanged(QQuickItem* webview, int role)
 
 void TabsModel::onUrlChanged()
 {
-    onDataChanged(qobject_cast<QQuickItem*>(sender()), Url);
+    onDataChanged(sender(), Url);
 }
 
 void TabsModel::onTitleChanged()
 {
-    onDataChanged(qobject_cast<QQuickItem*>(sender()), Title);
+    onDataChanged(sender(), Title);
 }
 
 void TabsModel::onIconChanged()
 {
-    onDataChanged(qobject_cast<QQuickItem*>(sender()), Icon);
+    onDataChanged(sender(), Icon);
 }
