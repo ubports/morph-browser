@@ -71,11 +71,34 @@ Loader {
             }
 
             Chrome {
+                id: chrome
+
                 anchors.fill: parent
 
-                url: currentWebview ? currentWebview.url : ""
+                Connections {
+                    target: chromePanel
+                    onCurrentWebviewChanged: {
+                        if (currentWebview !== undefined) {
+                            chrome.url = currentWebview.url
+                        }
+                    }
+                }
+                Connections {
+                    target: chromePanel.currentWebview
+                    onUrlChanged: {
+                        // ensure that the URL actually changes so that the
+                        // address bar is updated in case the user has entered a
+                        // new address that redirects to where she previously was
+                        // (https://bugs.launchpad.net/webbrowser-app/+bug/1306615)
+                        chrome.url = ""
+                        chrome.url = currentWebview.url
+                    }
+                }
 
-                loading: currentWebview ? currentWebview.loading || (currentWebview.loadProgress === 0) : false
+                loading: currentWebview ? currentWebview.loading
+                         // workaround for https://bugs.launchpad.net/oxide/+bug/1290821
+                         && !currentWebview.lastLoadStopped
+                         : false
                 loadProgress: currentWebview ? currentWebview.loadProgress : 0
 
                 canGoBack: currentWebview ? currentWebview.canGoBack : false

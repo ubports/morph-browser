@@ -42,5 +42,11 @@ Popups.Dialog {
         onClicked: model.reject()
     }
 
+    Binding {
+        target: model
+        property: "currentValue"
+        value: input.text
+    }
+
     Component.onCompleted: show()
 }

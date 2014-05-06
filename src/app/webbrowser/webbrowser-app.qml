@@ -48,7 +48,7 @@ Window {
     }
 
     function newTab(url, setCurrent) {
-        return browser.newTab(url, setCurrent)
+        return browser.openUrlInNewTab(url, setCurrent)
     }
 
     // Handle runtime requests to open urls as defined

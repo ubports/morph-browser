@@ -17,10 +17,13 @@
  */
 
 // Qt
+#include <QtCore/QLibrary>
 #include <QtNetwork/QNetworkInterface>
+#include <QtGui/QOpenGLContext>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include <QtQuick/private/qsgcontext_p.h>
 #include <QtQuick/QQuickWindow>
 
 // local
@@ -41,7 +44,9 @@ BrowserApplication::BrowserApplication(int& argc, char** argv)
 
 BrowserApplication::~BrowserApplication()
 {
-    m_webbrowserWindowProxy->setWindow(NULL);
+    if (m_webbrowserWindowProxy) {
+        m_webbrowserWindowProxy->setWindow(NULL);
+    }
     delete m_window;
     delete m_webbrowserWindowProxy;
     delete m_component;
@@ -80,6 +85,11 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     QString appPkgName = qgetenv("APP_ID").split('_').first();
     QCoreApplication::setApplicationName(appPkgName);
 
+    // Enable compositing in oxide
+    QOpenGLContext* glcontext = new QOpenGLContext(this);
+    glcontext->create();
+    QSGContext::setSharedOpenGLContext(glcontext);
+
     bool inspector = m_arguments.contains("--inspector");
     if (inspector) {
         QString host;
@@ -113,7 +123,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     m_webbrowserWindowProxy = new WebBrowserWindow();
     context->setContextProperty("webbrowserWindowProxy", m_webbrowserWindowProxy);
 
-    QObject* browser = m_component->create();
+    QObject* browser = m_component->beginCreate(context);
     m_window = qobject_cast<QQuickWindow*>(browser);
     m_webbrowserWindowProxy->setWindow(m_window);
 

@@ -31,6 +31,9 @@ class QQmlEngine;
 class QQuickWindow;
 class WebBrowserWindow;
 
+// We want the browser to be QApplication based rather than QGuiApplication
+// to provide a widget based file picker on the desktop, rather than the
+// QML fall back picker.
 class BrowserApplication : public QApplication
 {
     Q_OBJECT
@@ -49,11 +52,11 @@ protected:
     QStringList m_arguments;
     QQmlEngine* m_engine;
     QQuickWindow* m_window;
+    QQmlComponent* m_component;
 
 private:
     QString appId() const;
 
-    QQmlComponent* m_component;
     WebBrowserWindow *m_webbrowserWindowProxy;
 };
 

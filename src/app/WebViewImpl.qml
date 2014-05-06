@@ -17,12 +17,10 @@
  */
 
 import QtQuick 2.0
-import QtWebKit 3.1
-import QtWebKit.experimental 1.0
-import Ubuntu.Components 0.1
-import Ubuntu.Components.Extras.Browser 0.1
-import Ubuntu.Components.Popups 0.1
-import "actions" as Actions
+//import Ubuntu.Components 0.1
+import Ubuntu.Components.Extras.Browser 0.2
+//import Ubuntu.Components.Popups 0.1
+//import "actions" as Actions
 
 UbuntuWebView {
     id: webview
@@ -30,20 +28,27 @@ UbuntuWebView {
     property var currentWebview: webview
     property var toolbar: null
 
-    experimental.certificateVerificationDialog: CertificateVerificationDialog {}
+    /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
-    experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}
-    experimental.alertDialog: AlertDialog {}
-    experimental.confirmDialog: ConfirmDialog {}
-    experimental.promptDialog: PromptDialog {}
+    experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
+    alertDialog: AlertDialog {}
+    confirmDialog: ConfirmDialog {}
+    promptDialog: PromptDialog {}
+    beforeUnloadDialog: BeforeUnloadDialog {}
+    filePicker: filePickerLoader.item
 
-    selectionActions: ActionList {
+    Loader {
+        id: filePickerLoader
+        source: formFactor == "desktop" ? "FilePickerDialog.qml" : "ContentPickerDialog.qml"
+    }
+
+    /*selectionActions: ActionList {
         Actions.Copy {
             onTriggered: selection.copy()
         }
-    }
+    }*/
 
-    experimental.onPermissionRequested: {
+    /*experimental.onPermissionRequested: {
         if (permission.type === PermissionRequest.Geolocation) {
             if (webview.toolbar) {
                 webview.toolbar.close()
@@ -56,8 +61,5 @@ UbuntuWebView {
         // TODO: handle other types of permission requests
         // TODO: we might want to store the answer to avoid requesting
         //       the permission everytime the user visits this site.
-    }
-
-    property int lastLoadRequestStatus: -1
-    onLoadingChanged: lastLoadRequestStatus = loadRequest.status
+    }*/
 }

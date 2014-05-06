@@ -23,7 +23,7 @@
 #include <QtCore/QAbstractListModel>
 #include <QtCore/QList>
 
-class QQuickItem;
+class QObject;
 
 class TabsModel : public QAbstractListModel
 {
@@ -32,7 +32,7 @@ class TabsModel : public QAbstractListModel
     Q_ENUMS(Roles)
 
     Q_PROPERTY(int currentIndex READ currentIndex WRITE setCurrentIndex NOTIFY currentIndexChanged)
-    Q_PROPERTY(QQuickItem* currentWebview READ currentWebview NOTIFY currentWebviewChanged)
+    Q_PROPERTY(QObject* currentWebview READ currentWebview NOTIFY currentWebviewChanged)
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
 
 public:
@@ -54,10 +54,10 @@ public:
     int currentIndex() const;
     void setCurrentIndex(int index);
 
-    QQuickItem* currentWebview() const;
+    QObject* currentWebview() const;
 
-    Q_INVOKABLE int add(QQuickItem* webview);
-    Q_INVOKABLE QQuickItem* remove(int index);
+    Q_INVOKABLE int add(QObject* webview);
+    Q_INVOKABLE QObject* remove(int index);
 
 Q_SIGNALS:
     void currentIndexChanged() const;
@@ -70,11 +70,11 @@ private Q_SLOTS:
     void onIconChanged();
 
 private:
-    QList<QQuickItem*> m_webviews;
+    QList<QObject*> m_webviews;
     int m_currentIndex;
 
     bool checkValidTabIndex(int index) const;
-    void onDataChanged(QQuickItem* webview, int role);
+    void onDataChanged(QObject* webview, int role);
 };
 
 #endif // __TABS_MODEL_H__

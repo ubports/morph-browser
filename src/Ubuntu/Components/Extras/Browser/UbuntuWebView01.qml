@@ -23,6 +23,15 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.1
 import Ubuntu.Components.Popups 0.1
 
+/*!
+    \qmltype MainView
+    \inqmlmodule Ubuntu.Components.Extras.Browser 0.1
+    \obsolete
+    \brief Custom Ubuntu WebView extending QtWebKit’s WebView
+
+    This version of UbuntuWebView is deprecated and shouldn’t be used in new
+    code. Use version 0.2 or higher instead.
+*/
 WebView {
     id: _webview
 
@@ -49,7 +58,7 @@ WebView {
      */
     function navigationRequestedDelegate(request) { }
 
-    UserAgent {
+    UserAgent01 {
         id: userAgent
     }
 
@@ -86,7 +95,7 @@ WebView {
 
     experimental.preferences.navigatorQtObjectEnabled: true
     experimental.userScripts: [Qt.resolvedUrl("hyperlinks.js"),
-                               Qt.resolvedUrl("selection.js")]
+                               Qt.resolvedUrl("selection01.js")]
     experimental.onMessageReceived: {
         var data = null
         try {
@@ -135,7 +144,7 @@ WebView {
         }
     }
 
-    experimental.itemSelector: ItemSelector {}
+    experimental.itemSelector: ItemSelector01 {}
 
     property alias selection: selection
     property ActionList selectionActions

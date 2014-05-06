@@ -1,3 +1,200 @@
+webbrowser-app (0.23+14.10.20140505.1-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Resolve image URLs beginning with a double slash correctly for
+    context menu items (LP: #1311626)
+
+  [ Adnane Belmadiaf ]
+  * Enabled passwordEchoEnabled (LP: #1314251)
+
+  [ Alberto Mardegan ]
+  * Split UbuntuWebContext into two different components:
+    UbuntuWebContext, which is a WebContext derivative with the UA
+    overrides for Ubuntu. UbuntuSharedWebContext, which is a singleton
+    for UbuntuWebContext .
+
+  [ Olivier Tilloy ]
+  * Build the models in a separate static lib, and link the unit tests
+    against it. This speeds up build time by avoiding having to
+    recompile the models’ source for each unit test.
+  * Handle javascript console messages.
+  * Escape literal dots in UA override matching regular expressions.
+  * Enable localStorage by default in the browser. (LP: #1309673)
+  * Ensure that the URL actually changes so that the address bar is
+    updated in case the user has entered a new address that redirects to
+    where she previously was. (LP: #1306615)
+  * Update bzr ignore rules.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 05 May 2014 20:47:19 +0000
+
+webbrowser-app (0.23+14.10.20140505-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Work around a recent regression by forcing the OSK to show up when
+    the address bar is being focused. (LP: #1316057)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 05 May 2014 12:15:51 +0000
+
+webbrowser-app (0.23+14.04.20140428-0ubuntu1) trusty; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Alberto Mardegan ]
+  * Webapps: let SAML requests through SAML requests are used for
+    instance by Google Apps for your domain; they are implemented as a
+    HTTP redirect to a URL containing the query parameter called
+    "SAMLRequest". Besides letting the request through, we must also add
+    the SAML domain to the list of the allowed hosts. (LP: #1302780)
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 28 Apr 2014 07:53:21 +0000
+
+webbrowser-app (0.23+14.04.20140422-0ubuntu1) trusty; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Fix the network dialog reload (LP: #1309138)
+  * Oxide (and Chromium) does not inform of non user driven navigations
+    (or more specifically redirects that would be part of an
+    popup/webview load (after its been granted). Quite a few sites (e.g.
+    Youtube), create popups when clicking on links (or following a
+    window.open()) with proper youtube.com address but w/ redirection
+    params, e.g.:
+    http://www.youtube.com/redirect?q=http%3A%2F%2Fgodzillamovie.com%2F&
+    redir_token=b8WPI1pq9FHXeHm2bN3KVLAJSfp8MTM5NzI2NDg3NEAxMzk3MTc4NDc0
+    In this instance the popup & navigation is granted, but then a
+    redirect happens inside the popup to the real target url (here
+    http://godzillamovie.com) which is not trapped by a navigation
+    requested and therefore not filtered. The only way to do it atm is
+    to listen to url changes in popups & also filter there. (LP:
+    #1294279)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 22 Apr 2014 16:55:41 +0000
+
+webbrowser-app (0.23+14.04.20140416-0ubuntu1) trusty; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Olivier Tilloy ]
+  * Handle new view requests in the browser. (LP: #1307735)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 16 Apr 2014 22:53:18 +0000
+
+webbrowser-app (0.23+14.04.20140414-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Force the page title to be reset to an empty string when the
+    activity view is being hidden. (LP: #1307420)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 14 Apr 2014 19:38:12 +0000
+
+webbrowser-app (0.23+14.04.20140411.1-0ubuntu1) trusty; urgency=low
+
+  [ Michael Sheldon ]
+  * Add support for file upload via content-hub
+
+  [ Ugo Riboni ]
+  * Add support for file upload via content-hub
+
+  [ Alexandre Abreu ]
+  * Make sure that we dont load unecessary libs (oxide or qtwebkit)
+    correspnding to the webengine that we dont use. (LP: #1306037)
+  * Add a basic set of integration tests for the webapp container
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Enable UA overrides for all form factors, each in a separate file.
+    Add an override for google calendar on desktop. Clean up the
+    construction of the default UA string for easier reading and
+    maintenance.
+
+  [ Bill Filler ]
+  * Add support for file upload via content-hub
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 11 Apr 2014 15:53:56 +0000
+
+webbrowser-app (0.23+14.04.20140410-0ubuntu1) trusty; urgency=low
+
+  [ David Barth ]
+  * To prevent https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-
+    toolkit/+bug/1305834 caused by a recent UI toolkit change, we are
+    returning an empty title for now. (LP: #1305834)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 10 Apr 2014 13:22:24 +0000
+
+webbrowser-app (0.23+14.04.20140409-0ubuntu1) trusty; urgency=low
+
+  [ Alexandre Abreu ]
+  * Add support for Oxide's onNavigationRequested in the container (LP:
+    #1302769)
+  * Webapps: maintain the session cookies for the user session Instruct
+    Oxide to store/load the session cookies on disk in a per-webapp
+    directory under XDG_RUNTIME_DIR. The first time in a user session
+    that the webapp is launched, the session cookies (leftover from
+    previous sessions) are not loaded, but only stored (this is the
+    chrome's "persistent" sessionCookieMode). The next times, session
+    cookies are both loaded and stored (chrome's "restored"
+    sessionCookieMode).
+
+  [ Alberto Mardegan ]
+  * Webapps: maintain the session cookies for the user session Instruct
+    Oxide to store/load the session cookies on disk in a per-webapp
+    directory under XDG_RUNTIME_DIR. The first time in a user session
+    that the webapp is launched, the session cookies (leftover from
+    previous sessions) are not loaded, but only stored (this is the
+    chrome's "persistent" sessionCookieMode). The next times, session
+    cookies are both loaded and stored (chrome's "restored"
+    sessionCookieMode).
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 09 Apr 2014 13:34:57 +0000
+
+webbrowser-app (0.23+14.04.20140407.1-0ubuntu1) trusty; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Update to oxide 1.0.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 07 Apr 2014 14:07:25 +0000
+
+webbrowser-app (0.23+14.04.20140403-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Re-enable javascript dialogs, now that they are available in oxide.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 03 Apr 2014 13:38:41 +0000
+
+webbrowser-app (0.23+14.04.20140402-0ubuntu1) trusty; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Alexandre Abreu ]
+  * Small update to the --webapp flag documentation
+
+  [ Olivier Tilloy ]
+  * Null-check to fix a segmentation fault when --help is passed to the
+    executable.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 02 Apr 2014 15:15:46 +0000
+
+webbrowser-app (0.23+14.04.20140328.3-0ubuntu1) trusty; urgency=low
+
+  [ Olivier Tilloy ]
+  * Land the master Oxide support branch. See individual revisions for
+    details. (LP: #1271756)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 28 Mar 2014 17:07:09 +0000
+
 webbrowser-app (0.23+14.04.20140324-0ubuntu1) trusty; urgency=low
 
   [ Alexandre Abreu ]

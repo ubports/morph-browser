@@ -1,3 +1,8 @@
 module Ubuntu.Components.Extras.Browser
 plugin ubuntu-ui-extras-browser-plugin
-UbuntuWebView 0.1 UbuntuWebView.qml
+UbuntuWebView 0.1 UbuntuWebView01.qml
+UbuntuWebView 0.2 UbuntuWebView02.qml
+singleton UbuntuSharedWebContext 0.2 UbuntuSharedWebContext.qml
+UbuntuWebContext 0.2 UbuntuWebContext.qml
+# Without the following line, importing version 0.1 of the module fails
+singleton UbuntuSharedWebContext 0.1 dummysingleton.qml

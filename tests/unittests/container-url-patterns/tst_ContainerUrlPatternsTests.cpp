@@ -93,7 +93,37 @@ private Q_SLOTS:
         QFETCH(QString, transformedPattern);
         QCOMPARE(UrlPatternUtils::transformWebappSearchPatternToSafePattern(pattern), transformedPattern);
     }
+
+    void filteredUrlPatterns_data()
+    {
+        QTest::addColumn<QStringList>("patterns");
+        QTest::addColumn<QStringList>("filteredPattern");
+
+        // regular patterns
+
+        QTest::newRow("Patterns with empty ones")
+                << (QStringList() << QString("https?://*.mydomain.com/*")
+                                  << QString()
+                                  << QString("https?://www.mydomain.com/*")
+                                  << QString())
+                << (QStringList() << QString("https?://[^\\./]*.mydomain.com/[^\\s]*")
+                                  << QString("https?://www.mydomain.com/[^\\s]*"));
+
+        QTest::newRow("Patterns with invalid ones")
+                << (QStringList() << QString("https?://*.mydomain.com/*")
+                                  << QString()
+                                  << QString("https?://*")
+                                  << QString())
+                << (QStringList() << QString("https?://[^\\./]*.mydomain.com/[^\\s]*"));
+    }
+
+    void filteredUrlPatterns()
+    {
+        QFETCH(QStringList, patterns);
+        QFETCH(QStringList, filteredPattern);
+        QCOMPARE(UrlPatternUtils::filterAndTransformUrlPatterns(patterns), filteredPattern);
+    }
 };
 
 QTEST_MAIN(ContainerUrlPatternsTests)
-#include "tst_ContainerUrlPatterns.moc"
+#include "tst_ContainerUrlPatternsTests.moc"
