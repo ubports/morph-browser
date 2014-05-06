@@ -6,35 +6,35 @@
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
-import BaseHTTPServer
+import http.server as http
 import logging
 import threading
 import time
 
-
 logger = logging.getLogger(__name__)
 
 
-class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+class HTTPRequestHandler(http.BaseHTTPRequestHandler):
 
     """
     A custom HTTP request handler that serves GET resources.
     """
 
     def make_html(self, title, body):
-        return "<html><title>%s</title><body>%s</body></html>" % (title, body)
+        html = "<html><title>{}</title><body>{}</body></html>"
+        return html.format(title, body)
 
     def send_html(self, html):
         self.send_header("Content-Type", "text/html")
         self.end_headers()
-        self.wfile.write(html)
+        self.wfile.write(html.encode())
 
     def do_GET(self):
         if self.path == "/ping":
             self.send_response(200)
             self.send_header("Content-Type", "text/plain")
             self.end_headers()
-            self.wfile.write("pong")
+            self.wfile.write(b"pong")
         elif self.path == "/loremipsum":
             self.send_response(200)
             title = "Lorem Ipsum"
@@ -50,8 +50,8 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         elif self.path.startswith("/wait/"):
             delay = int(self.path[6:])
             self.send_response(200)
-            title = "waiting %d seconds" % delay
-            body = "<p>this page took %d seconds to load</p>" % delay
+            title = "waiting {} seconds".format(delay)
+            body = "<p>this page took {} seconds to load</p>".format(delay)
             html = self.make_html(title, body)
             time.sleep(delay)
             self.send_html(html)
@@ -61,7 +61,7 @@ class HTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             delay = int(self.path[23:])
             self.send_response(200)
             html = '<html><body style="margin: 0">'
-            html += '<a href="/wait/%d">' % delay
+            html += '<a href="/wait/{}">'.format(delay)
             html += '<div style="height: 100%"></div></a>'
             html += '</body></html>'
             self.send_html(html)
@@ -119,7 +119,7 @@ class HTTPServerInAThread(object):
 
     def __init__(self):
         # port == 0 will assign a random free port
-        self.server = BaseHTTPServer.HTTPServer(("", 0), HTTPRequestHandler)
+        self.server = http.HTTPServer(("", 0), HTTPRequestHandler)
         self.server.allow_reuse_address = True
         self.server_thread = threading.Thread(target=self.server.serve_forever)
         self.server_thread.start()

@@ -43,15 +43,15 @@ To run the unit tests, you can use the commands below:
 = Automated UI tests =
 
 webbrowser-app uses autopilot (https://launchpad.net/autopilot) to test its UI.
-To run the tests, you will need to install python-autopilot and libautopilot-qt.
+To run the tests, you will need to install python3-autopilot and libautopilot-qt.
 Then do the following:
 
     $ cd tests/autopilot/
-    $ autopilot run webbrowser_app
+    $ autopilot3 run webbrowser_app
 
 You can get a list of all available tests with the following command:
 
-    $ autopilot list webbrowser_app
+    $ autopilot3 list webbrowser_app
 
 
 = Code coverage =

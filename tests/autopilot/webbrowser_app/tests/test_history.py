@@ -14,9 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import absolute_import
-
-import os.path
+import os
 import random
 import sqlite3
 import time
@@ -41,15 +39,15 @@ class PrepopulatedHistoryDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
                               (url VARCHAR, title VARCHAR, icon VARCHAR,
                                visits INTEGER, lastVisit DATETIME);""")
         search_uri = \
-            "http://www.google.com/search?client=ubuntu&q=%s&ie=utf-8&oe=utf-8"
+            "http://www.google.com/search?client=ubuntu&q={}&ie=utf-8&oe=utf-8"
         rows = [
             ("http://www.ubuntu.com/", "Home | Ubuntu"),
-            (search_uri % "ubuntu", "ubuntu - Google Search"),
+            (search_uri.format("ubuntu"), "ubuntu - Google Search"),
             ("http://en.wikipedia.org/wiki/Ubuntu_(operating_system)",
              "Ubuntu (operating system) - Wikipedia, the free encyclopedia"),
             ("http://en.wikipedia.org/wiki/Ubuntu_(philosophy)",
              "Ubuntu (philosophy) - Wikipedia, the free encyclopedia"),
-            (search_uri % "example", "example - Google Search"),
+            (search_uri.format("example"), "example - Google Search"),
             ("http://example.iana.org/", "Example Domain"),
             ("http://www.iana.org/domains/special",
              "IANA — Special Use Domains")
@@ -57,8 +55,8 @@ class PrepopulatedHistoryDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
         for i, row in enumerate(rows):
             visits = random.randint(1, 5)
             timestamp = int(time.time()) - i * 10
-            query = "INSERT INTO history VALUES ('%s', '%s', '', %d, %d);" % \
-                    (row[0], row[1], visits, timestamp)
+            query = "INSERT INTO history VALUES ('{}', '{}', '', {}, {});"
+            query = query.format(row[0], row[1], visits, timestamp)
             connection.execute(query)
         connection.commit()
         connection.close()
@@ -119,8 +117,8 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         coord = suggestions.globalRect
         webview = self.main_window.get_current_webview()
         self.pointing_device.move(
-            coord[0] + int(coord[2] / 2),
-            int((coord[1] + webview.globalRect[1]) / 2))
+            coord[0] + coord[2] // 2,
+            (coord[1] + webview.globalRect[1]) // 2)
         self.pointing_device.click()
         self.assert_suggestions_eventually_hidden()
 
@@ -152,7 +150,8 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         entries = \
             self.main_window.get_address_bar_suggestions_listview_entries()
         highlight = '<b><font color="#dd4814">Ubuntu</font></b>'
-        url = "http://en.wikipedia.org/wiki/%s_(operating_system)" % highlight
+        url = "http://en.wikipedia.org/wiki/{}_(operating_system)"
+        url = url.format(highlight)
         entries = [entry for entry in entries if url in entry.subText]
         entry = entries[0] if len(entries) == 1 else None
         self.assertIsNotNone(entry)
@@ -173,5 +172,5 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         entry = \
             self.main_window.get_address_bar_suggestions_listview_entries()[0]
         highlight = '<b><font color="#dd4814">(phil</font></b>'
-        url = "http://en.wikipedia.org/wiki/Ubuntu_%sosophy)" % highlight
+        url = "http://en.wikipedia.org/wiki/Ubuntu_{}osophy)".format(highlight)
         self.assertThat(entry.subText, Contains(url))
