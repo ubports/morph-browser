@@ -33,17 +33,27 @@ Item {
     property var currentWebview: webappContainerWebViewLoader.item
     property var toolbar: null
     property var webappUrlPatterns
+    property string localUserAgentOverride: ""
 
     Loader {
         id: webappContainerWebViewLoader
         anchors.fill: parent
-        source: withOxide ? Qt.resolvedUrl("WebViewImplOxide.qml") : Qt.resolvedUrl("WebViewImplWebkit.qml")
-        onLoaded: {
-            webappContainerWebViewLoader.item.toolbar = containerWebview.toolbar
-            webappContainerWebViewLoader.item.url = containerWebview.url
-            webappContainerWebViewLoader.item.webappName = containerWebview.webappName
-            webappContainerWebViewLoader.item.webappUrlPatterns = containerWebview.webappUrlPatterns
-            webappContainerWebViewLoader.item.developerExtrasEnabled = containerWebview.developerExtrasEnabled
-        }
+    }
+
+    Component.onCompleted: {
+        var webappEngineSource =
+                withOxide ?
+                    Qt.resolvedUrl("WebViewImplOxide.qml")
+                  : Qt.resolvedUrl("WebViewImplWebkit.qml");
+
+        webappContainerWebViewLoader.setSource(
+                    webappEngineSource,
+                    { toolbar: containerWebview.toolbar
+                    , localUserAgentOverride: containerWebview.localUserAgentOverride
+                    , url: containerWebview.url
+                    , webappName: containerWebview.webappName
+                    , webappUrlPatterns: containerWebview.webappUrlPatterns
+                    , developerExtrasEnabled: containerWebview.developerExtrasEnabled})
     }
 }
+

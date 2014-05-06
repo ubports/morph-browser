@@ -32,6 +32,7 @@ WebViewImpl {
     property bool developerExtrasEnabled: false
     property var toolbar: null
     property string webappName: ""
+    property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
 
     currentWebview: webview
@@ -49,6 +50,11 @@ WebViewImpl {
 
     function shouldOpenPopupsInDefaultBrowser() {
         return formFactor !== "desktop";
+    }
+
+    // Function defined by the UbuntuWebView and overridden here to handle potential webapp defined UA overrides
+    function getUAString() {
+        return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride
     }
 
     function isRunningAsANamedWebapp() {
@@ -76,7 +82,7 @@ WebViewImpl {
         // We still take the possible additional patterns specified in the command line
         // (the in the case of finer grained ones specifically for the container and not
         // as an 'install source' for the webapp).
-        if (webappUrlPatterns && webappUrlPatterns.length !== 0) {
+        if (haveValidUrlPatterns()) {
             for (var i = 0; i < webappUrlPatterns.length; ++i) {
                 var pattern = webappUrlPatterns[i]
                 if (url.match(pattern)) {
