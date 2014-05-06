@@ -8,7 +8,7 @@ endif()
 
 set(TEST tst_QmlTests)
 add_executable(${TEST} tst_QmlTests.cpp)
-qt5_use_modules(${TEST} Core Qml Quick Test QuickTest)
+qt5_use_modules(${TEST} QuickTest)
 add_test(${TEST} ${XVFB_COMMAND} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -import ${CMAKE_BINARY_DIR}/src)
 
 # copy qml files under test to build dir

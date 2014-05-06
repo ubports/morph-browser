@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,6 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtQuickTest/QtQuickTest>
-QUICK_TEST_MAIN(QmlTests)
+pragma Singleton
 
+import QtQml 2.0
+
+QtObject {
+    property alias customUA: context.userAgent
+
+    property QtObject sharedContext: UbuntuWebContext {
+        id: context
+    }
+}

@@ -1,4 +1,7 @@
 *.qmlproject.user
+.excludes
+manifest.json
+webbrowser-app.json
 
 CMakeCache.txt
 CMakeFiles/

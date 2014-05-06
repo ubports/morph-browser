@@ -51,11 +51,11 @@ WebView {
         return undefined
     }
 
-    context: UbuntuWebContext.sharedContext
+    context: UbuntuSharedWebContext.sharedContext
     Component.onCompleted: {
         var customUA = getUAString()
         if (customUA !== undefined) {
-            UbuntuWebContext.customUA = customUA
+            UbuntuSharedWebContext.customUA = customUA
         }
     }
 
@@ -98,6 +98,8 @@ WebView {
         request.action = NavigationRequest.ActionAccept;
         navigationRequestedDelegate(request);
     }
+
+    preferences.passwordEchoEnabled: formFactor === "mobile"
 
     /*experimental.preferences.navigatorQtObjectEnabled: true
     experimental.userScripts: [Qt.resolvedUrl("selection.js")]
@@ -279,6 +281,21 @@ WebView {
     onScreenOrientationChanged: {
         if (internal.currentContextualMenu != null) {
             PopupUtils.close(internal.currentContextualMenu)
+        }
+    }
+
+    onJavaScriptConsoleMessage: {
+        var msg = "[JS] (%1:%2) %3".arg(sourceId).arg(lineNumber).arg(message)
+        if (level === WebView.LogSeverityVerbose) {
+            console.log(msg)
+        } else if (level === WebView.LogSeverityInfo) {
+            console.info(msg)
+        } else if (level === WebView.LogSeverityWarning) {
+            console.warn(msg)
+        } else if ((level === WebView.LogSeverityError) ||
+                   (level === WebView.LogSeverityErrorReport) ||
+                   (level === WebView.LogSeverityFatal)) {
+            console.error(msg)
         }
     }
 }

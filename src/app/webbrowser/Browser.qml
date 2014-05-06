@@ -221,6 +221,7 @@ BrowserView {
             visible: currentWebview === webview
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
+            preferences.localStorageEnabled: true
 
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
@@ -274,6 +275,7 @@ BrowserView {
             if (!chromeless) {
                 if (focusAddressBar) {
                     panel.chrome.addressBar.forceActiveFocus()
+                    Qt.inputMethod.show() // work around http://pad.lv/1316057
                     panel.open()
                 }
             }
