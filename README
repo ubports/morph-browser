@@ -10,6 +10,11 @@ To compile, simply invoke cmake and then make:
     $ cmake .
     $ make
 
+The application can also be cross compiled for an ARM target on a X86 host.
+To do that, just pass this additional parameter to cmake:
+
+    $ cmake -DCMAKE_TOOLCHAIN_FILE=cmake/ubuntu-arm-linux-gnueabihf.cmake .
+
 
 = Running =
 
