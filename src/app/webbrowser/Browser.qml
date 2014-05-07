@@ -244,7 +244,7 @@ BrowserView {
                     onTriggered: Clipboard.push([contextualData.img])
                 }
                 Actions.SaveImage {
-                    enabled: contextualData.img.toString() && formFactor != "desktop"
+                    enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
                     onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
                 }
             }
