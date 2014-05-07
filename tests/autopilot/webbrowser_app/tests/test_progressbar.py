@@ -14,8 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import absolute_import
-
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
@@ -38,7 +36,7 @@ class TestProgressBarAtStartup(BrowserTestCaseBase):
     def setUp(self):
         self.server = http_server.HTTPServerInAThread()
         self.addCleanup(self.server.cleanup)
-        self.base_url = "http://localhost:%d" % self.server.port
+        self.base_url = "http://localhost:{}".format(self.server.port)
         self.ping_server()
         self.url = self.base_url + "/wait/8"
         self.ARGS = [self.url]

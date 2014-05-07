@@ -34,6 +34,11 @@ UbuntuWebView {
     property var toolbar: null
     property string webappName: ""
     property var webappUrlPatterns: null
+    property string localUserAgentOverride: ""
+
+    function getUAString() {
+        return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride
+    }
 
     experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
