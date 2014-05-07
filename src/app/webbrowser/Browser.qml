@@ -18,7 +18,6 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
-import Ubuntu.Content 0.1
 import webbrowserapp.private 0.1
 import "../actions" as Actions
 import ".."
@@ -246,7 +245,7 @@ BrowserView {
                 }
                 Actions.SaveImage {
                     enabled: contextualData.img.toString() && formFactor != "desktop"
-                    onTriggered: downloadLoader.item.download(contextualData.img, ContentType.Pictures)
+                    onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
                 }
             }
 
