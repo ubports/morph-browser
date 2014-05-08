@@ -78,7 +78,8 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     m_withOxide(canUseOxide()),
     m_storeSessionCookies(false),
     m_backForwardButtonsVisible(false),
-    m_addressBarVisible(false)
+    m_addressBarVisible(false),
+    m_localWebappManifest(false)
 {
 }
 
@@ -87,6 +88,9 @@ bool WebappContainer::initialize()
     if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
         parseCommandLine();
         parseExtraConfiguration();
+
+        if (m_localWebappManifest)
+            m_webappModelSearchPath = ".";
 
         if (!m_webappModelSearchPath.isEmpty())
         {
@@ -150,6 +154,7 @@ void WebappContainer::printUsage() const
     out << "Options:" << endl;
     out << "  -h, --help                          display this help message and exit" << endl;
     out << "  --fullscreen                        display full screen" << endl;
+    out << "  --local-webapp-manifest             configure the webapp assuming that it has a local manifest.json file" << endl;
     out << "  --maximized                         opens the application maximized" << endl;
     out << "  --inspector                         run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
     out << "  --app-id=APP_ID                     run the application with a specific APP_ID" << endl;
@@ -191,6 +196,8 @@ void WebappContainer::parseCommandLine()
             m_backForwardButtonsVisible = true;
         } else if (argument == "--enable-addressbar") {
             m_addressBarVisible = true;
+        } else if (argument == "--local-webapp-manifest") {
+            m_localWebappManifest = true;
         }
     }
 }
