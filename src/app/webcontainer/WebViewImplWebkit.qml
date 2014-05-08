@@ -66,7 +66,7 @@ UbuntuWebView {
                 webview.toolbar.close()
             }
             var text = i18n.tr("This page wants to know your device’s location.")
-            PopupUtils.open(Qt.resolvedUrl("PermissionRequest.qml"),
+            PopupUtils.open(Qt.resolvedUrl("../PermissionRequest.qml"),
                             webview.currentWebview,
                             {"permission": permission, "text": text})
         }
