@@ -58,11 +58,13 @@ BrowserView {
 
     PageStack {
         id: stack
+        Component.onCompleted: stack.push(firstPage)
+
         Page {
             // Work around http://pad.lv/1305834 by forcing the page title to be
             // reset to an empty string when the activity view is being hidden.
             title: activityViewVisible ? " " : ""
-
+            id: firstPage
             Item {
                 id: webviewContainer
                 anchors {
@@ -113,7 +115,7 @@ BrowserView {
         }
     }
 
-    property bool activityViewVisible: stack.depth > 0
+    property bool activityViewVisible: stack.depth > 1
 
     function showActivityView() {
         stack.push(Qt.resolvedUrl("ActivityView.qml"),
