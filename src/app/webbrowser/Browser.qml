@@ -56,11 +56,6 @@ BrowserView {
         }
     ]
 
-    PageStack {
-        id: stack
-        active: depth > 0
-    }
-
     Page {
         // Work around http://pad.lv/1305834 by forcing the page title to be
         // reset to an empty string when the activity view is being hidden.
@@ -82,6 +77,11 @@ BrowserView {
             url: currentWebview ? currentWebview.url : ""
             onRefreshClicked: currentWebview.reload()
         }
+    }
+
+    PageStack {
+        id: stack
+        active: depth > 0
     }
 
     QtObject {
