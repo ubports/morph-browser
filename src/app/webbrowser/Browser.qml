@@ -58,29 +58,29 @@ BrowserView {
 
     PageStack {
         id: stack
-        Component.onCompleted: stack.push(firstPage)
+        active: depth > 0
+    }
 
-        Page {
-            // Work around http://pad.lv/1305834 by forcing the page title to be
-            // reset to an empty string when the activity view is being hidden.
-            title: activityViewVisible ? " " : ""
-            id: firstPage
-            Item {
-                id: webviewContainer
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    top: parent.top
-                }
-                height: parent.height - osk.height
+    Page {
+        // Work around http://pad.lv/1305834 by forcing the page title to be
+        // reset to an empty string when the activity view is being hidden.
+        title: activityViewVisible ? " " : ""
+        active: stack.depth === 0
+        Item {
+            id: webviewContainer
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
             }
+            height: parent.height - osk.height
+        }
 
-            ErrorSheet {
-                anchors.fill: webviewContainer
-                visible: currentWebview ? currentWebview.lastLoadFailed : false
-                url: currentWebview ? currentWebview.url : ""
-                onRefreshClicked: currentWebview.reload()
-            }
+        ErrorSheet {
+            anchors.fill: webviewContainer
+            visible: currentWebview ? currentWebview.lastLoadFailed : false
+            url: currentWebview ? currentWebview.url : ""
+            onRefreshClicked: currentWebview.reload()
         }
     }
 
@@ -115,7 +115,7 @@ BrowserView {
         }
     }
 
-    property bool activityViewVisible: stack.depth > 1
+    property bool activityViewVisible: stack.depth > 0
 
     function showActivityView() {
         stack.push(Qt.resolvedUrl("ActivityView.qml"),
