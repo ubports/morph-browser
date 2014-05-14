@@ -1,3 +1,17 @@
+webbrowser-app (0.23+14.10.20140514.1-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Add --local-webapp-manifest webapp container cli option to simplify
+    the command line in the case of a local manifest.json file
+    definition. This is to become a bit more important now that the
+    manifest support thing like ua overrides that would be beneficial to
+    webapp on touch.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 14 May 2014 22:26:02 +0000
+
 webbrowser-app (0.23+14.10.20140506.1-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
