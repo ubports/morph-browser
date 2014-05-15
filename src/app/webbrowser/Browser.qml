@@ -56,30 +56,32 @@ BrowserView {
         }
     ]
 
+    Page {
+        // Work around http://pad.lv/1305834 by forcing the page title to be
+        // reset to an empty string when the activity view is being hidden.
+        title: activityViewVisible ? " " : ""
+        active: stack.depth === 0
+        Item {
+            id: webviewContainer
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+            }
+            height: parent.height - osk.height
+        }
+
+        ErrorSheet {
+            anchors.fill: webviewContainer
+            visible: currentWebview ? currentWebview.lastLoadFailed : false
+            url: currentWebview ? currentWebview.url : ""
+            onRefreshClicked: currentWebview.reload()
+        }
+    }
+
     PageStack {
         id: stack
-        Page {
-            // Work around http://pad.lv/1305834 by forcing the page title to be
-            // reset to an empty string when the activity view is being hidden.
-            title: activityViewVisible ? " " : ""
-
-            Item {
-                id: webviewContainer
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    top: parent.top
-                }
-                height: parent.height - osk.height
-            }
-
-            ErrorSheet {
-                anchors.fill: webviewContainer
-                visible: currentWebview ? currentWebview.lastLoadFailed : false
-                url: currentWebview ? currentWebview.url : ""
-                onRefreshClicked: currentWebview.reload()
-            }
-        }
+        active: depth > 0
     }
 
     QtObject {
