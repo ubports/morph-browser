@@ -1,3 +1,14 @@
+webbrowser-app (0.23+14.10.20140515.1-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Add support for downloading images via download manager and content-
+    hub on non-desktop platforms.
+
+  [ Tim Peeters ]
+  * Push the initial Page on the PageStack.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 15 May 2014 20:49:50 +0000
+
 webbrowser-app (0.23+14.10.20140514.1-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
