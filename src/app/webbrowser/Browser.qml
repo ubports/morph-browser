@@ -243,6 +243,10 @@ BrowserView {
                     enabled: contextualData.img.toString()
                     onTriggered: Clipboard.push([contextualData.img])
                 }
+                Actions.SaveImage {
+                    enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
+                    onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
+                }
             }
 
             onNewViewRequested: {
@@ -256,6 +260,11 @@ BrowserView {
                 }
             }
         }
+    }
+
+    Loader {
+        id: downloadLoader
+        source: formFactor == "desktop" ? "" : "../Downloader.qml"
     }
 
     function addTab(webview, setCurrent, focusAddressBar) {
