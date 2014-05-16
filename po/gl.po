@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-04-10 16:28+0100\n"
-"PO-Revision-Date: 2013-10-05 17:42+0000\n"
+"POT-Creation-Date: 2014-05-06 16:25+0100\n"
+"PO-Revision-Date: 2014-05-15 16:38+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-06 07:28+0000\n"
-"X-Generator: Launchpad (build 16996)\n"
+"X-Launchpad-Export-Date: 2014-05-16 06:45+0000\n"
+"X-Generator: Launchpad (build 17007)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -51,15 +51,15 @@ msgstr "Cancelar"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Confirmar navegación"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "Saír"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "Quedar"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -120,9 +120,9 @@ msgstr ""
 msgid "Refresh page"
 msgstr "Actualizar páxina"
 
-#: src/app/FilePickerDialog.qml:26
+#: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr ""
+msgstr "Escolla un ficheiro"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
@@ -236,6 +236,10 @@ msgstr "Recargar"
 msgid "Leave Page"
 msgstr "Saír da páxina"
 
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
+msgstr ""
+
 #: src/app/webbrowser/ActivityView.qml:54
 msgid "Bookmarks"
 msgstr "Marcadores"
@@ -296,32 +300,32 @@ msgstr "Navegue pola World Wide Web"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:45
+#: src/app/webcontainer/webapp-container.qml:47
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navegador web de Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:49
 msgid "Ubuntu Web Browser"
 msgstr "Navegador web de Ubuntu"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "Non se atopou unha conta local de "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "Saltar o paso de crear conta"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "Engadir conta"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "Seleccionar unha conta"
 
 #: src/app/webcontainer/WebViewImplWebkit.qml:63
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Esta páxina quere coñecer a localización do dispositivo."
