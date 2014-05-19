@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-05-06 16:25+0100\n"
-"PO-Revision-Date: 2013-11-20 22:04+0000\n"
-"Last-Translator: Ahmad Nader <nadeaa0a@hotmail.com>\n"
+"PO-Revision-Date: 2014-05-18 18:25+0000\n"
+"Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-17 07:11+0000\n"
+"X-Launchpad-Export-Date: 2014-05-19 06:22+0000\n"
 "X-Generator: Launchpad (build 17007)\n"
 
 #: src/app/AlertDialog.qml:24
@@ -55,11 +55,11 @@ msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "مغادرة"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "بقاء"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -120,7 +120,7 @@ msgstr "حدّث الصفحة"
 
 #: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr ""
+msgstr "برجاء اختيار ملف"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
@@ -236,7 +236,7 @@ msgstr "غادر الصفحة"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "حفظ الصورة"
 
 #: src/app/webbrowser/ActivityView.qml:54
 msgid "Bookmarks"
@@ -318,12 +318,12 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "إضافة حساب"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "اختر حسابًا"
 
 #: src/app/webcontainer/WebViewImplWebkit.qml:63
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "هذه الصفحة بحاجة لمعرفة موقع جهازك."
