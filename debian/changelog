@@ -1,3 +1,13 @@
+webbrowser-app (0.23+14.10.20140521-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Remove an extraneous whitespace in the default UA on mobile.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 21 May 2014 08:11:35 +0000
+
 webbrowser-app (0.23+14.10.20140515.1-0ubuntu1) utopic; urgency=low
 
   [ Michael Sheldon ]
