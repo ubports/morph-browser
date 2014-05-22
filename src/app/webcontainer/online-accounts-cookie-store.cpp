@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "onlineaccountscookiestore.h"
+#include "online-accounts-cookie-store.h"
 
 #include <QList>
 #include <QVariant>
@@ -44,15 +44,12 @@
 #   define ONLINE_ACCOUNTS_COOKIE_STORE_METHOD "cookiesForIdentity"
 #endif
 
-class OnlineAccountsCookieStorePrivate : public QObject
+class OnlineAccountsCookieStorePrivate
 {
-    Q_OBJECT
-
 public:
-    OnlineAccountsCookieStorePrivate (QObject * parent = 0)
-        : QObject(parent),
-          _id (0),
-          m_connection (QDBusConnection::sessionBus())
+    OnlineAccountsCookieStorePrivate():
+        _id(0),
+        m_connection(QDBusConnection::sessionBus())
     {}
 
     quint32 _id;
@@ -135,9 +132,8 @@ Cookies OnlineAccountsCookieStore::doGetCookies()
     return qdbus_cast<Cookies>(arguments.front());
 }
 
-void OnlineAccountsCookieStore::doSetCookies(Cookies cookies)
+bool OnlineAccountsCookieStore::doSetCookies(Cookies cookies)
 {
     Q_UNUSED(cookies);
+    return false;
 }
-
-#include "onlineaccountscookiestore.moc"

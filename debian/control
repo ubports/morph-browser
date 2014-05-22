@@ -52,10 +52,9 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          libqt5webkit5-qmlwebkitplugin, 
-         unity-webapps-qml,
          qtdeclarative5-accounts-plugin,
          qtdeclarative5-qtquick2-plugin (>= 5.2),
-         signon-ui (>= 0.16),
+         unity-webapps-qml,
          webbrowser-app (= ${binary:Version}),
 Suggests: qtdeclarative5-online-accounts-client0.1 (>= 0.3),
 Description: Ubuntu web applications container

@@ -20,7 +20,7 @@
 #include "webapp-container.h"
 
 #include "chrome-cookie-store.h"
-#include "onlineaccountscookiestore.h"
+#include "online-accounts-cookie-store.h"
 #include "session-utils.h"
 #include "url-pattern-utils.h"
 #include "webkit-cookie-store.h"
@@ -141,18 +141,15 @@ bool WebappContainer::initialize()
     }
 }
 
-void WebappContainer::qmlEngineCreated(QQmlEngine * engine)
+void WebappContainer::qmlEngineCreated(QQmlEngine* engine)
 {
-    registerCookieQmlTypes(engine);
-}
-
-void WebappContainer::registerCookieQmlTypes(QQmlEngine * engine)
-{
-    if (engine)
-    {
-        qmlRegisterType<ChromeCookieStore>(privateModuleUri, 0, 1, "ChromeCookieStore");
-        qmlRegisterType<WebkitCookieStore>(privateModuleUri, 0, 1, "WebkitCookieStore");
-        qmlRegisterType<OnlineAccountsCookieStore>(privateModuleUri, 0, 1, "OnlineAccountsCookieStore");
+    if (engine) {
+        qmlRegisterType<ChromeCookieStore>(privateModuleUri, 0, 1,
+                                           "ChromeCookieStore");
+        qmlRegisterType<WebkitCookieStore>(privateModuleUri, 0, 1,
+                                           "WebkitCookieStore");
+        qmlRegisterType<OnlineAccountsCookieStore>(privateModuleUri, 0, 1,
+                                                   "OnlineAccountsCookieStore");
     }
 }
 

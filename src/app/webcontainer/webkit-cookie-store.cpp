@@ -18,59 +18,60 @@
 
 #include "webkit-cookie-store.h"
 
-#include <QSqlDatabase>
+#include <QDebug>
+#include <QFileInfo>
+#include <QNetworkCookie>
 #include <QSqlError>
 #include <QSqlQuery>
-#include <QFileInfo>
 #include <QStandardPaths>
-#include <QDebug>
 
+static int connectionCounter = 0;
 
-WebkitCookieStore::WebkitCookieStore(QObject *parent)
-    : CookieStore(parent)
-{}
+WebkitCookieStore::WebkitCookieStore(QObject* parent):
+    CookieStore(parent)
+{
+    QString connectionName =
+        QString("webkitCookieStore-%1").arg(connectionCounter++);
+    m_db = QSqlDatabase::addDatabase("QSQLITE", connectionName);
+}
 
 Cookies WebkitCookieStore::doGetCookies()
 {
     Cookies cookies;
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName (getFullDbPathName ());
+    m_db.setDatabaseName(getFullDbPathName());
 
-    if (!db.open()) {
-        qCritical() << "Could not open cookie database: " << getFullDbPathName() << db.lastError();
+    if (!m_db.open()) {
+        qCritical() << "Could not open cookie database:" << getFullDbPathName() << m_db.lastError();
         return cookies;
     }
 
-    QSqlQuery q(db);
-    q.exec("SELECT cookieId, cookie FROM cookies;");
+    QSqlQuery q(m_db);
+    q.exec("SELECT cookie FROM cookies;");
 
     while (q.next()) {
-        cookies.insert(q.value(0).toString(), q.value(1).toString());
+        cookies.append(q.value(0).toString().toUtf8());
     }
 
-    db.close();
+    m_db.close();
     return cookies;
 }
 
 QDateTime WebkitCookieStore::lastUpdateTimeStamp() const
 {
-    QFileInfo dbFileInfo(getFullDbPathName ());
+    QFileInfo dbFileInfo(getFullDbPathName());
     return dbFileInfo.lastModified();
 }
 
-void WebkitCookieStore::doSetCookies(Cookies cookies)
+bool WebkitCookieStore::doSetCookies(Cookies cookies)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName (getFullDbPathName ());
+    m_db.setDatabaseName(getFullDbPathName());
 
-    if (!db.open())
-    {
-        qCritical() << "Could not open cookie database: " << getFullDbPathName() << db.lastError();
-        Q_EMIT moved(false);
-        return;
+    if (!m_db.open()) {
+        qCritical() << "Could not open cookie database:" << getFullDbPathName() << m_db.lastError();
+        return false;
     }
 
-    QSqlQuery q(db);
+    QSqlQuery q(m_db);
     q.exec("CREATE TABLE IF NOT EXISTS cookies "
            "(cookieId VARCHAR PRIMARY KEY, cookie BLOB)");
     q.exec ("DELETE FROM cookies;");
@@ -78,39 +79,40 @@ void WebkitCookieStore::doSetCookies(Cookies cookies)
     q.prepare("INSERT INTO cookies (cookieId, cookie) "
               "VALUES (:cookieId, :cookie)");
 
-    for (Cookies::const_iterator it = cookies.constBegin();
-         it != cookies.constEnd();
-         ++it)
-    {
-        q.bindValue(":cookieId", it.key());
-        q.bindValue(":cookie", it.value());
+    Q_FOREACH(const QByteArray& cookie, cookies) {
+        /* The unique key is the hostname + the cookie name */
+        QList<QNetworkCookie> parsed = QNetworkCookie::parseCookies(cookie);
+        if (parsed.isEmpty()) continue;
+
+        const QNetworkCookie& c = parsed.first();
+        q.bindValue(":cookieId", c.domain() + c.name());
+        q.bindValue(":cookie", cookie);
 
         if (!q.exec()) {
-            qWarning() << "Couldn't insert cookie into DB"
-                       << it.key();
-       }
+            qWarning() << "Couldn't insert cookie into DB" << cookie;
+        }
     }
 
-    db.close();
+    m_db.close();
 
-    Q_EMIT moved(true);
+    return true;
 }
 
 QString WebkitCookieStore::getFullDbPathName() const
 {
-    return QStandardPaths::standardLocations(QStandardPaths::HomeLocation)[0] + "/" + dbPath();
+    return dbPath().startsWith('/') ? dbPath() :
+        QStandardPaths::standardLocations(QStandardPaths::HomeLocation)[0] + "/" + dbPath();
 }
 
-void WebkitCookieStore::setDbPath(const QString &path)
+void WebkitCookieStore::setDbPath(const QString& path)
 {
-    if (path != m_dbPath)
-    {
+    if (path != m_dbPath) {
         m_dbPath = path;
         Q_EMIT dbPathChanged();
     }
 }
 
-QString WebkitCookieStore::dbPath () const
+QString WebkitCookieStore::dbPath() const
 {
     return m_dbPath;
 }

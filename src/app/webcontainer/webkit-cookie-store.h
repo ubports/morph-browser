@@ -19,7 +19,9 @@
 #ifndef WEBKIT_COOKIE_STORE_H
 #define WEBKIT_COOKIE_STORE_H
 
-#include "cookiestore.h"
+#include "cookie-store.h"
+
+#include <QSqlDatabase>
 
 class WebkitCookieStore : public CookieStore
 {
@@ -27,9 +29,9 @@ class WebkitCookieStore : public CookieStore
     Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
 
 public:
-    WebkitCookieStore(QObject *parent = 0);
+    WebkitCookieStore(QObject* parent = 0);
 
-    void setDbPath(const QString & path);
+    void setDbPath(const QString& path);
     QString dbPath() const;
 
     QDateTime lastUpdateTimeStamp() const Q_DECL_OVERRIDE;
@@ -39,12 +41,13 @@ Q_SIGNALS:
 
 private:
     virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
-    virtual void doSetCookies(Cookies) Q_DECL_OVERRIDE;
+    virtual bool doSetCookies(Cookies) Q_DECL_OVERRIDE;
 
     QString getFullDbPathName() const;
 
 private:
     QString m_dbPath;
+    QSqlDatabase m_db;
 };
 
 #endif // WEBKIT_COOKIE_STORE_H

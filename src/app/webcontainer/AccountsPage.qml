@@ -39,9 +39,9 @@ Page {
 
         QtObject {
             id: internal
-            function onMoved (result) {
+            function onMoved(result) {
                 webappCookieStore.moved.disconnect(internal.onMoved)
-                if (! result) {
+                if (!result) {
                     console.error("Unable to move cookies")
                 }
                 accountsPage.done()

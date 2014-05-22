@@ -10,8 +10,8 @@ set(WEBAPP_CONTAINER webapp-container)
 
 set(WEBAPP_CONTAINER_SRC
     chrome-cookie-store.cpp
-    cookiestore.cpp
-    onlineaccountscookiestore.cpp
+    cookie-store.cpp
+    online-accounts-cookie-store.cpp
     webapp-container.cpp
     webkit-cookie-store.cpp
     session-utils.cpp

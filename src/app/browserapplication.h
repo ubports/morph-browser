@@ -49,7 +49,7 @@ protected:
     virtual void printUsage() const = 0;
     QList<QUrl> urls() const;
 
-    virtual void qmlEngineCreated(QQmlEngine *);
+    virtual void qmlEngineCreated(QQmlEngine*);
 
     QStringList m_arguments;
     QQmlEngine* m_engine;

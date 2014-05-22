@@ -144,7 +144,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     return true;
 }
 
-void BrowserApplication::qmlEngineCreated(QQmlEngine *)
+void BrowserApplication::qmlEngineCreated(QQmlEngine*)
 {}
 
 int BrowserApplication::run()

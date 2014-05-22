@@ -19,7 +19,7 @@
 #ifndef CHROME_COOKIE_STORE_H
 #define CHROME_COOKIE_STORE_H
 
-#include "cookiestore.h"
+#include "cookie-store.h"
 
 #include <QSqlDatabase>
 
@@ -29,9 +29,9 @@ class ChromeCookieStore : public CookieStore
     Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
 
 public:
-    ChromeCookieStore(QObject *parent = 0);
+    ChromeCookieStore(QObject* parent = 0);
 
-    void setDbPath(const QString &path);
+    void setDbPath(const QString& path);
     QString dbPath() const;
 
     QDateTime lastUpdateTimeStamp() const Q_DECL_OVERRIDE;
@@ -41,7 +41,7 @@ Q_SIGNALS:
 
 private:
     virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
-    virtual void doSetCookies(Cookies) Q_DECL_OVERRIDE;
+    virtual bool doSetCookies(Cookies) Q_DECL_OVERRIDE;
 
     QString getFullDbPathName() const;
     bool createDb();

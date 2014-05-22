@@ -27,7 +27,20 @@
 
 static int connectionCounter = 0;
 
-ChromeCookieStore::ChromeCookieStore(QObject *parent):
+static qint64 dateTimeToChrome(const QDateTime &time)
+{
+    /* Chrome uses Mon Jan 01 00:00:00 UTC 1601 as the epoch, hence the
+     * magic number */
+    return (time.toMSecsSinceEpoch() + 11644473600000) * 1000;
+}
+
+static QDateTime dateTimeFromChrome(qint64 chromeTimeStamp)
+{
+    qint64 msecsSinceEpoch = chromeTimeStamp / 1000 - 11644473600000;
+    return QDateTime::fromMSecsSinceEpoch(msecsSinceEpoch);
+}
+
+ChromeCookieStore::ChromeCookieStore(QObject* parent):
     CookieStore(parent)
 {
     QString connectionName =
@@ -40,8 +53,9 @@ Cookies ChromeCookieStore::doGetCookies()
     Cookies cookies;
     m_db.setDatabaseName(getFullDbPathName());
 
-    if (!m_db.open()) {
-        qCritical() << "Could not open cookie database: " << getFullDbPathName() << db.lastError();
+    if (Q_UNLIKELY(!m_db.open())) {
+        qCritical() << "Could not open cookie database:" << getFullDbPathName()
+            << m_db.lastError();
         return cookies;
     }
 
@@ -49,23 +63,18 @@ Cookies ChromeCookieStore::doGetCookies()
     q.exec("SELECT host_key, name, value, path, expires_utc, secure, httponly, has_expires FROM cookies;");
 
     while (q.next()) {
-        /* The key is in fact ignored, but must be unique */
-        QString key = q.value(0).toString() + q.value(1).toString();
-
         /* Build the cookie string from its parts */
         QNetworkCookie cookie(q.value(1).toString().toUtf8(),
                               q.value(2).toString().toUtf8());
         cookie.setSecure(q.value(5).toBool());
         cookie.setHttpOnly(q.value(6).toBool());
         if (q.value(7).toBool()) {
-            /* Chrome uses Mon Jan 01 00:00:00 UTC 1601 as the epoch, hence the
-             * magic number below */
-            QDateTime expires = QDateTime::fromMSecsSinceEpoch(q.value(4).toULongLong() / 1000 - 11644473600000);
+            QDateTime expires = dateTimeFromChrome(q.value(4).toULongLong());
             cookie.setExpirationDate(expires);
         }
         cookie.setDomain(q.value(0).toString());
         cookie.setPath(q.value(3).toString());
-        cookies.insert(key, QString::fromUtf8(cookie.toRawForm()));
+        cookies.append(cookie.toRawForm());
     }
 
     m_db.close();
@@ -80,11 +89,12 @@ QDateTime ChromeCookieStore::lastUpdateTimeStamp() const
 
 bool ChromeCookieStore::createDb()
 {
-    if (!m_db.transaction()) return false;
+    if (Q_UNLIKELY(!m_db.transaction())) return false;
 
     QSqlQuery q(m_db);
     bool ok;
-    ok = q.exec("CREATE TABLE meta(key LONGVARCHAR NOT NULL UNIQUE PRIMARY KEY, value LONGVARCHAR)");
+    ok = q.exec("CREATE TABLE meta(key LONGVARCHAR NOT NULL UNIQUE PRIMARY KEY,"
+                "value LONGVARCHAR)");
     if (Q_UNLIKELY(!ok)) {
         m_db.rollback();
         return false;
@@ -102,7 +112,7 @@ bool ChromeCookieStore::createDb()
                 "has_expires INTEGER NOT NULL DEFAULT 1,"
                 "persistent INTEGER NOT NULL DEFAULT 1,"
                 "priority INTEGER NOT NULL DEFAULT 1,"
-                "encrypted_value BLOB DEFAULT ''");
+                "encrypted_value BLOB DEFAULT '')");
     if (Q_UNLIKELY(!ok)) {
         m_db.rollback();
         return false;
@@ -114,52 +124,77 @@ bool ChromeCookieStore::createDb()
         return false;
     }
 
+    ok = q.exec("INSERT INTO meta (key, value) VALUES ('version', '7')");
+    if (Q_UNLIKELY(!ok)) {
+        m_db.rollback();
+        return false;
+    }
+
+    ok = q.exec("INSERT INTO meta (key, value) VALUES ('last_compatible_version', '5')");
+    if (Q_UNLIKELY(!ok)) {
+        m_db.rollback();
+        return false;
+    }
+
     return m_db.commit();
 }
 
-void ChromeCookieStore::doSetCookies(Cookies cookies)
+bool ChromeCookieStore::doSetCookies(Cookies cookies)
 {
     m_db.setDatabaseName(getFullDbPathName());
 
     if (!m_db.open()) {
-        qCritical() << "Could not open cookie database: " << getFullDbPathName() << m_db.lastError();
-        Q_EMIT moved(false);
-        return;
+        qCritical() << "Could not open cookie database:" <<
+            getFullDbPathName() << m_db.lastError().text();
+        return false;
     }
 
     QSqlQuery q(m_db);
     // Check whether the table already exists
     q.exec("SELECT name FROM sqlite_master WHERE type='table' AND name='cookies'");
     if (!q.next() && !createDb()) {
-        qCritical() << "Could not create cookie database: " << getFullDbPathName() << m_db.lastError();
-        Q_EMIT moved(false);
-        return;
+        qCritical() << "Could not create cookie database:" <<
+            getFullDbPathName() << m_db.lastError().text();
+        return false;
     }
 
-    q.exec("SELECT host_key, name, value, path, expires_utc, secure, httponly, has_expires FROM cookies;");
+    QList<QNetworkCookie> parsedCookies;
 
-    while (q.next()) {
-        /* The key is in fact ignored, but must be unique */
-        QString key = q.value(0).toString() + q.value(1).toString();
-
-        /* Build the cookie string from its parts */
-        QNetworkCookie cookie(q.value(1).toString().toUtf8(),
-                              q.value(2).toString().toUtf8());
-        cookie.setSecure(q.value(5).toBool());
-        cookie.setHttpOnly(q.value(6).toBool());
-        if (q.value(7).toBool()) {
-            /* Chrome uses Mon Jan 01 00:00:00 UTC 1601 as the epoch, hence the
-             * magic number below */
-            QDateTime expires = QDateTime::fromMSecsSinceEpoch(q.value(4).toULongLong() / 1000 - 11644473600000);
-            cookie.setExpirationDate(expires);
-        }
-        cookie.setDomain(q.value(0).toString());
-        cookie.setPath(q.value(3).toString());
-        cookies.insert(key, QString::fromUtf8(cookie.toRawForm()));
+    Q_FOREACH(const QByteArray &cookie, cookies) {
+        parsedCookies.append(QNetworkCookie::parseCookies(cookie));
     }
 
-    db.close();
-    return cookies;
+    q.prepare("INSERT INTO cookies (creation_utc,"
+              "host_key, name, value, path,"
+              "expires_utc, secure, httponly, last_access_utc,"
+              "has_expires, persistent, priority, encrypted_value) "
+              "VALUES (:creation_utc,"
+              ":host_key, :name, :value, :path,"
+              ":expires_utc, :secure, :httponly, :last_access_utc,"
+              ":has_expires, :persistent, :priority, :encrypted_value)");
+    Q_FOREACH(const QNetworkCookie &cookie, parsedCookies) {
+        q.bindValue(":creation_utc",
+                    dateTimeToChrome(QDateTime::currentDateTimeUtc()));
+        q.bindValue(":host_key", cookie.domain());
+        q.bindValue(":name", cookie.name());
+        q.bindValue(":value", cookie.value());
+        q.bindValue(":path", cookie.path());
+        q.bindValue(":expires_utc",
+                    dateTimeToChrome(cookie.expirationDate().toUTC()));
+        q.bindValue(":secure", cookie.isSecure());
+        q.bindValue(":httponly", cookie.isHttpOnly());
+        q.bindValue(":last_access_utc",
+                    dateTimeToChrome(QDateTime::currentDateTimeUtc()));
+        q.bindValue(":has_expires", cookie.expirationDate().isValid());
+        q.bindValue(":persistent", true);
+        q.bindValue(":priority", 1);
+        q.bindValue(":encrypted_value", 1);
+        q.exec();
+    }
+
+    m_db.close();
+
+    return true;
 }
 
 QString ChromeCookieStore::getFullDbPathName() const
@@ -173,8 +208,7 @@ void ChromeCookieStore::setDbPath(const QString &path)
     // If path is a URL, strip the initial "file://"
     QString normalizedPath = path.startsWith("file://") ? path.mid(7) : path;
 
-    if (normalizedPath != m_dbPath)
-    {
+    if (normalizedPath != m_dbPath) {
         m_dbPath = normalizedPath;
         Q_EMIT dbPathChanged();
     }
