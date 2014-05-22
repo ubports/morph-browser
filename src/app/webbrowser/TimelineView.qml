@@ -223,8 +223,7 @@ Item {
                 model: HistoryDomainListChronologicalModel {
                     sourceModel: HistoryDomainListModel {
                         sourceModel: HistoryTimeframeModel {
-                            sourceModel: historyModel
-                            start: {
+                            function setStart() {
                                 var date = new Date()
                                 if (model.timeframe == "yesterday") {
                                     date.setDate(date.getDate() - 1)
@@ -242,9 +241,9 @@ Item {
                                 date.setMinutes(0)
                                 date.setSeconds(0)
                                 date.setMilliseconds(0)
-                                return date
+                                start = date
                             }
-                            end: {
+                            function setEnd() {
                                 var date = new Date()
                                 if (model.timeframe == "yesterday") {
                                     date.setDate(date.getDate() - 1)
@@ -262,7 +261,12 @@ Item {
                                 date.setMinutes(59)
                                 date.setSeconds(59)
                                 date.setMilliseconds(999)
-                                return date
+                                end = date
+                            }
+                            Component.onCompleted: {
+                                setStart()
+                                setEnd()
+                                sourceModel = historyModel
                             }
                         }
                     }
