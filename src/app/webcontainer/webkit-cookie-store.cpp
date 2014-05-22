@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,44 +16,56 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "sqlitecookiestore.h"
+#include "webkit-cookie-store.h"
 
-#include <QDir>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QFileInfo>
+#include <QStandardPaths>
 #include <QDebug>
 
 
-SqliteCookieStore::SqliteCookieStore(QObject *parent)
+WebkitCookieStore::WebkitCookieStore(QObject *parent)
     : CookieStore(parent)
 {}
 
-Cookies SqliteCookieStore::doGetCookies()
+Cookies WebkitCookieStore::doGetCookies()
 {
-    return Cookies();
+    Cookies cookies;
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName (getFullDbPathName ());
+
+    if (!db.open()) {
+        qCritical() << "Could not open cookie database: " << getFullDbPathName() << db.lastError();
+        return cookies;
+    }
+
+    QSqlQuery q(db);
+    q.exec("SELECT cookieId, cookie FROM cookies;");
+
+    while (q.next()) {
+        cookies.insert(q.value(0).toString(), q.value(1).toString());
+    }
+
+    db.close();
+    return cookies;
 }
 
-QDateTime SqliteCookieStore::lastUpdateTimeStamp() const
+QDateTime WebkitCookieStore::lastUpdateTimeStamp() const
 {
-    QFileInfo dbFileInfo(dbPath());
+    QFileInfo dbFileInfo(getFullDbPathName ());
     return dbFileInfo.lastModified();
 }
 
-void SqliteCookieStore::doSetCookies(Cookies cookies)
+void WebkitCookieStore::doSetCookies(Cookies cookies)
 {
-    /* Make sure that the parent directory exists */
-    QDir databaseAsDir(dbPath());
-    databaseAsDir.mkpath("..");
-
-    /* Open the DB; if it doesn't exist, it will get created */
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(dbPath());
+    db.setDatabaseName (getFullDbPathName ());
 
-    if ( ! db.open())
+    if (!db.open())
     {
-        qCritical() << "Could not open cookie database: " << dbPath() << db.lastError();
+        qCritical() << "Could not open cookie database: " << getFullDbPathName() << db.lastError();
         Q_EMIT moved(false);
         return;
     }
@@ -73,17 +85,23 @@ void SqliteCookieStore::doSetCookies(Cookies cookies)
         q.bindValue(":cookieId", it.key());
         q.bindValue(":cookie", it.value());
 
-        if ( ! q.exec())
-        {
+        if (!q.exec()) {
             qWarning() << "Couldn't insert cookie into DB"
                        << it.key();
        }
     }
 
+    db.close();
+
     Q_EMIT moved(true);
 }
 
-void SqliteCookieStore::setDbPath(const QString &path)
+QString WebkitCookieStore::getFullDbPathName() const
+{
+    return QStandardPaths::standardLocations(QStandardPaths::HomeLocation)[0] + "/" + dbPath();
+}
+
+void WebkitCookieStore::setDbPath(const QString &path)
 {
     if (path != m_dbPath)
     {
@@ -92,7 +110,7 @@ void SqliteCookieStore::setDbPath(const QString &path)
     }
 }
 
-QString SqliteCookieStore::dbPath () const
+QString WebkitCookieStore::dbPath () const
 {
     return m_dbPath;
 }

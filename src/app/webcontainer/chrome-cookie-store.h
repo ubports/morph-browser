@@ -20,8 +20,8 @@
 #define CHROME_COOKIE_STORE_H
 
 #include "cookiestore.h"
-#include <QString>
 
+#include <QSqlDatabase>
 
 class ChromeCookieStore : public CookieStore
 {
@@ -44,9 +44,11 @@ private:
     virtual void doSetCookies(Cookies) Q_DECL_OVERRIDE;
 
     QString getFullDbPathName() const;
+    bool createDb();
 
 private:
     QString m_dbPath;
+    QSqlDatabase m_db;
 };
 
 #endif // CHROME_COOKIE_STORE_H

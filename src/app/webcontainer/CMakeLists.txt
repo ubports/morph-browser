@@ -9,10 +9,11 @@ include_directories(
 set(WEBAPP_CONTAINER webapp-container)
 
 set(WEBAPP_CONTAINER_SRC
+    chrome-cookie-store.cpp
     cookiestore.cpp
     onlineaccountscookiestore.cpp
-    sqlitecookiestore.cpp
     webapp-container.cpp
+    webkit-cookie-store.cpp
     session-utils.cpp
     url-pattern-utils.cpp
 )

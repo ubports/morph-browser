@@ -110,9 +110,14 @@ Window {
         onDone: loadWebAppView()
     }
 
-    SqliteCookieStore {
-        id: webappCookieStore
+    WebkitCookieStore {
+        id: webkitCookieStore
         dbPath: dataLocation + "/.QtWebKit/cookies.db"
+    }
+
+    ChromeCookieStore {
+        id: chromeCookieStore
+        dbPath: dataLocation + "/cookies.sqlite"
     }
 
     Component.onCompleted: updateCurrentView()
@@ -136,7 +141,7 @@ Window {
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
             "accountProvider": accountProvider,
             "applicationName": Qt.application.name,
-            "webappCookieStore": webappCookieStore,
+            "webappCookieStore": browser.oxide ? chromeCookieStore : webkitCookieStore
         })
     }
 
