@@ -46,15 +46,23 @@ Item {
         verticalLayoutDirection: ListView.BottomToTop
         clip: true
 
-        model: ListModel {
-            ListElement { timeframe: "today" }
-            ListElement { timeframe: "yesterday" }
-            ListElement { timeframe: "last7days" }
-            ListElement { timeframe: "thismonth" }
-            ListElement { timeframe: "thisyear" }
-            ListElement { timeframe: "older" }
-        }
+        model: ListModel {}
         currentIndex: -1
+
+        readonly property var timeframes: ["today", "yesterday", "last7days", "thismonth", "thisyear", "older"]
+        Timer {
+            interval: 100
+            repeat: true
+            running: true
+            onTriggered: {
+                var count = timeline.model.count
+                if (count < timeline.timeframes.length) {
+                    timeline.model.append({ timeframe: timeline.timeframes[count] })
+                } else {
+                    stop()
+                }
+            }
+        }
 
         header: TabsList {
             width: parent.width
