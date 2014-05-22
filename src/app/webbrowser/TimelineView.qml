@@ -311,6 +311,13 @@ Item {
                 }
             }
         }
+
+        ActivityIndicator {
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: timeline.height - timeline.contentHeight - units.gu(8)
+            visible: y > 0
+            running: !timeline.loaded
+        }
     }
 
     onVisibleChanged: {
