@@ -30,6 +30,8 @@ FocusScope {
     signal requestReload()
     signal requestStop()
 
+    height: textField.height
+
     states: [
         State {
             name: "loading"
