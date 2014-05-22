@@ -45,26 +45,19 @@ Item {
         anchors.fill: parent
         verticalLayoutDirection: ListView.BottomToTop
         clip: true
-        interactive: !progressiveLoading.running
+        interactive: loaded
         boundsBehavior: Flickable.StopAtBounds
 
         model: ListModel {}
         currentIndex: -1
 
         readonly property var timeframes: ["today", "yesterday", "last7days", "thismonth", "thisyear", "older"]
+        readonly property bool loaded: model.count == timeframes.length
         Timer {
-            id: progressiveLoading
             interval: 100
             repeat: true
-            running: true
-            onTriggered: {
-                var count = timeline.model.count
-                if (count < timeline.timeframes.length) {
-                    timeline.model.append({ timeframe: timeline.timeframes[count] })
-                } else {
-                    stop()
-                }
-            }
+            running: !timeline.loaded
+            onTriggered: timeline.model.append({ timeframe: timeline.timeframes[timeline.model.count] })
         }
 
         header: TabsList {
