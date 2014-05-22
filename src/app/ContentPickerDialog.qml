@@ -20,7 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1 as Popups
 import Ubuntu.Content 0.1
-import "MimeTypeMapping.js" as MimeTypeMapper
+import "MimeTypeMapper.js" as MimeTypeMapper
 
 Component {
     Popups.PopupBase {
