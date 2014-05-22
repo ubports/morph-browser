@@ -1,3 +1,15 @@
+webbrowser-app (0.23+14.10.20140522.1-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Various optimizations to the activity view. (LP: #1260980)
+  * Do not override the default height of the TextField that serves as
+    the address bar. (LP: #1317866)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 22 May 2014 16:30:01 +0000
+
 webbrowser-app (0.23+14.10.20140521.1-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
