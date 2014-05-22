@@ -19,8 +19,6 @@
 #include "bookmarks-chronological-model.h"
 #include "bookmarks-model.h"
 
-#include <QtCore/QDebug>
-
 /*!
     \class BookmarksChronologicalModel
     \brief Proxy model that sorts a bookmarks model in chronological order

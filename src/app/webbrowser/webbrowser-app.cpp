@@ -24,6 +24,7 @@
 #include "history-matches-model.h"
 #include "history-timeframe-model.h"
 #include "history-byvisits-model.h"
+#include "history-byvisits-maxcount-model.h"
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
 #include "settings.h"
@@ -77,6 +78,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<HistoryByVisitsModel>(uri, 0 , 1, "HistoryByVisitsModel");
+    qmlRegisterType<HistoryByVisitsMaxCountModel>(uri, 0 , 1, "HistoryByVisitsMaxCountModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");

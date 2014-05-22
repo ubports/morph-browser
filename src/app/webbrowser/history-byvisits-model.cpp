@@ -16,11 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "history-model.h"
 #include "history-byvisits-model.h"
 #include "history-timeframe-model.h"
-
-#include <QtCore/QDebug>
+#include "history-model.h"
 
 /*!
     \class HistoryByVisitsModel

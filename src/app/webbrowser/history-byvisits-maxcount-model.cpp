@@ -16,31 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "bookmarks-chronological-maxcount-model.h"
-#include "bookmarks-chronological-model.h"
-#include "bookmarks-model.h"
+#include "history-byvisits-maxcount-model.h"
+#include "history-byvisits-model.h"
 
 /*!
-    \class BookmarksChronologicalMaxCountModel
-    \brief Proxy model that limits the number of rows returned by a bookmarks
-    model in chronological order
+    \class HistoryByVisitsMaxCountModel
+    \brief Proxy model that limits the number of rows returned by a history
+    model in by visit order
 
-    BookmarksChronologicalMaxCountModel is a proxy model that limits the number
-    of rows returned by a BookmarksChronologicalModel
-    (i.e. only the first N bookmarks are returned).
+    HistoryByVisitsMaxCountModel is a proxy model that limits the number
+    of rows returned by a HistoryByVisitsModel
+    (i.e. only the first N history are returned).
 */
-BookmarksChronologicalMaxCountModel::BookmarksChronologicalMaxCountModel(QObject* parent)
+HistoryByVisitsMaxCountModel::HistoryByVisitsMaxCountModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
     m_maxCount = -1;
 }
 
-BookmarksChronologicalModel* BookmarksChronologicalMaxCountModel::sourceModel() const
+HistoryByVisitsModel* HistoryByVisitsMaxCountModel::sourceModel() const
 {
-    return qobject_cast<BookmarksChronologicalModel*>(QSortFilterProxyModel::sourceModel());
+    return qobject_cast<HistoryByVisitsModel*>(QSortFilterProxyModel::sourceModel());
 }
 
-void BookmarksChronologicalMaxCountModel::setSourceModel(BookmarksChronologicalModel* sourceModel)
+void HistoryByVisitsMaxCountModel::setSourceModel(HistoryByVisitsModel* sourceModel)
 {
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);
@@ -48,12 +47,12 @@ void BookmarksChronologicalMaxCountModel::setSourceModel(BookmarksChronologicalM
     }
 }
 
-int BookmarksChronologicalMaxCountModel::maxCount() const
+int HistoryByVisitsMaxCountModel::maxCount() const
 {
     return m_maxCount;
 }
 
-void BookmarksChronologicalMaxCountModel::setMaxCount(int count)
+void HistoryByVisitsMaxCountModel::setMaxCount(int count)
 {
     if (count != m_maxCount) {
         m_maxCount = count;
@@ -62,7 +61,7 @@ void BookmarksChronologicalMaxCountModel::setMaxCount(int count)
     }
 }
 
-bool BookmarksChronologicalMaxCountModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+bool HistoryByVisitsMaxCountModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     Q_UNUSED(source_parent);
 

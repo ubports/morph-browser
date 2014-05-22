@@ -116,7 +116,6 @@ Item {
                     onClicked: bookmarkClicked(model.url)
                 }
             }
-
         }
     }
 
@@ -137,29 +136,33 @@ Item {
             spacing: units.gu(6)
 
             Repeater {
-                model: HistoryByVisitsModel {
-                    sourceModel: HistoryTimeframeModel {
-                        sourceModel: topSitesView.historyModel
-                        // We only show sites visited on the last 60 days
-                        start: {
-                            var date = new Date()
-                            date.setDate(date.getDate() - 60)
-                            date.setHours(0)
-                            date.setMinutes(0)
-                            date.setSeconds(0)
-                            date.setMilliseconds(0)
-                            return date
-                        }
-                        end: {
-                            var date = new Date()
-                            date.setDate(date.getDate())
-                            date.setHours(23)
-                            date.setMinutes(59)
-                            date.setSeconds(59)
-                            date.setMilliseconds(999)
-                            return date
+                model: HistoryByVisitsMaxCountModel {
+                    sourceModel: HistoryByVisitsModel {
+                        sourceModel: HistoryTimeframeModel {
+                            sourceModel: topSitesView.historyModel
+                            // We only show sites visited on the last 60 days
+                            start: {
+                                var date = new Date()
+                                date.setDate(date.getDate() - 60)
+                                date.setHours(0)
+                                date.setMinutes(0)
+                                date.setSeconds(0)
+                                date.setMilliseconds(0)
+                                return date
+                            }
+                            end: {
+                                var date = new Date()
+                                date.setDate(date.getDate())
+                                date.setHours(23)
+                                date.setMinutes(59)
+                                date.setSeconds(59)
+                                date.setMilliseconds(999)
+                                return date
+                            }
                         }
                     }
+
+                    maxCount: 10
                 }
 
                 delegate: PageDelegate{
