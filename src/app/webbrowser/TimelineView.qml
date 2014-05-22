@@ -54,7 +54,7 @@ Item {
         readonly property var timeframes: ["today", "yesterday", "last7days", "thismonth", "thisyear", "older"]
         readonly property bool loaded: model.count == timeframes.length
         Timer {
-            interval: 100
+            interval: 1
             repeat: true
             running: !timeline.loaded
             onTriggered: timeline.model.append({ timeframe: timeline.timeframes[timeline.model.count] })
