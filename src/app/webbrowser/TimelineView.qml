@@ -115,7 +115,8 @@ Item {
                     right: parent.right
                 }
                 height: 0
-                clip: true
+                opacity: 0.0
+                visible: opacity > 0
 
                 Rectangle {
                     anchors.fill: parent
@@ -197,13 +198,13 @@ Item {
                     PropertyChanges {
                         target: entriesView
                         height: units.gu(19)
-                        clip: false
+                        opacity: 1.0
                     }
                 }
 
                 transitions: Transition {
                     SequentialAnimation {
-                        UbuntuNumberAnimation { property: "height" }
+                        UbuntuNumberAnimation { properties: "height,opacity" }
                         ScriptAction {
                             // XXX: This action is instantaneous, the view jumps to the index
                             // without animating contentY. Unfortunately, manipulating contentY
