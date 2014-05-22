@@ -30,121 +30,147 @@ Item {
     signal historyEntryClicked(url url)
 
     Rectangle {
+        id: topSitesBackground
         anchors.fill: parent
         color: "white"
     }
 
     ListView {
         id: topSites
+
         anchors.fill: parent
 
-        model: 1
+        model: ListModel {
+            ListElement { section: "bookmarks" }
+            ListElement { section: "topsites" }
+        }
 
-        header: Column {
-            width: parent.width
-            height: bookmarksListHeader.height + bookmarksList.contentHeight + (2 * spacing)
-
-            spacing: units.gu(2)
-
-            ListItem.Header {
-                id: bookmarksListHeader
-                text: i18n.tr("Bookmarks")
+        delegate: Loader {
+            anchors {
+                left: parent.left
+                right: parent.right
             }
 
-            ListView {
-                id: bookmarksList
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    margins: units.gu(2)
-                }
+            height: children.height
 
-                width: parent.width
-                height: parent.height
+            sourceComponent: modelData == "bookmarks" ? bookmarksComponent : topSitesComponent
+        }
 
-                spacing: units.gu(1)
+        section.property: "section"
+        section.delegate: Rectangle {
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
 
-                interactive: false
+            height: sectionHeader.height + units.gu(1)
+            color: topSitesBackground.color
 
-                model: BookmarksChronologicalModel {
-                    sourceModel: topSitesView.bookmarksModel
-                }
-
-                delegate: UrlDelegate{
-                    width: parent.width
-                    height: units.gu(5)
-
-                    favIcon: model.icon
-                    url: model.url
-                    label: model.title ? model.title : model.url
-
-                    onClicked: bookmarkClicked(model.url)
+            ListItem.Header {
+                id: sectionHeader
+                text: {
+                    if (section == "bookmarks") {
+                        return i18n.tr("Bookmarks")
+                    } else if (section == "topsites") {
+                        return i18n.tr("Top sites")
+                    }
                 }
             }
         }
 
-        delegate: Column {
-            width: parent.width
-            height: units.gu(30)
-            spacing: units.gu(2)
+        section.labelPositioning: ViewSection.InlineLabels | ViewSection.CurrentLabelAtStart
+    }
 
-            ListItem.Header {
-                id: header
-                text: i18n.tr("Top sites")
+    Component {
+        id: bookmarksComponent
+
+        ListView {
+            id: bookmarksList
+
+            property string topViewSection: modelData
+
+            anchors {
+                left: parent.left
+                right: parent.right
+                margins: units.gu(2)
             }
 
-            GridView {
-                id: topSitesGrid
+            width: parent.width
+            height: contentHeight
 
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    margins: units.gu(2)
-                }
+            spacing: units.gu(1)
 
+            interactive: false
+
+            model: BookmarksChronologicalModel {
+                sourceModel: topSitesView.bookmarksModel
+            }
+
+            delegate: UrlDelegate{
                 width: parent.width
-                height: contentHeight
+                height: units.gu(5)
 
-                cellWidth: units.gu(12)
-                cellHeight: units.gu(16)
+                favIcon: model.icon
+                label: model.title ? model.title : model.url
+                url: model.url
 
-                interactive: false
+                onClicked: bookmarkClicked(model.url)
+            }
+        }
+    }
 
-                model: HistoryByVisitsModel {
-                    sourceModel: HistoryTimeframeModel {
-                        sourceModel: topSitesView.historyModel
-                        /*
-                        start: {
-                            var date = new Date()
-                            //date.setDate(1)
-                            date.setHours(0)
-                            date.setMinutes(0)
-                            date.setSeconds(0)
-                            date.setMilliseconds(0)
-                            return date
-                        }
-                        end: {
-                            var date = new Date()
-                            date.setDate(date.getDate() - 8)
-                            //date.setHours(23)
-                            date.setMinutes(59)
-                            date.setSeconds(59)
-                            date.setMilliseconds(999)
-                            return date
-                        }
-                        */
-                    }
+    Component {
+        id: topSitesComponent
+
+        GridView {
+            id: topSitesGrid
+
+            anchors {
+                left: parent.left
+                right: parent.right
+                margins: units.gu(2)
+            }
+
+            width: parent.width
+            height: contentHeight
+
+            cellWidth: units.gu(12)
+            cellHeight: units.gu(16)
+
+            interactive: false
+
+            model: HistoryByVisitsModel {
+                sourceModel: HistoryTimeframeModel {
+                    sourceModel: topSitesView.historyModel
+                    //start: {
+                    //    var date = new Date()
+                    //    //date.setDate(1)
+                    //    date.setHours(0)
+                    //    date.setMinutes(0)
+                    //    date.setSeconds(0)
+                    //    date.setMilliseconds(0)
+                    //    return date
+                    //}
+                    //end: {
+                    //    var date = new Date()
+                    //    date.setDate(date.getDate() - 8)
+                    //    //date.setHours(23)
+                    //    date.setMinutes(59)
+                    //    date.setSeconds(59)
+                    //    date.setMilliseconds(999)
+                    //    return date
+                    //}
                 }
+            }
 
-                delegate: PageDelegate{
-                    width: units.gu(10)
-                    height: units.gu(10)
+            delegate: PageDelegate{
+                width: units.gu(10)
+                height: units.gu(10)
 
-                    url: model.url
-                    label: model.title ? model.title : model.url
+                url: model.url
+                label: model.title ? model.title : model.url
 
-                    onClicked: historyEntryClicked(model.url)
-                }
+                onClicked: historyEntryClicked(model.url)
             }
         }
     }
