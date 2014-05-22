@@ -93,7 +93,7 @@ Component {
     
         Component.onCompleted: {
             if(acceptTypes.length === 1) {
-                peerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(acceptTypes[0]);
+                peerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(acceptTypes[0])
             } else {
                 peerPicker.contentType = ContentType.All
             }
