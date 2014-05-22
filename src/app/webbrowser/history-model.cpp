@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "domain-utils.h"
 #include "history-model.h"
 
 // Qt
@@ -29,8 +30,8 @@
 
     HistoryModel is a list model that stores history entries that contain
     metadata about navigation history. For a given URL, the following
-    information is stored: page title, URL to the favorite icon if any, total
-    number of visits, and timestamp of the most recent visit (UTC).
+    information is stored: domain name, page title, URL to the favorite icon if
+    any, total number of visits, and timestamp of the most recent visit (UTC).
     The model is sorted chronologically at all times (most recent visit first).
 
     The information is persistently stored on disk in a SQLite database.
@@ -58,25 +59,45 @@ void HistoryModel::resetDatabase(const QString& databaseName)
     m_database.close();
     m_database.setDatabaseName(databaseName);
     m_database.open();
-    createDatabaseSchema();
+    createOrAlterDatabaseSchema();
     endResetModel();
     populateFromDatabase();
 }
 
-void HistoryModel::createDatabaseSchema()
+void HistoryModel::createOrAlterDatabaseSchema()
 {
-    QSqlQuery schemaQuery(m_database);
+    QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS history "
-                                  "(url VARCHAR, title VARCHAR, icon VARCHAR,"
-                                  " visits INTEGER, lastVisit DATETIME);");
-    schemaQuery.prepare(query);
-    schemaQuery.exec();
+                                  "(url VARCHAR, domain VARCHAR, title VARCHAR,"
+                                  " icon VARCHAR, visits INTEGER, lastVisit DATETIME);");
+    createQuery.prepare(query);
+    createQuery.exec();
+
+    // The first version of the database schema didn’t have a 'domain' column
+    QSqlQuery tableInfoQuery(m_database);
+    query = QLatin1String("PRAGMA TABLE_INFO(history);");
+    tableInfoQuery.prepare(query);
+    tableInfoQuery.exec();
+    while (tableInfoQuery.next()) {
+        if (tableInfoQuery.value("name").toString() == "domain") {
+            break;
+        }
+    }
+    if (!tableInfoQuery.isValid()) {
+        QSqlQuery addDomainColumnQuery(m_database);
+        query = QLatin1String("ALTER TABLE history ADD COLUMN domain VARCHAR;");
+        addDomainColumnQuery.prepare(query);
+        addDomainColumnQuery.exec();
+        // Updating all the entries in the database to add the domain is a
+        // costly operation that would slow down the application startup,
+        // do not do it here.
+    }
 }
 
 void HistoryModel::populateFromDatabase()
 {
     QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT url, title, icon, visits, lastVisit "
+    QString query = QLatin1String("SELECT url, domain, title, icon, visits, lastVisit "
                                   "FROM history ORDER BY lastVisit DESC;");
     populateQuery.prepare(query);
     populateQuery.exec();
@@ -84,10 +105,14 @@ void HistoryModel::populateFromDatabase()
     while (populateQuery.next()) {
         HistoryEntry entry;
         entry.url = populateQuery.value(0).toUrl();
-        entry.title = populateQuery.value(1).toString();
-        entry.icon = populateQuery.value(2).toUrl();
-        entry.visits = populateQuery.value(3).toInt();
-        entry.lastVisit = QDateTime::fromTime_t(populateQuery.value(4).toInt());
+        entry.domain = populateQuery.value(1).toString();
+        if (entry.domain.isEmpty()) {
+            entry.domain = DomainUtils::extractTopLevelDomainName(entry.url);
+        }
+        entry.title = populateQuery.value(2).toString();
+        entry.icon = populateQuery.value(3).toUrl();
+        entry.visits = populateQuery.value(4).toInt();
+        entry.lastVisit = QDateTime::fromTime_t(populateQuery.value(5).toInt());
         beginInsertRows(QModelIndex(), count, count);
         m_entries.append(entry);
         endInsertRows();
@@ -100,6 +125,7 @@ QHash<int, QByteArray> HistoryModel::roleNames() const
     static QHash<int, QByteArray> roles;
     if (roles.isEmpty()) {
         roles[Url] = "url";
+        roles[Domain] = "domain";
         roles[Title] = "title";
         roles[Icon] = "icon";
         roles[Visits] = "visits";
@@ -123,6 +149,8 @@ QVariant HistoryModel::data(const QModelIndex& index, int role) const
     switch (role) {
     case Url:
         return entry.url;
+    case Domain:
+        return entry.domain;
     case Title:
         return entry.title;
     case Icon:
@@ -182,6 +210,7 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
     if (index == -1) {
         HistoryEntry entry;
         entry.url = url;
+        entry.domain = DomainUtils::extractTopLevelDomainName(url);
         entry.title = title;
         entry.icon = icon;
         entry.visits = 1;
@@ -236,10 +265,11 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
 void HistoryModel::insertNewEntryInDatabase(const HistoryEntry& entry)
 {
     QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO history (url, title, icon, "
-                                                   "visits, lastVisit) VALUES (?, ?, ?, 1, ?);");
+    static QString insertStatement = QLatin1String("INSERT INTO history (url, domain, title, icon, "
+                                                   "visits, lastVisit) VALUES (?, ?, ?, ?, 1, ?);");
     query.prepare(insertStatement);
     query.addBindValue(entry.url.toString());
+    query.addBindValue(entry.domain);
     query.addBindValue(entry.title);
     query.addBindValue(entry.icon.toString());
     query.addBindValue(entry.lastVisit.toTime_t());
@@ -249,9 +279,10 @@ void HistoryModel::insertNewEntryInDatabase(const HistoryEntry& entry)
 void HistoryModel::updateExistingEntryInDatabase(const HistoryEntry& entry)
 {
     QSqlQuery query(m_database);
-    static QString updateStatement = QLatin1String("UPDATE history SET title=?, icon=?, "
+    static QString updateStatement = QLatin1String("UPDATE history SET domain=?, title=?, icon=?, "
                                                    "visits=?, lastVisit=? WHERE url=?;");
     query.prepare(updateStatement);
+    query.addBindValue(entry.domain);
     query.addBindValue(entry.title);
     query.addBindValue(entry.icon.toString());
     query.addBindValue(entry.visits);

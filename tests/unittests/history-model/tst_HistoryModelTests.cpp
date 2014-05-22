@@ -155,6 +155,7 @@ private Q_SLOTS:
         QVERIFY(!model->data(model->index(-1, 0), HistoryModel::Url).isValid());
         QVERIFY(!model->data(model->index(3, 0), HistoryModel::Url).isValid());
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.org/"));
+        QCOMPARE(model->data(model->index(0, 0), HistoryModel::Domain).toString(), QString("example.org"));
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Title).toString(), QString("Example Domain"));
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Icon).toUrl(), QUrl("image://webicon/123"));
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Visits).toInt(), 1);
