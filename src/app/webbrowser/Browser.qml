@@ -77,6 +77,16 @@ BrowserView {
             url: currentWebview ? currentWebview.url : ""
             onRefreshClicked: currentWebview.reload()
         }
+
+        TopSitesSheet {
+            anchors.fill: webviewContainer
+            visible: currentWebview.url == ""
+            historyModel: _historyModel
+            bookmarksModel: bookmarksModel
+
+            onBookmarkRequested: internal.onTopSiteRequested(url)
+            onHistoryEntryRequested: internal.onTopSiteRequested(url)
+        }
     }
 
     PageStack {
@@ -112,6 +122,11 @@ BrowserView {
         function onBookmarkRequested(url) {
             currentWebview.url = url
             toggleActivityView()
+        }
+
+        function onTopSiteRequested(url) {
+            currentWebview.url = url
+            currentWebview.forceActiveFocus()
         }
     }
 

@@ -17,10 +17,12 @@
  */
 
 #include "bookmarks-model.h"
+#include "bookmarks-chronological-model.h"
 #include "config.h"
 #include "history-model.h"
 #include "history-matches-model.h"
 #include "history-timeframe-model.h"
+#include "history-byvisits-model.h"
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
 #include "settings.h"
@@ -73,10 +75,12 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
     qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
+    qmlRegisterType<HistoryByVisitsModel>(uri, 0 , 1, "HistoryByVisitsModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
+    qmlRegisterType<BookmarksChronologicalModel>(uri, 0, 1, "BookmarksChronologicalModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         m_window->setProperty("chromeless", m_arguments.contains("--chromeless"));

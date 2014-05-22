@@ -68,7 +68,7 @@ void BookmarksModel::createDatabaseSchema()
 {
     QSqlQuery schemaQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS bookmarks "
-                                  "(url VARCHAR, title VARCHAR, icon VARCHAR);");
+                                  "(url VARCHAR, title VARCHAR, icon VARCHAR, bookmarkedAt DATETIME);");
     schemaQuery.prepare(query);
     schemaQuery.exec();
 }
@@ -76,7 +76,7 @@ void BookmarksModel::createDatabaseSchema()
 void BookmarksModel::populateFromDatabase()
 {
     QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT url, title, icon "
+    QString query = QLatin1String("SELECT url, title, icon, bookmarkedAt "
                                   "FROM bookmarks ORDER BY url ASC;");
     populateQuery.prepare(query);
     populateQuery.exec();
@@ -86,6 +86,7 @@ void BookmarksModel::populateFromDatabase()
         entry.url = populateQuery.value(0).toUrl();
         entry.title = populateQuery.value(1).toString();
         entry.icon = populateQuery.value(2).toUrl();
+        entry.bookmarkedAt = QDateTime::fromTime_t(populateQuery.value(3).toInt());
         beginInsertRows(QModelIndex(), count, count);
         m_entries.insert(entry.url, entry);
         endInsertRows();
@@ -100,6 +101,7 @@ QHash<int, QByteArray> BookmarksModel::roleNames() const
         roles[Url] = "url";
         roles[Title] = "title";
         roles[Icon] = "icon";
+        roles[BookmarkedAt] = "bookmarkedAt";
     }
     return roles;
 }
@@ -124,6 +126,8 @@ QVariant BookmarksModel::data(const QModelIndex& index, int role) const
         return entry.title;
     case Icon:
         return entry.icon;
+    case BookmarkedAt:
+        return entry.bookmarkedAt;
     default:
         return QVariant();
     }
@@ -167,6 +171,8 @@ void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon
     if (m_entries.contains(url)) {
         qWarning() << "URL already bookmarked:" << url;
     } else {
+        QDateTime now = QDateTime::currentDateTimeUtc();
+
         QList<QUrl> urls = m_entries.keys();
         int count = urls.count();
         int insertAt = 0;
@@ -181,6 +187,7 @@ void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon
         entry.url = url;
         entry.title = title;
         entry.icon = icon;
+        entry.bookmarkedAt = now;
         m_entries.insert(url, entry);
         endInsertRows();
         Q_EMIT added(url);
@@ -192,11 +199,12 @@ void BookmarksModel::insertNewEntryInDatabase(const BookmarkEntry& entry)
 {
     QSqlQuery query(m_database);
     static QString insertStatement = QLatin1String("INSERT INTO bookmarks (url, "
-                                                   "title, icon) VALUES (?, ?, ?);");
+                                                   "title, icon, bookmarkedAt) VALUES (?, ?, ?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(entry.url.toString());
     query.addBindValue(entry.title);
     query.addBindValue(entry.icon.toString());
+    query.addBindValue(entry.bookmarkedAt.toTime_t());
     query.exec();
 }
 
