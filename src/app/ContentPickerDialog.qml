@@ -20,6 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1 as Popups
 import Ubuntu.Content 0.1
+import "MimeTypeMapping.js" as MimeTypeMapper
 
 Component {
     Popups.PopupBase {
@@ -91,6 +92,11 @@ Component {
         }
     
         Component.onCompleted: {
+            if(acceptTypes.length === 1) {
+                peerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(acceptTypes[0]);
+            } else {
+                peerPicker.contentType = ContentType.All
+            }
             show()
         }
     
