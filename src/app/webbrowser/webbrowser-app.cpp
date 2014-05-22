@@ -18,6 +18,7 @@
 
 #include "bookmarks-model.h"
 #include "bookmarks-chronological-model.h"
+#include "bookmarks-chronological-maxcount-model.h"
 #include "config.h"
 #include "history-model.h"
 #include "history-matches-model.h"
@@ -81,6 +82,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
     qmlRegisterType<BookmarksChronologicalModel>(uri, 0, 1, "BookmarksChronologicalModel");
+    qmlRegisterType<BookmarksChronologicalMaxCountModel>(uri, 0, 1, "BookmarksChronologicalMaxCountModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         m_window->setProperty("chromeless", m_arguments.contains("--chromeless"));

@@ -98,8 +98,11 @@ Item {
             spacing: units.gu(1)
 
             Repeater {
-                model: BookmarksChronologicalModel {
-                    sourceModel: topSitesView.bookmarksModel
+                model: BookmarksChronologicalMaxCountModel {
+                    sourceModel: BookmarksChronologicalModel {
+                        sourceModel: topSitesView.bookmarksModel
+                    }
+                    maxCount: 5
                 }
 
                 delegate: UrlDelegate{
