@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import webbrowserapp.private 0.1
 
@@ -27,6 +28,7 @@ Item {
     property QtObject historyModel
 
     signal bookmarkClicked(url url)
+    signal seeMoreBookmarksClicked()
     signal historyEntryClicked(url url)
 
     Rectangle {
@@ -36,7 +38,7 @@ Item {
     }
 
     ListView {
-        id: topSites
+        id: topSitesListView
 
         anchors.fill: parent
 
@@ -84,38 +86,18 @@ Item {
     Component {
         id: bookmarksComponent
 
-        Column {
-            id: bookmarksList
-
-            anchors {
-                left: parent.left
-                right: parent.right
-                margins: units.gu(2)
+        BookmarksList {
+            model: BookmarksChronologicalMaxCountModel {
+                sourceModel: BookmarksChronologicalModel {
+                    sourceModel: topSitesView.bookmarksModel
+                }
+                maxCount: 5
             }
 
-            width: parent.width
+            footerLabelText: i18n.tr("see more")
 
-            spacing: units.gu(1)
-
-            Repeater {
-                model: BookmarksChronologicalMaxCountModel {
-                    sourceModel: BookmarksChronologicalModel {
-                        sourceModel: topSitesView.bookmarksModel
-                    }
-                    maxCount: 5
-                }
-
-                delegate: UrlDelegate{
-                    width: parent.width
-                    height: units.gu(5)
-
-                    favIcon: model.icon
-                    label: model.title ? model.title : model.url
-                    url: model.url
-
-                    onClicked: bookmarkClicked(model.url)
-                }
-            }
+            onBookmarkClicked: bookmarkClicked(url)
+            onFooterLabelClicked: seeMoreBookmarksClicked()
         }
     }
 
@@ -123,8 +105,6 @@ Item {
         id: topSitesComponent
 
         Flow {
-            id: topSitesGrid
-
             anchors {
                 left: parent.left
                 right: parent.right
