@@ -41,6 +41,7 @@ public:
 
     enum Roles {
         Url = Qt::UserRole + 1,
+        Domain,
         Title,
         Icon,
         Visits,
@@ -66,6 +67,7 @@ private:
 
     struct HistoryEntry {
         QUrl url;
+        QString domain;
         QString title;
         QUrl icon;
         uint visits;
@@ -75,7 +77,7 @@ private:
     int getEntryIndex(const QUrl& url) const;
 
     void resetDatabase(const QString& databaseName);
-    void createDatabaseSchema();
+    void createOrAlterDatabaseSchema();
     void populateFromDatabase();
     void insertNewEntryInDatabase(const HistoryEntry& entry);
     void updateExistingEntryInDatabase(const HistoryEntry& entry);

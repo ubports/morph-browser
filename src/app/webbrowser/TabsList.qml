@@ -47,6 +47,7 @@ Column {
         height: units.gu(17)
         spacing: units.gu(2)
         orientation: ListView.Horizontal
+        boundsBehavior: Flickable.StopAtBounds
         currentIndex: model.currentIndex
 
         states: State {
