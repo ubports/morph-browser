@@ -84,10 +84,8 @@ Item {
     Component {
         id: bookmarksComponent
 
-        ListView {
+        Column {
             id: bookmarksList
-
-            property string topViewSection: modelData
 
             anchors {
                 left: parent.left
@@ -96,33 +94,33 @@ Item {
             }
 
             width: parent.width
-            height: contentHeight
 
             spacing: units.gu(1)
 
-            interactive: false
+            Repeater {
+                model: BookmarksChronologicalModel {
+                    sourceModel: topSitesView.bookmarksModel
+                }
 
-            model: BookmarksChronologicalModel {
-                sourceModel: topSitesView.bookmarksModel
+                delegate: UrlDelegate{
+                    width: parent.width
+                    height: units.gu(5)
+
+                    favIcon: model.icon
+                    label: model.title ? model.title : model.url
+                    url: model.url
+
+                    onClicked: bookmarkClicked(model.url)
+                }
             }
 
-            delegate: UrlDelegate{
-                width: parent.width
-                height: units.gu(5)
-
-                favIcon: model.icon
-                label: model.title ? model.title : model.url
-                url: model.url
-
-                onClicked: bookmarkClicked(model.url)
-            }
         }
     }
 
     Component {
         id: topSitesComponent
 
-        GridView {
+        Flow {
             id: topSitesGrid
 
             anchors {
@@ -132,45 +130,44 @@ Item {
             }
 
             width: parent.width
-            height: contentHeight
 
-            cellWidth: units.gu(12)
-            cellHeight: units.gu(16)
+            spacing: units.gu(6)
 
-            interactive: false
-
-            model: HistoryByVisitsModel {
-                sourceModel: HistoryTimeframeModel {
-                    sourceModel: topSitesView.historyModel
-                    //start: {
-                    //    var date = new Date()
-                    //    //date.setDate(1)
-                    //    date.setHours(0)
-                    //    date.setMinutes(0)
-                    //    date.setSeconds(0)
-                    //    date.setMilliseconds(0)
-                    //    return date
-                    //}
-                    //end: {
-                    //    var date = new Date()
-                    //    date.setDate(date.getDate() - 8)
-                    //    //date.setHours(23)
-                    //    date.setMinutes(59)
-                    //    date.setSeconds(59)
-                    //    date.setMilliseconds(999)
-                    //    return date
-                    //}
+            Repeater {
+                model: HistoryByVisitsModel {
+                    sourceModel: HistoryTimeframeModel {
+                        sourceModel: topSitesView.historyModel
+                        // We only show sites visited on the last 60 days
+                        start: {
+                            var date = new Date()
+                            date.setDate(date.getDate() - 60)
+                            date.setHours(0)
+                            date.setMinutes(0)
+                            date.setSeconds(0)
+                            date.setMilliseconds(0)
+                            return date
+                        }
+                        end: {
+                            var date = new Date()
+                            date.setDate(date.getDate())
+                            date.setHours(23)
+                            date.setMinutes(59)
+                            date.setSeconds(59)
+                            date.setMilliseconds(999)
+                            return date
+                        }
+                    }
                 }
-            }
 
-            delegate: PageDelegate{
-                width: units.gu(10)
-                height: units.gu(10)
+                delegate: PageDelegate{
+                    width: units.gu(10)
+                    height: units.gu(10)
 
-                url: model.url
-                label: model.title ? model.title : model.url
+                    url: model.url
+                    label: model.title ? model.title : model.url
 
-                onClicked: historyEntryClicked(model.url)
+                    onClicked: historyEntryClicked(model.url)
+                }
             }
         }
     }
