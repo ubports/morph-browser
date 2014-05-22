@@ -45,12 +45,15 @@ Item {
         anchors.fill: parent
         verticalLayoutDirection: ListView.BottomToTop
         clip: true
+        interactive: !progressiveLoading.running
+        boundsBehavior: Flickable.StopAtBounds
 
         model: ListModel {}
         currentIndex: -1
 
         readonly property var timeframes: ["today", "yesterday", "last7days", "thismonth", "thisyear", "older"]
         Timer {
+            id: progressiveLoading
             interval: 100
             repeat: true
             running: true
@@ -172,6 +175,7 @@ Item {
 
                     spacing: units.gu(2)
                     orientation: ListView.Horizontal
+                    boundsBehavior: Flickable.StopAtBounds
 
                     model: entriesView.model
 
@@ -228,6 +232,7 @@ Item {
 
                 spacing: units.gu(2)
                 orientation: ListView.Horizontal
+                boundsBehavior: Flickable.StopAtBounds
 
                 model: HistoryDomainListChronologicalModel {
                     sourceModel: HistoryDomainListModel {

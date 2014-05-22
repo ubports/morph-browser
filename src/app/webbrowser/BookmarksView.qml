@@ -37,6 +37,7 @@ Item {
             margins: units.gu(2)
         }
         clip: true
+        boundsBehavior: Flickable.StopAtBounds
 
         model: bookmarksModel
 
