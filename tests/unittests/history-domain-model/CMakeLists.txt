@@ -1,11 +1,6 @@
 set(TEST tst_HistoryDomainModelTests)
-set(SOURCES
-    ${webbrowser-app_SOURCE_DIR}/history-domain-model.cpp
-    ${webbrowser-app_SOURCE_DIR}/history-model.cpp
-    ${webbrowser-app_SOURCE_DIR}/history-timeframe-model.cpp
-    tst_HistoryDomainModelTests.cpp
-)
-add_executable(${TEST} ${SOURCES})
+add_executable(${TEST} tst_HistoryDomainModelTests.cpp)
 include_directories(${webbrowser-app_SOURCE_DIR})
-qt5_use_modules(${TEST} Core Sql Test)
+qt5_use_modules(${TEST} Test)
+target_link_libraries(${TEST} webbrowser-app-models)
 add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -xunitxml -o ${TEST}.xml)

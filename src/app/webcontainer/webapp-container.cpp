@@ -84,7 +84,8 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     m_withOxide(canUseOxide()),
     m_storeSessionCookies(false),
     m_backForwardButtonsVisible(false),
-    m_addressBarVisible(false)
+    m_addressBarVisible(false),
+    m_localWebappManifest(false)
 {
 }
 
@@ -93,6 +94,9 @@ bool WebappContainer::initialize()
     if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
         parseCommandLine();
         parseExtraConfiguration();
+
+        if (m_localWebappManifest)
+            m_webappModelSearchPath = ".";
 
         if (!m_webappModelSearchPath.isEmpty())
         {
@@ -125,8 +129,8 @@ bool WebappContainer::initialize()
             if (!urls.isEmpty()) {
                 m_window->setProperty("url", urls.first());
             } else {
-	        return false;
-	    }
+                return false;
+            }
         }
 
         m_component->completeCreate();
@@ -173,6 +177,7 @@ void WebappContainer::printUsage() const
     out << "Options:" << endl;
     out << "  -h, --help                          display this help message and exit" << endl;
     out << "  --fullscreen                        display full screen" << endl;
+    out << "  --local-webapp-manifest             configure the webapp assuming that it has a local manifest.json file" << endl;
     out << "  --maximized                         opens the application maximized" << endl;
     out << "  --inspector                         run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
     out << "  --app-id=APP_ID                     run the application with a specific APP_ID" << endl;
@@ -181,10 +186,10 @@ void WebappContainer::printUsage() const
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
+    out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
     out << "  --enable-addressbar                 enable the display of the address bar" << endl;
-    out << "  --store-session-cookies             store session cookies on disk" << endl;
 }
 
 void WebappContainer::parseCommandLine()
@@ -217,6 +222,8 @@ void WebappContainer::parseCommandLine()
             m_backForwardButtonsVisible = true;
         } else if (argument == "--enable-addressbar") {
             m_addressBarVisible = true;
+        } else if (argument == "--local-webapp-manifest") {
+            m_localWebappManifest = true;
         }
     }
 }

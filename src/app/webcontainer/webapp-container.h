@@ -52,6 +52,7 @@ private:
     bool m_storeSessionCookies;
     bool m_backForwardButtonsVisible;
     bool m_addressBarVisible;
+    bool m_localWebappManifest;
 
     static const QString URL_PATTERN_SEPARATOR;
 };

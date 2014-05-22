@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-05 13:50+0300\n"
+"POT-Creation-Date: 2014-05-06 16:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -232,6 +232,10 @@ msgstr ""
 msgid "Leave Page"
 msgstr ""
 
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
+msgstr ""
+
 #: src/app/webbrowser/ActivityView.qml:54
 msgid "Bookmarks"
 msgstr ""
@@ -292,11 +296,13 @@ msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:47
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:49
 msgid "Ubuntu Web Browser"
 msgstr ""
 

@@ -59,7 +59,7 @@ QtObject {
     //       every time we rebase on a newer chromium.
     readonly property string _chromiumVersion: "35.0.1870.2"
 
-    readonly property string _formFactor: (formFactor === "mobile") ? "Mobile " : ""
+    readonly property string _formFactor: (formFactor === "mobile") ? "Mobile" : ""
 
     readonly property string _more: ""
 

@@ -6,7 +6,7 @@ Build-Depends: cmake (>= 2.8.9),
                debhelper (>= 9),
                dh-translations,
                hardening-wrapper,
-               python,
+               python3-all,
                libqt5sql5-sqlite,
                libqt5webkit5-qmlwebkitplugin,
                liboxideqt-qmlplugin,
@@ -20,7 +20,7 @@ Build-Depends: cmake (>= 2.8.9),
                qtdeclarative5-test-plugin,
                qtdeclarative5-ubuntu-ui-toolkit-plugin,
                xvfb,
-Standards-Version: 3.9.4
+Standards-Version: 3.9.5
 Homepage: https://launchpad.net/webbrowser-app
 # If you aren't a member of ~phablet-team but need to upload packaging changes,
 # just go ahead.  ~phablet-team will notice and sync up the code again.
@@ -97,6 +97,7 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
          libautopilot-qt (>= 1.4),
          libqt5test5,
+         python3-autopilot,
          ubuntu-ui-toolkit-autopilot,
          unity8-autopilot,
          webbrowser-app (>= ${binary:Version}),
@@ -110,6 +111,7 @@ Architecture: all
 Depends: ${misc:Depends},
          libautopilot-qt (>= 1.4),
          libqt5test5,
+         python3-autopilot,
          ubuntu-ui-toolkit-autopilot,
          webapp-container (>= ${binary:Version}),
 Description: Ubuntu web applications container autopilot tests

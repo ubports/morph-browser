@@ -18,13 +18,18 @@
 
 // Qt
 #include <QtCore/QLibrary>
+#include <QtCore/QtGlobal>
 #include <QtNetwork/QNetworkInterface>
 #include <QtGui/QOpenGLContext>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
-#include <QtQuick/private/qsgcontext_p.h>
 #include <QtQuick/QQuickWindow>
+#if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
+#include <QtQuick/private/qsgcontext_p.h>
+#else
+#include <QtGui/private/qopenglcontext_p.h>
+#endif
 
 // local
 #include "browserapplication.h"
@@ -88,7 +93,11 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     // Enable compositing in oxide
     QOpenGLContext* glcontext = new QOpenGLContext(this);
     glcontext->create();
+#if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
     QSGContext::setSharedOpenGLContext(glcontext);
+#else
+    QOpenGLContextPrivate::setGlobalShareContext(glcontext);
+#endif
 
     bool inspector = m_arguments.contains("--inspector");
     if (inspector) {

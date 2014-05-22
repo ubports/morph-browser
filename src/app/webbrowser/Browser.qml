@@ -56,30 +56,32 @@ BrowserView {
         }
     ]
 
+    Page {
+        // Work around http://pad.lv/1305834 by forcing the page title to be
+        // reset to an empty string when the activity view is being hidden.
+        title: activityViewVisible ? " " : ""
+        active: stack.depth === 0
+        Item {
+            id: webviewContainer
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+            }
+            height: parent.height - osk.height
+        }
+
+        ErrorSheet {
+            anchors.fill: webviewContainer
+            visible: currentWebview ? currentWebview.lastLoadFailed : false
+            url: currentWebview ? currentWebview.url : ""
+            onRefreshClicked: currentWebview.reload()
+        }
+    }
+
     PageStack {
         id: stack
-        Page {
-            // Work around http://pad.lv/1305834 by forcing the page title to be
-            // reset to an empty string when the activity view is being hidden.
-            title: activityViewVisible ? " " : ""
-
-            Item {
-                id: webviewContainer
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    top: parent.top
-                }
-                height: parent.height - osk.height
-            }
-
-            ErrorSheet {
-                anchors.fill: webviewContainer
-                visible: currentWebview ? currentWebview.lastLoadFailed : false
-                url: currentWebview ? currentWebview.url : ""
-                onRefreshClicked: currentWebview.reload()
-            }
-        }
+        active: depth > 0
     }
 
     QtObject {
@@ -220,6 +222,7 @@ BrowserView {
             visible: currentWebview === webview
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
+            preferences.localStorageEnabled: true
 
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
@@ -242,6 +245,10 @@ BrowserView {
                     enabled: contextualData.img.toString()
                     onTriggered: Clipboard.push([contextualData.img])
                 }
+                Actions.SaveImage {
+                    enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
+                    onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
+                }
             }
 
             onNewViewRequested: {
@@ -257,6 +264,11 @@ BrowserView {
         }
     }
 
+    Loader {
+        id: downloadLoader
+        source: formFactor == "desktop" ? "" : "../Downloader.qml"
+    }
+
     function addTab(webview, setCurrent, focusAddressBar) {
         var index = tabsModel.add(webview)
         if (setCurrent) {
@@ -264,6 +276,7 @@ BrowserView {
             if (!chromeless) {
                 if (focusAddressBar) {
                     panel.chrome.addressBar.forceActiveFocus()
+                    Qt.inputMethod.show() // work around http://pad.lv/1316057
                     panel.open()
                 }
             }

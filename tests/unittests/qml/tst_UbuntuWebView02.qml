@@ -23,6 +23,10 @@ import Ubuntu.Components.Extras.Browser 0.2
 TestCase {
     name: "UbuntuWebView"
 
+    function test_context_singleton() {
+        compare(webview1.context, webview2.context)
+    }
+
     function test_custom_UA_override() {
         compare(webview1.getUAString(), undefined)
         verify(webview1.context.userAgent !== undefined)

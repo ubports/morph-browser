@@ -1,3 +1,118 @@
+webbrowser-app (0.23+14.10.20140521.1-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Fix FTBFS with Qt 5.3. (LP: #1321440)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 21 May 2014 13:03:58 +0000
+
+webbrowser-app (0.23+14.10.20140521-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Remove an extraneous whitespace in the default UA on mobile.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 21 May 2014 08:11:35 +0000
+
+webbrowser-app (0.23+14.10.20140515.1-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Add support for downloading images via download manager and content-
+    hub on non-desktop platforms.
+
+  [ Tim Peeters ]
+  * Push the initial Page on the PageStack.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 15 May 2014 20:49:50 +0000
+
+webbrowser-app (0.23+14.10.20140514.1-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Add --local-webapp-manifest webapp container cli option to simplify
+    the command line in the case of a local manifest.json file
+    definition. This is to become a bit more important now that the
+    manifest support thing like ua overrides that would be beneficial to
+    webapp on touch.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 14 May 2014 22:26:02 +0000
+
+webbrowser-app (0.23+14.10.20140506.1-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Add capability for single webapps to have specific UA overrides for
+    the website that they serve (LP: #1245465)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 06 May 2014 17:21:27 +0000
+
+webbrowser-app (0.23+14.10.20140506-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Enable cross compilation for an ARM target on an X86 host.
+  * Port autopilot tests to Python 3.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 06 May 2014 12:11:38 +0000
+
+webbrowser-app (0.23+14.10.20140505.1-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Resolve image URLs beginning with a double slash correctly for
+    context menu items (LP: #1311626)
+
+  [ Adnane Belmadiaf ]
+  * Enabled passwordEchoEnabled (LP: #1314251)
+
+  [ Alberto Mardegan ]
+  * Split UbuntuWebContext into two different components:
+    UbuntuWebContext, which is a WebContext derivative with the UA
+    overrides for Ubuntu. UbuntuSharedWebContext, which is a singleton
+    for UbuntuWebContext .
+
+  [ Olivier Tilloy ]
+  * Build the models in a separate static lib, and link the unit tests
+    against it. This speeds up build time by avoiding having to
+    recompile the models’ source for each unit test.
+  * Handle javascript console messages.
+  * Escape literal dots in UA override matching regular expressions.
+  * Enable localStorage by default in the browser. (LP: #1309673)
+  * Ensure that the URL actually changes so that the address bar is
+    updated in case the user has entered a new address that redirects to
+    where she previously was. (LP: #1306615)
+  * Update bzr ignore rules.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 05 May 2014 20:47:19 +0000
+
+webbrowser-app (0.23+14.10.20140505-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Work around a recent regression by forcing the OSK to show up when
+    the address bar is being focused. (LP: #1316057)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 05 May 2014 12:15:51 +0000
+
+webbrowser-app (0.23+14.04.20140428-0ubuntu1) trusty; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Alberto Mardegan ]
+  * Webapps: let SAML requests through SAML requests are used for
+    instance by Google Apps for your domain; they are implemented as a
+    HTTP redirect to a URL containing the query parameter called
+    "SAMLRequest". Besides letting the request through, we must also add
+    the SAML domain to the list of the allowed hosts. (LP: #1302780)
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 28 Apr 2014 07:53:21 +0000
+
 webbrowser-app (0.23+14.04.20140422-0ubuntu1) trusty; urgency=low
 
   [ Ubuntu daily release ]

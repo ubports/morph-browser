@@ -1,4 +1,7 @@
 *.qmlproject.user
+.excludes
+manifest.json
+webbrowser-app.json
 
 CMakeCache.txt
 CMakeFiles/
@@ -28,6 +31,7 @@ debian/tmp/
 debian/qtdeclarative5-ubuntu-ui-extras-browser-plugin/
 debian/qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets/
 debian/webapp-container/
+debian/webapp-container-autopilot/
 debian/webbrowser-app/
 debian/webbrowser-app-autopilot/
 debian/*.debhelper

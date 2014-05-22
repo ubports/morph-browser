@@ -18,7 +18,8 @@
 
 // This file is not really used, but without it importing version 0.1 of
 // Ubuntu.Components.Extras.Browser fails because the QML engine requests type
-// UbuntuWebContext, despite it being specific to version 0.2 of the module.
+// UbuntuSharedWebContext, despite it being specific to version 0.2 of the
+// module.
 
 pragma Singleton
 

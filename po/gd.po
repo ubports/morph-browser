@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-04-10 16:28+0100\n"
-"PO-Revision-Date: 2013-09-29 21:42+0000\n"
+"POT-Creation-Date: 2014-05-06 16:25+0100\n"
+"PO-Revision-Date: 2014-05-17 21:10+0000\n"
 "Last-Translator: Akerbeltz <fios@akerbeltz.org>\n"
 "Language-Team: Gaelic; Scottish <gd@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-26 07:10+0000\n"
-"X-Generator: Launchpad (build 16985)\n"
+"X-Launchpad-Export-Date: 2014-05-18 05:54+0000\n"
+"X-Generator: Launchpad (build 17007)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -51,15 +51,15 @@ msgstr "Sguir dheth"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Dearbh an t-seòladaireachd"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "Fàg"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "Fuirich"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -120,9 +120,9 @@ msgstr ""
 msgid "Refresh page"
 msgstr "Ath-nuadhaich an duilleag"
 
-#: src/app/FilePickerDialog.qml:26
+#: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr ""
+msgstr "Tagh faidhle"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
@@ -186,11 +186,11 @@ msgstr "Dèan lethbhreac"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Dèan lethbhreac dhen dealbh"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Dèan lethbhreac dhen cheangal"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -235,6 +235,10 @@ msgstr "Ath-luchdaich"
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
 msgstr "Fàg an duilleag"
+
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
+msgstr "Sàbhail an dealbh"
 
 #: src/app/webbrowser/ActivityView.qml:54
 msgid "Bookmarks"
@@ -296,32 +300,32 @@ msgstr "Brabhsaich an t-eadar-lìon"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:45
+#: src/app/webcontainer/webapp-container.qml:47
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Brabhsair-lìn Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:49
 msgid "Ubuntu Web Browser"
 msgstr "Brabhsair-lìn Ubuntu"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "Cha deach cunntas ionadail a lorg airson "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "Leum seachad air cruthachadh cunntais"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "Cuir cunntas ris"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "Tagh cunntas"
 
 #: src/app/webcontainer/WebViewImplWebkit.qml:63
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Bu toigh leis an duilleag seo fiosrachadh air ionad an uidheim agad."
