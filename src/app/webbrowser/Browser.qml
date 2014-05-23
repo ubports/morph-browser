@@ -60,7 +60,7 @@ BrowserView {
         // Work around http://pad.lv/1305834 by forcing the page title to be
         // reset to an empty string when the activity view is being hidden.
         title: activityViewVisible ? " " : ""
-        active: stack.depth === 0
+        active: !activityViewVisible
         Item {
             id: webviewContainer
             anchors {
@@ -73,7 +73,7 @@ BrowserView {
 
         ErrorSheet {
             anchors.fill: webviewContainer
-            visible: currentWebview ? currentWebview.lastLoadFailed : false
+            visible: !activityViewVisible && currentWebview ? currentWebview.lastLoadFailed : false
             url: currentWebview ? currentWebview.url : ""
             onRefreshClicked: currentWebview.reload()
         }
@@ -218,8 +218,9 @@ BrowserView {
 
             anchors.fill: parent
 
-            enabled: stack.depth === 0
-            visible: currentWebview === webview
+            readonly property bool current: currentWebview === webview
+            enabled: !activityViewVisible
+            visible: current && enabled
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
             preferences.localStorageEnabled: true
