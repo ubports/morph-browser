@@ -31,6 +31,27 @@ Item {
     signal seeMoreBookmarksClicked()
     signal historyEntryClicked(url url)
 
+    Component.onCompleted: {
+        if (bookmarksModel)
+            console.log("[DEBUG] DO HAVE BOOKMARKS:", bookmarksModel.databasePath);
+
+        sectionsModel.append({ section: "bookmarks" });
+        sectionsModel.append({ section: "topsites" });
+    }
+
+    ListModel {
+        id: sectionsModel
+    }
+
+    BookmarksChronologicalMaxCountModel {
+        id: bookmarksListModel
+
+        sourceModel: BookmarksChronologicalModel {
+            sourceModel: topSitesView.bookmarksModel
+        }
+        maxCount: 5
+    }
+
     Rectangle {
         id: topSitesBackground
         anchors.fill: parent
@@ -42,10 +63,7 @@ Item {
 
         anchors.fill: parent
 
-        model: ListModel {
-            ListElement { section: "bookmarks" }
-            ListElement { section: "topsites" }
-        }
+        model: sectionsModel
 
         delegate: Loader {
             anchors {
@@ -87,17 +105,19 @@ Item {
         id: bookmarksComponent
 
         BookmarksList {
-            model: BookmarksChronologicalMaxCountModel {
+            model: bookmarksListModel
+            /*BookmarksChronologicalMaxCountModel {
                 sourceModel: BookmarksChronologicalModel {
                     sourceModel: topSitesView.bookmarksModel
                 }
                 maxCount: 5
             }
+            */
 
             footerLabelText: i18n.tr("see more")
 
-            onBookmarkClicked: bookmarkClicked(url)
-            onFooterLabelClicked: seeMoreBookmarksClicked()
+            onBookmarkClicked: topSitesView.bookmarkClicked(url)
+            onFooterLabelClicked: topSitesView.seeMoreBookmarksClicked()
         }
     }
 
@@ -113,7 +133,7 @@ Item {
 
             width: parent.width
 
-            spacing: units.gu(6)
+            spacing: units.gu(5)
 
             Repeater {
                 model: HistoryByVisitsMaxCountModel {
@@ -146,8 +166,8 @@ Item {
                 }
 
                 delegate: PageDelegate{
-                    width: units.gu(10)
-                    height: units.gu(10)
+                    width: units.gu(18)
+                    height: units.gu(18)
 
                     url: model.url
                     label: model.title ? model.title : model.url
