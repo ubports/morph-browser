@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "domain-utils.h"
 #include "history-domain-model.h"
 #include "history-domainlist-model.h"
 #include "history-model.h"
@@ -175,8 +174,7 @@ void HistoryDomainListModel::insertNewDomain(const QString& domain)
 
 QString HistoryDomainListModel::getDomainFromSourceModel(const QModelIndex& index) const
 {
-    QUrl url = m_sourceModel->data(index, HistoryModel::Url).toUrl();
-    return DomainUtils::extractTopLevelDomainName(url).toLower();
+    return m_sourceModel->data(index, HistoryModel::Domain).toString();
 }
 
 // It appears this is never called: in practice, for rows to be removed from
