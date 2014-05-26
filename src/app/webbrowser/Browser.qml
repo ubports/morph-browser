@@ -60,7 +60,8 @@ BrowserView {
         // Work around http://pad.lv/1305834 by forcing the page title to be
         // reset to an empty string when the activity view is being hidden.
         title: activityViewVisible ? " " : ""
-        active: !activityViewVisible
+        visible: !activityViewVisible
+        active: visible
         Item {
             id: webviewContainer
             anchors {
@@ -73,7 +74,7 @@ BrowserView {
 
         ErrorSheet {
             anchors.fill: webviewContainer
-            visible: !activityViewVisible && currentWebview ? currentWebview.lastLoadFailed : false
+            visible: currentWebview ? currentWebview.lastLoadFailed : false
             url: currentWebview ? currentWebview.url : ""
             onRefreshClicked: currentWebview.reload()
         }
@@ -115,7 +116,7 @@ BrowserView {
         }
     }
 
-    property bool activityViewVisible: stack.depth > 0
+    readonly property bool activityViewVisible: stack.depth > 0
 
     function showActivityView() {
         stack.push(Qt.resolvedUrl("ActivityView.qml"),
@@ -217,8 +218,8 @@ BrowserView {
             anchors.fill: parent
 
             readonly property bool current: currentWebview === this
-            enabled: !activityViewVisible
-            visible: current && enabled
+            enabled: current
+            visible: current
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
             preferences.localStorageEnabled: true
