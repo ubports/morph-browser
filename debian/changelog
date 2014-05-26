@@ -1,3 +1,23 @@
+webbrowser-app (0.23+14.10.20140526.1-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Ensure the main page that contains the webviews fills the main view.
+    (LP: #1321462)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 26 May 2014 13:27:49 +0000
+
+webbrowser-app (0.23+14.10.20140526-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Ensure the current webview is hidden while the activity view is
+    visible, and work around a bug in oxide that prevented new empty
+    tabs from rendering.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 26 May 2014 11:04:00 +0000
+
 webbrowser-app (0.23+14.10.20140522.1-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]

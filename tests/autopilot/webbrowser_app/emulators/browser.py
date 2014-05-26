@@ -57,11 +57,10 @@ class Browser(uitk.MainView):
         return self.select_single("ActionItem", objectName="forwardButton")
 
     def get_current_webview(self):
-        webviews = self.select_many("WebViewImpl")
-        for webview in webviews:
-            if webview.visible:
-                return webview
-        return None
+        return self.select_single("WebViewImpl", current=True)
+
+    def get_visible_webviews(self):
+        return self.select_many("WebViewImpl", visible=True)
 
     def get_error_sheet(self):
         return self.select_single("ErrorSheet")
