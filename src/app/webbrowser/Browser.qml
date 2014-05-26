@@ -257,7 +257,7 @@ BrowserView {
 
             onLoadingChanged: {
                 if (lastLoadSucceeded) {
-                    _historyModel.add(url, title, icon)
+                    _historyModel.add(url, title, "")
                 }
             }
 
