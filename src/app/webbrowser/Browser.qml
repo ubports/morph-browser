@@ -61,6 +61,9 @@ BrowserView {
         // reset to an empty string when the activity view is being hidden.
         title: activityViewVisible ? " " : ""
         active: stack.depth === 0
+
+        anchors.fill: parent
+
         Item {
             id: webviewContainer
             anchors {
