@@ -268,7 +268,7 @@ BrowserView {
             onEmptyChanged: {
                 if (!empty) {
                     visible = false
-                    visible = Qt.binding(function() { return (current && enabled) })
+                    visible = Qt.binding(function() { return current })
                 }
             }
         }
