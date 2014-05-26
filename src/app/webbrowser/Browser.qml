@@ -211,14 +211,12 @@ BrowserView {
         id: webviewComponent
 
         WebViewImpl {
-            id: webview
-
             currentWebview: browser.currentWebview
             toolbar: panel.panel
 
             anchors.fill: parent
 
-            readonly property bool current: currentWebview === webview
+            readonly property bool current: currentWebview === this
             enabled: !activityViewVisible
             visible: current && enabled
 
@@ -259,7 +257,7 @@ BrowserView {
 
             onLoadingChanged: {
                 if (lastLoadSucceeded) {
-                    _historyModel.add(webview.url, webview.title, webview.icon)
+                    _historyModel.add(url, title, icon)
                 }
             }
         }
