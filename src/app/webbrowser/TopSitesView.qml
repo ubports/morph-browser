@@ -106,13 +106,6 @@ Item {
 
         BookmarksList {
             model: bookmarksListModel
-            /*BookmarksChronologicalMaxCountModel {
-                sourceModel: BookmarksChronologicalModel {
-                    sourceModel: topSitesView.bookmarksModel
-                }
-                maxCount: 5
-            }
-            */
 
             footerLabelText: i18n.tr("see more")
 
