@@ -103,7 +103,6 @@ Item {
             rightMargin: units.gu(1)
             verticalCenter: parent.verticalCenter
         }
-        height: units.gu(5)
 
         onValidated: chrome.urlValidated(requestedUrl)
         onRequestReload: chrome.requestReload()

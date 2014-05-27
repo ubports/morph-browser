@@ -157,11 +157,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def assert_activity_view_eventually_hidden(self):
         self.assertThat(self.main_window.get_many_activity_view,
                         Eventually(Equals([])))
+        self.assertThat(self.main_window.get_current_webview().visible,
+                        Eventually(Equals(True)))
 
     def ensure_activity_view_visible(self):
         self.ensure_chrome_is_hidden()
         self.main_window.open_toolbar().click_button("activityButton")
         self.main_window.get_activity_view()
+        self.assertThat(self.main_window.get_visible_webviews(), Equals([]))
 
     def ping_server(self):
         ping = urllib.request.urlopen(self.base_url + "/ping")
