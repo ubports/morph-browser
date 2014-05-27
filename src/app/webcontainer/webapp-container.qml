@@ -19,24 +19,26 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Extras.Browser 0.2
 import webcontainer.private 0.1
 
 Window {
+    id: root
     objectName: "webappContainer"
 
-    property alias developerExtrasEnabled: browser.developerExtrasEnabled
+    property bool developerExtrasEnabled: false
 
-    property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
-    property alias addressBarVisible: browser.addressBarVisible
+    property bool backForwardButtonsVisible: true
+    property bool addressBarVisible: true
 
-    property alias url: browser.url
-    property alias webappName: browser.webappName
-    property alias webappModelSearchPath: browser.webappModelSearchPath
-    property alias webappUrlPatterns: browser.webappUrlPatterns
-    property alias oxide: browser.oxide
+    property string url: ""
+    property string webappName: ""
+    property string webappModelSearchPath: ""
+    property var webappUrlPatterns
+    property bool oxide: false
     property string accountProvider: ""
 
-    contentOrientation: browser.screenOrientation
+    contentOrientation: Screen.orientation
 
     width: 800
     height: 600
@@ -44,9 +46,10 @@ Window {
     title: {
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
             return webappName
-        } else if (browser.title) {
+        } else if (webappPageComponentLoader.item &&
+                   webappPageComponentLoader.item.title) {
             // TRANSLATORS: %1 refers to the current page’s title
-            return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
+            return i18n.tr("%1 - Ubuntu Web Browser").arg(webappPageComponentLoader.item.title)
         } else {
             return i18n.tr("Ubuntu Web Browser")
         }
@@ -60,24 +63,23 @@ Window {
     Component {
         id: webappPageComponent
 
-        Page {
-            id: webappPage
+        WebApp {
+            id: browser
+            addressBarVisible: root.addressBarVisible
+            backForwardButtonsVisible: root.backForwardButtonsVisible
+            developerExtrasEnabled: root.developerExtrasEnabled
+            oxide: root.oxide
+            url: root.url
+            webappModelSearchPath: root.webappModelSearchPath
+            webappName: root.webappName
+            webappUrlPatterns: root.webappUrlPatterns
 
-            visible: false
             anchors.fill: parent
 
-            WebApp {
-                id: browser
+            chromeless: !backForwardButtonsVisible && !addressBarVisible
+            webbrowserWindow: webbrowserWindowProxy
 
-                anchors.fill: parent
-
-                property int screenOrientation: Screen.orientation
-
-                chromeless: !backForwardButtonsVisible && !addressBarVisible
-                webbrowserWindow: webbrowserWindowProxy
-
-                Component.onCompleted: i18n.domain = "webbrowser-app"
-            }
+            Component.onCompleted: i18n.domain = "webbrowser-app"
         }
     }
 
@@ -128,7 +130,7 @@ Window {
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
             "accountProvider": accountProvider,
             "applicationName": Qt.application.name,
-            "webappCookieStore": browser.oxide ? chromeCookieStore : webkitCookieStore
+            "webappCookieStore": oxide ? chromeCookieStore : webkitCookieStore
         })
     }
 
