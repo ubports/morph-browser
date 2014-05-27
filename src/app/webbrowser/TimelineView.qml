@@ -45,16 +45,20 @@ Item {
         anchors.fill: parent
         verticalLayoutDirection: ListView.BottomToTop
         clip: true
+        interactive: loaded
+        boundsBehavior: Flickable.StopAtBounds
 
-        model: ListModel {
-            ListElement { timeframe: "today" }
-            ListElement { timeframe: "yesterday" }
-            ListElement { timeframe: "last7days" }
-            ListElement { timeframe: "thismonth" }
-            ListElement { timeframe: "thisyear" }
-            ListElement { timeframe: "older" }
-        }
+        model: ListModel {}
         currentIndex: -1
+
+        readonly property var timeframes: ["today", "yesterday", "last7days", "thismonth", "thisyear", "older"]
+        readonly property bool loaded: model.count == timeframes.length
+        Timer {
+            interval: 1
+            repeat: true
+            running: !timeline.loaded
+            onTriggered: timeline.model.append({ timeframe: timeline.timeframes[timeline.model.count] })
+        }
 
         header: TabsList {
             width: parent.width
@@ -107,7 +111,8 @@ Item {
                     right: parent.right
                 }
                 height: 0
-                clip: true
+                opacity: 0.0
+                visible: opacity > 0
 
                 Rectangle {
                     anchors.fill: parent
@@ -163,6 +168,7 @@ Item {
 
                     spacing: units.gu(2)
                     orientation: ListView.Horizontal
+                    boundsBehavior: Flickable.StopAtBounds
 
                     model: entriesView.model
 
@@ -189,13 +195,13 @@ Item {
                     PropertyChanges {
                         target: entriesView
                         height: units.gu(19)
-                        clip: false
+                        opacity: 1.0
                     }
                 }
 
                 transitions: Transition {
                     SequentialAnimation {
-                        UbuntuNumberAnimation { property: "height" }
+                        UbuntuNumberAnimation { properties: "height,opacity" }
                         ScriptAction {
                             // XXX: This action is instantaneous, the view jumps to the index
                             // without animating contentY. Unfortunately, manipulating contentY
@@ -219,12 +225,12 @@ Item {
 
                 spacing: units.gu(2)
                 orientation: ListView.Horizontal
+                boundsBehavior: Flickable.StopAtBounds
 
                 model: HistoryDomainListChronologicalModel {
                     sourceModel: HistoryDomainListModel {
                         sourceModel: HistoryTimeframeModel {
-                            sourceModel: historyModel
-                            start: {
+                            function setStart() {
                                 var date = new Date()
                                 if (model.timeframe == "yesterday") {
                                     date.setDate(date.getDate() - 1)
@@ -242,9 +248,9 @@ Item {
                                 date.setMinutes(0)
                                 date.setSeconds(0)
                                 date.setMilliseconds(0)
-                                return date
+                                start = date
                             }
-                            end: {
+                            function setEnd() {
                                 var date = new Date()
                                 if (model.timeframe == "yesterday") {
                                     date.setDate(date.getDate() - 1)
@@ -262,7 +268,12 @@ Item {
                                 date.setMinutes(59)
                                 date.setSeconds(59)
                                 date.setMilliseconds(999)
-                                return date
+                                end = date
+                            }
+                            Component.onCompleted: {
+                                setStart()
+                                setEnd()
+                                sourceModel = historyModel
                             }
                         }
                     }
@@ -299,6 +310,13 @@ Item {
                     }
                 }
             }
+        }
+
+        ActivityIndicator {
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: timeline.height - timeline.contentHeight - units.gu(8)
+            visible: y > 0
+            running: !timeline.loaded
         }
     }
 

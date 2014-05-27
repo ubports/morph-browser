@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "domain-utils.h"
 #include "history-domain-model.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
@@ -85,8 +84,7 @@ bool HistoryDomainModel::filterAcceptsRow(int source_row, const QModelIndex& sou
         return true;
     }
     QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
-    QUrl url = sourceModel()->data(index, HistoryModel::Url).toUrl();
-    QString domain = DomainUtils::extractTopLevelDomainName(url);
+    QString domain = sourceModel()->data(index, HistoryModel::Domain).toString();
     return (domain.compare(m_domain, Qt::CaseInsensitive) == 0);
 }
 
