@@ -31,6 +31,8 @@
 HistoryByVisitsMaxCountModel::HistoryByVisitsMaxCountModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
+    setDynamicSortFilter(true);
+
     m_maxCount = -1;
 }
 

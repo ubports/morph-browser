@@ -30,6 +30,7 @@ class HistoryByVisitsMaxCountModel : public QSortFilterProxyModel
 
     Q_PROPERTY(HistoryByVisitsModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(int maxCount READ maxCount WRITE setMaxCount NOTIFY maxCountChanged)
+    Q_PROPERTY(int count READ rowCount)
 
 public:
     HistoryByVisitsMaxCountModel(QObject* parent=0);

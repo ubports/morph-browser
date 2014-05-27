@@ -36,7 +36,8 @@ Item {
             sectionsModel.clear()
             if (bookmarksListModel.count !== 0)
                 sectionsModel.append({ section: "bookmarks" });
-            sectionsModel.append({ section: "topsites" });
+            if (historyListModel.count !== 0)
+                sectionsModel.append({ section: "topsites" });
         }
     }
 
@@ -51,6 +52,37 @@ Item {
             sourceModel: topSitesView.bookmarksModel
         }
         maxCount: 5
+    }
+
+    HistoryByVisitsMaxCountModel {
+        id: historyListModel
+
+        sourceModel: HistoryByVisitsModel {
+            sourceModel: HistoryTimeframeModel {
+                sourceModel: topSitesView.historyModel
+                // We only show sites visited on the last 60 days
+                start: {
+                    var date = new Date()
+                    date.setDate(date.getDate() - 60)
+                    date.setHours(0)
+                    date.setMinutes(0)
+                    date.setSeconds(0)
+                    date.setMilliseconds(0)
+                    return date
+                }
+                end: {
+                    var date = new Date()
+                    date.setDate(date.getDate())
+                    date.setHours(23)
+                    date.setMinutes(59)
+                    date.setSeconds(59)
+                    date.setMilliseconds(999)
+                    return date
+                }
+            }
+        }
+
+        maxCount: 10
     }
 
     Rectangle {
@@ -130,34 +162,7 @@ Item {
             spacing: units.gu(5)
 
             Repeater {
-                model: HistoryByVisitsMaxCountModel {
-                    sourceModel: HistoryByVisitsModel {
-                        sourceModel: HistoryTimeframeModel {
-                            sourceModel: topSitesView.historyModel
-                            // We only show sites visited on the last 60 days
-                            start: {
-                                var date = new Date()
-                                date.setDate(date.getDate() - 60)
-                                date.setHours(0)
-                                date.setMinutes(0)
-                                date.setSeconds(0)
-                                date.setMilliseconds(0)
-                                return date
-                            }
-                            end: {
-                                var date = new Date()
-                                date.setDate(date.getDate())
-                                date.setHours(23)
-                                date.setMinutes(59)
-                                date.setSeconds(59)
-                                date.setMilliseconds(999)
-                                return date
-                            }
-                        }
-                    }
-
-                    maxCount: 10
-                }
+                model: historyListModel
 
                 delegate: PageDelegate{
                     width: units.gu(18)
