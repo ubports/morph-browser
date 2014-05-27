@@ -45,13 +45,13 @@ Item {
         id: sectionsModel
     }
 
-    BookmarksChronologicalMaxCountModel {
+    BookmarksLimitChronologicalModel {
         id: bookmarksListModel
 
         sourceModel: BookmarksChronologicalModel {
             sourceModel: topSitesView.bookmarksModel
         }
-        maxCount: 5
+        limit: 5
     }
 
     HistoryByVisitsMaxCountModel {
