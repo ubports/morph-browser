@@ -8,62 +8,62 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-05-06 16:25+0100\n"
-"PO-Revision-Date: 2013-06-13 07:50+0000\n"
+"PO-Revision-Date: 2014-05-26 16:32+0000\n"
 "Last-Translator: David Planella <david.planella@ubuntu.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-17 07:11+0000\n"
-"X-Generator: Launchpad (build 17007)\n"
+"X-Launchpad-Export-Date: 2014-05-27 06:06+0000\n"
+"X-Generator: Launchpad (build 17017)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "Alerta del JavaScript"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "D'acord"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Cal autenticació."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "El lloc web %1 requereix autenticació."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Nom d'usuari"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "Contrasenya"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel·la"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Confirma la navegació"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "Surt"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "Roman"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "Aquesta connexió no és fiable"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -72,14 +72,16 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"Esteu intentant accedir a %1 de forma segura, però el certificat de "
+"seguretat d'aquest lloc web no és fiable."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Continua de totes maneres"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "Torna a la seguretat"
 
 #: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
 msgid "Back"
@@ -95,7 +97,7 @@ msgstr "Activitat"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "Confirmació del JavaScript"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -118,23 +120,23 @@ msgstr "Actualitza la pàgina"
 
 #: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr ""
+msgstr "Trieu un fitxer"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Sol·licitud de permís"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Denega"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "Permet"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "Indicador del JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
@@ -164,17 +166,17 @@ msgstr "Afegeix aquesta pàgina a les adreces d'interès"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "Crea un enllaç al lloc d'interès"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Neteja l'historial"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Neteja l'historial de navegació"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -182,11 +184,11 @@ msgstr "Copia"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Copia la imatge"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Copia l'enllaç"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -216,11 +218,11 @@ msgstr "Obre una pestanya nova"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "Obre la imatge en una pestanya nova"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Obre l'enllaç en una pestanya nova"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -234,11 +236,11 @@ msgstr "Surt de la pàgina"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Desa la imatge"
 
 #: src/app/webbrowser/ActivityView.qml:54
 msgid "Bookmarks"
-msgstr ""
+msgstr "Adreces d'interès"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
@@ -252,23 +254,23 @@ msgstr "+"
 
 #: src/app/webbrowser/TimelineView.qml:84
 msgid "Today"
-msgstr ""
+msgstr "Avui"
 
 #: src/app/webbrowser/TimelineView.qml:86
 msgid "Yesterday"
-msgstr ""
+msgstr "Ahir"
 
 #: src/app/webbrowser/TimelineView.qml:88
 msgid "Last 7 Days"
-msgstr ""
+msgstr "La darrera setmana"
 
 #: src/app/webbrowser/TimelineView.qml:90
 msgid "This Month"
-msgstr ""
+msgstr "Aquest mes"
 
 #: src/app/webbrowser/TimelineView.qml:92
 msgid "This Year"
-msgstr ""
+msgstr "Aquest any"
 
 #: src/app/webbrowser/TimelineView.qml:94
 msgid "Older"
@@ -316,11 +318,11 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "Afegeix un compte"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "Seleccioneu un compte"
 
 #: src/app/webcontainer/WebViewImplWebkit.qml:63
 msgid "This page wants to know your device’s location."
