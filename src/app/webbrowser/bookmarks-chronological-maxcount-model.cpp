@@ -32,7 +32,14 @@
 BookmarksChronologicalMaxCountModel::BookmarksChronologicalMaxCountModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
+    setDynamicSortFilter(true);
+
     m_maxCount = -1;
+}
+
+int BookmarksChronologicalMaxCountModel::rowCount(const QModelIndex& parent) const
+{
+    return this->sourceModel()->rowCount(parent);
 }
 
 BookmarksChronologicalModel* BookmarksChronologicalMaxCountModel::sourceModel() const

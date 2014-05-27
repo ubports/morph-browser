@@ -31,12 +31,13 @@ Item {
     signal seeMoreBookmarksClicked()
     signal historyEntryClicked(url url)
 
-    Component.onCompleted: {
-        if (bookmarksModel)
-            console.log("[DEBUG] DO HAVE BOOKMARKS:", bookmarksModel.databasePath);
-
-        sectionsModel.append({ section: "bookmarks" });
-        sectionsModel.append({ section: "topsites" });
+    onVisibleChanged: {
+        if (visible && bookmarksListModel) {
+            sectionsModel.clear()
+            if (bookmarksListModel.count !== 0)
+                sectionsModel.append({ section: "bookmarks" });
+            sectionsModel.append({ section: "topsites" });
+        }
     }
 
     ListModel {

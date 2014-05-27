@@ -33,6 +33,8 @@ class BookmarksChronologicalModel : public QSortFilterProxyModel
 public:
     BookmarksChronologicalModel(QObject* parent=0);
 
+    int rowCount(const QModelIndex& parent=QModelIndex()) const;
+
     BookmarksModel* sourceModel() const;
     void setSourceModel(BookmarksModel* sourceModel);
 

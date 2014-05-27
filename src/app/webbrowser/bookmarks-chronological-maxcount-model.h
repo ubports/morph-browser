@@ -30,9 +30,12 @@ class BookmarksChronologicalMaxCountModel : public QSortFilterProxyModel
 
     Q_PROPERTY(BookmarksChronologicalModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(int maxCount READ maxCount WRITE setMaxCount NOTIFY maxCountChanged)
+    Q_PROPERTY(int count READ rowCount)
 
 public:
     BookmarksChronologicalMaxCountModel(QObject* parent=0);
+
+    int rowCount(const QModelIndex& parent=QModelIndex()) const;
 
     BookmarksChronologicalModel* sourceModel() const;
     void setSourceModel(BookmarksChronologicalModel* sourceModel);
