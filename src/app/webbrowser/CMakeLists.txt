@@ -16,7 +16,7 @@ set(WEBBROWSER_APP_MODELS_SRC
     history-matches-model.cpp
     history-model.cpp
     history-byvisits-model.cpp
-    history-byvisits-maxcount-model.cpp
+    history-limit-byvisits-model.cpp
     history-timeframe-model.cpp
     tabs-model.cpp
 )

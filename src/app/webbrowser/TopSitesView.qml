@@ -54,7 +54,7 @@ Item {
         limit: 5
     }
 
-    HistoryByVisitsMaxCountModel {
+    HistoryLimitByVisitsModel {
         id: historyListModel
 
         sourceModel: HistoryByVisitsModel {
@@ -82,7 +82,7 @@ Item {
             }
         }
 
-        maxCount: 10
+        limit: 10
     }
 
     Rectangle {
