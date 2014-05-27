@@ -159,14 +159,14 @@ Item {
 
             width: parent.width
 
-            spacing: units.gu(5)
+            spacing: units.gu(1)
 
             Repeater {
                 model: historyListModel
 
                 delegate: PageDelegate{
                     width: units.gu(18)
-                    height: units.gu(18)
+                    height: units.gu(25)
 
                     url: model.url
                     label: model.title ? model.title : model.url

@@ -55,10 +55,14 @@ Column {
 
     Rectangle {
         width: parent.width
-        height: footerLabel.height + units.gu(4)
+        height: footerLabel.height + units.gu(6)
 
         MouseArea {
-            anchors.fill: footerLabel
+            anchors.centerIn: footerLabel
+
+            width: footerLabel.width + units.gu(4)
+            height: footerLabel.height + units.gu(4)
+
             onClicked: footerLabelClicked()
         }
 
