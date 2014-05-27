@@ -37,11 +37,6 @@ BookmarksChronologicalMaxCountModel::BookmarksChronologicalMaxCountModel(QObject
     m_maxCount = -1;
 }
 
-int BookmarksChronologicalMaxCountModel::rowCount(const QModelIndex& parent) const
-{
-    return this->sourceModel()->rowCount(parent);
-}
-
 BookmarksChronologicalModel* BookmarksChronologicalMaxCountModel::sourceModel() const
 {
     return qobject_cast<BookmarksChronologicalModel*>(QSortFilterProxyModel::sourceModel());

@@ -35,11 +35,6 @@ BookmarksChronologicalModel::BookmarksChronologicalModel(QObject* parent)
     sort(0, Qt::DescendingOrder);
 }
 
-int BookmarksChronologicalModel::rowCount(const QModelIndex& parent) const
-{
-    return this->sourceModel()->rowCount(parent);
-}
-
 BookmarksModel* BookmarksChronologicalModel::sourceModel() const
 {
     return qobject_cast<BookmarksModel*>(QSortFilterProxyModel::sourceModel());

@@ -35,8 +35,6 @@ class BookmarksChronologicalMaxCountModel : public QSortFilterProxyModel
 public:
     BookmarksChronologicalMaxCountModel(QObject* parent=0);
 
-    int rowCount(const QModelIndex& parent=QModelIndex()) const;
-
     BookmarksChronologicalModel* sourceModel() const;
     void setSourceModel(BookmarksChronologicalModel* sourceModel);
 
