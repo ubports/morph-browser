@@ -325,13 +325,3 @@ msgstr ""
 #: src/app/webcontainer/WebViewImplWebkit.qml:63
 msgid "This page wants to know your device’s location."
 msgstr ""
-
-#. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webcontainer/webapp-container.qml:69
-#, qt-format
-msgid "%1 - Ubuntu Web Application"
-msgstr ""
-
-#: src/app/webcontainer/webapp-container.qml:71
-msgid "Ubuntu Web Application"
-msgstr ""
