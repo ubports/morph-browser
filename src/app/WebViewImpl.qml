@@ -18,11 +18,11 @@
 
 import QtQuick 2.0
 //import Ubuntu.Components 0.1
-import Ubuntu.Components.Extras.Browser 0.2
+import Ubuntu.Web 0.2
 //import Ubuntu.Components.Popups 0.1
 //import "actions" as Actions
 
-UbuntuWebView {
+WebView {
     id: webview
 
     property var currentWebview: webview
