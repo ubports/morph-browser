@@ -26,8 +26,6 @@ import "."
 Oxide.WebView {
     id: _webview
 
-    //interactive: !selection.visible
-
     /**
      * Client overridable function called before the default treatment of a
      *  valid navigation request. This function can stop the navigation request
@@ -101,134 +99,7 @@ Oxide.WebView {
 
     preferences.passwordEchoEnabled: formFactor === "mobile"
 
-    /*experimental.preferences.navigatorQtObjectEnabled: true
-    experimental.userScripts: [Qt.resolvedUrl("selection.js")]
-    experimental.onMessageReceived: {
-        var data = null
-        try {
-            data = JSON.parse(message.data)
-        } catch (error) {
-            console.debug('DEBUG:', message.data)
-            return
-        }
-        if ('event' in data) {
-            if (data.event === 'longpress') {
-                if (('img' in data) || ('href' in data)) {
-                    contextualData.clear()
-                    if ('img' in data) {
-                        contextualData.img = data.img
-                    }
-                    if ('href' in data) {
-                        contextualData.href = data.href
-                        contextualData.title = data.title
-                    }
-                    contextualRectangle.position(data)
-                    PopupUtils.open(contextualPopover, contextualRectangle)
-                    return
-                }
-            }
-            if ((data.event === 'longpress') || (data.event === 'selectionadjusted')) {
-                selection.clearData()
-                selection.createData()
-                if ('html' in data) {
-                    selection.mimedata.html = data.html
-                }
-                // FIXME: push the text and image data in the order
-                // they appear in the selected block.
-                if ('text' in data) {
-                    selection.mimedata.text = data.text
-                }
-                if ('images' in data) {
-                    // TODO: download and cache the images locally
-                    // (grab them from the webview’s cache, if possible),
-                    // and forward local URLs.
-                    selection.mimedata.urls = data.images
-                }
-                selection.show(data.left, data.top, data.width, data.height)
-            }
-        }
-    }*/
-
     popupMenu: ItemSelector02 {}
-
-    /*property alias selection: selection
-    property ActionList selectionActions
-    Selection {
-        id: selection
-
-        anchors.fill: parent
-        visible: false
-
-        property Item __popover: null
-        property var mimedata: null
-
-        Component {
-            id: selectionPopover
-            ActionSelectionPopover {
-                grabDismissAreaEvents: false
-                actions: selectionActions
-            }
-        }
-
-        function createData() {
-            if (mimedata === null) {
-                mimedata = Clipboard.newData()
-            }
-        }
-
-        function clearData() {
-            if (mimedata !== null) {
-                delete mimedata
-                mimedata = null
-            }
-        }
-
-        function actionTriggered() {
-            selection.visible = false
-        }
-
-        function __showPopover() {
-            __popover = PopupUtils.open(selectionPopover, selection.rect)
-            var actions = __popover.actions.actions
-            for (var i in actions) {
-                actions[i].onTriggered.connect(actionTriggered)
-            }
-        }
-
-        function show(x, y, width, height) {
-            var scale = _webview.experimental.test.contentsScale * _webview.experimental.test.devicePixelRatio
-            rect.x = x * scale + _webview.contentX
-            rect.y = y * scale + _webview.contentY
-            rect.width = width * scale
-            rect.height = height * scale
-            visible = true
-            __showPopover()
-        }
-
-        onVisibleChanged: {
-            if (!visible && (__popover != null)) {
-                PopupUtils.close(__popover)
-                __popover = null
-            }
-        }
-
-        onResized: {
-            var message = new Object
-            message.query = 'adjustselection'
-            var rect = selection.rect
-            var scale = _webview.experimental.test.contentsScale * _webview.experimental.test.devicePixelRatio
-            message.left = (rect.x - _webview.contentX) / scale
-            message.right = (rect.x + rect.width - _webview.contentX) / scale
-            message.top = (rect.y - _webview.contentY) / scale
-            message.bottom = (rect.y + rect.height - _webview.contentY) / scale
-            _webview.experimental.postMessage(JSON.stringify(message))
-        }
-
-        function copy() {
-            Clipboard.push(mimedata)
-            clearData()
-        }
-    }*/
 
     Item {
         id: contextualRectangle

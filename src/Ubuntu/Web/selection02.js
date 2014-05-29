@@ -16,12 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function elementContainedInBox(element, box) {
-    var rect = element.getBoundingClientRect();
-    return ((box.left <= rect.left) && (box.right >= rect.right) &&
-            (box.top <= rect.top) && (box.bottom >= rect.bottom));
-}
-
 function getImgFullUri(uri) {
     if ((uri.slice(0, 7) === 'http://') ||
         (uri.slice(0, 8) === 'https://') ||
@@ -103,41 +97,6 @@ function getSelectedData(element) {
 
     return data;
 }
-
-function adjustSelection(selection) {
-    // FIXME: allow selecting two consecutive blocks, instead of
-    // interpolating to the containing block.
-    var centerX = (selection.left + selection.right) / 2;
-    var centerY = (selection.top + selection.bottom) / 2;
-    var element = document.elementFromPoint(centerX, centerY);
-    var parent = element;
-    while (elementContainedInBox(parent, selection)) {
-        parent = parent.parentNode;
-    }
-    element = parent;
-    return getSelectedData(element);
-}
-
-function distance(touch1, touch2) {
-    return Math.sqrt(Math.pow(touch2.clientX - touch1.clientX, 2) +
-                     Math.pow(touch2.clientY - touch1.clientY, 2));
-}
-
-/*navigator.qt.onmessage = function(message) {
-    var data = null;
-    try {
-        data = JSON.parse(message.data);
-    } catch (error) {
-        return;
-    }
-    if ('query' in data) {
-        if (data.query === 'adjustselection') {
-            var selection = adjustSelection(data);
-            selection.event = 'selectionadjusted';
-            navigator.qt.postMessage(JSON.stringify(selection));
-        }
-    }
-}*/
 
 document.documentElement.addEventListener('contextmenu', function(event) {
     var element = document.elementFromPoint(event.clientX, event.clientY);
