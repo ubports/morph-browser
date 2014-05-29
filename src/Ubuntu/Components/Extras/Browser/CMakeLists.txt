@@ -46,6 +46,6 @@ if(NOT ${CMAKE_CURRENT_BINARY_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
                        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${_file}
                        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/${_file} ${CMAKE_CURRENT_BINARY_DIR}/${_file})
   endforeach(_file)
-  add_custom_target(copy_files_to_build_dir DEPENDS ${copied})
-  add_dependencies(${PLUGIN} copy_files_to_build_dir)
+  add_custom_target(copy_files_to_build_dir_legacy DEPENDS ${copied})
+  add_dependencies(${PLUGIN} copy_files_to_build_dir_legacy)
 endif()
