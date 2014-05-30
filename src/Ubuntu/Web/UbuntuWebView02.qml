@@ -21,7 +21,7 @@ import QtQuick.Window 2.0
 import com.canonical.Oxide 1.0 as Oxide
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
-import "."
+import "." // QTBUG-34418
 
 Oxide.WebView {
     id: _webview
