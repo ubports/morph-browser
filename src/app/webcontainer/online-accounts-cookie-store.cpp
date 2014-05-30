@@ -132,7 +132,7 @@ Cookies OnlineAccountsCookieStore::doGetCookies()
     return qdbus_cast<Cookies>(arguments.front());
 }
 
-bool OnlineAccountsCookieStore::doSetCookies(Cookies cookies)
+bool OnlineAccountsCookieStore::doSetCookies(const Cookies& cookies)
 {
     Q_UNUSED(cookies);
     return false;

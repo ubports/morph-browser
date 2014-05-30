@@ -62,7 +62,7 @@ QDateTime WebkitCookieStore::lastUpdateTimeStamp() const
     return dbFileInfo.lastModified();
 }
 
-bool WebkitCookieStore::doSetCookies(Cookies cookies)
+bool WebkitCookieStore::doSetCookies(const Cookies& cookies)
 {
     m_db.setDatabaseName(getFullDbPathName());
 

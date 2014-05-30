@@ -39,7 +39,7 @@ class CookieStore : public QObject
 public:
     CookieStore(QObject* parent = 0);
 
-    bool setCookies(Cookies);
+    bool setCookies(const Cookies& cookies);
     Cookies cookies();
 
     virtual QDateTime lastUpdateTimeStamp() const;
@@ -56,7 +56,7 @@ protected:
 
 private:
     virtual Cookies doGetCookies();
-    virtual bool doSetCookies(Cookies);
+    virtual bool doSetCookies(const Cookies& Cookies);
 
 private:
     QDateTime _lastUpdateTimeStamp;

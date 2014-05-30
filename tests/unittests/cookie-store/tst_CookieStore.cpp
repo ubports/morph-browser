@@ -19,6 +19,7 @@
 // Qt
 #include <QtCore/QDir>
 #include <QtCore/QSet>
+#include <QtCore/QTemporaryDir>
 #include <QtNetwork/QNetworkCookie>
 #include <QtTest/QSignalSpy>
 #include <QtTest/QtTest>
@@ -50,17 +51,8 @@ private Q_SLOTS:
 
 private:
     void setupCookieData();
-    QDir makeCleanDir(const QString &path);
     QSet<QNetworkCookie> parseCookies(const Cookies &rawCookies);
 };
-
-QDir CookieStoreTest::makeCleanDir(const QString &path)
-{
-    QDir testDir(path);
-    testDir.removeRecursively();
-    testDir.mkpath(".");
-    return testDir;
-}
 
 QSet<QNetworkCookie>
 CookieStoreTest::parseCookies(const Cookies &rawCookies)
@@ -74,36 +66,37 @@ CookieStoreTest::parseCookies(const Cookies &rawCookies)
 
 void CookieStoreTest::testChromeProperties()
 {
-    makeCleanDir("/tmp/non-existing");
-    makeCleanDir("/tmp/non-existing2");
+    QTemporaryDir tmpDir;
+    QVERIFY(tmpDir.isValid());
+    QTemporaryDir tmpDir2;
+    QVERIFY(tmpDir2.isValid());
 
     ChromeCookieStore store;
     QSignalSpy dbPathChanged(&store, SIGNAL(dbPathChanged()));
 
-    QCOMPARE(dbPathChanged.count(), 0);
-    store.setProperty("dbPath", "/tmp/non-existing");
+    store.setProperty("dbPath", tmpDir.path());
     QCOMPARE(dbPathChanged.count(), 1);
-    QCOMPARE(store.property("dbPath").toString(), QString("/tmp/non-existing"));
+    QCOMPARE(store.property("dbPath").toString(), tmpDir.path());
     dbPathChanged.clear();
 
-    store.setProperty("dbPath", "file:///tmp/non-existing2");
+    store.setProperty("dbPath", "file://" + tmpDir2.path());
     QCOMPARE(dbPathChanged.count(), 1);
-    QCOMPARE(store.property("dbPath").toString(), QString("/tmp/non-existing2"));
+    QCOMPARE(store.property("dbPath").toString(), tmpDir2.path());
 
     QVERIFY(store.property("cookies").value<Cookies>().isEmpty());
 }
 
 void CookieStoreTest::testWebkitProperties()
 {
-    makeCleanDir("/tmp/non-existing");
+    QTemporaryDir tmpDir;
+    QVERIFY(tmpDir.isValid());
 
     WebkitCookieStore store;
     QSignalSpy dbPathChanged(&store, SIGNAL(dbPathChanged()));
 
-    QCOMPARE(dbPathChanged.count(), 0);
-    store.setProperty("dbPath", "/tmp/non-existing");
+    store.setProperty("dbPath", tmpDir.path());
     QCOMPARE(dbPathChanged.count(), 1);
-    QCOMPARE(store.property("dbPath").toString(), QString("/tmp/non-existing"));
+    QCOMPARE(store.property("dbPath").toString(), tmpDir.path());
 
     QVERIFY(store.property("cookies").value<Cookies>().isEmpty());
 }
@@ -133,7 +126,9 @@ void CookieStoreTest::testChromeReadWrite()
 {
     QFETCH(Cookies, cookies);
 
-    QDir testDir = makeCleanDir("/tmp/chrome-cookies-test");
+    QTemporaryDir tmpDir;
+    QVERIFY(tmpDir.isValid());
+    QDir testDir(tmpDir.path());
 
     ChromeCookieStore store;
     QSignalSpy cookiesChanged(&store, SIGNAL(cookiesChanged()));
@@ -150,7 +145,9 @@ void CookieStoreTest::testWebkitReadWrite()
 {
     QFETCH(Cookies, cookies);
 
-    QDir testDir = makeCleanDir("/tmp/webkit-cookies-test");
+    QTemporaryDir tmpDir;
+    QVERIFY(tmpDir.isValid());
+    QDir testDir(tmpDir.path());
 
     WebkitCookieStore store;
     QSignalSpy cookiesChanged(&store, SIGNAL(cookiesChanged()));
@@ -167,7 +164,9 @@ void CookieStoreTest::testMoving()
 {
     QFETCH(Cookies, cookies);
 
-    QDir testDir = makeCleanDir("/tmp/CookieStoreTest-testMoving");
+    QTemporaryDir tmpDir;
+    QVERIFY(tmpDir.isValid());
+    QDir testDir(tmpDir.path());
 
     WebkitCookieStore webkitStore;
     webkitStore.setDbPath(testDir.filePath("webkit.db"));

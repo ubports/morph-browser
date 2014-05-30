@@ -139,7 +139,7 @@ bool ChromeCookieStore::createDb()
     return m_db.commit();
 }
 
-bool ChromeCookieStore::doSetCookies(Cookies cookies)
+bool ChromeCookieStore::doSetCookies(const Cookies& cookies)
 {
     m_db.setDatabaseName(getFullDbPathName());
 

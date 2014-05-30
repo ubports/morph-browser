@@ -45,7 +45,7 @@ Q_SIGNALS:
 private:
 
     virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
-    virtual bool doSetCookies(Cookies) Q_DECL_OVERRIDE;
+    virtual bool doSetCookies(const Cookies& cookies) Q_DECL_OVERRIDE;
 
 
 private:

@@ -31,7 +31,7 @@ Cookies CookieStore::cookies()
     return doGetCookies();
 }
 
-bool CookieStore::setCookies(Cookies cookies)
+bool CookieStore::setCookies(const Cookies& cookies)
 {
     if (doSetCookies(cookies)) {
         Q_EMIT cookiesChanged();
@@ -43,12 +43,14 @@ bool CookieStore::setCookies(Cookies cookies)
 
 Cookies CookieStore::doGetCookies()
 {
+    Q_UNIMPLEMENTED();
     return Cookies();
 }
 
-bool CookieStore::doSetCookies(Cookies cookies)
+bool CookieStore::doSetCookies(const Cookies& cookies)
 {
     Q_UNUSED(cookies);
+    Q_UNIMPLEMENTED();
 }
 
 QDateTime CookieStore::lastUpdateTimeStamp() const

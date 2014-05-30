@@ -37,6 +37,7 @@ Window {
     property var webappUrlPatterns
     property bool oxide: false
     property string accountProvider: ""
+    property var __webappCookieStore: null
 
     contentOrientation: Screen.orientation
 
@@ -102,14 +103,18 @@ Window {
         onDone: loadWebAppView()
     }
 
-    WebkitCookieStore {
-        id: webkitCookieStore
-        dbPath: dataLocation + "/.QtWebKit/cookies.db"
+    Component {
+        id: webkitCookieStoreComponent
+        WebkitCookieStore {
+            dbPath: dataLocation + "/.QtWebKit/cookies.db"
+        }
     }
 
-    ChromeCookieStore {
-        id: chromeCookieStore
-        dbPath: dataLocation + "/cookies.sqlite"
+    Component {
+        id: chromeCookieStoreComponent
+        ChromeCookieStore {
+            dbPath: dataLocation + "/cookies.sqlite"
+        }
     }
 
     Component.onCompleted: updateCurrentView()
@@ -127,10 +132,15 @@ Window {
     }
 
     function loadLoginView() {
+        if (!__webappCookieStore) {
+            var cookieStoreComponent =
+                oxide ? chromeCookieStoreComponent : webkitCookieStoreComponent
+            __webappCookieStore = cookieStoreComponent.createObject(this)
+        }
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
             "accountProvider": accountProvider,
             "applicationName": Qt.application.name,
-            "webappCookieStore": oxide ? chromeCookieStore : webkitCookieStore
+            "webappCookieStore": __webappCookieStore
         })
     }
 
