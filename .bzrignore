@@ -24,6 +24,7 @@ src/app/webbrowser/webbrowser-app.desktop.in
 RE:tests/unittests/.+/tst_\w+Tests$
 tests/unittests/qml/undertest
 po/*.gmo
+doc/html
 
 obj-*
 debian/files

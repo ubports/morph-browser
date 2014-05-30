@@ -1,0 +1,10 @@
+project = UbuntuWeb
+description = Ubuntu Web module documentation
+sourcedirs = ./
+sources.fileextensions = "*.qdoc"
+outputdir = html
+outputformats = HTML
+version = 0.2
+syntaxhightlighting = true
+sourceencoding = UTF-8
+outputencoding = UTF-8
