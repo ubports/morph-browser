@@ -51,10 +51,10 @@ ChromeCookieStore::ChromeCookieStore(QObject* parent):
 Cookies ChromeCookieStore::doGetCookies()
 {
     Cookies cookies;
-    m_db.setDatabaseName(getFullDbPathName());
+    m_db.setDatabaseName(m_dbPath);
 
     if (Q_UNLIKELY(!m_db.open())) {
-        qCritical() << "Could not open cookie database:" << getFullDbPathName()
+        qCritical() << "Could not open cookie database:" << m_dbPath
             << m_db.lastError();
         return cookies;
     }
@@ -83,7 +83,7 @@ Cookies ChromeCookieStore::doGetCookies()
 
 QDateTime ChromeCookieStore::lastUpdateTimeStamp() const
 {
-    QFileInfo dbFileInfo(getFullDbPathName());
+    QFileInfo dbFileInfo(m_dbPath);
     return dbFileInfo.lastModified();
 }
 
@@ -141,11 +141,11 @@ bool ChromeCookieStore::createDb()
 
 bool ChromeCookieStore::doSetCookies(const Cookies& cookies)
 {
-    m_db.setDatabaseName(getFullDbPathName());
+    m_db.setDatabaseName(m_dbPath);
 
     if (!m_db.open()) {
         qCritical() << "Could not open cookie database:" <<
-            getFullDbPathName() << m_db.lastError().text();
+            m_dbPath << m_db.lastError().text();
         return false;
     }
 
@@ -154,7 +154,7 @@ bool ChromeCookieStore::doSetCookies(const Cookies& cookies)
     q.exec("SELECT name FROM sqlite_master WHERE type='table' AND name='cookies'");
     if (!q.next() && !createDb()) {
         qCritical() << "Could not create cookie database:" <<
-            getFullDbPathName() << m_db.lastError().text();
+            m_dbPath << m_db.lastError().text();
         return false;
     }
 
@@ -197,18 +197,16 @@ bool ChromeCookieStore::doSetCookies(const Cookies& cookies)
     return true;
 }
 
-QString ChromeCookieStore::getFullDbPathName() const
-{
-    return dbPath().startsWith('/') ? dbPath() :
-        QStandardPaths::standardLocations(QStandardPaths::HomeLocation)[0] + "/" + dbPath();
-}
-
 void ChromeCookieStore::setDbPath(const QString &path)
 {
     // If path is a URL, strip the initial "file://"
     QString normalizedPath = path.startsWith("file://") ? path.mid(7) : path;
 
     if (normalizedPath != m_dbPath) {
+        if (Q_UNLIKELY(!normalizedPath.startsWith('/'))) {
+            qWarning() << "Invalid database path (must be absolute):" << path;
+            return;
+        }
         m_dbPath = normalizedPath;
         Q_EMIT dbPathChanged();
     }

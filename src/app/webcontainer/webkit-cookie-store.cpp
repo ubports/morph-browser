@@ -38,10 +38,10 @@ WebkitCookieStore::WebkitCookieStore(QObject* parent):
 Cookies WebkitCookieStore::doGetCookies()
 {
     Cookies cookies;
-    m_db.setDatabaseName(getFullDbPathName());
+    m_db.setDatabaseName(m_dbPath);
 
     if (!m_db.open()) {
-        qCritical() << "Could not open cookie database:" << getFullDbPathName() << m_db.lastError();
+        qCritical() << "Could not open cookie database:" << m_dbPath << m_db.lastError();
         return cookies;
     }
 
@@ -58,16 +58,16 @@ Cookies WebkitCookieStore::doGetCookies()
 
 QDateTime WebkitCookieStore::lastUpdateTimeStamp() const
 {
-    QFileInfo dbFileInfo(getFullDbPathName());
+    QFileInfo dbFileInfo(m_dbPath);
     return dbFileInfo.lastModified();
 }
 
 bool WebkitCookieStore::doSetCookies(const Cookies& cookies)
 {
-    m_db.setDatabaseName(getFullDbPathName());
+    m_db.setDatabaseName(m_dbPath);
 
     if (!m_db.open()) {
-        qCritical() << "Could not open cookie database:" << getFullDbPathName() << m_db.lastError();
+        qCritical() << "Could not open cookie database:" << m_dbPath << m_db.lastError();
         return false;
     }
 
@@ -98,15 +98,16 @@ bool WebkitCookieStore::doSetCookies(const Cookies& cookies)
     return true;
 }
 
-QString WebkitCookieStore::getFullDbPathName() const
-{
-    return dbPath().startsWith('/') ? dbPath() :
-        QStandardPaths::standardLocations(QStandardPaths::HomeLocation)[0] + "/" + dbPath();
-}
-
 void WebkitCookieStore::setDbPath(const QString& path)
 {
+    // If path is a URL, strip the initial "file://"
+    QString normalizedPath = path.startsWith("file://") ? path.mid(7) : path;
+
     if (path != m_dbPath) {
+        if (Q_UNLIKELY(!normalizedPath.startsWith('/'))) {
+            qWarning() << "Invalid database path (must be absolute):" << path;
+            return;
+        }
         m_dbPath = path;
         Q_EMIT dbPathChanged();
     }
