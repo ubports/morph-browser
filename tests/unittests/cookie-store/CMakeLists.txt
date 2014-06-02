@@ -1,4 +1,4 @@
-set(TEST tst_CookieStoreTest)
+set(TEST tst_CookieStoreTests)
 set(SOURCES
     ${webapp-container_SOURCE_DIR}/chrome-cookie-store.cpp
     ${webapp-container_SOURCE_DIR}/cookie-store.cpp
