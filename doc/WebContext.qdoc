@@ -39,4 +39,32 @@
     \sa SharedWebContext
  */
 
-// TODO: document relevant properties
+// Note: only a subset of the properties of Oxide’s WebContext are documented
+// here. This is intentional, typical applications are not expected to be
+// needing the full set of properties and methods exposed by Oxide.
+
+/*!
+    \qmlproperty string WebContext::userAgent
+
+    The default user agent string that will be sent with each HTTP request.
+ */
+
+/*!
+    \qmlproperty url WebContext::dataPath
+
+    The local path where persistent data (such as cookies) will be stored.
+ */
+
+/*!
+    \qmlproperty url WebContext::cachePath
+
+    The local path where network data will be cached.
+    If not set, it defaults to \l dataPath.
+ */
+
+/*!
+    \qmlproperty string WebContext::acceptLangs
+
+    The list of accepted languages (the Accept-Language HTTP header),
+    as a comma-separated list of language codes.
+ */
