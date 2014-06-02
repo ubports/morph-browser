@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-05-06 16:25+0100\n"
-"PO-Revision-Date: 2014-05-19 20:08+0000\n"
+"PO-Revision-Date: 2014-05-30 10:09+0000\n"
 "Last-Translator: Jānis-Marks Gailis <jeanmarc.gailis@gmail.com>\n"
 "Language-Team: Latvian <lv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-22 06:45+0000\n"
-"X-Generator: Launchpad (build 17017)\n"
+"X-Launchpad-Export-Date: 2014-05-31 05:59+0000\n"
+"X-Generator: Launchpad (build 17031)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -72,6 +72,8 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"Jūs mēģiniet droši sasniegt %1, bet šis mājaslapas drošības sertifikāts nav "
+"drošs."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
@@ -95,7 +97,7 @@ msgstr "Darbība"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "JavaScript Apstiprinājums"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -139,13 +141,13 @@ msgstr ""
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Proxy autentifikācija ir nepieciešama."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "Mājaslapa %1:%2 pieprasa autentifikāciju."
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -175,7 +177,7 @@ msgstr "Tīrīt vēsturi"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Dzēst Navigācijas Vēsturi"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -309,7 +311,7 @@ msgstr "Ubuntu Web Pārlūks"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "Netika atrasts lokāla konta priekš "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
