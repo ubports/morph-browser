@@ -46,7 +46,7 @@ BrowserView {
         },
         Actions.Bookmark {
             enabled: currentWebview
-            onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, "")//currentWebview.icon)
+            onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
             onTriggered: openUrlInNewTab("", true)
@@ -260,7 +260,7 @@ BrowserView {
 
             onLoadingChanged: {
                 if (lastLoadSucceeded) {
-                    _historyModel.add(url, title, "")
+                    _historyModel.add(url, title, icon)
                 }
             }
 
