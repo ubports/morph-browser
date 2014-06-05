@@ -194,6 +194,8 @@ bool ChromeCookieStore::doSetCookies(const Cookies& cookies)
         q.bindValue(":priority", 1);
         q.bindValue(":encrypted_value", 1);
         q.exec();
+
+        lastTimestamp = timestamp;
     }
 
     m_db.close();
