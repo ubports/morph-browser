@@ -76,8 +76,15 @@ WebView {
                         contextualData.href = msg.args.href
                         contextualData.title = msg.args.title
                     }
-                    contextualRectangle.position(msg.args)
-                    internal.currentContextualMenu = PopupUtils.open(contextualPopover, contextualRectangle)
+                    if (contextualActions != null) {
+                        for (var i = 0; i < contextualActions.actions.length; ++i) {
+                            if (contextualActions.actions[i].enabled) {
+                                contextualRectangle.position(msg.args)
+                                internal.currentContextualMenu = PopupUtils.open(contextualPopover, contextualRectangle)
+                                break
+                            }
+                        }
+                    }
                 } else if (internal.currentContextualMenu != null) {
                     PopupUtils.close(internal.currentContextualMenu)
                 }
