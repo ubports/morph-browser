@@ -1,5 +1,6 @@
 usr/bin/webbrowser-app
 usr/share/webbrowser-app/*.qml
+usr/share/webbrowser-app/*.js
 usr/share/webbrowser-app/screenshot.png
 usr/share/webbrowser-app/actions/*.qml
 usr/share/webbrowser-app/assets/*.png
