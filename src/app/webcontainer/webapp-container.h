@@ -34,6 +34,9 @@ public:
 
     bool initialize();
 
+protected:
+    void qmlEngineCreated(QQmlEngine *);
+
 private:
     virtual void printUsage() const;
     void parseCommandLine();
@@ -44,6 +47,7 @@ private:
     QString m_webappName;
     QString m_webappModelSearchPath;
     QStringList m_webappUrlPatterns;
+    QString m_accountProvider;
     bool m_withOxide;
     bool m_storeSessionCookies;
     bool m_backForwardButtonsVisible;

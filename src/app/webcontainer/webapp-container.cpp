@@ -19,8 +19,11 @@
 #include "config.h"
 #include "webapp-container.h"
 
+#include "chrome-cookie-store.h"
+#include "online-accounts-cookie-store.h"
 #include "session-utils.h"
 #include "url-pattern-utils.h"
+#include "webkit-cookie-store.h"
 
 // Qt
 #include <QtCore/QCoreApplication>
@@ -30,13 +33,16 @@
 #include <QtCore/QtGlobal>
 #include <QtCore/QRegularExpression>
 #include <QtCore/QTextStream>
-#include <QtQuick/QQuickWindow>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include <QtQml>
+#include <QtQuick/QQuickWindow>
 
 #include <QStandardPaths>
 #include <QSettings>
+
+static const char privateModuleUri[] = "webcontainer.private";
 
 namespace
 {
@@ -103,6 +109,7 @@ bool WebappContainer::initialize()
         m_window->setProperty("webappName", m_webappName);
         m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
         m_window->setProperty("addressBarVisible", m_addressBarVisible);
+        m_window->setProperty("accountProvider", m_accountProvider);
 
         qDebug() << "Using" << (m_withOxide ? "Oxide" : "QtWebkit") << "as the web engine backend";
         m_window->setProperty("oxide", m_withOxide);
@@ -134,6 +141,18 @@ bool WebappContainer::initialize()
     }
 }
 
+void WebappContainer::qmlEngineCreated(QQmlEngine* engine)
+{
+    if (engine) {
+        qmlRegisterType<ChromeCookieStore>(privateModuleUri, 0, 1,
+                                           "ChromeCookieStore");
+        qmlRegisterType<WebkitCookieStore>(privateModuleUri, 0, 1,
+                                           "WebkitCookieStore");
+        qmlRegisterType<OnlineAccountsCookieStore>(privateModuleUri, 0, 1,
+                                                   "OnlineAccountsCookieStore");
+    }
+}
+
 void WebappContainer::printUsage() const
 {
     QTextStream out(stdout);
@@ -147,6 +166,7 @@ void WebappContainer::printUsage() const
        " [--webapp=name]"
        " [--webappModelSearchPath=PATH]"
        " [--webappUrlPatterns=URL_PATTERNS]"
+       " [--accountProvider=PROVIDER_NAME]"
        " [--enable-back-forward]"
        " [--enable-addressbar]"
        " [--store-session-cookies]"
@@ -162,6 +182,7 @@ void WebappContainer::printUsage() const
     out << "  --webapp=name                       try to match the webapp by name with an installed integration script" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
+    out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
@@ -190,6 +211,8 @@ void WebappContainer::parseCommandLine()
                 QStringList includePatterns = tail.split(URL_PATTERN_SEPARATOR);
                 m_webappUrlPatterns = UrlPatternUtils::filterAndTransformUrlPatterns(includePatterns);
             }
+        } else if (argument.startsWith("--accountProvider=")) {
+            m_accountProvider = argument.split("--accountProvider=")[1];
         } else if (argument == "--store-session-cookies") {
             m_storeSessionCookies = true;
         } else if (argument == "--enable-back-forward") {

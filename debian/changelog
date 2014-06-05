@@ -1,3 +1,18 @@
+webbrowser-app (0.23+14.10.20140602-0ubuntu1) utopic; urgency=low
+
+  [ Alberto Mardegan ]
+  * Add online account support in the webapp container. A new
+    "accountProvider" command line parameter has been added to allow one
+    to specify an account provider for the specific webapp launch. When
+    used, one can specify a given provider, e.g. "facebook", to pull
+    existing accounts (if any) from the specified provider from Online
+    Accounts. When the provider does not have any existing account, an
+    option to delegate the creation of such an account to OA is
+    provided. It is also possible to skip the step and go straight to
+    the target url.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 02 Jun 2014 17:11:30 +0000
+
 webbrowser-app (0.23+14.10.20140526.1-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]

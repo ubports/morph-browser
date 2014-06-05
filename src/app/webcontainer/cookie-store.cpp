@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -18,10 +18,10 @@
 
 #include <QDebug>
 
-#include "cookiestore.h"
+#include "cookie-store.h"
 
-CookieStore::CookieStore(QObject *parent)
-    : QObject(parent)
+CookieStore::CookieStore(QObject* parent):
+    QObject(parent)
 {
     qRegisterMetaType<Cookies>("Cookies");
 }
@@ -31,19 +31,26 @@ Cookies CookieStore::cookies()
     return doGetCookies();
 }
 
-void CookieStore::setCookies(Cookies cookies)
+bool CookieStore::setCookies(const Cookies& cookies)
 {
-    doSetCookies(cookies);
+    if (doSetCookies(cookies)) {
+        Q_EMIT cookiesChanged();
+        return true;
+    } else {
+        return false;
+    }
 }
 
 Cookies CookieStore::doGetCookies()
 {
+    Q_UNIMPLEMENTED();
     return Cookies();
 }
 
-void CookieStore::doSetCookies(Cookies cookies)
+bool CookieStore::doSetCookies(const Cookies& cookies)
 {
     Q_UNUSED(cookies);
+    Q_UNIMPLEMENTED();
 }
 
 QDateTime CookieStore::lastUpdateTimeStamp() const
@@ -51,33 +58,32 @@ QDateTime CookieStore::lastUpdateTimeStamp() const
     return _lastUpdateTimeStamp;
 }
 
-void CookieStore::updateLastUpdateTimestamp(const QDateTime & timestamp)
+void CookieStore::updateLastUpdateTimestamp(const QDateTime& timestamp)
 {
     _lastUpdateTimeStamp = timestamp;
 }
 
-void CookieStore::moveFrom(CookieStore *store)
+void CookieStore::moveFrom(CookieStore* store)
 {
-    if (! store)
+    if (Q_UNLIKELY(!store))
         return;
 
-    Cookies cookies =
-            store->cookies();
+    Cookies cookies = store->cookies();
 
-    QDateTime lastRemoteCookieUpdate =
-            store->lastUpdateTimeStamp();
+    QDateTime lastRemoteCookieUpdate = store->lastUpdateTimeStamp();
+    QDateTime lastLocalCookieUpdate = lastUpdateTimeStamp();
 
-    QDateTime lastLocalCookieUpdate =
-            lastUpdateTimeStamp();
-
-    if (lastRemoteCookieUpdate.isValid()
-            && lastLocalCookieUpdate.isValid()
-            && (lastRemoteCookieUpdate < lastLocalCookieUpdate))
+    if (lastRemoteCookieUpdate.isValid() &&
+        lastLocalCookieUpdate.isValid() &&
+        (lastRemoteCookieUpdate < lastLocalCookieUpdate))
     {
         Q_EMIT moved(false);
         return;
     }
 
-    setCookies(cookies);
+    if (setCookies(cookies)) {
+        Q_EMIT moved(true);
+    } else {
+        Q_EMIT moved(false);
+    }
 }
-

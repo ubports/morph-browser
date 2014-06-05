@@ -56,11 +56,14 @@ Depends: ${misc:Depends},
          liboxideqt-qmlplugin,
          libqt5sql5-sqlite,
          libqt5webkit5-qmlwebkitplugin,
+         qtdeclarative5-accounts-plugin,
+         qtdeclarative5-qtquick2-plugin (>= 5.2),
          qtdeclarative5-ubuntu-ui-extras-browser-plugin (= ${binary:Version}),
          qtdeclarative5-ubuntu-web-plugin (= ${binary:Version}),
          qtdeclarative5-unity-action-plugin,
          unity-webapps-qml,
          webbrowser-app (= ${binary:Version}),
+Suggests: qtdeclarative5-online-accounts-client0.1 (>= 0.3),
 Description: Ubuntu web applications container
  A lightweight webapp container tailored for Ubuntu, based on the Oxide browser
  engine and using the Ubuntu UI components.

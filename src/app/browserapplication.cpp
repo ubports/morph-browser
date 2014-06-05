@@ -122,6 +122,9 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     if (!isRunningInstalled()) {
         m_engine->addImportPath(UbuntuBrowserImportsDirectory());
     }
+
+    qmlEngineCreated(m_engine);
+
     QQmlContext* context = m_engine->rootContext();
     m_component = new QQmlComponent(m_engine);
     m_component->loadUrl(QUrl::fromLocalFile(UbuntuBrowserDirectory() + "/" + qmlFileSubPath));
@@ -140,6 +143,9 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 
     return true;
 }
+
+void BrowserApplication::qmlEngineCreated(QQmlEngine*)
+{}
 
 int BrowserApplication::run()
 {
