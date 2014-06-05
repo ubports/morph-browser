@@ -68,20 +68,24 @@ void CookieStoreTest::testChromeProperties()
 {
     QTemporaryDir tmpDir;
     QVERIFY(tmpDir.isValid());
+    QDir testDir(tmpDir.path());
     QTemporaryDir tmpDir2;
     QVERIFY(tmpDir2.isValid());
+    QDir testDir2(tmpDir2.path());
 
     ChromeCookieStore store;
     QSignalSpy dbPathChanged(&store, SIGNAL(dbPathChanged()));
 
-    store.setProperty("dbPath", tmpDir.path());
+    QString path = testDir.filePath("cookies.db");
+    store.setProperty("dbPath", path);
     QCOMPARE(dbPathChanged.count(), 1);
-    QCOMPARE(store.property("dbPath").toString(), tmpDir.path());
+    QCOMPARE(store.property("dbPath").toString(), path);
     dbPathChanged.clear();
 
-    store.setProperty("dbPath", "file://" + tmpDir2.path());
+    QString path2 = testDir2.filePath("cookies.db");
+    store.setProperty("dbPath", "file://" + path2);
     QCOMPARE(dbPathChanged.count(), 1);
-    QCOMPARE(store.property("dbPath").toString(), tmpDir2.path());
+    QCOMPARE(store.property("dbPath").toString(), path2);
 
     QVERIFY(store.property("cookies").value<Cookies>().isEmpty());
 }
@@ -90,13 +94,15 @@ void CookieStoreTest::testWebkitProperties()
 {
     QTemporaryDir tmpDir;
     QVERIFY(tmpDir.isValid());
+    QDir testDir(tmpDir.path());
 
     WebkitCookieStore store;
     QSignalSpy dbPathChanged(&store, SIGNAL(dbPathChanged()));
 
-    store.setProperty("dbPath", tmpDir.path());
+    QString path = testDir.filePath("cookies.db");
+    store.setProperty("dbPath", path);
     QCOMPARE(dbPathChanged.count(), 1);
-    QCOMPARE(store.property("dbPath").toString(), tmpDir.path());
+    QCOMPARE(store.property("dbPath").toString(), path);
 
     QVERIFY(store.property("cookies").value<Cookies>().isEmpty());
 }
