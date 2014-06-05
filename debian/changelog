@@ -1,3 +1,21 @@
+webbrowser-app (0.23+14.10.20140605-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Filter file uploads based on mime-type information (where available)
+
+  [ Alberto Mardegan ]
+  * Fix the cookies unit tests Make sure that the dbPath always refers
+    to a file, not a directory. Make sure that even on fast machines (or
+    machines with a low-accuracy timer) the record timestamps are
+    unique.
+
+  [ Olivier Tilloy ]
+  * Add a UA override rule for m.youtube.com to allow playing videos.
+    (LP: #1228415)
+  * Do not display an empty contextual menu. (LP: #1326752)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 05 Jun 2014 15:57:30 +0000
+
 webbrowser-app (0.23+14.10.20140602-0ubuntu1) utopic; urgency=low
 
   [ Alberto Mardegan ]
