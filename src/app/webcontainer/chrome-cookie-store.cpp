@@ -172,9 +172,14 @@ bool ChromeCookieStore::doSetCookies(const Cookies& cookies)
               ":host_key, :name, :value, :path,"
               ":expires_utc, :secure, :httponly, :last_access_utc,"
               ":has_expires, :persistent, :priority, :encrypted_value)");
+    qint64 lastTimestamp = 0;
     Q_FOREACH(const QNetworkCookie &cookie, parsedCookies) {
-        q.bindValue(":creation_utc",
-                    dateTimeToChrome(QDateTime::currentDateTimeUtc()));
+        quint64 timestamp = dateTimeToChrome(QDateTime::currentDateTimeUtc());
+        /* Make sure that every cicle iteration marks a different timestamp */
+        if (timestamp <= lastTimestamp)
+            timestamp = lastTimestamp + 1;
+
+        q.bindValue(":creation_utc", timestamp);
         q.bindValue(":host_key", cookie.domain());
         q.bindValue(":name", cookie.name());
         q.bindValue(":value", cookie.value());
@@ -183,13 +188,14 @@ bool ChromeCookieStore::doSetCookies(const Cookies& cookies)
                     dateTimeToChrome(cookie.expirationDate().toUTC()));
         q.bindValue(":secure", cookie.isSecure());
         q.bindValue(":httponly", cookie.isHttpOnly());
-        q.bindValue(":last_access_utc",
-                    dateTimeToChrome(QDateTime::currentDateTimeUtc()));
+        q.bindValue(":last_access_utc", timestamp);
         q.bindValue(":has_expires", cookie.expirationDate().isValid());
         q.bindValue(":persistent", true);
         q.bindValue(":priority", 1);
         q.bindValue(":encrypted_value", 1);
         q.exec();
+
+        lastTimestamp = timestamp;
     }
 
     m_db.close();
