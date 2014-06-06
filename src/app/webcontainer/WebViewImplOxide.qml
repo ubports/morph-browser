@@ -94,9 +94,14 @@ WebViewImpl {
         return false;
     }
 
+    property string trampolineUrl: ""
+
     function navigationRequestedDelegate(request) {
         var newForegroundPageRequest = isNewForegroundWebViewDisposition(request.disposition)
         var url = request.url.toString()
+
+        console.log("\nwebview: " + webview.toString())
+	console.log("navigationRequestedDelegate - " + url)
 
         // Covers some edge cases corresponding to the default window.open() behavior.
         // When it is being called, the targetted URL will not load right away but
@@ -108,12 +113,27 @@ WebViewImpl {
             return;
         }
 
-        if (newForegroundPageRequest && shouldOpenPopupsInDefaultBrowser()) {
-            console.debug('Opening: popup window ' + url + ' in the browser window.')
-
-            request.action = NavigationRequest.ActionReject
-            Qt.openUrlExternally(url);
-            return;
+        // manage popup requests on Touch
+        if (newForegroundPageRequest && (formFactor !== "desktop")) {
+            if (! webview.shouldAllowNavigationTo(url)) {
+                console.debug('Redirecting popup request to the browser: ' + url)
+                request.action = NavigationRequest.ActionReject
+                if (! webview.trampolineUrl.length === 0) {
+                    console.log("trampoline URL detected, navigating back to: " + trampolineUrl)
+                    webview.url = webview.trampolineUrl
+                    webview.trampolineUrl = null
+                }
+                Qt.openUrlExternally(url);
+                return;
+            } else {
+                // force the popup navigation back onto the main view
+                console.log("popup redirected to main view: " + url)
+                request.action = NavigationRequest.ActionReject
+                console.log("setting trampoline memo to " + webview.url)
+                webview.trampolineUrl = webview.url 
+                webview.url = url
+                return;
+            }
         }
 
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')
