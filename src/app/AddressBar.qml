@@ -156,10 +156,7 @@ FocusScope {
     }
 
     function escapeHtmlEntities(query) {
-        function getEscapeCode(entity) {
-            return "%%1".arg(entity.charCodeAt(0).toString(16))
-        }
-        return query.replace(/\W/, getEscapeCode)
+        return query.replace(/\W/, encodeURIComponent)
     }
 
     function buildSearchUrl(query) {

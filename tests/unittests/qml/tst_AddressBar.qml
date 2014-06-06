@@ -103,10 +103,13 @@ TestCase {
         verify(addressBar.requestedUrl.toString().indexOf("q=%22kung+fu%22") > 0)
         addressBar.text = "surfin' usa"
         addressBar.validate()
-        verify(addressBar.requestedUrl.toString().indexOf("q=surfin%27+usa") > 0)
+        verify(addressBar.requestedUrl.toString().indexOf("q=surfin'+usa") > 0)
         addressBar.text = "to be or not to be?"
         addressBar.validate()
         verify(addressBar.requestedUrl.toString().indexOf("q=to+be+or+not+to+be%3F") > 0)
+        addressBar.text = "aléatoire"
+        addressBar.validate()
+        verify(addressBar.requestedUrl.toString().indexOf("q=aléatoire") > 0)
     }
 
     function test_url_uppercase_rewrite() {
