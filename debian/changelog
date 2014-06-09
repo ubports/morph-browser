@@ -1,3 +1,11 @@
+webbrowser-app (0.23+14.10.20140609.1-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Use encodeURIComponent() to encode search queries entered in the
+    address bar. (LP: #1314673)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 09 Jun 2014 17:14:23 +0000
+
 webbrowser-app (0.23+14.10.20140609-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
