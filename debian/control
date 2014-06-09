@@ -71,6 +71,7 @@ Description: Ubuntu web applications container
 Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin
 Architecture: any
 Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          libqt5webkit5-qmlwebkitplugin,
@@ -99,6 +100,7 @@ Description: Ubuntu web QML plugin assets
 Package: qtdeclarative5-ubuntu-web-plugin
 Architecture: any
 Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          liboxideqt-qmlplugin,
@@ -126,6 +128,7 @@ Description: Ubuntu web browser autopilot tests
 
 Package: webapp-container-autopilot
 Architecture: all
+Multi-Arch: foreign
 Depends: ${misc:Depends},
          libautopilot-qt (>= 1.4),
          libqt5test5,
