@@ -24,6 +24,8 @@
 #include "session-utils.h"
 #include "url-pattern-utils.h"
 #include "webkit-cookie-store.h"
+#include "webapp-container-helper.h"
+
 
 // Qt
 #include <QtCore/QCoreApplication>
@@ -85,9 +87,11 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     m_storeSessionCookies(false),
     m_backForwardButtonsVisible(false),
     m_addressBarVisible(false),
-    m_localWebappManifest(false)
+    m_localWebappManifest(false),
+    m_webappContainerHelper(new WebappContainerHelper())
 {
 }
+
 
 bool WebappContainer::initialize()
 {
@@ -121,6 +125,12 @@ bool WebappContainer::initialize()
                 QStringLiteral("persistent") : QStringLiteral("restored");
             qDebug() << "Setting session cookie mode to" << sessionCookieMode;
             context->setContextProperty("webContextSessionCookieMode", sessionCookieMode);
+        }
+
+        context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
+
+        if ( ! m_popupRedirectionUrlPrefix.isEmpty()) {
+            m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
         }
 
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
@@ -221,6 +231,8 @@ void WebappContainer::parseCommandLine()
             m_addressBarVisible = true;
         } else if (argument == "--local-webapp-manifest") {
             m_localWebappManifest = true;
+        } else if (argument.startsWith("--popup-redirection-url-prefix=")) {
+            m_popupRedirectionUrlPrefix = argument.split("--popup-redirection-url-prefix=")[1];;
         }
     }
 }

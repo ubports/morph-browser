@@ -34,6 +34,7 @@ Item {
     property var toolbar: null
     property var webappUrlPatterns
     property string localUserAgentOverride: ""
+    property string popupRedirectionUrlPrefix: ""
 
     Loader {
         id: webappContainerWebViewLoader
@@ -53,7 +54,8 @@ Item {
                     , url: containerWebview.url
                     , webappName: containerWebview.webappName
                     , webappUrlPatterns: containerWebview.webappUrlPatterns
-                    , developerExtrasEnabled: containerWebview.developerExtrasEnabled})
+                    , developerExtrasEnabled: containerWebview.developerExtrasEnabled
+                    , popupRedirectionUrlPrefix: containerWebview.popupRedirectionUrlPrefix})
     }
 }
 

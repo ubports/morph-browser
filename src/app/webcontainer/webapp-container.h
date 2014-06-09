@@ -21,9 +21,12 @@
 
 #include "browserapplication.h"
 
+#include "webapp-container-helper.h"
+
 // Qt
 #include <QString>
 #include <QStringList>
+#include <QScopedPointer>
 
 class WebappContainer : public BrowserApplication
 {
@@ -53,6 +56,8 @@ private:
     bool m_backForwardButtonsVisible;
     bool m_addressBarVisible;
     bool m_localWebappManifest;
+    QString m_popupRedirectionUrlPrefix;
+    QScopedPointer<WebappContainerHelper> m_webappContainerHelper;
 
     static const QString URL_PATTERN_SEPARATOR;
 };

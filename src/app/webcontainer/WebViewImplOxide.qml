@@ -34,6 +34,7 @@ WebViewImpl {
     property string webappName: ""
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
+    property string popupRedirectionUrlPrefix: ""
 
     currentWebview: webview
 
@@ -102,18 +103,36 @@ WebViewImpl {
         // When it is being called, the targetted URL will not load right away but
         // will first round trip to an "about:blank".
         // See https://developer.mozilla.org/en-US/docs/Web/API/Window.open
-        if (newForegroundPageRequest && url == 'about:blank') {
-            console.log('Accepting a new window request to navigate to "about:blank"')
-            request.action = NavigationRequest.ActionAccept
-            return;
-        }
+        if (newForegroundPageRequest) {
+            if (url == 'about:blank') {
+                console.log('Accepting a new window request to navigate to "about:blank"')
+                request.action = NavigationRequest.ActionAccept
+                return
+            }
 
-        if (newForegroundPageRequest && shouldOpenPopupsInDefaultBrowser()) {
-            console.debug('Opening: popup window ' + url + ' in the browser window.')
+            var isRedirectionUrl =
+                    popupRedirectionUrlPrefix.length !== 0
+                    && url.indexOf(popupRedirectionUrlPrefix) === 0;
 
-            request.action = NavigationRequest.ActionReject
-            Qt.openUrlExternally(url);
-            return;
+            var targetUrl =
+                    isRedirectionUrl
+                    ? decodeURIComponent(url.slice(popupRedirectionUrlPrefix.length))
+                    : url;
+
+            if (webview.shouldAllowNavigationTo(targetUrl)) {
+                console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
+                request.action = NavigationRequest.ActionReject
+                webappContainerHelper.browseToUrlRequested(webview, url.slice(url.indexOf(popupRedirectionUrlPrefix)))
+                return
+            }
+
+            if (shouldOpenPopupsInDefaultBrowser()) {
+                console.debug('Opening popup window ' + url + ' in the browser window.')
+                request.action = NavigationRequest.ActionReject
+                Qt.openUrlExternally(url)
+                return;
+            }
+            return
         }
 
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')

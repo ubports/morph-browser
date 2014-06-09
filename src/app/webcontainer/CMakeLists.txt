@@ -13,6 +13,7 @@ set(WEBAPP_CONTAINER_SRC
     cookie-store.cpp
     online-accounts-cookie-store.cpp
     webapp-container.cpp
+    webapp-container-helper.cpp
     webkit-cookie-store.cpp
     session-utils.cpp
     url-pattern-utils.cpp
