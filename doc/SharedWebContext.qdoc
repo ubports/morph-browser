@@ -16,32 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import QtTest 1.0
-import Ubuntu.Web 0.2
+/*!
+    \qmltype SharedWebContext
+    \inqmlmodule Ubuntu.Web 0.2
+    \ingroup ubuntu
+    \brief A singleton that exposes a shared \l WebContext that can be used
+           by several \l WebView instances in the same application.
 
-TestCase {
-    name: "WebView"
+    Note that the \l WebView component already uses the shared context.
+ */
 
-    function test_context_singleton() {
-        compare(webview1.context, webview2.context)
-    }
+/*!
+    \qmlproperty WebContext SharedWebContext::sharedContext
 
-    function test_custom_UA_override() {
-        compare(webview1.getUAString(), undefined)
-        verify(webview1.context.userAgent !== undefined)
-        compare(webview2.context.userAgent, "custom UA")
-    }
+    The \l WebContext instance that several \l WebView instances can share.
+ */
 
-    WebView {
-        id: webview1
-    }
+/*!
+    \qmlproperty string SharedWebContext::customUA
 
-    WebView {
-        id: webview2
-
-        function getUAString(url) {
-            return "custom UA"
-        }
-    }
-}
+    An alias to the shared context’s default user agent string.
+ */
