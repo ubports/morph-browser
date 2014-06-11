@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.0
+import QtQuick.Window 2.1
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.2
 import webcontainer.private 0.1
@@ -83,6 +83,8 @@ Window {
             Component.onCompleted: i18n.domain = "webbrowser-app"
         }
     }
+
+    visibility: webappPageComponentLoader.item && webappPageComponentLoader.item.currentWebview.fullscreen ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
         id: accountsPageComponentLoader
