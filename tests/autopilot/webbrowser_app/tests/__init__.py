@@ -69,7 +69,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
         else:
             self.app = self.launch_test_application(
                 "webbrowser-app",
-                "--fullscreen",
                 self.d_f,
                 *self.ARGS,
                 app_type='qt',
