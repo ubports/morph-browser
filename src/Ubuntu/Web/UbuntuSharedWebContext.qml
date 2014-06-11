@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,32 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import QtTest 1.0
-import Ubuntu.Web 0.2
+pragma Singleton
 
-TestCase {
-    name: "WebView"
+import QtQml 2.0
 
-    function test_context_singleton() {
-        compare(webview1.context, webview2.context)
-    }
+QtObject {
+    property alias customUA: context.userAgent
 
-    function test_custom_UA_override() {
-        compare(webview1.getUAString(), undefined)
-        verify(webview1.context.userAgent !== undefined)
-        compare(webview2.context.userAgent, "custom UA")
-    }
-
-    WebView {
-        id: webview1
-    }
-
-    WebView {
-        id: webview2
-
-        function getUAString(url) {
-            return "custom UA"
-        }
+    property QtObject sharedContext: UbuntuWebContext {
+        id: context
     }
 }

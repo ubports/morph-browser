@@ -32,10 +32,12 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          liboxideqt-qmlplugin (>= 1.0.0~bzr490),
+         libqt5sql5-sqlite,
          qtdeclarative5-dialogs-plugin,
          qtdeclarative5-qtquick2-plugin,
-         qtdeclarative5-ubuntu-ui-extras-browser-plugin (= ${binary:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
+         qtdeclarative5-ubuntu-web-plugin (= ${binary:Version}),
+         qtdeclarative5-unity-action-plugin,
          qtdeclarative5-window-plugin,
 Replaces: webbrowser-app-assets,
           qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22),
@@ -43,7 +45,7 @@ Conflicts: webbrowser-app-assets
 Provides: webbrowser-app-assets
 Breaks: qtdeclarative5-ubuntu-ui-extras-browser-plugin (<< 0.22)
 Description: Ubuntu web browser
- A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
+ A lightweight web browser tailored for Ubuntu, based on the Oxide browser
  engine and using the Ubuntu UI components.
 
 Package: webapp-container
@@ -51,44 +53,63 @@ Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         libqt5webkit5-qmlwebkitplugin, 
+         liboxideqt-qmlplugin,
+         libqt5sql5-sqlite,
+         libqt5webkit5-qmlwebkitplugin,
          qtdeclarative5-accounts-plugin,
          qtdeclarative5-qtquick2-plugin (>= 5.2),
+         qtdeclarative5-ubuntu-ui-extras-browser-plugin (= ${binary:Version}),
+         qtdeclarative5-ubuntu-web-plugin (= ${binary:Version}),
+         qtdeclarative5-unity-action-plugin,
          unity-webapps-qml,
          webbrowser-app (= ${binary:Version}),
 Suggests: qtdeclarative5-online-accounts-client0.1 (>= 0.3),
 Description: Ubuntu web applications container
- A lightweight webapps container tailored for Ubuntu, based on the Webkit
- rendering engine and using the Ubuntu UI components.
+ A lightweight webapp container tailored for Ubuntu, based on the Oxide browser
+ engine and using the Ubuntu UI components.
 
 Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin
 Architecture: any
 Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         libqt5sql5-sqlite,
          libqt5webkit5-qmlwebkitplugin,
-         liboxideqt-qmlplugin,
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets (>= ${source:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
-         qtdeclarative5-unity-action-plugin,
+         qtdeclarative5-ubuntu-web-plugin (= ${binary:Version}),
          qtdeclarative5-window-plugin,
 Replaces: webbrowser-app (<< 0.21)
 Breaks: webbrowser-app (<< 0.21)
-Description: Ubuntu web browser QML plugin
- A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
- engine and using the Ubuntu UI components. This package contains a standalone
- QML plugin that applications can use to embed a browser control.
+Description: Ubuntu web QML plugin
+ A standalone QML plugin that contains the UbuntuWebView component
+ (versions 0.1 based on WebKit and 0.2 based on Oxide), in the
+ Ubuntu.Components.Extras.Browser module.
 
 Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends},
-Description: Ubuntu web browser QML plugin assets
- A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
- engine and using the Ubuntu UI components. This package contains the
- PNGs used as UI elements by the QML plugin.
+Description: Ubuntu web QML plugin assets
+ A standalone QML plugin that contains the UbuntuWebView component
+ (versions 0.1 based on WebKit and 0.2 based on Oxide), in the
+ Ubuntu.Components.Extras.Browser module. This package contains the
+ PNGs used as UI elements by the plugin.
+
+Package: qtdeclarative5-ubuntu-web-plugin
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         liboxideqt-qmlplugin,
+         qtdeclarative5-qtquick2-plugin,
+         qtdeclarative5-ubuntu-ui-toolkit-plugin,
+         qtdeclarative5-window-plugin,
+Description: Ubuntu web QML plugin
+ A standalone QML plugin that contains the WebView component,
+ in the Ubuntu.Web module.
 
 Package: webbrowser-app-autopilot
 Architecture: all
@@ -101,12 +122,13 @@ Depends: ${misc:Depends},
          unity8-autopilot,
          webbrowser-app (>= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests
- A lightweight web browser tailored for Ubuntu, based on the Webkit rendering
+ A lightweight web browser tailored for Ubuntu, based on the Oxide browser
  engine and using the Ubuntu UI components. This package contains autopilot
  tests for it.
 
 Package: webapp-container-autopilot
 Architecture: all
+Multi-Arch: foreign
 Depends: ${misc:Depends},
          libautopilot-qt (>= 1.4),
          libqt5test5,
@@ -114,6 +136,6 @@ Depends: ${misc:Depends},
          ubuntu-ui-toolkit-autopilot,
          webapp-container (>= ${binary:Version}),
 Description: Ubuntu web applications container autopilot tests
- A lightweight webapps container tailored for Ubuntu, based on the Webkit
- rendering engine and using the Ubuntu UI components. This package contains autopilot
+ A lightweight webapp container tailored for Ubuntu, based on the Oxide browser
+ engine and using the Ubuntu UI components. This package contains autopilot
  tests for it.

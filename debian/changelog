@@ -1,3 +1,32 @@
+webbrowser-app (0.23+14.10.20140609.1-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Use encodeURIComponent() to encode search queries entered in the
+    address bar. (LP: #1314673)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 09 Jun 2014 17:14:23 +0000
+
+webbrowser-app (0.23+14.10.20140609-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Move version 0.2 of the API to "Ubuntu.Web" namespace, rename
+    "UbuntuWebView" to "WebView", and document the public API intended
+    for application developers. The legacy namespace and component name
+    are kept around for compatibility with existing applications.
+    Version 0.1 of the API remains untouched (it is deprecated).
+    Packaging changes: - new qtdeclarative5-ubuntu-web-plugin package
+    that contains the new namespace and name for the public QML API -
+    updated runtime dependencies for webbrowser-app, webapp-container
+    and qtdeclarative5-ubuntu-ui-extras-browser-plugin - updated
+    descriptions for all packages - added missing multiarch stanza for
+    webapp-container-autopilot - added missing predepends stanzas for
+    multiarch packages (LP: #1324180)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 09 Jun 2014 10:44:31 +0000
+
 webbrowser-app (0.23+14.10.20140605-0ubuntu1) utopic; urgency=low
 
   [ Michael Sheldon ]

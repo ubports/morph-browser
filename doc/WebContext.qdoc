@@ -1,0 +1,70 @@
+/*
+ * Copyright 2014 Canonical Ltd.
+ *
+ * This file is part of webbrowser-app.
+ *
+ * webbrowser-app is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3.
+ *
+ * webbrowser-app is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*!
+    \qmltype WebContext
+    \inqmlmodule Ubuntu.Web 0.2
+    \ingroup ubuntu
+    \brief A default context implementation for use with \l WebView.
+
+    This default WebContext implementation has the default user agent string
+    used by the Ubuntu browser as well as the UA override mechanism that allows
+    sending an overridden user agent for given domains/websites, based on the
+    form factor.
+
+    It has its data path (for cache and cookie database) set to the standard
+    writable data location for the current application, which is based on the
+    application name (see \c Qt.application.name), for example
+    \e ~/.local/share/myApp/.
+
+    Note that the \l WebView component already uses this default context, so
+    there is no need to explicitly instantiate a \c WebContext unless you
+    want to override some of its default properties.
+
+    \sa SharedWebContext
+ */
+
+// Note: only a subset of the properties of Oxide’s WebContext are documented
+// here. This is intentional, typical applications are not expected to be
+// needing the full set of properties and methods exposed by Oxide.
+
+/*!
+    \qmlproperty string WebContext::userAgent
+
+    The default user agent string that will be sent with each HTTP request.
+ */
+
+/*!
+    \qmlproperty url WebContext::dataPath
+
+    The local path where persistent data (such as cookies) will be stored.
+ */
+
+/*!
+    \qmlproperty url WebContext::cachePath
+
+    The local path where network data will be cached.
+    If not set, it defaults to \l dataPath.
+ */
+
+/*!
+    \qmlproperty string WebContext::acceptLangs
+
+    The list of accepted languages (the Accept-Language HTTP header),
+    as a comma-separated list of language codes.
+ */
