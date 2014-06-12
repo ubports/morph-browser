@@ -34,6 +34,7 @@ WebViewImpl {
     property string webappName: ""
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
+    property string popupRedirectionUrlPrefix: ""
 
     currentWebview: webview
 
@@ -98,22 +99,43 @@ WebViewImpl {
         var newForegroundPageRequest = isNewForegroundWebViewDisposition(request.disposition)
         var url = request.url.toString()
 
+        console.log("\nwebview: " + webview.toString())
+        console.log("navigationRequestedDelegate - " + url)
+
         // Covers some edge cases corresponding to the default window.open() behavior.
         // When it is being called, the targetted URL will not load right away but
         // will first round trip to an "about:blank".
         // See https://developer.mozilla.org/en-US/docs/Web/API/Window.open
-        if (newForegroundPageRequest && url == 'about:blank') {
-            console.log('Accepting a new window request to navigate to "about:blank"')
-            request.action = Oxide.NavigationRequest.ActionAccept
-            return;
-        }
+        if (newForegroundPageRequest) {
+            if (url == 'about:blank') {
+                console.log('Accepting a new window request to navigate to "about:blank"')
+                request.action = Oxide.NavigationRequest.ActionAccept
+                return
+            }
 
-        if (newForegroundPageRequest && shouldOpenPopupsInDefaultBrowser()) {
-            console.debug('Opening: popup window ' + url + ' in the browser window.')
+            var isRedirectionUrl =
+                    popupRedirectionUrlPrefix.length !== 0
+                    && url.indexOf(popupRedirectionUrlPrefix) === 0;
 
-            request.action = Oxide.NavigationRequest.ActionReject
-            Qt.openUrlExternally(url);
-            return;
+            var targetUrl =
+                    isRedirectionUrl
+                    ? decodeURIComponent(url.slice(popupRedirectionUrlPrefix.length))
+                    : url;
+
+            if (webview.shouldAllowNavigationTo(targetUrl)) {
+                console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
+                request.action = Oxide.NavigationRequest.ActionReject
+                webappContainerHelper.browseToUrlRequested(webview, url.slice(url.indexOf(popupRedirectionUrlPrefix)))
+                return
+            }
+
+            if (shouldOpenPopupsInDefaultBrowser()) {
+                console.debug('Opening popup window ' + url + ' in the browser window.')
+                request.action = Oxide.NavigationRequest.ActionReject
+                Qt.openUrlExternally(url)
+                return;
+            }
+            return
         }
 
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')

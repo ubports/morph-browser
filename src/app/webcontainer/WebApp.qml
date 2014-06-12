@@ -37,6 +37,7 @@ BrowserView {
     property alias oxide: webview.withOxide
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
+    property alias popupRedirectionUrlPrefix: webview.popupRedirectionUrlPrefix
 
     actions: [
         Actions.Back {
