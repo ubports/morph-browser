@@ -1,0 +1,207 @@
+/*
+ * Copyright 2014 Canonical Ltd.
+ *
+ * This file is part of webbrowser-app.
+ *
+ * webbrowser-app is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3.
+ *
+ * webbrowser-app is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*!
+    \qmltype WebView
+    \inqmlmodule Ubuntu.Web 0.2
+    \ingroup ubuntu
+    \brief A webview that can be used to render web content in an application.
+
+    Here is a very simple example of how to use a WebView to render a web page:
+    \qml
+        import QtQuick 2.0
+        import Ubuntu.Web 0.2
+
+        WebView {
+            url: "http://ubuntu.com"
+        }
+    \endqml
+
+    The \c WebView component defaults to using a \l {SharedWebContext}
+    {shared \c WebContext} that is shared across all \c WebView instances
+    in a given application.
+
+    \sa SharedWebContext
+ */
+
+/*!
+    \qmlproperty url WebView::url
+
+    The URL of the current page.
+ */
+
+/*!
+    \qmlproperty string WebView::title
+
+    The title of the current page.
+ */
+
+/*!
+    \qmlproperty url WebView::icon
+
+    The URL of the favicon of the current page.
+ */
+
+/*!
+    \qmlproperty bool WebView::canGoBack
+
+    Whether the navigation history has a previous entry to navigate back.
+
+    \sa goBack, canGoForward
+ */
+
+/*!
+    \qmlproperty bool WebView::canGoForward
+
+    Whether the navigation history has a next entry to navigate forward.
+
+    \sa goForward, canGoBack
+ */
+
+/*!
+    \qmlproperty bool WebView::incognito
+
+    Whether the WebView is being used in private browsing mode,
+    where no data is persisted across sessions.
+ */
+
+/*!
+    \qmlproperty bool WebView::loading
+
+    Whether the current page is loading.
+
+    \sa loadProgress, stop, reload
+ */
+
+/*!
+    \qmlproperty bool WebView::fullscreen
+
+    Whether the current page requested fullscreen display.
+ */
+
+/*!
+    \qmlproperty int WebView::loadProgress
+
+    The load progress of the current page
+    (as a integer value between 0 and 100).
+
+    \sa loading
+ */
+
+/*!
+    \qmlproperty component WebView::alertDialog
+
+    The QML component that will be instantiated to display
+    a JavaScript alert dialog.
+
+    \sa confirmDialog, promptDialog, beforeUnloadDialog
+ */
+
+/*!
+    \qmlproperty component WebView::confirmDialog
+
+    The QML component that will be instantiated to display
+    a JavaScript confirmation dialog.
+
+    \sa alertDialog, promptDialog, beforeUnloadDialog
+ */
+
+/*!
+    \qmlproperty component WebView::promptDialog
+
+    The QML component that will be instantiated to display
+    a JavaScript prompt dialog.
+
+    \sa alertDialog, confirmDialog, beforeUnloadDialog
+ */
+
+/*!
+    \qmlproperty component WebView::beforeUnloadDialog
+
+    The QML component that will be instantiated to display
+    a JavaScript confirmation when the user initiates a navigation away from
+    the current page, if the page has defined an \c onBeforeUnload handler.
+
+    \sa alertDialog, confirmDialog, promptDialog
+ */
+
+/*!
+    \qmlproperty component WebView::filePicker
+
+    The QML component that will be instantiated to let the user select files
+    when the user clicks an \c {<input type="file">} element
+    on the current page.
+ */
+
+/*!
+    \qmlproperty WebContext WebView::context
+
+    The web context associated to this WebView.
+    By default a \l {SharedWebContext} {shared context} is used which should
+    fit most use cases, do not override unless you really need a finer control
+    over the context.
+ */
+
+/*!
+    \qmlproperty list WebView::navigationHistory
+
+    The navigation history (back/forward entries) stored as a list model
+    with a \c currentIndex property. Each entry exposes the URL and title of
+    the corresponding page, as well as a timestamp of when it was visited.
+ */
+
+/*!
+    \qmlmethod void WebView::goBack()
+
+    Go back one entry in the navigation history.
+
+    \sa canGoBack, goForward
+ */
+
+/*!
+    \qmlmethod void WebView::goForward()
+
+    Go forward one entry in the navigation history.
+
+    \sa canGoForward, goBack
+ */
+
+/*!
+    \qmlmethod void WebView::stop()
+
+    Stop loading the current page.
+    Does nothing if there is no page currently loading.
+
+    \sa reload, loading
+ */
+
+/*!
+    \qmlmethod void WebView::reload()
+
+    Reload the current page.
+
+    \sa stop
+ */
+
+/*!
+    \qmlmethod void WebView::loadHtml(string html, url baseUrl)
+
+    Load HTML content from memory instead of loading it from a URL.
+    The \c baseUrl argument is used to resolve relative URLs in the provided
+    content.
+ */

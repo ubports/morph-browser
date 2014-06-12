@@ -16,32 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import QtTest 1.0
-import Ubuntu.Web 0.2
+#ifndef __PLUGIN_H__
+#define __PLUGIN_H__
 
-TestCase {
-    name: "WebView"
+// Qt
+#include <QtQml/QQmlExtensionPlugin>
 
-    function test_context_singleton() {
-        compare(webview1.context, webview2.context)
-    }
+class UbuntuBrowserPlugin : public QQmlExtensionPlugin
+{
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
 
-    function test_custom_UA_override() {
-        compare(webview1.getUAString(), undefined)
-        verify(webview1.context.userAgent !== undefined)
-        compare(webview2.context.userAgent, "custom UA")
-    }
+public:
+    void initializeEngine(QQmlEngine* engine, const char* uri);
+    void registerTypes(const char* uri);
+};
 
-    WebView {
-        id: webview1
-    }
-
-    WebView {
-        id: webview2
-
-        function getUAString(url) {
-            return "custom UA"
-        }
-    }
-}
+#endif // __PLUGIN_H__

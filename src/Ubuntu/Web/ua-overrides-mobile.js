@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,32 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import QtTest 1.0
-import Ubuntu.Web 0.2
+.pragma library
 
-TestCase {
-    name: "WebView"
-
-    function test_context_singleton() {
-        compare(webview1.context, webview2.context)
-    }
-
-    function test_custom_UA_override() {
-        compare(webview1.getUAString(), undefined)
-        verify(webview1.context.userAgent !== undefined)
-        compare(webview2.context.userAgent, "custom UA")
-    }
-
-    WebView {
-        id: webview1
-    }
-
-    WebView {
-        id: webview2
-
-        function getUAString(url) {
-            return "custom UA"
-        }
-    }
-}
+var overrides = [
+    [/^https?:\/\/mail\.google\.com\//, "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4) AppleWebKit/537.36 Chromium/35.0.1870.2 Mobile Safari"],
+    [/^https?:\/\/m\.youtube\.com\//, "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chromium/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1228415
+];

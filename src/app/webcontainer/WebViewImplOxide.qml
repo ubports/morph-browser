@@ -18,11 +18,11 @@
 
 import QtQuick 2.0
 import QtQuick.Window 2.0
-import com.canonical.Oxide 1.0
+import com.canonical.Oxide 1.0 as Oxide
 import Ubuntu.Components 0.1
-import Ubuntu.Components.Extras.Browser 0.2
-import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import Ubuntu.Components.Popups 0.1
+import Ubuntu.UnityWebApps 0.1 as UnityWebApps
+import Ubuntu.Web 0.2
 import "../actions" as Actions
 import ".."
 
@@ -67,8 +67,8 @@ WebViewImpl {
     }
 
     function isNewForegroundWebViewDisposition(disposition) {
-        return disposition === NavigationRequest.DispositionNewPopup ||
-               disposition === NavigationRequest.DispositionNewForegroundTab;
+        return disposition === Oxide.NavigationRequest.DispositionNewPopup ||
+               disposition === Oxide.NavigationRequest.DispositionNewForegroundTab;
     }
 
     function shouldAllowNavigationTo(url) {
@@ -144,20 +144,20 @@ WebViewImpl {
         // or if we dont have a list of url patterns specified to filter the
         // browsing actions
         if ( ! webview.haveValidUrlPatterns() && ! webview.isRunningAsANamedWebapp()) {
-            request.action = NavigationRequest.ActionAccept
+            request.action = Oxide.NavigationRequest.ActionAccept
             return
         }
 
-        request.action = NavigationRequest.ActionReject
+        request.action = Oxide.NavigationRequest.ActionReject
         if (webview.shouldAllowNavigationTo(url))
-            request.action = NavigationRequest.ActionAccept
+            request.action = Oxide.NavigationRequest.ActionAccept
 
         // SAML requests are used for instance by Google Apps for your domain;
         // they are implemented as a HTTP redirect to a URL containing the
         // query parameter called "SAMLRequest".
         // Besides letting the request through, we must also add the SAML
         // domain to the list of the allowed hosts.
-        if (request.disposition === NavigationRequest.DispositionCurrentTab &&
+        if (request.disposition === Oxide.NavigationRequest.DispositionCurrentTab &&
             url.indexOf("SAMLRequest") > 0) {
             var urlRegExp = new RegExp("https?://([^?/]+)")
             var match = urlRegExp.exec(url)
@@ -166,10 +166,10 @@ WebViewImpl {
             var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/"
             console.log("SAML request detected. Adding host pattern: " + hostPattern)
             webappUrlPatterns.push(hostPattern)
-            request.action = NavigationRequest.ActionAccept
+            request.action = Oxide.NavigationRequest.ActionAccept
         }
 
-        if (request.action === NavigationRequest.ActionReject) {
+        if (request.action === Oxide.NavigationRequest.ActionReject) {
             console.debug('Opening: ' + url + ' in the browser window.')
             Qt.openUrlExternally(url)
         }
@@ -184,7 +184,7 @@ WebViewImpl {
         Window {
             id: popup
             property alias request: popupBrowser.request
-            UbuntuWebView {
+            WebView {
                 id: popupBrowser
                 anchors.fill: parent
 
@@ -194,7 +194,7 @@ WebViewImpl {
                     // If we are to browse in the popup to a place where we are not allows
                     if ( ! isNewForegroundWebViewDisposition(request.disposition) &&
                             ! webview.shouldAllowNavigationTo(url)) {
-                        request.action = NavigationRequest.ActionReject
+                        request.action = Oxide.NavigationRequest.ActionReject
                         Qt.openUrlExternally(url);
                         popup.close()
                         return;
