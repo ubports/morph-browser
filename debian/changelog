@@ -1,3 +1,19 @@
+webbrowser-app (0.23+14.10.20140612.1-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ David Barth ]
+  * Accept navigation inside popups if the redirection stays within the
+    set of accepted URLs. This helps support the account switching
+    feature in Gmail for example. An additional heuristics ensures that
+    trampoline URLs don't leave a blank window in their originating
+    webapp, as we navigate back to the page just before the trampoline.
+    This avoids regressions in Facebook, Twitter and other apps using
+    popup redirects to open external links. (LP: #1324848)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 12 Jun 2014 20:27:44 +0000
+
 webbrowser-app (0.23+14.10.20140609.1-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
