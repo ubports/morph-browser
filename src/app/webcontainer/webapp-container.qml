@@ -37,6 +37,7 @@ Window {
     property var webappUrlPatterns
     property bool oxide: false
     property string accountProvider: ""
+    property string popupRedirectionUrlPrefix: ""
     property var __webappCookieStore: null
 
     contentOrientation: Screen.orientation
@@ -74,6 +75,8 @@ Window {
             webappModelSearchPath: root.webappModelSearchPath
             webappName: root.webappName
             webappUrlPatterns: root.webappUrlPatterns
+
+            popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
 
             anchors.fill: parent
 

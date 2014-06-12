@@ -34,6 +34,7 @@ WebViewImpl {
     property string webappName: ""
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
+    property string popupRedirectionUrlPrefix: ""
 
     currentWebview: webview
 
@@ -101,39 +102,42 @@ WebViewImpl {
         var url = request.url.toString()
 
         console.log("\nwebview: " + webview.toString())
-	console.log("navigationRequestedDelegate - " + url)
+        console.log("navigationRequestedDelegate - " + url)
 
         // Covers some edge cases corresponding to the default window.open() behavior.
         // When it is being called, the targetted URL will not load right away but
         // will first round trip to an "about:blank".
         // See https://developer.mozilla.org/en-US/docs/Web/API/Window.open
-        if (newForegroundPageRequest && url == 'about:blank') {
-            console.log('Accepting a new window request to navigate to "about:blank"')
-            request.action = NavigationRequest.ActionAccept
-            return;
-        }
+        if (newForegroundPageRequest) {
+            if (url == 'about:blank') {
+                console.log('Accepting a new window request to navigate to "about:blank"')
+                request.action = NavigationRequest.ActionAccept
+                return
+            }
 
-        // manage popup requests on Touch
-        if (newForegroundPageRequest && (formFactor !== "desktop")) {
-            if (! webview.shouldAllowNavigationTo(url)) {
-                console.debug('Redirecting popup request to the browser: ' + url)
+            var isRedirectionUrl =
+                    popupRedirectionUrlPrefix.length !== 0
+                    && url.indexOf(popupRedirectionUrlPrefix) === 0;
+
+            var targetUrl =
+                    isRedirectionUrl
+                    ? decodeURIComponent(url.slice(popupRedirectionUrlPrefix.length))
+                    : url;
+
+            if (webview.shouldAllowNavigationTo(targetUrl)) {
+                console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
                 request.action = NavigationRequest.ActionReject
-                if (! webview.trampolineUrl.length === 0) {
-                    console.log("trampoline URL detected, navigating back to: " + trampolineUrl)
-                    webview.url = webview.trampolineUrl
-                    webview.trampolineUrl = null
-                }
-                Qt.openUrlExternally(url);
-                return;
-            } else {
-                // force the popup navigation back onto the main view
-                console.log("popup redirected to main view: " + url)
+                webappContainerHelper.browseToUrlRequested(webview, url.slice(url.indexOf(popupRedirectionUrlPrefix)))
+                return
+            }
+
+            if (shouldOpenPopupsInDefaultBrowser()) {
+                console.debug('Opening popup window ' + url + ' in the browser window.')
                 request.action = NavigationRequest.ActionReject
-                console.log("setting trampoline memo to " + webview.url)
-                webview.trampolineUrl = webview.url 
-                webview.url = url
+                Qt.openUrlExternally(url)
                 return;
             }
+            return
         }
 
         // Pass-through if we are not running as a named webapp (--webapp='Gmail')
