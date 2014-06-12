@@ -95,8 +95,6 @@ WebViewImpl {
         return false;
     }
 
-    property string trampolineUrl: ""
-
     function navigationRequestedDelegate(request) {
         var newForegroundPageRequest = isNewForegroundWebViewDisposition(request.disposition)
         var url = request.url.toString()
@@ -111,7 +109,7 @@ WebViewImpl {
         if (newForegroundPageRequest) {
             if (url == 'about:blank') {
                 console.log('Accepting a new window request to navigate to "about:blank"')
-                request.action = NavigationRequest.ActionAccept
+                request.action = Oxide.NavigationRequest.ActionAccept
                 return
             }
 
@@ -126,14 +124,14 @@ WebViewImpl {
 
             if (webview.shouldAllowNavigationTo(targetUrl)) {
                 console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
-                request.action = NavigationRequest.ActionReject
+                request.action = Oxide.NavigationRequest.ActionReject
                 webappContainerHelper.browseToUrlRequested(webview, url.slice(url.indexOf(popupRedirectionUrlPrefix)))
                 return
             }
 
             if (shouldOpenPopupsInDefaultBrowser()) {
                 console.debug('Opening popup window ' + url + ' in the browser window.')
-                request.action = NavigationRequest.ActionReject
+                request.action = Oxide.NavigationRequest.ActionReject
                 Qt.openUrlExternally(url)
                 return;
             }
