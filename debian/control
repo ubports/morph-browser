@@ -31,6 +31,7 @@ Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
+         fonts-liberation,
          liboxideqt-qmlplugin (>= 1.0.0~bzr490),
          libqt5sql5-sqlite,
          qtdeclarative5-dialogs-plugin,
@@ -53,6 +54,7 @@ Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
+         fonts-liberation,
          liboxideqt-qmlplugin,
          libqt5sql5-sqlite,
          libqt5webkit5-qmlwebkitplugin,
