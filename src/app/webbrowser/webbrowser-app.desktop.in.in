@@ -1,14 +1,14 @@
 [Desktop Entry]
 Version=1.0
-Name=tr("Browser")
-GenericName=tr("Web Browser")
-Comment=tr("Browse the World Wide Web")
+_Name=Browser
+_GenericName=Web Browser
+_Comment=Browse the World Wide Web
+_Keywords=Internet;WWW;Browser;Web;Explorer
 Type=Application
 Icon=webbrowser-app
 Exec=webbrowser-app %u
 Terminal=false
 Categories=Network;WebBrowser;
-Keywords=Internet;WWW;Browser;Web;Explorer
 MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
 X-Ubuntu-Touch=true
 X-Ubuntu-Gettext-Domain=webbrowser-app

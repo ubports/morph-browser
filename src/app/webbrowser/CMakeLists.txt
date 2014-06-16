@@ -46,14 +46,11 @@ install(DIRECTORY assets
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
         FILES_MATCHING PATTERN *.png)
 
-set(DESKTOP_FILE webbrowser-app.desktop)
-configure_file(${DESKTOP_FILE}.in.in ${DESKTOP_FILE}.in @ONLY)
-file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE})
-file(STRINGS ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}.in DESKTOP_FILE_CONTENTS)
-foreach(LINE ${DESKTOP_FILE_CONTENTS})
-    string(REGEX REPLACE "tr\\\(\"(.*)\"\\\)" "\\1" LINE "${LINE}")
-    file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE} "${LINE}\n")
-endforeach(LINE)
+configure_file(${DESKTOP_FILE}.in.in ${DESKTOP_FILE}.in)
+add_custom_target(${DESKTOP_FILE} ALL
+         COMMENT "Merging translations into ${DESKTOP_FILE}"
+         COMMAND LC_ALL=C ${INTLTOOL_MERGE} -d -u ${CMAKE_SOURCE_DIR}/po ${DESKTOP_FILE}.in ${DESKTOP_FILE} >/dev/null
+        )
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)

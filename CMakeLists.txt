@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8.9)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+find_program(INTLTOOL_MERGE intltool-merge)
+find_program(INTLTOOL_EXTRACT intltool-extract)
+
 # Standard install paths
 include(GNUInstallDirs)
 
@@ -37,6 +40,8 @@ find_package(Qt5Quick REQUIRED)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
+set(DESKTOP_FILE webbrowser-app.desktop)
+
 # uninstall target
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
@@ -52,8 +57,10 @@ add_subdirectory(tests)
 
 file(GLOB_RECURSE I18N_SRC_FILES
      RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-     src/app/**.qml src/app/**.desktop.in)
+     src/app/**.qml)
+list(APPEND I18N_SRC_FILES src/app/webbrowser/webbrowser-app.desktop.in.in)
 list(SORT I18N_SRC_FILES)
+message("Found ${I18N_SRC_FILES}")
 
 # for dh_translations to extract the domain
 # (regarding syntax consistency, see http://pad.lv/1181187)
