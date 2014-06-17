@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -19,22 +19,28 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Extras.Browser 0.2
+import webcontainer.private 0.1
 
 Window {
+    id: root
     objectName: "webappContainer"
 
-    property alias developerExtrasEnabled: browser.developerExtrasEnabled
+    property bool developerExtrasEnabled: false
 
-    property alias backForwardButtonsVisible: browser.backForwardButtonsVisible
-    property alias addressBarVisible: browser.addressBarVisible
+    property bool backForwardButtonsVisible: true
+    property bool addressBarVisible: true
 
-    property alias url: browser.url
-    property alias webappName: browser.webappName
-    property alias webappModelSearchPath: browser.webappModelSearchPath
-    property alias webappUrlPatterns: browser.webappUrlPatterns
-    property alias oxide: browser.oxide
+    property string url: ""
+    property string webappName: ""
+    property string webappModelSearchPath: ""
+    property var webappUrlPatterns
+    property bool oxide: false
+    property string accountProvider: ""
+    property string popupRedirectionUrlPrefix: ""
+    property var __webappCookieStore: null
 
-    contentOrientation: browser.screenOrientation
+    contentOrientation: Screen.orientation
 
     width: 800
     height: 600
@@ -42,24 +48,109 @@ Window {
     title: {
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
             return webappName
-        } else if (browser.title) {
+        } else if (webappPageComponentLoader.item &&
+                   webappPageComponentLoader.item.title) {
             // TRANSLATORS: %1 refers to the current page’s title
-            return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
+            return i18n.tr("%1 - Ubuntu Web Browser").arg(webappPageComponentLoader.item.title)
         } else {
             return i18n.tr("Ubuntu Web Browser")
         }
     }
 
-    WebApp {
-        id: browser
-
-        property int screenOrientation: Screen.orientation
-
-        chromeless: !backForwardButtonsVisible && !addressBarVisible
-        webbrowserWindow: webbrowserWindowProxy
-
+    Loader {
+        id: webappPageComponentLoader
         anchors.fill: parent
+    }
 
-        Component.onCompleted: i18n.domain = "webbrowser-app"
+    Component {
+        id: webappPageComponent
+
+        WebApp {
+            id: browser
+            addressBarVisible: root.addressBarVisible
+            backForwardButtonsVisible: root.backForwardButtonsVisible
+            developerExtrasEnabled: root.developerExtrasEnabled
+            oxide: root.oxide
+            url: root.url
+            webappModelSearchPath: root.webappModelSearchPath
+            webappName: root.webappName
+            webappUrlPatterns: root.webappUrlPatterns
+
+            popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+
+            anchors.fill: parent
+
+            chromeless: !backForwardButtonsVisible && !addressBarVisible
+            webbrowserWindow: webbrowserWindowProxy
+
+            Component.onCompleted: i18n.domain = "webbrowser-app"
+        }
+    }
+
+    Loader {
+        id: accountsPageComponentLoader
+        anchors.fill: parent
+        onStatusChanged: {
+            if (status == Loader.Error) {
+                // Happens on the desktop, if Ubuntu.OnlineAccounts.Client
+                // can't be imported
+                loadWebAppView()
+            } else if (status == Loader.Ready) {
+                item.visible = true
+            }
+        }
+    }
+
+    Connections {
+        target: accountsPageComponentLoader.item
+        onDone: loadWebAppView()
+    }
+
+    Component {
+        id: webkitCookieStoreComponent
+        WebkitCookieStore {
+            dbPath: dataLocation + "/.QtWebKit/cookies.db"
+        }
+    }
+
+    Component {
+        id: chromeCookieStoreComponent
+        ChromeCookieStore {
+            dbPath: dataLocation + "/cookies.sqlite"
+        }
+    }
+
+    Component.onCompleted: updateCurrentView()
+
+    onAccountProviderChanged: updateCurrentView();
+
+    function updateCurrentView() {
+        // check if we are to display the login view
+        // or directly switch to the webapp view
+        if (accountProvider.length !== 0) {
+            loadLoginView();
+        } else {
+            loadWebAppView();
+        }
+    }
+
+    function loadLoginView() {
+        if (!__webappCookieStore) {
+            var cookieStoreComponent =
+                oxide ? chromeCookieStoreComponent : webkitCookieStoreComponent
+            __webappCookieStore = cookieStoreComponent.createObject(this)
+        }
+        accountsPageComponentLoader.setSource("AccountsPage.qml", {
+            "accountProvider": accountProvider,
+            "applicationName": Qt.application.name,
+            "webappCookieStore": __webappCookieStore
+        })
+    }
+
+    function loadWebAppView() {
+        webappPageComponentLoader.sourceComponent = webappPageComponent;
+        if (accountsPageComponentLoader.item)
+            accountsPageComponentLoader.item.visible = false;
+        webappPageComponentLoader.item.visible = true;
     }
 }

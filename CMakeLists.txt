@@ -61,6 +61,8 @@ set (GETTEXT_PACKAGE "webbrowser-app")
 
 add_subdirectory(po)
 
+add_subdirectory(doc)
+
 install(FILES webbrowser-app.svg
         DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps)
 install(FILES screenshot.png

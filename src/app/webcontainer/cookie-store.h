@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,62 +16,50 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __COOKIESTORE_H__
-#define __COOKIESTORE_H__
+#ifndef __COOKIE_STORE_H__
+#define __COOKIE_STORE_H__
 
-#include <QObject>
-#include <QtCore/QList>
-#include <QtCore/QString>
+#include <QByteArray>
 #include <QDateTime>
-#include <QString>
-#include <QMap>
+#include <QList>
+#include <QObject>
 
-typedef QMap<QString, QString> Cookies;
+typedef QList<QByteArray> Cookies;
 Q_DECLARE_METATYPE(Cookies);
 
 
 class CookieStore : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(Cookies cookies READ \
-               cookies WRITE setCookies \
+    Q_PROPERTY(Cookies cookies READ cookies WRITE setCookies \
                NOTIFY cookiesChanged)
-    Q_PROPERTY(QDateTime lastUpdateTimeStamp \
-               READ lastUpdateTimeStamp \
+    Q_PROPERTY(QDateTime lastUpdateTimeStamp READ lastUpdateTimeStamp \
                NOTIFY lastUpdateTimeStampChanged)
 
 public:
+    CookieStore(QObject* parent = 0);
 
-    CookieStore(QObject *parent = 0);
-
+    bool setCookies(const Cookies& cookies);
     Cookies cookies();
-    void setCookies(Cookies);
 
     virtual QDateTime lastUpdateTimeStamp() const;
 
-    Q_INVOKABLE void moveFrom (CookieStore * store);
+    Q_INVOKABLE void moveFrom(CookieStore* store);
 
 Q_SIGNALS:
-
     void moved(bool);
     void cookiesChanged();
     void lastUpdateTimeStampChanged();
 
 protected:
-
-    void updateLastUpdateTimestamp(const QDateTime & timestamp);
-
+    void updateLastUpdateTimestamp(const QDateTime& timestamp);
 
 private:
-
     virtual Cookies doGetCookies();
-    virtual void doSetCookies(Cookies);
+    virtual bool doSetCookies(const Cookies& Cookies);
 
 private:
-
     QDateTime _lastUpdateTimeStamp;
 };
 
-
-#endif // __COOKIESTORE_H__
-
+#endif // __COOKIE_STORE_H__
