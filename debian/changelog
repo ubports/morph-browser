@@ -1,3 +1,17 @@
+webbrowser-app (0.23+14.10.20140617-0ubuntu1) utopic; urgency=low
+
+  [ Ugo Riboni ]
+  * Update the application icon to the new suru theme. This applies to
+    desktop only. The current mobile theme (ubuntu-mobile-icons) still
+    ships the old icon. (LP: #1328147)
+
+  [ Olivier Tilloy ]
+  * debian/control: add fonts-liberation as a runtime dependency of
+    webbrowser-app and webapp-container, for smoother rendering of
+    webpages on devices. (LP: #1322456)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 17 Jun 2014 08:58:37 +0000
+
 webbrowser-app (0.23+14.10.20140612.1-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
