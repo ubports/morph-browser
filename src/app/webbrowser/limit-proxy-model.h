@@ -22,21 +22,21 @@
 // Qt
 #include <QtCore/QIdentityProxyModel>
 
-class QAbstractProxyModel;
+class QSortFilterProxyModel;
 
 class LimitProxyModel : public QIdentityProxyModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(QAbstractProxyModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
+    Q_PROPERTY(QObject* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(int limit READ limit WRITE setLimit NOTIFY limitChanged)
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
 
 public:
     LimitProxyModel(QObject* parent=0);
 
-    QAbstractProxyModel* sourceModel() const;
-    void setSourceModel(QAbstractProxyModel* sourceModel);
+    QSortFilterProxyModel* sourceModel() const;
+    void setSourceModel(QObject* sourceModel);
 
     int limit() const;
     void setLimit(int limit);

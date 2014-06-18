@@ -18,13 +18,11 @@
 
 #include "bookmarks-model.h"
 #include "bookmarks-chronological-model.h"
-#include "bookmarks-limit-chronological-model.h"
 #include "config.h"
 #include "history-model.h"
 #include "history-matches-model.h"
 #include "history-timeframe-model.h"
 #include "history-byvisits-model.h"
-#include "history-limit-byvisits-model.h"
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
 #include "limit-proxy-model.h"
@@ -79,14 +77,12 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<HistoryByVisitsModel>(uri, 0 , 1, "HistoryByVisitsModel");
-    qmlRegisterType<HistoryLimitByVisitsModel>(uri, 0 , 1, "HistoryLimitByVisitsModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
     qmlRegisterType<BookmarksChronologicalModel>(uri, 0, 1, "BookmarksChronologicalModel");
-    qmlRegisterType<BookmarksLimitChronologicalModel>(uri, 0, 1, "BookmarksLimitChronologicalModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         m_window->setProperty("chromeless", m_arguments.contains("--chromeless"));

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtCore/QAbstractProxyModel>
+#include <QtCore/QSortFilterProxyModel>
 
 #include "limit-proxy-model.h"
 
@@ -42,19 +42,22 @@ LimitProxyModel::LimitProxyModel(QObject* parent)
     connect(this, SIGNAL(rowsRemoved(QModelIndex,int,int)), SIGNAL(countChanged()));
 }
 
-QAbstractProxyModel* LimitProxyModel::sourceModel() const
+QSortFilterProxyModel* LimitProxyModel::sourceModel() const
 {
-    return qobject_cast<QAbstractProxyModel*>(QIdentityProxyModel::sourceModel());
+    return qobject_cast<QSortFilterProxyModel*>(QIdentityProxyModel::sourceModel());
 }
 
-void LimitProxyModel::setSourceModel(QAbstractProxyModel* sourceModel)
+//void LimitProxyModel::setSourceModel(QAbstractProxyModel* sourceModel)
+void LimitProxyModel::setSourceModel(QObject* sourceModel)
 {
-    if (sourceModel != this->sourceModel()) {
+    QSortFilterProxyModel* model = qobject_cast<QSortFilterProxyModel*>(sourceModel);
+
+    if (model != this->sourceModel()) {
         if (this->sourceModel() != NULL) {
             this->sourceModel()->disconnect(this);
         }
 
-        QIdentityProxyModel::setSourceModel(sourceModel);
+        QIdentityProxyModel::setSourceModel(model);
 
         if (this->sourceModel() != NULL) {
             // Disconnect the QIdentityProxyModel handling for rows removed/added...

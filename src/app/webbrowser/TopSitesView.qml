@@ -45,7 +45,7 @@ Item {
         id: sectionsModel
     }
 
-    BookmarksLimitChronologicalModel {
+    LimitProxyModel {
         id: bookmarksListModel
 
         sourceModel: BookmarksChronologicalModel {
