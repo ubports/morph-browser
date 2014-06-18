@@ -7,63 +7,63 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-04-10 16:28+0100\n"
-"PO-Revision-Date: 2013-06-14 15:02+0000\n"
-"Last-Translator: Luo Lei <luolei@ubuntukylin.com>\n"
+"POT-Creation-Date: 2014-05-06 16:25+0100\n"
+"PO-Revision-Date: 2014-05-23 16:05+0000\n"
+"Last-Translator: Anthony Wong <anthony.wong@ubuntu.com>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-06 07:28+0000\n"
-"X-Generator: Launchpad (build 16996)\n"
+"X-Launchpad-Export-Date: 2014-06-17 06:48+0000\n"
+"X-Generator: Launchpad (build 17045)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "JavaScript 警告"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "确定"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "需要授权。"
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "网站 %1 需要认证。"
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "用户名"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "密码"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "确认导航"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "离开"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "停留"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "该通信不可信"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -71,15 +71,15 @@ msgstr ""
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
-msgstr ""
+msgstr "你正试图打开安全网页 %1，但此网站的安全证书不受信任。"
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "仍然继续"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "返回安全连接"
 
 #: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
 msgid "Back"
@@ -95,7 +95,7 @@ msgstr "活动"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "JavaScript 确认"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -116,35 +116,35 @@ msgstr "Ubuntu 建议您检查下网络设置并尝试刷新该页面。"
 msgid "Refresh page"
 msgstr "刷新页面"
 
-#: src/app/FilePickerDialog.qml:26
+#: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr ""
+msgstr "请选择文件"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "权限请求"
 
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "拒绝"
 
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "允许"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "JavaScript 提示"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "需要代理身份认证。"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "网站 %1:%2 需要身份认证。"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -164,17 +164,17 @@ msgstr "将该页面加入书签"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "书签链接"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "清除历史记录"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "清空浏览历史记录"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -182,11 +182,11 @@ msgstr "复制"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "复制图像"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "复制链接"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -216,11 +216,11 @@ msgstr "打开新标签"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "在新标签打开图像"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "在新标签打开链接"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -232,15 +232,19 @@ msgstr "重新加载"
 msgid "Leave Page"
 msgstr "离开页面"
 
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
+msgstr "保存图像"
+
 #: src/app/webbrowser/ActivityView.qml:54
 msgid "Bookmarks"
-msgstr ""
+msgstr "书签"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr ""
+msgstr "正在观看 (%1)"
 
 #: src/app/webbrowser/TabsList.qml:68
 msgid "+"
@@ -248,35 +252,35 @@ msgstr "+"
 
 #: src/app/webbrowser/TimelineView.qml:84
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
 #: src/app/webbrowser/TimelineView.qml:86
 msgid "Yesterday"
-msgstr ""
+msgstr "昨天"
 
 #: src/app/webbrowser/TimelineView.qml:88
 msgid "Last 7 Days"
-msgstr ""
+msgstr "最近 7 天"
 
 #: src/app/webbrowser/TimelineView.qml:90
 msgid "This Month"
-msgstr ""
+msgstr "本月"
 
 #: src/app/webbrowser/TimelineView.qml:92
 msgid "This Year"
-msgstr ""
+msgstr "今年"
 
 #: src/app/webbrowser/TimelineView.qml:94
 msgid "Older"
-msgstr ""
+msgstr "较早的"
 
 #: src/app/webbrowser/TimelineView.qml:277
 msgid "(local files)"
-msgstr ""
+msgstr "（本地文件）"
 
 #: src/app/webbrowser/TimelineView.qml:279
 msgid "(other)"
-msgstr ""
+msgstr "（其他）"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -292,32 +296,32 @@ msgstr "浏览互联网"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:45
+#: src/app/webcontainer/webapp-container.qml:47
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu 浏览器"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:49
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu 浏览器"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "无本地帐户： "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "跳过创建帐户"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "添加帐户"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "选择一个帐户"
 
 #: src/app/webcontainer/WebViewImplWebkit.qml:63
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "此页面要求取得您的设备位置。"

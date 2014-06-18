@@ -22,6 +22,11 @@ Project {
         filter: "*.h;*.cpp;*.py"
     }
 
+    Files {
+        directory: "doc"
+        filter: "*.qdoc;*.qdocconf"
+    }
+
     /* List of plugin directories passed to QML runtime */
     importPaths: [ "src" ]
 }

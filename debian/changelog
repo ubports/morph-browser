@@ -1,3 +1,169 @@
+webbrowser-app (0.23+14.10.20140617-0ubuntu1) utopic; urgency=low
+
+  [ Ugo Riboni ]
+  * Update the application icon to the new suru theme. This applies to
+    desktop only. The current mobile theme (ubuntu-mobile-icons) still
+    ships the old icon. (LP: #1328147)
+
+  [ Olivier Tilloy ]
+  * debian/control: add fonts-liberation as a runtime dependency of
+    webbrowser-app and webapp-container, for smoother rendering of
+    webpages on devices. (LP: #1322456)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 17 Jun 2014 08:58:37 +0000
+
+webbrowser-app (0.23+14.10.20140612.1-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ David Barth ]
+  * Accept navigation inside popups if the redirection stays within the
+    set of accepted URLs. This helps support the account switching
+    feature in Gmail for example. An additional heuristics ensures that
+    trampoline URLs don't leave a blank window in their originating
+    webapp, as we navigate back to the page just before the trampoline.
+    This avoids regressions in Facebook, Twitter and other apps using
+    popup redirects to open external links. (LP: #1324848)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 12 Jun 2014 20:27:44 +0000
+
+webbrowser-app (0.23+14.10.20140609.1-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Use encodeURIComponent() to encode search queries entered in the
+    address bar. (LP: #1314673)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 09 Jun 2014 17:14:23 +0000
+
+webbrowser-app (0.23+14.10.20140609-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Move version 0.2 of the API to "Ubuntu.Web" namespace, rename
+    "UbuntuWebView" to "WebView", and document the public API intended
+    for application developers. The legacy namespace and component name
+    are kept around for compatibility with existing applications.
+    Version 0.1 of the API remains untouched (it is deprecated).
+    Packaging changes: - new qtdeclarative5-ubuntu-web-plugin package
+    that contains the new namespace and name for the public QML API -
+    updated runtime dependencies for webbrowser-app, webapp-container
+    and qtdeclarative5-ubuntu-ui-extras-browser-plugin - updated
+    descriptions for all packages - added missing multiarch stanza for
+    webapp-container-autopilot - added missing predepends stanzas for
+    multiarch packages (LP: #1324180)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 09 Jun 2014 10:44:31 +0000
+
+webbrowser-app (0.23+14.10.20140605-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Filter file uploads based on mime-type information (where available)
+
+  [ Alberto Mardegan ]
+  * Fix the cookies unit tests Make sure that the dbPath always refers
+    to a file, not a directory. Make sure that even on fast machines (or
+    machines with a low-accuracy timer) the record timestamps are
+    unique.
+
+  [ Olivier Tilloy ]
+  * Add a UA override rule for m.youtube.com to allow playing videos.
+    (LP: #1228415)
+  * Do not display an empty contextual menu. (LP: #1326752)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 05 Jun 2014 15:57:30 +0000
+
+webbrowser-app (0.23+14.10.20140602-0ubuntu1) utopic; urgency=low
+
+  [ Alberto Mardegan ]
+  * Add online account support in the webapp container. A new
+    "accountProvider" command line parameter has been added to allow one
+    to specify an account provider for the specific webapp launch. When
+    used, one can specify a given provider, e.g. "facebook", to pull
+    existing accounts (if any) from the specified provider from Online
+    Accounts. When the provider does not have any existing account, an
+    option to delegate the creation of such an account to OA is
+    provided. It is also possible to skip the step and go straight to
+    the target url.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 02 Jun 2014 17:11:30 +0000
+
+webbrowser-app (0.23+14.10.20140526.1-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Ensure the main page that contains the webviews fills the main view.
+    (LP: #1321462)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 26 May 2014 13:27:49 +0000
+
+webbrowser-app (0.23+14.10.20140526-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Ensure the current webview is hidden while the activity view is
+    visible, and work around a bug in oxide that prevented new empty
+    tabs from rendering.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 26 May 2014 11:04:00 +0000
+
+webbrowser-app (0.23+14.10.20140522.1-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Various optimizations to the activity view. (LP: #1260980)
+  * Do not override the default height of the TextField that serves as
+    the address bar. (LP: #1317866)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 22 May 2014 16:30:01 +0000
+
+webbrowser-app (0.23+14.10.20140521.1-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Fix FTBFS with Qt 5.3. (LP: #1321440)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 21 May 2014 13:03:58 +0000
+
+webbrowser-app (0.23+14.10.20140521-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Remove an extraneous whitespace in the default UA on mobile.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 21 May 2014 08:11:35 +0000
+
+webbrowser-app (0.23+14.10.20140515.1-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Add support for downloading images via download manager and content-
+    hub on non-desktop platforms.
+
+  [ Tim Peeters ]
+  * Push the initial Page on the PageStack.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 15 May 2014 20:49:50 +0000
+
+webbrowser-app (0.23+14.10.20140514.1-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Add --local-webapp-manifest webapp container cli option to simplify
+    the command line in the case of a local manifest.json file
+    definition. This is to become a bit more important now that the
+    manifest support thing like ua overrides that would be beneficial to
+    webapp on touch.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 14 May 2014 22:26:02 +0000
+
 webbrowser-app (0.23+14.10.20140506.1-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]

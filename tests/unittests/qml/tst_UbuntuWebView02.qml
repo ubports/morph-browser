@@ -18,10 +18,10 @@
 
 import QtQuick 2.0
 import QtTest 1.0
-import Ubuntu.Components.Extras.Browser 0.2
+import Ubuntu.Web 0.2
 
 TestCase {
-    name: "UbuntuWebView"
+    name: "WebView"
 
     function test_context_singleton() {
         compare(webview1.context, webview2.context)
@@ -33,11 +33,11 @@ TestCase {
         compare(webview2.context.userAgent, "custom UA")
     }
 
-    UbuntuWebView {
+    WebView {
         id: webview1
     }
 
-    UbuntuWebView {
+    WebView {
         id: webview2
 
         function getUAString(url) {

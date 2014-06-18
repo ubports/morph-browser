@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,43 +16,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SQLITECOOKIESTORE_H
-#define SQLITECOOKIESTORE_H
+#ifndef WEBKIT_COOKIE_STORE_H
+#define WEBKIT_COOKIE_STORE_H
 
-#include "cookiestore.h"
-#include <QString>
+#include "cookie-store.h"
 
+#include <QSqlDatabase>
 
-class SqliteCookieStore : public CookieStore
+class WebkitCookieStore : public CookieStore
 {
     Q_OBJECT
     Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
 
-
 public:
-    SqliteCookieStore(QObject *parent = 0);
+    WebkitCookieStore(QObject* parent = 0);
 
-    void setDbPath (const QString & path);
-    QString dbPath () const;
+    void setDbPath(const QString& path);
+    QString dbPath() const;
 
     QDateTime lastUpdateTimeStamp() const Q_DECL_OVERRIDE;
 
-
 Q_SIGNALS:
-
     void dbPathChanged();
 
-
 private:
-
     virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
-    virtual void doSetCookies(Cookies) Q_DECL_OVERRIDE;
-
-    QString getFullDbPathName() const;
-
+    virtual bool doSetCookies(const Cookies& cookies) Q_DECL_OVERRIDE;
 
 private:
     QString m_dbPath;
+    QSqlDatabase m_db;
 };
 
-#endif // SQLITECOOKIESTORE_H
+#endif // WEBKIT_COOKIE_STORE_H

@@ -9,6 +9,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-08 10:40+0200\n"
+"POT-Creation-Date: 2014-05-06 16:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -238,6 +239,10 @@ msgstr ""
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
+msgstr ""
+
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
 msgstr ""
 
 #: src/app/webbrowser/ActivityView.qml:54

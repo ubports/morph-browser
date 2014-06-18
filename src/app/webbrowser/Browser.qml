@@ -56,30 +56,35 @@ BrowserView {
         }
     ]
 
+    Page {
+        // Work around http://pad.lv/1305834 by forcing the page title to be
+        // reset to an empty string when the activity view is being hidden.
+        title: activityViewVisible ? " " : ""
+        anchors.fill: parent
+        visible: !activityViewVisible
+        active: visible
+
+        Item {
+            id: webviewContainer
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+            }
+            height: parent.height - osk.height
+        }
+
+        ErrorSheet {
+            anchors.fill: webviewContainer
+            visible: currentWebview ? currentWebview.lastLoadFailed : false
+            url: currentWebview ? currentWebview.url : ""
+            onRefreshClicked: currentWebview.reload()
+        }
+    }
+
     PageStack {
         id: stack
-        Page {
-            // Work around http://pad.lv/1305834 by forcing the page title to be
-            // reset to an empty string when the activity view is being hidden.
-            title: activityViewVisible ? " " : ""
-
-            Item {
-                id: webviewContainer
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    top: parent.top
-                }
-                height: parent.height - osk.height
-            }
-
-            ErrorSheet {
-                anchors.fill: webviewContainer
-                visible: currentWebview ? currentWebview.lastLoadFailed : false
-                url: currentWebview ? currentWebview.url : ""
-                onRefreshClicked: currentWebview.reload()
-            }
-        }
+        active: depth > 0
     }
 
     QtObject {
@@ -113,7 +118,7 @@ BrowserView {
         }
     }
 
-    property bool activityViewVisible: stack.depth > 0
+    readonly property bool activityViewVisible: stack.depth > 0
 
     function showActivityView() {
         stack.push(Qt.resolvedUrl("ActivityView.qml"),
@@ -209,15 +214,14 @@ BrowserView {
         id: webviewComponent
 
         WebViewImpl {
-            id: webview
-
             currentWebview: browser.currentWebview
             toolbar: panel.panel
 
             anchors.fill: parent
 
-            enabled: stack.depth === 0
-            visible: currentWebview === webview
+            readonly property bool current: currentWebview === this
+            enabled: current
+            visible: current
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
             preferences.localStorageEnabled: true
@@ -243,6 +247,10 @@ BrowserView {
                     enabled: contextualData.img.toString()
                     onTriggered: Clipboard.push([contextualData.img])
                 }
+                Actions.SaveImage {
+                    enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
+                    onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
+                }
             }
 
             onNewViewRequested: {
@@ -252,10 +260,25 @@ BrowserView {
 
             onLoadingChanged: {
                 if (lastLoadSucceeded) {
-                    _historyModel.add(webview.url, webview.title, webview.icon)
+                    _historyModel.add(url, title, "")
+                }
+            }
+
+            // Work around http://pad.lv/1322622 by forcing an update
+            // of the visibility of the webview.
+            readonly property bool empty: !url.toString()
+            onEmptyChanged: {
+                if (!empty) {
+                    visible = false
+                    visible = Qt.binding(function() { return current })
                 }
             }
         }
+    }
+
+    Loader {
+        id: downloadLoader
+        source: formFactor == "desktop" ? "" : "../Downloader.qml"
     }
 
     function addTab(webview, setCurrent, focusAddressBar) {

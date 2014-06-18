@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-04-10 16:28+0100\n"
-"PO-Revision-Date: 2013-10-09 11:30+0000\n"
+"POT-Creation-Date: 2014-05-06 16:25+0100\n"
+"PO-Revision-Date: 2014-05-11 07:38+0000\n"
 "Last-Translator: Pyae Sone <Unknown>\n"
 "Language-Team: Burmese <my@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-06 07:28+0000\n"
-"X-Generator: Launchpad (build 16996)\n"
+"X-Launchpad-Export-Date: 2014-06-17 06:48+0000\n"
+"X-Generator: Launchpad (build 17045)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -55,11 +55,11 @@ msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "ထွက်"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "နေမည်"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -105,20 +105,22 @@ msgstr "နတ်ဝေါ့ချို့ယွင်းချက်"
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "သင်ကြည့်ရှုရန်အဆင်မပြေဖြစ်နေသည်လို့ထင်ရသည် - %1"
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
+"ဦးဘန္တုမှ သင့်ကို သင်၏အင်တာနက် setting ကိုစစ်ကြည့်ပြီး "
+"စာမျက်နှာကိုပြန်ဖွင့်ဖို့ကြိုးစားရန်အကြံပေးလိုသည်"
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
 msgstr "စာမျက်နှာကိုပြန်ဖွင့်မည်"
 
-#: src/app/FilePickerDialog.qml:26
+#: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr ""
+msgstr "ဖိုင်တစ်ခုကိုရွေးပါ။"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
@@ -232,6 +234,10 @@ msgstr "ပြန်ဖွင့်မည်"
 msgid "Leave Page"
 msgstr "စာမျက်နှာမှထွက်မည်"
 
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
+msgstr ""
+
 #: src/app/webbrowser/ActivityView.qml:54
 msgid "Bookmarks"
 msgstr "မှတ်သားချက်များ"
@@ -240,7 +246,7 @@ msgstr "မှတ်သားချက်များ"
 #: src/app/webbrowser/TabsList.qml:37
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr ""
+msgstr "ယခုလောလောဆယ်ကြည့်ရှုနေသော (%1)"
 
 #: src/app/webbrowser/TabsList.qml:68
 msgid "+"
@@ -284,21 +290,21 @@ msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr ""
+msgstr "Web Browser"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "အင်တာနက်တွင်ရှာမည်"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:45
+#: src/app/webcontainer/webapp-container.qml:47
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:49
 msgid "Ubuntu Web Browser"
 msgstr ""
 
@@ -308,16 +314,16 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "အကောင့်ပြုလုပ်ခြင်းအဆင့်ကိုကျော်မည်"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "အကောင့်ပေါင်းထည့်မည်"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "Account တစ်ခု ကိုရွေးချယ်ပါ။"
 
 #: src/app/webcontainer/WebViewImplWebkit.qml:63
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "ဒီစာမျက်နှာသည် သင့်ကိရိယာ၏တည်နေရာကိုသိချင်နေသည်"

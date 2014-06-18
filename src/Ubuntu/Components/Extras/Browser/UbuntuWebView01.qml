@@ -115,9 +115,15 @@ WebView {
                         contextualData.href = data.href
                         contextualData.title = data.title
                     }
-                    contextualRectangle.position(data)
-                    PopupUtils.open(contextualPopover, contextualRectangle)
-                    return
+                    if (contextualActions != null) {
+                        for (var i = 0; i < contextualActions.actions.length; ++i) {
+                            if (contextualActions.actions[i].enabled) {
+                                contextualRectangle.position(data)
+                                PopupUtils.open(contextualPopover, contextualRectangle)
+                                return
+                            }
+                        }
+                    }
                 }
             }
             if ((data.event === 'longpress') || (data.event === 'selectionadjusted')) {

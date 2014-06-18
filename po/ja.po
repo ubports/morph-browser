@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-04-10 16:28+0100\n"
+"POT-Creation-Date: 2014-05-06 16:25+0100\n"
 "PO-Revision-Date: 2014-01-18 07:16+0000\n"
 "Last-Translator: 173210 <root.3.173210@live.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-06 07:28+0000\n"
-"X-Generator: Launchpad (build 16996)\n"
+"X-Launchpad-Export-Date: 2014-06-17 06:48+0000\n"
+"X-Generator: Launchpad (build 17045)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -116,7 +116,7 @@ msgstr "ネットワーク設定を確認してページを更新してみてく
 msgid "Refresh page"
 msgstr "ページを更新"
 
-#: src/app/FilePickerDialog.qml:26
+#: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
 msgstr ""
 
@@ -232,6 +232,10 @@ msgstr "再読み込み"
 msgid "Leave Page"
 msgstr ""
 
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
+msgstr ""
+
 #: src/app/webbrowser/ActivityView.qml:54
 msgid "Bookmarks"
 msgstr "ブックマーク"
@@ -292,13 +296,13 @@ msgstr "ウェブを閲覧します"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:45
+#: src/app/webcontainer/webapp-container.qml:47
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntuウェブブラウザー"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:49
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntuウェブブラウザー"
 
