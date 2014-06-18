@@ -29,6 +29,7 @@ Dialog {
     text: i18n.tr("This page wants to know your device’s location.")
 
     Button {
+        objectName: "deny"
         text: i18n.tr("Deny")
         color: UbuntuColors.warmGrey
         onClicked: {
@@ -38,6 +39,7 @@ Dialog {
     }
 
     Button {
+        objectName: "allow"
         text: i18n.tr("Allow")
         color: UbuntuColors.orange
         onClicked: {

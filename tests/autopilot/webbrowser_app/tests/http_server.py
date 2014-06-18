@@ -101,6 +101,12 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += '<div style="height: 100%"></div></a>'
             html += '</body></html>'
             self.send_html(html)
+        elif self.path == "/geolocation":
+            self.send_response(200)
+            html = '<html><body><script>'
+            html += 'navigator.geolocation.getCurrentPosition('
+            html += 'function r(p) {});</script></body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 

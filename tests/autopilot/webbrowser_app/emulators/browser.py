@@ -100,3 +100,6 @@ class Browser(uitk.MainView):
         tabs = view.select_many("PageDelegate", objectName="openTabDelegate")
         tabs.sort(key=lambda tab: tab.x)
         return tabs
+
+    def get_geolocation_dialog(self):
+        return self.wait_select_single("GeolocationPermissionRequest")
