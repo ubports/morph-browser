@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.0
+import QtQuick.Window 2.1
 import Ubuntu.Components 0.1
 
 Window {
@@ -46,6 +46,8 @@ Window {
 
         Component.onCompleted: i18n.domain = "webbrowser-app"
     }
+
+    visibility: browser.currentWebview && browser.currentWebview.fullscreen ? Window.FullScreen : Window.AutomaticVisibility
 
     function newTab(url, setCurrent) {
         return browser.openUrlInNewTab(url, setCurrent)

@@ -27,6 +27,9 @@ class Browser(uitk.MainView):
     An emulator class that makes it easy to interact with the webbrowser app.
     """
 
+    def get_window(self):
+        return self.get_parent()
+
     def get_toolbar(self):
         # Overridden since the browser doesn’t use the MainView’s Toolbar.
         return self.select_single(Panel)

@@ -1,20 +1,20 @@
 # Uyghur translation for webbrowser-app
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the webbrowser-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+# Gheyret Kenji <gheyret@gmail.com>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-05-06 16:25+0100\n"
-"PO-Revision-Date: 2014-02-11 10:18+0000\n"
-"Last-Translator: omarjan <bahadiromar@outlook.com>\n"
-"Language-Team: Uyghur <ug@li.org>\n"
+"PO-Revision-Date: 2014-06-17 17:22+0000\n"
+"Last-Translator: Gheyret T.Kenji <Unknown>\n"
+"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-17 06:48+0000\n"
+"X-Launchpad-Export-Date: 2014-06-18 06:59+0000\n"
 "X-Generator: Launchpad (build 17045)\n"
 
 #: src/app/AlertDialog.qml:24
@@ -28,13 +28,13 @@ msgstr "تامام"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr "دەلىللەش لازىم"
+msgstr "كىملىك دەلىللەش زۆرۈر."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "The website %1 requires authentication."
+msgstr "بۇ توربەت %1 كىملىك دەلىللەشنى تەلەپ قىلىدۇ."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
@@ -47,7 +47,7 @@ msgstr "ئىم"
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr "ۋاز كەچ"
+msgstr "ئەمەلدىن قالدۇر"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
@@ -55,11 +55,11 @@ msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "چىقىپ كەت"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "چىقىپ كەتمە"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -72,8 +72,6 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"You are trying to securely reach %1, but the security certificate of this "
-"website is not trusted."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
@@ -97,7 +95,7 @@ msgstr "پائالىيەت"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr "JavaScriptنى جەزملە"
+msgstr "JavaScript نى جەزملە"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -107,22 +105,22 @@ msgstr "تور خاتالىقى"
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "It appears you are having trouble viewing: %1."
+msgstr ""
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"ئۇبۇنتۇ سىستىمسى تور تەڭشىكىڭىزنى تەكشۈرۈپ بەتنى يېڭىلاپ بېقىشىڭىزنى "
-"تەۋىسىيە قىلىدۇ."
+"ئۇبۇنتۇ سىستېمىسى تور تەڭشىكىڭىزنى تەكشۈرۈپ بەتنى يېڭىلاپ بېقىشىڭىزنى "
+"تەۋسىيە قىلىدۇ."
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr "بەتن يېڭىلا"
+msgstr "بەتنى يېڭىلا"
 
 #: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr ""
+msgstr "بىر ھۆججەت تاللاڭ"
 
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
@@ -138,17 +136,17 @@ msgstr "ئىجازەت"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr "JavaScriptكۆرسەتمىسى"
+msgstr "JavaScript كۆرسەتمىسى"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "ۋاكالەتچى ئېھتىياجى دەلىللەندى"
+msgstr "ۋاكالەتچى مۇلازىمېتىرنىڭ سالاھىيىتىنى دەلىللەش زۆرۈر"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "The website %1:%2 requires authentication."
+msgstr "بۇ توربەت (%1:%2 ) كىملىك دەلىللەشنى تەلەپ قىلىدۇ."
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -158,27 +156,27 @@ msgstr "باشقا بەت"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr "بەتكۈش"
+msgstr "خەتكۈش"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "بۇ بەتنى بەتكۈشكە قوش"
+msgstr "بۇ بەتنى خەتكۈچكە قوش"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "بەتكۈش ئۇلانمىسى"
+msgstr "خەتكۈش ئۇلانمىسى"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "تارىخنى تازىلاش"
+msgstr "ئىزنى تازىلا"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "يولباشچى تارىخى ئۇچۇرلارنى تازىلا"
+msgstr "بارلىق ئىزلارنى تازىلايدۇ"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -186,7 +184,7 @@ msgstr "كۆچۈر"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr "سۈرەت كۈچۈر"
+msgstr "سۈرەت كۆچۈر"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
@@ -206,7 +204,7 @@ msgstr "يۆتكەل"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "ئادىرىس;url;www url"
+msgstr "ئادرېس;URL;www"
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
@@ -216,11 +214,11 @@ msgstr "يېڭى بەتكۈچ"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "يېڭى بەتكۇچ ئاچ"
+msgstr "يېڭى بەتكۈچ ئاچ"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "سۈرەتنى يېڭى بەتكۇچتە ئاچ"
+msgstr "سۈرەتنى يېڭى بەتكۈچتە ئاچ"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -234,21 +232,21 @@ msgstr "قايتا يۈكلە"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "بەتتن ئايرىل"
+msgstr "بەتتىن ئايرىل"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "سۈرەت ساقلا"
 
 #: src/app/webbrowser/ActivityView.qml:54
 msgid "Bookmarks"
-msgstr "خەتكۈشلەر"
+msgstr "خەتكۈچلەر"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr "1%????????? ???????Currently viewing (%1)"
+msgstr "نۆۋەتتە كۆرۈلۈۋاتقىنى (%1)"
 
 #: src/app/webbrowser/TabsList.qml:68
 msgid "+"
@@ -296,36 +294,36 @@ msgstr "توركۆرگۈ"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr "توربەت زىيارەت قىلىش"
+msgstr "تور بەتلىرىنى كۆرۈش پروگراممىسى(توركۆرگۈ)"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:47
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "1%-%1 -?????????? ??? ??????? Ubuntu Web Browser"
+msgstr "%1 - ئۇبۇنتۇ تور كۆرگۈسى"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:49
 msgid "Ubuntu Web Browser"
-msgstr "ubuntuتور كۆرگۈسى"
+msgstr "ئۇبۇنتۇ تور كۆرگۈسى"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "يەرلىك ھېسابات تېپىلمىدى "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "ھېسابات قۇرۇش باسقۇچىدىن ئاتلاپ كەت"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "ھېسابات قوش"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "ھېساباتتىن بىرنى تاللاڭ"
 
 #: src/app/webcontainer/WebViewImplWebkit.qml:63
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "مەزكۇر بەت ئۈسكۈنىڭىزنىڭ ئورنىڭىزنى بىلمەكچى."
