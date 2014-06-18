@@ -47,7 +47,9 @@ Window {
         Component.onCompleted: i18n.domain = "webbrowser-app"
     }
 
-    visibility: browser.currentWebview && browser.currentWebview.fullscreen ? Window.FullScreen : Window.AutomaticVisibility
+    // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
+    // by toggling fullscreen on the window only on desktop.
+    visibility: browser.currentWebview && browser.currentWebview.fullscreen && (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
 
     function newTab(url, setCurrent) {
         return browser.openUrlInNewTab(url, setCurrent)
