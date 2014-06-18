@@ -27,6 +27,7 @@
 #include "history-limit-byvisits-model.h"
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
+#include "limit-proxy-model.h"
 #include "settings.h"
 #include "tabs-model.h"
 #include "webbrowser-app.h"
@@ -81,6 +82,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<HistoryLimitByVisitsModel>(uri, 0 , 1, "HistoryLimitByVisitsModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
+    qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
     qmlRegisterType<BookmarksChronologicalModel>(uri, 0, 1, "BookmarksChronologicalModel");

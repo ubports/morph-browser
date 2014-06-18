@@ -54,7 +54,7 @@ Item {
         limit: 5
     }
 
-    HistoryLimitByVisitsModel {
+    LimitProxyModel {
         id: historyListModel
 
         sourceModel: HistoryByVisitsModel {

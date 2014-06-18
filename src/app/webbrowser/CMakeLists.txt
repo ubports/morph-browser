@@ -18,6 +18,7 @@ set(WEBBROWSER_APP_MODELS_SRC
     history-byvisits-model.cpp
     history-limit-byvisits-model.cpp
     history-timeframe-model.cpp
+    limit-proxy-model.cpp
     tabs-model.cpp
 )
 
