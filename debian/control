@@ -78,7 +78,6 @@ Depends: ${misc:Depends},
          ${shlibs:Depends},
          libqt5webkit5-qmlwebkitplugin,
          qtdeclarative5-qtquick2-plugin,
-         qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets (>= ${source:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-ubuntu-web-plugin (= ${binary:Version}),
          qtdeclarative5-window-plugin,
@@ -89,16 +88,6 @@ Description: Ubuntu web QML plugin
  (versions 0.1 based on WebKit and 0.2 based on Oxide), in the
  Ubuntu.Components.Extras.Browser module.
 
-Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets
-Architecture: all
-Multi-Arch: foreign
-Depends: ${misc:Depends},
-Description: Ubuntu web QML plugin assets
- A standalone QML plugin that contains the UbuntuWebView component
- (versions 0.1 based on WebKit and 0.2 based on Oxide), in the
- Ubuntu.Components.Extras.Browser module. This package contains the
- PNGs used as UI elements by the plugin.
-
 Package: qtdeclarative5-ubuntu-web-plugin
 Architecture: any
 Multi-Arch: same
@@ -108,10 +97,21 @@ Depends: ${misc:Depends},
          liboxideqt-qmlplugin,
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
+         qtdeclarative5-ubuntu-web-plugin-assets (>= ${source:Version}),
          qtdeclarative5-window-plugin,
 Description: Ubuntu web QML plugin
  A standalone QML plugin that contains the WebView component,
  in the Ubuntu.Web module.
+
+Package: qtdeclarative5-ubuntu-web-plugin-assets
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends},
+Replaces: qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets
+Description: Ubuntu web QML plugin assets
+ A standalone QML plugin that contains the WebView component,
+ in the Ubuntu.Web module. This package contains the PNGs used
+ as UI elements by the plugin.
 
 Package: webbrowser-app-autopilot
 Architecture: all

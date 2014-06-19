@@ -13,9 +13,6 @@ qt5_use_modules(${PLUGIN} Core Gui Qml)
 file(GLOB QML_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.qml qmldir *.js)
 install(TARGETS ${PLUGIN} DESTINATION ${WEBBROWSER_IMPORTS_DIR})
 install(FILES ${QML_FILES} DESTINATION ${WEBBROWSER_IMPORTS_DIR})
-install(DIRECTORY assets
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/qtdeclarative5-ubuntu-ui-extras-browser-plugin
-        FILES_MATCHING PATTERN *.png)
 
 if(NOT ${CMAKE_CURRENT_BINARY_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
   # copy qml files and assets over to build dir to be able to import them uninstalled
