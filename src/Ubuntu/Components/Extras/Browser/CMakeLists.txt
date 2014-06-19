@@ -19,13 +19,11 @@ install(DIRECTORY assets
 
 if(NOT ${CMAKE_CURRENT_BINARY_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
   # copy qml files and assets over to build dir to be able to import them uninstalled
-  file(GLOB ASSETS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} assets/*)
-  set(copied ${QML_FILES} ${ASSETS})
-  foreach(_file ${copied})
+  foreach(_file ${QML_FILES})
     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_file}
                        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${_file}
                        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/${_file} ${CMAKE_CURRENT_BINARY_DIR}/${_file})
   endforeach(_file)
-  add_custom_target(copy_files_to_build_dir_legacy DEPENDS ${copied})
+  add_custom_target(copy_files_to_build_dir_legacy DEPENDS ${QML_FILES})
   add_dependencies(${PLUGIN} copy_files_to_build_dir_legacy)
 endif()

@@ -16,6 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+function elementContainedInBox(element, box) {
+    var rect = element.getBoundingClientRect();
+    return ((box.left <= rect.left) && (box.right >= rect.right) &&
+            (box.top <= rect.top) && (box.bottom >= rect.bottom));
+}
+
 function getImgFullUri(uri) {
     if ((uri.slice(0, 7) === 'http://') ||
         (uri.slice(0, 8) === 'https://') ||
@@ -98,15 +104,48 @@ function getSelectedData(element) {
     return data;
 }
 
+function adjustSelection(selection) {
+    // FIXME: allow selecting two consecutive blocks, instead of
+    // interpolating to the containing block.
+    var centerX = (selection.left + selection.right) / 2;
+    var centerY = (selection.top + selection.bottom) / 2;
+    var element = document.elementFromPoint(centerX, centerY);
+    var parent = element;
+    while (elementContainedInBox(parent, selection)) {
+        parent = parent.parentNode;
+    }
+    element = parent;
+    return getSelectedData(element);
+}
+
 document.documentElement.addEventListener('contextmenu', function(event) {
     var element = document.elementFromPoint(event.clientX, event.clientY);
     var data = getSelectedData(element);
     var w = document.defaultView;
     data['scaleX'] = w.outerWidth / w.innerWidth * w.devicePixelRatio;
     data['scaleY'] = w.outerHeight / w.innerHeight * w.devicePixelRatio;
-    oxide.sendMessage('contextmenu', data);
+    if (('img' in data) || ('href' in data)) {
+        oxide.sendMessage('contextmenu', data);
+    } else {
+        oxide.sendMessage('selection', data);
+    }
 });
 
 document.defaultView.addEventListener('scroll', function(event) {
     oxide.sendMessage('scroll', {});
+});
+
+oxide.addMessageHandler("adjustselection", function (msg) {
+    var w = document.defaultView;
+    var scaleX = w.outerWidth / w.innerWidth * w.devicePixelRatio;
+    var scaleY = w.outerHeight / w.innerHeight * w.devicePixelRatio;
+    var selection = new Object;
+    selection.left = msg.args.x / scaleX;
+    selection.right = selection.left + msg.args.width / scaleX;
+    selection.top = msg.args.y / scaleY;
+    selection.bottom = selection.top + msg.args.height / scaleY;
+    var adjusted = adjustSelection(selection);
+    adjusted['scaleX'] = scaleX;
+    adjusted['scaleY'] = scaleY;
+    msg.reply(adjusted);
 });
