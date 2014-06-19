@@ -261,7 +261,9 @@ Oxide.WebView {
 
         function dismissCurrentSelection() {
             if (currentSelection != null) {
-                currentSelection.destroy()
+                // For some reason a 0 delay fails to destroy the selection
+                // when it was requested upon a screen orientation change…
+                currentSelection.destroy(1)
             }
         }
     }
