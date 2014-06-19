@@ -160,27 +160,13 @@ Oxide.WebView {
             anchors.fill: parent
             property var mimedata: null
             property rect bounds
+            onBoundsChanged: {
+                rect.x = bounds.x
+                rect.y = bounds.y
+                rect.width = bounds.width
+                rect.height = bounds.height
+            }
             property Item actions: null
-            Binding {
-                target: rect
-                property: "x"
-                value: bounds.x
-            }
-            Binding {
-                target: rect
-                property: "y"
-                value: bounds.y
-            }
-            Binding {
-                target: rect
-                property: "width"
-                value: bounds.width
-            }
-            Binding {
-                target: rect
-                property: "height"
-                value: bounds.height
-            }
             Component {
                 id: selectionPopover
                 ActionSelectionPopover {
@@ -206,6 +192,8 @@ Oxide.WebView {
                 var msg = _webview.rootFrame.sendMessage("oxide://selection/", "adjustselection", args)
                 msg.onreply = function(response) {
                     internal.currentSelection.mimedata = internal.buildMimedata(response)
+                    // Ensure that the bounds are updated
+                    internal.currentSelection.bounds = Qt.rect(0, 0, 0, 0)
                     internal.currentSelection.bounds = internal.computeBounds(response)
                     internal.currentSelection.showActions()
                 }
