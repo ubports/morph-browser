@@ -27,12 +27,15 @@ Item {
     property real __minimumWidth: units.gu(5)
     property real __minimumHeight: units.gu(5)
 
+    readonly property bool resizing: __leftHandle.dragging || __topHandle.dragging || __rightHandle.dragging || __bottomHandle.dragging
+
     signal resized()
+    signal dismissed()
 
     MouseArea {
         anchors.fill: parent
         // dismiss the selection when tapping anywhere except for the handles
-        onClicked: __container.visible = false
+        onClicked: __container.dismissed()
     }
 
     Item {

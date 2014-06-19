@@ -160,6 +160,7 @@ Oxide.WebView {
             anchors.fill: parent
             property var mimedata: null
             property rect bounds
+            property Item actions: null
             Binding {
                 target: rect
                 property: "x"
@@ -183,11 +184,22 @@ Oxide.WebView {
             Component {
                 id: selectionPopover
                 ActionSelectionPopover {
+                    autoClose: false
                     actions: selectionActions
                 }
             }
             function showActions() {
-                PopupUtils.open(selectionPopover, rect)
+                if (actions != null) {
+                    actions.destroy()
+                }
+                actions = PopupUtils.open(selectionPopover, rect)
+            }
+            onResizingChanged: {
+                if (resizing) {
+                    if (actions != null) {
+                        actions.destroy()
+                    }
+                }
             }
             onResized: {
                 var args = {x: rect.x, y: rect.y, width: rect.width, height: rect.height}
@@ -201,6 +213,7 @@ Oxide.WebView {
                     internal.dismissCurrentSelection()
                 }
             }
+            onDismissed: internal.dismissCurrentSelection()
         }
     }
     function copy() {
