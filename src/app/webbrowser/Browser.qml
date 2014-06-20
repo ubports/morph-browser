@@ -239,10 +239,6 @@ BrowserView {
                     enabled: contextualData.href.toString()
                     onTriggered: Clipboard.push([contextualData.href])
                 }
-                Actions.ShareLink {
-                    enabled: contextualData.href.toString() && shareLoader.status == Loader.Ready
-                    onTriggered: shareLoader.item.shareLink(contextualData.href.toString())
-                }
                 Actions.OpenImageInNewTab {
                     enabled: contextualData.img.toString()
                     onTriggered: openUrlInNewTab(contextualData.img, true)
@@ -283,11 +279,6 @@ BrowserView {
     Loader {
         id: downloadLoader
         source: formFactor == "desktop" ? "" : "../Downloader.qml"
-    }
-
-    Loader {
-        id: shareLoader
-        source: formFactor == "desktop" ? "" : "../Share.qml"
     }
 
     function addTab(webview, setCurrent, focusAddressBar) {

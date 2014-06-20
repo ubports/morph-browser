@@ -33,14 +33,14 @@ Item {
         ContentItem { }
     }
 
-    function share(url, contentType) {
+    function share(url, name, contentType) {
         shareDialog.contentType = contentType
-        shareDialog.items.push(contentItemComponent.createObject(shareItem, {"url" : url}))
+        shareDialog.items.push(contentItemComponent.createObject(shareItem, {"url" : url, "name" : name}))
         shareDialog.show()
     }
 
-    function shareLink(url) {
-        share(url, ContentType.Links)
+    function shareLink(url, title) {
+        share(url, title, ContentType.Links)
     }
 
 }

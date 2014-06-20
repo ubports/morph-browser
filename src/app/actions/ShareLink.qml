@@ -19,5 +19,6 @@
 import Ubuntu.Components 0.1
 
 Action {
-    text: i18n.tr("Share link")
+    text: i18n.tr("Share...")
+    iconName: "share"
 }
