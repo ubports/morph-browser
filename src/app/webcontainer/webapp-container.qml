@@ -87,7 +87,9 @@ Window {
         }
     }
 
-    visibility: webappPageComponentLoader.item && webappPageComponentLoader.item.currentWebview.fullscreen ? Window.FullScreen : Window.AutomaticVisibility
+    // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
+    // by toggling fullscreen on the window only on desktop.
+    visibility: webappPageComponentLoader.item && webappPageComponentLoader.item.currentWebview.fullscreen && (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
         id: accountsPageComponentLoader
