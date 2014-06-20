@@ -1,3 +1,16 @@
+webbrowser-app (0.23+14.10.20140620-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Re-enable the geolocation permission request dialog, now that it is
+    implemented in oxide. Fix it in the webkit-based webapp container.
+    (LP: #1182658)
+  * Temporarily work around bug #1328839 in qtubuntu by not toggling
+    fullscreen on the window on devices. Once the Qt compositor work
+    lands (scheduled for mid July), the bug should be resolved and this
+    workaround can be removed. (LP: #1328839)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 20 Jun 2014 09:27:06 +0000
+
 webbrowser-app (0.23+14.10.20140618.3-0ubuntu1) utopic; urgency=low
 
   * New rebuild forced
