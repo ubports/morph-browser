@@ -115,6 +115,12 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += '} else { document.webkitExitFullscreen(); } });'
             html += '</script></html>'
             self.send_html(html)
+        elif self.path == "/geolocation":
+            self.send_response(200)
+            html = '<html><body><script>'
+            html += 'navigator.geolocation.getCurrentPosition('
+            html += 'function r(p) {});</script></body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 
