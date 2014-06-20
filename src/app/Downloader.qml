@@ -20,6 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.DownloadManager 0.1
 import Ubuntu.Content 0.1
+import "MimeTypeMapper.js" as MimeTypeMapper
 
 Item {
 
@@ -30,22 +31,26 @@ Item {
     SingleDownload {
         id: singleDownload
         autoStart: false
+        property var pendingHeaders;
         onDownloadIdChanged: {
+            headers = pendingHeaders
             downloadDialog.downloadId = singleDownload.downloadId
             downloadDialog.show()
         }
     }
 
-    function download(url, contentType) {
-        if(contentType) {
-            downloadDialog.contentType = contentType
-        } else {
-            downloaddialog.contentType = ContentType.All
-        }
+    function download(url, contentType, headers) {
+        downloadDialog.contentType = contentType
+        singleDownload.pendingHeaders = headers
         singleDownload.download(url)
     }
 
-    function downloadPicture(url) {
-        download(url, ContentType.Pictures)
+    function downloadPicture(url, headers) {
+        download(url, ContentType.Pictures, headers)
     }
+
+    function downloadMimeType(url, mimeType, headers) {
+        download(url, MimeTypeMapper.mimeTypeToContentType(mimeType), headers)
+    }
+
 }

@@ -37,9 +37,28 @@ WebView {
     beforeUnloadDialog: BeforeUnloadDialog {}
     filePicker: filePickerLoader.item
 
+    onDownloadRequested: {
+        if (downloadLoader.status == Loader.Ready) {
+            var headers = { }
+            if(request.cookies.length > 0) {
+                var cookies = ""
+                for(var i = 0; i < request.cookies.length; i++) {
+                    cookies += request.cookies[i]
+                }
+                headers["Cookie"] = cookies
+            }
+            downloadLoader.item.downloadMimeType(request.url, request.mimeType, headers)
+        }
+    }
+
     Loader {
         id: filePickerLoader
         source: formFactor == "desktop" ? "FilePickerDialog.qml" : "ContentPickerDialog.qml"
+    }
+
+    Loader {
+        id: downloadLoader
+        source: formFactor == "desktop" ? "" : "Downloader.qml"
     }
 
     /*selectionActions: ActionList {

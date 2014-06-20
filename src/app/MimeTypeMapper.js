@@ -27,6 +27,6 @@ function mimeTypeToContentType(mimeType) {
     } else if(mimeType.search("text/") === 0) {
         return ContentType.Documents;
     } else {
-        return ContentType.All;
+        return ContentType.Unknown;
     }
 }
