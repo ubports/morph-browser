@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-06 16:25+0100\n"
+"POT-Creation-Date: 2014-06-18 10:33+0200\n"
 "PO-Revision-Date: 2014-06-17 17:22+0000\n"
 "Last-Translator: Gheyret T.Kenji <Unknown>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-18 06:59+0000\n"
-"X-Generator: Launchpad (build 17045)\n"
+"X-Launchpad-Export-Date: 2014-06-21 06:28+0000\n"
+"X-Generator: Launchpad (build 17058)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -89,7 +89,7 @@ msgstr "كەينى"
 msgid "Forward"
 msgstr "ئالدى"
 
-#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:126 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr "پائالىيەت"
 
@@ -122,14 +122,22 @@ msgstr "بەتنى يېڭىلا"
 msgid "Please choose a file"
 msgstr "بىر ھۆججەت تاللاڭ"
 
+#: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr "ھوقۇق ئىلتىماسى"
 
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:69
+msgid "This page wants to know your device’s location."
+msgstr "مەزكۇر بەت ئۈسكۈنىڭىزنىڭ ئورنىڭىزنى بىلمەكچى."
+
+#: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr "رەت قىل"
 
+#: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "ئىجازەت"
@@ -248,39 +256,39 @@ msgstr "خەتكۈچلەر"
 msgid "Currently viewing (%1)"
 msgstr "نۆۋەتتە كۆرۈلۈۋاتقىنى (%1)"
 
-#: src/app/webbrowser/TabsList.qml:68
+#: src/app/webbrowser/TabsList.qml:69
 msgid "+"
 msgstr "+"
 
-#: src/app/webbrowser/TimelineView.qml:84
+#: src/app/webbrowser/TimelineView.qml:87
 msgid "Today"
 msgstr "بۈگۈن"
 
-#: src/app/webbrowser/TimelineView.qml:86
+#: src/app/webbrowser/TimelineView.qml:89
 msgid "Yesterday"
 msgstr "تۈنۈگۈن"
 
-#: src/app/webbrowser/TimelineView.qml:88
+#: src/app/webbrowser/TimelineView.qml:91
 msgid "Last 7 Days"
 msgstr "ئالدىنقى 7كۈن"
 
-#: src/app/webbrowser/TimelineView.qml:90
+#: src/app/webbrowser/TimelineView.qml:93
 msgid "This Month"
 msgstr "بۇ ئاي"
 
-#: src/app/webbrowser/TimelineView.qml:92
+#: src/app/webbrowser/TimelineView.qml:95
 msgid "This Year"
 msgstr "بۇ يىل"
 
-#: src/app/webbrowser/TimelineView.qml:94
+#: src/app/webbrowser/TimelineView.qml:97
 msgid "Older"
 msgstr "كونا"
 
-#: src/app/webbrowser/TimelineView.qml:277
+#: src/app/webbrowser/TimelineView.qml:287
 msgid "(local files)"
 msgstr "(يەرلىك ھۆججەتلەر)"
 
-#: src/app/webbrowser/TimelineView.qml:279
+#: src/app/webbrowser/TimelineView.qml:289
 msgid "(other)"
 msgstr "باشقا"
 
@@ -298,13 +306,13 @@ msgstr "تور بەتلىرىنى كۆرۈش پروگراممىسى(توركۆر
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - ئۇبۇنتۇ تور كۆرگۈسى"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:49
+#: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "ئۇبۇنتۇ تور كۆرگۈسى"
 
@@ -323,7 +331,3 @@ msgstr "ھېسابات قوش"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "ھېساباتتىن بىرنى تاللاڭ"
-
-#: src/app/webcontainer/WebViewImplWebkit.qml:63
-msgid "This page wants to know your device’s location."
-msgstr "مەزكۇر بەت ئۈسكۈنىڭىزنىڭ ئورنىڭىزنى بىلمەكچى."
