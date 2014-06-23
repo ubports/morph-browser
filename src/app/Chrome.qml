@@ -98,12 +98,12 @@ Item {
     Component {
         id: addressBarPopover
         ActionSelectionPopover {
-            actions: [
+            actions: ActionList {
                 Actions.ShareLink {
                     enabled: chrome.url && shareLoader.status == Loader.Ready
                     onTriggered: shareLoader.item.shareLink(chrome.url, chrome.title)
                 }    
-            ]
+            }
         }
     }
 
