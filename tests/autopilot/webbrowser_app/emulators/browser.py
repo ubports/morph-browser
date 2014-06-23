@@ -27,6 +27,9 @@ class Browser(uitk.MainView):
     An emulator class that makes it easy to interact with the webbrowser app.
     """
 
+    def get_window(self):
+        return self.get_parent()
+
     def get_toolbar(self):
         # Overridden since the browser doesn’t use the MainView’s Toolbar.
         return self.select_single(Panel)
@@ -100,3 +103,6 @@ class Browser(uitk.MainView):
         tabs = view.select_many("PageDelegate", objectName="openTabDelegate")
         tabs.sort(key=lambda tab: tab.x)
         return tabs
+
+    def get_geolocation_dialog(self):
+        return self.wait_select_single("GeolocationPermissionRequest")
