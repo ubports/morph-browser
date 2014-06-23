@@ -41,7 +41,8 @@ public:
     enum Roles {
         Url = Qt::UserRole + 1,
         Title,
-        Icon
+        Icon,
+        Created
     };
 
     // reimplemented from QAbstractListModel
@@ -68,6 +69,7 @@ private:
         QUrl url;
         QString title;
         QUrl icon;
+        quint64 created;
     };
     QMap<QUrl, BookmarkEntry> m_entries;
 
