@@ -101,6 +101,26 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += '<div style="height: 100%"></div></a>'
             html += '</body></html>'
             self.send_html(html)
+        elif self.path == "/fullscreen":
+            # craft a page that accepts clicks anywhere inside its window
+            # to toggle fullscreen mode on/off
+            self.send_response(200)
+            html = '<html><body style="margin: 0">'
+            html += '<a id="fullscreen"><div style="height: 100%"></div></a>'
+            html += '</body><script>'
+            html += 'document.getElementById("fullscreen").addEventListener('
+            html += '"click", function(event) { '
+            html += 'if (!document.webkitFullscreenElement) { '
+            html += 'document.documentElement.webkitRequestFullscreen(); '
+            html += '} else { document.webkitExitFullscreen(); } });'
+            html += '</script></html>'
+            self.send_html(html)
+        elif self.path == "/geolocation":
+            self.send_response(200)
+            html = '<html><body><script>'
+            html += 'navigator.geolocation.getCurrentPosition('
+            html += 'function r(p) {});</script></body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 
