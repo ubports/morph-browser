@@ -56,6 +56,7 @@ Loader {
         id: panelComponent
 
         Panel {
+            id: panelItem
             anchors {
                 left: parent ? parent.left : undefined
                 right: parent ? parent.right : undefined
@@ -75,6 +76,7 @@ Loader {
                 id: chrome
 
                 anchors.fill: parent
+                property Panel panel: panelItem
 
                 Connections {
                     target: chromePanel

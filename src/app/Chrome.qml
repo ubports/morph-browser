@@ -40,6 +40,18 @@ Item {
     signal requestStop()
     signal toggleTabsClicked()
 
+    property string realUrl
+    Connections {
+        target: panel
+        onOpenedChanged: {
+            if (opened) {
+                var urlRegexp = /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/
+                var match = url.toString().match(urlRegexp);
+                if (match && match.length >= 3) addressBar.text = match[3];
+            }
+        }
+    }
+
     QtObject {
         id: internal
         // Arbitrary threshold for narrow screens.
@@ -108,6 +120,7 @@ Item {
         onRequestReload: chrome.requestReload()
         onRequestStop: chrome.requestStop()
         visible: addressBarVisible
+        onTextFieldFocused: text = chrome.url
     }
 
     ToolbarButton {

@@ -29,6 +29,7 @@ FocusScope {
     property bool loading
     signal requestReload()
     signal requestStop()
+    signal textFieldFocused()
 
     height: textField.height
 
@@ -106,7 +107,10 @@ FocusScope {
                 cursorPosition = 0
             }
         }
-        onActiveFocusChanged: ensureSchemeVisibleWhenUnfocused()
+        onActiveFocusChanged: {
+            ensureSchemeVisibleWhenUnfocused();
+            if (activeFocus) addressBar.textFieldFocused();
+        }
         onTextChanged: ensureSchemeVisibleWhenUnfocused()
 
         // Make sure that all the text is selected at the first click
