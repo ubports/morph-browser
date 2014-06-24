@@ -25,6 +25,7 @@
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtSql/QSqlDatabase>
+#include <QDateTime>
 
 class BookmarksModel : public QAbstractListModel
 {
@@ -69,9 +70,12 @@ private:
         QUrl url;
         QString title;
         QUrl icon;
-        quint64 created;
+        QDateTime created;
+
+        inline bool operator==(BookmarkEntry a) { return this->url == a.url; }
     };
     QMap<QUrl, BookmarkEntry> m_entries;
+    QList<BookmarkEntry> m_orderedEntries;
 
     void resetDatabase(const QString& databaseName);
     void createDatabaseSchema();
