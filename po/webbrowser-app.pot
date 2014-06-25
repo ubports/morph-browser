@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-23 12:57+0100\n"
+"POT-Creation-Date: 2014-06-25 17:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,7 +89,7 @@ msgstr ""
 msgid "Forward"
 msgstr ""
 
-#: src/app/Chrome.qml:154 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:157 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr ""
 
@@ -245,7 +245,7 @@ msgid "Save image"
 msgstr ""
 
 #: src/app/actions/ShareLink.qml:22
-msgid "Share..."
+msgid "Share…"
 msgstr ""
 
 #: src/app/webbrowser/ActivityView.qml:54
