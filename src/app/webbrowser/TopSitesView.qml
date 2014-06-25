@@ -60,7 +60,7 @@ Item {
             sourceModel: topSitesView.bookmarksModel
         }
 
-        limit: seeMoreBookmarksView ? -1 : 3
+        limit: seeMoreBookmarksView ? -1 : 5
     }
 
     LimitProxyModel {
@@ -111,8 +111,10 @@ Item {
             anchors {
                 left: parent.left
                 right: parent.right
+                margins: units.gu(2)
             }
 
+            width: parent.width
             height: children.height
 
             sourceComponent: modelData == "bookmarks" ? bookmarksComponent : topSitesComponent
@@ -160,12 +162,6 @@ Item {
         id: topSitesComponent
 
         Flow {
-            anchors {
-                left: parent.left
-                right: parent.right
-                margins: units.gu(2)
-            }
-
             width: parent.width
 
             spacing: units.gu(1)

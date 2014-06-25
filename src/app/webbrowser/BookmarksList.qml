@@ -28,12 +28,6 @@ Column {
     signal bookmarkClicked(url url)
     signal footerLabelClicked()
 
-    anchors {
-        left: parent.left
-        right: parent.right
-        margins: units.gu(2)
-    }
-
     width: parent.width
 
     spacing: units.gu(1)
