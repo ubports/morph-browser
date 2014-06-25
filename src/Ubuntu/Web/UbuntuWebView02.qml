@@ -283,6 +283,8 @@ Oxide.WebView {
         internal.dismissCurrentSelection()
     }
 
+    onFullscreenRequested: _webview.fullscreen = fullscreen
+
     onJavaScriptConsoleMessage: {
         var msg = "[JS] (%1:%2) %3".arg(sourceId).arg(lineNumber).arg(message)
         if (level === Oxide.WebView.LogSeverityVerbose) {
