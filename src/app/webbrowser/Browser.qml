@@ -88,18 +88,7 @@ BrowserView {
             bookmarksModel: bookmarksModel
 
             onBookmarkRequested: internal.onTopSiteRequested(url)
-            onSeeMoreBookmarksRequested: bookmarksListSheet.visible = true
             onHistoryEntryRequested: internal.onTopSiteRequested(url)
-        }
-
-        BookmarksListSheet {
-            id: bookmarksListSheet
-            anchors.fill: webviewContainer
-            visible: false
-            bookmarksModel: bookmarksModel
-
-            onBookmarkRequested: internal.onTopSiteRequested(url)
-            onSeeLessBookmarksRequested: visible = false
         }
     }
 

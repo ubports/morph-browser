@@ -26,7 +26,6 @@ Rectangle {
     property alias historyModel: topSitesView.historyModel
 
     signal bookmarkRequested(url url)
-    signal seeMoreBookmarksRequested()
     signal historyEntryRequested(url url)
 
     TopSitesView {
@@ -35,7 +34,6 @@ Rectangle {
         anchors.fill: parent
 
         onBookmarkClicked: topSitesSheet.bookmarkRequested(url)
-        onSeeMoreBookmarksClicked: topSitesSheet.seeMoreBookmarksRequested()
         onHistoryEntryClicked: topSitesSheet.historyEntryRequested(url)
     }
 }

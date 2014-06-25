@@ -27,18 +27,26 @@ Item {
     property QtObject bookmarksModel
     property QtObject historyModel
 
+    property bool seeMoreBookmarksView: false
+
     signal bookmarkClicked(url url)
-    signal seeMoreBookmarksClicked()
     signal historyEntryClicked(url url)
 
+    function updateSectionsDisplayed() {
+        sectionsModel.clear()
+        if (bookmarksListModel && bookmarksListModel.count !== 0)
+            sectionsModel.append({ section: "bookmarks" });
+        if (historyListModel && historyListModel.count !== 0 && !seeMoreBookmarksView )
+            sectionsModel.append({ section: "topsites" });
+    }
+
+    onSeeMoreBookmarksViewChanged: {
+        updateSectionsDisplayed();
+    }
+
     onVisibleChanged: {
-        if (visible && bookmarksListModel) {
-            sectionsModel.clear()
-            if (bookmarksListModel.count !== 0)
-                sectionsModel.append({ section: "bookmarks" });
-            if (historyListModel.count !== 0)
-                sectionsModel.append({ section: "topsites" });
-        }
+        if (visible)
+            updateSectionsDisplayed();
     }
 
     ListModel {
@@ -51,7 +59,8 @@ Item {
         sourceModel: BookmarksChronologicalModel {
             sourceModel: topSitesView.bookmarksModel
         }
-        limit: 5
+
+        limit: seeMoreBookmarksView ? -1 : 3
     }
 
     LimitProxyModel {
@@ -140,10 +149,10 @@ Item {
         BookmarksList {
             model: bookmarksListModel
 
-            footerLabelText: i18n.tr("see more")
+            footerLabelText: seeMoreBookmarksView ? i18n.tr("see less") : i18n.tr("see more")
 
             onBookmarkClicked: topSitesView.bookmarkClicked(url)
-            onFooterLabelClicked: topSitesView.seeMoreBookmarksClicked()
+            onFooterLabelClicked: seeMoreBookmarksView = !seeMoreBookmarksView
         }
     }
 
