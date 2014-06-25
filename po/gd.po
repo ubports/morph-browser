@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-06 16:25+0100\n"
+"POT-Creation-Date: 2014-06-18 10:33+0200\n"
 "PO-Revision-Date: 2014-05-17 21:10+0000\n"
 "Last-Translator: Akerbeltz <fios@akerbeltz.org>\n"
 "Language-Team: Gaelic; Scottish <gd@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-17 06:48+0000\n"
-"X-Generator: Launchpad (build 17045)\n"
+"X-Launchpad-Export-Date: 2014-06-21 06:27+0000\n"
+"X-Generator: Launchpad (build 17058)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -91,7 +91,7 @@ msgstr "Air ais"
 msgid "Forward"
 msgstr "Air adhart"
 
-#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:126 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr "Gnìomhachd"
 
@@ -124,14 +124,22 @@ msgstr "Ath-nuadhaich an duilleag"
 msgid "Please choose a file"
 msgstr "Tagh faidhle"
 
+#: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr "Iarrtas cead"
 
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:69
+msgid "This page wants to know your device’s location."
+msgstr "Bu toigh leis an duilleag seo fiosrachadh air ionad an uidheim agad."
+
+#: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr "Diùlt e"
 
+#: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "Ceadaich"
@@ -250,39 +258,39 @@ msgstr "Comharran-lìn"
 msgid "Currently viewing (%1)"
 msgstr "A' coimhead air %1 dhiubh an-dràsta"
 
-#: src/app/webbrowser/TabsList.qml:68
+#: src/app/webbrowser/TabsList.qml:69
 msgid "+"
 msgstr "+"
 
-#: src/app/webbrowser/TimelineView.qml:84
+#: src/app/webbrowser/TimelineView.qml:87
 msgid "Today"
 msgstr "An-diugh"
 
-#: src/app/webbrowser/TimelineView.qml:86
+#: src/app/webbrowser/TimelineView.qml:89
 msgid "Yesterday"
 msgstr "An-dè"
 
-#: src/app/webbrowser/TimelineView.qml:88
+#: src/app/webbrowser/TimelineView.qml:91
 msgid "Last 7 Days"
 msgstr "Na 7 làithean seo chaidh"
 
-#: src/app/webbrowser/TimelineView.qml:90
+#: src/app/webbrowser/TimelineView.qml:93
 msgid "This Month"
 msgstr "Am mìos seo"
 
-#: src/app/webbrowser/TimelineView.qml:92
+#: src/app/webbrowser/TimelineView.qml:95
 msgid "This Year"
 msgstr "Am bliadhna"
 
-#: src/app/webbrowser/TimelineView.qml:94
+#: src/app/webbrowser/TimelineView.qml:97
 msgid "Older"
 msgstr "Nas sine"
 
-#: src/app/webbrowser/TimelineView.qml:277
+#: src/app/webbrowser/TimelineView.qml:287
 msgid "(local files)"
 msgstr "(faidhlichean ionadail)"
 
-#: src/app/webbrowser/TimelineView.qml:279
+#: src/app/webbrowser/TimelineView.qml:289
 msgid "(other)"
 msgstr "(feadhainn eile)"
 
@@ -300,13 +308,13 @@ msgstr "Brabhsaich an t-eadar-lìon"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Brabhsair-lìn Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:49
+#: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "Brabhsair-lìn Ubuntu"
 
@@ -325,7 +333,3 @@ msgstr "Cuir cunntas ris"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Tagh cunntas"
-
-#: src/app/webcontainer/WebViewImplWebkit.qml:63
-msgid "This page wants to know your device’s location."
-msgstr "Bu toigh leis an duilleag seo fiosrachadh air ionad an uidheim agad."

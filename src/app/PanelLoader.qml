@@ -63,6 +63,7 @@ Loader {
             }
             height: units.gu(8)
 
+            locked: chromePanel.currentWebview ? chromePanel.currentWebview.fullscreen : false
             Component.onCompleted: open()
             onOpenedChanged: {
                 if (!opened) {
@@ -141,6 +142,15 @@ Loader {
                 }
 
                 onToggleTabsClicked: toggleActivityViewClicked()
+            }
+        }
+    }
+
+    Connections {
+        target: chromePanel.currentWebview
+        onFullscreenChanged: {
+            if (chromePanel.currentWebview.fullscreen) {
+                chromePanel.close()
             }
         }
     }

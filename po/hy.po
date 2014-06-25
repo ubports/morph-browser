@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-06 16:25+0100\n"
+"POT-Creation-Date: 2014-06-18 10:33+0200\n"
 "PO-Revision-Date: 2013-07-08 16:41+0000\n"
 "Last-Translator: iAbaS <sosabazyan@yandex.ru>\n"
 "Language-Team: Armenian <hy@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-17 06:48+0000\n"
-"X-Generator: Launchpad (build 17045)\n"
+"X-Launchpad-Export-Date: 2014-06-21 06:27+0000\n"
+"X-Generator: Launchpad (build 17058)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -89,7 +89,7 @@ msgstr "Ետ"
 msgid "Forward"
 msgstr "Առաջ"
 
-#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:126 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr "Գործունեություն"
 
@@ -120,14 +120,22 @@ msgstr "Թարմացնել էջը"
 msgid "Please choose a file"
 msgstr ""
 
+#: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr ""
 
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:69
+msgid "This page wants to know your device’s location."
+msgstr ""
+
+#: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr ""
 
+#: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr ""
@@ -246,39 +254,39 @@ msgstr ""
 msgid "Currently viewing (%1)"
 msgstr ""
 
-#: src/app/webbrowser/TabsList.qml:68
+#: src/app/webbrowser/TabsList.qml:69
 msgid "+"
 msgstr "+"
 
-#: src/app/webbrowser/TimelineView.qml:84
+#: src/app/webbrowser/TimelineView.qml:87
 msgid "Today"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:86
+#: src/app/webbrowser/TimelineView.qml:89
 msgid "Yesterday"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:88
+#: src/app/webbrowser/TimelineView.qml:91
 msgid "Last 7 Days"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:90
+#: src/app/webbrowser/TimelineView.qml:93
 msgid "This Month"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:92
+#: src/app/webbrowser/TimelineView.qml:95
 msgid "This Year"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:94
+#: src/app/webbrowser/TimelineView.qml:97
 msgid "Older"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:277
+#: src/app/webbrowser/TimelineView.qml:287
 msgid "(local files)"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:279
+#: src/app/webbrowser/TimelineView.qml:289
 msgid "(other)"
 msgstr ""
 
@@ -296,13 +304,13 @@ msgstr "Մտնել ինտերնետ"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu Վեբ Բրոուզեր"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:49
+#: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Վեբ Բրոուզեր"
 
@@ -320,8 +328,4 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
-
-#: src/app/webcontainer/WebViewImplWebkit.qml:63
-msgid "This page wants to know your device’s location."
 msgstr ""

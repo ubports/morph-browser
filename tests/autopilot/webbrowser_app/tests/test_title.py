@@ -26,11 +26,5 @@ class TestWindowTitle(StartOpenRemotePageTestCaseBase):
 
     def test_window_title(self):
         self.go_to_url(self.base_url + "/aleaiactaest")
-        #window = self.app.select_single("QQuickWindow")
-        # XXX: for some reason, autopilot finds two instances of QQuickWindow.
-        # One is the correct one, and the other one is not visible, its
-        # dimensions are 0×0, it has no title, its parent is the webbrowser-app
-        # object, and it has no children.
-        # See https://bugs.launchpad.net/bugs/1248620.
-        window = self.app.select_single("QQuickWindow", visible=True)
-        self.assertThat(window.title, Eventually(Contains("Alea Iacta Est")))
+        self.assertThat(self.main_window.get_window().title,
+                        Eventually(Contains("Alea Iacta Est")))
