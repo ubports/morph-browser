@@ -170,6 +170,7 @@ Oxide.WebView {
             Component {
                 id: selectionPopover
                 ActionSelectionPopover {
+                    objectName: "selectionActions"
                     autoClose: false
                     actions: selectionActions
                 }

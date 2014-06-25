@@ -106,3 +106,18 @@ class Browser(uitk.MainView):
 
     def get_geolocation_dialog(self):
         return self.wait_select_single("GeolocationPermissionRequest")
+
+    def get_selection(self):
+        return self.wait_select_single("Selection")
+
+    def get_selection_rectangle(self):
+        selection = self.get_selection()
+        return selection.select_single("QQuickItem", objectName="rectangle")
+
+    def get_selection_actions(self):
+        return self.wait_select_single("ActionSelectionPopover",
+                                       objectName="selectionActions")
+
+    def get_selection_handle(self, name):
+        selection = self.get_selection()
+        return selection.select_single("SelectionHandle", objectName=name)

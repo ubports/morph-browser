@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -40,6 +40,7 @@ Item {
 
     Item {
         id: __rect
+        objectName: "rectangle"
     }
 
     Rectangle {
@@ -94,6 +95,7 @@ Item {
 
     SelectionHandle {
         id: __leftHandle
+        objectName: "leftHandle"
         axis: Drag.XAxis
         x: __rect.x - width / 2
         y: (__topHandle.y + __bottomHandle.y) / 2
@@ -110,6 +112,7 @@ Item {
 
     SelectionHandle {
         id: __topHandle
+        objectName: "topHandle"
         axis: Drag.YAxis
         x: (__leftHandle.x + __rightHandle.x) / 2
         y: __rect.y - height / 2
@@ -126,6 +129,7 @@ Item {
 
     SelectionHandle {
         id: __rightHandle
+        objectName: "rightHandle"
         axis: Drag.XAxis
         x: __rect.x + __rect.width - width / 2
         y: (__topHandle.y + __bottomHandle.y) / 2
@@ -141,6 +145,7 @@ Item {
 
     SelectionHandle {
         id: __bottomHandle
+        objectName: "bottomHandle"
         axis: Drag.YAxis
         x: (__leftHandle.x + __rightHandle.x) / 2
         y: __rect.y + __rect.height - height / 2
