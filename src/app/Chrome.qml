@@ -100,7 +100,6 @@ Item {
         ActionSelectionPopover {
             actions: ActionList {
                 Actions.ShareLink {
-                    enabled: chrome.url && shareLoader.status == Loader.Ready
                     onTriggered: shareLoader.item.shareLink(chrome.url, chrome.title)
                 }    
             }
@@ -134,7 +133,11 @@ Item {
         onValidated: chrome.urlValidated(requestedUrl)
         onRequestReload: chrome.requestReload()
         onRequestStop: chrome.requestStop()
-        onPressAndHold: PopupUtils.open(addressBarPopover, addressBarPopOverPositioner)
+        onPressAndHold: {
+            if (chrome.url && shareLoader.status == Loader.Ready) {
+                PopupUtils.open(addressBarPopover, addressBarPopOverPositioner)
+            }
+        }
         visible: addressBarVisible
     }
 
