@@ -67,8 +67,8 @@ class TestSelection(StartOpenRemotePageTestCaseBase):
 
         # Grow selection to the right
         handle = self.selection.get_handle("rightHandle")
-        x0 = handle.globalRect.x
-        y0 = handle.globalRect.y
+        x0 = handle.globalRect.x + int(handle.globalRect.width / 2)
+        y0 = handle.globalRect.y + int(handle.globalRect.height / 2)
         x1 = int((x0 + webview.globalRect.x + webview.globalRect.width) / 2)
         y1 = y0
         self.pointing_device.drag(x0, y0, x1, y1)
@@ -81,8 +81,8 @@ class TestSelection(StartOpenRemotePageTestCaseBase):
 
         # Shrink selection from the top
         handle = self.selection.get_handle("topHandle")
-        x0 = handle.globalRect.x
-        y0 = handle.globalRect.y
+        x0 = handle.globalRect.x + int(handle.globalRect.width / 2)
+        y0 = handle.globalRect.y + int(handle.globalRect.height / 2)
         x1 = x0
         y1 = webview.globalRect.y + int(webview.globalRect.height / 2)
         self.pointing_device.drag(x0, y0, x1, y1)
