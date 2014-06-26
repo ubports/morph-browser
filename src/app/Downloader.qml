@@ -31,9 +31,7 @@ Item {
     SingleDownload {
         id: singleDownload
         autoStart: false
-        property var pendingHeaders;
         onDownloadIdChanged: {
-            headers = pendingHeaders
             downloadDialog.downloadId = singleDownload.downloadId
             downloadDialog.show()
         }
@@ -41,7 +39,7 @@ Item {
 
     function download(url, contentType, headers) {
         downloadDialog.contentType = contentType
-        singleDownload.pendingHeaders = headers
+        singleDownload.headers = headers
         singleDownload.download(url)
     }
 
