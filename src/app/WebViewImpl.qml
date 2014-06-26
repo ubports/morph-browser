@@ -41,11 +41,7 @@ WebView {
         if (downloadLoader.status == Loader.Ready) {
             var headers = { }
             if(request.cookies.length > 0) {
-                var cookies = ""
-                for(var i = 0; i < request.cookies.length; i++) {
-                    cookies += request.cookies[i]
-                }
-                headers["Cookie"] = cookies
+                headers["Cookie"] = request.cookies.join(";")
             }
             if(request.referrer) {
                 headers["Referer"] = request.referrer
