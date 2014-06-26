@@ -107,7 +107,6 @@ Package: qtdeclarative5-ubuntu-web-plugin-assets
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends},
-Replaces: qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets
 Description: Ubuntu web QML plugin assets
  A standalone QML plugin that contains the WebView component,
  in the Ubuntu.Web module. This package contains the PNGs used
