@@ -79,12 +79,12 @@ class TestSelection(StartOpenRemotePageTestCaseBase):
         self.actions.wait_until_destroyed()
         self.actions = self.main_window.get_selection_actions()
 
-        # Shrink selection from the top
-        handle = self.selection.get_handle("topHandle")
+        # Shrink selection from the bottom
+        handle = self.selection.get_handle("bottomHandle")
         x0 = handle.globalRect.x + int(handle.globalRect.width / 2)
         y0 = handle.globalRect.y + int(handle.globalRect.height / 2)
         x1 = x0
-        y1 = webview.globalRect.y + int(webview.globalRect.height / 2)
+        y1 = webview.globalRect.y + int(webview.globalRect.height * 0.6)
         self.pointing_device.drag(x0, y0, x1, y1)
         self.assertThat(self.rectangle.globalRect, Eventually(Equals(rect)))
         self.actions.wait_until_destroyed()

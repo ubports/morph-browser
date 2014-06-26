@@ -123,7 +123,7 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             self.send_html(html)
         elif self.path == "/selection":
             self.send_response(200)
-            html = '<html><body style="margin: 5%">'
+            html = '<html><body style="margin: 10%">'
             html += '<div style="position: absolute; width: 50%; height: 50%; '
             html += 'top: 25%; left: 25%"></div></body></html>'
             self.send_html(html)
