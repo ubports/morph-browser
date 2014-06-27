@@ -75,6 +75,7 @@ Loader {
                 id: chrome
 
                 anchors.fill: parent
+                title: currentWebview.title
 
                 Connections {
                     target: chromePanel
