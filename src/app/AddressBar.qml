@@ -29,6 +29,7 @@ FocusScope {
     property bool loading
     signal requestReload()
     signal requestStop()
+    signal pressAndHold()
 
     height: textField.height
 
@@ -119,6 +120,9 @@ FocusScope {
             onClicked: {
                 textField.forceActiveFocus()
                 textField.selectAll()
+            }
+            onPressAndHold: {
+                addressbar.pressAndHold()
             }
         }
     }
