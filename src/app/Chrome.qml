@@ -18,6 +18,8 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Popups 0.1
+import "actions" as Actions
 
 Item {
     id: chrome
@@ -25,6 +27,7 @@ Item {
     property alias url: addressBar.actualUrl
     signal urlValidated(url url)
     property alias addressBar: addressBar
+    property string title
     property alias loading: addressBar.loading
     property alias loadProgress: progressBar.value
     property alias canGoBack: backButton.enabled
@@ -92,6 +95,29 @@ Item {
         onTriggered: chrome.goForwardClicked()
     }
 
+    Component {
+        id: addressBarPopover
+        ActionSelectionPopover {
+            actions: ActionList {
+                Actions.ShareLink {
+                    onTriggered: shareLoader.item.shareLink(chrome.url, chrome.title)
+                }    
+            }
+        }
+    }
+
+    Item {
+        id: addressBarPopOverPositioner
+        anchors.bottom: addressBar.top
+        anchors.horizontalCenter: addressBar.horizontalCenter
+        visible: false
+    }
+
+    Loader {
+        id: shareLoader
+        source: formFactor == "desktop" ? "" : "Share.qml"
+    }
+
     AddressBar {
         id: addressBar
         objectName: "addressBar"
@@ -107,6 +133,11 @@ Item {
         onValidated: chrome.urlValidated(requestedUrl)
         onRequestReload: chrome.requestReload()
         onRequestStop: chrome.requestStop()
+        onPressAndHold: {
+            if (chrome.url && shareLoader.status == Loader.Ready) {
+                PopupUtils.open(addressBarPopover, addressBarPopOverPositioner)
+            }
+        }
         visible: addressBarVisible
     }
 
