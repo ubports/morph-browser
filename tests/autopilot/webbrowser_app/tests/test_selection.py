@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import time
 from autopilot.platform import model
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals, GreaterThan, LessThan
@@ -29,10 +30,13 @@ class TestSelection(StartOpenRemotePageTestCaseBase):
         self.go_to_url(url)
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
+        self.pointing_device.move_to_object(webview)
         if model() == 'Desktop':
-            self.pointing_device.click_object(webview, button=3)
+            self.pointing_device.click(button=3)
         else:
-            self.pointing_device.click_object(webview, press_duration=1.5)
+            self.pointing_device.press()
+            time.sleep(1.5)
+            self.pointing_device.release()
         self.selection = self.main_window.get_selection()
         self.rectangle = self.selection.get_rectangle()
         self.assertThat(self.rectangle.width, LessThan(webview.width))

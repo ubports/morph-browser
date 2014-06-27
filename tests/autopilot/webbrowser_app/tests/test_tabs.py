@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import time
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
@@ -44,7 +45,10 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         previous_state = view.state
         self.assertIn(previous_state, ('', 'close'))
         tab = self.main_window.get_tabslist_view_delegates()[0]
-        self.pointing_device.click_object(tab, press_duration=1)
+        self.pointing_device.move_to_object(tab)
+        self.pointing_device.press()
+        time.sleep(1)
+        self.pointing_device.release()
         if (previous_state == ''):
             self.assertThat(view.state, Eventually(Equals('close')))
         elif (previous_state == 'close'):
