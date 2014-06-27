@@ -40,6 +40,8 @@ LimitProxyModel::LimitProxyModel(QObject* parent)
     connect(this, SIGNAL(modelReset()), SIGNAL(countChanged()));
     connect(this, SIGNAL(rowsInserted(QModelIndex,int,int)), SIGNAL(countChanged()));
     connect(this, SIGNAL(rowsRemoved(QModelIndex,int,int)), SIGNAL(countChanged()));
+    connect(this, SIGNAL(rowsInserted(QModelIndex,int,int)), SIGNAL(unlimitedCountChanged()));
+    connect(this, SIGNAL(rowsRemoved(QModelIndex,int,int)), SIGNAL(unlimitedCountChanged()));
 }
 
 QAbstractItemModel* LimitProxyModel::sourceModel() const
@@ -86,6 +88,14 @@ int LimitProxyModel::rowCount(const QModelIndex &parent) const
 
     const int unlimitedCount = QIdentityProxyModel::rowCount(parent);
     return m_limit < 0 ? unlimitedCount : qMin(m_limit, unlimitedCount);
+}
+
+int LimitProxyModel::unlimitedRowCount(const QModelIndex &parent) const
+{
+    if (parent.isValid()) // We are not a tree
+        return 0;
+
+    return QIdentityProxyModel::rowCount(parent);
 }
 
 int LimitProxyModel::limit() const

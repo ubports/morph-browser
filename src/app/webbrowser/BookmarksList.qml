@@ -24,6 +24,7 @@ Column {
 
     property alias model: bookmarksListRepeater.model
     property alias footerLabelText: footerLabel.text
+    property alias footerLabelVisible: footerLabel.visible
 
     signal bookmarkClicked(url url)
     signal footerLabelClicked()
@@ -49,7 +50,7 @@ Column {
 
     Rectangle {
         width: parent.width
-        height: footerLabel.height + units.gu(6)
+        height: footerLabel.visible ? footerLabel.height + units.gu(6) : 0
 
         MouseArea {
             anchors.centerIn: footerLabel
@@ -57,12 +58,16 @@ Column {
             width: footerLabel.width + units.gu(4)
             height: footerLabel.height + units.gu(4)
 
+            enabled: footerLabel.visible
+
             onClicked: footerLabelClicked()
         }
 
         Label {
             id: footerLabel
             anchors.centerIn: parent
+
+            visible: true
 
             font.bold: true
         }

@@ -89,6 +89,7 @@ private Q_SLOTS:
         history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
 
         QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->unlimitedRowCount(), 3);
     }
 };
 

@@ -27,6 +27,7 @@ Item {
     property QtObject bookmarksModel
     property QtObject historyModel
 
+    property int bookmarksCountLimit: 5
     property bool seeMoreBookmarksView: false
 
     signal bookmarkClicked(url url)
@@ -58,7 +59,7 @@ Item {
 
         sourceModel: topSitesView.bookmarksModel
 
-        limit: seeMoreBookmarksView ? -1 : 5
+        limit: seeMoreBookmarksView ? -1 : topSitesView.bookmarksCountLimit
     }
 
     LimitProxyModel {
@@ -150,6 +151,7 @@ Item {
             model: bookmarksListModel
 
             footerLabelText: seeMoreBookmarksView ? i18n.tr("see less") : i18n.tr("see more")
+            footerLabelVisible: bookmarksListModel.unlimitedCount > topSitesView.bookmarksCountLimit
 
             onBookmarkClicked: topSitesView.bookmarkClicked(url)
             onFooterLabelClicked: seeMoreBookmarksView = !seeMoreBookmarksView

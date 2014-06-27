@@ -31,6 +31,7 @@ class LimitProxyModel : public QIdentityProxyModel
     Q_PROPERTY(QObject* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(int limit READ limit WRITE setLimit NOTIFY limitChanged)
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
+    Q_PROPERTY(int unlimitedCount READ unlimitedRowCount NOTIFY unlimitedCountChanged)
 
 public:
     LimitProxyModel(QObject* parent=0);
@@ -42,11 +43,12 @@ public:
     void setLimit(int limit);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    int unlimitedRowCount(const QModelIndex &parent = QModelIndex()) const;
 
 Q_SIGNALS:
     void sourceModelChanged() const;
     void limitChanged() const;
-    void totalCountChanged();
+    void unlimitedCountChanged();
     void countChanged();
 
 private Q_SLOTS:
