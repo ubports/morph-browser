@@ -24,7 +24,6 @@
 #include <QtCore/QMap>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
-#include <QtCore/QDateTime>
 #include <QtSql/QSqlDatabase>
 
 class BookmarksModel : public QAbstractListModel
@@ -42,8 +41,7 @@ public:
     enum Roles {
         Url = Qt::UserRole + 1,
         Title,
-        Icon,
-        BookmarkedAt
+        Icon
     };
 
     // reimplemented from QAbstractListModel
@@ -70,7 +68,6 @@ private:
         QUrl url;
         QString title;
         QUrl icon;
-        QDateTime bookmarkedAt;
     };
     QMap<QUrl, BookmarkEntry> m_entries;
 

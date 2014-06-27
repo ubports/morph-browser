@@ -56,9 +56,7 @@ Item {
     LimitProxyModel {
         id: bookmarksListModel
 
-        sourceModel: BookmarksChronologicalModel {
-            sourceModel: topSitesView.bookmarksModel
-        }
+        sourceModel: topSitesView.bookmarksModel
 
         limit: seeMoreBookmarksView ? -1 : 5
     }

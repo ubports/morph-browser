@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtCore/QSortFilterProxyModel>
+#include <QtCore/QAbstractItemModel>
 
 #include "limit-proxy-model.h"
 
@@ -42,15 +42,14 @@ LimitProxyModel::LimitProxyModel(QObject* parent)
     connect(this, SIGNAL(rowsRemoved(QModelIndex,int,int)), SIGNAL(countChanged()));
 }
 
-QSortFilterProxyModel* LimitProxyModel::sourceModel() const
+QAbstractItemModel* LimitProxyModel::sourceModel() const
 {
-    return qobject_cast<QSortFilterProxyModel*>(QIdentityProxyModel::sourceModel());
+    return qobject_cast<QAbstractItemModel*>(QIdentityProxyModel::sourceModel());
 }
 
-//void LimitProxyModel::setSourceModel(QAbstractProxyModel* sourceModel)
 void LimitProxyModel::setSourceModel(QObject* sourceModel)
 {
-    QSortFilterProxyModel* model = qobject_cast<QSortFilterProxyModel*>(sourceModel);
+    QAbstractItemModel* model = qobject_cast<QAbstractItemModel*>(sourceModel);
 
     if (model != this->sourceModel()) {
         if (this->sourceModel() != NULL) {

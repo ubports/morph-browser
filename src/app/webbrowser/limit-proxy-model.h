@@ -35,7 +35,7 @@ class LimitProxyModel : public QIdentityProxyModel
 public:
     LimitProxyModel(QObject* parent=0);
 
-    QSortFilterProxyModel* sourceModel() const;
+    QAbstractItemModel* sourceModel() const;
     void setSourceModel(QObject* sourceModel);
 
     int limit() const;
