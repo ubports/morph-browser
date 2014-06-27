@@ -39,7 +39,9 @@ Item {
 
     function download(url, contentType, headers) {
         downloadDialog.contentType = contentType
-        singleDownload.headers = headers
+        if(headers) {
+            singleDownload.headers = headers
+        }
         singleDownload.download(url)
     }
 
