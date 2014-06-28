@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-06-18 10:33+0200\n"
+"POT-Creation-Date: 2014-06-25 17:33+0100\n"
 "PO-Revision-Date: 2013-10-11 03:05+0000\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <km@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-21 06:28+0000\n"
-"X-Generator: Launchpad (build 17058)\n"
+"X-Launchpad-Export-Date: 2014-06-28 06:04+0000\n"
+"X-Generator: Launchpad (build 17077)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -83,15 +83,15 @@ msgstr "អញ្ចឹង បន្ត"
 msgid "Back to safety"
 msgstr "ត្រឡប់​ទៅ​សុវត្ថិភាព"
 
-#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
+#: src/app/Chrome.qml:75 src/app/actions/Back.qml:23
 msgid "Back"
 msgstr "ថយក្រោយ"
 
-#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
+#: src/app/Chrome.qml:94 src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "ទៅមុខ"
 
-#: src/app/Chrome.qml:126 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:157 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr "សកម្មភាព"
 
@@ -246,6 +246,10 @@ msgstr "ចេញ​ពីទំព័រ"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
+msgstr ""
+
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
 msgstr ""
 
 #: src/app/webbrowser/ActivityView.qml:54

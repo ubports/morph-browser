@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-06-18 10:33+0200\n"
+"POT-Creation-Date: 2014-06-25 17:33+0100\n"
 "PO-Revision-Date: 2014-01-18 17:47+0000\n"
 "Last-Translator: solomon sunder <Unknown>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-21 06:28+0000\n"
-"X-Generator: Launchpad (build 17058)\n"
+"X-Launchpad-Export-Date: 2014-06-28 06:04+0000\n"
+"X-Generator: Launchpad (build 17077)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -83,15 +83,15 @@ msgstr "இருப்பினும் தொடர்க"
 msgid "Back to safety"
 msgstr "பாதுகாப்பான நிலைக்குத் திரும்பு"
 
-#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
+#: src/app/Chrome.qml:75 src/app/actions/Back.qml:23
 msgid "Back"
 msgstr "பின்னால்"
 
-#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
+#: src/app/Chrome.qml:94 src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "முன் அனுப்பு"
 
-#: src/app/Chrome.qml:126 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:157 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr "செயற்பாடு"
 
@@ -246,6 +246,10 @@ msgstr "பக்கத்திலருந்து விலகு"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
+msgstr ""
+
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
 msgstr ""
 
 #: src/app/webbrowser/ActivityView.qml:54
