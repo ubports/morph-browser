@@ -33,9 +33,7 @@ Column {
 
     spacing: units.gu(1)
 
-    add: Transition { NumberAnimation { property: "x"; easing.type: Easing.Linear } }
-
-    move: Transition { NumberAnimation { property: "y"; easing.type: Easing.Linear } }
+    move: Transition { NumberAnimation { properties: "x, y"; easing.type: Easing.Linear } }
 
     Repeater {
         id: bookmarksListRepeater
