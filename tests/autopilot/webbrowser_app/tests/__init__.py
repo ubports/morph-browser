@@ -169,13 +169,13 @@ class BrowserTestCaseBase(AutopilotTestCase):
         ping = urllib.request.urlopen(self.base_url + "/ping")
         self.assertThat(ping.read(), Equals(b"pong"))
 
-    def ensure_top_sites_view_visible(self):
-        top_sites_view = self.main_window.get_top_sites_view()
-        self.assertThat(top_sites_view.visible, Eventually(Equals(True)))
+    def ensure_new_tab_view_visible(self):
+        new_tab_view = self.main_window.get_new_tab_view()
+        self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
 
-    def ensure_top_sites_view_eventually_hidden(self):
-        top_sites_view = self.main_window.get_top_sites_view()
-        self.assertThat(top_sites_view.visible, Eventually(Equals(False)))
+    def ensure_new_tab_view_eventually_hidden(self):
+        new_tab_view = self.main_window.get_new_tab_view()
+        self.assertThat(new_tab_view.visible, Eventually(Equals(False)))
 
 
 class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):

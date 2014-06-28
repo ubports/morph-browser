@@ -22,7 +22,7 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 import webbrowserapp.private 0.1
 
 Item {
-    id: topSitesView
+    id: newTabView
 
     property QtObject bookmarksModel
     property QtObject historyModel
@@ -53,9 +53,9 @@ Item {
     LimitProxyModel {
         id: bookmarksListModel
 
-        sourceModel: topSitesView.bookmarksModel
+        sourceModel: newTabView.bookmarksModel
 
-        limit: seeMoreBookmarksView ? -1 : topSitesView.bookmarksCountLimit
+        limit: seeMoreBookmarksView ? -1 : newTabView.bookmarksCountLimit
     }
 
     LimitProxyModel {
@@ -63,7 +63,7 @@ Item {
 
         sourceModel: HistoryByVisitsModel {
             sourceModel: HistoryTimeframeModel {
-                sourceModel: topSitesView.historyModel
+                sourceModel: newTabView.historyModel
                 // We only show sites visited on the last 60 days
                 start: {
                     var date = new Date()
@@ -90,13 +90,13 @@ Item {
     }
 
     Rectangle {
-        id: topSitesBackground
+        id: newTabBackground
         anchors.fill: parent
         color: "white"
     }
 
     ListView {
-        id: topSitesListView
+        id: newTabListView
         anchors.fill: parent
 
         model: sectionsModel
@@ -129,7 +129,7 @@ Item {
 
             opacity: section == "topsites" && seeMoreBookmarksView ? 0.0 : 1.0
 
-            color: topSitesBackground.color
+            color: newTabBackground.color
 
             Behavior on opacity { NumberAnimation { duration: 250 } }
 
@@ -156,9 +156,9 @@ Item {
             model: bookmarksListModel
 
             footerLabelText: seeMoreBookmarksView ? i18n.tr("see less") : i18n.tr("see more")
-            footerLabelVisible: bookmarksListModel.unlimitedCount > topSitesView.bookmarksCountLimit
+            footerLabelVisible: bookmarksListModel.unlimitedCount > newTabView.bookmarksCountLimit
 
-            onBookmarkClicked: topSitesView.bookmarkClicked(url)
+            onBookmarkClicked: newTabView.bookmarkClicked(url)
             onFooterLabelClicked: seeMoreBookmarksView = !seeMoreBookmarksView
         }
     }

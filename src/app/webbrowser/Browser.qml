@@ -81,14 +81,14 @@ BrowserView {
             onRefreshClicked: currentWebview.reload()
         }
 
-        TopSitesSheet {
+        NewTabView {
             anchors.fill: webviewContainer
             visible: currentWebview.url == ""
             historyModel: _historyModel
             bookmarksModel: bookmarksModel
 
-            onBookmarkRequested: internal.onTopSiteRequested(url)
-            onHistoryEntryRequested: internal.onTopSiteRequested(url)
+            onBookmarkClicked: internal.onNewTabUrlRequested(url)
+            onHistoryEntryClicked: internal.onNewTabUrlRequested(url)
         }
     }
 
@@ -127,7 +127,7 @@ BrowserView {
             toggleActivityView()
         }
 
-        function onTopSiteRequested(url) {
+        function onNewTabUrlRequested(url) {
             currentWebview.url = url
             currentWebview.forceActiveFocus()
         }
