@@ -41,10 +41,6 @@ Item {
             sectionsModel.append({ section: "topsites" });
     }
 
-    onSeeMoreBookmarksViewChanged: {
-        updateSectionsDisplayed();
-    }
-
     onVisibleChanged: {
         if (visible)
             updateSectionsDisplayed();
@@ -101,7 +97,6 @@ Item {
 
     ListView {
         id: topSitesListView
-
         anchors.fill: parent
 
         model: sectionsModel
@@ -114,9 +109,13 @@ Item {
             }
 
             width: parent.width
-            height: children.height
+            height: modelData == "topsites" && seeMoreBookmarksView ? 0 : children.height
+
+            opacity: modelData == "topsites" && seeMoreBookmarksView ? 0.0 : 1.0
 
             sourceComponent: modelData == "bookmarks" ? bookmarksComponent : topSitesComponent
+
+            Behavior on opacity { NumberAnimation { duration: 250 } }
         }
 
         section.property: "section"
@@ -127,10 +126,16 @@ Item {
             }
 
             height: sectionHeader.height + units.gu(1)
+
+            opacity: section == "topsites" && seeMoreBookmarksView ? 0.0 : 1.0
+
             color: topSitesBackground.color
+
+            Behavior on opacity { NumberAnimation { duration: 250 } }
 
             ListItem.Header {
                 id: sectionHeader
+
                 text: {
                     if (section == "bookmarks") {
                         return i18n.tr("Bookmarks")
