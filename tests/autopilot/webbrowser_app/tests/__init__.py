@@ -156,8 +156,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def assert_activity_view_eventually_hidden(self):
         self.assertThat(self.main_window.get_many_activity_view,
                         Eventually(Equals([])))
-        self.assertThat(self.main_window.get_current_webview().visible,
-                        Eventually(Equals(True)))
 
     def ensure_activity_view_visible(self):
         self.ensure_chrome_is_hidden()
@@ -174,8 +172,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
 
     def ensure_new_tab_view_eventually_hidden(self):
-        new_tab_view = self.main_window.get_new_tab_view()
-        self.assertThat(new_tab_view.visible, Eventually(Equals(False)))
+        self.assertThat(self.main_window.get_many_new_tab_view,
+                        Eventually(Equals([])))
 
 
 class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
