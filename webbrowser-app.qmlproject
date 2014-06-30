@@ -9,7 +9,7 @@ Project {
 
     Files {
         directory: "."
-        filter: "CMakeLists.txt"
+        filter: "CMakeLists.txt;README"
     }
 
     Files {
