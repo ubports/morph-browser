@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -33,8 +33,21 @@ Loader {
     property bool activityButtonVisible: true
     property bool addressBarVisible: true
 
+    property string searchUrl
+    onSearchUrlChanged: internal.setSearchUrl()
+    onChromeChanged: internal.setSearchUrl()
+
     signal urlValidated
     signal toggleActivityViewClicked
+
+    QtObject {
+        id: internal
+        function setSearchUrl() {
+            if (chromePanel.chrome !== null) {
+                chromePanel.chrome.searchUrl = chromePanel.searchUrl
+            }
+        }
+    }
 
     function open() {
         if (panel) {
