@@ -166,7 +166,7 @@ FocusScope {
 
     function buildSearchUrl(query) {
         var terms = query.split(/\s/).map(escapeHtmlEntities)
-        return addressbar.searchUrl.arg(terms.join("+"))
+        return addressbar.searchUrl.replace("{searchTerms}", terms.join("+"))
     }
 
     function validate() {

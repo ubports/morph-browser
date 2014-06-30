@@ -37,7 +37,6 @@ SearchEngine::SearchEngine(const QString& name, QObject* parent)
     if (!m_path.isEmpty()) {
         parseOpenSearchDescription();
     }
-    m_template.replace("{searchTerms}", "%1");
 }
 
 SearchEngine::SearchEngine(const SearchEngine& other)

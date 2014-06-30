@@ -115,6 +115,6 @@ TestCase {
 
     AddressBar {
         id: addressBar
-        searchUrl: "http://www.ubuntu.com/search?q=%1"
+        searchUrl: "http://www.ubuntu.com/search?q={searchTerms}"
     }
 }
