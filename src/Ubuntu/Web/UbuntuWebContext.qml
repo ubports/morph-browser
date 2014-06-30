@@ -53,6 +53,12 @@ Oxide.WebContext {
     }
     userScripts: [
         Oxide.UserScript {
+            context: "oxide://smartbanners/"
+            url: Qt.resolvedUrl("smartbanners.js")
+            incognitoEnabled: true
+            matchAllFrames: true
+        },
+        Oxide.UserScript {
             context: "oxide://selection/"
             url: Qt.resolvedUrl("selection02.js")
             incognitoEnabled: true
