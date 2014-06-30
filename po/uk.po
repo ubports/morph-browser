@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-06-25 17:33+0100\n"
-"PO-Revision-Date: 2014-05-16 14:43+0000\n"
+"PO-Revision-Date: 2014-06-30 05:13+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-28 06:04+0000\n"
+"X-Launchpad-Export-Date: 2014-06-30 06:08+0000\n"
 "X-Generator: Launchpad (build 17077)\n"
 
 #: src/app/AlertDialog.qml:24
@@ -250,7 +250,7 @@ msgstr "Зберегти зображення"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr ""
+msgstr "Оприлюднити…"
 
 #: src/app/webbrowser/ActivityView.qml:54
 msgid "Bookmarks"
