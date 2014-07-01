@@ -1,3 +1,13 @@
+webbrowser-app (0.23+14.10.20140630-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Re-enable contextual selection that had been disabled when switching
+    to oxide. Packaging change: renamed the qtdeclarative5-ubuntu-ui-
+    extras-browser-plugin-assets package to qtdeclarative5-ubuntu-web-
+    plugin-assets. (LP: #1324292)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 30 Jun 2014 08:11:47 +0000
+
 webbrowser-app (0.23+14.10.20140627-0ubuntu1) utopic; urgency=low
 
   [ Michael Sheldon ]

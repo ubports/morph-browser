@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-06-18 10:33+0200\n"
-"PO-Revision-Date: 2014-06-23 19:02+0000\n"
-"Last-Translator: Walter Beckerleg <spayk.99@gmail.com>\n"
+"POT-Creation-Date: 2014-06-25 17:33+0100\n"
+"PO-Revision-Date: 2014-06-29 06:30+0000\n"
+"Last-Translator: Paco Molinero <paco@byasl.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-24 06:30+0000\n"
-"X-Generator: Launchpad (build 17065)\n"
+"X-Launchpad-Export-Date: 2014-06-30 06:08+0000\n"
+"X-Generator: Launchpad (build 17077)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -83,15 +83,15 @@ msgstr "Continuar de todos modos"
 msgid "Back to safety"
 msgstr "Volver a la seguridad"
 
-#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
+#: src/app/Chrome.qml:75 src/app/actions/Back.qml:23
 msgid "Back"
 msgstr "Anterior"
 
-#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
+#: src/app/Chrome.qml:94 src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "Adelante"
 
-#: src/app/Chrome.qml:126 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:157 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr "Actividad"
 
@@ -246,6 +246,10 @@ msgstr "Abandonar la página"
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
 msgstr "Guardar imagen"
+
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "Compartir..."
 
 #: src/app/webbrowser/ActivityView.qml:54
 msgid "Bookmarks"
