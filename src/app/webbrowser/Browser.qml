@@ -100,7 +100,6 @@ BrowserView {
         function onNewTabRequested() {
             toggleActivityView()
             openUrlInNewTab("", true)
-            showNewTabView()
         }
 
         function onSwitchToTabRequested(index) {
@@ -123,14 +122,9 @@ BrowserView {
         function onNewTabUrlRequested(url) {
             currentWebview.url = url
             currentWebview.forceActiveFocus()
-
-            if (newTabViewVisible) {
-                hideNewTabView()
-            }
         }
     }
 
-    property bool newTabViewVisible: false
     readonly property bool activityViewVisible: stack.depth > 0
 
     function showActivityView() {
@@ -162,14 +156,6 @@ BrowserView {
         }
     }
 
-    function showNewTabView() {
-        newTabViewLoader.load()
-    }
-
-    function hideNewTabView() {
-        newTabViewLoader.unload()
-    }
-
     PanelLoader {
         id: panel
 
@@ -186,10 +172,6 @@ BrowserView {
         onUrlValidated: {
             if (activityViewVisible) {
                 hideActivityView()
-            }
-
-            if (newTabViewVisible) {
-                hideNewTabView()
             }
         }
 
@@ -279,6 +261,11 @@ BrowserView {
                 }
             }
 
+            Component.onCompleted: {
+                if (url == "")
+                    loadNewTabView()
+            }
+
             onNewViewRequested: {
                 var webview = webviewComponent.createObject(webviewContainer, {"request": request})
                 addTab(webview, true, false)
@@ -290,6 +277,22 @@ BrowserView {
                 }
             }
 
+            onUrlChanged: {
+                if (url != "")
+                    unloadNewTabView();
+            }
+
+            function loadNewTabView() {
+                newTabViewLoader.setSource(Qt.resolvedUrl("NewTabView.qml"),
+                          { historyModel: _historyModel,
+                            bookmarksModel: bookmarksModel});
+            }
+
+            function unloadNewTabView() {
+                if (newTabViewLoader.status === Loader.Ready)
+                    newTabViewLoader.setSource("");
+            }
+
             // Work around http://pad.lv/1322622 by forcing an update
             // of the visibility of the webview.
             readonly property bool empty: !url.toString()
@@ -299,45 +302,24 @@ BrowserView {
                     visible = Qt.binding(function() { return current })
                 }
             }
+
+            Loader {
+                id: newTabViewLoader
+                anchors.fill: parent
+
+                Connections {
+                    target: newTabViewLoader.item
+
+                    onBookmarkClicked: internal.onNewTabUrlRequested(url)
+                    onHistoryEntryClicked: internal.onNewTabUrlRequested(url)
+                }
+            }
         }
     }
 
     Loader {
         id: downloadLoader
         source: formFactor == "desktop" ? "" : "../Downloader.qml"
-    }
-
-    Loader {
-        id: newTabViewLoader
-        anchors.fill: parent
-
-        onStatusChanged: {
-            if (newTabViewVisible && status === Loader.Ready)
-                stack.push(newTabViewLoader.item)
-        }
-
-        function load() {
-            newTabViewVisible = true;
-            setSource(Qt.resolvedUrl("NewTabView.qml"),
-                      { historyModel: _historyModel,
-                        bookmarksModel: bookmarksModel});
-        }
-
-        function unload() {
-            setSource("");
-
-            if (newTabViewVisible) {
-                newTabViewVisible = false;
-                stack.pop();
-            }
-        }
-
-        Connections {
-            target: newTabViewLoader.item
-
-            onBookmarkClicked: internal.onNewTabUrlRequested(url)
-            onHistoryEntryClicked: internal.onNewTabUrlRequested(url)
-        }
     }
 
     function addTab(webview, setCurrent, focusAddressBar) {
