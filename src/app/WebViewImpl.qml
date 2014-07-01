@@ -20,7 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
 import Ubuntu.Web 0.2
-//import "actions" as Actions
+import "actions" as Actions
 
 WebView {
     id: webview
@@ -42,11 +42,11 @@ WebView {
         source: formFactor == "desktop" ? "FilePickerDialog.qml" : "ContentPickerDialog.qml"
     }
 
-    /*selectionActions: ActionList {
+    selectionActions: ActionList {
         Actions.Copy {
-            onTriggered: selection.copy()
+            onTriggered: copy()
         }
-    }*/
+    }
 
     onGeolocationPermissionRequested: {
         if (webview.toolbar) {

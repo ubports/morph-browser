@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,32 +16,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __SETTINGS_H__
-#define __SETTINGS_H__
+import QtQuick 2.0
+import Ubuntu.Components 0.1
 
-// Qt
-#include <QtCore/QObject>
-#include <QtCore/QUrl>
+Image {
+    property int axis
+    property real minimum
+    property real maximum
+    property bool dragging: __mousearea.drag.active
 
-class SearchEngine;
+    width: units.gu(3)
+    height: units.gu(3)
 
-/*
- * Temporary helper class for read-only settings
- * until Settings support lands in the SDK.
- */
-class Settings : public QObject
-{
-    Q_OBJECT
+    source: "assets/multi_selection_handle.png"
 
-public:
-    Settings(QObject* parent=0);
+    MouseArea {
+        id: __mousearea
 
-    const QUrl& homepage() const;
-    SearchEngine* searchEngine() const;
+        anchors.fill: parent
 
-private:
-    QUrl m_homepage;
-    SearchEngine* m_searchengine;
-};
-
-#endif // __SETTINGS_H__
+        drag {
+            target: parent
+            axis: parent.axis
+            minimumX: parent.minimum
+            maximumX: parent.maximum
+            minimumY: parent.minimum
+            maximumY: parent.maximum
+        }
+    }
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -27,6 +27,7 @@ Item {
     property alias url: addressBar.actualUrl
     signal urlValidated(url url)
     property alias addressBar: addressBar
+    property alias searchUrl: addressBar.searchUrl
     property string title
     property alias loading: addressBar.loading
     property alias loadProgress: progressBar.value

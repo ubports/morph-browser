@@ -25,6 +25,7 @@
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
 #include "limit-proxy-model.h"
+#include "searchengine.h"
 #include "settings.h"
 #include "tabs-model.h"
 #include "webbrowser-app.h"
@@ -40,6 +41,7 @@
 #include <QtCore/QMetaObject>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
+#include <QtCore/QVariant>
 #include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
 
@@ -83,19 +85,20 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
+        Settings settings;
         m_window->setProperty("chromeless", m_arguments.contains("--chromeless"));
+        SearchEngine* searchEngine = settings.searchEngine();
+        searchEngine->setParent(m_window);
+        m_window->setProperty("searchEngine", QVariant::fromValue(searchEngine));
         QList<QUrl> urls = this->urls();
         if (urls.isEmpty()) {
-            Settings settings;
             urls.append(settings.homepage());
         }
         QObject* browser = (QObject*) m_window;
         Q_FOREACH(const QUrl& url, urls) {
             QMetaObject::invokeMethod(browser, "newTab", Q_ARG(QVariant, url), Q_ARG(QVariant, true));
         }
-
         m_component->completeCreate();
-
         return true;
     } else {
         return false;
