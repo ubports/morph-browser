@@ -21,6 +21,7 @@ import Ubuntu.Components 0.1
 import Ubuntu.DownloadManager 0.1
 import Ubuntu.Content 0.1
 import "MimeTypeMapper.js" as MimeTypeMapper
+import "FileExtensionMapper.js" as FileExtensionMapper
 
 Item {
 
@@ -49,8 +50,14 @@ Item {
         download(url, ContentType.Pictures, headers)
     }
 
-    function downloadMimeType(url, mimeType, headers) {
-        download(url, MimeTypeMapper.mimeTypeToContentType(mimeType), headers)
+    function downloadMimeType(url, mimeType, headers, filename) {
+        var contentType = MimeTypeMapper.mimeTypeToContentType(mimeType)
+        if (contentType == ContentType.Unknown && filename) {
+            // If we can't determine the content type from the mime-type
+            // attempt to discover it from the file extension
+            contentType = FileExtensionMapper.filenameToContentType(filename)
+        }
+        download(url, contentType, headers)
     }
 
 }

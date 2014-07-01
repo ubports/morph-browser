@@ -23,7 +23,7 @@ function mimeTypeToContentType(mimeType) {
     } else if(mimeType.search("audio/") === 0) {
         return ContentType.Music;
     } else if(mimeType.search("video/") === 0) {
-        return ContentType.Video;
+        return ContentType.Videos;
     } else if(mimeType.search("text/x-vcard") === 0) {
         return ContentType.Contacts;
     } else if(mimeType.search("text/") === 0) {

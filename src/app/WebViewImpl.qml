@@ -47,7 +47,7 @@ WebView {
                 headers["Referer"] = request.referrer
             }
             headers["User-Agent"] = webview.context.userAgent
-            downloadLoader.item.downloadMimeType(request.url, request.mimeType, headers)
+            downloadLoader.item.downloadMimeType(request.url, request.mimeType, headers, request.suggestedFilename)
         }
     }
 
