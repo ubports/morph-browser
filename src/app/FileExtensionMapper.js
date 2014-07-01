@@ -19,7 +19,7 @@
 // Constructed from /etc/mime.types
 function filenameToContentType(filename) {
     var filenameParts = filename.split(".");
-    if(filenameParts.length === 1 || ( filenameParts[0] === "" && filenameParts.length === 2)) {
+    if(filenameParts.length === 1 || (filenameParts[0] === "" && filenameParts.length === 2)) {
         return ContentType.Unknown;
     }
     var ext = filenameParts.pop().toLowerCase();
