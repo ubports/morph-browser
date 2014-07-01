@@ -103,7 +103,7 @@ Item {
 
             sourceComponent: modelData == "bookmarks" ? bookmarksComponent : topSitesComponent
 
-            Behavior on opacity { NumberAnimation { duration: 250 } }
+            Behavior on opacity { UbuntuNumberAnimation {} }
         }
 
         section.property: "section"
@@ -119,7 +119,7 @@ Item {
 
             color: newTabBackground.color
 
-            Behavior on opacity { NumberAnimation { duration: 250 } }
+            Behavior on opacity { UbuntuNumberAnimation {} }
 
             ListItem.Header {
                 id: sectionHeader

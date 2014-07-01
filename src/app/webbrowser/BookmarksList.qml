@@ -33,7 +33,7 @@ Column {
 
     spacing: units.gu(1)
 
-    move: Transition { NumberAnimation { properties: "x, y"; easing.type: Easing.Linear } }
+    move: Transition { UbuntuNumberAnimation { properties: "x, y" } }
 
     Repeater {
         id: bookmarksListRepeater
