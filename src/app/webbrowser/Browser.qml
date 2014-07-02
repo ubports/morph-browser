@@ -28,6 +28,8 @@ BrowserView {
     property alias currentIndex: tabsModel.currentIndex
     currentWebview: tabsModel.currentWebview
 
+    property QtObject searchEngine
+
     actions: [
         Actions.GoTo {
             onTriggered: currentWebview.url = value
@@ -154,6 +156,7 @@ BrowserView {
 
         currentWebview: browser.currentWebview
         chromeless: browser.chromeless
+        searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
 
         anchors {
             left: parent.left
