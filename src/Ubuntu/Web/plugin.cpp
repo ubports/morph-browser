@@ -69,6 +69,7 @@ static int getDevtoolsPort()
 
     int port = DEVTOOLS_INVALID_PORT;
     const char* DEVTOOLS_PORT_ENV_VAR = "UBUNTU_WEBVIEW_DEVTOOLS_PORT";
+
     if (qEnvironmentVariableIsSet(DEVTOOLS_PORT_ENV_VAR)) {
         QByteArray environmentVarValue = qgetenv(DEVTOOLS_PORT_ENV_VAR);
         bool ok = false;
@@ -77,7 +78,6 @@ static int getDevtoolsPort()
             port = value;
         }
     }
-
     return port > 0 ? port : DEVTOOLS_INVALID_PORT;
 }
 
