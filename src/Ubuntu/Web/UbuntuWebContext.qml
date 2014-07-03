@@ -67,4 +67,7 @@ Oxide.WebContext {
     ]
 
     property QtObject __ua: UserAgent02 {}
+
+    devtoolsEnabled: webviewDevtoolsDebugPort !== -1
+    devtoolsPort: webviewDevtoolsDebugPort
 }
