@@ -97,13 +97,9 @@ Item {
             }
 
             width: parent.width
-            height: modelData == "topsites" && seeMoreBookmarksView ? 0 : children.height
-
-            opacity: modelData == "topsites" && seeMoreBookmarksView ? 0.0 : 1.0
+            height: children.height
 
             sourceComponent: modelData == "bookmarks" ? bookmarksComponent : topSitesComponent
-
-            Behavior on opacity { UbuntuNumberAnimation {} }
         }
 
         section.property: "section"
@@ -159,8 +155,12 @@ Item {
 
             spacing: units.gu(1)
 
+            opacity: seeMoreBookmarksView ? 0.0 : 1.0
+
+            Behavior on opacity { UbuntuNumberAnimation {} }
+
             Repeater {
-                model: historyListModel
+                model: parent.opacity == 0.0 ? "" : historyListModel
 
                 delegate: PageDelegate{
                     width: units.gu(18)
