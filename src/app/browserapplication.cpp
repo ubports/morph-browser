@@ -114,7 +114,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
         } else {
             server = QString("%1:%2").arg(host, QString::number(REMOTE_INSPECTOR_PORT));
         }
-        qputenv("QTWEBKIT_INSPECTOR_SERVER", server.toUtf8());
+        qputenv("UBUNTU_WEBVIEW_DEVTOOLS_PORT", server.toUtf8());
     }
 
     m_engine = new QQmlEngine;
