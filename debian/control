@@ -13,6 +13,7 @@ Build-Depends: cmake (>= 2.8.9),
                qt5-default,
                qt5-qmake,
                qtbase5-dev,
+               qtbase5-dev-tools,
                qtbase5-private-dev,
                qtdeclarative5-dev,
                qtdeclarative5-private-dev,
@@ -111,6 +112,16 @@ Description: Ubuntu web QML plugin assets
  A standalone QML plugin that contains the WebView component,
  in the Ubuntu.Web module. This package contains the PNGs used
  as UI elements by the plugin.
+
+Package: qtdeclarative5-ubuntu-web-plugin-doc
+Section: doc
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends},
+Description: Ubuntu web QML plugin HTML documentation
+ A standalone QML plugin that contains the WebView component,
+ in the Ubuntu.Web module. This package contains the public
+ HTML documentation.
 
 Package: webbrowser-app-autopilot
 Architecture: all
