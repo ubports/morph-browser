@@ -286,7 +286,7 @@ BrowserView {
                 id: newTabViewLoader
                 anchors.fill: parent
 
-                sourceComponent: parent.url ? undefined : newTabViewComponent
+                sourceComponent: !parent.url.toString() ? newTabViewComponent : undefined
 
                 Component {
                     id: newTabViewComponent
