@@ -48,7 +48,7 @@ BrowserView {
         },
         Actions.Bookmark {
             enabled: currentWebview
-            onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, "")//currentWebview.icon)
+            onTriggered: _bookmarksModel.add(currentWebview.url, currentWebview.title, "")//currentWebview.icon)
         },
         Actions.NewTab {
             onTriggered: openUrlInNewTab("", true)
@@ -131,7 +131,7 @@ BrowserView {
         stack.push(Qt.resolvedUrl("ActivityView.qml"),
                    {tabsModel: tabsModel,
                     historyModel: _historyModel,
-                    bookmarksModel: bookmarksModel})
+                    bookmarksModel: _bookmarksModel})
         var view = stack.currentPage
         view.onHistoryEntryRequested.connect(internal.onHistoryEntryRequested)
         view.onNewTabRequested.connect(internal.onNewTabRequested)
@@ -214,7 +214,7 @@ BrowserView {
     }
 
     BookmarksModel {
-        id: bookmarksModel
+        id: _bookmarksModel
         databasePath: dataLocation + "/bookmarks.sqlite"
     }
 
@@ -241,7 +241,7 @@ BrowserView {
                 }
                 Actions.BookmarkLink {
                     enabled: contextualData.href.toString()
-                    onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "")
+                    onTriggered: _bookmarksModel.add(contextualData.href, contextualData.title, "")
                 }
                 Actions.CopyLink {
                     enabled: contextualData.href.toString()
@@ -261,11 +261,6 @@ BrowserView {
                 }
             }
 
-            Component.onCompleted: {
-                if (url == "")
-                    loadNewTabView()
-            }
-
             onNewViewRequested: {
                 var webview = webviewComponent.createObject(webviewContainer, {"request": request})
                 addTab(webview, true, false)
@@ -275,22 +270,6 @@ BrowserView {
                 if (lastLoadSucceeded) {
                     _historyModel.add(url, title, "")
                 }
-            }
-
-            onUrlChanged: {
-                if (url != "")
-                    unloadNewTabView();
-            }
-
-            function loadNewTabView() {
-                newTabViewLoader.setSource(Qt.resolvedUrl("NewTabView.qml"),
-                          { historyModel: _historyModel,
-                            bookmarksModel: bookmarksModel});
-            }
-
-            function unloadNewTabView() {
-                if (newTabViewLoader.status === Loader.Ready)
-                    newTabViewLoader.setSource("");
             }
 
             // Work around http://pad.lv/1322622 by forcing an update
@@ -307,9 +286,14 @@ BrowserView {
                 id: newTabViewLoader
                 anchors.fill: parent
 
-                Connections {
-                    target: newTabViewLoader.item
+                sourceComponent: parent.url ? undefined : newTabViewComponent
 
+                NewTabView {
+                    id: newTabViewComponent
+                    anchors.fill: parent
+
+                    historyModel: _historyModel
+                    bookmarksModel: _bookmarksModel
                     onBookmarkClicked: internal.onNewTabUrlRequested(url)
                     onHistoryEntryClicked: internal.onNewTabUrlRequested(url)
                 }
