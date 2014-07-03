@@ -288,14 +288,17 @@ BrowserView {
 
                 sourceComponent: parent.url ? undefined : newTabViewComponent
 
-                NewTabView {
+                Component {
                     id: newTabViewComponent
-                    anchors.fill: parent
 
-                    historyModel: _historyModel
-                    bookmarksModel: _bookmarksModel
-                    onBookmarkClicked: internal.onNewTabUrlRequested(url)
-                    onHistoryEntryClicked: internal.onNewTabUrlRequested(url)
+                    NewTabView {
+                        anchors.fill: parent
+
+                        historyModel: _historyModel
+                        bookmarksModel: _bookmarksModel
+                        onBookmarkClicked: internal.onNewTabUrlRequested(url)
+                        onHistoryEntryClicked: internal.onNewTabUrlRequested(url)
+                    }
                 }
             }
         }
