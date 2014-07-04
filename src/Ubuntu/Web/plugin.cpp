@@ -24,6 +24,7 @@
 #include <QtCore/QtGlobal>
 #include <QtGui/QGuiApplication>
 #include <QtQml>
+#include <QtQml/QQmlInfo>
 
 static float getQtWebkitDpr()
 {
@@ -87,4 +88,10 @@ void UbuntuBrowserPlugin::registerTypes(const char* uri)
 {
     Q_ASSERT(uri == QLatin1String("Ubuntu.Components.Extras.Browser")
           || uri == QLatin1String("Ubuntu.Web"));
+
+    if (uri == QLatin1String("Ubuntu.Components.Extras.Browser")) {
+        qmlInfo(0) << "WARNING: the use of the Ubuntu.Components.Extras.Browser "
+                      "namespace is deprecated, please consider updating your "
+                      "applications to import Ubuntu.Web instead.";
+    }
 }
