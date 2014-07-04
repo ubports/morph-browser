@@ -5,3 +5,7 @@ li#buildversion {
 div.toc {
     display: none;
 }
+
+span.type a:visited {
+    color: #dd4814;
+}
