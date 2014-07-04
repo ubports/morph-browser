@@ -29,8 +29,6 @@ Column {
     signal bookmarkClicked(url url)
     signal footerLabelClicked()
 
-    width: parent.width
-
     spacing: units.gu(1)
 
     move: Transition { UbuntuNumberAnimation { properties: "x, y" } }

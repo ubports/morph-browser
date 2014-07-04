@@ -137,6 +137,8 @@ Item {
         id: bookmarksComponent
 
         BookmarksList {
+            width: parent.width
+
             model: bookmarksListModel
 
             footerLabelText: seeMoreBookmarksView ? i18n.tr("see less") : i18n.tr("see more")
