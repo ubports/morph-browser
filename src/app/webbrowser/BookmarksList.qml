@@ -42,8 +42,8 @@ Column {
             width: bookmarksList.width
             height: units.gu(5)
 
-            favIcon: model.icon
-            label: model.title ? model.title : model.url
+            icon: model.icon
+            title: model.title ? model.title : model.url
             url: model.url
 
             onClicked: bookmarkClicked(model.url)

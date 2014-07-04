@@ -22,9 +22,9 @@ import Ubuntu.Components 0.1
 Item {
     id: urlDelegate
 
-    property alias favIcon: favIcon.source
+    property alias icon: icon.source
     property alias url: url.text
-    property alias label: label.text
+    property alias title: title.text
 
     signal clicked()
 
@@ -38,19 +38,19 @@ Item {
         spacing: units.gu(1)
 
         UbuntuShape {
-            id: favIconShape
+            id: iconShape
             height: parent.height
             width: parent.height
 
             image: Image {
-                id: favIcon
+                id: icon
             }
         }
 
         Column {
-            width: parent.width - favIconShape.width - spacing
+            width: parent.width - iconShape.width - spacing
             Label {
-                id: label
+                id: title
                 width: parent.width
                 font.bold: true
 
