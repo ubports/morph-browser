@@ -27,11 +27,15 @@ Item {
     property QtObject bookmarksModel
     property QtObject historyModel
 
-    property int bookmarksCountLimit: 5
-    property bool seeMoreBookmarksView: false
-
     signal bookmarkClicked(url url)
     signal historyEntryClicked(url url)
+
+    QtObject {
+        id: internal
+
+        property int bookmarksCountLimit: 5
+        property bool seeMoreBookmarksView: false
+    }
 
     ListModel {
         id: sectionsModel
@@ -39,7 +43,7 @@ Item {
         Component.onCompleted: {
             if (bookmarksListModel && bookmarksListModel.count !== 0)
                 sectionsModel.append({ section: "bookmarks" });
-            if (historyListModel && historyListModel.count !== 0 && !seeMoreBookmarksView )
+            if (historyListModel && historyListModel.count !== 0 && !internal.seeMoreBookmarksView )
                 sectionsModel.append({ section: "topsites" });
         }
     }
@@ -49,7 +53,7 @@ Item {
 
         sourceModel: newTabView.bookmarksModel
 
-        limit: seeMoreBookmarksView ? -1 : newTabView.bookmarksCountLimit
+        limit: internal.seeMoreBookmarksView ? -1 : internal.bookmarksCountLimit
     }
 
     LimitProxyModel {
@@ -105,7 +109,7 @@ Item {
 
             height: sectionHeader.height + units.gu(1)
 
-            opacity: section == "topsites" && seeMoreBookmarksView ? 0.0 : 1.0
+            opacity: section == "topsites" && internal.seeMoreBookmarksView ? 0.0 : 1.0
 
             color: newTabBackground.color
 
@@ -135,11 +139,11 @@ Item {
 
             model: bookmarksListModel
 
-            footerLabelText: seeMoreBookmarksView ? i18n.tr("see less") : i18n.tr("see more")
-            footerLabelVisible: bookmarksListModel.unlimitedCount > newTabView.bookmarksCountLimit
+            footerLabelText: internal.seeMoreBookmarksView ? i18n.tr("see less") : i18n.tr("see more")
+            footerLabelVisible: bookmarksListModel.unlimitedCount > internal.bookmarksCountLimit
 
             onBookmarkClicked: newTabView.bookmarkClicked(url)
-            onFooterLabelClicked: seeMoreBookmarksView = !seeMoreBookmarksView
+            onFooterLabelClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
         }
     }
 
@@ -151,7 +155,7 @@ Item {
 
             spacing: units.gu(1)
 
-            opacity: seeMoreBookmarksView ? 0.0 : 1.0
+            opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
 
             Behavior on opacity { UbuntuNumberAnimation {} }
 
