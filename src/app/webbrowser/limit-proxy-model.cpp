@@ -27,6 +27,9 @@
     LimitProxyModel is a proxy model that limits the number
     of rows returned by a model
     (i.e. only the first N entries are returned).
+
+    This proxy model was copied from unity8's source tree with small changes,
+    like the type of the sourceModel.
 */
 LimitProxyModel::LimitProxyModel(QObject* parent)
     : QIdentityProxyModel(parent),
