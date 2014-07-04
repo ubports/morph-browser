@@ -68,7 +68,6 @@ Item {
                     date.setDate(date.getDate() - 60)
                     return date
                 }
-                end: new Date()
             }
         }
 
