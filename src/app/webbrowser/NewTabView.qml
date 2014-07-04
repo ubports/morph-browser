@@ -33,21 +33,15 @@ Item {
     signal bookmarkClicked(url url)
     signal historyEntryClicked(url url)
 
-    function updateSectionsDisplayed() {
-        sectionsModel.clear()
-        if (bookmarksListModel && bookmarksListModel.count !== 0)
-            sectionsModel.append({ section: "bookmarks" });
-        if (historyListModel && historyListModel.count !== 0 && !seeMoreBookmarksView )
-            sectionsModel.append({ section: "topsites" });
-    }
-
-    onVisibleChanged: {
-        if (visible)
-            updateSectionsDisplayed();
-    }
-
     ListModel {
         id: sectionsModel
+
+        Component.onCompleted: {
+            if (bookmarksListModel && bookmarksListModel.count !== 0)
+                sectionsModel.append({ section: "bookmarks" });
+            if (historyListModel && historyListModel.count !== 0 && !seeMoreBookmarksView )
+                sectionsModel.append({ section: "topsites" });
+        }
     }
 
     LimitProxyModel {
