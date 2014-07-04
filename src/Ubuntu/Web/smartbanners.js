@@ -27,4 +27,6 @@
 
 var exdate = new Date();
 exdate.setFullYear(exdate.getFullYear() + 5);
-document.cookie = "sb-closed=true;path=/;expires=" + exdate.toUTCString();
+try {
+    document.cookie = "sb-closed=true;path=/;expires=" + exdate.toUTCString();
+} catch (e) {}
