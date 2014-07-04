@@ -172,7 +172,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
     def test_new_tab_view(self):
         self.ensure_activity_view_visible()
         self.open_new_tab()
-        self.assert_new_tab_view_eventually_hidden()
+        self.assert_new_tab_view_eventually_visible()
         url = self.base_url + "/aleaiactaest"
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
