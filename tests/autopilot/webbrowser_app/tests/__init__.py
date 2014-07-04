@@ -167,11 +167,11 @@ class BrowserTestCaseBase(AutopilotTestCase):
         ping = urllib.request.urlopen(self.base_url + "/ping")
         self.assertThat(ping.read(), Equals(b"pong"))
 
-    def ensure_new_tab_view_visible(self):
+    def assert_new_tab_view_eventually_visible(self):
         new_tab_view = self.main_window.get_new_tab_view()
         self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
 
-    def ensure_new_tab_view_eventually_hidden(self):
+    def assert_new_tab_view_eventually_hidden(self):
         self.assertThat(self.main_window.get_many_new_tab_view,
                         Eventually(Equals([])))
 

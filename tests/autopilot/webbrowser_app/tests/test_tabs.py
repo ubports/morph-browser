@@ -77,7 +77,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assertThat(self.main_window.currentIndex, Equals(0))
         self.open_new_tab()
         self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
-        self.ensure_new_tab_view_visible()
+        self.assert_new_tab_view_eventually_visible()
 
     def test_switch_tabs(self):
         self.ensure_activity_view_visible()
@@ -172,8 +172,8 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
     def test_hidden_new_tab_view(self):
         self.ensure_activity_view_visible()
         self.open_new_tab()
-        self.ensure_new_tab_view_visible()
+        self.assert_new_tab_view_eventually_hidden()
         url = self.base_url + "/aleaiactaest"
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
-        self.ensure_new_tab_view_eventually_hidden()
+        self.assert_new_tab_view_eventually_hidden()
