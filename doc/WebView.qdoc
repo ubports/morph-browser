@@ -254,3 +254,18 @@
     The \c baseUrl argument is used to resolve relative URLs in the provided
     content.
  */
+
+/*!
+    \qmlmethod string WebView::getUAString()
+
+    This method can be overridden by client applications that embed
+    a WebView to provide a static overridden user agent string.
+    If not overridden, the default UA string and the default override
+    mechanism will be used (see WebContext).
+
+    Note: as the user agent string is a property of the shared context,
+    an application that embeds several WebViews that define different
+    custom user agent strings will result in the last view instantiated
+    setting the user agent string for all the views (unless they all use
+    separate contexts instead of the default shared one).
+ */
