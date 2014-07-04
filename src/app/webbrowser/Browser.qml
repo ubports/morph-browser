@@ -48,7 +48,7 @@ BrowserView {
         },
         Actions.Bookmark {
             enabled: currentWebview
-            onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, "")//currentWebview.icon)
+            onTriggered: _bookmarksModel.add(currentWebview.url, currentWebview.title, "")//currentWebview.icon)
         },
         Actions.NewTab {
             onTriggered: openUrlInNewTab("", true)
@@ -118,6 +118,11 @@ BrowserView {
             currentWebview.url = url
             toggleActivityView()
         }
+
+        function onNewTabUrlRequested(url) {
+            currentWebview.url = url
+            currentWebview.forceActiveFocus()
+        }
     }
 
     readonly property bool activityViewVisible: stack.depth > 0
@@ -126,7 +131,7 @@ BrowserView {
         stack.push(Qt.resolvedUrl("ActivityView.qml"),
                    {tabsModel: tabsModel,
                     historyModel: _historyModel,
-                    bookmarksModel: bookmarksModel})
+                    bookmarksModel: _bookmarksModel})
         var view = stack.currentPage
         view.onHistoryEntryRequested.connect(internal.onHistoryEntryRequested)
         view.onNewTabRequested.connect(internal.onNewTabRequested)
@@ -209,7 +214,7 @@ BrowserView {
     }
 
     BookmarksModel {
-        id: bookmarksModel
+        id: _bookmarksModel
         databasePath: dataLocation + "/bookmarks.sqlite"
     }
 
@@ -236,7 +241,7 @@ BrowserView {
                 }
                 Actions.BookmarkLink {
                     enabled: contextualData.href.toString()
-                    onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "")
+                    onTriggered: _bookmarksModel.add(contextualData.href, contextualData.title, "")
                 }
                 Actions.CopyLink {
                     enabled: contextualData.href.toString()
@@ -274,6 +279,26 @@ BrowserView {
                 if (!empty) {
                     visible = false
                     visible = Qt.binding(function() { return current })
+                }
+            }
+
+            Loader {
+                id: newTabViewLoader
+                anchors.fill: parent
+
+                sourceComponent: !parent.url.toString() ? newTabViewComponent : undefined
+
+                Component {
+                    id: newTabViewComponent
+
+                    NewTabView {
+                        anchors.fill: parent
+
+                        historyModel: _historyModel
+                        bookmarksModel: _bookmarksModel
+                        onBookmarkClicked: internal.onNewTabUrlRequested(url)
+                        onHistoryEntryClicked: internal.onNewTabUrlRequested(url)
+                    }
                 }
             }
         }

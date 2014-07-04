@@ -116,6 +116,12 @@ class Browser(uitk.MainView):
     def get_geolocation_dialog(self):
         return self.wait_select_single("GeolocationPermissionRequest")
 
+    def get_many_new_tab_view(self):
+        return self.select_many("NewTabView")
+
+    def get_new_tab_view(self):
+        return self.wait_select_single("NewTabView")
+
     def get_selection(self):
         return self.wait_select_single(Selection)
 
