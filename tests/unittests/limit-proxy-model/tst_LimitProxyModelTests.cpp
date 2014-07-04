@@ -63,6 +63,11 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 0);
     }
 
+    void shouldLimitBeInitiallyMinusOne()
+    {
+        QCOMPARE(model->limit(), -1);
+    }
+
     void shouldNotifyWhenChangingSourceModel()
     {
         QSignalSpy spy(model, SIGNAL(sourceModelChanged()));
@@ -78,7 +83,7 @@ private Q_SLOTS:
         delete byvisits2;
     }
 
-    void shouldLimitEntries()
+    void shouldLimitEntriesWithLimitSetBeforePopulating()
     {
         model->setLimit(2);
 
@@ -90,6 +95,48 @@ private Q_SLOTS:
 
         QCOMPARE(model->rowCount(), 2);
         QCOMPARE(model->unlimitedRowCount(), 3);
+    }
+
+    void shouldLimitEntriesWithLimitSetAfterPopulating()
+    {
+        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
+
+        model->setLimit(2);
+
+        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->unlimitedRowCount(), 3);
+    }
+
+    void shouldNotLimitEntriesIfLimitIsMinusOne()
+    {
+        model->setLimit(-1);
+
+        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
+
+        QCOMPARE(model->unlimitedRowCount(), 3);
+        QCOMPARE(model->rowCount(), model->unlimitedRowCount());
+    }
+
+    void shouldNotLimitEntriesIfLimitIsGreaterThanRowCount()
+    {
+        model->setLimit(4);
+
+        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
+
+        QCOMPARE(model->unlimitedRowCount(), 3);
+        QCOMPARE(model->rowCount(), model->unlimitedRowCount());
     }
 };
 
