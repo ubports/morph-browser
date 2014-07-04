@@ -169,7 +169,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(tabs[0])
         self.assertThat(error.visible, Eventually(Equals(False)))
 
-    def test_hidden_new_tab_view(self):
+    def test_new_tab_view(self):
         self.ensure_activity_view_visible()
         self.open_new_tab()
         self.assert_new_tab_view_eventually_hidden()
