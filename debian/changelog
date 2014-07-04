@@ -1,3 +1,16 @@
+webbrowser-app (0.23+14.10.20140704-0ubuntu1) utopic; urgency=low
+
+  [ Arthur Mello ]
+  * Add the Top Sites Sheet, showing Bookmarks and most visited URLs. It
+    is displayed when an empty new tab is created.
+
+  [ Olivier Tilloy ]
+  * Bump the dependency on oxide.
+  * Update the documentation for the Ubuntu.Web QML module and its
+    default theming. Package it.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 04 Jul 2014 15:05:25 +0000
+
 webbrowser-app (0.23+14.10.20140703-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]
