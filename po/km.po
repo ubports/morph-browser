@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-06-25 17:33+0100\n"
+"POT-Creation-Date: 2014-07-04 10:06-0300\n"
 "PO-Revision-Date: 2013-10-11 03:05+0000\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <km@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-28 06:04+0000\n"
-"X-Generator: Launchpad (build 17077)\n"
+"X-Launchpad-Export-Date: 2014-07-05 05:55+0000\n"
+"X-Generator: Launchpad (build 17086)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -55,7 +55,7 @@ msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "ទុកចោល"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
@@ -83,15 +83,15 @@ msgstr "អញ្ចឹង បន្ត"
 msgid "Back to safety"
 msgstr "ត្រឡប់​ទៅ​សុវត្ថិភាព"
 
-#: src/app/Chrome.qml:75 src/app/actions/Back.qml:23
+#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
 msgid "Back"
 msgstr "ថយក្រោយ"
 
-#: src/app/Chrome.qml:94 src/app/actions/Forward.qml:23
+#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "ទៅមុខ"
 
-#: src/app/Chrome.qml:157 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr "សកម្មភាព"
 
@@ -122,7 +122,7 @@ msgstr "ផ្ទុក​ទំព័រ​ឡើងវិញ"
 
 #: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr ""
+msgstr "សូម​ជ្រើស​ឯកសារ"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
@@ -246,15 +246,28 @@ msgstr "ចេញ​ពីទំព័រ"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "រក្សាទុក​រូបភាព"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
 msgstr ""
 
 #: src/app/webbrowser/ActivityView.qml:54
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Bookmarks"
 msgstr "ចំណាំ"
+
+#: src/app/webbrowser/NewTabView.qml:125
+msgid "Top sites"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see less"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see more"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
@@ -311,13 +324,13 @@ msgid "Browse the World Wide Web"
 msgstr "រកមើល​វើលវ៉ាយវិប"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webbrowser/webbrowser-app.qml:36
 #: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webbrowser/webbrowser-app.qml:38
 #: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
@@ -332,8 +345,8 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "បន្ថែម​គណនី"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "ជ្រើស​គណនី"

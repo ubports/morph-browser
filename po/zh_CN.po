@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-06-25 17:33+0100\n"
+"POT-Creation-Date: 2014-07-04 10:06-0300\n"
 "PO-Revision-Date: 2014-05-23 16:05+0000\n"
 "Last-Translator: Anthony Wong <anthony.wong@ubuntu.com>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-28 06:04+0000\n"
-"X-Generator: Launchpad (build 17077)\n"
+"X-Launchpad-Export-Date: 2014-07-05 05:55+0000\n"
+"X-Generator: Launchpad (build 17086)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -81,15 +81,15 @@ msgstr "仍然继续"
 msgid "Back to safety"
 msgstr "返回安全连接"
 
-#: src/app/Chrome.qml:75 src/app/actions/Back.qml:23
+#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
 msgid "Back"
 msgstr "返回"
 
-#: src/app/Chrome.qml:94 src/app/actions/Forward.qml:23
+#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "前进"
 
-#: src/app/Chrome.qml:157 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr "活动"
 
@@ -249,8 +249,21 @@ msgid "Share…"
 msgstr ""
 
 #: src/app/webbrowser/ActivityView.qml:54
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Bookmarks"
 msgstr "书签"
+
+#: src/app/webbrowser/NewTabView.qml:125
+msgid "Top sites"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see less"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see more"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
@@ -307,13 +320,13 @@ msgid "Browse the World Wide Web"
 msgstr "浏览互联网"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webbrowser/webbrowser-app.qml:36
 #: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu 浏览器"
 
-#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webbrowser/webbrowser-app.qml:38
 #: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu 浏览器"
