@@ -1,3 +1,12 @@
+webbrowser-app (0.23+14.10.20140707-0ubuntu1) utopic; urgency=low
+
+  [ Alexandre Abreu ]
+  * Let other components invoke webapps with a particular URL. This is
+    useful for scopes or notifications leading to a specific part of a
+    webapp. (LP: #1336784)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 07 Jul 2014 13:04:06 +0000
+
 webbrowser-app (0.23+14.10.20140704-0ubuntu1) utopic; urgency=low
 
   [ Arthur Mello ]
