@@ -235,6 +235,7 @@ WebViewImpl {
     onNewViewRequested: createPopupWindow(request)
 
     preferences.localStorageEnabled: true
+    preferences.appCacheEnabled: true
 
     // Small shim needed when running as a webapp to wire-up connections
     // with the webview (message received, etc…).
