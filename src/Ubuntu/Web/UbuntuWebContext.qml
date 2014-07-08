@@ -59,6 +59,12 @@ Oxide.WebContext {
             matchAllFrames: true
         },
         Oxide.UserScript {
+            context: "oxide://twitter-no-omniprompt/"
+            url: Qt.resolvedUrl("twitter-no-omniprompt.js")
+            incognitoEnabled: true
+            matchAllFrames: true
+        },
+        Oxide.UserScript {
             context: "oxide://selection/"
             url: Qt.resolvedUrl("selection02.js")
             incognitoEnabled: true
