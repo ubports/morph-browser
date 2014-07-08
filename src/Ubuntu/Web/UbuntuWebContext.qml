@@ -65,6 +65,12 @@ Oxide.WebContext {
             matchAllFrames: true
         },
         Oxide.UserScript {
+            context: "oxide://fb-no-appbanner/"
+            url: Qt.resolvedUrl("fb-no-appbanner.js")
+            incognitoEnabled: true
+            matchAllFrames: true
+        },
+        Oxide.UserScript {
             context: "oxide://selection/"
             url: Qt.resolvedUrl("selection02.js")
             incognitoEnabled: true
