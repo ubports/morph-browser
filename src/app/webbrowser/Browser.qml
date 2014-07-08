@@ -233,6 +233,7 @@ BrowserView {
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
             preferences.localStorageEnabled: true
+            preferences.appCacheEnabled: true
 
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
