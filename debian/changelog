@@ -1,3 +1,16 @@
+webbrowser-app (0.23+14.10.20140708-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Ensure that the twitter and facebook mobile sites never show banners
+    that suggests installing a native Android/iOS application based on
+    naïve parsing of the UA string.
+  * Ensure that all newly instantiated page delegates inherit the
+    current state. (LP: #1338652)
+  * Enable application cache in browser and webapp container by default.
+    (LP: #1338668)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 08 Jul 2014 09:12:08 +0000
+
 webbrowser-app (0.23+14.10.20140707-0ubuntu1) utopic; urgency=low
 
   [ Alexandre Abreu ]
