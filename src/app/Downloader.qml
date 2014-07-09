@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Popups 0.1
 import Ubuntu.DownloadManager 0.1
 import Ubuntu.Content 0.1
 import "MimeTypeMapper.js" as MimeTypeMapper
@@ -25,21 +26,24 @@ import "FileExtensionMapper.js" as FileExtensionMapper
 
 Item {
 
-    ContentDownloadDialog {
+    Component {
         id: downloadDialog
+        ContentDownloadDialog { }
     }
 
     SingleDownload {
         id: singleDownload
         autoStart: false
+        property var contentType
         onDownloadIdChanged: {
-            downloadDialog.downloadId = singleDownload.downloadId
-            downloadDialog.show()
+            var downloadPopup = PopupUtils.open(downloadDialog)
+            downloadPopup.contentType = singleDownload.contentType
+            downloadPopup.downloadId = singleDownload.downloadId
         }
     }
 
     function download(url, contentType, headers) {
-        downloadDialog.contentType = contentType
+        singleDownload.contentType = contentType
         if(headers) {
             singleDownload.headers = headers
         }

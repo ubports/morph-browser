@@ -18,14 +18,16 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Popups 0.1
 import Ubuntu.DownloadManager 0.1
 import Ubuntu.Content 0.1
 
 Item {
     id: shareItem
 
-    ContentShareDialog {
+    Component {
         id: shareDialog
+        ContentShareDialog { }
     }
 
     Component {
@@ -34,9 +36,9 @@ Item {
     }
 
     function share(url, name, contentType) {
-        shareDialog.contentType = contentType
-        shareDialog.items.push(contentItemComponent.createObject(shareItem, {"url" : url, "name" : name}))
-        shareDialog.show()
+        var sharePopup = PopupUtils.open(shareDialog)
+        sharePopup.contentType = contentType
+        sharePopup.items.push(contentItemComponent.createObject(shareItem, {"url" : url, "name" : name}))
     }
 
     function shareLink(url, title) {
