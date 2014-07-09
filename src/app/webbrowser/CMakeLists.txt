@@ -13,7 +13,9 @@ set(WEBBROWSER_APP_MODELS_SRC
     history-domainlist-model.cpp
     history-matches-model.cpp
     history-model.cpp
+    history-byvisits-model.cpp
     history-timeframe-model.cpp
+    limit-proxy-model.cpp
     tabs-model.cpp
 )
 

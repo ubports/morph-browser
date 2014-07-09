@@ -86,6 +86,7 @@ Column {
             //thumbnail: model.webview.thumbnail
             canClose: true
 
+            state: listview.state
             onStateChanged: listview.state = state
             Connections {
                 target: listview

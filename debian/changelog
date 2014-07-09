@@ -1,3 +1,51 @@
+webbrowser-app (0.23+14.10.20140708-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Ensure that the twitter and facebook mobile sites never show banners
+    that suggests installing a native Android/iOS application based on
+    naïve parsing of the UA string.
+  * Ensure that all newly instantiated page delegates inherit the
+    current state. (LP: #1338652)
+  * Enable application cache in browser and webapp container by default.
+    (LP: #1338668)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 08 Jul 2014 09:12:08 +0000
+
+webbrowser-app (0.23+14.10.20140707-0ubuntu1) utopic; urgency=low
+
+  [ Alexandre Abreu ]
+  * Let other components invoke webapps with a particular URL. This is
+    useful for scopes or notifications leading to a specific part of a
+    webapp. (LP: #1336784)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 07 Jul 2014 13:04:06 +0000
+
+webbrowser-app (0.23+14.10.20140704-0ubuntu1) utopic; urgency=low
+
+  [ Arthur Mello ]
+  * Add the Top Sites Sheet, showing Bookmarks and most visited URLs. It
+    is displayed when an empty new tab is created.
+
+  [ Olivier Tilloy ]
+  * Bump the dependency on oxide.
+  * Update the documentation for the Ubuntu.Web QML module and its
+    default theming. Package it.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 04 Jul 2014 15:05:25 +0000
+
+webbrowser-app (0.23+14.10.20140703-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Olivier Tilloy ]
+  * Fail gracefully (and silently) when the cookie cannot be set, it
+    shouldn’t raise an error. (LP: #1336280)
+  * Override the UA string for chrome.angrybirds.com (on both desktop
+    and mobile). (LP: #1284158)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 03 Jul 2014 20:43:49 +0000
+
 webbrowser-app (0.23+14.10.20140630.1-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
