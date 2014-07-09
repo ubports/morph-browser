@@ -69,7 +69,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
         else:
             self.app = self.launch_test_application(
                 "webbrowser-app",
-                "--fullscreen",
                 self.d_f,
                 *self.ARGS,
                 app_type='qt',
@@ -157,8 +156,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def assert_activity_view_eventually_hidden(self):
         self.assertThat(self.main_window.get_many_activity_view,
                         Eventually(Equals([])))
-        self.assertThat(self.main_window.get_current_webview().visible,
-                        Eventually(Equals(True)))
 
     def ensure_activity_view_visible(self):
         self.ensure_chrome_is_hidden()
@@ -169,6 +166,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def ping_server(self):
         ping = urllib.request.urlopen(self.base_url + "/ping")
         self.assertThat(ping.read(), Equals(b"pong"))
+
+    def assert_new_tab_view_eventually_visible(self):
+        new_tab_view = self.main_window.get_new_tab_view()
+        self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
+
+    def assert_new_tab_view_eventually_hidden(self):
+        self.assertThat(self.main_window.get_many_new_tab_view,
+                        Eventually(Equals([])))
 
 
 class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):

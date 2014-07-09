@@ -35,6 +35,7 @@ UbuntuWebView {
     property string webappName: ""
     property var webappUrlPatterns: null
     property string localUserAgentOverride: ""
+    property string popupRedirectionUrlPrefix: ""
 
     function getUAString() {
         return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride
@@ -66,7 +67,7 @@ UbuntuWebView {
                 webview.toolbar.close()
             }
             var text = i18n.tr("This page wants to know your device’s location.")
-            PopupUtils.open(Qt.resolvedUrl("PermissionRequest.qml"),
+            PopupUtils.open(Qt.resolvedUrl("../PermissionRequest.qml"),
                             webview.currentWebview,
                             {"permission": permission, "text": text})
         }

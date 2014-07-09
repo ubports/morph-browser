@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -29,6 +29,8 @@ FocusScope {
     property bool loading
     signal requestReload()
     signal requestStop()
+    signal pressAndHold()
+    property string searchUrl
 
     height: textField.height
 
@@ -120,6 +122,9 @@ FocusScope {
                 textField.forceActiveFocus()
                 textField.selectAll()
             }
+            onPressAndHold: {
+                addressbar.pressAndHold()
+            }
         }
     }
 
@@ -156,16 +161,12 @@ FocusScope {
     }
 
     function escapeHtmlEntities(query) {
-        function getEscapeCode(entity) {
-            return "%%1".arg(entity.charCodeAt(0).toString(16))
-        }
-        return query.replace(/\W/, getEscapeCode)
+        return query.replace(/\W/, encodeURIComponent)
     }
 
     function buildSearchUrl(query) {
-        var searchUrl = "https://google.com/search?client=ubuntu&q=%1&ie=utf-8&oe=utf-8"
         var terms = query.split(/\s/).map(escapeHtmlEntities)
-        return searchUrl.arg(terms.join("+"))
+        return addressbar.searchUrl.replace("{searchTerms}", terms.join("+"))
     }
 
     function validate() {

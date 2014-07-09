@@ -19,8 +19,13 @@
 #include "config.h"
 #include "webapp-container.h"
 
+#include "chrome-cookie-store.h"
+#include "online-accounts-cookie-store.h"
 #include "session-utils.h"
 #include "url-pattern-utils.h"
+#include "webkit-cookie-store.h"
+#include "webapp-container-helper.h"
+
 
 // Qt
 #include <QtCore/QCoreApplication>
@@ -30,13 +35,16 @@
 #include <QtCore/QtGlobal>
 #include <QtCore/QRegularExpression>
 #include <QtCore/QTextStream>
-#include <QtQuick/QQuickWindow>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include <QtQml>
+#include <QtQuick/QQuickWindow>
 
 #include <QStandardPaths>
 #include <QSettings>
+
+static const char privateModuleUri[] = "webcontainer.private";
 
 namespace
 {
@@ -79,9 +87,11 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     m_storeSessionCookies(false),
     m_backForwardButtonsVisible(false),
     m_addressBarVisible(false),
-    m_localWebappManifest(false)
+    m_localWebappManifest(false),
+    m_webappContainerHelper(new WebappContainerHelper())
 {
 }
+
 
 bool WebappContainer::initialize()
 {
@@ -103,6 +113,7 @@ bool WebappContainer::initialize()
         m_window->setProperty("webappName", m_webappName);
         m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
         m_window->setProperty("addressBarVisible", m_addressBarVisible);
+        m_window->setProperty("accountProvider", m_accountProvider);
 
         qDebug() << "Using" << (m_withOxide ? "Oxide" : "QtWebkit") << "as the web engine backend";
         m_window->setProperty("oxide", m_withOxide);
@@ -116,11 +127,17 @@ bool WebappContainer::initialize()
             context->setContextProperty("webContextSessionCookieMode", sessionCookieMode);
         }
 
+        context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
+
+        if ( ! m_popupRedirectionUrlPrefix.isEmpty()) {
+            m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
+        }
+
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (m_webappName.isEmpty()) {
             QList<QUrl> urls = this->urls();
             if (!urls.isEmpty()) {
-                m_window->setProperty("url", urls.first());
+                m_window->setProperty("url", urls.last());
             } else {
                 return false;
             }
@@ -131,6 +148,18 @@ bool WebappContainer::initialize()
         return true;
     } else {
         return false;
+    }
+}
+
+void WebappContainer::qmlEngineCreated(QQmlEngine* engine)
+{
+    if (engine) {
+        qmlRegisterType<ChromeCookieStore>(privateModuleUri, 0, 1,
+                                           "ChromeCookieStore");
+        qmlRegisterType<WebkitCookieStore>(privateModuleUri, 0, 1,
+                                           "WebkitCookieStore");
+        qmlRegisterType<OnlineAccountsCookieStore>(privateModuleUri, 0, 1,
+                                                   "OnlineAccountsCookieStore");
     }
 }
 
@@ -147,6 +176,7 @@ void WebappContainer::printUsage() const
        " [--webapp=name]"
        " [--webappModelSearchPath=PATH]"
        " [--webappUrlPatterns=URL_PATTERNS]"
+       " [--accountProvider=PROVIDER_NAME]"
        " [--enable-back-forward]"
        " [--enable-addressbar]"
        " [--store-session-cookies]"
@@ -162,6 +192,7 @@ void WebappContainer::printUsage() const
     out << "  --webapp=name                       try to match the webapp by name with an installed integration script" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
+    out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
@@ -190,6 +221,8 @@ void WebappContainer::parseCommandLine()
                 QStringList includePatterns = tail.split(URL_PATTERN_SEPARATOR);
                 m_webappUrlPatterns = UrlPatternUtils::filterAndTransformUrlPatterns(includePatterns);
             }
+        } else if (argument.startsWith("--accountProvider=")) {
+            m_accountProvider = argument.split("--accountProvider=")[1];
         } else if (argument == "--store-session-cookies") {
             m_storeSessionCookies = true;
         } else if (argument == "--enable-back-forward") {
@@ -198,6 +231,8 @@ void WebappContainer::parseCommandLine()
             m_addressBarVisible = true;
         } else if (argument == "--local-webapp-manifest") {
             m_localWebappManifest = true;
+        } else if (argument.startsWith("--popup-redirection-url-prefix=")) {
+            m_popupRedirectionUrlPrefix = argument.split("--popup-redirection-url-prefix=")[1];;
         }
     }
 }

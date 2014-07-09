@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,43 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SQLITECOOKIESTORE_H
-#define SQLITECOOKIESTORE_H
+#ifndef __HISTORY_BYVISITS_MODEL_H__
+#define __HISTORY_BYVISITS_MODEL_H__
 
-#include "cookiestore.h"
-#include <QString>
+// Qt
+#include <QtCore/QSortFilterProxyModel>
 
+class HistoryTimeframeModel;
 
-class SqliteCookieStore : public CookieStore
+class HistoryByVisitsModel : public QSortFilterProxyModel
 {
     Q_OBJECT
-    Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
 
+    Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
 
 public:
-    SqliteCookieStore(QObject *parent = 0);
+    HistoryByVisitsModel(QObject* parent=0);
 
-    void setDbPath (const QString & path);
-    QString dbPath () const;
-
-    QDateTime lastUpdateTimeStamp() const Q_DECL_OVERRIDE;
-
+    HistoryTimeframeModel* sourceModel() const;
+    void setSourceModel(HistoryTimeframeModel* sourceModel);
 
 Q_SIGNALS:
-
-    void dbPathChanged();
-
-
-private:
-
-    virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
-    virtual void doSetCookies(Cookies) Q_DECL_OVERRIDE;
-
-    QString getFullDbPathName() const;
-
-
-private:
-    QString m_dbPath;
+    void sourceModelChanged() const;
 };
 
-#endif // SQLITECOOKIESTORE_H
+#endif // __HISTORY_BYVISITS_MODEL_H__

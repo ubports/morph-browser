@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,42 +16,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ONLINEACCOUNTSCOOKIESTORE_H
-#define ONLINEACCOUNTSCOOKIESTORE_H
+#ifndef WEBKIT_COOKIE_STORE_H
+#define WEBKIT_COOKIE_STORE_H
 
-#include "cookiestore.h"
+#include "cookie-store.h"
 
-class OnlineAccountsCookieStorePrivate;
+#include <QSqlDatabase>
 
-class OnlineAccountsCookieStore : public CookieStore
+class WebkitCookieStore : public CookieStore
 {
     Q_OBJECT
-    Q_PROPERTY(quint32 accountId READ accountId WRITE setAccountId NOTIFY accountIdChanged)
-
+    Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
 
 public:
-    OnlineAccountsCookieStore(QObject *parent = 0);
-    ~OnlineAccountsCookieStore();
+    WebkitCookieStore(QObject* parent = 0);
 
-    quint32 accountId () const;
-    void setAccountId (quint32);
+    void setDbPath(const QString& path);
+    QString dbPath() const;
 
+    QDateTime lastUpdateTimeStamp() const Q_DECL_OVERRIDE;
 
 Q_SIGNALS:
-
-    void accountIdChanged();
-
+    void dbPathChanged();
 
 private:
-
     virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
-    virtual void doSetCookies(Cookies) Q_DECL_OVERRIDE;
-
+    virtual bool doSetCookies(const Cookies& cookies) Q_DECL_OVERRIDE;
 
 private:
-
-    OnlineAccountsCookieStorePrivate * d_ptr;
-    Q_DECLARE_PRIVATE(OnlineAccountsCookieStore)
+    QString m_dbPath;
+    QSqlDatabase m_db;
 };
 
-#endif // ONLINEACCOUNTSCOOKIESTORE_H
+#endif // WEBKIT_COOKIE_STORE_H

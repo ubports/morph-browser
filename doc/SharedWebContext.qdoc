@@ -1,0 +1,39 @@
+/*
+ * Copyright 2013 Canonical Ltd.
+ *
+ * This file is part of webbrowser-app.
+ *
+ * webbrowser-app is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 3.
+ *
+ * webbrowser-app is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*!
+    \qmltype SharedWebContext
+    \inqmlmodule Ubuntu.Web 0.2
+    \ingroup ubuntu
+    \brief A singleton that exposes a shared \l WebContext that can be used
+           by several \l WebView instances in the same application.
+
+    Note that the \l WebView component already uses the shared context.
+ */
+
+/*!
+    \qmlproperty WebContext SharedWebContext::sharedContext
+
+    The \l WebContext instance that several \l WebView instances can share.
+ */
+
+/*!
+    \qmlproperty string SharedWebContext::customUA
+
+    An alias to the shared context’s default user agent string.
+ */

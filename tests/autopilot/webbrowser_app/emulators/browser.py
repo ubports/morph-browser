@@ -21,11 +21,23 @@ class Panel(uitk.Toolbar):
     pass
 
 
+class Selection(uitk.UbuntuUIToolkitEmulatorBase):
+
+    def get_rectangle(self):
+        return self.select_single("QQuickItem", objectName="rectangle")
+
+    def get_handle(self, name):
+        return self.select_single("SelectionHandle", objectName=name)
+
+
 class Browser(uitk.MainView):
 
     """
     An emulator class that makes it easy to interact with the webbrowser app.
     """
+
+    def get_window(self):
+        return self.get_parent()
 
     def get_toolbar(self):
         # Overridden since the browser doesn’t use the MainView’s Toolbar.
@@ -100,3 +112,19 @@ class Browser(uitk.MainView):
         tabs = view.select_many("PageDelegate", objectName="openTabDelegate")
         tabs.sort(key=lambda tab: tab.x)
         return tabs
+
+    def get_geolocation_dialog(self):
+        return self.wait_select_single("GeolocationPermissionRequest")
+
+    def get_many_new_tab_view(self):
+        return self.select_many("NewTabView")
+
+    def get_new_tab_view(self):
+        return self.wait_select_single("NewTabView")
+
+    def get_selection(self):
+        return self.wait_select_single(Selection)
+
+    def get_selection_actions(self):
+        return self.wait_select_single("ActionSelectionPopover",
+                                       objectName="selectionActions")

@@ -9,7 +9,7 @@ Project {
 
     Files {
         directory: "."
-        filter: "CMakeLists.txt"
+        filter: "CMakeLists.txt;README"
     }
 
     Files {
@@ -20,6 +20,11 @@ Project {
     Files {
         directory: "tests"
         filter: "*.h;*.cpp;*.py"
+    }
+
+    Files {
+        directory: "doc"
+        filter: "*.qdoc;*.qdocconf"
     }
 
     /* List of plugin directories passed to QML runtime */
