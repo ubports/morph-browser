@@ -42,8 +42,11 @@ Item {
             height: parent.height
             width: parent.height
 
-            image: Image {
+            Image {
                 id: icon
+                anchors.centerIn: parent
+                width: units.dp(16)
+                height: units.dp(16)
             }
         }
 
