@@ -36,8 +36,7 @@ Item {
     }
 
     function share(url, name, contentType) {
-        var sharePopup = PopupUtils.open(shareDialog)
-        sharePopup.contentType = contentType
+        var sharePopup = PopupUtils.open(shareDialog, shareItem, {"contentType" : contentType})
         sharePopup.items.push(contentItemComponent.createObject(shareItem, {"url" : url, "name" : name}))
     }
 

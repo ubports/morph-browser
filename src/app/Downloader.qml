@@ -25,6 +25,7 @@ import "MimeTypeMapper.js" as MimeTypeMapper
 import "FileExtensionMapper.js" as FileExtensionMapper
 
 Item {
+    id: downloadItem
 
     Component {
         id: downloadDialog
@@ -36,9 +37,7 @@ Item {
         autoStart: false
         property var contentType
         onDownloadIdChanged: {
-            var downloadPopup = PopupUtils.open(downloadDialog)
-            downloadPopup.contentType = singleDownload.contentType
-            downloadPopup.downloadId = singleDownload.downloadId
+            PopupUtils.open(downloadDialog, downloadItem, {"contentType" : singleDownload.contentType, "downloadId" : singleDownload.downloadId})
         }
     }
 
