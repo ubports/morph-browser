@@ -83,6 +83,7 @@ Column {
 
             url: model.url
             label: model.title ? model.title : model.url
+            icon: model.icon
             //thumbnail: model.webview.thumbnail
             canClose: true
 
