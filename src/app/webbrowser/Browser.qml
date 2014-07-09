@@ -273,16 +273,6 @@ BrowserView {
                 }
             }
 
-            // Work around http://pad.lv/1322622 by forcing an update
-            // of the visibility of the webview.
-            readonly property bool empty: !url.toString()
-            onEmptyChanged: {
-                if (!empty) {
-                    visible = false
-                    visible = Qt.binding(function() { return current })
-                }
-            }
-
             Loader {
                 id: newTabViewLoader
                 anchors.fill: parent
