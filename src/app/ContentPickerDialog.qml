@@ -93,7 +93,12 @@ Component {
     
         Component.onCompleted: {
             if(acceptTypes.length === 1) {
-                peerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(acceptTypes[0])
+                var contentType = MimeTypeMapper.mimeTypeToContentType(acceptTypes[0])
+                if(contentType == ContentType.Unknown) {
+                    // If we don't recognise the type, allow uploads from any app
+                    contentType = ContentType.All
+                }
+                peerPicker.contentType = contentType
             } else {
                 peerPicker.contentType = ContentType.All
             }
