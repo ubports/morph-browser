@@ -80,6 +80,7 @@ function filenameToContentType(filename) {
         case "gl":
         case "lsf":
         case "lsx":
+        case "m4v":
         case "mkv":
         case "mng":
         case "mov":
