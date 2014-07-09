@@ -1,3 +1,19 @@
+webbrowser-app (0.23+14.10.20140709-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Add support for downloads via content-hub on non-desktop devices
+    when it's either not possible to render a file within the browser
+    itself or when a download is explicitly requested via the Content-
+    Disposition header. (LP: #1198347)
+
+  [ Olivier Tilloy ]
+  * Remove a workaround for bug #1322622 that has been properly fixed in
+    oxide. (LP: #1322622)
+  * Re-enable the favicon support now that oxide supports it. (LP:
+    #1259216)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 09 Jul 2014 16:37:04 +0000
+
 webbrowser-app (0.23+14.10.20140708-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
