@@ -58,7 +58,7 @@ FocusScope {
         color: "white"
     }
 
-    Item {
+    FocusScope {
         anchors {
             fill: parent
             margins: units.gu(1)
