@@ -26,7 +26,6 @@ WebView {
     id: webview
 
     property var currentWebview: webview
-    property var toolbar: null
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
@@ -68,9 +67,6 @@ WebView {
     }
 
     onGeolocationPermissionRequested: {
-        if (webview.toolbar) {
-            webview.toolbar.close()
-        }
         PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"),
                         webview.currentWebview, {"request": request})
         // TODO: we might want to store the answer to avoid requesting

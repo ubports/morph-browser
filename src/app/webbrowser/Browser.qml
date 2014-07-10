@@ -58,19 +58,54 @@ BrowserView {
         }
     ]
 
-    Page {
+    Item {
         anchors.fill: parent
         visible: !activityViewVisible
-        active: visible
+
+        BrowserHeader {
+            id: header
+
+            webview: browser.currentWebview
+            searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
+
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+            height: units.gu(6)
+
+            Connections {
+                target: browser.currentWebview
+                onLoadingChanged: {
+                    if (browser.currentWebview.loading) {
+                        header.state = "shown"
+                    }
+                }
+            }
+        }
 
         Item {
             id: webviewContainer
             anchors {
                 left: parent.left
                 right: parent.right
-                top: parent.top
+                top: header.bottom
             }
-            height: parent.height - osk.height
+            height: parent.height - header.visibleHeight - osk.height
+        }
+
+        ScrollTracker {
+            webview: browser.currentWebview
+            header: header
+
+            onScrolledUp: header.state = "shown"
+            onScrolledDown: {
+                if (nearBottom) {
+                    header.state = "shown"
+                } else if (!nearTop) {
+                    header.state = "hidden"
+                }
+            }
         }
 
         ErrorSheet {
@@ -78,6 +113,25 @@ BrowserView {
             visible: currentWebview ? currentWebview.lastLoadFailed : false
             url: currentWebview ? currentWebview.url : ""
             onRefreshClicked: currentWebview.reload()
+        }
+
+        Suggestions {
+            opacity: ((header.state == "shown") && header.activeFocus && (count > 0)) ? 1.0 : 0.0
+            Behavior on opacity {
+                UbuntuNumberAnimation {}
+            }
+            enabled: opacity > 0
+            anchors {
+                top: header.bottom
+                horizontalCenter: parent.horizontalCenter
+            }
+            width: header.width - units.gu(5)
+            height: enabled ? Math.min(contentHeight, webviewContainer.height - units.gu(2)) : 0
+            model: historyMatches
+            onSelected: {
+                browser.currentWebview.url = url
+                browser.currentWebview.forceActiveFocus()
+            }
         }
     }
 
@@ -153,47 +207,6 @@ BrowserView {
         }
     }
 
-    PanelLoader {
-        id: panel
-
-        currentWebview: browser.currentWebview
-        searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: panel.opened ? osk.top : parent.bottom
-        }
-
-        onUrlValidated: {
-            if (activityViewVisible) {
-                hideActivityView()
-            }
-        }
-
-        onToggleActivityViewClicked: toggleActivityView()
-    }
-
-    Suggestions {
-        opacity: (panel.chrome && (panel.state == "spread") &&
-                  panel.chrome.addressBar.activeFocus && (count > 0)) ? 1.0 : 0.0
-        Behavior on opacity {
-            UbuntuNumberAnimation {}
-        }
-        enabled: opacity > 0
-        anchors {
-            bottom: panel.top
-            horizontalCenter: parent.horizontalCenter
-        }
-        width: panel.width - units.gu(5)
-        height: Math.min(contentHeight, panel.y - units.gu(2))
-        model: historyMatches
-        onSelected: {
-            currentWebview.url = url
-            currentWebview.forceActiveFocus()
-        }
-    }
-
     HistoryModel {
         id: _historyModel
         databasePath: dataLocation + "/history.sqlite"
@@ -202,7 +215,7 @@ BrowserView {
     HistoryMatchesModel {
         id: historyMatches
         sourceModel: _historyModel
-        query: panel.chrome ? panel.chrome.addressBar.text : ""
+        query: header.text
     }
 
     TabsModel {
@@ -219,7 +232,6 @@ BrowserView {
 
         WebViewImpl {
             currentWebview: browser.currentWebview
-            toolbar: panel.panel
 
             anchors.fill: parent
 
