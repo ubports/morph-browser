@@ -62,6 +62,16 @@ BrowserView {
         anchors.fill: parent
         visible: !activityViewVisible
 
+        Item {
+            id: webviewContainer
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: chrome.bottom
+            }
+            height: parent.height - chrome.visibleHeight - osk.height
+        }
+
         Chrome {
             id: chrome
 
@@ -74,6 +84,25 @@ BrowserView {
             }
             height: units.gu(6)
 
+            drawerActions: [
+                Action {
+                    text: i18n.tr("Share")
+                    onTriggered: console.log("TODO: share current URL")
+                },
+                Action {
+                    text: i18n.tr("History")
+                    onTriggered: console.log("TODO: show history")
+                },
+                Action {
+                    text: i18n.tr("Open tabs")
+                    onTriggered: console.log("TODO: show open tabs")
+                },
+                Action {
+                    text: i18n.tr("New tab")
+                    onTriggered: console.log("TODO: open new tab")
+                }
+            ]
+
             Connections {
                 target: browser.currentWebview
                 onLoadingChanged: {
@@ -82,16 +111,6 @@ BrowserView {
                     }
                 }
             }
-        }
-
-        Item {
-            id: webviewContainer
-            anchors {
-                left: parent.left
-                right: parent.right
-                top: chrome.bottom
-            }
-            height: parent.height - chrome.visibleHeight - osk.height
         }
 
         ScrollTracker {

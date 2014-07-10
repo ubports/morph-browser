@@ -26,6 +26,7 @@ FocusScope {
     property var webview
     property alias searchUrl: addressbar.searchUrl
     readonly property string text: addressbar.text
+    property list<Action> drawerActions
 
     signal validated()
 
@@ -153,7 +154,12 @@ FocusScope {
                 verticalCenter: parent.verticalCenter
             }
 
-            onTriggered: console.log("TODO: show/hide drawer")
+            property var currentDrawer: null
+
+            onTriggered: {
+                currentDrawer = drawerComponent.createObject(chrome)
+                currentDrawer.opened = true
+            }
         }
     }
 
@@ -175,6 +181,81 @@ FocusScope {
                                   // workaround for https://bugs.launchpad.net/oxide/+bug/1290821
                                   && !webview.lastLoadStopped
                                 : false
+    }
+
+    Component {
+        id: drawerComponent
+
+        Item {
+            id: drawer
+
+            property bool opened: false
+            property bool closing: false
+            onOpenedChanged: {
+                if (!opened) {
+                    closing = true
+                }
+            }
+
+            anchors {
+                top: parent.bottom
+                right: parent.right
+                rightMargin: units.gu(1)
+            }
+            width: units.gu(20)
+            height: actionsColumn.height
+            clip: actionsColumn.y != 0
+
+            InverseMouseArea {
+                enabled: drawer.opened
+                onPressed: drawer.opened = false
+            }
+
+            Column {
+                id: actionsColumn
+
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+
+                y: drawer.opened ? 0 : -height
+                Behavior on y { UbuntuNumberAnimation {} }
+                onYChanged: {
+                    if (drawer.closing && (y == -height)) {
+                        drawer.destroy()
+                    }
+                }
+
+                Repeater {
+                    model: chrome.drawerActions
+                    delegate: AbstractButton {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+                        height: units.gu(6)
+
+                        action: modelData
+                        onClicked: drawer.opened = false
+
+                        Rectangle {
+                            anchors.fill: parent
+                            color: Qt.rgba(1.0, 1.0, 1.0, 1.0)
+                        }
+
+                        Label {
+                            anchors {
+                                left: parent.left
+                                leftMargin: units.gu(2)
+                                verticalCenter: parent.verticalCenter
+                            }
+                            text: model.text
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
