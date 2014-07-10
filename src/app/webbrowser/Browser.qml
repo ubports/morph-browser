@@ -62,8 +62,8 @@ BrowserView {
         anchors.fill: parent
         visible: !activityViewVisible
 
-        BrowserHeader {
-            id: header
+        Chrome {
+            id: chrome
 
             webview: browser.currentWebview
             searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
@@ -78,7 +78,7 @@ BrowserView {
                 target: browser.currentWebview
                 onLoadingChanged: {
                     if (browser.currentWebview.loading) {
-                        header.state = "shown"
+                        chrome.state = "shown"
                     }
                 }
             }
@@ -89,21 +89,21 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: header.bottom
+                top: chrome.bottom
             }
-            height: parent.height - header.visibleHeight - osk.height
+            height: parent.height - chrome.visibleHeight - osk.height
         }
 
         ScrollTracker {
             webview: browser.currentWebview
-            header: header
+            header: chrome
 
-            onScrolledUp: header.state = "shown"
+            onScrolledUp: chrome.state = "shown"
             onScrolledDown: {
                 if (nearBottom) {
-                    header.state = "shown"
+                    chrome.state = "shown"
                 } else if (!nearTop) {
-                    header.state = "hidden"
+                    chrome.state = "hidden"
                 }
             }
         }
@@ -116,16 +116,16 @@ BrowserView {
         }
 
         Suggestions {
-            opacity: ((header.state == "shown") && header.activeFocus && (count > 0)) ? 1.0 : 0.0
+            opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0)) ? 1.0 : 0.0
             Behavior on opacity {
                 UbuntuNumberAnimation {}
             }
             enabled: opacity > 0
             anchors {
-                top: header.bottom
+                top: chrome.bottom
                 horizontalCenter: parent.horizontalCenter
             }
-            width: header.width - units.gu(5)
+            width: chrome.width - units.gu(5)
             height: enabled ? Math.min(contentHeight, webviewContainer.height - units.gu(2)) : 0
             model: historyMatches
             onSelected: {
@@ -192,7 +192,6 @@ BrowserView {
         if (currentWebview) {
             currentWebview.forceActiveFocus()
         }
-        panel.close()
     }
 
     function hideActivityView() {
@@ -215,7 +214,7 @@ BrowserView {
     HistoryMatchesModel {
         id: historyMatches
         sourceModel: _historyModel
-        query: header.text
+        query: chrome.text
     }
 
     TabsModel {
@@ -313,9 +312,8 @@ BrowserView {
         if (setCurrent) {
             tabsModel.currentIndex = index
             if (focusAddressBar) {
-                panel.chrome.addressBar.forceActiveFocus()
+                chrome.forceActiveFocus()
                 Qt.inputMethod.show() // work around http://pad.lv/1316057
-                panel.open()
             }
         }
     }
