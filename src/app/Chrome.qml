@@ -66,11 +66,13 @@ FocusScope {
 
         focus: true
 
-        AbstractButton {
+        readonly property real iconSize: 0.75 * height
+
+        ChromeButton {
             id: backButton
 
-            //iconName: "back"
-            iconSource: "assets/go-previous.png"
+            iconName: "back"
+            iconSize: parent.iconSize
 
             height: parent.height
             width: height
@@ -84,18 +86,15 @@ FocusScope {
             onTriggered: chrome.webview.goBack()
         }
 
-        AbstractButton {
+        ChromeButton {
             id: forwardButton
 
-            //iconName: "forward"
-            iconSource: "assets/go-next.png"
+            iconName: "forward"
+            iconSize: parent.iconSize
 
             height: parent.height
             visible: enabled
             width: visible ? height : 0
-            Behavior on width {
-                UbuntuNumberAnimation {}
-            }
 
             anchors {
                 left: backButton.right
@@ -140,11 +139,11 @@ FocusScope {
             }
         }
 
-        AbstractButton {
+        ChromeButton {
             id: drawerButton
 
-            //iconName: "contextual-menu"
-            iconSource: "assets/browser-tabs.png"
+            iconName: "contextual-menu"
+            iconSize: parent.iconSize
 
             height: parent.height
             width: height
