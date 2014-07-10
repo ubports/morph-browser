@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -59,9 +59,6 @@ BrowserView {
     ]
 
     Page {
-        // Work around http://pad.lv/1305834 by forcing the page title to be
-        // reset to an empty string when the activity view is being hidden.
-        title: activityViewVisible ? " " : ""
         anchors.fill: parent
         visible: !activityViewVisible
         active: visible

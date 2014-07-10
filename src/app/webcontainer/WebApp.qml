@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -55,16 +55,6 @@ BrowserView {
 
     Page {
         anchors.fill: parent
-
-        // Work around https://bugs.launchpad.net/webbrowser-app/+bug/1270848 and
-        // https://bugs.launchpad.net/ubuntu/+source/webbrowser-app/+bug/1271436.
-        // The UITK is trying too hard to be clever about the header and toolbar.
-        flickable: null
-
-
-        // to prevent https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-toolkit/+bug/1305834
-        // caused by a recent UI toolkit change, we are returning an empty title for now:
-        title: ""
 
         WebappContainerWebview {
             id: webview
