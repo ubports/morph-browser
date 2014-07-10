@@ -87,19 +87,27 @@ BrowserView {
             drawerActions: [
                 Action {
                     text: i18n.tr("Share")
-                    onTriggered: console.log("TODO: share current URL")
+                    enabled: formFactor == "mobile"
+                    onTriggered: {
+                        var component = Qt.createComponent("../Share.qml")
+                        if (component.status == Component.Ready) {
+                            var share = component.createObject(browser)
+                            share.onDone.connect(share.destroy)
+                            share.shareLink(browser.currentWebview.url, browser.currentWebview.title)
+                        }
+                    }
                 },
                 Action {
                     text: i18n.tr("History")
-                    onTriggered: console.log("TODO: show history")
+                    onTriggered: browser.showActivityView() // XXX: temporary until the new history view is implemented
                 },
                 Action {
                     text: i18n.tr("Open tabs")
-                    onTriggered: console.log("TODO: show open tabs")
+                    onTriggered: browser.showActivityView() // XXX: temporary until the new tabs list view is implemented
                 },
                 Action {
                     text: i18n.tr("New tab")
-                    onTriggered: console.log("TODO: open new tab")
+                    onTriggered: browser.openUrlInNewTab("", true)
                 }
             ]
 

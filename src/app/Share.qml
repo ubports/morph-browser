@@ -25,9 +25,13 @@ import Ubuntu.Content 0.1
 Item {
     id: shareItem
 
+    signal done()
+
     Component {
         id: shareDialog
-        ContentShareDialog { }
+        ContentShareDialog {
+            Component.onDestruction: shareItem.done()
+        }
     }
 
     Component {

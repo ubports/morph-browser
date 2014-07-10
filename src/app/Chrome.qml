@@ -235,6 +235,7 @@ FocusScope {
                             right: parent.right
                         }
                         height: units.gu(6)
+                        visible: action.enabled
 
                         action: modelData
                         onClicked: drawer.opened = false
