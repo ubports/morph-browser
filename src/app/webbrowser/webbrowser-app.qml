@@ -22,7 +22,6 @@ import Ubuntu.Components 0.1
 
 Window {
     property alias searchEngine: browser.searchEngine
-    property alias chromeless: browser.chromeless
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
     contentOrientation: browser.screenOrientation

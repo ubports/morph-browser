@@ -157,7 +157,6 @@ BrowserView {
         id: panel
 
         currentWebview: browser.currentWebview
-        chromeless: browser.chromeless
         searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
 
         anchors {
@@ -301,12 +300,10 @@ BrowserView {
         var index = tabsModel.add(webview)
         if (setCurrent) {
             tabsModel.currentIndex = index
-            if (!chromeless) {
-                if (focusAddressBar) {
-                    panel.chrome.addressBar.forceActiveFocus()
-                    Qt.inputMethod.show() // work around http://pad.lv/1316057
-                    panel.open()
-                }
+            if (focusAddressBar) {
+                panel.chrome.addressBar.forceActiveFocus()
+                Qt.inputMethod.show() // work around http://pad.lv/1316057
+                panel.open()
             }
         }
     }
