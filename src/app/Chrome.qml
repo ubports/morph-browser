@@ -154,12 +154,7 @@ FocusScope {
                 verticalCenter: parent.verticalCenter
             }
 
-            property var currentDrawer: null
-
-            onTriggered: {
-                currentDrawer = drawerComponent.createObject(chrome)
-                currentDrawer.opened = true
-            }
+            onTriggered: drawerComponent.createObject(chrome).opened = true
         }
     }
 
