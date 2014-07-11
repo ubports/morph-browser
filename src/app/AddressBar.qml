@@ -150,7 +150,12 @@ FocusScope {
                 cursorPosition = 0
             }
         }
-        onActiveFocusChanged: ensureSchemeVisibleWhenUnfocused()
+        onActiveFocusChanged: {
+            if (!activeFocus) {
+                text = addressbar.actualUrl
+            }
+            ensureSchemeVisibleWhenUnfocused()
+        }
         onTextChanged: ensureSchemeVisibleWhenUnfocused()
 
         // Make sure that all the text is selected at the first click
