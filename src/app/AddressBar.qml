@@ -70,7 +70,6 @@ FocusScope {
             MouseArea {
                 id: actionButton
                 anchors.fill: parent
-                enabled: addressbar.state != ""
 
                 Icon {
                     id: actionIcon
@@ -100,6 +99,8 @@ FocusScope {
 
                 onClicked: {
                     switch (actionIcon.name) {
+                    case "":
+                        break;
                     case "stop":
                         addressbar.requestStop()
                         break
@@ -118,7 +119,7 @@ FocusScope {
         focus: true
         highlighted: true
 
-        onAccepted: if (actionButton.enabled) parent.validate()
+        onAccepted: if (addressbar.state != "") parent.validate()
 
         function ensureSchemeVisibleWhenUnfocused() {
             // Ensure the beginning of the URL is always visible when unfocused.
