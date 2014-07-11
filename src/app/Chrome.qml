@@ -57,7 +57,17 @@ FocusScope {
 
     Rectangle {
         anchors.fill: parent
-        color: "white"
+        color: "#ededef"
+
+        Rectangle {
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            height: units.dp(1)
+            color: UbuntuColors.warmGrey
+        }
     }
 
     FocusScope {
@@ -198,7 +208,6 @@ FocusScope {
             anchors {
                 top: parent.bottom
                 right: parent.right
-                rightMargin: units.gu(1)
             }
             width: units.gu(20)
             height: actionsColumn.height
@@ -207,6 +216,31 @@ FocusScope {
             InverseMouseArea {
                 enabled: drawer.opened
                 onPressed: drawer.opened = false
+            }
+
+            Rectangle {
+                anchors.fill: actionsColumn
+                color: "#ededef"
+
+                Rectangle {
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                        left: parent.left
+                    }
+                    width: units.dp(1)
+                    color: UbuntuColors.warmGrey
+                }
+
+                Rectangle {
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                    }
+                    height: units.dp(1)
+                    color: UbuntuColors.warmGrey
+                }
             }
 
             Column {
@@ -237,11 +271,6 @@ FocusScope {
 
                         action: modelData
                         onClicked: drawer.opened = false
-
-                        Rectangle {
-                            anchors.fill: parent
-                            color: Qt.rgba(1.0, 1.0, 1.0, 1.0)
-                        }
 
                         Label {
                             anchors {
