@@ -26,7 +26,6 @@ Item {
     property alias thumbnail: thumbnail.source
     property alias icon: icon.source
     property alias label: label.text
-    property url icon
     property bool canClose: false
     property bool canBookmark: false
     property bool bookmarked
@@ -57,16 +56,11 @@ Item {
             }
 
             // Show the favicon if no thumbnail defined for the url
-            UbuntuShape {
-                width: parent.width / 3
-                height: width
+            Favicon {
+                id: icon
                 anchors.centerIn: parent
 
                 visible: !thumbnail.source.toString()
-
-                image: Image {
-                    id: icon
-                }
             }
         }
 
