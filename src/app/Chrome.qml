@@ -83,7 +83,7 @@ FocusScope {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: chrome.webview.canGoBack
+            enabled: chrome.webview ? chrome.webview.canGoBack : false
             onTriggered: chrome.webview.goBack()
         }
 
@@ -103,7 +103,7 @@ FocusScope {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: chrome.webview.canGoForward
+            enabled: chrome.webview ? chrome.webview.canGoForward : false
             onTriggered: chrome.webview.goForward()
         }
 
@@ -120,6 +120,7 @@ FocusScope {
                 verticalCenter: parent.verticalCenter
             }
 
+            loading: chrome.webview ? chrome.webview.loading : false
             onValidated: {
                 chrome.webview.url = requestedUrl
                 chrome.webview.forceActiveFocus()

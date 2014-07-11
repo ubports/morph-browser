@@ -37,7 +37,7 @@ FocusScope {
     states: [
         State {
             name: "loading"
-            when: addressBar.loading
+            when: addressbar.loading
         },
         State {
             name: "editing"
