@@ -72,7 +72,7 @@ FocusScope {
         ChromeButton {
             id: backButton
 
-            iconName: "back"
+            iconName: "previous"
             iconSize: parent.iconSize
 
             height: parent.height
@@ -90,7 +90,7 @@ FocusScope {
         ChromeButton {
             id: forwardButton
 
-            iconName: "forward"
+            iconName: "next"
             iconSize: parent.iconSize
 
             height: parent.height
@@ -120,6 +120,7 @@ FocusScope {
                 verticalCenter: parent.verticalCenter
             }
 
+            icon: chrome.webview ? chrome.webview.icon : ""
             loading: chrome.webview ? chrome.webview.loading : false
             onValidated: {
                 chrome.webview.url = requestedUrl
