@@ -116,7 +116,7 @@ FocusScope {
             height: textField.height
             width: visible ? height : 0
 
-            visible: addressbar.state == ""
+            visible: (addressbar.state == "") && addressbar.actualUrl.toString()
 
             Icon {
                 height: parent.height - units.gu(2)
