@@ -48,7 +48,7 @@ BrowserView {
         },
         Actions.Bookmark {
             enabled: currentWebview
-            onTriggered: _bookmarksModel.add(currentWebview.url, currentWebview.title, "")//currentWebview.icon)
+            onTriggered: _bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
             onTriggered: openUrlInNewTab("", true)
@@ -269,17 +269,7 @@ BrowserView {
 
             onLoadingChanged: {
                 if (lastLoadSucceeded) {
-                    _historyModel.add(url, title, "")
-                }
-            }
-
-            // Work around http://pad.lv/1322622 by forcing an update
-            // of the visibility of the webview.
-            readonly property bool empty: !url.toString()
-            onEmptyChanged: {
-                if (!empty) {
-                    visible = false
-                    visible = Qt.binding(function() { return current })
+                    _historyModel.add(url, title, icon)
                 }
             }
 

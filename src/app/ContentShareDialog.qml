@@ -39,11 +39,11 @@ PopupBase {
                 activeTransfer = peer.request()
                 activeTransfer.items = shareDialog.items
                 activeTransfer.state = ContentTransfer.Charged
-                shareDialog.hide()
+                PopupUtils.close(shareDialog)
             }
 
             onCancelPressed: {
-                shareDialog.hide()
+                PopupUtils.close(shareDialog)
             }
         }
     }

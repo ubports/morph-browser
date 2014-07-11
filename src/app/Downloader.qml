@@ -18,34 +18,49 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Popups 0.1
 import Ubuntu.DownloadManager 0.1
 import Ubuntu.Content 0.1
+import "MimeTypeMapper.js" as MimeTypeMapper
+import "FileExtensionMapper.js" as FileExtensionMapper
 
 Item {
+    id: downloadItem
 
-    ContentDownloadDialog {
+    Component {
         id: downloadDialog
+        ContentDownloadDialog { }
     }
 
     SingleDownload {
         id: singleDownload
         autoStart: false
+        property var contentType
         onDownloadIdChanged: {
-            downloadDialog.downloadId = singleDownload.downloadId
-            downloadDialog.show()
+            PopupUtils.open(downloadDialog, downloadItem, {"contentType" : singleDownload.contentType, "downloadId" : singleDownload.downloadId})
         }
     }
 
-    function download(url, contentType) {
-        if(contentType) {
-            downloadDialog.contentType = contentType
-        } else {
-            downloaddialog.contentType = ContentType.All
+    function download(url, contentType, headers) {
+        singleDownload.contentType = contentType
+        if(headers) {
+            singleDownload.headers = headers
         }
         singleDownload.download(url)
     }
 
-    function downloadPicture(url) {
-        download(url, ContentType.Pictures)
+    function downloadPicture(url, headers) {
+        download(url, ContentType.Pictures, headers)
     }
+
+    function downloadMimeType(url, mimeType, headers, filename) {
+        var contentType = MimeTypeMapper.mimeTypeToContentType(mimeType)
+        if (contentType == ContentType.Unknown && filename) {
+            // If we can't determine the content type from the mime-type
+            // attempt to discover it from the file extension
+            contentType = FileExtensionMapper.filenameToContentType(filename)
+        }
+        download(url, contentType, headers)
+    }
+
 }

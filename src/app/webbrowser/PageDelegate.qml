@@ -26,6 +26,7 @@ Item {
     property alias thumbnail: thumbnail.source
     property alias icon: icon.source
     property alias label: label.text
+    property url icon
     property bool canClose: false
     property bool canBookmark: false
     property bool bookmarked
@@ -151,7 +152,7 @@ Item {
     onBookmarkedChanged: {
         var previouslyBookmarked = bookmarksModel.contains(pageDelegate.url)
         if (bookmarked && !previouslyBookmarked) {
-            bookmarksModel.add(pageDelegate.url, pageDelegate.label, "")
+            bookmarksModel.add(pageDelegate.url, pageDelegate.label, pageDelegate.icon)
         } else if (!bookmarked && previouslyBookmarked) {
             bookmarksModel.remove(pageDelegate.url)
         }
