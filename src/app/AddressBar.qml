@@ -64,7 +64,7 @@ FocusScope {
 
             Icon {
                 anchors.fill: favicon
-                name: "stock_website"
+                name: addressbar.actualUrl.toString() ? "stock_website" : ""
                 visible: (addressbar.state == "") && !favicon.visible
             }
 
@@ -82,7 +82,7 @@ FocusScope {
                         case "loading":
                             return "stop"
                         case "editing":
-                            if (addressbar.text == addressbar.actualUrl) {
+                            if (addressbar.text && (addressbar.text == addressbar.actualUrl)) {
                                 return "reload"
                             } else if (looksLikeAUrl(addressbar.text.trim())) {
                                 return "stock_website"
