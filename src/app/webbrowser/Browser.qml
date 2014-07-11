@@ -83,9 +83,9 @@ BrowserView {
             }
             bookmarked: isCurrentUrlBookmarked()
             onBookmarkedChanged: {
-                if (bookmarked) {
+                if (bookmarked && !isCurrentUrlBookmarked()) {
                     _bookmarksModel.add(webview.url, webview.title, webview.icon)
-                } else {
+                } else if (!bookmarked && isCurrentUrlBookmarked()) {
                     _bookmarksModel.remove(webview.url)
                 }
             }
