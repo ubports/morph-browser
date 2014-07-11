@@ -26,6 +26,7 @@ FocusScope {
     property var webview
     property alias searchUrl: addressbar.searchUrl
     readonly property string text: addressbar.text
+    property alias bookmarked: addressbar.bookmarked
     property list<Action> drawerActions
 
     signal validated()

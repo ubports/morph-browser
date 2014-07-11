@@ -24,6 +24,7 @@ FocusScope {
 
     property alias icon: favicon.source
     property alias text: textField.text
+    property bool bookmarked: false
     property url requestedUrl
     property url actualUrl
     signal validated()
@@ -75,10 +76,7 @@ FocusScope {
                     id: actionIcon
                     height: parent.height - units.gu(2)
                     width: height
-                    anchors {
-                        right: parent.right
-                        verticalCenter: parent.verticalCenter
-                    }
+                    anchors.centerIn: parent
                     name: {
                         switch (addressbar.state) {
                         case "loading":
@@ -114,6 +112,28 @@ FocusScope {
             }
         }
 
+        secondaryItem: Item {
+            height: textField.height
+            width: visible ? height : 0
+
+            visible: addressbar.state == ""
+
+            Icon {
+                height: parent.height - units.gu(2)
+                width: height
+                anchors.centerIn: parent
+
+                name: addressbar.bookmarked ? "starred" : "non-starred"
+                color: addressbar.bookmarked ? UbuntuColors.orange : keyColor
+            }
+
+            MouseArea {
+                id: bookmarkButton
+                anchors.fill: parent
+                onClicked: addressbar.bookmarked = !addressbar.bookmarked
+            }
+        }
+
         inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
 
         focus: true
@@ -138,6 +158,7 @@ FocusScope {
             anchors {
                 fill: parent
                 leftMargin: actionButton.width
+                rightMargin: bookmarkButton.width
             }
             visible: !textField.activeFocus
             onClicked: {

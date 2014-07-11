@@ -78,6 +78,28 @@ BrowserView {
             webview: browser.currentWebview
             searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
 
+            function isCurrentUrlBookmarked() {
+                return (webview ? _bookmarksModel.contains(webview.url) : false)
+            }
+            bookmarked: isCurrentUrlBookmarked()
+            onBookmarkedChanged: {
+                if (bookmarked) {
+                    _bookmarksModel.add(webview.url, webview.title, webview.icon)
+                } else {
+                    _bookmarksModel.remove(webview.url)
+                }
+            }
+            onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
+            Connections {
+                target: chrome.webview
+                onUrlChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
+            }
+            Connections {
+                target: _bookmarksModel
+                onAdded: if (!chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = true
+                onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
+            }
+
             anchors {
                 left: parent.left
                 right: parent.right
