@@ -17,10 +17,9 @@
  */
 
 import QtQuick 2.0
+import Ubuntu.Components 0.1
 
 Image {
-    id: icon
-
     width: units.dp(16)
     height: units.dp(16)
 }
