@@ -41,9 +41,9 @@ Item {
         id: sectionsModel
 
         Component.onCompleted: {
-            sectionsModel.append({ section: "bookmarks" });
-
-            if (!internal.seeMoreBookmarksView )
+            if (bookmarksListModel && bookmarksListModel.count !== 0)
+                sectionsModel.append({ section: "bookmarks" });
+            if (historyListModel && historyListModel.count !== 0 && !internal.seeMoreBookmarksView )
                 sectionsModel.append({ section: "topsites" });
         }
     }
