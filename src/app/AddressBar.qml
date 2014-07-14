@@ -136,7 +136,16 @@ FocusScope {
 
         inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
 
+        // Work around the "fix" for http://pad.lv/1089370 which
+        // unsets focus on the TextField when it becomes invisible
+        // (to ensure the OSK is hidden).
         focus: true
+        onVisibleChanged: {
+            if (visible) {
+                focus = true
+            }
+        }
+
         highlighted: true
 
         onAccepted: if (addressbar.state != "") parent.validate()
