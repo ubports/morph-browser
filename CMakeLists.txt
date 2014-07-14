@@ -50,6 +50,10 @@ add_subdirectory(src)
 enable_testing()
 add_subdirectory(tests)
 
+# make non compiled files (QML, JS, images) visible in QtCreator
+file(GLOB_RECURSE QML_JS_FILES *.qml *.js *.png *.svg)
+add_custom_target(QML_JS_TARGET ALL SOURCES ${QML_JS_FILES})
+
 file(GLOB_RECURSE I18N_SRC_FILES
      RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
      src/app/**.qml src/app/**.desktop.in)
