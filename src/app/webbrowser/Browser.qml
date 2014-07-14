@@ -125,7 +125,13 @@ BrowserView {
                 },
                 Action {
                     text: i18n.tr("Open tabs")
-                    onTriggered: browser.showActivityView() // XXX: temporary until the new tabs list view is implemented
+                    onTriggered: {
+                        stack.push(Qt.resolvedUrl("TabsView.qml"), {model: tabsModel})
+                        var view = stack.currentPage
+                        view.anchors.fill = view.parent
+                        view.onNewTabRequested.connect(internal.onNewTabRequested)
+                        view.onDone.connect(stack.pop)
+                    }
                 },
                 Action {
                     text: i18n.tr("New tab")
@@ -194,17 +200,10 @@ BrowserView {
 
         function onHistoryEntryRequested(url) {
             currentWebview.url = url
-            toggleActivityView()
         }
 
         function onNewTabRequested() {
-            toggleActivityView()
             openUrlInNewTab("", true)
-        }
-
-        function onSwitchToTabRequested(index) {
-            switchToTab(index)
-            toggleActivityView()
         }
 
         function onCloseTabRequested(index) {
@@ -216,7 +215,6 @@ BrowserView {
 
         function onBookmarkRequested(url) {
             currentWebview.url = url
-            toggleActivityView()
         }
 
         function onNewTabUrlRequested(url) {
@@ -234,10 +232,14 @@ BrowserView {
                     bookmarksModel: _bookmarksModel})
         var view = stack.currentPage
         view.onHistoryEntryRequested.connect(internal.onHistoryEntryRequested)
+        view.onHistoryEntryRequested.connect(browser.hideActivityView)
+        view.onNewTabRequested.connect(browser.hideActivityView)
         view.onNewTabRequested.connect(internal.onNewTabRequested)
-        view.onSwitchToTabRequested.connect(internal.onSwitchToTabRequested)
+        view.onSwitchToTabRequested.connect(browser.switchToTab)
+        view.onSwitchToTabRequested.connect(browser.hideActivityView)
         view.onCloseTabRequested.connect(internal.onCloseTabRequested)
         view.onBookmarkRequested.connect(internal.onBookmarkRequested)
+        view.onBookmarkRequested.connect(browser.hideActivityView)
         if (currentWebview) {
             currentWebview.forceActiveFocus()
         }
@@ -245,14 +247,6 @@ BrowserView {
 
     function hideActivityView() {
         stack.pop()
-    }
-
-    function toggleActivityView() {
-        if (activityViewVisible) {
-            hideActivityView()
-        } else {
-            showActivityView()
-        }
     }
 
     HistoryModel {
