@@ -60,7 +60,7 @@ BrowserView {
 
     Item {
         anchors.fill: parent
-        visible: !activityViewVisible
+        visible: !activityViewVisible && (tabsViewContainer.children.length === 0)
 
         Item {
             id: webviewContainer
@@ -125,13 +125,7 @@ BrowserView {
                 },
                 Action {
                     text: i18n.tr("Open tabs")
-                    onTriggered: {
-                        stack.push(Qt.resolvedUrl("TabsView.qml"), {model: tabsModel})
-                        var view = stack.currentPage
-                        view.anchors.fill = view.parent
-                        view.onNewTabRequested.connect(internal.onNewTabRequested)
-                        view.onDone.connect(stack.pop)
-                    }
+                    onTriggered: tabsViewComponent.createObject(tabsViewContainer)
                 },
                 Action {
                     text: i18n.tr("New tab")
@@ -186,6 +180,23 @@ BrowserView {
             onSelected: {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
+            }
+        }
+    }
+
+    Item {
+        id: tabsViewContainer
+
+        anchors.fill: parent
+
+        Component {
+            id: tabsViewComponent
+
+            TabsView {
+                anchors.fill: parent
+                model: tabsModel
+                onNewTabRequested: browser.openUrlInNewTab("", true)
+                onDone: this.destroy()
             }
         }
     }
