@@ -27,6 +27,11 @@ Item {
     signal newTabRequested()
     signal done()
 
+    Rectangle {
+        anchors.fill: parent
+        color: "#312f2c"
+    }
+
     ListView {
         id: listview
 
@@ -36,6 +41,8 @@ Item {
             top: parent.top
             bottom: toolbar.top
         }
+
+        spacing: units.gu(-4)
 
         delegate: TabPreview {
             width: parent.width

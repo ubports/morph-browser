@@ -28,22 +28,25 @@ Column {
     signal selected()
     signal closeRequested()
 
-    Rectangle {
+    Item {
         id: header
 
         width: parent.width
         height: units.gu(4)
-        color: "white"
 
         Row {
             anchors.fill: parent
-            spacing: units.gu(1)
 
             AbstractButton {
                 id: closeButton
 
                 height: parent.height
-                width: units.gu(6)
+                width: units.gu(5)
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: "white"
+                }
 
                 Icon {
                     height: units.gu(3)
@@ -53,13 +56,62 @@ Column {
                 }
 
                 onTriggered: tab.closeRequested()
+
+                Rectangle {
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                        right: parent.right
+                    }
+                    width: units.dp(1)
+
+                    color: "#d9d9d9"
+                }
             }
 
-            Label {
-                id: label
+            Item {
                 width: parent.width - closeButton.width
                 height: parent.height
-                verticalAlignment: Text.AlignVCenter
+
+                Image {
+                    id: tabBackgroundLeft
+                    height: parent.height
+                    anchors {
+                        left: parent.left
+                        right: tabBackgroundCenter.left
+                    }
+                    source: "assets/tab-header-left.png"
+                    fillMode: Image.TileHorizontally
+                }
+
+                Image {
+                    id: tabBackgroundCenter
+                    height: parent.height
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    source: "assets/tab-header-center.png"
+                    fillMode: Image.PreserveAspectFit
+                }
+
+                Image {
+                    id: tabBackgroundRight
+                    height: parent.height
+                    anchors {
+                        left: tabBackgroundCenter.right
+                        right: parent.right
+                    }
+                    source: "assets/tab-header-right.png"
+                    fillMode: Image.TileHorizontally
+                }
+
+                Label {
+                    id: label
+                    anchors {
+                        fill: tabBackgroundLeft
+                        leftMargin: units.gu(1)
+                    }
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
             }
         }
     }
