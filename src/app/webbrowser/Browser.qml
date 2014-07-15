@@ -305,7 +305,7 @@ BrowserView {
 
             onNewViewRequested: {
                 var webview = webviewComponent.createObject(webviewContainer, {"request": request})
-                addTab(webview, true, false)
+                internal.addTab(webview, true, false)
             }
 
             onLoadingChanged: {
@@ -347,31 +347,23 @@ BrowserView {
         source: formFactor == "desktop" ? "" : "../Downloader.qml"
     }
 
-    function addTab(webview, setCurrent, focusAddressBar) {
-        var index = tabsModel.add(webview)
-        if (setCurrent) {
-            tabsModel.currentIndex = index
-            if (focusAddressBar) {
-                chrome.forceActiveFocus()
-                Qt.inputMethod.show() // work around http://pad.lv/1316057
+    QtObject {
+        id: internal
+
+        function addTab(webview, setCurrent, focusAddressBar) {
+            var index = tabsModel.add(webview)
+            if (setCurrent) {
+                tabsModel.currentIndex = index
+                if (focusAddressBar) {
+                    chrome.forceActiveFocus()
+                    Qt.inputMethod.show() // work around http://pad.lv/1316057
+                }
             }
         }
     }
 
     function openUrlInNewTab(url, setCurrent) {
         var webview = webviewComponent.createObject(webviewContainer, {"url": url})
-        addTab(webview, setCurrent, !url.toString())
-    }
-
-    function closeTab(index) {
-        var webview = tabsModel.remove(index)
-        if (webview) {
-            webview.destroy()
-        }
-    }
-
-    function switchToTab(index) {
-        tabsModel.currentIndex = index
-        currentWebview.forceActiveFocus()
+        internal.addTab(webview, setCurrent, !url.toString())
     }
 }
