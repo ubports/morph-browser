@@ -22,7 +22,6 @@ import Ubuntu.Components 0.1
 Tabs {
     id: activityView
 
-    property alias tabsModel: timelineView.tabsModel
     property alias historyModel: timelineView.historyModel
     property QtObject bookmarksModel
 
@@ -42,9 +41,6 @@ Tabs {
 
                 anchors.fill: parent
 
-                onNewTabRequested: activityView.newTabRequested()
-                onSwitchToTabRequested: activityView.switchToTabRequested(index)
-                onCloseTabRequested: activityView.closeTabRequested(index)
                 onHistoryEntryClicked: activityView.historyEntryRequested(url)
             }
         }

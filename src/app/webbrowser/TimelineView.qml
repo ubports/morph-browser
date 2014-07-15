@@ -24,13 +24,9 @@ import webbrowserapp.private 0.1
 Item {
     id: timelineView
 
-    property QtObject tabsModel
     property QtObject historyModel
     property QtObject bookmarksModel
 
-    signal newTabRequested()
-    signal switchToTabRequested(int index)
-    signal closeTabRequested(int index)
     signal historyEntryClicked(url url)
 
     Rectangle {
@@ -57,18 +53,6 @@ Item {
             repeat: true
             running: !timeline.loaded
             onTriggered: timeline.model.append({ timeframe: timeline.timeframes[timeline.model.count] })
-        }
-
-        header: TabsList {
-            width: parent.width
-            height: units.gu(24)
-
-            tabsModel: timelineView.tabsModel
-            bookmarksModel: timelineView.bookmarksModel
-
-            onNewTabClicked: newTabRequested()
-            onSwitchToTabClicked: switchToTabRequested(index)
-            onTabRemoved: closeTabRequested(index)
         }
 
         delegate: Column {
@@ -323,9 +307,6 @@ Item {
     onVisibleChanged: {
         if (visible) {
             timeline.positionViewAtBeginning()
-            // Ensure that the header (currently viewing) is fully visible
-            timeline.contentY += timeline.headerItem.height
-            timeline.headerItem.centerViewOnCurrentTab()
         } else {
             timeline.currentIndex = -1
         }

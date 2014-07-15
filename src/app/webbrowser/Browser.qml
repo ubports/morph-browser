@@ -222,17 +222,6 @@ BrowserView {
             currentWebview.url = url
         }
 
-        function onNewTabRequested() {
-            openUrlInNewTab("", true)
-        }
-
-        function onCloseTabRequested(index) {
-            closeTab(index)
-            if (tabsModel.count === 0) {
-                onNewTabRequested()
-            }
-        }
-
         function onBookmarkRequested(url) {
             currentWebview.url = url
         }
@@ -247,17 +236,11 @@ BrowserView {
 
     function showActivityView() {
         stack.push(Qt.resolvedUrl("ActivityView.qml"),
-                   {tabsModel: tabsModel,
-                    historyModel: _historyModel,
+                   {historyModel: _historyModel,
                     bookmarksModel: _bookmarksModel})
         var view = stack.currentPage
         view.onHistoryEntryRequested.connect(internal.onHistoryEntryRequested)
         view.onHistoryEntryRequested.connect(browser.hideActivityView)
-        view.onNewTabRequested.connect(browser.hideActivityView)
-        view.onNewTabRequested.connect(internal.onNewTabRequested)
-        view.onSwitchToTabRequested.connect(browser.switchToTab)
-        view.onSwitchToTabRequested.connect(browser.hideActivityView)
-        view.onCloseTabRequested.connect(internal.onCloseTabRequested)
         view.onBookmarkRequested.connect(internal.onBookmarkRequested)
         view.onBookmarkRequested.connect(browser.hideActivityView)
         if (currentWebview) {
