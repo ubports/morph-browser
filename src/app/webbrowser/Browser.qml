@@ -137,6 +137,7 @@ BrowserView {
 
             drawerActions: [
                 Action {
+                    objectName: "share"
                     text: i18n.tr("Share")
                     enabled: formFactor == "mobile"
                     onTriggered: {
@@ -149,14 +150,17 @@ BrowserView {
                     }
                 },
                 Action {
+                    objectName: "history"
                     text: i18n.tr("History")
                     onTriggered: historyViewComponent.createObject(historyViewContainer)
                 },
                 Action {
+                    objectName: "tabs"
                     text: i18n.tr("Open tabs")
                     onTriggered: tabsViewComponent.createObject(tabsViewContainer)
                 },
                 Action {
+                    objectName: "newtab"
                     text: i18n.tr("New tab")
                     onTriggered: browser.openUrlInNewTab("", true)
                 }

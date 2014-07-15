@@ -85,6 +85,7 @@ Item {
         }
 
         Button {
+            objectName: "doneButton"
             anchors {
                 left: parent.left
                 leftMargin: units.gu(2)
@@ -99,6 +100,7 @@ Item {
         }
 
         ToolbarAction {
+            objectName: "addTabButton"
             anchors {
                 right: parent.right
                 rightMargin: units.gu(2)

@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013 Canonical
+# Copyright 2013-2014 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -96,22 +96,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.assertThat(keyboardRectangle.state,
                             Eventually(Equals("hidden")))
 
-    def assert_chrome_eventually_shown(self):
-        toolbar = self.main_window.get_toolbar()
-        self.assertThat(toolbar.opened, Eventually(Equals(True)))
-        self.assertThat(toolbar.animating, Eventually(Equals(False)))
-
-    def assert_chrome_eventually_hidden(self):
-        toolbar = self.main_window.get_toolbar()
-        self.assertThat(toolbar.opened, Eventually(Equals(False)))
-        self.assertThat(toolbar.animating, Eventually(Equals(False)))
-
-    def ensure_chrome_is_hidden(self):
-        webview = self.main_window.get_current_webview()
-        self.pointing_device.click_object(webview)
-        self.assert_chrome_eventually_hidden()
-        self.assert_osk_eventually_hidden()
-
     def focus_address_bar(self):
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.click_object(address_bar)
@@ -134,8 +118,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.assertThat(text_field.text, Eventually(Contains(text)))
 
     def go_to_url(self, url):
-        self.ensure_chrome_is_hidden()
-        self.main_window.open_toolbar()
         self.clear_address_bar()
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
@@ -153,27 +135,9 @@ class BrowserTestCaseBase(AutopilotTestCase):
                         Eventually(Equals(100), timeout=20))
         self.assertThat(webview.loading, Eventually(Equals(False)))
 
-    def assert_activity_view_eventually_hidden(self):
-        self.assertThat(self.main_window.get_many_activity_view,
-                        Eventually(Equals([])))
-
-    def ensure_activity_view_visible(self):
-        self.ensure_chrome_is_hidden()
-        self.main_window.open_toolbar().click_button("activityButton")
-        self.main_window.get_activity_view()
-        self.assertThat(self.main_window.get_visible_webviews(), Equals([]))
-
     def ping_server(self):
         ping = urllib.request.urlopen(self.base_url + "/ping")
         self.assertThat(ping.read(), Equals(b"pong"))
-
-    def assert_new_tab_view_eventually_visible(self):
-        new_tab_view = self.main_window.get_new_tab_view()
-        self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
-
-    def assert_new_tab_view_eventually_hidden(self):
-        self.assertThat(self.main_window.get_many_new_tab_view,
-                        Eventually(Equals([])))
 
 
 class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):

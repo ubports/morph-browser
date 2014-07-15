@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013 Canonical
+# Copyright 2013-2014 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -17,10 +17,6 @@
 from ubuntuuitoolkit import emulators as uitk
 
 
-class Panel(uitk.Toolbar):
-    pass
-
-
 class Selection(uitk.UbuntuUIToolkitEmulatorBase):
 
     def get_rectangle(self):
@@ -28,6 +24,29 @@ class Selection(uitk.UbuntuUIToolkitEmulatorBase):
 
     def get_handle(self, name):
         return self.select_single("SelectionHandle", objectName=name)
+
+
+class TabPreview(uitk.UbuntuUIToolkitEmulatorBase):
+
+    def get_close_button(self):
+        return self.select_single("AbstractButton", objectName="closeButton")
+
+
+class TabsView(uitk.UbuntuUIToolkitEmulatorBase):
+
+    def get_previews(self):
+        return self.select_many(TabPreview)
+
+    def get_ordered_previews(self):
+        previews = self.get_previews()
+        previews.sort(key=lambda tab: tab.y)
+        return previews
+
+    def get_done_button(self):
+        return self.select_single("Button", objectName="doneButton")
+
+    def get_add_button(self):
+        return self.select_single("ToolbarAction", objectName="addTabButton")
 
 
 class Browser(uitk.MainView):
@@ -39,10 +58,6 @@ class Browser(uitk.MainView):
     def get_window(self):
         return self.get_parent()
 
-    def get_toolbar(self):
-        # Overridden since the browser doesn’t use the MainView’s Toolbar.
-        return self.select_single(Panel)
-
     def get_keyboard_rectangle(self):
         return self.select_single("KeyboardRectangle")
 
@@ -50,8 +65,7 @@ class Browser(uitk.MainView):
         return self.select_single("Chrome")
 
     def get_address_bar(self):
-        """Get the browsers address bar"""
-        return self.select_single("AddressBar", objectName="addressBar")
+        return self.select_single("AddressBar")
 
     def get_address_bar_clear_button(self):
         textfield = self.get_address_bar_text_field()
@@ -63,10 +77,13 @@ class Browser(uitk.MainView):
                                        objectName="actionButton")
 
     def get_back_button(self):
-        return self.select_single("ActionItem", objectName="backButton")
+        return self.select_single("ChromeButton", objectName="backButton")
 
     def get_forward_button(self):
-        return self.select_single("ActionItem", objectName="forwardButton")
+        return self.select_single("ChromeButton", objectName="forwardButton")
+
+    def get_drawer_button(self):
+        return self.select_single("ChromeButton", objectName="drawerButton")
 
     def get_current_webview(self):
         return self.select_single("WebViewImpl", current=True)
@@ -91,36 +108,8 @@ class Browser(uitk.MainView):
         listview = self.get_address_bar_suggestions_listview()
         return listview.select_many("Base")
 
-    def get_many_activity_view(self):
-        return self.select_many("ActivityView")
-
-    def get_activity_view(self):
-        return self.wait_select_single("ActivityView")
-
-    def get_tabslist(self):
-        return self.get_activity_view().select_single("TabsList")
-
-    def get_tabslist_newtab_delegate(self):
-        return self.get_tabslist().select_single("UbuntuShape",
-                                                 objectName="newTabDelegate")
-
-    def get_tabslist_view(self):
-        return self.get_tabslist().select_single("QQuickListView")
-
-    def get_tabslist_view_delegates(self):
-        view = self.get_tabslist_view()
-        tabs = view.select_many("PageDelegate", objectName="openTabDelegate")
-        tabs.sort(key=lambda tab: tab.x)
-        return tabs
-
     def get_geolocation_dialog(self):
         return self.wait_select_single("GeolocationPermissionRequest")
-
-    def get_many_new_tab_view(self):
-        return self.select_many("NewTabView")
-
-    def get_new_tab_view(self):
-        return self.wait_select_single("NewTabView")
 
     def get_selection(self):
         return self.wait_select_single(Selection)
@@ -128,3 +117,17 @@ class Browser(uitk.MainView):
     def get_selection_actions(self):
         return self.wait_select_single("ActionSelectionPopover",
                                        objectName="selectionActions")
+
+    def get_drawer(self):
+        return self.wait_select_single("QQuickItem", objectName="drawer",
+                                       clip=False)
+
+    def get_drawer_action(self, actionName):
+        drawer = self.get_drawer()
+        return drawer.select_single("AbstractButton", objectName=actionName)
+
+    def get_tabs_view(self):
+        return self.wait_select_single(TabsView)
+
+    def get_new_tab_view(self):
+        return self.wait_select_single("NewTabView")

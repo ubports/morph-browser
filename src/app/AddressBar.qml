@@ -70,7 +70,10 @@ FocusScope {
 
             MouseArea {
                 id: actionButton
+                objectName: "actionButton"
                 anchors.fill: parent
+                enabled: addressbar.text
+                opacity: enabled ? 1.0 : 0.3
 
                 Icon {
                     id: actionIcon

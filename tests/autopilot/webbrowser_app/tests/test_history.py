@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013 Canonical
+# Copyright 2013-2014 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -18,7 +18,6 @@ import os
 import random
 import sqlite3
 import time
-import unittest
 
 from testtools.matchers import Contains, Equals
 from autopilot.matchers import Eventually
@@ -78,8 +77,6 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
     def test_show_list_of_suggestions(self):
         listview = self.main_window.get_address_bar_suggestions_listview()
         self.assert_suggestions_eventually_hidden()
-        self.assert_chrome_eventually_hidden()
-        self.main_window.open_toolbar()
         self.assert_suggestions_eventually_hidden()
         self.focus_address_bar()
         self.assert_suggestions_eventually_shown()
@@ -98,8 +95,6 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assertThat(listview.count, Eventually(Equals(2)))
 
     def test_clear_address_bar_dismisses_suggestions(self):
-        self.assert_chrome_eventually_hidden()
-        self.main_window.open_toolbar()
         self.focus_address_bar()
         self.assert_suggestions_eventually_shown()
         self.clear_address_bar()
@@ -109,8 +104,6 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assert_suggestions_eventually_hidden()
 
     def test_addressbar_loosing_focus_dismisses_suggestions(self):
-        self.assert_chrome_eventually_hidden()
-        self.main_window.open_toolbar()
         self.focus_address_bar()
         self.assert_suggestions_eventually_shown()
         suggestions = self.main_window.get_address_bar_suggestions()
@@ -122,25 +115,8 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.pointing_device.click()
         self.assert_suggestions_eventually_hidden()
 
-    @unittest.skip("the chrome cannot be dismissed when the swipe gesture "
-                   "is initiated over the address bar")
-    def test_hiding_chrome_dismisses_suggestions(self):
-        self.assert_chrome_eventually_hidden()
-        self.main_window.open_toolbar()
-        self.focus_address_bar()
-        self.assert_suggestions_eventually_shown()
-        self.main_window.close_toolbar()
-        self.assert_osk_eventually_hidden()
-        self.assert_chrome_eventually_hidden()
-        self.assert_suggestions_eventually_hidden()
-        self.main_window.open_toolbar()
-        self.focus_address_bar()
-        self.assert_suggestions_eventually_shown()
-
     def test_select_suggestion(self):
         listview = self.main_window.get_address_bar_suggestions_listview()
-        self.assert_chrome_eventually_hidden()
-        self.main_window.open_toolbar()
         self.focus_address_bar()
         self.assert_suggestions_eventually_shown()
         self.clear_address_bar()
@@ -162,8 +138,6 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assert_suggestions_eventually_hidden()
 
     def test_special_characters(self):
-        self.assert_chrome_eventually_hidden()
-        self.main_window.open_toolbar()
         self.clear_address_bar()
         self.type_in_address_bar("(phil")
         self.assert_suggestions_eventually_shown()

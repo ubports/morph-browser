@@ -39,6 +39,7 @@ Column {
 
             AbstractButton {
                 id: closeButton
+                objectName: "closeButton"
 
                 height: parent.height
                 width: units.gu(5)

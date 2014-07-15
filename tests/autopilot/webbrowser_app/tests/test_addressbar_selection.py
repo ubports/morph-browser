@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013 Canonical
+# Copyright 2013-2014 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -27,8 +27,6 @@ class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
     """Test the address bar selection"""
 
     def test_click_to_select(self):
-        self.assert_chrome_eventually_hidden()
-        self.main_window.open_toolbar()
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.click_object(address_bar)
         text_field = self.main_window.get_address_bar_text_field()
@@ -36,16 +34,12 @@ class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
                         Eventually(Equals(text_field.text)))
 
     def test_click_on_action_button(self):
-        self.assert_chrome_eventually_hidden()
-        self.main_window.open_toolbar()
         action_button = self.main_window.get_address_bar_action_button()
         self.pointing_device.click_object(action_button)
         text_field = self.main_window.get_address_bar_text_field()
         self.assertThat(text_field.selectedText, Eventually(Equals("")))
 
     def test_second_click_deselect_text(self):
-        self.assert_chrome_eventually_hidden()
-        self.main_window.open_toolbar()
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.click_object(address_bar)
         # avoid double click
@@ -57,8 +51,6 @@ class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
         self.assertThat(text_field.cursorPosition, Eventually(GreaterThan(0)))
 
     def test_double_click_select_word(self):
-        self.assert_chrome_eventually_hidden()
-        self.main_window.open_toolbar()
         address_bar = self.main_window.get_address_bar()
         self.pointing_device.click_object(address_bar)
         self.assert_osk_eventually_shown()

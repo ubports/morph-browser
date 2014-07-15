@@ -82,6 +82,7 @@ FocusScope {
 
         ChromeButton {
             id: backButton
+            objectName: "backButton"
 
             iconName: "previous"
             iconSize: parent.iconSize
@@ -100,6 +101,7 @@ FocusScope {
 
         ChromeButton {
             id: forwardButton
+            objectName: "forwardButton"
 
             iconName: "next"
             iconSize: parent.iconSize
@@ -155,6 +157,7 @@ FocusScope {
 
         ChromeButton {
             id: drawerButton
+            objectName: "drawerButton"
 
             iconName: "contextual-menu"
             iconSize: parent.iconSize
@@ -196,6 +199,7 @@ FocusScope {
 
         Item {
             id: drawer
+            objectName: "drawer"
 
             property bool opened: false
             property bool closing: false
@@ -262,6 +266,7 @@ FocusScope {
                 Repeater {
                     model: chrome.drawerActions
                     delegate: AbstractButton {
+                        objectName: action.objectName
                         anchors {
                             left: parent.left
                             right: parent.right
