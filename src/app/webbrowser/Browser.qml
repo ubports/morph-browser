@@ -227,6 +227,15 @@ BrowserView {
                     currentWebview.url = url
                     this.destroy()
                 }
+
+                Label {
+                    anchors.centerIn: parent
+                    rotation: -35
+                    text: "TEMPORARY"
+                    color: "red"
+                    opacity: 0.4
+                    fontSize: "x-large"
+                }
             }
         }
     }
