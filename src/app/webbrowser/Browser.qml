@@ -240,15 +240,6 @@ BrowserView {
         }
     }
 
-    QtObject {
-        id: internal
-
-        function onNewTabUrlRequested(url) {
-            currentWebview.url = url
-            currentWebview.forceActiveFocus()
-        }
-    }
-
     HistoryModel {
         id: _historyModel
         databasePath: dataLocation + "/history.sqlite"
@@ -337,8 +328,14 @@ BrowserView {
 
                         historyModel: _historyModel
                         bookmarksModel: _bookmarksModel
-                        onBookmarkClicked: internal.onNewTabUrlRequested(url)
-                        onHistoryEntryClicked: internal.onNewTabUrlRequested(url)
+                        onBookmarkClicked: {
+                            currentWebview.url = url
+                            currentWebview.forceActiveFocus()
+                        }
+                        onHistoryEntryClicked: {
+                            currentWebview.url = url
+                            currentWebview.forceActiveFocus()
+                        }
                     }
                 }
             }
