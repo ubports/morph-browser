@@ -60,8 +60,7 @@ BrowserView {
 
     Item {
         anchors.fill: parent
-        visible: (historyViewContainer.children.length === 0) &&
-                 (tabsViewContainer.children.length === 0)
+        visible: !historyViewContainer.visible && !tabsViewContainer.visible
 
         Item {
             id: webviewContainer
@@ -197,6 +196,7 @@ BrowserView {
     Item {
         id: tabsViewContainer
 
+        visible: children.length > 0
         anchors.fill: parent
 
         Component {
@@ -214,6 +214,7 @@ BrowserView {
     Item {
         id: historyViewContainer
 
+        visible: children.length > 0
         anchors.fill: parent
 
         Component {
