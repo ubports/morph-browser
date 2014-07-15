@@ -58,7 +58,6 @@ BrowserView {
 
         WebappContainerWebview {
             id: webview
-            toolbar: panel.panel
 
             anchors {
                 left: parent.left
@@ -79,24 +78,6 @@ BrowserView {
                 if (webview.currentWebview)
                     webview.currentWebview.reload()
             }
-        }
-    }
-
-    PanelLoader {
-        id: panel
-        objectName: "panel"
-
-        currentWebview: webview.currentWebview
-        chromeless: webapp.chromeless
-
-        backForwardButtonsVisible: webapp.backForwardButtonsVisible
-        activityButtonVisible: false
-        addressBarVisible: webapp.addressBarVisible
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: panel.opened ? osk.top : parent.bottom
         }
     }
 
