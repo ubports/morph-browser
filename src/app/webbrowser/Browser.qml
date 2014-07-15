@@ -138,6 +138,15 @@ BrowserView {
                 onLoadingChanged: {
                     if (browser.currentWebview.loading) {
                         chrome.state = "shown"
+                    } else if (browser.currentWebview.fullscreen) {
+                        chrome.state = "hidden"
+                    }
+                }
+                onFullscreenChanged: {
+                    if (browser.currentWebview.fullscreen) {
+                        chrome.state = "hidden"
+                    } else {
+                        chrome.state = "shown"
                     }
                 }
             }
