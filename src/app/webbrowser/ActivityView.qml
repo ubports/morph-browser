@@ -64,4 +64,18 @@ Tabs {
             }
         }
     }
+    Tab {
+        title: i18n.tr("History")
+        page: Page {
+            HistoryView {
+                id: historyView
+
+                historyModel: activityView.historyModel
+
+                anchors.fill: parent
+
+                onHistoryEntryClicked: activityView.historyEntryRequested(url)
+            }
+        }
+    }
 }
