@@ -98,7 +98,7 @@ Item {
             onClicked: tabsview.done()
         }
 
-        ToolbarButton {
+        ToolbarAction {
             anchors {
                 right: parent.right
                 rightMargin: units.gu(2)
@@ -111,15 +111,9 @@ Item {
 
             iconName: "add"
 
-            onTriggered: {
+            onClicked: {
                 tabsview.newTabRequested()
                 tabsview.done()
-            }
-
-            MouseArea {
-                // XXX: for some reason the parent button’s triggered() signal is never emitted?
-                anchors.fill: parent
-                onClicked: parent.trigger()
             }
         }
     }
