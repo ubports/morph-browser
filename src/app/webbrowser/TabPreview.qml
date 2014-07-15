@@ -114,19 +114,27 @@ Column {
                 }
             }
         }
+
+        Rectangle {
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            height: units.dp(1)
+
+            color: "#d9d9d9"
+        }
     }
 
     Item {
-        // inactive webview / image
-
         width: parent.width
         height: parent.height - header.height
 
-        // XXX: temporary placeholder
-        Rectangle {
-            color: "red"
-            opacity: 0.4
+        Item {
+            id: previewContainer
             anchors.fill: parent
+            clip: true
         }
 
         MouseArea {
@@ -144,5 +152,24 @@ Column {
 
             opacity: 0.3
         }
+    }
+
+    QtObject {
+        id: internal
+        property var previewParent
+    }
+
+    Component.onCompleted: {
+        var preview = tab.webview.preview
+        internal.previewParent = preview.parent
+        preview.parent = previewContainer
+        preview.width = internal.previewParent.width
+        preview.height = internal.previewParent.height
+    }
+    Component.onDestruction: {
+        var preview = tab.webview.preview
+        preview.parent = internal.previewParent
+        preview.width = preview.parent.width
+        preview.height = preview.parent.height
     }
 }

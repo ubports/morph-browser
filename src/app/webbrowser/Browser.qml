@@ -59,6 +59,33 @@ BrowserView {
     ]
 
     Item {
+        id: previewsContainer
+
+        width: webviewContainer.width
+        height: webviewContainer.height
+        y: webviewContainer.y
+
+        Component {
+            id: previewComponent
+
+            ShaderEffectSource {
+                id: preview
+
+                width: parent.width
+                height: parent.height
+
+                onSourceItemChanged: {
+                    if (!sourceItem) {
+                        this.destroy()
+                    }
+                }
+
+                live: browser.currentWebview === sourceItem
+            }
+        }
+    }
+
+    Item {
         anchors.fill: parent
         visible: !historyViewContainer.visible && !tabsViewContainer.visible
 
@@ -267,6 +294,8 @@ BrowserView {
         WebViewImpl {
             currentWebview: browser.currentWebview
 
+            property var preview
+
             anchors.fill: parent
 
             readonly property bool current: currentWebview === this
@@ -360,6 +389,7 @@ BrowserView {
                     Qt.inputMethod.show() // work around http://pad.lv/1316057
                 }
             }
+            webview.preview = previewComponent.createObject(previewsContainer, {sourceItem: webview})
         }
     }
 
