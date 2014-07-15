@@ -49,7 +49,7 @@ Column {
                 }
 
                 Icon {
-                    height: units.gu(3)
+                    height: units.gu(2)
                     width: height
                     anchors.centerIn: parent
                     name: "close"
