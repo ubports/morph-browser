@@ -80,12 +80,14 @@ BrowserView {
                     }
                 }
 
-                live: browser.currentWebview === sourceItem
+                live: mainView.visible && (browser.currentWebview === sourceItem)
             }
         }
     }
 
     Item {
+        id: mainView
+
         anchors.fill: parent
         visible: !historyViewContainer.visible && !tabsViewContainer.visible
 
