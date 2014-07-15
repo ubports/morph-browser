@@ -27,6 +27,8 @@ Item {
     readonly property bool nearTop: webview ? webview.contentY < (header.height / internal.contentRatio) : false
     readonly property bool nearBottom: webview ? (webview.contentY + internal.viewportHeight + header.height / internal.contentRatio) > internal.contentHeight : false
 
+    property bool active: true
+
     signal scrolledUp()
     signal scrolledDown()
 
@@ -47,7 +49,7 @@ Item {
     }
 
     Connections {
-        target: scrollTracker.webview
+        target: scrollTracker.active ? scrollTracker.webview : null
         onContentYChanged: {
             var old = internal.previousScrollFraction
             internal.previousScrollFraction = internal.currentScrollFraction
