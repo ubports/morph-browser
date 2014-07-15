@@ -60,7 +60,8 @@ BrowserView {
 
     Item {
         anchors.fill: parent
-        visible: !activityViewVisible && (tabsViewContainer.children.length === 0)
+        visible: (historyViewContainer.children.length === 0) &&
+                 (tabsViewContainer.children.length === 0)
 
         Item {
             id: webviewContainer
@@ -121,7 +122,7 @@ BrowserView {
                 },
                 Action {
                     text: i18n.tr("History")
-                    onTriggered: browser.showActivityView() // XXX: temporary until the new history view is implemented
+                    onTriggered: historyViewComponent.createObject(historyViewContainer)
                 },
                 Action {
                     text: i18n.tr("Open tabs")
@@ -210,46 +211,33 @@ BrowserView {
         }
     }
 
-    PageStack {
-        id: stack
-        active: depth > 0
+    Item {
+        id: historyViewContainer
+
+        anchors.fill: parent
+
+        Component {
+            id: historyViewComponent
+
+            TimelineView {
+                anchors.fill: parent
+                historyModel: _historyModel
+                bookmarksModel: _bookmarksModel
+                onHistoryEntryClicked: {
+                    currentWebview.url = url
+                    this.destroy()
+                }
+            }
+        }
     }
 
     QtObject {
         id: internal
 
-        function onHistoryEntryRequested(url) {
-            currentWebview.url = url
-        }
-
-        function onBookmarkRequested(url) {
-            currentWebview.url = url
-        }
-
         function onNewTabUrlRequested(url) {
             currentWebview.url = url
             currentWebview.forceActiveFocus()
         }
-    }
-
-    readonly property bool activityViewVisible: stack.depth > 0
-
-    function showActivityView() {
-        stack.push(Qt.resolvedUrl("ActivityView.qml"),
-                   {historyModel: _historyModel,
-                    bookmarksModel: _bookmarksModel})
-        var view = stack.currentPage
-        view.onHistoryEntryRequested.connect(internal.onHistoryEntryRequested)
-        view.onHistoryEntryRequested.connect(browser.hideActivityView)
-        view.onBookmarkRequested.connect(internal.onBookmarkRequested)
-        view.onBookmarkRequested.connect(browser.hideActivityView)
-        if (currentWebview) {
-            currentWebview.forceActiveFocus()
-        }
-    }
-
-    function hideActivityView() {
-        stack.pop()
     }
 
     HistoryModel {
