@@ -42,11 +42,11 @@ Item {
             bottom: toolbar.top
         }
 
-        spacing: units.gu(-4)
+        spacing: units.gu(-10)
 
         delegate: TabPreview {
             width: parent.width
-            height: units.gu(30)
+            height: units.gu(40)
 
             title: model.title ? model.title : model.url
             webview: model.webview
