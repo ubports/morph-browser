@@ -131,3 +131,7 @@ class Browser(uitk.UbuntuUIToolkitEmulatorBase):
 
     def get_new_tab_view(self):
         return self.wait_select_single("NewTabView")
+
+    def get_content_picker_dialog(self):
+        # only on devices
+        return self.wait_select_single("ContentPickerDialog")
