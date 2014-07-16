@@ -21,17 +21,17 @@ from autopilot.platform import model
 
 from testtools.matchers import Equals
 
+import unittest
+
 
 class TestContentPick(StartOpenRemotePageTestCaseBase):
 
+    @unittest.skipIf(model() == "Desktop", "on devices only")
     def test_picker_dialog_shows_up(self):
         url = self.base_url + "/uploadform"
         self.go_to_url(url)
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
-        if model() == "Desktop":
-            dialog = self.app.wait_select_single("QFileDialog")
-        else:
-            dialog = self.main_window.get_content_picker_dialog()
+        dialog = self.main_window.get_content_picker_dialog()
         self.assertThat(dialog.visible, Eventually(Equals(True)))
