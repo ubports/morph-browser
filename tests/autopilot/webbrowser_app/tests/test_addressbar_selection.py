@@ -27,31 +27,32 @@ class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
     """Test the address bar selection"""
 
     def test_click_to_select(self):
-        address_bar = self.main_window.get_address_bar()
+        address_bar = self.main_window.get_chrome().get_address_bar()
         self.pointing_device.click_object(address_bar)
-        text_field = self.main_window.get_address_bar_text_field()
+        text_field = address_bar.get_text_field()
         self.assertThat(text_field.selectedText,
                         Eventually(Equals(text_field.text)))
 
     def test_click_on_action_button(self):
-        action_button = self.main_window.get_address_bar_action_button()
+        address_bar = self.main_window.get_chrome().get_address_bar()
+        action_button = address_bar.get_action_button()
         self.pointing_device.click_object(action_button)
-        text_field = self.main_window.get_address_bar_text_field()
+        text_field = address_bar.get_text_field()
         self.assertThat(text_field.selectedText, Eventually(Equals("")))
 
     def test_second_click_deselect_text(self):
-        address_bar = self.main_window.get_address_bar()
+        address_bar = self.main_window.get_chrome().get_address_bar()
         self.pointing_device.click_object(address_bar)
         # avoid double click
         time.sleep(1)
         self.assert_osk_eventually_shown()
         self.pointing_device.click_object(address_bar)
-        text_field = self.main_window.get_address_bar_text_field()
+        text_field = address_bar.get_text_field()
         self.assertThat(text_field.selectedText, Eventually(Equals('')))
         self.assertThat(text_field.cursorPosition, Eventually(GreaterThan(0)))
 
     def test_double_click_select_word(self):
-        address_bar = self.main_window.get_address_bar()
+        address_bar = self.main_window.get_chrome().get_address_bar()
         self.pointing_device.click_object(address_bar)
         self.assert_osk_eventually_shown()
         self.pointing_device.click_object(address_bar)
@@ -60,6 +61,6 @@ class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
         # now simulate a double click
         self.pointing_device.click()
         self.pointing_device.click()
-        text_field = self.main_window.get_address_bar_text_field()
+        text_field = address_bar.get_text_field()
         self.assertThat(lambda: len(text_field.selectedText),
                         Eventually(GreaterThan(0)))

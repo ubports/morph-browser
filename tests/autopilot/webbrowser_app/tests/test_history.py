@@ -67,15 +67,15 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
     """Test the address bar suggestions based on navigation history."""
 
     def assert_suggestions_eventually_shown(self):
-        suggestions = self.main_window.get_address_bar_suggestions()
+        suggestions = self.main_window.get_suggestions()
         self.assertThat(suggestions.opacity, Eventually(Equals(1)))
 
     def assert_suggestions_eventually_hidden(self):
-        suggestions = self.main_window.get_address_bar_suggestions()
+        suggestions = self.main_window.get_suggestions()
         self.assertThat(suggestions.opacity, Eventually(Equals(0)))
 
     def test_show_list_of_suggestions(self):
-        listview = self.main_window.get_address_bar_suggestions_listview()
+        listview = self.main_window.get_suggestions().get_list()
         self.assert_suggestions_eventually_hidden()
         self.assert_suggestions_eventually_hidden()
         self.focus_address_bar()
@@ -106,7 +106,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
     def test_addressbar_loosing_focus_dismisses_suggestions(self):
         self.focus_address_bar()
         self.assert_suggestions_eventually_shown()
-        suggestions = self.main_window.get_address_bar_suggestions()
+        suggestions = self.main_window.get_suggestions()
         coord = suggestions.globalRect
         webview = self.main_window.get_current_webview()
         self.pointing_device.move(
@@ -116,15 +116,15 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assert_suggestions_eventually_hidden()
 
     def test_select_suggestion(self):
-        listview = self.main_window.get_address_bar_suggestions_listview()
+        suggestions = self.main_window.get_suggestions()
+        listview = suggestions.get_list()
         self.focus_address_bar()
         self.assert_suggestions_eventually_shown()
         self.clear_address_bar()
         self.type_in_address_bar("ubuntu")
         self.assert_suggestions_eventually_shown()
         self.assertThat(listview.count, Eventually(Equals(5)))
-        entries = \
-            self.main_window.get_address_bar_suggestions_listview_entries()
+        entries = suggestions.get_entries()
         highlight = '<b><font color="#dd4814">Ubuntu</font></b>'
         url = "http://en.wikipedia.org/wiki/{}_(operating_system)"
         url = url.format(highlight)
@@ -141,10 +141,10 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.clear_address_bar()
         self.type_in_address_bar("(phil")
         self.assert_suggestions_eventually_shown()
-        listview = self.main_window.get_address_bar_suggestions_listview()
+        suggestions = self.main_window.get_suggestions()
+        listview = suggestions.get_list()
         self.assertThat(listview.count, Eventually(Equals(1)))
-        entry = \
-            self.main_window.get_address_bar_suggestions_listview_entries()[0]
+        entry = suggestions.get_entries()[0]
         highlight = '<b><font color="#dd4814">(phil</font></b>'
         url = "http://en.wikipedia.org/wiki/Ubuntu_{}osophy)".format(highlight)
         self.assertThat(entry.subText, Contains(url))

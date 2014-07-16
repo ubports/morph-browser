@@ -25,13 +25,12 @@ class TestBackForward(StartOpenRemotePageTestCaseBase):
     """Tests the back and forward functionality."""
 
     def test_homepage_no_history(self):
-        back_button = self.main_window.get_back_button()
-        self.assertThat(back_button.enabled, Equals(False))
-        forward_button = self.main_window.get_forward_button()
-        self.assertThat(forward_button.enabled, Equals(False))
+        chrome = self.main_window.get_chrome()
+        self.assertThat(chrome.get_back_button().enabled, Equals(False))
+        self.assertThat(chrome.get_forward_button().enabled, Equals(False))
 
     def test_opening_new_page_enables_back_button(self):
-        back_button = self.main_window.get_back_button()
+        back_button = self.main_window.get_chrome().get_back_button()
         self.assertThat(back_button.enabled, Equals(False))
         url = self.base_url + "/aleaiactaest"
         self.go_to_url(url)
@@ -42,9 +41,9 @@ class TestBackForward(StartOpenRemotePageTestCaseBase):
         url = self.base_url + "/aleaiactaest"
         self.go_to_url(url)
         self.assert_page_eventually_loaded(url)
-        forward_button = self.main_window.get_forward_button()
+        chrome = self.main_window.get_chrome()
+        forward_button = chrome.get_forward_button()
         self.assertThat(forward_button.enabled, Equals(False))
-        back_button = self.main_window.get_back_button()
-        self.pointing_device.click_object(back_button)
+        self.pointing_device.click_object(chrome.get_back_button())
         self.assert_home_page_eventually_loaded()
         self.assertThat(forward_button.enabled, Eventually(Equals(True)))

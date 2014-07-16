@@ -97,7 +97,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
                             Eventually(Equals("hidden")))
 
     def focus_address_bar(self):
-        address_bar = self.main_window.get_address_bar()
+        address_bar = self.main_window.get_chrome().get_address_bar()
         self.pointing_device.click_object(address_bar)
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
         self.assert_osk_eventually_shown()
@@ -105,16 +105,17 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def clear_address_bar(self):
         self.focus_address_bar()
         self.assert_osk_eventually_shown()
-        clear_button = self.main_window.get_address_bar_clear_button()
+        address_bar = self.main_window.get_chrome().get_address_bar()
+        clear_button = address_bar.get_clear_button()
         self.pointing_device.click_object(clear_button)
-        text_field = self.main_window.get_address_bar_text_field()
+        text_field = address_bar.get_text_field()
         self.assertThat(text_field.text, Eventually(Equals("")))
 
     def type_in_address_bar(self, text):
-        address_bar = self.main_window.get_address_bar()
+        address_bar = self.main_window.get_chrome().get_address_bar()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
         self.keyboard.type(text)
-        text_field = self.main_window.get_address_bar_text_field()
+        text_field = address_bar.get_text_field()
         self.assertThat(text_field.text, Eventually(Contains(text)))
 
     def go_to_url(self, url):

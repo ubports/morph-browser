@@ -24,7 +24,8 @@ class TestMainWindowAddressBarActionButton(StartOpenRemotePageTestCaseBase):
 
     def test_button_disabled_when_text_is_empty(self):
         self.clear_address_bar()
-        action_button = self.main_window.get_address_bar_action_button()
+        address_bar = self.main_window.get_chrome().get_address_bar()
+        action_button = address_bar.get_action_button()
         self.assertThat(action_button.enabled, Eventually(Equals(False)))
         self.type_in_address_bar("ubuntu")
         self.assertThat(action_button.enabled, Eventually(Equals(True)))

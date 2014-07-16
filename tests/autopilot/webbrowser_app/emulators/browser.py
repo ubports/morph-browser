@@ -17,6 +17,50 @@
 from ubuntuuitoolkit import emulators as uitk
 
 
+class AddressBar(uitk.UbuntuUIToolkitEmulatorBase):
+
+    def get_text_field(self):
+        return self.select_single("TextField")
+
+    def get_clear_button(self):
+        return self.select_single("AbstractButton")
+
+    def get_action_button(self):
+        return self.select_single("QQuickMouseArea", objectName="actionButton")
+
+
+class Chrome(uitk.UbuntuUIToolkitEmulatorBase):
+
+    def get_address_bar(self):
+        return self.select_single(AddressBar)
+
+    def get_back_button(self):
+        return self.select_single("ChromeButton", objectName="backButton")
+
+    def get_forward_button(self):
+        return self.select_single("ChromeButton", objectName="forwardButton")
+
+    def get_drawer_button(self):
+        return self.select_single("ChromeButton", objectName="drawerButton")
+
+    def get_drawer(self):
+        return self.wait_select_single("QQuickItem", objectName="drawer",
+                                       clip=False)
+
+    def get_drawer_action(self, actionName):
+        drawer = self.get_drawer()
+        return drawer.select_single("AbstractButton", objectName=actionName)
+
+
+class Suggestions(uitk.UbuntuUIToolkitEmulatorBase):
+
+    def get_list(self):
+        return self.select_single("QQuickListView")
+
+    def get_entries(self):
+        return self.get_list().select_many("Base")
+
+
 class Selection(uitk.UbuntuUIToolkitEmulatorBase):
 
     def get_rectangle(self):
@@ -49,11 +93,7 @@ class TabsView(uitk.UbuntuUIToolkitEmulatorBase):
         return self.select_single("ToolbarAction", objectName="addTabButton")
 
 
-class Browser(uitk.MainView):
-
-    """
-    An emulator class that makes it easy to interact with the webbrowser app.
-    """
+class Browser(uitk.UbuntuUIToolkitEmulatorBase):
 
     def get_window(self):
         return self.get_parent()
@@ -62,28 +102,7 @@ class Browser(uitk.MainView):
         return self.select_single("KeyboardRectangle")
 
     def get_chrome(self):
-        return self.select_single("Chrome")
-
-    def get_address_bar(self):
-        return self.select_single("AddressBar")
-
-    def get_address_bar_clear_button(self):
-        textfield = self.get_address_bar_text_field()
-        return textfield.select_single("AbstractButton")
-
-    def get_address_bar_action_button(self):
-        textfield = self.get_address_bar_text_field()
-        return textfield.select_single("QQuickMouseArea",
-                                       objectName="actionButton")
-
-    def get_back_button(self):
-        return self.select_single("ChromeButton", objectName="backButton")
-
-    def get_forward_button(self):
-        return self.select_single("ChromeButton", objectName="forwardButton")
-
-    def get_drawer_button(self):
-        return self.select_single("ChromeButton", objectName="drawerButton")
+        return self.select_single(Chrome)
 
     def get_current_webview(self):
         return self.select_single("WebViewImpl", current=True)
@@ -94,19 +113,8 @@ class Browser(uitk.MainView):
     def get_error_sheet(self):
         return self.select_single("ErrorSheet")
 
-    def get_address_bar_text_field(self):
-        return self.get_address_bar().select_single("TextField")
-
-    def get_address_bar_suggestions(self):
-        return self.select_single("Suggestions")
-
-    def get_address_bar_suggestions_listview(self):
-        suggestions = self.get_address_bar_suggestions()
-        return suggestions.select_single("QQuickListView")
-
-    def get_address_bar_suggestions_listview_entries(self):
-        listview = self.get_address_bar_suggestions_listview()
-        return listview.select_many("Base")
+    def get_suggestions(self):
+        return self.select_single(Suggestions)
 
     def get_geolocation_dialog(self):
         return self.wait_select_single("GeolocationPermissionRequest")
@@ -117,14 +125,6 @@ class Browser(uitk.MainView):
     def get_selection_actions(self):
         return self.wait_select_single("ActionSelectionPopover",
                                        objectName="selectionActions")
-
-    def get_drawer(self):
-        return self.wait_select_single("QQuickItem", objectName="drawer",
-                                       clip=False)
-
-    def get_drawer_action(self, actionName):
-        drawer = self.get_drawer()
-        return drawer.select_single("AbstractButton", objectName=actionName)
 
     def get_tabs_view(self):
         return self.wait_select_single(TabsView)
