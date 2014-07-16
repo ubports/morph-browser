@@ -101,6 +101,13 @@ BrowserView {
             height: parent.height - chrome.visibleHeight - osk.height
         }
 
+        ErrorSheet {
+            anchors.fill: webviewContainer
+            visible: currentWebview ? currentWebview.lastLoadFailed : false
+            url: currentWebview ? currentWebview.url : ""
+            onRefreshClicked: currentWebview.reload()
+        }
+
         Chrome {
             id: chrome
 
@@ -198,13 +205,6 @@ BrowserView {
                     chrome.state = "hidden"
                 }
             }
-        }
-
-        ErrorSheet {
-            anchors.fill: webviewContainer
-            visible: currentWebview ? currentWebview.lastLoadFailed : false
-            url: currentWebview ? currentWebview.url : ""
-            onRefreshClicked: currentWebview.reload()
         }
 
         Suggestions {
