@@ -18,6 +18,7 @@
 
 import QtQuick 2.2
 import Ubuntu.Components 0.1
+import ".."
 
 FocusScope {
     id: chrome
@@ -190,7 +191,7 @@ FocusScope {
         value: chrome.webview ? chrome.webview.loadProgress / 100 : 0.0
         visible: chrome.webview ? chrome.webview.loading
                                   // workaround for https://bugs.launchpad.net/oxide/+bug/1290821
-                                  && !webview.lastLoadStopped
+                                  && !chrome.webview.lastLoadStopped
                                 : false
     }
 

@@ -41,19 +41,19 @@ BrowserView {
 
     actions: [
         Actions.Back {
-            enabled: backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoBack
-            onTriggered: webview.goBack()
+            enabled: webapp.backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoBack
+            onTriggered: webview.currentWebview.goBack()
         },
         Actions.Forward {
-            enabled: backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoForward
-            onTriggered: webview.goForward()
+            enabled: webapp.backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoForward
+            onTriggered: webview.currentWebview.goForward()
         },
         Actions.Reload {
-            onTriggered: webview.reload()
+            onTriggered: webview.currentWebview.reload()
         }
     ]
 
-    Page {
+    Item {
         anchors.fill: parent
 
         WebappContainerWebview {
@@ -62,7 +62,7 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: parent.top
+                top: chrome.bottom
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
@@ -78,6 +78,19 @@ BrowserView {
                 if (webview.currentWebview)
                     webview.currentWebview.reload()
             }
+        }
+
+        Chrome {
+            id: chrome
+
+            webview: webview.currentWebview
+            navigationButtonsVisible: webapp.backForwardButtonsVisible
+
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+            height: units.gu(6)
         }
     }
 
