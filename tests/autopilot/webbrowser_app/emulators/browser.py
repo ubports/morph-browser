@@ -28,6 +28,9 @@ class AddressBar(uitk.UbuntuUIToolkitEmulatorBase):
     def get_action_button(self):
         return self.select_single("QQuickMouseArea", objectName="actionButton")
 
+    def get_bookmark_toggle(self):
+        return self.select_single("QQuickItem", objectName="bookmarkToggle")
+
 
 class Chrome(uitk.UbuntuUIToolkitEmulatorBase):
 

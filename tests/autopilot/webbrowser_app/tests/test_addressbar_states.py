@@ -22,8 +22,6 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
 
-    """Tests the address bar states."""
-
     def test_state_idle_when_loaded(self):
         address_bar = self.main_window.get_chrome().get_address_bar()
         self.assertThat(address_bar.state, Eventually(Equals("")))

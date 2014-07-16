@@ -24,8 +24,6 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 class TestAddressBarSelection(StartOpenRemotePageTestCaseBase):
 
-    """Test the address bar selection"""
-
     def test_click_to_select(self):
         address_bar = self.main_window.get_chrome().get_address_bar()
         self.pointing_device.click_object(address_bar)

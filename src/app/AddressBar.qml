@@ -116,6 +116,8 @@ FocusScope {
         }
 
         secondaryItem: Item {
+            objectName: "bookmarkToggle"
+
             height: textField.height
             width: visible ? height : 0
 

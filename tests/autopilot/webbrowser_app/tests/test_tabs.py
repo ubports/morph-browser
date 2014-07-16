@@ -22,27 +22,9 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 class TestTabsView(StartOpenRemotePageTestCaseBase):
 
-    def open_tabs_view(self):
-        chrome = self.main_window.get_chrome()
-        drawer_button = chrome.get_drawer_button()
-        self.pointing_device.click_object(drawer_button)
-        chrome.get_drawer()
-        tabs_action = chrome.get_drawer_action("tabs")
-        self.pointing_device.click_object(tabs_action)
-        self.main_window.get_tabs_view()
-
     def setUp(self):
         super(TestTabsView, self).setUp()
         self.open_tabs_view()
-
-    def open_new_tab(self):
-        tabs_view = self.main_window.get_tabs_view()
-        add_button = tabs_view.get_add_button()
-        self.pointing_device.click_object(add_button)
-        tabs_view.wait_until_destroyed()
-        self.main_window.get_new_tab_view()
-        address_bar = self.main_window.get_chrome().get_address_bar()
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
     def test_tabs_model(self):
         previews = self.main_window.get_tabs_view().get_previews()
