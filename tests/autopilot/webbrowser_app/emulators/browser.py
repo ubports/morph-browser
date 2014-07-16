@@ -61,6 +61,15 @@ class Suggestions(uitk.UbuntuUIToolkitEmulatorBase):
         return self.get_list().select_many("Base")
 
 
+class GeolocationPermissionRequest(uitk.UbuntuUIToolkitEmulatorBase):
+
+    def get_deny_button(self):
+        return self.select_single("Button", objectName="deny")
+
+    def get_allow_button(self):
+        return self.select_single("Button", objectName="allow")
+
+
 class Selection(uitk.UbuntuUIToolkitEmulatorBase):
 
     def get_rectangle(self):
@@ -117,7 +126,7 @@ class Browser(uitk.UbuntuUIToolkitEmulatorBase):
         return self.select_single(Suggestions)
 
     def get_geolocation_dialog(self):
-        return self.wait_select_single("GeolocationPermissionRequest")
+        return self.wait_select_single(GeolocationPermissionRequest)
 
     def get_selection(self):
         return self.wait_select_single(Selection)
