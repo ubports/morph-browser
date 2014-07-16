@@ -20,7 +20,7 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
-class TestTabs(StartOpenRemotePageTestCaseBase):
+class TestTabsView(StartOpenRemotePageTestCaseBase):
 
     def open_tabs_view(self):
         chrome = self.main_window.get_chrome()
@@ -32,7 +32,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.main_window.get_tabs_view()
 
     def setUp(self):
-        super(TestTabs, self).setUp()
+        super(TestTabsView, self).setUp()
         self.open_tabs_view()
 
     def open_new_tab(self):
@@ -94,34 +94,46 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         webview = self.main_window.get_current_webview()
         self.assertThat(preview.title, Equals(webview.title))
 
-    """
     def test_switch_tabs(self):
-        self.ensure_activity_view_visible()
+        self.assertThat(self.main_window.currentIndex, Eventually(Equals(0)))
         self.open_new_tab()
+        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
+        new_tab_view = self.main_window.get_new_tab_view()
         url = self.base_url + "/aleaiactaest"
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
-        self.assert_page_eventually_loaded(url)
-        self.assert_current_url(url)
+        new_tab_view.wait_until_destroyed()
 
-        self.ensure_activity_view_visible()
-        tabs = self.main_window.get_tabslist_view_delegates()
-        self.assertThat(len(tabs), Equals(2))
-        view = self.main_window.get_tabslist_view()
-        self.assertThat(view.currentIndex, Equals(1))
-        self.pointing_device.click_object(tabs[0])
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        previews = tabs_view.get_ordered_previews()
+        self.pointing_device.click_object(previews[0])
+        tabs_view.wait_until_destroyed()
         self.assertThat(self.main_window.currentIndex, Eventually(Equals(0)))
-        self.assert_current_url(self.url)
-        self.assert_activity_view_eventually_hidden()
-        self.assert_chrome_eventually_hidden()
 
-        self.ensure_activity_view_visible()
-        tabs = self.main_window.get_tabslist_view_delegates()
-        self.pointing_device.click_object(tabs[1])
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        previews = tabs_view.get_ordered_previews()
+        self.pointing_device.click_object(previews[1])
+        tabs_view.wait_until_destroyed()
         self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
-        self.assert_current_url(url)
-        self.assert_activity_view_eventually_hidden()
-        self.assert_chrome_eventually_hidden()
+
+    def test_error_only_for_current_tab(self):
+        self.open_new_tab()
+        self.type_in_address_bar("htpp://invalid")
+        self.keyboard.press_and_release("Enter")
+        error = self.main_window.get_error_sheet()
+        self.assertThat(error.visible, Eventually(Equals(True)))
+
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        previews = tabs_view.get_ordered_previews()
+        self.pointing_device.click_object(previews[0])
+        tabs_view.wait_until_destroyed()
+        self.assertThat(error.visible, Eventually(Equals(False)))
+
+
+class TestTabsManagement(StartOpenRemotePageTestCaseBase):
 
     def test_open_target_blank_in_new_tab(self):
         url = self.base_url + "/blanktargetlink"
@@ -130,7 +142,9 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
-        self.assert_current_url(self.base_url + "/aleaiactaest")
+        webview = self.main_window.get_current_webview()
+        url = self.base_url + "/aleaiactaest"
+        self.assertThat(webview.url, Eventually(Equals(url)))
 
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
@@ -139,17 +153,6 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
-        self.assert_current_url(self.base_url + "/aleaiactaest")
-
-    def test_error_only_for_current_tab(self):
-        self.ensure_activity_view_visible()
-        self.open_new_tab()
-        self.type_in_address_bar("htpp://invalid")
-        self.keyboard.press_and_release("Enter")
-        error = self.main_window.get_error_sheet()
-        self.assertThat(error.visible, Eventually(Equals(True)))
-        self.ensure_activity_view_visible()
-        tabs = self.main_window.get_tabslist_view_delegates()
-        self.pointing_device.click_object(tabs[0])
-        self.assertThat(error.visible, Eventually(Equals(False)))
-    """
+        webview = self.main_window.get_current_webview()
+        url = self.base_url + "/aleaiactaest"
+        self.assertThat(webview.url, Eventually(Equals(url)))
