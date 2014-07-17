@@ -38,9 +38,9 @@ BrowserView {
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefix: webview.popupRedirectionUrlPrefix
 
-    property bool chromeless: true
     property bool backForwardButtonsVisible: false
-    property bool addressBarVisible: false
+    property bool chromeVisible: false
+    readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible
 
     actions: [
         Actions.Back {
