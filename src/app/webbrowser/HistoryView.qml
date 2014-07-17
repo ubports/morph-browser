@@ -25,9 +25,10 @@ Item {
     id: historyView
 
     property QtObject historyModel
-    property string expandedDomain: ""
+    property string expandedDomainName: ""
 
     signal historyEntryClicked(url url)
+    signal seeMoreEntriesClicked(LimitProxyModel model)
 
     Rectangle {
         id: historyViewBackground
@@ -102,7 +103,7 @@ Item {
             clip: true
 
             LimitProxyModel {
-                id: entriesModel
+                id: entriesModelLimited
                 sourceModel: model.entries
                 limit: 3
             }
@@ -112,14 +113,14 @@ Item {
                 width: parent.width
                 height: units.gu(5)
 
-                property bool expanded: historyView.expandedDomain === model.domain
+                property bool expanded: historyView.expandedDomainName === model.domain
 
                 url: {
                     if (expanded) {
-                        if (entriesModel.unlimitedCount === 1)
-                            return i18n.tr("%1 page").arg(entriesModel.unlimitedCount)
+                        if (entriesModelLimited.unlimitedCount === 1)
+                            return i18n.tr("%1 page").arg(entriesModelLimited.unlimitedCount)
                         else
-                            return i18n.tr("%1 pages").arg(entriesModel.unlimitedCount)
+                            return i18n.tr("%1 pages").arg(entriesModelLimited.unlimitedCount)
                     } else {
                         return model.lastVisitedTitle
                     }
@@ -129,21 +130,18 @@ Item {
                 icon: model.lastVisitedIcon
 
                 onClicked: {
-                    if (historyView.expandedDomain === model.domain)
-                        historyView.expandedDomain = ""
+                    if (historyView.expandedDomainName === model.domain)
+                        historyView.expandedDomainName = ""
                     else
-                        historyView.expandedDomain = model.domain
+                        historyView.expandedDomainName = model.domain
 
                     if (entriesView.domain !== model.domain) {
                         entriesView.domain = model.domain
-                        entriesView.model = entriesModel
 
-                        if (entriesModel.unlimitedCount > 3) {
-                            entriesModel.limit = 2
-                            entriesView.showSeeMore = true
-                        }
+                        if (entriesModelLimited.unlimitedCount > 3)
+                            entriesModelLimited.limit = 2
 
-                        entriesView.entriesCount = entriesModel.count
+                        entriesView.limitedModel = entriesModelLimited
                     }
                 }
             }
@@ -151,10 +149,8 @@ Item {
             Item {
                 id: entriesView
 
-                property var model
+                property LimitProxyModel limitedModel
                 property string domain: ""
-                property var entriesCount
-                property bool showSeeMore: false
 
                 anchors {
                     left: parent.left
@@ -174,7 +170,9 @@ Item {
 
                     spacing: domainsListView.spacing
 
-                    model: entriesView.model
+                    model: entriesView.limitedModel
+
+                    interactive: false
 
                     delegate: UrlDelegate {
                         id: entriesDelegate
@@ -201,14 +199,14 @@ Item {
 
                             enabled: footerLabel.visible
 
-                            onClicked: { console.log("[TODO] see more CLICKED") }
+                            onClicked: seeMoreEntriesClicked(entriesView.limitedModel)
                         }
 
                         Label {
                             id: footerLabel
                             anchors.centerIn: parent
 
-                            visible: entriesView.showSeeMore
+                            visible: entriesView.limitedModel ? entriesView.limitedModel.unlimitedCount > 3 : false
 
                             font.bold: true
                             text: i18n.tr("see more")
@@ -218,10 +216,10 @@ Item {
 
                 states: State {
                     name: "expanded"
-                    when: (domain !== "") && domain === historyView.expandedDomain
+                    when: (domain !== "") && domain === historyView.expandedDomainName
                     PropertyChanges {
                         target: entriesView
-                        height: entriesCount * (units.gu(5) + domainsListView.spacing) + entriesListView.footerItem.height
+                        height: limitedModel ? limitedModel.count * (units.gu(5) + domainsListView.spacing) + entriesListView.footerItem.height : 0
                         opacity: 1.0
                     }
                 }

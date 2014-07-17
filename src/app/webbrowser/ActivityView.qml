@@ -66,15 +66,52 @@ Tabs {
     }
     Tab {
         title: i18n.tr("History")
-        page: Page {
-            HistoryView {
-                id: historyView
+        page: PageStack {
+            id: historyStack
+            Component.onCompleted: push(historyViewPage)
 
-                historyModel: activityView.historyModel
+            Page {
+                id: historyViewPage
+                visible: false
 
-                anchors.fill: parent
+                HistoryView {
+                    id: historyView
+                    anchors.fill: parent
 
-                onHistoryEntryClicked: activityView.historyEntryRequested(url)
+                    historyModel: activityView.historyModel
+
+                    onHistoryEntryClicked: activityView.historyEntryRequested(url)
+                    onSeeMoreEntriesClicked: {
+                        historyStack.push(timelineViewPage, {model: model, modelPreviousLimit: model.limit})
+                        model.limit = -1
+                    }
+                }
+
+                tools: ToolbarItems { locked: true; opened: false; }
+            }
+
+            Page {
+                id: timelineViewPage
+                visible: false
+
+                property alias model: expandedHistoryView.model
+                property alias modelPreviousLimit: expandedHistoryView.modelPreviousLimit
+
+                ExpandedHistoryView {
+                    id: expandedHistoryView
+                    anchors.fill: parent
+
+                    onHistoryEntryClicked: {
+                        historyStack.pop()
+                        activityView.historyEntryRequested(url)
+                    }
+                    onBackToHistoryClicked: {
+                        model.limit = modelPreviousLimit
+                        historyStack.pop()
+                    }
+                }
+
+                tools: ToolbarItems { locked: true; opened: false; }
             }
         }
     }
