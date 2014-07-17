@@ -20,7 +20,7 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
-class TestMainWindowAddressBarActionButton(StartOpenRemotePageTestCaseBase):
+class TestAddressBarActionButton(StartOpenRemotePageTestCaseBase):
 
     def test_button_disabled_when_text_is_empty(self):
         self.clear_address_bar()
