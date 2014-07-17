@@ -153,17 +153,13 @@ FocusScope {
         }
     }
 
-    ProgressBar {
+    ThinProgressBar {
+        webview: chrome.webview
+
         anchors {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
         }
-        height: units.dp(3)
-        value: chrome.webview ? chrome.webview.loadProgress / 100 : 0.0
-        visible: chrome.webview ? chrome.webview.loading
-                                  // workaround for https://bugs.launchpad.net/oxide/+bug/1290821
-                                  && !chrome.webview.lastLoadStopped
-                                : false
     }
 }

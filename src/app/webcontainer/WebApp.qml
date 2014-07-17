@@ -87,9 +87,8 @@ BrowserView {
                 left: parent.left
                 right: parent.right
             }
-            height: units.gu(6)
 
-            sourceComponent: webapp.chromeless ? undefined : chromeComponent
+            sourceComponent: webapp.chromeless ? progressbarComponent : chromeComponent
 
             Component {
                 id: chromeComponent
@@ -102,7 +101,21 @@ BrowserView {
                         left: parent.left
                         right: parent.right
                     }
-                    height: chromeLoader.height
+                    height: units.gu(6)
+                }
+            }
+
+            Component {
+                id: progressbarComponent
+
+                ThinProgressBar {
+                    webview: webapp.currentWebview
+
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
+                    }
                 }
             }
         }
