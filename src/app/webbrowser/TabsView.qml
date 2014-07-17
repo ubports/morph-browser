@@ -48,7 +48,7 @@ Item {
             width: parent.width
             height: units.gu(40)
 
-            title: model.title ? model.title : model.url
+            title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
             webview: model.webview
 
             onSelected: {
