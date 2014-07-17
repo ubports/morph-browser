@@ -1,4 +1,4 @@
-# Portuguese translation for webbrowser-app
+# Sanskrit translation for webbrowser-app
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the webbrowser-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-04 10:06-0300\n"
-"PO-Revision-Date: 2014-07-16 21:35+0000\n"
-"Last-Translator: Tiago Carrondo <tiago@ubuntu-pt.org>\n"
-"Language-Team: Portuguese <pt@li.org>\n"
+"PO-Revision-Date: 2014-07-16 12:19+0000\n"
+"Last-Translator: उज्ज्वल राजपूत <ujjwal@ug.iisc.in>\n"
+"Language-Team: Sanskrit <sa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,51 +19,51 @@ msgstr ""
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr "Alerta do JavaScript"
+msgstr ""
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr "OK"
+msgstr "अस्तु"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr "Autenticação necessária."
+msgstr "प्रमाणीकरणमपेक्षितम्।"
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "O website %1 necessita autenticação."
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr "Nome do utilizador"
+msgstr "उपयोक्तृनाम"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr "Palavra-Passe"
+msgstr "कूटसङ्केतः"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "निवर्त्यताम्"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr "Confirmar Navegação"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr "Sair"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr "Ficar"
+msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "Esta ligação não é confiável"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -72,281 +72,277 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Está a tentar alcançar seguramente %1, mas o certificado de segurança deste "
-"website não é confiável."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr "Prossegir de qualquer maneira"
+msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr "Retroceder para segurança"
+msgstr ""
 
 #: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "Retroceder"
+msgstr "प्रतिगम्यताम्"
 
 #: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Avançar"
+msgstr ""
 
 #: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
-msgstr "Actividade"
+msgstr ""
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr "Confirmação do JavaScript"
+msgstr ""
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
-msgstr "Erro de Rede"
+msgstr "जालदोषः"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Parece que está a ter problemas para visualizar: %1"
+msgstr ""
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"O Ubuntu sugere-lhe que verifique as suas definições de rede e tente "
-"refrescar a página."
 
 #: src/app/ErrorSheet.qml:55
 msgid "Refresh page"
-msgstr "Refrescar página"
+msgstr ""
 
 #: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr "Por favor escolha um ficheiro"
+msgstr "एका सञ्चिका चीयताम्"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "Pedido de Permissão"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:69
 msgid "This page wants to know your device’s location."
-msgstr "Esta página quer saber a localização do seu dispositivo."
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr "Negar"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr "Permitir"
+msgstr ""
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr "Pedido do JavaScript"
+msgstr ""
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "É necessária uma autenticação de proxy."
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "O website %1:%2 requer autenticação."
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Página Mais Antiga"
+msgstr ""
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr "Marcador"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Adicionar Esta Página aos Marcadores"
+msgstr ""
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "Link do marcador"
+msgstr ""
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "Limpar Histórico"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Limpar Histórico de Navegação"
+msgstr ""
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr "Copiar"
+msgstr "प्रतिलेप्यताम्"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr "Copiar imagem"
+msgstr ""
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr "Copiar link"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Página Mais Recente"
+msgstr ""
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr "Ir para"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Endereço;URL;www"
+msgstr ""
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
-msgstr "Novo Separador"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Abrir um Novo Separador"
+msgstr ""
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "Abrir imagem num novo separador"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "Abrir link num novo separador"
+msgstr ""
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr "Recarregar"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "Deixar Página"
+msgstr ""
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr "Guardar imagem"
+msgstr ""
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr "Partilhar..."
+msgstr ""
 
 #: src/app/webbrowser/ActivityView.qml:54
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Bookmarks"
-msgstr "Marcadores"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:125
 msgid "Top sites"
-msgstr "Top sites"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:142
 msgid "see less"
-msgstr "ver menos"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:142
 msgid "see more"
-msgstr "ver mais"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr "A ver actualmente (%1)"
+msgstr ""
 
 #: src/app/webbrowser/TabsList.qml:69
 msgid "+"
-msgstr "+"
+msgstr ""
 
 #: src/app/webbrowser/TimelineView.qml:87
 msgid "Today"
-msgstr "Hoje"
+msgstr ""
 
 #: src/app/webbrowser/TimelineView.qml:89
 msgid "Yesterday"
-msgstr "Ontem"
+msgstr ""
 
 #: src/app/webbrowser/TimelineView.qml:91
 msgid "Last 7 Days"
-msgstr "Últimos 7 Dias"
+msgstr ""
 
 #: src/app/webbrowser/TimelineView.qml:93
 msgid "This Month"
-msgstr "Este Mês"
+msgstr ""
 
 #: src/app/webbrowser/TimelineView.qml:95
 msgid "This Year"
-msgstr "Este Ano"
+msgstr ""
 
 #: src/app/webbrowser/TimelineView.qml:97
 msgid "Older"
-msgstr "Mais Antigo"
+msgstr ""
 
 #: src/app/webbrowser/TimelineView.qml:287
 msgid "(local files)"
-msgstr "(ficheiros locais)"
+msgstr ""
 
 #: src/app/webbrowser/TimelineView.qml:289
 msgid "(other)"
-msgstr "(outro)"
+msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr "Navegador"
+msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr "Navegador Web"
+msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr "Navegue na World Wide Web"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:36
 #: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Ubuntu Web Browser"
+msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:38
 #: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
-msgstr "Ubuntu Web Browser"
+msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr "Nenhuma conta local encontrada para "
+msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr "Saltar passo da criação de conta"
+msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr "Adicionar conta"
+msgstr ""
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr "Seleccionar uma conta"
+msgstr ""
