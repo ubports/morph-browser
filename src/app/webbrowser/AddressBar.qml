@@ -60,13 +60,7 @@ FocusScope {
             Favicon {
                 id: favicon
                 anchors.centerIn: parent
-                visible: (addressbar.state == "") && (status == Image.Ready)
-            }
-
-            Icon {
-                anchors.fill: favicon
-                name: addressbar.actualUrl.toString() ? "stock_website" : ""
-                visible: (addressbar.state == "") && !favicon.visible
+                visible: (addressbar.state == "") && addressbar.actualUrl.toString()
             }
 
             MouseArea {

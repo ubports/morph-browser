@@ -20,6 +20,14 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 
 Image {
+    property bool fallbackIcon: true
+
     width: units.dp(16)
     height: units.dp(16)
+
+    Icon {
+        anchors.fill: parent
+        name: "stock_website"
+        visible: parent.fallbackIcon && (parent.status !== Image.Ready)
+    }
 }

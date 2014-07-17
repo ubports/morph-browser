@@ -84,15 +84,8 @@ ChromeBase {
             anchors.left: forwardButton.right
 
             Favicon {
-                id: favicon
                 anchors.centerIn: parent
-                visible: status == Image.Ready
-            }
-
-            Icon {
-                anchors.fill: favicon
-                name: "stock_website"
-                visible: !favicon.visible
+                source: chrome.webview.icon
             }
         }
 
