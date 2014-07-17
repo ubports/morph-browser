@@ -138,3 +138,15 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase):
         webview = self.main_window.get_current_webview()
         url = self.base_url + "/aleaiactaest"
         self.assertThat(webview.url, Eventually(Equals(url)))
+
+    def test_selecting_tab_focuses_webview(self):
+        self.focus_address_bar()
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        previews = tabs_view.get_previews()
+        self.pointing_device.click_object(previews[0])
+        tabs_view.wait_until_destroyed()
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+        address_bar = self.main_window.get_chrome().get_address_bar()
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))

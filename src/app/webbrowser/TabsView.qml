@@ -53,6 +53,7 @@ Item {
 
             onSelected: {
                 tabsview.model.currentIndex = index
+                webview.forceActiveFocus()
                 tabsview.done()
             }
             onCloseRequested: {
