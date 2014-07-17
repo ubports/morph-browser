@@ -78,6 +78,16 @@ const QDateTime& HistoryDomainModel::lastVisit() const
     return m_lastVisit;
 }
 
+const QString& HistoryDomainModel::lastVisitedTitle() const
+{
+    return m_lastVisitedTitle;
+}
+
+const QUrl& HistoryDomainModel::lastVisitedIcon() const
+{
+    return m_lastVisitedIcon;
+}
+
 bool HistoryDomainModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     if (m_domain.isEmpty()) {
@@ -92,8 +102,14 @@ void HistoryDomainModel::onModelChanged()
 {
     if (rowCount() > 0) {
         m_lastVisit = data(index(0, 0), HistoryModel::LastVisit).toDateTime();
+        m_lastVisitedTitle = data(index(0, 0), HistoryModel::Title).toString();
+        m_lastVisitedIcon = data(index(0, 0), HistoryModel::Icon).toUrl();
     } else {
         m_lastVisit = QDateTime();
+        m_lastVisitedTitle = QString();
+        m_lastVisitedIcon = QUrl();
     }
     Q_EMIT lastVisitChanged();
+    Q_EMIT lastVisitedTitleChanged();
+    Q_EMIT lastVisitedIconChanged();
 }
