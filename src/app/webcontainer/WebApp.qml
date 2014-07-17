@@ -62,7 +62,7 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: chrome.bottom
+                top: webapp.chromeless ? parent.top : chromeLoader.bottom
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
@@ -80,17 +80,32 @@ BrowserView {
             }
         }
 
-        Chrome {
-            id: chrome
-
-            webview: webview.currentWebview
-            navigationButtonsVisible: webapp.backForwardButtonsVisible
+        Loader {
+            id: chromeLoader
 
             anchors {
+                top: parent.top
                 left: parent.left
                 right: parent.right
             }
             height: units.gu(6)
+
+            sourceComponent: webapp.chromeless ? undefined : chromeComponent
+
+            Component {
+                id: chromeComponent
+
+                Chrome {
+                    webview: webapp.currentWebview
+                    navigationButtonsVisible: webapp.backForwardButtonsVisible
+
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: chromeLoader.height
+                }
+            }
         }
     }
 
