@@ -146,4 +146,5 @@ class Browser(uitk.UbuntuUIToolkitEmulatorBase):
 
     def get_content_picker_dialog(self):
         # only on devices
-        return self.wait_select_single("ContentPickerDialog")
+        return self.wait_select_single("PopupBase",
+                                       objectName="contentPickerDialog")

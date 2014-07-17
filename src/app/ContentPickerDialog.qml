@@ -25,6 +25,8 @@ import "MimeTypeMapper.js" as MimeTypeMapper
 Component {
     Popups.PopupBase {
         id: picker
+        objectName: "contentPickerDialog"
+
         property var activeTransfer
         property var selectedItems
     
