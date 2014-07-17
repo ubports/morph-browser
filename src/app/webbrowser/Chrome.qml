@@ -16,60 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
+import QtQuick 2.0
 import Ubuntu.Components 0.1
 import ".."
 
-FocusScope {
+ChromeBase {
     id: chrome
 
-    readonly property real visibleHeight: y + height
-    property var webview
     property alias searchUrl: addressbar.searchUrl
     readonly property string text: addressbar.text
     property alias bookmarked: addressbar.bookmarked
     property list<Action> drawerActions
 
     signal validated()
-
-    states: [
-        State {
-            name: "shown"
-            PropertyChanges {
-                target: chrome
-                y: 0
-            }
-        },
-        State {
-            name: "hidden"
-            PropertyChanges {
-                target: chrome
-                y: -chrome.height
-            }
-        }
-    ]
-    state: "shown"
-
-    Behavior on y {
-        SmoothedAnimation {
-            duration: UbuntuAnimation.BriskDuration
-        }
-    }
-
-    Rectangle {
-        anchors.fill: parent
-        color: "#ededef"
-
-        Rectangle {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
-            height: units.dp(1)
-            color: UbuntuColors.warmGrey
-        }
-    }
 
     FocusScope {
         anchors {
@@ -181,16 +140,6 @@ FocusScope {
         }
     }
 
-    ThinProgressBar {
-        webview: chrome.webview
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-    }
-
     Component {
         id: drawerComponent
 
@@ -288,4 +237,3 @@ FocusScope {
         }
     }
 }
-
