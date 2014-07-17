@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 13:11+0200\n"
+"POT-Creation-Date: 2014-07-17 13:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -252,11 +252,11 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:166
+#: src/app/webbrowser/Browser.qml:167
 msgid "Open tabs"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:171 src/app/webbrowser/TabsView.qml:51
+#: src/app/webbrowser/Browser.qml:173 src/app/webbrowser/TabsView.qml:51
 msgid "New tab"
 msgstr ""
 

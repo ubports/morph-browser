@@ -232,9 +232,22 @@ ChromeBase {
                         action: modelData
                         onClicked: drawer.opened = false
 
-                        Label {
+                        Icon {
+                            id: actionIcon
                             anchors {
                                 left: parent.left
+                                leftMargin: units.gu(2)
+                                verticalCenter: parent.verticalCenter
+                            }
+                            width: units.gu(3)
+                            height: width
+
+                            name: model.iconName
+                        }
+
+                        Label {
+                            anchors {
+                                left: actionIcon.right
                                 leftMargin: units.gu(2)
                                 verticalCenter: parent.verticalCenter
                             }

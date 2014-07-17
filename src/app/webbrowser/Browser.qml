@@ -159,16 +159,19 @@ BrowserView {
                 Action {
                     objectName: "history"
                     text: i18n.tr("History")
+                    iconName: "history"
                     onTriggered: historyViewComponent.createObject(historyViewContainer)
                 },
                 Action {
                     objectName: "tabs"
                     text: i18n.tr("Open tabs")
+                    iconName: "browser-tabs"
                     onTriggered: tabsViewComponent.createObject(tabsViewContainer)
                 },
                 Action {
                     objectName: "newtab"
                     text: i18n.tr("New tab")
+                    iconName: "tab-new"
                     onTriggered: browser.openUrlInNewTab("", true)
                 }
             ]
