@@ -115,6 +115,18 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.pointing_device.click()
         self.assert_suggestions_eventually_hidden()
 
+    def test_suggestions_hidden_while_drawer_open(self):
+        self.focus_address_bar()
+        self.assert_suggestions_eventually_shown()
+        chrome = self.main_window.get_chrome()
+        drawer_button = chrome.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        chrome.get_drawer()
+        self.assert_suggestions_eventually_hidden()
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        self.assert_suggestions_eventually_shown()
+
     def test_select_suggestion(self):
         suggestions = self.main_window.get_suggestions()
         listview = suggestions.get_list()

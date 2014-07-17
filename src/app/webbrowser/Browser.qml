@@ -208,7 +208,7 @@ BrowserView {
         }
 
         Suggestions {
-            opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0)) ? 1.0 : 0.0
+            opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
             Behavior on opacity {
                 UbuntuNumberAnimation {}
             }

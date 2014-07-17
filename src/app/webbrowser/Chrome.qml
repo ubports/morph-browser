@@ -27,6 +27,7 @@ ChromeBase {
     readonly property string text: addressbar.text
     property alias bookmarked: addressbar.bookmarked
     property list<Action> drawerActions
+    readonly property bool drawerOpen: internal.openDrawer
 
     signal validated()
 
@@ -130,8 +131,16 @@ ChromeBase {
                 verticalCenter: parent.verticalCenter
             }
 
-            onTriggered: drawerComponent.createObject(chrome).opened = true
+            onTriggered: {
+                internal.openDrawer = drawerComponent.createObject(chrome)
+                internal.openDrawer.opened = true
+            }
         }
+    }
+
+    QtObject {
+        id: internal
+        property var openDrawer
     }
 
     onWebviewChanged: {
