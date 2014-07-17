@@ -31,7 +31,6 @@ UbuntuWebView {
 
     property bool developerExtrasEnabled: false
     property var currentWebview: webview
-    property var toolbar: null
     property string webappName: ""
     property var webappUrlPatterns: null
     property string localUserAgentOverride: ""
@@ -63,9 +62,6 @@ UbuntuWebView {
 
     experimental.onPermissionRequested: {
         if (permission.type === PermissionRequest.Geolocation) {
-            if (webview.toolbar) {
-                webview.toolbar.close()
-            }
             var text = i18n.tr("This page wants to know your device’s location.")
             PopupUtils.open(Qt.resolvedUrl("../PermissionRequest.qml"),
                             webview.currentWebview,

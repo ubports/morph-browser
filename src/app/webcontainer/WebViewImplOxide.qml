@@ -30,7 +30,6 @@ WebViewImpl {
     id: webview
 
     property bool developerExtrasEnabled: false
-    property var toolbar: null
     property string webappName: ""
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null

@@ -31,7 +31,6 @@ Item {
     property bool developerExtrasEnabled: false
     property string webappName: ""
     property var currentWebview: webappContainerWebViewLoader.item
-    property var toolbar: null
     property var webappUrlPatterns
     property string localUserAgentOverride: ""
     property string popupRedirectionUrlPrefix: ""
@@ -49,8 +48,7 @@ Item {
 
         webappContainerWebViewLoader.setSource(
                     webappEngineSource,
-                    { toolbar: containerWebview.toolbar
-                    , localUserAgentOverride: containerWebview.localUserAgentOverride
+                    { localUserAgentOverride: containerWebview.localUserAgentOverride
                     , url: containerWebview.url
                     , webappName: containerWebview.webappName
                     , webappUrlPatterns: containerWebview.webappUrlPatterns
