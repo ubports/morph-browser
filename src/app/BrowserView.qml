@@ -21,15 +21,10 @@ import Ubuntu.Components 0.1
 import Ubuntu.Unity.Action 1.1 as UnityActions
 
 OrientationHelper {
-    property bool chromeless: false
     property bool developerExtrasEnabled: false
 
     property var currentWebview: null
     property string title: currentWebview ? currentWebview.title : ""
-
-    property bool backForwardButtonsVisible: true
-    property bool activityButtonVisible: true
-    property bool addressBarVisible: true
 
     property var webbrowserWindow: null
 
