@@ -276,6 +276,7 @@ BrowserView {
                     expandedHistoryViewComponent.createObject(historyViewContainer, {model: model, modelPreviousLimit: model.limit})
                     model.limit = -1
                 }
+                onDone: historyViewContainer.done()
             }
         }
 

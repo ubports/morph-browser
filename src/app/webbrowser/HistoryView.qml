@@ -29,6 +29,7 @@ Item {
 
     signal historyEntryClicked(url url)
     signal seeMoreEntriesClicked(LimitProxyModel model)
+    signal done()
 
     Rectangle {
         id: historyViewBackground
@@ -40,7 +41,10 @@ Item {
         id: domainsListView
 
         anchors {
-            fill: parent
+            top: parent.top
+            left: parent.left
+            right: parent.right
+            bottom: toolbar.top
             margins: units.gu(2)
         }
 
@@ -228,6 +232,38 @@ Item {
                     UbuntuNumberAnimation { properties: "height,opacity" }
                 }
             }
+        }
+    }
+
+    Item {
+        id: toolbar
+
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        height: units.gu(7)
+
+        Rectangle {
+            anchors.fill: parent
+            color: "#312f2c"
+            opacity: 0.8
+        }
+
+        Button {
+            objectName: "doneButton"
+            anchors {
+                left: parent.left
+                leftMargin: units.gu(2)
+                verticalCenter: parent.verticalCenter
+            }
+
+            color: "#312f2c"
+
+            text: i18n.tr("Done")
+
+            onClicked: historyView.done()
         }
     }
 }
