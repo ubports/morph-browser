@@ -254,20 +254,44 @@ BrowserView {
         visible: children.length > 0
         anchors.fill: parent
 
+        function done() {
+            for (var i in children) {
+                children[i].destroy()
+            }
+        }
+
         Component {
             id: historyViewComponent
 
             HistoryView {
                 anchors.fill: parent
+
                 historyModel: _historyModel
+
                 onHistoryEntryClicked: {
                     currentWebview.url = url
-                    this.destroy()
+                    historyViewContainer.done()
                 }
                 onSeeMoreEntriesClicked: {
-                    console.log("TODO: see more requested for", model)
-                    //historyStack.push(timelineViewPage, {model: model, modelPreviousLimit: model.limit})
-                    //model.limit = -1
+                    expandedHistoryViewComponent.createObject(historyViewContainer, {model: model, modelPreviousLimit: model.limit})
+                    model.limit = -1
+                }
+            }
+        }
+
+        Component {
+            id: expandedHistoryViewComponent
+
+            ExpandedHistoryView {
+                anchors.fill: parent
+
+                onHistoryEntryClicked: {
+                    currentWebview.url = url
+                    historyViewContainer.done()
+                }
+                onBackToHistoryClicked: {
+                    model.limit = modelPreviousLimit
+                    this.destroy()
                 }
             }
         }
