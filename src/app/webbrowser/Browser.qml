@@ -254,25 +254,45 @@ BrowserView {
         visible: children.length > 0
         anchors.fill: parent
 
+        function done() {
+            for (var i in children) {
+                children[i].destroy()
+            }
+        }
+
         Component {
             id: historyViewComponent
 
-            TimelineView {
+            HistoryView {
                 anchors.fill: parent
+
                 historyModel: _historyModel
-                bookmarksModel: _bookmarksModel
+
                 onHistoryEntryClicked: {
                     currentWebview.url = url
-                    this.destroy()
+                    historyViewContainer.done()
                 }
+                onSeeMoreEntriesClicked: {
+                    expandedHistoryViewComponent.createObject(historyViewContainer, {model: model, modelPreviousLimit: model.limit, domain: expandedDomainName})
+                    model.limit = -1
+                }
+                onDone: historyViewContainer.done()
+            }
+        }
 
-                Label {
-                    anchors.centerIn: parent
-                    rotation: -35
-                    text: "TEMPORARY"
-                    color: "red"
-                    opacity: 0.4
-                    fontSize: "x-large"
+        Component {
+            id: expandedHistoryViewComponent
+
+            ExpandedHistoryView {
+                anchors.fill: parent
+
+                onHistoryEntryClicked: {
+                    currentWebview.url = url
+                    historyViewContainer.done()
+                }
+                onDone: {
+                    model.limit = modelPreviousLimit
+                    this.destroy()
                 }
             }
         }

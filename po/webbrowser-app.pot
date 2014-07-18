@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 13:26+0200\n"
+"POT-Creation-Date: 2014-07-18 16:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -260,6 +260,39 @@ msgstr ""
 msgid "New tab"
 msgstr ""
 
+#: src/app/webbrowser/ExpandedHistoryView.qml:74
+#: src/app/webbrowser/HistoryView.qml:81
+msgid "Last visited"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:76
+#: src/app/webbrowser/HistoryView.qml:83
+msgid "Yesterday"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:159
+#: src/app/webbrowser/HistoryView.qml:127
+#, qt-format
+msgid "%1 pages"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:173
+msgid "Less"
+msgstr ""
+
+#: src/app/webbrowser/HistoryView.qml:125
+msgid "1 page"
+msgstr ""
+
+#: src/app/webbrowser/HistoryView.qml:216
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr ""
+
+#: src/app/webbrowser/HistoryView.qml:264 src/app/webbrowser/TabsView.qml:98
+msgid "Done"
+msgstr ""
+
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
 msgstr ""
@@ -272,48 +305,8 @@ msgstr ""
 msgid "see less"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:141
-msgid "see more"
-msgstr ""
-
-#: src/app/webbrowser/TabsView.qml:98
-msgid "Done"
-msgstr ""
-
 #: src/app/webbrowser/TabsView.qml:113
 msgid "Add"
-msgstr ""
-
-#: src/app/webbrowser/TimelineView.qml:71
-msgid "Today"
-msgstr ""
-
-#: src/app/webbrowser/TimelineView.qml:73
-msgid "Yesterday"
-msgstr ""
-
-#: src/app/webbrowser/TimelineView.qml:75
-msgid "Last 7 Days"
-msgstr ""
-
-#: src/app/webbrowser/TimelineView.qml:77
-msgid "This Month"
-msgstr ""
-
-#: src/app/webbrowser/TimelineView.qml:79
-msgid "This Year"
-msgstr ""
-
-#: src/app/webbrowser/TimelineView.qml:81
-msgid "Older"
-msgstr ""
-
-#: src/app/webbrowser/TimelineView.qml:272
-msgid "(local files)"
-msgstr ""
-
-#: src/app/webbrowser/TimelineView.qml:274
-msgid "(other)"
 msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
