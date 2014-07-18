@@ -257,22 +257,17 @@ BrowserView {
         Component {
             id: historyViewComponent
 
-            TimelineView {
+            HistoryView {
                 anchors.fill: parent
                 historyModel: _historyModel
-                bookmarksModel: _bookmarksModel
                 onHistoryEntryClicked: {
                     currentWebview.url = url
                     this.destroy()
                 }
-
-                Label {
-                    anchors.centerIn: parent
-                    rotation: -35
-                    text: "TEMPORARY"
-                    color: "red"
-                    opacity: 0.4
-                    fontSize: "x-large"
+                onSeeMoreEntriesClicked: {
+                    console.log("TODO: see more requested for", model)
+                    //historyStack.push(timelineViewPage, {model: model, modelPreviousLimit: model.limit})
+                    //model.limit = -1
                 }
             }
         }
