@@ -140,7 +140,7 @@ ChromeBase {
 
     QtObject {
         id: internal
-        property var openDrawer
+        property var openDrawer: null
     }
 
     onWebviewChanged: {
