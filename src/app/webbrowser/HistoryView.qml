@@ -122,7 +122,7 @@ Item {
                 url: {
                     if (expanded) {
                         if (entriesModelLimited.unlimitedCount === 1)
-                            return i18n.tr("%1 page").arg(entriesModelLimited.unlimitedCount)
+                            return i18n.tr("1 page")
                         else
                             return i18n.tr("%1 pages").arg(entriesModelLimited.unlimitedCount)
                     } else {

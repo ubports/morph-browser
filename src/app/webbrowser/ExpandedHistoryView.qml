@@ -20,16 +20,17 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 import webbrowserapp.private 0.1
+import ".."
 
 Item {
     id: expandedHistoryView
 
     property alias model: entriesListView.model
-    property string expandedDomain: ""
+    property string domain: ""
     property int modelPreviousLimit
 
     signal historyEntryClicked(url url)
-    signal backToHistoryClicked()
+    signal done()
 
     Rectangle {
         id: expandedHistoryViewBackground
@@ -41,39 +42,15 @@ Item {
         id: entriesListView
 
         anchors {
-            fill: parent
+            top: header.bottom
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
             margins: units.gu(2)
         }
 
         spacing: units.gu(1)
 
-        header: Rectangle {
-            width: parent.width
-            height: units.gu(5)
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: backToHistoryClicked()
-            }
-
-            Row {
-                spacing: units.gu(2)
-
-                UbuntuShape {
-                    height: parent.height
-                    width: parent.height
-
-                    Image {
-                        anchors.fill: parent
-                    }
-                }
-
-                Label {
-                    fontSize: "large"
-                    text: i18n.tr("History")
-                }
-            }
-        }
         section.property: "lastVisitDate"
         section.delegate: Rectangle {
             anchors {
@@ -127,6 +104,75 @@ Item {
             icon: model.icon
 
             onClicked: historyEntryClicked(model.url)
+        }
+    }
+
+    Rectangle {
+        id: header
+
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        height: units.gu(7)
+
+        color: "#f7f7f7"
+
+        UbuntuShape {
+            id: iconContainer
+            width: units.gu(3)
+            height: width
+            anchors {
+                left: parent.left
+                leftMargin: units.gu(2)
+                verticalCenter: parent.verticalCenter
+            }
+
+            Favicon {
+                anchors.centerIn: parent
+                // TODO: favicon for domain
+            }
+        }
+
+        Label {
+            id: titleLabel
+            anchors {
+                left: iconContainer.right
+                leftMargin: units.gu(1)
+                right: doneButton.left
+                rightMargin: units.gu(1)
+                top: iconContainer.top
+                topMargin: units.gu(-0.5)
+            }
+            text: expandedHistoryView.domain
+        }
+
+        Label {
+            id: detailsLabel
+            anchors {
+                left: titleLabel.left
+                right: titleLabel.right
+                bottom: iconContainer.bottom
+            }
+            fontSize: "x-small"
+            text: i18n.tr("%1 pages").arg(expandedHistoryView.model.count)
+        }
+
+        Button {
+            id: doneButton
+
+            color: "#f7f7f7"
+
+            anchors {
+                right: parent.right
+                rightMargin: units.gu(2)
+                verticalCenter: parent.verticalCenter
+            }
+
+            text: i18n.tr("Less")
+
+            onClicked: expandedHistoryView.done()
         }
     }
 }
