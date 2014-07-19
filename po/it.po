@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-04 10:06-0300\n"
-"PO-Revision-Date: 2014-07-01 15:04+0000\n"
-"Last-Translator: ripperhack <ripperhack@gmail.com>\n"
+"PO-Revision-Date: 2014-07-18 13:04+0000\n"
+"Last-Translator: Claudio Arseni <claudio.arseni@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-05 05:55+0000\n"
-"X-Generator: Launchpad (build 17086)\n"
+"X-Launchpad-Export-Date: 2014-07-19 06:14+0000\n"
+"X-Generator: Launchpad (build 17114)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -34,7 +34,7 @@ msgstr "Autenticazione richiesta."
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Il sito web %1 richiede una autenticazione."
+msgstr "Il sito web %1 richiede l'autenticazione."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
@@ -259,15 +259,15 @@ msgstr "Segnalibri"
 
 #: src/app/webbrowser/NewTabView.qml:125
 msgid "Top sites"
-msgstr ""
+msgstr "Siti principali"
 
 #: src/app/webbrowser/NewTabView.qml:142
 msgid "see less"
-msgstr ""
+msgstr "mostra meno"
 
 #: src/app/webbrowser/NewTabView.qml:142
 msgid "see more"
-msgstr ""
+msgstr "mostra di più"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
