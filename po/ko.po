@@ -8,62 +8,62 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-04 10:06-0300\n"
-"PO-Revision-Date: 2013-06-16 07:28+0000\n"
-"Last-Translator: Jinkyu Yi <Unknown>\n"
+"PO-Revision-Date: 2014-07-19 16:40+0000\n"
+"Last-Translator: MinSik CHO <Unknown>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-05 05:55+0000\n"
-"X-Generator: Launchpad (build 17086)\n"
+"X-Launchpad-Export-Date: 2014-07-20 06:15+0000\n"
+"X-Generator: Launchpad (build 17114)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "자바스크립트 알림"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "확인"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "권한이 필요합니다."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "%1 사이트는 권한을 요구합니다."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "사용자 이름"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "비밀번호"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "취소"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "탐색 확인"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "끝내기"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "계속하기"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "이 연결을 신뢰할 수 없습니다."
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -71,15 +71,15 @@ msgstr ""
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
-msgstr ""
+msgstr "%1에 안전하게 연결하려고 시도했으나, 이 웹사이트의 인증서가 신뢰할 수 없습니다."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "무시하고 계속하기"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "안전 페이지로 돌아가기"
 
 #: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
 msgid "Back"
@@ -95,7 +95,7 @@ msgstr "활동"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "자바 스크립트 확인"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -105,7 +105,7 @@ msgstr "네트워크가 잘못됨"
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "%1에 접속하는데 문제가 있는 것 같습니다."
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
@@ -119,47 +119,47 @@ msgstr "페이지 새로고침"
 
 #: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr ""
+msgstr "파일을 선택해 주세요."
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "권한 요구"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:69
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "이 페이지는 장치의 위치 정보를 요구합니다."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "거부"
 
 #: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "허용"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "자바스크립트 명령"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "프록시 인증이 필요합니다."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "%1:%2 웹페이지는 인증을 요구합니다."
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr ""
+msgstr "이전 페이지"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
@@ -173,17 +173,17 @@ msgstr "이 페이지에 책갈피 끼우기"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "책갈피 링크"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "사용 기록 지우기"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "탐색 기록 모두 지우기"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -191,11 +191,11 @@ msgstr "복사"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "이미지 복사"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "링크 복사"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -225,11 +225,11 @@ msgstr "새 탭 열기"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "새 탭에 이미지 열기"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "새 탭에 링크 열기"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -243,107 +243,107 @@ msgstr "페이지 떠나기"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "이미지 저장"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr ""
+msgstr "공유..."
 
 #: src/app/webbrowser/ActivityView.qml:54
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Bookmarks"
-msgstr ""
+msgstr "책갈피"
 
 #: src/app/webbrowser/NewTabView.qml:125
 msgid "Top sites"
-msgstr ""
+msgstr "상위 사이트"
 
 #: src/app/webbrowser/NewTabView.qml:142
 msgid "see less"
-msgstr ""
+msgstr "간단하게 보기"
 
 #: src/app/webbrowser/NewTabView.qml:142
 msgid "see more"
-msgstr ""
+msgstr "더 보기"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr ""
+msgstr "현재 보고 있는 탭 (%1)"
 
 #: src/app/webbrowser/TabsList.qml:69
 msgid "+"
-msgstr ""
+msgstr "+"
 
 #: src/app/webbrowser/TimelineView.qml:87
 msgid "Today"
-msgstr ""
+msgstr "오늘"
 
 #: src/app/webbrowser/TimelineView.qml:89
 msgid "Yesterday"
-msgstr ""
+msgstr "어제"
 
 #: src/app/webbrowser/TimelineView.qml:91
 msgid "Last 7 Days"
-msgstr ""
+msgstr "최근 7일 간"
 
 #: src/app/webbrowser/TimelineView.qml:93
 msgid "This Month"
-msgstr ""
+msgstr "이번 달"
 
 #: src/app/webbrowser/TimelineView.qml:95
 msgid "This Year"
-msgstr ""
+msgstr "올해"
 
 #: src/app/webbrowser/TimelineView.qml:97
 msgid "Older"
-msgstr ""
+msgstr "오래된 항목"
 
 #: src/app/webbrowser/TimelineView.qml:287
 msgid "(local files)"
-msgstr ""
+msgstr "(기기에 있는 파일)"
 
 #: src/app/webbrowser/TimelineView.qml:289
 msgid "(other)"
-msgstr ""
+msgstr "(기타)"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr ""
+msgstr "브라우저"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr ""
+msgstr "웹 브라우저"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "웹을 돌아다닙니다"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:36
 #: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - 우분투 웹 브라우저"
 
 #: src/app/webbrowser/webbrowser-app.qml:38
 #: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "우분투 웹 브라우저"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "로컬 계정을 찾을 수 없음 "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "계정 만들기 과정 중단"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "계정 추가"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "계정 선택"
