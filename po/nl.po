@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-04 10:06-0300\n"
-"PO-Revision-Date: 2013-10-03 08:07+0000\n"
-"Last-Translator: Hannie Dumoleyn <Unknown>\n"
+"PO-Revision-Date: 2014-07-18 19:19+0000\n"
+"Last-Translator: rob <linuxned@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-05 05:55+0000\n"
-"X-Generator: Launchpad (build 17086)\n"
+"X-Launchpad-Export-Date: 2014-07-19 06:14+0000\n"
+"X-Generator: Launchpad (build 17114)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -28,13 +28,13 @@ msgstr "Ok"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Authenticatie vereist."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "De website %1 vereist authentificatie."
+msgstr "De website %1 vereist authenticatie."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
@@ -51,15 +51,15 @@ msgstr "Annuleren"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Navigatie bevestigen"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "Weggaan"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "Blijven"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -122,7 +122,7 @@ msgstr "Pagina vernieuwen"
 
 #: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr ""
+msgstr "Selecteer een bestand"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
@@ -132,7 +132,7 @@ msgstr "Verzoek om toestemming"
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:69
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Deze pagina wil de locatie van uw apparaat weten."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
@@ -194,11 +194,11 @@ msgstr "Kopiëren"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Afbeelding kopiëren"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Koppeling kopiëren"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -214,7 +214,7 @@ msgstr "Ga naar"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Address;URL;www;adres"
+msgstr "Adres;URL;www"
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
@@ -246,11 +246,11 @@ msgstr "Pagina verlaten"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Afbeelding opslaan"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr ""
+msgstr "Delen…"
 
 #: src/app/webbrowser/ActivityView.qml:54
 #: src/app/webbrowser/NewTabView.qml:123
@@ -259,15 +259,15 @@ msgstr "Bladwijzers"
 
 #: src/app/webbrowser/NewTabView.qml:125
 msgid "Top sites"
-msgstr ""
+msgstr "Topwebsites"
 
 #: src/app/webbrowser/NewTabView.qml:142
 msgid "see less"
-msgstr ""
+msgstr "minder zien"
 
 #: src/app/webbrowser/NewTabView.qml:142
 msgid "see more"
-msgstr ""
+msgstr "meer zien"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
@@ -328,25 +328,25 @@ msgstr "Surfen op internet"
 #: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Ubuntu Webbrowser"
+msgstr "%1 - Ubuntu-webbrowser"
 
 #: src/app/webbrowser/webbrowser-app.qml:38
 #: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
-msgstr "Ubuntu Webbrowser"
+msgstr "Ubuntu-webbrowser"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "Geen lokaal account gevonden voor "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "Account aanmaken overslaan"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "Account toevoegen"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "Selecteer een account"
