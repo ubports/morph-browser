@@ -25,7 +25,7 @@ Item {
     id: historyView
 
     property QtObject historyModel
-    property string expandedDomainName: ""
+    property string expandedDomain: ""
 
     signal historyEntryClicked(url url)
     signal seeMoreEntriesClicked(LimitProxyModel model)
@@ -65,13 +65,11 @@ Item {
                 right: parent.right
             }
 
-            height: sectionHeader.height + units.gu(1)
+            height: childrenRect.height + units.gu(1)
 
             color: historyViewBackground.color
 
             ListItem.Header {
-                id: sectionHeader
-
                 text: {
                     var today = new Date()
                     var yesterday = new Date()
@@ -92,134 +90,73 @@ Item {
         }
 
         delegate: Column {
-            height: domainsDelegate.height + entriesView.height
+            height: childrenRect.height
             width: parent.width
             clip: true
+            spacing: units.gu(1)
 
             LimitProxyModel {
-                id: entriesModelLimited
+                id: truncatedModel
                 sourceModel: model.entries
-                limit: 3
+                limit: 2
             }
 
+            property bool expanded: model.domain && (historyView.expandedDomain === model.domain)
+
             UrlDelegate {
-                id: domainsDelegate
                 width: parent.width
                 height: units.gu(5)
 
-                property bool expanded: historyView.expandedDomainName === model.domain
-
-                url: {
-                    if (expanded) {
-                        if (entriesModelLimited.unlimitedCount === 1)
-                            return i18n.tr("1 page")
-                        else
-                            return i18n.tr("%1 pages").arg(entriesModelLimited.unlimitedCount)
-                    } else {
-                        return model.lastVisitedTitle
-                    }
-                }
-
+                url: parent.expanded ? ((truncatedModel.unlimitedCount === 1) ? i18n.tr("1 page") : i18n.tr("%1 pages").arg(truncatedModel.unlimitedCount)) : model.lastVisitedTitle
                 title: model.domain
                 icon: model.lastVisitedIcon
 
-                onClicked: {
-                    if (historyView.expandedDomainName === model.domain)
-                        historyView.expandedDomainName = ""
-                    else
-                        historyView.expandedDomainName = model.domain
-
-                    if (entriesView.domain !== model.domain) {
-                        entriesView.domain = model.domain
-
-                        if (entriesModelLimited.unlimitedCount > 3)
-                            entriesModelLimited.limit = 2
-
-                        entriesView.limitedModel = entriesModelLimited
-                    }
-                }
+                onClicked: historyView.expandedDomain = (parent.expanded ? "" : model.domain)
             }
 
-            Item {
-                id: entriesView
+            Loader {
+                sourceComponent: parent.expanded ? entriesViewComponent : undefined
 
-                property LimitProxyModel limitedModel
-                property string domain: ""
+                width: parent.width
+                height: childrenRect.height
 
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
+                Component {
+                    id: entriesViewComponent
 
-                height: 0
-                opacity: 0.0
+                    Column {
+                        width: parent ? parent.width : 0
+                        height: childrenRect.height
+                        spacing: units.gu(1)
 
-                ListView {
-                    id: entriesListView
+                        Repeater {
+                            model: (truncatedModel.unlimitedCount > 3) ? truncatedModel : truncatedModel.sourceModel
+                            delegate: UrlDelegate {
+                                width: parent.width
+                                height: units.gu(5)
 
-                    anchors {
-                        fill: parent
-                        margins: domainsListView.spacing
-                    }
+                                url: model.url
+                                title: model.title ? model.title : model.url
+                                icon: model.icon
 
-                    spacing: domainsListView.spacing
-
-                    model: entriesView.limitedModel
-
-                    interactive: false
-
-                    delegate: UrlDelegate {
-                        id: entriesDelegate
-
-                        width: parent.width
-                        height: units.gu(5)
-
-                        url: model.url
-                        title: model.title ? model.title : model.url
-                        icon: model.icon
-
-                        onClicked: historyEntryClicked(model.url)
-                    }
-
-                    footer: Rectangle {
-                        width: parent.width
-                        height: footerLabel.visible ? units.gu(5) : 0
+                                onClicked: historyView.historyEntryClicked(model.url)
+                            }
+                        }
 
                         MouseArea {
-                            width: footerLabel.width + units.gu(4)
-                            height: parent.height
+                            width: parent.width
+                            height: units.gu(2)
+                            enabled: truncatedModel.unlimitedCount > 3
+                            visible: enabled
 
-                            anchors.centerIn: footerLabel
+                            Label {
+                                anchors.centerIn: parent
+                                font.bold: true
+                                text: i18n.tr("see more")
+                            }
 
-                            enabled: footerLabel.visible
-
-                            onClicked: seeMoreEntriesClicked(entriesView.limitedModel)
-                        }
-
-                        Label {
-                            id: footerLabel
-                            anchors.centerIn: parent
-
-                            visible: entriesView.limitedModel ? entriesView.limitedModel.unlimitedCount > 3 : false
-
-                            font.bold: true
-                            text: i18n.tr("see more")
+                            onClicked: historyView.seeMoreEntriesClicked(truncatedModel)
                         }
                     }
-                }
-
-                states: State {
-                    name: "expanded"
-                    when: (domain !== "") && domain === historyView.expandedDomainName
-                    PropertyChanges {
-                        target: entriesView
-                        height: limitedModel ? limitedModel.count * (units.gu(5) + domainsListView.spacing) + entriesListView.footerItem.height : 0
-                        opacity: 1.0
-                    }
-                }
-
-                transitions: Transition {
-                    UbuntuNumberAnimation { properties: "height,opacity" }
                 }
             }
         }
