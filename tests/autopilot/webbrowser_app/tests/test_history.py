@@ -107,11 +107,12 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.focus_address_bar()
         self.assert_suggestions_eventually_shown()
         suggestions = self.main_window.get_suggestions()
-        coord = suggestions.globalRect
+        cs = suggestions.globalRect
         webview = self.main_window.get_current_webview()
-        self.pointing_device.move(
-            coord[0] + coord[2] // 2,
-            (coord[1] + webview.globalRect[1]) // 2)
+        cw = webview.globalRect
+        # Click somewhere in the webview but outside the suggestions list
+        self.pointing_device.move(cs[0] + cs[2] // 2,
+                                  (cs[1] + cs[3] + cw[1] + cw[3]) // 2)
         self.pointing_device.click()
         self.assert_suggestions_eventually_hidden()
 
