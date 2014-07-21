@@ -47,6 +47,7 @@ Item {
         delegate: TabPreview {
             width: parent.width
             height: units.gu(40)
+            z: index
 
             title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
             webview: model.webview
