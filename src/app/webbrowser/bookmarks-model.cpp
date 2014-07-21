@@ -89,7 +89,7 @@ void BookmarksModel::populateFromDatabase()
         entry.icon = populateQuery.value(2).toUrl();
         entry.created = QDateTime::fromMSecsSinceEpoch(populateQuery.value(3).toULongLong());
         beginInsertRows(QModelIndex(), count, count);
-        m_entries.insert(entry.url, entry);
+        m_entries.insert(entry.url);
         m_orderedEntries.append(entry);
         endInsertRows();
         ++count;
@@ -179,7 +179,7 @@ void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon
         entry.title = title;
         entry.icon = icon;
         entry.created = QDateTime::currentDateTime();
-        m_entries.insert(url, entry);
+        m_entries.insert(url);
         m_orderedEntries.prepend(entry);
         endInsertRows();
         Q_EMIT added(url);
@@ -208,13 +208,21 @@ void BookmarksModel::insertNewEntryInDatabase(const BookmarkEntry& entry)
 void BookmarksModel::remove(const QUrl& url)
 {
     if (m_entries.contains(url)) {
-        int index = m_entries.keys().indexOf(url);
-        beginRemoveRows(QModelIndex(), index, index);
-        m_orderedEntries.removeOne(m_entries.value(url));
-        m_entries.remove(url);
-        endRemoveRows();
-        Q_EMIT removed(url);
-        removeExistingEntryFromDatabase(url);
+        int index = 0;
+        Q_FOREACH(BookmarkEntry entry, m_orderedEntries) {
+            if (entry.url == url) {
+                beginRemoveRows(QModelIndex(), index, index);
+                m_orderedEntries.removeAt(index);
+                m_entries.remove(url);
+                endRemoveRows();
+                Q_EMIT removed(url);
+                removeExistingEntryFromDatabase(url);
+
+                return;
+            } else {
+                index++;
+            }
+        };
     } else {
         qWarning() << "Invalid bookmark:" << url;
     }

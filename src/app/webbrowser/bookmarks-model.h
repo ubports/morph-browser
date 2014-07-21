@@ -21,7 +21,7 @@
 
 // Qt
 #include <QtCore/QAbstractListModel>
-#include <QtCore/QMap>
+#include <QtCore/QSet>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtSql/QSqlDatabase>
@@ -74,7 +74,7 @@ private:
 
         inline bool operator==(BookmarkEntry a) { return this->url == a.url; }
     };
-    QMap<QUrl, BookmarkEntry> m_entries;
+    QSet<QUrl> m_entries;
     QList<BookmarkEntry> m_orderedEntries;
 
     void resetDatabase(const QString& databaseName);

@@ -101,8 +101,10 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 2);
         QCOMPARE(spy.count(), 1);
         QVariantList args = spy.takeFirst();
-        QCOMPARE(args.at(1).toInt(), 1);
-        QCOMPARE(args.at(2).toInt(), 1);
+        // Model is chronologically sorted so deleting the last entry added
+        // actually deletes the first item in the model
+        QCOMPARE(args.at(1).toInt(), 0);
+        QCOMPARE(args.at(2).toInt(), 0);
 
         model->remove(QUrl("http://ubuntu.com/"));
         QCOMPARE(model->rowCount(), 2);
@@ -138,7 +140,7 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Url).toUrl(), QUrl("http://ubuntu.com/"));
         QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Title).toString(), QString("Ubuntu"));
         QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Icon).toUrl(), QUrl("image://webicon/123"));      
-        QVERIFY(model->data(model->index(0, 0), BookmarksModel::Created).toDateTime() < QDateTime::currentDateTime());
+        QVERIFY(model->data(model->index(0, 0), BookmarksModel::Created).toDateTime() <= QDateTime::currentDateTime());
         QVERIFY(!model->data(model->index(0, 0), BookmarksModel::Icon + 3).isValid());
     }
 
