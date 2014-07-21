@@ -27,7 +27,6 @@ Item {
 
     property alias model: entriesListView.model
     property string domain: ""
-    property int modelPreviousLimit
 
     signal historyEntryClicked(url url)
     signal done()
@@ -156,7 +155,7 @@ Item {
                 bottom: iconContainer.bottom
             }
             fontSize: "x-small"
-            text: i18n.tr("%1 pages").arg(expandedHistoryView.model.count)
+            text: i18n.tr("%1 pages").arg(entriesListView.count)
         }
 
         Button {

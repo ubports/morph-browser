@@ -273,8 +273,7 @@ BrowserView {
                     historyViewContainer.done()
                 }
                 onSeeMoreEntriesClicked: {
-                    expandedHistoryViewComponent.createObject(historyViewContainer, {model: model, modelPreviousLimit: model.limit, domain: expandedDomain})
-                    model.limit = -1
+                    expandedHistoryViewComponent.createObject(historyViewContainer, {model: model, domain: expandedDomain})
                 }
                 onDone: historyViewContainer.done()
             }
@@ -290,10 +289,7 @@ BrowserView {
                     currentWebview.url = url
                     historyViewContainer.done()
                 }
-                onDone: {
-                    model.limit = modelPreviousLimit
-                    this.destroy()
-                }
+                onDone: this.destroy()
             }
         }
     }

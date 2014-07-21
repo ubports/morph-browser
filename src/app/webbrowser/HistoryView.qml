@@ -28,7 +28,7 @@ Item {
     property string expandedDomain: ""
 
     signal historyEntryClicked(url url)
-    signal seeMoreEntriesClicked(LimitProxyModel model)
+    signal seeMoreEntriesClicked(var model)
     signal done()
 
     Rectangle {
@@ -154,7 +154,7 @@ Item {
                                 text: i18n.tr("see more")
                             }
 
-                            onClicked: historyView.seeMoreEntriesClicked(truncatedModel)
+                            onClicked: historyView.seeMoreEntriesClicked(truncatedModel.sourceModel)
                         }
                     }
                 }
