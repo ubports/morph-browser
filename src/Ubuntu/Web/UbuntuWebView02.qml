@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -62,29 +62,36 @@ Oxide.WebView {
             msgId: "contextmenu"
             contexts: ["oxide://selection/"]
             callback: function(msg, frame) {
-                if (('img' in msg.args) || ('href' in msg.args)) {
-                    if (internal.currentContextualMenu != null) {
-                        PopupUtils.close(internal.currentContextualMenu)
-                    }
-                    contextualData.clear()
-                    if ('img' in msg.args) {
-                        contextualData.img = msg.args.img
-                    }
-                    if ('href' in msg.args) {
-                        contextualData.href = msg.args.href
-                        contextualData.title = msg.args.title
-                    }
-                    if (contextualActions != null) {
-                        for (var i = 0; i < contextualActions.actions.length; ++i) {
-                            if (contextualActions.actions[i].enabled) {
-                                contextualRectangle.position(msg.args)
-                                internal.currentContextualMenu = PopupUtils.open(contextualPopover, contextualRectangle)
-                                break
-                            }
+                internal.dismissCurrentContextualMenu()
+                internal.dismissCurrentSelection()
+                internal.fillContextualData(msg.args)
+                if (contextualActions != null) {
+                    for (var i = 0; i < contextualActions.actions.length; ++i) {
+                        if (contextualActions.actions[i].enabled) {
+                            contextualRectangle.position(msg.args)
+                            internal.currentContextualMenu = PopupUtils.open(contextualPopover, contextualRectangle)
+                            break
                         }
                     }
-                } else if (internal.currentContextualMenu != null) {
-                    PopupUtils.close(internal.currentContextualMenu)
+                }
+            }
+        },
+        Oxide.ScriptMessageHandler {
+            msgId: "selection"
+            contexts: ["oxide://selection/"]
+            callback: function(msg, frame) {
+                internal.dismissCurrentSelection()
+                internal.dismissCurrentContextualMenu()
+                if (selectionActions != null) {
+                    for (var i = 0; i < selectionActions.actions.length; ++i) {
+                        if (selectionActions.actions[i].enabled) {
+                            var mimedata = internal.buildMimedata(msg.args)
+                            var bounds = internal.computeBounds(msg.args)
+                            internal.currentSelection = selection.createObject(_webview, {mimedata: mimedata, bounds: bounds})
+                            internal.currentSelection.showActions()
+                            break
+                        }
+                    }
                 }
             }
         },
@@ -92,9 +99,8 @@ Oxide.WebView {
             msgId: "scroll"
             contexts: ["oxide://selection/"]
             callback: function(msg, frame) {
-                if (internal.currentContextualMenu != null) {
-                    PopupUtils.close(internal.currentContextualMenu)
-                }
+                internal.dismissCurrentContextualMenu()
+                internal.dismissCurrentSelection()
             }
         }
     ]
@@ -140,10 +146,127 @@ Oxide.WebView {
         }
     }
 
+    property ActionList selectionActions
+    onSelectionActionsChanged: {
+        for (var i in selectionActions.actions) {
+            selectionActions.actions[i].onTriggered.connect(function () {
+                internal.dismissCurrentSelection()
+            })
+        }
+    }
+    Component {
+        id: selection
+        Selection {
+            anchors.fill: parent
+            property var mimedata: null
+            property rect bounds
+            onBoundsChanged: {
+                rect.x = bounds.x
+                rect.y = bounds.y
+                rect.width = bounds.width
+                rect.height = bounds.height
+            }
+            property Item actions: null
+            Component {
+                id: selectionPopover
+                ActionSelectionPopover {
+                    objectName: "selectionActions"
+                    autoClose: false
+                    actions: selectionActions
+                }
+            }
+            function showActions() {
+                if (actions != null) {
+                    actions.destroy()
+                }
+                actions = PopupUtils.open(selectionPopover, rect)
+            }
+            onResizingChanged: {
+                if (resizing) {
+                    if (actions != null) {
+                        actions.destroy()
+                    }
+                }
+            }
+            onResized: {
+                var args = {x: rect.x, y: rect.y, width: rect.width, height: rect.height}
+                var msg = _webview.rootFrame.sendMessage("oxide://selection/", "adjustselection", args)
+                msg.onreply = function(response) {
+                    internal.currentSelection.mimedata = internal.buildMimedata(response)
+                    // Ensure that the bounds are updated
+                    internal.currentSelection.bounds = Qt.rect(0, 0, 0, 0)
+                    internal.currentSelection.bounds = internal.computeBounds(response)
+                    internal.currentSelection.showActions()
+                }
+                msg.onerror = function(error) {
+                    internal.dismissCurrentSelection()
+                }
+            }
+            onDismissed: internal.dismissCurrentSelection()
+        }
+    }
+    function copy() {
+        if (internal.currentSelection != null) {
+            Clipboard.push(internal.currentSelection.mimedata)
+        } else {
+            console.warn("No current selection")
+        }
+    }
+
     QtObject {
         id: internal
         property int lastLoadRequestStatus: -1
         property Item currentContextualMenu: null
+        property Item currentSelection: null
+
+        function fillContextualData(data) {
+            contextualData.clear()
+            if ('img' in data) {
+                contextualData.img = data.img
+            }
+            if ('href' in data) {
+                contextualData.href = data.href
+                contextualData.title = data.title
+            }
+        }
+
+        function buildMimedata(data) {
+            var mimedata = Clipboard.newData()
+            if ('html' in data) {
+                mimedata.html = data.html
+            }
+            // FIXME: push the text and image data in the order
+            // they appear in the selected block.
+            if ('text' in data) {
+                mimedata.text = data.text
+            }
+            if ('images' in data) {
+                // TODO: download and cache the images locally
+                // (grab them from the webview’s cache, if possible),
+                // and forward local URLs.
+                mimedata.urls = data.images
+            }
+            return mimedata
+        }
+
+        function computeBounds(data) {
+            return Qt.rect(data.left * data.scaleX, data.top * data.scaleY,
+                           data.width * data.scaleX, data.height * data.scaleY)
+        }
+
+        function dismissCurrentContextualMenu() {
+            if (currentContextualMenu != null) {
+                PopupUtils.close(currentContextualMenu)
+            }
+        }
+
+        function dismissCurrentSelection() {
+            if (currentSelection != null) {
+                // For some reason a 0 delay fails to destroy the selection
+                // when it was requested upon a screen orientation change…
+                currentSelection.destroy(1)
+            }
+        }
     }
 
     readonly property bool lastLoadSucceeded: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeSucceeded
@@ -157,10 +280,11 @@ Oxide.WebView {
 
     readonly property int screenOrientation: Screen.orientation
     onScreenOrientationChanged: {
-        if (internal.currentContextualMenu != null) {
-            PopupUtils.close(internal.currentContextualMenu)
-        }
+        internal.dismissCurrentContextualMenu()
+        internal.dismissCurrentSelection()
     }
+
+    onFullscreenRequested: _webview.fullscreen = fullscreen
 
     onJavaScriptConsoleMessage: {
         var msg = "[JS] (%1:%2) %3".arg(sourceId).arg(lineNumber).arg(message)

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-06 16:25+0100\n"
-"PO-Revision-Date: 2014-05-18 07:02+0000\n"
+"POT-Creation-Date: 2014-07-04 10:06-0300\n"
+"PO-Revision-Date: 2014-07-15 13:38+0000\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-17 06:48+0000\n"
-"X-Generator: Launchpad (build 17045)\n"
+"X-Launchpad-Export-Date: 2014-07-16 07:24+0000\n"
+"X-Generator: Launchpad (build 17112)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -81,15 +81,15 @@ msgstr "להמשיך בכל זאת"
 msgid "Back to safety"
 msgstr "חזרה לחוף מבטחים"
 
-#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
+#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
 msgid "Back"
 msgstr "אחורה"
 
-#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
+#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "קדימה"
 
-#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr "פעילות"
 
@@ -120,14 +120,22 @@ msgstr "רענון העמוד"
 msgid "Please choose a file"
 msgstr "נא לבחור בקובץ"
 
+#: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr "בקשת הרשאה"
 
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:69
+msgid "This page wants to know your device’s location."
+msgstr "עמוד זה רוצה לדעת את מיקום המכשיר שלך"
+
+#: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr "דחייה"
 
+#: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "קבלה"
@@ -236,9 +244,26 @@ msgstr "עזיבת העמוד"
 msgid "Save image"
 msgstr "שמירת התמונה"
 
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "שיתוף…"
+
 #: src/app/webbrowser/ActivityView.qml:54
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Bookmarks"
 msgstr "סימניות"
+
+#: src/app/webbrowser/NewTabView.qml:125
+msgid "Top sites"
+msgstr "אתרים מובילים"
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see less"
+msgstr "הצגת פחות"
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see more"
+msgstr "הצגת יותר"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
@@ -246,39 +271,39 @@ msgstr "סימניות"
 msgid "Currently viewing (%1)"
 msgstr "כרגע בצפייה (%1)"
 
-#: src/app/webbrowser/TabsList.qml:68
+#: src/app/webbrowser/TabsList.qml:69
 msgid "+"
 msgstr "+"
 
-#: src/app/webbrowser/TimelineView.qml:84
+#: src/app/webbrowser/TimelineView.qml:87
 msgid "Today"
 msgstr "היום"
 
-#: src/app/webbrowser/TimelineView.qml:86
+#: src/app/webbrowser/TimelineView.qml:89
 msgid "Yesterday"
 msgstr "אתמול"
 
-#: src/app/webbrowser/TimelineView.qml:88
+#: src/app/webbrowser/TimelineView.qml:91
 msgid "Last 7 Days"
 msgstr "ב־7 הימים שחלפו"
 
-#: src/app/webbrowser/TimelineView.qml:90
+#: src/app/webbrowser/TimelineView.qml:93
 msgid "This Month"
 msgstr "החודש"
 
-#: src/app/webbrowser/TimelineView.qml:92
+#: src/app/webbrowser/TimelineView.qml:95
 msgid "This Year"
 msgstr "השנה"
 
-#: src/app/webbrowser/TimelineView.qml:94
+#: src/app/webbrowser/TimelineView.qml:97
 msgid "Older"
 msgstr "לפני כן"
 
-#: src/app/webbrowser/TimelineView.qml:277
+#: src/app/webbrowser/TimelineView.qml:287
 msgid "(local files)"
 msgstr "(קבצים מקומיים)"
 
-#: src/app/webbrowser/TimelineView.qml:279
+#: src/app/webbrowser/TimelineView.qml:289
 msgid "(other)"
 msgstr "(אחר)"
 
@@ -295,14 +320,14 @@ msgid "Browse the World Wide Web"
 msgstr "גלישה ברשת האינטרנט"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - דפדפן האינטרנט של אובונטו"
 
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:49
+#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "דפדפן האינטרנט של אובונטו"
 
@@ -321,7 +346,3 @@ msgstr "הוספת חשבון"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "נא לבחור חשבון"
-
-#: src/app/webcontainer/WebViewImplWebkit.qml:63
-msgid "This page wants to know your device’s location."
-msgstr "עמוד זה רוצה לדעת את מיקום המכשיר שלך"

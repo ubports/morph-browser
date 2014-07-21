@@ -1,0 +1,11 @@
+li#buildversion {
+    display: none;
+}
+
+div.toc {
+    display: none;
+}
+
+span.type a:visited {
+    color: #dd4814;
+}

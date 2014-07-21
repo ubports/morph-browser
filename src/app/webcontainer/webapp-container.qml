@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.0
+import QtQuick.Window 2.1
 import Ubuntu.Components 0.1
 import Ubuntu.Components.Extras.Browser 0.2
 import webcontainer.private 0.1
@@ -87,6 +87,10 @@ Window {
         }
     }
 
+    // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
+    // by toggling fullscreen on the window only on desktop.
+    visibility: webappPageComponentLoader.item && webappPageComponentLoader.item.currentWebview.fullscreen && (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
+
     Loader {
         id: accountsPageComponentLoader
         anchors.fill: parent
@@ -152,5 +156,21 @@ Window {
         if (accountsPageComponentLoader.item)
             accountsPageComponentLoader.item.visible = false;
         webappPageComponentLoader.item.visible = true;
+    }
+
+    // Handle runtime requests to open urls as defined
+    // by the freedesktop application dbus interface's open
+    // method for DBUS application activation:
+    // http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus
+    // The dispatch on the org.freedesktop.Application if is done per appId at the
+    // url-dispatcher/upstart level.
+    Connections {
+        target: UriHandler
+        onOpened: {
+            // only consider the first one (if multiple)
+            if (uris.length !== 0) {
+                url = uris[0];
+            }
+        }
     }
 }

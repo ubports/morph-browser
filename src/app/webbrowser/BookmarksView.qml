@@ -50,6 +50,7 @@ Item {
 
             url: model.url
             label: model.title ? model.title : model.url
+            icon: model.icon
 
             //property url thumbnailSource: "image://webthumbnail/" + model.url
             //thumbnail: WebThumbnailer.thumbnailExists(model.url) ? thumbnailSource : ""

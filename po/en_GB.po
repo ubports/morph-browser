@@ -7,63 +7,63 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-06 16:25+0100\n"
-"PO-Revision-Date: 2013-06-24 16:34+0000\n"
-"Last-Translator: Andi Chandler <Unknown>\n"
+"POT-Creation-Date: 2014-07-04 10:06-0300\n"
+"PO-Revision-Date: 2014-07-09 14:52+0000\n"
+"Last-Translator: Alan Pope ㋛ <alan@ubuntu.com>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-17 06:48+0000\n"
-"X-Generator: Launchpad (build 17045)\n"
+"X-Launchpad-Export-Date: 2014-07-10 07:27+0000\n"
+"X-Generator: Launchpad (build 17100)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "JavaScript Alert"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Authentication required."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "The website %1 requires authentication."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Username"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Confirm Navigation"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "Leave"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "Stay"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "This connection is untrusted"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -72,30 +72,32 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Proceed anyway"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "Back to safety"
 
-#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
+#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
 msgid "Back"
 msgstr "Back"
 
-#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
+#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "Forward"
 
-#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr "Activity"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "JavaScript Confirmation"
 
 #: src/app/ErrorSheet.qml:38
 msgid "Network Error"
@@ -119,33 +121,41 @@ msgstr "Refresh page"
 
 #: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr ""
+msgstr "Please choose a file"
 
+#: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Permission Request"
 
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:69
+msgid "This page wants to know your device’s location."
+msgstr "This page wants to know your device’s location."
+
+#: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Deny"
 
+#: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "Allow"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "JavaScript Prompt"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Proxy authentication required."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "The website %1:%2 requires authentication."
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -165,17 +175,17 @@ msgstr "Add This Page to Bookmarks"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "Bookmark link"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Clear History"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Clear Navigation History"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -183,11 +193,11 @@ msgstr "Copy"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Copy image"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Copy link"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -217,11 +227,11 @@ msgstr "Open a New Tab"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "Open image in new tab"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Open link in new tab"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -235,53 +245,70 @@ msgstr "Leave Page"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Save image"
+
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "Share…"
 
 #: src/app/webbrowser/ActivityView.qml:54
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Bookmarks"
-msgstr ""
+msgstr "Bookmarks"
+
+#: src/app/webbrowser/NewTabView.qml:125
+msgid "Top sites"
+msgstr "Top sites"
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see less"
+msgstr "see less"
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see more"
+msgstr "see more"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr ""
+msgstr "Currently viewing (%1)"
 
-#: src/app/webbrowser/TabsList.qml:68
+#: src/app/webbrowser/TabsList.qml:69
 msgid "+"
 msgstr "+"
 
-#: src/app/webbrowser/TimelineView.qml:84
+#: src/app/webbrowser/TimelineView.qml:87
 msgid "Today"
-msgstr ""
+msgstr "Today"
 
-#: src/app/webbrowser/TimelineView.qml:86
+#: src/app/webbrowser/TimelineView.qml:89
 msgid "Yesterday"
-msgstr ""
+msgstr "Yesterday"
 
-#: src/app/webbrowser/TimelineView.qml:88
+#: src/app/webbrowser/TimelineView.qml:91
 msgid "Last 7 Days"
-msgstr ""
+msgstr "Last 7 Days"
 
-#: src/app/webbrowser/TimelineView.qml:90
+#: src/app/webbrowser/TimelineView.qml:93
 msgid "This Month"
-msgstr ""
+msgstr "This Month"
 
-#: src/app/webbrowser/TimelineView.qml:92
+#: src/app/webbrowser/TimelineView.qml:95
 msgid "This Year"
-msgstr ""
+msgstr "This Year"
 
-#: src/app/webbrowser/TimelineView.qml:94
+#: src/app/webbrowser/TimelineView.qml:97
 msgid "Older"
-msgstr ""
+msgstr "Older"
 
-#: src/app/webbrowser/TimelineView.qml:277
+#: src/app/webbrowser/TimelineView.qml:287
 msgid "(local files)"
-msgstr ""
+msgstr "(local files)"
 
-#: src/app/webbrowser/TimelineView.qml:279
+#: src/app/webbrowser/TimelineView.qml:289
 msgid "(other)"
-msgstr ""
+msgstr "(other)"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -296,33 +323,29 @@ msgid "Browse the World Wide Web"
 msgstr "Browse the World Wide Web"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu Web Browser"
 
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:49
+#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Web Browser"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "No local account found for "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "Skip account creation step"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "Add account"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
-
-#: src/app/webcontainer/WebViewImplWebkit.qml:63
-msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Select an account"

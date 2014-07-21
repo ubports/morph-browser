@@ -9,10 +9,11 @@ Build-Depends: cmake (>= 2.8.9),
                python3-all,
                libqt5sql5-sqlite,
                libqt5webkit5-qmlwebkitplugin,
-               liboxideqt-qmlplugin,
+               liboxideqt-qmlplugin (>= 1.0.2),
                qt5-default,
                qt5-qmake,
                qtbase5-dev,
+               qtbase5-dev-tools,
                qtbase5-private-dev,
                qtdeclarative5-dev,
                qtdeclarative5-private-dev,
@@ -31,7 +32,8 @@ Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         liboxideqt-qmlplugin (>= 1.0.0~bzr490),
+         fonts-liberation,
+         liboxideqt-qmlplugin (>= 1.1),
          libqt5sql5-sqlite,
          qtdeclarative5-dialogs-plugin,
          qtdeclarative5-qtquick2-plugin,
@@ -53,7 +55,8 @@ Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         liboxideqt-qmlplugin,
+         fonts-liberation,
+         liboxideqt-qmlplugin (>= 1.1),
          libqt5sql5-sqlite,
          libqt5webkit5-qmlwebkitplugin,
          qtdeclarative5-accounts-plugin,
@@ -76,7 +79,6 @@ Depends: ${misc:Depends},
          ${shlibs:Depends},
          libqt5webkit5-qmlwebkitplugin,
          qtdeclarative5-qtquick2-plugin,
-         qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets (>= ${source:Version}),
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
          qtdeclarative5-ubuntu-web-plugin (= ${binary:Version}),
          qtdeclarative5-window-plugin,
@@ -87,29 +89,39 @@ Description: Ubuntu web QML plugin
  (versions 0.1 based on WebKit and 0.2 based on Oxide), in the
  Ubuntu.Components.Extras.Browser module.
 
-Package: qtdeclarative5-ubuntu-ui-extras-browser-plugin-assets
-Architecture: all
-Multi-Arch: foreign
-Depends: ${misc:Depends},
-Description: Ubuntu web QML plugin assets
- A standalone QML plugin that contains the UbuntuWebView component
- (versions 0.1 based on WebKit and 0.2 based on Oxide), in the
- Ubuntu.Components.Extras.Browser module. This package contains the
- PNGs used as UI elements by the plugin.
-
 Package: qtdeclarative5-ubuntu-web-plugin
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         liboxideqt-qmlplugin,
+         liboxideqt-qmlplugin (>= 1.0.2),
          qtdeclarative5-qtquick2-plugin,
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
+         qtdeclarative5-ubuntu-web-plugin-assets (>= ${source:Version}),
          qtdeclarative5-window-plugin,
 Description: Ubuntu web QML plugin
  A standalone QML plugin that contains the WebView component,
  in the Ubuntu.Web module.
+
+Package: qtdeclarative5-ubuntu-web-plugin-assets
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends},
+Description: Ubuntu web QML plugin assets
+ A standalone QML plugin that contains the WebView component,
+ in the Ubuntu.Web module. This package contains the PNGs used
+ as UI elements by the plugin.
+
+Package: qtdeclarative5-ubuntu-web-plugin-doc
+Section: doc
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends},
+Description: Ubuntu web QML plugin HTML documentation
+ A standalone QML plugin that contains the WebView component,
+ in the Ubuntu.Web module. This package contains the public
+ HTML documentation.
 
 Package: webbrowser-app-autopilot
 Architecture: all

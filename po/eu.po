@@ -1,0 +1,352 @@
+# Basque translation for webbrowser-app
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-07-04 10:06-0300\n"
+"PO-Revision-Date: 2014-07-17 21:22+0000\n"
+"Last-Translator: Ibai Oihanguren Sala <Unknown>\n"
+"Language-Team: Basque <eu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-07-18 05:24+0000\n"
+"X-Generator: Launchpad (build 17114)\n"
+
+#: src/app/AlertDialog.qml:24
+msgid "JavaScript Alert"
+msgstr "JavaScript alerta"
+
+#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
+msgid "OK"
+msgstr "Ados"
+
+#: src/app/AuthenticationDialog.qml:24
+msgid "Authentication required."
+msgstr "Autentifikazioa beharrezkoa da."
+
+#. TRANSLATORS: %1 refers to the URL of the current website
+#: src/app/AuthenticationDialog.qml:26
+#, qt-format
+msgid "The website %1 requires authentication."
+msgstr "%1 webguneak autentifikazioa eskatzen du."
+
+#: src/app/AuthenticationDialog.qml:34
+msgid "Username"
+msgstr "Erabiltzaile-izena"
+
+#: src/app/AuthenticationDialog.qml:41
+msgid "Password"
+msgstr "Pasahitza"
+
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
+#: src/app/PromptDialog.qml:40
+msgid "Cancel"
+msgstr "Utzi"
+
+#: src/app/BeforeUnloadDialog.qml:24
+msgid "Confirm Navigation"
+msgstr "Berretsi nabigazioa"
+
+#: src/app/BeforeUnloadDialog.qml:28
+msgid "Leave"
+msgstr "Irten"
+
+#: src/app/BeforeUnloadDialog.qml:33
+msgid "Stay"
+msgstr "Gelditu"
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "Konexio hau ez da fidagarria"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+"%1(e)ra modu seguruan konektatu nahian zabiltza, baina webgunearen "
+"segurtasun-ziurtagiria ez da fidagarria."
+
+#: src/app/CertificateVerificationDialog.qml:29
+msgid "Proceed anyway"
+msgstr "Jarraitu dena den"
+
+#: src/app/CertificateVerificationDialog.qml:35
+msgid "Back to safety"
+msgstr "Itzuli segurtasunera"
+
+#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Atzera"
+
+#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "Aurrera"
+
+#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
+msgid "Activity"
+msgstr "Jarduera"
+
+#: src/app/ConfirmDialog.qml:24
+msgid "JavaScript Confirmation"
+msgstr "JavaScript berrespena"
+
+#: src/app/ErrorSheet.qml:38
+msgid "Network Error"
+msgstr "Sareko errorea"
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/app/ErrorSheet.qml:44
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr "Badirudi arazoak dituzula orri hau ikusteko: %1."
+
+#: src/app/ErrorSheet.qml:50
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr ""
+"Ubuntuk sareko ezarpenak egiaztatzea iradokitzen dizu, eta orria freskatzen "
+"probatzea."
+
+#: src/app/ErrorSheet.qml:55
+msgid "Refresh page"
+msgstr "Freskatu orria"
+
+#: src/app/FilePickerDialog.qml:27
+msgid "Please choose a file"
+msgstr "Aukeratu fitxategi bat"
+
+#: src/app/GeolocationPermissionRequest.qml:28
+#: src/app/PermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "Baimen-eskaera"
+
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:69
+msgid "This page wants to know your device’s location."
+msgstr "Orri honek zure gailuaren kokapena jakin nahi du."
+
+#: src/app/GeolocationPermissionRequest.qml:33
+#: src/app/PermissionRequest.qml:31
+msgid "Deny"
+msgstr "Ukatu"
+
+#: src/app/GeolocationPermissionRequest.qml:43
+#: src/app/PermissionRequest.qml:40
+msgid "Allow"
+msgstr "Baimendu"
+
+#: src/app/PromptDialog.qml:24
+msgid "JavaScript Prompt"
+msgstr "JavaScript gonbita"
+
+#: src/app/ProxyAuthenticationDialog.qml:22
+msgid "Proxy authentication required."
+msgstr "Proxy autentifikazioa beharrezkoa da."
+
+#. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
+#: src/app/ProxyAuthenticationDialog.qml:24
+#, qt-format
+msgid "The website %1:%2 requires authentication."
+msgstr "%1:%2 webguneak autentifikazioa behar du."
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Back.qml:26
+msgid "Older Page"
+msgstr "Orri zaharragoa"
+
+#: src/app/actions/Bookmark.qml:23
+msgid "Bookmark"
+msgstr "Laster-marka"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Bookmark.qml:26
+msgid "Add This Page to Bookmarks"
+msgstr "Gehitu orri hau laster-markei"
+
+#: src/app/actions/BookmarkLink.qml:22
+msgid "Bookmark link"
+msgstr "Egin loturaren laster-marka"
+
+#: src/app/actions/ClearHistory.qml:23
+msgid "Clear History"
+msgstr "Garbitu historia"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/ClearHistory.qml:26
+msgid "Clear Navigation History"
+msgstr "Garbitu nabigazio-historia"
+
+#: src/app/actions/Copy.qml:22
+msgid "Copy"
+msgstr "Kopiatu"
+
+#: src/app/actions/CopyImage.qml:22
+msgid "Copy image"
+msgstr "Kopiatu irudia"
+
+#: src/app/actions/CopyLink.qml:22
+msgid "Copy link"
+msgstr "Kopiatu lotura"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Forward.qml:26
+msgid "Newer Page"
+msgstr "Orri berriagoa"
+
+#: src/app/actions/GoTo.qml:23
+msgid "Goto"
+msgstr "Joan hona"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/GoTo.qml:26
+msgid "Address;URL;www"
+msgstr "Helbidea;URLa;www"
+
+#: src/app/actions/NewTab.qml:23
+msgid "New Tab"
+msgstr "Fitxa berria"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/NewTab.qml:26
+msgid "Open a New Tab"
+msgstr "Ireki fitxa berria"
+
+#: src/app/actions/OpenImageInNewTab.qml:22
+msgid "Open image in new tab"
+msgstr "Ireki irudia fitxa berrian"
+
+#: src/app/actions/OpenLinkInNewTab.qml:22
+msgid "Open link in new tab"
+msgstr "Ireki lotura fitxa berrian"
+
+#: src/app/actions/Reload.qml:23
+msgid "Reload"
+msgstr "Birkargatu"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Reload.qml:26
+msgid "Leave Page"
+msgstr "Irten orritik"
+
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
+msgstr "Gorde irudia"
+
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "Partekatu..."
+
+#: src/app/webbrowser/ActivityView.qml:54
+#: src/app/webbrowser/NewTabView.qml:123
+msgid "Bookmarks"
+msgstr "Laster-markak"
+
+#: src/app/webbrowser/NewTabView.qml:125
+msgid "Top sites"
+msgstr "Gune nagusiak"
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see less"
+msgstr "gutxiago ikusi"
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see more"
+msgstr "gehiago ikusi"
+
+#. TRANSLATORS: %1 refers to the number of open tabs
+#: src/app/webbrowser/TabsList.qml:37
+#, qt-format
+msgid "Currently viewing (%1)"
+msgstr "Orain ikusgai (%1)"
+
+#: src/app/webbrowser/TabsList.qml:69
+msgid "+"
+msgstr "+"
+
+#: src/app/webbrowser/TimelineView.qml:87
+msgid "Today"
+msgstr "Gaur"
+
+#: src/app/webbrowser/TimelineView.qml:89
+msgid "Yesterday"
+msgstr "Atzo"
+
+#: src/app/webbrowser/TimelineView.qml:91
+msgid "Last 7 Days"
+msgstr "Azken 7 egunetan"
+
+#: src/app/webbrowser/TimelineView.qml:93
+msgid "This Month"
+msgstr "Hil honetan"
+
+#: src/app/webbrowser/TimelineView.qml:95
+msgid "This Year"
+msgstr "Aurten"
+
+#: src/app/webbrowser/TimelineView.qml:97
+msgid "Older"
+msgstr "Zaharragoak"
+
+#: src/app/webbrowser/TimelineView.qml:287
+msgid "(local files)"
+msgstr "(fitxategi lokalak)"
+
+#: src/app/webbrowser/TimelineView.qml:289
+msgid "(other)"
+msgstr "(bestelakoa)"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "Nabigatzailea"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "Web-nabigatzailea"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "Nabigatu World Wide Web-ean"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webcontainer/webapp-container.qml:54
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - Ubunturen web-nabigatzailea"
+
+#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webcontainer/webapp-container.qml:56
+msgid "Ubuntu Web Browser"
+msgstr "Ubunturen web-nabigatzailea"
+
+#: src/app/webcontainer/AccountsLoginPage.qml:70
+msgid "No local account found for "
+msgstr "Ez da kontu lokalik aurkitu honako: "
+
+#: src/app/webcontainer/AccountsLoginPage.qml:75
+msgid "Skip account creation step"
+msgstr "Saltatu kontua sortzeko urratsa"
+
+#: src/app/webcontainer/AccountsLoginPage.qml:124
+msgid "Add account"
+msgstr "Gehitu kontua"
+
+#: src/app/webcontainer/AccountsView.qml:38
+msgid "Select an account"
+msgstr "Hautatu kontua"

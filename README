@@ -67,3 +67,22 @@ To generate a report with detailed code coverage, you need to re-run cmake with
 This will generate a coverage report in XML format (coverage.xml) and an
 interactive human-readable report in HTML format (coveragereport/index.html).
 
+
+= Settings =
+
+webbrowser-app supports a limited set of custom settings, currently not exposed
+in the UI. The settings are persisted on disk in the following INI-like file:
+
+    $HOME/.config/webbrowser-app/settings.conf
+
+The following keys are supported:
+
+ - 'homepage': a URL that the browser will open when launched if no URL is
+   specified on the command line
+
+ - 'searchengine': a custom search engine specification, looked up in
+   $HOME/.local/share/webbrowser-app/searchengines/{value}.xml and following
+   the OpenSearch document description format
+   (http://www.opensearch.org/Specifications/OpenSearch/1.1)
+
+If any of those keys are not specified, the default hardcoded value is used.

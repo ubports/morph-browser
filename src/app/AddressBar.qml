@@ -29,6 +29,8 @@ FocusScope {
     property bool loading
     signal requestReload()
     signal requestStop()
+    signal pressAndHold()
+    property string searchUrl
 
     height: textField.height
 
@@ -120,6 +122,9 @@ FocusScope {
                 textField.forceActiveFocus()
                 textField.selectAll()
             }
+            onPressAndHold: {
+                addressbar.pressAndHold()
+            }
         }
     }
 
@@ -160,9 +165,8 @@ FocusScope {
     }
 
     function buildSearchUrl(query) {
-        var searchUrl = "https://google.com/search?client=ubuntu&q=%1&ie=utf-8&oe=utf-8"
         var terms = query.split(/\s/).map(escapeHtmlEntities)
-        return searchUrl.arg(terms.join("+"))
+        return addressbar.searchUrl.replace("{searchTerms}", terms.join("+"))
     }
 
     function validate() {

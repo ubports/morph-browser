@@ -28,6 +28,8 @@ BrowserView {
     property alias currentIndex: tabsModel.currentIndex
     currentWebview: tabsModel.currentWebview
 
+    property QtObject searchEngine
+
     actions: [
         Actions.GoTo {
             onTriggered: currentWebview.url = value
@@ -46,7 +48,7 @@ BrowserView {
         },
         Actions.Bookmark {
             enabled: currentWebview
-            onTriggered: bookmarksModel.add(currentWebview.url, currentWebview.title, "")//currentWebview.icon)
+            onTriggered: _bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
             onTriggered: openUrlInNewTab("", true)
@@ -116,6 +118,11 @@ BrowserView {
             currentWebview.url = url
             toggleActivityView()
         }
+
+        function onNewTabUrlRequested(url) {
+            currentWebview.url = url
+            currentWebview.forceActiveFocus()
+        }
     }
 
     readonly property bool activityViewVisible: stack.depth > 0
@@ -124,7 +131,7 @@ BrowserView {
         stack.push(Qt.resolvedUrl("ActivityView.qml"),
                    {tabsModel: tabsModel,
                     historyModel: _historyModel,
-                    bookmarksModel: bookmarksModel})
+                    bookmarksModel: _bookmarksModel})
         var view = stack.currentPage
         view.onHistoryEntryRequested.connect(internal.onHistoryEntryRequested)
         view.onNewTabRequested.connect(internal.onNewTabRequested)
@@ -154,6 +161,7 @@ BrowserView {
 
         currentWebview: browser.currentWebview
         chromeless: browser.chromeless
+        searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
 
         anchors {
             left: parent.left
@@ -206,7 +214,7 @@ BrowserView {
     }
 
     BookmarksModel {
-        id: bookmarksModel
+        id: _bookmarksModel
         databasePath: dataLocation + "/bookmarks.sqlite"
     }
 
@@ -225,6 +233,7 @@ BrowserView {
 
             //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
             preferences.localStorageEnabled: true
+            preferences.appCacheEnabled: true
 
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
@@ -233,7 +242,7 @@ BrowserView {
                 }
                 Actions.BookmarkLink {
                     enabled: contextualData.href.toString()
-                    onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "")
+                    onTriggered: _bookmarksModel.add(contextualData.href, contextualData.title, "")
                 }
                 Actions.CopyLink {
                     enabled: contextualData.href.toString()
@@ -260,17 +269,27 @@ BrowserView {
 
             onLoadingChanged: {
                 if (lastLoadSucceeded) {
-                    _historyModel.add(url, title, "")
+                    _historyModel.add(url, title, icon)
                 }
             }
 
-            // Work around http://pad.lv/1322622 by forcing an update
-            // of the visibility of the webview.
-            readonly property bool empty: !url.toString()
-            onEmptyChanged: {
-                if (!empty) {
-                    visible = false
-                    visible = Qt.binding(function() { return current })
+            Loader {
+                id: newTabViewLoader
+                anchors.fill: parent
+
+                sourceComponent: !parent.url.toString() ? newTabViewComponent : undefined
+
+                Component {
+                    id: newTabViewComponent
+
+                    NewTabView {
+                        anchors.fill: parent
+
+                        historyModel: _historyModel
+                        bookmarksModel: _bookmarksModel
+                        onBookmarkClicked: internal.onNewTabUrlRequested(url)
+                        onHistoryEntryClicked: internal.onNewTabUrlRequested(url)
+                    }
                 }
             }
         }

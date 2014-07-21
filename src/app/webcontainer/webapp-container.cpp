@@ -137,7 +137,7 @@ bool WebappContainer::initialize()
         if (m_webappName.isEmpty()) {
             QList<QUrl> urls = this->urls();
             if (!urls.isEmpty()) {
-                m_window->setProperty("url", urls.first());
+                m_window->setProperty("url", urls.last());
             } else {
                 return false;
             }
