@@ -72,31 +72,21 @@ Item {
             ListItem.Header {
                 id: sectionHeader
 
-                text:{
+                text: {
                     var today = new Date()
                     var yesterday = new Date()
                     yesterday.setDate(yesterday.getDate() - 1)
-
-                    if (section === Qt.formatDateTime(today, "yyyy-MM-dd")) {
-                        return i18n.tr("Last visited")
-                    } else if (section === Qt.formatDateTime(yesterday, "yyyy-MM-dd")) {
-                        return i18n.tr("Yesterday")
-                    } else {
-                        var values = section.split("-", 3)
-                        var year = values[0]
-                        var month = values[1]
-                        var day = values[2]
-
-                        var d = new Date(year, month-1, day)
-                        if (parseInt(day) === 1)
-                            return Qt.formatDateTime(d, "dddd dd'st' MMMM")
-                        if (parseInt(day) === 2)
-                            return Qt.formatDateTime(d, "dddd dd'nd' MMMM")
-                        if (parseInt(day) === 3)
-                            return Qt.formatDateTime(d, "dddd dd'rd' MMMM")
-                        else
-                            return Qt.formatDateTime(d, "dddd dd'th' MMMM")
+                    var sectionDate = new Date(section)
+                    if ((sectionDate.getFullYear() == today.getFullYear()) &&
+                        (sectionDate.getMonth() == today.getMonth())) {
+                        var dayDifference = sectionDate.getDate() - today.getDate()
+                        if (dayDifference == 0) {
+                            return i18n.tr("Last Visited")
+                        } else if (dayDifference == -1) {
+                            return i18n.tr("Yesterday")
+                        }
                     }
+                    return Qt.formatDate(sectionDate, Qt.DefaultLocaleLongDate)
                 }
             }
         }
