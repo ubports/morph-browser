@@ -161,13 +161,30 @@ Item {
             Repeater {
                 model: parent.opacity == 0.0 ? "" : historyListModel
 
-                delegate: PageDelegate{
+                delegate: MouseArea {
                     width: units.gu(18)
-                    height: units.gu(25)
+                    height: units.gu(22)
 
-                    url: model.url
-                    label: model.title ? model.title : model.url
-                    icon: model.icon
+                    Column {
+                        anchors.fill: parent
+                        spacing: units.gu(1)
+
+                        UbuntuShape {
+                            width: parent.width
+                            height: width
+                        }
+
+                        Label {
+                            width: parent.width
+                            height: units.gu(2)
+
+                            fontSize: "small"
+                            wrapMode: Text.Wrap
+                            elide: Text.ElideRight
+
+                            text: model.title ? model.title : model.url
+                        }
+                    }
 
                     onClicked: historyEntryClicked(model.url)
                 }
