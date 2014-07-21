@@ -113,6 +113,17 @@ Column {
                     verticalAlignment: Text.AlignVCenter
                     elide: Text.ElideRight
                 }
+
+                MouseArea {
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                        left: parent.left
+                    }
+                    width: parent.width / 2
+
+                    onClicked: tab.selected()
+                }
             }
         }
 
