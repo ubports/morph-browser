@@ -24,8 +24,8 @@ Item {
 
     property url url
     property alias thumbnail: thumbnail.source
+    property alias icon: icon.source
     property alias label: label.text
-    property url icon
     property bool canClose: false
     property bool canBookmark: false
     property bool bookmarked
@@ -53,6 +53,14 @@ Item {
 
             image: Image {
                 id: thumbnail
+            }
+
+            // Show the favicon if no thumbnail defined for the url
+            Favicon {
+                id: icon
+                anchors.centerIn: parent
+
+                visible: !thumbnail.source.toString()
             }
         }
 

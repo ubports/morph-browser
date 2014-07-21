@@ -42,11 +42,9 @@ Item {
             height: parent.height
             width: parent.height
 
-            Image {
+            Favicon {
                 id: icon
                 anchors.centerIn: parent
-                width: units.dp(16)
-                height: units.dp(16)
             }
         }
 
