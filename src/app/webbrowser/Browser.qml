@@ -259,6 +259,7 @@ BrowserView {
 
             HistoryView {
                 anchors.fill: parent
+                visible: historyViewContainer.children.length == 1
 
                 Timer {
                     // Set the model asynchronously to ensure
