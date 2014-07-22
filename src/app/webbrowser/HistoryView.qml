@@ -19,6 +19,7 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.Components.Popups 0.1
 import webbrowserapp.private 0.1
 
 Item {
@@ -191,6 +192,49 @@ Item {
             text: i18n.tr("Done")
 
             onClicked: historyView.done()
+        }
+
+        ToolbarAction {
+            anchors {
+                right: parent.right
+                rightMargin: units.gu(2)
+                verticalCenter: parent.verticalCenter
+            }
+            height: parent.height - units.gu(2)
+            width: height
+
+            text: i18n.tr("Clear")
+
+            iconName: "delete"
+
+            enabled: domainsListView.count > 0
+
+            onClicked: PopupUtils.open(confirmClearComponent)
+
+            Component {
+                id: confirmClearComponent
+
+                Dialog {
+                    id: confirmClearDialog
+
+                    text: i18n.tr("Delete all history?")
+
+                    Button {
+                        text: i18n.tr("Yes")
+                        color: UbuntuColors.orange
+                        onClicked: {
+                            PopupUtils.close(confirmClearDialog)
+                            historyView.historyModel.clearAll()
+                        }
+                    }
+
+                    Button {
+                        text: i18n.tr("No")
+                        color: UbuntuColors.warmGrey
+                        onClicked: PopupUtils.close(confirmClearDialog)
+                    }
+                }
+            }
         }
     }
 }
