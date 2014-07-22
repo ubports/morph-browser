@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-22 12:03+0200\n"
+"POT-Creation-Date: 2014-07-22 13:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -260,52 +260,50 @@ msgstr ""
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:75
-#: src/app/webbrowser/HistoryView.qml:83
-msgid "Last Visited"
-msgstr ""
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:77
-#: src/app/webbrowser/HistoryView.qml:85
-msgid "Yesterday"
-msgstr ""
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:147
-#: src/app/webbrowser/HistoryView.qml:111
+#: src/app/webbrowser/ExpandedHistoryView.qml:120
+#: src/app/webbrowser/HistoryView.qml:86
 #, qt-format
 msgid "%1 pages"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:161
+#: src/app/webbrowser/ExpandedHistoryView.qml:134
 msgid "Less"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:111
+#: src/app/webbrowser/HistorySectionDelegate.qml:36
+msgid "Last Visited"
+msgstr ""
+
+#: src/app/webbrowser/HistorySectionDelegate.qml:38
+msgid "Yesterday"
+msgstr ""
+
+#: src/app/webbrowser/HistoryView.qml:86
 msgid "1 page"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:155
+#: src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/NewTabView.qml:142
 msgid "see more"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:192 src/app/webbrowser/TabsView.qml:99
+#: src/app/webbrowser/HistoryView.qml:167 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:206
+#: src/app/webbrowser/HistoryView.qml:181
 msgid "Clear"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:220
+#: src/app/webbrowser/HistoryView.qml:195
 msgid "Delete all history?"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:223
+#: src/app/webbrowser/HistoryView.qml:198
 msgid "Yes"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:232
+#: src/app/webbrowser/HistoryView.qml:207
 msgid "No"
 msgstr ""
 
