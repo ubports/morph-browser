@@ -72,7 +72,7 @@ private:
         QUrl icon;
         QDateTime created;
 
-        inline bool operator==(BookmarkEntry a) { return this->url == a.url; }
+        inline bool operator==(BookmarkEntry& a) { return this->url == a.url; }
     };
     QSet<QUrl> m_entries;
     QList<BookmarkEntry> m_orderedEntries;
