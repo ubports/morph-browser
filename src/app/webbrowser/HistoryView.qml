@@ -26,9 +26,7 @@ Item {
     id: historyView
 
     property alias historyModel: historyTimeframeModel.sourceModel
-    property string expandedDomain: ""
 
-    signal historyEntryClicked(url url)
     signal seeMoreEntriesClicked(var model)
     signal done()
 
@@ -65,76 +63,15 @@ Item {
             color: historyViewBackground.color
         }
 
-        delegate: Column {
-            height: childrenRect.height
+        delegate: UrlDelegate {
             width: parent.width
-            clip: true
-            spacing: units.gu(1)
+            height: units.gu(5)
 
-            LimitProxyModel {
-                id: truncatedModel
-                sourceModel: model.entries
-                limit: 2
-            }
+            title: model.domain
+            url: lastVisitedTitle
+            icon: model.lastVisitedIcon
 
-            property bool expanded: model.domain && (historyView.expandedDomain === model.domain)
-
-            UrlDelegate {
-                width: parent.width
-                height: units.gu(5)
-
-                url: parent.expanded ? ((truncatedModel.unlimitedCount === 1) ? i18n.tr("1 page") : i18n.tr("%1 pages").arg(truncatedModel.unlimitedCount)) : model.lastVisitedTitle
-                title: model.domain
-                icon: model.lastVisitedIcon
-
-                onClicked: historyView.expandedDomain = (parent.expanded ? "" : model.domain)
-            }
-
-            Loader {
-                sourceComponent: parent.expanded ? entriesViewComponent : undefined
-
-                width: parent.width
-                height: childrenRect.height
-
-                Component {
-                    id: entriesViewComponent
-
-                    Column {
-                        width: parent ? parent.width : 0
-                        height: childrenRect.height
-                        spacing: units.gu(1)
-
-                        Repeater {
-                            model: (truncatedModel.unlimitedCount > 3) ? truncatedModel : truncatedModel.sourceModel
-                            delegate: UrlDelegate {
-                                width: parent.width
-                                height: units.gu(5)
-
-                                url: model.url
-                                title: model.title ? model.title : model.url
-                                icon: model.icon
-
-                                onClicked: historyView.historyEntryClicked(model.url)
-                            }
-                        }
-
-                        MouseArea {
-                            width: parent.width
-                            height: units.gu(2)
-                            enabled: truncatedModel.unlimitedCount > 3
-                            visible: enabled
-
-                            Label {
-                                anchors.centerIn: parent
-                                font.bold: true
-                                text: i18n.tr("see more")
-                            }
-
-                            onClicked: historyView.seeMoreEntriesClicked(truncatedModel.sourceModel)
-                        }
-                    }
-                }
-            }
+            onClicked: historyView.seeMoreEntriesClicked(model.entries)
         }
     }
 

@@ -25,7 +25,6 @@ Item {
     id: expandedHistoryView
 
     property alias model: entriesListView.model
-    property string domain
 
     signal historyEntryClicked(url url)
     signal done()
@@ -106,7 +105,7 @@ Item {
                 top: iconContainer.top
                 topMargin: units.gu(-0.5)
             }
-            text: expandedHistoryView.domain
+            text: expandedHistoryView.model.domain
         }
 
         Label {
@@ -117,7 +116,7 @@ Item {
                 bottom: iconContainer.bottom
             }
             fontSize: "x-small"
-            text: i18n.tr("%1 pages").arg(entriesListView.count)
+            text: i18n.tr("%n page", "%n pages", entriesListView.count)
         }
 
         Button {

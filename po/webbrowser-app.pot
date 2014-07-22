@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-22 13:12+0200\n"
+"POT-Creation-Date: 2014-07-22 15:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -260,13 +261,14 @@ msgstr ""
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:120
-#: src/app/webbrowser/HistoryView.qml:86
-#, qt-format
-msgid "%1 pages"
-msgstr ""
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#, c-format, qt-plural-format
+msgid "%n page"
+msgid_plural "%n pages"
+msgstr[0] ""
+msgstr[1] ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:134
+#: src/app/webbrowser/ExpandedHistoryView.qml:133
 msgid "Less"
 msgstr ""
 
@@ -278,32 +280,23 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:86
-msgid "1 page"
-msgstr ""
-
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see more"
-msgstr ""
-
-#: src/app/webbrowser/HistoryView.qml:167 src/app/webbrowser/TabsView.qml:99
+#: src/app/webbrowser/HistoryView.qml:104 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:181
+#: src/app/webbrowser/HistoryView.qml:118
 msgid "Clear"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:195
+#: src/app/webbrowser/HistoryView.qml:132
 msgid "Delete all history?"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:198
+#: src/app/webbrowser/HistoryView.qml:135
 msgid "Yes"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:207
+#: src/app/webbrowser/HistoryView.qml:144
 msgid "No"
 msgstr ""
 
@@ -317,6 +310,10 @@ msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:142
 msgid "see less"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see more"
 msgstr ""
 
 #: src/app/webbrowser/TabsView.qml:114

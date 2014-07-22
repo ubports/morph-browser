@@ -274,12 +274,8 @@ BrowserView {
                     onTriggered: historyModel = _historyModel
                 }
 
-                onHistoryEntryClicked: {
-                    currentWebview.url = url
-                    historyViewContainer.done()
-                }
                 onSeeMoreEntriesClicked: {
-                    expandedHistoryViewComponent.createObject(historyViewContainer, {model: model, domain: expandedDomain})
+                    expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
                 }
                 onDone: historyViewContainer.done()
             }
