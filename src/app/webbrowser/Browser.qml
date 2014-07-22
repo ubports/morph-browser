@@ -255,7 +255,7 @@ BrowserView {
         anchors.fill: parent
 
         function done() {
-            for (var i in children) {
+            for (var i = children.length - 1; i >= 0; --i) {
                 children[i].destroy()
             }
         }
