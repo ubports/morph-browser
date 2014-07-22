@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-22 15:23+0200\n"
+"POT-Creation-Date: 2014-07-22 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -262,9 +262,9 @@ msgid "New tab"
 msgstr ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:119
-#, c-format, qt-plural-format
-msgid "%n page"
-msgid_plural "%n pages"
+#, qt-format
+msgid "%1 page"
+msgid_plural "%1 pages"
 msgstr[0] ""
 msgstr[1] ""
 

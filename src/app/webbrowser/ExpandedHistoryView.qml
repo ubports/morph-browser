@@ -116,7 +116,7 @@ Item {
                 bottom: iconContainer.bottom
             }
             fontSize: "x-small"
-            text: i18n.tr("%n page", "%n pages", entriesListView.count)
+            text: i18n.tr("%1 page", "%1 pages", entriesListView.count).arg(entriesListView.count)
         }
 
         Button {
