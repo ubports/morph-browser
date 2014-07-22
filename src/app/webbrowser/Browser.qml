@@ -254,12 +254,6 @@ BrowserView {
         visible: children.length > 0
         anchors.fill: parent
 
-        function done() {
-            for (var i = children.length - 1; i >= 0; --i) {
-                children[i].destroy()
-            }
-        }
-
         Component {
             id: historyViewComponent
 
@@ -275,9 +269,9 @@ BrowserView {
                 }
 
                 onSeeMoreEntriesClicked: {
-                    expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
+                    expandedHistoryViewComponent.createObject(this, {model: model})
                 }
-                onDone: historyViewContainer.done()
+                onDone: destroy()
             }
         }
 
@@ -289,9 +283,10 @@ BrowserView {
 
                 onHistoryEntryClicked: {
                     currentWebview.url = url
-                    historyViewContainer.done()
+                    done()
+                    parent.done()
                 }
-                onDone: this.destroy()
+                onDone: destroy()
             }
         }
     }
