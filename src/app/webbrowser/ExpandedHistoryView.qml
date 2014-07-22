@@ -25,7 +25,7 @@ Item {
     id: expandedHistoryView
 
     property alias model: entriesListView.model
-    property string domain: ""
+    property string domain
 
     signal historyEntryClicked(url url)
     signal done()
