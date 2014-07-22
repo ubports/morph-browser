@@ -78,7 +78,7 @@ private:
     QList<BookmarkEntry> m_orderedEntries;
 
     void resetDatabase(const QString& databaseName);
-    void createDatabaseSchema();
+    void createOrAlterDatabaseSchema();
     void populateFromDatabase();
     void insertNewEntryInDatabase(const BookmarkEntry& entry);
     void removeExistingEntryFromDatabase(const QUrl& url);

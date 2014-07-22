@@ -60,18 +60,37 @@ void BookmarksModel::resetDatabase(const QString& databaseName)
     m_database.close();
     m_database.setDatabaseName(databaseName);
     m_database.open();
-    createDatabaseSchema();
+    createOrAlterDatabaseSchema();
     endResetModel();
     populateFromDatabase();
 }
 
-void BookmarksModel::createDatabaseSchema()
+void BookmarksModel::createOrAlterDatabaseSchema()
 {
-    QSqlQuery schemaQuery(m_database);
+    QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS bookmarks "
                                   "(url VARCHAR, title VARCHAR, icon VARCHAR, created INTEGER);");
-    schemaQuery.prepare(query);
-    schemaQuery.exec();
+    createQuery.prepare(query);
+    createQuery.exec();
+
+    // The first version of the database schema didn’t have a 'created' column
+    QSqlQuery tableInfoQuery(m_database);
+    query = QLatin1String("PRAGMA TABLE_INFO(bookmarks);");
+    tableInfoQuery.prepare(query);
+    tableInfoQuery.exec();
+    while (tableInfoQuery.next()) {
+        if (tableInfoQuery.value("name").toString() == "created") {
+            break;
+        }
+    }
+    if (!tableInfoQuery.isValid()) {
+        QSqlQuery addCreatedColumnQuery(m_database);
+        query = QLatin1String("ALTER TABLE bookmarks ADD COLUMN created INTEGER;");
+        addCreatedColumnQuery.prepare(query);
+        addCreatedColumnQuery.exec();
+        // the default for the column is zero, which is a date far in the past, so
+        // any newly created bookmark will correctly be represented as more recent
+    }
 }
 
 void BookmarksModel::populateFromDatabase()
@@ -141,6 +160,7 @@ const QString BookmarksModel::databasePath() const
 
 void BookmarksModel::setDatabasePath(const QString& path)
 {
+    qWarning() << "+++++++++++++++++++ DATABASE: " << path;
     if (path != databasePath()) {
         if (path.isEmpty()) {
             resetDatabase(":memory:");
