@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import com.canonical.Oxide 1.0 as Oxide
 import Ubuntu.Components 0.1
 import webbrowserapp.private 0.1
 import "../actions" as Actions
@@ -359,7 +360,8 @@ BrowserView {
 
             onNewViewRequested: {
                 var webview = webviewComponent.createObject(webviewContainer, {"request": request})
-                internal.addTab(webview, true, false)
+                var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
+                internal.addTab(webview, setCurrent, false)
             }
 
             onLoadingChanged: {
