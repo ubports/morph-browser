@@ -60,34 +60,9 @@ Item {
         }
 
         section.property: "lastVisitDate"
-        section.delegate: Rectangle {
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-
-            height: childrenRect.height + units.gu(1)
-
+        section.delegate: HistorySectionDelegate {
+            width: parent.width
             color: historyViewBackground.color
-
-            ListItem.Header {
-                text: {
-                    var today = new Date()
-                    var yesterday = new Date()
-                    yesterday.setDate(yesterday.getDate() - 1)
-                    var sectionDate = new Date(section)
-                    if ((sectionDate.getFullYear() == today.getFullYear()) &&
-                        (sectionDate.getMonth() == today.getMonth())) {
-                        var dayDifference = sectionDate.getDate() - today.getDate()
-                        if (dayDifference == 0) {
-                            return i18n.tr("Last Visited")
-                        } else if (dayDifference == -1) {
-                            return i18n.tr("Yesterday")
-                        }
-                    }
-                    return Qt.formatDate(sectionDate, Qt.DefaultLocaleLongDate)
-                }
-            }
         }
 
         delegate: Column {
