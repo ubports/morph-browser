@@ -20,10 +20,17 @@ import QtQuick 2.0
 import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 
-Rectangle {
-    height: childrenRect.height + units.gu(1)
+Item {
+    height: units.gu(5)
 
-    ListItem.Header {
+    Label {
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
+        height: units.gu(2)
+
         text: {
             var today = new Date()
             var yesterday = new Date()
@@ -39,6 +46,18 @@ Rectangle {
                 }
             }
             return Qt.formatDate(sectionDate, Qt.DefaultLocaleLongDate)
+        }
+
+        fontSize: "small"
+        color: "#5d5d5d"
+    }
+
+    ListItem.ThinDivider {
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+            bottomMargin: units.gu(2)
         }
     }
 }

@@ -47,7 +47,7 @@ Item {
             margins: units.gu(2)
         }
 
-        spacing: units.gu(1)
+        spacing: units.gu(2)
 
         model: HistoryDomainListChronologicalModel {
             sourceModel: HistoryDomainListModel {
@@ -60,12 +60,11 @@ Item {
         section.property: "lastVisitDate"
         section.delegate: HistorySectionDelegate {
             width: parent.width
-            color: historyViewBackground.color
         }
 
         delegate: UrlDelegate {
             width: parent.width
-            height: units.gu(5)
+            height: units.gu(3)
 
             title: model.domain
             url: lastVisitedTitle

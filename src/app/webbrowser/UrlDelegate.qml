@@ -24,52 +24,63 @@ Item {
     id: urlDelegate
 
     property alias icon: icon.source
-    property alias url: url.text
     property alias title: title.text
+    property alias url: url.text
 
     signal clicked()
+
+    UbuntuShape {
+        id: iconContainer
+
+        anchors {
+            left: parent.left
+            verticalCenter: parent.verticalCenter
+        }
+        width: units.gu(3)
+        height: units.gu(3)
+
+        Favicon {
+            id: icon
+            anchors.centerIn: parent
+        }
+    }
+
+    Label {
+        id: title
+
+        anchors {
+            left: iconContainer.right
+            leftMargin: units.gu(1)
+            right: parent.right
+            top: iconContainer.top
+        }
+
+        fontSize: "x-small"
+        color: "#5d5d5d"
+        wrapMode: Text.Wrap
+        elide: Text.ElideRight
+        maximumLineCount: 1
+    }
+
+    Label {
+        id: url
+
+        anchors {
+            left: title.left
+            right: title.right
+            top: title.bottom
+            topMargin: units.gu(0.3)
+        }
+
+        fontSize: "xx-small"
+        wrapMode: Text.Wrap
+        elide: Text.ElideRight
+        maximumLineCount: 1
+    }
+
 
     MouseArea {
         anchors.fill: parent
         onClicked: urlDelegate.clicked()
-    }
-
-    Row {
-        anchors.fill: parent
-        spacing: units.gu(1)
-
-        UbuntuShape {
-            id: iconShape
-            height: parent.height
-            width: parent.height
-
-            Favicon {
-                id: icon
-                anchors.centerIn: parent
-            }
-        }
-
-        Column {
-            width: parent.width - iconShape.width - spacing
-            Label {
-                id: title
-                width: parent.width
-                font.bold: true
-
-                wrapMode: Text.Wrap
-                elide: Text.ElideRight
-                maximumLineCount: 1
-            }
-
-            Label {
-                id: url
-                width: parent.width
-                fontSize: "small"
-
-                wrapMode: Text.Wrap
-                elide: Text.ElideRight
-                maximumLineCount: 1
-            }
-        }
     }
 }

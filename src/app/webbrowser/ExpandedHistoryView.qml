@@ -46,18 +46,17 @@ Item {
             margins: units.gu(2)
         }
 
-        spacing: units.gu(1)
+        spacing: units.gu(2)
 
         section.property: "lastVisitDate"
         section.delegate: HistorySectionDelegate {
             width: parent.width
-            color: expandedHistoryViewBackground.color
         }
 
         delegate: UrlDelegate {
             id: entriesDelegate
             width: parent.width
-            height: units.gu(5)
+            height: units.gu(3)
 
             url: model.url
             title: model.title
@@ -79,44 +78,17 @@ Item {
 
         color: "#f7f7f7"
 
-        UbuntuShape {
-            id: iconContainer
-            width: units.gu(3)
-            height: width
+        UrlDelegate {
             anchors {
                 left: parent.left
                 leftMargin: units.gu(2)
-                verticalCenter: parent.verticalCenter
-            }
-
-            Favicon {
-                anchors.centerIn: parent
-                // TODO: favicon for domain
-            }
-        }
-
-        Label {
-            id: titleLabel
-            anchors {
-                left: iconContainer.right
-                leftMargin: units.gu(1)
                 right: doneButton.left
                 rightMargin: units.gu(1)
-                top: iconContainer.top
-                topMargin: units.gu(-0.5)
+                verticalCenter: parent.verticalCenter
             }
-            text: expandedHistoryView.model.domain
-        }
-
-        Label {
-            id: detailsLabel
-            anchors {
-                left: titleLabel.left
-                right: titleLabel.right
-                bottom: iconContainer.bottom
-            }
-            fontSize: "x-small"
-            text: i18n.tr("%1 page", "%1 pages", entriesListView.count).arg(entriesListView.count)
+            icon: expandedHistoryView.model.lastVisitedIcon
+            title: expandedHistoryView.model.domain
+            url: i18n.tr("%1 page", "%1 pages", entriesListView.count).arg(entriesListView.count)
         }
 
         Button {

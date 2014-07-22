@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-22 15:58+0200\n"
+"POT-Creation-Date: 2014-07-22 16:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -261,42 +261,42 @@ msgstr ""
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:119
+#: src/app/webbrowser/ExpandedHistoryView.qml:91
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:133
+#: src/app/webbrowser/ExpandedHistoryView.qml:105
 msgid "Less"
 msgstr ""
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:36
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
 msgstr ""
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:38
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:104 src/app/webbrowser/TabsView.qml:99
+#: src/app/webbrowser/HistoryView.qml:103 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:118
+#: src/app/webbrowser/HistoryView.qml:117
 msgid "Clear"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:132
+#: src/app/webbrowser/HistoryView.qml:131
 msgid "Delete all history?"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:135
+#: src/app/webbrowser/HistoryView.qml:134
 msgid "Yes"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:144
+#: src/app/webbrowser/HistoryView.qml:143
 msgid "No"
 msgstr ""
 
