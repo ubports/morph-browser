@@ -24,7 +24,7 @@ import webbrowserapp.private 0.1
 Item {
     id: historyView
 
-    property QtObject historyModel
+    property alias historyModel: historyTimeframeModel.sourceModel
     property string expandedDomain: ""
 
     signal historyEntryClicked(url url)
@@ -53,7 +53,7 @@ Item {
         model: HistoryDomainListChronologicalModel {
             sourceModel: HistoryDomainListModel {
                 sourceModel: HistoryTimeframeModel {
-                    sourceModel: historyModel
+                    id: historyTimeframeModel
                 }
             }
         }

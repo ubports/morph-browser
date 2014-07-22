@@ -266,7 +266,13 @@ BrowserView {
             HistoryView {
                 anchors.fill: parent
 
-                historyModel: _historyModel
+                Timer {
+                    // Set the model asynchronously to ensure
+                    // the view is displayed as early as possible.
+                    running: true
+                    interval: 1
+                    onTriggered: historyModel = _historyModel
+                }
 
                 onHistoryEntryClicked: {
                     currentWebview.url = url
