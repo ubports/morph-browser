@@ -245,7 +245,7 @@ ChromeBase {
                                 leftMargin: units.gu(2)
                                 verticalCenter: parent.verticalCenter
                             }
-                            width: units.gu(3)
+                            width: units.gu(2)
                             height: width
 
                             name: model.iconName
@@ -258,6 +258,7 @@ ChromeBase {
                                 verticalCenter: parent.verticalCenter
                             }
                             text: model.text
+                            fontSize: "small"
                         }
                     }
                 }
