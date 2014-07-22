@@ -134,6 +134,7 @@ FocusScope {
             }
         }
 
+        font.pixelSize: FontUtils.sizeToPixels("small")
         inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
 
         // Work around the "fix" for http://pad.lv/1089370 which
