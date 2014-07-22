@@ -269,7 +269,8 @@ BrowserView {
                 }
 
                 onSeeMoreEntriesClicked: {
-                    expandedHistoryViewComponent.createObject(this, {model: model})
+                    var view = expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
+                    view.onHistoryEntryClicked.connect(destroy)
                 }
                 onDone: destroy()
             }
@@ -284,7 +285,6 @@ BrowserView {
                 onHistoryEntryClicked: {
                     currentWebview.url = url
                     done()
-                    parent.done()
                 }
                 onDone: destroy()
             }
