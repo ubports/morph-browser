@@ -68,6 +68,8 @@ Item {
                 }
             }
         }
+
+        Component.onCompleted: positionViewAtIndex(model.currentIndex, ListView.Center)
     }
 
     Item {
