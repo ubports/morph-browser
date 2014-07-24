@@ -1,3 +1,12 @@
+webbrowser-app (0.23+14.10.20140724.1-0ubuntu1) utopic; urgency=low
+
+  [ Tim Peeters ]
+  * Ensure the chrome is hidden when the user interacts with the webview
+    (required by a change in the default behaviour of the UITK’s Panel
+    component).
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 24 Jul 2014 14:39:04 +0000
+
 webbrowser-app (0.23+14.10.20140721-0ubuntu1) utopic; urgency=low
 
   [ Arthur Mello ]
