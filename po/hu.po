@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-04 10:06-0300\n"
-"PO-Revision-Date: 2014-01-04 16:16+0000\n"
-"Last-Translator: Mátó Péter <Unknown>\n"
+"PO-Revision-Date: 2014-07-23 08:28+0000\n"
+"Last-Translator: Úr Balázs <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-05 05:55+0000\n"
-"X-Generator: Launchpad (build 17086)\n"
+"X-Launchpad-Export-Date: 2014-07-24 06:28+0000\n"
+"X-Generator: Launchpad (build 17114)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -51,15 +51,15 @@ msgstr "Mégse"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Navigálás megerősítése"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "Távozás"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "Maradás"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -118,7 +118,7 @@ msgstr "Oldal frissítése"
 
 #: src/app/FilePickerDialog.qml:27
 msgid "Please choose a file"
-msgstr ""
+msgstr "Válasszon egy fájlt"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
@@ -128,7 +128,7 @@ msgstr "Jogosultság igénylés"
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:69
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Ez az oldal tudni szeretné az eszköze helyzetét."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
@@ -242,11 +242,11 @@ msgstr "Oldal elhagyása"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Kép mentése"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr ""
+msgstr "Megosztás…"
 
 #: src/app/webbrowser/ActivityView.qml:54
 #: src/app/webbrowser/NewTabView.qml:123
@@ -255,15 +255,15 @@ msgstr "Könyvjelzők"
 
 #: src/app/webbrowser/NewTabView.qml:125
 msgid "Top sites"
-msgstr ""
+msgstr "Legjobb oldalak"
 
 #: src/app/webbrowser/NewTabView.qml:142
 msgid "see less"
-msgstr ""
+msgstr "kevesebb megjelenítése"
 
 #: src/app/webbrowser/NewTabView.qml:142
 msgid "see more"
-msgstr ""
+msgstr "több megjelenítése"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
@@ -333,16 +333,16 @@ msgstr "Ubuntu webböngésző"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "Nem található helyi fiók ehhez: "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "A fióklétrehozási lépés kihagyása"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "Fiók hozzáadása"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "Válasszon egy fiókot"
