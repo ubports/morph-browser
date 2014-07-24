@@ -69,6 +69,10 @@ Loader {
         id: panelComponent
 
         Panel {
+            // Close the Panel when user clicks on the app contents.
+            // FIXME : This is deprecated in Panel and should be detected
+            //  by the app.
+            __closeOnContentsClicks: true
             anchors {
                 left: parent ? parent.left : undefined
                 right: parent ? parent.right : undefined
