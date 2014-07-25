@@ -79,7 +79,7 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
     case LastVisit:
         return entries->lastVisit();
     case LastVisitDate:
-        return entries->lastVisit().date();
+        return entries->lastVisit().toLocalTime().date();
     case LastVisitedTitle:
         return entries->lastVisitedTitle();
     case LastVisitedIcon:
@@ -225,6 +225,6 @@ void HistoryDomainListModel::emitDataChanged(const QString& domain)
     int i = m_domains.keys().indexOf(domain);
     if (i != -1) {
         QModelIndex index = this->index(i, 0);
-        Q_EMIT dataChanged(index, index, QVector<int>() << LastVisit << Entries);
+        Q_EMIT dataChanged(index, index, QVector<int>() << LastVisit << LastVisitDate << LastVisitedTitle << LastVisitedIcon << Entries);
     }
 }
