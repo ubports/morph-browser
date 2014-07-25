@@ -67,7 +67,7 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         previews = self.main_window.get_tabs_view().get_ordered_previews()
-        self.pointing_device.click_object(previews[0])
+        self.pointing_device.click_object(previews[1])
         tabs_view.wait_until_destroyed()
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
@@ -85,7 +85,7 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         previews = self.main_window.get_tabs_view().get_ordered_previews()
-        self.pointing_device.click_object(previews[0])
+        self.pointing_device.click_object(previews[1])
         tabs_view.wait_until_destroyed()
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)

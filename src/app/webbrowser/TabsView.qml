@@ -53,7 +53,7 @@ Item {
             webview: model.webview
 
             onSelected: {
-                tabsview.model.currentIndex = index
+                tabsview.model.setCurrent(index)
                 webview.forceActiveFocus()
                 tabsview.done()
             }
@@ -68,8 +68,6 @@ Item {
                 }
             }
         }
-
-        Component.onCompleted: positionViewAtIndex(model.currentIndex, ListView.Center)
     }
 
     Item {

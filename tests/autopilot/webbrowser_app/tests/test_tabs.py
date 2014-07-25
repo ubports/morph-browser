@@ -20,7 +20,14 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
-class TestTabsView(StartOpenRemotePageTestCaseBase):
+class TestTabsMixin(object):
+
+    def check_current_tab(self, url):
+        self.assertThat(lambda: self.main_window.get_current_webview().url,
+                        Eventually(Equals(url)))
+
+
+class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def setUp(self):
         super(TestTabsView, self).setUp()
@@ -77,28 +84,29 @@ class TestTabsView(StartOpenRemotePageTestCaseBase):
         self.assertThat(preview.title, Equals(webview.title))
 
     def test_switch_tabs(self):
-        self.assertThat(self.main_window.currentIndex, Eventually(Equals(0)))
+        self.check_current_tab(self.url)
         self.open_new_tab()
-        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
+        self.check_current_tab("")
         new_tab_view = self.main_window.get_new_tab_view()
         url = self.base_url + "/aleaiactaest"
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
         new_tab_view.wait_until_destroyed()
-
-        self.open_tabs_view()
-        tabs_view = self.main_window.get_tabs_view()
-        previews = tabs_view.get_ordered_previews()
-        self.pointing_device.click_object(previews[0])
-        tabs_view.wait_until_destroyed()
-        self.assertThat(self.main_window.currentIndex, Eventually(Equals(0)))
+        self.check_current_tab(url)
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_ordered_previews()
         self.pointing_device.click_object(previews[1])
         tabs_view.wait_until_destroyed()
-        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
+        self.check_current_tab(self.url)
+
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        previews = tabs_view.get_ordered_previews()
+        self.pointing_device.click_object(previews[1])
+        tabs_view.wait_until_destroyed()
+        self.check_current_tab(url)
 
     def test_error_only_for_current_tab(self):
         self.open_new_tab()
@@ -110,12 +118,12 @@ class TestTabsView(StartOpenRemotePageTestCaseBase):
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_ordered_previews()
-        self.pointing_device.click_object(previews[0])
+        self.pointing_device.click_object(previews[1])
         tabs_view.wait_until_destroyed()
         self.assertThat(error.visible, Eventually(Equals(False)))
 
 
-class TestTabsManagement(StartOpenRemotePageTestCaseBase):
+class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def test_open_target_blank_in_new_tab(self):
         url = self.base_url + "/blanktargetlink"
@@ -123,10 +131,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase):
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
-        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
-        webview = self.main_window.get_current_webview()
-        url = self.base_url + "/aleaiactaest"
-        self.assertThat(webview.url, Eventually(Equals(url)))
+        self.check_current_tab(self.base_url + "/aleaiactaest")
 
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
@@ -134,10 +139,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase):
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
-        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
-        webview = self.main_window.get_current_webview()
-        url = self.base_url + "/aleaiactaest"
-        self.assertThat(webview.url, Eventually(Equals(url)))
+        self.check_current_tab(self.base_url + "/aleaiactaest")
 
     def test_selecting_tab_focuses_webview(self):
         self.focus_address_bar()

@@ -26,7 +26,6 @@ import ".."
 BrowserView {
     id: browser
 
-    property alias currentIndex: tabsModel.currentIndex
     currentWebview: tabsModel.currentWebview
 
     property QtObject searchEngine
@@ -409,7 +408,7 @@ BrowserView {
         function addTab(webview, setCurrent, focusAddressBar) {
             var index = tabsModel.add(webview)
             if (setCurrent) {
-                tabsModel.currentIndex = index
+                tabsModel.setCurrent(index)
                 if (focusAddressBar) {
                     chrome.forceActiveFocus()
                     Qt.inputMethod.show() // work around http://pad.lv/1316057
