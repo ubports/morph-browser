@@ -152,8 +152,9 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.click_object(add_button)
         tabs_view.wait_until_destroyed()
         self.main_window.get_new_tab_view()
-        address_bar = self.main_window.get_chrome().get_address_bar()
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        if model() == 'Desktop':
+            address_bar = self.main_window.get_chrome().get_address_bar()
+            self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
     def ping_server(self):
         ping = urllib.request.urlopen(self.base_url + "/ping")

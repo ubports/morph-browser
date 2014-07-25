@@ -16,6 +16,7 @@
 
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
@@ -59,6 +60,8 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         self.open_tabs_view()
         self.open_new_tab()
         url = self.base_url + "/aleaiactaest"
+        if model() != 'Desktop':
+            self.focus_address_bar()
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
         self.assert_page_eventually_loaded(url)

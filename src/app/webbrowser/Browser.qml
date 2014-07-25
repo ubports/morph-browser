@@ -420,6 +420,6 @@ BrowserView {
 
     function openUrlInNewTab(url, setCurrent) {
         var webview = webviewComponent.createObject(webviewContainer, {"url": url})
-        internal.addTab(webview, setCurrent, !url.toString())
+        internal.addTab(webview, setCurrent, !url.toString() && (formFactor == "desktop"))
     }
 }

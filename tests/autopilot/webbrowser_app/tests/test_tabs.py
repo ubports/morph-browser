@@ -16,6 +16,7 @@
 
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
@@ -47,6 +48,8 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.open_new_tab()
         new_tab_view = self.main_window.get_new_tab_view()
         url = self.base_url + "/aleaiactaest"
+        if model() != 'Desktop':
+            self.focus_address_bar()
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
         new_tab_view.wait_until_destroyed()
@@ -58,8 +61,9 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.pointing_device.click_object(close_button)
         tabs_view.wait_until_destroyed()
         self.main_window.get_new_tab_view()
-        address_bar = self.main_window.get_chrome().get_address_bar()
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        if model() == 'Desktop':
+            address_bar = self.main_window.get_chrome().get_address_bar()
+            self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Equals(""))
 
@@ -67,6 +71,8 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.open_new_tab()
         new_tab_view = self.main_window.get_new_tab_view()
         url = self.base_url + "/aleaiactaest"
+        if model() != 'Desktop':
+            self.focus_address_bar()
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
         new_tab_view.wait_until_destroyed()
@@ -89,6 +95,8 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.check_current_tab("")
         new_tab_view = self.main_window.get_new_tab_view()
         url = self.base_url + "/aleaiactaest"
+        if model() != 'Desktop':
+            self.focus_address_bar()
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
         new_tab_view.wait_until_destroyed()
@@ -110,6 +118,8 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def test_error_only_for_current_tab(self):
         self.open_new_tab()
+        if model() != 'Desktop':
+            self.focus_address_bar()
         self.type_in_address_bar("htpp://invalid")
         self.keyboard.press_and_release("Enter")
         error = self.main_window.get_error_sheet()
