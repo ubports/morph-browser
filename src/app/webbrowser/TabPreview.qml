@@ -139,7 +139,7 @@ Column {
         }
     }
 
-    Item {
+    Rectangle {
         width: parent.width
         height: parent.height - header.height
 
