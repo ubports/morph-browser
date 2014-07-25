@@ -67,7 +67,7 @@ BrowserView {
                 right: parent.right
                 top: webapp.chromeless ? parent.top : chromeLoader.bottom
             }
-            height: parent.height - osk.height
+            height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.height)
             developerExtrasEnabled: webapp.developerExtrasEnabled
             localUserAgentOverride: webappName && unityWebapps.model.exists(webappName) ?
                                       unityWebapps.model.userAgentOverrideFor(webappName) : ""
