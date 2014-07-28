@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-22 16:53+0200\n"
+"POT-Creation-Date: 2014-07-28 18:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -243,6 +243,10 @@ msgstr ""
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:140
+msgid "search or enter an address"
 msgstr ""
 
 #: src/app/webbrowser/Browser.qml:148
