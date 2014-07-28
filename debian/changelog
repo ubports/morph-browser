@@ -1,3 +1,20 @@
+webbrowser-app (0.23+14.10.20140726-0ubuntu1) utopic; urgency=low
+
+  [ Pawel Stolowski ]
+  * Added X-Ubuntu-Default-Department-ID key to the desktop file. This
+    is required by click scope to support departments for preinstalled
+    applications.
+
+  [ Florian Boucault ]
+  * List all non compiled files in QtCreator via CMake project. No need
+    for .qmlproject anylonger.
+
+  [ Michael Vogt ]
+  * debian/control: update libqt5webkit5-qmlwebkitplugin -> qml-module-
+    qtwebkit (fixes a multiarch install failure)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Sat, 26 Jul 2014 09:29:03 +0000
+
 webbrowser-app (0.23+14.10.20140724.1-0ubuntu1) utopic; urgency=low
 
   [ Tim Peeters ]
