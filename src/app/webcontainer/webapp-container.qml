@@ -46,6 +46,10 @@ Window {
     height: 600
 
     title: {
+        return getWindowTitle()
+    }
+
+    function getWindowTitle() {
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
             return webappName
         } else if (webappPageComponentLoader.item &&
@@ -84,6 +88,13 @@ Window {
             webbrowserWindow: webbrowserWindowProxy
 
             Component.onCompleted: i18n.domain = "webbrowser-app"
+
+            onWebappNameChanged: {
+                if (webappName !== browser.webappName) {
+                    webappName = browser.webappName;
+                    browser.title = getWindowTitle();
+                }
+            }
         }
     }
 

@@ -138,8 +138,6 @@ bool WebappContainer::initialize()
             QList<QUrl> urls = this->urls();
             if (!urls.isEmpty()) {
                 m_window->setProperty("url", urls.last());
-            } else {
-                return false;
             }
         }
 
