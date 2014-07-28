@@ -86,8 +86,6 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            color: "#312f2c"
-            opacity: 0.8
         }
 
         Button {
@@ -98,7 +96,7 @@ Item {
                 verticalCenter: parent.verticalCenter
             }
 
-            color: "#312f2c"
+            color: "white"
 
             text: i18n.tr("Done")
 
