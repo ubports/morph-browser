@@ -192,8 +192,7 @@ void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon
     if (m_urls.contains(url)) {
         qWarning() << "URL already bookmarked:" << url;
     } else {
-        int count = m_orderedEntries.count();
-        beginInsertRows(QModelIndex(), count, count);
+        beginInsertRows(QModelIndex(), 0, 0);
         BookmarkEntry entry;
         entry.url = url;
         entry.title = title;

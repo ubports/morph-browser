@@ -73,15 +73,15 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 2);
         QCOMPARE(spy.count(), 1);
         args = spy.takeFirst();
-        QCOMPARE(args.at(1).toInt(), 1);
-        QCOMPARE(args.at(2).toInt(), 1);
+        QCOMPARE(args.at(1).toInt(), 0);
+        QCOMPARE(args.at(2).toInt(), 0);
 
         model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
         QCOMPARE(model->rowCount(), 3);
         QCOMPARE(spy.count(), 1);
         args = spy.takeFirst();
-        QCOMPARE(args.at(1).toInt(), 2);
-        QCOMPARE(args.at(2).toInt(), 2);
+        QCOMPARE(args.at(1).toInt(), 0);
+        QCOMPARE(args.at(2).toInt(), 0);
 
         model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
         QCOMPARE(model->rowCount(), 3);
