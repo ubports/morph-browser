@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-06-18 10:33+0200\n"
-"PO-Revision-Date: 2014-05-23 14:29+0000\n"
-"Last-Translator: GTriderXC <gtriderxc@yahoo.com>\n"
+"POT-Creation-Date: 2014-07-04 10:06-0300\n"
+"PO-Revision-Date: 2014-07-17 06:54+0000\n"
+"Last-Translator: Bartosz Okoń <bary450@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-21 06:28+0000\n"
-"X-Generator: Launchpad (build 17058)\n"
+"X-Launchpad-Export-Date: 2014-07-18 05:24+0000\n"
+"X-Generator: Launchpad (build 17114)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -83,15 +83,15 @@ msgstr "Kontynuuj mimo wszystko"
 msgid "Back to safety"
 msgstr "Powrót do trybu bezpiecznego"
 
-#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
+#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
 msgid "Back"
 msgstr "Powrót"
 
-#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
+#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "Do przodu"
 
-#: src/app/Chrome.qml:126 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr "Aktywność"
 
@@ -247,9 +247,26 @@ msgstr "Opuść stronę"
 msgid "Save image"
 msgstr "Zapisz obraz"
 
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "Udostępnij..."
+
 #: src/app/webbrowser/ActivityView.qml:54
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Bookmarks"
 msgstr "Zakładki"
+
+#: src/app/webbrowser/NewTabView.qml:125
+msgid "Top sites"
+msgstr "Najczęściej odwiedzane"
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see less"
+msgstr "pokaż mniej"
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see more"
+msgstr "pokaż więcej"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
@@ -306,13 +323,13 @@ msgid "Browse the World Wide Web"
 msgstr "Przeglądanie sieci WWW"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webbrowser/webbrowser-app.qml:36
 #: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Przeglądarka internetowa Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webbrowser/webbrowser-app.qml:38
 #: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "Przeglądarka internetowa Ubuntu"

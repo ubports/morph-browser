@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-06-18 10:33+0200\n"
-"PO-Revision-Date: 2014-06-17 17:22+0000\n"
+"POT-Creation-Date: 2014-07-04 10:06-0300\n"
+"PO-Revision-Date: 2014-07-10 06:44+0000\n"
 "Last-Translator: Gheyret T.Kenji <Unknown>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-21 06:28+0000\n"
-"X-Generator: Launchpad (build 17058)\n"
+"X-Launchpad-Export-Date: 2014-07-11 06:11+0000\n"
+"X-Generator: Launchpad (build 17111)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -51,7 +51,7 @@ msgstr "ئەمەلدىن قالدۇر"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "يېتەكلەشنى جەزملە"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
@@ -72,6 +72,8 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"سىز %1 نى بىخەتەر زىيارەت قىلماقچى بولۇۋاتىسىز، بىراق بۇ تورتۇرانىڭ "
+"بىخەتەرلىك ئىسپاتنامىسى ئىشەنچلىك ئەمەس."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
@@ -81,15 +83,15 @@ msgstr "يەنىلا داۋاملاشتۇر"
 msgid "Back to safety"
 msgstr "بىخەتەر ئۇلىنىشقا قايت"
 
-#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
+#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
 msgid "Back"
 msgstr "كەينى"
 
-#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
+#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "ئالدى"
 
-#: src/app/Chrome.qml:126 src/app/webbrowser/ActivityView.qml:36
+#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
 msgid "Activity"
 msgstr "پائالىيەت"
 
@@ -105,7 +107,7 @@ msgstr "تور خاتالىقى"
 #: src/app/ErrorSheet.qml:44
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "بۇ بەتنى كۆرۈشتە مەسىلىگە يولۇققاندەك قىلىسىز: %1"
 
 #: src/app/ErrorSheet.qml:50
 msgid ""
@@ -246,9 +248,26 @@ msgstr "بەتتىن ئايرىل"
 msgid "Save image"
 msgstr "سۈرەت ساقلا"
 
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "ھەمبەھىرلەش…"
+
 #: src/app/webbrowser/ActivityView.qml:54
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Bookmarks"
 msgstr "خەتكۈچلەر"
+
+#: src/app/webbrowser/NewTabView.qml:125
+msgid "Top sites"
+msgstr "داڭلىق تورتۇرالار"
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see less"
+msgstr "ئاز كۆرۈش"
+
+#: src/app/webbrowser/NewTabView.qml:142
+msgid "see more"
+msgstr "كۆپ كۆرۈش"
 
 #. TRANSLATORS: %1 refers to the number of open tabs
 #: src/app/webbrowser/TabsList.qml:37
@@ -305,13 +324,13 @@ msgid "Browse the World Wide Web"
 msgstr "تور بەتلىرىنى كۆرۈش پروگراممىسى(توركۆرگۈ)"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webbrowser/webbrowser-app.qml:36
 #: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - ئۇبۇنتۇ تور كۆرگۈسى"
 
-#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webbrowser/webbrowser-app.qml:38
 #: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "ئۇبۇنتۇ تور كۆرگۈسى"

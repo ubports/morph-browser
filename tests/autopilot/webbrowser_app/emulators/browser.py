@@ -21,6 +21,15 @@ class Panel(uitk.Toolbar):
     pass
 
 
+class Selection(uitk.UbuntuUIToolkitEmulatorBase):
+
+    def get_rectangle(self):
+        return self.select_single("QQuickItem", objectName="rectangle")
+
+    def get_handle(self, name):
+        return self.select_single("SelectionHandle", objectName=name)
+
+
 class Browser(uitk.MainView):
 
     """
@@ -106,3 +115,16 @@ class Browser(uitk.MainView):
 
     def get_geolocation_dialog(self):
         return self.wait_select_single("GeolocationPermissionRequest")
+
+    def get_many_new_tab_view(self):
+        return self.select_many("NewTabView")
+
+    def get_new_tab_view(self):
+        return self.wait_select_single("NewTabView")
+
+    def get_selection(self):
+        return self.wait_select_single(Selection)
+
+    def get_selection_actions(self):
+        return self.wait_select_single("ActionSelectionPopover",
+                                       objectName="selectionActions")

@@ -24,6 +24,7 @@ Item {
 
     property url url
     property alias thumbnail: thumbnail.source
+    property alias icon: icon.source
     property alias label: label.text
     property bool canClose: false
     property bool canBookmark: false
@@ -52,6 +53,14 @@ Item {
 
             image: Image {
                 id: thumbnail
+            }
+
+            // Show the favicon if no thumbnail defined for the url
+            Favicon {
+                id: icon
+                anchors.centerIn: parent
+
+                visible: !thumbnail.source.toString()
             }
         }
 
@@ -137,7 +146,7 @@ Item {
     onBookmarkedChanged: {
         var previouslyBookmarked = bookmarksModel.contains(pageDelegate.url)
         if (bookmarked && !previouslyBookmarked) {
-            bookmarksModel.add(pageDelegate.url, pageDelegate.label, "")
+            bookmarksModel.add(pageDelegate.url, pageDelegate.label, pageDelegate.icon)
         } else if (!bookmarked && previouslyBookmarked) {
             bookmarksModel.remove(pageDelegate.url)
         }

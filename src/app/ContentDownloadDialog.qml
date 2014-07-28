@@ -39,11 +39,11 @@ PopupBase {
                 activeTransfer = peer.request()
                 activeTransfer.downloadId = downloadDialog.downloadId
                 activeTransfer.state = ContentTransfer.Downloading
-                downloadDialog.hide()
+                PopupUtils.close(downloadDialog)
             }
 
             onCancelPressed: {
-                downloadDialog.hide()
+                PopupUtils.close(downloadDialog)
             }
         }
     }
