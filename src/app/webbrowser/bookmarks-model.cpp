@@ -55,7 +55,7 @@ BookmarksModel::~BookmarksModel()
 void BookmarksModel::resetDatabase(const QString& databaseName)
 {
     beginResetModel();
-    m_entries.clear();
+    m_urls.clear();
     m_orderedEntries.clear();
     m_database.close();
     m_database.setDatabaseName(databaseName);
@@ -88,8 +88,9 @@ void BookmarksModel::createOrAlterDatabaseSchema()
         query = QLatin1String("ALTER TABLE bookmarks ADD COLUMN created INTEGER;");
         addCreatedColumnQuery.prepare(query);
         addCreatedColumnQuery.exec();
-        // the default for the column is zero, which is a date far in the past, so
-        // any newly created bookmark will correctly be represented as more recent
+        // the default for the column is an empty value, which is interpreted as zero
+        // when converted to a number. Zero represents a date far in the past, so
+        // any newly created bookmark will correctly be represented as more recent than any other
     }
 }
 
@@ -108,7 +109,7 @@ void BookmarksModel::populateFromDatabase()
         entry.icon = populateQuery.value(2).toUrl();
         entry.created = QDateTime::fromMSecsSinceEpoch(populateQuery.value(3).toULongLong());
         beginInsertRows(QModelIndex(), count, count);
-        m_entries.insert(entry.url);
+        m_urls.insert(entry.url);
         m_orderedEntries.append(entry);
         endInsertRows();
         ++count;
@@ -160,7 +161,6 @@ const QString BookmarksModel::databasePath() const
 
 void BookmarksModel::setDatabasePath(const QString& path)
 {
-    qWarning() << "+++++++++++++++++++ DATABASE: " << path;
     if (path != databasePath()) {
         if (path.isEmpty()) {
             resetDatabase(":memory:");
@@ -179,7 +179,7 @@ void BookmarksModel::setDatabasePath(const QString& path)
 */
 bool BookmarksModel::contains(const QUrl& url) const
 {
-    return m_entries.contains(url);
+    return m_urls.contains(url);
 }
 
 /*!
@@ -189,7 +189,7 @@ bool BookmarksModel::contains(const QUrl& url) const
 */
 void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon)
 {
-    if (m_entries.contains(url)) {
+    if (m_urls.contains(url)) {
         qWarning() << "URL already bookmarked:" << url;
     } else {
         int count = m_orderedEntries.count();
@@ -199,7 +199,7 @@ void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon
         entry.title = title;
         entry.icon = icon;
         entry.created = QDateTime::currentDateTime();
-        m_entries.insert(url);
+        m_urls.insert(url);
         m_orderedEntries.prepend(entry);
         endInsertRows();
         Q_EMIT added(url);
@@ -227,13 +227,13 @@ void BookmarksModel::insertNewEntryInDatabase(const BookmarkEntry& entry)
 */
 void BookmarksModel::remove(const QUrl& url)
 {
-    if (m_entries.contains(url)) {
+    if (m_urls.contains(url)) {
         int index = 0;
         Q_FOREACH(BookmarkEntry entry, m_orderedEntries) {
             if (entry.url == url) {
                 beginRemoveRows(QModelIndex(), index, index);
                 m_orderedEntries.removeAt(index);
-                m_entries.remove(url);
+                m_urls.remove(url);
                 endRemoveRows();
                 Q_EMIT removed(url);
                 removeExistingEntryFromDatabase(url);

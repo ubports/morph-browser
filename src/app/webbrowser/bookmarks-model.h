@@ -74,7 +74,7 @@ private:
 
         inline bool operator==(BookmarkEntry& a) { return this->url == a.url; }
     };
-    QSet<QUrl> m_entries;
+    QSet<QUrl> m_urls;
     QList<BookmarkEntry> m_orderedEntries;
 
     void resetDatabase(const QString& databaseName);
