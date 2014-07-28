@@ -39,14 +39,12 @@ ChromeBase {
 
         focus: true
 
-        readonly property real iconSize: 0.75 * height
-
         ChromeButton {
             id: backButton
             objectName: "backButton"
 
             iconName: "previous"
-            iconSize: parent.iconSize
+            iconSize: 0.6 * height
 
             height: parent.height
             width: height
@@ -65,7 +63,7 @@ ChromeBase {
             objectName: "forwardButton"
 
             iconName: "next"
-            iconSize: parent.iconSize
+            iconSize: 0.6 * height
 
             height: parent.height
             visible: enabled
@@ -73,7 +71,6 @@ ChromeBase {
 
             anchors {
                 left: backButton.right
-                leftMargin: units.gu(1)
                 verticalCenter: parent.verticalCenter
             }
 
@@ -127,7 +124,7 @@ ChromeBase {
             objectName: "drawerButton"
 
             iconName: "contextual-menu"
-            iconSize: parent.iconSize
+            iconSize: 0.75 * height
 
             height: parent.height
             width: height

@@ -33,14 +33,12 @@ ChromeBase {
 
         focus: true
 
-        readonly property real iconSize: 0.75 * height
-
         ChromeButton {
             id: backButton
             objectName: "backButton"
 
             iconName: "previous"
-            iconSize: parent.iconSize
+            iconSize: 0.6 * height
 
             height: parent.height
             visible: chrome.navigationButtonsVisible
@@ -60,7 +58,7 @@ ChromeBase {
             objectName: "forwardButton"
 
             iconName: "next"
-            iconSize: parent.iconSize
+            iconSize: 0.6 * height
 
             height: parent.height
             visible: chrome.navigationButtonsVisible && enabled
@@ -68,7 +66,6 @@ ChromeBase {
 
             anchors {
                 left: backButton.right
-                leftMargin: units.gu(1)
                 verticalCenter: parent.verticalCenter
             }
 
