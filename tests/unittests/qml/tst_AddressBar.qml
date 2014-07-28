@@ -113,6 +113,19 @@ TestCase {
         compare(addressBar.requestedUrl, data.requestedUrl)
     }
 
+    function test_simplify_data() {
+        return [
+            {text: "www.ubuntu.com", url: "http://www.ubuntu.com"},
+            {text: "en.wikipedia.org", url: "http://en.wikipedia.org/wiki/Ubuntu"},
+            {text: "en.wikipedia.org", url: "en.wikipedia.org/wiki/UBUNTU"}
+        ]
+    }
+
+    function test_simplify(data) {
+        addressBar.actualUrl = data.url
+        compare(addressBar.text, data.text);
+    }
+
     AddressBar {
         id: addressBar
         searchUrl: "http://www.ubuntu.com/search?q={searchTerms}"

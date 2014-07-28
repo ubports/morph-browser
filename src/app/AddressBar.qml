@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import webbrowserapp.private 0.1
 
 FocusScope {
     id: addressbar
@@ -29,9 +30,9 @@ FocusScope {
     property bool loading
     signal requestReload()
     signal requestStop()
-    signal textFieldFocused()
     signal pressAndHold()
     property string searchUrl
+    signal textFieldFocused()
 
     height: textField.height
 
@@ -100,20 +101,10 @@ FocusScope {
 
         onAccepted: if (__actionButton.enabled) parent.validate()
 
-        function ensureSchemeVisibleWhenUnfocused() {
-            // Ensure the beginning of the URL is always visible when unfocused.
-            // In the future, we’ll have a smarter address bar that hides the
-            // scheme to save some extra space and display more of the
-            // meaningful part of the URL (domain name and path).
-            if (!activeFocus) {
-                cursorPosition = 0
-            }
-        }
         onActiveFocusChanged: {
-            ensureSchemeVisibleWhenUnfocused();
             if (activeFocus) addressBar.textFieldFocused();
+            else if (text == addressBar.actualUrl) text = addressBar.simplifyUrl(addressBar.actualUrl)
         }
-        onTextChanged: ensureSchemeVisibleWhenUnfocused()
 
         // Make sure that all the text is selected at the first click
         MouseArea {
@@ -183,5 +174,13 @@ FocusScope {
         validated()
     }
 
-    onActualUrlChanged: text = actualUrl
+    UrlHelper { id: urlHelper }
+
+    function simplifyUrl(url) {
+        var domain = urlHelper.extractDomain(url);
+        if (domain.length > 0) return domain;
+        else return url;
+    }
+
+    onActualUrlChanged: text = simplifyUrl(actualUrl)
 }

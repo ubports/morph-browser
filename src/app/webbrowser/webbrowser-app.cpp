@@ -28,6 +28,7 @@
 #include "searchengine.h"
 #include "settings.h"
 #include "tabs-model.h"
+#include "url-helper.h"
 #include "webbrowser-app.h"
 
 // system
@@ -83,6 +84,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
+    qmlRegisterType<UrlHelper>(uri, 0, 1, "UrlHelper");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         Settings settings;

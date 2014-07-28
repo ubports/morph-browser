@@ -17,6 +17,7 @@ set(WEBBROWSER_APP_MODELS_SRC
     history-timeframe-model.cpp
     limit-proxy-model.cpp
     tabs-model.cpp
+    url-helper.cpp
 )
 
 set(WEBBROWSER_APP_MODELS webbrowser-app-models)
