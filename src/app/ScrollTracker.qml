@@ -24,8 +24,8 @@ Item {
     property var webview
     property var header
 
-    readonly property bool nearTop: webview ? webview.contentY < (header.height / internal.contentRatio) : false
-    readonly property bool nearBottom: webview ? (webview.contentY + internal.viewportHeight + header.height / internal.contentRatio) > internal.contentHeight : false
+    readonly property bool nearTop: webview ? webview.contentY < (internal.headerHeight / internal.contentRatio) : false
+    readonly property bool nearBottom: webview ? (webview.contentY + internal.viewportHeight + internal.headerHeight / internal.contentRatio) > internal.contentHeight : false
 
     property bool active: true
 
@@ -38,8 +38,11 @@ Item {
     QtObject {
         id: internal
 
-        readonly property real contentHeight: scrollTracker.webview ? scrollTracker.webview.contentHeight + scrollTracker.header.visibleHeight : 0.0
-        readonly property real viewportHeight: scrollTracker.webview ? scrollTracker.webview.viewportHeight + scrollTracker.header.visibleHeight : 0.0
+        readonly property real headerHeight: scrollTracker.header ? scrollTracker.header.height : 0
+        readonly property real headerVisibleHeight: scrollTracker.header ? scrollTracker.header.visibleHeight : 0
+
+        readonly property real contentHeight: scrollTracker.webview ? scrollTracker.webview.contentHeight + headerVisibleHeight : 0.0
+        readonly property real viewportHeight: scrollTracker.webview ? scrollTracker.webview.viewportHeight + headerVisibleHeight : 0.0
         readonly property real maxContentY: scrollTracker.webview ? scrollTracker.webview.contentHeight - scrollTracker.webview.viewportHeight : 0.0
 
         readonly property real contentRatio: scrollTracker.webview ? scrollTracker.webview.viewportHeight / scrollTracker.webview.contentHeight : 1.0
