@@ -8,7 +8,7 @@ UrlHelper::UrlHelper(QObject *parent) :
 
 QString UrlHelper::extractDomain(QString url) const
 {
-    QUrl parsed(url);
+    QUrl parsed = QUrl::fromUserInput(url);
     if (parsed.isValid()) return parsed.host();
     else return QString();
 }

@@ -117,13 +117,13 @@ TestCase {
         return [
             {text: "www.ubuntu.com", url: "http://www.ubuntu.com"},
             {text: "en.wikipedia.org", url: "http://en.wikipedia.org/wiki/Ubuntu"},
-            {text: "en.wikipedia.org", url: "en.wikipedia.org/wiki/UBUNTU"}
+            {text: "en.wikipedia.org", url: "en.wikipedia.org"},
+            {text: "en.wikipedia.org", url: "en.wikipedia.org/wiki/Foo"}
         ]
     }
 
     function test_simplify(data) {
-        addressBar.actualUrl = data.url
-        compare(addressBar.text, data.text);
+        compare(addressBar.simplifyUrl(data.url), data.text);
     }
 
     AddressBar {
