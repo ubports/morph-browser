@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-04 10:06-0300\n"
-"PO-Revision-Date: 2014-07-27 15:42+0000\n"
-"Last-Translator: Sandy敏 <osszf618@gmail.com>\n"
+"PO-Revision-Date: 2014-07-29 01:40+0000\n"
+"Last-Translator: Luo Lei <luolei@ubuntukylin.com>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-28 06:41+0000\n"
+"X-Launchpad-Export-Date: 2014-07-29 06:46+0000\n"
 "X-Generator: Launchpad (build 17131)\n"
 
 #: src/app/AlertDialog.qml:24
@@ -269,7 +269,7 @@ msgstr ""
 #: src/app/webbrowser/TabsList.qml:37
 #, qt-format
 msgid "Currently viewing (%1)"
-msgstr "正在观看 (%1)"
+msgstr "正在浏览 (%1)"
 
 #: src/app/webbrowser/TabsList.qml:69
 msgid "+"
