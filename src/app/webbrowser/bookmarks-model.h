@@ -21,11 +21,12 @@
 
 // Qt
 #include <QtCore/QAbstractListModel>
+#include <QtCore/QDateTime>
+#include <QtCore/QList>
 #include <QtCore/QSet>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtSql/QSqlDatabase>
-#include <QDateTime>
 
 class BookmarksModel : public QAbstractListModel
 {

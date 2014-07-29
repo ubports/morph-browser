@@ -141,7 +141,7 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Title).toString(), QString("Ubuntu"));
         QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Icon).toUrl(), QUrl("image://webicon/123"));
         QVERIFY(model->data(model->index(0, 0), BookmarksModel::Created).toDateTime() <= QDateTime::currentDateTime());
-        QVERIFY(!model->data(model->index(0, 0), BookmarksModel::Icon + 3).isValid());
+        QVERIFY(!model->data(model->index(0, 0), BookmarksModel::Created + 1).isValid());
     }
 
     void shouldReturnDatabasePath()
