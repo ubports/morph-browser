@@ -65,9 +65,10 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: webapp.chromeless ? parent.top : chromeLoader.bottom
+                top: parent.top
+                topMargin: webapp.chromeless ? 0 : chromeLoader.item.visibleHeight
             }
-            height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.height)
+            height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.item.visibleHeight)
             developerExtrasEnabled: webapp.developerExtrasEnabled
             localUserAgentOverride: webappName && unityWebapps.model.exists(webappName) ?
                                       unityWebapps.model.userAgentOverrideFor(webappName) : ""
@@ -106,6 +107,25 @@ BrowserView {
                         right: parent.right
                     }
                     height: units.gu(6)
+
+                    Connections {
+                        target: webapp.currentWebview
+                        ignoreUnknownSignals: true
+                        onLoadingChanged: {
+                            if (webapp.currentWebview.loading) {
+                                chromeLoader.item.state = "shown"
+                            } else if (webapp.currentWebview.fullscreen) {
+                                chromeLoader.item.state = "hidden"
+                            }
+                        }
+                        onFullscreenChanged: {
+                            if (webapp.currentWebview.fullscreen) {
+                                chromeLoader.item.state = "hidden"
+                            } else {
+                                chromeLoader.item.state = "shown"
+                            }
+                        }
+                    }
                 }
             }
 
@@ -120,6 +140,21 @@ BrowserView {
                         right: parent.right
                         top: parent.top
                     }
+                }
+            }
+        }
+
+        ScrollTracker {
+            webview: webapp.oxide ? webapp.currentWebview : null
+            header: webapp.chromeless ? null : chromeLoader.item
+
+            active: !webapp.chromeless && !webapp.currentWebview.fullscreen
+            onScrolledUp: chromeLoader.item.state = "shown"
+            onScrolledDown: {
+                if (nearBottom) {
+                    chromeLoader.item.state = "shown"
+                } else if (!nearTop) {
+                    chromeLoader.item.state = "hidden"
                 }
             }
         }
