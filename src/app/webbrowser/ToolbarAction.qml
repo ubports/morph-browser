@@ -50,8 +50,12 @@ AbstractButton {
         id: label
         anchors {
             bottom: parent.bottom
-            horizontalCenter: parent.horizontalCenter
+            left: parent.left
+            right: parent.right
         }
+        horizontalAlignment: Text.AlignHCenter
         fontSize: "x-small"
+        maximumLineCount: 1
+        elide: Text.ElideMiddle
     }
 }
