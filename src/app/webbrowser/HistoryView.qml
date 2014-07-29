@@ -31,9 +31,7 @@ Item {
     signal done()
 
     Rectangle {
-        id: historyViewBackground
         anchors.fill: parent
-        color: "white"
     }
 
     ListView {

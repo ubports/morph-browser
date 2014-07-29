@@ -44,7 +44,7 @@ FocusScope {
 
     Rectangle {
         anchors.fill: parent
-        color: "#ededef"
+        color: Theme.palette.normal.background
 
         Rectangle {
             anchors {

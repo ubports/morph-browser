@@ -32,7 +32,6 @@ Item {
     Rectangle {
         id: expandedHistoryViewBackground
         anchors.fill: parent
-        color: "white"
     }
 
     ListView {
@@ -76,7 +75,7 @@ Item {
         }
         height: units.gu(7)
 
-        color: "#f7f7f7"
+        color: Theme.palette.normal.background
 
         UrlDelegate {
             anchors {
@@ -94,7 +93,7 @@ Item {
         Button {
             id: doneButton
 
-            color: "#f7f7f7"
+            color: parent.color
 
             anchors {
                 right: parent.right

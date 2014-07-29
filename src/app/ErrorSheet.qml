@@ -24,8 +24,6 @@ Rectangle {
 
     signal refreshClicked()
 
-    color: "white"
-
     Column {
         anchors.fill: parent
         anchors.margins: units.gu(4)

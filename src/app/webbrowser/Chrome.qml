@@ -182,7 +182,7 @@ ChromeBase {
 
             Rectangle {
                 anchors.fill: actionsColumn
-                color: "#ededef"
+                color: Theme.palette.normal.background
 
                 Rectangle {
                     anchors {

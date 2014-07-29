@@ -46,7 +46,6 @@ Column {
 
                 Rectangle {
                     anchors.fill: parent
-                    color: "white"
                 }
 
                 Icon {

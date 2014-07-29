@@ -30,7 +30,6 @@ Rectangle {
     signal selected(url url)
 
     radius: units.gu(0.5)
-    color: "white"
     border {
         color: UbuntuColors.warmGrey
         width: 1
