@@ -28,21 +28,14 @@ FocusScope {
     states: [
         State {
             name: "shown"
-            PropertyChanges {
-                target: chrome
-                y: 0
-            }
         },
         State {
             name: "hidden"
-            PropertyChanges {
-                target: chrome
-                y: -chrome.height
-            }
         }
     ]
     state: "shown"
 
+    y: (state == "shown") ? 0 : -height
     Behavior on y {
         SmoothedAnimation {
             duration: UbuntuAnimation.BriskDuration
