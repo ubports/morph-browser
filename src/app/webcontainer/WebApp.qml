@@ -144,17 +144,25 @@ BrowserView {
             }
         }
 
-        ScrollTracker {
-            webview: webapp.oxide ? webapp.currentWebview : null
-            header: webapp.chromeless ? null : chromeLoader.item
+        Loader {
+            sourceComponent: (webapp.oxide && !webapp.chromeless) ? scrollTrackerComponent : undefined
 
-            active: !webapp.chromeless && !webapp.currentWebview.fullscreen
-            onScrolledUp: chromeLoader.item.state = "shown"
-            onScrolledDown: {
-                if (nearBottom) {
-                    chromeLoader.item.state = "shown"
-                } else if (!nearTop) {
-                    chromeLoader.item.state = "hidden"
+            Component {
+                id: scrollTrackerComponent
+
+                ScrollTracker {
+                    webview: webapp.currentWebview
+                    header: chromeLoader.item
+
+                    active: !webapp.currentWebview.fullscreen
+                    onScrolledUp: chromeLoader.item.state = "shown"
+                    onScrolledDown: {
+                        if (nearBottom) {
+                            chromeLoader.item.state = "shown"
+                        } else if (!nearTop) {
+                            chromeLoader.item.state = "hidden"
+                        }
+                    }
                 }
             }
         }
