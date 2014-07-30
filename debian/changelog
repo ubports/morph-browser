@@ -1,3 +1,17 @@
+webbrowser-app (0.23+14.10.20140730.2-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Olivier Tilloy ]
+  * New UI and UX, phase 1: - chrome in the header, with auto-hide/auto-
+    reveal behaviour - new history view (with an option to clear the
+    entire history), invoked from the drawer menu - new tabs view,
+    invoked from the drawer menu - bookmarking from the address bar -
+    tabs always ordered by recency (last viewed first)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 30 Jul 2014 17:03:52 +0000
+
 webbrowser-app (0.23+14.10.20140726-0ubuntu1) utopic; urgency=low
 
   [ Pawel Stolowski ]
