@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-28 18:14+0200\n"
+"POT-Creation-Date: 2014-07-30 12:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,26 +86,26 @@ msgstr ""
 msgid "JavaScript Confirmation"
 msgstr ""
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr ""
 
-#: src/app/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
 
-#: src/app/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr ""
 
-#: src/app/FilePickerDialog.qml:27
+#: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
 msgstr ""
 
@@ -245,7 +245,7 @@ msgstr ""
 msgid "Share…"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:140
+#: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
 msgstr ""
 
@@ -253,26 +253,26 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:162
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:167
+#: src/app/webbrowser/Browser.qml:168
 msgid "Open tabs"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:173 src/app/webbrowser/TabsView.qml:52
+#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:91
+#: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:105
+#: src/app/webbrowser/ExpandedHistoryView.qml:113
 msgid "Less"
 msgstr ""
 
@@ -284,43 +284,43 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:103 src/app/webbrowser/TabsView.qml:99
+#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
 msgid "Done"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/HistoryView.qml:109
 msgid "Clear"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:131
+#: src/app/webbrowser/HistoryView.qml:123
 msgid "Delete all history?"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:134
+#: src/app/webbrowser/HistoryView.qml:126
 msgid "Yes"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:143
+#: src/app/webbrowser/HistoryView.qml:135
 msgid "No"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:125
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:142
+#: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:142
+#: src/app/webbrowser/NewTabView.qml:141
 msgid "see more"
 msgstr ""
 
-#: src/app/webbrowser/TabsView.qml:114
+#: src/app/webbrowser/TabsView.qml:110
 msgid "Add"
 msgstr ""
 
