@@ -88,7 +88,15 @@ FocusScope {
                                 return "search"
                             }
                         default:
-                            return ""
+                            if (!favicon.visible) {
+                                if (looksLikeAUrl(addressbar.text.trim())) {
+                                    return "stock_website"
+                                } else {
+                                    return "search"
+                                }
+                            } else {
+                                return ""
+                            }
                         }
                     }
                 }
