@@ -72,7 +72,7 @@ Item {
         }
     }
 
-    Item {
+    Toolbar {
         id: toolbar
 
         anchors {
@@ -81,10 +81,6 @@ Item {
             bottom: parent.bottom
         }
         height: units.gu(7)
-
-        Rectangle {
-            anchors.fill: parent
-        }
 
         Button {
             objectName: "doneButton"
