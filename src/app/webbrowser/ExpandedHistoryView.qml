@@ -30,7 +30,6 @@ Item {
     signal done()
 
     Rectangle {
-        id: expandedHistoryViewBackground
         anchors.fill: parent
     }
 
@@ -76,6 +75,16 @@ Item {
         height: units.gu(7)
 
         color: Theme.palette.normal.background
+
+        Rectangle {
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            height: units.dp(1)
+            color: "#dedede"
+        }
 
         UrlDelegate {
             anchors {

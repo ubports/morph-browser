@@ -31,7 +31,7 @@ Rectangle {
 
     radius: units.gu(0.5)
     border {
-        color: UbuntuColors.warmGrey
+        color: "#dedede"
         width: 1
     }
 

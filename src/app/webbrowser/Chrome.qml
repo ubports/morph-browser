@@ -191,7 +191,7 @@ ChromeBase {
                         left: parent.left
                     }
                     width: units.dp(1)
-                    color: UbuntuColors.warmGrey
+                    color: "#dedede"
                 }
 
                 Rectangle {
@@ -201,7 +201,7 @@ ChromeBase {
                         bottom: parent.bottom
                     }
                     height: units.dp(1)
-                    color: UbuntuColors.warmGrey
+                    color: "#dedede"
                 }
             }
 
