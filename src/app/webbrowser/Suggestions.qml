@@ -54,6 +54,8 @@ Rectangle {
             property alias text: label.text
             property alias subText: subLabel.text
 
+            showDivider: index < (listview.count - 1)
+
             __height: Math.max(middleVisuals.height, units.gu(6))
 
             Item  {
