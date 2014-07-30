@@ -36,9 +36,9 @@ Item {
             var yesterday = new Date()
             yesterday.setDate(yesterday.getDate() - 1)
             var sectionDate = new Date(section)
-            if ((sectionDate.getFullYear() == today.getFullYear()) &&
-                (sectionDate.getMonth() == today.getMonth())) {
-                var dayDifference = sectionDate.getDate() - today.getDate()
+            if ((sectionDate.getUTCFullYear() == today.getFullYear()) &&
+                (sectionDate.getUTCMonth() == today.getMonth())) {
+                var dayDifference = sectionDate.getUTCDate() - today.getDate()
                 if (dayDifference == 0) {
                     return i18n.tr("Last Visited")
                 } else if (dayDifference == -1) {
