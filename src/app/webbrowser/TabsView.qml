@@ -44,6 +44,8 @@ Item {
 
         spacing: units.gu(-10)
 
+        boundsBehavior: Flickable.StopAtBounds
+
         delegate: TabPreview {
             width: parent.width
             height: (listview.count == 1) ? listview.height : units.gu(40)
