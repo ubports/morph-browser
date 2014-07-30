@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,31 +17,26 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1
+import Ubuntu.Unity.Action 1.1 as UnityActions
 
-MainView {
-    property bool chromeless: false
+OrientationHelper {
     property bool developerExtrasEnabled: false
 
     property var currentWebview: null
     property string title: currentWebview ? currentWebview.title : ""
 
-    property bool backForwardButtonsVisible: true
-    property bool activityButtonVisible: true
-    property bool addressBarVisible: true
-
     property var webbrowserWindow: null
 
     property var osk: _osk
 
-    automaticOrientation: true
-
-    // XXX: not using this property yet since the MainView doesn’t provide
-    // a way to know when the keyboard animation has finished (needed for
-    // autopilot tests). See the KeyboardRectangle component.
-    //anchorToKeyboard: true
-
     focus: true
+
+    property QtObject actionManager: UnityActions.ActionManager {
+        id: unityActionManager
+        onQuit: Qt.quit()
+    }
+    property alias actions: unityActionManager.actions
 
     KeyboardRectangle {
         id: _osk

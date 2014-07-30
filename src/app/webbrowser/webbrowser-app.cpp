@@ -86,7 +86,6 @@ bool WebbrowserApp::initialize()
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         Settings settings;
-        m_window->setProperty("chromeless", m_arguments.contains("--chromeless"));
         SearchEngine* searchEngine = settings.searchEngine();
         searchEngine->setParent(m_window);
         m_window->setProperty("searchEngine", QVariant::fromValue(searchEngine));
@@ -109,10 +108,9 @@ void WebbrowserApp::printUsage() const
 {
     QTextStream out(stdout);
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
-    out << "Usage: " << command << " [-h|--help] [--chromeless] [--fullscreen] [--maximized] [--inspector] [--app-id=APP_ID] [URL]" << endl;
+    out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector] [--app-id=APP_ID] [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help         display this help message and exit" << endl;
-    out << "  --chromeless       do not display any chrome" << endl;
     out << "  --fullscreen       display full screen" << endl;
     out << "  --maximized        opens the application maximized" << endl;
     out << "  --inspector        run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;

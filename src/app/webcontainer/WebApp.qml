@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,8 +17,7 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
-import Ubuntu.Components.Popups 0.1
+import Ubuntu.Components 1.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import "../actions" as Actions
@@ -39,43 +38,37 @@ BrowserView {
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefix: webview.popupRedirectionUrlPrefix
 
+    property bool backForwardButtonsVisible: false
+    property bool chromeVisible: false
+    readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible
+
     actions: [
         Actions.Back {
-            enabled: backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoBack
-            onTriggered: webview.goBack()
+            enabled: webapp.backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoBack
+            onTriggered: webview.currentWebview.goBack()
         },
         Actions.Forward {
-            enabled: backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoForward
-            onTriggered: webview.goForward()
+            enabled: webapp.backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoForward
+            onTriggered: webview.currentWebview.goForward()
         },
         Actions.Reload {
-            onTriggered: webview.reload()
+            onTriggered: webview.currentWebview.reload()
         }
     ]
 
-    Page {
+    Item {
         anchors.fill: parent
-
-        // Work around https://bugs.launchpad.net/webbrowser-app/+bug/1270848 and
-        // https://bugs.launchpad.net/ubuntu/+source/webbrowser-app/+bug/1271436.
-        // The UITK is trying too hard to be clever about the header and toolbar.
-        flickable: null
-
-
-        // to prevent https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-toolkit/+bug/1305834
-        // caused by a recent UI toolkit change, we are returning an empty title for now:
-        title: ""
 
         WebappContainerWebview {
             id: webview
-            toolbar: panel.panel
 
             anchors {
                 left: parent.left
                 right: parent.right
                 top: parent.top
+                topMargin: webapp.chromeless ? 0 : chromeLoader.item.visibleHeight
             }
-            height: parent.height - osk.height
+            height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.item.visibleHeight)
             developerExtrasEnabled: webapp.developerExtrasEnabled
             localUserAgentOverride: webappName && unityWebapps.model.exists(webappName) ?
                                       unityWebapps.model.userAgentOverrideFor(webappName) : ""
@@ -90,23 +83,88 @@ BrowserView {
                     webview.currentWebview.reload()
             }
         }
-    }
 
-    PanelLoader {
-        id: panel
-        objectName: "panel"
+        Loader {
+            id: chromeLoader
 
-        currentWebview: webview.currentWebview
-        chromeless: webapp.chromeless
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+            }
 
-        backForwardButtonsVisible: webapp.backForwardButtonsVisible
-        activityButtonVisible: false
-        addressBarVisible: webapp.addressBarVisible
+            sourceComponent: webapp.chromeless ? progressbarComponent : chromeComponent
 
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: panel.opened ? osk.top : parent.bottom
+            Component {
+                id: chromeComponent
+
+                Chrome {
+                    webview: webapp.currentWebview
+                    navigationButtonsVisible: webapp.backForwardButtonsVisible
+
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: units.gu(6)
+
+                    Connections {
+                        target: webapp.currentWebview
+                        ignoreUnknownSignals: true
+                        onLoadingChanged: {
+                            if (webapp.currentWebview.loading) {
+                                chromeLoader.item.state = "shown"
+                            } else if (webapp.currentWebview.fullscreen) {
+                                chromeLoader.item.state = "hidden"
+                            }
+                        }
+                        onFullscreenChanged: {
+                            if (webapp.currentWebview.fullscreen) {
+                                chromeLoader.item.state = "hidden"
+                            } else {
+                                chromeLoader.item.state = "shown"
+                            }
+                        }
+                    }
+                }
+            }
+
+            Component {
+                id: progressbarComponent
+
+                ThinProgressBar {
+                    webview: webapp.currentWebview
+
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
+                    }
+                }
+            }
+        }
+
+        Loader {
+            sourceComponent: (webapp.oxide && !webapp.chromeless) ? scrollTrackerComponent : undefined
+
+            Component {
+                id: scrollTrackerComponent
+
+                ScrollTracker {
+                    webview: webapp.currentWebview
+                    header: chromeLoader.item
+
+                    active: !webapp.currentWebview.fullscreen
+                    onScrolledUp: chromeLoader.item.state = "shown"
+                    onScrolledDown: {
+                        if (nearBottom) {
+                            chromeLoader.item.state = "shown"
+                        } else if (!nearTop) {
+                            chromeLoader.item.state = "hidden"
+                        }
+                    }
+                }
+            }
         }
     }
 

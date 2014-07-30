@@ -25,10 +25,10 @@ class WebappContainerAppLaunchTestCase(
     def test_container_does_not_load_with_no_webapp_name_and_url(self):
         args = ['--webapp']
         self.launch_webcontainer_app(args)
-        self.assertThat(self.get_webcontainer_proxy(), Equals(None))
+        self.assertIsNone(self.get_webcontainer_proxy())
 
     def test_loads_with_url(self):
         args = ['--enable-addressbar']
         self.launch_webcontainer_app_with_local_http_server(args)
-        self.assertThat(lambda: self.get_webcontainer_window().url,
-                        Eventually(Equals(self.url)))
+        window = self.get_webcontainer_window()
+        self.assertThat(window.url, Eventually(Equals(self.url)))

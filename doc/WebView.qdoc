@@ -176,7 +176,7 @@
 
     Example of user-defined actions:
     \code
-        import Ubuntu.Components 0.1
+        import Ubuntu.Components 1.1
         import Ubuntu.Web 0.2
 
         WebView {

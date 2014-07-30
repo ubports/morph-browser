@@ -17,9 +17,22 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1
 
-Image {
-    width: units.dp(16)
-    height: units.dp(16)
+AbstractButton {
+    property real iconSize: width
+    property alias iconName: icon.name
+
+    Icon {
+        id: icon
+        anchors.centerIn: parent
+        width: parent.iconSize
+        height: width
+    }
+
+    opacity: enabled ? 1.0 : 0.3
+
+    Behavior on width {
+        UbuntuNumberAnimation {}
+    }
 }

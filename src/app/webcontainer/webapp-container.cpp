@@ -112,7 +112,7 @@ bool WebappContainer::initialize()
         }
         m_window->setProperty("webappName", m_webappName);
         m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
-        m_window->setProperty("addressBarVisible", m_addressBarVisible);
+        m_window->setProperty("chromeVisible", m_addressBarVisible);
         m_window->setProperty("accountProvider", m_accountProvider);
 
         qDebug() << "Using" << (m_withOxide ? "Oxide" : "QtWebkit") << "as the web engine backend";
@@ -195,8 +195,8 @@ void WebappContainer::printUsage() const
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
-    out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
-    out << "  --enable-addressbar                 enable the display of the address bar" << endl;
+    out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
+    out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
 }
 
 void WebappContainer::parseCommandLine()

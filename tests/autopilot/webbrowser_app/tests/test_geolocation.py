@@ -31,9 +31,7 @@ class TestGeolocation(StartOpenRemotePageTestCaseBase):
         super(TestGeolocation, self).tearDown()
 
     def test_geolocation_deny(self):
-        button = self.dialog.select_single("Button", objectName="deny")
-        self.pointing_device.click_object(button)
+        self.pointing_device.click_object(self.dialog.get_deny_button())
 
     def test_geolocation_accept(self):
-        button = self.dialog.select_single("Button", objectName="allow")
-        self.pointing_device.click_object(button)
+        self.pointing_device.click_object(self.dialog.get_allow_button())
