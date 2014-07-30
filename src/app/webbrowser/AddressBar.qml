@@ -172,7 +172,9 @@ FocusScope {
         }
         onActiveFocusChanged: {
             if (!activeFocus) {
-                text = addressbar.actualUrl
+                if (addressbar.actualUrl.toString()) {
+                    text = addressbar.actualUrl
+                }
             }
             ensureSchemeVisibleWhenUnfocused()
         }
