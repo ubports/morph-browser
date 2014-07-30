@@ -301,4 +301,3 @@ Oxide.WebView {
         }
     }
 }
-
