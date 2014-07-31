@@ -138,7 +138,11 @@ bool WebappContainer::initialize()
             QList<QUrl> urls = this->urls();
             if (!urls.isEmpty()) {
                 m_window->setProperty("url", urls.last());
+            } else if (m_webappModelSearchPath.isEmpty()) {
+                return false;
             }
+            // Otherwise, assume that the homepage will come from a locally defined
+            // webapp-properties.json file pulled from the webapp model element.
         }
 
         m_component->completeCreate();
