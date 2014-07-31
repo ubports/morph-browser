@@ -62,13 +62,17 @@ QImage FaviconImageProvider::requestImage(const QString& id, QSize* size, const 
     if (fileinfo.exists()) {
         if (fileinfo.lastModified().daysTo(QDateTime::currentDateTime()) > CACHE_EXPIRATION_DAYS) {
             image = downloadImage(id);
-            image.save(filepath);
+            if (!image.isNull()) {
+                image.save(filepath);
+            }
         } else {
             image.load(filepath);
         }
     } else {
         image = downloadImage(id);
-        image.save(filepath);
+        if (!image.isNull()) {
+            image.save(filepath);
+        }
     }
 
     *size = image.size();
