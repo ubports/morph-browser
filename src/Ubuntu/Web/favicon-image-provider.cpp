@@ -31,7 +31,7 @@
 #include <QtNetwork/QNetworkRequest>
 
 #define MAX_REDIRECTIONS 5
-#define CACHE_EXPIRATION_DAYS 60
+#define CACHE_EXPIRATION_DAYS 100
 
 FaviconImageProvider::FaviconImageProvider()
     : QQuickImageProvider(QQmlImageProviderBase::Image)
@@ -61,8 +61,6 @@ QImage FaviconImageProvider::requestImage(const QString& id, QSize* size, const 
     QFileInfo fileinfo(filepath);
     if (fileinfo.exists()) {
         if (fileinfo.lastModified().daysTo(QDateTime::currentDateTime()) > CACHE_EXPIRATION_DAYS) {
-            // XXX: We might want to check if we’re on a data connection,
-            // and skip the download in that case.
             image = downloadImage(id);
             image.save(filepath);
         } else {
