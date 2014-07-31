@@ -17,6 +17,7 @@
  */
 
 #include "plugin.h"
+#include "favicon-image-provider.h"
 
 // Qt
 #include <QtCore/QDir>
@@ -82,6 +83,8 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     }
 
     context->setContextProperty("formFactor", getFormFactor());
+
+    engine->addImageProvider("favicon", new FaviconImageProvider());
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
