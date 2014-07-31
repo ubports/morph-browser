@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,8 +17,8 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
-import Ubuntu.Components.Popups 0.1
+import Ubuntu.Components 1.1
+import Ubuntu.Components.Popups 1.0
 import Ubuntu.Web 0.2
 import "actions" as Actions
 
@@ -26,7 +26,6 @@ WebView {
     id: webview
 
     property var currentWebview: webview
-    property var toolbar: null
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
@@ -68,9 +67,6 @@ WebView {
     }
 
     onGeolocationPermissionRequested: {
-        if (webview.toolbar) {
-            webview.toolbar.close()
-        }
         PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"),
                         webview.currentWebview, {"request": request})
         // TODO: we might want to store the answer to avoid requesting

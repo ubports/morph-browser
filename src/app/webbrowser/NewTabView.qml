@@ -17,9 +17,10 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
-import Ubuntu.Components.ListItems 0.1 as ListItem
+import Ubuntu.Components 1.1
+import Ubuntu.Components.ListItems 1.0 as ListItem
 import webbrowserapp.private 0.1
+import ".."
 
 Item {
     id: newTabView
@@ -77,7 +78,6 @@ Item {
     Rectangle {
         id: newTabBackground
         anchors.fill: parent
-        color: "white"
     }
 
     ListView {
@@ -161,13 +161,35 @@ Item {
             Repeater {
                 model: parent.opacity == 0.0 ? "" : historyListModel
 
-                delegate: PageDelegate{
+                delegate: MouseArea {
                     width: units.gu(18)
-                    height: units.gu(25)
+                    height: units.gu(22)
 
-                    url: model.url
-                    label: model.title ? model.title : model.url
-                    icon: model.icon
+                    Column {
+                        anchors.fill: parent
+                        spacing: units.gu(1)
+
+                        UbuntuShape {
+                            width: parent.width
+                            height: width
+
+                            Favicon {
+                                anchors.centerIn: parent
+                                source: model.icon
+                            }
+                        }
+
+                        Label {
+                            width: parent.width
+                            height: units.gu(2)
+
+                            fontSize: "small"
+                            wrapMode: Text.Wrap
+                            elide: Text.ElideRight
+
+                            text: model.title ? model.title : model.url
+                        }
+                    }
 
                     onClicked: historyEntryClicked(model.url)
                 }

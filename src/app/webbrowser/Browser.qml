@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,7 +17,8 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
+import com.canonical.Oxide 1.0 as Oxide
+import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
 import "../actions" as Actions
 import ".."
@@ -25,7 +26,6 @@ import ".."
 BrowserView {
     id: browser
 
-    property alias currentIndex: tabsModel.currentIndex
     currentWebview: tabsModel.currentWebview
 
     property QtObject searchEngine
@@ -58,22 +58,47 @@ BrowserView {
         }
     ]
 
-    Page {
-        // Work around http://pad.lv/1305834 by forcing the page title to be
-        // reset to an empty string when the activity view is being hidden.
-        title: activityViewVisible ? " " : ""
+    Item {
+        id: previewsContainer
+
+        width: webviewContainer.width
+        height: webviewContainer.height
+        y: webviewContainer.y
+
+        Component {
+            id: previewComponent
+
+            ShaderEffectSource {
+                id: preview
+
+                width: parent.width
+                height: parent.height
+
+                onSourceItemChanged: {
+                    if (!sourceItem) {
+                        this.destroy()
+                    }
+                }
+
+                live: mainView.visible && (browser.currentWebview === sourceItem)
+            }
+        }
+    }
+
+    Item {
+        id: mainView
+
         anchors.fill: parent
-        visible: !activityViewVisible
-        active: visible
+        visible: !historyViewContainer.visible && !tabsViewContainer.visible
 
         Item {
             id: webviewContainer
             anchors {
                 left: parent.left
                 right: parent.right
-                top: parent.top
+                top: chrome.bottom
             }
-            height: parent.height - osk.height
+            height: parent.height - chrome.visibleHeight - osk.height
         }
 
         ErrorSheet {
@@ -82,119 +107,189 @@ BrowserView {
             url: currentWebview ? currentWebview.url : ""
             onRefreshClicked: currentWebview.reload()
         }
-    }
 
-    PageStack {
-        id: stack
-        active: depth > 0
-    }
+        Chrome {
+            id: chrome
 
-    QtObject {
-        id: internal
+            webview: browser.currentWebview
+            searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
 
-        function onHistoryEntryRequested(url) {
-            currentWebview.url = url
-            toggleActivityView()
-        }
+            function isCurrentUrlBookmarked() {
+                return (webview ? _bookmarksModel.contains(webview.url) : false)
+            }
+            bookmarked: isCurrentUrlBookmarked()
+            onBookmarkedChanged: {
+                if (bookmarked && !isCurrentUrlBookmarked()) {
+                    _bookmarksModel.add(webview.url, webview.title, webview.icon)
+                } else if (!bookmarked && isCurrentUrlBookmarked()) {
+                    _bookmarksModel.remove(webview.url)
+                }
+            }
+            onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
+            Connections {
+                target: chrome.webview
+                onUrlChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
+            }
+            Connections {
+                target: _bookmarksModel
+                onAdded: if (!chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = true
+                onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
+            }
 
-        function onNewTabRequested() {
-            toggleActivityView()
-            openUrlInNewTab("", true)
-        }
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+            height: units.gu(6)
 
-        function onSwitchToTabRequested(index) {
-            switchToTab(index)
-            toggleActivityView()
-        }
+            drawerActions: [
+                Action {
+                    objectName: "share"
+                    text: i18n.tr("Share")
+                    iconName: "share"
+                    enabled: (formFactor == "mobile") && browser.currentWebview.url.toString()
+                    onTriggered: {
+                        var component = Qt.createComponent("../Share.qml")
+                        if (component.status == Component.Ready) {
+                            var share = component.createObject(browser)
+                            share.onDone.connect(share.destroy)
+                            share.shareLink(browser.currentWebview.url, browser.currentWebview.title)
+                        }
+                    }
+                },
+                Action {
+                    objectName: "history"
+                    text: i18n.tr("History")
+                    iconName: "history"
+                    onTriggered: historyViewComponent.createObject(historyViewContainer)
+                },
+                Action {
+                    objectName: "tabs"
+                    text: i18n.tr("Open tabs")
+                    iconName: "browser-tabs"
+                    onTriggered: tabsViewComponent.createObject(tabsViewContainer)
+                },
+                Action {
+                    objectName: "newtab"
+                    text: i18n.tr("New tab")
+                    iconName: "tab-new"
+                    onTriggered: browser.openUrlInNewTab("", true)
+                }
+            ]
 
-        function onCloseTabRequested(index) {
-            closeTab(index)
-            if (tabsModel.count === 0) {
-                onNewTabRequested()
+            Connections {
+                target: browser.currentWebview
+                onLoadingChanged: {
+                    if (browser.currentWebview.loading) {
+                        chrome.state = "shown"
+                    } else if (browser.currentWebview.fullscreen) {
+                        chrome.state = "hidden"
+                    }
+                }
+                onFullscreenChanged: {
+                    if (browser.currentWebview.fullscreen) {
+                        chrome.state = "hidden"
+                    } else {
+                        chrome.state = "shown"
+                    }
+                }
             }
         }
 
-        function onBookmarkRequested(url) {
-            currentWebview.url = url
-            toggleActivityView()
-        }
+        ScrollTracker {
+            webview: browser.currentWebview
+            header: chrome
 
-        function onNewTabUrlRequested(url) {
-            currentWebview.url = url
-            currentWebview.forceActiveFocus()
-        }
-    }
-
-    readonly property bool activityViewVisible: stack.depth > 0
-
-    function showActivityView() {
-        stack.push(Qt.resolvedUrl("ActivityView.qml"),
-                   {tabsModel: tabsModel,
-                    historyModel: _historyModel,
-                    bookmarksModel: _bookmarksModel})
-        var view = stack.currentPage
-        view.onHistoryEntryRequested.connect(internal.onHistoryEntryRequested)
-        view.onNewTabRequested.connect(internal.onNewTabRequested)
-        view.onSwitchToTabRequested.connect(internal.onSwitchToTabRequested)
-        view.onCloseTabRequested.connect(internal.onCloseTabRequested)
-        view.onBookmarkRequested.connect(internal.onBookmarkRequested)
-        if (currentWebview) {
-            currentWebview.forceActiveFocus()
-        }
-        panel.close()
-    }
-
-    function hideActivityView() {
-        stack.pop()
-    }
-
-    function toggleActivityView() {
-        if (activityViewVisible) {
-            hideActivityView()
-        } else {
-            showActivityView()
-        }
-    }
-
-    PanelLoader {
-        id: panel
-
-        currentWebview: browser.currentWebview
-        chromeless: browser.chromeless
-        searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: panel.opened ? osk.top : parent.bottom
-        }
-
-        onUrlValidated: {
-            if (activityViewVisible) {
-                hideActivityView()
+            active: !browser.currentWebview.fullscreen
+            onScrolledUp: chrome.state = "shown"
+            onScrolledDown: {
+                if (nearBottom) {
+                    chrome.state = "shown"
+                } else if (!nearTop) {
+                    chrome.state = "hidden"
+                }
             }
         }
 
-        onToggleActivityViewClicked: toggleActivityView()
+        Suggestions {
+            opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
+            Behavior on opacity {
+                UbuntuNumberAnimation {}
+            }
+            enabled: opacity > 0
+            anchors {
+                top: chrome.bottom
+                horizontalCenter: parent.horizontalCenter
+            }
+            width: chrome.width - units.gu(5)
+            height: enabled ? Math.min(contentHeight, webviewContainer.height - units.gu(2)) : 0
+            model: historyMatches
+            onSelected: {
+                browser.currentWebview.url = url
+                browser.currentWebview.forceActiveFocus()
+            }
+        }
     }
 
-    Suggestions {
-        opacity: (panel.chrome && (panel.state == "spread") &&
-                  panel.chrome.addressBar.activeFocus && (count > 0)) ? 1.0 : 0.0
-        Behavior on opacity {
-            UbuntuNumberAnimation {}
+    Item {
+        id: tabsViewContainer
+
+        visible: children.length > 0
+        anchors.fill: parent
+
+        Component {
+            id: tabsViewComponent
+
+            TabsView {
+                anchors.fill: parent
+                model: tabsModel
+                onNewTabRequested: browser.openUrlInNewTab("", true)
+                onDone: this.destroy()
+            }
         }
-        enabled: opacity > 0
-        anchors {
-            bottom: panel.top
-            horizontalCenter: parent.horizontalCenter
+    }
+
+    Item {
+        id: historyViewContainer
+
+        visible: children.length > 0
+        anchors.fill: parent
+
+        Component {
+            id: historyViewComponent
+
+            HistoryView {
+                anchors.fill: parent
+                visible: historyViewContainer.children.length == 1
+
+                Timer {
+                    // Set the model asynchronously to ensure
+                    // the view is displayed as early as possible.
+                    running: true
+                    interval: 1
+                    onTriggered: historyModel = _historyModel
+                }
+
+                onSeeMoreEntriesClicked: {
+                    var view = expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
+                    view.onHistoryEntryClicked.connect(destroy)
+                }
+                onDone: destroy()
+            }
         }
-        width: panel.width - units.gu(5)
-        height: Math.min(contentHeight, panel.y - units.gu(2))
-        model: historyMatches
-        onSelected: {
-            currentWebview.url = url
-            currentWebview.forceActiveFocus()
+
+        Component {
+            id: expandedHistoryViewComponent
+
+            ExpandedHistoryView {
+                anchors.fill: parent
+
+                onHistoryEntryClicked: {
+                    currentWebview.url = url
+                    done()
+                }
+                onDone: destroy()
+            }
         }
     }
 
@@ -206,7 +301,7 @@ BrowserView {
     HistoryMatchesModel {
         id: historyMatches
         sourceModel: _historyModel
-        query: panel.chrome ? panel.chrome.addressBar.text : ""
+        query: chrome.text
     }
 
     TabsModel {
@@ -223,7 +318,8 @@ BrowserView {
 
         WebViewImpl {
             currentWebview: browser.currentWebview
-            toolbar: panel.panel
+
+            property var preview
 
             anchors.fill: parent
 
@@ -264,7 +360,8 @@ BrowserView {
 
             onNewViewRequested: {
                 var webview = webviewComponent.createObject(webviewContainer, {"request": request})
-                addTab(webview, true, false)
+                var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
+                internal.addTab(webview, setCurrent, false)
             }
 
             onLoadingChanged: {
@@ -287,8 +384,14 @@ BrowserView {
 
                         historyModel: _historyModel
                         bookmarksModel: _bookmarksModel
-                        onBookmarkClicked: internal.onNewTabUrlRequested(url)
-                        onHistoryEntryClicked: internal.onNewTabUrlRequested(url)
+                        onBookmarkClicked: {
+                            currentWebview.url = url
+                            currentWebview.forceActiveFocus()
+                        }
+                        onHistoryEntryClicked: {
+                            currentWebview.url = url
+                            currentWebview.forceActiveFocus()
+                        }
                     }
                 }
             }
@@ -300,34 +403,24 @@ BrowserView {
         source: formFactor == "desktop" ? "" : "../Downloader.qml"
     }
 
-    function addTab(webview, setCurrent, focusAddressBar) {
-        var index = tabsModel.add(webview)
-        if (setCurrent) {
-            tabsModel.currentIndex = index
-            if (!chromeless) {
+    QtObject {
+        id: internal
+
+        function addTab(webview, setCurrent, focusAddressBar) {
+            var index = tabsModel.add(webview)
+            if (setCurrent) {
+                tabsModel.setCurrent(index)
                 if (focusAddressBar) {
-                    panel.chrome.addressBar.forceActiveFocus()
+                    chrome.forceActiveFocus()
                     Qt.inputMethod.show() // work around http://pad.lv/1316057
-                    panel.open()
                 }
             }
+            webview.preview = previewComponent.createObject(previewsContainer, {sourceItem: webview})
         }
     }
 
     function openUrlInNewTab(url, setCurrent) {
         var webview = webviewComponent.createObject(webviewContainer, {"url": url})
-        addTab(webview, setCurrent, !url.toString())
-    }
-
-    function closeTab(index) {
-        var webview = tabsModel.remove(index)
-        if (webview) {
-            webview.destroy()
-        }
-    }
-
-    function switchToTab(index) {
-        tabsModel.currentIndex = index
-        currentWebview.forceActiveFocus()
+        internal.addTab(webview, setCurrent, !url.toString() && (formFactor == "desktop"))
     }
 }

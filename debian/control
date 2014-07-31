@@ -131,7 +131,6 @@ Depends: ${misc:Depends},
          libqt5test5,
          python3-autopilot,
          ubuntu-ui-toolkit-autopilot,
-         unity8-autopilot,
          webbrowser-app (>= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests
  A lightweight web browser tailored for Ubuntu, based on the Oxide browser

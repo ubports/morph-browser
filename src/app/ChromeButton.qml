@@ -17,19 +17,22 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1
 
-Item {
-    property url source
+AbstractButton {
+    property real iconSize: width
+    property alias iconName: icon.name
 
-    width: units.dp(16)
-    height: units.dp(16)
+    Icon {
+        id: icon
+        anchors.centerIn: parent
+        width: parent.iconSize
+        height: width
+    }
 
-    Image {
-        readonly property string url: parent.source.toString()
-        source: url ? "image://favicon/" + url : ""
-        asynchronous: true
+    opacity: enabled ? 1.0 : 0.3
 
-        anchors.fill: parent
+    Behavior on width {
+        UbuntuNumberAnimation {}
     }
 }

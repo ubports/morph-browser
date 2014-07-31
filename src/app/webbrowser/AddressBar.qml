@@ -17,12 +17,15 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1
+import ".."
 
 FocusScope {
     id: addressbar
 
+    property alias icon: favicon.source
     property alias text: textField.text
+    property bool bookmarked: false
     property url requestedUrl
     property url actualUrl
     signal validated()
@@ -37,7 +40,7 @@ FocusScope {
     states: [
         State {
             name: "loading"
-            when: addressBar.loading
+            when: addressbar.loading
         },
         State {
             name: "editing"
@@ -50,54 +53,113 @@ FocusScope {
 
         anchors.fill: parent
 
-        primaryItem: MouseArea {
-            id: __actionButton
-            objectName: "actionButton"
-            width: __searchIcon.width + units.gu(1)
-            height: __searchIcon.height + units.gu(2)
-            enabled: textField.text.trim().length > 0
-            Image {
-                id: __searchIcon
-                anchors {
-                    right: parent.right
-                    verticalCenter: parent.verticalCenter
-                }
-                opacity: __actionButton.enabled ? 1.0 : 0.2
-                source: {
-                    switch (addressbar.state) {
-                    case "loading":
-                        return "assets/cancel.png"
-                    case "editing":
-                        if (looksLikeAUrl(text.trim())) {
-                            return "assets/go-to.png"
-                        } else {
-                            return "assets/search.png"
+        primaryItem: Item {
+            height: textField.height
+            width: height
+
+            Favicon {
+                id: favicon
+                anchors.centerIn: parent
+                visible: (addressbar.state == "") && addressbar.actualUrl.toString()
+            }
+
+            MouseArea {
+                id: actionButton
+                objectName: "actionButton"
+                anchors.fill: parent
+                enabled: addressbar.text
+                opacity: enabled ? 1.0 : 0.3
+
+                Icon {
+                    id: actionIcon
+                    height: parent.height - units.gu(2)
+                    width: height
+                    anchors.centerIn: parent
+                    name: {
+                        switch (addressbar.state) {
+                        case "loading":
+                            return "stop"
+                        case "editing":
+                            if (addressbar.text && (addressbar.text == addressbar.actualUrl)) {
+                                return "reload"
+                            } else if (looksLikeAUrl(addressbar.text.trim())) {
+                                return "stock_website"
+                            } else {
+                                return "search"
+                            }
+                        default:
+                            if (!favicon.visible) {
+                                if (looksLikeAUrl(addressbar.text.trim())) {
+                                    return "stock_website"
+                                } else {
+                                    return "search"
+                                }
+                            } else {
+                                return ""
+                            }
                         }
-                    default:
-                        return "assets/reload.png"
                     }
                 }
-            }
-            onClicked: {
-                switch (addressbar.state) {
-                case "loading":
-                    addressbar.requestStop()
-                    break
-                case "editing":
-                    textField.accepted()
-                    break
-                default:
-                    addressbar.requestReload()
+
+                onClicked: {
+                    switch (actionIcon.name) {
+                    case "":
+                        break;
+                    case "stop":
+                        addressbar.requestStop()
+                        break
+                    case "reload":
+                        addressbar.requestReload()
+                        break
+                    default:
+                        textField.accepted()
+                    }
                 }
             }
         }
 
+        secondaryItem: Item {
+            objectName: "bookmarkToggle"
+
+            height: textField.height
+            width: visible ? height : 0
+
+            visible: (addressbar.state == "") && addressbar.actualUrl.toString()
+
+            Icon {
+                height: parent.height - units.gu(2)
+                width: height
+                anchors.centerIn: parent
+
+                name: addressbar.bookmarked ? "starred" : "non-starred"
+                color: addressbar.bookmarked ? UbuntuColors.orange : keyColor
+            }
+
+            MouseArea {
+                id: bookmarkButton
+                anchors.fill: parent
+                onClicked: addressbar.bookmarked = !addressbar.bookmarked
+            }
+        }
+
+        font.pixelSize: FontUtils.sizeToPixels("small")
         inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
 
+        placeholderText: i18n.tr("search or enter an address")
+
+        // Work around the "fix" for http://pad.lv/1089370 which
+        // unsets focus on the TextField when it becomes invisible
+        // (to ensure the OSK is hidden).
         focus: true
+        onVisibleChanged: {
+            if (visible) {
+                focus = true
+            }
+        }
+
         highlighted: true
 
-        onAccepted: if (__actionButton.enabled) parent.validate()
+        onAccepted: if (addressbar.state != "") parent.validate()
 
         function ensureSchemeVisibleWhenUnfocused() {
             // Ensure the beginning of the URL is always visible when unfocused.
@@ -108,14 +170,22 @@ FocusScope {
                 cursorPosition = 0
             }
         }
-        onActiveFocusChanged: ensureSchemeVisibleWhenUnfocused()
+        onActiveFocusChanged: {
+            if (!activeFocus) {
+                if (addressbar.actualUrl.toString()) {
+                    text = addressbar.actualUrl
+                }
+            }
+            ensureSchemeVisibleWhenUnfocused()
+        }
         onTextChanged: ensureSchemeVisibleWhenUnfocused()
 
         // Make sure that all the text is selected at the first click
         MouseArea {
             anchors {
                 fill: parent
-                leftMargin: __actionButton.width
+                leftMargin: actionButton.width
+                rightMargin: bookmarkButton.width
             }
             visible: !textField.activeFocus
             onClicked: {

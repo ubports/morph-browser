@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -36,7 +36,6 @@
 */
 TabsModel::TabsModel(QObject* parent)
     : QAbstractListModel(parent)
-    , m_currentIndex(-1)
 {
 }
 
@@ -82,31 +81,12 @@ QVariant TabsModel::data(const QModelIndex& index, int role) const
     }
 }
 
-int TabsModel::currentIndex() const
-{
-    return m_currentIndex;
-}
-
-void TabsModel::setCurrentIndex(int index)
-{
-    if (index == m_currentIndex) {
-        return;
-    }
-    if (!checkValidTabIndex(index)) {
-        return;
-    }
-    m_currentIndex = index;
-    Q_EMIT currentIndexChanged();
-    Q_EMIT currentWebviewChanged();
-}
-
 QObject* TabsModel::currentWebview() const
 {
-    if (m_currentIndex >= 0) {
-        return m_webviews.at(m_currentIndex);
-    } else {
+    if (m_webviews.isEmpty()) {
         return 0;
     }
+    return m_webviews.first();
 }
 
 /*!
@@ -129,6 +109,9 @@ int TabsModel::add(QObject* webview)
     connect(webview, SIGNAL(iconChanged()), SLOT(onIconChanged()));
     endInsertRows();
     Q_EMIT countChanged();
+    if (index == 0) {
+        Q_EMIT currentWebviewChanged();
+    }
     return index;
 }
 
@@ -149,16 +132,24 @@ QObject* TabsModel::remove(int index)
     webview->disconnect(this);
     endRemoveRows();
     Q_EMIT countChanged();
-    bool currentWasLast = (m_currentIndex == m_webviews.count());
-    bool removedCurrent = (index == m_currentIndex);
-    if (currentWasLast) {
-        --m_currentIndex;
-        Q_EMIT currentIndexChanged();
-    }
-    if (removedCurrent) {
+    if (index == 0) {
         Q_EMIT currentWebviewChanged();
     }
     return webview;
+}
+
+void TabsModel::setCurrent(int index)
+{
+    if (index == 0) {
+        return;
+    }
+    if (!checkValidTabIndex(index)) {
+        return;
+    }
+    beginMoveRows(QModelIndex(), index, index, QModelIndex(), 0);
+    m_webviews.prepend(m_webviews.takeAt(index));
+    endMoveRows();
+    Q_EMIT currentWebviewChanged();
 }
 
 bool TabsModel::checkValidTabIndex(int index) const

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,24 +17,19 @@
  */
 
 import QtQuick 2.0
-import QtTest 1.0
-import "undertest"
+import Ubuntu.Components 1.1
 
-TestCase {
-    name: "Chrome"
+ProgressBar {
+    property var webview
 
-    // TODO: Change this to be a more useful test once there is some actual logic
-    function test_enter_url() {
-        addressBar.url = "canonical.com"
-        signalSpy.signalName = "urlValidated";
-        compare(signalSpy.count, 0,"urlValidated() not emitted when changing url")
-    }
+    height: units.dp(3)
 
-    Chrome {
-        id: addressBar
-        SignalSpy {
-            id: signalSpy
-            target: parent
-        }
-    }
+    showProgressPercentage: false
+    value: webview ? webview.loadProgress / 100 : 0.0
+    visible: webview ? webview.loading
+                       // Workaround for https://bugs.launchpad.net/oxide/+bug/1290821.
+                       // Note: this also works with a QtWebKit webview by chance,
+                       // because !undefined evaluates to true.
+                       && !webview.lastLoadStopped
+                     : false
 }

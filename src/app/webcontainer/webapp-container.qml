@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import QtQuick.Window 2.1
-import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1
 import Ubuntu.Components.Extras.Browser 0.2
 import webcontainer.private 0.1
 
@@ -29,7 +29,7 @@ Window {
     property bool developerExtrasEnabled: false
 
     property bool backForwardButtonsVisible: true
-    property bool addressBarVisible: true
+    property bool chromeVisible: true
 
     property string url: ""
     property string webappName: ""
@@ -67,7 +67,7 @@ Window {
 
         WebApp {
             id: browser
-            addressBarVisible: root.addressBarVisible
+            chromeVisible: root.chromeVisible
             backForwardButtonsVisible: root.backForwardButtonsVisible
             developerExtrasEnabled: root.developerExtrasEnabled
             oxide: root.oxide
@@ -80,7 +80,6 @@ Window {
 
             anchors.fill: parent
 
-            chromeless: !backForwardButtonsVisible && !addressBarVisible
             webbrowserWindow: webbrowserWindowProxy
 
             Component.onCompleted: i18n.domain = "webbrowser-app"
