@@ -90,8 +90,8 @@ Window {
             Component.onCompleted: i18n.domain = "webbrowser-app"
 
             onWebappNameChanged: {
-                if (webappName !== browser.webappName) {
-                    webappName = browser.webappName;
+                if (root.webappName !== browser.webappName) {
+                    root.webappName = browser.webappName;
                     browser.title = getWindowTitle();
                 }
             }
