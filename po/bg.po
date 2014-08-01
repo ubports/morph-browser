@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-07-04 10:06-0300\n"
+"POT-Creation-Date: 2014-07-30 12:43+0200\n"
 "PO-Revision-Date: 2014-01-25 21:41+0000\n"
 "Last-Translator: Gangov <Unknown>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-05 05:54+0000\n"
-"X-Generator: Launchpad (build 17086)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
+"X-Generator: Launchpad (build 17141)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -83,44 +84,32 @@ msgstr "Продължаване напред въпреки това"
 msgid "Back to safety"
 msgstr "Назад към безопасната страница"
 
-#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
-msgid "Back"
-msgstr "Назад"
-
-#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
-msgid "Forward"
-msgstr "Напред"
-
-#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
-msgid "Activity"
-msgstr "Дейност"
-
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "Потвърждение за JavaScript"
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Мрежова грешка"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "Изглежда имате проблем да видите %1."
 
-#: src/app/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
 "Убунту Ви съветва да проверите мрежовите си настройки и да се опитате да "
 "презаредите страницата."
 
-#: src/app/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Презареди страницата"
 
-#: src/app/FilePickerDialog.qml:27
+#: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
 msgstr ""
 
@@ -130,7 +119,7 @@ msgid "Permission Request"
 msgstr "Необходимо е разрешение"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:69
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
 msgstr ""
 
@@ -157,6 +146,10 @@ msgstr "Необходима е идентификация за прокси"
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr "Уебадресът %1:%2 изисква оторизация."
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Назад"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -199,6 +192,10 @@ msgstr "Кобирай изображение"
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
 msgstr "Копиране на линка"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "Напред"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -252,64 +249,84 @@ msgstr ""
 msgid "Share…"
 msgstr ""
 
-#: src/app/webbrowser/ActivityView.qml:54
-#: src/app/webbrowser/NewTabView.qml:123
-msgid "Bookmarks"
-msgstr "Отметки"
-
-#: src/app/webbrowser/NewTabView.qml:125
-msgid "Top sites"
+#: src/app/webbrowser/AddressBar.qml:148
+msgid "search or enter an address"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see less"
+#: src/app/webbrowser/Browser.qml:148
+msgid "Share"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see more"
+#: src/app/webbrowser/Browser.qml:162
+msgid "History"
 msgstr ""
 
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/webbrowser/TabsList.qml:37
+#: src/app/webbrowser/Browser.qml:168
+msgid "Open tabs"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+msgid "New tab"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
-msgid "Currently viewing (%1)"
-msgstr "В момента се гледа (%1)"
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] ""
+msgstr[1] ""
 
-#: src/app/webbrowser/TabsList.qml:69
-msgid "+"
-msgstr "+"
+#: src/app/webbrowser/ExpandedHistoryView.qml:113
+msgid "Less"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:87
-msgid "Today"
-msgstr "Днес"
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:89
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr "Вчера"
 
-#: src/app/webbrowser/TimelineView.qml:91
-msgid "Last 7 Days"
-msgstr "Последните 7 дни"
+#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+msgid "Done"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:93
-msgid "This Month"
-msgstr "Този месец"
+#: src/app/webbrowser/HistoryView.qml:109
+msgid "Clear"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:95
-msgid "This Year"
-msgstr "Тази година"
+#: src/app/webbrowser/HistoryView.qml:123
+msgid "Delete all history?"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:97
-msgid "Older"
-msgstr "По-стари"
+#: src/app/webbrowser/HistoryView.qml:126
+msgid "Yes"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:287
-msgid "(local files)"
-msgstr "(местни файлове)"
+#: src/app/webbrowser/HistoryView.qml:135
+msgid "No"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:289
-msgid "(other)"
-msgstr "(други)"
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr "Отметки"
+
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr ""
+
+#: src/app/webbrowser/TabsView.qml:110
+msgid "Add"
+msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -324,13 +341,13 @@ msgid "Browse the World Wide Web"
 msgstr "Браузване на World Wide Web"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Убунту Уеб Браузър"
 
-#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "Убунту Уеб Браузър"
@@ -350,3 +367,34 @@ msgstr ""
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr ""
+
+#~ msgid "Activity"
+#~ msgstr "Дейност"
+
+#~ msgid "Today"
+#~ msgstr "Днес"
+
+#, qt-format
+#~ msgid "Currently viewing (%1)"
+#~ msgstr "В момента се гледа (%1)"
+
+#~ msgid "+"
+#~ msgstr "+"
+
+#~ msgid "This Month"
+#~ msgstr "Този месец"
+
+#~ msgid "This Year"
+#~ msgstr "Тази година"
+
+#~ msgid "Last 7 Days"
+#~ msgstr "Последните 7 дни"
+
+#~ msgid "(other)"
+#~ msgstr "(други)"
+
+#~ msgid "Older"
+#~ msgstr "По-стари"
+
+#~ msgid "(local files)"
+#~ msgstr "(местни файлове)"
