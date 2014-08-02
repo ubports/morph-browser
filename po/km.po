@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-02 06:36+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -366,34 +366,3 @@ msgstr "បន្ថែម​គណនី"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "ជ្រើស​គណនី"
-
-#~ msgid "Activity"
-#~ msgstr "សកម្មភាព"
-
-#~ msgid "Today"
-#~ msgstr "ថ្ងៃ​នេះ"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "៧ ថ្ងៃ​ចុងក្រោយ"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "បច្ចុប្បន្ន​មើល (%1)"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "This Month"
-#~ msgstr "ខែ​នេះ"
-
-#~ msgid "This Year"
-#~ msgstr "ឆ្នាំ​នេះ"
-
-#~ msgid "(other)"
-#~ msgstr "(ផ្សេងៗ)"
-
-#~ msgid "Older"
-#~ msgstr "ចាស់​ជាង"
-
-#~ msgid "(local files)"
-#~ msgstr "(ឯកសារ​មូលដ្ឋាន)"

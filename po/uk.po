@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:10+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-02 06:36+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -369,34 +369,3 @@ msgstr "Додати обліковий запис"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Вибір облікового запису"
-
-#~ msgid "Activity"
-#~ msgstr "Дії"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Today"
-#~ msgstr "Сьогодні"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "Зараз переглядаємо (%1)"
-
-#~ msgid "This Month"
-#~ msgstr "Цього місяця"
-
-#~ msgid "This Year"
-#~ msgstr "Цього року"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "Останні 7 днів"
-
-#~ msgid "(other)"
-#~ msgstr "(інше)"
-
-#~ msgid "Older"
-#~ msgstr "Давніше"
-
-#~ msgid "(local files)"
-#~ msgstr "(локальні файли)"

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2014-07-29 01:40+0000\n"
-"Last-Translator: Luo Lei <luolei@ubuntukylin.com>\n"
+"PO-Revision-Date: 2014-08-02 04:54+0000\n"
+"Last-Translator: Anthony Wong <anthony.wong@ubuntu.com>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:10+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-02 06:36+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -251,11 +251,11 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:148
 msgid "Share"
-msgstr ""
+msgstr "分享"
 
 #: src/app/webbrowser/Browser.qml:162
 msgid "History"
-msgstr ""
+msgstr "历史"
 
 #: src/app/webbrowser/Browser.qml:168
 msgid "Open tabs"
@@ -263,7 +263,7 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
 msgid "New tab"
-msgstr ""
+msgstr "新建标签"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
@@ -286,23 +286,23 @@ msgstr "昨天"
 
 #: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
 msgid "Done"
-msgstr ""
+msgstr "完成"
 
 #: src/app/webbrowser/HistoryView.qml:109
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 #: src/app/webbrowser/HistoryView.qml:123
 msgid "Delete all history?"
-msgstr ""
+msgstr "删除所有历史？"
 
 #: src/app/webbrowser/HistoryView.qml:126
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: src/app/webbrowser/HistoryView.qml:135
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -363,34 +363,3 @@ msgstr "添加帐户"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "选择一个帐户"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Activity"
-#~ msgstr "活动"
-
-#~ msgid "Older"
-#~ msgstr "较早的"
-
-#~ msgid "Today"
-#~ msgstr "今天"
-
-#~ msgid "This Month"
-#~ msgstr "本月"
-
-#~ msgid "This Year"
-#~ msgstr "今年"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "最近 7 天"
-
-#~ msgid "(other)"
-#~ msgstr "（其他）"
-
-#~ msgid "(local files)"
-#~ msgstr "（本地文件）"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "正在浏览 (%1)"

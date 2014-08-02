@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-02 06:36+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -366,34 +366,3 @@ msgstr "Añadir cuenta"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Seleccione una cuenta"
-
-#~ msgid "Activity"
-#~ msgstr "Actividad"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Today"
-#~ msgstr "Hoy"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "Últimos 7 días"
-
-#~ msgid "This Year"
-#~ msgstr "Este año"
-
-#~ msgid "This Month"
-#~ msgstr "Este mes"
-
-#~ msgid "(local files)"
-#~ msgstr "(archivos locales)"
-
-#~ msgid "Older"
-#~ msgstr "Anteriores"
-
-#~ msgid "(other)"
-#~ msgstr "(otro)"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "Páginas abiertas (%1)"
