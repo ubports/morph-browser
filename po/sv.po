@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2014-07-24 13:56+0000\n"
+"PO-Revision-Date: 2014-08-02 19:50+0000\n"
 "Last-Translator: Josef Andersson <Unknown>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:10+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-03 06:11+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 "Language: sv\n"
 
 #: src/app/AlertDialog.qml:24
@@ -256,30 +256,30 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:148
 msgid "Share"
-msgstr ""
+msgstr "Dela"
 
 #: src/app/webbrowser/Browser.qml:162
 msgid "History"
-msgstr ""
+msgstr "Historik"
 
 #: src/app/webbrowser/Browser.qml:168
 msgid "Open tabs"
-msgstr ""
+msgstr "Öppna flikar"
 
 #: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
 msgid "New tab"
-msgstr ""
+msgstr "Ny flik"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 sida"
+msgstr[1] "%1 sidor"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:113
 msgid "Less"
-msgstr ""
+msgstr "Färre"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
@@ -291,23 +291,23 @@ msgstr "Igår"
 
 #: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
 msgid "Done"
-msgstr ""
+msgstr "Klar"
 
 #: src/app/webbrowser/HistoryView.qml:109
 msgid "Clear"
-msgstr ""
+msgstr "Töm"
 
 #: src/app/webbrowser/HistoryView.qml:123
 msgid "Delete all history?"
-msgstr ""
+msgstr "Ta bort all historik?"
 
 #: src/app/webbrowser/HistoryView.qml:126
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: src/app/webbrowser/HistoryView.qml:135
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -327,7 +327,7 @@ msgstr "se mer"
 
 #: src/app/webbrowser/TabsView.qml:110
 msgid "Add"
-msgstr ""
+msgstr "Lägg till"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -368,34 +368,3 @@ msgstr "Lägg till konto"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Välj ett konto"
-
-#~ msgid "Activity"
-#~ msgstr "Aktivitet"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Today"
-#~ msgstr "Idag"
-
-#~ msgid "This Month"
-#~ msgstr "Denna månad"
-
-#~ msgid "This Year"
-#~ msgstr "Detta året"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "Senaste 7 dagarna"
-
-#~ msgid "Older"
-#~ msgstr "Äldre"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "Visar nu (%1)"
-
-#~ msgid "(other)"
-#~ msgstr "(övrigt)"
-
-#~ msgid "(local files)"
-#~ msgstr "(lokala filer)"
