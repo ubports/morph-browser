@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-07-04 10:06-0300\n"
+"POT-Creation-Date: 2014-07-30 12:43+0200\n"
 "PO-Revision-Date: 2014-01-08 10:01+0000\n"
 "Last-Translator: Tadeáš Pařík <tadeas.parik@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-05 05:54+0000\n"
-"X-Generator: Launchpad (build 17086)\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
+"X-Generator: Launchpad (build 17141)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -83,42 +84,30 @@ msgstr "Přesto pokračovat"
 msgid "Back to safety"
 msgstr "Zpět na bezpečnější stránku"
 
-#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
-msgid "Back"
-msgstr "Zpět"
-
-#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
-msgid "Forward"
-msgstr "Vpřed"
-
-#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
-msgid "Activity"
-msgstr "Aktivita"
-
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "Potvrezení JavaScriptu"
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Chyba sítě"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "Zdá se, že máte potíže se zobrazením %1."
 
-#: src/app/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr "Zkontrolujte vaše síťová nastavení a znovu zkuste načíst stránku."
 
-#: src/app/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Obnovit stránku"
 
-#: src/app/FilePickerDialog.qml:27
+#: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
 msgstr ""
 
@@ -128,7 +117,7 @@ msgid "Permission Request"
 msgstr "Je požadováno povolení"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:69
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
 msgstr ""
 
@@ -155,6 +144,10 @@ msgstr "Je vyžadována proxy autorizace."
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr "Stránka %1:%2 vyžaduje ověření."
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Zpět"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -197,6 +190,10 @@ msgstr "Kopírovat obrázek"
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
 msgstr "Kopírovat odkaz"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "Vpřed"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -250,64 +247,84 @@ msgstr ""
 msgid "Share…"
 msgstr ""
 
-#: src/app/webbrowser/ActivityView.qml:54
-#: src/app/webbrowser/NewTabView.qml:123
-msgid "Bookmarks"
-msgstr "Záložky"
-
-#: src/app/webbrowser/NewTabView.qml:125
-msgid "Top sites"
+#: src/app/webbrowser/AddressBar.qml:148
+msgid "search or enter an address"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see less"
+#: src/app/webbrowser/Browser.qml:148
+msgid "Share"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see more"
+#: src/app/webbrowser/Browser.qml:162
+msgid "History"
 msgstr ""
 
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/webbrowser/TabsList.qml:37
+#: src/app/webbrowser/Browser.qml:168
+msgid "Open tabs"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+msgid "New tab"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
-msgid "Currently viewing (%1)"
-msgstr "Počet prohlížených stránek: (%1)"
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] ""
+msgstr[1] ""
 
-#: src/app/webbrowser/TabsList.qml:69
-msgid "+"
-msgstr "+"
+#: src/app/webbrowser/ExpandedHistoryView.qml:113
+msgid "Less"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:87
-msgid "Today"
-msgstr "Dnes"
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:89
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr "Včera"
 
-#: src/app/webbrowser/TimelineView.qml:91
-msgid "Last 7 Days"
-msgstr "Posledních 7 dní"
+#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+msgid "Done"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:93
-msgid "This Month"
-msgstr "Tento měsíc"
+#: src/app/webbrowser/HistoryView.qml:109
+msgid "Clear"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:95
-msgid "This Year"
-msgstr "Tento rok"
+#: src/app/webbrowser/HistoryView.qml:123
+msgid "Delete all history?"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:97
-msgid "Older"
-msgstr "Starší"
+#: src/app/webbrowser/HistoryView.qml:126
+msgid "Yes"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:287
-msgid "(local files)"
-msgstr "(místní soubory)"
+#: src/app/webbrowser/HistoryView.qml:135
+msgid "No"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:289
-msgid "(other)"
-msgstr "(ostatní)"
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr "Záložky"
+
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr ""
+
+#: src/app/webbrowser/TabsView.qml:110
+msgid "Add"
+msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -322,13 +339,13 @@ msgid "Browse the World Wide Web"
 msgstr "Prohlížeč World Wide Webu"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Internetový prohlížeč Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "Internetový prohlížeč Ubuntu"
@@ -348,3 +365,34 @@ msgstr ""
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr ""
+
+#~ msgid "Today"
+#~ msgstr "Dnes"
+
+#~ msgid "This Month"
+#~ msgstr "Tento měsíc"
+
+#~ msgid "This Year"
+#~ msgstr "Tento rok"
+
+#~ msgid "Last 7 Days"
+#~ msgstr "Posledních 7 dní"
+
+#~ msgid "Older"
+#~ msgstr "Starší"
+
+#~ msgid "(local files)"
+#~ msgstr "(místní soubory)"
+
+#, qt-format
+#~ msgid "Currently viewing (%1)"
+#~ msgstr "Počet prohlížených stránek: (%1)"
+
+#~ msgid "+"
+#~ msgstr "+"
+
+#~ msgid "(other)"
+#~ msgstr "(ostatní)"
+
+#~ msgid "Activity"
+#~ msgstr "Aktivita"

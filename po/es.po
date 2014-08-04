@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-07-04 10:06-0300\n"
-"PO-Revision-Date: 2014-07-12 08:41+0000\n"
-"Last-Translator: Paco Molinero <paco@byasl.com>\n"
+"POT-Creation-Date: 2014-07-30 12:43+0200\n"
+"PO-Revision-Date: 2014-08-01 01:22+0000\n"
+"Last-Translator: Adolfo Jayme <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-13 06:30+0000\n"
-"X-Generator: Launchpad (build 17111)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-08-02 06:36+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -83,43 +84,31 @@ msgstr "Continuar de todos modos"
 msgid "Back to safety"
 msgstr "Volver a la seguridad"
 
-#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
-msgid "Back"
-msgstr "Anterior"
-
-#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
-msgid "Forward"
-msgstr "Adelante"
-
-#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
-msgid "Activity"
-msgstr "Actividad"
-
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "Confirmación JavaScript"
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Error de red"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "Parece que hay problemas para ver: %1"
 
-#: src/app/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
 "Ubuntu le sugiere comprobar su configuración de red y recargar la página."
 
-#: src/app/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Recargar página"
 
-#: src/app/FilePickerDialog.qml:27
+#: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
 msgstr "Seleccione un archivo"
 
@@ -129,7 +118,7 @@ msgid "Permission Request"
 msgstr "Solicitud de permiso"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:69
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
 msgstr "Esta página solicita la ubicación del dispositivo."
 
@@ -156,6 +145,10 @@ msgstr "Se necesita autenticación de proxy."
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr "El sitio %1:%2 necesita autenticación."
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Anterior"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -198,6 +191,10 @@ msgstr "Copiar imagen"
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
 msgstr "Copiar enlace"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "Adelante"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -251,64 +248,84 @@ msgstr "Guardar imagen"
 msgid "Share…"
 msgstr "Compartir..."
 
-#: src/app/webbrowser/ActivityView.qml:54
-#: src/app/webbrowser/NewTabView.qml:123
-msgid "Bookmarks"
-msgstr "Marcadores"
+#: src/app/webbrowser/AddressBar.qml:148
+msgid "search or enter an address"
+msgstr "buscar o escribir dirección"
 
-#: src/app/webbrowser/NewTabView.qml:125
-msgid "Top sites"
-msgstr "Sitios populares"
+#: src/app/webbrowser/Browser.qml:148
+msgid "Share"
+msgstr "Compartir"
 
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see less"
-msgstr "ver menos"
+#: src/app/webbrowser/Browser.qml:162
+msgid "History"
+msgstr "Histórico"
 
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see more"
-msgstr "ver más"
+#: src/app/webbrowser/Browser.qml:168
+msgid "Open tabs"
+msgstr "Pestañas abiertas"
 
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/webbrowser/TabsList.qml:37
+#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+msgid "New tab"
+msgstr "Pestaña nueva"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
-msgid "Currently viewing (%1)"
-msgstr "Páginas abiertas (%1)"
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] "%1 página"
+msgstr[1] "%1 páginas"
 
-#: src/app/webbrowser/TabsList.qml:69
-msgid "+"
-msgstr "+"
+#: src/app/webbrowser/ExpandedHistoryView.qml:113
+msgid "Less"
+msgstr "Menos"
 
-#: src/app/webbrowser/TimelineView.qml:87
-msgid "Today"
-msgstr "Hoy"
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
+msgstr "Últimas visitas"
 
-#: src/app/webbrowser/TimelineView.qml:89
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr "Ayer"
 
-#: src/app/webbrowser/TimelineView.qml:91
-msgid "Last 7 Days"
-msgstr "Últimos 7 días"
+#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+msgid "Done"
+msgstr "Hecho"
 
-#: src/app/webbrowser/TimelineView.qml:93
-msgid "This Month"
-msgstr "Este mes"
+#: src/app/webbrowser/HistoryView.qml:109
+msgid "Clear"
+msgstr "Vaciar"
 
-#: src/app/webbrowser/TimelineView.qml:95
-msgid "This Year"
-msgstr "Este año"
+#: src/app/webbrowser/HistoryView.qml:123
+msgid "Delete all history?"
+msgstr "¿Vaciar el histórico?"
 
-#: src/app/webbrowser/TimelineView.qml:97
-msgid "Older"
-msgstr "Anteriores"
+#: src/app/webbrowser/HistoryView.qml:126
+msgid "Yes"
+msgstr "Sí"
 
-#: src/app/webbrowser/TimelineView.qml:287
-msgid "(local files)"
-msgstr "(archivos locales)"
+#: src/app/webbrowser/HistoryView.qml:135
+msgid "No"
+msgstr "No"
 
-#: src/app/webbrowser/TimelineView.qml:289
-msgid "(other)"
-msgstr "(otro)"
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr "Marcadores"
+
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
+msgstr "Sitios populares"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
+msgstr "ver menos"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr "ver más"
+
+#: src/app/webbrowser/TabsView.qml:110
+msgid "Add"
+msgstr "Añadir"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -323,13 +340,13 @@ msgid "Browse the World Wide Web"
 msgstr "Navegue por la World Wide Web"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navegador web de Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "Navegador web de Ubuntu"

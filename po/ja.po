@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-07-04 10:06-0300\n"
-"PO-Revision-Date: 2014-01-18 07:16+0000\n"
-"Last-Translator: 173210 <root.3.173210@live.com>\n"
+"POT-Creation-Date: 2014-07-30 12:43+0200\n"
+"PO-Revision-Date: 2014-08-03 13:34+0000\n"
+"Last-Translator: Fumihito YOSHIDA <hito@kugutsu.org>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-05 05:55+0000\n"
-"X-Generator: Launchpad (build 17086)\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2014-08-04 06:29+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -28,13 +29,13 @@ msgstr "OK"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "認証が必要です。"
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "ウェブサイト %1 は認証が必要です。"
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
@@ -51,11 +52,11 @@ msgstr "キャンセル"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "ナビゲーションの確認"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "休暇"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
@@ -63,7 +64,7 @@ msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "この接続の安全性は確認できません"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -71,62 +72,50 @@ msgstr ""
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
-msgstr ""
+msgstr "セキュアに %1 にアクセスしようとしていますが、このウェブサイトのセキュリティ証明書は信頼できません。"
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "とにかく続行する"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
 msgstr "セキュリティで保護されたページに戻る"
 
-#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
-msgid "Back"
-msgstr "戻る"
-
-#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
-msgid "Forward"
-msgstr "進む"
-
-#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
-msgid "Activity"
-msgstr ""
-
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "JavaScriptの確認"
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "ネットワークエラー"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "次のページを表示する際に問題が発生しました : %1"
 
-#: src/app/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr "ネットワーク設定を確認してページを更新してみてください"
 
-#: src/app/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "ページを更新"
 
-#: src/app/FilePickerDialog.qml:27
+#: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "ファイルを選択してください"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "許可を求めています"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:69
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
 msgstr ""
 
@@ -142,7 +131,7 @@ msgstr "許可"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "JavaScriptのプロンプト"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
@@ -153,6 +142,10 @@ msgstr "プロキシ認証が必要です。"
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr ""
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "戻る"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -172,7 +165,7 @@ msgstr "このページをブックマークに追加"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "リンクをブックマーク"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
@@ -182,7 +175,7 @@ msgstr "履歴をクリア"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "閲覧履歴をクリア"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -190,11 +183,15 @@ msgstr "コピー"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "画像をコピー"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
 msgstr "リンクをコピー"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "進む"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -224,11 +221,11 @@ msgstr "新しいタブを開く"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "新しいタブで画像を開く"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "新しいタブでリンクを開く"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -242,69 +239,89 @@ msgstr ""
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "イメージの保存"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
 msgstr ""
 
-#: src/app/webbrowser/ActivityView.qml:54
-#: src/app/webbrowser/NewTabView.qml:123
-msgid "Bookmarks"
-msgstr "ブックマーク"
-
-#: src/app/webbrowser/NewTabView.qml:125
-msgid "Top sites"
+#: src/app/webbrowser/AddressBar.qml:148
+msgid "search or enter an address"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see less"
-msgstr ""
+#: src/app/webbrowser/Browser.qml:148
+msgid "Share"
+msgstr "シェア"
 
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see more"
-msgstr ""
+#: src/app/webbrowser/Browser.qml:162
+msgid "History"
+msgstr "履歴"
 
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/webbrowser/TabsList.qml:37
+#: src/app/webbrowser/Browser.qml:168
+msgid "Open tabs"
+msgstr "タブを開く"
+
+#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+msgid "New tab"
+msgstr "新しいタブ"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
-msgid "Currently viewing (%1)"
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:113
+msgid "Less"
 msgstr ""
 
-#: src/app/webbrowser/TabsList.qml:69
-msgid "+"
-msgstr "+"
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
+msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:87
-msgid "Today"
-msgstr "今日"
-
-#: src/app/webbrowser/TimelineView.qml:89
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr "昨日"
 
-#: src/app/webbrowser/TimelineView.qml:91
-msgid "Last 7 Days"
+#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+msgid "Done"
+msgstr "Done"
+
+#: src/app/webbrowser/HistoryView.qml:109
+msgid "Clear"
+msgstr "クリア"
+
+#: src/app/webbrowser/HistoryView.qml:123
+msgid "Delete all history?"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:93
-msgid "This Month"
-msgstr "今月"
+#: src/app/webbrowser/HistoryView.qml:126
+msgid "Yes"
+msgstr "はい"
 
-#: src/app/webbrowser/TimelineView.qml:95
-msgid "This Year"
-msgstr "今年"
+#: src/app/webbrowser/HistoryView.qml:135
+msgid "No"
+msgstr "いいえ"
 
-#: src/app/webbrowser/TimelineView.qml:97
-msgid "Older"
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr "ブックマーク"
+
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:287
-msgid "(local files)"
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:289
-msgid "(other)"
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr ""
+
+#: src/app/webbrowser/TabsView.qml:110
+msgid "Add"
 msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
@@ -320,13 +337,13 @@ msgid "Browse the World Wide Web"
 msgstr "ウェブを閲覧します"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntuウェブブラウザー"
 
-#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntuウェブブラウザー"
