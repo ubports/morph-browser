@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -21,7 +21,9 @@
 
 // Qt
 #include <QtCore/QAbstractListModel>
-#include <QtCore/QMap>
+#include <QtCore/QDateTime>
+#include <QtCore/QList>
+#include <QtCore/QSet>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtSql/QSqlDatabase>
@@ -41,7 +43,8 @@ public:
     enum Roles {
         Url = Qt::UserRole + 1,
         Title,
-        Icon
+        Icon,
+        Created
     };
 
     // reimplemented from QAbstractListModel
@@ -68,11 +71,13 @@ private:
         QUrl url;
         QString title;
         QUrl icon;
+        QDateTime created;
     };
-    QMap<QUrl, BookmarkEntry> m_entries;
+    QSet<QUrl> m_urls;
+    QList<BookmarkEntry> m_orderedEntries;
 
     void resetDatabase(const QString& databaseName);
-    void createDatabaseSchema();
+    void createOrAlterDatabaseSchema();
     void populateFromDatabase();
     void insertNewEntryInDatabase(const BookmarkEntry& entry);
     void removeExistingEntryFromDatabase(const QUrl& url);
