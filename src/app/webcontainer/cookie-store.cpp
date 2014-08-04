@@ -20,34 +20,56 @@
 
 #include "cookie-store.h"
 
-CookieStore::CookieStore(QObject* parent):
-    QObject(parent)
+
+class CookieStoreRequest : public QObject
 {
+    Q_OBJECT
+
+public:
+    CookieStore(CookieStore* cookieStore,
+        QObject* parent = 0) : _cookieStore(cookieStore) {}
+
+    CookieStore* _cookieStore;
+
+private Q_SLOTS:
+    void cookiesReceived(const Cookies& cookies)
+    {
+        emit gotCookies(cookies, this);
+    }
+    void cookiesUpdated(bool status)
+    {
+        emit cookiesSet(status);
+    }
+
+Q_SIGNALS:
+    void gotCookies(const Cookies& cookies, CookieStoreRequest* request);
+    void cookiesSet(bool status);
+};
+
+
+CookieStore::CookieStore(QObject* parent):
+    QObject(parent), _currentStore(0)
+{
+    qRegisterMetaType<QNetworkCookie>();
     qRegisterMetaType<Cookies>("Cookies");
 }
 
-Cookies CookieStore::cookies()
+void CookieStore::getCookies()
 {
-    return doGetCookies();
+    doGetCookies();
 }
 
-bool CookieStore::setCookies(const Cookies& cookies)
+void CookieStore::setCookies(const Cookies& cookies)
 {
-    if (doSetCookies(cookies)) {
-        Q_EMIT cookiesChanged();
-        return true;
-    } else {
-        return false;
-    }
+    doSetCookies(cookies);
 }
 
-Cookies CookieStore::doGetCookies()
+void CookieStore::doGetCookies()
 {
     Q_UNIMPLEMENTED();
-    return Cookies();
 }
 
-bool CookieStore::doSetCookies(const Cookies& cookies)
+void CookieStore::doSetCookies(const Cookies& cookies)
 {
     Q_UNUSED(cookies);
     Q_UNIMPLEMENTED();
@@ -63,12 +85,32 @@ void CookieStore::updateLastUpdateTimestamp(const QDateTime& timestamp)
     _lastUpdateTimeStamp = timestamp;
 }
 
+void CookieStore::cookiesUpdated(bool status)
+{
+    if (status)
+        Q_EMIT moved(true);
+    else
+        Q_EMIT moved(false);
+}
+
+void CookieStore::cookiesReceived(const Cookies& cookies
+                                  , CookieStoreRequest* request)
+{
+    if (Q_UNLIKELY(!request))
+        return;
+
+    delete request;
+
+    connect(store, &CookieStore::cookiesSet,
+            store, &CookieStore::cookiesUpdated);
+
+    setCookies(cookies);
+}
+
 void CookieStore::moveFrom(CookieStore* store)
 {
     if (Q_UNLIKELY(!store))
         return;
-
-    Cookies cookies = store->cookies();
 
     QDateTime lastRemoteCookieUpdate = store->lastUpdateTimeStamp();
     QDateTime lastLocalCookieUpdate = lastUpdateTimeStamp();
@@ -81,9 +123,18 @@ void CookieStore::moveFrom(CookieStore* store)
         return;
     }
 
-    if (setCookies(cookies)) {
-        Q_EMIT moved(true);
-    } else {
-        Q_EMIT moved(false);
-    }
+    CookieStoreRequest* storeRequest = new CookieStoreRequest(store);
+    _currentStoreRequests.insert(storeRequest, true);
+
+    connect(store, &CookieStore::gotCookies,
+            storeRequest, &CookieStoreRequest::cookiesReceived);
+
+    connect(storeRequest, &CookieStoreRequest::gotCookies,
+            this, &CookieStore::cookiesReceived);
+
+    store->getCookies();
 }
+
+#include "CookieStoreRequest.moc"
+
+

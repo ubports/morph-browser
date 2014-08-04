@@ -20,12 +20,8 @@
 
 #include <QDebug>
 #include <QFileInfo>
-#include <QNetworkCookie>
-#include <QSqlError>
-#include <QSqlQuery>
 #include <QStandardPaths>
-
-static int connectionCounter = 0;
+#include <QMetaMethod>
 
 static qint64 dateTimeToChrome(const QDateTime &time)
 {
@@ -41,44 +37,56 @@ static QDateTime dateTimeFromChrome(qint64 chromeTimeStamp)
 }
 
 ChromeCookieStore::ChromeCookieStore(QObject* parent):
-    CookieStore(parent)
+    CookieStore(parent), m_backend(0)
+{}
+
+void ChromeCookieStore::setOxideStoreBackend(QObject* backend)
 {
-    QString connectionName =
-        QString("chromeCookieStore-%1").arg(connectionCounter++);
-    m_db = QSqlDatabase::addDatabase("QSQLITE", connectionName);
+    if (m_backend == backend)
+        return;
+
+    m_backend = backend;
+
+    emit oxideStoreBackendChanged();
 }
 
-Cookies ChromeCookieStore::doGetCookies()
+QObject* ChromeCookieStore::oxideStoreBackend() const
 {
-    Cookies cookies;
-    m_db.setDatabaseName(m_dbPath);
+    return m_backend;
+}
 
-    if (Q_UNLIKELY(!m_db.open())) {
-        qCritical() << "Could not open cookie database:" << m_dbPath
-            << m_db.lastError();
-        return cookies;
+void ChromeCookieStore::cookiesReceived(const Cookies& cookies)
+{
+    emit gotCookies(cookies);
+}
+
+void ChromeCookieStore::cookiesUpdated(bool status)
+{
+    emit cookiesSet(status);
+}
+
+void ChromeCookieStore::doGetCookies()
+{
+    if ( ! m_backend)
+        return;
+
+    QByteArray normalizedSignature =
+      QMetaObject::normalizedSignature("gotCookies(const QList<QNetworkCookie>&)");
+    int idx = m_backend->metaObject()->indexOfSignal(normalizedSignature);
+    if (idx != -1) {
+      QMetaMethod method = m_backend->metaObject()->method(idx);
+      connect(m_backend, method,
+              this, metaObject()->method(
+                        metaObject()->indexOfSlot(
+                            "cookiesReceived(const QList<QNetworkCookie>&)")));
     }
 
-    QSqlQuery q(m_db);
-    q.exec("SELECT host_key, name, value, path, expires_utc, secure, httponly, has_expires FROM cookies;");
-
-    while (q.next()) {
-        /* Build the cookie string from its parts */
-        QNetworkCookie cookie(q.value(1).toString().toUtf8(),
-                              q.value(2).toString().toUtf8());
-        cookie.setSecure(q.value(5).toBool());
-        cookie.setHttpOnly(q.value(6).toBool());
-        if (q.value(7).toBool()) {
-            QDateTime expires = dateTimeFromChrome(q.value(4).toULongLong());
-            cookie.setExpirationDate(expires);
-        }
-        cookie.setDomain(q.value(0).toString());
-        cookie.setPath(q.value(3).toString());
-        cookies.append(cookie.toRawForm());
+    normalizedSignature = QMetaObject::normalizedSignature("getAllCookies()");
+    idx = m_backend->metaObject()->indexOfMethod(normalizedSignature);
+    if (idx != -1) {
+        QMetaMethod method = m_backend->metaObject()->method(idx);
+        method.invoke(m_backend, Qt::DirectConnection);
     }
-
-    m_db.close();
-    return cookies;
 }
 
 QDateTime ChromeCookieStore::lastUpdateTimeStamp() const
@@ -87,120 +95,27 @@ QDateTime ChromeCookieStore::lastUpdateTimeStamp() const
     return dbFileInfo.lastModified();
 }
 
-bool ChromeCookieStore::createDb()
+void ChromeCookieStore::doSetCookies(const Cookies& cookies)
 {
-    if (Q_UNLIKELY(!m_db.transaction())) return false;
+    if ( ! m_backend)
+        return;
 
-    QSqlQuery q(m_db);
-    bool ok;
-    ok = q.exec("CREATE TABLE meta(key LONGVARCHAR NOT NULL UNIQUE PRIMARY KEY,"
-                "value LONGVARCHAR)");
-    if (Q_UNLIKELY(!ok)) {
-        m_db.rollback();
-        return false;
+    QByteArray normalizedSignature =
+      QMetaObject::normalizedSignature("cookiesSet(bool)");
+    int idx = m_backend->metaObject()->indexOfSignal(normalizedSignature);
+    if (idx != -1) {
+      QMetaMethod method = m_backend->metaObject()->method(idx);
+      connect(m_backend, method, this, metaObject()->method(metaObject()->indexOfSlot("cookiesUpdates(bool)")));
     }
 
-    ok = q.exec("CREATE TABLE cookies (creation_utc INTEGER NOT NULL UNIQUE PRIMARY KEY,"
-                "host_key TEXT NOT NULL,"
-                "name TEXT NOT NULL,"
-                "value TEXT NOT NULL,"
-                "path TEXT NOT NULL,"
-                "expires_utc INTEGER NOT NULL,"
-                "secure INTEGER NOT NULL,"
-                "httponly INTEGER NOT NULL,"
-                "last_access_utc INTEGER NOT NULL,"
-                "has_expires INTEGER NOT NULL DEFAULT 1,"
-                "persistent INTEGER NOT NULL DEFAULT 1,"
-                "priority INTEGER NOT NULL DEFAULT 1,"
-                "encrypted_value BLOB DEFAULT '')");
-    if (Q_UNLIKELY(!ok)) {
-        m_db.rollback();
-        return false;
+    normalizedSignature = QMetaObject::normalizedSignature("setCookies(const QList<QNetworkCookie>&)");
+    idx = m_backend->metaObject()->indexOfMethod(normalizedSignature);
+    if (idx != -1) {
+        QMetaMethod method = m_backend->metaObject()->method(idx);
+        method.invoke(m_backend,
+              Qt::DirectConnection,
+              Q_ARG(QList<QNetworkCookie>, cookies));
     }
-
-    ok = q.exec("CREATE INDEX domain ON cookies(host_key)");
-    if (Q_UNLIKELY(!ok)) {
-        m_db.rollback();
-        return false;
-    }
-
-    ok = q.exec("INSERT INTO meta (key, value) VALUES ('version', '7')");
-    if (Q_UNLIKELY(!ok)) {
-        m_db.rollback();
-        return false;
-    }
-
-    ok = q.exec("INSERT INTO meta (key, value) VALUES ('last_compatible_version', '5')");
-    if (Q_UNLIKELY(!ok)) {
-        m_db.rollback();
-        return false;
-    }
-
-    return m_db.commit();
-}
-
-bool ChromeCookieStore::doSetCookies(const Cookies& cookies)
-{
-    m_db.setDatabaseName(m_dbPath);
-
-    if (!m_db.open()) {
-        qCritical() << "Could not open cookie database:" <<
-            m_dbPath << m_db.lastError().text();
-        return false;
-    }
-
-    QSqlQuery q(m_db);
-    // Check whether the table already exists
-    q.exec("SELECT name FROM sqlite_master WHERE type='table' AND name='cookies'");
-    if (!q.next() && !createDb()) {
-        qCritical() << "Could not create cookie database:" <<
-            m_dbPath << m_db.lastError().text();
-        return false;
-    }
-
-    QList<QNetworkCookie> parsedCookies;
-
-    Q_FOREACH(const QByteArray &cookie, cookies) {
-        parsedCookies.append(QNetworkCookie::parseCookies(cookie));
-    }
-
-    q.prepare("INSERT INTO cookies (creation_utc,"
-              "host_key, name, value, path,"
-              "expires_utc, secure, httponly, last_access_utc,"
-              "has_expires, persistent, priority, encrypted_value) "
-              "VALUES (:creation_utc,"
-              ":host_key, :name, :value, :path,"
-              ":expires_utc, :secure, :httponly, :last_access_utc,"
-              ":has_expires, :persistent, :priority, :encrypted_value)");
-    qint64 lastTimestamp = 0;
-    Q_FOREACH(const QNetworkCookie &cookie, parsedCookies) {
-        quint64 timestamp = dateTimeToChrome(QDateTime::currentDateTimeUtc());
-        /* Make sure that every cicle iteration marks a different timestamp */
-        if (timestamp <= lastTimestamp)
-            timestamp = lastTimestamp + 1;
-
-        q.bindValue(":creation_utc", timestamp);
-        q.bindValue(":host_key", cookie.domain());
-        q.bindValue(":name", cookie.name());
-        q.bindValue(":value", cookie.value());
-        q.bindValue(":path", cookie.path());
-        q.bindValue(":expires_utc",
-                    dateTimeToChrome(cookie.expirationDate().toUTC()));
-        q.bindValue(":secure", cookie.isSecure());
-        q.bindValue(":httponly", cookie.isHttpOnly());
-        q.bindValue(":last_access_utc", timestamp);
-        q.bindValue(":has_expires", cookie.expirationDate().isValid());
-        q.bindValue(":persistent", true);
-        q.bindValue(":priority", 1);
-        q.bindValue(":encrypted_value", 1);
-        q.exec();
-
-        lastTimestamp = timestamp;
-    }
-
-    m_db.close();
-
-    return true;
 }
 
 void ChromeCookieStore::setDbPath(const QString &path)

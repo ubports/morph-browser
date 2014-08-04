@@ -48,47 +48,45 @@ Window {
     title: {
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
             return webappName
-        } else if (webappPageComponentLoader.item &&
-                   webappPageComponentLoader.item.title) {
+        } else if (browser.title) {
             // TRANSLATORS: %1 refers to the current page’s title
-            return i18n.tr("%1 - Ubuntu Web Browser").arg(webappPageComponentLoader.item.title)
+            return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
         } else {
             return i18n.tr("Ubuntu Web Browser")
         }
     }
 
-    Loader {
-        id: webappPageComponentLoader
+    WebApp {
+        id: browser
+
+        // Initially set as non visible to leave a chance
+        // for the OA dialog to appear
+        visible: false
+
+        chromeVisible: root.chromeVisible
+        backForwardButtonsVisible: root.backForwardButtonsVisible
+        developerExtrasEnabled: root.developerExtrasEnabled
+        oxide: root.oxide
+
+        //            url: root.url
+
+        webappModelSearchPath: root.webappModelSearchPath
+        webappName: root.webappName
+        webappUrlPatterns: root.webappUrlPatterns
+
+        popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+
         anchors.fill: parent
-    }
 
-    Component {
-        id: webappPageComponent
+        webbrowserWindow: webbrowserWindowProxy
 
-        WebApp {
-            id: browser
-            chromeVisible: root.chromeVisible
-            backForwardButtonsVisible: root.backForwardButtonsVisible
-            developerExtrasEnabled: root.developerExtrasEnabled
-            oxide: root.oxide
-            url: root.url
-            webappModelSearchPath: root.webappModelSearchPath
-            webappName: root.webappName
-            webappUrlPatterns: root.webappUrlPatterns
-
-            popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
-
-            anchors.fill: parent
-
-            webbrowserWindow: webbrowserWindowProxy
-
-            Component.onCompleted: i18n.domain = "webbrowser-app"
-        }
+        Component.onCompleted: i18n.domain = "webbrowser-app"
     }
 
     // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
     // by toggling fullscreen on the window only on desktop.
-    visibility: webappPageComponentLoader.item && webappPageComponentLoader.item.currentWebview.fullscreen && (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
+    visibility: browser.currentWebview.fullscreen &&
+                (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
         id: accountsPageComponentLoader
@@ -110,16 +108,10 @@ Window {
     }
 
     Component {
-        id: webkitCookieStoreComponent
-        WebkitCookieStore {
-            dbPath: dataLocation + "/.QtWebKit/cookies.db"
-        }
-    }
-
-    Component {
-        id: chromeCookieStoreComponent
+        id: oxideCookieStoreComponent
         ChromeCookieStore {
             dbPath: dataLocation + "/cookies.sqlite"
+            oxideStoreBackend: browser.context.cookieManager
         }
     }
 
@@ -130,7 +122,7 @@ Window {
     function updateCurrentView() {
         // check if we are to display the login view
         // or directly switch to the webapp view
-        if (accountProvider.length !== 0) {
+        if (accountProvider.length !== 0 && oxide) {
             loadLoginView();
         } else {
             loadWebAppView();
@@ -139,9 +131,7 @@ Window {
 
     function loadLoginView() {
         if (!__webappCookieStore) {
-            var cookieStoreComponent =
-                oxide ? chromeCookieStoreComponent : webkitCookieStoreComponent
-            __webappCookieStore = cookieStoreComponent.createObject(this)
+            __webappCookieStore = oxideCookieStoreComponent.createObject(this)
         }
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
             "accountProvider": accountProvider,
@@ -151,10 +141,8 @@ Window {
     }
 
     function loadWebAppView() {
-        webappPageComponentLoader.sourceComponent = webappPageComponent;
-        if (accountsPageComponentLoader.item)
-            accountsPageComponentLoader.item.visible = false;
-        webappPageComponentLoader.item.visible = true;
+        browser.visible = true;
+        browser.url = root.url
     }
 
     // Handle runtime requests to open urls as defined

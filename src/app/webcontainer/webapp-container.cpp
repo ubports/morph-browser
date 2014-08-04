@@ -23,7 +23,6 @@
 #include "online-accounts-cookie-store.h"
 #include "session-utils.h"
 #include "url-pattern-utils.h"
-#include "webkit-cookie-store.h"
 #include "webapp-container-helper.h"
 
 
@@ -156,8 +155,6 @@ void WebappContainer::qmlEngineCreated(QQmlEngine* engine)
     if (engine) {
         qmlRegisterType<ChromeCookieStore>(privateModuleUri, 0, 1,
                                            "ChromeCookieStore");
-        qmlRegisterType<WebkitCookieStore>(privateModuleUri, 0, 1,
-                                           "WebkitCookieStore");
         qmlRegisterType<OnlineAccountsCookieStore>(privateModuleUri, 0, 1,
                                                    "OnlineAccountsCookieStore");
     }

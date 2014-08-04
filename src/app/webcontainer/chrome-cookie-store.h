@@ -27,27 +27,37 @@ class ChromeCookieStore : public CookieStore
 {
     Q_OBJECT
     Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
+    Q_PROPERTY(QObject* oxideStoreBackend READ oxideStoreBackend WRITE setOxideStoreBackend NOTIFY oxideStoreBackendChanged)
 
 public:
     ChromeCookieStore(QObject* parent = 0);
 
+    // dbpaths
     void setDbPath(const QString& path);
     QString dbPath() const;
 
+    // oxideStoreBackend
+    void setOxideStoreBackend(QObject* backend);
+    QObject* oxideStoreBackend() const;
+
+    // CookieStore overrides
     QDateTime lastUpdateTimeStamp() const Q_DECL_OVERRIDE;
 
 Q_SIGNALS:
     void dbPathChanged();
+    void oxideStoreBackendChanged();
+
+private Q_SLOTS:
+    void cookiesReceived(const Cookies& cookies);
+    void cookiesUpdated(bool status);
 
 private:
-    virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
-    virtual bool doSetCookies(const Cookies& cookies) Q_DECL_OVERRIDE;
-
-    bool createDb();
+    virtual void doGetCookies() Q_DECL_OVERRIDE;
+    virtual void doSetCookies(const Cookies& cookies) Q_DECL_OVERRIDE;
 
 private:
+    QObject* m_backend;
     QString m_dbPath;
-    QSqlDatabase m_db;
 };
 
 #endif // CHROME_COOKIE_STORE_H
