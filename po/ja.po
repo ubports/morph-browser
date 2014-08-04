@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2014-01-18 07:16+0000\n"
-"Last-Translator: 173210 <root.3.173210@live.com>\n"
+"PO-Revision-Date: 2014-08-03 13:34+0000\n"
+"Last-Translator: Fumihito YOSHIDA <hito@kugutsu.org>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-04 06:29+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -29,13 +29,13 @@ msgstr "OK"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "認証が必要です。"
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "ウェブサイト %1 は認証が必要です。"
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
@@ -52,11 +52,11 @@ msgstr "キャンセル"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "ナビゲーションの確認"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "休暇"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
@@ -64,7 +64,7 @@ msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "この接続の安全性は確認できません"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -72,11 +72,11 @@ msgstr ""
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
-msgstr ""
+msgstr "セキュアに %1 にアクセスしようとしていますが、このウェブサイトのセキュリティ証明書は信頼できません。"
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "とにかく続行する"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
@@ -84,7 +84,7 @@ msgstr "セキュリティで保護されたページに戻る"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "JavaScriptの確認"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -107,12 +107,12 @@ msgstr "ページを更新"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "ファイルを選択してください"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "許可を求めています"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:65
@@ -131,7 +131,7 @@ msgstr "許可"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "JavaScriptのプロンプト"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
@@ -165,7 +165,7 @@ msgstr "このページをブックマークに追加"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "リンクをブックマーク"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
@@ -175,7 +175,7 @@ msgstr "履歴をクリア"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "閲覧履歴をクリア"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -183,7 +183,7 @@ msgstr "コピー"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "画像をコピー"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
@@ -221,11 +221,11 @@ msgstr "新しいタブを開く"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "新しいタブで画像を開く"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "新しいタブでリンクを開く"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -239,7 +239,7 @@ msgstr ""
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "イメージの保存"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
@@ -251,19 +251,19 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:148
 msgid "Share"
-msgstr ""
+msgstr "シェア"
 
 #: src/app/webbrowser/Browser.qml:162
 msgid "History"
-msgstr ""
+msgstr "履歴"
 
 #: src/app/webbrowser/Browser.qml:168
 msgid "Open tabs"
-msgstr ""
+msgstr "タブを開く"
 
 #: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
 msgid "New tab"
-msgstr ""
+msgstr "新しいタブ"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
@@ -286,11 +286,11 @@ msgstr "昨日"
 
 #: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
 msgid "Done"
-msgstr ""
+msgstr "Done"
 
 #: src/app/webbrowser/HistoryView.qml:109
 msgid "Clear"
-msgstr ""
+msgstr "クリア"
 
 #: src/app/webbrowser/HistoryView.qml:123
 msgid "Delete all history?"
@@ -298,11 +298,11 @@ msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:126
 msgid "Yes"
-msgstr ""
+msgstr "はい"
 
 #: src/app/webbrowser/HistoryView.qml:135
 msgid "No"
-msgstr ""
+msgstr "いいえ"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -363,15 +363,3 @@ msgstr ""
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr ""
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Today"
-#~ msgstr "今日"
-
-#~ msgid "This Month"
-#~ msgstr "今月"
-
-#~ msgid "This Year"
-#~ msgstr "今年"

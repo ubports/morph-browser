@@ -8,63 +8,63 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2013-09-08 11:53+0000\n"
-"Last-Translator: Ahmad Sufi Mahmudi <Unknown>\n"
+"PO-Revision-Date: 2014-08-03 16:26+0000\n"
+"Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-04 06:29+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "هشدار جاوا اسکریپت"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "قبول"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "احراز هویت اجباری‌ست."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "وب‌سایت %1 به احراز هویت نیاز دارد."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "نام کاربری"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "گذرواژه"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "لغو"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "تأیید پیمایش"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "خروج"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "ماندن"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "این ارتباط غیرقابل اطمینان است"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -73,18 +73,20 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"با اینکه می‌خواهید به صورت ایمن به %1 وصل شوید، ولی گواهینامه‌ی امنیتی این "
+"وب‌سایت قابل اطمینان نیست."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "به هر حال ادامه بده"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "بازگشت به ایمنی"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "تایید جاوا اسکریپت"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -109,7 +111,7 @@ msgstr "بازآوری صفحه"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "لطفا پرونده‌ای را برگزینید"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
@@ -119,7 +121,7 @@ msgstr "درخواست اجازه"
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "این صفحه می‌خواهد مکان دستگاه شما را بداند."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
@@ -133,17 +135,17 @@ msgstr "اجازه دادن"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "خط فرمان جاوااسکریپت"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "کارگزار نیاز به احراز هویت دارد."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "پایگاه وب %1:%2 نیاز به احراز هویت دارد."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -167,17 +169,17 @@ msgstr "اضافه کردن این صفحه به نشانک‌ها"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "نشانه‌گذاری پیوند"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "پاک‌کردن تاریخچه"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "پاک کردن تاریخچه‌ی ناوبری"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -185,11 +187,11 @@ msgstr "رونوشت"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "رونوشت تصویر"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "رونوشت پیوند"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -223,11 +225,11 @@ msgstr "بازکردن زبانه‌ی جدید"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "بازکردن تصویر در زبانه‌ی جدید"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "بازکردن پیوند در زبانه‌ی جدید"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -241,46 +243,45 @@ msgstr "ترک صفحه"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "ذخیره‌ی تصویر"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr ""
+msgstr "به اشترام گذاری…"
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
-msgstr ""
+msgstr "جست‌وجو کرده یا یک نشانی را وارد کنید"
 
 #: src/app/webbrowser/Browser.qml:148
 msgid "Share"
-msgstr ""
+msgstr "به‌اشتراک گذاری"
 
 #: src/app/webbrowser/Browser.qml:162
 msgid "History"
-msgstr ""
+msgstr "تاریخچه"
 
 #: src/app/webbrowser/Browser.qml:168
 msgid "Open tabs"
-msgstr ""
+msgstr "زبانه‌های باز"
 
 #: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
 msgid "New tab"
-msgstr ""
+msgstr "زبانه‌ی جدید"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 صفحه"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:113
 msgid "Less"
-msgstr ""
+msgstr "کم‌تر"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
-msgstr ""
+msgstr "آخرین بازدیدها"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
@@ -288,23 +289,23 @@ msgstr "دیروز"
 
 #: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
 msgid "Done"
-msgstr ""
+msgstr "انجام شد"
 
 #: src/app/webbrowser/HistoryView.qml:109
 msgid "Clear"
-msgstr ""
+msgstr "پاک‌کردن"
 
 #: src/app/webbrowser/HistoryView.qml:123
 msgid "Delete all history?"
-msgstr ""
+msgstr "تمامی تاریخجه پاک شود؟"
 
 #: src/app/webbrowser/HistoryView.qml:126
 msgid "Yes"
-msgstr ""
+msgstr "بله"
 
 #: src/app/webbrowser/HistoryView.qml:135
 msgid "No"
-msgstr ""
+msgstr "خیر"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -312,19 +313,19 @@ msgstr "نشانک‌ها"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
-msgstr ""
+msgstr "پایگاه‌های برتر"
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
-msgstr ""
+msgstr "مشاهده‌ی کم‌تر"
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see more"
-msgstr ""
+msgstr "مشاهده‌ی بیش‌تر"
 
 #: src/app/webbrowser/TabsView.qml:110
 msgid "Add"
-msgstr ""
+msgstr "افزودن"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -352,47 +353,16 @@ msgstr "مرورگر وب اوبونتو"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "حساب محلی‌ای پیدا نشد برای "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "پرش از گام ایجاد حساب کاربری"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "افزودن حساب کاربری"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
-
-#~ msgid "Activity"
-#~ msgstr "فعالیت"
-
-#~ msgid "Today"
-#~ msgstr "امروز"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "درحال دیدن (%1)"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "۷ روز گذشته"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "This Month"
-#~ msgstr "این ماه"
-
-#~ msgid "This Year"
-#~ msgstr "امسال"
-
-#~ msgid "(other)"
-#~ msgstr "(دیگر)"
-
-#~ msgid "Older"
-#~ msgstr "قدیمی‌تر"
-
-#~ msgid "(local files)"
-#~ msgstr "(پرونده‌های محلی)"
+msgstr "انتخاب یک حساب کاربری"

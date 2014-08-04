@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2014-07-17 06:54+0000\n"
-"Last-Translator: Bartosz Okoń <bary450@gmail.com>\n"
+"PO-Revision-Date: 2014-08-03 14:44+0000\n"
+"Last-Translator: GTriderXC <gtriderxc@yahoo.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-04 06:29+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -251,38 +251,39 @@ msgstr "Udostępnij..."
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
-msgstr ""
+msgstr "wyszukaj lub wprowadź adres"
 
 #: src/app/webbrowser/Browser.qml:148
 msgid "Share"
-msgstr ""
+msgstr "Udostępnij"
 
 #: src/app/webbrowser/Browser.qml:162
 msgid "History"
-msgstr ""
+msgstr "Historia"
 
 #: src/app/webbrowser/Browser.qml:168
 msgid "Open tabs"
-msgstr ""
+msgstr "Otwarte karty"
 
 #: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
 msgid "New tab"
-msgstr ""
+msgstr "Nowa karta"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 strona"
+msgstr[1] "%1 strony"
+msgstr[2] "%1 stron"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:113
 msgid "Less"
-msgstr ""
+msgstr "Mniej"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
-msgstr ""
+msgstr "Ostatnio odwiedzone"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
@@ -290,23 +291,23 @@ msgstr "Wczoraj"
 
 #: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
 msgid "Done"
-msgstr ""
+msgstr "Gotowe"
 
 #: src/app/webbrowser/HistoryView.qml:109
 msgid "Clear"
-msgstr ""
+msgstr "Wyczyść"
 
 #: src/app/webbrowser/HistoryView.qml:123
 msgid "Delete all history?"
-msgstr ""
+msgstr "Wyczyścić historię?"
 
 #: src/app/webbrowser/HistoryView.qml:126
 msgid "Yes"
-msgstr ""
+msgstr "Tak"
 
 #: src/app/webbrowser/HistoryView.qml:135
 msgid "No"
-msgstr ""
+msgstr "Nie"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -326,7 +327,7 @@ msgstr "pokaż więcej"
 
 #: src/app/webbrowser/TabsView.qml:110
 msgid "Add"
-msgstr ""
+msgstr "Dodaj"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -367,34 +368,3 @@ msgstr "Dodaj konto"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Wybierz konto"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Activity"
-#~ msgstr "Aktywność"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "Obecnie przeglądanych (%1)"
-
-#~ msgid "Today"
-#~ msgstr "Dzisiaj"
-
-#~ msgid "This Month"
-#~ msgstr "W tym miesiącu"
-
-#~ msgid "This Year"
-#~ msgstr "W tym roku"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "Ostatnie 7 dni"
-
-#~ msgid "(other)"
-#~ msgstr "(inne)"
-
-#~ msgid "Older"
-#~ msgstr "Starsze"
-
-#~ msgid "(local files)"
-#~ msgstr "(pliki lokalne)"
