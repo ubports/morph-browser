@@ -18,11 +18,9 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0 as Popups
 
-Popups.Dialog {
+ModalDialog {
     title: i18n.tr("JavaScript Prompt")
-    text: model.message
 
     TextField {
         id: input
@@ -47,6 +45,4 @@ Popups.Dialog {
         property: "currentValue"
         value: input.text
     }
-
-    Component.onCompleted: show()
 }

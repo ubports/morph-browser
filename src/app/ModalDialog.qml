@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -18,12 +18,20 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
+import Ubuntu.Components.Popups 1.0 as Popups
 
-ModalDialog {
-    title: i18n.tr("JavaScript Alert")
+Popups.Dialog {
+    text: model.message
 
-    Button {
-        text: i18n.tr("OK")
-        onClicked: model.accept()
-    }
+    // Set the parent at construction time, instead of letting show()
+    // set it later on, which for some reason results in the size of
+    // the dialog not being updated.
+    parent: QuickUtils.rootItem(this)
+
+    // Do not auto-rotate as the dialog is being parented to a BrowserView,
+    // which itself is an OrientationHelper (which rotates all its children
+    // automatically already). See http://pad.lv/1351922.
+    automaticOrientation: false
+
+    Component.onCompleted: show()
 }
