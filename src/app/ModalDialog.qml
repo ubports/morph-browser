@@ -28,10 +28,5 @@ Popups.Dialog {
     // the dialog not being updated.
     parent: QuickUtils.rootItem(this)
 
-    // Do not auto-rotate as the dialog is being parented to a BrowserView,
-    // which itself is an OrientationHelper (which rotates all its children
-    // automatically already). See http://pad.lv/1351922.
-    automaticOrientation: false
-
     Component.onCompleted: show()
 }

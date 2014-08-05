@@ -27,24 +27,29 @@ Component {
         id: picker
         objectName: "contentPickerDialog"
 
+        // Set the parent at construction time, instead of letting show()
+        // set it later on, which for some reason results in the size of
+        // the dialog not being updated.
+        parent: QuickUtils.rootItem(this)
+
         property var activeTransfer
         property var selectedItems
-    
+
         Rectangle {
             anchors.fill: parent
-    
+
             ContentTransferHint {
                 anchors.fill: parent
                 activeTransfer: picker.activeTransfer
             }
-    
+
             ContentPeerPicker {
                 id: peerPicker
                 anchors.fill: parent
                 visible: true
                 contentType: ContentType.All
                 handler: ContentHandler.Source
-    
+
                 onPeerSelected: {
                     if (model.allowMultipleFiles) {
                         peer.selectionType = ContentTransfer.Multiple
@@ -54,14 +59,14 @@ Component {
                     picker.activeTransfer = peer.request()
                     stateChangeConnection.target = picker.activeTransfer
                 }
-    
+
                 onCancelPressed: {
                     webview.focus = true
                     model.reject()
                 }
             }
         }
-    
+
         Connections {
             id: stateChangeConnection
             onStateChanged: {
@@ -74,7 +79,7 @@ Component {
                 }
             }
         }
-    
+
         // FIXME: Work around for browser becoming insensitive to touch events
         // if the dialog is dismissed while the application is inactive.
         // Just listening for changes to Qt.application.active doesn't appear
@@ -92,7 +97,7 @@ Component {
                 }
             }
         }
-    
+
         Component.onCompleted: {
             if(acceptTypes.length === 1) {
                 var contentType = MimeTypeMapper.mimeTypeToContentType(acceptTypes[0])
@@ -106,6 +111,5 @@ Component {
             }
             show()
         }
-    
     }
 }
