@@ -25,11 +25,11 @@
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
 #include <QtQuick/QQuickWindow>
-#if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
+// #if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
 #include <QtQuick/private/qsgcontext_p.h>
-#else
-#include <QtGui/private/qopenglcontext_p.h>
-#endif
+// #else
+// #include <QtGui/private/qopenglcontext_p.h>
+// #endif
 
 // local
 #include "browserapplication.h"

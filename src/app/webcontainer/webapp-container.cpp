@@ -133,6 +133,13 @@ bool WebappContainer::initialize()
             m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
         }
 
+
+        QFile overrideFile("webview-override.qml");
+        if (overrideFile.exists()) {
+            qDebug() << "Found webview-override.qml";
+            m_window->setProperty("webviewOverrideFile", QUrl::fromLocalFile(overrideFile.fileName()));
+        }
+
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (m_webappName.isEmpty()) {
             QList<QUrl> urls = this->urls();

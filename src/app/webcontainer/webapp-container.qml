@@ -38,6 +38,7 @@ Window {
     property bool oxide: false
     property string accountProvider: ""
     property string popupRedirectionUrlPrefix: ""
+    property string webviewOverrideFile: ""
     property var __webappCookieStore: null
 
     contentOrientation: Screen.orientation
