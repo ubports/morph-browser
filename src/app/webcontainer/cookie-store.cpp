@@ -26,12 +26,12 @@ class CookieStoreRequest : public QObject
     Q_OBJECT
 
 public:
-    CookieStore(CookieStore* cookieStore,
+    CookieStoreRequest(CookieStore* cookieStore,
         QObject* parent = 0) : _cookieStore(cookieStore) {}
 
     CookieStore* _cookieStore;
 
-private Q_SLOTS:
+public Q_SLOTS:
     void cookiesReceived(const Cookies& cookies)
     {
         emit gotCookies(cookies, this);
@@ -48,7 +48,7 @@ Q_SIGNALS:
 
 
 CookieStore::CookieStore(QObject* parent):
-    QObject(parent), _currentStore(0)
+    QObject(parent)
 {
     qRegisterMetaType<QNetworkCookie>();
     qRegisterMetaType<Cookies>("Cookies");
@@ -101,8 +101,8 @@ void CookieStore::cookiesReceived(const Cookies& cookies
 
     delete request;
 
-    connect(store, &CookieStore::cookiesSet,
-            store, &CookieStore::cookiesUpdated);
+    connect(this, &CookieStore::cookiesSet,
+            this, &CookieStore::cookiesUpdated);
 
     setCookies(cookies);
 }
@@ -135,6 +135,6 @@ void CookieStore::moveFrom(CookieStore* store)
     store->getCookies();
 }
 
-#include "CookieStoreRequest.moc"
+#include "cookie-store.moc"
 
 
