@@ -133,10 +133,8 @@ bool WebappContainer::initialize()
             m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
         }
 
-
         QFile overrideFile("webview-override.qml");
         if (overrideFile.exists()) {
-            qDebug() << "Found webview-override.qml";
             m_window->setProperty("webviewOverrideFile", QUrl::fromLocalFile(overrideFile.fileName()));
         }
 

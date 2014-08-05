@@ -34,7 +34,6 @@ Item {
     property var webappUrlPatterns
     property string localUserAgentOverride: ""
     property string popupRedirectionUrlPrefix: ""
-    property string webviewOverrideFile: ""
 
     Loader {
         id: webappContainerWebViewLoader
@@ -48,6 +47,7 @@ Item {
                   : Qt.resolvedUrl("WebViewImplWebkit.qml");
 
         if (root.webviewOverrideFile) {
+            console.log("Loading webview-override.qml...");
             webappEngineSource = root.webviewOverrideFile;
         }
 
