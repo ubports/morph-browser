@@ -18,16 +18,18 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
+import Ubuntu.Components.ListItems 1.0 as ListItem
 import ".."
 
-Item {
+ListItem.Empty {
     id: urlDelegate
 
     property alias icon: icon.source
     property alias title: title.text
     property alias url: url.text
 
-    signal clicked()
+    showDivider: false
+    removable: false
 
     UbuntuShape {
         id: iconContainer
@@ -76,11 +78,5 @@ Item {
         wrapMode: Text.Wrap
         elide: Text.ElideRight
         maximumLineCount: 1
-    }
-
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: urlDelegate.clicked()
     }
 }
