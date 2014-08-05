@@ -45,9 +45,7 @@ Window {
     width: 800
     height: 600
 
-    title: {
-        return getWindowTitle()
-    }
+    title: getWindowTitle()
 
     function getWindowTitle() {
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
@@ -91,7 +89,7 @@ Window {
             onWebappNameChanged: {
                 if (root.webappName !== browser.webappName) {
                     root.webappName = browser.webappName;
-                    browser.title = getWindowTitle();
+                    root.title = getWindowTitle();
                 }
             }
         }

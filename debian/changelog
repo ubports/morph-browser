@@ -1,3 +1,21 @@
+webbrowser-app (0.23+14.10.20140804-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Ugo Riboni ]
+  * Add creation timestamp to bookmarks model. (LP: #1351185)
+
+  [ Alexandre Abreu ]
+  * Handle simplified webapp definition
+
+  [ Olivier Tilloy ]
+  * Add creation timestamp to bookmarks model. (LP: #1351185)
+  * Factor out some common code in a ModalDialog component, and fix
+    dialog auto-rotation and dimensions. (LP: #1351922)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 04 Aug 2014 15:02:31 +0000
+
 webbrowser-app (0.23+14.10.20140731-0ubuntu1) utopic; urgency=low
 
   [ Ubuntu daily release ]
