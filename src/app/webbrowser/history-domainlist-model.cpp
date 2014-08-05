@@ -198,7 +198,6 @@ void HistoryDomainListModel::onDomainRowsRemoved(const QModelIndex& parent, int 
     Q_UNUSED(parent);
     Q_UNUSED(start);
     Q_UNUSED(end);
-
     HistoryDomainModel* model = qobject_cast<HistoryDomainModel*>(sender());
     if (model != 0) {
         const QString& domain = model->domain();

@@ -85,8 +85,8 @@ private:
     void removeByIndex(int index);
     void insertNewEntryInDatabase(const HistoryEntry& entry);
     void updateExistingEntryInDatabase(const HistoryEntry& entry);
-    void removeExistingEntryFromDatabaseByUrl(const QUrl& url);
-    void removeExistingEntryFromDatabaseByDomain(const QString& domain);
+    void removeEntryFromDatabaseByUrl(const QUrl& url);
+    void removeEntriesFromDatabaseByDomain(const QString& domain);
     void clearDatabase();
 };
 

@@ -280,7 +280,7 @@ void HistoryModel::removeEntryByUrl(const QUrl& url)
     }
 
     removeByIndex(getEntryIndex(url));
-    removeExistingEntryFromDatabaseByUrl(url);
+    removeEntryFromDatabaseByUrl(url);
 }
 
 /*!
@@ -292,12 +292,12 @@ void HistoryModel::removeEntriesByDomain(const QString& domain)
         return;
     }
 
-    for (int i = 0; i < m_entries.count(); ++i) {
+    for (int i = m_entries.count() - 1; i >= 0; --i) {
         if (m_entries.at(i).domain == domain) {
             removeByIndex(i);
         }
     }
-    removeExistingEntryFromDatabaseByDomain(domain);
+    removeEntriesFromDatabaseByDomain(domain);
 }
 
 void HistoryModel::removeByIndex(int index)
@@ -338,7 +338,7 @@ void HistoryModel::updateExistingEntryInDatabase(const HistoryEntry& entry)
     query.exec();
 }
 
-void HistoryModel::removeExistingEntryFromDatabaseByUrl(const QUrl& url)
+void HistoryModel::removeEntryFromDatabaseByUrl(const QUrl& url)
 {
     QSqlQuery query(m_database);
     static QString deleteStatement = QLatin1String("DELETE FROM history WHERE url=?;");
@@ -347,7 +347,7 @@ void HistoryModel::removeExistingEntryFromDatabaseByUrl(const QUrl& url)
     query.exec();
 }
 
-void HistoryModel::removeExistingEntryFromDatabaseByDomain(const QString& domain)
+void HistoryModel::removeEntriesFromDatabaseByDomain(const QString& domain)
 {
     QSqlQuery query(m_database);
     static QString deleteStatement = QLatin1String("DELETE FROM history WHERE domain=?;");
