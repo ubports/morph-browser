@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2014-07-20 18:10+0000\n"
+"PO-Revision-Date: 2014-08-04 18:53+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:41+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -112,12 +112,12 @@ msgstr "እባክዎን ፋይል ይምረጡ"
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "ፍቃድ መጠየቂያ"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "ይህ ገጽ የ አካሉን አካባቢ ማወቅ ይፈልጋል"
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
@@ -135,7 +135,7 @@ msgstr ""
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "የ ወኪል ማረጋገጫ ያስፈልጋል"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
@@ -247,15 +247,15 @@ msgstr "ማካፈያ…"
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
-msgstr ""
+msgstr "አድራሻ ያስገቡ ወይንም ይፈልጉ"
 
 #: src/app/webbrowser/Browser.qml:148
 msgid "Share"
-msgstr ""
+msgstr "ማካፈያ"
 
 #: src/app/webbrowser/Browser.qml:162
 msgid "History"
-msgstr ""
+msgstr "ታሪክ"
 
 #: src/app/webbrowser/Browser.qml:168
 msgid "Open tabs"
@@ -269,16 +269,16 @@ msgstr ""
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 ገጽ"
+msgstr[1] "%1 ገጾች"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:113
 msgid "Less"
-msgstr ""
+msgstr "ትንሽ"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
-msgstr ""
+msgstr "መጨረሻ የጎበኙት"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
@@ -286,23 +286,23 @@ msgstr "ትናንትና"
 
 #: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
 msgid "Done"
-msgstr ""
+msgstr "ጨርሷል"
 
 #: src/app/webbrowser/HistoryView.qml:109
 msgid "Clear"
-msgstr ""
+msgstr "ማጽጃ"
 
 #: src/app/webbrowser/HistoryView.qml:123
 msgid "Delete all history?"
-msgstr ""
+msgstr "ሁሉንም ታሪክ ላጥፋው?"
 
 #: src/app/webbrowser/HistoryView.qml:126
 msgid "Yes"
-msgstr ""
+msgstr "አዎ"
 
 #: src/app/webbrowser/HistoryView.qml:135
 msgid "No"
-msgstr ""
+msgstr "አይ"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -322,7 +322,7 @@ msgstr "ተጨማሪ መመልከቻ"
 
 #: src/app/webbrowser/TabsView.qml:110
 msgid "Add"
-msgstr ""
+msgstr "መጨመሪያ"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -350,47 +350,16 @@ msgstr "የ ኡቡንቱ ዌብ መቃኛ"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "ምንም የ አካባቢ መግለጫ አልተገኘም ለ "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "የ መግለጫ መጨመሪያ ደረጃውን መዝለያ"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "መግለጫ መጨመሪያ"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
-
-#~ msgid "Activity"
-#~ msgstr "እንቅስቃሴ"
-
-#~ msgid "Today"
-#~ msgstr "ዛሬ"
-
-#~ msgid "This Month"
-#~ msgstr "በዚህ ወር"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "ባለፉት 7 ቀኖች"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "This Year"
-#~ msgstr "በዚህ አመት"
-
-#~ msgid "(other)"
-#~ msgstr "(ሌሎች)"
-
-#~ msgid "Older"
-#~ msgstr "አሮጌ"
-
-#~ msgid "(local files)"
-#~ msgstr "(የ አካባቢ ፋይሎች)"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "አሁን የሚታየው (%1)"
+msgstr "መግለጫ ይምረጡ"

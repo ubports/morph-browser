@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -251,38 +251,38 @@ msgstr "Kongsi..."
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
-msgstr ""
+msgstr "gelintar atau masukkan alamat"
 
 #: src/app/webbrowser/Browser.qml:148
 msgid "Share"
-msgstr ""
+msgstr "Kongsi"
 
 #: src/app/webbrowser/Browser.qml:162
 msgid "History"
-msgstr ""
+msgstr "Sejarah"
 
 #: src/app/webbrowser/Browser.qml:168
 msgid "Open tabs"
-msgstr ""
+msgstr "Buka tab"
 
 #: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
 msgid "New tab"
-msgstr ""
+msgstr "Tab baharu"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 halaman"
+msgstr[1] "%1 halaman"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:113
 msgid "Less"
-msgstr ""
+msgstr "Kurang"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
-msgstr ""
+msgstr "Terakhir Dilawati"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
@@ -290,23 +290,23 @@ msgstr "Semalam"
 
 #: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
 msgid "Done"
-msgstr ""
+msgstr "Selesai"
 
 #: src/app/webbrowser/HistoryView.qml:109
 msgid "Clear"
-msgstr ""
+msgstr "Kosongkan"
 
 #: src/app/webbrowser/HistoryView.qml:123
 msgid "Delete all history?"
-msgstr ""
+msgstr "Padam semua sejarah?"
 
 #: src/app/webbrowser/HistoryView.qml:126
 msgid "Yes"
-msgstr ""
+msgstr "Ya"
 
 #: src/app/webbrowser/HistoryView.qml:135
 msgid "No"
-msgstr ""
+msgstr "Tidak"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -326,7 +326,7 @@ msgstr "lagi"
 
 #: src/app/webbrowser/TabsView.qml:110
 msgid "Add"
-msgstr ""
+msgstr "Tambah"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -367,34 +367,3 @@ msgstr "Tambah akaun"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Pilih satu akaun"
-
-#~ msgid "Activity"
-#~ msgstr "Aktiviti"
-
-#~ msgid "Today"
-#~ msgstr "Hari ini"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "Kini melihat (%1)"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "This Month"
-#~ msgstr "Bulan Ini"
-
-#~ msgid "This Year"
-#~ msgstr "Tahun Ini"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "7 Hari Terakhir"
-
-#~ msgid "(other)"
-#~ msgstr "(lain-lain)"
-
-#~ msgid "Older"
-#~ msgstr "Lebih lama"
-
-#~ msgid "(local files)"
-#~ msgstr "(fail setempat)"

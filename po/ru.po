@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2014-05-16 10:35+0000\n"
-"Last-Translator: Oleg Koptev <koptev.oleg@gmail.com>\n"
+"PO-Revision-Date: 2014-08-04 12:00+0000\n"
+"Last-Translator: Jay ZDLin <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -228,7 +228,7 @@ msgstr "Открыть изображение в новой вкладке"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "Открыть ссылку в новом окне"
+msgstr "Открыть ссылку в новой вкладке"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -250,38 +250,39 @@ msgstr "Поделиться..."
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
-msgstr ""
+msgstr "Введите поисковый запрос или адрес"
 
 #: src/app/webbrowser/Browser.qml:148
 msgid "Share"
-msgstr ""
+msgstr "Поделиться"
 
 #: src/app/webbrowser/Browser.qml:162
 msgid "History"
-msgstr ""
+msgstr "История"
 
 #: src/app/webbrowser/Browser.qml:168
 msgid "Open tabs"
-msgstr ""
+msgstr "Открытые вкладки"
 
 #: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
 msgid "New tab"
-msgstr ""
+msgstr "Новая вкладка"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 страница"
+msgstr[1] "%1 страницы"
+msgstr[2] "%1 страниц"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:113
 msgid "Less"
-msgstr ""
+msgstr "Свернуть"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
-msgstr ""
+msgstr "Последние посещённые"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
@@ -289,23 +290,23 @@ msgstr "Вчера"
 
 #: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
 msgid "Done"
-msgstr ""
+msgstr "Готово"
 
 #: src/app/webbrowser/HistoryView.qml:109
 msgid "Clear"
-msgstr ""
+msgstr "Очистить"
 
 #: src/app/webbrowser/HistoryView.qml:123
 msgid "Delete all history?"
-msgstr ""
+msgstr "Удалить историю полностью?"
 
 #: src/app/webbrowser/HistoryView.qml:126
 msgid "Yes"
-msgstr ""
+msgstr "Да"
 
 #: src/app/webbrowser/HistoryView.qml:135
 msgid "No"
-msgstr ""
+msgstr "Нет"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -325,7 +326,7 @@ msgstr "показать больше"
 
 #: src/app/webbrowser/TabsView.qml:110
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -366,34 +367,3 @@ msgstr "Добавить учётную запись"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Выберите учётную запись"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Activity"
-#~ msgstr "Действия"
-
-#~ msgid "Today"
-#~ msgstr "Сегодня"
-
-#~ msgid "Older"
-#~ msgstr "Раньше"
-
-#~ msgid "(local files)"
-#~ msgstr "(локальные файлы)"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "За последние 7 дней"
-
-#~ msgid "This Month"
-#~ msgstr "В этом месяце"
-
-#~ msgid "This Year"
-#~ msgstr "В этом году"
-
-#~ msgid "(other)"
-#~ msgstr "(иные)"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "Вкладок открыто: %1"

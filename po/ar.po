@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:41+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -366,34 +366,3 @@ msgstr "إضافة حساب"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "اختر حسابًا"
-
-#~ msgid "Activity"
-#~ msgstr "النشاط"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Today"
-#~ msgstr "اليوم"
-
-#~ msgid "This Month"
-#~ msgstr "هذا الشهر"
-
-#~ msgid "This Year"
-#~ msgstr "هذا العام"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "آخر ٧ أيام"
-
-#~ msgid "(other)"
-#~ msgstr "(أخرى)"
-
-#~ msgid "Older"
-#~ msgstr "أقدم"
-
-#~ msgid "(local files)"
-#~ msgstr "(ملفات محلية)"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "تتصفح حاليا (%1) صفحات"

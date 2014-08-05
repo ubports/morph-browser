@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -364,34 +364,3 @@ msgstr "계정 추가"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "계정 선택"
-
-#~ msgid "Activity"
-#~ msgstr "활동"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "최근 7일 간"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "현재 보고 있는 탭 (%1)"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Today"
-#~ msgstr "오늘"
-
-#~ msgid "This Month"
-#~ msgstr "이번 달"
-
-#~ msgid "This Year"
-#~ msgstr "올해"
-
-#~ msgid "(other)"
-#~ msgstr "(기타)"
-
-#~ msgid "Older"
-#~ msgstr "오래된 항목"
-
-#~ msgid "(local files)"
-#~ msgstr "(기기에 있는 파일)"

@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:41+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -365,31 +365,3 @@ msgstr "အကောင့်ပေါင်းထည့်မည်"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Account တစ်ခု ကိုရွေးချယ်ပါ။"
-
-#~ msgid "Activity"
-#~ msgstr "လုပ်ဆောင်ချက်များ"
-
-#~ msgid "Today"
-#~ msgstr "ယနေ့"
-
-#~ msgid "This Month"
-#~ msgstr "ဒီလ"
-
-#~ msgid "This Year"
-#~ msgstr "ဒီနှစ်"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "လွန်ခဲ့သော ၇ ရက်က"
-
-#~ msgid "(other)"
-#~ msgstr "(တခြား)"
-
-#~ msgid "Older"
-#~ msgstr "အဟောင်း"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "ယခုလောလောဆယ်ကြည့်ရှုနေသော (%1)"
