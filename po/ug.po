@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2014-07-10 06:44+0000\n"
+"PO-Revision-Date: 2014-08-05 00:07+0000\n"
 "Last-Translator: Gheyret T.Kenji <Unknown>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:10+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -251,38 +251,37 @@ msgstr "ھەمبەھىرلەش…"
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
-msgstr ""
+msgstr "ئىزدەڭ ياكى بىر ئادرېسنى كىرگۈزۈڭ"
 
 #: src/app/webbrowser/Browser.qml:148
 msgid "Share"
-msgstr ""
+msgstr "ھەمبەھىرلە"
 
 #: src/app/webbrowser/Browser.qml:162
 msgid "History"
-msgstr ""
+msgstr "ئىز"
 
 #: src/app/webbrowser/Browser.qml:168
 msgid "Open tabs"
-msgstr ""
+msgstr "بەتكۈچلەرنى ئاچ"
 
 #: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
 msgid "New tab"
-msgstr ""
+msgstr "يېڭى بەتكۈچ"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 بەت"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:113
 msgid "Less"
-msgstr ""
+msgstr "كىچىك"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
-msgstr ""
+msgstr "ئەڭ ئاخىرقى قېتىم زىيارەت قىلغىنى"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
@@ -290,23 +289,23 @@ msgstr "تۈنۈگۈن"
 
 #: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
 msgid "Done"
-msgstr ""
+msgstr "تامام"
 
 #: src/app/webbrowser/HistoryView.qml:109
 msgid "Clear"
-msgstr ""
+msgstr "تازىلا"
 
 #: src/app/webbrowser/HistoryView.qml:123
 msgid "Delete all history?"
-msgstr ""
+msgstr "بارلىق ئىزنى ئۆچۈرسۇنمۇ؟"
 
 #: src/app/webbrowser/HistoryView.qml:126
 msgid "Yes"
-msgstr ""
+msgstr "ھەئە"
 
 #: src/app/webbrowser/HistoryView.qml:135
 msgid "No"
-msgstr ""
+msgstr "ياق"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -326,7 +325,7 @@ msgstr "كۆپ كۆرۈش"
 
 #: src/app/webbrowser/TabsView.qml:110
 msgid "Add"
-msgstr ""
+msgstr "قوش"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -367,34 +366,3 @@ msgstr "ھېسابات قوش"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "ھېساباتتىن بىرنى تاللاڭ"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Activity"
-#~ msgstr "پائالىيەت"
-
-#~ msgid "Today"
-#~ msgstr "بۈگۈن"
-
-#~ msgid "This Month"
-#~ msgstr "بۇ ئاي"
-
-#~ msgid "This Year"
-#~ msgstr "بۇ يىل"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "ئالدىنقى 7كۈن"
-
-#~ msgid "(other)"
-#~ msgstr "باشقا"
-
-#~ msgid "Older"
-#~ msgstr "كونا"
-
-#~ msgid "(local files)"
-#~ msgstr "(يەرلىك ھۆججەتلەر)"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "نۆۋەتتە كۆرۈلۈۋاتقىنى (%1)"

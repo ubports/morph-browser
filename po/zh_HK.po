@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:10+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -363,34 +363,3 @@ msgstr ""
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr ""
-
-#~ msgid "Activity"
-#~ msgstr "動態"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "目前開啟 (%1 個分頁)"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "最近 7 天"
-
-#~ msgid "Today"
-#~ msgstr "今天"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "This Month"
-#~ msgstr "本月"
-
-#~ msgid "This Year"
-#~ msgstr "本年"
-
-#~ msgid "(other)"
-#~ msgstr "(其他)"
-
-#~ msgid "Older"
-#~ msgstr "更舊"
-
-#~ msgid "(local files)"
-#~ msgstr "(本機檔案)"

@@ -20,7 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Unity.Action 1.1 as UnityActions
 
-OrientationHelper {
+Item {
     property bool developerExtrasEnabled: false
 
     property var currentWebview: null
@@ -38,7 +38,13 @@ OrientationHelper {
     }
     property alias actions: unityActionManager.actions
 
-    KeyboardRectangle {
-        id: _osk
+    default property alias contents: contentsItem.data
+    property alias automaticOrientation: contentsItem.automaticOrientation
+    OrientationHelper {
+        id: contentsItem
+
+        KeyboardRectangle {
+            id: _osk
+        }
     }
 }

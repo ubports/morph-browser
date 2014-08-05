@@ -112,7 +112,9 @@ Oxide.WebView {
 
     preferences.passwordEchoEnabled: formFactor === "mobile"
 
-    popupMenu: ItemSelector02 {}
+    popupMenu: ItemSelector02 {
+        automaticOrientation: false
+    }
 
     Item {
         id: contextualRectangle

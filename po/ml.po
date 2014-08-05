@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -363,30 +363,3 @@ msgstr ""
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr ""
-
-#~ msgid "Activity"
-#~ msgstr "പ്രവർത്തനം"
-
-#~ msgid "Today"
-#~ msgstr "ഇന്ന്"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "This Month"
-#~ msgstr "ഈ മാസം"
-
-#~ msgid "This Year"
-#~ msgstr "ഈ വര്‍ഷം"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "അവസാന 7 ദിവസങ്ങള്‍"
-
-#~ msgid "(other)"
-#~ msgstr "(മറ്റുള്ളവ)"
-
-#~ msgid "Older"
-#~ msgstr "പഴയവ"
-
-#~ msgid "(local files)"
-#~ msgstr "(പ്രാദേശിക രേഖകള്‍)"

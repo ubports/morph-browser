@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:41+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -365,34 +365,3 @@ msgstr ""
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr ""
-
-#~ msgid "Today"
-#~ msgstr "Dnes"
-
-#~ msgid "This Month"
-#~ msgstr "Tento měsíc"
-
-#~ msgid "This Year"
-#~ msgstr "Tento rok"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "Posledních 7 dní"
-
-#~ msgid "Older"
-#~ msgstr "Starší"
-
-#~ msgid "(local files)"
-#~ msgstr "(místní soubory)"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "Počet prohlížených stránek: (%1)"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "(other)"
-#~ msgstr "(ostatní)"
-
-#~ msgid "Activity"
-#~ msgstr "Aktivita"

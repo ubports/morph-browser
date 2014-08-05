@@ -62,6 +62,9 @@ Window {
     Loader {
         id: webappPageComponentLoader
         anchors.fill: parent
+
+        // Propagate automatic orientation to popups parented here
+        property bool automaticOrientation: item ? item.automaticOrientation : false
     }
 
     Component {

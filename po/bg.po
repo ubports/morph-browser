@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:41+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -367,34 +367,3 @@ msgstr ""
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr ""
-
-#~ msgid "Activity"
-#~ msgstr "Дейност"
-
-#~ msgid "Today"
-#~ msgstr "Днес"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "В момента се гледа (%1)"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "This Month"
-#~ msgstr "Този месец"
-
-#~ msgid "This Year"
-#~ msgstr "Тази година"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "Последните 7 дни"
-
-#~ msgid "(other)"
-#~ msgstr "(други)"
-
-#~ msgid "Older"
-#~ msgstr "По-стари"
-
-#~ msgid "(local files)"
-#~ msgstr "(местни файлове)"

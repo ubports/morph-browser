@@ -1,3 +1,11 @@
+webbrowser-app (0.23+14.10.20140805.1-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Fix automatic orientation of all popups parented to the BrowserView.
+    (LP: #1351922)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 05 Aug 2014 10:55:24 +0000
+
 webbrowser-app (0.23+14.10.20140804-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]

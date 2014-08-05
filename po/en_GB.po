@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:10+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -297,15 +297,15 @@ msgstr "Clear"
 
 #: src/app/webbrowser/HistoryView.qml:123
 msgid "Delete all history?"
-msgstr ""
+msgstr "Delete all history?"
 
 #: src/app/webbrowser/HistoryView.qml:126
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
 #: src/app/webbrowser/HistoryView.qml:135
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -325,7 +325,7 @@ msgstr "see more"
 
 #: src/app/webbrowser/TabsView.qml:110
 msgid "Add"
-msgstr ""
+msgstr "Add"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -366,34 +366,3 @@ msgstr "Add account"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Select an account"
-
-#~ msgid "Activity"
-#~ msgstr "Activity"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "Today"
-#~ msgstr "Today"
-
-#~ msgid "This Month"
-#~ msgstr "This Month"
-
-#~ msgid "This Year"
-#~ msgstr "This Year"
-
-#~ msgid "Last 7 Days"
-#~ msgstr "Last 7 Days"
-
-#, qt-format
-#~ msgid "Currently viewing (%1)"
-#~ msgstr "Currently viewing (%1)"
-
-#~ msgid "Older"
-#~ msgstr "Older"
-
-#~ msgid "(other)"
-#~ msgstr "(other)"
-
-#~ msgid "(local files)"
-#~ msgstr "(local files)"

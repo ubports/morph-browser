@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2014-07-18 11:04+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2014-08-04 12:29+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <is@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-01 07:09+0000\n"
-"X-Generator: Launchpad (build 17141)\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -25,11 +25,11 @@ msgstr ""
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "Í lagi"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Auðkenning nauðsynleg."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
@@ -39,16 +39,16 @@ msgstr ""
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Notandanafn"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "Lykilorð"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
 #: src/app/PromptDialog.qml:40
 msgid "Cancel"
-msgstr ""
+msgstr "Hætta við"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
@@ -56,11 +56,11 @@ msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "Fara"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "Vera áfram"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -88,7 +88,7 @@ msgstr ""
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr ""
+msgstr "Villa í netkerfi"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
@@ -107,7 +107,7 @@ msgstr ""
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "Veldu einhverja skrá"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
@@ -122,12 +122,12 @@ msgstr ""
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Hafna"
 
 #: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "Leyfa"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
@@ -145,7 +145,7 @@ msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr ""
+msgstr "Til baka"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -155,7 +155,7 @@ msgstr ""
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr ""
+msgstr "Bókamerki"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -169,7 +169,7 @@ msgstr ""
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Hreinsa feril"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -179,19 +179,19 @@ msgstr ""
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr ""
+msgstr "Afrita"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Afrita mynd"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Afrita tengil"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr ""
+msgstr "Áfram"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -201,7 +201,7 @@ msgstr ""
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr ""
+msgstr "Fara á"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -211,7 +211,7 @@ msgstr ""
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
-msgstr ""
+msgstr "Nýr flipi"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -229,7 +229,7 @@ msgstr ""
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr ""
+msgstr "Endurlesa"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -239,11 +239,11 @@ msgstr ""
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Vista mynd"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr ""
+msgstr "Deila..."
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
@@ -251,11 +251,11 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:148
 msgid "Share"
-msgstr ""
+msgstr "Deila"
 
 #: src/app/webbrowser/Browser.qml:162
 msgid "History"
-msgstr ""
+msgstr "Ferill"
 
 #: src/app/webbrowser/Browser.qml:168
 msgid "Open tabs"
@@ -263,7 +263,7 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
 msgid "New tab"
-msgstr ""
+msgstr "Nýr flipi"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
@@ -274,7 +274,7 @@ msgstr[1] ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:113
 msgid "Less"
-msgstr ""
+msgstr "Minna"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
@@ -282,15 +282,15 @@ msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
-msgstr ""
+msgstr "Í gær"
 
 #: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
 msgid "Done"
-msgstr ""
+msgstr "Lokið"
 
 #: src/app/webbrowser/HistoryView.qml:109
 msgid "Clear"
-msgstr ""
+msgstr "Hreinsa"
 
 #: src/app/webbrowser/HistoryView.qml:123
 msgid "Delete all history?"
@@ -298,15 +298,15 @@ msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:126
 msgid "Yes"
-msgstr ""
+msgstr "Já"
 
 #: src/app/webbrowser/HistoryView.qml:135
 msgid "No"
-msgstr ""
+msgstr "Nei"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
-msgstr ""
+msgstr "Bókamerki"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
@@ -314,39 +314,39 @@ msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
-msgstr ""
+msgstr "sjá minna"
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see more"
-msgstr ""
+msgstr "sjá meira"
 
 #: src/app/webbrowser/TabsView.qml:110
 msgid "Add"
-msgstr ""
+msgstr "Bæta við"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr ""
+msgstr "Vafri"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr ""
+msgstr "Netvafri"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "Vafra um veraldarvefinn"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - Ubuntu netvafri"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "Ubuntu netvafri"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
@@ -358,8 +358,8 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "Bæta við aðgangi"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "Veldu aðgang"
