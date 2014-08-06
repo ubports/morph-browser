@@ -9,6 +9,7 @@ set(COMMONLIB webbrowser-common)
 
 set(COMMONLIB_SRC
     browserapplication.cpp
+    session-storage.cpp
     webbrowser-window.cpp
 )
 

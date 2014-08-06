@@ -24,6 +24,7 @@
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
 #if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
 #include <QtQuick/private/qsgcontext_p.h>
@@ -34,6 +35,7 @@
 // local
 #include "browserapplication.h"
 #include "config.h"
+#include "session-storage.h"
 #include "webbrowser-window.h"
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
@@ -116,6 +118,9 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
         }
         qputenv("QTWEBKIT_INSPECTOR_SERVER", server.toUtf8());
     }
+
+    const char* uri = "webbrowsercommon.private";
+    qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
 
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));

@@ -38,7 +38,6 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
-#include <QtCore/QMetaObject>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
 #include <QtCore/QVariant>
@@ -88,15 +87,13 @@ bool WebbrowserApp::initialize()
         Settings settings;
         SearchEngine* searchEngine = settings.searchEngine();
         searchEngine->setParent(m_window);
+        m_window->setProperty("homepage", settings.homepage());
         m_window->setProperty("searchEngine", QVariant::fromValue(searchEngine));
-        QList<QUrl> urls = this->urls();
-        if (urls.isEmpty()) {
-            urls.append(settings.homepage());
+        QVariantList urls;
+        Q_FOREACH(const QUrl& url, this->urls()) {
+            urls.append(url);
         }
-        QObject* browser = (QObject*) m_window;
-        Q_FOREACH(const QUrl& url, urls) {
-            QMetaObject::invokeMethod(browser, "newTab", Q_ARG(QVariant, url), Q_ARG(QVariant, true));
-        }
+        m_window->setProperty("urls", urls);
         m_component->completeCreate();
         return true;
     } else {

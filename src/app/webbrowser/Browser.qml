@@ -20,6 +20,7 @@ import QtQuick 2.0
 import com.canonical.Oxide 1.0 as Oxide
 import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
+import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 
@@ -28,6 +29,7 @@ BrowserView {
 
     currentWebview: tabsModel.currentWebview
 
+    property url homepage
     property QtObject searchEngine
 
     actions: [
@@ -422,5 +424,72 @@ BrowserView {
     function openUrlInNewTab(url, setCurrent) {
         var webview = webviewComponent.createObject(webviewContainer, {"url": url})
         internal.addTab(webview, setCurrent, !url.toString() && (formFactor == "desktop"))
+    }
+
+    SessionStorage {
+        id: session
+
+        dataFile: dataLocation + "/session.json"
+
+        function save() {
+            var tabs = []
+            for (var i = 0; i < tabsModel.count; ++i) {
+                var webview = tabsModel.get(i)
+                var tab = session.serializeWebviewState(webview)
+                tabs.push(tab)
+            }
+            store(JSON.stringify({tabs: tabs}))
+        }
+
+        function restore() {
+            var state = null
+            try {
+                state = JSON.parse(retrieve())
+            } catch (e) {
+                return
+            }
+            if (state) {
+                var tabs = state.tabs
+                if (tabs) {
+                    for (var i = 0; i < tabs.length; ++i) {
+                        var webview = createWebviewFromState(tabs[i])
+                        internal.addTab(webview, i == 0, false)
+                    }
+                }
+            }
+        }
+
+        // Those two functions are used to save/restore the current state of a webview.
+        // The current implementation is naive, it only saves/restores the current URL.
+        // In the future, we’ll want to rely on oxide to save and restore a full state
+        // of the webview as a binary blob, which includes navigation history, current
+        // scroll offset and form data. See http://pad.lv/1353143.
+        function serializeWebviewState(webview) {
+            var state = {}
+            state.url = webview.url.toString()
+            return state
+        }
+
+        function createWebviewFromState(state) {
+            return webviewComponent.createObject(webviewContainer, {"url": state.url})
+        }
+    }
+    Connections {
+        target: tabsModel
+        onCurrentWebviewChanged: session.save()
+        onCountChanged: session.save()
+    }
+    Connections {
+        target: browser.currentWebview
+        onUrlChanged: session.save()
+    }
+    Component.onCompleted: {
+        session.restore()
+        for (var i in browser.initialUrls) {
+            browser.openUrlInNewTab(browser.initialUrls[i], true)
+        }
+        if (tabsModel.count == 0) {
+            browser.openUrlInNewTab(browser.homepage, true)
+        }
     }
 }

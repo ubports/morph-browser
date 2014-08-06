@@ -24,6 +24,9 @@ Window {
     property alias searchEngine: browser.searchEngine
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
 
+    property alias homepage: browser.homepage
+    property alias urls: browser.initialUrls
+
     contentOrientation: browser.screenOrientation
 
     width: 800
@@ -50,10 +53,6 @@ Window {
     // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
     // by toggling fullscreen on the window only on desktop.
     visibility: browser.currentWebview && browser.currentWebview.fullscreen && (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
-
-    function newTab(url, setCurrent) {
-        return browser.openUrlInNewTab(url, setCurrent)
-    }
 
     // Handle runtime requests to open urls as defined
     // by the freedesktop application dbus interface's open

@@ -26,6 +26,8 @@ Item {
     property var currentWebview: null
     property string title: currentWebview ? currentWebview.title : ""
 
+    property var initialUrls
+
     property var webbrowserWindow: null
 
     property var osk: _osk
