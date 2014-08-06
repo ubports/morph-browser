@@ -20,6 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
+import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 
@@ -175,4 +176,48 @@ BrowserView {
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
     }
+
+    SessionStorage {
+        id: session
+
+        dataFile: dataLocation + "/session.json"
+
+        function save() {
+            if (webapp.currentWebview) {
+                var state = serializeWebviewState(webapp.currentWebview)
+                store(JSON.stringify(state))
+            }
+        }
+
+        function restore() {
+            var state = null
+            try {
+                state = JSON.parse(retrieve())
+            } catch (e) {
+                return
+            }
+            if (state) {
+                var url = state.url
+                if (url) {
+                    webapp.currentWebview.url = url
+                }
+            }
+        }
+
+        // This function is used to save the current state of a webview.
+        // The current implementation is naive, it only saves the current URL.
+        // In the future, we’ll want to rely on oxide to save and restore a full state
+        // of the webview as a binary blob, which includes navigation history, current
+        // scroll offset and form data. See http://pad.lv/1353143.
+        function serializeWebviewState(webview) {
+            var state = {}
+            state.url = webview.url.toString()
+            return state
+        }
+    }
+    Connections {
+        target: webapp.currentWebview
+        onUrlChanged: session.save()
+    }
+    Component.onCompleted: session.restore()
 }
