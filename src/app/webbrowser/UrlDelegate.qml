@@ -30,6 +30,7 @@ ListItem.Empty {
 
     showDivider: false
     removable: false
+    confirmRemoval: removable
 
     UbuntuShape {
         id: iconContainer
