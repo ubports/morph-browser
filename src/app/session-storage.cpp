@@ -18,13 +18,23 @@
 
 // Qt
 #include <QtCore/QFile>
+#include <QtCore/QFileInfo>
 
 // local
 #include "session-storage.h"
 
 SessionStorage::SessionStorage(QObject* parent)
     : QObject(parent)
+    , m_locked(false)
 {}
+
+SessionStorage::~SessionStorage()
+{
+    QString lock = lockFile();
+    if (!m_locked && !lock.isEmpty()) {
+        QFile::remove(lock);
+    }
+}
 
 const QString& SessionStorage::dataFile() const
 {
@@ -34,9 +44,34 @@ const QString& SessionStorage::dataFile() const
 void SessionStorage::setDataFile(const QString& dataFile)
 {
     if (m_dataFile != dataFile) {
+        QString oldLock = lockFile();
+        if (!m_locked && !oldLock.isEmpty()) {
+            QFile::remove(oldLock);
+        }
         m_dataFile = dataFile;
         Q_EMIT dataFileChanged();
+        QString lock = lockFile();
+        bool locked = QFileInfo::exists(lock);
+        m_locked = locked;
+        if (!m_locked) {
+            QFile(lock).open(QIODevice::WriteOnly);
+        }
+        if (m_locked != locked) {
+            Q_EMIT lockedChanged();
+        }
     }
+}
+
+// 'locked' means that the session storage file is already in use by another
+// instance of the app. There is only one session file for all instances of
+// the app, so the first instance locks it and is allowed to save its session,
+// whereas other instances discard their sessions when closed.
+// This has no effect on devices where there can only be one instance of an
+// app at any given time, it’s mostly useful on desktop to avoid instances
+// overwriting each other’s sessions.
+bool SessionStorage::locked() const
+{
+    return m_locked;
 }
 
 void SessionStorage::store(const QString& data) const
@@ -53,6 +88,14 @@ QString SessionStorage::retrieve() const
     QFile file(m_dataFile);
     if (file.open(QIODevice::ReadOnly)) {
         return file.readAll();
+    }
+    return QString();
+}
+
+const QString SessionStorage::lockFile() const
+{
+    if (!m_dataFile.isEmpty()) {
+        return m_dataFile + ".lock";
     }
     return QString();
 }

@@ -28,21 +28,29 @@ class SessionStorage : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString dataFile READ dataFile WRITE setDataFile NOTIFY dataFileChanged)
+    Q_PROPERTY(bool locked READ locked NOTIFY lockedChanged)
 
 public:
     SessionStorage(QObject* parent = 0);
+    ~SessionStorage();
 
     const QString& dataFile() const;
     void setDataFile(const QString& dataFile);
+
+    bool locked() const;
 
     Q_INVOKABLE void store(const QString& data) const;
     Q_INVOKABLE QString retrieve() const;
 
 Q_SIGNALS:
     void dataFileChanged() const;
+    void lockedChanged() const;
 
 private:
     QString m_dataFile;
+    bool m_locked;
+
+    const QString lockFile() const;
 };
 
 #endif // __SESSION_STORAGE_H__
