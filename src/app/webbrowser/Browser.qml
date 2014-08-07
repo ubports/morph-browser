@@ -484,7 +484,9 @@ BrowserView {
         onUrlChanged: session.save()
     }
     Component.onCompleted: {
-        session.restore()
+        if (browser.restoreSession) {
+            session.restore()
+        }
         for (var i in browser.initialUrls) {
             browser.openUrlInNewTab(browser.initialUrls[i], true)
         }

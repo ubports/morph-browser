@@ -145,6 +145,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     m_webbrowserWindowProxy->setWindow(m_window);
 
     browser->setProperty("developerExtrasEnabled", inspector);
+    browser->setProperty("restoreSession", !m_arguments.contains("--new-session"));
 
     return true;
 }

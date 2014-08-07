@@ -22,6 +22,7 @@ import Ubuntu.Unity.Action 1.1 as UnityActions
 
 Item {
     property bool developerExtrasEnabled: false
+    property bool restoreSession: true
 
     property var currentWebview: null
     property string title: currentWebview ? currentWebview.title : ""

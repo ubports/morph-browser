@@ -219,5 +219,9 @@ BrowserView {
         target: webapp.currentWebview
         onUrlChanged: session.save()
     }
-    Component.onCompleted: session.restore()
+    Component.onCompleted: {
+        if (webapp.restoreSession) {
+            session.restore()
+        }
+    }
 }

@@ -27,6 +27,7 @@ Window {
     objectName: "webappContainer"
 
     property bool developerExtrasEnabled: false
+    property bool restoreSession: true
 
     property bool backForwardButtonsVisible: true
     property bool chromeVisible: true
@@ -75,6 +76,7 @@ Window {
             chromeVisible: root.chromeVisible
             backForwardButtonsVisible: root.backForwardButtonsVisible
             developerExtrasEnabled: root.developerExtrasEnabled
+            restoreSession: root.restoreSession
             oxide: root.oxide
             url: root.url
             webappModelSearchPath: root.webappModelSearchPath

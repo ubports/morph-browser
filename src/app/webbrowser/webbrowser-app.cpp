@@ -105,13 +105,15 @@ void WebbrowserApp::printUsage() const
 {
     QTextStream out(stdout);
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
-    out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector] [--app-id=APP_ID] [URL]" << endl;
+    out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector]"
+                                << " [--app-id=APP_ID] [--new-session] [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help         display this help message and exit" << endl;
     out << "  --fullscreen       display full screen" << endl;
     out << "  --maximized        opens the application maximized" << endl;
     out << "  --inspector        run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
     out << "  --app-id=APP_ID    run the application with a specific APP_ID" << endl;
+    out << "  --new-session      do not restore open tabs from the last session" << endl;
 }
 
 int main(int argc, char** argv)

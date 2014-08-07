@@ -23,6 +23,7 @@ import Ubuntu.Components 1.1
 Window {
     property alias searchEngine: browser.searchEngine
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
+    property alias restoreSession: browser.restoreSession
 
     property alias homepage: browser.homepage
     property alias urls: browser.initialUrls
