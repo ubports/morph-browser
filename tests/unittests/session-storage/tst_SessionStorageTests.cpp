@@ -115,6 +115,14 @@ private Q_SLOTS:
         SessionStorage session2;
         session2.setDataFile(session->dataFile());
         QVERIFY(!session2.isLocked());
+
+        // Verify that the session that held the lock going away
+        // doesn’t automagically make the next one acquire it
+        // (this would be undesirable as it would allow the second
+        // instance to overwrite the first session’s data).
+        delete session;
+        session = NULL;
+        QVERIFY(!session2.isLocked());
     }
 };
 
