@@ -30,7 +30,7 @@ class SessionStorage : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString dataFile READ dataFile WRITE setDataFile NOTIFY dataFileChanged)
-    Q_PROPERTY(bool locked READ locked NOTIFY lockedChanged)
+    Q_PROPERTY(bool locked READ isLocked NOTIFY lockedChanged)
 
 public:
     SessionStorage(QObject* parent = 0);
@@ -38,7 +38,7 @@ public:
     const QString& dataFile() const;
     void setDataFile(const QString& dataFile);
 
-    bool locked() const;
+    bool isLocked() const;
 
     Q_INVOKABLE void store(const QString& data) const;
     Q_INVOKABLE QString retrieve() const;

@@ -56,14 +56,14 @@ void SessionStorage::setDataFile(const QString& dataFile)
     }
 }
 
-// 'locked' means that the session storage file is in use by this instance
+// 'isLocked' means that the session storage file is in use by this instance
 // of the app. There is only one session file for all instances of the app,
 // so the first instance locks it and is allowed to save its session, whereas
 // other instances discard their sessions when closed.
 // This has no effect on devices where there can only be one instance of an
 // app at any given time, it’s mostly useful on desktop to avoid instances
 // overwriting each other’s sessions.
-bool SessionStorage::locked() const
+bool SessionStorage::isLocked() const
 {
     if (m_lock) {
         return m_lock->isLocked();

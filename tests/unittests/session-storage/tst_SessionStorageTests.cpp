@@ -45,7 +45,7 @@ private Q_SLOTS:
     void shouldNotDoAnythingWithEmptyDataFile()
     {
         QVERIFY(session->dataFile().isEmpty());
-        QVERIFY(!session->locked());
+        QVERIFY(!session->isLocked());
         session->store(QString("foobar")); // should be a no-op
         QVERIFY(session->retrieve().isEmpty());
     }
@@ -61,7 +61,7 @@ private Q_SLOTS:
         QCOMPARE(session->dataFile(), invalidDataFile);
         QCOMPARE(dataFileSpy.count(), 1);
         QCOMPARE(lockedSpy.count(), 0);
-        QVERIFY(!session->locked());
+        QVERIFY(!session->isLocked());
         dataFileSpy.clear();
 
         // Set a valid session file
@@ -72,7 +72,7 @@ private Q_SLOTS:
         QCOMPARE(session->dataFile(), file.fileName());
         QCOMPARE(dataFileSpy.count(), 1);
         QCOMPARE(lockedSpy.count(), 1);
-        QVERIFY(session->locked());
+        QVERIFY(session->isLocked());
         dataFileSpy.clear();
         lockedSpy.clear();
 
@@ -81,7 +81,7 @@ private Q_SLOTS:
         QCOMPARE(session->dataFile(), QString(""));
         QCOMPARE(dataFileSpy.count(), 1);
         QCOMPARE(lockedSpy.count(), 1);
-        QVERIFY(!session->locked());
+        QVERIFY(!session->isLocked());
         dataFileSpy.clear();
         lockedSpy.clear();
     }
@@ -92,7 +92,7 @@ private Q_SLOTS:
         QVERIFY(file.open());
         file.close();
         session->setDataFile(file.fileName());
-        QVERIFY(session->locked());
+        QVERIFY(session->isLocked());
         QString data("f00bAr");
         session->store(data);
         QCOMPARE(session->retrieve(), data);
@@ -100,7 +100,7 @@ private Q_SLOTS:
         delete session;
         session = new SessionStorage;
         session->setDataFile(file.fileName());
-        QVERIFY(session->locked());
+        QVERIFY(session->isLocked());
         QCOMPARE(session->retrieve(), data);
     }
 
@@ -110,11 +110,11 @@ private Q_SLOTS:
         QVERIFY(file.open());
         file.close();
         session->setDataFile(file.fileName());
-        QVERIFY(session->locked());
+        QVERIFY(session->isLocked());
 
         SessionStorage session2;
         session2.setDataFile(session->dataFile());
-        QVERIFY(!session2.locked());
+        QVERIFY(!session2.isLocked());
     }
 };
 
