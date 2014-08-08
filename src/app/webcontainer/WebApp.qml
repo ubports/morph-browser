@@ -183,7 +183,7 @@ BrowserView {
         dataFile: dataLocation + "/session.json"
 
         function save() {
-            if (locked) {
+            if (!locked) {
                 return
             }
             if (webapp.currentWebview) {
@@ -223,7 +223,7 @@ BrowserView {
         onUrlChanged: session.save()
     }
     Component.onCompleted: {
-        if (webapp.restoreSession && !session.locked) {
+        if (webapp.restoreSession && session.locked) {
             session.restore()
         }
     }

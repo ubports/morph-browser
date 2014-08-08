@@ -20,7 +20,9 @@
 #define __SESSION_STORAGE_H__
 
 // Qt
+#include <QtCore/QLockFile>
 #include <QtCore/QObject>
+#include <QtCore/QScopedPointer>
 #include <QtCore/QString>
 
 class SessionStorage : public QObject
@@ -32,7 +34,6 @@ class SessionStorage : public QObject
 
 public:
     SessionStorage(QObject* parent = 0);
-    ~SessionStorage();
 
     const QString& dataFile() const;
     void setDataFile(const QString& dataFile);
@@ -48,9 +49,7 @@ Q_SIGNALS:
 
 private:
     QString m_dataFile;
-    bool m_locked;
-
-    const QString lockFile() const;
+    QScopedPointer<QLockFile> m_lock;
 };
 
 #endif // __SESSION_STORAGE_H__

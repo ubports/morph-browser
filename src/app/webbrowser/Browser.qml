@@ -432,7 +432,7 @@ BrowserView {
         dataFile: dataLocation + "/session.json"
 
         function save() {
-            if (locked) {
+            if (!locked) {
                 return
             }
             var tabs = []
@@ -487,7 +487,7 @@ BrowserView {
         onUrlChanged: session.save()
     }
     Component.onCompleted: {
-        if (browser.restoreSession && !session.locked) {
+        if (browser.restoreSession && session.locked) {
             session.restore()
         }
         for (var i in browser.initialUrls) {
