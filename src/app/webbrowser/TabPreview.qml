@@ -24,6 +24,7 @@ Column {
 
     property alias title: label.text
     property var webview
+    readonly property url url: webview ? webview.url : ""
 
     signal selected()
     signal closeRequested()
