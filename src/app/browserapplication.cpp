@@ -60,11 +60,13 @@ BrowserApplication::~BrowserApplication()
 
 QString BrowserApplication::inspectorPort() const
 {
-    if (!m_arguments.contains("--inspector")) {
-        return QString();
-    }
-    QString port(QString::number(REMOTE_INSPECTOR_PORT));
+    QString port;
     Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument == "--inspector") {
+            // default port
+            port = QString::number(REMOTE_INSPECTOR_PORT);
+            break;
+        }
         if (argument.startsWith("--inspector=")) {
             port = argument.split("--inspector=")[1];
             break;
