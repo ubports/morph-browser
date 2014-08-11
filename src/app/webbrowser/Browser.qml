@@ -445,6 +445,9 @@ BrowserView {
         }
 
         function restore() {
+            if (!locked) {
+                return
+            }
             var state = null
             try {
                 state = JSON.parse(retrieve())
@@ -487,7 +490,7 @@ BrowserView {
         onUrlChanged: session.save()
     }
     Component.onCompleted: {
-        if (browser.restoreSession && session.locked) {
+        if (browser.restoreSession) {
             session.restore()
         }
         for (var i in browser.initialUrls) {
