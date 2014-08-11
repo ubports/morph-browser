@@ -438,7 +438,7 @@ BrowserView {
             var tabs = []
             for (var i = 0; i < tabsModel.count; ++i) {
                 var webview = tabsModel.get(i)
-                var tab = session.serializeWebviewState(webview)
+                var tab = serializeWebviewState(webview)
                 tabs.push(tab)
             }
             store(JSON.stringify({tabs: tabs}))
