@@ -113,7 +113,15 @@ Window {
         }
     }
 
-    Component.onCompleted: updateCurrentView()
+    ChromeCookieStore {
+        id: store
+        dbPath: dataLocation + "/cookies.sqlite"
+        oxideStoreBackend: browser.currentWebview ? browser.currentWebview.context.cookieManager : null
+    }
+
+    Component.onCompleted: {
+        updateCurrentView()
+    }
 
     onAccountProviderChanged: updateCurrentView();
 
@@ -139,8 +147,15 @@ Window {
     }
 
     function loadWebAppView() {
+        console.log('load webapp view: ' + accountsPageComponentLoader.item)
+        if (accountsPageComponentLoader.item)
+            accountsPageComponentLoader.item.visible = false
         browser.visible = true;
-        browser.url = root.url
+        browser.currentWebview.visible = true;
+        browser.currentWebview.url = root.url
+        store.setCoo("http://", [{"name": "blabla",
+                                     "value": "ddu",
+                                     "expirationdate": Date.now() + 1000*1000}])
     }
 
     // Handle runtime requests to open urls as defined

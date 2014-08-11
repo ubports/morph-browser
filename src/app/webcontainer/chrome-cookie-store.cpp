@@ -23,17 +23,71 @@
 #include <QStandardPaths>
 #include <QMetaMethod>
 
-static qint64 dateTimeToChrome(const QDateTime &time)
-{
-    /* Chrome uses Mon Jan 01 00:00:00 UTC 1601 as the epoch, hence the
-     * magic number */
-    return (time.toMSecsSinceEpoch() + 11644473600000) * 1000;
+namespace {
+
+
+QList<QNetworkCookie> networkCookiesFromVariantList(const QVariant& cookies) {
+    if (!cookies.canConvert(QMetaType::QVariantList)) {
+        return QList<QNetworkCookie>();
+    }
+
+    QList<QNetworkCookie> networkCookies;
+    QList<QVariant> cl = cookies.toList();
+    Q_FOREACH(QVariant cookie, cl) {
+        if (!cookie.canConvert(QVariant::Map)) {
+            continue;
+        }
+
+        QNetworkCookie nc;
+        QVariantMap vm = cookie.toMap();
+        if (!vm.contains("name") || !vm.contains("value")) {
+            continue;
+        }
+
+        nc.setName(vm.value("name").toByteArray());
+        nc.setValue(vm.value("value").toByteArray());
+        nc.setDomain(vm.value("domain").toString());
+        nc.setPath(vm.value("path").toString());
+        if (vm.contains("httponly") &&
+            vm.value("httponly").canConvert(QVariant::Bool)) {
+            nc.setHttpOnly(vm.value("httponly").toBool());
+        }
+
+        if (vm.contains("issecure") &&
+            vm.value("issecure").canConvert(QVariant::Bool)) {
+            nc.setSecure(vm.value("issecure").toBool());
+        }
+
+        if (vm.contains("expirationdate") &&
+            vm.value("expirationdate").canConvert(QVariant::LongLong)) {
+            bool ok = false;
+            qlonglong date = vm.value("expirationdate").toLongLong(&ok);
+            if (ok)
+            nc.setExpirationDate(QDateTime::fromMSecsSinceEpoch(date));
+        }
+
+        networkCookies.append(nc);
+    }
+    return networkCookies;
 }
 
-static QDateTime dateTimeFromChrome(qint64 chromeTimeStamp)
-{
-    qint64 msecsSinceEpoch = chromeTimeStamp / 1000 - 11644473600000;
-    return QDateTime::fromMSecsSinceEpoch(msecsSinceEpoch);
+QVariant networkCookiesToVariantList(const QList<QNetworkCookie>& cookies) {
+    QList<QVariant> cookieMapList;
+    Q_FOREACH(QNetworkCookie cookie, cookies) {
+        QVariantMap cm;
+        cm.insert("name", QVariant(cookie.name()));
+        cm.insert("value", QVariant(cookie.value()));
+        cm.insert("domain", QVariant(cookie.domain()));
+        cm.insert("path", QVariant(cookie.path()));
+        cm.insert("httponly", QVariant(cookie.isHttpOnly()));
+        cm.insert("issecure", QVariant(cookie.isSecure()));
+        cm.insert("issessioncookie", QVariant(cookie.isSessionCookie()));
+        cm.insert("expirationdate", QVariant(cookie.expirationDate()));
+        cookieMapList.append(cm);
+    }
+    return cookieMapList;
+}
+
 }
 
 ChromeCookieStore::ChromeCookieStore(QObject* parent):
@@ -55,14 +109,17 @@ QObject* ChromeCookieStore::oxideStoreBackend() const
     return m_backend;
 }
 
-void ChromeCookieStore::cookiesReceived(const Cookies& cookies)
+void ChromeCookieStore::oxideCookiesReceived(int requestId, const QVariant& cookies, RequestStatus status)
 {
-    emit gotCookies(cookies);
+    Q_UNUSED(requestId);
+    Q_UNUSED(status);
+    emit gotCookies(networkCookiesFromVariantList(cookies));
 }
 
-void ChromeCookieStore::cookiesUpdated(bool status)
+void ChromeCookieStore::oxideCookiesUpdated(int requestId, RequestStatus status)
 {
-    emit cookiesSet(status);
+    Q_UNUSED(requestId);
+    emit cookiesSet(status == RequestStatusOK);
 }
 
 void ChromeCookieStore::doGetCookies()
@@ -76,9 +133,10 @@ void ChromeCookieStore::doGetCookies()
     if (idx != -1) {
       QMetaMethod method = m_backend->metaObject()->method(idx);
       connect(m_backend, method,
-              this, metaObject()->method(
-                        metaObject()->indexOfSlot(
-                            "cookiesReceived(const QList<QNetworkCookie>&)")));
+              this,
+              metaObject()->method(
+                  metaObject()->indexOfSlot(
+                      QMetaObject::normalizedSignature("oxideCookiesReceived(int, const QVariant&, RequestStatus)"))));
     }
 
     normalizedSignature = QMetaObject::normalizedSignature("getAllCookies()");
@@ -101,22 +159,27 @@ void ChromeCookieStore::doSetCookies(const Cookies& cookies)
         return;
 
     QByteArray normalizedSignature =
-      QMetaObject::normalizedSignature("cookiesSet(bool, RequestStatus)");
+      QMetaObject::normalizedSignature("cookiesSet(int, RequestStatus)");
     int idx = m_backend->metaObject()->indexOfSignal(normalizedSignature);
     if (idx != -1) {
       QMetaMethod method = m_backend->metaObject()->method(idx);
-      connect(m_backend, method, this, metaObject()->method(metaObject()->indexOfSlot("cookiesUpdates(bool)")));
+      connect(m_backend, method,
+              this, metaObject()->method(
+                        metaObject()->indexOfSlot(
+                            QMetaObject::normalizedSignature("oxideCookiesUpdated(int, RequestStatus)"))));
     }
 
-    normalizedSignature = QMetaObject::normalizedSignature("setCookies(const QList<QNetworkCookie>&)");
+    normalizedSignature = QMetaObject::normalizedSignature("setCookies(const QString&, const QVariant&)");
     idx = m_backend->metaObject()->indexOfMethod(normalizedSignature);
     if (idx != -1) {
+        QString url = "http://";
         int requestId = -1;
         QMetaMethod method = m_backend->metaObject()->method(idx);
         method.invoke(m_backend,
               Qt::DirectConnection,
               Q_RETURN_ARG(int, requestId),
-              Q_ARG(QList<QNetworkCookie>, cookies));
+              Q_ARG(const QString&, url),
+              Q_ARG(const QVariant&, networkCookiesToVariantList(cookies)));
     }
 }
 

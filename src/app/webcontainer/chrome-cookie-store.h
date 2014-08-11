@@ -26,10 +26,22 @@
 class ChromeCookieStore : public CookieStore
 {
     Q_OBJECT
+    Q_ENUMS(RequestStatus)
+
     Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
     Q_PROPERTY(QObject* oxideStoreBackend READ oxideStoreBackend WRITE setOxideStoreBackend NOTIFY oxideStoreBackendChanged)
 
 public:
+
+    // Possibly not the best way to do it, but mimics some oxide public API
+    // definition in order to make the type known to the QML type system so
+    // that the QObject can be called by string.
+    enum RequestStatus {
+      RequestStatusOK,
+      RequestStatusError,
+      RequestStatusInternalFailure,
+    };
+
     ChromeCookieStore(QObject* parent = 0);
 
     // dbpaths
@@ -48,8 +60,8 @@ Q_SIGNALS:
     void oxideStoreBackendChanged();
 
 private Q_SLOTS:
-    void cookiesReceived(const Cookies& cookies);
-    void cookiesUpdated(bool status);
+    void oxideCookiesReceived(int requestId, const QVariant& cookies, RequestStatus status);
+    void oxideCookiesUpdated(int requestId, RequestStatus status);
 
 private:
     virtual void doGetCookies() Q_DECL_OVERRIDE;
