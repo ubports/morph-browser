@@ -179,8 +179,10 @@ Window {
         target: UriHandler
         onOpened: {
             // only consider the first one (if multiple)
-            if (uris.length !== 0) {
-                url = uris[0];
+            if (uris.length !== 0
+                    && webappPageComponentLoader.item
+                    && webappPageComponentLoader.item.currentWebview) {
+                webappPageComponentLoader.item.currentWebview.url = uris[0];
             }
         }
     }
