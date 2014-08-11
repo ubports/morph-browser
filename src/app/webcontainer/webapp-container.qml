@@ -68,8 +68,6 @@ Window {
         developerExtrasEnabled: root.developerExtrasEnabled
         oxide: root.oxide
 
-        //            url: root.url
-
         webappModelSearchPath: root.webappModelSearchPath
         webappName: root.webappName
         webappUrlPatterns: root.webappUrlPatterns
@@ -111,7 +109,7 @@ Window {
         id: oxideCookieStoreComponent
         ChromeCookieStore {
             dbPath: dataLocation + "/cookies.sqlite"
-            oxideStoreBackend: browser.context.cookieManager
+            oxideStoreBackend: browser.currentWebview ? null : browser.currentWebview.context.cookieManager
         }
     }
 

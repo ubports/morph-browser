@@ -71,7 +71,7 @@ void ChromeCookieStore::doGetCookies()
         return;
 
     QByteArray normalizedSignature =
-      QMetaObject::normalizedSignature("gotCookies(const QList<QNetworkCookie>&)");
+      QMetaObject::normalizedSignature("gotCookies(int, const QVariant&, RequestStatus)");
     int idx = m_backend->metaObject()->indexOfSignal(normalizedSignature);
     if (idx != -1) {
       QMetaMethod method = m_backend->metaObject()->method(idx);
@@ -101,7 +101,7 @@ void ChromeCookieStore::doSetCookies(const Cookies& cookies)
         return;
 
     QByteArray normalizedSignature =
-      QMetaObject::normalizedSignature("cookiesSet(bool)");
+      QMetaObject::normalizedSignature("cookiesSet(bool, RequestStatus)");
     int idx = m_backend->metaObject()->indexOfSignal(normalizedSignature);
     if (idx != -1) {
       QMetaMethod method = m_backend->metaObject()->method(idx);
@@ -111,9 +111,11 @@ void ChromeCookieStore::doSetCookies(const Cookies& cookies)
     normalizedSignature = QMetaObject::normalizedSignature("setCookies(const QList<QNetworkCookie>&)");
     idx = m_backend->metaObject()->indexOfMethod(normalizedSignature);
     if (idx != -1) {
+        int requestId = -1;
         QMetaMethod method = m_backend->metaObject()->method(idx);
         method.invoke(m_backend,
               Qt::DirectConnection,
+              Q_RETURN_ARG(int, requestId),
               Q_ARG(QList<QNetworkCookie>, cookies));
     }
 }
