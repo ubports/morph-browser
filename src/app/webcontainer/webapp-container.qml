@@ -63,6 +63,8 @@ Window {
         // for the OA dialog to appear
         visible: false
 
+        url: accountProvider.length === 0 ? root.url : ""
+
         chromeVisible: root.chromeVisible
         backForwardButtonsVisible: root.backForwardButtonsVisible
         developerExtrasEnabled: root.developerExtrasEnabled
@@ -109,19 +111,11 @@ Window {
         id: oxideCookieStoreComponent
         ChromeCookieStore {
             dbPath: dataLocation + "/cookies.sqlite"
-            oxideStoreBackend: browser.currentWebview ? null : browser.currentWebview.context.cookieManager
+            oxideStoreBackend: browser.currentWebview ? browser.currentWebview.context.cookieManager : null
         }
     }
 
-    ChromeCookieStore {
-        id: store
-        dbPath: dataLocation + "/cookies.sqlite"
-        oxideStoreBackend: browser.currentWebview ? browser.currentWebview.context.cookieManager : null
-    }
-
-    Component.onCompleted: {
-        updateCurrentView()
-    }
+    Component.onCompleted: updateCurrentView()
 
     onAccountProviderChanged: updateCurrentView();
 
@@ -147,15 +141,11 @@ Window {
     }
 
     function loadWebAppView() {
-        console.log('load webapp view: ' + accountsPageComponentLoader.item)
         if (accountsPageComponentLoader.item)
             accountsPageComponentLoader.item.visible = false
         browser.visible = true;
-        browser.currentWebview.visible = true;
-        browser.currentWebview.url = root.url
-        store.setCoo("http://", [{"name": "blabla",
-                                     "value": "ddu",
-                                     "expirationdate": Date.now() + 1000*1000}])
+        if (browser.currentWebview)
+            browser.currentWebview.visible = true;
     }
 
     // Handle runtime requests to open urls as defined
