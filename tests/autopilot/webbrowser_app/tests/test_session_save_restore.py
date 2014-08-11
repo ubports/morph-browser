@@ -21,7 +21,7 @@ from testtools.matchers import Equals
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
-class TestSelection(StartOpenRemotePageTestCaseBase):
+class TestSessionSaveRestore(StartOpenRemotePageTestCaseBase):
 
     def create_new_tab(self, url):
         self.open_tabs_view()
