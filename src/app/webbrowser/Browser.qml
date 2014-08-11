@@ -147,7 +147,7 @@ BrowserView {
                     objectName: "share"
                     text: i18n.tr("Share")
                     iconName: "share"
-                    enabled: (formFactor == "mobile") && browser.currentWebview.url.toString()
+                    enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
                     onTriggered: {
                         var component = Qt.createComponent("../Share.qml")
                         if (component.status == Component.Ready) {
