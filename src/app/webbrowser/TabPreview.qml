@@ -178,9 +178,11 @@ Column {
         preview.height = internal.previewParent.height
     }
     Component.onDestruction: {
-        var preview = tab.webview.preview
-        preview.parent = internal.previewParent
-        preview.width = preview.parent.width
-        preview.height = preview.parent.height
+        if (tab.webview) {
+            var preview = tab.webview.preview
+            preview.parent = internal.previewParent
+            preview.width = preview.parent.width
+            preview.height = preview.parent.height
+        }
     }
 }
