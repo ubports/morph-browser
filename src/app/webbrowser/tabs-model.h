@@ -55,6 +55,7 @@ public:
     Q_INVOKABLE int add(QObject* webview);
     Q_INVOKABLE QObject* remove(int index);
     Q_INVOKABLE void setCurrent(int index);
+    Q_INVOKABLE QObject* get(int index) const;
 
 Q_SIGNALS:
     void currentWebviewChanged() const;

@@ -23,6 +23,10 @@ import Ubuntu.Components 1.1
 Window {
     property alias searchEngine: browser.searchEngine
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
+    property alias restoreSession: browser.restoreSession
+
+    property alias homepage: browser.homepage
+    property alias urls: browser.initialUrls
 
     contentOrientation: browser.screenOrientation
 
@@ -51,10 +55,6 @@ Window {
     // by toggling fullscreen on the window only on desktop.
     visibility: browser.currentWebview && browser.currentWebview.fullscreen && (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
 
-    function newTab(url, setCurrent) {
-        return browser.openUrlInNewTab(url, setCurrent)
-    }
-
     // Handle runtime requests to open urls as defined
     // by the freedesktop application dbus interface's open
     // method for DBUS application activation:
@@ -65,7 +65,7 @@ Window {
         target: UriHandler
         onOpened: {
             for (var i = 0; i < uris.length; ++i) {
-                newTab(uris[i], i == uris.length - 1)
+                browser.openUrlInNewTab(uris[i], i == uris.length - 1)
             }
         }
     }

@@ -23,6 +23,7 @@ Item {
     id: tabsview
 
     property alias model: listview.model
+    readonly property alias count: listview.count
 
     signal newTabRequested()
     signal done()
