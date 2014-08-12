@@ -1,3 +1,15 @@
+webbrowser-app (0.23+14.10.20140812-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Save/restore browsing sessions for webbrowser-app and webapp-
+    container. For now, only the list of currently open tabs (URLs) is
+    persisted (current URL for the container), not the complete state
+    for each webview. (LP: #1268056)
+  * Fix a harmless warning that was issued when closing the last open
+    tab.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 12 Aug 2014 08:26:26 +0000
+
 webbrowser-app (0.23+14.10.20140811-0ubuntu1) utopic; urgency=low
 
   [ Alexandre Abreu ]
