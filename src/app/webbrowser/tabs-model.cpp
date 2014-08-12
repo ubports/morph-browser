@@ -152,6 +152,14 @@ void TabsModel::setCurrent(int index)
     Q_EMIT currentWebviewChanged();
 }
 
+QObject* TabsModel::get(int index) const
+{
+    if (!checkValidTabIndex(index)) {
+        return 0;
+    }
+    return m_webviews.at(index);
+}
+
 bool TabsModel::checkValidTabIndex(int index) const
 {
     if ((index < 0) || (index >= m_webviews.count())) {

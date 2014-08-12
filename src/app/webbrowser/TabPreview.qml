@@ -24,6 +24,7 @@ Column {
 
     property alias title: label.text
     property var webview
+    readonly property url url: webview ? webview.url : ""
 
     signal selected()
     signal closeRequested()
@@ -178,9 +179,11 @@ Column {
         preview.height = internal.previewParent.height
     }
     Component.onDestruction: {
-        var preview = tab.webview.preview
-        preview.parent = internal.previewParent
-        preview.width = preview.parent.width
-        preview.height = preview.parent.height
+        if (tab.webview) {
+            var preview = tab.webview.preview
+            preview.parent = internal.previewParent
+            preview.width = preview.parent.width
+            preview.height = preview.parent.height
+        }
     }
 }

@@ -27,6 +27,7 @@ Window {
     objectName: "webappContainer"
 
     property bool developerExtrasEnabled: false
+    property bool restoreSession: true
 
     property bool backForwardButtonsVisible: true
     property bool chromeVisible: true
@@ -75,6 +76,7 @@ Window {
             chromeVisible: root.chromeVisible
             backForwardButtonsVisible: root.backForwardButtonsVisible
             developerExtrasEnabled: root.developerExtrasEnabled
+            restoreSession: root.restoreSession
             oxide: root.oxide
             url: root.url
             webappModelSearchPath: root.webappModelSearchPath
@@ -179,8 +181,10 @@ Window {
         target: UriHandler
         onOpened: {
             // only consider the first one (if multiple)
-            if (uris.length !== 0) {
-                url = uris[0];
+            if (uris.length !== 0
+                    && webappPageComponentLoader.item
+                    && webappPageComponentLoader.item.currentWebview) {
+                webappPageComponentLoader.item.currentWebview.url = uris[0];
             }
         }
     }

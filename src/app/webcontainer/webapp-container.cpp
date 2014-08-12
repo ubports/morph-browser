@@ -175,6 +175,7 @@ void WebappContainer::printUsage() const
        " [--inspector]"
        " [--app-id=APP_ID]"
        " [--homepage=URL]"
+       " [--new-session]"
        " [--webapp=name]"
        " [--webappModelSearchPath=PATH]"
        " [--webappUrlPatterns=URL_PATTERNS]"
@@ -188,9 +189,10 @@ void WebappContainer::printUsage() const
     out << "  --fullscreen                        display full screen" << endl;
     out << "  --local-webapp-manifest             configure the webapp assuming that it has a local manifest.json file" << endl;
     out << "  --maximized                         opens the application maximized" << endl;
-    out << "  --inspector                         run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
+    out << "  --inspector[=PORT]                  run a remote inspector on a specified port or " << REMOTE_INSPECTOR_PORT << " as the default port" << endl;
     out << "  --app-id=APP_ID                     run the application with a specific APP_ID" << endl;
     out << "  --homepage=URL                      override any URL passed as an argument" << endl;
+    out << "  --new-session                       do not restore the open page from the last session" << endl;
     out << "  --webapp=name                       try to match the webapp by name with an installed integration script" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;

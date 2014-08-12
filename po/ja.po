@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2014-08-06 17:33+0000\n"
-"Last-Translator: Fumihito YOSHIDA <hito@kugutsu.org>\n"
+"PO-Revision-Date: 2014-08-08 00:44+0000\n"
+"Last-Translator: Mitsuya Shibata <mty.shibata@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-07 06:24+0000\n"
-"X-Generator: Launchpad (build 17147)\n"
+"X-Launchpad-Export-Date: 2014-08-08 06:59+0000\n"
+"X-Generator: Launchpad (build 17156)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -52,15 +52,15 @@ msgstr "キャンセル"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr "ナビゲーションの確認"
+msgstr "操作の確認"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr "休暇"
+msgstr "削除する"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "そのままにする"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -239,11 +239,11 @@ msgstr ""
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr "イメージの保存"
+msgstr "画像を保存"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr ""
+msgstr "共有..."
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
@@ -251,7 +251,7 @@ msgstr "検索 / アドレスの入力"
 
 #: src/app/webbrowser/Browser.qml:148
 msgid "Share"
-msgstr "シェア"
+msgstr "共有"
 
 #: src/app/webbrowser/Browser.qml:162
 msgid "History"
@@ -285,7 +285,7 @@ msgstr "昨日"
 
 #: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
 msgid "Done"
-msgstr "Done"
+msgstr "完了"
 
 #: src/app/webbrowser/HistoryView.qml:109
 msgid "Clear"
@@ -309,7 +309,7 @@ msgstr "ブックマーク"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
-msgstr ""
+msgstr "よく訪れるサイト"
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
@@ -317,11 +317,11 @@ msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see more"
-msgstr ""
+msgstr "さらに表示"
 
 #: src/app/webbrowser/TabsView.qml:110
 msgid "Add"
-msgstr ""
+msgstr "追加"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -353,7 +353,7 @@ msgstr "ローカルアカウントが見つかりません： "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "アカウントの作成をスキップする"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
@@ -361,4 +361,4 @@ msgstr "アカウントの追加"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "アカウントの選択"
