@@ -60,6 +60,23 @@ BrowserApplication::~BrowserApplication()
     delete m_engine;
 }
 
+QString BrowserApplication::inspectorPort() const
+{
+    QString port;
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument == "--inspector") {
+            // default port
+            port = QString::number(REMOTE_INSPECTOR_PORT);
+            break;
+        }
+        if (argument.startsWith("--inspector=")) {
+            port = argument.split("--inspector=")[1];
+            break;
+        }
+    }
+    return port;
+}
+
 QString BrowserApplication::appId() const
 {
     Q_FOREACH(const QString& argument, m_arguments) {
@@ -101,22 +118,10 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     QOpenGLContextPrivate::setGlobalShareContext(glcontext);
 #endif
 
-    bool inspector = m_arguments.contains("--inspector");
-    if (inspector) {
-        QString host;
-        Q_FOREACH(QHostAddress address, QNetworkInterface::allAddresses()) {
-            if (!address.isLoopback() && (address.protocol() == QAbstractSocket::IPv4Protocol)) {
-                host = address.toString();
-                break;
-            }
-        }
-        QString server;
-        if (host.isEmpty()) {
-            server = QString::number(REMOTE_INSPECTOR_PORT);
-        } else {
-            server = QString("%1:%2").arg(host, QString::number(REMOTE_INSPECTOR_PORT));
-        }
-        qputenv("QTWEBKIT_INSPECTOR_SERVER", server.toUtf8());
+    QString devtoolsPort = inspectorPort();
+    bool inspectorEnabled = !devtoolsPort.isEmpty();
+    if (inspectorEnabled) {
+        qputenv("UBUNTU_WEBVIEW_DEVTOOLS_PORT", devtoolsPort.toUtf8());
     }
 
     const char* uri = "webbrowsercommon.private";
@@ -144,8 +149,8 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     m_window = qobject_cast<QQuickWindow*>(browser);
     m_webbrowserWindowProxy->setWindow(m_window);
 
-    browser->setProperty("developerExtrasEnabled", inspector);
     browser->setProperty("restoreSession", !m_arguments.contains("--new-session"));
+    browser->setProperty("developerExtrasEnabled", inspectorEnabled);
 
     return true;
 }

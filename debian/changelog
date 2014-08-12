@@ -1,3 +1,15 @@
+webbrowser-app (0.23+14.10.20140811-0ubuntu1) utopic; urgency=low
+
+  [ Alexandre Abreu ]
+  * Add devtools support & ubuntu webview remote debugging
+  * Fix URI handling by the webapp container. (LP: #1342129)
+
+  [ Olivier Tilloy ]
+  * Fix a couple of harmless warnings that were issued when closing the
+    last open tab.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 11 Aug 2014 15:14:20 +0000
+
 webbrowser-app (0.23+14.10.20140805.1-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]

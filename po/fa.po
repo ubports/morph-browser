@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2014-08-03 16:26+0000\n"
+"PO-Revision-Date: 2014-08-06 15:22+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Launchpad-Export-Date: 2014-08-07 06:24+0000\n"
 "X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
@@ -102,12 +102,12 @@ msgstr "به نظر می‌رسد که شما در دیدن %1 مشکل داری
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"اوبونتو پیشنهاد می‌کند که تنظیمات شبکه‌تان را بررسی کنید و برگه را بازآوری "
-"کنید."
+"اوبونتو پیشنهاد می‌کند که تنظیمات شبکه‌تان را بررسی کرده و تازه‌سازی صفحه را "
+"امتحان کنید."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "بازآوری صفحه"
+msgstr "تازه‌سازی صفحه"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"

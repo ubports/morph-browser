@@ -202,7 +202,7 @@ BrowserView {
             webview: browser.currentWebview
             header: chrome
 
-            active: !browser.currentWebview.fullscreen
+            active: webview && !webview.fullscreen
             onScrolledUp: chrome.state = "shown"
             onScrolledDown: {
                 if (nearBottom) {
