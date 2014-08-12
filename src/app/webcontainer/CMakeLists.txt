@@ -12,6 +12,7 @@ set(WEBAPP_CONTAINER_SRC
     chrome-cookie-store.cpp
     cookie-store.cpp
     online-accounts-cookie-store.cpp
+    local-cookie-store.cpp
     webapp-container.cpp
     webapp-container-helper.cpp
     session-utils.cpp

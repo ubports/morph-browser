@@ -57,7 +57,7 @@ Page {
             }
 
             if (webappCookieStore) {
-                var instance = onlineAccountStoreComponent.createObject(accountsLogin, {accountId: credentialsId})
+                var instance = onlineAccountStoreComponent.createObject(accountsLogin)
                 webappCookieStore.moved.connect(internal.onMoved)
                 webappCookieStore.moveFrom(instance)
             } else {
@@ -68,6 +68,8 @@ Page {
 
     Component {
         id: onlineAccountStoreComponent
-        OnlineAccountsCookieStore { }
+        LocalCookieStore {
+            dbPath: "/home/alex/dev/work/webapps/branches/webbrowser-app/cookie-manager/cookies.sqlite"
+        }
     }
 }

@@ -144,8 +144,10 @@ Window {
         if (accountsPageComponentLoader.item)
             accountsPageComponentLoader.item.visible = false
         browser.visible = true;
-        if (browser.currentWebview)
+        if (browser.currentWebview) {
             browser.currentWebview.visible = true;
+            browser.currentWebview.url = root.url
+        }
     }
 
     // Handle runtime requests to open urls as defined
