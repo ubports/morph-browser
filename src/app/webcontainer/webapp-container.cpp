@@ -110,6 +110,10 @@ bool WebappContainer::initialize()
                 m_window->setProperty("webappModelSearchPath", searchDir.path());
             }
         }
+        if ( ! m_localCookieStoreDbPath.isEmpty()) {
+            m_window->setProperty("localCookieStoreDbPath", m_localCookieStoreDbPath);
+        }
+
         m_window->setProperty("webappName", m_webappName);
         m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
         m_window->setProperty("chromeVisible", m_addressBarVisible);
@@ -128,10 +132,6 @@ bool WebappContainer::initialize()
         }
 
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
-
-        if ( ! m_localCookieStoreDbPath.isEmpty()) {
-            m_window->setProperty("localCookieStoreDbPath", m_localCookieStoreDbPath);
-        }
 
         if ( ! m_popupRedirectionUrlPrefix.isEmpty()) {
             m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);

@@ -31,6 +31,8 @@ Window {
     property bool backForwardButtonsVisible: true
     property bool chromeVisible: true
 
+    property string localCookieStoreDbPath: ""
+
     property string url: ""
     property string webappName: ""
     property string webappModelSearchPath: ""
@@ -39,8 +41,6 @@ Window {
     property string accountProvider: ""
     property string popupRedirectionUrlPrefix: ""
     property var __webappCookieStore: null
-
-    property string localCookieStoreDbPath: ""
 
     contentOrientation: Screen.orientation
 
@@ -82,7 +82,10 @@ Window {
 
         webbrowserWindow: webbrowserWindowProxy
 
-        onCurrentWebviewChanged: root.updateCurrentView()
+        onCurrentWebviewChanged: {
+            if (currentWebview)
+                root.updateCurrentView()
+        }
 
         Component.onCompleted: i18n.domain = "webbrowser-app"
     }
@@ -115,6 +118,7 @@ Window {
         id: oxideCookieStoreComponent
         ChromeCookieStore {
             dbPath: dataLocation + "/cookies.sqlite"
+            homepage: root.url
             oxideStoreBackend: browser.currentWebview ? browser.currentWebview.context.cookieManager : null
         }
     }

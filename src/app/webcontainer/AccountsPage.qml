@@ -26,7 +26,7 @@ Page {
     property alias accountProvider: accountsLogin.accountProvider
     property alias applicationName: accountsLogin.applicationName
     property var webappCookieStore: null
-    property var onlineAccountStoreComponent
+    property var onlineAccountStoreComponent: null
 
     signal done()
 

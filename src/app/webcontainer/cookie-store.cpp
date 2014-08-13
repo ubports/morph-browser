@@ -115,7 +115,13 @@ void CookieStore::moveFrom(CookieStore* store)
     QDateTime lastRemoteCookieUpdate = store->lastUpdateTimeStamp();
     QDateTime lastLocalCookieUpdate = lastUpdateTimeStamp();
 
-    // Disabled for now
+    // Disabled for now since.
+    // There is an obvious race if the WebView is instanciated
+    // (since it creates a cookies db file at creation time).
+    // But when delaying the creation, only using the WebContext to
+    // access the cookieManager, and manually creating a cookies db file
+    // if none is found (since the cookie manager does not create one
+    // when setting its cookies), something fails.
 #if 0
     if (lastRemoteCookieUpdate.isValid() &&
         lastLocalCookieUpdate.isValid() &&
