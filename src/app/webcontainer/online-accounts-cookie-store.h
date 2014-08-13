@@ -19,6 +19,9 @@
 #ifndef ONLINE_ACCOUNTS_COOKIE_STORE_H
 #define ONLINE_ACCOUNTS_COOKIE_STORE_H
 
+#include <QList>
+#include <QByteArray>
+
 #include "cookie-store.h"
 
 class OnlineAccountsCookieStorePrivate;
@@ -44,9 +47,12 @@ Q_SIGNALS:
 
 private:
 
-    virtual Cookies doGetCookies() Q_DECL_OVERRIDE;
-    virtual bool doSetCookies(const Cookies& cookies) Q_DECL_OVERRIDE;
+    typedef QList<QByteArray> OnlineAccountsCookies;
 
+    virtual void doGetCookies() Q_DECL_OVERRIDE;
+    virtual void doSetCookies(const Cookies& cookies) Q_DECL_OVERRIDE;
+
+    static Cookies fromDbusCookies(const OnlineAccountsCookies& cookies);
 
 private:
 

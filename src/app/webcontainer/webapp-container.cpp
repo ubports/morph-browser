@@ -20,10 +20,10 @@
 #include "webapp-container.h"
 
 #include "chrome-cookie-store.h"
+#include "local-cookie-store.h"
 #include "online-accounts-cookie-store.h"
 #include "session-utils.h"
 #include "url-pattern-utils.h"
-#include "webkit-cookie-store.h"
 #include "webapp-container-helper.h"
 
 
@@ -110,6 +110,10 @@ bool WebappContainer::initialize()
                 m_window->setProperty("webappModelSearchPath", searchDir.path());
             }
         }
+        if ( ! m_localCookieStoreDbPath.isEmpty()) {
+            m_window->setProperty("localCookieStoreDbPath", m_localCookieStoreDbPath);
+        }
+
         m_window->setProperty("webappName", m_webappName);
         m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
         m_window->setProperty("chromeVisible", m_addressBarVisible);
@@ -158,8 +162,8 @@ void WebappContainer::qmlEngineCreated(QQmlEngine* engine)
     if (engine) {
         qmlRegisterType<ChromeCookieStore>(privateModuleUri, 0, 1,
                                            "ChromeCookieStore");
-        qmlRegisterType<WebkitCookieStore>(privateModuleUri, 0, 1,
-                                           "WebkitCookieStore");
+        qmlRegisterType<LocalCookieStore>(privateModuleUri, 0, 1,
+                                           "LocalCookieStore");
         qmlRegisterType<OnlineAccountsCookieStore>(privateModuleUri, 0, 1,
                                                    "OnlineAccountsCookieStore");
     }
@@ -237,6 +241,8 @@ void WebappContainer::parseCommandLine()
             m_localWebappManifest = true;
         } else if (argument.startsWith("--popup-redirection-url-prefix=")) {
             m_popupRedirectionUrlPrefix = argument.split("--popup-redirection-url-prefix=")[1];;
+        } else if (argument.startsWith("--local-cookie-db-path=")) {
+            m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];;
         }
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,11 +17,16 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Dialogs 1.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0 as Popups
+import com.canonical.Oxide 1.0 as Oxide
 
-Component {
-    Popups.Dialog {
+Item {
+    id: backend
+
+    property var oxideCookieManager: null
+
+    signal gotCookies(var cookies)
+
+    function setCookies(cookies) {
+
     }
 }

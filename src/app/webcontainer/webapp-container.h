@@ -57,6 +57,7 @@ private:
     bool m_addressBarVisible;
     bool m_localWebappManifest;
     QString m_popupRedirectionUrlPrefix;
+    QString m_localCookieStoreDbPath;
     QScopedPointer<WebappContainerHelper> m_webappContainerHelper;
 
     static const QString URL_PATTERN_SEPARATOR;
