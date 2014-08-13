@@ -198,66 +198,9 @@ BrowserView {
             }
         }
 
-        ScrollTracker {
-            id: scrollTracker
-
+        ChromeStateTracker {
             webview: browser.currentWebview
             header: chrome
-
-            active: webview && !webview.fullscreen
-
-            onScrolledUp: {
-                if (!chrome.moving && chromeStateChangeTimer.settled) {
-                    delayedAutoHideTimer.up = true
-                    delayedAutoHideTimer.restart()
-                }
-            }
-            onScrolledDown: {
-                if (!chrome.moving && chromeStateChangeTimer.settled) {
-                    delayedAutoHideTimer.up = false
-                    delayedAutoHideTimer.restart()
-                }
-            }
-
-            // Delay the auto-hide/auto-show behaviour of the header, in order
-            // to prevent the view from jumping up and down on touch-enabled
-            // devices when the touch event sequence is not finished.
-            // See https://bugs.launchpad.net/webbrowser-app/+bug/1354700.
-            Timer {
-                id: delayedAutoHideTimer
-                interval: 250
-                property bool up
-                onTriggered: {
-                    if (up) {
-                        chrome.state = "shown"
-                    } else {
-                        if (scrollTracker.nearBottom) {
-                            chrome.state = "shown"
-                        } else if (!scrollTracker.nearTop) {
-                            chrome.state = "hidden"
-                        }
-                    }
-                }
-            }
-
-            // After the chrome has stopped moving (either fully shown or fully
-            // hidden), give it some time to "settle". Until it is settled,
-            // scroll events won’t trigger a new change in the chrome’s
-            // visibility, to prevent the chrome from jumping back into view if
-            // it has just been hidden.
-            // See https://bugs.launchpad.net/webbrowser-app/+bug/1354700.
-            Timer {
-                id: chromeStateChangeTimer
-                interval: 50
-                running: !chrome.moving
-                onTriggered: settled = true
-                property bool settled: true
-            }
-
-            Connections {
-                target: chrome
-                onMovingChanged: chromeStateChangeTimer.settled = false
-            }
         }
 
         Suggestions {

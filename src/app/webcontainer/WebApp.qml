@@ -146,48 +146,14 @@ BrowserView {
         }
 
         Loader {
-            sourceComponent: (webapp.oxide && !webapp.chromeless) ? scrollTrackerComponent : undefined
+            sourceComponent: (webapp.oxide && !webapp.chromeless) ? chromeStateTrackerComponent : undefined
 
             Component {
-                id: scrollTrackerComponent
+                id: chromeStateTrackerComponent
 
-                ScrollTracker {
-                    id: scrollTracker
-
+                ChromeStateTracker {
                     webview: webapp.currentWebview
                     header: chromeLoader.item
-
-                    active: !webapp.currentWebview.fullscreen
-
-                    onScrolledUp: {
-                        delayedAutoHideTimer.up = true
-                        delayedAutoHideTimer.restart()
-                    }
-                    onScrolledDown: {
-                        delayedAutoHideTimer.up = false
-                        delayedAutoHideTimer.restart()
-                    }
-
-                    // Delay the auto-hide/auto-show behaviour of the header, in order
-                    // to prevent the view from jumping up and down on touch-enabled
-                    // devices when the touch event sequence is not finished.
-                    // See https://bugs.launchpad.net/webbrowser-app/+bug/1354700.
-                    Timer {
-                        id: delayedAutoHideTimer
-                        interval: 250
-                        property bool up
-                        onTriggered: {
-                            if (up) {
-                                chromeLoader.item.state = "shown"
-                            } else {
-                                if (scrollTracker.nearBottom) {
-                                    chromeLoader.item.state = "shown"
-                                } else if (!scrollTracker.nearTop) {
-                                    chromeLoader.item.state = "hidden"
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }
