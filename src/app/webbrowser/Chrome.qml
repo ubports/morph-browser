@@ -98,11 +98,13 @@ ChromeBase {
                      // Workaround for https://bugs.launchpad.net/oxide/+bug/1290821.
                      && !chrome.webview.lastLoadStopped
                      : false
-
-            onValidated: {
-                chrome.webview.url = requestedUrl
-                chrome.webview.forceActiveFocus()
+            onLoadingChanged: {
+                if (loading) {
+                    chrome.webview.forceActiveFocus()
+                }
             }
+
+            onValidated: chrome.webview.url = requestedUrl
             onRequestReload: chrome.webview.reload()
             onRequestStop: chrome.webview.stop()
 
