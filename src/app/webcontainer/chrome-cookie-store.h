@@ -21,13 +21,17 @@
 
 #include "cookie-store.h"
 
+#include <QString>
+#include <QUrl>
 #include <QSqlDatabase>
+
 
 class ChromeCookieStore : public CookieStore
 {
     Q_OBJECT
     Q_ENUMS(RequestStatus)
 
+    Q_PROPERTY(QUrl homepage READ homepage WRITE setHomepage NOTIFY homepageChanged)
     Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
     Q_PROPERTY(QObject* oxideStoreBackend READ oxideStoreBackend WRITE setOxideStoreBackend NOTIFY oxideStoreBackendChanged)
 
@@ -48,6 +52,10 @@ public:
     void setDbPath(const QString& path);
     QString dbPath() const;
 
+    // dbpaths
+    void setHomepage(const QUrl& path);
+    QUrl homepage() const;
+
     // oxideStoreBackend
     void setOxideStoreBackend(QObject* backend);
     QObject* oxideStoreBackend() const;
@@ -58,6 +66,7 @@ public:
 Q_SIGNALS:
     void dbPathChanged();
     void oxideStoreBackendChanged();
+    void homepageChanged();
 
 private Q_SLOTS:
     void oxideCookiesReceived(int requestId, const QVariant& cookies, RequestStatus status);
@@ -67,8 +76,12 @@ private:
     virtual void doGetCookies() Q_DECL_OVERRIDE;
     virtual void doSetCookies(const Cookies& cookies) Q_DECL_OVERRIDE;
 
+    bool ensureCookieDatabaseExists();
+    bool createDb(QSqlDatabase & db);
+
 private:
     QObject* m_backend;
+    QUrl m_homepage;
     QString m_dbPath;
 };
 

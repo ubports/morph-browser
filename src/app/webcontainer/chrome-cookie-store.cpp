@@ -21,10 +21,11 @@
 #include <QDebug>
 #include <QFileInfo>
 #include <QStandardPaths>
+#include <QSqlError>
+#include <QSqlQuery>
 #include <QMetaMethod>
 
 namespace {
-
 
 QList<QNetworkCookie> networkCookiesFromVariantList(const QVariant& cookies) {
     if (!cookies.canConvert(QMetaType::QVariantList)) {
@@ -71,28 +72,76 @@ QList<QNetworkCookie> networkCookiesFromVariantList(const QVariant& cookies) {
     return networkCookies;
 }
 
-QVariant networkCookiesToVariantList(const QList<QNetworkCookie>& cookies) {
-    QList<QVariant> cookieMapList;
-    Q_FOREACH(QNetworkCookie cookie, cookies) {
-        QVariantMap cm;
-        cm.insert("name", QVariant(cookie.name()));
-        cm.insert("value", QVariant(cookie.value()));
-        cm.insert("domain", QVariant(cookie.domain()));
-        cm.insert("path", QVariant(cookie.path()));
-        cm.insert("httponly", QVariant(cookie.isHttpOnly()));
-        cm.insert("issecure", QVariant(cookie.isSecure()));
-        cm.insert("issessioncookie", QVariant(cookie.isSessionCookie()));
-        cm.insert("expirationdate", QVariant(cookie.expirationDate()));
-        cookieMapList.append(cm);
-    }
-    return cookieMapList;
-}
-
 }
 
 ChromeCookieStore::ChromeCookieStore(QObject* parent):
     CookieStore(parent), m_backend(0)
 {}
+
+bool ChromeCookieStore::createDb(QSqlDatabase & db)
+{
+    if (Q_UNLIKELY(!db.transaction())) return false;
+
+    QSqlQuery q(db);
+    bool ok;
+    ok = q.exec("CREATE TABLE meta(key LONGVARCHAR NOT NULL UNIQUE PRIMARY KEY,"
+                "value LONGVARCHAR)");
+    if (Q_UNLIKELY(!ok)) {
+        db.rollback();
+        return false;
+    }
+
+    ok = q.exec("CREATE TABLE cookies (creation_utc INTEGER NOT NULL UNIQUE PRIMARY KEY,"
+                "host_key TEXT NOT NULL,"
+                "name TEXT NOT NULL,"
+                "value TEXT NOT NULL,"
+                "path TEXT NOT NULL,"
+                "expires_utc INTEGER NOT NULL,"
+                "secure INTEGER NOT NULL,"
+                "httponly INTEGER NOT NULL,"
+                "last_access_utc INTEGER NOT NULL,"
+                "has_expires INTEGER NOT NULL DEFAULT 1,"
+                "persistent INTEGER NOT NULL DEFAULT 1,"
+                "priority INTEGER NOT NULL DEFAULT 1,"
+                "encrypted_value BLOB DEFAULT '')");
+    if (Q_UNLIKELY(!ok)) {
+        db.rollback();
+        return false;
+    }
+
+    ok = q.exec("CREATE INDEX domain ON cookies(host_key)");
+    if (Q_UNLIKELY(!ok)) {
+        db.rollback();
+        return false;
+    }
+
+    ok = q.exec("INSERT INTO meta (key, value) VALUES ('version', '7')");
+    if (Q_UNLIKELY(!ok)) {
+        db.rollback();
+        return false;
+    }
+
+    ok = q.exec("INSERT INTO meta (key, value) VALUES ('last_compatible_version', '5')");
+    if (Q_UNLIKELY(!ok)) {
+        db.rollback();
+        return false;
+    }
+
+    return db.commit();
+}
+
+void ChromeCookieStore::setHomepage(const QUrl& homepage) {
+    if (homepage == m_homepage)
+        return;
+
+    m_homepage = homepage;
+
+    emit homepageChanged();
+}
+
+QUrl ChromeCookieStore::homepage() const {
+    return m_homepage;
+}
 
 void ChromeCookieStore::setOxideStoreBackend(QObject* backend)
 {
@@ -153,10 +202,39 @@ QDateTime ChromeCookieStore::lastUpdateTimeStamp() const
     return dbFileInfo.lastModified();
 }
 
+bool ChromeCookieStore::ensureCookieDatabaseExists()
+{
+    static int connectionCounter = 0;
+
+    QString connectionName =
+        QString("LocalCookieStore-%1").arg(connectionCounter++);
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", connectionName);
+
+    QFileInfo dbFileInfo(m_dbPath);
+    if ( !dbFileInfo.exists())
+    {
+        db.setDatabaseName(m_dbPath);
+        if (!db.open()) {
+            return false;
+        }
+    }
+
+    QSqlQuery q(db);
+    // Check whether the table already exists
+    q.exec("SELECT name FROM sqlite_master WHERE type='table' AND name='cookies'");
+    if (!q.next() && !createDb(db)) {
+        qCritical() << "Could not create cookie database:" << m_dbPath << db.lastError().text();
+        return false;
+    }
+    return true;
+}
+
 void ChromeCookieStore::doSetCookies(const Cookies& cookies)
 {
     if ( ! m_backend)
         return;
+
+    ensureCookieDatabaseExists();
 
     QByteArray normalizedSignature =
       QMetaObject::normalizedSignature("cookiesSet(int, RequestStatus)");
@@ -169,17 +247,17 @@ void ChromeCookieStore::doSetCookies(const Cookies& cookies)
                             QMetaObject::normalizedSignature("oxideCookiesUpdated(int, RequestStatus)"))));
     }
 
-    normalizedSignature = QMetaObject::normalizedSignature("setCookies(const QString&, const QVariant&)");
+    normalizedSignature = QMetaObject::normalizedSignature("setNetworkCookies(const QString&, const QList<QNetworkCookie>&)");
     idx = m_backend->metaObject()->indexOfMethod(normalizedSignature);
     if (idx != -1) {
-        QString url = "http://";
+        QString url = m_homepage.toString();
         int requestId = -1;
         QMetaMethod method = m_backend->metaObject()->method(idx);
         method.invoke(m_backend,
               Qt::DirectConnection,
               Q_RETURN_ARG(int, requestId),
               Q_ARG(const QString&, url),
-              Q_ARG(const QVariant&, networkCookiesToVariantList(cookies)));
+              Q_ARG(const QList<QNetworkCookie>&, cookies));
     }
 }
 
