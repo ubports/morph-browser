@@ -253,9 +253,12 @@ ChromeBase {
                                 left: actionIcon.right
                                 leftMargin: units.gu(2)
                                 verticalCenter: parent.verticalCenter
+                                right: parent.right
+                                rightMargin: units.gu(1)
                             }
                             text: model.text
                             fontSize: "small"
+                            elide: Text.ElideRight
                         }
                     }
                 }
