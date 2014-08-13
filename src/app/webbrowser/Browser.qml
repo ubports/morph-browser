@@ -199,16 +199,40 @@ BrowserView {
         }
 
         ScrollTracker {
+            id: scrollTracker
+
             webview: browser.currentWebview
             header: chrome
 
             active: webview && !webview.fullscreen
-            onScrolledUp: chrome.state = "shown"
+
+            onScrolledUp: {
+                delayedAutoHideTimer.up = true
+                delayedAutoHideTimer.restart()
+            }
             onScrolledDown: {
-                if (nearBottom) {
-                    chrome.state = "shown"
-                } else if (!nearTop) {
-                    chrome.state = "hidden"
+                delayedAutoHideTimer.up = false
+                delayedAutoHideTimer.restart()
+            }
+
+            // Delay the auto-hide/auto-show behaviour of the header, in order
+            // to prevent the view from jumping up and down on touch-enabled
+            // devices when the touch event sequence is not finished.
+            // See https://bugs.launchpad.net/webbrowser-app/+bug/1354700.
+            Timer {
+                id: delayedAutoHideTimer
+                interval: 250
+                property bool up
+                onTriggered: {
+                    if (up) {
+                        chrome.state = "shown"
+                    } else {
+                        if (scrollTracker.nearBottom) {
+                            chrome.state = "shown"
+                        } else if (!scrollTracker.nearTop) {
+                            chrome.state = "hidden"
+                        }
+                    }
                 }
             }
         }
