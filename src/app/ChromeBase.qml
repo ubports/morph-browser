@@ -25,6 +25,8 @@ FocusScope {
     readonly property real visibleHeight: y + height
     property var webview
 
+    readonly property bool moving: (y < 0) && (y > -height)
+
     states: [
         State {
             name: "shown"
