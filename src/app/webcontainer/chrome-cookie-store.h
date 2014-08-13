@@ -23,7 +23,6 @@
 
 #include <QString>
 #include <QUrl>
-#include <QSqlDatabase>
 
 
 class ChromeCookieStore : public CookieStore
@@ -75,9 +74,6 @@ private Q_SLOTS:
 private:
     virtual void doGetCookies() Q_DECL_OVERRIDE;
     virtual void doSetCookies(const Cookies& cookies) Q_DECL_OVERRIDE;
-
-    bool ensureCookieDatabaseExists();
-    bool createDb(QSqlDatabase & db);
 
 private:
     QObject* m_backend;

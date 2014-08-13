@@ -209,6 +209,9 @@ void LocalCookieStore::setDbPath(const QString &path)
             return;
         }
         m_dbPath = normalizedPath;
+
+        qDebug() << "Using local cookie db: " << m_dbPath;
+
         Q_EMIT dbPathChanged();
     }
 }

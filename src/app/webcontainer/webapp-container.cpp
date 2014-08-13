@@ -129,6 +129,10 @@ bool WebappContainer::initialize()
 
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
 
+        if ( ! m_localCookieStoreDbPath.isEmpty()) {
+            m_window->setProperty("localCookieStoreDbPath", m_localCookieStoreDbPath);
+        }
+
         if ( ! m_popupRedirectionUrlPrefix.isEmpty()) {
             m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
         }
@@ -233,6 +237,8 @@ void WebappContainer::parseCommandLine()
             m_localWebappManifest = true;
         } else if (argument.startsWith("--popup-redirection-url-prefix=")) {
             m_popupRedirectionUrlPrefix = argument.split("--popup-redirection-url-prefix=")[1];;
+        } else if (argument.startsWith("--local-cookie-db-path=")) {
+            m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];;
         }
     }
 }

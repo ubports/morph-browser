@@ -20,9 +20,7 @@ import QtQuick 2.0
 import QtQuick.Window 2.1
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Extras.Browser 0.2
-import com.canonical.Oxide 1.0 as Oxide
 import webcontainer.private 0.1
-
 
 Window {
     id: root
@@ -42,6 +40,8 @@ Window {
     property string popupRedirectionUrlPrefix: ""
     property var __webappCookieStore: null
 
+    property string localCookieStoreDbPath: ""
+
     contentOrientation: Screen.orientation
 
     width: 800
@@ -50,48 +50,46 @@ Window {
     title: {
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
             return webappName
-        } else if (webappPageComponentLoader.item &&
-                   webappPageComponentLoader.item.title) {
+        } else if (browser.title) {
             // TRANSLATORS: %1 refers to the current page’s title
-            return i18n.tr("%1 - Ubuntu Web Browser").arg(webappPageComponentLoader.item.title)
+            return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
         } else {
             return i18n.tr("Ubuntu Web Browser")
         }
     }
 
-    Loader {
-        id: webappPageComponentLoader
+    WebApp {
+        id: browser
+
+        // Initially set as non visible to leave a chance
+        // for the OA dialog to appear
+        visible: false
+
+        url: accountProvider.length === 0 ? root.url : ""
+
+        chromeVisible: root.chromeVisible
+        backForwardButtonsVisible: root.backForwardButtonsVisible
+        developerExtrasEnabled: root.developerExtrasEnabled
+        oxide: root.oxide
+
+        webappModelSearchPath: root.webappModelSearchPath
+        webappName: root.webappName
+        webappUrlPatterns: root.webappUrlPatterns
+
+        popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+
         anchors.fill: parent
-    }
 
-    Component {
-        id: webappPageComponent
+        webbrowserWindow: webbrowserWindowProxy
 
-        WebApp {
-            id: browser
-            addressBarVisible: root.addressBarVisible
-            backForwardButtonsVisible: root.backForwardButtonsVisible
-            developerExtrasEnabled: root.developerExtrasEnabled
-            oxide: root.oxide
-            url: root.url
-            webappModelSearchPath: root.webappModelSearchPath
-            webappName: root.webappName
-            webappUrlPatterns: root.webappUrlPatterns
+        onCurrentWebviewChanged: root.updateCurrentView()
 
-            popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
-
-            anchors.fill: parent
-
-            chromeless: !backForwardButtonsVisible && !addressBarVisible
-            webbrowserWindow: webbrowserWindowProxy
-
-            Component.onCompleted: i18n.domain = "webbrowser-app"
-        }
+        Component.onCompleted: i18n.domain = "webbrowser-app"
     }
 
     // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
     // by toggling fullscreen on the window only on desktop.
-    visibility: webappPageComponentLoader.item && webappPageComponentLoader.item.currentWebview.fullscreen &&
+    visibility: browser.currentWebview.fullscreen &&
                 (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
@@ -113,28 +111,30 @@ Window {
         onDone: loadWebAppView()
     }
 
-    Oxide.WebContext {
-        id: cookieStoreBackend
-        dataPath: dataLocation
-    }
-
     Component {
         id: oxideCookieStoreComponent
         ChromeCookieStore {
             dbPath: dataLocation + "/cookies.sqlite"
-            oxideStoreBackend: cookieStoreBackend.cookieManager
-            homepage: root.url
+            oxideStoreBackend: browser.currentWebview ? browser.currentWebview.context.cookieManager : null
         }
     }
 
-    Component.onCompleted: updateCurrentView()
+    Component {
+        id: localCookieStoreComponent
+        LocalCookieStore {
+            dbPath: localCookieStoreDbPath
+        }
+    }
 
-    onAccountProviderChanged: updateCurrentView();
+    Component {
+        id: onlineAccountStoreComponent
+        OnlineAccountsCookieStore { }
+    }
 
     function updateCurrentView() {
         // check if we are to display the login view
         // or directly switch to the webapp view
-        if (accountProvider.length !== 0 && oxide && !__webappCookieStore) {
+        if (accountProvider.length !== 0 && !__webappCookieStore && oxide) {
             loadLoginView();
         } else {
             loadWebAppView();
@@ -148,15 +148,20 @@ Window {
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
             "accountProvider": accountProvider,
             "applicationName": Qt.application.name,
-            "webappCookieStore": __webappCookieStore
+            "webappCookieStore": __webappCookieStore,
+            "onlineAccountStoreComponent": localCookieStoreDbPath.length !== 0 ?
+                                               localCookieStoreComponent : onlineAccountStoreComponent
         })
     }
 
     function loadWebAppView() {
-        webappPageComponentLoader.sourceComponent = webappPageComponent;
         if (accountsPageComponentLoader.item)
-            accountsPageComponentLoader.item.visible = false;
-        webappPageComponentLoader.item.visible = true;
+            accountsPageComponentLoader.item.visible = false
+        browser.visible = true;
+        if (browser.currentWebview) {
+            browser.currentWebview.visible = true;
+            browser.currentWebview.url = root.url
+        }
     }
 
     // Handle runtime requests to open urls as defined
@@ -175,3 +180,4 @@ Window {
         }
     }
 }
+

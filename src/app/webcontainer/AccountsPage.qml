@@ -26,6 +26,7 @@ Page {
     property alias accountProvider: accountsLogin.accountProvider
     property alias applicationName: accountsLogin.applicationName
     property var webappCookieStore: null
+    property var onlineAccountStoreComponent
 
     signal done()
 
@@ -63,13 +64,6 @@ Page {
             } else {
                 accountsPage.done()
             }
-        }
-    }
-
-    Component {
-        id: onlineAccountStoreComponent
-        LocalCookieStore {
-            dbPath: "/home/alex/dev/work/webapps/branches/webbrowser-app/cookie-manager/cookies.sqlite"
         }
     }
 }

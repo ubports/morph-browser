@@ -115,6 +115,8 @@ void CookieStore::moveFrom(CookieStore* store)
     QDateTime lastRemoteCookieUpdate = store->lastUpdateTimeStamp();
     QDateTime lastLocalCookieUpdate = lastUpdateTimeStamp();
 
+    // Disabled for now
+#if 0
     if (lastRemoteCookieUpdate.isValid() &&
         lastLocalCookieUpdate.isValid() &&
         (lastRemoteCookieUpdate < lastLocalCookieUpdate))
@@ -122,6 +124,7 @@ void CookieStore::moveFrom(CookieStore* store)
         Q_EMIT moved(false);
         return;
     }
+#endif
 
     CookieStoreRequest* storeRequest = new CookieStoreRequest(store);
     _currentStoreRequests.insert(storeRequest, true);
