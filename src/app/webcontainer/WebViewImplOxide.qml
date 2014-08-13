@@ -255,4 +255,15 @@ WebViewImpl {
         };
         return UnityWebAppsUtils.makeProxiesForWebViewBindee(webview, eventHandlers)
     }
+
+    onGeolocationPermissionRequested: {
+        if (formFactor == "desktop") {
+            requestGeolocationPermission(request)
+        } else {
+            // On devices where webapps are confined, trying to access the
+            // location service will trigger a system prompt from the trust
+            // store, so we don’t need a custom prompt.
+            request.accept()
+        }
+    }
 }
