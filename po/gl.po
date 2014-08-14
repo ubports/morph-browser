@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-06 16:25+0100\n"
-"PO-Revision-Date: 2014-05-22 12:13+0000\n"
+"POT-Creation-Date: 2014-07-30 12:43+0200\n"
+"PO-Revision-Date: 2014-07-31 20:45+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-23 09:08+0000\n"
-"X-Generator: Launchpad (build 17017)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -38,7 +39,7 @@ msgstr "A web %1 precisa autenticación."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr "Nome de usuario"
+msgstr "Nome do usuario"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
@@ -72,8 +73,8 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Está tentando acceder con seguranza a %1 pero o certificado de seguranza da "
-"web non é fiábel."
+"Está tentando acceder de forma segura a %1 pero o certificado de seguranza "
+"da web non é fiábel."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
@@ -83,55 +84,51 @@ msgstr "Continuar aínda así"
 msgid "Back to safety"
 msgstr "Volver á seguranza"
 
-#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
-msgid "Back"
-msgstr "Atrás"
-
-#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
-msgid "Forward"
-msgstr "Adiante"
-
-#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
-msgid "Activity"
-msgstr "Actividade"
-
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "Confirmación de JavaScript"
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Erro de rede"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "Parece que está a ter problemas para ver: %1."
 
-#: src/app/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"Ubuntu suxire que comprobe os axustes da rede e que tente actualizar a "
+"Ubuntu suxírelle que comprobe os axustes da rede e que tente actualizar a "
 "páxina."
 
-#: src/app/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "Actualizar páxina"
+msgstr "Actualizar a páxina"
 
-#: src/app/FilePickerDialog.qml:27
+#: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr "Escolla un ficheiro"
+msgstr "Seleccione un ficheiro"
 
+#: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr "Petición de permiso"
 
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
+msgid "This page wants to know your device’s location."
+msgstr "Esta páxina quere coñecer a localización do dispositivo."
+
+#: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr "Denegar"
+msgstr "Rexeitar"
 
+#: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "Permitir"
@@ -142,13 +139,17 @@ msgstr "Aviso de JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "Precisa autenticación no proxy"
+msgstr "Requírese a autenticación no proxy."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "A web %1:%2 precisa autenticación."
+msgstr "A web %1:%2 require autenticación."
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Volver"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -164,7 +165,7 @@ msgstr "Marcador"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Engadir páxina aos marcadores"
+msgstr "Engadir a páxina aos marcadores"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
@@ -186,17 +187,21 @@ msgstr "Copiar"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr "Copiar imaxe"
+msgstr "Copiar a imaxe"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr "Copiar ligazón"
+msgstr "Copiar a ligazón"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "Seguir"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Páxina máis nova"
+msgstr "Páxina máis recente"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
@@ -220,11 +225,11 @@ msgstr "Abrir unha nova lapela"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "Abrir imaxe nunha nova lapela"
+msgstr "Abrir a imaxe nunha nova lapela"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "Abrir ligazón nunha nova lapela"
+msgstr "Abrir a ligazón nunha nova lapela"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -238,53 +243,90 @@ msgstr "Saír da páxina"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr "Gardar imaxe"
+msgstr "Gardar a imaxe"
 
-#: src/app/webbrowser/ActivityView.qml:54
-msgid "Bookmarks"
-msgstr "Marcadores"
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "Compartir..."
 
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/webbrowser/TabsList.qml:37
+#: src/app/webbrowser/AddressBar.qml:148
+msgid "search or enter an address"
+msgstr "buscar ou introducir un enderezo"
+
+#: src/app/webbrowser/Browser.qml:148
+msgid "Share"
+msgstr "Compartir"
+
+#: src/app/webbrowser/Browser.qml:162
+msgid "History"
+msgstr "Historial"
+
+#: src/app/webbrowser/Browser.qml:168
+msgid "Open tabs"
+msgstr "Abrir lapelas"
+
+#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+msgid "New tab"
+msgstr "Nova lapela"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
-msgid "Currently viewing (%1)"
-msgstr "Vendo actualmente (%1)"
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] "%1 páxina"
+msgstr[1] "%1 páxinas"
 
-#: src/app/webbrowser/TabsList.qml:68
-msgid "+"
-msgstr "+"
+#: src/app/webbrowser/ExpandedHistoryView.qml:113
+msgid "Less"
+msgstr "Menos"
 
-#: src/app/webbrowser/TimelineView.qml:84
-msgid "Today"
-msgstr "Hoxe"
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
+msgstr "Último visitado"
 
-#: src/app/webbrowser/TimelineView.qml:86
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr "Onte"
 
-#: src/app/webbrowser/TimelineView.qml:88
-msgid "Last 7 Days"
-msgstr "Últimos 7 días"
+#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+msgid "Done"
+msgstr "Feito"
 
-#: src/app/webbrowser/TimelineView.qml:90
-msgid "This Month"
-msgstr "Este mes"
+#: src/app/webbrowser/HistoryView.qml:109
+msgid "Clear"
+msgstr "Borrar"
 
-#: src/app/webbrowser/TimelineView.qml:92
-msgid "This Year"
-msgstr "Este ano"
+#: src/app/webbrowser/HistoryView.qml:123
+msgid "Delete all history?"
+msgstr "Desexa borrar o historial?"
 
-#: src/app/webbrowser/TimelineView.qml:94
-msgid "Older"
-msgstr "Máis antigas"
+#: src/app/webbrowser/HistoryView.qml:126
+msgid "Yes"
+msgstr "Si"
 
-#: src/app/webbrowser/TimelineView.qml:277
-msgid "(local files)"
-msgstr "(ficheiros locais)"
+#: src/app/webbrowser/HistoryView.qml:135
+msgid "No"
+msgstr "Non"
 
-#: src/app/webbrowser/TimelineView.qml:279
-msgid "(other)"
-msgstr "(outros)"
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr "Marcadores"
+
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
+msgstr "Sitios destacados"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
+msgstr "ver menos"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr "ver máis"
+
+#: src/app/webbrowser/TabsView.qml:110
+msgid "Add"
+msgstr "Engadir"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -300,13 +342,13 @@ msgstr "Navegue pola World Wide Web"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navegador web de Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:49
+#: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "Navegador web de Ubuntu"
 
@@ -316,7 +358,7 @@ msgstr "Non se atopou unha conta local de "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr "Saltar o paso de crear conta"
+msgstr "Saltar o paso para crear unha conta"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
@@ -325,7 +367,3 @@ msgstr "Engadir conta"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Seleccionar unha conta"
-
-#: src/app/webcontainer/WebViewImplWebkit.qml:63
-msgid "This page wants to know your device’s location."
-msgstr "Esta páxina quere coñecer a localización do dispositivo."

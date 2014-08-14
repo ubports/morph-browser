@@ -51,6 +51,9 @@ QHash<int, QByteArray> HistoryDomainListModel::roleNames() const
     if (roles.isEmpty()) {
         roles[Domain] = "domain";
         roles[LastVisit] = "lastVisit";
+        roles[LastVisitDate] = "lastVisitDate";
+        roles[LastVisitedTitle] = "lastVisitedTitle";
+        roles[LastVisitedIcon] = "lastVisitedIcon";
         roles[Entries] = "entries";
     }
     return roles;
@@ -75,6 +78,12 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
         return domain;
     case LastVisit:
         return entries->lastVisit();
+    case LastVisitDate:
+        return entries->lastVisit().toLocalTime().date();
+    case LastVisitedTitle:
+        return entries->lastVisitedTitle();
+    case LastVisitedIcon:
+        return entries->lastVisitedIcon();
     case Entries:
         return QVariant::fromValue(entries);
     default:
@@ -216,6 +225,6 @@ void HistoryDomainListModel::emitDataChanged(const QString& domain)
     int i = m_domains.keys().indexOf(domain);
     if (i != -1) {
         QModelIndex index = this->index(i, 0);
-        Q_EMIT dataChanged(index, index, QVector<int>() << LastVisit << Entries);
+        Q_EMIT dataChanged(index, index, QVector<int>() << LastVisit << LastVisitDate << LastVisitedTitle << LastVisitedIcon << Entries);
     }
 }

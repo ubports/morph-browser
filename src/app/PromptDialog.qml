@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,12 +17,10 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
-import Ubuntu.Components.Popups 0.1 as Popups
+import Ubuntu.Components 1.1
 
-Popups.Dialog {
+ModalDialog {
     title: i18n.tr("JavaScript Prompt")
-    text: model.message
 
     TextField {
         id: input
@@ -47,6 +45,4 @@ Popups.Dialog {
         property: "currentValue"
         value: input.text
     }
-
-    Component.onCompleted: show()
 }

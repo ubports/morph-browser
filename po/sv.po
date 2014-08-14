@@ -1,44 +1,46 @@
 # Swedish translation for webbrowser-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Copyright © 2013-2014 Rosetta Contributors and Canonical Ltd 2013-2014
 # This file is distributed under the same license as the webbrowser-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# Josef Andersson <josef.andersson@fripost.org>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-06 16:25+0100\n"
-"PO-Revision-Date: 2014-06-07 17:00+0000\n"
-"Last-Translator: Erik Simmesgård <Unknown>\n"
-"Language-Team: Swedish <sv@li.org>\n"
+"POT-Creation-Date: 2014-07-30 12:43+0200\n"
+"PO-Revision-Date: 2014-08-04 17:27+0000\n"
+"Last-Translator: Josef Andersson <Unknown>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-08 05:54+0000\n"
-"X-Generator: Launchpad (build 17031)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
+"Language: sv\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "JavaScript-varning"
 
 #: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Autentisering krävs."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "Webbsidan %1 kräver autentisering"
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Användarnamn"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
@@ -51,7 +53,7 @@ msgstr "Avbryt"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Bekräfta navigering"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
@@ -63,7 +65,7 @@ msgstr "Stanna"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "Anslutningen är inte pålitlig"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -72,109 +74,113 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"Du försöker nå %1 via en säker anslutning, men webbsidans "
+"säkerhetscertifikat är opålitligt."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Fortsätt ändå"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
-
-#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
-msgid "Back"
-msgstr "Tillbaka"
-
-#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
-msgid "Forward"
-msgstr ""
-
-#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
-msgid "Activity"
-msgstr ""
+msgstr "Tillbaka till säker webbplats"
 
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "JavaScript-bekräftelse"
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr ""
+msgstr "Nätverksfel"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "Du verkar ha problem med att visa: %1."
 
-#: src/app/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
+"Ubuntu föreslår att du kontrollerar dina nätverksinställningar och laddar om "
+"sidan igen."
 
-#: src/app/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr ""
+msgstr "Ladda om sidan"
 
-#: src/app/FilePickerDialog.qml:27
+#: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "Välj en fil"
 
+#: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Begär tillstånd"
 
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
+msgid "This page wants to know your device’s location."
+msgstr "Den här sidan vill veta var du befinner dig."
+
+#: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr "Neka"
 
+#: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "Tillåt"
 
 #: src/app/PromptDialog.qml:24
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "JavaScript-prompt"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Proxy-autentisering krävs."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "Webbsidan %1:%2 kräver autentisering."
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Tillbaka"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr ""
+msgstr "Äldre sida"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr ""
+msgstr "Lägg till bokmärke"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr ""
+msgstr "Lägg till sidan i dina bokmärken"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "Bokmärka länk"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Rensa historik"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Rensa navigeringshistorik"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -182,146 +188,183 @@ msgstr "Kopiera"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Kopiera bild"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
 msgstr "Kopiera länk"
 
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "Framåt"
+
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr ""
+msgstr "Nyare sida"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr ""
+msgstr "Gå till"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr ""
+msgstr "Adress;URL;www"
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
-msgstr ""
+msgstr "Ny flik"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr ""
+msgstr "Öppna en ny flik"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "Öppna bild i ny flik"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Öppna länk i ny flik"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr ""
+msgstr "Läs om sidan"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr ""
+msgstr "Lämna sidan"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Spara bild"
 
-#: src/app/webbrowser/ActivityView.qml:54
-msgid "Bookmarks"
-msgstr ""
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "Dela…"
 
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/webbrowser/TabsList.qml:37
+#: src/app/webbrowser/AddressBar.qml:148
+msgid "search or enter an address"
+msgstr "sök eller ange en adress"
+
+#: src/app/webbrowser/Browser.qml:148
+msgid "Share"
+msgstr "Dela"
+
+#: src/app/webbrowser/Browser.qml:162
+msgid "History"
+msgstr "Historik"
+
+#: src/app/webbrowser/Browser.qml:168
+msgid "Open tabs"
+msgstr "Öppna flikar"
+
+#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+msgid "New tab"
+msgstr "Ny flik"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
-msgid "Currently viewing (%1)"
-msgstr ""
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] "%1 sida"
+msgstr[1] "%1 sidor"
 
-#: src/app/webbrowser/TabsList.qml:68
-msgid "+"
-msgstr ""
+#: src/app/webbrowser/ExpandedHistoryView.qml:113
+msgid "Less"
+msgstr "Färre"
 
-#: src/app/webbrowser/TimelineView.qml:84
-msgid "Today"
-msgstr "Idag"
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
+msgstr "Senast besökt"
 
-#: src/app/webbrowser/TimelineView.qml:86
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr "Igår"
 
-#: src/app/webbrowser/TimelineView.qml:88
-msgid "Last 7 Days"
-msgstr "Senaste 7 dagarna"
+#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+msgid "Done"
+msgstr "Klar"
 
-#: src/app/webbrowser/TimelineView.qml:90
-msgid "This Month"
-msgstr "Denna månad"
+#: src/app/webbrowser/HistoryView.qml:109
+msgid "Clear"
+msgstr "Töm"
 
-#: src/app/webbrowser/TimelineView.qml:92
-msgid "This Year"
-msgstr "Detta året"
+#: src/app/webbrowser/HistoryView.qml:123
+msgid "Delete all history?"
+msgstr "Ta bort all historik?"
 
-#: src/app/webbrowser/TimelineView.qml:94
-msgid "Older"
-msgstr "Äldre"
+#: src/app/webbrowser/HistoryView.qml:126
+msgid "Yes"
+msgstr "Ja"
 
-#: src/app/webbrowser/TimelineView.qml:277
-msgid "(local files)"
-msgstr ""
+#: src/app/webbrowser/HistoryView.qml:135
+msgid "No"
+msgstr "Nej"
 
-#: src/app/webbrowser/TimelineView.qml:279
-msgid "(other)"
-msgstr ""
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr "Bokmärken"
+
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
+msgstr "Favoritsidor"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
+msgstr "se mindre"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr "se mer"
+
+#: src/app/webbrowser/TabsView.qml:110
+msgid "Add"
+msgstr "Lägg till"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
-msgstr ""
+msgstr "Webbläsare"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:4
 msgid "Web Browser"
-msgstr ""
+msgstr "Webbläsare"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:5
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "Surfa på nätet"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - Ubuntu webbläsare"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:49
+#: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "Ubuntu webbläsare"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "Inget lokalt konto hittades för "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "Hoppa över skapa konto"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "Lägg till konto"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
-
-#: src/app/webcontainer/WebViewImplWebkit.qml:63
-msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Välj ett konto"

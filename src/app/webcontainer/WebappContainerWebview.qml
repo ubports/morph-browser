@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import "../actions" as Actions
@@ -31,9 +31,9 @@ Item {
     property bool developerExtrasEnabled: false
     property string webappName: ""
     property var currentWebview: webappContainerWebViewLoader.item
-    property var toolbar: null
     property var webappUrlPatterns
     property string localUserAgentOverride: ""
+    property string popupRedirectionUrlPrefix: ""
 
     Loader {
         id: webappContainerWebViewLoader
@@ -48,12 +48,12 @@ Item {
 
         webappContainerWebViewLoader.setSource(
                     webappEngineSource,
-                    { toolbar: containerWebview.toolbar
-                    , localUserAgentOverride: containerWebview.localUserAgentOverride
+                    { localUserAgentOverride: containerWebview.localUserAgentOverride
                     , url: containerWebview.url
                     , webappName: containerWebview.webappName
                     , webappUrlPatterns: containerWebview.webappUrlPatterns
-                    , developerExtrasEnabled: containerWebview.developerExtrasEnabled})
+                    , developerExtrasEnabled: containerWebview.developerExtrasEnabled
+                    , popupRedirectionUrlPrefix: containerWebview.popupRedirectionUrlPrefix})
     }
 }
 

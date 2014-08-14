@@ -130,6 +130,7 @@ QHash<int, QByteArray> HistoryModel::roleNames() const
         roles[Icon] = "icon";
         roles[Visits] = "visits";
         roles[LastVisit] = "lastVisit";
+        roles[LastVisitDate] = "lastVisitDate";
     }
     return roles;
 }
@@ -159,6 +160,8 @@ QVariant HistoryModel::data(const QModelIndex& index, int role) const
         return entry.visits;
     case LastVisit:
         return entry.lastVisit;
+    case LastVisitDate:
+        return entry.lastVisit.toLocalTime().date();
     default:
         return QVariant();
     }
@@ -250,6 +253,9 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
             }
             count = ++entry.visits;
             if (now != entry.lastVisit) {
+                if (now.date() != entry.lastVisit.date()) {
+                    roles << LastVisitDate;
+                }
                 entry.lastVisit = now;
                 roles << LastVisit;
             }

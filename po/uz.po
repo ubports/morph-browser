@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-06 16:25+0100\n"
+"POT-Creation-Date: 2014-07-30 12:43+0200\n"
 "PO-Revision-Date: 2013-05-17 16:24+0000\n"
 "Last-Translator: Akmal Xushvaqov <akmalxster@gmail.com>\n"
 "Language-Team: Uzbek <uz@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-17 07:12+0000\n"
-"X-Generator: Launchpad (build 17007)\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -81,53 +82,49 @@ msgstr ""
 msgid "Back to safety"
 msgstr ""
 
-#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
-msgid "Back"
-msgstr "Oрқага"
-
-#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
-msgid "Forward"
-msgstr "Олдинга"
-
-#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
-msgid "Activity"
-msgstr ""
-
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr ""
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Тармоқ хатоси"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr ""
 
-#: src/app/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
 
-#: src/app/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr ""
 
-#: src/app/FilePickerDialog.qml:27
+#: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
 msgstr ""
 
+#: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr ""
 
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
+msgid "This page wants to know your device’s location."
+msgstr ""
+
+#: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr ""
 
+#: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr ""
@@ -145,6 +142,10 @@ msgstr ""
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr ""
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Oрқага"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -187,6 +188,10 @@ msgstr ""
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
 msgstr ""
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "Олдинга"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -236,50 +241,87 @@ msgstr "Саҳифадан чиқиш"
 msgid "Save image"
 msgstr ""
 
-#: src/app/webbrowser/ActivityView.qml:54
-msgid "Bookmarks"
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
 msgstr ""
 
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/webbrowser/TabsList.qml:37
+#: src/app/webbrowser/AddressBar.qml:148
+msgid "search or enter an address"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:148
+msgid "Share"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:162
+msgid "History"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:168
+msgid "Open tabs"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+msgid "New tab"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
-msgid "Currently viewing (%1)"
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:113
+msgid "Less"
 msgstr ""
 
-#: src/app/webbrowser/TabsList.qml:68
-msgid "+"
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:84
-msgid "Today"
-msgstr ""
-
-#: src/app/webbrowser/TimelineView.qml:86
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:88
-msgid "Last 7 Days"
+#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+msgid "Done"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:90
-msgid "This Month"
+#: src/app/webbrowser/HistoryView.qml:109
+msgid "Clear"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:92
-msgid "This Year"
+#: src/app/webbrowser/HistoryView.qml:123
+msgid "Delete all history?"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:94
-msgid "Older"
+#: src/app/webbrowser/HistoryView.qml:126
+msgid "Yes"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:277
-msgid "(local files)"
+#: src/app/webbrowser/HistoryView.qml:135
+msgid "No"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:279
-msgid "(other)"
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr ""
+
+#: src/app/webbrowser/TabsView.qml:110
+msgid "Add"
 msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
@@ -296,13 +338,13 @@ msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:49
+#: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr ""
 
@@ -320,8 +362,4 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
-
-#: src/app/webcontainer/WebViewImplWebkit.qml:63
-msgid "This page wants to know your device’s location."
 msgstr ""

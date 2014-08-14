@@ -1,3 +1,260 @@
+webbrowser-app (0.23+14.10.20140812-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Save/restore browsing sessions for webbrowser-app and webapp-
+    container. For now, only the list of currently open tabs (URLs) is
+    persisted (current URL for the container), not the complete state
+    for each webview. (LP: #1268056)
+  * Fix a harmless warning that was issued when closing the last open
+    tab.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 12 Aug 2014 08:26:26 +0000
+
+webbrowser-app (0.23+14.10.20140811-0ubuntu1) utopic; urgency=low
+
+  [ Alexandre Abreu ]
+  * Add devtools support & ubuntu webview remote debugging
+  * Fix URI handling by the webapp container. (LP: #1342129)
+
+  [ Olivier Tilloy ]
+  * Fix a couple of harmless warnings that were issued when closing the
+    last open tab.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 11 Aug 2014 15:14:20 +0000
+
+webbrowser-app (0.23+14.10.20140805.1-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Fix automatic orientation of all popups parented to the BrowserView.
+    (LP: #1351922)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 05 Aug 2014 10:55:24 +0000
+
+webbrowser-app (0.23+14.10.20140804-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Ugo Riboni ]
+  * Add creation timestamp to bookmarks model. (LP: #1351185)
+
+  [ Alexandre Abreu ]
+  * Handle simplified webapp definition
+
+  [ Olivier Tilloy ]
+  * Add creation timestamp to bookmarks model. (LP: #1351185)
+  * Factor out some common code in a ModalDialog component, and fix
+    dialog auto-rotation and dimensions. (LP: #1351922)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 04 Aug 2014 15:02:31 +0000
+
+webbrowser-app (0.23+14.10.20140731-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Handle simplified webapp definition
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 31 Jul 2014 21:31:42 +0000
+
+webbrowser-app (0.23+14.10.20140730.2-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Olivier Tilloy ]
+  * New UI and UX, phase 1: - chrome in the header, with auto-hide/auto-
+    reveal behaviour - new history view (with an option to clear the
+    entire history), invoked from the drawer menu - new tabs view,
+    invoked from the drawer menu - bookmarking from the address bar -
+    tabs always ordered by recency (last viewed first)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 30 Jul 2014 17:03:52 +0000
+
+webbrowser-app (0.23+14.10.20140726-0ubuntu1) utopic; urgency=low
+
+  [ Pawel Stolowski ]
+  * Added X-Ubuntu-Default-Department-ID key to the desktop file. This
+    is required by click scope to support departments for preinstalled
+    applications.
+
+  [ Florian Boucault ]
+  * List all non compiled files in QtCreator via CMake project. No need
+    for .qmlproject anylonger.
+
+  [ Michael Vogt ]
+  * debian/control: update libqt5webkit5-qmlwebkitplugin -> qml-module-
+    qtwebkit (fixes a multiarch install failure)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Sat, 26 Jul 2014 09:29:03 +0000
+
+webbrowser-app (0.23+14.10.20140724.1-0ubuntu1) utopic; urgency=low
+
+  [ Tim Peeters ]
+  * Ensure the chrome is hidden when the user interacts with the webview
+    (required by a change in the default behaviour of the UITK’s Panel
+    component).
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 24 Jul 2014 14:39:04 +0000
+
+webbrowser-app (0.23+14.10.20140721-0ubuntu1) utopic; urgency=low
+
+  [ Arthur Mello ]
+  * Use favicons in place of blank thumbnails in the new tab view.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 21 Jul 2014 11:05:56 +0000
+
+webbrowser-app (0.23+14.10.20140709-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Add support for downloads via content-hub on non-desktop devices
+    when it's either not possible to render a file within the browser
+    itself or when a download is explicitly requested via the Content-
+    Disposition header. (LP: #1198347)
+
+  [ Olivier Tilloy ]
+  * Remove a workaround for bug #1322622 that has been properly fixed in
+    oxide. (LP: #1322622)
+  * Re-enable the favicon support now that oxide supports it. (LP:
+    #1259216)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 09 Jul 2014 16:37:04 +0000
+
+webbrowser-app (0.23+14.10.20140708-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Ensure that the twitter and facebook mobile sites never show banners
+    that suggests installing a native Android/iOS application based on
+    naïve parsing of the UA string.
+  * Ensure that all newly instantiated page delegates inherit the
+    current state. (LP: #1338652)
+  * Enable application cache in browser and webapp container by default.
+    (LP: #1338668)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 08 Jul 2014 09:12:08 +0000
+
+webbrowser-app (0.23+14.10.20140707-0ubuntu1) utopic; urgency=low
+
+  [ Alexandre Abreu ]
+  * Let other components invoke webapps with a particular URL. This is
+    useful for scopes or notifications leading to a specific part of a
+    webapp. (LP: #1336784)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 07 Jul 2014 13:04:06 +0000
+
+webbrowser-app (0.23+14.10.20140704-0ubuntu1) utopic; urgency=low
+
+  [ Arthur Mello ]
+  * Add the Top Sites Sheet, showing Bookmarks and most visited URLs. It
+    is displayed when an empty new tab is created.
+
+  [ Olivier Tilloy ]
+  * Bump the dependency on oxide.
+  * Update the documentation for the Ubuntu.Web QML module and its
+    default theming. Package it.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 04 Jul 2014 15:05:25 +0000
+
+webbrowser-app (0.23+14.10.20140703-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Olivier Tilloy ]
+  * Fail gracefully (and silently) when the cookie cannot be set, it
+    shouldn’t raise an error. (LP: #1336280)
+  * Override the UA string for chrome.angrybirds.com (on both desktop
+    and mobile). (LP: #1284158)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 03 Jul 2014 20:43:49 +0000
+
+webbrowser-app (0.23+14.10.20140630.1-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Add a user script that prevents so-called "smart banners" generated
+    by the smartbanner jQuery plugin to show ads for native android/iOS
+    apps. (LP: #1329799)
+  * Add support for custom search engines defined by the OpenSearch
+    description document format
+    (http://www.opensearch.org/Specifications/OpenSearch/1.1). (LP:
+    #1277637)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 30 Jun 2014 20:47:27 +0000
+
+webbrowser-app (0.23+14.10.20140630-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Re-enable contextual selection that had been disabled when switching
+    to oxide. Packaging change: renamed the qtdeclarative5-ubuntu-ui-
+    extras-browser-plugin-assets package to qtdeclarative5-ubuntu-web-
+    plugin-assets. (LP: #1324292)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 30 Jun 2014 08:11:47 +0000
+
+webbrowser-app (0.23+14.10.20140627-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Add support for sharing links via content-hub. (LP: #1294764)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 27 Jun 2014 08:11:53 +0000
+
+webbrowser-app (0.23+14.10.20140620-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Re-enable the geolocation permission request dialog, now that it is
+    implemented in oxide. Fix it in the webkit-based webapp container.
+    (LP: #1182658)
+  * Temporarily work around bug #1328839 in qtubuntu by not toggling
+    fullscreen on the window on devices. Once the Qt compositor work
+    lands (scheduled for mid July), the bug should be resolved and this
+    workaround can be removed. (LP: #1328839)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 20 Jun 2014 09:27:06 +0000
+
+webbrowser-app (0.23+14.10.20140618.3-0ubuntu1) utopic; urgency=low
+
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 18 Jun 2014 13:58:58 +0000
+
+webbrowser-app (0.23+14.10.20140618.2-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Honour fullscreen requests. (LP: #1308947)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 18 Jun 2014 11:49:35 +0000
+
+webbrowser-app (0.23+14.10.20140617-0ubuntu1) utopic; urgency=low
+
+  [ Ugo Riboni ]
+  * Update the application icon to the new suru theme. This applies to
+    desktop only. The current mobile theme (ubuntu-mobile-icons) still
+    ships the old icon. (LP: #1328147)
+
+  [ Olivier Tilloy ]
+  * debian/control: add fonts-liberation as a runtime dependency of
+    webbrowser-app and webapp-container, for smoother rendering of
+    webpages on devices. (LP: #1322456)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 17 Jun 2014 08:58:37 +0000
+
+webbrowser-app (0.23+14.10.20140612.1-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ David Barth ]
+  * Accept navigation inside popups if the redirection stays within the
+    set of accepted URLs. This helps support the account switching
+    feature in Gmail for example. An additional heuristics ensures that
+    trampoline URLs don't leave a blank window in their originating
+    webapp, as we navigate back to the page just before the trampoline.
+    This avoids regressions in Facebook, Twitter and other apps using
+    popup redirects to open external links. (LP: #1324848)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 12 Jun 2014 20:27:44 +0000
+
 webbrowser-app (0.23+14.10.20140609.1-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]

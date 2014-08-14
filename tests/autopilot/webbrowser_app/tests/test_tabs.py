@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013 Canonical
+# Copyright 2013-2014 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -14,129 +14,126 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import time
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
-class TestTabs(StartOpenRemotePageTestCaseBase):
+class TestTabsMixin(object):
 
-    """Tests tabs management."""
+    def check_current_tab(self, url):
+        self.assertThat(lambda: self.main_window.get_current_webview().url,
+                        Eventually(Equals(url)))
 
-    def open_new_tab(self):
-        # assumes the activity view is already visible
-        self.main_window.get_activity_view()
-        newtab_delegate = self.main_window.get_tabslist_newtab_delegate()
-        # XXX: This assumes the new tab delegate is in sight, which might not
-        # always be the case if there is a large number of tabs open. However
-        # this should be good enough for our tests that never open more than
-        # two tabs.
-        self.pointing_device.click_object(newtab_delegate)
-        self.assert_activity_view_eventually_hidden()
-        self.assert_osk_eventually_shown()
-        self.assert_chrome_eventually_shown()
-        address_bar = self.main_window.get_address_bar()
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
-    def toggle_close_tab_mode(self):
-        view = self.main_window.get_tabslist_view()
-        previous_state = view.state
-        self.assertIn(previous_state, ('', 'close'))
-        tab = self.main_window.get_tabslist_view_delegates()[0]
-        self.pointing_device.move_to_object(tab)
-        self.pointing_device.press()
-        time.sleep(1)
-        self.pointing_device.release()
-        if (previous_state == ''):
-            self.assertThat(view.state, Eventually(Equals('close')))
-        elif (previous_state == 'close'):
-            self.assertThat(view.state, Eventually(Equals('')))
+class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
-    def assert_current_url(self, url):
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.url, Eventually(Equals(url)))
-        addressbar = self.main_window.get_address_bar()
-        self.assertThat(addressbar.actualUrl, Eventually(Equals(url)))
+    def setUp(self):
+        super(TestTabsView, self).setUp()
+        self.open_tabs_view()
 
     def test_tabs_model(self):
-        self.ensure_activity_view_visible()
-        view = self.main_window.get_tabslist_view()
-        self.assertThat(view.count, Eventually(Equals(1)))
+        previews = self.main_window.get_tabs_view().get_previews()
+        self.assertThat(len(previews), Equals(1))
 
-    def test_toggle_activity_view(self):
-        self.assert_activity_view_eventually_hidden()
-        self.ensure_activity_view_visible()
-        self.assert_chrome_eventually_hidden()
-        self.main_window.open_toolbar().click_button("activityButton")
-        self.assert_activity_view_eventually_hidden()
+    def test_close_tabs_view(self):
+        tabs_view = self.main_window.get_tabs_view()
+        done_button = tabs_view.get_done_button()
+        self.pointing_device.click_object(done_button)
+        tabs_view.wait_until_destroyed()
 
     def test_open_new_tab(self):
-        self.ensure_activity_view_visible()
-        self.assertThat(self.main_window.currentIndex, Equals(0))
         self.open_new_tab()
-        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
-
-    def test_switch_tabs(self):
-        self.ensure_activity_view_visible()
-        self.open_new_tab()
+        new_tab_view = self.main_window.get_new_tab_view()
         url = self.base_url + "/aleaiactaest"
+        if model() != 'Desktop':
+            self.focus_address_bar()
         self.type_in_address_bar(url)
         self.keyboard.press_and_release("Enter")
-        self.assert_page_eventually_loaded(url)
-        self.assert_current_url(url)
-
-        self.ensure_activity_view_visible()
-        tabs = self.main_window.get_tabslist_view_delegates()
-        self.assertThat(len(tabs), Equals(2))
-        view = self.main_window.get_tabslist_view()
-        self.assertThat(view.currentIndex, Equals(1))
-        self.pointing_device.click_object(tabs[0])
-        self.assertThat(self.main_window.currentIndex, Eventually(Equals(0)))
-        self.assert_current_url(self.url)
-        self.assert_activity_view_eventually_hidden()
-        self.assert_chrome_eventually_hidden()
-
-        self.ensure_activity_view_visible()
-        tabs = self.main_window.get_tabslist_view_delegates()
-        self.pointing_device.click_object(tabs[1])
-        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
-        self.assert_current_url(url)
-        self.assert_activity_view_eventually_hidden()
-        self.assert_chrome_eventually_hidden()
-
-    def test_close_tab(self):
-        self.ensure_activity_view_visible()
-        self.open_new_tab()
-        url = self.base_url + "/aleaiactaest"
-        self.type_in_address_bar(url)
-        self.keyboard.press_and_release("Enter")
-        self.assert_osk_eventually_hidden()
-        self.assert_page_eventually_loaded(url)
-        self.ensure_activity_view_visible()
-        self.toggle_close_tab_mode()
-        tab = self.main_window.get_tabslist_view_delegates()[0]
-        self.pointing_device.click_object(tab)
-        self.assertThat(
-            lambda: len(self.main_window.get_tabslist_view_delegates()),
-            Eventually(Equals(1)))
-        view = self.main_window.get_tabslist_view()
-        self.assertThat(view.count, Eventually(Equals(1)))
-        self.assertThat(view.currentIndex, Eventually(Equals(0)))
-        self.assert_current_url(url)
+        new_tab_view.wait_until_destroyed()
 
     def test_close_last_open_tab(self):
-        self.ensure_activity_view_visible()
-        self.toggle_close_tab_mode()
-        tab = self.main_window.get_tabslist_view_delegates()[0]
-        self.pointing_device.click_object(tab)
-        self.assertThat(self.main_window.currentIndex, Eventually(Equals(0)))
-        self.assert_activity_view_eventually_hidden()
-        self.assert_osk_eventually_shown()
-        self.assert_chrome_eventually_shown()
-        address_bar = self.main_window.get_address_bar()
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        tabs_view = self.main_window.get_tabs_view()
+        preview = tabs_view.get_previews()[0]
+        close_button = preview.get_close_button()
+        self.pointing_device.click_object(close_button)
+        tabs_view.wait_until_destroyed()
+        self.main_window.get_new_tab_view()
+        if model() == 'Desktop':
+            address_bar = self.main_window.get_chrome().get_address_bar()
+            self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.url, Equals(""))
+
+    def test_close_current_tab(self):
+        self.open_new_tab()
+        new_tab_view = self.main_window.get_new_tab_view()
+        url = self.base_url + "/aleaiactaest"
+        if model() != 'Desktop':
+            self.focus_address_bar()
+        self.type_in_address_bar(url)
+        self.keyboard.press_and_release("Enter")
+        new_tab_view.wait_until_destroyed()
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        previews = tabs_view.get_ordered_previews()
+        self.assertThat(len(previews), Equals(2))
+        preview = previews[1]
+        close_button = preview.get_close_button()
+        self.pointing_device.click_object(close_button)
+        self.assertThat(lambda: len(tabs_view.get_previews()),
+                        Eventually(Equals(1)))
+        preview = tabs_view.get_previews()[0]
+        webview = self.main_window.get_current_webview()
+        self.assertThat(preview.title, Equals(webview.title))
+
+    def test_switch_tabs(self):
+        self.check_current_tab(self.url)
+        self.open_new_tab()
+        self.check_current_tab("")
+        new_tab_view = self.main_window.get_new_tab_view()
+        url = self.base_url + "/aleaiactaest"
+        if model() != 'Desktop':
+            self.focus_address_bar()
+        self.type_in_address_bar(url)
+        self.keyboard.press_and_release("Enter")
+        new_tab_view.wait_until_destroyed()
+        self.check_current_tab(url)
+
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        previews = tabs_view.get_ordered_previews()
+        self.pointing_device.click_object(previews[1])
+        tabs_view.wait_until_destroyed()
+        self.check_current_tab(self.url)
+
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        previews = tabs_view.get_ordered_previews()
+        self.pointing_device.click_object(previews[1])
+        tabs_view.wait_until_destroyed()
+        self.check_current_tab(url)
+
+    def test_error_only_for_current_tab(self):
+        self.open_new_tab()
+        if model() != 'Desktop':
+            self.focus_address_bar()
+        self.type_in_address_bar("htpp://invalid")
+        self.keyboard.press_and_release("Enter")
+        error = self.main_window.get_error_sheet()
+        self.assertThat(error.visible, Eventually(Equals(True)))
+
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        previews = tabs_view.get_ordered_previews()
+        self.pointing_device.click_object(previews[1])
+        tabs_view.wait_until_destroyed()
+        self.assertThat(error.visible, Eventually(Equals(False)))
+
+
+class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def test_open_target_blank_in_new_tab(self):
         url = self.base_url + "/blanktargetlink"
@@ -144,8 +141,7 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
-        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
-        self.assert_current_url(self.base_url + "/aleaiactaest")
+        self.check_current_tab(self.base_url + "/aleaiactaest")
 
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
@@ -153,17 +149,16 @@ class TestTabs(StartOpenRemotePageTestCaseBase):
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
-        self.assertThat(self.main_window.currentIndex, Eventually(Equals(1)))
-        self.assert_current_url(self.base_url + "/aleaiactaest")
+        self.check_current_tab(self.base_url + "/aleaiactaest")
 
-    def test_error_only_for_current_tab(self):
-        self.ensure_activity_view_visible()
-        self.open_new_tab()
-        self.type_in_address_bar("htpp://invalid")
-        self.keyboard.press_and_release("Enter")
-        error = self.main_window.get_error_sheet()
-        self.assertThat(error.visible, Eventually(Equals(True)))
-        self.ensure_activity_view_visible()
-        tabs = self.main_window.get_tabslist_view_delegates()
-        self.pointing_device.click_object(tabs[0])
-        self.assertThat(error.visible, Eventually(Equals(False)))
+    def test_selecting_tab_focuses_webview(self):
+        self.focus_address_bar()
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        previews = tabs_view.get_previews()
+        self.pointing_device.click_object(previews[0])
+        tabs_view.wait_until_destroyed()
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+        address_bar = self.main_window.get_chrome().get_address_bar()
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))

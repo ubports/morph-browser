@@ -70,8 +70,8 @@ TestCase {
 
     function test_search_url_data() {
         return [
-            {text: "lorem ipsum dolor sit amet", start: "https://google.com", query: "lorem+ipsum+dolor+sit+amet"},
-            {text: "ubuntu", start: "https://google.com", query: "ubuntu"},
+            {text: "lorem ipsum dolor sit amet", start: "http://www.ubuntu.com", query: "lorem+ipsum+dolor+sit+amet"},
+            {text: "ubuntu", start: "http://www.ubuntu.com", query: "ubuntu"},
         ]
     }
 
@@ -115,5 +115,6 @@ TestCase {
 
     AddressBar {
         id: addressBar
+        searchUrl: "http://www.ubuntu.com/search?q={searchTerms}"
     }
 }

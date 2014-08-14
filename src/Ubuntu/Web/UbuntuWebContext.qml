@@ -53,6 +53,24 @@ Oxide.WebContext {
     }
     userScripts: [
         Oxide.UserScript {
+            context: "oxide://smartbanners/"
+            url: Qt.resolvedUrl("smartbanners.js")
+            incognitoEnabled: true
+            matchAllFrames: true
+        },
+        Oxide.UserScript {
+            context: "oxide://twitter-no-omniprompt/"
+            url: Qt.resolvedUrl("twitter-no-omniprompt.js")
+            incognitoEnabled: true
+            matchAllFrames: true
+        },
+        Oxide.UserScript {
+            context: "oxide://fb-no-appbanner/"
+            url: Qt.resolvedUrl("fb-no-appbanner.js")
+            incognitoEnabled: true
+            matchAllFrames: true
+        },
+        Oxide.UserScript {
             context: "oxide://selection/"
             url: Qt.resolvedUrl("selection02.js")
             incognitoEnabled: true
@@ -61,4 +79,7 @@ Oxide.WebContext {
     ]
 
     property QtObject __ua: UserAgent02 {}
+
+    devtoolsEnabled: webviewDevtoolsDebugPort !== -1
+    devtoolsPort: webviewDevtoolsDebugPort
 }

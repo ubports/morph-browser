@@ -1,0 +1,371 @@
+# Romanian translation for webbrowser-app
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-07-30 12:43+0200\n"
+"PO-Revision-Date: 2014-08-12 20:20+0000\n"
+"Last-Translator: Marian Vasile <marianvasile1972@gmail.com>\n"
+"Language-Team: Romanian <ro@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
+"== 0) && (n != 0))) ? 2: 1));\n"
+"X-Launchpad-Export-Date: 2014-08-13 06:51+0000\n"
+"X-Generator: Launchpad (build 17156)\n"
+
+#: src/app/AlertDialog.qml:24
+msgid "JavaScript Alert"
+msgstr "Alertă JavaScript"
+
+#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
+msgid "OK"
+msgstr "În regulă"
+
+#: src/app/AuthenticationDialog.qml:24
+msgid "Authentication required."
+msgstr "Se solicită autentificarea."
+
+#. TRANSLATORS: %1 refers to the URL of the current website
+#: src/app/AuthenticationDialog.qml:26
+#, qt-format
+msgid "The website %1 requires authentication."
+msgstr "Site-ul web %1 solicită autentificarea."
+
+#: src/app/AuthenticationDialog.qml:34
+msgid "Username"
+msgstr "Nume de utilizator"
+
+#: src/app/AuthenticationDialog.qml:41
+msgid "Password"
+msgstr "Parolă"
+
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
+#: src/app/PromptDialog.qml:40
+msgid "Cancel"
+msgstr "Anulează"
+
+#: src/app/BeforeUnloadDialog.qml:24
+msgid "Confirm Navigation"
+msgstr "Confirmați navigarea"
+
+#: src/app/BeforeUnloadDialog.qml:28
+msgid "Leave"
+msgstr "Părăsire"
+
+#: src/app/BeforeUnloadDialog.qml:33
+msgid "Stay"
+msgstr "Stai"
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "Această conexiune este nesigură"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+"Încercați să accesați %1 în mod securizat, dar certificatul de securitate al "
+"acestui site web nu este sigur."
+
+#: src/app/CertificateVerificationDialog.qml:29
+msgid "Proceed anyway"
+msgstr "Accesează oricum"
+
+#: src/app/CertificateVerificationDialog.qml:35
+msgid "Back to safety"
+msgstr "Înapoi la zona sigură"
+
+#: src/app/ConfirmDialog.qml:24
+msgid "JavaScript Confirmation"
+msgstr "Confirmare script Java"
+
+#: src/app/ErrorSheet.qml:36
+msgid "Network Error"
+msgstr "Eroare de rețea"
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/app/ErrorSheet.qml:42
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr "Se pare că aveți probleme cu vizualizarea: %1."
+
+#: src/app/ErrorSheet.qml:48
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr ""
+"Ubuntu vă sugerează să verificați configurările de rețea apoi să "
+"reîmprospătați pagina."
+
+#: src/app/ErrorSheet.qml:53
+msgid "Refresh page"
+msgstr "Reîmprospătare pagină"
+
+#: src/app/FilePickerDialog.qml:28
+msgid "Please choose a file"
+msgstr "Alegeți un fișier"
+
+#: src/app/GeolocationPermissionRequest.qml:28
+#: src/app/PermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "Se solicită permisiunea"
+
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
+msgid "This page wants to know your device’s location."
+msgstr "Această pagină dorește să cunoască locația dispozitivului."
+
+#: src/app/GeolocationPermissionRequest.qml:33
+#: src/app/PermissionRequest.qml:31
+msgid "Deny"
+msgstr "Refuză"
+
+#: src/app/GeolocationPermissionRequest.qml:43
+#: src/app/PermissionRequest.qml:40
+msgid "Allow"
+msgstr "Permite"
+
+#: src/app/PromptDialog.qml:24
+msgid "JavaScript Prompt"
+msgstr "Afișare script Java"
+
+#: src/app/ProxyAuthenticationDialog.qml:22
+msgid "Proxy authentication required."
+msgstr "Se solicită autentificarea proxy."
+
+#. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
+#: src/app/ProxyAuthenticationDialog.qml:24
+#, qt-format
+msgid "The website %1:%2 requires authentication."
+msgstr "Site-urile web %1;%2 solicită autentificarea."
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Înapoi"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Back.qml:26
+msgid "Older Page"
+msgstr "Pagina mai veche"
+
+#: src/app/actions/Bookmark.qml:23
+msgid "Bookmark"
+msgstr "Semn de carte"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Bookmark.qml:26
+msgid "Add This Page to Bookmarks"
+msgstr "Adaugă această pagină la semnele de carte"
+
+#: src/app/actions/BookmarkLink.qml:22
+msgid "Bookmark link"
+msgstr "Pune semn de carte la această legătură"
+
+#: src/app/actions/ClearHistory.qml:23
+msgid "Clear History"
+msgstr "Șterge istoricul"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/ClearHistory.qml:26
+msgid "Clear Navigation History"
+msgstr "Șterge istoricul de navigare"
+
+#: src/app/actions/Copy.qml:22
+msgid "Copy"
+msgstr "Copiază"
+
+#: src/app/actions/CopyImage.qml:22
+msgid "Copy image"
+msgstr "Copiază imaginea"
+
+#: src/app/actions/CopyLink.qml:22
+msgid "Copy link"
+msgstr "Copiază legătura"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "Înainte"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Forward.qml:26
+msgid "Newer Page"
+msgstr "Pagina mai nouă"
+
+#: src/app/actions/GoTo.qml:23
+msgid "Goto"
+msgstr "Mergi la"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/GoTo.qml:26
+msgid "Address;URL;www"
+msgstr "Adresă;URL:www"
+
+#: src/app/actions/NewTab.qml:23
+msgid "New Tab"
+msgstr "Filă nouă"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/NewTab.qml:26
+msgid "Open a New Tab"
+msgstr "Deschide o filă nouă"
+
+#: src/app/actions/OpenImageInNewTab.qml:22
+msgid "Open image in new tab"
+msgstr "Deschide imaginea într-o filă nouă"
+
+#: src/app/actions/OpenLinkInNewTab.qml:22
+msgid "Open link in new tab"
+msgstr "Deschide legătura într-o filă nouă"
+
+#: src/app/actions/Reload.qml:23
+msgid "Reload"
+msgstr "Reîncarcă"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Reload.qml:26
+msgid "Leave Page"
+msgstr "Părăsește pagina"
+
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
+msgstr "Salvează imaginea"
+
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "Partajează..."
+
+#: src/app/webbrowser/AddressBar.qml:148
+msgid "search or enter an address"
+msgstr "căutați sau introduceți o adresă"
+
+#: src/app/webbrowser/Browser.qml:148
+msgid "Share"
+msgstr "Partajare"
+
+#: src/app/webbrowser/Browser.qml:162
+msgid "History"
+msgstr "Istoric"
+
+#: src/app/webbrowser/Browser.qml:168
+msgid "Open tabs"
+msgstr "File deschise"
+
+#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+msgid "New tab"
+msgstr "Filă nouă"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:99
+#, qt-format
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] "%1 pagină"
+msgstr[1] "%1 pagini"
+msgstr[2] "%1 de pagini"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:113
+msgid "Less"
+msgstr "Mai puțin"
+
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
+msgstr "Ultima vizită"
+
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
+msgid "Yesterday"
+msgstr "Ieri"
+
+#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+msgid "Done"
+msgstr "Finalizat"
+
+#: src/app/webbrowser/HistoryView.qml:109
+msgid "Clear"
+msgstr "Șterge"
+
+#: src/app/webbrowser/HistoryView.qml:123
+msgid "Delete all history?"
+msgstr "Ștergeți tot istoricul?"
+
+#: src/app/webbrowser/HistoryView.qml:126
+msgid "Yes"
+msgstr "Da"
+
+#: src/app/webbrowser/HistoryView.qml:135
+msgid "No"
+msgstr "Nu"
+
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr "Semne de carte"
+
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
+msgstr "Site-uri de top"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
+msgstr "arată mai puțin"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr "arată mai mult"
+
+#: src/app/webbrowser/TabsView.qml:110
+msgid "Add"
+msgstr "Adaugă"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:3
+msgid "Browser"
+msgstr "Navigator"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:4
+msgid "Web Browser"
+msgstr "Navigator web"
+
+#: src/app/webbrowser/webbrowser-app.desktop.in:5
+msgid "Browse the World Wide Web"
+msgstr "Navigați pe Internet"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:54
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - Navigatorul web Ubuntu"
+
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:56
+msgid "Ubuntu Web Browser"
+msgstr "Navigatorul web Ubuntu"
+
+#: src/app/webcontainer/AccountsLoginPage.qml:70
+msgid "No local account found for "
+msgstr "Nu a fost găsit nici un cont local pentru "
+
+#: src/app/webcontainer/AccountsLoginPage.qml:75
+msgid "Skip account creation step"
+msgstr "Omite pasul de creare a contului"
+
+#: src/app/webcontainer/AccountsLoginPage.qml:124
+msgid "Add account"
+msgstr "Adaugă cont"
+
+#: src/app/webcontainer/AccountsView.qml:38
+msgid "Select an account"
+msgstr "Selectați un cont"

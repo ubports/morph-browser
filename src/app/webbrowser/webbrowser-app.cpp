@@ -21,8 +21,11 @@
 #include "history-model.h"
 #include "history-matches-model.h"
 #include "history-timeframe-model.h"
+#include "history-byvisits-model.h"
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
+#include "limit-proxy-model.h"
+#include "searchengine.h"
 #include "settings.h"
 #include "tabs-model.h"
 #include "webbrowser-app.h"
@@ -35,9 +38,9 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
-#include <QtCore/QMetaObject>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
+#include <QtCore/QVariant>
 #include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
 
@@ -73,25 +76,25 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
     qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
+    qmlRegisterType<HistoryByVisitsModel>(uri, 0 , 1, "HistoryByVisitsModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
+    qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
-        m_window->setProperty("chromeless", m_arguments.contains("--chromeless"));
-        QList<QUrl> urls = this->urls();
-        if (urls.isEmpty()) {
-            Settings settings;
-            urls.append(settings.homepage());
+        Settings settings;
+        SearchEngine* searchEngine = settings.searchEngine();
+        searchEngine->setParent(m_window);
+        m_window->setProperty("homepage", settings.homepage());
+        m_window->setProperty("searchEngine", QVariant::fromValue(searchEngine));
+        QVariantList urls;
+        Q_FOREACH(const QUrl& url, this->urls()) {
+            urls.append(url);
         }
-        QObject* browser = (QObject*) m_window;
-        Q_FOREACH(const QUrl& url, urls) {
-            QMetaObject::invokeMethod(browser, "newTab", Q_ARG(QVariant, url), Q_ARG(QVariant, true));
-        }
-
+        m_window->setProperty("urls", urls);
         m_component->completeCreate();
-
         return true;
     } else {
         return false;
@@ -102,14 +105,15 @@ void WebbrowserApp::printUsage() const
 {
     QTextStream out(stdout);
     QString command = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
-    out << "Usage: " << command << " [-h|--help] [--chromeless] [--fullscreen] [--maximized] [--inspector] [--app-id=APP_ID] [URL]" << endl;
+    out << "Usage: " << command << " [-h|--help] [--fullscreen] [--maximized] [--inspector]"
+                                << " [--app-id=APP_ID] [--new-session] [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help         display this help message and exit" << endl;
-    out << "  --chromeless       do not display any chrome" << endl;
     out << "  --fullscreen       display full screen" << endl;
     out << "  --maximized        opens the application maximized" << endl;
-    out << "  --inspector        run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
+    out << "  --inspector[=PORT] run a remote inspector on a specified port or " << REMOTE_INSPECTOR_PORT << " as the default port" << endl;
     out << "  --app-id=APP_ID    run the application with a specific APP_ID" << endl;
+    out << "  --new-session      do not restore open tabs from the last session" << endl;
 }
 
 int main(int argc, char** argv)

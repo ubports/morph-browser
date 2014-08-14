@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-06 16:25+0100\n"
+"POT-Creation-Date: 2014-07-30 12:43+0200\n"
 "PO-Revision-Date: 2013-12-14 06:00+0000\n"
 "Last-Translator: abuyop <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-17 07:11+0000\n"
-"X-Generator: Launchpad (build 17007)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -51,15 +52,15 @@ msgstr "Batal"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Sahkan Navigasi"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "Keluar"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "Kekal"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -83,55 +84,51 @@ msgstr "Teruskan jua"
 msgid "Back to safety"
 msgstr "Kembali ke selamat"
 
-#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
-msgid "Back"
-msgstr "Undur"
-
-#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
-msgid "Forward"
-msgstr "Maju"
-
-#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
-msgid "Activity"
-msgstr "Aktiviti"
-
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "Pengesahan Skrip Java"
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Ralat Rangkaian"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "Kelihatan anda menghadapi masalah pemaparan: %1."
 
-#: src/app/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
 "Ubuntu mencadangkan anda periksa tetapan rangkaian dan segar semula halaman "
 "tersebut."
 
-#: src/app/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Segar semula halaman"
 
-#: src/app/FilePickerDialog.qml:27
+#: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "Sila pilih fail"
 
+#: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr "Permintaan Keizinan"
 
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
+msgid "This page wants to know your device’s location."
+msgstr "Halaman ini mahu anda tahu loaksi peranti anda."
+
+#: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr "Nafi"
 
+#: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "Izin"
@@ -149,6 +146,10 @@ msgstr "Pengesahihan proksi diperlukan."
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr "Laman sesawng %1:%2 memerlukan pengesahihan."
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Undur"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -191,6 +192,10 @@ msgstr "Salin imej"
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
 msgstr "Salin pautan"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "Maju"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -238,53 +243,90 @@ msgstr "Tinggalkan Halaman"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Simpan imej"
 
-#: src/app/webbrowser/ActivityView.qml:54
-msgid "Bookmarks"
-msgstr "Tanda Buku"
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "Kongsi..."
 
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/webbrowser/TabsList.qml:37
+#: src/app/webbrowser/AddressBar.qml:148
+msgid "search or enter an address"
+msgstr "gelintar atau masukkan alamat"
+
+#: src/app/webbrowser/Browser.qml:148
+msgid "Share"
+msgstr "Kongsi"
+
+#: src/app/webbrowser/Browser.qml:162
+msgid "History"
+msgstr "Sejarah"
+
+#: src/app/webbrowser/Browser.qml:168
+msgid "Open tabs"
+msgstr "Buka tab"
+
+#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+msgid "New tab"
+msgstr "Tab baharu"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
-msgid "Currently viewing (%1)"
-msgstr "Kini melihat (%1)"
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] "%1 halaman"
+msgstr[1] "%1 halaman"
 
-#: src/app/webbrowser/TabsList.qml:68
-msgid "+"
-msgstr "+"
+#: src/app/webbrowser/ExpandedHistoryView.qml:113
+msgid "Less"
+msgstr "Kurang"
 
-#: src/app/webbrowser/TimelineView.qml:84
-msgid "Today"
-msgstr "Hari ini"
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
+msgstr "Terakhir Dilawati"
 
-#: src/app/webbrowser/TimelineView.qml:86
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr "Semalam"
 
-#: src/app/webbrowser/TimelineView.qml:88
-msgid "Last 7 Days"
-msgstr "7 Hari Terakhir"
+#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+msgid "Done"
+msgstr "Selesai"
 
-#: src/app/webbrowser/TimelineView.qml:90
-msgid "This Month"
-msgstr "Bulan Ini"
+#: src/app/webbrowser/HistoryView.qml:109
+msgid "Clear"
+msgstr "Kosongkan"
 
-#: src/app/webbrowser/TimelineView.qml:92
-msgid "This Year"
-msgstr "Tahun Ini"
+#: src/app/webbrowser/HistoryView.qml:123
+msgid "Delete all history?"
+msgstr "Padam semua sejarah?"
 
-#: src/app/webbrowser/TimelineView.qml:94
-msgid "Older"
-msgstr "Lebih lama"
+#: src/app/webbrowser/HistoryView.qml:126
+msgid "Yes"
+msgstr "Ya"
 
-#: src/app/webbrowser/TimelineView.qml:277
-msgid "(local files)"
-msgstr "(fail setempat)"
+#: src/app/webbrowser/HistoryView.qml:135
+msgid "No"
+msgstr "Tidak"
 
-#: src/app/webbrowser/TimelineView.qml:279
-msgid "(other)"
-msgstr "(lain-lain)"
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr "Tanda Buku"
+
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
+msgstr "Laman terbaik"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
+msgstr "kurang"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr "lagi"
+
+#: src/app/webbrowser/TabsView.qml:110
+msgid "Add"
+msgstr "Tambah"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -300,32 +342,28 @@ msgstr "Layari Dunia Internet"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Pelayar Sesawang Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:49
+#: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "Pelayar Sesawang Ubuntu"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "Tiada akaun setempat ditemui "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "Langkau langkah penciptaan akaun"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "Tambah akaun"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
-
-#: src/app/webcontainer/WebViewImplWebkit.qml:63
-msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Pilih satu akaun"

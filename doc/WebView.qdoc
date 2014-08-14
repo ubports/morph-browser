@@ -166,6 +166,55 @@
  */
 
 /*!
+    \qmlproperty ActionList WebView::contextualActions
+
+    A list of actions that the user will be presented with when invoking a
+    context menu (by way of a right click on desktop, or a long press on a
+    touch-enabled device, on an image or a hyperlink).
+    By default the list is empty, and no menu is shown.
+    User-defined actions can access the \l {contextualData} {contextual data}.
+
+    Example of user-defined actions:
+    \code
+        import Ubuntu.Components 1.1
+        import Ubuntu.Web 0.2
+
+        WebView {
+            contextualActions: ActionList {
+                Action {
+                    text: i18n.tr("Open link in browser")
+                    enabled: contextualData.href.toString()
+                    onTriggered: Qt.openUrlExternally(contextualData.href)
+                }
+            }
+        }
+    \endcode
+
+    \sa contextualData
+ */
+
+/*!
+    \qmlproperty QtObject WebView::contextualData
+
+    An object that holds the contextual data associated with the current context
+    menu. User-defined \l {contextualActions} {contextual actions} can use this
+    data to process it when triggered.
+
+    It has the following properties:
+    \list
+        \li href (url): the full URI of the hyperlink, if any
+        \li title (string): the title of the hyperlink, if any
+        \li img (url): the full URI of the image
+    \endlist
+
+    Note that in the case of an image enclosed inside a hyperlink, both \c href
+    and \c img will be available, allowing a user-defined contextual action to
+    operate on both elements.
+
+    \sa contextualActions
+ */
+
+/*!
     \qmlmethod void WebView::goBack()
 
     Go back one entry in the navigation history.
@@ -204,4 +253,19 @@
     Load HTML content from memory instead of loading it from a URL.
     The \c baseUrl argument is used to resolve relative URLs in the provided
     content.
+ */
+
+/*!
+    \qmlmethod string WebView::getUAString()
+
+    This method can be overridden by client applications that embed
+    a WebView to provide a static overridden user agent string.
+    If not overridden, the default UA string and the default override
+    mechanism will be used (see WebContext).
+
+    Note: as the user agent string is a property of the shared context,
+    an application that embeds several WebViews that define different
+    custom user agent strings will result in the last view instantiated
+    setting the user agent string for all the views (unless they all use
+    separate contexts instead of the default shared one).
  */

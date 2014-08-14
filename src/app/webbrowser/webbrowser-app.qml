@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,12 +17,16 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.0
-import Ubuntu.Components 0.1
+import QtQuick.Window 2.1
+import Ubuntu.Components 1.1
 
 Window {
-    property alias chromeless: browser.chromeless
+    property alias searchEngine: browser.searchEngine
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
+    property alias restoreSession: browser.restoreSession
+
+    property alias homepage: browser.homepage
+    property alias urls: browser.initialUrls
 
     contentOrientation: browser.screenOrientation
 
@@ -47,9 +51,9 @@ Window {
         Component.onCompleted: i18n.domain = "webbrowser-app"
     }
 
-    function newTab(url, setCurrent) {
-        return browser.openUrlInNewTab(url, setCurrent)
-    }
+    // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
+    // by toggling fullscreen on the window only on desktop.
+    visibility: browser.currentWebview && browser.currentWebview.fullscreen && (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
 
     // Handle runtime requests to open urls as defined
     // by the freedesktop application dbus interface's open
@@ -61,7 +65,7 @@ Window {
         target: UriHandler
         onOpened: {
             for (var i = 0; i < uris.length; ++i) {
-                newTab(uris[i], i == uris.length - 1)
+                browser.openUrlInNewTab(uris[i], i == uris.length - 1)
             }
         }
     }

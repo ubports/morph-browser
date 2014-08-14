@@ -13,7 +13,9 @@ set(WEBBROWSER_APP_MODELS_SRC
     history-domainlist-model.cpp
     history-matches-model.cpp
     history-model.cpp
+    history-byvisits-model.cpp
     history-timeframe-model.cpp
+    limit-proxy-model.cpp
     tabs-model.cpp
 )
 
@@ -24,6 +26,7 @@ add_library(${WEBBROWSER_APP_MODELS} STATIC ${WEBBROWSER_APP_MODELS_SRC})
 qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Sql)
 
 set(WEBBROWSER_APP_SRC
+    searchengine.cpp
     settings.cpp
     webbrowser-app.cpp
 )

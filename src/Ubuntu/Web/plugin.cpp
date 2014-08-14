@@ -24,6 +24,7 @@
 #include <QtCore/QtGlobal>
 #include <QtGui/QGuiApplication>
 #include <QtQml>
+#include <QtQml/QQmlInfo>
 
 static float getQtWebkitDpr()
 {
@@ -63,6 +64,24 @@ static QString getFormFactor()
     return DESKTOP;
 }
 
+static int getDevtoolsPort()
+{
+    const int DEVTOOLS_INVALID_PORT = -1;
+
+    int port = DEVTOOLS_INVALID_PORT;
+    const char* DEVTOOLS_PORT_ENV_VAR = "UBUNTU_WEBVIEW_DEVTOOLS_PORT";
+
+    if (qEnvironmentVariableIsSet(DEVTOOLS_PORT_ENV_VAR)) {
+        QByteArray environmentVarValue = qgetenv(DEVTOOLS_PORT_ENV_VAR);
+        bool ok = false;
+        int value = environmentVarValue.toInt(&ok);
+        if (ok) {
+            port = value;
+        }
+    }
+    return port > 0 ? port : DEVTOOLS_INVALID_PORT;
+}
+
 void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
 {
     Q_UNUSED(uri);
@@ -81,10 +100,18 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     }
 
     context->setContextProperty("formFactor", getFormFactor());
+
+    context->setContextProperty("webviewDevtoolsDebugPort", getDevtoolsPort());
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
 {
     Q_ASSERT(uri == QLatin1String("Ubuntu.Components.Extras.Browser")
           || uri == QLatin1String("Ubuntu.Web"));
+
+    if (uri == QLatin1String("Ubuntu.Components.Extras.Browser")) {
+        qmlInfo(0) << "WARNING: the use of the Ubuntu.Components.Extras.Browser "
+                      "namespace is deprecated, please consider updating your "
+                      "applications to import Ubuntu.Web instead.";
+    }
 }

@@ -17,8 +17,8 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.0
-import Ubuntu.Components 0.1
+import QtQuick.Window 2.1
+import Ubuntu.Components 1.1
 import Ubuntu.Components.Extras.Browser 0.2
 import webcontainer.private 0.1
 
@@ -27,9 +27,10 @@ Window {
     objectName: "webappContainer"
 
     property bool developerExtrasEnabled: false
+    property bool restoreSession: true
 
     property bool backForwardButtonsVisible: true
-    property bool addressBarVisible: true
+    property bool chromeVisible: true
 
     property string url: ""
     property string webappName: ""
@@ -37,6 +38,7 @@ Window {
     property var webappUrlPatterns
     property bool oxide: false
     property string accountProvider: ""
+    property string popupRedirectionUrlPrefix: ""
     property var __webappCookieStore: null
 
     contentOrientation: Screen.orientation
@@ -44,7 +46,9 @@ Window {
     width: 800
     height: 600
 
-    title: {
+    title: getWindowTitle()
+
+    function getWindowTitle() {
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
             return webappName
         } else if (webappPageComponentLoader.item &&
@@ -59,6 +63,9 @@ Window {
     Loader {
         id: webappPageComponentLoader
         anchors.fill: parent
+
+        // Propagate automatic orientation to popups parented here
+        property bool automaticOrientation: item ? item.automaticOrientation : false
     }
 
     Component {
@@ -66,23 +73,36 @@ Window {
 
         WebApp {
             id: browser
-            addressBarVisible: root.addressBarVisible
+            chromeVisible: root.chromeVisible
             backForwardButtonsVisible: root.backForwardButtonsVisible
             developerExtrasEnabled: root.developerExtrasEnabled
+            restoreSession: root.restoreSession
             oxide: root.oxide
             url: root.url
             webappModelSearchPath: root.webappModelSearchPath
             webappName: root.webappName
             webappUrlPatterns: root.webappUrlPatterns
 
+            popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+
             anchors.fill: parent
 
-            chromeless: !backForwardButtonsVisible && !addressBarVisible
             webbrowserWindow: webbrowserWindowProxy
 
             Component.onCompleted: i18n.domain = "webbrowser-app"
+
+            onWebappNameChanged: {
+                if (root.webappName !== browser.webappName) {
+                    root.webappName = browser.webappName;
+                    root.title = getWindowTitle();
+                }
+            }
         }
     }
+
+    // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
+    // by toggling fullscreen on the window only on desktop.
+    visibility: webappPageComponentLoader.item && webappPageComponentLoader.item.currentWebview.fullscreen && (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
         id: accountsPageComponentLoader
@@ -149,5 +169,23 @@ Window {
         if (accountsPageComponentLoader.item)
             accountsPageComponentLoader.item.visible = false;
         webappPageComponentLoader.item.visible = true;
+    }
+
+    // Handle runtime requests to open urls as defined
+    // by the freedesktop application dbus interface's open
+    // method for DBUS application activation:
+    // http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus
+    // The dispatch on the org.freedesktop.Application if is done per appId at the
+    // url-dispatcher/upstart level.
+    Connections {
+        target: UriHandler
+        onOpened: {
+            // only consider the first one (if multiple)
+            if (uris.length !== 0
+                    && webappPageComponentLoader.item
+                    && webappPageComponentLoader.item.currentWebview) {
+                webappPageComponentLoader.item.currentWebview.url = uris[0];
+            }
+        }
     }
 }

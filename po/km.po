@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-05-06 16:25+0100\n"
-"PO-Revision-Date: 2013-10-11 03:05+0000\n"
-"Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
+"POT-Creation-Date: 2014-07-30 12:43+0200\n"
+"PO-Revision-Date: 2014-08-01 02:09+0000\n"
+"Last-Translator: Sok Sophea <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-05-17 07:11+0000\n"
-"X-Generator: Launchpad (build 17007)\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
+"X-Generator: Launchpad (build 17147)\n"
 
 #: src/app/AlertDialog.qml:24
 msgid "JavaScript Alert"
@@ -51,15 +52,15 @@ msgstr "បោះ​បង់"
 
 #: src/app/BeforeUnloadDialog.qml:24
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "បញ្ជាក់​ការ​រុករក"
 
 #: src/app/BeforeUnloadDialog.qml:28
 msgid "Leave"
-msgstr ""
+msgstr "ទុកចោល"
 
 #: src/app/BeforeUnloadDialog.qml:33
 msgid "Stay"
-msgstr ""
+msgstr "ស្ថិត​នៅ"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -83,55 +84,51 @@ msgstr "អញ្ចឹង បន្ត"
 msgid "Back to safety"
 msgstr "ត្រឡប់​ទៅ​សុវត្ថិភាព"
 
-#: src/app/Chrome.qml:72 src/app/actions/Back.qml:23
-msgid "Back"
-msgstr "ថយក្រោយ"
-
-#: src/app/Chrome.qml:91 src/app/actions/Forward.qml:23
-msgid "Forward"
-msgstr "ទៅមុខ"
-
-#: src/app/Chrome.qml:127 src/app/webbrowser/ActivityView.qml:36
-msgid "Activity"
-msgstr "សកម្មភាព"
-
 #: src/app/ConfirmDialog.qml:24
 msgid "JavaScript Confirmation"
 msgstr "ការ​បញ្ជាក់ JavaScript"
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "កំហុស​បណ្ដាញ"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "វា​បង្ហាញ​ថា អ្នក​កំពុង​មាន​បញ្ហា​ក្នុង​ការ​មើល៖ %1 ។"
 
-#: src/app/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
 "Ubuntu ស្នើ​ឲ្យ​អ្នក​ពិនិត្យ​ការ​កំណត់​បណ្ដាញ​របស់​អ្នក "
 "និង​ព្យាយាម​ផ្ទុក​ទំព័រ​ឡើងវិញ។"
 
-#: src/app/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "ផ្ទុក​ទំព័រ​ឡើងវិញ"
 
-#: src/app/FilePickerDialog.qml:27
+#: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "សូម​ជ្រើស​ឯកសារ"
 
+#: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr "ស្នើ​សិទ្ធិ"
 
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
+msgid "This page wants to know your device’s location."
+msgstr "ទំព័រ​នេះ​ចង់​ដឹង​ទីតាំង​ឧបករណ៍របស់​អ្នក។"
+
+#: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr "បដិសេធ"
 
+#: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "អនុញ្ញាត"
@@ -149,6 +146,10 @@ msgstr "ទាមទារ​ការ​ផ្ទៀងផ្ទាត់​ប
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr "តំបន់បណ្ដាញ %1:%2 ទាមទារ​ការ​ផ្ទៀងផ្ទាត់។"
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "ថយក្រោយ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -191,6 +192,10 @@ msgstr "ចម្លង​រូបភាព"
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
 msgstr "ចម្លង​តំណ"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "ទៅមុខ"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -238,53 +243,89 @@ msgstr "ចេញ​ពីទំព័រ"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "រក្សាទុក​រូបភាព"
 
-#: src/app/webbrowser/ActivityView.qml:54
-msgid "Bookmarks"
-msgstr "ចំណាំ"
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "ចែករំលែក"
 
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/webbrowser/TabsList.qml:37
+#: src/app/webbrowser/AddressBar.qml:148
+msgid "search or enter an address"
+msgstr "ស្វែងរក ឬ​បញ្ចូល​អាសយដ្ឋាន"
+
+#: src/app/webbrowser/Browser.qml:148
+msgid "Share"
+msgstr "ចែករំលែក"
+
+#: src/app/webbrowser/Browser.qml:162
+msgid "History"
+msgstr "ប្រវត្តិ"
+
+#: src/app/webbrowser/Browser.qml:168
+msgid "Open tabs"
+msgstr "បើក​ផ្ទាំង"
+
+#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+msgid "New tab"
+msgstr "ផ្ទាំង​ថ្មី"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
-msgid "Currently viewing (%1)"
-msgstr "បច្ចុប្បន្ន​មើល (%1)"
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] "%1 ទំព័រ"
 
-#: src/app/webbrowser/TabsList.qml:68
-msgid "+"
-msgstr "+"
+#: src/app/webbrowser/ExpandedHistoryView.qml:113
+msgid "Less"
+msgstr "តិចជាង"
 
-#: src/app/webbrowser/TimelineView.qml:84
-msgid "Today"
-msgstr "ថ្ងៃ​នេះ"
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
+msgstr "បាន​មើល​ចុងក្រោយ"
 
-#: src/app/webbrowser/TimelineView.qml:86
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr "ម្សិល​មិញ"
 
-#: src/app/webbrowser/TimelineView.qml:88
-msgid "Last 7 Days"
-msgstr "៧ ថ្ងៃ​ចុងក្រោយ"
+#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+msgid "Done"
+msgstr "ធ្វើរួច"
 
-#: src/app/webbrowser/TimelineView.qml:90
-msgid "This Month"
-msgstr "ខែ​នេះ"
+#: src/app/webbrowser/HistoryView.qml:109
+msgid "Clear"
+msgstr "សម្អាត"
 
-#: src/app/webbrowser/TimelineView.qml:92
-msgid "This Year"
-msgstr "ឆ្នាំ​នេះ"
+#: src/app/webbrowser/HistoryView.qml:123
+msgid "Delete all history?"
+msgstr "លុប​ប្រវត្តិ​ទាំងអស់?"
 
-#: src/app/webbrowser/TimelineView.qml:94
-msgid "Older"
-msgstr "ចាស់​ជាង"
+#: src/app/webbrowser/HistoryView.qml:126
+msgid "Yes"
+msgstr "បាទ/ចាស"
 
-#: src/app/webbrowser/TimelineView.qml:277
-msgid "(local files)"
-msgstr "(ឯកសារ​មូលដ្ឋាន)"
+#: src/app/webbrowser/HistoryView.qml:135
+msgid "No"
+msgstr "ទេ"
 
-#: src/app/webbrowser/TimelineView.qml:279
-msgid "(other)"
-msgstr "(ផ្សេងៗ)"
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr "ចំណាំ"
+
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
+msgstr "តំបន់បណ្ដាញ​ពេញនិយម"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
+msgstr "មើល​​តិច​ជាង"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr "មើល​ច្រើន​ជាង"
+
+#: src/app/webbrowser/TabsView.qml:110
+msgid "Add"
+msgstr "បន្ថែម"
 
 #: src/app/webbrowser/webbrowser-app.desktop.in:3
 msgid "Browser"
@@ -300,32 +341,28 @@ msgstr "រកមើល​វើលវ៉ាយវិប"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:47
+#: src/app/webcontainer/webapp-container.qml:54
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:49
+#: src/app/webcontainer/webapp-container.qml:56
 msgid "Ubuntu Web Browser"
 msgstr "កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "រក​មិន​ឃើញ​គណនី​មូលដ្ឋាន​សម្រាប់ "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "រំលង​ជំហាន​បង្កើត​គណនី"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "បន្ថែម​គណនី"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
-
-#: src/app/webcontainer/WebViewImplWebkit.qml:63
-msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "ជ្រើស​គណនី"

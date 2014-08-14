@@ -23,6 +23,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QUrl>
 
+class SearchEngine;
+
 /*
  * Temporary helper class for read-only settings
  * until Settings support lands in the SDK.
@@ -35,9 +37,11 @@ public:
     Settings(QObject* parent=0);
 
     const QUrl& homepage() const;
+    SearchEngine* searchEngine() const;
 
 private:
     QUrl m_homepage;
+    SearchEngine* m_searchengine;
 };
 
 #endif // __SETTINGS_H__
