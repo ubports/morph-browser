@@ -47,8 +47,6 @@ Item {
         anchors.fill: parent
     }
 
-    Component.onCompleted: checkAccounts()
-
     function checkAccounts() {
         if (accountsModel.count === 0) {
             accountsViewLoader.sourceComponent = accountsAdditionToolbarViewComponent
@@ -155,12 +153,19 @@ Item {
 
     function doLogin(accountHandle) {
         var account = accountComponent.createObject(root, {objectHandle: accountHandle});
-        account.authenticated.connect(function () {
+
+        function authenticatedCallback() {
+            account.authenticated.disconnect(authenticatedCallback);
             done(account.authData.credentialsId);
-        });
-        account.authenticationError.connect(function () {
+        }
+        account.authenticated.connect(authenticatedCallback);
+
+        function errorCallback() {
+            account.authenticationError.disconnect(errorCallback);
             done(null);
-        });
+        }
+        account.authenticationError.connect(errorCallback);
+
         account.authenticate(null);
     }
 

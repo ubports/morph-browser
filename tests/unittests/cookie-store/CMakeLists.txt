@@ -2,7 +2,6 @@ set(TEST tst_CookieStoreTests)
 set(SOURCES
     ${webapp-container_SOURCE_DIR}/chrome-cookie-store.cpp
     ${webapp-container_SOURCE_DIR}/cookie-store.cpp
-    ${webapp-container_SOURCE_DIR}/webkit-cookie-store.cpp
     tst_CookieStore.cpp
 )
 add_executable(${TEST} ${SOURCES})
