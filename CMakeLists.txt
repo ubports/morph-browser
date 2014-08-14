@@ -59,12 +59,6 @@ add_subdirectory(tests)
 file(GLOB_RECURSE NON_COMPILED_FILES *.qml *.js *.png *.svg *.py *.pot *.po *.qdoc *.qdocconf *.css)
 add_custom_target(NON_COMPILED_TARGET ALL SOURCES ${NON_COMPILED_FILES})
 
-file(GLOB_RECURSE I18N_SRC_FILES
-     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-     src/app/**.qml)
-list(APPEND I18N_SRC_FILES src/app/webbrowser/${DESKTOP_FILE}.in.in)
-list(SORT I18N_SRC_FILES)
-
 # for dh_translations to extract the domain
 # (regarding syntax consistency, see http://pad.lv/1181187)
 set (GETTEXT_PACKAGE "webbrowser-app")
