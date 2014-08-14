@@ -101,8 +101,10 @@ bool HistoryDomainModel::filterAcceptsRow(int source_row, const QModelIndex& sou
 void HistoryDomainModel::onModelChanged()
 {
     // If the rowCount is zero all the history entries of this model were
-    // removed. If that happens this domain will be removed of the list
-    // and we don't need to update it. 
+    // removed. If that happens this domain will be removed from the list, so
+    // we shouldn’t update its properties lest the update triggers a re-ordering
+    // on any sort proxy model that uses this model as source, while removing an
+    // entry.
     if (rowCount() > 0) {
         m_lastVisit = data(index(0, 0), HistoryModel::LastVisit).toDateTime();
         m_lastVisitedTitle = data(index(0, 0), HistoryModel::Title).toString();
