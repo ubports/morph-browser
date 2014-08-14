@@ -98,8 +98,9 @@ WebViewImpl {
         var newForegroundPageRequest = isNewForegroundWebViewDisposition(request.disposition)
         var url = request.url.toString()
 
-        console.log("\nwebview: " + webview.toString())
-        console.log("navigationRequestedDelegate - " + url)
+        console.log("navigationRequestedDelegate - newForegroundPageRequest: "
+                    + newForegroundPageRequest
+                    + ', url: ' + url)
 
         // Covers some edge cases corresponding to the default window.open() behavior.
         // When it is being called, the targetted URL will not load right away but
@@ -129,9 +130,9 @@ WebViewImpl {
             }
 
             if (shouldOpenPopupsInDefaultBrowser()) {
-                console.debug('Opening popup window ' + url + ' in the browser window.')
+                console.debug('Opening popup window ' + targetUrl + ' in the browser window.')
                 request.action = Oxide.NavigationRequest.ActionReject
-                Qt.openUrlExternally(url)
+                Qt.openUrlExternally(targetUrl)
                 return;
             }
             return
