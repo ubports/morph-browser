@@ -100,16 +100,16 @@ bool HistoryDomainModel::filterAcceptsRow(int source_row, const QModelIndex& sou
 
 void HistoryDomainModel::onModelChanged()
 {
+    // If the rowCount is zero all the history entries of this model were
+    // removed. If that happens this domain will be removed of the list
+    // and we don't need to update it. 
     if (rowCount() > 0) {
         m_lastVisit = data(index(0, 0), HistoryModel::LastVisit).toDateTime();
         m_lastVisitedTitle = data(index(0, 0), HistoryModel::Title).toString();
         m_lastVisitedIcon = data(index(0, 0), HistoryModel::Icon).toUrl();
-    } else {
-        m_lastVisit = QDateTime();
-        m_lastVisitedTitle = QString();
-        m_lastVisitedIcon = QUrl();
+
+        Q_EMIT lastVisitChanged();
+        Q_EMIT lastVisitedTitleChanged();
+        Q_EMIT lastVisitedIconChanged();
     }
-    Q_EMIT lastVisitChanged();
-    Q_EMIT lastVisitedTitleChanged();
-    Q_EMIT lastVisitedIconChanged();
 }
