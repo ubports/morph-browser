@@ -97,9 +97,6 @@ Window {
                 root.updateCurrentView()
         }
 
-        // Propagate automatic orientation to popups parented here
-        property bool automaticOrientation: item ? item.automaticOrientation : false
-
         Component.onCompleted: i18n.domain = "webbrowser-app"
     }
 
