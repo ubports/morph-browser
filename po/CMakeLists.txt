@@ -22,13 +22,13 @@ add_custom_target(${POT_FILE} ALL
                   COMMAND ${INTLTOOL_EXTRACT} --update --type=gettext/ini
                           --srcdir=${CMAKE_SOURCE_DIR} ${DESKTOP_FILE_IN_IN}
                   COMMAND ${GETTEXT_XGETTEXT_EXECUTABLE} -o ${POT_FILE}
-                          -D ${CMAKE_SOURCE_DIR}
                           --from-code=UTF-8
                           --c++ --qt --add-comments=TRANSLATORS
                           --keyword=tr --keyword=tr:1,2 --keyword=N_
                           --package-name=webbrowser-app
                           --copyright-holder='Canonical Ltd.'
-                          ${I18N_SRC_FILES} ${DESKTOP_FILE_IN_IN_H})
+                          -D ${CMAKE_SOURCE_DIR} ${I18N_SRC_FILES}
+                          -D ${CMAKE_BINARY_DIR} ${DESKTOP_FILE_IN_IN_H})
 
 foreach(PO_FILE ${PO_FILES})
     get_filename_component(LANG ${PO_FILE} NAME_WE)
