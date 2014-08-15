@@ -133,9 +133,10 @@ bool WebappContainer::initialize()
             m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
         }
 
-        QFile overrideFile("webview-override.qml");
+        // Experimental, unsupported API, to override the webview
+        QFileInfo overrideFile("webview-override.qml");
         if (overrideFile.exists()) {
-            m_window->setProperty("webviewOverrideFile", QUrl::fromLocalFile(overrideFile.fileName()));
+            m_window->setProperty("webviewOverrideFile", QUrl::fromLocalFile(overrideFile.absoluteFilePath()));
         }
 
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.

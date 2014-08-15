@@ -46,8 +46,10 @@ Item {
                     Qt.resolvedUrl("WebViewImplOxide.qml")
                   : Qt.resolvedUrl("WebViewImplWebkit.qml");
 
-        if (root.webviewOverrideFile) {
-            console.log("Loading webview-override.qml...");
+        // This is an experimental, UNSUPPORTED, API
+        // It loads an alternative webview, adjusted for a specific webapp
+        if (root.webviewOverrideFile.toString()) {
+            console.log("Loading custom webview from " + root.webviewOverrideFile);
             webappEngineSource = root.webviewOverrideFile;
         }
 
