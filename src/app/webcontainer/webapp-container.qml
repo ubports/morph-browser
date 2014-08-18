@@ -186,7 +186,7 @@ Window {
                     !webappPageComponentLoader.item.currentWebview) {
                 return;
             }
-            var requestedUrl = uris[0];
+            var requestedUrl = uris[0].toString();
 
             if (popupRedirectionUrlPrefix.length !== 0
                     && requestedUrl.indexOf(popupRedirectionUrlPrefix) === 0) {
