@@ -1,3 +1,20 @@
+webbrowser-app (0.23+14.10.20140818-0ubuntu1) utopic; urgency=low
+
+  [ Ugo Riboni ]
+  * Include translations in the .desktop file (LP: #1318008)
+
+  [ Olivier Tilloy ]
+  * Include translations in the .desktop file (LP: #1318008)
+  * Do not request permission for geolocation on devices where webapps
+    are running confined. This is delegated to the trust store. (LP:
+    #1356767)
+  * Elide actions’ text in the drawer menu. (LP: #1356345)
+  * Do not reset the contents of the address bar to the previous URL if
+    currently loading. Unfocus the address bar when requesting the page
+    to reload. (LP: #1354383)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 18 Aug 2014 09:45:10 +0000
+
 webbrowser-app (0.23+14.10.20140812-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
