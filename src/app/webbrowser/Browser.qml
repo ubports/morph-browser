@@ -198,19 +198,9 @@ BrowserView {
             }
         }
 
-        ScrollTracker {
+        ChromeStateTracker {
             webview: browser.currentWebview
             header: chrome
-
-            active: webview && !webview.fullscreen
-            onScrolledUp: chrome.state = "shown"
-            onScrolledDown: {
-                if (nearBottom) {
-                    chrome.state = "shown"
-                } else if (!nearTop) {
-                    chrome.state = "hidden"
-                }
-            }
         }
 
         Suggestions {

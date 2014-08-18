@@ -146,24 +146,14 @@ BrowserView {
         }
 
         Loader {
-            sourceComponent: (webapp.oxide && !webapp.chromeless) ? scrollTrackerComponent : undefined
+            sourceComponent: (webapp.oxide && !webapp.chromeless) ? chromeStateTrackerComponent : undefined
 
             Component {
-                id: scrollTrackerComponent
+                id: chromeStateTrackerComponent
 
-                ScrollTracker {
+                ChromeStateTracker {
                     webview: webapp.currentWebview
                     header: chromeLoader.item
-
-                    active: !webapp.currentWebview.fullscreen
-                    onScrolledUp: chromeLoader.item.state = "shown"
-                    onScrolledDown: {
-                        if (nearBottom) {
-                            chromeLoader.item.state = "shown"
-                        } else if (!nearTop) {
-                            chromeLoader.item.state = "hidden"
-                        }
-                    }
                 }
             }
         }
