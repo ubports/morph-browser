@@ -66,7 +66,7 @@ WebView {
         }
     }
 
-    onGeolocationPermissionRequested: {
+    function requestGeolocationPermission(request) {
         PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"),
                         webview.currentWebview, {"request": request})
         // TODO: we might want to store the answer to avoid requesting

@@ -372,6 +372,8 @@ BrowserView {
                 }
             }
 
+            onGeolocationPermissionRequested: requestGeolocationPermission(request)
+
             Loader {
                 id: newTabViewLoader
                 anchors.fill: parent
