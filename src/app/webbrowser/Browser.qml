@@ -266,6 +266,7 @@ BrowserView {
                     var view = expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
                     view.onHistoryEntryClicked.connect(destroy)
                 }
+                onHistoryDomainRemoved: _historyModel.removeEntriesByDomain(domain)
                 onDone: destroy()
             }
         }
@@ -280,6 +281,7 @@ BrowserView {
                     currentWebview.url = url
                     done()
                 }
+                onHistoryEntryRemoved: _historyModel.removeEntryByUrl(url)
                 onDone: destroy()
             }
         }

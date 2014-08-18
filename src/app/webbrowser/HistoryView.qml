@@ -28,6 +28,7 @@ Item {
     property alias historyModel: historyTimeframeModel.sourceModel
 
     signal seeMoreEntriesClicked(var model)
+    signal historyDomainRemoved(var domain)
     signal done()
 
     Rectangle {
@@ -68,7 +69,10 @@ Item {
             url: lastVisitedTitle
             icon: model.lastVisitedIcon
 
+            removable: true
+
             onClicked: historyView.seeMoreEntriesClicked(model.entries)
+            onItemRemoved: historyView.historyDomainRemoved(model.domain)
         }
     }
 
