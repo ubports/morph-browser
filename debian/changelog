@@ -1,3 +1,15 @@
+webbrowser-app (0.23+14.10.20140818.1-0ubuntu1) utopic; urgency=low
+
+  [ Arthur Mello ]
+  * Add swipe to delete action to the history view (LP: #1351164)
+
+  [ Olivier Tilloy ]
+  * Delay the auto-hide/auto-show behaviour of the header, in order to
+    prevent the view from jumping up and down on touch-enabled devices
+    when the touch event sequence is not finished. (LP: #1354700)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 18 Aug 2014 13:05:07 +0000
+
 webbrowser-app (0.23+14.10.20140818-0ubuntu1) utopic; urgency=low
 
   [ Ugo Riboni ]
