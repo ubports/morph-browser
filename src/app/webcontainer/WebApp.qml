@@ -224,6 +224,7 @@ BrowserView {
     Connections {
         target: webapp.currentWebview
         onUrlChanged: {
+            var url = webapp.currentWebview.url.toString()
             if (url.length === 0 || url === 'about:blank') {
                 return;
             }
