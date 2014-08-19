@@ -39,6 +39,7 @@ Window {
     property bool oxide: false
     property string accountProvider: ""
     property string popupRedirectionUrlPrefix: ""
+    property url webviewOverrideFile: ""
     property var __webappCookieStore: null
 
     contentOrientation: Screen.orientation
@@ -84,6 +85,7 @@ Window {
             webappUrlPatterns: root.webappUrlPatterns
 
             popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+            webviewOverrideFile: root.webviewOverrideFile
 
             anchors.fill: parent
 
