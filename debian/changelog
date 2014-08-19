@@ -1,3 +1,11 @@
+webbrowser-app (0.23+14.10.20140819.1-0ubuntu1) utopic; urgency=low
+
+  [ David Barth ]
+  * Add the ability to override the Oxide webview and various functions
+    related to navigation support.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 19 Aug 2014 16:14:51 +0000
+
 webbrowser-app (0.23+14.10.20140819-0ubuntu1) utopic; urgency=low
 
   [ Alexandre Abreu ]
