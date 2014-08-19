@@ -78,6 +78,7 @@ Window {
             webappUrlPatterns: root.webappUrlPatterns
 
             popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+            webviewOverrideFile: root.webviewOverrideFile
 
             anchors.fill: parent
 

@@ -34,6 +34,7 @@ Item {
     property var webappUrlPatterns
     property string localUserAgentOverride: ""
     property string popupRedirectionUrlPrefix: ""
+    property url webviewOverrideFile: ""
 
     Loader {
         id: webappContainerWebViewLoader
@@ -48,9 +49,9 @@ Item {
 
         // This is an experimental, UNSUPPORTED, API
         // It loads an alternative webview, adjusted for a specific webapp
-        if (root.webviewOverrideFile.toString()) {
-            console.log("Loading custom webview from " + root.webviewOverrideFile);
-            webappEngineSource = root.webviewOverrideFile;
+        if (webviewOverrideFile.toString()) {
+            console.log("Loading custom webview from " + webviewOverrideFile);
+            webappEngineSource = webviewOverrideFile;
         }
 
         webappContainerWebViewLoader.setSource(
