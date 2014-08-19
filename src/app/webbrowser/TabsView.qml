@@ -53,17 +53,17 @@ Item {
             z: index
 
             title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
-            webview: model.webview
+            tab: model.tab
 
             onSelected: {
                 tabsview.model.setCurrent(index)
-                webview.forceActiveFocus()
+                tab.webview.forceActiveFocus()
                 tabsview.done()
             }
             onCloseRequested: {
-                var webview = tabsview.model.remove(index)
-                if (webview) {
-                    webview.destroy()
+                var tab = tabsview.model.remove(index)
+                if (tab) {
+                    tab.destroy()
                 }
                 if (tabsview.model.count === 0) {
                     tabsview.newTabRequested()

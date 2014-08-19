@@ -20,11 +20,11 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 
 Column {
-    id: tab
+    id: tabPreview
 
     property alias title: label.text
-    property var webview
-    readonly property url url: webview ? webview.url : ""
+    property var tab
+    readonly property url url: tab ? tab.url : ""
 
     signal selected()
     signal closeRequested()
@@ -56,7 +56,7 @@ Column {
                     name: "close"
                 }
 
-                onTriggered: tab.closeRequested()
+                onTriggered: tabPreview.closeRequested()
 
                 Rectangle {
                     anchors {
@@ -122,7 +122,7 @@ Column {
                     }
                     width: parent.width / 2
 
-                    onClicked: tab.selected()
+                    onClicked: tabPreview.selected()
                 }
             }
         }
@@ -151,7 +151,7 @@ Column {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: tab.selected()
+            onClicked: tabPreview.selected()
         }
 
         Rectangle {
@@ -172,15 +172,15 @@ Column {
     }
 
     Component.onCompleted: {
-        var preview = tab.webview.preview
+        var preview = tabPreview.tab.preview
         internal.previewParent = preview.parent
         preview.parent = previewContainer
         preview.width = internal.previewParent.width
         preview.height = internal.previewParent.height
     }
     Component.onDestruction: {
-        if (tab.webview) {
-            var preview = tab.webview.preview
+        if (tabPreview.tab) {
+            var preview = tabPreview.tab.preview
             preview.parent = internal.previewParent
             preview.width = preview.parent.width
             preview.height = preview.parent.height
