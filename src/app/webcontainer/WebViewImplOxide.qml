@@ -117,10 +117,20 @@ WebViewImpl {
                     popupRedirectionUrlPrefix.length !== 0
                     && url.indexOf(popupRedirectionUrlPrefix) === 0;
 
-            var targetUrl =
-                    isRedirectionUrl
-                    ? decodeURIComponent(url.slice(popupRedirectionUrlPrefix.length))
-                    : url;
+            var targetUrl = url;
+            if (isRedirectionUrl) {
+                // Extract the target URL.
+                targetUrl = url.slice(popupRedirectionUrlPrefix.length);
+                // Quick fix for http://pad.lv/1358622 (trim trailing parameters).
+                // A proper solution would probably involve regexps instead of a
+                // simple redirection prefix.
+                var extraParams = targetUrl.indexOf("&");
+                if (extraParams !== -1) {
+                    targetUrl = targetUrl.slice(0, extraParams);
+                }
+                // Decode it.
+                targetUrl = decodeURIComponent(targetUrl);
+            }
 
             if (webview.shouldAllowNavigationTo(targetUrl)) {
                 console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
