@@ -213,7 +213,17 @@ BrowserView {
     }
     Connections {
         target: webapp.currentWebview
-        onUrlChanged: session.save()
+        onUrlChanged: {
+            var url = webapp.currentWebview.url.toString()
+            if (url.length === 0 || url === 'about:blank') {
+                return;
+            }
+            if (popupRedirectionUrlPrefix.length !== 0
+                    && url.indexOf(popupRedirectionUrlPrefix) === 0) {
+                return;
+            }
+            session.save()
+        }
     }
     Component.onCompleted: {
         if (webapp.restoreSession) {

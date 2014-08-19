@@ -181,11 +181,18 @@ Window {
         target: UriHandler
         onOpened: {
             // only consider the first one (if multiple)
-            if (uris.length !== 0
-                    && webappPageComponentLoader.item
-                    && webappPageComponentLoader.item.currentWebview) {
-                webappPageComponentLoader.item.currentWebview.url = uris[0];
+            if (uris.length === 0 ||
+                    !webappPageComponentLoader.item ||
+                    !webappPageComponentLoader.item.currentWebview) {
+                return;
             }
+            var requestedUrl = uris[0].toString();
+
+            if (popupRedirectionUrlPrefix.length !== 0
+                    && requestedUrl.indexOf(popupRedirectionUrlPrefix) === 0) {
+                return;
+            }
+            webappPageComponentLoader.item.currentWebview.url = requestedUrl;
         }
     }
 }

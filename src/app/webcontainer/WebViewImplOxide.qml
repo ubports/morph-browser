@@ -98,8 +98,9 @@ WebViewImpl {
         var newForegroundPageRequest = isNewForegroundWebViewDisposition(request.disposition)
         var url = request.url.toString()
 
-        console.log("\nwebview: " + webview.toString())
-        console.log("navigationRequestedDelegate - " + url)
+        console.log("navigationRequestedDelegate - newForegroundPageRequest: "
+                    + newForegroundPageRequest
+                    + ', url: ' + url)
 
         // Covers some edge cases corresponding to the default window.open() behavior.
         // When it is being called, the targetted URL will not load right away but
@@ -116,10 +117,20 @@ WebViewImpl {
                     popupRedirectionUrlPrefix.length !== 0
                     && url.indexOf(popupRedirectionUrlPrefix) === 0;
 
-            var targetUrl =
-                    isRedirectionUrl
-                    ? decodeURIComponent(url.slice(popupRedirectionUrlPrefix.length))
-                    : url;
+            var targetUrl = url;
+            if (isRedirectionUrl) {
+                // Extract the target URL.
+                targetUrl = url.slice(popupRedirectionUrlPrefix.length);
+                // Quick fix for http://pad.lv/1358622 (trim trailing parameters).
+                // A proper solution would probably involve regexps instead of a
+                // simple redirection prefix.
+                var extraParams = targetUrl.indexOf("&");
+                if (extraParams !== -1) {
+                    targetUrl = targetUrl.slice(0, extraParams);
+                }
+                // Decode it.
+                targetUrl = decodeURIComponent(targetUrl);
+            }
 
             if (webview.shouldAllowNavigationTo(targetUrl)) {
                 console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
@@ -129,9 +140,9 @@ WebViewImpl {
             }
 
             if (shouldOpenPopupsInDefaultBrowser()) {
-                console.debug('Opening popup window ' + url + ' in the browser window.')
+                console.debug('Opening popup window ' + targetUrl + ' in the browser window.')
                 request.action = Oxide.NavigationRequest.ActionReject
-                Qt.openUrlExternally(url)
+                Qt.openUrlExternally(targetUrl)
                 return;
             }
             return
