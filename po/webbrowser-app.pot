@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-14 11:13+0200\n"
+"POT-Creation-Date: 2014-08-20 17:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -249,30 +249,30 @@ msgstr ""
 msgid "search or enter an address"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:150
+#: src/app/webbrowser/Browser.qml:154
 msgid "Share"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:164
+#: src/app/webbrowser/Browser.qml:168
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:170
+#: src/app/webbrowser/Browser.qml:174
 msgid "Open tabs"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:176 src/app/webbrowser/TabsView.qml:55
+#: src/app/webbrowser/Browser.qml:180 src/app/webbrowser/TabsView.qml:55
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:99
+#: src/app/webbrowser/ExpandedHistoryView.qml:107
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:113
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
 msgid "Less"
 msgstr ""
 
@@ -284,23 +284,23 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:96
+#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:98
 msgid "Done"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:109
+#: src/app/webbrowser/HistoryView.qml:113
 msgid "Clear"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/HistoryView.qml:127
 msgid "Delete all history?"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryView.qml:130
 msgid "Yes"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:135
+#: src/app/webbrowser/HistoryView.qml:139
 msgid "No"
 msgstr ""
 
@@ -320,7 +320,11 @@ msgstr ""
 msgid "see more"
 msgstr ""
 
-#: src/app/webbrowser/TabsView.qml:111
+#: src/app/webbrowser/TabPreview.qml:162
+msgid "Tap to view"
+msgstr ""
+
+#: src/app/webbrowser/TabsView.qml:113
 msgid "Add"
 msgstr ""
 

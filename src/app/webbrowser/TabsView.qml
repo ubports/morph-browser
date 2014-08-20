@@ -43,13 +43,13 @@ Item {
             bottom: toolbar.top
         }
 
-        spacing: units.gu(-10)
+        spacing: units.gu(-5)
 
         boundsBehavior: Flickable.StopAtBounds
 
         delegate: TabPreview {
             width: parent.width
-            height: (listview.count == 1) ? listview.height : units.gu(40)
+            height: (listview.count == 1) ? listview.height : units.gu(35)
             z: index
 
             title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))

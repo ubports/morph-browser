@@ -143,8 +143,32 @@ Column {
         width: parent.width
         height: parent.height - header.height
 
+        Image {
+            visible: !previewContainer.visible
+            source: "assets/tab-artwork.png"
+            fillMode: Image.PreserveAspectFit
+            height: parent.height / 1.6
+            width: height
+            anchors {
+                right: parent.right
+                rightMargin: -width / 5
+                bottom: parent.bottom
+                bottomMargin: -height / 10
+            }
+        }
+
+        Label {
+            visible: !previewContainer.visible
+            text: i18n.tr("Tap to view")
+            anchors {
+                centerIn: parent
+                verticalCenterOffset: units.gu(-2)
+            }
+        }
+
         Item {
             id: previewContainer
+            visible: tabPreview.tab.webview
             anchors.fill: parent
             clip: true
         }
