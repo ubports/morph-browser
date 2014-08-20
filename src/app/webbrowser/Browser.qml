@@ -331,14 +331,16 @@ BrowserView {
                 target: tabsModel
                 onCurrentTabChanged: {
                     if ((tabsModel.currentTab === tab) && !tab.webview) {
-                        var properties = {}
-                        if (request) {
-                            properties.request = request
-                        } else {
-                            properties.url = initialUrl
-                        }
-                        webviewComponent.createObject(tab, properties)
+                        webviewComponent.createObject(tab, {"url": initialUrl})
                     }
+                }
+            }
+
+            Component.onCompleted: {
+                if (request) {
+                    // Instantiating the webview cannot be delayed because the request
+                    // object is destroyed after exiting the newViewRequested signal handler.
+                    webviewComponent.createObject(tab, {"request": request})
                 }
             }
         }
