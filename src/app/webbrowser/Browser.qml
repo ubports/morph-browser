@@ -540,7 +540,7 @@ BrowserView {
             session.restore()
         }
         for (var i in browser.initialUrls) {
-            browser.openUrlInNewTab(browser.initialUrls[i], i == (browser.initialUrls.length - 1))
+            browser.openUrlInNewTab(browser.initialUrls[i], true)
         }
         if (tabsModel.count == 0) {
             browser.openUrlInNewTab(browser.homepage, true)
