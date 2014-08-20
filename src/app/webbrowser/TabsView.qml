@@ -56,16 +56,15 @@ Item {
             tab: model.tab
 
             onSelected: {
+                tab.load()
+                tab.forceActiveFocus()
                 tabsview.model.setCurrent(index)
-                tab.webview.forceActiveFocus()
                 tabsview.done()
             }
             onCloseRequested: {
                 var tab = tabsview.model.remove(index)
                 if (tab) {
-                    if (tab.webview) {
-                        tab.webview.destroy()
-                    }
+                    tab.unload()
                     tab.destroy()
                 }
                 if (tabsview.model.count === 0) {

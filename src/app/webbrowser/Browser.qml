@@ -179,7 +179,10 @@ BrowserView {
                     objectName: "newtab"
                     text: i18n.tr("New tab")
                     iconName: "tab-new"
-                    onTriggered: browser.openUrlInNewTab("", true)
+                    onTriggered: {
+                        browser.openUrlInNewTab("", true)
+                        tabsModel.currentTab.load()
+                    }
                 }
             ]
 
@@ -240,7 +243,10 @@ BrowserView {
                 anchors.fill: parent
                 model: tabsModel
                 onNewTabRequested: browser.openUrlInNewTab("", true)
-                onDone: this.destroy()
+                onDone: {
+                    tabsModel.currentTab.load()
+                    this.destroy()
+                }
             }
         }
     }
@@ -314,8 +320,7 @@ BrowserView {
     Component {
         id: tabComponent
 
-        Item {
-            id: tab
+        FocusScope {
             property url initialUrl
             property string initialTitle
             property var request
@@ -327,12 +332,15 @@ BrowserView {
 
             anchors.fill: parent
 
-            Connections {
-                target: tabsModel
-                onCurrentTabChanged: {
-                    if ((tabsModel.currentTab === tab) && !tab.webview) {
-                        webviewComponent.createObject(tab, {"url": initialUrl})
-                    }
+            function load() {
+                if (!webview) {
+                    webviewComponent.createObject(this, {"url": initialUrl})
+                }
+            }
+
+            function unload() {
+                if (webview) {
+                    webview.destroy()
                 }
             }
 
@@ -340,7 +348,7 @@ BrowserView {
                 if (request) {
                     // Instantiating the webview cannot be delayed because the request
                     // object is destroyed after exiting the newViewRequested signal handler.
-                    webviewComponent.createObject(tab, {"request": request})
+                    webviewComponent.createObject(this, {"request": request})
                 }
             }
         }
@@ -353,6 +361,7 @@ BrowserView {
             currentWebview: browser.currentWebview
 
             anchors.fill: parent
+            focus: true
 
             readonly property bool current: currentWebview === this
             enabled: current
@@ -444,11 +453,15 @@ BrowserView {
             if (setCurrent) {
                 tabsModel.setCurrent(index)
                 if (focusAddressBar) {
-                    chrome.forceActiveFocus()
-                    Qt.inputMethod.show() // work around http://pad.lv/1316057
+                    internal.focusAddressBar()
                 }
             }
             tab.preview = previewComponent.createObject(previewsContainer, {tab: tab})
+        }
+
+        function focusAddressBar() {
+            chrome.forceActiveFocus()
+            Qt.inputMethod.show() // work around http://pad.lv/1316057
         }
     }
 
@@ -489,7 +502,7 @@ BrowserView {
                 if (tabs) {
                     for (var i = 0; i < tabs.length; ++i) {
                         var tab = createTabFromState(tabs[i])
-                        internal.addTab(tab, false, false)
+                        internal.addTab(tab, i == 0, false)
                     }
                 }
             }
@@ -531,8 +544,10 @@ BrowserView {
         }
         if (tabsModel.count == 0) {
             browser.openUrlInNewTab(browser.homepage, true)
-        } else if (!tabsModel.currentTab) {
-            tabsModel.setCurrent(0)
+        }
+        tabsModel.currentTab.load()
+        if (!tabsModel.currentTab.url.toString() && (formFactor == "desktop")) {
+            internal.focusAddressBar()
         }
     }
 }

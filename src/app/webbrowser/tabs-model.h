@@ -68,7 +68,6 @@ private Q_SLOTS:
 
 private:
     QList<QObject*> m_tabs;
-    bool m_currentSet;
 
     bool checkValidTabIndex(int index) const;
     void onDataChanged(QObject* tab, int role);

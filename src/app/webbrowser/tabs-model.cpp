@@ -36,7 +36,6 @@
 */
 TabsModel::TabsModel(QObject* parent)
     : QAbstractListModel(parent)
-    , m_currentSet(false)
 {
 }
 
@@ -84,7 +83,7 @@ QVariant TabsModel::data(const QModelIndex& index, int role) const
 
 QObject* TabsModel::currentTab() const
 {
-    if (m_tabs.isEmpty() || !m_currentSet) {
+    if (m_tabs.isEmpty()) {
         return 0;
     }
     return m_tabs.first();
@@ -110,6 +109,9 @@ int TabsModel::add(QObject* tab)
     connect(tab, SIGNAL(iconChanged()), SLOT(onIconChanged()));
     endInsertRows();
     Q_EMIT countChanged();
+    if (index == 0) {
+        Q_EMIT currentTabChanged();
+    }
     return index;
 }
 
@@ -130,10 +132,7 @@ QObject* TabsModel::remove(int index)
     tab->disconnect(this);
     endRemoveRows();
     Q_EMIT countChanged();
-    if (m_currentSet && (index == 0)) {
-        if (m_tabs.isEmpty()) {
-            m_currentSet = false;
-        }
+    if (index == 0) {
         Q_EMIT currentTabChanged();
     }
     return tab;
@@ -141,18 +140,15 @@ QObject* TabsModel::remove(int index)
 
 void TabsModel::setCurrent(int index)
 {
-    if (m_currentSet && (index == 0)) {
+    if (index == 0) {
         return;
     }
     if (!checkValidTabIndex(index)) {
         return;
     }
-    if (index > 0) {
-        beginMoveRows(QModelIndex(), index, index, QModelIndex(), 0);
-        m_tabs.prepend(m_tabs.takeAt(index));
-        endMoveRows();
-    }
-    m_currentSet = true;
+    beginMoveRows(QModelIndex(), index, index, QModelIndex(), 0);
+    m_tabs.prepend(m_tabs.takeAt(index));
+    endMoveRows();
     Q_EMIT currentTabChanged();
 }
 

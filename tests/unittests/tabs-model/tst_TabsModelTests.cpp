@@ -132,15 +132,17 @@ private Q_SLOTS:
         delete removed;
     }
 
-    void shouldNotChangeCurrentTabWhenAdding()
+    void shouldNotChangeCurrentTabWhenAddingUnlessModelWasEmpty()
     {
         QSignalSpy spy(model, SIGNAL(currentTabChanged()));
+        QQuickItem* tab = createTab();
+        model->add(tab);
+        QCOMPARE(spy.count(), 1);
+        QCOMPARE(model->currentTab(), tab);
+        spy.clear();
         model->add(createTab());
         QVERIFY(spy.isEmpty());
-        QCOMPARE(model->currentTab(), (QObject*) 0);
-        model->add(createTab());
-        QVERIFY(spy.isEmpty());
-        QCOMPARE(model->currentTab(), (QObject*) 0);
+        QCOMPARE(model->currentTab(), tab);
     }
 
     void shouldNotDeleteTabWhenRemoving()
@@ -225,12 +227,12 @@ private Q_SLOTS:
         model->add(tab1);
         QSignalSpy spy(model, SIGNAL(currentTabChanged()));
         model->setCurrent(0);
-        QCOMPARE(spy.count(), 1);
+        QVERIFY(spy.isEmpty());
         QCOMPARE(model->currentTab(), tab1);
         QQuickItem* tab2 = createTab();
         model->add(tab2);
         model->setCurrent(1);
-        QCOMPARE(spy.count(), 2);
+        QCOMPARE(spy.count(), 1);
         QCOMPARE(model->currentTab(), tab2);
     }
 
@@ -238,16 +240,16 @@ private Q_SLOTS:
     {
         QSignalSpy spy(model, SIGNAL(currentTabChanged()));
 
-        // Adding a tab to an empty model should not update the current tab.
+        // Adding a tab to an empty model should update the current tab.
+        // Removing the last tab from the model should update it too.
         model->add(createTab());
         delete model->remove(0);
-        QVERIFY(spy.isEmpty());
+        QCOMPARE(spy.count(), 2);
 
         // When removing a tab after the current one,
         // the current tab shouldn’t change.
         QQuickItem* tab1 = createTab();
         model->add(tab1);
-        model->setCurrent(0);
         model->add(createTab());
         spy.clear();
         delete model->remove(1);
