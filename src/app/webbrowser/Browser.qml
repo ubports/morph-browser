@@ -505,11 +505,13 @@ BrowserView {
         function serializeTabState(tab) {
             var state = {}
             state.url = tab.url.toString()
+            state.title = tab.title
             return state
         }
 
         function createTabFromState(state) {
-            return tabComponent.createObject(tabContainer, {"initialUrl": state.url})
+            var properties = {"initialUrl": state.url, "initialTitle": state.title}
+            return tabComponent.createObject(tabContainer, properties)
         }
     }
     Connections {
@@ -520,6 +522,7 @@ BrowserView {
     Connections {
         target: browser.currentWebview
         onUrlChanged: session.save()
+        onTitleChanged: session.save()
     }
     Component.onCompleted: {
         if (browser.restoreSession) {
