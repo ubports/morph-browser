@@ -53,7 +53,10 @@ BrowserView {
             onTriggered: _bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
-            onTriggered: openUrlInNewTab("", true)
+            onTriggered: {
+                openUrlInNewTab("", true)
+                tabsModel.currentTab.load()
+            }
         },
         Actions.ClearHistory {
             onTriggered: _historyModel.clearAll()
@@ -374,7 +377,10 @@ BrowserView {
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
                     enabled: contextualData.href.toString()
-                    onTriggered: openUrlInNewTab(contextualData.href, true)
+                    onTriggered: {
+                        openUrlInNewTab(contextualData.href, true)
+                        tabsModel.currentTab.load()
+                    }
                 }
                 Actions.BookmarkLink {
                     enabled: contextualData.href.toString()
@@ -386,7 +392,10 @@ BrowserView {
                 }
                 Actions.OpenImageInNewTab {
                     enabled: contextualData.img.toString()
-                    onTriggered: openUrlInNewTab(contextualData.img, true)
+                    onTriggered: {
+                        openUrlInNewTab(contextualData.img, true)
+                        tabsModel.currentTab.load()
+                    }
                 }
                 Actions.CopyImage {
                     enabled: contextualData.img.toString()
