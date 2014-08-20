@@ -63,6 +63,9 @@ Item {
             onCloseRequested: {
                 var tab = tabsview.model.remove(index)
                 if (tab) {
+                    if (tab.webview) {
+                        tab.webview.destroy()
+                    }
                     tab.destroy()
                 }
                 if (tabsview.model.count === 0) {

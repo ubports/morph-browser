@@ -353,8 +353,6 @@ BrowserView {
             currentWebview: browser.currentWebview
 
             anchors.fill: parent
-            // prevent a harmless warning when destroying the webview:
-            Component.onDestruction: anchors.fill = undefined
 
             readonly property bool current: currentWebview === this
             enabled: current
