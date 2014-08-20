@@ -491,7 +491,7 @@ BrowserView {
                 if (tabs) {
                     for (var i = 0; i < tabs.length; ++i) {
                         var tab = createTabFromState(tabs[i])
-                        internal.addTab(tab, i == 0, false)
+                        internal.addTab(tab, false, false)
                     }
                 }
             }
@@ -530,6 +530,8 @@ BrowserView {
         }
         if (tabsModel.count == 0) {
             browser.openUrlInNewTab(browser.homepage, true)
+        } else if (!tabsModel.currentTab) {
+            tabsModel.setCurrent(0)
         }
     }
 }

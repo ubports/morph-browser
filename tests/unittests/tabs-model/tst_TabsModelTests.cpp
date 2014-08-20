@@ -55,6 +55,9 @@ private Q_SLOTS:
 
     void cleanup()
     {
+        while (model->rowCount() > 0) {
+            delete model->remove(0);
+        }
         delete model;
     }
 
@@ -108,7 +111,7 @@ private Q_SLOTS:
     {
         model->add(createTab());
         QSignalSpy spy(model, SIGNAL(countChanged()));
-        model->remove(0);
+        delete model->remove(0);
         QCOMPARE(spy.count(), 1);
         QCOMPARE(model->rowCount(), 0);
     }
@@ -126,18 +129,18 @@ private Q_SLOTS:
         model->add(tab);
         QObject* removed = model->remove(0);
         QCOMPARE(removed, tab);
+        delete removed;
     }
 
-    void shouldNotChangeCurrentTabWhenAddingUnlessModelWasEmpty()
+    void shouldNotChangeCurrentTabWhenAdding()
     {
         QSignalSpy spy(model, SIGNAL(currentTabChanged()));
-        QQuickItem* tab = createTab();
-        model->add(tab);
-        QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->currentTab(), tab);
         model->add(createTab());
-        QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->currentTab(), tab);
+        QVERIFY(spy.isEmpty());
+        QCOMPARE(model->currentTab(), (QObject*) 0);
+        model->add(createTab());
+        QVERIFY(spy.isEmpty());
+        QCOMPARE(model->currentTab(), (QObject*) 0);
     }
 
     void shouldNotDeleteTabWhenRemoving()
@@ -146,6 +149,7 @@ private Q_SLOTS:
         model->add(tab);
         model->remove(0);
         QCOMPARE(tab->parent(), this);
+        delete tab;
     }
 
     void shouldNotifyWhenAddingTab()
@@ -166,13 +170,13 @@ private Q_SLOTS:
         for(int i = 0; i < 5; ++i) {
             model->add(createTab());
         }
-        model->remove(3);
+        delete model->remove(3);
         QCOMPARE(spy.count(), 1);
         QList<QVariant> args = spy.takeFirst();
         QCOMPARE(args.at(1).toInt(), 3);
         QCOMPARE(args.at(2).toInt(), 3);
         for(int i = 3; i >= 0; --i) {
-            model->remove(i);
+            delete model->remove(i);
             QCOMPARE(spy.count(), 1);
             args = spy.takeFirst();
             QCOMPARE(args.at(1).toInt(), i);
@@ -221,12 +225,12 @@ private Q_SLOTS:
         model->add(tab1);
         QSignalSpy spy(model, SIGNAL(currentTabChanged()));
         model->setCurrent(0);
-        QCOMPARE(spy.count(), 0);
+        QCOMPARE(spy.count(), 1);
         QCOMPARE(model->currentTab(), tab1);
         QQuickItem* tab2 = createTab();
         model->add(tab2);
         model->setCurrent(1);
-        QCOMPARE(spy.count(), 1);
+        QCOMPARE(spy.count(), 2);
         QCOMPARE(model->currentTab(), tab2);
     }
 
@@ -234,35 +238,35 @@ private Q_SLOTS:
     {
         QSignalSpy spy(model, SIGNAL(currentTabChanged()));
 
-        // Adding a tab to an empty model should update the current tab.
-        // Removing the last tab from the model should update it too.
+        // Adding a tab to an empty model should not update the current tab.
         model->add(createTab());
-        model->remove(0);
-        QCOMPARE(spy.count(), 2);
+        delete model->remove(0);
+        QVERIFY(spy.isEmpty());
 
         // When removing a tab after the current one,
         // the current tab shouldn’t change.
         QQuickItem* tab1 = createTab();
         model->add(tab1);
+        model->setCurrent(0);
         model->add(createTab());
         spy.clear();
-        model->remove(1);
+        delete model->remove(1);
         QCOMPARE(model->currentTab(), tab1);
-        QCOMPARE(spy.count(), 0);
+        QVERIFY(spy.isEmpty());
 
         // When removing the current tab, if there is a tab after it,
         // it becomes the current one.
         QQuickItem* tab2 = createTab();
         model->add(tab2);
         spy.clear();
-        model->remove(0);
+        delete model->remove(0);
         QCOMPARE(spy.count(), 1);
         QCOMPARE(model->currentTab(), tab2);
 
         // When removing the current tab, if it was the last one, the
         // current tab should be reset to 0.
         spy.clear();
-        model->remove(0);
+        delete model->remove(0);
         QCOMPARE(spy.count(), 1);
         QCOMPARE(model->currentTab(), (QObject*) 0);
     }
