@@ -397,6 +397,7 @@ BrowserView {
     Loader {
         id: downloadLoader
         source: formFactor == "desktop" ? "" : "../Downloader.qml"
+        asynchronous: true
     }
 
     QtObject {
