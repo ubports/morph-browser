@@ -147,7 +147,7 @@ Column {
             visible: !previewContainer.visible
             source: "assets/tab-artwork.png"
             fillMode: Image.PreserveAspectFit
-            height: parent.height / 1.6
+            height: Math.min(parent.height / 1.6, units.gu(28))
             width: height
             anchors {
                 right: parent.right

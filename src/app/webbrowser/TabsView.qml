@@ -49,7 +49,9 @@ Item {
 
         delegate: TabPreview {
             width: parent.width
-            height: (listview.count == 1) ? listview.height : units.gu(35)
+            readonly property real minHeight: units.gu(35)
+            height: (listview.count * minHeight + (listview.count - 1) * listview.spacing) < listview.height ? (listview.height + (1 - listview.count) * listview.spacing) / listview.count : minHeight
+
             z: index
 
             title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
