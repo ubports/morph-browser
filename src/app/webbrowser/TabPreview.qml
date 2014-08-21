@@ -168,7 +168,7 @@ Column {
 
         Item {
             id: previewContainer
-            visible: tabPreview.tab.webview
+            visible: tabPreview.tab ? tabPreview.tab.webview : false
             anchors.fill: parent
             clip: true
         }
