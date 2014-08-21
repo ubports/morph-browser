@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-20 17:50+0200\n"
+"POT-Creation-Date: 2014-08-21 10:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -249,19 +249,19 @@ msgstr ""
 msgid "search or enter an address"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:154
+#: src/app/webbrowser/Browser.qml:157
 msgid "Share"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:168
+#: src/app/webbrowser/Browser.qml:171
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:174
+#: src/app/webbrowser/Browser.qml:177
 msgid "Open tabs"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:180 src/app/webbrowser/TabsView.qml:55
+#: src/app/webbrowser/Browser.qml:183 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr ""
 
@@ -284,7 +284,7 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:98
+#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr ""
 
@@ -324,7 +324,7 @@ msgstr ""
 msgid "Tap to view"
 msgstr ""
 
-#: src/app/webbrowser/TabsView.qml:113
+#: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
 msgstr ""
 
