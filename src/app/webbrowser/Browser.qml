@@ -53,10 +53,7 @@ BrowserView {
             onTriggered: _bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
-            onTriggered: {
-                openUrlInNewTab("", true)
-                tabsModel.currentTab.load()
-            }
+            onTriggered: browser.openUrlInNewTab("", true)
         },
         Actions.ClearHistory {
             onTriggered: _historyModel.clearAll()
@@ -182,10 +179,7 @@ BrowserView {
                     objectName: "newtab"
                     text: i18n.tr("New tab")
                     iconName: "tab-new"
-                    onTriggered: {
-                        browser.openUrlInNewTab("", true)
-                        tabsModel.currentTab.load()
-                    }
+                    onTriggered: browser.openUrlInNewTab("", true)
                 }
             ]
 
@@ -245,7 +239,7 @@ BrowserView {
             TabsView {
                 anchors.fill: parent
                 model: tabsModel
-                onNewTabRequested: browser.openUrlInNewTab("", true)
+                onNewTabRequested: browser.openUrlInNewTab("", true, false)
                 onDone: {
                     tabsModel.currentTab.load()
                     this.destroy()
@@ -377,10 +371,7 @@ BrowserView {
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
                     enabled: contextualData.href.toString()
-                    onTriggered: {
-                        openUrlInNewTab(contextualData.href, true)
-                        tabsModel.currentTab.load()
-                    }
+                    onTriggered: browser.openUrlInNewTab(contextualData.href, true)
                 }
                 Actions.BookmarkLink {
                     enabled: contextualData.href.toString()
@@ -392,10 +383,7 @@ BrowserView {
                 }
                 Actions.OpenImageInNewTab {
                     enabled: contextualData.img.toString()
-                    onTriggered: {
-                        openUrlInNewTab(contextualData.img, true)
-                        tabsModel.currentTab.load()
-                    }
+                    onTriggered: browser.openUrlInNewTab(contextualData.img, true)
                 }
                 Actions.CopyImage {
                     enabled: contextualData.img.toString()
@@ -474,9 +462,13 @@ BrowserView {
         }
     }
 
-    function openUrlInNewTab(url, setCurrent) {
+    function openUrlInNewTab(url, setCurrent, load) {
+        load = typeof load !== 'undefined' ? load : true
         var tab = tabComponent.createObject(tabContainer, {"initialUrl": url})
         internal.addTab(tab, setCurrent, !url.toString() && (formFactor == "desktop"))
+        if (load) {
+            tabsModel.currentTab.load()
+        }
     }
 
     SessionStorage {
@@ -549,10 +541,10 @@ BrowserView {
             session.restore()
         }
         for (var i in browser.initialUrls) {
-            browser.openUrlInNewTab(browser.initialUrls[i], true)
+            browser.openUrlInNewTab(browser.initialUrls[i], true, false)
         }
         if (tabsModel.count == 0) {
-            browser.openUrlInNewTab(browser.homepage, true)
+            browser.openUrlInNewTab(browser.homepage, true, false)
         }
         tabsModel.currentTab.load()
         if (!tabsModel.currentTab.url.toString() && (formFactor == "desktop")) {
