@@ -27,11 +27,11 @@
     \brief List model that stores the list of currently open tabs.
 
     TabsModel is a list model that stores the list of currently open tabs.
-    Each tab holds a pointer to a WebView and associated metadata (URL, title,
+    Each tab holds a pointer to a Tab and associated metadata (URL, title,
     icon).
 
-    The model doesn’t own the WebView, so it is the responsibility of whoever
-    adds a tab to instantiate the corresponding WebView, and to destroy it after
+    The model doesn’t own the Tab, so it is the responsibility of whoever
+    adds a tab to instantiate the corresponding Tab, and to destroy it after
     it’s removed from the model.
 */
 TabsModel::TabsModel(QObject* parent)
@@ -50,7 +50,7 @@ QHash<int, QByteArray> TabsModel::roleNames() const
         roles[Url] = "url";
         roles[Title] = "title";
         roles[Icon] = "icon";
-        roles[WebView] = "webview";
+        roles[Tab] = "tab";
     }
     return roles;
 }
@@ -58,7 +58,7 @@ QHash<int, QByteArray> TabsModel::roleNames() const
 int TabsModel::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent);
-    return m_webviews.count();
+    return m_tabs.count();
 }
 
 QVariant TabsModel::data(const QModelIndex& index, int role) const
@@ -66,61 +66,61 @@ QVariant TabsModel::data(const QModelIndex& index, int role) const
     if (!index.isValid()) {
         return QVariant();
     }
-    QObject* webview = m_webviews.at(index.row());
+    QObject* tab = m_tabs.at(index.row());
     switch (role) {
     case Url:
-        return webview->property("url");
+        return tab->property("url");
     case Title:
-        return webview->property("title");
+        return tab->property("title");
     case Icon:
-        return webview->property("icon");
-    case WebView:
-        return QVariant::fromValue(webview);
+        return tab->property("icon");
+    case Tab:
+        return QVariant::fromValue(tab);
     default:
         return QVariant();
     }
 }
 
-QObject* TabsModel::currentWebview() const
+QObject* TabsModel::currentTab() const
 {
-    if (m_webviews.isEmpty()) {
+    if (m_tabs.isEmpty()) {
         return 0;
     }
-    return m_webviews.first();
+    return m_tabs.first();
 }
 
 /*!
     Add a tab to the model and return the corresponding index in the model.
 
     It is the responsibility of the caller to instantiate the corresponding
-    WebView beforehand.
+    Tab beforehand.
 */
-int TabsModel::add(QObject* webview)
+int TabsModel::add(QObject* tab)
 {
-    if (webview == 0) {
-        qWarning() << "Invalid WebView";
+    if (tab == 0) {
+        qWarning() << "Invalid Tab";
         return -1;
     }
-    int index = m_webviews.count();
+    int index = m_tabs.count();
     beginInsertRows(QModelIndex(), index, index);
-    m_webviews.append(webview);
-    connect(webview, SIGNAL(urlChanged()), SLOT(onUrlChanged()));
-    connect(webview, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
-    connect(webview, SIGNAL(iconChanged()), SLOT(onIconChanged()));
+    m_tabs.append(tab);
+    connect(tab, SIGNAL(urlChanged()), SLOT(onUrlChanged()));
+    connect(tab, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
+    connect(tab, SIGNAL(iconChanged()), SLOT(onIconChanged()));
     endInsertRows();
     Q_EMIT countChanged();
     if (index == 0) {
-        Q_EMIT currentWebviewChanged();
+        Q_EMIT currentTabChanged();
     }
     return index;
 }
 
 /*!
     Given its index, remove a tab from the model, and return the corresponding
-    WebView.
+    Tab.
 
     It is the responsibility of the caller to destroy the corresponding
-    WebView afterwards.
+    Tab afterwards.
 */
 QObject* TabsModel::remove(int index)
 {
@@ -128,14 +128,14 @@ QObject* TabsModel::remove(int index)
         return 0;
     }
     beginRemoveRows(QModelIndex(), index, index);
-    QObject* webview = m_webviews.takeAt(index);
-    webview->disconnect(this);
+    QObject* tab = m_tabs.takeAt(index);
+    tab->disconnect(this);
     endRemoveRows();
     Q_EMIT countChanged();
     if (index == 0) {
-        Q_EMIT currentWebviewChanged();
+        Q_EMIT currentTabChanged();
     }
-    return webview;
+    return tab;
 }
 
 void TabsModel::setCurrent(int index)
@@ -147,9 +147,9 @@ void TabsModel::setCurrent(int index)
         return;
     }
     beginMoveRows(QModelIndex(), index, index, QModelIndex(), 0);
-    m_webviews.prepend(m_webviews.takeAt(index));
+    m_tabs.prepend(m_tabs.takeAt(index));
     endMoveRows();
-    Q_EMIT currentWebviewChanged();
+    Q_EMIT currentTabChanged();
 }
 
 QObject* TabsModel::get(int index) const
@@ -157,21 +157,21 @@ QObject* TabsModel::get(int index) const
     if (!checkValidTabIndex(index)) {
         return 0;
     }
-    return m_webviews.at(index);
+    return m_tabs.at(index);
 }
 
 bool TabsModel::checkValidTabIndex(int index) const
 {
-    if ((index < 0) || (index >= m_webviews.count())) {
+    if ((index < 0) || (index >= m_tabs.count())) {
         qWarning() << "Invalid tab index:" << index;
         return false;
     }
     return true;
 }
 
-void TabsModel::onDataChanged(QObject* webview, int role)
+void TabsModel::onDataChanged(QObject* tab, int role)
 {
-    int index = m_webviews.indexOf(webview);
+    int index = m_tabs.indexOf(tab);
     if (checkValidTabIndex(index)) {
         Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), QVector<int>() << role);
     }

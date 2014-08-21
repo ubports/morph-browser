@@ -119,6 +119,9 @@ class Browser(uitk.UbuntuUIToolkitEmulatorBase):
     def get_current_webview(self):
         return self.select_single("WebViewImpl", current=True)
 
+    def get_webviews(self):
+        return self.select_many("WebViewImpl")
+
     def get_visible_webviews(self):
         return self.select_many("WebViewImpl", visible=True)
 

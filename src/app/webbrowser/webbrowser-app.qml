@@ -65,7 +65,8 @@ Window {
         target: UriHandler
         onOpened: {
             for (var i = 0; i < uris.length; ++i) {
-                browser.openUrlInNewTab(uris[i], i == uris.length - 1)
+                var setCurrent = (i == uris.length - 1)
+                browser.openUrlInNewTab(uris[i], setCurrent, setCurrent)
             }
         }
     }

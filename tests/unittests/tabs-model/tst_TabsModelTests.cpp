@@ -34,7 +34,7 @@ class TabsModelTests : public QObject
 private:
     TabsModel* model;
 
-    QQuickItem* createWebView()
+    QQuickItem* createTab()
     {
         QQmlEngine engine;
         QQmlComponent component(&engine);
@@ -55,13 +55,16 @@ private Q_SLOTS:
 
     void cleanup()
     {
+        while (model->rowCount() > 0) {
+            delete model->remove(0);
+        }
         delete model;
     }
 
     void shouldBeInitiallyEmpty()
     {
         QCOMPARE(model->rowCount(), 0);
-        QCOMPARE(model->currentWebview(), (QObject*) 0);
+        QCOMPARE(model->currentTab(), (QObject*) 0);
     }
 
     void shouldExposeRoleNames()
@@ -70,45 +73,45 @@ private Q_SLOTS:
         QVERIFY(roleNames.contains("url"));
         QVERIFY(roleNames.contains("title"));
         QVERIFY(roleNames.contains("icon"));
-        QVERIFY(roleNames.contains("webview"));
+        QVERIFY(roleNames.contains("tab"));
     }
 
     void shouldNotAllowSettingTheIndexToAnInvalidValue()
     {
         model->setCurrent(0);
-        QCOMPARE(model->currentWebview(), (QObject*) 0);
+        QCOMPARE(model->currentTab(), (QObject*) 0);
         model->setCurrent(2);
-        QCOMPARE(model->currentWebview(), (QObject*) 0);
+        QCOMPARE(model->currentTab(), (QObject*) 0);
         model->setCurrent(-2);
-        QCOMPARE(model->currentWebview(), (QObject*) 0);
+        QCOMPARE(model->currentTab(), (QObject*) 0);
     }
 
-    void shouldNotAddNullWebView()
+    void shouldNotAddNullTab()
     {
         QCOMPARE(model->add(0), -1);
         QCOMPARE(model->rowCount(), 0);
     }
 
-    void shouldReturnIndexWhenAddingWebView()
+    void shouldReturnIndexWhenAddingTab()
     {
         for(int i = 0; i < 3; ++i) {
-            QCOMPARE(model->add(createWebView()), i);
+            QCOMPARE(model->add(createTab()), i);
         }
     }
 
-    void shouldUpdateCountWhenAddingWebView()
+    void shouldUpdateCountWhenAddingTab()
     {
         QSignalSpy spy(model, SIGNAL(countChanged()));
-        model->add(createWebView());
+        model->add(createTab());
         QCOMPARE(spy.count(), 1);
         QCOMPARE(model->rowCount(), 1);
     }
 
-    void shouldUpdateCountWhenRemovingWebView()
+    void shouldUpdateCountWhenRemovingTab()
     {
-        model->add(createWebView());
+        model->add(createTab());
         QSignalSpy spy(model, SIGNAL(countChanged()));
-        model->remove(0);
+        delete model->remove(0);
         QCOMPARE(spy.count(), 1);
         QCOMPARE(model->rowCount(), 0);
     }
@@ -120,39 +123,42 @@ private Q_SLOTS:
         QCOMPARE(model->remove(-2), (QObject*) 0);
     }
 
-    void shouldReturnWebViewWhenRemoving()
+    void shouldReturnTabWhenRemoving()
     {
-        QQuickItem* webview = createWebView();
-        model->add(webview);
+        QQuickItem* tab = createTab();
+        model->add(tab);
         QObject* removed = model->remove(0);
-        QCOMPARE(removed, webview);
+        QCOMPARE(removed, tab);
+        delete removed;
     }
 
-    void shouldNotChangeCurrentWebviewWhenAddingUnlessModelWasEmpty()
+    void shouldNotChangeCurrentTabWhenAddingUnlessModelWasEmpty()
     {
-        QSignalSpy spy(model, SIGNAL(currentWebviewChanged()));
-        QQuickItem* webview = createWebView();
-        model->add(webview);
+        QSignalSpy spy(model, SIGNAL(currentTabChanged()));
+        QQuickItem* tab = createTab();
+        model->add(tab);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->currentWebview(), webview);
-        model->add(createWebView());
-        QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->currentWebview(), webview);
+        QCOMPARE(model->currentTab(), tab);
+        spy.clear();
+        model->add(createTab());
+        QVERIFY(spy.isEmpty());
+        QCOMPARE(model->currentTab(), tab);
     }
 
-    void shouldNotDeleteWebViewWhenRemoving()
+    void shouldNotDeleteTabWhenRemoving()
     {
-        QQuickItem* webview = createWebView();
-        model->add(webview);
+        QQuickItem* tab = createTab();
+        model->add(tab);
         model->remove(0);
-        QCOMPARE(webview->parent(), this);
+        QCOMPARE(tab->parent(), this);
+        delete tab;
     }
 
-    void shouldNotifyWhenAddingWebView()
+    void shouldNotifyWhenAddingTab()
     {
         QSignalSpy spy(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)));
         for(int i = 0; i < 3; ++i) {
-            model->add(createWebView());
+            model->add(createTab());
             QCOMPARE(spy.count(), 1);
             QList<QVariant> args = spy.takeFirst();
             QCOMPARE(args.at(1).toInt(), i);
@@ -160,19 +166,19 @@ private Q_SLOTS:
         }
     }
 
-    void shouldNotifyWhenRemovingWebView()
+    void shouldNotifyWhenRemovingTab()
     {
         QSignalSpy spy(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)));
         for(int i = 0; i < 5; ++i) {
-            model->add(createWebView());
+            model->add(createTab());
         }
-        model->remove(3);
+        delete model->remove(3);
         QCOMPARE(spy.count(), 1);
         QList<QVariant> args = spy.takeFirst();
         QCOMPARE(args.at(1).toInt(), 3);
         QCOMPARE(args.at(2).toInt(), 3);
         for(int i = 3; i >= 0; --i) {
-            model->remove(i);
+            delete model->remove(i);
             QCOMPARE(spy.count(), 1);
             args = spy.takeFirst();
             QCOMPARE(args.at(1).toInt(), i);
@@ -180,14 +186,14 @@ private Q_SLOTS:
         }
     }
 
-    void shouldNotifyWhenWebViewPropertiesChange()
+    void shouldNotifyWhenTabPropertiesChange()
     {
         qRegisterMetaType<QVector<int> >();
         QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
-        QQuickItem* webview = createWebView();
-        model->add(webview);
+        QQuickItem* tab = createTab();
+        model->add(tab);
 
-        QQmlProperty(webview, "url").write(QUrl("http://ubuntu.com"));
+        QQmlProperty(tab, "url").write(QUrl("http://ubuntu.com"));
         QCOMPARE(spy.count(), 1);
         QList<QVariant> args = spy.takeFirst();
         QCOMPARE(args.at(0).toModelIndex().row(), 0);
@@ -196,7 +202,7 @@ private Q_SLOTS:
         QCOMPARE(roles.size(), 1);
         QVERIFY(roles.contains(TabsModel::Url));
 
-        QQmlProperty(webview, "title").write(QString("Lorem Ipsum"));
+        QQmlProperty(tab, "title").write(QString("Lorem Ipsum"));
         QCOMPARE(spy.count(), 1);
         args = spy.takeFirst();
         QCOMPARE(args.at(0).toModelIndex().row(), 0);
@@ -205,7 +211,7 @@ private Q_SLOTS:
         QCOMPARE(roles.size(), 1);
         QVERIFY(roles.contains(TabsModel::Title));
 
-        QQmlProperty(webview, "icon").write(QUrl("image://webicon/123"));
+        QQmlProperty(tab, "icon").write(QUrl("image://webicon/123"));
         QCOMPARE(spy.count(), 1);
         args = spy.takeFirst();
         QCOMPARE(args.at(0).toModelIndex().row(), 0);
@@ -215,73 +221,73 @@ private Q_SLOTS:
         QVERIFY(roles.contains(TabsModel::Icon));
     }
 
-    void shouldUpdateCurrentWebviewWhenSettingCurrent()
+    void shouldUpdateCurrentTabWhenSettingCurrent()
     {
-        QQuickItem* webview1 = createWebView();
-        model->add(webview1);
-        QSignalSpy spy(model, SIGNAL(currentWebviewChanged()));
+        QQuickItem* tab1 = createTab();
+        model->add(tab1);
+        QSignalSpy spy(model, SIGNAL(currentTabChanged()));
         model->setCurrent(0);
-        QCOMPARE(spy.count(), 0);
-        QCOMPARE(model->currentWebview(), webview1);
-        QQuickItem* webview2 = createWebView();
-        model->add(webview2);
+        QVERIFY(spy.isEmpty());
+        QCOMPARE(model->currentTab(), tab1);
+        QQuickItem* tab2 = createTab();
+        model->add(tab2);
         model->setCurrent(1);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->currentWebview(), webview2);
+        QCOMPARE(model->currentTab(), tab2);
     }
 
-    void shouldUpdateCurrentWebviewWhenRemoving()
+    void shouldUpdateCurrentTabWhenRemoving()
     {
-        QSignalSpy spy(model, SIGNAL(currentWebviewChanged()));
+        QSignalSpy spy(model, SIGNAL(currentTabChanged()));
 
-        // Adding a webview to an empty model should update the current webview.
-        // Removing the last webview from the model should update it too.
-        model->add(createWebView());
-        model->remove(0);
+        // Adding a tab to an empty model should update the current tab.
+        // Removing the last tab from the model should update it too.
+        model->add(createTab());
+        delete model->remove(0);
         QCOMPARE(spy.count(), 2);
 
-        // When removing a webview after the current one,
-        // the current webview shouldn’t change.
-        QQuickItem* webview1 = createWebView();
-        model->add(webview1);
-        model->add(createWebView());
+        // When removing a tab after the current one,
+        // the current tab shouldn’t change.
+        QQuickItem* tab1 = createTab();
+        model->add(tab1);
+        model->add(createTab());
         spy.clear();
-        model->remove(1);
-        QCOMPARE(model->currentWebview(), webview1);
-        QCOMPARE(spy.count(), 0);
+        delete model->remove(1);
+        QCOMPARE(model->currentTab(), tab1);
+        QVERIFY(spy.isEmpty());
 
-        // When removing the current webview, if there is a webview after it,
+        // When removing the current tab, if there is a tab after it,
         // it becomes the current one.
-        QQuickItem* webview2 = createWebView();
-        model->add(webview2);
+        QQuickItem* tab2 = createTab();
+        model->add(tab2);
         spy.clear();
-        model->remove(0);
+        delete model->remove(0);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->currentWebview(), webview2);
+        QCOMPARE(model->currentTab(), tab2);
 
-        // When removing the current webview, if it was the last one, the
-        // current webview should be reset to 0.
+        // When removing the current tab, if it was the last one, the
+        // current tab should be reset to 0.
         spy.clear();
-        model->remove(0);
+        delete model->remove(0);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->currentWebview(), (QObject*) 0);
+        QCOMPARE(model->currentTab(), (QObject*) 0);
     }
 
     void shouldReturnData()
     {
-        QQuickItem* webview = createWebView();
-        QQmlProperty(webview, "url").write(QUrl("http://ubuntu.com/"));
-        QQmlProperty(webview, "title").write(QString("Lorem Ipsum"));
-        QQmlProperty(webview, "icon").write(QUrl("image://webicon/123"));
-        model->add(webview);
+        QQuickItem* tab = createTab();
+        QQmlProperty(tab, "url").write(QUrl("http://ubuntu.com/"));
+        QQmlProperty(tab, "title").write(QString("Lorem Ipsum"));
+        QQmlProperty(tab, "icon").write(QUrl("image://webicon/123"));
+        model->add(tab);
         QVERIFY(!model->data(QModelIndex(), TabsModel::Url).isValid());
         QVERIFY(!model->data(model->index(-1, 0), TabsModel::Url).isValid());
         QVERIFY(!model->data(model->index(3, 0), TabsModel::Url).isValid());
         QCOMPARE(model->data(model->index(0, 0), TabsModel::Url).toUrl(), QUrl("http://ubuntu.com/"));
         QCOMPARE(model->data(model->index(0, 0), TabsModel::Title).toString(), QString("Lorem Ipsum"));
         QCOMPARE(model->data(model->index(0, 0), TabsModel::Icon).toUrl(), QUrl("image://webicon/123"));
-        QCOMPARE(model->data(model->index(0, 0), TabsModel::WebView).value<QQuickItem*>(), webview);
-        QVERIFY(!model->data(model->index(0, 0), TabsModel::WebView + 3).isValid());
+        QCOMPARE(model->data(model->index(0, 0), TabsModel::Tab).value<QQuickItem*>(), tab);
+        QVERIFY(!model->data(model->index(0, 0), TabsModel::Tab + 3).isValid());
     }
 };
 

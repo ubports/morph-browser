@@ -27,7 +27,7 @@ import ".."
 BrowserView {
     id: browser
 
-    currentWebview: tabsModel.currentWebview
+    currentWebview: tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property url homepage
     property QtObject searchEngine
@@ -53,7 +53,7 @@ BrowserView {
             onTriggered: _bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
-            onTriggered: openUrlInNewTab("", true)
+            onTriggered: browser.openUrlInNewTab("", true)
         },
         Actions.ClearHistory {
             onTriggered: _historyModel.clearAll()
@@ -63,9 +63,9 @@ BrowserView {
     Item {
         id: previewsContainer
 
-        width: webviewContainer.width
-        height: webviewContainer.height
-        y: webviewContainer.y
+        width: tabContainer.width
+        height: tabContainer.height
+        y: tabContainer.y
 
         Component {
             id: previewComponent
@@ -73,11 +73,15 @@ BrowserView {
             ShaderEffectSource {
                 id: preview
 
+                property var tab
+
                 width: parent.width
                 height: parent.height
 
-                onSourceItemChanged: {
-                    if (!sourceItem) {
+                sourceItem: tab ? tab.webview : null
+
+                onTabChanged: {
+                    if (!tab) {
                         this.destroy()
                     }
                 }
@@ -94,7 +98,7 @@ BrowserView {
         visible: !historyViewContainer.visible && !tabsViewContainer.visible
 
         Item {
-            id: webviewContainer
+            id: tabContainer
             anchors {
                 left: parent.left
                 right: parent.right
@@ -104,7 +108,7 @@ BrowserView {
         }
 
         ErrorSheet {
-            anchors.fill: webviewContainer
+            anchors.fill: tabContainer
             visible: currentWebview ? currentWebview.lastLoadFailed : false
             url: currentWebview ? currentWebview.url : ""
             onRefreshClicked: currentWebview.reload()
@@ -214,7 +218,7 @@ BrowserView {
                 horizontalCenter: parent.horizontalCenter
             }
             width: chrome.width - units.gu(5)
-            height: enabled ? Math.min(contentHeight, webviewContainer.height - units.gu(2)) : 0
+            height: enabled ? Math.min(contentHeight, tabContainer.height - units.gu(2)) : 0
             model: historyMatches
             onSelected: {
                 browser.currentWebview.url = url
@@ -235,8 +239,11 @@ BrowserView {
             TabsView {
                 anchors.fill: parent
                 model: tabsModel
-                onNewTabRequested: browser.openUrlInNewTab("", true)
-                onDone: this.destroy()
+                onNewTabRequested: browser.openUrlInNewTab("", true, false)
+                onDone: {
+                    tabsModel.currentTab.load()
+                    this.destroy()
+                }
             }
         }
     }
@@ -308,14 +315,50 @@ BrowserView {
     }
 
     Component {
+        id: tabComponent
+
+        FocusScope {
+            property url initialUrl
+            property string initialTitle
+            property var request
+            readonly property var webview: (children.length == 1) ? children[0] : null
+            readonly property url url: webview ? webview.url : initialUrl
+            readonly property string title: webview ? webview.title : initialTitle
+            readonly property url icon: webview ? webview.icon : ""
+            property var preview
+
+            anchors.fill: parent
+
+            function load() {
+                if (!webview) {
+                    webviewComponent.createObject(this, {"url": initialUrl})
+                }
+            }
+
+            function unload() {
+                if (webview) {
+                    webview.destroy()
+                }
+            }
+
+            Component.onCompleted: {
+                if (request) {
+                    // Instantiating the webview cannot be delayed because the request
+                    // object is destroyed after exiting the newViewRequested signal handler.
+                    webviewComponent.createObject(this, {"request": request})
+                }
+            }
+        }
+    }
+
+    Component {
         id: webviewComponent
 
         WebViewImpl {
             currentWebview: browser.currentWebview
 
-            property var preview
-
             anchors.fill: parent
+            focus: true
 
             readonly property bool current: currentWebview === this
             enabled: current
@@ -328,7 +371,7 @@ BrowserView {
             contextualActions: ActionList {
                 Actions.OpenLinkInNewTab {
                     enabled: contextualData.href.toString()
-                    onTriggered: openUrlInNewTab(contextualData.href, true)
+                    onTriggered: browser.openUrlInNewTab(contextualData.href, true)
                 }
                 Actions.BookmarkLink {
                     enabled: contextualData.href.toString()
@@ -340,7 +383,7 @@ BrowserView {
                 }
                 Actions.OpenImageInNewTab {
                     enabled: contextualData.img.toString()
-                    onTriggered: openUrlInNewTab(contextualData.img, true)
+                    onTriggered: browser.openUrlInNewTab(contextualData.img, true)
                 }
                 Actions.CopyImage {
                     enabled: contextualData.img.toString()
@@ -353,9 +396,9 @@ BrowserView {
             }
 
             onNewViewRequested: {
-                var webview = webviewComponent.createObject(webviewContainer, {"request": request})
+                var tab = tabComponent.createObject(tabContainer, {"request": request})
                 var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
-                internal.addTab(webview, setCurrent, false)
+                internal.addTab(tab, setCurrent, false)
             }
 
             onLoadingChanged: {
@@ -402,22 +445,30 @@ BrowserView {
     QtObject {
         id: internal
 
-        function addTab(webview, setCurrent, focusAddressBar) {
-            var index = tabsModel.add(webview)
+        function addTab(tab, setCurrent, focusAddressBar) {
+            var index = tabsModel.add(tab)
             if (setCurrent) {
                 tabsModel.setCurrent(index)
                 if (focusAddressBar) {
-                    chrome.forceActiveFocus()
-                    Qt.inputMethod.show() // work around http://pad.lv/1316057
+                    internal.focusAddressBar()
                 }
             }
-            webview.preview = previewComponent.createObject(previewsContainer, {sourceItem: webview})
+            tab.preview = previewComponent.createObject(previewsContainer, {tab: tab})
+        }
+
+        function focusAddressBar() {
+            chrome.forceActiveFocus()
+            Qt.inputMethod.show() // work around http://pad.lv/1316057
         }
     }
 
-    function openUrlInNewTab(url, setCurrent) {
-        var webview = webviewComponent.createObject(webviewContainer, {"url": url})
-        internal.addTab(webview, setCurrent, !url.toString() && (formFactor == "desktop"))
+    function openUrlInNewTab(url, setCurrent, load) {
+        load = typeof load !== 'undefined' ? load : true
+        var tab = tabComponent.createObject(tabContainer, {"initialUrl": url})
+        internal.addTab(tab, setCurrent, !url.toString() && (formFactor == "desktop"))
+        if (load) {
+            tabsModel.currentTab.load()
+        }
     }
 
     SessionStorage {
@@ -431,9 +482,8 @@ BrowserView {
             }
             var tabs = []
             for (var i = 0; i < tabsModel.count; ++i) {
-                var webview = tabsModel.get(i)
-                var tab = serializeWebviewState(webview)
-                tabs.push(tab)
+                var tab = tabsModel.get(i)
+                tabs.push(serializeTabState(tab))
             }
             store(JSON.stringify({tabs: tabs}))
         }
@@ -452,46 +502,53 @@ BrowserView {
                 var tabs = state.tabs
                 if (tabs) {
                     for (var i = 0; i < tabs.length; ++i) {
-                        var webview = createWebviewFromState(tabs[i])
-                        internal.addTab(webview, i == 0, false)
+                        var tab = createTabFromState(tabs[i])
+                        internal.addTab(tab, i == 0, false)
                     }
                 }
             }
         }
 
-        // Those two functions are used to save/restore the current state of a webview.
+        // Those two functions are used to save/restore the current state of a tab.
         // The current implementation is naive, it only saves/restores the current URL.
         // In the future, we’ll want to rely on oxide to save and restore a full state
-        // of the webview as a binary blob, which includes navigation history, current
-        // scroll offset and form data. See http://pad.lv/1353143.
-        function serializeWebviewState(webview) {
+        // of the corresponding webview as a binary blob, which includes navigation
+        // history, current scroll offset and form data. See http://pad.lv/1353143.
+        function serializeTabState(tab) {
             var state = {}
-            state.url = webview.url.toString()
+            state.url = tab.url.toString()
+            state.title = tab.title
             return state
         }
 
-        function createWebviewFromState(state) {
-            return webviewComponent.createObject(webviewContainer, {"url": state.url})
+        function createTabFromState(state) {
+            var properties = {"initialUrl": state.url, "initialTitle": state.title}
+            return tabComponent.createObject(tabContainer, properties)
         }
     }
     Connections {
         target: tabsModel
-        onCurrentWebviewChanged: session.save()
+        onCurrentTabChanged: session.save()
         onCountChanged: session.save()
     }
     Connections {
         target: browser.currentWebview
         onUrlChanged: session.save()
+        onTitleChanged: session.save()
     }
     Component.onCompleted: {
         if (browser.restoreSession) {
             session.restore()
         }
         for (var i in browser.initialUrls) {
-            browser.openUrlInNewTab(browser.initialUrls[i], true)
+            browser.openUrlInNewTab(browser.initialUrls[i], true, false)
         }
         if (tabsModel.count == 0) {
-            browser.openUrlInNewTab(browser.homepage, true)
+            browser.openUrlInNewTab(browser.homepage, true, false)
+        }
+        tabsModel.currentTab.load()
+        if (!tabsModel.currentTab.url.toString() && (formFactor == "desktop")) {
+            internal.focusAddressBar()
         }
     }
 }

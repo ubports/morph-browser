@@ -31,7 +31,7 @@ class TabsModel : public QAbstractListModel
 
     Q_ENUMS(Roles)
 
-    Q_PROPERTY(QObject* currentWebview READ currentWebview NOTIFY currentWebviewChanged)
+    Q_PROPERTY(QObject* currentTab READ currentTab NOTIFY currentTabChanged)
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
 
 public:
@@ -42,7 +42,7 @@ public:
         Url = Qt::UserRole + 1,
         Title,
         Icon,
-        WebView
+        Tab
     };
 
     // reimplemented from QAbstractListModel
@@ -50,15 +50,15 @@ public:
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex& index, int role) const;
 
-    QObject* currentWebview() const;
+    QObject* currentTab() const;
 
-    Q_INVOKABLE int add(QObject* webview);
+    Q_INVOKABLE int add(QObject* tab);
     Q_INVOKABLE QObject* remove(int index);
     Q_INVOKABLE void setCurrent(int index);
     Q_INVOKABLE QObject* get(int index) const;
 
 Q_SIGNALS:
-    void currentWebviewChanged() const;
+    void currentTabChanged() const;
     void countChanged() const;
 
 private Q_SLOTS:
@@ -67,10 +67,10 @@ private Q_SLOTS:
     void onIconChanged();
 
 private:
-    QList<QObject*> m_webviews;
+    QList<QObject*> m_tabs;
 
     bool checkValidTabIndex(int index) const;
-    void onDataChanged(QObject* webview, int role);
+    void onDataChanged(QObject* tab, int role);
 };
 
 #endif // __TABS_MODEL_H__
