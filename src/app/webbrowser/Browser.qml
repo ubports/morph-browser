@@ -103,11 +103,14 @@ BrowserView {
             height: parent.height - chrome.visibleHeight - osk.height
         }
 
-        ErrorSheet {
+        Loader {
             anchors.fill: webviewContainer
-            visible: currentWebview ? currentWebview.lastLoadFailed : false
-            url: currentWebview ? currentWebview.url : ""
-            onRefreshClicked: currentWebview.reload()
+            sourceComponent: ErrorSheet {
+                visible: currentWebview ? currentWebview.lastLoadFailed : false
+                url: currentWebview ? currentWebview.url : ""
+                onRefreshClicked: currentWebview.reload()
+            }
+            asynchronous: true
         }
 
         Chrome {
