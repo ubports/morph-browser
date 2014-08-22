@@ -334,7 +334,7 @@ BrowserView {
 
             function load() {
                 if (!webview) {
-                    webviewComponent.createObject(this, {"url": initialUrl})
+                    webviewComponent.incubateObject(this, {"url": initialUrl})
                 }
             }
 
@@ -348,7 +348,7 @@ BrowserView {
                 if (request) {
                     // Instantiating the webview cannot be delayed because the request
                     // object is destroyed after exiting the newViewRequested signal handler.
-                    webviewComponent.createObject(this, {"request": request})
+                    webviewComponent.incubateObject(this, {"request": request})
                 }
             }
         }
