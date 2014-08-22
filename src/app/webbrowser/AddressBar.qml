@@ -18,7 +18,6 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
-import webbrowserapp.private 0.1
 import ".."
 
 FocusScope {
@@ -240,12 +239,27 @@ FocusScope {
         validated()
     }
 
-    UrlHelper { id: urlHelper }
-
     function simplifyUrl(url) {
-        var domain = urlHelper.extractDomain(url);
-        if (domain.length > 0) return domain;
-        else return url;
+        var hasProtocol = url.toString().indexOf("://") != -1
+        var domain;
+        if(hasProtocol) {
+            domain = url.toString().split('/')[2];
+        } else {
+            domain = url.toString().split('/')[0];
+        }
+        if (typeof domain !== 'undefined' && domain.length > 0) {
+            // Remove user component if present
+            var userRemoved = domain.split('@')[1];
+            if (typeof userRemoved !== 'undefined') {
+                domain = userRemoved;
+            }
+            // Remove port number if present
+            domain = domain.split(':')[0];
+            domain = domain.replace("www.", "");
+            return domain;
+        } else {
+            return url;
+        }
     }
 
     onActualUrlChanged: text = simplifyUrl(actualUrl)

@@ -6,20 +6,10 @@ else()
   message(WARNING "Cannot find xvfb-run.")
 endif()
 
-set(WEBBROWSER_HELPER_SRC
-    ../../../src/app/webbrowser/url-helper.cpp
-)
-
-set(WEBBROWSER_HELPER webbrowser-helper)
-
-add_library(${WEBBROWSER_HELPER} STATIC ${WEBBROWSER_HELPER_SRC})
-qt5_use_modules(${WEBBROWSER_HELPER} Core)
-
 set(TEST tst_QmlTests)
 add_executable(${TEST} tst_QmlTests.cpp)
-qt5_use_modules(${TEST} QuickTest Core Qml)
+qt5_use_modules(${TEST} QuickTest)
 add_test(${TEST} ${XVFB_COMMAND} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -import ${CMAKE_BINARY_DIR}/src)
-target_link_libraries(${TEST} ${WEBBROWSER_HELPER})
 
 # copy qml files under test to build dir
 set(out_qml_files)

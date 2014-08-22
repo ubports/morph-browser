@@ -115,7 +115,7 @@ TestCase {
 
     function test_simplify_data() {
         return [
-            {text: "www.ubuntu.com", url: "http://www.ubuntu.com"},
+            {text: "ubuntu.com", url: "http://www.ubuntu.com"},
             {text: "en.wikipedia.org", url: "http://en.wikipedia.org/wiki/Ubuntu"},
             {text: "en.wikipedia.org", url: "en.wikipedia.org"},
             {text: "en.wikipedia.org", url: "en.wikipedia.org/wiki/Foo"}
