@@ -1,3 +1,15 @@
+webbrowser-app (0.23+14.10.20140821-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Olivier Tilloy ]
+  * Instantiate webviews on demand, only when they really need to be
+    shown. Show placeholder artwork and text in empty tab previews. (LP:
+    #1357464)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 21 Aug 2014 16:56:31 +0000
+
 webbrowser-app (0.23+14.10.20140819.1-0ubuntu1) utopic; urgency=low
 
   [ David Barth ]

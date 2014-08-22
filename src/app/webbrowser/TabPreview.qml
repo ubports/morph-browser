@@ -20,11 +20,11 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 
 Column {
-    id: tab
+    id: tabPreview
 
     property alias title: label.text
-    property var webview
-    readonly property url url: webview ? webview.url : ""
+    property var tab
+    readonly property url url: tab ? tab.url : ""
 
     signal selected()
     signal closeRequested()
@@ -56,7 +56,7 @@ Column {
                     name: "close"
                 }
 
-                onTriggered: tab.closeRequested()
+                onTriggered: tabPreview.closeRequested()
 
                 Rectangle {
                     anchors {
@@ -122,7 +122,7 @@ Column {
                     }
                     width: parent.width / 2
 
-                    onClicked: tab.selected()
+                    onClicked: tabPreview.selected()
                 }
             }
         }
@@ -143,15 +143,39 @@ Column {
         width: parent.width
         height: parent.height - header.height
 
+        Image {
+            visible: !previewContainer.visible
+            source: "assets/tab-artwork.png"
+            fillMode: Image.PreserveAspectFit
+            height: Math.min(parent.height / 1.6, units.gu(28))
+            width: height
+            anchors {
+                right: parent.right
+                rightMargin: -width / 5
+                bottom: parent.bottom
+                bottomMargin: -height / 10
+            }
+        }
+
+        Label {
+            visible: !previewContainer.visible
+            text: i18n.tr("Tap to view")
+            anchors {
+                centerIn: parent
+                verticalCenterOffset: units.gu(-2)
+            }
+        }
+
         Item {
             id: previewContainer
+            visible: tabPreview.tab ? tabPreview.tab.webview : false
             anchors.fill: parent
             clip: true
         }
 
         MouseArea {
             anchors.fill: parent
-            onClicked: tab.selected()
+            onClicked: tabPreview.selected()
         }
 
         Rectangle {
@@ -172,15 +196,15 @@ Column {
     }
 
     Component.onCompleted: {
-        var preview = tab.webview.preview
+        var preview = tabPreview.tab.preview
         internal.previewParent = preview.parent
         preview.parent = previewContainer
         preview.width = internal.previewParent.width
         preview.height = internal.previewParent.height
     }
     Component.onDestruction: {
-        if (tab.webview) {
-            var preview = tab.webview.preview
+        if (tabPreview.tab) {
+            var preview = tabPreview.tab.preview
             preview.parent = internal.previewParent
             preview.width = preview.parent.width
             preview.height = preview.parent.height
