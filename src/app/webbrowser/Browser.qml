@@ -544,19 +544,26 @@ BrowserView {
         onUrlChanged: session.save()
         onTitleChanged: session.save()
     }
-    Component.onCompleted: {
-        if (browser.restoreSession) {
-            session.restore()
-        }
-        for (var i in browser.initialUrls) {
-            browser.openUrlInNewTab(browser.initialUrls[i], true, false)
-        }
-        if (tabsModel.count == 0) {
-            browser.openUrlInNewTab(browser.homepage, true, false)
-        }
-        tabsModel.currentTab.load()
-        if (!tabsModel.currentTab.url.toString() && (formFactor == "desktop")) {
-            internal.focusAddressBar()
+
+    // Delay instantiation of the first webview by 1 msec to allow initial
+    // rendering to happen. Clumsy workaround for http://pad.lv/1359911.
+    Timer {
+        running: true
+        interval: 1
+        onTriggered: {
+            if (browser.restoreSession) {
+                session.restore()
+            }
+            for (var i in browser.initialUrls) {
+                browser.openUrlInNewTab(browser.initialUrls[i], true, false)
+            }
+            if (tabsModel.count == 0) {
+                browser.openUrlInNewTab(browser.homepage, true, false)
+            }
+            tabsModel.currentTab.load()
+            if (!tabsModel.currentTab.url.toString() && (formFactor == "desktop")) {
+                internal.focusAddressBar()
+            }
         }
     }
 }
