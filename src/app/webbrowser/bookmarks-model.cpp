@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -55,29 +55,50 @@ BookmarksModel::~BookmarksModel()
 void BookmarksModel::resetDatabase(const QString& databaseName)
 {
     beginResetModel();
-    m_entries.clear();
+    m_urls.clear();
+    m_orderedEntries.clear();
     m_database.close();
     m_database.setDatabaseName(databaseName);
     m_database.open();
-    createDatabaseSchema();
+    createOrAlterDatabaseSchema();
     endResetModel();
     populateFromDatabase();
 }
 
-void BookmarksModel::createDatabaseSchema()
+void BookmarksModel::createOrAlterDatabaseSchema()
 {
-    QSqlQuery schemaQuery(m_database);
+    QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS bookmarks "
-                                  "(url VARCHAR, title VARCHAR, icon VARCHAR);");
-    schemaQuery.prepare(query);
-    schemaQuery.exec();
+                                  "(url VARCHAR, title VARCHAR, icon VARCHAR, created INTEGER);");
+    createQuery.prepare(query);
+    createQuery.exec();
+
+    // The first version of the database schema didn’t have a 'created' column
+    QSqlQuery tableInfoQuery(m_database);
+    query = QLatin1String("PRAGMA TABLE_INFO(bookmarks);");
+    tableInfoQuery.prepare(query);
+    tableInfoQuery.exec();
+    while (tableInfoQuery.next()) {
+        if (tableInfoQuery.value("name").toString() == "created") {
+            break;
+        }
+    }
+    if (!tableInfoQuery.isValid()) {
+        QSqlQuery addCreatedColumnQuery(m_database);
+        query = QLatin1String("ALTER TABLE bookmarks ADD COLUMN created INTEGER;");
+        addCreatedColumnQuery.prepare(query);
+        addCreatedColumnQuery.exec();
+        // the default for the column is an empty value, which is interpreted as zero
+        // when converted to a number. Zero represents a date far in the past, so
+        // any newly created bookmark will correctly be represented as more recent than any other
+    }
 }
 
 void BookmarksModel::populateFromDatabase()
 {
     QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT url, title, icon "
-                                  "FROM bookmarks ORDER BY url ASC;");
+    QString query = QLatin1String("SELECT url, title, icon, created "
+                                  "FROM bookmarks ORDER BY created DESC;");
     populateQuery.prepare(query);
     populateQuery.exec();
     int count = 0;
@@ -86,8 +107,10 @@ void BookmarksModel::populateFromDatabase()
         entry.url = populateQuery.value(0).toUrl();
         entry.title = populateQuery.value(1).toString();
         entry.icon = populateQuery.value(2).toUrl();
+        entry.created = QDateTime::fromMSecsSinceEpoch(populateQuery.value(3).toULongLong());
         beginInsertRows(QModelIndex(), count, count);
-        m_entries.insert(entry.url, entry);
+        m_urls.insert(entry.url);
+        m_orderedEntries.append(entry);
         endInsertRows();
         ++count;
     }
@@ -100,6 +123,7 @@ QHash<int, QByteArray> BookmarksModel::roleNames() const
         roles[Url] = "url";
         roles[Title] = "title";
         roles[Icon] = "icon";
+        roles[Created] = "created";
     }
     return roles;
 }
@@ -107,7 +131,7 @@ QHash<int, QByteArray> BookmarksModel::roleNames() const
 int BookmarksModel::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent);
-    return m_entries.count();
+    return m_orderedEntries.count();
 }
 
 QVariant BookmarksModel::data(const QModelIndex& index, int role) const
@@ -115,8 +139,7 @@ QVariant BookmarksModel::data(const QModelIndex& index, int role) const
     if (!index.isValid()) {
         return QVariant();
     }
-    QUrl url = m_entries.keys().at(index.row());
-    const BookmarkEntry& entry = m_entries.value(url);
+    const BookmarkEntry& entry = m_orderedEntries.at(index.row());
     switch (role) {
     case Url:
         return entry.url;
@@ -124,6 +147,8 @@ QVariant BookmarksModel::data(const QModelIndex& index, int role) const
         return entry.title;
     case Icon:
         return entry.icon;
+    case Created:
+        return entry.created;
     default:
         return QVariant();
     }
@@ -154,7 +179,7 @@ void BookmarksModel::setDatabasePath(const QString& path)
 */
 bool BookmarksModel::contains(const QUrl& url) const
 {
-    return m_entries.contains(url);
+    return m_urls.contains(url);
 }
 
 /*!
@@ -164,24 +189,17 @@ bool BookmarksModel::contains(const QUrl& url) const
 */
 void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon)
 {
-    if (m_entries.contains(url)) {
+    if (m_urls.contains(url)) {
         qWarning() << "URL already bookmarked:" << url;
     } else {
-        QList<QUrl> urls = m_entries.keys();
-        int count = urls.count();
-        int insertAt = 0;
-        while (insertAt < count) {
-            if (url.toString().compare(urls.at(insertAt).toString()) < 0) {
-                break;
-            }
-            ++insertAt;
-        }
-        beginInsertRows(QModelIndex(), insertAt, insertAt);
+        beginInsertRows(QModelIndex(), 0, 0);
         BookmarkEntry entry;
         entry.url = url;
         entry.title = title;
         entry.icon = icon;
-        m_entries.insert(url, entry);
+        entry.created = QDateTime::currentDateTime();
+        m_urls.insert(url);
+        m_orderedEntries.prepend(entry);
         endInsertRows();
         Q_EMIT added(url);
         insertNewEntryInDatabase(entry);
@@ -192,11 +210,12 @@ void BookmarksModel::insertNewEntryInDatabase(const BookmarkEntry& entry)
 {
     QSqlQuery query(m_database);
     static QString insertStatement = QLatin1String("INSERT INTO bookmarks (url, "
-                                                   "title, icon) VALUES (?, ?, ?);");
+                                                   "title, icon, created) VALUES (?, ?, ?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(entry.url.toString());
     query.addBindValue(entry.title);
     query.addBindValue(entry.icon.toString());
+    query.addBindValue(entry.created.toMSecsSinceEpoch());
     query.exec();
 }
 
@@ -207,13 +226,22 @@ void BookmarksModel::insertNewEntryInDatabase(const BookmarkEntry& entry)
 */
 void BookmarksModel::remove(const QUrl& url)
 {
-    if (m_entries.contains(url)) {
-        int index = m_entries.keys().indexOf(url);
-        beginRemoveRows(QModelIndex(), index, index);
-        m_entries.remove(url);
-        endRemoveRows();
-        Q_EMIT removed(url);
-        removeExistingEntryFromDatabase(url);
+    if (m_urls.contains(url)) {
+        int index = 0;
+        Q_FOREACH(BookmarkEntry entry, m_orderedEntries) {
+            if (entry.url == url) {
+                beginRemoveRows(QModelIndex(), index, index);
+                m_orderedEntries.removeAt(index);
+                m_urls.remove(url);
+                endRemoveRows();
+                Q_EMIT removed(url);
+                removeExistingEntryFromDatabase(url);
+
+                return;
+            } else {
+                index++;
+            }
+        };
     } else {
         qWarning() << "Invalid bookmark:" << url;
     }

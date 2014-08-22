@@ -130,6 +130,7 @@ QHash<int, QByteArray> HistoryModel::roleNames() const
         roles[Icon] = "icon";
         roles[Visits] = "visits";
         roles[LastVisit] = "lastVisit";
+        roles[LastVisitDate] = "lastVisitDate";
     }
     return roles;
 }
@@ -159,6 +160,8 @@ QVariant HistoryModel::data(const QModelIndex& index, int role) const
         return entry.visits;
     case LastVisit:
         return entry.lastVisit;
+    case LastVisitDate:
+        return entry.lastVisit.toLocalTime().date();
     default:
         return QVariant();
     }
@@ -250,6 +253,9 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
             }
             count = ++entry.visits;
             if (now != entry.lastVisit) {
+                if (now.date() != entry.lastVisit.date()) {
+                    roles << LastVisitDate;
+                }
                 entry.lastVisit = now;
                 roles << LastVisit;
             }
@@ -260,6 +266,47 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
         updateExistingEntryInDatabase(m_entries.first());
     }
     return count;
+}
+
+/*!
+    Remove a given URL from the history model.
+
+    If the URL was not previously visited, do nothing.
+*/
+void HistoryModel::removeEntryByUrl(const QUrl& url)
+{
+    if (url.isEmpty()) {
+        return;
+    }
+
+    removeByIndex(getEntryIndex(url));
+    removeEntryFromDatabaseByUrl(url);
+}
+
+/*!
+    Remove all urls from a given DOMAIN from the history model.
+*/
+void HistoryModel::removeEntriesByDomain(const QString& domain)
+{
+    if (domain.isEmpty()) {
+        return;
+    }
+
+    for (int i = m_entries.count() - 1; i >= 0; --i) {
+        if (m_entries.at(i).domain == domain) {
+            removeByIndex(i);
+        }
+    }
+    removeEntriesFromDatabaseByDomain(domain);
+}
+
+void HistoryModel::removeByIndex(int index)
+{
+    if (index >= 0) {
+        beginRemoveRows(QModelIndex(), index, index);
+        m_entries.removeAt(index);
+        endRemoveRows();
+    }
 }
 
 void HistoryModel::insertNewEntryInDatabase(const HistoryEntry& entry)
@@ -288,6 +335,24 @@ void HistoryModel::updateExistingEntryInDatabase(const HistoryEntry& entry)
     query.addBindValue(entry.visits);
     query.addBindValue(entry.lastVisit.toTime_t());
     query.addBindValue(entry.url.toString());
+    query.exec();
+}
+
+void HistoryModel::removeEntryFromDatabaseByUrl(const QUrl& url)
+{
+    QSqlQuery query(m_database);
+    static QString deleteStatement = QLatin1String("DELETE FROM history WHERE url=?;");
+    query.prepare(deleteStatement);
+    query.addBindValue(url.toString());
+    query.exec();
+}
+
+void HistoryModel::removeEntriesFromDatabaseByDomain(const QString& domain)
+{
+    QSqlQuery query(m_database);
+    static QString deleteStatement = QLatin1String("DELETE FROM history WHERE domain=?;");
+    query.prepare(deleteStatement);
+    query.addBindValue(domain);
     query.exec();
 }
 

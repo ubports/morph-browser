@@ -45,7 +45,8 @@ public:
         Title,
         Icon,
         Visits,
-        LastVisit
+        LastVisit,
+        LastVisitDate,
     };
 
     // reimplemented from QAbstractListModel
@@ -57,6 +58,8 @@ public:
     void setDatabasePath(const QString& path);
 
     Q_INVOKABLE int add(const QUrl& url, const QString& title, const QUrl& icon);
+    Q_INVOKABLE void removeEntryByUrl(const QUrl& url);
+    Q_INVOKABLE void removeEntriesByDomain(const QString& domain);
     Q_INVOKABLE void clearAll();
 
 Q_SIGNALS:
@@ -79,8 +82,11 @@ private:
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
     void populateFromDatabase();
+    void removeByIndex(int index);
     void insertNewEntryInDatabase(const HistoryEntry& entry);
     void updateExistingEntryInDatabase(const HistoryEntry& entry);
+    void removeEntryFromDatabaseByUrl(const QUrl& url);
+    void removeEntriesFromDatabaseByDomain(const QString& domain);
     void clearDatabase();
 };
 

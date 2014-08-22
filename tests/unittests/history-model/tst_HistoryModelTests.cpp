@@ -212,6 +212,37 @@ private Q_SLOTS:
         model->clearAll();
         QCOMPARE(spyReset.count(), 1);
     }
+
+    void shouldRemoveByUrl()
+    {
+        QCOMPARE(model->add(QUrl("http://example.org/"), "Example Domain", QUrl()), 1);
+        QCOMPARE(model->rowCount(), 1);
+        QCOMPARE(model->add(QUrl("http://example.com/"), "Example Domain", QUrl()), 1);
+        QCOMPARE(model->rowCount(), 2);
+
+        model->removeEntryByUrl(QUrl("http://example.org/"));
+        QCOMPARE(model->rowCount(), 1);
+        model->removeEntryByUrl(QUrl("http://example.com/"));
+        QCOMPARE(model->rowCount(), 0);
+    }
+
+    void shouldRemoveByDomain()
+    {
+        QCOMPARE(model->add(QUrl("http://example.org/page1"), "Example Domain Page 1", QUrl()), 1);
+        QCOMPARE(model->rowCount(), 1);
+        QCOMPARE(model->add(QUrl("http://example.org/page2"), "Example Domain Page 2", QUrl()), 1);
+        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->add(QUrl("http://example.com/page1"), "Example Domain Page 1", QUrl()), 1);
+        QCOMPARE(model->rowCount(), 3);
+        QCOMPARE(model->add(QUrl("http://example.com/page2"), "Example Domain Page 2", QUrl()), 1);
+        QCOMPARE(model->rowCount(), 4);
+
+        model->removeEntriesByDomain("example.org");
+        QCOMPARE(model->rowCount(), 2);
+        model->removeEntriesByDomain("example.com");
+        QCOMPARE(model->rowCount(), 0);
+    }
+
 };
 
 QTEST_MAIN(HistoryModelTests)

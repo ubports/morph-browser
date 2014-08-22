@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1
 
 Action {
     text: i18n.tr("Copy")

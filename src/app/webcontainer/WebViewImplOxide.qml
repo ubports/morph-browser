@@ -19,8 +19,8 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import com.canonical.Oxide 1.0 as Oxide
-import Ubuntu.Components 0.1
-import Ubuntu.Components.Popups 0.1
+import Ubuntu.Components 1.1
+import Ubuntu.Components.Popups 1.0
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import Ubuntu.Web 0.2
 import "../actions" as Actions
@@ -30,7 +30,6 @@ WebViewImpl {
     id: webview
 
     property bool developerExtrasEnabled: false
-    property var toolbar: null
     property string webappName: ""
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
@@ -99,8 +98,9 @@ WebViewImpl {
         var newForegroundPageRequest = isNewForegroundWebViewDisposition(request.disposition)
         var url = request.url.toString()
 
-        console.log("\nwebview: " + webview.toString())
-        console.log("navigationRequestedDelegate - " + url)
+        console.log("navigationRequestedDelegate - newForegroundPageRequest: "
+                    + newForegroundPageRequest
+                    + ', url: ' + url)
 
         // Covers some edge cases corresponding to the default window.open() behavior.
         // When it is being called, the targetted URL will not load right away but
@@ -117,10 +117,20 @@ WebViewImpl {
                     popupRedirectionUrlPrefix.length !== 0
                     && url.indexOf(popupRedirectionUrlPrefix) === 0;
 
-            var targetUrl =
-                    isRedirectionUrl
-                    ? decodeURIComponent(url.slice(popupRedirectionUrlPrefix.length))
-                    : url;
+            var targetUrl = url;
+            if (isRedirectionUrl) {
+                // Extract the target URL.
+                targetUrl = url.slice(popupRedirectionUrlPrefix.length);
+                // Quick fix for http://pad.lv/1358622 (trim trailing parameters).
+                // A proper solution would probably involve regexps instead of a
+                // simple redirection prefix.
+                var extraParams = targetUrl.indexOf("&");
+                if (extraParams !== -1) {
+                    targetUrl = targetUrl.slice(0, extraParams);
+                }
+                // Decode it.
+                targetUrl = decodeURIComponent(targetUrl);
+            }
 
             if (webview.shouldAllowNavigationTo(targetUrl)) {
                 console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
@@ -130,9 +140,9 @@ WebViewImpl {
             }
 
             if (shouldOpenPopupsInDefaultBrowser()) {
-                console.debug('Opening popup window ' + url + ' in the browser window.')
+                console.debug('Opening popup window ' + targetUrl + ' in the browser window.')
                 request.action = Oxide.NavigationRequest.ActionReject
-                Qt.openUrlExternally(url)
+                Qt.openUrlExternally(targetUrl)
                 return;
             }
             return
@@ -255,5 +265,16 @@ WebViewImpl {
             }
         };
         return UnityWebAppsUtils.makeProxiesForWebViewBindee(webview, eventHandlers)
+    }
+
+    onGeolocationPermissionRequested: {
+        if (formFactor == "desktop") {
+            requestGeolocationPermission(request)
+        } else {
+            // On devices where webapps are confined, trying to access the
+            // location service will trigger a system prompt from the trust
+            // store, so we don’t need a custom prompt.
+            request.accept()
+        }
     }
 }

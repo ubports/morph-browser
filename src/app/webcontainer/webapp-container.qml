@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import QtQuick.Window 2.1
-import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1
 import Ubuntu.Components.Extras.Browser 0.2
 import webcontainer.private 0.1
 
@@ -27,9 +27,10 @@ Window {
     objectName: "webappContainer"
 
     property bool developerExtrasEnabled: false
+    property bool restoreSession: true
 
     property bool backForwardButtonsVisible: true
-    property bool addressBarVisible: true
+    property bool chromeVisible: true
 
     property string url: ""
     property string webappName: ""
@@ -38,6 +39,7 @@ Window {
     property bool oxide: false
     property string accountProvider: ""
     property string popupRedirectionUrlPrefix: ""
+    property url webviewOverrideFile: ""
     property var __webappCookieStore: null
 
     contentOrientation: Screen.orientation
@@ -45,7 +47,9 @@ Window {
     width: 800
     height: 600
 
-    title: {
+    title: getWindowTitle()
+
+    function getWindowTitle() {
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
             return webappName
         } else if (webappPageComponentLoader.item &&
@@ -60,6 +64,9 @@ Window {
     Loader {
         id: webappPageComponentLoader
         anchors.fill: parent
+
+        // Propagate automatic orientation to popups parented here
+        property bool automaticOrientation: item ? item.automaticOrientation : false
     }
 
     Component {
@@ -67,9 +74,10 @@ Window {
 
         WebApp {
             id: browser
-            addressBarVisible: root.addressBarVisible
+            chromeVisible: root.chromeVisible
             backForwardButtonsVisible: root.backForwardButtonsVisible
             developerExtrasEnabled: root.developerExtrasEnabled
+            restoreSession: root.restoreSession
             oxide: root.oxide
             url: root.url
             webappModelSearchPath: root.webappModelSearchPath
@@ -77,13 +85,20 @@ Window {
             webappUrlPatterns: root.webappUrlPatterns
 
             popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+            webviewOverrideFile: root.webviewOverrideFile
 
             anchors.fill: parent
 
-            chromeless: !backForwardButtonsVisible && !addressBarVisible
             webbrowserWindow: webbrowserWindowProxy
 
             Component.onCompleted: i18n.domain = "webbrowser-app"
+
+            onWebappNameChanged: {
+                if (root.webappName !== browser.webappName) {
+                    root.webappName = browser.webappName;
+                    root.title = getWindowTitle();
+                }
+            }
         }
     }
 
@@ -168,9 +183,18 @@ Window {
         target: UriHandler
         onOpened: {
             // only consider the first one (if multiple)
-            if (uris.length !== 0) {
-                url = uris[0];
+            if (uris.length === 0 ||
+                    !webappPageComponentLoader.item ||
+                    !webappPageComponentLoader.item.currentWebview) {
+                return;
             }
+            var requestedUrl = uris[0].toString();
+
+            if (popupRedirectionUrlPrefix.length !== 0
+                    && requestedUrl.indexOf(popupRedirectionUrlPrefix) === 0) {
+                return;
+            }
+            webappPageComponentLoader.item.currentWebview.url = requestedUrl;
         }
     }
 }

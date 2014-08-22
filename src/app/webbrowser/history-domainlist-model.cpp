@@ -51,6 +51,9 @@ QHash<int, QByteArray> HistoryDomainListModel::roleNames() const
     if (roles.isEmpty()) {
         roles[Domain] = "domain";
         roles[LastVisit] = "lastVisit";
+        roles[LastVisitDate] = "lastVisitDate";
+        roles[LastVisitedTitle] = "lastVisitedTitle";
+        roles[LastVisitedIcon] = "lastVisitedIcon";
         roles[Entries] = "entries";
     }
     return roles;
@@ -75,6 +78,12 @@ QVariant HistoryDomainListModel::data(const QModelIndex& index, int role) const
         return domain;
     case LastVisit:
         return entries->lastVisit();
+    case LastVisitDate:
+        return entries->lastVisit().toLocalTime().date();
+    case LastVisitedTitle:
+        return entries->lastVisitedTitle();
+    case LastVisitedIcon:
+        return entries->lastVisitedIcon();
     case Entries:
         return QVariant::fromValue(entries);
     default:
@@ -177,13 +186,6 @@ QString HistoryDomainListModel::getDomainFromSourceModel(const QModelIndex& inde
     return m_sourceModel->data(index, HistoryModel::Domain).toString();
 }
 
-// It appears this is never called: in practice, for rows to be removed from
-// a domain model, they should be removed from the underlying history model,
-// and there is no API to remove history entries.
-// Changing the start and end markers of the timeframe model may remove rows,
-// but the implementation prefers to reset the entire model.
-// Since this is an implementation detail of QSortFilterProxyModel over which
-// we do not have any control, it is safer to keep this slot anyway.
 void HistoryDomainListModel::onDomainRowsRemoved(const QModelIndex& parent, int start, int end)
 {
     Q_UNUSED(parent);
@@ -216,6 +218,6 @@ void HistoryDomainListModel::emitDataChanged(const QString& domain)
     int i = m_domains.keys().indexOf(domain);
     if (i != -1) {
         QModelIndex index = this->index(i, 0);
-        Q_EMIT dataChanged(index, index, QVector<int>() << LastVisit << Entries);
+        Q_EMIT dataChanged(index, index, QVector<int>() << LastVisit << LastVisitDate << LastVisitedTitle << LastVisitedIcon << Entries);
     }
 }

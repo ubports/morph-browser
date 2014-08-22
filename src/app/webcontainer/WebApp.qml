@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,10 +17,10 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
-import Ubuntu.Components.Popups 0.1
+import Ubuntu.Components 1.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
+import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 
@@ -38,44 +38,39 @@ BrowserView {
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefix: webview.popupRedirectionUrlPrefix
+    property alias webviewOverrideFile: webview.webviewOverrideFile
+
+    property bool backForwardButtonsVisible: false
+    property bool chromeVisible: false
+    readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible
 
     actions: [
         Actions.Back {
-            enabled: backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoBack
-            onTriggered: webview.goBack()
+            enabled: webapp.backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoBack
+            onTriggered: webview.currentWebview.goBack()
         },
         Actions.Forward {
-            enabled: backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoForward
-            onTriggered: webview.goForward()
+            enabled: webapp.backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoForward
+            onTriggered: webview.currentWebview.goForward()
         },
         Actions.Reload {
-            onTriggered: webview.reload()
+            onTriggered: webview.currentWebview.reload()
         }
     ]
 
-    Page {
+    Item {
         anchors.fill: parent
-
-        // Work around https://bugs.launchpad.net/webbrowser-app/+bug/1270848 and
-        // https://bugs.launchpad.net/ubuntu/+source/webbrowser-app/+bug/1271436.
-        // The UITK is trying too hard to be clever about the header and toolbar.
-        flickable: null
-
-
-        // to prevent https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-toolkit/+bug/1305834
-        // caused by a recent UI toolkit change, we are returning an empty title for now:
-        title: ""
 
         WebappContainerWebview {
             id: webview
-            toolbar: panel.panel
 
             anchors {
                 left: parent.left
                 right: parent.right
                 top: parent.top
+                topMargin: webapp.chromeless ? 0 : chromeLoader.item.visibleHeight
             }
-            height: parent.height - osk.height
+            height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.item.visibleHeight)
             developerExtrasEnabled: webapp.developerExtrasEnabled
             localUserAgentOverride: webappName && unityWebapps.model.exists(webappName) ?
                                       unityWebapps.model.userAgentOverrideFor(webappName) : ""
@@ -90,23 +85,78 @@ BrowserView {
                     webview.currentWebview.reload()
             }
         }
-    }
 
-    PanelLoader {
-        id: panel
-        objectName: "panel"
+        Loader {
+            id: chromeLoader
 
-        currentWebview: webview.currentWebview
-        chromeless: webapp.chromeless
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+            }
 
-        backForwardButtonsVisible: webapp.backForwardButtonsVisible
-        activityButtonVisible: false
-        addressBarVisible: webapp.addressBarVisible
+            sourceComponent: webapp.chromeless ? progressbarComponent : chromeComponent
 
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: panel.opened ? osk.top : parent.bottom
+            Component {
+                id: chromeComponent
+
+                Chrome {
+                    webview: webapp.currentWebview
+                    navigationButtonsVisible: webapp.backForwardButtonsVisible
+
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: units.gu(6)
+
+                    Connections {
+                        target: webapp.currentWebview
+                        ignoreUnknownSignals: true
+                        onLoadingChanged: {
+                            if (webapp.currentWebview.loading) {
+                                chromeLoader.item.state = "shown"
+                            } else if (webapp.currentWebview.fullscreen) {
+                                chromeLoader.item.state = "hidden"
+                            }
+                        }
+                        onFullscreenChanged: {
+                            if (webapp.currentWebview.fullscreen) {
+                                chromeLoader.item.state = "hidden"
+                            } else {
+                                chromeLoader.item.state = "shown"
+                            }
+                        }
+                    }
+                }
+            }
+
+            Component {
+                id: progressbarComponent
+
+                ThinProgressBar {
+                    webview: webapp.currentWebview
+
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
+                    }
+                }
+            }
+        }
+
+        Loader {
+            sourceComponent: (webapp.oxide && !webapp.chromeless) ? chromeStateTrackerComponent : undefined
+
+            Component {
+                id: chromeStateTrackerComponent
+
+                ChromeStateTracker {
+                    webview: webapp.currentWebview
+                    header: chromeLoader.item
+                }
+            }
         }
     }
 
@@ -116,5 +166,69 @@ BrowserView {
         bindee: webview.currentWebview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
+    }
+
+    SessionStorage {
+        id: session
+
+        dataFile: dataLocation + "/session.json"
+
+        function save() {
+            if (!locked) {
+                return
+            }
+            if (webapp.currentWebview) {
+                var state = serializeWebviewState(webapp.currentWebview)
+                store(JSON.stringify(state))
+            }
+        }
+
+        function restore() {
+            if (!locked) {
+                return
+            }
+            var state = null
+            try {
+                state = JSON.parse(retrieve())
+            } catch (e) {
+                return
+            }
+            if (state) {
+                var url = state.url
+                if (url) {
+                    webapp.currentWebview.url = url
+                }
+            }
+        }
+
+        // This function is used to save the current state of a webview.
+        // The current implementation is naive, it only saves the current URL.
+        // In the future, we’ll want to rely on oxide to save and restore a full state
+        // of the webview as a binary blob, which includes navigation history, current
+        // scroll offset and form data. See http://pad.lv/1353143.
+        function serializeWebviewState(webview) {
+            var state = {}
+            state.url = webview.url.toString()
+            return state
+        }
+    }
+    Connections {
+        target: webapp.currentWebview
+        onUrlChanged: {
+            var url = webapp.currentWebview.url.toString()
+            if (url.length === 0 || url === 'about:blank') {
+                return;
+            }
+            if (popupRedirectionUrlPrefix.length !== 0
+                    && url.indexOf(popupRedirectionUrlPrefix) === 0) {
+                return;
+            }
+            session.save()
+        }
+    }
+    Component.onCompleted: {
+        if (webapp.restoreSession) {
+            session.restore()
+        }
     }
 }

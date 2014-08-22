@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 0.1
+import Ubuntu.Components 1.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import "../actions" as Actions
@@ -31,10 +31,10 @@ Item {
     property bool developerExtrasEnabled: false
     property string webappName: ""
     property var currentWebview: webappContainerWebViewLoader.item
-    property var toolbar: null
     property var webappUrlPatterns
     property string localUserAgentOverride: ""
     property string popupRedirectionUrlPrefix: ""
+    property url webviewOverrideFile: ""
 
     Loader {
         id: webappContainerWebViewLoader
@@ -47,10 +47,16 @@ Item {
                     Qt.resolvedUrl("WebViewImplOxide.qml")
                   : Qt.resolvedUrl("WebViewImplWebkit.qml");
 
+        // This is an experimental, UNSUPPORTED, API
+        // It loads an alternative webview, adjusted for a specific webapp
+        if (webviewOverrideFile.toString()) {
+            console.log("Loading custom webview from " + webviewOverrideFile);
+            webappEngineSource = webviewOverrideFile;
+        }
+
         webappContainerWebViewLoader.setSource(
                     webappEngineSource,
-                    { toolbar: containerWebview.toolbar
-                    , localUserAgentOverride: containerWebview.localUserAgentOverride
+                    { localUserAgentOverride: containerWebview.localUserAgentOverride
                     , url: containerWebview.url
                     , webappName: containerWebview.webappName
                     , webappUrlPatterns: containerWebview.webappUrlPatterns

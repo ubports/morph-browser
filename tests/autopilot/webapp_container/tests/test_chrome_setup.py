@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from testtools.matchers import Equals, NotEquals
+from testtools.matchers import Equals
 
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 
@@ -23,24 +23,21 @@ class WebappContainerChromeSetupTestCase(
 
     def test_default_to_chromeless(self):
         self.launch_webcontainer_app_with_local_http_server([])
-        self.assertThat(self.get_webcontainer_proxy(), NotEquals(None))
-        self.assertThat(self.get_webcontainer_webview().chromeless,
-                        Equals(True))
+        self.assertIsNotNone(self.get_webcontainer_proxy())
+        webview = self.get_webcontainer_webview()
+        self.assertThat(webview.chromeless, Equals(True))
 
     def test_enable_chrome_back_forward(self):
         args = ['--enable-back-forward']
         self.launch_webcontainer_app_with_local_http_server(args)
-        self.assertThat(self.get_webcontainer_webview().chromeless,
-                        Equals(False))
-        panel = self.get_webcontainer_panel()
-        self.assertThat(panel.backForwardButtonsVisible,
-                        Equals(True))
+        webview = self.get_webcontainer_webview()
+        self.assertThat(webview.chromeless, Equals(False))
+        chrome = self.get_webcontainer_chrome()
+        self.assertThat(chrome.navigationButtonsVisible, Equals(True))
 
     def test_enable_chrome_address_bar(self):
         args = ['--enable-addressbar']
         self.launch_webcontainer_app_with_local_http_server(args)
-        self.assertThat(self.get_webcontainer_proxy(), NotEquals(None))
-        self.assertThat(self.get_webcontainer_webview().chromeless,
-                        Equals(False))
-        self.assertThat(self.get_webcontainer_panel().addressBarVisible,
-                        Equals(True))
+        self.assertIsNotNone(self.get_webcontainer_proxy())
+        webview = self.get_webcontainer_webview()
+        self.assertThat(webview.chromeless, Equals(False))

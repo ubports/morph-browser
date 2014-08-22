@@ -7,22 +7,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-07-04 10:06-0300\n"
+"POT-Creation-Date: 2014-08-14 11:13+0200\n"
 "PO-Revision-Date: 2013-05-18 09:32+0000\n"
 "Last-Translator: Vu Do Quynh <vdquynh@gmail.com>\n"
 "Language-Team: Vietnamese <vi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-05 05:55+0000\n"
-"X-Generator: Launchpad (build 17086)\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2014-08-19 06:55+0000\n"
+"X-Generator: Launchpad (build 17156)\n"
 
-#: src/app/AlertDialog.qml:24
+#: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr ""
 
-#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
+#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
 msgid "OK"
 msgstr ""
 
@@ -44,20 +45,20 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
-#: src/app/PromptDialog.qml:40
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/PromptDialog.qml:38
 msgid "Cancel"
 msgstr ""
 
-#: src/app/BeforeUnloadDialog.qml:24
+#: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
 msgstr ""
 
-#: src/app/BeforeUnloadDialog.qml:28
+#: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
 msgstr ""
 
-#: src/app/BeforeUnloadDialog.qml:33
+#: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
 msgstr ""
 
@@ -81,43 +82,31 @@ msgstr ""
 msgid "Back to safety"
 msgstr ""
 
-#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
-msgid "Back"
-msgstr "Lùi lại"
-
-#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
-msgid "Forward"
-msgstr "Tới"
-
-#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
-msgid "Activity"
-msgstr ""
-
-#: src/app/ConfirmDialog.qml:24
+#: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
 msgstr ""
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "Lỗi mạng"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "Hình như bạn đang gặp khó khăn xem: %1."
 
-#: src/app/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
 "Ubuntu kiến nghị bạn kiểm tra lại thiết lạp nối mạng và thử nạp lại trang."
 
-#: src/app/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "Nạp lại trang"
 
-#: src/app/FilePickerDialog.qml:27
+#: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
 msgstr ""
 
@@ -127,7 +116,7 @@ msgid "Permission Request"
 msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:69
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
 msgstr ""
 
@@ -141,7 +130,7 @@ msgstr ""
 msgid "Allow"
 msgstr ""
 
-#: src/app/PromptDialog.qml:24
+#: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr ""
 
@@ -154,6 +143,10 @@ msgstr ""
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr ""
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Lùi lại"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -196,6 +189,10 @@ msgstr ""
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
 msgstr ""
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "Tới"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -249,86 +246,94 @@ msgstr ""
 msgid "Share…"
 msgstr ""
 
-#: src/app/webbrowser/ActivityView.qml:54
-#: src/app/webbrowser/NewTabView.qml:123
-msgid "Bookmarks"
+#: src/app/webbrowser/AddressBar.qml:148
+msgid "search or enter an address"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:125
-msgid "Top sites"
+#: src/app/webbrowser/Browser.qml:150
+msgid "Share"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see less"
+#: src/app/webbrowser/Browser.qml:164
+msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see more"
+#: src/app/webbrowser/Browser.qml:170
+msgid "Open tabs"
 msgstr ""
 
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/webbrowser/TabsList.qml:37
+#: src/app/webbrowser/Browser.qml:176 src/app/webbrowser/TabsView.qml:55
+msgid "New tab"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:99
 #, qt-format
-msgid "Currently viewing (%1)"
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:113
+msgid "Less"
 msgstr ""
 
-#: src/app/webbrowser/TabsList.qml:69
-msgid "+"
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:87
-msgid "Today"
-msgstr ""
-
-#: src/app/webbrowser/TimelineView.qml:89
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:91
-msgid "Last 7 Days"
+#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:96
+msgid "Done"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:93
-msgid "This Month"
+#: src/app/webbrowser/HistoryView.qml:109
+msgid "Clear"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:95
-msgid "This Year"
+#: src/app/webbrowser/HistoryView.qml:123
+msgid "Delete all history?"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:97
-msgid "Older"
+#: src/app/webbrowser/HistoryView.qml:126
+msgid "Yes"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:287
-msgid "(local files)"
+#: src/app/webbrowser/HistoryView.qml:135
+msgid "No"
 msgstr ""
 
-#: src/app/webbrowser/TimelineView.qml:289
-msgid "(other)"
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
 msgstr ""
 
-#: src/app/webbrowser/webbrowser-app.desktop.in:3
-msgid "Browser"
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
 msgstr ""
 
-#: src/app/webbrowser/webbrowser-app.desktop.in:4
-msgid "Web Browser"
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
 msgstr ""
 
-#: src/app/webbrowser/webbrowser-app.desktop.in:5
-msgid "Browse the World Wide Web"
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr ""
+
+#: src/app/webbrowser/TabsView.qml:111
+msgid "Add"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:36
-#: src/app/webcontainer/webapp-container.qml:54
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
-#: src/app/webbrowser/webbrowser-app.qml:38
-#: src/app/webcontainer/webapp-container.qml:56
+#: src/app/webbrowser/webbrowser-app.qml:41
+#: src/app/webcontainer/webapp-container.qml:59
 msgid "Ubuntu Web Browser"
 msgstr ""
 
@@ -346,4 +351,20 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
+msgid "Browser"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
+msgid "Web Browser"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
+msgid "Browse the World Wide Web"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
+msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr ""

@@ -78,6 +78,16 @@ const QDateTime& HistoryDomainModel::lastVisit() const
     return m_lastVisit;
 }
 
+const QString& HistoryDomainModel::lastVisitedTitle() const
+{
+    return m_lastVisitedTitle;
+}
+
+const QUrl& HistoryDomainModel::lastVisitedIcon() const
+{
+    return m_lastVisitedIcon;
+}
+
 bool HistoryDomainModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     if (m_domain.isEmpty()) {
@@ -90,10 +100,18 @@ bool HistoryDomainModel::filterAcceptsRow(int source_row, const QModelIndex& sou
 
 void HistoryDomainModel::onModelChanged()
 {
+    // If the rowCount is zero all the history entries of this model were
+    // removed. If that happens this domain will be removed from the list, so
+    // we shouldn’t update its properties lest the update triggers a re-ordering
+    // on any sort proxy model that uses this model as source, while removing an
+    // entry.
     if (rowCount() > 0) {
         m_lastVisit = data(index(0, 0), HistoryModel::LastVisit).toDateTime();
-    } else {
-        m_lastVisit = QDateTime();
+        m_lastVisitedTitle = data(index(0, 0), HistoryModel::Title).toString();
+        m_lastVisitedIcon = data(index(0, 0), HistoryModel::Icon).toUrl();
+
+        Q_EMIT lastVisitChanged();
+        Q_EMIT lastVisitedTitleChanged();
+        Q_EMIT lastVisitedIconChanged();
     }
-    Q_EMIT lastVisitChanged();
 }

@@ -112,7 +112,7 @@ bool WebappContainer::initialize()
         }
         m_window->setProperty("webappName", m_webappName);
         m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
-        m_window->setProperty("addressBarVisible", m_addressBarVisible);
+        m_window->setProperty("chromeVisible", m_addressBarVisible);
         m_window->setProperty("accountProvider", m_accountProvider);
 
         qDebug() << "Using" << (m_withOxide ? "Oxide" : "QtWebkit") << "as the web engine backend";
@@ -133,14 +133,22 @@ bool WebappContainer::initialize()
             m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
         }
 
+        // Experimental, unsupported API, to override the webview
+        QFileInfo overrideFile("webview-override.qml");
+        if (overrideFile.exists()) {
+            m_window->setProperty("webviewOverrideFile", QUrl::fromLocalFile(overrideFile.absoluteFilePath()));
+        }
+
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
         if (m_webappName.isEmpty()) {
             QList<QUrl> urls = this->urls();
             if (!urls.isEmpty()) {
                 m_window->setProperty("url", urls.last());
-            } else {
+            } else if (m_webappModelSearchPath.isEmpty()) {
                 return false;
             }
+            // Otherwise, assume that the homepage will come from a locally defined
+            // webapp-properties.json file pulled from the webapp model element.
         }
 
         m_component->completeCreate();
@@ -173,6 +181,7 @@ void WebappContainer::printUsage() const
        " [--inspector]"
        " [--app-id=APP_ID]"
        " [--homepage=URL]"
+       " [--new-session]"
        " [--webapp=name]"
        " [--webappModelSearchPath=PATH]"
        " [--webappUrlPatterns=URL_PATTERNS]"
@@ -186,17 +195,18 @@ void WebappContainer::printUsage() const
     out << "  --fullscreen                        display full screen" << endl;
     out << "  --local-webapp-manifest             configure the webapp assuming that it has a local manifest.json file" << endl;
     out << "  --maximized                         opens the application maximized" << endl;
-    out << "  --inspector                         run a remote inspector on port " << REMOTE_INSPECTOR_PORT << endl;
+    out << "  --inspector[=PORT]                  run a remote inspector on a specified port or " << REMOTE_INSPECTOR_PORT << " as the default port" << endl;
     out << "  --app-id=APP_ID                     run the application with a specific APP_ID" << endl;
     out << "  --homepage=URL                      override any URL passed as an argument" << endl;
+    out << "  --new-session                       do not restore the open page from the last session" << endl;
     out << "  --webapp=name                       try to match the webapp by name with an installed integration script" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
-    out << "  --enable-back-forward               enable the display of the back and forward buttons" << endl;
-    out << "  --enable-addressbar                 enable the display of the address bar" << endl;
+    out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
+    out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
 }
 
 void WebappContainer::parseCommandLine()
