@@ -30,6 +30,7 @@ BrowserView {
     currentWebview: tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
+    property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
     property url homepage
     property QtObject searchEngine
@@ -51,8 +52,8 @@ BrowserView {
             onTriggered: currentWebview.reload()
         },
         Actions.Bookmark {
-            enabled: currentWebview
-            onTriggered: _bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
+            enabled: currentWebview && browser.bookmarksModel
+            onTriggered: browser.bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
             onTriggered: browser.openUrlInNewTab("", true)
@@ -127,14 +128,14 @@ BrowserView {
             searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
 
             function isCurrentUrlBookmarked() {
-                return (webview ? _bookmarksModel.contains(webview.url) : false)
+                return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
             }
             bookmarked: isCurrentUrlBookmarked()
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
-                    _bookmarksModel.add(webview.url, webview.title, webview.icon)
+                    browser.bookmarksModel.add(webview.url, webview.title, webview.icon)
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
-                    _bookmarksModel.remove(webview.url)
+                    browser.bookmarksModel.remove(webview.url)
                 }
             }
             onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
@@ -143,7 +144,7 @@ BrowserView {
                 onUrlChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
             }
             Connections {
-                target: _bookmarksModel
+                target: browser.bookmarksModel
                 onAdded: if (!chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = true
                 onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
             }
@@ -304,19 +305,20 @@ BrowserView {
         }
     }
 
+    TabsModel {
+        id: tabsModel
+    }
+
     Loader {
         id: historyModelLoader
         source: "HistoryModel.qml"
         asynchronous: true
     }
 
-    TabsModel {
-        id: tabsModel
-    }
-
-    BookmarksModel {
-        id: _bookmarksModel
-        databasePath: dataLocation + "/bookmarks.sqlite"
+    Loader {
+        id: bookmarksModelLoader
+        source: "BookmarksModel.qml"
+        asynchronous: true
     }
 
     Component {
@@ -379,8 +381,8 @@ BrowserView {
                     onTriggered: browser.openUrlInNewTab(contextualData.href, true)
                 }
                 Actions.BookmarkLink {
-                    enabled: contextualData.href.toString()
-                    onTriggered: _bookmarksModel.add(contextualData.href, contextualData.title, "")
+                    enabled: contextualData.href.toString() && browser.bookmarksModel
+                    onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "")
                 }
                 Actions.CopyLink {
                     enabled: contextualData.href.toString()
@@ -427,7 +429,7 @@ BrowserView {
                         anchors.fill: parent
 
                         historyModel: browser.historyModel
-                        bookmarksModel: _bookmarksModel
+                        bookmarksModel: browser.bookmarksModel
                         onBookmarkClicked: {
                             currentWebview.url = url
                             currentWebview.forceActiveFocus()
