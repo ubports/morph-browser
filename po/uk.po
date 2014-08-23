@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-21 13:27+0200\n"
-"PO-Revision-Date: 2014-08-01 05:21+0000\n"
-"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
+"PO-Revision-Date: 2014-08-23 05:44+0000\n"
+"Last-Translator: dozz <dozz@ukr.net>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-22 07:16+0000\n"
+"X-Launchpad-Export-Date: 2014-08-23 07:12+0000\n"
 "X-Generator: Launchpad (build 17163)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -328,7 +328,7 @@ msgstr "більше"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"
-msgstr ""
+msgstr "Натисніть, щоб переглянути"
 
 #: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
