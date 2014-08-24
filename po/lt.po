@@ -1,4 +1,4 @@
-# Amharic translation for webbrowser-app
+# Lithuanian translation for webbrowser-app
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the webbrowser-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-21 13:27+0200\n"
-"PO-Revision-Date: 2014-08-23 17:17+0000\n"
-"Last-Translator: samson <Unknown>\n"
-"Language-Team: Amharic <am@li.org>\n"
+"PO-Revision-Date: 2014-08-23 18:36+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Lithuanian <lt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Launchpad-Export-Date: 2014-08-24 06:43+0000\n"
 "X-Generator: Launchpad (build 17163)\n"
 
@@ -25,46 +26,46 @@ msgstr ""
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
 msgid "OK"
-msgstr "እሺ"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr "ማረጋገጫ ያስፈልጋል"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "ድህረ ገጹ %1 ማረጋገጫ ያስፈልጋል"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr "የተጠቃሚ ስም"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr "የመግቢያ ቃል"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38
 msgid "Cancel"
-msgstr "መሰረዣ"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr "መቃኛ ማረጋገጫ"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr "መተው"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr "መቆያ"
+msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "ይህ ግንኙነት የሚታመን አይደለም"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -76,11 +77,11 @@ msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr "ለማንኛውም መቀጠያ"
+msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr "ወደ ደህንነት መመለሻ"
+msgstr ""
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
@@ -88,13 +89,13 @@ msgstr ""
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr "የ ኔትዎርክ ስህተት"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "ለመመልከት ችግር የገጠሞት ይመስላል: %1."
+msgstr ""
 
 #: src/app/ErrorSheet.qml:48
 msgid ""
@@ -103,31 +104,31 @@ msgstr ""
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "ገጽ ማነቃቂያ"
+msgstr ""
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr "እባክዎን ፋይል ይምረጡ"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "ፍቃድ መጠየቂያ"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
-msgstr "ይህ ገጽ የ አካሉን አካባቢ ማወቅ ይፈልጋል"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr "መከልከያ"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr "መፍቀጃ"
+msgstr ""
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -135,127 +136,127 @@ msgstr ""
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "የ ወኪል ማረጋገጫ ያስፈልጋል"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "ይህ ድህረ ገጽ %1:%2 ማረጋገጫ ይፈልጋል"
+msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "ወደ ኋላ"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "አሮጌ ገጽ"
+msgstr ""
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr "ምልክት ማድረጊያ"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "ይህን ገጽ ወደ ምልክት ማድረጊያ መጨመሪያ"
+msgstr ""
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "አገናኙን ወደ ምልክት ማድረጊያ መጨመሪያ"
+msgstr ""
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "ታሪክ ማጽጃ"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "የ መቃኛ ታሪክ ማጽጃ"
+msgstr ""
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr "ኮፒ"
+msgstr ""
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr "ምስል ኮፒ ማድረጊያ"
+msgstr ""
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr "አገናኙን ኮፒ ማድረጊያ"
+msgstr ""
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "ወደ ፊት"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "አዲስ ገጽ"
+msgstr ""
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr "መሄጃ ወደ"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "አድራሻ;URL;www"
+msgstr ""
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
-msgstr "አዲስ ንዑስ መስኮት"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "አዲስ ንዑስ መስኮት መክፈቻ"
+msgstr ""
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "ምስል በ አዲስ ንዑስ መስኮት መክፈቻ"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "አገናኝ በ አዲስ ንዑስ መስኮት መክፈቻ"
+msgstr ""
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr "እንደገና መጫኛ"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "ከ ገጹ መውጫ"
+msgstr ""
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr "ምስል ማስቀመጫ"
+msgstr ""
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr "ማካፈያ…"
+msgstr ""
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
-msgstr "አድራሻ ያስገቡ ወይንም ይፈልጉ"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:154
 msgid "Share"
-msgstr "ማካፈያ"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:168
 msgid "History"
-msgstr "ታሪክ"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:174
 msgid "Open tabs"
@@ -269,56 +270,56 @@ msgstr ""
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] "%1 ገጽ"
-msgstr[1] "%1 ገጾች"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:121
 msgid "Less"
-msgstr "ትንሽ"
+msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
-msgstr "መጨረሻ የጎበኙት"
+msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
-msgstr "ትናንትና"
+msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
-msgstr "ጨርሷል"
+msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:113
 msgid "Clear"
-msgstr "ማጽጃ"
+msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:127
 msgid "Delete all history?"
-msgstr "ሁሉንም ታሪክ ላጥፋው?"
+msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:130
 msgid "Yes"
-msgstr "አዎ"
+msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:139
 msgid "No"
-msgstr "አይ"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
-msgstr "ምልክት ማድረጊያዎች"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
-msgstr "ከፍተኛ ድሕረ ገጾች"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
-msgstr "አነስተኛ መመልከቻ"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see more"
-msgstr "ተጨማሪ መመልከቻ"
+msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"
@@ -326,48 +327,48 @@ msgstr ""
 
 #: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
-msgstr "መጨመሪያ"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:39
 #: src/app/webcontainer/webapp-container.qml:57
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - የ ኡቡንቱ ዌብ መቃኛ"
+msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:41
 #: src/app/webcontainer/webapp-container.qml:59
 msgid "Ubuntu Web Browser"
-msgstr "የ ኡቡንቱ ዌብ መቃኛ"
+msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr "ምንም የ አካባቢ መግለጫ አልተገኘም ለ "
+msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr "የ መግለጫ መጨመሪያ ደረጃውን መዝለያ"
+msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr "መግለጫ መጨመሪያ"
+msgstr ""
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr "መግለጫ ይምረጡ"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
-msgstr "መቃኛ"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr "ዌብ መቃኛ"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
-msgstr "ኢንተርኔት መቃኛ"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr "ኢንተርኔት;WWW;መቃኛ;ዌብ;መቃኛ"
+msgstr ""
