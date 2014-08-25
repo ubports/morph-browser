@@ -1,3 +1,16 @@
+webbrowser-app (0.23+14.10.20140825.1-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Reduce startup time of both apps by means of a few tricks, all
+    related to asynchronous loading: - ensure loaders on the critical
+    path load their components asynchronously - instantiate the error
+    sheets asynchronously, as they are not needed right away - use
+    Component.incubateObject(…) instead of Component.createObject(…) to
+    instantiate objects asynchronously where possible - instantiate the
+    history and bookmarks models asynchronously (LP: #1325001)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 25 Aug 2014 21:11:11 +0000
+
 webbrowser-app (0.23+14.10.20140821-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]
