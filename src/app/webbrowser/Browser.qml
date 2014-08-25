@@ -29,6 +29,9 @@ BrowserView {
 
     currentWebview: tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
+    property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
+    property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
+
     property url homepage
     property QtObject searchEngine
 
@@ -49,14 +52,15 @@ BrowserView {
             onTriggered: currentWebview.reload()
         },
         Actions.Bookmark {
-            enabled: currentWebview
-            onTriggered: _bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
+            enabled: currentWebview && browser.bookmarksModel
+            onTriggered: browser.bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
             onTriggered: browser.openUrlInNewTab("", true)
         },
         Actions.ClearHistory {
-            onTriggered: _historyModel.clearAll()
+            enabled: browser.historyModel
+            onTriggered: browser.historyModel.clearAll()
         }
     ]
 
@@ -97,7 +101,7 @@ BrowserView {
         anchors.fill: parent
         visible: !historyViewContainer.visible && !tabsViewContainer.visible
 
-        Item {
+        FocusScope {
             id: tabContainer
             anchors {
                 left: parent.left
@@ -107,11 +111,14 @@ BrowserView {
             height: parent.height - chrome.visibleHeight - osk.height
         }
 
-        ErrorSheet {
+        Loader {
             anchors.fill: tabContainer
-            visible: currentWebview ? currentWebview.lastLoadFailed : false
-            url: currentWebview ? currentWebview.url : ""
-            onRefreshClicked: currentWebview.reload()
+            sourceComponent: ErrorSheet {
+                visible: currentWebview ? currentWebview.lastLoadFailed : false
+                url: currentWebview ? currentWebview.url : ""
+                onRefreshClicked: currentWebview.reload()
+            }
+            asynchronous: true
         }
 
         Chrome {
@@ -121,14 +128,14 @@ BrowserView {
             searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
 
             function isCurrentUrlBookmarked() {
-                return (webview ? _bookmarksModel.contains(webview.url) : false)
+                return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
             }
             bookmarked: isCurrentUrlBookmarked()
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
-                    _bookmarksModel.add(webview.url, webview.title, webview.icon)
+                    browser.bookmarksModel.add(webview.url, webview.title, webview.icon)
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
-                    _bookmarksModel.remove(webview.url)
+                    browser.bookmarksModel.remove(webview.url)
                 }
             }
             onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
@@ -137,7 +144,7 @@ BrowserView {
                 onUrlChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
             }
             Connections {
-                target: _bookmarksModel
+                target: browser.bookmarksModel
                 onAdded: if (!chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = true
                 onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
             }
@@ -167,6 +174,7 @@ BrowserView {
                     objectName: "history"
                     text: i18n.tr("History")
                     iconName: "history"
+                    enabled: browser.historyModel
                     onTriggered: historyViewComponent.createObject(historyViewContainer)
                 },
                 Action {
@@ -219,7 +227,10 @@ BrowserView {
             }
             width: chrome.width - units.gu(5)
             height: enabled ? Math.min(contentHeight, tabContainer.height - units.gu(2)) : 0
-            model: historyMatches
+            model: HistoryMatchesModel {
+                sourceModel: browser.historyModel
+                query: chrome.text
+            }
             onSelected: {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
@@ -266,14 +277,14 @@ BrowserView {
                     // the view is displayed as early as possible.
                     running: true
                     interval: 1
-                    onTriggered: historyModel = _historyModel
+                    onTriggered: historyModel = browser.historyModel
                 }
 
                 onSeeMoreEntriesClicked: {
                     var view = expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
                     view.onHistoryEntryClicked.connect(destroy)
                 }
-                onHistoryDomainRemoved: _historyModel.removeEntriesByDomain(domain)
+                onHistoryDomainRemoved: browser.historyModel.removeEntriesByDomain(domain)
                 onDone: destroy()
             }
         }
@@ -288,30 +299,26 @@ BrowserView {
                     currentWebview.url = url
                     done()
                 }
-                onHistoryEntryRemoved: _historyModel.removeEntryByUrl(url)
+                onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
                 onDone: destroy()
             }
         }
-    }
-
-    HistoryModel {
-        id: _historyModel
-        databasePath: dataLocation + "/history.sqlite"
-    }
-
-    HistoryMatchesModel {
-        id: historyMatches
-        sourceModel: _historyModel
-        query: chrome.text
     }
 
     TabsModel {
         id: tabsModel
     }
 
-    BookmarksModel {
-        id: _bookmarksModel
-        databasePath: dataLocation + "/bookmarks.sqlite"
+    Loader {
+        id: historyModelLoader
+        source: "HistoryModel.qml"
+        asynchronous: true
+    }
+
+    Loader {
+        id: bookmarksModelLoader
+        source: "BookmarksModel.qml"
+        asynchronous: true
     }
 
     Component {
@@ -331,7 +338,7 @@ BrowserView {
 
             function load() {
                 if (!webview) {
-                    webviewComponent.createObject(this, {"url": initialUrl})
+                    webviewComponent.incubateObject(this, {"url": initialUrl})
                 }
             }
 
@@ -345,7 +352,7 @@ BrowserView {
                 if (request) {
                     // Instantiating the webview cannot be delayed because the request
                     // object is destroyed after exiting the newViewRequested signal handler.
-                    webviewComponent.createObject(this, {"request": request})
+                    webviewComponent.incubateObject(this, {"request": request})
                 }
             }
         }
@@ -374,8 +381,8 @@ BrowserView {
                     onTriggered: browser.openUrlInNewTab(contextualData.href, true)
                 }
                 Actions.BookmarkLink {
-                    enabled: contextualData.href.toString()
-                    onTriggered: _bookmarksModel.add(contextualData.href, contextualData.title, "")
+                    enabled: contextualData.href.toString() && browser.bookmarksModel
+                    onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "")
                 }
                 Actions.CopyLink {
                     enabled: contextualData.href.toString()
@@ -402,8 +409,8 @@ BrowserView {
             }
 
             onLoadingChanged: {
-                if (lastLoadSucceeded) {
-                    _historyModel.add(url, title, icon)
+                if (lastLoadSucceeded && browser.historyModel) {
+                    browser.historyModel.add(url, title, icon)
                 }
             }
 
@@ -421,8 +428,8 @@ BrowserView {
                     NewTabView {
                         anchors.fill: parent
 
-                        historyModel: _historyModel
-                        bookmarksModel: _bookmarksModel
+                        historyModel: browser.historyModel
+                        bookmarksModel: browser.bookmarksModel
                         onBookmarkClicked: {
                             currentWebview.url = url
                             currentWebview.forceActiveFocus()
@@ -440,6 +447,7 @@ BrowserView {
     Loader {
         id: downloadLoader
         source: formFactor == "desktop" ? "" : "../Downloader.qml"
+        asynchronous: true
     }
 
     QtObject {
@@ -536,19 +544,26 @@ BrowserView {
         onUrlChanged: session.save()
         onTitleChanged: session.save()
     }
-    Component.onCompleted: {
-        if (browser.restoreSession) {
-            session.restore()
-        }
-        for (var i in browser.initialUrls) {
-            browser.openUrlInNewTab(browser.initialUrls[i], true, false)
-        }
-        if (tabsModel.count == 0) {
-            browser.openUrlInNewTab(browser.homepage, true, false)
-        }
-        tabsModel.currentTab.load()
-        if (!tabsModel.currentTab.url.toString() && (formFactor == "desktop")) {
-            internal.focusAddressBar()
+
+    // Delay instantiation of the first webview by 1 msec to allow initial
+    // rendering to happen. Clumsy workaround for http://pad.lv/1359911.
+    Timer {
+        running: true
+        interval: 1
+        onTriggered: {
+            if (browser.restoreSession) {
+                session.restore()
+            }
+            for (var i in browser.initialUrls) {
+                browser.openUrlInNewTab(browser.initialUrls[i], true, false)
+            }
+            if (tabsModel.count == 0) {
+                browser.openUrlInNewTab(browser.homepage, true, false)
+            }
+            tabsModel.currentTab.load()
+            if (!tabsModel.currentTab.url.toString() && (formFactor == "desktop")) {
+                internal.focusAddressBar()
+            }
         }
     }
 }
