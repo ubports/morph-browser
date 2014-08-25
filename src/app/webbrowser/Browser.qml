@@ -101,7 +101,7 @@ BrowserView {
         anchors.fill: parent
         visible: !historyViewContainer.visible && !tabsViewContainer.visible
 
-        Item {
+        FocusScope {
             id: tabContainer
             anchors {
                 left: parent.left
