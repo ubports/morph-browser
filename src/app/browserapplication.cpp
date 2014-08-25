@@ -106,8 +106,10 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
         qputenv("APP_ID", id.toUtf8());
     }
     // Ensure that application-specific data is written where it ought to.
-    QString appPkgName = qgetenv("APP_ID").split('_').first();
-    QCoreApplication::setApplicationName(appPkgName);
+    // Get the first two components of the app ID: <package>_<app>
+    QStringList appPkgName =
+        QString::fromUtf8(qgetenv("APP_ID")).split('_').mid(0, 2);
+    QCoreApplication::setApplicationName(appPkgName.join('_'));
 
     // Enable compositing in oxide
     QOpenGLContext* glcontext = new QOpenGLContext(this);
