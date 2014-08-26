@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-07-30 12:43+0200\n"
+"POT-Creation-Date: 2014-08-21 13:27+0200\n"
 "PO-Revision-Date: 2014-08-01 07:10+0000\n"
 "Last-Translator: David Planella <david.planella@ubuntu.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-05 06:41+0000\n"
-"X-Generator: Launchpad (build 17147)\n"
+"X-Launchpad-Export-Date: 2014-08-22 07:15+0000\n"
+"X-Generator: Launchpad (build 17163)\n"
 
-#: src/app/AlertDialog.qml:24
+#: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr "Alerta del JavaScript"
 
-#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
+#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
 msgid "OK"
 msgstr "D'acord"
 
@@ -45,20 +45,20 @@ msgstr "Nom d'usuari"
 msgid "Password"
 msgstr "Contrasenya"
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
-#: src/app/PromptDialog.qml:40
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/PromptDialog.qml:38
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: src/app/BeforeUnloadDialog.qml:24
+#: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
 msgstr "Confirma la navegació"
 
-#: src/app/BeforeUnloadDialog.qml:28
+#: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
 msgstr "Surt"
 
-#: src/app/BeforeUnloadDialog.qml:33
+#: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
 msgstr "Roman"
 
@@ -84,7 +84,7 @@ msgstr "Continua de totes maneres"
 msgid "Back to safety"
 msgstr "Torna a la seguretat"
 
-#: src/app/ConfirmDialog.qml:24
+#: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
 msgstr "Confirmació del JavaScript"
 
@@ -131,19 +131,19 @@ msgstr "Denega"
 msgid "Allow"
 msgstr "Permet"
 
-#: src/app/PromptDialog.qml:24
+#: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr "Indicador del JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Es requereix autentificació del servidor intermediari"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "El lloc web %1:%2 requereix autentificació."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -249,32 +249,32 @@ msgstr "Comparteix..."
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
-msgstr ""
+msgstr "cerqueu o introduïu una adreça"
 
-#: src/app/webbrowser/Browser.qml:148
+#: src/app/webbrowser/Browser.qml:154
 msgid "Share"
 msgstr "Comparteix"
 
-#: src/app/webbrowser/Browser.qml:162
+#: src/app/webbrowser/Browser.qml:168
 msgid "History"
 msgstr "Historial"
 
-#: src/app/webbrowser/Browser.qml:168
+#: src/app/webbrowser/Browser.qml:174
 msgid "Open tabs"
 msgstr "Pestanyes obertes"
 
-#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+#: src/app/webbrowser/Browser.qml:180 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Pestanya nova"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:99
+#: src/app/webbrowser/ExpandedHistoryView.qml:107
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 pàgina"
 msgstr[1] "%1 pàgines"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:113
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
 msgid "Less"
 msgstr "Menys"
 
@@ -286,23 +286,23 @@ msgstr "Darreres visites"
 msgid "Yesterday"
 msgstr "Ahir"
 
-#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr "Fet"
 
-#: src/app/webbrowser/HistoryView.qml:109
+#: src/app/webbrowser/HistoryView.qml:113
 msgid "Clear"
 msgstr "Neteja"
 
-#: src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/HistoryView.qml:127
 msgid "Delete all history?"
 msgstr "Voleu suprimir tot l'historial?"
 
-#: src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryView.qml:130
 msgid "Yes"
 msgstr "Sí"
 
-#: src/app/webbrowser/HistoryView.qml:135
+#: src/app/webbrowser/HistoryView.qml:139
 msgid "No"
 msgstr "No"
 
@@ -312,7 +312,7 @@ msgstr "Adreces d'interès"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
-msgstr ""
+msgstr "Llocs destacats"
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
@@ -322,31 +322,23 @@ msgstr "mostra'n menys"
 msgid "see more"
 msgstr "mostra'n més"
 
-#: src/app/webbrowser/TabsView.qml:110
+#: src/app/webbrowser/TabPreview.qml:162
+msgid "Tap to view"
+msgstr ""
+
+#: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
 msgstr "Afegeix"
 
-#: src/app/webbrowser/webbrowser-app.desktop.in:3
-msgid "Browser"
-msgstr "Navegador"
-
-#: src/app/webbrowser/webbrowser-app.desktop.in:4
-msgid "Web Browser"
-msgstr "Navegador web"
-
-#: src/app/webbrowser/webbrowser-app.desktop.in:5
-msgid "Browse the World Wide Web"
-msgstr "Navegueu per la web"
-
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:54
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navegador web de l'Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:56
+#: src/app/webbrowser/webbrowser-app.qml:41
+#: src/app/webcontainer/webapp-container.qml:59
 msgid "Ubuntu Web Browser"
 msgstr "Navegador web de l'Ubuntu"
 
@@ -365,3 +357,19 @@ msgstr "Afegeix un compte"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Seleccioneu un compte"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
+msgid "Browser"
+msgstr "Navegador"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
+msgid "Web Browser"
+msgstr "Navegador web"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
+msgid "Browse the World Wide Web"
+msgstr "Navegueu per la web"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
+msgid "Internet;WWW;Browser;Web;Explorer"
+msgstr ""

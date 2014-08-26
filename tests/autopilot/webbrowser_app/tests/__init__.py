@@ -149,15 +149,21 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.main_window.get_tabs_view()
 
     def open_new_tab(self):
+        count = len(self.main_window.get_webviews())
         # assumes the tabs view is already open
         tabs_view = self.main_window.get_tabs_view()
         add_button = tabs_view.get_add_button()
         self.pointing_device.click_object(add_button)
         tabs_view.wait_until_destroyed()
+        self.assert_number_webviews_eventually(count + 1)
         self.main_window.get_new_tab_view()
         if model() == 'Desktop':
             address_bar = self.main_window.get_chrome().get_address_bar()
             self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+    def assert_number_webviews_eventually(self, count):
+        self.assertThat(lambda: len(self.main_window.get_webviews()),
+                        Eventually(Equals(count)))
 
     def ping_server(self):
         ping = urllib.request.urlopen(self.base_url + "/ping")

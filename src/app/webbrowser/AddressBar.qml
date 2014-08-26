@@ -172,7 +172,7 @@ FocusScope {
         }
         onActiveFocusChanged: {
             if (!activeFocus) {
-                if (addressbar.actualUrl.toString()) {
+                if (!addressbar.loading && addressbar.actualUrl.toString()) {
                     text = addressbar.actualUrl
                 }
             }

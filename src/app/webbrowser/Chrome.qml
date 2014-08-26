@@ -98,11 +98,13 @@ ChromeBase {
                      // Workaround for https://bugs.launchpad.net/oxide/+bug/1290821.
                      && !chrome.webview.lastLoadStopped
                      : false
-
-            onValidated: {
-                chrome.webview.url = requestedUrl
-                chrome.webview.forceActiveFocus()
+            onLoadingChanged: {
+                if (loading) {
+                    chrome.webview.forceActiveFocus()
+                }
             }
+
+            onValidated: chrome.webview.url = requestedUrl
             onRequestReload: chrome.webview.reload()
             onRequestStop: chrome.webview.stop()
 
@@ -253,9 +255,12 @@ ChromeBase {
                                 left: actionIcon.right
                                 leftMargin: units.gu(2)
                                 verticalCenter: parent.verticalCenter
+                                right: parent.right
+                                rightMargin: units.gu(1)
                             }
                             text: model.text
                             fontSize: "small"
+                            elide: Text.ElideRight
                         }
                     }
                 }

@@ -38,6 +38,7 @@ BrowserView {
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefix: webview.popupRedirectionUrlPrefix
+    property alias webviewOverrideFile: webview.webviewOverrideFile
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
@@ -75,14 +76,17 @@ BrowserView {
                                       unityWebapps.model.userAgentOverrideFor(webappName) : ""
         }
 
-        ErrorSheet {
+        Loader {
             anchors.fill: webview
-            visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
-            url: webview.currentWebview.url
-            onRefreshClicked: {
-                if (webview.currentWebview)
-                    webview.currentWebview.reload()
+            sourceComponent: ErrorSheet {
+                visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
+                url: webview.currentWebview.url
+                onRefreshClicked: {
+                    if (webview.currentWebview)
+                        webview.currentWebview.reload()
+                }
             }
+            asynchronous: true
         }
 
         Loader {
@@ -146,24 +150,14 @@ BrowserView {
         }
 
         Loader {
-            sourceComponent: (webapp.oxide && !webapp.chromeless) ? scrollTrackerComponent : undefined
+            sourceComponent: (webapp.oxide && !webapp.chromeless) ? chromeStateTrackerComponent : undefined
 
             Component {
-                id: scrollTrackerComponent
+                id: chromeStateTrackerComponent
 
-                ScrollTracker {
+                ChromeStateTracker {
                     webview: webapp.currentWebview
                     header: chromeLoader.item
-
-                    active: !webapp.currentWebview.fullscreen
-                    onScrolledUp: chromeLoader.item.state = "shown"
-                    onScrolledDown: {
-                        if (nearBottom) {
-                            chromeLoader.item.state = "shown"
-                        } else if (!nearTop) {
-                            chromeLoader.item.state = "hidden"
-                        }
-                    }
                 }
             }
         }
@@ -223,7 +217,17 @@ BrowserView {
     }
     Connections {
         target: webapp.currentWebview
-        onUrlChanged: session.save()
+        onUrlChanged: {
+            var url = webapp.currentWebview.url.toString()
+            if (url.length === 0 || url === 'about:blank') {
+                return;
+            }
+            if (popupRedirectionUrlPrefix.length !== 0
+                    && url.indexOf(popupRedirectionUrlPrefix) === 0) {
+                return;
+            }
+            session.save()
+        }
     }
     Component.onCompleted: {
         if (webapp.restoreSession) {

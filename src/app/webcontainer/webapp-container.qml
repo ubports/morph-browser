@@ -41,6 +41,7 @@ Window {
     property bool oxide: false
     property string accountProvider: ""
     property string popupRedirectionUrlPrefix: ""
+    property url webviewOverrideFile: ""
     property var __webappCookieStore: null
 
     contentOrientation: Screen.orientation
@@ -80,6 +81,7 @@ Window {
         webappUrlPatterns: root.webappUrlPatterns
 
         popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+        webviewOverrideFile: root.webviewOverrideFile
 
         anchors.fill: parent
 
@@ -188,11 +190,18 @@ Window {
         target: UriHandler
         onOpened: {
             // only consider the first one (if multiple)
-            if (uris.length !== 0
-                    && webappPageComponentLoader.item
-                    && webappPageComponentLoader.item.currentWebview) {
-                webappPageComponentLoader.item.currentWebview.url = uris[0];
+            if (uris.length === 0 ||
+                    !webappPageComponentLoader.item ||
+                    !webappPageComponentLoader.item.currentWebview) {
+                return;
             }
+            var requestedUrl = uris[0].toString();
+
+            if (popupRedirectionUrlPrefix.length !== 0
+                    && requestedUrl.indexOf(popupRedirectionUrlPrefix) === 0) {
+                return;
+            }
+            webappPageComponentLoader.item.currentWebview.url = requestedUrl;
         }
     }
 }
