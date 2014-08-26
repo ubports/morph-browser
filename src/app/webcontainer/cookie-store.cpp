@@ -87,10 +87,7 @@ void CookieStore::updateLastUpdateTimestamp(const QDateTime& timestamp)
 
 void CookieStore::cookiesUpdated(bool status)
 {
-    if (status)
-        Q_EMIT moved(true);
-    else
-        Q_EMIT moved(false);
+    Q_EMIT moved(status);
 }
 
 void CookieStore::cookiesReceived(const Cookies& cookies
