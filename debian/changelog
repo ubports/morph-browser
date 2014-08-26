@@ -1,3 +1,10 @@
+webbrowser-app (0.23+14.10.20140826-0ubuntu1) utopic; urgency=low
+
+  [ Zsombor Egri ]
+  * Fix focus handling on Chrome and Suggestions.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 26 Aug 2014 09:54:53 +0000
+
 webbrowser-app (0.23+14.10.20140825.1-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]
