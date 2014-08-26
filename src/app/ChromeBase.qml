@@ -19,7 +19,8 @@
 import QtQuick 2.2
 import Ubuntu.Components 1.1
 
-FocusScope {
+// use styled item otherwise Drawer button will steal focus from the AddressBar
+StyledItem {
     id: chrome
 
     readonly property real visibleHeight: y + height

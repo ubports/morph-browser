@@ -57,6 +57,8 @@ Rectangle {
             showDivider: index < (listview.count - 1)
 
             __height: Math.max(middleVisuals.height, units.gu(6))
+            // disable focus handling
+            activeFocusOnPress: false
 
             Item  {
                 id: middleVisuals
