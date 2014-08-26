@@ -243,6 +243,10 @@ FocusScope {
         var hasProtocol = url.toString().indexOf("://") != -1
         var domain;
         if(hasProtocol) {
+            if (url.toString().split("://")[0] == "file") {
+                // Don't process file:// urls
+                return url;
+            }
             domain = url.toString().split('/')[2];
         } else {
             domain = url.toString().split('/')[0];

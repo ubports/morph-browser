@@ -116,6 +116,13 @@ TestCase {
     function test_simplify_data() {
         return [
             {text: "ubuntu.com", url: "http://www.ubuntu.com"},
+            {text: "ubuntu.com", url: "http://www.ubuntu.com/"},
+            {text: "ubuntu.com", url: "http://www.ubuntu.com:80"},
+            {text: "ubuntu.com", url: "http://user@www.ubuntu.com"},
+            {text: "ubuntu.com", url: "http://user:password@www.ubuntu.com"},
+            {text: "ubuntu.com", url: "http://user:password@www.ubuntu.com"},
+            {text: "ubuntu.com", url: "http://user:password@www.ubuntu.com:80"},
+            {text: "file:///home/phablet/", url: "file:///home/phablet/"},
             {text: "en.wikipedia.org", url: "http://en.wikipedia.org/wiki/Ubuntu"},
             {text: "en.wikipedia.org", url: "en.wikipedia.org"},
             {text: "en.wikipedia.org", url: "en.wikipedia.org/wiki/Foo"}
