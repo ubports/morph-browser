@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-14 11:13+0200\n"
+"POT-Creation-Date: 2014-08-21 13:27+0200\n"
 "PO-Revision-Date: 2014-08-03 14:44+0000\n"
 "Last-Translator: GTriderXC <gtriderxc@yahoo.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-19 06:54+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
+"X-Launchpad-Export-Date: 2014-08-22 07:16+0000\n"
+"X-Generator: Launchpad (build 17163)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -253,23 +253,23 @@ msgstr "Udostępnij..."
 msgid "search or enter an address"
 msgstr "wyszukaj lub wprowadź adres"
 
-#: src/app/webbrowser/Browser.qml:150
+#: src/app/webbrowser/Browser.qml:154
 msgid "Share"
 msgstr "Udostępnij"
 
-#: src/app/webbrowser/Browser.qml:164
+#: src/app/webbrowser/Browser.qml:168
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:170
+#: src/app/webbrowser/Browser.qml:174
 msgid "Open tabs"
 msgstr "Otwarte karty"
 
-#: src/app/webbrowser/Browser.qml:176 src/app/webbrowser/TabsView.qml:55
+#: src/app/webbrowser/Browser.qml:180 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Nowa karta"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:99
+#: src/app/webbrowser/ExpandedHistoryView.qml:107
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -277,7 +277,7 @@ msgstr[0] "%1 strona"
 msgstr[1] "%1 strony"
 msgstr[2] "%1 stron"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:113
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
 msgid "Less"
 msgstr "Mniej"
 
@@ -289,23 +289,23 @@ msgstr "Ostatnio odwiedzone"
 msgid "Yesterday"
 msgstr "Wczoraj"
 
-#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:96
+#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr "Gotowe"
 
-#: src/app/webbrowser/HistoryView.qml:109
+#: src/app/webbrowser/HistoryView.qml:113
 msgid "Clear"
 msgstr "Wyczyść"
 
-#: src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/HistoryView.qml:127
 msgid "Delete all history?"
 msgstr "Wyczyścić historię?"
 
-#: src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryView.qml:130
 msgid "Yes"
 msgstr "Tak"
 
-#: src/app/webbrowser/HistoryView.qml:135
+#: src/app/webbrowser/HistoryView.qml:139
 msgid "No"
 msgstr "Nie"
 
@@ -325,7 +325,11 @@ msgstr "pokaż mniej"
 msgid "see more"
 msgstr "pokaż więcej"
 
-#: src/app/webbrowser/TabsView.qml:111
+#: src/app/webbrowser/TabPreview.qml:162
+msgid "Tap to view"
+msgstr ""
+
+#: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
 msgstr "Dodaj"
 

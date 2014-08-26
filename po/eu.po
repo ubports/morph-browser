@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-14 11:13+0200\n"
+"POT-Creation-Date: 2014-08-21 13:27+0200\n"
 "PO-Revision-Date: 2014-08-02 03:29+0000\n"
 "Last-Translator: Ibai Oihanguren Sala <Unknown>\n"
 "Language-Team: Basque <eu@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-19 06:54+0000\n"
-"X-Generator: Launchpad (build 17156)\n"
+"X-Launchpad-Export-Date: 2014-08-22 07:15+0000\n"
+"X-Generator: Launchpad (build 17163)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -253,30 +253,30 @@ msgstr "Partekatu..."
 msgid "search or enter an address"
 msgstr "bilatu edo idatzi helbide bat"
 
-#: src/app/webbrowser/Browser.qml:150
+#: src/app/webbrowser/Browser.qml:154
 msgid "Share"
 msgstr "Partekatu"
 
-#: src/app/webbrowser/Browser.qml:164
+#: src/app/webbrowser/Browser.qml:168
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:170
+#: src/app/webbrowser/Browser.qml:174
 msgid "Open tabs"
 msgstr "Ireki fitxak"
 
-#: src/app/webbrowser/Browser.qml:176 src/app/webbrowser/TabsView.qml:55
+#: src/app/webbrowser/Browser.qml:180 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Fitxa berria"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:99
+#: src/app/webbrowser/ExpandedHistoryView.qml:107
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "orri %1"
 msgstr[1] "%1 orri"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:113
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
 msgid "Less"
 msgstr "Gutxiago"
 
@@ -288,23 +288,23 @@ msgstr "Azkena bisitatuak"
 msgid "Yesterday"
 msgstr "Atzo"
 
-#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:96
+#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr "Eginda"
 
-#: src/app/webbrowser/HistoryView.qml:109
+#: src/app/webbrowser/HistoryView.qml:113
 msgid "Clear"
 msgstr "Garbitu"
 
-#: src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/HistoryView.qml:127
 msgid "Delete all history?"
 msgstr "Historia osoa ezabatu?"
 
-#: src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryView.qml:130
 msgid "Yes"
 msgstr "Bai"
 
-#: src/app/webbrowser/HistoryView.qml:135
+#: src/app/webbrowser/HistoryView.qml:139
 msgid "No"
 msgstr "Ez"
 
@@ -324,7 +324,11 @@ msgstr "gutxiago ikusi"
 msgid "see more"
 msgstr "gehiago ikusi"
 
-#: src/app/webbrowser/TabsView.qml:111
+#: src/app/webbrowser/TabPreview.qml:162
+msgid "Tap to view"
+msgstr ""
+
+#: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
 msgstr "Gehitu"
 

@@ -39,6 +39,7 @@ Item {
     Loader {
         id: webappContainerWebViewLoader
         anchors.fill: parent
+        asynchronous: true
     }
 
     Component.onCompleted: {

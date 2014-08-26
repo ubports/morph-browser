@@ -53,11 +53,13 @@ WebView {
     Loader {
         id: filePickerLoader
         source: formFactor == "desktop" ? "FilePickerDialog.qml" : "ContentPickerDialog.qml"
+        asynchronous: true
     }
 
     Loader {
         id: downloadLoader
         source: formFactor == "desktop" ? "" : "Downloader.qml"
+        asynchronous: true
     }
 
     selectionActions: ActionList {

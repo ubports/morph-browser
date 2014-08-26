@@ -43,27 +43,31 @@ Item {
             bottom: toolbar.top
         }
 
-        spacing: units.gu(-10)
+        spacing: units.gu(-5)
 
         boundsBehavior: Flickable.StopAtBounds
 
         delegate: TabPreview {
             width: parent.width
-            height: (listview.count == 1) ? listview.height : units.gu(40)
+            readonly property real minHeight: units.gu(35)
+            height: (listview.count * minHeight + (listview.count - 1) * listview.spacing) < listview.height ? (listview.height + (1 - listview.count) * listview.spacing) / listview.count : minHeight
+
             z: index
 
             title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
-            webview: model.webview
+            tab: model.tab
 
             onSelected: {
+                tab.load()
+                tab.forceActiveFocus()
                 tabsview.model.setCurrent(index)
-                webview.forceActiveFocus()
                 tabsview.done()
             }
             onCloseRequested: {
-                var webview = tabsview.model.remove(index)
-                if (webview) {
-                    webview.destroy()
+                var tab = tabsview.model.remove(index)
+                if (tab) {
+                    tab.unload()
+                    tab.destroy()
                 }
                 if (tabsview.model.count === 0) {
                     tabsview.newTabRequested()

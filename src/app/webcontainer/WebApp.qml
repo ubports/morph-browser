@@ -76,14 +76,17 @@ BrowserView {
                                       unityWebapps.model.userAgentOverrideFor(webappName) : ""
         }
 
-        ErrorSheet {
+        Loader {
             anchors.fill: webview
-            visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
-            url: webview.currentWebview.url
-            onRefreshClicked: {
-                if (webview.currentWebview)
-                    webview.currentWebview.reload()
+            sourceComponent: ErrorSheet {
+                visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
+                url: webview.currentWebview.url
+                onRefreshClicked: {
+                    if (webview.currentWebview)
+                        webview.currentWebview.reload()
+                }
             }
+            asynchronous: true
         }
 
         Loader {
