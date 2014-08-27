@@ -240,16 +240,17 @@ FocusScope {
     }
 
     function simplifyUrl(url) {
-        var hasProtocol = url.toString().indexOf("://") != -1
+        var urlString = url.toString();
+        var hasProtocol = urlString.indexOf("://") != -1
         var domain;
-        if(hasProtocol) {
-            if (url.toString().split("://")[0] == "file") {
+        if (hasProtocol) {
+            if (urlString.split("://")[0] == "file") {
                 // Don't process file:// urls
                 return url;
             }
-            domain = url.toString().split('/')[2];
+            domain = urlString.split('/')[2];
         } else {
-            domain = url.toString().split('/')[0];
+            domain = urlString.split('/')[0];
         }
         if (typeof domain !== 'undefined' && domain.length > 0) {
             // Remove user component if present
@@ -259,7 +260,7 @@ FocusScope {
             }
             // Remove port number if present
             domain = domain.split(':')[0];
-            domain = domain.replace("www.", "");
+            domain = domain.replace(/^www\./, "");
             return domain;
         } else {
             return url;
