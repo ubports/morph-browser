@@ -163,7 +163,7 @@ Window {
         }
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
             "accountProvider": accountProvider,
-            "applicationName": Qt.application.name,
+            "applicationName": unversionedAppId,
             "webappCookieStore": __webappCookieStore,
             "onlineAccountStoreComponent": localCookieStoreDbPath.length !== 0 ?
                                                localCookieStoreComponent : onlineAccountStoreComponent
