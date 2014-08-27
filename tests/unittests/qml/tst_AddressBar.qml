@@ -120,7 +120,6 @@ TestCase {
             {text: "ubuntu.com", url: "http://www.ubuntu.com:80"},
             {text: "ubuntu.com", url: "http://user@www.ubuntu.com"},
             {text: "ubuntu.com", url: "http://user:password@www.ubuntu.com"},
-            {text: "ubuntu.com", url: "http://user:password@www.ubuntu.com"},
             {text: "ubuntu.com", url: "http://user:password@www.ubuntu.com:80"},
             {text: "file:///home/phablet/", url: "file:///home/phablet/"},
             {text: "en.wikipedia.org", url: "http://en.wikipedia.org/wiki/Ubuntu"},
