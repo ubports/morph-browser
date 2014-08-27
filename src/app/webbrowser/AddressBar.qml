@@ -260,7 +260,9 @@ FocusScope {
             }
             // Remove port number if present
             domain = domain.split(':')[0];
-            domain = domain.replace(/^www\./, "");
+            if (domain.lastIndexOf('.') != 3) { // http://www.com shouldn't be trimmed
+                domain = domain.replace(/^www\./, "");
+            }
             return domain;
         } else {
             return url;
