@@ -165,7 +165,7 @@ FocusScope {
         onActiveFocusChanged: {
             if (activeFocus) {
                 addressbar.textFieldFocused();
-            } else if (text == addressbar.actualUrl) {
+            } else if (!addressbar.loading && addressbar.actualUrl.toString()) {
                 text = addressbar.simplifyUrl(addressbar.actualUrl)
             }
         }
