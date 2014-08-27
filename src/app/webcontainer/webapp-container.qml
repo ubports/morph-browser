@@ -20,6 +20,7 @@ import QtQuick 2.0
 import QtQuick.Window 2.1
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Extras.Browser 0.2
+import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import webcontainer.private 0.1
 
 Window {
@@ -77,7 +78,6 @@ Window {
         restoreSession: root.restoreSession
         oxide: root.oxide
         webappModelSearchPath: root.webappModelSearchPath
-        webappName: root.webappName
         webappUrlPatterns: root.webappUrlPatterns
 
         popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
@@ -100,6 +100,18 @@ Window {
         }
 
         Component.onCompleted: i18n.domain = "webbrowser-app"
+    }
+
+    UnityWebApps.UnityWebappsAppModel {
+        id: webappModel
+        searchPath: root.webappModelSearchPath
+
+        onModelContentChanged: {
+            if (root.webappName) {
+                var idx = webappModel.getWebappIndex(root.webappName)
+                root.url = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Homepage)
+            }
+        }
     }
 
     // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
@@ -177,6 +189,7 @@ Window {
         if (browser.currentWebview) {
             browser.currentWebview.visible = true;
             browser.currentWebview.url = root.url
+            browser.webappName = root.webappName
         }
     }
 
