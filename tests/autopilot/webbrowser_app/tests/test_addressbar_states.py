@@ -77,3 +77,13 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(action_button)
         self.assertThat(address_bar.state, Eventually(Equals("")))
         self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+
+    def test_url_simplification(self):
+        address_bar = self.main_window.get_chrome().get_address_bar()
+        self.pointing_device.click_object(address_bar)
+        self.assertThat(address_bar.text, Eventually(Equals(self.url)))
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        self.assertThat(address_bar.text, Eventually(Equals(self.domain)))
+        self.pointing_device.click_object(address_bar)
+        self.assertThat(address_bar.text, Eventually(Equals(self.url)))
