@@ -30,6 +30,14 @@ Item {
 
     signal done(variant credentialsId)
 
+    Timer {
+        id: checkTimer
+        running: true
+        repeat: false
+        onTriggered: checkAccounts()
+        interval: 100
+    }
+
     AccountsModel {
         id: accountsModel
         accountProvider: root.accountProvider
@@ -47,16 +55,25 @@ Item {
         anchors.fill: parent
     }
 
-    Component.onCompleted: checkAccounts()
-
     function checkAccounts() {
+        checkTimer.stop()
         if (accountsModel.count === 0) {
-            accountsViewLoader.sourceComponent = accountsAdditionToolbarViewComponent
-        } else if (accountsModel.count === 1) {
+            // Skip the account creation step for now (see the Note below)
+//            accountsViewLoader.sourceComponent = accountsAdditionToolbarViewComponent
+            done(null);
+        } else {
+            doLogin(accountsModel.model.get(0, "accountServiceHandle"))
+        }
+
+        // Note: Disable the account selection for now until we have a clearer view of
+        // the design and behavior related to the feature. Keep the code for reference.
+        /*
+        if (accountsModel.count === 1) {
             doLogin(accountsModel.model.get(0, "accountServiceHandle"))
         } else {
             accountsViewLoader.sourceComponent = accountsSelectionViewComponent
         }
+        */
     }
 
     Component {
@@ -155,12 +172,19 @@ Item {
 
     function doLogin(accountHandle) {
         var account = accountComponent.createObject(root, {objectHandle: accountHandle});
-        account.authenticated.connect(function () {
+
+        function authenticatedCallback() {
+            account.authenticated.disconnect(authenticatedCallback);
             done(account.authData.credentialsId);
-        });
-        account.authenticationError.connect(function () {
+        }
+        account.authenticated.connect(authenticatedCallback);
+
+        function errorCallback() {
+            account.authenticationError.disconnect(errorCallback);
             done(null);
-        });
+        }
+        account.authenticationError.connect(errorCallback);
+
         account.authenticate(null);
     }
 

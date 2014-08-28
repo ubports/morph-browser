@@ -1,3 +1,17 @@
+webbrowser-app (0.23+14.10.20140828-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Handle cookie manager & cookie copies w/ Oxide
+  * skip creation step and automatically select first account when
+    multiple are found
+  * fix
+  * Merge lp:~mardy/webbrowser-app/cookie-manager
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 28 Aug 2014 15:07:07 +0000
+
 webbrowser-app (0.23+14.10.20140826-0ubuntu1) utopic; urgency=low
 
   [ Zsombor Egri ]

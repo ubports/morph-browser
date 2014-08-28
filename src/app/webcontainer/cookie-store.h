@@ -22,43 +22,49 @@
 #include <QByteArray>
 #include <QDateTime>
 #include <QList>
+#include <QNetworkCookie>
 #include <QObject>
+#include <QHash>
 
-typedef QList<QByteArray> Cookies;
+typedef QList<QNetworkCookie> Cookies;
 Q_DECLARE_METATYPE(Cookies);
 
+class CookieStoreRequest;
 
 class CookieStore : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(Cookies cookies READ cookies WRITE setCookies \
-               NOTIFY cookiesChanged)
     Q_PROPERTY(QDateTime lastUpdateTimeStamp READ lastUpdateTimeStamp \
                NOTIFY lastUpdateTimeStampChanged)
 
 public:
     CookieStore(QObject* parent = 0);
 
-    bool setCookies(const Cookies& cookies);
-    Cookies cookies();
-
     virtual QDateTime lastUpdateTimeStamp() const;
 
+    Q_INVOKABLE void getCookies();
+    Q_INVOKABLE void setCookies(const Cookies& cookies);
     Q_INVOKABLE void moveFrom(CookieStore* store);
 
 Q_SIGNALS:
     void moved(bool);
-    void cookiesChanged();
     void lastUpdateTimeStampChanged();
+    void gotCookies(const Cookies& cookies);
+    void cookiesSet(bool status);
+
+private Q_SLOTS:
+    void cookiesReceived(const Cookies& cookies, CookieStoreRequest* request);
 
 protected:
     void updateLastUpdateTimestamp(const QDateTime& timestamp);
 
 private:
-    virtual Cookies doGetCookies();
-    virtual bool doSetCookies(const Cookies& Cookies);
+    virtual void doGetCookies();
+    virtual void doSetCookies(const Cookies& Cookies);
 
 private:
+
+    QHash<CookieStoreRequest*, bool> _currentStoreRequests;
     QDateTime _lastUpdateTimeStamp;
 };
 
