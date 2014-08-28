@@ -53,11 +53,13 @@ WebView {
     Loader {
         id: filePickerLoader
         source: formFactor == "desktop" ? "FilePickerDialog.qml" : "ContentPickerDialog.qml"
+        asynchronous: true
     }
 
     Loader {
         id: downloadLoader
         source: formFactor == "desktop" ? "" : "Downloader.qml"
+        asynchronous: true
     }
 
     selectionActions: ActionList {
@@ -66,7 +68,7 @@ WebView {
         }
     }
 
-    onGeolocationPermissionRequested: {
+    function requestGeolocationPermission(request) {
         PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"),
                         webview.currentWebview, {"request": request})
         // TODO: we might want to store the answer to avoid requesting

@@ -57,3 +57,23 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         self.assertThat(address_bar.text, Eventually(Equals(self.url)))
+
+    def test_looses_focus_when_loading_starts(self):
+        address_bar = self.main_window.get_chrome().get_address_bar()
+        self.pointing_device.click_object(address_bar)
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        self.assertThat(address_bar.state, Eventually(Equals("editing")))
+        url = self.base_url + "/aleaiactaest"
+        self.go_to_url(url)
+        self.assertThat(address_bar.state, Eventually(Equals("")))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+
+    def test_looses_focus_when_reloading(self):
+        address_bar = self.main_window.get_chrome().get_address_bar()
+        self.pointing_device.click_object(address_bar)
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        self.assertThat(address_bar.state, Eventually(Equals("editing")))
+        action_button = address_bar.get_action_button()
+        self.pointing_device.click_object(action_button)
+        self.assertThat(address_bar.state, Eventually(Equals("")))
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))

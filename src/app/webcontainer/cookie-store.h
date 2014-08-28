@@ -54,7 +54,6 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void cookiesReceived(const Cookies& cookies, CookieStoreRequest* request);
-    void cookiesUpdated(bool status);
 
 protected:
     void updateLastUpdateTimestamp(const QDateTime& timestamp);

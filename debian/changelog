@@ -1,3 +1,83 @@
+webbrowser-app (0.23+14.10.20140825.1-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Reduce startup time of both apps by means of a few tricks, all
+    related to asynchronous loading: - ensure loaders on the critical
+    path load their components asynchronously - instantiate the error
+    sheets asynchronously, as they are not needed right away - use
+    Component.incubateObject(…) instead of Component.createObject(…) to
+    instantiate objects asynchronously where possible - instantiate the
+    history and bookmarks models asynchronously (LP: #1325001)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 25 Aug 2014 21:11:11 +0000
+
+webbrowser-app (0.23+14.10.20140821-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Olivier Tilloy ]
+  * Instantiate webviews on demand, only when they really need to be
+    shown. Show placeholder artwork and text in empty tab previews. (LP:
+    #1357464)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 21 Aug 2014 16:56:31 +0000
+
+webbrowser-app (0.23+14.10.20140819.1-0ubuntu1) utopic; urgency=low
+
+  [ David Barth ]
+  * Add the ability to override the Oxide webview and various functions
+    related to navigation support.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 19 Aug 2014 16:14:51 +0000
+
+webbrowser-app (0.23+14.10.20140819-0ubuntu1) utopic; urgency=low
+
+  [ Alexandre Abreu ]
+  * Fix the session storage mechanism to record URLs depending on their
+    context and on the webapp context: - discard transient pages -
+    discard URLs that match a potential redirection prefix (as facebook
+    uses) - prevent external requests to open URLs that match the
+    redirection prefix (LP: #1356417)
+
+  [ Olivier Tilloy ]
+  * Fix the session storage mechanism to record URLs depending on their
+    context and on the webapp context: - discard transient pages -
+    discard URLs that match a potential redirection prefix (as facebook
+    uses) - prevent external requests to open URLs that match the
+    redirection prefix (LP: #1356417)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 19 Aug 2014 08:42:44 +0000
+
+webbrowser-app (0.23+14.10.20140818.1-0ubuntu1) utopic; urgency=low
+
+  [ Arthur Mello ]
+  * Add swipe to delete action to the history view (LP: #1351164)
+
+  [ Olivier Tilloy ]
+  * Delay the auto-hide/auto-show behaviour of the header, in order to
+    prevent the view from jumping up and down on touch-enabled devices
+    when the touch event sequence is not finished. (LP: #1354700)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 18 Aug 2014 13:05:07 +0000
+
+webbrowser-app (0.23+14.10.20140818-0ubuntu1) utopic; urgency=low
+
+  [ Ugo Riboni ]
+  * Include translations in the .desktop file (LP: #1318008)
+
+  [ Olivier Tilloy ]
+  * Include translations in the .desktop file (LP: #1318008)
+  * Do not request permission for geolocation on devices where webapps
+    are running confined. This is delegated to the trust store. (LP:
+    #1356767)
+  * Elide actions’ text in the drawer menu. (LP: #1356345)
+  * Do not reset the contents of the address bar to the previous URL if
+    currently loading. Unfocus the address bar when requesting the page
+    to reload. (LP: #1354383)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 18 Aug 2014 09:45:10 +0000
+
 webbrowser-app (0.23+14.10.20140812-0ubuntu1) utopic; urgency=low
 
   [ Olivier Tilloy ]

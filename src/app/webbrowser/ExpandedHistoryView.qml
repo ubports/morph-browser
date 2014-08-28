@@ -27,6 +27,7 @@ Item {
     property alias model: entriesListView.model
 
     signal historyEntryClicked(url url)
+    signal historyEntryRemoved(url url)
     signal done()
 
     Rectangle {
@@ -60,7 +61,14 @@ Item {
             title: model.title
             icon: model.icon
 
+            removable: true
+
             onClicked: historyEntryClicked(model.url)
+            onItemRemoved: {
+                if(entriesListView.count === 1)
+                    expandedHistoryView.done()
+                historyEntryRemoved(model.url)
+            }
         }
     }
 

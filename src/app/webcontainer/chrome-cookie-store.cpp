@@ -122,24 +122,12 @@ void ChromeCookieStore::doGetCookies()
     if ( ! m_backend)
         return;
 
-    QByteArray normalizedSignature =
-      QMetaObject::normalizedSignature("gotCookies(int, const QVariant&, RequestStatus)");
-    int idx = m_backend->metaObject()->indexOfSignal(normalizedSignature);
-    if (idx != -1) {
-      QMetaMethod method = m_backend->metaObject()->method(idx);
-      connect(m_backend, method,
-              this,
-              metaObject()->method(
-                  metaObject()->indexOfSlot(
-                      QMetaObject::normalizedSignature("oxideCookiesReceived(int, const QVariant&, RequestStatus)"))));
-    }
+    QObject::connect(m_backend,
+                     SIGNAL(gotCookies(int, const QVariant&, RequestStatus)),
+                     this,
+                     SLOT(oxideCookiesReceived(int, const QVariant&, RequestStatus)));
 
-    normalizedSignature = QMetaObject::normalizedSignature("getAllCookies()");
-    idx = m_backend->metaObject()->indexOfMethod(normalizedSignature);
-    if (idx != -1) {
-        QMetaMethod method = m_backend->metaObject()->method(idx);
-        method.invoke(m_backend, Qt::DirectConnection);
-    }
+    QMetaObject::invokeMethod(m_backend, "getAllCookies", Qt::DirectConnection);
 }
 
 QDateTime ChromeCookieStore::lastUpdateTimeStamp() const
@@ -153,29 +141,16 @@ void ChromeCookieStore::doSetCookies(const Cookies& cookies)
     if ( ! m_backend)
         return;
 
-    QByteArray normalizedSignature =
-      QMetaObject::normalizedSignature("cookiesSet(int, RequestStatus)");
-    int idx = m_backend->metaObject()->indexOfSignal(normalizedSignature);
-    if (idx != -1) {
-      QMetaMethod method = m_backend->metaObject()->method(idx);
-      connect(m_backend, method,
-              this, metaObject()->method(
-                        metaObject()->indexOfSlot(
-                            QMetaObject::normalizedSignature("oxideCookiesUpdated(int, RequestStatus)"))));
-    }
+    QObject::connect(m_backend, SIGNAL(cookiesSet(int, RequestStatus)),
+                     this, SLOT(oxideCookiesUpdated(int, RequestStatus)));
 
-    normalizedSignature = QMetaObject::normalizedSignature("setNetworkCookies(const QString&, const QList<QNetworkCookie>&)");
-    idx = m_backend->metaObject()->indexOfMethod(normalizedSignature);
-    if (idx != -1) {
-        QString url = m_homepage.toString();
-        int requestId = -1;
-        QMetaMethod method = m_backend->metaObject()->method(idx);
-        method.invoke(m_backend,
-              Qt::DirectConnection,
-              Q_RETURN_ARG(int, requestId),
-              Q_ARG(const QString&, url),
-              Q_ARG(const QList<QNetworkCookie>&, cookies));
-    }
+    int requestId = -1;
+    QString url = m_homepage.toString();
+    QMetaObject::invokeMethod(m_backend, "setNetworkCookies",
+                              Qt::DirectConnection,
+                              Q_RETURN_ARG(int, requestId),
+                              Q_ARG(const QString&, url),
+                              Q_ARG(const QList<QNetworkCookie>&, cookies));
 }
 
 void ChromeCookieStore::setDbPath(const QString &path)

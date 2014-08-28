@@ -87,6 +87,18 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(0, 0), HistoryDomainListModel::Domain).toString(), QString("ubuntu.com"));
         QCOMPARE(model->data(model->index(1, 0), HistoryDomainListModel::Domain).toString(), QString("example.org"));
     }
+
+    void shouldRemoveDomain() {
+        history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
+        QSignalSpy spy(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)));
+        history->removeEntriesByDomain("ubuntu.com");
+        QCOMPARE(spy.count(), 1);
+        QList<QVariant> args = spy.takeFirst();
+        QCOMPARE(args.at(1).toInt(), 0);
+        QCOMPARE(args.at(2).toInt(), 0);
+    }
 };
 
 QTEST_MAIN(HistoryDomainListChronologicalModelTests)

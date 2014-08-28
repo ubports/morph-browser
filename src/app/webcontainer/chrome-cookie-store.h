@@ -39,6 +39,7 @@ public:
     // Possibly not the best way to do it, but mimics some oxide public API
     // definition in order to make the type known to the QML type system so
     // that the QObject can be called by string.
+    // This is defined in Oxide in qt/quick/api/oxideqquickcookiemanager_p.h
     enum RequestStatus {
       RequestStatusOK,
       RequestStatusError,

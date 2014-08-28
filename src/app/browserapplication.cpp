@@ -106,10 +106,12 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
         qputenv("APP_ID", id.toUtf8());
     }
     // Ensure that application-specific data is written where it ought to.
-    // Get the first two components of the app ID: <package>_<app>
-    QStringList appPkgName =
-        QString::fromUtf8(qgetenv("APP_ID")).split('_').mid(0, 2);
-    QCoreApplication::setApplicationName(appPkgName.join('_'));
+    QStringList appIdParts =
+        QString::fromUtf8(qgetenv("APP_ID")).split('_');
+    QCoreApplication::setApplicationName(appIdParts.first());
+    // Get also the the first two components of the app ID: <package>_<app>,
+    // which is needed by Online Accounts.
+    QString unversionedAppId = QStringList(appIdParts.mid(0, 2)).join('_');
 
     // Enable compositing in oxide
     QOpenGLContext* glcontext = new QOpenGLContext(this);
@@ -146,6 +148,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     }
     m_webbrowserWindowProxy = new WebBrowserWindow();
     context->setContextProperty("webbrowserWindowProxy", m_webbrowserWindowProxy);
+    context->setContextProperty("unversionedAppId", unversionedAppId);
 
     QObject* browser = m_component->beginCreate(context);
     m_window = qobject_cast<QQuickWindow*>(browser);

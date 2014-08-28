@@ -7,23 +7,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2014-08-04 12:23+0000\n"
-"Last-Translator: ViBE <Unknown>\n"
+"POT-Creation-Date: 2014-08-21 13:27+0200\n"
+"PO-Revision-Date: 2014-08-24 13:17+0000\n"
+"Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
-"X-Generator: Launchpad (build 17147)\n"
+"X-Launchpad-Export-Date: 2014-08-25 07:32+0000\n"
+"X-Generator: Launchpad (build 17163)\n"
 
-#: src/app/AlertDialog.qml:24
+#: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr "JavaScript figyelmeztetés"
 
-#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
+#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
 msgid "OK"
 msgstr "OK"
 
@@ -45,20 +45,20 @@ msgstr "Felhasználónév"
 msgid "Password"
 msgstr "Jelszó"
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
-#: src/app/PromptDialog.qml:40
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/PromptDialog.qml:38
 msgid "Cancel"
 msgstr "Mégse"
 
-#: src/app/BeforeUnloadDialog.qml:24
+#: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
 msgstr "Navigálás megerősítése"
 
-#: src/app/BeforeUnloadDialog.qml:28
+#: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
 msgstr "Távozás"
 
-#: src/app/BeforeUnloadDialog.qml:33
+#: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
 msgstr "Maradás"
 
@@ -82,7 +82,7 @@ msgstr "Folytatás mindenképp"
 msgid "Back to safety"
 msgstr "Visszalépés"
 
-#: src/app/ConfirmDialog.qml:24
+#: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
 msgstr "JavaScript futtatásának jóváhagyása"
 
@@ -129,7 +129,7 @@ msgstr "Tiltás"
 msgid "Allow"
 msgstr "Engedélyezés"
 
-#: src/app/PromptDialog.qml:24
+#: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr "JavaScript parancssor"
 
@@ -247,32 +247,32 @@ msgstr "Megosztás…"
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
-msgstr "Keressen vagy adjon meg egy címet"
+msgstr "keresés vagy cím megadása"
 
-#: src/app/webbrowser/Browser.qml:148
+#: src/app/webbrowser/Browser.qml:154
 msgid "Share"
 msgstr "Megosztás"
 
-#: src/app/webbrowser/Browser.qml:162
+#: src/app/webbrowser/Browser.qml:168
 msgid "History"
 msgstr "Előzmények"
 
-#: src/app/webbrowser/Browser.qml:168
+#: src/app/webbrowser/Browser.qml:174
 msgid "Open tabs"
 msgstr "Lapok megnyitása"
 
-#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+#: src/app/webbrowser/Browser.qml:180 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Új lap"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:99
+#: src/app/webbrowser/ExpandedHistoryView.qml:107
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 oldal"
 msgstr[1] "%1 oldal"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:113
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
 msgid "Less"
 msgstr "Kevesebb"
 
@@ -284,23 +284,23 @@ msgstr "Utoljára meglátogatott"
 msgid "Yesterday"
 msgstr "Tegnap"
 
-#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr "Kész"
 
-#: src/app/webbrowser/HistoryView.qml:109
+#: src/app/webbrowser/HistoryView.qml:113
 msgid "Clear"
 msgstr "Törlés"
 
-#: src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/HistoryView.qml:127
 msgid "Delete all history?"
 msgstr "Minden előzmény törlése?"
 
-#: src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryView.qml:130
 msgid "Yes"
 msgstr "Igen"
 
-#: src/app/webbrowser/HistoryView.qml:135
+#: src/app/webbrowser/HistoryView.qml:139
 msgid "No"
 msgstr "Nem"
 
@@ -310,7 +310,7 @@ msgstr "Könyvjelzők"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
-msgstr "Legjobb oldalak"
+msgstr "Leggyakoribb oldalak"
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
@@ -320,31 +320,23 @@ msgstr "kevesebb megjelenítése"
 msgid "see more"
 msgstr "több megjelenítése"
 
-#: src/app/webbrowser/TabsView.qml:110
+#: src/app/webbrowser/TabPreview.qml:162
+msgid "Tap to view"
+msgstr "Koppintson a megtekintéshez"
+
+#: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: src/app/webbrowser/webbrowser-app.desktop.in:3
-msgid "Browser"
-msgstr "Böngésző"
-
-#: src/app/webbrowser/webbrowser-app.desktop.in:4
-msgid "Web Browser"
-msgstr "Webböngésző"
-
-#: src/app/webbrowser/webbrowser-app.desktop.in:5
-msgid "Browse the World Wide Web"
-msgstr "A világháló böngészése"
-
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:54
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu webböngésző"
 
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:56
+#: src/app/webbrowser/webbrowser-app.qml:41
+#: src/app/webcontainer/webapp-container.qml:59
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu webböngésző"
 
@@ -363,3 +355,19 @@ msgstr "Fiók hozzáadása"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Válasszon egy fiókot"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
+msgid "Browser"
+msgstr "Böngésző"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
+msgid "Web Browser"
+msgstr "Webböngésző"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
+msgid "Browse the World Wide Web"
+msgstr "A világháló böngészése"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
+msgid "Internet;WWW;Browser;Web;Explorer"
+msgstr "Internet;WWW;Böngésző;Web"

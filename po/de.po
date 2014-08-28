@@ -7,23 +7,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-07-30 12:43+0200\n"
-"PO-Revision-Date: 2014-05-20 13:47+0000\n"
-"Last-Translator: Rettinghaus <Unknown>\n"
+"POT-Creation-Date: 2014-08-21 13:27+0200\n"
+"PO-Revision-Date: 2014-08-22 10:21+0000\n"
+"Last-Translator: Martin Pitt <martin.pitt@ubuntu.com>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-05 06:42+0000\n"
-"X-Generator: Launchpad (build 17147)\n"
+"X-Launchpad-Export-Date: 2014-08-23 07:12+0000\n"
+"X-Generator: Launchpad (build 17163)\n"
 
-#: src/app/AlertDialog.qml:24
+#: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr "JavaScript-Warnmeldung"
 
-#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
+#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
 msgid "OK"
 msgstr "OK"
 
@@ -45,26 +45,26 @@ msgstr "Benutzername"
 msgid "Password"
 msgstr "Passwort"
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
-#: src/app/PromptDialog.qml:40
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/PromptDialog.qml:38
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: src/app/BeforeUnloadDialog.qml:24
+#: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
 msgstr "Navigation bestätigen"
 
-#: src/app/BeforeUnloadDialog.qml:28
+#: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
 msgstr "Verlassen"
 
-#: src/app/BeforeUnloadDialog.qml:33
+#: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
 msgstr "Bleiben"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "Diese Verbindung ist nicht vertrauenswürdig."
+msgstr "Dieser Verbindung wird nicht vertraut"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -84,7 +84,7 @@ msgstr "Trotzdem fortfahren"
 msgid "Back to safety"
 msgstr "Zurück zu sicherer Website"
 
-#: src/app/ConfirmDialog.qml:24
+#: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
 msgstr "JavaScript Bestätigung"
 
@@ -133,7 +133,7 @@ msgstr "Verbieten"
 msgid "Allow"
 msgstr "Erlauben"
 
-#: src/app/PromptDialog.qml:24
+#: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr "JavaScript Meldung"
 
@@ -251,62 +251,62 @@ msgstr "Teilen …"
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
-msgstr ""
+msgstr "suchen Sie oder geben Sie eine Adresse ein"
 
-#: src/app/webbrowser/Browser.qml:148
+#: src/app/webbrowser/Browser.qml:154
 msgid "Share"
-msgstr ""
-
-#: src/app/webbrowser/Browser.qml:162
-msgid "History"
-msgstr ""
+msgstr "Freigeben"
 
 #: src/app/webbrowser/Browser.qml:168
+msgid "History"
+msgstr "Verlauf"
+
+#: src/app/webbrowser/Browser.qml:174
 msgid "Open tabs"
-msgstr ""
+msgstr "Reiter öffnen"
 
-#: src/app/webbrowser/Browser.qml:174 src/app/webbrowser/TabsView.qml:54
+#: src/app/webbrowser/Browser.qml:180 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
-msgstr ""
+msgstr "Neuer Reiter"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:99
+#: src/app/webbrowser/ExpandedHistoryView.qml:107
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 Seite"
+msgstr[1] "%1 Seiten"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:113
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
 msgid "Less"
-msgstr ""
+msgstr "Weniger"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
-msgstr ""
+msgstr "Zuletzt besucht"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr "Gestern"
 
-#: src/app/webbrowser/HistoryView.qml:95 src/app/webbrowser/TabsView.qml:95
+#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
-msgstr ""
+msgstr "Erledigt"
 
-#: src/app/webbrowser/HistoryView.qml:109
+#: src/app/webbrowser/HistoryView.qml:113
 msgid "Clear"
-msgstr ""
+msgstr "Leeren"
 
-#: src/app/webbrowser/HistoryView.qml:123
+#: src/app/webbrowser/HistoryView.qml:127
 msgid "Delete all history?"
-msgstr ""
+msgstr "Den ganzen Verlauf löschen?"
 
-#: src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryView.qml:130
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
-#: src/app/webbrowser/HistoryView.qml:135
+#: src/app/webbrowser/HistoryView.qml:139
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -324,31 +324,23 @@ msgstr "Weniger sehen"
 msgid "see more"
 msgstr "Mehr sehen"
 
-#: src/app/webbrowser/TabsView.qml:110
+#: src/app/webbrowser/TabPreview.qml:162
+msgid "Tap to view"
+msgstr "Tippen zum Betrachten"
+
+#: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
-msgstr ""
-
-#: src/app/webbrowser/webbrowser-app.desktop.in:3
-msgid "Browser"
-msgstr "Browser"
-
-#: src/app/webbrowser/webbrowser-app.desktop.in:4
-msgid "Web Browser"
-msgstr "Internet-Browser"
-
-#: src/app/webbrowser/webbrowser-app.desktop.in:5
-msgid "Browse the World Wide Web"
-msgstr "Im »World Wide Web« surfen"
+msgstr "Hinzufügen"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:54
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 – Ubuntu Internet-Browser"
 
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:56
+#: src/app/webbrowser/webbrowser-app.qml:41
+#: src/app/webcontainer/webapp-container.qml:59
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Internet-Browser"
 
@@ -367,3 +359,19 @@ msgstr "Konto hinzufügen"
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "Konto auswählen"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
+msgid "Browser"
+msgstr "Browser"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
+msgid "Web Browser"
+msgstr "Internet-Browser"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
+msgid "Browse the World Wide Web"
+msgstr "Im »World Wide Web« surfen"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
+msgid "Internet;WWW;Browser;Web;Explorer"
+msgstr "Internet;WWW;Browser;Web;Webbrowser"

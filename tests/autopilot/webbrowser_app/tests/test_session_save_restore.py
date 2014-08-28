@@ -52,3 +52,4 @@ class TestSessionSaveRestore(StartOpenRemotePageTestCaseBase):
         for i in range(len(paths)):
             self.assertThat(previews[len(paths) - 1 - i].url,
                             Eventually(Equals(self.base_url + paths[i])))
+        self.assert_number_webviews_eventually(1)
