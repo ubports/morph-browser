@@ -8,64 +8,64 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-21 13:27+0200\n"
-"PO-Revision-Date: 2013-05-29 17:08+0000\n"
-"Last-Translator: Марко М. Костић <Unknown>\n"
+"PO-Revision-Date: 2014-08-28 21:11+0000\n"
+"Last-Translator: Данило Шеган <Unknown>\n"
 "Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-08-22 07:16+0000\n"
-"X-Generator: Launchpad (build 17163)\n"
+"X-Launchpad-Export-Date: 2014-08-30 07:33+0000\n"
+"X-Generator: Launchpad (build 17176)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "JavaScript обавештење"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
 msgid "OK"
-msgstr ""
+msgstr "У реду"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Обавезна је аутентификација."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "Веб страница на %1 захтева аутентификацију."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Корисничко име"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "Лозинка"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38
 msgid "Cancel"
-msgstr ""
+msgstr "Откажи"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Потврда одласка"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr ""
+msgstr "Напусти"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr ""
+msgstr "Остани"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "Ова веза није поверљива"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -74,18 +74,20 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"Покушавате да безбедно дођете до %1, али сертификат ове веб странице није од "
+"поверења."
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Ипак настави"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
-msgstr ""
+msgstr "Назад у безбедност"
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "ЈаваСкрипт потврда"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -110,41 +112,41 @@ msgstr "Освежи страницу"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "Изаберите датотеку"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Захтев за овлашћење"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Ова страница жели да зна положај вашег уређаја."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Одбиј"
 
 #: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "Допусти"
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "Јаваскрипт питање"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Посредник захтева аутентификацију."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "Веб страница %1:%2 захтева аутентификацију."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -154,7 +156,7 @@ msgstr "Назад"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Старија страница"
+msgstr "Старија страна;Претходна страна;Претходна"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
@@ -168,17 +170,17 @@ msgstr "Додај ову страницу међу обележиваче"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "Веза за обележавање"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Очисти историјат"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Очисти историјат прегледања веб страница"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -186,11 +188,11 @@ msgstr "Умножи"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Умножи слику"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Умножи везу"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -200,7 +202,7 @@ msgstr "Напред"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Новија страница"
+msgstr "Новија страна;Следећа страна;Следећа"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
@@ -210,25 +212,25 @@ msgstr "Иди на"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Address;URL;www"
+msgstr "Адреса;УРЛ;URL;www;веб адреса;веб"
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
-msgstr "Нови језичак"
+msgstr "Нови лист"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Отвори нови језичак"
+msgstr "Отвори нови лист"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "Отвори слику у новом листу"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Отвори везу у новом листу"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -242,135 +244,136 @@ msgstr "Напусти страницу"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Сачувај слику"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr ""
+msgstr "Подели..."
 
 #: src/app/webbrowser/AddressBar.qml:148
 msgid "search or enter an address"
-msgstr ""
+msgstr "тражи или унеси адресу"
 
 #: src/app/webbrowser/Browser.qml:154
 msgid "Share"
-msgstr ""
+msgstr "Подели"
 
 #: src/app/webbrowser/Browser.qml:168
 msgid "History"
-msgstr ""
+msgstr "Историја"
 
 #: src/app/webbrowser/Browser.qml:174
 msgid "Open tabs"
-msgstr ""
+msgstr "Отворени листови"
 
 #: src/app/webbrowser/Browser.qml:180 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
-msgstr ""
+msgstr "Нови лист"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:107
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 страница"
+msgstr[1] "%1 странице"
+msgstr[2] "%1 страница"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:121
 msgid "Less"
-msgstr ""
+msgstr "Сажетије"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
-msgstr ""
+msgstr "Последње посећене"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
-msgstr ""
+msgstr "Јуче"
 
 #: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
-msgstr ""
+msgstr "Готово"
 
 #: src/app/webbrowser/HistoryView.qml:113
 msgid "Clear"
-msgstr ""
+msgstr "Очисти"
 
 #: src/app/webbrowser/HistoryView.qml:127
 msgid "Delete all history?"
-msgstr ""
+msgstr "Обрисати сав историјат?"
 
 #: src/app/webbrowser/HistoryView.qml:130
 msgid "Yes"
-msgstr ""
+msgstr "Да"
 
 #: src/app/webbrowser/HistoryView.qml:139
 msgid "No"
-msgstr ""
+msgstr "Не"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
-msgstr ""
+msgstr "Обележивачи"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
-msgstr ""
+msgstr "Главне странице"
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
-msgstr ""
+msgstr "покажи мање"
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see more"
-msgstr ""
+msgstr "покажи више"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"
-msgstr ""
+msgstr "Тапни да погледаш"
 
 #: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
-msgstr ""
+msgstr "Додај"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:39
 #: src/app/webcontainer/webapp-container.qml:57
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 — Прегледач веба за Убунту"
 
 #: src/app/webbrowser/webbrowser-app.qml:41
 #: src/app/webcontainer/webapp-container.qml:59
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "Прегледач веба за Убунту"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:70
 msgid "No local account found for "
-msgstr ""
+msgstr "Није нађен локални налог за "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:75
 msgid "Skip account creation step"
-msgstr ""
+msgstr "Прескочи корак прављења налога"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:124
 msgid "Add account"
-msgstr ""
+msgstr "Додај налог"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "Изаберите налог"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
-msgstr ""
+msgstr "Прегледач"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr ""
+msgstr "Прегледач веба"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "Разгледајте веб"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr ""
+msgstr "Интернет;WWW;Прегледач;Веб;Претраживач"
