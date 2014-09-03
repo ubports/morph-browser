@@ -104,17 +104,23 @@ QObject* ChromeCookieStore::oxideStoreBackend() const
     return m_backend;
 }
 
-void ChromeCookieStore::oxideCookiesReceived(int requestId, const QVariant& cookies, RequestStatus status)
+void ChromeCookieStore::oxideCookiesReceived(int requestId, const QVariant& cookies)
 {
     Q_UNUSED(requestId);
-    Q_UNUSED(status);
     emit gotCookies(networkCookiesFromVariantList(cookies));
 }
 
-void ChromeCookieStore::oxideCookiesUpdated(int requestId, RequestStatus status)
+void ChromeCookieStore::oxideCookiesUpdated(int requestId,
+                                            const QVariant& failedCookiesVariant)
 {
     Q_UNUSED(requestId);
-    emit cookiesSet(status == RequestStatusOK);
+
+    QList<QNetworkCookie> failedCookies =
+        networkCookiesFromVariantList(failedCookiesVariant);
+    if (!failedCookies.isEmpty()) {
+        qWarning() << "Couldn't set some cookies:" << failedCookies;
+    }
+    emit cookiesSet(failedCookies.isEmpty());
 }
 
 void ChromeCookieStore::doGetCookies()
@@ -123,9 +129,9 @@ void ChromeCookieStore::doGetCookies()
         return;
 
     QObject::connect(m_backend,
-                     SIGNAL(gotCookies(int, const QVariant&, RequestStatus)),
+                     SIGNAL(getCookiesResponse(int, const QVariant&)),
                      this,
-                     SLOT(oxideCookiesReceived(int, const QVariant&, RequestStatus)));
+                     SLOT(oxideCookiesReceived(int, const QVariant&)));
 
     QMetaObject::invokeMethod(m_backend, "getAllCookies", Qt::DirectConnection);
 }
@@ -141,8 +147,8 @@ void ChromeCookieStore::doSetCookies(const Cookies& cookies)
     if ( ! m_backend)
         return;
 
-    QObject::connect(m_backend, SIGNAL(cookiesSet(int, RequestStatus)),
-                     this, SLOT(oxideCookiesUpdated(int, RequestStatus)));
+    QObject::connect(m_backend, SIGNAL(setCookiesResponse(int, const QVariant&)),
+                     this, SLOT(oxideCookiesUpdated(int, const QVariant&)));
 
     int requestId = -1;
     QString url = m_homepage.toString();
