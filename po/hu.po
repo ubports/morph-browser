@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-21 13:27+0200\n"
-"PO-Revision-Date: 2014-08-30 09:29+0000\n"
+"PO-Revision-Date: 2014-09-02 17:13+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-31 07:22+0000\n"
-"X-Generator: Launchpad (build 17176)\n"
+"X-Launchpad-Export-Date: 2014-09-03 07:00+0000\n"
+"X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -310,7 +310,7 @@ msgstr "Könyvjelzők"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
-msgstr "Leggyakoribb oldalak"
+msgstr "Leglátogatottabb oldalak"
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
