@@ -56,7 +56,7 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          fonts-liberation,
-         liboxideqt-qmlplugin (>= 1.2.0~bzr712),
+         liboxideqt-qmlplugin (>= 1.2.0),
          libqt5sql5-sqlite,
          qml-module-qtwebkit,
          qtdeclarative5-accounts-plugin,
