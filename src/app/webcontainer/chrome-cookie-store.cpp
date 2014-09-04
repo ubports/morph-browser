@@ -151,11 +151,10 @@ void ChromeCookieStore::doSetCookies(const Cookies& cookies)
                      this, SLOT(oxideCookiesUpdated(int, const QVariant&)));
 
     int requestId = -1;
-    QString url = m_homepage.toString();
     QMetaObject::invokeMethod(m_backend, "setNetworkCookies",
                               Qt::DirectConnection,
                               Q_RETURN_ARG(int, requestId),
-                              Q_ARG(const QString&, url),
+                              Q_ARG(const QUrl&, m_homepage),
                               Q_ARG(const QList<QNetworkCookie>&, cookies));
 }
 
