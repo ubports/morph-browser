@@ -77,13 +77,13 @@ static bool isValidGoogleUrlPattern(const QString& pattern)
     return grammar.match(pattern).hasMatch();
 }
 
-/* A short URL pattern has only a domain and TLD, but no sub-domain,
+/* A strict URL pattern has a strict domain name with no wildcard pattern,
  * and possibly regular path and protocol globs.
  *
  * @param pattern pattern that is to be tested for validity
  * @return true if the url is valid, false otherwise
  */
-static bool isValidShortUrlPattern(const QString& pattern)
+static bool isValidStrictUrlPattern(const QString& pattern)
 {
     static QRegularExpression grammar("^http(s|s\\?)?://[^\\.\\*\\?]+\\.[^\\.\\*\\?]+(\\.[^\\.\\*\\?/]+)*/.*$");
     return grammar.match(pattern).hasMatch();
@@ -94,7 +94,8 @@ QString UrlPatternUtils::transformWebappSearchPatternToSafePattern(const QString
 {
     QString transformedPattern;
 
-    if (isValidWebappUrlPattern(pattern)) {
+    if (isValidWebappUrlPattern(pattern) ||
+        isValidStrictUrlPattern(pattern)) {
 
         QRegularExpression urlRe("(.+://)([^/]+)(.+)");
         QRegularExpressionMatch match = urlRe.match(pattern);
@@ -135,20 +136,6 @@ QString UrlPatternUtils::transformWebappSearchPatternToSafePattern(const QString
                                     .arg(hostname)
                                     .arg(tld)
                                     .arg(tail);
-        }
-    } else if (isValidShortUrlPattern(pattern)) {
-        QRegularExpression urlRe("(.+://)([^/]+)(.+)");
-        QRegularExpressionMatch match = urlRe.match(pattern);
-
-        if (match.hasMatch())
-        {
-            // See comment above
-            QString scheme = match.captured(1);
-            QString hostname = match.captured(2).replace("*", "[^\\./]*");
-            QString tail = match.captured(3).replace("*", "[^\\s]*");
-
-            // reconstruct
-            transformedPattern = QString("%1%2%3").arg(scheme).arg(hostname).arg(tail);
         }
     }
 
