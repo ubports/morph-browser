@@ -1,0 +1,373 @@
+# Punjabi translation for webbrowser-app
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-08-21 13:27+0200\n"
+"PO-Revision-Date: 2014-09-06 16:33+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Punjabi <pa@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-09-07 06:54+0000\n"
+"X-Generator: Launchpad (build 17196)\n"
+
+#: src/app/AlertDialog.qml:23
+msgid "JavaScript Alert"
+msgstr "JavaScript ਚੇਤਾਵਨੀ"
+
+#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+msgid "OK"
+msgstr "ਠੀਕ ਹੈ"
+
+#: src/app/AuthenticationDialog.qml:24
+msgid "Authentication required."
+msgstr "ਪਰਮਾਣਕਿਤਾ ਚਾਹੀਦੀ ਹੈ।"
+
+#. TRANSLATORS: %1 refers to the URL of the current website
+#: src/app/AuthenticationDialog.qml:26
+#, qt-format
+msgid "The website %1 requires authentication."
+msgstr "ਵੈੱਬਸਾਈਟ %1 ਲਈ ਪਰਮਾਣਕਿਤਾ ਚਾਹੀਦੀ ਹੈ।"
+
+#: src/app/AuthenticationDialog.qml:34
+msgid "Username"
+msgstr "ਯੂਜ਼ਰ ਨਾਂ"
+
+#: src/app/AuthenticationDialog.qml:41
+msgid "Password"
+msgstr "ਪਾਸਵਰਡ"
+
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/PromptDialog.qml:38
+msgid "Cancel"
+msgstr "ਰੱਦ ਕਰੋ"
+
+#: src/app/BeforeUnloadDialog.qml:23
+msgid "Confirm Navigation"
+msgstr "ਨੇਵੀਗੇਸ਼ਨ ਪੁਸ਼ਟੀ"
+
+#: src/app/BeforeUnloadDialog.qml:26
+msgid "Leave"
+msgstr "ਛੱਡੋ"
+
+#: src/app/BeforeUnloadDialog.qml:31
+msgid "Stay"
+msgstr "ਜਾਰੀ ਰੱਖੋ"
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "ਇਹ ਕੁਨੈਕਸ਼ਨ ਭਰੋਸੇਯੋਗ ਨਹੀਂ"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+
+#: src/app/CertificateVerificationDialog.qml:29
+msgid "Proceed anyway"
+msgstr "ਕਿਵੇਂ ਵੀ ਜਾਰੀ ਰੱਖੋ"
+
+#: src/app/CertificateVerificationDialog.qml:35
+msgid "Back to safety"
+msgstr "ਸੁਰੱਖਿਆ ਲਈ ਵਾਪਿਸ ਜਾਓ"
+
+#: src/app/ConfirmDialog.qml:23
+msgid "JavaScript Confirmation"
+msgstr "JavaScript ਪੁਸ਼ਟੀ"
+
+#: src/app/ErrorSheet.qml:36
+msgid "Network Error"
+msgstr "ਨੈੱਟਵਰਕ ਗਲਤੀ"
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/app/ErrorSheet.qml:42
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr ""
+
+#: src/app/ErrorSheet.qml:48
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr ""
+
+#: src/app/ErrorSheet.qml:53
+msgid "Refresh page"
+msgstr "ਸਫ਼ਾ ਤਾਜ਼ਾ ਕਰੋ"
+
+#: src/app/FilePickerDialog.qml:28
+msgid "Please choose a file"
+msgstr "ਫਾਈਲ ਚੁਣੋ"
+
+#: src/app/GeolocationPermissionRequest.qml:28
+#: src/app/PermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "ਮਨਜ਼ੂਰੀ ਲਈ ਬੇਨਤੀ"
+
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
+msgid "This page wants to know your device’s location."
+msgstr ""
+
+#: src/app/GeolocationPermissionRequest.qml:33
+#: src/app/PermissionRequest.qml:31
+msgid "Deny"
+msgstr "ਪਾਬੰਦੀ"
+
+#: src/app/GeolocationPermissionRequest.qml:43
+#: src/app/PermissionRequest.qml:40
+msgid "Allow"
+msgstr "ਮਨਜ਼ੂਰ"
+
+#: src/app/PromptDialog.qml:23
+msgid "JavaScript Prompt"
+msgstr "JavaScript ਪਰਾਉਟ"
+
+#: src/app/ProxyAuthenticationDialog.qml:22
+msgid "Proxy authentication required."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
+#: src/app/ProxyAuthenticationDialog.qml:24
+#, qt-format
+msgid "The website %1:%2 requires authentication."
+msgstr "ਵੈੱਬਸਾਈਟ %1:%2 ਲਈ ਪਰਮਾਣਕਿਤਾ ਦੀ ਲੋੜ ਹੈ"
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "ਪਿੱਛੇ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Back.qml:26
+msgid "Older Page"
+msgstr "ਪੁਰਾਣਾ ਸਫ਼ਾ"
+
+#: src/app/actions/Bookmark.qml:23
+msgid "Bookmark"
+msgstr "ਬੁੱਕਮਾਰਕ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Bookmark.qml:26
+msgid "Add This Page to Bookmarks"
+msgstr "ਇਹ ਸਫ਼ਾ ਬੁੱਕਮਾਰਕ ਲਈ ਜੋੜੋ"
+
+#: src/app/actions/BookmarkLink.qml:22
+msgid "Bookmark link"
+msgstr "ਲਿੰਕ ਬੁੱਕਮਾਰਕ ਕਰੋ"
+
+#: src/app/actions/ClearHistory.qml:23
+msgid "Clear History"
+msgstr "ਅਤੀਤ ਸਾਫ਼ ਕਰੋ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/ClearHistory.qml:26
+msgid "Clear Navigation History"
+msgstr "ਨੇਵੀਗੇਸ਼ਨ ਅਤੀਤ ਸਾਫ਼ ਕਰੋ"
+
+#: src/app/actions/Copy.qml:22
+msgid "Copy"
+msgstr "ਕਾਪੀ ਕਰੋ"
+
+#: src/app/actions/CopyImage.qml:22
+msgid "Copy image"
+msgstr "ਚਿੱਤਰ ਕਾਪੀ ਕਰੋ"
+
+#: src/app/actions/CopyLink.qml:22
+msgid "Copy link"
+msgstr "ਲਿੰਕ ਕਾਪੀ ਕਰੋ"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "ਅੱਗੇ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Forward.qml:26
+msgid "Newer Page"
+msgstr "ਨਵਾਂ ਸਫ਼ਾ"
+
+#: src/app/actions/GoTo.qml:23
+msgid "Goto"
+msgstr "ਜਾਓ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/GoTo.qml:26
+msgid "Address;URL;www"
+msgstr "ਸਿਰਨਾਵਾਂ;URL;www"
+
+#: src/app/actions/NewTab.qml:23
+msgid "New Tab"
+msgstr "ਨਵੀਂ ਟੈਬ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/NewTab.qml:26
+msgid "Open a New Tab"
+msgstr "ਨਵੀਂ ਟੈਬ ਖੋਲ੍ਹੋ"
+
+#: src/app/actions/OpenImageInNewTab.qml:22
+msgid "Open image in new tab"
+msgstr "ਚਿੱਤਰ ਨਵੀਂ ਟੈਬ ਵਿੱਚ ਖੋਲ੍ਹੋ"
+
+#: src/app/actions/OpenLinkInNewTab.qml:22
+msgid "Open link in new tab"
+msgstr "ਲਿੰਕ ਨਵੀਂ ਟੈਬ ਵਿੱਚ ਖੋਲ੍ਹੋ"
+
+#: src/app/actions/Reload.qml:23
+msgid "Reload"
+msgstr "ਮੁੜ-ਲੋਡ"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Reload.qml:26
+msgid "Leave Page"
+msgstr "ਸਫ਼ਾ ਛੱਡੋ"
+
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
+msgstr "ਚਿੱਤਰ ਸੰਭਾਲੋ"
+
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "...ਸਾਂਝਾ ਕਰੋ"
+
+#: src/app/webbrowser/AddressBar.qml:148
+msgid "search or enter an address"
+msgstr "ਖੋਜੋ ਜਾਂ ਸਿਰਨਾਵਾਂ ਦਿਓ"
+
+#: src/app/webbrowser/Browser.qml:154
+msgid "Share"
+msgstr "ਸਾਂਝਾ ਕਰੋ"
+
+#: src/app/webbrowser/Browser.qml:168
+msgid "History"
+msgstr "ਅਤੀਤ"
+
+#: src/app/webbrowser/Browser.qml:174
+msgid "Open tabs"
+msgstr "ਟੈਬਾਂ ਖੋਲ੍ਹੋ"
+
+#: src/app/webbrowser/Browser.qml:180 src/app/webbrowser/TabsView.qml:57
+msgid "New tab"
+msgstr "ਨਵੀਂ ਟੈਬ"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:107
+#, qt-format
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] "%1 ਸਫ਼ਾ"
+msgstr[1] "%1 ਸਫ਼ੇ"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
+msgid "Less"
+msgstr "ਘੱਟ"
+
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
+msgstr "ਆਖਰੀ ਵਾਰ ਖੋਲ੍ਹੇ"
+
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
+msgid "Yesterday"
+msgstr "ਕੱਲ੍ਹ"
+
+#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
+msgid "Done"
+msgstr "ਮੁਕੰਮਲ"
+
+#: src/app/webbrowser/HistoryView.qml:113
+msgid "Clear"
+msgstr "ਸਾਫ਼ ਕਰੋ"
+
+#: src/app/webbrowser/HistoryView.qml:127
+msgid "Delete all history?"
+msgstr "ਸਭ ਅਤੀਤ ਹਟਾਉਣਾ ਹੈ?"
+
+#: src/app/webbrowser/HistoryView.qml:130
+msgid "Yes"
+msgstr "ਹਾਂ"
+
+#: src/app/webbrowser/HistoryView.qml:139
+msgid "No"
+msgstr "ਨਹੀਂ"
+
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr "ਬੁੱਕਮਾਰਕ"
+
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
+msgstr "ਚੋਟੀ ਦੀਆਂ ਸਾਈਟਾਂ"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
+msgstr "ਘੱਟ ਵੇਖੋ"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr "ਵੱਧ ਵੇਖੋ"
+
+#: src/app/webbrowser/TabPreview.qml:162
+msgid "Tap to view"
+msgstr "ਵੇਖਣ ਲਈ ਛੂਹੋ"
+
+#: src/app/webbrowser/TabsView.qml:115
+msgid "Add"
+msgstr "ਸ਼ਾਮਿਲ"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - ਉਬੰਤੂ ਵੈੱਬ ਬਰਾਊਜ਼ਰ"
+
+#: src/app/webbrowser/webbrowser-app.qml:41
+#: src/app/webcontainer/webapp-container.qml:59
+msgid "Ubuntu Web Browser"
+msgstr ""
+
+#: src/app/webcontainer/AccountsLoginPage.qml:70
+msgid "No local account found for "
+msgstr ""
+
+#: src/app/webcontainer/AccountsLoginPage.qml:75
+msgid "Skip account creation step"
+msgstr ""
+
+#: src/app/webcontainer/AccountsLoginPage.qml:124
+msgid "Add account"
+msgstr ""
+
+#: src/app/webcontainer/AccountsView.qml:38
+msgid "Select an account"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
+msgid "Browser"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
+msgid "Web Browser"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
+msgid "Browse the World Wide Web"
+msgstr ""
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
+msgid "Internet;WWW;Browser;Web;Explorer"
+msgstr ""
