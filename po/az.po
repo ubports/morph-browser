@@ -8,24 +8,24 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-21 13:27+0200\n"
-"PO-Revision-Date: 2014-01-06 19:36+0000\n"
-"Last-Translator: Emin Mastizada <emin25@ovi.com>\n"
+"PO-Revision-Date: 2014-09-03 13:54+0000\n"
+"Last-Translator: Nicat Məmmədov <n1c4t97@gmail.com>\n"
 "Language-Team: Azerbaijani <az@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-22 07:15+0000\n"
-"X-Generator: Launchpad (build 17163)\n"
+"X-Launchpad-Export-Date: 2014-09-04 08:31+0000\n"
+"X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
-msgstr "JavaScript Xəbərdarlıq"
+msgstr "JavaScript Xəbərdarlığı"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
 msgid "OK"
-msgstr "OK"
+msgstr "Oldu"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
@@ -48,7 +48,7 @@ msgstr "Şifrə"
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38
 msgid "Cancel"
-msgstr "Ləğv et"
+msgstr "İmtina"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
@@ -56,15 +56,15 @@ msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr ""
+msgstr "Tərk et"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr ""
+msgstr "Gözlə"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "Bu bağlantı güvənilir deyil"
+msgstr "Bu bağlantı etibarlı deyil"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -76,7 +76,7 @@ msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:29
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Yenə də davam et"
 
 #: src/app/CertificateVerificationDialog.qml:35
 msgid "Back to safety"
@@ -84,7 +84,7 @@ msgstr ""
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr "JavaScript Təstiqləyici"
+msgstr "JavaScript Təsdiqləməsi"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -107,31 +107,31 @@ msgstr "Səhifəni yenilə"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "Xahiş edirik bir fayl seçin"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "İcazə İstəyi"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Bu səhifə avadanlığınızın yerini öyrənmək istəyir."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Rədd et"
 
 #: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "İcazə ver"
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "JavaScript Dəvəti"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
@@ -151,11 +151,11 @@ msgstr "Geri"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr ""
+msgstr "Daha köhnə səhifə"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr ""
+msgstr "Əlfəcin"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -169,7 +169,7 @@ msgstr ""
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Keşmişi Təmizlə"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -179,7 +179,7 @@ msgstr ""
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr ""
+msgstr "Kopyala"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
@@ -187,7 +187,7 @@ msgstr ""
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Linki kopyala"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -197,11 +197,11 @@ msgstr "İrəli"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr ""
+msgstr "Daha yeni səhifə"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr ""
+msgstr "Get"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.

@@ -26,6 +26,7 @@ Page {
     property alias accountProvider: accountsLogin.accountProvider
     property alias applicationName: accountsLogin.applicationName
     property var webappCookieStore: null
+    property var onlineAccountStoreComponent: null
 
     signal done()
 
@@ -57,17 +58,12 @@ Page {
             }
 
             if (webappCookieStore) {
-                var instance = onlineAccountStoreComponent.createObject(accountsLogin, {accountId: credentialsId})
+                var instance = onlineAccountStoreComponent.createObject(accountsLogin, { "accountId": credentialsId })
                 webappCookieStore.moved.connect(internal.onMoved)
                 webappCookieStore.moveFrom(instance)
             } else {
                 accountsPage.done()
             }
         }
-    }
-
-    Component {
-        id: onlineAccountStoreComponent
-        OnlineAccountsCookieStore { }
     }
 }
