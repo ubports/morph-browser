@@ -30,6 +30,14 @@ Item {
 
     signal done(variant credentialsId)
 
+    Timer {
+        id: checkTimer
+        running: true
+        repeat: false
+        onTriggered: checkAccounts()
+        interval: 100
+    }
+
     AccountsModel {
         id: accountsModel
         accountProvider: root.accountProvider
@@ -48,6 +56,8 @@ Item {
     }
 
     function checkAccounts() {
+        checkTimer.stop()
+
         if (accountsModel.count === 0) {
             // Skip the account creation step for now (see the Note below)
 //            accountsViewLoader.sourceComponent = accountsAdditionToolbarViewComponent

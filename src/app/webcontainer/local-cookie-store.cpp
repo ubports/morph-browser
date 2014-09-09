@@ -51,6 +51,7 @@ LocalCookieStore::LocalCookieStore(QObject* parent):
 void LocalCookieStore::doGetCookies()
 {
     Cookies cookies;
+    qDebug() << "m_dbPath: " << m_dbPath;
     m_db.setDatabaseName(m_dbPath);
 
     if (Q_UNLIKELY(!m_db.open())) {
@@ -142,9 +143,10 @@ bool LocalCookieStore::createDb()
 
 void LocalCookieStore::doSetCookies(const Cookies& parsedCookies)
 {
+    qDebug() << "m_dbPath: " << m_dbPath;
     m_db.setDatabaseName(m_dbPath);
 
-    if (!m_db.open()) {
+if (!m_db.open()) {
         qCritical() << "Could not open cookie database:" <<
             m_dbPath << m_db.lastError().text();
         return;

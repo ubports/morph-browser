@@ -50,12 +50,14 @@ Page {
         }
 
         onDone: {
+            console.log('credentialsId: ' + credentialsId)
             if (!accountsPage.visible)
                 return
-            if (!credentialsId) {
+console.log('credentialsId 2: ' + credentialsId)
+/*            if (!credentialsId) {
                 accountsPage.done()
                 return
-            }
+            }*/
 
             if (webappCookieStore) {
                 var instance = onlineAccountStoreComponent.createObject(accountsLogin, { "accountId": credentialsId })

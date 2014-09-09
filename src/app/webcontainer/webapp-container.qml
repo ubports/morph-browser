@@ -22,6 +22,8 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.Extras.Browser 0.2
 import webcontainer.private 0.1
 
+import com.canonical.Oxide 1.0 as Oxide
+
 Window {
     id: root
     objectName: "webappContainer"
@@ -51,58 +53,69 @@ Window {
     title: getWindowTitle()
 
     function getWindowTitle() {
+        var webappViewTitle = webappViewLoader.item ? webappViewLoader.item.title : ""
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
             return webappName
-        } else if (browser.title) {
+        } else if (webappViewTitle) {
             // TRANSLATORS: %1 refers to the current page’s title
-            return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
+            return i18n.tr("%1 - Ubuntu Web Browser").arg(webappViewTitle)
         } else {
             return i18n.tr("Ubuntu Web Browser")
         }
     }
 
-    WebApp {
-        id: browser
+    Loader {
+        id: webappViewLoader
+    }
 
-        // Initially set as non visible to leave a chance
-        // for the OA dialog to appear
-        visible: false
+    Component {
+        id: webappViewComponent
 
-        url: accountProvider.length === 0 ? root.url : ""
+        WebApp {
+            id: browser
 
-        chromeVisible: root.chromeVisible
-        backForwardButtonsVisible: root.backForwardButtonsVisible
-        developerExtrasEnabled: root.developerExtrasEnabled
-        restoreSession: root.restoreSession
-        oxide: root.oxide
-        webappModelSearchPath: root.webappModelSearchPath
-        webappName: root.webappName
-        webappUrlPatterns: root.webappUrlPatterns
+            // Initially set as non visible to leave a chance
+            // for the OA dialog to appear
+            visible: false
 
-        popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+            url: root.url
 
-        anchors.fill: parent
+            chromeVisible: root.chromeVisible
+            backForwardButtonsVisible: root.backForwardButtonsVisible
+            developerExtrasEnabled: root.developerExtrasEnabled
+            restoreSession: root.restoreSession
+            oxide: root.oxide
+            webappModelSearchPath: root.webappModelSearchPath
+            webappName: root.webappName
+            webappUrlPatterns: root.webappUrlPatterns
 
-        webbrowserWindow: webbrowserWindowProxy
+            popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
 
-        onWebappNameChanged: {
-            if (root.webappName !== browser.webappName) {
-                root.webappName = browser.webappName;
-                root.title = getWindowTitle();
+            anchors.fill: parent
+
+            webbrowserWindow: webbrowserWindowProxy
+
+            onWebappNameChanged: {
+                if (root.webappName !== browser.webappName) {
+                    root.webappName = browser.webappName;
+                    root.title = getWindowTitle();
+                }
             }
-        }
 
-        onCurrentWebviewChanged: {
-            if (currentWebview)
-                root.updateCurrentView()
-        }
+            onCurrentWebviewChanged: {
+                if (currentWebview)
+                    root.updateCurrentView()
+            }
 
-        Component.onCompleted: i18n.domain = "webbrowser-app"
+            Component.onCompleted: i18n.domain = "webbrowser-app"
+        }
     }
 
     // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
     // by toggling fullscreen on the window only on desktop.
-    visibility: browser.currentWebview.fullscreen &&
+    visibility: webappViewLoader.item &&
+                webappViewLoader.item.currentWebview &&
+                webappViewLoader.item.currentWebview.fullscreen &&
                 (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
@@ -129,8 +142,13 @@ Window {
         ChromeCookieStore {
             dbPath: dataLocation + "/cookies.sqlite"
             homepage: root.url
-            oxideStoreBackend: browser.currentWebview ? browser.currentWebview.context.cookieManager : null
+            oxideStoreBackend: context.cookieManager
         }
+    }
+
+    Oxide.WebContext {
+        id: context
+        dataPath: dataLocation
     }
 
     Component {
@@ -138,6 +156,10 @@ Window {
         LocalCookieStore {
             dbPath: localCookieStoreDbPath
         }
+    }
+
+    Component.onCompleted: {
+        updateCurrentView()
     }
 
     Component {
@@ -159,6 +181,7 @@ Window {
         if (!__webappCookieStore) {
             __webappCookieStore = oxideCookieStoreComponent.createObject(this)
         }
+        console.log('localCookieStoreDbPath ' + localCookieStoreDbPath)
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
             "accountProvider": accountProvider,
             "applicationName": Qt.application.name,
@@ -171,11 +194,7 @@ Window {
     function loadWebAppView() {
         if (accountsPageComponentLoader.item)
             accountsPageComponentLoader.item.visible = false
-        browser.visible = true;
-        if (browser.currentWebview) {
-            browser.currentWebview.visible = true;
-            browser.currentWebview.url = root.url
-        }
+        webappViewLoader.sourceComponent = webappViewComponent
     }
 
     // Handle runtime requests to open urls as defined
