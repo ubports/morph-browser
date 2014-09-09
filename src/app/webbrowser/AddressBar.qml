@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
+import com.canonical.Oxide 1.0 as Oxide
 import ".."
 
 FocusScope {
@@ -28,6 +29,7 @@ FocusScope {
     property bool bookmarked: false
     property url requestedUrl
     property url actualUrl
+    property var securityStatus
     signal validated()
     property bool loading
     signal requestReload()
@@ -54,68 +56,94 @@ FocusScope {
         anchors.fill: parent
 
         primaryItem: Item {
-            height: textField.height
-            width: height
-
-            Favicon {
-                id: favicon
-                anchors.centerIn: parent
-                visible: (addressbar.state == "") && addressbar.actualUrl.toString()
-            }
-
-            MouseArea {
-                id: actionButton
-                objectName: "actionButton"
-                anchors.fill: parent
-                enabled: addressbar.text
-                opacity: enabled ? 1.0 : 0.3
-
-                Icon {
-                    id: actionIcon
-                    height: parent.height - units.gu(2)
+            width: iconsRow.width
+            height: iconsRow.height
+            Row {
+                id: iconsRow
+                Item {
+                    height: textField.height
                     width: height
-                    anchors.centerIn: parent
-                    name: {
-                        switch (addressbar.state) {
-                        case "loading":
-                            return "stop"
-                        case "editing":
-                            if (addressbar.text && (addressbar.text == addressbar.actualUrl)) {
-                                return "reload"
-                            } else if (looksLikeAUrl(addressbar.text.trim())) {
-                                return "stock_website"
-                            } else {
-                                return "search"
-                            }
-                        default:
-                            if (!favicon.visible) {
-                                if (looksLikeAUrl(addressbar.text.trim())) {
-                                    return "stock_website"
-                                } else {
-                                    return "search"
+    
+                    Favicon {
+                        id: favicon
+                        anchors.centerIn: parent
+                        visible: (addressbar.state == "") && addressbar.actualUrl.toString()
+    
+                    }
+                        
+                    MouseArea {
+                        id: actionButton
+                        objectName: "actionButton"
+                        anchors.fill: parent
+                        enabled: addressbar.text
+                        opacity: enabled ? 1.0 : 0.3
+    
+                        Icon {
+                            id: actionIcon
+                            height: parent.height - units.gu(2)
+                            width: height
+                            anchors.centerIn: parent
+                            name: {
+                                switch (addressbar.state) {
+                                case "loading":
+                                    return "stop"
+                                case "editing":
+                                    if (addressbar.text && (addressbar.text == addressbar.actualUrl)) {
+                                        return "reload"
+                                    } else if (looksLikeAUrl(addressbar.text.trim())) {
+                                        return "stock_website"
+                                    } else {
+                                        return "search"
+                                    }
+                                default:
+                                    if (!favicon.visible) {
+                                        if (looksLikeAUrl(addressbar.text.trim())) {
+                                            return "stock_website"
+                                        } else {
+                                            return "search"
+                                        }
+                                    } else {
+                                        return ""
+                                    }
                                 }
-                            } else {
-                                return ""
+                            }
+                        }
+    
+                        onClicked: {
+                            switch (actionIcon.name) {
+                            case "":
+                                break;
+                            case "stop":
+                                addressbar.requestStop()
+                                break
+                            case "reload":
+                                addressbar.requestReload()
+                                break
+                            default:
+                                textField.accepted()
                             }
                         }
                     }
+    
                 }
-
-                onClicked: {
-                    switch (actionIcon.name) {
-                    case "":
-                        break;
-                    case "stop":
-                        addressbar.requestStop()
-                        break
-                    case "reload":
-                        addressbar.requestReload()
-                        break
-                    default:
-                        textField.accepted()
+    
+                Item {
+                    id: securityDisplay
+                    height: textField.height
+                    width: securityIcon.width
+                    visible: securityStatus ? (securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV) : false
+    
+                    Icon {
+                        id: securityIcon
+                        anchors.centerIn: parent
+                        height: parent.height - units.gu(2)
+                        width: height
+                        name: "network-secure"
                     }
                 }
+
             }
+
         }
 
         secondaryItem: Item {

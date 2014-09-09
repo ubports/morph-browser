@@ -151,6 +151,7 @@ ChromeBase {
     onWebviewChanged: {
         if (webview) {
             addressbar.actualUrl = webview.url
+            addressbar.securityStatus = webview.securityStatus
         }
     }
 
