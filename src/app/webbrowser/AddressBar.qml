@@ -206,21 +206,21 @@ FocusScope {
                             Label {
                                 width: parent.width
                                 wrapMode: Text.WordWrap
-                                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName)
+                                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ")
                                 fontSize: "x-small"
                             }
 
                             Label {
                                 width: parent.width
                                 wrapMode: Text.WordWrap
-                                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrLocalityName)
+                                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ")
                                 fontSize: "x-small"
                             }
 
                             Label {
                                 width: parent.width
                                 wrapMode: Text.WordWrap
-                                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName) + ", " + securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName)
+                                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ") + ", " + securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ")
                                 fontSize: "x-small"
                             }
 
