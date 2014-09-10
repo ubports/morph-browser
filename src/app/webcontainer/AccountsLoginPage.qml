@@ -43,7 +43,7 @@ Item {
         accountProvider: root.accountProvider
         applicationName: root.applicationName
         onCountChanged: checkAccounts()
-        onFinished: checkAccounts()
+        onFinished: { accountsViewLoader.active = true; checkAccounts() }
     }
 
     Rectangle {
@@ -54,6 +54,7 @@ Item {
     Loader {
         id: accountsViewLoader
         anchors.fill: parent
+        active: false
     }
 
     function checkAccounts() {
