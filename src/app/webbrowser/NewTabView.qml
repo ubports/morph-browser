@@ -194,6 +194,7 @@ Item {
 
                             Image {
                                 source: Qt.resolvedUrl("assets/tab-artwork.png")
+                                asynchronous: true
                                 width: parent.height
                                 height: width
                                 opacity: 0.6
