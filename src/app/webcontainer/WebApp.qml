@@ -179,7 +179,6 @@ BrowserView {
                 && url.indexOf(popupRedirectionUrlPrefix) === 0) {
             return false
         }
-        console.log('isValidContainedUrl: ' + url)
         return true
     }
 
