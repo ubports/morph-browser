@@ -85,7 +85,7 @@ Item {
         Item {
             id: addAccountView
 
-            Label {
+            ListItem.Caption {
                 id: label
                 anchors.centerIn: parent
                 text: i18n.tr("No local account found; an account is needed in order to use this application")
