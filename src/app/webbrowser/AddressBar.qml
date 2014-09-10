@@ -164,73 +164,73 @@ FocusScope {
             Component {
                 id: certificatePopover
                 Popover {
-                        Column {
-                            id: certificateDetails 
-                            width: parent.width - units.gu(4)
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            spacing: units.gu(0.5)
+                    Column {
+                        id: certificateDetails 
+                        width: parent.width - units.gu(4)
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        spacing: units.gu(0.5)
 
-                            Item {
-                                height: units.gu(1.5)
-                                width: parent.width
-                            }
-
-                            Label { 
-                                width: parent.width
-                                wrapMode: Text.WordWrap
-                                text: i18n.tr("You are connected to")
-                                fontSize: "x-small"
-                            }
-
-                            Label {
-                                width: parent.width
-                                wrapMode: Text.WordWrap
-                                text: securityStatus.certificate.subjectDisplayName
-                                fontSize: "x-small"
-                            }
-
-                            ThinDivider { width: parent.width }
-
-                            Item {
-                                height: units.gu(0.5)
-                                width: parent.width
-                            }
-
-                            Label {
-                                width: parent.width
-                                wrapMode: Text.WordWrap
-                                text: i18n.tr("Which is run by")
-                                fontSize: "x-small"
-                            }
-
-                            Label {
-                                width: parent.width
-                                wrapMode: Text.WordWrap
-                                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ")
-                                fontSize: "x-small"
-                            }
-
-                            Label {
-                                width: parent.width
-                                wrapMode: Text.WordWrap
-                                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ")
-                                fontSize: "x-small"
-                            }
-
-                            Label {
-                                width: parent.width
-                                wrapMode: Text.WordWrap
-                                text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ") + ", " + securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ")
-                                fontSize: "x-small"
-                            }
-
-                            Item {
-                                height: units.gu(1.5)
-                                width: parent.width
-                            }
-
+                        Item {
+                            height: units.gu(1.5)
+                            width: parent.width
                         }
+
+                        Label { 
+                            width: parent.width
+                            wrapMode: Text.WordWrap
+                            text: i18n.tr("You are connected to")
+                            fontSize: "x-small"
+                        }
+
+                        Label {
+                            width: parent.width
+                            wrapMode: Text.WordWrap
+                            text: securityStatus.certificate.subjectDisplayName
+                            fontSize: "x-small"
+                        }
+
+                        ThinDivider { width: parent.width }
+
+                        Item {
+                            height: units.gu(0.5)
+                            width: parent.width
+                        }
+
+                        Label {
+                            width: parent.width
+                            wrapMode: Text.WordWrap
+                            text: i18n.tr("Which is run by")
+                            fontSize: "x-small"
+                        }
+
+                        Label {
+                            width: parent.width
+                            wrapMode: Text.WordWrap
+                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ")
+                            fontSize: "x-small"
+                        }
+
+                        Label {
+                            width: parent.width
+                            wrapMode: Text.WordWrap
+                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ")
+                            fontSize: "x-small"
+                        }
+
+                        Label {
+                            width: parent.width
+                            wrapMode: Text.WordWrap
+                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ") + ", " + securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ")
+                            fontSize: "x-small"
+                        }
+
+                        Item {
+                            height: units.gu(1.5)
+                            width: parent.width
+                        }
+
                     }
+                }
             }
 
         }
