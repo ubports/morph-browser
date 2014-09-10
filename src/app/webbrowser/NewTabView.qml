@@ -163,21 +163,16 @@ Item {
 
                 delegate: MouseArea {
                     width: units.gu(18)
-                    height: units.gu(22)
+                    height: childrenRect.height
 
                     Column {
-                        anchors.fill: parent
-                        spacing: units.gu(1)
-
-                        UbuntuShape {
-                            width: parent.width
-                            height: width
-
-                            Favicon {
-                                anchors.centerIn: parent
-                                source: model.icon
-                            }
+                        anchors {
+                            left: parent.left
+                            right: parent.right
                         }
+                        //height: childrenRect.height
+
+                        spacing: units.gu(1)
 
                         Label {
                             width: parent.width
@@ -188,6 +183,57 @@ Item {
                             elide: Text.ElideRight
 
                             text: model.title ? model.title : model.url
+                        }
+
+                        UbuntuShape {
+                            width: parent.width
+                            height: units.gu(10)
+
+                            // we need that to clip the background image
+                            clip: true
+
+                            Image {
+                                source: Qt.resolvedUrl("assets/tab-artwork.png")
+                                width: parent.height
+                                height: width
+                                opacity: 0.6
+                                anchors {
+                                    right: parent.right
+                                    bottom: parent.bottom
+                                    margins: units.gu(-3)
+                                }
+                            }
+                            Column {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                    bottom: parent.bottom
+                                    margins: units.gu(1)
+                                }
+
+                                Favicon {
+                                    source: model.icon
+                                }
+
+                                Label {
+                                    anchors {
+                                        left: parent.left
+                                        right: parent.right
+                                    }
+                                    elide: Text.ElideRight
+                                    text: model.domain
+                                    fontSize: "small"
+                                }
+                                Label {
+                                    anchors {
+                                        left: parent.left
+                                        right: parent.right
+                                    }
+                                    elide: Text.ElideRight
+                                    text: model.title
+                                    fontSize: "small"
+                                }
+                            }
                         }
                     }
 
