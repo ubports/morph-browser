@@ -26,6 +26,8 @@ Item {
     property string applicationName: ""
     property alias count: accountsModel.count
 
+    signal finished
+
     function createNewAccount() {
         setup.exec();
     }
@@ -43,6 +45,7 @@ Item {
         id: setup
         applicationId: root.applicationName
         providerId: root.accountProvider
+        onFinished: root.finished()
     }
 }
 
