@@ -33,17 +33,24 @@ private Q_SLOTS:
     {
         QTest::addColumn<QString>("pattern");
         QTest::addColumn<QString>("transformedPattern");
+        QTest::addColumn<bool>("doTransformUrlPath");
 
         // regular patterns
 
         QTest::newRow("Valid pattern")
                 << "https?://*.mydomain.com/*"
-                << "https?://[^\\./]*.mydomain.com/[^\\s]*";
+                << "https?://[^\\./]*.mydomain.com/[^\\s]*"
+                << true;
+
+        QTest::newRow("Valid pattern with no tail replacement")
+                << "https?://*.mydomain.com/l.php\\?\\w+=([^&]+).*"
+                << "https?://[^\\./]*.mydomain.com/l.php\\?\\w+=([^&]+).*"
+                << false;
 
 #define WEBAPP_INVALID_URL_PATTERN_TEST(id,invalid_url_pattern) \
         QTest::newRow("Invalid pattern " #id) \
                 << invalid_url_pattern \
-                << QString()
+                << QString() << true
 
         WEBAPP_INVALID_URL_PATTERN_TEST(1, "http");
         WEBAPP_INVALID_URL_PATTERN_TEST(2, "://");
@@ -66,16 +73,16 @@ private Q_SLOTS:
 
         QTest::newRow("Valid Google pattern")
                 << "https?://mail.google.*/*"
-                << "https?://mail.google.[^\\./]*/[^\\s]*";
+                << "https?://mail.google.[^\\./]*/[^\\s]*" << true;
 
         QTest::newRow("Valid non Google pattern")
                 << "https://*.google.com/*"
-                << "https://[^\\./]*.google.com/[^\\s]*";
+                << "https://[^\\./]*.google.com/[^\\s]*" << true;
 
 #define WEBAPP_INVALID_GOOGLE_URL_PATTERN_TEST(id,invalid_google_url_pattern) \
         QTest::newRow("Invalid Google App pattern " #id) \
                 << invalid_google_url_pattern \
-                << QString()
+                << QString() << true
 
         WEBAPP_INVALID_GOOGLE_URL_PATTERN_TEST(1, "https://*.google.*/*");
         WEBAPP_INVALID_GOOGLE_URL_PATTERN_TEST(2, "https://service.gooo*gle.com/*");
@@ -91,7 +98,8 @@ private Q_SLOTS:
     {
         QFETCH(QString, pattern);
         QFETCH(QString, transformedPattern);
-        QCOMPARE(UrlPatternUtils::transformWebappSearchPatternToSafePattern(pattern), transformedPattern);
+        QFETCH(bool, doTransformUrlPath);
+        QCOMPARE(UrlPatternUtils::transformWebappSearchPatternToSafePattern(pattern, doTransformUrlPath), transformedPattern);
     }
 
     void filteredUrlPatterns_data()

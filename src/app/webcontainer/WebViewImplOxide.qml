@@ -33,7 +33,7 @@ WebViewImpl {
     property string webappName: ""
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
-    property string popupRedirectionUrlPrefix: ""
+    property string popupRedirectionUrlPrefixPattern: ""
 
     currentWebview: webview
 
@@ -113,29 +113,24 @@ WebViewImpl {
                 return
             }
 
+            console.debug('popupRedirectionUrlPrefixPattern ' + popupRedirectionUrlPrefixPattern)
+            var redirectionPatternMatch = url.match(popupRedirectionUrlPrefixPattern);
             var isRedirectionUrl =
-                    popupRedirectionUrlPrefix.length !== 0
-                    && url.indexOf(popupRedirectionUrlPrefix) === 0;
+                    popupRedirectionUrlPrefixPattern
+                    && redirectionPatternMatch.length >= 2;
 
             var targetUrl = url;
             if (isRedirectionUrl) {
-                // Extract the target URL.
-                targetUrl = url.slice(popupRedirectionUrlPrefix.length);
-                // Quick fix for http://pad.lv/1358622 (trim trailing parameters).
-                // A proper solution would probably involve regexps instead of a
-                // simple redirection prefix.
-                var extraParams = targetUrl.indexOf("&");
-                if (extraParams !== -1) {
-                    targetUrl = targetUrl.slice(0, extraParams);
-                }
-                // Decode it.
+                // Assume that the first group is the matching one
+                targetUrl = redirectionPatternMatch[1];
+                console.debug("Got a redirection URL with target URL: " + targetUrl)
                 targetUrl = decodeURIComponent(targetUrl);
             }
 
             if (webview.shouldAllowNavigationTo(targetUrl)) {
                 console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
                 request.action = Oxide.NavigationRequest.ActionReject
-                webappContainerHelper.browseToUrlRequested(webview, url.slice(url.indexOf(popupRedirectionUrlPrefix)))
+                webappContainerHelper.browseToUrlRequested(webview, url.slice(url.indexOf(popupRedirectionUrlPrefixPattern)))
                 return
             }
 
