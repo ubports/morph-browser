@@ -113,7 +113,6 @@ WebViewImpl {
                 return
             }
 
-            console.debug('popupRedirectionUrlPrefixPattern ' + popupRedirectionUrlPrefixPattern)
             var redirectionPatternMatch = url.match(popupRedirectionUrlPrefixPattern);
             var isRedirectionUrl =
                     popupRedirectionUrlPrefixPattern
