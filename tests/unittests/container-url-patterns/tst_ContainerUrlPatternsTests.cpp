@@ -40,6 +40,14 @@ private Q_SLOTS:
                 << "https?://*.mydomain.com/*"
                 << "https?://[^\\./]*.mydomain.com/[^\\s]*";
 
+        QTest::newRow("Valid pattern - short url")
+                << "https?://mydomain.com/*"
+                << "https?://mydomain.com/[^\\s]*";
+
+        QTest::newRow("Valid pattern - strict url")
+                << "https?://www.mydomain.com/*"
+                << "https?://www.mydomain.com/[^\\s]*";
+
 #define WEBAPP_INVALID_URL_PATTERN_TEST(id,invalid_url_pattern) \
         QTest::newRow("Invalid pattern " #id) \
                 << invalid_url_pattern \

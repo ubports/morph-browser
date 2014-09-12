@@ -38,6 +38,7 @@ FocusScope {
     signal requestStop()
     signal pressAndHold()
     property string searchUrl
+    signal textFieldFocused()
 
     height: textField.height
 
@@ -278,24 +279,13 @@ FocusScope {
 
         onAccepted: if (addressbar.state != "") parent.validate()
 
-        function ensureSchemeVisibleWhenUnfocused() {
-            // Ensure the beginning of the URL is always visible when unfocused.
-            // In the future, we’ll have a smarter address bar that hides the
-            // scheme to save some extra space and display more of the
-            // meaningful part of the URL (domain name and path).
-            if (!activeFocus) {
-                cursorPosition = 0
-            }
-        }
         onActiveFocusChanged: {
-            if (!activeFocus) {
-                if (!addressbar.loading && addressbar.actualUrl.toString()) {
-                    text = addressbar.actualUrl
-                }
+            if (activeFocus) {
+                addressbar.textFieldFocused();
+            } else if (addressbar.actualUrl.toString()) {
+                text = addressbar.simplifyUrl(addressbar.actualUrl)
             }
-            ensureSchemeVisibleWhenUnfocused()
         }
-        onTextChanged: ensureSchemeVisibleWhenUnfocused()
 
         // Make sure that all the text is selected at the first click
         MouseArea {
@@ -366,5 +356,35 @@ FocusScope {
         validated()
     }
 
-    onActualUrlChanged: text = actualUrl
+    function simplifyUrl(url) {
+        var urlString = url.toString();
+        var hasProtocol = urlString.indexOf("://") != -1
+        var domain;
+        if (hasProtocol) {
+            if (urlString.split("://")[0] == "file") {
+                // Don't process file:// urls
+                return url;
+            }
+            domain = urlString.split('/')[2];
+        } else {
+            domain = urlString.split('/')[0];
+        }
+        if (typeof domain !== 'undefined' && domain.length > 0) {
+            // Remove user component if present
+            var userRemoved = domain.split('@')[1];
+            if (typeof userRemoved !== 'undefined') {
+                domain = userRemoved;
+            }
+            // Remove port number if present
+            domain = domain.split(':')[0];
+            if (domain.lastIndexOf('.') != 3) { // http://www.com shouldn't be trimmed
+                domain = domain.replace(/^www\./, "");
+            }
+            return domain;
+        } else {
+            return url;
+        }
+    }
+
+    onActualUrlChanged: text = simplifyUrl(actualUrl)
 }

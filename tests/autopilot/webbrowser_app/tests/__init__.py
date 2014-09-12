@@ -186,6 +186,7 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
         self.server = http_server.HTTPServerInAThread()
         self.addCleanup(self.server.cleanup)
         self.base_url = "http://localhost:{}".format(self.server.port)
+        self.domain = "localhost"
         self.ping_server()
         self.url = self.base_url + "/loremipsum"
         self.ARGS = self.ARGS + [self.url]
