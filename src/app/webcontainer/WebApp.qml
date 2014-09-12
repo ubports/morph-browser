@@ -37,7 +37,7 @@ BrowserView {
     property alias oxide: webview.withOxide
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
-    property alias popupRedirectionUrlPrefix: webview.popupRedirectionUrlPrefix
+    property alias popupRedirectionUrlPrefixPattern: webview.popupRedirectionUrlPrefixPattern
     property alias webviewOverrideFile: webview.webviewOverrideFile
 
     property bool backForwardButtonsVisible: false
@@ -222,8 +222,8 @@ BrowserView {
             if (url.length === 0 || url === 'about:blank') {
                 return;
             }
-            if (popupRedirectionUrlPrefix.length !== 0
-                    && url.indexOf(popupRedirectionUrlPrefix) === 0) {
+            if (popupRedirectionUrlPrefixPattern.length !== 0
+                    && url.match(popupRedirectionUrlPrefixPattern)) {
                 return;
             }
             session.save()

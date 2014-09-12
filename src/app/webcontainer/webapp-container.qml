@@ -41,7 +41,7 @@ Window {
     property var webappUrlPatterns
     property bool oxide: false
     property string accountProvider: ""
-    property string popupRedirectionUrlPrefix: ""
+    property string popupRedirectionUrlPrefixPattern: ""
     property url webviewOverrideFile: ""
     property var __webappCookieStore: null
 
@@ -80,7 +80,7 @@ Window {
         webappModelSearchPath: root.webappModelSearchPath
         webappUrlPatterns: root.webappUrlPatterns
 
-        popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+        popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
         webviewOverrideFile: root.webviewOverrideFile
 
         anchors.fill: parent

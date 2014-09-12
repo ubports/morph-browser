@@ -133,8 +133,11 @@ bool WebappContainer::initialize()
 
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
 
-        if ( ! m_popupRedirectionUrlPrefix.isEmpty()) {
-            m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
+        if ( ! m_popupRedirectionUrlPrefixPattern.isEmpty()) {
+            m_window->setProperty(
+                        "popupRedirectionUrlPrefixPattern",
+                        UrlPatternUtils::transformWebappSearchPatternToSafePattern(
+                            m_popupRedirectionUrlPrefixPattern, false));
         }
 
         // Experimental, unsupported API, to override the webview
@@ -246,7 +249,7 @@ void WebappContainer::parseCommandLine()
         } else if (argument == "--local-webapp-manifest") {
             m_localWebappManifest = true;
         } else if (argument.startsWith("--popup-redirection-url-prefix=")) {
-            m_popupRedirectionUrlPrefix = argument.split("--popup-redirection-url-prefix=")[1];;
+            m_popupRedirectionUrlPrefixPattern = argument.split("--popup-redirection-url-prefix=")[1];
         } else if (argument.startsWith("--local-cookie-db-path=")) {
             m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];;
         }
