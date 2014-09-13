@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-21 13:27+0200\n"
-"PO-Revision-Date: 2014-08-03 22:43+0000\n"
+"PO-Revision-Date: 2014-09-12 19:40+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2014-08-22 07:15+0000\n"
-"X-Generator: Launchpad (build 17163)\n"
+"X-Launchpad-Export-Date: 2014-09-13 08:33+0000\n"
+"X-Generator: Launchpad (build 17196)\n"
 "Language: gd\n"
 
 #: src/app/AlertDialog.qml:23
@@ -330,7 +330,7 @@ msgstr "seall barrachd"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"
-msgstr ""
+msgstr "Thoir gnogag gus a shealltainn"
 
 #: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
@@ -379,3 +379,5 @@ msgstr "Brabhsaich an t-eadar-lìon"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr ""
+"Internet;WWW;Browser;Web;Explorer;eadar-"
+"lìon;Lìon;Brabhsair;Taisgealaiche;Sealladair"
