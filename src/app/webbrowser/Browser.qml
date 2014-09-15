@@ -27,6 +27,8 @@ import ".."
 BrowserView {
     id: browser
 
+    property bool restoreSession: true
+
     currentWebview: tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
