@@ -124,7 +124,7 @@ BrowserView {
         Loader {
             anchors.fill: tabContainer
             sourceComponent: InvalidCertificateErrorSheet {
-                visible: currentWebview ? currentWebview.certificateError : false
+                visible: currentWebview && currentWebview.certificateError != null
                 certificateError: currentWebview ? currentWebview.certificateError : null
                 onAllowed: { 
                     // Automatically allow future requests involving this
