@@ -101,11 +101,11 @@ Rectangle {
                     width: parent.width
                     wrapMode: Text.Wrap
                     // TRANSLATORS: %1 refers to the SSL certificate's subject's address
-                    text: i18n.tr("Subject address:\n%1").arg(
+                    text: i18n.tr("Subject address:\n%1").arg(certificateError ?
                             certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ") + "\n" +
                             certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ") + "\n" +
                             certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ") + "\n" + 
-                            certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", "))
+                            certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ") : "")
                 }
                 Label {
                     fontSize: "x-small"
@@ -119,11 +119,11 @@ Rectangle {
                     width: parent.width
                     wrapMode: Text.Wrap
                     // TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-                    text: i18n.tr("Issuer address:\n%1").arg(
+                    text: i18n.tr("Issuer address:\n%1").arg(certificateError ?
                             certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ") + "\n" +
                             certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ") + "\n" +
                             certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ") + "\n" +
-                            certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", "))
+                            certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ") : "")
                 }
                 Label {
                     fontSize: "x-small"
