@@ -66,11 +66,12 @@ FocusScope {
                 Item {
                     height: textField.height
                     width: height
+                    visible: securityStatus ? securityStatus.securityLevel != Oxide.SecurityStatus.SecurityLevelWarning || addressbar.state != "" : true
     
                     Favicon {
                         id: favicon
                         anchors.centerIn: parent
-                        visible: (addressbar.state == "") && addressbar.actualUrl.toString()
+                        visible: securityStatus ? (securityStatus.securityLevel != Oxide.SecurityStatus.SecurityLevelWarning) && (addressbar.state == "") && addressbar.actualUrl.toString() : (addressbar.state == "") && addressbar.actualUrl.toString()
                     }
             
                     Item {
@@ -139,14 +140,29 @@ FocusScope {
                     id: securityDisplay
                     height: textField.height
                     width: securityIcon.width
-                    visible: securityStatus ? (securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV) : false
-    
+                    visible: securityStatus ? (securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) && addressbar.state == "" : false
+ 
                     Icon {
                         id: securityIcon
                         anchors.centerIn: parent
                         height: parent.height - units.gu(2)
                         width: height
                         name: "network-secure"
+                    }
+                }
+
+                Item {
+                    id: securityWarning
+                    height: textField.height
+                    width: warningIcon.width
+                    visible: securityStatus ? securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning && addressbar.state == "" : false
+
+                    Icon {
+                        id: warningIcon
+                        anchors.centerIn: parent
+                        height: parent.height - units.gu(2)
+                        width: height
+                        name: "security-alert"
                     }
                 }
 
