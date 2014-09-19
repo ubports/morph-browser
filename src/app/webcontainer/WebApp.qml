@@ -180,7 +180,4 @@ BrowserView {
         }
         return true
     }
-
-    StateSaver.properties: url
-    StateSaver.enabled: isValidContainedUrl(url)
 }
