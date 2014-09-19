@@ -60,7 +60,22 @@ Item {
             // attempt to discover it from the file extension
             contentType = FileExtensionMapper.filenameToContentType(filename)
         }
+        if(mimeType == "application/zip" && is7digital(url)) {
+            // This is an album download from 7digital, which is served as a zip
+            // so we let download manager extract the zip and send its contents
+            // on to the selected application via content-hub
+            contentType = ContentType.Music
+        }
         download(url, contentType, headers)
+    }
+
+    function is7digital(url) {
+        var urlParts = url.toString().split("/")
+        if(urlParts.length < 3) {
+            return false
+        }
+        var domain = urlParts[2]
+        return domain.indexOf("7digital.com", domain.length - "7digital.com".length) !== -1
     }
 
 }
