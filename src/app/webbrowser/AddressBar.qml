@@ -192,6 +192,36 @@ FocusScope {
                             width: parent.width
                         }
 
+                        Column {
+                            width: parent.width
+                            visible: securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning
+                            spacing: units.gu(0.5)
+
+                            Row {
+                                width: parent.width
+                                spacing: units.gu(0.5)
+
+                                Icon {
+                                    name: "security-alert"
+                                    height: units.gu(2)
+                                    width: height
+                                }
+
+                                Label {
+                                    width: parent.width
+                                    wrapMode: Text.WordWrap
+                                    text: i18n.tr("This site has insecure content")
+                                    fontSize: "x-small"
+                                }
+                            }
+                            
+                            ThinDivider {
+                                width: parent.width
+                                anchors.leftMargin: 0
+                                anchors.rightMargin: 0
+                            }
+                        }
+
                         Label { 
                             width: parent.width
                             wrapMode: Text.WordWrap
@@ -206,38 +236,54 @@ FocusScope {
                             fontSize: "x-small"
                         }
 
-                        ThinDivider { width: parent.width }
-
-                        Item {
-                            height: units.gu(0.5)
+                        ThinDivider {
                             width: parent.width
+                            anchors.leftMargin: 0
+                            anchors.rightMargin: 0
+                            visible: orgName.visible || localityName.visible || stateName.visible || countryName.visible
                         }
 
                         Label {
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            visible: orgName.visible
                             text: i18n.tr("Which is run by")
                             fontSize: "x-small"
                         }
 
                         Label {
+                            id: orgName
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            visible: text.length > 0
                             text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ")
                             fontSize: "x-small"
                         }
 
                         Label {
+                            id: localityName
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            visible: text.length > 0
                             text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ")
                             fontSize: "x-small"
                         }
 
                         Label {
+                            id: stateName
                             width: parent.width
                             wrapMode: Text.WordWrap
-                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ") + ", " + securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ")
+                            visible: text.length > 0
+                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ")
+                            fontSize: "x-small"
+                        }
+
+                        Label {
+                            id: countryName
+                            width: parent.width
+                            wrapMode: Text.WordWrap
+                            visible: text.length > 0
+                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ")
                             fontSize: "x-small"
                         }
 
