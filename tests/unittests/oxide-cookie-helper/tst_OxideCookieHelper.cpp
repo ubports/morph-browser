@@ -95,9 +95,6 @@ void OxideCookieHelperTest::testSetCookiesSanity()
     QCOMPARE(cookiesSet.count(), 0);
 
     CookieBackend backend;
-    QSignalSpy setNetworkCookiesCalled(&backend,
-                                       SIGNAL(setNetworkCookiesCalled(int,const QUrl&,const QList<QNetworkCookie>&)));
-
     helper.setOxideStoreBackend(&backend);
     QCOMPARE(helper.oxideStoreBackend(), &backend);
     QCOMPARE(helper.property("oxideStoreBackend").value<QObject*>(),
