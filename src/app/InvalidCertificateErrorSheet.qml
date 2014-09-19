@@ -97,6 +97,7 @@ Rectangle {
                     text: i18n.tr("Subject:\n%1").arg(certificateError ? certificateError.certificate.subjectDisplayName : "")
                 }
                 Label {
+                    id: subjectAddress
                     fontSize: "x-small"
                     width: parent.width
                     wrapMode: Text.Wrap
@@ -106,6 +107,12 @@ Rectangle {
                             certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ") + "\n" +
                             certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ") + "\n" + 
                             certificateError.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ") : "")
+                    onTextChanged: {
+                        // Remove any blank lines caused by missing entries
+                        while(subjectAddress.text.indexOf("\n\n") != -1) {
+                            subjectAddress.text = subjectAddress.text.replace("\n\n", "\n")
+                        }
+                    }
                 }
                 Label {
                     fontSize: "x-small"
@@ -115,6 +122,7 @@ Rectangle {
                     text: i18n.tr("Issuer:\n%1").arg(certificateError ? certificateError.certificate.issuerDisplayName : "")
                 }
                 Label {
+                    id: issuerAddress
                     fontSize: "x-small"
                     width: parent.width
                     wrapMode: Text.Wrap
@@ -124,6 +132,12 @@ Rectangle {
                             certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ") + "\n" +
                             certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ") + "\n" +
                             certificateError.certificate.getIssuerInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ") : "")
+                    onTextChanged: {
+                        // Remove any blank lines caused by missing entries
+                        while(issuerAddress.text.indexOf("\n\n") != -1) {
+                            issuerAddress.text = issuerAddress.text.replace("\n\n", "\n")
+                        }
+                    }
                 }
                 Label {
                     fontSize: "x-small"
