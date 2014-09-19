@@ -29,6 +29,7 @@ Rectangle {
     Connections {
         target: certificateError ? certificateError : null
         onCancelled: {
+            moreInfo.visible = false
             denied()
         }
     }
@@ -164,6 +165,7 @@ Rectangle {
                     visible: certificateError ? certificateError.overridable : false
                     width: units.gu(16)
                     onClicked: {
+                        moreInfo.visible = false
                         certificateError.allow()
                         allowed()
                     }
@@ -175,6 +177,7 @@ Rectangle {
                     text: i18n.tr("Back to safety")
                     width: units.gu(16)
                     onClicked: {
+                        moreInfo.visible = false
                         certificateError.deny()
                         denied()
                     }
