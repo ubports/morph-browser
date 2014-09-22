@@ -170,33 +170,27 @@ Rectangle {
                 horizontalAlignment: Text.AlignHCenter
             }
 
-            Item {
-                width: parent.width
-                height: backButton.height
-                Button {
-                    anchors.left: parent.left
-                    text: i18n.tr("Proceed anyway")
-                    visible: certificateError ? certificateError.overridable : false
-                    width: units.gu(16)
-                    onClicked: {
-                        moreInfo.visible = false
-                        certificateError.allow()
-                        allowed()
-                    }
+            Button {
+                text: i18n.tr("Proceed anyway")
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: certificateError ? certificateError.overridable : false
+                onClicked: {
+                    moreInfo.visible = false
+                    certificateError.allow()
+                    allowed()
                 }
+            }
 
-                Button {
-                    id: backButton
-                    anchors.right: parent.right
-                    text: i18n.tr("Back to safety")
-                    width: units.gu(16)
-                    onClicked: {
-                        moreInfo.visible = false
-                        certificateError.deny()
-                        denied()
-                    }
-                    color: UbuntuColors.orange
+            Button {
+                id: backButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: i18n.tr("Back to safety")
+                onClicked: {
+                    moreInfo.visible = false
+                    certificateError.deny()
+                    denied()
                 }
+                color: UbuntuColors.orange
             }
         }
     }
