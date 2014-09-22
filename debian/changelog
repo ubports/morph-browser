@@ -1,3 +1,15 @@
+webbrowser-app (0.23+14.10.20140922-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Display padlock when viewing pages over HTTPS. Provide certificate
+    details when padlock is clicked. Display error pages when invalid
+    SSL certificates are presented and allow users to override these
+    warnings. . Display warning symbol when insecure content is loaded
+    over HTTPS (currently incorrect icon, should be updated when dialog-
+    warning-symbol lands in ubuntu-theme). (LP: #1214034)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 22 Sep 2014 21:13:10 +0000
+
 webbrowser-app (0.23+14.10.20140910-0ubuntu1) utopic; urgency=low
 
   [ Michael Sheldon ]
