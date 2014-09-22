@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-22 12:04+0100\n"
+"POT-Creation-Date: 2014-09-22 14:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,12 +75,12 @@ msgid ""
 msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:29
-#: src/app/InvalidCertificateErrorSheet.qml:174
+#: src/app/InvalidCertificateErrorSheet.qml:162
 msgid "Proceed anyway"
 msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:35
-#: src/app/InvalidCertificateErrorSheet.qml:187
+#: src/app/InvalidCertificateErrorSheet.qml:175
 msgid "Back to safety"
 msgstr ""
 
@@ -131,6 +131,10 @@ msgstr ""
 msgid "Allow"
 msgstr ""
 
+#: src/app/InvalidCertificateErrorSheet.qml:58
+msgid "This site security certificate is not trusted.\n"
+msgstr ""
+
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"
 msgstr ""
@@ -160,7 +164,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
-#: src/app/InvalidCertificateErrorSheet.qml:122
+#: src/app/InvalidCertificateErrorSheet.qml:116
 #, qt-format
 msgid ""
 "Issuer:\n"
@@ -168,7 +172,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-#: src/app/InvalidCertificateErrorSheet.qml:130
+#: src/app/InvalidCertificateErrorSheet.qml:124
 #, qt-format
 msgid ""
 "Issuer address:\n"
@@ -176,7 +180,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
-#: src/app/InvalidCertificateErrorSheet.qml:147
+#: src/app/InvalidCertificateErrorSheet.qml:135
 #, qt-format
 msgid ""
 "Valid from:\n"
@@ -184,7 +188,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
-#: src/app/InvalidCertificateErrorSheet.qml:154
+#: src/app/InvalidCertificateErrorSheet.qml:142
 #, qt-format
 msgid ""
 "Valid until:\n"
@@ -192,84 +196,77 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
-#: src/app/InvalidCertificateErrorSheet.qml:161
+#: src/app/InvalidCertificateErrorSheet.qml:149
 #, qt-format
 msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
 
-#: src/app/InvalidCertificateErrorSheet.qml:167
+#: src/app/InvalidCertificateErrorSheet.qml:155
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:190
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which does not match the identity of the site."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:193
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which has expired."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:196
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which contains invalid dates."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:199
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"issued by an entity that is not trusted."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
 #, qt-format
 msgid ""
-"This site security certificate is not trusted.\n"
 "You attempted to reach %1 but the server presented a security certificate "
-"which does not match the identity of the site."
+"that has been revoked."
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
 #, qt-format
 msgid ""
-"This site security certificate is not trusted.\n"
-"You attempted to reach %1 but the server presented a security certificate "
-"which has expired."
+"You attempted to reach %1 but the server presented an invalid security "
+"certificate."
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
 #, qt-format
 msgid ""
-"This site security certificate is not trusted.\n"
-"You attempted to reach %1 but the server presented a security certificate "
-"which contains invalid dates."
-msgstr ""
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:211
-#, qt-format
-msgid ""
-"This site security certificate is not trusted.\n"
-"You attempted to reach %1 but the server presented a security certificate "
-"issued by an entity that is not trusted."
-msgstr ""
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:214
-#, qt-format
-msgid ""
-"This site security certificate is not trusted.\n"
-"You attempted to reach %1 but the server presented a security certificate "
-"that has been revoked."
-msgstr ""
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:217
-#, qt-format
-msgid ""
-"This site security certificate is not trusted.\n"
-"You attempted to reach %1 but the server presented an invalid security "
-"certificate."
-msgstr ""
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:220
-#, qt-format
-msgid ""
-"This site security certificate is not trusted.\n"
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:223
+#: src/app/InvalidCertificateErrorSheet.qml:211
 #, qt-format
 msgid ""
 "This site security certificate is not trusted\n"
@@ -393,19 +390,19 @@ msgstr ""
 msgid "Share…"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:213
+#: src/app/webbrowser/AddressBar.qml:214
 msgid "This site has insecure content"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:228
+#: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:250
+#: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:328
+#: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"
 msgstr ""
 
