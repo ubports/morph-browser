@@ -203,9 +203,7 @@ Window {
         target: UriHandler
         onOpened: {
             // only consider the first one (if multiple)
-            if (uris.length === 0 ||
-                    !webappPageComponentLoader.item ||
-                    !webappPageComponentLoader.item.currentWebview) {
+            if (uris.length === 0 || !browser.currentWebview) {
                 return;
             }
             var requestedUrl = uris[0].toString();
@@ -214,7 +212,7 @@ Window {
                     && requestedUrl.indexOf(popupRedirectionUrlPrefix) === 0) {
                 return;
             }
-            webappPageComponentLoader.item.currentWebview.url = requestedUrl;
+            browser.currentWebview.url = requestedUrl;
         }
     }
 }
