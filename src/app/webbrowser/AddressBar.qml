@@ -173,14 +173,15 @@ FocusScope {
                 anchors.fill: parent
 
                 onClicked: {
-                    PopupUtils.open(certificatePopover, certificatePopoverPositioner)
+                    PopupUtils.open(certificatePopoverComponent, certificatePopoverPositioner)
                 }
             }
 
 
             Component {
-                id: certificatePopover
+                id: certificatePopoverComponent
                 Popover {
+                    id: certificatePopover
                     Column {
                         id: certificateDetails 
                         width: parent.width - units.gu(4)
@@ -293,6 +294,12 @@ FocusScope {
                         }
 
                     }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: PopupUtils.close(certificatePopover)
+                    }
+
                 }
             }
 
