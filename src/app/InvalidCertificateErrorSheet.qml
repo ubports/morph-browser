@@ -164,7 +164,7 @@ Rectangle {
 
             Label {
                 width: parent.width
-                text: i18n.tr("You should not proceed, especially if you have never seen this warning before for this site")
+                text: i18n.tr("You should not proceed, especially if you have never seen this warning before for this site.")
                 wrapMode: Text.Wrap
                 fontSize: "x-small"
                 horizontalAlignment: Text.AlignHCenter
@@ -199,25 +199,25 @@ Rectangle {
         switch(error) {
             case Oxide.CertificateError.ErrorBadIdentity:
                 // TRANSLATORS: %1 refers to the domain name of the SSL certificate
-                return i18n.tr("This site security certificate is not trusted\nYou attempted to reach %1 but the server presented a security certificate which does not match the identity of the site.").arg(certificateError ? certificateError.url : "")
+                return i18n.tr("This site security certificate is not trusted.\nYou attempted to reach %1 but the server presented a security certificate which does not match the identity of the site.").arg(certificateError ? certificateError.url : "")
             case Oxide.CertificateError.ErrorExpired:
                 // TRANSLATORS: %1 refers to the domain name of the SSL certificate
-                return i18n.tr("This site security certificate is not trusted\nYou attempted to reach %1 but the server presented a security certificate which has expired.").arg(certificateError ? certificateError.url : "")
+                return i18n.tr("This site security certificate is not trusted.\nYou attempted to reach %1 but the server presented a security certificate which has expired.").arg(certificateError ? certificateError.url : "")
             case Oxide.CertificateError.ErrorDateInvalid:
                 // TRANSLATORS: %1 refers to the domain name of the SSL certificate
-                return i18n.tr("This site security certificate is not trusted\nYou attempted to reach %1 but the server presented a security certificate which contains invalid dates.").arg(certificateError ? certificateError.url : "")
+                return i18n.tr("This site security certificate is not trusted.\nYou attempted to reach %1 but the server presented a security certificate which contains invalid dates.").arg(certificateError ? certificateError.url : "")
             case Oxide.CertificateError.ErrorAuthorityInvalid:
                 // TRANSLATORS: %1 refers to the domain name of the SSL certificate
-                return i18n.tr("This site security certificate is not trusted\nYou attempted to reach %1 but the server presented a security certificate issued by an entity that is not trusted.").arg(certificateError ? certificateError.url : "")
+                return i18n.tr("This site security certificate is not trusted.\nYou attempted to reach %1 but the server presented a security certificate issued by an entity that is not trusted.").arg(certificateError ? certificateError.url : "")
             case Oxide.CertificateError.ErrorRevoked:
                 // TRANSLATORS: %1 refers to the domain name of the SSL certificate
-                return i18n.tr("This site security certificate is not trusted\nYou attempted to reach %1 but the server presented a security certificate that has been revoked.").arg(certificateError ? certificateError.url : "")
+                return i18n.tr("This site security certificate is not trusted.\nYou attempted to reach %1 but the server presented a security certificate that has been revoked.").arg(certificateError ? certificateError.url : "")
             case Oxide.CertificateError.ErrorInvalid:
                 // TRANSLATORS: %1 refers to the domain name of the SSL certificate
-                return i18n.tr("This site security certificate is not trusted\nYou attempted to reach %1 but the server presented an invalid security certificate.").arg(certificateError ? certificateError.url : "")
+                return i18n.tr("This site security certificate is not trusted.\nYou attempted to reach %1 but the server presented an invalid security certificate.").arg(certificateError ? certificateError.url : "")
             case Oxide.CertificateError.ErrorInsecure:
                 // TRANSLATORS: %1 refers to the domain name of the SSL certificate
-                return i18n.tr("This site security certificate is not trusted\nYou attempted to reach %1 but the server presented an insecure security certificate.").arg(certificateError ? certificateError.url : "")
+                return i18n.tr("This site security certificate is not trusted.\nYou attempted to reach %1 but the server presented an insecure security certificate.").arg(certificateError ? certificateError.url : "")
             default:
                 // TRANSLATORS: %1 refers to the domain name of the SSL certificate
                 return i18n.tr("This site security certificate is not trusted\nYou attempted to reach %1 but the server presented a security certificate which failed our security checks for an unknown reason.").arg(certificateError ? certificateError.url : "")
