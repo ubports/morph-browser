@@ -150,7 +150,7 @@ Rectangle {
                     fontSize: "x-small"
                     width: parent.width
                     wrapMode: Text.Wrap
-                    // TRANSLATORS: %1 refers to the SSL certificate's start date
+                    // TRANSLATORS: %1 refers to the SSL certificate's expiry date
                     text: i18n.tr("Valid until:\n%1").arg(certificateError ? certificateError.certificate.expiryDate : "")
                 }
                 Label {
