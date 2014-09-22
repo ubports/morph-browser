@@ -222,7 +222,6 @@ Rectangle {
                 // TRANSLATORS: %1 refers to the domain name of the SSL certificate
                 return i18n.tr("This site security certificate is not trusted\nYou attempted to reach %1 but the server presented a security certificate which failed our security checks for an unknown reason.").arg(certificateError ? certificateError.url : "")
         }
-        console.log("Switch failed")
     }
 
 }
