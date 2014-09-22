@@ -144,14 +144,14 @@ Rectangle {
                     width: parent.width
                     wrapMode: Text.Wrap
                     // TRANSLATORS: %1 refers to the SSL certificate's start date
-                    text: i18n.tr("Valid from:\n%1").arg(certificateError ? certificateError.certificate.effectiveDate : "")
+                    text: i18n.tr("Valid from:\n%1").arg(certificateError ? certificateError.certificate.effectiveDate.toLocaleString() : "")
                 }
                 Label {
                     fontSize: "x-small"
                     width: parent.width
                     wrapMode: Text.Wrap
                     // TRANSLATORS: %1 refers to the SSL certificate's expiry date
-                    text: i18n.tr("Valid until:\n%1").arg(certificateError ? certificateError.certificate.expiryDate : "")
+                    text: i18n.tr("Valid until:\n%1").arg(certificateError ? certificateError.certificate.expiryDate.toLocaleString() : "")
                 }
                 Label {
                     fontSize: "x-small"
