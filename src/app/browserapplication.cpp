@@ -154,7 +154,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     m_window = qobject_cast<QQuickWindow*>(browser);
     m_webbrowserWindowProxy->setWindow(m_window);
 
-    browser->setProperty("restoreSession", !m_arguments.contains("--new-session"));
     browser->setProperty("developerExtrasEnabled", inspectorEnabled);
 
     return true;
