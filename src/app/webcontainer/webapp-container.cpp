@@ -49,6 +49,21 @@ static const char privateModuleUri[] = "webcontainer.private";
 namespace
 {
 
+static void clearCookiesHack()
+{
+    /* check both ~/.local/share and ~/.cache, as the data will eventually be
+     * moving from the first to the latter.
+     */
+    QStringList baseDirs;
+    baseDirs << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    baseDirs << QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+
+    Q_FOREACH(const QString &baseDir, baseDirs) {
+        QDir dir(baseDir);
+        dir.removeRecursively();
+    }
+}
+
 static QString currentArchitecturePathName()
 {
 #if defined(Q_PROCESSOR_X86_32)
@@ -237,6 +252,7 @@ void WebappContainer::parseCommandLine()
             }
         } else if (argument.startsWith("--accountProvider=")) {
             m_accountProvider = argument.split("--accountProvider=")[1];
+            clearCookiesHack();
         } else if (argument == "--store-session-cookies") {
             m_storeSessionCookies = true;
         } else if (argument == "--enable-back-forward") {
