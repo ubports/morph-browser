@@ -135,6 +135,11 @@ BrowserView {
                 onDenied: {
                     currentWebview.certificateError = null
                 }
+                onVisibleChanged: {
+                    if (visible) {
+                        chrome.requestedUrl = currentWebview.certificateError.url
+                    }
+                }
             }
             asynchronous: true
         }
