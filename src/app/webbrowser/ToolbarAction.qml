@@ -24,6 +24,7 @@ AbstractButton {
     property alias text: label.text
 
     opacity: enabled ? 1.0 : 0.3
+    width: label.paintedWidth
 
     Item {
         anchors {
@@ -50,8 +51,7 @@ AbstractButton {
         id: label
         anchors {
             bottom: parent.bottom
-            left: parent.left
-            right: parent.right
+            horizontalCenter: parent.horizontalCenter
         }
         horizontalAlignment: Text.AlignHCenter
         fontSize: "x-small"

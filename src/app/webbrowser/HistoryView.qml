@@ -108,7 +108,6 @@ Item {
                 verticalCenter: parent.verticalCenter
             }
             height: parent.height - units.gu(2)
-            width: height
 
             text: i18n.tr("Clear")
 
