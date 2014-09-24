@@ -110,7 +110,7 @@ Item {
                 verticalCenter: parent.verticalCenter
             }
             height: parent.height - units.gu(2)
-            width: height
+            width: units.gu(8)
 
             text: i18n.tr("Add")
 
