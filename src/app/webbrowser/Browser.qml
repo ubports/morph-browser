@@ -252,6 +252,7 @@ BrowserView {
             onSelected: {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
+                chrome.requestedUrl = url
             }
         }
     }
