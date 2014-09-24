@@ -49,6 +49,11 @@ static const char privateModuleUri[] = "webcontainer.private";
 namespace
 {
 
+/* Hack to clear the local data of the webapp, when it's integrated with OA:
+ * https://bugs.launchpad.net/bugs/1371659
+ * This is needed because cookie sets from different accounts might not
+ * completely overwrite each other, and therefore we end up with an
+ * inconsistent cookie jar. */
 static void clearCookiesHack()
 {
     /* check both ~/.local/share and ~/.cache, as the data will eventually be
