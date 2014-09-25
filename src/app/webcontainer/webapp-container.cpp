@@ -56,6 +56,11 @@ namespace
  * inconsistent cookie jar. */
 static void clearCookiesHack(const QString &provider)
 {
+    if (provider.isEmpty()) {
+        qWarning() << "--clear-cookies only works with an accountProvider" << endl;
+        return;
+    }
+
     /* check both ~/.local/share and ~/.cache, as the data will eventually be
      * moving from the first to the latter.
      */
