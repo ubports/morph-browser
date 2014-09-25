@@ -455,6 +455,10 @@ FocusScope {
         }
     }
 
-    onActualUrlChanged: text = simplifyUrl(actualUrl)
+    onActualUrlChanged: {
+        if(actualUrl.length > 0) {
+            text = simplifyUrl(actualUrl)
+        }
+    }
     onRequestedUrlChanged: text = simplifyUrl(requestedUrl)
 }

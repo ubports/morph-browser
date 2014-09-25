@@ -135,11 +135,6 @@ BrowserView {
                 onDenied: {
                     currentWebview.certificateError = null
                 }
-                onVisibleChanged: {
-                    if (visible) {
-                        chrome.requestedUrl = currentWebview.certificateError.url
-                    }
-                }
             }
             asynchronous: true
         }
@@ -481,6 +476,7 @@ BrowserView {
             var index = tabsModel.add(tab)
             if (setCurrent) {
                 tabsModel.setCurrent(index)
+                chrome.requestedUrl = tab.initialUrl
                 if (focusAddressBar) {
                     internal.focusAddressBar()
                 }
