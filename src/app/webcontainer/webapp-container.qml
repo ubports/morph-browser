@@ -44,6 +44,7 @@ Window {
     property string popupRedirectionUrlPrefix: ""
     property url webviewOverrideFile: ""
     property var __webappCookieStore: null
+    property string localUserAgentOverride: ""
 
     contentOrientation: Screen.orientation
 
@@ -79,6 +80,8 @@ Window {
         oxide: root.oxide
         webappModelSearchPath: root.webappModelSearchPath
         webappUrlPatterns: root.webappUrlPatterns
+
+        localUserAgentOverride: root.localUserAgentOverride
 
         popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
         webviewOverrideFile: root.webviewOverrideFile
