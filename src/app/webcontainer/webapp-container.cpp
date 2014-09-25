@@ -54,8 +54,11 @@ namespace
  * This is needed because cookie sets from different accounts might not
  * completely overwrite each other, and therefore we end up with an
  * inconsistent cookie jar. */
-static void clearCookiesHack()
+static void clearCookiesHack(const QString &provider)
 {
+    /* So far, only Google seems to complain about cookie leftovers */
+    if (provider != "google") return;
+
     /* check both ~/.local/share and ~/.cache, as the data will eventually be
      * moving from the first to the latter.
      */
@@ -257,7 +260,7 @@ void WebappContainer::parseCommandLine()
             }
         } else if (argument.startsWith("--accountProvider=")) {
             m_accountProvider = argument.split("--accountProvider=")[1];
-            clearCookiesHack();
+            clearCookiesHack(m_accountProvider);
         } else if (argument == "--store-session-cookies") {
             m_storeSessionCookies = true;
         } else if (argument == "--enable-back-forward") {
