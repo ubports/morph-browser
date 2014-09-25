@@ -456,7 +456,7 @@ FocusScope {
     }
 
     onActualUrlChanged: {
-        if(actualUrl.length > 0) {
+        if(actualUrl.toString().length > 0) {
             text = simplifyUrl(actualUrl)
         }
     }
