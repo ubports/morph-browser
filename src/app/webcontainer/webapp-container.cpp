@@ -137,6 +137,10 @@ bool WebappContainer::initialize()
             m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
         }
 
+        if (!m_userAgentOverride.isEmpty()) {
+            m_window->setProperty("localUserAgentOverride", m_userAgentOverride);
+        }
+
         // Experimental, unsupported API, to override the webview
         QFileInfo overrideFile("webview-override.qml");
         if (overrideFile.exists()) {
@@ -208,6 +212,7 @@ void WebappContainer::printUsage() const
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
+    out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
     out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
@@ -246,9 +251,11 @@ void WebappContainer::parseCommandLine()
         } else if (argument == "--local-webapp-manifest") {
             m_localWebappManifest = true;
         } else if (argument.startsWith("--popup-redirection-url-prefix=")) {
-            m_popupRedirectionUrlPrefix = argument.split("--popup-redirection-url-prefix=")[1];;
+            m_popupRedirectionUrlPrefix = argument.split("--popup-redirection-url-prefix=")[1];
         } else if (argument.startsWith("--local-cookie-db-path=")) {
-            m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];;
+            m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];
+        } else if (argument.startsWith("--user-agent-string=")) {
+            m_userAgentOverride = argument.split("--user-agent-string=")[1];
         }
     }
 }
