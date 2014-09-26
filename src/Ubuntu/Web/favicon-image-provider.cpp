@@ -93,9 +93,9 @@ QImage FaviconImageProvider::downloadImage(const QUrl& url)
     while (redirections < MAX_REDIRECTIONS) {
         QNetworkRequest request(currentUrl);
         request.setAttribute(QNetworkRequest::HttpPipeliningAllowedAttribute, true);
-        QNetworkReply* reply = m_manager->get(request);
         QEventLoop loop;
-        QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+        QObject::connect(m_manager.data(), SIGNAL(finished(QNetworkReply*)), &loop, SLOT(quit()));
+        QNetworkReply* reply = m_manager->get(request);
         loop.exec();
         currentUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
         if (currentUrl.isEmpty()) {
