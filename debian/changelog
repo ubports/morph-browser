@@ -1,3 +1,32 @@
+webbrowser-app (0.23+14.10.20140926-0ubuntu1) utopic; urgency=low
+
+  [ Sebastien Bacher ]
+  * Let the refresh button adapt to the label it contains (LP: #1366024)
+
+  [ Michał Sawicz ]
+  * Make missing intltool a fatal configuration error.
+
+  [ Akiva Avraham ]
+  * Update imports of Ubuntu.Unity.Action to 1.1.
+
+  [ Alexandre Abreu ]
+  * Remove session storage for the webapp container. (LP: #1372243)
+  * Fix UriHandler url opening operation for the webapp container. (LP:
+    #1371731)
+
+  [ Michael Sheldon ]
+  * Ensure that the url of the page we're loading is displayed, instead
+    of the currently loaded url. (LP: #1354388)
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Ugo Riboni ]
+  * Fix add tab label to be readable in most localizations. (LP:
+    #1364376)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 26 Sep 2014 06:13:37 +0000
+
 webbrowser-app (0.23+14.10.20140922-0ubuntu1) utopic; urgency=low
 
   [ Michael Sheldon ]
