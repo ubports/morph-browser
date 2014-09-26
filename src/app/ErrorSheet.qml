@@ -51,7 +51,6 @@ Rectangle {
 
         Button {
             text: i18n.tr("Refresh page")
-            width: units.gu(16)
             onClicked: refreshClicked()
         }
     }
