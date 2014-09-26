@@ -77,12 +77,25 @@ static bool isValidGoogleUrlPattern(const QString& pattern)
     return grammar.match(pattern).hasMatch();
 }
 
+/* A strict URL pattern has a strict domain name with no wildcard pattern,
+ * and possibly regular path and protocol globs.
+ *
+ * @param pattern pattern that is to be tested for validity
+ * @return true if the url is valid, false otherwise
+ */
+static bool isValidStrictUrlPattern(const QString& pattern)
+{
+    static QRegularExpression grammar("^http(s|s\\?)?://[^\\.\\*\\?]+\\.[^\\.\\*\\?]+(\\.[^\\.\\*\\?/]+)*/.*$");
+    return grammar.match(pattern).hasMatch();
+}
+
 
 QString UrlPatternUtils::transformWebappSearchPatternToSafePattern(const QString& pattern)
 {
     QString transformedPattern;
 
-    if (isValidWebappUrlPattern(pattern)) {
+    if (isValidWebappUrlPattern(pattern) ||
+        isValidStrictUrlPattern(pattern)) {
 
         QRegularExpression urlRe("(.+://)([^/]+)(.+)");
         QRegularExpressionMatch match = urlRe.match(pattern);

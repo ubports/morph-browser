@@ -43,11 +43,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
     local_location = "../../src/app/webbrowser/webbrowser-app"
     d_f = "--desktop_file_hint=/usr/share/applications/webbrowser-app.desktop"
 
-    ARGS = []
+    ARGS = ["--new-session"]
 
     def setUp(self):
         self.pointing_device = toolkit_emulators.get_pointing_device()
         super(BrowserTestCaseBase, self).setUp()
+        self.launch_app()
+
+    def launch_app(self):
         if os.path.exists(self.local_location):
             self.launch_test_local()
         else:
@@ -146,15 +149,21 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.main_window.get_tabs_view()
 
     def open_new_tab(self):
+        count = len(self.main_window.get_webviews())
         # assumes the tabs view is already open
         tabs_view = self.main_window.get_tabs_view()
         add_button = tabs_view.get_add_button()
         self.pointing_device.click_object(add_button)
         tabs_view.wait_until_destroyed()
+        self.assert_number_webviews_eventually(count + 1)
         self.main_window.get_new_tab_view()
         if model() == 'Desktop':
             address_bar = self.main_window.get_chrome().get_address_bar()
             self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+    def assert_number_webviews_eventually(self, count):
+        self.assertThat(lambda: len(self.main_window.get_webviews()),
+                        Eventually(Equals(count)))
 
     def ping_server(self):
         ping = urllib.request.urlopen(self.base_url + "/ping")
@@ -177,9 +186,10 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
         self.server = http_server.HTTPServerInAThread()
         self.addCleanup(self.server.cleanup)
         self.base_url = "http://localhost:{}".format(self.server.port)
+        self.domain = "localhost"
         self.ping_server()
         self.url = self.base_url + "/loremipsum"
-        self.ARGS = [self.url]
+        self.ARGS = self.ARGS + [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()
         self.assert_home_page_eventually_loaded()
 

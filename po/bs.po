@@ -1,0 +1,536 @@
+# Bosnian translation for webbrowser-app
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-09-22 14:59+0100\n"
+"PO-Revision-Date: 2014-08-28 16:27+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Bosnian <bs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2014-09-26 06:46+0000\n"
+"X-Generator: Launchpad (build 17196)\n"
+
+#: src/app/AlertDialog.qml:23
+msgid "JavaScript Alert"
+msgstr "JavaScript upozorenje"
+
+#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+msgid "OK"
+msgstr "Uredu"
+
+#: src/app/AuthenticationDialog.qml:24
+msgid "Authentication required."
+msgstr "Potrebna autentifikacija"
+
+#. TRANSLATORS: %1 refers to the URL of the current website
+#: src/app/AuthenticationDialog.qml:26
+#, qt-format
+msgid "The website %1 requires authentication."
+msgstr "Web stranica %1 zahtjeva autentifikaciju."
+
+#: src/app/AuthenticationDialog.qml:34
+msgid "Username"
+msgstr "Korisničko ime"
+
+#: src/app/AuthenticationDialog.qml:41
+msgid "Password"
+msgstr "Šifra"
+
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/PromptDialog.qml:38
+msgid "Cancel"
+msgstr "Odustani"
+
+#: src/app/BeforeUnloadDialog.qml:23
+msgid "Confirm Navigation"
+msgstr "Potvrdi navigaciju"
+
+#: src/app/BeforeUnloadDialog.qml:26
+msgid "Leave"
+msgstr "Napusti"
+
+#: src/app/BeforeUnloadDialog.qml:31
+msgid "Stay"
+msgstr "Ostavi"
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "Ova konekcija nije povjerljiva"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+"Pokušavate sigurno pristupiti %1, ali sigurnosni certifikat ove stranice "
+"nije povjerljiv."
+
+#: src/app/CertificateVerificationDialog.qml:29
+#: src/app/InvalidCertificateErrorSheet.qml:162
+msgid "Proceed anyway"
+msgstr "Zanemari i nastavi"
+
+#: src/app/CertificateVerificationDialog.qml:35
+#: src/app/InvalidCertificateErrorSheet.qml:175
+msgid "Back to safety"
+msgstr "Nazad u sigurnost"
+
+#: src/app/ConfirmDialog.qml:23
+msgid "JavaScript Confirmation"
+msgstr "JavaScript potvrda"
+
+#: src/app/ErrorSheet.qml:36
+msgid "Network Error"
+msgstr "Greška na mreži"
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/app/ErrorSheet.qml:42
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr "Čini se da imate problema sa pregledom: %1."
+
+#: src/app/ErrorSheet.qml:48
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr ""
+"Ubuntu sugerira da provjerite vaše mrežne postavke i pokušate osvježiti "
+"stranicu."
+
+#: src/app/ErrorSheet.qml:53
+msgid "Refresh page"
+msgstr "Osvježi stranicu"
+
+#: src/app/FilePickerDialog.qml:28
+msgid "Please choose a file"
+msgstr "Molimo vas da odaberete datoteku"
+
+#: src/app/GeolocationPermissionRequest.qml:28
+#: src/app/PermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "Potrebna dozvola"
+
+#: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
+msgid "This page wants to know your device’s location."
+msgstr "Ova stranica želi znati lokaciju vašeg uređaja."
+
+#: src/app/GeolocationPermissionRequest.qml:33
+#: src/app/PermissionRequest.qml:31
+msgid "Deny"
+msgstr "Zabrani"
+
+#: src/app/GeolocationPermissionRequest.qml:43
+#: src/app/PermissionRequest.qml:40
+msgid "Allow"
+msgstr "Dozvoli"
+
+#: src/app/InvalidCertificateErrorSheet.qml:58
+msgid "This site security certificate is not trusted.\n"
+msgstr ""
+
+#: src/app/InvalidCertificateErrorSheet.qml:66
+msgid "Learn more"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's serial number
+#: src/app/InvalidCertificateErrorSheet.qml:90
+#, qt-format
+msgid ""
+"Serial number:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject display name
+#: src/app/InvalidCertificateErrorSheet.qml:97
+#, qt-format
+msgid ""
+"Subject:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject's address
+#: src/app/InvalidCertificateErrorSheet.qml:105
+#, qt-format
+msgid ""
+"Subject address:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
+#: src/app/InvalidCertificateErrorSheet.qml:116
+#, qt-format
+msgid ""
+"Issuer:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
+#: src/app/InvalidCertificateErrorSheet.qml:124
+#, qt-format
+msgid ""
+"Issuer address:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's start date
+#: src/app/InvalidCertificateErrorSheet.qml:135
+#, qt-format
+msgid ""
+"Valid from:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's expiry date
+#: src/app/InvalidCertificateErrorSheet.qml:142
+#, qt-format
+msgid ""
+"Valid until:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
+#: src/app/InvalidCertificateErrorSheet.qml:149
+#, qt-format
+msgid ""
+"Fingerprint (SHA1):\n"
+"%1"
+msgstr ""
+
+#: src/app/InvalidCertificateErrorSheet.qml:155
+msgid ""
+"You should not proceed, especially if you have never seen this warning "
+"before for this site."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:190
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which does not match the identity of the site."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:193
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which has expired."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:196
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which contains invalid dates."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:199
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"issued by an entity that is not trusted."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:202
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"that has been revoked."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:205
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an invalid security "
+"certificate."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:208
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an insecure security "
+"certificate."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:211
+#, qt-format
+msgid ""
+"This site security certificate is not trusted\n"
+"You attempted to reach %1 but the server presented a security certificate "
+"which failed our security checks for an unknown reason."
+msgstr ""
+
+#: src/app/PromptDialog.qml:23
+msgid "JavaScript Prompt"
+msgstr "JavaScript linija"
+
+#: src/app/ProxyAuthenticationDialog.qml:22
+msgid "Proxy authentication required."
+msgstr "Proxy autentifikacija potrebna"
+
+#. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
+#: src/app/ProxyAuthenticationDialog.qml:24
+#, qt-format
+msgid "The website %1:%2 requires authentication."
+msgstr "Web stranica %1:%2 traži autentifikaciju"
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Nazad"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Back.qml:26
+msgid "Older Page"
+msgstr "Starija stranica"
+
+#: src/app/actions/Bookmark.qml:23
+msgid "Bookmark"
+msgstr "Zabilješka"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Bookmark.qml:26
+msgid "Add This Page to Bookmarks"
+msgstr "Dodaj ovu stranicu u zabilješke"
+
+#: src/app/actions/BookmarkLink.qml:22
+msgid "Bookmark link"
+msgstr "Link zabilješke"
+
+#: src/app/actions/ClearHistory.qml:23
+msgid "Clear History"
+msgstr "Očisti historiju"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/ClearHistory.qml:26
+msgid "Clear Navigation History"
+msgstr "Očisti historiju navigiranja"
+
+#: src/app/actions/Copy.qml:22
+msgid "Copy"
+msgstr "Kopiraj"
+
+#: src/app/actions/CopyImage.qml:22
+msgid "Copy image"
+msgstr "Kopiraj sliku"
+
+#: src/app/actions/CopyLink.qml:22
+msgid "Copy link"
+msgstr "Kopiraj link"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "Naprijed"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Forward.qml:26
+msgid "Newer Page"
+msgstr "Novija stranica"
+
+#: src/app/actions/GoTo.qml:23
+msgid "Goto"
+msgstr "Idi na"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/GoTo.qml:26
+msgid "Address;URL;www"
+msgstr "Adresa;URL;www"
+
+#: src/app/actions/NewTab.qml:23
+msgid "New Tab"
+msgstr "Novi tab"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/NewTab.qml:26
+msgid "Open a New Tab"
+msgstr "Otvori novi tab"
+
+#: src/app/actions/OpenImageInNewTab.qml:22
+msgid "Open image in new tab"
+msgstr "Otvori sliku u novom tabu"
+
+#: src/app/actions/OpenLinkInNewTab.qml:22
+msgid "Open link in new tab"
+msgstr "Otovori link u novom tabu"
+
+#: src/app/actions/Reload.qml:23
+msgid "Reload"
+msgstr "Osvježi"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Reload.qml:26
+msgid "Leave Page"
+msgstr "Napusti stranicu"
+
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
+msgstr "Sačuvaj sliku"
+
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "Podijeli..."
+
+#: src/app/webbrowser/AddressBar.qml:214
+msgid "This site has insecure content"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:229
+msgid "You are connected to"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:251
+msgid "Which is run by"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:335
+msgid "search or enter an address"
+msgstr "traži ili unesi adresu"
+
+#: src/app/webbrowser/Browser.qml:179
+msgid "Share"
+msgstr "Podijeli"
+
+#: src/app/webbrowser/Browser.qml:193
+msgid "History"
+msgstr "Historija"
+
+#: src/app/webbrowser/Browser.qml:200
+msgid "Open tabs"
+msgstr "Otvoreni tabovi"
+
+#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
+msgid "New tab"
+msgstr "Novi tab"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:107
+#, qt-format
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] "%1 stranica"
+msgstr[1] "%1 stranice"
+msgstr[2] "%1 stranice"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
+msgid "Less"
+msgstr "Manje"
+
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
+msgstr "Zadnje posjećeno"
+
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
+msgid "Yesterday"
+msgstr "Jučer"
+
+#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
+msgid "Done"
+msgstr "Gotovo"
+
+#: src/app/webbrowser/HistoryView.qml:113
+msgid "Clear"
+msgstr "Očistiti"
+
+#: src/app/webbrowser/HistoryView.qml:127
+msgid "Delete all history?"
+msgstr "Obrisati svu historiju?"
+
+#: src/app/webbrowser/HistoryView.qml:130
+msgid "Yes"
+msgstr "Da"
+
+#: src/app/webbrowser/HistoryView.qml:139
+msgid "No"
+msgstr "Ne"
+
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr "Zabilješke"
+
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
+msgstr "Omiljene stranice"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
+msgstr "vidi manje"
+
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr "vidi više"
+
+#: src/app/webbrowser/TabPreview.qml:162
+msgid "Tap to view"
+msgstr "Klikni da vidiš"
+
+#: src/app/webbrowser/TabsView.qml:115
+msgid "Add"
+msgstr "Dodaj"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:60
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - Ubuntu Web preglednik"
+
+#: src/app/webbrowser/webbrowser-app.qml:41
+#: src/app/webcontainer/webapp-container.qml:62
+msgid "Ubuntu Web Browser"
+msgstr "Ubuntu Web preglednik"
+
+#: src/app/webcontainer/AccountsLoginPage.qml:87
+msgid "No local account found for "
+msgstr "Nije pronađen lokalni račun za "
+
+#: src/app/webcontainer/AccountsLoginPage.qml:92
+msgid "Skip account creation step"
+msgstr "Preskoči pravljenje računa"
+
+#: src/app/webcontainer/AccountsLoginPage.qml:141
+msgid "Add account"
+msgstr "Dodaj račun"
+
+#: src/app/webcontainer/AccountsView.qml:38
+msgid "Select an account"
+msgstr "Odaberite račun"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
+msgid "Browser"
+msgstr "Preglednik"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
+msgid "Web Browser"
+msgstr "Web preglednik"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
+msgid "Browse the World Wide Web"
+msgstr "Pretražujte internet"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
+msgid "Internet;WWW;Browser;Web;Explorer"
+msgstr "Internet;WWW;Preglednik;Web;Pretraživač"

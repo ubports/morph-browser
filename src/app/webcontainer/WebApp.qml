@@ -20,6 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Unity.Action 1.0 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
+import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 
@@ -37,6 +38,7 @@ BrowserView {
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefix: webview.popupRedirectionUrlPrefix
+    property alias webviewOverrideFile: webview.webviewOverrideFile
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
@@ -74,14 +76,17 @@ BrowserView {
                                       unityWebapps.model.userAgentOverrideFor(webappName) : ""
         }
 
-        ErrorSheet {
+        Loader {
             anchors.fill: webview
-            visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
-            url: webview.currentWebview.url
-            onRefreshClicked: {
-                if (webview.currentWebview)
-                    webview.currentWebview.reload()
+            sourceComponent: ErrorSheet {
+                visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
+                url: webview.currentWebview.url
+                onRefreshClicked: {
+                    if (webview.currentWebview)
+                        webview.currentWebview.reload()
+                }
             }
+            asynchronous: true
         }
 
         Loader {
@@ -145,24 +150,14 @@ BrowserView {
         }
 
         Loader {
-            sourceComponent: (webapp.oxide && !webapp.chromeless) ? scrollTrackerComponent : undefined
+            sourceComponent: (webapp.oxide && !webapp.chromeless) ? chromeStateTrackerComponent : undefined
 
             Component {
-                id: scrollTrackerComponent
+                id: chromeStateTrackerComponent
 
-                ScrollTracker {
+                ChromeStateTracker {
                     webview: webapp.currentWebview
                     header: chromeLoader.item
-
-                    active: !webapp.currentWebview.fullscreen
-                    onScrolledUp: chromeLoader.item.state = "shown"
-                    onScrolledDown: {
-                        if (nearBottom) {
-                            chromeLoader.item.state = "shown"
-                        } else if (!nearTop) {
-                            chromeLoader.item.state = "hidden"
-                        }
-                    }
                 }
             }
         }
@@ -174,5 +169,69 @@ BrowserView {
         bindee: webview.currentWebview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
+    }
+
+    SessionStorage {
+        id: session
+
+        dataFile: dataLocation + "/session.json"
+
+        function save() {
+            if (!locked) {
+                return
+            }
+            if (webapp.currentWebview) {
+                var state = serializeWebviewState(webapp.currentWebview)
+                store(JSON.stringify(state))
+            }
+        }
+
+        function restore() {
+            if (!locked) {
+                return
+            }
+            var state = null
+            try {
+                state = JSON.parse(retrieve())
+            } catch (e) {
+                return
+            }
+            if (state) {
+                var url = state.url
+                if (url) {
+                    webapp.currentWebview.url = url
+                }
+            }
+        }
+
+        // This function is used to save the current state of a webview.
+        // The current implementation is naive, it only saves the current URL.
+        // In the future, we’ll want to rely on oxide to save and restore a full state
+        // of the webview as a binary blob, which includes navigation history, current
+        // scroll offset and form data. See http://pad.lv/1353143.
+        function serializeWebviewState(webview) {
+            var state = {}
+            state.url = webview.url.toString()
+            return state
+        }
+    }
+    Connections {
+        target: webapp.currentWebview
+        onUrlChanged: {
+            var url = webapp.currentWebview.url.toString()
+            if (url.length === 0 || url === 'about:blank') {
+                return;
+            }
+            if (popupRedirectionUrlPrefix.length !== 0
+                    && url.indexOf(popupRedirectionUrlPrefix) === 0) {
+                return;
+            }
+            session.save()
+        }
+    }
+    Component.onCompleted: {
+        if (webapp.restoreSession) {
+            session.restore()
+        }
     }
 }

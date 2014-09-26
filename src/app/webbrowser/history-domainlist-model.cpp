@@ -186,13 +186,6 @@ QString HistoryDomainListModel::getDomainFromSourceModel(const QModelIndex& inde
     return m_sourceModel->data(index, HistoryModel::Domain).toString();
 }
 
-// It appears this is never called: in practice, for rows to be removed from
-// a domain model, they should be removed from the underlying history model,
-// and there is no API to remove history entries.
-// Changing the start and end markers of the timeframe model may remove rows,
-// but the implementation prefers to reset the entire model.
-// Since this is an implementation detail of QSortFilterProxyModel over which
-// we do not have any control, it is safer to keep this slot anyway.
 void HistoryDomainListModel::onDomainRowsRemoved(const QModelIndex& parent, int start, int end)
 {
     Q_UNUSED(parent);

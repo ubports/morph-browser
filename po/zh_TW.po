@@ -7,22 +7,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-07-04 10:06-0300\n"
-"PO-Revision-Date: 2014-07-18 10:14+0000\n"
-"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
+"POT-Creation-Date: 2014-09-22 14:59+0100\n"
+"PO-Revision-Date: 2014-08-29 11:26+0000\n"
+"Last-Translator: Walter Cheuk <wwycheuk@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-19 06:14+0000\n"
-"X-Generator: Launchpad (build 17114)\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2014-09-26 06:47+0000\n"
+"X-Generator: Launchpad (build 17196)\n"
 
-#: src/app/AlertDialog.qml:24
+#: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr "JavaScript 警示"
 
-#: src/app/AlertDialog.qml:28 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:28 src/app/PromptDialog.qml:34
+#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
 msgid "OK"
 msgstr "確定"
 
@@ -44,20 +45,20 @@ msgstr "使用者名稱"
 msgid "Password"
 msgstr "密碼"
 
-#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:33
-#: src/app/PromptDialog.qml:40
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/PromptDialog.qml:38
 msgid "Cancel"
 msgstr "取消"
 
-#: src/app/BeforeUnloadDialog.qml:24
+#: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
 msgstr "確認導覽"
 
-#: src/app/BeforeUnloadDialog.qml:28
+#: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
 msgstr "離開"
 
-#: src/app/BeforeUnloadDialog.qml:33
+#: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
 msgstr "留下"
 
@@ -74,49 +75,39 @@ msgid ""
 msgstr "您想以安全方式連接 %1，但此網站的憑證未受信任。"
 
 #: src/app/CertificateVerificationDialog.qml:29
+#: src/app/InvalidCertificateErrorSheet.qml:162
 msgid "Proceed anyway"
 msgstr "仍要繼續"
 
 #: src/app/CertificateVerificationDialog.qml:35
+#: src/app/InvalidCertificateErrorSheet.qml:175
 msgid "Back to safety"
 msgstr "返回安全地點"
 
-#: src/app/Chrome.qml:76 src/app/actions/Back.qml:23
-msgid "Back"
-msgstr "返回"
-
-#: src/app/Chrome.qml:95 src/app/actions/Forward.qml:23
-msgid "Forward"
-msgstr "前進"
-
-#: src/app/Chrome.qml:158 src/app/webbrowser/ActivityView.qml:36
-msgid "Activity"
-msgstr "活動"
-
-#: src/app/ConfirmDialog.qml:24
+#: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
 msgstr "JavaScript 確認"
 
-#: src/app/ErrorSheet.qml:38
+#: src/app/ErrorSheet.qml:36
 msgid "Network Error"
 msgstr "網路錯誤"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
-#: src/app/ErrorSheet.qml:44
+#: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
 msgstr "似乎在檢視此頁時遇到問題：%1。"
 
-#: src/app/ErrorSheet.qml:50
+#: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr "Ubuntu 建議您檢查網路設定，並嘗試重新整理該頁面。"
 
-#: src/app/ErrorSheet.qml:55
+#: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
 msgstr "重新整理頁面"
 
-#: src/app/FilePickerDialog.qml:27
+#: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
 msgstr "請選取檔案"
 
@@ -126,7 +117,7 @@ msgid "Permission Request"
 msgstr "請求許可"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:69
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
 msgstr "此頁面想要知道您的位置。"
 
@@ -140,7 +131,150 @@ msgstr "拒絕"
 msgid "Allow"
 msgstr "同意"
 
-#: src/app/PromptDialog.qml:24
+#: src/app/InvalidCertificateErrorSheet.qml:58
+msgid "This site security certificate is not trusted.\n"
+msgstr ""
+
+#: src/app/InvalidCertificateErrorSheet.qml:66
+msgid "Learn more"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's serial number
+#: src/app/InvalidCertificateErrorSheet.qml:90
+#, qt-format
+msgid ""
+"Serial number:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject display name
+#: src/app/InvalidCertificateErrorSheet.qml:97
+#, qt-format
+msgid ""
+"Subject:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject's address
+#: src/app/InvalidCertificateErrorSheet.qml:105
+#, qt-format
+msgid ""
+"Subject address:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
+#: src/app/InvalidCertificateErrorSheet.qml:116
+#, qt-format
+msgid ""
+"Issuer:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
+#: src/app/InvalidCertificateErrorSheet.qml:124
+#, qt-format
+msgid ""
+"Issuer address:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's start date
+#: src/app/InvalidCertificateErrorSheet.qml:135
+#, qt-format
+msgid ""
+"Valid from:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's expiry date
+#: src/app/InvalidCertificateErrorSheet.qml:142
+#, qt-format
+msgid ""
+"Valid until:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
+#: src/app/InvalidCertificateErrorSheet.qml:149
+#, qt-format
+msgid ""
+"Fingerprint (SHA1):\n"
+"%1"
+msgstr ""
+
+#: src/app/InvalidCertificateErrorSheet.qml:155
+msgid ""
+"You should not proceed, especially if you have never seen this warning "
+"before for this site."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:190
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which does not match the identity of the site."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:193
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which has expired."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:196
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which contains invalid dates."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:199
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"issued by an entity that is not trusted."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:202
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"that has been revoked."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:205
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an invalid security "
+"certificate."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:208
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an insecure security "
+"certificate."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:211
+#, qt-format
+msgid ""
+"This site security certificate is not trusted\n"
+"You attempted to reach %1 but the server presented a security certificate "
+"which failed our security checks for an unknown reason."
+msgstr ""
+
+#: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr "JavaScript 提示"
 
@@ -153,6 +287,10 @@ msgstr "代理伺服器需要核對身分。"
 #, qt-format
 msgid "The website %1:%2 requires authentication."
 msgstr "%1:%2 網站需要核對身分。"
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "返回"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -195,6 +333,10 @@ msgstr "複製影像"
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
 msgstr "複製連結"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "前進"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -248,101 +390,140 @@ msgstr "儲存影像"
 msgid "Share…"
 msgstr "分享…"
 
-#: src/app/webbrowser/ActivityView.qml:54
-#: src/app/webbrowser/NewTabView.qml:123
-msgid "Bookmarks"
-msgstr "書籤"
+#: src/app/webbrowser/AddressBar.qml:214
+msgid "This site has insecure content"
+msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:125
-msgid "Top sites"
-msgstr "最常造訪"
+#: src/app/webbrowser/AddressBar.qml:229
+msgid "You are connected to"
+msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see less"
-msgstr "縮減查看"
+#: src/app/webbrowser/AddressBar.qml:251
+msgid "Which is run by"
+msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:142
-msgid "see more"
-msgstr "查看更多"
+#: src/app/webbrowser/AddressBar.qml:335
+msgid "search or enter an address"
+msgstr "搜尋或輸入位址"
 
-#. TRANSLATORS: %1 refers to the number of open tabs
-#: src/app/webbrowser/TabsList.qml:37
+#: src/app/webbrowser/Browser.qml:179
+msgid "Share"
+msgstr "分享"
+
+#: src/app/webbrowser/Browser.qml:193
+msgid "History"
+msgstr "歷史"
+
+#: src/app/webbrowser/Browser.qml:200
+msgid "Open tabs"
+msgstr "開啟分頁"
+
+#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
+msgid "New tab"
+msgstr "新分頁"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:107
 #, qt-format
-msgid "Currently viewing (%1)"
-msgstr "目前檢視中 (%1)"
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] "共 %1 頁"
 
-#: src/app/webbrowser/TabsList.qml:69
-msgid "+"
-msgstr "+"
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
+msgid "Less"
+msgstr "少"
 
-#: src/app/webbrowser/TimelineView.qml:87
-msgid "Today"
-msgstr "今天"
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
+msgid "Last Visited"
+msgstr "最後到訪"
 
-#: src/app/webbrowser/TimelineView.qml:89
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr "昨天"
 
-#: src/app/webbrowser/TimelineView.qml:91
-msgid "Last 7 Days"
-msgstr "最近 7 天"
+#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
+msgid "Done"
+msgstr "完成"
 
-#: src/app/webbrowser/TimelineView.qml:93
-msgid "This Month"
-msgstr "本月"
+#: src/app/webbrowser/HistoryView.qml:113
+msgid "Clear"
+msgstr "清除"
 
-#: src/app/webbrowser/TimelineView.qml:95
-msgid "This Year"
-msgstr "今年"
+#: src/app/webbrowser/HistoryView.qml:127
+msgid "Delete all history?"
+msgstr "刪除所有歷史？"
 
-#: src/app/webbrowser/TimelineView.qml:97
-msgid "Older"
-msgstr "更早"
+#: src/app/webbrowser/HistoryView.qml:130
+msgid "Yes"
+msgstr "是"
 
-#: src/app/webbrowser/TimelineView.qml:287
-msgid "(local files)"
-msgstr "(本機檔案)"
+#: src/app/webbrowser/HistoryView.qml:139
+msgid "No"
+msgstr "否"
 
-#: src/app/webbrowser/TimelineView.qml:289
-msgid "(other)"
-msgstr "(其他)"
+#: src/app/webbrowser/NewTabView.qml:122
+msgid "Bookmarks"
+msgstr "書籤"
 
-#: src/app/webbrowser/webbrowser-app.desktop.in:3
-msgid "Browser"
-msgstr "瀏覽器"
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "Top sites"
+msgstr "最常造訪"
 
-#: src/app/webbrowser/webbrowser-app.desktop.in:4
-msgid "Web Browser"
-msgstr "網頁瀏覽器"
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see less"
+msgstr "縮減查看"
 
-#: src/app/webbrowser/webbrowser-app.desktop.in:5
-msgid "Browse the World Wide Web"
-msgstr "瀏覽全球資訊網"
+#: src/app/webbrowser/NewTabView.qml:141
+msgid "see more"
+msgstr "查看更多"
+
+#: src/app/webbrowser/TabPreview.qml:162
+msgid "Tap to view"
+msgstr "輕觸以檢視"
+
+#: src/app/webbrowser/TabsView.qml:115
+msgid "Add"
+msgstr "加入"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:36
-#: src/app/webcontainer/webapp-container.qml:54
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:60
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu 網頁瀏覽器"
 
-#: src/app/webbrowser/webbrowser-app.qml:38
-#: src/app/webcontainer/webapp-container.qml:56
+#: src/app/webbrowser/webbrowser-app.qml:41
+#: src/app/webcontainer/webapp-container.qml:62
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu 網頁瀏覽器"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:70
+#: src/app/webcontainer/AccountsLoginPage.qml:87
 msgid "No local account found for "
 msgstr "找不到本機帳號 "
 
-#: src/app/webcontainer/AccountsLoginPage.qml:75
+#: src/app/webcontainer/AccountsLoginPage.qml:92
 msgid "Skip account creation step"
 msgstr "略過帳號建立步驟"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:124
+#: src/app/webcontainer/AccountsLoginPage.qml:141
 msgid "Add account"
 msgstr "加入帳號"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
 msgstr "選取帳號"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
+msgid "Browser"
+msgstr "瀏覽器"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
+msgid "Web Browser"
+msgstr "網頁瀏覽器"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
+msgid "Browse the World Wide Web"
+msgstr "瀏覽全球資訊網"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
+msgid "Internet;WWW;Browser;Web;Explorer"
+msgstr "Internet;WWW;Browser;Web;Explorer;網際網路;瀏覽器;網頁;"

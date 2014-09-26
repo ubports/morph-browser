@@ -35,27 +35,33 @@ class PrepopulatedHistoryDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
                                "webbrowser-app", "history.sqlite")
         connection = sqlite3.connect(db_path)
         connection.execute("""CREATE TABLE IF NOT EXISTS history
-                              (url VARCHAR, title VARCHAR, icon VARCHAR,
-                               visits INTEGER, lastVisit DATETIME);""")
+                              (url VARCHAR, domain VARCHAR, title VARCHAR,
+                               icon VARCHAR, visits INTEGER,
+                               lastVisit DATETIME);""")
         search_uri = \
             "http://www.google.com/search?client=ubuntu&q={}&ie=utf-8&oe=utf-8"
         rows = [
-            ("http://www.ubuntu.com/", "Home | Ubuntu"),
-            (search_uri.format("ubuntu"), "ubuntu - Google Search"),
+            ("http://www.ubuntu.com/", "ubuntu.com", "Home | Ubuntu"),
+            (search_uri.format("ubuntu"), "google.com",
+             "ubuntu - Google Search"),
             ("http://en.wikipedia.org/wiki/Ubuntu_(operating_system)",
+             "wikipedia.org",
              "Ubuntu (operating system) - Wikipedia, the free encyclopedia"),
             ("http://en.wikipedia.org/wiki/Ubuntu_(philosophy)",
+             "wikipedia.org",
              "Ubuntu (philosophy) - Wikipedia, the free encyclopedia"),
-            (search_uri.format("example"), "example - Google Search"),
-            ("http://example.iana.org/", "Example Domain"),
-            ("http://www.iana.org/domains/special",
+            (search_uri.format("example"), "google.com",
+             "example - Google Search"),
+            ("http://example.iana.org/", "iana.org", "Example Domain"),
+            ("http://www.iana.org/domains/special", "iana.org",
              "IANA — Special Use Domains")
         ]
         for i, row in enumerate(rows):
             visits = random.randint(1, 5)
             timestamp = int(time.time()) - i * 10
-            query = "INSERT INTO history VALUES ('{}', '{}', '', {}, {});"
-            query = query.format(row[0], row[1], visits, timestamp)
+            query = "INSERT INTO history \
+                     VALUES ('{}', '{}', '{}', '', {}, {});"
+            query = query.format(row[0], row[1], row[2], visits, timestamp)
             connection.execute(query)
         connection.commit()
         connection.close()

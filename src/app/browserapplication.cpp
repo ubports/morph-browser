@@ -24,6 +24,7 @@
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
+#include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
 #if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
 #include <QtQuick/private/qsgcontext_p.h>
@@ -34,6 +35,7 @@
 // local
 #include "browserapplication.h"
 #include "config.h"
+#include "session-storage.h"
 #include "webbrowser-window.h"
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
@@ -56,6 +58,23 @@ BrowserApplication::~BrowserApplication()
     delete m_webbrowserWindowProxy;
     delete m_component;
     delete m_engine;
+}
+
+QString BrowserApplication::inspectorPort() const
+{
+    QString port;
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument == "--inspector") {
+            // default port
+            port = QString::number(REMOTE_INSPECTOR_PORT);
+            break;
+        }
+        if (argument.startsWith("--inspector=")) {
+            port = argument.split("--inspector=")[1];
+            break;
+        }
+    }
+    return port;
 }
 
 QString BrowserApplication::appId() const
@@ -87,8 +106,12 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
         qputenv("APP_ID", id.toUtf8());
     }
     // Ensure that application-specific data is written where it ought to.
-    QString appPkgName = qgetenv("APP_ID").split('_').first();
-    QCoreApplication::setApplicationName(appPkgName);
+    QStringList appIdParts =
+        QString::fromUtf8(qgetenv("APP_ID")).split('_');
+    QCoreApplication::setApplicationName(appIdParts.first());
+    // Get also the the first two components of the app ID: <package>_<app>,
+    // which is needed by Online Accounts.
+    QString unversionedAppId = QStringList(appIdParts.mid(0, 2)).join('_');
 
     // Enable compositing in oxide
     QOpenGLContext* glcontext = new QOpenGLContext(this);
@@ -99,23 +122,14 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     QOpenGLContextPrivate::setGlobalShareContext(glcontext);
 #endif
 
-    bool inspector = m_arguments.contains("--inspector");
-    if (inspector) {
-        QString host;
-        Q_FOREACH(QHostAddress address, QNetworkInterface::allAddresses()) {
-            if (!address.isLoopback() && (address.protocol() == QAbstractSocket::IPv4Protocol)) {
-                host = address.toString();
-                break;
-            }
-        }
-        QString server;
-        if (host.isEmpty()) {
-            server = QString::number(REMOTE_INSPECTOR_PORT);
-        } else {
-            server = QString("%1:%2").arg(host, QString::number(REMOTE_INSPECTOR_PORT));
-        }
-        qputenv("QTWEBKIT_INSPECTOR_SERVER", server.toUtf8());
+    QString devtoolsPort = inspectorPort();
+    bool inspectorEnabled = !devtoolsPort.isEmpty();
+    if (inspectorEnabled) {
+        qputenv("UBUNTU_WEBVIEW_DEVTOOLS_PORT", devtoolsPort.toUtf8());
     }
+
+    const char* uri = "webbrowsercommon.private";
+    qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
 
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));
@@ -134,12 +148,14 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     }
     m_webbrowserWindowProxy = new WebBrowserWindow();
     context->setContextProperty("webbrowserWindowProxy", m_webbrowserWindowProxy);
+    context->setContextProperty("unversionedAppId", unversionedAppId);
 
     QObject* browser = m_component->beginCreate(context);
     m_window = qobject_cast<QQuickWindow*>(browser);
     m_webbrowserWindowProxy->setWindow(m_window);
 
-    browser->setProperty("developerExtrasEnabled", inspector);
+    browser->setProperty("restoreSession", !m_arguments.contains("--new-session"));
+    browser->setProperty("developerExtrasEnabled", inspectorEnabled);
 
     return true;
 }

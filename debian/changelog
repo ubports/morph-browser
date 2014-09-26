@@ -1,3 +1,208 @@
+webbrowser-app (0.23+14.10.20140922-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Display padlock when viewing pages over HTTPS. Provide certificate
+    details when padlock is clicked. Display error pages when invalid
+    SSL certificates are presented and allow users to override these
+    warnings. . Display warning symbol when insecure content is loaded
+    over HTTPS (currently incorrect icon, should be updated when dialog-
+    warning-symbol lands in ubuntu-theme). (LP: #1214034)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 22 Sep 2014 21:13:10 +0000
+
+webbrowser-app (0.23+14.10.20140910-0ubuntu1) utopic; urgency=low
+
+  [ Michael Sheldon ]
+  * Simplify the address displayed in the address bar when not being
+    edited (LP: #1351158)
+
+  [ Ugo Riboni ]
+  * Simplify the address displayed in the address bar when not being
+    edited (LP: #1351158)
+
+  [ David Barth ]
+  * This branch adds support for url patterns without subdomains, ie of
+    the form: https?://mydomain.com/* (LP: #1358399)
+
+  [ Renato Araujo Oliveira Filho ]
+  * Update the top sites visual. (LP: #1359353)
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 10 Sep 2014 19:59:05 +0000
+
+webbrowser-app (0.23+14.10.20140908-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alberto Mardegan ]
+  * Update for new Oxide cookie API
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 08 Sep 2014 08:52:15 +0000
+
+webbrowser-app (0.23+14.10.20140828-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Handle cookie manager & cookie copies w/ Oxide
+  * skip creation step and automatically select first account when
+    multiple are found
+  * fix
+  * Merge lp:~mardy/webbrowser-app/cookie-manager
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 28 Aug 2014 15:07:07 +0000
+
+webbrowser-app (0.23+14.10.20140826-0ubuntu1) utopic; urgency=low
+
+  [ Zsombor Egri ]
+  * Fix focus handling on Chrome and Suggestions.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 26 Aug 2014 09:54:53 +0000
+
+webbrowser-app (0.23+14.10.20140825.1-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Reduce startup time of both apps by means of a few tricks, all
+    related to asynchronous loading: - ensure loaders on the critical
+    path load their components asynchronously - instantiate the error
+    sheets asynchronously, as they are not needed right away - use
+    Component.incubateObject(…) instead of Component.createObject(…) to
+    instantiate objects asynchronously where possible - instantiate the
+    history and bookmarks models asynchronously (LP: #1325001)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 25 Aug 2014 21:11:11 +0000
+
+webbrowser-app (0.23+14.10.20140821-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Olivier Tilloy ]
+  * Instantiate webviews on demand, only when they really need to be
+    shown. Show placeholder artwork and text in empty tab previews. (LP:
+    #1357464)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 21 Aug 2014 16:56:31 +0000
+
+webbrowser-app (0.23+14.10.20140819.1-0ubuntu1) utopic; urgency=low
+
+  [ David Barth ]
+  * Add the ability to override the Oxide webview and various functions
+    related to navigation support.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 19 Aug 2014 16:14:51 +0000
+
+webbrowser-app (0.23+14.10.20140819-0ubuntu1) utopic; urgency=low
+
+  [ Alexandre Abreu ]
+  * Fix the session storage mechanism to record URLs depending on their
+    context and on the webapp context: - discard transient pages -
+    discard URLs that match a potential redirection prefix (as facebook
+    uses) - prevent external requests to open URLs that match the
+    redirection prefix (LP: #1356417)
+
+  [ Olivier Tilloy ]
+  * Fix the session storage mechanism to record URLs depending on their
+    context and on the webapp context: - discard transient pages -
+    discard URLs that match a potential redirection prefix (as facebook
+    uses) - prevent external requests to open URLs that match the
+    redirection prefix (LP: #1356417)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 19 Aug 2014 08:42:44 +0000
+
+webbrowser-app (0.23+14.10.20140818.1-0ubuntu1) utopic; urgency=low
+
+  [ Arthur Mello ]
+  * Add swipe to delete action to the history view (LP: #1351164)
+
+  [ Olivier Tilloy ]
+  * Delay the auto-hide/auto-show behaviour of the header, in order to
+    prevent the view from jumping up and down on touch-enabled devices
+    when the touch event sequence is not finished. (LP: #1354700)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 18 Aug 2014 13:05:07 +0000
+
+webbrowser-app (0.23+14.10.20140818-0ubuntu1) utopic; urgency=low
+
+  [ Ugo Riboni ]
+  * Include translations in the .desktop file (LP: #1318008)
+
+  [ Olivier Tilloy ]
+  * Include translations in the .desktop file (LP: #1318008)
+  * Do not request permission for geolocation on devices where webapps
+    are running confined. This is delegated to the trust store. (LP:
+    #1356767)
+  * Elide actions’ text in the drawer menu. (LP: #1356345)
+  * Do not reset the contents of the address bar to the previous URL if
+    currently loading. Unfocus the address bar when requesting the page
+    to reload. (LP: #1354383)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 18 Aug 2014 09:45:10 +0000
+
+webbrowser-app (0.23+14.10.20140812-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Save/restore browsing sessions for webbrowser-app and webapp-
+    container. For now, only the list of currently open tabs (URLs) is
+    persisted (current URL for the container), not the complete state
+    for each webview. (LP: #1268056)
+  * Fix a harmless warning that was issued when closing the last open
+    tab.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 12 Aug 2014 08:26:26 +0000
+
+webbrowser-app (0.23+14.10.20140811-0ubuntu1) utopic; urgency=low
+
+  [ Alexandre Abreu ]
+  * Add devtools support & ubuntu webview remote debugging
+  * Fix URI handling by the webapp container. (LP: #1342129)
+
+  [ Olivier Tilloy ]
+  * Fix a couple of harmless warnings that were issued when closing the
+    last open tab.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 11 Aug 2014 15:14:20 +0000
+
+webbrowser-app (0.23+14.10.20140805.1-0ubuntu1) utopic; urgency=low
+
+  [ Olivier Tilloy ]
+  * Fix automatic orientation of all popups parented to the BrowserView.
+    (LP: #1351922)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 05 Aug 2014 10:55:24 +0000
+
+webbrowser-app (0.23+14.10.20140804-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Ugo Riboni ]
+  * Add creation timestamp to bookmarks model. (LP: #1351185)
+
+  [ Alexandre Abreu ]
+  * Handle simplified webapp definition
+
+  [ Olivier Tilloy ]
+  * Add creation timestamp to bookmarks model. (LP: #1351185)
+  * Factor out some common code in a ModalDialog component, and fix
+    dialog auto-rotation and dimensions. (LP: #1351922)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 04 Aug 2014 15:02:31 +0000
+
+webbrowser-app (0.23+14.10.20140731-0ubuntu1) utopic; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Handle simplified webapp definition
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 31 Jul 2014 21:31:42 +0000
+
 webbrowser-app (0.23+14.10.20140730.2-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]

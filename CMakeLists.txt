@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8.9)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+find_program(INTLTOOL_MERGE intltool-merge)
+find_program(INTLTOOL_EXTRACT intltool-extract)
+
 # Standard install paths
 include(GNUInstallDirs)
 
@@ -37,6 +40,8 @@ find_package(Qt5Quick REQUIRED)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
+set(DESKTOP_FILE webbrowser-app.desktop)
+
 # uninstall target
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
@@ -53,11 +58,6 @@ add_subdirectory(tests)
 # make non compiled files (QML, JS, images, etc.) visible in QtCreator
 file(GLOB_RECURSE NON_COMPILED_FILES *.qml *.js *.png *.svg *.py *.pot *.po *.qdoc *.qdocconf *.css)
 add_custom_target(NON_COMPILED_TARGET ALL SOURCES ${NON_COMPILED_FILES})
-
-file(GLOB_RECURSE I18N_SRC_FILES
-     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-     src/app/**.qml src/app/**.desktop.in)
-list(SORT I18N_SRC_FILES)
 
 # for dh_translations to extract the domain
 # (regarding syntax consistency, see http://pad.lv/1181187)

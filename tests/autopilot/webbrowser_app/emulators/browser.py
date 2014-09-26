@@ -119,6 +119,9 @@ class Browser(uitk.UbuntuUIToolkitEmulatorBase):
     def get_current_webview(self):
         return self.select_single("WebViewImpl", current=True)
 
+    def get_webviews(self):
+        return self.select_many("WebViewImpl")
+
     def get_visible_webviews(self):
         return self.select_many("WebViewImpl", visible=True)
 
@@ -142,7 +145,7 @@ class Browser(uitk.UbuntuUIToolkitEmulatorBase):
         return self.wait_select_single(TabsView)
 
     def get_new_tab_view(self):
-        return self.wait_select_single("NewTabView")
+        return self.wait_select_single("NewTabView", visible=True)
 
     def get_content_picker_dialog(self):
         # only on devices

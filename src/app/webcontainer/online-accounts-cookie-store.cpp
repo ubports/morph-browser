@@ -61,7 +61,7 @@ OnlineAccountsCookieStore::OnlineAccountsCookieStore(QObject *parent)
     : CookieStore(parent),
       d_ptr(new OnlineAccountsCookieStorePrivate())
 {
-    qDBusRegisterMetaType<Cookies>();
+    qDBusRegisterMetaType<OnlineAccountsCookies>();
 }
 
 OnlineAccountsCookieStore::~OnlineAccountsCookieStore()
@@ -86,7 +86,7 @@ void OnlineAccountsCookieStore::setAccountId (quint32 id)
     }
 }
 
-Cookies OnlineAccountsCookieStore::doGetCookies()
+void OnlineAccountsCookieStore::doGetCookies()
 {
     Q_D(const OnlineAccountsCookieStore);
 
@@ -103,7 +103,7 @@ Cookies OnlineAccountsCookieStore::doGetCookies()
     if (reply.type() == QDBusMessage::ErrorMessage)
     {
         qWarning() << "Got error:" << reply.errorMessage();
-        return Cookies();
+        emit gotCookies(Cookies());
     }
 
     QList<QVariant> arguments = reply.arguments();
@@ -111,7 +111,7 @@ Cookies OnlineAccountsCookieStore::doGetCookies()
     if ( ! arguments.count())
     {
         qWarning() << "Invalid number arguments to get online accounts cookies call.";
-        return Cookies();
+        emit gotCookies(Cookies());
     }
 
     if (arguments.count() > 1)
@@ -129,11 +129,19 @@ Cookies OnlineAccountsCookieStore::doGetCookies()
         }
     }
 
-    return qdbus_cast<Cookies>(arguments.front());
+    emit gotCookies(fromDbusCookies(qdbus_cast<OnlineAccountsCookies>(arguments.front())));
 }
 
-bool OnlineAccountsCookieStore::doSetCookies(const Cookies& cookies)
+Cookies OnlineAccountsCookieStore::fromDbusCookies(const OnlineAccountsCookies& cookies)
+{
+    Cookies parsedCookies;
+    Q_FOREACH(const QByteArray &cookie, cookies) {
+        parsedCookies.append(QNetworkCookie::parseCookies(cookie));
+    }
+    return parsedCookies;
+}
+
+void OnlineAccountsCookieStore::doSetCookies(const Cookies& cookies)
 {
     Q_UNUSED(cookies);
-    return false;
 }
