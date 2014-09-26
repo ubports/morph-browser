@@ -121,6 +121,24 @@ BrowserView {
             asynchronous: true
         }
 
+        Loader {
+            anchors.fill: tabContainer
+            sourceComponent: InvalidCertificateErrorSheet {
+                visible: currentWebview && currentWebview.certificateError != null
+                certificateError: currentWebview ? currentWebview.certificateError : null
+                onAllowed: { 
+                    // Automatically allow future requests involving this
+                    // certificate for the duration of the session.
+                    currentWebview.allowedCertificates.push(currentWebview.certificateError.certificate.fingerprintSHA1)
+                    currentWebview.certificateError = null
+                }
+                onDenied: {
+                    currentWebview.certificateError = null
+                }
+            }
+            asynchronous: true
+        }
+
         Chrome {
             id: chrome
 

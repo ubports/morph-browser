@@ -7,20 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-21 13:27+0200\n"
-"PO-Revision-Date: 2014-08-04 12:29+0000\n"
+"POT-Creation-Date: 2014-09-22 14:59+0100\n"
+"PO-Revision-Date: 2014-09-21 11:16+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <is@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-22 07:16+0000\n"
-"X-Generator: Launchpad (build 17163)\n"
+"X-Launchpad-Export-Date: 2014-09-26 06:46+0000\n"
+"X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "Aðvörun vegna JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
@@ -35,7 +35,7 @@ msgstr "Auðkenning nauðsynleg."
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "Vefsvæðið %1 krefst auðkenningar."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
@@ -64,7 +64,7 @@ msgstr "Vera áfram"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "Þessi tenging er ekki traust"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -75,16 +75,18 @@ msgid ""
 msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:29
+#: src/app/InvalidCertificateErrorSheet.qml:162
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Halda samt áfram"
 
 #: src/app/CertificateVerificationDialog.qml:35
+#: src/app/InvalidCertificateErrorSheet.qml:175
 msgid "Back to safety"
-msgstr ""
+msgstr "Til baka á örygga tengingu"
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "Staðfesting JavaScript"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -103,7 +105,7 @@ msgstr ""
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr ""
+msgstr "Endurlesa síðu"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
@@ -129,6 +131,149 @@ msgstr "Hafna"
 msgid "Allow"
 msgstr "Leyfa"
 
+#: src/app/InvalidCertificateErrorSheet.qml:58
+msgid "This site security certificate is not trusted.\n"
+msgstr ""
+
+#: src/app/InvalidCertificateErrorSheet.qml:66
+msgid "Learn more"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's serial number
+#: src/app/InvalidCertificateErrorSheet.qml:90
+#, qt-format
+msgid ""
+"Serial number:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject display name
+#: src/app/InvalidCertificateErrorSheet.qml:97
+#, qt-format
+msgid ""
+"Subject:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject's address
+#: src/app/InvalidCertificateErrorSheet.qml:105
+#, qt-format
+msgid ""
+"Subject address:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
+#: src/app/InvalidCertificateErrorSheet.qml:116
+#, qt-format
+msgid ""
+"Issuer:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
+#: src/app/InvalidCertificateErrorSheet.qml:124
+#, qt-format
+msgid ""
+"Issuer address:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's start date
+#: src/app/InvalidCertificateErrorSheet.qml:135
+#, qt-format
+msgid ""
+"Valid from:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's expiry date
+#: src/app/InvalidCertificateErrorSheet.qml:142
+#, qt-format
+msgid ""
+"Valid until:\n"
+"%1"
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
+#: src/app/InvalidCertificateErrorSheet.qml:149
+#, qt-format
+msgid ""
+"Fingerprint (SHA1):\n"
+"%1"
+msgstr ""
+
+#: src/app/InvalidCertificateErrorSheet.qml:155
+msgid ""
+"You should not proceed, especially if you have never seen this warning "
+"before for this site."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:190
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which does not match the identity of the site."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:193
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which has expired."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:196
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which contains invalid dates."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:199
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"issued by an entity that is not trusted."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:202
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"that has been revoked."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:205
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an invalid security "
+"certificate."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:208
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an insecure security "
+"certificate."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:211
+#, qt-format
+msgid ""
+"This site security certificate is not trusted\n"
+"You attempted to reach %1 but the server presented a security certificate "
+"which failed our security checks for an unknown reason."
+msgstr ""
+
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
 msgstr ""
@@ -141,7 +286,7 @@ msgstr ""
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "Vefsvæðið %1:%2 krefst auðkenningar."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -245,23 +390,35 @@ msgstr "Vista mynd"
 msgid "Share…"
 msgstr "Deila..."
 
-#: src/app/webbrowser/AddressBar.qml:148
+#: src/app/webbrowser/AddressBar.qml:214
+msgid "This site has insecure content"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:229
+msgid "You are connected to"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:251
+msgid "Which is run by"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:154
+#: src/app/webbrowser/Browser.qml:179
 msgid "Share"
 msgstr "Deila"
 
-#: src/app/webbrowser/Browser.qml:168
+#: src/app/webbrowser/Browser.qml:193
 msgid "History"
 msgstr "Ferill"
 
-#: src/app/webbrowser/Browser.qml:174
+#: src/app/webbrowser/Browser.qml:200
 msgid "Open tabs"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:180 src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Nýr flipi"
 
@@ -330,25 +487,25 @@ msgstr "Bæta við"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:57
+#: src/app/webcontainer/webapp-container.qml:60
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu netvafri"
 
 #: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:59
+#: src/app/webcontainer/webapp-container.qml:62
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu netvafri"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:70
+#: src/app/webcontainer/AccountsLoginPage.qml:87
 msgid "No local account found for "
 msgstr ""
 
-#: src/app/webcontainer/AccountsLoginPage.qml:75
+#: src/app/webcontainer/AccountsLoginPage.qml:92
 msgid "Skip account creation step"
 msgstr ""
 
-#: src/app/webcontainer/AccountsLoginPage.qml:124
+#: src/app/webcontainer/AccountsLoginPage.qml:141
 msgid "Add account"
 msgstr "Bæta við aðgangi"
 

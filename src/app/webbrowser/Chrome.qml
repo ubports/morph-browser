@@ -107,6 +107,7 @@ ChromeBase {
             onValidated: chrome.webview.url = requestedUrl
             onRequestReload: chrome.webview.reload()
             onRequestStop: chrome.webview.stop()
+            onTextFieldFocused: text = chrome.webview.url
 
             Connections {
                 target: chrome.webview
@@ -151,6 +152,7 @@ ChromeBase {
     onWebviewChanged: {
         if (webview) {
             addressbar.actualUrl = webview.url
+            addressbar.securityStatus = webview.securityStatus
         }
     }
 
