@@ -56,8 +56,10 @@ namespace
  * inconsistent cookie jar. */
 static void clearCookiesHack(const QString &provider)
 {
-    /* So far, only Google seems to complain about cookie leftovers */
-    if (provider != "google") return;
+    if (provider.isEmpty()) {
+        qWarning() << "--clear-cookies only works with an accountProvider" << endl;
+        return;
+    }
 
     /* check both ~/.local/share and ~/.cache, as the data will eventually be
      * moving from the first to the latter.
@@ -260,6 +262,8 @@ void WebappContainer::parseCommandLine()
             }
         } else if (argument.startsWith("--accountProvider=")) {
             m_accountProvider = argument.split("--accountProvider=")[1];
+        } else if (argument == "--clear-cookies") {
+            qWarning() << argument << " is an unsupported option: it can be removed without notice..." << endl;
             clearCookiesHack(m_accountProvider);
         } else if (argument == "--store-session-cookies") {
             m_storeSessionCookies = true;
