@@ -30,7 +30,6 @@ Item {
         id: image
         readonly property string url: parent.source.toString()
         source: url ? "image://favicon/" + url : ""
-        asynchronous: true
 
         anchors.fill: parent
     }

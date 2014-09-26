@@ -34,7 +34,7 @@
 #define CACHE_EXPIRATION_DAYS 100
 
 FaviconImageProvider::FaviconImageProvider()
-    : QQuickImageProvider(QQmlImageProviderBase::Image)
+    : QQuickImageProvider(QQmlImageProviderBase::Image, QQmlImageProviderBase::ForceAsynchronousImageLoading)
 {
     QDir cacheLocation(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/favicons");
     m_cacheLocation = cacheLocation.absolutePath();
