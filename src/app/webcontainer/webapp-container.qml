@@ -28,7 +28,6 @@ Window {
     objectName: "webappContainer"
 
     property bool developerExtrasEnabled: false
-    property bool restoreSession: true
 
     property bool backForwardButtonsVisible: true
     property bool chromeVisible: true
@@ -75,7 +74,6 @@ Window {
         chromeVisible: root.chromeVisible
         backForwardButtonsVisible: root.backForwardButtonsVisible
         developerExtrasEnabled: root.developerExtrasEnabled
-        restoreSession: root.restoreSession
         oxide: root.oxide
         webappModelSearchPath: root.webappModelSearchPath
         webappUrlPatterns: root.webappUrlPatterns
@@ -116,7 +114,7 @@ Window {
 
     // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
     // by toggling fullscreen on the window only on desktop.
-    visibility: browser.currentWebview.fullscreen &&
+    visibility: browser.currentWebview && browser.currentWebview.fullscreen &&
                 (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
