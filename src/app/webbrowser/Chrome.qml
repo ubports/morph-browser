@@ -28,6 +28,7 @@ ChromeBase {
     property alias bookmarked: addressbar.bookmarked
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
+    property alias requestedUrl: addressbar.requestedUrl
 
     signal validated()
 

@@ -252,6 +252,7 @@ BrowserView {
             onSelected: {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
+                chrome.requestedUrl = url
             }
         }
     }
@@ -475,6 +476,7 @@ BrowserView {
             var index = tabsModel.add(tab)
             if (setCurrent) {
                 tabsModel.setCurrent(index)
+                chrome.requestedUrl = tab.initialUrl
                 if (focusAddressBar) {
                     internal.focusAddressBar()
                 }
