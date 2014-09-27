@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-09-26 06:46+0000\n"
+"X-Launchpad-Export-Date: 2014-09-27 06:27+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -137,7 +137,7 @@ msgstr "អនុញ្ញាត"
 
 #: src/app/InvalidCertificateErrorSheet.qml:58
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "វិញ្ញាបនបត្រ​សន្តិសុខ​តំបន់​ប​ណ្តា​ញ​នេះ​មិន​ត្រូវ​បាន​ទុកចិត្ត ។\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"

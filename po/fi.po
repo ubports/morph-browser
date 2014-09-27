@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-26 06:46+0000\n"
+"X-Launchpad-Export-Date: 2014-09-27 06:26+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -135,11 +135,11 @@ msgstr "Salli"
 
 #: src/app/InvalidCertificateErrorSheet.qml:58
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "Tämän sivuston varmenne ei ole luotettava.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"
-msgstr ""
+msgstr "Lisätietoja"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:90
@@ -148,6 +148,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"Sarjanumero:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:97
@@ -156,6 +158,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Kohde:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:105
@@ -164,6 +168,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Kohteen osoite:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:116
@@ -172,6 +178,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"Myöntäjä:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:124
@@ -180,6 +188,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"Myöntäjän osoite:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:135
@@ -188,6 +198,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Kelvollinen alkaen:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:142
@@ -196,6 +208,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Kelvollinen päättyen:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:149
@@ -204,12 +218,16 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Sormenjälki (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:155
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"Jatkaminen ei ole suositeltavaa, varsinkin jos et ole ennen nähnyt tätä "
+"varoitusta tällä sivustolla."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -218,6 +236,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti varmenteen, joka ei "
+"vastaa sivuston identiteettiä."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -226,6 +246,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti varmenteen, joka on "
+"vanhentunut."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -234,6 +256,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti varmenteen, joka "
+"sisältää virheellisiä päiväyksiä."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -242,6 +266,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti varmenteen, jonka on "
+"myöntänyt ei-luotettu taho."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -250,6 +276,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti varmenteen, joka on "
+"kumottu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -258,6 +286,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti virheellisen "
+"varmenteen."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -266,6 +296,7 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti turvattoman varmenteen."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:211
@@ -275,6 +306,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"Sivuston varmenteeseen ei luoteta\n"
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti varmenteen, joka ei "
+"läpäissyt turvallisuustarkastuksia tuntemattomasta syystä."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -394,15 +428,15 @@ msgstr "Jaa…"
 
 #: src/app/webbrowser/AddressBar.qml:214
 msgid "This site has insecure content"
-msgstr ""
+msgstr "Tämä sivusto sisältää suojaamatonta sisältöä"
 
 #: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
-msgstr ""
+msgstr "Olet yhteydessä kohteeseen"
 
 #: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"
-msgstr ""
+msgstr "Sen taustalla on"
 
 #: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"

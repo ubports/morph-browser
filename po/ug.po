@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-22 14:59+0100\n"
-"PO-Revision-Date: 2014-08-22 01:44+0000\n"
+"PO-Revision-Date: 2014-09-27 01:01+0000\n"
 "Last-Translator: Gheyret T.Kenji <Unknown>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-09-26 06:47+0000\n"
+"X-Launchpad-Export-Date: 2014-09-27 06:27+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -141,7 +141,7 @@ msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"
-msgstr ""
+msgstr "تېخىمۇ كوپ مەزمۇنلار"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:90
@@ -174,6 +174,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"تارقاتقۇچى:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:124
@@ -182,6 +184,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"تارقاتقۇچى ئادرېسى:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:135
@@ -190,6 +194,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"باشلىنىش ۋاقتى:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:142
@@ -198,6 +204,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"ئاخىرلىشىش ۋاقتى:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:149
@@ -206,6 +214,8 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"بارماق ئىزى(SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:155
 msgid ""
@@ -396,11 +406,11 @@ msgstr "ھەمبەھىرلەش…"
 
 #: src/app/webbrowser/AddressBar.qml:214
 msgid "This site has insecure content"
-msgstr ""
+msgstr "بۇ تورتۇرادا بىخەتەر بولمىغان مەزمۇنلار بار"
 
 #: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
-msgstr ""
+msgstr "سىز باغلىنىۋاتقان يەر"
 
 #: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"

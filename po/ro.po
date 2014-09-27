@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-22 14:59+0100\n"
-"PO-Revision-Date: 2014-08-24 14:01+0000\n"
-"Last-Translator: Marian Vasile <marianvasile1972@gmail.com>\n"
+"PO-Revision-Date: 2014-09-26 16:51+0000\n"
+"Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2014-09-26 06:47+0000\n"
+"X-Launchpad-Export-Date: 2014-09-27 06:27+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -138,11 +138,11 @@ msgstr "Permite"
 
 #: src/app/InvalidCertificateErrorSheet.qml:58
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "Certificatul de securitate al acestui site nu este de încredere.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"
-msgstr ""
+msgstr "Aflați mai multe"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:90
@@ -151,6 +151,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"Număr de serie:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:97
@@ -159,6 +161,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Subiect:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:105
@@ -167,6 +171,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Adresa subiectului:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:116
@@ -175,6 +181,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"Emitent:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:124
@@ -183,6 +191,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"Adresa emitentului:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:135
@@ -191,6 +201,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Valabil de la:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:142
@@ -199,6 +211,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Valabil până la:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:149
@@ -207,6 +221,8 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Amprentă (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:155
 msgid ""
@@ -397,15 +413,15 @@ msgstr "Partajează..."
 
 #: src/app/webbrowser/AddressBar.qml:214
 msgid "This site has insecure content"
-msgstr ""
+msgstr "Acest site are conținut nesigur"
 
 #: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
-msgstr ""
+msgstr "Sunteți conectat la"
 
 #: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"
-msgstr ""
+msgstr "Care este rulat de"
 
 #: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"
