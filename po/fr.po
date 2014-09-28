@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-22 14:59+0100\n"
-"PO-Revision-Date: 2014-08-31 17:53+0000\n"
-"Last-Translator: Eloiltiti Achraf <eloiltitiachraf@gmail.com>\n"
+"PO-Revision-Date: 2014-09-27 20:31+0000\n"
+"Last-Translator: Jean Marc <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-09-27 06:26+0000\n"
+"X-Launchpad-Export-Date: 2014-09-28 06:33+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -141,7 +141,7 @@ msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"
-msgstr ""
+msgstr "En savoir plus"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:90
@@ -150,6 +150,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"Numéro de série :\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:97
@@ -158,6 +160,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Sujet :\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:105
@@ -166,6 +170,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Adresse du sujet :\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:116
@@ -174,6 +180,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"Émetteur :\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:124
@@ -182,6 +190,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"Adresse de l’émetteur :\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:135
@@ -190,6 +200,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Valide depuis le :\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:142
@@ -198,6 +210,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Valide jusqu'au :\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:149
@@ -206,6 +220,8 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Empreinte (SHA1) :\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:155
 msgid ""
@@ -396,15 +412,15 @@ msgstr "Partager..."
 
 #: src/app/webbrowser/AddressBar.qml:214
 msgid "This site has insecure content"
-msgstr ""
+msgstr "Ce site a un contenu non sécurisé"
 
 #: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
-msgstr ""
+msgstr "Vous êtes connecté à"
 
 #: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"
-msgstr ""
+msgstr "Qui est géré par"
 
 #: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"

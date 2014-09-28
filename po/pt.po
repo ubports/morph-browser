@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-22 14:59+0100\n"
-"PO-Revision-Date: 2014-08-25 16:52+0000\n"
-"Last-Translator: Pedro Flores <pedroflores16@gmail.com>\n"
+"PO-Revision-Date: 2014-09-27 20:21+0000\n"
+"Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-27 06:27+0000\n"
+"X-Launchpad-Export-Date: 2014-09-28 06:34+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -160,6 +160,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Assunto:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:105
@@ -168,6 +170,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Endereço de assunto:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:116
@@ -176,6 +180,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"Emissora:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:124
@@ -184,6 +190,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"Endereço Emissor :\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:135
@@ -192,6 +200,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Válido a partir de:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:142
@@ -200,6 +210,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Válido até:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:149
@@ -208,12 +220,16 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Impressão digital (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:155
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"Não deve continuar , especialmente se você nunca tiver visto esse aviso "
+"antes neste site ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -222,6 +238,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"Tentou acessar %1, mas o servidor apresentou um certificado de segurança que "
+"não coincide com a identidade do site."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -230,6 +248,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"Tentou acessar %1, mas o servidor apresentou um certificado de segurança que "
+"expirou."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -238,6 +258,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"Tentou acessar %1, mas o servidor apresentou um certificado de segurança que "
+"contém datas inválidas."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -246,6 +268,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"Tentou acessar %1, mas o servidor apresentou um certificado de segurança "
+"emitido por uma entidade que não é de confiança."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -254,6 +278,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"Tentou acessar %1, mas o servidor apresentou um certificado de segurança que "
+"foi revogado."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -262,6 +288,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"Tentou acessar %1, mas o servidor apresentou um certificado de segurança "
+"inválido."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -270,6 +298,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"Tentou acessar %1, mas o servidor apresentou um certificado de segurança "
+"insegura."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:211
@@ -279,6 +309,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"Este certificado de segurança do site não é confiável\n"
+"Tentou acessar %1 , mas o servidor apresentou um certificado de segurança "
+"que falhou no teste de segurança por uma razão desconhecida ."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -398,15 +431,15 @@ msgstr "Partilhar..."
 
 #: src/app/webbrowser/AddressBar.qml:214
 msgid "This site has insecure content"
-msgstr ""
+msgstr "Este site tem conteúdo inseguro"
 
 #: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
-msgstr ""
+msgstr "Está ligado a"
 
 #: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"
-msgstr ""
+msgstr "Que é dirigido por"
 
 #: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"

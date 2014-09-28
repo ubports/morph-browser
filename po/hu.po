@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-22 14:59+0100\n"
-"PO-Revision-Date: 2014-09-02 17:13+0000\n"
+"PO-Revision-Date: 2014-09-27 12:40+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-27 06:27+0000\n"
+"X-Launchpad-Export-Date: 2014-09-28 06:34+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -64,7 +64,7 @@ msgstr "Maradás"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "A kapcsolat nem biztonságos"
+msgstr "A kapcsolat nem megbízható"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -133,11 +133,11 @@ msgstr "Engedélyezés"
 
 #: src/app/InvalidCertificateErrorSheet.qml:58
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "Az oldal biztonsági tanúsítványa nem megbízható.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"
-msgstr ""
+msgstr "Tudjon meg többet"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:90
@@ -146,6 +146,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"Sorozatszám:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:97
@@ -154,6 +156,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Tárgy:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:105
@@ -162,6 +166,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Tárgy címe:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:116
@@ -170,6 +176,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"Kibocsátó:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:124
@@ -178,6 +186,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"Kibocsátó címe:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:135
@@ -186,6 +196,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Érvényesség kezdete:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:142
@@ -194,6 +206,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Érvényesség lejárta:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:149
@@ -202,6 +216,8 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Ujjlenyomat (SHA1)?\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:155
 msgid ""
@@ -392,11 +408,11 @@ msgstr "Megosztás…"
 
 #: src/app/webbrowser/AddressBar.qml:214
 msgid "This site has insecure content"
-msgstr ""
+msgstr "Ezen az oldalon nem megbízható a tartalom"
 
 #: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
-msgstr ""
+msgstr "Kapcsolódás:"
 
 #: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"
@@ -451,7 +467,7 @@ msgstr "Törlés"
 
 #: src/app/webbrowser/HistoryView.qml:127
 msgid "Delete all history?"
-msgstr "Minden előzmény törlése?"
+msgstr "Összes előzmény törlése?"
 
 #: src/app/webbrowser/HistoryView.qml:130
 msgid "Yes"
