@@ -19,6 +19,7 @@
 // Qt
 #include <QtCore/QDir>
 #include <QtCore/QList>
+#include <QtCore/QSet>
 #include <QtCore/QTimer>
 #include <QtNetwork/QNetworkCookie>
 #include <QtTest/QSignalSpy>
@@ -46,8 +47,11 @@ public:
         Q_EMIT setCookiesResponse(requestId, failedCookiesVariant);
     }
 
+    void setFailUrls(const QSet<QUrl>& urls) { m_failUrls = urls; }
+
 public Q_SLOTS:
     int setNetworkCookies(const QUrl& url, const QList<QNetworkCookie>& cookies) {
+        if (m_failUrls.contains(url)) return -1;
         m_lastRequestId++;
         Q_EMIT setNetworkCookiesCalled(m_lastRequestId, url, cookies);
         return m_lastRequestId;
@@ -66,6 +70,7 @@ Q_SIGNALS:
                                  const QList<QNetworkCookie>& cookies);
 private:
     int m_lastRequestId;
+    QSet<QUrl> m_failUrls;
 };
 
 class OxideCookieHelperTest : public QObject
@@ -77,6 +82,8 @@ private Q_SLOTS:
     void testSetCookies_data();
     void testSetCookies();
     void testSetCookiesSubDomain();
+    void testImmediateFailure_data();
+    void testImmediateFailure();
 };
 
 void OxideCookieHelperTest::testSetCookiesSanity()
@@ -289,6 +296,104 @@ void OxideCookieHelperTest::testSetCookiesSubDomain()
     QUrl url = setNetworkCookiesCalled.at(0).at(1).toUrl();
 
     QCOMPARE(url.host(), QString("example.org"));
+}
+
+void OxideCookieHelperTest::testImmediateFailure_data()
+{
+    QTest::addColumn<QString>("rawCookies");
+    QTest::addColumn<QSet<QUrl> >("failUrls");
+    QTest::addColumn<QString>("rawFailedcookies");
+
+    QSet<QUrl> failUrls;
+
+    failUrls.insert(QUrl("http://example.org"));
+    QTest::newRow("one domain, one failure") <<
+        "a=0; Domain=example.org; Expires=Wed, 13 Jan 2021 22:23:01 GMT\n"
+        "b=2; Domain=example.org; HttpOnly" <<
+        failUrls <<
+        "a=0; Domain=example.org; Expires=Wed, 13 Jan 2021 22:23:01 GMT\n"
+        "b=2; Domain=example.org; HttpOnly";
+    failUrls.clear();
+
+    failUrls.insert(QUrl("http://domain.net"));
+    QTest::newRow("multiple domains, one failure") <<
+        "a=0; Domain=example.org; Expires=Wed, 13 Jan 2021 22:23:01 GMT\n"
+        "b=2; Domain=example.org; HttpOnly\n"
+        "c=4; Domain=domain.net; HttpOnly\n"
+        "d=yes; Domain=sub.site.org; Secure\n"
+        "e=3; Domain=sub.site.org; HttpOnly\n"
+        "z=last; Domain=sub.site.org; Expires=Wed, 13 Jan 2021 22:23:01 GMT" <<
+        failUrls <<
+        "c=4; Domain=domain.net; HttpOnly";
+    failUrls.clear();
+
+    failUrls.insert(QUrl("http://example.org"));
+    failUrls.insert(QUrl("http://domain.net"));
+    failUrls.insert(QUrl("http://sub.site.org"));
+    QTest::newRow("multiple domains, all failures") <<
+        "a=0; Domain=example.org; Expires=Wed, 13 Jan 2021 22:23:01 GMT\n"
+        "b=2; Domain=example.org; HttpOnly\n"
+        "c=4; Domain=domain.net; HttpOnly\n"
+        "d=yes; Domain=sub.site.org; Secure\n"
+        "e=3; Domain=sub.site.org; HttpOnly\n"
+        "z=last; Domain=sub.site.org; Expires=Wed, 13 Jan 2021 22:23:01 GMT" <<
+        failUrls <<
+        "a=0; Domain=example.org; Expires=Wed, 13 Jan 2021 22:23:01 GMT\n"
+        "b=2; Domain=example.org; HttpOnly\n"
+        "c=4; Domain=domain.net; HttpOnly\n"
+        "d=yes; Domain=sub.site.org; Secure\n"
+        "e=3; Domain=sub.site.org; HttpOnly\n"
+        "z=last; Domain=sub.site.org; Expires=Wed, 13 Jan 2021 22:23:01 GMT";
+    failUrls.clear();
+}
+
+void OxideCookieHelperTest::testImmediateFailure()
+{
+    QFETCH(QString, rawCookies);
+    QFETCH(QSet<QUrl>, failUrls);
+    QFETCH(QString, rawFailedcookies);
+
+    OxideCookieHelper helper;
+    QSignalSpy cookiesSet(&helper,
+                          SIGNAL(cookiesSet(const QList<QNetworkCookie>&)));
+
+    CookieBackend backend;
+    QSignalSpy setNetworkCookiesCalled(&backend,
+                                       SIGNAL(setNetworkCookiesCalled(int,const QUrl&,const QList<QNetworkCookie>&)));
+    helper.setOxideStoreBackend(&backend);
+    backend.setFailUrls(failUrls);
+
+    /* Build the list of cookies */
+    Cookies cookies = QNetworkCookie::parseCookies(rawCookies.toUtf8());
+    Cookies expectedFailedCookies =
+        QNetworkCookie::parseCookies(rawFailedcookies.toUtf8());
+
+    helper.setCookies(cookies);
+
+    /* If there were valid calls, reply to them */
+    QList<QVariantList> setNetworkCookiesCalls = setNetworkCookiesCalled;
+    Q_FOREACH(const QVariantList &args, setNetworkCookiesCalls) {
+        int requestId = args.at(0).toInt();
+        QUrl url = args.at(1).toUrl();
+        Cookies domainCookies = args.at(2).value<Cookies>();
+
+        QTimer* timer = new QTimer(&backend);
+        timer->setSingleShot(true);
+        timer->setInterval(5);
+        timer->setProperty("requestId", requestId);
+        QObject::connect(timer, SIGNAL(timeout()),
+                         &backend, SLOT(onTimerTimeout()));
+        timer->start();
+    }
+
+    QVERIFY(cookiesSet.wait());
+    QCOMPARE(cookiesSet.count(), 1);
+
+    /* Compare the failed cookies */
+    qSort(expectedFailedCookies.begin(), expectedFailedCookies.end(), cookieCompare);
+    Cookies failedCookies = cookiesSet.at(0).at(0).value<Cookies>();
+    qSort(failedCookies.begin(), failedCookies.end(), cookieCompare);
+    QCOMPARE(failedCookies, expectedFailedCookies);
 }
 
 QTEST_MAIN(OxideCookieHelperTest)

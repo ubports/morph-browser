@@ -68,6 +68,8 @@ void OxideCookieHelperPrivate::setCookies(const QList<QNetworkCookie>& cookies)
         return;
     }
 
+    m_failedCookies.clear();
+
     if (cookies.isEmpty()) {
         /* We don't simply use Q_EMIT because we want the signal to be emitted
          * asynchronously */
@@ -109,7 +111,19 @@ void OxideCookieHelperPrivate::setCookies(const QList<QNetworkCookie>& cookies)
                                   Q_RETURN_ARG(int, requestId),
                                   Q_ARG(const QUrl&, url),
                                   Q_ARG(const QList<QNetworkCookie>&, it.value()));
-        m_pendingCalls.insert(requestId);
+        if (Q_UNLIKELY(requestId == -1)) {
+            m_failedCookies.append(it.value());
+        } else {
+            m_pendingCalls.insert(requestId);
+        }
+    }
+
+    /* If all the calls failed, we need to emit a reply here */
+    if (m_pendingCalls.isEmpty()) {
+        /* We don't simply use Q_EMIT because we want the signal to be emitted
+         * asynchronously */
+        QMetaObject::invokeMethod(q, "cookiesSet", Qt::QueuedConnection,
+                                  Q_ARG(const QList<QNetworkCookie>&, m_failedCookies));
     }
 }
 
