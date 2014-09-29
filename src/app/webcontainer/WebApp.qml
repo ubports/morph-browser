@@ -39,7 +39,7 @@ BrowserView {
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefix: webview.popupRedirectionUrlPrefix
     property alias webviewOverrideFile: webview.webviewOverrideFile
-    property alias localUserAgentOverride: webview.localUserAgentOverride
+    property string localUserAgentOverride: ""
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false

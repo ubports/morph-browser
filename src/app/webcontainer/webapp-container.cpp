@@ -197,6 +197,7 @@ void WebappContainer::printUsage() const
        " [--enable-back-forward]"
        " [--enable-addressbar]"
        " [--store-session-cookies]"
+       " [--user-agent-string=USER_AGENT]"
        " [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help                          display this help message and exit" << endl;
