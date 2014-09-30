@@ -33,6 +33,8 @@ class FaviconImageProvider Q_DECL_FINAL : public QQuickImageProvider
 public:
     FaviconImageProvider();
 
+    const QString& cacheLocation() const;
+
     QImage requestImage(const QString& id, QSize* size, const QSize& requestedSize);
 
 private:

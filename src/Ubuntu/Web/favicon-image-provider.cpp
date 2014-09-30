@@ -43,6 +43,11 @@ FaviconImageProvider::FaviconImageProvider()
     }
 }
 
+const QString& FaviconImageProvider::cacheLocation() const
+{
+    return m_cacheLocation;
+}
+
 QImage FaviconImageProvider::requestImage(const QString& id, QSize* size, const QSize& requestedSize)
 {
     if (id.isEmpty()) {
@@ -75,7 +80,9 @@ QImage FaviconImageProvider::requestImage(const QString& id, QSize* size, const 
         }
     }
 
-    *size = image.size();
+    if (!image.isNull()) {
+        *size = image.size();
+    }
     if (!image.isNull() && requestedSize.isValid() && (image.size() != requestedSize)) {
         return image.scaled(requestedSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     } else {
