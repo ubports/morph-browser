@@ -43,6 +43,11 @@ Item {
         accountProvider: root.accountProvider
         applicationName: root.applicationName
         onCountChanged: checkAccounts()
+        onFinished: {
+            if (count === 0) {
+                Qt.quit();
+            }
+        }
     }
 
     Rectangle {
@@ -57,10 +62,9 @@ Item {
 
     function checkAccounts() {
         checkTimer.stop()
+        console.log("Accounts: " + accountsModel.count)
         if (accountsModel.count === 0) {
-            // Skip the account creation step for now (see the Note below)
-//            accountsViewLoader.sourceComponent = accountsAdditionToolbarViewComponent
-            done(null);
+            accountsModel.createNewAccount()
         } else {
             doLogin(accountsModel.model.get(0, "accountServiceHandle"))
         }
