@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-22 14:59+0100\n"
-"PO-Revision-Date: 2014-09-12 19:40+0000\n"
+"PO-Revision-Date: 2014-09-30 16:55+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2014-09-27 06:26+0000\n"
+"X-Launchpad-Export-Date: 2014-10-01 06:22+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 "Language: gd\n"
 
@@ -139,11 +139,11 @@ msgstr "Ceadaich"
 
 #: src/app/InvalidCertificateErrorSheet.qml:58
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "Chan eil earbsa ann an teisteanas tèarainteachd an làraich.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"
-msgstr ""
+msgstr "Barrachd fiosrachaidh"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:90
@@ -152,6 +152,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"Àireamh shreathach:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:97
@@ -160,6 +162,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Cuspair:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:105
@@ -168,6 +172,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Seòladh a' chuspair:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:116
@@ -176,6 +182,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"Foillsichear:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:124
@@ -184,6 +192,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"Seòladh an fhoillsicheir:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:135
@@ -192,6 +202,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Dligheach o:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:142
@@ -200,6 +212,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Dligheach gu:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:149
@@ -208,12 +222,16 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Meur-lorg (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:155
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"Cha bu chòir dhut leantainn air adhart, gu h-àraidh mura chunnaic thu an "
+"rabhadh seo air an làrach seo roimhe."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -222,6 +240,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"Dh'fheuch thu ri %1 a ruigsinn ach thug am frithealaiche teisteanas "
+"tèarainteachd seachad nach co-fhreagair ri dearbh-aithne an làraich."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -230,6 +250,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"Dh'fheuch thu ri %1 a ruigsinn ach thug am frithealaiche teisteanas "
+"tèarainteachd seachad air an do dh'fhalbh an ùine."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -238,6 +260,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"Dh'fheuch thu ri %1 a ruigsinn ach thug am frithealaiche teisteanas "
+"tèarainteachd seachad sa bheil ceann-là mì-dhligheach."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -246,6 +270,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"Dh'fheuch thu ri %1 a ruigsinn ach thug am frithealaiche teisteanas "
+"tèarainteachd seachad a chaidh fhoillseachadh le buidheann anns nach eil "
+"earbsa."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -254,6 +281,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"Dh'fheuch thu ri %1 a ruigsinn ach thug am frithealaiche teisteanas "
+"tèarainteachd seachad a chaidh a chùl-ghairm."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -262,6 +291,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"Dh'fheuch thu ri %1 a ruigsinn ach thug am frithealaiche teisteanas "
+"tèarainteachd nach eil dligheach."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -270,6 +301,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"Dh'fheuch thu ri %1 a ruigsinn ach thug am frithealaiche teisteanas "
+"tèarainteachd nach eil tèarainte."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:211
@@ -398,15 +431,15 @@ msgstr "Co-roinn…"
 
 #: src/app/webbrowser/AddressBar.qml:214
 msgid "This site has insecure content"
-msgstr ""
+msgstr "Tha susbaint neo-thèarainte san làrach seo"
 
 #: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
-msgstr ""
+msgstr "Tha thu ceangailte ri"
 
 #: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"
-msgstr ""
+msgstr "A tha 'ga ruith le"
 
 #: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"
