@@ -17,64 +17,21 @@
  */
 
 #include "chrome-cookie-store.h"
+#include "oxide-cookie-helper.h"
 
 #include <QDebug>
 #include <QFileInfo>
 #include <QStandardPaths>
-#include <QMetaMethod>
-
-namespace {
-
-QList<QNetworkCookie> networkCookiesFromVariantList(const QVariant& cookies) {
-    if (!cookies.canConvert(QMetaType::QVariantList)) {
-        return QList<QNetworkCookie>();
-    }
-
-    QList<QNetworkCookie> networkCookies;
-    QList<QVariant> cl = cookies.toList();
-    Q_FOREACH(QVariant cookie, cl) {
-        if (!cookie.canConvert(QVariant::Map)) {
-            continue;
-        }
-
-        QNetworkCookie nc;
-        QVariantMap vm = cookie.toMap();
-        if (!vm.contains("name") || !vm.contains("value")) {
-            continue;
-        }
-
-        nc.setName(vm.value("name").toByteArray());
-        nc.setValue(vm.value("value").toByteArray());
-        nc.setDomain(vm.value("domain").toString());
-        nc.setPath(vm.value("path").toString());
-        if (vm.contains("httponly") &&
-            vm.value("httponly").canConvert(QVariant::Bool)) {
-            nc.setHttpOnly(vm.value("httponly").toBool());
-        }
-
-        if (vm.contains("issecure") &&
-            vm.value("issecure").canConvert(QVariant::Bool)) {
-            nc.setSecure(vm.value("issecure").toBool());
-        }
-
-        if (vm.contains("expirationdate") &&
-            vm.value("expirationdate").canConvert(QVariant::LongLong)) {
-            bool ok = false;
-            qlonglong date = vm.value("expirationdate").toLongLong(&ok);
-            if (ok)
-            nc.setExpirationDate(QDateTime::fromMSecsSinceEpoch(date));
-        }
-
-        networkCookies.append(nc);
-    }
-    return networkCookies;
-}
-
-}
 
 ChromeCookieStore::ChromeCookieStore(QObject* parent):
-    CookieStore(parent), m_backend(0)
-{}
+    CookieStore(parent),
+    m_cookieHelper(new OxideCookieHelper(this))
+{
+    QObject::connect(m_cookieHelper, SIGNAL(oxideStoreBackendChanged()),
+                     this, SIGNAL(oxideStoreBackendChanged()));
+    QObject::connect(m_cookieHelper, SIGNAL(cookiesSet(const QList<QNetworkCookie>&)),
+                     this, SLOT(oxideCookiesUpdated(const QList<QNetworkCookie>&)));
+}
 
 void ChromeCookieStore::setHomepage(const QUrl& homepage) {
     if (homepage == m_homepage)
@@ -91,32 +48,22 @@ QUrl ChromeCookieStore::homepage() const {
 
 void ChromeCookieStore::setOxideStoreBackend(QObject* backend)
 {
-    if (m_backend == backend)
-        return;
-
-    m_backend = backend;
-
-    emit oxideStoreBackendChanged();
+    m_cookieHelper->setOxideStoreBackend(backend);
 }
 
 QObject* ChromeCookieStore::oxideStoreBackend() const
 {
-    return m_backend;
+    return m_cookieHelper->oxideStoreBackend();
 }
 
 void ChromeCookieStore::oxideCookiesReceived(int requestId, const QVariant& cookies)
 {
     Q_UNUSED(requestId);
-    emit gotCookies(networkCookiesFromVariantList(cookies));
+    emit gotCookies(OxideCookieHelper::cookiesFromVariant(cookies));
 }
 
-void ChromeCookieStore::oxideCookiesUpdated(int requestId,
-                                            const QVariant& failedCookiesVariant)
+void ChromeCookieStore::oxideCookiesUpdated(const QList<QNetworkCookie>& failedCookies)
 {
-    Q_UNUSED(requestId);
-
-    QList<QNetworkCookie> failedCookies =
-        networkCookiesFromVariantList(failedCookiesVariant);
     if (!failedCookies.isEmpty()) {
         qWarning() << "Couldn't set some cookies:" << failedCookies;
     }
@@ -125,15 +72,16 @@ void ChromeCookieStore::oxideCookiesUpdated(int requestId,
 
 void ChromeCookieStore::doGetCookies()
 {
-    if ( ! m_backend)
+    QObject* backend = m_cookieHelper->oxideStoreBackend();
+    if ( ! backend)
         return;
 
-    QObject::connect(m_backend,
+    QObject::connect(backend,
                      SIGNAL(getCookiesResponse(int, const QVariant&)),
                      this,
                      SLOT(oxideCookiesReceived(int, const QVariant&)));
 
-    QMetaObject::invokeMethod(m_backend, "getAllCookies", Qt::DirectConnection);
+    QMetaObject::invokeMethod(backend, "getAllCookies", Qt::DirectConnection);
 }
 
 QDateTime ChromeCookieStore::lastUpdateTimeStamp() const
@@ -144,18 +92,7 @@ QDateTime ChromeCookieStore::lastUpdateTimeStamp() const
 
 void ChromeCookieStore::doSetCookies(const Cookies& cookies)
 {
-    if ( ! m_backend)
-        return;
-
-    QObject::connect(m_backend, SIGNAL(setCookiesResponse(int, const QVariant&)),
-                     this, SLOT(oxideCookiesUpdated(int, const QVariant&)));
-
-    int requestId = -1;
-    QMetaObject::invokeMethod(m_backend, "setNetworkCookies",
-                              Qt::DirectConnection,
-                              Q_RETURN_ARG(int, requestId),
-                              Q_ARG(const QUrl&, m_homepage),
-                              Q_ARG(const QList<QNetworkCookie>&, cookies));
+    m_cookieHelper->setCookies(cookies);
 }
 
 void ChromeCookieStore::setDbPath(const QString &path)
