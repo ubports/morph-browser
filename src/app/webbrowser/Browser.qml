@@ -37,6 +37,10 @@ BrowserView {
     property url homepage
     property QtObject searchEngine
 
+    // XXX: we might want to tweak this value depending
+    // on the form factor and/or the available memory
+    readonly property int maxLiveWebviews: 2
+
     actions: [
         Actions.GoTo {
             onTriggered: currentWebview.url = value
@@ -329,11 +333,11 @@ BrowserView {
     TabsModel {
         id: tabsModel
 
-        // Ensure that at most 2 webviews are instantiated at all times,
+        // Ensure that at most n webviews are instantiated at all times,
         // to reduce memory consumption (see http://pad.lv/1376418).
         onCurrentTabChanged: {
-            if (count > 2) {
-                get(2).unload()
+            if (count > browser.maxLiveWebviews) {
+                get(browser.maxLiveWebviews).unload()
             }
         }
     }
