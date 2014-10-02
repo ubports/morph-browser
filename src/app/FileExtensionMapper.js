@@ -179,6 +179,7 @@ function filenameToContentType(filename) {
         case "p":
         case "pas":
         case "patch":
+        case "pdf":
         case "pl":
         case "pm":
         case "pot":

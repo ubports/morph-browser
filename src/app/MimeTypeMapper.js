@@ -28,6 +28,10 @@ function mimeTypeToContentType(mimeType) {
         return ContentType.Contacts;
     } else if(mimeType.search("text/") === 0) {
         return ContentType.Documents;
+    } else if(mimeType.search("application/pdf") === 0
+              || mimeType.search("application/x-pdf") === 0
+              || mimeType.search("application/vnd.pdf") === 0) {
+        return ContentType.Documents;
     } else {
         return ContentType.Unknown;
     }
