@@ -77,6 +77,18 @@ QString BrowserApplication::inspectorPort() const
     return port;
 }
 
+QString BrowserApplication::inspectorHost() const
+{
+    QString host;
+    Q_FOREACH(QHostAddress address, QNetworkInterface::allAddresses()) {
+        if (!address.isLoopback() && (address.protocol() == QAbstractSocket::IPv4Protocol)) {
+            host = address.toString();
+            break;
+        }
+    }
+    return host;
+}
+
 QString BrowserApplication::appId() const
 {
     Q_FOREACH(const QString& argument, m_arguments) {
@@ -123,8 +135,10 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 #endif
 
     QString devtoolsPort = inspectorPort();
+    QString devtoolsHost = inspectorHost();
     bool inspectorEnabled = !devtoolsPort.isEmpty();
     if (inspectorEnabled) {
+        qputenv("UBUNTU_WEBVIEW_DEVTOOLS_HOST", devtoolsHost.toUtf8());
         qputenv("UBUNTU_WEBVIEW_DEVTOOLS_PORT", devtoolsPort.toUtf8());
     }
 
