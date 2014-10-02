@@ -155,7 +155,9 @@ class BrowserTestCaseBase(AutopilotTestCase):
         add_button = tabs_view.get_add_button()
         self.pointing_device.click_object(add_button)
         tabs_view.wait_until_destroyed()
-        self.assert_number_webviews_eventually(count + 1)
+        max_webviews = self.main_window.maxLiveWebviews
+        new_count = (count + 1) if (count < max_webviews) else max_webviews
+        self.assert_number_webviews_eventually(new_count)
         self.main_window.get_new_tab_view()
         if model() == 'Desktop':
             address_bar = self.main_window.get_chrome().get_address_bar()
