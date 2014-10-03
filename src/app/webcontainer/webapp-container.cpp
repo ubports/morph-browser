@@ -95,6 +95,8 @@ WebappContainer::WebappContainer(int& argc, char** argv):
 
 bool WebappContainer::initialize()
 {
+    earlyEnvironment();
+
     if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
         parseCommandLine();
         parseExtraConfiguration();
@@ -209,6 +211,19 @@ void WebappContainer::printUsage() const
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
     out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
+    out << "  --enable-media-hub-audio            enable media-hub for audio playback" << endl;
+    out << "  --media-hub-fixed-session-domains   list of comma-separated domains that use a fixed session" << endl;
+}
+
+void WebappContainer::earlyEnvironment()
+{
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument.startsWith("--enable-media-hub-audio")) {
+            qputenv("OXIDE_ENABLE_MEDIA_HUB_AUDIO", QString("1").toLocal8Bit().constData());
+        } else if (argument.startsWith("--media-hub-fixed-session-domains=")) {
+            qputenv("OXIDE_MEDIA_HUB_FIXED_SESSION_DOMAINS", argument.split("--media-hub-fixed-session-domains=")[1].toLocal8Bit().constData());
+        }
+    }
 }
 
 void WebappContainer::parseCommandLine()

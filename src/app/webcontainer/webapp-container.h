@@ -42,6 +42,7 @@ protected:
 
 private:
     virtual void printUsage() const;
+    void earlyEnvironment();
     void parseCommandLine();
     void parseExtraConfiguration();
     QString getExtraWebappUrlPatterns() const;
