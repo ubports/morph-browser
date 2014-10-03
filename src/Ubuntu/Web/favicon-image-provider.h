@@ -16,27 +16,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
+#ifndef __FAVICON_IMAGE_PROVIDER_H__
+#define __FAVICON_IMAGE_PROVIDER_H__
 
-Item {
-    property url source
-    property bool fallbackIcon: true
+// Qt
+#include <QtCore/QScopedPointer>
+#include <QtCore/QString>
+#include <QtCore/QtGlobal>
+#include <QtQuick/QQuickImageProvider>
 
-    width: units.dp(16)
-    height: units.dp(16)
+class QNetworkAccessManager;
+class QUrl;
 
-    Image {
-        id: image
-        readonly property string url: parent.source.toString()
-        source: url ? "image://favicon/" + url : ""
+class FaviconImageProvider Q_DECL_FINAL : public QQuickImageProvider
+{
+public:
+    FaviconImageProvider();
 
-        anchors.fill: parent
-    }
+    const QString& cacheLocation() const;
 
-    Icon {
-        anchors.fill: parent
-        name: "stock_website"
-        visible: parent.fallbackIcon && (image.status !== Image.Ready)
-    }
-}
+    QImage requestImage(const QString& id, QSize* size, const QSize& requestedSize);
+
+private:
+    QImage downloadImage(const QUrl& url);
+
+    QString m_cacheLocation;
+    QScopedPointer<QNetworkAccessManager> m_manager;
+};
+
+#endif // __FAVICON_IMAGE_PROVIDER_H__
