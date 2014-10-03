@@ -1,3 +1,27 @@
+webbrowser-app (0.23+14.10.20141003-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Alexandre Abreu ]
+  * Add a simple mechanism (simpler than the one already in place) to
+    override user agents for a given webapp. (LP: #1370975)
+
+  [ Alberto Mardegan ]
+  * Fix handling of host cookies
+
+  [ Olivier Tilloy ]
+  * Ship a PNG icon instead of an SVG, and install it under the app’s
+    own data dir. (LP: #1365408)
+  * Make an autopilot test more robust by ensuring that the drawer menu
+    is dismissed but not clicked. (LP: #1365304)
+  * Persistently cache favicons on disk to avoid re-downloading them
+    across application runs. (LP: #1340585)
+  * Ensure that at most 2 webviews are instantiated at all times, to
+    reduce memory consumption. (LP: #1376418)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 03 Oct 2014 14:42:27 +0000
+
 webbrowser-app (0.23+14.10.20141001-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]
