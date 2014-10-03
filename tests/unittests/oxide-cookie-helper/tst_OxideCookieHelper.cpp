@@ -53,7 +53,16 @@ public Q_SLOTS:
     int setNetworkCookies(const QUrl& url, const QList<QNetworkCookie>& cookies) {
         if (m_failUrls.contains(url)) return -1;
         m_lastRequestId++;
-        Q_EMIT setNetworkCookiesCalled(m_lastRequestId, url, cookies);
+        /* Handle host cookies */
+        QList<QNetworkCookie> restoredCookies;
+        Q_FOREACH(const QNetworkCookie& cookie, cookies) {
+            QNetworkCookie c(cookie);
+            if (c.domain().isEmpty()) {
+                c.setDomain(url.host());
+            }
+            restoredCookies.append(c);
+        }
+        Q_EMIT setNetworkCookiesCalled(m_lastRequestId, url, restoredCookies);
         return m_lastRequestId;
     }
 
