@@ -108,7 +108,11 @@ ChromeBase {
             onValidated: chrome.webview.url = requestedUrl
             onRequestReload: chrome.webview.reload()
             onRequestStop: chrome.webview.stop()
-            onTextFieldFocused: text = chrome.webview.url
+            onTextFieldFocused: {
+                if (chrome.webview) {
+                    text = chrome.webview.url
+                }
+            }
 
             Connections {
                 target: chrome.webview
