@@ -22,7 +22,6 @@
 #include <QDebug>
 #include <QMap>
 #include <QMetaMethod>
-#include <QSet>
 #include <QUrl>
 
 typedef QList<QNetworkCookie> Cookies;
@@ -36,13 +35,15 @@ public:
     OxideCookieHelperPrivate(OxideCookieHelper* q);
 
     void setCookies(const QList<QNetworkCookie>& cookies);
+    QList<QNetworkCookie> cookiesWithDomain(const QList<QNetworkCookie>& cookies,
+                                            const QString& domain);
 
 private Q_SLOTS:
-    void oxideCookiesUpdated(int requestId, const QVariant& failedCookies);
+    void oxideCookiesUpdated(int requestId, const QVariant& failedCookiesVariant);
 
 private:
     QObject* m_backend;
-    QSet<int> m_pendingCalls;
+    QMap<int, QString> m_pendingCalls;
     QList<QNetworkCookie> m_failedCookies;
     mutable OxideCookieHelper* q_ptr;
 };
@@ -81,29 +82,38 @@ void OxideCookieHelperPrivate::setCookies(const QList<QNetworkCookie>& cookies)
     /* Since Oxide does not support setting cookies for different domains in a
      * single call to setCookies(), we group the cookies by their domain, and
      * perform a separate call to Oxide's setCookies() for each domain.
+     *
+     * Cookies whose domain doesn't start with a "." are host cookies, and need
+     * to be treated specially: we will use their domain as host (that is, we
+     * will pass it as first argument in the setNetworkCookies() call), and
+     * will unset their domain in the cookie.
      */
-    QMap<QString, Cookies> cookiesPerDomain;
+    QMap<QString, Cookies> cookiesPerHost;
     Q_FOREACH(const QNetworkCookie &cookie, cookies) {
-        /* This creates an empty list if the domain is new in the map */
+        QNetworkCookie c(cookie);
+        /* We use the domain (without any starting dot) as host */
+        QString host = c.domain();
+        if (host.startsWith('.')) {
+            host = host.mid(1);
+        } else {
+            /* No starting dot => this is a host cookie */
+            c.setDomain(QString());
+        }
+        /* This creates an empty list if the host is new in the map */
         QList<QNetworkCookie> &domainCookies =
-            cookiesPerDomain[cookie.domain()];
+            cookiesPerHost[host];
 
-        domainCookies.append(cookie);
+        domainCookies.append(c);
     }
 
     /* Grouping done, perform the calls */
-    QMapIterator<QString, Cookies> it(cookiesPerDomain);
+    QMapIterator<QString, Cookies> it(cookiesPerHost);
     while (it.hasNext()) {
         it.next();
 
-        QString domain = it.key();
-        if (domain.startsWith('.')) {
-            domain = domain.mid(1);
-        }
-
         QUrl url;
         url.setScheme("http");
-        url.setHost(domain);
+        url.setHost(it.key());
 
         int requestId = -1;
         QMetaObject::invokeMethod(m_backend, "setNetworkCookies",
@@ -112,9 +122,9 @@ void OxideCookieHelperPrivate::setCookies(const QList<QNetworkCookie>& cookies)
                                   Q_ARG(const QUrl&, url),
                                   Q_ARG(const QList<QNetworkCookie>&, it.value()));
         if (Q_UNLIKELY(requestId == -1)) {
-            m_failedCookies.append(it.value());
+            m_failedCookies.append(cookiesWithDomain(it.value(), url.host()));
         } else {
-            m_pendingCalls.insert(requestId);
+            m_pendingCalls.insert(requestId, url.host());
         }
     }
 
@@ -127,12 +137,30 @@ void OxideCookieHelperPrivate::setCookies(const QList<QNetworkCookie>& cookies)
     }
 }
 
+QList<QNetworkCookie>
+OxideCookieHelperPrivate::cookiesWithDomain(const QList<QNetworkCookie>& cookies,
+                                            const QString& domain)
+{
+    QList<QNetworkCookie> restoredCookies;
+    Q_FOREACH(const QNetworkCookie& cookie, cookies) {
+        QNetworkCookie c(cookie);
+        if (c.domain().isEmpty()) {
+            c.setDomain(domain);
+        }
+        restoredCookies.append(c);
+    }
+    return restoredCookies;
+}
+
 void OxideCookieHelperPrivate::oxideCookiesUpdated(int requestId,
-                                                   const QVariant& failedCookies)
+                                                   const QVariant& failedCookiesVariant)
 {
     Q_Q(OxideCookieHelper);
 
-    m_failedCookies.append(OxideCookieHelper::cookiesFromVariant(failedCookies));
+    QString host = m_pendingCalls.value(requestId);
+    QList<QNetworkCookie> failedCookies =
+        OxideCookieHelper::cookiesFromVariant(failedCookiesVariant);
+    m_failedCookies.append(cookiesWithDomain(failedCookies, host));
     m_pendingCalls.remove(requestId);
 
     if (m_pendingCalls.isEmpty()) {
