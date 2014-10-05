@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-22 14:59+0100\n"
-"PO-Revision-Date: 2014-09-26 23:38+0000\n"
+"PO-Revision-Date: 2014-10-04 15:45+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-09-27 06:26+0000\n"
+"X-Launchpad-Export-Date: 2014-10-05 06:35+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -135,7 +135,7 @@ msgstr "መፍቀጃ"
 
 #: src/app/InvalidCertificateErrorSheet.qml:58
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "የ ዚህ ገጽ የ ደህንነት የምስክር ወረቀት የሚታመን አይደለም\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"
@@ -148,6 +148,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"መለያ ቁጥር:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:97
@@ -156,6 +158,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"ጉዳዩ:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:105
@@ -164,6 +168,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"የ ጉዳዩ አድራሻ:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:116
@@ -172,6 +178,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"አቅራቢው:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:124
@@ -180,6 +188,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"የ አቅራቢው አድራሻ:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:135
@@ -204,6 +214,8 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"የ ጣት አሻራ (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:155
 msgid ""
@@ -398,7 +410,7 @@ msgstr ""
 
 #: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
-msgstr ""
+msgstr "አሁን ተገናኝተዋል ወደ"
 
 #: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"
