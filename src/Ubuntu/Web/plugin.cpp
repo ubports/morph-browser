@@ -114,9 +114,9 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
 
     context->setContextProperty("formFactor", getFormFactor());
     context->setContextProperty("webviewDevtoolsDebugPort", getDevtoolsPort());
+    context->setContextProperty("webviewDevtoolsDebugHost", getDevtoolsHost());
 
     engine->addImageProvider("favicon", new FaviconImageProvider());
-    context->setContextProperty("webviewDevtoolsDebugHost", getDevtoolsHost());
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
