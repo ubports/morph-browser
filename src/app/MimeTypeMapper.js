@@ -26,9 +26,8 @@ function mimeTypeToContentType(mimeType) {
         return ContentType.Videos;
     } else if(mimeType.search("text/x-vcard") === 0) {
         return ContentType.Contacts;
-    } else if(mimeType.search("text/") === 0) {
-        return ContentType.Documents;
-    } else if(mimeType.search("application/pdf") === 0
+    } else if(mimeType.search("text/") === 0
+              || mimeType.search("application/pdf") === 0
               || mimeType.search("application/x-pdf") === 0
               || mimeType.search("application/vnd.pdf") === 0) {
         return ContentType.Documents;
