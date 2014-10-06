@@ -1,22 +1,24 @@
 # Icelandic translation for webbrowser-app
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the webbrowser-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+# Sveinn í Felli <sv1@fellsnet.is>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-22 14:59+0100\n"
-"PO-Revision-Date: 2014-09-21 11:16+0000\n"
+"PO-Revision-Date: 2014-10-05 08:44+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic <is@li.org>\n"
+"Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-27 06:27+0000\n"
+"X-Launchpad-Export-Date: 2014-10-06 06:58+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
+"Language: is\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -52,7 +54,7 @@ msgstr "Hætta við"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Staðfesta flakk"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
@@ -114,12 +116,12 @@ msgstr "Veldu einhverja skrá"
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Fyrirspurn um heimild"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Þessi síða vill vita staðsetningu tækisins."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
@@ -276,11 +278,11 @@ msgstr ""
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "JavaScript kvaðning"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Auðkenning á milliþjón nauðsynleg."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
@@ -296,7 +298,7 @@ msgstr "Til baka"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr ""
+msgstr "Eldri síða"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
@@ -306,11 +308,11 @@ msgstr "Bókamerki"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr ""
+msgstr "Bæta þessari síðu í bókamerki"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "Bókamerkja tengil"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
@@ -320,7 +322,7 @@ msgstr "Hreinsa feril"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Hreinsa flakkferil"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -342,7 +344,7 @@ msgstr "Áfram"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr ""
+msgstr "Nýrri síða"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
@@ -362,15 +364,15 @@ msgstr "Nýr flipi"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr ""
+msgstr "Opna í nýjum flipa"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "Opna mynd í nýjum flipa"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Opna tengil í nýjum flipa"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -380,7 +382,7 @@ msgstr "Endurlesa"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr ""
+msgstr "Fara af síðu"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
@@ -404,7 +406,7 @@ msgstr ""
 
 #: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"
-msgstr ""
+msgstr "leita eða slá inn netfang"
 
 #: src/app/webbrowser/Browser.qml:179
 msgid "Share"
@@ -416,7 +418,7 @@ msgstr "Ferill"
 
 #: src/app/webbrowser/Browser.qml:200
 msgid "Open tabs"
-msgstr ""
+msgstr "Opna flipa"
 
 #: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
@@ -426,8 +428,8 @@ msgstr "Nýr flipi"
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 síða"
+msgstr[1] "%1 síður"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:121
 msgid "Less"
@@ -435,7 +437,7 @@ msgstr "Minna"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
-msgstr ""
+msgstr "Síðast heimsótt"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
@@ -451,7 +453,7 @@ msgstr "Hreinsa"
 
 #: src/app/webbrowser/HistoryView.qml:127
 msgid "Delete all history?"
-msgstr ""
+msgstr "Eyða öllum ferli?"
 
 #: src/app/webbrowser/HistoryView.qml:130
 msgid "Yes"
@@ -467,7 +469,7 @@ msgstr "Bókamerki"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
-msgstr ""
+msgstr "Efstu vefir"
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
@@ -479,7 +481,7 @@ msgstr "sjá meira"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"
-msgstr ""
+msgstr "Sláðu á til að skoða"
 
 #: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
@@ -503,7 +505,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:92
 msgid "Skip account creation step"
-msgstr ""
+msgstr "Sleppa því að búa til aðgang"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:141
 msgid "Add account"
