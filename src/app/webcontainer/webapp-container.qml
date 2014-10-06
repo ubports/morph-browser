@@ -53,54 +53,54 @@ Window {
     title: getWindowTitle()
 
     function getWindowTitle() {
+        var webappViewTitle = webappViewLoader.item ? webappViewLoader.item.title : ""
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
             return webappName
-        } else if (browser.title) {
+        } else if (webappViewTitle) {
             // TRANSLATORS: %1 refers to the current page’s title
-            return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
+            return i18n.tr("%1 - Ubuntu Web Browser").arg(webappViewTitle)
         } else {
             return i18n.tr("Ubuntu Web Browser")
         }
     }
 
-    WebApp {
-        id: browser
-
-        // Initially set as non visible to leave a chance
-        // for the OA dialog to appear
-        visible: false
-
-        url: accountProvider.length === 0 ? root.url : ""
-
-        chromeVisible: root.chromeVisible
-        backForwardButtonsVisible: root.backForwardButtonsVisible
-        developerExtrasEnabled: root.developerExtrasEnabled
-        oxide: root.oxide
-        webappModelSearchPath: root.webappModelSearchPath
-        webappUrlPatterns: root.webappUrlPatterns
-
-        localUserAgentOverride: root.localUserAgentOverride
-
-        popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
-        webviewOverrideFile: root.webviewOverrideFile
-
+    Loader {
+        id: webappViewLoader
         anchors.fill: parent
+    }
 
-        webbrowserWindow: webbrowserWindowProxy
+    Component {
+        id: webappViewComponent
 
-        onWebappNameChanged: {
-            if (root.webappName !== browser.webappName) {
-                root.webappName = browser.webappName;
-                root.title = getWindowTitle();
+        WebApp {
+            id: browser
+
+            url: accountProvider.length !== 0 ? "" : root.url
+
+            webappName: root.webappName
+            chromeVisible: root.chromeVisible
+            backForwardButtonsVisible: root.backForwardButtonsVisible
+            developerExtrasEnabled: root.developerExtrasEnabled
+            oxide: root.oxide
+            webappModelSearchPath: root.webappModelSearchPath
+            webappUrlPatterns: root.webappUrlPatterns
+
+            localUserAgentOverride: root.localUserAgentOverride
+
+            popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+            webviewOverrideFile: root.webviewOverrideFile
+
+            webbrowserWindow: webbrowserWindowProxy
+
+            onWebappNameChanged: {
+                if (root.webappName !== browser.webappName) {
+                    root.webappName = browser.webappName;
+                    root.title = getWindowTitle();
+                }
             }
-        }
 
-        onCurrentWebviewChanged: {
-            if (currentWebview)
-                root.updateCurrentView()
+            Component.onCompleted: i18n.domain = "webbrowser-app"
         }
-
-        Component.onCompleted: i18n.domain = "webbrowser-app"
     }
 
     UnityWebApps.UnityWebappsAppModel {
@@ -117,7 +117,9 @@ Window {
 
     // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
     // by toggling fullscreen on the window only on desktop.
-    visibility: browser.currentWebview && browser.currentWebview.fullscreen &&
+    visibility: webappViewLoader.item &&
+                webappViewLoader.item.currentWebview &&
+                webappViewLoader.item.currentWebview.fullscreen &&
                 (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
@@ -134,9 +136,44 @@ Window {
         }
     }
 
+    function onCookiesMoved(result) {
+        if (__webappCookieStore) {
+            __webappCookieStore.moved.disconnect(onCookiesMoved)
+        }
+        if (!result) {
+            console.error("Unable to move cookies")
+        }
+        webappViewComponent.item.url = root.url
+    }
+
+    function moveCookies(credentialsId) {
+        if (!__webappCookieStore) {
+            __webappCookieStore = oxideCookieStoreComponent.createObject(this)
+        }
+
+        var storeComponent = localCookieStoreDbPath.length !== 0 ?
+                    localCookieStoreComponent : onlineAccountStoreComponent
+
+        var instance = storeComponent.createObject(root, { "accountId": credentialsId })
+        __webappCookieStore.moved.connect(onCookiesMoved)
+        __webappCookieStore.moveFrom(instance)
+    }
+
     Connections {
         target: accountsPageComponentLoader.item
-        onDone: loadWebAppView()
+        onDone: {
+            if (successful && credentialsId) {
+                webappViewLoader.loaded.connect(function () {
+                    if (webappViewLoader.status == Loader.Ready) {
+                        moveCookies(credentialsId)
+                    }
+                });
+                webappViewLoader.sourceComponent = webappViewComponent
+            }
+            else {
+                loadWebAppView()
+            }
+        }
     }
 
     Component {
@@ -144,7 +181,8 @@ Window {
         ChromeCookieStore {
             dbPath: dataLocation + "/cookies.sqlite"
             homepage: root.url
-            oxideStoreBackend: browser.currentWebview ? browser.currentWebview.context.cookieManager : null
+            oxideStoreBackend: webappViewLoader.item && webappViewLoader.item.currentWebview ?
+                                   webappViewLoader.item.currentWebview.cookieManager : null
         }
     }
 
@@ -155,6 +193,10 @@ Window {
         }
     }
 
+    Component.onCompleted: {
+        updateCurrentView()
+    }
+
     Component {
         id: onlineAccountStoreComponent
         OnlineAccountsCookieStore { }
@@ -163,7 +205,7 @@ Window {
     function updateCurrentView() {
         // check if we are to display the login view
         // or directly switch to the webapp view
-        if (accountProvider.length !== 0 && !__webappCookieStore && oxide) {
+        if (accountProvider.length !== 0 && oxide) {
             loadLoginView();
         } else {
             loadWebAppView();
@@ -171,27 +213,23 @@ Window {
     }
 
     function loadLoginView() {
-        if (!__webappCookieStore) {
-            __webappCookieStore = oxideCookieStoreComponent.createObject(this)
-        }
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
             "accountProvider": accountProvider,
             "applicationName": unversionedAppId,
-            "webappCookieStore": __webappCookieStore,
-            "onlineAccountStoreComponent": localCookieStoreDbPath.length !== 0 ?
-                                               localCookieStoreComponent : onlineAccountStoreComponent
         })
     }
 
     function loadWebAppView() {
         if (accountsPageComponentLoader.item)
             accountsPageComponentLoader.item.visible = false
-        browser.visible = true;
-        if (browser.currentWebview) {
-            browser.currentWebview.visible = true;
-            browser.currentWebview.url = root.url
-            browser.webappName = root.webappName
-        }
+
+        webappViewLoader.loaded.connect(function () {
+            if (webappViewLoader.status === Loader.Ready) {
+                webappViewLoader.item.visible = true
+                webappViewLoader.item.currentWebview.url = root.url
+            }
+        });
+        webappViewLoader.sourceComponent = webappViewComponent
     }
 
     // Handle runtime requests to open urls as defined
