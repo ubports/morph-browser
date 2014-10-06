@@ -83,6 +83,18 @@ static int getDevtoolsPort()
     return port > 0 ? port : DEVTOOLS_INVALID_PORT;
 }
 
+
+static QString getDevtoolsHost()
+{
+    QString host;
+    const char* DEVTOOLS_HOST_ENV_VAR = "UBUNTU_WEBVIEW_DEVTOOLS_HOST";
+
+    if (qEnvironmentVariableIsSet(DEVTOOLS_HOST_ENV_VAR)) {
+        host = qgetenv(DEVTOOLS_HOST_ENV_VAR);
+    }
+    return host;
+}
+
 void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
 {
     Q_UNUSED(uri);
@@ -104,6 +116,7 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     context->setContextProperty("webviewDevtoolsDebugPort", getDevtoolsPort());
 
     engine->addImageProvider("favicon", new FaviconImageProvider());
+    context->setContextProperty("webviewDevtoolsDebugHost", getDevtoolsHost());
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
