@@ -32,6 +32,7 @@ class WebappContainerRedirectionPatternTestCase(
             '/get-redirect',
             {'WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY': '1',
                 'WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL': '1'})
+        self.get_webcontainer_window().visible.wait_for(True)
 
         webview = self.get_oxide_webview()
         external_open_watcher = webview.watch_signal(

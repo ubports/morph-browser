@@ -65,7 +65,6 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
                 emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
         except:
             self.app = None
-        self.get_webcontainer_window().visible.wait_for(True)
 
     def get_webcontainer_proxy(self):
         return self.app
