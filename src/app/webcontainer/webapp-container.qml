@@ -163,12 +163,8 @@ Window {
                     localCookieStoreComponent : onlineAccountStoreComponent
 
         var instance = storeComponent.createObject(root, { "accountId": credentialsId })
-        if (instance.lastUpdateTimeStamp > __webappCookieStore.lastUpdateTimeStamp) {
-            __webappCookieStore.moved.connect(onCookiesMoved)
-            __webappCookieStore.moveFrom(instance)
-        } else {
-            onCookiesMoved(true)
-        }
+        __webappCookieStore.moved.connect(onCookiesMoved)
+        __webappCookieStore.moveFrom(instance)
     }
 
     Connections {
