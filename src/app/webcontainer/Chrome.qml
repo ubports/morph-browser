@@ -82,7 +82,7 @@ ChromeBase {
 
             Favicon {
                 anchors.centerIn: parent
-                source: chrome.webview.icon
+                source: chrome.webview ? chrome.webview.icon : null
             }
         }
 

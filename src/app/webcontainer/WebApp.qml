@@ -39,6 +39,7 @@ BrowserView {
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefixPattern: webview.popupRedirectionUrlPrefixPattern
     property alias webviewOverrideFile: webview.webviewOverrideFile
+    property alias blockOpenExternalUrls: webview.blockOpenExternalUrls
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
@@ -63,6 +64,7 @@ BrowserView {
 
         WebappContainerWebview {
             id: webview
+            objectName: "webview"
 
             anchors {
                 left: parent.left
@@ -80,7 +82,7 @@ BrowserView {
             anchors.fill: webview
             sourceComponent: ErrorSheet {
                 visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
-                url: webview.currentWebview.url
+                url: webview.currentWebview ? webview.currentWebview.url : ""
                 onRefreshClicked: {
                     if (webview.currentWebview)
                         webview.currentWebview.reload()
@@ -198,7 +200,7 @@ BrowserView {
             }
             if (state) {
                 var url = state.url
-                if (url) {
+                if (url && webapp.currentWebview) {
                     webapp.currentWebview.url = url
                 }
             }

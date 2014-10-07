@@ -35,9 +35,11 @@ Item {
     property string localUserAgentOverride: ""
     property string popupRedirectionUrlPrefixPattern: ""
     property url webviewOverrideFile: ""
+    property bool blockOpenExternalUrls: false
 
     Loader {
         id: webappContainerWebViewLoader
+        objectName: "containerWebviewLoader"
         anchors.fill: parent
         asynchronous: true
     }
@@ -62,7 +64,8 @@ Item {
                     , webappName: containerWebview.webappName
                     , webappUrlPatterns: containerWebview.webappUrlPatterns
                     , developerExtrasEnabled: containerWebview.developerExtrasEnabled
-                    , popupRedirectionUrlPrefixPattern: containerWebview.popupRedirectionUrlPrefixPattern})
+                    , popupRedirectionUrlPrefixPattern: containerWebview.popupRedirectionUrlPrefixPattern
+                    , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls})
     }
 }
 

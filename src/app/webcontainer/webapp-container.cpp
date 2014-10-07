@@ -134,16 +134,26 @@ bool WebappContainer::initialize()
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
 
         if ( ! m_popupRedirectionUrlPrefixPattern.isEmpty()) {
+            const QString WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR =
+                qgetenv("WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL");
             m_window->setProperty(
                         "popupRedirectionUrlPrefixPattern",
-                        UrlPatternUtils::transformWebappSearchPatternToSafePattern(
-                            m_popupRedirectionUrlPrefixPattern, false));
+                        WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR == "1"
+                        ? m_popupRedirectionUrlPrefixPattern
+                        : UrlPatternUtils::transformWebappSearchPatternToSafePattern(
+                              m_popupRedirectionUrlPrefixPattern, false));
         }
 
         // Experimental, unsupported API, to override the webview
         QFileInfo overrideFile("webview-override.qml");
         if (overrideFile.exists()) {
             m_window->setProperty("webviewOverrideFile", QUrl::fromLocalFile(overrideFile.absoluteFilePath()));
+        }
+
+        const QString WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY_ENV_VAR =
+            qgetenv("WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY");
+        if (WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY_ENV_VAR == "1") {
+            m_window->setProperty("blockOpenExternalUrls", true);
         }
 
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
