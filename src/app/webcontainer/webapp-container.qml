@@ -69,7 +69,7 @@ Window {
         anchors.fill: parent
 
         property var credentialsId: null
-        property var webappCacheLocation: credentialsId != null ? cacheLocation + "/id-" + credentialsId : dataLocation
+        property var webappDataLocation: credentialsId != null ? cacheLocation + "/id-" + credentialsId : dataLocation
     }
 
     Component {
@@ -80,7 +80,7 @@ Window {
 
             url: accountProvider.length !== 0 ? "" : root.url
 
-            cachePath: webappCacheLocation
+            dataPath: webappDataLocation
             webappName: root.webappName
             chromeVisible: root.chromeVisible
             backForwardButtonsVisible: root.backForwardButtonsVisible
