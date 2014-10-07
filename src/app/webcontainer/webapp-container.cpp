@@ -157,6 +157,8 @@ bool WebappContainer::initialize()
         }
 
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
+        context->setContextProperty("cacheLocation",
+                                    QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
 
         if ( ! m_popupRedirectionUrlPrefix.isEmpty()) {
             m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);

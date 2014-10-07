@@ -67,6 +67,9 @@ Window {
     Loader {
         id: webappViewLoader
         anchors.fill: parent
+
+        property var credentialsId: null
+        property var webappCacheLocation: credentialsId != null ? cacheLocation + "/id-" + credentialsId : dataLocation
     }
 
     Component {
@@ -77,6 +80,7 @@ Window {
 
             url: accountProvider.length !== 0 ? "" : root.url
 
+            cachePath: webappCacheLocation
             webappName: root.webappName
             chromeVisible: root.chromeVisible
             backForwardButtonsVisible: root.backForwardButtonsVisible
@@ -143,20 +147,28 @@ Window {
         if (!result) {
             console.error("Unable to move cookies")
         }
-        webappViewComponent.item.url = root.url
+        webappViewLoader.item.url = root.url
     }
 
     function moveCookies(credentialsId) {
         if (!__webappCookieStore) {
-            __webappCookieStore = oxideCookieStoreComponent.createObject(this)
+            var context = webappViewLoader.item.currentWebview.context
+            __webappCookieStore = oxideCookieStoreComponent.createObject(this, {
+                "oxideStoreBackend": context.cookieManager,
+                "dbPath": context.dataPath + "/cookies.sqlite"
+            })
         }
 
         var storeComponent = localCookieStoreDbPath.length !== 0 ?
                     localCookieStoreComponent : onlineAccountStoreComponent
 
         var instance = storeComponent.createObject(root, { "accountId": credentialsId })
-        __webappCookieStore.moved.connect(onCookiesMoved)
-        __webappCookieStore.moveFrom(instance)
+        if (instance.lastUpdateTimeStamp > __webappCookieStore.lastUpdateTimeStamp) {
+            __webappCookieStore.moved.connect(onCookiesMoved)
+            __webappCookieStore.moveFrom(instance)
+        } else {
+            onCookiesMoved(true)
+        }
     }
 
     Connections {
@@ -168,6 +180,7 @@ Window {
                         moveCookies(credentialsId)
                     }
                 });
+                webappViewLoader.credentialsId = credentialsId
                 webappViewLoader.sourceComponent = webappViewComponent
             }
             else {
@@ -179,10 +192,7 @@ Window {
     Component {
         id: oxideCookieStoreComponent
         ChromeCookieStore {
-            dbPath: dataLocation + "/cookies.sqlite"
             homepage: root.url
-            oxideStoreBackend: webappViewLoader.item && webappViewLoader.item.currentWebview ?
-                                   webappViewLoader.item.currentWebview.cookieManager : null
         }
     }
 
@@ -225,7 +235,6 @@ Window {
 
         webappViewLoader.loaded.connect(function () {
             if (webappViewLoader.status === Loader.Ready) {
-                webappViewLoader.item.visible = true
                 webappViewLoader.item.currentWebview.url = root.url
             }
         });

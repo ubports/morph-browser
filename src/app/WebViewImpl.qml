@@ -29,6 +29,7 @@ WebView {
     property var certificateError
     // Invalid certificates the user has explicitly allowed for this session
     property var allowedCertificates: []
+    property alias cachePath: context.cachePath
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
@@ -38,6 +39,8 @@ WebView {
     promptDialog: PromptDialog {}
     beforeUnloadDialog: BeforeUnloadDialog {}
     filePicker: filePickerLoader.item
+
+    context: WebContext {}
 
     onDownloadRequested: {
         if (downloadLoader.status == Loader.Ready) {

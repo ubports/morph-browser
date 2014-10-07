@@ -30,6 +30,7 @@ Item {
     property bool withOxide: false
     property bool developerExtrasEnabled: false
     property string webappName: ""
+    property url cachePath
     property var currentWebview: webappContainerWebViewLoader.item
     property var webappUrlPatterns
     property string localUserAgentOverride: ""
@@ -59,6 +60,7 @@ Item {
                     { localUserAgentOverride: containerWebview.localUserAgentOverride
                     , url: containerWebview.url
                     , webappName: containerWebview.webappName
+                    , cachePath: cachePath
                     , webappUrlPatterns: containerWebview.webappUrlPatterns
                     , developerExtrasEnabled: containerWebview.developerExtrasEnabled
                     , popupRedirectionUrlPrefix: containerWebview.popupRedirectionUrlPrefix})
