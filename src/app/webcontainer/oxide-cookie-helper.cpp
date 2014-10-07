@@ -53,6 +53,7 @@ OxideCookieHelperPrivate::OxideCookieHelperPrivate(OxideCookieHelper* q):
     m_backend(0),
     q_ptr(q)
 {
+    qRegisterMetaType<QList<QNetworkCookie> >();
 }
 
 void OxideCookieHelperPrivate::setCookies(const QList<QNetworkCookie>& cookies)

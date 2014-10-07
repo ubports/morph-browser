@@ -64,14 +64,6 @@ Window {
         }
     }
 
-    Loader {
-        id: webappViewLoader
-        anchors.fill: parent
-
-        property var credentialsId: null
-        property var webappDataLocation: credentialsId != null ? cacheLocation + "/id-" + credentialsId : dataLocation
-    }
-
     Component {
         id: webappViewComponent
 
@@ -140,6 +132,14 @@ Window {
         }
     }
 
+    Loader {
+        id: webappViewLoader
+        anchors.fill: parent
+
+        property var credentialsId: null
+        property var webappDataLocation: credentialsId != null ? cacheLocation + "/id-" + credentialsId : dataLocation
+    }
+
     function onCookiesMoved(result) {
         if (__webappCookieStore) {
             __webappCookieStore.moved.disconnect(onCookiesMoved)
@@ -173,7 +173,7 @@ Window {
             if (successful && credentialsId) {
                 webappViewLoader.loaded.connect(function () {
                     if (webappViewLoader.status == Loader.Ready) {
-                        moveCookies(credentialsId)
+                        moveCookies(webappViewLoader.credentialsId)
                     }
                 });
                 webappViewLoader.credentialsId = credentialsId
