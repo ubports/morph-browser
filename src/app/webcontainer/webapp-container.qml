@@ -108,7 +108,7 @@ Window {
         searchPath: root.webappModelSearchPath
 
         onModelContentChanged: {
-            if (root.webappName) {
+            if (root.webappName && url.length === 0) {
                 var idx = webappModel.getWebappIndex(root.webappName)
                 root.url = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Homepage)
             }
