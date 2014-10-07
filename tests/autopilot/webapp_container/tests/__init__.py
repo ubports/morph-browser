@@ -49,7 +49,7 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
             return LOCAL_BROWSER_CONTAINER_PATH_NAME
         return INSTALLED_BROWSER_CONTAINER_PATH_NAME
 
-    def launch_webcontainer_app(self, args, envvars):
+    def launch_webcontainer_app(self, args, envvars={}):
         if model() != 'Desktop':
             args.append(
                 '--desktop_file_hint=/usr/share/applications/'
