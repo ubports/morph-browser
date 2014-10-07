@@ -40,10 +40,11 @@ Window {
     property var webappUrlPatterns
     property bool oxide: false
     property string accountProvider: ""
-    property string popupRedirectionUrlPrefix: ""
+    property string popupRedirectionUrlPrefixPattern: ""
     property url webviewOverrideFile: ""
     property var __webappCookieStore: null
     property string localUserAgentOverride: ""
+    property bool blockOpenExternalUrls: false
 
     contentOrientation: Screen.orientation
 
@@ -78,10 +79,10 @@ Window {
         oxide: root.oxide
         webappModelSearchPath: root.webappModelSearchPath
         webappUrlPatterns: root.webappUrlPatterns
+        blockOpenExternalUrls: root.blockOpenExternalUrls
 
         localUserAgentOverride: root.localUserAgentOverride
-
-        popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+        popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
         webviewOverrideFile: root.webviewOverrideFile
 
         anchors.fill: parent
@@ -209,8 +210,8 @@ Window {
             }
             var requestedUrl = uris[0].toString();
 
-            if (popupRedirectionUrlPrefix.length !== 0
-                    && requestedUrl.indexOf(popupRedirectionUrlPrefix) === 0) {
+            if (popupRedirectionUrlPrefixPattern.length !== 0
+                    && requestedUrl.match(popupRedirectionUrlPrefixPattern)) {
                 return;
             }
             browser.currentWebview.url = requestedUrl;
