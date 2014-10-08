@@ -143,8 +143,11 @@ ChromeBase {
             }
 
             onTriggered: {
-                internal.openDrawer = drawerComponent.createObject(chrome)
-                internal.openDrawer.opened = true
+                if (!internal.opening) {
+                    internal.opening = true
+                    internal.openDrawer = drawerComponent.createObject(chrome)
+                    internal.openDrawer.opened = true
+                }
             }
         }
     }
@@ -152,6 +155,7 @@ ChromeBase {
     QtObject {
         id: internal
         property var openDrawer: null
+        property bool opening: false
     }
 
     onWebviewChanged: {
@@ -227,6 +231,7 @@ ChromeBase {
                 onYChanged: {
                     if (drawer.closing && (y == -height)) {
                         drawer.destroy()
+                        internal.opening = false
                     }
                 }
 
