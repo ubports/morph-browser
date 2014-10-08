@@ -147,7 +147,7 @@ Window {
             __webappCookieStore.moved.disconnect(onCookiesMoved)
         }
         if (!result) {
-            console.error("Unable to move cookies")
+            console.log("Cookies were not moved")
         }
         webappViewLoader.item.url = root.url
     }
