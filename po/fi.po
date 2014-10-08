@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-21 13:27+0200\n"
+"POT-Creation-Date: 2014-09-22 14:59+0100\n"
 "PO-Revision-Date: 2014-08-22 09:45+0000\n"
 "Last-Translator: Timo Jyrinki <timo.jyrinki@canonical.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-08-23 07:12+0000\n"
-"X-Generator: Launchpad (build 17163)\n"
+"X-Launchpad-Export-Date: 2014-09-27 06:26+0000\n"
+"X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -77,10 +77,12 @@ msgstr ""
 "ei ole luotettava."
 
 #: src/app/CertificateVerificationDialog.qml:29
+#: src/app/InvalidCertificateErrorSheet.qml:162
 msgid "Proceed anyway"
 msgstr "Jatka silti"
 
 #: src/app/CertificateVerificationDialog.qml:35
+#: src/app/InvalidCertificateErrorSheet.qml:175
 msgid "Back to safety"
 msgstr "Älä yhdistä"
 
@@ -130,6 +132,183 @@ msgstr "Estä"
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "Salli"
+
+#: src/app/InvalidCertificateErrorSheet.qml:58
+msgid "This site security certificate is not trusted.\n"
+msgstr "Tämän sivuston varmenne ei ole luotettava.\n"
+
+#: src/app/InvalidCertificateErrorSheet.qml:66
+msgid "Learn more"
+msgstr "Lisätietoja"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's serial number
+#: src/app/InvalidCertificateErrorSheet.qml:90
+#, qt-format
+msgid ""
+"Serial number:\n"
+"%1"
+msgstr ""
+"Sarjanumero:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject display name
+#: src/app/InvalidCertificateErrorSheet.qml:97
+#, qt-format
+msgid ""
+"Subject:\n"
+"%1"
+msgstr ""
+"Kohde:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject's address
+#: src/app/InvalidCertificateErrorSheet.qml:105
+#, qt-format
+msgid ""
+"Subject address:\n"
+"%1"
+msgstr ""
+"Kohteen osoite:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
+#: src/app/InvalidCertificateErrorSheet.qml:116
+#, qt-format
+msgid ""
+"Issuer:\n"
+"%1"
+msgstr ""
+"Myöntäjä:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
+#: src/app/InvalidCertificateErrorSheet.qml:124
+#, qt-format
+msgid ""
+"Issuer address:\n"
+"%1"
+msgstr ""
+"Myöntäjän osoite:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's start date
+#: src/app/InvalidCertificateErrorSheet.qml:135
+#, qt-format
+msgid ""
+"Valid from:\n"
+"%1"
+msgstr ""
+"Kelvollinen alkaen:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's expiry date
+#: src/app/InvalidCertificateErrorSheet.qml:142
+#, qt-format
+msgid ""
+"Valid until:\n"
+"%1"
+msgstr ""
+"Kelvollinen päättyen:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
+#: src/app/InvalidCertificateErrorSheet.qml:149
+#, qt-format
+msgid ""
+"Fingerprint (SHA1):\n"
+"%1"
+msgstr ""
+"Sormenjälki (SHA1):\n"
+"%1"
+
+#: src/app/InvalidCertificateErrorSheet.qml:155
+msgid ""
+"You should not proceed, especially if you have never seen this warning "
+"before for this site."
+msgstr ""
+"Jatkaminen ei ole suositeltavaa, varsinkin jos et ole ennen nähnyt tätä "
+"varoitusta tällä sivustolla."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:190
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which does not match the identity of the site."
+msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti varmenteen, joka ei "
+"vastaa sivuston identiteettiä."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:193
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which has expired."
+msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti varmenteen, joka on "
+"vanhentunut."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:196
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which contains invalid dates."
+msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti varmenteen, joka "
+"sisältää virheellisiä päiväyksiä."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:199
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"issued by an entity that is not trusted."
+msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti varmenteen, jonka on "
+"myöntänyt ei-luotettu taho."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:202
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"that has been revoked."
+msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti varmenteen, joka on "
+"kumottu."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:205
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an invalid security "
+"certificate."
+msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti virheellisen "
+"varmenteen."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:208
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an insecure security "
+"certificate."
+msgstr ""
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti turvattoman varmenteen."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:211
+#, qt-format
+msgid ""
+"This site security certificate is not trusted\n"
+"You attempted to reach %1 but the server presented a security certificate "
+"which failed our security checks for an unknown reason."
+msgstr ""
+"Sivuston varmenteeseen ei luoteta\n"
+"Yritit tavoittaa sivustoa %1, mutta palvelin palautti varmenteen, joka ei "
+"läpäissyt turvallisuustarkastuksia tuntemattomasta syystä."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -247,23 +426,35 @@ msgstr "Tallenna kuva"
 msgid "Share…"
 msgstr "Jaa…"
 
-#: src/app/webbrowser/AddressBar.qml:148
+#: src/app/webbrowser/AddressBar.qml:214
+msgid "This site has insecure content"
+msgstr "Tämä sivusto sisältää suojaamatonta sisältöä"
+
+#: src/app/webbrowser/AddressBar.qml:229
+msgid "You are connected to"
+msgstr "Olet yhteydessä kohteeseen"
+
+#: src/app/webbrowser/AddressBar.qml:251
+msgid "Which is run by"
+msgstr "Sen taustalla on"
+
+#: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"
 msgstr "etsi tai kirjoita osoite"
 
-#: src/app/webbrowser/Browser.qml:154
+#: src/app/webbrowser/Browser.qml:179
 msgid "Share"
 msgstr "Jaa"
 
-#: src/app/webbrowser/Browser.qml:168
+#: src/app/webbrowser/Browser.qml:193
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:174
+#: src/app/webbrowser/Browser.qml:200
 msgid "Open tabs"
 msgstr "Avoimet välilehdet"
 
-#: src/app/webbrowser/Browser.qml:180 src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Uusi välilehti"
 
@@ -332,25 +523,25 @@ msgstr "LIsää"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:57
+#: src/app/webcontainer/webapp-container.qml:60
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntun verkkoselain"
 
 #: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:59
+#: src/app/webcontainer/webapp-container.qml:62
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntun verkkoselain"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:70
+#: src/app/webcontainer/AccountsLoginPage.qml:87
 msgid "No local account found for "
 msgstr "Paikallista tiliä ei löytynyt - "
 
-#: src/app/webcontainer/AccountsLoginPage.qml:75
+#: src/app/webcontainer/AccountsLoginPage.qml:92
 msgid "Skip account creation step"
 msgstr "Ohita tilin luomisvaihe"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:124
+#: src/app/webcontainer/AccountsLoginPage.qml:141
 msgid "Add account"
 msgstr "Lisää tili"
 

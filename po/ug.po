@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-08-21 13:27+0200\n"
-"PO-Revision-Date: 2014-08-22 01:44+0000\n"
+"POT-Creation-Date: 2014-09-22 14:59+0100\n"
+"PO-Revision-Date: 2014-10-07 22:52+0000\n"
 "Last-Translator: Gheyret T.Kenji <Unknown>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-08-23 07:12+0000\n"
-"X-Generator: Launchpad (build 17163)\n"
+"X-Launchpad-Export-Date: 2014-10-08 07:35+0000\n"
+"X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -64,7 +64,7 @@ msgstr "چىقىپ كەتمە"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "بۇ ئۇلىنىش ئىشەنچسىز"
+msgstr "بۇ باغلىنىش ئىشەنچسىز"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -77,10 +77,12 @@ msgstr ""
 "بىخەتەرلىك ئىسپاتنامىسى ئىشەنچلىك ئەمەس."
 
 #: src/app/CertificateVerificationDialog.qml:29
+#: src/app/InvalidCertificateErrorSheet.qml:162
 msgid "Proceed anyway"
 msgstr "يەنىلا داۋاملاشتۇر"
 
 #: src/app/CertificateVerificationDialog.qml:35
+#: src/app/InvalidCertificateErrorSheet.qml:175
 msgid "Back to safety"
 msgstr "بىخەتەر ئۇلىنىشقا قايت"
 
@@ -116,7 +118,7 @@ msgstr "بىر ھۆججەت تاللاڭ"
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "ھوقۇق ئىلتىماسى"
+msgstr "ئىمتىياز ئىلتىماسى"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:65
@@ -132,6 +134,184 @@ msgstr "رەت قىل"
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "ئىجازەت"
+
+#: src/app/InvalidCertificateErrorSheet.qml:58
+msgid "This site security certificate is not trusted.\n"
+msgstr "بۇ تورتۇرانىڭ بىخەتەرلىك گۇۋاھنامىسى ئىشەنچسىز.\n"
+
+#: src/app/InvalidCertificateErrorSheet.qml:66
+msgid "Learn more"
+msgstr "تېخىمۇ كوپ مەزمۇنلار"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's serial number
+#: src/app/InvalidCertificateErrorSheet.qml:90
+#, qt-format
+msgid ""
+"Serial number:\n"
+"%1"
+msgstr ""
+"تەرتىپ نومۇرى:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject display name
+#: src/app/InvalidCertificateErrorSheet.qml:97
+#, qt-format
+msgid ""
+"Subject:\n"
+"%1"
+msgstr ""
+"ماۋزۇ:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject's address
+#: src/app/InvalidCertificateErrorSheet.qml:105
+#, qt-format
+msgid ""
+"Subject address:\n"
+"%1"
+msgstr ""
+"ماۋزۇ ئادرېسى:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
+#: src/app/InvalidCertificateErrorSheet.qml:116
+#, qt-format
+msgid ""
+"Issuer:\n"
+"%1"
+msgstr ""
+"تارقاتقۇچى:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
+#: src/app/InvalidCertificateErrorSheet.qml:124
+#, qt-format
+msgid ""
+"Issuer address:\n"
+"%1"
+msgstr ""
+"تارقاتقۇچى ئادرېسى:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's start date
+#: src/app/InvalidCertificateErrorSheet.qml:135
+#, qt-format
+msgid ""
+"Valid from:\n"
+"%1"
+msgstr ""
+"باشلىنىش ۋاقتى:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's expiry date
+#: src/app/InvalidCertificateErrorSheet.qml:142
+#, qt-format
+msgid ""
+"Valid until:\n"
+"%1"
+msgstr ""
+"ئاخىرلىشىش ۋاقتى:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
+#: src/app/InvalidCertificateErrorSheet.qml:149
+#, qt-format
+msgid ""
+"Fingerprint (SHA1):\n"
+"%1"
+msgstr ""
+"بارماق ئىزى(SHA1):\n"
+"%1"
+
+#: src/app/InvalidCertificateErrorSheet.qml:155
+msgid ""
+"You should not proceed, especially if you have never seen this warning "
+"before for this site."
+msgstr ""
+"بۇرۇن مەزكۇر تورتۇرانى زىيارەت قىلغاندا، بۇنداق ئاگاھلاندۇرۇشنى كۆرمىگەن "
+"بولسىڭىز داۋاملاشتۇرماڭ."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:190
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which does not match the identity of the site."
+msgstr ""
+"سىز %1 كەلدىڭىز. بىراق مۇلازىمېتىر بىخەتەرلىك گۇۋاھنامىسى بىلەن تورتۇرانىڭ "
+"كىملىكى ماس كەلمىدى دەۋاتىدۇ."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:193
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which has expired."
+msgstr ""
+"سىز %1 گە كەلدىڭىز. بىراق مۇلازىمېتىر بىخەتەرلىك گۇۋاھنامىسىنىڭ ۋاقتى ئۆتكەن "
+"دەۋاتىدۇ."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:196
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which contains invalid dates."
+msgstr ""
+"سىز %1 كەلدىڭىز. بىراق مۇلازىمېتىر بىخەتەرلىك گۇۋاھنامىسىدىكى چېسلا "
+"ئىناۋەتسىز دەۋاتىدۇ."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:199
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"issued by an entity that is not trusted."
+msgstr ""
+"سىز %1 گە كەلدىڭىز. بىراق مۇلازىمېتىر تارقىتىلغان بىخەتەرلىك گۇۋاھنامىسىگە "
+"ئىشەنگىلى بولمايدۇ دەۋاتىدۇ."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:202
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"that has been revoked."
+msgstr ""
+"سىز %1 گە كەلدىڭىز. بىراق مۇلازىمېتىر بىخەتەرلىك گۇۋاھنامىسى ئەمەلدىن "
+"قالدۇرۇلۇپتىكەن دەۋاتىدۇ."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:205
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an invalid security "
+"certificate."
+msgstr ""
+"سىز %1 گە كەلدىڭىز. بىراق مۇلازىمېتىر بىخەتەرلىك گۇۋاھنامىسى ئىناۋەتسىز "
+"دەۋاتىدۇ."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:208
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an insecure security "
+"certificate."
+msgstr ""
+"سىز %1 گە كەلدىڭىز. بىراق مۇلازىمېتىر بىخەتەرلىك گۇۋاھنامىسى بىخەتەر ئەمەس "
+"دەۋاتىدۇ."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:211
+#, qt-format
+msgid ""
+"This site security certificate is not trusted\n"
+"You attempted to reach %1 but the server presented a security certificate "
+"which failed our security checks for an unknown reason."
+msgstr ""
+"مەزكۇر تورتۇرانىڭ بىخەتەرلىك گۇۋاھنامىسى ئىشەنچسىز\n"
+"سىز %1 گە كەلدىڭىز. بىراق مۇلازىمېتىر بىخەتەرلىك گۇۋاھنامىسىنى تەكشۈرۈش "
+"نامەلۇم خاتالىق سەۋەبىدىن مەغلۇپ بولدى دەۋاتىدۇ."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -247,25 +427,37 @@ msgstr "سۈرەت ساقلا"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr "ھەمبەھىرلەش…"
+msgstr "ھەمبەھىر…"
 
-#: src/app/webbrowser/AddressBar.qml:148
+#: src/app/webbrowser/AddressBar.qml:214
+msgid "This site has insecure content"
+msgstr "بۇ تورتۇرادا بىخەتەر بولمىغان مەزمۇنلار بار"
+
+#: src/app/webbrowser/AddressBar.qml:229
+msgid "You are connected to"
+msgstr "سىز باغلىنىۋاتقان يەر"
+
+#: src/app/webbrowser/AddressBar.qml:251
+msgid "Which is run by"
+msgstr "بۇنى باشقۇرغۇچى"
+
+#: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"
 msgstr "ئىزدەڭ ياكى بىر ئادرېسنى كىرگۈزۈڭ"
 
-#: src/app/webbrowser/Browser.qml:154
+#: src/app/webbrowser/Browser.qml:179
 msgid "Share"
-msgstr "ھەمبەھىرلە"
+msgstr "ھەمبەھىر"
 
-#: src/app/webbrowser/Browser.qml:168
+#: src/app/webbrowser/Browser.qml:193
 msgid "History"
 msgstr "ئىز"
 
-#: src/app/webbrowser/Browser.qml:174
+#: src/app/webbrowser/Browser.qml:200
 msgid "Open tabs"
 msgstr "بەتكۈچلەرنى ئاچ"
 
-#: src/app/webbrowser/Browser.qml:180 src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "يېڭى بەتكۈچ"
 
@@ -333,25 +525,25 @@ msgstr "قوش"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:57
+#: src/app/webcontainer/webapp-container.qml:60
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - ئۇبۇنتۇ تور كۆرگۈسى"
 
 #: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:59
+#: src/app/webcontainer/webapp-container.qml:62
 msgid "Ubuntu Web Browser"
 msgstr "ئۇبۇنتۇ تور كۆرگۈسى"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:70
+#: src/app/webcontainer/AccountsLoginPage.qml:87
 msgid "No local account found for "
 msgstr "يەرلىك ھېسابات تېپىلمىدى "
 
-#: src/app/webcontainer/AccountsLoginPage.qml:75
+#: src/app/webcontainer/AccountsLoginPage.qml:92
 msgid "Skip account creation step"
 msgstr "ھېسابات قۇرۇش باسقۇچىدىن ئاتلاپ كەت"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:124
+#: src/app/webcontainer/AccountsLoginPage.qml:141
 msgid "Add account"
 msgstr "ھېسابات قوش"
 

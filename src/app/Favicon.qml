@@ -19,15 +19,24 @@
 import QtQuick 2.0
 import Ubuntu.Components 1.1
 
-Image {
+Item {
+    property url source
     property bool fallbackIcon: true
 
     width: units.dp(16)
     height: units.dp(16)
 
+    Image {
+        id: image
+        readonly property string url: parent.source.toString()
+        source: url ? "image://favicon/" + url : ""
+
+        anchors.fill: parent
+    }
+
     Icon {
         anchors.fill: parent
         name: "stock_website"
-        visible: parent.fallbackIcon && (parent.status !== Image.Ready)
+        visible: parent.fallbackIcon && (image.status !== Image.Ready)
     }
 }

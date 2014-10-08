@@ -49,6 +49,31 @@ static const char privateModuleUri[] = "webcontainer.private";
 namespace
 {
 
+/* Hack to clear the local data of the webapp, when it's integrated with OA:
+ * https://bugs.launchpad.net/bugs/1371659
+ * This is needed because cookie sets from different accounts might not
+ * completely overwrite each other, and therefore we end up with an
+ * inconsistent cookie jar. */
+static void clearCookiesHack(const QString &provider)
+{
+    if (provider.isEmpty()) {
+        qWarning() << "--clear-cookies only works with an accountProvider" << endl;
+        return;
+    }
+
+    /* check both ~/.local/share and ~/.cache, as the data will eventually be
+     * moving from the first to the latter.
+     */
+    QStringList baseDirs;
+    baseDirs << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    baseDirs << QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+
+    Q_FOREACH(const QString &baseDir, baseDirs) {
+        QDir dir(baseDir);
+        dir.removeRecursively();
+    }
+}
+
 static QString currentArchitecturePathName()
 {
 #if defined(Q_PROCESSOR_X86_32)
@@ -137,6 +162,10 @@ bool WebappContainer::initialize()
             m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
         }
 
+        if (!m_userAgentOverride.isEmpty()) {
+            m_window->setProperty("localUserAgentOverride", m_userAgentOverride);
+        }
+
         // Experimental, unsupported API, to override the webview
         QFileInfo overrideFile("webview-override.qml");
         if (overrideFile.exists()) {
@@ -185,7 +214,6 @@ void WebappContainer::printUsage() const
        " [--inspector]"
        " [--app-id=APP_ID]"
        " [--homepage=URL]"
-       " [--new-session]"
        " [--webapp=name]"
        " [--webappModelSearchPath=PATH]"
        " [--webappUrlPatterns=URL_PATTERNS]"
@@ -193,6 +221,7 @@ void WebappContainer::printUsage() const
        " [--enable-back-forward]"
        " [--enable-addressbar]"
        " [--store-session-cookies]"
+       " [--user-agent-string=USER_AGENT]"
        " [URL]" << endl;
     out << "Options:" << endl;
     out << "  -h, --help                          display this help message and exit" << endl;
@@ -202,12 +231,12 @@ void WebappContainer::printUsage() const
     out << "  --inspector[=PORT]                  run a remote inspector on a specified port or " << REMOTE_INSPECTOR_PORT << " as the default port" << endl;
     out << "  --app-id=APP_ID                     run the application with a specific APP_ID" << endl;
     out << "  --homepage=URL                      override any URL passed as an argument" << endl;
-    out << "  --new-session                       do not restore the open page from the last session" << endl;
     out << "  --webapp=name                       try to match the webapp by name with an installed integration script" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
+    out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
     out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
@@ -237,6 +266,9 @@ void WebappContainer::parseCommandLine()
             }
         } else if (argument.startsWith("--accountProvider=")) {
             m_accountProvider = argument.split("--accountProvider=")[1];
+        } else if (argument == "--clear-cookies") {
+            qWarning() << argument << " is an unsupported option: it can be removed without notice..." << endl;
+            clearCookiesHack(m_accountProvider);
         } else if (argument == "--store-session-cookies") {
             m_storeSessionCookies = true;
         } else if (argument == "--enable-back-forward") {
@@ -246,9 +278,11 @@ void WebappContainer::parseCommandLine()
         } else if (argument == "--local-webapp-manifest") {
             m_localWebappManifest = true;
         } else if (argument.startsWith("--popup-redirection-url-prefix=")) {
-            m_popupRedirectionUrlPrefix = argument.split("--popup-redirection-url-prefix=")[1];;
+            m_popupRedirectionUrlPrefix = argument.split("--popup-redirection-url-prefix=")[1];
         } else if (argument.startsWith("--local-cookie-db-path=")) {
-            m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];;
+            m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];
+        } else if (argument.startsWith("--user-agent-string=")) {
+            m_userAgentOverride = argument.split("--user-agent-string=")[1];
         }
     }
 }

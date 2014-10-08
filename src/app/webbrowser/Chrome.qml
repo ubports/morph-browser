@@ -28,6 +28,7 @@ ChromeBase {
     property alias bookmarked: addressbar.bookmarked
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
+    property alias requestedUrl: addressbar.requestedUrl
 
     signal validated()
 
@@ -107,7 +108,11 @@ ChromeBase {
             onValidated: chrome.webview.url = requestedUrl
             onRequestReload: chrome.webview.reload()
             onRequestStop: chrome.webview.stop()
-            onTextFieldFocused: text = chrome.webview.url
+            onTextFieldFocused: {
+                if (chrome.webview) {
+                    text = chrome.webview.url
+                }
+            }
 
             Connections {
                 target: chrome.webview
@@ -152,6 +157,7 @@ ChromeBase {
     onWebviewChanged: {
         if (webview) {
             addressbar.actualUrl = webview.url
+            addressbar.securityStatus = webview.securityStatus
         }
     }
 

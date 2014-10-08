@@ -27,6 +27,8 @@ import ".."
 BrowserView {
     id: browser
 
+    property bool restoreSession: true
+
     currentWebview: tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
@@ -34,6 +36,10 @@ BrowserView {
 
     property url homepage
     property QtObject searchEngine
+
+    // XXX: we might want to tweak this value depending
+    // on the form factor and/or the available memory
+    readonly property int maxLiveWebviews: 2
 
     actions: [
         Actions.GoTo {
@@ -117,6 +123,24 @@ BrowserView {
                 visible: currentWebview ? currentWebview.lastLoadFailed : false
                 url: currentWebview ? currentWebview.url : ""
                 onRefreshClicked: currentWebview.reload()
+            }
+            asynchronous: true
+        }
+
+        Loader {
+            anchors.fill: tabContainer
+            sourceComponent: InvalidCertificateErrorSheet {
+                visible: currentWebview && currentWebview.certificateError != null
+                certificateError: currentWebview ? currentWebview.certificateError : null
+                onAllowed: { 
+                    // Automatically allow future requests involving this
+                    // certificate for the duration of the session.
+                    currentWebview.allowedCertificates.push(currentWebview.certificateError.certificate.fingerprintSHA1)
+                    currentWebview.certificateError = null
+                }
+                onDenied: {
+                    currentWebview.certificateError = null
+                }
             }
             asynchronous: true
         }
@@ -234,6 +258,7 @@ BrowserView {
             onSelected: {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
+                chrome.requestedUrl = url
             }
         }
     }
@@ -307,6 +332,14 @@ BrowserView {
 
     TabsModel {
         id: tabsModel
+
+        // Ensure that at most n webviews are instantiated at all times,
+        // to reduce memory consumption (see http://pad.lv/1376418).
+        onCurrentTabChanged: {
+            if (count > browser.maxLiveWebviews) {
+                get(browser.maxLiveWebviews).unload()
+            }
+        }
     }
 
     Loader {
@@ -344,6 +377,8 @@ BrowserView {
 
             function unload() {
                 if (webview) {
+                    initialUrl = webview.url
+                    initialTitle = webview.title
                     webview.destroy()
                 }
             }
@@ -457,6 +492,7 @@ BrowserView {
             var index = tabsModel.add(tab)
             if (setCurrent) {
                 tabsModel.setCurrent(index)
+                chrome.requestedUrl = tab.initialUrl
                 if (focusAddressBar) {
                     internal.focusAddressBar()
                 }

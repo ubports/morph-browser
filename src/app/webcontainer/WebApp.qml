@@ -18,9 +18,8 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
-import Ubuntu.Unity.Action 1.0 as UnityActions
+import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
-import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 
@@ -39,6 +38,7 @@ BrowserView {
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefix: webview.popupRedirectionUrlPrefix
     property alias webviewOverrideFile: webview.webviewOverrideFile
+    property string localUserAgentOverride: ""
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
@@ -58,6 +58,16 @@ BrowserView {
         }
     ]
 
+    function getLocalUserAgentOverrideIfAny() {
+        if (localUserAgentOverride.length !== 0)
+            return localUserAgentOverride
+
+        if (webappName && unityWebapps.model.exists(webappName))
+            return unityWebapps.model.userAgentOverrideFor(webappName)
+
+        return ""
+    }
+
     Item {
         anchors.fill: parent
 
@@ -72,15 +82,14 @@ BrowserView {
             }
             height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.item.visibleHeight)
             developerExtrasEnabled: webapp.developerExtrasEnabled
-            localUserAgentOverride: webappName && unityWebapps.model.exists(webappName) ?
-                                      unityWebapps.model.userAgentOverrideFor(webappName) : ""
+            localUserAgentOverride: getLocalUserAgentOverrideIfAny()
         }
 
         Loader {
             anchors.fill: webview
             sourceComponent: ErrorSheet {
                 visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
-                url: webview.currentWebview.url
+                url: webview.currentWebview ? webview.currentWebview.url : ""
                 onRefreshClicked: {
                     if (webview.currentWebview)
                         webview.currentWebview.reload()
@@ -171,67 +180,14 @@ BrowserView {
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
     }
 
-    SessionStorage {
-        id: session
-
-        dataFile: dataLocation + "/session.json"
-
-        function save() {
-            if (!locked) {
-                return
-            }
-            if (webapp.currentWebview) {
-                var state = serializeWebviewState(webapp.currentWebview)
-                store(JSON.stringify(state))
-            }
+    function isValidContainedUrl(url) {
+        if (!url || url.length === 0 || url === 'about:blank') {
+            return false
         }
-
-        function restore() {
-            if (!locked) {
-                return
-            }
-            var state = null
-            try {
-                state = JSON.parse(retrieve())
-            } catch (e) {
-                return
-            }
-            if (state) {
-                var url = state.url
-                if (url) {
-                    webapp.currentWebview.url = url
-                }
-            }
+        if (popupRedirectionUrlPrefix.length !== 0
+                && url.indexOf(popupRedirectionUrlPrefix) === 0) {
+            return false
         }
-
-        // This function is used to save the current state of a webview.
-        // The current implementation is naive, it only saves the current URL.
-        // In the future, we’ll want to rely on oxide to save and restore a full state
-        // of the webview as a binary blob, which includes navigation history, current
-        // scroll offset and form data. See http://pad.lv/1353143.
-        function serializeWebviewState(webview) {
-            var state = {}
-            state.url = webview.url.toString()
-            return state
-        }
-    }
-    Connections {
-        target: webapp.currentWebview
-        onUrlChanged: {
-            var url = webapp.currentWebview.url.toString()
-            if (url.length === 0 || url === 'about:blank') {
-                return;
-            }
-            if (popupRedirectionUrlPrefix.length !== 0
-                    && url.indexOf(popupRedirectionUrlPrefix) === 0) {
-                return;
-            }
-            session.save()
-        }
-    }
-    Component.onCompleted: {
-        if (webapp.restoreSession) {
-            session.restore()
-        }
+        return true
     }
 }

@@ -4,11 +4,11 @@ set(UBUNTU_WEB_IMPORTS_DIR "${QT_INSTALL_QML}/Ubuntu/Web")
 
 set(PLUGIN ubuntu-web-plugin)
 
-set(PLUGIN_SRC plugin.cpp)
+set(PLUGIN_SRC favicon-image-provider.cpp plugin.cpp)
 
 add_library(${PLUGIN} MODULE ${PLUGIN_SRC})
 
-qt5_use_modules(${PLUGIN} Core Gui Qml)
+qt5_use_modules(${PLUGIN} Core Gui Network Qml Quick)
 
 file(GLOB QML_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.qml qmldir *.js)
 install(TARGETS ${PLUGIN} DESTINATION ${UBUNTU_WEB_IMPORTS_DIR})

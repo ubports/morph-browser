@@ -28,7 +28,6 @@ Window {
     objectName: "webappContainer"
 
     property bool developerExtrasEnabled: false
-    property bool restoreSession: true
 
     property bool backForwardButtonsVisible: true
     property bool chromeVisible: true
@@ -44,6 +43,7 @@ Window {
     property string popupRedirectionUrlPrefix: ""
     property url webviewOverrideFile: ""
     property var __webappCookieStore: null
+    property string localUserAgentOverride: ""
 
     contentOrientation: Screen.orientation
 
@@ -75,10 +75,11 @@ Window {
         chromeVisible: root.chromeVisible
         backForwardButtonsVisible: root.backForwardButtonsVisible
         developerExtrasEnabled: root.developerExtrasEnabled
-        restoreSession: root.restoreSession
         oxide: root.oxide
         webappModelSearchPath: root.webappModelSearchPath
         webappUrlPatterns: root.webappUrlPatterns
+
+        localUserAgentOverride: root.localUserAgentOverride
 
         popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
         webviewOverrideFile: root.webviewOverrideFile
@@ -116,7 +117,7 @@ Window {
 
     // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
     // by toggling fullscreen on the window only on desktop.
-    visibility: browser.currentWebview.fullscreen &&
+    visibility: browser.currentWebview && browser.currentWebview.fullscreen &&
                 (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
@@ -203,9 +204,7 @@ Window {
         target: UriHandler
         onOpened: {
             // only consider the first one (if multiple)
-            if (uris.length === 0 ||
-                    !webappPageComponentLoader.item ||
-                    !webappPageComponentLoader.item.currentWebview) {
+            if (uris.length === 0 || !browser.currentWebview) {
                 return;
             }
             var requestedUrl = uris[0].toString();
@@ -214,7 +213,7 @@ Window {
                     && requestedUrl.indexOf(popupRedirectionUrlPrefix) === 0) {
                 return;
             }
-            webappPageComponentLoader.item.currentWebview.url = requestedUrl;
+            browser.currentWebview.url = requestedUrl;
         }
     }
 }
