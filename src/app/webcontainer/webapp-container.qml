@@ -139,7 +139,7 @@ Window {
         anchors.fill: parent
 
         property var credentialsId: null
-        property var webappDataLocation: credentialsId != null ? cacheLocation + "/id-" + credentialsId : dataLocation
+        property var webappDataLocation: credentialsId != null ? dataLocation + "/id-" + credentialsId : dataLocation
     }
 
     function onCookiesMoved(result) {
