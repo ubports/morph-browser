@@ -1,3 +1,10 @@
+webbrowser-app (0.23+14.10.20141006-0ubuntu1) utopic; urgency=low
+
+  [ Alberto Mardegan ]
+  * Filter out account services which belong to other webapps
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 06 Oct 2014 08:02:31 +0000
+
 webbrowser-app (0.23+14.10.20141003-0ubuntu1) utopic; urgency=low
 
   [ CI bot ]

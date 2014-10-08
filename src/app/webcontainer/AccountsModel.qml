@@ -38,6 +38,7 @@ Item {
         id: accountsModel
         includeDisabled: false
         serviceType: "webapps"
+        applicationId: root.applicationName
         provider: root.accountProvider
     }
 
@@ -48,5 +49,3 @@ Item {
         onFinished: root.finished()
     }
 }
-
-
