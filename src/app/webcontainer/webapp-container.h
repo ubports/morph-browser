@@ -56,7 +56,7 @@ private:
     bool m_backForwardButtonsVisible;
     bool m_addressBarVisible;
     bool m_localWebappManifest;
-    QString m_popupRedirectionUrlPrefix;
+    QString m_popupRedirectionUrlPrefixPattern;
     QString m_localCookieStoreDbPath;
     QString m_userAgentOverride;
     QScopedPointer<WebappContainerHelper> m_webappContainerHelper;

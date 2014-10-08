@@ -23,7 +23,7 @@ class WebappContainerAppLaunchTestCase(
         WebappContainerTestCaseWithLocalContentBase):
 
     def test_container_does_not_load_with_no_webapp_name_and_url(self):
-        args = ['--webapp']
+        args = []
         self.launch_webcontainer_app(args)
         self.assertIsNone(self.get_webcontainer_proxy())
 

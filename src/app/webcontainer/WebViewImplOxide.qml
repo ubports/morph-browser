@@ -33,7 +33,16 @@ WebViewImpl {
     property string webappName: ""
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
-    property string popupRedirectionUrlPrefix: ""
+    property string popupRedirectionUrlPrefixPattern: ""
+
+    // Mostly used for testing & avoid external urls to
+    //  "leak" in the default browser
+    property bool blockOpenExternalUrls: false
+
+    // Those signals are used for testing purposes to externally
+    //  track down the various internal logic & steps of a popup lifecycle.
+    signal openExternalUrlTriggered(string url)
+    signal gotRedirectionUrl(string url)
 
     currentWebview: webview
 
@@ -68,6 +77,13 @@ WebViewImpl {
     function isNewForegroundWebViewDisposition(disposition) {
         return disposition === Oxide.NavigationRequest.DispositionNewPopup ||
                disposition === Oxide.NavigationRequest.DispositionNewForegroundTab;
+    }
+
+    function openUrlExternally(url) {
+        webview.openExternalUrlTriggered(url)
+        if (! webview.blockOpenExternalUrls) {
+            Qt.openUrlExternally(url)
+        }
     }
 
     function shouldAllowNavigationTo(url) {
@@ -113,36 +129,31 @@ WebViewImpl {
                 return
             }
 
+            var redirectionPatternMatch = url.match(popupRedirectionUrlPrefixPattern);
             var isRedirectionUrl =
-                    popupRedirectionUrlPrefix.length !== 0
-                    && url.indexOf(popupRedirectionUrlPrefix) === 0;
-
+                    popupRedirectionUrlPrefixPattern
+                    && redirectionPatternMatch
+                    && redirectionPatternMatch.length >= 2;
             var targetUrl = url;
             if (isRedirectionUrl) {
-                // Extract the target URL.
-                targetUrl = url.slice(popupRedirectionUrlPrefix.length);
-                // Quick fix for http://pad.lv/1358622 (trim trailing parameters).
-                // A proper solution would probably involve regexps instead of a
-                // simple redirection prefix.
-                var extraParams = targetUrl.indexOf("&");
-                if (extraParams !== -1) {
-                    targetUrl = targetUrl.slice(0, extraParams);
-                }
-                // Decode it.
-                targetUrl = decodeURIComponent(targetUrl);
+                // Assume that the first group is the matching one
+                targetUrl = redirectionPatternMatch[1];
+                console.debug("Got a redirection URL with target URL: " + targetUrl)
+                targetUrl = decodeURIComponent(targetUrl)
+                gotRedirectionUrl(targetUrl)
             }
 
             if (webview.shouldAllowNavigationTo(targetUrl)) {
                 console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
                 request.action = Oxide.NavigationRequest.ActionReject
-                webappContainerHelper.browseToUrlRequested(webview, url.slice(url.indexOf(popupRedirectionUrlPrefix)))
+                webappContainerHelper.browseToUrlRequested(webview, url.slice(url.indexOf(popupRedirectionUrlPrefixPattern)))
                 return
             }
 
             if (shouldOpenPopupsInDefaultBrowser()) {
                 console.debug('Opening popup window ' + targetUrl + ' in the browser window.')
                 request.action = Oxide.NavigationRequest.ActionReject
-                Qt.openUrlExternally(targetUrl)
+                openUrlExternally(targetUrl)
                 return;
             }
             return
@@ -179,7 +190,7 @@ WebViewImpl {
 
         if (request.action === Oxide.NavigationRequest.ActionReject) {
             console.debug('Opening: ' + url + ' in the browser window.')
-            Qt.openUrlExternally(url)
+            openUrlExternally(url)
         }
     }
 
@@ -203,7 +214,7 @@ WebViewImpl {
                     if ( ! isNewForegroundWebViewDisposition(request.disposition) &&
                             ! webview.shouldAllowNavigationTo(url)) {
                         request.action = Oxide.NavigationRequest.ActionReject
-                        Qt.openUrlExternally(url);
+                        openUrlExternally(url);
                         popup.close()
                         return;
                     }
@@ -233,7 +244,7 @@ WebViewImpl {
                         return;
 
                     if (_url != 'about:blank' && ! webview.shouldAllowNavigationTo(_url)) {
-                        Qt.openUrlExternally(_url);
+                        openUrlExternally(_url);
                         popup.close()
                     }
                 }

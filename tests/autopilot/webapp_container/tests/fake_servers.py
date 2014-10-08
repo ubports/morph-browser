@@ -26,14 +26,28 @@ class RequestHandler(http.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(content.encode())
 
-    def basic_html_content(self):
+    def basic_html_content(self, content="basic"):
         return """
 <html>
 <head>
 <title>Some content</title>
 </head>
 <body>
-This is some content
+This is some {} content
+</body>
+</html>
+        """.format(content)
+
+    def redirect_html_content(self):
+        return """
+<html>
+<head>
+<title>Some content</title>
+</head>
+<body>
+<div><a href='/redirect?url=myredirect&s=1&r=2' target='_blank'>
+<div style="height: 100%; width: 100%"></div>
+</a></div>
 </body>
 </html>
         """
@@ -42,6 +56,12 @@ This is some content
         if self.path == '/':
             self.send_response(200)
             self.serve_content(self.basic_html_content())
+        elif self.path == '/other':
+            self.send_response(200)
+            self.serve_content(self.basic_html_content("other"))
+        elif self.path == '/get-redirect':
+            self.send_response(200)
+            self.serve_content(self.redirect_html_content())
         else:
             self.send_error(404)
 

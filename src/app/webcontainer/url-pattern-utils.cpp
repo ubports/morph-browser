@@ -21,6 +21,8 @@
 #include <QtCore/QRegularExpression>
 #include <QDebug>
 
+namespace
+{
 
 /**
  * Tests for the validity of a given webapp url pattern. It follows
@@ -35,7 +37,7 @@
  * @param pattern pattern that is to be tested for validity
  * @return true if the url is valid, false otherwise
  */
-static bool isValidWebappUrlPattern(const QString& pattern)
+bool isValidWebappUrlPattern(const QString& pattern)
 {
     static QRegularExpression grammar("^http(s|s\\?)?://[^\\.]+\\.[^\\.\\*\\?]+\\.[^\\.\\*\\?]+(\\.[^\\.\\*\\?/]+)*/.*$");
     return grammar.match(pattern).hasMatch();
@@ -71,7 +73,7 @@ static bool isValidWebappUrlPattern(const QString& pattern)
  * @param pattern pattern that is to be tested for validity
  * @return true if the url is valid, false otherwise
  */
-static bool isValidGoogleUrlPattern(const QString& pattern)
+bool isValidGoogleUrlPattern(const QString& pattern)
 {
     static QRegularExpression grammar("^http(s|s\\?)?://[^\\.\\?\\*]+\\.google\\.[^\\.\\?]+/.*$");
     return grammar.match(pattern).hasMatch();
@@ -83,14 +85,31 @@ static bool isValidGoogleUrlPattern(const QString& pattern)
  * @param pattern pattern that is to be tested for validity
  * @return true if the url is valid, false otherwise
  */
-static bool isValidStrictUrlPattern(const QString& pattern)
+bool isValidStrictUrlPattern(const QString& pattern)
 {
     static QRegularExpression grammar("^http(s|s\\?)?://[^\\.\\*\\?]+\\.[^\\.\\*\\?]+(\\.[^\\.\\*\\?/]+)*/.*$");
     return grammar.match(pattern).hasMatch();
 }
 
 
-QString UrlPatternUtils::transformWebappSearchPatternToSafePattern(const QString& pattern)
+QString toSafeHostnamePartPattern(const QString& hostnamePart)
+{
+    QString localHostnamePart = hostnamePart;
+    return localHostnamePart.replace("*", "[^\\./]*");
+}
+
+QString toSafeUrlPathPartPattern(const QString& urlPathPart)
+{
+    QString localUrlPathPart = urlPathPart;
+    return localUrlPathPart.replace("*", "[^\\s]*");
+}
+
+} // namespace {
+
+
+QString UrlPatternUtils::transformWebappSearchPatternToSafePattern(
+        const QString& pattern,
+        bool doTransformUrlPath)
 {
     QString transformedPattern;
 
@@ -112,8 +131,10 @@ QString UrlPatternUtils::transformWebappSearchPatternToSafePattern(const QString
             // matches
             // https?://*.ebay.com/*
             QString scheme = match.captured(1);
-            QString hostname = match.captured(2).replace("*", "[^\\./]*");
-            QString tail = match.captured(3).replace("*", "[^\\s]*");
+            QString hostname = toSafeHostnamePartPattern(match.captured(2));
+            QString tail = doTransformUrlPath ?
+                        toSafeUrlPathPartPattern(match.captured(3))
+                      : match.captured(3);
 
             // reconstruct
             transformedPattern = QString("%1%2%3").arg(scheme).arg(hostname).arg(tail);
@@ -128,7 +149,7 @@ QString UrlPatternUtils::transformWebappSearchPatternToSafePattern(const QString
             QString scheme = match.captured(1);
             QString hostname = match.captured(2);
             QString tld = match.captured(3).replace("*", "[^\\./]*");
-            QString tail = match.captured(4).replace("*", "[^\\s]*");
+            QString tail = toSafeUrlPathPartPattern(match.captured(4));
 
             // reconstruct
             transformedPattern = QString("%1%2%3%4")
