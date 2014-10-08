@@ -19,7 +19,6 @@
 import QtQuick 2.0
 import QtQuick.Window 2.1
 import Ubuntu.Components 1.1
-import Ubuntu.Components.Extras.Browser 0.2
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import webcontainer.private 0.1
 
