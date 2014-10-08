@@ -42,6 +42,8 @@ Item {
         anchors.fill: parent
     }
 
+    onUrlChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.url = url
+
     Component.onCompleted: {
         var webappEngineSource =
                 withOxide ?
