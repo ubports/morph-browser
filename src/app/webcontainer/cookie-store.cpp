@@ -91,7 +91,19 @@ void CookieStore::cookiesReceived(const Cookies& cookies
     if (Q_UNLIKELY(!request))
         return;
 
+    QDateTime lastRemoteCookieUpdate =
+        request->_cookieStore->lastUpdateTimeStamp();
+    QDateTime lastLocalCookieUpdate = lastUpdateTimeStamp();
+
     delete request;
+
+    if (lastRemoteCookieUpdate.isValid() &&
+        lastLocalCookieUpdate.isValid() &&
+        (lastRemoteCookieUpdate < lastLocalCookieUpdate))
+    {
+        Q_EMIT moved(false);
+        return;
+    }
 
     connect(this, &CookieStore::cookiesSet,
             this, &CookieStore::moved);
@@ -103,17 +115,6 @@ void CookieStore::moveFrom(CookieStore* store)
 {
     if (Q_UNLIKELY(!store))
         return;
-
-    QDateTime lastRemoteCookieUpdate = store->lastUpdateTimeStamp();
-    QDateTime lastLocalCookieUpdate = lastUpdateTimeStamp();
-
-    if (lastRemoteCookieUpdate.isValid() &&
-        lastLocalCookieUpdate.isValid() &&
-        (lastRemoteCookieUpdate < lastLocalCookieUpdate))
-    {
-        Q_EMIT moved(false);
-        return;
-    }
 
     CookieStoreRequest* storeRequest = new CookieStoreRequest(store);
     _currentStoreRequests.insert(storeRequest, true);
