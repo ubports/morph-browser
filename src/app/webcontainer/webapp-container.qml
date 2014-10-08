@@ -190,7 +190,6 @@ Window {
     Component {
         id: oxideCookieStoreComponent
         ChromeCookieStore {
-            homepage: root.url
         }
     }
 
