@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-22 14:59+0100\n"
-"PO-Revision-Date: 2014-10-02 01:40+0000\n"
+"PO-Revision-Date: 2014-10-07 22:52+0000\n"
 "Last-Translator: Gheyret T.Kenji <Unknown>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-10-04 06:25+0000\n"
+"X-Launchpad-Export-Date: 2014-10-08 07:35+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -64,7 +64,7 @@ msgstr "چىقىپ كەتمە"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "بۇ ئۇلىنىش ئىشەنچسىز"
+msgstr "بۇ باغلىنىش ئىشەنچسىز"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -141,7 +141,7 @@ msgstr "بۇ تورتۇرانىڭ بىخەتەرلىك گۇۋاھنامىسى ئ
 
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"
-msgstr "تەپسىلات بىلدۈرگۈسى"
+msgstr "تېخىمۇ كوپ مەزمۇنلار"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:90
