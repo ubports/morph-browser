@@ -208,11 +208,11 @@ void WebappContainer::printUsage() const
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
+    out << "  --enable-media-hub-audio            enable media-hub for audio playback" << endl;
+    out << "  --media-hub-fixed-session-domains   list of comma-separated domains that use a fixed session" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
     out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
-    out << "  --enable-media-hub-audio            enable media-hub for audio playback" << endl;
-    out << "  --media-hub-fixed-session-domains   list of comma-separated domains that use a fixed session" << endl;
 }
 
 void WebappContainer::earlyEnvironment()
