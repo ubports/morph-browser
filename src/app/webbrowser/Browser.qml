@@ -41,6 +41,11 @@ BrowserView {
     // on the form factor and/or the available memory
     readonly property int maxLiveWebviews: 2
 
+    // Restore only the n most recent tabs at startup,
+    // to limit the overhead of instantiating too many
+    // tab objects (see http://pad.lv/1376433).
+    readonly property int maxTabsToRestore: 10
+
     actions: [
         Actions.GoTo {
             onTriggered: currentWebview.url = value
@@ -545,7 +550,7 @@ BrowserView {
             if (state) {
                 var tabs = state.tabs
                 if (tabs) {
-                    for (var i = 0; i < tabs.length; ++i) {
+                    for (var i = 0; i < Math.min(tabs.length, browser.maxTabsToRestore); ++i) {
                         var tab = createTabFromState(tabs[i])
                         internal.addTab(tab, i == 0, false)
                     }
@@ -590,6 +595,9 @@ BrowserView {
             if (browser.restoreSession) {
                 session.restore()
             }
+            // Sanity check
+            console.assert(tabsModel.count <= browser.maxTabsToRestore,
+                           "WARNING: too many tabs were restored")
             for (var i in browser.initialUrls) {
                 browser.openUrlInNewTab(browser.initialUrls[i], true, false)
             }
