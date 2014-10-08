@@ -36,6 +36,9 @@ Item {
         id: singleDownload
         autoStart: false
         property var contentType
+        metadata: Metadata {
+            showInIndicator: true
+        }
         onDownloadIdChanged: {
             PopupUtils.open(downloadDialog, downloadItem, {"contentType" : singleDownload.contentType, "downloadId" : singleDownload.downloadId})
         }
@@ -65,6 +68,7 @@ Item {
             // so we let download manager extract the zip and send its contents
             // on to the selected application via content-hub
             contentType = ContentType.Music
+            singleDownload.metadata.extract = true
         }
         download(url, contentType, headers)
     }
