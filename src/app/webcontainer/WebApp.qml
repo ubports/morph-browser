@@ -181,15 +181,4 @@ BrowserView {
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
     }
-
-    function isValidContainedUrl(url) {
-        if (!url || url.length === 0 || url === 'about:blank') {
-            return false
-        }
-        if (popupRedirectionUrlPrefixPattern.length !== 0
-                && url.match(popupRedirectionUrlPrefixPattern)) {
-            return false
-        }
-        return true
-    }
 }
