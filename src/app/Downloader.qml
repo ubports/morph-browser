@@ -75,12 +75,7 @@ Item {
     }
 
     function is7digital(url) {
-        var urlParts = url.toString().split("/")
-        if (urlParts.length < 3) {
-            return false
-        }
-        var domain = urlParts[2]
-        return domain.indexOf("7digital.com", domain.length - "7digital.com".length) !== -1
+        return url.search(/[^\/]+:\/\/[^\/]*7digital.com\//)
     }
 
 }
