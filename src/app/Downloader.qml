@@ -46,7 +46,11 @@ Item {
 
     function download(url, contentType, headers) {
         singleDownload.contentType = contentType
-        singleDownload.headers = headers
+        if (headers) { 
+            singleDownload.headers = headers
+        } else {
+            singleDownload.headers = { }
+        }
         singleDownload.download(url)
     }
 
