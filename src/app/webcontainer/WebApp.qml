@@ -58,6 +58,7 @@ BrowserView {
     ]
 
     Item {
+        id: webviewContainer
         anchors.fill: parent
 
         WebappContainerWebview {

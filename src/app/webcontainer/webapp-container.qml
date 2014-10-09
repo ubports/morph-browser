@@ -192,7 +192,7 @@ Window {
             // it has not been set previously before setting the URL to the default property 
             // homepage.
             if (!browser.currentWebview.url || browser.currentWebview.url === "") {
-                browser.currentWebview.url = root.url
+                browser.currentWebview.url = root.url;
             }
         }
     }
