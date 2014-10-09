@@ -146,7 +146,7 @@ WebViewImpl {
             if (webview.shouldAllowNavigationTo(targetUrl)) {
                 console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
                 request.action = Oxide.NavigationRequest.ActionReject
-                webappContainerHelper.browseToUrlRequested(webview, url.slice(url.indexOf(popupRedirectionUrlPrefixPattern)))
+                webappContainerHelper.browseToUrlRequested(webview, targetUrl)
                 return
             }
 
