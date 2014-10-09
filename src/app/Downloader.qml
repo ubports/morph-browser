@@ -46,9 +46,7 @@ Item {
 
     function download(url, contentType, headers) {
         singleDownload.contentType = contentType
-        if(headers) {
-            singleDownload.headers = headers
-        }
+        singleDownload.headers = headers
         singleDownload.download(url)
     }
 
@@ -69,10 +67,10 @@ Item {
             // on to the selected application via content-hub
             contentType = ContentType.Music
             singleDownload.metadata.extract = true
+        } else {
+            singleDownload.metadata.extract = false
         }
-        if (filename) {
-            singleDownload.metadata.title = filename
-        }
+        singleDownload.metadata.title = filename
         download(url, contentType, headers)
     }
 
