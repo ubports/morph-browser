@@ -58,16 +58,6 @@ BrowserView {
         }
     ]
 
-    function getLocalUserAgentOverrideIfAny() {
-        if (localUserAgentOverride.length !== 0)
-            return localUserAgentOverride
-
-        if (webappName && unityWebapps.model.exists(webappName))
-            return unityWebapps.model.userAgentOverrideFor(webappName)
-
-        return ""
-    }
-
     Item {
         anchors.fill: parent
 

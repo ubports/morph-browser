@@ -78,7 +78,7 @@ Window {
         webappModelSearchPath: root.webappModelSearchPath
         webappUrlPatterns: root.webappUrlPatterns
 
-        localUserAgentOverride: root.localUserAgentOverride
+        localUserAgentOverride: getLocalUserAgentOverrideIfAny()
 
         popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
         webviewOverrideFile: root.webviewOverrideFile
@@ -100,6 +100,16 @@ Window {
         }
 
         Component.onCompleted: i18n.domain = "webbrowser-app"
+    }
+
+    function getLocalUserAgentOverrideIfAny() {
+        if (localUserAgentOverride.length !== 0)
+            return localUserAgentOverride
+
+        if (webappName && webappModel.exists(webappName))
+            return webappModel.userAgentOverrideFor(webappName)
+
+        return ""
     }
 
     UnityWebApps.UnityWebappsAppModel {
