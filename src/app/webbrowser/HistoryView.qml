@@ -16,11 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.3
 import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
-import Ubuntu.Components.Popups 1.0
 import webbrowserapp.private 0.1
+import "upstreamcomponents"
 
 Item {
     id: historyView
@@ -35,20 +34,102 @@ Item {
         anchors.fill: parent
     }
 
-    ListView {
+    Item {
+        id: topBar
+        visible: domainsListView.isInSelectionMode
+
+        onVisibleChanged: visible ? topBarOpenAnimation.start() : topBarCloseAnimation.start()
+
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+
+        Icon {
+            name: "close"
+            anchors {
+                top: parent.top;
+                bottom: parent.bottom;
+                left: parent.left;
+                margins: units.gu(1)
+            }
+            width: height
+            MouseArea {
+                anchors.fill: parent
+                onClicked: domainsListView.cancelSelection()
+            }
+        }
+        Icon {
+            name: "select"
+            anchors {
+                top: parent.top;
+                bottom: parent.bottom;
+                right: deleteIcon.left;
+                margins: units.gu(1)
+            }
+            width: height
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if (domainsListView.selectedItems.count === domainsListView.count) {
+                        domainsListView.clearSelection()
+                    } else {
+                        domainsListView.selectAll()
+                    }
+                }
+            }
+        }
+        Icon {
+            id: deleteIcon
+            enabled: domainsListView.selectedItems.count > 0
+            name: "delete"
+            anchors {
+                top: parent.top;
+                bottom: parent.bottom;
+                right: parent.right;
+                margins: units.gu(1)
+            }
+            width: height
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    var items = domainsListView.selectedItems
+
+                    for(var i=0; i < items.count; i++) {
+                        // TODO: delete selected domains from the model
+                    }
+                }
+            }
+        }
+    }
+
+    UbuntuNumberAnimation {
+        id: topBarOpenAnimation
+        target: topBar
+        property: "height"
+        to: units.gu(5)
+        alwaysRunToEnd: true
+    }
+
+    UbuntuNumberAnimation {
+        id: topBarCloseAnimation
+        target: topBar
+        property: "height"
+        to: 0
+        alwaysRunToEnd: true
+    }
+
+    MultipleSelectionListView {
         id: domainsListView
 
+        property var _currentSwipedItem: null
+
         anchors {
-            top: parent.top
+            top: topBar.bottom
             left: parent.left
             right: parent.right
             bottom: toolbar.top
             margins: units.gu(2)
         }
 
-        spacing: units.gu(2)
-
-        model: HistoryDomainListChronologicalModel {
+        listModel: HistoryDomainListChronologicalModel {
             sourceModel: HistoryDomainListModel {
                 sourceModel: HistoryTimeframeModel {
                     id: historyTimeframeModel
@@ -61,30 +142,120 @@ Item {
             width: parent.width
         }
 
-        delegate: UrlDelegate {
+        listDelegate: UrlDelegate {
+            id: urlDelegate
             width: parent.width
-            height: units.gu(3)
+            height: units.gu(5)
 
             title: model.domain
             url: lastVisitedTitle
             icon: model.lastVisitedIcon
 
-            removable: true
+            property var removalAnimation
+            function remove() {
+                removalAnimation.start()
+            }
 
-            onClicked: historyView.seeMoreEntriesClicked(model.entries)
-            onItemRemoved: historyView.historyDomainRemoved(model.domain)
+            selectionMode: domainsListView.isInSelectionMode
+            selected: domainsListView.isSelected(urlDelegate)
+
+            onSwippingChanged: {
+                domainsListView._updateSwipeState(urlDelegate)
+            }
+
+            onSwipeStateChanged: {
+                domainsListView._updateSwipeState(urlDelegate)
+            }
+
+            leftSideAction: Action {
+                iconName: "delete"
+                text: i18n.tr("Delete")
+                onTriggered: {
+                    urlDelegate.remove()
+                }
+            }
+
+            ListView.onRemove: ScriptAction {
+                script: {
+                    if (domainsListView._currentSwipedItem === urlDelegate) {
+                        domainsListView._currentSwipedItem = null
+                    }
+                }
+            }
+
+            removalAnimation: SequentialAnimation {
+                alwaysRunToEnd: true
+
+                PropertyAction {
+                    target: urlDelegate
+                    property: "ListView.delayRemove"
+                    value: true
+                }
+
+                UbuntuNumberAnimation {
+                    target: urlDelegate
+                    property: "height"
+                    to: 0
+                }
+
+                PropertyAction {
+                    target: urlDelegate
+                    property: "ListView.delayRemove"
+                    value: false
+                }
+
+                ScriptAction {
+                    script: {
+                        historyView.historyDomainRemoved(model.domain)
+                    }
+                }
+            }
+
+            onItemClicked: {
+                if (domainsListView.isInSelectionMode) {
+                    if (!domainsListView.selectItem(urlDelegate)) {
+                        domainsListView.deselectItem(urlDelegate)
+                    }
+                }
+                else {
+                    historyView.seeMoreEntriesClicked(model.entries)
+                }
+            }
+            onItemPressAndHold: domainsListView.startSelection()
+        }
+
+        /*
+         * Functions for manage swype and multiple selection together
+         * Developed upstream
+         */
+        function _updateSwipeState(item) {
+            if (item.swipping) {
+                return
+            }
+
+            if (item.swipeState !== "Normal") {
+                if (domainsListView._currentSwipedItem !== item) {
+                    if (domainsListView._currentSwipedItem) {
+                        domainsListView._currentSwipedItem.resetSwipe()
+                    }
+                    domainsListView._currentSwipedItem = item
+                }
+            } else if (item.swipeState !== "Normal"
+            && domainsListView._currentSwipedItem === item) {
+                domainsListView._currentSwipedItem = null
+            }
         }
     }
 
     Toolbar {
         id: toolbar
+        height: units.gu(7)
 
         anchors {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
         }
-        height: units.gu(7)
 
         Button {
             objectName: "doneButton"
@@ -109,37 +280,12 @@ Item {
             }
             height: parent.height - units.gu(2)
 
-            text: i18n.tr("Clear")
+            text: i18n.tr("New tab")
+            iconName: "tab-new"
 
-            iconName: "delete"
-
-            enabled: domainsListView.count > 0
-
-            onClicked: PopupUtils.open(confirmClearComponent)
-
-            Component {
-                id: confirmClearComponent
-
-                Dialog {
-                    id: confirmClearDialog
-
-                    text: i18n.tr("Delete all history?")
-
-                    Button {
-                        text: i18n.tr("Yes")
-                        color: UbuntuColors.orange
-                        onClicked: {
-                            PopupUtils.close(confirmClearDialog)
-                            historyView.historyModel.clearAll()
-                        }
-                    }
-
-                    Button {
-                        text: i18n.tr("No")
-                        color: UbuntuColors.warmGrey
-                        onClicked: PopupUtils.close(confirmClearDialog)
-                    }
-                }
+            onClicked: {
+                browser.openUrlInNewTab("", true)
+                historyView.done()
             }
         }
     }
