@@ -19,7 +19,6 @@
 import QtQuick 2.0
 import QtQuick.Window 2.1
 import Ubuntu.Components 1.1
-import Ubuntu.Components.Extras.Browser 0.2
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import webcontainer.private 0.1
 
@@ -115,10 +114,7 @@ Window {
         }
     }
 
-    // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
-    // by toggling fullscreen on the window only on desktop.
-    visibility: browser.currentWebview && browser.currentWebview.fullscreen &&
-                (formFactor === "desktop") ? Window.FullScreen : Window.AutomaticVisibility
+    visibility: browser.currentWebview && browser.currentWebview.fullscreen ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
         id: accountsPageComponentLoader

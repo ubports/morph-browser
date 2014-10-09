@@ -59,6 +59,7 @@ protected:
 private:
     QString appId() const;
     QString inspectorPort() const;
+    QString inspectorHost() const;
 
     WebBrowserWindow *m_webbrowserWindowProxy;
 };

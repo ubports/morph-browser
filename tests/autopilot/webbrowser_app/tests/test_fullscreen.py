@@ -18,7 +18,6 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 from testtools.matchers import Equals, LessThan
 from autopilot.matchers import Eventually
-from autopilot.platform import model
 
 
 class TestFullscreen(StartOpenRemotePageTestCaseBase):
@@ -35,11 +34,6 @@ class TestFullscreen(StartOpenRemotePageTestCaseBase):
     def assert_eventually_fullscreen(self):
         self.assertThat(self.main_window.get_current_webview().fullscreen,
                         Eventually(Equals(True)))
-        if model() != 'Desktop':
-            # XXX: do not assert that the window is fullscreen
-            # on devices due to the temporary workaround for
-            # https://bugs.launchpad.net/unity8/+bug/1328839
-            return
         self.assertThat(self.main_window.get_window().visibility,
                         Eventually(Equals(self.QWINDOW_FULLSCREEN)))
 

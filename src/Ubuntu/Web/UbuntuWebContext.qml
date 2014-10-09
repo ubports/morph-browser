@@ -82,4 +82,5 @@ Oxide.WebContext {
 
     devtoolsEnabled: webviewDevtoolsDebugPort !== -1
     devtoolsPort: webviewDevtoolsDebugPort
+    devtoolsIp: webviewDevtoolsDebugHost
 }
