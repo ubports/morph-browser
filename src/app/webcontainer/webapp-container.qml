@@ -194,7 +194,8 @@ Window {
             // As we use StateSaver to restore the URL, we need to check first if
             // it has not been set previously before setting the URL to the default property 
             // homepage.
-            if (!browser.currentWebview.url || browser.currentWebview.url === "") {
+            var current_url = browser.currentWebview.url.toString();
+            if (!current_url || current_url.length === 0) {
                 browser.currentWebview.url = root.url;
             }
         }
