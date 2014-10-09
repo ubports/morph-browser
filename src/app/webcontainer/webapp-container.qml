@@ -189,8 +189,14 @@ Window {
         browser.visible = true;
         if (browser.currentWebview) {
             browser.currentWebview.visible = true;
-            browser.currentWebview.url = root.url
-            browser.webappName = root.webappName
+            browser.webappName = root.webappName;
+
+            // As we use StateSaver to restore the URL, we need to check first if
+            // it has not been set previously before setting the URL to the default property 
+            // homepage.
+            if (!browser.currentWebview.url || browser.currentWebview.url === "") {
+                browser.currentWebview.url = root.url;
+            }
         }
     }
 
