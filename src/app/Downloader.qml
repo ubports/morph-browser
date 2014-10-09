@@ -62,7 +62,8 @@ Item {
             contentType = FileExtensionMapper.filenameToContentType(filename)
         }
         if (mimeType == "application/zip" && is7digital(url)) {
-            // This is an album download from 7digital, which is served as a zip
+            // This is problably an album download from 7digital (although we 
+            // can't be 100% certain). 7digital albums are served as a zip
             // so we let download manager extract the zip and send its contents
             // on to the selected application via content-hub
             contentType = ContentType.Music
