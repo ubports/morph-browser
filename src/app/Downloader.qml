@@ -80,7 +80,7 @@ Item {
     }
 
     function is7digital(url) {
-        return url.search(/[^\/]+:\/\/[^\/]*7digital.com\//)
+        return url.toString().search(/[^\/]+:\/\/[^\/]*7digital.com\//) !== -1
     }
 
 }
