@@ -70,6 +70,9 @@ Item {
             contentType = ContentType.Music
             singleDownload.metadata.extract = true
         }
+        if (filename) {
+            singleDownload.metadata.title = filename
+        }
         download(url, contentType, headers)
     }
 
