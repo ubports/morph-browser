@@ -108,7 +108,7 @@ Window {
         searchPath: root.webappModelSearchPath
 
         onModelContentChanged: {
-            if (root.webappName && url.length === 0) {
+            if (root.webappName && root.url.length === 0) {
                 var idx = webappModel.getWebappIndex(root.webappName)
                 root.url = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Homepage)
             }
@@ -194,6 +194,13 @@ Window {
         }
     }
 
+    function updateBrowserUrl(url) {
+        root.url = url;
+        if (browser.currentWebview) {
+            browser.currentWebview.url = url;
+        }
+    }
+
     // Handle runtime requests to open urls as defined
     // by the freedesktop application dbus interface's open
     // method for DBUS application activation:
@@ -213,7 +220,7 @@ Window {
                     && requestedUrl.indexOf(popupRedirectionUrlPrefix) === 0) {
                 return;
             }
-            browser.currentWebview.url = requestedUrl;
+            updateBrowserUrl(requestedUrl);
         }
     }
 }
