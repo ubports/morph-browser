@@ -95,8 +95,11 @@ Item {
 
                     for(var i=0; i < items.count; i++) {
                         // TODO: delete selected domains from the model
-                        console.log(items.get(i).itemsIndex)
+                        var domain = historyModel.get(items.get(i).itemsIndex)
+                        domain.remove()
                     }
+
+                    domainsListView.cancelSelection()
                 }
             }
         }
