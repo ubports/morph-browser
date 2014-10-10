@@ -28,7 +28,7 @@ ListItemWithActions {
     property alias icon: icon.source
     property alias title: title.text
     property alias url: url.text
-    color: "white"
+    color: "#f6f6f6"
 
     RowLayout {
         anchors.verticalCenter: parent.verticalCenter
@@ -61,6 +61,7 @@ ListItemWithActions {
                 id: url
 
                 fontSize: "xx-small"
+                color: "#5d5d5d"
                 wrapMode: Text.Wrap
                 elide: Text.ElideRight
                 maximumLineCount: 1

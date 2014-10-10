@@ -32,6 +32,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
+        color: "#f6f6f6"
     }
 
     Item {
@@ -94,6 +95,7 @@ Item {
 
                     for(var i=0; i < items.count; i++) {
                         // TODO: delete selected domains from the model
+                        console.log(items.get(i).itemsIndex)
                     }
                 }
             }
