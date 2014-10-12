@@ -91,15 +91,7 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    var items = domainsListView.selectedItems
-
-                    for(var i=0; i < items.count; i++) {
-                        // TODO: delete selected domains from the model
-                        var domain = historyModel.get(items.get(i).itemsIndex)
-                        domain.remove()
-                    }
-
-                    domainsListView.cancelSelection()
+                    domainsListView.endSelection()
                 }
             }
         }
@@ -145,6 +137,13 @@ Item {
         section.property: "lastVisitDate"
         section.delegate: HistorySectionDelegate {
             width: parent.width
+        }
+
+        onSelectionDone: {
+            for (var i=0; i < items.count; i++) {
+                var domain = items.get(i).model.domain
+                historyView.historyDomainRemoved(domain)
+            }
         }
 
         listDelegate: UrlDelegate {
