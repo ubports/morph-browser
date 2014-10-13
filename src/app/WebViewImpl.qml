@@ -40,6 +40,10 @@ WebView {
     filePicker: filePickerLoader.item
 
     onDownloadRequested: {
+        // XXX: should we blacklist other well-known mimetypes?
+        if (request.mimeType == "application/x-shockwave-flash") {
+            return
+        }
         if (downloadLoader.status == Loader.Ready) {
             var headers = { }
             if(request.cookies.length > 0) {
