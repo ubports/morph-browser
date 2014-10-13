@@ -17,7 +17,7 @@
  */
 
 // ==UserScript==
-// @include https://mobile.twitter.com/
+// @include https://mobile.twitter.com/*
 // ==/UserScript==
 
 // Ensure that the twitter mobile site never shows its "omniprompt" header,
