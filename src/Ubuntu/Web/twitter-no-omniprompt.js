@@ -27,3 +27,8 @@
 if (document.body) {
     document.body.classList.add("no-omniprompt");
 }
+
+var androidPrompt = document.querySelector(".client-prompt");
+if (androidPrompt) {
+	androidPrompt.style.display = "none";
+}
