@@ -29,6 +29,7 @@ Item {
     property QtObject historyModel
 
     signal bookmarkClicked(url url)
+    signal bookmarkRemoved(url url)
     signal historyEntryClicked(url url)
 
     QtObject {
@@ -46,6 +47,14 @@ Item {
                 sectionsModel.append({ section: "bookmarks" });
             if (historyListModel && historyListModel.count !== 0 && !internal.seeMoreBookmarksView )
                 sectionsModel.append({ section: "topsites" });
+        }
+    }
+
+    onBookmarkRemoved: {
+        // Here the last bookmark hasn't been removed yet, because the signal
+        // has to be propagated in parent.
+        if (bookmarksListModel.count === 1) {
+            sectionsModel.remove({ section: "bookmarks" });
         }
     }
 
@@ -142,6 +151,7 @@ Item {
             footerLabelVisible: bookmarksListModel.unlimitedCount > internal.bookmarksCountLimit
 
             onBookmarkClicked: newTabView.bookmarkClicked(url)
+            onBookmarkRemoved: newTabView.bookmarkRemoved(url)
             onFooterLabelClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
         }
     }

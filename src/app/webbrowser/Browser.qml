@@ -474,6 +474,7 @@ BrowserView {
                             currentWebview.url = url
                             currentWebview.forceActiveFocus()
                         }
+                        onBookmarkRemoved: browser.bookmarksModel.remove(url)
                         onHistoryEntryClicked: {
                             currentWebview.url = url
                             currentWebview.forceActiveFocus()
