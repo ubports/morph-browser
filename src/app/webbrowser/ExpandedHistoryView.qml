@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.3
 import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
 import ".."
+import "upstreamcomponents"
 
 Item {
     id: expandedHistoryView
 
-    property alias model: entriesListView.model
+    property alias model: entriesListView.listModel
 
     signal historyEntryClicked(url url)
     signal historyEntryRemoved(url url)
@@ -32,10 +32,13 @@ Item {
 
     Rectangle {
         anchors.fill: parent
+        color: "#f6f6f6"
     }
 
-    ListView {
+    MultipleSelectionListView {
         id: entriesListView
+
+        property var _currentSwipedItem: null
 
         anchors {
             top: header.bottom
@@ -45,29 +48,113 @@ Item {
             margins: units.gu(2)
         }
 
-        spacing: units.gu(2)
-
         section.property: "lastVisitDate"
         section.delegate: HistorySectionDelegate {
             width: parent.width
         }
 
-        delegate: UrlDelegate {
+        listDelegate: UrlDelegate {
             id: entriesDelegate
             width: parent.width
-            height: units.gu(3)
+            height: units.gu(5)
 
             url: model.url
             title: model.title
             icon: model.icon
 
-            removable: true
+            property var removalAnimation
+            function remove() {
+                removalAnimation.start()
+            }
 
-            onClicked: historyEntryClicked(model.url)
-            onItemRemoved: {
-                if(entriesListView.count === 1)
-                    expandedHistoryView.done()
-                historyEntryRemoved(model.url)
+            selectionMode: entriesListView.isInSelectionMode
+            selected: entriesListView.isSelected(entriesDelegate)
+
+            onSwippingChanged: {
+                entriesListView._updateSwipeState(entriesDelegate)
+            }
+
+            onSwipeStateChanged: {
+                entriesListView._updateSwipeState(entriesDelegate)
+            }
+
+            leftSideAction: Action {
+                iconName: "delete"
+                text: i18n.tr("Delete")
+                onTriggered: {
+                    entriesDelegate.remove()
+                }
+            }
+
+            ListView.onRemove: ScriptAction {
+                script: {
+                    if (entriesListView._currentSwipedItem === entriesDelegate) {
+                        entriesListView._currentSwipedItem = null
+                    }
+                }
+            }
+
+            removalAnimation: SequentialAnimation {
+                alwaysRunToEnd: true
+
+                PropertyAction {
+                    target: entriesDelegate
+                    property: "ListView.delayRemove"
+                    value: true
+                }
+
+                UbuntuNumberAnimation {
+                    target: entriesDelegate
+                    property: "height"
+                    to: 0
+                }
+
+                PropertyAction {
+                    target: entriesDelegate
+                    property: "ListView.delayRemove"
+                    value: false
+                }
+
+                ScriptAction {
+                    script: {
+                        if(entriesListView.count === 1) {
+                            expandedHistoryView.done()
+                        }
+                        historyEntryRemoved(model.url)
+                    }
+                }
+            }
+
+            onItemClicked: {
+                if (entriesListView.isInSelectionMode) {
+                    if (!entriesListView.selectItem(entriesDelegate)) {
+                        entriesListView.deselectItem(entriesDelegate)
+                    }
+                }
+                else {
+                    historyEntryClicked(model.url)
+                }
+            }
+            // TODO: wait for a design for the header of multiple selection and
+            // implement it.
+            // onItemPressAndHold: entriesListView.startSelection()
+        }
+
+        function _updateSwipeState(item) {
+            if (item.swipping) {
+                return
+            }
+
+            if (item.swipeState !== "Normal") {
+                if (entriesListView._currentSwipedItem !== item) {
+                    if (entriesListView._currentSwipedItem) {
+                        entriesListView._currentSwipedItem.resetSwipe()
+                    }
+                    entriesListView._currentSwipedItem = item
+                }
+            } else if (item.swipeState !== "Normal"
+            && entriesListView._currentSwipedItem === item) {
+                entriesListView._currentSwipedItem = null
             }
         }
     }
@@ -80,9 +167,9 @@ Item {
             left: parent.left
             right: parent.right
         }
-        height: units.gu(7)
+        height: units.gu(8)
 
-        color: Theme.palette.normal.background
+        color: "#f6f6f6"
 
         Rectangle {
             anchors {
@@ -97,10 +184,10 @@ Item {
         UrlDelegate {
             anchors {
                 left: parent.left
-                leftMargin: units.gu(2)
                 right: doneButton.left
                 rightMargin: units.gu(1)
-                verticalCenter: parent.verticalCenter
+                top: parent.top
+                topMargin: -units.gu(0.7)
             }
             icon: expandedHistoryView.model.lastVisitedIcon
             title: expandedHistoryView.model.domain
