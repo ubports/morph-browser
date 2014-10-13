@@ -140,9 +140,12 @@ Item {
         }
 
         onSelectionDone: {
+            var domains = new Array();
             for (var i=0; i < items.count; i++) {
-                var domain = items.get(i).model.domain
-                historyView.historyDomainRemoved(domain)
+                domains[i] = items.get(i).model.domain
+            }
+            for (var i=0; i < domains.length; i++) { 
+                historyView.historyDomainRemoved(domains[i])
             }
         }
 
