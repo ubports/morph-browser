@@ -42,7 +42,7 @@ WebView {
     QtObject {
         id: internal
         readonly property var downloadMimeTypesBlacklist: [
-            "application/x-shockwave-flash",
+            "application/x-shockwave-flash", // http://launchpad.net/bugs/1379806
         ]
     }
 
