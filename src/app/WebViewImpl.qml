@@ -39,11 +39,19 @@ WebView {
     beforeUnloadDialog: BeforeUnloadDialog {}
     filePicker: filePickerLoader.item
 
+    QtObject {
+        id: internal
+        readonly property var downloadMimeTypesBlacklist: [
+            "application/x-shockwave-flash",
+        ]
+    }
+
     onDownloadRequested: {
-        // XXX: should we blacklist other well-known mimetypes?
-        if (request.mimeType == "application/x-shockwave-flash") {
+        if (request.mimeType &&
+            internal.downloadMimeTypesBlacklist.indexOf(request.mimeType) > -1) {
             return
         }
+
         if (downloadLoader.status == Loader.Ready) {
             var headers = { }
             if(request.cookies.length > 0) {
