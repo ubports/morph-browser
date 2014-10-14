@@ -23,4 +23,5 @@ var overrides = [
     [/^https?:\/\/m\.youtube\.com\//, "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chromium/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1228415
     [/^http:\/\/chrome\.angrybirds\.com\//, "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1284158
     [/^https?:\/\/(\w+\.)*hsbc\.com\.br\//, "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1380657
+    [/^http:\/\/(\w+\.)*espn\.(go\.)?com\//, "Mozilla/5.0 (Linux; Ubuntu 14.04 like Android 4.4;) AppleWebKit/537.36 Chrome/35.0.1870.2 Mobile Safari/537.36"], // http://pad.lv/1316259
 ];
