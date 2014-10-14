@@ -47,7 +47,7 @@ WebView {
     }
 
     onDownloadRequested: {
-        if (request.mimeType &&
+        if (!request.suggestedFilename && request.mimeType &&
             internal.downloadMimeTypesBlacklist.indexOf(request.mimeType) > -1) {
             return
         }
