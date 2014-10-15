@@ -228,7 +228,10 @@ Item {
                     historyView.seeMoreEntriesClicked(model.entries)
                 }
             }
-            onItemPressAndHold: domainsListView.startSelection()
+            onItemPressAndHold: {
+                domainsListView.startSelection()
+                domainsListView.selectItem(urlDelegate)
+            }
         }
 
         /*
