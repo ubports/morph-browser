@@ -144,7 +144,7 @@ Item {
             for (var i=0; i < items.count; i++) {
                 domains[i] = items.get(i).model.domain
             }
-            for (var i=0; i < domains.length; i++) { 
+            for (var i=0; i < domains.length; i++) {
                 historyView.historyDomainRemoved(domains[i])
             }
         }
