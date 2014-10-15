@@ -26,21 +26,30 @@ import "FileExtensionMapper.js" as FileExtensionMapper
 
 Item {
     id: downloadItem
+    property var singleDownload
+
+    Component.onCompleted: {
+        singleDownload = downloadComponent.createObject()
+    }
 
     Component {
         id: downloadDialog
         ContentDownloadDialog { }
     }
 
-    SingleDownload {
-        id: singleDownload
-        autoStart: false
-        property var contentType
-        metadata: Metadata {
-            showInIndicator: true
-        }
-        onDownloadIdChanged: {
-            PopupUtils.open(downloadDialog, downloadItem, {"contentType" : singleDownload.contentType, "downloadId" : singleDownload.downloadId})
+    Component {
+        id: downloadComponent
+        SingleDownload {
+            autoStart: false
+            metadata: Metadata {
+                showInIndicator: true
+            }
+            property var contentType
+            onDownloadIdChanged: {
+                PopupUtils.open(downloadDialog, downloadItem, {"contentType" : singleDownload.contentType, "downloadId" : singleDownload.downloadId})
+                // Create a new download to handle future requests
+                singleDownload = downloadComponent.createObject()
+            }
         }
     }
 
@@ -48,8 +57,6 @@ Item {
         singleDownload.contentType = contentType
         if (headers) { 
             singleDownload.headers = headers
-        } else {
-            singleDownload.headers = { }
         }
         singleDownload.download(url)
     }
@@ -72,8 +79,6 @@ Item {
             // on to the selected application via content-hub
             contentType = ContentType.Music
             singleDownload.metadata.extract = true
-        } else {
-            singleDownload.metadata.extract = false
         }
         singleDownload.metadata.title = filename
         download(url, contentType, headers)
