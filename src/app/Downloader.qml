@@ -32,35 +32,66 @@ Item {
         ContentDownloadDialog { }
     }
 
-    SingleDownload {
-        id: singleDownload
-        autoStart: false
-        property var contentType
-        onDownloadIdChanged: {
-            PopupUtils.open(downloadDialog, downloadItem, {"contentType" : singleDownload.contentType, "downloadId" : singleDownload.downloadId})
+    Component {
+        id: metadataComponent
+        Metadata {
+            showInIndicator: true
         }
     }
 
-    function download(url, contentType, headers) {
+    Component {
+        id: downloadComponent
+        SingleDownload {
+            autoStart: false
+            property var contentType
+            onDownloadIdChanged: {
+                PopupUtils.open(downloadDialog, downloadItem, {"contentType" : contentType, "downloadId" : downloadId})
+            }
+
+            onFinished: {
+                metadata.destroy()
+                destroy()
+            }
+        }
+    }
+
+    function download(url, contentType, headers, metadata) {
+        var singleDownload = downloadComponent.createObject(downloadItem)
         singleDownload.contentType = contentType
-        if(headers) {
+        if (headers) { 
             singleDownload.headers = headers
         }
+        singleDownload.metadata = metadata
         singleDownload.download(url)
     }
 
     function downloadPicture(url, headers) {
-        download(url, ContentType.Pictures, headers)
+        var metadata = metadataComponent.createObject(downloadItem)
+        download(url, ContentType.Pictures, headers, metadata)
     }
 
     function downloadMimeType(url, mimeType, headers, filename) {
+        var metadata = metadataComponent.createObject(downloadItem)
         var contentType = MimeTypeMapper.mimeTypeToContentType(mimeType)
         if (contentType == ContentType.Unknown && filename) {
             // If we can't determine the content type from the mime-type
             // attempt to discover it from the file extension
             contentType = FileExtensionMapper.filenameToContentType(filename)
         }
-        download(url, contentType, headers)
+        if (mimeType == "application/zip" && is7digital(url)) {
+            // This is problably an album download from 7digital (although we 
+            // can't be 100% certain). 7digital albums are served as a zip
+            // so we let download manager extract the zip and send its contents
+            // on to the selected application via content-hub
+            contentType = ContentType.Music
+            metadata.extract = true
+        }
+        metadata.title = filename
+        download(url, contentType, headers, metadata)
+    }
+
+    function is7digital(url) {
+        return url.toString().search(/[^\/]+:\/\/[^\/]*7digital.com\//) !== -1
     }
 
 }
