@@ -369,4 +369,16 @@ Item {
         }
         z: -1
     }
+
+    InverseMouseArea {
+        anchors.fill: parent
+        enabled: swipeState !== "Normal"
+        topmostItem: true
+        propagateComposedEvents: true
+
+        onClicked: {
+            root.resetSwipe()
+            mouse.accepted = false
+        }
+    }
 }
