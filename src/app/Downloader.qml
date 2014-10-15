@@ -26,11 +26,6 @@ import "FileExtensionMapper.js" as FileExtensionMapper
 
 Item {
     id: downloadItem
-    property var singleDownload
-
-    Component.onCompleted: {
-        singleDownload = downloadComponent.createObject()
-    }
 
     Component {
         id: downloadDialog
@@ -38,34 +33,45 @@ Item {
     }
 
     Component {
+        id: metadataComponent
+        Metadata {
+            showInIndicator: true
+        }
+    }
+
+    Component {
         id: downloadComponent
         SingleDownload {
             autoStart: false
-            metadata: Metadata {
-                showInIndicator: true
-            }
             property var contentType
             onDownloadIdChanged: {
-                PopupUtils.open(downloadDialog, downloadItem, {"contentType" : singleDownload.contentType, "downloadId" : singleDownload.downloadId})
-                // Create a new download to handle future requests
-                singleDownload = downloadComponent.createObject()
+                PopupUtils.open(downloadDialog, downloadItem, {"contentType" : contentType, "downloadId" : downloadId})
+            }
+
+            onFinished: {
+                metadata.destroy()
+                destroy()
             }
         }
     }
 
-    function download(url, contentType, headers) {
+    function download(url, contentType, headers, metadata) {
+        var singleDownload = downloadComponent.createObject(downloadItem)
         singleDownload.contentType = contentType
         if (headers) { 
             singleDownload.headers = headers
         }
+        singleDownload.metadata = metadata
         singleDownload.download(url)
     }
 
     function downloadPicture(url, headers) {
-        download(url, ContentType.Pictures, headers)
+        var metadata = metadataComponent.createObject(downloadItem)
+        download(url, ContentType.Pictures, headers, metadata)
     }
 
     function downloadMimeType(url, mimeType, headers, filename) {
+        var metadata = metadataComponent.createObject(downloadItem)
         var contentType = MimeTypeMapper.mimeTypeToContentType(mimeType)
         if (contentType == ContentType.Unknown && filename) {
             // If we can't determine the content type from the mime-type
@@ -78,10 +84,10 @@ Item {
             // so we let download manager extract the zip and send its contents
             // on to the selected application via content-hub
             contentType = ContentType.Music
-            singleDownload.metadata.extract = true
+            metadata.extract = true
         }
-        singleDownload.metadata.title = filename
-        download(url, contentType, headers)
+        metadata.title = filename
+        download(url, contentType, headers, metadata)
     }
 
     function is7digital(url) {
