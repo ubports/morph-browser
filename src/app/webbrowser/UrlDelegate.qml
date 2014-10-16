@@ -32,6 +32,7 @@ ListItemWithActions {
 
     RowLayout {
         anchors.verticalCenter: parent.verticalCenter
+        spacing: units.gu(1)
 
         UbuntuShape {
             id: iconContainer
