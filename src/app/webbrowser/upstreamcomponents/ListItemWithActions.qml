@@ -372,7 +372,7 @@ Item {
 
     InverseMouseArea {
         anchors.fill: parent
-        enabled: swipeState !== "Normal"
+        enabled: swipeState !== "Normal" && !swipping && !mouseArea.pressed
         topmostItem: true
         propagateComposedEvents: true
 
