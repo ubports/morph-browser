@@ -16,15 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.3
+import QtQuick 2.0
 import Ubuntu.Components 1.1
 import ".."
-import "upstreamcomponents"
 
 Item {
     id: expandedHistoryView
 
-    property alias model: entriesListView.listModel
+    property alias model: entriesListView.model
 
     signal historyEntryClicked(url url)
     signal historyEntryRemoved(url url)
@@ -35,7 +34,7 @@ Item {
         color: "#f6f6f6"
     }
 
-    MultipleSelectionListView {
+    ListView {
         id: entriesListView
 
         property var _currentSwipedItem: null
@@ -53,7 +52,7 @@ Item {
             width: parent.width
         }
 
-        listDelegate: UrlDelegate {
+        delegate: UrlDelegate {
             id: entriesDelegate
             width: parent.width
             height: units.gu(5)
@@ -66,9 +65,6 @@ Item {
             function remove() {
                 removalAnimation.start()
             }
-
-            selectionMode: entriesListView.isInSelectionMode
-            selected: entriesListView.isSelected(entriesDelegate)
 
             onSwippingChanged: {
                 entriesListView._updateSwipeState(entriesDelegate)
@@ -126,18 +122,8 @@ Item {
             }
 
             onItemClicked: {
-                if (entriesListView.isInSelectionMode) {
-                    if (!entriesListView.selectItem(entriesDelegate)) {
-                        entriesListView.deselectItem(entriesDelegate)
-                    }
-                }
-                else {
-                    historyEntryClicked(model.url)
-                }
+                historyEntryClicked(model.url)
             }
-            // TODO: wait for a design for the header of multiple selection and
-            // implement it.
-            // onItemPressAndHold: entriesListView.startSelection()
         }
 
         function _updateSwipeState(item) {

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.3
+import QtQuick 2.0
 import Ubuntu.Components 1.1
 
 Item {
@@ -219,7 +219,7 @@ Item {
         }
 
         width: parent.width
-        color: root.selected ? root.selectedColor : root.color
+        color: root.selected || (mouseArea.pressed && swipeState === "Normal" )? root.selectedColor : root.color
 
         Loader {
             id: selectionIcon

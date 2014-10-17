@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.3
+import QtQuick 2.0
 import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
 import "upstreamcomponents"
@@ -144,7 +144,7 @@ Item {
             for (var i=0; i < items.count; i++) {
                 domains[i] = items.get(i).model.domain
             }
-            for (var i=0; i < domains.length; i++) { 
+            for (var i=0; i < domains.length; i++) {
                 historyView.historyDomainRemoved(domains[i])
             }
         }
@@ -228,7 +228,10 @@ Item {
                     historyView.seeMoreEntriesClicked(model.entries)
                 }
             }
-            onItemPressAndHold: domainsListView.startSelection()
+            onItemPressAndHold: {
+                domainsListView.startSelection()
+                domainsListView.selectItem(urlDelegate)
+            }
         }
 
         /*

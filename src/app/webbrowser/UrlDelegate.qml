@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.3
+import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import Ubuntu.Components 1.1
 import ".."
@@ -32,6 +32,7 @@ ListItemWithActions {
 
     RowLayout {
         anchors.verticalCenter: parent.verticalCenter
+        spacing: units.gu(1)
 
         UbuntuShape {
             id: iconContainer
