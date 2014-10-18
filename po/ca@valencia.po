@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-10-16 05:39+0000\n"
+"X-Launchpad-Export-Date: 2014-10-18 07:06+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -444,19 +444,19 @@ msgstr "Que s'execute per"
 msgid "search or enter an address"
 msgstr "Cerqueu o escriviu una adreça"
 
-#: src/app/webbrowser/Browser.qml:185
+#: src/app/webbrowser/Browser.qml:179
 msgid "Share"
 msgstr "Comparteix"
 
-#: src/app/webbrowser/Browser.qml:199
+#: src/app/webbrowser/Browser.qml:193
 msgid "History"
 msgstr "Historial"
 
-#: src/app/webbrowser/Browser.qml:206
+#: src/app/webbrowser/Browser.qml:200
 msgid "Open tabs"
 msgstr "Pestanyes obertes"
 
-#: src/app/webbrowser/Browser.qml:212 src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Pestanya nova"
 
@@ -483,19 +483,19 @@ msgstr "Ahir"
 msgid "Done"
 msgstr "Fet"
 
-#: src/app/webbrowser/HistoryView.qml:112
+#: src/app/webbrowser/HistoryView.qml:113
 msgid "Clear"
 msgstr "Neteja"
 
-#: src/app/webbrowser/HistoryView.qml:126
+#: src/app/webbrowser/HistoryView.qml:127
 msgid "Delete all history?"
 msgstr "Voleu suprimir tot l'historial?"
 
-#: src/app/webbrowser/HistoryView.qml:129
+#: src/app/webbrowser/HistoryView.qml:130
 msgid "Yes"
 msgstr "Sí"
 
-#: src/app/webbrowser/HistoryView.qml:138
+#: src/app/webbrowser/HistoryView.qml:139
 msgid "No"
 msgstr "No"
 
@@ -519,7 +519,7 @@ msgstr "mostra'n més"
 msgid "Tap to view"
 msgstr "Feu un toc per veure-ho"
 
-#: src/app/webbrowser/TabsView.qml:114
+#: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
 msgstr "Afig"
 
@@ -535,15 +535,15 @@ msgstr "%1 - Navegador web de l'Ubuntu"
 msgid "Ubuntu Web Browser"
 msgstr "Navegador web de l'Ubuntu"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
+#: src/app/webcontainer/AccountsLoginPage.qml:87
 msgid "No local account found for "
 msgstr "No s'ha trobat cap compte local per a "
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
+#: src/app/webcontainer/AccountsLoginPage.qml:92
 msgid "Skip account creation step"
 msgstr "Omet el pas de creació d'un compte"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountsLoginPage.qml:141
 msgid "Add account"
 msgstr "Afig un compte"
 
