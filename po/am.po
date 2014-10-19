@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-22 14:59+0100\n"
-"PO-Revision-Date: 2014-10-05 19:49+0000\n"
+"PO-Revision-Date: 2014-10-18 16:29+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-10-06 06:58+0000\n"
+"X-Launchpad-Export-Date: 2014-10-19 07:02+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -225,7 +225,7 @@ msgstr ""
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
-msgstr ""
+msgstr "መቀጠል የለብዎትም  በተለይ ይህን ማስጠንቀቂያ ከዚህ በፊት በዚህ ገጽ ላይ አይተውት የማያውቁ ከሆነ"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -234,6 +234,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት ገጹ ከሚያቀርበው የምስክር ወረቀት "
+"ጋር አይመሳሰልም"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -241,7 +243,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
-msgstr ""
+msgstr "ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት ጊዜው ያለፈበት ነው"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -250,6 +252,7 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት የያዘው ዋጋ የሌለው ቀኖችን ነው"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -258,6 +261,7 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት በማይታመን አካል የተሰጠ ነው"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -265,7 +269,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
-msgstr ""
+msgstr "ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት የተሰረዘ ነው"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -273,7 +277,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
-msgstr ""
+msgstr "ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት ዋጋ የሌለው ነው"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -282,6 +286,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት የማይታመን የ ደህንነት ምስክር "
+"ወረቀት ነው"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:211
@@ -291,6 +297,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"የዚህ ገጽ የ ደህንነት ምስክር ወረቀት የሚታመን አይደለም\n"
+"ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት የ እኛን የምስክር ወረቀት ምርመራ "
+"ባልታወቀ ምክንያት አላለፈም"
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -410,7 +419,7 @@ msgstr "ማካፈያ…"
 
 #: src/app/webbrowser/AddressBar.qml:214
 msgid "This site has insecure content"
-msgstr ""
+msgstr "ይህ ገጽ የማይታመን ይዞታዎችን ይዟል"
 
 #: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
@@ -418,7 +427,7 @@ msgstr "አሁን ተገናኝተዋል ወደ"
 
 #: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"
-msgstr ""
+msgstr "እየሄደ ያለው በ"
 
 #: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"
