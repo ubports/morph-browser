@@ -33,11 +33,13 @@ Item {
     property var currentWebview: webappContainerWebViewLoader.item
     property var webappUrlPatterns
     property string localUserAgentOverride: ""
-    property string popupRedirectionUrlPrefix: ""
+    property string popupRedirectionUrlPrefixPattern: ""
     property url webviewOverrideFile: ""
+    property bool blockOpenExternalUrls: false
 
     Loader {
         id: webappContainerWebViewLoader
+        objectName: "containerWebviewLoader"
         anchors.fill: parent
         asynchronous: true
     }
@@ -62,7 +64,8 @@ Item {
                     , webappName: containerWebview.webappName
                     , webappUrlPatterns: containerWebview.webappUrlPatterns
                     , developerExtrasEnabled: containerWebview.developerExtrasEnabled
-                    , popupRedirectionUrlPrefix: containerWebview.popupRedirectionUrlPrefix})
+                    , popupRedirectionUrlPrefixPattern: containerWebview.popupRedirectionUrlPrefixPattern
+                    , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls})
     }
 }
 

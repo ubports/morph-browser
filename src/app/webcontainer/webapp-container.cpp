@@ -158,8 +158,15 @@ bool WebappContainer::initialize()
 
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
 
-        if ( ! m_popupRedirectionUrlPrefix.isEmpty()) {
-            m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
+        if ( ! m_popupRedirectionUrlPrefixPattern.isEmpty()) {
+            const QString WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR =
+                qgetenv("WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL");
+            m_window->setProperty(
+                        "popupRedirectionUrlPrefixPattern",
+                        WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR == "1"
+                        ? m_popupRedirectionUrlPrefixPattern
+                        : UrlPatternUtils::transformWebappSearchPatternToSafePattern(
+                              m_popupRedirectionUrlPrefixPattern, false));
         }
 
         if (!m_userAgentOverride.isEmpty()) {
@@ -170,6 +177,12 @@ bool WebappContainer::initialize()
         QFileInfo overrideFile("webview-override.qml");
         if (overrideFile.exists()) {
             m_window->setProperty("webviewOverrideFile", QUrl::fromLocalFile(overrideFile.absoluteFilePath()));
+        }
+
+        const QString WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY_ENV_VAR =
+            qgetenv("WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY");
+        if (WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY_ENV_VAR == "1") {
+            m_window->setProperty("blockOpenExternalUrls", true);
         }
 
         // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
@@ -278,7 +291,7 @@ void WebappContainer::parseCommandLine()
         } else if (argument == "--local-webapp-manifest") {
             m_localWebappManifest = true;
         } else if (argument.startsWith("--popup-redirection-url-prefix=")) {
-            m_popupRedirectionUrlPrefix = argument.split("--popup-redirection-url-prefix=")[1];
+            m_popupRedirectionUrlPrefixPattern = argument.split("--popup-redirection-url-prefix=")[1];
         } else if (argument.startsWith("--local-cookie-db-path=")) {
             m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];
         } else if (argument.startsWith("--user-agent-string=")) {

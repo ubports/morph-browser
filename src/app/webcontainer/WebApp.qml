@@ -36,9 +36,10 @@ BrowserView {
     property alias oxide: webview.withOxide
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
-    property alias popupRedirectionUrlPrefix: webview.popupRedirectionUrlPrefix
+    property alias popupRedirectionUrlPrefixPattern: webview.popupRedirectionUrlPrefixPattern
     property alias webviewOverrideFile: webview.webviewOverrideFile
     property string localUserAgentOverride: ""
+    property alias blockOpenExternalUrls: webview.blockOpenExternalUrls
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
@@ -73,6 +74,7 @@ BrowserView {
 
         WebappContainerWebview {
             id: webview
+            objectName: "webview"
 
             anchors {
                 left: parent.left
@@ -178,16 +180,5 @@ BrowserView {
         bindee: webview.currentWebview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
-    }
-
-    function isValidContainedUrl(url) {
-        if (!url || url.length === 0 || url === 'about:blank') {
-            return false
-        }
-        if (popupRedirectionUrlPrefix.length !== 0
-                && url.indexOf(popupRedirectionUrlPrefix) === 0) {
-            return false
-        }
-        return true
     }
 }
