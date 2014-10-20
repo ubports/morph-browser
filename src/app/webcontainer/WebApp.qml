@@ -38,8 +38,8 @@ BrowserView {
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefixPattern: webview.popupRedirectionUrlPrefixPattern
     property alias webviewOverrideFile: webview.webviewOverrideFile
-    property string localUserAgentOverride: ""
     property alias blockOpenExternalUrls: webview.blockOpenExternalUrls
+    property alias localUserAgentOverride: webview.localUserAgentOverride
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
@@ -59,16 +59,6 @@ BrowserView {
         }
     ]
 
-    function getLocalUserAgentOverrideIfAny() {
-        if (localUserAgentOverride.length !== 0)
-            return localUserAgentOverride
-
-        if (webappName && unityWebapps.model.exists(webappName))
-            return unityWebapps.model.userAgentOverrideFor(webappName)
-
-        return ""
-    }
-
     Item {
         id: webviewContainer
         anchors.fill: parent
@@ -85,7 +75,6 @@ BrowserView {
             }
             height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.item.visibleHeight)
             developerExtrasEnabled: webapp.developerExtrasEnabled
-            localUserAgentOverride: getLocalUserAgentOverrideIfAny()
         }
 
         Loader {
