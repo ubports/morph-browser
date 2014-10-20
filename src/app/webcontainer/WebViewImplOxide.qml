@@ -57,6 +57,9 @@ WebViewImpl {
         }
     }
 
+    StateSaver.properties: "url"
+    StateSaver.enabled: true
+
     function shouldOpenPopupsInDefaultBrowser() {
         return formFactor !== "desktop";
     }

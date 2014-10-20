@@ -53,6 +53,9 @@ UbuntuWebView {
         }
     }
 
+    StateSaver.properties: "url"
+    StateSaver.enabled: true
+
     property bool lastLoadFailed: false
     onLoadingChanged: {
         lastLoadFailed = (loadRequest.status === WebView.LoadFailedStatus)

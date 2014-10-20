@@ -108,7 +108,7 @@ Window {
         searchPath: root.webappModelSearchPath
 
         onModelContentChanged: {
-            if (root.webappName) {
+            if (root.webappName && root.url.length === 0) {
                 var idx = webappModel.getWebappIndex(root.webappName)
                 root.url = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Homepage)
             }
@@ -186,8 +186,22 @@ Window {
         browser.visible = true;
         if (browser.currentWebview) {
             browser.currentWebview.visible = true;
-            browser.currentWebview.url = root.url
-            browser.webappName = root.webappName
+            browser.webappName = root.webappName;
+
+            // As we use StateSaver to restore the URL, we need to check first if
+            // it has not been set previously before setting the URL to the default property 
+            // homepage.
+            var current_url = browser.currentWebview.url.toString();
+            if (!current_url || current_url.length === 0) {
+                browser.currentWebview.url = root.url;
+            }
+        }
+    }
+
+    function updateBrowserUrl(url) {
+        root.url = url;
+        if (browser.currentWebview) {
+            browser.currentWebview.url = url;
         }
     }
 
@@ -210,7 +224,7 @@ Window {
                     && requestedUrl.match(popupRedirectionUrlPrefixPattern)) {
                 return;
             }
-            browser.currentWebview.url = requestedUrl;
+            updateBrowserUrl(requestedUrl);
         }
     }
 }
