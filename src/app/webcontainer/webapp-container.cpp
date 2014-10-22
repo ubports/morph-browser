@@ -157,8 +157,6 @@ bool WebappContainer::initialize()
         }
 
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
-        context->setContextProperty("cacheLocation",
-                                    QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
 
         if ( ! m_popupRedirectionUrlPrefixPattern.isEmpty()) {
             const QString WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR =

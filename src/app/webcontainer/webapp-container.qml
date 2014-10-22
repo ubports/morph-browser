@@ -125,8 +125,6 @@ Window {
         }
     }
 
-    // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
-    // by toggling fullscreen on the window only on desktop.
     visibility: webappViewLoader.item &&
                 webappViewLoader.item.currentWebview &&
                 webappViewLoader.item.currentWebview.fullscreen ? Window.FullScreen : Window.AutomaticVisibility
@@ -249,7 +247,7 @@ Window {
                 var webView = webappViewLoader.item.currentWebview
                 var current_url = webView.url.toString();
                 if (!current_url || current_url.length === 0) {
-                    webView.currentWebview.url = root.url
+                    webView.url = root.url
                 }
             }
         });
