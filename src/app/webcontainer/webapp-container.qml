@@ -53,56 +53,54 @@ Window {
     title: getWindowTitle()
 
     function getWindowTitle() {
+        var webappViewTitle = webappViewLoader.item ? webappViewLoader.item.title : ""
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
             return webappName
-        } else if (browser.title) {
+        } else if (webappViewTitle) {
             // TRANSLATORS: %1 refers to the current page’s title
-            return i18n.tr("%1 - Ubuntu Web Browser").arg(browser.title)
+            return i18n.tr("%1 - Ubuntu Web Browser").arg(webappViewTitle)
         } else {
             return i18n.tr("Ubuntu Web Browser")
         }
     }
 
-    WebApp {
-        id: browser
+    Component {
+        id: webappViewComponent
 
-        // Initially set as non visible to leave a chance
-        // for the OA dialog to appear
-        visible: false
+        WebApp {
+            id: browser
 
-        url: accountProvider.length === 0 ? root.url : ""
+            url: accountProvider.length !== 0 ? "" : root.url
 
-        chromeVisible: root.chromeVisible
-        backForwardButtonsVisible: root.backForwardButtonsVisible
-        developerExtrasEnabled: root.developerExtrasEnabled
-        oxide: root.oxide
-        webappModelSearchPath: root.webappModelSearchPath
-        webappUrlPatterns: root.webappUrlPatterns
-        blockOpenExternalUrls: root.blockOpenExternalUrls
+            dataPath: webappDataLocation
+            webappName: root.webappName
+            chromeVisible: root.chromeVisible
+            backForwardButtonsVisible: root.backForwardButtonsVisible
+            developerExtrasEnabled: root.developerExtrasEnabled
+            oxide: root.oxide
+            webappModelSearchPath: root.webappModelSearchPath
+            webappUrlPatterns: root.webappUrlPatterns
+            blockOpenExternalUrls: root.blockOpenExternalUrls
 
-        popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
+            popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
 
-        localUserAgentOverride: getLocalUserAgentOverrideIfAny()
+            localUserAgentOverride: root.localUserAgentOverride
 
-        webviewOverrideFile: root.webviewOverrideFile
+            webviewOverrideFile: root.webviewOverrideFile
 
-        anchors.fill: parent
+            anchors.fill: parent
 
-        webbrowserWindow: webbrowserWindowProxy
+            webbrowserWindow: webbrowserWindowProxy
 
-        onWebappNameChanged: {
-            if (root.webappName !== browser.webappName) {
-                root.webappName = browser.webappName;
-                root.title = getWindowTitle();
+            onWebappNameChanged: {
+                if (root.webappName !== browser.webappName) {
+                    root.webappName = browser.webappName;
+                    root.title = getWindowTitle();
+                }
             }
-        }
 
-        onCurrentWebviewChanged: {
-            if (currentWebview)
-                root.updateCurrentView()
+            Component.onCompleted: i18n.domain = "webbrowser-app"
         }
-
-        Component.onCompleted: i18n.domain = "webbrowser-app"
     }
 
     function getLocalUserAgentOverrideIfAny() {
@@ -127,7 +125,11 @@ Window {
         }
     }
 
-    visibility: browser.currentWebview && browser.currentWebview.fullscreen ? Window.FullScreen : Window.AutomaticVisibility
+    // XXX: work around https://bugs.launchpad.net/unity8/+bug/1328839
+    // by toggling fullscreen on the window only on desktop.
+    visibility: webappViewLoader.item &&
+                webappViewLoader.item.currentWebview &&
+                webappViewLoader.item.currentWebview.fullscreen ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
         id: accountsPageComponentLoader
@@ -143,17 +145,62 @@ Window {
         }
     }
 
+    Loader {
+        id: webappViewLoader
+        anchors.fill: parent
+
+        property var credentialsId: null
+        property var webappDataLocation: credentialsId != null ? dataLocation + "/id-" + credentialsId : dataLocation
+    }
+
+    function onCookiesMoved(result) {
+        if (__webappCookieStore) {
+            __webappCookieStore.moved.disconnect(onCookiesMoved)
+        }
+        if (!result) {
+            console.log("Cookies were not moved")
+        }
+        webappViewLoader.item.url = root.url
+    }
+
+    function moveCookies(credentialsId) {
+        if (!__webappCookieStore) {
+            var context = webappViewLoader.item.currentWebview.context
+            __webappCookieStore = oxideCookieStoreComponent.createObject(this, {
+                "oxideStoreBackend": context.cookieManager,
+                "dbPath": context.dataPath + "/cookies.sqlite"
+            })
+        }
+
+        var storeComponent = localCookieStoreDbPath.length !== 0 ?
+                    localCookieStoreComponent : onlineAccountStoreComponent
+
+        var instance = storeComponent.createObject(root, { "accountId": credentialsId })
+        __webappCookieStore.moved.connect(onCookiesMoved)
+        __webappCookieStore.moveFrom(instance)
+    }
+
     Connections {
         target: accountsPageComponentLoader.item
-        onDone: loadWebAppView()
+        onDone: {
+            if (successful && credentialsId) {
+                webappViewLoader.loaded.connect(function () {
+                    if (webappViewLoader.status == Loader.Ready) {
+                        moveCookies(webappViewLoader.credentialsId)
+                    }
+                });
+                webappViewLoader.credentialsId = credentialsId
+                webappViewLoader.sourceComponent = webappViewComponent
+            }
+            else {
+                loadWebAppView()
+            }
+        }
     }
 
     Component {
         id: oxideCookieStoreComponent
         ChromeCookieStore {
-            dbPath: dataLocation + "/cookies.sqlite"
-            homepage: root.url
-            oxideStoreBackend: browser.currentWebview ? browser.currentWebview.context.cookieManager : null
         }
     }
 
@@ -164,6 +211,10 @@ Window {
         }
     }
 
+    Component.onCompleted: {
+        updateCurrentView()
+    }
+
     Component {
         id: onlineAccountStoreComponent
         OnlineAccountsCookieStore { }
@@ -172,7 +223,7 @@ Window {
     function updateCurrentView() {
         // check if we are to display the login view
         // or directly switch to the webapp view
-        if (accountProvider.length !== 0 && !__webappCookieStore && oxide) {
+        if (accountProvider.length !== 0 && oxide) {
             loadLoginView();
         } else {
             loadWebAppView();
@@ -180,34 +231,29 @@ Window {
     }
 
     function loadLoginView() {
-        if (!__webappCookieStore) {
-            __webappCookieStore = oxideCookieStoreComponent.createObject(this)
-        }
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
             "accountProvider": accountProvider,
             "applicationName": unversionedAppId,
-            "webappCookieStore": __webappCookieStore,
-            "onlineAccountStoreComponent": localCookieStoreDbPath.length !== 0 ?
-                                               localCookieStoreComponent : onlineAccountStoreComponent
         })
     }
 
     function loadWebAppView() {
         if (accountsPageComponentLoader.item)
             accountsPageComponentLoader.item.visible = false
-        browser.visible = true;
-        if (browser.currentWebview) {
-            browser.currentWebview.visible = true;
-            browser.webappName = root.webappName;
 
-            // As we use StateSaver to restore the URL, we need to check first if
-            // it has not been set previously before setting the URL to the default property 
-            // homepage.
-            var current_url = browser.currentWebview.url.toString();
-            if (!current_url || current_url.length === 0) {
-                browser.currentWebview.url = root.url;
+        webappViewLoader.loaded.connect(function () {
+            if (webappViewLoader.status === Loader.Ready) {
+                // As we use StateSaver to restore the URL, we need to check first if
+                // it has not been set previously before setting the URL to the default property 
+                // homepage.
+                var webView = webappViewLoader.item.currentWebview
+                var current_url = webView.url.toString();
+                if (!current_url || current_url.length === 0) {
+                    webView.currentWebview.url = root.url
+                }
             }
-        }
+        });
+        webappViewLoader.sourceComponent = webappViewComponent
     }
 
     function updateBrowserUrl(url) {
