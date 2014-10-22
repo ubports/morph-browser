@@ -326,7 +326,7 @@ BrowserView {
                 anchors.fill: parent
 
                 onHistoryEntryClicked: {
-                    currentWebview.url = url
+                    browser.openUrlInNewTab(url, true, true)
                     done()
                 }
                 onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
