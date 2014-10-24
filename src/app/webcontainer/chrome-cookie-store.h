@@ -24,6 +24,7 @@
 #include <QString>
 #include <QUrl>
 
+class OxideCookieHelper;
 
 class ChromeCookieStore : public CookieStore
 {
@@ -58,14 +59,14 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void oxideCookiesReceived(int requestId, const QVariant& cookies);
-    void oxideCookiesUpdated(int requestId, const QVariant& failedCookies);
+    void oxideCookiesUpdated(const QList<QNetworkCookie>& failedCookies);
 
 private:
     virtual void doGetCookies() Q_DECL_OVERRIDE;
     virtual void doSetCookies(const Cookies& cookies) Q_DECL_OVERRIDE;
 
 private:
-    QObject* m_backend;
+    OxideCookieHelper* m_cookieHelper;
     QUrl m_homepage;
     QString m_dbPath;
 };

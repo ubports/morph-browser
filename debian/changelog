@@ -1,3 +1,82 @@
+webbrowser-app (0.23+14.10.20141015.1-0ubuntu1) 14.09; urgency=low
+
+  [ Michael Sheldon ]
+  * Detect 7 digital album downloads and request that they get unzipped
+    by download manager. (LP: #1365993)
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 15 Oct 2014 11:56:39 +0000
+
+webbrowser-app (0.23+14.10.20141008-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Alexandre Abreu ]
+  * Properly setup host support when devtools inspector mode used (LP:
+    #1376783)
+  * Add pdf mime type support to content hub mapping, (LP: #1374611)
+
+  [ Olivier Tilloy ]
+  * Remove the temporary workaround for bug #1328839 as fullscreen
+    switching is now fully functional in qtubuntu. (LP: #1328839)
+  * Remove an unused import that triggered a (harmless) warning. (LP:
+    #1377885)
+  * Update application screenshot. (LP: #1377974)
+  * Restore only the n most recent tabs at startup, to limit the
+    overhead of instantiating too many tab objects. (LP: #1376433)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 08 Oct 2014 09:23:52 +0000
+
+webbrowser-app (0.23+14.10.20141006-0ubuntu1) utopic; urgency=low
+
+  [ Alberto Mardegan ]
+  * Filter out account services which belong to other webapps
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 06 Oct 2014 08:02:31 +0000
+
+webbrowser-app (0.23+14.10.20141003-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Alexandre Abreu ]
+  * Add a simple mechanism (simpler than the one already in place) to
+    override user agents for a given webapp. (LP: #1370975)
+
+  [ Alberto Mardegan ]
+  * Fix handling of host cookies
+
+  [ Olivier Tilloy ]
+  * Ship a PNG icon instead of an SVG, and install it under the app’s
+    own data dir. (LP: #1365408)
+  * Make an autopilot test more robust by ensuring that the drawer menu
+    is dismissed but not clicked. (LP: #1365304)
+  * Persistently cache favicons on disk to avoid re-downloading them
+    across application runs. (LP: #1340585)
+  * Ensure that at most 2 webviews are instantiated at all times, to
+    reduce memory consumption. (LP: #1376418)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 03 Oct 2014 14:42:27 +0000
+
+webbrowser-app (0.23+14.10.20141001-0ubuntu1) utopic; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Alberto Mardegan ]
+  * Adjust to the latest design and require an account to login with
+    webapps specifying an accountProvider parameter.
+  * Remove all local webapp data when using OA
+  * Support storing cookies for different domains
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 01 Oct 2014 13:28:30 +0000
+
 webbrowser-app (0.23+14.10.20140926-0ubuntu1) utopic; urgency=low
 
   [ Sebastien Bacher ]

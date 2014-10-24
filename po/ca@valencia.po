@@ -1,4 +1,4 @@
-# Amharic translation for webbrowser-app
+# Catalan translation for webbrowser-app
 # Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
 # This file is distributed under the same license as the webbrowser-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
@@ -8,63 +8,63 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-22 14:59+0100\n"
-"PO-Revision-Date: 2014-10-18 16:29+0000\n"
-"Last-Translator: samson <Unknown>\n"
-"Language-Team: Amharic <am@li.org>\n"
+"PO-Revision-Date: 2014-10-15 14:39+0000\n"
+"Last-Translator: Pau Iranzo <Unknown>\n"
+"Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-10-19 07:02+0000\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-10-18 07:06+0000\n"
 "X-Generator: Launchpad (build 17196)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
-msgstr "የ JavaScript ማስጠንቀቂያ"
+msgstr "Alerta del JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
 msgid "OK"
-msgstr "እሺ"
+msgstr "D'acord"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr "ማረጋገጫ ያስፈልጋል"
+msgstr "Cal autenticació."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "ድህረ ገጹ %1 ማረጋገጫ ያስፈልጋል"
+msgstr "El lloc web %1 requereix autenticació."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr "የተጠቃሚ ስም"
+msgstr "Nom d'usuari"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr "የመግቢያ ቃል"
+msgstr "Contrasenya"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38
 msgid "Cancel"
-msgstr "መሰረዣ"
+msgstr "Cancel·la"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr "መቃኛ ማረጋገጫ"
+msgstr "Confirma la navegació"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr "መተው"
+msgstr "Ix"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr "መቆያ"
+msgstr "Roman"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "ይህ ግንኙነት የሚታመን አይደለም"
+msgstr "Esta connexió no és fiable"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -73,73 +73,73 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"እርስዎ እየሞከሩ ያሉት በ ደህንነት ለመድረስ ነው %1, ነገር ግን የዚህ ድሕረ ገጽ የ ደህንነት ምስክር ወረቀት "
-"የሚታመን አይደለም"
+"Esteu intentant accedir a %1 de forma segura, però el certificat de "
+"seguretat d'este lloc web no és fiable."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:162
 msgid "Proceed anyway"
-msgstr "ለማንኛውም መቀጠያ"
+msgstr "Continua de totes maneres"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:175
 msgid "Back to safety"
-msgstr "ወደ ደህንነት መመለሻ"
+msgstr "Torna a la seguretat"
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr "የ JavaScript ማረጋገጫ"
+msgstr "Confirmació del JavaScript"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr "የ ኔትዎርክ ስህተት"
+msgstr "Error de xarxa"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "ለመመልከት ችግር የገጠሞት ይመስላል: %1."
+msgstr "Pareix ser que teniu problemes per mostrar: %1."
 
 #: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
-msgstr "ኡቡንቱ የ ኔትዎርክ ማሰናጃዎን እንዲመረምሩ ይመክራል እና ገጹን እንደገና ያነቃቁ"
+msgstr "Comproveu els paràmetres de la xarxa i actualitzeu la pàgina."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "ገጽ ማነቃቂያ"
+msgstr "Actualitza la pàgina"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr "እባክዎን ፋይል ይምረጡ"
+msgstr "Trieu un fitxer"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "ፍቃድ መጠየቂያ"
+msgstr "Sol·licitud de permís"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
-msgstr "ይህ ገጽ የ አካሉን አካባቢ ማወቅ ይፈልጋል"
+msgstr "Esta pàgina vol saber la vostra ubicació."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr "መከልከያ"
+msgstr "Denega"
 
 #: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr "መፍቀጃ"
+msgstr "Permet"
 
 #: src/app/InvalidCertificateErrorSheet.qml:58
 msgid "This site security certificate is not trusted.\n"
-msgstr "የ ዚህ ገጽ የ ደህንነት የምስክር ወረቀት የሚታመን አይደለም\n"
+msgstr "No es pot confiar en este certificat de seguretat del lloc.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"
-msgstr "በበለጠ ለመረዳት"
+msgstr "Més informació"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:90
@@ -148,7 +148,7 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
-"መለያ ቁጥር:\n"
+"Número de sèrie:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
@@ -158,7 +158,7 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
-"ጉዳዩ:\n"
+"Subjecte:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
@@ -168,7 +168,7 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
-"የ ጉዳዩ አድራሻ:\n"
+"Adreça del subjecte:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
@@ -178,7 +178,7 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
-"አቅራቢው:\n"
+"Emissor:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
@@ -188,7 +188,7 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
-"የ አቅራቢው አድራሻ:\n"
+"Adreça de l'emissor:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
@@ -198,7 +198,7 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
-"ዋጋ የሚኖረው ከ:\n"
+"Vàlid des de:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
@@ -208,7 +208,7 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
-"ዋጋ የሚኖረው እስከl:\n"
+"Vàlid fins:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
@@ -218,14 +218,16 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
-"የ ጣት አሻራ (SHA1):\n"
+"Empremta digital (SHA1):\n"
 "%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:155
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
-msgstr "መቀጠል የለብዎትም  በተለይ ይህን ማስጠንቀቂያ ከዚህ በፊት በዚህ ገጽ ላይ አይተውት የማያውቁ ከሆነ"
+msgstr ""
+"No hauríeu de continuar, especialment si no heu vist mai abans este avís en "
+"este lloc."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -234,8 +236,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
-"ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት ገጹ ከሚያቀርበው የምስክር ወረቀት "
-"ጋር አይመሳሰልም"
+"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+"seguretat que no coincideix amb la identitat del lloc."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -243,7 +245,9 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
-msgstr "ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት ጊዜው ያለፈበት ነው"
+msgstr ""
+"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+"seguretat que ha caducat."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -252,7 +256,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
-"ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት የያዘው ዋጋ የሌለው ቀኖችን ነው"
+"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+"seguretat que conté dates no vàlides."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -261,7 +266,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
-"ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት በማይታመን አካል የተሰጠ ነው"
+"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+"seguretat emés per una entitat que no és de confiança."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -269,7 +275,9 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
-msgstr "ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት የተሰረዘ ነው"
+msgstr ""
+"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+"seguretat revocat."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -277,7 +285,9 @@ msgstr "ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨ�
 msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
-msgstr "ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት ዋጋ የሌለው ነው"
+msgstr ""
+"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+"seguretat no vàlid."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -286,8 +296,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
-"ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት የማይታመን የ ደህንነት ምስክር "
-"ወረቀት ነው"
+"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+"seguretat que no és segur."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:211
@@ -297,261 +307,262 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
-"የዚህ ገጽ የ ደህንነት ምስክር ወረቀት የሚታመን አይደለም\n"
-"ለመድረስ ያደረጉት ሙከራ %1 ነገር ግን ሰርቨሩ ያቀረበው የ ደህንነት ምስክር ወረቀት የ እኛን የምስክር ወረቀት ምርመራ "
-"ባልታወቀ ምክንያት አላለፈም"
+"El certificat de seguretat d'este lloc no és de confiança.\n"
+"Heu provat d'accedir a %1 però el servidor ha presentat un certificat de "
+"seguretat que ha fallat les comprovacions de seguretat per raons "
+"desconegudes."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
-msgstr "የ JavaScript ሙከራ"
+msgstr "Indicador del JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "የ ወኪል ማረጋገጫ ያስፈልጋል"
+msgstr "Es requereix autentificació del servidor intermediari"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "ይህ ድህረ ገጽ %1:%2 ማረጋገጫ ይፈልጋል"
+msgstr "El lloc web %1:%2 requereix autentificació."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "ወደ ኋላ"
+msgstr "Arrere"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "አሮጌ ገጽ"
+msgstr "Pàgina antiga"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr "ምልክት ማድረጊያ"
+msgstr "Afig a les adreces d'interés"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "ይህን ገጽ ወደ ምልክት ማድረጊያ መጨመሪያ"
+msgstr "Afig esta pàgina a les adreces d'interés"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "አገናኙን ወደ ምልክት ማድረጊያ መጨመሪያ"
+msgstr "Crea un enllaç al lloc d'interés"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "ታሪክ ማጽጃ"
+msgstr "Neteja l'historial"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "የ መቃኛ ታሪክ ማጽጃ"
+msgstr "Neteja l'historial de navegació"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr "ኮፒ"
+msgstr "Copia"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr "ምስል ኮፒ ማድረጊያ"
+msgstr "Copia la imatge"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr "አገናኙን ኮፒ ማድረጊያ"
+msgstr "Copia l'enllaç"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "ወደ ፊት"
+msgstr "Avant"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "አዲስ ገጽ"
+msgstr "Pàgina nova"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr "መሄጃ ወደ"
+msgstr "Vés-hi"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "አድራሻ;URL;www"
+msgstr "Adreça;URL;www"
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
-msgstr "አዲስ ንዑስ መስኮት"
+msgstr "Pestanya nova"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "አዲስ ንዑስ መስኮት መክፈቻ"
+msgstr "Obri una pestanya nova"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "ምስል በ አዲስ ንዑስ መስኮት መክፈቻ"
+msgstr "Obri la imatge en una pestanya nova"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "አገናኝ በ አዲስ ንዑስ መስኮት መክፈቻ"
+msgstr "Obri l'enllaç en una pestanya nova"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr "እንደገና መጫኛ"
+msgstr "Actualitza"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "ከ ገጹ መውጫ"
+msgstr "Ix de la pàgina"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr "ምስል ማስቀመጫ"
+msgstr "Guarda la imatge"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr "ማካፈያ…"
+msgstr "Comparteix..."
 
 #: src/app/webbrowser/AddressBar.qml:214
 msgid "This site has insecure content"
-msgstr "ይህ ገጽ የማይታመን ይዞታዎችን ይዟል"
+msgstr "Este lloc conté contingut insegur"
 
 #: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
-msgstr "አሁን ተገናኝተዋል ወደ"
+msgstr "Esteu connectat a"
 
 #: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"
-msgstr "እየሄደ ያለው በ"
+msgstr "Que s'execute per"
 
 #: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"
-msgstr "አድራሻ ያስገቡ ወይንም ይፈልጉ"
+msgstr "Cerqueu o escriviu una adreça"
 
 #: src/app/webbrowser/Browser.qml:179
 msgid "Share"
-msgstr "ማካፈያ"
+msgstr "Comparteix"
 
 #: src/app/webbrowser/Browser.qml:193
 msgid "History"
-msgstr "ታሪክ"
+msgstr "Historial"
 
 #: src/app/webbrowser/Browser.qml:200
 msgid "Open tabs"
-msgstr "ንዑስ መስኮት መክፈቻ"
+msgstr "Pestanyes obertes"
 
 #: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
-msgstr "አዲስ ንዑስ መስኮት መክፈቻ"
+msgstr "Pestanya nova"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:107
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] "%1 ገጽ"
-msgstr[1] "%1 ገጾች"
+msgstr[0] "%1 pàgina"
+msgstr[1] "%1 pàgines"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:121
 msgid "Less"
-msgstr "ትንሽ"
+msgstr "Menys"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
-msgstr "መጨረሻ የጎበኙት"
+msgstr "Darreres visites"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
-msgstr "ትናንትና"
+msgstr "Ahir"
 
 #: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
-msgstr "ጨርሷል"
+msgstr "Fet"
 
 #: src/app/webbrowser/HistoryView.qml:113
 msgid "Clear"
-msgstr "ማጽጃ"
+msgstr "Neteja"
 
 #: src/app/webbrowser/HistoryView.qml:127
 msgid "Delete all history?"
-msgstr "ሁሉንም ታሪክ ላጥፋው?"
+msgstr "Voleu suprimir tot l'historial?"
 
 #: src/app/webbrowser/HistoryView.qml:130
 msgid "Yes"
-msgstr "አዎ"
+msgstr "Sí"
 
 #: src/app/webbrowser/HistoryView.qml:139
 msgid "No"
-msgstr "አይ"
+msgstr "No"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
-msgstr "ምልክት ማድረጊያዎች"
+msgstr "Adreces d'interés"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
-msgstr "ከፍተኛ ድሕረ ገጾች"
+msgstr "Llocs destacats"
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
-msgstr "አነስተኛ መመልከቻ"
+msgstr "mostra'n menys"
 
 #: src/app/webbrowser/NewTabView.qml:141
 msgid "see more"
-msgstr "ተጨማሪ መመልከቻ"
+msgstr "mostra'n més"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"
-msgstr "ለመመልከት መታ ያድርጉ"
+msgstr "Feu un toc per veure-ho"
 
 #: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
-msgstr "መጨመሪያ"
+msgstr "Afig"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:39
 #: src/app/webcontainer/webapp-container.qml:60
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - የ ኡቡንቱ ዌብ መቃኛ"
+msgstr "%1 - Navegador web de l'Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:41
 #: src/app/webcontainer/webapp-container.qml:62
 msgid "Ubuntu Web Browser"
-msgstr "የ ኡቡንቱ ዌብ መቃኛ"
+msgstr "Navegador web de l'Ubuntu"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:87
 msgid "No local account found for "
-msgstr "ምንም የ አካባቢ መግለጫ አልተገኘም ለ "
+msgstr "No s'ha trobat cap compte local per a "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:92
 msgid "Skip account creation step"
-msgstr "የ መግለጫ መጨመሪያ ደረጃውን መዝለያ"
+msgstr "Omet el pas de creació d'un compte"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:141
 msgid "Add account"
-msgstr "መግለጫ መጨመሪያ"
+msgstr "Afig un compte"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr "መግለጫ ይምረጡ"
+msgstr "Seleccioneu un compte"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
-msgstr "መቃኛ"
+msgstr "Navegador"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr "ዌብ መቃኛ"
+msgstr "Navegador web"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
-msgstr "ኢንተርኔት መቃኛ"
+msgstr "Navegueu per la web"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr "ኢንተርኔት;WWW;መቃኛ;ዌብ;መቃኛ"
+msgstr "Internet;WWW;Navegador;Web;Explorer"
