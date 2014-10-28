@@ -22,22 +22,45 @@ import "undertest"
 
 Item {
     width: 300
-    height: 50
+    height: 100
 
-    AddressBar {
-        id: addressBar
+    FocusScope {
         anchors.fill: parent
-        searchUrl: "http://www.ubuntu.com/search?q={searchTerms}"
 
-        function get_clear_button() {
-            // not exposed through the TextField API
-            for (var i in addressBar.textField.children) {
-                var child = addressBar.textField.children[i]
-                if (child.objectName == "clear_button") {
-                    return child
-                }
+        AddressBar {
+            id: addressBar
+
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
             }
-            return null
+            height: parent.height / 2
+
+            searchUrl: "http://www.ubuntu.com/search?q={searchTerms}"
+
+            function get_clear_button() {
+                // not exposed through the TextField API
+                for (var i in addressBar.textField.children) {
+                    var child = addressBar.textField.children[i]
+                    if (child.objectName == "clear_button") {
+                        return child
+                    }
+                }
+                return null
+            }
+        }
+
+        // only exists to steal focus from the address bar
+        TextInput {
+            id: textInput
+
+            anchors {
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+            }
+            height: parent.height / 2
         }
     }
 
@@ -203,6 +226,39 @@ Item {
             keyClick(Qt.Key_U)
             verify(addressBar.text != "")
             verify(addressBar.actionButton.enabled)
+        }
+
+        function test_click_selects_all() {
+            var url = "http://example.org/"
+            typeString(url)
+            compare(addressBar.text, url)
+            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            verify(!addressBar.activeFocus)
+            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
+            compare(addressBar.textField.selectedText, url)
+        }
+
+        function test_second_click_deselect_text() {
+            var url = "http://example.org/"
+            typeString(url)
+            compare(addressBar.text, url)
+            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            verify(!addressBar.activeFocus)
+            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
+            compare(addressBar.textField.selectedText, url)
+            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
+            compare(addressBar.textField.selectedText, "")
+            verify(addressBar.textField.cursorPosition > 0)
+        }
+
+        function test_click_action_button_does_not_select_all() {
+            var url = "http://example.org/"
+            typeString(url)
+            compare(addressBar.text, url)
+            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            verify(!addressBar.activeFocus)
+            mouseClick(addressBar.actionButton, addressBar.actionButton.width / 2, addressBar.actionButton.height / 2)
+            compare(addressBar.textField.selectedText, "")
         }
     }
 }
