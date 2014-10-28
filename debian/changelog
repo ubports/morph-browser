@@ -1,3 +1,18 @@
+webbrowser-app (0.23+14.10.20141028~rtm-0ubuntu1) 14.09; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Fix the override mechanism for navigator.userAgent, and add UA
+    override rules for HSBC’s Brazilian mobile site and ESPN’s mobile
+    site. (LP: #1316259)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 28 Oct 2014 00:18:35 +0000
+
 webbrowser-app (0.23+14.10.20141015.1-0ubuntu1) 14.09; urgency=low
 
   [ Michael Sheldon ]
