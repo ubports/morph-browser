@@ -102,14 +102,14 @@ FocusScope {
                                 case "editing":
                                     if (addressbar.text && (addressbar.text == addressbar.actualUrl)) {
                                         return "reload"
-                                    } else if (looksLikeAUrl(addressbar.text.trim())) {
+                                    } else if (internal.looksLikeAUrl(addressbar.text.trim())) {
                                         return "stock_website"
                                     } else {
                                         return "search"
                                     }
                                 default:
                                     if (!favicon.visible) {
-                                        if (looksLikeAUrl(addressbar.text.trim())) {
+                                        if (internal.looksLikeAUrl(addressbar.text.trim())) {
                                             return "stock_website"
                                         } else {
                                             return "search"
@@ -343,13 +343,13 @@ FocusScope {
 
         highlighted: true
 
-        onAccepted: if (addressbar.state != "") parent.validate()
+        onAccepted: if (addressbar.state != "") internal.validate()
 
         onActiveFocusChanged: {
             if (activeFocus) {
                 addressbar.textFieldFocused();
             } else if (!addressbar.loading && addressbar.actualUrl.toString()) {
-                text = addressbar.simplifyUrl(addressbar.actualUrl)
+                text = internal.simplifyUrl(addressbar.actualUrl)
             }
         }
 
@@ -371,91 +371,95 @@ FocusScope {
         }
     }
 
-    function looksLikeAUrl(address) {
-        var terms = address.split(/\s/)
-        if (terms.length > 1) {
+    QtObject {
+        id: internal
+
+        function looksLikeAUrl(address) {
+            var terms = address.split(/\s/)
+            if (terms.length > 1) {
+                return false
+            }
+            if (address.substr(0, 1) == "/") {
+                return true
+            }
+            if (address.match(/^https?:\/\//) ||
+                address.match(/^file:\/\//) ||
+                address.match(/^[a-z]+:\/\//)) {
+                return true
+            }
+            if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,4}$/)) {
+                return true
+            }
+            if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
+                return true
+            }
             return false
         }
-        if (address.substr(0, 1) == "/") {
-            return true
-        }
-        if (address.match(/^https?:\/\//) ||
-            address.match(/^file:\/\//) ||
-            address.match(/^[a-z]+:\/\//)) {
-            return true
-        }
-        if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,4}$/)) {
-            return true
-        }
-        if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
-            return true
-        }
-        return false
-    }
 
-    function fixUrl(address) {
-        var url = address
-        if (address.substr(0, 1) == "/") {
-            url = "file://" + address
-        } else if (address.indexOf("://") == -1) {
-            url = "http://" + address
+        function fixUrl(address) {
+            var url = address
+            if (address.substr(0, 1) == "/") {
+                url = "file://" + address
+            } else if (address.indexOf("://") == -1) {
+                url = "http://" + address
+            }
+            return url
         }
-        return url
-    }
 
-    function escapeHtmlEntities(query) {
-        return query.replace(/\W/, encodeURIComponent)
-    }
-
-    function buildSearchUrl(query) {
-        var terms = query.split(/\s/).map(escapeHtmlEntities)
-        return addressbar.searchUrl.replace("{searchTerms}", terms.join("+"))
-    }
-
-    function validate() {
-        var query = text.trim()
-        if (looksLikeAUrl(query)) {
-            requestedUrl = fixUrl(query)
-        } else {
-            requestedUrl = buildSearchUrl(query)
+        function escapeHtmlEntities(query) {
+            return query.replace(/\W/, encodeURIComponent)
         }
-        validated()
-    }
 
-    function simplifyUrl(url) {
-        var urlString = url.toString();
-        var hasProtocol = urlString.indexOf("://") != -1
-        var domain;
-        if (hasProtocol) {
-            if (urlString.split("://")[0] == "file") {
-                // Don't process file:// urls
+        function buildSearchUrl(query) {
+            var terms = query.split(/\s/).map(internal.escapeHtmlEntities)
+            return addressbar.searchUrl.replace("{searchTerms}", terms.join("+"))
+        }
+
+        function validate() {
+            var query = text.trim()
+            if (internal.looksLikeAUrl(query)) {
+                requestedUrl = internal.fixUrl(query)
+            } else {
+                requestedUrl = internal.buildSearchUrl(query)
+            }
+            validated()
+        }
+
+        function simplifyUrl(url) {
+            var urlString = url.toString();
+            var hasProtocol = urlString.indexOf("://") != -1
+            var domain;
+            if (hasProtocol) {
+                if (urlString.split("://")[0] == "file") {
+                    // Don't process file:// urls
+                    return url;
+                }
+                domain = urlString.split('/')[2];
+            } else {
+                domain = urlString.split('/')[0];
+            }
+            if (typeof domain !== 'undefined' && domain.length > 0) {
+                // Remove user component if present
+                var userRemoved = domain.split('@')[1];
+                if (typeof userRemoved !== 'undefined') {
+                    domain = userRemoved;
+                }
+                // Remove port number if present
+                domain = domain.split(':')[0];
+                if (domain.lastIndexOf('.') != 3) { // http://www.com shouldn't be trimmed
+                    domain = domain.replace(/^www\./, "");
+                }
+                return domain;
+            } else {
                 return url;
             }
-            domain = urlString.split('/')[2];
-        } else {
-            domain = urlString.split('/')[0];
-        }
-        if (typeof domain !== 'undefined' && domain.length > 0) {
-            // Remove user component if present
-            var userRemoved = domain.split('@')[1];
-            if (typeof userRemoved !== 'undefined') {
-                domain = userRemoved;
-            }
-            // Remove port number if present
-            domain = domain.split(':')[0];
-            if (domain.lastIndexOf('.') != 3) { // http://www.com shouldn't be trimmed
-                domain = domain.replace(/^www\./, "");
-            }
-            return domain;
-        } else {
-            return url;
         }
     }
 
     onActualUrlChanged: {
         if(actualUrl.toString().length > 0) {
-            text = simplifyUrl(actualUrl)
+            text = internal.simplifyUrl(actualUrl)
         }
     }
-    onRequestedUrlChanged: text = simplifyUrl(requestedUrl)
+    onRequestedUrlChanged: text = internal.simplifyUrl(requestedUrl)
 }

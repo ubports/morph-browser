@@ -27,7 +27,6 @@ Item {
     AddressBar {
         id: addressBar
         anchors.fill: parent
-        focus: true
         searchUrl: "http://www.ubuntu.com/search?q={searchTerms}"
 
         function get_clear_button() {
@@ -42,9 +41,36 @@ Item {
         }
     }
 
+    SignalSpy {
+        id: validatedSpy
+        target: addressBar
+        signalName: "validated"
+    }
+
     TestCase {
         name: "AddressBar"
         when: windowShown
+
+        function init() {
+            validatedSpy.clear()
+            // Ensure the address bar has active focus
+            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
+            verify(addressBar.activeFocus)
+            // Clear it
+            var clearButton = addressBar.get_clear_button()
+            verify(clearButton != null)
+            mouseClick(clearButton, clearButton.width / 2, clearButton.height / 2)
+            compare(addressBar.text, "")
+            // Ensure it still has active focus
+            verify(addressBar.activeFocus)
+        }
+
+        function typeString(str) {
+            verify(addressBar.activeFocus)
+            for (var i = 0; i < str.length; ++i) {
+                keyClick(str[i])
+            }
+        }
 
         function test_no_rewrite_data() {
             return [
@@ -56,8 +82,10 @@ Item {
         }
 
         function test_no_rewrite(data) {
-            addressBar.text = data.url
-            addressBar.validate()
+            typeString(data.url)
+            compare(addressBar.text, data.url)
+            keyClick(Qt.Key_Return)
+            validatedSpy.wait()
             compare(addressBar.requestedUrl, data.url)
         }
 
@@ -72,8 +100,10 @@ Item {
         }
 
         function test_add_scheme(data) {
-            addressBar.text = data.text
-            addressBar.validate()
+            typeString(data.text)
+            compare(addressBar.text, data.text)
+            keyClick(Qt.Key_Return)
+            validatedSpy.wait()
             compare(addressBar.requestedUrl, data.requestedUrl)
         }
 
@@ -86,8 +116,10 @@ Item {
         }
 
         function test_trim_whitespaces(data) {
-            addressBar.text = data.text
-            addressBar.validate()
+            typeString(data.text)
+            compare(addressBar.text, data.text)
+            keyClick(Qt.Key_Return)
+            validatedSpy.wait()
             compare(addressBar.requestedUrl, data.requestedUrl)
         }
 
@@ -99,8 +131,10 @@ Item {
         }
 
         function test_search_url(data) {
-            addressBar.text = data.text
-            addressBar.validate()
+            typeString(data.text)
+            compare(addressBar.text, data.text)
+            keyClick(Qt.Key_Return)
+            validatedSpy.wait()
             compare(addressBar.requestedUrl.toString().indexOf(data.start), 0)
             verify(addressBar.requestedUrl.toString().indexOf("q=" + data.query) > 0)
         }
@@ -112,13 +146,14 @@ Item {
                 {text: "\"kung fu\"", escaped: "%22kung+fu%22"},
                 {text: "surfin' usa", escaped: "surfin'+usa"},
                 {text: "to be or not to be?", escaped: "to+be+or+not+to+be%3F"},
-                {text: "aléatoire", escaped: "aléatoire"},
             ]
         }
 
         function test_search_escape_html_entities(data) {
-            addressBar.text = data.text
-            addressBar.validate()
+            typeString(data.text)
+            compare(addressBar.text, data.text)
+            keyClick(Qt.Key_Return)
+            validatedSpy.wait()
             verify(addressBar.requestedUrl.toString().indexOf("q=" + data.escaped) > 0)
         }
 
@@ -131,8 +166,10 @@ Item {
         }
 
         function test_url_uppercase_rewrite(data) {
-            addressBar.text = data.text
-            addressBar.validate()
+            typeString(data.text)
+            compare(addressBar.text, data.text)
+            keyClick(Qt.Key_Return)
+            validatedSpy.wait()
             compare(addressBar.requestedUrl, data.requestedUrl)
         }
 
@@ -154,19 +191,15 @@ Item {
         }
 
         function test_simplify(data) {
-            compare(addressBar.simplifyUrl(data.url), data.text);
+            typeString(data.url)
+            compare(addressBar.text, data.url)
+            keyClick(Qt.Key_Return)
+            validatedSpy.wait()
+            compare(addressBar.text, data.text)
         }
 
         function test_action_button() {
-            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
-            verify(addressBar.activeFocus)
-            keyClick(Qt.Key_U)
-            var clearButton = addressBar.get_clear_button()
-            verify(clearButton != null)
-            mouseClick(clearButton, clearButton.width / 2, clearButton.height / 2)
-            compare(addressBar.text, "")
             verify(!addressBar.actionButton.enabled)
-            verify(addressBar.activeFocus)
             keyClick(Qt.Key_U)
             verify(addressBar.text != "")
             verify(addressBar.actionButton.enabled)
