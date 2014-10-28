@@ -123,7 +123,7 @@ FocusScope {
                         onClicked: {
                             switch (actionIcon.name) {
                             case "":
-                                break;
+                                break
                             case "stop":
                                 addressbar.requestStop()
                                 break
@@ -346,7 +346,7 @@ FocusScope {
 
         onActiveFocusChanged: {
             if (activeFocus) {
-                addressbar.textFieldFocused();
+                addressbar.textFieldFocused()
             } else if (!addressbar.loading && addressbar.actualUrl.toString()) {
                 text = internal.simplifyUrl(addressbar.actualUrl)
             }
@@ -422,32 +422,32 @@ FocusScope {
         }
 
         function simplifyUrl(url) {
-            var urlString = url.toString();
+            var urlString = url.toString()
             var hasProtocol = urlString.indexOf("://") != -1
-            var domain;
+            var domain
             if (hasProtocol) {
                 if (urlString.split("://")[0] == "file") {
                     // Don't process file:// urls
-                    return url;
+                    return url
                 }
-                domain = urlString.split('/')[2];
+                domain = urlString.split('/')[2]
             } else {
-                domain = urlString.split('/')[0];
+                domain = urlString.split('/')[0]
             }
             if (typeof domain !== 'undefined' && domain.length > 0) {
                 // Remove user component if present
-                var userRemoved = domain.split('@')[1];
+                var userRemoved = domain.split('@')[1]
                 if (typeof userRemoved !== 'undefined') {
-                    domain = userRemoved;
+                    domain = userRemoved
                 }
                 // Remove port number if present
-                domain = domain.split(':')[0];
+                domain = domain.split(':')[0]
                 if (domain.lastIndexOf('.') != 3) { // http://www.com shouldn't be trimmed
-                    domain = domain.replace(/^www\./, "");
+                    domain = domain.replace(/^www\./, "")
                 }
-                return domain;
+                return domain
             } else {
-                return url;
+                return url
             }
         }
     }
