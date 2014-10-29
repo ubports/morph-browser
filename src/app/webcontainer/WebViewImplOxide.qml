@@ -136,11 +136,12 @@ WebViewImpl {
             var isRedirectionUrl =
                     popupRedirectionUrlPrefixPattern
                     && redirectionPatternMatch
-                    && redirectionPatternMatch.length >= 2;
+                    && redirectionPatternMatch.length >= 1;
             var targetUrl = url;
             if (isRedirectionUrl) {
                 // Assume that the first group is the matching one
-                targetUrl = redirectionPatternMatch[1];
+                targetUrl = redirectionPatternMatch.length >=2 ?
+                            redirectionPatternMatch[1] : url.slice(redirectionPatternMatch[0].length);
                 console.debug("Got a redirection URL with target URL: " + targetUrl)
                 targetUrl = decodeURIComponent(targetUrl)
                 gotRedirectionUrl(targetUrl)
