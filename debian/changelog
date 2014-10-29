@@ -1,3 +1,32 @@
+webbrowser-app (0.23+15.04.20141029.1-0ubuntu1) vivid; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+  * Fix the override mechanism for navigator.userAgent, and add UA
+    override rules for HSBC’s Brazilian mobile site and ESPN’s mobile
+    site. (LP: #1316259)
+
+  [ Riccardo Padovani ]
+  * Fixed #1378975 - Fast double click on menu button opens menu twice
+    (LP: #1378975)
+  * Updated the README
+
+  [ Jean-Francois Moy ]
+  * Twitter User Script - Hide the prompt to download the Android
+    application. (LP: #1352789)
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Prevent the browser from trying to download embedded flash
+    applications. (LP: #1379806)
+  * Fix a harmless compilation warning found by clang (non-literal-null-
+    conversion).
+  * Update UITK autopilot test imports. (LP: #1386276)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 29 Oct 2014 12:00:23 +0000
+
 webbrowser-app (0.23+14.10.20141028~rtm-0ubuntu1) 14.09; urgency=low
 
   [ CI bot ]
