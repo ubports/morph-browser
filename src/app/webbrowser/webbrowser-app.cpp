@@ -65,7 +65,7 @@ bool WebbrowserApp::initialize()
                 argv[i + 1] = new char[bytes.size() + 1];
                 strcpy(argv[i + 1], bytes.constData());
             }
-            argv[size + 1] = (char) NULL;
+            argv[size + 1] = NULL;
 
             QCoreApplication::exit(execvp(argv[0], argv));
             return false;
