@@ -141,6 +141,12 @@ WebViewImpl {
                     isRedirectionUrl = (url.indexOf(popupRedirectionUrlPrefixPattern) === 0);
                     targetUrl = isRedirectionUrl ?
                                 url.slice(popupRedirectionUrlPrefixPattern.length) : url;
+
+                    // Quick fix for http://pad.lv/1358622 (trim trailing parameters).
+                    var extraParams = targetUrl.indexOf("&");
+                    if (extraParams !== -1) {
+                        targetUrl = targetUrl.slice(0, extraParams);
+                    }
                 } else {
                     var redirectionPatternMatch = url.match(popupRedirectionUrlPrefixPattern);
                     isRedirectionUrl =
