@@ -34,14 +34,19 @@ class UbuntuWebPluginContext : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString dataLocation READ dataLocation NOTIFY dataLocationChanged)
+    Q_PROPERTY(QString formFactor READ formFactor CONSTANT)
 
 public:
     UbuntuWebPluginContext(QObject* parent = 0);
 
     QString dataLocation() const;
+    QString formFactor();
 
 Q_SIGNALS:
     void dataLocationChanged() const;
+
+private:
+    QString m_formFactor;
 };
 
 UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
@@ -60,42 +65,46 @@ QString UbuntuWebPluginContext::dataLocation() const
     return location.absolutePath();
 }
 
+QString UbuntuWebPluginContext::formFactor()
+{
+    if (m_formFactor.isEmpty()) {
+        // This implementation only considers two possible form factors: desktop,
+        // and mobile (which includes phones and tablets).
+        // XXX: do we need to consider other form factors, such as tablet?
+        const char* DESKTOP = "desktop";
+        const char* MOBILE = "mobile";
+
+        // The "DESKTOP_MODE" environment variable can be used to force the form
+        // factor to desktop, when set to any valid value other than 0.
+        const char* DESKTOP_MODE_ENV_VAR = "DESKTOP_MODE";
+        if (qEnvironmentVariableIsSet(DESKTOP_MODE_ENV_VAR)) {
+            QByteArray stringValue = qgetenv(DESKTOP_MODE_ENV_VAR);
+            bool ok = false;
+            int value = stringValue.toInt(&ok);
+            if (ok) {
+                m_formFactor = (value == 0) ? MOBILE : DESKTOP;
+                return m_formFactor;
+            }
+        }
+
+        // XXX: Assume that QtUbuntu means mobile, which is currently the case,
+        // but may not remain true forever.
+        QString platform = QGuiApplication::platformName();
+        if ((platform == "ubuntu") || (platform == "ubuntumirclient")) {
+            m_formFactor = MOBILE;
+        } else {
+            m_formFactor = DESKTOP;
+        }
+    }
+    return m_formFactor;
+}
+
 static float getQtWebkitDpr()
 {
     QByteArray stringValue = qgetenv("QTWEBKIT_DPR");
     bool ok = false;
     float value = stringValue.toFloat(&ok);
     return ok ? value : 1.0;
-}
-
-static QString getFormFactor()
-{
-    // This implementation only considers two possible form factors: desktop,
-    // and mobile (which includes phones and tablets).
-    // XXX: do we need to consider other form factors, such as tablet?
-    const char* DESKTOP = "desktop";
-    const char* MOBILE = "mobile";
-
-    // The "DESKTOP_MODE" environment variable can be used to force the form
-    // factor to desktop, when set to any valid value other than 0.
-    const char* DESKTOP_MODE_ENV_VAR = "DESKTOP_MODE";
-    if (qEnvironmentVariableIsSet(DESKTOP_MODE_ENV_VAR)) {
-        QByteArray stringValue = qgetenv(DESKTOP_MODE_ENV_VAR);
-        bool ok = false;
-        int value = stringValue.toInt(&ok);
-        if (ok) {
-            return (value == 0) ? MOBILE : DESKTOP;
-        }
-    }
-
-    // XXX: Assume that QtUbuntu means mobile, which is currently the case,
-    // but may not remain true forever.
-    QString platform = QGuiApplication::platformName();
-    if ((platform == "ubuntu") || (platform == "ubuntumirclient")) {
-        return MOBILE;
-    }
-
-    return DESKTOP;
 }
 
 static int getDevtoolsPort()
@@ -141,7 +150,6 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
         context->setContextProperty("QtWebKitDPR", getQtWebkitDpr());
     }
 
-    context->setContextProperty("formFactor", getFormFactor());
     context->setContextProperty("webviewDevtoolsDebugPort", getDevtoolsPort());
     context->setContextProperty("webviewDevtoolsDebugHost", getDevtoolsHost());
 
