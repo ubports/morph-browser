@@ -20,12 +20,45 @@
 #include "favicon-image-provider.h"
 
 // Qt
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
+#include <QtCore/QObject>
 #include <QtCore/QStandardPaths>
 #include <QtCore/QtGlobal>
 #include <QtGui/QGuiApplication>
 #include <QtQml>
 #include <QtQml/QQmlInfo>
+
+class UbuntuWebPluginContext : public QObject
+{
+    Q_OBJECT
+
+    Q_PROPERTY(QString dataLocation READ dataLocation NOTIFY dataLocationChanged)
+
+public:
+    UbuntuWebPluginContext(QObject* parent = 0);
+
+    QString dataLocation() const;
+
+Q_SIGNALS:
+    void dataLocationChanged() const;
+};
+
+UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
+    : QObject(parent)
+{
+    connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
+            this, SIGNAL(dataLocationChanged()));
+}
+
+QString UbuntuWebPluginContext::dataLocation() const
+{
+    QDir location(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    if (!location.exists()) {
+        QDir::root().mkpath(location.absolutePath());
+    }
+    return location.absolutePath();
+}
 
 static float getQtWebkitDpr()
 {
@@ -99,12 +132,8 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
 {
     Q_UNUSED(uri);
 
-    QDir dataLocation(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
-    if (!dataLocation.exists()) {
-        QDir::root().mkpath(dataLocation.absolutePath());
-    }
     QQmlContext* context = engine->rootContext();
-    context->setContextProperty("dataLocation", dataLocation.absolutePath());
+    context->setContextObject(new UbuntuWebPluginContext(context));
 
     if (uri == QLatin1String("Ubuntu.Components.Extras.Browser")) {
         // Set the desired pixel ratio (not needed once we use Qt’s way of
@@ -130,3 +159,5 @@ void UbuntuBrowserPlugin::registerTypes(const char* uri)
                       "applications to import Ubuntu.Web instead.";
     }
 }
+
+#include "plugin.moc"
