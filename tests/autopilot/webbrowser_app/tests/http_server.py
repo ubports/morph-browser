@@ -117,6 +117,15 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += '<div style="position: absolute; width: 50%; height: 50%; '
             html += 'top: 25%; left: 25%"></div></body></html>'
             self.send_html(html)
+        elif self.path == "/closeself":
+            # craft a page that accepts clicks anywhere inside its window
+            # and that requests to be closed
+            self.send_response(200)
+            html = '<html><body style="margin: 0">'
+            html += '<a onclick="window.close()">'
+            html += '<div style="height: 100%"></div>'
+            html += '</a></body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 
