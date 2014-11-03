@@ -33,7 +33,16 @@ WebViewImpl {
     property string webappName: ""
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
-    property string popupRedirectionUrlPrefix: ""
+    property string popupRedirectionUrlPrefixPattern: ""
+
+    // Mostly used for testing & avoid external urls to
+    //  "leak" in the default browser
+    property bool blockOpenExternalUrls: false
+
+    // Those signals are used for testing purposes to externally
+    //  track down the various internal logic & steps of a popup lifecycle.
+    signal openExternalUrlTriggered(string url)
+    signal gotRedirectionUrl(string url)
 
     currentWebview: webview
 
@@ -47,6 +56,9 @@ WebViewImpl {
             onTriggered: Clipboard.push([webview.contextualData.img])
         }
     }
+
+    StateSaver.properties: "url"
+    StateSaver.enabled: true
 
     function shouldOpenPopupsInDefaultBrowser() {
         return formFactor !== "desktop";
@@ -68,6 +80,13 @@ WebViewImpl {
     function isNewForegroundWebViewDisposition(disposition) {
         return disposition === Oxide.NavigationRequest.DispositionNewPopup ||
                disposition === Oxide.NavigationRequest.DispositionNewForegroundTab;
+    }
+
+    function openUrlExternally(url) {
+        webview.openExternalUrlTriggered(url)
+        if (! webview.blockOpenExternalUrls) {
+            Qt.openUrlExternally(url)
+        }
     }
 
     function shouldAllowNavigationTo(url) {
@@ -113,36 +132,51 @@ WebViewImpl {
                 return
             }
 
-            var isRedirectionUrl =
-                    popupRedirectionUrlPrefix.length !== 0
-                    && url.indexOf(popupRedirectionUrlPrefix) === 0;
-
+            var isRedirectionUrl = false;
             var targetUrl = url;
-            if (isRedirectionUrl) {
-                // Extract the target URL.
-                targetUrl = url.slice(popupRedirectionUrlPrefix.length);
-                // Quick fix for http://pad.lv/1358622 (trim trailing parameters).
-                // A proper solution would probably involve regexps instead of a
-                // simple redirection prefix.
-                var extraParams = targetUrl.indexOf("&");
-                if (extraParams !== -1) {
-                    targetUrl = targetUrl.slice(0, extraParams);
+            if (popupRedirectionUrlPrefixPattern) {
+                // NOTE: very nasty workaround to be backward compatibility, will be deleted as soon
+                // as the FB webapp is updated.
+                if (popupRedirectionUrlPrefixPattern.indexOf('(') === -1) {
+                    isRedirectionUrl = (url.indexOf(popupRedirectionUrlPrefixPattern) === 0);
+                    targetUrl = isRedirectionUrl ?
+                                url.slice(popupRedirectionUrlPrefixPattern.length) : url;
+
+                    // Quick fix for http://pad.lv/1358622 (trim trailing parameters).
+                    var extraParams = targetUrl.indexOf("&");
+                    if (extraParams !== -1) {
+                        targetUrl = targetUrl.slice(0, extraParams);
+                    }
+                } else {
+                    var redirectionPatternMatch = url.match(popupRedirectionUrlPrefixPattern);
+                    isRedirectionUrl =
+                        popupRedirectionUrlPrefixPattern
+                        && redirectionPatternMatch
+                        && redirectionPatternMatch.length >= 2;
+
+                    // Assume that the first group is the matching one
+                    targetUrl = isRedirectionUrl ?
+                                redirectionPatternMatch[1] : url;
                 }
-                // Decode it.
-                targetUrl = decodeURIComponent(targetUrl);
+            }
+
+            if (isRedirectionUrl) {
+                console.debug("Got a redirection URL with target URL: " + targetUrl)
+                targetUrl = decodeURIComponent(targetUrl)
+                gotRedirectionUrl(targetUrl)
             }
 
             if (webview.shouldAllowNavigationTo(targetUrl)) {
                 console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
                 request.action = Oxide.NavigationRequest.ActionReject
-                webappContainerHelper.browseToUrlRequested(webview, url.slice(url.indexOf(popupRedirectionUrlPrefix)))
+                webappContainerHelper.browseToUrlRequested(webview, targetUrl)
                 return
             }
 
             if (shouldOpenPopupsInDefaultBrowser()) {
                 console.debug('Opening popup window ' + targetUrl + ' in the browser window.')
                 request.action = Oxide.NavigationRequest.ActionReject
-                Qt.openUrlExternally(targetUrl)
+                openUrlExternally(targetUrl)
                 return;
             }
             return
@@ -179,7 +213,7 @@ WebViewImpl {
 
         if (request.action === Oxide.NavigationRequest.ActionReject) {
             console.debug('Opening: ' + url + ' in the browser window.')
-            Qt.openUrlExternally(url)
+            openUrlExternally(url)
         }
     }
 
@@ -203,7 +237,7 @@ WebViewImpl {
                     if ( ! isNewForegroundWebViewDisposition(request.disposition) &&
                             ! webview.shouldAllowNavigationTo(url)) {
                         request.action = Oxide.NavigationRequest.ActionReject
-                        Qt.openUrlExternally(url);
+                        openUrlExternally(url);
                         popup.close()
                         return;
                     }
@@ -233,7 +267,7 @@ WebViewImpl {
                         return;
 
                     if (_url != 'about:blank' && ! webview.shouldAllowNavigationTo(_url)) {
-                        Qt.openUrlExternally(_url);
+                        openUrlExternally(_url);
                         popup.close()
                     }
                 }

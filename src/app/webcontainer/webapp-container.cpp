@@ -158,8 +158,15 @@ bool WebappContainer::initialize()
 
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
 
-        if ( ! m_popupRedirectionUrlPrefix.isEmpty()) {
-            m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
+        if ( ! m_popupRedirectionUrlPrefixPattern.isEmpty()) {
+            const QString WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR =
+                qgetenv("WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL");
+            m_window->setProperty(
+                        "popupRedirectionUrlPrefixPattern",
+                        WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR == "1"
+                        ? m_popupRedirectionUrlPrefixPattern
+                        : UrlPatternUtils::transformWebappSearchPatternToSafePattern(
+                              m_popupRedirectionUrlPrefixPattern, false));
         }
 
         if (!m_userAgentOverride.isEmpty()) {
@@ -172,16 +179,20 @@ bool WebappContainer::initialize()
             m_window->setProperty("webviewOverrideFile", QUrl::fromLocalFile(overrideFile.absoluteFilePath()));
         }
 
-        // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
-        if (m_webappName.isEmpty()) {
-            QList<QUrl> urls = this->urls();
-            if (!urls.isEmpty()) {
-                m_window->setProperty("url", urls.last());
-            } else if (m_webappModelSearchPath.isEmpty()) {
-                return false;
-            }
-            // Otherwise, assume that the homepage will come from a locally defined
-            // webapp-properties.json file pulled from the webapp model element.
+        const QString WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY_ENV_VAR =
+            qgetenv("WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY");
+        if (WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY_ENV_VAR == "1") {
+            m_window->setProperty("blockOpenExternalUrls", true);
+        }
+
+        QList<QUrl> urls = this->urls();
+        if (!urls.isEmpty()) {
+            m_window->setProperty("url", urls.last());
+        } else if (m_webappModelSearchPath.isEmpty()) {
+            // Either we have a command line argument for the start URL or we have
+            // local search path for a webapp definition (that would include in its
+            // meta data a homepage). Any other case is faulty.
+            return false;
         }
 
         m_component->completeCreate();
@@ -278,7 +289,7 @@ void WebappContainer::parseCommandLine()
         } else if (argument == "--local-webapp-manifest") {
             m_localWebappManifest = true;
         } else if (argument.startsWith("--popup-redirection-url-prefix=")) {
-            m_popupRedirectionUrlPrefix = argument.split("--popup-redirection-url-prefix=")[1];
+            m_popupRedirectionUrlPrefixPattern = argument.split("--popup-redirection-url-prefix=")[1];
         } else if (argument.startsWith("--local-cookie-db-path=")) {
             m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];
         } else if (argument.startsWith("--user-agent-string=")) {
