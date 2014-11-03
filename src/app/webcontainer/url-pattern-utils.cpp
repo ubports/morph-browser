@@ -163,3 +163,8 @@ QStringList UrlPatternUtils::filterAndTransformUrlPatterns(const QStringList & i
     return patterns;
 }
 
+bool UrlPatternUtils::isLocalHtml5ApplicationHomeUrl(const QUrl& url)
+{
+    return url.isLocalFile();
+}
+

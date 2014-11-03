@@ -34,8 +34,12 @@ WebViewImpl {
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
     property string popupRedirectionUrlPrefix: ""
+    property bool runningLocalApplication: false
 
     currentWebview: webview
+
+    preferences.allowFileAccessFromFileUrls: runningLocalApplication
+    preferences.allowUniversalAccessFromFileUrls: runningLocalApplication
 
     contextualActions: ActionList {
         Actions.CopyLink {
@@ -101,6 +105,14 @@ WebViewImpl {
         console.log("navigationRequestedDelegate - newForegroundPageRequest: "
                     + newForegroundPageRequest
                     + ', url: ' + url)
+
+        if (runningLocalApplication && url.indexOf("file://") !== 0) {
+            request.action = Oxide.NavigationRequest.ActionReject
+            if (shouldOpenPopupsInDefaultBrowser()) {
+                Qt.openUrlExternally(url)
+            }
+            return
+        }
 
         // Covers some edge cases corresponding to the default window.open() behavior.
         // When it is being called, the targetted URL will not load right away but

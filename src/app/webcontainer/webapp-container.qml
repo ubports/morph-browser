@@ -43,6 +43,7 @@ Window {
     property url webviewOverrideFile: ""
     property var __webappCookieStore: null
     property string localUserAgentOverride: ""
+    property bool runningLocalApplication: false
 
     contentOrientation: Screen.orientation
 
@@ -77,6 +78,7 @@ Window {
         oxide: root.oxide
         webappModelSearchPath: root.webappModelSearchPath
         webappUrlPatterns: root.webappUrlPatterns
+        runningLocalApplication: root.runningLocalApplication
 
         localUserAgentOverride: root.localUserAgentOverride
 

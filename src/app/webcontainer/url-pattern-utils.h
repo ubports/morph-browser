@@ -21,9 +21,12 @@
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QUrl>
 
 
 namespace UrlPatternUtils {
+
+bool isLocalHtml5ApplicationHomeUrl(const QUrl&);
 
 QString transformWebappSearchPatternToSafePattern(const QString&);
 

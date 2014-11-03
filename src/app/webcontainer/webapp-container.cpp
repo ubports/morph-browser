@@ -176,7 +176,13 @@ bool WebappContainer::initialize()
         if (m_webappName.isEmpty()) {
             QList<QUrl> urls = this->urls();
             if (!urls.isEmpty()) {
-                m_window->setProperty("url", urls.last());
+                QUrl homeUrl = urls.last();
+                m_window->setProperty("url", homeUrl);
+
+                if (UrlPatternUtils::isLocalHtml5ApplicationHomeUrl(homeUrl)) {
+                    qDebug() << "Started as a local application container.";
+                    m_window->setProperty("runningLocalApplication", true);
+                }
             } else if (m_webappModelSearchPath.isEmpty()) {
                 return false;
             }

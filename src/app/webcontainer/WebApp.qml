@@ -38,6 +38,8 @@ BrowserView {
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefix: webview.popupRedirectionUrlPrefix
     property alias webviewOverrideFile: webview.webviewOverrideFile
+    property bool runningLocalApplication: webview.runningLocalApplication
+
     property string localUserAgentOverride: ""
 
     property bool backForwardButtonsVisible: false
@@ -82,6 +84,7 @@ BrowserView {
             }
             height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.item.visibleHeight)
             developerExtrasEnabled: webapp.developerExtrasEnabled
+            runningLocalApplication: webapp.runningLocalApplication
             localUserAgentOverride: getLocalUserAgentOverrideIfAny()
         }
 
