@@ -17,24 +17,19 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.1
 import Ubuntu.Components 1.1
+import ".."
 
-Window {
+BrowserWindow {
     id: window
 
     property alias searchEngine: browser.searchEngine
-    property alias developerExtrasEnabled: browser.developerExtrasEnabled
     property alias restoreSession: browser.restoreSession
-    property bool forceFullscreen: false
 
     property alias homepage: browser.homepage
     property alias urls: browser.initialUrls
 
-    contentOrientation: browser.screenOrientation
-
-    width: 800
-    height: 600
+    currentWebview: browser.currentWebview
 
     title: {
         if (browser.title) {
@@ -47,30 +42,11 @@ Window {
 
     Browser {
         id: browser
-        property int screenOrientation: Screen.orientation
         anchors.fill: parent
         webbrowserWindow: webbrowserWindowProxy
+        developerExtrasEnabled: window.developerExtrasEnabled
 
         Component.onCompleted: i18n.domain = "webbrowser-app"
-    }
-
-    QtObject {
-        id: internal
-        property int currentWindowState: Window.Windowed
-    }
-
-    Connections {
-        target: browser.currentWebview
-        onFullscreenChanged: {
-            if (!window.forceFullscreen) {
-                if (browser.currentWebview.fullscreen) {
-                    internal.currentWindowState = window.visibility
-                    window.visibility = Window.FullScreen
-                } else {
-                    window.visibility = internal.currentWindowState
-                }
-            }
-        }
     }
 
     // Handle runtime requests to open urls as defined

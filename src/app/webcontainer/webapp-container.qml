@@ -17,17 +17,14 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.1
 import Ubuntu.Components 1.1
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import webcontainer.private 0.1
+import ".."
 
-Window {
+BrowserWindow {
     id: root
     objectName: "webappContainer"
-
-    property bool developerExtrasEnabled: false
-    property bool forceFullscreen: false
 
     property bool backForwardButtonsVisible: true
     property bool chromeVisible: true
@@ -45,10 +42,7 @@ Window {
     property var __webappCookieStore: null
     property string localUserAgentOverride: ""
 
-    contentOrientation: Screen.orientation
-
-    width: 800
-    height: 600
+    currentWebview: browser.currentWebview
 
     title: getWindowTitle()
 
@@ -111,25 +105,6 @@ Window {
             if (root.webappName) {
                 var idx = webappModel.getWebappIndex(root.webappName)
                 root.url = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Homepage)
-            }
-        }
-    }
-
-    QtObject {
-        id: internal
-        property int currentWindowState: Window.Windowed
-    }
-
-    Connections {
-        target: browser.currentWebview
-        onFullscreenChanged: {
-            if (!root.forceFullscreen) {
-                if (browser.currentWebview.fullscreen) {
-                    internal.currentWindowState = root.visibility
-                    root.visibility = Window.FullScreen
-                } else {
-                    root.visibility = internal.currentWindowState
-                }
             }
         }
     }
@@ -231,4 +206,3 @@ Window {
         }
     }
 }
-
