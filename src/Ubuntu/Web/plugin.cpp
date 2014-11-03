@@ -35,22 +35,29 @@ class UbuntuWebPluginContext : public QObject
 
     Q_PROPERTY(QString dataLocation READ dataLocation NOTIFY dataLocationChanged)
     Q_PROPERTY(QString formFactor READ formFactor CONSTANT)
+    Q_PROPERTY(QString webviewDevtoolsDebugHost READ devtoolsHost CONSTANT)
+    Q_PROPERTY(int webviewDevtoolsDebugPort READ devtoolsPort CONSTANT)
 
 public:
     UbuntuWebPluginContext(QObject* parent = 0);
 
     QString dataLocation() const;
     QString formFactor();
+    QString devtoolsHost();
+    int devtoolsPort();
 
 Q_SIGNALS:
     void dataLocationChanged() const;
 
 private:
     QString m_formFactor;
+    QString m_devtoolsHost;
+    int m_devtoolsPort;
 };
 
 UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
     : QObject(parent)
+    , m_devtoolsPort(-2)
 {
     connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
             this, SIGNAL(dataLocationChanged()));
@@ -99,42 +106,47 @@ QString UbuntuWebPluginContext::formFactor()
     return m_formFactor;
 }
 
+QString UbuntuWebPluginContext::devtoolsHost()
+{
+    if (m_devtoolsHost.isNull()) {
+        const char* DEVTOOLS_HOST_ENV_VAR = "UBUNTU_WEBVIEW_DEVTOOLS_HOST";
+        if (qEnvironmentVariableIsSet(DEVTOOLS_HOST_ENV_VAR)) {
+            m_devtoolsHost = qgetenv(DEVTOOLS_HOST_ENV_VAR);
+        } else {
+            m_devtoolsHost = "";
+        }
+    }
+    return m_devtoolsHost;
+}
+
+int UbuntuWebPluginContext::devtoolsPort()
+{
+    if (m_devtoolsPort == -2) {
+        const int DEVTOOLS_INVALID_PORT = -1;
+        m_devtoolsPort = DEVTOOLS_INVALID_PORT;
+
+        const char* DEVTOOLS_PORT_ENV_VAR = "UBUNTU_WEBVIEW_DEVTOOLS_PORT";
+        if (qEnvironmentVariableIsSet(DEVTOOLS_PORT_ENV_VAR)) {
+            QByteArray environmentVarValue = qgetenv(DEVTOOLS_PORT_ENV_VAR);
+            bool ok = false;
+            int value = environmentVarValue.toInt(&ok);
+            if (ok) {
+                m_devtoolsPort = value;
+            }
+        }
+        if (m_devtoolsPort <= 0) {
+            m_devtoolsPort = DEVTOOLS_INVALID_PORT;
+        }
+    }
+    return m_devtoolsPort;
+}
+
 static float getQtWebkitDpr()
 {
     QByteArray stringValue = qgetenv("QTWEBKIT_DPR");
     bool ok = false;
     float value = stringValue.toFloat(&ok);
     return ok ? value : 1.0;
-}
-
-static int getDevtoolsPort()
-{
-    const int DEVTOOLS_INVALID_PORT = -1;
-
-    int port = DEVTOOLS_INVALID_PORT;
-    const char* DEVTOOLS_PORT_ENV_VAR = "UBUNTU_WEBVIEW_DEVTOOLS_PORT";
-
-    if (qEnvironmentVariableIsSet(DEVTOOLS_PORT_ENV_VAR)) {
-        QByteArray environmentVarValue = qgetenv(DEVTOOLS_PORT_ENV_VAR);
-        bool ok = false;
-        int value = environmentVarValue.toInt(&ok);
-        if (ok) {
-            port = value;
-        }
-    }
-    return port > 0 ? port : DEVTOOLS_INVALID_PORT;
-}
-
-
-static QString getDevtoolsHost()
-{
-    QString host;
-    const char* DEVTOOLS_HOST_ENV_VAR = "UBUNTU_WEBVIEW_DEVTOOLS_HOST";
-
-    if (qEnvironmentVariableIsSet(DEVTOOLS_HOST_ENV_VAR)) {
-        host = qgetenv(DEVTOOLS_HOST_ENV_VAR);
-    }
-    return host;
 }
 
 void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
@@ -149,9 +161,6 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
         // calculating the proper pixel ratio by device/screen).
         context->setContextProperty("QtWebKitDPR", getQtWebkitDpr());
     }
-
-    context->setContextProperty("webviewDevtoolsDebugPort", getDevtoolsPort());
-    context->setContextProperty("webviewDevtoolsDebugHost", getDevtoolsHost());
 
     engine->addImageProvider("favicon", new FaviconImageProvider());
 }
