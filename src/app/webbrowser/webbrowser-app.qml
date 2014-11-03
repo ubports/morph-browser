@@ -21,9 +21,12 @@ import QtQuick.Window 2.1
 import Ubuntu.Components 1.1
 
 Window {
+    id: window
+
     property alias searchEngine: browser.searchEngine
     property alias developerExtrasEnabled: browser.developerExtrasEnabled
     property alias restoreSession: browser.restoreSession
+    property bool forceFullscreen: false
 
     property alias homepage: browser.homepage
     property alias urls: browser.initialUrls
@@ -51,7 +54,24 @@ Window {
         Component.onCompleted: i18n.domain = "webbrowser-app"
     }
 
-    visibility: browser.currentWebview && browser.currentWebview.fullscreen ? Window.FullScreen : Window.AutomaticVisibility
+    QtObject {
+        id: internal
+        property int currentWindowState: Window.Windowed
+    }
+
+    Connections {
+        target: browser.currentWebview
+        onFullscreenChanged: {
+            if (!window.forceFullscreen) {
+                if (browser.currentWebview.fullscreen) {
+                    internal.currentWindowState = window.visibility
+                    window.visibility = Window.FullScreen
+                } else {
+                    window.visibility = internal.currentWindowState
+                }
+            }
+        }
+    }
 
     // Handle runtime requests to open urls as defined
     // by the freedesktop application dbus interface's open

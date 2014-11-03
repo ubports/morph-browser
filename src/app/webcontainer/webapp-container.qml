@@ -27,6 +27,7 @@ Window {
     objectName: "webappContainer"
 
     property bool developerExtrasEnabled: false
+    property bool forceFullscreen: false
 
     property bool backForwardButtonsVisible: true
     property bool chromeVisible: true
@@ -114,7 +115,24 @@ Window {
         }
     }
 
-    visibility: browser.currentWebview && browser.currentWebview.fullscreen ? Window.FullScreen : Window.AutomaticVisibility
+    QtObject {
+        id: internal
+        property int currentWindowState: Window.Windowed
+    }
+
+    Connections {
+        target: browser.currentWebview
+        onFullscreenChanged: {
+            if (!root.forceFullscreen) {
+                if (browser.currentWebview.fullscreen) {
+                    internal.currentWindowState = root.visibility
+                    root.visibility = Window.FullScreen
+                } else {
+                    root.visibility = internal.currentWindowState
+                }
+            }
+        }
+    }
 
     Loader {
         id: accountsPageComponentLoader
