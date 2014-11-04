@@ -41,7 +41,7 @@ LOCAL_BROWSER_CONTAINER_PATH_NAME = \
 
 class WebappContainerTestCaseBase(AutopilotTestCase):
     def setUp(self):
-        self.pointing_device = toolkit_emulators.get_pointing_device()
+        self.pointing_device = uitk.get_pointing_device()
         super(WebappContainerTestCaseBase, self).setUp()
 
     def get_webcontainer_app_path(self):
