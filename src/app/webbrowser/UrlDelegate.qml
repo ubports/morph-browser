@@ -31,6 +31,7 @@ ListItemWithActions {
 
     Row {
         anchors.verticalCenter: parent.verticalCenter
+        spacing: units.gu(1)
 
         UbuntuShape {
             id: iconContainer
@@ -44,9 +45,8 @@ ListItemWithActions {
         }
 
         Column {
-            width: parent.width - iconContainer.width
+            width: parent.width - iconContainer.width - parent.spacing
             height: parent.height
-            anchors { left: iconContainer.right; leftMargin: units.gu(1) }
 
             Label {
                 id: title
