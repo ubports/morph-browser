@@ -17,7 +17,6 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Layouts 1.0
 import Ubuntu.Components 1.1
 import ".."
 import "upstreamcomponents"
@@ -30,14 +29,13 @@ ListItemWithActions {
     property alias url: url.text
     color: "#f6f6f6"
 
-    RowLayout {
+    Row {
         anchors.verticalCenter: parent.verticalCenter
-        spacing: units.gu(1)
 
         UbuntuShape {
             id: iconContainer
-            Layout.maximumWidth: units.gu(3)
-            Layout.maximumHeight: units.gu(3)
+            width: units.gu(3)
+            height: width
 
             Favicon {
                 id: icon
@@ -46,7 +44,9 @@ ListItemWithActions {
         }
 
         Column {
-            Layout.fillWidth: true
+            width: parent.width - iconContainer.width
+            height: parent.height
+            anchors { left: iconContainer.right; leftMargin: units.gu(1) }
 
             Label {
                 id: title
