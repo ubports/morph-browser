@@ -137,15 +137,35 @@ WebViewImpl {
                 return
             }
 
-            var redirectionPatternMatch = url.match(popupRedirectionUrlPrefixPattern);
-            var isRedirectionUrl =
-                    popupRedirectionUrlPrefixPattern
-                    && redirectionPatternMatch
-                    && redirectionPatternMatch.length >= 2;
+            var isRedirectionUrl = false;
             var targetUrl = url;
+            if (popupRedirectionUrlPrefixPattern) {
+                // NOTE: very nasty workaround to be backward compatibility, will be deleted as soon
+                // as the FB webapp is updated.
+                if (popupRedirectionUrlPrefixPattern.indexOf('(') === -1) {
+                    isRedirectionUrl = (url.indexOf(popupRedirectionUrlPrefixPattern) === 0);
+                    targetUrl = isRedirectionUrl ?
+                                url.slice(popupRedirectionUrlPrefixPattern.length) : url;
+
+                    // Quick fix for http://pad.lv/1358622 (trim trailing parameters).
+                    var extraParams = targetUrl.indexOf("&");
+                    if (extraParams !== -1) {
+                        targetUrl = targetUrl.slice(0, extraParams);
+                    }
+                } else {
+                    var redirectionPatternMatch = url.match(popupRedirectionUrlPrefixPattern);
+                    isRedirectionUrl =
+                        popupRedirectionUrlPrefixPattern
+                        && redirectionPatternMatch
+                        && redirectionPatternMatch.length >= 2;
+
+                    // Assume that the first group is the matching one
+                    targetUrl = isRedirectionUrl ?
+                                redirectionPatternMatch[1] : url;
+                }
+            }
+
             if (isRedirectionUrl) {
-                // Assume that the first group is the matching one
-                targetUrl = redirectionPatternMatch[1];
                 console.debug("Got a redirection URL with target URL: " + targetUrl)
                 targetUrl = decodeURIComponent(targetUrl)
                 gotRedirectionUrl(targetUrl)

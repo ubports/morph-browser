@@ -1,3 +1,15 @@
+webbrowser-app (0.23+15.04.20141103.1-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * A Webapp has the option to either specify a command line option to
+    have a specific UA overriding the default or hgave a local webapp-
+    properties.json file that defines the UA override such as:
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 03 Nov 2014 18:44:00 +0000
+
 webbrowser-app (0.23+15.04.20141029.1-0ubuntu1) vivid; urgency=low
 
   [ CI bot ]
