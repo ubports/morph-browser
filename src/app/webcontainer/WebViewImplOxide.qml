@@ -34,6 +34,7 @@ WebViewImpl {
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
     property string popupRedirectionUrlPrefixPattern: ""
+    property url dataPath
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser
@@ -45,6 +46,10 @@ WebViewImpl {
     signal gotRedirectionUrl(string url)
 
     currentWebview: webview
+
+    context: WebContext {
+        dataPath: webview.dataPath
+    }
 
     contextualActions: ActionList {
         Actions.CopyLink {
