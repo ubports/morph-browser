@@ -143,8 +143,10 @@ ChromeBase {
             }
 
             onTriggered: {
-                internal.openDrawer = drawerComponent.createObject(chrome)
-                internal.openDrawer.opened = true
+                if (!internal.openDrawer) {
+                    internal.openDrawer = drawerComponent.createObject(chrome)
+                    internal.openDrawer.opened = true
+                }
             }
         }
     }

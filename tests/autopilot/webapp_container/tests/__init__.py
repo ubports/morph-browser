@@ -23,7 +23,7 @@ from autopilot.platform import model
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
-from ubuntuuitoolkit import emulators as toolkit_emulators
+import ubuntuuitoolkit as uitk
 from webapp_container.tests import fake_servers
 
 BASE_FILE_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -62,7 +62,7 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
             self.app = self.launch_test_application(
                 self.get_webcontainer_app_path(),
                 *args,
-                emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
+                emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
         except:
             self.app = None
 
