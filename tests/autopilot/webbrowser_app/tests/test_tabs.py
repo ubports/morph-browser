@@ -123,7 +123,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.open_new_tab()
         if model() != 'Desktop':
             self.focus_address_bar()
-        self.type_in_address_bar("htpp://invalid")
+        self.type_in_address_bar("http://invalid")
         self.keyboard.press_and_release("Enter")
         error = self.main_window.get_error_sheet()
         self.assertThat(error.visible, Eventually(Equals(True)))
