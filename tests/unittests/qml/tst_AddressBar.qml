@@ -260,5 +260,15 @@ Item {
             mouseClick(addressBar.actionButton, addressBar.actionButton.width / 2, addressBar.actionButton.height / 2)
             compare(addressBar.textField.selectedText, "")
         }
+
+        function test_state_changes() {
+            compare(addressBar.state, "editing")
+            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            compare(addressBar.state, "")
+            addressBar.loading = true
+            compare(addressBar.state, "loading")
+            addressBar.loading = false
+            compare(addressBar.state, "")
+        }
     }
 }
