@@ -39,8 +39,11 @@ FocusScope {
     property string searchUrl
     signal textFieldFocused()
 
+    // XXX: for testing purposes only, do not use to modify the
+    // contents/behaviour of the internals of the component.
     readonly property Item textField: textField
     readonly property Item actionButton: actionButton
+    readonly property Item bookmarkToggle: bookmarkToggle
 
     height: textField.height
 
@@ -302,6 +305,7 @@ FocusScope {
         }
 
         secondaryItem: Item {
+            id: bookmarkToggle
             objectName: "bookmarkToggle"
 
             height: textField.height

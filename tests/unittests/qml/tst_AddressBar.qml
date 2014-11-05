@@ -75,6 +75,7 @@ Item {
         when: windowShown
 
         function init() {
+            addressBar.actualUrl = ""
             validatedSpy.clear()
             // Ensure the address bar has active focus
             mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
@@ -269,6 +270,34 @@ Item {
             compare(addressBar.state, "loading")
             addressBar.loading = false
             compare(addressBar.state, "")
+        }
+
+        function test_cannot_bookmark_when_empty() {
+            // focused
+            var toggle = addressBar.bookmarkToggle
+            verify(!toggle.visible)
+            // and unfocused
+            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            verify(!toggle.visible)
+        }
+
+        function test_cannot_bookmark_while_focused() {
+            addressBar.actualUrl = "http://example.org"
+            var toggle = addressBar.bookmarkToggle
+            verify(!toggle.visible)
+            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            verify(toggle.visible)
+        }
+
+        function test_bookmark() {
+            addressBar.actualUrl = "http://example.org"
+            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            verify(!addressBar.bookmarked)
+            var toggle = addressBar.bookmarkToggle
+            mouseClick(toggle, toggle.width / 2, toggle.height /2)
+            verify(addressBar.bookmarked)
+            mouseClick(toggle, toggle.width / 2, toggle.height /2)
+            verify(!addressBar.bookmarked)
         }
     }
 }
