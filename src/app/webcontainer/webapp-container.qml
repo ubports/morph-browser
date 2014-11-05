@@ -43,7 +43,7 @@ BrowserWindow {
     property string localUserAgentOverride: ""
     property bool blockOpenExternalUrls: false
 
-    currentWebview: browser.currentWebview
+    currentWebview: webappViewLoader.item ? webappViewLoader.item.currentWebview : null
 
     title: getWindowTitle()
 
@@ -247,9 +247,7 @@ BrowserWindow {
 
     function updateBrowserUrl(url) {
         root.url = url;
-        if (browser.currentWebview) {
-            browser.currentWebview.url = url;
-        }
+        currentWebview.url = url;
     }
 
     // Handle runtime requests to open urls as defined
@@ -262,7 +260,7 @@ BrowserWindow {
         target: UriHandler
         onOpened: {
             // only consider the first one (if multiple)
-            if (uris.length === 0 || !browser.currentWebview) {
+            if (uris.length === 0 || !root.currentWebview) {
                 return;
             }
             var requestedUrl = uris[0].toString();
