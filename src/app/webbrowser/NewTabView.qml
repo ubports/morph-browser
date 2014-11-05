@@ -50,14 +50,6 @@ Item {
         }
     }
 
-    onBookmarkRemoved: {
-        // Here the last bookmark hasn't been removed yet, because the signal
-        // has to be propagated in parent.
-        if (bookmarksListModel.count === 1) {
-            sectionsModel.remove({ section: "bookmarks" });
-        }
-    }
-
     LimitProxyModel {
         id: bookmarksListModel
 
