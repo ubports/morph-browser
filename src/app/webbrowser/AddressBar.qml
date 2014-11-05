@@ -456,7 +456,7 @@ FocusScope {
     }
 
     onActualUrlChanged: {
-        if ((state != "editing") && (actualUrl.toString().length > 0)) {
+        if (state != "editing") {
             text = internal.simplifyUrl(actualUrl)
         }
     }

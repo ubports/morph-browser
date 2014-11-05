@@ -445,7 +445,7 @@ BrowserView {
             onNewViewRequested: {
                 var tab = tabComponent.createObject(tabContainer, {"request": request})
                 var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
-                internal.addTab(tab, setCurrent, false)
+                internal.addTab(tab, setCurrent)
             }
 
             onLoadingChanged: {
@@ -471,10 +471,12 @@ BrowserView {
                         historyModel: browser.historyModel
                         bookmarksModel: browser.bookmarksModel
                         onBookmarkClicked: {
+                            chrome.requestedUrl = url
                             currentWebview.url = url
                             currentWebview.forceActiveFocus()
                         }
                         onHistoryEntryClicked: {
+                            chrome.requestedUrl = url
                             currentWebview.url = url
                             currentWebview.forceActiveFocus()
                         }
@@ -493,14 +495,11 @@ BrowserView {
     QtObject {
         id: internal
 
-        function addTab(tab, setCurrent, focusAddressBar) {
+        function addTab(tab, setCurrent) {
             var index = tabsModel.add(tab)
             if (setCurrent) {
                 tabsModel.setCurrent(index)
                 chrome.requestedUrl = tab.initialUrl
-                if (focusAddressBar) {
-                    internal.focusAddressBar()
-                }
             }
             tab.preview = previewComponent.createObject(previewsContainer, {tab: tab})
         }
@@ -514,9 +513,12 @@ BrowserView {
     function openUrlInNewTab(url, setCurrent, load) {
         load = typeof load !== 'undefined' ? load : true
         var tab = tabComponent.createObject(tabContainer, {"initialUrl": url})
-        internal.addTab(tab, setCurrent, !url.toString() && (formFactor == "desktop"))
+        internal.addTab(tab, setCurrent)
         if (load) {
             tabsModel.currentTab.load()
+        }
+        if (!url.toString() && (formFactor == "desktop")) {
+            internal.focusAddressBar()
         }
     }
 
@@ -552,7 +554,7 @@ BrowserView {
                 if (tabs) {
                     for (var i = 0; i < Math.min(tabs.length, browser.maxTabsToRestore); ++i) {
                         var tab = createTabFromState(tabs[i])
-                        internal.addTab(tab, i == 0, false)
+                        internal.addTab(tab, i == 0)
                     }
                 }
             }
