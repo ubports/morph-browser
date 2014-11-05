@@ -37,7 +37,6 @@ FocusScope {
     signal requestReload()
     signal requestStop()
     property string searchUrl
-    signal textFieldFocused()
 
     // XXX: for testing purposes only, do not use to modify the
     // contents/behaviour of the internals of the component.
@@ -349,9 +348,7 @@ FocusScope {
         onAccepted: if (addressbar.state != "") internal.validate()
 
         onActiveFocusChanged: {
-            if (activeFocus) {
-                addressbar.textFieldFocused()
-            } else if (!addressbar.loading && addressbar.actualUrl.toString()) {
+            if (!activeFocus && !addressbar.loading && addressbar.actualUrl.toString()) {
                 text = internal.simplifyUrl(addressbar.actualUrl)
             }
         }
