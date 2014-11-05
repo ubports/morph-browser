@@ -1,3 +1,22 @@
+webbrowser-app (0.23+15.04.20141104.1-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Riccardo Padovani ]
+  * Added new upstream components to fit with design requests: multiple
+    selection in History, standard swipe-to-delete. (LP: #1351167)
+
+  [ Olivier Tilloy ]
+  * Do not use a custom scheme to trigger the error page, this won’t
+    work any longer as soon as oxide learns how to delegate unhandled
+    schemes (see https://launchpad.net/bugs/1384460). (LP: #1384460)
+  * Ensure that the 'dataLocation' context property is updated when the
+    application name changes. (LP: #1387754)
+  * Really honour the --fullscreen command-line switch. (LP: #1379766)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 04 Nov 2014 15:22:49 +0000
+
 webbrowser-app (0.23+15.04.20141103.1-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]

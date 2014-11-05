@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-22 14:59+0100\n"
+"POT-Creation-Date: 2014-10-15 21:44+0200\n"
 "PO-Revision-Date: 2014-09-29 12:51+0000\n"
 "Last-Translator: Damir Jerovšek <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2014-09-30 07:01+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-11-05 07:02+0000\n"
+"X-Generator: Launchpad (build 17223)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -446,23 +446,29 @@ msgstr "Katerega izvaja"
 msgid "search or enter an address"
 msgstr "poiščite ali vnesite naslov"
 
-#: src/app/webbrowser/Browser.qml:179
+#: src/app/webbrowser/Browser.qml:190
 msgid "Share"
 msgstr "Deli"
 
-#: src/app/webbrowser/Browser.qml:193
+#: src/app/webbrowser/Browser.qml:204
 msgid "History"
 msgstr "Zgodovina"
 
-#: src/app/webbrowser/Browser.qml:200
+#: src/app/webbrowser/Browser.qml:211
 msgid "Open tabs"
 msgstr "Odpri zavihke"
 
-#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Nov zavihek"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:107
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -471,7 +477,7 @@ msgstr[1] "%1 stran"
 msgstr[2] "%1 strani"
 msgstr[3] "%1 strani"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:121
+#: src/app/webbrowser/ExpandedHistoryView.qml:194
 msgid "Less"
 msgstr "Manj"
 
@@ -483,25 +489,9 @@ msgstr "Nazadnje obiskano"
 msgid "Yesterday"
 msgstr "Včeraj"
 
-#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr "Končano"
-
-#: src/app/webbrowser/HistoryView.qml:113
-msgid "Clear"
-msgstr "Počisti"
-
-#: src/app/webbrowser/HistoryView.qml:127
-msgid "Delete all history?"
-msgstr "Izbris vse zgodovine?"
-
-#: src/app/webbrowser/HistoryView.qml:130
-msgid "Yes"
-msgstr "Da"
-
-#: src/app/webbrowser/HistoryView.qml:139
-msgid "No"
-msgstr "Ne"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -523,31 +513,31 @@ msgstr "oglejte si več"
 msgid "Tap to view"
 msgstr "Tapnite za pogled"
 
-#: src/app/webbrowser/TabsView.qml:115
+#: src/app/webbrowser/TabsView.qml:114
 msgid "Add"
 msgstr "Dodaj"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:60
+#: src/app/webcontainer/webapp-container.qml:59
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Spletni brskalnik Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webcontainer/webapp-container.qml:61
 msgid "Ubuntu Web Browser"
 msgstr "Spletni brskalnik Ubuntu"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:87
+#: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
 msgstr "Ni najdenih krajevnih računov za "
 
-#: src/app/webcontainer/AccountsLoginPage.qml:92
+#: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
 msgstr "Preskoči korak ustvarjanja računa"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:141
+#: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
 msgstr "Dodaj račun"
 
@@ -570,3 +560,15 @@ msgstr "Brskajte po svetovnem spletu"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Brskalnik;Splet;Explorer"
+
+#~ msgid "Clear"
+#~ msgstr "Počisti"
+
+#~ msgid "No"
+#~ msgstr "Ne"
+
+#~ msgid "Yes"
+#~ msgstr "Da"
+
+#~ msgid "Delete all history?"
+#~ msgstr "Izbris vse zgodovine?"

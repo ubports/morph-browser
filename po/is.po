@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-22 14:59+0100\n"
+"POT-Creation-Date: 2014-10-15 21:44+0200\n"
 "PO-Revision-Date: 2014-10-05 08:44+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-10-06 06:58+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-11-05 07:01+0000\n"
+"X-Generator: Launchpad (build 17223)\n"
 "Language: is\n"
 
 #: src/app/AlertDialog.qml:23
@@ -408,30 +408,36 @@ msgstr ""
 msgid "search or enter an address"
 msgstr "leita eða slá inn netfang"
 
-#: src/app/webbrowser/Browser.qml:179
+#: src/app/webbrowser/Browser.qml:190
 msgid "Share"
 msgstr "Deila"
 
-#: src/app/webbrowser/Browser.qml:193
+#: src/app/webbrowser/Browser.qml:204
 msgid "History"
 msgstr "Ferill"
 
-#: src/app/webbrowser/Browser.qml:200
+#: src/app/webbrowser/Browser.qml:211
 msgid "Open tabs"
 msgstr "Opna flipa"
 
-#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Nýr flipi"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:107
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 síða"
 msgstr[1] "%1 síður"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:121
+#: src/app/webbrowser/ExpandedHistoryView.qml:194
 msgid "Less"
 msgstr "Minna"
 
@@ -443,25 +449,9 @@ msgstr "Síðast heimsótt"
 msgid "Yesterday"
 msgstr "Í gær"
 
-#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr "Lokið"
-
-#: src/app/webbrowser/HistoryView.qml:113
-msgid "Clear"
-msgstr "Hreinsa"
-
-#: src/app/webbrowser/HistoryView.qml:127
-msgid "Delete all history?"
-msgstr "Eyða öllum ferli?"
-
-#: src/app/webbrowser/HistoryView.qml:130
-msgid "Yes"
-msgstr "Já"
-
-#: src/app/webbrowser/HistoryView.qml:139
-msgid "No"
-msgstr "Nei"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -483,31 +473,31 @@ msgstr "sjá meira"
 msgid "Tap to view"
 msgstr "Sláðu á til að skoða"
 
-#: src/app/webbrowser/TabsView.qml:115
+#: src/app/webbrowser/TabsView.qml:114
 msgid "Add"
 msgstr "Bæta við"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:60
+#: src/app/webcontainer/webapp-container.qml:59
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu netvafri"
 
 #: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webcontainer/webapp-container.qml:61
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu netvafri"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:87
+#: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
 msgstr ""
 
-#: src/app/webcontainer/AccountsLoginPage.qml:92
+#: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
 msgstr "Sleppa því að búa til aðgang"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:141
+#: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
 msgstr "Bæta við aðgangi"
 
@@ -530,3 +520,15 @@ msgstr "Vafra um veraldarvefinn"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr ""
+
+#~ msgid "Clear"
+#~ msgstr "Hreinsa"
+
+#~ msgid "No"
+#~ msgstr "Nei"
+
+#~ msgid "Yes"
+#~ msgstr "Já"
+
+#~ msgid "Delete all history?"
+#~ msgstr "Eyða öllum ferli?"

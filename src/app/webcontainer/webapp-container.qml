@@ -17,16 +17,14 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.1
 import Ubuntu.Components 1.1
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import webcontainer.private 0.1
+import ".."
 
-Window {
+BrowserWindow {
     id: root
     objectName: "webappContainer"
-
-    property bool developerExtrasEnabled: false
 
     property bool backForwardButtonsVisible: true
     property bool chromeVisible: true
@@ -45,10 +43,7 @@ Window {
     property string localUserAgentOverride: ""
     property bool blockOpenExternalUrls: false
 
-    contentOrientation: Screen.orientation
-
-    width: 800
-    height: 600
+    currentWebview: browser.currentWebview
 
     title: getWindowTitle()
 
@@ -124,10 +119,6 @@ Window {
             }
         }
     }
-
-    visibility: webappViewLoader.item &&
-                webappViewLoader.item.currentWebview &&
-                webappViewLoader.item.currentWebview.fullscreen ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
         id: accountsPageComponentLoader
@@ -284,4 +275,3 @@ Window {
         }
     }
 }
-

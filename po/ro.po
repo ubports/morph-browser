@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-22 14:59+0100\n"
+"POT-Creation-Date: 2014-10-15 21:44+0200\n"
 "PO-Revision-Date: 2014-09-28 17:52+0000\n"
 "Last-Translator: Drago S. <Unknown>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2014-09-29 05:16+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-11-05 07:02+0000\n"
+"X-Generator: Launchpad (build 17223)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -447,23 +447,29 @@ msgstr "Care este rulat de"
 msgid "search or enter an address"
 msgstr "căutați sau introduceți o adresă"
 
-#: src/app/webbrowser/Browser.qml:179
+#: src/app/webbrowser/Browser.qml:190
 msgid "Share"
 msgstr "Partajare"
 
-#: src/app/webbrowser/Browser.qml:193
+#: src/app/webbrowser/Browser.qml:204
 msgid "History"
 msgstr "Istoric"
 
-#: src/app/webbrowser/Browser.qml:200
+#: src/app/webbrowser/Browser.qml:211
 msgid "Open tabs"
 msgstr "File deschise"
 
-#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Filă nouă"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:107
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -471,7 +477,7 @@ msgstr[0] "%1 pagină"
 msgstr[1] "%1 pagini"
 msgstr[2] "%1 de pagini"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:121
+#: src/app/webbrowser/ExpandedHistoryView.qml:194
 msgid "Less"
 msgstr "Mai puțin"
 
@@ -483,25 +489,9 @@ msgstr "Ultima vizită"
 msgid "Yesterday"
 msgstr "Ieri"
 
-#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr "Finalizat"
-
-#: src/app/webbrowser/HistoryView.qml:113
-msgid "Clear"
-msgstr "Șterge"
-
-#: src/app/webbrowser/HistoryView.qml:127
-msgid "Delete all history?"
-msgstr "Ștergeți tot istoricul?"
-
-#: src/app/webbrowser/HistoryView.qml:130
-msgid "Yes"
-msgstr "Da"
-
-#: src/app/webbrowser/HistoryView.qml:139
-msgid "No"
-msgstr "Nu"
 
 #: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
@@ -523,31 +513,31 @@ msgstr "arată mai mult"
 msgid "Tap to view"
 msgstr "Apăsați pentru vizualizare"
 
-#: src/app/webbrowser/TabsView.qml:115
+#: src/app/webbrowser/TabsView.qml:114
 msgid "Add"
 msgstr "Adaugă"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:60
+#: src/app/webcontainer/webapp-container.qml:59
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navigatorul web Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webcontainer/webapp-container.qml:61
 msgid "Ubuntu Web Browser"
 msgstr "Navigatorul web Ubuntu"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:87
+#: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
 msgstr "Nu a fost găsit nici un cont local pentru "
 
-#: src/app/webcontainer/AccountsLoginPage.qml:92
+#: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
 msgstr "Omite pasul de creare a contului"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:141
+#: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
 msgstr "Adaugă cont"
 
@@ -570,3 +560,15 @@ msgstr "Navigați pe Internet"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Browser;Web;Explorer;Navigator"
+
+#~ msgid "Delete all history?"
+#~ msgstr "Ștergeți tot istoricul?"
+
+#~ msgid "Clear"
+#~ msgstr "Șterge"
+
+#~ msgid "Yes"
+#~ msgstr "Da"
+
+#~ msgid "No"
+#~ msgstr "Nu"
