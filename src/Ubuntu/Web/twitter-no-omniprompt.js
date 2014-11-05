@@ -17,7 +17,7 @@
  */
 
 // ==UserScript==
-// @include https://mobile.twitter.com/
+// @include https://mobile.twitter.com/*
 // ==/UserScript==
 
 // Ensure that the twitter mobile site never shows its "omniprompt" header,
@@ -26,4 +26,9 @@
 
 if (document.body) {
     document.body.classList.add("no-omniprompt");
+}
+
+var androidPrompt = document.querySelector(".client-prompt");
+if (androidPrompt) {
+	androidPrompt.style.display = "none";
 }

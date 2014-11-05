@@ -169,6 +169,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     m_webbrowserWindowProxy->setWindow(m_window);
 
     browser->setProperty("developerExtrasEnabled", inspectorEnabled);
+    browser->setProperty("forceFullscreen", m_arguments.contains("--fullscreen"));
 
     return true;
 }

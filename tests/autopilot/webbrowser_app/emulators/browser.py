@@ -14,10 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from ubuntuuitoolkit import emulators as uitk
+import ubuntuuitoolkit as uitk
 
 
-class AddressBar(uitk.UbuntuUIToolkitEmulatorBase):
+class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_text_field(self):
         return self.select_single("TextField")
@@ -32,7 +32,7 @@ class AddressBar(uitk.UbuntuUIToolkitEmulatorBase):
         return self.select_single("QQuickItem", objectName="bookmarkToggle")
 
 
-class Chrome(uitk.UbuntuUIToolkitEmulatorBase):
+class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_address_bar(self):
         return self.select_single(AddressBar)
@@ -55,7 +55,7 @@ class Chrome(uitk.UbuntuUIToolkitEmulatorBase):
         return drawer.select_single("AbstractButton", objectName=actionName)
 
 
-class Suggestions(uitk.UbuntuUIToolkitEmulatorBase):
+class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_list(self):
         return self.select_single("QQuickListView")
@@ -64,7 +64,7 @@ class Suggestions(uitk.UbuntuUIToolkitEmulatorBase):
         return self.get_list().select_many("Base")
 
 
-class GeolocationPermissionRequest(uitk.UbuntuUIToolkitEmulatorBase):
+class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_deny_button(self):
         return self.select_single("Button", objectName="deny")
@@ -73,7 +73,7 @@ class GeolocationPermissionRequest(uitk.UbuntuUIToolkitEmulatorBase):
         return self.select_single("Button", objectName="allow")
 
 
-class Selection(uitk.UbuntuUIToolkitEmulatorBase):
+class Selection(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_rectangle(self):
         return self.select_single("QQuickItem", objectName="rectangle")
@@ -82,13 +82,13 @@ class Selection(uitk.UbuntuUIToolkitEmulatorBase):
         return self.select_single("SelectionHandle", objectName=name)
 
 
-class TabPreview(uitk.UbuntuUIToolkitEmulatorBase):
+class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_close_button(self):
         return self.select_single("AbstractButton", objectName="closeButton")
 
 
-class TabsView(uitk.UbuntuUIToolkitEmulatorBase):
+class TabsView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_previews(self):
         return self.select_many(TabPreview)
@@ -105,7 +105,7 @@ class TabsView(uitk.UbuntuUIToolkitEmulatorBase):
         return self.select_single("ToolbarAction", objectName="addTabButton")
 
 
-class Browser(uitk.UbuntuUIToolkitEmulatorBase):
+class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_window(self):
         return self.get_parent()

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-09-22 14:59+0100\n"
-"PO-Revision-Date: 2014-08-22 17:58+0000\n"
+"PO-Revision-Date: 2014-10-28 14:09+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-27 06:26+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-10-30 06:33+0000\n"
+"X-Generator: Launchpad (build 17203)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -443,7 +443,7 @@ msgstr "Que está dirixido por"
 
 #: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"
-msgstr "buscar ou introducir un enderezo"
+msgstr "Buscar ou introducir un enderezo"
 
 #: src/app/webbrowser/Browser.qml:179
 msgid "Share"

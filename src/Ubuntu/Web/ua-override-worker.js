@@ -42,9 +42,9 @@ exports.onBeforeSendHeaders = function(event) {
     }
 }
 
-exports.onGetUserAgentOverride = function(data) {
+exports.onGetUserAgentOverride = function(event) {
     var override = getUAoverride(event.url);
     if (override !== null) {
-        data.userAgentOverride = override;
+        event.userAgentOverride = override;
     }
 }

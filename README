@@ -21,12 +21,12 @@ To do that, just pass this additional parameter to cmake:
 webbrowser-app can be run from the development branch without the need to
 install any files. Just run:
 
-    $ ./src/app/webbrowser-app
+    $ ./src/app/webbrowser/webbrowser-app
 
 The executable accepts command line switches and parameters. To find out which,
 just run:
 
-    $ ./src/app/webbrowser-app --help
+    $ ./src/app/webbrowser/webbrowser-app --help
 
 
 = Unit tests =

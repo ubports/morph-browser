@@ -17,16 +17,14 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Window 2.1
 import Ubuntu.Components 1.1
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import webcontainer.private 0.1
+import ".."
 
-Window {
+BrowserWindow {
     id: root
     objectName: "webappContainer"
-
-    property bool developerExtrasEnabled: false
 
     property bool backForwardButtonsVisible: true
     property bool chromeVisible: true
@@ -39,15 +37,13 @@ Window {
     property var webappUrlPatterns
     property bool oxide: false
     property string accountProvider: ""
-    property string popupRedirectionUrlPrefix: ""
+    property string popupRedirectionUrlPrefixPattern: ""
     property url webviewOverrideFile: ""
     property var __webappCookieStore: null
     property string localUserAgentOverride: ""
+    property bool blockOpenExternalUrls: false
 
-    contentOrientation: Screen.orientation
-
-    width: 800
-    height: 600
+    currentWebview: browser.currentWebview
 
     title: getWindowTitle()
 
@@ -77,10 +73,12 @@ Window {
         oxide: root.oxide
         webappModelSearchPath: root.webappModelSearchPath
         webappUrlPatterns: root.webappUrlPatterns
+        blockOpenExternalUrls: root.blockOpenExternalUrls
 
-        localUserAgentOverride: root.localUserAgentOverride
+        popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
 
-        popupRedirectionUrlPrefix: root.popupRedirectionUrlPrefix
+        localUserAgentOverride: getLocalUserAgentOverrideIfAny()
+
         webviewOverrideFile: root.webviewOverrideFile
 
         anchors.fill: parent
@@ -102,19 +100,27 @@ Window {
         Component.onCompleted: i18n.domain = "webbrowser-app"
     }
 
+    function getLocalUserAgentOverrideIfAny() {
+        if (localUserAgentOverride.length !== 0)
+            return localUserAgentOverride
+
+        if (webappName && webappModel.exists(webappName))
+            return webappModel.userAgentOverrideFor(webappName)
+
+        return ""
+    }
+
     UnityWebApps.UnityWebappsAppModel {
         id: webappModel
         searchPath: root.webappModelSearchPath
 
         onModelContentChanged: {
-            if (root.webappName) {
+            if (root.webappName && root.url.length === 0) {
                 var idx = webappModel.getWebappIndex(root.webappName)
                 root.url = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Homepage)
             }
         }
     }
-
-    visibility: browser.currentWebview && browser.currentWebview.fullscreen ? Window.FullScreen : Window.AutomaticVisibility
 
     Loader {
         id: accountsPageComponentLoader
@@ -185,8 +191,22 @@ Window {
         browser.visible = true;
         if (browser.currentWebview) {
             browser.currentWebview.visible = true;
-            browser.currentWebview.url = root.url
-            browser.webappName = root.webappName
+            browser.webappName = root.webappName;
+
+            // As we use StateSaver to restore the URL, we need to check first if
+            // it has not been set previously before setting the URL to the default property 
+            // homepage.
+            var current_url = browser.currentWebview.url.toString();
+            if (!current_url || current_url.length === 0) {
+                browser.currentWebview.url = root.url;
+            }
+        }
+    }
+
+    function updateBrowserUrl(url) {
+        root.url = url;
+        if (browser.currentWebview) {
+            browser.currentWebview.url = url;
         }
     }
 
@@ -205,12 +225,11 @@ Window {
             }
             var requestedUrl = uris[0].toString();
 
-            if (popupRedirectionUrlPrefix.length !== 0
-                    && requestedUrl.indexOf(popupRedirectionUrlPrefix) === 0) {
+            if (popupRedirectionUrlPrefixPattern.length !== 0
+                    && requestedUrl.match(popupRedirectionUrlPrefixPattern)) {
                 return;
             }
-            browser.currentWebview.url = requestedUrl;
+            updateBrowserUrl(requestedUrl);
         }
     }
 }
-
