@@ -245,11 +245,6 @@ BrowserWindow {
         webappViewLoader.sourceComponent = webappViewComponent
     }
 
-    function updateBrowserUrl(url) {
-        root.url = url;
-        currentWebview.url = url;
-    }
-
     // Handle runtime requests to open urls as defined
     // by the freedesktop application dbus interface's open
     // method for DBUS application activation:
@@ -269,7 +264,9 @@ BrowserWindow {
                     && requestedUrl.match(popupRedirectionUrlPrefixPattern)) {
                 return;
             }
-            updateBrowserUrl(requestedUrl);
+
+            root.url = requestedUrl
+            root.currentWebview.url = requestedUrl
         }
     }
 }
