@@ -84,7 +84,7 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
     def get_oxide_webview(self):
         container = self.get_webview().select_single(
             objectName='containerWebviewLoader')
-        return container.select_single('WebViewImplOxide')
+        return container.wait_select_single('WebViewImplOxide')
 
     def assert_page_eventually_loaded(self, url):
         webview = self.get_oxide_webview()
