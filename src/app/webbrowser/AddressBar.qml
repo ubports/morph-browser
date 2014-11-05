@@ -456,9 +456,13 @@ FocusScope {
     }
 
     onActualUrlChanged: {
-        if (actualUrl.toString().length > 0) {
+        if ((state != "editing") && (actualUrl.toString().length > 0)) {
             text = internal.simplifyUrl(actualUrl)
         }
     }
-    onRequestedUrlChanged: text = internal.simplifyUrl(requestedUrl)
+    onRequestedUrlChanged: {
+        if (state != "editing") {
+            text = internal.simplifyUrl(requestedUrl)
+        }
+    }
 }

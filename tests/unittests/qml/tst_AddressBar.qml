@@ -199,27 +199,56 @@ Item {
 
         function test_simplify_data() {
             return [
-                {text: "ubuntu.com", url: "http://www.ubuntu.com"},
-                {text: "ubuntu.com", url: "http://www.ubuntu.com/"},
-                {text: "ubuntu.com", url: "http://www.ubuntu.com:80"},
-                {text: "ubuntuwww.com", url: "http://www.ubuntuwww.com"},
-                {text: "www.com", url: "http://www.com"},
-                {text: "ubuntu.com", url: "http://user@www.ubuntu.com"},
-                {text: "ubuntu.com", url: "http://user:password@www.ubuntu.com"},
-                {text: "ubuntu.com", url: "http://user:password@www.ubuntu.com:80"},
-                {text: "file:///home/phablet/", url: "file:///home/phablet/"},
-                {text: "en.wikipedia.org", url: "http://en.wikipedia.org/wiki/Ubuntu"},
-                {text: "en.wikipedia.org", url: "en.wikipedia.org"},
-                {text: "en.wikipedia.org", url: "en.wikipedia.org/wiki/Foo"}
+                {input: "http://www.ubuntu.com",
+                 simplified: "ubuntu.com",
+                 actualUrl: "http://www.ubuntu.com"},
+                {input: "http://www.ubuntu.com/",
+                 simplified: "ubuntu.com",
+                 actualUrl: "http://www.ubuntu.com/"},
+                {input: "http://www.ubuntu.com:80",
+                 simplified: "ubuntu.com",
+                 actualUrl: "http://www.ubuntu.com:80"},
+                {input: "http://www.ubuntuwww.com",
+                 simplified: "ubuntuwww.com",
+                 actualUrl: "http://www.ubuntuwww.com"},
+                {input: "http://www.com",
+                 simplified: "www.com",
+                 actualUrl: "http://www.com"},
+                {input: "http://user@www.ubuntu.com",
+                 simplified: "ubuntu.com",
+                 actualUrl: "http://user@www.ubuntu.com"},
+                {input: "http://user:password@www.ubuntu.com",
+                 simplified: "ubuntu.com",
+                 actualUrl: "http://user:password@www.ubuntu.com"},
+                {input: "http://user:password@www.ubuntu.com:80",
+                 simplified: "ubuntu.com",
+                 actualUrl: "http://user:password@www.ubuntu.com:80"},
+                {input: "file:///home/phablet/",
+                 simplified: "file:///home/phablet/",
+                 actualUrl: "file:///home/phablet/"},
+                {input: "http://en.wikipedia.org/wiki/Ubuntu",
+                 simplified: "en.wikipedia.org",
+                 actualUrl: "http://en.wikipedia.org/wiki/Ubuntu"},
+                {input: "en.wikipedia.org",
+                 simplified: "en.wikipedia.org",
+                 actualUrl: "http://en.wikipedia.org"},
+                {input: "en.wikipedia.org/wiki/Foo",
+                 simplified: "en.wikipedia.org",
+                 actualUrl: "http://en.wikipedia.org/wiki/Foo"}
             ]
         }
 
         function test_simplify(data) {
-            typeString(data.url)
-            compare(addressBar.text, data.url)
+            typeString(data.input)
+            compare(addressBar.text, data.input)
             keyClick(Qt.Key_Return)
             validatedSpy.wait()
-            compare(addressBar.text, data.text)
+            addressBar.actualUrl = addressBar.requestedUrl
+            compare(addressBar.text, data.input)
+            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            compare(addressBar.text, data.simplified)
+            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
+            compare(addressBar.text, data.actualUrl)
         }
 
         function test_action_button() {
