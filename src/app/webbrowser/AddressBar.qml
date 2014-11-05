@@ -348,7 +348,9 @@ FocusScope {
         onAccepted: if (addressbar.state != "") internal.validate()
 
         onActiveFocusChanged: {
-            if (!activeFocus && !addressbar.loading && addressbar.actualUrl.toString()) {
+            if (activeFocus) {
+                text = addressbar.actualUrl
+            } else if (!addressbar.loading && addressbar.actualUrl.toString()) {
                 text = internal.simplifyUrl(addressbar.actualUrl)
             }
         }

@@ -233,6 +233,7 @@ Item {
             var url = "http://example.org/"
             typeString(url)
             compare(addressBar.text, url)
+            addressBar.actualUrl = url
             mouseClick(textInput, textInput.width / 2, textInput.height / 2)
             verify(!addressBar.activeFocus)
             mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
@@ -243,6 +244,7 @@ Item {
             var url = "http://example.org/"
             typeString(url)
             compare(addressBar.text, url)
+            addressBar.actualUrl = url
             mouseClick(textInput, textInput.width / 2, textInput.height / 2)
             verify(!addressBar.activeFocus)
             mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)

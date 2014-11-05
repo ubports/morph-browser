@@ -109,12 +109,6 @@ ChromeBase {
             onRequestReload: chrome.webview.reload()
             onRequestStop: chrome.webview.stop()
 
-            onActiveFocusChanged: {
-                if (activeFocus && chrome.webview) {
-                    text = chrome.webview.url
-                }
-            }
-
             Connections {
                 target: chrome.webview
                 onUrlChanged: {
