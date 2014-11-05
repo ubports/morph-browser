@@ -38,15 +38,6 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         self.keyboard.press_and_release("Enter")
         self.assertThat(address_bar.state, Eventually(Equals("")))
 
-    def test_url_reset_when_unfocused(self):
-        address_bar = self.main_window.get_chrome().get_address_bar()
-        self.assertThat(address_bar.text, Eventually(Equals(self.domain)))
-        self.clear_address_bar()
-        self.assertThat(address_bar.text, Eventually(Equals("")))
-        webview = self.main_window.get_current_webview()
-        self.pointing_device.click_object(webview)
-        self.assertThat(address_bar.text, Eventually(Equals(self.domain)))
-
     def test_looses_focus_when_loading_starts(self):
         address_bar = self.main_window.get_chrome().get_address_bar()
         self.pointing_device.click_object(address_bar)

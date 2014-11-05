@@ -330,5 +330,20 @@ Item {
             mouseClick(toggle, toggle.width / 2, toggle.height /2)
             verify(!addressBar.bookmarked)
         }
+
+        function test_url_reset_when_unfocused() {
+            var url = "http://example.org/"
+            typeString(url)
+            compare(addressBar.text, url)
+            addressBar.actualUrl = url
+            var clearButton = addressBar.get_clear_button()
+            verify(clearButton != null)
+            mouseClick(clearButton, clearButton.width / 2, clearButton.height / 2)
+            compare(addressBar.text, "")
+            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            compare(addressBar.text, "example.org")
+            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
+            compare(addressBar.text, url)
+        }
     }
 }
