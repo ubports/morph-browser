@@ -20,8 +20,10 @@ import subprocess
 
 from autopilot.testcase import AutopilotTestCase
 from autopilot.platform import model
+from testtools.matchers import Equals
+from autopilot.matchers import Eventually
 
-from ubuntuuitoolkit import emulators as toolkit_emulators
+import ubuntuuitoolkit as uitk
 from webapp_container.tests import fake_servers
 
 BASE_FILE_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -38,21 +40,29 @@ LOCAL_BROWSER_CONTAINER_PATH_NAME = \
 
 
 class WebappContainerTestCaseBase(AutopilotTestCase):
+    def setUp(self):
+        self.pointing_device = toolkit_emulators.get_pointing_device()
+        super(WebappContainerTestCaseBase, self).setUp()
+
     def get_webcontainer_app_path(self):
         if os.path.exists(LOCAL_BROWSER_CONTAINER_PATH_NAME):
             return LOCAL_BROWSER_CONTAINER_PATH_NAME
         return INSTALLED_BROWSER_CONTAINER_PATH_NAME
 
-    def launch_webcontainer_app(self, args):
+    def launch_webcontainer_app(self, args, envvars={}):
         if model() != 'Desktop':
             args.append(
                 '--desktop_file_hint=/usr/share/applications/'
                 'webbrowser-app.desktop')
+        if envvars:
+            for envvar_key in envvars:
+                self.patch_environment(envvar_key, envvars[envvar_key])
+
         try:
             self.app = self.launch_test_application(
                 self.get_webcontainer_app_path(),
                 *args,
-                emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
+                emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
         except:
             self.app = None
 
@@ -68,15 +78,43 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
     def get_webcontainer_chrome(self):
         return self.app.select_single("Chrome")
 
+    def get_webview(self):
+        return self.app.select_single(objectName="webview")
+
+    def get_oxide_webview(self):
+        container = self.get_webview().select_single(
+            objectName='containerWebviewLoader')
+        return container.select_single('WebViewImplOxide')
+
+    def assert_page_eventually_loaded(self, url):
+        webview = self.get_oxide_webview()
+        self.assertThat(webview.url, Eventually(Equals(url)))
+        # loadProgress == 100 ensures that a page has actually loaded
+        self.assertThat(webview.loadProgress,
+                        Eventually(Equals(100), timeout=20))
+        self.assertThat(webview.loading, Eventually(Equals(False)))
+
+    def browse_to(self, url):
+        webview = self.get_oxide_webview()
+        webview.url = url
+        self.assert_page_eventually_loaded(url)
+
 
 class WebappContainerTestCaseWithLocalContentBase(WebappContainerTestCaseBase):
+    BASE_URL_SCHEME = 'http://'
+
     def setUp(self):
         super(WebappContainerTestCaseWithLocalContentBase, self).setUp()
         self.http_server = fake_servers.WebappContainerContentHttpServer()
         self.addCleanup(self.http_server.shutdown)
-        self.base_url = "http://localhost:{}".format(self.http_server.port)
+        self.base_url = "{}localhost:{}".format(
+            self.BASE_URL_SCHEME, self.http_server.port)
 
-    def launch_webcontainer_app_with_local_http_server(self, args, path='/'):
+    def get_base_url_hostname(self):
+        return self.base_url[len(self.BASE_URL_SCHEME):]
+
+    def launch_webcontainer_app_with_local_http_server(
+            self, args, path='/', envvars={}):
         self.url = self.base_url + path
         args.append(self.url)
-        self.launch_webcontainer_app(args)
+        self.launch_webcontainer_app(args, envvars)

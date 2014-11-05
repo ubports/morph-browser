@@ -36,9 +36,10 @@ BrowserView {
     property alias oxide: webview.withOxide
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
-    property alias popupRedirectionUrlPrefix: webview.popupRedirectionUrlPrefix
+    property alias popupRedirectionUrlPrefixPattern: webview.popupRedirectionUrlPrefixPattern
     property alias webviewOverrideFile: webview.webviewOverrideFile
-    property string localUserAgentOverride: ""
+    property alias blockOpenExternalUrls: webview.blockOpenExternalUrls
+    property alias localUserAgentOverride: webview.localUserAgentOverride
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
@@ -58,21 +59,13 @@ BrowserView {
         }
     ]
 
-    function getLocalUserAgentOverrideIfAny() {
-        if (localUserAgentOverride.length !== 0)
-            return localUserAgentOverride
-
-        if (webappName && unityWebapps.model.exists(webappName))
-            return unityWebapps.model.userAgentOverrideFor(webappName)
-
-        return ""
-    }
-
     Item {
+        id: webviewContainer
         anchors.fill: parent
 
         WebappContainerWebview {
             id: webview
+            objectName: "webview"
 
             anchors {
                 left: parent.left
@@ -82,7 +75,6 @@ BrowserView {
             }
             height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.item.visibleHeight)
             developerExtrasEnabled: webapp.developerExtrasEnabled
-            localUserAgentOverride: getLocalUserAgentOverrideIfAny()
         }
 
         Loader {
@@ -178,16 +170,5 @@ BrowserView {
         bindee: webview.currentWebview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
-    }
-
-    function isValidContainedUrl(url) {
-        if (!url || url.length === 0 || url === 'about:blank') {
-            return false
-        }
-        if (popupRedirectionUrlPrefix.length !== 0
-                && url.indexOf(popupRedirectionUrlPrefix) === 0) {
-            return false
-        }
-        return true
     }
 }

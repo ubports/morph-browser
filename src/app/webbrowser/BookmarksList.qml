@@ -44,7 +44,7 @@ Column {
             title: model.title ? model.title : model.url
             url: model.url
 
-            onClicked: bookmarkClicked(model.url)
+            onItemClicked: bookmarkClicked(model.url)
         }
     }
 

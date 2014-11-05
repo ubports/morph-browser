@@ -39,7 +39,19 @@ WebView {
     beforeUnloadDialog: BeforeUnloadDialog {}
     filePicker: filePickerLoader.item
 
+    QtObject {
+        id: internal
+        readonly property var downloadMimeTypesBlacklist: [
+            "application/x-shockwave-flash", // http://launchpad.net/bugs/1379806
+        ]
+    }
+
     onDownloadRequested: {
+        if (!request.suggestedFilename && request.mimeType &&
+            internal.downloadMimeTypesBlacklist.indexOf(request.mimeType) > -1) {
+            return
+        }
+
         if (downloadLoader.status == Loader.Ready) {
             var headers = { }
             if(request.cookies.length > 0) {

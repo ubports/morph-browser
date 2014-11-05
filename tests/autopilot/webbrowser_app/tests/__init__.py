@@ -28,7 +28,7 @@ from autopilot.testcase import AutopilotTestCase
 
 from . import http_server
 
-from ubuntuuitoolkit import emulators as toolkit_emulators
+import ubuntuuitoolkit as uitk
 
 from webbrowser_app.emulators.browser import Browser
 
@@ -46,7 +46,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
     ARGS = ["--new-session"]
 
     def setUp(self):
-        self.pointing_device = toolkit_emulators.get_pointing_device()
+        self.pointing_device = uitk.get_pointing_device()
         super(BrowserTestCaseBase, self).setUp()
         self.launch_app()
 
@@ -61,21 +61,21 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.app = self.launch_test_application(
             self.local_location,
             *self.ARGS,
-            emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
+            emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
 
     def launch_test_installed(self):
         if model() == 'Desktop':
             self.app = self.launch_test_application(
                 "webbrowser-app",
                 *self.ARGS,
-                emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
+                emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
         else:
             self.app = self.launch_test_application(
                 "webbrowser-app",
                 self.d_f,
                 *self.ARGS,
                 app_type='qt',
-                emulator_base=toolkit_emulators.UbuntuUIToolkitEmulatorBase)
+                emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
 
     def clear_cache(self):
         cachedir = os.path.join(os.path.expanduser("~"), ".local", "share",
