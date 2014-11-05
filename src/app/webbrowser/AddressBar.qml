@@ -41,9 +41,9 @@ FocusScope {
 
     // XXX: for testing purposes only, do not use to modify the
     // contents/behaviour of the internals of the component.
-    readonly property Item textField: textField
-    readonly property Item actionButton: actionButton
-    readonly property Item bookmarkToggle: bookmarkToggle
+    readonly property Item __textField: textField
+    readonly property Item __actionButton: actionButton
+    readonly property Item __bookmarkToggle: bookmarkToggle
 
     height: textField.height
 

@@ -41,8 +41,8 @@ Item {
 
             function get_clear_button() {
                 // not exposed through the TextField API
-                for (var i in addressBar.textField.children) {
-                    var child = addressBar.textField.children[i]
+                for (var i in addressBar.__textField.children) {
+                    var child = addressBar.__textField.children[i]
                     if (child.objectName == "clear_button") {
                         return child
                     }
@@ -223,10 +223,10 @@ Item {
         }
 
         function test_action_button() {
-            verify(!addressBar.actionButton.enabled)
+            verify(!addressBar.__actionButton.enabled)
             keyClick(Qt.Key_U)
             verify(addressBar.text != "")
-            verify(addressBar.actionButton.enabled)
+            verify(addressBar.__actionButton.enabled)
         }
 
         function test_click_selects_all() {
@@ -236,7 +236,7 @@ Item {
             mouseClick(textInput, textInput.width / 2, textInput.height / 2)
             verify(!addressBar.activeFocus)
             mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
-            compare(addressBar.textField.selectedText, url)
+            compare(addressBar.__textField.selectedText, url)
         }
 
         function test_second_click_deselect_text() {
@@ -246,10 +246,10 @@ Item {
             mouseClick(textInput, textInput.width / 2, textInput.height / 2)
             verify(!addressBar.activeFocus)
             mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
-            compare(addressBar.textField.selectedText, url)
+            compare(addressBar.__textField.selectedText, url)
             mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
-            compare(addressBar.textField.selectedText, "")
-            verify(addressBar.textField.cursorPosition > 0)
+            compare(addressBar.__textField.selectedText, "")
+            verify(addressBar.__textField.cursorPosition > 0)
         }
 
         function test_click_action_button_does_not_select_all() {
@@ -258,8 +258,8 @@ Item {
             compare(addressBar.text, url)
             mouseClick(textInput, textInput.width / 2, textInput.height / 2)
             verify(!addressBar.activeFocus)
-            mouseClick(addressBar.actionButton, addressBar.actionButton.width / 2, addressBar.actionButton.height / 2)
-            compare(addressBar.textField.selectedText, "")
+            mouseClick(addressBar.__actionButton, addressBar.__actionButton.width / 2, addressBar.__actionButton.height / 2)
+            compare(addressBar.__textField.selectedText, "")
         }
 
         function test_state_changes() {
@@ -274,7 +274,7 @@ Item {
 
         function test_cannot_bookmark_when_empty() {
             // focused
-            var toggle = addressBar.bookmarkToggle
+            var toggle = addressBar.__bookmarkToggle
             verify(!toggle.visible)
             // and unfocused
             mouseClick(textInput, textInput.width / 2, textInput.height / 2)
@@ -283,7 +283,7 @@ Item {
 
         function test_cannot_bookmark_while_focused() {
             addressBar.actualUrl = "http://example.org"
-            var toggle = addressBar.bookmarkToggle
+            var toggle = addressBar.__bookmarkToggle
             verify(!toggle.visible)
             mouseClick(textInput, textInput.width / 2, textInput.height / 2)
             verify(toggle.visible)
@@ -293,7 +293,7 @@ Item {
             addressBar.actualUrl = "http://example.org"
             mouseClick(textInput, textInput.width / 2, textInput.height / 2)
             verify(!addressBar.bookmarked)
-            var toggle = addressBar.bookmarkToggle
+            var toggle = addressBar.__bookmarkToggle
             mouseClick(toggle, toggle.width / 2, toggle.height /2)
             verify(addressBar.bookmarked)
             mouseClick(toggle, toggle.width / 2, toggle.height /2)
