@@ -84,7 +84,7 @@ Item {
             verify(addressBar.activeFocus)
         }
 
-        function test_no_rewrite_data() {
+        function test_validUrlShouldNotBeRewritten_data() {
             return [
                 {url: "file:///usr/share/doc/ubuntu-online-tour/index.html"},
                 {url: "http://ubuntu.com"},
@@ -93,7 +93,7 @@ Item {
             ]
         }
 
-        function test_no_rewrite(data) {
+        function test_validUrlShouldNotBeRewritten(data) {
             typeString(data.url)
             compare(addressBar.text, data.url)
             keyClick(Qt.Key_Return)
@@ -101,7 +101,7 @@ Item {
             compare(addressBar.requestedUrl, data.url)
         }
 
-        function test_add_scheme_data() {
+        function test_urlWithoutSchemeShouldBeRewritten_data() {
             return [
                 {text: "ubuntu.com", requestedUrl: "http://ubuntu.com"},
                 {text: "192.168.1.1", requestedUrl: "http://192.168.1.1"},
@@ -111,7 +111,7 @@ Item {
             ]
         }
 
-        function test_add_scheme(data) {
+        function test_urlWithoutSchemeShouldBeRewritten(data) {
             typeString(data.text)
             compare(addressBar.text, data.text)
             keyClick(Qt.Key_Return)
@@ -119,7 +119,7 @@ Item {
             compare(addressBar.requestedUrl, data.requestedUrl)
         }
 
-        function test_trim_whitespaces_data() {
+        function test_leadingAndTrailingWhitespacesShouldBeTrimmed_data() {
             return [
                 {text: "   http://ubuntu.com", requestedUrl: "http://ubuntu.com"},
                 {text: "http://ubuntu.com  ", requestedUrl: "http://ubuntu.com"},
@@ -127,7 +127,7 @@ Item {
             ]
         }
 
-        function test_trim_whitespaces(data) {
+        function test_leadingAndTrailingWhitespacesShouldBeTrimmed(data) {
             typeString(data.text)
             compare(addressBar.text, data.text)
             keyClick(Qt.Key_Return)
@@ -135,14 +135,14 @@ Item {
             compare(addressBar.requestedUrl, data.requestedUrl)
         }
 
-        function test_search_url_data() {
+        function test_searchQueryShouldBeRewritten_data() {
             return [
                 {text: "lorem ipsum dolor sit amet", start: "http://www.ubuntu.com", query: "lorem+ipsum+dolor+sit+amet"},
                 {text: "ubuntu", start: "http://www.ubuntu.com", query: "ubuntu"},
             ]
         }
 
-        function test_search_url(data) {
+        function test_searchQueryShouldBeRewritten(data) {
             typeString(data.text)
             compare(addressBar.text, data.text)
             keyClick(Qt.Key_Return)
@@ -151,7 +151,7 @@ Item {
             verify(addressBar.requestedUrl.toString().indexOf("q=" + data.query) > 0)
         }
 
-        function test_search_escape_html_entities_data() {
+        function test_htmlEntitiesShouldBeEscapedInSearchQueries_data() {
             return [
                 {text: "tom & jerry", escaped: "tom+%26+jerry"},
                 {text: "a+ rating", escaped: "a%2B+rating"},
@@ -161,7 +161,7 @@ Item {
             ]
         }
 
-        function test_search_escape_html_entities(data) {
+        function test_htmlEntitiesShouldBeEscapedInSearchQueries(data) {
             typeString(data.text)
             compare(addressBar.text, data.text)
             keyClick(Qt.Key_Return)
@@ -169,7 +169,7 @@ Item {
             verify(addressBar.requestedUrl.toString().indexOf("q=" + data.escaped) > 0)
         }
 
-        function test_url_uppercase_rewrite_data() {
+        function test_uppercaseDomainsShouldBeRewritten_data() {
             return [
                 {text: "WWW.UBUNTU.COM", requestedUrl: "http://www.ubuntu.com"},
                 {text: "EN.WIKIPEDIA.ORG/wiki/Ubuntu", requestedUrl: "http://en.wikipedia.org/wiki/Ubuntu"},
@@ -177,7 +177,7 @@ Item {
             ]
         }
 
-        function test_url_uppercase_rewrite(data) {
+        function test_uppercaseDomainsShouldBeRewritten(data) {
             typeString(data.text)
             compare(addressBar.text, data.text)
             keyClick(Qt.Key_Return)
@@ -185,7 +185,7 @@ Item {
             compare(addressBar.requestedUrl, data.requestedUrl)
         }
 
-        function test_simplify_data() {
+        function test_urlShouldBeSimplifiedWhenUnfocused_data() {
             return [
                 {input: "http://www.ubuntu.com",
                  simplified: "ubuntu.com",
@@ -226,7 +226,7 @@ Item {
             ]
         }
 
-        function test_simplify(data) {
+        function test_urlShouldBeSimplifiedWhenUnfocused(data) {
             typeString(data.input)
             compare(addressBar.text, data.input)
             keyClick(Qt.Key_Return)
@@ -239,14 +239,14 @@ Item {
             compare(addressBar.text, data.actualUrl)
         }
 
-        function test_action_button() {
+        function test_actionButtonShouldBeDisabledWhenEmpty() {
             verify(!addressBar.__actionButton.enabled)
             keyClick(Qt.Key_U)
             verify(addressBar.text != "")
             verify(addressBar.__actionButton.enabled)
         }
 
-        function test_click_selects_all() {
+        function test_clickingWhenUnfocusedShouldSelectAll() {
             var url = "http://example.org/"
             typeString(url)
             compare(addressBar.text, url)
@@ -257,7 +257,7 @@ Item {
             compare(addressBar.__textField.selectedText, url)
         }
 
-        function test_second_click_deselect_text() {
+        function test_clickingWhenFocusedShouldDeselectText() {
             var url = "http://example.org/"
             typeString(url)
             compare(addressBar.text, url)
@@ -271,7 +271,7 @@ Item {
             verify(addressBar.__textField.cursorPosition > 0)
         }
 
-        function test_click_action_button_does_not_select_all() {
+        function test_clickingActionButtonWhenUnfocusedShouldNotSelectAll() {
             var url = "http://example.org/"
             typeString(url)
             compare(addressBar.text, url)
@@ -281,7 +281,7 @@ Item {
             compare(addressBar.__textField.selectedText, "")
         }
 
-        function test_state_changes() {
+        function test_statesShouldChange() {
             compare(addressBar.state, "editing")
             clickItem(textInput)
             compare(addressBar.state, "")
@@ -291,7 +291,7 @@ Item {
             compare(addressBar.state, "")
         }
 
-        function test_cannot_bookmark_when_empty() {
+        function test_shouldNotAllowBookmarkingWhenEmpty() {
             // focused
             var toggle = addressBar.__bookmarkToggle
             verify(!toggle.visible)
@@ -300,7 +300,7 @@ Item {
             verify(!toggle.visible)
         }
 
-        function test_cannot_bookmark_while_focused() {
+        function test_shouldNotAllowBookmarkingWhileFocused() {
             addressBar.actualUrl = "http://example.org"
             var toggle = addressBar.__bookmarkToggle
             verify(!toggle.visible)
@@ -308,7 +308,7 @@ Item {
             verify(toggle.visible)
         }
 
-        function test_bookmark() {
+        function test_togglingIndicatorShouldBookmark() {
             addressBar.actualUrl = "http://example.org"
             clickItem(textInput)
             verify(!addressBar.bookmarked)
@@ -319,7 +319,7 @@ Item {
             verify(!addressBar.bookmarked)
         }
 
-        function test_url_reset_when_unfocused() {
+        function test_unfocusingWhileEditingShouldResetUrl() {
             var url = "http://example.org/"
             typeString(url)
             compare(addressBar.text, url)
