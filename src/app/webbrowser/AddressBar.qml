@@ -53,7 +53,7 @@ FocusScope {
         },
         State {
             name: "editing"
-            when: textField.activeFocus
+            when: addressbar.activeFocus
         }
     ]
 
@@ -347,14 +347,6 @@ FocusScope {
 
         onAccepted: if (addressbar.state != "") internal.validate()
 
-        onActiveFocusChanged: {
-            if (activeFocus) {
-                text = addressbar.actualUrl
-            } else if (!addressbar.loading && addressbar.actualUrl.toString()) {
-                text = internal.simplifyUrl(addressbar.actualUrl)
-            }
-        }
-
         // Make sure that all the text is selected at the first click
         MouseArea {
             anchors {
@@ -452,6 +444,14 @@ FocusScope {
             } else {
                 return url
             }
+        }
+    }
+
+    onActiveFocusChanged: {
+        if (activeFocus) {
+            text = actualUrl
+        } else if (!loading && actualUrl.toString()) {
+            text = internal.simplifyUrl(actualUrl)
         }
     }
 
