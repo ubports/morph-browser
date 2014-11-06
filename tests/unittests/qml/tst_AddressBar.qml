@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import QtTest 1.0
+import Ubuntu.Test 1.0
 import "undertest"
 
 Item {
@@ -38,17 +39,6 @@ Item {
             height: parent.height / 2
 
             searchUrl: "http://www.ubuntu.com/search?q={searchTerms}"
-
-            function get_clear_button() {
-                // not exposed through the TextField API
-                for (var i in addressBar.__textField.children) {
-                    var child = addressBar.__textField.children[i]
-                    if (child.objectName == "clear_button") {
-                        return child
-                    }
-                }
-                return null
-            }
         }
 
         // only exists to steal focus from the address bar
@@ -70,30 +60,28 @@ Item {
         signalName: "validated"
     }
 
-    TestCase {
+    UbuntuTestCase {
         name: "AddressBar"
         when: windowShown
+
+        function clickItem(item) {
+            var center = centerOf(item)
+            mouseClick(item, center.x, center.y)
+        }
 
         function init() {
             addressBar.actualUrl = ""
             validatedSpy.clear()
             // Ensure the address bar has active focus
-            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
+            clickItem(addressBar)
             verify(addressBar.activeFocus)
             // Clear it
-            var clearButton = addressBar.get_clear_button()
+            var clearButton = findChild(addressBar, "clear_button")
             verify(clearButton != null)
-            mouseClick(clearButton, clearButton.width / 2, clearButton.height / 2)
+            clickItem(clearButton)
             compare(addressBar.text, "")
             // Ensure it still has active focus
             verify(addressBar.activeFocus)
-        }
-
-        function typeString(str) {
-            verify(addressBar.activeFocus)
-            for (var i = 0; i < str.length; ++i) {
-                keyClick(str[i])
-            }
         }
 
         function test_no_rewrite_data() {
@@ -245,9 +233,9 @@ Item {
             validatedSpy.wait()
             addressBar.actualUrl = addressBar.requestedUrl
             compare(addressBar.text, data.input)
-            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            clickItem(textInput)
             compare(addressBar.text, data.simplified)
-            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
+            clickItem(addressBar)
             compare(addressBar.text, data.actualUrl)
         }
 
@@ -263,9 +251,9 @@ Item {
             typeString(url)
             compare(addressBar.text, url)
             addressBar.actualUrl = url
-            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            clickItem(textInput)
             verify(!addressBar.activeFocus)
-            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
+            clickItem(addressBar)
             compare(addressBar.__textField.selectedText, url)
         }
 
@@ -274,11 +262,11 @@ Item {
             typeString(url)
             compare(addressBar.text, url)
             addressBar.actualUrl = url
-            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            clickItem(textInput)
             verify(!addressBar.activeFocus)
-            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
+            clickItem(addressBar)
             compare(addressBar.__textField.selectedText, url)
-            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
+            clickItem(addressBar)
             compare(addressBar.__textField.selectedText, "")
             verify(addressBar.__textField.cursorPosition > 0)
         }
@@ -287,15 +275,15 @@ Item {
             var url = "http://example.org/"
             typeString(url)
             compare(addressBar.text, url)
-            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            clickItem(textInput)
             verify(!addressBar.activeFocus)
-            mouseClick(addressBar.__actionButton, addressBar.__actionButton.width / 2, addressBar.__actionButton.height / 2)
+            clickItem(addressBar.__actionButton)
             compare(addressBar.__textField.selectedText, "")
         }
 
         function test_state_changes() {
             compare(addressBar.state, "editing")
-            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            clickItem(textInput)
             compare(addressBar.state, "")
             addressBar.loading = true
             compare(addressBar.state, "loading")
@@ -308,7 +296,7 @@ Item {
             var toggle = addressBar.__bookmarkToggle
             verify(!toggle.visible)
             // and unfocused
-            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            clickItem(textInput)
             verify(!toggle.visible)
         }
 
@@ -316,18 +304,18 @@ Item {
             addressBar.actualUrl = "http://example.org"
             var toggle = addressBar.__bookmarkToggle
             verify(!toggle.visible)
-            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            clickItem(textInput)
             verify(toggle.visible)
         }
 
         function test_bookmark() {
             addressBar.actualUrl = "http://example.org"
-            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            clickItem(textInput)
             verify(!addressBar.bookmarked)
             var toggle = addressBar.__bookmarkToggle
-            mouseClick(toggle, toggle.width / 2, toggle.height /2)
+            clickItem(toggle)
             verify(addressBar.bookmarked)
-            mouseClick(toggle, toggle.width / 2, toggle.height /2)
+            clickItem(toggle)
             verify(!addressBar.bookmarked)
         }
 
@@ -336,13 +324,13 @@ Item {
             typeString(url)
             compare(addressBar.text, url)
             addressBar.actualUrl = url
-            var clearButton = addressBar.get_clear_button()
+            var clearButton = findChild(addressBar, "clear_button")
             verify(clearButton != null)
-            mouseClick(clearButton, clearButton.width / 2, clearButton.height / 2)
+            clickItem(clearButton)
             compare(addressBar.text, "")
-            mouseClick(textInput, textInput.width / 2, textInput.height / 2)
+            clickItem(textInput)
             compare(addressBar.text, "example.org")
-            mouseClick(addressBar, addressBar.width / 2, addressBar.height / 2)
+            clickItem(addressBar)
             compare(addressBar.text, url)
         }
     }
