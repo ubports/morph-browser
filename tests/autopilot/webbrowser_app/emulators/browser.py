@@ -19,9 +19,6 @@ import ubuntuuitoolkit as uitk
 
 class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_text_field(self):
-        return self.select_single("TextField")
-
     def get_clear_button(self):
         return self.select_single("AbstractButton")
 
