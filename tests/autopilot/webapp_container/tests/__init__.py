@@ -41,7 +41,7 @@ LOCAL_BROWSER_CONTAINER_PATH_NAME = \
 
 class WebappContainerTestCaseBase(AutopilotTestCase):
     def setUp(self):
-        self.pointing_device = toolkit_emulators.get_pointing_device()
+        self.pointing_device = uitk.get_pointing_device()
         super(WebappContainerTestCaseBase, self).setUp()
 
     def get_webcontainer_app_path(self):
@@ -84,7 +84,7 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
     def get_oxide_webview(self):
         container = self.get_webview().select_single(
             objectName='containerWebviewLoader')
-        return container.select_single('WebViewImplOxide')
+        return container.wait_select_single('WebViewImplOxide')
 
     def assert_page_eventually_loaded(self, url):
         webview = self.get_oxide_webview()
