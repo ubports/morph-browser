@@ -79,6 +79,7 @@ Item {
     Rectangle {
         id: newTabBackground
         anchors.fill: parent
+        color: "#f6f6f6"
     }
 
     ListView {
