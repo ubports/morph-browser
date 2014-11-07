@@ -93,8 +93,6 @@ BrowserWindow {
                     root.title = getWindowTitle();
                 }
             }
-
-            Component.onCompleted: i18n.domain = "webbrowser-app"
         }
     }
 
@@ -172,7 +170,7 @@ BrowserWindow {
     Connections {
         target: accountsPageComponentLoader.item
         onDone: {
-            if (successful && credentialsId) {
+            if (successful) {
                 webappViewLoader.loaded.connect(function () {
                     if (webappViewLoader.status == Loader.Ready) {
                         moveCookies(webappViewLoader.credentialsId)
@@ -201,15 +199,8 @@ BrowserWindow {
     }
 
     Component.onCompleted: {
-        updateCurrentView()
-    }
+        i18n.domain = "webbrowser-app"
 
-    Component {
-        id: onlineAccountStoreComponent
-        OnlineAccountsCookieStore { }
-    }
-
-    function updateCurrentView() {
         // check if we are to display the login view
         // or directly switch to the webapp view
         if (accountProvider.length !== 0 && oxide) {
@@ -217,6 +208,11 @@ BrowserWindow {
         } else {
             loadWebAppView();
         }
+    }
+
+    Component {
+        id: onlineAccountStoreComponent
+        OnlineAccountsCookieStore { }
     }
 
     function loadLoginView() {
