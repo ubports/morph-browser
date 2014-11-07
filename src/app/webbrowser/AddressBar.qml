@@ -36,9 +36,13 @@ FocusScope {
     property bool loading
     signal requestReload()
     signal requestStop()
-    signal pressAndHold()
     property string searchUrl
-    signal textFieldFocused()
+
+    // XXX: for testing purposes only, do not use to modify the
+    // contents/behaviour of the internals of the component.
+    readonly property Item __textField: textField
+    readonly property Item __actionButton: actionButton
+    readonly property Item __bookmarkToggle: bookmarkToggle
 
     height: textField.height
 
@@ -49,7 +53,7 @@ FocusScope {
         },
         State {
             name: "editing"
-            when: textField.activeFocus
+            when: addressbar.activeFocus
         }
     ]
 
@@ -67,26 +71,26 @@ FocusScope {
                     height: textField.height
                     width: height
                     visible: securityStatus ? securityStatus.securityLevel != Oxide.SecurityStatus.SecurityLevelWarning || addressbar.state != "" : true
-    
+
                     Favicon {
                         id: favicon
                         anchors.centerIn: parent
                         visible: securityStatus ? (securityStatus.securityLevel != Oxide.SecurityStatus.SecurityLevelWarning) && (addressbar.state == "") && addressbar.actualUrl.toString() : (addressbar.state == "") && addressbar.actualUrl.toString()
                     }
-            
+
                     Item {
                         id: certificatePopoverPositioner
                         anchors.bottom: favicon.bottom
                         anchors.horizontalCenter: favicon.horizontalCenter
                     }
-                        
+
                     MouseArea {
                         id: actionButton
                         objectName: "actionButton"
                         anchors.fill: parent
                         enabled: addressbar.text
                         opacity: enabled ? 1.0 : 0.3
-    
+
                         Icon {
                             id: actionIcon
                             height: parent.height - units.gu(2)
@@ -99,14 +103,14 @@ FocusScope {
                                 case "editing":
                                     if (addressbar.text && (addressbar.text == addressbar.actualUrl)) {
                                         return "reload"
-                                    } else if (looksLikeAUrl(addressbar.text.trim())) {
+                                    } else if (internal.looksLikeAUrl(addressbar.text.trim())) {
                                         return "stock_website"
                                     } else {
                                         return "search"
                                     }
                                 default:
                                     if (!favicon.visible) {
-                                        if (looksLikeAUrl(addressbar.text.trim())) {
+                                        if (internal.looksLikeAUrl(addressbar.text.trim())) {
                                             return "stock_website"
                                         } else {
                                             return "search"
@@ -117,11 +121,11 @@ FocusScope {
                                 }
                             }
                         }
-    
+
                         onClicked: {
                             switch (actionIcon.name) {
                             case "":
-                                break;
+                                break
                             case "stop":
                                 addressbar.requestStop()
                                 break
@@ -133,15 +137,14 @@ FocusScope {
                             }
                         }
                     }
-    
                 }
-    
+
                 Item {
                     id: securityDisplay
                     height: textField.height
                     width: securityIcon.width
                     visible: securityStatus ? (securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) && addressbar.state == "" : false
- 
+
                     Icon {
                         id: securityIcon
                         anchors.centerIn: parent
@@ -165,7 +168,6 @@ FocusScope {
                         name: "security-alert"
                     }
                 }
-
             }
 
             MouseArea {
@@ -176,7 +178,6 @@ FocusScope {
                     PopupUtils.open(certificatePopoverComponent, certificatePopoverPositioner)
                 }
             }
-
 
             Component {
                 id: certificatePopoverComponent
@@ -215,7 +216,7 @@ FocusScope {
                                     fontSize: "x-small"
                                 }
                             }
-                            
+
                             ThinDivider {
                                 width: parent.width
                                 anchors.leftMargin: 0
@@ -292,20 +293,18 @@ FocusScope {
                             height: units.gu(1.5)
                             width: parent.width
                         }
-
                     }
 
                     MouseArea {
                         anchors.fill: parent
                         onClicked: PopupUtils.close(certificatePopover)
                     }
-
                 }
             }
-
         }
 
         secondaryItem: Item {
+            id: bookmarkToggle
             objectName: "bookmarkToggle"
 
             height: textField.height
@@ -346,15 +345,7 @@ FocusScope {
 
         highlighted: true
 
-        onAccepted: if (addressbar.state != "") parent.validate()
-
-        onActiveFocusChanged: {
-            if (activeFocus) {
-                addressbar.textFieldFocused();
-            } else if (!addressbar.loading && addressbar.actualUrl.toString()) {
-                text = addressbar.simplifyUrl(addressbar.actualUrl)
-            }
-        }
+        onAccepted: if (addressbar.state != "") internal.validate()
 
         // Make sure that all the text is selected at the first click
         MouseArea {
@@ -368,97 +359,110 @@ FocusScope {
                 textField.forceActiveFocus()
                 textField.selectAll()
             }
-            onPressAndHold: {
-                addressbar.pressAndHold()
-            }
         }
     }
 
-    function looksLikeAUrl(address) {
-        var terms = address.split(/\s/)
-        if (terms.length > 1) {
+    QtObject {
+        id: internal
+
+        function looksLikeAUrl(address) {
+            var terms = address.split(/\s/)
+            if (terms.length > 1) {
+                return false
+            }
+            if (address.substr(0, 1) == "/") {
+                return true
+            }
+            if (address.match(/^https?:\/\//) ||
+                address.match(/^file:\/\//) ||
+                address.match(/^[a-z]+:\/\//)) {
+                return true
+            }
+            if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,4}$/)) {
+                return true
+            }
+            if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
+                return true
+            }
             return false
         }
-        if (address.substr(0, 1) == "/") {
-            return true
-        }
-        if (address.match(/^https?:\/\//) ||
-            address.match(/^file:\/\//) ||
-            address.match(/^[a-z]+:\/\//)) {
-            return true
-        }
-        if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,4}$/)) {
-            return true
-        }
-        if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
-            return true
-        }
-        return false
-    }
 
-    function fixUrl(address) {
-        var url = address
-        if (address.substr(0, 1) == "/") {
-            url = "file://" + address
-        } else if (address.indexOf("://") == -1) {
-            url = "http://" + address
-        }
-        return url
-    }
-
-    function escapeHtmlEntities(query) {
-        return query.replace(/\W/, encodeURIComponent)
-    }
-
-    function buildSearchUrl(query) {
-        var terms = query.split(/\s/).map(escapeHtmlEntities)
-        return addressbar.searchUrl.replace("{searchTerms}", terms.join("+"))
-    }
-
-    function validate() {
-        var query = text.trim()
-        if (looksLikeAUrl(query)) {
-            requestedUrl = fixUrl(query)
-        } else {
-            requestedUrl = buildSearchUrl(query)
-        }
-        validated()
-    }
-
-    function simplifyUrl(url) {
-        var urlString = url.toString();
-        var hasProtocol = urlString.indexOf("://") != -1
-        var domain;
-        if (hasProtocol) {
-            if (urlString.split("://")[0] == "file") {
-                // Don't process file:// urls
-                return url;
+        function fixUrl(address) {
+            var url = address
+            if (address.substr(0, 1) == "/") {
+                url = "file://" + address
+            } else if (address.indexOf("://") == -1) {
+                url = "http://" + address
             }
-            domain = urlString.split('/')[2];
-        } else {
-            domain = urlString.split('/')[0];
+            return url
         }
-        if (typeof domain !== 'undefined' && domain.length > 0) {
-            // Remove user component if present
-            var userRemoved = domain.split('@')[1];
-            if (typeof userRemoved !== 'undefined') {
-                domain = userRemoved;
+
+        function escapeHtmlEntities(query) {
+            return query.replace(/\W/, encodeURIComponent)
+        }
+
+        function buildSearchUrl(query) {
+            var terms = query.split(/\s/).map(internal.escapeHtmlEntities)
+            return addressbar.searchUrl.replace("{searchTerms}", terms.join("+"))
+        }
+
+        function validate() {
+            var query = text.trim()
+            if (internal.looksLikeAUrl(query)) {
+                requestedUrl = internal.fixUrl(query)
+            } else {
+                requestedUrl = internal.buildSearchUrl(query)
             }
-            // Remove port number if present
-            domain = domain.split(':')[0];
-            if (domain.lastIndexOf('.') != 3) { // http://www.com shouldn't be trimmed
-                domain = domain.replace(/^www\./, "");
+            validated()
+        }
+
+        function simplifyUrl(url) {
+            var urlString = url.toString()
+            var hasProtocol = urlString.indexOf("://") != -1
+            var domain
+            if (hasProtocol) {
+                if (urlString.split("://")[0] == "file") {
+                    // Don't process file:// urls
+                    return url
+                }
+                domain = urlString.split('/')[2]
+            } else {
+                domain = urlString.split('/')[0]
             }
-            return domain;
-        } else {
-            return url;
+            if (typeof domain !== 'undefined' && domain.length > 0) {
+                // Remove user component if present
+                var userRemoved = domain.split('@')[1]
+                if (typeof userRemoved !== 'undefined') {
+                    domain = userRemoved
+                }
+                // Remove port number if present
+                domain = domain.split(':')[0]
+                if (domain.lastIndexOf('.') != 3) { // http://www.com shouldn't be trimmed
+                    domain = domain.replace(/^www\./, "")
+                }
+                return domain
+            } else {
+                return url
+            }
+        }
+    }
+
+    onActiveFocusChanged: {
+        if (activeFocus) {
+            text = actualUrl
+        } else if (!loading && actualUrl.toString()) {
+            text = internal.simplifyUrl(actualUrl)
         }
     }
 
     onActualUrlChanged: {
-        if(actualUrl.toString().length > 0) {
-            text = simplifyUrl(actualUrl)
+        if (state != "editing") {
+            text = internal.simplifyUrl(actualUrl)
         }
     }
-    onRequestedUrlChanged: text = simplifyUrl(requestedUrl)
+    onRequestedUrlChanged: {
+        if (state != "editing") {
+            text = internal.simplifyUrl(requestedUrl)
+        }
+    }
 }
