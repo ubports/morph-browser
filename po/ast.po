@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-10-15 21:44+0200\n"
-"PO-Revision-Date: 2014-09-27 17:42+0000\n"
+"PO-Revision-Date: 2014-11-08 18:23+0000\n"
 "Last-Translator: ivarela <ivarela@ubuntu.com>\n"
 "Language-Team: Asturian <ast@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-11-05 07:01+0000\n"
-"X-Generator: Launchpad (build 17223)\n"
+"X-Launchpad-Export-Date: 2014-11-09 06:51+0000\n"
+"X-Generator: Launchpad (build 17231)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -464,7 +464,7 @@ msgstr "Llingüeta nueva"
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
 #: src/app/webbrowser/HistoryView.qml:179
 msgid "Delete"
-msgstr ""
+msgstr "Desaniciar"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
