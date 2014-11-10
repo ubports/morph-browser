@@ -1,3 +1,14 @@
+webbrowser-app (0.23+15.04.20141110-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Fix facebook content hub share, the proper share API was not enabled
+    to access from the webapp-container. (LP: #1386682)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 10 Nov 2014 12:54:51 +0000
+
 webbrowser-app (0.23+15.04.20141107-0ubuntu1) vivid; urgency=low
 
   [ Riccardo Padovani ]
