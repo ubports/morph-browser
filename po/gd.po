@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-10-15 21:44+0200\n"
-"PO-Revision-Date: 2014-10-03 19:54+0000\n"
+"PO-Revision-Date: 2014-11-09 08:19+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2014-11-05 07:01+0000\n"
-"X-Generator: Launchpad (build 17223)\n"
+"X-Launchpad-Export-Date: 2014-11-10 06:07+0000\n"
+"X-Generator: Launchpad (build 17231)\n"
 "Language: gd\n"
 
 #: src/app/AlertDialog.qml:23
@@ -469,7 +469,7 @@ msgstr "Taba ùr"
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
 #: src/app/webbrowser/HistoryView.qml:179
 msgid "Delete"
-msgstr ""
+msgstr "Sguab às"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
