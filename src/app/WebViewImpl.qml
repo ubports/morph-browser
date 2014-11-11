@@ -21,14 +21,13 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.Web 0.2
 import "actions" as Actions
+import "UrlUtils.js" as UrlUtils
 
 WebView {
     id: webview
 
     property var currentWebview: webview
     property var certificateError
-    // Invalid certificates the user has explicitly allowed for this session
-    property var allowedCertificates: []
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
@@ -41,9 +40,13 @@ WebView {
 
     QtObject {
         id: internal
+
         readonly property var downloadMimeTypesBlacklist: [
             "application/x-shockwave-flash", // http://launchpad.net/bugs/1379806
         ]
+
+        // Invalid certificates the user has explicitly allowed for this session
+        property var allowedCertificateErrors: []
     }
 
     onDownloadRequested: {
@@ -91,10 +94,32 @@ WebView {
     }
 
     onCertificateError: {
-        if(webview.allowedCertificates.indexOf(error.certificate.fingerprintSHA1) != -1) {
+        if (isCertificateErrorAllowed(error)) {
             error.allow()
         } else {
             certificateError = error
         }
+    }
+
+    function allowCertificateError(error) {
+        var host = UrlUtils.extractHost(error.url)
+        var code = error.certError
+        var fingerprint = error.certificate.fingerprintSHA1
+        internal.allowedCertificateErrors.push([host, code, fingerprint])
+    }
+
+    function isCertificateErrorAllowed(error) {
+        var host = UrlUtils.extractHost(error.url)
+        var code = error.certError
+        var fingerprint = error.certificate.fingerprintSHA1
+        for (var i in internal.allowedCertificateErrors) {
+            var allowed = internal.allowedCertificateErrors[i]
+            if ((host == allowed[0]) &&
+                (code == allowed[1]) &&
+                (fingerprint == allowed[2])) {
+                return true
+            }
+        }
+        return false
     }
 }

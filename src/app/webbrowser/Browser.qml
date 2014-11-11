@@ -140,7 +140,7 @@ BrowserView {
                 onAllowed: { 
                     // Automatically allow future requests involving this
                     // certificate for the duration of the session.
-                    currentWebview.allowedCertificates.push(currentWebview.certificateError.certificate.fingerprintSHA1)
+                    currentWebview.allowCertificateError(currentWebview.certificateError)
                     currentWebview.certificateError = null
                 }
                 onDenied: {
