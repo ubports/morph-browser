@@ -155,6 +155,9 @@ ChromeBase {
         if (webview) {
             addressbar.actualUrl = webview.url
             addressbar.securityStatus = webview.securityStatus
+        } else {
+            addressbar.actualUrl = ""
+            addressbar.securityStatus = null
         }
     }
 
