@@ -31,7 +31,9 @@ Item {
     property bool developerExtrasEnabled: false
     property string webappName: ""
     property url dataPath
-    property var currentWebview: webappContainerWebViewLoader.item
+    property var currentWebview: webappContainerWebViewLoader.item ?
+                                     webappContainerWebViewLoader.item.currentWebview
+                                   : null
     property var webappUrlPatterns
     property string localUserAgentOverride: ""
     property string popupRedirectionUrlPrefixPattern: ""

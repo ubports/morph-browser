@@ -171,5 +171,6 @@ BrowserView {
         bindee: webview.currentWebview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
+        injectExtraContentShareCapabilities: true
     }
 }

@@ -27,29 +27,6 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         self.clear_cache()
         super(TestAddressBarBookmark, self).setUp()
 
-    def test_initially_not_bookmarked(self):
-        chrome = self.main_window.get_chrome()
-        self.assertThat(chrome.bookmarked, Equals(False))
-
-    def test_bookmark_current_page(self):
-        chrome = self.main_window.get_chrome()
-        address_bar = chrome.get_address_bar()
-        bookmark_toggle = address_bar.get_bookmark_toggle()
-        self.pointing_device.click_object(bookmark_toggle)
-        self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
-        self.pointing_device.click_object(bookmark_toggle)
-        self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
-
-    def test_cannot_bookmark_while_focused(self):
-        self.focus_address_bar()
-        chrome = self.main_window.get_chrome()
-        address_bar = chrome.get_address_bar()
-        bookmark_toggle = address_bar.get_bookmark_toggle()
-        self.assertThat(bookmark_toggle.visible, Eventually(Equals(False)))
-        webview = self.main_window.get_current_webview()
-        self.pointing_device.click_object(webview)
-        self.assertThat(bookmark_toggle.visible, Eventually(Equals(True)))
-
     def test_switching_tabs_updates_bookmark_toggle(self):
         chrome = self.main_window.get_chrome()
         address_bar = chrome.get_address_bar()

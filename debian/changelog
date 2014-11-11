@@ -1,3 +1,38 @@
+webbrowser-app (0.23+15.04.20141110-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Fix facebook content hub share, the proper share API was not enabled
+    to access from the webapp-container. (LP: #1386682)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 10 Nov 2014 12:54:51 +0000
+
+webbrowser-app (0.23+15.04.20141107-0ubuntu1) vivid; urgency=low
+
+  [ Riccardo Padovani ]
+  * Enabled swipe gesture to delete a bookmark from the new tab view
+    (LP: #1351165)
+  * Fixed #1351149 - Opening a page from the history view should do it
+    in a new tab (LP: #1351149)
+
+  [ Alexandre Abreu ]
+  * Fix AP tests for webapp-container (LP: #1389194)
+  * Fix an inconsistent property binding that is mostly more than
+    annoying when the override mechanism is used in certain cases (e.g.
+    when the override does not directly implement the webview),
+
+  [ Olivier Tilloy ]
+  * Adjust the new tab view’s background colour to match the visual
+    spec. (LP: #1389610)
+  * Clean up the AddressBar component, and convert a number of related
+    autopilot tests to QML tests.
+  * Update dependency names for QML modules (but keep the old name as
+    well for backward compatibility).
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 07 Nov 2014 15:44:36 +0000
+
 webbrowser-app (0.23+15.04.20141104.1-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
