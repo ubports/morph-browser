@@ -30,12 +30,13 @@ FocusScope {
     property bool bookmarked: false
     property url requestedUrl
     property url actualUrl
-    property var securityStatus
     signal validated()
     property bool loading
     signal requestReload()
     signal requestStop()
     property string searchUrl
+
+    property var securityStatus: null
 
     // XXX: for testing purposes only, do not use to modify the
     // contents/behaviour of the internals of the component.
@@ -69,12 +70,12 @@ FocusScope {
                 Item {
                     height: textField.height
                     width: height
-                    visible: securityStatus ? securityStatus.securityLevel != Oxide.SecurityStatus.SecurityLevelWarning || addressbar.state != "" : true
+                    visible: (addressbar.state != "") || !internal.secureConnection || !internal.securityWarning
 
                     Favicon {
                         id: favicon
                         anchors.centerIn: parent
-                        visible: securityStatus ? (securityStatus.securityLevel != Oxide.SecurityStatus.SecurityLevelWarning) && (addressbar.state == "") && addressbar.actualUrl.toString() : (addressbar.state == "") && addressbar.actualUrl.toString()
+                        visible: (addressbar.state == "") && addressbar.actualUrl.toString() && !internal.securityWarning
                     }
 
                     Item {
@@ -142,7 +143,7 @@ FocusScope {
                     id: securityDisplay
                     height: textField.height
                     width: securityIcon.width
-                    visible: securityStatus ? (securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) && addressbar.state == "" : false
+                    visible: internal.secureConnection && (addressbar.state == "")
 
                     Icon {
                         id: securityIcon
@@ -154,10 +155,9 @@ FocusScope {
                 }
 
                 Item {
-                    id: securityWarning
                     height: textField.height
                     width: warningIcon.width
-                    visible: securityStatus ? securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning && addressbar.state == "" : false
+                    visible: internal.securityWarning && (addressbar.state == "")
 
                     Icon {
                         id: warningIcon
@@ -240,6 +240,10 @@ FocusScope {
 
     QtObject {
         id: internal
+
+        readonly property int securityLevel: addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
+        readonly property bool secureConnection: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
+        readonly property bool securityWarning: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
 
         function looksLikeAUrl(address) {
             var terms = address.split(/\s/)
