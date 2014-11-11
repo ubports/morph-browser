@@ -120,6 +120,11 @@ ChromeBase {
                     addressbar.actualUrl = chrome.webview.url
                 }
             }
+
+            Connections {
+                target: chrome
+                onYChanged: addressbar.hideSecurityCertificateDetails()
+            }
         }
 
         ChromeButton {

@@ -173,9 +173,7 @@ FocusScope {
                 enabled: securityDisplay.visible && addressbar.state != "editing" && addressbar.state != "loading"
                 anchors.fill: parent
 
-                onClicked: {
-                    PopupUtils.open(Qt.resolvedUrl("SecurityCertificatePopover.qml"), certificatePopoverPositioner, {"securityStatus": securityStatus})
-                }
+                onClicked: addressbar.showSecurityCertificateDetails()
             }
         }
 
@@ -244,6 +242,8 @@ FocusScope {
         readonly property int securityLevel: addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
         readonly property bool secureConnection: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
         readonly property bool securityWarning: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
+
+        property var securityCertificateDetails: null
 
         function looksLikeAUrl(address) {
             var terms = address.split(/\s/)
@@ -343,6 +343,20 @@ FocusScope {
     onRequestedUrlChanged: {
         if (state != "editing") {
             text = internal.simplifyUrl(requestedUrl)
+        }
+    }
+
+    function showSecurityCertificateDetails() {
+        if (!internal.securityCertificateDetails) {
+            internal.securityCertificateDetails = PopupUtils.open(Qt.resolvedUrl("SecurityCertificatePopover.qml"), certificatePopoverPositioner, {"securityStatus": securityStatus})
+        }
+    }
+
+    function hideSecurityCertificateDetails() {
+        if (internal.securityCertificateDetails) {
+            var popup = internal.securityCertificateDetails
+            internal.securityCertificateDetails = null
+            PopupUtils.close(popup)
         }
     }
 }
