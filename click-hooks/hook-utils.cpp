@@ -85,7 +85,7 @@ WebappHookParser::parseDocument(const QJsonArray &array)
     if (JSON_OBJECT_VALIDATE(rootObject,UNINSTALL_KEY,isObject))
     {
         const QString UNINSTALL_DELETE_COOKIES = "delete-cookies";
-        const QString UNINSTALL_DELETE_CACHE = "    ";
+        const QString UNINSTALL_DELETE_CACHE = "delete-cache";
 
         QJsonObject uninstallObject =
                 rootObject.value(UNINSTALL_KEY).toObject();
