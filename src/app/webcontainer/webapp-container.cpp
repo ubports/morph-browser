@@ -187,13 +187,20 @@ bool WebappContainer::initialize()
 
         QList<QUrl> urls = this->urls();
         if (!urls.isEmpty()) {
-            m_window->setProperty("url", urls.last());
+            QUrl homeUrl = urls.last();
+            m_window->setProperty("url", homeUrl);
+            if (UrlPatternUtils::isLocalHtml5ApplicationHomeUrl(homeUrl)) {
+                qDebug() << "Started as a local application container.";
+                m_window->setProperty("runningLocalApplication", true);
+            }
         } else if (m_webappModelSearchPath.isEmpty()) {
             // Either we have a command line argument for the start URL or we have
             // local search path for a webapp definition (that would include in its
             // meta data a homepage). Any other case is faulty.
             return false;
         }
+        // Otherwise, assume that the homepage will come from a locally defined
+        // webapp-properties.json file pulled from the webapp model element.
 
         m_component->completeCreate();
 

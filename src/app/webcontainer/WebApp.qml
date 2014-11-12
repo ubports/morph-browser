@@ -40,6 +40,7 @@ BrowserView {
     property alias webviewOverrideFile: webview.webviewOverrideFile
     property alias blockOpenExternalUrls: webview.blockOpenExternalUrls
     property alias localUserAgentOverride: webview.localUserAgentOverride
+    property bool runningLocalApplication: webview.runningLocalApplication
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
@@ -75,6 +76,7 @@ BrowserView {
             }
             height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.item.visibleHeight)
             developerExtrasEnabled: webapp.developerExtrasEnabled
+            runningLocalApplication: webapp.runningLocalApplication
         }
 
         Loader {
@@ -170,6 +172,7 @@ BrowserView {
         bindee: webview.currentWebview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
-        injectExtraContentShareCapabilities: true
+        injectExtraUbuntuApis: runningLocalApplication
+        injectExtraContentShareCapabilities: !runningLocalApplication
     }
 }
