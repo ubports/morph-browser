@@ -36,6 +36,12 @@ int main(int argc, char ** argv)
         return EXIT_FAILURE;
     }
 
+    QString processedClickHooksFolder = HookUtils::getProcessedClickHooksFolder();
+    if (!QDir::exists(processedClickHooksFolder))
+    {
+        QDir::mkdir(processedClickHooksFolder);
+    }
+
     HookUtils::WebappClickHookInstallDescription alreadyProcessedClickHooks =
             HookUtils::listWebappClickHookFilesIn(
                 HookUtils::getProcessedClickHooksFolder());
