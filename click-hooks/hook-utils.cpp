@@ -236,7 +236,6 @@ void handleUpdates(const WebappClickHookInstallDescription& alreadyProcessedClic
     QStringList foundClickHooks =
             alreadyProcessedClickHooks.hookFiles.keys().toSet().intersect(
                 installedClickHooks.hookFiles.keys().toSet()).toList();
-
     if (foundClickHooks.count() == 0)
     {
         qDebug() << "Nothing to update.";

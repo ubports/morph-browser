@@ -50,7 +50,6 @@ namespace {
 
 }
 
-
 class WebappContainerHookTests : public QObject
 {
     Q_OBJECT
@@ -79,7 +78,7 @@ private Q_SLOTS:
         QTest::addColumn<QString>("installedHookFileContent");
         QTest::addColumn<bool>("shouldBeUpdated");
 
-        QTest::newRow("Invalid installed hook file") << QString("com.ubuntu.blabla_blabla.webapp")
+        QTest::newRow("Invalid installed hook file") << QString("com.ubuntu.blabla_blabla")
                 << QString("[{}]")
                 << QString("com.ubuntu.blabla.webapp")
                 << QString("[{\"uninstall\": { \"delete-cookies\": true, \"delete-cache\": true } }]")
@@ -108,6 +107,7 @@ private Q_SLOTS:
                 processedHookFiledTmpDir.path() + "/" + processedHookFilename;
         createFileWithContent(processedFilepath, processedHookFileContent);
 
+        // Wait in order to have a meaningful lastModifiedData for comparaison
         QTest::qSleep(1000);
 
         QVERIFY(!installedHookFilename.isEmpty());
@@ -115,12 +115,12 @@ private Q_SLOTS:
                 installedHookFiledTmpDir.path() + "/" + installedHookFilename;
         createFileWithContent(installedHookFilepath, installedHookFileContent);
 
-        QProcess process;
-
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
         env.insert("WEBAPPCONTAINER_PROCESSED_HOOKS_FOLDER", processedHookFiledTmpDir.path());
         env.insert("WEBAPPCONTAINER_INSTALLED_HOOKS_FOLDER", installedHookFiledTmpDir.path());
 
+        QProcess process;
+        process.setProcessEnvironment(env);
         process.start(CLICK_HOOK_EXEC_BIN, QStringList());
         process.waitForFinished();
 
