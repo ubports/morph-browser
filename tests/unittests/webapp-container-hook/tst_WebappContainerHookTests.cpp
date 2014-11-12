@@ -78,17 +78,12 @@ private Q_SLOTS:
         QTest::addColumn<QString>("installedHookFileContent");
         QTest::addColumn<bool>("shouldBeUpdated");
 
-        QTest::newRow("Invalid installed hook file") << QString("com.ubuntu.blabla_blabla")
-                << QString("[{}]")
-                << QString("com.ubuntu.blabla.webapp")
-                << QString("[{\"uninstall\": { \"delete-cookies\": true, \"delete-cache\": true } }]")
-                << false;
-        QTest::newRow("Valid hook file") << QString("com.ubuntu.blabla_blabla.webapp")
+        QTest::newRow("Valid hook file") << QString("com.ubuntu.blabla_blabla")
                 << QString("[{}]")
                 << QString("com.ubuntu.blabla_blabla_0.2.webapp")
                 << QString("[{\"uninstall\": { \"delete-cookies\": true, \"delete-cache\": true } }]")
                 << true;
-        QTest::newRow("Valid hook file - no update") << QString("com.ubuntu.blabla_blabla.webapp")
+        QTest::newRow("Valid hook file - no update") << QString("com.ubuntu.blabla_blabla")
                 << QString("[{}]")
                 << QString("com.ubuntu.blabla_blabla_0.2.webapp")
                 << QString("[{\"uninstall\": { \"delete-cookies\": true, \"delete-cache\": true } }]")
@@ -156,7 +151,7 @@ private Q_SLOTS:
     void testClickHookInstall()
     {
         QString processedHookFilename =
-                "com.ubuntu.blabla_blabla.webapp";
+                "com.ubuntu.blabla_blabla";
         QString installedHookFilename =
                 "com.ubuntu.blabla_blabla_0.2.webapp";
         QString installedHookFileContent =
@@ -190,7 +185,7 @@ private Q_SLOTS:
     void testClickHookUninstall()
     {
         QString processedHookFilename =
-                "com.ubuntu.blabla_blabla.webapp";
+                "com.ubuntu.blabla_blabla";
         QString processedHookFileContent =
                 "[{\"uninstall\": { \"delete-cookies\": false, \"delete-cache\": false } }]";
 

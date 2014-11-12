@@ -95,7 +95,24 @@ WebappHookParser::parseDocument(const QJsonArray &array)
 }
 
 WebappClickHookInstallDescription
-listWebappClickHookFilesIn(const QDir& dir)
+listWebappProcessedClickHookFilesIn(const QDir& dir)
+{
+    WebappClickHookInstallDescription
+            description(dir.absolutePath(), QHash<QString, QString>());
+
+    Q_FOREACH(const QFileInfo &fileInfo, dir.entryInfoList())
+    {
+        if (fileInfo.isFile())
+        {
+            QString filename = fileInfo.fileName();
+            description.hookFiles[filename] = filename;
+        }
+    }
+    return description;
+}
+
+WebappClickHookInstallDescription
+listWebappInstalledClickHookFilesIn(const QDir& dir)
 {
     WebappClickHookInstallDescription
             description(dir.absolutePath(), QHash<QString, QString>());
@@ -103,10 +120,15 @@ listWebappClickHookFilesIn(const QDir& dir)
     const QString WEBAPP_CLICK_HOOK_FILE_EXT = "webapp";
     Q_FOREACH(const QFileInfo &fileInfo, dir.entryInfoList())
     {
-        if (fileInfo.suffix() == WEBAPP_CLICK_HOOK_FILE_EXT)
+        if (fileInfo.isSymLink()
+                && fileInfo.symLinkTarget().endsWith(QString(".") + WEBAPP_CLICK_HOOK_FILE_EXT))
         {
-            QString suffix = fileInfo.suffix();
-            description.hookFiles[removeVersionFrom(fileInfo.completeBaseName()) + "." + suffix] =
+            description.hookFiles[removeVersionFrom(fileInfo.completeBaseName())] =
+                    fileInfo.fileName();
+        }
+        else if (fileInfo.suffix() == WEBAPP_CLICK_HOOK_FILE_EXT)
+        {
+            description.hookFiles[removeVersionFrom(fileInfo.completeBaseName())] =
                     fileInfo.fileName();
         }
     }
@@ -168,11 +190,10 @@ void handleInstalls(const WebappClickHookInstallDescription& alreadyProcessedCli
                 + installedClickHooks.hookFiles[webappClickHook];
 
         QFileInfo hookFileInfo(hookFilename);
-        QString suffix = hookFileInfo.suffix();
         QString appIdNoVersion = removeVersionFrom(hookFileInfo.completeBaseName());
 
         QString destination = QString("%1/%2").
-            arg(alreadyProcessedClickHooks.parentFolder).arg(appIdNoVersion + "." + suffix);
+            arg(alreadyProcessedClickHooks.parentFolder).arg(appIdNoVersion);
 
         qDebug() << "Installing: " << destination;
 
@@ -249,11 +270,10 @@ void handleUpdates(const WebappClickHookInstallDescription& alreadyProcessedClic
                 + installedClickHooks.hookFiles[webappClickHook];
 
         QFileInfo hookFileInfo(hookFilename);
-        QString suffix = hookFileInfo.suffix();
         QString appIdNoVersion = removeVersionFrom(hookFileInfo.completeBaseName());
 
         QString destination = QString("%1/%2").
-            arg(alreadyProcessedClickHooks.parentFolder).arg(appIdNoVersion + "." + suffix);
+            arg(alreadyProcessedClickHooks.parentFolder).arg(appIdNoVersion);
 
         QFileInfo destinationInfo(destination);
         if (destinationInfo.exists() &&

@@ -86,11 +86,20 @@ struct WebappClickHookInstallDescription
 };
 
 /**
- * @brief listWebappClickHookFilesIn
+ * @brief listWebappProcessedClickHookFilesIn
  * @param dir
  * @return
  */
-WebappClickHookInstallDescription listWebappClickHookFilesIn(const QDir& dir);
+WebappClickHookInstallDescription
+listWebappProcessedClickHookFilesIn(const QDir& dir);
+
+/**
+ * @brief listWebappInstalledClickHookFilesIn
+ * @param dir
+ * @return
+ */
+WebappClickHookInstallDescription
+listWebappInstalledClickHookFilesIn(const QDir& dir);
 
 /**
  * @brief getProcessedClickHooksFolder

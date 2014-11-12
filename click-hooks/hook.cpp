@@ -44,11 +44,11 @@ int main(int argc, char ** argv)
     }
 
     HookUtils::WebappClickHookInstallDescription alreadyProcessedClickHooks =
-            HookUtils::listWebappClickHookFilesIn(
+            HookUtils::listWebappProcessedClickHookFilesIn(
                 processedClickHooksFolder);
 
     HookUtils::WebappClickHookInstallDescription installedClickHooks =
-            HookUtils::listWebappClickHookFilesIn(
+            HookUtils::listWebappInstalledClickHookFilesIn(
                 HookUtils::getClickHooksInstallFolder());
 
     HookUtils::handleInstalls(
