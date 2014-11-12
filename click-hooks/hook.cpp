@@ -38,10 +38,9 @@ int main(int argc, char ** argv)
 
     QString processedClickHooksFolder =
             HookUtils::getProcessedClickHooksFolder();
-    QDir dir(processedClickHooksFolder);
-    if (!dir.exists(processedClickHooksFolder))
+    if (!QDir(processedClickHooksFolder).exists())
     {
-        dir.mkdir(".");
+        QDir().mkdir(processedClickHooksFolder);
     }
 
     HookUtils::WebappClickHookInstallDescription alreadyProcessedClickHooks =
