@@ -36,15 +36,17 @@ int main(int argc, char ** argv)
         return EXIT_FAILURE;
     }
 
-    QString processedClickHooksFolder = HookUtils::getProcessedClickHooksFolder();
-    if (!QDir::exists(processedClickHooksFolder))
+    QString processedClickHooksFolder =
+            HookUtils::getProcessedClickHooksFolder();
+    QDir dir(processedClickHooksFolder);
+    if (!dir.exists(processedClickHooksFolder))
     {
-        QDir::mkdir(processedClickHooksFolder);
+        dir.mkdir(".");
     }
 
     HookUtils::WebappClickHookInstallDescription alreadyProcessedClickHooks =
             HookUtils::listWebappClickHookFilesIn(
-                HookUtils::getProcessedClickHooksFolder());
+                processedClickHooksFolder);
 
     HookUtils::WebappClickHookInstallDescription installedClickHooks =
             HookUtils::listWebappClickHookFilesIn(
