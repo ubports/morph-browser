@@ -27,6 +27,18 @@
 #include <QStandardPaths>
 
 
+namespace {
+
+QString shortAppIdFromUnversionedAppId(const QString &appId)
+{
+    QStringList components = appId.split('_');
+    components.removeLast();
+    return components.join('_');
+}
+
+}
+
+
 namespace HookUtils {
 
 
@@ -235,13 +247,13 @@ void handleUninstall(const WebappClickHookInstallDescription& alreadyProcessedCl
         if (data.shouldDeleteCacheOnUninstall)
         {
             QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation)
-                     + "/" + appIdNoVersion);
+                     + "/" + shortAppIdFromUnversionedAppId(appIdNoVersion));
             dir.removeRecursively();
         }
         if (data.shouldDeleteCookiesOnUninstall)
         {
             QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
-                     + "/" + appIdNoVersion);
+                     + "/" + shortAppIdFromUnversionedAppId(appIdNoVersion));
             dir.removeRecursively();
         }
 
