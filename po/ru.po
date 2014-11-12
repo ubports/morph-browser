@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-10-15 21:44+0200\n"
+"POT-Creation-Date: 2014-11-11 13:28+0100\n"
 "PO-Revision-Date: 2014-08-26 06:43+0000\n"
 "Last-Translator: ☠Jay ZDLin☠ <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-11-05 07:02+0000\n"
-"X-Generator: Launchpad (build 17223)\n"
+"X-Launchpad-Export-Date: 2014-11-12 06:43+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -120,7 +120,7 @@ msgid "Permission Request"
 msgstr "Запрос привилегий"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:65
+#: src/app/webcontainer/WebViewImplWebkit.qml:68
 msgid "This page wants to know your device’s location."
 msgstr "Эта страница хочет получить информацию о вашем местоположении"
 
@@ -159,6 +159,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Субъект:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:105
@@ -167,6 +169,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Адрес субъекта:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:116
@@ -241,6 +245,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"Вы обратились к %1, но сервер предоставил сертификат безопасности с истёкшим "
+"сроком действия."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -249,6 +255,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"Вы обратились к %1, но сервер предоставил сертификат безопасности с "
+"недопустимыми датами."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -257,6 +265,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"Вы обратились к %1, но сервер предоставил сертификат безопасности, выданный "
+"ненадёжным источником."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -265,6 +275,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"Вы обратились к %1, но сервер предоставил сертификат безопасности, который "
+"был отозван."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -273,6 +285,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"Вы обратились к %1, но сервер предоставил недействительный сертификат "
+"безопасности."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -281,6 +295,7 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"Вы обратились к %1, но сервер предоставил ненадёжный сертификат безопасности."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:211
@@ -290,6 +305,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"Сертификат безопасности данного сайта является ненадёжным.\n"
+"Вы обратились к %1, но сервер предоставил сертификат безопасности, который "
+"по неизвестной причине не прошёл наши проверки безопасности."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -407,21 +425,27 @@ msgstr "Сохранить изображение"
 msgid "Share…"
 msgstr "Поделиться..."
 
-#: src/app/webbrowser/AddressBar.qml:214
+#: src/app/webbrowser/AddressBar.qml:215
 msgid "This site has insecure content"
 msgstr "Сайт содержит небезопасное содержание"
 
-#: src/app/webbrowser/AddressBar.qml:229
+#: src/app/webbrowser/AddressBar.qml:230
 msgid "You are connected to"
 msgstr "Вы подключены к"
 
-#: src/app/webbrowser/AddressBar.qml:251
+#: src/app/webbrowser/AddressBar.qml:252
 msgid "Which is run by"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:335
+#: src/app/webbrowser/AddressBar.qml:334
 msgid "search or enter an address"
 msgstr "Введите поисковый запрос или адрес"
+
+#: src/app/webbrowser/BookmarksList.qml:67
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:190
 msgid "Share"
@@ -439,11 +463,6 @@ msgstr "Открытые вкладки"
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Новая вкладка"
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
-msgid "Delete"
-msgstr ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -469,19 +488,19 @@ msgstr "Вчера"
 msgid "Done"
 msgstr "Готово"
 
-#: src/app/webbrowser/NewTabView.qml:122
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
 msgstr "Популярные сайты"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
 msgstr "показать меньше"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr "показать больше"
 
@@ -494,14 +513,14 @@ msgid "Add"
 msgstr "Добавить"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:59
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:55
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu Веб-Браузер"
 
-#: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:61
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Веб-Браузер"
 

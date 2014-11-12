@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-10-15 21:44+0200\n"
+"POT-Creation-Date: 2014-11-11 13:28+0100\n"
 "PO-Revision-Date: 2014-11-10 09:21+0000\n"
 "Last-Translator: David Planella <david.planella@ubuntu.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-11-11 07:08+0000\n"
+"X-Launchpad-Export-Date: 2014-11-12 06:43+0000\n"
 "X-Generator: Launchpad (build 17241)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -119,7 +119,7 @@ msgid "Permission Request"
 msgstr "Sol·licitud de permís"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:65
+#: src/app/webcontainer/WebViewImplWebkit.qml:68
 msgid "This page wants to know your device’s location."
 msgstr "Aquesta pàgina vol saber la vostra ubicació."
 
@@ -428,21 +428,27 @@ msgstr "Desa la imatge"
 msgid "Share…"
 msgstr "Comparteix..."
 
-#: src/app/webbrowser/AddressBar.qml:214
+#: src/app/webbrowser/AddressBar.qml:215
 msgid "This site has insecure content"
 msgstr "Aquest lloc conté contingut insegur"
 
-#: src/app/webbrowser/AddressBar.qml:229
+#: src/app/webbrowser/AddressBar.qml:230
 msgid "You are connected to"
 msgstr "Esteu connectat a"
 
-#: src/app/webbrowser/AddressBar.qml:251
+#: src/app/webbrowser/AddressBar.qml:252
 msgid "Which is run by"
 msgstr "Que s'execute per"
 
-#: src/app/webbrowser/AddressBar.qml:335
+#: src/app/webbrowser/AddressBar.qml:334
 msgid "search or enter an address"
 msgstr "Cerqueu o escriviu una adreça"
+
+#: src/app/webbrowser/BookmarksList.qml:67
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
+msgstr "Suprimeix"
 
 #: src/app/webbrowser/Browser.qml:190
 msgid "Share"
@@ -460,11 +466,6 @@ msgstr "Pestanyes obertes"
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Pestanya nova"
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
-msgid "Delete"
-msgstr "Suprimeix"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -489,19 +490,19 @@ msgstr "Ahir"
 msgid "Done"
 msgstr "Fet"
 
-#: src/app/webbrowser/NewTabView.qml:122
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
 msgstr "Adreces d'interès"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
 msgstr "Llocs destacats"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
 msgstr "mostra'n menys"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr "mostra'n més"
 
@@ -514,14 +515,14 @@ msgid "Add"
 msgstr "Afegeix"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:59
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:55
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navegador web de l'Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:61
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 msgid "Ubuntu Web Browser"
 msgstr "Navegador web de l'Ubuntu"
 
