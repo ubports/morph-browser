@@ -11,7 +11,6 @@ set(WEBAPP_CONTAINER_HOOK_FOLDER webapp-container)
 set(WEBAPP_CONTAINER_HOOK webapp-container-hook)
 
 add_definitions(-DWEBAPP_CONTAINER_HOOK_FOLDER="${WEBAPP_CONTAINER_HOOK_FOLDER}")
-add_definitions(-DCLICK_HOOK_EXEC_BIN_DIR="${CMAKE_BINARY_DIR}")
 
 set(WEBAPP_CONTAINER_HOOK_SRC
     hook.cpp
