@@ -181,6 +181,8 @@ BrowserView {
         bindee: webview.currentWebview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
+        injectExtraUbuntuApis: runningLocalApplication
+        injectExtraContentShareCapabilities: !runningLocalApplication
     }
 
     function isValidContainedUrl(url) {
