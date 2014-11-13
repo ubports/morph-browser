@@ -68,7 +68,7 @@ Item {
                     , webappUrlPatterns: containerWebview.webappUrlPatterns
                     , developerExtrasEnabled: containerWebview.developerExtrasEnabled
                     , popupRedirectionUrlPrefixPattern: containerWebview.popupRedirectionUrlPrefixPattern
-                    , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls})
+                    , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
                     , runningLocalApplication: containerWebview.runningLocalApplication})
     }
 }
