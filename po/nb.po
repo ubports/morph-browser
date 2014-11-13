@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-11-11 13:28+0100\n"
-"PO-Revision-Date: 2014-09-27 04:14+0000\n"
+"PO-Revision-Date: 2014-11-12 19:56+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-11-12 06:43+0000\n"
+"X-Launchpad-Export-Date: 2014-11-13 06:33+0000\n"
 "X-Generator: Launchpad (build 17241)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -121,7 +121,7 @@ msgid "Permission Request"
 msgstr "Spørsmål om tillatelse"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:68
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
 msgstr "Denne siden spør om hvor enheten din befinner seg."
 
@@ -428,19 +428,19 @@ msgstr "Lagre bilde"
 msgid "Share…"
 msgstr "Del …"
 
-#: src/app/webbrowser/AddressBar.qml:215
+#: src/app/webbrowser/AddressBar.qml:214
 msgid "This site has insecure content"
 msgstr "Dette nettstedet har usikkert innhold"
 
-#: src/app/webbrowser/AddressBar.qml:230
+#: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
 msgstr "Du er koblet til"
 
-#: src/app/webbrowser/AddressBar.qml:252
+#: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"
 msgstr "Som drives av"
 
-#: src/app/webbrowser/AddressBar.qml:334
+#: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"
 msgstr "søk eller oppgi en adresse"
 
@@ -448,33 +448,32 @@ msgstr "søk eller oppgi en adresse"
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
 #: src/app/webbrowser/HistoryView.qml:179
 msgid "Delete"
-msgstr ""
+msgstr "Slett"
 
-#: src/app/webbrowser/Browser.qml:190
+#: src/app/webbrowser/Browser.qml:179
 msgid "Share"
 msgstr "Del"
 
-#: src/app/webbrowser/Browser.qml:204
+#: src/app/webbrowser/Browser.qml:193
 msgid "History"
 msgstr "Historikk"
 
-#: src/app/webbrowser/Browser.qml:211
+#: src/app/webbrowser/Browser.qml:200
 msgid "Open tabs"
 msgstr "Åpne faner"
 
-#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Ny fane"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:180
+#: src/app/webbrowser/ExpandedHistoryView.qml:107
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 side"
 msgstr[1] "%1 sider"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:194
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
 msgid "Less"
 msgstr "Færre"
 
@@ -486,23 +485,23 @@ msgstr "Sist besøkt"
 msgid "Yesterday"
 msgstr "I går"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr "Ferdig"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
 msgstr "Bokmerker"
 
-#: src/app/webbrowser/NewTabView.qml:126
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
 msgstr "Mest populære sider"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
 msgstr "vis færre"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:141
 msgid "see more"
 msgstr "vis flere"
 
@@ -510,31 +509,31 @@ msgstr "vis flere"
 msgid "Tap to view"
 msgstr "Trykk for å vise"
 
-#: src/app/webbrowser/TabsView.qml:114
+#: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
 msgstr "Legg til"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:55
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:60
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu nettleser"
 
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:57
+#: src/app/webbrowser/webbrowser-app.qml:41
+#: src/app/webcontainer/webapp-container.qml:62
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu nettleser"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
+#: src/app/webcontainer/AccountsLoginPage.qml:87
 msgid "No local account found for "
 msgstr "Fant ingen lokal konto for "
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
+#: src/app/webcontainer/AccountsLoginPage.qml:92
 msgid "Skip account creation step"
 msgstr "Hopp over, og ikke lag en konto"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountsLoginPage.qml:141
 msgid "Add account"
 msgstr "Legg til konto"
 
