@@ -45,6 +45,7 @@ private:
     void parseCommandLine();
     void parseExtraConfiguration();
     QString getExtraWebappUrlPatterns() const;
+    bool isValidLocalApplicationRunningContext() const;
 
 private:
     QString m_webappName;

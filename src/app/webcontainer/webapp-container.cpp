@@ -185,13 +185,17 @@ bool WebappContainer::initialize()
             m_window->setProperty("blockOpenExternalUrls", true);
         }
 
+        bool runningLocalApp = false;
         QList<QUrl> urls = this->urls();
+        qDebug() << urls.count();
         if (!urls.isEmpty()) {
             QUrl homeUrl = urls.last();
             m_window->setProperty("url", homeUrl);
+            qDebug() << "homeUrl " << homeUrl;
             if (UrlPatternUtils::isLocalHtml5ApplicationHomeUrl(homeUrl)) {
                 qDebug() << "Started as a local application container.";
-                m_window->setProperty("runningLocalApplication", true);
+                runningLocalApp = true;
+                m_window->setProperty("runningLocalApplication", runningLocalApp);
             }
         } else if (m_webappModelSearchPath.isEmpty()) {
             // Either we have a command line argument for the start URL or we have
@@ -202,12 +206,26 @@ bool WebappContainer::initialize()
         // Otherwise, assume that the homepage will come from a locally defined
         // webapp-properties.json file pulled from the webapp model element.
 
+        // Delay handle the invalid runtime conditions for the local apps
+        if (runningLocalApp && !isValidLocalApplicationRunningContext()) {
+            qCritical() << "Cannot run a local HTML5 application, invalid command line flags detected.";
+            return false;
+        }
+
         m_component->completeCreate();
 
         return true;
     } else {
         return false;
     }
+}
+
+bool WebappContainer::isValidLocalApplicationRunningContext() const
+{
+    return m_webappModelSearchPath.isEmpty() &&
+        m_popupRedirectionUrlPrefixPattern.isEmpty() &&
+        m_webappUrlPatterns.isEmpty() &&
+        m_webappName.isEmpty();
 }
 
 void WebappContainer::qmlEngineCreated(QQmlEngine* engine)

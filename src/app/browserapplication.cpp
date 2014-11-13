@@ -199,11 +199,26 @@ bool BrowserApplication::isLocalResource(const QString& resourceName) const
             && info.exists();
 }
 
+bool BrowserApplication::shouldNotValidateCommandLineUrls() const
+{
+    return !qgetenv("WEBAPP_CONTAINER_SHOULD_VALIDATE_CLI_URLS").isEmpty()
+            && QString(qgetenv("WEBAPP_CONTAINER_SHOULD_VALIDATE_CLI_URLS")) == "1";
+}
+
 QList<QUrl> BrowserApplication::urls() const
 {
     QList<QUrl> urls;
     Q_FOREACH(const QString& argument, m_arguments) {
         if (!argument.startsWith("-")) {
+            // This is used for testing to avoid having existing
+            // resources to run against.
+            if (shouldNotValidateCommandLineUrls()) {
+                urls.append(argument.startsWith("file://")
+                            ? argument
+                            : (QString("file://") + argument));
+                continue;
+            }
+
             QUrl url;
             if (isLocalResource(argument)) {
                 url = QUrl::fromLocalFile(QFileInfo(argument).absoluteFilePath());
