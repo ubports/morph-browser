@@ -187,11 +187,9 @@ bool WebappContainer::initialize()
 
         bool runningLocalApp = false;
         QList<QUrl> urls = this->urls();
-        qDebug() << urls.count();
         if (!urls.isEmpty()) {
             QUrl homeUrl = urls.last();
             m_window->setProperty("url", homeUrl);
-            qDebug() << "homeUrl " << homeUrl;
             if (UrlPatternUtils::isLocalHtml5ApplicationHomeUrl(homeUrl)) {
                 qDebug() << "Started as a local application container.";
                 runningLocalApp = true;
