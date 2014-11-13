@@ -138,6 +138,7 @@ BrowserWindow {
         anchors.fill: parent
 
         property var credentialsId: null
+        property var webContextSessionCookieMode: null
         property var webappDataLocation: credentialsId != null ? dataLocation + "/id-" + credentialsId : dataLocation
     }
 
@@ -178,6 +179,13 @@ BrowserWindow {
                     }
                 });
                 webappViewLoader.credentialsId = credentialsId
+                // If we need to preserve session cookies, make sure that the
+                // mode is "restored" and not "persistent", or the cookies
+                // transferred from OA would be lost.
+                if (typeof webContextSessionCookieMode === "string") {
+                    webappViewLoader.webContextSessionCookieMode = "restored"
+                }
+
                 webappViewLoader.sourceComponent = webappViewComponent
             }
             else {
