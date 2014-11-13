@@ -127,9 +127,7 @@ WebViewImpl {
 
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
             request.action = Oxide.NavigationRequest.ActionReject
-            if (shouldOpenPopupsInDefaultBrowser()) {
-                Qt.openUrlExternally(url)
-            }
+            openUrlExternally(url)
             return
         }
 
