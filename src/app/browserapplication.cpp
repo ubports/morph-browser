@@ -191,13 +191,26 @@ int BrowserApplication::run()
     return exec();
 }
 
+bool BrowserApplication::isLocalResource(const QString& resourceName) const
+{
+    QFileInfo info(resourceName);
+    return (info.isAbsolute() || info.isRelative())
+            && info.isFile()
+            && info.exists();
+}
+
 QList<QUrl> BrowserApplication::urls() const
 {
     QList<QUrl> urls;
     Q_FOREACH(const QString& argument, m_arguments) {
         if (!argument.startsWith("-")) {
-            QUrl url = QUrl::fromUserInput(argument);
-            if (url.isValid()) {
+            QUrl url;
+            if (isLocalResource(argument)) {
+                url = QUrl::fromLocalFile(QFileInfo(argument).absoluteFilePath());
+            } else {
+                url = QUrl::fromUserInput(argument);
+            }
+            if (url.isValid() || url.isLocalFile()) {
                 urls.append(url);
             }
         }

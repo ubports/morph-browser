@@ -60,6 +60,7 @@ private:
     QString appId() const;
     QString inspectorPort() const;
     QString inspectorHost() const;
+    bool isLocalResource(const QString& resourceName) const;
 
     WebBrowserWindow *m_webbrowserWindowProxy;
 };
