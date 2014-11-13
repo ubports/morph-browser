@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-11-11 13:28+0100\n"
-"PO-Revision-Date: 2014-09-27 12:40+0000\n"
+"PO-Revision-Date: 2014-11-12 10:02+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-11-12 06:43+0000\n"
+"X-Launchpad-Export-Date: 2014-11-13 06:33+0000\n"
 "X-Generator: Launchpad (build 17241)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -117,7 +117,7 @@ msgid "Permission Request"
 msgstr "Jogosultság igénylés"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:68
+#: src/app/webcontainer/WebViewImplWebkit.qml:65
 msgid "This page wants to know your device’s location."
 msgstr "Ez az oldal tudni szeretné az eszköze helyzetét."
 
@@ -224,6 +224,8 @@ msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"Nem kellene folytatnia, különösen akkor nem, ha még soha nem találkozott "
+"ezzel a figyelmeztetéssel ezen az oldalon."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -232,6 +234,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
+"tanúsítvány nem egyezik az oldal identitásával."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -240,6 +244,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
+"tanúsítvány lejárt."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -248,6 +254,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
+"tanúsítvány érvénytelen dátumokat tartalmaz."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -256,6 +264,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
+"tanúsítványt nem megbízható fél bocsátotta ki."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -264,6 +274,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
+"tanúsítványt visszavonták."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -272,6 +284,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
+"tanúsítvány érvénytelen."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -280,6 +294,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
+"tanúsítvány nem biztonságos."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:211
@@ -289,6 +305,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"Az oldal biztonsági tanúsítványa nem megbízható\n"
+"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
+"tanúsítvány ismeretlen okból nem ment át a biztonsági ellenőrzésen."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -406,19 +425,19 @@ msgstr "Kép mentése"
 msgid "Share…"
 msgstr "Megosztás…"
 
-#: src/app/webbrowser/AddressBar.qml:215
+#: src/app/webbrowser/AddressBar.qml:214
 msgid "This site has insecure content"
 msgstr "Ezen az oldalon nem megbízható a tartalom"
 
-#: src/app/webbrowser/AddressBar.qml:230
+#: src/app/webbrowser/AddressBar.qml:229
 msgid "You are connected to"
 msgstr "Kapcsolódás:"
 
-#: src/app/webbrowser/AddressBar.qml:252
+#: src/app/webbrowser/AddressBar.qml:251
 msgid "Which is run by"
-msgstr ""
+msgstr "Kezeli:"
 
-#: src/app/webbrowser/AddressBar.qml:334
+#: src/app/webbrowser/AddressBar.qml:335
 msgid "search or enter an address"
 msgstr "keresés vagy cím megadása"
 
@@ -426,33 +445,32 @@ msgstr "keresés vagy cím megadása"
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
 #: src/app/webbrowser/HistoryView.qml:179
 msgid "Delete"
-msgstr ""
+msgstr "Törlés"
 
-#: src/app/webbrowser/Browser.qml:190
+#: src/app/webbrowser/Browser.qml:179
 msgid "Share"
 msgstr "Megosztás"
 
-#: src/app/webbrowser/Browser.qml:204
+#: src/app/webbrowser/Browser.qml:193
 msgid "History"
 msgstr "Előzmények"
 
-#: src/app/webbrowser/Browser.qml:211
+#: src/app/webbrowser/Browser.qml:200
 msgid "Open tabs"
 msgstr "Nyitott lapok"
 
-#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Új lap"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:180
+#: src/app/webbrowser/ExpandedHistoryView.qml:107
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 oldal"
 msgstr[1] "%1 oldal"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:194
+#: src/app/webbrowser/ExpandedHistoryView.qml:121
 msgid "Less"
 msgstr "Kevesebb"
 
@@ -464,23 +482,23 @@ msgstr "Utoljára meglátogatott"
 msgid "Yesterday"
 msgstr "Tegnap"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr "Kész"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:122
 msgid "Bookmarks"
 msgstr "Könyvjelzők"
 
-#: src/app/webbrowser/NewTabView.qml:126
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Top sites"
 msgstr "Leglátogatottabb oldalak"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:141
 msgid "see less"
 msgstr "kevesebb megjelenítése"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:141
 msgid "see more"
 msgstr "több megjelenítése"
 
@@ -488,31 +506,31 @@ msgstr "több megjelenítése"
 msgid "Tap to view"
 msgstr "Koppintson a megtekintéshez"
 
-#: src/app/webbrowser/TabsView.qml:114
+#: src/app/webbrowser/TabsView.qml:115
 msgid "Add"
 msgstr "Hozzáadás"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:55
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:60
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu webböngésző"
 
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:57
+#: src/app/webbrowser/webbrowser-app.qml:41
+#: src/app/webcontainer/webapp-container.qml:62
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu webböngésző"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
+#: src/app/webcontainer/AccountsLoginPage.qml:87
 msgid "No local account found for "
 msgstr "Nem található helyi fiók ehhez: "
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
+#: src/app/webcontainer/AccountsLoginPage.qml:92
 msgid "Skip account creation step"
 msgstr "A fióklétrehozási lépés kihagyása"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountsLoginPage.qml:141
 msgid "Add account"
 msgstr "Fiók hozzáadása"
 
