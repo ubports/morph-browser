@@ -280,7 +280,7 @@ BrowserView {
             TabsView {
                 anchors.fill: parent
                 model: tabsModel
-                onNewTabRequested: browser.openUrlInNewTab("", true, false)
+                onNewTabRequested: browser.openUrlInNewTab("", true)
                 onDone: {
                     tabsModel.currentTab.load()
                     this.destroy()
@@ -326,7 +326,7 @@ BrowserView {
                 anchors.fill: parent
 
                 onHistoryEntryClicked: {
-                    browser.openUrlInNewTab(url, true, true)
+                    browser.openUrlInNewTab(url, true)
                     done()
                 }
                 onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)

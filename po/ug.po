@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-10-15 21:44+0200\n"
+"POT-Creation-Date: 2014-11-11 13:28+0100\n"
 "PO-Revision-Date: 2014-11-06 07:42+0000\n"
 "Last-Translator: Gheyret T.Kenji <Unknown>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-11-07 06:49+0000\n"
-"X-Generator: Launchpad (build 17231)\n"
+"X-Launchpad-Export-Date: 2014-11-12 06:43+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -121,7 +121,7 @@ msgid "Permission Request"
 msgstr "ئىمتىياز ئىلتىماسى"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:65
+#: src/app/webcontainer/WebViewImplWebkit.qml:68
 msgid "This page wants to know your device’s location."
 msgstr "مەزكۇر بەت ئۈسكۈنىڭىزنىڭ ئورنىڭىزنى بىلمەكچى."
 
@@ -429,21 +429,27 @@ msgstr "سۈرەت ساقلا"
 msgid "Share…"
 msgstr "ھەمبەھىر…"
 
-#: src/app/webbrowser/AddressBar.qml:214
+#: src/app/webbrowser/AddressBar.qml:215
 msgid "This site has insecure content"
 msgstr "بۇ تورتۇرادا بىخەتەر بولمىغان مەزمۇنلار بار"
 
-#: src/app/webbrowser/AddressBar.qml:229
+#: src/app/webbrowser/AddressBar.qml:230
 msgid "You are connected to"
 msgstr "سىز باغلىنىۋاتقان يەر"
 
-#: src/app/webbrowser/AddressBar.qml:251
+#: src/app/webbrowser/AddressBar.qml:252
 msgid "Which is run by"
 msgstr "بۇنى باشقۇرغۇچى"
 
-#: src/app/webbrowser/AddressBar.qml:335
+#: src/app/webbrowser/AddressBar.qml:334
 msgid "search or enter an address"
 msgstr "ئىزدەڭ ياكى بىر ئادرېسنى كىرگۈزۈڭ"
+
+#: src/app/webbrowser/BookmarksList.qml:67
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
+msgstr "ئۆچۈر"
 
 #: src/app/webbrowser/Browser.qml:190
 msgid "Share"
@@ -461,11 +467,6 @@ msgstr "بەتكۈچلەرنى ئاچ"
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "يېڭى بەتكۈچ"
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
-msgid "Delete"
-msgstr "ئۆچۈر"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -489,19 +490,19 @@ msgstr "تۈنۈگۈن"
 msgid "Done"
 msgstr "تامام"
 
-#: src/app/webbrowser/NewTabView.qml:122
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
 msgstr "خەتكۈچلەر"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
 msgstr "داڭلىق تورتۇرالار"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
 msgstr "ئاز كۆرۈش"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr "كۆپ كۆرۈش"
 
@@ -514,14 +515,14 @@ msgid "Add"
 msgstr "قوش"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:59
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:55
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - ئۇبۇنتۇ تور كۆرگۈسى"
 
-#: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:61
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 msgid "Ubuntu Web Browser"
 msgstr "ئۇبۇنتۇ تور كۆرگۈسى"
 

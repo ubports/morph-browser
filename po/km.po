@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-10-15 21:44+0200\n"
+"POT-Creation-Date: 2014-11-11 13:28+0100\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-11-05 07:01+0000\n"
-"X-Generator: Launchpad (build 17223)\n"
+"X-Launchpad-Export-Date: 2014-11-12 06:43+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -121,7 +121,7 @@ msgid "Permission Request"
 msgstr "ស្នើ​សិទ្ធិ"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:65
+#: src/app/webcontainer/WebViewImplWebkit.qml:68
 msgid "This page wants to know your device’s location."
 msgstr "ទំព័រ​នេះ​ចង់​ដឹង​ទីតាំង​ឧបករណ៍របស់​អ្នក។"
 
@@ -433,21 +433,27 @@ msgstr "រក្សាទុក​រូបភាព"
 msgid "Share…"
 msgstr "ចែករំលែក"
 
-#: src/app/webbrowser/AddressBar.qml:214
+#: src/app/webbrowser/AddressBar.qml:215
 msgid "This site has insecure content"
 msgstr "តំបន់បណ្តាញនេះមានមាតិកាអសន្ដិសុខ"
 
-#: src/app/webbrowser/AddressBar.qml:229
+#: src/app/webbrowser/AddressBar.qml:230
 msgid "You are connected to"
 msgstr "អ្នកត្រូវបានភ្ជាប់ទៅ"
 
-#: src/app/webbrowser/AddressBar.qml:251
+#: src/app/webbrowser/AddressBar.qml:252
 msgid "Which is run by"
 msgstr "ដែលត្រូវបានគ្រប់គ្រងដោយ"
 
-#: src/app/webbrowser/AddressBar.qml:335
+#: src/app/webbrowser/AddressBar.qml:334
 msgid "search or enter an address"
 msgstr "ស្វែងរក ឬ​បញ្ចូល​អាសយដ្ឋាន"
+
+#: src/app/webbrowser/BookmarksList.qml:67
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:190
 msgid "Share"
@@ -465,11 +471,6 @@ msgstr "បើក​ផ្ទាំង"
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "ផ្ទាំង​ថ្មី"
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
-msgid "Delete"
-msgstr ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -493,19 +494,19 @@ msgstr "ម្សិល​មិញ"
 msgid "Done"
 msgstr "ធ្វើរួច"
 
-#: src/app/webbrowser/NewTabView.qml:122
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
 msgstr "ចំណាំ"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
 msgstr "តំបន់បណ្ដាញ​ពេញនិយម"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
 msgstr "មើល​​តិច​ជាង"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr "មើល​ច្រើន​ជាង"
 
@@ -518,14 +519,14 @@ msgid "Add"
 msgstr "បន្ថែម"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:59
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:55
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:61
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 msgid "Ubuntu Web Browser"
 msgstr "កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
 

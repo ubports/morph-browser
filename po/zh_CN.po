@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-10-15 21:44+0200\n"
+"POT-Creation-Date: 2014-11-11 13:28+0100\n"
 "PO-Revision-Date: 2014-08-12 14:07+0000\n"
 "Last-Translator: Anthony Wong <anthony.wong@ubuntu.com>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-11-05 07:02+0000\n"
-"X-Generator: Launchpad (build 17223)\n"
+"X-Launchpad-Export-Date: 2014-11-12 06:44+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -117,7 +117,7 @@ msgid "Permission Request"
 msgstr "权限请求"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:65
+#: src/app/webcontainer/WebViewImplWebkit.qml:68
 msgid "This page wants to know your device’s location."
 msgstr "此页面要求取得您的设备位置。"
 
@@ -390,21 +390,27 @@ msgstr "保存图像"
 msgid "Share…"
 msgstr "分享..."
 
-#: src/app/webbrowser/AddressBar.qml:214
+#: src/app/webbrowser/AddressBar.qml:215
 msgid "This site has insecure content"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:229
+#: src/app/webbrowser/AddressBar.qml:230
 msgid "You are connected to"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:251
+#: src/app/webbrowser/AddressBar.qml:252
 msgid "Which is run by"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:335
+#: src/app/webbrowser/AddressBar.qml:334
 msgid "search or enter an address"
 msgstr "搜索或输入一个地址"
+
+#: src/app/webbrowser/BookmarksList.qml:67
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:190
 msgid "Share"
@@ -422,11 +428,6 @@ msgstr ""
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "新建标签"
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
-msgid "Delete"
-msgstr ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -451,19 +452,19 @@ msgstr "昨天"
 msgid "Done"
 msgstr "完成"
 
-#: src/app/webbrowser/NewTabView.qml:122
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
 msgstr "书签"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
 msgstr "热门网站"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr ""
 
@@ -476,14 +477,14 @@ msgid "Add"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:59
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:55
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu 浏览器"
 
-#: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:61
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu 浏览器"
 
