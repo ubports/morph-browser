@@ -182,6 +182,8 @@ BrowserWindow {
                 // If we need to preserve session cookies, make sure that the
                 // mode is "restored" and not "persistent", or the cookies
                 // transferred from OA would be lost.
+                // We check if the webContextSessionCookieMode is defined and, if so,
+                // we override it in the webapp loader.
                 if (typeof webContextSessionCookieMode === "string") {
                     webappViewLoader.webContextSessionCookieMode = "restored"
                 }
