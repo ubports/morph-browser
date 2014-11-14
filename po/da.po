@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-11-11 13:28+0100\n"
+"POT-Creation-Date: 2014-11-13 13:56+0100\n"
 "PO-Revision-Date: 2014-08-03 02:48+0000\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-11-12 06:43+0000\n"
+"X-Launchpad-Export-Date: 2014-11-14 06:31+0000\n"
 "X-Generator: Launchpad (build 17241)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -432,19 +432,7 @@ msgstr "Gem billede"
 msgid "Share…"
 msgstr "Del…"
 
-#: src/app/webbrowser/AddressBar.qml:215
-msgid "This site has insecure content"
-msgstr "Dette sted har indhold som er usikkert"
-
-#: src/app/webbrowser/AddressBar.qml:230
-msgid "You are connected to"
-msgstr "Du er tilsluttet til"
-
-#: src/app/webbrowser/AddressBar.qml:252
-msgid "Which is run by"
-msgstr "Der bliver drevet af"
-
-#: src/app/webbrowser/AddressBar.qml:334
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "søg eller indtast en adresse"
 
@@ -509,6 +497,18 @@ msgstr "vis mindre"
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr "vis mere"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+msgid "This site has insecure content"
+msgstr "Dette sted har indhold som er usikkert"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+msgid "You are connected to"
+msgstr "Du er tilsluttet til"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Which is run by"
+msgstr "Der bliver drevet af"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"

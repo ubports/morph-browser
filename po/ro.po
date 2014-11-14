@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-11-11 13:28+0100\n"
+"POT-Creation-Date: 2014-11-13 13:56+0100\n"
 "PO-Revision-Date: 2014-11-10 17:07+0000\n"
 "Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2014-11-12 06:43+0000\n"
+"X-Launchpad-Export-Date: 2014-11-14 06:32+0000\n"
 "X-Generator: Launchpad (build 17241)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -431,19 +431,7 @@ msgstr "Salvează imaginea"
 msgid "Share…"
 msgstr "Partajează..."
 
-#: src/app/webbrowser/AddressBar.qml:215
-msgid "This site has insecure content"
-msgstr "Acest site are conținut nesigur"
-
-#: src/app/webbrowser/AddressBar.qml:230
-msgid "You are connected to"
-msgstr "Sunteți conectat la"
-
-#: src/app/webbrowser/AddressBar.qml:252
-msgid "Which is run by"
-msgstr "Care este rulat de"
-
-#: src/app/webbrowser/AddressBar.qml:334
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "căutați sau introduceți o adresă"
 
@@ -509,6 +497,18 @@ msgstr "arată mai puțin"
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr "arată mai mult"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+msgid "This site has insecure content"
+msgstr "Acest site are conținut nesigur"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+msgid "You are connected to"
+msgstr "Sunteți conectat la"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Which is run by"
+msgstr "Care este rulat de"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"

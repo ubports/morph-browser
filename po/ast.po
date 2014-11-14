@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-11-11 13:28+0100\n"
+"POT-Creation-Date: 2014-11-13 13:56+0100\n"
 "PO-Revision-Date: 2014-11-08 18:23+0000\n"
 "Last-Translator: ivarela <ivarela@ubuntu.com>\n"
 "Language-Team: Asturian <ast@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-11-12 06:43+0000\n"
+"X-Launchpad-Export-Date: 2014-11-14 06:31+0000\n"
 "X-Generator: Launchpad (build 17241)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -428,19 +428,7 @@ msgstr "Guardar imaxe"
 msgid "Share…"
 msgstr "Compartir..."
 
-#: src/app/webbrowser/AddressBar.qml:215
-msgid "This site has insecure content"
-msgstr "Esti sitiu tien conteníu non seguru"
-
-#: src/app/webbrowser/AddressBar.qml:230
-msgid "You are connected to"
-msgstr "Tas coneutáu a"
-
-#: src/app/webbrowser/AddressBar.qml:252
-msgid "Which is run by"
-msgstr "Que ta dirixíu por"
-
-#: src/app/webbrowser/AddressBar.qml:334
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "guetar o introduz una direición"
 
@@ -505,6 +493,18 @@ msgstr "ver menos"
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr "ver más"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+msgid "This site has insecure content"
+msgstr "Esti sitiu tien conteníu non seguru"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+msgid "You are connected to"
+msgstr "Tas coneutáu a"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Which is run by"
+msgstr "Que ta dirixíu por"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"

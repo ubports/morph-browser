@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-11-11 13:28+0100\n"
+"POT-Creation-Date: 2014-11-13 13:56+0100\n"
 "PO-Revision-Date: 2014-10-15 14:39+0000\n"
 "Last-Translator: Pau Iranzo <Unknown>\n"
 "Language-Team: Catalan <ca@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-11-12 06:44+0000\n"
+"X-Launchpad-Export-Date: 2014-11-14 06:32+0000\n"
 "X-Generator: Launchpad (build 17241)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -428,19 +428,7 @@ msgstr "Guarda la imatge"
 msgid "Share…"
 msgstr "Comparteix..."
 
-#: src/app/webbrowser/AddressBar.qml:215
-msgid "This site has insecure content"
-msgstr "Este lloc conté contingut insegur"
-
-#: src/app/webbrowser/AddressBar.qml:230
-msgid "You are connected to"
-msgstr "Esteu connectat a"
-
-#: src/app/webbrowser/AddressBar.qml:252
-msgid "Which is run by"
-msgstr "Que s'execute per"
-
-#: src/app/webbrowser/AddressBar.qml:334
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "Cerqueu o escriviu una adreça"
 
@@ -505,6 +493,18 @@ msgstr "mostra'n menys"
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr "mostra'n més"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+msgid "This site has insecure content"
+msgstr "Este lloc conté contingut insegur"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+msgid "You are connected to"
+msgstr "Esteu connectat a"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Which is run by"
+msgstr "Que s'execute per"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"

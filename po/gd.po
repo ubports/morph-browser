@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-11-11 13:28+0100\n"
+"POT-Creation-Date: 2014-11-13 13:56+0100\n"
 "PO-Revision-Date: 2014-11-09 08:19+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2014-11-12 06:43+0000\n"
+"X-Launchpad-Export-Date: 2014-11-14 06:31+0000\n"
 "X-Generator: Launchpad (build 17241)\n"
 "Language: gd\n"
 
@@ -433,19 +433,7 @@ msgstr "Sàbhail an dealbh"
 msgid "Share…"
 msgstr "Co-roinn…"
 
-#: src/app/webbrowser/AddressBar.qml:215
-msgid "This site has insecure content"
-msgstr "Tha susbaint neo-thèarainte san làrach seo"
-
-#: src/app/webbrowser/AddressBar.qml:230
-msgid "You are connected to"
-msgstr "Tha thu ceangailte ri"
-
-#: src/app/webbrowser/AddressBar.qml:252
-msgid "Which is run by"
-msgstr "A tha 'ga ruith le"
-
-#: src/app/webbrowser/AddressBar.qml:334
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "lorg no cuir a-steach seòladh-lìn"
 
@@ -512,6 +500,18 @@ msgstr "seall nas lugha dheth"
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr "seall barrachd"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+msgid "This site has insecure content"
+msgstr "Tha susbaint neo-thèarainte san làrach seo"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+msgid "You are connected to"
+msgstr "Tha thu ceangailte ri"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Which is run by"
+msgstr "A tha 'ga ruith le"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"
