@@ -52,6 +52,20 @@ This is some {} content
 </html>
         """
 
+    def external_click_content(self):
+        return """
+<html>
+<head>
+<title>Some content</title>
+</head>
+<body>
+<div><a href='http://www.ubuntu.com/'>
+<div style="height: 100%; width: 100%"></div>
+</a></div>
+</body>
+</html>
+        """
+
     def do_GET(self):
         if self.path == '/':
             self.send_response(200)
@@ -62,6 +76,9 @@ This is some {} content
         elif self.path == '/get-redirect':
             self.send_response(200)
             self.serve_content(self.redirect_html_content())
+        elif self.path == '/with-external-link':
+            self.send_response(200)
+            self.serve_content(self.external_click_content())
         else:
             self.send_error(404)
 

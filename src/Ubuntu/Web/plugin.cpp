@@ -37,6 +37,7 @@ class UbuntuWebPluginContext : public QObject
     Q_PROPERTY(QString formFactor READ formFactor CONSTANT)
     Q_PROPERTY(QString webviewDevtoolsDebugHost READ devtoolsHost CONSTANT)
     Q_PROPERTY(int webviewDevtoolsDebugPort READ devtoolsPort CONSTANT)
+    Q_PROPERTY(QStringList webviewHostMappingRules READ hostMappingRules CONSTANT)
 
 public:
     UbuntuWebPluginContext(QObject* parent = 0);
@@ -45,14 +46,20 @@ public:
     QString formFactor();
     QString devtoolsHost();
     int devtoolsPort();
+    QStringList hostMappingRules();
 
 Q_SIGNALS:
     void dataLocationChanged() const;
 
 private:
+    bool isValidHostMappingRule(const QString& rule) const;
+    QStringList transformHostMappingRules(const QStringList&) const;
+
+private:
     QString m_formFactor;
     QString m_devtoolsHost;
     int m_devtoolsPort;
+    QStringList m_hostMappingRules;
 };
 
 UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
@@ -104,6 +111,45 @@ QString UbuntuWebPluginContext::formFactor()
         }
     }
     return m_formFactor;
+}
+
+bool UbuntuWebPluginContext::isValidHostMappingRule(const QString& rule) const
+{
+    // from http://src.chromium.org/svn/trunk/src/net/base/host_mapping_rules.h
+    static const QStringList POSSIBLE_HEADER =
+            QStringList() << "MAP" << "EXCLUDE";
+
+    QStringList parts = rule.split(QRegExp("\\s"));
+    if (parts.count() < 3 || ! POSSIBLE_HEADER.contains(parts.at(0))) {
+        return false;
+    }
+    return true;
+}
+
+QStringList UbuntuWebPluginContext::transformHostMappingRules(const QStringList& rules) const
+{
+    QStringList result;
+    Q_FOREACH(QString rule, rules) {
+        if (isValidHostMappingRule(rule)) {
+            result.append(rule);
+        }
+    }
+    return result;
+}
+
+QStringList UbuntuWebPluginContext::hostMappingRules()
+{
+    static const QString HOST_MAPPING_RULES_SEP = ",";
+
+    if (m_hostMappingRules.isEmpty()) {
+        const char* HOST_MAPPING_RULES_ENV_VAR = "UBUNTU_WEBVIEW_HOST_MAPPING_RULES";
+        if (qEnvironmentVariableIsSet(HOST_MAPPING_RULES_ENV_VAR)) {
+            QString rules(qgetenv(HOST_MAPPING_RULES_ENV_VAR));
+            m_hostMappingRules =
+                    transformHostMappingRules(rules.split(HOST_MAPPING_RULES_SEP));
+        }
+    }
+    return m_hostMappingRules;
 }
 
 QString UbuntuWebPluginContext::devtoolsHost()
