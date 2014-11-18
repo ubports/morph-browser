@@ -68,7 +68,7 @@ public:
 public:
     OptionalData parseContent(const QString& filename);
 private:
-    OptionalData parseDocument(const QJsonArray &array);
+    OptionalData parseDocument(const QJsonArray& array);
 };
 
 /**
@@ -118,7 +118,7 @@ QString getClickHooksInstallFolder();
  * @param appId
  * @return
  */
-QString removeVersionFrom(const QString &appId);
+QString removeVersionFrom(const QString& appId);
 
 /**
  * @brief handleInstalls Detects click package uninstalls and handled what's needed

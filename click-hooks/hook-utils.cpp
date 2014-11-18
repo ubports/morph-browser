@@ -29,7 +29,7 @@
 
 namespace {
 
-QString shortAppIdFromUnversionedAppId(const QString &appId)
+QString shortAppIdFromUnversionedAppId(const QString& appId)
 {
     QStringList components = appId.split('_');
     components.removeLast();
@@ -67,7 +67,7 @@ WebappHookParser::parseContent(const QString& filename)
 }
 
 WebappHookParser::OptionalData
-WebappHookParser::parseDocument(const QJsonArray &array)
+WebappHookParser::parseDocument(const QJsonArray& array)
 {
     Data result;
     if (array.count() == 0
@@ -112,7 +112,7 @@ listWebappProcessedClickHookFilesIn(const QDir& dir)
     WebappClickHookInstallDescription
             description(dir.absolutePath(), QHash<QString, QString>());
 
-    Q_FOREACH(const QFileInfo &fileInfo, dir.entryInfoList())
+    Q_FOREACH(const QFileInfo& fileInfo, dir.entryInfoList())
     {
         if (fileInfo.isFile())
         {
@@ -130,7 +130,7 @@ listWebappInstalledClickHookFilesIn(const QDir& dir)
             description(dir.absolutePath(), QHash<QString, QString>());
 
     const QString WEBAPP_CLICK_HOOK_FILE_EXT = "webapp";
-    Q_FOREACH(const QFileInfo &fileInfo, dir.entryInfoList())
+    Q_FOREACH(const QFileInfo& fileInfo, dir.entryInfoList())
     {
         if (fileInfo.isSymLink()
                 && fileInfo.symLinkTarget().endsWith(QString(".") + WEBAPP_CLICK_HOOK_FILE_EXT))
@@ -171,7 +171,7 @@ getClickHooksInstallFolder()
     return result;
 }
 
-QString removeVersionFrom(const QString &appId)
+QString removeVersionFrom(const QString& appId)
 {
     QStringList components = appId.split('_');
     if (components.count() != 3)
@@ -195,7 +195,7 @@ void handleInstalls(const WebappClickHookInstallDescription& alreadyProcessedCli
         return;
     }
 
-    Q_FOREACH(const QString &webappClickHook, newlyInstalledClickPackages)
+    Q_FOREACH(const QString& webappClickHook, newlyInstalledClickPackages)
     {
         QString hookFilename =
                 installedClickHooks.parentFolder + "/"
@@ -228,7 +228,7 @@ void handleUninstall(const WebappClickHookInstallDescription& alreadyProcessedCl
         return;
     }
 
-    Q_FOREACH(const QString &webappClickHook, deletedClickPackages)
+    Q_FOREACH(const QString& webappClickHook, deletedClickPackages)
     {
         QString hookFilename =
                 alreadyProcessedClickHooks.parentFolder + "/" + webappClickHook;
@@ -275,7 +275,7 @@ void handleUpdates(const WebappClickHookInstallDescription& alreadyProcessedClic
         return;
     }
 
-    Q_FOREACH(const QString &webappClickHook, foundClickHooks)
+    Q_FOREACH(const QString& webappClickHook, foundClickHooks)
     {
         QString hookFilename =
                 installedClickHooks.parentFolder + "/"
