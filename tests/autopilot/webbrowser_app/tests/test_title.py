@@ -25,6 +25,6 @@ class TestWindowTitle(StartOpenRemotePageTestCaseBase):
     """Tests that the window’s title reflects the page title."""
 
     def test_window_title(self):
-        self.go_to_url(self.base_url + "/aleaiactaest")
+        self.go_to_url(self.base_url + "/test2")
         self.assertThat(self.main_window.get_window().title,
-                        Eventually(Contains("Alea Iacta Est")))
+                        Eventually(Contains("test page 2")))

@@ -36,7 +36,7 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
         self.open_tabs_view()
         self.open_new_tab()
-        url = self.base_url + "/aleaiactaest"
+        url = self.base_url + "/test2"
         if model() != 'Desktop':
             self.focus_address_bar()
         self.type_in_address_bar(url)
