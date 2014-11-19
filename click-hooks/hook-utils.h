@@ -26,35 +26,16 @@
 namespace HookUtils {
 
 /**
- * Simple optional type wrapper
- */
-template <typename T>
-class Fallible
-{
-public:
-    explicit Fallible<T>(const T& data, bool is_valid = true)
-        : _data(data), _is_valid(is_valid) {}
-
-    bool is_valid() const { return _is_valid; }
-    const T& value() const
-    {
-        if (!is_valid())
-        {
-            throw std::exception();
-        }
-        return _data;
-    }
-
-private:
-    T _data;
-    bool _is_valid;
-};
-
-/**
  * @brief The WebappHookParser class
  */
 class WebappHookParser {
 public:
+    /*
+     * Warning: The values exposed by the Data POD
+     * should have default values set to no-ops
+     * in case of any parsing failure so that the associated
+     * actions are not triggered.
+     */
     struct Data
     {
         Data ()
@@ -63,12 +44,11 @@ public:
         bool shouldDeleteCacheOnUninstall;
         bool shouldDeleteCookiesOnUninstall;
     };
-    typedef Fallible<Data> OptionalData;
 
 public:
-    OptionalData parseContent(const QString& filename);
+    Data parseContent(const QString& filename);
 private:
-    OptionalData parseDocument(const QJsonArray& array);
+    Data parseDocument(const QJsonArray& array);
 };
 
 /**

@@ -42,38 +42,38 @@ QString shortAppIdFromUnversionedAppId(const QString& appId)
 namespace HookUtils {
 
 
-WebappHookParser::OptionalData
+WebappHookParser::Data
 WebappHookParser::parseContent(const QString& filename)
 {
     QFileInfo info(filename);
     if (!info.exists() || !info.isFile() || !info.isReadable())
     {
-        return OptionalData(Data(), false);
+        return Data();
     }
 
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly))
     {
         qWarning() << "Cannot open webapp hook: " << filename;
-        return OptionalData(Data(), false);
+        return Data();
     }
 
     QJsonDocument document(QJsonDocument::fromJson(file.readAll()));
     if (document.isNull() || document.isEmpty() || !document.isArray()) {
-        return OptionalData(Data(), false);
+        return Data();
     }
 
     return parseDocument(document.array());
 }
 
-WebappHookParser::OptionalData
+WebappHookParser::Data
 WebappHookParser::parseDocument(const QJsonArray& array)
 {
     Data result;
     if (array.count() == 0
             || !array.at(0).isObject())
     {
-        return OptionalData(result);
+        return result;
     }
 
     QJsonObject rootObject = array.at(0).toObject();
@@ -103,7 +103,7 @@ WebappHookParser::parseDocument(const QJsonArray& array)
     }
 #undef JSON_OBJECT_VALIDATE
 
-    return OptionalData(result);
+    return result;
 }
 
 WebappClickHookInstallDescription
@@ -132,13 +132,7 @@ listWebappInstalledClickHookFilesIn(const QDir& dir)
     const QString WEBAPP_CLICK_HOOK_FILE_EXT = "webapp";
     Q_FOREACH(const QFileInfo& fileInfo, dir.entryInfoList())
     {
-        if (fileInfo.isSymLink()
-                && fileInfo.symLinkTarget().endsWith(QString(".") + WEBAPP_CLICK_HOOK_FILE_EXT))
-        {
-            description.hookFiles[removeVersionFrom(fileInfo.completeBaseName())] =
-                    fileInfo.fileName();
-        }
-        else if (fileInfo.suffix() == WEBAPP_CLICK_HOOK_FILE_EXT)
+        if (fileInfo.suffix() == WEBAPP_CLICK_HOOK_FILE_EXT)
         {
             description.hookFiles[removeVersionFrom(fileInfo.completeBaseName())] =
                     fileInfo.fileName();
@@ -189,7 +183,7 @@ void handleInstalls(const WebappClickHookInstallDescription& alreadyProcessedCli
             installedClickHooks.hookFiles.keys().toSet().subtract(
                 alreadyProcessedClickHooks.hookFiles.keys().toSet()).toList();
 
-    if (newlyInstalledClickPackages.count() == 0)
+    if (newlyInstalledClickPackages.isEmpty())
     {
         qDebug() << "Nothing to install.";
         return;
@@ -233,17 +227,12 @@ void handleUninstall(const WebappClickHookInstallDescription& alreadyProcessedCl
         QString hookFilename =
                 alreadyProcessedClickHooks.parentFolder + "/" + webappClickHook;
 
-        WebappHookParser::OptionalData optional_data =
+        WebappHookParser::Data data =
                 webappHookParser.parseContent(hookFilename);
-        if (!optional_data.is_valid())
-        {
-            continue;
-        }
 
         QFileInfo fileInfo(hookFilename);
         QString appIdNoVersion = fileInfo.fileName();
 
-        WebappHookParser::Data data = optional_data.value();
         if (data.shouldDeleteCacheOnUninstall)
         {
             QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation)

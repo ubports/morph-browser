@@ -40,7 +40,7 @@ int main(int argc, char ** argv)
             HookUtils::getProcessedClickHooksFolder();
     if (!QDir(processedClickHooksFolder).exists())
     {
-        QDir().mkdir(processedClickHooksFolder);
+        QDir().mkpath(processedClickHooksFolder);
     }
 
     HookUtils::WebappClickHookInstallDescription alreadyProcessedClickHooks =
