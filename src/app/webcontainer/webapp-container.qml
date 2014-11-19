@@ -45,6 +45,8 @@ BrowserWindow {
 
     currentWebview: browser.currentWebview
 
+    property bool runningLocalApplication: false
+
     title: getWindowTitle()
 
     function getWindowTitle() {
@@ -79,6 +81,7 @@ BrowserWindow {
 
         localUserAgentOverride: getLocalUserAgentOverrideIfAny()
 
+        runningLocalApplication: root.runningLocalApplication
         webviewOverrideFile: root.webviewOverrideFile
 
         anchors.fill: parent
