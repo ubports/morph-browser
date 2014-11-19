@@ -24,6 +24,8 @@
 #include <QtCore/QDir>
 #include <QtCore/QObject>
 #include <QtCore/QStandardPaths>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 #include <QtCore/QtGlobal>
 #include <QtGui/QGuiApplication>
 #include <QtQml>
@@ -50,10 +52,6 @@ public:
 
 Q_SIGNALS:
     void dataLocationChanged() const;
-
-private:
-    bool isValidHostMappingRule(const QString& rule) const;
-    QStringList transformHostMappingRules(const QStringList&) const;
 
 private:
     QString m_formFactor;
@@ -113,30 +111,6 @@ QString UbuntuWebPluginContext::formFactor()
     return m_formFactor;
 }
 
-bool UbuntuWebPluginContext::isValidHostMappingRule(const QString& rule) const
-{
-    // from http://src.chromium.org/svn/trunk/src/net/base/host_mapping_rules.h
-    static const QStringList POSSIBLE_HEADER =
-            QStringList() << "MAP" << "EXCLUDE";
-
-    QStringList parts = rule.split(QRegExp("\\s"));
-    if (parts.count() < 3 || ! POSSIBLE_HEADER.contains(parts.at(0))) {
-        return false;
-    }
-    return true;
-}
-
-QStringList UbuntuWebPluginContext::transformHostMappingRules(const QStringList& rules) const
-{
-    QStringList result;
-    Q_FOREACH(QString rule, rules) {
-        if (isValidHostMappingRule(rule)) {
-            result.append(rule);
-        }
-    }
-    return result;
-}
-
 QStringList UbuntuWebPluginContext::hostMappingRules()
 {
     static const QString HOST_MAPPING_RULES_SEP = ",";
@@ -145,8 +119,8 @@ QStringList UbuntuWebPluginContext::hostMappingRules()
         const char* HOST_MAPPING_RULES_ENV_VAR = "UBUNTU_WEBVIEW_HOST_MAPPING_RULES";
         if (qEnvironmentVariableIsSet(HOST_MAPPING_RULES_ENV_VAR)) {
             QString rules(qgetenv(HOST_MAPPING_RULES_ENV_VAR));
-            m_hostMappingRules =
-                    transformHostMappingRules(rules.split(HOST_MAPPING_RULES_SEP));
+            // from http://src.chromium.org/svn/trunk/src/net/base/host_mapping_rules.h
+            m_hostMappingRules = rules.split(HOST_MAPPING_RULES_SEP);
         }
     }
     return m_hostMappingRules;
