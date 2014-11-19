@@ -37,19 +37,19 @@ class WebappContainerAppLaunchTestCase(
         args = ['--webappModelSearchPath=.', './index.html']
         self.launch_webcontainer_app(
             args,
-            {'WEBAPP_CONTAINER_SHOULD_VALIDATE_CLI_URLS': '1'})
+            {'WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS': '1'})
         self.assertIsNone(self.get_webcontainer_proxy())
 
     def test_local_app_with_webapp_name(self):
         args = ['--webapp=DEADBEEF', './index.html']
         self.launch_webcontainer_app(
             args,
-            {'WEBAPP_CONTAINER_SHOULD_VALIDATE_CLI_URLS': '1'})
+            {'WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS': '1'})
         self.assertIsNone(self.get_webcontainer_proxy())
 
     def test_local_app_with_urls_patterns(self):
         args = ['--webappUrlPatterns=https?://*.blabla.com/*', './index.html']
         self.launch_webcontainer_app(
             args,
-            {'WEBAPP_CONTAINER_SHOULD_VALIDATE_CLI_URLS': '1'})
+            {'WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS': '1'})
         self.assertIsNone(self.get_webcontainer_proxy())

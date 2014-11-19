@@ -376,8 +376,8 @@ bool WebappContainer::isLocalResource(const QString& resourceName) const
 
 bool WebappContainer::shouldNotValidateCommandLineUrls() const
 {
-    return !qgetenv("WEBAPP_CONTAINER_SHOULD_VALIDATE_CLI_URLS").isEmpty()
-            && QString(qgetenv("WEBAPP_CONTAINER_SHOULD_VALIDATE_CLI_URLS")) == "1";
+    return !qgetenv("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS").isEmpty()
+            && QString(qgetenv("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS")) == "1";
 }
 
 QList<QUrl> WebappContainer::urls() const
