@@ -47,7 +47,7 @@ public:
 
 protected:
     virtual void printUsage() const = 0;
-    QList<QUrl> urls() const;
+    virtual QList<QUrl> urls() const;
 
     virtual void qmlEngineCreated(QQmlEngine*);
 

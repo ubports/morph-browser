@@ -366,6 +366,34 @@ QString WebappContainer::getExtraWebappUrlPatterns() const
     return extraPatterns;
 }
 
+QList<QUrl> WebappContainer::urls() const
+{
+    QList<QUrl> urls;
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (!argument.startsWith("-")) {
+            // This is used for testing to avoid having existing
+            // resources to run against.
+            if (shouldNotValidateCommandLineUrls()) {
+                urls.append(argument.startsWith("file://")
+                            ? argument
+                            : (QString("file://") + argument));
+                continue;
+            }
+
+            QUrl url;
+            if (isLocalResource(argument)) {
+                url = QUrl::fromLocalFile(QFileInfo(argument).absoluteFilePath());
+            } else {
+                url = QUrl::fromUserInput(argument);
+            }
+            if (url.isValid() || url.isLocalFile()) {
+                urls.append(url);
+            }
+        }
+    }
+    return urls;
+}
+
 int main(int argc, char** argv)
 {
     WebappContainer app(argc, argv);
