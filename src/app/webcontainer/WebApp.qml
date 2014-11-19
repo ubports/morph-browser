@@ -76,7 +76,6 @@ BrowserView {
             }
             height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.item.visibleHeight)
             developerExtrasEnabled: webapp.developerExtrasEnabled
-            runningLocalApplication: webapp.runningLocalApplication
         }
 
         Loader {
