@@ -25,7 +25,6 @@ class WebappContainerUrlPatternsTestCase(
     def test_pattern_with_external_url(self):
         args = ["--webappUrlPatterns=http://www.test.com/*"]
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
-        print(rule)
         self.launch_webcontainer_app_with_local_http_server(
             args,
             '',
@@ -48,7 +47,6 @@ class WebappContainerUrlPatternsTestCase(
     def test_pattern_with_allowed_targetted_url(self):
         args = ["--webappUrlPatterns=http://www.test.com/*"]
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
-        print(rule)
         self.launch_webcontainer_app_with_local_http_server(
             args,
             '',
@@ -75,7 +73,6 @@ class WebappContainerUrlPatternsTestCase(
     def test_pattern_with_different_targetted_url(self):
         args = ["--webappUrlPatterns=http://www.test.com/*"]
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
-        print(rule)
         self.launch_webcontainer_app_with_local_http_server(
             args,
             '',
