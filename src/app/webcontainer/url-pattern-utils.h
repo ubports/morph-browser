@@ -21,8 +21,9 @@
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QUrl>
 
+
+class QUrl;
 
 namespace UrlPatternUtils {
 

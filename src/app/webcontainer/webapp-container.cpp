@@ -366,6 +366,20 @@ QString WebappContainer::getExtraWebappUrlPatterns() const
     return extraPatterns;
 }
 
+bool WebappContainer::isLocalResource(const QString& resourceName) const
+{
+    QFileInfo info(resourceName);
+    return (info.isAbsolute() || info.isRelative())
+            && info.isFile()
+            && info.exists();
+}
+
+bool WebappContainer::shouldNotValidateCommandLineUrls() const
+{
+    return !qgetenv("WEBAPP_CONTAINER_SHOULD_VALIDATE_CLI_URLS").isEmpty()
+            && QString(qgetenv("WEBAPP_CONTAINER_SHOULD_VALIDATE_CLI_URLS")) == "1";
+}
+
 QList<QUrl> WebappContainer::urls() const
 {
     QList<QUrl> urls;

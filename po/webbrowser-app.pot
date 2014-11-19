@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-11 13:28+0100\n"
+"POT-Creation-Date: 2014-11-19 09:38-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,7 +117,7 @@ msgid "Permission Request"
 msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:68
+#: src/app/webcontainer/WebViewImplWebkit.qml:69
 msgid "This page wants to know your device’s location."
 msgstr ""
 
@@ -478,13 +478,13 @@ msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:55
+#: src/app/webcontainer/webapp-container.qml:57
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:57
+#: src/app/webcontainer/webapp-container.qml:59
 msgid "Ubuntu Web Browser"
 msgstr ""
 

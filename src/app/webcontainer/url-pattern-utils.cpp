@@ -18,8 +18,10 @@
 
 #include "url-pattern-utils.h"
 
-#include <QtCore/QRegularExpression>
 #include <QDebug>
+#include <QtCore/QRegularExpression>
+#include <QtCore/QUrl>
+
 
 namespace
 {
