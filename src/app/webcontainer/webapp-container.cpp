@@ -193,7 +193,6 @@ bool WebappContainer::initialize()
             if (UrlPatternUtils::isLocalHtml5ApplicationHomeUrl(homeUrl)) {
                 qDebug() << "Started as a local application container.";
                 runningLocalApp = true;
-                m_window->setProperty("runningLocalApplication", runningLocalApp);
             }
         } else if (m_webappModelSearchPath.isEmpty()) {
             // Either we have a command line argument for the start URL or we have
@@ -204,7 +203,9 @@ bool WebappContainer::initialize()
         // Otherwise, assume that the homepage will come from a locally defined
         // webapp-properties.json file pulled from the webapp model element.
 
-        // Delay handle the invalid runtime conditions for the local apps
+        m_window->setProperty("runningLocalApplication", runningLocalApp);
+
+        // Handle the invalid runtime conditions for the local apps
         if (runningLocalApp && !isValidLocalApplicationRunningContext()) {
             qCritical() << "Cannot run a local HTML5 application, invalid command line flags detected.";
             return false;
@@ -366,17 +367,15 @@ QString WebappContainer::getExtraWebappUrlPatterns() const
     return extraPatterns;
 }
 
-bool WebappContainer::isLocalResource(const QString& resourceName) const
+bool WebappContainer::isValidLocalResource(const QString& resourceName) const
 {
     QFileInfo info(resourceName);
-    return (info.isAbsolute() || info.isRelative())
-            && info.isFile()
-            && info.exists();
+    return info.isFile() && info.exists();
 }
 
 bool WebappContainer::shouldNotValidateCommandLineUrls() const
 {
-    return !qgetenv("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS").isEmpty()
+    return qEnvironmentVariableIsSet("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS")
             && QString(qgetenv("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS")) == "1";
 }
 
@@ -395,12 +394,12 @@ QList<QUrl> WebappContainer::urls() const
             }
 
             QUrl url;
-            if (isLocalResource(argument)) {
+            if (isValidLocalResource(argument)) {
                 url = QUrl::fromLocalFile(QFileInfo(argument).absoluteFilePath());
             } else {
                 url = QUrl::fromUserInput(argument);
             }
-            if (url.isValid() || url.isLocalFile()) {
+            if (url.isValid()) {
                 urls.append(url);
             }
         }

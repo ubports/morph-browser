@@ -62,7 +62,7 @@ WebViewImpl {
     }
 
     StateSaver.properties: "url"
-    StateSaver.enabled: true
+    StateSaver.enabled: !runningLocalApplication
 
     function shouldOpenPopupsInDefaultBrowser() {
         return formFactor !== "desktop";

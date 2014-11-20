@@ -47,7 +47,7 @@ private:
     void parseExtraConfiguration();
     QString getExtraWebappUrlPatterns() const;
     bool isValidLocalApplicationRunningContext() const;
-    bool isLocalResource(const QString& resourceName) const;
+    bool isValidLocalResource(const QString& resourceName) const;
     bool shouldNotValidateCommandLineUrls() const;
 
 private:
