@@ -58,11 +58,13 @@ private:
     QString m_devtoolsHost;
     int m_devtoolsPort;
     QStringList m_hostMappingRules;
+    bool m_hostMappingRulesQueried;
 };
 
 UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
     : QObject(parent)
     , m_devtoolsPort(-2)
+    , m_hostMappingRulesQueried(false)
 {
     connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
             this, SIGNAL(dataLocationChanged()));
@@ -115,13 +117,14 @@ QStringList UbuntuWebPluginContext::hostMappingRules()
 {
     static const QString HOST_MAPPING_RULES_SEP = ",";
 
-    if (m_hostMappingRules.isEmpty()) {
+    if (!m_hostMappingRulesQueried) {
         const char* HOST_MAPPING_RULES_ENV_VAR = "UBUNTU_WEBVIEW_HOST_MAPPING_RULES";
         if (qEnvironmentVariableIsSet(HOST_MAPPING_RULES_ENV_VAR)) {
             QString rules(qgetenv(HOST_MAPPING_RULES_ENV_VAR));
             // from http://src.chromium.org/svn/trunk/src/net/base/host_mapping_rules.h
             m_hostMappingRules = rules.split(HOST_MAPPING_RULES_SEP);
         }
+        m_hostMappingRulesQueried = true;
     }
     return m_hostMappingRules;
 }
