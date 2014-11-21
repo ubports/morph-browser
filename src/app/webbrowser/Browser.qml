@@ -459,6 +459,11 @@ BrowserView {
 
             property var certificateError
             onCertificateError: {
+                if (!error.isMainFrame || error.isSubresource) {
+                    // Not a main frame document error, just block the content
+                    // (it’s not overridable anyway).
+                    return
+                }
                 if (internal.isCertificateErrorAllowed(error)) {
                     error.allow()
                 } else {
