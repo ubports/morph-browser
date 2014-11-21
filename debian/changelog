@@ -1,3 +1,24 @@
+webbrowser-app (0.23+15.04.20141121-0ubuntu1) vivid; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Make use of the hostMappingRules in oxide and expose it in the
+    webcontext Improve container url AP tests with newly introduced
+    hostmapping in oxide 1.3
+  * HTML5 apps are currently using a specific container/launcher as
+    their runtime. They should use the webapp container instead. (LP:
+    #1392281, #1388988)
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 21 Nov 2014 20:38:17 +0000
+
 webbrowser-app (0.23+15.04.20141113-0ubuntu1) vivid; urgency=low
 
   [ Michael Sheldon ]
