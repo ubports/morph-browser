@@ -39,12 +39,16 @@ public:
 
 protected:
     void qmlEngineCreated(QQmlEngine *);
+    virtual QList<QUrl> urls() const;
 
 private:
     virtual void printUsage() const;
     void parseCommandLine();
     void parseExtraConfiguration();
     QString getExtraWebappUrlPatterns() const;
+    bool isValidLocalApplicationRunningContext() const;
+    bool isValidLocalResource(const QString& resourceName) const;
+    bool shouldNotValidateCommandLineUrls() const;
 
 private:
     QString m_webappName;

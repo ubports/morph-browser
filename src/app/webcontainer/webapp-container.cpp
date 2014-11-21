@@ -185,13 +185,29 @@ bool WebappContainer::initialize()
             m_window->setProperty("blockOpenExternalUrls", true);
         }
 
+        bool runningLocalApp = false;
         QList<QUrl> urls = this->urls();
         if (!urls.isEmpty()) {
-            m_window->setProperty("url", urls.last());
+            QUrl homeUrl = urls.last();
+            m_window->setProperty("url", homeUrl);
+            if (UrlPatternUtils::isLocalHtml5ApplicationHomeUrl(homeUrl)) {
+                qDebug() << "Started as a local application container.";
+                runningLocalApp = true;
+            }
         } else if (m_webappModelSearchPath.isEmpty()) {
             // Either we have a command line argument for the start URL or we have
             // local search path for a webapp definition (that would include in its
             // meta data a homepage). Any other case is faulty.
+            return false;
+        }
+        // Otherwise, assume that the homepage will come from a locally defined
+        // webapp-properties.json file pulled from the webapp model element.
+
+        m_window->setProperty("runningLocalApplication", runningLocalApp);
+
+        // Handle the invalid runtime conditions for the local apps
+        if (runningLocalApp && !isValidLocalApplicationRunningContext()) {
+            qCritical() << "Cannot run a local HTML5 application, invalid command line flags detected.";
             return false;
         }
 
@@ -201,6 +217,14 @@ bool WebappContainer::initialize()
     } else {
         return false;
     }
+}
+
+bool WebappContainer::isValidLocalApplicationRunningContext() const
+{
+    return m_webappModelSearchPath.isEmpty() &&
+        m_popupRedirectionUrlPrefixPattern.isEmpty() &&
+        m_webappUrlPatterns.isEmpty() &&
+        m_webappName.isEmpty();
 }
 
 void WebappContainer::qmlEngineCreated(QQmlEngine* engine)
@@ -341,6 +365,46 @@ QString WebappContainer::getExtraWebappUrlPatterns() const
         extraUrlPatternsSetting.endGroup();
     }
     return extraPatterns;
+}
+
+bool WebappContainer::isValidLocalResource(const QString& resourceName) const
+{
+    QFileInfo info(resourceName);
+    return info.isFile() && info.exists();
+}
+
+bool WebappContainer::shouldNotValidateCommandLineUrls() const
+{
+    return qEnvironmentVariableIsSet("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS")
+            && QString(qgetenv("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS")) == "1";
+}
+
+QList<QUrl> WebappContainer::urls() const
+{
+    QList<QUrl> urls;
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (!argument.startsWith("-")) {
+            // This is used for testing to avoid having existing
+            // resources to run against.
+            if (shouldNotValidateCommandLineUrls()) {
+                urls.append(argument.startsWith("file://")
+                            ? argument
+                            : (QString("file://") + argument));
+                continue;
+            }
+
+            QUrl url;
+            if (isValidLocalResource(argument)) {
+                url = QUrl::fromLocalFile(QFileInfo(argument).absoluteFilePath());
+            } else {
+                url = QUrl::fromUserInput(argument);
+            }
+            if (url.isValid()) {
+                urls.append(url);
+            }
+        }
+    }
+    return urls;
 }
 
 int main(int argc, char** argv)
