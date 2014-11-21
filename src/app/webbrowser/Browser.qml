@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import com.canonical.Oxide 1.0 as Oxide
+import com.canonical.Oxide 1.4 as Oxide
 import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
@@ -365,6 +365,8 @@ BrowserView {
         FocusScope {
             property url initialUrl
             property string initialTitle
+            property string restoreState
+            property int restoreType
             property var request
             readonly property var webview: (children.length == 1) ? children[0] : null
             readonly property url url: webview ? webview.url : initialUrl
@@ -376,7 +378,14 @@ BrowserView {
 
             function load() {
                 if (!webview) {
-                    webviewComponent.incubateObject(this, {"url": initialUrl})
+                    var properties = {}
+                    if (restoreState) {
+                        properties['restoreState'] = restoreState
+                        properties['restoreType'] = restoreType
+                    } else {
+                        properties['url'] = initialUrl
+                    }
+                    webviewComponent.incubateObject(this, properties)
                 }
             }
 
@@ -562,19 +571,23 @@ BrowserView {
         }
 
         // Those two functions are used to save/restore the current state of a tab.
-        // The current implementation is naive, it only saves/restores the current URL.
-        // In the future, we’ll want to rely on oxide to save and restore a full state
-        // of the corresponding webview as a binary blob, which includes navigation
-        // history, current scroll offset and form data. See http://pad.lv/1353143.
         function serializeTabState(tab) {
             var state = {}
             state.url = tab.url.toString()
             state.title = tab.title
+            state.blob = tab.webview.currentState
             return state
         }
 
         function createTabFromState(state) {
-            var properties = {"initialUrl": state.url, "initialTitle": state.title}
+            var properties = {'initialUrl': state.url, 'initialTitle': state.title}
+            if ('blob' in state) {
+                // Gracefully handle the upgrade path: the first time this
+                // version of the app is run, the saved state won’t have
+                // the blob property.
+                properties['restoreState'] = state.blob
+                properties['restoreType'] = Oxide.WebView.RestoreLastSessionExitedCleanly
+            }
             return tabComponent.createObject(tabContainer, properties)
         }
     }
