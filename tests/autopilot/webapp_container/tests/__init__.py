@@ -114,7 +114,9 @@ class WebappContainerTestCaseWithLocalContentBase(WebappContainerTestCaseBase):
         return self.base_url[len(self.BASE_URL_SCHEME):]
 
     def launch_webcontainer_app_with_local_http_server(
-            self, args, path='/', envvars={}):
+            self, args, path='/', envvars={}, homepage=''):
         self.url = self.base_url + path
+        if len(homepage) != 0:
+            self.url = homepage
         args.append(self.url)
         self.launch_webcontainer_app(args, envvars)

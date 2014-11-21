@@ -52,6 +52,37 @@ This is some {} content
 </html>
         """
 
+    def external_click_content(self):
+        return """
+<html>
+<head>
+<title>Some content</title>
+</head>
+<body>
+<div><a href='http://www.ubuntu.com/'>
+<div style="height: 100%; width: 100%"></div>
+</a></div>
+</body>
+</html>
+        """
+
+    def targetted_click_content(self, differentDomain=True):
+        url = 'http://www.test.com/'
+        if differentDomain:
+            url = 'http://www.ubuntu.com/'
+        return """
+<html>
+<head>
+<title>Some content</title>
+</head>
+<body>
+<div><a href='{}' target='_blank'>
+<div style="height: 100%; width: 100%"></div>
+</a></div>
+</body>
+</html>
+        """.format(url)
+
     def do_GET(self):
         if self.path == '/':
             self.send_response(200)
@@ -62,6 +93,15 @@ This is some {} content
         elif self.path == '/get-redirect':
             self.send_response(200)
             self.serve_content(self.redirect_html_content())
+        elif self.path == '/with-external-link':
+            self.send_response(200)
+            self.serve_content(self.external_click_content())
+        elif self.path == '/with-targetted-link':
+            self.send_response(200)
+            self.serve_content(self.targetted_click_content(False))
+        elif self.path == '/with-different-targetted-link':
+            self.send_response(200)
+            self.serve_content(self.targetted_click_content())
         else:
             self.send_error(404)
 
