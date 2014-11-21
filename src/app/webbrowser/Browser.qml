@@ -23,6 +23,7 @@ import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
+import "../UrlUtils.js" as UrlUtils
 
 BrowserView {
     id: browser
@@ -137,10 +138,10 @@ BrowserView {
             sourceComponent: InvalidCertificateErrorSheet {
                 visible: currentWebview && currentWebview.certificateError != null
                 certificateError: currentWebview ? currentWebview.certificateError : null
-                onAllowed: { 
+                onAllowed: {
                     // Automatically allow future requests involving this
                     // certificate for the duration of the session.
-                    currentWebview.allowCertificateError(currentWebview.certificateError)
+                    internal.allowCertificateError(currentWebview.certificateError)
                     currentWebview.certificateError = null
                 }
                 onDenied: {
@@ -456,6 +457,15 @@ BrowserView {
 
             onGeolocationPermissionRequested: requestGeolocationPermission(request)
 
+            property var certificateError
+            onCertificateError: {
+                if (internal.isCertificateErrorAllowed(error)) {
+                    error.allow()
+                } else {
+                    certificateError = error
+                }
+            }
+
             Loader {
                 id: newTabViewLoader
                 anchors.fill: parent
@@ -508,6 +518,31 @@ BrowserView {
         function focusAddressBar() {
             chrome.forceActiveFocus()
             Qt.inputMethod.show() // work around http://pad.lv/1316057
+        }
+
+        // Invalid certificates the user has explicitly allowed for this session
+        property var allowedCertificateErrors: []
+
+        function allowCertificateError(error) {
+            var host = UrlUtils.extractHost(error.url)
+            var code = error.certError
+            var fingerprint = error.certificate.fingerprintSHA1
+            allowedCertificateErrors.push([host, code, fingerprint])
+        }
+
+        function isCertificateErrorAllowed(error) {
+            var host = UrlUtils.extractHost(error.url)
+            var code = error.certError
+            var fingerprint = error.certificate.fingerprintSHA1
+            for (var i in allowedCertificateErrors) {
+                var allowed = allowedCertificateErrors[i]
+                if ((host == allowed[0]) &&
+                    (code == allowed[1]) &&
+                    (fingerprint == allowed[2])) {
+                    return true
+                }
+            }
+            return false
         }
     }
 
