@@ -588,7 +588,7 @@ BrowserView {
             var state = {}
             state.url = tab.url.toString()
             state.title = tab.title
-            state.blob = tab.webview ? tab.webview.currentState : ""
+            state.blob = tab.webview ? tab.webview.currentState : tab.restoreState
             return state
         }
 
