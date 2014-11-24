@@ -194,6 +194,10 @@ bool WebappContainer::initialize()
                 qDebug() << "Started as a local application container.";
                 runningLocalApp = true;
             }
+        } else if (m_webappModelSearchPath.isEmpty()
+                   && m_webappName.isEmpty()) {
+            qDebug() << "No starting homepage provided";
+            return false;
         }
 
         // Otherwise, assume that the homepage will come from a locally defined
