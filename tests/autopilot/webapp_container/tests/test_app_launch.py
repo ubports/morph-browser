@@ -91,6 +91,4 @@ class WebappContainerAppLaunchTestCase(
                      webapp_install_path})
             window = self.get_webcontainer_window()
             webapp_url = 'http://' + self.get_base_url_hostname() + '/'
-            self.assertThat(
-                window.url,
-                Eventually(Equals(webapp_url)))
+            self.assertThat(window.url, Eventually(Equals(webapp_url)))
