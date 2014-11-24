@@ -188,11 +188,6 @@ bool WebappContainer::initialize()
         QList<QUrl> urls = this->urls();
         if (!urls.isEmpty()) {
             m_window->setProperty("url", urls.last());
-        } else if (m_webappModelSearchPath.isEmpty()) {
-            // Either we have a command line argument for the start URL or we have
-            // local search path for a webapp definition (that would include in its
-            // meta data a homepage). Any other case is faulty.
-            return false;
         }
 
         m_component->completeCreate();
