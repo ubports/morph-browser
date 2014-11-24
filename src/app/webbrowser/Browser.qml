@@ -633,7 +633,7 @@ BrowserView {
                 browser.openUrlInNewTab(browser.homepage, true, false)
             }
             tabsModel.currentTab.load()
-            if (!tabsModel.currentTab.url.toString() && (formFactor == "desktop")) {
+            if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
                 internal.focusAddressBar()
             }
         }
