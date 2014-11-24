@@ -471,7 +471,18 @@ BrowserView {
                 id: newTabViewLoader
                 anchors.fill: parent
 
-                sourceComponent: !parent.url.toString() ? newTabViewComponent : undefined
+                // Avoid loading the new tab view if the webview is about to load
+                // content. Since WebView.restoreState is not a notifyable property,
+                // this can’t be achieved with a simple property binding.
+                Component.onCompleted: {
+                    if (!parent.url.toString() && !parent.restoreState) {
+                        sourceComponent = newTabViewComponent
+                    }
+                }
+                Connections {
+                    target: newTabViewLoader.parent
+                    onUrlChanged: newTabViewLoader.sourceComponent = null
+                }
 
                 Component {
                     id: newTabViewComponent
