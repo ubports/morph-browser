@@ -393,6 +393,8 @@ BrowserView {
                 if (webview) {
                     initialUrl = webview.url
                     initialTitle = webview.title
+                    restoreState = webview.currentState
+                    restoreType = Oxide.WebView.RestoreCurrentSession
                     webview.destroy()
                 }
             }
@@ -575,7 +577,7 @@ BrowserView {
             var state = {}
             state.url = tab.url.toString()
             state.title = tab.title
-            state.blob = tab.webview.currentState
+            state.blob = tab.webview ? tab.webview.currentState : ""
             return state
         }
 
