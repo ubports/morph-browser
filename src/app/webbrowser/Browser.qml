@@ -605,14 +605,13 @@ BrowserView {
         }
     }
     Connections {
-        target: tabsModel
-        onCurrentTabChanged: session.save()
-        onCountChanged: session.save()
-    }
-    Connections {
-        target: browser.currentWebview
-        onUrlChanged: session.save()
-        onTitleChanged: session.save()
+        target: Qt.application
+        onStateChanged: {
+            if (Qt.application.state != Qt.ApplicationActive) {
+                session.save()
+            }
+        }
+        onAboutToQuit: session.save()
     }
 
     // Delay instantiation of the first webview by 1 msec to allow initial
