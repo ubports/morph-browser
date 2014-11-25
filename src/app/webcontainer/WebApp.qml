@@ -40,6 +40,7 @@ BrowserView {
     property alias webviewOverrideFile: webview.webviewOverrideFile
     property alias blockOpenExternalUrls: webview.blockOpenExternalUrls
     property alias localUserAgentOverride: webview.localUserAgentOverride
+    property alias dataPath: webview.dataPath
     property alias runningLocalApplication: webview.runningLocalApplication
 
     property bool backForwardButtonsVisible: false

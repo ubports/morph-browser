@@ -25,12 +25,10 @@ Page {
 
     property alias accountProvider: accountsLogin.accountProvider
     property alias applicationName: accountsLogin.applicationName
-    property var webappCookieStore: null
-    property var onlineAccountStoreComponent: null
 
-    signal done()
+    signal done(bool successful, var credentialsId)
 
-    visible: false
+    visible: true
     anchors.fill: parent
 
     AccountsLoginPage {
@@ -38,32 +36,10 @@ Page {
 
         anchors.fill: parent
 
-        QtObject {
-            id: internal
-            function onMoved(result) {
-                webappCookieStore.moved.disconnect(internal.onMoved)
-                if (!result) {
-                    console.error("Unable to move cookies")
-                }
-                accountsPage.done()
-            }
-        }
-
         onDone: {
             if (!accountsPage.visible)
                 return
-            if (!credentialsId) {
-                accountsPage.done()
-                return
-            }
-
-            if (webappCookieStore) {
-                var instance = onlineAccountStoreComponent.createObject(accountsLogin, { "accountId": credentialsId })
-                webappCookieStore.moved.connect(internal.onMoved)
-                webappCookieStore.moveFrom(instance)
-            } else {
-                accountsPage.done()
-            }
+            accountsPage.done(credentialsId != null, credentialsId)
         }
     }
 }
