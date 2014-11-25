@@ -29,7 +29,12 @@ Item {
     Image {
         id: image
         readonly property string url: parent.source.toString()
-        source: url ? "image://favicon/" + url : ""
+
+        // XXX: temporarily disable the use of the custom image provider until
+        // we figure out a proper fix for https://launchpad.net/bugs/1395748
+        // (see also https://bugreports.qt-project.org/browse/QTBUG-42875).
+        //source: url ? "image://favicon/" + url : ""
+        source: parent.source
 
         anchors.fill: parent
     }
