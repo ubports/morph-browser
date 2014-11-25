@@ -46,6 +46,8 @@ BrowserWindow {
 
     currentWebview: webappViewLoader.item ? webappViewLoader.item.currentWebview : null
 
+    property bool runningLocalApplication: false
+
     title: getWindowTitle()
 
     function getWindowTitle() {
@@ -80,8 +82,9 @@ BrowserWindow {
 
             popupRedirectionUrlPrefixPattern: root.popupRedirectionUrlPrefixPattern
 
-            localUserAgentOverride: root.localUserAgentOverride
+            localUserAgentOverride: getLocalUserAgentOverrideIfAny()
 
+            runningLocalApplication: root.runningLocalApplication
             webviewOverrideFile: root.webviewOverrideFile
 
             anchors.fill: parent

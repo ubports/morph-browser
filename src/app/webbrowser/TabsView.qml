@@ -95,7 +95,7 @@ Item {
                 verticalCenter: parent.verticalCenter
             }
 
-            color: "white"
+            strokeColor: "#5d5d5d"
 
             text: i18n.tr("Done")
 

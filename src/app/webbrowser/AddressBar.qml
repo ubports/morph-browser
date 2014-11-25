@@ -19,7 +19,6 @@
 import QtQuick 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0
 import com.canonical.Oxide 1.0 as Oxide
 import ".."
 
@@ -31,12 +30,13 @@ FocusScope {
     property bool bookmarked: false
     property url requestedUrl
     property url actualUrl
-    property var securityStatus
     signal validated()
     property bool loading
     signal requestReload()
     signal requestStop()
     property string searchUrl
+
+    property var securityStatus: null
 
     // XXX: for testing purposes only, do not use to modify the
     // contents/behaviour of the internals of the component.
@@ -70,12 +70,12 @@ FocusScope {
                 Item {
                     height: textField.height
                     width: height
-                    visible: securityStatus ? securityStatus.securityLevel != Oxide.SecurityStatus.SecurityLevelWarning || addressbar.state != "" : true
+                    visible: (addressbar.state != "") || !internal.secureConnection || !internal.securityWarning
 
                     Favicon {
                         id: favicon
                         anchors.centerIn: parent
-                        visible: securityStatus ? (securityStatus.securityLevel != Oxide.SecurityStatus.SecurityLevelWarning) && (addressbar.state == "") && addressbar.actualUrl.toString() : (addressbar.state == "") && addressbar.actualUrl.toString()
+                        visible: (addressbar.state == "") && addressbar.actualUrl.toString() && !internal.securityWarning
                     }
 
                     Item {
@@ -143,7 +143,7 @@ FocusScope {
                     id: securityDisplay
                     height: textField.height
                     width: securityIcon.width
-                    visible: securityStatus ? (securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) && addressbar.state == "" : false
+                    visible: internal.secureConnection && (addressbar.state == "")
 
                     Icon {
                         id: securityIcon
@@ -155,10 +155,9 @@ FocusScope {
                 }
 
                 Item {
-                    id: securityWarning
                     height: textField.height
                     width: warningIcon.width
-                    visible: securityStatus ? securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning && addressbar.state == "" : false
+                    visible: internal.securityWarning && (addressbar.state == "")
 
                     Icon {
                         id: warningIcon
@@ -174,132 +173,7 @@ FocusScope {
                 enabled: securityDisplay.visible && addressbar.state != "editing" && addressbar.state != "loading"
                 anchors.fill: parent
 
-                onClicked: {
-                    PopupUtils.open(certificatePopoverComponent, certificatePopoverPositioner)
-                }
-            }
-
-            Component {
-                id: certificatePopoverComponent
-                Popover {
-                    id: certificatePopover
-                    Column {
-                        id: certificateDetails 
-                        width: parent.width - units.gu(4)
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        spacing: units.gu(0.5)
-
-                        Item {
-                            height: units.gu(1.5)
-                            width: parent.width
-                        }
-
-                        Column {
-                            width: parent.width
-                            visible: securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning
-                            spacing: units.gu(0.5)
-
-                            Row {
-                                width: parent.width
-                                spacing: units.gu(0.5)
-
-                                Icon {
-                                    name: "security-alert"
-                                    height: units.gu(2)
-                                    width: height
-                                }
-
-                                Label {
-                                    width: parent.width
-                                    wrapMode: Text.WordWrap
-                                    text: i18n.tr("This site has insecure content")
-                                    fontSize: "x-small"
-                                }
-                            }
-
-                            ThinDivider {
-                                width: parent.width
-                                anchors.leftMargin: 0
-                                anchors.rightMargin: 0
-                            }
-                        }
-
-                        Label { 
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            text: i18n.tr("You are connected to")
-                            fontSize: "x-small"
-                        }
-
-                        Label {
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            text: securityStatus.certificate.subjectDisplayName
-                            fontSize: "x-small"
-                        }
-
-                        ThinDivider {
-                            width: parent.width
-                            anchors.leftMargin: 0
-                            anchors.rightMargin: 0
-                            visible: orgName.visible || localityName.visible || stateName.visible || countryName.visible
-                        }
-
-                        Label {
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            visible: orgName.visible
-                            text: i18n.tr("Which is run by")
-                            fontSize: "x-small"
-                        }
-
-                        Label {
-                            id: orgName
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            visible: text.length > 0
-                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ")
-                            fontSize: "x-small"
-                        }
-
-                        Label {
-                            id: localityName
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            visible: text.length > 0
-                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ")
-                            fontSize: "x-small"
-                        }
-
-                        Label {
-                            id: stateName
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            visible: text.length > 0
-                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ")
-                            fontSize: "x-small"
-                        }
-
-                        Label {
-                            id: countryName
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            visible: text.length > 0
-                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ")
-                            fontSize: "x-small"
-                        }
-
-                        Item {
-                            height: units.gu(1.5)
-                            width: parent.width
-                        }
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: PopupUtils.close(certificatePopover)
-                    }
-                }
+                onClicked: addressbar.showSecurityCertificateDetails()
             }
         }
 
@@ -364,6 +238,12 @@ FocusScope {
 
     QtObject {
         id: internal
+
+        readonly property int securityLevel: addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
+        readonly property bool secureConnection: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
+        readonly property bool securityWarning: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
+
+        property var securityCertificateDetails: null
 
         function looksLikeAUrl(address) {
             var terms = address.split(/\s/)
@@ -463,6 +343,20 @@ FocusScope {
     onRequestedUrlChanged: {
         if (state != "editing") {
             text = internal.simplifyUrl(requestedUrl)
+        }
+    }
+
+    function showSecurityCertificateDetails() {
+        if (!internal.securityCertificateDetails) {
+            internal.securityCertificateDetails = PopupUtils.open(Qt.resolvedUrl("SecurityCertificatePopover.qml"), certificatePopoverPositioner, {"securityStatus": securityStatus})
+        }
+    }
+
+    function hideSecurityCertificateDetails() {
+        if (internal.securityCertificateDetails) {
+            var popup = internal.securityCertificateDetails
+            internal.securityCertificateDetails = null
+            PopupUtils.close(popup)
         }
     }
 }

@@ -183,7 +183,7 @@ Item {
         Button {
             id: doneButton
 
-            color: parent.color
+            strokeColor: "#5d5d5d"
 
             anchors {
                 right: parent.right

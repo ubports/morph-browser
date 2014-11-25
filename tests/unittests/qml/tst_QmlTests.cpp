@@ -17,5 +17,5 @@
  */
 
 #include <QtQuickTest/QtQuickTest>
-QUICK_TEST_MAIN(QmlTests)
 
+QUICK_TEST_MAIN(QmlTests)

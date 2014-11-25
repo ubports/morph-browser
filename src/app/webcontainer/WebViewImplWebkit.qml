@@ -36,6 +36,7 @@ UbuntuWebView {
     property string localUserAgentOverride: ""
     property string popupRedirectionUrlPrefixPattern: ""
     property url dataPath // unused
+    property bool runningLocalApplication: false
 
     function getUAString() {
         return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride

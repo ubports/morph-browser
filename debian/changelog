@@ -1,3 +1,50 @@
+webbrowser-app (0.23+15.04.20141121-0ubuntu1) vivid; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Make use of the hostMappingRules in oxide and expose it in the
+    webcontext Improve container url AP tests with newly introduced
+    hostmapping in oxide 1.3
+  * HTML5 apps are currently using a specific container/launcher as
+    their runtime. They should use the webapp container instead. (LP:
+    #1392281, #1388988)
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 21 Nov 2014 20:38:17 +0000
+
+webbrowser-app (0.23+15.04.20141113-0ubuntu1) vivid; urgency=low
+
+  [ Michael Sheldon ]
+  * Add mimetype and file extension mappings for the new EBooks
+    ContentType. (LP: #1383732)
+
+  [ Olivier Tilloy ]
+  * Update runtime dependencies of -autopilot packages. Now that
+    autopilot has been removed from touch images, autopilot-touch is
+    what we should depend on to ensure all dependencies are correctly
+    installed prior to running tests using phablet-test-run.
+  * Factor the security certificate details popover out of the
+    AddressBar component, for improved maintainability.
+  * Simplify quite a bit the machinery needed to set up the QML tests.
+  * Always load the webview for a new tab right away. (LP: #1391609)
+  * Set a stroke color on toolbar buttons. (LP: #1351200)
+  * Add a sanity unit test that runs flake8 on the autopilot tests code.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 13 Nov 2014 06:24:30 +0000
+
+webbrowser-app (0.23+15.04.20141110-0ubuntu2) vivid; urgency=medium
+
+  * No-change rebuild against Qt 5.3.2.
+
+ -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Mon, 10 Nov 2014 17:33:35 +0200
+
 webbrowser-app (0.23+15.04.20141110-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
