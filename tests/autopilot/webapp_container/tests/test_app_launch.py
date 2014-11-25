@@ -33,7 +33,7 @@ def generate_temp_webapp():
     {
         "includes": ["http://test.com:*/*"], "name": "test",
         "scripts": ["test.user.js"],
-        "domain":"", "homepage":"http://test.com/"
+        "domain":"", "homepage":"http://www.test.com/"
     }
     """
     manifest_file = "{}/manifest.json".format(webapp_folder_name)
@@ -84,11 +84,11 @@ class WebappContainerAppLaunchTestCase(
         args = ["--webapp='dGVzdA=='"]
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
         with generate_temp_webapp() as webapp_install_path:
-            self.launch_webcontainer_app_with_local_http_server(
-                args, '/',
+            self.launch_webcontainer_app(
+                args,
                 {'UBUNTU_WEBVIEW_HOST_MAPPING_RULES': rule,
                  'WEBAPP_QML_DEFAULT_WEBAPPS_INSTALL_FOLDER':
                      webapp_install_path})
-            window = self.get_webcontainer_window()
-            webapp_url = 'http://' + self.get_base_url_hostname() + '/'
-            self.assertThat(window.url, Eventually(Equals(webapp_url)))
+            webview = self.get_oxide_webview()
+            webapp_url = 'http://www.test.com/'
+            self.assertThat(webview.url, Eventually(Equals(webapp_url)))
