@@ -1,3 +1,16 @@
+webbrowser-app (0.23+15.04.20141125-0ubuntu1) vivid; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Alberto Mardegan ]
+  * Use a different data location for different accounts
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 25 Nov 2014 15:04:31 +0000
+
 webbrowser-app (0.23+15.04.20141121-0ubuntu1) vivid; urgency=low
 
   [ CI bot ]
