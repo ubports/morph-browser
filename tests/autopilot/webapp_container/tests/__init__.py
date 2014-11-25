@@ -113,7 +113,7 @@ class WebappContainerTestCaseWithLocalContentBase(WebappContainerTestCaseBase):
     def get_base_url_hostname(self):
         return self.base_url[len(self.BASE_URL_SCHEME):]
 
-    def launch_url_with_local_http_server(
+    def launch_webcontainer_app_with_local_http_server(
             self, args, path='/', envvars={}, homepage=''):
         self.url = self.base_url + path
         if len(homepage) != 0:
