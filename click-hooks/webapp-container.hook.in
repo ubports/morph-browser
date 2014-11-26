@@ -1,0 +1,3 @@
+Pattern: ${home}/.local/share/@WEBAPP_CONTAINER_HOOK_FOLDER@/${id}.webapp
+Exec: @CMAKE_INSTALL_FULL_BINDIR@/@WEBAPP_CONTAINER_HOOK@
+User-Level: yes
