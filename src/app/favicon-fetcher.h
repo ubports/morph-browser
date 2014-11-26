@@ -50,11 +50,11 @@ Q_SIGNALS:
     void localUrlChanged() const;
 
 private Q_SLOTS:
+    void download(const QUrl& url);
     void downloadFinished(QNetworkReply* reply);
 
 private:
     void setLocalUrl(const QUrl& url);
-    void download(const QUrl& url);
 
     QString m_cacheLocation;
     QScopedPointer<QNetworkAccessManager> m_manager;
