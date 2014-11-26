@@ -37,9 +37,11 @@ def generate_temp_webapp():
     }
     """
     manifest_file = "{}/manifest.json".format(webapp_folder_name)
-    open(manifest_file, "w+").write(manifest_content)
+    with open(manifest_file, "w+") as f:
+        f.write(manifest_content)
     script_file = "{}/test.user.js".format(webapp_folder_name)
-    open(script_file, "w+").write("")
+    with open(script_file, "w+") as f:
+        f.write("")
     try:
         yield tmpdir
     finally:

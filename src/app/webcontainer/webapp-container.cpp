@@ -196,7 +196,7 @@ bool WebappContainer::initialize()
             }
         } else if (m_webappModelSearchPath.isEmpty()
                    && m_webappName.isEmpty()) {
-            qDebug() << "No starting homepage provided";
+            qCritical() << "No starting homepage provided";
             return false;
         }
 
