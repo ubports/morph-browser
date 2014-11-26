@@ -45,6 +45,8 @@ public:
 
     const QUrl& localUrl() const;
 
+    const QString& cacheLocation() const;
+
 Q_SIGNALS:
     void urlChanged() const;
     void localUrlChanged() const;

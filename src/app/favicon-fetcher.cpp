@@ -113,6 +113,11 @@ void FaviconFetcher::setLocalUrl(const QUrl& url)
     }
 }
 
+const QString& FaviconFetcher::cacheLocation() const
+{
+    return m_cacheLocation;
+}
+
 void FaviconFetcher::download(const QUrl& url)
 {
     if (!m_manager) {
