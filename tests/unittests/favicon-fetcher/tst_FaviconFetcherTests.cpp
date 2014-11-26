@@ -99,11 +99,6 @@ private Q_SLOTS:
                      << "Content-Length: " << icon_data_size << "\r\n"
                      << "Content-Type: image/x-icon\r\n\r\n"
                      << QString::fromLocal8Bit(icon_data, icon_data_size) << "\n";
-        } else if (path == "/invalid") {
-            response << "HTTP/1.0 404 Not Found\r\n"
-                     << "Content-Length: 9\r\n"
-                     << "Content-Type: text/plain\r\n\r\n"
-                     << "not found\n";
         } else if (redirection.exactMatch(path)) {
             int n = redirection.cap(1).toInt();
             response << "HTTP/1.0 303 See Other\r\n"
@@ -117,7 +112,18 @@ private Q_SLOTS:
             }
             response << "\r\n\r\n"
                      << "see other\n";
+        } else {
+            // FIXME: for some reason, with the following response the client
+            // doesn’t get a proper 404, but instead the connection is closed,
+            // and the client gets a QNetworkReply::OperationCanceledError.
+            // However with real HTTP servers the 404 is correctly propagated.
+            response << "HTTP/1.0 404 Not Found\r\n"
+                     << "Content-Length: 9\r\n"
+                     << "Content-Type: text/plain\r\n\r\n"
+                     << "not found\n";
         }
+        response.flush();
+        socket->flush();
         socket->close();
     }
 
@@ -162,6 +168,18 @@ private Q_SLOTS:
         delete fetcher;
     }
 
+    void shouldCacheIcon()
+    {
+        QUrl url(server->baseURL() + "/favicon1.ico");
+        fetcher->setUrl(url);
+        QCOMPARE(fetcher->url(), url);
+        QVERIFY(fetcherSpy->wait());
+        QCOMPARE(serverSpy->count(), 1);
+        QString cached = fetcher->localUrl().path();
+        QVERIFY(cached.startsWith(fetcher->cacheLocation()));
+        QVERIFY(QFileInfo::exists(cached));
+    }
+
     void shouldNotCacheLocalIcon()
     {
         QUrl url("file:///tmp/favicon.ico");
@@ -171,17 +189,6 @@ private Q_SLOTS:
         QCOMPARE(fetcher->localUrl(), url);
         QDir cache(fetcher->cacheLocation(), "", QDir::Unsorted, QDir::Files | QDir::NoDotAndDotDot);
         QCOMPARE(cache.count(), (uint) 0);
-    }
-
-    void shouldCacheIcon()
-    {
-        QUrl url(server->baseURL() + "/favicon1.ico");
-        fetcher->setUrl(url);
-        QVERIFY(fetcherSpy->wait());
-        QCOMPARE(serverSpy->count(), 1);
-        QString cached = fetcher->localUrl().path();
-        QVERIFY(cached.startsWith(fetcher->cacheLocation()));
-        QVERIFY(QFileInfo::exists(cached));
     }
 
     void shouldNotCacheInvalidIcon()
