@@ -63,12 +63,19 @@ void FaviconFetcher::setUrl(const QUrl& url)
         m_url = url;
         Q_EMIT urlChanged();
 
+        setLocalUrl(QUrl());
+
         if (m_reply) {
             m_reply->abort();
             m_reply = 0;
         }
 
         if (!url.isValid()) {
+            return;
+        }
+
+        if (url.isLocalFile()) {
+            setLocalUrl(url);
             return;
         }
 
@@ -134,7 +141,6 @@ void FaviconFetcher::downloadFinished(QNetworkReply* reply)
         } else {
             qWarning() << "Failed to download" << reply->url()
                        << ":" << reply->errorString();
-            setLocalUrl(QUrl());
         }
         reply->deleteLater();
         m_reply = 0;

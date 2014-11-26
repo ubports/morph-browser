@@ -40,6 +40,7 @@ Item {
     Icon {
         anchors.fill: parent
         name: "stock_website"
-        visible: parent.fallbackIcon && (image.status !== Image.Ready)
+        visible: parent.fallbackIcon &&
+                 ((image.status !== Image.Ready) || !image.source.toString())
     }
 }
