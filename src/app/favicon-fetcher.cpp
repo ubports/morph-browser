@@ -122,6 +122,9 @@ void FaviconFetcher::download(const QUrl& url)
     }
     QNetworkRequest request(url);
     request.setAttribute(QNetworkRequest::HttpPipeliningAllowedAttribute, true);
+    // For some reason slashdot.org closes the connection with the default
+    // user agent string ("Mozilla/5.0"). Weird.
+    request.setHeader(QNetworkRequest::UserAgentHeader, QString("Mozilla"));
     m_reply = m_manager->get(request);
 }
 
