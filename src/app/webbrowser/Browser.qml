@@ -437,6 +437,7 @@ BrowserView {
 
             ItemCapture {
                 id: capture
+                live: parent.visible
             }
             function capture() {
                 return capture.capture(url)
