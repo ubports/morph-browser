@@ -24,6 +24,7 @@
 #include "history-byvisits-model.h"
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
+#include "item-capture.h"
 #include "limit-proxy-model.h"
 #include "searchengine.h"
 #include "settings.h"
@@ -82,6 +83,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
+    qmlRegisterType<ItemCapture>(uri, 0, 1, "ItemCapture");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         Settings settings;
