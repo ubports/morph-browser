@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,6 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Qt
+#include <QtQml/QtQml>
 #include <QtQuickTest/QtQuickTest>
 
-QUICK_TEST_MAIN(QmlTests)
+// local
+#include "item-capture.h"
+
+int main(int argc, char** argv)
+{
+    const char* uri = "webbrowserapp.private";
+    qmlRegisterType<ItemCapture>(uri, 0, 1, "ItemCapture");
+
+    return quick_test_main(argc, argv, "QmlTests", 0);
+}
