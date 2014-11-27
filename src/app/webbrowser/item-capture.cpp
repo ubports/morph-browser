@@ -41,8 +41,19 @@ ItemCapture::ItemCapture(QQuickItem* parent)
 
 void ItemCapture::onParentChanged(QQuickItem* parent)
 {
+    if (sourceItem()) {
+        sourceItem()->disconnect(this);
+    }
     QQuickItemPrivate::get(this)->anchors()->setFill(parent);
     setSourceItem(parent);
+    if (parent) {
+        connect(parent, SIGNAL(visibleChanged()), SLOT(onParentVisibleChanged()));
+    }
+}
+
+void ItemCapture::onParentVisibleChanged()
+{
+    setLive(parentItem()->isVisible());
 }
 
 QUrl ItemCapture::capture(const QString& id)

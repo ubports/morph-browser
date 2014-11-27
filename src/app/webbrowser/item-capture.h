@@ -35,6 +35,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void onParentChanged(QQuickItem* parent);
+    void onParentVisibleChanged();
 
 private:
     QString m_cacheLocation;
