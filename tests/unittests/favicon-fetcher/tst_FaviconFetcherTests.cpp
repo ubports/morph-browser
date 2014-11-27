@@ -113,18 +113,14 @@ private Q_SLOTS:
             response << "\r\n\r\n"
                      << "see other\n";
         } else {
-            // FIXME: for some reason, with the following response the client
-            // doesn’t get a proper 404, but instead the connection is closed,
-            // and the client gets a QNetworkReply::OperationCanceledError.
-            // However with real HTTP servers the 404 is correctly propagated.
             response << "HTTP/1.0 404 Not Found\r\n"
                      << "Content-Length: 9\r\n"
                      << "Content-Type: text/plain\r\n\r\n"
                      << "not found\n";
         }
         response.flush();
-        socket->flush();
-        socket->close();
+        socket->waitForBytesWritten();
+        socket->disconnectFromHost();
     }
 
     void discardClient()
