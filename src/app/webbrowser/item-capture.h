@@ -21,6 +21,7 @@
 
 // Qt
 #include <QtCore/QString>
+#include <QtCore/QUrl>
 #include <QtQuick/private/qquickshadereffectsource_p.h>
 
 class ItemCapture : public QQuickShaderEffectSource
@@ -30,7 +31,7 @@ public:
     ItemCapture(QQuickItem* parent=0);
 
 public Q_SLOTS:
-    QString capture(const QString& id);
+    QUrl capture(const QString& id);
 
 private Q_SLOTS:
     void onParentChanged(QQuickItem* parent);

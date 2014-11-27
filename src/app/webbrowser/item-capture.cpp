@@ -45,7 +45,7 @@ void ItemCapture::onParentChanged(QQuickItem* parent)
     setSourceItem(parent);
 }
 
-QString ItemCapture::capture(const QString& id)
+QUrl ItemCapture::capture(const QString& id)
 {
     const QSGTextureProvider* provider = textureProvider();
     const QQuickShaderEffectTexture* texture = qobject_cast<QQuickShaderEffectTexture*>(provider->texture());
@@ -56,9 +56,9 @@ QString ItemCapture::capture(const QString& id)
         QString filepath = m_cacheLocation + "/" + hash + ".jpg";
         if (!image.isNull()) {
             if (image.save(filepath)) {
-                return filepath;
+                return QUrl::fromLocalFile(filepath);
             }
         }
     }
-    return QString();
+    return QUrl();
 }
