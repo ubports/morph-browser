@@ -372,8 +372,6 @@ BrowserView {
                     // Instantiating the webview cannot be delayed because the request
                     // object is destroyed after exiting the newViewRequested signal handler.
                     webviewComponent.incubateObject(this, {"request": request})
-                } else {
-                    // TODO: get an existing capture for the initialUrl
                 }
             }
         }
@@ -557,11 +555,15 @@ BrowserView {
             var state = {}
             state.url = tab.url.toString()
             state.title = tab.title
+            state.preview = tab.preview.toString()
             return state
         }
 
         function createTabFromState(state) {
             var properties = {"initialUrl": state.url, "initialTitle": state.title}
+            if ('preview' in state) {
+                properties["preview"] = state.preview
+            }
             return tabComponent.createObject(tabContainer, properties)
         }
     }

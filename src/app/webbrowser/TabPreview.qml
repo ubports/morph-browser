@@ -168,7 +168,7 @@ Column {
 
         Image {
             id: previewContainer
-            visible: source.toString()
+            visible: source.toString() && (status == Image.Ready)
             anchors {
                 left: parent.left
                 right: parent.right
@@ -177,6 +177,12 @@ Column {
             height: sourceSize.height
             fillMode: Image.Pad
             source: tabPreview.tab ? tabPreview.tab.preview : ""
+            onStatusChanged: {
+                if (status == Image.Error) {
+                    // The cached preview doesn’t exist any longer
+                    tabPreview.tab.preview = ""
+                }
+            }
         }
 
         MouseArea {
