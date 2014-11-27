@@ -166,11 +166,17 @@ Column {
             }
         }
 
-        Item {
+        Image {
             id: previewContainer
-            visible: tabPreview.tab ? tabPreview.tab.webview : false
-            anchors.fill: parent
-            clip: true
+            visible: source.toString()
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+            }
+            height: sourceSize.height
+            fillMode: Image.Pad
+            source: tabPreview.tab ? tabPreview.tab.preview : ""
         }
 
         MouseArea {
@@ -187,27 +193,6 @@ Column {
             }
 
             opacity: 0.3
-        }
-    }
-
-    QtObject {
-        id: internal
-        property var previewParent
-    }
-
-    Component.onCompleted: {
-        var preview = tabPreview.tab.preview
-        internal.previewParent = preview.parent
-        preview.parent = previewContainer
-        preview.width = internal.previewParent.width
-        preview.height = internal.previewParent.height
-    }
-    Component.onDestruction: {
-        if (tabPreview.tab) {
-            var preview = tabPreview.tab.preview
-            preview.parent = internal.previewParent
-            preview.width = preview.parent.width
-            preview.height = preview.parent.height
         }
     }
 }

@@ -76,37 +76,6 @@ BrowserView {
     ]
 
     Item {
-        id: previewsContainer
-
-        width: tabContainer.width
-        height: tabContainer.height
-        y: tabContainer.y
-
-        Component {
-            id: previewComponent
-
-            ShaderEffectSource {
-                id: preview
-
-                property var tab
-
-                width: parent.width
-                height: parent.height
-
-                sourceItem: tab ? tab.webview : null
-
-                onTabChanged: {
-                    if (!tab) {
-                        this.destroy()
-                    }
-                }
-
-                live: mainView.visible && (browser.currentWebview === sourceItem)
-            }
-        }
-    }
-
-    Item {
         id: mainView
 
         anchors.fill: parent
@@ -370,7 +339,7 @@ BrowserView {
             readonly property url url: webview ? webview.url : initialUrl
             readonly property string title: webview ? webview.title : initialTitle
             readonly property url icon: webview ? webview.icon : ""
-            property var preview
+            property url preview
 
             anchors.fill: parent
 
@@ -384,7 +353,17 @@ BrowserView {
                 if (webview) {
                     initialUrl = webview.url
                     initialTitle = webview.title
+                    preview = webview.capture()
                     webview.destroy()
+                }
+            }
+
+            Connections {
+                target: webview
+                onVisibleChanged: {
+                    if (!webview.visible) {
+                        preview = webview.capture()
+                    }
                 }
             }
 
@@ -393,6 +372,8 @@ BrowserView {
                     // Instantiating the webview cannot be delayed because the request
                     // object is destroyed after exiting the newViewRequested signal handler.
                     webviewComponent.incubateObject(this, {"request": request})
+                } else {
+                    // TODO: get an existing capture for the initialUrl
                 }
             }
         }
@@ -456,6 +437,13 @@ BrowserView {
 
             onGeolocationPermissionRequested: requestGeolocationPermission(request)
 
+            ItemCapture {
+                id: capture
+            }
+            function capture() {
+                return capture.capture(url)
+            }
+
             Loader {
                 id: newTabViewLoader
                 anchors.fill: parent
@@ -502,7 +490,6 @@ BrowserView {
                 tabsModel.setCurrent(index)
                 chrome.requestedUrl = tab.initialUrl
             }
-            tab.preview = previewComponent.createObject(previewsContainer, {tab: tab})
         }
 
         function focusAddressBar() {
