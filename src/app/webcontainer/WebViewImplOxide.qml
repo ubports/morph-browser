@@ -63,7 +63,7 @@ WebViewImpl {
              */
             if (localUserAgentOverride)
                 return localUserAgentOverride
-            return __context.userAgent
+            return __context.defaultUserAgent
         }
     }
 
