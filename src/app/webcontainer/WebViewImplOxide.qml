@@ -88,11 +88,6 @@ WebViewImpl {
         return formFactor !== "desktop";
     }
 
-    // Function defined by the UbuntuWebView and overridden here to handle potential webapp defined UA overrides
-    function getUAString() {
-        return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride
-    }
-
     function isRunningAsANamedWebapp() {
         return webview.webappName && typeof(webview.webappName) === 'string' && webview.webappName.length != 0
     }
