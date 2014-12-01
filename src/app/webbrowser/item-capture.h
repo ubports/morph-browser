@@ -20,6 +20,7 @@
 #define __ITEM_CAPTURE_H__
 
 // Qt
+#include <QtCore/QMutex>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtQuick/private/qquickshadereffectsource_p.h>
@@ -31,14 +32,24 @@ public:
     ItemCapture(QQuickItem* parent=0);
 
 public Q_SLOTS:
-    QUrl capture(const QString& id);
+    void requestCapture(const QString& id);
+
+Q_SIGNALS:
+    void captureFinished(QUrl capture) const;
+
+protected:
+    QSGNode* updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* updatePaintNodeData);
 
 private Q_SLOTS:
     void onParentChanged(QQuickItem* parent);
     void onParentVisibleChanged();
+    void onCaptureFinished() const;
 
 private:
     QString m_cacheLocation;
+    QMutex m_mutex;
+    QString m_request;
+    QUrl m_capture;
 };
 
 #endif // __ITEM_CAPTURE_H__

@@ -353,7 +353,6 @@ BrowserView {
                 if (webview) {
                     initialUrl = webview.url
                     initialTitle = webview.title
-                    preview = webview.capture()
                     webview.destroy()
                 }
             }
@@ -362,9 +361,10 @@ BrowserView {
                 target: webview
                 onVisibleChanged: {
                     if (!webview.visible) {
-                        preview = webview.capture()
+                        webview.requestCapture()
                     }
                 }
+                onCaptureFinished: preview = capture
             }
 
             Component.onCompleted: {
@@ -435,11 +435,13 @@ BrowserView {
 
             onGeolocationPermissionRequested: requestGeolocationPermission(request)
 
+            signal captureFinished(url capture)
             ItemCapture {
                 id: capture
+                onCaptureFinished: parent.captureFinished(capture)
             }
-            function capture() {
-                return capture.capture(url)
+            function requestCapture() {
+                capture.requestCapture(url)
             }
 
             Loader {

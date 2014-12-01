@@ -34,12 +34,19 @@ Item {
 
         ItemCapture {
             id: capture
+            onCaptureFinished: image.source = capture
         }
 
         SignalSpy {
-            id: spy
+            id: spyReady
             target: capture
             signalName: "scheduledUpdateCompleted"
+        }
+
+        SignalSpy {
+            id: spyCaptured
+            target: capture
+            signalName: "captureFinished"
         }
     }
 
@@ -52,8 +59,10 @@ Item {
         when: windowShown
 
         function test_capture() {
-            spy.wait()
-            image.source = capture.capture("test")
+            spyReady.wait()
+            capture.requestCapture("test")
+            spyCaptured.wait()
+            verify(image.source.toString())
             compare(image.status, Image.Ready)
             compare(image.sourceSize.width, rect.width)
             compare(image.sourceSize.height, rect.height)

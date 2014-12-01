@@ -22,6 +22,8 @@
 // Qt
 #include <QtCore/QCryptographicHash>
 #include <QtCore/QDir>
+#include <QtCore/QMetaObject>
+#include <QtCore/QMutexLocker>
 #include <QtCore/QStandardPaths>
 #include <QtQuick/private/qquickitem_p.h>
 
@@ -56,20 +58,41 @@ void ItemCapture::onParentVisibleChanged()
     setLive(parentItem()->isVisible());
 }
 
-QUrl ItemCapture::capture(const QString& id)
+QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* updatePaintNodeData)
 {
-    const QSGTextureProvider* provider = textureProvider();
-    const QQuickShaderEffectTexture* texture = qobject_cast<QQuickShaderEffectTexture*>(provider->texture());
-    QOpenGLContext* ctx = QQuickItemPrivate::get(this)->sceneGraphRenderContext()->openglContext();
-    if (ctx->makeCurrent(ctx->surface())) {
-        QImage image = texture->toImage().mirrored();
-        QString hash(QCryptographicHash::hash(id.toUtf8(), QCryptographicHash::Md5).toHex());
-        QString filepath = m_cacheLocation + "/" + hash + ".jpg";
-        if (!image.isNull()) {
-            if (image.save(filepath)) {
-                return QUrl::fromLocalFile(filepath);
+    QSGNode* newNode = QQuickShaderEffectSource::updatePaintNode(oldNode, updatePaintNodeData);
+    QMutexLocker locker(&m_mutex);
+    if (!m_request.isEmpty()) {
+        QString request = m_request;
+        m_request.clear();
+        m_capture.clear();
+        QQuickShaderEffectTexture* texture =
+            qobject_cast<QQuickShaderEffectTexture*>(textureProvider()->texture());
+        QOpenGLContext* ctx =
+            QQuickItemPrivate::get(this)->sceneGraphRenderContext()->openglContext();
+        if (ctx->makeCurrent(ctx->surface())) {
+            QImage image = texture->toImage().mirrored();
+            if (!image.isNull()) {
+                QString hash(QCryptographicHash::hash(request.toUtf8(),
+                                                      QCryptographicHash::Md5).toHex());
+                QString filepath = m_cacheLocation + "/" + hash + ".jpg";
+                if (image.save(filepath)) {
+                    m_capture = QUrl::fromLocalFile(filepath);
+                }
             }
         }
+        QMetaObject::invokeMethod(this, "onCaptureFinished", Qt::AutoConnection);
     }
-    return QUrl();
+    return newNode;
+}
+
+void ItemCapture::requestCapture(const QString& id)
+{
+    QMutexLocker locker(&m_mutex);
+    m_request = id;
+}
+
+void ItemCapture::onCaptureFinished() const
+{
+    Q_EMIT captureFinished(m_capture);
 }
