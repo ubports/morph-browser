@@ -122,6 +122,8 @@ BrowserWindow {
         }
     }
 
+    // Because of https://launchpad.net/bugs/1398046, it's important that this
+    // is the first child
     Loader {
         id: webappViewLoader
         anchors.fill: parent
