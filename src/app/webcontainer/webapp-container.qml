@@ -123,8 +123,18 @@ BrowserWindow {
     }
 
     Loader {
+        id: webappViewLoader
+        anchors.fill: parent
+
+        property var credentialsId: null
+        property var webContextSessionCookieMode: null
+        property var webappDataLocation: credentialsId != null ? dataLocation + "/id-" + credentialsId : dataLocation
+    }
+
+    Loader {
         id: accountsPageComponentLoader
         anchors.fill: parent
+        z: -1
         onStatusChanged: {
             if (status == Loader.Error) {
                 // Happens on the desktop, if Ubuntu.OnlineAccounts.Client
@@ -134,15 +144,6 @@ BrowserWindow {
                 item.visible = true
             }
         }
-    }
-
-    Loader {
-        id: webappViewLoader
-        anchors.fill: parent
-
-        property var credentialsId: null
-        property var webContextSessionCookieMode: null
-        property var webappDataLocation: credentialsId != null ? dataLocation + "/id-" + credentialsId : dataLocation
     }
 
     function onCookiesMoved(result) {
