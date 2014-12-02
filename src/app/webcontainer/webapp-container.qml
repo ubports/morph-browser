@@ -122,6 +122,17 @@ BrowserWindow {
         }
     }
 
+    // Because of https://launchpad.net/bugs/1398046, it's important that this
+    // is the first child
+    Loader {
+        id: webappViewLoader
+        anchors.fill: parent
+
+        property var credentialsId: null
+        property var webContextSessionCookieMode: null
+        property var webappDataLocation: credentialsId != null ? dataLocation + "/id-" + credentialsId : dataLocation
+    }
+
     Loader {
         id: accountsPageComponentLoader
         anchors.fill: parent
@@ -134,15 +145,6 @@ BrowserWindow {
                 item.visible = true
             }
         }
-    }
-
-    Loader {
-        id: webappViewLoader
-        anchors.fill: parent
-
-        property var credentialsId: null
-        property var webContextSessionCookieMode: null
-        property var webappDataLocation: credentialsId != null ? dataLocation + "/id-" + credentialsId : dataLocation
     }
 
     function onCookiesMoved(result) {
@@ -190,12 +192,9 @@ BrowserWindow {
                 if (typeof webContextSessionCookieMode === "string") {
                     webappViewLoader.webContextSessionCookieMode = "restored"
                 }
+            }
 
-                webappViewLoader.sourceComponent = webappViewComponent
-            }
-            else {
-                loadWebAppView()
-            }
+            loadWebAppView()
         }
     }
 
