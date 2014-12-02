@@ -25,12 +25,11 @@ class WebappUserAgentTestCase(
     def test_override_user_agent(self):
         args = ['--user-agent-string=MyUserAgent']
         self.launch_webcontainer_app_with_local_http_server(
-            args
-            , '/show-user-agent')
+            args,
+            '/show-user-agent')
         self.get_webcontainer_window().visible.wait_for(True)
 
-        webview = self.get_oxide_webview()
-
         # trick until we get e.g. selenium/chromedriver tests
+        result = 'MyUserAgent MyUserAgent - Ubuntu Web Browser'
         self.assertThat(self.get_webcontainer_window().title,
-                        Eventually(Equals('MyUserAgent MyUserAgent - Ubuntu Web Browser')))
+                        Eventually(Equals(result)))
