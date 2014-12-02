@@ -1,3 +1,15 @@
+webbrowser-app (0.23+15.04.20141202.1-0ubuntu1) vivid; urgency=low
+
+  [ Alberto Mardegan ]
+  * Swap declaration order of Loaders
+
+  [ Olivier Tilloy ]
+  * Cosmetics: get rid of latin names in autopilot tests.
+  * Hide the certificate error page when validating a new URL. (LP:
+    #1394925)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 02 Dec 2014 13:17:05 +0000
+
 webbrowser-app (0.23+15.04.20141202-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
