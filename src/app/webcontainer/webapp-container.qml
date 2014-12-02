@@ -134,7 +134,6 @@ BrowserWindow {
     Loader {
         id: accountsPageComponentLoader
         anchors.fill: parent
-        z: -1
         onStatusChanged: {
             if (status == Loader.Error) {
                 // Happens on the desktop, if Ubuntu.OnlineAccounts.Client
