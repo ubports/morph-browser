@@ -191,12 +191,9 @@ BrowserWindow {
                 if (typeof webContextSessionCookieMode === "string") {
                     webappViewLoader.webContextSessionCookieMode = "restored"
                 }
+            }
 
-                webappViewLoader.sourceComponent = webappViewComponent
-            }
-            else {
-                loadWebAppView()
-            }
+            loadWebAppView()
         }
     }
 
