@@ -194,14 +194,15 @@ bool WebappContainer::initialize()
                 qDebug() << "Started as a local application container.";
                 runningLocalApp = true;
             }
-        } else if (m_webappModelSearchPath.isEmpty()) {
-            // Either we have a command line argument for the start URL or we have
-            // local search path for a webapp definition (that would include in its
-            // meta data a homepage). Any other case is faulty.
+        } else if (m_webappModelSearchPath.isEmpty()
+                   && m_webappName.isEmpty()) {
+            qCritical() << "No starting homepage provided";
             return false;
         }
+
         // Otherwise, assume that the homepage will come from a locally defined
-        // webapp-properties.json file pulled from the webapp model element.
+        // webapp-properties.json file pulled from the webapp model element
+        // or from a default local system install (if any).
 
         m_window->setProperty("runningLocalApplication", runningLocalApp);
 

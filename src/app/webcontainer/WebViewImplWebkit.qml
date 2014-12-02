@@ -35,6 +35,7 @@ UbuntuWebView {
     property var webappUrlPatterns: null
     property string localUserAgentOverride: ""
     property string popupRedirectionUrlPrefixPattern: ""
+    property url dataPath // unused
     property bool runningLocalApplication: false
 
     function getUAString() {

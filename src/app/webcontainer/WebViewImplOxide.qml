@@ -34,6 +34,7 @@ WebViewImpl {
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
     property string popupRedirectionUrlPrefixPattern: ""
+    property url dataPath
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser
@@ -46,6 +47,10 @@ WebViewImpl {
     property bool runningLocalApplication: false
 
     currentWebview: webview
+
+    context: WebContext {
+        dataPath: webview.dataPath
+    }
 
     preferences.allowFileAccessFromFileUrls: runningLocalApplication
     preferences.allowUniversalAccessFromFileUrls: runningLocalApplication

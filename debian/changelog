@@ -1,3 +1,29 @@
+webbrowser-app (0.23+15.04.20141126.1-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Fix desktop web container with local webapp install on desktop (LP:
+    #1396166)
+  * Adds a click hook for webapps that currently handles uninstall
+    cleanup options
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 26 Nov 2014 15:55:49 +0000
+
+webbrowser-app (0.23+15.04.20141125-0ubuntu1) vivid; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Alberto Mardegan ]
+  * Use a different data location for different accounts
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 25 Nov 2014 15:04:31 +0000
+
 webbrowser-app (0.23+15.04.20141121-0ubuntu1) vivid; urgency=low
 
   [ CI bot ]

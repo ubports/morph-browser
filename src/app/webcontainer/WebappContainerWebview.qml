@@ -30,6 +30,7 @@ Item {
     property bool withOxide: false
     property bool developerExtrasEnabled: false
     property string webappName: ""
+    property url dataPath
     property var currentWebview: webappContainerWebViewLoader.item ?
                                      webappContainerWebViewLoader.item.currentWebview
                                    : null
@@ -44,8 +45,9 @@ Item {
         id: webappContainerWebViewLoader
         objectName: "containerWebviewLoader"
         anchors.fill: parent
-        asynchronous: true
     }
+
+    onUrlChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.url = url
 
     Component.onCompleted: {
         var webappEngineSource =
@@ -65,6 +67,7 @@ Item {
                     { localUserAgentOverride: containerWebview.localUserAgentOverride
                     , url: containerWebview.url
                     , webappName: containerWebview.webappName
+                    , dataPath: dataPath
                     , webappUrlPatterns: containerWebview.webappUrlPatterns
                     , developerExtrasEnabled: containerWebview.developerExtrasEnabled
                     , popupRedirectionUrlPrefixPattern: containerWebview.popupRedirectionUrlPrefixPattern
