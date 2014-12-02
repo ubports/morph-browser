@@ -1,3 +1,15 @@
+webbrowser-app (0.23+15.04.20141202-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Replace the custom favicon image provider with a FaviconFetcher
+    component that better handles cancelling pending requests. (LP:
+    #1395748)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 02 Dec 2014 09:22:48 +0000
+
 webbrowser-app (0.23+15.04.20141126.1-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
