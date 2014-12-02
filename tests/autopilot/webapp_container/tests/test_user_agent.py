@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from testtools.matchers import Equals
+from testtools.matchers import Contains
 from autopilot.matchers import Eventually
 
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
@@ -30,6 +30,6 @@ class WebappUserAgentTestCase(
         self.get_webcontainer_window().visible.wait_for(True)
 
         # trick until we get e.g. selenium/chromedriver tests
-        result = 'MyUserAgent MyUserAgent - Ubuntu Web Browser'
+        result = 'MyUserAgent MyUserAgent'
         self.assertThat(self.get_webcontainer_window().title,
-                        Eventually(Equals(result)))
+                        Eventually(Contains(result)))

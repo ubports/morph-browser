@@ -51,20 +51,15 @@ WebViewImpl {
     context: WebContext {
         id: __context
         dataPath: webview.dataPath
-        userAgent: {
-            /**
-             * The default mechanism that allows a webview
-             * to set its UA (getUAString) has a race if the webview
-             * URL is set at webview & context construction. Oxide
-             * starts its http requests for the URL w/ the initial UA
-             * NOT the one that is "delay gathered" after the component
-             * has been constructed through the getUAString() call.
-             *
-             */
-            if (localUserAgentOverride)
-                return localUserAgentOverride
-            return __context.defaultUserAgent
-        }
+        /**
+         * The default mechanism that allows a webview
+         * to set its UA (getUAString) has a race if the webview
+         * URL is set at webview & context construction. Oxide
+         * starts its http requests for the URL w/ the initial UA
+         * NOT the one that is "delay gathered" after the component
+         * has been constructed through the getUAString() call.
+         */
+        userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
     }
 
     preferences.allowFileAccessFromFileUrls: runningLocalApplication
