@@ -16,32 +16,55 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __FAVICON_IMAGE_PROVIDER_H__
-#define __FAVICON_IMAGE_PROVIDER_H__
+#ifndef __FAVICON_FETCHER_H__
+#define __FAVICON_FETCHER_H__
 
 // Qt
 #include <QtCore/QScopedPointer>
+#include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QtGlobal>
-#include <QtQuick/QQuickImageProvider>
+#include <QtCore/QUrl>
 
 class QNetworkAccessManager;
-class QUrl;
+class QNetworkReply;
 
-class FaviconImageProvider Q_DECL_FINAL : public QQuickImageProvider
+class FaviconFetcher Q_DECL_FINAL : public QObject
 {
+    Q_OBJECT
+
+    Q_PROPERTY(QUrl url READ url WRITE setUrl NOTIFY urlChanged)
+    Q_PROPERTY(QUrl localUrl READ localUrl NOTIFY localUrlChanged)
+
 public:
-    FaviconImageProvider();
+    FaviconFetcher(QObject* parent=0);
+    ~FaviconFetcher();
+
+    const QUrl& url() const;
+    void setUrl(const QUrl& url);
+
+    const QUrl& localUrl() const;
 
     const QString& cacheLocation() const;
 
-    QImage requestImage(const QString& id, QSize* size, const QSize& requestedSize);
+Q_SIGNALS:
+    void urlChanged() const;
+    void localUrlChanged() const;
+
+private Q_SLOTS:
+    void download(const QUrl& url);
+    void downloadFinished(QNetworkReply* reply);
 
 private:
-    QImage downloadImage(const QUrl& url);
+    void setLocalUrl(const QUrl& url);
 
     QString m_cacheLocation;
     QScopedPointer<QNetworkAccessManager> m_manager;
+    QNetworkReply* m_reply;
+    QUrl m_url;
+    QString m_filepath;
+    int m_redirections;
+    QUrl m_localUrl;
 };
 
-#endif // __FAVICON_IMAGE_PROVIDER_H__
+#endif // __FAVICON_FETCHER_H__

@@ -18,9 +18,10 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
+import webbrowsercommon.private 0.1
 
 Item {
-    property url source
+    property alias source: fetcher.url
     property bool fallbackIcon: true
 
     width: units.dp(16)
@@ -28,15 +29,18 @@ Item {
 
     Image {
         id: image
-        readonly property string url: parent.source.toString()
-        source: url ? "image://favicon/" + url : ""
-
+        source: fetcher.localUrl
         anchors.fill: parent
+    }
+
+    FaviconFetcher {
+        id: fetcher
     }
 
     Icon {
         anchors.fill: parent
         name: "stock_website"
-        visible: parent.fallbackIcon && (image.status !== Image.Ready)
+        visible: parent.fallbackIcon &&
+                 ((image.status !== Image.Ready) || !image.source.toString())
     }
 }

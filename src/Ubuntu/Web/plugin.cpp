@@ -17,7 +17,6 @@
  */
 
 #include "plugin.h"
-#include "favicon-image-provider.h"
 
 // Qt
 #include <QtCore/QCoreApplication>
@@ -184,8 +183,6 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
         // calculating the proper pixel ratio by device/screen).
         context->setContextProperty("QtWebKitDPR", getQtWebkitDpr());
     }
-
-    engine->addImageProvider("favicon", new FaviconImageProvider());
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
