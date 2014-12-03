@@ -54,7 +54,11 @@ ChromeBase {
             }
 
             enabled: chrome.webview ? chrome.webview.canGoBack : false
-            onTriggered: chrome.webview.goBack()
+            onTriggered: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                chrome.webview.certificateError = null
+                chrome.webview.goBack()
+            }
         }
 
         ChromeButton {
@@ -74,7 +78,11 @@ ChromeBase {
             }
 
             enabled: chrome.webview ? chrome.webview.canGoForward : false
-            onTriggered: chrome.webview.goForward()
+            onTriggered: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                chrome.webview.certificateError = null
+                chrome.webview.goForward()
+            }
         }
 
         AddressBar {
@@ -104,11 +112,15 @@ ChromeBase {
             }
 
             onValidated: {
-                // XXX: workaround for https://launchpad.net/bugs/1377198
+                // Workaround for https://launchpad.net/bugs/1377198
                 chrome.webview.certificateError = null
                 chrome.webview.url = requestedUrl
             }
-            onRequestReload: chrome.webview.reload()
+            onRequestReload: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                chrome.webview.certificateError = null
+                chrome.webview.reload()
+            }
             onRequestStop: chrome.webview.stop()
 
             Connections {
