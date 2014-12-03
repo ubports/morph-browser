@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-11-14 06:31+0000\n"
-"X-Generator: Launchpad (build 17241)\n"
+"X-Launchpad-Export-Date: 2014-12-03 06:47+0000\n"
+"X-Generator: Launchpad (build 17274)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -309,6 +309,10 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"Lo certificat de seguretat d'aqueste site es pas digne de fisança\n"
+"Avètz ensajat d'accedir a %1 mas lo servidor a presentat un certificat de "
+"seguretat qu'a pas capitat nòstres tèsts de seguretat per una rason "
+"desconeguda."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"

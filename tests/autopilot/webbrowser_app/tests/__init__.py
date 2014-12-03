@@ -188,7 +188,7 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
         self.base_url = "http://localhost:{}".format(self.server.port)
         self.domain = "localhost"
         self.ping_server()
-        self.url = self.base_url + "/loremipsum"
+        self.url = self.base_url + "/test1"
         self.ARGS = self.ARGS + [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()
         self.assert_home_page_eventually_loaded()

@@ -25,6 +25,8 @@ RE:tests/unittests/.+/tst_\w+Tests$
 po/*.gmo
 po/src
 doc/html
+click-hooks/webapp-container-hook
+click-hooks/webapp-container.hook
 
 obj-*
 debian/files

@@ -21,12 +21,16 @@
 #include <QtQuickTest/QtQuickTest>
 
 // local
+#include "favicon-fetcher.h"
 #include "item-capture.h"
 
 int main(int argc, char** argv)
 {
-    const char* uri = "webbrowserapp.private";
-    qmlRegisterType<ItemCapture>(uri, 0, 1, "ItemCapture");
+    const char* commonUri = "webbrowsercommon.private";
+    qmlRegisterType<FaviconFetcher>(commonUri, 0, 1, "FaviconFetcher");
+
+    const char* browserUri = "webbrowserapp.private";
+    qmlRegisterType<ItemCapture>(browserUri, 0, 1, "ItemCapture");
 
     return quick_test_main(argc, argv, "QmlTests", 0);
 }
