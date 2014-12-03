@@ -104,6 +104,7 @@ ChromeBase {
             }
 
             onValidated: {
+                // XXX: workaround for https://launchpad.net/bugs/1377198
                 chrome.webview.certificateError = null
                 chrome.webview.url = requestedUrl
             }

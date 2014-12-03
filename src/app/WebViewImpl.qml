@@ -95,6 +95,7 @@ WebView {
             error.allow()
         } else {
             certificateError = error
+            error.onCancelled.connect(function() { webview.certificateError = null })
         }
     }
 }
