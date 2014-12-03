@@ -131,8 +131,10 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     glcontext->create();
 #if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
     QSGContext::setSharedOpenGLContext(glcontext);
-#else
+#elif QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
     QOpenGLContextPrivate::setGlobalShareContext(glcontext);
+#else
+    qt_gl_set_global_share_context(glcontext);
 #endif
 
     QString devtoolsPort = inspectorPort();
