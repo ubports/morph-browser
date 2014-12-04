@@ -31,5 +31,5 @@ class WebappUserAgentTestCase(
 
         # trick until we get e.g. selenium/chromedriver tests
         result = 'MyUserAgent MyUserAgent'
-        self.assertThat(self.get_webcontainer_window().title,
+        self.assertThat(self.get_oxide_webview().title,
                         Eventually(Contains(result)))

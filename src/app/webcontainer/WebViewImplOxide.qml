@@ -49,7 +49,6 @@ WebViewImpl {
     currentWebview: webview
 
     context: WebContext {
-        id: __context
         dataPath: webview.dataPath
         /**
          * The default mechanism that allows a webview
