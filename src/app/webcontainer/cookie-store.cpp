@@ -91,7 +91,19 @@ void CookieStore::cookiesReceived(const Cookies& cookies
     if (Q_UNLIKELY(!request))
         return;
 
+    QDateTime lastRemoteCookieUpdate =
+        request->_cookieStore->lastUpdateTimeStamp();
+    QDateTime lastLocalCookieUpdate = lastUpdateTimeStamp();
+
     delete request;
+
+    if (lastRemoteCookieUpdate.isValid() &&
+        lastLocalCookieUpdate.isValid() &&
+        (lastRemoteCookieUpdate < lastLocalCookieUpdate))
+    {
+        Q_EMIT moved(false);
+        return;
+    }
 
     connect(this, &CookieStore::cookiesSet,
             this, &CookieStore::moved);
@@ -103,26 +115,6 @@ void CookieStore::moveFrom(CookieStore* store)
 {
     if (Q_UNLIKELY(!store))
         return;
-
-    QDateTime lastRemoteCookieUpdate = store->lastUpdateTimeStamp();
-    QDateTime lastLocalCookieUpdate = lastUpdateTimeStamp();
-
-    // Disabled for now since.
-    // There is an obvious race if the WebView is instanciated
-    // (since it creates a cookies db file at creation time).
-    // But when delaying the creation, only using the WebContext to
-    // access the cookieManager, and manually creating a cookies db file
-    // if none is found (since the cookie manager does not create one
-    // when setting its cookies), something fails.
-#if 0
-    if (lastRemoteCookieUpdate.isValid() &&
-        lastLocalCookieUpdate.isValid() &&
-        (lastRemoteCookieUpdate < lastLocalCookieUpdate))
-    {
-        Q_EMIT moved(false);
-        return;
-    }
-#endif
 
     CookieStoreRequest* storeRequest = new CookieStoreRequest(store);
     _currentStoreRequests.insert(storeRequest, true);

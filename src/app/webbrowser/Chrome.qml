@@ -30,8 +30,6 @@ ChromeBase {
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
 
-    signal validated()
-
     FocusScope {
         anchors {
             fill: parent
@@ -105,7 +103,10 @@ ChromeBase {
                 }
             }
 
-            onValidated: chrome.webview.url = requestedUrl
+            onValidated: {
+                chrome.webview.certificateError = null
+                chrome.webview.url = requestedUrl
+            }
             onRequestReload: chrome.webview.reload()
             onRequestStop: chrome.webview.stop()
 

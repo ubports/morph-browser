@@ -35,6 +35,7 @@
 // local
 #include "browserapplication.h"
 #include "config.h"
+#include "favicon-fetcher.h"
 #include "session-storage.h"
 #include "webbrowser-window.h"
 
@@ -143,6 +144,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     }
 
     const char* uri = "webbrowsercommon.private";
+    qmlRegisterType<FaviconFetcher>(uri, 0, 1, "FaviconFetcher");
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
 
     m_engine = new QQmlEngine;

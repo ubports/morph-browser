@@ -9,13 +9,14 @@ set(COMMONLIB webbrowser-common)
 
 set(COMMONLIB_SRC
     browserapplication.cpp
+    favicon-fetcher.cpp
     session-storage.cpp
     webbrowser-window.cpp
 )
 
 add_library(${COMMONLIB} STATIC ${COMMONLIB_SRC})
 
-qt5_use_modules(${COMMONLIB} Core Network Qml Quick Widgets)
+qt5_use_modules(${COMMONLIB} Core Gui Network Qml Quick Widgets)
 
 include_directories(${Qt5Quick_PRIVATE_INCLUDE_DIRS})
 
