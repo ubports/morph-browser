@@ -20,8 +20,11 @@ import QtQuick 2.0
 import com.canonical.Oxide 1.3 as Oxide
 
 Oxide.WebContext {
+    readonly property string defaultUserAgent: __ua.defaultUA
+
     dataPath: dataLocation
-    userAgent: __ua.defaultUA
+    userAgent: defaultUserAgent
+
     networkRequestDelegate: Oxide.WebContextDelegateWorker {
         source: Qt.resolvedUrl("ua-override-worker.js")
         onMessage: console.log("Overriden UA for", message.url, ":", message.override)

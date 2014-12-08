@@ -50,6 +50,15 @@ WebViewImpl {
 
     context: WebContext {
         dataPath: webview.dataPath
+        /**
+         * The default mechanism that allows a webview
+         * to set its UA (getUAString) has a race if the webview
+         * URL is set at webview & context construction. Oxide
+         * starts its http requests for the URL w/ the initial UA
+         * NOT the one that is "delay gathered" after the component
+         * has been constructed through the getUAString() call.
+         */
+        userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
     }
 
     preferences.allowFileAccessFromFileUrls: runningLocalApplication
@@ -71,11 +80,6 @@ WebViewImpl {
 
     function shouldOpenPopupsInDefaultBrowser() {
         return formFactor !== "desktop";
-    }
-
-    // Function defined by the UbuntuWebView and overridden here to handle potential webapp defined UA overrides
-    function getUAString() {
-        return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride
     }
 
     function isRunningAsANamedWebapp() {
