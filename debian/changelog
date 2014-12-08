@@ -1,3 +1,18 @@
+webbrowser-app (0.23+15.04.20141208-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Fix the user agent override mechanism (and the race during the first
+    http request between the webview/webcontext creation and the
+    getUseragent call), (LP: #1393466)
+
+  [ Olivier Tilloy ]
+  * Updated bzr ignore rules.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 08 Dec 2014 21:59:22 +0000
+
 webbrowser-app (0.23+15.04.20141202.1-0ubuntu1) vivid; urgency=low
 
   [ Alberto Mardegan ]
