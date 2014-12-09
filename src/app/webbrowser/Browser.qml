@@ -328,6 +328,11 @@ BrowserView {
         asynchronous: true
     }
 
+    ItemCapture {
+        id: captureTaker
+        parent: browser.currentWebview
+    }
+
     Component {
         id: tabComponent
 
@@ -340,6 +345,7 @@ BrowserView {
             readonly property string title: webview ? webview.title : initialTitle
             readonly property url icon: webview ? webview.icon : ""
             property url preview
+            property string captureRequest
 
             anchors.fill: parent
 
@@ -361,10 +367,18 @@ BrowserView {
                 target: webview
                 onVisibleChanged: {
                     if (!webview.visible) {
-                        webview.requestCapture()
+                        captureRequest = url.toString()
+                        captureTaker.requestCapture(captureRequest)
                     }
                 }
-                onCaptureFinished: preview = capture
+            }
+            Connections {
+                target: captureTaker
+                onCaptureFinished: {
+                    if (request == captureRequest) {
+                        preview = capture
+                    }
+                }
             }
 
             Component.onCompleted: {
@@ -434,15 +448,6 @@ BrowserView {
             }
 
             onGeolocationPermissionRequested: requestGeolocationPermission(request)
-
-            signal captureFinished(url capture)
-            ItemCapture {
-                id: capture
-                onCaptureFinished: parent.captureFinished(capture)
-            }
-            function requestCapture() {
-                capture.requestCapture(url)
-            }
 
             Loader {
                 id: newTabViewLoader

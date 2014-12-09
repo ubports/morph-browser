@@ -35,7 +35,7 @@ public Q_SLOTS:
     void requestCapture(const QString& id);
 
 Q_SIGNALS:
-    void captureFinished(QUrl capture) const;
+    void captureFinished(QString request, QUrl capture) const;
 
 protected:
     QSGNode* updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* updatePaintNodeData);
@@ -43,13 +43,12 @@ protected:
 private Q_SLOTS:
     void onParentChanged(QQuickItem* parent);
     void onParentVisibleChanged();
-    void onCaptureFinished() const;
+    void onCaptureFinished(QString request, QUrl capture) const;
 
 private:
     QString m_cacheLocation;
     QMutex m_mutex;
     QString m_request;
-    QUrl m_capture;
 };
 
 #endif // __ITEM_CAPTURE_H__

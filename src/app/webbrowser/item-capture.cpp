@@ -64,8 +64,8 @@ QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* upd
     QMutexLocker locker(&m_mutex);
     if (!m_request.isEmpty()) {
         QString request = m_request;
+        QUrl capture;
         m_request.clear();
-        m_capture.clear();
         QQuickShaderEffectTexture* texture =
             qobject_cast<QQuickShaderEffectTexture*>(textureProvider()->texture());
         QOpenGLContext* ctx =
@@ -77,11 +77,12 @@ QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* upd
                                                       QCryptographicHash::Md5).toHex());
                 QString filepath = m_cacheLocation + "/" + hash + ".jpg";
                 if (image.save(filepath)) {
-                    m_capture = QUrl::fromLocalFile(filepath);
+                    capture = QUrl::fromLocalFile(filepath);
                 }
             }
         }
-        QMetaObject::invokeMethod(this, "onCaptureFinished", Qt::AutoConnection);
+        QMetaObject::invokeMethod(this, "onCaptureFinished", Qt::AutoConnection,
+                                  Q_ARG(QString, request), Q_ARG(QUrl, capture));
     }
     return newNode;
 }
@@ -92,7 +93,7 @@ void ItemCapture::requestCapture(const QString& id)
     m_request = id;
 }
 
-void ItemCapture::onCaptureFinished() const
+void ItemCapture::onCaptureFinished(QString request, QUrl capture) const
 {
-    Q_EMIT captureFinished(m_capture);
+    Q_EMIT captureFinished(request, capture);
 }
