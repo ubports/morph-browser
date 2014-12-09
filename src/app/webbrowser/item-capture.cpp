@@ -91,6 +91,7 @@ void ItemCapture::requestCapture(const QString& id)
 {
     QMutexLocker locker(&m_mutex);
     m_request = id;
+    scheduleUpdate();
 }
 
 void ItemCapture::onCaptureFinished(QString request, QUrl capture) const
