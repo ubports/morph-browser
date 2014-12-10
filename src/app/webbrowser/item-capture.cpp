@@ -81,7 +81,7 @@ QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* upd
                 }
             }
         }
-        QMetaObject::invokeMethod(this, "onCaptureFinished", Qt::AutoConnection,
+        QMetaObject::invokeMethod(this, "onCaptureFinished", Qt::QueuedConnection,
                                   Q_ARG(QString, request), Q_ARG(QUrl, capture));
     }
     return newNode;

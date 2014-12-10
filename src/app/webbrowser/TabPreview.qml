@@ -177,6 +177,7 @@ Column {
             height: sourceSize.height
             fillMode: Image.Pad
             source: tabPreview.tab ? tabPreview.tab.preview : ""
+            cache: false
             onStatusChanged: {
                 if (status == Image.Error) {
                     // The cached preview doesn’t exist any longer

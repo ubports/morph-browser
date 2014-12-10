@@ -375,7 +375,12 @@ BrowserView {
             Connections {
                 target: captureTaker
                 onCaptureFinished: {
-                    if (request == captureRequest) {
+                    if ((request == captureRequest) && capture.toString()) {
+                        if (preview == capture) {
+                            // Ensure that the preview URL actually changes,
+                            // for the image to be reloaded
+                            preview = ""
+                        }
                         preview = capture
                     }
                 }
