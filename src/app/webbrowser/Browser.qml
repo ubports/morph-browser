@@ -328,11 +328,6 @@ BrowserView {
         asynchronous: true
     }
 
-    ItemCapture {
-        id: captureTaker
-        parent: browser.currentWebview
-    }
-
     Component {
         id: tabComponent
 
@@ -363,25 +358,44 @@ BrowserView {
                 }
             }
 
-            Connections {
-                target: webview
-                onVisibleChanged: {
-                    if (!webview.visible) {
-                        captureRequest = url.toString()
-                        captureTaker.requestCapture(captureRequest)
+            property var captureTaker
+            Component {
+                id: captureComponent
+                ItemCapture {
+                    onCaptureFinished: {
+                        if ((request == captureRequest) && capture.toString()) {
+                            if (preview == capture) {
+                                // Ensure that the preview URL actually changes,
+                                // for the image to be reloaded
+                                preview = ""
+                            }
+                            preview = capture
+                        }
+                        if (!webview.visible) {
+                            captureTaker.destroy()
+                        }
                     }
                 }
             }
+            function createCaptureTakerIfNeeded() {
+                if (!captureTaker) {
+                    captureTaker = captureComponent.createObject(webview)
+                }
+            }
+            onWebviewChanged: {
+                if (webview) {
+                    createCaptureTakerIfNeeded()
+                }
+            }
+
             Connections {
-                target: captureTaker
-                onCaptureFinished: {
-                    if ((request == captureRequest) && capture.toString()) {
-                        if (preview == capture) {
-                            // Ensure that the preview URL actually changes,
-                            // for the image to be reloaded
-                            preview = ""
-                        }
-                        preview = capture
+                target: webview
+                onVisibleChanged: {
+                    if (webview.visible) {
+                        createCaptureTakerIfNeeded()
+                    } else {
+                        captureRequest = url.toString()
+                        captureTaker.requestCapture(captureRequest)
                     }
                 }
             }
