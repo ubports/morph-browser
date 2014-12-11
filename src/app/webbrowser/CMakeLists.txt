@@ -28,6 +28,7 @@ qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Sql)
 include_directories(${Qt5Quick_PRIVATE_INCLUDE_DIRS})
 
 set(WEBBROWSER_APP_SRC
+    file-operations.cpp
     item-capture.cpp
     searchengine.cpp
     settings.cpp

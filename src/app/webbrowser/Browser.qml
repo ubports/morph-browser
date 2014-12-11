@@ -358,6 +358,14 @@ BrowserView {
                 }
             }
 
+            function close() {
+                unload()
+                if (preview) {
+                    FileOperations.remove(preview)
+                }
+                destroy()
+            }
+
             property var captureTaker
             Component {
                 id: captureComponent
