@@ -53,7 +53,6 @@ private Q_SLOTS:
     void onParentVisibleChanged();
     void saveImage(const QImage& image, const QString& filePath,
                    const int quality, const QString& request);
-    void onCaptureFinished(QString request, QUrl capture) const;
 
 private:
     QString m_cacheLocation;

@@ -95,7 +95,7 @@ QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* upd
                 return newNode;
             }
         }
-        QMetaObject::invokeMethod(this, "onCaptureFinished", Qt::QueuedConnection,
+        QMetaObject::invokeMethod(this, "captureFinished", Qt::QueuedConnection,
                                   Q_ARG(QString, request), Q_ARG(QUrl, QUrl()));
     }
     return newNode;
@@ -105,7 +105,7 @@ void ItemCapture::requestCapture(const QString& id)
 {
     if (id.contains("/")) {
         qWarning() << "Invalid ID (contains slashes)";
-        onCaptureFinished(id, QUrl());
+        Q_EMIT captureFinished(id, QUrl());
     }
     m_request = id;
     scheduleUpdate();
@@ -118,11 +118,6 @@ void ItemCapture::saveImage(const QImage& image, const QString& filePath,
     if (image.save(filePath, 0, quality)) {
         capture = QUrl::fromLocalFile(filePath);
     }
-    QMetaObject::invokeMethod(this, "onCaptureFinished", Qt::QueuedConnection,
+    QMetaObject::invokeMethod(this, "captureFinished", Qt::QueuedConnection,
                               Q_ARG(QString, request), Q_ARG(QUrl, capture));
-}
-
-void ItemCapture::onCaptureFinished(QString request, QUrl capture) const
-{
-    Q_EMIT captureFinished(request, capture);
 }
