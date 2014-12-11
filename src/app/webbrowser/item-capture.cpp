@@ -20,11 +20,13 @@
 #include "item-capture.h"
 
 // Qt
+#include <QtConcurrent/QtConcurrent>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QMetaObject>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QStandardPaths>
+#include <QtGui/QImage>
 #include <QtQuick/private/qquickitem_p.h>
 
 ItemCapture::ItemCapture(QQuickItem* parent)
@@ -82,7 +84,6 @@ QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* upd
     QMutexLocker locker(&m_mutex);
     if (!m_request.isEmpty()) {
         QString request = m_request;
-        QUrl capture;
         m_request.clear();
         QQuickShaderEffectTexture* texture =
             qobject_cast<QQuickShaderEffectTexture*>(textureProvider()->texture());
@@ -91,14 +92,13 @@ QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* upd
         if (ctx->makeCurrent(ctx->surface())) {
             QImage image = texture->toImage().mirrored();
             if (!image.isNull()) {
-                QString filepath = m_cacheLocation + "/" + request + ".jpg";
-                if (image.save(filepath, 0, m_quality)) {
-                    capture = QUrl::fromLocalFile(filepath);
-                }
+                QString filePath = m_cacheLocation + "/" + request + ".jpg";
+                QtConcurrent::run(this, &ItemCapture::saveImage, image, filePath, m_quality, request);
+                return newNode;
             }
         }
         QMetaObject::invokeMethod(this, "onCaptureFinished", Qt::QueuedConnection,
-                                  Q_ARG(QString, request), Q_ARG(QUrl, capture));
+                                  Q_ARG(QString, request), Q_ARG(QUrl, QUrl()));
     }
     return newNode;
 }
@@ -112,6 +112,17 @@ void ItemCapture::requestCapture(const QString& id)
     QMutexLocker locker(&m_mutex);
     m_request = id;
     scheduleUpdate();
+}
+
+void ItemCapture::saveImage(const QImage& image, const QString& filePath,
+                            const int quality, const QString& request)
+{
+    QUrl capture;
+    if (image.save(filePath, 0, quality)) {
+        capture = QUrl::fromLocalFile(filePath);
+    }
+    QMetaObject::invokeMethod(this, "onCaptureFinished", Qt::QueuedConnection,
+                              Q_ARG(QString, request), Q_ARG(QUrl, capture));
 }
 
 void ItemCapture::onCaptureFinished(QString request, QUrl capture) const

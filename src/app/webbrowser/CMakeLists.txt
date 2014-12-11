@@ -41,7 +41,7 @@ add_executable(${WEBBROWSER_APP} ${WEBBROWSER_APP_SRC})
 
 target_link_libraries(${WEBBROWSER_APP} ${COMMONLIB} ${WEBBROWSER_APP_MODELS})
 
-qt5_use_modules(${WEBBROWSER_APP} Core Gui Qml Quick)
+qt5_use_modules(${WEBBROWSER_APP} Concurrent Core Gui Qml Quick)
 
 install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

@@ -25,6 +25,8 @@
 #include <QtCore/QUrl>
 #include <QtQuick/private/qquickshadereffectsource_p.h>
 
+class QImage;
+
 class ItemCapture : public QQuickShaderEffectSource
 {
     Q_OBJECT
@@ -50,6 +52,8 @@ protected:
 private Q_SLOTS:
     void onParentChanged(QQuickItem* parent);
     void onParentVisibleChanged();
+    void saveImage(const QImage& image, const QString& filePath,
+                   const int quality, const QString& request);
     void onCaptureFinished(QString request, QUrl capture) const;
 
 private:
