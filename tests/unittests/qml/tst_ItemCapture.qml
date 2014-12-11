@@ -84,12 +84,25 @@ Item {
 
         function test_capture() {
             spyReady.wait()
-            capture.requestCapture("test")
+            spyCaptured.clear()
+            var id = "test"
+            capture.requestCapture(id)
             spyCaptured.wait()
+            compare(spyCaptured.signalArguments[0][0], id)
             verify(image.source.toString())
             compare(image.status, Image.Ready)
             compare(image.sourceSize.width, rect.width)
             compare(image.sourceSize.height, rect.height)
+        }
+
+        function test_capture_invalid_id() {
+            spyReady.wait()
+            spyCaptured.clear()
+            var invalid = "foo/bar"
+            capture.requestCapture(invalid)
+            spyCaptured.wait()
+            compare(spyCaptured.signalArguments[0][0], invalid)
+            verify(!spyCaptured.signalArguments[0][1].toString())
         }
     }
 }

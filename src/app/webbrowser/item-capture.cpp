@@ -20,7 +20,7 @@
 #include "item-capture.h"
 
 // Qt
-#include <QtCore/QCryptographicHash>
+#include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QMetaObject>
 #include <QtCore/QMutexLocker>
@@ -91,9 +91,7 @@ QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* upd
         if (ctx->makeCurrent(ctx->surface())) {
             QImage image = texture->toImage().mirrored();
             if (!image.isNull()) {
-                QString hash(QCryptographicHash::hash(request.toUtf8(),
-                                                      QCryptographicHash::Md5).toHex());
-                QString filepath = m_cacheLocation + "/" + hash + ".jpg";
+                QString filepath = m_cacheLocation + "/" + request + ".jpg";
                 if (image.save(filepath, 0, m_quality)) {
                     capture = QUrl::fromLocalFile(filepath);
                 }
@@ -107,6 +105,10 @@ QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* upd
 
 void ItemCapture::requestCapture(const QString& id)
 {
+    if (id.contains("/")) {
+        qWarning() << "Invalid ID (contains slashes)";
+        onCaptureFinished(id, QUrl());
+    }
     QMutexLocker locker(&m_mutex);
     m_request = id;
     scheduleUpdate();

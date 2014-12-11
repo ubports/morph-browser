@@ -332,6 +332,7 @@ BrowserView {
         id: tabComponent
 
         FocusScope {
+            property string uniqueId: this.toString() + "-" + Date.now()
             property url initialUrl
             property string initialTitle
             property var request
@@ -340,7 +341,6 @@ BrowserView {
             readonly property string title: webview ? webview.title : initialTitle
             readonly property url icon: webview ? webview.icon : ""
             property url preview
-            property string captureRequest
 
             anchors.fill: parent
 
@@ -364,7 +364,7 @@ BrowserView {
                 ItemCapture {
                     quality: 50
                     onCaptureFinished: {
-                        if ((request == captureRequest) && capture.toString()) {
+                        if ((request == uniqueId) && capture.toString()) {
                             if (preview == capture) {
                                 // Ensure that the preview URL actually changes,
                                 // for the image to be reloaded
@@ -395,8 +395,7 @@ BrowserView {
                     if (webview.visible) {
                         createCaptureTakerIfNeeded()
                     } else {
-                        captureRequest = url.toString()
-                        captureTaker.requestCapture(captureRequest)
+                        captureTaker.requestCapture(uniqueId)
                     }
                 }
             }
@@ -580,6 +579,7 @@ BrowserView {
         // history, current scroll offset and form data. See http://pad.lv/1353143.
         function serializeTabState(tab) {
             var state = {}
+            state.uniqueId = tab.uniqueId
             state.url = tab.url.toString()
             state.title = tab.title
             state.preview = tab.preview.toString()
@@ -588,6 +588,9 @@ BrowserView {
 
         function createTabFromState(state) {
             var properties = {"initialUrl": state.url, "initialTitle": state.title}
+            if ('uniqueId' in state) {
+                properties["uniqueId"] = state.uniqueId
+            }
             if ('preview' in state) {
                 properties["preview"] = state.preview
             }
