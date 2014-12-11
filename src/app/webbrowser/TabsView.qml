@@ -66,8 +66,7 @@ Item {
             onCloseRequested: {
                 var tab = tabsview.model.remove(index)
                 if (tab) {
-                    tab.unload()
-                    tab.destroy()
+                    tab.close()
                 }
                 if (tabsview.model.count === 0) {
                     tabsview.newTabRequested()

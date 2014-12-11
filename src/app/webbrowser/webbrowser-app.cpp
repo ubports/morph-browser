@@ -18,12 +18,14 @@
 
 #include "bookmarks-model.h"
 #include "config.h"
+#include "file-operations.h"
 #include "history-model.h"
 #include "history-matches-model.h"
 #include "history-timeframe-model.h"
 #include "history-byvisits-model.h"
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
+#include "item-capture.h"
 #include "limit-proxy-model.h"
 #include "searchengine.h"
 #include "settings.h"
@@ -47,6 +49,13 @@
 WebbrowserApp::WebbrowserApp(int& argc, char** argv)
     : BrowserApplication(argc, argv)
 {
+}
+
+static QObject* FileOperations_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new FileOperations();
 }
 
 bool WebbrowserApp::initialize()
@@ -82,6 +91,8 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
+    qmlRegisterType<ItemCapture>(uri, 0, 1, "ItemCapture");
+    qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         Settings settings;
