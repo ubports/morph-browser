@@ -146,6 +146,7 @@ Column {
         Image {
             visible: !previewContainer.visible
             source: "assets/tab-artwork.png"
+            asynchronous: true
             fillMode: Image.PreserveAspectFit
             height: Math.min(parent.height / 1.6, units.gu(28))
             width: height
@@ -177,6 +178,7 @@ Column {
             height: sourceSize.height
             fillMode: Image.Pad
             source: tabPreview.tab ? tabPreview.tab.preview : ""
+            asynchronous: true
             cache: false
             onStatusChanged: {
                 if (status == Image.Error) {
