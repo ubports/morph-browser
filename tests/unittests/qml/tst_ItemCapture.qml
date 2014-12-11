@@ -58,6 +58,30 @@ Item {
         name: "ItemCapture"
         when: windowShown
 
+        function test_quality_data() {
+            return [
+                {get: -1},
+                {set: 58, get: 58},
+                {set: 122},
+                {set: -39},
+                {set: -1, get: -1},
+                {set: 0, get: 0},
+                {set: 100, get: 100}
+            ]
+        }
+
+        function test_quality(data) {
+            var quality = capture.quality
+            if ('set' in data) {
+                capture.quality = data.set
+            }
+            if ('get' in data) {
+                compare(capture.quality, data.get)
+            } else {
+                compare(capture.quality, quality)
+            }
+        }
+
         function test_capture() {
             spyReady.wait()
             capture.requestCapture("test")

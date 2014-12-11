@@ -29,6 +29,7 @@
 
 ItemCapture::ItemCapture(QQuickItem* parent)
     : QQuickShaderEffectSource(parent)
+    , m_quality(-1)
 {
     connect(this, SIGNAL(parentChanged(QQuickItem*)), SLOT(onParentChanged(QQuickItem*)));
 
@@ -38,6 +39,23 @@ ItemCapture::ItemCapture(QQuickItem* parent)
     m_cacheLocation = cacheLocation.absolutePath();
     if (!cacheLocation.exists()) {
         QDir::root().mkpath(m_cacheLocation);
+    }
+}
+
+const int ItemCapture::quality() const
+{
+    return m_quality;
+}
+
+void ItemCapture::setQuality(const int quality)
+{
+    if (quality != m_quality) {
+        if ((quality >= -1) && (quality <= 100)) {
+            m_quality = quality;
+            Q_EMIT qualityChanged();
+        } else {
+            qWarning() << "Invalid value for quality, must be between 0 and 100 (or -1 for default)";
+        }
     }
 }
 
@@ -76,7 +94,7 @@ QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* upd
                 QString hash(QCryptographicHash::hash(request.toUtf8(),
                                                       QCryptographicHash::Md5).toHex());
                 QString filepath = m_cacheLocation + "/" + hash + ".jpg";
-                if (image.save(filepath)) {
+                if (image.save(filepath, 0, m_quality)) {
                     capture = QUrl::fromLocalFile(filepath);
                 }
             }

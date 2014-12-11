@@ -362,6 +362,7 @@ BrowserView {
             Component {
                 id: captureComponent
                 ItemCapture {
+                    quality: 50
                     onCaptureFinished: {
                         if ((request == captureRequest) && capture.toString()) {
                             if (preview == capture) {

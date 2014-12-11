@@ -28,13 +28,20 @@
 class ItemCapture : public QQuickShaderEffectSource
 {
     Q_OBJECT
+
+    Q_PROPERTY(int quality READ quality WRITE setQuality NOTIFY qualityChanged)
+
 public:
     ItemCapture(QQuickItem* parent=0);
+
+    const int quality() const;
+    void setQuality(const int quality);
 
 public Q_SLOTS:
     void requestCapture(const QString& id);
 
 Q_SIGNALS:
+    void qualityChanged() const;
     void captureFinished(QString request, QUrl capture) const;
 
 protected:
@@ -49,6 +56,7 @@ private:
     QString m_cacheLocation;
     QMutex m_mutex;
     QString m_request;
+    int m_quality;
 };
 
 #endif // __ITEM_CAPTURE_H__
