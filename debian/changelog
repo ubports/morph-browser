@@ -1,3 +1,17 @@
+webbrowser-app (0.23+15.04.20141211.4-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Take captures of live webviews and cache them on disk, to use them
+    as tab previews. (LP: #1359293, #1401045)
+  * Fix FTBFS on Qt 5.4. (LP: #1398372)
+  * Reset the webview’s certificate error when the user cancels it (by
+    e.g. committing a new navigation). (LP: #1398905, #1394925)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 11 Dec 2014 18:54:12 +0000
+
 webbrowser-app (0.23+15.04.20141208-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
