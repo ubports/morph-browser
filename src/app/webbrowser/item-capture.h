@@ -20,7 +20,6 @@
 #define __ITEM_CAPTURE_H__
 
 // Qt
-#include <QtCore/QMutex>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtQuick/private/qquickshadereffectsource_p.h>
@@ -58,7 +57,6 @@ private Q_SLOTS:
 
 private:
     QString m_cacheLocation;
-    QMutex m_mutex;
     QString m_request;
     int m_quality;
 };

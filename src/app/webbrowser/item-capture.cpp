@@ -24,7 +24,6 @@
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QMetaObject>
-#include <QtCore/QMutexLocker>
 #include <QtCore/QStandardPaths>
 #include <QtGui/QImage>
 #include <QtQuick/private/qquickitem_p.h>
@@ -81,7 +80,6 @@ void ItemCapture::onParentVisibleChanged()
 QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* updatePaintNodeData)
 {
     QSGNode* newNode = QQuickShaderEffectSource::updatePaintNode(oldNode, updatePaintNodeData);
-    QMutexLocker locker(&m_mutex);
     if (!m_request.isEmpty()) {
         QString request = m_request;
         m_request.clear();
@@ -109,7 +107,6 @@ void ItemCapture::requestCapture(const QString& id)
         qWarning() << "Invalid ID (contains slashes)";
         onCaptureFinished(id, QUrl());
     }
-    QMutexLocker locker(&m_mutex);
     m_request = id;
     scheduleUpdate();
 }
