@@ -85,15 +85,11 @@ QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* upd
         m_request.clear();
         QQuickShaderEffectTexture* texture =
             qobject_cast<QQuickShaderEffectTexture*>(textureProvider()->texture());
-        QOpenGLContext* ctx =
-            QQuickItemPrivate::get(this)->sceneGraphRenderContext()->openglContext();
-        if (ctx->makeCurrent(ctx->surface())) {
-            QImage image = texture->toImage().mirrored();
-            if (!image.isNull()) {
-                QString filePath = m_cacheLocation + "/" + request + ".jpg";
-                QtConcurrent::run(this, &ItemCapture::saveImage, image, filePath, m_quality, request);
-                return newNode;
-            }
+        QImage image = texture->toImage().mirrored();
+        if (!image.isNull()) {
+            QString filePath = m_cacheLocation + "/" + request + ".jpg";
+            QtConcurrent::run(this, &ItemCapture::saveImage, image, filePath, m_quality, request);
+            return newNode;
         }
         QMetaObject::invokeMethod(this, "captureFinished", Qt::QueuedConnection,
                                   Q_ARG(QString, request), Q_ARG(QUrl, QUrl()));
