@@ -1,3 +1,12 @@
+webbrowser-app (0.23+15.04.20141212-0ubuntu1) vivid; urgency=low
+
+  [ Olivier Tilloy ]
+  * Remove the WebView.getUAString() API from version 0.2 of the
+    Ubuntu.Web module. It is currently not in use by any app in the
+    store. (LP: #1399601)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 12 Dec 2014 11:32:16 +0000
+
 webbrowser-app (0.23+15.04.20141211.4-0ubuntu1) vivid; urgency=low
 
   [ Ubuntu daily release ]
