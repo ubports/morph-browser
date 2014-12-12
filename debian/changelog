@@ -1,3 +1,12 @@
+webbrowser-app (0.23+15.04.20141212.1-0ubuntu1) vivid; urgency=low
+
+  [ Olivier Tilloy ]
+  * Optimize the capture functionality. (LP: #1359293, #1401045)
+  * Record host and error code along with certificate fingerprint when
+    whitelisting a certificate error. (LP: #1377194)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 12 Dec 2014 17:23:40 +0000
+
 webbrowser-app (0.23+15.04.20141212-0ubuntu1) vivid; urgency=low
 
   [ Olivier Tilloy ]
