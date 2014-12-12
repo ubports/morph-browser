@@ -51,8 +51,7 @@ protected:
 private Q_SLOTS:
     void onParentChanged(QQuickItem* parent);
     void onParentVisibleChanged();
-    void saveImage(const QImage& image, const QString& filePath,
-                   const int quality, const QString& request);
+    void saveImage(const QImage& image, const QString& filePath, const QString& request);
 
 private:
     QString m_cacheLocation;
