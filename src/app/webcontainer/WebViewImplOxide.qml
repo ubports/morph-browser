@@ -50,14 +50,6 @@ WebViewImpl {
 
     context: WebContext {
         dataPath: webview.dataPath
-        /**
-         * The default mechanism that allows a webview
-         * to set its UA (getUAString) has a race if the webview
-         * URL is set at webview & context construction. Oxide
-         * starts its http requests for the URL w/ the initial UA
-         * NOT the one that is "delay gathered" after the component
-         * has been constructed through the getUAString() call.
-         */
         userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
     }
 
