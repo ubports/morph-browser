@@ -56,7 +56,7 @@ ChromeBase {
             enabled: chrome.webview ? chrome.webview.canGoBack : false
             onTriggered: {
                 // Workaround for https://launchpad.net/bugs/1377198
-                chrome.webview.certificateError = null
+                chrome.webview.resetCertificateError()
                 chrome.webview.goBack()
             }
         }
@@ -80,7 +80,7 @@ ChromeBase {
             enabled: chrome.webview ? chrome.webview.canGoForward : false
             onTriggered: {
                 // Workaround for https://launchpad.net/bugs/1377198
-                chrome.webview.certificateError = null
+                chrome.webview.resetCertificateError()
                 chrome.webview.goForward()
             }
         }
@@ -113,12 +113,12 @@ ChromeBase {
 
             onValidated: {
                 // Workaround for https://launchpad.net/bugs/1377198
-                chrome.webview.certificateError = null
+                chrome.webview.resetCertificateError()
                 chrome.webview.url = requestedUrl
             }
             onRequestReload: {
                 // Workaround for https://launchpad.net/bugs/1377198
-                chrome.webview.certificateError = null
+                chrome.webview.resetCertificateError()
                 chrome.webview.reload()
             }
             onRequestStop: chrome.webview.stop()

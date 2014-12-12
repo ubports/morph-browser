@@ -23,6 +23,7 @@ import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
+import "../UrlUtils.js" as UrlUtils
 
 BrowserView {
     id: browser
@@ -106,14 +107,14 @@ BrowserView {
             sourceComponent: InvalidCertificateErrorSheet {
                 visible: currentWebview && currentWebview.certificateError != null
                 certificateError: currentWebview ? currentWebview.certificateError : null
-                onAllowed: { 
+                onAllowed: {
                     // Automatically allow future requests involving this
                     // certificate for the duration of the session.
-                    currentWebview.allowedCertificates.push(currentWebview.certificateError.certificate.fingerprintSHA1)
-                    currentWebview.certificateError = null
+                    internal.allowCertificateError(currentWebview.certificateError)
+                    currentWebview.resetCertificateError()
                 }
                 onDenied: {
-                    currentWebview.certificateError = null
+                    currentWebview.resetCertificateError()
                 }
             }
             asynchronous: true
@@ -422,6 +423,8 @@ BrowserView {
         id: webviewComponent
 
         WebViewImpl {
+            id: webviewimpl
+
             currentWebview: browser.currentWebview
 
             anchors.fill: parent
@@ -476,6 +479,24 @@ BrowserView {
 
             onGeolocationPermissionRequested: requestGeolocationPermission(request)
 
+            property var certificateError
+            function resetCertificateError() {
+                certificateError = null
+            }
+            onCertificateError: {
+                if (!error.isMainFrame || error.isSubresource) {
+                    // Not a main frame document error, just block the content
+                    // (it’s not overridable anyway).
+                    return
+                }
+                if (internal.isCertificateErrorAllowed(error)) {
+                    error.allow()
+                } else {
+                    certificateError = error
+                    error.onCancelled.connect(webviewimpl.resetCertificateError)
+                }
+            }
+
             Loader {
                 id: newTabViewLoader
                 anchors.fill: parent
@@ -527,6 +548,31 @@ BrowserView {
         function focusAddressBar() {
             chrome.forceActiveFocus()
             Qt.inputMethod.show() // work around http://pad.lv/1316057
+        }
+
+        // Invalid certificates the user has explicitly allowed for this session
+        property var allowedCertificateErrors: []
+
+        function allowCertificateError(error) {
+            var host = UrlUtils.extractHost(error.url)
+            var code = error.certError
+            var fingerprint = error.certificate.fingerprintSHA1
+            allowedCertificateErrors.push([host, code, fingerprint])
+        }
+
+        function isCertificateErrorAllowed(error) {
+            var host = UrlUtils.extractHost(error.url)
+            var code = error.certError
+            var fingerprint = error.certificate.fingerprintSHA1
+            for (var i in allowedCertificateErrors) {
+                var allowed = allowedCertificateErrors[i]
+                if ((host == allowed[0]) &&
+                    (code == allowed[1]) &&
+                    (fingerprint == allowed[2])) {
+                    return true
+                }
+            }
+            return false
         }
     }
 
