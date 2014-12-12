@@ -16,32 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __FAVICON_IMAGE_PROVIDER_H__
-#define __FAVICON_IMAGE_PROVIDER_H__
+#ifndef __FILE_OPERATIONS_H__
+#define __FILE_OPERATIONS_H__
 
-// Qt
-#include <QtCore/QScopedPointer>
-#include <QtCore/QString>
-#include <QtCore/QtGlobal>
-#include <QtQuick/QQuickImageProvider>
+#include <QtCore/QObject>
 
-class QNetworkAccessManager;
 class QUrl;
 
-class FaviconImageProvider Q_DECL_FINAL : public QQuickImageProvider
+class FileOperations : public QObject
 {
+    Q_OBJECT
+
 public:
-    FaviconImageProvider();
+    explicit FileOperations(QObject* parent=0);
 
-    const QString& cacheLocation() const;
-
-    QImage requestImage(const QString& id, QSize* size, const QSize& requestedSize);
-
-private:
-    QImage downloadImage(const QUrl& url);
-
-    QString m_cacheLocation;
-    QScopedPointer<QNetworkAccessManager> m_manager;
+    Q_INVOKABLE bool remove(const QUrl& file) const;
 };
 
-#endif // __FAVICON_IMAGE_PROVIDER_H__
+#endif // __FILE_OPERATIONS_H__

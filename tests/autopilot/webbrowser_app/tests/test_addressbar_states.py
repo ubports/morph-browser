@@ -43,7 +43,7 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(address_bar)
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
         self.assertThat(address_bar.state, Eventually(Equals("editing")))
-        url = self.base_url + "/aleaiactaest"
+        url = self.base_url + "/test2"
         self.go_to_url(url)
         self.assertThat(address_bar.state, Eventually(Equals("")))
         self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))

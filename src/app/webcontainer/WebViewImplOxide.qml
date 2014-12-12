@@ -34,6 +34,7 @@ WebViewImpl {
     property string localUserAgentOverride: ""
     property var webappUrlPatterns: null
     property string popupRedirectionUrlPrefixPattern: ""
+    property url dataPath
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser
@@ -43,8 +44,25 @@ WebViewImpl {
     //  track down the various internal logic & steps of a popup lifecycle.
     signal openExternalUrlTriggered(string url)
     signal gotRedirectionUrl(string url)
+    property bool runningLocalApplication: false
 
     currentWebview: webview
+
+    context: WebContext {
+        dataPath: webview.dataPath
+        /**
+         * The default mechanism that allows a webview
+         * to set its UA (getUAString) has a race if the webview
+         * URL is set at webview & context construction. Oxide
+         * starts its http requests for the URL w/ the initial UA
+         * NOT the one that is "delay gathered" after the component
+         * has been constructed through the getUAString() call.
+         */
+        userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
+    }
+
+    preferences.allowFileAccessFromFileUrls: runningLocalApplication
+    preferences.allowUniversalAccessFromFileUrls: runningLocalApplication
 
     contextualActions: ActionList {
         Actions.CopyLink {
@@ -58,15 +76,10 @@ WebViewImpl {
     }
 
     StateSaver.properties: "url"
-    StateSaver.enabled: true
+    StateSaver.enabled: !runningLocalApplication
 
     function shouldOpenPopupsInDefaultBrowser() {
         return formFactor !== "desktop";
-    }
-
-    // Function defined by the UbuntuWebView and overridden here to handle potential webapp defined UA overrides
-    function getUAString() {
-        return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride
     }
 
     function isRunningAsANamedWebapp() {
@@ -120,6 +133,12 @@ WebViewImpl {
         console.log("navigationRequestedDelegate - newForegroundPageRequest: "
                     + newForegroundPageRequest
                     + ', url: ' + url)
+
+        if (runningLocalApplication && url.indexOf("file://") !== 0) {
+            request.action = Oxide.NavigationRequest.ActionReject
+            openUrlExternally(url)
+            return
+        }
 
         // Covers some edge cases corresponding to the default window.open() behavior.
         // When it is being called, the targetted URL will not load right away but

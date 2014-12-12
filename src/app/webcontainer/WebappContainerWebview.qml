@@ -30,6 +30,7 @@ Item {
     property bool withOxide: false
     property bool developerExtrasEnabled: false
     property string webappName: ""
+    property url dataPath
     property var currentWebview: webappContainerWebViewLoader.item ?
                                      webappContainerWebViewLoader.item.currentWebview
                                    : null
@@ -38,13 +39,15 @@ Item {
     property string popupRedirectionUrlPrefixPattern: ""
     property url webviewOverrideFile: ""
     property bool blockOpenExternalUrls: false
+    property bool runningLocalApplication: false
 
     Loader {
         id: webappContainerWebViewLoader
         objectName: "containerWebviewLoader"
         anchors.fill: parent
-        asynchronous: true
     }
+
+    onUrlChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.url = url
 
     Component.onCompleted: {
         var webappEngineSource =
@@ -64,10 +67,12 @@ Item {
                     { localUserAgentOverride: containerWebview.localUserAgentOverride
                     , url: containerWebview.url
                     , webappName: containerWebview.webappName
+                    , dataPath: dataPath
                     , webappUrlPatterns: containerWebview.webappUrlPatterns
                     , developerExtrasEnabled: containerWebview.developerExtrasEnabled
                     , popupRedirectionUrlPrefixPattern: containerWebview.popupRedirectionUrlPrefixPattern
-                    , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls})
+                    , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
+                    , runningLocalApplication: containerWebview.runningLocalApplication})
     }
 }
 

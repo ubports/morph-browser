@@ -18,8 +18,10 @@
 
 #include "url-pattern-utils.h"
 
-#include <QtCore/QRegularExpression>
 #include <QDebug>
+#include <QtCore/QRegularExpression>
+#include <QtCore/QUrl>
+
 
 namespace
 {
@@ -182,5 +184,10 @@ QStringList UrlPatternUtils::filterAndTransformUrlPatterns(const QStringList & i
         }
     }
     return patterns;
+}
+
+bool UrlPatternUtils::isLocalHtml5ApplicationHomeUrl(const QUrl& url)
+{
+    return url.isLocalFile();
 }
 

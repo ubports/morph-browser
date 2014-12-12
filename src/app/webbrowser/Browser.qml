@@ -77,37 +77,6 @@ BrowserView {
     ]
 
     Item {
-        id: previewsContainer
-
-        width: tabContainer.width
-        height: tabContainer.height
-        y: tabContainer.y
-
-        Component {
-            id: previewComponent
-
-            ShaderEffectSource {
-                id: preview
-
-                property var tab
-
-                width: parent.width
-                height: parent.height
-
-                sourceItem: tab ? tab.webview : null
-
-                onTabChanged: {
-                    if (!tab) {
-                        this.destroy()
-                    }
-                }
-
-                live: mainView.visible && (browser.currentWebview === sourceItem)
-            }
-        }
-    }
-
-    Item {
         id: mainView
 
         anchors.fill: parent
@@ -142,10 +111,10 @@ BrowserView {
                     // Automatically allow future requests involving this
                     // certificate for the duration of the session.
                     internal.allowCertificateError(currentWebview.certificateError)
-                    currentWebview.certificateError = null
+                    currentWebview.resetCertificateError()
                 }
                 onDenied: {
-                    currentWebview.certificateError = null
+                    currentWebview.resetCertificateError()
                 }
             }
             asynchronous: true
@@ -364,6 +333,7 @@ BrowserView {
         id: tabComponent
 
         FocusScope {
+            property string uniqueId: this.toString() + "-" + Date.now()
             property url initialUrl
             property string initialTitle
             property var request
@@ -371,7 +341,7 @@ BrowserView {
             readonly property url url: webview ? webview.url : initialUrl
             readonly property string title: webview ? webview.title : initialTitle
             readonly property url icon: webview ? webview.icon : ""
-            property var preview
+            property url preview
 
             anchors.fill: parent
 
@@ -389,6 +359,56 @@ BrowserView {
                 }
             }
 
+            function close() {
+                unload()
+                if (preview) {
+                    FileOperations.remove(preview)
+                }
+                destroy()
+            }
+
+            property var captureTaker
+            Component {
+                id: captureComponent
+                ItemCapture {
+                    quality: 50
+                    onCaptureFinished: {
+                        if ((request == uniqueId) && capture.toString()) {
+                            if (preview == capture) {
+                                // Ensure that the preview URL actually changes,
+                                // for the image to be reloaded
+                                preview = ""
+                            }
+                            preview = capture
+                        }
+                        if (!webview.visible) {
+                            captureTaker.destroy()
+                        }
+                    }
+                }
+            }
+            function createCaptureTakerIfNeeded() {
+                if (!captureTaker) {
+                    captureTaker = captureComponent.createObject(webview)
+                }
+            }
+            onWebviewChanged: {
+                if (webview) {
+                    createCaptureTakerIfNeeded()
+                }
+            }
+
+            Connections {
+                target: webview
+                onVisibleChanged: {
+                    if (webview.visible) {
+                        createCaptureTakerIfNeeded()
+                    } else {
+                        captureTaker.requestCapture(uniqueId)
+                    }
+                }
+            }
+
             Component.onCompleted: {
                 if (request) {
                     // Instantiating the webview cannot be delayed because the request
@@ -403,6 +423,8 @@ BrowserView {
         id: webviewComponent
 
         WebViewImpl {
+            id: webviewimpl
+
             currentWebview: browser.currentWebview
 
             anchors.fill: parent
@@ -458,6 +480,9 @@ BrowserView {
             onGeolocationPermissionRequested: requestGeolocationPermission(request)
 
             property var certificateError
+            function resetCertificateError() {
+                certificateError = null
+            }
             onCertificateError: {
                 if (!error.isMainFrame || error.isSubresource) {
                     // Not a main frame document error, just block the content
@@ -468,6 +493,7 @@ BrowserView {
                     error.allow()
                 } else {
                     certificateError = error
+                    error.onCancelled.connect(webviewimpl.resetCertificateError)
                 }
             }
 
@@ -517,7 +543,6 @@ BrowserView {
                 tabsModel.setCurrent(index)
                 chrome.requestedUrl = tab.initialUrl
             }
-            tab.preview = previewComponent.createObject(previewsContainer, {tab: tab})
         }
 
         function focusAddressBar() {
@@ -608,13 +633,21 @@ BrowserView {
         // history, current scroll offset and form data. See http://pad.lv/1353143.
         function serializeTabState(tab) {
             var state = {}
+            state.uniqueId = tab.uniqueId
             state.url = tab.url.toString()
             state.title = tab.title
+            state.preview = tab.preview.toString()
             return state
         }
 
         function createTabFromState(state) {
             var properties = {"initialUrl": state.url, "initialTitle": state.title}
+            if ('uniqueId' in state) {
+                properties["uniqueId"] = state.uniqueId
+            }
+            if ('preview' in state) {
+                properties["preview"] = state.preview
+            }
             return tabComponent.createObject(tabContainer, properties)
         }
     }

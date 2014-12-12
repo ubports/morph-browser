@@ -30,8 +30,6 @@ ChromeBase {
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
 
-    signal validated()
-
     FocusScope {
         anchors {
             fill: parent
@@ -56,7 +54,11 @@ ChromeBase {
             }
 
             enabled: chrome.webview ? chrome.webview.canGoBack : false
-            onTriggered: chrome.webview.goBack()
+            onTriggered: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                chrome.webview.resetCertificateError()
+                chrome.webview.goBack()
+            }
         }
 
         ChromeButton {
@@ -76,7 +78,11 @@ ChromeBase {
             }
 
             enabled: chrome.webview ? chrome.webview.canGoForward : false
-            onTriggered: chrome.webview.goForward()
+            onTriggered: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                chrome.webview.resetCertificateError()
+                chrome.webview.goForward()
+            }
         }
 
         AddressBar {
@@ -105,8 +111,16 @@ ChromeBase {
                 }
             }
 
-            onValidated: chrome.webview.url = requestedUrl
-            onRequestReload: chrome.webview.reload()
+            onValidated: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                chrome.webview.resetCertificateError()
+                chrome.webview.url = requestedUrl
+            }
+            onRequestReload: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                chrome.webview.resetCertificateError()
+                chrome.webview.reload()
+            }
             onRequestStop: chrome.webview.stop()
 
             Connections {
