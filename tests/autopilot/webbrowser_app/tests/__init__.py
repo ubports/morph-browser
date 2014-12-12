@@ -109,14 +109,12 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.focus_address_bar()
         self.assert_osk_eventually_shown()
         address_bar = self.main_window.get_chrome().get_address_bar()
-        clear_button = address_bar.get_clear_button()
-        self.pointing_device.click_object(clear_button)
-        self.assertThat(address_bar.text, Eventually(Equals("")))
+        address_bar.text_field.clear()
 
     def type_in_address_bar(self, text):
         address_bar = self.main_window.get_chrome().get_address_bar()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
-        self.keyboard.type(text)
+        address_bar.text_field.write(text)
         self.assertThat(address_bar.text, Eventually(Contains(text)))
 
     def go_to_url(self, url):

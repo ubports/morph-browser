@@ -19,8 +19,10 @@ import ubuntuuitoolkit as uitk
 
 class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_clear_button(self):
-        return self.select_single("AbstractButton")
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.text_field = self.select_single(
+            uitk.TextField, objectName='addressBarTextField')
 
     def get_action_button(self):
         return self.select_single("QQuickMouseArea", objectName="actionButton")
