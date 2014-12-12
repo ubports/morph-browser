@@ -88,7 +88,7 @@ QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* upd
         QImage image = texture->toImage().mirrored();
         if (!image.isNull()) {
             QString filePath = m_cacheLocation + "/" + request + ".jpg";
-            QtConcurrent::run(this, &ItemCapture::saveImage, image, filePath, m_quality, request);
+            QtConcurrent::run(this, &ItemCapture::saveImage, image, filePath, request);
             return newNode;
         }
         QMetaObject::invokeMethod(this, "captureFinished", Qt::QueuedConnection,
@@ -107,11 +107,10 @@ void ItemCapture::requestCapture(const QString& id)
     scheduleUpdate();
 }
 
-void ItemCapture::saveImage(const QImage& image, const QString& filePath,
-                            const int quality, const QString& request)
+void ItemCapture::saveImage(const QImage& image, const QString& filePath, const QString& request)
 {
     QUrl capture;
-    if (image.save(filePath, 0, quality)) {
+    if (image.save(filePath, 0, m_quality)) {
         capture = QUrl::fromLocalFile(filePath);
     }
     QMetaObject::invokeMethod(this, "captureFinished", Qt::QueuedConnection,
