@@ -37,7 +37,7 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         self.open_new_tab()
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
-        self.assert_page_eventually_loaded(url)
+        self.main_window.wait_until_page_loaded(url)
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
 
         self.open_tabs_view()

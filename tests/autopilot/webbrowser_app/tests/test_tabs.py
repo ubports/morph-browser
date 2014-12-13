@@ -129,7 +129,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
     def test_open_target_blank_in_new_tab(self):
         url = self.base_url + "/blanktargetlink"
         self.main_window.go_to_url(url)
-        self.assert_page_eventually_loaded(url)
+        self.main_window.wait_until_page_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         self.check_current_tab(self.base_url + "/test2")
@@ -138,7 +138,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
         self.main_window.go_to_url(url)
-        self.assert_page_eventually_loaded(url)
+        self.main_window.wait_until_page_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         self.check_current_tab(self.base_url + "/test2")
