@@ -22,7 +22,7 @@ class TestGeolocation(StartOpenRemotePageTestCaseBase):
     def setUp(self):
         super(TestGeolocation, self).setUp()
         url = self.base_url + "/geolocation"
-        self.go_to_url(url)
+        self.main_window.go_to_url(url)
         self.assert_page_eventually_loaded(url)
         self.dialog = self.main_window.get_geolocation_dialog()
 

@@ -14,26 +14,74 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import logging
+
+import autopilot.logging
 import ubuntuuitoolkit as uitk
 
+logger = logging.getLogger(__name__)
 
-class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def __init__(self, *args):
         super().__init__(*args)
-        self.text_field = self.select_single(
-            uitk.TextField, objectName='addressBarTextField')
+        self.chrome = self._get_chrome()
+        self.address_bar = self.chrome.address_bar
 
-    def get_action_button(self):
-        return self.select_single("QQuickMouseArea", objectName="actionButton")
+    def go_to_url(self, url):
+        self.address_bar.go_to_url(url)
 
-    def get_bookmark_toggle(self):
-        return self.select_single("QQuickItem", objectName="bookmarkToggle")
+    def get_window(self):
+        return self.get_parent()
+
+    def _get_chrome(self):
+        return self.select_single(Chrome)
+
+    def get_current_webview(self):
+        return self.select_single("WebViewImpl", current=True)
+
+    def get_webviews(self):
+        return self.select_many("WebViewImpl")
+
+    def get_visible_webviews(self):
+        return self.select_many("WebViewImpl", visible=True)
+
+    def get_error_sheet(self):
+        return self.select_single("ErrorSheet")
+
+    def get_suggestions(self):
+        return self.select_single(Suggestions)
+
+    def get_geolocation_dialog(self):
+        return self.wait_select_single(GeolocationPermissionRequest)
+
+    def get_selection(self):
+        return self.wait_select_single(Selection)
+
+    def get_selection_actions(self):
+        return self.wait_select_single("ActionSelectionPopover",
+                                       objectName="selectionActions")
+
+    def get_tabs_view(self):
+        return self.wait_select_single(TabsView)
+
+    def get_new_tab_view(self):
+        return self.wait_select_single("NewTabView", visible=True)
+
+    def get_content_picker_dialog(self):
+        # only on devices
+        return self.wait_select_single("PopupBase",
+                                       objectName="contentPickerDialog")
 
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_address_bar(self):
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.address_bar = self._get_address_bar()
+
+    def _get_address_bar(self):
         return self.select_single(AddressBar)
 
     def get_back_button(self):
@@ -52,6 +100,37 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_drawer_action(self, actionName):
         drawer = self.get_drawer()
         return drawer.select_single("AbstractButton", objectName=actionName)
+
+
+class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.text_field = self.select_single(
+            uitk.TextField, objectName='addressBarTextField')
+
+    @autopilot.logging.log_action(logger.debug)
+    def focus(self):
+        self.pointing_device.click_object(self)
+        self.activeFocus.wait_for(True)
+
+    def clear(self):
+        self.text_field.clear()
+
+    @autopilot.logging.log_action(logger.info)
+    def go_to_url(self, url):
+        self.focus()
+        self.write(url)
+        self.text_field.keyboard.press_and_release('Enter')
+
+    def write(self, text, clear=True):
+        self.text_field.write(text, clear)
+
+    def get_action_button(self):
+        return self.select_single("QQuickMouseArea", objectName="actionButton")
+
+    def get_bookmark_toggle(self):
+        return self.select_single("QQuickItem", objectName="bookmarkToggle")
 
 
 class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -102,51 +181,3 @@ class TabsView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_add_button(self):
         return self.select_single("ToolbarAction", objectName="addTabButton")
-
-
-class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-
-    def get_window(self):
-        return self.get_parent()
-
-    def get_keyboard_rectangle(self):
-        return self.select_single("KeyboardRectangle")
-
-    def get_chrome(self):
-        return self.select_single(Chrome)
-
-    def get_current_webview(self):
-        return self.select_single("WebViewImpl", current=True)
-
-    def get_webviews(self):
-        return self.select_many("WebViewImpl")
-
-    def get_visible_webviews(self):
-        return self.select_many("WebViewImpl", visible=True)
-
-    def get_error_sheet(self):
-        return self.select_single("ErrorSheet")
-
-    def get_suggestions(self):
-        return self.select_single(Suggestions)
-
-    def get_geolocation_dialog(self):
-        return self.wait_select_single(GeolocationPermissionRequest)
-
-    def get_selection(self):
-        return self.wait_select_single(Selection)
-
-    def get_selection_actions(self):
-        return self.wait_select_single("ActionSelectionPopover",
-                                       objectName="selectionActions")
-
-    def get_tabs_view(self):
-        return self.wait_select_single(TabsView)
-
-    def get_new_tab_view(self):
-        return self.wait_select_single("NewTabView", visible=True)
-
-    def get_content_picker_dialog(self):
-        # only on devices
-        return self.wait_select_single("PopupBase",
-                                       objectName="contentPickerDialog")

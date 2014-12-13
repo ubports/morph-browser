@@ -15,7 +15,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from autopilot.matchers import Eventually
-from autopilot.platform import model
 from testtools.matchers import Equals
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
@@ -27,10 +26,7 @@ class TestSessionSaveRestore(StartOpenRemotePageTestCaseBase):
         self.open_tabs_view()
         self.open_new_tab()
         new_tab_view = self.main_window.get_new_tab_view()
-        if model() != 'Desktop':
-            self.focus_address_bar()
-        self.type_in_address_bar(url)
-        self.keyboard.press_and_release("Enter")
+        self.main_window.go_to_url(url)
         new_tab_view.wait_until_destroyed()
 
     def test_session_is_saved_and_restored(self):

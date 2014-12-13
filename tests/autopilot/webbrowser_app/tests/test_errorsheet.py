@@ -29,32 +29,32 @@ class TestErrorSheet(StartOpenRemotePageTestCaseBase):
     def test_invalid_url_triggers_error_message(self):
         error = self.main_window.get_error_sheet()
         self.assertThat(error.visible, Equals(False))
-        self.go_to_url(INVALID_URL)
+        self.main_window.go_to_url(INVALID_URL)
         self.assertThat(error.visible, Eventually(Equals(True)))
 
     def test_navigating_away_discards_error_message(self):
         error = self.main_window.get_error_sheet()
-        self.go_to_url(INVALID_URL)
+        self.main_window.go_to_url(INVALID_URL)
         self.assertThat(error.visible, Eventually(Equals(True)))
-        self.go_to_url(self.base_url + "/test2")
+        self.main_window.go_to_url(self.base_url + "/test2")
         self.assertThat(error.visible, Eventually(Equals(False)))
 
     def test_navigating_back_discards_error_message(self):
         error = self.main_window.get_error_sheet()
-        self.go_to_url(INVALID_URL)
+        self.main_window.go_to_url(INVALID_URL)
         self.assertThat(error.visible, Eventually(Equals(True)))
-        chrome = self.main_window.get_chrome()
+        chrome = self.main_window.chrome
         self.pointing_device.click_object(chrome.get_back_button())
         self.assertThat(error.visible, Eventually(Equals(False)))
 
     def test_navigating_forward_discards_error_message(self):
         error = self.main_window.get_error_sheet()
-        self.go_to_url(INVALID_URL)
+        self.main_window.go_to_url(INVALID_URL)
         self.assert_page_eventually_loaded(INVALID_URL)
         url = self.base_url + "/test2"
-        self.go_to_url(url)
+        self.main_window.go_to_url(url)
         self.assert_page_eventually_loaded(url)
-        chrome = self.main_window.get_chrome()
+        chrome = self.main_window.chrome
         self.pointing_device.click_object(chrome.get_back_button())
         self.assertThat(error.visible, Eventually(Equals(True)))
         self.pointing_device.click_object(chrome.get_forward_button())
