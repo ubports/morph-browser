@@ -43,8 +43,7 @@ class TestErrorSheet(StartOpenRemotePageTestCaseBase):
         error = self.main_window.get_error_sheet()
         self.main_window.go_to_url(INVALID_URL)
         self.assertThat(error.visible, Eventually(Equals(True)))
-        chrome = self.main_window.chrome
-        self.pointing_device.click_object(chrome.get_back_button())
+        self.main_window.go_back()
         self.assertThat(error.visible, Eventually(Equals(False)))
 
     def test_navigating_forward_discards_error_message(self):
@@ -54,8 +53,7 @@ class TestErrorSheet(StartOpenRemotePageTestCaseBase):
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
-        chrome = self.main_window.chrome
-        self.pointing_device.click_object(chrome.get_back_button())
+        self.main_window.go_back()
         self.assertThat(error.visible, Eventually(Equals(True)))
-        self.pointing_device.click_object(chrome.get_forward_button())
+        self.main_window.go_forward()
         self.assertThat(error.visible, Eventually(Equals(False)))
