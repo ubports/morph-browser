@@ -28,10 +28,7 @@ Rectangle {
 
     Connections {
         target: certificateError ? certificateError : null
-        onCancelled: {
-            moreInfo.visible = false
-            denied()
-        }
+        onCancelled: denied()
     }
 
     Flickable {
@@ -164,7 +161,6 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: certificateError ? certificateError.overridable : false
                 onClicked: {
-                    moreInfo.visible = false
                     certificateError.allow()
                     allowed()
                 }
@@ -176,7 +172,6 @@ Rectangle {
                 visible: certificateError ? certificateError.overridable : false
                 text: i18n.tr("Back to safety")
                 onClicked: {
-                    moreInfo.visible = false
                     certificateError.deny()
                     denied()
                 }
@@ -214,4 +209,9 @@ Rectangle {
         }
     }
 
+    onVisibleChanged: {
+        if (!visible) {
+            moreInfo.visible = false
+        }
+    }
 }
