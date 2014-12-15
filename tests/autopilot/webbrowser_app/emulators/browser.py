@@ -26,7 +26,6 @@ class Webbrowser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def validate_dbus_object(cls, path, state):
         name = introspection.get_classname_from_path(path)
         if name == b'webbrowser-app':
-            # This check is probably overkill
             if state['applicationName'][1] == 'webbrowser-app':
                 return True
         return False
