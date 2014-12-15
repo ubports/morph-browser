@@ -152,6 +152,7 @@ Rectangle {
 
             Label {
                 width: parent.width
+                visible: certificateError ? certificateError.overridable : false
                 text: i18n.tr("You should not proceed, especially if you have never seen this warning before for this site.")
                 wrapMode: Text.Wrap
                 fontSize: "x-small"
@@ -172,6 +173,7 @@ Rectangle {
             Button {
                 id: backButton
                 anchors.horizontalCenter: parent.horizontalCenter
+                visible: certificateError ? certificateError.overridable : false
                 text: i18n.tr("Back to safety")
                 onClicked: {
                     moreInfo.visible = false
