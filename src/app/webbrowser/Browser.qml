@@ -655,7 +655,7 @@ BrowserView {
             state.url = tab.url.toString()
             state.title = tab.title
             state.preview = tab.preview.toString()
-            state.blob = tab.webview ? tab.webview.currentState : tab.restoreState
+            state.savedState = tab.webview ? tab.webview.currentState : tab.restoreState
             return state
         }
 
@@ -667,8 +667,8 @@ BrowserView {
             if ('preview' in state) {
                 properties["preview"] = state.preview
             }
-            if ('blob' in state) {
-                properties['restoreState'] = state.blob
+            if ('savedState' in state) {
+                properties['restoreState'] = state.savedState
                 properties['restoreType'] = Oxide.WebView.RestoreLastSessionExitedCleanly
             }
             return tabComponent.createObject(tabContainer, properties)
