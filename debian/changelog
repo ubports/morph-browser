@@ -1,3 +1,50 @@
+webbrowser-app (0.23+15.04.20141212.1-0ubuntu1) vivid; urgency=low
+
+  [ Olivier Tilloy ]
+  * Optimize the capture functionality. (LP: #1359293, #1401045)
+  * Record host and error code along with certificate fingerprint when
+    whitelisting a certificate error. (LP: #1377194)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 12 Dec 2014 17:23:40 +0000
+
+webbrowser-app (0.23+15.04.20141212-0ubuntu1) vivid; urgency=low
+
+  [ Olivier Tilloy ]
+  * Remove the WebView.getUAString() API from version 0.2 of the
+    Ubuntu.Web module. It is currently not in use by any app in the
+    store. (LP: #1399601)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 12 Dec 2014 11:32:16 +0000
+
+webbrowser-app (0.23+15.04.20141211.4-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Take captures of live webviews and cache them on disk, to use them
+    as tab previews. (LP: #1359293, #1401045)
+  * Fix FTBFS on Qt 5.4. (LP: #1398372)
+  * Reset the webview’s certificate error when the user cancels it (by
+    e.g. committing a new navigation). (LP: #1398905, #1394925)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 11 Dec 2014 18:54:12 +0000
+
+webbrowser-app (0.23+15.04.20141208-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Fix the user agent override mechanism (and the race during the first
+    http request between the webview/webcontext creation and the
+    getUseragent call), (LP: #1393466)
+
+  [ Olivier Tilloy ]
+  * Updated bzr ignore rules.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 08 Dec 2014 21:59:22 +0000
+
 webbrowser-app (0.23+15.04.20141202.1-0ubuntu1) vivid; urgency=low
 
   [ Alberto Mardegan ]

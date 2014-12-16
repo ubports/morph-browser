@@ -83,6 +83,22 @@ This is some {} content
 </html>
         """.format(url)
 
+    def display_ua_content(self):
+        return """
+<html>
+<head>
+<title>Some content</title>
+<script>
+window.onload = function() {{
+  document.title = navigator.userAgent + " " + {};
+}}
+</script>
+</head>
+<body>
+</body>
+</html>
+        """.format("'"+self.headers['user-agent']+"'")
+
     def do_GET(self):
         if self.path == '/':
             self.send_response(200)
@@ -102,6 +118,9 @@ This is some {} content
         elif self.path == '/with-different-targetted-link':
             self.send_response(200)
             self.serve_content(self.targetted_click_content())
+        elif self.path == '/show-user-agent':
+            self.send_response(200)
+            self.serve_content(self.display_ua_content())
         else:
             self.send_error(404)
 

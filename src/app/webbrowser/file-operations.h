@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,21 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Qt
-#include <QtQml/QtQml>
-#include <QtQuickTest/QtQuickTest>
+#ifndef __FILE_OPERATIONS_H__
+#define __FILE_OPERATIONS_H__
 
-// local
-#include "favicon-fetcher.h"
-#include "item-capture.h"
+#include <QtCore/QObject>
 
-int main(int argc, char** argv)
+class QUrl;
+
+class FileOperations : public QObject
 {
-    const char* commonUri = "webbrowsercommon.private";
-    qmlRegisterType<FaviconFetcher>(commonUri, 0, 1, "FaviconFetcher");
+    Q_OBJECT
 
-    const char* browserUri = "webbrowserapp.private";
-    qmlRegisterType<ItemCapture>(browserUri, 0, 1, "ItemCapture");
+public:
+    explicit FileOperations(QObject* parent=0);
 
-    return quick_test_main(argc, argv, "QmlTests", 0);
-}
+    Q_INVOKABLE bool remove(const QUrl& file) const;
+};
+
+#endif // __FILE_OPERATIONS_H__

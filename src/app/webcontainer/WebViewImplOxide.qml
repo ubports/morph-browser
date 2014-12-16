@@ -50,6 +50,7 @@ WebViewImpl {
 
     context: WebContext {
         dataPath: webview.dataPath
+        userAgent: localUserAgentOverride ? localUserAgentOverride : defaultUserAgent
     }
 
     preferences.allowFileAccessFromFileUrls: runningLocalApplication
@@ -71,11 +72,6 @@ WebViewImpl {
 
     function shouldOpenPopupsInDefaultBrowser() {
         return formFactor !== "desktop";
-    }
-
-    // Function defined by the UbuntuWebView and overridden here to handle potential webapp defined UA overrides
-    function getUAString() {
-        return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride
     }
 
     function isRunningAsANamedWebapp() {

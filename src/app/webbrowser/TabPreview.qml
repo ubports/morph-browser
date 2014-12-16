@@ -146,6 +146,7 @@ Column {
         Image {
             visible: !previewContainer.visible
             source: "assets/tab-artwork.png"
+            asynchronous: true
             fillMode: Image.PreserveAspectFit
             height: Math.min(parent.height / 1.6, units.gu(28))
             width: height
@@ -166,11 +167,25 @@ Column {
             }
         }
 
-        Item {
+        Image {
             id: previewContainer
-            visible: tabPreview.tab ? tabPreview.tab.webview : false
-            anchors.fill: parent
-            clip: true
+            visible: source.toString() && (status == Image.Ready)
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+            }
+            height: sourceSize.height
+            fillMode: Image.Pad
+            source: tabPreview.tab ? tabPreview.tab.preview : ""
+            asynchronous: true
+            cache: false
+            onStatusChanged: {
+                if (status == Image.Error) {
+                    // The cached preview doesn’t exist any longer
+                    tabPreview.tab.preview = ""
+                }
+            }
         }
 
         MouseArea {
@@ -187,27 +202,6 @@ Column {
             }
 
             opacity: 0.3
-        }
-    }
-
-    QtObject {
-        id: internal
-        property var previewParent
-    }
-
-    Component.onCompleted: {
-        var preview = tabPreview.tab.preview
-        internal.previewParent = preview.parent
-        preview.parent = previewContainer
-        preview.width = internal.previewParent.width
-        preview.height = internal.previewParent.height
-    }
-    Component.onDestruction: {
-        if (tabPreview.tab) {
-            var preview = tabPreview.tab.preview
-            preview.parent = internal.previewParent
-            preview.width = preview.parent.width
-            preview.height = preview.parent.height
         }
     }
 }
