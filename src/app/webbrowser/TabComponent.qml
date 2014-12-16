@@ -24,7 +24,7 @@ FocusScope {
     property url initialUrl
     property string initialTitle
     property var request
-    property var webviewComponent
+    property Component webviewComponent
     readonly property var webview: (children.length == 1) ? children[0] : null
     readonly property url url: webview ? webview.url : initialUrl
     readonly property string title: webview ? webview.title : initialTitle

@@ -334,107 +334,105 @@ BrowserView {
 
         TabComponent {
             anchors.fill: parent
-            webviewComponent: Component {
-                WebViewImpl {
-                    id: webviewimpl
+            webviewComponent: WebViewImpl {
+                id: webviewimpl
 
-                    currentWebview: browser.currentWebview
+                currentWebview: browser.currentWebview
 
+                anchors.fill: parent
+                focus: true
+
+                readonly property bool current: currentWebview === this
+                enabled: current
+                visible: current
+
+                //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
+                preferences.localStorageEnabled: true
+                preferences.appCacheEnabled: true
+
+                contextualActions: ActionList {
+                    Actions.OpenLinkInNewTab {
+                        enabled: contextualData.href.toString()
+                        onTriggered: browser.openUrlInNewTab(contextualData.href, true)
+                    }
+                    Actions.BookmarkLink {
+                        enabled: contextualData.href.toString() && browser.bookmarksModel
+                        onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "")
+                    }
+                    Actions.CopyLink {
+                        enabled: contextualData.href.toString()
+                        onTriggered: Clipboard.push([contextualData.href])
+                    }
+                    Actions.OpenImageInNewTab {
+                        enabled: contextualData.img.toString()
+                        onTriggered: browser.openUrlInNewTab(contextualData.img, true)
+                    }
+                    Actions.CopyImage {
+                        enabled: contextualData.img.toString()
+                        onTriggered: Clipboard.push([contextualData.img])
+                    }
+                    Actions.SaveImage {
+                        enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
+                        onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
+                    }
+                }
+
+                onNewViewRequested: {
+                    var tab = tabComponent.createObject(tabContainer, {"request": request})
+                    var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
+                    internal.addTab(tab, setCurrent)
+                }
+
+                onLoadingChanged: {
+                    if (lastLoadSucceeded && browser.historyModel) {
+                        browser.historyModel.add(url, title, icon)
+                    }
+                }
+
+                onGeolocationPermissionRequested: requestGeolocationPermission(request)
+
+                property var certificateError
+                function resetCertificateError() {
+                    certificateError = null
+                }
+                onCertificateError: {
+                    if (!error.isMainFrame || error.isSubresource) {
+                        // Not a main frame document error, just block the content
+                        // (it’s not overridable anyway).
+                        return
+                    }
+                    if (internal.isCertificateErrorAllowed(error)) {
+                        error.allow()
+                    } else {
+                        certificateError = error
+                        error.onCancelled.connect(webviewimpl.resetCertificateError)
+                    }
+                }
+
+                Loader {
+                    id: newTabViewLoader
                     anchors.fill: parent
-                    focus: true
 
-                    readonly property bool current: currentWebview === this
-                    enabled: current
-                    visible: current
+                    sourceComponent: !parent.url.toString() ? newTabViewComponent : undefined
 
-                    //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
-                    preferences.localStorageEnabled: true
-                    preferences.appCacheEnabled: true
+                    Component {
+                        id: newTabViewComponent
 
-                    contextualActions: ActionList {
-                        Actions.OpenLinkInNewTab {
-                            enabled: contextualData.href.toString()
-                            onTriggered: browser.openUrlInNewTab(contextualData.href, true)
-                        }
-                        Actions.BookmarkLink {
-                            enabled: contextualData.href.toString() && browser.bookmarksModel
-                            onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "")
-                        }
-                        Actions.CopyLink {
-                            enabled: contextualData.href.toString()
-                            onTriggered: Clipboard.push([contextualData.href])
-                        }
-                        Actions.OpenImageInNewTab {
-                            enabled: contextualData.img.toString()
-                            onTriggered: browser.openUrlInNewTab(contextualData.img, true)
-                        }
-                        Actions.CopyImage {
-                            enabled: contextualData.img.toString()
-                            onTriggered: Clipboard.push([contextualData.img])
-                        }
-                        Actions.SaveImage {
-                            enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
-                            onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
-                        }
-                    }
+                        NewTabView {
+                            anchors.fill: parent
 
-                    onNewViewRequested: {
-                        var tab = tabComponent.createObject(tabContainer, {"request": request})
-                        var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
-                        internal.addTab(tab, setCurrent)
-                    }
-
-                    onLoadingChanged: {
-                        if (lastLoadSucceeded && browser.historyModel) {
-                            browser.historyModel.add(url, title, icon)
-                        }
-                    }
-
-                    onGeolocationPermissionRequested: requestGeolocationPermission(request)
-
-                    property var certificateError
-                    function resetCertificateError() {
-                        certificateError = null
-                    }
-                    onCertificateError: {
-                        if (!error.isMainFrame || error.isSubresource) {
-                            // Not a main frame document error, just block the content
-                            // (it’s not overridable anyway).
-                            return
-                        }
-                        if (internal.isCertificateErrorAllowed(error)) {
-                            error.allow()
-                        } else {
-                            certificateError = error
-                            error.onCancelled.connect(webviewimpl.resetCertificateError)
-                        }
-                    }
-
-                    Loader {
-                        id: newTabViewLoader
-                        anchors.fill: parent
-
-                        sourceComponent: !parent.url.toString() ? newTabViewComponent : undefined
-
-                        Component {
-                            id: newTabViewComponent
-
-                            NewTabView {
-                                anchors.fill: parent
-
-                                historyModel: browser.historyModel
-                                bookmarksModel: browser.bookmarksModel
-                                onBookmarkClicked: {
-                                    chrome.requestedUrl = url
-                                    currentWebview.url = url
-                                    currentWebview.forceActiveFocus()
-                                }
-                                onBookmarkRemoved: browser.bookmarksModel.remove(url)
-                                onHistoryEntryClicked: {
-                                    chrome.requestedUrl = url
-                                    currentWebview.url = url
-                                    currentWebview.forceActiveFocus()
-                                }
+                            historyModel: browser.historyModel
+                            bookmarksModel: browser.bookmarksModel
+                            onBookmarkClicked: {
+                                chrome.requestedUrl = url
+                                currentWebview.url = url
+                                currentWebview.forceActiveFocus()
+                            }
+                            onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                            onHistoryEntryClicked: {
+                                chrome.requestedUrl = url
+                                currentWebview.url = url
+                                currentWebview.forceActiveFocus()
                             }
                         }
                     }
