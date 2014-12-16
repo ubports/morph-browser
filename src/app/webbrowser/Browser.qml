@@ -332,7 +332,7 @@ BrowserView {
     Component {
         id: tabComponent
 
-        TabComponent {
+        BrowserTab {
             anchors.fill: parent
             webviewComponent: WebViewImpl {
                 id: webviewimpl
