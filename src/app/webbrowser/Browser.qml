@@ -668,9 +668,6 @@ BrowserView {
                 properties["preview"] = state.preview
             }
             if ('blob' in state) {
-                // Gracefully handle the upgrade path: the first time this
-                // version of the app is run, the saved state won’t have
-                // the blob property.
                 properties['restoreState'] = state.blob
                 properties['restoreType'] = Oxide.WebView.RestoreLastSessionExitedCleanly
             }
