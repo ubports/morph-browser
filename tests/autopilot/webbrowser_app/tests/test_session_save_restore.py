@@ -34,7 +34,7 @@ class TestSessionSaveRestore(StartOpenRemotePageTestCaseBase):
         new_tab_view.wait_until_destroyed()
 
     def test_session_is_saved_and_restored(self):
-        paths = ["/loremipsum", "/aleaiactaest", "/wait/0"]
+        paths = ["/test1", "/test2", "/wait/0"]
         for path in paths[1:]:
             self.create_new_tab(self.base_url + path)
         self.open_tabs_view()

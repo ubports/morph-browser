@@ -18,7 +18,6 @@
 
 import QtQuick 2.0
 import QtTest 1.0
-import "undertest"
 
 TestCase {
     name: "UserAgent"
@@ -67,16 +66,18 @@ TestCase {
         compare(userAgent.getUAString(data.url), data.ua)
     }
 
-    UserAgent01 {
-        id: userAgent
-
-        defaultUA: "Mozilla/5.0 (Ubuntu; Mobile) WebKit/537.21"
-
-        overrides: {
-            "example.org": "full override",
-            "example.com": ["Ubuntu", "Ubuntu Edge"],
-            "google.com": [/mobi/i, "b"],
-            "mail.google.com": [/mobile/i, "Touch"],
+    readonly property Item userAgent: loader.item
+    Loader {
+        id: loader
+        source: Qt.resolvedUrl("../../../src/Ubuntu/Components/Extras/Browser/UserAgent01.qml")
+        onLoaded : {
+            item.defaultUA = "Mozilla/5.0 (Ubuntu; Mobile) WebKit/537.21"
+            item.overrides = {
+                "example.org": "full override",
+                "example.com": ["Ubuntu", "Ubuntu Edge"],
+                "google.com": [/mobi/i, "b"],
+                "mail.google.com": [/mobile/i, "Touch"],
+            }
         }
     }
 }

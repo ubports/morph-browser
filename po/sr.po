@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-22 14:59+0100\n"
+"POT-Creation-Date: 2014-11-13 13:56+0100\n"
 "PO-Revision-Date: 2014-09-26 11:44+0000\n"
 "Last-Translator: Данило Шеган <Unknown>\n"
 "Language-Team: Serbian <sr@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-09-27 06:27+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-12-16 07:31+0000\n"
+"X-Generator: Launchpad (build 17286)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -122,7 +122,7 @@ msgid "Permission Request"
 msgstr "Захтев за овлашћење"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:65
+#: src/app/webcontainer/WebViewImplWebkit.qml:68
 msgid "This page wants to know your device’s location."
 msgstr "Ова страница жели да зна положај вашег уређаја."
 
@@ -430,39 +430,34 @@ msgstr "Сачувај слику"
 msgid "Share…"
 msgstr "Подели..."
 
-#: src/app/webbrowser/AddressBar.qml:214
-msgid "This site has insecure content"
-msgstr "Ова страница има небезбедног садржаја"
-
-#: src/app/webbrowser/AddressBar.qml:229
-msgid "You are connected to"
-msgstr "Повезани сте н"
-
-#: src/app/webbrowser/AddressBar.qml:251
-msgid "Which is run by"
-msgstr "За који је задужен"
-
-#: src/app/webbrowser/AddressBar.qml:335
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "тражи или унеси адресу"
 
-#: src/app/webbrowser/Browser.qml:179
+#: src/app/webbrowser/BookmarksList.qml:67
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:190
 msgid "Share"
 msgstr "Подели"
 
-#: src/app/webbrowser/Browser.qml:193
+#: src/app/webbrowser/Browser.qml:204
 msgid "History"
 msgstr "Историја"
 
-#: src/app/webbrowser/Browser.qml:200
+#: src/app/webbrowser/Browser.qml:211
 msgid "Open tabs"
 msgstr "Отворени листови"
 
-#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Нови лист"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:107
+#: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -470,7 +465,7 @@ msgstr[0] "%1 страница"
 msgstr[1] "%1 странице"
 msgstr[2] "%1 страница"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:121
+#: src/app/webbrowser/ExpandedHistoryView.qml:194
 msgid "Less"
 msgstr "Сажетије"
 
@@ -482,71 +477,67 @@ msgstr "Последње посећене"
 msgid "Yesterday"
 msgstr "Јуче"
 
-#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr "Готово"
 
-#: src/app/webbrowser/HistoryView.qml:113
-msgid "Clear"
-msgstr "Очисти"
-
-#: src/app/webbrowser/HistoryView.qml:127
-msgid "Delete all history?"
-msgstr "Обрисати сав историјат?"
-
-#: src/app/webbrowser/HistoryView.qml:130
-msgid "Yes"
-msgstr "Да"
-
-#: src/app/webbrowser/HistoryView.qml:139
-msgid "No"
-msgstr "Не"
-
-#: src/app/webbrowser/NewTabView.qml:122
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
 msgstr "Обележивачи"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
 msgstr "Главне странице"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
 msgstr "покажи мање"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr "покажи више"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+msgid "This site has insecure content"
+msgstr "Ова страница има небезбедног садржаја"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+msgid "You are connected to"
+msgstr "Повезани сте н"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Which is run by"
+msgstr "За који је задужен"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"
 msgstr "Тапни да погледаш"
 
-#: src/app/webbrowser/TabsView.qml:115
+#: src/app/webbrowser/TabsView.qml:114
 msgid "Add"
 msgstr "Додај"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:60
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:55
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 — Прегледач веба за Убунту"
 
-#: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 msgid "Ubuntu Web Browser"
 msgstr "Прегледач веба за Убунту"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:87
+#: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
 msgstr "Није нађен локални налог за "
 
-#: src/app/webcontainer/AccountsLoginPage.qml:92
+#: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
 msgstr "Прескочи корак прављења налога"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:141
+#: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
 msgstr "Додај налог"
 
@@ -569,3 +560,15 @@ msgstr "Разгледајте веб"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Интернет;WWW;Прегледач;Веб;Претраживач"
+
+#~ msgid "Clear"
+#~ msgstr "Очисти"
+
+#~ msgid "No"
+#~ msgstr "Не"
+
+#~ msgid "Yes"
+#~ msgstr "Да"
+
+#~ msgid "Delete all history?"
+#~ msgstr "Обрисати сав историјат?"

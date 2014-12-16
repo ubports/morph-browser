@@ -111,15 +111,13 @@ class BrowserTestCaseBase(AutopilotTestCase):
         address_bar = self.main_window.get_chrome().get_address_bar()
         clear_button = address_bar.get_clear_button()
         self.pointing_device.click_object(clear_button)
-        text_field = address_bar.get_text_field()
-        self.assertThat(text_field.text, Eventually(Equals("")))
+        self.assertThat(address_bar.text, Eventually(Equals("")))
 
     def type_in_address_bar(self, text):
         address_bar = self.main_window.get_chrome().get_address_bar()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
         self.keyboard.type(text)
-        text_field = address_bar.get_text_field()
-        self.assertThat(text_field.text, Eventually(Contains(text)))
+        self.assertThat(address_bar.text, Eventually(Contains(text)))
 
     def go_to_url(self, url):
         self.clear_address_bar()
@@ -190,7 +188,7 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
         self.base_url = "http://localhost:{}".format(self.server.port)
         self.domain = "localhost"
         self.ping_server()
-        self.url = self.base_url + "/loremipsum"
+        self.url = self.base_url + "/test1"
         self.ARGS = self.ARGS + [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()
         self.assert_home_page_eventually_loaded()

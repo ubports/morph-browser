@@ -19,7 +19,6 @@
 import QtQuick 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0
 import com.canonical.Oxide 1.0 as Oxide
 import ".."
 
@@ -31,14 +30,19 @@ FocusScope {
     property bool bookmarked: false
     property url requestedUrl
     property url actualUrl
-    property var securityStatus
     signal validated()
     property bool loading
     signal requestReload()
     signal requestStop()
-    signal pressAndHold()
     property string searchUrl
-    signal textFieldFocused()
+
+    property var securityStatus: null
+
+    // XXX: for testing purposes only, do not use to modify the
+    // contents/behaviour of the internals of the component.
+    readonly property Item __textField: textField
+    readonly property Item __actionButton: actionButton
+    readonly property Item __bookmarkToggle: bookmarkToggle
 
     height: textField.height
 
@@ -49,7 +53,7 @@ FocusScope {
         },
         State {
             name: "editing"
-            when: textField.activeFocus
+            when: addressbar.activeFocus
         }
     ]
 
@@ -66,27 +70,27 @@ FocusScope {
                 Item {
                     height: textField.height
                     width: height
-                    visible: securityStatus ? securityStatus.securityLevel != Oxide.SecurityStatus.SecurityLevelWarning || addressbar.state != "" : true
-    
+                    visible: (addressbar.state != "") || !internal.secureConnection || !internal.securityWarning
+
                     Favicon {
                         id: favicon
                         anchors.centerIn: parent
-                        visible: securityStatus ? (securityStatus.securityLevel != Oxide.SecurityStatus.SecurityLevelWarning) && (addressbar.state == "") && addressbar.actualUrl.toString() : (addressbar.state == "") && addressbar.actualUrl.toString()
+                        visible: (addressbar.state == "") && addressbar.actualUrl.toString() && !internal.securityWarning
                     }
-            
+
                     Item {
                         id: certificatePopoverPositioner
                         anchors.bottom: favicon.bottom
                         anchors.horizontalCenter: favicon.horizontalCenter
                     }
-                        
+
                     MouseArea {
                         id: actionButton
                         objectName: "actionButton"
                         anchors.fill: parent
                         enabled: addressbar.text
                         opacity: enabled ? 1.0 : 0.3
-    
+
                         Icon {
                             id: actionIcon
                             height: parent.height - units.gu(2)
@@ -99,14 +103,14 @@ FocusScope {
                                 case "editing":
                                     if (addressbar.text && (addressbar.text == addressbar.actualUrl)) {
                                         return "reload"
-                                    } else if (looksLikeAUrl(addressbar.text.trim())) {
+                                    } else if (internal.looksLikeAUrl(addressbar.text.trim())) {
                                         return "stock_website"
                                     } else {
                                         return "search"
                                     }
                                 default:
                                     if (!favicon.visible) {
-                                        if (looksLikeAUrl(addressbar.text.trim())) {
+                                        if (internal.looksLikeAUrl(addressbar.text.trim())) {
                                             return "stock_website"
                                         } else {
                                             return "search"
@@ -117,11 +121,11 @@ FocusScope {
                                 }
                             }
                         }
-    
+
                         onClicked: {
                             switch (actionIcon.name) {
                             case "":
-                                break;
+                                break
                             case "stop":
                                 addressbar.requestStop()
                                 break
@@ -133,15 +137,14 @@ FocusScope {
                             }
                         }
                     }
-    
                 }
-    
+
                 Item {
                     id: securityDisplay
                     height: textField.height
                     width: securityIcon.width
-                    visible: securityStatus ? (securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) && addressbar.state == "" : false
- 
+                    visible: internal.secureConnection && (addressbar.state == "")
+
                     Icon {
                         id: securityIcon
                         anchors.centerIn: parent
@@ -152,10 +155,9 @@ FocusScope {
                 }
 
                 Item {
-                    id: securityWarning
                     height: textField.height
                     width: warningIcon.width
-                    visible: securityStatus ? securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning && addressbar.state == "" : false
+                    visible: internal.securityWarning && (addressbar.state == "")
 
                     Icon {
                         id: warningIcon
@@ -165,147 +167,18 @@ FocusScope {
                         name: "security-alert"
                     }
                 }
-
             }
 
             MouseArea {
                 enabled: securityDisplay.visible && addressbar.state != "editing" && addressbar.state != "loading"
                 anchors.fill: parent
 
-                onClicked: {
-                    PopupUtils.open(certificatePopoverComponent, certificatePopoverPositioner)
-                }
+                onClicked: addressbar.showSecurityCertificateDetails()
             }
-
-
-            Component {
-                id: certificatePopoverComponent
-                Popover {
-                    id: certificatePopover
-                    Column {
-                        id: certificateDetails 
-                        width: parent.width - units.gu(4)
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        spacing: units.gu(0.5)
-
-                        Item {
-                            height: units.gu(1.5)
-                            width: parent.width
-                        }
-
-                        Column {
-                            width: parent.width
-                            visible: securityStatus.securityLevel == Oxide.SecurityStatus.SecurityLevelWarning
-                            spacing: units.gu(0.5)
-
-                            Row {
-                                width: parent.width
-                                spacing: units.gu(0.5)
-
-                                Icon {
-                                    name: "security-alert"
-                                    height: units.gu(2)
-                                    width: height
-                                }
-
-                                Label {
-                                    width: parent.width
-                                    wrapMode: Text.WordWrap
-                                    text: i18n.tr("This site has insecure content")
-                                    fontSize: "x-small"
-                                }
-                            }
-                            
-                            ThinDivider {
-                                width: parent.width
-                                anchors.leftMargin: 0
-                                anchors.rightMargin: 0
-                            }
-                        }
-
-                        Label { 
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            text: i18n.tr("You are connected to")
-                            fontSize: "x-small"
-                        }
-
-                        Label {
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            text: securityStatus.certificate.subjectDisplayName
-                            fontSize: "x-small"
-                        }
-
-                        ThinDivider {
-                            width: parent.width
-                            anchors.leftMargin: 0
-                            anchors.rightMargin: 0
-                            visible: orgName.visible || localityName.visible || stateName.visible || countryName.visible
-                        }
-
-                        Label {
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            visible: orgName.visible
-                            text: i18n.tr("Which is run by")
-                            fontSize: "x-small"
-                        }
-
-                        Label {
-                            id: orgName
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            visible: text.length > 0
-                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrOrganizationName).join(", ")
-                            fontSize: "x-small"
-                        }
-
-                        Label {
-                            id: localityName
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            visible: text.length > 0
-                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrLocalityName).join(", ")
-                            fontSize: "x-small"
-                        }
-
-                        Label {
-                            id: stateName
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            visible: text.length > 0
-                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrStateOrProvinceName).join(", ")
-                            fontSize: "x-small"
-                        }
-
-                        Label {
-                            id: countryName
-                            width: parent.width
-                            wrapMode: Text.WordWrap
-                            visible: text.length > 0
-                            text: securityStatus.certificate.getSubjectInfo(Oxide.SslCertificate.PrincipalAttrCountryName).join(", ")
-                            fontSize: "x-small"
-                        }
-
-                        Item {
-                            height: units.gu(1.5)
-                            width: parent.width
-                        }
-
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: PopupUtils.close(certificatePopover)
-                    }
-
-                }
-            }
-
         }
 
         secondaryItem: Item {
+            id: bookmarkToggle
             objectName: "bookmarkToggle"
 
             height: textField.height
@@ -346,15 +219,7 @@ FocusScope {
 
         highlighted: true
 
-        onAccepted: if (addressbar.state != "") parent.validate()
-
-        onActiveFocusChanged: {
-            if (activeFocus) {
-                addressbar.textFieldFocused();
-            } else if (!addressbar.loading && addressbar.actualUrl.toString()) {
-                text = addressbar.simplifyUrl(addressbar.actualUrl)
-            }
-        }
+        onAccepted: if (addressbar.state != "") internal.validate()
 
         // Make sure that all the text is selected at the first click
         MouseArea {
@@ -368,97 +233,130 @@ FocusScope {
                 textField.forceActiveFocus()
                 textField.selectAll()
             }
-            onPressAndHold: {
-                addressbar.pressAndHold()
-            }
         }
     }
 
-    function looksLikeAUrl(address) {
-        var terms = address.split(/\s/)
-        if (terms.length > 1) {
+    QtObject {
+        id: internal
+
+        readonly property int securityLevel: addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
+        readonly property bool secureConnection: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
+        readonly property bool securityWarning: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
+
+        property var securityCertificateDetails: null
+
+        function looksLikeAUrl(address) {
+            var terms = address.split(/\s/)
+            if (terms.length > 1) {
+                return false
+            }
+            if (address.substr(0, 1) == "/") {
+                return true
+            }
+            if (address.match(/^https?:\/\//) ||
+                address.match(/^file:\/\//) ||
+                address.match(/^[a-z]+:\/\//)) {
+                return true
+            }
+            if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,4}$/)) {
+                return true
+            }
+            if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
+                return true
+            }
             return false
         }
-        if (address.substr(0, 1) == "/") {
-            return true
-        }
-        if (address.match(/^https?:\/\//) ||
-            address.match(/^file:\/\//) ||
-            address.match(/^[a-z]+:\/\//)) {
-            return true
-        }
-        if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,4}$/)) {
-            return true
-        }
-        if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
-            return true
-        }
-        return false
-    }
 
-    function fixUrl(address) {
-        var url = address
-        if (address.substr(0, 1) == "/") {
-            url = "file://" + address
-        } else if (address.indexOf("://") == -1) {
-            url = "http://" + address
-        }
-        return url
-    }
-
-    function escapeHtmlEntities(query) {
-        return query.replace(/\W/, encodeURIComponent)
-    }
-
-    function buildSearchUrl(query) {
-        var terms = query.split(/\s/).map(escapeHtmlEntities)
-        return addressbar.searchUrl.replace("{searchTerms}", terms.join("+"))
-    }
-
-    function validate() {
-        var query = text.trim()
-        if (looksLikeAUrl(query)) {
-            requestedUrl = fixUrl(query)
-        } else {
-            requestedUrl = buildSearchUrl(query)
-        }
-        validated()
-    }
-
-    function simplifyUrl(url) {
-        var urlString = url.toString();
-        var hasProtocol = urlString.indexOf("://") != -1
-        var domain;
-        if (hasProtocol) {
-            if (urlString.split("://")[0] == "file") {
-                // Don't process file:// urls
-                return url;
+        function fixUrl(address) {
+            var url = address
+            if (address.substr(0, 1) == "/") {
+                url = "file://" + address
+            } else if (address.indexOf("://") == -1) {
+                url = "http://" + address
             }
-            domain = urlString.split('/')[2];
-        } else {
-            domain = urlString.split('/')[0];
+            return url
         }
-        if (typeof domain !== 'undefined' && domain.length > 0) {
-            // Remove user component if present
-            var userRemoved = domain.split('@')[1];
-            if (typeof userRemoved !== 'undefined') {
-                domain = userRemoved;
+
+        function escapeHtmlEntities(query) {
+            return query.replace(/\W/, encodeURIComponent)
+        }
+
+        function buildSearchUrl(query) {
+            var terms = query.split(/\s/).map(internal.escapeHtmlEntities)
+            return addressbar.searchUrl.replace("{searchTerms}", terms.join("+"))
+        }
+
+        function validate() {
+            var query = text.trim()
+            if (internal.looksLikeAUrl(query)) {
+                requestedUrl = internal.fixUrl(query)
+            } else {
+                requestedUrl = internal.buildSearchUrl(query)
             }
-            // Remove port number if present
-            domain = domain.split(':')[0];
-            if (domain.lastIndexOf('.') != 3) { // http://www.com shouldn't be trimmed
-                domain = domain.replace(/^www\./, "");
+            validated()
+        }
+
+        function simplifyUrl(url) {
+            var urlString = url.toString()
+            var hasProtocol = urlString.indexOf("://") != -1
+            var domain
+            if (hasProtocol) {
+                if (urlString.split("://")[0] == "file") {
+                    // Don't process file:// urls
+                    return url
+                }
+                domain = urlString.split('/')[2]
+            } else {
+                domain = urlString.split('/')[0]
             }
-            return domain;
-        } else {
-            return url;
+            if (typeof domain !== 'undefined' && domain.length > 0) {
+                // Remove user component if present
+                var userRemoved = domain.split('@')[1]
+                if (typeof userRemoved !== 'undefined') {
+                    domain = userRemoved
+                }
+                // Remove port number if present
+                domain = domain.split(':')[0]
+                if (domain.lastIndexOf('.') != 3) { // http://www.com shouldn't be trimmed
+                    domain = domain.replace(/^www\./, "")
+                }
+                return domain
+            } else {
+                return url
+            }
+        }
+    }
+
+    onActiveFocusChanged: {
+        if (activeFocus) {
+            text = actualUrl
+        } else if (!loading && actualUrl.toString()) {
+            text = internal.simplifyUrl(actualUrl)
         }
     }
 
     onActualUrlChanged: {
-        if(actualUrl.toString().length > 0) {
-            text = simplifyUrl(actualUrl)
+        if (state != "editing") {
+            text = internal.simplifyUrl(actualUrl)
         }
     }
-    onRequestedUrlChanged: text = simplifyUrl(requestedUrl)
+    onRequestedUrlChanged: {
+        if (state != "editing") {
+            text = internal.simplifyUrl(requestedUrl)
+        }
+    }
+
+    function showSecurityCertificateDetails() {
+        if (!internal.securityCertificateDetails) {
+            internal.securityCertificateDetails = PopupUtils.open(Qt.resolvedUrl("SecurityCertificatePopover.qml"), certificatePopoverPositioner, {"securityStatus": securityStatus})
+        }
+    }
+
+    function hideSecurityCertificateDetails() {
+        if (internal.securityCertificateDetails) {
+            var popup = internal.securityCertificateDetails
+            internal.securityCertificateDetails = null
+            PopupUtils.close(popup)
+        }
+    }
 }

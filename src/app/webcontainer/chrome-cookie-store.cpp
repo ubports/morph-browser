@@ -33,19 +33,6 @@ ChromeCookieStore::ChromeCookieStore(QObject* parent):
                      this, SLOT(oxideCookiesUpdated(const QList<QNetworkCookie>&)));
 }
 
-void ChromeCookieStore::setHomepage(const QUrl& homepage) {
-    if (homepage == m_homepage)
-        return;
-
-    m_homepage = homepage;
-
-    emit homepageChanged();
-}
-
-QUrl ChromeCookieStore::homepage() const {
-    return m_homepage;
-}
-
 void ChromeCookieStore::setOxideStoreBackend(QObject* backend)
 {
     m_cookieHelper->setOxideStoreBackend(backend);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-22 14:59+0100\n"
+"POT-Creation-Date: 2014-11-13 13:56+0100\n"
 "PO-Revision-Date: 2014-01-25 21:41+0000\n"
 "Last-Translator: Gangov <Unknown>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-27 06:26+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-12-16 07:31+0000\n"
+"X-Generator: Launchpad (build 17286)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -121,7 +121,7 @@ msgid "Permission Request"
 msgstr "Необходимо е разрешение"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:65
+#: src/app/webcontainer/WebViewImplWebkit.qml:68
 msgid "This page wants to know your device’s location."
 msgstr ""
 
@@ -394,46 +394,41 @@ msgstr ""
 msgid "Share…"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:214
-msgid "This site has insecure content"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:229
-msgid "You are connected to"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:251
-msgid "Which is run by"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:335
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:179
+#: src/app/webbrowser/BookmarksList.qml:67
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:190
 msgid "Share"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:193
+#: src/app/webbrowser/Browser.qml:204
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:200
+#: src/app/webbrowser/Browser.qml:211
 msgid "Open tabs"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:107
+#: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:121
+#: src/app/webbrowser/ExpandedHistoryView.qml:194
 msgid "Less"
 msgstr ""
 
@@ -445,71 +440,67 @@ msgstr ""
 msgid "Yesterday"
 msgstr "Вчера"
 
-#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:113
-msgid "Clear"
-msgstr ""
-
-#: src/app/webbrowser/HistoryView.qml:127
-msgid "Delete all history?"
-msgstr ""
-
-#: src/app/webbrowser/HistoryView.qml:130
-msgid "Yes"
-msgstr ""
-
-#: src/app/webbrowser/HistoryView.qml:139
-msgid "No"
-msgstr ""
-
-#: src/app/webbrowser/NewTabView.qml:122
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
 msgstr "Отметки"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+msgid "This site has insecure content"
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+msgid "You are connected to"
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Which is run by"
 msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"
 msgstr ""
 
-#: src/app/webbrowser/TabsView.qml:115
+#: src/app/webbrowser/TabsView.qml:114
 msgid "Add"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:60
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:55
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Убунту Уеб Браузър"
 
-#: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 msgid "Ubuntu Web Browser"
 msgstr "Убунту Уеб Браузър"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:87
+#: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
 msgstr ""
 
-#: src/app/webcontainer/AccountsLoginPage.qml:92
+#: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
 msgstr ""
 
-#: src/app/webcontainer/AccountsLoginPage.qml:141
+#: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
 msgstr ""
 

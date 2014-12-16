@@ -17,13 +17,14 @@
  */
 
 #include "plugin.h"
-#include "favicon-image-provider.h"
 
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QObject>
 #include <QtCore/QStandardPaths>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 #include <QtCore/QtGlobal>
 #include <QtGui/QGuiApplication>
 #include <QtQml>
@@ -37,6 +38,7 @@ class UbuntuWebPluginContext : public QObject
     Q_PROPERTY(QString formFactor READ formFactor CONSTANT)
     Q_PROPERTY(QString webviewDevtoolsDebugHost READ devtoolsHost CONSTANT)
     Q_PROPERTY(int webviewDevtoolsDebugPort READ devtoolsPort CONSTANT)
+    Q_PROPERTY(QStringList webviewHostMappingRules READ hostMappingRules CONSTANT)
 
 public:
     UbuntuWebPluginContext(QObject* parent = 0);
@@ -45,6 +47,7 @@ public:
     QString formFactor();
     QString devtoolsHost();
     int devtoolsPort();
+    QStringList hostMappingRules();
 
 Q_SIGNALS:
     void dataLocationChanged() const;
@@ -53,11 +56,14 @@ private:
     QString m_formFactor;
     QString m_devtoolsHost;
     int m_devtoolsPort;
+    QStringList m_hostMappingRules;
+    bool m_hostMappingRulesQueried;
 };
 
 UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
     : QObject(parent)
     , m_devtoolsPort(-2)
+    , m_hostMappingRulesQueried(false)
 {
     connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
             this, SIGNAL(dataLocationChanged()));
@@ -104,6 +110,22 @@ QString UbuntuWebPluginContext::formFactor()
         }
     }
     return m_formFactor;
+}
+
+QStringList UbuntuWebPluginContext::hostMappingRules()
+{
+    static const QString HOST_MAPPING_RULES_SEP = ",";
+
+    if (!m_hostMappingRulesQueried) {
+        const char* HOST_MAPPING_RULES_ENV_VAR = "UBUNTU_WEBVIEW_HOST_MAPPING_RULES";
+        if (qEnvironmentVariableIsSet(HOST_MAPPING_RULES_ENV_VAR)) {
+            QString rules(qgetenv(HOST_MAPPING_RULES_ENV_VAR));
+            // from http://src.chromium.org/svn/trunk/src/net/base/host_mapping_rules.h
+            m_hostMappingRules = rules.split(HOST_MAPPING_RULES_SEP);
+        }
+        m_hostMappingRulesQueried = true;
+    }
+    return m_hostMappingRules;
 }
 
 QString UbuntuWebPluginContext::devtoolsHost()
@@ -161,8 +183,6 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
         // calculating the proper pixel ratio by device/screen).
         context->setContextProperty("QtWebKitDPR", getQtWebkitDpr());
     }
-
-    engine->addImageProvider("favicon", new FaviconImageProvider());
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)

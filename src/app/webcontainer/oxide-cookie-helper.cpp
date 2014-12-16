@@ -53,6 +53,7 @@ OxideCookieHelperPrivate::OxideCookieHelperPrivate(OxideCookieHelper* q):
     m_backend(0),
     q_ptr(q)
 {
+    qRegisterMetaType<QList<QNetworkCookie> >();
 }
 
 void OxideCookieHelperPrivate::setCookies(const QList<QNetworkCookie>& cookies)
@@ -75,7 +76,7 @@ void OxideCookieHelperPrivate::setCookies(const QList<QNetworkCookie>& cookies)
         /* We don't simply use Q_EMIT because we want the signal to be emitted
          * asynchronously */
         QMetaObject::invokeMethod(q, "cookiesSet", Qt::QueuedConnection,
-                                  Q_ARG(const QList<QNetworkCookie>&, cookies));
+                                  Q_ARG(QList<QNetworkCookie>, cookies));
         return;
     }
 
@@ -119,8 +120,8 @@ void OxideCookieHelperPrivate::setCookies(const QList<QNetworkCookie>& cookies)
         QMetaObject::invokeMethod(m_backend, "setNetworkCookies",
                                   Qt::DirectConnection,
                                   Q_RETURN_ARG(int, requestId),
-                                  Q_ARG(const QUrl&, url),
-                                  Q_ARG(const QList<QNetworkCookie>&, it.value()));
+                                  Q_ARG(QUrl, url),
+                                  Q_ARG(QList<QNetworkCookie>, it.value()));
         if (Q_UNLIKELY(requestId == -1)) {
             m_failedCookies.append(cookiesWithDomain(it.value(), url.host()));
         } else {
@@ -133,7 +134,7 @@ void OxideCookieHelperPrivate::setCookies(const QList<QNetworkCookie>& cookies)
         /* We don't simply use Q_EMIT because we want the signal to be emitted
          * asynchronously */
         QMetaObject::invokeMethod(q, "cookiesSet", Qt::QueuedConnection,
-                                  Q_ARG(const QList<QNetworkCookie>&, m_failedCookies));
+                                  Q_ARG(QList<QNetworkCookie>, m_failedCookies));
     }
 }
 

@@ -116,15 +116,14 @@ void OnlineAccountsCookieStore::doGetCookies()
 
     if (arguments.count() > 1)
     {
-        QDateTime t;
-        QVariant timeStampVariant(arguments.at(1));
-        if (timeStampVariant.canConvert(QMetaType::LongLong))
+        qint64 timeStamp = arguments.at(1).toLongLong();
+        if (timeStamp != 0)
         {
             qDebug() << "Got a cookie timestamp of"
-                     << arguments.at(1).toLongLong()
+                     << timeStamp
                      << "from Online Accounts DBUS cookiesForIdentity() call.";
 
-            t.fromMSecsSinceEpoch(arguments.at(1).toLongLong() * 1000);
+            QDateTime t = QDateTime::fromMSecsSinceEpoch(timeStamp * 1000);
             updateLastUpdateTimestamp(t);
         }
     }

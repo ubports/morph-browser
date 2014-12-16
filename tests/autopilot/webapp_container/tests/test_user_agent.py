@@ -1,6 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-#
-# Copyright 2013-2014 Canonical
+# Copyright 2014 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -17,15 +16,20 @@
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
-from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
+from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 
 
-class TestAddressBarActionButton(StartOpenRemotePageTestCaseBase):
+class WebappUserAgentTestCase(
+        WebappContainerTestCaseWithLocalContentBase):
 
-    def test_button_disabled_when_text_is_empty(self):
-        self.clear_address_bar()
-        address_bar = self.main_window.get_chrome().get_address_bar()
-        action_button = address_bar.get_action_button()
-        self.assertThat(action_button.enabled, Eventually(Equals(False)))
-        self.type_in_address_bar("ubuntu")
-        self.assertThat(action_button.enabled, Eventually(Equals(True)))
+    def test_override_user_agent(self):
+        args = ['--user-agent-string=MyUserAgent']
+        self.launch_webcontainer_app_with_local_http_server(
+            args,
+            '/show-user-agent')
+        self.get_webcontainer_window().visible.wait_for(True)
+
+        # trick until we get e.g. selenium/chromedriver tests
+        result = 'MyUserAgent MyUserAgent'
+        self.assertThat(self.get_oxide_webview().title,
+                        Eventually(Equals(result)))

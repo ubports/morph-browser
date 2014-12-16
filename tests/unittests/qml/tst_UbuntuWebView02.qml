@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -27,21 +27,11 @@ TestCase {
         compare(webview1.context, webview2.context)
     }
 
-    function test_custom_UA_override() {
-        compare(webview1.getUAString(), undefined)
-        verify(webview1.context.userAgent !== undefined)
-        compare(webview2.context.userAgent, "custom UA")
-    }
-
     WebView {
         id: webview1
     }
 
     WebView {
         id: webview2
-
-        function getUAString(url) {
-            return "custom UA"
-        }
     }
 }

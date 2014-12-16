@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-22 14:59+0100\n"
+"POT-Creation-Date: 2014-11-13 13:56+0100\n"
 "PO-Revision-Date: 2014-08-28 16:27+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-09-27 06:26+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-12-16 07:31+0000\n"
+"X-Generator: Launchpad (build 17286)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -122,7 +122,7 @@ msgid "Permission Request"
 msgstr "Potrebna dozvola"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:65
+#: src/app/webcontainer/WebViewImplWebkit.qml:68
 msgid "This page wants to know your device’s location."
 msgstr "Ova stranica želi znati lokaciju vašeg uređaja."
 
@@ -138,11 +138,11 @@ msgstr "Dozvoli"
 
 #: src/app/InvalidCertificateErrorSheet.qml:58
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "Sigurnosni certifikat ove stranice nije pouzdan.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"
-msgstr ""
+msgstr "Saznajte više"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:90
@@ -151,6 +151,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"Serijski broj:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:97
@@ -159,6 +161,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Tema:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:105
@@ -167,6 +171,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Adresa teme:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:116
@@ -175,6 +181,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"Izdavač:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:124
@@ -183,6 +191,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"Adresa izdavača:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:135
@@ -191,6 +201,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Važi od:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:142
@@ -199,6 +211,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Važi do:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:149
@@ -207,12 +221,16 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Otisak (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:155
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"Ne bi ste trebali nastaviti, naročito ako niste do sada vidjeli ovakvo "
+"upozorenje za ovu stranicu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -221,6 +239,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"Pokušali ste pristupiti %1 ali server je poslao sigurnosni certifikat koji "
+"se ne poklapa sa identitetom stranice."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -229,6 +249,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"Pokušali ste pristupiti %1 ali server je poslao sigurnosni certifikat koji "
+"je istekao."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -237,6 +259,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"Pokušali ste pristupiti %1 ali server je poslao sigurnosni certifikat koji "
+"sadrži pogrešne datume."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -245,6 +269,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"Pokušali ste pristupiti %1 ali server je poslao sigurnosni certifikat nije "
+"pouzdan."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -253,6 +279,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"Pokušali ste pristupiti %1 ali server je poslao sigurnosni certifikat koji "
+"je ukinut."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -261,6 +289,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"revokedPokušali ste pristupiti %1 ali server je poslao nevažeći sigurnosni "
+"certifikat."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -269,6 +299,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"revokedPokušali ste pristupiti %1 ali server je poslao nepouzdan sigurnosni "
+"certifikat."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:211
@@ -278,6 +310,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"Sigurnosti certifikat ove stranice nije pouzdan\n"
+"Pokušali ste pristupiti %1 ali server je poslao sigurnosni certifikat koji "
+"nije prošao naše sigurnosne provjere iz nepoznatih razloga."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -395,39 +430,34 @@ msgstr "Sačuvaj sliku"
 msgid "Share…"
 msgstr "Podijeli..."
 
-#: src/app/webbrowser/AddressBar.qml:214
-msgid "This site has insecure content"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:229
-msgid "You are connected to"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:251
-msgid "Which is run by"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:335
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "traži ili unesi adresu"
 
-#: src/app/webbrowser/Browser.qml:179
+#: src/app/webbrowser/BookmarksList.qml:67
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:190
 msgid "Share"
 msgstr "Podijeli"
 
-#: src/app/webbrowser/Browser.qml:193
+#: src/app/webbrowser/Browser.qml:204
 msgid "History"
 msgstr "Historija"
 
-#: src/app/webbrowser/Browser.qml:200
+#: src/app/webbrowser/Browser.qml:211
 msgid "Open tabs"
 msgstr "Otvoreni tabovi"
 
-#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Novi tab"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:107
+#: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -435,7 +465,7 @@ msgstr[0] "%1 stranica"
 msgstr[1] "%1 stranice"
 msgstr[2] "%1 stranice"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:121
+#: src/app/webbrowser/ExpandedHistoryView.qml:194
 msgid "Less"
 msgstr "Manje"
 
@@ -447,71 +477,67 @@ msgstr "Zadnje posjećeno"
 msgid "Yesterday"
 msgstr "Jučer"
 
-#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr "Gotovo"
 
-#: src/app/webbrowser/HistoryView.qml:113
-msgid "Clear"
-msgstr "Očistiti"
-
-#: src/app/webbrowser/HistoryView.qml:127
-msgid "Delete all history?"
-msgstr "Obrisati svu historiju?"
-
-#: src/app/webbrowser/HistoryView.qml:130
-msgid "Yes"
-msgstr "Da"
-
-#: src/app/webbrowser/HistoryView.qml:139
-msgid "No"
-msgstr "Ne"
-
-#: src/app/webbrowser/NewTabView.qml:122
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
 msgstr "Zabilješke"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
 msgstr "Omiljene stranice"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
 msgstr "vidi manje"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr "vidi više"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+msgid "This site has insecure content"
+msgstr "Sadržaj ove stranice nije siguran"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+msgid "You are connected to"
+msgstr "Povezani ste na"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Which is run by"
+msgstr "Koji pokreće"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"
 msgstr "Klikni da vidiš"
 
-#: src/app/webbrowser/TabsView.qml:115
+#: src/app/webbrowser/TabsView.qml:114
 msgid "Add"
 msgstr "Dodaj"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:60
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:55
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu Web preglednik"
 
-#: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Web preglednik"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:87
+#: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
 msgstr "Nije pronađen lokalni račun za "
 
-#: src/app/webcontainer/AccountsLoginPage.qml:92
+#: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
 msgstr "Preskoči pravljenje računa"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:141
+#: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
 msgstr "Dodaj račun"
 
@@ -534,3 +560,15 @@ msgstr "Pretražujte internet"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Preglednik;Web;Pretraživač"
+
+#~ msgid "Clear"
+#~ msgstr "Očistiti"
+
+#~ msgid "No"
+#~ msgstr "Ne"
+
+#~ msgid "Yes"
+#~ msgstr "Da"
+
+#~ msgid "Delete all history?"
+#~ msgstr "Obrisati svu historiju?"

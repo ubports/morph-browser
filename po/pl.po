@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-22 14:59+0100\n"
+"POT-Creation-Date: 2014-11-13 13:56+0100\n"
 "PO-Revision-Date: 2014-08-03 14:44+0000\n"
 "Last-Translator: GTriderXC <gtriderxc@yahoo.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-09-27 06:27+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-12-16 07:31+0000\n"
+"X-Generator: Launchpad (build 17286)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -30,13 +30,13 @@ msgstr "OK"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr "Wymagana autoryzacja."
+msgstr "Wymagane uwierzytelnienie."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Strona %1 wymaga autoryzacji."
+msgstr "Strona %1 wymaga uwierzytelnienia."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
@@ -57,7 +57,7 @@ msgstr "Potwierdź nawigację"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr "Wyjdź"
+msgstr "Opuść"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
@@ -105,15 +105,15 @@ msgstr "Wystąpił problem z wyświetleniem: %1."
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"Zalecane jest sprawdzenie połączenia sieciowego oraz odświeżenie strony"
+"Zalecane jest sprawdzenie połączenia sieciowego oraz ponowne wczytanie strony"
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "Odśwież stronę"
+msgstr "Wczytaj ponownie stronę"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr "Wybierz plik"
+msgstr "Proszę wybrać plik"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
@@ -121,7 +121,7 @@ msgid "Permission Request"
 msgstr "Wymagane zezwolenie"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:65
+#: src/app/webcontainer/WebViewImplWebkit.qml:68
 msgid "This page wants to know your device’s location."
 msgstr "Ta strona prosi o informacje dotyczące lokalizacji urządznia"
 
@@ -394,39 +394,34 @@ msgstr "Zapisz obraz"
 msgid "Share…"
 msgstr "Udostępnij..."
 
-#: src/app/webbrowser/AddressBar.qml:214
-msgid "This site has insecure content"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:229
-msgid "You are connected to"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:251
-msgid "Which is run by"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:335
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "wyszukaj lub wprowadź adres"
 
-#: src/app/webbrowser/Browser.qml:179
+#: src/app/webbrowser/BookmarksList.qml:67
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:190
 msgid "Share"
 msgstr "Udostępnij"
 
-#: src/app/webbrowser/Browser.qml:193
+#: src/app/webbrowser/Browser.qml:204
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:200
+#: src/app/webbrowser/Browser.qml:211
 msgid "Open tabs"
 msgstr "Otwarte karty"
 
-#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Nowa karta"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:107
+#: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -434,7 +429,7 @@ msgstr[0] "%1 strona"
 msgstr[1] "%1 strony"
 msgstr[2] "%1 stron"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:121
+#: src/app/webbrowser/ExpandedHistoryView.qml:194
 msgid "Less"
 msgstr "Mniej"
 
@@ -446,71 +441,67 @@ msgstr "Ostatnio odwiedzone"
 msgid "Yesterday"
 msgstr "Wczoraj"
 
-#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
 msgstr "Gotowe"
 
-#: src/app/webbrowser/HistoryView.qml:113
-msgid "Clear"
-msgstr "Wyczyść"
-
-#: src/app/webbrowser/HistoryView.qml:127
-msgid "Delete all history?"
-msgstr "Wyczyścić historię?"
-
-#: src/app/webbrowser/HistoryView.qml:130
-msgid "Yes"
-msgstr "Tak"
-
-#: src/app/webbrowser/HistoryView.qml:139
-msgid "No"
-msgstr "Nie"
-
-#: src/app/webbrowser/NewTabView.qml:122
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
 msgstr "Zakładki"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
 msgstr "Najczęściej odwiedzane"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
 msgstr "pokaż mniej"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr "pokaż więcej"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+msgid "This site has insecure content"
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+msgid "You are connected to"
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Which is run by"
+msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"
 msgstr ""
 
-#: src/app/webbrowser/TabsView.qml:115
+#: src/app/webbrowser/TabsView.qml:114
 msgid "Add"
 msgstr "Dodaj"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:60
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:55
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Przeglądarka internetowa Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 msgid "Ubuntu Web Browser"
 msgstr "Przeglądarka internetowa Ubuntu"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:87
+#: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
 msgstr "Nie odnaleziono konta "
 
-#: src/app/webcontainer/AccountsLoginPage.qml:92
+#: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
 msgstr "Pomiń tworzenie konta"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:141
+#: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
 msgstr "Dodaj konto"
 
@@ -533,3 +524,15 @@ msgstr "Przeglądanie sieci WWW"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr ""
+
+#~ msgid "Clear"
+#~ msgstr "Wyczyść"
+
+#~ msgid "No"
+#~ msgstr "Nie"
+
+#~ msgid "Yes"
+#~ msgstr "Tak"
+
+#~ msgid "Delete all history?"
+#~ msgstr "Wyczyścić historię?"

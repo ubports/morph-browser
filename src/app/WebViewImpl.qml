@@ -26,9 +26,6 @@ WebView {
     id: webview
 
     property var currentWebview: webview
-    property var certificateError
-    // Invalid certificates the user has explicitly allowed for this session
-    property var allowedCertificates: []
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
     experimental.authenticationDialog: AuthenticationDialog {}
@@ -41,6 +38,7 @@ WebView {
 
     QtObject {
         id: internal
+
         readonly property var downloadMimeTypesBlacklist: [
             "application/x-shockwave-flash", // http://launchpad.net/bugs/1379806
         ]
@@ -88,13 +86,5 @@ WebView {
                         webview.currentWebview, {"request": request})
         // TODO: we might want to store the answer to avoid requesting
         //       the permission everytime the user visits this site.
-    }
-
-    onCertificateError: {
-        if(webview.allowedCertificates.indexOf(error.certificate.fingerprintSHA1) != -1) {
-            error.allow()
-        } else {
-            certificateError = error
-        }
     }
 }
