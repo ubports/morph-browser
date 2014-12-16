@@ -25,7 +25,11 @@ add_library(${WEBBROWSER_APP_MODELS} STATIC ${WEBBROWSER_APP_MODELS_SRC})
 
 qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Sql)
 
+include_directories(${Qt5Quick_PRIVATE_INCLUDE_DIRS})
+
 set(WEBBROWSER_APP_SRC
+    file-operations.cpp
+    item-capture.cpp
     searchengine.cpp
     settings.cpp
     webbrowser-app.cpp
@@ -37,7 +41,7 @@ add_executable(${WEBBROWSER_APP} ${WEBBROWSER_APP_SRC})
 
 target_link_libraries(${WEBBROWSER_APP} ${COMMONLIB} ${WEBBROWSER_APP_MODELS})
 
-qt5_use_modules(${WEBBROWSER_APP} Core Gui Qml Quick)
+qt5_use_modules(${WEBBROWSER_APP} Concurrent Core Gui Qml Quick)
 
 install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
@@ -48,6 +52,10 @@ install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/w
 install(DIRECTORY assets
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
         FILES_MATCHING PATTERN *.png)
+
+install(DIRECTORY upstreamcomponents
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
+        FILES_MATCHING PATTERN *.qml)
 
 configure_file(${DESKTOP_FILE}.in.in ${DESKTOP_FILE}.in @ONLY)
 add_custom_target(${DESKTOP_FILE} ALL

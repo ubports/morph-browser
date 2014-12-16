@@ -23,9 +23,14 @@
 #include <QtCore/QStringList>
 
 
+class QUrl;
+
 namespace UrlPatternUtils {
 
-QString transformWebappSearchPatternToSafePattern(const QString&);
+QString transformWebappSearchPatternToSafePattern(const QString&
+                                                  , bool doTransformUrlPath = true);
+
+bool isLocalHtml5ApplicationHomeUrl(const QUrl&);
 
 QStringList filterAndTransformUrlPatterns(const QStringList & includePatterns);
 

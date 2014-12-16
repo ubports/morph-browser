@@ -206,6 +206,13 @@ function filenameToContentType(filename) {
         case "wmls":
         case "wsc":
             return ContentType.Documents;
+        case "epub":
+        case "mobi":
+        case "lit":
+        case "fb2":
+        case "azw":
+        case "tpz":
+            return ContentType.EBooks;
         default:
             return ContentType.Unknown;
     }

@@ -91,7 +91,7 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assert_suggestions_eventually_hidden()
         self.type_in_address_bar("u")
         self.assert_suggestions_eventually_shown()
-        self.assertThat(listview.count, Eventually(Equals(7)))
+        self.assertThat(listview.count, Eventually(Equals(6)))
         self.type_in_address_bar("b")
         self.assertThat(listview.count, Eventually(Equals(5)))
         self.type_in_address_bar("leh")

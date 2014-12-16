@@ -26,22 +26,101 @@ class RequestHandler(http.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(content.encode())
 
-    def basic_html_content(self):
+    def basic_html_content(self, content="basic"):
         return """
 <html>
 <head>
 <title>Some content</title>
 </head>
 <body>
-This is some content
+This is some {} content
+</body>
+</html>
+        """.format(content)
+
+    def redirect_html_content(self):
+        return """
+<html>
+<head>
+<title>Some content</title>
+</head>
+<body>
+<div><a href='/redirect?url=myredirect&s=1&r=2' target='_blank'>
+<div style="height: 100%; width: 100%"></div>
+</a></div>
 </body>
 </html>
         """
+
+    def external_click_content(self):
+        return """
+<html>
+<head>
+<title>Some content</title>
+</head>
+<body>
+<div><a href='http://www.ubuntu.com/'>
+<div style="height: 100%; width: 100%"></div>
+</a></div>
+</body>
+</html>
+        """
+
+    def targetted_click_content(self, differentDomain=True):
+        url = 'http://www.test.com/'
+        if differentDomain:
+            url = 'http://www.ubuntu.com/'
+        return """
+<html>
+<head>
+<title>Some content</title>
+</head>
+<body>
+<div><a href='{}' target='_blank'>
+<div style="height: 100%; width: 100%"></div>
+</a></div>
+</body>
+</html>
+        """.format(url)
+
+    def display_ua_content(self):
+        return """
+<html>
+<head>
+<title>Some content</title>
+<script>
+window.onload = function() {{
+  document.title = navigator.userAgent + " " + {};
+}}
+</script>
+</head>
+<body>
+</body>
+</html>
+        """.format("'"+self.headers['user-agent']+"'")
 
     def do_GET(self):
         if self.path == '/':
             self.send_response(200)
             self.serve_content(self.basic_html_content())
+        elif self.path == '/other':
+            self.send_response(200)
+            self.serve_content(self.basic_html_content("other"))
+        elif self.path == '/get-redirect':
+            self.send_response(200)
+            self.serve_content(self.redirect_html_content())
+        elif self.path == '/with-external-link':
+            self.send_response(200)
+            self.serve_content(self.external_click_content())
+        elif self.path == '/with-targetted-link':
+            self.send_response(200)
+            self.serve_content(self.targetted_click_content(False))
+        elif self.path == '/with-different-targetted-link':
+            self.send_response(200)
+            self.serve_content(self.targetted_click_content())
+        elif self.path == '/show-user-agent':
+            self.send_response(200)
+            self.serve_content(self.display_ua_content())
         else:
             self.send_error(404)
 

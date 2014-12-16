@@ -30,7 +30,6 @@ class ChromeCookieStore : public CookieStore
 {
     Q_OBJECT
 
-    Q_PROPERTY(QUrl homepage READ homepage WRITE setHomepage NOTIFY homepageChanged)
     Q_PROPERTY(QString dbPath READ dbPath WRITE setDbPath NOTIFY dbPathChanged)
     Q_PROPERTY(QObject* oxideStoreBackend READ oxideStoreBackend WRITE setOxideStoreBackend NOTIFY oxideStoreBackendChanged)
 
@@ -40,10 +39,6 @@ public:
     // dbpaths
     void setDbPath(const QString& path);
     QString dbPath() const;
-
-    // dbpaths
-    void setHomepage(const QUrl& path);
-    QUrl homepage() const;
 
     // oxideStoreBackend
     void setOxideStoreBackend(QObject* backend);
@@ -55,7 +50,6 @@ public:
 Q_SIGNALS:
     void dbPathChanged();
     void oxideStoreBackendChanged();
-    void homepageChanged();
 
 private Q_SLOTS:
     void oxideCookiesReceived(int requestId, const QVariant& cookies);
@@ -67,7 +61,6 @@ private:
 
 private:
     OxideCookieHelper* m_cookieHelper;
-    QUrl m_homepage;
     QString m_dbPath;
 };
 

@@ -158,8 +158,15 @@ bool WebappContainer::initialize()
 
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
 
-        if ( ! m_popupRedirectionUrlPrefix.isEmpty()) {
-            m_window->setProperty("popupRedirectionUrlPrefix", m_popupRedirectionUrlPrefix);
+        if ( ! m_popupRedirectionUrlPrefixPattern.isEmpty()) {
+            const QString WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR =
+                qgetenv("WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL");
+            m_window->setProperty(
+                        "popupRedirectionUrlPrefixPattern",
+                        WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR == "1"
+                        ? m_popupRedirectionUrlPrefixPattern
+                        : UrlPatternUtils::transformWebappSearchPatternToSafePattern(
+                              m_popupRedirectionUrlPrefixPattern, false));
         }
 
         if (!m_userAgentOverride.isEmpty()) {
@@ -172,16 +179,37 @@ bool WebappContainer::initialize()
             m_window->setProperty("webviewOverrideFile", QUrl::fromLocalFile(overrideFile.absoluteFilePath()));
         }
 
-        // When a webapp is being launched by name, the URL is pulled from its 'homepage'.
-        if (m_webappName.isEmpty()) {
-            QList<QUrl> urls = this->urls();
-            if (!urls.isEmpty()) {
-                m_window->setProperty("url", urls.last());
-            } else if (m_webappModelSearchPath.isEmpty()) {
-                return false;
+        const QString WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY_ENV_VAR =
+            qgetenv("WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY");
+        if (WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY_ENV_VAR == "1") {
+            m_window->setProperty("blockOpenExternalUrls", true);
+        }
+
+        bool runningLocalApp = false;
+        QList<QUrl> urls = this->urls();
+        if (!urls.isEmpty()) {
+            QUrl homeUrl = urls.last();
+            m_window->setProperty("url", homeUrl);
+            if (UrlPatternUtils::isLocalHtml5ApplicationHomeUrl(homeUrl)) {
+                qDebug() << "Started as a local application container.";
+                runningLocalApp = true;
             }
-            // Otherwise, assume that the homepage will come from a locally defined
-            // webapp-properties.json file pulled from the webapp model element.
+        } else if (m_webappModelSearchPath.isEmpty()
+                   && m_webappName.isEmpty()) {
+            qCritical() << "No starting homepage provided";
+            return false;
+        }
+
+        // Otherwise, assume that the homepage will come from a locally defined
+        // webapp-properties.json file pulled from the webapp model element
+        // or from a default local system install (if any).
+
+        m_window->setProperty("runningLocalApplication", runningLocalApp);
+
+        // Handle the invalid runtime conditions for the local apps
+        if (runningLocalApp && !isValidLocalApplicationRunningContext()) {
+            qCritical() << "Cannot run a local HTML5 application, invalid command line flags detected.";
+            return false;
         }
 
         m_component->completeCreate();
@@ -190,6 +218,14 @@ bool WebappContainer::initialize()
     } else {
         return false;
     }
+}
+
+bool WebappContainer::isValidLocalApplicationRunningContext() const
+{
+    return m_webappModelSearchPath.isEmpty() &&
+        m_popupRedirectionUrlPrefixPattern.isEmpty() &&
+        m_webappUrlPatterns.isEmpty() &&
+        m_webappName.isEmpty();
 }
 
 void WebappContainer::qmlEngineCreated(QQmlEngine* engine)
@@ -278,7 +314,7 @@ void WebappContainer::parseCommandLine()
         } else if (argument == "--local-webapp-manifest") {
             m_localWebappManifest = true;
         } else if (argument.startsWith("--popup-redirection-url-prefix=")) {
-            m_popupRedirectionUrlPrefix = argument.split("--popup-redirection-url-prefix=")[1];
+            m_popupRedirectionUrlPrefixPattern = argument.split("--popup-redirection-url-prefix=")[1];
         } else if (argument.startsWith("--local-cookie-db-path=")) {
             m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];
         } else if (argument.startsWith("--user-agent-string=")) {
@@ -330,6 +366,46 @@ QString WebappContainer::getExtraWebappUrlPatterns() const
         extraUrlPatternsSetting.endGroup();
     }
     return extraPatterns;
+}
+
+bool WebappContainer::isValidLocalResource(const QString& resourceName) const
+{
+    QFileInfo info(resourceName);
+    return info.isFile() && info.exists();
+}
+
+bool WebappContainer::shouldNotValidateCommandLineUrls() const
+{
+    return qEnvironmentVariableIsSet("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS")
+            && QString(qgetenv("WEBAPP_CONTAINER_SHOULD_NOT_VALIDATE_CLI_URLS")) == "1";
+}
+
+QList<QUrl> WebappContainer::urls() const
+{
+    QList<QUrl> urls;
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (!argument.startsWith("-")) {
+            // This is used for testing to avoid having existing
+            // resources to run against.
+            if (shouldNotValidateCommandLineUrls()) {
+                urls.append(argument.startsWith("file://")
+                            ? argument
+                            : (QString("file://") + argument));
+                continue;
+            }
+
+            QUrl url;
+            if (isValidLocalResource(argument)) {
+                url = QUrl::fromLocalFile(QFileInfo(argument).absoluteFilePath());
+            } else {
+                url = QUrl::fromUserInput(argument);
+            }
+            if (url.isValid()) {
+                urls.append(url);
+            }
+        }
+    }
+    return urls;
 }
 
 int main(int argc, char** argv)

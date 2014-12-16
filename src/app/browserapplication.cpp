@@ -35,6 +35,7 @@
 // local
 #include "browserapplication.h"
 #include "config.h"
+#include "favicon-fetcher.h"
 #include "session-storage.h"
 #include "webbrowser-window.h"
 
@@ -130,8 +131,10 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     glcontext->create();
 #if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
     QSGContext::setSharedOpenGLContext(glcontext);
-#else
+#elif QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
     QOpenGLContextPrivate::setGlobalShareContext(glcontext);
+#else
+    qt_gl_set_global_share_context(glcontext);
 #endif
 
     QString devtoolsPort = inspectorPort();
@@ -143,6 +146,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     }
 
     const char* uri = "webbrowsercommon.private";
+    qmlRegisterType<FaviconFetcher>(uri, 0, 1, "FaviconFetcher");
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
 
     m_engine = new QQmlEngine;
@@ -169,6 +173,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     m_webbrowserWindowProxy->setWindow(m_window);
 
     browser->setProperty("developerExtrasEnabled", inspectorEnabled);
+    browser->setProperty("forceFullscreen", m_arguments.contains("--fullscreen"));
 
     return true;
 }

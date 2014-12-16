@@ -34,28 +34,7 @@ Oxide.WebView {
      */
     function navigationRequestedDelegate(request) { }
 
-    /**
-     * This function can be overridden by client applications that embed an
-     * UbuntuWebView to provide a static overridden UA string.
-     * If not overridden, the default UA string and the default override
-     * mechanism will be used.
-     *
-     * Note: as the UA string is a property of the shared context,
-     * an application that embeds several UbuntuWebViews that define different
-     * custom UA strings will result in the last view instantiated setting the
-     * UA for all the views.
-     */
-    function getUAString() {
-        return undefined
-    }
-
     context: SharedWebContext.sharedContext
-    Component.onCompleted: {
-        var customUA = getUAString()
-        if (customUA !== undefined) {
-            SharedWebContext.customUA = customUA
-        }
-    }
 
     messageHandlers: [
         Oxide.ScriptMessageHandler {

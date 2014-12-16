@@ -47,7 +47,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
     def test_open_new_tab(self):
         self.open_new_tab()
         new_tab_view = self.main_window.get_new_tab_view()
-        url = self.base_url + "/aleaiactaest"
+        url = self.base_url + "/test2"
         if model() != 'Desktop':
             self.focus_address_bar()
         self.type_in_address_bar(url)
@@ -71,7 +71,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
     def test_close_current_tab(self):
         self.open_new_tab()
         new_tab_view = self.main_window.get_new_tab_view()
-        url = self.base_url + "/aleaiactaest"
+        url = self.base_url + "/test2"
         if model() != 'Desktop':
             self.focus_address_bar()
         self.type_in_address_bar(url)
@@ -97,7 +97,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.open_new_tab()
         self.check_current_tab("")
         new_tab_view = self.main_window.get_new_tab_view()
-        url = self.base_url + "/aleaiactaest"
+        url = self.base_url + "/test2"
         if model() != 'Desktop':
             self.focus_address_bar()
         self.type_in_address_bar(url)
@@ -123,7 +123,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.open_new_tab()
         if model() != 'Desktop':
             self.focus_address_bar()
-        self.type_in_address_bar("htpp://invalid")
+        self.type_in_address_bar("http://invalid")
         self.keyboard.press_and_release("Enter")
         error = self.main_window.get_error_sheet()
         self.assertThat(error.visible, Eventually(Equals(True)))
@@ -144,7 +144,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
-        self.check_current_tab(self.base_url + "/aleaiactaest")
+        self.check_current_tab(self.base_url + "/test2")
         self.assert_number_webviews_eventually(2)
 
     def test_open_iframe_target_blank_in_new_tab(self):
@@ -153,7 +153,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_page_eventually_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
-        self.check_current_tab(self.base_url + "/aleaiactaest")
+        self.check_current_tab(self.base_url + "/test2")
         self.assert_number_webviews_eventually(2)
 
     def test_selecting_tab_focuses_webview(self):

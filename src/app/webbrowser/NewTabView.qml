@@ -29,6 +29,7 @@ Item {
     property QtObject historyModel
 
     signal bookmarkClicked(url url)
+    signal bookmarkRemoved(url url)
     signal historyEntryClicked(url url)
 
     QtObject {
@@ -78,6 +79,7 @@ Item {
     Rectangle {
         id: newTabBackground
         anchors.fill: parent
+        color: "#f6f6f6"
     }
 
     ListView {
@@ -142,6 +144,7 @@ Item {
             footerLabelVisible: bookmarksListModel.unlimitedCount > internal.bookmarksCountLimit
 
             onBookmarkClicked: newTabView.bookmarkClicked(url)
+            onBookmarkRemoved: newTabView.bookmarkRemoved(url)
             onFooterLabelClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
         }
     }

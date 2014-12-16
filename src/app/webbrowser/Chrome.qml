@@ -30,8 +30,6 @@ ChromeBase {
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
 
-    signal validated()
-
     FocusScope {
         anchors {
             fill: parent
@@ -56,7 +54,11 @@ ChromeBase {
             }
 
             enabled: chrome.webview ? chrome.webview.canGoBack : false
-            onTriggered: chrome.webview.goBack()
+            onTriggered: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                chrome.webview.resetCertificateError()
+                chrome.webview.goBack()
+            }
         }
 
         ChromeButton {
@@ -76,7 +78,11 @@ ChromeBase {
             }
 
             enabled: chrome.webview ? chrome.webview.canGoForward : false
-            onTriggered: chrome.webview.goForward()
+            onTriggered: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                chrome.webview.resetCertificateError()
+                chrome.webview.goForward()
+            }
         }
 
         AddressBar {
@@ -105,14 +111,17 @@ ChromeBase {
                 }
             }
 
-            onValidated: chrome.webview.url = requestedUrl
-            onRequestReload: chrome.webview.reload()
-            onRequestStop: chrome.webview.stop()
-            onTextFieldFocused: {
-                if (chrome.webview) {
-                    text = chrome.webview.url
-                }
+            onValidated: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                chrome.webview.resetCertificateError()
+                chrome.webview.url = requestedUrl
             }
+            onRequestReload: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                chrome.webview.resetCertificateError()
+                chrome.webview.reload()
+            }
+            onRequestStop: chrome.webview.stop()
 
             Connections {
                 target: chrome.webview
@@ -124,6 +133,11 @@ ChromeBase {
                     addressbar.actualUrl = ""
                     addressbar.actualUrl = chrome.webview.url
                 }
+            }
+
+            Connections {
+                target: chrome
+                onYChanged: addressbar.hideSecurityCertificateDetails()
             }
         }
 
@@ -160,6 +174,9 @@ ChromeBase {
         if (webview) {
             addressbar.actualUrl = webview.url
             addressbar.securityStatus = webview.securityStatus
+        } else {
+            addressbar.actualUrl = ""
+            addressbar.securityStatus = null
         }
     }
 

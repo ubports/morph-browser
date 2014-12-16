@@ -1,3 +1,213 @@
+webbrowser-app (0.23+15.04.20141212.1-0ubuntu1) vivid; urgency=low
+
+  [ Olivier Tilloy ]
+  * Optimize the capture functionality. (LP: #1359293, #1401045)
+  * Record host and error code along with certificate fingerprint when
+    whitelisting a certificate error. (LP: #1377194)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 12 Dec 2014 17:23:40 +0000
+
+webbrowser-app (0.23+15.04.20141212-0ubuntu1) vivid; urgency=low
+
+  [ Olivier Tilloy ]
+  * Remove the WebView.getUAString() API from version 0.2 of the
+    Ubuntu.Web module. It is currently not in use by any app in the
+    store. (LP: #1399601)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 12 Dec 2014 11:32:16 +0000
+
+webbrowser-app (0.23+15.04.20141211.4-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Take captures of live webviews and cache them on disk, to use them
+    as tab previews. (LP: #1359293, #1401045)
+  * Fix FTBFS on Qt 5.4. (LP: #1398372)
+  * Reset the webview’s certificate error when the user cancels it (by
+    e.g. committing a new navigation). (LP: #1398905, #1394925)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 11 Dec 2014 18:54:12 +0000
+
+webbrowser-app (0.23+15.04.20141208-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Fix the user agent override mechanism (and the race during the first
+    http request between the webview/webcontext creation and the
+    getUseragent call), (LP: #1393466)
+
+  [ Olivier Tilloy ]
+  * Updated bzr ignore rules.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 08 Dec 2014 21:59:22 +0000
+
+webbrowser-app (0.23+15.04.20141202.1-0ubuntu1) vivid; urgency=low
+
+  [ Alberto Mardegan ]
+  * Swap declaration order of Loaders
+
+  [ Olivier Tilloy ]
+  * Cosmetics: get rid of latin names in autopilot tests.
+  * Hide the certificate error page when validating a new URL. (LP:
+    #1394925)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 02 Dec 2014 13:17:05 +0000
+
+webbrowser-app (0.23+15.04.20141202-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Olivier Tilloy ]
+  * Replace the custom favicon image provider with a FaviconFetcher
+    component that better handles cancelling pending requests. (LP:
+    #1395748)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 02 Dec 2014 09:22:48 +0000
+
+webbrowser-app (0.23+15.04.20141126.1-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Fix desktop web container with local webapp install on desktop (LP:
+    #1396166)
+  * Adds a click hook for webapps that currently handles uninstall
+    cleanup options
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 26 Nov 2014 15:55:49 +0000
+
+webbrowser-app (0.23+15.04.20141125-0ubuntu1) vivid; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Alberto Mardegan ]
+  * Use a different data location for different accounts
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 25 Nov 2014 15:04:31 +0000
+
+webbrowser-app (0.23+15.04.20141121-0ubuntu1) vivid; urgency=low
+
+  [ CI bot ]
+  * Resync trunk
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Make use of the hostMappingRules in oxide and expose it in the
+    webcontext Improve container url AP tests with newly introduced
+    hostmapping in oxide 1.3
+  * HTML5 apps are currently using a specific container/launcher as
+    their runtime. They should use the webapp container instead. (LP:
+    #1392281, #1388988)
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 21 Nov 2014 20:38:17 +0000
+
+webbrowser-app (0.23+15.04.20141113-0ubuntu1) vivid; urgency=low
+
+  [ Michael Sheldon ]
+  * Add mimetype and file extension mappings for the new EBooks
+    ContentType. (LP: #1383732)
+
+  [ Olivier Tilloy ]
+  * Update runtime dependencies of -autopilot packages. Now that
+    autopilot has been removed from touch images, autopilot-touch is
+    what we should depend on to ensure all dependencies are correctly
+    installed prior to running tests using phablet-test-run.
+  * Factor the security certificate details popover out of the
+    AddressBar component, for improved maintainability.
+  * Simplify quite a bit the machinery needed to set up the QML tests.
+  * Always load the webview for a new tab right away. (LP: #1391609)
+  * Set a stroke color on toolbar buttons. (LP: #1351200)
+  * Add a sanity unit test that runs flake8 on the autopilot tests code.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 13 Nov 2014 06:24:30 +0000
+
+webbrowser-app (0.23+15.04.20141110-0ubuntu2) vivid; urgency=medium
+
+  * No-change rebuild against Qt 5.3.2.
+
+ -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Mon, 10 Nov 2014 17:33:35 +0200
+
+webbrowser-app (0.23+15.04.20141110-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * Fix facebook content hub share, the proper share API was not enabled
+    to access from the webapp-container. (LP: #1386682)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 10 Nov 2014 12:54:51 +0000
+
+webbrowser-app (0.23+15.04.20141107-0ubuntu1) vivid; urgency=low
+
+  [ Riccardo Padovani ]
+  * Enabled swipe gesture to delete a bookmark from the new tab view
+    (LP: #1351165)
+  * Fixed #1351149 - Opening a page from the history view should do it
+    in a new tab (LP: #1351149)
+
+  [ Alexandre Abreu ]
+  * Fix AP tests for webapp-container (LP: #1389194)
+  * Fix an inconsistent property binding that is mostly more than
+    annoying when the override mechanism is used in certain cases (e.g.
+    when the override does not directly implement the webview),
+
+  [ Olivier Tilloy ]
+  * Adjust the new tab view’s background colour to match the visual
+    spec. (LP: #1389610)
+  * Clean up the AddressBar component, and convert a number of related
+    autopilot tests to QML tests.
+  * Update dependency names for QML modules (but keep the old name as
+    well for backward compatibility).
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 07 Nov 2014 15:44:36 +0000
+
+webbrowser-app (0.23+15.04.20141104.1-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Riccardo Padovani ]
+  * Added new upstream components to fit with design requests: multiple
+    selection in History, standard swipe-to-delete. (LP: #1351167)
+
+  [ Olivier Tilloy ]
+  * Do not use a custom scheme to trigger the error page, this won’t
+    work any longer as soon as oxide learns how to delegate unhandled
+    schemes (see https://launchpad.net/bugs/1384460). (LP: #1384460)
+  * Ensure that the 'dataLocation' context property is updated when the
+    application name changes. (LP: #1387754)
+  * Really honour the --fullscreen command-line switch. (LP: #1379766)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 04 Nov 2014 15:22:49 +0000
+
+webbrowser-app (0.23+15.04.20141103.1-0ubuntu1) vivid; urgency=low
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+  [ Alexandre Abreu ]
+  * A Webapp has the option to either specify a command line option to
+    have a specific UA overriding the default or hgave a local webapp-
+    properties.json file that defines the UA override such as:
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 03 Nov 2014 18:44:00 +0000
+
 webbrowser-app (0.23+15.04.20141029.1-0ubuntu1) vivid; urgency=low
 
   [ CI bot ]

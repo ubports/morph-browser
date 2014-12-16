@@ -22,10 +22,11 @@ src/app/webbrowser/webbrowser-app
 src/app/webbrowser/webbrowser-app.desktop
 src/app/webbrowser/webbrowser-app.desktop.in
 RE:tests/unittests/.+/tst_\w+Tests$
-tests/unittests/qml/undertest
 po/*.gmo
 po/src
 doc/html
+click-hooks/webapp-container-hook
+click-hooks/webapp-container.hook
 
 obj-*
 debian/files

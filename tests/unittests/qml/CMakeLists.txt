@@ -7,44 +7,18 @@ else()
 endif()
 
 set(TEST tst_QmlTests)
-add_executable(${TEST} tst_QmlTests.cpp)
-qt5_use_modules(${TEST} QuickTest)
-add_test(${TEST} ${XVFB_COMMAND} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -import ${CMAKE_BINARY_DIR}/src)
-
-# copy qml files under test to build dir
-set(out_qml_files)
-file(GLOB_RECURSE qmlFiles RELATIVE ${webbrowser-common_SOURCE_DIR} ${webbrowser-common_SOURCE_DIR}/*.qml)
-foreach(qmlFile ${qmlFiles})
-  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile}
-                     DEPENDS ${webbrowser-common_SOURCE_DIR}/${qmlFile}
-                     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${webbrowser-common_SOURCE_DIR}/${qmlFile} ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile})
-  list(APPEND out_qml_files undertest/${qmlFile})
-endforeach(qmlFile)
-file(GLOB_RECURSE qmlFiles RELATIVE ${webbrowser-app_SOURCE_DIR} ${webbrowser-app_SOURCE_DIR}/*.qml)
-foreach(qmlFile ${qmlFiles})
-  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile}
-                     DEPENDS ${webbrowser-app_SOURCE_DIR}/${qmlFile}
-                     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${webbrowser-app_SOURCE_DIR}/${qmlFile} ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile})
-  list(APPEND out_qml_files undertest/${qmlFile})
-endforeach(qmlFile)
-set(privateApiQmlFiles UserAgent01.qml UserAgent02.qml ua-overrides.js)
-foreach(qmlFile ${privateApiQmlFiles})
-  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile}
-                     DEPENDS ${webbrowser-plugin_SOURCE_DIR}/${qmlFile}
-                     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${webbrowser-plugin_SOURCE_DIR}/${qmlFile} ${CMAKE_CURRENT_BINARY_DIR}/undertest/${qmlFile})
-  list(APPEND out_qml_files undertest/${qmlFile})
-endforeach(qmlFile)
-add_custom_target(copy_qml_files_under_test_to_build_dir DEPENDS ${out_qml_files})
-add_dependencies(${TEST} copy_qml_files_under_test_to_build_dir)
-
-if(NOT ${CMAKE_CURRENT_BINARY_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
-  # copy qml test files to build dir
-  file(GLOB qmlTestFiles RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.qml)
-  foreach(qmlTestFile ${qmlTestFiles})
-    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${qmlTestFile}
-                       DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${qmlTestFile}
-                       COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/${qmlTestFile} ${CMAKE_CURRENT_BINARY_DIR}/${qmlTestFile})
-  endforeach(qmlTestFile)
-  add_custom_target(copy_qml_test_files_to_build_dir DEPENDS ${qmlTestFiles})
-  add_dependencies(${TEST} copy_qml_test_files_to_build_dir)
-endif()
+set(SOURCES
+    ${webbrowser-common_SOURCE_DIR}/favicon-fetcher.cpp
+    ${webbrowser-app_SOURCE_DIR}/item-capture.cpp
+    tst_QmlTests.cpp
+)
+add_executable(${TEST} ${SOURCES})
+qt5_use_modules(${TEST} Qml Quick QuickTest)
+include_directories(
+    ${webbrowser-common_SOURCE_DIR}
+    ${webbrowser-app_SOURCE_DIR}
+    ${Qt5Quick_PRIVATE_INCLUDE_DIRS}
+)
+add_test(${TEST} ${XVFB_COMMAND} ${CMAKE_CURRENT_BINARY_DIR}/${TEST}
+         -input ${CMAKE_CURRENT_SOURCE_DIR}
+         -import ${CMAKE_BINARY_DIR}/src)

@@ -18,66 +18,55 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
 import ".."
+import "upstreamcomponents"
 
-ListItem.Empty {
+ListItemWithActions {
     id: urlDelegate
 
     property alias icon: icon.source
     property alias title: title.text
     property alias url: url.text
+    color: "#f6f6f6"
 
-    showDivider: false
-    removable: false
-    confirmRemoval: true
+    Row {
+        anchors.verticalCenter: parent.verticalCenter
+        spacing: units.gu(1)
 
-    UbuntuShape {
-        id: iconContainer
+        UbuntuShape {
+            id: iconContainer
+            width: units.gu(3)
+            height: width
 
-        anchors {
-            left: parent.left
-            verticalCenter: parent.verticalCenter
-        }
-        width: units.gu(3)
-        height: units.gu(3)
-
-        Favicon {
-            id: icon
-            anchors.centerIn: parent
-        }
-    }
-
-    Label {
-        id: title
-
-        anchors {
-            left: iconContainer.right
-            leftMargin: units.gu(1)
-            right: parent.right
-            top: iconContainer.top
+            Favicon {
+                id: icon
+                anchors.centerIn: parent
+            }
         }
 
-        fontSize: "x-small"
-        color: "#5d5d5d"
-        wrapMode: Text.Wrap
-        elide: Text.ElideRight
-        maximumLineCount: 1
-    }
+        Column {
+            width: parent.width - iconContainer.width - parent.spacing
+            height: parent.height
 
-    Label {
-        id: url
+            Label {
+                id: title
 
-        anchors {
-            left: title.left
-            right: title.right
-            top: title.bottom
-            topMargin: units.gu(0.3)
+                fontSize: "x-small"
+                color: "#5d5d5d"
+                wrapMode: Text.Wrap
+                elide: Text.ElideRight
+                maximumLineCount: 1
+            }
+
+            Label {
+                id: url
+
+                fontSize: "xx-small"
+                color: "#5d5d5d"
+                wrapMode: Text.Wrap
+                elide: Text.ElideRight
+                maximumLineCount: 1
+            }
         }
-
-        fontSize: "xx-small"
-        wrapMode: Text.Wrap
-        elide: Text.ElideRight
-        maximumLineCount: 1
     }
 }

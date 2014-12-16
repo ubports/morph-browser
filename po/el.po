@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-09-22 14:59+0100\n"
+"POT-Creation-Date: 2014-11-13 13:56+0100\n"
 "PO-Revision-Date: 2013-06-15 18:21+0000\n"
 "Last-Translator: Filippos Kolyvas <Unknown>\n"
 "Language-Team: Greek <el@li.org>\n"
@@ -15,56 +15,56 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-09-27 06:27+0000\n"
-"X-Generator: Launchpad (build 17196)\n"
+"X-Launchpad-Export-Date: 2014-12-16 07:31+0000\n"
+"X-Generator: Launchpad (build 17286)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "Ειδοποίηση JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
 msgid "OK"
-msgstr ""
+msgstr "Εντάξει"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Απαιτείται πιστοποίηση."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "Η ιστοσελίδα %1 απαιτεί πιστοποίηση."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Όνομα χρήστη"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "Κωδικός"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38
 msgid "Cancel"
-msgstr ""
+msgstr "Ακύρωση"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Επιβεβαίωση περιήγησης"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr ""
+msgstr "Έξοδος"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr ""
+msgstr "Παραμονή"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "Αυτή η σύνδεση δεν είναι έμπιστη"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -73,20 +73,22 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"Προσπαθείτε να κάνετε μια ασφαλή σύνδεση με το %1, αλλά το πιστοποιητικό "
+"ασφαλείας αυτής της σελίδας δεν είναι έμπιστο."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:162
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Συνέχεια έτσι κι αλλιώς"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:175
 msgid "Back to safety"
-msgstr ""
+msgstr "Επιστρέψτε σε ασφαλή σύνδεση"
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "Επιβεβαίωση JavaScript"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -107,39 +109,39 @@ msgstr ""
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "Επαναφόρτωση σελίδας"
+msgstr "Ανανέωση σελίδας"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "Παρακαλώ επιλέξτε ένα αρχείο"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Αίτηση αδειοδότησης"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:65
+#: src/app/webcontainer/WebViewImplWebkit.qml:68
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Αυτή η σελίδα επιθυμεί να γνωρίζει την τοποθεσία της συσκευής σας."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Άρνηση"
 
 #: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "Αποδοχή"
 
 #: src/app/InvalidCertificateErrorSheet.qml:58
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "Αυτό το πιστοποιητικό ασφαλείας ιστότοπου δεν είναι έμπιστο.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:66
 msgid "Learn more"
-msgstr ""
+msgstr "Μάθετε περισσότερα"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:90
@@ -148,6 +150,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"Σειριακός αριθμός:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:97
@@ -156,6 +160,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Υποκείμενο:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:105
@@ -164,6 +170,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Διεύθυνση υποκειμένου:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:116
@@ -172,6 +180,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"Εκδότης:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:124
@@ -180,6 +190,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"Διεύθυνση εκδότη:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:135
@@ -188,6 +200,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Έγκυρο από:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:142
@@ -196,6 +210,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Έγκυρο έως:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:149
@@ -204,12 +220,16 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Αποτύπωμα (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:155
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"Δεν πρέπει να συνεχίσετε, ιδιαίτερα αν δεν έχετε ξαναδεί την προειδοποίηση "
+"αυτή για αυτό τον ιστότοπο."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -218,6 +238,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"Προσπαθείτε να συνδεθείτε με το %1 αλλά ο διακομιστής εμφανίζει "
+"πιστοποιητικό ασφαλείας που δεν ταιριάζει με την ταυτότητα του ιστοτόπου."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -226,6 +248,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"Προσπαθείτε να συνδεθείτε με το %1 αλλά ο διακομιστής εμφανίζει "
+"πιστοποιητικό ασφαλείας που έχει λήξει."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -234,6 +258,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"Προσπαθείτε να συνδεθείτε με το %1 αλλά ο διακομιστής εμφανίζει "
+"πιστοποιητικό ασφαλείας που περιέχει μη έγκυρες ημερομηνίες."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -242,6 +268,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"Προσπαθείτε να συνδεθείτε με το %1 αλλά ο διακομιστής εμφανίζει "
+"πιστοποιητικό ασφαλείας που εκδόθηκε από φορέα ο οποίος δεν είναι έμπιστος."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -250,6 +278,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"Προσπαθείτε να συνδεθείτε με το %1 αλλά ο διακομιστής εμφανίζει "
+"πιστοποιητικό ασφαλείας που έχει ανακληθεί."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -258,6 +288,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"Προσπαθείτε να συνδεθείτε με το %1 αλλά ο διακομιστής εμφανίζει μη έγκυρο "
+"πιστοποιητικό ασφαλείας."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -266,6 +298,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"Προσπαθείτε να συνδεθείτε με το %1 αλλά ο διακομιστής εμφανίζει μη ασφαλές "
+"πιστοποιητικό ασφαλείας."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:211
@@ -275,20 +309,24 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"Το πιστοποιητικό ασφαλείας αυτού του ιστότοπου δεν είναι έμπιστο.\n"
+"Προσπαθείτε να συνδεθείτε με το %1 αλλά ο διακομιστής εμφανίζει "
+"πιστοποιητικό ασφαλείας που για άγνωστους λόγους απέτυχε στους ελέγχους μας "
+"ασφαλείας."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "Προτροπή JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Απαιτείται πιστοποίηση proxy"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "Η ιστοσελίδα %1:%2 απαιτεί εξουσιοδότηση."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -312,17 +350,17 @@ msgstr "Προσθήκη της σελίδας στους σελιδοδείκτ
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "Θέσε τον σύνδεσμο ως σελιδοδείκτη"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Εκκαθάριση ιστορικού"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Εκκαθάριση ιστορικού περιήγησης"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -330,15 +368,15 @@ msgstr "Αντιγραφή"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Αντιγραφή εικόνας"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Αντιγραφή συνδέσμου"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Μπροστά"
+msgstr "Εμπρός"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -368,11 +406,11 @@ msgstr "Άνοιγμα νέας καρτέλας"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr ""
+msgstr "Άνοιγμα εικόνας σε νέα καρτέλα"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Άνοιγμα συνδέσμου σε νέα καρτέλα"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -386,134 +424,125 @@ msgstr "Εγκατάλειψη σελίδας"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Αποθήκευση εικόνας"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr ""
+msgstr "Διαμοιρασμός..."
 
-#: src/app/webbrowser/AddressBar.qml:214
-msgid "This site has insecure content"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:229
-msgid "You are connected to"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:251
-msgid "Which is run by"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:335
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
+msgstr "αναζήτηση ή εισαγωγή διεύθυνσης"
+
+#: src/app/webbrowser/BookmarksList.qml:67
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:179
+msgid "Delete"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:179
+#: src/app/webbrowser/Browser.qml:190
 msgid "Share"
-msgstr ""
+msgstr "Κοινοποίηση"
 
-#: src/app/webbrowser/Browser.qml:193
+#: src/app/webbrowser/Browser.qml:204
 msgid "History"
-msgstr ""
+msgstr "Ιστορικό"
 
-#: src/app/webbrowser/Browser.qml:200
+#: src/app/webbrowser/Browser.qml:211
 msgid "Open tabs"
-msgstr ""
+msgstr "Ανοιχτές καρτέλες"
 
-#: src/app/webbrowser/Browser.qml:206 src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
-msgstr ""
+msgstr "Νέα καρτέλα"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:107
+#: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 σελίδα"
+msgstr[1] "%1 σελίδες"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:121
+#: src/app/webbrowser/ExpandedHistoryView.qml:194
 msgid "Less"
-msgstr ""
+msgstr "Λιγότερα"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
-msgstr ""
+msgstr "Τελευταία επίσκεψη"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
-msgstr ""
+msgstr "Χθες"
 
-#: src/app/webbrowser/HistoryView.qml:99 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
 msgid "Done"
-msgstr ""
-
-#: src/app/webbrowser/HistoryView.qml:113
-msgid "Clear"
-msgstr ""
-
-#: src/app/webbrowser/HistoryView.qml:127
-msgid "Delete all history?"
-msgstr ""
-
-#: src/app/webbrowser/HistoryView.qml:130
-msgid "Yes"
-msgstr ""
-
-#: src/app/webbrowser/HistoryView.qml:139
-msgid "No"
-msgstr ""
-
-#: src/app/webbrowser/NewTabView.qml:122
-msgid "Bookmarks"
-msgstr ""
+msgstr "Ολοκληρώθηκε"
 
 #: src/app/webbrowser/NewTabView.qml:124
+msgid "Bookmarks"
+msgstr "Σελιδοδείκτες"
+
+#: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
-msgstr ""
+msgstr "Συχνά επισκεπτόμενες ιστοσελίδες"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
-msgstr ""
+msgstr "εμφάνιση λιγότερων"
 
-#: src/app/webbrowser/NewTabView.qml:141
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
-msgstr ""
+msgstr "εμφάνιση περισσότερων"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+msgid "This site has insecure content"
+msgstr "Το περιεχόμενο αυτού του ιστότοπου δεν είναι ασφαλές"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+msgid "You are connected to"
+msgstr "Έχετε συνδεθεί με το"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Which is run by"
+msgstr "Που διαχειρίζεται"
 
 #: src/app/webbrowser/TabPreview.qml:162
 msgid "Tap to view"
-msgstr ""
+msgstr "Πατήστε για εμφάνιση"
 
-#: src/app/webbrowser/TabsView.qml:115
+#: src/app/webbrowser/TabsView.qml:114
 msgid "Add"
-msgstr ""
+msgstr "Προσθήκη"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:60
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:55
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Περιηγητής ιστού του Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:41
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:57
 msgid "Ubuntu Web Browser"
 msgstr "Περιηγητής ιστού του Ubuntu"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:87
+#: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
-msgstr ""
+msgstr "Δεν βρέθηκε τοπικός λογαριασμός για "
 
-#: src/app/webcontainer/AccountsLoginPage.qml:92
+#: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
-msgstr ""
+msgstr "Παράβλεψη βήματος δημιουργίας λογαριασμού"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:141
+#: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
-msgstr ""
+msgstr "Προσθήκη λογαριασμού"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "Επιλογή λογαριασμού"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
@@ -529,4 +558,16 @@ msgstr "Περιηγηθείτε στον παγκόσμιο ιστό"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr ""
+msgstr "Διαδίκτυο;WWW;Περιηγητής;Ιστός;Εξερευνητής"
+
+#~ msgid "Delete all history?"
+#~ msgstr "Εκκαθάριση ολόκληρου του ιστορικού;"
+
+#~ msgid "No"
+#~ msgstr "Όχι"
+
+#~ msgid "Yes"
+#~ msgstr "Ναι"
+
+#~ msgid "Clear"
+#~ msgstr "Καθαρισμός"

@@ -75,3 +75,5 @@ add_subdirectory(doc)
 
 install(FILES webbrowser-app.png screenshot.png
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app)
+
+add_subdirectory(click-hooks)

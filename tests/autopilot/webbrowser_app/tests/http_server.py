@@ -35,16 +35,16 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             self.send_header("Content-Type", "text/plain")
             self.end_headers()
             self.wfile.write(b"pong")
-        elif self.path == "/loremipsum":
+        elif self.path == "/test1":
             self.send_response(200)
-            title = "Lorem Ipsum"
-            body = "<p>Lorem ipsum dolor sit amet.</p>"
+            title = "test page 1"
+            body = "<p>test page 1</p>"
             html = self.make_html(title, body)
             self.send_html(html)
-        elif self.path == "/aleaiactaest":
+        elif self.path == "/test2":
             self.send_response(200)
-            title = "Alea Iacta Est"
-            body = "<p>De vita Caesarum libri VIII</p>"
+            title = "test page 2"
+            body = "<p>test page 2</p>"
             html = self.make_html(title, body)
             self.send_html(html)
         elif self.path.startswith("/wait/"):
@@ -60,7 +60,7 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             # and that requests opening another page in a new tab
             self.send_response(200)
             html = '<html><body style="margin: 0">'
-            html += '<a href="/aleaiactaest" target="_blank">'
+            html += '<a href="/test2" target="_blank">'
             html += '<div style="height: 100%"></div></a>'
             html += '</body></html>'
             self.send_html(html)

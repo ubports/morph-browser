@@ -66,8 +66,7 @@ Item {
             onCloseRequested: {
                 var tab = tabsview.model.remove(index)
                 if (tab) {
-                    tab.unload()
-                    tab.destroy()
+                    tab.close()
                 }
                 if (tabsview.model.count === 0) {
                     tabsview.newTabRequested()
@@ -95,7 +94,7 @@ Item {
                 verticalCenter: parent.verticalCenter
             }
 
-            color: "white"
+            strokeColor: "#5d5d5d"
 
             text: i18n.tr("Done")
 

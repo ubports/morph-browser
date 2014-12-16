@@ -34,7 +34,9 @@ UbuntuWebView {
     property string webappName: ""
     property var webappUrlPatterns: null
     property string localUserAgentOverride: ""
-    property string popupRedirectionUrlPrefix: ""
+    property string popupRedirectionUrlPrefixPattern: ""
+    property url dataPath // unused
+    property bool runningLocalApplication: false
 
     function getUAString() {
         return webview.localUserAgentOverride.length === 0 ? undefined : webview.localUserAgentOverride
@@ -52,6 +54,9 @@ UbuntuWebView {
             onTriggered: selection.copy()
         }
     }
+
+    StateSaver.properties: "url"
+    StateSaver.enabled: true
 
     property bool lastLoadFailed: false
     onLoadingChanged: {
