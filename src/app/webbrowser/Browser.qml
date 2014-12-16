@@ -482,8 +482,7 @@ BrowserView {
                                 break
                             }
                         }
-                        tab.unload()
-                        tab.destroy()
+                        tab.close()
                     }
                     if (tabsModel.count === 0) {
                         browser.openUrlInNewTab("", true, true)
