@@ -77,8 +77,6 @@ BrowserView {
     ]
 
     Item {
-        id: mainView
-
         anchors.fill: parent
         visible: !historyViewContainer.visible && !tabsViewContainer.visible
 
