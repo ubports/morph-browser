@@ -44,7 +44,7 @@ class TestSessionSaveRestore(StartOpenRemotePageTestCaseBase):
         process.kill()
         process.wait(10)
         self.ARGS = []
-        self.launch_app()
+        self.app = self.launch_app()
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         self.assertThat(tabs_view.count, Eventually(Equals(len(paths))))

@@ -15,6 +15,24 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import ubuntuuitoolkit as uitk
+from autopilot import introspection
+
+
+class Webbrowser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    """Autopilot custom proxy object for the webbrowser app."""
+
+    @classmethod
+    def validate_dbus_object(cls, path, state):
+        name = introspection.get_classname_from_path(path)
+        if name == b'webbrowser-app':
+            if state['applicationName'][1] == 'webbrowser-app':
+                return True
+        return False
+
+    @property
+    def main_window(self):
+        return self.select_single(Browser)
 
 
 class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
