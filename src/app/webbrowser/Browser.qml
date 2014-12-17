@@ -231,6 +231,8 @@ BrowserView {
                 query: chrome.text
             }
             onSelected: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                browser.currentWebview.resetCertificateError()
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
                 chrome.requestedUrl = url
