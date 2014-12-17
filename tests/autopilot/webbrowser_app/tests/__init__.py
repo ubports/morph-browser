@@ -30,7 +30,7 @@ from . import http_server
 
 import ubuntuuitoolkit as uitk
 
-from webbrowser_app.emulators.browser import Browser
+from webbrowser_app.emulators import browser
 
 
 class BrowserTestCaseBase(AutopilotTestCase):
@@ -48,34 +48,34 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def setUp(self):
         self.pointing_device = uitk.get_pointing_device()
         super(BrowserTestCaseBase, self).setUp()
-        self.launch_app()
+        self.app = self.launch_app()
 
     def launch_app(self):
         if os.path.exists(self.local_location):
-            self.launch_test_local()
+            return self.launch_test_local()
         else:
-            self.launch_test_installed()
+            return self.launch_test_installed()
         self.main_window.visible.wait_for(True)
 
     def launch_test_local(self):
-        self.app = self.launch_test_application(
+        return self.launch_test_application(
             self.local_location,
             *self.ARGS,
-            emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
+            emulator_base=browser.Webbrowser)
 
     def launch_test_installed(self):
         if model() == 'Desktop':
-            self.app = self.launch_test_application(
+            return self.launch_test_application(
                 "webbrowser-app",
                 *self.ARGS,
-                emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
+                emulator_base=browser.Webbrowser)
         else:
-            self.app = self.launch_test_application(
+            return self.launch_test_application(
                 "webbrowser-app",
                 self.d_f,
                 *self.ARGS,
                 app_type='qt',
-                emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
+                emulator_base=browser.Webbrowser)
 
     def clear_cache(self):
         cachedir = os.path.join(os.path.expanduser("~"), ".local", "share",
@@ -85,7 +85,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
     @property
     def main_window(self):
-        return self.app.select_single(Browser)
+        return self.app.main_window
 
     def assert_osk_eventually_shown(self):
         if model() != 'Desktop':

@@ -29,8 +29,18 @@ Item {
 
         width: 123
         height: 157
-        color: "red"
         anchors.centerIn: parent
+
+        gradient: Gradient {
+            GradientStop {
+                position: 0.0
+                color: "#123456"
+            }
+            GradientStop {
+                position: 1.0
+                color: "#ABCDEF"
+            }
+        }
 
         ItemCapture {
             id: capture
@@ -93,6 +103,13 @@ Item {
             compare(image.status, Image.Ready)
             compare(image.sourceSize.width, rect.width)
             compare(image.sourceSize.height, rect.height)
+            var reference = grabImage(rect)
+            var grabbed = grabImage(image)
+            for (var i = 0; i < rect.width; ++i) {
+                for (var j = 0; j < rect.height; ++j) {
+                    compare(grabbed.pixel(i, j), reference.pixel(i, j))
+                }
+            }
         }
 
         function test_capture_invalid_id() {

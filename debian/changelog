@@ -1,3 +1,22 @@
+webbrowser-app (0.23+15.04.20141217-0ubuntu1) vivid; urgency=low
+
+  [ Timo Jyrinki ]
+  * Use QSGLayer instead of QQuickShaderEffectTexture on Qt 5.4.0 (LP:
+    #1403359) (LP: #1403359)
+
+  [ Olivier Tilloy ]
+  * Do not offer to go back to safety for non-overridable certificate
+    errors. The user can always use the chrome’s back/refresh buttons.
+    (LP: #1394925, #1394270)
+  * Move the Tab component to a separate QML file, for improved
+    readability, maintenance and testability.
+  * Actually compare the contents of the capture to the reference item.
+
+  [ Leo Arias ]
+  * Added an autopilot custom proxy object for the application.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 17 Dec 2014 09:23:25 +0000
+
 webbrowser-app (0.23+15.04.20141212.1-0ubuntu1) vivid; urgency=low
 
   [ Olivier Tilloy ]
