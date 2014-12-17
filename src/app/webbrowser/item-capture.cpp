@@ -83,8 +83,13 @@ QSGNode* ItemCapture::updatePaintNode(QSGNode* oldNode, UpdatePaintNodeData* upd
     if (!m_request.isEmpty()) {
         QString request = m_request;
         m_request.clear();
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
         QQuickShaderEffectTexture* texture =
             qobject_cast<QQuickShaderEffectTexture*>(textureProvider()->texture());
+#else
+        QSGLayer* texture =
+            qobject_cast<QSGLayer*>(textureProvider()->texture());
+#endif
         QImage image = texture->toImage().mirrored();
         if (!image.isNull()) {
             QString filePath = m_cacheLocation + "/" + request + ".jpg";
