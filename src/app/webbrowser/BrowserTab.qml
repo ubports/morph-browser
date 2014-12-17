@@ -25,15 +25,22 @@ FocusScope {
     property string initialTitle
     property var request
     property Component webviewComponent
-    readonly property var webview: (children.length == 1) ? children[0] : null
+    readonly property var webview: webviewContainer.webview
     readonly property url url: webview ? webview.url : initialUrl
     readonly property string title: webview ? webview.title : initialTitle
     readonly property url icon: webview ? webview.icon : ""
     property url preview
 
+    FocusScope {
+        id: webviewContainer
+        anchors.fill: parent
+        focus: true
+        readonly property var webview: (children.length == 1) ? children[0] : null
+    }
+
     function load() {
         if (!webview) {
-            webviewComponent.incubateObject(this, {"url": initialUrl})
+            webviewComponent.incubateObject(webviewContainer, {"url": initialUrl})
         }
     }
 
@@ -99,7 +106,7 @@ FocusScope {
         if (request) {
             // Instantiating the webview cannot be delayed because the request
             // object is destroyed after exiting the newViewRequested signal handler.
-            webviewComponent.incubateObject(this, {"request": request})
+            webviewComponent.incubateObject(webviewContainer, {"request": request})
         }
     }
 }
