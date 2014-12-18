@@ -87,10 +87,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def main_window(self):
         return self.app.select_single(Browser)
 
-    def assert_page_eventually_loading(self):
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.loading, Eventually(Equals(True)))
-
     def open_tabs_view(self):
         chrome = self.main_window.chrome
         drawer_button = chrome.get_drawer_button()
