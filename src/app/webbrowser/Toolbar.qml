@@ -17,8 +17,11 @@
  */
 
 import QtQuick 2.0
+import Ubuntu.Components 1.1
 
 Rectangle {
+    id: toolbar
+
     Image {
         anchors {
             left: parent.left
@@ -27,5 +30,35 @@ Rectangle {
         }
         source: "assets/toolbar-dropshadow.png"
         fillMode: Image.TileHorizontally
+    }
+
+    states: [
+        State {
+            name: "hidden"
+            PropertyChanges {
+                target: toolbar
+                y: toolbar.parent.height
+            }
+        },
+        State {
+            name: "shown"
+            PropertyChanges {
+                target: toolbar
+                y: toolbar.parent.height - toolbar.height
+            }
+        }
+    ]
+
+    state: "shown"
+
+    Behavior on y {
+        UbuntuNumberAnimation {
+            duration: UbuntuAnimation.BriskDuration
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        // do not propagate click events to items below
     }
 }

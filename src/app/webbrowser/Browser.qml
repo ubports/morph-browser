@@ -78,7 +78,7 @@ BrowserView {
 
     Item {
         anchors.fill: parent
-        visible: !historyViewContainer.visible && !tabsViewContainer.visible
+        visible: !recentView.visible && !historyViewContainer.visible && !tabsViewContainer.visible
 
         FocusScope {
             id: tabContainer
@@ -234,6 +234,141 @@ BrowserView {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
                 chrome.requestedUrl = url
+            }
+        }
+    }
+
+    FocusScope {
+        id: recentView
+
+        anchors.fill: parent
+        opacity: bottomEdgeHandle.dragging || (bottomEdgeHandle.stage > 0) ? 1 : 0
+        Behavior on opacity { UbuntuNumberAnimation {} }
+        visible: opacity > 0
+
+        TabsList {
+            id: tabslist
+            anchors.fill: parent
+            model: tabsModel
+            readonly property real delegateMinHeight: units.gu(20)
+            delegateHeight: {
+                // FIXME: handle the corner case where there is only one open tab
+                if (bottomEdgeHandle.stage == 0) {
+                    return height
+                } else if (bottomEdgeHandle.stage == 1) {
+                    return (1 - 1.8 * bottomEdgeHandle.dragFraction) * height
+                } else if (bottomEdgeHandle.stage == 2) {
+                    return Math.max(height / 3, delegateMinHeight)
+                } else {
+                    return delegateMinHeight
+                }
+            }
+            onTabSelected: {
+                var tab = tabsModel.get(index)
+                if (tab) {
+                    tab.load()
+                    tab.forceActiveFocus()
+                    tabslist.model.setCurrent(index)
+                }
+                // TODO: animate tab to bring it to full view before dismissing recentView
+                bottomEdgeHandle.reset()
+            }
+            onCloseRequested: {
+                var tab = tabsModel.remove(index)
+                if (tab) {
+                    tab.close()
+                }
+                if (tabsModel.count === 0) {
+                    browser.openUrlInNewTab("", true)
+                }
+            }
+        }
+
+        Toolbar {
+            id: recentToolbar
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+            height: units.gu(7)
+            state: "hidden"
+
+            Button {
+                objectName: "doneButton"
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(2)
+                    verticalCenter: parent.verticalCenter
+                }
+
+                strokeColor: "#5d5d5d"
+
+                text: i18n.tr("Done")
+
+                onClicked: {
+                    recentView.reset()
+                    bottomEdgeHandle.reset()
+                    tabsModel.currentTab.load()
+                }
+            }
+
+            ToolbarAction {
+                objectName: "addTabButton"
+                anchors {
+                    right: parent.right
+                    rightMargin: units.gu(2)
+                    verticalCenter: parent.verticalCenter
+                }
+                height: parent.height - units.gu(2)
+
+                text: i18n.tr("Add")
+
+                iconName: "add"
+
+                onClicked: {
+                    recentView.reset()
+                    bottomEdgeHandle.reset()
+                    browser.openUrlInNewTab("", true)
+                }
+            }
+        }
+
+        function reset() {
+            recentToolbar.state = "hidden"
+            tabslist.positionViewAtBeginning()
+        }
+    }
+
+    BottomEdgeHandle {
+        id: bottomEdgeHandle
+
+        width: parent.width / 6
+        anchors.horizontalCenter: parent.horizontalCenter
+        height: units.gu(2)
+
+        onDraggingChanged: {
+            if (dragging) {
+                chrome.state = "hidden"
+            } else {
+                if (stage == 1) {
+                    // TODO: finish animation to bring second tab into full view
+                    // FIXME: what to do if there is only one open tab?
+                    tabsModel.setCurrent(1)
+                    tabsModel.get(0).load()
+                    recentView.reset()
+                    reset()
+                } else if (stage == 2) {
+                    recentToolbar.state = "shown"
+                    //lastVisited.state = "hidden"
+                } else if (stage == 3) {
+                    y = 0
+                }
+            }
+        }
+
+        onStageChanged: {
+            if (stage == 0) {
+                chrome.state = "shown"
             }
         }
     }
