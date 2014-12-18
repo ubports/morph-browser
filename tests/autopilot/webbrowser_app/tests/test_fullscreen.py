@@ -40,8 +40,8 @@ class TestFullscreen(StartOpenRemotePageTestCaseBase):
     def test_toggle_fullscreen(self):
         self.assert_eventually_windowed()
         url = self.base_url + "/fullscreen"
-        self.go_to_url(url)
-        self.assert_page_eventually_loaded(url)
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
         self.assert_eventually_windowed()
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
