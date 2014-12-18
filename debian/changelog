@@ -1,3 +1,15 @@
+webbrowser-app (0.23+15.04.20141218-0ubuntu1) vivid; urgency=low
+
+  [ Leo Arias ]
+  * Refactor the address bar autopilot helpers so they can be used from
+    external test cases.
+  * Expose on the autopilot helpers the back and forward functionality.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 18 Dec 2014 18:40:11 +0000
+
 webbrowser-app (0.23+15.04.20141217-0ubuntu1) vivid; urgency=low
 
   [ Timo Jyrinki ]
