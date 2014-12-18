@@ -47,14 +47,27 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.chrome = self._get_chrome()
         self.address_bar = self.chrome.address_bar
 
+    def _get_chrome(self):
+        return self.select_single(Chrome)
+
     def go_to_url(self, url):
         self.address_bar.go_to_url(url)
 
+    def wait_until_page_loaded(self, url):
+        webview = self.get_current_webview()
+        webview.url.wait_for(url)
+        # loadProgress == 100 ensures that a page has actually loaded
+        webview.loadProgress.wait_for(100, timeout=20)
+        webview.loading.wait_for(False)
+
+    def go_back(self):
+        self.chrome.go_back()
+
+    def go_forward(self):
+        self.chrome.go_forward()
+
     def get_window(self):
         return self.get_parent()
-
-    def _get_chrome(self):
-        return self.select_single(Chrome)
 
     def get_current_webview(self):
         return self.select_single("WebViewImpl", current=True)
@@ -102,11 +115,31 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def _get_address_bar(self):
         return self.select_single(AddressBar)
 
-    def get_back_button(self):
+    @autopilot.logging.log_action(logger.info)
+    def go_back(self):
+        back_button = self._get_back_button()
+        back_button.enabled.wait_for(True)
+        self.pointing_device.click_object(back_button)
+
+    def _get_back_button(self):
         return self.select_single("ChromeButton", objectName="backButton")
 
-    def get_forward_button(self):
+    def is_back_button_enabled(self):
+        back_button = self._get_back_button()
+        return back_button.enabled
+
+    @autopilot.logging.log_action(logger.info)
+    def go_forward(self):
+        forward_button = self._get_forward_button()
+        forward_button.enabled.wait_for(True)
+        self.pointing_device.click_object(forward_button)
+
+    def _get_forward_button(self):
         return self.select_single("ChromeButton", objectName="forwardButton")
+
+    def is_forward_button_enabled(self):
+        forward_button = self._get_forward_button()
+        return forward_button.enabled
 
     def get_drawer_button(self):
         return self.select_single("ChromeButton", objectName="drawerButton")

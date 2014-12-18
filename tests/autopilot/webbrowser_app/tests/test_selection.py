@@ -28,7 +28,7 @@ class TestSelection(StartOpenRemotePageTestCaseBase):
         super(TestSelection, self).setUp()
         url = self.base_url + "/selection"
         self.main_window.go_to_url(url)
-        self.assert_page_eventually_loaded(url)
+        self.main_window.wait_until_page_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.move_to_object(webview)
         if model() == 'Desktop':

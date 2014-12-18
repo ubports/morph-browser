@@ -87,18 +87,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def main_window(self):
         return self.app.main_window
 
-    def assert_page_eventually_loading(self):
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.loading, Eventually(Equals(True)))
-
-    def assert_page_eventually_loaded(self, url):
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.url, Eventually(Equals(url)))
-        # loadProgress == 100 ensures that a page has actually loaded
-        self.assertThat(webview.loadProgress,
-                        Eventually(Equals(100), timeout=20))
-        self.assertThat(webview.loading, Eventually(Equals(False)))
-
     def open_tabs_view(self):
         chrome = self.main_window.chrome
         drawer_button = chrome.get_drawer_button()
@@ -157,4 +145,4 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
         self.assert_home_page_eventually_loaded()
 
     def assert_home_page_eventually_loaded(self):
-        self.assert_page_eventually_loaded(self.url)
+        self.main_window.wait_until_page_loaded(self.url)
