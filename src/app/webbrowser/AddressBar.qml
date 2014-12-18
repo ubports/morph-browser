@@ -59,6 +59,7 @@ FocusScope {
 
     TextField {
         id: textField
+        objectName: "addressBarTextField"
 
         anchors.fill: parent
 

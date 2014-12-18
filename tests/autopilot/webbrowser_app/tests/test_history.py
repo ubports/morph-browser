@@ -72,6 +72,10 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
 
     """Test the address bar suggestions based on navigation history."""
 
+    def setUp(self):
+        super().setUp()
+        self.address_bar = self.main_window.address_bar
+
     def assert_suggestions_eventually_shown(self):
         suggestions = self.main_window.get_suggestions()
         self.assertThat(suggestions.opacity, Eventually(Equals(1)))
@@ -84,33 +88,33 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         listview = self.main_window.get_suggestions().get_list()
         self.assert_suggestions_eventually_hidden()
         self.assert_suggestions_eventually_hidden()
-        self.focus_address_bar()
+        self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
         self.assertThat(listview.count, Eventually(Equals(1)))
-        self.clear_address_bar()
+        self.address_bar.clear()
         self.assert_suggestions_eventually_hidden()
-        self.type_in_address_bar("u")
+        self.address_bar.write('u')
         self.assert_suggestions_eventually_shown()
         self.assertThat(listview.count, Eventually(Equals(6)))
-        self.type_in_address_bar("b")
+        self.address_bar.write('b', clear=False)
         self.assertThat(listview.count, Eventually(Equals(5)))
-        self.type_in_address_bar("leh")
+        self.address_bar.write('leh', clear=False)
         self.assertThat(listview.count, Eventually(Equals(0)))
-        self.clear_address_bar()
-        self.type_in_address_bar("xaMPL")
+        self.address_bar.clear()
+        self.address_bar.write('xaMPL')
         self.assertThat(listview.count, Eventually(Equals(2)))
 
     def test_clear_address_bar_dismisses_suggestions(self):
-        self.focus_address_bar()
+        self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
-        self.clear_address_bar()
-        self.type_in_address_bar("ubuntu")
+        self.address_bar.clear()
+        self.address_bar.write('ubuntu')
         self.assert_suggestions_eventually_shown()
-        self.clear_address_bar()
+        self.address_bar.clear()
         self.assert_suggestions_eventually_hidden()
 
     def test_addressbar_loosing_focus_dismisses_suggestions(self):
-        self.focus_address_bar()
+        self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
         suggestions = self.main_window.get_suggestions()
         cs = suggestions.globalRect
@@ -123,23 +127,23 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assert_suggestions_eventually_hidden()
 
     def test_suggestions_hidden_while_drawer_open(self):
-        self.focus_address_bar()
+        self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
-        chrome = self.main_window.get_chrome()
+        chrome = self.main_window.chrome
         drawer_button = chrome.get_drawer_button()
         self.pointing_device.click_object(drawer_button)
         chrome.get_drawer()
         self.assert_suggestions_eventually_hidden()
-        self.focus_address_bar()
+        self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
 
     def test_select_suggestion(self):
         suggestions = self.main_window.get_suggestions()
         listview = suggestions.get_list()
-        self.focus_address_bar()
+        self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
-        self.clear_address_bar()
-        self.type_in_address_bar("ubuntu")
+        self.address_bar.clear()
+        self.address_bar.write('ubuntu')
         self.assert_suggestions_eventually_shown()
         self.assertThat(listview.count, Eventually(Equals(5)))
         entries = suggestions.get_entries()
@@ -156,8 +160,8 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assert_suggestions_eventually_hidden()
 
     def test_special_characters(self):
-        self.clear_address_bar()
-        self.type_in_address_bar("(phil")
+        self.address_bar.clear()
+        self.address_bar.write('(phil')
         self.assert_suggestions_eventually_shown()
         suggestions = self.main_window.get_suggestions()
         listview = suggestions.get_list()
