@@ -100,6 +100,7 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     @autopilot.logging.log_action(logger.info)
     def go_back(self):
         back_button = self._get_back_button()
+        back_button.enabled.wait_for(True)
         self.pointing_device.click_object(back_button)
 
     def _get_back_button(self):
@@ -112,6 +113,7 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     @autopilot.logging.log_action(logger.info)
     def go_forward(self):
         forward_button = self._get_forward_button()
+        forward_button.enabled_wait_for(True)
         self.pointing_device.click_object(forward_button)
 
     def _get_forward_button(self):
