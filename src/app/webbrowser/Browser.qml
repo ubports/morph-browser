@@ -355,6 +355,7 @@ BrowserView {
                     recentToolbar.state = "shown"
                     //lastVisited.state = "hidden"
                 } else if (stage == 3) {
+                    recentToolbar.state = "shown"
                     y = 0
                 }
             }
