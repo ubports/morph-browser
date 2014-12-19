@@ -60,7 +60,7 @@ FocusScope {
         destroy()
     }
 
-    property var captureTaker
+    property var captureTaker: null
     Component {
         id: captureComponent
         ItemCapture {
@@ -80,14 +80,29 @@ FocusScope {
             }
         }
     }
-    function createCaptureTakerIfNeeded() {
-        if (!captureTaker) {
-            captureTaker = captureComponent.createObject(webview)
+    Timer {
+        id: delayedCaptureTakerInstantiation
+        interval: 1
+        onTriggered: {
+            if (!captureTaker && webview && webview.visible) {
+                captureTaker = captureComponent.createObject(webview)
+            }
+        }
+
+    }
+    Timer {
+        id: delayedCaptureRequest
+        interval: 1
+        onTriggered: {
+            if (captureTaker) {
+                captureTaker.requestCapture(uniqueId)
+            }
         }
     }
+
     onWebviewChanged: {
         if (webview) {
-            createCaptureTakerIfNeeded()
+            delayedCaptureTakerInstantiation.restart()
         }
     }
 
@@ -95,9 +110,9 @@ FocusScope {
         target: webview
         onVisibleChanged: {
             if (webview.visible) {
-                createCaptureTakerIfNeeded()
+                delayedCaptureTakerInstantiation.restart()
             } else {
-                captureTaker.requestCapture(uniqueId)
+                delayedCaptureRequest.restart()
             }
         }
     }
