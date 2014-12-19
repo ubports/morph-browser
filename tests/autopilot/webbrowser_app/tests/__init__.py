@@ -20,7 +20,7 @@ import os
 import shutil
 import urllib.request
 
-from testtools.matchers import Contains, Equals
+from testtools.matchers import Equals
 
 from autopilot.matchers import Eventually
 from autopilot.platform import model
@@ -87,58 +87,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def main_window(self):
         return self.app.main_window
 
-    def assert_osk_eventually_shown(self):
-        if model() != 'Desktop':
-            keyboardRectangle = self.main_window.get_keyboard_rectangle()
-            self.assertThat(keyboardRectangle.state,
-                            Eventually(Equals("shown")))
-
-    def assert_osk_eventually_hidden(self):
-        if model() != 'Desktop':
-            keyboardRectangle = self.main_window.get_keyboard_rectangle()
-            self.assertThat(keyboardRectangle.state,
-                            Eventually(Equals("hidden")))
-
-    def focus_address_bar(self):
-        address_bar = self.main_window.get_chrome().get_address_bar()
-        self.pointing_device.click_object(address_bar)
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
-        self.assert_osk_eventually_shown()
-
-    def clear_address_bar(self):
-        self.focus_address_bar()
-        self.assert_osk_eventually_shown()
-        address_bar = self.main_window.get_chrome().get_address_bar()
-        clear_button = address_bar.get_clear_button()
-        self.pointing_device.click_object(clear_button)
-        self.assertThat(address_bar.text, Eventually(Equals("")))
-
-    def type_in_address_bar(self, text):
-        address_bar = self.main_window.get_chrome().get_address_bar()
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
-        self.keyboard.type(text)
-        self.assertThat(address_bar.text, Eventually(Contains(text)))
-
-    def go_to_url(self, url):
-        self.clear_address_bar()
-        self.type_in_address_bar(url)
-        self.keyboard.press_and_release("Enter")
-        self.assert_osk_eventually_hidden()
-
-    def assert_page_eventually_loading(self):
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.loading, Eventually(Equals(True)))
-
-    def assert_page_eventually_loaded(self, url):
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.url, Eventually(Equals(url)))
-        # loadProgress == 100 ensures that a page has actually loaded
-        self.assertThat(webview.loadProgress,
-                        Eventually(Equals(100), timeout=20))
-        self.assertThat(webview.loading, Eventually(Equals(False)))
-
     def open_tabs_view(self):
-        chrome = self.main_window.get_chrome()
+        chrome = self.main_window.chrome
         drawer_button = chrome.get_drawer_button()
         self.pointing_device.click_object(drawer_button)
         chrome.get_drawer()
@@ -158,8 +108,9 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.assert_number_webviews_eventually(new_count)
         self.main_window.get_new_tab_view()
         if model() == 'Desktop':
-            address_bar = self.main_window.get_chrome().get_address_bar()
-            self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+            self.assertThat(
+                self.main_window.address_bar.activeFocus,
+                Eventually(Equals(True)))
 
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
@@ -194,4 +145,4 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
         self.assert_home_page_eventually_loaded()
 
     def assert_home_page_eventually_loaded(self):
-        self.assert_page_eventually_loaded(self.url)
+        self.main_window.wait_until_page_loaded(self.url)
