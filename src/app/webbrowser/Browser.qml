@@ -173,12 +173,6 @@ BrowserView {
                     iconName: "history"
                     enabled: browser.historyModel
                     onTriggered: historyViewComponent.createObject(historyViewContainer)
-                },
-                Action {
-                    objectName: "newtab"
-                    text: i18n.tr("New tab")
-                    iconName: "tab-new"
-                    onTriggered: browser.openUrlInNewTab("", true)
                 }
             ]
 
