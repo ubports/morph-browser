@@ -274,6 +274,8 @@ BrowserView {
                 }
                 if (tabsModel.count === 0) {
                     browser.openUrlInNewTab("", true)
+                    recentView.reset()
+                    bottomEdgeHandle.reset()
                 }
             }
         }
