@@ -350,7 +350,7 @@ BrowserView {
                 } else if (stage == 2) {
                     recentToolbar.state = "shown"
                     //lastVisited.state = "hidden"
-                } else if (stage == 3) {
+                } else if (stage >= 3) {
                     recentToolbar.state = "shown"
                     y = 0
                 }
