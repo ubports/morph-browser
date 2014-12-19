@@ -78,7 +78,7 @@ BrowserView {
 
     Item {
         anchors.fill: parent
-        visible: !recentView.visible && !historyViewContainer.visible && !tabsViewContainer.visible
+        visible: !recentView.visible && !historyViewContainer.visible
 
         FocusScope {
             id: tabContainer
@@ -173,12 +173,6 @@ BrowserView {
                     iconName: "history"
                     enabled: browser.historyModel
                     onTriggered: historyViewComponent.createObject(historyViewContainer)
-                },
-                Action {
-                    objectName: "tabs"
-                    text: i18n.tr("Open tabs")
-                    iconName: "browser-tabs"
-                    onTriggered: tabsViewComponent.createObject(tabsViewContainer)
                 },
                 Action {
                     objectName: "newtab"
@@ -369,27 +363,6 @@ BrowserView {
         onStageChanged: {
             if (stage == 0) {
                 chrome.state = "shown"
-            }
-        }
-    }
-
-    Item {
-        id: tabsViewContainer
-
-        visible: children.length > 0
-        anchors.fill: parent
-
-        Component {
-            id: tabsViewComponent
-
-            TabsView {
-                anchors.fill: parent
-                model: tabsModel
-                onNewTabRequested: browser.openUrlInNewTab("", true)
-                onDone: {
-                    tabsModel.currentTab.load()
-                    this.destroy()
-                }
             }
         }
     }
