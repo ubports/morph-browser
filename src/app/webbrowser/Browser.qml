@@ -357,6 +357,10 @@ BrowserView {
                         enabled: contextualData.href.toString()
                         onTriggered: browser.openUrlInNewTab(contextualData.href, true)
                     }
+                    Actions.OpenLinkInNewBackgroundTab {
+                        enabled: contextualData.href.toString()
+                        onTriggered: browser.openUrlInNewTab(contextualData.href, false)
+                    }
                     Actions.BookmarkLink {
                         enabled: contextualData.href.toString() && browser.bookmarksModel
                         onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "")
