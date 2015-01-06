@@ -112,7 +112,7 @@ BrowserWindow {
           */
         if (webappName)
             return webappName
-        return webappModel.providesSingleInlineWebapp()
+        return webappModelSearchPath && webappModel.providesSingleInlineWebapp()
             ? webappModel.getSingleInlineWebappName()
             : ""
     }
