@@ -51,9 +51,12 @@ BrowserWindow {
     title: getWindowTitle()
 
     function getWindowTitle() {
-        var webappViewTitle = webappViewLoader.item ? webappViewLoader.item.title : ""
-        if (typeof(webappName) === 'string' && webappName.length !== 0) {
-            return webappName
+        var webappViewTitle =
+                webappViewLoader.item
+                ? webappViewLoader.item.title : ""
+        var name = getWebappName()
+        if (typeof(name) === 'string' && name.length !== 0) {
+            return name
         } else if (webappViewTitle) {
             // TRANSLATORS: %1 refers to the current page’s title
             return i18n.tr("%1 - Ubuntu Web Browser").arg(webappViewTitle)
@@ -100,12 +103,27 @@ BrowserWindow {
         }
     }
 
+    function getWebappName() {
+        /**
+          Any webapp name coming from the command line takes over.
+          A webapp can also be defined by a specific drop-in webapp-properties.json
+          file that can bundle a few specific 'properties' (as the name implies)
+          instead of having them listed in the command line.
+          */
+        if (webappName)
+            return webappName
+        return webappModel.providesSingleInlineWebapp()
+            ? webappModel.getSingleInlineWebappName()
+            : ""
+    }
+
     function getLocalUserAgentOverrideIfAny() {
         if (localUserAgentOverride.length !== 0)
             return localUserAgentOverride
 
-        if (webappName && webappModel.exists(webappName))
-            return webappModel.userAgentOverrideFor(webappName)
+        var name = getWebappName()
+        if (name && webappModel.exists(name))
+            return webappModel.userAgentOverrideFor(name)
 
         return ""
     }
@@ -115,9 +133,11 @@ BrowserWindow {
         searchPath: root.webappModelSearchPath
 
         onModelContentChanged: {
-            if (root.webappName && root.url.length === 0) {
-                var idx = webappModel.getWebappIndex(root.webappName)
-                root.url = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Homepage)
+            var name = getWebappName()
+            if (name && root.url.length === 0) {
+                var idx = webappModel.getWebappIndex(name)
+                root.url = webappModel.data(
+                            idx, UnityWebApps.UnityWebappsAppModel.Homepage)
             }
         }
     }
