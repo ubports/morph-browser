@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import com.canonical.Oxide 1.0 as Oxide
+import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
@@ -87,9 +87,9 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: chrome.bottom
+                top: parent.top
             }
-            height: parent.height - chrome.visibleHeight - osk.height
+            height: parent.height - osk.height
         }
 
         Loader {
@@ -125,6 +125,8 @@ BrowserView {
 
             webview: browser.currentWebview
             searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
+
+            y: webview ? webview.locationBarController.offset : 0
 
             function isCurrentUrlBookmarked() {
                 return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
@@ -189,29 +191,6 @@ BrowserView {
                     onTriggered: browser.openUrlInNewTab("", true)
                 }
             ]
-
-            Connections {
-                target: browser.currentWebview
-                onLoadingChanged: {
-                    if (browser.currentWebview.loading) {
-                        chrome.state = "shown"
-                    } else if (browser.currentWebview.fullscreen) {
-                        chrome.state = "hidden"
-                    }
-                }
-                onFullscreenChanged: {
-                    if (browser.currentWebview.fullscreen) {
-                        chrome.state = "hidden"
-                    } else {
-                        chrome.state = "shown"
-                    }
-                }
-            }
-        }
-
-        ChromeStateTracker {
-            webview: browser.currentWebview
-            header: chrome
         }
 
         Suggestions {
@@ -347,6 +326,22 @@ BrowserView {
                 readonly property bool current: currentWebview === this
                 enabled: current
                 visible: current
+
+                readonly property bool nearBottom: (contentY + viewportHeight) / contentHeight >= 0.98
+                locationBarController {
+                    height: webviewimpl.visible ? chrome.height : 0
+                    mode: {
+                        if (webviewimpl.loading) {
+                            return Oxide.LocationBarController.ModeShown
+                        } else if (webviewimpl.fullscreen) {
+                            return Oxide.LocationBarController.ModeHidden
+                        } else if (webviewimpl.nearBottom) {
+                            return Oxide.LocationBarController.ModeShown
+                        } else {
+                            return Oxide.LocationBarController.ModeAuto
+                        }
+                    }
+                }
 
                 //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
                 preferences.localStorageEnabled: true

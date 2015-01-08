@@ -34,7 +34,7 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          fonts-liberation,
-         liboxideqt-qmlplugin (>= 1.1),
+         liboxideqt-qmlplugin (>= 1.5),
          libqt5sql5-sqlite,
          qml-module-qtquick2 | qtdeclarative5-qtquick2-plugin,
          qml-module-qtquick-dialogs | qtdeclarative5-dialogs-plugin,
@@ -97,7 +97,7 @@ Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         liboxideqt-qmlplugin (>= 1.3),
+         liboxideqt-qmlplugin (>= 1.5),
          qml-module-qtquick2 | qtdeclarative5-qtquick2-plugin,
          qml-module-qtquick-window2 | qtdeclarative5-window-plugin,
          qtdeclarative5-ubuntu-ui-toolkit-plugin,
