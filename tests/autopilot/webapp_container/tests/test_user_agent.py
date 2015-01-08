@@ -25,7 +25,7 @@ from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 
 
 @contextmanager
-def generate_temp_webapp_with_local_properties():
+def generate_temp_local_props_webapp():
     tmpdir = tempfile.mkdtemp()
     webapp_folder_name = '{}/unity-webapps-test'.format(tmpdir)
     os.mkdir(webapp_folder_name)
@@ -64,7 +64,7 @@ class WebappUserAgentTestCase(
 
     def test_webapp_properties_override(self):
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
-        with generate_temp_webapp_with_local_properties() as webapp_install_path:
+        with generate_temp_local_props_webapp() as webapp_install_path:
             args = ['--webappModelSearchPath=' + webapp_install_path]
             self.launch_webcontainer_app(
                 args,
