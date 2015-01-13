@@ -19,54 +19,66 @@
 import QtQuick 2.0
 import Ubuntu.Components 1.1
 
-ListView {
+MouseArea {
     id: tabslist
 
     property real delegateHeight
+    property alias model: listview.model
 
     signal tabSelected(int index)
     signal tabClosed(int index)
 
-    spacing: units.gu(-5)
-    boundsBehavior: Flickable.StopAtBounds
+    onWheel: wheel.accepted = true
 
-    delegate: Loader {
-        width: parent.width
-        height: tabslist.delegateHeight
-        Behavior on height {
-            UbuntuNumberAnimation {
-                duration: UbuntuAnimation.BriskDuration
+    function reset() {
+        listview.positionViewAtBeginning()
+    }
+
+    ListView {
+        id: listview
+
+        anchors.fill: parent
+
+        spacing: units.gu(-5)
+        boundsBehavior: Flickable.StopAtBounds
+
+        delegate: Loader {
+            width: parent.width
+            height: tabslist.delegateHeight
+            Behavior on height {
+                UbuntuNumberAnimation {
+                    duration: UbuntuAnimation.BriskDuration
+                }
             }
-        }
 
-        z: index
+            z: index
 
-        sourceComponent: (index > 0) ? tabPreviewComponent : currentTabComponent
+            sourceComponent: (index > 0) ? tabPreviewComponent : currentTabComponent
 
-        Component {
-            id: currentTabComponent
+            Component {
+                id: currentTabComponent
 
-            MouseArea {
-                acceptedButtons: Qt.AllButtons
-                hoverEnabled: true
-                onClicked: {
-                    if (mouse.button == Qt.LeftButton) {
-                        tabslist.tabSelected(index)
+                MouseArea {
+                    acceptedButtons: Qt.AllButtons
+                    hoverEnabled: true
+                    onClicked: {
+                        if (mouse.button == Qt.LeftButton) {
+                            tabslist.tabSelected(index)
+                        }
                     }
                 }
-
             }
-        }
 
-        Component {
-            id: tabPreviewComponent
+            Component {
+                id: tabPreviewComponent
 
-            TabPreview {
-                title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
-                tab: model.tab
+                TabPreview {
+                    title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
+                    tab: model.tab
 
-                onSelected: tabslist.tabSelected(index)
-                onClosed: tabslist.tabClosed(index)
+                    onSelected: tabslist.tabSelected(index)
+                    onClosed: tabslist.tabClosed(index)
+                }
             }
         }
     }

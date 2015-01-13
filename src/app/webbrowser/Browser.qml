@@ -324,7 +324,7 @@ BrowserView {
 
         function reset() {
             recentToolbar.state = "hidden"
-            tabslist.positionViewAtBeginning()
+            tabslist.reset()
         }
     }
 
