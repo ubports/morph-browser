@@ -257,7 +257,7 @@ BrowserView {
                     tab.forceActiveFocus()
                     tabslist.model.setCurrent(index)
                 }
-                positionViewAtBeginning()
+                reset()
                 bottomEdgeHandle.reset()
             }
             onTabClosed: {
