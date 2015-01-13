@@ -357,6 +357,12 @@ BrowserView {
                 }
             }
         }
+
+        onStageChanged: {
+            if (!dragging && (stage == 0)) {
+                chrome.state = "shown"
+            }
+        }
     }
 
     Item {
