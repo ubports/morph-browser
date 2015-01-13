@@ -25,7 +25,7 @@ ListView {
     property real delegateHeight
 
     signal tabSelected(int index)
-    signal closeRequested(int index)
+    signal tabClosed(int index)
 
     spacing: units.gu(-5)
     boundsBehavior: Flickable.StopAtBounds
@@ -66,7 +66,7 @@ ListView {
                 tab: model.tab
 
                 onSelected: tabslist.tabSelected(index)
-                onCloseRequested: tabslist.closeRequested(index)
+                onClosed: tabslist.tabClosed(index)
             }
         }
     }

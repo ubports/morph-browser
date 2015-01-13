@@ -260,7 +260,7 @@ BrowserView {
                 positionViewAtBeginning()
                 bottomEdgeHandle.reset()
             }
-            onCloseRequested: {
+            onTabClosed: {
                 var tab = tabsModel.remove(index)
                 if (tab) {
                     tab.close()

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -22,126 +22,28 @@ import Ubuntu.Components 1.1
 Column {
     id: tabPreview
 
-    property alias title: label.text
+    property alias title: chrome.title
     property var tab
     readonly property url url: tab ? tab.url : ""
 
     signal selected()
-    signal closeRequested()
+    signal closed()
 
-    Item {
-        id: header
+    TabChrome {
+        id: chrome
 
-        width: parent.width
-        height: units.gu(4)
-
-        Row {
-            anchors.fill: parent
-
-            AbstractButton {
-                id: closeButton
-                objectName: "closeButton"
-
-                height: parent.height
-                width: units.gu(5)
-
-                Rectangle {
-                    anchors.fill: parent
-                }
-
-                Icon {
-                    height: units.gu(2)
-                    width: height
-                    anchors.centerIn: parent
-                    name: "close"
-                }
-
-                onTriggered: tabPreview.closeRequested()
-
-                Rectangle {
-                    anchors {
-                        top: parent.top
-                        bottom: parent.bottom
-                        right: parent.right
-                    }
-                    width: units.dp(1)
-
-                    color: "#d9d9d9"
-                }
-            }
-
-            Item {
-                width: parent.width - closeButton.width
-                height: parent.height
-
-                Image {
-                    id: tabBackgroundLeft
-                    height: parent.height
-                    anchors {
-                        left: parent.left
-                        right: tabBackgroundCenter.left
-                    }
-                    source: "assets/tab-header-left.png"
-                    fillMode: Image.TileHorizontally
-                }
-
-                Image {
-                    id: tabBackgroundCenter
-                    height: parent.height
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: "assets/tab-header-center.png"
-                    fillMode: Image.PreserveAspectFit
-                }
-
-                Image {
-                    id: tabBackgroundRight
-                    height: parent.height
-                    anchors {
-                        left: tabBackgroundCenter.right
-                        right: parent.right
-                    }
-                    source: "assets/tab-header-right.png"
-                    fillMode: Image.TileHorizontally
-                }
-
-                Label {
-                    id: label
-                    anchors {
-                        fill: tabBackgroundLeft
-                        leftMargin: units.gu(1)
-                    }
-                    verticalAlignment: Text.AlignVCenter
-                    elide: Text.ElideRight
-                }
-
-                MouseArea {
-                    anchors {
-                        top: parent.top
-                        bottom: parent.bottom
-                        left: parent.left
-                    }
-                    width: parent.width / 2
-
-                    onClicked: tabPreview.selected()
-                }
-            }
+        anchors {
+            left: parent.left
+            right: parent.right
         }
 
-        Rectangle {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
-            height: units.dp(1)
-
-            color: "#d9d9d9"
-        }
+        onSelected: tabPreview.selected()
+        onClosed: tabPreview.closed()
     }
 
     Rectangle {
         width: parent.width
-        height: parent.height - header.height
+        height: parent.height - chrome.height
 
         Image {
             visible: !previewContainer.visible
