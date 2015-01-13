@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -30,7 +30,7 @@ ListView {
     spacing: units.gu(-5)
     boundsBehavior: Flickable.StopAtBounds
 
-    delegate: TabPreview {
+    delegate: Loader {
         width: parent.width
         height: tabslist.delegateHeight
         Behavior on height {
@@ -41,10 +41,33 @@ ListView {
 
         z: index
 
-        title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
-        tab: model.tab
+        sourceComponent: (index > 0) ? tabPreviewComponent : currentTabComponent
 
-        onSelected: tabslist.tabSelected(index)
-        onCloseRequested: tabslist.closeRequested(index)
+        Component {
+            id: currentTabComponent
+
+            MouseArea {
+                acceptedButtons: Qt.AllButtons
+                hoverEnabled: true
+                onClicked: {
+                    if (mouse.button == Qt.LeftButton) {
+                        tabslist.tabSelected(index)
+                    }
+                }
+
+            }
+        }
+
+        Component {
+            id: tabPreviewComponent
+
+            TabPreview {
+                title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
+                tab: model.tab
+
+                onSelected: tabslist.tabSelected(index)
+                onCloseRequested: tabslist.closeRequested(index)
+            }
+        }
     }
 }

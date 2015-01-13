@@ -78,7 +78,6 @@ BrowserView {
 
     Item {
         anchors.fill: parent
-        visible: !recentView.visible && !historyViewContainer.visible
 
         FocusScope {
             id: tabContainer
@@ -340,7 +339,9 @@ BrowserView {
             if (dragging) {
                 chrome.state = "hidden"
             } else {
-                if (stage == 1) {
+                if (stage == 0) {
+                    chrome.state = "shown"
+                } else if (stage == 1) {
                     // TODO: finish animation to bring second tab into full view
                     // FIXME: what to do if there is only one open tab?
                     tabsModel.setCurrent(1)
@@ -354,12 +355,6 @@ BrowserView {
                     recentToolbar.state = "shown"
                     y = 0
                 }
-            }
-        }
-
-        onStageChanged: {
-            if (stage == 0) {
-                chrome.state = "shown"
             }
         }
     }
