@@ -43,6 +43,7 @@ MouseArea {
         boundsBehavior: Flickable.StopAtBounds
 
         delegate: Loader {
+            id: delegate
             width: parent.width
             height: tabslist.delegateHeight
             Behavior on height {
@@ -52,6 +53,8 @@ MouseArea {
             }
 
             z: index
+
+            readonly property string title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
 
             sourceComponent: (index > 0) ? tabPreviewComponent : currentTabComponent
 
@@ -66,6 +69,26 @@ MouseArea {
                             tabslist.tabSelected(index)
                         }
                     }
+
+                    Rectangle {
+                        anchors.fill: tabchrome
+                        color: "#312f2c"
+                    }
+
+                    TabChrome {
+                        id: tabchrome
+
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            top: parent.top
+                        }
+
+                        title: delegate.title
+
+                        onSelected: tabslist.tabSelected(index)
+                        onClosed: tabslist.tabClosed(index)
+                    }
                 }
             }
 
@@ -73,7 +96,7 @@ MouseArea {
                 id: tabPreviewComponent
 
                 TabPreview {
-                    title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
+                    title: delegate.title
                     tab: model.tab
 
                     onSelected: tabslist.tabSelected(index)
