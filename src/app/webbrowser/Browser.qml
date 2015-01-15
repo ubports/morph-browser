@@ -244,7 +244,8 @@ BrowserView {
                     return height
                 } else if (bottomEdgeHandle.stage == 1) {
                     return (1 - 1.8 * bottomEdgeHandle.dragFraction) * height
-                } else if (bottomEdgeHandle.stage == 2) {
+                //} else if (bottomEdgeHandle.stage == 2) {
+                } else if (bottomEdgeHandle.stage >= 2) {
                     return Math.max(height / 3, delegateMinHeight)
                 } else {
                     return delegateMinHeight
@@ -269,6 +270,115 @@ BrowserView {
                     browser.openUrlInNewTab("", true)
                     recentView.reset()
                     bottomEdgeHandle.reset()
+                }
+            }
+        }
+
+        Rectangle { // TEMP, replace by real history view
+            id: historyView
+
+            color: "orange"
+
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+            height: parent.height
+
+            MouseArea {
+                // Prevent mouse events from going through to underlying items/views
+                anchors.fill: parent
+                acceptedButtons: Qt.AllButtons
+                onWheel: wheel.accepted = true
+            }
+
+            states: [
+                State {
+                    name: "hidden"
+                    PropertyChanges {
+                        target: historyView
+                        y: historyView.height
+                    }
+                },
+                State {
+                    name: "shown"
+                    PropertyChanges {
+                        target: historyView
+                        y: 0
+                    }
+                },
+                State {
+                    name: "followingBottomEdgeHandle"
+                    PropertyChanges {
+                        target: historyView
+                        y: bottomEdgeHandle.y * 1.1
+                    }
+                },
+                State {
+                    name: "dragging"
+                    when: historyViewHandle.drag.active
+                }
+
+            ]
+            state: "hidden"
+
+            Connections {
+                target: bottomEdgeHandle
+                onStageChanged: {
+                    if (bottomEdgeHandle.dragging) {
+                        if (bottomEdgeHandle.stage > 1) {
+                            historyView.state = "followingBottomEdgeHandle"
+                        } else {
+                            historyView.state = "hidden"
+                        }
+                    }
+                }
+                onDraggingChanged: {
+                    if (!bottomEdgeHandle.dragging) {
+                        if (bottomEdgeHandle.stage > 2) {
+                            historyView.state = "shown"
+                        } else {
+                            // TODO: "append" the history view to the end of the tabs view
+                        }
+                    }
+                }
+            }
+
+            Behavior on y {
+                UbuntuNumberAnimation {
+                    duration: UbuntuAnimation.FastDuration
+                }
+            }
+
+            MouseArea {
+                id: historyViewHandle
+
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    top: parent.top
+                }
+                height: units.gu(5)
+
+                drag {
+                    axis: Drag.YAxis
+                    target: historyView
+                    minimumY: 0
+                    maximumY: historyView.parent.height
+                }
+
+                onReleased: {
+                    if (historyView.y > (0.4 * drag.maximumY)) {
+                        historyView.state = "hidden"
+                    } else {
+                        historyView.state = "shown"
+                    }
+                }
+
+                Rectangle { // TEMP, to visualize the handle
+                    anchors.fill: parent
+                    color: "red"
+                    opacity: 0.5
                 }
             }
         }
@@ -325,6 +435,7 @@ BrowserView {
         function reset() {
             recentToolbar.state = "hidden"
             tabslist.reset()
+            historyView.state = "hidden"
         }
     }
 
