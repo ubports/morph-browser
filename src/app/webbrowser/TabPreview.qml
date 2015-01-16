@@ -96,14 +96,19 @@ Column {
         }
 
         Rectangle {
-            anchors.fill: parent
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+            }
+            height: previewContainer.height
 
             gradient: Gradient {
                 GradientStop { position: 0.0; color: "white" }
                 GradientStop { position: 1.0; color: "black" }
             }
 
-            opacity: 0.3
+            opacity: 0.4
         }
     }
 }

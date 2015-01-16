@@ -89,6 +89,22 @@ MouseArea {
                         onSelected: tabslist.tabSelected(index)
                         onClosed: tabslist.tabClosed(index)
                     }
+
+                    Rectangle {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            top: tabchrome.bottom
+                        }
+                        height: model.tab.webview.height
+
+                        gradient: Gradient {
+                            GradientStop { position: 0.0; color: "white" }
+                            GradientStop { position: 1.0; color: "black" }
+                        }
+
+                        opacity: 0.4
+                    }
                 }
             }
 
