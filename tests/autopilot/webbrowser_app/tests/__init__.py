@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2014 Canonical
+# Copyright 2013-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -20,6 +20,7 @@ import os
 import shutil
 import urllib.request
 
+import fixtures
 from testtools.matchers import Equals
 
 from autopilot.matchers import Eventually
@@ -117,7 +118,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
                         Eventually(Equals(count)))
 
     def ping_server(self):
-        ping = urllib.request.urlopen(self.base_url + "/ping")
+        url = "http://localhost:{}/ping".format(self.server.port)
+        ping = urllib.request.urlopen(url)
         self.assertThat(ping.read(), Equals(b"pong"))
 
 
@@ -135,10 +137,12 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
 
     def setUp(self):
         self.server = http_server.HTTPServerInAThread()
-        self.addCleanup(self.server.cleanup)
-        self.base_url = "http://localhost:{}".format(self.server.port)
-        self.domain = "localhost"
         self.ping_server()
+        self.addCleanup(self.server.cleanup)
+        self.useFixture(fixtures.EnvironmentVariable(
+            'UBUNTU_WEBVIEW_HOST_MAPPING_RULES',
+            "MAP test:80 localhost:{}".format(self.server.port)))
+        self.base_url = "http://test"
         self.url = self.base_url + "/test1"
         self.ARGS = self.ARGS + [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()
