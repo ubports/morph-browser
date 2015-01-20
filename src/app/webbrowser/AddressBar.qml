@@ -110,10 +110,13 @@ FocusScope {
                           looksLikeAUrl ? "stock_website" : "search"
 
                     MouseArea {
+                        objectName: "actionButton"
+
                         anchors {
                             fill: parent
                             margins: -units.gu(1)
                         }
+
                         onClicked: {
                             if (action.loading) {
                                 addressbar.requestStop()
