@@ -159,11 +159,20 @@ FocusScope {
             }
 
             MouseArea {
-                enabled: (addressbar.state == "") &&
-                         (internal.secureConnection || internal.securityError)
-                anchors.fill: iconsRow
+                enabled: addressbar.state == ""
+                anchors {
+                    left: iconsRow.left
+                    leftMargin: -units.gu(1)
+                    right: iconsRow.right
+                    verticalCenter: parent.verticalCenter
+                }
+                height: textField.height
 
-                onClicked: addressbar.showSecurityCertificateDetails()
+                onClicked: {
+                    if (internal.secureConnection || internal.securityError) {
+                        addressbar.showSecurityCertificateDetails()
+                    }
+                }
             }
         }
 
