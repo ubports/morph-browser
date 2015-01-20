@@ -98,7 +98,7 @@ ChromeBase {
                 verticalCenter: parent.verticalCenter
             }
 
-            icon: chrome.webview ? chrome.webview.icon : ""
+            icon: (chrome.webview && !chrome.webview.certificateError) ? chrome.webview.icon : ""
 
             loading: chrome.webview ?
                      chrome.webview.loading
