@@ -1,3 +1,11 @@
+webbrowser-app (0.23+15.04.20150122-0ubuntu1) vivid; urgency=low
+
+  [ Olivier Tilloy ]
+  * Display a broken padlock icon when browsing a page loaded over an
+    insecure connection. (LP: #1412906, #1402723)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 22 Jan 2015 14:11:31 +0000
+
 webbrowser-app (0.23+15.04.20150119-0ubuntu1) vivid; urgency=low
 
   [ Alexandre Abreu ]
