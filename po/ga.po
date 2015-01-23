@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-12-17 15:57+0100\n"
+"POT-Creation-Date: 2015-01-22 18:29+0100\n"
 "PO-Revision-Date: 2015-01-11 17:53+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Irish <ga@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-01-12 07:19+0000\n"
-"X-Generator: Launchpad (build 17298)\n"
+"X-Launchpad-Export-Date: 2015-01-23 06:44+0000\n"
+"X-Generator: Launchpad (build 17306)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -398,7 +398,7 @@ msgstr "Sábháil íomhá"
 msgid "Share…"
 msgstr "Roinn…"
 
-#: src/app/webbrowser/AddressBar.qml:208
+#: src/app/webbrowser/AddressBar.qml:210
 msgid "search or enter an address"
 msgstr ""
 
@@ -464,15 +464,55 @@ msgstr ""
 msgid "see more"
 msgstr ""
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+#: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
 msgstr ""
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+#: src/app/webbrowser/SecurityCertificatePopover.qml:70
+msgid "Identity Not Verified"
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:78
+msgid "The identity of this website has not been verified."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:89
+msgid "Server certificate does not match the identity of the site."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:91
+msgid "Server certificate has expired."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:93
+msgid "Server certificate contains invalid dates."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Server certificate is issued by an entity that is not trusted."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:97
+msgid "Server certificate has been revoked."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:99
+msgid "Server certificate is invalid."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:101
+msgid "Server certificate is insecure."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:103
+msgid "Server certificate failed our security checks for an unknown reason."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
 msgstr "Tá tú ceangailte le"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+#: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
 msgstr ""
 
@@ -486,13 +526,13 @@ msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:59
+#: src/app/webcontainer/webapp-container.qml:62
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:61
+#: src/app/webcontainer/webapp-container.qml:64
 msgid "Ubuntu Web Browser"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-12-17 15:57+0100\n"
+"POT-Creation-Date: 2015-01-22 18:29+0100\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2014-12-18 06:47+0000\n"
-"X-Generator: Launchpad (build 17286)\n"
+"X-Launchpad-Export-Date: 2015-01-23 06:44+0000\n"
+"X-Generator: Launchpad (build 17306)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -77,12 +77,12 @@ msgstr ""
 "ប៉ុន្តែ​វិញ្ញាបនបត្រ​សុវត្ថិភាព​របស់​តំបន់បណ្ដាញ​មិន​ទុក​ចិត្ត។"
 
 #: src/app/CertificateVerificationDialog.qml:29
-#: src/app/InvalidCertificateErrorSheet.qml:162
+#: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
 msgstr "អញ្ចឹង បន្ត"
 
 #: src/app/CertificateVerificationDialog.qml:35
-#: src/app/InvalidCertificateErrorSheet.qml:175
+#: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
 msgstr "ត្រឡប់​ទៅ​សុវត្ថិភាព"
 
@@ -121,7 +121,7 @@ msgid "Permission Request"
 msgstr "ស្នើ​សិទ្ធិ"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:68
+#: src/app/webcontainer/WebViewImplWebkit.qml:70
 msgid "This page wants to know your device’s location."
 msgstr "ទំព័រ​នេះ​ចង់​ដឹង​ទីតាំង​ឧបករណ៍របស់​អ្នក។"
 
@@ -135,16 +135,16 @@ msgstr "បដិសេធ"
 msgid "Allow"
 msgstr "អនុញ្ញាត"
 
-#: src/app/InvalidCertificateErrorSheet.qml:58
+#: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
 msgstr "វិញ្ញាបនបត្រ​សន្តិសុខ​តំបន់​ប​ណ្តា​ញ​នេះ​មិន​ត្រូវ​បាន​ទុកចិត្ត ។\n"
 
-#: src/app/InvalidCertificateErrorSheet.qml:66
+#: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
 msgstr "ស្វែងយល់​បន្ថែម"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
-#: src/app/InvalidCertificateErrorSheet.qml:90
+#: src/app/InvalidCertificateErrorSheet.qml:87
 #, qt-format
 msgid ""
 "Serial number:\n"
@@ -154,7 +154,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
-#: src/app/InvalidCertificateErrorSheet.qml:97
+#: src/app/InvalidCertificateErrorSheet.qml:94
 #, qt-format
 msgid ""
 "Subject:\n"
@@ -164,7 +164,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
-#: src/app/InvalidCertificateErrorSheet.qml:105
+#: src/app/InvalidCertificateErrorSheet.qml:102
 #, qt-format
 msgid ""
 "Subject address:\n"
@@ -174,7 +174,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
-#: src/app/InvalidCertificateErrorSheet.qml:116
+#: src/app/InvalidCertificateErrorSheet.qml:113
 #, qt-format
 msgid ""
 "Issuer:\n"
@@ -184,7 +184,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-#: src/app/InvalidCertificateErrorSheet.qml:124
+#: src/app/InvalidCertificateErrorSheet.qml:121
 #, qt-format
 msgid ""
 "Issuer address:\n"
@@ -194,7 +194,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
-#: src/app/InvalidCertificateErrorSheet.qml:135
+#: src/app/InvalidCertificateErrorSheet.qml:132
 #, qt-format
 msgid ""
 "Valid from:\n"
@@ -204,7 +204,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
-#: src/app/InvalidCertificateErrorSheet.qml:142
+#: src/app/InvalidCertificateErrorSheet.qml:139
 #, qt-format
 msgid ""
 "Valid until:\n"
@@ -214,7 +214,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
-#: src/app/InvalidCertificateErrorSheet.qml:149
+#: src/app/InvalidCertificateErrorSheet.qml:146
 #, qt-format
 msgid ""
 "Fingerprint (SHA1):\n"
@@ -223,7 +223,7 @@ msgstr ""
 "ស្នាម​ម្រាមដៃ (SHA1) ៖\n"
 "%1"
 
-#: src/app/InvalidCertificateErrorSheet.qml:155
+#: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
@@ -232,7 +232,7 @@ msgstr ""
 "ជាពិសេសប្រសិនបើអ្នកមិនដែលឃើញការព្រមាននេះមុនពេលសម្រាប់តំបន់បណ្ដាញនេះ ។"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:190
+#: src/app/InvalidCertificateErrorSheet.qml:187
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -243,7 +243,7 @@ msgstr ""
 "ញាណនៃតំបន់បណ្តាញនេះ ។"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:193
+#: src/app/InvalidCertificateErrorSheet.qml:190
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -253,7 +253,7 @@ msgstr ""
 "ទេប៉ុន្តែម៉ាស៊ីនបម្រើបានបង្ហាញវិញ្ញាបនបត្រសន្តិសុខមួយដែលបានផុតកំណត់ ។"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:196
+#: src/app/InvalidCertificateErrorSheet.qml:193
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -264,7 +264,7 @@ msgstr ""
 "មត្រូវ ។"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:199
+#: src/app/InvalidCertificateErrorSheet.qml:196
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -275,7 +275,7 @@ msgstr ""
 "បានជឿទុកចិត្តមួយ ។"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:202
+#: src/app/InvalidCertificateErrorSheet.qml:199
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -285,7 +285,7 @@ msgstr ""
 "ទេប៉ុន្តែម៉ាស៊ីនបម្រើបានបង្ហាញវិញ្ញាបនបត្រសន្តិសុខមួយដែលត្រូវបានដកហូតវិញ ។"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:205
+#: src/app/InvalidCertificateErrorSheet.qml:202
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
@@ -295,7 +295,7 @@ msgstr ""
 "ទេប៉ុន្តែម៉ាស៊ីនបម្រើបានបង្ហាញវិញ្ញាបនបត្រសុវត្ថិភាពមួយមិនត្រឹមត្រូវ ។"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:208
+#: src/app/InvalidCertificateErrorSheet.qml:205
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
@@ -305,7 +305,7 @@ msgstr ""
 "ទេប៉ុន្តែម៉ាស៊ីនបម្រើបានបង្ហាញវិញ្ញាបនបត្រសុវត្ថិភាពមួយអសន្ដិសុខ ។"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:211
+#: src/app/InvalidCertificateErrorSheet.qml:208
 #, qt-format
 msgid ""
 "This site security certificate is not trusted\n"
@@ -433,7 +433,7 @@ msgstr "រក្សាទុក​រូបភាព"
 msgid "Share…"
 msgstr "ចែករំលែក"
 
-#: src/app/webbrowser/AddressBar.qml:208
+#: src/app/webbrowser/AddressBar.qml:210
 msgid "search or enter an address"
 msgstr "ស្វែងរក ឬ​បញ្ចូល​អាសយដ្ឋាន"
 
@@ -443,19 +443,19 @@ msgstr "ស្វែងរក ឬ​បញ្ចូល​អាសយដ្ឋ�
 msgid "Delete"
 msgstr "​លុប​"
 
-#: src/app/webbrowser/Browser.qml:190
+#: src/app/webbrowser/Browser.qml:160
 msgid "Share"
 msgstr "ចែករំលែក"
 
-#: src/app/webbrowser/Browser.qml:204
+#: src/app/webbrowser/Browser.qml:174
 msgid "History"
 msgstr "ប្រវត្តិ"
 
-#: src/app/webbrowser/Browser.qml:211
+#: src/app/webbrowser/Browser.qml:181
 msgid "Open tabs"
 msgstr "បើក​ផ្ទាំង"
 
-#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:187 src/app/webbrowser/HistoryView.qml:293
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "ផ្ទាំង​ថ្មី"
@@ -478,7 +478,7 @@ msgstr "បាន​មើល​ចុងក្រោយ"
 msgid "Yesterday"
 msgstr "ម្សិល​មិញ"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
 msgstr "ធ្វើរួច"
 
@@ -498,35 +498,75 @@ msgstr "មើល​​តិច​ជាង"
 msgid "see more"
 msgstr "មើល​ច្រើន​ជាង"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+#: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
 msgstr "តំបន់បណ្តាញនេះមានមាតិកាអសន្ដិសុខ"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+#: src/app/webbrowser/SecurityCertificatePopover.qml:70
+msgid "Identity Not Verified"
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:78
+msgid "The identity of this website has not been verified."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:89
+msgid "Server certificate does not match the identity of the site."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:91
+msgid "Server certificate has expired."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:93
+msgid "Server certificate contains invalid dates."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Server certificate is issued by an entity that is not trusted."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:97
+msgid "Server certificate has been revoked."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:99
+msgid "Server certificate is invalid."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:101
+msgid "Server certificate is insecure."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:103
+msgid "Server certificate failed our security checks for an unknown reason."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
 msgstr "អ្នកត្រូវបានភ្ជាប់ទៅ"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+#: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
 msgstr "ដែលត្រូវបានគ្រប់គ្រងដោយ"
 
-#: src/app/webbrowser/TabPreview.qml:162
+#: src/app/webbrowser/TabPreview.qml:163
 msgid "Tap to view"
 msgstr "ប៉ះ​ដើម្បី​មើល"
 
-#: src/app/webbrowser/TabsView.qml:114
+#: src/app/webbrowser/TabsView.qml:113
 msgid "Add"
 msgstr "បន្ថែម"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:55
+#: src/app/webcontainer/webapp-container.qml:62
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:57
+#: src/app/webcontainer/webapp-container.qml:64
 msgid "Ubuntu Web Browser"
 msgstr "កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
 
