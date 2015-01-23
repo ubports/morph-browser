@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2014 Canonical
+# Copyright 2013-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -14,9 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from testtools.matchers import Equals
-from autopilot.matchers import Eventually
-
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
@@ -27,33 +24,29 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         action_button = address_bar.get_action_button()
         url = self.base_url + "/wait/5"
         self.main_window.go_to_url(url)
-        self.assertThat(address_bar.state, Eventually(Equals("loading")))
+        address_bar.loading.wait_for(True)
         self.pointing_device.click_object(action_button)
-        self.assertThat(address_bar.state, Eventually(Equals("")))
+        address_bar.loading.wait_for(False)
 
     def test_state_editing(self):
         address_bar = self.main_window.address_bar
         self.pointing_device.click_object(address_bar)
-        self.assertThat(address_bar.state, Eventually(Equals("editing")))
+        address_bar.activeFocus.wait_for(True)
         self.keyboard.press_and_release("Enter")
-        self.assertThat(address_bar.state, Eventually(Equals("")))
+        address_bar.activeFocus.wait_for(False)
 
     def test_looses_focus_when_loading_starts(self):
         address_bar = self.main_window.address_bar
         self.pointing_device.click_object(address_bar)
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
-        self.assertThat(address_bar.state, Eventually(Equals("editing")))
+        address_bar.activeFocus.wait_for(True)
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
-        self.assertThat(address_bar.state, Eventually(Equals("")))
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+        address_bar.activeFocus.wait_for(False)
 
     def test_looses_focus_when_reloading(self):
         address_bar = self.main_window.address_bar
         self.pointing_device.click_object(address_bar)
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
-        self.assertThat(address_bar.state, Eventually(Equals("editing")))
+        address_bar.activeFocus.wait_for(True)
         action_button = address_bar.get_action_button()
         self.pointing_device.click_object(action_button)
-        self.assertThat(address_bar.state, Eventually(Equals("")))
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+        address_bar.activeFocus.wait_for(False)

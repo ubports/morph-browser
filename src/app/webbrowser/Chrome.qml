@@ -105,18 +105,15 @@ ChromeBase {
                      // Workaround for https://bugs.launchpad.net/oxide/+bug/1290821.
                      && !chrome.webview.lastLoadStopped
                      : false
-            onLoadingChanged: {
-                if (loading) {
-                    chrome.webview.forceActiveFocus()
-                }
-            }
 
             onValidated: {
+                chrome.webview.forceActiveFocus()
                 // Workaround for https://launchpad.net/bugs/1377198
                 chrome.webview.resetCertificateError()
                 chrome.webview.url = requestedUrl
             }
             onRequestReload: {
+                chrome.webview.forceActiveFocus()
                 // Workaround for https://launchpad.net/bugs/1377198
                 chrome.webview.resetCertificateError()
                 chrome.webview.reload()
