@@ -279,7 +279,6 @@ BrowserWindow {
     }
 
     function makeUrlFromIntentResult(intentFilterResult) {
-        console.log(JSON.stringify(intentFilterResult))
         var scheme = null
         var hostname = null
         var url = root.currentWebview.url || root.url
@@ -320,13 +319,10 @@ BrowserWindow {
      */
     function handleIntentUri(uri) {
         var _uri = uri;
-        console.log('uri ' + _uri)
         if (webappIntentFilter
                 && webappIntentFilter.isValidIntentUri(_uri)) {
             var result = webappIntentFilter.applyFilter(_uri)
-            console.log('result ddf ' + result.host)
             _uri = makeUrlFromIntentResult(result)
-            console.log('uri ' + _uri)
         }
 
         // Report the result of the intent uri filtering (if any)
