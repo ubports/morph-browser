@@ -1,3 +1,16 @@
+webbrowser-app (0.23+15.04.20150123-0ubuntu1) vivid; urgency=low
+
+  [ Michael Sheldon ]
+  * Keep data URIs in their original form when retrieving image URLs
+    (LP: #1413964)
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+  * Do not ever change the contents of the address bar or remove focus
+    from it while the user is editing it. (LP: #1373918)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 23 Jan 2015 14:32:25 +0000
+
 webbrowser-app (0.23+15.04.20150122-0ubuntu1) vivid; urgency=low
 
   [ Olivier Tilloy ]
