@@ -69,7 +69,7 @@ const QString IntentFilterPrivate::DEFAULT_PASS_THROUGH_FILTER =
 IntentFilterPrivate::IntentFilterPrivate(const QString& content)
     : _content(content)
 {
-    if (!_content.isEmpty())
+    if (_content.isEmpty())
     {
         _content = DEFAULT_PASS_THROUGH_FILTER;
     }
@@ -153,11 +153,10 @@ QVariantMap IntentFilter::applyFilter(const QString& intentUri)
 
     QVariantMap result;
     IntentUriDescription intentDescription = parseIntentUri(intentUri);
-    if (isValidIntentDescription(intentDescription))
+    if (!isValidIntentDescription(intentDescription))
     {
         return result;
     }
-
     QJSValue value = d->evaluate(intentDescription);
     if (value.isObject()
             && value.toVariant().canConvert(QVariant::Map))
@@ -193,7 +192,7 @@ parseIntentUri(const QString& intentUri)
         return result;
     }
 
-    static QRegularExpression intentRe("^intent://(.*)#Intent;(.*)$");
+    static QRegularExpression intentRe("^intent://(.*)/#Intent;(.*)$");
     QRegularExpressionMatch match = intentRe.match(intentUri);
     if (match.hasMatch())
     {
