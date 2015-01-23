@@ -20,6 +20,7 @@
 #include "webapp-container.h"
 
 #include "chrome-cookie-store.h"
+#include "intent-filter.h"
 #include "local-cookie-store.h"
 #include "online-accounts-cookie-store.h"
 #include "session-utils.h"
@@ -104,6 +105,7 @@ static bool canUseOxide()
 }
 
 const QString WebappContainer::URL_PATTERN_SEPARATOR = ",";
+const QString WebappContainer::DEFAULT_LOCAL_INTENT_FILTER_FILENAME = "local-intent-filter.js";
 
 
 WebappContainer::WebappContainer(int& argc, char** argv):
@@ -212,6 +214,11 @@ bool WebappContainer::initialize()
             return false;
         }
 
+        // Handle an optional intent filter. The default filter does nothing.
+        m_intentFilter.reset(new IntentFilter(m_localIntentFilterFileContent, NULL));
+        m_localIntentFilterFileContent.clear();
+        context->setContextProperty("webappIntentFilter", m_intentFilter.data());
+
         m_component->completeCreate();
 
         return true;
@@ -319,6 +326,32 @@ void WebappContainer::parseCommandLine()
             m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];
         } else if (argument.startsWith("--user-agent-string=")) {
             m_userAgentOverride = argument.split("--user-agent-string=")[1];
+        } else if (argument.startsWith("--use-local-intent-filter")) {
+            const QString LOCAL_FILTER_ARG_PREFIX = "--use-local-intent-filter";
+            QString localIntentFilterFilename;
+            if (argument.startsWith(LOCAL_FILTER_ARG_PREFIX + "="))
+            {
+                localIntentFilterFilename =
+                        argument.split(LOCAL_FILTER_ARG_PREFIX + "=")[1];
+            }
+            else
+            {
+                localIntentFilterFilename =
+                        DEFAULT_LOCAL_INTENT_FILTER_FILENAME;
+            }
+            if (!localIntentFilterFilename.isEmpty()
+                    && IntentFilter::isValidLocalIntentFilterFile(localIntentFilterFilename))
+            {
+                QFile f(localIntentFilterFilename);
+                if (f.open(QIODevice::ReadOnly))
+                {
+                    m_localIntentFilterFileContent = QString(f.readAll());
+                }
+                f.close();
+
+                qDebug() << "Using local intent filter file:"
+                         << localIntentFilterFilename;
+            }
         }
     }
 }

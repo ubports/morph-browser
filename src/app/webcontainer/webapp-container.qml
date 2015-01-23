@@ -32,6 +32,7 @@ BrowserWindow {
 
     property string localCookieStoreDbPath: ""
 
+    property var intentFilterHandler
     property string url: ""
     property string webappName: ""
     property string webappModelSearchPath: ""
@@ -254,6 +255,25 @@ BrowserWindow {
         webappViewLoader.sourceComponent = webappViewComponent
     }
 
+    function makeUrlFromIntentResult(intentFilterResult) {
+        var hostname = null
+        if (intentFilterResult.host.length !== 0) {
+            hostname = intentFilterResult.host
+        }
+        else {
+            var url = root.currentWebview.url || root.url
+            var match = url.match(/.*:\/\/([^/]*)\/.*/)
+            if (match.length > 1) {
+                hostname = match[1]
+            }
+        }
+        return intentFilterResult.scheme
+                + '://'
+                + hostname
+                + "/"
+                + intentFilterResult.path
+    }
+
     // Handle runtime requests to open urls as defined
     // by the freedesktop application dbus interface's open
     // method for DBUS application activation:
@@ -272,6 +292,12 @@ BrowserWindow {
             if (popupRedirectionUrlPrefixPattern.length !== 0
                     && requestedUrl.match(popupRedirectionUrlPrefixPattern)) {
                 return;
+            }
+
+            if (webappIntentFilter
+                    && webappIntentFilter.isValidIntentUri(requestedUrl)) {
+                var result = webappIntentFilter.applyFilter(requestedUrl);
+                requestedUrl = makeUrlFromIntentResult(result);
             }
 
             root.url = requestedUrl
