@@ -313,6 +313,7 @@ BrowserWindow {
 
     /**
      * Identity function for non-intent URIs.
+     *
      * Otherwise if the URI is an intent, tries to apply a webapp
      * local filter (or identity) and reconstruct the target URI based
      * on its result.
@@ -356,6 +357,7 @@ BrowserWindow {
                 return;
             }
 
+            requestedUrl = handleIntentUri(requestedUrl);
 
             // Add a small guard to prevent browsing to invalid urls
             if (currentWebview
