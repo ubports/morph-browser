@@ -46,17 +46,6 @@ FocusScope {
 
     height: textField.height
 
-    states: [
-        State {
-            name: "loading"
-            when: addressbar.loading
-        },
-        State {
-            name: "editing"
-            when: addressbar.activeFocus
-        }
-    ]
-
     TextField {
         id: textField
         objectName: "addressBarTextField"
@@ -82,7 +71,7 @@ FocusScope {
                 Favicon {
                     id: favicon
                     anchors.verticalCenter: parent.verticalCenter
-                    visible: (addressbar.state == "") && addressbar.actualUrl.toString() &&
+                    visible: internal.idle && addressbar.actualUrl.toString() &&
                              !internal.securityWarning && !internal.securityError
                 }
 
@@ -92,20 +81,16 @@ FocusScope {
                     height: parent.height
                     width: height
 
-                    visible: (addressbar.state == "editing") ||
-                             (addressbar.state == "loading") ||
-                             !addressbar.text
+                    visible: addressbar.activeFocus || addressbar.loading || !addressbar.text
 
                     enabled: addressbar.text
                     opacity: enabled ? 1.0 : 0.3
 
-                    readonly property bool loading: addressbar.state == "loading"
-                    readonly property bool editing: addressbar.state == "editing"
-                    readonly property bool reload: editing && addressbar.text &&
+                    readonly property bool reload: addressbar.activeFocus && addressbar.text &&
                                                    (addressbar.text == addressbar.actualUrl)
                     readonly property bool looksLikeAUrl: internal.looksLikeAUrl(addressbar.text.trim())
 
-                    name: loading ? "stop" :
+                    name: addressbar.loading ? "stop" :
                           reload ? "reload" :
                           looksLikeAUrl ? "stock_website" : "search"
 
@@ -118,7 +103,7 @@ FocusScope {
                         }
 
                         onClicked: {
-                            if (action.loading) {
+                            if (addressbar.loading) {
                                 addressbar.requestStop()
                             } else if (action.reload) {
                                 addressbar.requestReload()
@@ -133,21 +118,21 @@ FocusScope {
                     name: "network-secure"
                     height: parent.height
                     width: height
-                    visible: (addressbar.state == "") && internal.secureConnection
+                    visible: internal.idle && internal.secureConnection
                 }
 
                 Image {
                     source: "assets/broken_lock.png"
                     height: parent.height
                     fillMode: Image.PreserveAspectFit
-                    visible: (addressbar.state == "") && internal.securityError
+                    visible: internal.idle && internal.securityError
                 }
 
                 Icon {
                     name: "security-alert"
                     height: parent.height
                     width: height
-                    visible: (addressbar.state == "") && internal.securityWarning
+                    visible: internal.idle && internal.securityWarning
                 }
             }
 
@@ -162,7 +147,7 @@ FocusScope {
             }
 
             MouseArea {
-                enabled: addressbar.state == ""
+                enabled: internal.idle
                 anchors {
                     left: iconsRow.left
                     leftMargin: -units.gu(1)
@@ -186,7 +171,7 @@ FocusScope {
             height: textField.height
             width: visible ? height : 0
 
-            visible: (addressbar.state == "") && addressbar.actualUrl.toString()
+            visible: internal.idle && addressbar.actualUrl.toString()
 
             Icon {
                 height: parent.height - units.gu(2)
@@ -221,7 +206,7 @@ FocusScope {
 
         highlighted: true
 
-        onAccepted: if (addressbar.state != "") internal.validate()
+        onAccepted: if (!internal.idle) internal.validate()
 
         // Make sure that all the text is selected at the first click
         MouseArea {
@@ -240,6 +225,8 @@ FocusScope {
 
     QtObject {
         id: internal
+
+        readonly property bool idle: !addressbar.loading && !addressbar.activeFocus
 
         readonly property int securityLevel: addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
         readonly property bool secureConnection: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
@@ -339,12 +326,12 @@ FocusScope {
     }
 
     onActualUrlChanged: {
-        if (state != "editing") {
+        if (!activeFocus) {
             text = internal.simplifyUrl(actualUrl)
         }
     }
     onRequestedUrlChanged: {
-        if (state != "editing") {
+        if (!activeFocus) {
             text = internal.simplifyUrl(requestedUrl)
         }
     }
