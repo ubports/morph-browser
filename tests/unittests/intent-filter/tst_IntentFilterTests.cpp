@@ -103,37 +103,63 @@ private Q_SLOTS:
 
         QVERIFY(IntentFilter::isValidIntentDescription(d) == isValid);
 
-        IntentFilter * pf = new IntentFilter
+        IntentFilter * pf = new IntentFilter(QString());
+        QVERIFY(pf->isValidIntentUri(intentUris) == isValid);
     }
 
-    void filteredUrlPatterns_data()
+    void applyFilters_data()
     {
-        QTest::addColumn<QStringList>("patterns");
-        QTest::addColumn<QStringList>("filteredPattern");
+        QTest::addColumn<QString>("intentUris");
 
-        // regular patterns
+        QTest::addColumn<QString>("filterFunctionSource");
 
-        QTest::newRow("Patterns with empty ones")
-                << (QStringList() << QString("https?://*.mydomain.com/*")
-                                  << QString()
-                                  << QString("https?://www.mydomain.com/*")
-                                  << QString())
-                << (QStringList() << QString("https?://[^\\./]*.mydomain.com/[^\\s]*")
-                                  << QString("https?://www.mydomain.com/[^\\s]*"));
+        QTest::addColumn<QString>("scheme");
+        QTest::addColumn<QString>("uri");
+        QTest::addColumn<QString>("host");
 
-        QTest::newRow("Patterns with invalid ones")
-                << (QStringList() << QString("https?://*.mydomain.com/*")
-                                  << QString()
-                                  << QString("https?://*")
-                                  << QString())
-                << (QStringList() << QString("https?://[^\\./]*.mydomain.com/[^\\s]*"));
+        QTest::newRow("Valid intent - default filter function")
+                << "intent://scan/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
+                <<  ""
+                << "zxing"
+                << "scan"
+                << "";
+
+        QTest::newRow("Valid intent - default filter function")
+                << "intent://scan/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
+                <<  "(function(result) {return {'scheme': result.scheme+'custom', 'uri': result.uri+'custom', 'host': result.host+'custom'}; })"
+                << "zxingcustom"
+                << "scancustom"
+                << "custom";
+
+        QTest::newRow("Valid intent - invalid filter fallback to default")
+                << "intent://scan/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
+                <<  "(function(result) {return {'scheme': result.scheme+'custom', 'uri': result.uri+'custom' }; })"
+                << "zxing"
+                << "scan"
+                << "";
     }
 
-    void filteredUrlPatterns()
+    void applyFilters()
     {
-        QFETCH(QStringList, patterns);
-        QFETCH(QStringList, filteredPattern);
-        QCOMPARE(UrlPatternUtils::filterAndTransformUrlPatterns(patterns), filteredPattern);
+        QFETCH(QString, intentUris);
+
+        QFETCH(QString, filterFunctionSource);
+
+        QFETCH(QString, scheme);
+        QFETCH(QString, uri);
+        QFETCH(QString, host);
+
+        IntentFilter * pf = new IntentFilter(filterFunctionSource);
+        QVERIFY(pf->isValidIntentUri(intentUris));
+
+        QVariantMap r = pf->applyFilter(intentUris);
+        QVERIFY(r.contains("scheme"));
+        QVERIFY(r.contains("host"));
+        QVERIFY(r.contains("uri"));
+
+        QCOMPARE(r.value("scheme").toString(), scheme);
+        QCOMPARE(r.value("host").toString(), host);
+        QCOMPARE(r.value("uri").toString(), uri);
     }
 };
 

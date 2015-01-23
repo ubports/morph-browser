@@ -1,4 +1,4 @@
-set(TEST tst_IntentFilterTests.cpp)
+set(TEST tst_IntentFilterTests)
 set(SOURCES
     ${CMAKE_SOURCE_DIR}/src/app/webcontainer/intent-filter.cpp
     tst_IntentFilterTests.cpp
