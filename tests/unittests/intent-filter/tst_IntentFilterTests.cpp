@@ -65,8 +65,19 @@ private Q_SLOTS:
                 << "BROWSABLE"
                 << true;
 
-        QTest::newRow("Valid intent - w/o host")
+        QTest::newRow("Valid intent - w/o host & uri-path")
                 << "intent:///#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
+                << "zxing"
+                << "com.google.zxing.client.android"
+                << ""
+                << ""
+                << "com"
+                << "com"
+                << "BROWSABLE"
+                << true;
+
+        QTest::newRow("Valid intent - w/o host & uri-path impler syntax")
+                << "intent://#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
                 << "zxing"
                 << "com.google.zxing.client.android"
                 << ""

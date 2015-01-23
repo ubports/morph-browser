@@ -20,7 +20,7 @@ import subprocess
 
 from autopilot.testcase import AutopilotTestCase
 from autopilot.platform import model
-from testtools.matchers import Equals
+from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
 
 import ubuntuuitoolkit as uitk
@@ -93,6 +93,19 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
         self.assertThat(webview.loadProgress,
                         Eventually(Equals(100), timeout=20))
         self.assertThat(webview.loading, Eventually(Equals(False)))
+
+    def get_intent_filtered_uri(self, uri):
+        webviewContainer = self.get_webcontainer_window()
+        watcher = webviewContainer.watch_signal(
+            'intentUriHandleResult(QString)')
+        previous = watcher.num_emissions
+        webviewContainer.slots.handleIntentUri(uri)
+        self.assertThat(
+            lambda: watcher.num_emissions,
+            Eventually(GreaterThan(previous)))
+        result = webviewContainer.get_signal_emissions(
+            'intentUriHandleResult(QString)')[-1][0]
+        return result
 
     def browse_to(self, url):
         webview = self.get_oxide_webview()

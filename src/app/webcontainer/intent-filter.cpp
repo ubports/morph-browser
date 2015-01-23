@@ -192,18 +192,17 @@ parseIntentUri(const QString& intentUri)
         return result;
     }
 
-    static QRegularExpression intentRe("^intent://(.*)/#Intent;(.*)$");
+    static QRegularExpression intentRe("^intent://(.*)#Intent;(.*)$");
     QRegularExpressionMatch match = intentRe.match(intentUri);
     if (match.hasMatch())
     {
         QString host = match.captured(1);
-        QStringList s = host.split("/");
-        if (s.size() == 0)
+        QStringList s = host.split("/", QString::SkipEmptyParts);
+        if (s.size() > 0)
         {
-            return result;
+            result.host = s.size() == 2 ? s[0] : "";
+            result.uriPath = s.size() == 2 ? s[1] : s[0];
         }
-        result.host = s.size() == 2 ? s[0] : "";
-        result.uriPath = s.size() == 2 ? s[1] : s[0];
         QString tail = match.captured(2);
         QStringList infos = tail.split(";");
         Q_FOREACH(const QString& info, infos)

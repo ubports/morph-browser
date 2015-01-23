@@ -51,6 +51,9 @@ BrowserWindow {
 
     title: getWindowTitle()
 
+    // Used for testing
+    signal intentUriHandleResult(string uri)
+
     function getWindowTitle() {
         var webappViewTitle = webappViewLoader.item ? webappViewLoader.item.title : ""
         if (typeof(webappName) === 'string' && webappName.length !== 0) {
@@ -256,22 +259,61 @@ BrowserWindow {
     }
 
     function makeUrlFromIntentResult(intentFilterResult) {
+        console.log(JSON.stringify(intentFilterResult))
+        var scheme = null
         var hostname = null
-        if (intentFilterResult.host.length !== 0) {
+        var url = root.currentWebview.url || root.url
+        if (intentFilterResult.host
+                && intentFilterResult.host.length !== 0) {
             hostname = intentFilterResult.host
         }
         else {
-            var url = root.currentWebview.url || root.url
-            var match = url.match(/.*:\/\/([^/]*)\/.*/)
-            if (match.length > 1) {
-                hostname = match[1]
+            var matchHostname = url.toString().match(/.*:\/\/([^/]*)\/.*/)
+            if (matchHostname.length > 1) {
+                hostname = matchHostname[1]
             }
         }
-        return intentFilterResult.scheme
+        if (intentFilterResult.scheme
+                && intentFilterResult.scheme.length !== 0) {
+            scheme = intentFilterResult.scheme
+        }
+        else {
+            var matchScheme = url.toString().match(/(.*):\/\/[^/]*\/.*/)
+            if (matchScheme.length > 1) {
+                scheme = matchScheme[1]
+            }
+        }
+        return scheme
                 + '://'
                 + hostname
                 + "/"
-                + intentFilterResult.path
+                + (intentFilterResult.uri
+                    ? intentFilterResult.uri : "")
+    }
+
+    /**
+     * Identity function for non-intent URIs.
+     * Otherwise if the URI is an intent, tries to apply a webapp
+     * local filter (or identity) and reconstruct the target URI based
+     * on its result.
+     */
+    function handleIntentUri(uri) {
+        var _uri = uri;
+        console.log('uri ' + _uri)
+        if (webappIntentFilter
+                && webappIntentFilter.isValidIntentUri(_uri)) {
+            var result = webappIntentFilter.applyFilter(_uri)
+            console.log('result ddf ' + result.host)
+            _uri = makeUrlFromIntentResult(result)
+            console.log('uri ' + _uri)
+        }
+
+        // Report the result of the intent uri filtering (if any)
+        // Done for testing purposed. It is not possible at this point
+        // to have AP call a slot and retrieve its result synchronously.
+        intentUriHandleResult(_uri)
+
+        return _uri
     }
 
     // Handle runtime requests to open urls as defined
@@ -294,10 +336,12 @@ BrowserWindow {
                 return;
             }
 
-            if (webappIntentFilter
-                    && webappIntentFilter.isValidIntentUri(requestedUrl)) {
-                var result = webappIntentFilter.applyFilter(requestedUrl);
-                requestedUrl = makeUrlFromIntentResult(result);
+
+            // Add a small guard to prevent browsing to invalid urls
+            if (currentWebview
+                    && currentWebview.shouldAllowNavigationTo
+                    && !currentWebview.shouldAllowNavigationTo(requestedUrl)) {
+                return;
             }
 
             root.url = requestedUrl
