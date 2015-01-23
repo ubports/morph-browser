@@ -14,6 +14,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from contextlib import contextmanager
+import os
 import tempfile
 import shutil
 
@@ -41,9 +42,12 @@ def generate_temp_webapp_with_intent(intent_filter_content=""):
         intent_filter_file = "{}/local-intent-filter.js".format(tmpdir)
         with open(intent_filter_file, "w+") as f:
             f.write(intent_filter_content)
+    old_cwd = os.getcwd()
     try:
+        os.chdir(tmpdir)
         yield tmpdir
     finally:
+        os.chdir(old_cwd)
         shutil.rmtree(tmpdir)
 
 
@@ -95,7 +99,6 @@ class WebappContainerIntentUriSupportTestCase(
             args = [
                 '--webappModelSearchPath='+webapp_install_path,
                 '--use-local-intent-filter']
-            print(webapp_install_path)
             self.launch_webcontainer_app(
                 args,
                 {'UBUNTU_WEBVIEW_HOST_MAPPING_RULES': rule})
