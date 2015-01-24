@@ -280,6 +280,7 @@ void WebappContainer::printUsage() const
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
+    out << "  --use-local-intent-filter           uses a locally defined 'local-intent-filter.js' file as a filter for intent URI handling" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
     out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
@@ -327,18 +328,7 @@ void WebappContainer::parseCommandLine()
         } else if (argument.startsWith("--user-agent-string=")) {
             m_userAgentOverride = argument.split("--user-agent-string=")[1];
         } else if (argument.startsWith("--use-local-intent-filter")) {
-            const QString LOCAL_FILTER_ARG_PREFIX = "--use-local-intent-filter";
-            QString localIntentFilterFilename;
-            if (argument.startsWith(LOCAL_FILTER_ARG_PREFIX + "="))
-            {
-                localIntentFilterFilename =
-                        argument.split(LOCAL_FILTER_ARG_PREFIX + "=")[1];
-            }
-            else
-            {
-                localIntentFilterFilename =
-                        DEFAULT_LOCAL_INTENT_FILTER_FILENAME;
-            }
+            QString localIntentFilterFilename = DEFAULT_LOCAL_INTENT_FILTER_FILENAME;
             if (!localIntentFilterFilename.isEmpty()
                     && IntentFilter::isValidLocalIntentFilterFile(localIntentFilterFilename))
             {
