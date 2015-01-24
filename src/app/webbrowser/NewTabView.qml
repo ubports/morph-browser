@@ -36,31 +36,31 @@ Item {
         id: internal
 
         property int bookmarksCountLimit: 5
-        property bool seeMoreBookmarksView: false
+        property int numberOfBookmarks: bookmarksListModel.count !== undefined ?
+                                            bookmarksListModel.unlimitedCount : 0
+        property int numberOfTopSites: historyListModel.count !== undefined ?
+                                                    historyListModel.count : 0
     }
 
     ListModel {
         id: sectionsModel
 
         Component.onCompleted: {
-            if (bookmarksListModel && bookmarksListModel.count !== 0)
-                sectionsModel.append({ section: "bookmarks" });
-            if (historyListModel && historyListModel.count !== 0 && !internal.seeMoreBookmarksView )
-                sectionsModel.append({ section: "topsites" });
+            sectionsModel.append({ section: "bookmarks" });
+            //sectionsModel.append({ section: "topsites" });
+
+            console.log("numberOfBookmarks" + internal.numberOfBookmarks)
         }
     }
 
     LimitProxyModel {
         id: bookmarksListModel
-
         sourceModel: newTabView.bookmarksModel
-
-        limit: internal.seeMoreBookmarksView ? -1 : internal.bookmarksCountLimit
+        limit: internal.bookmarksCountLimit
     }
 
     LimitProxyModel {
         id: historyListModel
-
         sourceModel: HistoryByVisitsModel {
             sourceModel: HistoryTimeframeModel {
                 sourceModel: newTabView.historyModel
@@ -98,7 +98,8 @@ Item {
             width: parent.width
             height: children.height
 
-            sourceComponent: modelData == "bookmarks" ? bookmarksComponent : topSitesComponent
+            sourceComponent: modelData == "bookmarks" ? bookmarksComponent :
+                                                        topSitesComponent
         }
 
         section.property: "section"
@@ -108,16 +109,14 @@ Item {
                 right: parent.right
             }
 
-            height: sectionHeader.height + units.gu(1)
-
-            opacity: section == "topsites" && internal.seeMoreBookmarksView ? 0.0 : 1.0
-
+            height: sectionHeader.visible ? sectionHeader.height + units.gu(1) : 0
             color: newTabBackground.color
-
-            Behavior on opacity { UbuntuNumberAnimation {} }
 
             ListItem.Header {
                 id: sectionHeader
+
+                visible: (section == "bookmarks" && internal.numberOfBookmarks > 0) ||
+                         (section == "topsites" && internal.numberOfTopSites > 0)
 
                 text: {
                     if (section == "bookmarks") {
@@ -127,9 +126,27 @@ Item {
                     }
                 }
             }
+
+            Button {
+                anchors.right: parent.right
+                anchors.rightMargin: units.gu(2)
+
+                visible: section == "bookmarks" && internal.numberOfBookmarks > 5
+
+                text: internal.bookmarksCountLimit >= internal.numberOfBookmarks
+                                            ? i18n.tr("less") : i18n.tr("more")
+
+                onClicked: {
+                    internal.numberOfBookmarks > internal.bookmarksCountLimit ?
+                            internal.bookmarksCountLimit +=5 :
+                            internal.bookmarksCountLimit = 5
+                }
+
+            }
         }
 
-        section.labelPositioning: ViewSection.InlineLabels | ViewSection.CurrentLabelAtStart
+        section.labelPositioning: ViewSection.InlineLabels |
+                                    ViewSection.CurrentLabelAtStart
     }
 
     Component {
@@ -140,12 +157,8 @@ Item {
 
             model: bookmarksListModel
 
-            footerLabelText: internal.seeMoreBookmarksView ? i18n.tr("see less") : i18n.tr("see more")
-            footerLabelVisible: bookmarksListModel.unlimitedCount > internal.bookmarksCountLimit
-
             onBookmarkClicked: newTabView.bookmarkClicked(url)
             onBookmarkRemoved: newTabView.bookmarkRemoved(url)
-            onFooterLabelClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
         }
     }
 
@@ -157,12 +170,8 @@ Item {
 
             spacing: units.gu(1)
 
-            opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
-
-            Behavior on opacity { UbuntuNumberAnimation {} }
-
             Repeater {
-                model: parent.opacity == 0.0 ? "" : historyListModel
+                model: historyListModel
 
                 delegate: MouseArea {
                     width: units.gu(18)

@@ -23,12 +23,9 @@ Column {
     id: bookmarksList
 
     property alias model: bookmarksListRepeater.model
-    property alias footerLabelText: footerLabel.text
-    property alias footerLabelVisible: footerLabel.visible
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
-    signal footerLabelClicked()
 
     spacing: units.gu(1)
 
@@ -123,31 +120,6 @@ Column {
             && bookmarksListRepeater._currentSwipedItem === item) {
                 bookmarksListRepeater._currentSwipedItem = null
             }
-        }
-    }
-
-    Rectangle {
-        width: parent.width
-        height: footerLabel.visible ? footerLabel.height + units.gu(6) : 0
-
-        MouseArea {
-            anchors.centerIn: footerLabel
-
-            width: footerLabel.width + units.gu(4)
-            height: footerLabel.height + units.gu(4)
-
-            enabled: footerLabel.visible
-
-            onClicked: footerLabelClicked()
-        }
-
-        Label {
-            id: footerLabel
-            anchors.centerIn: parent
-
-            visible: true
-
-            font.bold: true
         }
     }
 }
