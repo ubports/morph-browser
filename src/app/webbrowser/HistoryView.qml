@@ -44,7 +44,7 @@ Item {
         anchors { left: parent.left; right: parent.right; top: parent.top }
 
         Icon {
-            name: "close"
+            name: "back"
             anchors {
                 top: parent.top;
                 bottom: parent.bottom;
@@ -56,6 +56,16 @@ Item {
                 anchors.fill: parent
                 onClicked: domainsListView.cancelSelection()
             }
+
+            Text {
+                anchors {
+                    top: parent.bottom
+                    horizontalCenter: parent.horizontalCenter
+                }
+                text: i18n.tr("Cancel")
+                font.pointSize: units.gu(1)
+                color: "#878787"
+            }
         }
         Icon {
             name: "select"
@@ -65,7 +75,7 @@ Item {
                 right: deleteIcon.left;
                 margins: units.gu(1)
             }
-            width: height
+            width: height + units.gu(4)
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
@@ -75,6 +85,16 @@ Item {
                         domainsListView.selectAll()
                     }
                 }
+            }
+
+            Text {
+                anchors {
+                    top: parent.bottom
+                    horizontalCenter: parent.horizontalCenter
+                }
+                text: i18n.tr("Select all")
+                font.pointSize: units.gu(1)
+                color: "#878787"
             }
         }
         Icon {
@@ -93,6 +113,16 @@ Item {
                 onClicked: {
                     domainsListView.endSelection()
                 }
+            }
+
+            Text {
+                anchors {
+                    top: parent.bottom
+                    horizontalCenter: parent.horizontalCenter
+                }
+                text: i18n.tr("Delete")
+                font.pointSize: units.gu(1)
+                color: "#878787"
             }
         }
     }
@@ -123,7 +153,8 @@ Item {
             left: parent.left
             right: parent.right
             bottom: toolbar.top
-            margins: units.gu(2)
+            topMargin: units.gu(2)
+            rightMargin: units.gu(2)
         }
 
         listModel: HistoryDomainListChronologicalModel {
@@ -137,6 +168,8 @@ Item {
         section.property: "lastVisitDate"
         section.delegate: HistorySectionDelegate {
             width: parent.width
+            anchors.left: parent.left
+            anchors.leftMargin: units.gu(2)
         }
 
         onSelectionDone: {
