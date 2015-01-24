@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -47,9 +47,7 @@ Item {
 
         Component.onCompleted: {
             sectionsModel.append({ section: "bookmarks" });
-            //sectionsModel.append({ section: "topsites" });
-
-            console.log("numberOfBookmarks" + internal.numberOfBookmarks)
+            sectionsModel.append({ section: "topsites" });
         }
     }
 
@@ -109,14 +107,15 @@ Item {
                 right: parent.right
             }
 
-            height: sectionHeader.visible ? sectionHeader.height + units.gu(1) : 0
+            height: (section == "bookmarks" && internal.numberOfBookmarks > 0) ||
+                    (section == "topsites" && internal.numberOfTopSites > 0) ?
+                                        sectionHeader.height + units.gu(1) : 0
             color: newTabBackground.color
 
             ListItem.Header {
                 id: sectionHeader
 
-                visible: (section == "bookmarks" && internal.numberOfBookmarks > 0) ||
-                         (section == "topsites" && internal.numberOfTopSites > 0)
+                visible: parent.height > 0
 
                 text: {
                     if (section == "bookmarks") {
@@ -128,8 +127,12 @@ Item {
             }
 
             Button {
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(2)
+                height: parent.height - units.gu(2)
+
+                anchors { right: parent.right; rightMargin: units.gu(2);
+                            top: parent.top; topMargin: units.gu(0.3) }
+
+                color: parent.color
 
                 visible: section == "bookmarks" && internal.numberOfBookmarks > 5
 
