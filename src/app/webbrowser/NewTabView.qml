@@ -90,7 +90,9 @@ Item {
             anchors {
                 left: parent.left
                 right: parent.right
-                margins: units.gu(2)
+                leftMargin: modelData == "bookmarks" ? 0 : units.gu(2)
+                topMargin: units.gu(2)
+                rightMargin: units.gu(2)
             }
 
             width: parent.width
