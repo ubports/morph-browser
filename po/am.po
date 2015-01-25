@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-22 18:29+0100\n"
-"PO-Revision-Date: 2014-11-06 00:54+0000\n"
+"PO-Revision-Date: 2015-01-24 22:58+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-01-23 06:43+0000\n"
+"X-Launchpad-Export-Date: 2015-01-25 06:05+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -489,43 +489,43 @@ msgstr "ይህ ገጽ የማይታመን ይዞታዎችን ይዟል"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "ማንነቱ አልታወቀም"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "የዚህ ድረሕረ ገጽ ማንነት አልተረጋገጠም"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "የዚህ ድረሕረ ገጽ ማንነት ከ ሰርቨሩ ምስክር ወረቀት ጋር አይመሳሰልም"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "የ ሰርቨሩ ምስክር ወረቀት ጊዜው አልፏል"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "የ ሰርቨሩ ምስክር ወረቀት ዋጋ የሌለው ቀኖችን ይዟል"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "የ ሰርቨሩ ምስክር ወረቀት የተሰጠው በማይታመን አካል ነው"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "የ ሰርቨሩ ምስክር ወረቀት የተሻረ ነው"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "የ ሰርቨሩ ምስክር ወረቀት ዋጋ የሌለው ነው"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "የ ሰርቨሩ ምስክር ወረቀት አያስተማምንም"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
-msgstr ""
+msgstr "የ ሰርቨሩ ምስክር ወረቀት የ እኛን የ ደህንነት ምርመራ ባልታወቀ ምክንያት ማለፍ አልቻለም"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
