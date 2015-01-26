@@ -49,7 +49,9 @@ Item {
                 top: parent.top;
                 bottom: parent.bottom;
                 left: parent.left;
-                margins: units.gu(1)
+                leftMargin: units.gu(2.5);
+                topMargin: units.gu(1);
+                bottomMargin: units.gu(1)
             }
             width: height
             MouseArea {
@@ -73,9 +75,12 @@ Item {
                 top: parent.top;
                 bottom: parent.bottom;
                 right: deleteIcon.left;
-                margins: units.gu(1)
+                leftMargin: units.gu(1);
+                topMargin: units.gu(1);
+                rightMargin: units.gu(4);
+                bottomMargin: units.gu(1)
             }
-            width: height + units.gu(4)
+            width: height
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
@@ -105,7 +110,10 @@ Item {
                 top: parent.top;
                 bottom: parent.bottom;
                 right: parent.right;
-                margins: units.gu(1)
+                leftMargin: units.gu(1);
+                topMargin: units.gu(1);
+                rightMargin: units.gu(3);
+                bottomMargin: units.gu(1)
             }
             width: height
             MouseArea {
@@ -153,7 +161,7 @@ Item {
             left: parent.left
             right: parent.right
             bottom: toolbar.top
-            topMargin: units.gu(2)
+            topMargin: units.gu(-0.5) // topMargin 2 - firstSection.topMargin 2.5
             rightMargin: units.gu(2)
         }
 
@@ -167,7 +175,7 @@ Item {
 
         section.property: "lastVisitDate"
         section.delegate: HistorySectionDelegate {
-            width: parent.width
+            width: parent.width - units.gu(2)
             anchors.left: parent.left
             anchors.leftMargin: units.gu(2)
         }

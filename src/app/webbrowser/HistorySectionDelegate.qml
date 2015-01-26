@@ -21,13 +21,14 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 
 Item {
-    height: units.gu(3)
+    height: units.gu(6.5)
 
     Label {
         anchors {
             left: parent.left
             right: parent.right
             top: parent.top
+            topMargin: units.gu(2.5)
         }
         height: units.gu(2)
 
@@ -57,6 +58,7 @@ Item {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
+            bottomMargin: units.gu(1)
         }
     }
 }
