@@ -96,9 +96,7 @@ class WebappContainerIntentUriSupportTestCase(
                 'host': 'maps.test.com', \
                 'uri': r.uri }; })"
         with generate_temp_webapp_with_intent(filter) as webapp_install_path:
-            args = [
-                '--webappModelSearchPath='+webapp_install_path,
-                '--use-local-intent-filter']
+            args = ['--webappModelSearchPath='+webapp_install_path]
             self.launch_webcontainer_app(
                 args,
                 {'UBUNTU_WEBVIEW_HOST_MAPPING_RULES': rule})

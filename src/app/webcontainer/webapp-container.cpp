@@ -105,7 +105,7 @@ static bool canUseOxide()
 }
 
 const QString WebappContainer::URL_PATTERN_SEPARATOR = ",";
-const QString WebappContainer::DEFAULT_LOCAL_INTENT_FILTER_FILENAME = "local-intent-filter.js";
+const QString WebappContainer::LOCAL_INTENT_FILTER_FILENAME = "local-intent-filter.js";
 
 
 WebappContainer::WebappContainer(int& argc, char** argv):
@@ -215,9 +215,7 @@ bool WebappContainer::initialize()
         }
 
         // Handle an optional intent filter. The default filter does nothing.
-        m_intentFilter.reset(new IntentFilter(m_localIntentFilterFileContent, NULL));
-        m_localIntentFilterFileContent.clear();
-        context->setContextProperty("webappIntentFilter", m_intentFilter.data());
+        setupLocalIntentFilterIfAny(context);
 
         m_component->completeCreate();
 
@@ -225,6 +223,30 @@ bool WebappContainer::initialize()
     } else {
         return false;
     }
+}
+
+void WebappContainer::setupLocalIntentFilterIfAny(QQmlContext* context)
+{
+    if(!context)
+    {
+        return;
+    }
+
+    QString localIntentFilterFileContent;
+    if (IntentFilter::isValidLocalIntentFilterFile(LOCAL_INTENT_FILTER_FILENAME))
+    {
+        QFile f(LOCAL_INTENT_FILTER_FILENAME);
+        if (f.open(QIODevice::ReadOnly))
+        {
+            localIntentFilterFileContent = QString(f.readAll());
+        }
+        f.close();
+
+        qDebug() << "Using local intent filter file:"
+                 << LOCAL_INTENT_FILTER_FILENAME;
+    }
+    m_intentFilter.reset(new IntentFilter(localIntentFilterFileContent, NULL));
+    context->setContextProperty("webappIntentFilter", m_intentFilter.data());
 }
 
 bool WebappContainer::isValidLocalApplicationRunningContext() const
@@ -280,7 +302,6 @@ void WebappContainer::printUsage() const
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
-    out << "  --use-local-intent-filter           uses a locally defined 'local-intent-filter.js' file as a filter for intent URI handling" << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
     out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
@@ -327,21 +348,6 @@ void WebappContainer::parseCommandLine()
             m_localCookieStoreDbPath = argument.split("--local-cookie-db-path=")[1];
         } else if (argument.startsWith("--user-agent-string=")) {
             m_userAgentOverride = argument.split("--user-agent-string=")[1];
-        } else if (argument.startsWith("--use-local-intent-filter")) {
-            QString localIntentFilterFilename = DEFAULT_LOCAL_INTENT_FILTER_FILENAME;
-            if (!localIntentFilterFilename.isEmpty()
-                    && IntentFilter::isValidLocalIntentFilterFile(localIntentFilterFilename))
-            {
-                QFile f(localIntentFilterFilename);
-                if (f.open(QIODevice::ReadOnly))
-                {
-                    m_localIntentFilterFileContent = QString(f.readAll());
-                }
-                f.close();
-
-                qDebug() << "Using local intent filter file:"
-                         << localIntentFilterFilename;
-            }
         }
     }
 }
