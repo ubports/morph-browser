@@ -34,7 +34,6 @@ Column {
     Repeater {
         id: bookmarksListRepeater
         property var _currentSwipedItem: null
-
         delegate: UrlDelegate{
             id: urlDelegate
             width: bookmarksList.width

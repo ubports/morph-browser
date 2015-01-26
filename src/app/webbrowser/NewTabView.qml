@@ -98,55 +98,98 @@ Item {
             width: parent.width
             height: children.height
 
+            opacity: section == "topsites" && internal.bookmarksCountLimit > 5 ? 0.0 : 1.0
+            Behavior on opacity { UbuntuNumberAnimation {} }
+
             sourceComponent: modelData == "bookmarks" ? bookmarksComponent :
                                                         topSitesComponent
         }
 
         section.property: "section"
-        section.delegate: Rectangle {
+        section.delegate: Column {
             anchors {
                 left: parent.left
+                leftMargin: units.gu(2)
                 right: parent.right
+                rightMargin: units.gu(2)
             }
 
-            height: (section == "bookmarks" && internal.numberOfBookmarks > 0) ||
+            opacity: section == "topsites" && internal.bookmarksCountLimit > 5 ? 0.0 : 1.0
+            Behavior on opacity { UbuntuNumberAnimation {} }
+
+            height: (section == "bookmarks" && internal.numberOfBookmarks > 0) ?
+                                        sectionHeader.height + units.gu(3) :
                     (section == "topsites" && internal.numberOfTopSites > 0) ?
-                                        sectionHeader.height + units.gu(1) : 0
-            color: newTabBackground.color
+                                        sectionHeader.height + units.gu(3) : 0
 
-            ListItem.Header {
-                id: sectionHeader
+            spacing: section == "bookmarks" ? units.gu(-1.5) : units.gu(-3)
 
-                visible: parent.height > 0
+            Row {
+                height: units.gu(6)
+                anchors { left: parent.left; right: parent.right }
+                spacing: units.gu(1.5)
 
-                text: {
-                    if (section == "bookmarks") {
-                        return i18n.tr("Bookmarks")
-                    } else if (section == "topsites") {
-                        return i18n.tr("Top sites")
+                Icon {
+                    id: starredIcon
+                    color: "#dd4814"
+                    name: "starred"
+
+                    height: sectionHeader.height
+                    width: height
+
+                    anchors {
+                        leftMargin: units.gu(1)
+                        verticalCenter: sectionHeader.verticalCenter
+                    }
+
+                    visible: section == "bookmarks"
+                }
+
+                Text {
+                    id: sectionHeader
+
+                    visible: parent.height > 0
+                    width: parent.width - starredIcon.width - moreButton.width - units.gu(3)
+
+                    anchors {
+                        verticalCenter: section == "bookmarks" ? moreButton.verticalCenter : undefined
+                    }
+
+                    text: {
+                        if (section == "bookmarks") {
+                            return i18n.tr("Bookmarks")
+                        } else if (section == "topsites") {
+                            return i18n.tr("Top sites")
+                        }
+                    }
+                }
+
+                Button {
+                    id: moreButton
+                    height: parent.height - units.gu(2.5)
+
+                    anchors { top: parent.top; topMargin: units.gu(0.5) }
+
+                    color: newTabBackground.color
+                    strokeColor: "#5d5d5d"
+
+                    visible: section == "bookmarks" && internal.numberOfBookmarks > 5
+
+                    text: internal.bookmarksCountLimit >= internal.numberOfBookmarks
+                                                ? i18n.tr("less") : i18n.tr("more")
+
+                    onClicked: {
+                        internal.numberOfBookmarks > internal.bookmarksCountLimit ?
+                                internal.bookmarksCountLimit +=5 :
+                                internal.bookmarksCountLimit = 5
                     }
                 }
             }
 
-            Button {
-                height: parent.height - units.gu(2)
-
-                anchors { right: parent.right; rightMargin: units.gu(2);
-                            top: parent.top; topMargin: units.gu(0.3) }
-
-                color: parent.color
-
-                visible: section == "bookmarks" && internal.numberOfBookmarks > 5
-
-                text: internal.bookmarksCountLimit >= internal.numberOfBookmarks
-                                            ? i18n.tr("less") : i18n.tr("more")
-
-                onClicked: {
-                    internal.numberOfBookmarks > internal.bookmarksCountLimit ?
-                            internal.bookmarksCountLimit +=5 :
-                            internal.bookmarksCountLimit = 5
-                }
-
+            Rectangle {
+                height: units.gu(0.1)
+                anchors { left: parent.left; right: parent.right }
+                color: "#acacac"
             }
         }
 
