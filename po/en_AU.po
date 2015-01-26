@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-25 06:05+0000\n"
+"X-Launchpad-Export-Date: 2015-01-26 06:51+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -428,7 +428,7 @@ msgstr "Save image"
 msgid "Share…"
 msgstr "Share…"
 
-#: src/app/webbrowser/AddressBar.qml:210
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "search or enter an address"
 
@@ -494,7 +494,7 @@ msgstr "see less"
 msgid "see more"
 msgstr "see more"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:69
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
 msgid "This site has insecure content"
 msgstr "This site has insecure content"
 
@@ -538,11 +538,11 @@ msgstr "Server certificate is insecure."
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr "Server certificate failed our security checks for an unknown reason."
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:126
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
 msgid "You are connected to"
 msgstr "You are connected to"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:148
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Which is run by"
 msgstr "Which is run by"
 
@@ -556,13 +556,13 @@ msgstr "Add"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webcontainer/webapp-container.qml:59
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu Web Browser"
 
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:64
+#: src/app/webcontainer/webapp-container.qml:61
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Web Browser"
 
