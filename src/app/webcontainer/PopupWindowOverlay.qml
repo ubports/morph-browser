@@ -30,93 +30,98 @@ Item {
     property var webContext
     property alias request: popupWebview.request
 
-    visible: true
+    Rectangle {
+        color: "#AAAAAA"
+        anchors.fill: parent
+    }
 
     Item {
-
-        anchors.fill: parent
-
-        Rectangle {
-            color: "#ADADAD"
-            anchors.fill: parent
+        anchors {
+            fill: parent
+            margins: units.gu(1)
         }
 
-        Item {
+        Rectangle {
+            id: controls
+
+            height: units.gu(6)
+            width: parent.width - units.gu(6)
+color: "red"
+
             anchors {
-                fill: parent
-                margins: units.gu(1)
+                top: parent.top
+                horizontalCenter: parent.horizontalCenter
             }
 
-            enabled: true
-            visible: true
-
-            Item {
-                id: controls
-
-                height: units.gu(6)
-                width: parent.width - units.gu(6)
+            ChromeButton {
+                id: closeButton
 
                 anchors {
+                    right: parent.right
                     top: parent.top
-                    horizontalCenter: parent.horizontalCenter
+                    bottom: parent.bottom
+                    verticalCenter: parent.verticalCenter
                 }
+
+                iconName: "close"
+                iconSize: 0.6 * height
 
                 enabled: true
                 visible: true
 
-                ChromeButton {
-                    id: closeButton
-
-                    anchors {
-                        right: parent.right
-                        top: parent.top
-                        bottom: parent.bottom
-                    }
-
-                    iconName: "close"
-                    iconSize: 0.6 * height
-
-                    enabled: true
-                    visible: true
-
-                    onTriggered: console.log('*****************************')
-                    onClicked: console.log('*****************************')
-                }
-                ChromeButton {
-                    id: buttonOpenInBrowser
-
-                    anchors {
-                        left: parent.left
-                        top: parent.top
-                        bottom: parent.bottom
-                    }
-
-                    iconName: "language-chooser"
-                    iconSize: 0.6 * height
-
-                    enabled: true
-                    visible: true
-
-                    onTriggered: console.log('*****************************')
+                MouseArea {
+                    anchors.fill: parent
                     onClicked: console.log('*****************************')
                 }
             }
-
-            WebView {
-                id: popupWebview
-
-                context: webContext
+            ChromeButton {
+                id: buttonOpenInBrowser
 
                 anchors {
-                    bottom: parent.bottom
                     left: parent.left
-                    right: parent.right
-                    top: controls.bottom
+                    top: parent.top
+                    bottom: parent.bottom
+                    verticalCenter: parent.verticalCenter
                 }
 
-                onNewViewRequested: popupWindowController.createPopupView(
-                                        request, false, context)
+                iconName: "language-chooser"
+                iconSize: 0.6 * height
+
+                enabled: true
+                visible: true
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: console.log('*****************************')
+                }
             }
+
+            Text {
+                id: name
+                text: qsTr("text")
+                anchors {
+                    left: buttonOpenInBrowser.right
+                    top: parent.top
+                    bottom: parent.bottom
+                    verticalCenter: parent.verticalCenter
+                }
+            }
+        }
+
+        WebView {
+            id: popupWebview
+
+            context: webContext
+
+            anchors {
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+                top: controls.bottom
+            }
+
+            onNewViewRequested: popupWindowController.createPopupView(
+                                    request, false, context)
         }
     }
 }
