@@ -41,70 +41,48 @@ Item {
             margins: units.gu(1)
         }
 
-        Rectangle {
+        Item {
             id: controls
 
             height: units.gu(6)
             width: parent.width - units.gu(6)
-color: "red"
 
             anchors {
                 top: parent.top
                 horizontalCenter: parent.horizontalCenter
             }
 
-            ChromeButton {
+            Button {
                 id: closeButton
 
                 anchors {
                     right: parent.right
-                    top: parent.top
-                    bottom: parent.bottom
                     verticalCenter: parent.verticalCenter
                 }
 
                 iconName: "close"
-                iconSize: 0.6 * height
+                width: 0.6 * height
 
                 enabled: true
                 visible: true
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: console.log('*****************************')
-                }
+                onTriggered: popupWindowController.onViewClosed(popup)
             }
-            ChromeButton {
+            Button {
                 id: buttonOpenInBrowser
 
                 anchors {
                     left: parent.left
-                    top: parent.top
-                    bottom: parent.bottom
                     verticalCenter: parent.verticalCenter
                 }
 
                 iconName: "language-chooser"
-                iconSize: 0.6 * height
+                width: 0.6 * height
 
                 enabled: true
                 visible: true
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: console.log('*****************************')
-                }
-            }
-
-            Text {
-                id: name
-                text: qsTr("text")
-                anchors {
-                    left: buttonOpenInBrowser.right
-                    top: parent.top
-                    bottom: parent.bottom
-                    verticalCenter: parent.verticalCenter
-                }
+                onTriggered: popupWindowController.onOpenInBrowser(popupWebview.url, popup)
             }
         }
 

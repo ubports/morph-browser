@@ -35,6 +35,10 @@ Item {
         view.visible = true
         views.push(view)
     }
+    function onOpenInBrowser(url, view) {
+        onViewClosed(view)
+        Qt.openUrlExternally(url)
+    }
     function onViewClosed(view) {
         if (views.length === 0) {
             console.error("Invalid view list")
@@ -62,6 +66,7 @@ Item {
             parentView,
             { request: request,
               webContext: context,
+              popupWindowController: controller,
               width: parentView.width,
               height: parentView.height });
         onViewOpened(view)
