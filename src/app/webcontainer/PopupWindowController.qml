@@ -23,54 +23,59 @@ Item {
     id: controller
 
     property var webappUrlPatterns
+    property var mainWebappView
+    property var views: []
 
-    function createPopupView(request, from, context) {
-        popupWebOverlayFactory.createObject(
-            controller.parent,
-            { request: request, webContext: context, width: 500, height: 800 });
+    function onViewOpened(view) {
+        mainWebappView.visible = false
+        if (views.length !== 0) {
+            var topView = views[views.length-1]
+            topView.visible = false
+        }
+        view.visible = true
+        views.push(view)
+    }
+    function onViewClosed(view) {
+        if (views.length === 0) {
+            console.error("Invalid view list")
+            return
+        }
+        var topView = views[views.length-1]
+        if (topView !== view) {
+            console.error("Invalid top view")
+            return
+        }
+        topView.visible = false
+        topView.destroy()
+        views.pop()
+
+        if (views.length !== 0) {
+            views[views.length-1].visible = true
+        }
+        else {
+            mainWebappView.visible = true
+        }
+    }
+
+    function createPopupView(parentView, request, isRequestFromMainWebappWebview, context) {
+        var view = popupWebOverlayFactory.createObject(
+            parentView,
+            { request: request,
+              webContext: context,
+              width: parentView.width,
+              height: parentView.height });
+        onViewOpened(view)
     }
 
     Component {
         id: popupWebOverlayFactory
         PopupWindowOverlay {
-            anchors {
-                fill: controller.parent
-            }
+            anchors.fill: parent
         }
-    }
-
-    function shouldAllowNavigationTo(url) {
-        if (! webappUrlPatterns || webappUrlPatterns.length === 0) {
-            return true
-        }
-        // We still take the possible additional patterns specified in the command line
-        // (the in the case of finer grained ones specifically for the container and not
-        // as an 'install source' for the webapp).
-        for (var i = 0; i < webappUrlPatterns.length; ++i) {
-            var pattern = webappUrlPatterns[i]
-            if (url.match(pattern)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     function handleNewForegroundNavigationRequest(
             url, webview, request, isRequestFromMainWebappWebview) {
-        var targetUrl = url.toString();
-        if (targetUrl === 'about:blank') {
-            console.log('Accepting a new window request to navigate to "about:blank"')
-            request.action = Oxide.NavigationRequest.ActionAccept
-            return
-        }
-
-        if (!shouldAllowNavigationTo(targetUrl)) {
-            if (!isRequestFromMainWebappWebview) {
-                console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
-                request.action = Oxide.NavigationRequest.ActionReject
-                webappContainerHelper.browseToUrlRequested(webview, targetUrl)
-                return
-            }
-        }
+        request.action = Oxide.NavigationRequest.ActionAccept
     }
 }

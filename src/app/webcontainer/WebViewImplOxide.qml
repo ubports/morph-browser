@@ -60,7 +60,7 @@ WebViewImpl {
     preferences.localStorageEnabled: true
     preferences.appCacheEnabled: true
 
-    onNewViewRequested: popupController.createPopupView(request, true, context)
+    onNewViewRequested: popupController.createPopupView(webview.parent, request, true, context)
 
     contextualActions: ActionList {
         Actions.CopyLink {
@@ -166,12 +166,11 @@ WebViewImpl {
             webappUrlPatterns.push(hostPattern)
             request.action = Oxide.NavigationRequest.ActionAccept
         }
-/*
+
         if (request.action === Oxide.NavigationRequest.ActionReject) {
             console.debug('Opening: ' + url + ' in the browser window.')
             openUrlExternally(url)
         }
-        */
     }
 
     // Small shim needed when running as a webapp to wire-up connections
