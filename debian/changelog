@@ -1,3 +1,11 @@
+webbrowser-app (0.23+15.04.20150127-0ubuntu1) vivid; urgency=low
+
+  [ Olivier Tilloy ]
+  * Update the m.youtube.com UA override to fix video playback. (LP:
+    #1415107)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 27 Jan 2015 17:33:47 +0000
+
 webbrowser-app (0.23+15.04.20150123-0ubuntu1) vivid; urgency=low
 
   [ Michael Sheldon ]
