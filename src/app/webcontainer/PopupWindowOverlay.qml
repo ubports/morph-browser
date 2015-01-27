@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Window 2.0
 import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.0 as Oxide
 import Ubuntu.Components 1.1
@@ -32,70 +33,90 @@ Item {
     visible: true
 
     Item {
-        id: controls
 
-        height: units.gu(6)
-        width: parent.width - units.gu(6)
+        anchors.fill: parent
 
-        anchors {
-            top: parent.top
-            horizontalCenter: parent.horizontalCenter
+        Rectangle {
+            color: "#ADADAD"
+            anchors.fill: parent
         }
 
-        enabled: true
-        visible: true
-
-        ChromeButton {
-            id: closeButton
-
+        Item {
             anchors {
-                right: parent.right
-                top: parent.top
-                bottom: parent.bottom
+                fill: parent
+                margins: units.gu(1)
             }
-
-            iconName: "close"
-            iconSize: 0.6 * height
 
             enabled: true
             visible: true
 
-            onTriggered: console.log('*****************************')
-            onClicked: console.log('*****************************')
-        }
-        ChromeButton {
-            id: buttonOpenInBrowser
+            Item {
+                id: controls
 
-            anchors {
-                left: parent.left
-                top: parent.top
-                bottom: parent.bottom
+                height: units.gu(6)
+                width: parent.width - units.gu(6)
+
+                anchors {
+                    top: parent.top
+                    horizontalCenter: parent.horizontalCenter
+                }
+
+                enabled: true
+                visible: true
+
+                ChromeButton {
+                    id: closeButton
+
+                    anchors {
+                        right: parent.right
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+
+                    iconName: "close"
+                    iconSize: 0.6 * height
+
+                    enabled: true
+                    visible: true
+
+                    onTriggered: console.log('*****************************')
+                    onClicked: console.log('*****************************')
+                }
+                ChromeButton {
+                    id: buttonOpenInBrowser
+
+                    anchors {
+                        left: parent.left
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+
+                    iconName: "language-chooser"
+                    iconSize: 0.6 * height
+
+                    enabled: true
+                    visible: true
+
+                    onTriggered: console.log('*****************************')
+                    onClicked: console.log('*****************************')
+                }
             }
 
-            iconName: "language-chooser"
-            iconSize: 0.6 * height
+            WebView {
+                id: popupWebview
 
-            enabled: true
-            visible: true
+                context: webContext
 
-            onTriggered: console.log('*****************************')
-            onClicked: console.log('*****************************')
+                anchors {
+                    bottom: parent.bottom
+                    left: parent.left
+                    right: parent.right
+                    top: controls.bottom
+                }
+
+                onNewViewRequested: popupWindowController.createPopupView(
+                                        request, false, context)
+            }
         }
-    }
-
-    WebView {
-        id: popupWebview
-
-        context: webContext
-
-        anchors {
-            bottom: parent.bottom
-            left: parent.left
-            right: parent.right
-            top: controls.bottom
-        }
-
-        onNewViewRequested: popupWindowController.createPopupView(
-                                popup, request, false, context)
     }
 }
