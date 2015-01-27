@@ -50,6 +50,8 @@ Item {
             return
         }
         topView.visible = false
+
+        // TODO Oxide prepareToClose & prepareToCloseResponse
         topView.destroy()
         views.pop()
 

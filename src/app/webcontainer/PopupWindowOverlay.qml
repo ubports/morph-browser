@@ -18,8 +18,7 @@
 
 import QtQuick 2.0
 import QtQuick.Window 2.0
-import Ubuntu.Web 0.2
-import com.canonical.Oxide 1.0 as Oxide
+import com.canonical.Oxide 1.4 as Oxide
 import Ubuntu.Components 1.1
 import ".."
 
@@ -86,7 +85,7 @@ Item {
             }
         }
 
-        WebView {
+        Oxide.WebView {
             id: popupWebview
 
             context: webContext
@@ -99,7 +98,11 @@ Item {
             }
 
             onNewViewRequested: popupWindowController.createPopupView(
-                                    request, false, context)
+                                    popup.parent, request, false, context)
+
+            onCloseRequested: {
+                popupWindowController.onViewClosed(popup)
+            }
         }
     }
 }
