@@ -30,7 +30,7 @@ Item {
     property alias request: popupWebview.request
 
     Rectangle {
-        color: "#DDDDDD"
+        color: "#F2F1F0"
         anchors.fill: parent
     }
 
