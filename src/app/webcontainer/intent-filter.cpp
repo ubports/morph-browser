@@ -35,6 +35,7 @@ const char INTENT_URI_ACTION_PREFIX[] = "action=";
 const char INTENT_URI_CATEGORY_PREFIX[] = "category=";
 const char INTENT_URI_COMPONENT_PREFIX[] = "component=";
 const char INTENT_URI_SCHEME_PREFIX[] = "scheme=";
+const char INTENT_END_FRAGMENT_TAG[] = ";end";
 
 void trimUriSeparator(QString& uriComponent)
 {
@@ -196,7 +197,8 @@ parseIntentUri(const QUrl& intentUri)
 {
     IntentUriDescription result;
     if (intentUri.scheme() != INTENT_SCHEME_STRING
-            || !intentUri.fragment().startsWith(INTENT_START_FRAGMENT_TAG))
+            || !intentUri.fragment().startsWith(INTENT_START_FRAGMENT_TAG)
+            || !intentUri.fragment().endsWith(INTENT_END_FRAGMENT_TAG))
     {
         return result;
     }

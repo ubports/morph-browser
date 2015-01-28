@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-22 18:29+0100\n"
+"POT-Creation-Date: 2015-01-28 10:30-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -518,13 +518,13 @@ msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:64
+#: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
 msgstr ""
 
