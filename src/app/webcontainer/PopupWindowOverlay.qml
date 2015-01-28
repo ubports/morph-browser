@@ -30,7 +30,7 @@ Item {
     property alias request: popupWebview.request
 
     Rectangle {
-        color: "#AAAAAA"
+        color: "#DDDDDD"
         anchors.fill: parent
     }
 
@@ -51,7 +51,18 @@ Item {
                 horizontalCenter: parent.horizontalCenter
             }
 
-            Button {
+            Label {
+                anchors {
+                    left: parent.left
+                    rightMargin: units.gu(1)
+                    verticalCenter: parent.verticalCenter
+                }
+
+                text: popupWebview.title ? popupWebview.title : popupWebview.url
+                elide: Text.ElideRight
+            }
+
+            ChromeButton {
                 id: closeButton
 
                 anchors {
@@ -59,24 +70,31 @@ Item {
                     verticalCenter: parent.verticalCenter
                 }
 
+                height: parent.height
+                width: height
+
                 iconName: "close"
-                width: 0.6 * height
+                iconSize: 0.6 * height
 
                 enabled: true
                 visible: true
 
                 onTriggered: popupWindowController.onViewClosed(popup)
             }
-            Button {
+            ChromeButton {
                 id: buttonOpenInBrowser
 
                 anchors {
-                    left: parent.left
+                    right: closeButton.left
                     verticalCenter: parent.verticalCenter
+                    rightMargin: units.gu(1)
                 }
 
-                iconName: "language-chooser"
-                width: 0.6 * height
+                height: parent.height
+                width: height
+
+                iconName: "system-log-out"
+                iconSize: 0.6 * height
 
                 enabled: true
                 visible: true

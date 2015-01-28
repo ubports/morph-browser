@@ -78,6 +78,8 @@ Item {
         id: popupWebOverlayFactory
         PopupWindowOverlay {
             anchors.fill: parent
+
+            NumberAnimation on width { to: 50; duration: 1000 }
         }
     }
 
