@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import com.canonical.Oxide 1.0 as Oxide
+import Ubuntu.Components 1.1
 
 Item {
     id: controller
@@ -68,9 +69,7 @@ Item {
             parentView,
             { request: request,
               webContext: context,
-              popupWindowController: controller,
-              width: parentView.width,
-              height: parentView.height });
+              popupWindowController: controller });
         onViewOpened(view)
     }
 
@@ -78,8 +77,6 @@ Item {
         id: popupWebOverlayFactory
         PopupWindowOverlay {
             anchors.fill: parent
-
-            NumberAnimation on width { to: 50; duration: 1000 }
         }
     }
 
