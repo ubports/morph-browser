@@ -24,6 +24,8 @@
 // Qt
 #include <QtCore/QSettings>
 
+#define FORMFACTOR_DEPENDEND "formfactor_dependend"
+
 Settings::Settings(QObject* parent)
     : QObject(parent)
     , m_searchengine(NULL)
@@ -32,6 +34,7 @@ Settings::Settings(QObject* parent)
     m_homepage = settings.value("homepage", QUrl(DEFAULT_HOMEPAGE)).toUrl();
     QString name = settings.value("searchengine", QString(DEFAULT_SEARCH_ENGINE)).toString();
     m_searchengine = new SearchEngine(name, this);
+    m_enableBackgroundTabs = settings.value("enableBackgroundTabs", QString(FORMFACTOR_DEPENDEND)).toString().toLower();
 }
 
 const QUrl& Settings::homepage() const
@@ -42,4 +45,9 @@ const QUrl& Settings::homepage() const
 SearchEngine* Settings::searchEngine() const
 {
     return m_searchengine;
+}
+
+QString Settings::enableBackgroundTabs() const
+{
+    return m_enableBackgroundTabs;
 }
