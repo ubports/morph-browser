@@ -127,7 +127,10 @@ Item {
             PropertyChanges {
                 target: selectionIcon
                 source: Qt.resolvedUrl("ListItemWithActionsCheckBox.qml")
-                anchors.leftMargin: units.gu(2)
+                // units.gu(3) it's the size of the favicon container
+                // units.dp(16) it's the size of the favicon
+                // the favicon is hCentered in the container
+                anchors.leftMargin: units.gu(2) - (units.gu(3) - units.dp(16)) / 2
             }
             PropertyChanges {
                 target: root
@@ -219,7 +222,7 @@ Item {
         }
 
         width: parent.width
-        color: root.selected || (mouseArea.pressed && swipeState === "Normal" )? root.selectedColor : root.color
+        color: mouseArea.pressed && swipeState === "Normal" ? root.selectedColor : root.color
 
         Loader {
             id: selectionIcon

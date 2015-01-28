@@ -35,106 +35,6 @@ Item {
         color: "#f6f6f6"
     }
 
-    Item {
-        id: topBar
-        visible: domainsListView.isInSelectionMode
-
-        onVisibleChanged: visible ? topBarOpenAnimation.start() : topBarCloseAnimation.start()
-
-        anchors { left: parent.left; right: parent.right; top: parent.top }
-
-        Icon {
-            name: "back"
-            anchors {
-                top: parent.top;
-                bottom: parent.bottom;
-                left: parent.left;
-                leftMargin: units.gu(2.5);
-                topMargin: units.gu(1);
-                bottomMargin: units.gu(1)
-            }
-            width: height
-            MouseArea {
-                anchors.fill: parent
-                onClicked: domainsListView.cancelSelection()
-            }
-
-            Text {
-                anchors {
-                    top: parent.bottom
-                    horizontalCenter: parent.horizontalCenter
-                }
-                text: i18n.tr("Cancel")
-                font.pointSize: units.gu(1)
-                color: "#878787"
-            }
-        }
-        Icon {
-            name: "select"
-            anchors {
-                top: parent.top;
-                bottom: parent.bottom;
-                right: deleteIcon.left;
-                leftMargin: units.gu(1);
-                topMargin: units.gu(1);
-                rightMargin: units.gu(4);
-                bottomMargin: units.gu(1)
-            }
-            width: height
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    if (domainsListView.selectedItems.count === domainsListView.count) {
-                        domainsListView.clearSelection()
-                    } else {
-                        domainsListView.selectAll()
-                    }
-                }
-            }
-
-            Text {
-                anchors {
-                    top: parent.bottom
-                    horizontalCenter: parent.horizontalCenter
-                }
-                text: i18n.tr("Select all")
-                font.pointSize: units.gu(1)
-                color: "#878787"
-            }
-        }
-        Icon {
-            id: deleteIcon
-            enabled: domainsListView.selectedItems.count > 0
-            name: "delete"
-            anchors {
-                top: parent.top;
-                bottom: parent.bottom;
-                right: parent.right;
-                leftMargin: units.gu(1);
-                topMargin: units.gu(1);
-                rightMargin: units.gu(3);
-                bottomMargin: units.gu(1)
-            }
-            width: height
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    domainsListView.endSelection()
-                }
-            }
-
-            Text {
-                anchors {
-                    top: parent.bottom
-                    horizontalCenter: parent.horizontalCenter
-                }
-                text: i18n.tr("Delete")
-                font.pointSize: units.gu(1)
-                color: "#878787"
-            }
-        }
-    }
-
     UbuntuNumberAnimation {
         id: topBarOpenAnimation
         target: topBar
@@ -337,6 +237,112 @@ Item {
             onClicked: {
                 browser.openUrlInNewTab("", true)
                 historyView.done()
+            }
+        }
+    }
+
+    Item {
+        id: topBar
+        visible: domainsListView.isInSelectionMode
+
+        onVisibleChanged: visible ? topBarOpenAnimation.start() : topBarCloseAnimation.start()
+
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+
+        Rectangle {
+            width: parent.width
+            height: parent.height + units.gu(1.5)
+            color: "white"
+        }
+
+        Icon {
+            name: "back"
+            anchors {
+                top: parent.top;
+                bottom: parent.bottom;
+                left: parent.left;
+                leftMargin: units.gu(2.5);
+                topMargin: units.gu(1);
+                bottomMargin: units.gu(1)
+            }
+            width: height
+            MouseArea {
+                anchors.fill: parent
+                onClicked: domainsListView.cancelSelection()
+            }
+
+            Text {
+                anchors {
+                    top: parent.bottom
+                    horizontalCenter: parent.horizontalCenter
+                }
+                text: i18n.tr("Cancel")
+                font.pointSize: units.gu(1)
+                color: "#878787"
+            }
+        }
+        Icon {
+            name: "select"
+            anchors {
+                top: parent.top;
+                bottom: parent.bottom;
+                right: deleteIcon.left;
+                leftMargin: units.gu(1);
+                topMargin: units.gu(1);
+                rightMargin: units.gu(4);
+                bottomMargin: units.gu(1)
+            }
+            width: height
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if (domainsListView.selectedItems.count === domainsListView.count) {
+                        domainsListView.clearSelection()
+                    } else {
+                        domainsListView.selectAll()
+                    }
+                }
+            }
+
+            Text {
+                anchors {
+                    top: parent.bottom
+                    horizontalCenter: parent.horizontalCenter
+                }
+                text: i18n.tr("Select all")
+                font.pointSize: units.gu(1)
+                color: "#878787"
+            }
+        }
+        Icon {
+            id: deleteIcon
+            enabled: domainsListView.selectedItems.count > 0
+            name: "delete"
+            anchors {
+                top: parent.top;
+                bottom: parent.bottom;
+                right: parent.right;
+                leftMargin: units.gu(1);
+                topMargin: units.gu(1);
+                rightMargin: units.gu(3);
+                bottomMargin: units.gu(1)
+            }
+            width: height
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    domainsListView.endSelection()
+                }
+            }
+
+            Text {
+                anchors {
+                    top: parent.bottom
+                    horizontalCenter: parent.horizontalCenter
+                }
+                text: i18n.tr("Delete")
+                font.pointSize: units.gu(1)
+                color: "#878787"
             }
         }
     }
