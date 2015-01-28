@@ -21,7 +21,7 @@
 #include <QtTest/QtTest>
 
 // local
-#include "src/app/webcontainer/intent-filter.h"
+#include "intent-filter.h"
 
 class IntentFilterTests : public QObject
 {
