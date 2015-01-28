@@ -32,6 +32,7 @@ BrowserWindow {
 
     property string localCookieStoreDbPath: ""
 
+    property var intentFilterHandler
     property string url: ""
     property string webappName: ""
     property string webappModelSearchPath: ""
@@ -49,6 +50,9 @@ BrowserWindow {
     property bool runningLocalApplication: false
 
     title: getWindowTitle()
+
+    // Used for testing
+    signal intentUriHandleResult(string uri)
 
     function getWindowTitle() {
         var webappViewTitle =
@@ -274,6 +278,61 @@ BrowserWindow {
         webappViewLoader.sourceComponent = webappViewComponent
     }
 
+    function makeUrlFromIntentResult(intentFilterResult) {
+        var scheme = null
+        var hostname = null
+        var url = root.currentWebview.url || root.url
+        if (intentFilterResult.host
+                && intentFilterResult.host.length !== 0) {
+            hostname = intentFilterResult.host
+        }
+        else {
+            var matchHostname = url.toString().match(/.*:\/\/([^/]*)\/.*/)
+            if (matchHostname.length > 1) {
+                hostname = matchHostname[1]
+            }
+        }
+        if (intentFilterResult.scheme
+                && intentFilterResult.scheme.length !== 0) {
+            scheme = intentFilterResult.scheme
+        }
+        else {
+            var matchScheme = url.toString().match(/(.*):\/\/[^/]*\/.*/)
+            if (matchScheme.length > 1) {
+                scheme = matchScheme[1]
+            }
+        }
+        return scheme
+                + '://'
+                + hostname
+                + "/"
+                + (intentFilterResult.uri
+                    ? intentFilterResult.uri : "")
+    }
+
+    /**
+     * Identity function for non-intent URIs.
+     *
+     * Otherwise if the URI is an intent, tries to apply a webapp
+     * local filter (or identity) and reconstruct the target URI based
+     * on its result.
+     */
+    function handleIntentUri(uri) {
+        var _uri = uri;
+        if (webappIntentFilter
+                && webappIntentFilter.isValidIntentUri(_uri)) {
+            var result = webappIntentFilter.applyFilter(_uri)
+            _uri = makeUrlFromIntentResult(result)
+        }
+
+        // Report the result of the intent uri filtering (if any)
+        // Done for testing purposed. It is not possible at this point
+        // to have AP call a slot and retrieve its result synchronously.
+        intentUriHandleResult(_uri)
+
+        return _uri
+    }
+
     // Handle runtime requests to open urls as defined
     // by the freedesktop application dbus interface's open
     // method for DBUS application activation:
@@ -291,6 +350,15 @@ BrowserWindow {
 
             if (popupRedirectionUrlPrefixPattern.length !== 0
                     && requestedUrl.match(popupRedirectionUrlPrefixPattern)) {
+                return;
+            }
+
+            requestedUrl = handleIntentUri(requestedUrl);
+
+            // Add a small guard to prevent browsing to invalid urls
+            if (currentWebview
+                    && currentWebview.shouldAllowNavigationTo
+                    && !currentWebview.shouldAllowNavigationTo(requestedUrl)) {
                 return;
             }
 
