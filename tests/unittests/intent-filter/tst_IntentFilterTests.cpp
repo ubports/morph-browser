@@ -43,22 +43,33 @@ private Q_SLOTS:
 
         QTest::addColumn<bool>("isValid");
 
-        QTest::newRow("Valid intent - no host")
+        QTest::newRow("Valid intent - host only")
                 << "intent://scan/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
                 << "zxing"
                 << "com.google.zxing.client.android"
-                << "scan"
                 << ""
+                << "scan"
+                << "com"
+                << "com"
+                << "BROWSABLE"
+                << true;
+
+        QTest::newRow("Valid intent - no host w/ uri")
+                << "intent://scan/?a=1/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
+                << "zxing"
+                << "com.google.zxing.client.android"
+                << "?a=1"
+                << "scan"
                 << "com"
                 << "com"
                 << "BROWSABLE"
                 << true;
 
         QTest::newRow("Valid intent - w/ host")
-                << "intent://host/scan?a=1/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
+                << "intent://host/my/long/path?a=1/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
                 << "zxing"
                 << "com.google.zxing.client.android"
-                << "scan?a=1"
+                << "my/long/path?a=1"
                 << "host"
                 << "com"
                 << "com"
@@ -66,6 +77,17 @@ private Q_SLOTS:
                 << true;
 
         QTest::newRow("Valid intent - w/o host & uri-path")
+                << "intent://#Intent;scheme=trusper.referrertests;package=trusper.referrertests;end"
+                << "trusper.referrertests"
+                << "trusper.referrertests"
+                << ""
+                << ""
+                << ""
+                << ""
+                << ""
+                << true;
+
+        QTest::newRow("Valid intent - w/o host & uri-path and extra /")
                 << "intent:///#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
                 << "zxing"
                 << "com.google.zxing.client.android"
@@ -143,22 +165,22 @@ private Q_SLOTS:
                 << "intent://scan/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
                 <<  ""
                 << "zxing"
-                << "scan"
-                << "";
+                << ""
+                << "scan";
 
         QTest::newRow("Valid intent - default filter function")
                 << "intent://scan/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
                 <<  "(function(result) {return {'scheme': result.scheme+'custom', 'uri': result.uri+'custom', 'host': result.host+'custom'}; })"
                 << "zxingcustom"
-                << "scancustom"
-                << "custom";
+                << "custom"
+                << "scancustom";
 
         QTest::newRow("Valid intent - invalid filter fallback to default")
-                << "intent://scan/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
+                << "intent://host/my/long/path?a=1/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
                 <<  "(function(result) {return {'scheme': result.scheme+'custom', 'uri': result.uri+'custom' }; })"
                 << "zxing"
-                << "scan"
-                << "";
+                << "my/long/path?a=1"
+                << "host";
     }
 
     void applyFilters()

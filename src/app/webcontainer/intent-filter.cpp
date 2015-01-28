@@ -23,16 +23,23 @@
 #include <QFile>
 #include <QJSEngine>
 #include <QJSValue>
+#include <QUrl>
 
 
 namespace {
 
-const char INTENT_SCHEME_STRING[] = "intent://";
+const char INTENT_SCHEME_STRING[] = "intent";
+const char INTENT_START_FRAGMENT_TAG[] = "Intent";
 const char INTENT_URI_PACKAGE_PREFIX[] = "package=";
 const char INTENT_URI_ACTION_PREFIX[] = "action=";
 const char INTENT_URI_CATEGORY_PREFIX[] = "category=";
 const char INTENT_URI_COMPONENT_PREFIX[] = "component=";
 const char INTENT_URI_SCHEME_PREFIX[] = "scheme=";
+
+void trimUriSeparator(QString& uriComponent)
+{
+    uriComponent.remove(QRegExp("^/*")).remove(QRegExp("/*$"));
+}
 
 }
 
@@ -152,7 +159,8 @@ QVariantMap IntentFilter::applyFilter(const QString& intentUri)
     Q_D(IntentFilter);
 
     QVariantMap result;
-    IntentUriDescription intentDescription = parseIntentUri(intentUri);
+    IntentUriDescription intentDescription =
+            parseIntentUri(QUrl::fromUserInput(intentUri));
     if (!isValidIntentDescription(intentDescription))
     {
         return result;
@@ -180,53 +188,51 @@ QVariantMap IntentFilter::applyFilter(const QString& intentUri)
 bool IntentFilter::isValidIntentUri(const QString& intentUri) const
 {
     // a bit overkill but anyway ...
-    return isValidIntentDescription(parseIntentUri(intentUri));
+    return isValidIntentDescription(parseIntentUri(QUrl::fromUserInput(intentUri)));
 }
 
 IntentUriDescription
-parseIntentUri(const QString& intentUri)
+parseIntentUri(const QUrl& intentUri)
 {
     IntentUriDescription result;
-    if (!intentUri.startsWith(INTENT_SCHEME_STRING))
+    if (intentUri.scheme() != INTENT_SCHEME_STRING
+            || !intentUri.fragment().startsWith(INTENT_START_FRAGMENT_TAG))
     {
         return result;
     }
-
-    static QRegularExpression intentRe("^intent://(.*)#Intent;(.*)$");
-    QRegularExpressionMatch match = intentRe.match(intentUri);
-    if (match.hasMatch())
+    QString host = intentUri.host();
+    trimUriSeparator(host);
+    QString path = intentUri.path();
+    trimUriSeparator(path);
+    if (intentUri.hasQuery())
     {
-        QString host = match.captured(1);
-        QStringList s = host.split("/", QString::SkipEmptyParts);
-        if (s.size() > 0)
+        path += "?" + intentUri.query();
+        trimUriSeparator(path);
+    }
+    result.host = host;
+    result.uriPath = path;
+    QStringList infos = intentUri.fragment().split(";");
+    Q_FOREACH(const QString& info, infos)
+    {
+        if (info.startsWith(INTENT_URI_PACKAGE_PREFIX))
         {
-            result.host = s.size() == 2 ? s[0] : "";
-            result.uriPath = s.size() == 2 ? s[1] : s[0];
+            result.package = info.split(INTENT_URI_PACKAGE_PREFIX)[1];
         }
-        QString tail = match.captured(2);
-        QStringList infos = tail.split(";");
-        Q_FOREACH(const QString& info, infos)
+        else if (info.startsWith(INTENT_URI_ACTION_PREFIX))
         {
-            if (info.startsWith(INTENT_URI_PACKAGE_PREFIX))
-            {
-                result.package = info.split(INTENT_URI_PACKAGE_PREFIX)[1];
-            }
-            else if (info.startsWith(INTENT_URI_ACTION_PREFIX))
-            {
-                result.action = info.split(INTENT_URI_ACTION_PREFIX)[1];
-            }
-            else if (info.startsWith(INTENT_URI_CATEGORY_PREFIX))
-            {
-                result.category = info.split(INTENT_URI_CATEGORY_PREFIX)[1];
-            }
-            else if (info.startsWith(INTENT_URI_COMPONENT_PREFIX))
-            {
-                result.component = info.split(INTENT_URI_COMPONENT_PREFIX)[1];
-            }
-            else if (info.startsWith(INTENT_URI_SCHEME_PREFIX))
-            {
-                result.scheme = info.split(INTENT_URI_SCHEME_PREFIX)[1];
-            }
+            result.action = info.split(INTENT_URI_ACTION_PREFIX)[1];
+        }
+        else if (info.startsWith(INTENT_URI_CATEGORY_PREFIX))
+        {
+            result.category = info.split(INTENT_URI_CATEGORY_PREFIX)[1];
+        }
+        else if (info.startsWith(INTENT_URI_COMPONENT_PREFIX))
+        {
+            result.component = info.split(INTENT_URI_COMPONENT_PREFIX)[1];
+        }
+        else if (info.startsWith(INTENT_URI_SCHEME_PREFIX))
+        {
+            result.scheme = info.split(INTENT_URI_SCHEME_PREFIX)[1];
         }
     }
     return result;

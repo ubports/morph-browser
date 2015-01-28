@@ -96,6 +96,6 @@ struct IntentUriDescription
  * @param intentUri
  * @return
  */
-IntentUriDescription parseIntentUri(const QString& intentUri);
+IntentUriDescription parseIntentUri(const QUrl& intentUri);
 
 #endif // _INTENT_FILTER_H_
