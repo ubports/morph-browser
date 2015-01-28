@@ -255,94 +255,56 @@ Item {
             color: "white"
         }
 
-        Icon {
-            name: "back"
+        Rectangle {
+            height: parent.height - units.gu(2)
+            width: parent.width - units.gu(4)
+
             anchors {
-                top: parent.top;
-                bottom: parent.bottom;
-                left: parent.left;
-                leftMargin: units.gu(2.5);
-                topMargin: units.gu(1);
-                bottomMargin: units.gu(1)
-            }
-            width: height
-            MouseArea {
-                anchors.fill: parent
-                onClicked: domainsListView.cancelSelection()
+                top: parent.top
+                topMargin: units.gu(2)
+                left: parent.left
+                leftMargin: units.gu(2)
             }
 
-            Text {
-                anchors {
-                    top: parent.bottom
-                    horizontalCenter: parent.horizontalCenter
+            ToolbarButton {
+                action: Action {
+                    iconName: "back"
+                    text: i18n.tr("Cancel")
+                    onTriggered: domainsListView.cancelSelection()
                 }
-                text: i18n.tr("Cancel")
-                font.pointSize: units.gu(1)
-                color: "#878787"
+
+                anchors.left: parent.left
             }
-        }
-        Icon {
-            name: "select"
-            anchors {
-                top: parent.top;
-                bottom: parent.bottom;
-                right: deleteIcon.left;
-                leftMargin: units.gu(1);
-                topMargin: units.gu(1);
-                rightMargin: units.gu(4);
-                bottomMargin: units.gu(1)
-            }
-            width: height
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    if (domainsListView.selectedItems.count === domainsListView.count) {
-                        domainsListView.clearSelection()
-                    } else {
-                        domainsListView.selectAll()
+
+            ToolbarButton {
+                action: Action {
+                    iconName: "select"
+                    text: i18n.tr("Select all")
+                    onTriggered: {
+                        if (domainsListView.selectedItems.count === domainsListView.count) {
+                            domainsListView.clearSelection()
+                        } else {
+                            domainsListView.selectAll()
+                        }
                     }
                 }
-            }
 
-            Text {
                 anchors {
-                    top: parent.bottom
-                    horizontalCenter: parent.horizontalCenter
-                }
-                text: i18n.tr("Select all")
-                font.pointSize: units.gu(1)
-                color: "#878787"
-            }
-        }
-        Icon {
-            id: deleteIcon
-            enabled: domainsListView.selectedItems.count > 0
-            name: "delete"
-            anchors {
-                top: parent.top;
-                bottom: parent.bottom;
-                right: parent.right;
-                leftMargin: units.gu(1);
-                topMargin: units.gu(1);
-                rightMargin: units.gu(3);
-                bottomMargin: units.gu(1)
-            }
-            width: height
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    domainsListView.endSelection()
+                    right: deleteButton.left
+                    rightMargin: units.gu(2)
                 }
             }
 
-            Text {
-                anchors {
-                    top: parent.bottom
-                    horizontalCenter: parent.horizontalCenter
+            ToolbarButton {
+                id: deleteButton
+                action: Action {
+                    iconName: "delete"
+                    text: i18n.tr("Delete")
+                    onTriggered: domainsListView.endSelection()
+                    enabled: domainsListView.selectedItems.count > 0
                 }
-                text: i18n.tr("Delete")
-                font.pointSize: units.gu(1)
-                color: "#878787"
+
+                anchors.right: parent.right
             }
         }
     }
