@@ -256,7 +256,7 @@ Item {
         }
 
         Rectangle {
-            height: parent.height - units.gu(2)
+            height: parent.height - units.gu(1)
             width: parent.width - units.gu(4)
 
             anchors {
@@ -267,20 +267,24 @@ Item {
             }
 
             ToolbarButton {
-                action: Action {
-                    iconName: "back"
-                    text: i18n.tr("Cancel")
-                    onTriggered: domainsListView.cancelSelection()
+                iconName: "back"
+                text: i18n.tr("Cancel")
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: domainsListView.cancelSelection()
                 }
 
                 anchors.left: parent.left
             }
 
             ToolbarButton {
-                action: Action {
-                    iconName: "select"
-                    text: i18n.tr("Select all")
-                    onTriggered: {
+                iconName: "select"
+                text: i18n.tr("Select all")
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
                         if (domainsListView.selectedItems.count === domainsListView.count) {
                             domainsListView.clearSelection()
                         } else {
@@ -297,11 +301,14 @@ Item {
 
             ToolbarButton {
                 id: deleteButton
-                action: Action {
-                    iconName: "delete"
-                    text: i18n.tr("Delete")
-                    onTriggered: domainsListView.endSelection()
-                    enabled: domainsListView.selectedItems.count > 0
+
+                iconName: "delete"
+                text: i18n.tr("Delete")
+                enabled: domainsListView.selectedItems.count > 0
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: domainsListView.endSelection()
                 }
 
                 anchors.right: parent.right
