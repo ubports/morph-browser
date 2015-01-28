@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-22 18:29+0100\n"
-"PO-Revision-Date: 2014-08-22 08:02+0000\n"
-"Last-Translator: Claudio Arseni <claudio.arseni@gmail.com>\n"
+"PO-Revision-Date: 2015-01-27 15:05+0000\n"
+"Last-Translator: Milo Casagrande <milo.casagrande@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-23 06:44+0000\n"
+"X-Launchpad-Export-Date: 2015-01-28 06:27+0000\n"
 "X-Generator: Launchpad (build 17306)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -73,8 +73,8 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Si sta tentando di raggiungere in maniera sicura  %1, ma il certificato del "
-"sito web non è verificato."
+"Tentativo di raggiungere in maniera sicura  %1, ma il certificato di "
+"sicurezza del sito web non è verificato."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -141,7 +141,7 @@ msgstr "Il certificato di sicurezza del sito non è attendibile.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr ""
+msgstr "Maggiori informazioni"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:87
@@ -170,6 +170,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Indirizzo dell'oggetto:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:113
@@ -236,6 +238,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"Tentato l'accesso a %1, ma il server ha fornito un certificato di sicurezza "
+"che non corrisponde all'identità del sito."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -244,8 +248,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
-"Tentativo di accedere a %1, ma il server ha presentato un certificato di "
-"sicurezza scaduto."
+"Tentato l'accesso a %1, ma il server ha fornito un certificato di sicurezza "
+"scaduto."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -254,8 +258,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
-"Tentativo di accedere a %1, ma il server ha presentato un certificato di "
-"sicurezza contenente dati non validi."
+"Tentato l'accesso a %1, ma il server ha fornito un certificato di sicurezza "
+"contenente dati non validi."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -264,8 +268,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
-"Tentativo di accedere a %1, ma il server ha presentato un certificato di "
-"sicurezza rilasciato da un ente non attendibile."
+"Tentato l'accesso a %1, ma il server ha fornitio un certificato di sicurezza "
+"rilasciato da un ente non attendibile."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -274,8 +278,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
-"Tentativo di accedere a %1, ma il server ha presentato un certificato di "
-"sicurezza che è stato revocato."
+"Tentato l'accesso a %1, ma il server ha fornito un certificato di sicurezza "
+"che è stato revocato."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -284,8 +288,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
-"Tentativo di accedere a %1, ma il server ha presentato un certificato di "
-"sicurezza non valido."
+"Tentato l'accesso a %1, ma il server ha fornito un certificato di sicurezza "
+"non valido."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -294,8 +298,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
-"Tentativo di accedere a %1, ma il server ha presentato un certificato di "
-"sicurezza non sicuro."
+"Tentato l'accesso a %1, ma il server ha fornito un certificato di sicurezza "
+"non sicuro."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -305,9 +309,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
-"Il certificato di sicurezza del sito non è attendibile\n"
-"Tentativo di accedere a %1, ma il server ha presentato un certificato di "
-"sicurezza che non ha superato i controlli per ragioni sconosciute."
+"Il certificato di sicurezza di questo sito non è attendibile\n"
+"Tentato l'accesso a %1, ma il server ha fornito un certificato di sicurezza "
+"che non ha superato i controlli per ragioni sconosciute."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -423,9 +427,9 @@ msgstr "Salva immagine"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr "Condividi..."
+msgstr "Condividi…"
 
-#: src/app/webbrowser/AddressBar.qml:210
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "Cercare o immettere un indirizzo"
 
@@ -433,7 +437,7 @@ msgstr "Cercare o immettere un indirizzo"
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
 #: src/app/webbrowser/HistoryView.qml:179
 msgid "Delete"
-msgstr ""
+msgstr "Elimina"
 
 #: src/app/webbrowser/Browser.qml:160
 msgid "Share"
@@ -491,55 +495,58 @@ msgstr "mostra meno"
 msgid "see more"
 msgstr "mostra di più"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:69
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
 msgid "This site has insecure content"
 msgstr "Questo sito ha contenuti non protetti"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "Identità non verificata"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "L'identità di questo sito web non è stata verificata."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "Il certificato del server non corrisponde all'identità del sito."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Il certificato del server è scaduto."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "Il certificao del server contiene delle date non valide."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
 msgstr ""
+"Il certificato del server è stato rilasciato da un ente non attendibile."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Il certificato del server è stato revocato."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Il certificato del server non è valido."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "Il certificato del server non è sicuro."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"Il certificato del server non ha superato i controlli di sicurezza per "
+"ragioni sconosciute."
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:126
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
 msgid "You are connected to"
 msgstr "Ora connessi a"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:148
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Which is run by"
 msgstr "Che è gestito da"
 
@@ -553,13 +560,13 @@ msgstr "Aggiungi"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webcontainer/webapp-container.qml:59
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Browser web Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:64
+#: src/app/webcontainer/webapp-container.qml:61
 msgid "Ubuntu Web Browser"
 msgstr "Browser web Ubuntu"
 
