@@ -25,7 +25,7 @@ BrowserWindow {
 
     property alias searchEngine: browser.searchEngine
     property alias restoreSession: browser.restoreSession
-    property alias enableBackgroundTabs: browser.enableBackgroundTabs
+    property alias allowOpenInBackgroundTab: browser.allowOpenInBackgroundTab
 
     property alias homepage: browser.homepage
     property alias urls: browser.initialUrls
