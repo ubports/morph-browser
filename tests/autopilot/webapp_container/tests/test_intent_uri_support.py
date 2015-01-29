@@ -51,6 +51,11 @@ def generate_temp_webapp_with_intent(intent_filter_content=""):
         shutil.rmtree(tmpdir)
 
 
+# Those tests rely on get_intent_filtered_uri() which
+# relies on implementation detail to trigger part of the intent handling
+# code. This comes from the fact that the url-dispatcher is not easily
+# instrumentable , so a full feature flow coverage is quite tricky to get.
+# Those tests are not really functional in that sense.
 class WebappContainerIntentUriSupportTestCase(
         WebappContainerTestCaseWithLocalContentBase):
     def test_basic_intent_parsing(self):
