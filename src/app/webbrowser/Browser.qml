@@ -258,6 +258,7 @@ BrowserView {
                     tabslist.model.setCurrent(index)
                 }
                 reset()
+                recentView.reset()
                 bottomEdgeHandle.reset()
             }
             onTabClosed: {
@@ -343,14 +344,16 @@ BrowserView {
                     chrome.state = "shown"
                 } else if (stage == 1) {
                     // TODO: finish animation to bring second tab into full view
-                    // FIXME: what to do if there is only one open tab?
-                    tabsModel.setCurrent(1)
-                    tabsModel.get(0).load()
-                    recentView.reset()
-                    reset()
+                    if (tabsModel.count > 1) {
+                        tabsModel.setCurrent(1)
+                        tabsModel.get(0).load()
+                        recentView.reset()
+                        reset()
+                    } else {
+                        recentToolbar.state = "shown"
+                    }
                 } else if (stage == 2) {
                     recentToolbar.state = "shown"
-                    //lastVisited.state = "hidden"
                 } else if (stage >= 3) {
                     recentToolbar.state = "shown"
                     y = 0
