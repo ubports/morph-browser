@@ -23,7 +23,7 @@ MouseArea {
     id: tabslist
 
     property real delegateHeight
-    property alias model: listview.model
+    property alias model: repeater.model
 
     signal tabSelected(int index)
     signal tabClosed(int index)
@@ -31,32 +31,39 @@ MouseArea {
     onWheel: wheel.accepted = true
 
     function reset() {
-        listview.positionViewAtBeginning()
+        //listview.positionViewAtBeginning()
+        // TODO
     }
 
-    ListView {
-        id: listview
+    Repeater {
+        id: repeater
 
         anchors.fill: parent
 
-        spacing: units.gu(-5)
-        boundsBehavior: Flickable.StopAtBounds
-
         delegate: Loader {
             id: delegate
-            width: parent.width
-            height: tabslist.delegateHeight
+
+            asynchronous: true
+
+            width: repeater.width
+            height: delegateHeight
             Behavior on height {
                 UbuntuNumberAnimation {
                     duration: UbuntuAnimation.BriskDuration
                 }
             }
-
-            z: index
+            y: Math.max(0, (index * delegateHeight) - flickable.contentY)
+            Behavior on y {
+                UbuntuNumberAnimation {
+                    duration: UbuntuAnimation.BriskDuration
+                }
+            }
 
             readonly property string title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
 
-            sourceComponent: (index > 0) ? tabPreviewComponent : currentTabComponent
+            // FIXME: add more margin
+            readonly property bool needsInstance: (index >= 0) && ((flickable.contentY + repeater.height + delegateHeight / 2) >= (index * delegateHeight))
+            sourceComponent: needsInstance ? ((index > 0) ? tabPreviewComponent : currentTabComponent) : undefined
 
             Component {
                 id: currentTabComponent
@@ -96,7 +103,7 @@ MouseArea {
                             right: parent.right
                             top: tabchrome.bottom
                         }
-                        height: model.tab.webview.height
+                        height: model.tab.webview ? model.tab.webview.height : 0
 
                         gradient: Gradient {
                             GradientStop { position: 0.0; color: "white" }
@@ -120,5 +127,14 @@ MouseArea {
                 }
             }
         }
+    }
+
+    Flickable {
+        id: flickable
+        anchors.fill: parent
+        flickableDirection: Flickable.VerticalFlick
+        boundsBehavior: Flickable.StopAtBounds
+        contentWidth: width
+        contentHeight: tabslist.model.count * tabslist.delegateHeight
     }
 }
