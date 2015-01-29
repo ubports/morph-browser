@@ -64,7 +64,7 @@ Item {
 
             ChromeButton {
                 id: closeButton
-
+                objectName: "overlayCloseButton"
                 anchors {
                     right: parent.right
                     verticalCenter: parent.verticalCenter
@@ -83,7 +83,7 @@ Item {
             }
             ChromeButton {
                 id: buttonOpenInBrowser
-
+                objectName: "overlayButtonOpenInBrowser"
                 anchors {
                     right: closeButton.left
                     verticalCenter: parent.verticalCenter

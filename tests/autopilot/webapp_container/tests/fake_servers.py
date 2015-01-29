@@ -99,6 +99,32 @@ window.onload = function() {{
 </html>
         """.format("'"+self.headers['user-agent']+"'")
 
+    def open_close_content(self):
+        return """
+<html>
+<head>
+<title>open-close</title>
+<script>
+window.onload = function() {
+  document.getElementById('lorem').addEventListener("click", function() {
+    window.open('/open-close-content');
+  });
+}
+</script>
+</head>
+<body>
+    <a href="/open-close-content" target="_blank">
+        <div style="height: 50%; width: 100%; background-color: red">
+            target blank link
+        </div>
+    </a>
+    <div id="lorem" style="height: 50%; width: 100%; background-color: blue">
+        Lorem ipsum dolor sit amet
+    </div>
+</body>
+</html>
+        """.format("'"+self.headers['user-agent']+"'")
+
     def do_GET(self):
         if self.path == '/':
             self.send_response(200)
@@ -121,6 +147,9 @@ window.onload = function() {{
         elif self.path == '/show-user-agent':
             self.send_response(200)
             self.serve_content(self.display_ua_content())
+        elif self.path == '/open-close-content':
+            self.send_response(200)
+            self.serve_content(self.open_close_content())
         else:
             self.send_error(404)
 

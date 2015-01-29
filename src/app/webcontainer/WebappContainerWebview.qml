@@ -43,6 +43,7 @@ Item {
 
     PopupWindowController {
         id: popupController
+        objectName: "popupController"
         webappUrlPatterns: webappUrlPatterns
         mainWebappView: currentWebview
     }

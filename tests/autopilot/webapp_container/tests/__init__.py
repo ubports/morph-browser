@@ -81,6 +81,9 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
     def get_webview(self):
         return self.app.select_single(objectName="webview")
 
+    def get_popup_controller(self):
+        return self.app.select_single(objectName="popupController")
+
     def get_oxide_webview(self):
         container = self.get_webview().select_single(
             objectName='containerWebviewLoader')
