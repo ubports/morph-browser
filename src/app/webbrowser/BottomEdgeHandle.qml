@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -44,13 +44,5 @@ Item {
             maximumY: bottomEdgeHandle.parent.height - height
         }
         //enabled: bottomEdgeHandle.stage < 4
-    }
-
-    Rectangle {
-        // temporary, to visualize the handle
-        anchors.fill: parent
-        color: "lightgrey"
-        opacity: 0.8
-        visible: parent.enabled
     }
 }
