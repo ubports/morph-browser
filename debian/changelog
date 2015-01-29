@@ -1,3 +1,46 @@
+webbrowser-app (0.23+15.04.20150127-0ubuntu1) vivid; urgency=low
+
+  [ Olivier Tilloy ]
+  * Update the m.youtube.com UA override to fix video playback. (LP:
+    #1415107)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 27 Jan 2015 17:33:47 +0000
+
+webbrowser-app (0.23+15.04.20150123-0ubuntu1) vivid; urgency=low
+
+  [ Michael Sheldon ]
+  * Keep data URIs in their original form when retrieving image URLs
+    (LP: #1413964)
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+  * Do not ever change the contents of the address bar or remove focus
+    from it while the user is editing it. (LP: #1373918)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 23 Jan 2015 14:32:25 +0000
+
+webbrowser-app (0.23+15.04.20150122-0ubuntu1) vivid; urgency=low
+
+  [ Olivier Tilloy ]
+  * Display a broken padlock icon when browsing a page loaded over an
+    insecure connection. (LP: #1412906, #1402723)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 22 Jan 2015 14:11:31 +0000
+
+webbrowser-app (0.23+15.04.20150119-0ubuntu1) vivid; urgency=low
+
+  [ Alexandre Abreu ]
+  * MAke sure that we properly consider the local webapp name that could
+    be imported by a webapp-properties file for things like UA
+    overrides. (LP: #1408064)
+
+  [ Olivier Tilloy ]
+  * Use the host mapping rules in webbrowser-app autopilot tests.
+  * Use fixtures.EnvironmentVariable instead of patch_environment, which
+    is deprecated. (LP: #1395013)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 19 Jan 2015 10:45:40 +0000
+
 webbrowser-app (0.23+15.04.20141218-0ubuntu1) vivid; urgency=low
 
   [ Leo Arias ]

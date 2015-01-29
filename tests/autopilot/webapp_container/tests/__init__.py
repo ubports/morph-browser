@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2014 Canonical
+# Copyright 2014-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -18,6 +18,7 @@
 import os
 import subprocess
 
+import fixtures
 from autopilot.testcase import AutopilotTestCase
 from autopilot.platform import model
 from testtools.matchers import Equals
@@ -56,7 +57,8 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
                 'webbrowser-app.desktop')
         if envvars:
             for envvar_key in envvars:
-                self.patch_environment(envvar_key, envvars[envvar_key])
+                self.useFixture(fixtures.EnvironmentVariable(
+                    envvar_key, envvars[envvar_key]))
 
         try:
             self.app = self.launch_test_application(

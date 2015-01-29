@@ -131,6 +131,7 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
          autopilot-touch,
          libqt5test5,
+         python3-fixtures,
          ubuntu-ui-toolkit-autopilot,
          webbrowser-app (>= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests
@@ -144,6 +145,7 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
          autopilot-touch,
          libqt5test5,
+         python3-fixtures,
          ubuntu-ui-toolkit-autopilot,
          webapp-container (>= ${binary:Version}),
 Description: Ubuntu web applications container autopilot tests
