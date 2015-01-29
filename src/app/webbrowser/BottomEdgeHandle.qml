@@ -28,7 +28,7 @@ Item {
     readonly property int stage: thresholds.map(function(t) { return dragFraction <= t }).indexOf(true)
 
     y: parent.height - height
-    visible: (stage == 0) || dragging
+    visible: enabled && ((stage == 0) || dragging)
 
     function reset() {
         y = parent.height - height

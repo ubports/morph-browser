@@ -172,6 +172,23 @@ BrowserView {
                     iconName: "history"
                     enabled: browser.historyModel
                     onTriggered: historyViewComponent.createObject(historyViewContainer)
+                },
+                Action {
+                    objectName: "tabs"
+                    text: i18n.tr("Open tabs")
+                    iconName: "browser-tabs"
+                    enabled: formFactor != "mobile"
+                    onTriggered: {
+                        bottomEdgeHandle.y = 0
+                        recentToolbar.state = "shown"
+                    }
+                },
+                Action {
+                    objectName: "newtab"
+                    text: i18n.tr("New tab")
+                    iconName: "tab-new"
+                    enabled: formFactor != "mobile"
+                    onTriggered: browser.openUrlInNewTab("", true)
                 }
             ]
 
@@ -336,6 +353,8 @@ BrowserView {
         anchors.horizontalCenter: parent.horizontalCenter
         height: units.gu(2)
 
+        enabled: formFactor == "mobile"
+
         onDraggingChanged: {
             if (dragging) {
                 chrome.state = "hidden"
@@ -369,7 +388,7 @@ BrowserView {
     }
 
     Image {
-        source: "assets/overview_hint.png"
+        source: (formFactor == "mobile") ? "assets/overview_hint.png" : ""
         anchors.horizontalCenter: parent.horizontalCenter
         opacity: 1 - recentView.opacity
         Behavior on opacity {
