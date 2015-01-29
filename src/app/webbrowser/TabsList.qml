@@ -43,7 +43,7 @@ MouseArea {
         boundsBehavior: Flickable.StopAtBounds
 
         contentWidth: width
-        contentHeight: model.count * delegateHeight
+        contentHeight: (model.count - 1) * delegateHeight / 2 + height
 
         Repeater {
             id: repeater
