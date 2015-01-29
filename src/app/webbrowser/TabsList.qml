@@ -57,12 +57,14 @@ MouseArea {
                 asynchronous: true
 
                 width: repeater.width
-                height: delegateHeight
+
+                height: (index == (repeater.model.count - 1)) ? flickable.height : delegateHeight
                 Behavior on height {
                     UbuntuNumberAnimation {
                         duration: UbuntuAnimation.BriskDuration
                     }
                 }
+
                 y: Math.max(flickable.contentY, (index * delegateHeight) - flickable.contentY)
                 Behavior on y {
                     enabled: !flickable.moving

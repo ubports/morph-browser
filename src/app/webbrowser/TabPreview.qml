@@ -43,15 +43,15 @@ Column {
 
     Rectangle {
         width: parent.width
-        height: parent.height - chrome.height
+        height: parent.height
 
         Image {
             visible: !previewContainer.visible
             source: "assets/tab-artwork.png"
             asynchronous: true
             fillMode: Image.PreserveAspectFit
-            height: Math.min(parent.height / 1.6, units.gu(28))
-            width: height
+            width: parent.width / 5
+            height: width
             anchors {
                 right: parent.right
                 rightMargin: -width / 5
@@ -96,12 +96,7 @@ Column {
         }
 
         Rectangle {
-            anchors {
-                left: parent.left
-                right: parent.right
-                top: parent.top
-            }
-            height: previewContainer.height
+            anchors.fill: parent
 
             gradient: Gradient {
                 GradientStop { position: 0.0; color: "white" }
