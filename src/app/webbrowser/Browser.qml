@@ -256,6 +256,7 @@ BrowserView {
                     tab.forceActiveFocus()
                     tabslist.model.setCurrent(index)
                 }
+                // TODO: animate tab into full view
                 reset()
                 recentView.reset()
                 bottomEdgeHandle.reset()
@@ -342,7 +343,7 @@ BrowserView {
                 if (stage == 0) {
                     chrome.state = "shown"
                 } else if (stage == 1) {
-                    // TODO: finish animation to bring second tab into full view
+                    // TODO: animate second tab into full view
                     if (tabsModel.count > 1) {
                         tabsModel.setCurrent(1)
                         tabsModel.get(0).load()
