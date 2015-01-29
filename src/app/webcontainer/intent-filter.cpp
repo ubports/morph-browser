@@ -239,5 +239,3 @@ parseIntentUri(const QUrl& intentUri)
     }
     return result;
 }
-
-#include "intent-filter.moc"
