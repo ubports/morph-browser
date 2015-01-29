@@ -368,6 +368,16 @@ BrowserView {
         }
     }
 
+    Image {
+        source: "assets/overview_hint.png"
+        anchors.horizontalCenter: parent.horizontalCenter
+        opacity: 1 - recentView.opacity
+        Behavior on opacity {
+            UbuntuNumberAnimation {}
+        }
+        y: parent.height - height + (browser.currentWebview ? browser.currentWebview.contentY : 0) / 2
+    }
+
     Item {
         id: historyViewContainer
 
