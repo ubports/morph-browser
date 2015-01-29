@@ -239,7 +239,6 @@ BrowserView {
             model: tabsModel
             readonly property real delegateMinHeight: units.gu(20)
             delegateHeight: {
-                // FIXME: handle the corner case where there is only one open tab
                 if (bottomEdgeHandle.stage == 0) {
                     return height
                 } else if (bottomEdgeHandle.stage == 1) {
