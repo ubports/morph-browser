@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -50,6 +50,8 @@ Rectangle {
     ]
 
     state: "shown"
+
+    readonly property bool isFullyShown: y == (parent.height - height)
 
     Behavior on y {
         UbuntuNumberAnimation {

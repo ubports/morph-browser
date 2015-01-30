@@ -40,9 +40,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def test_close_tabs_view(self):
         tabs_view = self.main_window.get_tabs_view()
-        toolbar = self.main_window.get_recent_view_toolbar()
-        done_button = toolbar.get_button("doneButton")
-        self.pointing_device.click_object(done_button)
+        self.main_window.get_recent_view_toolbar().click_button("doneButton")
         tabs_view.visible.wait_for(False)
 
     def test_open_new_tab(self):

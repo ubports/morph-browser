@@ -242,8 +242,14 @@ class TabsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class Toolbar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_button(self, name):
-        return self.select_single("Button", objectName=name)
+    @autopilot.logging.log_action(logger.info)
+    def click_button(self, name):
+        self.isFullyShown.wait_for(True)
+        button = self.select_single("Button", objectName=name)
+        self.pointing_device.click_object(button)
 
-    def get_action(self, name):
-        return self.select_single("ToolbarAction", objectName=name)
+    @autopilot.logging.log_action(logger.info)
+    def click_action(self, name):
+        self.isFullyShown.wait_for(True)
+        action = self.select_single("ToolbarAction", objectName=name)
+        self.pointing_device.click_object(action)
