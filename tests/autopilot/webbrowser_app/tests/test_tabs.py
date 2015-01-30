@@ -54,9 +54,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def test_close_last_open_tab(self):
         tabs_view = self.main_window.get_tabs_view()
-        preview = tabs_view.get_previews()[0]
-        close_button = preview.get_close_button()
-        self.pointing_device.click_object(close_button)
+        tabs_view.get_previews()[0].close()
         tabs_view.visible.wait_for(False)
         self.assert_number_webviews_eventually(1)
         self.main_window.get_new_tab_view()
@@ -77,9 +75,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_previews()
         self.assertThat(len(previews), Equals(2))
-        preview = previews[0]
-        close_button = preview.get_close_button()
-        self.pointing_device.click_object(close_button)
+        previews[0].close()
         self.assertThat(lambda: len(tabs_view.get_previews()),
                         Eventually(Equals(1)))
         preview = tabs_view.get_previews()[0]

@@ -217,8 +217,10 @@ class Selection(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_close_button(self):
-        return self.select_single("AbstractButton", objectName="closeButton")
+    @autopilot.logging.log_action(logger.info)
+    def close(self):
+        button = self.select_single("AbstractButton", objectName="closeButton")
+        self.pointing_device.click_object(button)
 
 
 class TabsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
