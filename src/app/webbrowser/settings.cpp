@@ -45,7 +45,7 @@ SearchEngine* Settings::searchEngine() const
     return m_searchengine;
 }
 
-QString Settings::allowOpenInBackgroundTab() const
+const QString& Settings::allowOpenInBackgroundTab() const
 {
     return m_allowOpenInBackgroundTab;
 }
