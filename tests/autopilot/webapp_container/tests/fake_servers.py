@@ -123,7 +123,7 @@ window.onload = function() {
     </div>
 </body>
 </html>
-        """.format("'"+self.headers['user-agent']+"'")
+        """
 
     def do_GET(self):
         if self.path == '/':

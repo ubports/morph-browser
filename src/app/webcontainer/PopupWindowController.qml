@@ -26,21 +26,36 @@ Item {
     property var webappUrlPatterns
     property var mainWebappView
     property var views: []
+    property bool blockOpenExternalUrls: false
 
-    function onViewOpened(view) {
-        mainWebappView.visible = false
+    signal openExternalUrlTriggered(string url)
+
+    function openUrlExternally(url) {
+        if (blockOpenExternalUrls) {
+            Qt.openUrlExternally(url)
+        }
+        openExternalUrlTriggered(url)
+    }
+
+    function handleNewViewAdded(view) {
+        if (mainWebappView) {
+            mainWebappView.visible = false
+        }
+
         if (views.length !== 0) {
             var topView = views[views.length-1]
             topView.visible = false
         }
+
         view.visible = true
         views.push(view)
     }
-    function onOpenInBrowser(url, view) {
-        onViewClosed(view)
-        Qt.openUrlExternally(url)
+    function handleOpenInUrlBrowserForView(url, view) {
+        handleViewRemoved(view)
+        openExternalUrlTriggered(url)
+        openUrlExternally(url)
     }
-    function onViewClosed(view) {
+    function handleViewRemoved(view) {
         if (views.length === 0) {
             console.error("Invalid view list")
             return
@@ -63,14 +78,13 @@ Item {
             mainWebappView.visible = true
         }
     }
-
     function createPopupView(parentView, request, isRequestFromMainWebappWebview, context) {
         var view = popupWebOverlayFactory.createObject(
             parentView,
             { request: request,
               webContext: context,
               popupWindowController: controller });
-        onViewOpened(view)
+        handleNewViewAdded(view)
     }
 
     Component {

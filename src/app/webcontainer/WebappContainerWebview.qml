@@ -46,6 +46,7 @@ Item {
         objectName: "popupController"
         webappUrlPatterns: webappUrlPatterns
         mainWebappView: currentWebview
+        blockOpenExternalUrls: blockOpenExternalUrls
     }
 
     Loader {

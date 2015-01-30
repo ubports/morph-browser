@@ -79,7 +79,11 @@ Item {
                 enabled: true
                 visible: true
 
-                onTriggered: popupWindowController.onViewClosed(popup)
+                onTriggered: {
+                    if (popupWindowController) {
+                        popupWindowController.handleViewRemoved(popup)
+                    }
+                }
             }
             ChromeButton {
                 id: buttonOpenInBrowser
@@ -99,13 +103,28 @@ Item {
                 enabled: true
                 visible: true
 
-                onTriggered: popupWindowController.onOpenInBrowser(popupWebview.url, popup)
+                onTriggered: {
+                    if (popupWindowController) {
+                        popupWindowController.handleOpenInUrlBrowserForView(
+                                 popupWebview.url, popup)
+                    }
+                }
             }
         }
 
+        /**
+         * Use a plain oxide webview
+         *
+         */
         Oxide.WebView {
             id: popupWebview
 
+            objectName: "webview"
+
+            /**
+             * Reuse the
+             *
+             */
             context: webContext
 
             anchors {
@@ -115,11 +134,17 @@ Item {
                 top: controls.bottom
             }
 
-            onNewViewRequested: popupWindowController.createPopupView(
-                                    popup.parent, request, false, context)
+            onNewViewRequested: {
+                if (popupWindowController) {
+                    popupWindowController.createPopupView(
+                        popup.parent, request, false, context)
+                }
+            }
 
             onCloseRequested: {
-                popupWindowController.onViewClosed(popup)
+                if (popupWindowController) {
+                    popupWindowController.onViewClosed(popup)
+                }
             }
         }
     }

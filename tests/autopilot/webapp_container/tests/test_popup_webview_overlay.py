@@ -46,24 +46,28 @@ class WebappContainerPopupWebViewOverlayTestCase(
         external_open_watcher = webview.watch_signal(
             'openExternalUrlTriggered(QString)')
 
-        controller = self.get_popup_controller()
-        self.assertThat(controller.views.length, Equals(0))
+        views = self.get_popup_overlay_views()
+        self.assertThat(len(views), Equals(0))
 
         self.click_href_target_blank()
 
         self.assertThat(
-            external_open_watcher.was_emitted,
+            lambda: external_open_watcher.was_emitted,
             Eventually(Equals(False)))
         self.assertThat(webview.visible, Equals(False))
-        self.assertThat(controller.views.length, Equals(1))
-        overlay = controller.views[0]
-        self.assertThat(overlay.url, Contains('/open-close-content'))
+        self.assertThat(
+            lambda: len(self.get_popup_overlay_views()),
+            Eventually(Equals(1)))
+        views = self.get_popup_overlay_views()
+        overlay = views[0]
+        self.assertThat(overlay.select_single(objectName="webview").url, Contains('/open-close-content'))
 
-        closeButton = self.get_webview().select_single(
+        closeButton = overlay.select_single(
             objectName='overlayCloseButton')
         self.pointing_device.click_object(closeButton)
         self.assertThat(webview.visible, Equals(True))
-        self.assertThat(controller.views.length, Equals(0))
+        views = self.get_popup_overlay_views()
+        self.assertThat(len(views), Equals(0))
 
     def test_open_in_main_browser(self):
         args = []
@@ -73,22 +77,35 @@ class WebappContainerPopupWebViewOverlayTestCase(
             {'WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY': '1'})
         self.get_webcontainer_window().visible.wait_for(True)
 
-        webview = self.get_oxide_webview()
-        external_open_watcher = webview.watch_signal(
-            'openExternalUrlTriggered(QString)')
-
         controller = self.get_popup_controller()
+        webview = self.get_oxide_webview()
+        self.assertThat(
+            lambda: webview.visible,
+            Eventually(Equals(True)))
+        external_open_watcher = controller.watch_signal(
+            'openExternalUrlTriggered(QString)')
 
         self.click_href_target_blank()
 
-        self.assertThat(controller.views.length, Eventually(Equals(1)))
+        self.assertThat(
+            lambda: len(self.get_popup_overlay_views()),
+            Eventually(Equals(1)))
 
-        openInBrowserButton = self.get_webview().select_single(
+        self.assertThat(
+            lambda: webview.visible,
+            Eventually(Equals(False)))
+
+        views = self.get_popup_overlay_views()
+        overlay = views[0]
+        openInBrowserButton = overlay.select_single(
             objectName='overlayButtonOpenInBrowser')
         self.pointing_device.click_object(openInBrowserButton)
 
-        self.assertThat(webview.visible, Eventually(Equals(True)))
-        self.assertThat(controller.views.length, Equals(0))
         self.assertThat(
-            external_open_watcher.was_emitted,
+            lambda: webview.visible,
+            Eventually(Equals(True)))
+        views = self.get_popup_overlay_views()
+        self.assertThat(len(views), Equals(0))
+        self.assertThat(
+            lambda: external_open_watcher.was_emitted,
             Eventually(Equals(True)))
