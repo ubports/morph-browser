@@ -38,6 +38,7 @@ class IntentFilter : public QObject
 public:
     IntentFilter(const QString& content,
             QObject *parent = 0);
+    ~IntentFilter();
 
     /**
      * @brief isValidLocalIntentFilterFile

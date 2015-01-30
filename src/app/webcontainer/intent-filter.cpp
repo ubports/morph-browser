@@ -155,6 +155,11 @@ IntentFilter::IntentFilter(const QString& content, QObject *parent) :
 {
 }
 
+IntentFilter::~IntentFilter()
+{
+    delete d_ptr;
+}
+
 QVariantMap IntentFilter::applyFilter(const QString& intentUri)
 {
     Q_D(IntentFilter);
