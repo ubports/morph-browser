@@ -224,10 +224,7 @@ class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class TabsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_previews(self):
-        return self.select_many(TabPreview)
-
-    def get_ordered_previews(self):
-        previews = self.get_previews()
+        previews = self.select_many(TabPreview)
         previews.sort(key=lambda tab: tab.globalRect.y)
         return previews
 

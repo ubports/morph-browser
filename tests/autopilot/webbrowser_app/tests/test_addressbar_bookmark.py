@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2014 Canonical
+# Copyright 2014-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -42,14 +42,14 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = self.main_window.get_tabs_view().get_ordered_previews()
+        previews = self.main_window.get_tabs_view().get_previews()
         self.pointing_device.click_object(previews[1])
         tabs_view.wait_until_destroyed()
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = self.main_window.get_tabs_view().get_ordered_previews()
+        previews = self.main_window.get_tabs_view().get_previews()
         self.pointing_device.click_object(previews[1])
         tabs_view.wait_until_destroyed()
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
@@ -60,7 +60,7 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = self.main_window.get_tabs_view().get_ordered_previews()
+        previews = self.main_window.get_tabs_view().get_previews()
         self.pointing_device.click_object(previews[1])
         tabs_view.wait_until_destroyed()
         webview = self.main_window.get_current_webview()
@@ -72,7 +72,7 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = self.main_window.get_tabs_view().get_ordered_previews()
+        previews = self.main_window.get_tabs_view().get_previews()
         self.pointing_device.click_object(previews[1])
         tabs_view.wait_until_destroyed()
         self.assertThat(address_bar.activeFocus, Equals(False))

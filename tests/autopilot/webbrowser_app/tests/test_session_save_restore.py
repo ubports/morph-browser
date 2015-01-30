@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2014 Canonical
+# Copyright 2014-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -44,7 +44,7 @@ class TestSessionSaveRestore(StartOpenRemotePageTestCaseBase):
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         self.assertThat(tabs_view.count, Eventually(Equals(len(paths))))
-        previews = tabs_view.get_ordered_previews()
+        previews = tabs_view.get_previews()
         for i in range(len(paths)):
             self.assertThat(previews[len(paths) - 1 - i].url,
                             Eventually(Equals(self.base_url + paths[i])))

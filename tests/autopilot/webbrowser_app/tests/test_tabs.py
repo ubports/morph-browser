@@ -75,7 +75,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(2)
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = tabs_view.get_ordered_previews()
+        previews = tabs_view.get_previews()
         self.assertThat(len(previews), Equals(2))
         preview = previews[0]
         close_button = preview.get_close_button()
@@ -99,14 +99,14 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = tabs_view.get_ordered_previews()
+        previews = tabs_view.get_previews()
         self.pointing_device.click_object(previews[1])
         tabs_view.visible.wait_for(False)
         self.check_current_tab(self.url)
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = tabs_view.get_ordered_previews()
+        previews = tabs_view.get_previews()
         self.pointing_device.click_object(previews[1])
         tabs_view.visible.wait_for(False)
         self.check_current_tab(url)
@@ -119,7 +119,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = tabs_view.get_ordered_previews()
+        previews = tabs_view.get_previews()
         self.pointing_device.click_object(previews[1])
         tabs_view.visible.wait_for(False)
         self.assertThat(error.visible, Eventually(Equals(False)))
