@@ -179,6 +179,7 @@ BrowserView {
                     iconName: "browser-tabs"
                     enabled: formFactor != "mobile"
                     onTriggered: {
+                        chrome.state = "hidden"
                         bottomEdgeHandle.y = 0
                         recentToolbar.state = "shown"
                     }
