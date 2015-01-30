@@ -136,9 +136,7 @@ bool IntentFilter::isValidIntentFilterResult(const QVariantMap& result)
     return result.contains("scheme")
         && result.value("scheme").canConvert(QVariant::String)
         && result.contains("uri")
-        && result.value("uri").canConvert(QVariant::String)
-        && result.contains("host")
-        && result.value("host").canConvert(QVariant::String);
+        && result.value("uri").canConvert(QVariant::String);
 }
 
 // static

@@ -193,10 +193,10 @@ private Q_SLOTS:
         QFETCH(QString, uri);
         QFETCH(QString, host);
 
-        IntentFilter * pf = new IntentFilter(filterFunctionSource);
-        QVERIFY(pf->isValidIntentUri(intentUris));
+        IntentFilter pf(filterFunctionSource);
+        QVERIFY(pf.isValidIntentUri(intentUris));
 
-        QVariantMap r = pf->applyFilter(intentUris);
+        QVariantMap r = pf.applyFilter(intentUris);
         QVERIFY(r.contains("scheme"));
         QVERIFY(r.contains("host"));
         QVERIFY(r.contains("uri"));

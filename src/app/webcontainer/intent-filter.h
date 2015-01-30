@@ -93,7 +93,10 @@ struct IntentUriDescription
 };
 
 /**
- * @brief parseIntentUri
+ * @brief Parse a URI that is supposed to be an intent as defined here
+ *
+ * https://developer.chrome.com/multidevice/android/intents
+ *
  * @param intentUri
  * @return
  */
