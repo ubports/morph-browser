@@ -24,6 +24,7 @@ MouseArea {
 
     property real delegateHeight
     property alias model: repeater.model
+    readonly property int count: repeater.count
 
     signal tabSelected(int index)
     signal tabClosed(int index)
