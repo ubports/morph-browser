@@ -95,7 +95,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        objectName="selectionActions")
 
     def get_tabs_view(self):
-        return self.wait_select_single(TabsList)
+        return self.wait_select_single(TabsList, visible=True)
 
     def get_recent_view_toolbar(self):
         return self.wait_select_single(Toolbar, objectName="recentToolbar",
@@ -154,7 +154,8 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_drawer_action(self, actionName):
         drawer = self.get_drawer()
-        return drawer.select_single("AbstractButton", objectName=actionName)
+        return drawer.select_single("AbstractButton", objectName=actionName,
+                                    visible=True)
 
 
 class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
