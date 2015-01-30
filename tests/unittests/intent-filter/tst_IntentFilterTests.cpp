@@ -47,7 +47,7 @@ private Q_SLOTS:
                 << "intent://scan/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
                 << "zxing"
                 << "com.google.zxing.client.android"
-                << ""
+                << "/"
                 << "scan"
                 << "com"
                 << "com"
@@ -91,7 +91,7 @@ private Q_SLOTS:
                 << "intent:///#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
                 << "zxing"
                 << "com.google.zxing.client.android"
-                << ""
+                << "/"
                 << ""
                 << "com"
                 << "com"
@@ -165,14 +165,14 @@ private Q_SLOTS:
                 << "intent://scan/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
                 <<  ""
                 << "zxing"
-                << ""
+                << "/"
                 << "scan";
 
         QTest::newRow("Valid intent - default filter function")
                 << "intent://scan/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
                 <<  "(function(result) {return {'scheme': result.scheme+'custom', 'uri': result.uri+'custom', 'host': result.host+'custom'}; })"
                 << "zxingcustom"
-                << "custom"
+                << "/custom"
                 << "scancustom";
 
         QTest::newRow("Valid intent - invalid filter fallback to default")

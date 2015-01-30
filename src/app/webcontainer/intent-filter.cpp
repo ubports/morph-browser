@@ -210,7 +210,6 @@ parseIntentUri(const QUrl& intentUri)
     QString host = intentUri.host();
     trimUriSeparator(host);
     QString path = intentUri.path();
-    trimUriSeparator(path);
     if (intentUri.hasQuery())
     {
         path += "?" + intentUri.query();
