@@ -121,6 +121,7 @@ Column {
         }
 
         MouseArea {
+            objectName: "selectArea"
             anchors.fill: parent
             acceptedButtons: Qt.AllButtons
             hoverEnabled: true

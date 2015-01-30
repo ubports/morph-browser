@@ -42,16 +42,14 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = self.main_window.get_tabs_view().get_previews()
-        self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        self.main_window.get_tabs_view().get_previews()[1].select()
+        tabs_view.visible.wait_for(False)
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = self.main_window.get_tabs_view().get_previews()
-        self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        self.main_window.get_tabs_view().get_previews()[1].select()
+        tabs_view.visible.wait_for(False)
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
 
     def test_cannot_bookmark_empty_page(self):
@@ -60,9 +58,8 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = self.main_window.get_tabs_view().get_previews()
-        self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        self.main_window.get_tabs_view().get_previews()[1].select()
+        tabs_view.visible.wait_for(False)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         address_bar = self.main_window.address_bar
@@ -72,8 +69,7 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = self.main_window.get_tabs_view().get_previews()
-        self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        self.main_window.get_tabs_view().get_previews()[1].select()
+        tabs_view.visible.wait_for(False)
         self.assertThat(address_bar.activeFocus, Equals(False))
         self.assertThat(bookmark_toggle.visible, Eventually(Equals(False)))

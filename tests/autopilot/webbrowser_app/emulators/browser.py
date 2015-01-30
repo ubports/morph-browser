@@ -218,6 +218,15 @@ class Selection(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
+    def select(self):
+        area = self.select_single("QQuickMouseArea", objectName="selectArea")
+        # click towards the top of the area to ensure we’re not selecting
+        # the following preview that might be overlapping
+        ca = area.globalRect
+        self.pointing_device.move(ca.x + ca.width // 2, ca.y + ca.height // 4)
+        self.pointing_device.click()
+
+    @autopilot.logging.log_action(logger.info)
     def close(self):
         button = self.select_single("AbstractButton", objectName="closeButton")
         self.pointing_device.click_object(button)
