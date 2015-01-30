@@ -109,6 +109,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.wait_select_single("PopupBase",
                                        objectName="contentPickerDialog")
 
+    def get_bottom_edge_hint(self):
+        return self.select_single("QQuickImage", objectName="bottomEdgeHint")
+
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 

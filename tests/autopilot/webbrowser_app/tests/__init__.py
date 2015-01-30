@@ -89,12 +89,21 @@ class BrowserTestCaseBase(AutopilotTestCase):
         return self.app.main_window
 
     def open_tabs_view(self):
-        chrome = self.main_window.chrome
-        drawer_button = chrome.get_drawer_button()
-        self.pointing_device.click_object(drawer_button)
-        chrome.get_drawer()
-        tabs_action = chrome.get_drawer_action("tabs")
-        self.pointing_device.click_object(tabs_action)
+        if model() == 'Desktop':
+            chrome = self.main_window.chrome
+            drawer_button = chrome.get_drawer_button()
+            self.pointing_device.click_object(drawer_button)
+            chrome.get_drawer()
+            tabs_action = chrome.get_drawer_action("tabs")
+            self.pointing_device.click_object(tabs_action)
+        else:
+            hint = self.main_window.get_bottom_edge_hint()
+            ch = hint.globalRect
+            cw = self.main_window.globalRect
+            x = ch.x + ch.width // 2
+            y0 = ch.y + ch.height // 2
+            y1 = cw.y + cw.height // 4
+            self.pointing_device.drag(x, y0, x, y1)
         self.main_window.get_tabs_view()
 
     def open_new_tab(self):
