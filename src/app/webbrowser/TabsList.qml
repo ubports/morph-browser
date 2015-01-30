@@ -76,57 +76,7 @@ MouseArea {
                 readonly property string title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
 
                 readonly property bool needsInstance: (index >= 0) && ((flickable.contentY + flickable.height + delegateHeight / 2) >= (index * delegateHeight))
-                sourceComponent: needsInstance ? ((index > 0) ? tabPreviewComponent : currentTabComponent) : undefined
-
-                Component {
-                    id: currentTabComponent
-
-                    MouseArea {
-                        acceptedButtons: Qt.AllButtons
-                        hoverEnabled: true
-                        onClicked: {
-                            if (mouse.button == Qt.LeftButton) {
-                                tabslist.tabSelected(index)
-                            }
-                        }
-
-                        Rectangle {
-                            anchors.fill: tabchrome
-                            color: "#312f2c"
-                        }
-
-                        TabChrome {
-                            id: tabchrome
-
-                            anchors {
-                                left: parent.left
-                                right: parent.right
-                                top: parent.top
-                            }
-
-                            title: delegate.title
-
-                            onSelected: tabslist.tabSelected(index)
-                            onClosed: tabslist.tabClosed(index)
-                        }
-
-                        Rectangle {
-                            anchors {
-                                left: parent.left
-                                right: parent.right
-                                top: tabchrome.bottom
-                            }
-                            height: model.tab.webview ? model.tab.webview.height : 0
-
-                            gradient: Gradient {
-                                GradientStop { position: 0.0; color: "white" }
-                                GradientStop { position: 1.0; color: "black" }
-                            }
-
-                            opacity: 0.4
-                        }
-                    }
-                }
+                sourceComponent: needsInstance ? tabPreviewComponent : undefined
 
                 Component {
                     id: tabPreviewComponent
@@ -134,6 +84,7 @@ MouseArea {
                     TabPreview {
                         title: delegate.title
                         tab: model.tab
+                        showContent: index > 0
 
                         onSelected: tabslist.tabSelected(index)
                         onClosed: tabslist.tabClosed(index)

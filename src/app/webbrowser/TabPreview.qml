@@ -26,27 +26,57 @@ Column {
     property var tab
     readonly property url url: tab ? tab.url : ""
 
+    // The first preview in the tabs list is a special case.
+    // Since it’s the current tab, instead of displaying a
+    // capture, the webview below it is displayed.
+    property bool showContent: true
+
     signal selected()
     signal closed()
 
-    TabChrome {
-        id: chrome
-
+    Item {
         anchors {
             left: parent.left
             right: parent.right
         }
+        height: chrome.height
 
-        onSelected: tabPreview.selected()
-        onClosed: tabPreview.closed()
+        Rectangle {
+            visible: !showContent
+            anchors.fill: parent
+            color: "#312f2c"
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+            }
+        }
+
+        TabChrome {
+            id: chrome
+
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+
+            onSelected: tabPreview.selected()
+            onClosed: tabPreview.closed()
+        }
     }
 
-    Rectangle {
+    Item {
         width: parent.width
         height: parent.height
 
+        Rectangle {
+            anchors.fill: parent
+            color: "white"
+            visible: showContent && !previewContainer.visible
+        }
+
         Image {
-            visible: !previewContainer.visible
+            visible: showContent && !previewContainer.visible
             source: "assets/tab-artwork.png"
             asynchronous: true
             fillMode: Image.PreserveAspectFit
@@ -61,7 +91,7 @@ Column {
         }
 
         Label {
-            visible: !previewContainer.visible
+            visible: showContent && !previewContainer.visible
             text: i18n.tr("Tap to view")
             anchors {
                 centerIn: parent
@@ -71,7 +101,7 @@ Column {
 
         Image {
             id: previewContainer
-            visible: source.toString() && (status == Image.Ready)
+            visible: showContent && source.toString() && (status == Image.Ready)
             anchors {
                 left: parent.left
                 right: parent.right
@@ -92,7 +122,13 @@ Column {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: tabPreview.selected()
+            acceptedButtons: Qt.AllButtons
+            hoverEnabled: true
+            onClicked: {
+                if (mouse.button == Qt.LeftButton) {
+                    tabPreview.selected()
+                }
+            }
         }
 
         Rectangle {
