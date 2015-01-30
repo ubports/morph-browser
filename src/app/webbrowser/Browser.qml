@@ -85,8 +85,15 @@ BrowserView {
                 left: parent.left
                 right: parent.right
                 top: chrome.bottom
+                // 4 GU is the height of the TabChrome component
+                topMargin: recentView.visible ? units.gu(4) : 0
             }
-            height: parent.height - chrome.visibleHeight - osk.height
+            Behavior on anchors.topMargin {
+                SmoothedAnimation {
+                    duration: UbuntuAnimation.BriskDuration
+                }
+            }
+            height: parent.height - chrome.visibleHeight - osk.height - anchors.topMargin
         }
 
         Loader {
