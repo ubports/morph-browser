@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2014 Canonical
+# Copyright 2013-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -40,9 +40,10 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def test_close_tabs_view(self):
         tabs_view = self.main_window.get_tabs_view()
-        done_button = tabs_view.get_done_button()
+        toolbar = self.main_window.get_recent_view_toolbar()
+        done_button = toolbar.get_button("doneButton")
         self.pointing_device.click_object(done_button)
-        tabs_view.wait_until_destroyed()
+        tabs_view.visible.wait_for(False)
 
     def test_open_new_tab(self):
         self.open_new_tab()
@@ -56,7 +57,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         preview = tabs_view.get_previews()[0]
         close_button = preview.get_close_button()
         self.pointing_device.click_object(close_button)
-        tabs_view.wait_until_destroyed()
+        tabs_view.visible.wait_for(False)
         self.assert_number_webviews_eventually(1)
         self.main_window.get_new_tab_view()
         if model() == 'Desktop':
@@ -100,14 +101,14 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_ordered_previews()
         self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        tabs_view.visible.wait_for(False)
         self.check_current_tab(self.url)
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_ordered_previews()
         self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        tabs_view.visible.wait_for(False)
         self.check_current_tab(url)
 
     def test_error_only_for_current_tab(self):
@@ -120,7 +121,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_ordered_previews()
         self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        tabs_view.visible.wait_for(False)
         self.assertThat(error.visible, Eventually(Equals(False)))
 
 
@@ -150,7 +151,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_previews()
         self.pointing_device.click_object(previews[0])
-        tabs_view.wait_until_destroyed()
+        tabs_view.visible.wait_for(False)
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.activeFocus, Eventually(Equals(True)))
         address_bar = self.main_window.address_bar

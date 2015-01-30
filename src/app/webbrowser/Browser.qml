@@ -294,6 +294,8 @@ BrowserView {
 
         Toolbar {
             id: recentToolbar
+            objectName: "recentToolbar"
+
             anchors {
                 left: parent.left
                 right: parent.right

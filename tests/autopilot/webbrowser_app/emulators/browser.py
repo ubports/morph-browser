@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2014 Canonical
+# Copyright 2013-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -95,7 +95,11 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        objectName="selectionActions")
 
     def get_tabs_view(self):
-        return self.wait_select_single(TabsView)
+        return self.wait_select_single(TabsList)
+
+    def get_recent_view_toolbar(self):
+        return self.wait_select_single(Toolbar, objectName="recentToolbar",
+                                       state="shown")
 
     def get_new_tab_view(self):
         return self.wait_select_single("NewTabView", visible=True)
@@ -217,18 +221,21 @@ class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("AbstractButton", objectName="closeButton")
 
 
-class TabsView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class TabsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_previews(self):
         return self.select_many(TabPreview)
 
     def get_ordered_previews(self):
         previews = self.get_previews()
-        previews.sort(key=lambda tab: tab.y)
+        previews.sort(key=lambda tab: tab.globalRect.y)
         return previews
 
-    def get_done_button(self):
-        return self.select_single("Button", objectName="doneButton")
 
-    def get_add_button(self):
-        return self.select_single("ToolbarAction", objectName="addTabButton")
+class Toolbar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_button(self, name):
+        return self.select_single("Button", objectName=name)
+
+    def get_action(self, name):
+        return self.select_single("ToolbarAction", objectName=name)
