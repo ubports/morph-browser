@@ -147,8 +147,9 @@ private Q_SLOTS:
 
         QVERIFY(IntentFilter::isValidIntentDescription(d) == isValid);
 
-        IntentFilter * pf = new IntentFilter(QString());
-        QVERIFY(pf->isValidIntentUri(intentUris) == isValid);
+        QString emptyContent;
+        IntentFilter pf(emptyContent);
+        QVERIFY(pf.isValidIntentUri(intentUris) == isValid);
     }
 
     void applyFilters_data()
@@ -175,9 +176,16 @@ private Q_SLOTS:
                 << "/custom"
                 << "scancustom";
 
-        QTest::newRow("Valid intent - invalid filter fallback to default")
+        QTest::newRow("Valid intent - no (optional) host in filter result")
                 << "intent://host/my/long/path?a=1/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
                 <<  "(function(result) {return {'scheme': result.scheme+'custom', 'uri': result.uri+'custom' }; })"
+                << "zxingcustom"
+                << "my/long/path?a=1custom"
+                << "";
+
+        QTest::newRow("Valid intent - invalid filter fallback to default")
+                << "intent://host/my/long/path?a=1/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
+                <<  "(function(result) {return { 'uri': result.uri+'custom' }; })"
                 << "zxing"
                 << "my/long/path?a=1"
                 << "host";
@@ -198,7 +206,6 @@ private Q_SLOTS:
 
         QVariantMap r = pf.applyFilter(intentUris);
         QVERIFY(r.contains("scheme"));
-        QVERIFY(r.contains("host"));
         QVERIFY(r.contains("uri"));
 
         QCOMPARE(r.value("scheme").toString(), scheme);
