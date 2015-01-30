@@ -44,7 +44,7 @@ MouseArea {
         boundsBehavior: Flickable.StopAtBounds
 
         contentWidth: width
-        contentHeight: (model.count - 1) * delegateHeight / 2 + height
+        contentHeight: (model.count - 1) * delegateHeight + height
 
         Repeater {
             id: repeater
@@ -66,7 +66,7 @@ MouseArea {
                     }
                 }
 
-                y: Math.max(flickable.contentY, (index * delegateHeight) - flickable.contentY)
+                y: Math.max(flickable.contentY, index * delegateHeight)
                 Behavior on y {
                     enabled: !flickable.moving
                     UbuntuNumberAnimation {
