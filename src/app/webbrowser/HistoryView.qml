@@ -256,17 +256,17 @@ Item {
         }
 
         Rectangle {
-            height: parent.height - units.gu(1)
+            height: parent.height
             width: parent.width - units.gu(4)
 
             anchors {
                 top: parent.top
-                topMargin: units.gu(2)
+                topMargin: units.gu(1)
                 left: parent.left
                 leftMargin: units.gu(2)
             }
 
-            ToolbarButton {
+            ToolbarAction {
                 iconName: "back"
                 text: i18n.tr("Cancel")
 
@@ -276,9 +276,12 @@ Item {
                 }
 
                 anchors.left: parent.left
+
+                height: parent.height
+                width: height
             }
 
-            ToolbarButton {
+            ToolbarAction {
                 iconName: "select"
                 text: i18n.tr("Select all")
 
@@ -297,9 +300,12 @@ Item {
                     right: deleteButton.left
                     rightMargin: units.gu(2)
                 }
+
+                height: parent.height
+                width: height
             }
 
-            ToolbarButton {
+            ToolbarAction {
                 id: deleteButton
 
                 iconName: "delete"
@@ -312,6 +318,9 @@ Item {
                 }
 
                 anchors.right: parent.right
+
+                height: parent.height
+                width: height
             }
         }
     }
