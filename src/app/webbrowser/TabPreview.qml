@@ -125,9 +125,24 @@ Column {
             anchors.fill: parent
             acceptedButtons: Qt.AllButtons
             hoverEnabled: true
-            onClicked: {
+
+            // 'clicked' events are emitted even if the cursor has been dragged
+            // (http://doc.qt.io/qt-5/qml-qtquick-mousearea.html#clicked-signal),
+            // but we don’t want a drag gesture to select the tab (when e.g. the
+            // user has reached the top/bottom of the tabs view and starts another
+            // gesture to drag further beyond the boundaries of the view).
+            property point pos
+            onPressed: {
                 if (mouse.button == Qt.LeftButton) {
-                    tabPreview.selected()
+                    pos = Qt.point(mouse.x, mouse.y)
+                }
+            }
+            onReleased: {
+                if (mouse.button == Qt.LeftButton) {
+                    var d = Math.sqrt(Math.pow(mouse.x - pos.x, 2) + Math.pow(mouse.y - pos.y, 2))
+                    if (d < units.gu(1)) {
+                        tabPreview.selected()
+                    }
                 }
             }
         }
