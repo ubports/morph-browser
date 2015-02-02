@@ -323,6 +323,8 @@ BrowserWindow {
                 && webappIntentFilter.isValidIntentUri(_uri)) {
             var result = webappIntentFilter.applyFilter(_uri)
             _uri = makeUrlFromIntentResult(result)
+
+            console.log("Intent URI '" + uri + "' was mapped to '" + _uri + "'")
         }
 
         // Report the result of the intent uri filtering (if any)
