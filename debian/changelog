@@ -1,3 +1,16 @@
+webbrowser-app (0.23+15.04.20150202-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk
+
+  [ Alexandre Abreu ]
+  * Add support for intent:// schemes in the container. (LP: #1407709)
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 02 Feb 2015 14:12:39 +0000
+
 webbrowser-app (0.23+15.04.20150127-0ubuntu1) vivid; urgency=low
 
   [ Olivier Tilloy ]
