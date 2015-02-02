@@ -28,6 +28,9 @@
 #include <QStringList>
 #include <QScopedPointer>
 
+class IntentFilter;
+class QQmlContext;
+
 class WebappContainer : public BrowserApplication
 {
     Q_OBJECT
@@ -49,6 +52,8 @@ private:
     bool isValidLocalApplicationRunningContext() const;
     bool isValidLocalResource(const QString& resourceName) const;
     bool shouldNotValidateCommandLineUrls() const;
+    bool isValidLocalIntentFilterFile(const QString& filename) const;
+    void setupLocalIntentFilterIfAny(QQmlContext* context);
 
 private:
     QString m_webappName;
@@ -64,8 +69,10 @@ private:
     QString m_localCookieStoreDbPath;
     QString m_userAgentOverride;
     QScopedPointer<WebappContainerHelper> m_webappContainerHelper;
+    QScopedPointer<IntentFilter> m_intentFilter;
 
     static const QString URL_PATTERN_SEPARATOR;
+    static const QString LOCAL_INTENT_FILTER_FILENAME;
 };
 
 #endif // __WEBAPP_CONTAINER_H__
