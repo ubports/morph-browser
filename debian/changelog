@@ -1,3 +1,20 @@
+webbrowser-app (0.23+15.04.20150203-0ubuntu1) vivid; urgency=medium
+
+  [ Florian Boucault ]
+  * Make splashscreen white instead of the default black. (LP: #1378379)
+
+  [ Niklas Wenzel ]
+  * Add the ability to open a link in a new background tab (LP:
+    #1339437)
+
+  [ Olivier Tilloy ]
+  * Use the new restoreState API in oxide 1.4 to properly save and
+    restore navigation state across sessions. (LP: #1353143)
+  * Add a UA override for youtube.com on desktop to fix video playback.
+    (LP: #1412880)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 03 Feb 2015 11:06:38 +0000
+
 webbrowser-app (0.23+15.04.20150202-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
