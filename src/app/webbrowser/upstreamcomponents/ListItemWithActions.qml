@@ -127,10 +127,7 @@ Item {
             PropertyChanges {
                 target: selectionIcon
                 source: Qt.resolvedUrl("ListItemWithActionsCheckBox.qml")
-                // units.gu(3) it's the size of the favicon container
-                // units.dp(16) it's the size of the favicon
-                // the favicon is hCentered in the container
-                anchors.leftMargin: units.gu(2) - (units.gu(3) - units.dp(16)) / 2
+                anchors.leftMargin: units.gu(2)
             }
             PropertyChanges {
                 target: root

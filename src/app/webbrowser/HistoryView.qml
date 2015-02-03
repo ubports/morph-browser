@@ -104,6 +104,16 @@ Item {
                 removalAnimation.start()
             }
 
+            anchors {
+                left: parent.left
+                // we need to move left the favicon to align the favicon to
+                // other elements. Favicon has a container bigger than it.
+                // units.gu(3) it's the size of the favicon container
+                // units.dp(16) it's the size of the favicon
+                // the favicon is hCentered in the container
+                leftMargin: selectionMode ? - (units.gu(3) - units.dp(16)) / 2 : 0
+            }
+
             selectionMode: domainsListView.isInSelectionMode
             selected: domainsListView.isSelected(urlDelegate)
 
