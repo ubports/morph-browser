@@ -35,6 +35,7 @@ Item {
                 property string title
                 property url icon
                 property var request
+                property string currentState
             }
             readonly property bool webviewPresent: webview
             readonly property bool captureTakerPresent: captureTaker != undefined
@@ -66,10 +67,12 @@ Item {
 
             tab.webview.url = "http://ubuntu.com"
             tab.webview.title = "Ubuntu"
+            tab.webview.currentState = "foobar"
             tab.unload()
             tryCompare(tab, 'webviewPresent', false)
             compare(tab.initialUrl, "http://ubuntu.com")
             compare(tab.initialTitle, "Ubuntu")
+            compare(tab.restoreState, "foobar")
 
             tab.destroy()
         }
