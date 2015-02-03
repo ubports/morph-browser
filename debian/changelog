@@ -1,3 +1,15 @@
+webbrowser-app (0.23+15.04.20150203.1-0ubuntu1) vivid; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+  * Revert the UA override for m.youtube.com as it was causing a lot of
+    stuttering (due to very high CPU usage) on krillin. In the meantime,
+    the issue with videos not playing that this update was meant to
+    address (bug #1415107) was resolved on youtube’s side. (LP:
+    #1417258, #1415107)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 03 Feb 2015 17:35:27 +0000
+
 webbrowser-app (0.23+15.04.20150203-0ubuntu1) vivid; urgency=medium
 
   [ Florian Boucault ]
