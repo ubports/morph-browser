@@ -38,10 +38,12 @@ public:
 
     const QUrl& homepage() const;
     SearchEngine* searchEngine() const;
+    const QString& allowOpenInBackgroundTab() const;
 
 private:
     QUrl m_homepage;
     SearchEngine* m_searchengine;
+    QString m_allowOpenInBackgroundTab; //"true" for enabled, "default" for form factor dependend behaviour (currently desktop only), anything else disables the option
 };
 
 #endif // __SETTINGS_H__

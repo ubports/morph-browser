@@ -37,6 +37,7 @@ BrowserView {
 
     property url homepage
     property QtObject searchEngine
+    property string allowOpenInBackgroundTab
 
     // XXX: we might want to tweak this value depending
     // on the form factor and/or the available memory
@@ -356,6 +357,11 @@ BrowserView {
                     Actions.OpenLinkInNewTab {
                         enabled: contextualData.href.toString()
                         onTriggered: browser.openUrlInNewTab(contextualData.href, true)
+                    }
+                    Actions.OpenLinkInNewBackgroundTab {
+                        enabled: contextualData.href.toString() && ((browser.allowOpenInBackgroundTab === "true") ||
+                                 ((browser.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
+                        onTriggered: browser.openUrlInNewTab(contextualData.href, false)
                     }
                     Actions.BookmarkLink {
                         enabled: contextualData.href.toString() && browser.bookmarksModel
