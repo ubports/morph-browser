@@ -28,6 +28,7 @@ Item {
     property var popupWindowController
     property var webContext
     property alias request: popupWebview.request
+    property alias url: popupWebview.url
 
     Rectangle {
         color: "#F2F1F0"
@@ -141,9 +142,23 @@ Item {
                 }
             }
 
+            function isNewForegroundWebViewDisposition(disposition) {
+                return disposition === Oxide.NavigationRequest.DispositionNewPopup ||
+                       disposition === Oxide.NavigationRequest.DispositionNewForegroundTab;
+            }
+
+            onNavigationRequested: {
+                var url = request.url.toString()
+                if (isNewForegroundWebViewDisposition(request.disposition)) {
+                    popupWindowController.handleNewForegroundNavigationRequest(
+                                url, request, false)
+                    return
+                }
+            }
+
             onCloseRequested: {
                 if (popupWindowController) {
-                    popupWindowController.onViewClosed(popup)
+                    popupWindowController.handleViewRemoved(popup)
                 }
             }
         }

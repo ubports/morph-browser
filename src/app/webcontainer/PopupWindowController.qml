@@ -19,6 +19,7 @@
 import QtQuick 2.0
 import com.canonical.Oxide 1.0 as Oxide
 import Ubuntu.Components 1.1
+import Ubuntu.Components.Popups 1.0
 
 Item {
     id: controller
@@ -30,17 +31,18 @@ Item {
 
     signal openExternalUrlTriggered(string url)
 
+    readonly property int maxSimultaneousViews: 4
+
     function openUrlExternally(url) {
-        if (blockOpenExternalUrls) {
+        if (!blockOpenExternalUrls) {
+            console.log('deded ' + url)
             Qt.openUrlExternally(url)
         }
         openExternalUrlTriggered(url)
     }
 
     function handleNewViewAdded(view) {
-        if (mainWebappView) {
-            mainWebappView.visible = false
-        }
+        updateMainViewVisibility(false)
 
         if (views.length !== 0) {
             var topView = views[views.length-1]
@@ -57,12 +59,10 @@ Item {
     }
     function handleViewRemoved(view) {
         if (views.length === 0) {
-            console.error("Invalid view list")
             return
         }
         var topView = views[views.length-1]
         if (topView !== view) {
-            console.error("Invalid top view")
             return
         }
         topView.visible = false
@@ -75,7 +75,7 @@ Item {
             views[views.length-1].visible = true
         }
         else {
-            mainWebappView.visible = true
+            updateMainViewVisibility(true)
         }
     }
     function createPopupView(parentView, request, isRequestFromMainWebappWebview, context) {
@@ -86,16 +86,41 @@ Item {
               popupWindowController: controller });
         handleNewViewAdded(view)
     }
+    function updateMainViewVisibility(visible) {
+        if (mainWebappView) {
+            mainWebappView.visible = visible
+        }
+    }
 
     Component {
         id: popupWebOverlayFactory
         PopupWindowOverlay {
-            anchors.fill: parent
+            id: overlay
+
+            height: parent.height
+            width: parent.width
+
+            NumberAnimation on y {
+                from: overlay.parent.height
+                to: 0
+                duration: 300
+                easing.type: Easing.InOutQuad
+            }
         }
     }
 
     function handleNewForegroundNavigationRequest(
-            url, webview, request, isRequestFromMainWebappWebview) {
+            url, request, isRequestFromMainWebappWebview) {
+
+        if (views.length >= maxSimultaneousViews) {
+            request.action = Oxide.NavigationRequest.ActionReject
+            // Default to open externally, maybe should present a dialog
+            openUrlExternally(url.toString())
+            console.log("Maximum number of popup overlay opened, opening: "
+                        + url
+                        + " in the browser")
+            return
+        }
         request.action = Oxide.NavigationRequest.ActionAccept
     }
 }
