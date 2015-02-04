@@ -265,15 +265,14 @@ Item {
             color: "white"
         }
 
-        Rectangle {
-            height: parent.height
-            width: parent.width - units.gu(4)
-
+        Item {
             anchors {
                 top: parent.top
-                topMargin: units.gu(1)
                 left: parent.left
                 leftMargin: units.gu(2)
+                bottom: parent.bottom
+                right: parent.right
+                rightMargin: units.gu(2)
             }
 
             ToolbarAction {
