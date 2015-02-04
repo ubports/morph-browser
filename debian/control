@@ -129,8 +129,8 @@ Package: webbrowser-app-autopilot
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends},
-         autopilot-touch,
-         libqt5test5,
+         autopilot-qt5,
+         python3-autopilot,
          python3-fixtures,
          ubuntu-ui-toolkit-autopilot,
          webbrowser-app (>= ${binary:Version}),
@@ -143,8 +143,8 @@ Package: webapp-container-autopilot
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends},
-         autopilot-touch,
-         libqt5test5,
+         autopilot-qt5,
+         python3-autopilot,
          python3-fixtures,
          ubuntu-ui-toolkit-autopilot,
          webapp-container (>= ${binary:Version}),
