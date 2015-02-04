@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-22 18:29+0100\n"
+"POT-Creation-Date: 2015-02-03 15:55+0100\n"
 "PO-Revision-Date: 2014-11-08 18:23+0000\n"
 "Last-Translator: ivarela <ivarela@ubuntu.com>\n"
 "Language-Team: Asturian <ast@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-23 06:43+0000\n"
-"X-Generator: Launchpad (build 17306)\n"
+"X-Launchpad-Export-Date: 2015-02-04 07:09+0000\n"
+"X-Generator: Launchpad (build 17331)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -406,6 +406,10 @@ msgstr "Abrir una llingüeta nueva"
 msgid "Open image in new tab"
 msgstr "Abrir imaxe en llingüeta nueva"
 
+#: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
+msgid "Open link in new background tab"
+msgstr ""
+
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "Abrir enllaz en llingüeta nueva"
@@ -428,7 +432,7 @@ msgstr "Guardar imaxe"
 msgid "Share…"
 msgstr "Compartir..."
 
-#: src/app/webbrowser/AddressBar.qml:210
+#: src/app/webbrowser/AddressBar.qml:195
 msgid "search or enter an address"
 msgstr "guetar o introduz una direición"
 
@@ -438,19 +442,19 @@ msgstr "guetar o introduz una direición"
 msgid "Delete"
 msgstr "Desaniciar"
 
-#: src/app/webbrowser/Browser.qml:160
+#: src/app/webbrowser/Browser.qml:161
 msgid "Share"
 msgstr "Compartir"
 
-#: src/app/webbrowser/Browser.qml:174
+#: src/app/webbrowser/Browser.qml:175
 msgid "History"
 msgstr "Historial"
 
-#: src/app/webbrowser/Browser.qml:181
+#: src/app/webbrowser/Browser.qml:182
 msgid "Open tabs"
 msgstr "Abrir llingüetes"
 
-#: src/app/webbrowser/Browser.qml:187 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Llingüeta nueva"
@@ -555,14 +559,14 @@ msgid "Add"
 msgstr "Amestar"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Restolador web d'Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:64
+#: src/app/webbrowser/webbrowser-app.qml:40
+#: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
 msgstr "Restolador web d'Ubuntu"
 

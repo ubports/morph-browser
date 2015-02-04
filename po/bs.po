@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-22 18:29+0100\n"
+"POT-Creation-Date: 2015-02-03 15:55+0100\n"
 "PO-Revision-Date: 2014-08-28 16:27+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-01-23 06:43+0000\n"
-"X-Generator: Launchpad (build 17306)\n"
+"X-Launchpad-Export-Date: 2015-02-04 07:09+0000\n"
+"X-Generator: Launchpad (build 17331)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -408,6 +408,10 @@ msgstr "Otvori novi tab"
 msgid "Open image in new tab"
 msgstr "Otvori sliku u novom tabu"
 
+#: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
+msgid "Open link in new background tab"
+msgstr ""
+
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "Otovori link u novom tabu"
@@ -430,7 +434,7 @@ msgstr "Sačuvaj sliku"
 msgid "Share…"
 msgstr "Podijeli..."
 
-#: src/app/webbrowser/AddressBar.qml:210
+#: src/app/webbrowser/AddressBar.qml:195
 msgid "search or enter an address"
 msgstr "traži ili unesi adresu"
 
@@ -438,21 +442,21 @@ msgstr "traži ili unesi adresu"
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
 #: src/app/webbrowser/HistoryView.qml:179
 msgid "Delete"
-msgstr ""
+msgstr "Izbriši"
 
-#: src/app/webbrowser/Browser.qml:160
+#: src/app/webbrowser/Browser.qml:161
 msgid "Share"
 msgstr "Podijeli"
 
-#: src/app/webbrowser/Browser.qml:174
+#: src/app/webbrowser/Browser.qml:175
 msgid "History"
 msgstr "Historija"
 
-#: src/app/webbrowser/Browser.qml:181
+#: src/app/webbrowser/Browser.qml:182
 msgid "Open tabs"
 msgstr "Otvoreni tabovi"
 
-#: src/app/webbrowser/Browser.qml:187 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Novi tab"
@@ -503,43 +507,45 @@ msgstr "Sadržaj ove stranice nije siguran"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "Identitet nije valjan"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "Identitet ove stranice nije valjan."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "Certifikat server se ne poklapa sa identitetom ove stranice."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Certifikat server je istekao."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "Certifikat servera sadrži nepravilne datume."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "Certifikat servera je izdat od strane entiteta koji nije pouzdan."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Certifikat servera je opozvan."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Certifikat servera nije valjan."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "Certifikat servera je nesiguran."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"Certifikat servera nije prošao našu sigurnosnu provjeru iz nepoznatnih "
+"razloga."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
@@ -558,14 +564,14 @@ msgid "Add"
 msgstr "Dodaj"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu Web preglednik"
 
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:64
+#: src/app/webbrowser/webbrowser-app.qml:40
+#: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Web preglednik"
 
