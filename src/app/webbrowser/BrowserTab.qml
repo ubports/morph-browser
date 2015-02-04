@@ -17,12 +17,15 @@
  */
 
 import QtQuick 2.0
+import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
 
 FocusScope {
     property string uniqueId: this.toString() + "-" + Date.now()
     property url initialUrl
     property string initialTitle
+    property string restoreState
+    property int restoreType
     property var request
     property Component webviewComponent
     readonly property var webview: webviewContainer.webview
@@ -40,7 +43,14 @@ FocusScope {
 
     function load() {
         if (!webview) {
-            webviewComponent.incubateObject(webviewContainer, {"url": initialUrl})
+            var properties = {}
+            if (restoreState) {
+                properties['restoreState'] = restoreState
+                properties['restoreType'] = restoreType
+            } else {
+                properties['url'] = initialUrl
+            }
+            webviewComponent.incubateObject(webviewContainer, properties)
         }
     }
 
@@ -48,6 +58,8 @@ FocusScope {
         if (webview) {
             initialUrl = webview.url
             initialTitle = webview.title
+            restoreState = webview.currentState
+            restoreType = Oxide.WebView.RestoreCurrentSession
             webview.destroy()
         }
     }

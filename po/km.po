@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-22 18:29+0100\n"
+"POT-Creation-Date: 2015-02-03 15:55+0100\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-01-23 06:44+0000\n"
-"X-Generator: Launchpad (build 17306)\n"
+"X-Launchpad-Export-Date: 2015-02-04 07:10+0000\n"
+"X-Generator: Launchpad (build 17331)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -411,6 +411,10 @@ msgstr "បើក​ផ្ទាំង​ថ្មី"
 msgid "Open image in new tab"
 msgstr "បើក​រូបភាព​ក្នុង​ផ្ទាំង​ថ្មី"
 
+#: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
+msgid "Open link in new background tab"
+msgstr ""
+
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "បើក​តំណ​ក្នុង​ផ្ទាំង​ថ្មី"
@@ -433,7 +437,7 @@ msgstr "រក្សាទុក​រូបភាព"
 msgid "Share…"
 msgstr "ចែករំលែក"
 
-#: src/app/webbrowser/AddressBar.qml:210
+#: src/app/webbrowser/AddressBar.qml:195
 msgid "search or enter an address"
 msgstr "ស្វែងរក ឬ​បញ្ចូល​អាសយដ្ឋាន"
 
@@ -443,19 +447,19 @@ msgstr "ស្វែងរក ឬ​បញ្ចូល​អាសយដ្ឋ�
 msgid "Delete"
 msgstr "​លុប​"
 
-#: src/app/webbrowser/Browser.qml:160
+#: src/app/webbrowser/Browser.qml:161
 msgid "Share"
 msgstr "ចែករំលែក"
 
-#: src/app/webbrowser/Browser.qml:174
+#: src/app/webbrowser/Browser.qml:175
 msgid "History"
 msgstr "ប្រវត្តិ"
 
-#: src/app/webbrowser/Browser.qml:181
+#: src/app/webbrowser/Browser.qml:182
 msgid "Open tabs"
 msgstr "បើក​ផ្ទាំង"
 
-#: src/app/webbrowser/Browser.qml:187 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "ផ្ទាំង​ថ្មី"
@@ -559,14 +563,14 @@ msgid "Add"
 msgstr "បន្ថែម"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:64
+#: src/app/webbrowser/webbrowser-app.qml:40
+#: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
 msgstr "កម្មវិធី​រុករក​បណ្ដាញ​របស់ Ubuntu"
 

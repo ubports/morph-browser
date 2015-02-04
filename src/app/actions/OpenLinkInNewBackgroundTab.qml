@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Canonical Ltd.
+ * Copyright 2014 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,10 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-.pragma library
+import Ubuntu.Components 1.1
 
-var overrides = [
-      [/^https?:\/\/(www\.)?google\.com\/calendar/, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chromium/35.0.1870.2 Chrome/35.0.1870.2 Safari/537.36"],
-      [/^http:\/\/chrome\.angrybirds\.com\//, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/35.0.1870.2 Safari/537.36"], // http://pad.lv/1284158
-      [/^https?:\/\/(www\.)?youtube\.com\//, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/35.0.1870.2 Safari/537.36"], // http://pad.lv/1412880
-];
+Action {
+    text: i18n.tr("Open link in new background tab")
+}
