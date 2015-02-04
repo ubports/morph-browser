@@ -85,7 +85,8 @@ MouseArea {
                     TabPreview {
                         title: delegate.title
                         tab: model.tab
-                        showContent: index > 0
+                        showContent: (index > 0) || (delegate.y > flickable.contentY) ||
+                                     !(tab.webview && tab.webview.visible)
 
                         onSelected: tabslist.tabSelected(index)
                         onClosed: tabslist.tabClosed(index)
