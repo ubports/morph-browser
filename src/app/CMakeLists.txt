@@ -1,5 +1,7 @@
 project(webbrowser-common)
 
+add_subdirectory(unity8)
+
 configure_file(
     config.h.in
     ${CMAKE_CURRENT_BINARY_DIR}/config.h
@@ -31,6 +33,5 @@ install(FILES ${JS_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app)
 install(DIRECTORY actions DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app
         FILES_MATCHING PATTERN *.qml)
 
-add_subdirectory(unity8)
 add_subdirectory(webbrowser)
 add_subdirectory(webcontainer)
