@@ -48,11 +48,5 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(address_bar)
         address_bar.activeFocus.wait_for(True)
         action_button = address_bar.get_action_button()
-        # The following fails (see https://launchpad.net/bugs/1417118)
-        # self.pointing_device.click_object(action_button)
-        # whereas clicking somewhere in the leftmost half of the button works
-        self.pointing_device.move(
-            action_button.globalRect.x + action_button.width * 0.49,
-            action_button.globalRect.y + action_button.height * 0.5)
-        self.pointing_device.click()
+        self.pointing_device.click_object(action_button)
         address_bar.activeFocus.wait_for(False)
