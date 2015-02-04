@@ -1,0 +1,11 @@
+Code in this directory was copied over from unity8.
+ - first import: 2015-02-04, at revision 1583 of lp:unity8
+ - last sync: …
+
+The structure of the directories has been kept identical, to ease syncing the
+code in the future. Minor changes were made to the build system to integrate it
+with the existing webbrowser-app code base.
+
+The goal is to eventually have those components moved over to the UITK, thus
+removing the need for a copy here. See
+https://docs.google.com/a/canonical.com/document/d/1_ljZunMXWqJfrBGEkCp0peVD8gq6-E4ZMFpuH0PVKRc.

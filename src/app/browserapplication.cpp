@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -38,6 +38,9 @@
 #include "favicon-fetcher.h"
 #include "session-storage.h"
 #include "webbrowser-window.h"
+
+#include "Ubuntu/Gestures/Direction.h"
+#include "Ubuntu/Gestures/DirectionalDragArea.h"
 
 BrowserApplication::BrowserApplication(int& argc, char** argv)
     : QApplication(argc, argv)
@@ -100,6 +103,13 @@ QString BrowserApplication::appId() const
     return QString();
 }
 
+static QObject* Direction_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new Direction();
+}
+
 bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 {
     Q_ASSERT(m_window == 0);
@@ -148,6 +158,10 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     const char* uri = "webbrowsercommon.private";
     qmlRegisterType<FaviconFetcher>(uri, 0, 1, "FaviconFetcher");
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
+
+    const char* gesturesUri = "Ubuntu.Gestures";
+    qmlRegisterSingletonType<Direction>(gesturesUri, 0, 1, "Direction", Direction_singleton_factory);
+    qmlRegisterType<DirectionalDragArea>(gesturesUri, 0, 1, "DirectionalDragArea");
 
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));
