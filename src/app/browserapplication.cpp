@@ -39,6 +39,7 @@
 #include "session-storage.h"
 #include "webbrowser-window.h"
 
+#include "TouchRegistry.h"
 #include "Ubuntu/Gestures/Direction.h"
 #include "Ubuntu/Gestures/DirectionalDragArea.h"
 
@@ -185,6 +186,8 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     QObject* browser = m_component->beginCreate(context);
     m_window = qobject_cast<QQuickWindow*>(browser);
     m_webbrowserWindowProxy->setWindow(m_window);
+
+    m_window->installEventFilter(new TouchRegistry(this));
 
     browser->setProperty("developerExtrasEnabled", inspectorEnabled);
     browser->setProperty("forceFullscreen", m_arguments.contains("--fullscreen"));
