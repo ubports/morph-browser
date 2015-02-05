@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -41,139 +41,126 @@ FocusScope {
     // XXX: for testing purposes only, do not use to modify the
     // contents/behaviour of the internals of the component.
     readonly property Item __textField: textField
-    readonly property Item __actionButton: actionButton
+    readonly property Item __actionButton: action
     readonly property Item __bookmarkToggle: bookmarkToggle
 
     height: textField.height
 
-    states: [
-        State {
-            name: "loading"
-            when: addressbar.loading
-        },
-        State {
-            name: "editing"
-            when: addressbar.activeFocus
-        }
-    ]
-
     TextField {
         id: textField
+        objectName: "addressBarTextField"
 
         anchors.fill: parent
 
         primaryItem: Item {
-            width: iconsRow.width
-            height: iconsRow.height
+            id: icons
+
+            width: iconsRow.width + units.gu(1)
+            height: units.gu(2)
+
             Row {
                 id: iconsRow
-                Item {
-                    height: textField.height
+
+                spacing: units.gu(1)
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                    horizontalCenter: parent.horizontalCenter
+                }
+
+                Favicon {
+                    id: favicon
+                    anchors.verticalCenter: parent.verticalCenter
+                    visible: internal.idle && addressbar.actualUrl.toString() &&
+                             !internal.securityWarning && !internal.securityError
+                }
+
+                Icon {
+                    id: action
+
+                    height: parent.height
                     width: height
-                    visible: (addressbar.state != "") || !internal.secureConnection || !internal.securityWarning
 
-                    Favicon {
-                        id: favicon
-                        anchors.centerIn: parent
-                        visible: (addressbar.state == "") && addressbar.actualUrl.toString() && !internal.securityWarning
-                    }
+                    visible: addressbar.activeFocus || addressbar.loading || !addressbar.text
 
-                    Item {
-                        id: certificatePopoverPositioner
-                        anchors.bottom: favicon.bottom
-                        anchors.horizontalCenter: favicon.horizontalCenter
-                    }
+                    enabled: addressbar.text
+                    opacity: enabled ? 1.0 : 0.3
+
+                    readonly property bool reload: addressbar.activeFocus && addressbar.text &&
+                                                   (addressbar.text == addressbar.actualUrl)
+                    readonly property bool looksLikeAUrl: internal.looksLikeAUrl(addressbar.text.trim())
+
+                    name: addressbar.loading ? "stop" :
+                          reload ? "reload" :
+                          looksLikeAUrl ? "stock_website" : "search"
 
                     MouseArea {
-                        id: actionButton
                         objectName: "actionButton"
-                        anchors.fill: parent
-                        enabled: addressbar.text
-                        opacity: enabled ? 1.0 : 0.3
 
-                        Icon {
-                            id: actionIcon
-                            height: parent.height - units.gu(2)
-                            width: height
-                            anchors.centerIn: parent
-                            name: {
-                                switch (addressbar.state) {
-                                case "loading":
-                                    return "stop"
-                                case "editing":
-                                    if (addressbar.text && (addressbar.text == addressbar.actualUrl)) {
-                                        return "reload"
-                                    } else if (internal.looksLikeAUrl(addressbar.text.trim())) {
-                                        return "stock_website"
-                                    } else {
-                                        return "search"
-                                    }
-                                default:
-                                    if (!favicon.visible) {
-                                        if (internal.looksLikeAUrl(addressbar.text.trim())) {
-                                            return "stock_website"
-                                        } else {
-                                            return "search"
-                                        }
-                                    } else {
-                                        return ""
-                                    }
-                                }
-                            }
+                        anchors {
+                            fill: parent
+                            margins: -units.gu(1)
                         }
 
                         onClicked: {
-                            switch (actionIcon.name) {
-                            case "":
-                                break
-                            case "stop":
+                            if (addressbar.loading) {
                                 addressbar.requestStop()
-                                break
-                            case "reload":
+                            } else if (action.reload) {
                                 addressbar.requestReload()
-                                break
-                            default:
+                            } else {
                                 textField.accepted()
                             }
                         }
                     }
                 }
 
-                Item {
-                    id: securityDisplay
-                    height: textField.height
-                    width: securityIcon.width
-                    visible: internal.secureConnection && (addressbar.state == "")
-
-                    Icon {
-                        id: securityIcon
-                        anchors.centerIn: parent
-                        height: parent.height - units.gu(2)
-                        width: height
-                        name: "network-secure"
-                    }
+                Icon {
+                    name: "network-secure"
+                    height: parent.height
+                    width: height
+                    visible: internal.idle && internal.secureConnection
                 }
 
-                Item {
-                    height: textField.height
-                    width: warningIcon.width
-                    visible: internal.securityWarning && (addressbar.state == "")
+                Image {
+                    source: "assets/broken_lock.png"
+                    height: parent.height
+                    fillMode: Image.PreserveAspectFit
+                    visible: internal.idle && internal.securityError
+                }
 
-                    Icon {
-                        id: warningIcon
-                        anchors.centerIn: parent
-                        height: parent.height - units.gu(2)
-                        width: height
-                        name: "security-alert"
-                    }
+                Icon {
+                    name: "security-alert"
+                    height: parent.height
+                    width: height
+                    visible: internal.idle && internal.securityWarning
                 }
             }
 
-            MouseArea {
-                enabled: securityDisplay.visible && addressbar.state != "editing" && addressbar.state != "loading"
-                anchors.fill: parent
+            Item {
+                id: certificatePopoverPositioner
+                anchors {
+                    top: iconsRow.top
+                    bottom: iconsRow.bottom
+                    left: iconsRow.left
+                }
+                width: units.gu(2)
+            }
 
-                onClicked: addressbar.showSecurityCertificateDetails()
+            MouseArea {
+                enabled: internal.idle
+                anchors {
+                    left: iconsRow.left
+                    leftMargin: -units.gu(1)
+                    right: iconsRow.right
+                    verticalCenter: parent.verticalCenter
+                }
+                height: textField.height
+
+                onClicked: {
+                    if (internal.secureConnection || internal.securityError) {
+                        addressbar.showSecurityCertificateDetails()
+                    }
+                }
             }
         }
 
@@ -184,7 +171,7 @@ FocusScope {
             height: textField.height
             width: visible ? height : 0
 
-            visible: (addressbar.state == "") && addressbar.actualUrl.toString()
+            visible: internal.idle && addressbar.actualUrl.toString()
 
             Icon {
                 height: parent.height - units.gu(2)
@@ -219,14 +206,14 @@ FocusScope {
 
         highlighted: true
 
-        onAccepted: if (addressbar.state != "") internal.validate()
+        onAccepted: if (!internal.idle) internal.validate()
 
         // Make sure that all the text is selected at the first click
         MouseArea {
             anchors {
                 fill: parent
-                leftMargin: iconsRow.width
-                rightMargin: bookmarkButton.width
+                leftMargin: icons.width
+                rightMargin: bookmarkToggle.width
             }
             visible: !textField.activeFocus
             onClicked: {
@@ -239,9 +226,12 @@ FocusScope {
     QtObject {
         id: internal
 
+        readonly property bool idle: !addressbar.loading && !addressbar.activeFocus
+
         readonly property int securityLevel: addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
         readonly property bool secureConnection: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
         readonly property bool securityWarning: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
+        readonly property bool securityError: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelError) : false
 
         property var securityCertificateDetails: null
 
@@ -336,12 +326,12 @@ FocusScope {
     }
 
     onActualUrlChanged: {
-        if (state != "editing") {
+        if (!activeFocus) {
             text = internal.simplifyUrl(actualUrl)
         }
     }
     onRequestedUrlChanged: {
-        if (state != "editing") {
+        if (!activeFocus) {
             text = internal.simplifyUrl(requestedUrl)
         }
     }

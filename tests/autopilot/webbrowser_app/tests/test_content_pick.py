@@ -29,8 +29,8 @@ class TestContentPick(StartOpenRemotePageTestCaseBase):
     @unittest.skipIf(model() == "Desktop", "on devices only")
     def test_picker_dialog_shows_up(self):
         url = self.base_url + "/uploadform"
-        self.go_to_url(url)
-        self.assert_page_eventually_loaded(url)
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         dialog = self.main_window.get_content_picker_dialog()

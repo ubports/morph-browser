@@ -32,6 +32,7 @@ Settings::Settings(QObject* parent)
     m_homepage = settings.value("homepage", QUrl(DEFAULT_HOMEPAGE)).toUrl();
     QString name = settings.value("searchengine", QString(DEFAULT_SEARCH_ENGINE)).toString();
     m_searchengine = new SearchEngine(name, this);
+    m_allowOpenInBackgroundTab = settings.value("allowOpenInBackgroundTab", "default").toString().toLower();
 }
 
 const QUrl& Settings::homepage() const
@@ -42,4 +43,9 @@ const QUrl& Settings::homepage() const
 SearchEngine* Settings::searchEngine() const
 {
     return m_searchengine;
+}
+
+const QString& Settings::allowOpenInBackgroundTab() const
+{
+    return m_allowOpenInBackgroundTab;
 }

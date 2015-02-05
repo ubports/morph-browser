@@ -48,10 +48,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.open_new_tab()
         new_tab_view = self.main_window.get_new_tab_view()
         url = self.base_url + "/test2"
-        if model() != 'Desktop':
-            self.focus_address_bar()
-        self.type_in_address_bar(url)
-        self.keyboard.press_and_release("Enter")
+        self.main_window.go_to_url(url)
         new_tab_view.wait_until_destroyed()
 
     def test_close_last_open_tab(self):
@@ -63,7 +60,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(1)
         self.main_window.get_new_tab_view()
         if model() == 'Desktop':
-            address_bar = self.main_window.get_chrome().get_address_bar()
+            address_bar = self.main_window.address_bar
             self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Equals(""))
@@ -72,10 +69,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.open_new_tab()
         new_tab_view = self.main_window.get_new_tab_view()
         url = self.base_url + "/test2"
-        if model() != 'Desktop':
-            self.focus_address_bar()
-        self.type_in_address_bar(url)
-        self.keyboard.press_and_release("Enter")
+        self.main_window.go_to_url(url)
         new_tab_view.wait_until_destroyed()
         self.assert_number_webviews_eventually(2)
         self.open_tabs_view()
@@ -98,10 +92,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.check_current_tab("")
         new_tab_view = self.main_window.get_new_tab_view()
         url = self.base_url + "/test2"
-        if model() != 'Desktop':
-            self.focus_address_bar()
-        self.type_in_address_bar(url)
-        self.keyboard.press_and_release("Enter")
+        self.main_window.go_to_url(url)
         new_tab_view.wait_until_destroyed()
         self.check_current_tab(url)
 
@@ -121,10 +112,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def test_error_only_for_current_tab(self):
         self.open_new_tab()
-        if model() != 'Desktop':
-            self.focus_address_bar()
-        self.type_in_address_bar("http://invalid")
-        self.keyboard.press_and_release("Enter")
+        self.main_window.go_to_url('http://invalid')
         error = self.main_window.get_error_sheet()
         self.assertThat(error.visible, Eventually(Equals(True)))
 
@@ -140,8 +128,8 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def test_open_target_blank_in_new_tab(self):
         url = self.base_url + "/blanktargetlink"
-        self.go_to_url(url)
-        self.assert_page_eventually_loaded(url)
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         self.check_current_tab(self.base_url + "/test2")
@@ -149,15 +137,15 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
-        self.go_to_url(url)
-        self.assert_page_eventually_loaded(url)
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         self.check_current_tab(self.base_url + "/test2")
         self.assert_number_webviews_eventually(2)
 
     def test_selecting_tab_focuses_webview(self):
-        self.focus_address_bar()
+        self.main_window.address_bar.focus()
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_previews()
@@ -165,7 +153,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         tabs_view.wait_until_destroyed()
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.activeFocus, Eventually(Equals(True)))
-        address_bar = self.main_window.get_chrome().get_address_bar()
+        address_bar = self.main_window.address_bar
         self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
 
     def test_webview_requests_close(self):

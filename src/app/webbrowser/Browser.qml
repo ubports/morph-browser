@@ -37,6 +37,7 @@ BrowserView {
 
     property url homepage
     property QtObject searchEngine
+    property string allowOpenInBackgroundTab
 
     // XXX: we might want to tweak this value depending
     // on the form factor and/or the available memory
@@ -357,6 +358,11 @@ BrowserView {
                         enabled: contextualData.href.toString()
                         onTriggered: browser.openUrlInNewTab(contextualData.href, true)
                     }
+                    Actions.OpenLinkInNewBackgroundTab {
+                        enabled: contextualData.href.toString() && ((browser.allowOpenInBackgroundTab === "true") ||
+                                 ((browser.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
+                        onTriggered: browser.openUrlInNewTab(contextualData.href, false)
+                    }
                     Actions.BookmarkLink {
                         enabled: contextualData.href.toString() && browser.bookmarksModel
                         onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "")
@@ -434,7 +440,18 @@ BrowserView {
                     id: newTabViewLoader
                     anchors.fill: parent
 
-                    sourceComponent: !parent.url.toString() ? newTabViewComponent : undefined
+                    // Avoid loading the new tab view if the webview is about to load
+                    // content. Since WebView.restoreState is not a notifyable property,
+                    // this can’t be achieved with a simple property binding.
+                    Component.onCompleted: {
+                        if (!parent.url.toString() && !parent.restoreState) {
+                            sourceComponent = newTabViewComponent
+                        }
+                    }
+                    Connections {
+                        target: newTabViewLoader.parent
+                        onUrlChanged: newTabViewLoader.sourceComponent = null
+                    }
 
                     Component {
                         id: newTabViewComponent
@@ -561,39 +578,39 @@ BrowserView {
         }
 
         // Those two functions are used to save/restore the current state of a tab.
-        // The current implementation is naive, it only saves/restores the current URL.
-        // In the future, we’ll want to rely on oxide to save and restore a full state
-        // of the corresponding webview as a binary blob, which includes navigation
-        // history, current scroll offset and form data. See http://pad.lv/1353143.
         function serializeTabState(tab) {
             var state = {}
             state.uniqueId = tab.uniqueId
             state.url = tab.url.toString()
             state.title = tab.title
             state.preview = tab.preview.toString()
+            state.savedState = tab.webview ? tab.webview.currentState : tab.restoreState
             return state
         }
 
         function createTabFromState(state) {
-            var properties = {"initialUrl": state.url, "initialTitle": state.title}
+            var properties = {'initialUrl': state.url, 'initialTitle': state.title}
             if ('uniqueId' in state) {
                 properties["uniqueId"] = state.uniqueId
             }
             if ('preview' in state) {
                 properties["preview"] = state.preview
             }
+            if ('savedState' in state) {
+                properties['restoreState'] = state.savedState
+                properties['restoreType'] = Oxide.WebView.RestoreLastSessionExitedCleanly
+            }
             return tabComponent.createObject(tabContainer, properties)
         }
     }
     Connections {
-        target: tabsModel
-        onCurrentTabChanged: session.save()
-        onCountChanged: session.save()
-    }
-    Connections {
-        target: browser.currentWebview
-        onUrlChanged: session.save()
-        onTitleChanged: session.save()
+        target: Qt.application
+        onStateChanged: {
+            if (Qt.application.state != Qt.ApplicationActive) {
+                session.save()
+            }
+        }
+        onAboutToQuit: session.save()
     }
 
     // Delay instantiation of the first webview by 1 msec to allow initial
@@ -615,7 +632,7 @@ BrowserView {
                 browser.openUrlInNewTab(browser.homepage, true, false)
             }
             tabsModel.currentTab.load()
-            if (!tabsModel.currentTab.url.toString() && (formFactor == "desktop")) {
+            if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
                 internal.focusAddressBar()
             }
         }

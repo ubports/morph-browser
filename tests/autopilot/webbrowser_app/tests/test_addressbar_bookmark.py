@@ -16,7 +16,6 @@
 
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
-from autopilot.platform import model
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
@@ -28,8 +27,8 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         super(TestAddressBarBookmark, self).setUp()
 
     def test_switching_tabs_updates_bookmark_toggle(self):
-        chrome = self.main_window.get_chrome()
-        address_bar = chrome.get_address_bar()
+        chrome = self.main_window.chrome
+        address_bar = self.main_window.address_bar
         bookmark_toggle = address_bar.get_bookmark_toggle()
         self.pointing_device.click_object(bookmark_toggle)
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
@@ -37,11 +36,8 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         self.open_tabs_view()
         self.open_new_tab()
         url = self.base_url + "/test2"
-        if model() != 'Desktop':
-            self.focus_address_bar()
-        self.type_in_address_bar(url)
-        self.keyboard.press_and_release("Enter")
-        self.assert_page_eventually_loaded(url)
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
 
         self.open_tabs_view()
@@ -69,8 +65,7 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         tabs_view.wait_until_destroyed()
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
-        chrome = self.main_window.get_chrome()
-        address_bar = chrome.get_address_bar()
+        address_bar = self.main_window.address_bar
         bookmark_toggle = address_bar.get_bookmark_toggle()
         self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
         self.assertThat(bookmark_toggle.visible, Eventually(Equals(True)))
