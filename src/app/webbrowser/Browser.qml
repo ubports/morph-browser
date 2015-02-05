@@ -390,7 +390,6 @@ BrowserView {
                         tabsModel.setCurrent(1)
                         tabsModel.get(0).load()
                         recentView.reset()
-                        reset()
                     } else {
                         recentView.state = "shown"
                         recentToolbar.state = "shown"
