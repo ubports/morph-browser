@@ -17,32 +17,20 @@
  */
 
 import QtQuick 2.0
+import Ubuntu.Gestures 0.1
 
-Item {
-    id: bottomEdgeHandle
+DirectionalDragArea {
+    direction: Direction.Upwards
 
-    readonly property bool dragging: handleArea.drag.active
-    readonly property real dragFraction: 1.0 - y / (parent.height - height)
+    // default values taken from unity8’s EdgeDragArea component
+    maxDeviation: units.gu(3)
+    wideningAngle: 50
+    distanceThreshold: units.gu(1.5)
+    minSpeed: 0
+    maxSilenceTime: 200
+    compositionTime: 60
 
+    readonly property real dragFraction: dragging ? Math.min(1.0, Math.max(0.0, sceneDistance / parent.height)) : 0.0
     readonly property var thresholds: [0.0, 0.18, 0.36, 0.54, 1.0]
     readonly property int stage: thresholds.map(function(t) { return dragFraction <= t }).indexOf(true)
-
-    y: parent.height - height
-    visible: enabled && ((stage == 0) || dragging)
-
-    function reset() {
-        y = parent.height - height
-    }
-
-    MouseArea {
-        id: handleArea
-        anchors.fill: parent
-        drag {
-            axis: Drag.YAxis
-            target: bottomEdgeHandle
-            minimumY: 0
-            maximumY: bottomEdgeHandle.parent.height - height
-        }
-        //enabled: bottomEdgeHandle.stage < 4
-    }
 }

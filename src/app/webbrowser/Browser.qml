@@ -188,7 +188,7 @@ BrowserView {
                     enabled: formFactor != "mobile"
                     onTriggered: {
                         chrome.state = "hidden"
-                        bottomEdgeHandle.y = 0
+                        recentView.state = "shown"
                         recentToolbar.state = "shown"
                     }
                 },
@@ -255,9 +255,13 @@ BrowserView {
         id: recentView
 
         anchors.fill: parent
-        opacity: bottomEdgeHandle.dragging || (bottomEdgeHandle.stage > 0) ? 1 : 0
+        opacity: (bottomEdgeHandle.dragging || (state == "shown")) ? 1 : 0
         Behavior on opacity { UbuntuNumberAnimation {} }
         visible: opacity > 0
+
+        states: State {
+            name: "shown"
+        }
 
         TabsList {
             id: tabslist
@@ -265,7 +269,9 @@ BrowserView {
             model: tabsModel
             readonly property real delegateMinHeight: units.gu(20)
             delegateHeight: {
-                if (bottomEdgeHandle.stage == 0) {
+                if (recentView.state == "shown") {
+                    return Math.max(height / 3, delegateMinHeight)
+                } else if (bottomEdgeHandle.stage == 0) {
                     return height
                 } else if (bottomEdgeHandle.stage == 1) {
                     return (1 - 1.8 * bottomEdgeHandle.dragFraction) * height
@@ -285,7 +291,6 @@ BrowserView {
                 // TODO: animate tab into full view
                 reset()
                 recentView.reset()
-                bottomEdgeHandle.reset()
             }
             onTabClosed: {
                 var tab = tabsModel.remove(index)
@@ -295,7 +300,6 @@ BrowserView {
                 if (tabsModel.count === 0) {
                     browser.openUrlInNewTab("", true)
                     recentView.reset()
-                    bottomEdgeHandle.reset()
                 }
             }
         }
@@ -325,7 +329,6 @@ BrowserView {
 
                 onClicked: {
                     recentView.reset()
-                    bottomEdgeHandle.reset()
                     tabsModel.currentTab.load()
                 }
             }
@@ -345,7 +348,6 @@ BrowserView {
 
                 onClicked: {
                     recentView.reset()
-                    bottomEdgeHandle.reset()
                     browser.openUrlInNewTab("", true)
                 }
             }
@@ -354,17 +356,27 @@ BrowserView {
         function reset() {
             recentToolbar.state = "hidden"
             tabslist.reset()
+            state = ""
+        }
+
+        onStateChanged: {
+            if ((state == "") && !bottomEdgeHandle.dragging) {
+                chrome.state = "shown"
+            }
         }
     }
 
     BottomEdgeHandle {
         id: bottomEdgeHandle
 
-        width: parent.width / 6
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
         height: units.gu(2)
 
-        enabled: formFactor == "mobile"
+        enabled: (formFactor == "mobile") && (recentView.state == "")
 
         onDraggingChanged: {
             if (dragging) {
@@ -380,20 +392,16 @@ BrowserView {
                         recentView.reset()
                         reset()
                     } else {
+                        recentView.state = "shown"
                         recentToolbar.state = "shown"
                     }
                 } else if (stage == 2) {
+                    recentView.state = "shown"
                     recentToolbar.state = "shown"
                 } else if (stage >= 3) {
+                    recentView.state = "shown"
                     recentToolbar.state = "shown"
-                    y = 0
                 }
-            }
-        }
-
-        onStageChanged: {
-            if (!dragging && (stage == 0)) {
-                chrome.state = "shown"
             }
         }
     }
