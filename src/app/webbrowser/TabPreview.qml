@@ -53,7 +53,7 @@ Column {
         Rectangle {
             anchors.fill: parent
             color: "white"
-            visible: showContent && !previewContainer.visible
+            visible: showContent
         }
 
         Image {
