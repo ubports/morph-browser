@@ -19,7 +19,7 @@
 import QtQuick 2.0
 import Ubuntu.Components 1.1
 
-MouseArea {
+Item {
     id: tabslist
 
     property real delegateHeight
@@ -28,8 +28,6 @@ MouseArea {
 
     signal tabSelected(int index)
     signal tabClosed(int index)
-
-    onWheel: wheel.accepted = true
 
     function reset() {
         flickable.contentY = 0

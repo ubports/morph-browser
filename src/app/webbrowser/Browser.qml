@@ -500,7 +500,7 @@ BrowserView {
                 focus: true
 
                 readonly property bool current: currentWebview === this
-                enabled: current
+                enabled: current && !recentView.visible
                 visible: current
 
                 //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled

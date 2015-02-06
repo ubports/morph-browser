@@ -45,11 +45,6 @@ Column {
             visible: !showContent
             anchors.fill: parent
             color: "#312f2c"
-
-            MouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-            }
         }
 
         TabChrome {
@@ -124,7 +119,6 @@ Column {
             objectName: "selectArea"
             anchors.fill: parent
             acceptedButtons: Qt.AllButtons
-            hoverEnabled: true
 
             // 'clicked' events are emitted even if the cursor has been dragged
             // (http://doc.qt.io/qt-5/qml-qtquick-mousearea.html#clicked-signal),
