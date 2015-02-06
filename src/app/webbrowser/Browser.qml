@@ -77,6 +77,14 @@ BrowserView {
         }
     ]
 
+    Rectangle {
+        // Background for the recent view,
+        // has to be behind the current webview
+        visible: recentView.visible
+        anchors.fill: parent
+        color: "#312f2c"
+    }
+
     Item {
         anchors.fill: parent
 

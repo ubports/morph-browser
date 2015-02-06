@@ -34,30 +34,16 @@ Column {
     signal selected()
     signal closed()
 
-    Item {
+    TabChrome {
+        id: chrome
+
         anchors {
             left: parent.left
             right: parent.right
         }
-        height: chrome.height
 
-        Rectangle {
-            visible: !showContent
-            anchors.fill: parent
-            color: "#312f2c"
-        }
-
-        TabChrome {
-            id: chrome
-
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-
-            onSelected: tabPreview.selected()
-            onClosed: tabPreview.closed()
-        }
+        onSelected: tabPreview.selected()
+        onClosed: tabPreview.closed()
     }
 
     Item {
