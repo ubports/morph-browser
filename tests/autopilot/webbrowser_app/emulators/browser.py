@@ -181,14 +181,7 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def click_action_button(self):
         button = self.select_single("QQuickMouseArea",
                                     objectName="actionButton")
-        # Work around for https://launchpad.net/bugs/1417118.
-        # If a touch device has been instantiated, tapping in the center of the
-        # button might tap the text selection handle that overlaps it instead.
-        # This is not the most robust solution ever, but to avoid hitting the
-        # selection handle, tap somewhere in the leftmost half of the button.
-        self.pointing_device.move(button.globalRect.x + button.width * 0.2,
-                                  button.globalRect.y + button.height * 0.5)
-        self.pointing_device.click()
+        self.pointing_device.click_object(button)
 
     def get_bookmark_toggle(self):
         return self.select_single("QQuickItem", objectName="bookmarkToggle")
