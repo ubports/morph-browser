@@ -365,12 +365,7 @@ BrowserView {
             recentToolbar.state = "hidden"
             tabslist.reset()
             state = ""
-        }
-
-        onStateChanged: {
-            if ((state == "") && !bottomEdgeHandle.dragging) {
-                chrome.state = "shown"
-            }
+            chrome.state = "shown"
         }
     }
 
