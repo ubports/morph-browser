@@ -137,12 +137,9 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(2)
 
     def test_selecting_tab_focuses_webview(self):
-        self.main_window.address_bar.focus()
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         tabs_view.get_previews()[0].select()
         tabs_view.visible.wait_for(False)
         webview = self.main_window.get_current_webview()
-        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
-        address_bar = self.main_window.address_bar
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+        webview.activeFocus.wait_for(True)
