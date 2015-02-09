@@ -101,7 +101,8 @@ bool WebbrowserApp::initialize()
         m_window->setProperty("homepage", settings.homepage());
         m_window->setProperty("searchEngine", QVariant::fromValue(searchEngine));
         m_window->setProperty("allowOpenInBackgroundTab", settings.allowOpenInBackgroundTab());
-        m_window->setProperty("restoreSession", !m_arguments.contains("--new-session"));
+        m_window->setProperty("restoreSession", settings.restoreSession() &&
+                                                !m_arguments.contains("--new-session"));
         QVariantList urls;
         Q_FOREACH(const QUrl& url, this->urls()) {
             urls.append(url);
