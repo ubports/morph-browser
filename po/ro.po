@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2015-01-25 14:49+0000\n"
+"PO-Revision-Date: 2015-02-08 11:41+0000\n"
 "Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2015-02-04 07:10+0000\n"
+"X-Launchpad-Export-Date: 2015-02-09 06:17+0000\n"
 "X-Generator: Launchpad (build 17331)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -411,7 +411,7 @@ msgstr "Deschide imaginea într-o filă nouă"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Deschideți legătura într-o filă nouă din fundal"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -435,7 +435,7 @@ msgstr "Salvează imaginea"
 msgid "Share…"
 msgstr "Partajează..."
 
-#: src/app/webbrowser/AddressBar.qml:195
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "căutați sau introduceți o adresă"
 
@@ -445,19 +445,19 @@ msgstr "căutați sau introduceți o adresă"
 msgid "Delete"
 msgstr "Ştergeţi"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:160
 msgid "Share"
 msgstr "Partajare"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:174
 msgid "History"
 msgstr "Istoric"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:181
 msgid "Open tabs"
 msgstr "File deschise"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:187 src/app/webbrowser/HistoryView.qml:293
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Filă nouă"
@@ -502,7 +502,7 @@ msgstr "arată mai puțin"
 msgid "see more"
 msgstr "arată mai mult"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:69
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
 msgid "This site has insecure content"
 msgstr "Acest site are conținut nesigur"
 
@@ -550,11 +550,11 @@ msgstr ""
 "Certificatul serverului a eșuat la verificările noastre de securitate dintr-"
 "un motiv necunoscut."
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:126
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
 msgid "You are connected to"
 msgstr "Sunteți conectat la"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:148
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Which is run by"
 msgstr "Care este rulat de"
 
@@ -567,14 +567,14 @@ msgid "Add"
 msgstr "Adaugă"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:38
-#: src/app/webcontainer/webapp-container.qml:66
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:59
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navigatorul web Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:40
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:61
 msgid "Ubuntu Web Browser"
 msgstr "Navigatorul web Ubuntu"
 
