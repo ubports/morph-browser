@@ -50,7 +50,9 @@ WebView {
             return
         }
 
-        if (downloadLoader.status == Loader.Ready) {
+        if (formFactor === "desktop") {
+            Qt.openUrlExternally(request.url)
+        } else if (downloadLoader.status == Loader.Ready) {
             var headers = { }
             if(request.cookies.length > 0) {
                 headers["Cookie"] = request.cookies.join(";")
