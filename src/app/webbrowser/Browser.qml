@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import com.canonical.Oxide 1.0 as Oxide
+import com.canonical.Oxide 1.4 as Oxide
 import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
@@ -37,6 +37,7 @@ BrowserView {
 
     property url homepage
     property QtObject searchEngine
+    property string allowOpenInBackgroundTab
 
     // XXX: we might want to tweak this value depending
     // on the form factor and/or the available memory
@@ -231,6 +232,8 @@ BrowserView {
                 query: chrome.text
             }
             onSelected: {
+                // Workaround for https://launchpad.net/bugs/1377198
+                browser.currentWebview.resetCertificateError()
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
                 chrome.requestedUrl = url
@@ -332,195 +335,124 @@ BrowserView {
     Component {
         id: tabComponent
 
-        FocusScope {
-            property string uniqueId: this.toString() + "-" + Date.now()
-            property url initialUrl
-            property string initialTitle
-            property var request
-            readonly property var webview: (children.length == 1) ? children[0] : null
-            readonly property url url: webview ? webview.url : initialUrl
-            readonly property string title: webview ? webview.title : initialTitle
-            readonly property url icon: webview ? webview.icon : ""
-            property url preview
-
+        BrowserTab {
             anchors.fill: parent
+            webviewComponent: WebViewImpl {
+                id: webviewimpl
 
-            function load() {
-                if (!webview) {
-                    webviewComponent.incubateObject(this, {"url": initialUrl})
-                }
-            }
+                currentWebview: browser.currentWebview
 
-            function unload() {
-                if (webview) {
-                    initialUrl = webview.url
-                    initialTitle = webview.title
-                    webview.destroy()
-                }
-            }
-
-            function close() {
-                unload()
-                if (preview) {
-                    FileOperations.remove(preview)
-                }
-                destroy()
-            }
-
-            property var captureTaker
-            Component {
-                id: captureComponent
-                ItemCapture {
-                    quality: 50
-                    onCaptureFinished: {
-                        if ((request == uniqueId) && capture.toString()) {
-                            if (preview == capture) {
-                                // Ensure that the preview URL actually changes,
-                                // for the image to be reloaded
-                                preview = ""
-                            }
-                            preview = capture
-                        }
-                        if (!webview.visible) {
-                            captureTaker.destroy()
-                        }
-                    }
-                }
-            }
-            function createCaptureTakerIfNeeded() {
-                if (!captureTaker) {
-                    captureTaker = captureComponent.createObject(webview)
-                }
-            }
-            onWebviewChanged: {
-                if (webview) {
-                    createCaptureTakerIfNeeded()
-                }
-            }
-
-            Connections {
-                target: webview
-                onVisibleChanged: {
-                    if (webview.visible) {
-                        createCaptureTakerIfNeeded()
-                    } else {
-                        captureTaker.requestCapture(uniqueId)
-                    }
-                }
-            }
-
-            Component.onCompleted: {
-                if (request) {
-                    // Instantiating the webview cannot be delayed because the request
-                    // object is destroyed after exiting the newViewRequested signal handler.
-                    webviewComponent.incubateObject(this, {"request": request})
-                }
-            }
-        }
-    }
-
-    Component {
-        id: webviewComponent
-
-        WebViewImpl {
-            id: webviewimpl
-
-            currentWebview: browser.currentWebview
-
-            anchors.fill: parent
-            focus: true
-
-            readonly property bool current: currentWebview === this
-            enabled: current
-            visible: current
-
-            //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
-            preferences.localStorageEnabled: true
-            preferences.appCacheEnabled: true
-
-            contextualActions: ActionList {
-                Actions.OpenLinkInNewTab {
-                    enabled: contextualData.href.toString()
-                    onTriggered: browser.openUrlInNewTab(contextualData.href, true)
-                }
-                Actions.BookmarkLink {
-                    enabled: contextualData.href.toString() && browser.bookmarksModel
-                    onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "")
-                }
-                Actions.CopyLink {
-                    enabled: contextualData.href.toString()
-                    onTriggered: Clipboard.push([contextualData.href])
-                }
-                Actions.OpenImageInNewTab {
-                    enabled: contextualData.img.toString()
-                    onTriggered: browser.openUrlInNewTab(contextualData.img, true)
-                }
-                Actions.CopyImage {
-                    enabled: contextualData.img.toString()
-                    onTriggered: Clipboard.push([contextualData.img])
-                }
-                Actions.SaveImage {
-                    enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
-                    onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
-                }
-            }
-
-            onNewViewRequested: {
-                var tab = tabComponent.createObject(tabContainer, {"request": request})
-                var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
-                internal.addTab(tab, setCurrent)
-            }
-
-            onLoadingChanged: {
-                if (lastLoadSucceeded && browser.historyModel) {
-                    browser.historyModel.add(url, title, icon)
-                }
-            }
-
-            onGeolocationPermissionRequested: requestGeolocationPermission(request)
-
-            property var certificateError
-            function resetCertificateError() {
-                certificateError = null
-            }
-            onCertificateError: {
-                if (!error.isMainFrame || error.isSubresource) {
-                    // Not a main frame document error, just block the content
-                    // (it’s not overridable anyway).
-                    return
-                }
-                if (internal.isCertificateErrorAllowed(error)) {
-                    error.allow()
-                } else {
-                    certificateError = error
-                    error.onCancelled.connect(webviewimpl.resetCertificateError)
-                }
-            }
-
-            Loader {
-                id: newTabViewLoader
                 anchors.fill: parent
+                focus: true
 
-                sourceComponent: !parent.url.toString() ? newTabViewComponent : undefined
+                readonly property bool current: currentWebview === this
+                enabled: current
+                visible: current
 
-                Component {
-                    id: newTabViewComponent
+                //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
+                preferences.localStorageEnabled: true
+                preferences.appCacheEnabled: true
 
-                    NewTabView {
-                        anchors.fill: parent
+                contextualActions: ActionList {
+                    Actions.OpenLinkInNewTab {
+                        enabled: contextualData.href.toString()
+                        onTriggered: browser.openUrlInNewTab(contextualData.href, true)
+                    }
+                    Actions.OpenLinkInNewBackgroundTab {
+                        enabled: contextualData.href.toString() && ((browser.allowOpenInBackgroundTab === "true") ||
+                                 ((browser.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
+                        onTriggered: browser.openUrlInNewTab(contextualData.href, false)
+                    }
+                    Actions.BookmarkLink {
+                        enabled: contextualData.href.toString() && browser.bookmarksModel
+                        onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "")
+                    }
+                    Actions.CopyLink {
+                        enabled: contextualData.href.toString()
+                        onTriggered: Clipboard.push([contextualData.href])
+                    }
+                    Actions.OpenImageInNewTab {
+                        enabled: contextualData.img.toString()
+                        onTriggered: browser.openUrlInNewTab(contextualData.img, true)
+                    }
+                    Actions.CopyImage {
+                        enabled: contextualData.img.toString()
+                        onTriggered: Clipboard.push([contextualData.img])
+                    }
+                    Actions.SaveImage {
+                        enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
+                        onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
+                    }
+                }
 
-                        historyModel: browser.historyModel
-                        bookmarksModel: browser.bookmarksModel
-                        onBookmarkClicked: {
-                            chrome.requestedUrl = url
-                            currentWebview.url = url
-                            currentWebview.forceActiveFocus()
+                onNewViewRequested: {
+                    var tab = tabComponent.createObject(tabContainer, {"request": request})
+                    var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
+                    internal.addTab(tab, setCurrent)
+                }
+
+                onLoadingChanged: {
+                    if (lastLoadSucceeded && browser.historyModel) {
+                        browser.historyModel.add(url, title, icon)
+                    }
+                }
+
+                onGeolocationPermissionRequested: requestGeolocationPermission(request)
+
+                property var certificateError
+                function resetCertificateError() {
+                    certificateError = null
+                }
+                onCertificateError: {
+                    if (!error.isMainFrame || error.isSubresource) {
+                        // Not a main frame document error, just block the content
+                        // (it’s not overridable anyway).
+                        return
+                    }
+                    if (internal.isCertificateErrorAllowed(error)) {
+                        error.allow()
+                    } else {
+                        certificateError = error
+                        error.onCancelled.connect(webviewimpl.resetCertificateError)
+                    }
+                }
+
+                Loader {
+                    id: newTabViewLoader
+                    anchors.fill: parent
+
+                    // Avoid loading the new tab view if the webview is about to load
+                    // content. Since WebView.restoreState is not a notifyable property,
+                    // this can’t be achieved with a simple property binding.
+                    Component.onCompleted: {
+                        if (!parent.url.toString() && !parent.restoreState) {
+                            sourceComponent = newTabViewComponent
                         }
-                        onBookmarkRemoved: browser.bookmarksModel.remove(url)
-                        onHistoryEntryClicked: {
-                            chrome.requestedUrl = url
-                            currentWebview.url = url
-                            currentWebview.forceActiveFocus()
+                    }
+                    Connections {
+                        target: newTabViewLoader.parent
+                        onUrlChanged: newTabViewLoader.sourceComponent = null
+                    }
+
+                    Component {
+                        id: newTabViewComponent
+
+                        NewTabView {
+                            anchors.fill: parent
+
+                            historyModel: browser.historyModel
+                            bookmarksModel: browser.bookmarksModel
+                            onBookmarkClicked: {
+                                chrome.requestedUrl = url
+                                currentWebview.url = url
+                                currentWebview.forceActiveFocus()
+                            }
+                            onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                            onHistoryEntryClicked: {
+                                chrome.requestedUrl = url
+                                currentWebview.url = url
+                                currentWebview.forceActiveFocus()
+                            }
                         }
                     }
                 }
@@ -627,39 +559,39 @@ BrowserView {
         }
 
         // Those two functions are used to save/restore the current state of a tab.
-        // The current implementation is naive, it only saves/restores the current URL.
-        // In the future, we’ll want to rely on oxide to save and restore a full state
-        // of the corresponding webview as a binary blob, which includes navigation
-        // history, current scroll offset and form data. See http://pad.lv/1353143.
         function serializeTabState(tab) {
             var state = {}
             state.uniqueId = tab.uniqueId
             state.url = tab.url.toString()
             state.title = tab.title
             state.preview = tab.preview.toString()
+            state.savedState = tab.webview ? tab.webview.currentState : tab.restoreState
             return state
         }
 
         function createTabFromState(state) {
-            var properties = {"initialUrl": state.url, "initialTitle": state.title}
+            var properties = {'initialUrl': state.url, 'initialTitle': state.title}
             if ('uniqueId' in state) {
                 properties["uniqueId"] = state.uniqueId
             }
             if ('preview' in state) {
                 properties["preview"] = state.preview
             }
+            if ('savedState' in state) {
+                properties['restoreState'] = state.savedState
+                properties['restoreType'] = Oxide.WebView.RestoreLastSessionExitedCleanly
+            }
             return tabComponent.createObject(tabContainer, properties)
         }
     }
     Connections {
-        target: tabsModel
-        onCurrentTabChanged: session.save()
-        onCountChanged: session.save()
-    }
-    Connections {
-        target: browser.currentWebview
-        onUrlChanged: session.save()
-        onTitleChanged: session.save()
+        target: Qt.application
+        onStateChanged: {
+            if (Qt.application.state != Qt.ApplicationActive) {
+                session.save()
+            }
+        }
+        onAboutToQuit: session.save()
     }
 
     // Delay instantiation of the first webview by 1 msec to allow initial
@@ -681,7 +613,7 @@ BrowserView {
                 browser.openUrlInNewTab(browser.homepage, true, false)
             }
             tabsModel.currentTab.load()
-            if (!tabsModel.currentTab.url.toString() && (formFactor == "desktop")) {
+            if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
                 internal.focusAddressBar()
             }
         }

@@ -20,6 +20,7 @@
 #include "webapp-container.h"
 
 #include "chrome-cookie-store.h"
+#include "intent-filter.h"
 #include "local-cookie-store.h"
 #include "online-accounts-cookie-store.h"
 #include "session-utils.h"
@@ -104,6 +105,7 @@ static bool canUseOxide()
 }
 
 const QString WebappContainer::URL_PATTERN_SEPARATOR = ",";
+const QString WebappContainer::LOCAL_INTENT_FILTER_FILENAME = "local-intent-filter.js";
 
 
 WebappContainer::WebappContainer(int& argc, char** argv):
@@ -214,12 +216,39 @@ bool WebappContainer::initialize()
             return false;
         }
 
+        // Handle an optional intent filter. The default filter does nothing.
+        setupLocalIntentFilterIfAny(context);
+
         m_component->completeCreate();
 
         return true;
     } else {
         return false;
     }
+}
+
+void WebappContainer::setupLocalIntentFilterIfAny(QQmlContext* context)
+{
+    if(!context)
+    {
+        return;
+    }
+
+    QString localIntentFilterFileContent;
+    if (IntentFilter::isValidLocalIntentFilterFile(LOCAL_INTENT_FILTER_FILENAME))
+    {
+        QFile f(LOCAL_INTENT_FILTER_FILENAME);
+        if (f.open(QIODevice::ReadOnly))
+        {
+            localIntentFilterFileContent = QString(f.readAll());
+        }
+        f.close();
+
+        qDebug() << "Using local intent filter file:"
+                 << LOCAL_INTENT_FILTER_FILENAME;
+    }
+    m_intentFilter.reset(new IntentFilter(localIntentFilterFileContent, NULL));
+    context->setContextProperty("webappIntentFilter", m_intentFilter.data());
 }
 
 bool WebappContainer::isValidLocalApplicationRunningContext() const

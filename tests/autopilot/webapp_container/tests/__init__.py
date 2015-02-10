@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2014 Canonical
+# Copyright 2014-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -18,9 +18,10 @@
 import os
 import subprocess
 
+import fixtures
 from autopilot.testcase import AutopilotTestCase
 from autopilot.platform import model
-from testtools.matchers import Equals
+from testtools.matchers import Equals, GreaterThan
 from autopilot.matchers import Eventually
 
 import ubuntuuitoolkit as uitk
@@ -56,7 +57,8 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
                 'webbrowser-app.desktop')
         if envvars:
             for envvar_key in envvars:
-                self.patch_environment(envvar_key, envvars[envvar_key])
+                self.useFixture(fixtures.EnvironmentVariable(
+                    envvar_key, envvars[envvar_key]))
 
         try:
             self.app = self.launch_test_application(
@@ -93,6 +95,19 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
         self.assertThat(webview.loadProgress,
                         Eventually(Equals(100), timeout=20))
         self.assertThat(webview.loading, Eventually(Equals(False)))
+
+    def get_intent_filtered_uri(self, uri):
+        webviewContainer = self.get_webcontainer_window()
+        watcher = webviewContainer.watch_signal(
+            'intentUriHandleResult(QString)')
+        previous = watcher.num_emissions
+        webviewContainer.slots.handleIntentUri(uri)
+        self.assertThat(
+            lambda: watcher.num_emissions,
+            Eventually(GreaterThan(previous)))
+        result = webviewContainer.get_signal_emissions(
+            'intentUriHandleResult(QString)')[-1][0]
+        return result
 
     def browse_to(self, url):
         webview = self.get_oxide_webview()

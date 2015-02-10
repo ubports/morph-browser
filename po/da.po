@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-11-13 13:56+0100\n"
+"POT-Creation-Date: 2015-02-03 15:55+0100\n"
 "PO-Revision-Date: 2014-08-03 02:48+0000\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-12-16 07:31+0000\n"
-"X-Generator: Launchpad (build 17286)\n"
+"X-Launchpad-Export-Date: 2015-02-04 07:09+0000\n"
+"X-Generator: Launchpad (build 17331)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -78,12 +78,12 @@ msgstr ""
 "sikkerhedscertifikatet på dette websted."
 
 #: src/app/CertificateVerificationDialog.qml:29
-#: src/app/InvalidCertificateErrorSheet.qml:162
+#: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
 msgstr "Fortsæt alligevel"
 
 #: src/app/CertificateVerificationDialog.qml:35
-#: src/app/InvalidCertificateErrorSheet.qml:175
+#: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
 msgstr "Tilbage i sikkerhed"
 
@@ -122,7 +122,7 @@ msgid "Permission Request"
 msgstr "Anmodning om tilladelse"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:68
+#: src/app/webcontainer/WebViewImplWebkit.qml:70
 msgid "This page wants to know your device’s location."
 msgstr "Denne side vil gerne kende din enheds position."
 
@@ -136,16 +136,16 @@ msgstr "Nægt"
 msgid "Allow"
 msgstr "Tillad"
 
-#: src/app/InvalidCertificateErrorSheet.qml:58
+#: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
 msgstr "Der er ikke tillid til sikkerhedscertifikatet for dette sted.\n"
 
-#: src/app/InvalidCertificateErrorSheet.qml:66
+#: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
 msgstr "Få mere at vide"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
-#: src/app/InvalidCertificateErrorSheet.qml:90
+#: src/app/InvalidCertificateErrorSheet.qml:87
 #, qt-format
 msgid ""
 "Serial number:\n"
@@ -155,7 +155,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
-#: src/app/InvalidCertificateErrorSheet.qml:97
+#: src/app/InvalidCertificateErrorSheet.qml:94
 #, qt-format
 msgid ""
 "Subject:\n"
@@ -165,7 +165,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
-#: src/app/InvalidCertificateErrorSheet.qml:105
+#: src/app/InvalidCertificateErrorSheet.qml:102
 #, qt-format
 msgid ""
 "Subject address:\n"
@@ -175,7 +175,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
-#: src/app/InvalidCertificateErrorSheet.qml:116
+#: src/app/InvalidCertificateErrorSheet.qml:113
 #, qt-format
 msgid ""
 "Issuer:\n"
@@ -185,7 +185,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-#: src/app/InvalidCertificateErrorSheet.qml:124
+#: src/app/InvalidCertificateErrorSheet.qml:121
 #, qt-format
 msgid ""
 "Issuer address:\n"
@@ -195,7 +195,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
-#: src/app/InvalidCertificateErrorSheet.qml:135
+#: src/app/InvalidCertificateErrorSheet.qml:132
 #, qt-format
 msgid ""
 "Valid from:\n"
@@ -205,7 +205,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
-#: src/app/InvalidCertificateErrorSheet.qml:142
+#: src/app/InvalidCertificateErrorSheet.qml:139
 #, qt-format
 msgid ""
 "Valid until:\n"
@@ -215,7 +215,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
-#: src/app/InvalidCertificateErrorSheet.qml:149
+#: src/app/InvalidCertificateErrorSheet.qml:146
 #, qt-format
 msgid ""
 "Fingerprint (SHA1):\n"
@@ -224,7 +224,7 @@ msgstr ""
 "Fingeraftryk (SHA1):\n"
 "%1"
 
-#: src/app/InvalidCertificateErrorSheet.qml:155
+#: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
@@ -233,7 +233,7 @@ msgstr ""
 "advarsel for dette sted."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:190
+#: src/app/InvalidCertificateErrorSheet.qml:187
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -243,7 +243,7 @@ msgstr ""
 "sikkerhedscertifikat, der ikke matcher med identiteten på stedet."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:193
+#: src/app/InvalidCertificateErrorSheet.qml:190
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -253,7 +253,7 @@ msgstr ""
 "sikkerhedscertifikat, der er udløbet."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:196
+#: src/app/InvalidCertificateErrorSheet.qml:193
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -263,7 +263,7 @@ msgstr ""
 "sikkerhedscertifikat, der indeholder ugyldige datoer."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:199
+#: src/app/InvalidCertificateErrorSheet.qml:196
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -274,7 +274,7 @@ msgstr ""
 "til."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:202
+#: src/app/InvalidCertificateErrorSheet.qml:199
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -284,7 +284,7 @@ msgstr ""
 "sikkerhedscertifikat, der er blevet kaldt tilbage."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:205
+#: src/app/InvalidCertificateErrorSheet.qml:202
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
@@ -294,7 +294,7 @@ msgstr ""
 "sikkerhedscertifikat."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:208
+#: src/app/InvalidCertificateErrorSheet.qml:205
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
@@ -304,7 +304,7 @@ msgstr ""
 "sikkerhedscertifikat, der ikke er sikkert."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:211
+#: src/app/InvalidCertificateErrorSheet.qml:208
 #, qt-format
 msgid ""
 "This site security certificate is not trusted\n"
@@ -410,6 +410,10 @@ msgstr "Åbn et nyt faneblad"
 msgid "Open image in new tab"
 msgstr "Åbn billede i nyt faneblad"
 
+#: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
+msgid "Open link in new background tab"
+msgstr ""
+
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "Åbn link i nyt faneblad"
@@ -432,7 +436,7 @@ msgstr "Gem billede"
 msgid "Share…"
 msgstr "Del…"
 
-#: src/app/webbrowser/AddressBar.qml:208
+#: src/app/webbrowser/AddressBar.qml:195
 msgid "search or enter an address"
 msgstr "søg eller indtast en adresse"
 
@@ -442,19 +446,19 @@ msgstr "søg eller indtast en adresse"
 msgid "Delete"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:190
+#: src/app/webbrowser/Browser.qml:161
 msgid "Share"
 msgstr "Del"
 
-#: src/app/webbrowser/Browser.qml:204
+#: src/app/webbrowser/Browser.qml:175
 msgid "History"
 msgstr "Historik"
 
-#: src/app/webbrowser/Browser.qml:211
+#: src/app/webbrowser/Browser.qml:182
 msgid "Open tabs"
 msgstr "Åbn faneblade"
 
-#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Nyt faneblad"
@@ -478,7 +482,7 @@ msgstr "Sidst besøgt"
 msgid "Yesterday"
 msgstr "I går"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
 msgstr "Færdig"
 
@@ -498,35 +502,75 @@ msgstr "vis mindre"
 msgid "see more"
 msgstr "vis mere"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+#: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
 msgstr "Dette sted har indhold som er usikkert"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+#: src/app/webbrowser/SecurityCertificatePopover.qml:70
+msgid "Identity Not Verified"
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:78
+msgid "The identity of this website has not been verified."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:89
+msgid "Server certificate does not match the identity of the site."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:91
+msgid "Server certificate has expired."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:93
+msgid "Server certificate contains invalid dates."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Server certificate is issued by an entity that is not trusted."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:97
+msgid "Server certificate has been revoked."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:99
+msgid "Server certificate is invalid."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:101
+msgid "Server certificate is insecure."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:103
+msgid "Server certificate failed our security checks for an unknown reason."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
 msgstr "Du er tilsluttet til"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+#: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
 msgstr "Der bliver drevet af"
 
-#: src/app/webbrowser/TabPreview.qml:162
+#: src/app/webbrowser/TabPreview.qml:163
 msgid "Tap to view"
 msgstr "Tap for visning"
 
-#: src/app/webbrowser/TabsView.qml:114
+#: src/app/webbrowser/TabsView.qml:113
 msgid "Add"
 msgstr "Tilføj"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:55
+#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Webbrowser til Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:57
+#: src/app/webbrowser/webbrowser-app.qml:40
+#: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu-webbrowser"
 

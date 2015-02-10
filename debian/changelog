@@ -1,3 +1,119 @@
+webbrowser-app (0.23+15.04.20150203.1-0ubuntu1) vivid; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+  * Revert the UA override for m.youtube.com as it was causing a lot of
+    stuttering (due to very high CPU usage) on krillin. In the meantime,
+    the issue with videos not playing that this update was meant to
+    address (bug #1415107) was resolved on youtube’s side. (LP:
+    #1417258, #1415107)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 03 Feb 2015 17:35:27 +0000
+
+webbrowser-app (0.23+15.04.20150203-0ubuntu1) vivid; urgency=medium
+
+  [ Florian Boucault ]
+  * Make splashscreen white instead of the default black. (LP: #1378379)
+
+  [ Niklas Wenzel ]
+  * Add the ability to open a link in a new background tab (LP:
+    #1339437)
+
+  [ Olivier Tilloy ]
+  * Use the new restoreState API in oxide 1.4 to properly save and
+    restore navigation state across sessions. (LP: #1353143)
+  * Add a UA override for youtube.com on desktop to fix video playback.
+    (LP: #1412880)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 03 Feb 2015 11:06:38 +0000
+
+webbrowser-app (0.23+15.04.20150202-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk
+
+  [ Alexandre Abreu ]
+  * Add support for intent:// schemes in the container. (LP: #1407709)
+
+  [ Ubuntu daily release ]
+  * New rebuild forced
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 02 Feb 2015 14:12:39 +0000
+
+webbrowser-app (0.23+15.04.20150127-0ubuntu1) vivid; urgency=low
+
+  [ Olivier Tilloy ]
+  * Update the m.youtube.com UA override to fix video playback. (LP:
+    #1415107)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Tue, 27 Jan 2015 17:33:47 +0000
+
+webbrowser-app (0.23+15.04.20150123-0ubuntu1) vivid; urgency=low
+
+  [ Michael Sheldon ]
+  * Keep data URIs in their original form when retrieving image URLs
+    (LP: #1413964)
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+  * Do not ever change the contents of the address bar or remove focus
+    from it while the user is editing it. (LP: #1373918)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Fri, 23 Jan 2015 14:32:25 +0000
+
+webbrowser-app (0.23+15.04.20150122-0ubuntu1) vivid; urgency=low
+
+  [ Olivier Tilloy ]
+  * Display a broken padlock icon when browsing a page loaded over an
+    insecure connection. (LP: #1412906, #1402723)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 22 Jan 2015 14:11:31 +0000
+
+webbrowser-app (0.23+15.04.20150119-0ubuntu1) vivid; urgency=low
+
+  [ Alexandre Abreu ]
+  * MAke sure that we properly consider the local webapp name that could
+    be imported by a webapp-properties file for things like UA
+    overrides. (LP: #1408064)
+
+  [ Olivier Tilloy ]
+  * Use the host mapping rules in webbrowser-app autopilot tests.
+  * Use fixtures.EnvironmentVariable instead of patch_environment, which
+    is deprecated. (LP: #1395013)
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Mon, 19 Jan 2015 10:45:40 +0000
+
+webbrowser-app (0.23+15.04.20141218-0ubuntu1) vivid; urgency=low
+
+  [ Leo Arias ]
+  * Refactor the address bar autopilot helpers so they can be used from
+    external test cases.
+  * Expose on the autopilot helpers the back and forward functionality.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Thu, 18 Dec 2014 18:40:11 +0000
+
+webbrowser-app (0.23+15.04.20141217-0ubuntu1) vivid; urgency=low
+
+  [ Timo Jyrinki ]
+  * Use QSGLayer instead of QQuickShaderEffectTexture on Qt 5.4.0 (LP:
+    #1403359) (LP: #1403359)
+
+  [ Olivier Tilloy ]
+  * Do not offer to go back to safety for non-overridable certificate
+    errors. The user can always use the chrome’s back/refresh buttons.
+    (LP: #1394925, #1394270)
+  * Move the Tab component to a separate QML file, for improved
+    readability, maintenance and testability.
+  * Actually compare the contents of the capture to the reference item.
+
+  [ Leo Arias ]
+  * Added an autopilot custom proxy object for the application.
+
+ -- Ubuntu daily release <ps-jenkins@lists.canonical.com>  Wed, 17 Dec 2014 09:23:25 +0000
+
 webbrowser-app (0.23+15.04.20141212.1-0ubuntu1) vivid; urgency=low
 
   [ Olivier Tilloy ]

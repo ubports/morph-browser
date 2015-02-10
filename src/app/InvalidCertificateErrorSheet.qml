@@ -28,10 +28,7 @@ Rectangle {
 
     Connections {
         target: certificateError ? certificateError : null
-        onCancelled: {
-            moreInfo.visible = false
-            denied()
-        }
+        onCancelled: denied()
     }
 
     Flickable {
@@ -152,6 +149,7 @@ Rectangle {
 
             Label {
                 width: parent.width
+                visible: certificateError ? certificateError.overridable : false
                 text: i18n.tr("You should not proceed, especially if you have never seen this warning before for this site.")
                 wrapMode: Text.Wrap
                 fontSize: "x-small"
@@ -163,7 +161,6 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: certificateError ? certificateError.overridable : false
                 onClicked: {
-                    moreInfo.visible = false
                     certificateError.allow()
                     allowed()
                 }
@@ -172,9 +169,9 @@ Rectangle {
             Button {
                 id: backButton
                 anchors.horizontalCenter: parent.horizontalCenter
+                visible: certificateError ? certificateError.overridable : false
                 text: i18n.tr("Back to safety")
                 onClicked: {
-                    moreInfo.visible = false
                     certificateError.deny()
                     denied()
                 }
@@ -212,4 +209,9 @@ Rectangle {
         }
     }
 
+    onVisibleChanged: {
+        if (!visible) {
+            moreInfo.visible = false
+        }
+    }
 }
