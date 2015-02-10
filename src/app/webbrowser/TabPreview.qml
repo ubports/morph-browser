@@ -34,16 +34,40 @@ Column {
     signal selected()
     signal closed()
 
-    TabChrome {
-        id: chrome
-
+    Item {
         anchors {
             left: parent.left
             right: parent.right
         }
+        height: chrome.height
 
-        onSelected: tabPreview.selected()
-        onClosed: tabPreview.closed()
+        Rectangle {
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            height: units.gu(10)
+
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "transparent" }
+                GradientStop { position: 1.0; color: "#4c4c4c" }
+            }
+
+            opacity: 0.6
+        }
+
+        TabChrome {
+            id: chrome
+
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+
+            onSelected: tabPreview.selected()
+            onClosed: tabPreview.closed()
+        }
     }
 
     Item {
@@ -52,7 +76,7 @@ Column {
 
         Rectangle {
             anchors.fill: parent
-            color: "white"
+            color: "#f4f4f4"
             visible: showContent
         }
 
@@ -125,17 +149,6 @@ Column {
                     }
                 }
             }
-        }
-
-        Rectangle {
-            anchors.fill: parent
-
-            gradient: Gradient {
-                GradientStop { position: 0.0; color: "white" }
-                GradientStop { position: 1.0; color: "black" }
-            }
-
-            opacity: 0.4
         }
     }
 }
