@@ -106,7 +106,7 @@ BrowserView {
         Loader {
             anchors.fill: tabContainer
             sourceComponent: InvalidCertificateErrorSheet {
-                visible: currentWebview && currentWebview.certificateError !== null
+                visible: currentWebview && currentWebview.certificateError != null
                 certificateError: currentWebview ? currentWebview.certificateError : null
                 onAllowed: {
                     // Automatically allow future requests involving this
@@ -163,7 +163,7 @@ BrowserView {
                     enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
                     onTriggered: {
                         var component = Qt.createComponent("../Share.qml")
-                        if (component.status === Component.Ready) {
+                        if (component.status == Component.Ready) {
                             var share = component.createObject(browser)
                             share.onDone.connect(share.destroy)
                             share.shareLink(browser.currentWebview.url, browser.currentWebview.title)
@@ -216,7 +216,7 @@ BrowserView {
         }
 
         Suggestions {
-            opacity: ((chrome.state === "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
+            opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
             Behavior on opacity {
                 UbuntuNumberAnimation {}
             }
@@ -273,7 +273,7 @@ BrowserView {
 
             HistoryView {
                 anchors.fill: parent
-                visible: historyViewContainer.children.length === 1
+                visible: historyViewContainer.children.length == 1
 
                 Timer {
                     // Set the model asynchronously to ensure
@@ -387,7 +387,7 @@ BrowserView {
 
                 onNewViewRequested: {
                     var tab = tabComponent.createObject(tabContainer, {"request": request})
-                    var setCurrent = (request.disposition === Oxide.NewViewRequest.DispositionNewForegroundTab)
+                    var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                     internal.addTab(tab, setCurrent)
                 }
 
@@ -498,9 +498,9 @@ BrowserView {
             var fingerprint = error.certificate.fingerprintSHA1
             for (var i in allowedCertificateErrors) {
                 var allowed = allowedCertificateErrors[i]
-                if ((host === allowed[0]) &&
-                    (code === allowed[1]) &&
-                    (fingerprint === allowed[2])) {
+                if ((host == allowed[0]) &&
+                    (code == allowed[1]) &&
+                    (fingerprint == allowed[2])) {
                     return true
                 }
             }
@@ -587,7 +587,7 @@ BrowserView {
     Connections {
         target: Qt.application
         onStateChanged: {
-            if (Qt.application.state !== Qt.ApplicationActive) {
+            if (Qt.application.state != Qt.ApplicationActive) {
                 session.save()
             }
         }
@@ -637,8 +637,14 @@ BrowserView {
             case Qt.Key_W:
                 // Ctrl + w: Close the current Tab
                 if (tabsModel.count >= 0) {
-                    console.log("FIXME: How to switch to next tab?");
-                    tabsModel.remove(tabsModel.currentTab);
+                    var tab = tabsModel.remove(0);
+                    if (tab) {
+                        tab.close()
+                    }
+
+                    if (tabsModel.count === 0) {
+                        browser.openUrlInNewTab("", true)
+                    }
                     event.accepted = true;
                 }
                 break;
@@ -647,9 +653,6 @@ BrowserView {
                 // Ctrl + Tab: Navigate between tabs
 
                 if (tabsModel.count > 0) {
-
-                    console.log("FIXME: How to switch to next tab?");
-                    var index = (tabsModel.currentTab + 1) % tabsModel.count;
                     tabsModel.setCurrent(1);
                     currentWebview.forceActiveFocus()
                     event.accepted = true;
@@ -667,7 +670,10 @@ BrowserView {
             case Qt.Key_D:
                 // Ctrl + D: Bookmark current Tab
                 if (currentWebview) {
-                    bookmarksModel.add(currentWebview.url, currentWebview.title, "")
+                    if (bookmarksModel.contains(currentWebview.url)) {
+                         bookmarksModel.remove(currentWebview.url)
+                    }
+                    bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.title)
                     event.accepted = true;
                 }
                 break;
@@ -682,7 +688,7 @@ BrowserView {
             switch(event.key) {
             case Qt.Key_Left:
                 // Alt + Left Arrow: Goes to the previous page in history
-                if (currentWebview) {
+                if (currentWebview && currentWebview.canGoBack) {
                     currentWebview.goBack();
                     event.accepted = true;
                 }
@@ -690,7 +696,7 @@ BrowserView {
 
             case Qt.Key_Right:
                 // Alt + Right Arrow: Goes to the previous page in history
-                if (currentWebview) {
+                if (currentWebview && currentWebview.canGoForwar) {
                     currentWebview.goForward();
                     event.accepted = true;
                 }
@@ -707,7 +713,7 @@ BrowserView {
             switch(event.key) {
             case Qt.Key_Backspace:
                 // Shift + Backspace: Goes to the next page in history
-                if (currentWebview) {
+                if (currentWebview && currentWebview.canGoForward) {
                     currentWebview.goForward();
                     event.accepted = true;
                 }
@@ -715,7 +721,7 @@ BrowserView {
             }
         } else if (event.key & Qt.Key_Backspace) {
             // Backspace: Goes to the previous page in history
-            if (currentWebview) {
+            if (currentWebview && currentWebview.canGoBack) {
                 currentWebview.goBack();
                 event.accepted = true;
             }
