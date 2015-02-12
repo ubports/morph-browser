@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2014-11-09 08:19+0000\n"
+"PO-Revision-Date: 2015-02-11 14:52+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2015-02-04 07:10+0000\n"
-"X-Generator: Launchpad (build 17331)\n"
+"X-Launchpad-Export-Date: 2015-02-12 07:03+0000\n"
+"X-Generator: Launchpad (build 17336)\n"
 "Language: gd\n"
 
 #: src/app/AlertDialog.qml:23
@@ -437,7 +437,7 @@ msgstr "Sàbhail an dealbh"
 msgid "Share…"
 msgstr "Co-roinn…"
 
-#: src/app/webbrowser/AddressBar.qml:195
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "lorg no cuir a-steach seòladh-lìn"
 
@@ -447,19 +447,19 @@ msgstr "lorg no cuir a-steach seòladh-lìn"
 msgid "Delete"
 msgstr "Sguab às"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:160
 msgid "Share"
 msgstr "Co-roinn"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:174
 msgid "History"
 msgstr "Eachdraidh"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:181
 msgid "Open tabs"
 msgstr "Tabaichean fosgailte"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:187 src/app/webbrowser/HistoryView.qml:293
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Taba ùr"
@@ -505,7 +505,7 @@ msgstr "seall nas lugha dheth"
 msgid "see more"
 msgstr "seall barrachd"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:69
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
 msgid "This site has insecure content"
 msgstr "Tha susbaint neo-thèarainte san làrach seo"
 
@@ -515,7 +515,7 @@ msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "Chaidh fèin-aithne na làraich-lìn seo a dhearbhadh."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
@@ -549,11 +549,11 @@ msgstr ""
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:126
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
 msgid "You are connected to"
 msgstr "Tha thu ceangailte ri"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:148
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Which is run by"
 msgstr "A tha 'ga ruith le"
 
@@ -566,14 +566,14 @@ msgid "Add"
 msgstr "Cuir ris"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:38
-#: src/app/webcontainer/webapp-container.qml:66
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:59
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Brabhsair-lìn Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:40
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:61
 msgid "Ubuntu Web Browser"
 msgstr "Brabhsair-lìn Ubuntu"
 
