@@ -696,7 +696,7 @@ BrowserView {
 
             case Qt.Key_Right:
                 // Alt + Right Arrow: Goes to the previous page in history
-                if (currentWebview && currentWebview.canGoForwar) {
+                if (currentWebview && currentWebview.canGoForward) {
                     currentWebview.goForward();
                     event.accepted = true;
                 }
