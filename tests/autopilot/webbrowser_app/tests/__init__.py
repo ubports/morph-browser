@@ -110,7 +110,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         count = len(self.main_window.get_webviews())
         # assumes the tabs view is already open
         tabs_view = self.main_window.get_tabs_view()
-        self.main_window.get_recent_view_toolbar().click_action("addTabButton")
+        self.main_window.get_recent_view_toolbar().click_action("newTabButton")
         tabs_view.visible.wait_for(False)
         max_webviews = self.main_window.maxLiveWebviews
         new_count = (count + 1) if (count < max_webviews) else max_webviews

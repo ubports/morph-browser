@@ -343,7 +343,7 @@ BrowserView {
             }
 
             ToolbarAction {
-                objectName: "addTabButton"
+                objectName: "newTabButton"
                 anchors {
                     right: parent.right
                     rightMargin: units.gu(2)
@@ -351,7 +351,7 @@ BrowserView {
                 }
                 height: parent.height - units.gu(2)
 
-                text: i18n.tr("Add")
+                text: i18n.tr("New Tab")
 
                 iconName: "add"
 
