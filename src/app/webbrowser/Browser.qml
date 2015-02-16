@@ -381,7 +381,8 @@ BrowserView {
         height: units.gu(2)
 
         enabled: (formFactor == "mobile") && (recentView.state == "") &&
-                 (Screen.orientation == Screen.primaryOrientation)
+                 (Screen.orientation == Screen.primaryOrientation) &&
+                 !browser.currentWebview.fullscreen
 
         onDraggingChanged: {
             if (dragging) {
