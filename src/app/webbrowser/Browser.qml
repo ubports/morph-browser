@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Window 2.0
 import com.canonical.Oxide 1.4 as Oxide
 import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
@@ -379,7 +380,8 @@ BrowserView {
         }
         height: units.gu(2)
 
-        enabled: (formFactor == "mobile") && (recentView.state == "")
+        enabled: (formFactor == "mobile") && (recentView.state == "") &&
+                 (Screen.orientation == Screen.primaryOrientation)
 
         onDraggingChanged: {
             if (dragging) {
@@ -412,6 +414,7 @@ BrowserView {
         objectName: "bottomEdgeHint"
         source: (formFactor == "mobile") ? "assets/overview_hint.png" : ""
         anchors.horizontalCenter: parent.horizontalCenter
+        visible: bottomEdgeHandle.enabled
         opacity: 1 - recentView.opacity
         Behavior on opacity {
             UbuntuNumberAnimation {}
