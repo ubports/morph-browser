@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2014 Canonical
+# Copyright 2013-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -160,8 +160,8 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.open_tabs_view()
         self.open_new_tab()
         url = self.base_url + "/closeself"
-        self.go_to_url(url)
-        self.assert_page_eventually_loaded(url)
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
         self.assert_number_webviews_eventually(2)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
@@ -176,8 +176,8 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.pointing_device.click_object(close_button)
         tabs_view.wait_until_destroyed()
         url = self.base_url + "/closeself"
-        self.go_to_url(url)
-        self.assert_page_eventually_loaded(url)
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         webview.wait_until_destroyed()
