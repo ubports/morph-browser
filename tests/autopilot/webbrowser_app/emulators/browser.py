@@ -177,8 +177,11 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def write(self, text, clear=True):
         self.text_field.write(text, clear)
 
-    def get_action_button(self):
-        return self.select_single("QQuickMouseArea", objectName="actionButton")
+    @autopilot.logging.log_action(logger.info)
+    def click_action_button(self):
+        button = self.select_single("QQuickMouseArea",
+                                    objectName="actionButton")
+        self.pointing_device.click_object(button)
 
     def get_bookmark_toggle(self):
         return self.select_single("QQuickItem", objectName="bookmarkToggle")
