@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -33,6 +33,7 @@ Settings::Settings(QObject* parent)
     QString name = settings.value("searchengine", QString(DEFAULT_SEARCH_ENGINE)).toString();
     m_searchengine = new SearchEngine(name, this);
     m_allowOpenInBackgroundTab = settings.value("allowOpenInBackgroundTab", "default").toString().toLower();
+    m_restoreSession = settings.value("restoreSession", true).toBool();
 }
 
 const QUrl& Settings::homepage() const
@@ -48,4 +49,9 @@ SearchEngine* Settings::searchEngine() const
 const QString& Settings::allowOpenInBackgroundTab() const
 {
     return m_allowOpenInBackgroundTab;
+}
+
+bool Settings::restoreSession() const
+{
+    return m_restoreSession;
 }
