@@ -14,10 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import time
-
-from testtools.matchers import Equals
-
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
@@ -50,10 +46,10 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         address_bar = self.main_window.address_bar
         self.pointing_device.click_object(address_bar)
         address_bar.activeFocus.wait_for(True)
-        # Work around https://launchpad.net/bugs/1417118 by tapping
-        # in the address bar again to remove the selection.
-        time.sleep(1)
-        self.pointing_device.click_object(address_bar)
-        self.assertThat(address_bar.activeFocus, Equals(True))
+        # Work around https://launchpad.net/bugs/1417118 by clearing the
+        # address bar and typing again the current URL to enable the reload
+        # button.
+        address_bar.clear()
+        address_bar.write(self.url)
         address_bar.click_action_button()
         address_bar.activeFocus.wait_for(False)
