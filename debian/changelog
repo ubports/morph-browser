@@ -1,3 +1,17 @@
+webbrowser-app (0.23+15.04.20150217.1-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Honour Window.close() requests.
+  * Work around autopilot test failure by ensuring that the selection is
+    cleared before clicking on the action button. (LP: #1417118)
+  * Add a config option to allow users to turn off automatic session
+    restore.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 17 Feb 2015 20:54:17 +0000
+
 webbrowser-app (0.23+15.04.20150203.1-0ubuntu2) vivid; urgency=medium
 
   * No-change rebuild against Qt 5.4.0.
