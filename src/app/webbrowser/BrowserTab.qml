@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,7 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.4
+import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
 
@@ -65,44 +66,24 @@ FocusScope {
         destroy()
     }
 
-    property var captureTaker
-    Component {
-        id: captureComponent
-        ItemCapture {
-            quality: 50
-            onCaptureFinished: {
-                if ((request == uniqueId) && capture.toString()) {
-                    if (preview == capture) {
-                        // Ensure that the preview URL actually changes,
-                        // for the image to be reloaded
-                        preview = ""
-                    }
-                    preview = capture
-                }
-                if (!webview.visible) {
-                    captureTaker.destroy()
-                }
-            }
-        }
-    }
-    function createCaptureTakerIfNeeded() {
-        if (!captureTaker) {
-            captureTaker = captureComponent.createObject(webview)
-        }
-    }
-    onWebviewChanged: {
-        if (webview) {
-            createCaptureTakerIfNeeded()
-        }
-    }
-
     Connections {
         target: webview
         onVisibleChanged: {
-            if (webview.visible) {
-                createCaptureTakerIfNeeded()
-            } else {
-                captureTaker.requestCapture(uniqueId)
+            if (!webview.visible) {
+                webview.grabToImage(function(result) {
+                    var filepath = cacheLocation + "/captures/" + uniqueId + ".jpg"
+                    if (result.saveToFile(filepath)) {
+                        var previewUrl = Qt.resolvedUrl(filepath)
+                        if (preview == previewUrl) {
+                            // Ensure that the preview URL actually changes,
+                            // for the image to be reloaded
+                            preview = ""
+                        }
+                        preview = previewUrl
+                    } else {
+                        preview = ""
+                    }
+                })
             }
         }
     }

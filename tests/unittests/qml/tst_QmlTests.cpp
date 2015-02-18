@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -22,7 +22,14 @@
 
 // local
 #include "favicon-fetcher.h"
-#include "item-capture.h"
+#include "file-operations.h"
+
+static QObject* FileOperations_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new FileOperations();
+}
 
 int main(int argc, char** argv)
 {
@@ -30,7 +37,7 @@ int main(int argc, char** argv)
     qmlRegisterType<FaviconFetcher>(commonUri, 0, 1, "FaviconFetcher");
 
     const char* browserUri = "webbrowserapp.private";
-    qmlRegisterType<ItemCapture>(browserUri, 0, 1, "ItemCapture");
+    qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
 
     return quick_test_main(argc, argv, "QmlTests", 0);
 }

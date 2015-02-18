@@ -9,7 +9,7 @@ endif()
 set(TEST tst_QmlTests)
 set(SOURCES
     ${webbrowser-common_SOURCE_DIR}/favicon-fetcher.cpp
-    ${webbrowser-app_SOURCE_DIR}/item-capture.cpp
+    ${webbrowser-app_SOURCE_DIR}/file-operations.cpp
     tst_QmlTests.cpp
 )
 add_executable(${TEST} ${SOURCES})

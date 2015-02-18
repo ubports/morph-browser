@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -38,7 +38,6 @@ Item {
                 property string currentState
             }
             readonly property bool webviewPresent: webview
-            readonly property bool captureTakerPresent: captureTaker != undefined
         }
     }
 
@@ -82,25 +81,6 @@ Item {
             tryCompare(tab, 'webviewPresent', true)
             verify(tab.webviewPresent)
             compare(tab.webview.request, "foobar")
-            tab.destroy()
-        }
-
-        function test_capture_taker() {
-            var tab = tabComponent.createObject(root)
-            verify(!tab.captureTakerPresent)
-
-            tab.load()
-            tryCompare(tab, 'captureTakerPresent', true)
-
-            tab.visible = false
-            tryCompare(tab, 'captureTakerPresent', false)
-
-            tab.visible = true
-            tryCompare(tab, 'captureTakerPresent', true)
-
-            tab.unload()
-            tryCompare(tab, 'captureTakerPresent', false)
-
             tab.destroy()
         }
     }

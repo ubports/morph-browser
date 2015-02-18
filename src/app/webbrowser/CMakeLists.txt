@@ -25,11 +25,8 @@ add_library(${WEBBROWSER_APP_MODELS} STATIC ${WEBBROWSER_APP_MODELS_SRC})
 
 qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Sql)
 
-include_directories(${Qt5Quick_PRIVATE_INCLUDE_DIRS})
-
 set(WEBBROWSER_APP_SRC
     file-operations.cpp
-    item-capture.cpp
     searchengine.cpp
     settings.cpp
     webbrowser-app.cpp
