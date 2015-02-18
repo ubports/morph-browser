@@ -72,8 +72,8 @@ FocusScope {
             if (!webview.visible) {
                 webview.grabToImage(function(result) {
                     var capturesDir = cacheLocation + "/captures"
-                    if (!FileOperations.exists(capturesDir)) {
-                        FileOperations.mkpath(capturesDir)
+                    if (!FileOperations.exists(Qt.resolvedUrl(capturesDir))) {
+                        FileOperations.mkpath(Qt.resolvedUrl(capturesDir))
                     }
                     var filepath = capturesDir + "/" + uniqueId + ".jpg"
                     if (result.saveToFile(filepath)) {
