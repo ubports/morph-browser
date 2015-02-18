@@ -13,7 +13,7 @@ set(SOURCES
     tst_QmlTests.cpp
 )
 add_executable(${TEST} ${SOURCES})
-qt5_use_modules(${TEST} Qml Quick QuickTest)
+qt5_use_modules(${TEST} Core Gui Network Qml Quick QuickTest)
 include_directories(
     ${webbrowser-common_SOURCE_DIR}
     ${webbrowser-app_SOURCE_DIR}
