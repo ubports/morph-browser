@@ -71,7 +71,11 @@ FocusScope {
         onVisibleChanged: {
             if (!webview.visible) {
                 webview.grabToImage(function(result) {
-                    var filepath = cacheLocation + "/captures/" + uniqueId + ".jpg"
+                    var capturesDir = cacheLocation + "/captures"
+                    if (!FileOperations.exists(capturesDir)) {
+                        FileOperations.mkpath(capturesDir)
+                    }
+                    var filepath = capturesDir + "/" + uniqueId + ".jpg"
                     if (result.saveToFile(filepath)) {
                         var previewUrl = Qt.resolvedUrl(filepath)
                         if (preview == previewUrl) {
