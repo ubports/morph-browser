@@ -649,16 +649,6 @@ BrowserView {
                 }
                 break;
 
-            case Qt.Key_Tab:
-                // Ctrl + Tab: Navigate between tabs
-
-                if (tabsModel.count > 0) {
-                    tabsModel.setCurrent(1);
-                    currentWebview.forceActiveFocus()
-                    event.accepted = true;
-                }
-                break;
-
             case Qt.Key_R:
                 // Ctrl + R: Reload current Tab
                 if (currentWebview) {

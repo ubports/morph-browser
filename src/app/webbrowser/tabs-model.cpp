@@ -146,7 +146,7 @@ void TabsModel::setCurrent(int index)
     if (!checkValidTabIndex(index)) {
         return;
     }
-    beginMoveRows(QModelIndex(), index, m_tabs.count(), QModelIndex(), 0);
+    beginMoveRows(QModelIndex(), index, index, QModelIndex(), 0);
     m_tabs.prepend(m_tabs.takeAt(index));
     endMoveRows();
     Q_EMIT currentTabChanged();
