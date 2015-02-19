@@ -255,6 +255,8 @@ Oxide.WebView {
     readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeFailed
     onLoadEvent: {
         if (!event.isError) {
+            // XXX: this doesn’t work when restoring the previous state of a
+            // webview with an invalid URL, see https://launchpad.net/bugs/1423531.
             internal.lastLoadRequestStatus = event.type
         }
     }
