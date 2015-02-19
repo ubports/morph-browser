@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -193,7 +193,7 @@ BrowserView {
 
             Connections {
                 target: browser.currentWebview
-                onLoadingChanged: {
+                onLoadingStateChanged: {
                     if (browser.currentWebview.loading) {
                         chrome.state = "shown"
                     } else if (browser.currentWebview.fullscreen) {
@@ -410,9 +410,9 @@ BrowserView {
                     }
                 }
 
-                onLoadingChanged: {
-                    if (lastLoadSucceeded && browser.historyModel) {
-                        browser.historyModel.add(url, title, icon)
+                onLoadEvent: {
+                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel) {
+                        browser.historyModel.add(event.url, title, icon)
                     }
                 }
 

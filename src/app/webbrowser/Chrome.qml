@@ -100,11 +100,7 @@ ChromeBase {
 
             icon: (chrome.webview && !chrome.webview.certificateError) ? chrome.webview.icon : ""
 
-            loading: chrome.webview ?
-                     chrome.webview.loading
-                     // Workaround for https://bugs.launchpad.net/oxide/+bug/1290821.
-                     && !chrome.webview.lastLoadStopped
-                     : false
+            loading: chrome.webview ? chrome.webview.loading : false
 
             onValidated: {
                 chrome.webview.forceActiveFocus()
