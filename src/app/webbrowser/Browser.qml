@@ -635,6 +635,7 @@ BrowserView {
                 break;
 
             case Qt.Key_W:
+            case Qt.Key_F4:
                 // Ctrl + w: Close the current Tab
                 if (tabsModel.count >= 0) {
                     var tab = tabsModel.remove(0);
