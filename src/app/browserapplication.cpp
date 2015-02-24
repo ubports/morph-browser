@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -28,7 +28,7 @@
 #include <QtQuick/QQuickWindow>
 #if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
 #include <QtQuick/private/qsgcontext_p.h>
-#else
+#elif QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 #include <QtGui/private/qopenglcontext_p.h>
 #endif
 
@@ -126,15 +126,17 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     // which is needed by Online Accounts.
     QString unversionedAppId = QStringList(appIdParts.mid(0, 2)).join('_');
 
-    // Enable compositing in oxide
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+    // Enable compositing in oxide (not needed starting with Qt 5.4
+    // because the Qt::AA_ShareOpenGLContexts attribute is set before
+    // the application is instantiated).
     QOpenGLContext* glcontext = new QOpenGLContext(this);
     glcontext->create();
 #if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
     QSGContext::setSharedOpenGLContext(glcontext);
-#elif QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
-    QOpenGLContextPrivate::setGlobalShareContext(glcontext);
 #else
-    qt_gl_set_global_share_context(glcontext);
+    QOpenGLContextPrivate::setGlobalShareContext(glcontext);
+#endif
 #endif
 
     QString devtoolsPort = inspectorPort();
