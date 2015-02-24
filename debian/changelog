@@ -1,3 +1,15 @@
+webbrowser-app (0.23+15.04.20150224-0ubuntu1) vivid; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Fix a flaky autopilot test. (LP: #1423115)
+  * Use Qt::AA_ShareOpenGLContexts when building with Qt >= 5.4. (LP:
+    #1387537)
+
+  [ Riccardo Padovani ]
+  * Fixed design of multiselection in history view (LP: #1412732)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 24 Feb 2015 10:30:59 +0000
+
 webbrowser-app (0.23+15.04.20150217.1-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
