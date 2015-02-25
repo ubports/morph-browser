@@ -552,6 +552,25 @@ BrowserView {
                     internal.addTab(tab, setCurrent)
                 }
 
+                onCloseRequested: prepareToClose()
+                onPrepareToCloseResponse: {
+                    if (proceed) {
+                        var tab = parent
+                        if (tab) {
+                            for (var i = 0; i < tabsModel.count; ++i) {
+                                if (tabsModel.get(i) === tab) {
+                                    tabsModel.remove(i)
+                                    break
+                                }
+                            }
+                            tab.close()
+                        }
+                        if (tabsModel.count === 0) {
+                            browser.openUrlInNewTab("", true, true)
+                        }
+                    }
+                }
+
                 onLoadingChanged: {
                     if (lastLoadSucceeded && browser.historyModel) {
                         browser.historyModel.add(url, title, icon)

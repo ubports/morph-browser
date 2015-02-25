@@ -143,3 +143,29 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         tabs_view.visible.wait_for(False)
         webview = self.main_window.get_current_webview()
         webview.activeFocus.wait_for(True)
+
+    def test_webview_requests_close(self):
+        self.open_tabs_view()
+        self.open_new_tab()
+        url = self.base_url + "/closeself"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.assert_number_webviews_eventually(2)
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        webview.wait_until_destroyed()
+        self.assert_number_webviews_eventually(1)
+
+    def test_last_webview_requests_close(self):
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        tabs_view.get_previews()[0].close()
+        tabs_view.wait_until_destroyed()
+        url = self.base_url + "/closeself"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        webview.wait_until_destroyed()
+        self.assert_number_webviews_eventually(1)
+        self.main_window.get_new_tab_view()

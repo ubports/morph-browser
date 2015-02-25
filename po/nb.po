@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2015-01-23 17:39+0000\n"
+"PO-Revision-Date: 2015-02-04 11:06+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-02-04 07:10+0000\n"
+"X-Launchpad-Export-Date: 2015-02-05 07:38+0000\n"
 "X-Generator: Launchpad (build 17331)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -408,7 +408,7 @@ msgstr "Åpne bilde i ny fane"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Åpne lenke i ny bakgrunnsfane"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
