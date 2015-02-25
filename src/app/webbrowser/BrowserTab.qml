@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -21,6 +21,8 @@ import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
 
 FocusScope {
+    id: tab
+
     property string uniqueId: this.toString() + "-" + Date.now()
     property url initialUrl
     property string initialTitle
@@ -43,7 +45,7 @@ FocusScope {
 
     function load() {
         if (!webview) {
-            var properties = {}
+            var properties = {'tab': tab}
             if (restoreState) {
                 properties['restoreState'] = restoreState
                 properties['restoreType'] = restoreType
@@ -133,7 +135,7 @@ FocusScope {
         if (request) {
             // Instantiating the webview cannot be delayed because the request
             // object is destroyed after exiting the newViewRequested signal handler.
-            webviewComponent.incubateObject(webviewContainer, {"request": request})
+            webviewComponent.incubateObject(webviewContainer, {"tab": tab, "request": request})
         }
     }
 }

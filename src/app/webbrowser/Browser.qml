@@ -501,6 +501,8 @@ BrowserView {
             webviewComponent: WebViewImpl {
                 id: webviewimpl
 
+                property BrowserTab tab
+
                 currentWebview: browser.currentWebview
 
                 anchors.fill: parent
@@ -555,7 +557,6 @@ BrowserView {
                 onCloseRequested: prepareToClose()
                 onPrepareToCloseResponse: {
                     if (proceed) {
-                        var tab = parent
                         if (tab) {
                             for (var i = 0; i < tabsModel.count; ++i) {
                                 if (tabsModel.get(i) === tab) {
