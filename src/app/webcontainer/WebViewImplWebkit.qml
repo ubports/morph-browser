@@ -96,6 +96,30 @@ UbuntuWebView {
         return webappUrlPatterns && webappUrlPatterns.length !== 0
     }
 
+    function shouldAllowNavigationTo(url) {
+        // The list of url patterns defined by the webapp takes precedence over command line
+        if (isRunningAsANamedWebapp()) {
+            if (unityWebapps.model.exists(unityWebapps.name) &&
+                unityWebapps.model.doesUrlMatchesWebapp(unityWebapps.name, url)) {
+                return true;
+            }
+        }
+
+        // We still take the possible additional patterns specified in the command line
+        // (the in the case of finer grained ones specifically for the container and not
+        // as an 'install source' for the webapp).
+        if (webappUrlPatterns && webappUrlPatterns.length !== 0) {
+            for (var i = 0; i < webappUrlPatterns.length; ++i) {
+                var pattern = webappUrlPatterns[i]
+                if (url.match(pattern)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     function navigationRequestedDelegate(request) {
         if (!request.isMainFrame) {
             request.action = WebView.AcceptRequest
@@ -113,26 +137,9 @@ UbuntuWebView {
         var action = WebView.IgnoreRequest
         var url = request.url.toString()
 
-        // The list of url patterns defined by the webapp takes precedence over command line
-        if (isRunningAsANamedWebapp()) {
-            if (unityWebapps.model.exists(unityWebapps.name) &&
-                unityWebapps.model.doesUrlMatchesWebapp(unityWebapps.name, url)) {
-                request.action = WebView.AcceptRequest
-                return;
-            }
-        }
-
-        // We still take the possible additional patterns specified in the command line
-        // (the in the case of finer grained ones specifically for the container and not
-        // as an 'install source' for the webapp).
-        if (webappUrlPatterns && webappUrlPatterns.length !== 0) {
-            for (var i = 0; i < webappUrlPatterns.length; ++i) {
-                var pattern = webappUrlPatterns[i]
-                if (url.match(pattern)) {
-                    action = WebView.AcceptRequest
-                    break
-                }
-            }
+        if (shouldAllowNavigationTo(url)) {
+            request.action = WebView.AcceptRequest
+            return;
         }
 
         request.action = action

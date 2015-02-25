@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-01-22 18:29+0100\n"
-"PO-Revision-Date: 2013-06-15 18:21+0000\n"
-"Last-Translator: Filippos Kolyvas <Unknown>\n"
+"POT-Creation-Date: 2015-02-03 15:55+0100\n"
+"PO-Revision-Date: 2015-02-13 12:11+0000\n"
+"Last-Translator: Simos Xenitellis <Unknown>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-01-23 06:44+0000\n"
-"X-Generator: Launchpad (build 17306)\n"
+"X-Launchpad-Export-Date: 2015-02-14 06:32+0000\n"
+"X-Generator: Launchpad (build 17341)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -408,6 +408,10 @@ msgstr "Άνοιγμα νέας καρτέλας"
 msgid "Open image in new tab"
 msgstr "Άνοιγμα εικόνας σε νέα καρτέλα"
 
+#: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
+msgid "Open link in new background tab"
+msgstr ""
+
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "Άνοιγμα συνδέσμου σε νέα καρτέλα"
@@ -430,7 +434,7 @@ msgstr "Αποθήκευση εικόνας"
 msgid "Share…"
 msgstr "Διαμοιρασμός..."
 
-#: src/app/webbrowser/AddressBar.qml:210
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "αναζήτηση ή εισαγωγή διεύθυνσης"
 
@@ -438,7 +442,7 @@ msgstr "αναζήτηση ή εισαγωγή διεύθυνσης"
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
 #: src/app/webbrowser/HistoryView.qml:179
 msgid "Delete"
-msgstr ""
+msgstr "Διαγραφή"
 
 #: src/app/webbrowser/Browser.qml:160
 msgid "Share"
@@ -496,7 +500,7 @@ msgstr "εμφάνιση λιγότερων"
 msgid "see more"
 msgstr "εμφάνιση περισσότερων"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:69
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
 msgid "This site has insecure content"
 msgstr "Το περιεχόμενο αυτού του ιστότοπου δεν είναι ασφαλές"
 
@@ -506,7 +510,7 @@ msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "Η ταυτότητα αυτού του ιστότοπου δεν έχει επαληθευτεί."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
@@ -540,11 +544,11 @@ msgstr ""
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:126
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
 msgid "You are connected to"
 msgstr "Έχετε συνδεθεί με το"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:148
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Which is run by"
 msgstr "Που διαχειρίζεται"
 
@@ -558,13 +562,13 @@ msgstr "Προσθήκη"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:62
+#: src/app/webcontainer/webapp-container.qml:59
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Περιηγητής ιστού του Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:64
+#: src/app/webcontainer/webapp-container.qml:61
 msgid "Ubuntu Web Browser"
 msgstr "Περιηγητής ιστού του Ubuntu"
 

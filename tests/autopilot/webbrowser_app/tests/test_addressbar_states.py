@@ -21,11 +21,10 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
 
     def test_cancel_state_loading(self):
         address_bar = self.main_window.address_bar
-        action_button = address_bar.get_action_button()
         url = self.base_url + "/wait/5"
         self.main_window.go_to_url(url)
         address_bar.loading.wait_for(True)
-        self.pointing_device.click_object(action_button)
+        address_bar.click_action_button()
         address_bar.loading.wait_for(False)
 
     def test_state_editing(self):
@@ -47,6 +46,10 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         address_bar = self.main_window.address_bar
         self.pointing_device.click_object(address_bar)
         address_bar.activeFocus.wait_for(True)
-        action_button = address_bar.get_action_button()
-        self.pointing_device.click_object(action_button)
+        # Work around https://launchpad.net/bugs/1417118 by clearing the
+        # address bar and typing again the current URL to enable the reload
+        # button.
+        address_bar.clear()
+        address_bar.write(self.url)
+        address_bar.click_action_button()
         address_bar.activeFocus.wait_for(False)

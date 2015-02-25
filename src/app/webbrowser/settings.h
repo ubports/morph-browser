@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -38,10 +38,14 @@ public:
 
     const QUrl& homepage() const;
     SearchEngine* searchEngine() const;
+    const QString& allowOpenInBackgroundTab() const;
+    bool restoreSession() const;
 
 private:
     QUrl m_homepage;
     SearchEngine* m_searchengine;
+    QString m_allowOpenInBackgroundTab; //"true" for enabled, "default" for form factor dependend behaviour (currently desktop only), anything else disables the option
+    bool m_restoreSession; // true by default
 };
 
 #endif // __SETTINGS_H__
