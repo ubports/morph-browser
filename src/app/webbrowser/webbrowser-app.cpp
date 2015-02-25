@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -25,7 +25,6 @@
 #include "history-byvisits-model.h"
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
-#include "item-capture.h"
 #include "limit-proxy-model.h"
 #include "searchengine.h"
 #include "settings.h"
@@ -91,7 +90,6 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
-    qmlRegisterType<ItemCapture>(uri, 0, 1, "ItemCapture");
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {

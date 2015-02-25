@@ -16,7 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.4
+import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
 
@@ -74,59 +75,28 @@ FocusScope {
         destroy()
     }
 
-    property var captureTaker: null
-    Component {
-        id: captureComponent
-        ItemCapture {
-            quality: 50
-            onCaptureFinished: {
-                if ((request == uniqueId) && capture.toString()) {
-                    if (preview == capture) {
-                        // Ensure that the preview URL actually changes,
-                        // for the image to be reloaded
-                        preview = ""
-                    }
-                    preview = capture
-                }
-                if (!webview.visible) {
-                    captureTaker.destroy()
-                }
-            }
-        }
-    }
-    Timer {
-        id: delayedCaptureTakerInstantiation
-        interval: 1
-        onTriggered: {
-            if (!captureTaker && webview && webview.visible) {
-                captureTaker = captureComponent.createObject(webview)
-            }
-        }
-
-    }
-    Timer {
-        id: delayedCaptureRequest
-        interval: 1
-        onTriggered: {
-            if (captureTaker) {
-                captureTaker.requestCapture(uniqueId)
-            }
-        }
-    }
-
-    onWebviewChanged: {
-        if (webview) {
-            delayedCaptureTakerInstantiation.restart()
-        }
-    }
-
     Connections {
         target: webview
         onVisibleChanged: {
-            if (webview.visible) {
-                delayedCaptureTakerInstantiation.restart()
-            } else {
-                delayedCaptureRequest.restart()
+            if (!webview.visible) {
+                webview.grabToImage(function(result) {
+                    var capturesDir = cacheLocation + "/captures"
+                    if (!FileOperations.exists(Qt.resolvedUrl(capturesDir))) {
+                        FileOperations.mkpath(Qt.resolvedUrl(capturesDir))
+                    }
+                    var filepath = capturesDir + "/" + uniqueId + ".jpg"
+                    if (result.saveToFile(filepath)) {
+                        var previewUrl = Qt.resolvedUrl(filepath)
+                        if (preview == previewUrl) {
+                            // Ensure that the preview URL actually changes,
+                            // for the image to be reloaded
+                            preview = ""
+                        }
+                        preview = previewUrl
+                    } else {
+                        preview = ""
+                    }
+                })
             }
         }
     }

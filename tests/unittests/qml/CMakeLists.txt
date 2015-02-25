@@ -9,11 +9,11 @@ endif()
 set(TEST tst_QmlTests)
 set(SOURCES
     ${webbrowser-common_SOURCE_DIR}/favicon-fetcher.cpp
-    ${webbrowser-app_SOURCE_DIR}/item-capture.cpp
+    ${webbrowser-app_SOURCE_DIR}/file-operations.cpp
     tst_QmlTests.cpp
 )
 add_executable(${TEST} ${SOURCES})
-qt5_use_modules(${TEST} Qml Quick QuickTest)
+qt5_use_modules(${TEST} Core Gui Network Qml Quick QuickTest)
 include_directories(
     ${webbrowser-common_SOURCE_DIR}
     ${webbrowser-app_SOURCE_DIR}
