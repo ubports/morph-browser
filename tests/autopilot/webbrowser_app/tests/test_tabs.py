@@ -160,7 +160,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         tabs_view.get_previews()[0].close()
-        tabs_view.wait_until_destroyed()
+        tabs_view.visible.wait_for(False)
         url = self.base_url + "/closeself"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
