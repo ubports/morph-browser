@@ -89,21 +89,24 @@ BrowserView {
     Item {
         anchors.fill: parent
 
+        TabChrome {
+            id: invisibleTabChrome
+            visible: false
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+            }
+        }
+
         FocusScope {
             id: tabContainer
             anchors {
                 left: parent.left
                 right: parent.right
-                top: chrome.bottom
-                // 4 GU is the height of the TabChrome component
-                topMargin: recentView.visible ? units.gu(4) : 0
+                top: recentView.visible ? invisibleTabChrome.bottom : chrome.bottom
             }
-            Behavior on anchors.topMargin {
-                SmoothedAnimation {
-                    duration: UbuntuAnimation.BriskDuration
-                }
-            }
-            height: parent.height - chrome.visibleHeight - osk.height - anchors.topMargin
+            height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : chrome.visibleHeight)
         }
 
         Loader {
