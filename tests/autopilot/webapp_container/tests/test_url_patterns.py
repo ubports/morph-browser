@@ -64,7 +64,7 @@ class WebappContainerUrlPatternsTestCase(
 
         self.assertThat(
             webview.url,
-            Equals("http://www.test.com/"))
+            Eventually(Equals("http://www.test.com/")))
 
         self.assertThat(
             external_open_watcher.was_emitted,
