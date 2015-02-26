@@ -1,3 +1,17 @@
+webbrowser-app (0.23+15.04.20150226.1-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Use the new Item::grabToImage() API (new in Qt 5.4) to replace the
+    custom ItemCapture element. (LP: #1401581, #1425550)
+
+  [ Robert Bruce Park ]
+  * Launchpad automatic translations update.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 26 Feb 2015 18:10:41 +0000
+
 webbrowser-app (0.23+15.04.20150224-0ubuntu1) vivid; urgency=medium
 
   [ Olivier Tilloy ]
