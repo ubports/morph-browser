@@ -200,7 +200,6 @@ BrowserView {
                     iconName: "browser-tabs"
                     enabled: formFactor != "mobile"
                     onTriggered: {
-                        chrome.state = "hidden"
                         recentView.state = "shown"
                         recentToolbar.state = "shown"
                     }
@@ -389,9 +388,7 @@ BrowserView {
                  !browser.currentWebview.fullscreen
 
         onDraggingChanged: {
-            if (dragging) {
-                chrome.state = "hidden"
-            } else {
+            if (!dragging) {
                 if (stage == 0) {
                     chrome.state = "shown"
                 } else if (stage == 1) {
