@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2015-02-20 12:20+0000\n"
-"Last-Translator: António Miranda <Unknown>\n"
+"PO-Revision-Date: 2015-02-24 12:44+0000\n"
+"Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-02-21 05:33+0000\n"
+"X-Launchpad-Export-Date: 2015-02-25 05:58+0000\n"
 "X-Generator: Launchpad (build 17355)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -35,7 +35,7 @@ msgstr "Autenticação necessária."
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "O website %1 necessita autenticação."
+msgstr "A página %1 necessita de autenticação."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
@@ -52,7 +52,7 @@ msgstr "Cancelar"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr "Confirmar Navegação"
+msgstr "Confirmar navegação"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
@@ -73,8 +73,8 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Está a tentar alcançar seguramente %1, mas o certificado de segurança deste "
-"website não é confiável."
+"Está a tentar alcançar seguramente %1, mas o certificado de segurança desta "
+"página não é confiável."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -92,7 +92,7 @@ msgstr "Confirmação do JavaScript"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr "Erro de Rede"
+msgstr "Erro de rede"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
@@ -105,11 +105,11 @@ msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
 "O Ubuntu sugere-lhe que verifique as suas definições de rede e tente "
-"refrescar a página."
+"recarregar a página."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "Refrescar página"
+msgstr "Recarregar página"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
@@ -325,7 +325,7 @@ msgstr "É necessária uma autenticação de proxy."
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "O website %1:%2 requer autenticação."
+msgstr "A página %1:%2 requer autenticação."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -509,7 +509,7 @@ msgstr "Identidade não verificada"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr "A identidade deste sítio não foi verificada."
+msgstr "A identidade desta página não foi verificada."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
