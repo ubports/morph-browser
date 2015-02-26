@@ -78,14 +78,6 @@ BrowserView {
         }
     ]
 
-    Rectangle {
-        // Background for the recent view,
-        // has to be behind the current webview
-        visible: recentView.visible
-        anchors.fill: parent
-        color: "#312f2c"
-    }
-
     Item {
         anchors.fill: parent
 
@@ -97,6 +89,13 @@ BrowserView {
                 left: parent.left
                 right: parent.right
             }
+        }
+
+        Rectangle {
+            // Background for the recent view
+            anchors.fill: invisibleTabChrome
+            visible: recentView.visible
+            color: "#312f2c"
         }
 
         FocusScope {
@@ -139,6 +138,8 @@ BrowserView {
 
         Chrome {
             id: chrome
+
+            z: invisibleTabChrome.z - 1
 
             webview: browser.currentWebview
             searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
