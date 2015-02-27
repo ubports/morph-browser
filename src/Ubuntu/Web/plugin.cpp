@@ -88,6 +88,10 @@ QString UbuntuWebPluginContext::dataLocation() const
     QDir location(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     if (!location.exists()) {
         QDir::root().mkpath(location.absolutePath());
+    } else {
+        // Prior to fixing https://launchpad.net/bugs/1424726, chromium’s cache
+        // data was written to the data location. Purge the old cache data.
+        QDir(location.absoluteFilePath("Cache")).removeRecursively();
     }
     return location.absolutePath();
 }
