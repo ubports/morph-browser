@@ -41,6 +41,7 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
+#include <QtCore/QtGlobal>
 #include <QtCore/QVariant>
 #include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
@@ -130,6 +131,9 @@ void WebbrowserApp::printUsage() const
 
 int main(int argc, char** argv)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 4, 0)
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+#endif
     WebbrowserApp app(argc, argv);
     if (app.initialize()) {
         return app.run();

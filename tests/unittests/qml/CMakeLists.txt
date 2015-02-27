@@ -17,7 +17,6 @@ qt5_use_modules(${TEST} Core Gui Network Qml Quick QuickTest)
 include_directories(
     ${webbrowser-common_SOURCE_DIR}
     ${webbrowser-app_SOURCE_DIR}
-    ${Qt5Quick_PRIVATE_INCLUDE_DIRS}
 )
 add_test(${TEST} ${XVFB_COMMAND} ${CMAKE_CURRENT_BINARY_DIR}/${TEST}
          -input ${CMAKE_CURRENT_SOURCE_DIR}

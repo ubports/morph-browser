@@ -35,68 +35,6 @@ Item {
         color: "#f6f6f6"
     }
 
-    Item {
-        id: topBar
-        visible: domainsListView.isInSelectionMode
-
-        onVisibleChanged: visible ? topBarOpenAnimation.start() : topBarCloseAnimation.start()
-
-        anchors { left: parent.left; right: parent.right; top: parent.top }
-
-        Icon {
-            name: "close"
-            anchors {
-                top: parent.top;
-                bottom: parent.bottom;
-                left: parent.left;
-                margins: units.gu(1)
-            }
-            width: height
-            MouseArea {
-                anchors.fill: parent
-                onClicked: domainsListView.cancelSelection()
-            }
-        }
-        Icon {
-            name: "select"
-            anchors {
-                top: parent.top;
-                bottom: parent.bottom;
-                right: deleteIcon.left;
-                margins: units.gu(1)
-            }
-            width: height
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    if (domainsListView.selectedItems.count === domainsListView.count) {
-                        domainsListView.clearSelection()
-                    } else {
-                        domainsListView.selectAll()
-                    }
-                }
-            }
-        }
-        Icon {
-            id: deleteIcon
-            enabled: domainsListView.selectedItems.count > 0
-            name: "delete"
-            anchors {
-                top: parent.top;
-                bottom: parent.bottom;
-                right: parent.right;
-                margins: units.gu(1)
-            }
-            width: height
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    domainsListView.endSelection()
-                }
-            }
-        }
-    }
-
     UbuntuNumberAnimation {
         id: topBarOpenAnimation
         target: topBar
@@ -123,7 +61,8 @@ Item {
             left: parent.left
             right: parent.right
             bottom: toolbar.top
-            margins: units.gu(2)
+            topMargin: units.gu(-0.5) // topMargin 2 - firstSection.topMargin 2.5
+            rightMargin: units.gu(2)
         }
 
         listModel: HistoryDomainListChronologicalModel {
@@ -136,7 +75,9 @@ Item {
 
         section.property: "lastVisitDate"
         section.delegate: HistorySectionDelegate {
-            width: parent.width
+            width: parent.width - units.gu(2)
+            anchors.left: parent.left
+            anchors.leftMargin: units.gu(2)
         }
 
         onSelectionDone: {
@@ -161,6 +102,16 @@ Item {
             property var removalAnimation
             function remove() {
                 removalAnimation.start()
+            }
+
+            anchors {
+                left: parent.left
+                // we need to move left the favicon to align the favicon to
+                // other elements. Favicon has a container bigger than it.
+                // units.gu(3) it's the size of the favicon container
+                // units.dp(16) it's the size of the favicon
+                // the favicon is hCentered in the container
+                leftMargin: selectionMode ? - (units.gu(3) - units.dp(16)) / 2 : 0
             }
 
             selectionMode: domainsListView.isInSelectionMode
@@ -296,6 +247,89 @@ Item {
             onClicked: {
                 browser.openUrlInNewTab("", true)
                 historyView.done()
+            }
+        }
+    }
+
+    Item {
+        id: topBar
+        visible: domainsListView.isInSelectionMode
+
+        onVisibleChanged: visible ? topBarOpenAnimation.start() : topBarCloseAnimation.start()
+
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+
+        Rectangle {
+            width: parent.width
+            height: parent.height + units.gu(1.5)
+            color: "white"
+        }
+
+        Item {
+            anchors {
+                top: parent.top
+                left: parent.left
+                leftMargin: units.gu(2)
+                bottom: parent.bottom
+                right: parent.right
+                rightMargin: units.gu(2)
+            }
+
+            ToolbarAction {
+                iconName: "back"
+                text: i18n.tr("Cancel")
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: domainsListView.cancelSelection()
+                }
+
+                anchors.left: parent.left
+
+                height: parent.height
+                width: height
+            }
+
+            ToolbarAction {
+                iconName: "select"
+                text: i18n.tr("Select all")
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        if (domainsListView.selectedItems.count === domainsListView.count) {
+                            domainsListView.clearSelection()
+                        } else {
+                            domainsListView.selectAll()
+                        }
+                    }
+                }
+
+                anchors {
+                    right: deleteButton.left
+                    rightMargin: units.gu(2)
+                }
+
+                height: parent.height
+                width: height
+            }
+
+            ToolbarAction {
+                id: deleteButton
+
+                iconName: "delete"
+                text: i18n.tr("Delete")
+                enabled: domainsListView.selectedItems.count > 0
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: domainsListView.endSelection()
+                }
+
+                anchors.right: parent.right
+
+                height: parent.height
+                width: height
             }
         }
     }
