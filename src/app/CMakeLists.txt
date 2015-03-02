@@ -20,12 +20,6 @@ add_library(${COMMONLIB} STATIC ${COMMONLIB_SRC})
 
 qt5_use_modules(${COMMONLIB} Core Gui Network Qml Quick Widgets)
 
-if(${Qt5Core_VERSION_STRING} VERSION_LESS "5.3.0")
-    include_directories(${Qt5Quick_PRIVATE_INCLUDE_DIRS})
-elseif(${Qt5Core_VERSION_STRING} VERSION_LESS "5.4.0")
-    include_directories(${Qt5Gui_PRIVATE_INCLUDE_DIRS})
-endif()
-
 include_directories(${unity8_SOURCE_DIR}/libs/UbuntuGestures
                     ${unity8_SOURCE_DIR}/plugins)
 target_link_libraries(${COMMONLIB} UbuntuGesturesQml)

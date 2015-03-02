@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2015-01-27 15:05+0000\n"
+"POT-Creation-Date: 2015-02-27 10:29+0100\n"
+"PO-Revision-Date: 2015-03-01 13:14+0000\n"
 "Last-Translator: Milo Casagrande <milo.casagrande@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-02-04 07:10+0000\n"
-"X-Generator: Launchpad (build 17331)\n"
+"X-Launchpad-Export-Date: 2015-03-02 05:36+0000\n"
+"X-Generator: Launchpad (build 17361)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -46,7 +46,7 @@ msgid "Password"
 msgstr "Password"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -439,7 +439,8 @@ msgstr "Cercare o immettere un indirizzo"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
 msgstr "Elimina"
 
@@ -455,7 +456,7 @@ msgstr "Cronologia"
 msgid "Open tabs"
 msgstr "Apri schede"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Nuova scheda"
@@ -471,17 +472,21 @@ msgstr[1] "%1 pagine"
 msgid "Less"
 msgstr "Meno"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
 msgstr "Ultima pagina visitata"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "Ieri"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
+#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
 msgstr "Fatto"
+
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
+msgstr "Seleziona tutto"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"

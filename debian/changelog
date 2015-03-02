@@ -1,3 +1,14 @@
+webbrowser-app (0.23+15.04.20150227-0ubuntu1) vivid; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Remove all references to private Qt headers, now that we require Qt
+    5.4.
+  * Specify the cache path on the web context, to avoid caching data
+    under ~/.local/share/. (LP: #1424726)
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 27 Feb 2015 10:08:19 +0000
+
 webbrowser-app (0.23+15.04.20150226.1-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]

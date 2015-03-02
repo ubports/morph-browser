@@ -1,22 +1,24 @@
 # Latvian translation for webbrowser-app
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the webbrowser-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 #
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2014-08-12 18:33+0000\n"
-"Last-Translator: Jānis Marks Gailis <jm-gailis@fai-vianet.fr>\n"
+"POT-Creation-Date: 2015-02-27 10:29+0100\n"
+"PO-Revision-Date: 2015-03-01 07:39+0000\n"
+"Last-Translator: Rūdolfs Mazurs <Unknown>\n"
 "Language-Team: Latvian <lv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-02-04 07:10+0000\n"
-"X-Generator: Launchpad (build 17331)\n"
+"X-Launchpad-Export-Date: 2015-03-02 05:36+0000\n"
+"X-Generator: Launchpad (build 17361)\n"
+"Language: lv\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -35,7 +37,7 @@ msgstr "Nepieciešama autentifikācija."
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Mājaslapa %1 pieprasa autentifikāciju."
+msgstr "Tīmekļa vietne %1 pieprasa autentifikāciju."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
@@ -46,7 +48,7 @@ msgid "Password"
 msgstr "Parole"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -56,7 +58,7 @@ msgstr "Apstiprināt navigāciju"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr "Atstāt"
+msgstr "Pamest"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
@@ -73,13 +75,13 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Jūs mēģiniet droši sasniegt %1, bet šis mājaslapas drošības sertifikāts nav "
-"drošs."
+"Jūs mēģināt droši sasniegt %1, bet šīs tīmekļa vietnes drošības sertifikāts "
+"nav uzticams."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
-msgstr "Turpināt jebkurā gadījumā"
+msgstr "Tomēr turpināt"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:173
@@ -88,7 +90,7 @@ msgstr "Atpakaļ drošībā"
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr "JavaScript Apstiprinājums"
+msgstr "JavaScript apstiprinājums"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -98,26 +100,25 @@ msgstr "Tikla kļūda"
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Paradas ka jums ir problēma skatoties: %1."
+msgstr "Izskatās, ka jums ir problēma atvērt: %1."
 
 #: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
-msgstr ""
-"Ubuntu jums iesaka parbaudīt tīkla iestatījums un meģinat parieladet lapu."
+msgstr "Ubuntu iesaka pārbaudīt tīkla iestatījums un mēģināt pārlādēt lapu."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "Atjaunināt lapu"
+msgstr "Atsvaidzināt lapu"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr "Ludzu izvēlaties datni"
+msgstr "Ludzu, izvēlieties datni"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "Atļaujas Pieprasījums"
+msgstr "Atļaujas pieprasījums"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:70
@@ -136,11 +137,11 @@ msgstr "Atļaut"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "Šīs vietnes drošības sertifikāts nav uzticams.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr ""
+msgstr "Uzzināt vairāk"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:87
@@ -149,6 +150,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"Sērijas numurs:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:94
@@ -157,6 +160,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Saņēmējs:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:102
@@ -165,6 +170,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Saņēmēja adrese:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:113
@@ -173,6 +180,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"Izdevējs:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:121
@@ -181,6 +190,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"Izdevēja adrese:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:132
@@ -189,6 +200,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Derīgs no:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:139
@@ -197,6 +210,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Derīgs līdz:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:146
@@ -205,12 +220,16 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Ciparnospiedums (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"Jums nevajadzētu turpināt, it sevišķi, ja šai vietnei nekad iepriekš šādu "
+"paziņojumu neesat redzējuši."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:187
@@ -219,6 +238,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"Jūs mēģinājāt sasniegt %1, bet serveris uzrādīja drošības sertifikātu, kas "
+"neatbilst šīs vietas identitātei."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -227,6 +248,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"Jūs mēģinājāt sasniegt %1, bet serveris uzrādīja drošības sertifikātu, kuram "
+"ir beidzies termiņš."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -235,6 +258,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"Jūs mēģinājāt sasniegt %1, bet serveris uzrādīja drošības sertifikātu, kas "
+"satur nederīgus datumus."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -243,6 +268,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"Jūs mēģinājāt sasniegt %1, bet serveris uzrādīja drošības sertifikātu, ko "
+"izsniedza neuzticams izdevējs."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -251,6 +278,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"Jūs mēģinājāt sasniegt %1, bet serveris uzrādīja drošības sertifikātu, kurš "
+"ir atsaukts."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -259,6 +288,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"Jūs mēģinājāt sasniegt %1, bet serveris uzrādīja nederīgu drošības "
+"sertifikātu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -267,6 +298,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"Jūs mēģinājāt sasniegt %1, bet serveris uzrādīja nedrošu drošības "
+"sertifikātu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -276,20 +309,23 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"Šīs vietnes drošības sertifikātam nevar uzticēties\n"
+"Jūs mēģinājāt sasniegt %1, bet serveris uzrādīja drošības sertifikātu, kurš "
+"nezināmu iemeslu dēļ neizturēja mūsu drošības pārbaudes."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "JavaScript uzvedne"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "Proxy autentifikācija ir nepieciešama."
+msgstr "Nepieciešama starpnieka autentifikācija."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "Mājaslapa %1:%2 pieprasa autentifikāciju."
+msgstr "Tīmekļa vietne %1:%2 pieprasa autentifikāciju."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -309,21 +345,21 @@ msgstr "Grāmatzīme"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Pievienot Šo Lapu Grāmatzīmēm"
+msgstr "Pievienot šo lapu grāmatzīmēm"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "Grāmatzīmju saiti"
+msgstr "Saglabāt saiti grāmatzīmēs"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "Tīrīt vēsturi"
+msgstr "Attīrīt vēsturi"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Dzēst Navigācijas Vēsturi"
+msgstr "Attīrīt navigācijas vēsturi"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -345,7 +381,7 @@ msgstr "Uz priekšu"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Jaunaka lapa"
+msgstr "Jaunāka lapa"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
@@ -365,23 +401,23 @@ msgstr "Jauna cilne"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Atvert jaunu cilni"
+msgstr "Atvērt jaunu cilni"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "Atvert attēlu jaunā cilnī"
+msgstr "Atvērt attēlu jaunā cilnē"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Atvērt saiti jaunā fona cilnē"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "Atvert saiti jaunā cilnī"
+msgstr "Atvērt saiti jaunā cilnē"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr "Pārielādēt"
+msgstr "Pārlādēt"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -395,7 +431,7 @@ msgstr "Saglabāt attēlu"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr "Dalīt..."
+msgstr "Dalīties…"
 
 #: src/app/webbrowser/AddressBar.qml:195
 msgid "search or enter an address"
@@ -403,13 +439,14 @@ msgstr "meklējiet vai ievadiet adresi"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
 #: src/app/webbrowser/Browser.qml:161
 msgid "Share"
-msgstr "Koplietot"
+msgstr "Dalīties"
 
 #: src/app/webbrowser/Browser.qml:175
 msgid "History"
@@ -419,7 +456,7 @@ msgstr "Vēsture"
 msgid "Open tabs"
 msgstr "Atvērt cilnes"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Jauna cilne"
@@ -430,23 +467,27 @@ msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 lapa"
 msgstr[1] "%1 lapas"
-msgstr[2] "%1 lapes"
+msgstr[2] "%1 lapu"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:194
 msgid "Less"
 msgstr "Mazāk"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
-msgstr "Pēdējais apmeklēts"
+msgstr "Pēdējās apmeklētās"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "Vakar"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
+#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
 msgstr "Pabeigts"
+
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
+msgstr "Izvēlēties visu"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -454,7 +495,7 @@ msgstr "Grāmatzīmes"
 
 #: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
-msgstr "Top mājaslapas"
+msgstr "Labākās vietnes"
 
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
@@ -466,59 +507,60 @@ msgstr "redzēt vairāk"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr ""
+msgstr "Šajā vietnē ir nedrošs saturs"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "Identitāte nav pārbaudīta"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "Šīs tīmekļa vietnes identitāte NAV apstiprināta."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "Servera sertifikāts neatbilst šīs vietnes identitātei."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Servera sertifikātam beidzies derīguma termiņš."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "Servera sertifikāts satur nederīgus datumus."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "Servera sertifikātu ir izdevis izdevējs, kas nav uzticams."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Servera sertifikāts tika atsaukts."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Servera sertifikāts nav derīgs."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "Servera sertifikāts ir nedrošs."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"Servera sertifikāts neizturēja mūsu drošības pārbaudes nezināmu iemeslu dēļ."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr ""
+msgstr "Jūs esat savienots ar"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr ""
+msgstr "Ko darbina"
 
 #: src/app/webbrowser/TabPreview.qml:163
 msgid "Tap to view"
-msgstr ""
+msgstr "Uzsitiet, lai skatītu"
 
 #: src/app/webbrowser/TabsView.qml:113
 msgid "Add"
@@ -529,20 +571,20 @@ msgstr "Pievienot"
 #: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Ubuntu Web Pārlūks"
+msgstr "%1 - Ubuntu tīmekļa pārlūks"
 
 #: src/app/webbrowser/webbrowser-app.qml:40
 #: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
-msgstr "Ubuntu Web Pārlūks"
+msgstr "Ubuntu tīmekļa pārlūks"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
-msgstr "Netika atrasts lokāla konta priekš "
+msgstr "Netika atrasts lokāls konts priekš "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
-msgstr ""
+msgstr "Izlaist konta veidošanas soli"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
@@ -558,15 +600,15 @@ msgstr "Pārlūks"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr "Tīmekļa Pārlūks"
+msgstr "Tīmekļa pārlūks"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
-msgstr "Pārlūkot World Wide Web"
+msgstr "Pārlūkot globālo tīmekli"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr ""
+msgstr "Internets;WWW;pārlūks;tīmeklis;"
 
 #~ msgid "No"
 #~ msgstr "Nē"

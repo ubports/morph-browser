@@ -26,11 +26,6 @@
 #include <QtQml/QQmlEngine>
 #include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
-#if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
-#include <QtQuick/private/qsgcontext_p.h>
-#elif QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
-#include <QtGui/private/qopenglcontext_p.h>
-#endif
 
 // local
 #include "browserapplication.h"
@@ -136,19 +131,6 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     // Get also the the first two components of the app ID: <package>_<app>,
     // which is needed by Online Accounts.
     QString unversionedAppId = QStringList(appIdParts.mid(0, 2)).join('_');
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
-    // Enable compositing in oxide (not needed starting with Qt 5.4
-    // because the Qt::AA_ShareOpenGLContexts attribute is set before
-    // the application is instantiated).
-    QOpenGLContext* glcontext = new QOpenGLContext(this);
-    glcontext->create();
-#if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
-    QSGContext::setSharedOpenGLContext(glcontext);
-#else
-    QOpenGLContextPrivate::setGlobalShareContext(glcontext);
-#endif
-#endif
 
     QString devtoolsPort = inspectorPort();
     QString devtoolsHost = inspectorHost();

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-03 15:55+0100\n"
+"POT-Creation-Date: 2015-02-27 10:29+0100\n"
 "PO-Revision-Date: 2014-10-05 08:44+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-02-04 07:10+0000\n"
-"X-Generator: Launchpad (build 17331)\n"
+"X-Launchpad-Export-Date: 2015-02-28 06:13+0000\n"
+"X-Generator: Launchpad (build 17361)\n"
 "Language: is\n"
 
 #: src/app/AlertDialog.qml:23
@@ -48,7 +48,7 @@ msgid "Password"
 msgstr "Lykilorð"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
 msgstr "Hætta við"
 
@@ -402,7 +402,8 @@ msgstr "leita eða slá inn netfang"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
 msgstr ""
 
@@ -418,7 +419,7 @@ msgstr "Ferill"
 msgid "Open tabs"
 msgstr "Opna flipa"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Nýr flipi"
@@ -434,17 +435,21 @@ msgstr[1] "%1 síður"
 msgid "Less"
 msgstr "Minna"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
 msgstr "Síðast heimsótt"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "Í gær"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
+#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
 msgstr "Lokið"
+
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
