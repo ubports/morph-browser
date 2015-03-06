@@ -219,7 +219,7 @@ Item {
         }
 
         width: parent.width
-        color: root.selected || (mouseArea.pressed && swipeState === "Normal" )? root.selectedColor : root.color
+        color: mouseArea.pressed && swipeState === "Normal" ? root.selectedColor : root.color
 
         Loader {
             id: selectionIcon

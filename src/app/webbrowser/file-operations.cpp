@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -18,7 +18,9 @@
 
 #include "file-operations.h"
 
+#include <QtCore/QDir>
 #include <QtCore/QFile>
+#include <QtCore/QFileInfo>
 #include <QtCore/QUrl>
 
 FileOperations::FileOperations(QObject* parent)
@@ -26,7 +28,18 @@ FileOperations::FileOperations(QObject* parent)
 {
 }
 
+bool FileOperations::exists(const QUrl& path) const
+{
+    // works for both files and directories
+    return QFileInfo::exists(path.toLocalFile());
+}
+
 bool FileOperations::remove(const QUrl& file) const
 {
     return QFile::remove(file.toLocalFile());
+}
+
+bool FileOperations::mkpath(const QUrl& path) const
+{
+    return QDir::root().mkpath(path.toLocalFile());
 }

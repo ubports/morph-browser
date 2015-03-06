@@ -27,11 +27,25 @@ class QUrl;
 
 namespace UrlPatternUtils {
 
+/**
+ * @brief transformWebappSearchPatternToSafePattern
+ * @param doTransformUrlPath
+ * @return
+ */
 QString transformWebappSearchPatternToSafePattern(const QString&
                                                   , bool doTransformUrlPath = true);
 
+/**
+ * @brief isLocalHtml5ApplicationHomeUrl
+ * @return
+ */
 bool isLocalHtml5ApplicationHomeUrl(const QUrl&);
 
+/**
+ * @brief filterAndTransformUrlPatterns
+ * @param includePatterns
+ * @return
+ */
 QStringList filterAndTransformUrlPatterns(const QStringList & includePatterns);
 
 }

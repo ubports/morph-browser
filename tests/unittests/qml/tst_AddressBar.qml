@@ -281,16 +281,6 @@ Item {
             compare(addressBar.__textField.selectedText, "")
         }
 
-        function test_statesShouldChange() {
-            compare(addressBar.state, "editing")
-            clickItem(textInput)
-            compare(addressBar.state, "")
-            addressBar.loading = true
-            compare(addressBar.state, "loading")
-            addressBar.loading = false
-            compare(addressBar.state, "")
-        }
-
         function test_shouldNotAllowBookmarkingWhenEmpty() {
             // focused
             var toggle = addressBar.__bookmarkToggle

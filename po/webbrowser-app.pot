@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-17 15:57+0100\n"
+"POT-Creation-Date: 2015-02-27 10:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,7 @@ msgid "Password"
 msgstr ""
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
 msgstr ""
 
@@ -368,6 +368,10 @@ msgstr ""
 msgid "Open image in new tab"
 msgstr ""
 
+#: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
+msgid "Open link in new background tab"
+msgstr ""
+
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr ""
@@ -390,29 +394,30 @@ msgstr ""
 msgid "Share…"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:208
+#: src/app/webbrowser/AddressBar.qml:195
 msgid "search or enter an address"
 msgstr ""
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:160
+#: src/app/webbrowser/Browser.qml:161
 msgid "Share"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:174
+#: src/app/webbrowser/Browser.qml:175
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:181
+#: src/app/webbrowser/Browser.qml:182
 msgid "Open tabs"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:187 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr ""
@@ -428,16 +433,20 @@ msgstr[1] ""
 msgid "Less"
 msgstr ""
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
 msgstr ""
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
+#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
+msgstr ""
+
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
 msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:124
@@ -456,15 +465,55 @@ msgstr ""
 msgid "see more"
 msgstr ""
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+#: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
 msgstr ""
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:73
-msgid "You are connected to"
+#: src/app/webbrowser/SecurityCertificatePopover.qml:70
+msgid "Identity Not Verified"
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:78
+msgid "The identity of this website has not been verified."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:89
+msgid "Server certificate does not match the identity of the site."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:91
+msgid "Server certificate has expired."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:93
+msgid "Server certificate contains invalid dates."
 msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Server certificate is issued by an entity that is not trusted."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:97
+msgid "Server certificate has been revoked."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:99
+msgid "Server certificate is invalid."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:101
+msgid "Server certificate is insecure."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:103
+msgid "Server certificate failed our security checks for an unknown reason."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:126
+msgid "You are connected to"
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
 msgstr ""
 
@@ -477,14 +526,14 @@ msgid "Add"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:59
+#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:61
+#: src/app/webbrowser/webbrowser-app.qml:40
+#: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
 msgstr ""
 

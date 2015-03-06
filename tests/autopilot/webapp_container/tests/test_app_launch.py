@@ -31,9 +31,11 @@ def generate_temp_webapp():
     os.mkdir(webapp_folder_name)
     manifest_content = """
     {
-        "includes": ["http://test.com:*/*"], "name": "test",
+        "includes": ["http://test.com:*/*"],
+        "name": "test",
         "scripts": ["test.user.js"],
-        "domain":"", "homepage":"http://www.test.com/"
+        "domain":"",
+        "homepage":"http://www.test.com/"
     }
     """
     manifest_file = "{}/manifest.json".format(webapp_folder_name)
@@ -94,3 +96,7 @@ class WebappContainerAppLaunchTestCase(
             webview = self.get_oxide_webview()
             webapp_url = 'http://www.test.com/'
             self.assertThat(webview.url, Eventually(Equals(webapp_url)))
+
+            result = 'test'
+            self.assertThat(self.get_webcontainer_window().title,
+                            Eventually(Equals(result)))

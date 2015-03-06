@@ -25,7 +25,8 @@ function elementContainedInBox(element, box) {
 function getImgFullUri(uri) {
     if ((uri.slice(0, 7) === 'http://') ||
         (uri.slice(0, 8) === 'https://') ||
-        (uri.slice(0, 7) === 'file://')) {
+        (uri.slice(0, 7) === 'file://') ||
+        (uri.slice(0, 5) === 'data:')) {
         return uri;
     } else if (uri.slice(0, 1) === '/') {
         var docuri = document.documentURI;

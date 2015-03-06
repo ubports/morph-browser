@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-12-17 15:57+0100\n"
+"POT-Creation-Date: 2015-02-27 10:29+0100\n"
 "PO-Revision-Date: 2014-09-24 09:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Belarusian <be@li.org>\n"
@@ -16,56 +16,56 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Launchpad-Export-Date: 2014-12-18 06:47+0000\n"
-"X-Generator: Launchpad (build 17286)\n"
+"X-Launchpad-Export-Date: 2015-02-28 06:13+0000\n"
+"X-Generator: Launchpad (build 17361)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
-msgstr ""
+msgstr "Паведамленне JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
 msgid "OK"
-msgstr ""
+msgstr "Добра"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "Патрабуецца аўтэнтыфікацыя."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr ""
+msgstr "Сайт %1 патрабуе праверкі сапраўднасці."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "Імя карыстальніка"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
-msgstr ""
+msgstr "Скасаваць"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Пацвердзіць навігацыю"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr ""
+msgstr "Пакінуць"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr ""
+msgstr "Застацца"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "Гэта злучэнне з'яўляецца ненадзейным"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -74,270 +74,306 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"Вы спрабуеце дасягнуць %1, але сертыфікат бяспекі гэтага вэб-сайта не "
+"з'яўляецца давераным."
 
 #: src/app/CertificateVerificationDialog.qml:29
-#: src/app/InvalidCertificateErrorSheet.qml:162
+#: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
-msgstr ""
+msgstr "Працягнуць усе роўна"
 
 #: src/app/CertificateVerificationDialog.qml:35
-#: src/app/InvalidCertificateErrorSheet.qml:175
+#: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
-msgstr ""
+msgstr "Вярнуцца да бяспекі"
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr ""
+msgstr "JavaScript пацверджаны"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr ""
+msgstr "Памылка сеткі"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "Мабыць ў вас з'явіліся цяжкасці з праглядваннем: %1."
 
 #: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
+"Ubuntu прапануе вам праверыць настройкі сеткі, паспрабуйце абнавіць старонку."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr ""
+msgstr "Абнавіць старонку"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "Калі ласка, абярыце файл"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr ""
+msgstr "Дазвол Запросу"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:68
+#: src/app/webcontainer/WebViewImplWebkit.qml:70
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Гэта старонка хоча ведаць месцазнаходжанне вашага устройства."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr ""
+msgstr "Забараніць"
 
 #: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
 msgid "Allow"
-msgstr ""
+msgstr "Дазволіць"
 
-#: src/app/InvalidCertificateErrorSheet.qml:58
+#: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "Гэты сертыфікат бяспекі сайта не з'яўляецца давераным.\n"
 
-#: src/app/InvalidCertificateErrorSheet.qml:66
+#: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr ""
+msgstr "Даведацца больш"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
-#: src/app/InvalidCertificateErrorSheet.qml:90
+#: src/app/InvalidCertificateErrorSheet.qml:87
 #, qt-format
 msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"Серыйны нумар:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
-#: src/app/InvalidCertificateErrorSheet.qml:97
+#: src/app/InvalidCertificateErrorSheet.qml:94
 #, qt-format
 msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Тэма:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
-#: src/app/InvalidCertificateErrorSheet.qml:105
+#: src/app/InvalidCertificateErrorSheet.qml:102
 #, qt-format
 msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Адрас:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
-#: src/app/InvalidCertificateErrorSheet.qml:116
+#: src/app/InvalidCertificateErrorSheet.qml:113
 #, qt-format
 msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"Выдавец:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-#: src/app/InvalidCertificateErrorSheet.qml:124
+#: src/app/InvalidCertificateErrorSheet.qml:121
 #, qt-format
 msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"Адрас выдаўца:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
-#: src/app/InvalidCertificateErrorSheet.qml:135
+#: src/app/InvalidCertificateErrorSheet.qml:132
 #, qt-format
 msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Сапраўдны з:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
-#: src/app/InvalidCertificateErrorSheet.qml:142
+#: src/app/InvalidCertificateErrorSheet.qml:139
 #, qt-format
 msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Сапраўдны да:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
-#: src/app/InvalidCertificateErrorSheet.qml:149
+#: src/app/InvalidCertificateErrorSheet.qml:146
 #, qt-format
 msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Адбітак (SHA1):\n"
+"%1"
 
-#: src/app/InvalidCertificateErrorSheet.qml:155
+#: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"Мы не раім працягваць, асабліва калі вы ніколі не бачылі папярэджання для "
+"гэтага сайта."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:187
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which does not match the identity of the site."
+msgstr ""
+"Вы паспрабавалі адкрыць %1, але сервер прадаставіў сертыфікат бяспекі, які "
+"не адпавядае ідэнтыфікатара сайта."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
-"which does not match the identity of the site."
+"which has expired."
 msgstr ""
+"Вы паспрабавалі адкрыць %1, але сервер прадаставіў сертыфікат бяспекі тэрмін "
+"дзеяння якога скончыўся."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
-"which has expired."
+"which contains invalid dates."
 msgstr ""
+"Вы паспрабавалі адкрыць %1, але сервер прадаставіў сертыфікат бяспекі, які "
+"змяшчае недапушчальныя даты."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
-"which contains invalid dates."
+"issued by an entity that is not trusted."
 msgstr ""
+"Вы паспрабавалі адчыніць %1, але сервер падаў сертыфікат бяспекі, выдадзены "
+"суб'ектам, якому не давярае."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
-"issued by an entity that is not trusted."
+"that has been revoked."
 msgstr ""
+"Вы паспрабавалі адкрыць %1, але сервер падаў сертыфікат бяспекі, які быў "
+"адазваны."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
 #, qt-format
 msgid ""
-"You attempted to reach %1 but the server presented a security certificate "
-"that has been revoked."
+"You attempted to reach %1 but the server presented an invalid security "
+"certificate."
 msgstr ""
+"Вы паспрабавалі адчыніць %1, але сервер падаў несапраўдны сертыфікат бяспекі."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
 #, qt-format
 msgid ""
-"You attempted to reach %1 but the server presented an invalid security "
-"certificate."
-msgstr ""
-
-#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:208
-#, qt-format
-msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"Вы паспрабавалі адчыніць %1, але сервер падаў небяспечны сертыфікат бяспекі"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:211
+#: src/app/InvalidCertificateErrorSheet.qml:208
 #, qt-format
 msgid ""
 "This site security certificate is not trusted\n"
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"Гэты сертыфікат бяспекі сайта не з'яўляецца давераным\n"
+"Вы паспрабавалі адчыніць %1, але сервер уявіў сертыфікат бяспекі, якому не "
+"атрымалася прайсці праверкі бяспекі, па невядомай прычыне."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
-msgstr ""
+msgstr "Падказка JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "Патрабуецца праверка сапраўднасці проксі."
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr ""
+msgstr "Сайт %1:%2 патрабуе праверкі сапраўднасці."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr ""
+msgstr "Вярнуцца"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr ""
+msgstr "Старыя старонкі"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr ""
+msgstr "Закладка"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr ""
+msgstr "Дадаць гэтую старонку ў закладкі"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr ""
+msgstr "Спасылка на закладку"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr ""
+msgstr "Ачысціць гісторыю"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr ""
+msgstr "Ачысціць гісторыю навігацыі"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr ""
+msgstr "Капіраваць"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr ""
+msgstr "Капіраваць выяву"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr ""
+msgstr "Капіраваць спасылку"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr ""
+msgstr "Далей"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -347,176 +383,226 @@ msgstr ""
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr ""
+msgstr "Перайсці"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr ""
+msgstr "Адрас;URL;www"
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
-msgstr ""
+msgstr "Новая картка"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr ""
+msgstr "Адчыніць у новай картцы"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
+msgstr "Адчыніць выяву ў новай картцы"
+
+#: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
+msgid "Open link in new background tab"
 msgstr ""
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr ""
+msgstr "Адчыніць ссылку ў новай картцы"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr ""
+msgstr "Перазагрузіць"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr ""
+msgstr "Пакінуць старонку"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Захаваць выяву"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr ""
+msgstr "Падзяліцца..."
 
-#: src/app/webbrowser/AddressBar.qml:208
+#: src/app/webbrowser/AddressBar.qml:195
 msgid "search or enter an address"
-msgstr ""
+msgstr "Шукайце або ўвядзіце адрас"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
-msgstr ""
+msgstr "Выдаліць"
 
-#: src/app/webbrowser/Browser.qml:190
+#: src/app/webbrowser/Browser.qml:161
 msgid "Share"
-msgstr ""
+msgstr "Падзяліцца"
 
-#: src/app/webbrowser/Browser.qml:204
+#: src/app/webbrowser/Browser.qml:175
 msgid "History"
-msgstr ""
+msgstr "Гісторыя"
 
-#: src/app/webbrowser/Browser.qml:211
+#: src/app/webbrowser/Browser.qml:182
 msgid "Open tabs"
-msgstr ""
+msgstr "Адчыненыя карткі"
 
-#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
-msgstr ""
+msgstr "Новая картка"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 старонка"
+msgstr[1] "%1 старонкі"
+msgstr[2] "%1 старонкаў"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:194
 msgid "Less"
-msgstr ""
+msgstr "Меней"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
-msgstr ""
+msgstr "Апошняе наведванне"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
-msgstr ""
+msgstr "Учора"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
+msgstr "Зроблена"
+
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
 msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
-msgstr ""
+msgstr "Закладкі"
 
 #: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
-msgstr ""
+msgstr "Лепшыя сайты"
 
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
-msgstr ""
+msgstr "гл. менш"
 
 #: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
-msgstr ""
+msgstr "гл. больш"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+#: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
+msgstr "Гэты сайт мае небяспечныя элементы"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:70
+msgid "Identity Not Verified"
 msgstr ""
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:73
-msgid "You are connected to"
+#: src/app/webbrowser/SecurityCertificatePopover.qml:78
+msgid "The identity of this website has not been verified."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:89
+msgid "Server certificate does not match the identity of the site."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:91
+msgid "Server certificate has expired."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:93
+msgid "Server certificate contains invalid dates."
 msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Server certificate is issued by an entity that is not trusted."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:97
+msgid "Server certificate has been revoked."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:99
+msgid "Server certificate is invalid."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:101
+msgid "Server certificate is insecure."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:103
+msgid "Server certificate failed our security checks for an unknown reason."
+msgstr ""
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:126
+msgid "You are connected to"
+msgstr "Вы злучаныя з"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr ""
+msgstr "Які знаходзіцца ў веданні"
 
-#: src/app/webbrowser/TabPreview.qml:162
+#: src/app/webbrowser/TabPreview.qml:163
 msgid "Tap to view"
-msgstr ""
+msgstr "Націсніце для прагляду"
 
-#: src/app/webbrowser/TabsView.qml:114
+#: src/app/webbrowser/TabsView.qml:113
 msgid "Add"
-msgstr ""
+msgstr "Дадаць"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:55
+#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr ""
+msgstr "%1 - Браўзэр Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:57
+#: src/app/webbrowser/webbrowser-app.qml:40
+#: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "Браўзэр Ubuntu"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
-msgstr ""
+msgstr "Не знойдзена для лакальнага ўліковага запісу "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
-msgstr ""
+msgstr "Прапусціць крок стварэння ўліковага запісу"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
-msgstr ""
+msgstr "Дадаць конт"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "Выберыце конт"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
-msgstr ""
+msgstr "Браўзэр"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr ""
+msgstr "Гартач Сеціва"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "Прагляд сеткі Інтэрнэт"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr ""
+msgstr "Інтэрнэт;WWW;Браўзер;Веб;Праваднік"

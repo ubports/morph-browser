@@ -18,8 +18,6 @@ add_library(${COMMONLIB} STATIC ${COMMONLIB_SRC})
 
 qt5_use_modules(${COMMONLIB} Core Gui Network Qml Quick Widgets)
 
-include_directories(${Qt5Quick_PRIVATE_INCLUDE_DIRS})
-
 file(GLOB QML_FILES *.qml)
 install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app)
 file(GLOB JS_FILES *.js)

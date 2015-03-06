@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,13 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.4
+import Ubuntu.Web 0.2
+import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
 
 FocusScope {
     property string uniqueId: this.toString() + "-" + Date.now()
     property url initialUrl
     property string initialTitle
+    property string restoreState
+    property int restoreType
     property var request
     property Component webviewComponent
     readonly property var webview: (children.length == 1) ? children[0] : null
@@ -33,7 +37,14 @@ FocusScope {
 
     function load() {
         if (!webview) {
-            webviewComponent.incubateObject(this, {"url": initialUrl})
+            var properties = {}
+            if (restoreState) {
+                properties['restoreState'] = restoreState
+                properties['restoreType'] = restoreType
+            } else {
+                properties['url'] = initialUrl
+            }
+            webviewComponent.incubateObject(this, properties)
         }
     }
 
@@ -41,6 +52,8 @@ FocusScope {
         if (webview) {
             initialUrl = webview.url
             initialTitle = webview.title
+            restoreState = webview.currentState
+            restoreType = Oxide.WebView.RestoreCurrentSession
             webview.destroy()
         }
     }
@@ -53,44 +66,28 @@ FocusScope {
         destroy()
     }
 
-    property var captureTaker
-    Component {
-        id: captureComponent
-        ItemCapture {
-            quality: 50
-            onCaptureFinished: {
-                if ((request == uniqueId) && capture.toString()) {
-                    if (preview == capture) {
-                        // Ensure that the preview URL actually changes,
-                        // for the image to be reloaded
-                        preview = ""
-                    }
-                    preview = capture
-                }
-                if (!webview.visible) {
-                    captureTaker.destroy()
-                }
-            }
-        }
-    }
-    function createCaptureTakerIfNeeded() {
-        if (!captureTaker) {
-            captureTaker = captureComponent.createObject(webview)
-        }
-    }
-    onWebviewChanged: {
-        if (webview) {
-            createCaptureTakerIfNeeded()
-        }
-    }
-
     Connections {
         target: webview
         onVisibleChanged: {
-            if (webview.visible) {
-                createCaptureTakerIfNeeded()
-            } else {
-                captureTaker.requestCapture(uniqueId)
+            if (!webview.visible) {
+                webview.grabToImage(function(result) {
+                    var capturesDir = cacheLocation + "/captures"
+                    if (!FileOperations.exists(Qt.resolvedUrl(capturesDir))) {
+                        FileOperations.mkpath(Qt.resolvedUrl(capturesDir))
+                    }
+                    var filepath = capturesDir + "/" + uniqueId + ".jpg"
+                    if (result.saveToFile(filepath)) {
+                        var previewUrl = Qt.resolvedUrl(filepath)
+                        if (preview == previewUrl) {
+                            // Ensure that the preview URL actually changes,
+                            // for the image to be reloaded
+                            preview = ""
+                        }
+                        preview = previewUrl
+                    } else {
+                        preview = ""
+                    }
+                })
             }
         }
     }

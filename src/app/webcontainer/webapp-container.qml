@@ -32,6 +32,7 @@ BrowserWindow {
 
     property string localCookieStoreDbPath: ""
 
+    property var intentFilterHandler
     property string url: ""
     property string webappName: ""
     property string webappModelSearchPath: ""
@@ -50,10 +51,16 @@ BrowserWindow {
 
     title: getWindowTitle()
 
+    // Used for testing
+    signal intentUriHandleResult(string uri)
+
     function getWindowTitle() {
-        var webappViewTitle = webappViewLoader.item ? webappViewLoader.item.title : ""
-        if (typeof(webappName) === 'string' && webappName.length !== 0) {
-            return webappName
+        var webappViewTitle =
+                webappViewLoader.item
+                ? webappViewLoader.item.title : ""
+        var name = getWebappName()
+        if (typeof(name) === 'string' && name.length !== 0) {
+            return name
         } else if (webappViewTitle) {
             // TRANSLATORS: %1 refers to the current page’s title
             return i18n.tr("%1 - Ubuntu Web Browser").arg(webappViewTitle)
@@ -100,12 +107,27 @@ BrowserWindow {
         }
     }
 
+    function getWebappName() {
+        /**
+          Any webapp name coming from the command line takes over.
+          A webapp can also be defined by a specific drop-in webapp-properties.json
+          file that can bundle a few specific 'properties' (as the name implies)
+          instead of having them listed in the command line.
+          */
+        if (webappName)
+            return webappName
+        return webappModelSearchPath && webappModel.providesSingleInlineWebapp()
+            ? webappModel.getSingleInlineWebappName()
+            : ""
+    }
+
     function getLocalUserAgentOverrideIfAny() {
         if (localUserAgentOverride.length !== 0)
             return localUserAgentOverride
 
-        if (webappName && webappModel.exists(webappName))
-            return webappModel.userAgentOverrideFor(webappName)
+        var name = getWebappName()
+        if (name && webappModel.exists(name))
+            return webappModel.userAgentOverrideFor(name)
 
         return ""
     }
@@ -115,9 +137,11 @@ BrowserWindow {
         searchPath: root.webappModelSearchPath
 
         onModelContentChanged: {
-            if (root.webappName && root.url.length === 0) {
-                var idx = webappModel.getWebappIndex(root.webappName)
-                root.url = webappModel.data(idx, UnityWebApps.UnityWebappsAppModel.Homepage)
+            var name = getWebappName()
+            if (name && root.url.length === 0) {
+                var idx = webappModel.getWebappIndex(name)
+                root.url = webappModel.data(
+                            idx, UnityWebApps.UnityWebappsAppModel.Homepage)
             }
         }
     }
@@ -254,6 +278,63 @@ BrowserWindow {
         webappViewLoader.sourceComponent = webappViewComponent
     }
 
+    function makeUrlFromIntentResult(intentFilterResult) {
+        var scheme = null
+        var hostname = null
+        var url = root.currentWebview.url || root.url
+        if (intentFilterResult.host
+                && intentFilterResult.host.length !== 0) {
+            hostname = intentFilterResult.host
+        }
+        else {
+            var matchHostname = url.toString().match(/.*:\/\/([^/]*)\/.*/)
+            if (matchHostname.length > 1) {
+                hostname = matchHostname[1]
+            }
+        }
+        if (intentFilterResult.scheme
+                && intentFilterResult.scheme.length !== 0) {
+            scheme = intentFilterResult.scheme
+        }
+        else {
+            var matchScheme = url.toString().match(/(.*):\/\/[^/]*\/.*/)
+            if (matchScheme.length > 1) {
+                scheme = matchScheme[1]
+            }
+        }
+        return scheme
+                + '://'
+                + hostname
+                + "/"
+                + (intentFilterResult.uri
+                    ? intentFilterResult.uri : "")
+    }
+
+    /**
+     * Identity function for non-intent URIs.
+     *
+     * Otherwise if the URI is an intent, tries to apply a webapp
+     * local filter (or identity) and reconstruct the target URI based
+     * on its result.
+     */
+    function handleIntentUri(uri) {
+        var _uri = uri;
+        if (webappIntentFilter
+                && webappIntentFilter.isValidIntentUri(_uri)) {
+            var result = webappIntentFilter.applyFilter(_uri)
+            _uri = makeUrlFromIntentResult(result)
+
+            console.log("Intent URI '" + uri + "' was mapped to '" + _uri + "'")
+        }
+
+        // Report the result of the intent uri filtering (if any)
+        // Done for testing purposed. It is not possible at this point
+        // to have AP call a slot and retrieve its result synchronously.
+        intentUriHandleResult(_uri)
+
+        return _uri
+    }
+
     // Handle runtime requests to open urls as defined
     // by the freedesktop application dbus interface's open
     // method for DBUS application activation:
@@ -271,6 +352,15 @@ BrowserWindow {
 
             if (popupRedirectionUrlPrefixPattern.length !== 0
                     && requestedUrl.match(popupRedirectionUrlPrefixPattern)) {
+                return;
+            }
+
+            requestedUrl = handleIntentUri(requestedUrl);
+
+            // Add a small guard to prevent browsing to invalid urls
+            if (currentWebview
+                    && currentWebview.shouldAllowNavigationTo
+                    && !currentWebview.shouldAllowNavigationTo(requestedUrl)) {
                 return;
             }
 

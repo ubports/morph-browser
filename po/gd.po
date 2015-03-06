@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-12-17 15:57+0100\n"
-"PO-Revision-Date: 2014-11-09 08:19+0000\n"
+"POT-Creation-Date: 2015-02-27 10:29+0100\n"
+"PO-Revision-Date: 2015-02-27 19:46+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2014-12-18 06:47+0000\n"
-"X-Generator: Launchpad (build 17286)\n"
+"X-Launchpad-Export-Date: 2015-02-28 06:13+0000\n"
+"X-Generator: Launchpad (build 17361)\n"
 "Language: gd\n"
 
 #: src/app/AlertDialog.qml:23
@@ -48,7 +48,7 @@ msgid "Password"
 msgstr "Facal-faire"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
 msgstr "Sguir dheth"
 
@@ -79,12 +79,12 @@ msgstr ""
 "teisteanas tèarainteachd aig an làrach-lìn seo."
 
 #: src/app/CertificateVerificationDialog.qml:29
-#: src/app/InvalidCertificateErrorSheet.qml:162
+#: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
 msgstr "Lean air adhart co-dhiù"
 
 #: src/app/CertificateVerificationDialog.qml:35
-#: src/app/InvalidCertificateErrorSheet.qml:175
+#: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
 msgstr "Air ais leam gu àite tèarainte"
 
@@ -123,7 +123,7 @@ msgid "Permission Request"
 msgstr "Iarrtas cead"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:68
+#: src/app/webcontainer/WebViewImplWebkit.qml:70
 msgid "This page wants to know your device’s location."
 msgstr "Bu toigh leis an duilleag seo fiosrachadh air ionad an uidheim agad."
 
@@ -137,16 +137,16 @@ msgstr "Diùlt e"
 msgid "Allow"
 msgstr "Ceadaich"
 
-#: src/app/InvalidCertificateErrorSheet.qml:58
+#: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
 msgstr "Chan eil earbsa ann an teisteanas tèarainteachd an làraich.\n"
 
-#: src/app/InvalidCertificateErrorSheet.qml:66
+#: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
 msgstr "Barrachd fiosrachaidh"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
-#: src/app/InvalidCertificateErrorSheet.qml:90
+#: src/app/InvalidCertificateErrorSheet.qml:87
 #, qt-format
 msgid ""
 "Serial number:\n"
@@ -156,7 +156,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
-#: src/app/InvalidCertificateErrorSheet.qml:97
+#: src/app/InvalidCertificateErrorSheet.qml:94
 #, qt-format
 msgid ""
 "Subject:\n"
@@ -166,7 +166,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
-#: src/app/InvalidCertificateErrorSheet.qml:105
+#: src/app/InvalidCertificateErrorSheet.qml:102
 #, qt-format
 msgid ""
 "Subject address:\n"
@@ -176,7 +176,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
-#: src/app/InvalidCertificateErrorSheet.qml:116
+#: src/app/InvalidCertificateErrorSheet.qml:113
 #, qt-format
 msgid ""
 "Issuer:\n"
@@ -186,7 +186,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
-#: src/app/InvalidCertificateErrorSheet.qml:124
+#: src/app/InvalidCertificateErrorSheet.qml:121
 #, qt-format
 msgid ""
 "Issuer address:\n"
@@ -196,7 +196,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
-#: src/app/InvalidCertificateErrorSheet.qml:135
+#: src/app/InvalidCertificateErrorSheet.qml:132
 #, qt-format
 msgid ""
 "Valid from:\n"
@@ -206,7 +206,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
-#: src/app/InvalidCertificateErrorSheet.qml:142
+#: src/app/InvalidCertificateErrorSheet.qml:139
 #, qt-format
 msgid ""
 "Valid until:\n"
@@ -216,7 +216,7 @@ msgstr ""
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
-#: src/app/InvalidCertificateErrorSheet.qml:149
+#: src/app/InvalidCertificateErrorSheet.qml:146
 #, qt-format
 msgid ""
 "Fingerprint (SHA1):\n"
@@ -225,7 +225,7 @@ msgstr ""
 "Meur-lorg (SHA1):\n"
 "%1"
 
-#: src/app/InvalidCertificateErrorSheet.qml:155
+#: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
@@ -234,7 +234,7 @@ msgstr ""
 "rabhadh seo air an làrach seo roimhe."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:190
+#: src/app/InvalidCertificateErrorSheet.qml:187
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -244,7 +244,7 @@ msgstr ""
 "tèarainteachd seachad nach co-fhreagair ri dearbh-aithne an làraich."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:193
+#: src/app/InvalidCertificateErrorSheet.qml:190
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -254,7 +254,7 @@ msgstr ""
 "tèarainteachd seachad air an do dh'fhalbh an ùine."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:196
+#: src/app/InvalidCertificateErrorSheet.qml:193
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -264,7 +264,7 @@ msgstr ""
 "tèarainteachd seachad sa bheil ceann-là mì-dhligheach."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:199
+#: src/app/InvalidCertificateErrorSheet.qml:196
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -275,7 +275,7 @@ msgstr ""
 "earbsa."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:202
+#: src/app/InvalidCertificateErrorSheet.qml:199
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
@@ -285,7 +285,7 @@ msgstr ""
 "tèarainteachd seachad a chaidh a chùl-ghairm."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:205
+#: src/app/InvalidCertificateErrorSheet.qml:202
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
@@ -295,7 +295,7 @@ msgstr ""
 "tèarainteachd nach eil dligheach."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:208
+#: src/app/InvalidCertificateErrorSheet.qml:205
 #, qt-format
 msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
@@ -305,7 +305,7 @@ msgstr ""
 "tèarainteachd nach eil tèarainte."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
-#: src/app/InvalidCertificateErrorSheet.qml:211
+#: src/app/InvalidCertificateErrorSheet.qml:208
 #, qt-format
 msgid ""
 "This site security certificate is not trusted\n"
@@ -411,6 +411,10 @@ msgstr "Fosgail taba ùr"
 msgid "Open image in new tab"
 msgstr "Fosgail an dealbh ann an taba ùr"
 
+#: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
+msgid "Open link in new background tab"
+msgstr "Fosgail an ceangal ann an taba ùr sa chùlaibh"
+
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "Fosgail an ceangal ann an taba ùr"
@@ -433,29 +437,30 @@ msgstr "Sàbhail an dealbh"
 msgid "Share…"
 msgstr "Co-roinn…"
 
-#: src/app/webbrowser/AddressBar.qml:208
+#: src/app/webbrowser/AddressBar.qml:195
 msgid "search or enter an address"
 msgstr "lorg no cuir a-steach seòladh-lìn"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
 msgstr "Sguab às"
 
-#: src/app/webbrowser/Browser.qml:190
+#: src/app/webbrowser/Browser.qml:161
 msgid "Share"
 msgstr "Co-roinn"
 
-#: src/app/webbrowser/Browser.qml:204
+#: src/app/webbrowser/Browser.qml:175
 msgid "History"
 msgstr "Eachdraidh"
 
-#: src/app/webbrowser/Browser.qml:211
+#: src/app/webbrowser/Browser.qml:182
 msgid "Open tabs"
 msgstr "Tabaichean fosgailte"
 
-#: src/app/webbrowser/Browser.qml:217 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Taba ùr"
@@ -473,17 +478,21 @@ msgstr[3] "%1 duilleag"
 msgid "Less"
 msgstr "Nas lugha dheth"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
 msgstr "Air a thadhal mu dheireadh"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "An-dè"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:100
+#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
 msgstr "Dèanta"
+
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
+msgstr "Tagh na h-uile"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -501,35 +510,81 @@ msgstr "seall nas lugha dheth"
 msgid "see more"
 msgstr "seall barrachd"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+#: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
 msgstr "Tha susbaint neo-thèarainte san làrach seo"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+#: src/app/webbrowser/SecurityCertificatePopover.qml:70
+msgid "Identity Not Verified"
+msgstr "Cha deach a dhearbh-aithne a dhearbhadh fhathast"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:78
+msgid "The identity of this website has not been verified."
+msgstr "Chaidh fèin-aithne na làraich-lìn seo a dhearbhadh."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:89
+msgid "Server certificate does not match the identity of the site."
+msgstr ""
+"Chan eil teisteanas an fhrithealaiche a' freagairt ri dearbh-aithne na "
+"làraich."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:91
+msgid "Server certificate has expired."
+msgstr "Dh'fhalbh an ùine air teisteanas an fhrithealaiche."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:93
+msgid "Server certificate contains invalid dates."
+msgstr "Tha cinn-là nach eil dligheach ann an teisteanas an fhrithealaiche."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Server certificate is issued by an entity that is not trusted."
+msgstr ""
+"Chaidh teisteanas an fhrithealaiche fhoillseachadh le eintiteas anns nach "
+"eil earbsa."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:97
+msgid "Server certificate has been revoked."
+msgstr "Chaidh teisteanas an fhrithealaiche a ghairm air ais."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:99
+msgid "Server certificate is invalid."
+msgstr "Tha teisteanas an fhrithealaiche mì-dhligheach."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:101
+msgid "Server certificate is insecure."
+msgstr "Chan eil teisteanas an fhrithealaiche tèarainte."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:103
+msgid "Server certificate failed our security checks for an unknown reason."
+msgstr ""
+"Cha do shoirbhich le teisteanas an fhrithealaiche an sgrùdadh tèarainteachd "
+"againn ach chan eil fhios againn carson."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
 msgstr "Tha thu ceangailte ri"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+#: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
 msgstr "A tha 'ga ruith le"
 
-#: src/app/webbrowser/TabPreview.qml:162
+#: src/app/webbrowser/TabPreview.qml:163
 msgid "Tap to view"
 msgstr "Thoir gnogag gus a shealltainn"
 
-#: src/app/webbrowser/TabsView.qml:114
+#: src/app/webbrowser/TabsView.qml:113
 msgid "Add"
 msgstr "Cuir ris"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:55
+#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Brabhsair-lìn Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:57
+#: src/app/webbrowser/webbrowser-app.qml:40
+#: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
 msgstr "Brabhsair-lìn Ubuntu"
 
