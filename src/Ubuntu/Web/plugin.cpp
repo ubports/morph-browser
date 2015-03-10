@@ -37,6 +37,7 @@ class UbuntuWebPluginContext : public QObject
     Q_PROPERTY(QString cacheLocation READ cacheLocation NOTIFY cacheLocationChanged)
     Q_PROPERTY(QString dataLocation READ dataLocation NOTIFY dataLocationChanged)
     Q_PROPERTY(QString formFactor READ formFactor CONSTANT)
+    Q_PROPERTY(int cacheSizeHint READ cacheSizeHint NOTIFY cacheSizeHintChanged)
     Q_PROPERTY(QString webviewDevtoolsDebugHost READ devtoolsHost CONSTANT)
     Q_PROPERTY(int webviewDevtoolsDebugPort READ devtoolsPort CONSTANT)
     Q_PROPERTY(QStringList webviewHostMappingRules READ hostMappingRules CONSTANT)
@@ -47,6 +48,7 @@ public:
     QString cacheLocation() const;
     QString dataLocation() const;
     QString formFactor();
+    int cacheSizeHint() const;
     QString devtoolsHost();
     int devtoolsPort();
     QStringList hostMappingRules();
@@ -54,6 +56,7 @@ public:
 Q_SIGNALS:
     void cacheLocationChanged() const;
     void dataLocationChanged() const;
+    void cacheSizeHintChanged() const;
 
 private:
     QString m_formFactor;
@@ -72,6 +75,8 @@ UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
             this, SIGNAL(cacheLocationChanged()));
     connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
             this, SIGNAL(dataLocationChanged()));
+    connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
+            this, SIGNAL(cacheSizeHintChanged()));
 }
 
 QString UbuntuWebPluginContext::cacheLocation() const
@@ -128,6 +133,17 @@ QString UbuntuWebPluginContext::formFactor()
         }
     }
     return m_formFactor;
+}
+
+int UbuntuWebPluginContext::cacheSizeHint() const
+{
+    if (QCoreApplication::applicationName() == "webbrowser-app") {
+        // Let chromium decide the optimum cache size based on available disk space
+        return 0;
+    } else {
+        // Default to 10MB for all other embedders, including webapps run in webapp-container
+        return 10 * 1024 * 1024;
+    }
 }
 
 QStringList UbuntuWebPluginContext::hostMappingRules()
