@@ -142,7 +142,7 @@ int UbuntuWebPluginContext::cacheSizeHint() const
         return 0;
     } else {
         // Default to 10MB for all other embedders, including webapps run in webapp-container
-        return 10 * 1024 * 1024;
+        return 10;
     }
 }
 
