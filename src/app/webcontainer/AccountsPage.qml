@@ -25,8 +25,10 @@ Page {
 
     property alias accountProvider: accountsLogin.accountProvider
     property alias applicationName: accountsLogin.applicationName
+    property int selectedAccount: -1
 
-    signal done(bool successful, var credentialsId)
+    signal accountSelected(var credentialsId)
+    signal done(bool successful)
 
     visible: true
     anchors.fill: parent
@@ -36,10 +38,11 @@ Page {
 
         anchors.fill: parent
 
-        onDone: {
-            if (!accountsPage.visible)
-                return
-            accountsPage.done(credentialsId != null, credentialsId)
-        }
+        onAccountSelected: accountsPage.selectedAccount = credentialsId
+        onDone: accountsPage.done(successful)
+    }
+
+    function login(forceCookieRefresh) {
+        accountsLogin.login(forceCookieRefresh)
     }
 }

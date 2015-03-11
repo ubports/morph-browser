@@ -28,7 +28,10 @@ Item {
     property string accountProvider: ""
     property string applicationName: ""
 
-    signal done(variant credentialsId)
+    signal accountSelected(var credentialsId)
+    signal done(bool successful)
+
+    property var __account: null
 
     Timer {
         id: checkTimer
@@ -66,7 +69,11 @@ Item {
         if (accountsModel.count === 0) {
             accountsModel.createNewAccount()
         } else {
-            doLogin(accountsModel.model.get(0, "accountServiceHandle"))
+            var accountHandle = accountsModel.model.get(0, "accountServiceHandle")
+            __account = accountComponent.createObject(root, {
+                objectHandle: accountHandle
+            })
+            root.accountSelected(__account.authData.credentialsId)
         }
 
         // Note: Disable the account selection for now until we have a clearer view of
@@ -163,6 +170,7 @@ Item {
         }
     }
 
+    /*
     Component {
         id: accountsSelectionViewComponent
         AccountsView {
@@ -173,23 +181,29 @@ Item {
             onAccountSelected: doLogin(accountServiceHandle)
         }
     }
+    */
 
-    function doLogin(accountHandle) {
-        var account = accountComponent.createObject(root, {objectHandle: accountHandle});
-
+    function login(forceCookieRefresh) {
         function authenticatedCallback() {
-            account.authenticated.disconnect(authenticatedCallback);
-            done(account.authData.credentialsId);
+            console.log("Authenticated!")
+            __account.authenticated.disconnect(authenticatedCallback)
+            root.done(true)
         }
-        account.authenticated.connect(authenticatedCallback);
+        __account.authenticated.connect(authenticatedCallback)
 
         function errorCallback() {
-            account.authenticationError.disconnect(errorCallback);
-            done(null);
+            console.log("Authentication error!")
+            __account.authenticationError.disconnect(errorCallback)
+            root.done(false)
         }
-        account.authenticationError.connect(errorCallback);
+        __account.authenticationError.connect(errorCallback)
 
-        account.authenticate(null);
+        var params = {}
+        if (forceCookieRefresh) {
+            params["UiPolicy"] = 1 // RequestPasswordPolicy
+        }
+
+        __account.authenticate(params)
     }
 
     Component {

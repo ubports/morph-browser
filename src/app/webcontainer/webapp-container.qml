@@ -164,9 +164,10 @@ BrowserWindow {
             if (status == Loader.Error) {
                 // Happens on the desktop, if Ubuntu.OnlineAccounts.Client
                 // can't be imported
-                loadWebAppView()
+                loadWebAppView(true)
             } else if (status == Loader.Ready) {
                 item.visible = true
+                initializeForAccount(item.selectedAccount)
             }
         }
     }
@@ -177,19 +178,14 @@ BrowserWindow {
         }
         if (!result) {
             console.log("Cookies were not moved")
+        } else {
+            console.log("cookies moved")
         }
         webappViewLoader.item.url = root.url
     }
 
     function moveCookies(credentialsId) {
-        if (!__webappCookieStore) {
-            var context = webappViewLoader.item.currentWebview.context
-            __webappCookieStore = oxideCookieStoreComponent.createObject(this, {
-                "oxideStoreBackend": context.cookieManager,
-                "dbPath": context.dataPath + "/cookies.sqlite"
-            })
-        }
-
+        console.log("moving cookies for id " + credentialsId)
         var storeComponent = localCookieStoreDbPath.length !== 0 ?
                     localCookieStoreComponent : onlineAccountStoreComponent
 
@@ -198,27 +194,56 @@ BrowserWindow {
         __webappCookieStore.moveFrom(instance)
     }
 
+    function doLogin() {
+        if (!__webappCookieStore) {
+            var context = webappViewLoader.item.currentWebview.context
+            __webappCookieStore = oxideCookieStoreComponent.createObject(this, {
+                "oxideStoreBackend": context.cookieManager,
+                "dbPath": context.dataPath + "/cookies.sqlite"
+            })
+        }
+
+        var forceCookieRefresh = false
+        /* TODO: when needed, set the "forceCookieRefresh" flag so that Online
+         * Accounts will use an interactive login (and hopefully get new
+         * cookies). */
+        console.log("Preparing for login, forced = " + forceCookieRefresh)
+        accountsPageComponentLoader.item.login(forceCookieRefresh)
+    }
+
+    function initializeForAccount(credentialsId) {
+        console.log("Account selected, creds: " + credentialsId)
+        if (credentialsId < 0) return
+
+        if (credentialsId > 0) {
+            webappViewLoader.loaded.connect(function () {
+                if (webappViewLoader.status == Loader.Ready) {
+                    doLogin()
+                }
+            });
+            webappViewLoader.credentialsId = credentialsId
+            // If we need to preserve session cookies, make sure that the
+            // mode is "restored" and not "persistent", or the cookies
+            // transferred from OA would be lost.
+            // We check if the webContextSessionCookieMode is defined and, if so,
+            // we override it in the webapp loader.
+            if (typeof webContextSessionCookieMode === "string") {
+                webappViewLoader.webContextSessionCookieMode = "restored"
+            }
+        }
+
+        loadWebAppView(credentialsId == 0)
+    }
+
     Connections {
         target: accountsPageComponentLoader.item
+        onSelectedAccountChanged: initializeForAccount(accountsPageComponentLoader.item.selectedAccount)
         onDone: {
+            console.log("Authentication done, successful = " + successful)
             if (successful) {
-                webappViewLoader.loaded.connect(function () {
-                    if (webappViewLoader.status == Loader.Ready) {
-                        moveCookies(webappViewLoader.credentialsId)
-                    }
-                });
-                webappViewLoader.credentialsId = credentialsId
-                // If we need to preserve session cookies, make sure that the
-                // mode is "restored" and not "persistent", or the cookies
-                // transferred from OA would be lost.
-                // We check if the webContextSessionCookieMode is defined and, if so,
-                // we override it in the webapp loader.
-                if (typeof webContextSessionCookieMode === "string") {
-                    webappViewLoader.webContextSessionCookieMode = "restored"
-                }
+                moveCookies(webappViewLoader.credentialsId)
             }
-
-            loadWebAppView()
+            // FIXME else?
         }
     }
 
@@ -243,7 +268,7 @@ BrowserWindow {
         if (accountProvider.length !== 0 && oxide) {
             loadLoginView();
         } else {
-            loadWebAppView();
+            loadWebAppView(true);
         }
     }
 
@@ -259,22 +284,24 @@ BrowserWindow {
         })
     }
 
-    function loadWebAppView() {
+    function loadWebAppView(startBrowsing) {
         if (accountsPageComponentLoader.item)
             accountsPageComponentLoader.item.visible = false
 
-        webappViewLoader.loaded.connect(function () {
-            if (webappViewLoader.status === Loader.Ready) {
-                // As we use StateSaver to restore the URL, we need to check first if
-                // it has not been set previously before setting the URL to the default property 
-                // homepage.
-                var webView = webappViewLoader.item.currentWebview
-                var current_url = webView.url.toString();
-                if (!current_url || current_url.length === 0) {
-                    webView.url = root.url
+        if (startBrowsing) {
+            webappViewLoader.loaded.connect(function () {
+                if (webappViewLoader.status === Loader.Ready) {
+                    // As we use StateSaver to restore the URL, we need to check first if
+                    // it has not been set previously before setting the URL to the default property 
+                    // homepage.
+                    var webView = webappViewLoader.item.currentWebview
+                    var current_url = webView.url.toString();
+                    if (!current_url || current_url.length === 0) {
+                        webView.url = root.url
+                    }
                 }
-            }
-        });
+            });
+        }
         webappViewLoader.sourceComponent = webappViewComponent
     }
 
