@@ -17,6 +17,7 @@
  */
 
 #include "bookmarks-model.h"
+#include "cache-deleter.h"
 #include "config.h"
 #include "file-operations.h"
 #include "history-model.h"
@@ -58,6 +59,13 @@ static QObject* FileOperations_singleton_factory(QQmlEngine* engine, QJSEngine* 
     return new FileOperations();
 }
 
+static QObject* CacheDeleter_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new CacheDeleter();
+}
+
 bool WebbrowserApp::initialize()
 {
     // Re-direct webapps to the dedicated container for backward compatibility
@@ -92,6 +100,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
+    qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         Settings settings;

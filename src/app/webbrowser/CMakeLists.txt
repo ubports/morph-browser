@@ -26,6 +26,7 @@ add_library(${WEBBROWSER_APP_MODELS} STATIC ${WEBBROWSER_APP_MODELS_SRC})
 qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Sql)
 
 set(WEBBROWSER_APP_SRC
+    cache-deleter.cpp
     file-operations.cpp
     searchengine.cpp
     settings.cpp
@@ -38,7 +39,7 @@ add_executable(${WEBBROWSER_APP} ${WEBBROWSER_APP_SRC})
 
 target_link_libraries(${WEBBROWSER_APP} ${COMMONLIB} ${WEBBROWSER_APP_MODELS})
 
-qt5_use_modules(${WEBBROWSER_APP} Core Qml Quick)
+qt5_use_modules(${WEBBROWSER_APP} Concurrent Core Qml Quick)
 
 install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
