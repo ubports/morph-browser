@@ -22,6 +22,7 @@
 #include <QtCore/QFutureWatcher>
 #include <QtCore/QMutex>
 #include <QtCore/QObject>
+#include <QtQml/QJSValue>
 
 class QString;
 
@@ -32,13 +33,18 @@ class CacheDeleter : public QObject
 public:
     explicit CacheDeleter(QObject* parent=0);
 
-    Q_INVOKABLE void clear(const QString& cachePath);
+    Q_INVOKABLE void clear(const QString& cachePath, const QJSValue& callback=QJSValue::UndefinedValue);
 
 private:
     void doClear(const QString& cachePath);
 
+private Q_SLOTS:
+    void onCleared();
+
+private:
     QMutex m_mutex;
     QFutureWatcher<void> m_clearWatcher;
+    QJSValue m_callback;
 };
 
 #endif // __CACHE_DELETER_H__

@@ -19,6 +19,7 @@
 #include "cache-deleter.h"
 
 #include <QtConcurrent/QtConcurrentRun>
+#include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QMutexLocker>
@@ -28,14 +29,23 @@
 CacheDeleter::CacheDeleter(QObject* parent)
     : QObject(parent)
 {
+    connect(&m_clearWatcher, SIGNAL(finished()), SLOT(onCleared()));
 }
 
-void CacheDeleter::clear(const QString& cachePath)
+void CacheDeleter::clear(const QString& cachePath, const QJSValue& callback)
 {
     QMutexLocker locker(&m_mutex);
+
     if (m_clearWatcher.isRunning()) {
         return;
     }
+
+    if (!callback.isUndefined() && !callback.isCallable()) {
+        qWarning() << "CacheDeleter::clear: 'callback' is not a function";
+        return;
+    }
+    m_callback = callback;
+
     m_clearWatcher.setFuture(QtConcurrent::run(this, &CacheDeleter::doClear, cachePath));
 }
 
@@ -59,5 +69,13 @@ void CacheDeleter::doClear(const QString& cachePath)
     QFileInfoList files = QDir(cachePath).entryInfoList(nameFilters, filters);
     Q_FOREACH(const QFileInfo& file, files) {
         QFile::remove(file.absoluteFilePath());
+    }
+}
+
+void CacheDeleter::onCleared()
+{
+    if (!m_callback.isUndefined()) {
+        m_callback.call();
+        m_callback = QJSValue::UndefinedValue;
     }
 }
