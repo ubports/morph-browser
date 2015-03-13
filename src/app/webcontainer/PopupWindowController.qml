@@ -31,7 +31,7 @@ Item {
 
     signal openExternalUrlTriggered(string url)
 
-    readonly property int maxSimultaneousViews: 4
+    readonly property int maxSimultaneousViews: 3
 
     function openUrlExternally(url) {
         if (!blockOpenExternalUrls) {

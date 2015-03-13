@@ -52,29 +52,18 @@ Item {
                 horizontalCenter: parent.horizontalCenter
             }
 
-            Label {
-                anchors {
-                    left: parent.left
-                    rightMargin: units.gu(1)
-                    verticalCenter: parent.verticalCenter
-                }
-
-                text: popupWebview.title ? popupWebview.title : popupWebview.url
-                elide: Text.ElideRight
-            }
-
             ChromeButton {
                 id: closeButton
                 objectName: "overlayCloseButton"
                 anchors {
-                    right: parent.right
+                    left: parent.left
                     verticalCenter: parent.verticalCenter
                 }
 
                 height: parent.height
                 width: height
 
-                iconName: "close"
+                iconName: "dropdown-menu"
                 iconSize: 0.6 * height
 
                 enabled: true
@@ -86,11 +75,24 @@ Item {
                     }
                 }
             }
+
+            Label {
+                anchors {
+                    left: closeButton.right
+                    right: buttonOpenInBrowser.left
+                    rightMargin: units.gu(2)
+                    verticalCenter: parent.verticalCenter
+                }
+
+                text: popupWebview.title ? popupWebview.title : popupWebview.url
+                elide: Text.ElideRight
+            }
+
             ChromeButton {
                 id: buttonOpenInBrowser
                 objectName: "overlayButtonOpenInBrowser"
                 anchors {
-                    right: closeButton.left
+                    right: parent.right
                     verticalCenter: parent.verticalCenter
                     rightMargin: units.gu(1)
                 }
@@ -98,7 +100,7 @@ Item {
                 height: parent.height
                 width: height
 
-                iconName: "system-log-out"
+                iconName: "external-link"
                 iconSize: 0.6 * height
 
                 enabled: true
