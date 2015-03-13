@@ -47,14 +47,12 @@ Column {
                 right: parent.right
                 bottom: parent.bottom
             }
-            height: units.gu(10)
+            height: units.gu(8)
 
             gradient: Gradient {
-                GradientStop { position: 0.0; color: "transparent" }
-                GradientStop { position: 1.0; color: "#4c4c4c" }
+                GradientStop { position: 0.0; color: Qt.rgba(0, 0, 0, 0) }
+                GradientStop { position: 1.0; color: Qt.rgba(0, 0, 0, 0.4) }
             }
-
-            opacity: 0.6
         }
 
         TabChrome {
