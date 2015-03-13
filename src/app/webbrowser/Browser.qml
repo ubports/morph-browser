@@ -139,7 +139,7 @@ BrowserView {
         Chrome {
             id: chrome
 
-            z: invisibleTabChrome.z - 1
+            z: recentView.visible ? invisibleTabChrome.z - 1 : 0
 
             webview: browser.currentWebview
             searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
