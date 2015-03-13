@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-02-27 10:29+0100\n"
-"PO-Revision-Date: 2015-01-26 12:43+0000\n"
+"PO-Revision-Date: 2015-03-02 07:15+0000\n"
 "Last-Translator: Damir Jerovšek <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2015-02-28 06:14+0000\n"
+"X-Launchpad-Export-Date: 2015-03-03 05:50+0000\n"
 "X-Generator: Launchpad (build 17361)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -410,7 +410,7 @@ msgstr "Odpri sliko v novem zavihku"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Odpri povezavo v novem zavihku v ozadju"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -489,7 +489,7 @@ msgstr "Končano"
 
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
-msgstr ""
+msgstr "Izberi vse"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
