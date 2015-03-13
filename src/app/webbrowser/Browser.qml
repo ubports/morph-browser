@@ -414,7 +414,7 @@ BrowserView {
 
     Image {
         objectName: "bottomEdgeHint"
-        source: (formFactor == "mobile") ? "assets/overview_hint.png" : ""
+        source: (formFactor == "mobile") ? "assets/bottom_edge_hint.png" : ""
         anchors.horizontalCenter: parent.horizontalCenter
         visible: bottomEdgeHandle.enabled
         opacity: 1 - recentView.opacity
