@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2014-09-06 16:33+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2015-02-27 10:29+0100\n"
+"PO-Revision-Date: 2015-03-01 04:44+0000\n"
+"Last-Translator: Gursharnjit_Singh <ubuntuser13@gmail.com>\n"
 "Language-Team: Punjabi <pa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-02-04 07:10+0000\n"
-"X-Generator: Launchpad (build 17331)\n"
+"X-Launchpad-Export-Date: 2015-03-02 05:36+0000\n"
+"X-Generator: Launchpad (build 17361)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -46,7 +46,7 @@ msgid "Password"
 msgstr "ਪਾਸਵਰਡ"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
 msgstr "ਰੱਦ ਕਰੋ"
 
@@ -73,6 +73,8 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
+"ਤੁਸੀਂ ਸੁਰੱਖਿਅਤ ਤੌਰ ਤੇ %1 ਤੇ ਪਹੁੰਚਣ ਦੀ ਕੋਸ਼ਿਸ ਕਰ ਰਹੇ ਹੋ, ਪਰ ਇਸ ਵੈੱਬਸਾਈਟ ਦਾ "
+"ਸੁਰੱਖਿਆ ਸਰਟੀਫ਼ਿਕੇਟ ਭਰੋਸੇਯੋਗ ਨਹੀਂ।"
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -96,12 +98,14 @@ msgstr "ਨੈੱਟਵਰਕ ਗਲਤੀ"
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr ""
+msgstr "ਇੰਝ ਪ੍ਰਤੀਤ ਹੁੰਦਾ ਕੀ ਤੁਹਾਨੂੰ ਵੇਖਣ ਵਿੱਚ ਪਰੇਸ਼ਾਨੀ ਆ ਰਹੀ ਹੈ: %1।"
 
 #: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
+"ਉਬੰਤੂ ਤੁਹਾਨੂੰ ਆਪਣੀਆਂ ਨੈੱਟਵਰਕ ਸੈਟਿੰਗਾਂ ਦੀ ਪੜਤਾਲ ਅਤੇ ਸਫ਼ਾ ਮੁੜ-ਤਾਜ਼ਾ ਕਰਨ ਦਾ "
+"ਸੁਝਾਅ ਦਿੰਦਾ।"
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -119,7 +123,7 @@ msgstr "ਮਨਜ਼ੂਰੀ ਲਈ ਬੇਨਤੀ"
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:70
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "ਇਹ ਸਫ਼ਾ ਤੁਹਾਡੇ ਜੰਤਰ ਦੀ ਸਥਿਤੀ ਜਾਨਣਾ ਚਾਹੁੰਦਾ।"
 
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
@@ -133,7 +137,7 @@ msgstr "ਮਨਜ਼ੂਰ"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "ਇਸ ਸਾਈਟ ਦਾ ਸੁਰੱਖਿਆ ਸਰਟੀਫ਼ਿਕੇਟ ਭਰੋਸੇਯੋਗ ਨਹੀਂ।\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
@@ -166,6 +170,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"ਵਿਸ਼ੇ ਦਾ ਪਤਾ:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:113
@@ -174,6 +180,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"ਜਾਰੀਕਰਤਾ:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:121
@@ -182,6 +190,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"ਜਾਰੀਕਰਤੇ ਦਾ ਪਤਾ:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:132
@@ -190,6 +200,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"ਤੋਂ ਜਾਇਜ:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:139
@@ -198,6 +210,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"ਤੱਕ ਜਾਇਜ\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:146
@@ -206,12 +220,16 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"ਫ਼ਿੰਗਰਪ੍ਰਿੰਟ (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"ਤੁਹਾਨੂੰ ਅੱਗੇ ਨਹੀਂ ਵਧਣਾ ਚਾਹੀਦਾ, ਖਾਸ ਕਰਕੇ ਜੇਕਰ ਤੁਸੀਂ ਇਸ ਸਾਈਟ ਤੋਂ ਪਹਿਲਾਂ ਕਦੇ ਵੀ "
+"ਇਹ ਚੇਤਾਵਨੀ ਨਹੀਂ ਵੇਖੀ।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:187
@@ -220,6 +238,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"ਤੁਸੀਂ %1 ਤੇ ਪਹੁੰਚਣ ਦੀ ਕੋਸ਼ਿਸ ਕੀਤੀ ਪਰ ਸਰਵਰ ਨੇ ਇੱਕ ਸੁਰੱਖਿਆ ਸਰਟੀਫ਼ਿਕੇਟ ਪੇਸ਼ ਕੀਤਾ "
+"ਜੋ ਸਾਈਟ ਦੀ ਪਛਾਣ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -228,6 +248,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"ਤੁਸੀਂ %1 ਤੇ ਪਹੁੰਚਣ ਦੀ ਕੋਸ਼ਿਸ ਕੀਤੀ ਪਰ ਸਰਵਰ ਨੇ ਇੱਕ ਸੁਰੱਖਿਆ ਸਰਟੀਫ਼ਿਕੇਟ ਪੇਸ਼ ਕੀਤਾ "
+"ਜਿਸਦੀ ਮਿਆਦ ਖਤਮ ਹੋ ਚੁੱਕੀ ਹੈ।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -236,6 +258,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"ਤੁਸੀਂ %1 ਤੇ ਪਹੁੰਚਣ ਦੀ ਕੋਸ਼ਿਸ ਕੀਤੀ ਪਰ ਸਰਵਰ ਨੇ ਇੱਕ ਸੁਰੱਖਿਆ ਸਰਟੀਫ਼ਿਕੇਟ ਪੇਸ਼ ਕੀਤਾ "
+"ਜਿਸ ਵਿੱਚ ਗਲਤ ਮਿਤੀਆਂ ਸ਼ਾਮਲ ਹਨ।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -244,6 +268,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"ਤੁਸੀਂ %1 ਤੇ ਪਹੁੰਚਣ ਦੀ ਕੋਸ਼ਿਸ ਕੀਤੀ ਪਰ ਸਰਵਰ ਨੇ ਇੱਕ ਹਸਤੀ ਵੱਲੋਂ ਇੱਕ ਸੁਰੱਖਿਆ "
+"ਸਰਟੀਫ਼ਿਕੇਟ ਪੇਸ਼ ਕੀਤਾ ਜੋ ਭਰੋਸੇਯੋਗ ਨਹੀਂ।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -252,6 +278,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"ਤੁਸੀਂ %1 ਤੇ ਪਹੁੰਚਣ ਦੀ ਕੋਸ਼ਿਸ ਕੀਤੀ ਪਰ ਸਰਵਰ ਨੇ ਇੱਕ ਸੁਰੱਖਿਆ ਸਰਟੀਫ਼ਿਕੇਟ ਪੇਸ਼ ਕੀਤਾ "
+"ਜੋ ਰੱਦ ਹੋ ਚੁੱਕਿਆ।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -260,6 +288,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"ਤੁਸੀਂ %1 ਤੇ ਪਹੁੰਚਣ ਦੀ ਕੋਸ਼ਿਸ ਕੀਤੀ ਪਰ ਸਰਵਰ ਨੇ ਇੱਕ ਗਲਤ ਸੁਰੱਖਿਆ ਸਰਟੀਫ਼ਿਕੇਟ ਪੇਸ਼ "
+"ਕੀਤਾ।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -268,6 +298,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"ਤੁਸੀਂ %1 ਤੇ ਪਹੁੰਚਣ ਦੀ ਕੋਸ਼ਿਸ ਕੀਤੀ ਪਰ ਸਰਵਰ ਨੇ ਇੱਕ ਅਸੁਰੱਖਿਅਤ ਸੁਰੱਖਿਆ ਸਰਟੀਫ਼ਿਕੇਟ "
+"ਪੇਸ਼ ਕੀਤਾ।"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -277,6 +309,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"ਇਹ ਸਾਈਟ ਸੁਰੱਖਿਆ ਸਰਟੀਫ਼ਿਕੇਟ ਭਰੋਸੇਯੋਗ ਨਹੀਂ\n"
+"ਤੁਸੀਂ %1 ਤੇ ਪਹੁੰਚਣ ਦੀ ਕੋਸ਼ਿਸ ਕੀਤੀ ਪਰ ਸਰਵਰ ਨੇ ਇੱਕ ਸੁਰੱਖਿਆ ਸਰਟੀਫ਼ਿਕੇਟ ਪੇਸ਼ ਕੀਤਾ "
+"ਜੋ ਅਣਜਾਣ ਕਾਰਨ ਕਰਕੇ ਸਾਡੀਆਂ ਸੁਰੱਖਿਆ ਪੜਤਾਲਾਂ ਵਿੱਚ ਫ਼ੇਲ੍ਹ ਹੋਇਆ।"
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -284,7 +319,7 @@ msgstr "JavaScript ਪਰਾਉਟ"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr ""
+msgstr "ਪਰਾਕਸੀ ਪ੍ਰਮਾਣਿਕਤਾ ਦੀ ਲੋੜ।"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
@@ -374,7 +409,7 @@ msgstr "ਚਿੱਤਰ ਨਵੀਂ ਟੈਬ ਵਿੱਚ ਖੋਲ੍ਹੋ"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "ਨਵੀਂ ਬੈਕਗਰਾਂਉਡ ਟੈਬ ਵਿੱਚ ਲਿੰਕ ਖੋਲ੍ਹੋ"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -404,9 +439,10 @@ msgstr "ਖੋਜੋ ਜਾਂ ਸਿਰਨਾਵਾਂ ਦਿਓ"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
-msgstr ""
+msgstr "ਹਟਾਓ"
 
 #: src/app/webbrowser/Browser.qml:161
 msgid "Share"
@@ -420,7 +456,7 @@ msgstr "ਅਤੀਤ"
 msgid "Open tabs"
 msgstr "ਟੈਬਾਂ ਖੋਲ੍ਹੋ"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "ਨਵੀਂ ਟੈਬ"
@@ -436,17 +472,21 @@ msgstr[1] "%1 ਸਫ਼ੇ"
 msgid "Less"
 msgstr "ਘੱਟ"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
 msgstr "ਆਖਰੀ ਵਾਰ ਖੋਲ੍ਹੇ"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "ਕੱਲ੍ਹ"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
+#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
 msgstr "ਮੁਕੰਮਲ"
+
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
+msgstr "ਸਾਰੇ ਚੁਣੋ"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -466,55 +506,56 @@ msgstr "ਵੱਧ ਵੇਖੋ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr ""
+msgstr "ਇਸ ਸਾਈਟ ਕੋਲ ਅਸੁਰੱਖਿਅਤ ਸਮੱਗਰੀ ਹੈ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "ਪਛਾਣ ਦੀ ਤਸਦੀਕ ਨਹੀਂ ਹੋਈ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "ਇਸ ਵੈੱਬਸਾਈਟ ਦੀ ਪਛਾਣ ਦੀ ਤਸਦੀਕ ਨਹੀਂ ਹੋਈ।"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "ਸਰਵਰ ਸਰਟੀਫ਼ਿਕੇਟ ਸਾਈਟ ਦੀ ਪਛਾਣ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "ਸਰਵਰ ਸਰਟੀਫ਼ਿਕੇਟ ਦੀ ਮਿਆਦ ਖਤਮ ਹੋਈ।"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "ਸਰਵਰ ਸਰਟੀਫ਼ਿਕੇਟ ਵਿੱਚ ਗਲਤ ਮਿਤੀਆਂ ਸ਼ਾਮਲ ਹਨ।"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "ਸਰਵਰ ਸਰਟੀਫ਼ਿਕੇਟ ਇੱਕ ਹਸਤੀ ਵੱਲੋਂ ਜਾਰੀ ਕੀਤਾ ਗਿਆ ਜੋ ਭਰੋਸੇਯੋਗ ਨਹੀਂ।"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "ਸਰਵਰ ਸਰਟੀਫ਼ਿਕੇਟ ਰੱਦ ਹੋ ਚੁੱਕਿਆ।"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "ਸਰਵਰ ਸਰਟੀਫ਼ਿਕੇਟ ਗਲਤ ਹੈ।"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "ਸਰਵਰ ਸਰਟੀਫ਼ਿਕੇਟ ਅਸੁਰੱਖਿਅਤ ਹੈ।"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"ਸਰਵਰ ਸਰਟੀਫ਼ਿਕੇਟ ਨੇ ਇੱਕ ਅਣਜਾਣ ਕਾਰਨ ਕਰਕੇ ਸਾਡੀਆਂ ਸਰੁੱਖਿਆ ਪੜਤਾਲਾਂ ਵਿੱਚ ਫ਼ੇਲ੍ਹ ਹੋਇਆ।"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr ""
+msgstr "ਤੁਸੀਂ ਕੁਨੇਕਟ ਹੋਏ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr ""
+msgstr "ਜਿਹੜਾ ਚਲਾਇਆ ਜਾਂਦਾ ਵੱਲੋਂ"
 
 #: src/app/webbrowser/TabPreview.qml:163
 msgid "Tap to view"
@@ -534,39 +575,39 @@ msgstr "%1 - ਉਬੰਤੂ ਵੈੱਬ ਬਰਾਊਜ਼ਰ"
 #: src/app/webbrowser/webbrowser-app.qml:40
 #: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
-msgstr ""
+msgstr "ਉਬੰਤੂ ਵੈੱਬ ਬਰਾਉਜ਼ਰ"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
-msgstr ""
+msgstr "ਲਈ ਕੋਈ ਲੋਕਲ ਖਾਤਾ ਨਹੀਂ ਮਿਲਿਆ "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
-msgstr ""
+msgstr "ਖਾਤਾ ਬਣਾਉਣ ਵਾਲਾ ਕਦਮ ਛੱਡੋ"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
-msgstr ""
+msgstr "ਖਾਤਾ ਜੋੜੋ"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "ਇੱਕ ਖਾਤਾ ਜੋੜੋ"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
-msgstr ""
+msgstr "ਬਰਾਊਜ਼ਰ"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr ""
+msgstr "ਵੈੱਬ ਬਰਾਊਜ਼ਰ"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
-msgstr ""
+msgstr "ਵਰਲਡ ਵਾਈਡ ਵੈੱਬ ਨੂੰ ਬਰਾਉਜ਼ ਕਰੋ"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr ""
+msgstr "ਇੰਟਰਨੈੱਟ;WWW;ਬਰਾਊਜ਼ਰ;ਵੈੱਬ;ਅੈਕਸਪਲੋਰਰ"
 
 #~ msgid "Clear"
 #~ msgstr "ਸਾਫ਼ ਕਰੋ"

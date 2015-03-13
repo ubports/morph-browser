@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -25,7 +25,6 @@
 #include "history-byvisits-model.h"
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
-#include "item-capture.h"
 #include "limit-proxy-model.h"
 #include "searchengine.h"
 #include "settings.h"
@@ -42,6 +41,7 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
+#include <QtCore/QtGlobal>
 #include <QtCore/QVariant>
 #include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
@@ -91,7 +91,6 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
-    qmlRegisterType<ItemCapture>(uri, 0, 1, "ItemCapture");
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
@@ -101,7 +100,8 @@ bool WebbrowserApp::initialize()
         m_window->setProperty("homepage", settings.homepage());
         m_window->setProperty("searchEngine", QVariant::fromValue(searchEngine));
         m_window->setProperty("allowOpenInBackgroundTab", settings.allowOpenInBackgroundTab());
-        m_window->setProperty("restoreSession", !m_arguments.contains("--new-session"));
+        m_window->setProperty("restoreSession", settings.restoreSession() &&
+                                                !m_arguments.contains("--new-session"));
         QVariantList urls;
         Q_FOREACH(const QUrl& url, this->urls()) {
             urls.append(url);
@@ -131,6 +131,7 @@ void WebbrowserApp::printUsage() const
 
 int main(int argc, char** argv)
 {
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
     WebbrowserApp app(argc, argv);
     if (app.initialize()) {
         return app.run();

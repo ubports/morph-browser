@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -22,6 +22,7 @@ import com.canonical.Oxide 1.3 as Oxide
 Oxide.WebContext {
     readonly property string defaultUserAgent: __ua.defaultUA
 
+    cachePath: cacheLocation
     dataPath: dataLocation
     userAgent: defaultUserAgent
 

@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2015-02-07 20:51+0000\n"
-"Last-Translator: António Miranda <Unknown>\n"
+"POT-Creation-Date: 2015-02-27 10:29+0100\n"
+"PO-Revision-Date: 2015-03-01 15:12+0000\n"
+"Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-02-08 06:08+0000\n"
-"X-Generator: Launchpad (build 17331)\n"
+"X-Launchpad-Export-Date: 2015-03-02 05:36+0000\n"
+"X-Generator: Launchpad (build 17361)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -35,24 +35,24 @@ msgstr "Autenticação necessária."
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "O website %1 necessita autenticação."
+msgstr "A página %1 necessita de autenticação."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr "Nome do utilizador"
+msgstr "Nome de utilizador"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr "Palavra-Passe"
+msgstr "Palavra-passe"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr "Confirmar Navegação"
+msgstr "Confirmar navegação"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
@@ -73,13 +73,13 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Está a tentar alcançar seguramente %1, mas o certificado de segurança deste "
-"website não é confiável."
+"Está a tentar alcançar seguramente %1, mas o certificado de segurança desta "
+"página não é confiável."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
-msgstr "Prossegir de qualquer maneira"
+msgstr "Prosseguir de qualquer maneira"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:173
@@ -92,7 +92,7 @@ msgstr "Confirmação do JavaScript"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr "Erro de Rede"
+msgstr "Erro de rede"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
@@ -105,11 +105,11 @@ msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
 "O Ubuntu sugere-lhe que verifique as suas definições de rede e tente "
-"refrescar a página."
+"recarregar a página."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "Refrescar página"
+msgstr "Recarregar página"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
@@ -118,7 +118,7 @@ msgstr "Por favor, escolha um ficheiro"
 #: src/app/GeolocationPermissionRequest.qml:28
 #: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "Pedido de Permissão"
+msgstr "Pedido de permissão"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 #: src/app/webcontainer/WebViewImplWebkit.qml:70
@@ -325,7 +325,7 @@ msgstr "É necessária uma autenticação de proxy."
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "O website %1:%2 requer autenticação."
+msgstr "A página %1:%2 requer autenticação."
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
@@ -335,7 +335,7 @@ msgstr "Retroceder"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Página Mais Antiga"
+msgstr "Página mais antiga"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
@@ -345,7 +345,7 @@ msgstr "Marcador"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Adicionar Esta Página aos Marcadores"
+msgstr "Adicionar esta página aos Marcadores"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
@@ -353,7 +353,7 @@ msgstr "Link do marcador"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "Limpar Histórico"
+msgstr "Limpar histórico"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -381,7 +381,7 @@ msgstr "Avançar"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Página Mais Recente"
+msgstr "Página mais recente"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
@@ -395,13 +395,13 @@ msgstr "Endereço;URL;www"
 
 #: src/app/actions/NewTab.qml:23
 msgid "New Tab"
-msgstr "Novo Separador"
+msgstr "Novo separador"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Abrir um Novo Separador"
+msgstr "Abrir um novo separador"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
@@ -423,7 +423,7 @@ msgstr "Recarregar"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "Deixar Página"
+msgstr "Deixar página"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
@@ -433,29 +433,30 @@ msgstr "Guardar imagem"
 msgid "Share…"
 msgstr "Partilhar..."
 
-#: src/app/webbrowser/AddressBar.qml:208
+#: src/app/webbrowser/AddressBar.qml:195
 msgid "search or enter an address"
 msgstr "procurar ou introduzir um endereço"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
 msgstr "Eliminar"
 
-#: src/app/webbrowser/Browser.qml:160
+#: src/app/webbrowser/Browser.qml:161
 msgid "Share"
 msgstr "Partilhar"
 
-#: src/app/webbrowser/Browser.qml:174
+#: src/app/webbrowser/Browser.qml:175
 msgid "History"
 msgstr "Histórico"
 
-#: src/app/webbrowser/Browser.qml:181
+#: src/app/webbrowser/Browser.qml:182
 msgid "Open tabs"
 msgstr "Separadores abertos"
 
-#: src/app/webbrowser/Browser.qml:187 src/app/webbrowser/HistoryView.qml:293
+#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Novo separador"
@@ -471,17 +472,21 @@ msgstr[1] "%1 páginas"
 msgid "Less"
 msgstr "Menos"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
 msgstr "Última visitada"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "Ontem"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
+#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
 msgid "Done"
 msgstr "Concluído"
+
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
+msgstr "Selecionar tudo"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -499,7 +504,7 @@ msgstr "ver menos"
 msgid "see more"
 msgstr "ver mais"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+#: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
 msgstr "Este site tem conteúdo inseguro"
 
@@ -509,7 +514,7 @@ msgstr "Identidade não verificada"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr "A identidade deste sítio não foi verificada."
+msgstr "A identidade desta página não foi verificada."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
@@ -546,11 +551,11 @@ msgstr ""
 "Certificado do servido falhou a verificação de segurança por um motivo "
 "desconhecido."
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+#: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
 msgstr "Está ligado a"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+#: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
 msgstr "Que é dirigido por"
 
@@ -563,14 +568,14 @@ msgid "Add"
 msgstr "Adicionar"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:59
+#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu Web Browser"
 
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:61
+#: src/app/webbrowser/webbrowser-app.qml:40
+#: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Web Browser"
 
@@ -588,7 +593,7 @@ msgstr "Adicionar conta"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr "Seleccionar uma conta"
+msgstr "Selecionar uma conta"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -34,6 +34,7 @@ class UbuntuWebPluginContext : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString cacheLocation READ cacheLocation NOTIFY cacheLocationChanged)
     Q_PROPERTY(QString dataLocation READ dataLocation NOTIFY dataLocationChanged)
     Q_PROPERTY(QString formFactor READ formFactor CONSTANT)
     Q_PROPERTY(QString webviewDevtoolsDebugHost READ devtoolsHost CONSTANT)
@@ -43,6 +44,7 @@ class UbuntuWebPluginContext : public QObject
 public:
     UbuntuWebPluginContext(QObject* parent = 0);
 
+    QString cacheLocation() const;
     QString dataLocation() const;
     QString formFactor();
     QString devtoolsHost();
@@ -50,6 +52,7 @@ public:
     QStringList hostMappingRules();
 
 Q_SIGNALS:
+    void cacheLocationChanged() const;
     void dataLocationChanged() const;
 
 private:
@@ -66,7 +69,18 @@ UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
     , m_hostMappingRulesQueried(false)
 {
     connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
+            this, SIGNAL(cacheLocationChanged()));
+    connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
             this, SIGNAL(dataLocationChanged()));
+}
+
+QString UbuntuWebPluginContext::cacheLocation() const
+{
+    QDir location(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+    if (!location.exists()) {
+        QDir::root().mkpath(location.absolutePath());
+    }
+    return location.absolutePath();
 }
 
 QString UbuntuWebPluginContext::dataLocation() const
@@ -74,6 +88,10 @@ QString UbuntuWebPluginContext::dataLocation() const
     QDir location(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     if (!location.exists()) {
         QDir::root().mkpath(location.absolutePath());
+    } else {
+        // Prior to fixing https://launchpad.net/bugs/1424726, chromium’s cache
+        // data was written to the data location. Purge the old cache data.
+        QDir(location.absoluteFilePath("Cache")).removeRecursively();
     }
     return location.absolutePath();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -30,7 +30,9 @@ class FileOperations : public QObject
 public:
     explicit FileOperations(QObject* parent=0);
 
+    Q_INVOKABLE bool exists(const QUrl& path) const;
     Q_INVOKABLE bool remove(const QUrl& file) const;
+    Q_INVOKABLE bool mkpath(const QUrl& path) const;
 };
 
 #endif // __FILE_OPERATIONS_H__

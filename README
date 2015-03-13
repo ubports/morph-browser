@@ -1,5 +1,6 @@
 webbrowser-app is a lightweight web browser tailored for Ubuntu,
-based on the Webkit rendering engine and using the Ubuntu UI components.
+based on the Oxide web engine and using the Ubuntu UI components.
+It requires Qt 5.4 to build and run.
 
 
 = Building =
@@ -43,7 +44,7 @@ To run the unit tests, you can use the commands below:
 = Automated UI tests =
 
 webbrowser-app uses autopilot (https://launchpad.net/autopilot) to test its UI.
-To run the tests, you will need to install python3-autopilot and libautopilot-qt.
+To run the tests, you will need to install python3-autopilot and autopilot-qt5.
 Then do the following:
 
     $ cd tests/autopilot/

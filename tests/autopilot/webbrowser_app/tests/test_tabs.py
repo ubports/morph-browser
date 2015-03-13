@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2014 Canonical
+# Copyright 2013-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -155,3 +155,31 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assertThat(webview.activeFocus, Eventually(Equals(True)))
         address_bar = self.main_window.address_bar
         self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+
+    def test_webview_requests_close(self):
+        self.open_tabs_view()
+        self.open_new_tab()
+        url = self.base_url + "/closeself"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.assert_number_webviews_eventually(2)
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        webview.wait_until_destroyed()
+        self.assert_number_webviews_eventually(1)
+
+    def test_last_webview_requests_close(self):
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        preview = tabs_view.get_ordered_previews()[0]
+        close_button = preview.get_close_button()
+        self.pointing_device.click_object(close_button)
+        tabs_view.wait_until_destroyed()
+        url = self.base_url + "/closeself"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        webview.wait_until_destroyed()
+        self.assert_number_webviews_eventually(1)
+        self.main_window.get_new_tab_view()
