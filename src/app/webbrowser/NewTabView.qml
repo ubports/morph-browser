@@ -38,16 +38,45 @@ Item {
         property int bookmarksCountLimit: 5
         property int numberOfBookmarks: bookmarksListModel.count !== undefined ?
                                             bookmarksListModel.unlimitedCount : 0
+
         property int numberOfTopSites: historyListModel.count !== undefined ?
                                                     historyListModel.count : 0
+
+        onNumberOfBookmarksChanged: {
+            if (numberOfBookmarks == 0 &&
+                sectionsModel.get(0).section == "bookmarks") {
+                sectionsModel.remove(0);
+            } else if (numberOfBookmarks == 1 &&
+                sectionsModel.get(0).section != "bookmarks") {
+                sectionsModel.insert(0, { section: "bookmarks" });
+            }
+        }
+
+        onNumberOfTopSitesChanged: {
+            if (numberOfTopSites == 0) {
+                if (sectionsModel.get(0).section == "topsites") {
+                    sectionsModel.remove(0);
+                } else if (sectionsModel.get(1).section == "topsites") {
+                    sectionsModel.remove(1);
+                }
+            } else if (numberOfTopSites == 1 &&
+                sectionsModel.get(0).section != "topsites" &&
+                sectionsModel.get(1).section != "topsites") {
+                sectionsModel.insert(0, { section: "topsites" });
+            }
+        }
     }
 
     ListModel {
         id: sectionsModel
 
         Component.onCompleted: {
-            sectionsModel.append({ section: "bookmarks" });
-            sectionsModel.append({ section: "topsites" });
+            if (internal.numberOfBookmarks > 0) {
+                sectionsModel.append({ section: "bookmarks" });
+            }
+            if (internal.numberOfTopSites > 0) {
+                sectionsModel.append({ section: "topsites" });
+            }
         }
     }
 
@@ -114,14 +143,10 @@ Item {
                 rightMargin: units.gu(2)
             }
 
-            opacity: section == "topsites" && internal.bookmarksCountLimit > 5 ? 0.0 : 1.0
+            opacity: (section == "topsites" && internal.bookmarksCountLimit > 5) ? 0.0 : 1.0
             Behavior on opacity { UbuntuNumberAnimation {} }
 
-            height: (section == "bookmarks" && internal.numberOfBookmarks > 0) ?
-                                        sectionHeader.height + units.gu(3) :
-                    (section == "topsites" && internal.numberOfTopSites > 0) ?
-                                        sectionHeader.height + units.gu(3) : 0
-
+            height: sectionHeader.height + units.gu(3)
             spacing: section == "bookmarks" ? units.gu(-1.5) : units.gu(-3)
 
             Row {
