@@ -66,9 +66,16 @@ Item {
 
                 y: Math.max(flickable.contentY, index * delegateHeight)
                 Behavior on y {
-                    enabled: !flickable.moving
+                    enabled: !flickable.moving && !selectedAnimation.running
                     UbuntuNumberAnimation {
                         duration: UbuntuAnimation.BriskDuration
+                    }
+                }
+
+                opacity: selectedAnimation.running && (index > selectedAnimation.index) ? 0 : 1
+                Behavior on opacity {
+                    UbuntuNumberAnimation {
+                        duration: UbuntuAnimation.FastDuration
                     }
                 }
 
@@ -86,11 +93,25 @@ Item {
                         showContent: (index > 0) || (delegate.y > flickable.contentY) ||
                                      !(tab.webview && tab.webview.visible)
 
-                        onSelected: tabslist.tabSelected(index)
+                        onSelected: {
+                            // Animate tab into full view
+                            selectedAnimation.index = index
+                            selectedAnimation.start()
+                        }
                         onClosed: tabslist.tabClosed(index)
                     }
                 }
             }
+        }
+
+        PropertyAnimation {
+            id: selectedAnimation
+            property int index: 0
+            target: flickable
+            property: "contentY"
+            to: index * delegateHeight
+            duration: UbuntuAnimation.FastDuration
+            onStopped: tabslist.tabSelected(index)
         }
     }
 }

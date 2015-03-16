@@ -300,7 +300,6 @@ BrowserView {
                     tab.forceActiveFocus()
                     tabslist.model.setCurrent(index)
                 }
-                // TODO: animate tab into full view
                 reset()
                 recentView.reset()
             }
