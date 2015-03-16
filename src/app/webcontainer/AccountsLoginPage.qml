@@ -17,16 +17,16 @@
  */
 
 import QtQuick 2.0
+import Qt.labs.settings 1.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.OnlineAccounts 0.1
 
-
 Item {
     id: root
 
-    property string accountProvider: ""
-    property string applicationName: ""
+    property string providerId: ""
+    property string applicationId: ""
 
     signal accountSelected(var credentialsId)
     signal done(bool successful)
@@ -41,16 +41,16 @@ Item {
         interval: 100
     }
 
-    AccountsModel {
+    Settings {
+        id: settings
+        property int selectedAccount: -1
+    }
+
+    AccountServiceModel {
         id: accountsModel
-        accountProvider: root.accountProvider
-        applicationName: root.applicationName
+        provider: root.providerId
+        applicationId: root.applicationId
         onCountChanged: checkAccounts()
-        onFinished: {
-            if (count === 0) {
-                Qt.quit();
-            }
-        }
     }
 
     Rectangle {
@@ -66,25 +66,30 @@ Item {
     function checkAccounts() {
         checkTimer.stop()
         console.log("Accounts: " + accountsModel.count)
+        var credentialsId = -1
         if (accountsModel.count === 0) {
-            accountsModel.createNewAccount()
-        } else {
-            var accountHandle = accountsModel.model.get(0, "accountServiceHandle")
-            __account = accountComponent.createObject(root, {
-                objectHandle: accountHandle
-            })
-            root.accountSelected(__account.authData.credentialsId)
+            settings.selectedAccount = -1
+        } else if (settings.selectedAccount > 0) {
+            for (var i = 0; i < accountsModel.count; i++) {
+                if (accountsModel.get(i, "accountId") === settings.selectedAccount) {
+                    var accountHandle = accountsModel.model.get(i, "accountServiceHandle")
+                    __account = accountComponent.createObject(root, {
+                        objectHandle: accountHandle
+                    })
+                    break;
+                }
+            }
+            if (__account) {
+                credentialsId = __account.authData.credentialsId
+            } else {
+                // The selected account was not found
+                settings.selectedAccount = -1
+            }
+        } else if (settings.selectedAccount === 0) {
+            credentialsId = 0
         }
 
-        // Note: Disable the account selection for now until we have a clearer view of
-        // the design and behavior related to the feature. Keep the code for reference.
-        /*
-        if (accountsModel.count === 1) {
-            doLogin(accountsModel.model.get(0, "accountServiceHandle"))
-        } else {
-            accountsViewLoader.sourceComponent = accountsSelectionViewComponent
-        }
-        */
+        root.accountSelected(credentialsId)
     }
 
     Component {

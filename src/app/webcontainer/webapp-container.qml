@@ -279,8 +279,8 @@ BrowserWindow {
 
     function loadLoginView() {
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
-            "accountProvider": accountProvider,
-            "applicationName": unversionedAppId,
+            "providerId": accountProvider,
+            "applicationId": unversionedAppId,
         })
     }
 
