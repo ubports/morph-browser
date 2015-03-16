@@ -35,12 +35,16 @@ Item {
 
     function openUrlExternally(url) {
         if (!blockOpenExternalUrls) {
-            console.log('deded ' + url)
             Qt.openUrlExternally(url)
         }
         openExternalUrlTriggered(url)
     }
 
+    function onOverlayMoved(popup, diffY) {
+        if ((popup.y + diffY) > 0) {
+            popup.y += diffY
+        }
+    }
     function handleNewViewAdded(view) {
         updateMainViewVisibility(false)
 
@@ -65,18 +69,24 @@ Item {
         if (topView !== view) {
             return
         }
-        topView.visible = false
 
         // TODO Oxide prepareToClose & prepareToCloseResponse
-        topView.destroy()
-        views.pop()
+        function onViewSlidingOut() {
+            if (topView.y >= (topView.parent.height -10)) {
+                topView.yChanged.disconnect(onViewSlidingOut)
+                topView.destroy()
+                views.pop()
 
-        if (views.length !== 0) {
-            views[views.length-1].visible = true
+                if (views.length !== 0) {
+                    views[views.length-1].visible = true
+                }
+                else {
+                    updateMainViewVisibility(true)
+                }
+            }
         }
-        else {
-            updateMainViewVisibility(true)
-        }
+        topView.yChanged.connect(onViewSlidingOut)
+        topView.y = topView.parent.height
     }
     function createPopupView(parentView, request, isRequestFromMainWebappWebview, context) {
         var view = popupWebOverlayFactory.createObject(
@@ -84,6 +94,7 @@ Item {
             { request: request,
               webContext: context,
               popupWindowController: controller });
+        view.y = 0
         handleNewViewAdded(view)
     }
     function updateMainViewVisibility(visible) {
@@ -100,11 +111,13 @@ Item {
             height: parent.height
             width: parent.width
 
-            NumberAnimation on y {
-                from: overlay.parent.height
-                to: 0
-                duration: 300
-                easing.type: Easing.InOutQuad
+            y: overlay.parent.height
+
+            Behavior on y {
+                NumberAnimation {
+                    duration: 200
+                    easing.type: Easing.InOutQuad
+                }
             }
         }
     }

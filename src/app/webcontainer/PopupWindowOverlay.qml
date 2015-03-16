@@ -41,8 +41,32 @@ Item {
             margins: units.gu(1)
         }
 
-        Item {
+
+        MouseArea {
             id: controls
+
+            property int initMouseY: 0
+            property int prevMouseY: 0
+            onPressed: {
+                initMouseY = mouse.y
+                prevMouseY = initMouseY
+            }
+            onReleased: {
+                if ((prevMouseY - initMouseY) > (popup.height / 3)) {
+                    if (popupWindowController) {
+                        popupWindowController.handleViewRemoved(popup)
+                        return
+                    }
+                }
+                popup.y = 0
+            }
+            onMouseYChanged: {
+                if (popupWindowController) {
+                    var diff = mouseY - initMouseY
+                    prevMouseY = mouseY
+                    popupWindowController.onOverlayMoved(popup, diff)
+                }
+            }
 
             height: units.gu(6)
             width: parent.width - units.gu(6)
