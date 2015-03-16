@@ -1,3 +1,14 @@
+webbrowser-app (0.23+15.04.20150316-0ubuntu1) vivid; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Update an autopilot test to click on the drawer button to dismiss
+    the drawer. With the upcoming changes to the text selection in the
+    UITK, clicking on the address bar might accidentally grab a text
+    selection handle, thus not dismissing the drawer menu. Clicking on
+    the drawer button again should be more robust.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 16 Mar 2015 12:58:36 +0000
+
 webbrowser-app (0.23+15.04.20150227-0ubuntu1) vivid; urgency=medium
 
   [ Olivier Tilloy ]
