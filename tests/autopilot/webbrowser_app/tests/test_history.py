@@ -132,9 +132,10 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         chrome = self.main_window.chrome
         drawer_button = chrome.get_drawer_button()
         self.pointing_device.click_object(drawer_button)
-        chrome.get_drawer()
+        drawer = chrome.get_drawer()
         self.assert_suggestions_eventually_hidden()
-        self.address_bar.focus()
+        self.pointing_device.click_object(drawer_button)
+        drawer.wait_until_destroyed()
         self.assert_suggestions_eventually_shown()
 
     def test_select_suggestion(self):
