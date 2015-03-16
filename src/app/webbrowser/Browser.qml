@@ -300,7 +300,6 @@ BrowserView {
                     tab.forceActiveFocus()
                     tabslist.model.setCurrent(index)
                 }
-                reset()
                 recentView.reset()
             }
             onTabClosed: {
@@ -365,10 +364,10 @@ BrowserView {
         }
 
         function reset() {
+            chrome.state = "shown"
+            state = ""
             recentToolbar.state = "hidden"
             tabslist.reset()
-            state = ""
-            chrome.state = "shown"
         }
     }
 
