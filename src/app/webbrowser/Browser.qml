@@ -383,7 +383,7 @@ BrowserView {
 
         enabled: (formFactor == "mobile") && (recentView.state == "") &&
                  (Screen.orientation == Screen.primaryOrientation) &&
-                 !browser.currentWebview.fullscreen
+                 browser.currentWebview && !browser.currentWebview.fullscreen
 
         onDraggingChanged: {
             if (!dragging) {
