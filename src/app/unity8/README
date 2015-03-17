@@ -1,6 +1,6 @@
 Code in this directory was copied over from unity8.
  - first import: 2015-02-04, at revision 1583 of lp:unity8
- - last sync: …
+ - last sync: 2015-03-17, at revision 1663 of lp:unity8
 
 The structure of the directories has been kept identical, to ease syncing the
 code in the future. Minor changes were made to the build system to integrate it
