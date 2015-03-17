@@ -267,7 +267,7 @@ BrowserView {
         id: recentView
 
         anchors.fill: parent
-        opacity: (bottomEdgeHandle.dragging || (state == "shown")) ? 1 : 0
+        opacity: (bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")) ? 1 : 0
         Behavior on opacity { UbuntuNumberAnimation {} }
         visible: opacity > 0
 
@@ -390,11 +390,8 @@ BrowserView {
                 if (stage == 0) {
                     chrome.state = "shown"
                 } else if (stage == 1) {
-                    // TODO: animate second tab into full view
                     if (tabsModel.count > 1) {
-                        tabsModel.setCurrent(1)
-                        tabsModel.get(0).load()
-                        recentView.reset()
+                        tabslist.selectAndAnimateTab(1)
                     } else {
                         recentView.state = "shown"
                         recentToolbar.state = "shown"

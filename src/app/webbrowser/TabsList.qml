@@ -33,6 +33,8 @@ Item {
         flickable.contentY = 0
     }
 
+    readonly property bool animating: selectedAnimation.running
+
     Flickable {
         id: flickable
 
@@ -93,11 +95,7 @@ Item {
                         showContent: (index > 0) || (delegate.y > flickable.contentY) ||
                                      !(tab.webview && tab.webview.visible)
 
-                        onSelected: {
-                            // Animate tab into full view
-                            selectedAnimation.index = index
-                            selectedAnimation.start()
-                        }
+                        onSelected: tabslist.selectAndAnimateTab(index)
                         onClosed: tabslist.tabClosed(index)
                     }
                 }
@@ -113,5 +111,11 @@ Item {
             duration: UbuntuAnimation.FastDuration
             onStopped: tabslist.tabSelected(index)
         }
+    }
+
+    function selectAndAnimateTab(index) {
+        // Animate tab into full view
+        selectedAnimation.index = index
+        selectedAnimation.start()
     }
 }
