@@ -77,6 +77,8 @@ BrowserWindow {
 
             url: accountProvider.length !== 0 ? "" : root.url
 
+            accountSwitcher: accountProvider.length !== 0
+
             dataPath: webappDataLocation
             webappName: root.webappName
             chromeVisible: root.chromeVisible
@@ -104,6 +106,8 @@ BrowserWindow {
                     root.title = getWindowTitle();
                 }
             }
+
+            onChooseAccount: accountsPageComponentLoader.item.chooseAccount()
         }
     }
 
@@ -167,9 +171,10 @@ BrowserWindow {
                 loadWebAppView(true)
             } else if (status == Loader.Ready) {
                 item.visible = true
-                initializeForAccount(item.selectedAccount)
+                initializeForAccount(item.credentialsId)
             }
         }
+        z: -1
     }
 
     function onCookiesMoved(result) {
@@ -237,7 +242,7 @@ BrowserWindow {
 
     Connections {
         target: accountsPageComponentLoader.item
-        onSelectedAccountChanged: initializeForAccount(accountsPageComponentLoader.item.selectedAccount)
+        onCredentialsIdChanged: initializeForAccount(accountsPageComponentLoader.item.credentialsId)
         onDone: {
             console.log("Authentication done, successful = " + successful)
             if (successful) {

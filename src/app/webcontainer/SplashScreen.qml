@@ -52,7 +52,7 @@ Column {
         anchors.right: parent.right
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.WordWrap
-        text: i18n.tr("<b>%1</b> needs to access your %1 online account.").arg(root.applicationName).arg(root.providerName)
+        text: i18n.tr("<b>%1</b> needs to access your %2 online account.").arg(root.applicationName).arg(root.providerName)
         visible: root.accountMandatory
     }
 

@@ -19,6 +19,7 @@
 import QtQuick 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
+import Ubuntu.OnlineAccounts 0.1
 import webcontainer.private 0.1
 
 Page {
@@ -26,7 +27,7 @@ Page {
 
     property string providerId: ""
     property string applicationId: ""
-    property int selectedAccount: -1
+    property int credentialsId: -1
 
     signal accountSelected(var credentialsId)
     signal done(bool successful)
@@ -34,6 +35,7 @@ Page {
     property string __applicationName: applicationId
     property url __applicationIcon
     property string __providerName: providerId
+    property var __account: null
 
     visible: true
     anchors.fill: parent
@@ -46,13 +48,13 @@ Page {
         providerId: root.providerId
 
         onAccountSelected: {
-            if (credentialsId === -1) {
+            if (account === null) {
                 showSplashScreen()
             } else {
-                accountsPage.selectedAccount = credentialsId
+                root.__setupAccount(account)
             }
         }
-        onDone: accountsPage.done(successful)
+        onDone: root.done(successful)
     }
 
     SplashScreen {
@@ -63,14 +65,20 @@ Page {
         iconSource: root.__applicationIcon
         visible: false
 
-        onChooseAccount: PopupUtils.open(accountChooserComponent)
+        onChooseAccount: root.chooseAccount()
     }
 
     Component {
         id: accountChooserComponent
         AccountChooserDialog {
+            id: accountChooser
             providerId: root.providerId
             applicationId: root.applicationId
+            onCancel: PopupUtils.close(accountChooser)
+            onAccountSelected: {
+                PopupUtils.close(accountChooser)
+                root.__setupAccount(account)
+            }
         }
     }
 
@@ -107,11 +115,22 @@ Page {
         __setupProviderData()
     }
 
+    function __setupAccount(account) {
+        __account = account
+        credentialsId = account ? account.authData.credentialsId : 0
+        console.log("Account " + account + ", credentials: " + credentialsId)
+    }
+
     function login(forceCookieRefresh) {
-        accountsLogin.login(forceCookieRefresh)
+        console.log("Logging in to " + __account)
+        accountsLogin.login(__account, forceCookieRefresh)
     }
 
     function showSplashScreen() {
         splashScreen.visible = true
+    }
+
+    function chooseAccount() {
+        PopupUtils.open(accountChooserComponent)
     }
 }

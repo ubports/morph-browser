@@ -24,6 +24,9 @@ ChromeBase {
     id: chrome
 
     property bool navigationButtonsVisible: false
+    property bool accountSwitcher: false
+
+    signal chooseAccount()
 
     FocusScope {
         anchors {
@@ -89,13 +92,32 @@ ChromeBase {
         Label {
             anchors {
                 left: faviconContainer.right
-                right: parent.right
+                right: accountsButton.left
                 rightMargin: units.gu(1)
                 verticalCenter: parent.verticalCenter
             }
 
             text: chrome.webview.title ? chrome.webview.title : chrome.webview.url
             elide: Text.ElideRight
+        }
+
+        ChromeButton {
+            id: accountsButton
+            objectName: "accountsButton"
+
+            iconName: "contact"
+            iconSize: 0.6 * height
+
+            height: parent.height
+            width: visible ? height : 0
+
+            anchors {
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+            }
+
+            enabled: accountSwitcher
+            onTriggered: chrome.chooseAccount()
         }
     }
 }

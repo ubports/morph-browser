@@ -28,7 +28,7 @@ Item {
     property string providerId: ""
     property string applicationId: ""
 
-    signal accountSelected(var credentialsId)
+    signal accountSelected(var account)
     signal done(bool successful)
 
     property var __account: null
@@ -66,7 +66,6 @@ Item {
     function checkAccounts() {
         checkTimer.stop()
         console.log("Accounts: " + accountsModel.count)
-        var credentialsId = -1
         if (accountsModel.count === 0) {
             settings.selectedAccount = -1
         } else if (settings.selectedAccount > 0) {
@@ -79,17 +78,15 @@ Item {
                     break;
                 }
             }
-            if (__account) {
-                credentialsId = __account.authData.credentialsId
-            } else {
+            if (!__account) {
                 // The selected account was not found
                 settings.selectedAccount = -1
             }
         } else if (settings.selectedAccount === 0) {
-            credentialsId = 0
+            __account = null
         }
 
-        root.accountSelected(credentialsId)
+        root.accountSelected(__account)
     }
 
     Component {
@@ -188,27 +185,27 @@ Item {
     }
     */
 
-    function login(forceCookieRefresh) {
+    function login(account, forceCookieRefresh) {
         function authenticatedCallback() {
             console.log("Authenticated!")
-            __account.authenticated.disconnect(authenticatedCallback)
+            account.authenticated.disconnect(authenticatedCallback)
             root.done(true)
         }
-        __account.authenticated.connect(authenticatedCallback)
+        account.authenticated.connect(authenticatedCallback)
 
         function errorCallback() {
             console.log("Authentication error!")
-            __account.authenticationError.disconnect(errorCallback)
+            account.authenticationError.disconnect(errorCallback)
             root.done(false)
         }
-        __account.authenticationError.connect(errorCallback)
+        account.authenticationError.connect(errorCallback)
 
         var params = {}
         if (forceCookieRefresh) {
             params["UiPolicy"] = 1 // RequestPasswordPolicy
         }
 
-        __account.authenticate(params)
+        account.authenticate(params)
     }
 
     Component {

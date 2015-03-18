@@ -22,6 +22,7 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.OnlineAccounts 0.1
+import Ubuntu.OnlineAccounts.Client 0.1
 
 Dialog {
     id: root
@@ -30,7 +31,7 @@ Dialog {
     property string applicationId: ""
     property bool accountMandatory: true
 
-    signal accountSelected(var credentialsId)
+    signal accountSelected(var account)
     signal cancel()
 
     property var __account: null
@@ -117,7 +118,7 @@ Dialog {
         var credentialsId = -1
         for (var i = 0; i < accountsModel.count; i++) {
             if (accountsModel.get(i, "accountId") === accountId) {
-                var accountHandle = accountsModel.model.get(i, "accountServiceHandle")
+                var accountHandle = accountsModel.get(i, "accountServiceHandle")
                 __account = accountComponent.createObject(root, {
                     objectHandle: accountHandle
                 })
@@ -126,7 +127,7 @@ Dialog {
         }
         if (__account) {
             settings.selectedAccount = accountId
-            root.accountSelected(__account.authData.credentialsId)
+            root.accountSelected(__account)
         } else {
             // The selected account was not found
             settings.selectedAccount = -1

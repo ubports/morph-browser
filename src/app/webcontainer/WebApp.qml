@@ -31,6 +31,8 @@ BrowserView {
 
     property alias url: webview.url
 
+    property bool accountSwitcher
+
     property string webappModelSearchPath: ""
 
     property alias oxide: webview.withOxide
@@ -45,7 +47,9 @@ BrowserView {
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
-    readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible
+    readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible && !accountSwitcher
+
+    signal chooseAccount()
 
     actions: [
         Actions.Back {
@@ -109,12 +113,15 @@ BrowserView {
                 Chrome {
                     webview: webapp.currentWebview
                     navigationButtonsVisible: webapp.backForwardButtonsVisible
+                    accountSwitcher: webapp.accountSwitcher
 
                     anchors {
                         left: parent.left
                         right: parent.right
                     }
                     height: units.gu(6)
+
+                    onChooseAccount: webapp.chooseAccount()
 
                     Connections {
                         target: webapp.currentWebview
