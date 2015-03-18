@@ -116,8 +116,8 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html = '<html><body>'
             html += '<div style="position: absolute; width: 80%; height: 80%; '
             html += 'top: 10%; left: 10%"><div style="position: absolute; '
-            html += 'width: 50%; height: 50%; top: 25%; left: 25%"></div></div>'
-            html += '</body></html>'
+            html += 'width: 50%; height: 50%; top: 25%; left: 25%"></div>'
+            html += '</div></body></html>'
             self.send_html(html)
         elif self.path == "/closeself":
             # craft a page that accepts clicks anywhere inside its window
