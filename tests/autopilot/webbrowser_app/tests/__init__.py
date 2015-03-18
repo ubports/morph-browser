@@ -80,7 +80,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
     def clear_datadir(self):
         datadir = os.path.join(os.path.expanduser("~"), ".local", "share",
-                                "webbrowser-app")
+                               "webbrowser-app")
         shutil.rmtree(datadir, True)
         os.makedirs(datadir)
 
