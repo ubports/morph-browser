@@ -51,7 +51,8 @@ Column {
 
             gradient: Gradient {
                 GradientStop { position: 0.0; color: Qt.rgba(0, 0, 0, 0) }
-                GradientStop { position: 1.0; color: Qt.rgba(0, 0, 0, 0.4) }
+                GradientStop { position: 0.75; color: Qt.rgba(0, 0, 0, 0.1) }
+                GradientStop { position: 1.0; color: Qt.rgba(0, 0, 0, 0.3) }
             }
         }
 
