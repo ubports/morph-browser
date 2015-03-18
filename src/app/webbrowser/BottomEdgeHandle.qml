@@ -31,6 +31,6 @@ DirectionalDragArea {
     compositionTime: 60
 
     readonly property real dragFraction: dragging ? Math.min(1.0, Math.max(0.0, sceneDistance / parent.height)) : 0.0
-    readonly property var thresholds: [0.0, 0.18, 0.36, 0.54, 1.0]
+    readonly property var thresholds: [0.05, 0.18, 0.36, 0.54, 1.0]
     readonly property int stage: thresholds.map(function(t) { return dragFraction <= t }).indexOf(true)
 }
