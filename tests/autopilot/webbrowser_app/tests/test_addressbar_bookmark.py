@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2014 Canonical
+# Copyright 2014-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -23,7 +23,7 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
-        self.clear_cache()
+        self.clear_datadir()
         super(TestAddressBarBookmark, self).setUp()
 
     def test_switching_tabs_updates_bookmark_toggle(self):

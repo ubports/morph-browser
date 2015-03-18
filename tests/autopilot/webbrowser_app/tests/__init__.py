@@ -78,11 +78,11 @@ class BrowserTestCaseBase(AutopilotTestCase):
                 app_type='qt',
                 emulator_base=browser.Webbrowser)
 
-    def clear_cache(self):
-        cachedir = os.path.join(os.path.expanduser("~"), ".local", "share",
+    def clear_datadir(self):
+        datadir = os.path.join(os.path.expanduser("~"), ".local", "share",
                                 "webbrowser-app")
-        shutil.rmtree(cachedir, True)
-        os.makedirs(cachedir)
+        shutil.rmtree(datadir, True)
+        os.makedirs(datadir)
 
     @property
     def main_window(self):
