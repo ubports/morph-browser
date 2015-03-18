@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2013 Canonical
+# Copyright 2013-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -113,9 +113,11 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             self.send_html(html)
         elif self.path == "/selection":
             self.send_response(200)
-            html = '<html><body style="margin: 10%">'
-            html += '<div style="position: absolute; width: 50%; height: 50%; '
-            html += 'top: 25%; left: 25%"></div></body></html>'
+            html = '<html><body>'
+            html += '<div style="position: absolute; width: 80%; height: 80%; '
+            html += 'top: 10%; left: 10%"><div style="position: absolute; '
+            html += 'width: 50%; height: 50%; top: 25%; left: 25%"></div></div>'
+            html += '</body></html>'
             self.send_html(html)
         elif self.path == "/closeself":
             # craft a page that accepts clicks anywhere inside its window
