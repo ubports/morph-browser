@@ -221,8 +221,12 @@ BrowserWindow {
         if (credentialsId < 0) return
 
         if (credentialsId > 0) {
-            webappViewLoader.loaded.connect(function () {
+            if (credentialsId == webappViewLoader.credentialsId) return
+
+            webappViewLoader.sourceComponent = null
+            webappViewLoader.loaded.connect(function onLoaded() {
                 if (webappViewLoader.status == Loader.Ready) {
+                    webappViewLoader.loaded.disconnect(onLoaded)
                     doLogin()
                 }
             });
@@ -294,8 +298,9 @@ BrowserWindow {
             accountsPageComponentLoader.item.visible = false
 
         if (startBrowsing) {
-            webappViewLoader.loaded.connect(function () {
+            webappViewLoader.loaded.connect(function onLoaded() {
                 if (webappViewLoader.status === Loader.Ready) {
+                    webappViewLoader.loaded.disconnect(onLoaded)
                     // As we use StateSaver to restore the URL, we need to check first if
                     // it has not been set previously before setting the URL to the default property 
                     // homepage.
