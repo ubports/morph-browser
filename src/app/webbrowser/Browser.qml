@@ -410,13 +410,19 @@ BrowserView {
     Image {
         objectName: "bottomEdgeHint"
         source: (formFactor == "mobile") ? "assets/bottom_edge_hint.png" : ""
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            bottom: parent.bottom
+            bottomMargin: (chrome.state == "hidden") ? -height : 0
+            Behavior on bottomMargin {
+                UbuntuNumberAnimation {}
+            }
+        }
         visible: bottomEdgeHandle.enabled
         opacity: 1 - recentView.opacity
         Behavior on opacity {
             UbuntuNumberAnimation {}
         }
-        y: parent.height - height + (browser.currentWebview ? browser.currentWebview.contentY : 0) / 2
     }
 
     Item {
