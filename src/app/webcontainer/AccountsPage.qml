@@ -44,7 +44,7 @@ Page {
         id: accountsLogin
 
         anchors.fill: parent
-        accountsModel: root.accountsModel
+        accountsModel: accountsModel
 
         onAccountSelected: {
             if (accountId < 0) {
@@ -73,7 +73,7 @@ Page {
             id: accountChooser
             providerId: root.providerId
             applicationId: root.applicationId
-            accountsModel: root.accountsModel
+            accountsModel: accountsModel
             onCancel: PopupUtils.close(accountChooser)
             onAccountSelected: {
                 PopupUtils.close(accountChooser)
