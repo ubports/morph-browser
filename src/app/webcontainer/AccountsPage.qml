@@ -36,6 +36,7 @@ Page {
     property url __applicationIcon
     property string __providerName: providerId
     property var __account: null
+    property var __accountsModel: accountsModel
 
     visible: true
     anchors.fill: parent
@@ -44,7 +45,7 @@ Page {
         id: accountsLogin
 
         anchors.fill: parent
-        accountsModel: accountsModel
+        accountsModel: root.__accountsModel
 
         onAccountSelected: {
             if (accountId < 0) {
@@ -73,7 +74,7 @@ Page {
             id: accountChooser
             providerId: root.providerId
             applicationId: root.applicationId
-            accountsModel: accountsModel
+            accountsModel: root.__accountsModel
             onCancel: PopupUtils.close(accountChooser)
             onAccountSelected: {
                 PopupUtils.close(accountChooser)
