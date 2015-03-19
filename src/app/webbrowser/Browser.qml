@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import com.canonical.Oxide 1.4 as Oxide
+import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
@@ -232,8 +232,6 @@ BrowserView {
                 query: chrome.text
             }
             onSelected: {
-                // Workaround for https://launchpad.net/bugs/1377198
-                browser.currentWebview.resetCertificateError()
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
                 chrome.requestedUrl = url
