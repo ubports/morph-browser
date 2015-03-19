@@ -60,7 +60,9 @@ class WebappContainerPopupWebViewOverlayTestCase(
             Eventually(Equals(1)))
         views = self.get_popup_overlay_views()
         overlay = views[0]
-        self.assertThat(overlay.select_single(objectName="webview").url, Contains('/open-close-content'))
+        self.assertThat(
+            overlay.select_single(objectName="webview").url,
+            Contains('/open-close-content'))
 
         closeButton = overlay.select_single(
             objectName='overlayCloseButton')
