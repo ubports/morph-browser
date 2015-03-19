@@ -27,6 +27,7 @@ Item {
 
     property string providerId: ""
     property string applicationId: ""
+    property var model: accountsModel
 
     signal accountSelected(var account)
     signal done(bool successful)

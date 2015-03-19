@@ -30,6 +30,7 @@ Dialog {
     property string providerId: ""
     property string applicationId: ""
     property bool accountMandatory: true
+    property var accountsModel: null
 
     signal accountSelected(var account)
     signal cancel()
@@ -40,12 +41,6 @@ Dialog {
     Settings {
         id: settings
         property int selectedAccount
-    }
-
-    AccountServiceModel {
-        id: accountsModel
-        provider: root.providerId
-        applicationId: root.applicationId
     }
 
     Setup {

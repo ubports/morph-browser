@@ -74,6 +74,7 @@ Page {
             id: accountChooser
             providerId: root.providerId
             applicationId: root.applicationId
+            accountsModel: accountsLogin.model
             onCancel: PopupUtils.close(accountChooser)
             onAccountSelected: {
                 PopupUtils.close(accountChooser)
