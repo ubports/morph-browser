@@ -36,7 +36,7 @@ BrowserView {
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
     property url homepage
-    property QtObject searchEngine
+    property string searchEngine
     property string allowOpenInBackgroundTab
 
     // XXX: we might want to tweak this value depending
@@ -121,11 +121,16 @@ BrowserView {
             asynchronous: true
         }
 
+        SearchEngine {
+            id: searchEngine
+            filename: browser.searchEngine
+        }
+
         Chrome {
             id: chrome
 
             webview: browser.currentWebview
-            searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
+            searchUrl: searchEngine.urlTemplate
 
             function isCurrentUrlBookmarked() {
                 return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
