@@ -116,9 +116,9 @@ Page {
     }
 
     function __setupAccount(account) {
+        console.log("SetupAccount " + account)
         __account = account
         credentialsId = account ? account.authData.credentialsId : 0
-        console.log("Account " + account + ", credentials: " + credentialsId)
     }
 
     function login(forceCookieRefresh) {
