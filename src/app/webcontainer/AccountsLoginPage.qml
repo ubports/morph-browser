@@ -25,14 +25,10 @@ import Ubuntu.OnlineAccounts 0.1
 Item {
     id: root
 
-    property string providerId: ""
-    property string applicationId: ""
-    property var model: accountsModel
+    property var accountsModel
 
-    signal accountSelected(var account)
+    signal accountSelected(int accountId)
     signal done(bool successful)
-
-    property var __account: null
 
     Timer {
         id: checkTimer
@@ -45,13 +41,6 @@ Item {
     Settings {
         id: settings
         property int selectedAccount: -1
-    }
-
-    AccountServiceModel {
-        id: accountsModel
-        provider: root.providerId
-        applicationId: root.applicationId
-        onCountChanged: checkAccounts()
     }
 
     Rectangle {
@@ -70,24 +59,19 @@ Item {
         if (accountsModel.count === 0) {
             settings.selectedAccount = -1
         } else if (settings.selectedAccount > 0) {
+            // check that the account exists
             for (var i = 0; i < accountsModel.count; i++) {
                 if (accountsModel.get(i, "accountId") === settings.selectedAccount) {
-                    var accountHandle = accountsModel.model.get(i, "accountServiceHandle")
-                    __account = accountComponent.createObject(root, {
-                        objectHandle: accountHandle
-                    })
                     break;
                 }
             }
-            if (!__account) {
+            if (i >= accountsModel.count) {
                 // The selected account was not found
                 settings.selectedAccount = -1
             }
-        } else if (settings.selectedAccount === 0) {
-            __account = null
         }
 
-        root.accountSelected(__account)
+        root.accountSelected(settings.selectedAccount)
     }
 
     Component {
@@ -207,11 +191,6 @@ Item {
         }
 
         account.authenticate(params)
-    }
-
-    Component {
-        id: accountComponent
-        AccountService { }
     }
 }
 

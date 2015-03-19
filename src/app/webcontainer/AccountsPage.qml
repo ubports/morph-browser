@@ -44,14 +44,13 @@ Page {
         id: accountsLogin
 
         anchors.fill: parent
-        applicationId: root.applicationId
-        providerId: root.providerId
+        accountsModel: root.accountsModel
 
         onAccountSelected: {
-            if (account === null) {
+            if (accountId < 0) {
                 showSplashScreen()
             } else {
-                root.__setupAccount(account)
+                root.__setupAccount(accountId)
             }
         }
         onDone: root.done(successful)
@@ -74,11 +73,11 @@ Page {
             id: accountChooser
             providerId: root.providerId
             applicationId: root.applicationId
-            accountsModel: accountsLogin.model
+            accountsModel: root.accountsModel
             onCancel: PopupUtils.close(accountChooser)
             onAccountSelected: {
                 PopupUtils.close(accountChooser)
-                root.__setupAccount(account)
+                root.__setupAccount(accountId)
             }
         }
     }
@@ -90,6 +89,17 @@ Page {
     ProviderModel {
         id: providerModel
         applicationId: root.applicationId
+    }
+
+    AccountServiceModel {
+        id: accountsModel
+        provider: root.providerId
+        applicationId: root.applicationId
+    }
+
+    Component {
+        id: accountComponent
+        AccountService { }
     }
 
     function __setupApplicationData() {
@@ -116,10 +126,24 @@ Page {
         __setupProviderData()
     }
 
-    function __setupAccount(account) {
-        console.log("SetupAccount " + account)
-        __account = account
-        credentialsId = account ? account.authData.credentialsId : 0
+    function __setupAccount(accountId) {
+        console.log("Setup account " + accountId)
+        if (__account && accountId === __account.accountId) {
+            console.log("Same as current account")
+            return
+        }
+        __account = null
+        for (var i = 0; i < accountsModel.count; i++) {
+            if (accountsModel.get(i, "accountId") === accountId) {
+                var accountHandle = accountsModel.get(i, "accountServiceHandle")
+                __account = accountComponent.createObject(root, {
+                    objectHandle: accountHandle
+                })
+                break;
+            }
+        }
+        credentialsId = __account ? __account.authData.credentialsId : 0
+        console.log("Credentials ID: " + credentialsId)
     }
 
     function login(forceCookieRefresh) {

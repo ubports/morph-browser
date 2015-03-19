@@ -32,10 +32,9 @@ Dialog {
     property bool accountMandatory: true
     property var accountsModel: null
 
-    signal accountSelected(var account)
+    signal accountSelected(int accountId)
     signal cancel()
 
-    property var __account: null
     property var __selectedAccount: settings.selectedAccount
 
     Settings {
@@ -104,30 +103,18 @@ Dialog {
         }
     }
 
-    Component {
-        id: accountComponent
-        AccountService { }
-    }
-
     function chooseAccount(accountId) {
-        var credentialsId = -1
         for (var i = 0; i < accountsModel.count; i++) {
             if (accountsModel.get(i, "accountId") === accountId) {
-                var accountHandle = accountsModel.get(i, "accountServiceHandle")
-                __account = accountComponent.createObject(root, {
-                    objectHandle: accountHandle
-                })
-                break;
+                settings.selectedAccount = accountId
+                root.accountSelected(accountId)
+                return
             }
         }
-        if (__account) {
-            settings.selectedAccount = accountId
-            root.accountSelected(__account)
-        } else {
-            // The selected account was not found
-            settings.selectedAccount = -1
-            root.cancel()
-        }
+
+        // The selected account was not found
+        settings.selectedAccount = -1
+        root.cancel()
     }
 
     function onConfirmed() {
