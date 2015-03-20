@@ -500,6 +500,8 @@ BrowserView {
 
         BrowserTab {
             anchors.fill: parent
+            visible: tabsModel.currentTab === this
+
             webviewComponent: WebViewImpl {
                 id: webviewimpl
 
@@ -510,9 +512,7 @@ BrowserView {
                 anchors.fill: parent
                 focus: true
 
-                readonly property bool current: currentWebview === this
-                enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
-                visible: current
+                enabled: visible && !bottomEdgeHandle.dragging && !recentView.visible
 
                 //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
                 preferences.localStorageEnabled: true
