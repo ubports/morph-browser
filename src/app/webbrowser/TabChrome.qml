@@ -93,7 +93,6 @@ Item {
                     horizontalCenter: parent.horizontalCenter
                 }
                 source: "assets/tab-header-center.png"
-                fillMode: Image.PreserveAspectFit
             }
 
             Image {
