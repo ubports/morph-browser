@@ -25,7 +25,7 @@ Item {
     signal selected()
     signal closed()
 
-    height: units.gu(4)
+    implicitHeight: units.gu(4)
 
     Row {
         anchors.fill: parent
