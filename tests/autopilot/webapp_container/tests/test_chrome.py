@@ -36,10 +36,10 @@ class WebappContainerChromeSetupTestCase(
         chrome = self.get_webcontainer_chrome()
         self.assertThat(chrome.navigationButtonsVisible, Equals(True))
         self.assertThat(
-            self.get_webcontainer_chrome_button("reloadButton").visible,
+            self.app.select_single(objectName="reloadButton").visible,
             Equals(True))
         self.assertThat(
-            self.get_webcontainer_chrome_button("backButton").visible,
+            self.app.select_single(objectName="backButton").visible,
             Equals(True))
 
     def test_enable_chrome_address_bar(self):
@@ -59,7 +59,7 @@ class WebappContainerChromeSetupTestCase(
         container_view = self.get_webcontainer_webview()
         self.assertThat(container_view.chromeless, Equals(False))
 
-        reload_button = self.get_webcontainer_chrome_button("reloadButton")
+        reload_button = self.app.select_single(objectName="reloadButton")
         self.assertThat(reload_button.visible, Equals(True))
 
         webview = self.get_oxide_webview()

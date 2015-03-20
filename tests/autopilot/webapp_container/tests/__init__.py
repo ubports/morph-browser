@@ -77,9 +77,6 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
     def get_webcontainer_webview(self):
         return self.app.select_single(objectName="webappBrowserView")
 
-    def get_webcontainer_chrome_button(self, name):
-        return self.app.select_single(objectName=name)
-
     def get_webcontainer_chrome(self):
         return self.app.select_single("Chrome")
 
