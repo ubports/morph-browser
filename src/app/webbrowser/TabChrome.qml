@@ -42,7 +42,7 @@ Item {
 
             Rectangle {
                 anchors.fill: parent
-                color: "white"
+                color: closeButton.pressed ? Qt.rgba(1.0, 1.0, 1.0, 0.9) : "white"
             }
 
             Icon {
