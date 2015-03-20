@@ -34,7 +34,10 @@ Item {
             id: closeButton
             objectName: "closeButton"
 
-            height: parent.height
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+            }
             width: units.gu(5)
 
             Rectangle {
@@ -65,12 +68,16 @@ Item {
 
         Item {
             width: parent.width - closeButton.width
-            height: parent.height
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+            }
 
             Image {
                 id: tabBackgroundLeft
-                height: parent.height
                 anchors {
+                    top: parent.top
+                    bottom: parent.bottom
                     left: parent.left
                     right: tabBackgroundCenter.left
                 }
@@ -80,16 +87,20 @@ Item {
 
             Image {
                 id: tabBackgroundCenter
-                height: parent.height
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                    horizontalCenter: parent.horizontalCenter
+                }
                 source: "assets/tab-header-center.png"
                 fillMode: Image.PreserveAspectFit
             }
 
             Image {
                 id: tabBackgroundRight
-                height: parent.height
                 anchors {
+                    top: parent.top
+                    bottom: parent.bottom
                     left: tabBackgroundCenter.right
                     right: parent.right
                 }
