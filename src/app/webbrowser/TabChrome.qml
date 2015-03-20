@@ -124,6 +124,7 @@ Item {
                     bottom: parent.bottom
                     left: parent.left
                 }
+                // The activable part of the tab occupies its leftmost half
                 width: parent.width / 2
 
                 onClicked: selected()
