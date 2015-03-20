@@ -60,6 +60,7 @@ private:
     QString m_webappModelSearchPath;
     QStringList m_webappUrlPatterns;
     QString m_accountProvider;
+    QString m_logoutUrlPattern;
     bool m_withOxide;
     bool m_storeSessionCookies;
     bool m_backForwardButtonsVisible;

@@ -28,6 +28,8 @@ Page {
     property string providerId: ""
     property string applicationId: ""
     property int credentialsId: -1
+    property alias webview: detector.webview
+    property alias logoutUrlPattern: detector.logoutUrlPattern
 
     signal accountSelected(var credentialsId)
     signal done(bool successful)
@@ -80,6 +82,14 @@ Page {
                 PopupUtils.close(accountChooser)
                 root.__setupAccount(accountId)
             }
+        }
+    }
+
+    LogoutDetector {
+        id: detector
+        onLogoutDetected: {
+            console.log("Logout detected")
+            root.showSplashScreen()
         }
     }
 

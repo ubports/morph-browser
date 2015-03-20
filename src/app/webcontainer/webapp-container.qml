@@ -39,6 +39,7 @@ BrowserWindow {
     property var webappUrlPatterns
     property bool oxide: false
     property string accountProvider: ""
+    property string logoutUrlPattern: ""
     property string popupRedirectionUrlPrefixPattern: ""
     property url webviewOverrideFile: ""
     property var __webappCookieStore: null
@@ -50,6 +51,10 @@ BrowserWindow {
     property bool runningLocalApplication: false
 
     title: getWindowTitle()
+
+    onCurrentWebviewChanged: if (accountsPageComponentLoader.item) {
+        accountsPageComponentLoader.item.webview = currentWebview
+    }
 
     // Used for testing
     signal intentUriHandleResult(string uri)
@@ -290,6 +295,7 @@ BrowserWindow {
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
             "providerId": accountProvider,
             "applicationId": unversionedAppId,
+            "logoutUrlPattern": logoutUrlPattern,
         })
     }
 

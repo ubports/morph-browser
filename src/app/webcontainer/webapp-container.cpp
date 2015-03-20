@@ -145,6 +145,7 @@ bool WebappContainer::initialize()
         m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
         m_window->setProperty("chromeVisible", m_addressBarVisible);
         m_window->setProperty("accountProvider", m_accountProvider);
+        m_window->setProperty("logoutUrlPattern", m_logoutUrlPattern);
 
         qDebug() << "Using" << (m_withOxide ? "Oxide" : "QtWebkit") << "as the web engine backend";
         m_window->setProperty("oxide", m_withOxide);
@@ -283,6 +284,7 @@ void WebappContainer::printUsage() const
        " [--webappModelSearchPath=PATH]"
        " [--webappUrlPatterns=URL_PATTERNS]"
        " [--accountProvider=PROVIDER_NAME]"
+       " [--logoutUrlPattern=URL_PATTERN]"
        " [--enable-back-forward]"
        " [--enable-addressbar]"
        " [--store-session-cookies]"
@@ -300,6 +302,7 @@ void WebappContainer::printUsage() const
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
+    out << "  --logoutUrlPattern=PATTERN          Regexp pattern for detecting logout URLs." << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
@@ -331,6 +334,8 @@ void WebappContainer::parseCommandLine()
             }
         } else if (argument.startsWith("--accountProvider=")) {
             m_accountProvider = argument.split("--accountProvider=")[1];
+        } else if (argument.startsWith("--logoutUrlPattern=")) {
+            m_logoutUrlPattern = argument.split("--logoutUrlPattern=")[1];
         } else if (argument == "--clear-cookies") {
             qWarning() << argument << " is an unsupported option: it can be removed without notice..." << endl;
             clearCookiesHack(m_accountProvider);
