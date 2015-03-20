@@ -70,13 +70,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.get_parent()
 
     def get_current_webview(self):
-        return self.select_single("WebViewImpl", current=True)
+        return self.select_single("WebViewImpl", visible=True)
 
     def get_webviews(self):
         return self.select_many("WebViewImpl")
-
-    def get_visible_webviews(self):
-        return self.select_many("WebViewImpl", visible=True)
 
     def get_error_sheet(self):
         return self.select_single("ErrorSheet")
