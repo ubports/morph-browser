@@ -86,6 +86,8 @@ Item {
                 readonly property bool needsInstance: (index >= 0) && ((flickable.contentY + flickable.height + delegateHeight / 2) >= (index * delegateHeight))
                 sourceComponent: needsInstance ? tabPreviewComponent : undefined
 
+                visible: flickable.contentY < ((index + 1) * delegateHeight)
+
                 Component {
                     id: tabPreviewComponent
 
