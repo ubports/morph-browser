@@ -26,7 +26,7 @@ QtObject {
 
     signal logoutDetected()
 
-    Connections {
+    property var __connections: Connections {
         target: webview
         onUrlChanged: {
             if (logoutUrlPattern.length !== 0 && url.match(logoutUrlPattern)) {
