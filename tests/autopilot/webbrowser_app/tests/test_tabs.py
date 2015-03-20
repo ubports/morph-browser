@@ -117,24 +117,15 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         tabs_view.visible.wait_for(False)
         self.assertThat(error.visible, Eventually(Equals(False)))
 
-    def swipe_to_switch_tabs(self):
-        self.assertThat(model(), NotEquals('Desktop'))
-        hint = self.main_window.get_bottom_edge_hint()
-        ch = hint.globalRect
-        x0 = ch.x + ch.width // 2
-        y0 = ch.y + ch.height // 2
-        y1 = y0 - int(0.1 * self.main_window.height)
-        self.pointing_device.drag(x0, y0, x0, y1)
-
     @unittest.skipIf(model() == "Desktop", "on devices only")
     def test_swipe_partway_switches_tabs(self):
         self.open_new_tab()
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
         self.check_current_tab(url)
-        self.swipe_to_switch_tabs()
+        self.drag_bottom_edge_upwards(0.1)
         self.check_current_tab(self.url)
-        self.swipe_to_switch_tabs()
+        self.drag_bottom_edge_upwards(0.1)
         self.check_current_tab(url)
 
 

@@ -21,7 +21,7 @@ import shutil
 import urllib.request
 
 import fixtures
-from testtools.matchers import Equals
+from testtools.matchers import Equals, NotEquals
 
 from autopilot.matchers import Eventually
 from autopilot.platform import model
@@ -88,6 +88,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def main_window(self):
         return self.app.main_window
 
+    def drag_bottom_edge_upwards(self, fraction):
+        self.assertThat(model(), NotEquals('Desktop'))
+        hint = self.main_window.get_bottom_edge_hint()
+        x = hint.globalRect.x + hint.globalRect.width // 2
+        y0 = hint.globalRect.y + hint.globalRect.height // 2
+        y1 = y0 - int(self.main_window.height * fraction)
+        self.pointing_device.drag(x, y0, x, y1)
+
     def open_tabs_view(self):
         if model() == 'Desktop':
             chrome = self.main_window.chrome
@@ -97,13 +105,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
             tabs_action = chrome.get_drawer_action("tabs")
             self.pointing_device.click_object(tabs_action)
         else:
-            hint = self.main_window.get_bottom_edge_hint()
-            ch = hint.globalRect
-            cw = self.main_window.globalRect
-            x = ch.x + ch.width // 2
-            y0 = ch.y + ch.height // 2
-            y1 = cw.y + cw.height // 4
-            self.pointing_device.drag(x, y0, x, y1)
+            self.drag_bottom_edge_upwards(0.75)
         self.main_window.get_tabs_view()
 
     def open_new_tab(self):
