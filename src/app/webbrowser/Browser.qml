@@ -333,7 +333,7 @@ BrowserView {
                     verticalCenter: parent.verticalCenter
                 }
 
-                strokeColor: "#5d5d5d"
+                strokeColor: UbuntuColors.darkGrey
 
                 text: i18n.tr("Done")
 
