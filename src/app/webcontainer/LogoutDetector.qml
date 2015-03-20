@@ -52,6 +52,12 @@ QtObject {
                 root.logoutDetected()
             }
         }
+        onLoadEvent: {
+            console.log("Load event: " + JSON.stringify(event))
+            if (logoutUrlPattern.length !== 0 && event.url.match(logoutUrlPattern)) {
+                root.logoutDetected()
+            }
+        }
     }
 
     property var __userScript: UserScript {
