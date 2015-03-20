@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import com.canonical.Oxide 1.0
 
 QtObject {
     id: root
@@ -26,6 +27,24 @@ QtObject {
 
     signal logoutDetected()
 
+    property var __scriptMessageHandler: ScriptMessageHandler {
+        msgId: "domChanged"
+        contexts: ["oxide://bla/"]
+        callback: function(msg, frame) {
+            console.log('Got a DOM changed message: ' + msg.args)
+            var request = webview.rootFrame.sendMessage(
+                "oxide://bla/",
+                "EVALUATE-CODE",
+                { code: "return document.getElementsByTagName('html')[0].innerHTML" }
+            )
+
+            // NOTE: does not handle error
+            request.onreply = function(response) {
+                console.log('HTML: ' + response.result)
+            }
+        }
+    }
+
     property var __connections: Connections {
         target: webview
         onUrlChanged: {
@@ -33,5 +52,18 @@ QtObject {
                 root.logoutDetected()
             }
         }
+    }
+
+    property var __userScript: UserScript {
+        context: "oxide://bla/"
+        url: Qt.resolvedUrl("logout-detector.js")
+        incognitoEnabled: true
+        matchAllFrames: true
+    }
+
+    onWebviewChanged: {
+        console.log("Webview changed, adding script")
+        webview.messageHandlers.push(__scriptMessageHandler)
+        webview.context.userScripts.push(__userScript)
     }
 }
