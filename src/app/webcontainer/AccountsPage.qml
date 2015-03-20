@@ -85,6 +85,7 @@ Page {
 
     ApplicationModel {
         id: applicationModel
+        service: root.applicationId
     }
 
     ProviderModel {
