@@ -89,13 +89,34 @@ ChromeBase {
         Label {
             anchors {
                 left: faviconContainer.right
-                right: parent.right
+                right: reloadButton.left
                 rightMargin: units.gu(1)
                 verticalCenter: parent.verticalCenter
             }
 
             text: chrome.webview.title ? chrome.webview.title : chrome.webview.url
             elide: Text.ElideRight
+        }
+
+        ChromeButton {
+            id: reloadButton
+            objectName: "reloadButton"
+
+            iconName: "reload"
+            iconSize: 0.6 * height
+
+            height: parent.height
+            visible: chrome.navigationButtonsVisible
+            width: visible ? height : 0
+
+            anchors {
+                right: parent.right
+                rightMargin: units.gu(2)
+                verticalCenter: parent.verticalCenter
+            }
+
+            enabled: chrome.webview.url && chrome.webview.url !== ""
+            onTriggered: chrome.webview.reload()
         }
     }
 }
