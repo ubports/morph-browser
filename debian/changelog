@@ -1,3 +1,14 @@
+webbrowser-app (0.23+15.04.20150320.2-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * On mobile, reveal the tabs view with a swipe gesture from the bottom
+    edge. (LP: #1329943)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 20 Mar 2015 16:28:00 +0000
+
 webbrowser-app (0.23+15.04.20150316-0ubuntu1) vivid; urgency=medium
 
   [ Olivier Tilloy ]
