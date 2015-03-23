@@ -34,6 +34,10 @@
 #include "session-storage.h"
 #include "webbrowser-window.h"
 
+#include "TouchRegistry.h"
+#include "Ubuntu/Gestures/Direction.h"
+#include "Ubuntu/Gestures/DirectionalDragArea.h"
+
 BrowserApplication::BrowserApplication(int& argc, char** argv)
     : QApplication(argc, argv)
     , m_engine(0)
@@ -95,6 +99,13 @@ QString BrowserApplication::appId() const
     return QString();
 }
 
+static QObject* Direction_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new Direction();
+}
+
 bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 {
     Q_ASSERT(m_window == 0);
@@ -134,6 +145,10 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     qmlRegisterType<FaviconFetcher>(uri, 0, 1, "FaviconFetcher");
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
 
+    const char* gesturesUri = "Ubuntu.Gestures";
+    qmlRegisterSingletonType<Direction>(gesturesUri, 0, 1, "Direction", Direction_singleton_factory);
+    qmlRegisterType<DirectionalDragArea>(gesturesUri, 0, 1, "DirectionalDragArea");
+
     m_engine = new QQmlEngine;
     connect(m_engine, SIGNAL(quit()), SLOT(quit()));
     if (!isRunningInstalled()) {
@@ -156,6 +171,8 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     QObject* browser = m_component->beginCreate(context);
     m_window = qobject_cast<QQuickWindow*>(browser);
     m_webbrowserWindowProxy->setWindow(m_window);
+
+    m_window->installEventFilter(new TouchRegistry(this));
 
     browser->setProperty("developerExtrasEnabled", inspectorEnabled);
     browser->setProperty("forceFullscreen", m_arguments.contains("--fullscreen"));

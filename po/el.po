@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-27 10:29+0100\n"
+"POT-Creation-Date: 2015-03-22 21:26+0100\n"
 "PO-Revision-Date: 2015-03-15 22:28+0000\n"
 "Last-Translator: Aggelos Arnaoutis <angelosarn@hotmail.com>\n"
 "Language-Team: Greek <el@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-03-16 06:00+0000\n"
-"X-Generator: Launchpad (build 17389)\n"
+"X-Launchpad-Export-Date: 2015-03-23 05:28+0000\n"
+"X-Generator: Launchpad (build 17405)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -394,7 +394,7 @@ msgstr "Μετάβαση στο"
 msgid "Address;URL;www"
 msgstr "Διεύθυνση;URL;www"
 
-#: src/app/actions/NewTab.qml:23
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
 msgid "New Tab"
 msgstr "Νέα καρτέλα"
 
@@ -445,22 +445,26 @@ msgstr "αναζήτηση ή εισαγωγή διεύθυνσης"
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:178
 msgid "Share"
 msgstr "Κοινοποίηση"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:192
 msgid "History"
 msgstr "Ιστορικό"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:199
 msgid "Open tabs"
 msgstr "Ανοιχτές καρτέλες"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "Νέα καρτέλα"
+
+#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+msgid "Done"
+msgstr "Ολοκληρώθηκε"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -480,10 +484,6 @@ msgstr "Τελευταία επίσκεψη"
 #: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "Χθες"
-
-#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
-msgid "Done"
-msgstr "Ολοκληρώθηκε"
 
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
@@ -563,13 +563,9 @@ msgstr "Έχετε συνδεθεί με το"
 msgid "Which is run by"
 msgstr "Που διαχειρίζεται"
 
-#: src/app/webbrowser/TabPreview.qml:163
+#: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Πατήστε για εμφάνιση"
-
-#: src/app/webbrowser/TabsView.qml:113
-msgid "Add"
-msgstr "Προσθήκη"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:38
@@ -626,3 +622,6 @@ msgstr "Διαδίκτυο;WWW;Περιηγητής;Ιστός;Εξερευνη�
 
 #~ msgid "Clear"
 #~ msgstr "Καθαρισμός"
+
+#~ msgid "Add"
+#~ msgstr "Προσθήκη"
