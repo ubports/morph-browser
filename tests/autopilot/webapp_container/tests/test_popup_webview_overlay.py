@@ -15,7 +15,7 @@
 
 import time
 
-from testtools.matchers import Equals, Contains
+from testtools.matchers import Equals, Contains, GreaterThan
 from autopilot.matchers import Eventually
 
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
@@ -46,6 +46,9 @@ class WebappContainerPopupWebViewOverlayTestCase(
         popup_controller = self.get_popup_controller()
         new_view_watcher = popup_controller.watch_signal(
             'newViewCreated(QString)')
+        animation_watcher = popup_controller.watch_signal(
+            'windowOverlayAnimationDone()')
+        animation_signal_emission = animation_watcher.num_emissions
 
         views = self.get_popup_overlay_views()
         self.assertThat(len(views), Equals(0))
@@ -66,12 +69,20 @@ class WebappContainerPopupWebViewOverlayTestCase(
             overlay.select_single(objectName="overlayWebview").url,
             Contains('/open-close-content'))
 
-        time.sleep(1)
+        self.assertThat(
+            lambda: animation_watcher.num_emissions,
+            Eventually(GreaterThan(animation_signal_emission)))
+        animation_signal_emission = animation_watcher.num_emissions
+
         closeButton = overlay.select_single(
             objectName='overlayCloseButton')
 
         self.pointing_device.click_object(closeButton)
-        time.sleep(1)
+
+        self.assertThat(
+            lambda: animation_watcher.num_emissions,
+            Eventually(GreaterThan(animation_signal_emission)))
+        animation_signal_emission = animation_watcher.num_emissions
 
         self.assertThat(webview.visible, Equals(True))
         views = self.get_popup_overlay_views()
@@ -93,6 +104,10 @@ class WebappContainerPopupWebViewOverlayTestCase(
         external_open_watcher = popup_controller.watch_signal(
             'openExternalUrlTriggered(QString)')
 
+        animation_watcher = popup_controller.watch_signal(
+            'windowOverlayAnimationDone()')
+        animation_signal_emission = animation_watcher.num_emissions
+
         self.click_href_target_blank()
 
         self.assertThat(
@@ -106,12 +121,20 @@ class WebappContainerPopupWebViewOverlayTestCase(
         views = self.get_popup_overlay_views()
         overlay = views[0]
 
-        time.sleep(1)
+        self.assertThat(
+            lambda: animation_watcher.num_emissions,
+            Eventually(GreaterThan(animation_signal_emission)))
+        animation_signal_emission = animation_watcher.num_emissions
+
         openInBrowserButton = overlay.select_single(
             objectName='overlayButtonOpenInBrowser')
 
         self.pointing_device.click_object(openInBrowserButton)
-        time.sleep(1)
+
+        self.assertThat(
+            lambda: animation_watcher.num_emissions,
+            Eventually(GreaterThan(animation_signal_emission)))
+        animation_signal_emission = animation_watcher.num_emissions
 
         views = self.get_popup_overlay_views()
         self.assertThat(len(views), Equals(0))
@@ -136,12 +159,17 @@ class WebappContainerPopupWebViewOverlayTestCase(
             lambda: webview.visible,
             Eventually(Equals(True)))
 
-        for i in range(0,3):
-            container_window = self.app.select_single(
-                objectName="webappContainer")
-            self.pointing_device.move(container_window.width/2, container_window.height/2)
-            self.pointing_device.click()
-            time.sleep(2)
+        animation_watcher = popup_controller.watch_signal(
+            'windowOverlayAnimationDone()')
+        animation_signal_emission = animation_watcher.num_emissions
+
+        OVERLAY_MAX_COUNT = 3
+        for i in range(0, OVERLAY_MAX_COUNT):
+            self.click_href_target_blank()
+            self.assertThat(
+                lambda: animation_watcher.num_emissions,
+                Eventually(GreaterThan(animation_signal_emission)))
+            animation_signal_emission = animation_watcher.num_emissions
 
         self.assertThat(
             lambda: webview.visible,
@@ -150,9 +178,7 @@ class WebappContainerPopupWebViewOverlayTestCase(
         external_open_watcher = popup_controller.watch_signal(
             'openExternalUrlTriggered(QString)')
 
-        self.pointing_device.move(container_window.width/2, container_window.height/2)
-        self.pointing_device.click()
-        time.sleep(1)
+        self.click_href_target_blank()
 
         self.assertThat(
             lambda: external_open_watcher.was_emitted,

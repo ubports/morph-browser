@@ -32,6 +32,7 @@ Item {
     // Used to access runtime behavior during tests
     signal openExternalUrlTriggered(string url)
     signal newViewCreated(string url)
+    signal windowOverlayAnimationDone()
 
     readonly property int maxSimultaneousViews: 3
 
@@ -119,6 +120,11 @@ Item {
                 NumberAnimation {
                     duration: 200
                     easing.type: Easing.InOutQuad
+                    onRunningChanged: {
+                        if (! running) {
+                            windowOverlayAnimationDone()
+                        }
+                    }
                 }
             }
         }
