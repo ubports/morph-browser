@@ -1,3 +1,19 @@
+webbrowser-app (0.23+15.04.20150323-0ubuntu1) vivid; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Discard selection when navigating away. (LP: #1433503)
+  * Expose the SearchEngine type to QML.
+  * Remove workaround for bug #1377198, which was fixed in oxide 1.5.
+    (LP: #1377198)
+  * Rename test helper function from clear_cache() to clear_datadir(),
+    to better reflect what it really does.
+  * Update the 'selection' test page to hopefully fix the failing
+    autopilot test on mako. (LP: #1434193, #1433020)
+  * Update translation template.
+  * Use the loadEvent signal (introduced in oxide 1.3).
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 23 Mar 2015 07:49:27 +0000
+
 webbrowser-app (0.23+15.04.20150320.2-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
