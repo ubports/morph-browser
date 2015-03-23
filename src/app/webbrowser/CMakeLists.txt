@@ -28,7 +28,6 @@ qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Sql)
 set(WEBBROWSER_APP_SRC
     file-operations.cpp
     searchengine.cpp
-    settings.cpp
     webbrowser-app.cpp
 )
 

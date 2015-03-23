@@ -27,7 +27,6 @@
 #include "history-domainlist-chronological-model.h"
 #include "limit-proxy-model.h"
 #include "searchengine.h"
-#include "settings.h"
 #include "tabs-model.h"
 #include "webbrowser-app.h"
 
@@ -95,12 +94,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<SearchEngine>(uri, 0, 1, "SearchEngine");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
-        Settings settings;
-        m_window->setProperty("homepage", settings.homepage());
-        m_window->setProperty("searchEngine", settings.searchEngine());
-        m_window->setProperty("allowOpenInBackgroundTab", settings.allowOpenInBackgroundTab());
-        m_window->setProperty("restoreSession", settings.restoreSession() &&
-                                                !m_arguments.contains("--new-session"));
+        m_window->setProperty("newSession", m_arguments.contains("--new-session"));
         QVariantList urls;
         Q_FOREACH(const QUrl& url, this->urls()) {
             urls.append(url);

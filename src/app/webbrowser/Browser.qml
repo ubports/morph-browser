@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.4 as Oxide
 import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
@@ -28,16 +29,17 @@ import "../UrlUtils.js" as UrlUtils
 BrowserView {
     id: browser
 
-    property bool restoreSession: true
-
     currentWebview: tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
-    property url homepage
-    property string searchEngine
-    property string allowOpenInBackgroundTab
+    property url homepage: "http://start.ubuntu.com"
+    property string searchEngine: "google"
+    property string allowOpenInBackgroundTab: "default"
+    property bool restoreSession: true
+
+    property bool newSession: false
 
     // XXX: we might want to tweak this value depending
     // on the form factor and/or the available memory
@@ -76,6 +78,13 @@ BrowserView {
             onTriggered: browser.historyModel.clearAll()
         }
     ]
+
+    Settings {
+        property alias homepage: browser.homepage
+        property alias searchEngine: browser.searchEngine
+        property alias allowOpenInBackgroundTab: browser.allowOpenInBackgroundTab
+        property alias restoreSession: browser.restoreSession
+    }
 
     Item {
         id: mainView
@@ -624,7 +633,7 @@ BrowserView {
         running: true
         interval: 1
         onTriggered: {
-            if (browser.restoreSession) {
+            if (!browser.newSession && browser.restoreSession) {
                 session.restore()
             }
             // Sanity check
