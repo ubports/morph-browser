@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-27 10:29+0100\n"
+"POT-Creation-Date: 2015-03-22 21:26+0100\n"
 "PO-Revision-Date: 2015-03-01 15:12+0000\n"
 "Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-03-02 05:36+0000\n"
-"X-Generator: Launchpad (build 17361)\n"
+"X-Launchpad-Export-Date: 2015-03-23 05:28+0000\n"
+"X-Generator: Launchpad (build 17405)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -128,7 +128,7 @@ msgstr "Esta página quer saber a localização do seu dispositivo."
 #: src/app/GeolocationPermissionRequest.qml:33
 #: src/app/PermissionRequest.qml:31
 msgid "Deny"
-msgstr "Negar"
+msgstr "Recusar"
 
 #: src/app/GeolocationPermissionRequest.qml:43
 #: src/app/PermissionRequest.qml:40
@@ -170,7 +170,7 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
-"Endereço de assunto:\n"
+"Endereço do assunto:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
@@ -190,7 +190,7 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
-"Endereço Emissor :\n"
+"Endereço do emissor :\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
@@ -311,7 +311,7 @@ msgid ""
 msgstr ""
 "Este certificado de segurança do site não é confiável\n"
 "Tentou acessar %1 , mas o servidor apresentou um certificado de segurança "
-"que falhou no teste de segurança por uma razão desconhecida ."
+"que falhou no teste de segurança por uma razão desconhecida."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -359,7 +359,7 @@ msgstr "Limpar histórico"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Limpar Histórico de Navegação"
+msgstr "Limpar histórico de navegação"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -393,7 +393,7 @@ msgstr "Ir para"
 msgid "Address;URL;www"
 msgstr "Endereço;URL;www"
 
-#: src/app/actions/NewTab.qml:23
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
 msgid "New Tab"
 msgstr "Novo separador"
 
@@ -444,22 +444,26 @@ msgstr "procurar ou introduzir um endereço"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:178
 msgid "Share"
 msgstr "Partilhar"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:192
 msgid "History"
 msgstr "Histórico"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:199
 msgid "Open tabs"
 msgstr "Separadores abertos"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "Novo separador"
+
+#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+msgid "Done"
+msgstr "Concluído"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -479,10 +483,6 @@ msgstr "Última visitada"
 #: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "Ontem"
-
-#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
-msgid "Done"
-msgstr "Concluído"
 
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
@@ -559,13 +559,9 @@ msgstr "Está ligado a"
 msgid "Which is run by"
 msgstr "Que é dirigido por"
 
-#: src/app/webbrowser/TabPreview.qml:163
+#: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Toque para ver"
-
-#: src/app/webbrowser/TabsView.qml:113
-msgid "Add"
-msgstr "Adicionar"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:38
@@ -613,6 +609,9 @@ msgstr "Internet;WWW;Browser;Web;Explorador"
 
 #~ msgid "Clear"
 #~ msgstr "Limpar"
+
+#~ msgid "Add"
+#~ msgstr "Adicionar"
 
 #~ msgid "No"
 #~ msgstr "Não"

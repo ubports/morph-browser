@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-27 10:29+0100\n"
+"POT-Creation-Date: 2015-03-22 21:26+0100\n"
 "PO-Revision-Date: 2014-10-07 14:24+0000\n"
 "Last-Translator: Josef Andersson <Unknown>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-02-28 06:14+0000\n"
-"X-Generator: Launchpad (build 17361)\n"
+"X-Launchpad-Export-Date: 2015-03-23 05:28+0000\n"
+"X-Generator: Launchpad (build 17405)\n"
 "Language: sv\n"
 
 #: src/app/AlertDialog.qml:23
@@ -390,7 +390,7 @@ msgstr "Gå till"
 msgid "Address;URL;www"
 msgstr "Adress;URL;www"
 
-#: src/app/actions/NewTab.qml:23
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
 msgid "New Tab"
 msgstr "Ny flik"
 
@@ -441,22 +441,26 @@ msgstr "sök eller ange en adress"
 msgid "Delete"
 msgstr "Ta bort"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:178
 msgid "Share"
 msgstr "Dela"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:192
 msgid "History"
 msgstr "Historik"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:199
 msgid "Open tabs"
 msgstr "Öppna flikar"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "Ny flik"
+
+#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+msgid "Done"
+msgstr "Klar"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -477,13 +481,9 @@ msgstr "Senast besökt"
 msgid "Yesterday"
 msgstr "Igår"
 
-#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
-msgid "Done"
-msgstr "Klar"
-
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
-msgstr ""
+msgstr "Markera alla"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -556,13 +556,9 @@ msgstr "Du är ansluten till"
 msgid "Which is run by"
 msgstr "Som drivs av"
 
-#: src/app/webbrowser/TabPreview.qml:163
+#: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Tryck för att visa"
-
-#: src/app/webbrowser/TabsView.qml:113
-msgid "Add"
-msgstr "Lägg till"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:38
@@ -610,6 +606,9 @@ msgstr "Internet;WWW;Webbläsare;Webb;Explorer"
 
 #~ msgid "Clear"
 #~ msgstr "Töm"
+
+#~ msgid "Add"
+#~ msgstr "Lägg till"
 
 #~ msgid "No"
 #~ msgstr "Nej"
