@@ -39,7 +39,9 @@ WebViewImpl {
     property var popupController
 
     // Mostly used for testing & avoid external urls to
-    //  "leak" in the default browser
+    //  "leak" in the default browser. External URLs corresponds
+    //  to URLs that are not included in the set defined by the url patterns
+    //  (if any) or navigations resulting in new windows being created.
     property bool blockOpenExternalUrls: false
 
     // Those signals are used for testing purposes to externally
@@ -60,7 +62,9 @@ WebViewImpl {
     preferences.localStorageEnabled: true
     preferences.appCacheEnabled: true
 
-    onNewViewRequested: popupController.createPopupView(webview.parent, request, true, context)
+    onNewViewRequested: {
+        popupController.createPopupView(webview.parent, request, true, context)
+    }
 
     contextualActions: ActionList {
         Actions.CopyLink {
@@ -126,6 +130,7 @@ WebViewImpl {
 
     function navigationRequestedDelegate(request) {
         var url = request.url.toString()
+        console.log('--- onNavigationRequested 0 ' + url)
 
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
             request.action = Oxide.NavigationRequest.ActionReject
@@ -133,7 +138,9 @@ WebViewImpl {
             return
         }
 
+        request.action = Oxide.NavigationRequest.ActionReject
         if (isNewForegroundWebViewDisposition(request.disposition)) {
+            request.action = Oxide.NavigationRequest.ActionAccept
             popupController.handleNewForegroundNavigationRequest(url, request, true)
             return
         }
@@ -146,7 +153,6 @@ WebViewImpl {
             return
         }
 
-        request.action = Oxide.NavigationRequest.ActionReject
         if (webview.shouldAllowNavigationTo(url))
             request.action = Oxide.NavigationRequest.ActionAccept
 

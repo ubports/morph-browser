@@ -143,16 +143,14 @@ Item {
          * Use a plain oxide webview
          *
          */
-        Oxide.WebView {
+        WebViewImpl {
             id: popupWebview
 
-            objectName: "webview"
+            objectName: "overlayWebview"
 
-            /**
-             * Reuse the
-             *
-             */
             context: webContext
+
+            onUrlChanged: console.log('url changed: ' + url)
 
             anchors {
                 bottom: parent.bottom
@@ -162,6 +160,7 @@ Item {
             }
 
             onNewViewRequested: {
+                console.log('--- new view requested')
                 if (popupWindowController) {
                     popupWindowController.createPopupView(
                         popup.parent, request, false, context)
@@ -174,12 +173,14 @@ Item {
             }
 
             onNavigationRequested: {
+                console.log('--- onNavigationRequested requested ')
                 var url = request.url.toString()
                 if (isNewForegroundWebViewDisposition(request.disposition)) {
                     popupWindowController.handleNewForegroundNavigationRequest(
                                 url, request, false)
                     return
                 }
+                request.action = Oxide.NavigationRequest.ActionAccept
             }
 
             onCloseRequested: {

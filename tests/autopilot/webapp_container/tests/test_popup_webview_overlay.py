@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import time
+
 from testtools.matchers import Equals, Contains
 from autopilot.matchers import Eventually
 
@@ -38,13 +40,12 @@ class WebappContainerPopupWebViewOverlayTestCase(
         args = []
         self.launch_webcontainer_app_with_local_http_server(
             args,
-            '/open-close-content',
-            {'WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY': '1'})
+            '/open-close-content')
         self.get_webcontainer_window().visible.wait_for(True)
 
-        webview = self.get_oxide_webview()
-        external_open_watcher = webview.watch_signal(
-            'openExternalUrlTriggered(QString)')
+        popup_controller = self.get_popup_controller()
+        new_view_watcher = popup_controller.watch_signal(
+            'newViewCreated(QString)')
 
         views = self.get_popup_overlay_views()
         self.assertThat(len(views), Equals(0))
@@ -52,8 +53,9 @@ class WebappContainerPopupWebViewOverlayTestCase(
         self.click_href_target_blank()
 
         self.assertThat(
-            lambda: external_open_watcher.was_emitted,
-            Eventually(Equals(False)))
+            lambda: new_view_watcher.was_emitted,
+            Eventually(Equals(True)))
+        webview = self.get_oxide_webview()
         self.assertThat(webview.visible, Equals(False))
         self.assertThat(
             lambda: len(self.get_popup_overlay_views()),
@@ -61,17 +63,21 @@ class WebappContainerPopupWebViewOverlayTestCase(
         views = self.get_popup_overlay_views()
         overlay = views[0]
         self.assertThat(
-            overlay.select_single(objectName="webview").url,
-            Contains('/open-close-content'))
+            overlay.select_single(objectName="overlayWebview").url,
+            Contains('/with-targetted-link'))
 
+        time.sleep(1)
         closeButton = overlay.select_single(
             objectName='overlayCloseButton')
+
         self.pointing_device.click_object(closeButton)
+        time.sleep(1)
+
         self.assertThat(webview.visible, Equals(True))
         views = self.get_popup_overlay_views()
         self.assertThat(len(views), Equals(0))
 
-    def test_open_in_main_browser(self):
+    def test_open_overlay_in_main_browser(self):
         args = []
         self.launch_webcontainer_app_with_local_http_server(
             args,
@@ -79,12 +85,12 @@ class WebappContainerPopupWebViewOverlayTestCase(
             {'WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY': '1'})
         self.get_webcontainer_window().visible.wait_for(True)
 
-        controller = self.get_popup_controller()
+        popup_controller = self.get_popup_controller()
         webview = self.get_oxide_webview()
         self.assertThat(
             lambda: webview.visible,
             Eventually(Equals(True)))
-        external_open_watcher = controller.watch_signal(
+        external_open_watcher = popup_controller.watch_signal(
             'openExternalUrlTriggered(QString)')
 
         self.click_href_target_blank()
@@ -99,15 +105,57 @@ class WebappContainerPopupWebViewOverlayTestCase(
 
         views = self.get_popup_overlay_views()
         overlay = views[0]
+
+        time.sleep(1)
         openInBrowserButton = overlay.select_single(
             objectName='overlayButtonOpenInBrowser')
-        self.pointing_device.click_object(openInBrowserButton)
 
+        self.pointing_device.click_object(openInBrowserButton)
+        time.sleep(1)
+
+        views = self.get_popup_overlay_views()
+        self.assertThat(len(views), Equals(0))
+        self.assertThat(
+            lambda: external_open_watcher.was_emitted,
+            Eventually(Equals(True)))
         self.assertThat(
             lambda: webview.visible,
             Eventually(Equals(True)))
-        views = self.get_popup_overlay_views()
-        self.assertThat(len(views), Equals(0))
+
+    def test_max_overlay_count_reached(self):
+        args = []
+        self.launch_webcontainer_app_with_local_http_server(
+            args,
+            '/open-close-content',
+            {'WEBAPP_CONTAINER_BLOCK_OPEN_URL_EXTERNALLY': '1'})
+        self.get_webcontainer_window().visible.wait_for(True)
+
+        popup_controller = self.get_popup_controller()
+        webview = self.get_oxide_webview()
+        self.assertThat(
+            lambda: webview.visible,
+            Eventually(Equals(True)))
+
+        for i in range(0,3):
+            print('clicking {}'.format(len(self.get_popup_overlay_views())))
+            container_window = self.app.select_single(
+                objectName="webappContainer")
+            self.pointing_device.move(container_window.width/2, container_window.height/2)
+            self.pointing_device.click()
+            time.sleep(2)
+
+        self.assertThat(
+            lambda: webview.visible,
+            Eventually(Equals(False)))
+
+        print('clicking')
+        external_open_watcher = popup_controller.watch_signal(
+            'openExternalUrlTriggered(QString)')
+
+        self.pointing_device.move(container_window.width/2, container_window.height/2)
+        self.pointing_device.click()
+        time.sleep(1)
+
         self.assertThat(
             lambda: external_open_watcher.was_emitted,
             Eventually(Equals(True)))

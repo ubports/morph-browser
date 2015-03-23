@@ -29,7 +29,9 @@ Item {
     property var views: []
     property bool blockOpenExternalUrls: false
 
+    // Used to access runtime behavior during tests
     signal openExternalUrlTriggered(string url)
+    signal newViewCreated(string url)
 
     readonly property int maxSimultaneousViews: 3
 
@@ -70,7 +72,6 @@ Item {
             return
         }
 
-        // TODO Oxide prepareToClose & prepareToCloseResponse
         function onViewSlidingOut() {
             if (topView.y >= (topView.parent.height -10)) {
                 topView.yChanged.disconnect(onViewSlidingOut)
@@ -89,6 +90,7 @@ Item {
         topView.y = topView.parent.height
     }
     function createPopupView(parentView, request, isRequestFromMainWebappWebview, context) {
+        console.log('createPopupView')
         var view = popupWebOverlayFactory.createObject(
             parentView,
             { request: request,
@@ -96,6 +98,7 @@ Item {
               popupWindowController: controller });
         view.y = 0
         handleNewViewAdded(view)
+        newViewCreated(view.url)
     }
     function updateMainViewVisibility(visible) {
         if (mainWebappView) {

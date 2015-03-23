@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-17 15:57+0100\n"
+"POT-Creation-Date: 2015-03-20 14:24-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,7 +117,7 @@ msgid "Permission Request"
 msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:70
+#: src/app/webcontainer/WebViewImplWebkit.qml:71
 msgid "This page wants to know your device’s location."
 msgstr ""
 
@@ -390,7 +390,7 @@ msgstr ""
 msgid "Share…"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:208
+#: src/app/webbrowser/AddressBar.qml:209
 msgid "search or enter an address"
 msgstr ""
 

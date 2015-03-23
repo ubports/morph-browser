@@ -66,22 +66,22 @@ This is some {} content
 </html>
         """
 
-    def targetted_click_content(self, differentDomain=True):
-        url = 'http://www.test.com/'
-        if differentDomain:
-            url = 'http://www.ubuntu.com/'
+    def targetted_click_content(self):
         return """
 <html>
 <head>
 <title>Some content</title>
 </head>
 <body>
-<div><a href='{}' target='_blank'>
-<div style="height: 100%; width: 100%"></div>
-</a></div>
+<div>
+<a href="/open-close-content" target="_blank">
+<div style="height: 100%; width: 100%">
+</div>
+</a>
+</div>
 </body>
 </html>
-        """.format(url)
+        """
 
     def display_ua_content(self):
         return """
@@ -105,15 +105,10 @@ window.onload = function() {{
 <head>
 <title>open-close</title>
 <script>
-window.onload = function() {
-  document.getElementById('lorem').addEventListener("click", function() {
-    window.open('/open-close-content');
-  });
-}
 </script>
 </head>
 <body>
-    <a href="/open-close-content" target="_blank">
+    <a href="/with-targetted-link" target="_blank">
         <div style="height: 50%; width: 100%; background-color: red">
             target blank link
         </div>
@@ -139,9 +134,6 @@ window.onload = function() {
             self.send_response(200)
             self.serve_content(self.external_click_content())
         elif self.path == '/with-targetted-link':
-            self.send_response(200)
-            self.serve_content(self.targetted_click_content(False))
-        elif self.path == '/with-different-targetted-link':
             self.send_response(200)
             self.serve_content(self.targetted_click_content())
         elif self.path == '/show-user-agent':

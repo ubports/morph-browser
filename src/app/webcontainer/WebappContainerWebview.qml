@@ -44,9 +44,9 @@ Item {
     PopupWindowController {
         id: popupController
         objectName: "popupController"
-        webappUrlPatterns: webappUrlPatterns
-        mainWebappView: currentWebview
-        blockOpenExternalUrls: blockOpenExternalUrls
+        webappUrlPatterns: containerWebview.webappUrlPatterns
+        mainWebappView: containerWebview.currentWebview
+        blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
     }
 
     Loader {
