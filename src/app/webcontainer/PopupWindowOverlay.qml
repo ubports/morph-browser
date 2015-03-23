@@ -38,7 +38,6 @@ Item {
     Item {
         anchors {
             fill: parent
-            margins: units.gu(1)
         }
 
 
@@ -69,7 +68,7 @@ Item {
             }
 
             height: units.gu(6)
-            width: parent.width - units.gu(6)
+            width: parent.width
 
             anchors {
                 top: parent.top
