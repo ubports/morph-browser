@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,39 +17,69 @@
  */
 
 // local
+#include "config.h"
 #include "searchengine.h"
 
 // Qt
-#include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QStandardPaths>
 #include <QtCore/QXmlStreamReader>
 
-SearchEngine::SearchEngine(const QString& name, QObject* parent)
+SearchEngine::SearchEngine(QObject* parent)
     : QObject(parent)
     , m_name(DEFAULT_SEARCH_NAME)
     , m_description(DEFAULT_SEARCH_DESC)
     , m_template(DEFAULT_SEARCH_TEMPLATE)
 {
-    QString searchenginesSubDir("searchengines");
-    QString filename = searchenginesSubDir + "/" + name + ".xml";
-    m_path = QStandardPaths::locate(QStandardPaths::DataLocation, filename);
-    if (!m_path.isEmpty()) {
-        parseOpenSearchDescription();
+}
+
+const QString& SearchEngine::filename() const
+{
+    return m_filename;
+}
+
+void SearchEngine::setFilename(const QString& filename)
+{
+    if (filename != m_filename) {
+        m_filename = filename;
+        Q_EMIT filenameChanged();
+
+        m_name = DEFAULT_SEARCH_NAME;
+        m_description = DEFAULT_SEARCH_DESC;
+        m_template = DEFAULT_SEARCH_TEMPLATE;
+
+        if (!filename.isEmpty()) {
+            QString filepath = QStandardPaths::locate(QStandardPaths::DataLocation,
+                                                      "searchengines/" + filename + ".xml");
+            if (!filepath.isEmpty()) {
+                QFile file(filepath);
+                if (file.open(QIODevice::ReadOnly)) {
+                    // Parse OpenSearch description file
+                    // (http://www.opensearch.org/Specifications/OpenSearch/1.1)
+                    QXmlStreamReader parser(&file);
+                    while (!parser.atEnd()) {
+                        parser.readNext();
+                        if (parser.isStartElement()) {
+                            QStringRef name = parser.name();
+                            if (name == "ShortName") {
+                                m_name = parser.readElementText();
+                            } else if (name == "Description") {
+                                m_description = parser.readElementText();
+                            } else if (name == "Url") {
+                                if (parser.attributes().value("type") == "text/html") {
+                                    m_template = parser.attributes().value("template").toString();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        Q_EMIT nameChanged();
+        Q_EMIT descriptionChanged();
+        Q_EMIT urlTemplateChanged();
     }
-}
-
-SearchEngine::SearchEngine(const SearchEngine& other)
-{
-    m_path = other.m_path;
-    m_name = other.m_name;
-    m_description = other.m_description;
-    m_template = other.m_template;
-}
-
-bool SearchEngine::isValid() const
-{
-    return (!m_name.isEmpty() && !m_template.isEmpty());
 }
 
 const QString& SearchEngine::name() const
@@ -65,28 +95,4 @@ const QString& SearchEngine::description() const
 const QString& SearchEngine::urlTemplate() const
 {
     return m_template;
-}
-
-void SearchEngine::parseOpenSearchDescription()
-{
-    QFile file(m_path);
-    if (!file.open(QIODevice::ReadOnly)) {
-        return;
-    }
-    QXmlStreamReader parser(&file);
-    while (!parser.atEnd()) {
-        parser.readNext();
-        if (parser.isStartElement()) {
-            QStringRef name = parser.name();
-            if (name == "ShortName") {
-                m_name = parser.readElementText();
-            } else if (name == "Description") {
-                m_description = parser.readElementText();
-            } else if (name == "Url") {
-                if (parser.attributes().value("type") == "text/html") {
-                    m_template = parser.attributes().value("template").toString();
-                }
-            }
-        }
-    }
 }
