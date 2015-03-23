@@ -53,7 +53,7 @@ QtObject {
             }
         }
         onLoadEvent: {
-            console.log("Load event: " + JSON.stringify(event))
+            console.log("Load event: " + event.url)
             if (logoutUrlPattern.length !== 0 && event.url.match(logoutUrlPattern)) {
                 root.logoutDetected()
             }
@@ -68,8 +68,14 @@ QtObject {
     }
 
     onWebviewChanged: {
+        if (!webview) return
         console.log("Webview changed, adding script")
-        webview.messageHandlers.push(__scriptMessageHandler)
-        webview.context.userScripts.push(__userScript)
+        var newList = []
+        for (var i = 0; i < webview.messageHandlers.length; i++) {
+            newList.push(webview.messageHandlers[i])
+        }
+        newList.push(__scriptMessageHandler)
+        webview.messageHandlers = newmh
+        webview.context.userScripts = [__userScript]
     }
 }
