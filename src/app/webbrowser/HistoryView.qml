@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -226,7 +226,7 @@ Item {
                 verticalCenter: parent.verticalCenter
             }
 
-            strokeColor: "#5d5d5d"
+            strokeColor: UbuntuColors.darkGrey
 
             text: i18n.tr("Done")
 

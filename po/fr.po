@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-27 10:29+0100\n"
+"POT-Creation-Date: 2015-03-22 21:26+0100\n"
 "PO-Revision-Date: 2015-02-03 20:10+0000\n"
 "Last-Translator: Jean Marc <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-02-28 06:13+0000\n"
-"X-Generator: Launchpad (build 17361)\n"
+"X-Launchpad-Export-Date: 2015-03-23 05:28+0000\n"
+"X-Generator: Launchpad (build 17405)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -74,7 +74,7 @@ msgid ""
 "website is not trusted."
 msgstr ""
 "Vous tentez de vous connecter de manière sécurisée à %1, mais le certificat "
-"de sécurité de ce site Web n'est pas autorisé."
+"de sécurité de ce site web n'est pas autorisé."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
@@ -393,7 +393,7 @@ msgstr "Aller à"
 msgid "Address;URL;www"
 msgstr "Adresse;URL;www"
 
-#: src/app/actions/NewTab.qml:23
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
 msgid "New Tab"
 msgstr "Nouvel onglet"
 
@@ -444,22 +444,26 @@ msgstr "rechercher ou saisir une adresse"
 msgid "Delete"
 msgstr "Supprimer"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:178
 msgid "Share"
 msgstr "Partager"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:192
 msgid "History"
 msgstr "Historique"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:199
 msgid "Open tabs"
 msgstr "Onglets ouverts"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "Nouvel onglet"
+
+#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+msgid "Done"
+msgstr "Terminé"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -480,13 +484,9 @@ msgstr "Visités récemment"
 msgid "Yesterday"
 msgstr "Hier"
 
-#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
-msgid "Done"
-msgstr "Terminé"
-
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
-msgstr ""
+msgstr "Tout sélectionner"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -560,25 +560,21 @@ msgstr "Vous êtes connecté à"
 msgid "Which is run by"
 msgstr "Qui est géré par"
 
-#: src/app/webbrowser/TabPreview.qml:163
+#: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Appuyez pour voir"
-
-#: src/app/webbrowser/TabsView.qml:113
-msgid "Add"
-msgstr "Ajouter"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:38
 #: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Navigateur Web Ubuntu"
+msgstr "%1 - Navigateur web Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:40
 #: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
-msgstr "Navigateur Web Ubuntu"
+msgstr "Navigateur web Ubuntu"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
@@ -602,7 +598,7 @@ msgstr "Navigateur"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr "Navigateur Web"
+msgstr "Navigateur web"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
@@ -614,6 +610,9 @@ msgstr "Internet;WWW;Navigateur;Web;Explorateur"
 
 #~ msgid "Clear"
 #~ msgstr "Effacer"
+
+#~ msgid "Add"
+#~ msgstr "Ajouter"
 
 #~ msgid "No"
 #~ msgstr "Non"
