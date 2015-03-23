@@ -138,10 +138,6 @@ Item {
             }
         }
 
-        /**
-         * Use a plain oxide webview
-         *
-         */
         WebViewImpl {
             id: popupWebview
 
