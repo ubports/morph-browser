@@ -41,6 +41,14 @@ Item {
     property bool blockOpenExternalUrls: false
     property bool runningLocalApplication: false
 
+    PopupWindowController {
+        id: popupController
+        objectName: "popupController"
+        webappUrlPatterns: containerWebview.webappUrlPatterns
+        mainWebappView: containerWebview.currentWebview
+        blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
+    }
+
     Loader {
         id: webappContainerWebViewLoader
         objectName: "containerWebviewLoader"
@@ -72,7 +80,8 @@ Item {
                     , developerExtrasEnabled: containerWebview.developerExtrasEnabled
                     , popupRedirectionUrlPrefixPattern: containerWebview.popupRedirectionUrlPrefixPattern
                     , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
-                    , runningLocalApplication: containerWebview.runningLocalApplication})
+                    , runningLocalApplication: containerWebview.runningLocalApplication
+                    , popupController: popupController})
     }
 }
 
