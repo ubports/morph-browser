@@ -253,9 +253,9 @@ Oxide.WebView {
     readonly property bool lastLoadSucceeded: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeSucceeded
     readonly property bool lastLoadStopped: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeStopped
     readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeFailed
-    onLoadingChanged: {
-        if (loadEvent.url.toString() !== "data:text/html,chromewebdata") {
-            internal.lastLoadRequestStatus = loadEvent.type
+    onLoadEvent: {
+        if (!event.isError) {
+            internal.lastLoadRequestStatus = event.type
         }
         internal.dismissCurrentContextualMenu()
         internal.dismissCurrentSelection()
