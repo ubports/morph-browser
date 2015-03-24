@@ -47,11 +47,6 @@ QtObject {
 
     property var __connections: Connections {
         target: webview
-        onUrlChanged: {
-            if (logoutUrlPattern.length !== 0 && url.match(logoutUrlPattern)) {
-                root.logoutDetected()
-            }
-        }
         onLoadEvent: {
             console.log("Load event: " + event.url)
             if (logoutUrlPattern.length !== 0 && event.url.match(logoutUrlPattern)) {
@@ -70,12 +65,7 @@ QtObject {
     onWebviewChanged: {
         if (!webview) return
         console.log("Webview changed, adding script")
-        var newList = []
-        for (var i = 0; i < webview.messageHandlers.length; i++) {
-            newList.push(webview.messageHandlers[i])
-        }
-        newList.push(__scriptMessageHandler)
-        webview.messageHandlers = newmh
-        webview.context.userScripts = [__userScript]
+        webview.addMessageHandler(__scriptMessageHandler)
+        webview.context.addUserScript(__userScript)
     }
 }

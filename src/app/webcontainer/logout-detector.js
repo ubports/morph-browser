@@ -1,3 +1,5 @@
+oxide.sendMessage('domChanged', 'Some message');
+
 var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
 var observer = new MutationObserver(function(mutations) {
