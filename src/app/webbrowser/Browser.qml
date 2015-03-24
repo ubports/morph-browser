@@ -242,6 +242,12 @@ BrowserView {
                     iconName: "tab-new"
                     enabled: formFactor != "mobile"
                     onTriggered: browser.openUrlInNewTab("", true)
+                },
+                Action {
+                    objectName: "settings"
+                    text: i18n.tr("Settings")
+                    iconName: "settings"
+                    onTriggered: settingsComponent.createObject(settingsContainer)
                 }
             ]
 
@@ -498,6 +504,24 @@ BrowserView {
                     done()
                 }
                 onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
+                onDone: destroy()
+            }
+        }
+    }
+
+    Item {
+        id: settingsContainer
+
+        visible: children.length > 0
+        anchors.fill: parent
+
+        Component {
+            id: settingsComponent
+
+            SettingsPage {
+                anchors.fill: parent
+                onHistoryRemoved: browser.historyModel.clearAll()
+                onRestoreDefaults: settings.restoreDefaults()
                 onDone: destroy()
             }
         }

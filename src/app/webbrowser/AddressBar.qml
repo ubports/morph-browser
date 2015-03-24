@@ -21,6 +21,7 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import com.canonical.Oxide 1.0 as Oxide
 import ".."
+import "urlManagement.js" as UrlManagement
 
 FocusScope {
     id: addressbar
@@ -257,16 +258,6 @@ FocusScope {
             return false
         }
 
-        function fixUrl(address) {
-            var url = address
-            if (address.substr(0, 1) == "/") {
-                url = "file://" + address
-            } else if (address.indexOf("://") == -1) {
-                url = "http://" + address
-            }
-            return url
-        }
-
         function escapeHtmlEntities(query) {
             return query.replace(/\W/, encodeURIComponent)
         }
@@ -279,7 +270,7 @@ FocusScope {
         function validate() {
             var query = text.trim()
             if (internal.looksLikeAUrl(query)) {
-                requestedUrl = internal.fixUrl(query)
+                requestedUrl = UrlManagement.fixUrl(query)
             } else {
                 requestedUrl = internal.buildSearchUrl(query)
             }
