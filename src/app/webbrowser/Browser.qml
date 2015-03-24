@@ -499,7 +499,7 @@ BrowserView {
                     mode: {
                         if (webviewimpl.loading || webviewimpl.forceShow) {
                             return Oxide.LocationBarController.ModeShown
-                        } else if (webviewimpl.fullscreen) {
+                        } else if (webviewimpl.fullscreen || recentView.visible) {
                             return Oxide.LocationBarController.ModeHidden
                         } else if (webviewimpl.nearBottom) {
                             return Oxide.LocationBarController.ModeShown
