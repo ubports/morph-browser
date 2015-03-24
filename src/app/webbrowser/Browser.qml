@@ -35,10 +35,10 @@ BrowserView {
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
-    property url homepage: "http://start.ubuntu.com"
-    property string searchEngine: "google"
-    property string allowOpenInBackgroundTab: "default"
-    property bool restoreSession: true
+    property url homepage: settingsDefaults.homepage
+    property string searchEngine: settingsDefaults.searchEngine
+    property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
+    property bool restoreSession: settingsDefaults.restoreSession
 
     property bool newSession: false
 
@@ -81,10 +81,28 @@ BrowserView {
     ]
 
     Settings {
+        id: settings
+
         property alias homepage: browser.homepage
         property alias searchEngine: browser.searchEngine
         property alias allowOpenInBackgroundTab: browser.allowOpenInBackgroundTab
         property alias restoreSession: browser.restoreSession
+
+        function restoreDefaults() {
+            browser.homepage  = settingsDefaults.homepage
+            browser.searchEngine = settingsDefaults.searchEngine
+            browser.allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
+            browser.restoreSession = settingsDefaults.restoreSession
+        }
+    }
+
+    QtObject {
+        id: settingsDefaults
+
+        readonly property url homepage: "http://start.ubuntu.com"
+        readonly property string searchEngine: "google"
+        readonly property string allowOpenInBackgroundTab: "default"
+        readonly property bool restoreSession: true
     }
 
     Item {
