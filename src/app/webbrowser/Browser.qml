@@ -328,11 +328,11 @@ BrowserView {
                 enabled: current
                 visible: current
 
-                readonly property bool nearBottom: (contentY + viewportHeight) / contentHeight >= 0.98
+                readonly property bool nearBottom: ((contentY + viewportHeight) / contentHeight) >= 0.98
                 locationBarController {
                     height: webviewimpl.visible ? chrome.height : 0
                     mode: {
-                        if (webviewimpl.loading) {
+                        if (webviewimpl.loading || webviewimpl.forceShow) {
                             return Oxide.LocationBarController.ModeShown
                         } else if (webviewimpl.fullscreen) {
                             return Oxide.LocationBarController.ModeHidden
@@ -341,6 +341,22 @@ BrowserView {
                         } else {
                             return Oxide.LocationBarController.ModeAuto
                         }
+                    }
+                }
+
+                // Work around the lack of a show() method on the location bar controller
+                // (https://launchpad.net/bugs/1422920) by forcing its mode to ModeShown
+                // for long enough (1000ms) to allow the animation to be committed.
+                property bool forceShow: false
+                Timer {
+                    id: delayedResetMode
+                    interval: 1000
+                    onTriggered: forceShow = false
+                }
+                onFullscreenChanged: {
+                    if (!fullscreen) {
+                        forceShow = true
+                        delayedResetMode.restart()
                     }
                 }
 
