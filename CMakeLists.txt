@@ -32,6 +32,9 @@ if(cmake_build_type_lower MATCHES coverage)
     ENABLE_COVERAGE_REPORT(EXCLUDES tests/*|.*moc_.*.cpp FILTER tests/* moc_*.cpp)
 endif()
 
+# for unity8 components
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 # enable QML debugging
 if(CMAKE_BUILD_TYPE MATCHES DEBUG OR CMAKE_BUILD_TYPE MATCHES "Debug")
     add_definitions(-DQT_QML_DEBUG)
