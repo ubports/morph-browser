@@ -81,7 +81,8 @@ Item {
                     , popupRedirectionUrlPrefixPattern: containerWebview.popupRedirectionUrlPrefixPattern
                     , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
                     , runningLocalApplication: containerWebview.runningLocalApplication
-                    , popupController: popupController})
+                    , popupController: popupController
+                    , overlayViewsParent: containerWebview.parent})
     }
 }
 

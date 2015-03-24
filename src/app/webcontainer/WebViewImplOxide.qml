@@ -37,6 +37,7 @@ WebViewImpl {
     property var popupWindowController
     property url dataPath
     property var popupController
+    property var overlayViewsParent: webview.parent
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser. External URLs corresponds
@@ -62,9 +63,7 @@ WebViewImpl {
     preferences.localStorageEnabled: true
     preferences.appCacheEnabled: true
 
-    onNewViewRequested: {
-        popupController.createPopupView(webview.parent, request, true, context)
-    }
+    onNewViewRequested: popupController.createPopupView(overlayViewsParent, request, true, context)
 
     contextualActions: ActionList {
         Actions.CopyLink {
