@@ -43,6 +43,7 @@ Item {
             right: parent.right
         }
 
+        showDivider: false
         highlightWhenPressed: false
 
         Icon {
@@ -83,6 +84,8 @@ Item {
             right: parent.right
             bottom: parent.bottom
         }
+
+        ListItem.Divider {}
 
         ListItem.Subtitled {
             text: i18n.tr("Search engine")
@@ -184,6 +187,7 @@ Item {
             }
 
             highlightWhenPressed: false
+            showDivider: false
 
             Icon {
                 id: privacyBackButton
@@ -223,6 +227,8 @@ Item {
                 right: parent.right
                 bottom: parent.bottom
             }
+
+            ListItem.Divider {}
 
             ListItem.Standard {
                 text: i18n.tr("Clear Browsing History")

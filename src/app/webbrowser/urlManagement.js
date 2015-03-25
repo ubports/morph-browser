@@ -26,4 +26,3 @@ function fixUrl(address) {
     }
     return url
 }
-
