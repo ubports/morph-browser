@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -111,7 +111,6 @@ ChromeBase {
 
             anchors {
                 right: parent.right
-                rightMargin: units.gu(2)
                 verticalCenter: parent.verticalCenter
             }
 
