@@ -65,7 +65,7 @@ public:
 
 Q_SIGNALS:
     void databasePathChanged() const;
-    void rowCountChanged(int c);
+    void rowCountChanged();
 
 private:
     QSqlDatabase m_database;
