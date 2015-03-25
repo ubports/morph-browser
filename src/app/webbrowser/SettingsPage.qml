@@ -26,7 +26,8 @@ import "urlManagement.js" as UrlManagement
 Item {
     id: settings
 
-    signal historyRemoved()
+    property QtObject historyModel
+
     signal restoreDefaults()
     signal done()
 
@@ -232,10 +233,8 @@ Item {
 
             ListItem.Standard {
                 text: i18n.tr("Clear Browsing History")
-                onClicked: {
-                    settings.historyRemoved();
-                    opacity = 0.5
-                }
+                onClicked: historyModel.clearAll();
+                opacity: historyModel.count > 0 ? 1 : 0.5
             }
         }
     }

@@ -520,7 +520,7 @@ BrowserView {
 
             SettingsPage {
                 anchors.fill: parent
-                onHistoryRemoved: browser.historyModel.clearAll()
+                historyModel: browser.historyModel
                 onRestoreDefaults: settings.restoreDefaults()
                 onDone: destroy()
             }

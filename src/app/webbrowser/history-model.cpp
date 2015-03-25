@@ -43,6 +43,7 @@ HistoryModel::HistoryModel(QObject* parent)
     : QAbstractListModel(parent)
 {
     m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), CONNECTION_NAME);
+    Q_EMIT rowCountChanged(rowCount());
 }
 
 HistoryModel::~HistoryModel()

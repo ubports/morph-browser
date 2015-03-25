@@ -32,6 +32,7 @@ class HistoryModel : public QAbstractListModel
     Q_OBJECT
 
     Q_PROPERTY(QString databasePath READ databasePath WRITE setDatabasePath NOTIFY databasePathChanged)
+    Q_PROPERTY(int count READ rowCount NOTIFY rowCountChanged)
 
     Q_ENUMS(Roles)
 
@@ -64,6 +65,7 @@ public:
 
 Q_SIGNALS:
     void databasePathChanged() const;
+    void rowCountChanged(int c);
 
 private:
     QSqlDatabase m_database;
