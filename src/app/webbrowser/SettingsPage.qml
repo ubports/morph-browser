@@ -109,7 +109,7 @@ Item {
         }
 
         ListItem.Standard {
-            text: i18n.tr("Restore old session on startup")
+            text: i18n.tr("Restore previous session at startup")
             highlightWhenPressed: false
             control: Switch {
                 checked: browser.restoreSession
@@ -118,7 +118,7 @@ Item {
         }
 
         ListItem.Standard {
-            text: i18n.tr("Open new tab in background")
+            text: i18n.tr("Allow opening new tabs in background")
             highlightWhenPressed: false
             control: Switch {
                 checked: browser.allowOpenInBackgroundTab
