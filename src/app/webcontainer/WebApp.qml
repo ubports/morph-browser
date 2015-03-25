@@ -33,7 +33,6 @@ BrowserView {
 
     property string webappModelSearchPath: ""
 
-    property alias oxide: webview.withOxide
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefixPattern: webview.popupRedirectionUrlPrefixPattern
@@ -153,7 +152,7 @@ BrowserView {
         }
 
         Loader {
-            sourceComponent: (webapp.oxide && !webapp.chromeless) ? chromeStateTrackerComponent : undefined
+            sourceComponent: !webapp.chromeless ? chromeStateTrackerComponent : undefined
 
             Component {
                 id: chromeStateTrackerComponent
