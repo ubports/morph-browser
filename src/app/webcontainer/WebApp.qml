@@ -149,7 +149,7 @@ BrowserView {
             Component {
                 id: oxideChromeControllerComponent
 
-                OxideChromeController {
+                ChromeController {
                     webview: webapp.currentWebview
                     chromeless: webapp.chromeless
                 }

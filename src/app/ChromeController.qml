@@ -24,13 +24,14 @@ Item {
 
     property var webview
     property bool chromeless: false
+    property bool forceHide: false
 
     readonly property bool nearBottom: webview ? ((webview.contentY + webview.viewportHeight) / webview.contentHeight) >= 0.98 : false
 
     readonly property int mode: {
-        if (chromeless) {
+        if (chromeless || forceHide) {
             return Oxide.LocationBarController.ModeHidden
-        } else if (webview.loading || forceShow) {
+        } else if (webview.loading || internal.forceShow) {
             return Oxide.LocationBarController.ModeShown
         } else if (webview.fullscreen) {
             return Oxide.LocationBarController.ModeHidden
@@ -44,17 +45,20 @@ Item {
     // Work around the lack of a show() method on the location bar controller
     // (https://launchpad.net/bugs/1422920) by forcing its mode to ModeShown
     // for long enough (1000ms) to allow the animation to be committed.
-    property bool forceShow: false
+    QtObject {
+        id: internal
+        property bool forceShow: false
+    }
     Timer {
         id: delayedResetMode
         interval: 1000
-        onTriggered: forceShow = false
+        onTriggered: internal.forceShow = false
     }
     Connections {
         target: webview
         onFullscreenChanged: {
             if (!webview.fullscreen) {
-                forceShow = true
+                internal.forceShow = true
                 delayedResetMode.restart()
             }
         }

@@ -493,36 +493,15 @@ BrowserView {
 
                 enabled: visible && !bottomEdgeHandle.dragging && !recentView.visible
 
-                readonly property bool nearBottom: ((contentY + viewportHeight) / contentHeight) >= 0.98
-                locationBarController {
-                    height: webviewimpl.visible ? chrome.height : 0
-                    mode: {
-                        if (webviewimpl.loading || webviewimpl.forceShow) {
-                            return Oxide.LocationBarController.ModeShown
-                        } else if (webviewimpl.fullscreen || recentView.visible) {
-                            return Oxide.LocationBarController.ModeHidden
-                        } else if (webviewimpl.nearBottom) {
-                            return Oxide.LocationBarController.ModeShown
-                        } else {
-                            return Oxide.LocationBarController.ModeAuto
-                        }
-                    }
+                ChromeController {
+                    id: chromeController
+                    webview: webviewimpl
+                    forceHide: recentView.visible
                 }
 
-                // Work around the lack of a show() method on the location bar controller
-                // (https://launchpad.net/bugs/1422920) by forcing its mode to ModeShown
-                // for long enough (1000ms) to allow the animation to be committed.
-                property bool forceShow: false
-                Timer {
-                    id: delayedResetMode
-                    interval: 1000
-                    onTriggered: forceShow = false
-                }
-                onFullscreenChanged: {
-                    if (!fullscreen) {
-                        forceShow = true
-                        delayedResetMode.restart()
-                    }
+                locationBarController {
+                    height: webviewimpl.visible ? chrome.height : 0
+                    mode: chromeController.mode
                 }
 
                 //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
