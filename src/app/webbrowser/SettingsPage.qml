@@ -36,12 +36,89 @@ Item {
         color: "#f6f6f6"
     }
 
+    Flickable {
+        anchors {
+            top: titleDivider.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+
+        contentHeight: settingsCol.height
+
+        Column {
+            id: settingsCol
+
+            width: parent.width
+
+            ListItem.Subtitled {
+                text: i18n.tr("Search engine")
+                subText: browser.searchEngine
+                visible: false
+
+                action: Action {
+                    onTriggered: {
+                        searchEngineItem.visible = true;
+                    }
+                }
+            }
+
+            ListItem.Subtitled {
+                text: i18n.tr("Homepage")
+                subText: browser.homepage
+
+                action: Action {
+                    onTriggered: PopupUtils.open(homepageDialog)
+                }
+            }
+
+            ListItem.Standard {
+                text: i18n.tr("Restore previous session at startup")
+                highlightWhenPressed: false
+                control: Switch {
+                    checked: browser.restoreSession
+                    onClicked: browser.restoreSession = checked;
+                }
+            }
+
+            ListItem.Standard {
+                text: i18n.tr("Allow opening new tabs in background")
+                highlightWhenPressed: false
+                control: Switch {
+                    checked: browser.allowOpenInBackgroundTab
+                    onClicked: browser.allowOpenInBackgroundTab = checked;
+                }
+            }
+
+            ListItem.Standard {
+                text: i18n.tr("Privacy")
+
+                action: Action {
+                    onTriggered: privacyItem.visible = true;
+                }
+            }
+
+            ListItem.Standard {
+                text: i18n.tr("Reset browser settings")
+                showDivider: false
+                onClicked: {
+                    settings.restoreDefaults();
+                }
+            }
+        }
+    }
+
     ListItem.Empty {
         id: title
         anchors {
             top: parent.top
             left: parent.left
             right: parent.right
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            color: "#f6f6f6"
         }
 
         showDivider: false
@@ -78,69 +155,16 @@ Item {
         }
     }
 
-    Column {
+    ListItem.Divider {
+        id: titleDivider
         anchors {
             top: title.bottom
             left: parent.left
             right: parent.right
-            bottom: parent.bottom
         }
-
-        ListItem.Divider {}
-
-        ListItem.Subtitled {
-            text: i18n.tr("Search engine")
-            subText: browser.searchEngine
-            visible: false
-
-            action: Action {
-                onTriggered: {
-                    searchEngineItem.visible = true;
-                }
-            }
-        }
-
-        ListItem.Subtitled {
-            text: i18n.tr("Homepage")
-            subText: browser.homepage
-
-            action: Action {
-                onTriggered: PopupUtils.open(homepageDialog)
-            }
-        }
-
-        ListItem.Standard {
-            text: i18n.tr("Restore previous session at startup")
-            highlightWhenPressed: false
-            control: Switch {
-                checked: browser.restoreSession
-                onClicked: browser.restoreSession = checked;
-            }
-        }
-
-        ListItem.Standard {
-            text: i18n.tr("Allow opening new tabs in background")
-            highlightWhenPressed: false
-            control: Switch {
-                checked: browser.allowOpenInBackgroundTab
-                onClicked: browser.allowOpenInBackgroundTab = checked;
-            }
-        }
-
-        ListItem.Standard {
-            text: i18n.tr("Privacy")
-
-            action: Action {
-                onTriggered: privacyItem.visible = true;
-            }
-        }
-
-        ListItem.Standard {
-            text: i18n.tr("Reset browser settings")
-            showDivider: false
-            onClicked: {
-                settings.restoreDefaults();
-            }
+        Rectangle {
+            anchors.fill: parent
+            color: "#E6E6E6"
         }
     }
 
@@ -179,12 +203,39 @@ Item {
             color: "#f6f6f6"
         }
 
+        Flickable {
+            anchors {
+                top: privacyTitleDivider.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+
+            contentHeight: privacyCol.height
+
+            Column {
+                id: privacyCol
+                width: parent.width
+
+                ListItem.Standard {
+                    text: i18n.tr("Clear Browsing History")
+                    onClicked: historyModel.clearAll();
+                    opacity: historyModel.count > 0 ? 1 : 0.5
+                }
+            }
+        }
+
         ListItem.Empty {
             id: privacyTitle
             anchors {
                 top: parent.top
                 left: parent.left
                 right: parent.right
+            }
+
+            Rectangle {
+                anchors.fill: parent
+                color: "#f6f6f6"
             }
 
             highlightWhenPressed: false
@@ -221,20 +272,17 @@ Item {
             }
         }
 
-        Column {
+
+        ListItem.Divider {
+            id: privacyTitleDivider
             anchors {
                 top: privacyTitle.bottom
                 left: parent.left
                 right: parent.right
-                bottom: parent.bottom
             }
-
-            ListItem.Divider {}
-
-            ListItem.Standard {
-                text: i18n.tr("Clear Browsing History")
-                onClicked: historyModel.clearAll();
-                opacity: historyModel.count > 0 ? 1 : 0.5
+            Rectangle {
+                anchors.fill: parent
+                color: "#E6E6E6"
             }
         }
     }
