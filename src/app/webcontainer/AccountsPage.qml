@@ -92,6 +92,7 @@ Page {
         onLogoutDetected: {
             console.log("Logout detected")
             __loggedOutAccounts.push(__account.accountId)
+            root.credentialsId = -1
             root.showSplashScreen()
         }
     }

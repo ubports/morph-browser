@@ -219,7 +219,10 @@ BrowserWindow {
 
     function initializeForAccount(credentialsId) {
         console.log("Account selected, creds: " + credentialsId)
-        if (credentialsId < 0) return
+        if (credentialsId < 0) {
+            webappViewLoader.sourceComponent = null
+            return
+        }
 
         if (credentialsId > 0) {
             if (credentialsId == webappViewLoader.credentialsId) return
