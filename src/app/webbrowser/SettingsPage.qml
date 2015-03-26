@@ -20,6 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
+import webbrowserapp.private 0.1
 
 import "urlManagement.js" as UrlManagement
 
@@ -27,6 +28,10 @@ Item {
     id: settings
 
     property QtObject historyModel
+    property var homepage
+    property bool restoreSession
+    property var allowOpenInBackgroundTab
+    property var searchEngine
 
     signal restoreDefaults()
     signal done()
@@ -53,7 +58,7 @@ Item {
 
             ListItem.Subtitled {
                 text: i18n.tr("Search engine")
-                subText: browser.searchEngine
+                subText: searchEngine
                 visible: false
 
                 action: Action {
@@ -65,7 +70,7 @@ Item {
 
             ListItem.Subtitled {
                 text: i18n.tr("Homepage")
-                subText: browser.homepage
+                subText: homepage
 
                 action: Action {
                     onTriggered: PopupUtils.open(homepageDialog)
@@ -76,8 +81,8 @@ Item {
                 text: i18n.tr("Restore previous session at startup")
                 highlightWhenPressed: false
                 control: Switch {
-                    checked: browser.restoreSession
-                    onClicked: browser.restoreSession = checked;
+                    checked: restoreSession
+                    onClicked: restoreSession = checked;
                 }
             }
 
@@ -85,8 +90,12 @@ Item {
                 text: i18n.tr("Allow opening new tabs in background")
                 highlightWhenPressed: false
                 control: Switch {
-                    checked: browser.allowOpenInBackgroundTab
-                    onClicked: browser.allowOpenInBackgroundTab = checked;
+                    checked: allowOpenInBackgroundTab === 'true' ||
+                        (allowOpenInBackgroundTab === 'default' &&
+                            formFactor === "desktop")
+
+                    onClicked:
+                        allowOpenInBackgroundTab = checked ? 'true' : 'false';
                 }
             }
 
@@ -195,7 +204,7 @@ Item {
                 text: index
                 action: Action {
                     onTriggered: {
-                        browser.searchEngine = text;
+                        searchEngine = text;
                         searchEngineItem.visible = false;
                     }
                 }
@@ -316,7 +325,7 @@ Item {
 
             TextField {
                 id: homepageTextField
-                text: browser.homepage
+                text: homepage
             }
 
             Button {
@@ -330,7 +339,7 @@ Item {
                 text: i18n.tr("Save")
                 color: "#3fb24f"
                 onClicked: {
-                    browser.homepage = UrlManagement.fixUrl(homepageTextField.text);
+                    homepage = UrlManagement.fixUrl(homepageTextField.text);
                     PopupUtils.close(dialogue);
                 }
             }
