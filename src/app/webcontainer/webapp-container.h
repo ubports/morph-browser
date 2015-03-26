@@ -61,6 +61,7 @@ private:
     QStringList m_webappUrlPatterns;
     QString m_accountProvider;
     QString m_logoutUrlPattern;
+    QString m_logoutSelectors;
     bool m_withOxide;
     bool m_storeSessionCookies;
     bool m_backForwardButtonsVisible;

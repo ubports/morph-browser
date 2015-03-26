@@ -30,6 +30,7 @@ Page {
     property int credentialsId: -1
     property alias webview: detector.webview
     property alias logoutUrlPattern: detector.logoutUrlPattern
+    property alias logoutSelectors: detector.logoutSelectors
 
     signal accountSelected(var credentialsId)
     signal done(bool successful)

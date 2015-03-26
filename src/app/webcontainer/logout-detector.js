@@ -15,13 +15,7 @@ var observer = new MutationObserver(function(mutations) {
 observer.observe(document.body, {childList: true, subtree: true });
 
 
-oxide.addMessageHandler("EVALUATE-CODE", function(msg) {
-  var code = msg.args.code;
-  code = "(function() {" + code + "})()";
-
-  try {
-    msg.reply({result: eval(code)});
-  } catch(e) {
-    msg.error("Code threw exception: \"" + e + "\"");
-  }
+oxide.addMessageHandler("evaluteSelectors", function(msg) {
+    var selectors = msg.args.selectors;
+    msg.reply({result: document.querySelector(selectors)});
 });

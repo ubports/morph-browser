@@ -40,6 +40,7 @@ BrowserWindow {
     property bool oxide: false
     property string accountProvider: ""
     property string logoutUrlPattern: ""
+    property string logoutSelectors: ""
     property string popupRedirectionUrlPrefixPattern: ""
     property url webviewOverrideFile: ""
     property var __webappCookieStore: null
@@ -296,6 +297,7 @@ BrowserWindow {
             "providerId": accountProvider,
             "applicationId": unversionedAppId,
             "logoutUrlPattern": logoutUrlPattern,
+            "logoutSelectors": logoutSelectors,
         })
     }
 

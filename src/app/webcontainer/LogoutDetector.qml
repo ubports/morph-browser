@@ -24,6 +24,7 @@ QtObject {
 
     property var webview: null
     property string logoutUrlPattern: ""
+    property string logoutSelectors: ""
 
     signal logoutDetected()
 
@@ -34,13 +35,13 @@ QtObject {
             console.log('Got a DOM changed message: ' + msg.args)
             var request = webview.rootFrame.sendMessage(
                 "oxide://bla/",
-                "EVALUATE-CODE",
-                { code: "return document.getElementsByTagName('html')[0].innerHTML" }
+                "evaluteSelectors",
+                { selectors: root.logoutSelectors }
             )
 
             // NOTE: does not handle error
             request.onreply = function(response) {
-                console.log('HTML: ' + response.result)
+                console.log('Selector result: ' + response.result)
             }
         }
     }
