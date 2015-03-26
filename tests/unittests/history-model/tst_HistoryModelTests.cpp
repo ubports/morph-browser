@@ -243,6 +243,17 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 0);
     }
 
+    void shouldCountNumberOfEntries()
+    {
+        QCOMPARE(model->property("count").toInt(), 0);
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        QCOMPARE(model->property("count").toInt(), 1);
+        model->add(QUrl("http://example.com/"), "Example Domain", QUrl());
+        QCOMPARE(model->property("count").toInt(), 2);
+        model->clearAll();
+        QCOMPARE(model->property("count").toInt(), 0);
+    }
+
 };
 
 QTEST_MAIN(HistoryModelTests)
