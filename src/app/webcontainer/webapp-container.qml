@@ -221,6 +221,7 @@ BrowserWindow {
         console.log("Account selected, creds: " + credentialsId)
         if (credentialsId < 0) {
             webappViewLoader.sourceComponent = null
+            webappViewLoader.credentialsId = credentialsId
             return
         }
 
