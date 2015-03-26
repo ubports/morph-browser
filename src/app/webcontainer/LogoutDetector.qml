@@ -43,6 +43,9 @@ QtObject {
                 // NOTE: does not handle error
                 request.onreply = function(response) {
                     console.log('Selector result: ' + response.result)
+                    if (response.result) {
+                        root.logoutDetected()
+                    }
                 }
             }
         }

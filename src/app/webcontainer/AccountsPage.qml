@@ -39,6 +39,7 @@ Page {
     property url __applicationIcon
     property string __providerName: providerId
     property var __account: null
+    property var __loggedOutAccounts: []
     property var __accountsModel: accountsModel
 
     visible: true
@@ -90,6 +91,7 @@ Page {
         id: detector
         onLogoutDetected: {
             console.log("Logout detected")
+            __loggedOutAccounts.push(__account.accountId)
             root.showSplashScreen()
         }
     }
@@ -159,8 +161,14 @@ Page {
         console.log("Credentials ID: " + credentialsId)
     }
 
-    function login(forceCookieRefresh) {
+    function login() {
         console.log("Logging in to " + __account)
+        var forceCookieRefresh = false
+        var index = __loggedOutAccounts.indexOf(__account.accountId)
+        if (index >= 0) {
+            forceCookieRefresh = true
+            __loggedOutAccounts.splice(index, 1)
+        }
         accountsLogin.login(__account, forceCookieRefresh)
     }
 

@@ -214,12 +214,7 @@ BrowserWindow {
             })
         }
 
-        var forceCookieRefresh = false
-        /* TODO: when needed, set the "forceCookieRefresh" flag so that Online
-         * Accounts will use an interactive login (and hopefully get new
-         * cookies). */
-        console.log("Preparing for login, forced = " + forceCookieRefresh)
-        accountsPageComponentLoader.item.login(forceCookieRefresh)
+        accountsPageComponentLoader.item.login()
     }
 
     function initializeForAccount(credentialsId) {

@@ -171,6 +171,8 @@ Item {
     */
 
     function login(account, forceCookieRefresh) {
+        console.log("Preparing for login, forced = " + forceCookieRefresh)
+
         function authenticatedCallback() {
             console.log("Authenticated!")
             account.authenticated.disconnect(authenticatedCallback)
