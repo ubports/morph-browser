@@ -49,7 +49,7 @@ QtObject {
         target: webview
         onLoadEvent: {
             console.log("Load event: " + event.url)
-            if (logoutUrlPattern.length !== 0 && event.url.match(logoutUrlPattern)) {
+            if (logoutUrlPattern.length !== 0 && event.url.toString().match(logoutUrlPattern)) {
                 root.logoutDetected()
             }
         }
