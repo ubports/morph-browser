@@ -28,20 +28,22 @@ QtObject {
 
     signal logoutDetected()
 
-    property var __scriptMessageHandler: ScriptMessageHandler {
-        msgId: "domChanged"
-        contexts: ["oxide://bla/"]
-        callback: function(msg, frame) {
-            console.log('Got a DOM changed message: ' + msg.args)
-            var request = webview.rootFrame.sendMessage(
-                "oxide://bla/",
-                "evaluateSelectors",
-                { selectors: root.logoutSelectors }
-            )
+    property var __scriptMessageHandlerComponent: Component {
+        ScriptMessageHandler {
+            msgId: "domChanged"
+            contexts: ["oxide://bla/"]
+            callback: function(msg, frame) {
+                console.log('Got a DOM changed message: ' + msg.args)
+                var request = webview.rootFrame.sendMessage(
+                    "oxide://bla/",
+                    "evaluateSelectors",
+                    { selectors: root.logoutSelectors }
+                )
 
-            // NOTE: does not handle error
-            request.onreply = function(response) {
-                console.log('Selector result: ' + response.result)
+                // NOTE: does not handle error
+                request.onreply = function(response) {
+                    console.log('Selector result: ' + response.result)
+                }
             }
         }
     }
@@ -66,7 +68,8 @@ QtObject {
     onWebviewChanged: {
         if (!webview) return
         console.log("Webview changed, adding script")
-        webview.addMessageHandler(__scriptMessageHandler)
+        var handler = __scriptMessageHandlerComponent.createObject(null, {})
+        webview.addMessageHandler(handler)
         webview.context.addUserScript(__userScript)
     }
 }
