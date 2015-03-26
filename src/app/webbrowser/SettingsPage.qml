@@ -124,23 +124,32 @@ Item {
         showDivider: false
         highlightWhenPressed: false
 
-        Icon {
+        AbstractButton {
             id: backButton
-            name: "back"
+            width: height
 
+            onTriggered: settings.done()
             anchors {
                 top: parent.top
                 bottom: parent.bottom
                 left: parent.left
-                margins: units.gu(2)
             }
 
-            width: height
-
-            MouseArea {
+            Rectangle {
                 anchors.fill: parent
+                anchors.leftMargin: units.gu(1)
+                anchors.rightMargin: units.gu(1)
+                color: "#E6E6E6"
+                visible: parent.pressed
+            }
 
-                onClicked: settings.done()
+            Icon {
+                name: "back"
+                anchors {
+                    fill: parent
+                    topMargin: units.gu(2)
+                    bottomMargin: units.gu(2)
+                }
             }
         }
 
@@ -149,7 +158,8 @@ Item {
                 top: parent.top
                 bottom: parent.bottom
                 left: backButton.right
-                margins: units.gu(2)
+                topMargin: units.gu(2)
+                bottomMargin: units.gu(2)
             }
             text: i18n.tr("Settings")
         }
@@ -241,23 +251,33 @@ Item {
             highlightWhenPressed: false
             showDivider: false
 
-            Icon {
+            AbstractButton {
                 id: privacyBackButton
-                name: "back"
+                width: height
+
+                onTriggered: privacyItem.visible = false;
 
                 anchors {
                     top: parent.top
                     bottom: parent.bottom
                     left: parent.left
-                    margins: units.gu(2)
                 }
 
-                width: height
-
-                MouseArea {
+                Rectangle {
                     anchors.fill: parent
+                    anchors.leftMargin: units.gu(1)
+                    anchors.rightMargin: units.gu(1)
+                    color: "#E6E6E6"
+                    visible: parent.pressed
+                }
 
-                    onClicked: privacyItem.visible = false;
+                Icon {
+                    name: "back"
+                    anchors {
+                        fill: parent
+                        topMargin: units.gu(2)
+                        bottomMargin: units.gu(2)
+                    }
                 }
             }
 
@@ -266,7 +286,8 @@ Item {
                     top: parent.top
                     bottom: parent.bottom
                     left: privacyBackButton.right
-                    margins: units.gu(2)
+                    topMargin: units.gu(2)
+                    bottomMargin: units.gu(2)
                 }
                 text: i18n.tr("Privacy")
             }
