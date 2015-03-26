@@ -15,7 +15,9 @@ var observer = new MutationObserver(function(mutations) {
 observer.observe(document.body, {childList: true, subtree: true });
 
 
-oxide.addMessageHandler("evaluteSelectors", function(msg) {
+oxide.addMessageHandler("evaluateSelectors", function(msg) {
     var selectors = msg.args.selectors;
-    msg.reply({result: document.querySelector(selectors)});
+    console.log("Evaluating selectors: " + selectors);
+    var match = document.querySelector(selectors);
+    msg.reply({result: (match !== null)});
 });

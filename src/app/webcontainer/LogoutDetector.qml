@@ -35,7 +35,7 @@ QtObject {
             console.log('Got a DOM changed message: ' + msg.args)
             var request = webview.rootFrame.sendMessage(
                 "oxide://bla/",
-                "evaluteSelectors",
+                "evaluateSelectors",
                 { selectors: root.logoutSelectors }
             )
 
