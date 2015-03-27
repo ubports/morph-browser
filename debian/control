@@ -57,7 +57,7 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          fonts-liberation,
-         liboxideqt-qmlplugin (>= 1.3),
+         liboxideqt-qmlplugin (>= 1.4),
          libqt5sql5-sqlite,
          qml-module-qtquick2 | qtdeclarative5-qtquick2-plugin,
          qml-module-qtquick-window2 | qtdeclarative5-window-plugin,
