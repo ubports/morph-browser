@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import Qt.labs.folderlistmodel 2.1
+import Qt.labs.settings 1.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
@@ -27,20 +28,24 @@ import webbrowserapp.private 0.1
 import "urlManagement.js" as UrlManagement
 
 Item {
-    id: settings
+    id: settingsItem
 
     property QtObject historyModel
-    property var homepage
-    property bool restoreSession
-    property var allowOpenInBackgroundTab
-    property var searchEngine
+    property Settings settingsObject
 
-    signal restoreDefaults()
     signal done()
 
     Rectangle {
         anchors.fill: parent
         color: "#f6f6f6"
+    }
+
+    FolderListModel {
+        id: searchEngineFolder
+        folder: dataLocation +"/searchengines"
+        showDirs: false
+        nameFilters: ["*.xml"]
+        sortField: FolderListModel.Name
     }
 
     Flickable {
@@ -60,7 +65,9 @@ Item {
 
             ListItem.Subtitled {
                 text: i18n.tr("Search engine")
-                subText: searchEngine
+                subText: settingsObject.searchEngine
+
+                visible: searchEngineFolder.count > 1
 
                 action: Action {
                     onTriggered: {
@@ -71,7 +78,7 @@ Item {
 
             ListItem.Subtitled {
                 text: i18n.tr("Homepage")
-                subText: homepage
+                subText: settingsObject.homepage
 
                 action: Action {
                     onTriggered: PopupUtils.open(homepageDialog)
@@ -82,8 +89,8 @@ Item {
                 text: i18n.tr("Restore previous session at startup")
                 highlightWhenPressed: false
                 control: Switch {
-                    checked: restoreSession
-                    onClicked: restoreSession = checked;
+                    checked: settingsObject.restoreSession
+                    onClicked: settingsObject.restoreSession = checked;
                 }
             }
 
@@ -91,12 +98,12 @@ Item {
                 text: i18n.tr("Allow opening new tabs in background")
                 highlightWhenPressed: false
                 control: Switch {
-                    checked: allowOpenInBackgroundTab === 'true' ||
-                        (allowOpenInBackgroundTab === 'default' &&
+                    checked: settingsObject.allowOpenInBackgroundTab === 'true' ||
+                        (settingsObject.allowOpenInBackgroundTab === 'default' &&
                             formFactor === "desktop")
 
                     onClicked:
-                        allowOpenInBackgroundTab = checked ? 'true' : 'false';
+                        settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false';
                 }
             }
 
@@ -111,7 +118,7 @@ Item {
             ListItem.Standard {
                 text: i18n.tr("Reset browser settings")
                 onClicked: {
-                    settings.restoreDefaults();
+                    settingsObject.restoreDefaults();
                 }
             }
         }
@@ -137,7 +144,7 @@ Item {
             id: backButton
             width: height
 
-            onTriggered: settings.done()
+            onTriggered: settingsItem.done()
             anchors {
                 top: parent.top
                 bottom: parent.bottom
@@ -205,12 +212,7 @@ Item {
                 bottom: parent.bottom
             }
 
-            model: FolderListModel {
-                folder: dataLocation +"/searchengines"
-                showDirs: false
-                nameFilters: ["*.xml"]
-                sortField: FolderListModel.Name
-            }
+            model: searchEngineFolder
 
             delegate: ListItem.Standard {
                 SearchEngine {
@@ -220,9 +222,9 @@ Item {
                 text: searchEngineDelegate.name
 
                 control: CheckBox {
-                    checked: searchEngine = searchEngineDelegate.filename;
+                    checked: settingsObject.searchEngine == searchEngineDelegate.filename;
                     onClicked: {
-                        searchEngine = searchEngineDelegate.filename;
+                        settingsObject.searchEngine = searchEngineDelegate.filename;
                         searchEngineItem.visible = false;
                     }
                 }
@@ -283,7 +285,7 @@ Item {
                     topMargin: units.gu(2)
                     bottomMargin: units.gu(2)
                 }
-                text: i18n.tr("Choose a search engine...")
+                text: i18n.tr("Search engine")
             }
         }
 
@@ -415,7 +417,7 @@ Item {
 
             TextField {
                 id: homepageTextField
-                text: homepage
+                text: settingsObject.homepage
             }
 
             Button {
@@ -429,7 +431,7 @@ Item {
                 text: i18n.tr("Save")
                 color: "#3fb24f"
                 onClicked: {
-                    homepage = UrlManagement.fixUrl(homepageTextField.text);
+                    settingsObject.homepage = UrlManagement.fixUrl(homepageTextField.text);
                     PopupUtils.close(dialogue);
                 }
             }

@@ -514,15 +514,7 @@ BrowserView {
             SettingsPage {
                 anchors.fill: parent
                 historyModel: browser.historyModel
-                homepage: browser.homepage
-                onHomepageChanged: browser.homepage = homepage;
-                restoreSession: browser.restoreSession
-                onRestoreSessionChanged: browser.restoreSession = restoreSession;
-                allowOpenInBackgroundTab: browser.allowOpenInBackgroundTab
-                onAllowOpenInBackgroundTabChanged: browser.allowOpenInBackgroundTab = allowOpenInBackgroundTab;
-                searchEngine: browser.searchEngine
-                onSearchEngineChanged: browser.searchEngine = searchEngine;
-                onRestoreDefaults: settings.restoreDefaults()
+                settingsObject: settings
                 onDone: destroy()
             }
         }
