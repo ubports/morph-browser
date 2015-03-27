@@ -107,6 +107,7 @@ BrowserView {
 
     Item {
         anchors.fill: parent
+        visible: !settingsContainer.visible && !historyViewContainer.visible
 
         TabChrome {
             id: invisibleTabChrome
