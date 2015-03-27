@@ -1,4 +1,3 @@
-'use strict'
 /*
  * Copyright 2015 Canonical Ltd.
  *
@@ -16,13 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+'use strict';
 
 function fixUrl(address) {
-    var url = address
+    var url = address;
     if (address.substr(0, 1) == "/") {
-        url = "file://" + address
+        url = "file://" + address;
     } else if (address.indexOf("://") == -1) {
-        url = "http://" + address
+        url = "http://" + address;
     }
-    return url
+    return url;
 }
