@@ -26,8 +26,6 @@ Item {
     property bool chromeless: false
     property bool forceHide: false
 
-    readonly property bool nearBottom: webview ? ((webview.contentY + webview.viewportHeight) / webview.contentHeight) >= 0.98 : false
-
     readonly property int mode: {
         if (chromeless || forceHide) {
             return Oxide.LocationBarController.ModeHidden
@@ -35,8 +33,6 @@ Item {
             return Oxide.LocationBarController.ModeShown
         } else if (webview.fullscreen) {
             return Oxide.LocationBarController.ModeHidden
-        } else if (nearBottom) {
-            return Oxide.LocationBarController.ModeShown
         } else {
             return Oxide.LocationBarController.ModeAuto
         }
