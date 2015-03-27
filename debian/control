@@ -85,8 +85,7 @@ Replaces: webbrowser-app (<< 0.21)
 Breaks: webbrowser-app (<< 0.21)
 Description: Ubuntu web QML plugin
  A standalone QML plugin that contains the UbuntuWebView component
- (versions 0.1 based on WebKit and 0.2 based on Oxide), in the
- Ubuntu.Components.Extras.Browser module.
+ , in the Ubuntu.Components.Extras.Browser module.
 
 Package: qtdeclarative5-ubuntu-web-plugin
 Architecture: any
