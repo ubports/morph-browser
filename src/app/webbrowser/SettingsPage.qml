@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import Qt.labs.folderlistmodel 2.1
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
@@ -59,7 +60,6 @@ Item {
             ListItem.Subtitled {
                 text: i18n.tr("Search engine")
                 subText: searchEngine
-                visible: false
 
                 action: Action {
                     onTriggered: {
@@ -197,16 +197,102 @@ Item {
         }
 
         ListView {
-            anchors.fill: parent
-            model: 5
+            anchors {
+                top: searchEngineTitleDivider.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+
+            model: FolderListModel {
+                folder: dataLocation +"/searchengines"
+                showDirs: false
+                nameFilters: ["*.xml"]
+                sortField: FolderListModel.Name
+            }
+
             delegate: ListItem.Standard {
-                text: index
-                action: Action {
-                    onTriggered: {
-                        searchEngine = text;
-                        searchEngineItem.visible = false;
+                SearchEngine {
+                    id: searchEngineDelegate
+                    filename: model.fileBaseName
+                }
+                text: searchEngineDelegate.name
+                onClicked: {
+                    searchEngine = searchEngineDelegate.filename;
+                    searchEngineItem.visible = false;
+                }
+            }
+        }
+
+        ListItem.Empty {
+            id: searchEngineTitle
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+            }
+
+            Rectangle {
+                anchors.fill: parent
+                color: "#f6f6f6"
+            }
+
+            highlightWhenPressed: false
+            showDivider: false
+
+            AbstractButton {
+                id: searchEngineBackButton
+                width: height
+
+                onTriggered: searchEngineItem.visible = false;
+
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                    left: parent.left
+                }
+
+                Rectangle {
+                    anchors.fill: parent
+                    anchors.leftMargin: units.gu(1)
+                    anchors.rightMargin: units.gu(1)
+                    color: "#E6E6E6"
+                    visible: parent.pressed
+                }
+
+                Icon {
+                    name: "back"
+                    anchors {
+                        fill: parent
+                        topMargin: units.gu(2)
+                        bottomMargin: units.gu(2)
                     }
                 }
+            }
+
+            Label {
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                    left: searchEngineBackButton.right
+                    topMargin: units.gu(2)
+                    bottomMargin: units.gu(2)
+                }
+                text: i18n.tr("Choose a search engine...")
+            }
+        }
+
+
+        ListItem.Divider {
+            id: searchEngineTitleDivider
+            anchors {
+                top: searchEngineTitle.bottom
+                left: parent.left
+                right: parent.right
+            }
+            Rectangle {
+                anchors.fill: parent
+                color: "#E6E6E6"
             }
         }
     }
