@@ -31,7 +31,7 @@ Item {
     readonly property int mode: {
         if (chromeless || forceHide) {
             return Oxide.LocationBarController.ModeHidden
-        } else if (webview.loading || internal.forceShow) {
+        } else if (internal.forceShow) {
             return Oxide.LocationBarController.ModeShown
         } else if (webview.fullscreen) {
             return Oxide.LocationBarController.ModeHidden
@@ -51,13 +51,19 @@ Item {
     }
     Timer {
         id: delayedResetMode
-        interval: 1000
+        interval: 500
         onTriggered: internal.forceShow = false
     }
     Connections {
         target: webview
         onFullscreenChanged: {
             if (!webview.fullscreen) {
+                internal.forceShow = true
+                delayedResetMode.restart()
+            }
+        }
+        onLoadingChanged: {
+            if (webview.loading) {
                 internal.forceShow = true
                 delayedResetMode.restart()
             }
