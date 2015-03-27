@@ -37,7 +37,7 @@ BrowserView {
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
     property url homepage
-    property QtObject searchEngine
+    property string searchEngine
     property string allowOpenInBackgroundTab
 
     // XXX: we might want to tweak this value depending
@@ -136,13 +136,18 @@ BrowserView {
             asynchronous: true
         }
 
+        SearchEngine {
+            id: searchEngine
+            filename: browser.searchEngine
+        }
+
         Chrome {
             id: chrome
 
             visible: !recentView.visible
 
             webview: browser.currentWebview
-            searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
+            searchUrl: searchEngine.urlTemplate
 
             y: webview ? webview.locationBarController.offset : 0
 
@@ -233,8 +238,6 @@ BrowserView {
                 query: chrome.text
             }
             onSelected: {
-                // Workaround for https://launchpad.net/bugs/1377198
-                browser.currentWebview.resetCertificateError()
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
                 chrome.requestedUrl = url
@@ -564,9 +567,9 @@ BrowserView {
                     }
                 }
 
-                onLoadingChanged: {
-                    if (lastLoadSucceeded && browser.historyModel) {
-                        browser.historyModel.add(url, title, icon)
+                onLoadEvent: {
+                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel) {
+                        browser.historyModel.add(event.url, title, icon)
                     }
                 }
 

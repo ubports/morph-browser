@@ -23,8 +23,6 @@
 #include <QtCore/QObject>
 #include <QtCore/QUrl>
 
-class SearchEngine;
-
 /*
  * Temporary helper class for read-only settings
  * until Settings support lands in the SDK.
@@ -37,13 +35,13 @@ public:
     Settings(QObject* parent=0);
 
     const QUrl& homepage() const;
-    SearchEngine* searchEngine() const;
+    const QString& searchEngine() const;
     const QString& allowOpenInBackgroundTab() const;
     bool restoreSession() const;
 
 private:
     QUrl m_homepage;
-    SearchEngine* m_searchengine;
+    QString m_searchengine;
     QString m_allowOpenInBackgroundTab; //"true" for enabled, "default" for form factor dependend behaviour (currently desktop only), anything else disables the option
     bool m_restoreSession; // true by default
 };

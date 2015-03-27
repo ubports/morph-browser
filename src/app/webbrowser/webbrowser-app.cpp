@@ -92,13 +92,12 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
+    qmlRegisterType<SearchEngine>(uri, 0, 1, "SearchEngine");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         Settings settings;
-        SearchEngine* searchEngine = settings.searchEngine();
-        searchEngine->setParent(m_window);
         m_window->setProperty("homepage", settings.homepage());
-        m_window->setProperty("searchEngine", QVariant::fromValue(searchEngine));
+        m_window->setProperty("searchEngine", settings.searchEngine());
         m_window->setProperty("allowOpenInBackgroundTab", settings.allowOpenInBackgroundTab());
         m_window->setProperty("restoreSession", settings.restoreSession() &&
                                                 !m_arguments.contains("--new-session"));
