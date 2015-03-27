@@ -30,7 +30,7 @@ class PrepopulatedHistoryDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
     """Helper test class that pre-populates the history database."""
 
     def setUp(self):
-        self.clear_cache()
+        self.clear_datadir()
         db_path = os.path.join(os.path.expanduser("~"), ".local", "share",
                                "webbrowser-app", "history.sqlite")
         connection = sqlite3.connect(db_path)

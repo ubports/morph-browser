@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -253,10 +253,12 @@ Oxide.WebView {
     readonly property bool lastLoadSucceeded: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeSucceeded
     readonly property bool lastLoadStopped: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeStopped
     readonly property bool lastLoadFailed: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeFailed
-    onLoadingChanged: {
-        if (loadEvent.url.toString() !== "data:text/html,chromewebdata") {
-            internal.lastLoadRequestStatus = loadEvent.type
+    onLoadEvent: {
+        if (!event.isError) {
+            internal.lastLoadRequestStatus = event.type
         }
+        internal.dismissCurrentContextualMenu()
+        internal.dismissCurrentSelection()
     }
 
     readonly property int screenOrientation: Screen.orientation
