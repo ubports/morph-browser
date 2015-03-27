@@ -75,19 +75,6 @@ static void clearCookiesHack(const QString &provider)
     }
 }
 
-static QString currentArchitecturePathName()
-{
-#if defined(Q_PROCESSOR_X86_32)
-    return QLatin1String("i386-linux-gnu");
-#elif defined(Q_PROCESSOR_X86_64)
-    return QLatin1String("x86_64-linux-gnu");
-#elif defined(Q_PROCESSOR_ARM)
-    return QLatin1String("arm-linux-gnueabihf");
-#else
-#error Unable to determine target architecture
-#endif
-}
-
 }
 
 const QString WebappContainer::URL_PATTERN_SEPARATOR = ",";
