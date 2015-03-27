@@ -21,6 +21,7 @@ import Qt.labs.folderlistmodel 2.1
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
+import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 
 import "urlManagement.js" as UrlManagement
@@ -217,9 +218,13 @@ Item {
                     filename: model.fileBaseName
                 }
                 text: searchEngineDelegate.name
-                onClicked: {
-                    searchEngine = searchEngineDelegate.filename;
-                    searchEngineItem.visible = false;
+
+                control: CheckBox {
+                    checked: searchEngine = searchEngineDelegate.filename;
+                    onClicked: {
+                        searchEngine = searchEngineDelegate.filename;
+                        searchEngineItem.visible = false;
+                    }
                 }
             }
         }
