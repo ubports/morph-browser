@@ -109,7 +109,6 @@ Item {
 
             ListItem.Standard {
                 text: i18n.tr("Reset browser settings")
-                showDivider: false
                 onClicked: {
                     settings.restoreDefaults();
                 }
