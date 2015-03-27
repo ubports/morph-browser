@@ -34,10 +34,7 @@ BrowserView {
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
-
-    property url homepage
-    property string searchEngine
-    property string allowOpenInBackgroundTab
+    property bool newSession: false
 
     // XXX: we might want to tweak this value depending
     // on the form factor and/or the available memory
@@ -80,16 +77,16 @@ BrowserView {
     Settings {
         id: settings
 
-        property alias homepage: browser.homepage
-        property alias searchEngine: browser.searchEngine
-        property alias allowOpenInBackgroundTab: browser.allowOpenInBackgroundTab
-        property alias restoreSession: browser.restoreSession
+        property url homepage: settingsDefaults.homepage
+        property string searchEngine: settingsDefaults.searchEngine
+        property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
+        property bool restoreSession: settingsDefaults.restoreSession
 
         function restoreDefaults() {
-            browser.homepage  = settingsDefaults.homepage
-            browser.searchEngine = settingsDefaults.searchEngine
-            browser.allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
-            browser.restoreSession = settingsDefaults.restoreSession
+            homepage  = settingsDefaults.homepage
+            searchEngine = settingsDefaults.searchEngine
+            allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
+            restoreSession = settingsDefaults.restoreSession
         }
     }
 
@@ -162,8 +159,8 @@ BrowserView {
         }
 
         SearchEngine {
-            id: searchEngine
-            filename: browser.searchEngine
+            id: currentSearchEngine
+            filename: settings.searchEngine
         }
 
         Chrome {
@@ -172,7 +169,7 @@ BrowserView {
             visible: !recentView.visible
 
             webview: browser.currentWebview
-            searchUrl: searchEngine.urlTemplate
+            searchUrl: currentSearchEngine.urlTemplate
 
             function isCurrentUrlBookmarked() {
                 return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
@@ -584,8 +581,8 @@ BrowserView {
                         onTriggered: browser.openUrlInNewTab(contextualData.href, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
-                        enabled: contextualData.href.toString() && ((browser.allowOpenInBackgroundTab === "true") ||
-                                 ((browser.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
+                        enabled: contextualData.href.toString() && ((settings.allowOpenInBackgroundTab === "true") ||
+                                 ((settings.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
                         onTriggered: browser.openUrlInNewTab(contextualData.href, false)
                     }
                     Actions.BookmarkLink {
@@ -843,7 +840,8 @@ BrowserView {
         running: true
         interval: 1
         onTriggered: {
-            if (!browser.newSession && browser.restoreSession) {
+
+            if (!browser.newSession && settings.restoreSession) {
                 session.restore()
             }
             // Sanity check
@@ -853,7 +851,7 @@ BrowserView {
                 browser.openUrlInNewTab(browser.initialUrls[i], true, false)
             }
             if (tabsModel.count == 0) {
-                browser.openUrlInNewTab(browser.homepage, true, false)
+                browser.openUrlInNewTab(settings.homepage, true, false)
             }
             tabsModel.currentTab.load()
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
