@@ -27,12 +27,10 @@ Item {
     property bool forceHide: false
 
     readonly property int mode: {
-        if (chromeless || forceHide) {
+        if (chromeless || forceHide || webview.fullscreen) {
             return Oxide.LocationBarController.ModeHidden
         } else if (internal.forceShow) {
             return Oxide.LocationBarController.ModeShown
-        } else if (webview.fullscreen) {
-            return Oxide.LocationBarController.ModeHidden
         } else {
             return Oxide.LocationBarController.ModeAuto
         }
