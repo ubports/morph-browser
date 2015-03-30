@@ -23,11 +23,10 @@ Item {
     visible: false
 
     property var webview
-    property bool chromeless: false
     property bool forceHide: false
 
     readonly property int mode: {
-        if (chromeless || forceHide || webview.fullscreen) {
+        if (forceHide || webview.fullscreen) {
             return Oxide.LocationBarController.ModeHidden
         } else if (internal.forceShow) {
             return Oxide.LocationBarController.ModeShown

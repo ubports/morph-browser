@@ -151,7 +151,7 @@ BrowserView {
 
                 ChromeController {
                     webview: webapp.currentWebview
-                    chromeless: webapp.chromeless
+                    forceHide: webapp.chromeless
                 }
             }
         }
