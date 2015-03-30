@@ -59,7 +59,7 @@ Item {
             }
         }
         onLoadingChanged: {
-            if (webview.loading) {
+            if (webview.loading && !webview.fullscreen) {
                 internal.forceShow = true
                 delayedResetMode.restart()
             }
