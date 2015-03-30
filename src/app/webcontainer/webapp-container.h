@@ -57,6 +57,7 @@ private:
 
 private:
     QString m_webappName;
+    QString m_webappIcon;
     QString m_webappModelSearchPath;
     QStringList m_webappUrlPatterns;
     QString m_accountProvider;

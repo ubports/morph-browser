@@ -27,6 +27,8 @@ Page {
 
     property string providerId: ""
     property string applicationId: ""
+    property string webappName: ""
+    property url webappIcon
     property int credentialsId: -1
     property alias webview: detector.webview
     property alias logoutUrlPattern: detector.logoutUrlPattern
@@ -35,8 +37,8 @@ Page {
     signal accountSelected(var credentialsId)
     signal done(bool successful)
 
-    property string __applicationName: applicationId
-    property url __applicationIcon
+    property string __applicationName: webappName
+    property url __applicationIcon: webappIcon
     property string __providerName: providerId
     property var __account: null
     property var __loggedOutAccounts: []
@@ -123,8 +125,10 @@ Page {
     function __setupApplicationData() {
         for (var i = 0; i < applicationModel.count; i++) {
             if (applicationModel.get(i, "applicationId") === root.applicationId) {
-                root.__applicationName = applicationModel.get(i, "displayName")
-                root.__applicationIcon = applicationModel.get(i, "iconName")
+                var name = applicationModel.get(i, "displayName")
+                if (name) root.__applicationName = name
+                var icon = applicationModel.get(i, "iconName")
+                if (icon) root.__applicationIcon = icon
                 break
             }
         }

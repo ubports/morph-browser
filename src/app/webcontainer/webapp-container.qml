@@ -295,6 +295,8 @@ BrowserWindow {
         accountsPageComponentLoader.setSource("AccountsPage.qml", {
             "providerId": accountProvider,
             "applicationId": unversionedAppId,
+            "webappName": getWebappName(),
+            "webappIcon": webappIcon,
             "logoutUrlPattern": logoutUrlPattern,
             "logoutSelectors": logoutSelectors,
         })
