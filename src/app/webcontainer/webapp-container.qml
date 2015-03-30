@@ -34,6 +34,7 @@ BrowserWindow {
 
     property var intentFilterHandler
     property string url: ""
+    property string webappIcon: ""
     property string webappName: ""
     property string webappModelSearchPath: ""
     property var webappUrlPatterns
