@@ -143,10 +143,11 @@ bool WebappContainer::initialize()
 
         m_window->setProperty("webappName", m_webappName);
         QFileInfo iconInfo(m_webappIcon);
+        QUrl iconUrl;
         if (iconInfo.isReadable()) {
-            QUrl iconUrl = QUrl::fromLocalFile(iconInfo.absoluteFilePath());
-            m_window->setProperty("webappIcon", iconUrl);
+            iconUrl = QUrl::fromLocalFile(iconInfo.absoluteFilePath());
         }
+        m_window->setProperty("webappIcon", iconUrl);
         m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
         m_window->setProperty("chromeVisible", m_addressBarVisible);
         m_window->setProperty("accountProvider", m_accountProvider);
