@@ -40,7 +40,7 @@ Item {
 
     // Work around the lack of a show() method on the location bar controller
     // (https://launchpad.net/bugs/1422920) by forcing its mode to ModeShown
-    // for long enough (1000ms) to allow the animation to be committed.
+    // for long enough (500ms) to allow the animation to be committed.
     QtObject {
         id: internal
         property bool forceShow: false
