@@ -346,7 +346,6 @@ BrowserView {
         }
 
         function reset() {
-            chrome.state = "shown"
             state = ""
             recentToolbar.state = "hidden"
             tabslist.reset()
@@ -369,9 +368,7 @@ BrowserView {
 
         onDraggingChanged: {
             if (!dragging) {
-                if (stage == 0) {
-                    chrome.state = "shown"
-                } else if (stage == 1) {
+                if (stage == 1) {
                     if (tabsModel.count > 1) {
                         tabslist.selectAndAnimateTab(1)
                     } else {
