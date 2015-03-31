@@ -34,6 +34,7 @@ BrowserView {
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
+
     property bool newSession: false
 
     // XXX: we might want to tweak this value depending
@@ -832,7 +833,6 @@ BrowserView {
         running: true
         interval: 1
         onTriggered: {
-
             if (!browser.newSession && settings.restoreSession) {
                 session.restore()
             }
