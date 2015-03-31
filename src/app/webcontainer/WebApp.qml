@@ -80,7 +80,10 @@ BrowserView {
         }
 
         Loader {
-            anchors.fill: webview
+            anchors {
+                fill: webview
+                topMargin: (webapp.oxide && !webapp.chromeless && chromeLoader.item.state == "shown") ? chromeLoader.item.height : 0
+            }
             sourceComponent: ErrorSheet {
                 visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
                 url: webview.currentWebview ? webview.currentWebview.url : ""
