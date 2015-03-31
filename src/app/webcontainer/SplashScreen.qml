@@ -20,7 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.OnlineAccounts 0.1
 
-Column {
+Item {
     id: root
 
     property string providerName
@@ -32,66 +32,74 @@ Column {
     signal skip()
 
     anchors.fill: parent
-    spacing: units.gu(2)
 
-    Icon {
-        id: icon
-        anchors.horizontalCenter: parent.horizontalCenter
-        width: units.gu(10)
-        height: width
-    }
+    Column {
+        anchors {
+            left: parent.left
+            right: parent.right
+            verticalCenter: parent.verticalCenter
+        }
+        spacing: units.gu(2)
 
-    Label {
-        anchors.horizontalCenter: parent.horizontalCenter
-        fontSize: "x-large"
-        text: root.applicationName
-    }
-
-    Label {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        horizontalAlignment: Text.AlignHCenter
-        wrapMode: Text.WordWrap
-        text: i18n.tr("<b>%1</b> needs to access your %2 online account.").arg(root.applicationName).arg(root.providerName)
-        visible: root.accountMandatory
-    }
-
-    Label {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        horizontalAlignment: Text.AlignHCenter
-        wrapMode: Text.WordWrap
-        text: i18n.tr("<b>%1</b> would like to access your %2 online account.").arg(root.applicationName).arg(root.providerName)
-        visible: !root.accountMandatory
-    }
-
-    Label {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        horizontalAlignment: Text.AlignHCenter
-        wrapMode: Text.WordWrap
-        text: i18n.tr("Choose an account now, or skip this step and choose an online account later.")
-        visible: !root.accountMandatory
-    }
-
-    Item {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.margins: units.gu(1)
-        height: units.gu(6)
-
-        Button {
-            anchors.left: parent.left
-            width: parent.width / 2 - units.gu(1)
-            text: root.accountMandatory ? i18n.tr("Close the app") : i18n.tr("Skip")
-            onClicked: root.accountMandatory ? Qt.quit() : root.skip()
+        Icon {
+            id: icon
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: units.gu(10)
+            height: width
         }
 
-        Button {
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            fontSize: "x-large"
+            text: root.applicationName
+        }
+
+        Label {
+            anchors.left: parent.left
             anchors.right: parent.right
-            width: parent.width / 2 - units.gu(1)
-            text: i18n.tr("Choose account")
-            onClicked: root.chooseAccount()
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
+            text: i18n.tr("<b>%1</b> needs to access your %2 online account.").arg(root.applicationName).arg(root.providerName)
+            visible: root.accountMandatory
+        }
+
+        Label {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
+            text: i18n.tr("<b>%1</b> would like to access your %2 online account.").arg(root.applicationName).arg(root.providerName)
+            visible: !root.accountMandatory
+        }
+
+        Label {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
+            text: i18n.tr("Choose an account now, or skip this step and choose an online account later.")
+            visible: !root.accountMandatory
+        }
+
+        Item {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: units.gu(1)
+            height: units.gu(6)
+
+            Button {
+                anchors.left: parent.left
+                width: parent.width / 2 - units.gu(1)
+                text: root.accountMandatory ? i18n.tr("Close the app") : i18n.tr("Skip")
+                onClicked: root.accountMandatory ? Qt.quit() : root.skip()
+            }
+
+            Button {
+                anchors.right: parent.right
+                width: parent.width / 2 - units.gu(1)
+                text: i18n.tr("Choose account")
+                onClicked: root.chooseAccount()
+            }
         }
     }
 }

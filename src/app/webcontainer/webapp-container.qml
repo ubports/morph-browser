@@ -209,7 +209,7 @@ BrowserWindow {
     function doLogin() {
         if (!__webappCookieStore) {
             var context = webappViewLoader.item.currentWebview.context
-            __webappCookieStore = oxideCookieStoreComponent.createObject(this, {
+            __webappCookieStore = oxideCookieStoreComponent.createObject(webappViewLoader.item, {
                 "oxideStoreBackend": context.cookieManager,
                 "dbPath": context.dataPath + "/cookies.sqlite"
             })
@@ -222,14 +222,19 @@ BrowserWindow {
         console.log("Account selected, creds: " + credentialsId)
         if (credentialsId < 0) {
             webappViewLoader.sourceComponent = null
+            __webappCookieStore = null
             webappViewLoader.credentialsId = credentialsId
             return
         }
 
         if (credentialsId > 0) {
-            if (credentialsId == webappViewLoader.credentialsId) return
+            if (credentialsId == webappViewLoader.credentialsId) {
+                doLogin()
+                return
+            }
 
             webappViewLoader.sourceComponent = null
+            __webappCookieStore = null
             webappViewLoader.loaded.connect(function onLoaded() {
                 if (webappViewLoader.status == Loader.Ready) {
                     webappViewLoader.loaded.disconnect(onLoaded)
