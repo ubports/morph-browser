@@ -51,6 +51,8 @@ Column {
 
         AbstractButton {
             id: backButton
+            objectName: "backButton"
+
             width: height
 
             onTriggered: root.back()

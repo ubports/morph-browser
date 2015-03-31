@@ -87,6 +87,8 @@ Item {
             }
 
             ListItem.Subtitled {
+                objectName: "homepage"
+
                 text: i18n.tr("Homepage")
                 subText: settingsObject.homepage
 
@@ -127,6 +129,8 @@ Item {
             }
 
             ListItem.Standard {
+                objectName: "privacy"
+
                 text: i18n.tr("Privacy")
 
                 onClicked: privacyComponent.createObject(subpageContainer);
@@ -198,6 +202,8 @@ Item {
 
             Item {
                 id: privacyItem
+                objectName: "privacySettings"
+
                 anchors.fill: parent
 
                 Rectangle {
@@ -240,22 +246,28 @@ Item {
 
     Component {
         id: homepageDialog
+
         Dialog {
             id: dialogue
+            objectName: "homepageDialog"
+
             title: i18n.tr("Homepage")
 
             TextField {
                 id: homepageTextField
+                objectName: "homepageDialog.text"
                 text: settingsObject.homepage
             }
 
             Button {
+                objectName: "homepageDialog.cancelButton"
                 anchors { left: parent.left; right: parent.right }
                 text: i18n.tr("Cancel")
                 onClicked: PopupUtils.close(dialogue);
             }
 
             Button {
+                objectName: "homepageDialog.saveButton"
                 anchors { left: parent.left; right: parent.right }
                 text: i18n.tr("Save")
                 color: "#3fb24f"
