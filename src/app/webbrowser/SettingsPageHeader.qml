@@ -31,8 +31,6 @@ Column {
     signal back()
     property string text
 
-    clip: true
-
     height: childrenRect.height
 
     anchors {
@@ -82,11 +80,8 @@ Column {
 
         Label {
             anchors {
-                top: parent.top
-                bottom: parent.bottom
                 left: backButton.right
-                topMargin: units.gu(1)
-                bottomMargin: units.gu(1)
+                verticalCenter: parent.verticalCenter
             }
             text: root.text
             fontSize: 'x-large'

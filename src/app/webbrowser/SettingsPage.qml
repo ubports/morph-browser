@@ -35,8 +35,6 @@ Item {
 
     signal done()
 
-    //visible: !subpageContainer.visible
-
     Rectangle {
         anchors.fill: parent
         color: "#f6f6f6"
@@ -55,6 +53,7 @@ Item {
 
         onBack: settingsItem.done()
         text: i18n.tr("Settings")
+        visible: !subpageContainer.visible
     }
 
     Flickable {
@@ -65,6 +64,8 @@ Item {
             bottom: parent.bottom
         }
 
+        visible: !subpageContainer.visible
+        clip: true
         contentHeight: settingsCol.height
 
         Column {
@@ -156,7 +157,6 @@ Item {
                     color: "#f6f6f6"
                 }
 
-
                 SettingsPageHeader {
                     id: searchEngineTitle
 
@@ -218,6 +218,8 @@ Item {
                         right: parent.right
                         bottom: parent.bottom
                     }
+
+                    clip: true
 
                     contentHeight: privacyCol.height
 
