@@ -35,6 +35,19 @@ Item {
 
     signal done()
 
+    // Remember to create explit binding for switch controls
+    Binding {
+        target: allowOpenInBackgroundTabSwitch; property: "checked";
+        value: settingsObject.allowOpenInBackgroundTab === 'true' ||
+                (settingsObject.allowOpenInBackgroundTab === 'default' &&
+                formFactor === "desktop")
+    }
+
+    Binding {
+        target: restoreSessionSwitch; property: "checked";
+        value: settingsObject.restoreSession
+    }
+
     Rectangle {
         anchors.fill: parent
         color: "#f6f6f6"
@@ -89,7 +102,7 @@ Item {
                 text: i18n.tr("Restore previous session at startup")
                 highlightWhenPressed: false
                 control: Switch {
-                    checked: settingsObject.restoreSession
+                    id: restoreSessionSwitch
                     onClicked: settingsObject.restoreSession = checked;
                 }
             }
@@ -98,12 +111,9 @@ Item {
                 text: i18n.tr("Allow opening new tabs in background")
                 highlightWhenPressed: false
                 control: Switch {
-                    checked: settingsObject.allowOpenInBackgroundTab === 'true' ||
-                        (settingsObject.allowOpenInBackgroundTab === 'default' &&
-                            formFactor === "desktop")
+                    id: allowOpenInBackgroundTabSwitch
 
-                    onClicked:
-                        settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false';
+                    onClicked: settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false';
                 }
             }
 
