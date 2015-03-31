@@ -71,7 +71,7 @@ Item {
 
                 action: Action {
                     onTriggered: {
-                        searchEngineItem.visible = true;
+                        searchEngineComponent.createObject(searchEngineContainer);
                     }
                 }
             }
@@ -111,7 +111,7 @@ Item {
                 text: i18n.tr("Privacy")
 
                 action: Action {
-                    onTriggered: privacyItem.visible = true;
+                    onTriggered: privacyComponent.createObject(privacyContainer);
                 }
             }
 
@@ -145,111 +145,131 @@ Item {
     }
 
     Item {
-        id: searchEngineItem
+        id: searchEngineContainer
+
+        visible: children.length > 0
         anchors.fill: parent
-        visible: false
 
-        Rectangle {
-            anchors.fill: parent
-            color: "#f6f6f6"
-        }
+        Component {
+            id: searchEngineComponent
 
-        ListView {
-            anchors {
-                top: searchEngineTitleDivider.bottom
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
+            Item {
+                id: searchEngineItem
+                anchors.fill: parent
 
-            model: searchEngineFolder
-
-            delegate: ListItem.Standard {
-                SearchEngine {
-                    id: searchEngineDelegate
-                    filename: model.fileBaseName
+                Rectangle {
+                    anchors.fill: parent
+                    color: "#f6f6f6"
                 }
-                text: searchEngineDelegate.name
 
-                control: CheckBox {
-                    checked: settingsObject.searchEngine == searchEngineDelegate.filename;
-                    onClicked: {
-                        settingsObject.searchEngine = searchEngineDelegate.filename;
-                        searchEngineItem.visible = false;
+                ListView {
+                    anchors {
+                        top: searchEngineTitleDivider.bottom
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                    }
+
+                    model: searchEngineFolder
+
+                    delegate: ListItem.Standard {
+                        SearchEngine {
+                            id: searchEngineDelegate
+                            filename: model.fileBaseName
+                        }
+                        text: searchEngineDelegate.name
+
+                        control: CheckBox {
+                            checked: settingsObject.searchEngine == searchEngineDelegate.filename;
+                            onClicked: {
+                                settingsObject.searchEngine = searchEngineDelegate.filename;
+                                searchEngineItem.destroy();
+                            }
+                        }
                     }
                 }
-            }
-        }
 
-        SettingsPageHeader {
-            id: searchEngineTitle
+                SettingsPageHeader {
+                    id: searchEngineTitle
 
-            onTrigger: searchEngineItem.visible = false;
-            text: i18n.tr("Search engine")
-        }
+                    onTrigger: searchEngineItem.destroy();
+                    text: i18n.tr("Search engine")
+                }
 
-        ListItem.Divider {
-            id: searchEngineTitleDivider
-            anchors {
-                top: searchEngineTitle.bottom
-                left: parent.left
-                right: parent.right
-            }
-            Rectangle {
-                anchors.fill: parent
-                color: "#E6E6E6"
+                ListItem.Divider {
+                    id: searchEngineTitleDivider
+                    anchors {
+                        top: searchEngineTitle.bottom
+                        left: parent.left
+                        right: parent.right
+                    }
+                    Rectangle {
+                        anchors.fill: parent
+                        color: "#E6E6E6"
+                    }
+                }
             }
         }
     }
 
     Item {
-        id: privacyItem
+        id: privacyContainer
+
+        visible: children.length > 0
         anchors.fill: parent
-        visible: false
 
-        Rectangle {
-            anchors.fill: parent
-            color: "#f6f6f6"
-        }
+        Component {
+            id: privacyComponent
 
-        Flickable {
-            anchors {
-                top: privacyTitleDivider.bottom
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
-
-            contentHeight: privacyCol.height
-
-            Column {
-                id: privacyCol
-                width: parent.width
-
-                ListItem.Standard {
-                    text: i18n.tr("Clear Browsing History")
-                    onClicked: historyModel.clearAll();
-                    opacity: historyModel.count > 0 ? 1 : 0.5
-                }
-            }
-        }
-
-        SettingsPageHeader {
-            id: privacyTitle
-            onTrigger: privacyItem.visible = false;
-            text: i18n.tr("Privacy")
-        }
-
-        ListItem.Divider {
-            id: privacyTitleDivider
-            anchors {
-                top: privacyTitle.bottom
-                left: parent.left
-                right: parent.right
-            }
-            Rectangle {
+            Item {
+                id: privacyItem
                 anchors.fill: parent
-                color: "#E6E6E6"
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: "#f6f6f6"
+                }
+
+                Flickable {
+                    anchors {
+                        top: privacyTitleDivider.bottom
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                    }
+
+                    contentHeight: privacyCol.height
+
+                    Column {
+                        id: privacyCol
+                        width: parent.width
+
+                        ListItem.Standard {
+                            text: i18n.tr("Clear Browsing History")
+                            onClicked: historyModel.clearAll();
+                            opacity: historyModel.count > 0 ? 1 : 0.5
+                        }
+                    }
+                }
+
+                SettingsPageHeader {
+                    id: privacyTitle
+                    onTrigger: privacyItem.destroy();
+                    text: i18n.tr("Privacy")
+                }
+
+                ListItem.Divider {
+                    id: privacyTitleDivider
+                    anchors {
+                        top: privacyTitle.bottom
+                        left: parent.left
+                        right: parent.right
+                    }
+                    Rectangle {
+                        anchors.fill: parent
+                        color: "#E6E6E6"
+                    }
+                }
             }
         }
     }
