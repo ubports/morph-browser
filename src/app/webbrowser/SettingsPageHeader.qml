@@ -22,46 +22,41 @@ import Ubuntu.Components.ListItems 1.0 as ListItem
 /*
  * Component to use as page header in settings page and subpages
  *
- * It has a trigger() signal fired when back button is pressed and a text
+ * It has a back() signal fired when back button is pressed and a text
  * property to set the page title
  *
  * Place it as last component of the page to have on top of flickable when it
  * scrolls
  */
 
-Item {
+Column {
     id: root
-    signal trigger()
-    property var text
+    signal back()
+    property string text
 
-    height: title.height + divider.height
+    height: childrenRect.height
 
     anchors {
         left: parent.left
         right: parent.right
     }
 
-    ListItem.Empty {
+    Rectangle {
         id: title
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
+
+        height: units.gu(7) - divider.height
+        anchors { left: parent.left; right: parent.right }
 
         Rectangle {
             anchors.fill: parent
             color: "#f6f6f6"
         }
 
-        showDivider: false
-        highlightWhenPressed: false
-
         AbstractButton {
             id: backButton
             width: height
 
-            onTriggered: root.trigger()
+            onTriggered: root.back()
             anchors {
                 top: parent.top
                 bottom: parent.bottom
@@ -100,11 +95,6 @@ Item {
 
     ListItem.Divider {
         id: divider
-        anchors {
-            top: title.bottom
-            left: parent.left
-            right: parent.right
-        }
         Rectangle {
             anchors.fill: parent
             color: "#E6E6E6"

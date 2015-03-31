@@ -141,7 +141,7 @@ Item {
     SettingsPageHeader {
         id: title
 
-        onTrigger: settingsItem.done()
+        onBack: settingsItem.done()
         text: i18n.tr("Settings")
     }
 
@@ -193,7 +193,7 @@ Item {
                 SettingsPageHeader {
                     id: searchEngineTitle
 
-                    onTrigger: searchEngineItem.destroy();
+                    onBack: searchEngineItem.destroy();
                     text: i18n.tr("Search engine")
                 }
             }
@@ -242,7 +242,7 @@ Item {
 
                 SettingsPageHeader {
                     id: privacyTitle
-                    onTrigger: privacyItem.destroy();
+                    onBack: privacyItem.destroy();
                     text: i18n.tr("Privacy")
                 }
             }
