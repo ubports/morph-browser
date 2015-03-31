@@ -49,14 +49,9 @@ Item {
         }
     }
     function handleNewViewAdded(view) {
-        updateMainViewVisibility(false)
-
         if (views.length !== 0) {
             var topView = views[views.length-1]
-            topView.visible = false
         }
-
-        view.visible = true
         views.push(view)
     }
     function handleOpenInUrlBrowserForView(url, view) {
@@ -64,31 +59,41 @@ Item {
         openExternalUrlTriggered(url)
         openUrlExternally(url)
     }
+    function topViewOnStack() {
+        if (views.length !== 0) {
+            return views[views.length-1]
+        }
+        return mainWebappView
+    }
     function handleViewRemoved(view) {
         if (views.length === 0) {
             return
         }
-        var topView = views[views.length-1]
-        if (topView !== view) {
+
+        var topMostView = views[views.length-1]
+        if (topMostView !== view) {
             return
         }
+        views.pop()
+
+        var parentHeight = topMostView.parent.height
+        var nextView = topViewOnStack()
+        nextView.visible = true
 
         function onViewSlidingOut() {
-            if (topView.y >= (topView.parent.height -10)) {
-                topView.yChanged.disconnect(onViewSlidingOut)
-                topView.destroy()
-                views.pop()
+            if (topMostView.y >= (topMostView.parent.height - 10)) {
+                topMostView.yChanged.disconnect(onViewSlidingOut)
+                topMostView.destroy()
 
-                if (views.length !== 0) {
-                    views[views.length-1].visible = true
-                }
-                else {
-                    updateMainViewVisibility(true)
+                updateViewVisibility(nextView, true)
+            } else {
+                if (nextView) {
+                    nextView.opacity = 1.0 - (parentHeight - topMostView.y) / parentHeight
                 }
             }
         }
-        topView.yChanged.connect(onViewSlidingOut)
-        topView.y = topView.parent.height
+        topMostView.yChanged.connect(onViewSlidingOut)
+        topMostView.y = topMostView.parent.height
     }
     function createPopupView(parentView, request, isRequestFromMainWebappWebview, context) {
         var view = popupWebOverlayFactory.createObject(
@@ -96,13 +101,32 @@ Item {
             { request: request,
               webContext: context,
               popupWindowController: controller });
+
+        var topMostView = topViewOnStack()
+
+        function onViewSlidingIn() {
+            var parentHeight = view.parent.height
+
+            if (view.y <= 10) {
+                view.yChanged.disconnect(onViewSlidingIn)
+
+                updateViewVisibility(topMostView, false)
+            } else {
+                if (topMostView) {
+                    topMostView.opacity = view.y / parentHeight
+                }
+            }
+        }
+        view.yChanged.connect(onViewSlidingIn)
+
         view.y = 0
         handleNewViewAdded(view)
         newViewCreated(view.url)
     }
-    function updateMainViewVisibility(visible) {
-        if (mainWebappView) {
-            mainWebappView.visible = visible
+    function updateViewVisibility(view, visible) {
+        if (view) {
+            view.opacity = visible ? 1.0 : 0.0
+            view.visible = visible
         }
     }
 
@@ -118,7 +142,7 @@ Item {
 
             Behavior on y {
                 NumberAnimation {
-                    duration: 200
+                    duration: 500
                     easing.type: Easing.InOutQuad
                     onRunningChanged: {
                         if (! running) {
