@@ -24,15 +24,14 @@ import Ubuntu.Components.ListItems 1.0 as ListItem
  *
  * It has a back() signal fired when back button is pressed and a text
  * property to set the page title
- *
- * Place it as last component of the page to have on top of flickable when it
- * scrolls
  */
 
 Column {
     id: root
     signal back()
     property string text
+
+    clip: true
 
     height: childrenRect.height
 
@@ -86,18 +85,15 @@ Column {
                 top: parent.top
                 bottom: parent.bottom
                 left: backButton.right
-                topMargin: units.gu(2)
-                bottomMargin: units.gu(2)
+                topMargin: units.gu(1)
+                bottomMargin: units.gu(1)
             }
             text: root.text
+            fontSize: 'x-large'
         }
     }
 
     ListItem.Divider {
         id: divider
-        Rectangle {
-            anchors.fill: parent
-            color: "#E6E6E6"
-        }
     }
 }

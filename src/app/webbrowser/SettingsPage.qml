@@ -35,18 +35,7 @@ Item {
 
     signal done()
 
-    // Remember to create explit binding for switch controls
-    Binding {
-        target: allowOpenInBackgroundTabSwitch; property: "checked";
-        value: settingsObject.allowOpenInBackgroundTab === 'true' ||
-                (settingsObject.allowOpenInBackgroundTab === 'default' &&
-                formFactor === "desktop")
-    }
-
-    Binding {
-        target: restoreSessionSwitch; property: "checked";
-        value: settingsObject.restoreSession
-    }
+    //visible: !subpageContainer.visible
 
     Rectangle {
         anchors.fill: parent
@@ -59,6 +48,13 @@ Item {
         showDirs: false
         nameFilters: ["*.xml"]
         sortField: FolderListModel.Name
+    }
+
+    SettingsPageHeader {
+        id: title
+
+        onBack: settingsItem.done()
+        text: i18n.tr("Settings")
     }
 
     Flickable {
@@ -86,67 +82,64 @@ Item {
 
                 visible: searchEngineFolder.count > 1
 
-                action: Action {
-                    onTriggered: {
-                        searchEngineComponent.createObject(searchEngineContainer);
-                    }
-                }
+                onClicked: searchEngineComponent.createObject(subpageContainer);
             }
 
             ListItem.Subtitled {
                 text: i18n.tr("Homepage")
                 subText: settingsObject.homepage
 
-                action: Action {
-                    onTriggered: PopupUtils.open(homepageDialog)
-                }
+                onClicked: PopupUtils.open(homepageDialog)
             }
 
             ListItem.Standard {
                 text: i18n.tr("Restore previous session at startup")
                 highlightWhenPressed: false
+
                 control: Switch {
                     id: restoreSessionSwitch
                     onClicked: settingsObject.restoreSession = checked;
+                }
+
+                Binding {
+                    target: restoreSessionSwitch; property: "checked";
+                    value: settingsObject.restoreSession
                 }
             }
 
             ListItem.Standard {
                 text: i18n.tr("Allow opening new tabs in background")
                 highlightWhenPressed: false
+
                 control: Switch {
                     id: allowOpenInBackgroundTabSwitch
 
                     onClicked: settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false';
+                }
+
+                Binding {
+                    target: allowOpenInBackgroundTabSwitch; property: "checked";
+                    value: settingsObject.allowOpenInBackgroundTab === 'true' ||
+                    (settingsObject.allowOpenInBackgroundTab === 'default' &&
+                        formFactor === "desktop")
                 }
             }
 
             ListItem.Standard {
                 text: i18n.tr("Privacy")
 
-                action: Action {
-                    onTriggered: privacyComponent.createObject(privacyContainer);
-                }
+                onClicked: privacyComponent.createObject(subpageContainer);
             }
 
             ListItem.Standard {
                 text: i18n.tr("Reset browser settings")
-                onClicked: {
-                    settingsObject.restoreDefaults();
-                }
+                onClicked: settingsObject.restoreDefaults();
             }
         }
     }
 
-    SettingsPageHeader {
-        id: title
-
-        onBack: settingsItem.done()
-        text: i18n.tr("Settings")
-    }
-
     Item {
-        id: searchEngineContainer
+        id: subpageContainer
 
         visible: children.length > 0
         anchors.fill: parent
@@ -161,6 +154,14 @@ Item {
                 Rectangle {
                     anchors.fill: parent
                     color: "#f6f6f6"
+                }
+
+
+                SettingsPageHeader {
+                    id: searchEngineTitle
+
+                    onBack: searchEngineItem.destroy();
+                    text: i18n.tr("Search engine")
                 }
 
                 ListView {
@@ -189,22 +190,8 @@ Item {
                         }
                     }
                 }
-
-                SettingsPageHeader {
-                    id: searchEngineTitle
-
-                    onBack: searchEngineItem.destroy();
-                    text: i18n.tr("Search engine")
-                }
             }
         }
-    }
-
-    Item {
-        id: privacyContainer
-
-        visible: children.length > 0
-        anchors.fill: parent
 
         Component {
             id: privacyComponent
@@ -216,6 +203,12 @@ Item {
                 Rectangle {
                     anchors.fill: parent
                     color: "#f6f6f6"
+                }
+
+                SettingsPageHeader {
+                    id: privacyTitle
+                    onBack: privacyItem.destroy();
+                    text: i18n.tr("Privacy")
                 }
 
                 Flickable {
@@ -235,15 +228,9 @@ Item {
                         ListItem.Standard {
                             text: i18n.tr("Clear Browsing History")
                             onClicked: historyModel.clearAll();
-                            opacity: historyModel.count > 0 ? 1 : 0.5
+                            enabled: historyModel.count > 0
                         }
                     }
-                }
-
-                SettingsPageHeader {
-                    id: privacyTitle
-                    onBack: privacyItem.destroy();
-                    text: i18n.tr("Privacy")
                 }
             }
         }
