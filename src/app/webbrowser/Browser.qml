@@ -122,7 +122,10 @@ BrowserView {
         }
 
         Loader {
-            anchors.fill: tabContainer
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
             sourceComponent: InvalidCertificateErrorSheet {
                 visible: currentWebview && currentWebview.certificateError != null
                 certificateError: currentWebview ? currentWebview.certificateError : null
