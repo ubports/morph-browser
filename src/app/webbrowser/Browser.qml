@@ -109,7 +109,10 @@ BrowserView {
         }
 
         Loader {
-            anchors.fill: tabContainer
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
             sourceComponent: ErrorSheet {
                 visible: currentWebview ? currentWebview.lastLoadFailed : false
                 url: currentWebview ? currentWebview.url : ""
