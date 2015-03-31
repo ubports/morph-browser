@@ -124,61 +124,11 @@ Item {
         }
     }
 
-    ListItem.Empty {
+    SettingsPageHeader {
         id: title
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
 
-        Rectangle {
-            anchors.fill: parent
-            color: "#f6f6f6"
-        }
-
-        showDivider: false
-        highlightWhenPressed: false
-
-        AbstractButton {
-            id: backButton
-            width: height
-
-            onTriggered: settingsItem.done()
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-                left: parent.left
-            }
-
-            Rectangle {
-                anchors.fill: parent
-                anchors.leftMargin: units.gu(1)
-                anchors.rightMargin: units.gu(1)
-                color: "#E6E6E6"
-                visible: parent.pressed
-            }
-
-            Icon {
-                name: "back"
-                anchors {
-                    fill: parent
-                    topMargin: units.gu(2)
-                    bottomMargin: units.gu(2)
-                }
-            }
-        }
-
-        Label {
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-                left: backButton.right
-                topMargin: units.gu(2)
-                bottomMargin: units.gu(2)
-            }
-            text: i18n.tr("Settings")
-        }
+        onTrigger: settingsItem.done()
+        text: i18n.tr("Settings")
     }
 
     ListItem.Divider {
@@ -231,64 +181,12 @@ Item {
             }
         }
 
-        ListItem.Empty {
+        SettingsPageHeader {
             id: searchEngineTitle
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-            }
 
-            Rectangle {
-                anchors.fill: parent
-                color: "#f6f6f6"
-            }
-
-            highlightWhenPressed: false
-            showDivider: false
-
-            AbstractButton {
-                id: searchEngineBackButton
-                width: height
-
-                onTriggered: searchEngineItem.visible = false;
-
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    left: parent.left
-                }
-
-                Rectangle {
-                    anchors.fill: parent
-                    anchors.leftMargin: units.gu(1)
-                    anchors.rightMargin: units.gu(1)
-                    color: "#E6E6E6"
-                    visible: parent.pressed
-                }
-
-                Icon {
-                    name: "back"
-                    anchors {
-                        fill: parent
-                        topMargin: units.gu(2)
-                        bottomMargin: units.gu(2)
-                    }
-                }
-            }
-
-            Label {
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    left: searchEngineBackButton.right
-                    topMargin: units.gu(2)
-                    bottomMargin: units.gu(2)
-                }
-                text: i18n.tr("Search engine")
-            }
+            onTrigger: searchEngineItem.visible = false;
+            text: i18n.tr("Search engine")
         }
-
 
         ListItem.Divider {
             id: searchEngineTitleDivider
@@ -336,64 +234,11 @@ Item {
             }
         }
 
-        ListItem.Empty {
+        SettingsPageHeader {
             id: privacyTitle
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-            }
-
-            Rectangle {
-                anchors.fill: parent
-                color: "#f6f6f6"
-            }
-
-            highlightWhenPressed: false
-            showDivider: false
-
-            AbstractButton {
-                id: privacyBackButton
-                width: height
-
-                onTriggered: privacyItem.visible = false;
-
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    left: parent.left
-                }
-
-                Rectangle {
-                    anchors.fill: parent
-                    anchors.leftMargin: units.gu(1)
-                    anchors.rightMargin: units.gu(1)
-                    color: "#E6E6E6"
-                    visible: parent.pressed
-                }
-
-                Icon {
-                    name: "back"
-                    anchors {
-                        fill: parent
-                        topMargin: units.gu(2)
-                        bottomMargin: units.gu(2)
-                    }
-                }
-            }
-
-            Label {
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    left: privacyBackButton.right
-                    topMargin: units.gu(2)
-                    bottomMargin: units.gu(2)
-                }
-                text: i18n.tr("Privacy")
-            }
+            onTrigger: privacyItem.visible = false;
+            text: i18n.tr("Privacy")
         }
-
 
         ListItem.Divider {
             id: privacyTitleDivider
