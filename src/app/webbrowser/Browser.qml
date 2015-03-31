@@ -611,7 +611,10 @@ BrowserView {
                         id: newTabViewComponent
 
                         NewTabView {
-                            anchors.fill: parent
+                            anchors {
+                                fill: parent
+                                topMargin: (chrome.state == "shown") ? chrome.height : 0
+                            }
 
                             historyModel: browser.historyModel
                             bookmarksModel: browser.bookmarksModel
