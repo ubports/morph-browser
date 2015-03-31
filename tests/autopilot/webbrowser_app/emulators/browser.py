@@ -277,6 +277,9 @@ class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.wait_select_single("QQuickItem",
                                        objectName="privacySettings")
 
+    def get_reset_settings_entry(self):
+        return self.select_single("Standard", objectName="reset")
+
 
 class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 

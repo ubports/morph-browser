@@ -137,7 +137,10 @@ Item {
             }
 
             ListItem.Standard {
+                objectName: "reset"
+
                 text: i18n.tr("Reset browser settings")
+
                 onClicked: settingsObject.restoreDefaults();
             }
         }

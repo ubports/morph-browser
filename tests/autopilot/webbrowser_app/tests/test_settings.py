@@ -93,3 +93,11 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         self.assertThat(clear_history.enabled, Equals(True))
         self.pointing_device.click_object(clear_history)
         self.assertThat(clear_history.enabled, Eventually(Equals(False)))
+
+    def test_reset_browser_settings(self):
+        settings = self.open_settings()
+        reset = settings.get_reset_settings_entry()
+        self.pointing_device.click_object(reset)
+        homepage = settings.get_homepage_entry()
+        self.assertThat(homepage.subText,
+                        Eventually(Equals("http://start.ubuntu.com")))
