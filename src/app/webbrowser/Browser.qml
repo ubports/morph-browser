@@ -392,7 +392,7 @@ BrowserView {
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
-            bottomMargin: (chrome.state == "hidden") ? -height : 0
+            bottomMargin: (chrome.state == "shown") ? 0 : -height
             Behavior on bottomMargin {
                 UbuntuNumberAnimation {}
             }
