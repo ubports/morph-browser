@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -39,6 +39,7 @@ Window {
 
     Connections {
         target: window.currentWebview
+        ignoreUnknownSignals: true
         onFullscreenChanged: {
             if (!window.forceFullscreen) {
                 if (window.currentWebview.fullscreen) {

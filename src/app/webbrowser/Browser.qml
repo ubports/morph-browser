@@ -103,13 +103,16 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: recentView.visible ? invisibleTabChrome.bottom : chrome.bottom
+                top: recentView.visible ? invisibleTabChrome.bottom : parent.top
             }
-            height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : chrome.visibleHeight)
+            height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : 0)
         }
 
         Loader {
-            anchors.fill: tabContainer
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
             sourceComponent: ErrorSheet {
                 visible: currentWebview ? currentWebview.lastLoadFailed : false
                 url: currentWebview ? currentWebview.url : ""
@@ -119,7 +122,10 @@ BrowserView {
         }
 
         Loader {
-            anchors.fill: tabContainer
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
             sourceComponent: InvalidCertificateErrorSheet {
                 visible: currentWebview && currentWebview.certificateError != null
                 certificateError: currentWebview ? currentWebview.certificateError : null
@@ -148,6 +154,8 @@ BrowserView {
 
             webview: browser.currentWebview
             searchUrl: searchEngine.urlTemplate
+
+            y: webview ? webview.locationBarController.offset : 0
 
             function isCurrentUrlBookmarked() {
                 return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
@@ -217,29 +225,6 @@ BrowserView {
                     onTriggered: browser.openUrlInNewTab("", true)
                 }
             ]
-
-            Connections {
-                target: browser.currentWebview
-                onLoadingStateChanged: {
-                    if (browser.currentWebview.loading) {
-                        chrome.state = "shown"
-                    } else if (browser.currentWebview.fullscreen) {
-                        chrome.state = "hidden"
-                    }
-                }
-                onFullscreenChanged: {
-                    if (browser.currentWebview.fullscreen) {
-                        chrome.state = "hidden"
-                    } else {
-                        chrome.state = "shown"
-                    }
-                }
-            }
-        }
-
-        ChromeStateTracker {
-            webview: browser.currentWebview
-            header: chrome
         }
 
         Suggestions {
@@ -367,7 +352,6 @@ BrowserView {
         }
 
         function reset() {
-            chrome.state = "shown"
             state = ""
             recentToolbar.state = "hidden"
             tabslist.reset()
@@ -390,9 +374,7 @@ BrowserView {
 
         onDraggingChanged: {
             if (!dragging) {
-                if (stage == 0) {
-                    chrome.state = "shown"
-                } else if (stage == 1) {
+                if (stage == 1) {
                     if (tabsModel.count > 1) {
                         tabslist.selectAndAnimateTab(1)
                     } else {
@@ -416,7 +398,7 @@ BrowserView {
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
-            bottomMargin: (chrome.state == "hidden") ? -height : 0
+            bottomMargin: (chrome.state == "shown") ? 0 : -height
             Behavior on bottomMargin {
                 UbuntuNumberAnimation {}
             }
@@ -516,6 +498,17 @@ BrowserView {
                 focus: true
 
                 enabled: visible && !bottomEdgeHandle.dragging && !recentView.visible
+
+                ChromeController {
+                    id: chromeController
+                    webview: webviewimpl
+                    forceHide: recentView.visible
+                }
+
+                locationBarController {
+                    height: webviewimpl.visible ? chrome.height : 0
+                    mode: chromeController.mode
+                }
 
                 //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
                 preferences.localStorageEnabled: true
@@ -624,7 +617,10 @@ BrowserView {
                         id: newTabViewComponent
 
                         NewTabView {
-                            anchors.fill: parent
+                            anchors {
+                                fill: parent
+                                topMargin: (chrome.state == "shown") ? chrome.height : 0
+                            }
 
                             historyModel: browser.historyModel
                             bookmarksModel: browser.bookmarksModel
