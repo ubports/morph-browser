@@ -77,8 +77,12 @@ Item {
             width: parent.width
 
             ListItem.Subtitled {
+                SearchEngine {
+                    id: currentSearchEngine
+                    filename: settingsObject.searchEngine
+                }
                 text: i18n.tr("Search engine")
-                subText: settingsObject.searchEngine
+                subText: currentSearchEngine.name
 
                 visible: searchEngineFolder.count > 1
 
