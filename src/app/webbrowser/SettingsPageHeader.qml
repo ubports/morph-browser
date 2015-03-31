@@ -19,62 +19,95 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 
-ListItem.Empty {
+/*
+ * Component to use as page header in settings page and subpages
+ *
+ * It has a trigger() signal fired when back button is pressed and a text
+ * property to set the page title
+ *
+ * Place it as last component of the page to have on top of flickable when it
+ * scrolls
+ */
+
+Item {
     id: root
     signal trigger()
-    property alias text: titleLabel.text
+    property var text
+
+    height: title.height + divider.height
+
     anchors {
-        top: parent.top
         left: parent.left
         right: parent.right
     }
 
-    Rectangle {
-        anchors.fill: parent
-        color: "#f6f6f6"
-    }
-
-    showDivider: false
-    highlightWhenPressed: false
-
-    AbstractButton {
-        id: backButton
-        width: height
-
-        onTriggered: root.trigger()
+    ListItem.Empty {
+        id: title
         anchors {
             top: parent.top
-            bottom: parent.bottom
             left: parent.left
+            right: parent.right
         }
 
         Rectangle {
             anchors.fill: parent
-            anchors.leftMargin: units.gu(1)
-            anchors.rightMargin: units.gu(1)
-            color: "#E6E6E6"
-            visible: parent.pressed
+            color: "#f6f6f6"
         }
 
-        Icon {
-            name: "back"
+        showDivider: false
+        highlightWhenPressed: false
+
+        AbstractButton {
+            id: backButton
+            width: height
+
+            onTriggered: root.trigger()
             anchors {
-                fill: parent
+                top: parent.top
+                bottom: parent.bottom
+                left: parent.left
+            }
+
+            Rectangle {
+                anchors.fill: parent
+                anchors.leftMargin: units.gu(1)
+                anchors.rightMargin: units.gu(1)
+                color: "#E6E6E6"
+                visible: parent.pressed
+            }
+
+            Icon {
+                name: "back"
+                anchors {
+                    fill: parent
+                    topMargin: units.gu(2)
+                    bottomMargin: units.gu(2)
+                }
+            }
+        }
+
+        Label {
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+                left: backButton.right
                 topMargin: units.gu(2)
                 bottomMargin: units.gu(2)
             }
+            text: root.text
         }
     }
 
-    Label {
-        id: titleLabel
+    ListItem.Divider {
+        id: divider
         anchors {
-            top: parent.top
-            bottom: parent.bottom
-            left: backButton.right
-            topMargin: units.gu(2)
-            bottomMargin: units.gu(2)
+            top: title.bottom
+            left: parent.left
+            right: parent.right
         }
-        //text: i18n.tr("Settings")
+        Rectangle {
+            anchors.fill: parent
+            color: "#E6E6E6"
+        }
     }
 }

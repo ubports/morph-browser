@@ -50,7 +50,7 @@ Item {
 
     Flickable {
         anchors {
-            top: titleDivider.bottom
+            top: title.bottom
             left: parent.left
             right: parent.right
             bottom: parent.bottom
@@ -131,19 +131,6 @@ Item {
         text: i18n.tr("Settings")
     }
 
-    ListItem.Divider {
-        id: titleDivider
-        anchors {
-            top: title.bottom
-            left: parent.left
-            right: parent.right
-        }
-        Rectangle {
-            anchors.fill: parent
-            color: "#E6E6E6"
-        }
-    }
-
     Item {
         id: searchEngineContainer
 
@@ -164,7 +151,7 @@ Item {
 
                 ListView {
                     anchors {
-                        top: searchEngineTitleDivider.bottom
+                        top: searchEngineTitle.bottom
                         left: parent.left
                         right: parent.right
                         bottom: parent.bottom
@@ -195,19 +182,6 @@ Item {
                     onTrigger: searchEngineItem.destroy();
                     text: i18n.tr("Search engine")
                 }
-
-                ListItem.Divider {
-                    id: searchEngineTitleDivider
-                    anchors {
-                        top: searchEngineTitle.bottom
-                        left: parent.left
-                        right: parent.right
-                    }
-                    Rectangle {
-                        anchors.fill: parent
-                        color: "#E6E6E6"
-                    }
-                }
             }
         }
     }
@@ -232,7 +206,7 @@ Item {
 
                 Flickable {
                     anchors {
-                        top: privacyTitleDivider.bottom
+                        top: privacyTitle.bottom
                         left: parent.left
                         right: parent.right
                         bottom: parent.bottom
@@ -256,19 +230,6 @@ Item {
                     id: privacyTitle
                     onTrigger: privacyItem.destroy();
                     text: i18n.tr("Privacy")
-                }
-
-                ListItem.Divider {
-                    id: privacyTitleDivider
-                    anchors {
-                        top: privacyTitle.bottom
-                        left: parent.left
-                        right: parent.right
-                    }
-                    Rectangle {
-                        anchors.fill: parent
-                        color: "#E6E6E6"
-                    }
                 }
             }
         }
