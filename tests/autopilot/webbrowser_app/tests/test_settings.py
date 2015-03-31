@@ -81,3 +81,15 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         privacy_header = privacy_page.select_single(browser.SettingsPageHeader)
         privacy_header.click_back_button()
         privacy_page.wait_until_destroyed()
+
+    def test_clear_browsing_history(self):
+        settings = self.open_settings()
+        privacy = settings.get_privacy_entry()
+        self.pointing_device.click_object(privacy)
+        privacy_page = settings.get_privacy_page()
+        clear_history = privacy_page.select_single(
+            "Standard",
+            objectName="privacy.clearHistory")
+        self.assertThat(clear_history.enabled, Equals(True))
+        self.pointing_device.click_object(clear_history)
+        self.assertThat(clear_history.enabled, Eventually(Equals(False)))

@@ -234,6 +234,7 @@ Item {
                         width: parent.width
 
                         ListItem.Standard {
+                            objectName: "privacy.clearHistory"
                             text: i18n.tr("Clear Browsing History")
                             onClicked: historyModel.clearAll();
                             enabled: historyModel.count > 0
