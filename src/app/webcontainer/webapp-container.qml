@@ -171,6 +171,7 @@ BrowserWindow {
     Loader {
         id: accountsPageComponentLoader
         anchors.fill: parent
+        z: -1 // This is needed to have the dialogs shown; see above comment about bug 1398046
         onStatusChanged: {
             if (status == Loader.Error) {
                 // Happens on the desktop, if Ubuntu.OnlineAccounts.Client
@@ -181,7 +182,6 @@ BrowserWindow {
                 initializeForAccount(item.credentialsId)
             }
         }
-        z: -1
     }
 
     function onCookiesMoved(result) {
