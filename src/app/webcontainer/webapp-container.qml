@@ -262,8 +262,9 @@ BrowserWindow {
             console.log("Authentication done, successful = " + successful)
             if (successful) {
                 moveCookies(webappViewLoader.credentialsId)
+            } else {
+                loadWebAppView(true)
             }
-            // FIXME else?
         }
     }
 
