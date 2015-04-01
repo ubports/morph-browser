@@ -288,6 +288,7 @@ void WebappContainer::printUsage() const
        " [--app-id=APP_ID]"
        " [--homepage=URL]"
        " [--webapp=name]"
+       " [--name=NAME]"
        " [--icon=PATH]"
        " [--webappModelSearchPath=PATH]"
        " [--webappUrlPatterns=URL_PATTERNS]"
@@ -308,7 +309,7 @@ void WebappContainer::printUsage() const
     out << "  --app-id=APP_ID                     run the application with a specific APP_ID" << endl;
     out << "  --homepage=URL                      override any URL passed as an argument" << endl;
     out << "  --webapp=name                       try to match the webapp by name with an installed integration script" << endl;
-    out << "  --name=name                         display name of the webapp, shown in the splash screen" << endl;
+    out << "  --name=NAME                         display name of the webapp, shown in the splash screen" << endl;
     out << "  --icon=PATH                         Icon to be shown in the splash screen. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
