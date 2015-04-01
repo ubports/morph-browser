@@ -31,11 +31,11 @@ QtObject {
     property var __scriptMessageHandlerComponent: Component {
         ScriptMessageHandler {
             msgId: "domChanged"
-            contexts: ["oxide://bla/"]
+            contexts: ["oxide://logoutDetector/"]
             callback: function(msg, frame) {
                 console.log('Got a DOM changed message: ' + msg.args)
                 var request = webview.rootFrame.sendMessage(
-                    "oxide://bla/",
+                    "oxide://logoutDetector/",
                     "evaluateSelectors",
                     { selectors: root.logoutSelectors }
                 )
@@ -62,7 +62,7 @@ QtObject {
     }
 
     property var __userScript: UserScript {
-        context: "oxide://bla/"
+        context: "oxide://logoutDetector/"
         url: Qt.resolvedUrl("logout-detector.js")
         incognitoEnabled: true
         matchAllFrames: true
