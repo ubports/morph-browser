@@ -71,8 +71,8 @@ interactive human-readable report in HTML format (coveragereport/index.html).
 
 = Settings =
 
-webbrowser-app supports a limited set of custom settings, currently not exposed
-in the UI. The settings are persisted on disk in the following INI-like file:
+webbrowser-app supports a limited set of custom settings, persisted on disk in
+the following INI-like file:
 
     $HOME/.config/webbrowser-app/webbrowser-app.conf
 
