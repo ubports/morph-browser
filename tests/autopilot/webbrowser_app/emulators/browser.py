@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2014 Canonical
+# Copyright 2013-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -70,13 +70,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.get_parent()
 
     def get_current_webview(self):
-        return self.select_single("WebViewImpl", current=True)
+        return self.select_single("WebViewImpl", visible=True)
 
     def get_webviews(self):
         return self.select_many("WebViewImpl")
-
-    def get_visible_webviews(self):
-        return self.select_many("WebViewImpl", visible=True)
 
     def get_error_sheet(self):
         return self.select_single("ErrorSheet")
@@ -95,7 +92,11 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        objectName="selectionActions")
 
     def get_tabs_view(self):
-        return self.wait_select_single(TabsView)
+        return self.wait_select_single(TabsList, visible=True)
+
+    def get_recent_view_toolbar(self):
+        return self.wait_select_single(Toolbar, objectName="recentToolbar",
+                                       state="shown")
 
     def get_new_tab_view(self):
         return self.wait_select_single("NewTabView", visible=True)
@@ -104,6 +105,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         # only on devices
         return self.wait_select_single("PopupBase",
                                        objectName="contentPickerDialog")
+
+    def get_bottom_edge_hint(self):
+        return self.select_single("QQuickImage", objectName="bottomEdgeHint")
 
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -150,7 +154,8 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_drawer_action(self, actionName):
         drawer = self.get_drawer()
-        return drawer.select_single("AbstractButton", objectName=actionName)
+        return drawer.select_single("AbstractButton", objectName=actionName,
+                                    visible=True)
 
 
 class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -177,8 +182,11 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def write(self, text, clear=True):
         self.text_field.write(text, clear)
 
-    def get_action_button(self):
-        return self.select_single("QQuickMouseArea", objectName="actionButton")
+    @autopilot.logging.log_action(logger.info)
+    def click_action_button(self):
+        button = self.select_single("QQuickMouseArea",
+                                    objectName="actionButton")
+        self.pointing_device.click_object(button)
 
     def get_bookmark_toggle(self):
         return self.select_single("QQuickItem", objectName="bookmarkToggle")
@@ -213,22 +221,39 @@ class Selection(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_close_button(self):
-        return self.select_single("AbstractButton", objectName="closeButton")
+    @autopilot.logging.log_action(logger.info)
+    def select(self):
+        area = self.select_single("QQuickMouseArea", objectName="selectArea")
+        # click towards the top of the area to ensure we’re not selecting
+        # the following preview that might be overlapping
+        ca = area.globalRect
+        self.pointing_device.move(ca.x + ca.width // 2, ca.y + ca.height // 4)
+        self.pointing_device.click()
+
+    @autopilot.logging.log_action(logger.info)
+    def close(self):
+        button = self.select_single("AbstractButton", objectName="closeButton")
+        self.pointing_device.click_object(button)
 
 
-class TabsView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class TabsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_previews(self):
-        return self.select_many(TabPreview)
-
-    def get_ordered_previews(self):
-        previews = self.get_previews()
-        previews.sort(key=lambda tab: tab.y)
+        previews = self.select_many(TabPreview)
+        previews.sort(key=lambda tab: tab.globalRect.y)
         return previews
 
-    def get_done_button(self):
-        return self.select_single("Button", objectName="doneButton")
 
-    def get_add_button(self):
-        return self.select_single("ToolbarAction", objectName="addTabButton")
+class Toolbar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    @autopilot.logging.log_action(logger.info)
+    def click_button(self, name):
+        self.isFullyShown.wait_for(True)
+        button = self.select_single("Button", objectName=name)
+        self.pointing_device.click_object(button)
+
+    @autopilot.logging.log_action(logger.info)
+    def click_action(self, name):
+        self.isFullyShown.wait_for(True)
+        action = self.select_single("ToolbarAction", objectName=name)
+        self.pointing_device.click_object(action)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -21,13 +21,14 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 
 Item {
-    height: units.gu(3)
+    height: units.gu(6.5)
 
     Label {
         anchors {
             left: parent.left
             right: parent.right
             top: parent.top
+            topMargin: units.gu(2.5)
         }
         height: units.gu(2)
 
@@ -49,7 +50,7 @@ Item {
         }
 
         fontSize: "small"
-        color: "#5d5d5d"
+        color: UbuntuColors.darkGrey
     }
 
     ListItem.ThinDivider {
@@ -57,6 +58,7 @@ Item {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
+            bottomMargin: units.gu(1)
         }
     }
 }

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2014-11-09 08:19+0000\n"
+"POT-Creation-Date: 2015-03-22 21:26+0100\n"
+"PO-Revision-Date: 2015-02-27 19:46+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2015-02-04 07:10+0000\n"
-"X-Generator: Launchpad (build 17331)\n"
+"X-Launchpad-Export-Date: 2015-03-31 05:56+0000\n"
+"X-Generator: Launchpad (build 17413)\n"
 "Language: gd\n"
 
 #: src/app/AlertDialog.qml:23
@@ -48,7 +48,7 @@ msgid "Password"
 msgstr "Facal-faire"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
 msgstr "Sguir dheth"
 
@@ -397,7 +397,7 @@ msgstr "Rach gu"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;Seòladh"
 
-#: src/app/actions/NewTab.qml:23
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
 msgid "New Tab"
 msgstr "Taba ùr"
 
@@ -413,7 +413,7 @@ msgstr "Fosgail an dealbh ann an taba ùr"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Fosgail an ceangal ann an taba ùr sa chùlaibh"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -443,26 +443,31 @@ msgstr "lorg no cuir a-steach seòladh-lìn"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
 msgstr "Sguab às"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:178
 msgid "Share"
 msgstr "Co-roinn"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:192
 msgid "History"
 msgstr "Eachdraidh"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:199
 msgid "Open tabs"
 msgstr "Tabaichean fosgailte"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "Taba ùr"
+
+#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+msgid "Done"
+msgstr "Dèanta"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -477,17 +482,17 @@ msgstr[3] "%1 duilleag"
 msgid "Less"
 msgstr "Nas lugha dheth"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
 msgstr "Air a thadhal mu dheireadh"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "An-dè"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
-msgid "Done"
-msgstr "Dèanta"
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
+msgstr "Tagh na h-uile"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -511,43 +516,49 @@ msgstr "Tha susbaint neo-thèarainte san làrach seo"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "Cha deach a dhearbh-aithne a dhearbhadh fhathast"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "Chaidh fèin-aithne na làraich-lìn seo a dhearbhadh."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
 msgstr ""
+"Chan eil teisteanas an fhrithealaiche a' freagairt ri dearbh-aithne na "
+"làraich."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Dh'fhalbh an ùine air teisteanas an fhrithealaiche."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "Tha cinn-là nach eil dligheach ann an teisteanas an fhrithealaiche."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
 msgstr ""
+"Chaidh teisteanas an fhrithealaiche fhoillseachadh le eintiteas anns nach "
+"eil earbsa."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Chaidh teisteanas an fhrithealaiche a ghairm air ais."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Tha teisteanas an fhrithealaiche mì-dhligheach."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "Chan eil teisteanas an fhrithealaiche tèarainte."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"Cha do shoirbhich le teisteanas an fhrithealaiche an sgrùdadh tèarainteachd "
+"againn ach chan eil fhios againn carson."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
@@ -557,13 +568,9 @@ msgstr "Tha thu ceangailte ri"
 msgid "Which is run by"
 msgstr "A tha 'ga ruith le"
 
-#: src/app/webbrowser/TabPreview.qml:163
+#: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Thoir gnogag gus a shealltainn"
-
-#: src/app/webbrowser/TabsView.qml:113
-msgid "Add"
-msgstr "Cuir ris"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:38
@@ -622,3 +629,6 @@ msgstr ""
 
 #~ msgid "No"
 #~ msgstr "Na falamhaich"
+
+#~ msgid "Add"
+#~ msgstr "Cuir ris"

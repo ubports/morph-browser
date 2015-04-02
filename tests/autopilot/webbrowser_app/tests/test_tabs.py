@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2014 Canonical
+# Copyright 2013-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -17,6 +17,8 @@
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 from autopilot.platform import model
+
+import unittest
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
@@ -40,9 +42,8 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def test_close_tabs_view(self):
         tabs_view = self.main_window.get_tabs_view()
-        done_button = tabs_view.get_done_button()
-        self.pointing_device.click_object(done_button)
-        tabs_view.wait_until_destroyed()
+        self.main_window.get_recent_view_toolbar().click_button("doneButton")
+        tabs_view.visible.wait_for(False)
 
     def test_open_new_tab(self):
         self.open_new_tab()
@@ -53,10 +54,8 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def test_close_last_open_tab(self):
         tabs_view = self.main_window.get_tabs_view()
-        preview = tabs_view.get_previews()[0]
-        close_button = preview.get_close_button()
-        self.pointing_device.click_object(close_button)
-        tabs_view.wait_until_destroyed()
+        tabs_view.get_previews()[0].close()
+        tabs_view.visible.wait_for(False)
         self.assert_number_webviews_eventually(1)
         self.main_window.get_new_tab_view()
         if model() == 'Desktop':
@@ -74,11 +73,9 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(2)
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = tabs_view.get_ordered_previews()
+        previews = tabs_view.get_previews()
         self.assertThat(len(previews), Equals(2))
-        preview = previews[0]
-        close_button = preview.get_close_button()
-        self.pointing_device.click_object(close_button)
+        previews[0].close()
         self.assertThat(lambda: len(tabs_view.get_previews()),
                         Eventually(Equals(1)))
         preview = tabs_view.get_previews()[0]
@@ -98,16 +95,14 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = tabs_view.get_ordered_previews()
-        self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        tabs_view.get_previews()[1].select()
+        tabs_view.visible.wait_for(False)
         self.check_current_tab(self.url)
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = tabs_view.get_ordered_previews()
-        self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        tabs_view.get_previews()[1].select()
+        tabs_view.visible.wait_for(False)
         self.check_current_tab(url)
 
     def test_error_only_for_current_tab(self):
@@ -118,10 +113,20 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = tabs_view.get_ordered_previews()
-        self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        tabs_view.get_previews()[1].select()
+        tabs_view.visible.wait_for(False)
         self.assertThat(error.visible, Eventually(Equals(False)))
+
+    @unittest.skipIf(model() == "Desktop", "on devices only")
+    def test_swipe_partway_switches_tabs(self):
+        self.open_new_tab()
+        url = self.base_url + "/test2"
+        self.main_window.go_to_url(url)
+        self.check_current_tab(url)
+        self.drag_bottom_edge_upwards(0.1)
+        self.check_current_tab(self.url)
+        self.drag_bottom_edge_upwards(0.1)
+        self.check_current_tab(url)
 
 
 class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
@@ -145,13 +150,35 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(2)
 
     def test_selecting_tab_focuses_webview(self):
-        self.main_window.address_bar.focus()
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = tabs_view.get_previews()
-        self.pointing_device.click_object(previews[0])
-        tabs_view.wait_until_destroyed()
+        tabs_view.get_previews()[0].select()
+        tabs_view.visible.wait_for(False)
         webview = self.main_window.get_current_webview()
-        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
-        address_bar = self.main_window.address_bar
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+        webview.activeFocus.wait_for(True)
+
+    def test_webview_requests_close(self):
+        self.open_tabs_view()
+        self.open_new_tab()
+        url = self.base_url + "/closeself"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.assert_number_webviews_eventually(2)
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        webview.wait_until_destroyed()
+        self.assert_number_webviews_eventually(1)
+
+    def test_last_webview_requests_close(self):
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        tabs_view.get_previews()[0].close()
+        tabs_view.visible.wait_for(False)
+        url = self.base_url + "/closeself"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        webview.wait_until_destroyed()
+        self.assert_number_webviews_eventually(1)
+        self.main_window.get_new_tab_view()

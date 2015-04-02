@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -52,7 +52,7 @@ ListItemWithActions {
                 id: title
 
                 fontSize: "x-small"
-                color: "#5d5d5d"
+                color: UbuntuColors.darkGrey
                 wrapMode: Text.Wrap
                 elide: Text.ElideRight
                 maximumLineCount: 1
@@ -62,7 +62,7 @@ ListItemWithActions {
                 id: url
 
                 fontSize: "xx-small"
-                color: "#5d5d5d"
+                color: UbuntuColors.darkGrey
                 wrapMode: Text.Wrap
                 elide: Text.ElideRight
                 maximumLineCount: 1

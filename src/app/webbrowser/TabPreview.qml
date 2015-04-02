@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -22,110 +22,24 @@ import Ubuntu.Components 1.1
 Column {
     id: tabPreview
 
-    property alias title: label.text
+    property alias title: chrome.title
     property var tab
     readonly property url url: tab ? tab.url : ""
 
+    // The first preview in the tabs list is a special case.
+    // Since it’s the current tab, instead of displaying a
+    // capture, the webview below it is displayed.
+    property bool showContent: true
+
     signal selected()
-    signal closeRequested()
+    signal closed()
 
     Item {
-        id: header
-
-        width: parent.width
-        height: units.gu(4)
-
-        Row {
-            anchors.fill: parent
-
-            AbstractButton {
-                id: closeButton
-                objectName: "closeButton"
-
-                height: parent.height
-                width: units.gu(5)
-
-                Rectangle {
-                    anchors.fill: parent
-                }
-
-                Icon {
-                    height: units.gu(2)
-                    width: height
-                    anchors.centerIn: parent
-                    name: "close"
-                }
-
-                onTriggered: tabPreview.closeRequested()
-
-                Rectangle {
-                    anchors {
-                        top: parent.top
-                        bottom: parent.bottom
-                        right: parent.right
-                    }
-                    width: units.dp(1)
-
-                    color: "#d9d9d9"
-                }
-            }
-
-            Item {
-                width: parent.width - closeButton.width
-                height: parent.height
-
-                Image {
-                    id: tabBackgroundLeft
-                    height: parent.height
-                    anchors {
-                        left: parent.left
-                        right: tabBackgroundCenter.left
-                    }
-                    source: "assets/tab-header-left.png"
-                    fillMode: Image.TileHorizontally
-                }
-
-                Image {
-                    id: tabBackgroundCenter
-                    height: parent.height
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: "assets/tab-header-center.png"
-                    fillMode: Image.PreserveAspectFit
-                }
-
-                Image {
-                    id: tabBackgroundRight
-                    height: parent.height
-                    anchors {
-                        left: tabBackgroundCenter.right
-                        right: parent.right
-                    }
-                    source: "assets/tab-header-right.png"
-                    fillMode: Image.TileHorizontally
-                }
-
-                Label {
-                    id: label
-                    anchors {
-                        fill: tabBackgroundLeft
-                        leftMargin: units.gu(1)
-                    }
-                    verticalAlignment: Text.AlignVCenter
-                    elide: Text.ElideRight
-                }
-
-                MouseArea {
-                    anchors {
-                        top: parent.top
-                        bottom: parent.bottom
-                        left: parent.left
-                    }
-                    width: parent.width / 2
-
-                    onClicked: tabPreview.selected()
-                }
-            }
+        anchors {
+            left: parent.left
+            right: parent.right
         }
+        height: chrome.height
 
         Rectangle {
             anchors {
@@ -133,23 +47,45 @@ Column {
                 right: parent.right
                 bottom: parent.bottom
             }
-            height: units.dp(1)
+            height: units.gu(8)
 
-            color: "#d9d9d9"
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: Qt.rgba(0, 0, 0, 0) }
+                GradientStop { position: 0.75; color: Qt.rgba(0, 0, 0, 0.1) }
+                GradientStop { position: 1.0; color: Qt.rgba(0, 0, 0, 0.3) }
+            }
+        }
+
+        TabChrome {
+            id: chrome
+
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+
+            onSelected: tabPreview.selected()
+            onClosed: tabPreview.closed()
         }
     }
 
-    Rectangle {
+    Item {
         width: parent.width
-        height: parent.height - header.height
+        height: parent.height
+
+        Rectangle {
+            anchors.fill: parent
+            color: "#f4f4f4"
+            visible: showContent
+        }
 
         Image {
-            visible: !previewContainer.visible
+            visible: showContent && !previewContainer.visible
             source: "assets/tab-artwork.png"
             asynchronous: true
             fillMode: Image.PreserveAspectFit
-            height: Math.min(parent.height / 1.6, units.gu(28))
-            width: height
+            width: parent.width / 5
+            height: width
             anchors {
                 right: parent.right
                 rightMargin: -width / 5
@@ -159,7 +95,7 @@ Column {
         }
 
         Label {
-            visible: !previewContainer.visible
+            visible: showContent && !previewContainer.visible
             text: i18n.tr("Tap to view")
             anchors {
                 centerIn: parent
@@ -169,7 +105,7 @@ Column {
 
         Image {
             id: previewContainer
-            visible: source.toString() && (status == Image.Ready)
+            visible: showContent && source.toString() && (status == Image.Ready)
             anchors {
                 left: parent.left
                 right: parent.right
@@ -189,19 +125,29 @@ Column {
         }
 
         MouseArea {
+            objectName: "selectArea"
             anchors.fill: parent
-            onClicked: tabPreview.selected()
-        }
+            acceptedButtons: Qt.AllButtons
 
-        Rectangle {
-            anchors.fill: parent
-
-            gradient: Gradient {
-                GradientStop { position: 0.0; color: "white" }
-                GradientStop { position: 1.0; color: "black" }
+            // 'clicked' events are emitted even if the cursor has been dragged
+            // (http://doc.qt.io/qt-5/qml-qtquick-mousearea.html#clicked-signal),
+            // but we don’t want a drag gesture to select the tab (when e.g. the
+            // user has reached the top/bottom of the tabs view and starts another
+            // gesture to drag further beyond the boundaries of the view).
+            property point pos
+            onPressed: {
+                if (mouse.button == Qt.LeftButton) {
+                    pos = Qt.point(mouse.x, mouse.y)
+                }
             }
-
-            opacity: 0.3
+            onReleased: {
+                if (mouse.button == Qt.LeftButton) {
+                    var d = Math.sqrt(Math.pow(mouse.x - pos.x, 2) + Math.pow(mouse.y - pos.y, 2))
+                    if (d < units.gu(1)) {
+                        tabPreview.selected()
+                    }
+                }
+            }
         }
     }
 }
