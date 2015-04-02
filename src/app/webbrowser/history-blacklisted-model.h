@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,28 +16,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __HISTORY_BYVISITS_MODEL_H__
-#define __HISTORY_BYVISITS_MODEL_H__
+#ifndef __HISTORY_BLACKLISTED_MODEL_H__
+#define __HISTORY_BLACKLISTED_MODEL_H__
 
 // Qt
 #include <QtCore/QSortFilterProxyModel>
 
-class HistoryBlacklistedModel;
+class HistoryTimeframeModel;
 
-class HistoryByVisitsModel : public QSortFilterProxyModel
+class HistoryBlacklistedModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(HistoryBlacklistedModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
+    Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
 
 public:
-    HistoryByVisitsModel(QObject* parent=0);
+    HistoryBlacklistedModel(QObject* parent=0);
 
-    HistoryBlacklistedModel* sourceModel() const;
-    void setSourceModel(HistoryBlacklistedModel* sourceModel);
+    HistoryTimeframeModel* sourceModel() const;
+    void setSourceModel(HistoryTimeframeModel* sourceModel);
 
 Q_SIGNALS:
     void sourceModelChanged() const;
+
+protected:
+    // reimplemented from QSortFilterProxyModel
+    bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 };
 
-#endif // __HISTORY_BYVISITS_MODEL_H__
+#endif // __HISTORY_BLACKLISTED_MODEL_H__
