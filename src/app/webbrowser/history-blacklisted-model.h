@@ -42,6 +42,8 @@ public:
     const QString databasePath() const;
     void setDatabasePath(const QString& path);
 
+    Q_INVOKABLE void add(const QUrl& blacklistedUrl);
+
 Q_SIGNALS:
     void sourceModelChanged() const;
     void databasePathChanged() const;
@@ -53,6 +55,7 @@ private:
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
     void populateFromDatabase();
+    void insertNewEntryInDatabase(const QUrl& url);
 
 protected:
     // reimplemented from QSortFilterProxyModel

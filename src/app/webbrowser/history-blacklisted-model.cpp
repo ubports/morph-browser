@@ -36,6 +36,7 @@
 HistoryBlacklistedModel::HistoryBlacklistedModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
+    setDynamicSortFilter(true);
     m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), CONNECTION_NAME);
 }
 
@@ -108,12 +109,46 @@ void HistoryBlacklistedModel::setDatabasePath(const QString& path)
     }
 }
 
+void HistoryBlacklistedModel::insertNewEntryInDatabase(const QUrl& url)
+{
+    QDateTime now = QDateTime::currentDateTimeUtc();
+    QSqlQuery query(m_database);
+    static QString insertStatement = QLatin1String("INSERT INTO history-blacklist (url, blacklisted) VALUES (?, ?);");
+    query.prepare(insertStatement);
+    query.addBindValue(url.toString());
+    query.addBindValue(now.toTime_t());
+    query.exec();
+}
+
+void HistoryBlacklistedModel::add(const QUrl& blacklistedUrl)
+{
+    if (blacklistedUrl.isEmpty() || m_blacklistedEntries.contains(blacklistedUrl)) {
+        return;
+    }
+
+    m_blacklistedEntries.append(blacklistedUrl);
+    insertNewEntryInDatabase(blacklistedUrl);
+
+    int count = rowCount();
+    QList<QPersistentModelIndex> affectedIndexes;
+
+    for (int i = 0; i < count; ++i) {
+        QModelIndex idx = index(i, 0);
+        QUrl url = data(idx, HistoryModel::Url).toUrl();
+        if (url == blacklistedUrl) {
+            affectedIndexes << idx;
+        }
+    }
+
+    Q_FOREACH(const QPersistentModelIndex &idx, affectedIndexes) {
+        QModelIndex sourceIndex = mapToSource(idx);
+        Q_EMIT sourceModel()->dataChanged(sourceIndex, sourceIndex);
+    } 
+}
+
 bool HistoryBlacklistedModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
     QUrl url = sourceModel()->data(index, HistoryModel::Url).toUrl();
-    if (m_blacklistedEntries.contains(url)) {
-        return false;
-    }
-    return true;
+    return !m_blacklistedEntries.contains(url);
 }
