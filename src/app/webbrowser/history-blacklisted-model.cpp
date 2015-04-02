@@ -62,7 +62,7 @@ void HistoryBlacklistedModel::resetDatabase(const QString& databaseName)
 void HistoryBlacklistedModel::createOrAlterDatabaseSchema()
 {
     QSqlQuery createQuery(m_database);
-    QString query = QLatin1String("CREATE TABLE IF NOT EXISTS history-blacklist "
+    QString query = QLatin1String("CREATE TABLE IF NOT EXISTS history_blacklist "
                                   "(url VARCHAR, blacklisted DATETIME);");
     createQuery.prepare(query);
     createQuery.exec();
@@ -71,7 +71,7 @@ void HistoryBlacklistedModel::createOrAlterDatabaseSchema()
 void HistoryBlacklistedModel::populateFromDatabase()
 {
     QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT url FROM history-blacklist;");
+    QString query = QLatin1String("SELECT url FROM history_blacklist;");
     populateQuery.prepare(query);
     populateQuery.exec();
     while (populateQuery.next()) {
@@ -113,7 +113,7 @@ void HistoryBlacklistedModel::insertNewEntryInDatabase(const QUrl& url)
 {
     QDateTime now = QDateTime::currentDateTimeUtc();
     QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO history-blacklist (url, blacklisted) VALUES (?, ?);");
+    static QString insertStatement = QLatin1String("INSERT INTO history_blacklist (url, blacklisted) VALUES (?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(url.toString());
     query.addBindValue(now.toTime_t());
