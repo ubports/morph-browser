@@ -24,6 +24,7 @@
 #include "domain-utils.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
+#include "history-blacklisted-model.h"
 #include "history-byvisits-model.h"
 
 class HistoryByVisitsModelTests : public QObject
@@ -33,6 +34,7 @@ class HistoryByVisitsModelTests : public QObject
 private:
     HistoryModel* history;
     HistoryTimeframeModel* timeframe;
+    HistoryBlacklistedModel* blacklisted;
     HistoryByVisitsModel* model;
 
 private Q_SLOTS:
@@ -42,14 +44,18 @@ private Q_SLOTS:
         history->setDatabasePath(":memory:");
         timeframe = new HistoryTimeframeModel;
         timeframe->setSourceModel(history);
+        blacklisted = new HistoryBlacklistedModel;
+        blacklisted->setSourceModel(timeframe);
+        blacklisted->setDatabasePath(":memory:");
         model = new HistoryByVisitsModel;
-        model->setSourceModel(timeframe);
+        model->setSourceModel(blacklisted);
     }
 
     void cleanup()
     {
         delete model;
         delete timeframe;
+        delete blacklisted;
         delete history;
     }
 
@@ -61,16 +67,16 @@ private Q_SLOTS:
     void shouldNotifyWhenChangingSourceModel()
     {
         QSignalSpy spy(model, SIGNAL(sourceModelChanged()));
-        model->setSourceModel(timeframe);
+        model->setSourceModel(blacklisted);
         QVERIFY(spy.isEmpty());
-        HistoryTimeframeModel* timeframe2 = new HistoryTimeframeModel;
-        model->setSourceModel(timeframe2);
+        HistoryBlacklistedModel* blacklisted2 = new HistoryBlacklistedModel;
+        model->setSourceModel(blacklisted2);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->sourceModel(), timeframe2);
+        QCOMPARE(model->sourceModel(), blacklisted2);
         model->setSourceModel(0);
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(model->sourceModel(), (HistoryTimeframeModel*) 0);
-        delete timeframe2;
+        QCOMPARE(model->sourceModel(), (HistoryBlacklistedModel*) 0);
+        delete blacklisted2;
     }
 
     void shouldBeSortedByVisits()
