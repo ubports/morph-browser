@@ -26,7 +26,7 @@ Item {
     id: newTabView
 
     property QtObject bookmarksModel
-    property QtObject historyModel
+    property QtObject historyBlacklistedModel
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
@@ -62,19 +62,7 @@ Item {
         id: historyListModel
 
         sourceModel: HistoryByVisitsModel {
-            sourceModel: HistoryBlacklistedModel {
-                sourceModel: HistoryTimeframeModel {
-                    sourceModel: newTabView.historyModel
-                    // We only show sites visited on the last 60 days
-                    start: {
-                        var date = new Date()
-                        date.setDate(date.getDate() - 60)
-                        return date
-                    }
-                }
-
-                databasePath: newTabView.historyModel.databasePath
-            }
+            sourceModel: newTabView.historyBlacklistedModel
         }
 
         limit: 10
