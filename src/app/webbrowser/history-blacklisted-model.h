@@ -21,6 +21,7 @@
 
 // Qt
 #include <QtCore/QSortFilterProxyModel>
+#include <QtSql/QSqlDatabase>
 
 class HistoryTimeframeModel;
 
@@ -29,15 +30,29 @@ class HistoryBlacklistedModel : public QSortFilterProxyModel
     Q_OBJECT
 
     Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
+    Q_PROPERTY(QString databasePath READ databasePath WRITE setDatabasePath NOTIFY databasePathChanged)
 
 public:
     HistoryBlacklistedModel(QObject* parent=0);
+    ~HistoryBlacklistedModel();
 
     HistoryTimeframeModel* sourceModel() const;
     void setSourceModel(HistoryTimeframeModel* sourceModel);
 
+    const QString databasePath() const;
+    void setDatabasePath(const QString& path);
+
 Q_SIGNALS:
     void sourceModelChanged() const;
+    void databasePathChanged() const;
+
+private:
+    QSqlDatabase m_database;
+    QList<QUrl> m_blacklistedEntries;
+
+    void resetDatabase(const QString& databaseName);
+    void createOrAlterDatabaseSchema();
+    void populateFromDatabase();
 
 protected:
     // reimplemented from QSortFilterProxyModel

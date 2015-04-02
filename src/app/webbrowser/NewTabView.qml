@@ -72,6 +72,8 @@ Item {
                         return date
                     }
                 }
+
+                databasePath: newTabView.historyModel.databasePath
             }
         }
 
