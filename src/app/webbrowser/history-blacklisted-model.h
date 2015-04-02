@@ -42,7 +42,7 @@ public:
     const QString databasePath() const;
     void setDatabasePath(const QString& path);
 
-    Q_INVOKABLE void add(const QUrl& blacklistedUrl);
+    Q_INVOKABLE void addToBlacklist(const QUrl& blacklistedUrl);
 
 Q_SIGNALS:
     void sourceModelChanged() const;

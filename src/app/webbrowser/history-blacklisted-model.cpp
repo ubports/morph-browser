@@ -120,7 +120,7 @@ void HistoryBlacklistedModel::insertNewEntryInDatabase(const QUrl& url)
     query.exec();
 }
 
-void HistoryBlacklistedModel::add(const QUrl& blacklistedUrl)
+void HistoryBlacklistedModel::addToBlacklist(const QUrl& blacklistedUrl)
 {
     if (blacklistedUrl.isEmpty() || m_blacklistedEntries.contains(blacklistedUrl)) {
         return;
