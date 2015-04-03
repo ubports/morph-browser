@@ -539,6 +539,17 @@ BrowserView {
                         enabled: contextualData.href.toString()
                         onTriggered: Clipboard.push([contextualData.href])
                     }
+                    Actions.ShareLink {
+                        enabled: (formFactor == "mobile") && contextualData.href.toString()
+                        onTriggered: {
+                            var component = Qt.createComponent("../Share.qml")
+                            if (component.status == Component.Ready) {
+                                var share = component.createObject(browser)
+                                share.onDone.connect(share.destroy)
+                                share.shareLink(contextualData.href.toString(), contextualData.title)
+                            }
+                        }
+                    }
                     Actions.OpenImageInNewTab {
                         enabled: contextualData.img.toString()
                         onTriggered: browser.openUrlInNewTab(contextualData.img, true)
