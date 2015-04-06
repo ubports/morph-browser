@@ -244,9 +244,15 @@ Item {
             id: dialogue
             title: i18n.tr("Homepage")
 
+            Component.onCompleted: {
+                homepageTextField.forceActiveFocus();
+                homepageTextField.cursorPosition = homepageTextField.text.length
+            }
+
             TextField {
                 id: homepageTextField
                 text: settingsObject.homepage
+                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
             }
 
             Button {
