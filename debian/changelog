@@ -1,3 +1,19 @@
+webbrowser-app (0.23+15.04.20150331.2-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Always initialize member attribute at construction time.
+  * Remove two broken symlinks. removed:
+    src/Ubuntu/Components/Extras/Browser/favicon-image-provider.cpp@
+    src/Ubuntu/Components/Extras/Browser/favicon-image-provider.h@
+  * Rewrite URLs with an uppercase scheme. (LP: #1436312)
+  * Use the new locationBarController API available in oxide 1.5 to
+    control the position of the chrome. (LP: #1365179, #1429132)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 31 Mar 2015 15:17:22 +0000
+
 webbrowser-app (0.23+15.04.20150323-0ubuntu1) vivid; urgency=medium
 
   [ Olivier Tilloy ]

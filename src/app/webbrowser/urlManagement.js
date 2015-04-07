@@ -18,13 +18,13 @@
 'use strict';
 
 function fixUrl(address) {
-    var url = address;
+    var url = address
     if (address.substr(0, 1) == "/") {
-        url = "file://" + address;
+        url = "file://" + address
     } else if (address.indexOf("://") == -1) {
-        url = "http://" + address;
+        url = "http://" + address
     }
-    return url;
+    return url
 }
 
 function looksLikeAUrl(address) {
@@ -35,9 +35,9 @@ function looksLikeAUrl(address) {
     if (address.substr(0, 1) == "/") {
         return true
     }
-    if (address.match(/^https?:\/\//) ||
-        address.match(/^file:\/\//) ||
-        address.match(/^[a-z]+:\/\//)) {
+    if (address.match(/^https?:\/\//i) ||
+        address.match(/^file:\/\//i) ||
+        address.match(/^[a-z]+:\/\//i)) {
         return true
     }
     if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,4}$/)) {

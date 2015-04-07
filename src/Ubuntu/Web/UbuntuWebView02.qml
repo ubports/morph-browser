@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import QtQuick.Window 2.0
-import com.canonical.Oxide 1.4 as Oxide
+import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import "." // QTBUG-34418
