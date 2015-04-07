@@ -238,7 +238,7 @@ BrowserWindow {
 
         // check if we are to display the login view
         // or directly switch to the webapp view
-        if (accountProvider.length !== 0 && oxide) {
+        if (accountProvider.length !== 0) {
             loadLoginView();
         } else {
             loadWebAppView();
