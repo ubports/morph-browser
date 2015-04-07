@@ -33,7 +33,6 @@ BrowserView {
 
     property string webappModelSearchPath: ""
 
-    property alias oxide: webview.withOxide
     property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefixPattern: webview.popupRedirectionUrlPrefixPattern
@@ -73,7 +72,7 @@ BrowserView {
                 left: parent.left
                 right: parent.right
                 top: parent.top
-                topMargin: (webapp.oxide || webapp.chromeless) ? 0 : chromeLoader.item.height
+                topMargin: webapp.chromeless ? 0 : chromeLoader.item.height
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
@@ -82,7 +81,7 @@ BrowserView {
         Loader {
             anchors {
                 fill: webview
-                topMargin: (webapp.oxide && !webapp.chromeless && chromeLoader.item.state == "shown") ? chromeLoader.item.height : 0
+                topMargin: (!webapp.chromeless && chromeLoader.item.state == "shown") ? chromeLoader.item.height : 0
             }
             sourceComponent: ErrorSheet {
                 visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
@@ -118,7 +117,7 @@ BrowserView {
                         right: parent.right
                     }
                     height: units.gu(6)
-                    y: (webapp.oxide && webapp.currentWebview) ? webview.currentWebview.locationBarController.offset : 0
+                    y: webapp.currentWebview ? webview.currentWebview.locationBarController.offset : 0
                 }
             }
 
@@ -138,8 +137,8 @@ BrowserView {
         }
 
         Binding {
-            when: webapp.oxide && webapp.currentWebview && !webapp.chromeless
-            target: (webapp.oxide && webapp.currentWebview) ? webapp.currentWebview.locationBarController : null
+            when: webapp.currentWebview && !webapp.chromeless
+            target: webapp.currentWebview ? webapp.currentWebview.locationBarController : null
             property: 'height'
             value: webapp.currentWebview.visible ? chromeLoader.item.height : 0
         }
@@ -147,7 +146,7 @@ BrowserView {
         Loader {
             id: oxideChromeController
 
-            sourceComponent: webapp.oxide ? oxideChromeControllerComponent : undefined
+            sourceComponent: oxideChromeControllerComponent
 
             Component {
                 id: oxideChromeControllerComponent
@@ -160,10 +159,10 @@ BrowserView {
         }
 
         Binding {
-            when: webapp.oxide && webapp.currentWebview
-            target: (webapp.oxide && webapp.currentWebview) ? webapp.currentWebview.locationBarController : null
+            when: webapp.currentWebview
+            target: webapp.currentWebview ? webapp.currentWebview.locationBarController : null
             property: 'mode'
-            value: webapp.oxide ? oxideChromeController.item.mode : 0
+            value: oxideChromeController.item.mode
         }
     }
 
