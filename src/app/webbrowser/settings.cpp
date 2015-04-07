@@ -19,19 +19,16 @@
 // local
 #include "settings.h"
 #include "config.h"
-#include "searchengine.h"
 
 // Qt
 #include <QtCore/QSettings>
 
 Settings::Settings(QObject* parent)
     : QObject(parent)
-    , m_searchengine(NULL)
 {
     QSettings settings(QCoreApplication::applicationName(), "settings");
     m_homepage = settings.value("homepage", QUrl(DEFAULT_HOMEPAGE)).toUrl();
-    QString name = settings.value("searchengine", QString(DEFAULT_SEARCH_ENGINE)).toString();
-    m_searchengine = new SearchEngine(name, this);
+    m_searchengine = settings.value("searchengine", QString(DEFAULT_SEARCH_ENGINE)).toString();
     m_allowOpenInBackgroundTab = settings.value("allowOpenInBackgroundTab", "default").toString().toLower();
     m_restoreSession = settings.value("restoreSession", true).toBool();
 }
@@ -41,7 +38,7 @@ const QUrl& Settings::homepage() const
     return m_homepage;
 }
 
-SearchEngine* Settings::searchEngine() const
+const QString& Settings::searchEngine() const
 {
     return m_searchengine;
 }

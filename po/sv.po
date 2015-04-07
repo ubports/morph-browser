@@ -2,21 +2,21 @@
 # Copyright © 2013-2014 Rosetta Contributors and Canonical Ltd 2013-2014
 # This file is distributed under the same license as the webbrowser-app package.
 # Josef Andersson <josef.andersson@fripost.org>, 2014.
-#
+# clone <josef.andersson@fripost.org>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-27 10:29+0100\n"
-"PO-Revision-Date: 2014-10-07 14:24+0000\n"
+"POT-Creation-Date: 2015-03-22 21:26+0100\n"
+"PO-Revision-Date: 2015-04-03 05:36+0000\n"
 "Last-Translator: Josef Andersson <Unknown>\n"
-"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-02-28 06:14+0000\n"
-"X-Generator: Launchpad (build 17361)\n"
+"X-Launchpad-Export-Date: 2015-04-07 05:28+0000\n"
+"X-Generator: Launchpad (build 17413)\n"
 "Language: sv\n"
 
 #: src/app/AlertDialog.qml:23
@@ -36,7 +36,7 @@ msgstr "Autentisering krävs."
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Webbsidan %1 kräver autentisering"
+msgstr "Webbsidan %1 kräver autentisering."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
@@ -47,7 +47,7 @@ msgid "Password"
 msgstr "Lösenord"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
+#: src/app/PromptDialog.qml:38
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -430,33 +430,36 @@ msgstr "Spara bild"
 msgid "Share…"
 msgstr "Dela…"
 
-#: src/app/webbrowser/AddressBar.qml:195
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "sök eller ange en adress"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321
+#: src/app/webbrowser/HistoryView.qml:179
 msgid "Delete"
 msgstr "Ta bort"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:160
 msgid "Share"
 msgstr "Dela"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:174
 msgid "History"
 msgstr "Historik"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:181
 msgid "Open tabs"
 msgstr "Öppna flikar"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/Browser.qml:187 src/app/webbrowser/HistoryView.qml:293
 #: src/app/webbrowser/TabsView.qml:57
 msgid "New tab"
 msgstr "Ny flik"
+
+#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
+msgid "Done"
+msgstr "Klar"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -469,21 +472,17 @@ msgstr[1] "%1 sidor"
 msgid "Less"
 msgstr "Färre"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:44
+#: src/app/webbrowser/HistorySectionDelegate.qml:43
 msgid "Last Visited"
 msgstr "Senast besökt"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:46
+#: src/app/webbrowser/HistorySectionDelegate.qml:45
 msgid "Yesterday"
 msgstr "Igår"
 
-#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
-msgid "Done"
-msgstr "Klar"
-
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
-msgstr ""
+msgstr "Markera alla"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -501,7 +500,7 @@ msgstr "se mindre"
 msgid "see more"
 msgstr "se mer"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:69
+#: src/app/webbrowser/SecurityCertificatePopover.qml:58
 msgid "This site has insecure content"
 msgstr "Den här webbsidan har osäkert innehåll"
 
@@ -548,11 +547,11 @@ msgstr ""
 "Servercertifikatet passerade av oklar anledning inte våra "
 "säkerhetskontroller."
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:126
+#: src/app/webbrowser/SecurityCertificatePopover.qml:73
 msgid "You are connected to"
 msgstr "Du är ansluten till"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:148
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Which is run by"
 msgstr "Som drivs av"
 
@@ -560,19 +559,15 @@ msgstr "Som drivs av"
 msgid "Tap to view"
 msgstr "Tryck för att visa"
 
-#: src/app/webbrowser/TabsView.qml:113
-msgid "Add"
-msgstr "Lägg till"
-
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:38
-#: src/app/webcontainer/webapp-container.qml:66
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:59
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu webbläsare"
 
-#: src/app/webbrowser/webbrowser-app.qml:40
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webbrowser/webbrowser-app.qml:39
+#: src/app/webcontainer/webapp-container.qml:61
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu webbläsare"
 
@@ -610,6 +605,9 @@ msgstr "Internet;WWW;Webbläsare;Webb;Explorer"
 
 #~ msgid "Clear"
 #~ msgstr "Töm"
+
+#~ msgid "Add"
+#~ msgstr "Lägg till"
 
 #~ msgid "No"
 #~ msgstr "Nej"
