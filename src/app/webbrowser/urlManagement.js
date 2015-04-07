@@ -26,3 +26,25 @@ function fixUrl(address) {
     }
     return url;
 }
+
+function looksLikeAUrl(address) {
+    var terms = address.split(/\s/)
+    if (terms.length > 1) {
+        return false
+    }
+    if (address.substr(0, 1) == "/") {
+        return true
+    }
+    if (address.match(/^https?:\/\//) ||
+        address.match(/^file:\/\//) ||
+        address.match(/^[a-z]+:\/\//)) {
+        return true
+    }
+    if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,4}$/)) {
+        return true
+    }
+    if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
+        return true
+    }
+    return false
+}

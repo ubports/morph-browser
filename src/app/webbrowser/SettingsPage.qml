@@ -264,6 +264,7 @@ Item {
             Button {
                 anchors { left: parent.left; right: parent.right }
                 text: i18n.tr("Save")
+                enabled: UrlManagement.looksLikeAUrl(homepageTextField.text)
                 color: "#3fb24f"
                 onClicked: {
                     settingsObject.homepage = UrlManagement.fixUrl(homepageTextField.text);
