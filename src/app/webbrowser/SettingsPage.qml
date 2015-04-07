@@ -246,6 +246,15 @@ Item {
                             onClicked: historyModel.clearAll();
                             enabled: historyModel.count > 0
                         }
+
+                        ListItem.Standard {
+                            objectName: "privacy.clearCache"
+                            text: i18n.tr("Clear Cache")
+                            onClicked: {
+                                enabled = false
+                                CacheDeleter.clear(cacheLocation + "/Cache", function() { enabled = true })
+                            }
+                        }
                     }
                 }
             }

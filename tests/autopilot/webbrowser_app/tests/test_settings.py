@@ -95,6 +95,18 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(clear_history)
         self.assertThat(clear_history.enabled, Eventually(Equals(False)))
 
+    def test_clear_cache(self):
+        settings = self.open_settings()
+        privacy = settings.get_privacy_entry()
+        self.pointing_device.click_object(privacy)
+        privacy_page = settings.get_privacy_page()
+        clear_cache = privacy_page.select_single(
+            "Standard",
+            objectName="privacy.clearCache")
+        self.assertThat(clear_cache.enabled, Equals(True))
+        self.pointing_device.click_object(clear_cache)
+        self.assertThat(clear_cache.enabled, Eventually(Equals(True)))
+
     def test_reset_browser_settings(self):
         settings = self.open_settings()
         reset = settings.get_reset_settings_entry()
