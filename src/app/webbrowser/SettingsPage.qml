@@ -96,6 +96,8 @@ Item {
             }
 
             ListItem.Standard {
+                objectName: "restoreSession"
+
                 text: i18n.tr("Restore previous session at startup")
                 highlightWhenPressed: false
 
@@ -111,6 +113,8 @@ Item {
             }
 
             ListItem.Standard {
+                objectName: "backgroundTabs"
+
                 text: i18n.tr("Allow opening new tabs in background")
                 highlightWhenPressed: false
 

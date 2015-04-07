@@ -20,6 +20,7 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 from testtools.matchers import Equals, NotEquals
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 
 import ubuntuuitoolkit as uitk
 
@@ -98,6 +99,16 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         settings = self.open_settings()
         reset = settings.get_reset_settings_entry()
         self.pointing_device.click_object(reset)
+
         homepage = settings.get_homepage_entry()
         self.assertThat(homepage.subText,
                         Eventually(Equals("http://start.ubuntu.com")))
+
+        restore_session = settings.get_restore_session_entry()
+        checkbox = restore_session.select_single(uitk.CheckBox)
+        self.assertThat(checkbox.checked, Eventually(Equals(True)))
+
+        background_tabs = settings.get_background_tabs_entry()
+        checkbox = background_tabs.select_single(uitk.CheckBox)
+        self.assertThat(checkbox.checked,
+                        Eventually(Equals(model() == 'Desktop')))

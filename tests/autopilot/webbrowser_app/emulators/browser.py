@@ -270,6 +270,12 @@ class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_homepage_entry(self):
         return self.select_single("Subtitled", objectName="homepage")
 
+    def get_restore_session_entry(self):
+        return self.select_single("Standard", objectName="restoreSession")
+
+    def get_background_tabs_entry(self):
+        return self.select_single("Standard", objectName="backgroundTabs")
+
     def get_privacy_entry(self):
         return self.select_single("Standard", objectName="privacy")
 
