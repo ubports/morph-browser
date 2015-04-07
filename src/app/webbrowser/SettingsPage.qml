@@ -257,10 +257,16 @@ Item {
 
             title: i18n.tr("Homepage")
 
+            Component.onCompleted: {
+                homepageTextField.forceActiveFocus();
+                homepageTextField.cursorPosition = homepageTextField.text.length
+            }
+
             TextField {
                 id: homepageTextField
                 objectName: "homepageDialog.text"
                 text: settingsObject.homepage
+                inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
             }
 
             Button {
