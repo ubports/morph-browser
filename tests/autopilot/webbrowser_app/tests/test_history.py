@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013-2014 Canonical
+# Copyright 2013-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -30,7 +30,7 @@ class PrepopulatedHistoryDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
     """Helper test class that pre-populates the history database."""
 
     def setUp(self):
-        self.clear_cache()
+        self.clear_datadir()
         db_path = os.path.join(os.path.expanduser("~"), ".local", "share",
                                "webbrowser-app", "history.sqlite")
         connection = sqlite3.connect(db_path)
@@ -132,9 +132,10 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         chrome = self.main_window.chrome
         drawer_button = chrome.get_drawer_button()
         self.pointing_device.click_object(drawer_button)
-        chrome.get_drawer()
+        drawer = chrome.get_drawer()
         self.assert_suggestions_eventually_hidden()
-        self.address_bar.focus()
+        self.pointing_device.click_object(drawer_button)
+        drawer.wait_until_destroyed()
         self.assert_suggestions_eventually_shown()
 
     def test_select_suggestion(self):

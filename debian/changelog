@@ -1,3 +1,41 @@
+webbrowser-app (0.23+15.04.20150323-0ubuntu1) vivid; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Discard selection when navigating away. (LP: #1433503)
+  * Expose the SearchEngine type to QML.
+  * Remove workaround for bug #1377198, which was fixed in oxide 1.5.
+    (LP: #1377198)
+  * Rename test helper function from clear_cache() to clear_datadir(),
+    to better reflect what it really does.
+  * Update the 'selection' test page to hopefully fix the failing
+    autopilot test on mako. (LP: #1434193, #1433020)
+  * Update translation template.
+  * Use the loadEvent signal (introduced in oxide 1.3).
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 23 Mar 2015 07:49:27 +0000
+
+webbrowser-app (0.23+15.04.20150320.2-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * On mobile, reveal the tabs view with a swipe gesture from the bottom
+    edge. (LP: #1329943)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 20 Mar 2015 16:28:00 +0000
+
+webbrowser-app (0.23+15.04.20150316-0ubuntu1) vivid; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Update an autopilot test to click on the drawer button to dismiss
+    the drawer. With the upcoming changes to the text selection in the
+    UITK, clicking on the address bar might accidentally grab a text
+    selection handle, thus not dismissing the drawer menu. Clicking on
+    the drawer button again should be more robust.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 16 Mar 2015 12:58:36 +0000
+
 webbrowser-app (0.23+15.04.20150227-0ubuntu1) vivid; urgency=medium
 
   [ Olivier Tilloy ]

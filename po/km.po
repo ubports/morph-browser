@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-27 10:29+0100\n"
+"POT-Creation-Date: 2015-03-22 21:26+0100\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-02-28 06:13+0000\n"
-"X-Generator: Launchpad (build 17361)\n"
+"X-Launchpad-Export-Date: 2015-03-23 05:28+0000\n"
+"X-Generator: Launchpad (build 17405)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -397,7 +397,7 @@ msgstr "ទៅ​កាន់"
 msgid "Address;URL;www"
 msgstr "អាសយដ្ឋាន;URL;www"
 
-#: src/app/actions/NewTab.qml:23
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
 msgid "New Tab"
 msgstr "ផ្ទាំង​ថ្មី"
 
@@ -413,7 +413,7 @@ msgstr "បើក​រូបភាព​ក្នុង​ផ្ទាំង​
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "បើកតំណក្នុងផ្ទាំងខាងក្រោយថ្មី"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -448,22 +448,26 @@ msgstr "ស្វែងរក ឬ​បញ្ចូល​អាសយដ្ឋ�
 msgid "Delete"
 msgstr "​លុប​"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:178
 msgid "Share"
 msgstr "ចែករំលែក"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:192
 msgid "History"
 msgstr "ប្រវត្តិ"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:199
 msgid "Open tabs"
 msgstr "បើក​ផ្ទាំង"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "ផ្ទាំង​ថ្មី"
+
+#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+msgid "Done"
+msgstr "ធ្វើរួច"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -483,13 +487,9 @@ msgstr "បាន​មើល​ចុងក្រោយ"
 msgid "Yesterday"
 msgstr "ម្សិល​មិញ"
 
-#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
-msgid "Done"
-msgstr "ធ្វើរួច"
-
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
-msgstr ""
+msgstr "ជ្រើស​ទាំងអស់"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -513,39 +513,40 @@ msgstr "តំបន់បណ្តាញនេះមានមាតិកាអ
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "មិនបានផ្ទៀងផ្ទាត់អត្តសញ្ញាណ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "មិនបានផ្ទៀងផ្ទាត់អត្តសញ្ញាណរបស់តំបន់បណ្តាញនេះ ។"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
 msgstr ""
+"វិញ្ញា​បន​បត្រម៉ាស៊ីនបម្រើមិន​ផ្គូផ្គង​នឹង​អត្តសញ្ញាណរបស់តំបន់បណ្តាញ ។"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "បានផុតកំណត់វិញ្ញាបនបត្រម៉ាស៊ីនបម្រើ ។"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "វិញ្ញាបនបត្រម៉ាស៊ីនបម្រើមានកាលបរិច្ឆេទដែលមិនត្រឹមត្រូវ ។"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "វិញ្ញាបនបត្រម៉ាស៊ីនបម្រើបានចេញ​ឲ្យអង្គភាពដែលមិនជឿទុកចិត្ត ។"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "បានដកហូតវិញ្ញាបនបត្រម៉ាស៊ីនបម្រើ ។"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "វិញ្ញាបនបត្រម៉ាស៊ីនបម្រើមិនត្រឹមត្រូវ ។"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "វិញ្ញា​បន​បត្រម៉ាស៊ីនបម្រើគ្មានសុវត្ថិភាព ។"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
@@ -559,13 +560,9 @@ msgstr "អ្នកត្រូវបានភ្ជាប់ទៅ"
 msgid "Which is run by"
 msgstr "ដែលត្រូវបានគ្រប់គ្រងដោយ"
 
-#: src/app/webbrowser/TabPreview.qml:163
+#: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "ប៉ះ​ដើម្បី​មើល"
-
-#: src/app/webbrowser/TabsView.qml:113
-msgid "Add"
-msgstr "បន្ថែម"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:38
@@ -613,6 +610,9 @@ msgstr "Internet;WWW;Browser;Web;Explorer"
 
 #~ msgid "Clear"
 #~ msgstr "សម្អាត"
+
+#~ msgid "Add"
+#~ msgstr "បន្ថែម"
 
 #~ msgid "No"
 #~ msgstr "ទេ"

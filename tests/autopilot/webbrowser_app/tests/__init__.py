@@ -21,7 +21,7 @@ import shutil
 import urllib.request
 
 import fixtures
-from testtools.matchers import Equals
+from testtools.matchers import Equals, NotEquals
 
 from autopilot.matchers import Eventually
 from autopilot.platform import model
@@ -78,32 +78,42 @@ class BrowserTestCaseBase(AutopilotTestCase):
                 app_type='qt',
                 emulator_base=browser.Webbrowser)
 
-    def clear_cache(self):
-        cachedir = os.path.join(os.path.expanduser("~"), ".local", "share",
-                                "webbrowser-app")
-        shutil.rmtree(cachedir, True)
-        os.makedirs(cachedir)
+    def clear_datadir(self):
+        datadir = os.path.join(os.path.expanduser("~"), ".local", "share",
+                               "webbrowser-app")
+        shutil.rmtree(datadir, True)
+        os.makedirs(datadir)
 
     @property
     def main_window(self):
         return self.app.main_window
 
+    def drag_bottom_edge_upwards(self, fraction):
+        self.assertThat(model(), NotEquals('Desktop'))
+        hint = self.main_window.get_bottom_edge_hint()
+        x = hint.globalRect.x + hint.globalRect.width // 2
+        y0 = hint.globalRect.y + hint.globalRect.height // 2
+        y1 = y0 - int(self.main_window.height * fraction)
+        self.pointing_device.drag(x, y0, x, y1)
+
     def open_tabs_view(self):
-        chrome = self.main_window.chrome
-        drawer_button = chrome.get_drawer_button()
-        self.pointing_device.click_object(drawer_button)
-        chrome.get_drawer()
-        tabs_action = chrome.get_drawer_action("tabs")
-        self.pointing_device.click_object(tabs_action)
+        if model() == 'Desktop':
+            chrome = self.main_window.chrome
+            drawer_button = chrome.get_drawer_button()
+            self.pointing_device.click_object(drawer_button)
+            chrome.get_drawer()
+            tabs_action = chrome.get_drawer_action("tabs")
+            self.pointing_device.click_object(tabs_action)
+        else:
+            self.drag_bottom_edge_upwards(0.75)
         self.main_window.get_tabs_view()
 
     def open_new_tab(self):
         count = len(self.main_window.get_webviews())
         # assumes the tabs view is already open
         tabs_view = self.main_window.get_tabs_view()
-        add_button = tabs_view.get_add_button()
-        self.pointing_device.click_object(add_button)
-        tabs_view.wait_until_destroyed()
+        self.main_window.get_recent_view_toolbar().click_action("newTabButton")
+        tabs_view.visible.wait_for(False)
         max_webviews = self.main_window.maxLiveWebviews
         new_count = (count + 1) if (count < max_webviews) else max_webviews
         self.assert_number_webviews_eventually(new_count)
@@ -112,6 +122,15 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.assertThat(
                 self.main_window.address_bar.activeFocus,
                 Eventually(Equals(True)))
+
+    def open_settings(self):
+        chrome = self.main_window.chrome
+        drawer_button = chrome.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        chrome.get_drawer()
+        settings_action = chrome.get_drawer_action("settings")
+        self.pointing_device.click_object(settings_action)
+        return self.main_window.get_settings_page()
 
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
