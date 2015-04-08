@@ -164,7 +164,7 @@ Item {
             footerLabelVisible: false
 
             onUrlClicked: newTabView.historyEntryClicked(url)
-            onUrlRemoved: newTabView.historyBlacklistedModel.addToBlacklist(url)
+            onUrlRemoved: newTabView.historyModel.hide(url)
         }
     }
 }
