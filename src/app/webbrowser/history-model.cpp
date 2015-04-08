@@ -67,6 +67,7 @@ void HistoryModel::resetDatabase(const QString& databaseName)
 
 void HistoryModel::createOrAlterDatabaseSchema()
 {
+    QMutexLocker ml(&m_dbMutex);
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS history "
                                   "(url VARCHAR, domain VARCHAR, title VARCHAR,"
@@ -397,6 +398,7 @@ void HistoryModel::removeByIndex(int index)
 
 void HistoryModel::insertNewEntryInDatabase(const HistoryEntry& entry)
 {
+    QMutexLocker ml(&m_dbMutex);
     QSqlQuery query(m_database);
     static QString insertStatement = QLatin1String("INSERT INTO history (url, domain, title, icon, "
                                                    "visits, lastVisit) VALUES (?, ?, ?, ?, 1, ?);");
@@ -411,6 +413,7 @@ void HistoryModel::insertNewEntryInDatabase(const HistoryEntry& entry)
 
 void HistoryModel::insertNewEntryInHiddenDatabase(const QUrl& url)
 {
+    QMutexLocker ml(&m_dbMutex);
     QDateTime now = QDateTime::currentDateTimeUtc();
     QSqlQuery query(m_database);
     static QString insertStatement = QLatin1String("INSERT INTO history_hidden (url, hiddenAt) VALUES (?, ?);");
@@ -422,6 +425,7 @@ void HistoryModel::insertNewEntryInHiddenDatabase(const QUrl& url)
 
 void HistoryModel::updateExistingEntryInDatabase(const HistoryEntry& entry)
 {
+    QMutexLocker ml(&m_dbMutex);
     QSqlQuery query(m_database);
     static QString updateStatement = QLatin1String("UPDATE history SET domain=?, title=?, icon=?, "
                                                    "visits=?, lastVisit=? WHERE url=?;");
@@ -437,6 +441,7 @@ void HistoryModel::updateExistingEntryInDatabase(const HistoryEntry& entry)
 
 void HistoryModel::removeEntryFromDatabaseByUrl(const QUrl& url)
 {
+    QMutexLocker ml(&m_dbMutex);
     QSqlQuery query(m_database);
     static QString deleteStatement = QLatin1String("DELETE FROM history WHERE url=?;");
     query.prepare(deleteStatement);
@@ -446,6 +451,7 @@ void HistoryModel::removeEntryFromDatabaseByUrl(const QUrl& url)
 
 void HistoryModel::removeEntryFromHiddenDatabaseByUrl(const QUrl& url)
 {
+    QMutexLocker ml(&m_dbMutex);
     QSqlQuery query(m_database);
     static QString deleteStatement = QLatin1String("DELETE FROM history_hidden WHERE url=?;");
     query.prepare(deleteStatement);
@@ -455,6 +461,7 @@ void HistoryModel::removeEntryFromHiddenDatabaseByUrl(const QUrl& url)
 
 void HistoryModel::removeEntriesFromDatabaseByDomain(const QString& domain)
 {
+    QMutexLocker ml(&m_dbMutex);
     QSqlQuery query(m_database);
     static QString deleteStatement = QLatin1String("DELETE FROM history WHERE domain=?;");
     query.prepare(deleteStatement);
@@ -475,6 +482,7 @@ void HistoryModel::clearAll()
 
 void HistoryModel::clearDatabase()
 {
+    QMutexLocker ml(&m_dbMutex);
     QSqlQuery deleteQuery(m_database);
     QString deleteStatement = QLatin1String("DELETE FROM history;");
     deleteQuery.prepare(deleteStatement);

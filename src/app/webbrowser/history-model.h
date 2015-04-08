@@ -26,6 +26,7 @@
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtSql/QSqlDatabase>
+#include <QtCore/QMutex>
 
 class HistoryModel : public QAbstractListModel
 {
@@ -69,6 +70,7 @@ Q_SIGNALS:
     void databasePathChanged() const;
 
 private:
+    QMutex m_dbMutex;
     QSqlDatabase m_database;
 
     QList<QUrl> m_hiddenEntries;
