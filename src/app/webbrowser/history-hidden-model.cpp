@@ -17,7 +17,7 @@
  */
 
 #include "history-hidden-model.h"
-#include "history-byvisits-model.h"
+#include "history-timeframe-model.h"
 #include "history-model.h"
 
 /*!
@@ -31,14 +31,15 @@
 HistoryHiddenModel::HistoryHiddenModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
+    setDynamicSortFilter(true);
 }
 
-HistoryByVisitsModel* HistoryHiddenModel::sourceModel() const
+HistoryTimeframeModel* HistoryHiddenModel::sourceModel() const
 {
-    return qobject_cast<HistoryByVisitsModel*>(QSortFilterProxyModel::sourceModel());
+    return qobject_cast<HistoryTimeframeModel*>(QSortFilterProxyModel::sourceModel());
 }
 
-void HistoryHiddenModel::setSourceModel(HistoryByVisitsModel* sourceModel)
+void HistoryHiddenModel::setSourceModel(HistoryTimeframeModel* sourceModel)
 {
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);

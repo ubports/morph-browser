@@ -24,6 +24,7 @@
 #include "domain-utils.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
+#include "history-hidden-model.h"
 #include "history-byvisits-model.h"
 
 class HistoryByVisitsModelTests : public QObject
@@ -33,6 +34,7 @@ class HistoryByVisitsModelTests : public QObject
 private:
     HistoryModel* history;
     HistoryTimeframeModel* timeframe;
+    HistoryHiddenModel* hidden;
     HistoryByVisitsModel* model;
 
 private Q_SLOTS:
@@ -42,13 +44,16 @@ private Q_SLOTS:
         history->setDatabasePath(":memory:");
         timeframe = new HistoryTimeframeModel;
         timeframe->setSourceModel(history);
+        hidden = new HistoryHiddenModel;
+        hidden->setSourceModel(timeframe);
         model = new HistoryByVisitsModel;
-        model->setSourceModel(timeframe);
+        model->setSourceModel(hidden);
     }
 
     void cleanup()
     {
         delete model;
+        delete hidden;
         delete timeframe;
         delete history;
     }
@@ -61,16 +66,16 @@ private Q_SLOTS:
     void shouldNotifyWhenChangingSourceModel()
     {
         QSignalSpy spy(model, SIGNAL(sourceModelChanged()));
-        model->setSourceModel(timeframe);
+        model->setSourceModel(hidden);
         QVERIFY(spy.isEmpty());
-        HistoryTimeframeModel* timeframe2 = new HistoryTimeframeModel;
-        model->setSourceModel(timeframe2);
+        HistoryHiddenModel* hidden2 = new HistoryHiddenModel;
+        model->setSourceModel(hidden2);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->sourceModel(), timeframe2);
+        QCOMPARE(model->sourceModel(), hidden2);
         model->setSourceModel(0);
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(model->sourceModel(), (HistoryTimeframeModel*) 0);
-        delete timeframe2;
+        QCOMPARE(model->sourceModel(), (HistoryHiddenModel*) 0);
+        delete hidden2;
     }
 
     void shouldBeSortedByVisits()

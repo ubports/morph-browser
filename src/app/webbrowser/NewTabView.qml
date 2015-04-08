@@ -61,8 +61,8 @@ Item {
     LimitProxyModel {
         id: historyListModel
 
-        sourceModel: HistoryHiddenModel {
-            sourceModel: HistoryByVisitsModel {
+        sourceModel: HistoryByVisitsModel {
+            sourceModel: HistoryHiddenModel {
                 sourceModel: HistoryTimeframeModel {
                     sourceModel: newTabView.historyModel
                     // We only show sites visited on the last 60 days
