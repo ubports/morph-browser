@@ -243,7 +243,7 @@ Item {
                         }
                     }
 
-                    onClicked: historyModel.hide(url)//historyEntryClicked(model.url)
+                    onClicked: historyEntryClicked(model.url)
                 }
             }
         }
