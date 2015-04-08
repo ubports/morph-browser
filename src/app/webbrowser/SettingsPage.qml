@@ -87,6 +87,8 @@ Item {
             }
 
             ListItem.Subtitled {
+                objectName: "homepage"
+
                 text: i18n.tr("Homepage")
                 subText: settingsObject.homepage
 
@@ -94,6 +96,8 @@ Item {
             }
 
             ListItem.Standard {
+                objectName: "restoreSession"
+
                 text: i18n.tr("Restore previous session at startup")
                 highlightWhenPressed: false
 
@@ -109,6 +113,8 @@ Item {
             }
 
             ListItem.Standard {
+                objectName: "backgroundTabs"
+
                 text: i18n.tr("Allow opening new tabs in background")
                 highlightWhenPressed: false
 
@@ -127,13 +133,18 @@ Item {
             }
 
             ListItem.Standard {
+                objectName: "privacy"
+
                 text: i18n.tr("Privacy")
 
                 onClicked: privacyComponent.createObject(subpageContainer);
             }
 
             ListItem.Standard {
+                objectName: "reset"
+
                 text: i18n.tr("Reset browser settings")
+
                 onClicked: settingsObject.restoreDefaults();
             }
         }
@@ -198,6 +209,8 @@ Item {
 
             Item {
                 id: privacyItem
+                objectName: "privacySettings"
+
                 anchors.fill: parent
 
                 Rectangle {
@@ -228,6 +241,7 @@ Item {
                         width: parent.width
 
                         ListItem.Standard {
+                            objectName: "privacy.clearHistory"
                             text: i18n.tr("Clear Browsing History")
                             onClicked: historyModel.clearAll();
                             enabled: historyModel.count > 0
@@ -240,8 +254,11 @@ Item {
 
     Component {
         id: homepageDialog
+
         Dialog {
             id: dialogue
+            objectName: "homepageDialog"
+
             title: i18n.tr("Homepage")
 
             Component.onCompleted: {
@@ -251,17 +268,20 @@ Item {
 
             TextField {
                 id: homepageTextField
+                objectName: "homepageDialog.text"
                 text: settingsObject.homepage
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
             }
 
             Button {
+                objectName: "homepageDialog.cancelButton"
                 anchors { left: parent.left; right: parent.right }
                 text: i18n.tr("Cancel")
                 onClicked: PopupUtils.close(dialogue);
             }
 
             Button {
+                objectName: "homepageDialog.saveButton"
                 anchors { left: parent.left; right: parent.right }
                 text: i18n.tr("Save")
                 enabled: UrlManagement.looksLikeAUrl(homepageTextField.text)
