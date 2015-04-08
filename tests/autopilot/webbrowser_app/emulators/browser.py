@@ -101,6 +101,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_new_tab_view(self):
         return self.wait_select_single("NewTabView", visible=True)
 
+    def get_settings_page(self):
+        return self.wait_select_single(SettingsPage, visible=True)
+
     def get_content_picker_dialog(self):
         # only on devices
         return self.wait_select_single("PopupBase",
@@ -257,3 +260,36 @@ class Toolbar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.isFullyShown.wait_for(True)
         action = self.select_single("ToolbarAction", objectName=name)
         self.pointing_device.click_object(action)
+
+
+class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_header(self):
+        return self.select_single(SettingsPageHeader)
+
+    def get_homepage_entry(self):
+        return self.select_single("Subtitled", objectName="homepage")
+
+    def get_restore_session_entry(self):
+        return self.select_single("Standard", objectName="restoreSession")
+
+    def get_background_tabs_entry(self):
+        return self.select_single("Standard", objectName="backgroundTabs")
+
+    def get_privacy_entry(self):
+        return self.select_single("Standard", objectName="privacy")
+
+    def get_privacy_page(self):
+        return self.wait_select_single("QQuickItem",
+                                       objectName="privacySettings")
+
+    def get_reset_settings_entry(self):
+        return self.select_single("Standard", objectName="reset")
+
+
+class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    @autopilot.logging.log_action(logger.info)
+    def click_back_button(self):
+        button = self.select_single("AbstractButton", objectName="backButton")
+        self.pointing_device.click_object(button)

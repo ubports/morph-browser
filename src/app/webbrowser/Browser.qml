@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import QtQuick.Window 2.0
+import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
@@ -29,16 +30,12 @@ import "../UrlUtils.js" as UrlUtils
 BrowserView {
     id: browser
 
-    property bool restoreSession: true
-
     currentWebview: tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
-    property url homepage
-    property string searchEngine
-    property string allowOpenInBackgroundTab
+    property bool newSession: false
 
     // XXX: we might want to tweak this value depending
     // on the form factor and/or the available memory
@@ -78,8 +75,34 @@ BrowserView {
         }
     ]
 
+    Settings {
+        id: settings
+
+        property url homepage: settingsDefaults.homepage
+        property string searchEngine: settingsDefaults.searchEngine
+        property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
+        property bool restoreSession: settingsDefaults.restoreSession
+
+        function restoreDefaults() {
+            homepage  = settingsDefaults.homepage
+            searchEngine = settingsDefaults.searchEngine
+            allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
+            restoreSession = settingsDefaults.restoreSession
+        }
+    }
+
+    QtObject {
+        id: settingsDefaults
+
+        readonly property url homepage: "http://start.ubuntu.com"
+        readonly property string searchEngine: "google"
+        readonly property string allowOpenInBackgroundTab: "default"
+        readonly property bool restoreSession: true
+    }
+
     Item {
         anchors.fill: parent
+        visible: !settingsContainer.visible && !historyViewContainer.visible
 
         TabChrome {
             id: invisibleTabChrome
@@ -103,13 +126,16 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: recentView.visible ? invisibleTabChrome.bottom : chrome.bottom
+                top: recentView.visible ? invisibleTabChrome.bottom : parent.top
             }
-            height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : chrome.visibleHeight)
+            height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : 0)
         }
 
         Loader {
-            anchors.fill: tabContainer
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
             sourceComponent: ErrorSheet {
                 visible: currentWebview ? currentWebview.lastLoadFailed : false
                 url: currentWebview ? currentWebview.url : ""
@@ -119,7 +145,10 @@ BrowserView {
         }
 
         Loader {
-            anchors.fill: tabContainer
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
             sourceComponent: InvalidCertificateErrorSheet {
                 visible: currentWebview && currentWebview.certificateError != null
                 certificateError: currentWebview ? currentWebview.certificateError : null
@@ -137,8 +166,8 @@ BrowserView {
         }
 
         SearchEngine {
-            id: searchEngine
-            filename: browser.searchEngine
+            id: currentSearchEngine
+            filename: settings.searchEngine
         }
 
         Chrome {
@@ -147,7 +176,9 @@ BrowserView {
             visible: !recentView.visible
 
             webview: browser.currentWebview
-            searchUrl: searchEngine.urlTemplate
+            searchUrl: currentSearchEngine.urlTemplate
+
+            y: webview ? webview.locationBarController.offset : 0
 
             function isCurrentUrlBookmarked() {
                 return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
@@ -215,31 +246,14 @@ BrowserView {
                     iconName: "tab-new"
                     enabled: formFactor != "mobile"
                     onTriggered: browser.openUrlInNewTab("", true)
+                },
+                Action {
+                    objectName: "settings"
+                    text: i18n.tr("Settings")
+                    iconName: "settings"
+                    onTriggered: settingsComponent.createObject(settingsContainer)
                 }
             ]
-
-            Connections {
-                target: browser.currentWebview
-                onLoadingStateChanged: {
-                    if (browser.currentWebview.loading) {
-                        chrome.state = "shown"
-                    } else if (browser.currentWebview.fullscreen) {
-                        chrome.state = "hidden"
-                    }
-                }
-                onFullscreenChanged: {
-                    if (browser.currentWebview.fullscreen) {
-                        chrome.state = "hidden"
-                    } else {
-                        chrome.state = "shown"
-                    }
-                }
-            }
-        }
-
-        ChromeStateTracker {
-            webview: browser.currentWebview
-            header: chrome
         }
 
         Suggestions {
@@ -367,7 +381,6 @@ BrowserView {
         }
 
         function reset() {
-            chrome.state = "shown"
             state = ""
             recentToolbar.state = "hidden"
             tabslist.reset()
@@ -390,9 +403,7 @@ BrowserView {
 
         onDraggingChanged: {
             if (!dragging) {
-                if (stage == 0) {
-                    chrome.state = "shown"
-                } else if (stage == 1) {
+                if (stage == 1) {
                     if (tabsModel.count > 1) {
                         tabslist.selectAndAnimateTab(1)
                     } else {
@@ -416,7 +427,7 @@ BrowserView {
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
-            bottomMargin: (chrome.state == "hidden") ? -height : 0
+            bottomMargin: (chrome.state == "shown") ? 0 : -height
             Behavior on bottomMargin {
                 UbuntuNumberAnimation {}
             }
@@ -474,6 +485,24 @@ BrowserView {
         }
     }
 
+    Item {
+        id: settingsContainer
+
+        visible: children.length > 0
+        anchors.fill: parent
+
+        Component {
+            id: settingsComponent
+
+            SettingsPage {
+                anchors.fill: parent
+                historyModel: browser.historyModel
+                settingsObject: settings
+                onDone: destroy()
+            }
+        }
+    }
+
     TabsModel {
         id: tabsModel
 
@@ -517,6 +546,17 @@ BrowserView {
 
                 enabled: visible && !bottomEdgeHandle.dragging && !recentView.visible
 
+                ChromeController {
+                    id: chromeController
+                    webview: webviewimpl
+                    forceHide: recentView.visible
+                }
+
+                locationBarController {
+                    height: webviewimpl.visible ? chrome.height : 0
+                    mode: chromeController.mode
+                }
+
                 //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
                 preferences.localStorageEnabled: true
                 preferences.appCacheEnabled: true
@@ -527,8 +567,8 @@ BrowserView {
                         onTriggered: browser.openUrlInNewTab(contextualData.href, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
-                        enabled: contextualData.href.toString() && ((browser.allowOpenInBackgroundTab === "true") ||
-                                 ((browser.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
+                        enabled: contextualData.href.toString() && ((settings.allowOpenInBackgroundTab === "true") ||
+                                 ((settings.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
                         onTriggered: browser.openUrlInNewTab(contextualData.href, false)
                     }
                     Actions.BookmarkLink {
@@ -624,7 +664,10 @@ BrowserView {
                         id: newTabViewComponent
 
                         NewTabView {
-                            anchors.fill: parent
+                            anchors {
+                                fill: parent
+                                topMargin: (chrome.state == "shown") ? chrome.height : 0
+                            }
 
                             historyModel: browser.historyModel
                             bookmarksModel: browser.bookmarksModel
@@ -786,7 +829,7 @@ BrowserView {
         running: true
         interval: 1
         onTriggered: {
-            if (browser.restoreSession) {
+            if (!browser.newSession && settings.restoreSession) {
                 session.restore()
             }
             // Sanity check
@@ -796,7 +839,7 @@ BrowserView {
                 browser.openUrlInNewTab(browser.initialUrls[i], true, false)
             }
             if (tabsModel.count == 0) {
-                browser.openUrlInNewTab(browser.homepage, true, false)
+                browser.openUrlInNewTab(settings.homepage, true, false)
             }
             tabsModel.currentTab.load()
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {

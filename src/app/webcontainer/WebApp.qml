@@ -73,14 +73,17 @@ BrowserView {
                 left: parent.left
                 right: parent.right
                 top: parent.top
-                topMargin: webapp.chromeless ? 0 : chromeLoader.item.visibleHeight
+                topMargin: (webapp.oxide || webapp.chromeless) ? 0 : chromeLoader.item.height
             }
-            height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.item.visibleHeight)
+            height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
         }
 
         Loader {
-            anchors.fill: webview
+            anchors {
+                fill: webview
+                topMargin: (webapp.oxide && !webapp.chromeless && chromeLoader.item.state == "shown") ? chromeLoader.item.height : 0
+            }
             sourceComponent: ErrorSheet {
                 visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
                 url: webview.currentWebview ? webview.currentWebview.url : ""
@@ -115,25 +118,7 @@ BrowserView {
                         right: parent.right
                     }
                     height: units.gu(6)
-
-                    Connections {
-                        target: webapp.currentWebview
-                        ignoreUnknownSignals: true
-                        onLoadingStateChanged: {
-                            if (webapp.currentWebview.loading) {
-                                chromeLoader.item.state = "shown"
-                            } else if (webapp.currentWebview.fullscreen) {
-                                chromeLoader.item.state = "hidden"
-                            }
-                        }
-                        onFullscreenChanged: {
-                            if (webapp.currentWebview.fullscreen) {
-                                chromeLoader.item.state = "hidden"
-                            } else {
-                                chromeLoader.item.state = "shown"
-                            }
-                        }
-                    }
+                    y: (webapp.oxide && webapp.currentWebview) ? webview.currentWebview.locationBarController.offset : 0
                 }
             }
 
@@ -152,17 +137,33 @@ BrowserView {
             }
         }
 
+        Binding {
+            when: webapp.oxide && webapp.currentWebview && !webapp.chromeless
+            target: (webapp.oxide && webapp.currentWebview) ? webapp.currentWebview.locationBarController : null
+            property: 'height'
+            value: webapp.currentWebview.visible ? chromeLoader.item.height : 0
+        }
+
         Loader {
-            sourceComponent: (webapp.oxide && !webapp.chromeless) ? chromeStateTrackerComponent : undefined
+            id: oxideChromeController
+
+            sourceComponent: webapp.oxide ? oxideChromeControllerComponent : undefined
 
             Component {
-                id: chromeStateTrackerComponent
+                id: oxideChromeControllerComponent
 
-                ChromeStateTracker {
+                ChromeController {
                     webview: webapp.currentWebview
-                    header: chromeLoader.item
+                    forceHide: webapp.chromeless
                 }
             }
+        }
+
+        Binding {
+            when: webapp.oxide && webapp.currentWebview
+            target: (webapp.oxide && webapp.currentWebview) ? webapp.currentWebview.locationBarController : null
+            property: 'mode'
+            value: webapp.oxide ? oxideChromeController.item.mode : 0
         }
     }
 

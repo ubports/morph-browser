@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -24,10 +24,8 @@
 #include <QtCore/QString>
 
 #define APP_ID "webbrowser-app"
-#define DEFAULT_HOMEPAGE "http://start.ubuntu.com"
 #define REMOTE_INSPECTOR_PORT 9221
 
-#define DEFAULT_SEARCH_ENGINE "google"
 #define DEFAULT_SEARCH_NAME "Google Search"
 #define DEFAULT_SEARCH_DESC "Use google.com to search the Web"
 #define DEFAULT_SEARCH_TEMPLATE "https://google.com/search?client=ubuntu&q={searchTerms}&ie=utf-8&oe=utf-8"

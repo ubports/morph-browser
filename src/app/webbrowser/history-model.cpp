@@ -245,6 +245,7 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
         m_entries.prepend(entry);
         endInsertRows();
         insertNewEntryInDatabase(entry);
+        Q_EMIT rowCountChanged();
     } else {
         QVector<int> roles;
         roles << Visits;
@@ -368,6 +369,7 @@ void HistoryModel::removeEntryByUrl(const QUrl& url)
 
     removeByIndex(getEntryIndex(url));
     removeEntryFromDatabaseByUrl(url);
+    Q_EMIT rowCountChanged();
 }
 
 /*!
@@ -385,6 +387,7 @@ void HistoryModel::removeEntriesByDomain(const QString& domain)
         }
     }
     removeEntriesFromDatabaseByDomain(domain);
+    Q_EMIT rowCountChanged();
 }
 
 void HistoryModel::removeByIndex(int index)
@@ -477,6 +480,7 @@ void HistoryModel::clearAll()
         m_entries.clear();
         endResetModel();
         clearDatabase();
+        Q_EMIT rowCountChanged();
     }
 }
 
