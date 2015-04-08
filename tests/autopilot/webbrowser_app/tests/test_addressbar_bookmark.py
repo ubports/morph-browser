@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2014 Canonical
+# Copyright 2014-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -23,7 +23,7 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
-        self.clear_cache()
+        self.clear_datadir()
         super(TestAddressBarBookmark, self).setUp()
 
     def test_switching_tabs_updates_bookmark_toggle(self):
@@ -42,16 +42,14 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = self.main_window.get_tabs_view().get_ordered_previews()
-        self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        self.main_window.get_tabs_view().get_previews()[1].select()
+        tabs_view.visible.wait_for(False)
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = self.main_window.get_tabs_view().get_ordered_previews()
-        self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        self.main_window.get_tabs_view().get_previews()[1].select()
+        tabs_view.visible.wait_for(False)
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
 
     def test_cannot_bookmark_empty_page(self):
@@ -60,9 +58,8 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = self.main_window.get_tabs_view().get_ordered_previews()
-        self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        self.main_window.get_tabs_view().get_previews()[1].select()
+        tabs_view.visible.wait_for(False)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         address_bar = self.main_window.address_bar
@@ -72,8 +69,7 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
-        previews = self.main_window.get_tabs_view().get_ordered_previews()
-        self.pointing_device.click_object(previews[1])
-        tabs_view.wait_until_destroyed()
+        self.main_window.get_tabs_view().get_previews()[1].select()
+        tabs_view.visible.wait_for(False)
         self.assertThat(address_bar.activeFocus, Equals(False))
         self.assertThat(bookmark_toggle.visible, Eventually(Equals(False)))

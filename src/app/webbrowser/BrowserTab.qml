@@ -22,6 +22,8 @@ import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
 
 FocusScope {
+    id: tab
+
     property string uniqueId: this.toString() + "-" + Date.now()
     property url initialUrl
     property string initialTitle
@@ -29,22 +31,29 @@ FocusScope {
     property int restoreType
     property var request
     property Component webviewComponent
-    readonly property var webview: (children.length == 1) ? children[0] : null
+    readonly property var webview: webviewContainer.webview
     readonly property url url: webview ? webview.url : initialUrl
     readonly property string title: webview ? webview.title : initialTitle
     readonly property url icon: webview ? webview.icon : ""
     property url preview
 
+    FocusScope {
+        id: webviewContainer
+        anchors.fill: parent
+        focus: true
+        readonly property var webview: (children.length == 1) ? children[0] : null
+    }
+
     function load() {
         if (!webview) {
-            var properties = {}
+            var properties = {'tab': tab}
             if (restoreState) {
                 properties['restoreState'] = restoreState
                 properties['restoreType'] = restoreType
             } else {
                 properties['url'] = initialUrl
             }
-            webviewComponent.incubateObject(this, properties)
+            webviewComponent.incubateObject(webviewContainer, properties)
         }
     }
 
@@ -96,7 +105,7 @@ FocusScope {
         if (request) {
             // Instantiating the webview cannot be delayed because the request
             // object is destroyed after exiting the newViewRequested signal handler.
-            webviewComponent.incubateObject(this, {"request": request})
+            webviewComponent.incubateObject(webviewContainer, {"tab": tab, "request": request})
         }
     }
 }

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-27 10:29+0100\n"
+"POT-Creation-Date: 2015-03-22 21:26+0100\n"
 "PO-Revision-Date: 2014-11-06 07:42+0000\n"
 "Last-Translator: Gheyret T.Kenji <Unknown>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-02-28 06:14+0000\n"
-"X-Generator: Launchpad (build 17361)\n"
+"X-Launchpad-Export-Date: 2015-03-31 05:56+0000\n"
+"X-Generator: Launchpad (build 17413)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -393,7 +393,7 @@ msgstr "يۆتكەل"
 msgid "Address;URL;www"
 msgstr "ئادرېس;URL;www"
 
-#: src/app/actions/NewTab.qml:23
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
 msgid "New Tab"
 msgstr "يېڭى بەتكۈچ"
 
@@ -444,22 +444,26 @@ msgstr "ئىزدەڭ ياكى بىر ئادرېسنى كىرگۈزۈڭ"
 msgid "Delete"
 msgstr "ئۆچۈر"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:178
 msgid "Share"
 msgstr "ھەمبەھىر"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:192
 msgid "History"
 msgstr "ئىز"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:199
 msgid "Open tabs"
 msgstr "بەتكۈچلەرنى ئاچ"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "يېڭى بەتكۈچ"
+
+#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+msgid "Done"
+msgstr "تامام"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -478,10 +482,6 @@ msgstr "ئەڭ ئاخىرقى قېتىم زىيارەت قىلغىنى"
 #: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "تۈنۈگۈن"
-
-#: src/app/webbrowser/HistoryView.qml:231 src/app/webbrowser/TabsView.qml:99
-msgid "Done"
-msgstr "تامام"
 
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
@@ -555,13 +555,9 @@ msgstr "سىز باغلىنىۋاتقان يەر"
 msgid "Which is run by"
 msgstr "بۇنى باشقۇرغۇچى"
 
-#: src/app/webbrowser/TabPreview.qml:163
+#: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "چەكسىڭىز كۆرەلەيسىز"
-
-#: src/app/webbrowser/TabsView.qml:113
-msgid "Add"
-msgstr "قوش"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:38
@@ -609,6 +605,9 @@ msgstr "ئىنتېرنېت;WWW;توركۆرگۈ;تور;كۆرگۈ"
 
 #~ msgid "Clear"
 #~ msgstr "تازىلا"
+
+#~ msgid "Add"
+#~ msgstr "قوش"
 
 #~ msgid "No"
 #~ msgstr "ياق"
