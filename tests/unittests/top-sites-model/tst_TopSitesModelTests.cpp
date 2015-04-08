@@ -90,6 +90,17 @@ private Q_SLOTS:
         QCOMPARE(topsites->rowCount(), 1);
         QCOMPARE(topsites->data(topsites->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.com"));
     }
+
+    void shouldBeSortedByVisits()
+    {
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        QTest::qWait(1001);
+        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
+        QTest::qWait(1001);
+        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
+        QCOMPARE(model->data(model->index(0, 0), HistoryModel::Domain).toString(), QString("ubuntu.com"));
+        QCOMPARE(model->data(model->index(1, 0), HistoryModel::Domain).toString(), QString("example.org"));
+    }
 };
 
 QTEST_MAIN(TopSitesModelTests)

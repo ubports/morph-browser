@@ -32,6 +32,8 @@ TopSitesModel::TopSitesModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
     setDynamicSortFilter(true);
+    setSortRole(HistoryModel::Visits);
+    sort(0, Qt::DescendingOrder);
 }
 
 HistoryTimeframeModel* TopSitesModel::sourceModel() const
