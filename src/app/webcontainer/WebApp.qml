@@ -72,7 +72,6 @@ BrowserView {
                 left: parent.left
                 right: parent.right
                 top: parent.top
-                topMargin: webapp.chromeless ? 0 : chromeLoader.item.height
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
@@ -143,26 +142,17 @@ BrowserView {
             value: webapp.currentWebview.visible ? chromeLoader.item.height : 0
         }
 
-        Loader {
+        ChromeController {
             id: oxideChromeController
-
-            sourceComponent: oxideChromeControllerComponent
-
-            Component {
-                id: oxideChromeControllerComponent
-
-                ChromeController {
-                    webview: webapp.currentWebview
-                    forceHide: webapp.chromeless
-                }
-            }
+            webview: webapp.currentWebview
+            forceHide: webapp.chromeless
         }
 
         Binding {
             when: webapp.currentWebview
             target: webapp.currentWebview ? webapp.currentWebview.locationBarController : null
             property: 'mode'
-            value: oxideChromeController.item.mode
+            value: oxideChromeController.mode
         }
     }
 
