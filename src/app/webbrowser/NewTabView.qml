@@ -62,7 +62,7 @@ Item {
         id: historyListModel
 
         sourceModel: HistoryByVisitsModel {
-            sourceModel: HistoryHiddenModel {
+            sourceModel: TopSitesModel {
                 sourceModel: HistoryTimeframeModel {
                     sourceModel: newTabView.historyModel
                     // We only show sites visited on the last 60 days
