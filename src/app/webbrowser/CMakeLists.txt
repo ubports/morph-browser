@@ -28,7 +28,6 @@ qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Sql)
 set(WEBBROWSER_APP_SRC
     file-operations.cpp
     searchengine.cpp
-    settings.cpp
     webbrowser-app.cpp
 )
 
@@ -43,7 +42,7 @@ qt5_use_modules(${WEBBROWSER_APP} Core Qml Quick)
 install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-file(GLOB QML_FILES *.qml)
+file(GLOB QML_FILES *.qml *.js)
 install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser)
 
 install(DIRECTORY assets

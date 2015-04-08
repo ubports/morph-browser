@@ -18,6 +18,7 @@
 
 import QtQuick 2.0
 import QtQuick.Window 2.0
+import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
@@ -29,16 +30,12 @@ import "../UrlUtils.js" as UrlUtils
 BrowserView {
     id: browser
 
-    property bool restoreSession: true
-
     currentWebview: tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
-    property url homepage
-    property string searchEngine
-    property string allowOpenInBackgroundTab
+    property bool newSession: false
 
     // XXX: we might want to tweak this value depending
     // on the form factor and/or the available memory
@@ -78,8 +75,34 @@ BrowserView {
         }
     ]
 
+    Settings {
+        id: settings
+
+        property url homepage: settingsDefaults.homepage
+        property string searchEngine: settingsDefaults.searchEngine
+        property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
+        property bool restoreSession: settingsDefaults.restoreSession
+
+        function restoreDefaults() {
+            homepage  = settingsDefaults.homepage
+            searchEngine = settingsDefaults.searchEngine
+            allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
+            restoreSession = settingsDefaults.restoreSession
+        }
+    }
+
+    QtObject {
+        id: settingsDefaults
+
+        readonly property url homepage: "http://start.ubuntu.com"
+        readonly property string searchEngine: "google"
+        readonly property string allowOpenInBackgroundTab: "default"
+        readonly property bool restoreSession: true
+    }
+
     Item {
         anchors.fill: parent
+        visible: !settingsContainer.visible && !historyViewContainer.visible
 
         TabChrome {
             id: invisibleTabChrome
@@ -143,8 +166,8 @@ BrowserView {
         }
 
         SearchEngine {
-            id: searchEngine
-            filename: browser.searchEngine
+            id: currentSearchEngine
+            filename: settings.searchEngine
         }
 
         Chrome {
@@ -153,7 +176,7 @@ BrowserView {
             visible: !recentView.visible
 
             webview: browser.currentWebview
-            searchUrl: searchEngine.urlTemplate
+            searchUrl: currentSearchEngine.urlTemplate
 
             y: webview ? webview.locationBarController.offset : 0
 
@@ -223,6 +246,12 @@ BrowserView {
                     iconName: "tab-new"
                     enabled: formFactor != "mobile"
                     onTriggered: browser.openUrlInNewTab("", true)
+                },
+                Action {
+                    objectName: "settings"
+                    text: i18n.tr("Settings")
+                    iconName: "settings"
+                    onTriggered: settingsComponent.createObject(settingsContainer)
                 }
             ]
         }
@@ -456,6 +485,24 @@ BrowserView {
         }
     }
 
+    Item {
+        id: settingsContainer
+
+        visible: children.length > 0
+        anchors.fill: parent
+
+        Component {
+            id: settingsComponent
+
+            SettingsPage {
+                anchors.fill: parent
+                historyModel: browser.historyModel
+                settingsObject: settings
+                onDone: destroy()
+            }
+        }
+    }
+
     TabsModel {
         id: tabsModel
 
@@ -520,8 +567,8 @@ BrowserView {
                         onTriggered: browser.openUrlInNewTab(contextualData.href, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
-                        enabled: contextualData.href.toString() && ((browser.allowOpenInBackgroundTab === "true") ||
-                                 ((browser.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
+                        enabled: contextualData.href.toString() && ((settings.allowOpenInBackgroundTab === "true") ||
+                                 ((settings.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
                         onTriggered: browser.openUrlInNewTab(contextualData.href, false)
                     }
                     Actions.BookmarkLink {
@@ -782,7 +829,7 @@ BrowserView {
         running: true
         interval: 1
         onTriggered: {
-            if (browser.restoreSession) {
+            if (!browser.newSession && settings.restoreSession) {
                 session.restore()
             }
             // Sanity check
@@ -792,7 +839,7 @@ BrowserView {
                 browser.openUrlInNewTab(browser.initialUrls[i], true, false)
             }
             if (tabsModel.count == 0) {
-                browser.openUrlInNewTab(browser.homepage, true, false)
+                browser.openUrlInNewTab(settings.homepage, true, false)
             }
             tabsModel.currentTab.load()
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
