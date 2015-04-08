@@ -25,7 +25,7 @@
     \brief Proxy model that filters a history model based on hidden role
 
     TopSitesModel is a proxy model that filters a
-    HistoryByVisitsModel based on the hidden rule
+    HistoryTimeframeModel based on the hidden rule
     (i.e. ignores history that was marked as removed by user).
 */
 TopSitesModel::TopSitesModel(QObject* parent)
