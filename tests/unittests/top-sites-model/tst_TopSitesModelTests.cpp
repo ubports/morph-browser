@@ -23,16 +23,16 @@
 // local
 #include "history-model.h"
 #include "history-timeframe-model.h"
-#include "history-hidden-model.h"
+#include "top-sites-model.h"
 
-class HistoryHiddenModelTests : public QObject
+class TopSitesModelTests : public QObject
 {
     Q_OBJECT
 
 private:
     HistoryModel* model;
     HistoryTimeframeModel* timeframe;
-    HistoryHiddenModel* hidden;
+    TopSitesModel* topsites;
 
 private Q_SLOTS:
     void init()
@@ -41,34 +41,34 @@ private Q_SLOTS:
         model->setDatabasePath(":memory:");
         timeframe = new HistoryTimeframeModel;
         timeframe->setSourceModel(model);
-        hidden = new HistoryHiddenModel;
-        hidden->setSourceModel(timeframe);
+        topsites = new TopSitesModel;
+        topsites->setSourceModel(timeframe);
     }
 
     void cleanup()
     {
-        delete hidden;
+        delete topsites;
         delete timeframe;
         delete model;
     }
 
     void shouldBeInitiallyEmpty()
     {
-        QCOMPARE(hidden->rowCount(), 0);
+        QCOMPARE(topsites->rowCount(), 0);
     }
 
     void shouldNotifyWhenChangingSourceModel()
     {
-        QSignalSpy spy(hidden, SIGNAL(sourceModelChanged()));
-        hidden->setSourceModel(timeframe);
+        QSignalSpy spy(topsites, SIGNAL(sourceModelChanged()));
+        topsites->setSourceModel(timeframe);
         QVERIFY(spy.isEmpty());
         HistoryTimeframeModel* timeframe2 = new HistoryTimeframeModel;
-        hidden->setSourceModel(timeframe2);
+        topsites->setSourceModel(timeframe2);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(hidden->sourceModel(), timeframe2);
-        hidden->setSourceModel(0);
+        QCOMPARE(topsites->sourceModel(), timeframe2);
+        topsites->setSourceModel(0);
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(hidden->sourceModel(), (HistoryTimeframeModel*) 0);
+        QCOMPARE(topsites->sourceModel(), (HistoryTimeframeModel*) 0);
         delete timeframe2;
     }
 
@@ -77,7 +77,7 @@ private Q_SLOTS:
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         QTest::qWait(100);
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
-        QCOMPARE(hidden->rowCount(), 2);
+        QCOMPARE(topsites->rowCount(), 2);
     }
 
     void shouldFilterOutHiddenUrls()
@@ -85,12 +85,23 @@ private Q_SLOTS:
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         QTest::qWait(100);
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
-        QCOMPARE(hidden->rowCount(), 2);
+        QCOMPARE(topsites->rowCount(), 2);
         model->hide(QUrl("http://example.org"));
-        QCOMPARE(hidden->rowCount(), 1);
-        QCOMPARE(hidden->data(hidden->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.com"));
+        QCOMPARE(topsites->rowCount(), 1);
+        QCOMPARE(topsites->data(topsites->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.com"));
+    }
+
+    void shouldBeSortedByVisits()
+    {
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        QTest::qWait(1001);
+        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
+        QTest::qWait(1001);
+        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
+        QCOMPARE(model->data(model->index(0, 0), HistoryModel::Domain).toString(), QString("ubuntu.com"));
+        QCOMPARE(model->data(model->index(1, 0), HistoryModel::Domain).toString(), QString("example.org"));
     }
 };
 
-QTEST_MAIN(HistoryHiddenModelTests)
-#include "tst_HistoryHiddenModelTests.moc"
+QTEST_MAIN(TopSitesModelTests)
+#include "tst_TopSitesModelTests.moc"
