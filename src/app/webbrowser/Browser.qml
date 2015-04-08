@@ -35,7 +35,6 @@ BrowserView {
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
-    property var historyBlacklistedModel: (historyBlacklistedModelLoader.status == Loader.Ready) ? historyBlacklistedModelLoader.item : null
 
     property url homepage
     property string searchEngine
@@ -499,16 +498,6 @@ BrowserView {
         asynchronous: true
     }
 
-    Loader {
-        id: historyBlacklistedModelLoader
-        source: browser.historyModel ? "HistoryBlacklistedModel.qml" : ""
-        asynchronous: true
-        onStatusChanged: {
-            if (historyBlacklistedModelLoader.status == Loader.Ready)
-                historyBlacklistedModelLoader.item.historyModel = browser.historyModel
-        }
-    }
-
     Component {
         id: tabComponent
 
@@ -637,7 +626,7 @@ BrowserView {
                         NewTabView {
                             anchors.fill: parent
 
-                            historyBlacklistedModel: browser.historyBlacklistedModel
+                            historyModel: browser.historyModel
                             bookmarksModel: browser.bookmarksModel
                             onBookmarkClicked: {
                                 chrome.requestedUrl = url

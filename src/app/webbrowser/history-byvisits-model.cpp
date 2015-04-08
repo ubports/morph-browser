@@ -17,7 +17,7 @@
  */
 
 #include "history-byvisits-model.h"
-#include "history-blacklisted-model.h"
+#include "history-timeframe-model.h"
 #include "history-model.h"
 
 /*!
@@ -36,12 +36,12 @@ HistoryByVisitsModel::HistoryByVisitsModel(QObject* parent)
     sort(0, Qt::DescendingOrder);
 }
 
-HistoryBlacklistedModel* HistoryByVisitsModel::sourceModel() const
+HistoryTimeframeModel* HistoryByVisitsModel::sourceModel() const
 {
-    return qobject_cast<HistoryBlacklistedModel*>(QSortFilterProxyModel::sourceModel());
+    return qobject_cast<HistoryTimeframeModel*>(QSortFilterProxyModel::sourceModel());
 }
 
-void HistoryByVisitsModel::setSourceModel(HistoryBlacklistedModel* sourceModel)
+void HistoryByVisitsModel::setSourceModel(HistoryTimeframeModel* sourceModel)
 {
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);
