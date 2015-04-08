@@ -39,7 +39,6 @@ Window {
 
     Connections {
         target: window.currentWebview
-        ignoreUnknownSignals: true
         onFullscreenChanged: {
             if (!window.forceFullscreen) {
                 if (window.currentWebview.fullscreen) {

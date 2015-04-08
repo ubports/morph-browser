@@ -37,7 +37,6 @@ BrowserWindow {
     property string webappName: ""
     property string webappModelSearchPath: ""
     property var webappUrlPatterns
-    property bool oxide: false
     property string accountProvider: ""
     property string popupRedirectionUrlPrefixPattern: ""
     property url webviewOverrideFile: ""
@@ -82,7 +81,6 @@ BrowserWindow {
             chromeVisible: root.chromeVisible
             backForwardButtonsVisible: root.backForwardButtonsVisible
             developerExtrasEnabled: root.developerExtrasEnabled
-            oxide: root.oxide
             webappModelSearchPath: root.webappModelSearchPath
             webappUrlPatterns: root.webappUrlPatterns
             blockOpenExternalUrls: root.blockOpenExternalUrls
@@ -240,7 +238,7 @@ BrowserWindow {
 
         // check if we are to display the login view
         // or directly switch to the webapp view
-        if (accountProvider.length !== 0 && oxide) {
+        if (accountProvider.length !== 0) {
             loadLoginView();
         } else {
             loadWebAppView();
