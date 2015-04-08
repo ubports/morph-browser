@@ -47,6 +47,7 @@ public:
         Visits,
         LastVisit,
         LastVisitDate,
+        Hidden,
     };
 
     // reimplemented from QAbstractListModel
@@ -58,6 +59,8 @@ public:
     void setDatabasePath(const QString& path);
 
     Q_INVOKABLE int add(const QUrl& url, const QString& title, const QUrl& icon);
+    Q_INVOKABLE void hide(const QUrl& url);
+    Q_INVOKABLE void unHide(const QUrl& url);
     Q_INVOKABLE void removeEntryByUrl(const QUrl& url);
     Q_INVOKABLE void removeEntriesByDomain(const QString& domain);
     Q_INVOKABLE void clearAll();
@@ -68,6 +71,8 @@ Q_SIGNALS:
 private:
     QSqlDatabase m_database;
 
+    QList<QUrl> m_hiddenEntries;
+
     struct HistoryEntry {
         QUrl url;
         QString domain;
@@ -75,6 +80,7 @@ private:
         QUrl icon;
         uint visits;
         QDateTime lastVisit;
+        bool hidden;
     };
     QList<HistoryEntry> m_entries;
     int getEntryIndex(const QUrl& url) const;
@@ -84,8 +90,10 @@ private:
     void populateFromDatabase();
     void removeByIndex(int index);
     void insertNewEntryInDatabase(const HistoryEntry& entry);
+    void insertNewEntryInHiddenDatabase(const QUrl& url);
     void updateExistingEntryInDatabase(const HistoryEntry& entry);
     void removeEntryFromDatabaseByUrl(const QUrl& url);
+    void removeEntryFromHiddenDatabaseByUrl(const QUrl& url);
     void removeEntriesFromDatabaseByDomain(const QString& domain);
     void clearDatabase();
 };
