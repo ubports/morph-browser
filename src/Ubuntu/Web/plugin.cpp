@@ -30,6 +30,18 @@
 #include <QtQml>
 #include <QtQml/QQmlInfo>
 
+namespace {
+
+const char* BROWSER_APP_NAME = "webbrowser-app";
+
+// Let chromium decide the optimum cache size based on available disk space
+const int DEFAULT_CACHE_SIZE_HINT_BROWSER = 0;
+
+// Default to 10MB for all other embedders, including webapps run in webapp-container
+const int DEFAULT_CACHE_SIZE_HINT_OTHERS = 10;
+
+}
+
 class UbuntuWebPluginContext : public QObject
 {
     Q_OBJECT
@@ -137,12 +149,10 @@ QString UbuntuWebPluginContext::formFactor()
 
 int UbuntuWebPluginContext::cacheSizeHint() const
 {
-    if (QCoreApplication::applicationName() == "webbrowser-app") {
-        // Let chromium decide the optimum cache size based on available disk space
-        return 0;
+    if (QCoreApplication::applicationName() == BROWSER_APP_NAME) {
+        return DEFAULT_CACHE_SIZE_HINT_BROWSER;
     } else {
-        // Default to 10MB for all other embedders, including webapps run in webapp-container
-        return 10;
+        return DEFAULT_CACHE_SIZE_HINT_OTHERS;
     }
 }
 
