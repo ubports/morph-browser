@@ -16,30 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "history-hidden-model.h"
+#include "top-sites-model.h"
 #include "history-timeframe-model.h"
 #include "history-model.h"
 
 /*!
-    \class HistoryHiddenModel
+    \class TopSitesModel
     \brief Proxy model that filters a history model based on hidden role
 
-    HistoryHiddenModel is a proxy model that filters a
+    TopSitesModel is a proxy model that filters a
     HistoryByVisitsModel based on the hidden rule
     (i.e. ignores history that was marked as removed by user).
 */
-HistoryHiddenModel::HistoryHiddenModel(QObject* parent)
+TopSitesModel::TopSitesModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
     setDynamicSortFilter(true);
 }
 
-HistoryTimeframeModel* HistoryHiddenModel::sourceModel() const
+HistoryTimeframeModel* TopSitesModel::sourceModel() const
 {
     return qobject_cast<HistoryTimeframeModel*>(QSortFilterProxyModel::sourceModel());
 }
 
-void HistoryHiddenModel::setSourceModel(HistoryTimeframeModel* sourceModel)
+void TopSitesModel::setSourceModel(HistoryTimeframeModel* sourceModel)
 {
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);
@@ -47,7 +47,7 @@ void HistoryHiddenModel::setSourceModel(HistoryTimeframeModel* sourceModel)
     }
 }
 
-bool HistoryHiddenModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+bool TopSitesModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
     return !sourceModel()->data(index, HistoryModel::Hidden).toBool();

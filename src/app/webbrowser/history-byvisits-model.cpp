@@ -17,7 +17,7 @@
  */
 
 #include "history-byvisits-model.h"
-#include "history-hidden-model.h"
+#include "top-sites-model.h"
 #include "history-model.h"
 
 /*!
@@ -36,12 +36,12 @@ HistoryByVisitsModel::HistoryByVisitsModel(QObject* parent)
     sort(0, Qt::DescendingOrder);
 }
 
-HistoryHiddenModel* HistoryByVisitsModel::sourceModel() const
+TopSitesModel* HistoryByVisitsModel::sourceModel() const
 {
-    return qobject_cast<HistoryHiddenModel*>(QSortFilterProxyModel::sourceModel());
+    return qobject_cast<TopSitesModel*>(QSortFilterProxyModel::sourceModel());
 }
 
-void HistoryByVisitsModel::setSourceModel(HistoryHiddenModel* sourceModel)
+void HistoryByVisitsModel::setSourceModel(TopSitesModel* sourceModel)
 {
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);

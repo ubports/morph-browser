@@ -24,7 +24,7 @@
 #include "domain-utils.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
-#include "history-hidden-model.h"
+#include "top-sites-model.h"
 #include "history-byvisits-model.h"
 
 class HistoryByVisitsModelTests : public QObject
@@ -34,7 +34,7 @@ class HistoryByVisitsModelTests : public QObject
 private:
     HistoryModel* history;
     HistoryTimeframeModel* timeframe;
-    HistoryHiddenModel* hidden;
+    TopSitesModel* topsites;
     HistoryByVisitsModel* model;
 
 private Q_SLOTS:
@@ -44,16 +44,16 @@ private Q_SLOTS:
         history->setDatabasePath(":memory:");
         timeframe = new HistoryTimeframeModel;
         timeframe->setSourceModel(history);
-        hidden = new HistoryHiddenModel;
-        hidden->setSourceModel(timeframe);
+        topsites = new TopSitesModel;
+        topsites->setSourceModel(timeframe);
         model = new HistoryByVisitsModel;
-        model->setSourceModel(hidden);
+        model->setSourceModel(topsites);
     }
 
     void cleanup()
     {
         delete model;
-        delete hidden;
+        delete topsites;
         delete timeframe;
         delete history;
     }
@@ -66,16 +66,16 @@ private Q_SLOTS:
     void shouldNotifyWhenChangingSourceModel()
     {
         QSignalSpy spy(model, SIGNAL(sourceModelChanged()));
-        model->setSourceModel(hidden);
+        model->setSourceModel(topsites);
         QVERIFY(spy.isEmpty());
-        HistoryHiddenModel* hidden2 = new HistoryHiddenModel;
-        model->setSourceModel(hidden2);
+        TopSitesModel* topsites2 = new TopSitesModel;
+        model->setSourceModel(topsites2);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->sourceModel(), hidden2);
+        QCOMPARE(model->sourceModel(), topsites2);
         model->setSourceModel(0);
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(model->sourceModel(), (HistoryHiddenModel*) 0);
-        delete hidden2;
+        QCOMPARE(model->sourceModel(), (TopSitesModel*) 0);
+        delete topsites2;
     }
 
     void shouldBeSortedByVisits()

@@ -16,22 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __HISTORY_HIDDEN_MODEL_H__
-#define __HISTORY_HIDDEN_MODEL_H__
+#ifndef __TOP_SITES_MODEL_H__
+#define __TOP_SITES_MODEL_H__
 
 // Qt
 #include <QtCore/QSortFilterProxyModel>
 
 class HistoryTimeframeModel;
 
-class HistoryHiddenModel : public QSortFilterProxyModel
+class TopSitesModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
     Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
 
 public:
-    HistoryHiddenModel(QObject* parent=0);
+    TopSitesModel(QObject* parent=0);
 
     HistoryTimeframeModel* sourceModel() const;
     void setSourceModel(HistoryTimeframeModel* sourceModel);
@@ -44,4 +44,4 @@ protected:
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 };
 
-#endif // __HISTORY_HIDDEN_MODEL_H__
+#endif // __TOP_SITES_MODEL_H__
