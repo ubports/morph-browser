@@ -280,6 +280,12 @@ Item {
                 objectName: "homepageDialog.text"
                 text: settingsObject.homepage
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
+                onAccepted: {
+                    if (UrlManagement.looksLikeAUrl(text)) {
+                        settingsObject.homepage = UrlManagement.fixUrl(text)
+                        PopupUtils.close(dialogue)
+                    }
+                }
             }
 
             Button {
