@@ -23,7 +23,6 @@
 #include "history-model.h"
 #include "history-matches-model.h"
 #include "history-timeframe-model.h"
-#include "history-byvisits-model.h"
 #include "top-sites-model.h"
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
@@ -93,7 +92,6 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
     qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
-    qmlRegisterType<HistoryByVisitsModel>(uri, 0 , 1, "HistoryByVisitsModel");
     qmlRegisterType<TopSitesModel>(uri, 0 , 1, "TopSitesModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
