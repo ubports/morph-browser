@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,35 +16,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "history-byvisits-model.h"
 #include "history-hidden-model.h"
+#include "history-timeframe-model.h"
 #include "history-model.h"
 
 /*!
-    \class HistoryByVisitsModel
-    \brief Proxy model that sorts a history model by number of visits
+    \class HistoryHiddenModel
+    \brief Proxy model that filters a history model based on hidden role
 
-    HistoryByVisitsModel is a proxy model that sorts a
-    HistoryTimeframeModel by the number of visits
-    (i.e. the history with the greatest number of visits first).
+    HistoryHiddenModel is a proxy model that filters a
+    HistoryByVisitsModel based on the hidden rule
+    (i.e. ignores history that was marked as removed by user).
 */
-HistoryByVisitsModel::HistoryByVisitsModel(QObject* parent)
+HistoryHiddenModel::HistoryHiddenModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
     setDynamicSortFilter(true);
-    setSortRole(HistoryModel::Visits);
-    sort(0, Qt::DescendingOrder);
 }
 
-HistoryHiddenModel* HistoryByVisitsModel::sourceModel() const
+HistoryTimeframeModel* HistoryHiddenModel::sourceModel() const
 {
-    return qobject_cast<HistoryHiddenModel*>(QSortFilterProxyModel::sourceModel());
+    return qobject_cast<HistoryTimeframeModel*>(QSortFilterProxyModel::sourceModel());
 }
 
-void HistoryByVisitsModel::setSourceModel(HistoryHiddenModel* sourceModel)
+void HistoryHiddenModel::setSourceModel(HistoryTimeframeModel* sourceModel)
 {
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);
         Q_EMIT sourceModelChanged();
     }
+}
+
+bool HistoryHiddenModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+{
+    QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
+    return !sourceModel()->data(index, HistoryModel::Hidden).toBool();
 }

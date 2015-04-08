@@ -17,18 +17,18 @@
  */
 
 #include "bookmarks-model.h"
+#include "cache-deleter.h"
 #include "config.h"
 #include "file-operations.h"
 #include "history-model.h"
 #include "history-matches-model.h"
 #include "history-timeframe-model.h"
 #include "history-byvisits-model.h"
-#include "history-blacklisted-model.h"
+#include "history-hidden-model.h"
 #include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
 #include "limit-proxy-model.h"
 #include "searchengine.h"
-#include "settings.h"
 #include "tabs-model.h"
 #include "webbrowser-app.h"
 
@@ -59,6 +59,13 @@ static QObject* FileOperations_singleton_factory(QQmlEngine* engine, QJSEngine* 
     return new FileOperations();
 }
 
+static QObject* CacheDeleter_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new CacheDeleter();
+}
+
 bool WebbrowserApp::initialize()
 {
     // Re-direct webapps to the dedicated container for backward compatibility
@@ -87,7 +94,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<HistoryByVisitsModel>(uri, 0 , 1, "HistoryByVisitsModel");
-    qmlRegisterType<HistoryBlacklistedModel>(uri, 0 , 1, "HistoryBlacklistedModel");
+    qmlRegisterType<HistoryHiddenModel>(uri, 0 , 1, "HistoryHiddenModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
@@ -95,14 +102,10 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
     qmlRegisterType<SearchEngine>(uri, 0, 1, "SearchEngine");
+    qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
-        Settings settings;
-        m_window->setProperty("homepage", settings.homepage());
-        m_window->setProperty("searchEngine", settings.searchEngine());
-        m_window->setProperty("allowOpenInBackgroundTab", settings.allowOpenInBackgroundTab());
-        m_window->setProperty("restoreSession", settings.restoreSession() &&
-                                                !m_arguments.contains("--new-session"));
+        m_window->setProperty("newSession", m_arguments.contains("--new-session"));
         QVariantList urls;
         Q_FOREACH(const QUrl& url, this->urls()) {
             urls.append(url);

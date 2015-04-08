@@ -1,3 +1,44 @@
+webbrowser-app (0.23+15.04.20150408-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add a "Clear Cache" entry under the privacy settings. (LP: #1296364,
+    #1260014)
+  * Add settings page, per design specification. This adds qml-module-
+    qt-labs-folderlistmodel and qml-module-qt-labs-settings as runtime
+    dependencies for webbrowser-app. (LP: #1351183)
+  * Autopilot tests for the settings UI. added:
+    tests/autopilot/webbrowser_app/tests/test_settings.py
+
+  [ Riccardo Padovani ]
+  * Add settings page, per design specification. This adds qml-module-
+    qt-labs-folderlistmodel and qml-module-qt-labs-settings as runtime
+    dependencies for webbrowser-app. (LP: #1351183)
+  * Add settings page, per design specification. This adds qml-module-
+    qt-labs-folderlistmodel and qml-module-qt-labs-settings as runtime
+    dependencies for webbrowser-app. (LP: #1351183)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 08 Apr 2015 14:09:36 +0000
+
+webbrowser-app (0.23+15.04.20150331.2-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Always initialize member attribute at construction time.
+  * Remove two broken symlinks. removed:
+    src/Ubuntu/Components/Extras/Browser/favicon-image-provider.cpp@
+    src/Ubuntu/Components/Extras/Browser/favicon-image-provider.h@
+  * Rewrite URLs with an uppercase scheme. (LP: #1436312)
+  * Use the new locationBarController API available in oxide 1.5 to
+    control the position of the chrome. (LP: #1365179, #1429132)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 31 Mar 2015 15:17:22 +0000
+
 webbrowser-app (0.23+15.04.20150323-0ubuntu1) vivid; urgency=medium
 
   [ Olivier Tilloy ]

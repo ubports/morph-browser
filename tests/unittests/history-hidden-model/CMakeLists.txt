@@ -1,5 +1,5 @@
-set(TEST tst_HistoryBlacklistedModelTests)
-add_executable(${TEST} tst_HistoryBlacklistedModelTests.cpp)
+set(TEST tst_HistoryHiddenModelTests)
+add_executable(${TEST} tst_HistoryHiddenModelTests.cpp)
 include_directories(${webbrowser-app_SOURCE_DIR})
 qt5_use_modules(${TEST} Test)
 target_link_libraries(${TEST} webbrowser-app-models)

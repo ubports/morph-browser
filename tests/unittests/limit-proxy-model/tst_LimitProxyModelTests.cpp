@@ -24,7 +24,7 @@
 #include "domain-utils.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
-#include "history-blacklisted-model.h"
+#include "history-hidden-model.h"
 #include "history-byvisits-model.h"
 #include "limit-proxy-model.h"
 
@@ -35,7 +35,7 @@ class LimitProxyModelTests : public QObject
 private:
     HistoryModel* history;
     HistoryTimeframeModel* timeframe;
-    HistoryBlacklistedModel* blacklisted;
+    HistoryHiddenModel* hidden;
     HistoryByVisitsModel* byvisits;
     LimitProxyModel* model;
 
@@ -46,10 +46,10 @@ private Q_SLOTS:
         history->setDatabasePath(":memory:");
         timeframe = new HistoryTimeframeModel;
         timeframe->setSourceModel(history);
-        blacklisted = new HistoryBlacklistedModel;
-        blacklisted->setSourceModel(timeframe);
+        hidden = new HistoryHiddenModel;
+        hidden->setSourceModel(timeframe);
         byvisits = new HistoryByVisitsModel;
-        byvisits->setSourceModel(blacklisted);
+        byvisits->setSourceModel(hidden);
         model = new LimitProxyModel;
         model->setSourceModel(byvisits);
     }
@@ -58,8 +58,8 @@ private Q_SLOTS:
     {
         delete model;
         delete byvisits;
+        delete hidden;
         delete timeframe;
-        delete blacklisted;
         delete history;
     }
 

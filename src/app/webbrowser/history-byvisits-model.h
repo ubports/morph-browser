@@ -22,19 +22,19 @@
 // Qt
 #include <QtCore/QSortFilterProxyModel>
 
-class HistoryBlacklistedModel;
+class HistoryHiddenModel;
 
 class HistoryByVisitsModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(HistoryBlacklistedModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
+    Q_PROPERTY(HistoryHiddenModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
 
 public:
     HistoryByVisitsModel(QObject* parent=0);
 
-    HistoryBlacklistedModel* sourceModel() const;
-    void setSourceModel(HistoryBlacklistedModel* sourceModel);
+    HistoryHiddenModel* sourceModel() const;
+    void setSourceModel(HistoryHiddenModel* sourceModel);
 
 Q_SIGNALS:
     void sourceModelChanged() const;

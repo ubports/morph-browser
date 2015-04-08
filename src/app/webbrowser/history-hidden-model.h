@@ -16,50 +16,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __HISTORY_BLACKLISTED_MODEL_H__
-#define __HISTORY_BLACKLISTED_MODEL_H__
+#ifndef __HISTORY_HIDDEN_MODEL_H__
+#define __HISTORY_HIDDEN_MODEL_H__
 
 // Qt
 #include <QtCore/QSortFilterProxyModel>
-#include <QtSql/QSqlDatabase>
 
 class HistoryTimeframeModel;
 
-class HistoryBlacklistedModel : public QSortFilterProxyModel
+class HistoryHiddenModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
     Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
-    Q_PROPERTY(QString databasePath READ databasePath WRITE setDatabasePath NOTIFY databasePathChanged)
 
 public:
-    HistoryBlacklistedModel(QObject* parent=0);
-    ~HistoryBlacklistedModel();
+    HistoryHiddenModel(QObject* parent=0);
 
     HistoryTimeframeModel* sourceModel() const;
     void setSourceModel(HistoryTimeframeModel* sourceModel);
 
-    const QString databasePath() const;
-    void setDatabasePath(const QString& path);
-
-    Q_INVOKABLE void addToBlacklist(const QUrl& blacklistedUrl);
-
 Q_SIGNALS:
     void sourceModelChanged() const;
-    void databasePathChanged() const;
-
-private:
-    QSqlDatabase m_database;
-    QList<QUrl> m_blacklistedEntries;
-
-    void resetDatabase(const QString& databaseName);
-    void createOrAlterDatabaseSchema();
-    void populateFromDatabase();
-    void insertNewEntryInDatabase(const QUrl& url);
 
 protected:
     // reimplemented from QSortFilterProxyModel
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 };
 
-#endif // __HISTORY_BLACKLISTED_MODEL_H__
+#endif // __HISTORY_HIDDEN_MODEL_H__

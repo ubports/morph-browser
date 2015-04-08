@@ -16,21 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import webbrowserapp.private 0.1
+#ifndef __CACHE_DELETER_H__
+#define __CACHE_DELETER_H__
 
-HistoryBlacklistedModel {
-    property alias historyModel: historyTimeframeModel.sourceModel
-    databasePath: historyModel.databasePath
+#include <QtCore/QFutureWatcher>
+#include <QtCore/QMutex>
+#include <QtCore/QObject>
+#include <QtQml/QJSValue>
 
-    sourceModel: HistoryTimeframeModel {
-        id: historyTimeframeModel
+class QString;
 
-        // We only show sites visited on the last 60 days
-        start: {
-            var date = new Date()
-            date.setDate(date.getDate() - 60)
-            return date
-        }
-    }
-}
+class CacheDeleter : public QObject
+{
+    Q_OBJECT
+
+public:
+    explicit CacheDeleter(QObject* parent=0);
+
+    Q_INVOKABLE void clear(const QString& cachePath, const QJSValue& callback=QJSValue::UndefinedValue);
+
+private:
+    void doClear(const QString& cachePath);
+
+private Q_SLOTS:
+    void onCleared();
+
+private:
+    QMutex m_mutex;
+    QFutureWatcher<void> m_clearWatcher;
+    QJSValue m_callback;
+};
+
+#endif // __CACHE_DELETER_H__

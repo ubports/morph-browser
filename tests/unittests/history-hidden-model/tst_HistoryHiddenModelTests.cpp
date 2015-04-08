@@ -23,16 +23,16 @@
 // local
 #include "history-model.h"
 #include "history-timeframe-model.h"
-#include "history-blacklisted-model.h"
+#include "history-hidden-model.h"
 
-class HistoryBlacklistedModelTests : public QObject
+class HistoryHiddenModelTests : public QObject
 {
     Q_OBJECT
 
 private:
     HistoryModel* model;
     HistoryTimeframeModel* timeframe;
-    HistoryBlacklistedModel* blacklisted;
+    HistoryHiddenModel* hidden;
 
 private Q_SLOTS:
     void init()
@@ -41,78 +41,56 @@ private Q_SLOTS:
         model->setDatabasePath(":memory:");
         timeframe = new HistoryTimeframeModel;
         timeframe->setSourceModel(model);
-        blacklisted = new HistoryBlacklistedModel;
-        blacklisted->setSourceModel(timeframe);
-        blacklisted->setDatabasePath(":memory:");
+        hidden = new HistoryHiddenModel;
+        hidden->setSourceModel(timeframe);
     }
 
     void cleanup()
     {
-        delete blacklisted;
+        delete hidden;
         delete timeframe;
         delete model;
     }
 
     void shouldBeInitiallyEmpty()
     {
-        QCOMPARE(blacklisted->rowCount(), 0);
-    }
-
-    void shouldReturnDatabasePath()
-    {
-        QCOMPARE(blacklisted->databasePath(), QString(":memory:"));
-    }
-
-    void shouldNotifyWhenSettingDatabasePath()
-    {
-        QSignalSpy spyPath(blacklisted, SIGNAL(databasePathChanged()));
-        QSignalSpy spyReset(blacklisted, SIGNAL(modelReset()));
-
-        blacklisted->setDatabasePath(":memory:");
-        QVERIFY(spyPath.isEmpty());
-        QVERIFY(spyReset.isEmpty());
-
-        blacklisted->setDatabasePath("");
-        QCOMPARE(spyPath.count(), 1);
-        QCOMPARE(spyReset.count(), 1);
-        QCOMPARE(blacklisted->databasePath(), QString(":memory:"));
+        QCOMPARE(hidden->rowCount(), 0);
     }
 
     void shouldNotifyWhenChangingSourceModel()
     {
-        QSignalSpy spy(blacklisted, SIGNAL(sourceModelChanged()));
-        blacklisted->setSourceModel(timeframe);
+        QSignalSpy spy(hidden, SIGNAL(sourceModelChanged()));
+        hidden->setSourceModel(timeframe);
         QVERIFY(spy.isEmpty());
         HistoryTimeframeModel* timeframe2 = new HistoryTimeframeModel;
-        blacklisted->setSourceModel(timeframe2);
+        hidden->setSourceModel(timeframe2);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(blacklisted->sourceModel(), timeframe2);
-        blacklisted->setSourceModel(0);
+        QCOMPARE(hidden->sourceModel(), timeframe2);
+        hidden->setSourceModel(0);
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(blacklisted->sourceModel(), (HistoryTimeframeModel*) 0);
+        QCOMPARE(hidden->sourceModel(), (HistoryTimeframeModel*) 0);
         delete timeframe2;
     }
 
-    void shouldMatchAllWhenNoBlacklistSet()
+    void shouldMatchAllWhenNothingIsHide()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         QTest::qWait(100);
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
-        QCOMPARE(blacklisted->rowCount(), 2);
+        QCOMPARE(hidden->rowCount(), 2);
     }
 
-    void shouldFilterOutBlacklistedUrls()
+    void shouldFilterOutHiddenUrls()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         QTest::qWait(100);
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
-        QCOMPARE(blacklisted->rowCount(), 2);
-        blacklisted->addToBlacklist(QUrl("http://example.org"));
-        QCOMPARE(blacklisted->rowCount(), 1);
-        QCOMPARE(blacklisted->data(blacklisted->index(0, 0), HistoryModel::Url).toUrl(),
-                 QUrl("http://example.com"));
+        QCOMPARE(hidden->rowCount(), 2);
+        model->hide(QUrl("http://example.org"));
+        QCOMPARE(hidden->rowCount(), 1);
+        QCOMPARE(hidden->data(hidden->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.com"));
     }
 };
 
-QTEST_MAIN(HistoryBlacklistedModelTests)
-#include "tst_HistoryBlacklistedModelTests.moc"
+QTEST_MAIN(HistoryHiddenModelTests)
+#include "tst_HistoryHiddenModelTests.moc"
