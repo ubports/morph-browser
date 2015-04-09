@@ -293,70 +293,6 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
 }
 
 /*!
-    Mark an entry in the model as hidden.
-
-    Add a new entry to the hidden list.
-    If an entry with the URL exists, it is updated.
-*/
-void HistoryModel::hide(const QUrl& url)
-{
-    if (url.isEmpty() || m_hiddenEntries.contains(url)) {
-        return;
-    }
-
-    m_hiddenEntries.append(url);
-    insertNewEntryInHiddenDatabase(url);
-
-    QVector<int> roles;
-    roles << Hidden;
-
-    QList<int> affectedIndexes;
-    for (int i = 0; i < m_entries.count(); ++i) {                       
-        if (m_entries.at(i).url == url) {
-            HistoryEntry& entry = m_entries[i];
-            entry.hidden = true;
-            affectedIndexes << i;
-        }
-    }                                                                   
-
-    Q_FOREACH(int idx, affectedIndexes) {
-        Q_EMIT dataChanged(this->index(idx, 0), this->index(idx, 0), roles);
-    } 
-}
-
-/*!
-    Mark an entry in the model as not hidden.
-
-    If an entry with the URL exists on the hidden entries, it is removed.
-    If an entry with the URL exists, it is updated.
-*/
-void HistoryModel::unHide(const QUrl& url)
-{
-    if (url.isEmpty() || !m_hiddenEntries.contains(url)) {
-        return;
-    }
-
-    m_hiddenEntries.removeAll(url);
-    removeEntryFromHiddenDatabaseByUrl(url);
-
-    QVector<int> roles;
-    roles << Hidden;
-
-    QList<int> affectedIndexes;
-    for (int i = 0; i < m_entries.count(); ++i) {                       
-        if (m_entries.at(i).url == url) {
-            HistoryEntry& entry = m_entries[i];
-            entry.hidden = false;
-            affectedIndexes << i;
-        }
-    }                                                                   
-
-    Q_FOREACH(int idx, affectedIndexes) {
-        Q_EMIT dataChanged(this->index(idx, 0), this->index(idx, 0), roles);
-    } 
-}
-
-/*!
     Remove a given URL from the history model.
 
     If the URL was not previously visited, do nothing.
@@ -496,4 +432,68 @@ void HistoryModel::clearDatabase()
     deleteStatement = QLatin1String("DELETE FROM history_hidden;");
     deleteHiddenQuery.prepare(deleteStatement);
     deleteHiddenQuery.exec();
+}
+
+/*!
+    Mark an entry in the model as hidden.
+
+    Add a new entry to the hidden list.
+    If an entry with the URL exists, it is updated.
+*/
+void HistoryModel::hide(const QUrl& url)
+{
+    if (url.isEmpty() || m_hiddenEntries.contains(url)) {
+        return;
+    }
+
+    m_hiddenEntries.append(url);
+    insertNewEntryInHiddenDatabase(url);
+
+    QVector<int> roles;
+    roles << Hidden;
+
+    QList<int> affectedIndexes;
+    for (int i = 0; i < m_entries.count(); ++i) {                       
+        if (m_entries.at(i).url == url) {
+            HistoryEntry& entry = m_entries[i];
+            entry.hidden = true;
+            affectedIndexes << i;
+        }
+    }                                                                   
+
+    Q_FOREACH(int idx, affectedIndexes) {
+        Q_EMIT dataChanged(this->index(idx, 0), this->index(idx, 0), roles);
+    } 
+}
+
+/*!
+    Mark an entry in the model as not hidden.
+
+    If an entry with the URL exists on the hidden entries, it is removed.
+    If an entry with the URL exists, it is updated.
+*/
+void HistoryModel::unHide(const QUrl& url)
+{
+    if (url.isEmpty() || !m_hiddenEntries.contains(url)) {
+        return;
+    }
+
+    m_hiddenEntries.removeAll(url);
+    removeEntryFromHiddenDatabaseByUrl(url);
+
+    QVector<int> roles;
+    roles << Hidden;
+
+    QList<int> affectedIndexes;
+    for (int i = 0; i < m_entries.count(); ++i) {                       
+        if (m_entries.at(i).url == url) {
+            HistoryEntry& entry = m_entries[i];
+            entry.hidden = false;
+            affectedIndexes << i;
+        }
+    }                                                                   
+
+    Q_FOREACH(int idx, affectedIndexes) {
+        Q_EMIT dataChanged(this->index(idx, 0), this->index(idx, 0), roles);
+    } 
 }
