@@ -77,8 +77,7 @@ void HistoryModel::createOrAlterDatabaseSchema()
     createQuery.exec();
 
     QSqlQuery createHiddenQuery(m_database);
-    query = QLatin1String("CREATE TABLE IF NOT EXISTS history_hidden "
-                          "(url VARCHAR, hiddenAt DATETIME);");
+    query = QLatin1String("CREATE TABLE IF NOT EXISTS history_hidden (url VARCHAR);");
     createHiddenQuery.prepare(query);
     createHiddenQuery.exec();
 
@@ -354,12 +353,10 @@ void HistoryModel::insertNewEntryInDatabase(const HistoryEntry& entry)
 void HistoryModel::insertNewEntryInHiddenDatabase(const QUrl& url)
 {
     QMutexLocker ml(&m_dbMutex);
-    QDateTime now = QDateTime::currentDateTimeUtc();
     QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO history_hidden (url, hiddenAt) VALUES (?, ?);");
+    static QString insertStatement = QLatin1String("INSERT INTO history_hidden (url) VALUES (?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(url.toString());
-    query.addBindValue(now.toTime_t());
     query.exec();
 }
 
