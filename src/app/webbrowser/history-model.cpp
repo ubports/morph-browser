@@ -452,18 +452,13 @@ void HistoryModel::hide(const QUrl& url)
     QVector<int> roles;
     roles << Hidden;
 
-    QList<int> affectedIndexes;
-    for (int i = 0; i < m_entries.count(); ++i) {                       
-        if (m_entries.at(i).url == url) {
-            HistoryEntry& entry = m_entries[i];
-            entry.hidden = true;
-            affectedIndexes << i;
+    Q_FOREACH (const HistoryEntry& entry, m_entries) {                       
+        if (entry.url == url) {
+            int idx = m_entries.indexOf(entry);
+            m_entries[idx].hidden = true;
+            Q_EMIT dataChanged(this->index(idx, 0), this->index(idx, 0), roles);
         }
     }                                                                   
-
-    Q_FOREACH(int idx, affectedIndexes) {
-        Q_EMIT dataChanged(this->index(idx, 0), this->index(idx, 0), roles);
-    } 
 }
 
 /*!
@@ -484,16 +479,11 @@ void HistoryModel::unHide(const QUrl& url)
     QVector<int> roles;
     roles << Hidden;
 
-    QList<int> affectedIndexes;
-    for (int i = 0; i < m_entries.count(); ++i) {                       
-        if (m_entries.at(i).url == url) {
-            HistoryEntry& entry = m_entries[i];
-            entry.hidden = false;
-            affectedIndexes << i;
+    Q_FOREACH (const HistoryEntry& entry, m_entries) {                       
+        if (entry.url == url) {
+            int idx = m_entries.indexOf(entry);
+            m_entries[idx].hidden = false;
+            Q_EMIT dataChanged(this->index(idx, 0), this->index(idx, 0), roles);
         }
     }                                                                   
-
-    Q_FOREACH(int idx, affectedIndexes) {
-        Q_EMIT dataChanged(this->index(idx, 0), this->index(idx, 0), roles);
-    } 
 }
