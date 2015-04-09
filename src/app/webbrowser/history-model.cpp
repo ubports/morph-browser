@@ -76,11 +76,6 @@ void HistoryModel::createOrAlterDatabaseSchema()
     createQuery.prepare(query);
     createQuery.exec();
 
-    QSqlQuery createHiddenQuery(m_database);
-    query = QLatin1String("CREATE TABLE IF NOT EXISTS history_hidden (url VARCHAR);");
-    createHiddenQuery.prepare(query);
-    createHiddenQuery.exec();
-
     // The first version of the database schema didn’t have a 'domain' column
     QSqlQuery tableInfoQuery(m_database);
     query = QLatin1String("PRAGMA TABLE_INFO(history);");
@@ -100,6 +95,11 @@ void HistoryModel::createOrAlterDatabaseSchema()
         // costly operation that would slow down the application startup,
         // do not do it here.
     }
+
+    QSqlQuery createHiddenQuery(m_database);
+    query = QLatin1String("CREATE TABLE IF NOT EXISTS history_hidden (url VARCHAR);");
+    createHiddenQuery.prepare(query);
+    createHiddenQuery.exec();
 }
 
 void HistoryModel::populateFromDatabase()
@@ -445,7 +445,6 @@ void HistoryModel::hide(const QUrl& url)
     }
 
     m_hiddenEntries.append(url);
-    insertNewEntryInHiddenDatabase(url);
 
     QVector<int> roles;
     roles << Hidden;
@@ -457,6 +456,8 @@ void HistoryModel::hide(const QUrl& url)
             Q_EMIT dataChanged(this->index(i, 0), this->index(i, 0), roles);
         }
     }                                                                   
+
+    insertNewEntryInHiddenDatabase(url);
 }
 
 /*!
@@ -472,7 +473,6 @@ void HistoryModel::unHide(const QUrl& url)
     }
 
     m_hiddenEntries.removeAll(url);
-    removeEntryFromHiddenDatabaseByUrl(url);
 
     QVector<int> roles;
     roles << Hidden;
@@ -484,4 +484,6 @@ void HistoryModel::unHide(const QUrl& url)
             Q_EMIT dataChanged(this->index(i, 0), this->index(i, 0), roles);
         }
     }                                                                   
+
+    removeEntryFromHiddenDatabaseByUrl(url);
 }
