@@ -20,6 +20,7 @@
 #include "history-model.h"
 
 // Qt
+#include <QtCore/QMutex>
 #include <QtSql/QSqlQuery>
 
 #define CONNECTION_NAME "webbrowser-app-history"
