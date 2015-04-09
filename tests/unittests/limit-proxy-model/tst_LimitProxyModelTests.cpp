@@ -24,8 +24,8 @@
 #include "domain-utils.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
-#include "top-sites-model.h"
 #include "limit-proxy-model.h"
+#include "top-sites-model.h"
 
 class LimitProxyModelTests : public QObject
 {

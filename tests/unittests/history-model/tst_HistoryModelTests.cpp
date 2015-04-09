@@ -147,14 +147,14 @@ private Q_SLOTS:
         QCOMPARE(spyChanged.count(), 1);
         QList<QVariant> args = spyChanged.takeFirst();
         QVector<int> roles = args.at(2).value<QVector<int> >();
-        QVERIFY(roles.size() >= 1);
+        QVERIFY(roles.size() == 1);
         QVERIFY(roles.contains(HistoryModel::Hidden));
         model->unHide(QUrl("http://example.org/"));
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Hidden).toBool(), false);
         QCOMPARE(spyChanged.count(), 1);
         args = spyChanged.takeFirst();
         roles = args.at(2).value<QVector<int> >();
-        QVERIFY(roles.size() >= 1);
+        QVERIFY(roles.size() == 1);
         QVERIFY(roles.contains(HistoryModel::Hidden));
     }
 
