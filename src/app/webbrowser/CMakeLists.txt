@@ -14,9 +14,9 @@ set(WEBBROWSER_APP_MODELS_SRC
     history-matches-model.cpp
     history-model.cpp
     history-timeframe-model.cpp
-    top-sites-model.cpp
     limit-proxy-model.cpp
     tabs-model.cpp
+    top-sites-model.cpp
 )
 
 set(WEBBROWSER_APP_MODELS webbrowser-app-models)
