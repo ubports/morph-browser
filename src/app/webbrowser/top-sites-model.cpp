@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "top-sites-model.h"
-#include "history-timeframe-model.h"
 #include "history-model.h"
+#include "history-timeframe-model.h"
+#include "top-sites-model.h"
 
 /*!
     \class TopSitesModel
