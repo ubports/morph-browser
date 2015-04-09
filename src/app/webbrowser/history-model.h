@@ -23,10 +23,10 @@
 #include <QtCore/QAbstractListModel>
 #include <QtCore/QDateTime>
 #include <QtCore/QList>
+#include <QtCore/QMutex>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtSql/QSqlDatabase>
-#include <QtCore/QMutex>
 
 class HistoryModel : public QAbstractListModel
 {
