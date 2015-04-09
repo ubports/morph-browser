@@ -20,6 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 
 Column {
+    id: urlsList
     property alias model: urlsListRepeater.model
     property alias footerLabelText: footerLabel.text
     property alias footerLabelVisible: footerLabel.visible
@@ -38,7 +39,7 @@ Column {
 
         delegate: UrlDelegate{
             id: urlDelegate
-            width: parent.width
+            width: urlsList.width
             height: units.gu(5)
 
             icon: model.icon
