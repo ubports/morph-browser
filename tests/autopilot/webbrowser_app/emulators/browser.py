@@ -178,7 +178,6 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def go_to_url(self, url):
-        self.focus()
         self.write(url)
         self.text_field.keyboard.press_and_release('Enter')
 
