@@ -72,7 +72,7 @@ private Q_SLOTS:
         delete timeframe2;
     }
 
-    void shouldMatchAllWhenNothingIsHide()
+    void shouldMatchAllWhenNothingIsHidden()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         QTest::qWait(100);
