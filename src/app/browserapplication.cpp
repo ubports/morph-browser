@@ -128,8 +128,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
     QStringList appIdParts =
         QString::fromUtf8(qgetenv("APP_ID")).split('_');
     QCoreApplication::setApplicationName(appIdParts.first());
-    // Set also the organization name, needed by QSettings
-    QCoreApplication::setOrganizationName(appIdParts.first());
+    QCoreApplication::setOrganizationDomain(QCoreApplication::applicationName());
     // Get also the the first two components of the app ID: <package>_<app>,
     // which is needed by Online Accounts.
     QString unversionedAppId = QStringList(appIdParts.mid(0, 2)).join('_');

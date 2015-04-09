@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-03-22 21:26+0100\n"
+"POT-Creation-Date: 2015-04-08 20:37+0200\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-03-31 05:56+0000\n"
+"X-Launchpad-Export-Date: 2015-04-09 05:41+0000\n"
 "X-Generator: Launchpad (build 17413)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -465,6 +465,10 @@ msgstr "បើក​ផ្ទាំង"
 msgid "New tab"
 msgstr "ផ្ទាំង​ថ្មី"
 
+#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
+msgid "Settings"
+msgstr ""
+
 #: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
 msgstr "ធ្វើរួច"
@@ -551,6 +555,8 @@ msgstr "វិញ្ញា​បន​បត្រម៉ាស៊ីនបម្
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"វិញ្ញាបនបត្រម៉ាស៊ីនបម្រើបានបរាជ័យក្នុងការត្រួតពិនិត្យសន្តិសុខរបស់យើងសម្រាប់ហេ"
+"តុផលដែលមិនស្គាល់មួយ ។"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
@@ -559,6 +565,45 @@ msgstr "អ្នកត្រូវបានភ្ជាប់ទៅ"
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
 msgstr "ដែលត្រូវបានគ្រប់គ្រងដោយ"
+
+#: src/app/webbrowser/SettingsPage.qml:81
+#: src/app/webbrowser/SettingsPage.qml:175
+msgid "Search engine"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:271
+msgid "Homepage"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:101
+msgid "Restore previous session at startup"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:118
+msgid "Allow opening new tabs in background"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:138
+#: src/app/webbrowser/SettingsPage.qml:224
+msgid "Privacy"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:146
+msgid "Reset browser settings"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:245
+msgid "Clear Browsing History"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Cache"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:295
+msgid "Save"
+msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"

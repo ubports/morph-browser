@@ -123,6 +123,15 @@ class BrowserTestCaseBase(AutopilotTestCase):
                 self.main_window.address_bar.activeFocus,
                 Eventually(Equals(True)))
 
+    def open_settings(self):
+        chrome = self.main_window.chrome
+        drawer_button = chrome.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        chrome.get_drawer()
+        settings_action = chrome.get_drawer_action("settings")
+        self.pointing_device.click_object(settings_action)
+        return self.main_window.get_settings_page()
+
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
                         Eventually(Equals(count)))
