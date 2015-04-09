@@ -72,10 +72,9 @@ private Q_SLOTS:
         delete timeframe2;
     }
 
-    void shouldMatchAllWhenNothingIsHide()
+    void shouldMatchAllWhenNothingIsHidden()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
-        QTest::qWait(100);
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
         QCOMPARE(topsites->rowCount(), 2);
     }
@@ -83,7 +82,6 @@ private Q_SLOTS:
     void shouldFilterOutHiddenUrls()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
-        QTest::qWait(100);
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
         QCOMPARE(topsites->rowCount(), 2);
         model->hide(QUrl("http://example.org"));
@@ -94,9 +92,7 @@ private Q_SLOTS:
     void shouldBeSortedByVisits()
     {
         model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
-        QTest::qWait(1001);
         model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
-        QTest::qWait(1001);
         model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
         QCOMPARE(model->data(model->index(0, 0), HistoryModel::Domain).toString(), QString("ubuntu.com"));
         QCOMPARE(model->data(model->index(1, 0), HistoryModel::Domain).toString(), QString("example.org"));

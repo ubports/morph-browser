@@ -23,10 +23,10 @@
 #include <QtCore/QAbstractListModel>
 #include <QtCore/QDateTime>
 #include <QtCore/QList>
+#include <QtCore/QMutex>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 #include <QtSql/QSqlDatabase>
-#include <QtCore/QMutex>
 
 class HistoryModel : public QAbstractListModel
 {
@@ -61,11 +61,11 @@ public:
     void setDatabasePath(const QString& path);
 
     Q_INVOKABLE int add(const QUrl& url, const QString& title, const QUrl& icon);
-    Q_INVOKABLE void hide(const QUrl& url);
-    Q_INVOKABLE void unHide(const QUrl& url);
     Q_INVOKABLE void removeEntryByUrl(const QUrl& url);
     Q_INVOKABLE void removeEntriesByDomain(const QString& domain);
     Q_INVOKABLE void clearAll();
+    Q_INVOKABLE void hide(const QUrl& url);
+    Q_INVOKABLE void unHide(const QUrl& url);
 
 Q_SIGNALS:
     void databasePathChanged() const;

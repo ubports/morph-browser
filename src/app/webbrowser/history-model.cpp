@@ -20,6 +20,7 @@
 #include "history-model.h"
 
 // Qt
+#include <QtCore/QMutex>
 #include <QtSql/QSqlQuery>
 
 #define CONNECTION_NAME "webbrowser-app-history"
@@ -76,8 +77,7 @@ void HistoryModel::createOrAlterDatabaseSchema()
     createQuery.exec();
 
     QSqlQuery createHiddenQuery(m_database);
-    query = QLatin1String("CREATE TABLE IF NOT EXISTS history_hidden "
-                          "(url VARCHAR, hiddenAt DATETIME);");
+    query = QLatin1String("CREATE TABLE IF NOT EXISTS history_hidden (url VARCHAR);");
     createHiddenQuery.prepare(query);
     createHiddenQuery.exec();
 
@@ -293,70 +293,6 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
 }
 
 /*!
-    Mark an entry in the model as hidden.
-
-    Add a new entry to the hidden list.
-    If an entry with the URL exists, it is updated.
-*/
-void HistoryModel::hide(const QUrl& url)
-{
-    if (url.isEmpty() || m_hiddenEntries.contains(url)) {
-        return;
-    }
-
-    m_hiddenEntries.append(url);
-    insertNewEntryInHiddenDatabase(url);
-
-    QVector<int> roles;
-    roles << Hidden;
-
-    QList<int> affectedIndexes;
-    for (int i = 0; i < m_entries.count(); ++i) {                       
-        if (m_entries.at(i).url == url) {
-            HistoryEntry& entry = m_entries[i];
-            entry.hidden = true;
-            affectedIndexes << i;
-        }
-    }                                                                   
-
-    Q_FOREACH(int idx, affectedIndexes) {
-        Q_EMIT dataChanged(this->index(idx, 0), this->index(idx, 0), roles);
-    } 
-}
-
-/*!
-    Mark an entry in the model as not hidden.
-
-    If an entry with the URL exists on the hidden entries, it is removed.
-    If an entry with the URL exists, it is updated.
-*/
-void HistoryModel::unHide(const QUrl& url)
-{
-    if (url.isEmpty() || !m_hiddenEntries.contains(url)) {
-        return;
-    }
-
-    m_hiddenEntries.removeAll(url);
-    removeEntryFromHiddenDatabaseByUrl(url);
-
-    QVector<int> roles;
-    roles << Hidden;
-
-    QList<int> affectedIndexes;
-    for (int i = 0; i < m_entries.count(); ++i) {                       
-        if (m_entries.at(i).url == url) {
-            HistoryEntry& entry = m_entries[i];
-            entry.hidden = false;
-            affectedIndexes << i;
-        }
-    }                                                                   
-
-    Q_FOREACH(int idx, affectedIndexes) {
-        Q_EMIT dataChanged(this->index(idx, 0), this->index(idx, 0), roles);
-    } 
-}
-
-/*!
     Remove a given URL from the history model.
 
     If the URL was not previously visited, do nothing.
@@ -417,12 +353,10 @@ void HistoryModel::insertNewEntryInDatabase(const HistoryEntry& entry)
 void HistoryModel::insertNewEntryInHiddenDatabase(const QUrl& url)
 {
     QMutexLocker ml(&m_dbMutex);
-    QDateTime now = QDateTime::currentDateTimeUtc();
     QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO history_hidden (url, hiddenAt) VALUES (?, ?);");
+    static QString insertStatement = QLatin1String("INSERT INTO history_hidden (url) VALUES (?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(url.toString());
-    query.addBindValue(now.toTime_t());
     query.exec();
 }
 
@@ -496,4 +430,58 @@ void HistoryModel::clearDatabase()
     deleteStatement = QLatin1String("DELETE FROM history_hidden;");
     deleteHiddenQuery.prepare(deleteStatement);
     deleteHiddenQuery.exec();
+}
+
+/*!
+    Mark an entry in the model as hidden.
+
+    Add a new entry to the hidden list.
+    If an entry with the URL exists, it is updated.
+*/
+void HistoryModel::hide(const QUrl& url)
+{
+    if (url.isEmpty() || m_hiddenEntries.contains(url)) {
+        return;
+    }
+
+    m_hiddenEntries.append(url);
+    insertNewEntryInHiddenDatabase(url);
+
+    QVector<int> roles;
+    roles << Hidden;
+
+    for (int i = 0; i < m_entries.count(); ++i) {
+        HistoryEntry& entry = m_entries[i];
+        if (entry.url == url) {
+            entry.hidden = true;
+            Q_EMIT dataChanged(this->index(i, 0), this->index(i, 0), roles);
+        }
+    }                                                                   
+}
+
+/*!
+    Mark an entry in the model as not hidden.
+
+    If an entry with the URL exists on the hidden entries, it is removed.
+    If an entry with the URL exists, it is updated.
+*/
+void HistoryModel::unHide(const QUrl& url)
+{
+    if (url.isEmpty() || !m_hiddenEntries.contains(url)) {
+        return;
+    }
+
+    m_hiddenEntries.removeAll(url);
+    removeEntryFromHiddenDatabaseByUrl(url);
+
+    QVector<int> roles;
+    roles << Hidden;
+
+    for (int i = 0; i < m_entries.count(); ++i) {
+        HistoryEntry& entry = m_entries[i];
+        if (entry.url == url) {
+            entry.hidden = false;
+            Q_EMIT dataChanged(this->index(i, 0), this->index(i, 0), roles);
+        }
+    }                                                                   
 }
