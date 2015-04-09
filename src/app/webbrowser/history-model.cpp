@@ -444,9 +444,6 @@ void HistoryModel::hide(const QUrl& url)
         return;
     }
 
-    m_hiddenEntries.append(url);
-    insertNewEntryInHiddenDatabase(url);
-
     QVector<int> roles;
     roles << Hidden;
 
@@ -457,6 +454,9 @@ void HistoryModel::hide(const QUrl& url)
             Q_EMIT dataChanged(this->index(i, 0), this->index(i, 0), roles);
         }
     }                                                                   
+
+    m_hiddenEntries.append(url);
+    insertNewEntryInHiddenDatabase(url);
 }
 
 /*!
@@ -471,9 +471,6 @@ void HistoryModel::unHide(const QUrl& url)
         return;
     }
 
-    m_hiddenEntries.removeAll(url);
-    removeEntryFromHiddenDatabaseByUrl(url);
-
     QVector<int> roles;
     roles << Hidden;
 
@@ -484,4 +481,7 @@ void HistoryModel::unHide(const QUrl& url)
             Q_EMIT dataChanged(this->index(i, 0), this->index(i, 0), roles);
         }
     }                                                                   
+
+    m_hiddenEntries.removeAll(url);
+    removeEntryFromHiddenDatabaseByUrl(url);
 }
