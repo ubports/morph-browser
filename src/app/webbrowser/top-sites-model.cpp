@@ -22,11 +22,11 @@
 
 /*!
     \class TopSitesModel
-    \brief Proxy model that filters a history model based on hidden role
+    \brief Proxy model that filters a history model based on hidden role and sorts it by number of visits
 
-    TopSitesModel is a proxy model that filters a
-    HistoryTimeframeModel based on the hidden rule
-    (i.e. ignores history that was marked as removed by user).
+    TopSitesModel is a proxy model that filters a HistoryTimeframeModel
+    based on the hidden rule and sorts it by the number of visits
+    (i.e. the history with the greatest number of visits first ignoring entries marked as removed by user).
 */
 TopSitesModel::TopSitesModel(QObject* parent)
     : QSortFilterProxyModel(parent)
