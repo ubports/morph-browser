@@ -156,6 +156,7 @@ Item {
 
         UrlsList {
             width: parent.width
+            opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
 
             model: historyListModel
 
@@ -163,6 +164,8 @@ Item {
 
             onUrlClicked: newTabView.historyEntryClicked(url)
             onUrlRemoved: newTabView.historyModel.hide(url)
+
+            Behavior on opacity { UbuntuNumberAnimation {} }
         }
     }
 }
