@@ -125,10 +125,9 @@ Column {
         }
     }
 
-    Rectangle {
+    Item {
         width: parent.width
         height: footerLabel.visible ? footerLabel.height + units.gu(6) : units.gu(3) 
-        color: "#f6f6f6"
 
         MouseArea {
             anchors.centerIn: footerLabel
