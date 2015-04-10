@@ -94,6 +94,8 @@ WebappContainer::WebappContainer(int& argc, char** argv):
 
 bool WebappContainer::initialize()
 {
+    earlyEnvironment();
+
     if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
         parseCommandLine();
         parseExtraConfiguration();
@@ -270,10 +272,20 @@ void WebappContainer::printUsage() const
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
+    out << "  --enable-media-hub-audio            enable media-hub for audio playback" << endl;
     out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
     out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
+}
+
+void WebappContainer::earlyEnvironment()
+{
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument.startsWith("--enable-media-hub-audio")) {
+            qputenv("OXIDE_ENABLE_MEDIA_HUB_AUDIO", QString("1").toLocal8Bit().constData());
+        }
+    }
 }
 
 void WebappContainer::parseCommandLine()
