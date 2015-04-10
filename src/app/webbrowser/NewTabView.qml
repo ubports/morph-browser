@@ -158,7 +158,8 @@ Item {
             width: parent.width
             opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
 
-            model: opacity == 0.0 ? "" : historyListModel
+            height: opacity == 0.0 ? 0 : childrenRect.height
+            model: historyListModel
 
             footerLabelVisible: false
 
