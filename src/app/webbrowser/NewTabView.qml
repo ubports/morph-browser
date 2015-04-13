@@ -35,49 +35,12 @@ Item {
     QtObject {
         id: internal
 
-        property int bookmarksCountLimit: 5
+        property int bookmarksCountLimit: 4
         property int numberOfBookmarks: bookmarksListModel.count !== undefined ?
                                             bookmarksListModel.unlimitedCount : 0
 
         property int numberOfTopSites: historyListModel.count !== undefined ?
                                                     historyListModel.count : 0
-
-        onNumberOfBookmarksChanged: {
-            if (numberOfBookmarks == 0 &&
-                sectionsModel.get(0).section == "bookmarks") {
-                sectionsModel.remove(0);
-            } else if (numberOfBookmarks == 1 &&
-                sectionsModel.get(0).section != "bookmarks") {
-                sectionsModel.insert(0, { section: "bookmarks" });
-            }
-        }
-
-        onNumberOfTopSitesChanged: {
-            if (numberOfTopSites == 0) {
-                if (sectionsModel.get(0).section == "topsites") {
-                    sectionsModel.remove(0);
-                } else if (sectionsModel.get(1).section == "topsites") {
-                    sectionsModel.remove(1);
-                }
-            } else if (numberOfTopSites == 1 &&
-                sectionsModel.get(0).section != "topsites" &&
-                sectionsModel.get(1).section != "topsites") {
-                sectionsModel.insert(0, { section: "topsites" });
-            }
-        }
-    }
-
-    ListModel {
-        id: sectionsModel
-
-        Component.onCompleted: {
-            if (internal.numberOfBookmarks > 0) {
-                sectionsModel.append({ section: "bookmarks" });
-            }
-            if (internal.numberOfTopSites > 0) {
-                sectionsModel.append({ section: "topsites" });
-            }
-        }
     }
 
     LimitProxyModel {
@@ -104,53 +67,25 @@ Item {
     }
 
     Rectangle {
-        id: newTabBackground
         anchors.fill: parent
         color: "#f6f6f6"
     }
 
-    ListView {
-        id: newTabListView
+    Flickable {
         anchors.fill: parent
-
-        model: sectionsModel
-
-        delegate: Loader {
+        contentHeight: contentColumn.height - parent.height
+        Column {
+            id: contentColumn
             anchors {
                 left: parent.left
+                leftMargin: units.gu(1.5)
                 right: parent.right
-                leftMargin: modelData == "bookmarks" ? 0 : units.gu(2)
-                topMargin: units.gu(2)
-                rightMargin: units.gu(2)
+                rightMargin: units.gu(1.5)
             }
-
-            width: parent.width
-            height: children.height
-
-            opacity: section == "topsites" && internal.bookmarksCountLimit > 5 ? 0.0 : 1.0
-            Behavior on opacity { UbuntuNumberAnimation {} }
-
-            sourceComponent: modelData == "bookmarks" ? bookmarksComponent :
-                                                        topSitesComponent
-        }
-
-        section.property: "section"
-        section.delegate: Column {
-            anchors {
-                left: parent.left
-                leftMargin: units.gu(2)
-                right: parent.right
-                rightMargin: units.gu(2)
-            }
-
-            opacity: (section == "topsites" && internal.bookmarksCountLimit > 5) ? 0.0 : 1.0
-            Behavior on opacity { UbuntuNumberAnimation {} }
-
-            height: sectionHeader.height + units.gu(3)
-            spacing: section == "bookmarks" ? units.gu(-1.5) : units.gu(-3)
+            height: childrenRect.height
 
             Row {
-                height: units.gu(6)
+                height: units.gu(4)
                 anchors { left: parent.left; right: parent.right }
                 spacing: units.gu(1.5)
 
@@ -159,54 +94,40 @@ Item {
                     color: "#dd4814"
                     name: "starred"
 
-                    height: sectionHeader.height
+                    height: units.gu(3)
                     width: height
 
                     anchors {
                         leftMargin: units.gu(1)
-                        verticalCenter: sectionHeader.verticalCenter
+                        verticalCenter: moreButton.verticalCenter
                     }
-
-                    visible: section == "bookmarks"
                 }
 
                 Text {
-                    id: sectionHeader
-
-                    visible: parent.height > 0
                     width: parent.width - starredIcon.width - moreButton.width - units.gu(3)
+                    anchors.verticalCenter: moreButton.verticalCenter
 
-                    anchors {
-                        verticalCenter: section == "bookmarks" ? moreButton.verticalCenter : undefined
-                    }
-
-                    text: {
-                        if (section == "bookmarks") {
-                            return i18n.tr("Bookmarks")
-                        } else if (section == "topsites") {
-                            return i18n.tr("Top sites")
-                        }
-                    }
+                    text: i18n.tr("Bookmarks")
                 }
 
                 Button {
                     id: moreButton
-                    height: parent.height - units.gu(2.5)
+                    height: parent.height - units.gu(0.5)
 
-                    anchors { top: parent.top; topMargin: units.gu(0.5) }
+                    anchors { top: parent.top; topMargin: units.gu(0.25) }
 
-                    color: newTabBackground.color
+                    //color: newTabBackground.color
                     strokeColor: "#5d5d5d"
 
-                    visible: section == "bookmarks" && internal.numberOfBookmarks > 5
+                    visible: internal.numberOfBookmarks > 4
 
                     text: internal.bookmarksCountLimit >= internal.numberOfBookmarks
-                                                ? i18n.tr("less") : i18n.tr("more")
+                    ? i18n.tr("less") : i18n.tr("more")
 
                     onClicked: {
                         internal.numberOfBookmarks > internal.bookmarksCountLimit ?
-                                internal.bookmarksCountLimit +=5 :
-                                internal.bookmarksCountLimit = 5
+                        internal.bookmarksCountLimit += 5:
+                        internal.bookmarksCountLimit = 4;
                     }
                 }
             }
@@ -216,114 +137,183 @@ Item {
                 anchors { left: parent.left; right: parent.right }
                 color: "#acacac"
             }
-        }
 
-        section.labelPositioning: ViewSection.InlineLabels |
-                                    ViewSection.CurrentLabelAtStart
-    }
+            Column {
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(-1.5)
+                    right: parent.right
+                }
 
-    Component {
-        id: bookmarksComponent
+                height: units.gu(5) + bookmarksList.height
+                spacing: 0
 
-        BookmarksList {
-            width: parent.width
+                UrlDelegate {
+                    id: homepageBookmark
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: units.gu(5)
 
-            model: bookmarksListModel
+                    title: i18n.tr('Homepage')
 
-            onBookmarkClicked: newTabView.bookmarkClicked(url)
-            onBookmarkRemoved: newTabView.bookmarkRemoved(url)
-        }
-    }
+                    url: settings.homepage
+                    onItemClicked: newTabView.bookmarkClicked(url)
+                }
 
-    Component {
-        id: topSitesComponent
-
-        Flow {
-            width: parent.width
-
-            spacing: units.gu(1)
-
-            Repeater {
-                model: historyListModel
-
-                delegate: MouseArea {
-                    width: units.gu(18)
-                    height: childrenRect.height
-
-                    Column {
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                        }
-                        //height: childrenRect.height
-
-                        spacing: units.gu(1)
-
-                        Label {
-                            width: parent.width
-                            height: units.gu(2)
-
-                            fontSize: "small"
-                            wrapMode: Text.Wrap
-                            elide: Text.ElideRight
-
-                            text: model.title ? model.title : model.url
-                        }
-
-                        UbuntuShape {
-                            width: parent.width
-                            height: units.gu(10)
-
-                            // we need that to clip the background image
-                            clip: true
-
-                            Image {
-                                source: Qt.resolvedUrl("assets/tab-artwork.png")
-                                asynchronous: true
-                                width: parent.height
-                                height: width
-                                opacity: 0.6
-                                anchors {
-                                    right: parent.right
-                                    bottom: parent.bottom
-                                    margins: units.gu(-3)
-                                }
-                            }
-                            Column {
-                                anchors {
-                                    left: parent.left
-                                    right: parent.right
-                                    bottom: parent.bottom
-                                    margins: units.gu(1)
-                                }
-
-                                Favicon {
-                                    source: model.icon
-                                }
-
-                                Label {
-                                    anchors {
-                                        left: parent.left
-                                        right: parent.right
-                                    }
-                                    elide: Text.ElideRight
-                                    text: model.domain
-                                    fontSize: "small"
-                                }
-                                Label {
-                                    anchors {
-                                        left: parent.left
-                                        right: parent.right
-                                    }
-                                    elide: Text.ElideRight
-                                    text: model.title
-                                    fontSize: "small"
-                                }
-                            }
-                        }
+                BookmarksList {
+                    id: bookmarksList
+                    anchors {
+                        left: parent.left
+                        right: parent.right
                     }
 
-                    onClicked: historyEntryClicked(model.url)
+                    spacing: 0
+
+                    model: bookmarksListModel
+
+                    onBookmarkClicked: newTabView.bookmarkClicked(url)
+                    onBookmarkRemoved: newTabView.bookmarkRemoved(url)
+                }
+            }
+
+            Column {
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+
+                visible: internal.bookmarksCountLimit > 4 ? 0.0 : 1.0
+
+                spacing: units.gu(-3)
+
+                Text {
+                    height: units.gu(6)
+                    anchors { left: parent.left; right: parent.right }
+                    text: i18n.tr("Top sites")
+                }
+
+                Rectangle {
+                    height: units.gu(0.1)
+                    anchors { left: parent.left; right: parent.right }
+                    color: "#acacac"
+                }
+            }
+
+            Rectangle {
+                height: units.gu(1)
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                color: "#f6f6f6"
+            }
+
+            Text {
+                height: units.gu(6)
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                horizontalAlignment: Text.AlignHCenter
+
+                visible: internal.numberOfTopSites === 0
+
+                text: i18n.tr('You haven\'t visited any site yet')
+            }
+
+            Flow {
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+
+                visible: internal.bookmarksCountLimit > 4 ? 0.0 : 1.0
+
+                spacing: units.gu(1)
+
+                Repeater {
+                    model: historyListModel
+
+                    delegate: MouseArea {
+                        width: units.gu(18)
+                        height: childrenRect.height
+
+                        Column {
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                            }
+                            //height: childrenRect.height
+
+                            spacing: units.gu(1)
+
+                            Label {
+                                width: parent.width
+                                height: units.gu(2)
+
+                                fontSize: "small"
+                                wrapMode: Text.Wrap
+                                elide: Text.ElideRight
+
+                                text: model.title ? model.title : model.url
+                            }
+
+                            UbuntuShape {
+                                width: parent.width
+                                height: units.gu(10)
+
+                                // we need that to clip the background image
+                                clip: true
+
+                                Image {
+                                    source: Qt.resolvedUrl("assets/tab-artwork.png")
+                                    asynchronous: true
+                                    width: parent.height
+                                    height: width
+                                    opacity: 0.6
+                                    anchors {
+                                        right: parent.right
+                                        bottom: parent.bottom
+                                        margins: units.gu(-3)
+                                    }
+                                }
+                                Column {
+                                    anchors {
+                                        left: parent.left
+                                        right: parent.right
+                                        bottom: parent.bottom
+                                        margins: units.gu(1)
+                                    }
+
+                                    Favicon {
+                                        source: model.icon
+                                    }
+
+                                    Label {
+                                        anchors {
+                                            left: parent.left
+                                            right: parent.right
+                                        }
+                                        elide: Text.ElideRight
+                                        text: model.domain
+                                        fontSize: "small"
+                                    }
+                                    Label {
+                                        anchors {
+                                            left: parent.left
+                                            right: parent.right
+                                        }
+                                        elide: Text.ElideRight
+                                        text: model.title
+                                        fontSize: "small"
+                                    }
+                                }
+                            }
+                        }
+                        onClicked: historyEntryClicked(model.url)
+                    }
                 }
             }
         }
