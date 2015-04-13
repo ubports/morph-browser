@@ -818,6 +818,11 @@ BrowserView {
         onStateChanged: {
             if (Qt.application.state != Qt.ApplicationActive) {
                 session.save()
+                // Always exit fullscreen mode when the application becomes
+                // inactive (see https://launchpad.net/bugs/1331475).
+                if (browser.currentWebview) {
+                    browser.currentWebview.fullscreen = false
+                }
             }
         }
         onAboutToQuit: session.save()
