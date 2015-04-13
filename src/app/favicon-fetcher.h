@@ -29,7 +29,7 @@
 class QNetworkAccessManager;
 class QNetworkReply;
 
-class FaviconFetcher Q_DECL_FINAL : public QObject
+class FaviconFetcher : public QObject
 {
     Q_OBJECT
 

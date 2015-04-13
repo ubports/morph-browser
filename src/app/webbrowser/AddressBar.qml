@@ -21,6 +21,7 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import com.canonical.Oxide 1.0 as Oxide
 import ".."
+import "urlManagement.js" as UrlManagement
 
 FocusScope {
     id: addressbar
@@ -88,7 +89,7 @@ FocusScope {
 
                     readonly property bool reload: addressbar.activeFocus && addressbar.text &&
                                                    (addressbar.text == addressbar.actualUrl)
-                    readonly property bool looksLikeAUrl: internal.looksLikeAUrl(addressbar.text.trim())
+                    readonly property bool looksLikeAUrl: UrlManagement.looksLikeAUrl(addressbar.text.trim())
 
                     name: addressbar.loading ? "stop" :
                           reload ? "reload" :
@@ -235,38 +236,6 @@ FocusScope {
 
         property var securityCertificateDetails: null
 
-        function looksLikeAUrl(address) {
-            var terms = address.split(/\s/)
-            if (terms.length > 1) {
-                return false
-            }
-            if (address.substr(0, 1) == "/") {
-                return true
-            }
-            if (address.match(/^https?:\/\//) ||
-                address.match(/^file:\/\//) ||
-                address.match(/^[a-z]+:\/\//)) {
-                return true
-            }
-            if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,4}$/)) {
-                return true
-            }
-            if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
-                return true
-            }
-            return false
-        }
-
-        function fixUrl(address) {
-            var url = address
-            if (address.substr(0, 1) == "/") {
-                url = "file://" + address
-            } else if (address.indexOf("://") == -1) {
-                url = "http://" + address
-            }
-            return url
-        }
-
         function escapeHtmlEntities(query) {
             return query.replace(/\W/, encodeURIComponent)
         }
@@ -278,8 +247,8 @@ FocusScope {
 
         function validate() {
             var query = text.trim()
-            if (internal.looksLikeAUrl(query)) {
-                requestedUrl = internal.fixUrl(query)
+            if (UrlManagement.looksLikeAUrl(query)) {
+                requestedUrl = UrlManagement.fixUrl(query)
             } else {
                 requestedUrl = internal.buildSearchUrl(query)
             }

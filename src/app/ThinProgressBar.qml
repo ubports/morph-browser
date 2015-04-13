@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -26,10 +26,5 @@ ProgressBar {
 
     showProgressPercentage: false
     value: webview ? webview.loadProgress / 100 : 0.0
-    visible: webview ? webview.loading
-                       // Workaround for https://bugs.launchpad.net/oxide/+bug/1290821.
-                       // Note: this also works with a QtWebKit webview by chance,
-                       // because !undefined evaluates to true.
-                       && !webview.lastLoadStopped
-                     : false
+    visible: webview ? webview.loading : false
 }

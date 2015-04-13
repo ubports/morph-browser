@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2015-02-14 12:55+0000\n"
+"POT-Creation-Date: 2015-04-08 20:37+0200\n"
+"PO-Revision-Date: 2015-03-01 04:44+0000\n"
 "Last-Translator: Gursharnjit_Singh <ubuntuser13@gmail.com>\n"
 "Language-Team: Punjabi <pa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-02-15 06:31+0000\n"
-"X-Generator: Launchpad (build 17341)\n"
+"X-Launchpad-Export-Date: 2015-04-09 05:41+0000\n"
+"X-Generator: Launchpad (build 17413)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -46,7 +46,7 @@ msgid "Password"
 msgstr "ਪਾਸਵਰਡ"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
 msgstr "ਰੱਦ ਕਰੋ"
 
@@ -393,7 +393,7 @@ msgstr "ਜਾਓ"
 msgid "Address;URL;www"
 msgstr "ਸਿਰਨਾਵਾਂ;URL;www"
 
-#: src/app/actions/NewTab.qml:23
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
 msgid "New Tab"
 msgstr "ਨਵੀਂ ਟੈਬ"
 
@@ -433,32 +433,41 @@ msgstr "ਚਿੱਤਰ ਸੰਭਾਲੋ"
 msgid "Share…"
 msgstr "...ਸਾਂਝਾ ਕਰੋ"
 
-#: src/app/webbrowser/AddressBar.qml:208
+#: src/app/webbrowser/AddressBar.qml:195
 msgid "search or enter an address"
 msgstr "ਖੋਜੋ ਜਾਂ ਸਿਰਨਾਵਾਂ ਦਿਓ"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
 msgstr "ਹਟਾਓ"
 
-#: src/app/webbrowser/Browser.qml:160
+#: src/app/webbrowser/Browser.qml:178
 msgid "Share"
 msgstr "ਸਾਂਝਾ ਕਰੋ"
 
-#: src/app/webbrowser/Browser.qml:174
+#: src/app/webbrowser/Browser.qml:192
 msgid "History"
 msgstr "ਅਤੀਤ"
 
-#: src/app/webbrowser/Browser.qml:181
+#: src/app/webbrowser/Browser.qml:199
 msgid "Open tabs"
 msgstr "ਟੈਬਾਂ ਖੋਲ੍ਹੋ"
 
-#: src/app/webbrowser/Browser.qml:187 src/app/webbrowser/HistoryView.qml:293
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "ਨਵੀਂ ਟੈਬ"
+
+#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
+msgid "Settings"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+msgid "Done"
+msgstr "ਮੁਕੰਮਲ"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -471,17 +480,17 @@ msgstr[1] "%1 ਸਫ਼ੇ"
 msgid "Less"
 msgstr "ਘੱਟ"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
 msgstr "ਆਖਰੀ ਵਾਰ ਖੋਲ੍ਹੇ"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "ਕੱਲ੍ਹ"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
-msgid "Done"
-msgstr "ਮੁਕੰਮਲ"
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
+msgstr "ਸਾਰੇ ਚੁਣੋ"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -499,7 +508,7 @@ msgstr "ਘੱਟ ਵੇਖੋ"
 msgid "see more"
 msgstr "ਵੱਧ ਵੇਖੋ"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:58
+#: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
 msgstr "ਇਸ ਸਾਈਟ ਕੋਲ ਅਸੁਰੱਖਿਅਤ ਸਮੱਗਰੀ ਹੈ"
 
@@ -544,31 +553,66 @@ msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
 "ਸਰਵਰ ਸਰਟੀਫ਼ਿਕੇਟ ਨੇ ਇੱਕ ਅਣਜਾਣ ਕਾਰਨ ਕਰਕੇ ਸਾਡੀਆਂ ਸਰੁੱਖਿਆ ਪੜਤਾਲਾਂ ਵਿੱਚ ਫ਼ੇਲ੍ਹ ਹੋਇਆ।"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:73
+#: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
 msgstr "ਤੁਸੀਂ ਕੁਨੇਕਟ ਹੋਏ"
 
-#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+#: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
 msgstr "ਜਿਹੜਾ ਚਲਾਇਆ ਜਾਂਦਾ ਵੱਲੋਂ"
 
-#: src/app/webbrowser/TabPreview.qml:163
+#: src/app/webbrowser/SettingsPage.qml:81
+#: src/app/webbrowser/SettingsPage.qml:175
+msgid "Search engine"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:271
+msgid "Homepage"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:101
+msgid "Restore previous session at startup"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:118
+msgid "Allow opening new tabs in background"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:138
+#: src/app/webbrowser/SettingsPage.qml:224
+msgid "Privacy"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:146
+msgid "Reset browser settings"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:245
+msgid "Clear Browsing History"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Cache"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:295
+msgid "Save"
+msgstr ""
+
+#: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "ਵੇਖਣ ਲਈ ਛੂਹੋ"
 
-#: src/app/webbrowser/TabsView.qml:113
-msgid "Add"
-msgstr "ਸ਼ਾਮਿਲ"
-
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:59
+#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - ਉਬੰਤੂ ਵੈੱਬ ਬਰਾਊਜ਼ਰ"
 
-#: src/app/webbrowser/webbrowser-app.qml:39
-#: src/app/webcontainer/webapp-container.qml:61
+#: src/app/webbrowser/webbrowser-app.qml:40
+#: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
 msgstr "ਉਬੰਤੂ ਵੈੱਬ ਬਰਾਉਜ਼ਰ"
 
@@ -606,6 +650,9 @@ msgstr "ਇੰਟਰਨੈੱਟ;WWW;ਬਰਾਊਜ਼ਰ;ਵੈੱਬ;ਅੈ�
 
 #~ msgid "Clear"
 #~ msgstr "ਸਾਫ਼ ਕਰੋ"
+
+#~ msgid "Add"
+#~ msgstr "ਸ਼ਾਮਿਲ"
 
 #~ msgid "No"
 #~ msgstr "ਨਹੀਂ"

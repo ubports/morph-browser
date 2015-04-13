@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -36,6 +36,7 @@
 FaviconFetcher::FaviconFetcher(QObject* parent)
     : QObject(parent)
     , m_reply(0)
+    , m_redirections(0)
 {
     QDir cacheLocation(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/favicons");
     m_cacheLocation = cacheLocation.absolutePath();

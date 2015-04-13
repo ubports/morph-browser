@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -23,27 +23,14 @@ import Ubuntu.Components 1.1
 StyledItem {
     id: chrome
 
-    readonly property real visibleHeight: y + height
     property var webview
-
-    readonly property bool moving: (y < 0) && (y > -height)
 
     states: [
         State {
             name: "shown"
-        },
-        State {
-            name: "hidden"
+            when: chrome.y == 0
         }
     ]
-    state: "shown"
-
-    y: (state == "shown") ? 0 : -height
-    Behavior on y {
-        SmoothedAnimation {
-            duration: UbuntuAnimation.BriskDuration
-        }
-    }
 
     Rectangle {
         anchors.fill: parent

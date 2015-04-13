@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2014-11-05 07:19+0000\n"
+"POT-Creation-Date: 2015-04-08 20:37+0200\n"
+"PO-Revision-Date: 2015-03-13 12:34+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-02-04 07:09+0000\n"
-"X-Generator: Launchpad (build 17331)\n"
+"X-Launchpad-Export-Date: 2015-04-09 05:41+0000\n"
+"X-Generator: Launchpad (build 17413)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -46,7 +46,7 @@ msgid "Password"
 msgstr "Ger-tremen"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
 msgstr "Nullañ"
 
@@ -394,7 +394,7 @@ msgstr "Mont da"
 msgid "Address;URL;www"
 msgstr "Chomlec'h;URL;www"
 
-#: src/app/actions/NewTab.qml:23
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
 msgid "New Tab"
 msgstr "Ivinell nevez"
 
@@ -410,7 +410,7 @@ msgstr "Digeriñ ar skeudenn en un ivinell nevez"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Digeriñ al liamm en un ivinell nevez en drekleur"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -440,26 +440,35 @@ msgstr "klask pe ebarzhiñ ur chomlec'h"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
 msgstr "Diverkañ"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:178
 msgid "Share"
 msgstr "Rannañ"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:192
 msgid "History"
 msgstr "Istor"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:199
 msgid "Open tabs"
 msgstr "Ivinelloù digor"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "Ivinell nevez"
+
+#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
+msgid "Settings"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+msgid "Done"
+msgstr "Graet eo"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -472,17 +481,17 @@ msgstr[1] "%1 a bajennoù"
 msgid "Less"
 msgstr "Nebeutoc'h"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
 msgstr "Gweladennet da ziwezhañ"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "Dec'h"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
-msgid "Done"
-msgstr "Graet eo"
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
+msgstr "Diuzañ pep tra"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -506,43 +515,47 @@ msgstr "Al lec'hienn-mañ zo traoù diasur enni."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "Identelezh n'eo ket bet gwiriet"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "N'eo ket bet gwiriet identelezh al lec'hienn web-mañ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "Ne glot ket testeni ar servijer gant identelezh al lec'hienn."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Diamzeret eo testeni ar servijer."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "Deiziadoù direizh zo e testeni ar servijer."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
 msgstr ""
+"Graet eo bet testeni ar servijer gant un aozadur ha ne c'haller ket kaout "
+"fiziañs ennañ."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Torret eo bet testeni ar servijer."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Direizh eo testeni ar servijer."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "N'eo ket suraet testeni ar servijer."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"Testeni ar servijer n'en deus ket tremenet hor c'hontrolloù surentez evit un "
+"abeg dianav."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
@@ -552,13 +565,48 @@ msgstr "Kevreet oc'h ouzh"
 msgid "Which is run by"
 msgstr "Hag a zo kaset en-dro gant"
 
-#: src/app/webbrowser/TabPreview.qml:163
+#: src/app/webbrowser/SettingsPage.qml:81
+#: src/app/webbrowser/SettingsPage.qml:175
+msgid "Search engine"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:271
+msgid "Homepage"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:101
+msgid "Restore previous session at startup"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:118
+msgid "Allow opening new tabs in background"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:138
+#: src/app/webbrowser/SettingsPage.qml:224
+msgid "Privacy"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:146
+msgid "Reset browser settings"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:245
+msgid "Clear Browsing History"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Cache"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:295
+msgid "Save"
+msgstr ""
+
+#: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Touch da welet"
-
-#: src/app/webbrowser/TabsView.qml:113
-msgid "Add"
-msgstr "Ouzhpennañ"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:38
@@ -606,6 +654,9 @@ msgstr "Internet;WWW;Merdeer;Web;Ergerzher"
 
 #~ msgid "Clear"
 #~ msgstr "Naetaat"
+
+#~ msgid "Add"
+#~ msgstr "Ouzhpennañ"
 
 #~ msgid "No"
 #~ msgstr "Arabat"

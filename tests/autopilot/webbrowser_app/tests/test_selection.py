@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2014 Canonical
+# Copyright 2014-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -89,3 +89,7 @@ class TestSelection(StartOpenRemotePageTestCaseBase):
         self.assertThat(self.rectangle.globalRect, Eventually(Equals(rect)))
         self.actions.wait_until_destroyed()
         self.actions = self.main_window.get_selection_actions()
+
+    def test_navigating_discards_selection(self):
+        self.main_window.go_back()
+        self.assert_selection_eventually_dismissed()

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2014-11-07 16:48+0000\n"
+"POT-Creation-Date: 2015-04-08 20:37+0200\n"
+"PO-Revision-Date: 2015-04-10 12:02+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-02-04 07:10+0000\n"
-"X-Generator: Launchpad (build 17331)\n"
+"X-Launchpad-Export-Date: 2015-04-11 05:48+0000\n"
+"X-Generator: Launchpad (build 17423)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -47,7 +47,7 @@ msgid "Password"
 msgstr "Пароль"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -394,7 +394,7 @@ msgstr "Перейти"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;адрес;інтернет"
 
-#: src/app/actions/NewTab.qml:23
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
 msgid "New Tab"
 msgstr "Нова вкладка"
 
@@ -410,7 +410,7 @@ msgstr "Відкрити зображення у новій вкладці"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Відкрити посилання у новій вкладці у тлі"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -440,26 +440,35 @@ msgstr "пошук або введення адреси"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
 msgstr "Вилучити"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:178
 msgid "Share"
 msgstr "Поділитися"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:192
 msgid "History"
 msgstr "Журнал"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:199
 msgid "Open tabs"
 msgstr "Відкриті вкладки"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "Нова вкладка"
+
+#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
+msgid "Settings"
+msgstr "Параметри"
+
+#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+msgid "Done"
+msgstr "Завершено"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -473,17 +482,17 @@ msgstr[2] "%1 сторінок"
 msgid "Less"
 msgstr "Менше"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
 msgstr "Останні відвідані"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "Вчора"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
-msgid "Done"
-msgstr "Завершено"
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
+msgstr "Позначити все"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -554,13 +563,48 @@ msgstr "Вас з’єднано з"
 msgid "Which is run by"
 msgstr "Що працює під керуванням"
 
-#: src/app/webbrowser/TabPreview.qml:163
+#: src/app/webbrowser/SettingsPage.qml:81
+#: src/app/webbrowser/SettingsPage.qml:175
+msgid "Search engine"
+msgstr "Рушій пошуку"
+
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:271
+msgid "Homepage"
+msgstr "Домашня сторінка"
+
+#: src/app/webbrowser/SettingsPage.qml:101
+msgid "Restore previous session at startup"
+msgstr "Відновлювати попередній сеанс під час запуску"
+
+#: src/app/webbrowser/SettingsPage.qml:118
+msgid "Allow opening new tabs in background"
+msgstr "Дозволити відкриття нових вкладок у тлі"
+
+#: src/app/webbrowser/SettingsPage.qml:138
+#: src/app/webbrowser/SettingsPage.qml:224
+msgid "Privacy"
+msgstr "Конфіденційність"
+
+#: src/app/webbrowser/SettingsPage.qml:146
+msgid "Reset browser settings"
+msgstr "Скинути налаштування веб-переглядача"
+
+#: src/app/webbrowser/SettingsPage.qml:245
+msgid "Clear Browsing History"
+msgstr "Спорожнити журнал перегляду"
+
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Cache"
+msgstr "Спорожнити кеш"
+
+#: src/app/webbrowser/SettingsPage.qml:295
+msgid "Save"
+msgstr "Зберегти"
+
+#: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Натисніть, щоб переглянути"
-
-#: src/app/webbrowser/TabsView.qml:113
-msgid "Add"
-msgstr "Додати"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:38
@@ -609,6 +653,9 @@ msgstr ""
 
 #~ msgid "Clear"
 #~ msgstr "Спорожнити"
+
+#~ msgid "Add"
+#~ msgstr "Додати"
 
 #~ msgid "Yes"
 #~ msgstr "Так"

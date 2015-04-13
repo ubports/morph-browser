@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -19,11 +19,7 @@
 #ifndef __SEARCH_ENGINE_H__
 #define __SEARCH_ENGINE_H__
 
-// local
-#include "config.h"
-
 // Qt
-#include <QtCore/QMetaType>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
@@ -31,28 +27,32 @@ class SearchEngine : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString name READ name CONSTANT)
-    Q_PROPERTY(QString description READ description CONSTANT)
-    Q_PROPERTY(QString template READ urlTemplate CONSTANT)
+    Q_PROPERTY(QString filename READ filename WRITE setFilename NOTIFY filenameChanged)
+    Q_PROPERTY(QString name READ name NOTIFY nameChanged)
+    Q_PROPERTY(QString description READ description NOTIFY descriptionChanged)
+    Q_PROPERTY(QString urlTemplate READ urlTemplate NOTIFY urlTemplateChanged)
 
 public:
-    SearchEngine(const QString& name=DEFAULT_SEARCH_ENGINE, QObject* parent=0);
-    SearchEngine(const SearchEngine& other);
+    SearchEngine(QObject* parent=0);
 
-    bool isValid() const;
+    const QString& filename() const;
+    void setFilename(const QString& filename);
+
     const QString& name() const;
     const QString& description() const;
     const QString& urlTemplate() const;
 
+Q_SIGNALS:
+    void filenameChanged() const;
+    void nameChanged() const;
+    void descriptionChanged() const;
+    void urlTemplateChanged() const;
+
 private:
-    QString m_path;
+    QString m_filename;
     QString m_name;
     QString m_description;
     QString m_template;
-
-    void parseOpenSearchDescription();
 };
-
-Q_DECLARE_METATYPE(SearchEngine);
 
 #endif // __SEARCH_ENGINE_H__

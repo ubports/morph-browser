@@ -1,5 +1,6 @@
 webbrowser-app is a lightweight web browser tailored for Ubuntu,
-based on the Webkit rendering engine and using the Ubuntu UI components.
+based on the Oxide web engine and using the Ubuntu UI components.
+It requires Qt 5.4 to build and run.
 
 
 = Building =
@@ -70,10 +71,10 @@ interactive human-readable report in HTML format (coveragereport/index.html).
 
 = Settings =
 
-webbrowser-app supports a limited set of custom settings, currently not exposed
-in the UI. The settings are persisted on disk in the following INI-like file:
+webbrowser-app supports a limited set of custom settings, persisted on disk in
+the following INI-like file:
 
-    $HOME/.config/webbrowser-app/settings.conf
+    $HOME/.config/webbrowser-app/webbrowser-app.conf
 
 The following keys are supported:
 
@@ -85,4 +86,11 @@ The following keys are supported:
    the OpenSearch document description format
    (http://www.opensearch.org/Specifications/OpenSearch/1.1)
 
-If any of those keys are not specified, the default hardcoded value is used.
+ - 'allowOpenInBackgroundTab': whether to offer an option to open a link in a
+   new background tab in the contextual menu. Possible values are "true",
+   "false", and "default" (which resolves to true on desktop and false on
+   mobile).
+
+ - restoreSession: whether to restore the previous browsing session at startup
+   (defaults to true)
+

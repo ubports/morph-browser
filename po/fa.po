@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-02-03 15:55+0100\n"
-"PO-Revision-Date: 2015-02-04 01:31+0000\n"
+"POT-Creation-Date: 2015-04-08 20:37+0200\n"
+"PO-Revision-Date: 2015-04-10 02:56+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-02-05 07:38+0000\n"
-"X-Generator: Launchpad (build 17331)\n"
+"X-Launchpad-Export-Date: 2015-04-11 05:48+0000\n"
+"X-Generator: Launchpad (build 17423)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -46,7 +46,7 @@ msgid "Password"
 msgstr "گذرواژه"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 msgid "Cancel"
 msgstr "لغو"
 
@@ -393,7 +393,7 @@ msgstr "برو به"
 msgid "Address;URL;www"
 msgstr "آدرس;URL;www"
 
-#: src/app/actions/NewTab.qml:23
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
 msgid "New Tab"
 msgstr "زبانه تازه"
 
@@ -439,26 +439,35 @@ msgstr "جست‌وجو کرده یا یک نشانی را وارد کنید"
 
 #: src/app/webbrowser/BookmarksList.qml:67
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:179
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
 msgid "Delete"
 msgstr "حذف"
 
-#: src/app/webbrowser/Browser.qml:161
+#: src/app/webbrowser/Browser.qml:178
 msgid "Share"
 msgstr "به‌اشتراک گذاری"
 
-#: src/app/webbrowser/Browser.qml:175
+#: src/app/webbrowser/Browser.qml:192
 msgid "History"
 msgstr "تاریخچه"
 
-#: src/app/webbrowser/Browser.qml:182
+#: src/app/webbrowser/Browser.qml:199
 msgid "Open tabs"
 msgstr "زبانه‌های باز"
 
-#: src/app/webbrowser/Browser.qml:188 src/app/webbrowser/HistoryView.qml:293
-#: src/app/webbrowser/TabsView.qml:57
+#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "زبانه‌ی جدید"
+
+#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+msgid "Done"
+msgstr "انجام شد"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -470,17 +479,17 @@ msgstr[0] "%1 صفحه"
 msgid "Less"
 msgstr "کم‌تر"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:43
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
 msgstr "آخرین بازدیدها"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:45
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
 msgstr "دیروز"
 
-#: src/app/webbrowser/HistoryView.qml:280 src/app/webbrowser/TabsView.qml:99
-msgid "Done"
-msgstr "انجام شد"
+#: src/app/webbrowser/HistoryView.qml:295
+msgid "Select all"
+msgstr "گزینش همه"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -551,13 +560,48 @@ msgstr "شما وصل هستید به"
 msgid "Which is run by"
 msgstr "که اداره می‌شود توسّط"
 
-#: src/app/webbrowser/TabPreview.qml:163
+#: src/app/webbrowser/SettingsPage.qml:81
+#: src/app/webbrowser/SettingsPage.qml:175
+msgid "Search engine"
+msgstr "موتور جست‌وجو"
+
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:271
+msgid "Homepage"
+msgstr "صفحه‌ی خانگی"
+
+#: src/app/webbrowser/SettingsPage.qml:101
+msgid "Restore previous session at startup"
+msgstr "بازگردانی نشست پیشین هنگام شروع"
+
+#: src/app/webbrowser/SettingsPage.qml:118
+msgid "Allow opening new tabs in background"
+msgstr "اجازه‌ی گشودن زبانه‌ها در پس‌زمینه"
+
+#: src/app/webbrowser/SettingsPage.qml:138
+#: src/app/webbrowser/SettingsPage.qml:224
+msgid "Privacy"
+msgstr "محرمانگی"
+
+#: src/app/webbrowser/SettingsPage.qml:146
+msgid "Reset browser settings"
+msgstr "بازنشانی تنظیمات مرورگر"
+
+#: src/app/webbrowser/SettingsPage.qml:245
+msgid "Clear Browsing History"
+msgstr "پاک‌سازی تاریخچه‌ی جست‌وجو"
+
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Cache"
+msgstr "پاک‌سازی انباره"
+
+#: src/app/webbrowser/SettingsPage.qml:295
+msgid "Save"
+msgstr "ذخیره"
+
+#: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "برای دیدن فشار دهید"
-
-#: src/app/webbrowser/TabsView.qml:113
-msgid "Add"
-msgstr "افزودن"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:38
@@ -614,3 +658,6 @@ msgstr "اینترنت;وب‌جهان‌گستر;مرورگر;وب;کاوشگر
 
 #~ msgid "Yes"
 #~ msgstr "بله"
+
+#~ msgid "Add"
+#~ msgstr "افزودن"
