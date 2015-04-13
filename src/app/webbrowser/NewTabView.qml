@@ -116,7 +116,6 @@ Item {
 
                     anchors { top: parent.top; topMargin: units.gu(0.25) }
 
-                    //color: newTabBackground.color
                     strokeColor: "#5d5d5d"
 
                     visible: internal.numberOfBookmarks > 4
@@ -145,7 +144,7 @@ Item {
                     right: parent.right
                 }
 
-                height: units.gu(5) + bookmarksList.height
+                height: units.gu(5) + units.gu(5) * Math.min(internal.bookmarksCountLimit, internal.numberOfBookmarks)
                 spacing: 0
 
                 UrlDelegate {
@@ -171,148 +170,153 @@ Item {
 
                     spacing: 0
 
-                    model: bookmarksListModel
+                    model: newTabView.bookmarksModel
 
                     onBookmarkClicked: newTabView.bookmarkClicked(url)
                     onBookmarkRemoved: newTabView.bookmarkRemoved(url)
                 }
             }
 
-            Column {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-
-                visible: internal.bookmarksCountLimit > 4 ? 0.0 : 1.0
-
-                spacing: units.gu(-3)
-
-                Text {
-                    height: units.gu(6)
-                    anchors { left: parent.left; right: parent.right }
-                    text: i18n.tr("Top sites")
-                }
-
-                Rectangle {
-                    height: units.gu(0.1)
-                    anchors { left: parent.left; right: parent.right }
-                    color: "#acacac"
-                }
-            }
-
             Rectangle {
-                height: units.gu(1)
                 anchors {
                     left: parent.left
                     right: parent.right
                 }
+                height: childrenRect.height
+
                 color: "#f6f6f6"
-            }
-
-            Text {
-                height: units.gu(6)
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-                horizontalAlignment: Text.AlignHCenter
-
-                visible: internal.numberOfTopSites === 0
-
-                text: i18n.tr('You haven\'t visited any site yet')
-            }
-
-            Flow {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-
                 visible: internal.bookmarksCountLimit > 4 ? 0.0 : 1.0
+                Column {
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    spacing: units.gu(1.5)
 
-                spacing: units.gu(1)
+                    Column {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
 
-                Repeater {
-                    model: historyListModel
+                        spacing: units.gu(-3)
 
-                    delegate: MouseArea {
-                        width: units.gu(18)
-                        height: childrenRect.height
+                        Text {
+                            height: units.gu(6)
+                            anchors { left: parent.left; right: parent.right }
+                            text: i18n.tr("Top sites")
+                        }
 
-                        Column {
-                            anchors {
-                                left: parent.left
-                                right: parent.right
-                            }
-                            //height: childrenRect.height
+                        Rectangle {
+                            height: units.gu(0.1)
+                            anchors { left: parent.left; right: parent.right }
+                            color: "#acacac"
+                        }
+                    }
 
-                            spacing: units.gu(1)
+                    Text {
+                        height: units.gu(6)
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+                        horizontalAlignment: Text.AlignHCenter
 
-                            Label {
-                                width: parent.width
-                                height: units.gu(2)
+                        visible: internal.numberOfTopSites === 0
 
-                                fontSize: "small"
-                                wrapMode: Text.Wrap
-                                elide: Text.ElideRight
+                        text: i18n.tr("You haven't visited any site yet")
+                    }
 
-                                text: model.title ? model.title : model.url
-                            }
+                    Flow {
+                        id: flow
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
 
-                            UbuntuShape {
-                                width: parent.width
-                                height: units.gu(10)
+                        spacing: units.gu(1)
 
-                                // we need that to clip the background image
-                                clip: true
+                        Repeater {
+                            model: historyListModel
 
-                                Image {
-                                    source: Qt.resolvedUrl("assets/tab-artwork.png")
-                                    asynchronous: true
-                                    width: parent.height
-                                    height: width
-                                    opacity: 0.6
-                                    anchors {
-                                        right: parent.right
-                                        bottom: parent.bottom
-                                        margins: units.gu(-3)
-                                    }
-                                }
+                            delegate: MouseArea {
+                                width: units.gu(18)
+                                height: childrenRect.height
+
                                 Column {
                                     anchors {
                                         left: parent.left
                                         right: parent.right
-                                        bottom: parent.bottom
-                                        margins: units.gu(1)
                                     }
 
-                                    Favicon {
-                                        source: model.icon
-                                    }
+                                    spacing: units.gu(1)
 
                                     Label {
-                                        anchors {
-                                            left: parent.left
-                                            right: parent.right
-                                        }
-                                        elide: Text.ElideRight
-                                        text: model.domain
+                                        width: parent.width
+                                        height: units.gu(2)
+
                                         fontSize: "small"
+                                        wrapMode: Text.Wrap
+                                        elide: Text.ElideRight
+
+                                        text: model.title ? model.title : model.url
                                     }
-                                    Label {
-                                        anchors {
-                                            left: parent.left
-                                            right: parent.right
+
+                                    UbuntuShape {
+                                        width: parent.width
+                                        height: units.gu(10)
+
+                                        // we need that to clip the background image
+                                        clip: true
+
+                                        Image {
+                                            source: Qt.resolvedUrl("assets/tab-artwork.png")
+                                            asynchronous: true
+                                            width: parent.height
+                                            height: width
+                                            opacity: 0.6
+                                            anchors {
+                                                right: parent.right
+                                                bottom: parent.bottom
+                                                margins: units.gu(-3)
+                                            }
                                         }
-                                        elide: Text.ElideRight
-                                        text: model.title
-                                        fontSize: "small"
+                                        Column {
+                                            anchors {
+                                                left: parent.left
+                                                right: parent.right
+                                                bottom: parent.bottom
+                                                margins: units.gu(1)
+                                            }
+
+                                            Favicon {
+                                                source: model.icon
+                                            }
+
+                                            Label {
+                                                anchors {
+                                                    left: parent.left
+                                                    right: parent.right
+                                                }
+                                                elide: Text.ElideRight
+                                                text: model.domain
+                                                fontSize: "small"
+                                            }
+                                            Label {
+                                                anchors {
+                                                    left: parent.left
+                                                    right: parent.right
+                                                }
+                                                elide: Text.ElideRight
+                                                text: model.title
+                                                fontSize: "small"
+                                            }
+                                        }
                                     }
                                 }
+                                onClicked: historyEntryClicked(model.url)
                             }
                         }
-                        onClicked: historyEntryClicked(model.url)
                     }
                 }
             }
