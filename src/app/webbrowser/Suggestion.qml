@@ -23,12 +23,11 @@ import Ubuntu.Components.ListItems 1.0 as ListItem
 // Not using ListItem.Subtitled because it’s not themable,
 // and we want the subText to be on one line only.
 ListItem.Base {
-    property string title
-    property string url
-    property var terms
+    property alias title: label.text
+    property alias subtitle: subLabel.text
+    property url url
 
     signal selected(url url)
-
 
     __height: Math.max(middleVisuals.height, units.gu(6))
     // disable focus handling
@@ -51,7 +50,6 @@ ListItem.Base {
                 right: parent.right
             }
             elide: Text.ElideRight
-            text: highlightTerms(title, terms)
         }
 
         Label {
@@ -68,29 +66,4 @@ ListItem.Base {
     }
 
     onClicked: selected(url)
-
-    function escapeTerm(term) {
-        // Build a regular expression suitable for highlighting a term
-        // in a case-insensitive manner and globally, by escaping
-        // special characters (a simpler version of preg_quote).
-        var escaped = term.replace(/[().?]/g, '\\$&')
-        return new RegExp(escaped, 'ig')
-    }
-
-    function highlightTerms(text, terms) {
-        // Highlight the matching terms (bold and Ubuntu orange)
-        if (text === undefined) {
-            return ''
-        }
-        var highlighted = text.toString()
-        var count = terms.length
-        var highlight = '<b><font color="%1">$&</font></b>'.arg(UbuntuColors.orange)
-        for (var i = 0; i < count; ++i) {
-            var term = terms[i]
-            highlighted = highlighted.replace(escapeTerm(term), highlight)
-        }
-        highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
-        highlighted = '<html>' + highlighted + '</html>'
-        return highlighted
-    }
-    }
+}

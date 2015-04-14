@@ -59,14 +59,39 @@ Rectangle {
             Repeater {
                 id: historySuggestionsSource
                 delegate: Suggestion {
-                    title: model.title
+                    title: historySuggestionsSource.highlightTerms(model.title)
+                    subtitle: historySuggestionsSource.highlightTerms(model.url)
                     url: model.url
-                    terms: historySuggestionsSource.model.terms
 
                     // -2 since the repeater is an extra child
                     showDivider: index < (suggestionsList.children.length - 2)
 
                     onSelected: suggestions.selected(url)
+                }
+
+                function escapeTerm(term) {
+                    // Build a regular expression suitable for highlighting a term
+                    // in a case-insensitive manner and globally, by escaping
+                    // special characters (a simpler version of preg_quote).
+                    var escaped = term.replace(/[().?]/g, '\\$&')
+                    return new RegExp(escaped, 'ig')
+                }
+
+                function highlightTerms(text) {
+                    // Highlight the matching terms (bold and Ubuntu orange)
+                    if (text === undefined) {
+                        return ''
+                    }
+                    var highlighted = text.toString()
+                    var count = model.terms.length
+                    var highlight = '<b><font color="%1">$&</font></b>'.arg(UbuntuColors.orange)
+                    for (var i = 0; i < count; ++i) {
+                        var term = model.terms[i]
+                        highlighted = highlighted.replace(escapeTerm(term), highlight)
+                    }
+                    highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
+                    highlighted = '<html>' + highlighted + '</html>'
+                    return highlighted
                 }
             }
         }
