@@ -62,6 +62,7 @@ Rectangle {
                     title: historySuggestionsSource.highlightTerms(model.title)
                     subtitle: historySuggestionsSource.highlightTerms(model.url)
                     url: model.url
+                    icon: "history"
 
                     // -2 since the repeater is an extra child
                     showDivider: index < (suggestionsList.children.length - 2)

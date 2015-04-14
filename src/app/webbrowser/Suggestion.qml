@@ -25,6 +25,7 @@ import Ubuntu.Components.ListItems 1.0 as ListItem
 ListItem.Base {
     property alias title: label.text
     property alias subtitle: subLabel.text
+    property alias icon: icon.name
     property url url
 
     signal selected(url url)
@@ -42,11 +43,22 @@ ListItem.Base {
         }
         height: childrenRect.height + label.anchors.topMargin + subLabel.anchors.bottomMargin
 
+        Icon {
+            id: icon
+            anchors {
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+            }
+            width: units.gu(2)
+            height: width
+        }
+
         Label {
             id: label
             anchors {
                 top: parent.top
-                left: parent.left
+                left: icon.right
+                leftMargin: units.gu(2)
                 right: parent.right
             }
             elide: Text.ElideRight
@@ -55,9 +67,10 @@ ListItem.Base {
         Label {
             id: subLabel
             anchors {
-                left: parent.left
-                right: parent.right
                 top: label.bottom
+                left: icon.right
+                leftMargin: units.gu(2)
+                right: parent.right
             }
             fontSize: "small"
             elide: Text.ElideRight
