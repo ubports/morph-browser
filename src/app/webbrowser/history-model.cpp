@@ -354,7 +354,7 @@ void HistoryModel::insertNewEntryInHiddenDatabase(const QUrl& url)
 {
     QMutexLocker ml(&m_dbMutex);
     QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO history_hidden (url) VALUES (?);");
+    static QString insertStatement = QLatin1String("INSERT INTO history_hidden (url) VALUES (?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(url.toString());
     query.exec();
