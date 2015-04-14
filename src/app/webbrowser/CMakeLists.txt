@@ -7,6 +7,7 @@ include_directories(
 )
 
 set(WEBBROWSER_APP_MODELS_SRC
+    bookmarks-matches-model.cpp
     bookmarks-model.cpp
     history-domain-model.cpp
     history-domainlist-chronological-model.cpp
