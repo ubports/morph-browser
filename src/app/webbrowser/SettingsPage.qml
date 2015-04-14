@@ -293,7 +293,7 @@ Item {
                 objectName: "homepageDialog.saveButton"
                 anchors { left: parent.left; right: parent.right }
                 text: i18n.tr("Save")
-                enabled: UrlManagement.looksLikeAUrl(homepageTextField.text)
+                enabled: UrlManagement.looksLikeAUrl(homepageTextField.text.trim())
                 color: "#3fb24f"
                 onClicked: {
                     settingsObject.homepage = UrlManagement.fixUrl(homepageTextField.text);
