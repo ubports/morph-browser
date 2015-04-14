@@ -75,33 +75,6 @@ static void clearCookiesHack(const QString &provider)
     }
 }
 
-static QString currentArchitecturePathName()
-{
-#if defined(Q_PROCESSOR_X86_32)
-    return QLatin1String("i386-linux-gnu");
-#elif defined(Q_PROCESSOR_X86_64)
-    return QLatin1String("x86_64-linux-gnu");
-#elif defined(Q_PROCESSOR_ARM)
-    return QLatin1String("arm-linux-gnueabihf");
-#else
-#error Unable to determine target architecture
-#endif
-}
-
-static bool canUseOxide()
-{
-    // Use a runtime hint to transparently know if oxide
-    // can be used as a backend without the user/dev having
-    // to update its app or change something in the Exec args.
-    // Version 1.1 of ubuntu apparmor policy allows this file to
-    // be accessed whereas v1.0 only knows about qtwebkit.
-    QString oxideHintLocation =
-        QString("/usr/lib/%1/oxide-qt/oxide-renderer")
-            .arg(currentArchitecturePathName());
-
-    return QFile(oxideHintLocation).open(QIODevice::ReadOnly);
-}
-
 }
 
 const QString WebappContainer::URL_PATTERN_SEPARATOR = ",";
@@ -110,7 +83,6 @@ const QString WebappContainer::LOCAL_INTENT_FILTER_FILENAME = "local-intent-filt
 
 WebappContainer::WebappContainer(int& argc, char** argv):
     BrowserApplication(argc, argv),
-    m_withOxide(canUseOxide()),
     m_storeSessionCookies(false),
     m_backForwardButtonsVisible(false),
     m_addressBarVisible(false),
@@ -122,6 +94,8 @@ WebappContainer::WebappContainer(int& argc, char** argv):
 
 bool WebappContainer::initialize()
 {
+    earlyEnvironment();
+
     if (BrowserApplication::initialize("webcontainer/webapp-container.qml")) {
         parseCommandLine();
         parseExtraConfiguration();
@@ -145,9 +119,6 @@ bool WebappContainer::initialize()
         m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
         m_window->setProperty("chromeVisible", m_addressBarVisible);
         m_window->setProperty("accountProvider", m_accountProvider);
-
-        qDebug() << "Using" << (m_withOxide ? "Oxide" : "QtWebkit") << "as the web engine backend";
-        m_window->setProperty("oxide", m_withOxide);
 
         m_window->setProperty("webappUrlPatterns", m_webappUrlPatterns);
         QQmlContext* context = m_engine->rootContext();
@@ -301,22 +272,26 @@ void WebappContainer::printUsage() const
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
+    out << "  --enable-media-hub-audio            enable media-hub for audio playback" << endl;
     out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
     out << "Chrome options (if none specified, no chrome is shown by default):" << endl;
     out << "  --enable-back-forward               enable the display of the back and forward buttons (implies --enable-addressbar)" << endl;
     out << "  --enable-addressbar                 enable the display of a minimal chrome (favicon and title)" << endl;
 }
 
+void WebappContainer::earlyEnvironment()
+{
+    Q_FOREACH(const QString& argument, m_arguments) {
+        if (argument.startsWith("--enable-media-hub-audio")) {
+            qputenv("OXIDE_ENABLE_MEDIA_HUB_AUDIO", QString("1").toLocal8Bit().constData());
+        }
+    }
+}
+
 void WebappContainer::parseCommandLine()
 {
     Q_FOREACH(const QString& argument, m_arguments) {
-        if (argument == "--webkit") {
-            // force webkit
-            m_withOxide = false;
-        } else if (argument == "--oxide") {
-            // force oxide
-            m_withOxide = true;
-        } else if (argument.startsWith("--webappModelSearchPath=")) {
+        if (argument.startsWith("--webappModelSearchPath=")) {
             m_webappModelSearchPath = argument.split("--webappModelSearchPath=")[1];
         } else if (argument.startsWith("--webapp=")) {
             // We use the name as a reference instead of the URL with a subsequent step to match it with a webapp.

@@ -27,7 +27,6 @@ Item {
     id: containerWebview
 
     property string url: ""
-    property bool withOxide: false
     property bool developerExtrasEnabled: false
     property string webappName: ""
     property url dataPath
@@ -50,10 +49,7 @@ Item {
     onUrlChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.url = url
 
     Component.onCompleted: {
-        var webappEngineSource =
-                withOxide ?
-                    Qt.resolvedUrl("WebViewImplOxide.qml")
-                  : Qt.resolvedUrl("WebViewImplWebkit.qml");
+        var webappEngineSource = Qt.resolvedUrl("WebViewImplOxide.qml");
 
         // This is an experimental, UNSUPPORTED, API
         // It loads an alternative webview, adjusted for a specific webapp

@@ -46,6 +46,7 @@ protected:
 
 private:
     virtual void printUsage() const;
+    void earlyEnvironment();
     void parseCommandLine();
     void parseExtraConfiguration();
     QString getExtraWebappUrlPatterns() const;
@@ -60,7 +61,6 @@ private:
     QString m_webappModelSearchPath;
     QStringList m_webappUrlPatterns;
     QString m_accountProvider;
-    bool m_withOxide;
     bool m_storeSessionCookies;
     bool m_backForwardButtonsVisible;
     bool m_addressBarVisible;

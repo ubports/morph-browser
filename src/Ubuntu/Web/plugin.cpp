@@ -181,14 +181,6 @@ int UbuntuWebPluginContext::devtoolsPort()
     return m_devtoolsPort;
 }
 
-static float getQtWebkitDpr()
-{
-    QByteArray stringValue = qgetenv("QTWEBKIT_DPR");
-    bool ok = false;
-    float value = stringValue.toFloat(&ok);
-    return ok ? value : 1.0;
-}
-
 void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
 {
     Q_UNUSED(uri);
@@ -196,11 +188,6 @@ void UbuntuBrowserPlugin::initializeEngine(QQmlEngine* engine, const char* uri)
     QQmlContext* context = engine->rootContext();
     context->setContextObject(new UbuntuWebPluginContext(context));
 
-    if (uri == QLatin1String("Ubuntu.Components.Extras.Browser")) {
-        // Set the desired pixel ratio (not needed once we use Qt’s way of
-        // calculating the proper pixel ratio by device/screen).
-        context->setContextProperty("QtWebKitDPR", getQtWebkitDpr());
-    }
 }
 
 void UbuntuBrowserPlugin::registerTypes(const char* uri)
