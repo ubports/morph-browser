@@ -23,9 +23,9 @@ import Ubuntu.Components.ListItems 1.0 as ListItem
 Rectangle {
     id: suggestions
 
-    property alias model: listview.model
-    property alias count: listview.count
-    property alias contentHeight: listview.contentHeight
+    property alias model: historySuggestionsSource.model
+    property alias count: historySuggestionsSource.count
+    property alias contentHeight: suggestionsContainer.contentHeight
 
     signal selected(url url)
 
@@ -37,93 +37,107 @@ Rectangle {
 
     clip: true
 
-    ListView {
-        id: listview
-
+    Flickable {
+        id: suggestionsContainer
         anchors {
             top: parent.top
             left: parent.left
             right: parent.right
         }
         height: parent.height
+        contentHeight: suggestionsList.height
 
-        delegate: ListItem.Base {
-            // Not using ListItem.Subtitled because it’s not themable,
-            // and we want the subText to be on one line only.
+        Column {
+            id: suggestionsList
 
-            property alias text: label.text
-            property alias subText: subLabel.text
-
-            showDivider: index < (listview.count - 1)
-
-            __height: Math.max(middleVisuals.height, units.gu(6))
-            // disable focus handling
-            activeFocusOnPress: false
-
-            Item  {
-                id: middleVisuals
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    verticalCenter: parent.verticalCenter
-                }
-                height: childrenRect.height + label.anchors.topMargin + subLabel.anchors.bottomMargin
-
-                Label {
-                    id: label
-                    anchors {
-                        top: parent.top
-                        left: parent.left
-                        right: parent.right
-                    }
-                    elide: Text.ElideRight
-                    text: highlightTerms(title, suggestions.model.terms)
-                }
-
-                Label {
-                    id: subLabel
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        top: label.bottom
-                    }
-                    fontSize: "small"
-                    elide: Text.ElideRight
-                    text: highlightTerms(url, suggestions.model.terms)
-                }
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
             }
+            height: childrenRect.height
 
-            onClicked: suggestions.selected(url)
+            Repeater {
+                id: historySuggestionsSource
+                delegate: ListItem.Base {
+                    // Not using ListItem.Subtitled because it’s not themable,
+                    // and we want the subText to be on one line only.
 
-            function escapeTerm(term) {
-                // Build a regular expression suitable for highlighting a term
-                // in a case-insensitive manner and globally, by escaping
-                // special characters (a simpler version of preg_quote).
-                var escaped = term.replace(/[().?]/g, '\\$&')
-                return new RegExp(escaped, 'ig')
-            }
+                    property alias text: label.text
+                    property alias subText: subLabel.text
 
-            function highlightTerms(text, terms) {
-                // Highlight the matching terms (bold and Ubuntu orange)
-                if (text === undefined) {
-                    return ''
+                    showDivider: index < (suggestionsList.count - 1)
+
+                    __height: Math.max(middleVisuals.height, units.gu(6))
+                    // disable focus handling
+                    activeFocusOnPress: false
+
+                    Item  {
+                        id: middleVisuals
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            verticalCenter: parent.verticalCenter
+                        }
+                        height: childrenRect.height + label.anchors.topMargin + subLabel.anchors.bottomMargin
+
+                        Label {
+                            id: label
+                            anchors {
+                                top: parent.top
+                                left: parent.left
+                                right: parent.right
+                            }
+                            elide: Text.ElideRight
+                            text: highlightTerms(title, suggestions.model.terms)
+                        }
+
+                        Label {
+                            id: subLabel
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                                top: label.bottom
+                            }
+                            fontSize: "small"
+                            elide: Text.ElideRight
+                            text: highlightTerms(url, suggestions.model.terms)
+                        }
+                    }
+
+                    onClicked: suggestions.selected(url)
+
+                    function escapeTerm(term) {
+                        // Build a regular expression suitable for highlighting a term
+                        // in a case-insensitive manner and globally, by escaping
+                        // special characters (a simpler version of preg_quote).
+                        var escaped = term.replace(/[().?]/g, '\\$&')
+                        return new RegExp(escaped, 'ig')
+                    }
+
+                    function highlightTerms(text, terms) {
+                        // Highlight the matching terms (bold and Ubuntu orange)
+                        if (text === undefined) {
+                            return ''
+                        }
+                        var highlighted = text.toString()
+                        var count = terms.length
+                        var highlight = '<b><font color="%1">$&</font></b>'.arg(UbuntuColors.orange)
+                        for (var i = 0; i < count; ++i) {
+                            var term = terms[i]
+                            highlighted = highlighted.replace(escapeTerm(term), highlight)
+                        }
+                        highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
+                        highlighted = '<html>' + highlighted + '</html>'
+                        return highlighted
+                    }
                 }
-                var highlighted = text.toString()
-                var count = terms.length
-                var highlight = '<b><font color="%1">$&</font></b>'.arg(UbuntuColors.orange)
-                for (var i = 0; i < count; ++i) {
-                    var term = terms[i]
-                    highlighted = highlighted.replace(escapeTerm(term), highlight)
-                }
-                highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
-                highlighted = '<html>' + highlighted + '</html>'
-                return highlighted
             }
         }
     }
 
     Scrollbar {
-        flickableItem: listview
+        flickableItem: suggestionsContainer
         align: Qt.AlignTrailing
     }
 }
