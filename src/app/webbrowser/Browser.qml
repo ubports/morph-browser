@@ -267,7 +267,7 @@ BrowserView {
                 horizontalCenter: parent.horizontalCenter
             }
             width: chrome.width - units.gu(5)
-            height: enabled ? Math.min(contentHeight, tabContainer.height - units.gu(2)) : 0
+            height: enabled ? Math.min(contentHeight, tabContainer.height - chrome.height - units.gu(2)) : 0
             model: HistoryMatchesModel {
                 sourceModel: browser.historyModel
                 query: chrome.text
