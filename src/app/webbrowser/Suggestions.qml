@@ -22,10 +22,10 @@ import Ubuntu.Components 1.1
 Rectangle {
     id: suggestions
 
+    property var searchTerms
     property list<QtObject> models
     property int count: _results.length
     property alias contentHeight: suggestionsContainer.contentHeight
-    property string query
 
     signal selected(url url)
 
@@ -41,7 +41,9 @@ Rectangle {
         var list = []
         for (var i = 0; i < models.length; i++) {
             for (var k = 0; k < models[i].count; k++) {
-                list.push(models[i].get(k))
+                var item = models[i].get(k)
+                item.sourceModel = models[i]
+                list.push(item)
             }
         }
         return list
@@ -73,14 +75,12 @@ Rectangle {
 
                 delegate: Suggestion {
                     width: suggestionsList.width
+                    showDivider: index < suggestions.count - 1
 
                     title: highlightTerms(modelData.title)
                     subtitle: highlightTerms(modelData.url)
                     url: modelData.url
-                    icon: "history"
-
-                    // -2 since the repeater is an extra child
-                    showDivider: index < (suggestionsList.children.length - 2)
+                    icon: modelData.sourceModel.icon
 
                     onSelected: suggestions.selected(url)
                 }
@@ -92,8 +92,6 @@ Rectangle {
         flickableItem: suggestionsContainer
         align: Qt.AlignTrailing
     }
-
-    property var _terms: query.split(/s+/g).filter(function(term) { return term.length > 0 })
 
     function escapeTerm(term) {
         // Build a regular expression suitable for highlighting a term
@@ -109,10 +107,10 @@ Rectangle {
             return ''
         }
         var highlighted = text.toString()
-        var count = _terms.length
+        var count = searchTerms.length
         var highlight = '<b><font color="%1">$&</font></b>'.arg(UbuntuColors.orange)
         for (var i = 0; i < count; ++i) {
-            var term = _terms[i]
+            var term = searchTerms[i]
             highlighted = highlighted.replace(escapeTerm(term), highlight)
         }
         highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')

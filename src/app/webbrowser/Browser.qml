@@ -257,6 +257,7 @@ BrowserView {
         }
 
         Suggestions {
+            id: suggestionsList
             opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
             Behavior on opacity {
                 UbuntuNumberAnimation {}
@@ -269,16 +270,23 @@ BrowserView {
             width: chrome.width - units.gu(5)
             height: enabled ? Math.min(contentHeight, tabContainer.height - chrome.height - units.gu(2)) : 0
 
+            searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
+
             models: [
-                HistoryMatchesModel {
+                SuggestionsFilterModel {
                     sourceModel: browser.historyModel
-                    query: chrome.text
+                    terms: suggestionsList.searchTerms
+                    searchFields: ["url", "title"]
+                    property string icon: "history"
                 },
-                BookmarksMatchesModel {
+                SuggestionsFilterModel {
                     sourceModel: browser.bookmarksModel
-                    query: chrome.text
+                    terms: suggestionsList.searchTerms
+                    searchFields: ["url", "title"]
+                    property string icon: "non-starred"
                 }
             ]
+
             onSelected: {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
