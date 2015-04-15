@@ -268,10 +268,17 @@ BrowserView {
             }
             width: chrome.width - units.gu(5)
             height: enabled ? Math.min(contentHeight, tabContainer.height - chrome.height - units.gu(2)) : 0
-            model: HistoryMatchesModel {
-                sourceModel: browser.historyModel
-                query: chrome.text
-            }
+
+            models: [
+                HistoryMatchesModel {
+                    sourceModel: browser.historyModel
+                    query: chrome.text
+                },
+                BookmarksMatchesModel {
+                    sourceModel: browser.bookmarksModel
+                    query: chrome.text
+                }
+            ]
             onSelected: {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()

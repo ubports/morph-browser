@@ -33,6 +33,7 @@ class BookmarksMatchesModel : public QSortFilterProxyModel
     Q_PROPERTY(BookmarksModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(QString query READ query WRITE setQuery NOTIFY queryChanged)
     Q_PROPERTY(QStringList terms READ terms NOTIFY termsChanged)
+    Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
     BookmarksMatchesModel(QObject* parent=0);
@@ -43,12 +44,16 @@ public:
     const QString& query() const;
     void setQuery(const QString& query);
 
+    int count() const;
+    Q_INVOKABLE QVariantMap get(int index) const;
+
     const QStringList& terms() const;
 
 Q_SIGNALS:
     void sourceModelChanged() const;
     void queryChanged() const;
     void termsChanged() const;
+    void countChanged() const;
 
 protected:
     // reimplemented from QSortFilterProxyModel

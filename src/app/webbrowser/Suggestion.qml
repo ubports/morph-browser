@@ -41,7 +41,7 @@ ListItem.Base {
             right: parent.right
             verticalCenter: parent.verticalCenter
         }
-        height: childrenRect.height + label.anchors.topMargin + subLabel.anchors.bottomMargin
+        height: label.height + subLabel.height
 
         Icon {
             id: icon
@@ -50,7 +50,7 @@ ListItem.Base {
                 left: parent.left
             }
             width: units.gu(2)
-            height: width
+            height: units.gu(2)
         }
 
         Label {

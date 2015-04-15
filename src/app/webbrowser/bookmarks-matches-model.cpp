@@ -50,6 +50,7 @@ void BookmarksMatchesModel::setSourceModel(BookmarksModel* sourceModel)
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);
         Q_EMIT sourceModelChanged();
+        Q_EMIT countChanged();
     }
 }
 
@@ -66,6 +67,7 @@ void BookmarksMatchesModel::setQuery(const QString& query)
         invalidateFilter();
         Q_EMIT queryChanged();
         Q_EMIT termsChanged();
+        Q_EMIT countChanged();
     }
 }
 
@@ -89,4 +91,20 @@ bool BookmarksMatchesModel::filterAcceptsRow(int source_row, const QModelIndex& 
         }
     }
     return true;
+}
+
+int BookmarksMatchesModel::count() const
+{
+    return rowCount();
+}
+
+QVariantMap BookmarksMatchesModel::get(int index) const
+{
+    QVariantMap item;
+    Q_FOREACH(int role, sourceModel()->roleNames().keys()) {
+        QString propertyName = sourceModel()->roleNames()[role];
+        QModelIndex modelIndex = sourceModel()->index(index);
+        item.insert(propertyName, sourceModel()->data(modelIndex, role));
+    }
+    return item;
 }

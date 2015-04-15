@@ -22,9 +22,10 @@ import Ubuntu.Components 1.1
 Rectangle {
     id: suggestions
 
-    property alias model: historySuggestionsSource.model
-    property alias count: historySuggestionsSource.count
+    property list<QtObject> models
+    property int count: _results.length
     property alias contentHeight: suggestionsContainer.contentHeight
+    property string query
 
     signal selected(url url)
 
@@ -35,6 +36,16 @@ Rectangle {
     }
 
     clip: true
+
+    property var _results: {
+        var list = []
+        for (var i = 0; i < models.length; i++) {
+            for (var k = 0; k < models[i].count; k++) {
+                list.push(models[i].get(k))
+            }
+        }
+        return list
+    }
 
     Flickable {
         id: suggestionsContainer
@@ -57,42 +68,21 @@ Rectangle {
             height: childrenRect.height
 
             Repeater {
-                id: historySuggestionsSource
+                id: suggestionsSource
+                model: suggestions._results
+
                 delegate: Suggestion {
-                    title: historySuggestionsSource.highlightTerms(model.title)
-                    subtitle: historySuggestionsSource.highlightTerms(model.url)
-                    url: model.url
+                    width: suggestionsList.width
+
+                    title: highlightTerms(modelData.title)
+                    subtitle: highlightTerms(modelData.url)
+                    url: modelData.url
                     icon: "history"
 
                     // -2 since the repeater is an extra child
                     showDivider: index < (suggestionsList.children.length - 2)
 
                     onSelected: suggestions.selected(url)
-                }
-
-                function escapeTerm(term) {
-                    // Build a regular expression suitable for highlighting a term
-                    // in a case-insensitive manner and globally, by escaping
-                    // special characters (a simpler version of preg_quote).
-                    var escaped = term.replace(/[().?]/g, '\\$&')
-                    return new RegExp(escaped, 'ig')
-                }
-
-                function highlightTerms(text) {
-                    // Highlight the matching terms (bold and Ubuntu orange)
-                    if (text === undefined) {
-                        return ''
-                    }
-                    var highlighted = text.toString()
-                    var count = model.terms.length
-                    var highlight = '<b><font color="%1">$&</font></b>'.arg(UbuntuColors.orange)
-                    for (var i = 0; i < count; ++i) {
-                        var term = model.terms[i]
-                        highlighted = highlighted.replace(escapeTerm(term), highlight)
-                    }
-                    highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
-                    highlighted = '<html>' + highlighted + '</html>'
-                    return highlighted
                 }
             }
         }
@@ -101,5 +91,32 @@ Rectangle {
     Scrollbar {
         flickableItem: suggestionsContainer
         align: Qt.AlignTrailing
+    }
+
+    property var _terms: query.split(/s+/g).filter(function(term) { return term.length > 0 })
+
+    function escapeTerm(term) {
+        // Build a regular expression suitable for highlighting a term
+        // in a case-insensitive manner and globally, by escaping
+        // special characters (a simpler version of preg_quote).
+        var escaped = term.replace(/[().?]/g, '\\$&')
+        return new RegExp(escaped, 'ig')
+    }
+
+    function highlightTerms(text) {
+        // Highlight the matching terms (bold and Ubuntu orange)
+        if (text === undefined) {
+            return ''
+        }
+        var highlighted = text.toString()
+        var count = _terms.length
+        var highlight = '<b><font color="%1">$&</font></b>'.arg(UbuntuColors.orange)
+        for (var i = 0; i < count; ++i) {
+            var term = _terms[i]
+            highlighted = highlighted.replace(escapeTerm(term), highlight)
+        }
+        highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
+        highlighted = '<html>' + highlighted + '</html>'
+        return highlighted
     }
 }
