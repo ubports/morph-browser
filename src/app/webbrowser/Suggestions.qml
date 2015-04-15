@@ -24,7 +24,11 @@ Rectangle {
 
     property var searchTerms
     property list<QtObject> models
-    property int count: _results.length
+    property int count: {
+        var c = 0;
+        for (var i = 0; i < models.length; i++) c += models[i].count;
+        return c;
+    }
     property alias contentHeight: suggestionsContainer.contentHeight
 
     signal selected(url url)
@@ -37,18 +41,6 @@ Rectangle {
 
     clip: true
 
-    property var _results: {
-        var list = []
-        for (var i = 0; i < models.length; i++) {
-            for (var k = 0; k < models[i].count; k++) {
-                var item = models[i].get(k)
-                item.sourceModel = models[i]
-                list.push(item)
-            }
-        }
-        return list
-    }
-
     Flickable {
         id: suggestionsContainer
         anchors {
@@ -59,7 +51,7 @@ Rectangle {
         height: parent.height
         contentHeight: suggestionsList.height
 
-        Column {
+        ListView {
             id: suggestionsList
 
             anchors {
@@ -69,20 +61,26 @@ Rectangle {
             }
             height: childrenRect.height
 
-            Repeater {
-                id: suggestionsSource
-                model: suggestions._results
+            model: suggestions.models
+            delegate: Column {
+                width: suggestionsList.width
+                height: childrenRect.height
 
-                delegate: Suggestion {
-                    width: suggestionsList.width
-                    showDivider: index < suggestions.count - 1
+                Repeater {
+                    id: suggestionsSource
+                    model: modelData
 
-                    title: highlightTerms(modelData.title)
-                    subtitle: highlightTerms(modelData.url)
-                    url: modelData.url
-                    icon: modelData.sourceModel.icon
+                    delegate: Suggestion {
+                        width: suggestionsList.width
+                        showDivider: index < suggestions.count - 1
 
-                    onSelected: suggestions.selected(url)
+                        title: highlightTerms(model.title)
+                        subtitle: highlightTerms(model.url)
+                        url: model.url
+                        icon: suggestionsSource.model.icon
+
+                        onSelected: suggestions.selected(url)
+                    }
                 }
             }
         }
