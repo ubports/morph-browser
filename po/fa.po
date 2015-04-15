@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-04-11 05:48+0000\n"
-"X-Generator: Launchpad (build 17423)\n"
+"X-Launchpad-Export-Date: 2015-04-15 05:29+0000\n"
+"X-Generator: Launchpad (build 17428)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -47,6 +47,7 @@ msgstr "گذرواژه"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
+#: src/app/webbrowser/SettingsPage.qml:288
 msgid "Cancel"
 msgstr "لغو"
 
@@ -393,7 +394,7 @@ msgstr "برو به"
 msgid "Address;URL;www"
 msgstr "آدرس;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:372
 msgid "New Tab"
 msgstr "زبانه تازه"
 
@@ -433,7 +434,7 @@ msgstr "ذخیره‌ی تصویر"
 msgid "Share…"
 msgstr "به اشترام گذاری…"
 
-#: src/app/webbrowser/AddressBar.qml:195
+#: src/app/webbrowser/AddressBar.qml:196
 msgid "search or enter an address"
 msgstr "جست‌وجو کرده یا یک نشانی را وارد کنید"
 
@@ -444,19 +445,19 @@ msgstr "جست‌وجو کرده یا یک نشانی را وارد کنید"
 msgid "Delete"
 msgstr "حذف"
 
-#: src/app/webbrowser/Browser.qml:178
+#: src/app/webbrowser/Browser.qml:214
 msgid "Share"
 msgstr "به‌اشتراک گذاری"
 
-#: src/app/webbrowser/Browser.qml:192
+#: src/app/webbrowser/Browser.qml:228
 msgid "History"
 msgstr "تاریخچه"
 
-#: src/app/webbrowser/Browser.qml:199
+#: src/app/webbrowser/Browser.qml:235
 msgid "Open tabs"
 msgstr "زبانه‌های باز"
 
-#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "زبانه‌ی جدید"
@@ -465,7 +466,7 @@ msgstr "زبانه‌ی جدید"
 msgid "Settings"
 msgstr "تنظیمات"
 
-#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:355 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
 msgstr "انجام شد"
 
@@ -604,13 +605,13 @@ msgid "Tap to view"
 msgstr "برای دیدن فشار دهید"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webbrowser/webbrowser-app.qml:34
 #: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - مرورگر وب اوبونتو"
 
-#: src/app/webbrowser/webbrowser-app.qml:40
+#: src/app/webbrowser/webbrowser-app.qml:36
 #: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
 msgstr "مرورگر وب اوبونتو"

@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-04-11 05:48+0000\n"
-"X-Generator: Launchpad (build 17423)\n"
+"X-Launchpad-Export-Date: 2015-04-15 05:29+0000\n"
+"X-Generator: Launchpad (build 17428)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -47,6 +47,7 @@ msgstr "Password"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
+#: src/app/webbrowser/SettingsPage.qml:288
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -393,7 +394,7 @@ msgstr "Vai a"
 msgid "Address;URL;www"
 msgstr "Indirizzo;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:372
 msgid "New Tab"
 msgstr "Nuova scheda"
 
@@ -433,7 +434,7 @@ msgstr "Salva immagine"
 msgid "Share…"
 msgstr "Condividi…"
 
-#: src/app/webbrowser/AddressBar.qml:195
+#: src/app/webbrowser/AddressBar.qml:196
 msgid "search or enter an address"
 msgstr "Cercare o immettere un indirizzo"
 
@@ -444,19 +445,19 @@ msgstr "Cercare o immettere un indirizzo"
 msgid "Delete"
 msgstr "Elimina"
 
-#: src/app/webbrowser/Browser.qml:178
+#: src/app/webbrowser/Browser.qml:214
 msgid "Share"
 msgstr "Condividi"
 
-#: src/app/webbrowser/Browser.qml:192
+#: src/app/webbrowser/Browser.qml:228
 msgid "History"
 msgstr "Cronologia"
 
-#: src/app/webbrowser/Browser.qml:199
+#: src/app/webbrowser/Browser.qml:235
 msgid "Open tabs"
 msgstr "Apri schede"
 
-#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "Nuova scheda"
@@ -465,7 +466,7 @@ msgstr "Nuova scheda"
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:355 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
 msgstr "Fatto"
 
@@ -607,13 +608,13 @@ msgid "Tap to view"
 msgstr "Tocca per visualizzare"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:38
+#: src/app/webbrowser/webbrowser-app.qml:34
 #: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Browser web Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:40
+#: src/app/webbrowser/webbrowser-app.qml:36
 #: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
 msgstr "Browser web Ubuntu"
