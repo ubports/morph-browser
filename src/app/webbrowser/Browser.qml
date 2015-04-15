@@ -273,17 +273,24 @@ BrowserView {
             searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
 
             models: [
-                SuggestionsFilterModel {
-                    sourceModel: browser.historyModel
-                    terms: suggestionsList.searchTerms
-                    searchFields: ["url", "title"]
+                LimitProxyModel {
+                    id: historySuggestions
+                    limit: 4
                     property string icon: "history"
+                    sourceModel: SuggestionsFilterModel {
+                        sourceModel: browser.historyModel
+                        terms: suggestionsList.searchTerms
+                        searchFields: ["url", "title"]
+                    }
                 },
-                SuggestionsFilterModel {
-                    sourceModel: browser.bookmarksModel
-                    terms: suggestionsList.searchTerms
-                    searchFields: ["url", "title"]
+                LimitProxyModel {
+                    limit: 4
                     property string icon: "non-starred"
+                    sourceModel: SuggestionsFilterModel {
+                        sourceModel: browser.bookmarksModel
+                        terms: suggestionsList.searchTerms
+                        searchFields: ["url", "title"]
+                    }
                 }
             ]
 
