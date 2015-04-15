@@ -85,24 +85,25 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assertThat(suggestions.opacity, Eventually(Equals(0)))
 
     def test_show_list_of_suggestions(self):
-        listview = self.main_window.get_suggestions().get_list()
+        suggestions = self.main_window.get_suggestions()
         self.assert_suggestions_eventually_hidden()
         self.assert_suggestions_eventually_hidden()
         self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
-        self.assertThat(listview.count, Eventually(Equals(1)))
+        self.assertThat(suggestions.count, Eventually(Equals(1)))
         self.address_bar.clear()
         self.assert_suggestions_eventually_hidden()
+
+    def test_list_of_suggestions_limits(self):
+        suggestions = self.main_window.get_suggestions()
         self.address_bar.write('u')
         self.assert_suggestions_eventually_shown()
-        self.assertThat(listview.count, Eventually(Equals(6)))
-        self.address_bar.write('b', clear=False)
-        self.assertThat(listview.count, Eventually(Equals(5)))
-        self.address_bar.write('leh', clear=False)
-        self.assertThat(listview.count, Eventually(Equals(0)))
+        self.assertThat(suggestions.count, Eventually(Equals(4)))
+        self.address_bar.write('bleh', clear=False)
+        self.assertThat(suggestions.count, Eventually(Equals(0)))
         self.address_bar.clear()
         self.address_bar.write('xaMPL')
-        self.assertThat(listview.count, Eventually(Equals(2)))
+        self.assertThat(suggestions.count, Eventually(Equals(2)))
 
     def test_clear_address_bar_dismisses_suggestions(self):
         self.address_bar.focus()
@@ -140,18 +141,17 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
 
     def test_select_suggestion(self):
         suggestions = self.main_window.get_suggestions()
-        listview = suggestions.get_list()
         self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
         self.address_bar.clear()
         self.address_bar.write('ubuntu')
         self.assert_suggestions_eventually_shown()
-        self.assertThat(listview.count, Eventually(Equals(5)))
+        self.assertThat(suggestions.count, Eventually(Equals(4)))
         entries = suggestions.get_entries()
         highlight = '<b><font color="#dd4814">Ubuntu</font></b>'
         url = "http://en.wikipedia.org/wiki/{}_(operating_system)"
         url = url.format(highlight)
-        entries = [entry for entry in entries if url in entry.subText]
+        entries = [entry for entry in entries if url in entry.subtitle]
         entry = entries[0] if len(entries) == 1 else None
         self.assertIsNotNone(entry)
         self.pointing_device.click_object(entry)
@@ -165,9 +165,8 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.address_bar.write('(phil')
         self.assert_suggestions_eventually_shown()
         suggestions = self.main_window.get_suggestions()
-        listview = suggestions.get_list()
-        self.assertThat(listview.count, Eventually(Equals(1)))
+        self.assertThat(suggestions.count, Eventually(Equals(1)))
         entry = suggestions.get_entries()[0]
         highlight = '<b><font color="#dd4814">(phil</font></b>'
         url = "http://en.wikipedia.org/wiki/Ubuntu_{}osophy)".format(highlight)
-        self.assertThat(entry.subText, Contains(url))
+        self.assertThat(entry.subtitle, Contains(url))

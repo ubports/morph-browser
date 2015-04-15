@@ -197,11 +197,8 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_list(self):
-        return self.select_single("QQuickListView")
-
     def get_entries(self):
-        return self.get_list().select_many("Base")
+        return self.get_list().select_many("Suggestion")
 
 
 class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
