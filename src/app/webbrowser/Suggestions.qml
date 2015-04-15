@@ -25,9 +25,9 @@ Rectangle {
     property var searchTerms
     property list<QtObject> models
     property int count: {
-        var c = 0;
-        for (var i = 0; i < models.length; i++) c += models[i].count;
-        return c;
+        var c = 0
+        for (var i = 0; i < models.length; i++) c += models[i].count
+        return c
     }
     property alias contentHeight: suggestionsContainer.contentHeight
 
