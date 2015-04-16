@@ -29,7 +29,7 @@ Rectangle {
         for (var i = 0; i < models.length; i++) c += models[i].count
         return c
     }
-    property alias contentHeight: suggestionsContainer.contentHeight
+    property alias contentHeight: suggestionsList.contentHeight
 
     signal selected(url url)
 
@@ -41,53 +41,36 @@ Rectangle {
 
     clip: true
 
-    Flickable {
-        id: suggestionsContainer
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        height: parent.height
-        contentHeight: suggestionsList.height
+    ListView {
+        id: suggestionsList
+        anchors.fill: parent
 
-        ListView {
-            id: suggestionsList
-
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-            }
+        model: suggestions.models
+        delegate: Column {
+            width: suggestionsList.width
             height: childrenRect.height
 
-            model: suggestions.models
-            delegate: Column {
-                width: suggestionsList.width
-                height: childrenRect.height
+            Repeater {
+                id: suggestionsSource
+                model: modelData
 
-                Repeater {
-                    id: suggestionsSource
-                    model: modelData
+                delegate: Suggestion {
+                    width: suggestionsList.width
+                    showDivider: index < suggestions.count - 1
 
-                    delegate: Suggestion {
-                        width: suggestionsList.width
-                        showDivider: index < suggestions.count - 1
+                    title: highlightTerms(model.title)
+                    subtitle: highlightTerms(model.url)
+                    url: model.url
+                    icon: suggestionsSource.model.icon
 
-                        title: highlightTerms(model.title)
-                        subtitle: highlightTerms(model.url)
-                        url: model.url
-                        icon: suggestionsSource.model.icon
-
-                        onSelected: suggestions.selected(url)
-                    }
+                    onSelected: suggestions.selected(url)
                 }
             }
         }
     }
 
     Scrollbar {
-        flickableItem: suggestionsContainer
+        flickableItem: suggestionsList
         align: Qt.AlignTrailing
     }
 
