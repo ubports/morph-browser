@@ -113,6 +113,7 @@ bool SuggestionsFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
     QModelIndex index = source->index(source_row, 0, source_parent);
 
     QSet<QString> foundTerms;
+    QSet<QString> searchTerms = QSet<QString>::fromList(m_terms);
 
     Q_FOREACH(int role, m_searchRoles) {
         QString value = source->data(index, role).toString();
@@ -120,7 +121,7 @@ bool SuggestionsFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
             if (value.contains(term, Qt::CaseInsensitive)) {
                 foundTerms.insert(term);
             }
-            if (foundTerms.count() == m_terms.count()) {
+            if (foundTerms.count() == searchTerms.count()) {
                 return true;
             }
         }
