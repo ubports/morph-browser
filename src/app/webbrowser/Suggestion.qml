@@ -74,7 +74,6 @@ ListItem.Base {
             }
             fontSize: "small"
             elide: Text.ElideRight
-            text: highlightTerms(url, terms)
         }
     }
 
