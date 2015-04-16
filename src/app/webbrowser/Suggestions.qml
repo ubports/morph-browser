@@ -53,10 +53,16 @@ Rectangle {
             Repeater {
                 id: suggestionsSource
                 model: modelData
+                property int firstItemIndex: {
+                    var c = 0
+                    for (var i = 0; i < index; i++) c += models[i].count
+                    return c
+                }
 
                 delegate: Suggestion {
                     width: suggestionsList.width
-                    showDivider: index < suggestions.count - 1
+                    showDivider: suggestionsSource.firstItemIndex + index <
+                                 suggestions.count - 1
 
                     title: highlightTerms(model.title)
                     subtitle: highlightTerms(model.url)
