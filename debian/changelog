@@ -1,3 +1,19 @@
+webbrowser-app (0.23+15.04.20150410-0ubuntu1) vivid; urgency=medium
+
+  [ Alexandre Abreu ]
+  * remove qtwebkit deps (LP: #1362640) (LP: #1362640)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Justin McPherson ]
+  * Command line options for media-hub use through Oxide.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 10 Apr 2015 13:33:24 +0000
+
 webbrowser-app (0.23+15.04.20150408-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
