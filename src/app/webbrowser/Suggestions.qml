@@ -23,12 +23,8 @@ Rectangle {
     id: suggestions
 
     property var searchTerms
-    property list<QtObject> models
-    property int count: {
-        var c = 0
-        for (var i = 0; i < models.length; i++) c += models[i].count
-        return c
-    }
+    property var models
+    property int count: models.reduce(countItems, 0)
     property alias contentHeight: suggestionsList.contentHeight
 
     signal selected(url url)
@@ -53,11 +49,7 @@ Rectangle {
             Repeater {
                 id: suggestionsSource
                 model: modelData
-                property int firstItemIndex: {
-                    var c = 0
-                    for (var i = 0; i < index; i++) c += models[i].count
-                    return c
-                }
+                property int firstItemIndex: models.slice(0, index).reduce(countItems, 0)
 
                 delegate: Suggestion {
                     width: suggestionsList.width
@@ -104,4 +96,6 @@ Rectangle {
         highlighted = '<html>' + highlighted + '</html>'
         return highlighted
     }
+
+    function countItems(total, model) { return total + model.count }
 }
