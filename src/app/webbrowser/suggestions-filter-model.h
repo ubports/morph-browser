@@ -43,7 +43,6 @@ public:
     void setSourceModel(QVariant sourceModel);
 
     int count() const;
-    Q_INVOKABLE QVariantMap get(int index) const;
 
     const QStringList& terms() const;
     void setTerms(const QStringList&);

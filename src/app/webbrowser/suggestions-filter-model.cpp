@@ -30,9 +30,6 @@
 
     An item in the source model is returned by this model if all the search
     terms are contained in any of the item's fields.
-
-    The SuggestionsFilterModel also allows random access to the result set by
-    making available the count of the results and allowing access by index.
 */
 SuggestionsFilterModel::SuggestionsFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)
@@ -130,16 +127,4 @@ bool SuggestionsFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
 int SuggestionsFilterModel::count() const
 {
     return rowCount();
-}
-
-QVariantMap SuggestionsFilterModel::get(int index) const
-{
-    QAbstractItemModel* source = QSortFilterProxyModel::sourceModel();
-    QVariantMap item;
-    Q_FOREACH(int role, source->roleNames().keys()) {
-        QString propertyName = source->roleNames()[role];
-        QModelIndex modelIndex = source->index(index, 0);
-        item.insert(propertyName, source->data(modelIndex, role));
-    }
-    return item;
 }
