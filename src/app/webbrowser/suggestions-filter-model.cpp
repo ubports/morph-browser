@@ -19,6 +19,8 @@
 #include "suggestions-filter-model.h"
 
 #include <QtCore/QDebug>
+#include <QtCore/QSet>
+
 /*!
     \class SuggestionsFilterModel
     \brief Proxy model that filters the contents of a model based on a list of
@@ -29,7 +31,9 @@
     defined fields (matching role names in the source model).
 
     An item in the source model is returned by this model if all the search
-    terms are contained in any of the item's fields.
+    terms are contained across all of the item's fields (i.e. given two search
+    terms, if one is found in a field and the other in a different field, then
+    the item will be returned)
 */
 SuggestionsFilterModel::SuggestionsFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)
@@ -108,17 +112,17 @@ bool SuggestionsFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
     QAbstractItemModel* source = QSortFilterProxyModel::sourceModel();
     QModelIndex index = source->index(source_row, 0, source_parent);
 
+    QSet<QString> foundTerms;
+
     Q_FOREACH(int role, m_searchRoles) {
         QString value = source->data(index, role).toString();
-        bool accepted = true;
         Q_FOREACH (const QString& term, m_terms) {
-            if (!value.contains(term, Qt::CaseInsensitive)) {
-                accepted = false;
-                break;
+            if (value.contains(term, Qt::CaseInsensitive)) {
+                foundTerms.insert(term);
             }
-        }
-        if (accepted) {
-            return true;
+            if (foundTerms.count() == m_terms.count()) {
+                return true;
+            }
         }
     }
     return false;

@@ -155,6 +155,15 @@ private Q_SLOTS:
         matches->setSearchFields(QStringList({"url", "title"}));
         QCOMPARE(matches->rowCount(), 1);
     }
+
+    void shouldMatchTermsInDifferentFields()
+    {
+        model->add(QUrl("http://example.org"), "Example Domain", QUrl());
+        model->add(QUrl("http://example.com"), "Example Domain", QUrl());
+        matches->setTerms(QStringList({"org", "domain"}));
+        matches->setSearchFields(QStringList({"url", "title"}));
+        QCOMPARE(matches->rowCount(), 1);
+    }
 };
 
 QTEST_MAIN(SuggestionsFilterModelTests)
