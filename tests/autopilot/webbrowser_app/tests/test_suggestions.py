@@ -25,7 +25,7 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
-class PrepopulatedHistoryAndBookmarksDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
+class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
 
     """Helper test class that pre-populates history and bookmarks databases."""
 
@@ -33,7 +33,7 @@ class PrepopulatedHistoryAndBookmarksDatabaseTestCaseBase(StartOpenRemotePageTes
         self.clear_datadir()
         self.populate_history()
         self.populate_bookmarks()
-        super(PrepopulatedHistoryAndBookmarksDatabaseTestCaseBase, self).setUp()
+        super(PrepopulatedDatabaseTestCaseBase, self).setUp()
 
     def populate_history(self):
         db_path = os.path.join(os.path.expanduser("~"), ".local", "share",
@@ -109,7 +109,8 @@ class PrepopulatedHistoryAndBookmarksDatabaseTestCaseBase(StartOpenRemotePageTes
         connection.commit()
         connection.close()
 
-class TestSuggestions(PrepopulatedHistoryAndBookmarksDatabaseTestCaseBase):
+
+class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
 
     """Test the address bar suggestions (based on history and bookmarks)."""
 

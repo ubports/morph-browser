@@ -208,6 +208,7 @@ class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         items = sorted(items, key=lambda item: item.globalRect.y)
         return items
 
+
 class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_deny_button(self):
