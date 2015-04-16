@@ -213,7 +213,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.address_bar.write('ubuntu')
         self.assert_suggestions_eventually_shown()
         self.assertThat(suggestions.count, Eventually(Equals(4)))
-        entries = suggestions.get_entries()
+        entries = suggestions.get_ordered_entries()
         highlight = '<b><font color="#dd4814">Ubuntu</font></b>'
         url = "http://en.wikipedia.org/wiki/{}_(operating_system)"
         url = url.format(highlight)
@@ -232,7 +232,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.assert_suggestions_eventually_shown()
         suggestions = self.main_window.get_suggestions()
         self.assertThat(suggestions.count, Eventually(Equals(1)))
-        entry = suggestions.get_entries()[0]
+        entry = suggestions.get_ordered_entries()[0]
         highlight = '<b><font color="#dd4814">(phil</font></b>'
         url = "http://en.wikipedia.org/wiki/Ubuntu_{}osophy)".format(highlight)
         self.assertThat(entry.subtitle, Contains(url))

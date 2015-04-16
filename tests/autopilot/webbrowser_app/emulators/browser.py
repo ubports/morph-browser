@@ -197,11 +197,8 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_entries(self):
-        return self.select_many("Suggestion")
-
     def get_ordered_entries(self):
-        return sorted(self.get_entries(), key=lambda item: item.globalRect.y)
+        return sorted(self.select_many("Suggestion"), key=lambda item: item.globalRect.y)
 
 
 class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
