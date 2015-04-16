@@ -198,8 +198,15 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_entries(self):
-        return self.get_list().select_many("Suggestion")
+        return self.select_many("Suggestion")
 
+    # The idea is taken from the QQuickListView custom proxy object internals
+    # At the moment it seems like the only way to get an ordered list of items
+    # in the list.
+    def get_ordered_entries(self):
+        items = self.select_many('Suggestion')
+        items = sorted(items, key=lambda item: item.globalRect.y)
+        return items
 
 class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
