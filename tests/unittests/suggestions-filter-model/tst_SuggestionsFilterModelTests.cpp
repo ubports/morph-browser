@@ -174,6 +174,14 @@ private Q_SLOTS:
         QCOMPARE(matches->rowCount(), 1);
     }
 
+    void shouldWarnOnInvalidFields()
+    {
+        QTest::ignoreMessage(QtWarningMsg, "Source model does not have role matching field: \"foo\"");
+        model->add(QUrl("http://example.org"), "Example Domain", QUrl());
+        matches->setTerms(QStringList({"org"}));
+        matches->setSearchFields(QStringList({"url", "foo"}));
+        QCOMPARE(matches->count(), 1);
+    }
 };
 
 QTEST_MAIN(SuggestionsFilterModelTests)
