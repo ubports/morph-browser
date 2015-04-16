@@ -135,7 +135,9 @@ Item {
     Component {
         id: bookmarksComponent
 
-        BookmarksList {
+        UrlsList {
+            id: bookmarksList
+
             width: parent.width
 
             model: bookmarksListModel
@@ -143,8 +145,8 @@ Item {
             footerLabelText: internal.seeMoreBookmarksView ? i18n.tr("see less") : i18n.tr("see more")
             footerLabelVisible: bookmarksListModel.unlimitedCount > internal.bookmarksCountLimit
 
-            onBookmarkClicked: newTabView.bookmarkClicked(url)
-            onBookmarkRemoved: newTabView.bookmarkRemoved(url)
+            onUrlClicked: newTabView.bookmarkClicked(url)
+            onUrlRemoved: newTabView.bookmarkRemoved(url)
             onFooterLabelClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
         }
     }
@@ -152,98 +154,19 @@ Item {
     Component {
         id: topSitesComponent
 
-        Flow {
+        UrlsList {
             width: parent.width
-
-            spacing: units.gu(1)
-
             opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
 
+            height: opacity == 0.0 ? 0 : childrenRect.height
+            model: historyListModel
+
+            footerLabelVisible: false
+
+            onUrlClicked: newTabView.historyEntryClicked(url)
+            onUrlRemoved: newTabView.historyModel.hide(url)
+
             Behavior on opacity { UbuntuNumberAnimation {} }
-
-            Repeater {
-                model: parent.opacity == 0.0 ? "" : historyListModel
-
-                delegate: MouseArea {
-                    width: units.gu(18)
-                    height: childrenRect.height
-
-                    Column {
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                        }
-                        //height: childrenRect.height
-
-                        spacing: units.gu(1)
-
-                        Label {
-                            width: parent.width
-                            height: units.gu(2)
-
-                            fontSize: "small"
-                            wrapMode: Text.Wrap
-                            elide: Text.ElideRight
-
-                            text: model.title ? model.title : model.url
-                        }
-
-                        UbuntuShape {
-                            width: parent.width
-                            height: units.gu(10)
-
-                            // we need that to clip the background image
-                            clip: true
-
-                            Image {
-                                source: Qt.resolvedUrl("assets/tab-artwork.png")
-                                asynchronous: true
-                                width: parent.height
-                                height: width
-                                opacity: 0.6
-                                anchors {
-                                    right: parent.right
-                                    bottom: parent.bottom
-                                    margins: units.gu(-3)
-                                }
-                            }
-                            Column {
-                                anchors {
-                                    left: parent.left
-                                    right: parent.right
-                                    bottom: parent.bottom
-                                    margins: units.gu(1)
-                                }
-
-                                Favicon {
-                                    source: model.icon
-                                }
-
-                                Label {
-                                    anchors {
-                                        left: parent.left
-                                        right: parent.right
-                                    }
-                                    elide: Text.ElideRight
-                                    text: model.domain
-                                    fontSize: "small"
-                                }
-                                Label {
-                                    anchors {
-                                        left: parent.left
-                                        right: parent.right
-                                    }
-                                    elide: Text.ElideRight
-                                    text: model.title
-                                    fontSize: "small"
-                                }
-                            }
-                        }
-                    }
-
-                    onClicked: historyEntryClicked(model.url)
-                }
-            }
         }
     }
 }

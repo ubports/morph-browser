@@ -138,6 +138,34 @@ private Q_SLOTS:
         QCOMPARE(model->unlimitedRowCount(), 3);
         QCOMPARE(model->rowCount(), model->unlimitedRowCount());
     }
+
+    void shouldUpdateRowCountAndNotifyAfterAnEntryIsRemoved()
+    {
+        model->setLimit(2);
+
+        qRegisterMetaType<QVector<int> >();
+        QSignalSpy spyChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+        QSignalSpy spyRemoved(model, SIGNAL(rowsRemoved(QModelIndex, int, int)));
+
+        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example4.org/"), "Example 4 Domain", QUrl());
+
+        history->removeEntryByUrl(QUrl("http://example1.org/"));
+
+        QCOMPARE(spyChanged.count(), 1);
+        QCOMPARE(spyRemoved.count(), 0);
+
+        QCOMPARE(model->data(model->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example2.org/"));
+        QCOMPARE(model->data(model->index(1, 0), HistoryModel::Url).toUrl(), QUrl("http://example3.org/"));
+
+        QCOMPARE(model->unlimitedRowCount(), 3);
+        QCOMPARE(model->rowCount(), 2);
+    }
 };
 
 QTEST_MAIN(LimitProxyModelTests)
