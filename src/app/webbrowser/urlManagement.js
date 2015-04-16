@@ -21,8 +21,8 @@ function fixUrl(address) {
     var url = address
     if (address.toLowerCase() == "about:blank") {
         return address.toLowerCase()
-    } else if (address.substr(0, 4).toLowerCase == "data:") {
-        return address.substr(0, 4).toLowerCase + address.substr(5);
+    } else if (address.match(/^data:/i)) {
+        return "data:" + address.substr(5)
     } else if (address.substr(0, 1) == "/") {
         url = "file://" + address
     } else if (address.indexOf("://") == -1) {
@@ -39,7 +39,7 @@ function looksLikeAUrl(address) {
     if (address.toLowerCase() == "about:blank") {
         return true
     }
-    if (address.substr(0, 4).toLowerCase == "data:") {
+    if (address.match(/^data:/i)) {
         return true;
     }
     if (address.substr(0, 1) == "/") {
