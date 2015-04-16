@@ -98,7 +98,6 @@ private Q_SLOTS:
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
         matches->setTerms(QStringList({"example"}));
         matches->setSearchFields(QStringList({"url", "title"}));
-        qDebug() << matches->terms() << matches->searchFields();
         QCOMPARE(matches->rowCount(), 2);
     }
 

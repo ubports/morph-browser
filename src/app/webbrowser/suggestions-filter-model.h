@@ -59,9 +59,10 @@ Q_SIGNALS:
 protected:
     // reimplemented from QSortFilterProxyModel
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
-    void updateSearchRoles(const QAbstractItemModel* model);
 
 private:
+    void updateSearchRoles(const QAbstractItemModel* model);
+
     QStringList m_terms;
     QStringList m_searchFields;
     QList<int> m_searchRoles;

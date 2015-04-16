@@ -88,7 +88,7 @@ const QStringList& SuggestionsFilterModel::searchFields() const
 void SuggestionsFilterModel::updateSearchRoles(const QAbstractItemModel* model) {
     m_searchRoles.clear();
     if (model) {
-        Q_FOREACH(QString field, m_searchFields) {
+        Q_FOREACH(const QString& field, m_searchFields) {
             int role = model->roleNames().key(field.toUtf8(), -1);
             if (role != -1) {
                 m_searchRoles.append(role);
