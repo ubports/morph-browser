@@ -31,8 +31,6 @@ from . import http_server
 
 import ubuntuuitoolkit as uitk
 
-from webbrowser_app.emulators import browser
-
 
 class BrowserTestCaseBase(AutopilotTestCase):
 
@@ -62,21 +60,21 @@ class BrowserTestCaseBase(AutopilotTestCase):
         return self.launch_test_application(
             self.local_location,
             *self.ARGS,
-            emulator_base=browser.Webbrowser)
+            emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
 
     def launch_test_installed(self):
         if model() == 'Desktop':
             return self.launch_test_application(
                 "webbrowser-app",
                 *self.ARGS,
-                emulator_base=browser.Webbrowser)
+                emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
         else:
             return self.launch_test_application(
                 "webbrowser-app",
                 self.d_f,
                 *self.ARGS,
                 app_type='qt',
-                emulator_base=browser.Webbrowser)
+                emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
 
     def clear_datadir(self):
         datadir = os.path.join(os.path.expanduser("~"), ".local", "share",
