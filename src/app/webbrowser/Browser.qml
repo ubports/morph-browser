@@ -426,12 +426,14 @@ BrowserView {
     }
 
     Image {
+        id: bottomEdgeHint
         objectName: "bottomEdgeHint"
         source: (formFactor == "mobile") ? "assets/bottom_edge_hint.png" : ""
+        property bool forceShow: false
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
-            bottomMargin: (chrome.state == "shown") ? 0 : -height
+            bottomMargin: (((chrome.state == "shown") && browser.currentWebview && !browser.currentWebview.fullscreen) || forceShow) ? 0 : -height
             Behavior on bottomMargin {
                 UbuntuNumberAnimation {}
             }
@@ -668,7 +670,11 @@ BrowserView {
                         Behavior on opacity {
                             UbuntuNumberAnimation {
                                 duration: UbuntuAnimation.SlowDuration
-                                onStopped: fullscreenExitHint.destroy()
+                            }
+                        }
+                        onOpacityChanged: {
+                            if (opacity == 0.0) {
+                                fullscreenExitHint.destroy()
                             }
                         }
 
@@ -685,6 +691,9 @@ BrowserView {
                             interval: 2000
                             onTriggered: fullscreenExitHint.opacity = 0
                         }
+
+                        Component.onCompleted: bottomEdgeHint.forceShow = true
+                        Component.onDestruction: bottomEdgeHint.forceShow = false
                     }
                 }
 
