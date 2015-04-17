@@ -666,6 +666,7 @@ BrowserView {
 
                     Rectangle {
                         id: fullscreenExitHint
+                        objectName: "fullscreenExitHint"
 
                         anchors.centerIn: parent
                         height: units.gu(6)
