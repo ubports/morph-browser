@@ -700,6 +700,15 @@ BrowserView {
                             onTriggered: fullscreenExitHint.opacity = 0
                         }
 
+                        Connections {
+                            target: webviewimpl
+                            onFullscreenChanged: {
+                                if (!webviewimpl.fullscreen) {
+                                    fullscreenExitHint.destroy()
+                                }
+                            }
+                        }
+
                         Component.onCompleted: bottomEdgeHint.forceShow = true
                         Component.onDestruction: bottomEdgeHint.forceShow = false
                     }
