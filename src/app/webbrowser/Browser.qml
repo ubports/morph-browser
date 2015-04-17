@@ -129,6 +129,13 @@ BrowserView {
                 top: recentView.visible ? invisibleTabChrome.bottom : parent.top
             }
             height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : 0)
+
+            Keys.onEscapePressed: {
+                if (browser.currentWebview && browser.currentWebview.fullscreen) {
+                    event.accepted = true
+                    browser.currentWebview.fullscreen = false
+                }
+            }
         }
 
         Loader {
@@ -682,8 +689,9 @@ BrowserView {
                             color: "white"
                             font.weight: Font.Light
                             anchors.centerIn: parent
-                            // FIXME: this hint is incorrect for desktop
-                            text: i18n.tr("Swipe Up To Exit Full Screen")
+                            text: (formFactor == "mobile") ?
+                                      i18n.tr("Swipe Up To Exit Full Screen") :
+                                      i18n.tr("Press ESC To Exit Full Screen")
                         }
 
                         Timer {
