@@ -402,7 +402,11 @@ BrowserView {
                  browser.currentWebview
 
         onDraggingChanged: {
-            if (!dragging) {
+            if (dragging) {
+                if (browser.currentWebview) {
+                    browser.currentWebview.fullscreen = false
+                }
+            } else {
                 if (stage == 1) {
                     if (tabsModel.count > 1) {
                         tabslist.selectAndAnimateTab(1)
