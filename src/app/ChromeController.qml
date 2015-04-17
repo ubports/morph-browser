@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import com.canonical.Oxide 1.5 as Oxide
+import com.canonical.Oxide 1.7 as Oxide
 
 Item {
     visible: false
@@ -25,40 +25,33 @@ Item {
     property var webview
     property bool forceHide: false
 
-    readonly property int mode: {
-        if (forceHide || webview.fullscreen) {
-            return Oxide.LocationBarController.ModeHidden
-        } else if (internal.forceShow) {
-            return Oxide.LocationBarController.ModeShown
-        } else {
-            return Oxide.LocationBarController.ModeAuto
+    onForceHideChanged: {
+        if (!webview) {
+            return
         }
+        webview.locationBarController.animated = false
+        if (forceHide) {
+            webview.locationBarController.mode = Oxide.LocationBarController.ModeHidden
+        } else if (!webview.fullscreen) {
+            webview.locationBarController.mode = Oxide.LocationBarController.ModeAuto
+            webview.locationBarController.show(false)
+        }
+        webview.locationBarController.animated = true
     }
 
-    // Work around the lack of a show() method on the location bar controller
-    // (https://launchpad.net/bugs/1422920) by forcing its mode to ModeShown
-    // for long enough (500ms) to allow the animation to be committed.
-    QtObject {
-        id: internal
-        property bool forceShow: false
-    }
-    Timer {
-        id: delayedResetMode
-        interval: 500
-        onTriggered: internal.forceShow = false
-    }
     Connections {
         target: webview
         onFullscreenChanged: {
-            if (!webview.fullscreen) {
-                internal.forceShow = true
-                delayedResetMode.restart()
+            if (webview.fullscreen) {
+                webview.locationBarController.mode = Oxide.LocationBarController.ModeHidden
+            } else if (!forceHide) {
+                webview.locationBarController.mode = Oxide.LocationBarController.ModeAuto
+                webview.locationBarController.show(true)
             }
         }
         onLoadingChanged: {
-            if (webview.loading && !webview.fullscreen) {
-                internal.forceShow = true
-                delayedResetMode.restart()
+            if (webview.loading && !webview.fullscreen && !forceHide) {
+                webview.locationBarController.show(true)
             }
         }
     }

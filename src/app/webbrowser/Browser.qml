@@ -547,14 +547,12 @@ BrowserView {
                 enabled: visible && !bottomEdgeHandle.dragging && !recentView.visible
 
                 ChromeController {
-                    id: chromeController
                     webview: webviewimpl
                     forceHide: recentView.visible
                 }
 
                 locationBarController {
                     height: webviewimpl.visible ? chrome.height : 0
-                    mode: chromeController.mode
                 }
 
                 //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
