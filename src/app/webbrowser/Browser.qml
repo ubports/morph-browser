@@ -399,7 +399,7 @@ BrowserView {
 
         enabled: (formFactor == "mobile") && (recentView.state == "") &&
                  (Screen.orientation == Screen.primaryOrientation) &&
-                 browser.currentWebview && !browser.currentWebview.fullscreen
+                 browser.currentWebview
 
         onDraggingChanged: {
             if (!dragging) {
@@ -640,6 +640,47 @@ BrowserView {
                     } else {
                         certificateError = error
                         error.onCancelled.connect(webviewimpl.resetCertificateError)
+                    }
+                }
+
+                onFullscreenChanged: {
+                    if (fullscreen) {
+                        fullscreenExitHintComponent.createObject(webviewimpl)
+                    }
+                }
+                Component {
+                    id: fullscreenExitHintComponent
+
+                    Rectangle {
+                        id: fullscreenExitHint
+
+                        anchors.centerIn: parent
+                        height: units.gu(6)
+                        width: Math.min(units.gu(50), parent.width - units.gu(12))
+                        radius: units.gu(1)
+                        color: "#3e3b39"
+                        opacity: 0.85
+
+                        Behavior on opacity {
+                            UbuntuNumberAnimation {
+                                duration: UbuntuAnimation.SlowDuration
+                                onStopped: fullscreenExitHint.destroy()
+                            }
+                        }
+
+                        Label {
+                            color: "white"
+                            font.weight: Font.Light
+                            anchors.centerIn: parent
+                            // FIXME: this hint is incorrect for desktop
+                            text: i18n.tr("Swipe Up To Exit Full Screen")
+                        }
+
+                        Timer {
+                            running: true
+                            interval: 2000
+                            onTriggered: fullscreenExitHint.opacity = 0
+                        }
                     }
                 }
 
