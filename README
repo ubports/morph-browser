@@ -40,21 +40,6 @@ To run the unit tests, you can use the commands below:
 
     $ ctest
 
-
-= Automated UI tests =
-
-webbrowser-app uses autopilot (https://launchpad.net/autopilot) to test its UI.
-To run the tests, you will need to install python3-autopilot and autopilot-qt5.
-Then do the following:
-
-    $ cd tests/autopilot/
-    $ autopilot3 run webbrowser_app
-
-You can get a list of all available tests with the following command:
-
-    $ autopilot3 list webbrowser_app
-
-
 = Code coverage =
 
 To generate a report with detailed code coverage, you need to re-run cmake with
@@ -68,6 +53,50 @@ To generate a report with detailed code coverage, you need to re-run cmake with
 This will generate a coverage report in XML format (coverage.xml) and an
 interactive human-readable report in HTML format (coveragereport/index.html).
 
+= Dep8 tests =
+
+Dep8 tests excercise the package "as-installed".
+
+Currently, the webbrowser-app has one suite of dep8 tests that uses autopilot
+(https://launchpad.net/autopilot) to test from the point of view of the user.
+
+To run the tests you will need autopkgtest:
+
+    $ sudo apt-get install autopkgtest
+
+You can use multiple test beds to execute the tests. Below you will find
+instructions to run them in a virtual machine
+You can find more information with:
+
+    $ man adt-run
+
+== Run dep8 tests in a qemu virtual machine ==
+
+To run the tests in a qemu virtual machine, first you will have to create it. We output the image to ~/ rather than the current directory, so it will be in
+a safer place to avoid rebuilding images every time. You can store it in any
+directory you wish.
+
+    $ adt-buildvm-ubuntu-cloud -r vivid -a amd64 -o ~/
+
+Then run the tests using adt-run with the qemu virtualization host.
+
+    $ adt-run -B --unbuilt-tree . \
+      -o /tmp/adt-browser-test \
+      -U --apt-pocket proposed \
+      --setup-commands ubuntu-touch-session \
+      --- qemu ~/adt-vivid-amd64-cloud.img
+
+== Examine the dep8 autopilot results ==
+
+To examine the test results, which are in subunit format, additional tools are
+required.
+
+    $ sudo add-apt-repository ppa:thomir/trv
+    $ sudo apt-get update
+    $ sudo apt-get install trv
+    $ trv
+
+You can find the results file in the directory /tmp/adt-browser-test/artifacts.
 
 = Settings =
 
@@ -93,4 +122,3 @@ The following keys are supported:
 
  - restoreSession: whether to restore the previous browsing session at startup
    (defaults to true)
-
