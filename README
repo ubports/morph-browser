@@ -40,6 +40,23 @@ To run the unit tests, you can use the commands below:
 
     $ ctest
 
+= Automated UI tests =
+
+webbrowser-app uses autopilot (https://launchpad.net/autopilot) to test its UI.
+To run the tests locally, you will need to install python3-autopilot and
+autopilot-qt5.
+Then do the following:
+
+    $ cd tests/autopilot/
+    $ autopilot3 run webbrowser_app
+
+You can get a list of all available tests with the following command:
+
+    $ autopilot3 list webbrowser_app
+
+In order to run the tests in a virtual machine with an environment closer to
+what a user will get in Ubuntu Touch, see the Dep8 tests section.
+
 = Code coverage =
 
 To generate a report with detailed code coverage, you need to re-run cmake with
