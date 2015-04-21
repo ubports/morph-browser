@@ -57,7 +57,7 @@ class WebappContainerPopupWebViewOverlayTestCase(
             lambda: new_view_watcher.was_emitted,
             Eventually(Equals(True)))
         webview = self.get_oxide_webview()
-        self.assertThat(webview.visible, Equals(False))
+        self.assertThat(lambda: webview.visible, Eventually(Equals(False)))
         self.assertThat(
             lambda: len(self.get_popup_overlay_views()),
             Eventually(Equals(1)))
@@ -77,14 +77,10 @@ class WebappContainerPopupWebViewOverlayTestCase(
 
         self.pointing_device.click_object(closeButton)
 
+        self.assertThat(lambda: webview.visible, Eventually(Equals(True)))
         self.assertThat(
-            lambda: animation_watcher.num_emissions,
-            Eventually(GreaterThan(animation_signal_emission)))
-        animation_signal_emission = animation_watcher.num_emissions
-
-        self.assertThat(webview.visible, Equals(True))
-        views = self.get_popup_overlay_views()
-        self.assertThat(len(views), Equals(0))
+            lambda: len(self.get_popup_overlay_views()),
+            Eventually(Equals(0)))
 
     def test_open_overlay_in_main_browser(self):
         args = []
@@ -130,12 +126,8 @@ class WebappContainerPopupWebViewOverlayTestCase(
         self.pointing_device.click_object(openInBrowserButton)
 
         self.assertThat(
-            lambda: animation_watcher.num_emissions,
-            Eventually(GreaterThan(animation_signal_emission)))
-        animation_signal_emission = animation_watcher.num_emissions
-
-        views = self.get_popup_overlay_views()
-        self.assertThat(len(views), Equals(0))
+            lambda: len(self.get_popup_overlay_views()),
+            Eventually(Equals(0)))
         self.assertThat(
             lambda: external_open_watcher.was_emitted,
             Eventually(Equals(True)))
