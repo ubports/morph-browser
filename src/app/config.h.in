@@ -29,6 +29,7 @@
 #define DEFAULT_SEARCH_NAME "Google Search"
 #define DEFAULT_SEARCH_DESC "Use google.com to search the Web"
 #define DEFAULT_SEARCH_TEMPLATE "https://google.com/search?client=ubuntu&q={searchTerms}&ie=utf-8&oe=utf-8"
+#define DEFAULT_SEARCH_SUGGESTIONS_TEMPLATE "http://suggestqueries.google.com/complete/search?client=firefox&q={searchTerms}"
 
 inline bool isRunningInstalled()
 {
