@@ -43,25 +43,33 @@ Rectangle {
 
         model: suggestions.models
         delegate: Column {
+            id: suggestionsSection
             width: suggestionsList.width
             height: childrenRect.height
+
+            property string icon: models[index].icon
+            property int firstItemIndex: models.slice(0, index).reduce(countItems, 0)
 
             Repeater {
                 id: suggestionsSource
                 model: modelData
-                property int firstItemIndex: models.slice(0, index).reduce(countItems, 0)
 
                 delegate: Suggestion {
+                    id: suggestion
                     width: suggestionsList.width
-                    showDivider: suggestionsSource.firstItemIndex + index <
+                    showDivider: suggestionsSection.firstItemIndex + index <
                                  suggestions.count - 1
 
-                    title: highlightTerms(model.title)
-                    subtitle: highlightTerms(model.url)
-                    url: model.url
-                    icon: suggestionsSource.model.icon
+                    // Necessary to support both using objects inheriting from
+                    // QAbstractItemModel and JS arrays as models, since they
+                    // expose their data differently
+                    property var item: (model.modelData) ? model.modelData : model
 
-                    onSelected: suggestions.selected(url)
+                    title: item.title
+                    subtitle: highlightTerms(item.url)
+                    icon: suggestionsSection.icon
+
+                    onSelected: suggestions.selected(item.url)
                 }
             }
         }
@@ -97,5 +105,7 @@ Rectangle {
         return highlighted
     }
 
-    function countItems(total, model) { return total + model.count }
+    function countItems(total, model) {
+        return total + (model.hasOwnProperty("length") ? model.length : model.count);
+    }
 }

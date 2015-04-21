@@ -272,17 +272,10 @@ BrowserView {
 
             searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
 
-            models: [searchSuggestionsBefore,
+            models: [searchSuggestions.limit(0, 2),
                      historySuggestions,
                      bookmarksSuggestions,
-                     searchSuggestionsAfter]
-
-            SearchSuggestionsModel {
-                id: searchSuggestionsBefore
-                limit: 2
-                source: suggestionsLoader
-                property string icon: "search"
-            }
+                     searchSuggestions.limit(2, 2)]
 
             LimitProxyModel {
                 id: historySuggestions
@@ -306,18 +299,17 @@ BrowserView {
                 }
             }
 
-            SearchSuggestionsModel {
-                id: searchSuggestionsAfter
-                start: 2
-                limit: 2
-                source: suggestionsLoader
-                property string icon: "search"
-            }
-
             SearchSuggestions {
-                id: suggestionsLoader
+                id: searchSuggestions
                 terms: suggestionsList.searchTerms
                 searchEngine: currentSearchEngine
+                property string icon: "search"
+
+                function limit(from, number) {
+                    var slice = results.slice(from, from + number)
+                    slice.icon = icon
+                    return slice
+                }
             }
 
             onSelected: {

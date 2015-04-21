@@ -19,33 +19,58 @@
 import QtQuick 2.0
 import webbrowserapp.private 0.1
 
-QtObject {
+Item {
     property var terms
     property SearchEngine searchEngine
-    signal resultsAvailable(string results)
+    property var results: []
 
-    property var request: new XMLHttpRequest()
-    onSearchEngineChanged: reload()
-    onTermsChanged: reload()
+    property var _request: new XMLHttpRequest()
+    onSearchEngineChanged: resetSearch()
+    onTermsChanged: resetSearch()
 
     Component.onCompleted: {
-        request.onreadystatechange = function() {
-            if (request.readyState === XMLHttpRequest.DONE) {
-                resultsAvailable(request.responseText)
+        _request.onreadystatechange = function() {
+            if (_request.readyState === XMLHttpRequest.DONE) {
+                results = parseResponse(_request.responseText)
             }
         }
     }
 
-    function reload() {
-        if (!(terms.length > 0 && searchEngine)) {
-            resultsAvailable([]);
-            return;
+    Timer {
+        id: limiter
+        interval: 250
+        onTriggered:  {
+            if (_request && terms.length > 0 && searchEngine) {
+                var url = searchEngine.suggestionsUrlTemplate
+                url = url.replace("{searchTerms}", encodeURIComponent(terms.join(" ")))
+
+                _request.open("GET", url);
+                _request.send();
+            }
+        }
+    }
+
+    function parseResponse(response) {
+        try {
+            var data = JSON.parse(response)
+        } catch (error) {
+            return []
         }
 
-        var url = searchEngine.suggestionsUrlTemplate
-        url = url.replace("{searchTerms}", encodeURIComponent(terms.join(" ")))
+        if (data.length > 1) {
+            return data[1].map(function(result) {
+                return {
+                    title: result,
+                    url: searchEngine.urlTemplate.replace("{searchTerms}",
+                                                          encodeURIComponent(result))
+                }
+            })
+        } else return []
+    }
 
-        request.open("GET", url);
-        request.send();
+    function resetSearch() {
+        if (_request) _request.abort()
+        results = []
+        limiter.restart()
     }
 }
