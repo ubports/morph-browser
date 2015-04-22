@@ -24,8 +24,8 @@
 #include "domain-utils.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
-#include "history-byvisits-model.h"
 #include "limit-proxy-model.h"
+#include "top-sites-model.h"
 
 class LimitProxyModelTests : public QObject
 {
@@ -34,7 +34,7 @@ class LimitProxyModelTests : public QObject
 private:
     HistoryModel* history;
     HistoryTimeframeModel* timeframe;
-    HistoryByVisitsModel* byvisits;
+    TopSitesModel* topsites;
     LimitProxyModel* model;
 
 private Q_SLOTS:
@@ -44,16 +44,16 @@ private Q_SLOTS:
         history->setDatabasePath(":memory:");
         timeframe = new HistoryTimeframeModel;
         timeframe->setSourceModel(history);
-        byvisits = new HistoryByVisitsModel;
-        byvisits->setSourceModel(timeframe);
+        topsites = new TopSitesModel;
+        topsites->setSourceModel(timeframe);
         model = new LimitProxyModel;
-        model->setSourceModel(byvisits);
+        model->setSourceModel(topsites);
     }
 
     void cleanup()
     {
         delete model;
-        delete byvisits;
+        delete topsites;
         delete timeframe;
         delete history;
     }
@@ -71,16 +71,16 @@ private Q_SLOTS:
     void shouldNotifyWhenChangingSourceModel()
     {
         QSignalSpy spy(model, SIGNAL(sourceModelChanged()));
-        model->setSourceModel(byvisits);
+        model->setSourceModel(topsites);
         QVERIFY(spy.isEmpty());
-        HistoryByVisitsModel* byvisits2 = new HistoryByVisitsModel;
-        model->setSourceModel(byvisits2);
+        TopSitesModel* topsites2 = new TopSitesModel;
+        model->setSourceModel(topsites2);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->sourceModel(), byvisits2);
+        QCOMPARE(model->sourceModel(), topsites2);
         model->setSourceModel(0);
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(model->sourceModel(), (HistoryByVisitsModel*) 0);
-        delete byvisits2;
+        QCOMPARE(model->sourceModel(), (TopSitesModel*) 0);
+        delete topsites2;
     }
 
     void shouldLimitEntriesWithLimitSetBeforePopulating()
@@ -137,6 +137,34 @@ private Q_SLOTS:
 
         QCOMPARE(model->unlimitedRowCount(), 3);
         QCOMPARE(model->rowCount(), model->unlimitedRowCount());
+    }
+
+    void shouldUpdateRowCountAndNotifyAfterAnEntryIsRemoved()
+    {
+        model->setLimit(2);
+
+        qRegisterMetaType<QVector<int> >();
+        QSignalSpy spyChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+        QSignalSpy spyRemoved(model, SIGNAL(rowsRemoved(QModelIndex, int, int)));
+
+        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example4.org/"), "Example 4 Domain", QUrl());
+
+        history->removeEntryByUrl(QUrl("http://example1.org/"));
+
+        QCOMPARE(spyChanged.count(), 1);
+        QCOMPARE(spyRemoved.count(), 0);
+
+        QCOMPARE(model->data(model->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example2.org/"));
+        QCOMPARE(model->data(model->index(1, 0), HistoryModel::Url).toUrl(), QUrl("http://example3.org/"));
+
+        QCOMPARE(model->unlimitedRowCount(), 3);
+        QCOMPARE(model->rowCount(), 2);
     }
 };
 

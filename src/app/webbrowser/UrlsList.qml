@@ -20,14 +20,13 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 
 Column {
-    id: bookmarksList
-
-    property alias model: bookmarksListRepeater.model
+    id: urlsList
+    property alias model: urlsListRepeater.model
     property alias footerLabelText: footerLabel.text
     property alias footerLabelVisible: footerLabel.visible
 
-    signal bookmarkClicked(url url)
-    signal bookmarkRemoved(url url)
+    signal urlClicked(url url)
+    signal urlRemoved(url url)
     signal footerLabelClicked()
 
     spacing: units.gu(1)
@@ -35,19 +34,19 @@ Column {
     move: Transition { UbuntuNumberAnimation { properties: "x, y" } }
 
     Repeater {
-        id: bookmarksListRepeater
+        id: urlsListRepeater
         property var _currentSwipedItem: null
 
         delegate: UrlDelegate{
             id: urlDelegate
-            width: bookmarksList.width
+            width: urlsList.width
             height: units.gu(5)
 
             icon: model.icon
             title: model.title ? model.title : model.url
             url: model.url
 
-            onItemClicked: bookmarkClicked(model.url)
+            onItemClicked: urlClicked(model.url)
 
             property var removalAnimation
             function remove() {
@@ -55,11 +54,11 @@ Column {
             }
 
             onSwippingChanged: {
-                bookmarksListRepeater._updateSwipeState(urlDelegate)
+                urlsListRepeater._updateSwipeState(urlDelegate)
             }
 
             onSwipeStateChanged: {
-                bookmarksListRepeater._updateSwipeState(urlDelegate)
+                urlsListRepeater._updateSwipeState(urlDelegate)
             }
 
             leftSideAction: Action {
@@ -72,8 +71,8 @@ Column {
 
             ListView.onRemove: ScriptAction {
                 script: {
-                    if (bookmarksListRepeater._currentSwipedItem === urlDelegate) {
-                        bookmarksListRepeater._currentSwipedItem = null
+                    if (urlsListRepeater._currentSwipedItem === urlDelegate) {
+                        urlsListRepeater._currentSwipedItem = null
                     }
                 }
             }
@@ -101,7 +100,7 @@ Column {
 
                 ScriptAction {
                     script: {
-                        bookmarkRemoved(model.url)
+                        urlRemoved(model.url)
                     }
                 }
             }
@@ -113,22 +112,22 @@ Column {
             }
 
             if (item.swipeState !== "Normal") {
-                if (bookmarksListRepeater._currentSwipedItem !== item) {
-                    if (bookmarksListRepeater._currentSwipedItem) {
-                        bookmarksListRepeater._currentSwipedItem.resetSwipe()
+                if (urlsListRepeater._currentSwipedItem !== item) {
+                    if (urlsListRepeater._currentSwipedItem) {
+                        urlsListRepeater._currentSwipedItem.resetSwipe()
                     }
-                    bookmarksListRepeater._currentSwipedItem = item
+                    urlsListRepeater._currentSwipedItem = item
                 }
             } else if (item.swipeState !== "Normal"
-            && bookmarksListRepeater._currentSwipedItem === item) {
-                bookmarksListRepeater._currentSwipedItem = null
+            && urlsListRepeater._currentSwipedItem === item) {
+                urlsListRepeater._currentSwipedItem = null
             }
         }
     }
 
-    Rectangle {
+    Item {
         width: parent.width
-        height: footerLabel.visible ? footerLabel.height + units.gu(6) : 0
+        height: footerLabel.visible ? footerLabel.height + units.gu(6) : units.gu(3) 
 
         MouseArea {
             anchors.centerIn: footerLabel
