@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-22 11:03+0200\n"
+"POT-Creation-Date: 2015-04-08 20:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,18 +113,22 @@ msgid "Please choose a file"
 msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:28
+#: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:29
+#: src/app/webcontainer/WebViewImplWebkit.qml:70
 msgid "This page wants to know your device’s location."
 msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:33
+#: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:43
+#: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr ""
 
@@ -351,7 +355,7 @@ msgstr ""
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:372
 msgid "New Tab"
 msgstr ""
 
@@ -395,6 +399,13 @@ msgstr ""
 msgid "search or enter an address"
 msgstr ""
 
+#: src/app/webbrowser/BookmarksList.qml:67
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321
+msgid "Delete"
+msgstr ""
+
 #: src/app/webbrowser/Browser.qml:214
 msgid "Share"
 msgstr ""
@@ -416,14 +427,8 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:355 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
-msgstr ""
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
-msgid "Delete"
 msgstr ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
@@ -457,11 +462,11 @@ msgstr ""
 msgid "Top sites"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:145
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see less"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:145
+#: src/app/webbrowser/NewTabView.qml:143
 msgid "see more"
 msgstr ""
 
@@ -562,13 +567,13 @@ msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:34
-#: src/app/webcontainer/webapp-container.qml:65
+#: src/app/webcontainer/webapp-container.qml:66
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:36
-#: src/app/webcontainer/webapp-container.qml:67
+#: src/app/webcontainer/webapp-container.qml:68
 msgid "Ubuntu Web Browser"
 msgstr ""
 
