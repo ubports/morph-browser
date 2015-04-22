@@ -66,7 +66,7 @@ Rectangle {
                     // expose their data differently
                     property var item: (model.modelData) ? model.modelData : model
 
-                    title: item.title
+                    title: highlightTerms(item.title)
                     subtitle: suggestionsSection.displayUrl ? highlightTerms(item.url) : ""
                     icon: suggestionsSection.icon
 
