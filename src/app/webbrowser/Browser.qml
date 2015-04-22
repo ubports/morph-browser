@@ -281,6 +281,7 @@ BrowserView {
                 id: historySuggestions
                 limit: 2
                 property string icon: "history"
+                property bool displayUrl: true
                 sourceModel: SuggestionsFilterModel {
                     sourceModel: browser.historyModel
                     terms: suggestionsList.searchTerms
@@ -292,6 +293,7 @@ BrowserView {
                 id: bookmarksSuggestions
                 limit: 2
                 property string icon: "non-starred"
+                property bool displayUrl: true
                 sourceModel: SuggestionsFilterModel {
                     sourceModel: browser.bookmarksModel
                     terms: suggestionsList.searchTerms
@@ -303,11 +305,11 @@ BrowserView {
                 id: searchSuggestions
                 terms: suggestionsList.searchTerms
                 searchEngine: currentSearchEngine
-                property string icon: "search"
 
                 function limit(from, number) {
                     var slice = results.slice(from, from + number)
-                    slice.icon = icon
+                    slice.icon = 'search'
+                    slice.displayUrl = false
                     return slice
                 }
             }

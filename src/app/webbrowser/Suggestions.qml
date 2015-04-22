@@ -48,6 +48,7 @@ Rectangle {
             height: childrenRect.height
 
             property string icon: models[index].icon
+            property bool displayUrl: models[index].displayUrl
             property int firstItemIndex: models.slice(0, index).reduce(countItems, 0)
 
             Repeater {
@@ -66,7 +67,7 @@ Rectangle {
                     property var item: (model.modelData) ? model.modelData : model
 
                     title: item.title
-                    subtitle: highlightTerms(item.url)
+                    subtitle: suggestionsSection.displayUrl ? highlightTerms(item.url) : ""
                     icon: suggestionsSection.icon
 
                     onSelected: suggestions.selected(item.url)
