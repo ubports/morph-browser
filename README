@@ -97,10 +97,8 @@ directory you wish.
 
 Then run the tests using adt-run with the qemu virtualization host.
 
-    $ adt-run -B --unbuilt-tree . \
+    $ adt-run -B -U --unbuilt-tree . \
       -o /tmp/adt-browser-test \
-      -U --apt-pocket proposed \
-      --setup-commands ubuntu-touch-session \
       --- qemu ~/adt-vivid-amd64-cloud.img
 
 == Examine the dep8 autopilot results ==

@@ -16,4 +16,9 @@
 
 set -e
 
+# start X server
+export DISPLAY=:5
+Xvfb ${DISPLAY} -screen 0 1024x768x24 >/tmp/Xvfb-5.log 2>&1 &
+export XAUTHORITY=/dev/null
+
 autopilot3 run -v -f subunit -o $ADT_ARTIFACTS webapp_container
