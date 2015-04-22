@@ -214,14 +214,7 @@ BrowserView {
                     text: i18n.tr("Share")
                     iconName: "share"
                     enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
-                    onTriggered: {
-                        var component = Qt.createComponent("../Share.qml")
-                        if (component.status == Component.Ready) {
-                            var share = component.createObject(browser)
-                            share.onDone.connect(share.destroy)
-                            share.shareLink(browser.currentWebview.url, browser.currentWebview.title)
-                        }
-                    }
+                    onTriggered: internal.shareLink(browser.currentWebview.url, browser.currentWebview.title)
                 },
                 Action {
                     objectName: "history"
@@ -603,6 +596,10 @@ BrowserView {
                         enabled: contextualData.href.toString()
                         onTriggered: Clipboard.push([contextualData.href])
                     }
+                    Actions.ShareLink {
+                        enabled: (formFactor == "mobile") && contextualData.href.toString()
+                        onTriggered: internal.shareLink(contextualData.href.toString(), contextualData.title)
+                    }
                     Actions.OpenImageInNewTab {
                         enabled: contextualData.img.toString()
                         onTriggered: browser.openUrlInNewTab(contextualData.img, true)
@@ -721,6 +718,15 @@ BrowserView {
 
     QtObject {
         id: internal
+
+        function shareLink(url, title) {
+            var component = Qt.createComponent("../Share.qml")
+            if (component.status == Component.Ready) {
+                var share = component.createObject(browser)
+                share.onDone.connect(share.destroy)
+                share.shareLink(url, title)
+            }
+        }
 
         function addTab(tab, setCurrent) {
             var index = tabsModel.add(tab)
