@@ -14,4 +14,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-sh -e debian/tests/touch-session-autopilot webapp_container
+suite=$1
+
+set -e
+env
+if ! pgrep -f unity-system-compositor ; then
+   # We're not using Mir, setup enough of an X stack
+   # FIXME: We won't need the above once Mir provides mirvfb -- vila 2015-04-22
+   sudo ADT_NORMAL_USER=ubuntu sh -e /usr/share/autopkgtest/setup-commands/ubuntu-touch-session
+fi
+
+# FIXME: There has to be a better way....
+sed -e 's/^/export /g' < /etc/environment >myenv
+. ./myenv
+autopilot3 run -v -f subunit -o ${ADT_ARTIFACTS} ${suite}
