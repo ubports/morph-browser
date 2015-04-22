@@ -16,9 +16,11 @@
 
 set -e
 
-# start X server
-export DISPLAY=:5
-Xvfb ${DISPLAY} -screen 0 1024x768x24 >/tmp/Xvfb-5.log 2>&1 &
-export XAUTHORITY=/dev/null
+if ! pgrep -f unity-system-compositor ; then
+    # start X server if we're not running Mir
+    export DISPLAY=:5
+    Xvfb ${DISPLAY} -screen 0 1024x768x24 >/tmp/Xvfb-5.log 2>&1 &
+    export XAUTHORITY=/dev/null
+fi
 
 autopilot3 run -v -f subunit -o $ADT_ARTIFACTS webbrowser_app
