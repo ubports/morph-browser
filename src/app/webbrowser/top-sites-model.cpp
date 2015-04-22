@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,19 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "history-byvisits-model.h"
-#include "history-timeframe-model.h"
 #include "history-model.h"
+#include "history-timeframe-model.h"
+#include "top-sites-model.h"
 
 /*!
-    \class HistoryByVisitsModel
-    \brief Proxy model that sorts a history model by number of visits
+    \class TopSitesModel
+    \brief Proxy model that filters a history model based on hidden role and sorts it by number of visits
 
-    HistoryByVisitsModel is a proxy model that sorts a
-    HistoryTimeframeModel by the number of visits
-    (i.e. the history with the greatest number of visits first).
+    TopSitesModel is a proxy model that filters a HistoryTimeframeModel
+    based on the hidden rule and sorts it by the number of visits
+    (i.e. the history with the greatest number of visits first ignoring entries marked as removed by user).
 */
-HistoryByVisitsModel::HistoryByVisitsModel(QObject* parent)
+TopSitesModel::TopSitesModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
     setDynamicSortFilter(true);
@@ -36,15 +36,21 @@ HistoryByVisitsModel::HistoryByVisitsModel(QObject* parent)
     sort(0, Qt::DescendingOrder);
 }
 
-HistoryTimeframeModel* HistoryByVisitsModel::sourceModel() const
+HistoryTimeframeModel* TopSitesModel::sourceModel() const
 {
     return qobject_cast<HistoryTimeframeModel*>(QSortFilterProxyModel::sourceModel());
 }
 
-void HistoryByVisitsModel::setSourceModel(HistoryTimeframeModel* sourceModel)
+void TopSitesModel::setSourceModel(HistoryTimeframeModel* sourceModel)
 {
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);
         Q_EMIT sourceModelChanged();
     }
+}
+
+bool TopSitesModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+{
+    QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
+    return !sourceModel()->data(index, HistoryModel::Hidden).toBool();
 }

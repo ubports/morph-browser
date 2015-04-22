@@ -20,6 +20,7 @@
 #include "history-model.h"
 
 // Qt
+#include <QtCore/QMutexLocker>
 #include <QtSql/QSqlQuery>
 
 #define CONNECTION_NAME "webbrowser-app-history"
@@ -55,6 +56,7 @@ HistoryModel::~HistoryModel()
 void HistoryModel::resetDatabase(const QString& databaseName)
 {
     beginResetModel();
+    m_hiddenEntries.clear();
     m_entries.clear();
     m_database.close();
     m_database.setDatabaseName(databaseName);
@@ -66,6 +68,7 @@ void HistoryModel::resetDatabase(const QString& databaseName)
 
 void HistoryModel::createOrAlterDatabaseSchema()
 {
+    QMutexLocker ml(&m_dbMutex);
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS history "
                                   "(url VARCHAR, domain VARCHAR, title VARCHAR,"
@@ -92,6 +95,11 @@ void HistoryModel::createOrAlterDatabaseSchema()
         // costly operation that would slow down the application startup,
         // do not do it here.
     }
+
+    QSqlQuery createHiddenQuery(m_database);
+    query = QLatin1String("CREATE TABLE IF NOT EXISTS history_hidden (url VARCHAR);");
+    createHiddenQuery.prepare(query);
+    createHiddenQuery.exec();
 }
 
 void HistoryModel::populateFromDatabase()
@@ -101,6 +109,16 @@ void HistoryModel::populateFromDatabase()
                                   "FROM history ORDER BY lastVisit DESC;");
     populateQuery.prepare(query);
     populateQuery.exec();
+
+    QSqlQuery populateHiddenQuery(m_database);
+    query = QLatin1String("SELECT url FROM history_hidden;");
+    populateHiddenQuery.prepare(query);
+    populateHiddenQuery.exec();
+
+    while (populateHiddenQuery.next()) {
+        m_hiddenEntries.append(populateHiddenQuery.value(0).toUrl());
+    }
+
     int count = 0;
     while (populateQuery.next()) {
         HistoryEntry entry;
@@ -113,6 +131,7 @@ void HistoryModel::populateFromDatabase()
         entry.icon = populateQuery.value(3).toUrl();
         entry.visits = populateQuery.value(4).toInt();
         entry.lastVisit = QDateTime::fromTime_t(populateQuery.value(5).toInt());
+        entry.hidden = m_hiddenEntries.contains(entry.url);
         beginInsertRows(QModelIndex(), count, count);
         m_entries.append(entry);
         endInsertRows();
@@ -131,6 +150,7 @@ QHash<int, QByteArray> HistoryModel::roleNames() const
         roles[Visits] = "visits";
         roles[LastVisit] = "lastVisit";
         roles[LastVisitDate] = "lastVisitDate";
+        roles[Hidden] = "hidden";
     }
     return roles;
 }
@@ -162,6 +182,8 @@ QVariant HistoryModel::data(const QModelIndex& index, int role) const
         return entry.lastVisit;
     case LastVisitDate:
         return entry.lastVisit.toLocalTime().date();
+    case Hidden:
+        return entry.hidden;
     default:
         return QVariant();
     }
@@ -218,6 +240,7 @@ int HistoryModel::add(const QUrl& url, const QString& title, const QUrl& icon)
         entry.icon = icon;
         entry.visits = 1;
         entry.lastVisit = now;
+        entry.hidden = m_hiddenEntries.contains(entry.url);
         beginInsertRows(QModelIndex(), 0, 0);
         m_entries.prepend(entry);
         endInsertRows();
@@ -314,6 +337,7 @@ void HistoryModel::removeByIndex(int index)
 
 void HistoryModel::insertNewEntryInDatabase(const HistoryEntry& entry)
 {
+    QMutexLocker ml(&m_dbMutex);
     QSqlQuery query(m_database);
     static QString insertStatement = QLatin1String("INSERT INTO history (url, domain, title, icon, "
                                                    "visits, lastVisit) VALUES (?, ?, ?, ?, 1, ?);");
@@ -326,8 +350,19 @@ void HistoryModel::insertNewEntryInDatabase(const HistoryEntry& entry)
     query.exec();
 }
 
+void HistoryModel::insertNewEntryInHiddenDatabase(const QUrl& url)
+{
+    QMutexLocker ml(&m_dbMutex);
+    QSqlQuery query(m_database);
+    static QString insertStatement = QLatin1String("INSERT INTO history_hidden (url) VALUES (?);");
+    query.prepare(insertStatement);
+    query.addBindValue(url.toString());
+    query.exec();
+}
+
 void HistoryModel::updateExistingEntryInDatabase(const HistoryEntry& entry)
 {
+    QMutexLocker ml(&m_dbMutex);
     QSqlQuery query(m_database);
     static QString updateStatement = QLatin1String("UPDATE history SET domain=?, title=?, icon=?, "
                                                    "visits=?, lastVisit=? WHERE url=?;");
@@ -343,6 +378,7 @@ void HistoryModel::updateExistingEntryInDatabase(const HistoryEntry& entry)
 
 void HistoryModel::removeEntryFromDatabaseByUrl(const QUrl& url)
 {
+    QMutexLocker ml(&m_dbMutex);
     QSqlQuery query(m_database);
     static QString deleteStatement = QLatin1String("DELETE FROM history WHERE url=?;");
     query.prepare(deleteStatement);
@@ -350,8 +386,19 @@ void HistoryModel::removeEntryFromDatabaseByUrl(const QUrl& url)
     query.exec();
 }
 
+void HistoryModel::removeEntryFromHiddenDatabaseByUrl(const QUrl& url)
+{
+    QMutexLocker ml(&m_dbMutex);
+    QSqlQuery query(m_database);
+    static QString deleteStatement = QLatin1String("DELETE FROM history_hidden WHERE url=?;");
+    query.prepare(deleteStatement);
+    query.addBindValue(url.toString());
+    query.exec();
+}
+
 void HistoryModel::removeEntriesFromDatabaseByDomain(const QString& domain)
 {
+    QMutexLocker ml(&m_dbMutex);
     QSqlQuery query(m_database);
     static QString deleteStatement = QLatin1String("DELETE FROM history WHERE domain=?;");
     query.prepare(deleteStatement);
@@ -363,6 +410,7 @@ void HistoryModel::clearAll()
 {
     if (!m_entries.isEmpty()) {
         beginResetModel();
+        m_hiddenEntries.clear();
         m_entries.clear();
         endResetModel();
         clearDatabase();
@@ -372,8 +420,70 @@ void HistoryModel::clearAll()
 
 void HistoryModel::clearDatabase()
 {
-    QSqlQuery query(m_database);
+    QMutexLocker ml(&m_dbMutex);
+    QSqlQuery deleteQuery(m_database);
     QString deleteStatement = QLatin1String("DELETE FROM history;");
-    query.prepare(deleteStatement);
-    query.exec();
+    deleteQuery.prepare(deleteStatement);
+    deleteQuery.exec();
+
+    QSqlQuery deleteHiddenQuery(m_database);
+    deleteStatement = QLatin1String("DELETE FROM history_hidden;");
+    deleteHiddenQuery.prepare(deleteStatement);
+    deleteHiddenQuery.exec();
+}
+
+/*!
+    Mark an entry in the model as hidden.
+
+    Add a new entry to the hidden list.
+    If an entry with the URL exists, it is updated.
+*/
+void HistoryModel::hide(const QUrl& url)
+{
+    if (url.isEmpty() || m_hiddenEntries.contains(url)) {
+        return;
+    }
+
+    m_hiddenEntries.append(url);
+
+    QVector<int> roles;
+    roles << Hidden;
+
+    for (int i = 0; i < m_entries.count(); ++i) {
+        HistoryEntry& entry = m_entries[i];
+        if (entry.url == url) {
+            entry.hidden = true;
+            Q_EMIT dataChanged(this->index(i, 0), this->index(i, 0), roles);
+        }
+    }                                                                   
+
+    insertNewEntryInHiddenDatabase(url);
+}
+
+/*!
+    Mark an entry in the model as not hidden.
+
+    If an entry with the URL exists on the hidden entries, it is removed.
+    If an entry with the URL exists, it is updated.
+*/
+void HistoryModel::unHide(const QUrl& url)
+{
+    if (url.isEmpty() || !m_hiddenEntries.contains(url)) {
+        return;
+    }
+
+    m_hiddenEntries.removeAll(url);
+
+    QVector<int> roles;
+    roles << Hidden;
+
+    for (int i = 0; i < m_entries.count(); ++i) {
+        HistoryEntry& entry = m_entries[i];
+        if (entry.url == url) {
+            entry.hidden = false;
+            Q_EMIT dataChanged(this->index(i, 0), this->index(i, 0), roles);
+        }
+    }                                                                   
+
+    removeEntryFromHiddenDatabaseByUrl(url);
 }

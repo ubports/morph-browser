@@ -1,3 +1,16 @@
+webbrowser-app (0.23+15.04.20150416-0ubuntu1) vivid; urgency=medium
+
+  [ Arthur Mello ]
+  * Add model support to control which history entries will be displayed
+    based on a blacklist database
+  * Make Top Sites format equal to Bookmarks on the New Tab view
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 16 Apr 2015 16:33:37 +0000
+
 webbrowser-app (0.23+15.04.20150410-0ubuntu1) vivid; urgency=medium
 
   [ Alexandre Abreu ]
