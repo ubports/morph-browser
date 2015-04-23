@@ -17,9 +17,9 @@
 # not installed on the phone -- vila 2015-04-23
 
 Test-Command: debian/tests/touch-session-autopilot webbrowser_app
-Restrictions: allow-stderr, needs-recommends
-Depends: webbrowser-app-autopilot, autopkgtest
+Restrictions: allow-stderr
+Depends: webbrowser-app-autopilot, autopkgtest, python3-evdev
 
 Test-Command: debian/tests/touch-session-autopilot webapp_container
-Restrictions: allow-stderr, needs-recommends
-Depends: webapp-container-autopilot, autopkgtest
+Restrictions: allow-stderr
+Depends: webapp-container-autopilot, autopkgtest, python3-evdev
