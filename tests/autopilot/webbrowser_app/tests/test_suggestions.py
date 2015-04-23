@@ -23,14 +23,13 @@ from testtools.matchers import Contains, Equals
 from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
-
+from . import http_server
 
 class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
 
     """Helper test class that pre-populates history and bookmarks databases."""
 
     def setUp(self):
-        self.clear_datadir()
         self.populate_history()
         self.populate_bookmarks()
         super(PrepopulatedDatabaseTestCaseBase, self).setUp()
@@ -57,7 +56,6 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
              "Ubuntu (philosophy) - Wikipedia, the free encyclopedia"),
             (search_uri.format("example"), "google.com",
              "example - Google Search"),
-            ("http://example.iana.org/", "iana.org", "Example Domain"),
             ("http://www.iana.org/domains/special", "iana.org",
              "IANA — Special Use Domains"),
             ("http://doc.qt.io/qt-5/qtqml-index.html", "qt.io",
@@ -93,8 +91,6 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
              "Samarium - Element Information"),
             ("http://en.wikipedia.org/wiki/Linux",
              "Linux - Wikipedia, the free encyclopedia"),
-            ("https://www.linux.com/",
-             "Linux.com | The source for Linux information"),
             ("http://doc.qt.io/qt-5/qtqml-index.html",
              "Qt QML 5.4 - Qt Documentation")
         ]
@@ -114,7 +110,41 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
 
     """Test the address bar suggestions (based on history and bookmarks)."""
 
+    def setup_suggestions_source(self, server):
+        search_engines_path = os.path.join(os.path.expanduser("~"), ".local", "share",
+                                  "webbrowser-app", "searchengines")
+        os.makedirs(search_engines_path, exist_ok=True)
+        with open(os.path.join(search_engines_path, "test.xml"), "w") as f:
+            f.write("""
+            <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+             <Url type="application/x-suggestions+json"
+                  template="http://localhost:{}/suggest?q={searchTerms}"/>
+              <Url type="text/html"
+                   template="http://aserver.somewhere/search?q={searchTerms}"/>
+            </OpenSearchDescription>
+            """.replace("{}", str(server.port)))
+
+        config_path = os.path.join(os.path.expanduser("~"), ".config",
+                                   "webbrowser-app")
+        with open(os.path.join(config_path, "webbrowser-app.conf"), "w") as f:
+            f.write("""
+            [General]
+            searchEngine=test
+            """)
+        server.set_suggestions_data({
+            "high": ["high",["highlight"]],
+            "foo": ["foo",["food", "foot", "fool", "foobar", "foo five"]],
+            "QML": ["QML",["qt qml", "qml documentation", "qml rocks"]]
+        })
+
     def setUp(self):
+        self.clear_datadir()
+
+        self.server = http_server.HTTPServerInAThread()
+        self.ping_server()
+        self.addCleanup(self.server.cleanup)
+        self.setup_suggestions_source(self.server)
+
         super().setUp()
         self.address_bar = self.main_window.address_bar
 
@@ -145,31 +175,41 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         suggestions = self.main_window.get_suggestions()
         self.address_bar.write('ubuntu')
         self.assert_suggestions_eventually_shown()
-        self.assertThat(suggestions.count, Eventually(Equals(4)))
+        self.assertThat(suggestions.count, Eventually(Equals(2)))
         self.address_bar.write('bleh', clear=False)
         self.assertThat(suggestions.count, Eventually(Equals(0)))
         self.address_bar.write('iana')
-        self.assertThat(suggestions.count, Eventually(Equals(2)))
+        self.assertThat(suggestions.count, Eventually(Equals(1)))
 
     def test_list_of_suggestions_bookmark_limits(self):
         suggestions = self.main_window.get_suggestions()
         self.address_bar.write('element')
         self.assert_suggestions_eventually_shown()
-        self.assertThat(suggestions.count, Eventually(Equals(4)))
+        self.assertThat(suggestions.count, Eventually(Equals(2)))
         self.address_bar.write('bleh', clear=False)
         self.assertThat(suggestions.count, Eventually(Equals(0)))
         self.address_bar.write('linux')
-        self.assertThat(suggestions.count, Eventually(Equals(2)))
+        self.assertThat(suggestions.count, Eventually(Equals(1)))
+
+    def test_list_of_suggestions_search_limits(self):
+        suggestions = self.main_window.get_suggestions()
+        self.address_bar.write('foo')
+        self.assert_suggestions_eventually_shown()
+        self.assertThat(suggestions.count, Eventually(Equals(4)))
+        self.address_bar.write('bleh', clear=False)
+        self.assertThat(suggestions.count, Eventually(Equals(0)))
 
     def test_list_of_suggestions_order(self):
         suggestions = self.main_window.get_suggestions()
         self.address_bar.write('QML')
         self.assert_suggestions_eventually_shown()
-        self.assertThat(suggestions.count, Eventually(Equals(2)))
+        self.assertThat(suggestions.count, Eventually(Equals(5)))
         entries = suggestions.get_ordered_entries()
-        self.assertThat(len(entries), Equals(2))
-        self.assertThat(entries[0].icon, Equals("history"))
-        self.assertThat(entries[1].icon, Equals("non-starred"))
+        self.assertThat(len(entries), Equals(5))
+        self.assertThat(entries[1].icon, Equals("search"))
+        self.assertThat(entries[2].icon, Equals("history"))
+        self.assertThat(entries[3].icon, Equals("non-starred"))
+        self.assertThat(entries[4].icon, Equals("search"))
 
     def test_clear_address_bar_dismisses_suggestions(self):
         self.address_bar.focus()
@@ -212,7 +252,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.address_bar.clear()
         self.address_bar.write('ubuntu')
         self.assert_suggestions_eventually_shown()
-        self.assertThat(suggestions.count, Eventually(Equals(4)))
+        self.assertThat(suggestions.count, Eventually(Equals(2)))
         entries = suggestions.get_ordered_entries()
         highlight = '<b><font color="#dd4814">Ubuntu</font></b>'
         url = "http://en.wikipedia.org/wiki/{}_(operating_system)"
@@ -226,6 +266,20 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(webview.url, Eventually(Contains(url)))
         self.assert_suggestions_eventually_hidden()
 
+    def test_select_search_suggestion(self):
+        suggestions = self.main_window.get_suggestions()
+        self.address_bar.focus()
+        self.assert_suggestions_eventually_shown()
+        self.address_bar.clear()
+        self.address_bar.write('high')
+        self.assert_suggestions_eventually_shown()
+        self.assertThat(suggestions.count, Eventually(Equals(1)))
+        entries = suggestions.get_ordered_entries()
+        self.pointing_device.click_object(entries[0])
+        webview = self.main_window.get_current_webview()
+        url = "aserver.somewhere/search?q=highlight"
+        self.assertThat(webview.url, Eventually(Contains(url)))
+
     def test_special_characters(self):
         self.address_bar.clear()
         self.address_bar.write('(phil')
@@ -236,3 +290,12 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         highlight = '<b><font color="#dd4814">(phil</font></b>'
         url = "http://en.wikipedia.org/wiki/Ubuntu_{}osophy)".format(highlight)
         self.assertThat(entry.subtitle, Contains(url))
+
+    def test_search_suggestions(self):
+        self.address_bar.write('high')
+        time.sleep(0.5) # wait for search suggestion query rate limiter
+        suggestions = self.main_window.get_suggestions()
+        self.assertThat(suggestions.count, Eventually(Equals(1)))
+        entries = suggestions.get_ordered_entries()
+        self.assertThat(entries[0].title, Equals('<html><b><font color="#dd4814">high</font></b>light</html>'))
+        self.assertThat(entries[0].subtitle, Equals(''))
