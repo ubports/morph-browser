@@ -28,7 +28,8 @@ if ! pgrep -f unity-system-compositor ; then
    # mean to test consistently on all platforms -- vila 2015-04-22
    sudo ADT_NORMAL_USER=${USER} sh -e /usr/share/autopkgtest/setup-commands/ubuntu-touch-session
    # Import the environment produced above in the current shell
-   `sed -e 's/^/export /g' < /etc/environment`
+   set -a
+   . /etc/environment
 fi
 
 autopilot3 run -v -f subunit -o ${ADT_ARTIFACTS} ${SUITE}

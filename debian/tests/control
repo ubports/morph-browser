@@ -16,10 +16,10 @@
 # Recommends in both autopilot-touch and autopilot-desktop. No idea why it's
 # not installed on the phone -- vila 2015-04-23
 
-Tests: autopilot-app
-Restrictions: allow-stderr
-Depends: webbrowser-app-autopilot,autopkgtest,python3-evdev
+Test-Command: debian/tests/touch-session-autopilot webbrowser_app
+Restrictions: allow-stderr, needs-recommends
+Depends: webbrowser-app-autopilot, autopkgtest
 
-Tests: autopilot-container
-Restrictions: allow-stderr
-Depends: webapp-container-autopilot,autopkgtest,python3-evdev
+Test-Command: debian/tests/touch-session-autopilot webapp_container
+Restrictions: allow-stderr, needs-recommends
+Depends: webapp-container-autopilot, autopkgtest
