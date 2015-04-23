@@ -25,6 +25,7 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 from . import http_server
 
+
 class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
 
     """Helper test class that pre-populates history and bookmarks databases."""
@@ -111,12 +112,13 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
     """Test the address bar suggestions (based on history and bookmarks)."""
 
     def setup_suggestions_source(self, server):
-        search_engines_path = os.path.join(os.path.expanduser("~"), ".local", "share",
-                                  "webbrowser-app", "searchengines")
+        search_engines_path = os.path.join(os.path.expanduser("~"),
+                                           ".local", "share", "webbrowser-app",
+                                           "searchengines")
         os.makedirs(search_engines_path, exist_ok=True)
         with open(os.path.join(search_engines_path, "test.xml"), "w") as f:
             f.write("""
-            <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+            <OpenSearchDescription>
              <Url type="application/x-suggestions+json"
                   template="http://localhost:{}/suggest?q={searchTerms}"/>
               <Url type="text/html"
@@ -132,9 +134,9 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
             searchEngine=test
             """)
         server.set_suggestions_data({
-            "high": ["high",["highlight"]],
-            "foo": ["foo",["food", "foot", "fool", "foobar", "foo five"]],
-            "QML": ["QML",["qt qml", "qml documentation", "qml rocks"]]
+            "high": ["high", ["highlight"]],
+            "foo": ["foo", ["food", "foot", "fool", "foobar", "foo five"]],
+            "QML": ["QML", ["qt qml", "qml documentation", "qml rocks"]]
         })
 
     def setUp(self):
@@ -147,6 +149,17 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
 
         super().setUp()
         self.address_bar = self.main_window.address_bar
+
+    def highlight_term(self, text, term):
+        parts = text.split(term)
+        if len(parts) < 2:
+            return text
+        else:
+            pattern = '<html>{}{}{}</html>'
+            return pattern.format(parts[0], self.highlight(term), parts[1])
+
+    def highlight(self, text):
+        return '<b><font color="#dd4814">{}</font></b>'.format(text)
 
     def assert_suggestions_eventually_shown(self):
         suggestions = self.main_window.get_suggestions()
@@ -168,8 +181,8 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
 
     def test_list_of_suggestions_case_insensitive(self):
         suggestions = self.main_window.get_suggestions()
-        self.address_bar.write('xaMPL')
-        self.assertThat(suggestions.count, Eventually(Equals(2)))
+        self.address_bar.write('SpEciAl')
+        self.assertThat(suggestions.count, Eventually(Equals(1)))
 
     def test_list_of_suggestions_history_limits(self):
         suggestions = self.main_window.get_suggestions()
@@ -250,20 +263,14 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
         self.address_bar.clear()
-        self.address_bar.write('ubuntu')
+        self.address_bar.write('linux')
         self.assert_suggestions_eventually_shown()
-        self.assertThat(suggestions.count, Eventually(Equals(2)))
+        self.assertThat(suggestions.count, Eventually(Equals(1)))
         entries = suggestions.get_ordered_entries()
-        highlight = '<b><font color="#dd4814">Ubuntu</font></b>'
-        url = "http://en.wikipedia.org/wiki/{}_(operating_system)"
-        url = url.format(highlight)
-        entries = [entry for entry in entries if url in entry.subtitle]
-        entry = entries[0] if len(entries) == 1 else None
-        self.assertIsNotNone(entry)
-        self.pointing_device.click_object(entry)
+        url = "http://en.wikipedia.org/wiki/Linux"
+        self.pointing_device.click_object(entries[0])
         webview = self.main_window.get_current_webview()
-        url = "wikipedia.org/wiki/Ubuntu_(operating_system)"
-        self.assertThat(webview.url, Eventually(Contains(url)))
+        self.assertThat(webview.url, Eventually(Equals(url)))
         self.assert_suggestions_eventually_hidden()
 
     def test_select_search_suggestion(self):
@@ -287,15 +294,16 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         suggestions = self.main_window.get_suggestions()
         self.assertThat(suggestions.count, Eventually(Equals(1)))
         entry = suggestions.get_ordered_entries()[0]
-        highlight = '<b><font color="#dd4814">(phil</font></b>'
-        url = "http://en.wikipedia.org/wiki/Ubuntu_{}osophy)".format(highlight)
-        self.assertThat(entry.subtitle, Contains(url))
+        url = "http://en.wikipedia.org/wiki/Ubuntu_(philosophy)"
+        highlighted = self.highlight_term(url, "(phil")
+        self.assertThat(entry.subtitle, Equals(highlighted))
 
     def test_search_suggestions(self):
         self.address_bar.write('high')
-        time.sleep(0.5) # wait for search suggestion query rate limiter
+        time.sleep(0.5)  # wait for search suggestion query rate limiter
         suggestions = self.main_window.get_suggestions()
         self.assertThat(suggestions.count, Eventually(Equals(1)))
         entries = suggestions.get_ordered_entries()
-        self.assertThat(entries[0].title, Equals('<html><b><font color="#dd4814">high</font></b>light</html>'))
+        highlighted = self.highlight_term("highlight", "high")
+        self.assertThat(entries[0].title, Equals(highlighted))
         self.assertThat(entries[0].subtitle, Equals(''))

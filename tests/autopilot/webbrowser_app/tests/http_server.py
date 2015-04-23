@@ -138,7 +138,8 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             self.end_headers()
             query = self.path[len("/suggest?q="):]
             if query in self.suggestions_data:
-                self.wfile.write(json.dumps(self.suggestions_data[query]).encode())
+                suggestions = self.suggestions_data[query]
+                self.wfile.write(json.dumps(suggestions).encode())
         else:
             self.send_error(404)
 
