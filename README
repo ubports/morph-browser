@@ -87,19 +87,34 @@ You can find more information with:
 
     $ man adt-run
 
-== Run dep8 tests in a qemu virtual machine ==
+== Run dep8 tests ==
 
-To run the tests in a qemu virtual machine, first you will have to create it. We output the image to ~/ rather than the current directory, so it will be in
-a safer place to avoid rebuilding images every time. You can store it in any
-directory you wish.
+To run the tests in a qemu virtual machine, first you will have to create
+it. We output the image to ~/ rather than the current directory, so it will
+be in a safer place to avoid rebuilding images every time. You can store it
+in any directory you wish. This image is better consumed "fresh", building
+it daily will avoid long updates/upgrades when running the tests.
 
     $ adt-buildvm-ubuntu-cloud -r vivid -a amd64 -o ~/
 
-Then run the tests using adt-run with the qemu virtualization host.
+Then run the tests using adt-run with the qemu virtualization host against
+the current archive.
 
     $ adt-run -B -U --unbuilt-tree . \
       -o /tmp/adt-browser-test \
       --- qemu ~/adt-vivid-amd64-cloud.img
+
+To run the tests as in proposed-migration.
+
+   $ adt-run -B -U --unbuilt-tree . --apt-pocket proposed\
+      -o /tmp/adt-browser-test \
+      --- qemu ~/adt-vivid-amd64-cloud.img
+
+The tests can also be run on a local phone.
+
+    $ adt-run -B -U --unbuilt-tree . \
+      -o /tmp/adt-browser-test \
+      --- ssh -s adb -- -p <password> --serial <ADB_SERIAL> 
 
 == Examine the dep8 autopilot results ==
 
