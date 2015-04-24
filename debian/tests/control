@@ -16,6 +16,9 @@
 # Recommends in both autopilot-touch and autopilot-desktop. No idea why it's
 # not installed on the phone -- vila 2015-04-23
 
+# autopkgtest is a test dependency so we don't need to copy
+# ubuntu-touch-session to the testbed but can use it from autopkgtest instead
+
 Test-Command: debian/tests/touch-session-autopilot webbrowser_app
 Restrictions: allow-stderr
 Depends: webbrowser-app-autopilot, autopkgtest, python3-evdev
