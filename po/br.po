@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-08 20:37+0200\n"
+"POT-Creation-Date: 2015-04-24 18:31+0200\n"
 "PO-Revision-Date: 2015-04-22 06:42+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-04-23 06:44+0000\n"
+"X-Launchpad-Export-Date: 2015-04-25 05:35+0000\n"
 "X-Generator: Launchpad (build 17430)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -47,7 +47,7 @@ msgstr "Ger-tremen"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
-#: src/app/webbrowser/SettingsPage.qml:288
+#: src/app/webbrowser/SettingsPage.qml:294
 msgid "Cancel"
 msgstr "Nullañ"
 
@@ -117,22 +117,18 @@ msgid "Please choose a file"
 msgstr "Dibabit ur restr, mar plij"
 
 #: src/app/GeolocationPermissionRequest.qml:28
-#: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr "Goulenn aotre"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:70
 msgid "This page wants to know your device’s location."
 msgstr "Fellout a ra d'ar bajenn-mañ gouzout pelec'h emañ ho penveg."
 
 #: src/app/GeolocationPermissionRequest.qml:33
-#: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr "Nac'h"
 
 #: src/app/GeolocationPermissionRequest.qml:43
-#: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "Aotren"
 
@@ -395,7 +391,7 @@ msgstr "Mont da"
 msgid "Address;URL;www"
 msgstr "Chomlec'h;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:372
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
 msgid "New Tab"
 msgstr "Ivinell nevez"
 
@@ -439,14 +435,7 @@ msgstr "Rannañ..."
 msgid "search or enter an address"
 msgstr "klask pe ebarzhiñ ur chomlec'h"
 
-#: src/app/webbrowser/BookmarksList.qml:67
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321
-msgid "Delete"
-msgstr "Diverkañ"
-
-#: src/app/webbrowser/Browser.qml:214
+#: src/app/webbrowser/Browser.qml:221
 msgid "Share"
 msgstr "Rannañ"
 
@@ -467,9 +456,23 @@ msgstr "Ivinell nevez"
 msgid "Settings"
 msgstr "Arventennoù"
 
-#: src/app/webbrowser/Browser.qml:355 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
 msgstr "Graet eo"
+
+#: src/app/webbrowser/Browser.qml:715
+msgid "Swipe Up To Exit Full Screen"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:716
+msgid "Press ESC To Exit Full Screen"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
+msgid "Delete"
+msgstr "Diverkañ"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -502,11 +505,11 @@ msgstr "Sinedoù"
 msgid "Top sites"
 msgstr "Lec'hiennoù gwellañ"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:145
 msgid "see less"
 msgstr "gwelet nebeutoc'h"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:145
 msgid "see more"
 msgstr "gwelet muioc'h"
 
@@ -601,7 +604,7 @@ msgstr "Diverkañ istor ar merdeiñ"
 msgid "Clear Cache"
 msgstr "Goulloiñ ar grubuilh"
 
-#: src/app/webbrowser/SettingsPage.qml:295
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Save"
 msgstr "Enrollañ"
 
@@ -611,13 +614,13 @@ msgstr "Touch da welet"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:34
-#: src/app/webcontainer/webapp-container.qml:66
+#: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Merdeer Web Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:36
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "Merdeer Web Ubuntu"
 
