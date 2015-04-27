@@ -959,6 +959,7 @@ BrowserView {
             case Qt.Key_L:
                 // Ctrl + l: Select the content in the address bar
                 internal.focusAddressBar()
+
                 event.accepted = true;
                 break;
 
@@ -1005,7 +1006,7 @@ BrowserView {
 
             case Qt.Key_H:
                 // Ctrl + H: Show History
-                toggleActivityView();
+                historyViewComponent.createObject(historyViewContainer);
                 event.accepted = true;
                 break;
             }
