@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+'use strict';
+
 function extractAuthority(url) {
     var authority = url.toString()
     var indexOfScheme = authority.indexOf("://")
@@ -40,4 +42,41 @@ function extractHost(url) {
         host = host.slice(0, indexOfColon)
     }
     return host
+}
+
+function fixUrl(address) {
+    var url = address
+    if (address.toLowerCase() == "about:blank") {
+        return address.toLowerCase()
+    } else if (address.substr(0, 1) == "/") {
+        url = "file://" + address
+    } else if (address.indexOf("://") == -1) {
+        url = "http://" + address
+    }
+    return url
+}
+
+function looksLikeAUrl(address) {
+    var terms = address.split(/\s/)
+    if (terms.length > 1) {
+        return false
+    }
+    if (address.toLowerCase() == "about:blank") {
+        return true
+    }
+    if (address.substr(0, 1) == "/") {
+        return true
+    }
+    if (address.match(/^https?:\/\//i) ||
+        address.match(/^file:\/\//i) ||
+        address.match(/^[a-z]+:\/\//i)) {
+        return true
+    }
+    if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,4}$/)) {
+        return true
+    }
+    if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
+        return true
+    }
+    return false
 }

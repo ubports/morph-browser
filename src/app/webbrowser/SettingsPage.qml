@@ -25,7 +25,7 @@ import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 
-import "urlManagement.js" as UrlManagement
+import "../UrlUtils.js" as UrlUtils
 
 Item {
     id: settingsItem
@@ -281,8 +281,8 @@ Item {
                 text: settingsObject.homepage
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
                 onAccepted: {
-                    if (UrlManagement.looksLikeAUrl(text)) {
-                        settingsObject.homepage = UrlManagement.fixUrl(text)
+                    if (UrlUtils.looksLikeAUrl(text)) {
+                        settingsObject.homepage = UrlUtils.fixUrl(text)
                         PopupUtils.close(dialogue)
                     }
                 }
@@ -299,10 +299,10 @@ Item {
                 objectName: "homepageDialog.saveButton"
                 anchors { left: parent.left; right: parent.right }
                 text: i18n.tr("Save")
-                enabled: UrlManagement.looksLikeAUrl(homepageTextField.text.trim())
+                enabled: UrlUtils.looksLikeAUrl(homepageTextField.text.trim())
                 color: "#3fb24f"
                 onClicked: {
-                    settingsObject.homepage = UrlManagement.fixUrl(homepageTextField.text);
+                    settingsObject.homepage = UrlUtils.fixUrl(homepageTextField.text);
                     PopupUtils.close(dialogue);
                 }
             }
