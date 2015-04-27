@@ -32,15 +32,15 @@ function fixUrl(address) {
 }
 
 function looksLikeAUrl(address) {
+    if (address.match(/^data:/i)) {
+        return true;
+    }
     var terms = address.split(/\s/)
     if (terms.length > 1) {
         return false
     }
     if (address.toLowerCase() == "about:blank") {
         return true
-    }
-    if (address.match(/^data:/i)) {
-        return true;
     }
     if (address.substr(0, 1) == "/") {
         return true
@@ -50,7 +50,7 @@ function looksLikeAUrl(address) {
         address.match(/^[a-z]+:\/\//i)) {
         return true
     }
-    if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2}$/)) {
+    if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,}$/)) {
         return true
     }
     if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
