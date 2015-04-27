@@ -281,8 +281,8 @@ BrowserView {
                 },
                 Action {
                     objectName: "privateMode"
-                    text: i18n.tr("Private Mode")
-                    iconName: "private"
+                    text: browser.state == "private" ? i18n.tr("Leave Private") : i18n.tr("Private Mode")
+                    iconName: browser.state == "private" ? "private-browsing" : "private-tab-new"
                     onTriggered: browser.state == "private" ? browser.state = "" : browser.state = "private"
                 }
             ]

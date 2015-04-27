@@ -20,7 +20,19 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 
 Item {
-     Label {
+    Icon {
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            bottom: titleLabel.top
+        }
+
+        width: units.gu(10)
+        height: width
+
+        name: "private-browsing"
+    }    
+
+    Label {
         id: titleLabel
         anchors.centerIn: parent
         text: i18n.tr("This is a private tab")
