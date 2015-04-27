@@ -467,6 +467,17 @@ BrowserView {
         Behavior on opacity {
             UbuntuNumberAnimation {}
         }
+
+        Label {
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                bottom: parent.bottom
+                bottomMargin: units.gu(0.25)
+            }
+
+            fontSize: "small"
+            text: "(" + tabsModel.count + ")"
+        }
     }
 
     Item {
