@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-04-24 18:31+0200\n"
-"PO-Revision-Date: 2015-04-10 12:02+0000\n"
+"PO-Revision-Date: 2015-04-26 06:22+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-04-25 05:36+0000\n"
+"X-Launchpad-Export-Date: 2015-04-27 05:23+0000\n"
 "X-Generator: Launchpad (build 17430)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -462,11 +462,11 @@ msgstr "Завершено"
 
 #: src/app/webbrowser/Browser.qml:715
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Проведіть пальцем вгору, щоб вийти з повноекранного режиму"
 
 #: src/app/webbrowser/Browser.qml:716
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Натисніть клавішу Esc, щоб вийти з повноекранного режиму"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
 #: src/app/webbrowser/HistoryView.qml:130
