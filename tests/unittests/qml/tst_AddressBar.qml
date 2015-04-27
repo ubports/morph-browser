@@ -91,7 +91,7 @@ Item {
                 {url: "https://google.com"},
                 {url: "ftp://ubuntu.com"},
                 {url: "about:blank"},
-                {url: "data:,A%20brief%20note"}
+                {url: "data:,A brief note"}
             ]
         }
 
@@ -195,7 +195,7 @@ Item {
                 {text: "FILE:///usr/share/doc/ubuntu-online-tour/index.html", requestedUrl: "file:///usr/share/doc/ubuntu-online-tour/index.html"},
                 {text: "FTP://ubuntu.com", requestedUrl: "ftp://ubuntu.com"},
                 {text: "ABOUT:BLANK", requestedUrl: "about:blank"},
-                {text: "DATA:,A%20brief%20note", requestedUrl: "data:,A%20brief%20note"}
+                {text: "DATA:,A brief note", requestedUrl: "data:,A%20brief%20note"}
             ]
         }
 
