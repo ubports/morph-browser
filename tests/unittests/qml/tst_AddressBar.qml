@@ -90,6 +90,7 @@ Item {
                 {url: "http://ubuntu.com"},
                 {url: "https://google.com"},
                 {url: "ftp://ubuntu.com"},
+                {url: "about:blank"},
             ]
         }
 
@@ -178,6 +179,25 @@ Item {
         }
 
         function test_uppercaseDomainsShouldBeRewritten(data) {
+            typeString(data.text)
+            compare(addressBar.text, data.text)
+            keyClick(Qt.Key_Return)
+            validatedSpy.wait()
+            compare(addressBar.requestedUrl, data.requestedUrl)
+        }
+
+        function test_uppercaseSchemeShouldBeRewritten_data() {
+            return [
+                {text: "HTTP://WWW.UBUNTU.COM", requestedUrl: "http://www.ubuntu.com"},
+                {text: "HTTP://www.ubuntu.com", requestedUrl: "http://www.ubuntu.com"},
+                {text: "HTTPS://www.ubuntu.com", requestedUrl: "https://www.ubuntu.com"},
+                {text: "FILE:///usr/share/doc/ubuntu-online-tour/index.html", requestedUrl: "file:///usr/share/doc/ubuntu-online-tour/index.html"},
+                {text: "FTP://ubuntu.com", requestedUrl: "ftp://ubuntu.com"},
+                {text: "ABOUT:BLANK", requestedUrl: "about:blank"},
+            ]
+        }
+
+        function test_uppercaseSchemeShouldBeRewritten(data) {
             typeString(data.text)
             compare(addressBar.text, data.text)
             keyClick(Qt.Key_Return)

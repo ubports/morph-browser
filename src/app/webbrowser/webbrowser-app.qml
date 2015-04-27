@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -23,12 +23,8 @@ import ".."
 BrowserWindow {
     id: window
 
-    property alias searchEngine: browser.searchEngine
-    property alias restoreSession: browser.restoreSession
-    property alias allowOpenInBackgroundTab: browser.allowOpenInBackgroundTab
-
-    property alias homepage: browser.homepage
     property alias urls: browser.initialUrls
+    property alias newSession: browser.newSession
 
     currentWebview: browser.currentWebview
 

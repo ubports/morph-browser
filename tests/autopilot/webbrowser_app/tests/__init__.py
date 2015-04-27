@@ -78,11 +78,11 @@ class BrowserTestCaseBase(AutopilotTestCase):
                 app_type='qt',
                 emulator_base=browser.Webbrowser)
 
-    def clear_cache(self):
-        cachedir = os.path.join(os.path.expanduser("~"), ".local", "share",
-                                "webbrowser-app")
-        shutil.rmtree(cachedir, True)
-        os.makedirs(cachedir)
+    def clear_datadir(self):
+        datadir = os.path.join(os.path.expanduser("~"), ".local", "share",
+                               "webbrowser-app")
+        shutil.rmtree(datadir, True)
+        os.makedirs(datadir)
 
     @property
     def main_window(self):
@@ -122,6 +122,15 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.assertThat(
                 self.main_window.address_bar.activeFocus,
                 Eventually(Equals(True)))
+
+    def open_settings(self):
+        chrome = self.main_window.chrome
+        drawer_button = chrome.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        chrome.get_drawer()
+        settings_action = chrome.get_drawer_action("settings")
+        self.pointing_device.click_object(settings_action)
+        return self.main_window.get_settings_page()
 
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),

@@ -18,7 +18,8 @@
 
 import QtQuick 2.0
 import QtQuick.Window 2.0
-import com.canonical.Oxide 1.4 as Oxide
+import Qt.labs.settings 1.0
+import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
@@ -29,16 +30,12 @@ import "../UrlUtils.js" as UrlUtils
 BrowserView {
     id: browser
 
-    property bool restoreSession: true
-
     currentWebview: tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
-    property url homepage
-    property QtObject searchEngine
-    property string allowOpenInBackgroundTab
+    property bool newSession: false
 
     // XXX: we might want to tweak this value depending
     // on the form factor and/or the available memory
@@ -78,8 +75,34 @@ BrowserView {
         }
     ]
 
+    Settings {
+        id: settings
+
+        property url homepage: settingsDefaults.homepage
+        property string searchEngine: settingsDefaults.searchEngine
+        property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
+        property bool restoreSession: settingsDefaults.restoreSession
+
+        function restoreDefaults() {
+            homepage  = settingsDefaults.homepage
+            searchEngine = settingsDefaults.searchEngine
+            allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
+            restoreSession = settingsDefaults.restoreSession
+        }
+    }
+
+    QtObject {
+        id: settingsDefaults
+
+        readonly property url homepage: "http://start.ubuntu.com"
+        readonly property string searchEngine: "google"
+        readonly property string allowOpenInBackgroundTab: "default"
+        readonly property bool restoreSession: true
+    }
+
     Item {
         anchors.fill: parent
+        visible: !settingsContainer.visible && !historyViewContainer.visible
 
         TabChrome {
             id: invisibleTabChrome
@@ -103,13 +126,23 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: recentView.visible ? invisibleTabChrome.bottom : chrome.bottom
+                top: recentView.visible ? invisibleTabChrome.bottom : parent.top
             }
-            height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : chrome.visibleHeight)
+            height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : 0)
+
+            Keys.onEscapePressed: {
+                if (browser.currentWebview && browser.currentWebview.fullscreen) {
+                    event.accepted = true
+                    browser.currentWebview.fullscreen = false
+                }
+            }
         }
 
         Loader {
-            anchors.fill: tabContainer
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
             sourceComponent: ErrorSheet {
                 visible: currentWebview ? currentWebview.lastLoadFailed : false
                 url: currentWebview ? currentWebview.url : ""
@@ -119,7 +152,10 @@ BrowserView {
         }
 
         Loader {
-            anchors.fill: tabContainer
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
             sourceComponent: InvalidCertificateErrorSheet {
                 visible: currentWebview && currentWebview.certificateError != null
                 certificateError: currentWebview ? currentWebview.certificateError : null
@@ -136,13 +172,20 @@ BrowserView {
             asynchronous: true
         }
 
+        SearchEngine {
+            id: currentSearchEngine
+            filename: settings.searchEngine
+        }
+
         Chrome {
             id: chrome
 
             visible: !recentView.visible
 
             webview: browser.currentWebview
-            searchUrl: browser.searchEngine ? browser.searchEngine.template : ""
+            searchUrl: currentSearchEngine.urlTemplate
+
+            y: webview ? webview.locationBarController.offset : 0
 
             function isCurrentUrlBookmarked() {
                 return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
@@ -178,14 +221,7 @@ BrowserView {
                     text: i18n.tr("Share")
                     iconName: "share"
                     enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
-                    onTriggered: {
-                        var component = Qt.createComponent("../Share.qml")
-                        if (component.status == Component.Ready) {
-                            var share = component.createObject(browser)
-                            share.onDone.connect(share.destroy)
-                            share.shareLink(browser.currentWebview.url, browser.currentWebview.title)
-                        }
-                    }
+                    onTriggered: internal.shareLink(browser.currentWebview.url, browser.currentWebview.title)
                 },
                 Action {
                     objectName: "history"
@@ -210,34 +246,18 @@ BrowserView {
                     iconName: "tab-new"
                     enabled: formFactor != "mobile"
                     onTriggered: browser.openUrlInNewTab("", true)
+                },
+                Action {
+                    objectName: "settings"
+                    text: i18n.tr("Settings")
+                    iconName: "settings"
+                    onTriggered: settingsComponent.createObject(settingsContainer)
                 }
             ]
-
-            Connections {
-                target: browser.currentWebview
-                onLoadingChanged: {
-                    if (browser.currentWebview.loading) {
-                        chrome.state = "shown"
-                    } else if (browser.currentWebview.fullscreen) {
-                        chrome.state = "hidden"
-                    }
-                }
-                onFullscreenChanged: {
-                    if (browser.currentWebview.fullscreen) {
-                        chrome.state = "hidden"
-                    } else {
-                        chrome.state = "shown"
-                    }
-                }
-            }
-        }
-
-        ChromeStateTracker {
-            webview: browser.currentWebview
-            header: chrome
         }
 
         Suggestions {
+            id: suggestionsList
             opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
             Behavior on opacity {
                 UbuntuNumberAnimation {}
@@ -248,14 +268,35 @@ BrowserView {
                 horizontalCenter: parent.horizontalCenter
             }
             width: chrome.width - units.gu(5)
-            height: enabled ? Math.min(contentHeight, tabContainer.height - units.gu(2)) : 0
-            model: HistoryMatchesModel {
-                sourceModel: browser.historyModel
-                query: chrome.text
+            height: enabled ? Math.min(contentHeight, tabContainer.height - chrome.height - units.gu(2)) : 0
+
+            searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
+
+            models: [historySuggestions, bookmarksSuggestions]
+
+            LimitProxyModel {
+                id: historySuggestions
+                limit: 4
+                property string icon: "history"
+                sourceModel: SuggestionsFilterModel {
+                    sourceModel: browser.historyModel
+                    terms: suggestionsList.searchTerms
+                    searchFields: ["url", "title"]
+                }
             }
+
+            LimitProxyModel {
+                id: bookmarksSuggestions
+                limit: 4
+                property string icon: "non-starred"
+                sourceModel: SuggestionsFilterModel {
+                    sourceModel: browser.bookmarksModel
+                    terms: suggestionsList.searchTerms
+                    searchFields: ["url", "title"]
+                }
+            }
+
             onSelected: {
-                // Workaround for https://launchpad.net/bugs/1377198
-                browser.currentWebview.resetCertificateError()
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
                 chrome.requestedUrl = url
@@ -364,7 +405,6 @@ BrowserView {
         }
 
         function reset() {
-            chrome.state = "shown"
             state = ""
             recentToolbar.state = "hidden"
             tabslist.reset()
@@ -383,13 +423,15 @@ BrowserView {
 
         enabled: (formFactor == "mobile") && (recentView.state == "") &&
                  (Screen.orientation == Screen.primaryOrientation) &&
-                 browser.currentWebview && !browser.currentWebview.fullscreen
+                 browser.currentWebview
 
         onDraggingChanged: {
-            if (!dragging) {
-                if (stage == 0) {
-                    chrome.state = "shown"
-                } else if (stage == 1) {
+            if (dragging) {
+                if (browser.currentWebview) {
+                    browser.currentWebview.fullscreen = false
+                }
+            } else {
+                if (stage == 1) {
                     if (tabsModel.count > 1) {
                         tabslist.selectAndAnimateTab(1)
                     } else {
@@ -408,12 +450,14 @@ BrowserView {
     }
 
     Image {
+        id: bottomEdgeHint
         objectName: "bottomEdgeHint"
         source: (formFactor == "mobile") ? "assets/bottom_edge_hint.png" : ""
+        property bool forceShow: false
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
-            bottomMargin: (chrome.state == "hidden") ? -height : 0
+            bottomMargin: (((chrome.state == "shown") && browser.currentWebview && !browser.currentWebview.fullscreen) || forceShow) ? 0 : -height
             Behavior on bottomMargin {
                 UbuntuNumberAnimation {}
             }
@@ -471,6 +515,24 @@ BrowserView {
         }
     }
 
+    Item {
+        id: settingsContainer
+
+        visible: children.length > 0
+        anchors.fill: parent
+
+        Component {
+            id: settingsComponent
+
+            SettingsPage {
+                anchors.fill: parent
+                historyModel: browser.historyModel
+                settingsObject: settings
+                onDone: destroy()
+            }
+        }
+    }
+
     TabsModel {
         id: tabsModel
 
@@ -514,6 +576,17 @@ BrowserView {
 
                 enabled: visible && !bottomEdgeHandle.dragging && !recentView.visible
 
+                ChromeController {
+                    id: chromeController
+                    webview: webviewimpl
+                    forceHide: recentView.visible
+                }
+
+                locationBarController {
+                    height: webviewimpl.visible ? chrome.height : 0
+                    mode: chromeController.mode
+                }
+
                 //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
                 preferences.localStorageEnabled: true
                 preferences.appCacheEnabled: true
@@ -524,8 +597,8 @@ BrowserView {
                         onTriggered: browser.openUrlInNewTab(contextualData.href, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
-                        enabled: contextualData.href.toString() && ((browser.allowOpenInBackgroundTab === "true") ||
-                                 ((browser.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
+                        enabled: contextualData.href.toString() && ((settings.allowOpenInBackgroundTab === "true") ||
+                                 ((settings.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
                         onTriggered: browser.openUrlInNewTab(contextualData.href, false)
                     }
                     Actions.BookmarkLink {
@@ -535,6 +608,10 @@ BrowserView {
                     Actions.CopyLink {
                         enabled: contextualData.href.toString()
                         onTriggered: Clipboard.push([contextualData.href])
+                    }
+                    Actions.ShareLink {
+                        enabled: (formFactor == "mobile") && contextualData.href.toString()
+                        onTriggered: internal.shareLink(contextualData.href.toString(), contextualData.title)
                     }
                     Actions.OpenImageInNewTab {
                         enabled: contextualData.img.toString()
@@ -574,9 +651,9 @@ BrowserView {
                     }
                 }
 
-                onLoadingChanged: {
-                    if (lastLoadSucceeded && browser.historyModel) {
-                        browser.historyModel.add(url, title, icon)
+                onLoadEvent: {
+                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel) {
+                        browser.historyModel.add(event.url, title, icon)
                     }
                 }
 
@@ -597,6 +674,65 @@ BrowserView {
                     } else {
                         certificateError = error
                         error.onCancelled.connect(webviewimpl.resetCertificateError)
+                    }
+                }
+
+                onFullscreenChanged: {
+                    if (fullscreen) {
+                        fullscreenExitHintComponent.createObject(webviewimpl)
+                    }
+                }
+                Component {
+                    id: fullscreenExitHintComponent
+
+                    Rectangle {
+                        id: fullscreenExitHint
+                        objectName: "fullscreenExitHint"
+
+                        anchors.centerIn: parent
+                        height: units.gu(6)
+                        width: Math.min(units.gu(50), parent.width - units.gu(12))
+                        radius: units.gu(1)
+                        color: "#3e3b39"
+                        opacity: 0.85
+
+                        Behavior on opacity {
+                            UbuntuNumberAnimation {
+                                duration: UbuntuAnimation.SlowDuration
+                            }
+                        }
+                        onOpacityChanged: {
+                            if (opacity == 0.0) {
+                                fullscreenExitHint.destroy()
+                            }
+                        }
+
+                        Label {
+                            color: "white"
+                            font.weight: Font.Light
+                            anchors.centerIn: parent
+                            text: (formFactor == "mobile") ?
+                                      i18n.tr("Swipe Up To Exit Full Screen") :
+                                      i18n.tr("Press ESC To Exit Full Screen")
+                        }
+
+                        Timer {
+                            running: true
+                            interval: 2000
+                            onTriggered: fullscreenExitHint.opacity = 0
+                        }
+
+                        Connections {
+                            target: webviewimpl
+                            onFullscreenChanged: {
+                                if (!webviewimpl.fullscreen) {
+                                    fullscreenExitHint.destroy()
+                                }
+                            }
+                        }
+
+                        Component.onCompleted: bottomEdgeHint.forceShow = true
+                        Component.onDestruction: bottomEdgeHint.forceShow = false
                     }
                 }
 
@@ -621,7 +757,10 @@ BrowserView {
                         id: newTabViewComponent
 
                         NewTabView {
-                            anchors.fill: parent
+                            anchors {
+                                fill: parent
+                                topMargin: (chrome.state == "shown") ? chrome.height : 0
+                            }
 
                             historyModel: browser.historyModel
                             bookmarksModel: browser.bookmarksModel
@@ -651,6 +790,15 @@ BrowserView {
 
     QtObject {
         id: internal
+
+        function shareLink(url, title) {
+            var component = Qt.createComponent("../Share.qml")
+            if (component.status == Component.Ready) {
+                var share = component.createObject(browser)
+                share.onDone.connect(share.destroy)
+                share.shareLink(url, title)
+            }
+        }
 
         function addTab(tab, setCurrent) {
             var index = tabsModel.add(tab)
@@ -772,6 +920,9 @@ BrowserView {
         onStateChanged: {
             if (Qt.application.state != Qt.ApplicationActive) {
                 session.save()
+                if (browser.currentWebview) {
+                    browser.currentWebview.fullscreen = false
+                }
             }
         }
         onAboutToQuit: session.save()
@@ -783,7 +934,7 @@ BrowserView {
         running: true
         interval: 1
         onTriggered: {
-            if (browser.restoreSession) {
+            if (!browser.newSession && settings.restoreSession) {
                 session.restore()
             }
             // Sanity check
@@ -793,7 +944,7 @@ BrowserView {
                 browser.openUrlInNewTab(browser.initialUrls[i], true, false)
             }
             if (tabsModel.count == 0) {
-                browser.openUrlInNewTab(browser.homepage, true, false)
+                browser.openUrlInNewTab(settings.homepage, true, false)
             }
             tabsModel.currentTab.load()
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {

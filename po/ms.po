@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-03-22 21:26+0100\n"
+"POT-Creation-Date: 2015-04-24 18:31+0200\n"
 "PO-Revision-Date: 2013-12-14 06:00+0000\n"
 "Last-Translator: abuyop <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-03-23 05:28+0000\n"
-"X-Generator: Launchpad (build 17405)\n"
+"X-Launchpad-Export-Date: 2015-04-25 05:36+0000\n"
+"X-Generator: Launchpad (build 17430)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -47,6 +47,7 @@ msgstr "Kata laluan"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
+#: src/app/webbrowser/SettingsPage.qml:294
 msgid "Cancel"
 msgstr "Batal"
 
@@ -116,22 +117,18 @@ msgid "Please choose a file"
 msgstr "Sila pilih fail"
 
 #: src/app/GeolocationPermissionRequest.qml:28
-#: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr "Permintaan Keizinan"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:70
 msgid "This page wants to know your device’s location."
 msgstr "Halaman ini mahu anda tahu loaksi peranti anda."
 
 #: src/app/GeolocationPermissionRequest.qml:33
-#: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr "Nafi"
 
 #: src/app/GeolocationPermissionRequest.qml:43
-#: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "Izin"
 
@@ -391,7 +388,7 @@ msgstr "Pergi ke"
 msgid "Address;URL;www"
 msgstr "Alamat;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
 msgid "New Tab"
 msgstr "Tab Baharu"
 
@@ -407,7 +404,7 @@ msgstr "Buka imej dalam tab baharu"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Buka pautan dalam tab latar belakang baru"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -431,37 +428,48 @@ msgstr "Simpan imej"
 msgid "Share…"
 msgstr "Kongsi..."
 
-#: src/app/webbrowser/AddressBar.qml:195
+#: src/app/webbrowser/AddressBar.qml:196
 msgid "search or enter an address"
 msgstr "gelintar atau masukkan alamat"
 
-#: src/app/webbrowser/BookmarksList.qml:67
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321
-msgid "Delete"
-msgstr ""
-
-#: src/app/webbrowser/Browser.qml:178
+#: src/app/webbrowser/Browser.qml:221
 msgid "Share"
 msgstr "Kongsi"
 
-#: src/app/webbrowser/Browser.qml:192
+#: src/app/webbrowser/Browser.qml:228
 msgid "History"
 msgstr "Sejarah"
 
-#: src/app/webbrowser/Browser.qml:199
+#: src/app/webbrowser/Browser.qml:235
 msgid "Open tabs"
 msgstr "Buka tab"
 
-#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "Tab baharu"
 
-#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
+msgid "Settings"
+msgstr "Tetapan"
+
+#: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
 msgstr "Selesai"
+
+#: src/app/webbrowser/Browser.qml:715
+msgid "Swipe Up To Exit Full Screen"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:716
+msgid "Press ESC To Exit Full Screen"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
+msgid "Delete"
+msgstr "Hapus"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -484,7 +492,7 @@ msgstr "Semalam"
 
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
-msgstr ""
+msgstr "Pilih semua"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -494,11 +502,11 @@ msgstr "Tanda Buku"
 msgid "Top sites"
 msgstr "Laman terbaik"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:145
 msgid "see less"
 msgstr "kurang"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:145
 msgid "see more"
 msgstr "lagi"
 
@@ -508,43 +516,45 @@ msgstr "Laman ini mempunyai kandungan tidak selamat"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "Identiti tidah disahkan"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "Identiti laman web ini belum disahkan."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "Sijil pelayan tidak sepadan dengan identiti laman web ini."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Sijil pelayan telah tamat."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "Sijil pelayan mengandungi tarikh tidak sah."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "Sijil pelayan dikeluarkan oleh entiti yang tidak dipercayai."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Sijil pelayan telah dibatalkan."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Sijil pelayan tidak sah."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "Sijil pelayan adalah tidak selamat"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"Sijil pelayan gagal pemeriksaan keselamatan kami atas sebab yang tidak "
+"diketahui."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
@@ -554,19 +564,58 @@ msgstr "Anda bersambung dengan"
 msgid "Which is run by"
 msgstr "Yang dijalankan oleh"
 
+#: src/app/webbrowser/SettingsPage.qml:81
+#: src/app/webbrowser/SettingsPage.qml:175
+msgid "Search engine"
+msgstr "Enjin gelintar"
+
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:271
+msgid "Homepage"
+msgstr "Laman Rumah"
+
+#: src/app/webbrowser/SettingsPage.qml:101
+msgid "Restore previous session at startup"
+msgstr "Pulih sesi terdahulu ketika permulaan"
+
+#: src/app/webbrowser/SettingsPage.qml:118
+msgid "Allow opening new tabs in background"
+msgstr "Benarkan pembukaan tab baharu di sebalik tabir"
+
+#: src/app/webbrowser/SettingsPage.qml:138
+#: src/app/webbrowser/SettingsPage.qml:224
+msgid "Privacy"
+msgstr "Kerahsiaan"
+
+#: src/app/webbrowser/SettingsPage.qml:146
+msgid "Reset browser settings"
+msgstr "Tetap semula tetapan pelayar"
+
+#: src/app/webbrowser/SettingsPage.qml:245
+msgid "Clear Browsing History"
+msgstr "Kosongkan Sejarah Pelayaran"
+
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Cache"
+msgstr "Kosongkan Cache"
+
+#: src/app/webbrowser/SettingsPage.qml:301
+msgid "Save"
+msgstr "Simpan"
+
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Ketuk untuk lihat"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:38
-#: src/app/webcontainer/webapp-container.qml:66
+#: src/app/webbrowser/webbrowser-app.qml:34
+#: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Pelayar Sesawang Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:40
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "Pelayar Sesawang Ubuntu"
 
