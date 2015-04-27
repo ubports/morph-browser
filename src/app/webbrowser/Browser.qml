@@ -26,6 +26,8 @@ import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 import "../UrlUtils.js" as UrlUtils
+import "urlManagement.js" as UrlManagement
+
 
 BrowserView {
     id: browser
@@ -305,6 +307,8 @@ BrowserView {
                 id: searchSuggestions
                 terms: suggestionsList.searchTerms
                 searchEngine: currentSearchEngine
+                enabled: chrome.addressBarFocused &&
+                         !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
                 function limit(from, number) {
                     var slice = results.slice(from, from + number)

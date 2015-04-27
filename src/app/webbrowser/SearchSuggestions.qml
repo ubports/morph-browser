@@ -23,10 +23,12 @@ Item {
     property var terms
     property SearchEngine searchEngine
     property var results: []
+    property bool enabled: false
 
     property var _request: new XMLHttpRequest()
     onSearchEngineChanged: resetSearch()
     onTermsChanged: resetSearch()
+    onEnabledChanged: resetSearch()
 
     Component.onCompleted: {
         _request.onreadystatechange = function() {
@@ -69,8 +71,10 @@ Item {
     }
 
     function resetSearch() {
-        if (_request) _request.abort()
         results = []
-        limiter.restart()
+        if (enabled) {
+            if (_request) _request.abort()
+            limiter.restart()
+        }
     }
 }
