@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2014 Canonical
+# Copyright 2014-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -18,11 +18,12 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 from testtools.matchers import Equals, LessThan
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 
 
 class TestFullscreen(StartOpenRemotePageTestCaseBase):
 
-    # Ref: http://qt-project.org/doc/qt-5/qwindow.html#Visibility-enum
+    # Ref: http://doc.qt.io/qt-5/qwindow.html#Visibility-enum
     QWINDOW_FULLSCREEN = 5
 
     def assert_eventually_windowed(self):
@@ -46,6 +47,20 @@ class TestFullscreen(StartOpenRemotePageTestCaseBase):
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         self.assert_eventually_fullscreen()
+        hint = webview.wait_select_single(objectName="fullscreenExitHint")
+        self.pointing_device.click_object(webview)
+        self.assert_eventually_windowed()
+        hint.wait_until_destroyed()
+
+    def test_exit_fullscreen(self):
+        url = self.base_url + "/fullscreen"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
+        self.assert_eventually_fullscreen()
+        if model() == 'Desktop':
+            self.keyboard.press_and_release('Escape')
+        else:
+            self.open_tabs_view()
         self.assert_eventually_windowed()
