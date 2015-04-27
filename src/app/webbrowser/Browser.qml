@@ -471,12 +471,13 @@ BrowserView {
         Label {
             anchors {
                 horizontalCenter: parent.horizontalCenter
-                bottom: parent.bottom
-                bottomMargin: units.gu(0.25)
+                verticalCenter: parent.verticalCenter
+                verticalCenterOffset: units.dp(2)
             }
 
             fontSize: "small"
-            text: "(" + tabsModel.count + ")"
+            // TRANSLATORS: %1 refers to the current number of tabs opened
+            text: i18n.tr("(%1)").arg(tabsModel.count)
         }
     }
 
