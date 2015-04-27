@@ -30,8 +30,10 @@ import "../UrlUtils.js" as UrlUtils
 BrowserView {
     id: browser
 
-    currentWebview: tabsModel.currentTab ? tabsModel.currentTab.webview : null
+    property var tabsModel: browserTabsModel
+    currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
+    property var privateTabsModel: (privateTabsModelLoader.status == Loader.Ready) ? privateTabsModelLoader.item : null
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
@@ -45,6 +47,16 @@ BrowserView {
     // to limit the overhead of instantiating too many
     // tab objects (see http://pad.lv/1376433).
     readonly property int maxTabsToRestore: 10
+
+    onTabsModelChanged: {
+        if (tabsModel == privateTabsModel && privateTabsModel != null) {
+            if (privateTabsModelLoader.status == Loader.Ready) {
+                browser.openUrlInNewTab("", true)
+                if (formFactor == "desktop")
+                    internal.focusAddressBar()
+            }
+        }
+    }
 
     actions: [
         Actions.GoTo {
@@ -72,6 +84,20 @@ BrowserView {
         Actions.ClearHistory {
             enabled: browser.historyModel
             onTriggered: browser.historyModel.clearAll()
+        }
+    ]
+
+    states: [
+        State {
+            name: "private"
+            PropertyChanges {
+                target: chrome
+                useDarkTheme: true 
+            }
+            PropertyChanges {
+                target: browser
+                tabsModel: privateTabsModel
+            }
         }
     ]
 
@@ -257,7 +283,7 @@ BrowserView {
                     objectName: "privateMode"
                     text: i18n.tr("Private Mode")
                     iconName: "private"
-                    onTriggered: chrome.useDarkTheme = !chrome.useDarkTheme
+                    onTriggered: browser.state == "private" ? browser.state = "" : browser.state = "private"
                 }
             ]
         }
@@ -540,13 +566,41 @@ BrowserView {
     }
 
     TabsModel {
-        id: tabsModel
+        id: browserTabsModel
 
         // Ensure that at most n webviews are instantiated at all times,
         // to reduce memory consumption (see http://pad.lv/1376418).
         onCurrentTabChanged: {
             if (count > browser.maxLiveWebviews) {
                 get(browser.maxLiveWebviews).unload()
+            }
+        }
+    }
+
+    Loader {
+        id: privateTabsModelLoader
+
+        Connections {
+            target: browser
+            onStateChanged: {
+                if (browser.state == "private")
+                    privateTabsModelLoader.sourceComponent = privateTabsModelComponent
+                else
+                    privateTabsModelLoader.sourceComponent = null
+            }
+        }
+
+        Component {
+            id: privateTabsModelComponent
+
+            TabsModel {
+                // Ensure that at most n webviews are instantiated at all times,
+                // to reduce memory consumption (see http://pad.lv/1376418).
+                onCurrentTabChanged: {
+                    if (count > browser.maxLiveWebviews) {
+                        get(browser.maxLiveWebviews).unload()
+                    }
+                }
             }
         }
     }
@@ -568,7 +622,7 @@ BrowserView {
 
         BrowserTab {
             anchors.fill: parent
-            visible: tabsModel.currentTab === this
+            visible: tabsModel && tabsModel.currentTab === this
 
             webviewComponent: WebViewImpl {
                 id: webviewimpl
@@ -751,7 +805,7 @@ BrowserView {
                     // this can’t be achieved with a simple property binding.
                     Component.onCompleted: {
                         if (!parent.url.toString() && !parent.restoreState) {
-                            sourceComponent = newTabViewComponent
+                            sourceComponent = browser.state == "private" ? newPrivateTabViewComponent : newTabViewComponent
                         }
                     }
                     Connections {
@@ -783,6 +837,18 @@ BrowserView {
                             }
                         }
                     }
+
+                    Component {
+                        id: newPrivateTabViewComponent
+
+                        NewPrivateTabView {
+                            anchors {
+                                fill: parent
+                                topMargin: (chrome.state == "shown") ? chrome.height : 0
+                            }
+                        }
+                    }
+
                 }
             }
         }
