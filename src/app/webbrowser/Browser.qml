@@ -252,6 +252,12 @@ BrowserView {
                     text: i18n.tr("Settings")
                     iconName: "settings"
                     onTriggered: settingsComponent.createObject(settingsContainer)
+                },
+                Action {
+                    objectName: "privateMode"
+                    text: i18n.tr("Private Mode")
+                    iconName: "private"
+                    onTriggered: chrome.useDarkTheme = !chrome.useDarkTheme
                 }
             ]
         }

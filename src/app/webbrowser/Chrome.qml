@@ -29,6 +29,10 @@ ChromeBase {
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
+    property bool useDarkTheme: false
+    property string buttonIconColor: useDarkTheme ? "#ffffff" : "#808080"
+
+    backgroundColor: useDarkTheme ? "#5d5d5d" : Theme.palette.normal.background
 
     FocusScope {
         anchors {
@@ -44,6 +48,7 @@ ChromeBase {
 
             iconName: "previous"
             iconSize: 0.6 * height
+            iconColor: chrome.buttonIconColor
 
             height: parent.height
             width: height
@@ -63,6 +68,7 @@ ChromeBase {
 
             iconName: "next"
             iconSize: 0.6 * height
+            iconColor: chrome.buttonIconColor
 
             height: parent.height
             visible: enabled
@@ -128,6 +134,7 @@ ChromeBase {
 
             iconName: "contextual-menu"
             iconSize: 0.75 * height
+            iconColor: chrome.buttonIconColor
 
             height: parent.height
             width: height
