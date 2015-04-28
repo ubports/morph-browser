@@ -166,6 +166,28 @@ private Q_SLOTS:
         QCOMPARE(model->unlimitedRowCount(), 3);
         QCOMPARE(model->rowCount(), 2);
     }
+
+    void shouldGetItemWithCorrectValues()
+    {
+        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
+
+        QVariantMap item = model->get(0);
+        QHash<int, QByteArray> roles = model->roleNames();
+
+        QCOMPARE(roles.count(), item.count());
+
+        Q_FOREACH(int role, roles.keys()) {
+            QString roleName = QString::fromUtf8(roles.value(role));
+            QCOMPARE(model->data(model->index(0, 0), role), item.value(roleName));
+        }
+    }
+
+    void shouldReturnEmptyItemIfGetOutOfBounds()
+    {
+        QVariantMap item = model->get(1);
+        QCOMPARE(item.count(), 0);
+    }
+
 };
 
 QTEST_MAIN(LimitProxyModelTests)
