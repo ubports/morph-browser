@@ -23,24 +23,13 @@
 #include <QtCore/QDir>
 #include <QtCore/QObject>
 #include <QtCore/QStandardPaths>
+#include <QtCore/QStorageInfo>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QtGlobal>
 #include <QtGui/QGuiApplication>
 #include <QtQml>
 #include <QtQml/QQmlInfo>
-
-namespace {
-
-const char* BROWSER_APP_NAME = "webbrowser-app";
-
-// Let chromium decide the optimum cache size based on available disk space
-const int DEFAULT_CACHE_SIZE_HINT_BROWSER = 0;
-
-// Default to 10MB for all other embedders, including webapps run in webapp-container
-const int DEFAULT_CACHE_SIZE_HINT_OTHERS = 10;
-
-}
 
 class UbuntuWebPluginContext : public QObject
 {
@@ -149,10 +138,22 @@ QString UbuntuWebPluginContext::formFactor()
 
 int UbuntuWebPluginContext::cacheSizeHint() const
 {
-    if (QCoreApplication::applicationName() == BROWSER_APP_NAME) {
-        return DEFAULT_CACHE_SIZE_HINT_BROWSER;
+    if (QCoreApplication::applicationName() == "webbrowser-app") {
+        // Let chromium decide the optimum cache size based on available disk space
+        return 0;
     } else {
-        return DEFAULT_CACHE_SIZE_HINT_OTHERS;
+        QStorageInfo storageInfo(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+        const int MB = 1024 * 1024;
+        // The total cache size for all apps should not exceed 10% of the total disk space
+        int maxSharedCache = storageInfo.bytesTotal() / MB * 0.1;
+        // One given app is allowed to use up to 5% o the total cache size
+        int maxAppCacheAllowance = maxSharedCache * 0.05;
+        // Ensure it never exceeds 200 MB though
+        int maxAppCacheAbsolute = qMin(maxAppCacheAllowance, 200);
+        // Never use more than 20% of the available disk space
+        int maxAppCacheRelative = storageInfo.bytesAvailable() / MB * 0.2;
+        // Never set a size hint below 5 MB, as that would result in a very inefficient cache
+        return qMax(5, qMin(maxAppCacheAbsolute, maxAppCacheRelative));
     }
 }
 
