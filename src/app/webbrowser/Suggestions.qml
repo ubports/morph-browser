@@ -24,7 +24,7 @@ Rectangle {
 
     property var searchTerms
     property var models
-    property int count: models.reduce(countItems, 0)
+    readonly property int count: suggestionsList.count
     property alias contentHeight: suggestionsList.contentHeight
 
     signal selected(url url)
@@ -41,38 +41,34 @@ Rectangle {
         id: suggestionsList
         anchors.fill: parent
 
-        model: suggestions.models
-        delegate: Column {
-            id: suggestionsSection
-            width: suggestionsList.width
-            height: childrenRect.height
+        model: models.reduce(function(list, model) {
+            var modelItems = [];
 
-            property string icon: models[index].icon
-            property bool displayUrl: models[index].displayUrl
-            property int firstItemIndex: models.slice(0, index).reduce(countItems, 0)
-
-            Repeater {
-                id: suggestionsSource
-                model: modelData
-
-                delegate: Suggestion {
-                    id: suggestion
-                    width: suggestionsList.width
-                    showDivider: suggestionsSection.firstItemIndex + index <
-                                 suggestions.count - 1
-
-                    // Necessary to support both using objects inheriting from
-                    // QAbstractItemModel and JS arrays as models, since they
-                    // expose their data differently
-                    property var item: (model.modelData) ? model.modelData : model
-
-                    title: highlightTerms(item.title)
-                    subtitle: suggestionsSection.displayUrl ? highlightTerms(item.url) : ""
-                    icon: suggestionsSection.icon
-
-                    onSelected: suggestions.selected(item.url)
-                }
+            // Models inheriting from QAbstractItemModel and JS arrays expose their
+            // data differently, so we need to collect their items differently
+            if (model.forEach) {
+                model.forEach(function(item) { modelItems.push(item) })
+            } else {
+                for (var i = 0; i < model.count; i++) modelItems.push(model.get(i))
             }
+
+            modelItems.forEach(function(item) {
+                item["icon"] = model.icon
+                item["displayUrl"] = model.displayUrl
+                list.push(item);
+            })
+            return list;
+        }, [])
+
+        delegate: Suggestion {
+            width: suggestionsList.width
+            showDivider: index < model.length - 1
+
+            title: highlightTerms(modelData.title)
+            subtitle: modelData.displayUrl ? highlightTerms(modelData.url) : ""
+            icon: modelData.icon
+
+            onSelected: suggestions.selected(modelData.url)
         }
     }
 
