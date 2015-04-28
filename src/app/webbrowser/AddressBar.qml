@@ -36,6 +36,7 @@ FocusScope {
     signal requestReload()
     signal requestStop()
     property string searchUrl
+    property bool preventSimplifyUrl: false
 
     property var securityStatus: null
 
@@ -292,9 +293,14 @@ FocusScope {
     onActiveFocusChanged: {
         if (activeFocus) {
             text = actualUrl
-        } else if (!loading && actualUrl.toString()) {
+        } else if (!preventSimplifyUrl && !loading && actualUrl.toString()) {
             text = internal.simplifyUrl(actualUrl)
         }
+    }
+
+    onPreventSimplifyUrlChanged: {
+        if (!preventSimplifyUrl && !loading && actualUrl.toString())
+            text = internal.simplifyUrl(actualUrl)
     }
 
     onActualUrlChanged: {
