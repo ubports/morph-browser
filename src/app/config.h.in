@@ -26,10 +26,6 @@
 #define APP_ID "webbrowser-app"
 #define REMOTE_INSPECTOR_PORT 9221
 
-#define DEFAULT_SEARCH_NAME "Google Search"
-#define DEFAULT_SEARCH_DESC "Use google.com to search the Web"
-#define DEFAULT_SEARCH_TEMPLATE "https://google.com/search?client=ubuntu&q={searchTerms}&ie=utf-8&oe=utf-8"
-
 inline bool isRunningInstalled()
 {
     static bool installed = (QCoreApplication::applicationDirPath() == QDir("@CMAKE_INSTALL_FULL_BINDIR@").canonicalPath());
