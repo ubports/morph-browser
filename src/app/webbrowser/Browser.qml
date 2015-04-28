@@ -21,6 +21,7 @@ import QtQuick.Window 2.0
 import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.1
+import Ubuntu.Components.Popups 1.0
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
@@ -282,8 +283,13 @@ BrowserView {
                 Action {
                     objectName: "privateMode"
                     text: browser.state == "private" ? i18n.tr("Leave Private") : i18n.tr("Private Mode")
-                    iconName: browser.state == "private" ? "private-browsing" : "private-tab-new"
-                    onTriggered: browser.state == "private" ? browser.state = "" : browser.state = "private"
+                    iconName: "private-browsing"
+                    onTriggered: {
+                        if (browser.state == "private")
+                            PopupUtils.open(leavePrivateModeDialog)
+                        else
+                            browser.state = "private"
+                    }
                 }
             ]
         }
@@ -1021,6 +1027,35 @@ BrowserView {
             tabsModel.currentTab.load()
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
                 internal.focusAddressBar()
+            }
+        }
+    }
+
+    Component {
+        id: leavePrivateModeDialog
+
+        Dialog {
+            id: dialogue
+            objectName: "leavePrivateModeDialog"
+
+            title: i18n.tr("Going to public mode will close all private tabs")
+
+            Button {
+                objectName: "leavePrivateModeDialog.cancelButton"
+                anchors { left: parent.left; right: parent.right }
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialogue);
+            }
+
+            Button {
+                objectName: "leavePrivateModeDialog.okButton"
+                anchors { left: parent.left; right: parent.right }
+                text: i18n.tr("Ok")
+                color: "#3fb24f"
+                onClicked: {
+                    PopupUtils.close(dialogue)
+                    browser.state = ""
+                }
             }
         }
     }
