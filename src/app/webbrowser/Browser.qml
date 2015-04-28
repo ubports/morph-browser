@@ -718,7 +718,7 @@ BrowserView {
                 }
 
                 onLoadEvent: {
-                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel) {
+                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel && browser.state != "private") {
                         browser.historyModel.add(event.url, title, icon)
                     }
                 }
