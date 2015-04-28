@@ -657,6 +657,8 @@ BrowserView {
                 preferences.localStorageEnabled: true
                 preferences.appCacheEnabled: true
 
+                incognito: browser.state == "private"
+
                 contextualActions: ActionList {
                     Actions.OpenLinkInNewTab {
                         enabled: contextualData.href.toString()
@@ -939,8 +941,8 @@ BrowserView {
                 return
             }
             var tabs = []
-            for (var i = 0; i < tabsModel.count; ++i) {
-                var tab = tabsModel.get(i)
+            for (var i = 0; i < browserTabsModel.count; ++i) {
+                var tab = browserTabsModel.get(i)
                 tabs.push(serializeTabState(tab))
             }
             store(JSON.stringify({tabs: tabs}))
