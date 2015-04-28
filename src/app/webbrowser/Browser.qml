@@ -915,6 +915,13 @@ BrowserView {
             return tabComponent.createObject(tabContainer, properties)
         }
     }
+    Timer {
+        // Save session periodically to mitigate state loss when the application crashes
+        interval: 60000 // every minute
+        repeat: true
+        running: true
+        onTriggered: session.save()
+    }
     Connections {
         target: Qt.application
         onStateChanged: {
