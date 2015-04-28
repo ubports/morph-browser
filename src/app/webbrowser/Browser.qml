@@ -307,7 +307,7 @@ BrowserView {
                 id: searchSuggestions
                 terms: suggestionsList.searchTerms
                 searchEngine: currentSearchEngine
-                enabled: chrome.addressBarFocused &&
+                enabled: chrome.activeFocus &&
                          !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
                 function limit(from, number) {
