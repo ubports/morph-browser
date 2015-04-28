@@ -142,6 +142,8 @@ int UbuntuWebPluginContext::cacheSizeHint() const
         // Let chromium decide the optimum cache size based on available disk space
         return 0;
     } else {
+        // For webapps and other embedders, determine the cache size hint
+        // using heuristics based on the disk space (total, and available).
         QStorageInfo storageInfo(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
         const int MB = 1024 * 1024;
         // The total cache size for all apps should not exceed 10% of the total disk space
