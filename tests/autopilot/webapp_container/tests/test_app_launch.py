@@ -92,7 +92,7 @@ class WebappContainerAppLaunchTestCase(
                 args,
                 {'UBUNTU_WEBVIEW_HOST_MAPPING_RULES': rule,
                  'WEBAPP_QML_DEFAULT_WEBAPPS_INSTALL_FOLDER':
-                     webapp_install_path})
+                 webapp_install_path})
             webview = self.get_oxide_webview()
             webapp_url = 'http://www.test.com/'
             self.assertThat(webview.url, Eventually(Equals(webapp_url)))

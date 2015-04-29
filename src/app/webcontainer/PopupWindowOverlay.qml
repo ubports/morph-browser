@@ -29,80 +29,60 @@ Item {
     property var webContext
     property alias request: popupWebview.request
     property alias url: popupWebview.url
-
+    
     Rectangle {
         color: "#F2F1F0"
         anchors.fill: parent
     }
 
     Item {
+        id: menubar
+
+        height: units.gu(6)
+        width: parent.width
+
         anchors {
-            fill: parent
+            top: parent.top
+            horizontalCenter: parent.horizontalCenter
         }
 
-
-        MouseArea {
-            id: controls
-
-            property int initMouseY: 0
-            property int prevMouseY: 0
-            onPressed: {
-                initMouseY = mouse.y
-                prevMouseY = initMouseY
-            }
-            onReleased: {
-                if ((prevMouseY - initMouseY) > (popup.height / 3)) {
-                    if (popupWindowController) {
-                        popupWindowController.handleViewRemoved(popup)
-                        return
-                    }
-                }
-                popup.y = 0
-            }
-            onMouseYChanged: {
-                if (popupWindowController) {
-                    var diff = mouseY - initMouseY
-                    prevMouseY = mouseY
-                    popupWindowController.onOverlayMoved(popup, diff)
-                }
-            }
-
-            height: units.gu(6)
-            width: parent.width
-
+        ChromeButton {
+            id: closeButton
+            objectName: "overlayCloseButton"
             anchors {
-                top: parent.top
-                horizontalCenter: parent.horizontalCenter
+                left: parent.left
+                verticalCenter: parent.verticalCenter
             }
 
-            ChromeButton {
-                id: closeButton
-                objectName: "overlayCloseButton"
-                anchors {
-                    left: parent.left
-                    verticalCenter: parent.verticalCenter
-                }
+            height: parent.height
+            width: height
 
-                height: parent.height
-                width: height
+            iconName: "dropdown-menu"
+            iconSize: 0.6 * height
 
-                iconName: "dropdown-menu"
-                iconSize: 0.6 * height
+            enabled: true
+            visible: true
 
-                enabled: true
-                visible: true
-
-                onTriggered: {
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
                     if (popupWindowController) {
                         popupWindowController.handleViewRemoved(popup)
                     }
                 }
+            }
+        }
+
+        Item {
+            anchors  {
+                top: parent.top
+                bottom: parent.bottom
+                left: closeButton.right
+                right: buttonOpenInBrowser.left
             }
 
             Label {
                 anchors {
-                    left: closeButton.right
-                    right: buttonOpenInBrowser.left
                     rightMargin: units.gu(2)
                     verticalCenter: parent.verticalCenter
                 }
@@ -111,74 +91,107 @@ Item {
                 elide: Text.ElideRight
             }
 
-            ChromeButton {
-                id: buttonOpenInBrowser
-                objectName: "overlayButtonOpenInBrowser"
-                anchors {
-                    right: parent.right
-                    verticalCenter: parent.verticalCenter
-                    rightMargin: units.gu(1)
+            MouseArea {
+                anchors.fill: parent
+
+                property int initMouseY: 0
+                property int prevMouseY: 0
+
+                onPressed: {
+                    initMouseY = mouse.y
+                    prevMouseY = initMouseY
                 }
-
-                height: parent.height
-                width: height
-
-                iconName: "external-link"
-                iconSize: 0.6 * height
-
-                enabled: true
-                visible: true
-
-                onTriggered: {
+                onReleased: {
+                    if ((prevMouseY - initMouseY) > (popup.height / 8) ||
+                            popup.y > popup.height/2) {
+                        if (popupWindowController) {
+                            popupWindowController.handleViewRemoved(popup)
+                            return
+                        }
+                    }
+                    popup.y = 0
+                }
+                onMouseYChanged: {
                     if (popupWindowController) {
-                        popupWindowController.handleOpenInUrlBrowserForView(
-                                 popupWebview.url, popup)
+                        var diff = mouseY - initMouseY
+                        prevMouseY = mouseY
+                        popupWindowController.onOverlayMoved(popup, diff)
                     }
                 }
             }
         }
 
-        WebViewImpl {
-            id: popupWebview
-
-            objectName: "overlayWebview"
-
-            context: webContext
-
+        ChromeButton {
+            id: buttonOpenInBrowser
+            objectName: "overlayButtonOpenInBrowser"
             anchors {
-                bottom: parent.bottom
-                left: parent.left
                 right: parent.right
-                top: controls.bottom
+                verticalCenter: parent.verticalCenter
+                rightMargin: units.gu(1)
             }
 
-            onNewViewRequested: {
-                if (popupWindowController) {
-                    popupWindowController.createPopupView(
-                        popup.parent, request, false, context)
-                }
-            }
+            height: parent.height
+            width: height
 
-            function isNewForegroundWebViewDisposition(disposition) {
-                return disposition === Oxide.NavigationRequest.DispositionNewPopup ||
-                       disposition === Oxide.NavigationRequest.DispositionNewForegroundTab;
-            }
+            iconName: "external-link"
+            iconSize: 0.6 * height
 
-            onNavigationRequested: {
-                var url = request.url.toString()
-                if (isNewForegroundWebViewDisposition(request.disposition)) {
-                    popupWindowController.handleNewForegroundNavigationRequest(
-                                url, request, false)
-                    return
-                }
-                request.action = Oxide.NavigationRequest.ActionAccept
-            }
+            enabled: true
+            visible: true
 
-            onCloseRequested: {
-                if (popupWindowController) {
-                    popupWindowController.handleViewRemoved(popup)
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if (popupWindowController) {
+                        popupWindowController.handleOpenInUrlBrowserForView(
+                                    popupWebview.url, popup)
+                    }
                 }
             }
         }
     }
+
+    WebViewImpl {
+        id: popupWebview
+
+        objectName: "overlayWebview"
+
+        context: webContext
+
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+            top: menubar.bottom
+        }
+
+        onNewViewRequested: {
+            if (popupWindowController) {
+                popupWindowController.createPopupView(
+                            popup.parent, request, false, context)
+            }
+        }
+
+        function isNewForegroundWebViewDisposition(disposition) {
+            return disposition === Oxide.NavigationRequest.DispositionNewPopup ||
+                    disposition === Oxide.NavigationRequest.DispositionNewForegroundTab;
+        }
+
+        onNavigationRequested: {
+            var url = request.url.toString()
+            if (isNewForegroundWebViewDisposition(request.disposition)) {
+                popupWindowController.handleNewForegroundNavigationRequest(
+                            url, request, false)
+                return
+            }
+            request.action = Oxide.NavigationRequest.ActionAccept
+        }
+
+        onCloseRequested: {
+            if (popupWindowController) {
+                popupWindowController.handleViewRemoved(popup)
+            }
+        }
+    }
+
 }

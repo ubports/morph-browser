@@ -32,7 +32,7 @@ Item {
     // Used to access runtime behavior during tests
     signal openExternalUrlTriggered(string url)
     signal newViewCreated(string url)
-    signal windowOverlayAnimationDone()
+    signal windowOverlayOpenAnimationDone()
 
     readonly property int maxSimultaneousViews: 3
 
@@ -58,6 +58,15 @@ Item {
         handleViewRemoved(view)
         openExternalUrlTriggered(url)
         openUrlExternally(url)
+    }
+    function createViewSlidingHandlerFor(newView, viewBelow) {
+        var parentHeight = viewBelow.parent.height
+        return function() {
+            if (viewBelow && newView) {
+                viewBelow.opacity =
+                    newView.y / parentHeight
+            }
+        }
     }
     function topViewOnStack() {
         if (views.length !== 0) {
@@ -86,10 +95,6 @@ Item {
                 topMostView.destroy()
 
                 updateViewVisibility(nextView, true)
-            } else {
-                if (nextView) {
-                    nextView.opacity = 1.0 - (parentHeight - topMostView.y) / parentHeight
-                }
             }
         }
         topMostView.yChanged.connect(onViewSlidingOut)
@@ -104,6 +109,11 @@ Item {
 
         var topMostView = topViewOnStack()
 
+        // handle opacity updates of the view below this one
+        // when the view is sliding
+        view.yChanged.connect(
+            createViewSlidingHandlerFor(view, topMostView))
+
         function onViewSlidingIn() {
             var parentHeight = view.parent.height
 
@@ -111,10 +121,6 @@ Item {
                 view.yChanged.disconnect(onViewSlidingIn)
 
                 updateViewVisibility(topMostView, false)
-            } else {
-                if (topMostView) {
-                    topMostView.opacity = view.y / parentHeight
-                }
             }
         }
         view.yChanged.connect(onViewSlidingIn)
@@ -126,7 +132,6 @@ Item {
     function updateViewVisibility(view, visible) {
         if (view) {
             view.opacity = visible ? 1.0 : 0.0
-            view.visible = visible
         }
     }
 
@@ -140,15 +145,20 @@ Item {
 
             y: overlay.parent.height
 
+            // Poor mans heuristic to know when an overlay has been
+            // loaded and is in full view. We cannot rely on the
+            // NumberAnimation running/started since they dont
+            // work properly when inside a Behavior
+            onYChanged: {
+                if (y === 0) {
+                    windowOverlayOpenAnimationDone()
+                }
+            }
+	    
             Behavior on y {
                 NumberAnimation {
                     duration: 500
                     easing.type: Easing.InOutQuad
-                    onRunningChanged: {
-                        if (! running) {
-                            windowOverlayAnimationDone()
-                        }
-                    }
                 }
             }
         }

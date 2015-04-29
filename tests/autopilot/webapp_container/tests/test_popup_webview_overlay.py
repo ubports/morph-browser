@@ -45,7 +45,7 @@ class WebappContainerPopupWebViewOverlayTestCase(
         new_view_watcher = popup_controller.watch_signal(
             'newViewCreated(QString)')
         animation_watcher = popup_controller.watch_signal(
-            'windowOverlayAnimationDone()')
+            'windowOverlayOpenAnimationDone()')
         animation_signal_emission = animation_watcher.num_emissions
 
         views = self.get_popup_overlay_views()
@@ -99,7 +99,7 @@ class WebappContainerPopupWebViewOverlayTestCase(
             'openExternalUrlTriggered(QString)')
 
         animation_watcher = popup_controller.watch_signal(
-            'windowOverlayAnimationDone()')
+            'windowOverlayOpenAnimationDone()')
         animation_signal_emission = animation_watcher.num_emissions
 
         self.click_href_target_blank()
@@ -150,7 +150,7 @@ class WebappContainerPopupWebViewOverlayTestCase(
             Eventually(Equals(True)))
 
         animation_watcher = popup_controller.watch_signal(
-            'windowOverlayAnimationDone()')
+            'windowOverlayOpenAnimationDone()')
         animation_signal_emission = animation_watcher.num_emissions
 
         OVERLAY_MAX_COUNT = 3
