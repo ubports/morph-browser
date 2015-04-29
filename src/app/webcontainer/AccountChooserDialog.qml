@@ -20,11 +20,10 @@ import QtQuick 2.0
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
-import Ubuntu.Components.Popups 1.0
 import Ubuntu.OnlineAccounts 0.1
 import Ubuntu.OnlineAccounts.Client 0.1
 
-Dialog {
+SplashScreen {
     id: root
 
     property string providerId: ""
@@ -54,6 +53,10 @@ Dialog {
             }
         }
     }
+
+    Column {
+        anchors { left: parent.left; right: parent.right }
+        spacing: units.gu(1)
 
     ListItem.Caption {
         text: i18n.tr("No accounts have been linked to this webapp; press the item below to add an account.")
@@ -93,6 +96,7 @@ Dialog {
         text: i18n.tr("Cancel")
         onClicked: root.cancel()
     }
+}
 
     function chooseAccount(accountId) {
         for (var i = 0; i < accountsModel.count; i++) {

@@ -63,7 +63,7 @@ Page {
         onDone: root.done(successful)
     }
 
-    SplashScreen {
+    AccountsSplashScreen {
         id: splashScreen
 
         providerName: root.__providerName
@@ -74,16 +74,23 @@ Page {
         onChooseAccount: root.chooseAccount()
     }
 
+    Loader {
+        id: accountChooserLoader
+        anchors.fill: parent
+    }
+
     Component {
         id: accountChooserComponent
         AccountChooserDialog {
             id: accountChooser
+            applicationName: root.__applicationName
+            iconSource: root.__applicationIcon
             providerId: root.providerId
             applicationId: root.applicationId
             accountsModel: root.__accountsModel
-            onCancel: PopupUtils.close(accountChooser)
+            onCancel: accountChooserLoader.sourceComponent = null
             onAccountSelected: {
-                PopupUtils.close(accountChooser)
+                accountChooserLoader.sourceComponent = null
                 root.__setupAccount(accountId)
             }
         }
@@ -179,6 +186,6 @@ Page {
     }
 
     function chooseAccount() {
-        PopupUtils.open(accountChooserComponent)
+        accountChooserLoader.sourceComponent = accountChooserComponent
     }
 }

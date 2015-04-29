@@ -112,7 +112,11 @@ BrowserWindow {
                 }
             }
 
-            onChooseAccount: accountsPageComponentLoader.item.chooseAccount()
+            onChooseAccount: {
+                visible = false
+                accountsPageComponentLoader.item.visible = true
+                accountsPageComponentLoader.item.chooseAccount()
+            }
         }
     }
 
