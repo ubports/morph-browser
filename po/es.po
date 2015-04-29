@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-08 20:37+0200\n"
+"POT-Creation-Date: 2015-04-24 18:31+0200\n"
 "PO-Revision-Date: 2015-03-09 18:24+0000\n"
 "Last-Translator: Jose Luis Tirado <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-04-09 05:41+0000\n"
-"X-Generator: Launchpad (build 17413)\n"
+"X-Launchpad-Export-Date: 2015-04-25 05:36+0000\n"
+"X-Generator: Launchpad (build 17430)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -47,6 +47,7 @@ msgstr "Contraseña"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
+#: src/app/webbrowser/SettingsPage.qml:294
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -115,22 +116,18 @@ msgid "Please choose a file"
 msgstr "Seleccione un archivo"
 
 #: src/app/GeolocationPermissionRequest.qml:28
-#: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr "Solicitud de permiso"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:70
 msgid "This page wants to know your device’s location."
 msgstr "Esta página solicita la ubicación del dispositivo."
 
 #: src/app/GeolocationPermissionRequest.qml:33
-#: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr "Denegar"
 
 #: src/app/GeolocationPermissionRequest.qml:43
-#: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "Permitir"
 
@@ -392,7 +389,7 @@ msgstr "Ir a"
 msgid "Address;URL;www"
 msgstr "Dirección;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
 msgid "New Tab"
 msgstr "Pestaña nueva"
 
@@ -432,41 +429,48 @@ msgstr "Guardar imagen"
 msgid "Share…"
 msgstr "Compartir..."
 
-#: src/app/webbrowser/AddressBar.qml:195
+#: src/app/webbrowser/AddressBar.qml:196
 msgid "search or enter an address"
 msgstr "buscar o escribir dirección"
 
-#: src/app/webbrowser/BookmarksList.qml:67
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321
-msgid "Delete"
-msgstr "Eliminar"
-
-#: src/app/webbrowser/Browser.qml:178
+#: src/app/webbrowser/Browser.qml:221
 msgid "Share"
 msgstr "Compartir"
 
-#: src/app/webbrowser/Browser.qml:192
+#: src/app/webbrowser/Browser.qml:228
 msgid "History"
 msgstr "Historial"
 
-#: src/app/webbrowser/Browser.qml:199
+#: src/app/webbrowser/Browser.qml:235
 msgid "Open tabs"
 msgstr "Pestañas abiertas"
 
-#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "Pestaña nueva"
 
 #: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
 msgid "Settings"
-msgstr ""
+msgstr "Configuración"
 
-#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
 msgstr "Hecho"
+
+#: src/app/webbrowser/Browser.qml:715
+msgid "Swipe Up To Exit Full Screen"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:716
+msgid "Press ESC To Exit Full Screen"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
+msgid "Delete"
+msgstr "Eliminar"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -499,11 +503,11 @@ msgstr "Marcadores"
 msgid "Top sites"
 msgstr "Sitios populares"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:145
 msgid "see less"
 msgstr "ver menos"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:145
 msgid "see more"
 msgstr "ver más"
 
@@ -556,7 +560,7 @@ msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr "Está conectado a"
+msgstr "Se conectó con"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
@@ -565,55 +569,55 @@ msgstr "Propiedad de"
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
-msgstr ""
+msgstr "Motor de búsquedas"
 
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:271
 msgid "Homepage"
-msgstr ""
+msgstr "Página de inicio"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "Restaurar sesión anterior al iniciar"
 
 #: src/app/webbrowser/SettingsPage.qml:118
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "Permitir apertura de pestañas nuevas en 2.º plano"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:224
 msgid "Privacy"
-msgstr ""
+msgstr "Privacidad"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr ""
+msgstr "Restablecer configuración del navegador"
 
 #: src/app/webbrowser/SettingsPage.qml:245
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "Vaciar historial de navegación"
 
 #: src/app/webbrowser/SettingsPage.qml:252
 msgid "Clear Cache"
-msgstr ""
+msgstr "Vaciar caché"
 
-#: src/app/webbrowser/SettingsPage.qml:295
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Toque para ver"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:38
-#: src/app/webcontainer/webapp-container.qml:66
+#: src/app/webbrowser/webbrowser-app.qml:34
+#: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navegador web de Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:40
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "Navegador web de Ubuntu"
 

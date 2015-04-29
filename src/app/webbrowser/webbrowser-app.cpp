@@ -20,15 +20,15 @@
 #include "cache-deleter.h"
 #include "config.h"
 #include "file-operations.h"
-#include "history-model.h"
-#include "history-matches-model.h"
-#include "history-timeframe-model.h"
-#include "history-byvisits-model.h"
-#include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
+#include "history-domainlist-model.h"
+#include "history-model.h"
+#include "history-timeframe-model.h"
 #include "limit-proxy-model.h"
 #include "searchengine.h"
+#include "suggestions-filter-model.h"
 #include "tabs-model.h"
+#include "top-sites-model.h"
 #include "webbrowser-app.h"
 
 // system
@@ -90,9 +90,8 @@ bool WebbrowserApp::initialize()
 
     const char* uri = "webbrowserapp.private";
     qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
-    qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
-    qmlRegisterType<HistoryByVisitsModel>(uri, 0 , 1, "HistoryByVisitsModel");
+    qmlRegisterType<TopSitesModel>(uri, 0 , 1, "TopSitesModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
@@ -101,6 +100,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
     qmlRegisterType<SearchEngine>(uri, 0, 1, "SearchEngine");
     qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
+    qmlRegisterType<SuggestionsFilterModel>(uri, 0, 1, "SuggestionsFilterModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         m_window->setProperty("newSession", m_arguments.contains("--new-session"));

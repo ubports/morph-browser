@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-08 20:37+0200\n"
-"PO-Revision-Date: 2015-04-04 12:47+0000\n"
+"POT-Creation-Date: 2015-04-24 18:31+0200\n"
+"PO-Revision-Date: 2015-04-27 13:58+0000\n"
 "Last-Translator: GTriderXC <gtriderxc@yahoo.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-04-09 05:41+0000\n"
-"X-Generator: Launchpad (build 17413)\n"
+"X-Launchpad-Export-Date: 2015-04-28 05:31+0000\n"
+"X-Generator: Launchpad (build 17453)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -48,6 +48,7 @@ msgstr "Hasło"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
+#: src/app/webbrowser/SettingsPage.qml:294
 msgid "Cancel"
 msgstr "Anuluj"
 
@@ -116,22 +117,18 @@ msgid "Please choose a file"
 msgstr "Proszę wybrać plik"
 
 #: src/app/GeolocationPermissionRequest.qml:28
-#: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr "Wymagane zezwolenie"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:70
 msgid "This page wants to know your device’s location."
 msgstr "Ta strona prosi o informacje dotyczące lokalizacji urządznia"
 
 #: src/app/GeolocationPermissionRequest.qml:33
-#: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr "Odmów"
 
 #: src/app/GeolocationPermissionRequest.qml:43
-#: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "Zezwól"
 
@@ -309,6 +306,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"Certyfikat bezpieczeństwa tej witryny nie jest zaufany\n"
+"Próbujesz wejść na %1, ale serwer przedstawił certyfikat bezpieczeństwa, "
+"który z nieznanej przyczyny nie przeszedł kontroli bezpieczeństwa."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -390,7 +390,7 @@ msgstr "Idź do"
 msgid "Address;URL;www"
 msgstr "Adres;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
 msgid "New Tab"
 msgstr "Nowa karta"
 
@@ -430,41 +430,48 @@ msgstr "Zapisz obraz"
 msgid "Share…"
 msgstr "Udostępnij..."
 
-#: src/app/webbrowser/AddressBar.qml:195
+#: src/app/webbrowser/AddressBar.qml:196
 msgid "search or enter an address"
 msgstr "wyszukaj lub wprowadź adres"
 
-#: src/app/webbrowser/BookmarksList.qml:67
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321
-msgid "Delete"
-msgstr "Kasuj"
-
-#: src/app/webbrowser/Browser.qml:178
+#: src/app/webbrowser/Browser.qml:221
 msgid "Share"
 msgstr "Udostępnij"
 
-#: src/app/webbrowser/Browser.qml:192
+#: src/app/webbrowser/Browser.qml:228
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:199
+#: src/app/webbrowser/Browser.qml:235
 msgid "Open tabs"
 msgstr "Otwarte karty"
 
-#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "Nowa karta"
 
 #: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
 msgid "Settings"
-msgstr ""
+msgstr "Ustawienia"
 
-#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
 msgstr "Gotowe"
+
+#: src/app/webbrowser/Browser.qml:715
+msgid "Swipe Up To Exit Full Screen"
+msgstr "Przeciągając w górę opuścisz tryb pelnoekranowy"
+
+#: src/app/webbrowser/Browser.qml:716
+msgid "Press ESC To Exit Full Screen"
+msgstr "Kliknij ESC, by opuścić tryb pełnoekranowy"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
+msgid "Delete"
+msgstr "Kasuj"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -498,11 +505,11 @@ msgstr "Zakładki"
 msgid "Top sites"
 msgstr "Najczęściej odwiedzane"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:145
 msgid "see less"
 msgstr "pokaż mniej"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:145
 msgid "see more"
 msgstr "pokaż więcej"
 
@@ -558,60 +565,60 @@ msgstr "Połączono z"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr ""
+msgstr "Która just uruchomiona przez"
 
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
-msgstr ""
+msgstr "Wyszukiwarka"
 
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:271
 msgid "Homepage"
-msgstr ""
+msgstr "Strona domowa"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "Przywróć poprzednią sesję przy starcie"
 
 #: src/app/webbrowser/SettingsPage.qml:118
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "Pozwala otwierać nowe zakładki w tle"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:224
 msgid "Privacy"
-msgstr ""
+msgstr "Prywatność"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr ""
+msgstr "Zresetuj ustawienia przeglądarki"
 
 #: src/app/webbrowser/SettingsPage.qml:245
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "Wyczyść historię przeglądania"
 
 #: src/app/webbrowser/SettingsPage.qml:252
 msgid "Clear Cache"
-msgstr ""
+msgstr "Wyczyść pamięć podręczną"
 
-#: src/app/webbrowser/SettingsPage.qml:295
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Save"
-msgstr ""
+msgstr "Zapisz"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Dotknij, by wyświetlić"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:38
-#: src/app/webcontainer/webapp-container.qml:66
+#: src/app/webbrowser/webbrowser-app.qml:34
+#: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Przeglądarka internetowa Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:40
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "Przeglądarka internetowa Ubuntu"
 
@@ -645,7 +652,7 @@ msgstr "Przeglądaj Internet"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr ""
+msgstr "Internet;WWW;Przeglądarka;Sieć"
 
 #~ msgid "Clear"
 #~ msgstr "Wyczyść"

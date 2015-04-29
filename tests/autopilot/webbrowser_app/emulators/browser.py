@@ -178,7 +178,6 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def go_to_url(self, url):
-        self.focus()
         self.write(url)
         self.text_field.keyboard.press_and_release('Enter')
 
@@ -197,11 +196,9 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_list(self):
-        return self.select_single("QQuickListView")
-
-    def get_entries(self):
-        return self.get_list().select_many("Base")
+    def get_ordered_entries(self):
+        return sorted(self.select_many("Suggestion"),
+                      key=lambda item: item.globalRect.y)
 
 
 class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
