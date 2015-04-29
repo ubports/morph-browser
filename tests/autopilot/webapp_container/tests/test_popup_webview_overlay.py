@@ -25,13 +25,19 @@ class WebappContainerPopupWebViewOverlayTestCase(
     def click_href_target_blank(self):
         webview = self.get_oxide_webview()
         self.assertThat(webview.url, Contains('/open-close-content'))
-        self.pointing_device.move(webview.width/2, webview.height/2)
+        gr = webview.globalRect
+        self.pointing_device.move(
+            gr.x + gr.width/4,
+            gr.y + gr.height/4)
         self.pointing_device.click()
 
     def click_window_open(self):
         webview = self.get_oxide_webview()
         self.assertThat(webview.url.endswith('/open-close-content'))
-        self.pointing_device.move(webview.width*3/4, webview.height*3/4)
+        gr = webview.globalRect
+        self.pointing_device.move(
+            gr.x + webview.width*3/4,
+            gr.y + webview.height*3/4)
         self.pointing_device.click()
 
     def test_open_close_back_to_mainview(self):
