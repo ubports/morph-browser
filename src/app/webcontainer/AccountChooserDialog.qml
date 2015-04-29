@@ -55,13 +55,18 @@ Dialog {
         }
     }
 
+    ListItem.Caption {
+        text: i18n.tr("No accounts have been linked to this webapp; press the item below to add an account.")
+        visible: accountsModel.count === 0
+    }
+
     Repeater {
         model: accountsModel
         AccountItem {
             providerName: model.providerName
             accountName: model.displayName
             selected: model.accountId === root.__selectedAccount
-            onClicked: root.__selectedAccount = model.accountId
+            onClicked: root.onConfirmed(model.accountId)
         }
     }
 
@@ -70,7 +75,7 @@ Dialog {
         text: i18n.tr("Add account")
         iconName: "add"
         selected: root.__selectedAccount === -1
-        onClicked: root.__selectedAccount = -1
+        onClicked: root.onConfirmed(-1)
     }
 
     ListItem.Standard {
@@ -78,29 +83,15 @@ Dialog {
         visible: !root.accountMandatory
         text: i18n.tr("Don't use an account")
         selected: root.__selectedAccount === -2
-        onClicked: root.__selectedAccount = -2
+        onClicked: root.onConfirmed(-2)
     }
 
-    Item {
+    Button {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.margins: units.gu(1)
-        height: childrenRect.height + units.gu(1)
-
-        Button {
-            id: cancelButton
-            anchors.left: parent.left
-            width: parent.width / 2 - units.gu(1)
-            text: i18n.tr("Cancel")
-            onClicked: root.cancel()
-        }
-
-        Button {
-            anchors.right: parent.right
-            width: cancelButton.width
-            text: i18n.tr("OK")
-            onClicked: root.onConfirmed()
-        }
+        text: i18n.tr("Cancel")
+        onClicked: root.cancel()
     }
 
     function chooseAccount(accountId) {
@@ -117,13 +108,13 @@ Dialog {
         root.cancel()
     }
 
-    function onConfirmed() {
-        if (__selectedAccount === -2) {
+    function onConfirmed(account) {
+        if (account === -2) {
             root.selectedAccount(0)
-        } else if (__selectedAccount === -1) {
+        } else if (account === -1) {
             setup.exec()
         } else {
-            chooseAccount(__selectedAccount)
+            chooseAccount(account)
         }
     }
 }
