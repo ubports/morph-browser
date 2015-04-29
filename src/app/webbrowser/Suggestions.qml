@@ -19,7 +19,7 @@
 import QtQuick 2.0
 import Ubuntu.Components 1.1
 
-Rectangle {
+FocusScope {
     id: suggestions
 
     property var searchTerms
@@ -27,12 +27,15 @@ Rectangle {
     readonly property int count: suggestionsList.count
     property alias contentHeight: suggestionsList.contentHeight
 
-    signal selected(url url)
+    signal activated(url url)
 
-    radius: units.gu(0.5)
-    border {
-        color: "#dedede"
-        width: 1
+    Rectangle {
+        anchors.fill: parent
+        radius: units.gu(0.5)
+        border {
+            color: "#dedede"
+            width: 1
+        }
     }
 
     clip: true
@@ -40,6 +43,7 @@ Rectangle {
     ListView {
         id: suggestionsList
         anchors.fill: parent
+        focus: true
 
         model: models.reduce(function(list, model) {
             var modelItems = [];
@@ -67,8 +71,9 @@ Rectangle {
             title: highlightTerms(modelData.title)
             subtitle: modelData.displayUrl ? highlightTerms(modelData.url) : ""
             icon: modelData.icon
+            selected: suggestionsList.activeFocus && ListView.isCurrentItem
 
-            onSelected: suggestions.selected(modelData.url)
+            onActivated: suggestions.activated(modelData.url)
         }
     }
 

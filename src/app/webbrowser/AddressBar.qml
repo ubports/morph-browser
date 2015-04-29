@@ -36,7 +36,7 @@ FocusScope {
     signal requestReload()
     signal requestStop()
     property string searchUrl
-    property bool preventSimplifyUrl: false
+    property bool textLocked: false
 
     property var securityStatus: null
 
@@ -290,18 +290,16 @@ FocusScope {
         }
     }
 
-    onActiveFocusChanged: {
+    function updateUrlFromFocus() {
         if (activeFocus) {
             text = actualUrl
-        } else if (!preventSimplifyUrl && !loading && actualUrl.toString()) {
+        } else if (!loading && actualUrl.toString()) {
             text = internal.simplifyUrl(actualUrl)
         }
     }
 
-    onPreventSimplifyUrlChanged: {
-        if (!preventSimplifyUrl && !loading && actualUrl.toString())
-            text = internal.simplifyUrl(actualUrl)
-    }
+    onActiveFocusChanged: if (!textLocked) updateUrlFromFocus()
+    onTextLockedChanged: if (!textLocked) updateUrlFromFocus()
 
     onActualUrlChanged: {
         if (!activeFocus) {

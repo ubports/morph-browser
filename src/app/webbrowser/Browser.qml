@@ -256,11 +256,16 @@ BrowserView {
                     onTriggered: settingsComponent.createObject(settingsContainer)
                 }
             ]
+
+            Keys.onDownPressed: {
+                chrome.addressBarTextLocked = true
+                suggestionsList.focus = true
+            }
         }
 
         Suggestions {
             id: suggestionsList
-            opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
+            opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) && count > 0 && !chrome.drawerOpen) ? 1.0 : 0.0
             Behavior on opacity {
                 UbuntuNumberAnimation {}
             }
@@ -273,6 +278,8 @@ BrowserView {
             height: enabled ? Math.min(contentHeight, tabContainer.height - chrome.height - units.gu(2)) : 0
 
             searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
+
+            Keys.onUpPressed: chrome.focus = true
 
             models: [searchSuggestions.limit(0, 2),
                      historySuggestions,
@@ -307,8 +314,7 @@ BrowserView {
                 id: searchSuggestions
                 terms: suggestionsList.searchTerms
                 searchEngine: currentSearchEngine
-                enabled: chrome.activeFocus &&
-                         !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
+                enabled: !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
                 function limit(from, number) {
                     var slice = results.slice(from, from + number)
@@ -318,10 +324,14 @@ BrowserView {
                 }
             }
 
-            onSelected: {
+            onActivated: {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
                 chrome.requestedUrl = url
+            }
+
+            onActiveFocusChanged: if (!activeFocus && !chrome.activeFocus) {
+                chrome.addressBarTextLocked = false
             }
         }
     }
