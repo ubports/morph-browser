@@ -56,7 +56,6 @@ class WebappContainerPopupWebViewOverlayTestCase(
         self.assertThat(
             lambda: new_view_watcher.was_emitted,
             Eventually(Equals(True)))
-        webview = self.get_oxide_webview()
         self.assertThat(
             lambda: len(self.get_popup_overlay_views()),
             Eventually(Equals(1)))
