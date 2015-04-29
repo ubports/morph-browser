@@ -57,7 +57,6 @@ class WebappContainerPopupWebViewOverlayTestCase(
             lambda: new_view_watcher.was_emitted,
             Eventually(Equals(True)))
         webview = self.get_oxide_webview()
-        self.assertThat(lambda: webview.visible, Eventually(Equals(False)))
         self.assertThat(
             lambda: len(self.get_popup_overlay_views()),
             Eventually(Equals(1)))
@@ -77,7 +76,6 @@ class WebappContainerPopupWebViewOverlayTestCase(
 
         self.pointing_device.click_object(closeButton)
 
-        self.assertThat(lambda: webview.visible, Eventually(Equals(True)))
         self.assertThat(
             lambda: len(self.get_popup_overlay_views()),
             Eventually(Equals(0)))
@@ -107,10 +105,6 @@ class WebappContainerPopupWebViewOverlayTestCase(
         self.assertThat(
             lambda: len(self.get_popup_overlay_views()),
             Eventually(Equals(1)))
-
-        self.assertThat(
-            lambda: webview.visible,
-            Eventually(Equals(False)))
 
         views = self.get_popup_overlay_views()
         overlay = views[0]
@@ -160,10 +154,6 @@ class WebappContainerPopupWebViewOverlayTestCase(
                 lambda: animation_watcher.num_emissions,
                 Eventually(GreaterThan(animation_signal_emission)))
             animation_signal_emission = animation_watcher.num_emissions
-
-        self.assertThat(
-            lambda: webview.visible,
-            Eventually(Equals(False)))
 
         external_open_watcher = popup_controller.watch_signal(
             'openExternalUrlTriggered(QString)')
