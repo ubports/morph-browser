@@ -66,22 +66,22 @@ This is some {} content
 </html>
         """
 
-    def targetted_click_content(self, differentDomain=True):
-        url = 'http://www.test.com/'
-        if differentDomain:
-            url = 'http://www.ubuntu.com/'
+    def targetted_click_content(self):
         return """
 <html>
 <head>
 <title>Some content</title>
 </head>
 <body>
-<div><a href='{}' target='_blank'>
-<div style="height: 100%; width: 100%"></div>
-</a></div>
+<div>
+<a href="/open-close-content" target="_blank">
+<div style="height: 100%; width: 100%">
+</div>
+</a>
+</div>
 </body>
 </html>
-        """.format(url)
+        """
 
     def display_ua_content(self):
         return """
@@ -99,6 +99,27 @@ window.onload = function() {{
 </html>
         """.format("'"+self.headers['user-agent']+"'")
 
+    def open_close_content(self):
+        return """
+<html>
+<head>
+<title>open-close</title>
+<script>
+</script>
+</head>
+<body>
+    <a href="/open-close-content" target="_blank">
+        <div style="height: 50%; width: 100%; background-color: red">
+            target blank link
+        </div>
+    </a>
+    <div id="lorem" style="height: 50%; width: 100%; background-color: blue">
+        Lorem ipsum dolor sit amet
+    </div>
+</body>
+</html>
+        """
+
     def do_GET(self):
         if self.path == '/':
             self.send_response(200)
@@ -114,13 +135,13 @@ window.onload = function() {{
             self.serve_content(self.external_click_content())
         elif self.path == '/with-targetted-link':
             self.send_response(200)
-            self.serve_content(self.targetted_click_content(False))
-        elif self.path == '/with-different-targetted-link':
-            self.send_response(200)
             self.serve_content(self.targetted_click_content())
         elif self.path == '/show-user-agent':
             self.send_response(200)
             self.serve_content(self.display_ua_content())
+        elif self.path == '/open-close-content':
+            self.send_response(200)
+            self.serve_content(self.open_close_content())
         else:
             self.send_error(404)
 
