@@ -92,9 +92,15 @@ void SearchEngine::locateAndParseDescription()
             }
         }
     }
+
+    QString oldName = m_name;
     m_name.clear();
+    QString oldDescription = m_description;
     m_description.clear();
+    QString oldTemplate = m_template;
     m_template.clear();
+    bool wasValid = isValid();
+
     if (!filepath.isEmpty()) {
         QFile file(filepath);
         if (file.open(QIODevice::ReadOnly)) {
@@ -118,8 +124,16 @@ void SearchEngine::locateAndParseDescription()
             }
         }
     }
-    Q_EMIT nameChanged();
-    Q_EMIT descriptionChanged();
-    Q_EMIT urlTemplateChanged();
-    Q_EMIT validChanged();
+    if (m_name != oldName) {
+        Q_EMIT nameChanged();
+    }
+    if (m_description != oldDescription) {
+        Q_EMIT descriptionChanged();
+    }
+    if (m_template != oldTemplate) {
+        Q_EMIT urlTemplateChanged();
+    }
+    if (isValid() != wasValid) {
+        Q_EMIT validChanged();
+    }
 }
