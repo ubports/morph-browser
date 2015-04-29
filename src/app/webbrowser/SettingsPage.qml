@@ -70,11 +70,14 @@ Item {
             width: parent.width
 
             ListItem.Subtitled {
+                objectName: "searchengine"
+
                 SearchEngine {
                     id: currentSearchEngine
                     searchPaths: searchEngines.searchPaths
                     filename: settingsObject.searchEngine
                 }
+
                 text: i18n.tr("Search engine")
                 subText: currentSearchEngine.name
 
@@ -158,6 +161,7 @@ Item {
 
             Item {
                 id: searchEngineItem
+                objectName: "searchEnginePage"
                 anchors.fill: parent
 
                 Rectangle {
@@ -183,6 +187,7 @@ Item {
                     model: searchEngines.engines
 
                     delegate: ListItem.Standard {
+                        objectName: "searchEngineDelegate_" + index
                         SearchEngine {
                             id: searchEngineDelegate
                             searchPaths: searchEngines.searchPaths
