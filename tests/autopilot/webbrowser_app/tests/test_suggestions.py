@@ -18,9 +18,11 @@ import os
 import random
 import sqlite3
 import time
+import unittest
 
 from testtools.matchers import Contains, Equals
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 from . import http_server
@@ -308,6 +310,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(entries[0].title, Equals(highlighted))
         self.assertThat(entries[0].subtitle, Equals(''))
 
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_keyboard_movement(self):
         suggestions = self.main_window.get_suggestions()
         address_bar = self.address_bar
@@ -342,6 +345,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(entries[0].selected, Equals(False))
         self.assertThat(entries[1].selected, Equals(False))
 
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_suggestions_escape(self):
         suggestions = self.main_window.get_suggestions()
         self.address_bar.write('element')
