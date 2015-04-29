@@ -261,6 +261,7 @@ BrowserView {
                 chrome.addressBarTextLocked = true
                 suggestionsList.focus = true
             }
+            Keys.onEscapePressed: focus = false
         }
 
         Suggestions {
@@ -280,6 +281,7 @@ BrowserView {
             searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
 
             Keys.onUpPressed: chrome.focus = true
+            Keys.onEscapePressed: focus = false
 
             models: [searchSuggestions.limit(0, 2),
                      historySuggestions,
