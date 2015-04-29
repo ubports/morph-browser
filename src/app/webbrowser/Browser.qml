@@ -934,6 +934,11 @@ BrowserView {
         }
         onAboutToQuit: session.save()
     }
+    Connections {
+        target: tabsModel
+        onCurrentTabChanged: session.save()
+        onCountChanged: session.save()
+    }
 
     // Delay instantiation of the first webview by 1 msec to allow initial
     // rendering to happen. Clumsy workaround for http://pad.lv/1359911.
