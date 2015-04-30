@@ -26,7 +26,7 @@ Loader {
     property string webappName: ""
     property url webappIcon
 
-    signal accountSelected(string accountDataLocation)
+    signal accountSelected(string accountDataLocation, bool willMoveCookies)
     signal contextReady()
     signal quitRequested()
 
@@ -44,7 +44,7 @@ Loader {
 
     Component.onCompleted: {
         if (providerId.length === 0) {
-            accountSelected("")
+            accountSelected("", false)
         } else {
             setSource("AccountsPage.qml", {
                 "providerId": providerId,
@@ -57,7 +57,7 @@ Loader {
 
     Connections {
         target: item
-        onAccountSelected: root.accountSelected(accountDataLocation)
+        onAccountSelected: root.accountSelected(accountDataLocation, willMoveCookies)
         onContextReady: root.contextReady()
         onQuitRequested: root.quitRequested()
     }

@@ -29,7 +29,7 @@ Item {
 
     signal splashScreenRequested()
     signal errorScreenRequested(string message)
-    signal accountSelected(int credentialsId)
+    signal accountSelected(int credentialsId, bool willMoveCookies)
     signal contextReady()
 
     property var __account: null
@@ -89,14 +89,14 @@ Item {
         if (settings.selectedAccount < 0) {
             splashScreenRequested()
         } else {
-            accountSelected(__credentialsId)
+            accountSelected(__credentialsId, mustMoveCookies(settings.selectedAccount))
         }
     }
 
     function proceedWithNoAccount() {
         __account = null
         settings.selectedAccount = 0
-        accountSelected(__credentialsId)
+        accountSelected(__credentialsId, false)
     }
 
     function setupAccount(accountId) {

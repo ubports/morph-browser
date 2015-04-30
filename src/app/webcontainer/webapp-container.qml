@@ -39,8 +39,6 @@ BrowserWindow {
     property string webappModelSearchPath: ""
     property var webappUrlPatterns
     property string accountProvider: ""
-    property string logoutUrlPattern: ""
-    property string logoutSelectors: ""
     property string popupRedirectionUrlPrefixPattern: ""
     property url webviewOverrideFile: ""
     property var __webappCookieStore: null
@@ -113,9 +111,8 @@ BrowserWindow {
             }
 
             onChooseAccount: {
-                visible = false
-                accountsPageComponentLoader.item.visible = true
-                accountsPageComponentLoader.item.chooseAccount()
+                onlineAccountsController.visible = true
+                onlineAccountsController.showAccountSwitcher()
             }
         }
     }
@@ -167,170 +164,52 @@ BrowserWindow {
 
         property var credentialsId: null
         property var webContextSessionCookieMode: null
-        property var webappDataLocation: credentialsId != null ? dataLocation + "/id-" + credentialsId : dataLocation
+        property var webappDataLocation
+
+        onLoaded: {
+            var context = item.currentWebview.context
+            onlineAccountsController.setupWebcontextForAccount(context)
+        }
     }
 
-    Loader {
-        id: accountsPageComponentLoader
+    OnlineAccountsController {
+        id: onlineAccountsController
         anchors.fill: parent
         z: -1 // This is needed to have the dialogs shown; see above comment about bug 1398046
-        onStatusChanged: {
-            if (status == Loader.Error) {
-                // Happens on the desktop, if Ubuntu.OnlineAccounts.Client
-                // can't be imported
-                loadWebAppView(true)
-            } else if (status == Loader.Ready) {
-                item.visible = true
-                initializeForAccount(item.credentialsId)
-            }
-        }
-    }
+        providerId: accountProvider
+        applicationId: unversionedAppId
+        webappName: getWebappName()
+        webappIcon: webappIcon
 
-    function onCookiesMoved(result) {
-        if (__webappCookieStore) {
-            __webappCookieStore.moved.disconnect(onCookiesMoved)
-        }
-        if (!result) {
-            console.log("Cookies were not moved")
-        } else {
-            console.log("cookies moved")
-        }
-        webappViewLoader.item.url = root.url
-    }
-
-    function moveCookies(credentialsId) {
-        console.log("moving cookies for id " + credentialsId)
-        var storeComponent = localCookieStoreDbPath.length !== 0 ?
-                    localCookieStoreComponent : onlineAccountStoreComponent
-
-        var instance = storeComponent.createObject(root, { "accountId": credentialsId })
-        __webappCookieStore.moved.connect(onCookiesMoved)
-        __webappCookieStore.moveFrom(instance)
-    }
-
-    function doLogin() {
-        if (!__webappCookieStore) {
-            var context = webappViewLoader.item.currentWebview.context
-            __webappCookieStore = oxideCookieStoreComponent.createObject(webappViewLoader.item, {
-                "oxideStoreBackend": context.cookieManager,
-                "dbPath": context.dataPath + "/cookies.sqlite"
-            })
-        }
-
-        accountsPageComponentLoader.item.login()
-    }
-
-    function initializeForAccount(credentialsId) {
-        console.log("Account selected, creds: " + credentialsId)
-        if (credentialsId < 0) {
-            webappViewLoader.sourceComponent = null
-            __webappCookieStore = null
-            webappViewLoader.credentialsId = credentialsId
-            return
-        }
-
-        if (credentialsId > 0) {
-            if (credentialsId == webappViewLoader.credentialsId) {
-                doLogin()
-                return
-            }
-
-            webappViewLoader.sourceComponent = null
-            __webappCookieStore = null
-            webappViewLoader.loaded.connect(function onLoaded() {
-                if (webappViewLoader.status == Loader.Ready) {
-                    webappViewLoader.loaded.disconnect(onLoaded)
-                    doLogin()
-                }
-            });
-            webappViewLoader.credentialsId = credentialsId
+        onAccountSelected: {
+            webappViewLoader.webappDataLocation = dataLocation + accountDataLocation
             // If we need to preserve session cookies, make sure that the
             // mode is "restored" and not "persistent", or the cookies
             // transferred from OA would be lost.
             // We check if the webContextSessionCookieMode is defined and, if so,
             // we override it in the webapp loader.
-            if (typeof webContextSessionCookieMode === "string") {
+            if (willMoveCookies && typeof webContextSessionCookieMode === "string") {
                 webappViewLoader.webContextSessionCookieMode = "restored"
             }
+            webappViewLoader.sourceComponent = webappViewComponent
         }
-
-        loadWebAppView(credentialsId == 0)
-    }
-
-    Connections {
-        target: accountsPageComponentLoader.item
-        onCredentialsIdChanged: initializeForAccount(accountsPageComponentLoader.item.credentialsId)
-        onDone: {
-            console.log("Authentication done, successful = " + successful)
-            if (successful) {
-                moveCookies(webappViewLoader.credentialsId)
-            } else {
-                loadWebAppView(true)
-            }
-        }
-    }
-
-    Component {
-        id: oxideCookieStoreComponent
-        ChromeCookieStore {
-        }
-    }
-
-    Component {
-        id: localCookieStoreComponent
-        LocalCookieStore {
-            dbPath: localCookieStoreDbPath
-        }
+        onContextReady: startBrowsing()
+        onQuitRequested: Qt.quit()
     }
 
     Component.onCompleted: {
         i18n.domain = "webbrowser-app"
+    }
 
-        // check if we are to display the login view
-        // or directly switch to the webapp view
-        if (accountProvider.length !== 0) {
-            loadLoginView();
-        } else {
-            loadWebAppView(true);
+    function startBrowsing() {
+        // As we use StateSaver to restore the URL, we need to check first if
+        // it has not been set previously before setting the URL to the default property 
+        // homepage.
+        var webView = webappViewLoader.item.currentWebview
+        var current_url = webView.url.toString();
+        if (!current_url || current_url.length === 0) {
+            webView.url = root.url
         }
-    }
-
-    Component {
-        id: onlineAccountStoreComponent
-        OnlineAccountsCookieStore { }
-    }
-
-    function loadLoginView() {
-        accountsPageComponentLoader.setSource("AccountsPage.qml", {
-            "providerId": accountProvider,
-            "applicationId": unversionedAppId,
-            "webappName": getWebappName(),
-            "webappIcon": webappIcon,
-            "logoutUrlPattern": logoutUrlPattern,
-            "logoutSelectors": logoutSelectors,
-        })
-    }
-
-    function loadWebAppView(startBrowsing) {
-        if (accountsPageComponentLoader.item)
-            accountsPageComponentLoader.item.visible = false
-
-        if (startBrowsing) {
-            webappViewLoader.loaded.connect(function onLoaded() {
-                if (webappViewLoader.status === Loader.Ready) {
-                    webappViewLoader.loaded.disconnect(onLoaded)
-                    // As we use StateSaver to restore the URL, we need to check first if
-                    // it has not been set previously before setting the URL to the default property 
-                    // homepage.
-                    var webView = webappViewLoader.item.currentWebview
-                    var current_url = webView.url.toString();
-                    if (!current_url || current_url.length === 0) {
-                        webView.url = root.url
-                    }
-                }
-            });
-        }
-        webappViewLoader.sourceComponent = webappViewComponent
     }
 
     function makeUrlFromIntentResult(intentFilterResult) {

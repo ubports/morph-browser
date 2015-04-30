@@ -29,7 +29,7 @@ Item {
     property string webappName: ""
     property url webappIcon
 
-    signal accountSelected(string accountDataLocation)
+    signal accountSelected(string accountDataLocation, bool willMoveCookies)
     signal contextReady()
     signal quitRequested()
 
@@ -42,7 +42,7 @@ Item {
         id: accountsLogic
 
         onSplashScreenRequested: showSplashScreen()
-        onAccountSelected: root.__emitAccountSelected(credentialsId)
+        onAccountSelected: root.__emitAccountSelected(credentialsId, willMoveCookies)
         onContextReady: root.contextReady()
     }
 
@@ -75,7 +75,7 @@ Item {
             accountsModel: accountsLogic.accountsModel
             onCancel: {
                 accountChooserLoader.sourceComponent = null
-                root.accountSelected(root.__lastAccountDataLocation)
+                root.accountSelected(root.__lastAccountDataLocation, false)
             }
             onAccountSelected: {
                 accountChooserLoader.sourceComponent = null
@@ -110,9 +110,9 @@ Item {
         accountChooserLoader.sourceComponent = accountChooserComponent
     }
 
-    function __emitAccountSelected(credentialsId) {
+    function __emitAccountSelected(credentialsId, willMoveCookies) {
         __lastAccountDataLocation = credentialsId > 0 ? ("id-" + credentialsId) : ""
-        accountSelected(__lastAccountDataLocation)
+        accountSelected(__lastAccountDataLocation, willMoveCookies)
     }
 
     function setupWebcontextForAccount(webcontext) {
