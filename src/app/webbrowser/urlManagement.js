@@ -19,7 +19,9 @@
 
 function fixUrl(address) {
     var url = address
-    if (address.substr(0, 1) == "/") {
+    if (address.toLowerCase() == "about:blank") {
+        return address.toLowerCase()
+    } else if (address.substr(0, 1) == "/") {
         url = "file://" + address
     } else if (address.indexOf("://") == -1) {
         url = "http://" + address
@@ -31,6 +33,9 @@ function looksLikeAUrl(address) {
     var terms = address.split(/\s/)
     if (terms.length > 1) {
         return false
+    }
+    if (address.toLowerCase() == "about:blank") {
+        return true
     }
     if (address.substr(0, 1) == "/") {
         return true

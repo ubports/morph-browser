@@ -35,35 +35,13 @@ Item {
     QtObject {
         id: internal
 
+        property bool seeMoreBookmarksView: numberOfBookmarks > bookmarksCountLimit
         property int bookmarksCountLimit: 4
-        property int numberOfBookmarks: bookmarksListModel.count !== undefined ?
-                                            bookmarksListModel.unlimitedCount : 0
+        property int numberOfBookmarks: bookmarksModel.count !== undefined ?
+                                            bookmarksModel.count : 0
 
-        property int numberOfTopSites: historyListModel.count !== undefined ?
-                                                    historyListModel.count : 0
-    }
-
-    LimitProxyModel {
-        id: bookmarksListModel
-        sourceModel: newTabView.bookmarksModel
-        limit: internal.bookmarksCountLimit
-    }
-
-    LimitProxyModel {
-        id: historyListModel
-        sourceModel: HistoryByVisitsModel {
-            sourceModel: HistoryTimeframeModel {
-                sourceModel: newTabView.historyModel
-                // We only show sites visited on the last 60 days
-                start: {
-                    var date = new Date()
-                    date.setDate(date.getDate() - 60)
-                    return date
-                }
-            }
-        }
-
-        limit: 10
+        property int numberOfTopSites: historyModel.count !== undefined ?
+                                            historyModel.count : 0
     }
 
     Rectangle {
@@ -161,7 +139,7 @@ Item {
                     onItemClicked: newTabView.bookmarkClicked(url)
                 }
 
-                BookmarksList {
+                UrlsList {
                     id: bookmarksList
                     anchors {
                         left: parent.left
@@ -172,8 +150,8 @@ Item {
 
                     model: newTabView.bookmarksModel
 
-                    onBookmarkClicked: newTabView.bookmarkClicked(url)
-                    onBookmarkRemoved: newTabView.bookmarkRemoved(url)
+                    onUrlClicked: newTabView.bookmarkClicked(url)
+                    onUrlRemoved: newTabView.bookmarkRemoved(url)
                 }
             }
 
@@ -182,10 +160,12 @@ Item {
                     left: parent.left
                     right: parent.right
                 }
-                height: childrenRect.height
+                height: opacity == 0.0 ? 0 : childrenRect.height
 
                 color: "#f6f6f6"
-                visible: internal.bookmarksCountLimit > 4 ? 0.0 : 1.0
+                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                Behavior on opacity { UbuntuNumberAnimation {} }
+
                 Column {
                     anchors {
                         left: parent.left
@@ -227,96 +207,15 @@ Item {
                         text: i18n.tr("You haven't visited any site yet")
                     }
 
-                    Flow {
-                        id: flow
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                        }
+                    UrlsList {
+                        width: parent.width
+                        opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
 
-                        spacing: units.gu(1)
+                        height: opacity == 0.0 ? 0 : childrenRect.height
+                        model: newTabView.historyModel
 
-                        Repeater {
-                            model: historyListModel
-
-                            delegate: MouseArea {
-                                width: units.gu(18)
-                                height: childrenRect.height
-
-                                Column {
-                                    anchors {
-                                        left: parent.left
-                                        right: parent.right
-                                    }
-
-                                    spacing: units.gu(1)
-
-                                    Label {
-                                        width: parent.width
-                                        height: units.gu(2)
-
-                                        fontSize: "small"
-                                        wrapMode: Text.Wrap
-                                        elide: Text.ElideRight
-
-                                        text: model.title ? model.title : model.url
-                                    }
-
-                                    UbuntuShape {
-                                        width: parent.width
-                                        height: units.gu(10)
-
-                                        // we need that to clip the background image
-                                        clip: true
-
-                                        Image {
-                                            source: Qt.resolvedUrl("assets/tab-artwork.png")
-                                            asynchronous: true
-                                            width: parent.height
-                                            height: width
-                                            opacity: 0.6
-                                            anchors {
-                                                right: parent.right
-                                                bottom: parent.bottom
-                                                margins: units.gu(-3)
-                                            }
-                                        }
-                                        Column {
-                                            anchors {
-                                                left: parent.left
-                                                right: parent.right
-                                                bottom: parent.bottom
-                                                margins: units.gu(1)
-                                            }
-
-                                            Favicon {
-                                                source: model.icon
-                                            }
-
-                                            Label {
-                                                anchors {
-                                                    left: parent.left
-                                                    right: parent.right
-                                                }
-                                                elide: Text.ElideRight
-                                                text: model.domain
-                                                fontSize: "small"
-                                            }
-                                            Label {
-                                                anchors {
-                                                    left: parent.left
-                                                    right: parent.right
-                                                }
-                                                elide: Text.ElideRight
-                                                text: model.title
-                                                fontSize: "small"
-                                            }
-                                        }
-                                    }
-                                }
-                                onClicked: historyEntryClicked(model.url)
-                            }
-                        }
+                        onUrlClicked: newTabView.historyEntryClicked(url)
+                        onUrlRemoved: newTabView.historyModel.hide(url)
                     }
                 }
             }
