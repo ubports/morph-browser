@@ -85,6 +85,8 @@ Item {
                 anchors {
                     rightMargin: units.gu(2)
                     verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    right: parent.right
                 }
 
                 text: popupWebview.title ? popupWebview.title : popupWebview.url
