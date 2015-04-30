@@ -19,11 +19,12 @@
 import QtQuick 2.0
 import Qt.labs.settings 1.0
 import Ubuntu.OnlineAccounts 0.1
+import webcontainer.private 0.1
 
 Item {
     id: root
 
-    property alias providerId: accountsModelObject.providerId
+    property alias providerId: accountsModelObject.provider
     property alias applicationId: accountsModelObject.applicationId
     property var accountsModel: accountsModelObject
 
@@ -173,7 +174,7 @@ Item {
             } else {
                 console.log("Authentication succeeded, moving cookies")
                 var accountsCookieStore = onlineAccountStoreComponent.createObject(root, {
-                    "accountId", __credentialsId
+                    "accountId": __credentialsId
                 })
 
                 var webappCookieStore = oxideCookieStoreComponent.createObject(root, {

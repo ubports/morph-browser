@@ -51,10 +51,6 @@ BrowserWindow {
 
     title: getWindowTitle()
 
-    onCurrentWebviewChanged: if (accountsPageComponentLoader.item) {
-        accountsPageComponentLoader.item.webview = currentWebview
-    }
-
     // Used for testing
     signal intentUriHandleResult(string uri)
 
