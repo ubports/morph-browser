@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -22,12 +22,10 @@ import Ubuntu.Components 1.1
 Column {
     id: urlsList
     property alias model: urlsListRepeater.model
-    property alias footerLabelText: footerLabel.text
-    property alias footerLabelVisible: footerLabel.visible
+    property int limit
 
     signal urlClicked(url url)
     signal urlRemoved(url url)
-    signal footerLabelClicked()
 
     spacing: units.gu(1)
 
@@ -36,70 +34,84 @@ Column {
     Repeater {
         id: urlsListRepeater
         property var _currentSwipedItem: null
-        delegate: UrlDelegate{
-            id: urlDelegate
-            width: urlsList.width
-            height: units.gu(5)
 
-            icon: model.icon
-            title: model.title ? model.title : model.url
-            url: model.url
+        delegate: Loader {
+            sourceComponent: (index < limit) ? realDelegate : undefined
+            Component {
+                id: realDelegate
+                UrlDelegate{
+                    id: urlDelegate
+                    width: urlsList.width
+                    height: units.gu(5)
 
-            onItemClicked: urlClicked(model.url)
+                    icon: model.icon
+                    title: model.title ? model.title : model.url
+                    url: model.url
 
-            property var removalAnimation
-            function remove() {
-                removalAnimation.start()
-            }
-
-            onSwippingChanged: {
-                urlsListRepeater._updateSwipeState(urlDelegate)
-            }
-
-            onSwipeStateChanged: {
-                urlsListRepeater._updateSwipeState(urlDelegate)
-            }
-
-            leftSideAction: Action {
-                iconName: "delete"
-                text: i18n.tr("Delete")
-                onTriggered: {
-                    urlDelegate.remove()
-                }
-            }
-
-            ListView.onRemove: ScriptAction {
-                script: {
-                    if (urlsListRepeater._currentSwipedItem === urlDelegate) {
-                        urlsListRepeater._currentSwipedItem = null
+                    Component.onCompleted: {
+                        if (model.hidden !== undefined && model.hidden) {
+                            height = 0;
+                            limit++;
+                        }
                     }
-                }
-            }
 
-            removalAnimation: SequentialAnimation {
-                alwaysRunToEnd: true
+                    onItemClicked: urlClicked(model.url)
 
-                PropertyAction {
-                    target: urlDelegate
-                    property: "ListView.delayRemove"
-                    value: true
-                }
+                    property var removalAnimation
+                    function remove() {
+                        removalAnimation.start()
+                    }
 
-                UbuntuNumberAnimation {
-                    target: urlDelegate
-                    property: "height"
-                    to: 0
-                }
+                    onSwippingChanged: {
+                        urlsListRepeater._updateSwipeState(urlDelegate)
+                    }
 
-                PropertyAction {
-                    target: urlDelegate
-                    property: "ListView.delayRemove"
-                    value: false
-                }
+                    onSwipeStateChanged: {
+                        urlsListRepeater._updateSwipeState(urlDelegate)
+                    }
 
-                ScriptAction {
-                    script: {
-                        urlRemoved(model.url)
+                    leftSideAction: Action {
+                        iconName: "delete"
+                        text: i18n.tr("Delete")
+                        onTriggered: {
+                            urlDelegate.remove()
+                        }
+                    }
+
+                    ListView.onRemove: ScriptAction {
+                        script: {
+                            if (urlsListRepeater._currentSwipedItem === urlDelegate) {
+                                urlsListRepeater._currentSwipedItem = null
+                            }
+                        }
+                    }
+
+                    removalAnimation: SequentialAnimation {
+                        alwaysRunToEnd: true
+
+                        PropertyAction {
+                            target: urlDelegate
+                            property: "ListView.delayRemove"
+                            value: true
+                        }
+
+                        UbuntuNumberAnimation {
+                            target: urlDelegate
+                            property: "height"
+                            to: 0
+                        }
+
+                        PropertyAction {
+                            target: urlDelegate
+                            property: "ListView.delayRemove"
+                            value: false
+                        }
+
+                        ScriptAction {
+                            script: {
+                                urlRemoved(model.url)
+                            }
+                        }
                     }
                 }
             }
@@ -121,31 +133,6 @@ Column {
             && urlsListRepeater._currentSwipedItem === item) {
                 urlsListRepeater._currentSwipedItem = null
             }
-        }
-    }
-
-    Item {
-        width: parent.width
-        height: footerLabel.visible ? footerLabel.height + units.gu(6) : units.gu(3)
-
-        MouseArea {
-            anchors.centerIn: footerLabel
-
-            width: footerLabel.width + units.gu(4)
-            height: footerLabel.height + units.gu(4)
-
-            enabled: footerLabel.visible
-
-            onClicked: footerLabelClicked()
-        }
-
-        Label {
-            id: footerLabel
-            anchors.centerIn: parent
-
-            visible: true
-
-            font.bold: true
         }
     }
 }

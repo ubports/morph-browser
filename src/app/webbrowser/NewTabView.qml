@@ -35,8 +35,8 @@ Item {
     QtObject {
         id: internal
 
-        property bool seeMoreBookmarksView: numberOfBookmarks > bookmarksCountLimit
-        property int bookmarksCountLimit: 4
+        property bool seeMoreBookmarksView: bookmarksCountLimit > 4
+        property int bookmarksCountLimit: Math.min(4, numberOfBookmarks)
         property int numberOfBookmarks: bookmarksModel.count !== undefined ?
                                             bookmarksModel.count : 0
 
@@ -51,7 +51,7 @@ Item {
 
     Flickable {
         anchors.fill: parent
-        contentHeight: contentColumn.height - parent.height
+        contentHeight: contentColumn.height
         Column {
             id: contentColumn
             anchors {
@@ -99,7 +99,7 @@ Item {
                     visible: internal.numberOfBookmarks > 4
 
                     text: internal.bookmarksCountLimit >= internal.numberOfBookmarks
-                    ? i18n.tr("less") : i18n.tr("more")
+                    ? i18n.tr("Less") : i18n.tr("More")
 
                     onClicked: {
                         internal.numberOfBookmarks > internal.bookmarksCountLimit ?
@@ -122,7 +122,7 @@ Item {
                     right: parent.right
                 }
 
-                height: units.gu(5) + units.gu(5) * Math.min(internal.bookmarksCountLimit, internal.numberOfBookmarks)
+                height: units.gu(5) * (internal.bookmarksCountLimit + 1)
                 spacing: 0
 
                 UrlDelegate {
@@ -147,6 +147,7 @@ Item {
                     }
 
                     spacing: 0
+                    limit: internal.bookmarksCountLimit
 
                     model: newTabView.bookmarksModel
 
@@ -155,68 +156,59 @@ Item {
                 }
             }
 
+            Text {
+                anchors {
+                    left: parent.left;
+                    right: parent.right;
+                }
+
+                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                Behavior on opacity { UbuntuNumberAnimation {} }
+
+                text: i18n.tr("Top sites")
+            }
+
             Rectangle {
+                height: units.gu(0.1)
+                anchors { left: parent.left; right: parent.right }
+                color: "#acacac"
+
+                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                Behavior on opacity { UbuntuNumberAnimation {} }
+            }
+
+            Text {
+                height: units.gu(6)
                 anchors {
                     left: parent.left
                     right: parent.right
                 }
-                height: opacity == 0.0 ? 0 : childrenRect.height
+                horizontalAlignment: Text.AlignHCenter
 
-                color: "#f6f6f6"
+                visible: internal.numberOfTopSites === 0
+
+                text: i18n.tr("You haven't visited any site yet")
+            }
+
+            UrlsList {
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(-1.5)
+                    right: parent.right
+                }
+
                 opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
                 Behavior on opacity { UbuntuNumberAnimation {} }
 
-                Column {
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
-                    spacing: units.gu(1.5)
+                limit: 10
+                spacing: 0
 
-                    Column {
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                        }
+                model: newTabView.historyModel
 
-                        spacing: units.gu(-3)
-
-                        Text {
-                            height: units.gu(6)
-                            anchors { left: parent.left; right: parent.right }
-                            text: i18n.tr("Top sites")
-                        }
-
-                        Rectangle {
-                            height: units.gu(0.1)
-                            anchors { left: parent.left; right: parent.right }
-                            color: "#acacac"
-                        }
-                    }
-
-                    Text {
-                        height: units.gu(6)
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                        }
-                        horizontalAlignment: Text.AlignHCenter
-
-                        visible: internal.numberOfTopSites === 0
-
-                        text: i18n.tr("You haven't visited any site yet")
-                    }
-
-                    UrlsList {
-                        width: parent.width
-                        opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
-
-                        height: opacity == 0.0 ? 0 : childrenRect.height
-                        model: newTabView.historyModel
-
-                        onUrlClicked: newTabView.historyEntryClicked(url)
-                        onUrlRemoved: newTabView.historyModel.hide(url)
-                    }
+                onUrlClicked: newTabView.historyEntryClicked(url)
+                onUrlRemoved: {
+                    newTabView.historyModel.hide(url)
+                    limit++;
                 }
             }
         }

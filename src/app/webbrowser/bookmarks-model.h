@@ -59,10 +59,13 @@ public:
     Q_INVOKABLE void add(const QUrl& url, const QString& title, const QUrl& icon);
     Q_INVOKABLE void remove(const QUrl& url);
 
+    Q_PROPERTY(int count READ rowCount NOTIFY rowCountChanged)
+
 Q_SIGNALS:
     void databasePathChanged() const;
     void added(const QUrl& url) const;
     void removed(const QUrl& url) const;
+    void rowCountChanged();
 
 private:
     QSqlDatabase m_database;
