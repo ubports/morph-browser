@@ -42,11 +42,8 @@ Loader {
         if (item) item.showAccountSwitcher()
     }
 
-    property string __currentDataLocation: ""
-
     Component.onCompleted: {
         if (providerId.length === 0) {
-            __currentDataLocation = ""
             accountSelected("")
         } else {
             setSource("AccountsPage.qml", {
