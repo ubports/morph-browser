@@ -90,7 +90,7 @@ Item {
         if (settings.selectedAccount < 0) {
             splashScreenRequested()
         } else {
-            accountSelected(__credentialsId, mustMoveCookies(settings.selectedAccount))
+            setupAccount(settings.selectedAccount)
         }
     }
 
@@ -104,6 +104,7 @@ Item {
         console.log("Setup account " + accountId)
         if (__account && accountId === __account.accountId) {
             console.log("Same as current account")
+            accountSelected(__credentialsId, false)
             return
         }
         __account = null
@@ -116,9 +117,9 @@ Item {
                 break;
             }
         }
-        credentialsId = __account ? __account.authData.credentialsId : 0
-        console.log("Credentials ID: " + credentialsId)
-        accountsLogin.login(__account)
+        console.log("Credentials ID: " + __credentialsId)
+        settings.selectedAccount = accountId
+        accountSelected(__credentialsId, mustMoveCookies(accountId))
     }
 
     function login(account, callback) {
@@ -158,7 +159,7 @@ Item {
             console.log("cookies moved")
         }
         // Even if the cookies were not moved, we don't want to retry
-        rememberCookiesMoved(account.accountId)
+        rememberCookiesMoved(__account.accountId)
         contextReady()
     }
 

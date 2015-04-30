@@ -179,10 +179,12 @@ BrowserWindow {
 
         onAccountSelected: {
             var newWebappDataLocation = dataLocation + accountDataLocation
+            console.log("Loading webview on " + newWebappDataLocation)
             if (newWebappDataLocation == webappViewLoader.webappDataLocation) {
                 showWebView()
                 return
             }
+            webappViewLoader.sourceComponent = null
             webappViewLoader.webappDataLocation = newWebappDataLocation
             // If we need to preserve session cookies, make sure that the
             // mode is "restored" and not "persistent", or the cookies
@@ -213,6 +215,7 @@ BrowserWindow {
     }
 
     function startBrowsing() {
+        console.log("Start browsing")
         // As we use StateSaver to restore the URL, we need to check first if
         // it has not been set previously before setting the URL to the default property 
         // homepage.

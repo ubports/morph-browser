@@ -111,7 +111,7 @@ Item {
     }
 
     function __emitAccountSelected(credentialsId, willMoveCookies) {
-        __lastAccountDataLocation = credentialsId > 0 ? ("id-" + credentialsId) : ""
+        __lastAccountDataLocation = credentialsId > 0 ? ("/id-" + credentialsId) : ""
         accountSelected(__lastAccountDataLocation, willMoveCookies)
     }
 
