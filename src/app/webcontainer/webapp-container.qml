@@ -107,7 +107,7 @@ BrowserWindow {
             }
 
             onChooseAccount: {
-                onlineAccountsController.visible = true
+                showAccountsPage()
                 onlineAccountsController.showAccountSwitcher()
             }
         }
@@ -178,7 +178,12 @@ BrowserWindow {
         webappIcon: webappIcon
 
         onAccountSelected: {
-            webappViewLoader.webappDataLocation = dataLocation + accountDataLocation
+            var newWebappDataLocation = dataLocation + accountDataLocation
+            if (newWebappDataLocation == webappViewLoader.webappDataLocation) {
+                showWebView()
+                return
+            }
+            webappViewLoader.webappDataLocation = newWebappDataLocation
             // If we need to preserve session cookies, make sure that the
             // mode is "restored" and not "persistent", or the cookies
             // transferred from OA would be lost.
@@ -197,6 +202,16 @@ BrowserWindow {
         i18n.domain = "webbrowser-app"
     }
 
+    function showWebView() {
+        onlineAccountsController.visible = false
+        webappViewLoader.visible = true
+    }
+
+    function showAccountsPage() {
+        webappViewLoader.visible = false
+        onlineAccountsController.visible = true
+    }
+
     function startBrowsing() {
         // As we use StateSaver to restore the URL, we need to check first if
         // it has not been set previously before setting the URL to the default property 
@@ -206,6 +221,7 @@ BrowserWindow {
         if (!current_url || current_url.length === 0) {
             webView.url = root.url
         }
+        showWebView()
     }
 
     function makeUrlFromIntentResult(intentFilterResult) {
