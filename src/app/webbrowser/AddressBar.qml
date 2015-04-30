@@ -321,4 +321,8 @@ FocusScope {
             PopupUtils.close(popup)
         }
     }
+
+    function selectTextInAddressBar() {
+        textField.selectAll();
+    }
 }

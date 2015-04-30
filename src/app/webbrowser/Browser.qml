@@ -959,7 +959,7 @@ BrowserView {
             case Qt.Key_L:
                 // Ctrl + l: Select the content in the address bar
                 internal.focusAddressBar()
-
+                addressbar.selectTextInAddressBar()
                 event.accepted = true;
                 break;
 
@@ -981,6 +981,15 @@ BrowserView {
                     if (tabsModel.count === 0) {
                         browser.openUrlInNewTab("", true)
                     }
+                    event.accepted = true;
+                }
+                break;
+
+            case Qt.Key_Tab:
+                // Ctrl + Tab: Navigate between tabs
+                if (tabsModel.count > 0) {
+                    tabsModel.setCurrent(tabsModel.count);
+                    currentWebview.forceActiveFocus()
                     event.accepted = true;
                 }
                 break;
