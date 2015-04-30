@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,43 +20,46 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.OnlineAccounts 0.1
 
-Flickable {
+Rectangle {
     id: root
 
     property string applicationName
     property alias iconSource: icon.source
-
     default property alias contents: contentsHolder.data
+
     anchors.fill: parent
 
-    contentHeight: Math.max(contentItem.childrenRect.height, height)
+    Flickable {
+        anchors.fill: parent
+        contentHeight: Math.max(contentItem.childrenRect.height, height)
 
-    Column {
-        anchors {
-            left: parent.left
-            right: parent.right
-            verticalCenter: parent.verticalCenter
-        }
-        spacing: units.gu(2)
+        Column {
+            anchors {
+                left: parent.left
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+            }
+            spacing: units.gu(2)
 
-        Icon {
-            id: icon
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: units.gu(10)
-            height: width
-        }
+            Icon {
+                id: icon
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: units.gu(10)
+                height: width
+            }
 
-        Label {
-            anchors.horizontalCenter: parent.horizontalCenter
-            fontSize: "x-large"
-            text: root.applicationName
-        }
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                fontSize: "x-large"
+                text: root.applicationName
+            }
 
-        Item {
-            id: contentsHolder
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: childrenRect.height
+            Item {
+                id: contentsHolder
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: childrenRect.height
+            }
         }
     }
 }
