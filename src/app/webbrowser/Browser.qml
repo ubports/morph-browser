@@ -281,7 +281,7 @@ BrowserView {
                     onTriggered: settingsComponent.createObject(settingsContainer)
                 },
                 Action {
-                    objectName: "privateMode"
+                    objectName: "privatemode"
                     text: browser.state == "private" ? i18n.tr("Leave Private") : i18n.tr("Private Mode")
                     iconName: "private-browsing"
                     onTriggered: {
@@ -856,7 +856,6 @@ BrowserView {
                             }
                         }
                     }
-
                 }
             }
         }
