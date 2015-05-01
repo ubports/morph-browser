@@ -812,13 +812,22 @@ BrowserView {
                     // content. Since WebView.restoreState is not a notifyable property,
                     // this can’t be achieved with a simple property binding.
                     Component.onCompleted: {
-                        if (!parent.url.toString() && !parent.restoreState) {
-                            sourceComponent = browser.state == "private" ? newPrivateTabViewComponent : newTabViewComponent
+                        if (!parent.url.toString() && !parent.restoreState && browser.state != "private") {
+                            sourceComponent = newTabViewComponent
                         }
                     }
+
                     Connections {
                         target: newTabViewLoader.parent
                         onUrlChanged: newTabViewLoader.sourceComponent = null
+                    }
+
+                    Connections {
+                        target: browser
+                        onStateChanged: {
+                            if (browser.state == "private")
+                                newPrivateTabViewLoader.sourceComponent = null
+                        }
                     }
 
                     Component {
@@ -843,6 +852,32 @@ BrowserView {
                                 currentWebview.url = url
                                 currentWebview.forceActiveFocus()
                             }
+                        }
+                    }
+                }
+
+                Loader {
+                    id: newPrivateTabViewLoader
+                    anchors.fill: parent
+
+                    // Avoid loading the new private tab view if the webview is about to
+                    // load content. Since WebView.restoreState is not a notifyable property,
+                    // this can’t be achieved with a simple property binding.
+                    Component.onCompleted: {
+                        if (!parent.url.toString() && !parent.restoreState && browser.state == "private") {
+                            sourceComponent = newPrivateTabViewComponent
+                        }
+                    }
+                    Connections {
+                        target: newPrivateTabViewLoader.parent
+                        onUrlChanged: newPrivateTabViewLoader.sourceComponent = null
+                    }
+
+                    Connections {
+                        target: browser
+                        onStateChanged: {
+                            if (browser.state != "private")
+                                newPrivateTabViewLoader.sourceComponent = null
                         }
                     }
 
