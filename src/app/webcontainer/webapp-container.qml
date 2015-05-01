@@ -34,7 +34,7 @@ BrowserWindow {
 
     property var intentFilterHandler
     property string url: ""
-    property string webappIcon: ""
+    property url webappIcon: ""
     property string webappName: ""
     property string webappModelSearchPath: ""
     property var webappUrlPatterns
@@ -175,7 +175,7 @@ BrowserWindow {
         providerId: accountProvider
         applicationId: unversionedAppId
         webappName: getWebappName()
-        webappIcon: webappIcon
+        webappIcon: root.webappIcon
 
         onAccountSelected: {
             var newWebappDataLocation = dataLocation + accountDataLocation

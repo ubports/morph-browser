@@ -51,7 +51,7 @@ Item {
     Settings {
         id: settings
         property int selectedAccount: -1
-        property var initializedAccounts: []
+        property string initializedAccounts: ""
     }
 
     Component {
@@ -143,13 +143,18 @@ Item {
     }
 
     function mustMoveCookies(accountId) {
-        return settings.initializedAccounts.indexOf(accountId) < 0
+        var accountStrings = settings.initializedAccounts.split(',')
+        return accountStrings.indexOf(String(accountId)) < 0
     }
 
     function rememberCookiesMoved(accountId) {
-        var copy = settings.initializedAccounts
-        copy.push(accountId)
-        settings.initializedAccounts = copy
+        var accountStrings = settings.initializedAccounts.split(',')
+        if (accountStrings.indexOf(String(accountId)) < 0) {
+            if (accountStrings.length > 0) {
+                settings.initializedAccounts += ','
+            }
+            settings.initializedAccounts += String(accountId)
+        }
     }
 
     function onCookiesMoved(result) {
