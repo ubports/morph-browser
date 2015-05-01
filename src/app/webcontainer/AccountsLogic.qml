@@ -150,7 +150,7 @@ Item {
     function rememberCookiesMoved(accountId) {
         var accountStrings = settings.initializedAccounts.split(',')
         if (accountStrings.indexOf(String(accountId)) < 0) {
-            if (accountStrings.length > 0) {
+            if (settings.initializedAccounts.length > 0) {
                 settings.initializedAccounts += ','
             }
             settings.initializedAccounts += String(accountId)
