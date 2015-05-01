@@ -73,7 +73,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("WebViewImpl", visible=True)
 
     def get_webviews(self):
-        return self.select_many("WebViewImpl")
+        return self.select_many("WebViewImpl", incognito=False)
+
+    def get_incognito_webviews(self):
+        return self.select_many("WebViewImpl", incognito=True)
 
     def get_error_sheet(self):
         return self.select_single("ErrorSheet")
@@ -100,6 +103,13 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_new_tab_view(self):
         return self.wait_select_single("NewTabView", visible=True)
+
+    def get_new_private_tab_view(self):
+        return self.wait_select_single("NewPrivateTabView", visible=True)
+
+    def get_leave_private_mode_dialog(self):
+        return self.wait_select_single("Dialog",
+                                       objectName="leavePrivateModeDialog")
 
     def get_settings_page(self):
         return self.wait_select_single(SettingsPage, visible=True)

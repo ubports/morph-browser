@@ -132,8 +132,20 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.click_object(settings_action)
         return self.main_window.get_settings_page()
 
+    def toggle_private_mode(self):
+        chrome = self.main_window.chrome
+        drawer_button = chrome.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        chrome.get_drawer()
+        privatemode_action = chrome.get_drawer_action("privatemode")
+        self.pointing_device.click_object(privatemode_action)
+
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
+                        Eventually(Equals(count)))
+
+    def assert_number_incognito_webviews_eventually(self, count):
+        self.assertThat(lambda: len(self.main_window.get_incognito_webviews()),
                         Eventually(Equals(count)))
 
     def ping_server(self):
