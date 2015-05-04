@@ -35,10 +35,13 @@ WebViewImpl {
     property var webappUrlPatterns: null
     property string popupRedirectionUrlPrefixPattern: ""
     property url dataPath
+    property var webappContainerHelper
 
     // Mostly used for testing & avoid external urls to
     //  "leak" in the default browser
     property bool blockOpenExternalUrls: false
+
+    signal samlRequestUrlPatternReceived(string urlPattern)
 
     // Those signals are used for testing purposes to externally
     //  track down the various internal logic & steps of a popup lifecycle.
@@ -69,6 +72,12 @@ WebViewImpl {
 
     StateSaver.properties: "url"
     StateSaver.enabled: !runningLocalApplication
+
+    function handleSAMLRequestPattern(urlPattern) {
+        webappUrlPatterns.push(urlPattern)
+
+        samlRequestUrlPatternReceived(urlPattern)
+    }
 
     function shouldOpenPopupsInDefaultBrowser() {
         return formFactor !== "desktop";
@@ -180,7 +189,12 @@ WebViewImpl {
             if (webview.shouldAllowNavigationTo(targetUrl)) {
                 console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
                 request.action = Oxide.NavigationRequest.ActionReject
-                webappContainerHelper.browseToUrlRequested(webview, targetUrl)
+                if (webappContainerHelper) {
+                    webappContainerHelper.browseToUrlRequested(webview, targetUrl)
+                } else {
+                    openUrlExternally(targetUrl)
+                }
+
                 return
             }
 
@@ -216,9 +230,12 @@ WebViewImpl {
             var match = urlRegExp.exec(url)
             var host = match[1]
             var escapeDotsRegExp = new RegExp("\\.", "g")
-            var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/"
+            var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/*"
+
             console.log("SAML request detected. Adding host pattern: " + hostPattern)
-            webappUrlPatterns.push(hostPattern)
+
+            handleSAMLRequestPattern(hostPattern)
+
             request.action = Oxide.NavigationRequest.ActionAccept
         }
 

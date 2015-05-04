@@ -55,7 +55,7 @@ namespace
  * This is needed because cookie sets from different accounts might not
  * completely overwrite each other, and therefore we end up with an
  * inconsistent cookie jar. */
-static void clearCookiesHack(const QString &provider)
+void clearCookiesHack(const QString &provider)
 {
     if (provider.isEmpty()) {
         qWarning() << "--clear-cookies only works with an accountProvider" << endl;
@@ -75,6 +75,13 @@ static void clearCookiesHack(const QString &provider)
     }
 }
 
+QObject* containerHelperFactory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new WebappContainerHelper();
+}
+
 }
 
 const QString WebappContainer::URL_PATTERN_SEPARATOR = ",";
@@ -86,8 +93,7 @@ WebappContainer::WebappContainer(int& argc, char** argv):
     m_storeSessionCookies(false),
     m_backForwardButtonsVisible(false),
     m_addressBarVisible(false),
-    m_localWebappManifest(false),
-    m_webappContainerHelper(new WebappContainerHelper())
+    m_localWebappManifest(false)
 {
 }
 
@@ -128,8 +134,6 @@ bool WebappContainer::initialize()
             qDebug() << "Setting session cookie mode to" << sessionCookieMode;
             context->setContextProperty("webContextSessionCookieMode", sessionCookieMode);
         }
-
-        context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
 
         if ( ! m_popupRedirectionUrlPrefixPattern.isEmpty()) {
             const QString WEBAPP_CONTAINER_DO_NOT_FILTER_PATTERN_URL_ENV_VAR =
@@ -237,6 +241,11 @@ void WebappContainer::qmlEngineCreated(QQmlEngine* engine)
                                            "LocalCookieStore");
         qmlRegisterType<OnlineAccountsCookieStore>(privateModuleUri, 0, 1,
                                                    "OnlineAccountsCookieStore");
+
+        qmlRegisterSingletonType<WebappContainerHelper>(
+                    privateModuleUri, 0, 1,
+                    "ContainerHelper",
+                    containerHelperFactory);
     }
 }
 

@@ -20,6 +20,7 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
+import webcontainer.private 0.1
 import "../actions" as Actions
 import ".."
 
@@ -34,7 +35,7 @@ BrowserView {
     property string webappModelSearchPath: ""
 
     property alias webappName: webview.webappName
-    property alias webappUrlPatterns: webview.webappUrlPatterns
+    property var webappUrlPatterns
     property alias popupRedirectionUrlPrefixPattern: webview.popupRedirectionUrlPrefixPattern
     property alias webviewOverrideFile: webview.webviewOverrideFile
     property alias blockOpenExternalUrls: webview.blockOpenExternalUrls
@@ -45,6 +46,8 @@ BrowserView {
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
     readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible
+
+    signal generatedUrlPatternsFileUpdated(string path)
 
     actions: [
         Actions.Back {
@@ -59,6 +62,58 @@ BrowserView {
             onTriggered: webview.currentWebview.reload()
         }
     ]
+
+    ContainerHelper {
+        id: containerHelper
+
+        generatedUrlPatternsSettingsDataPath: dataLocation + "/generated-url-patterns.json"
+
+        function getGeneratedUrlPatterns() {
+            return containerHelper.retrieveSavedUrlPatterns()
+        }
+
+        function addGeneratedUrlPattern(urlPattern) {
+            var patterns;
+            try {
+                patterns = JSON.parse(
+                            containerHelper.retrieveSavedUrlPatterns())
+            } catch(e) {
+                console.error("Invalid JSON content found in url patterns file")
+            }
+            if (! (patterns instanceof Array)) {
+                console.error("Invalid JSON content type found in url patterns file (not an array)")
+                patterns = []
+            }
+            if (patterns.indexOf(urlPattern) < 0) {
+                patterns.push(urlPattern)
+            }
+            containerHelper.updateSAMLUrlPatterns(
+                        JSON.stringify(patterns))
+
+            generatedUrlPatternsFileUpdated(generatedUrlPatternsSettingsDataPath)
+        }
+    }
+
+    function mergeUrlPatternSets(p1, p2) {
+        if ( ! (p1 instanceof Array)) {
+            return (p2 instanceof Array) ? p2 : []
+        }
+        if ( ! (p2 instanceof Array)) {
+            return (p1 instanceof Array) ? p1 : []
+        }
+        var p1hash = {}
+        var result = []
+        for (var i1 in p1) {
+            p1hash[p1[i1]] = 1
+            result.push(p1[i1])
+        }
+        for (var i2 in p2) {
+            if (! (p2[i2] in p1hash)) {
+                result.push(p2[i2])
+            }
+        }
+        return result
+    }
 
     Item {
         id: webviewContainer
@@ -75,6 +130,12 @@ BrowserView {
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
+            onSamlRequestUrlPatternReceived: {
+                containerHelper.addGeneratedUrlPattern(urlPattern)
+            }
+            webappUrlPatterns: mergeUrlPatternSets(
+                                   containerHelper.getGeneratedUrlPatterns(),
+                                   webappUrlPatterns)
         }
 
         Loader {

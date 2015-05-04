@@ -21,8 +21,6 @@
 
 #include "browserapplication.h"
 
-#include "webapp-container-helper.h"
-
 // Qt
 #include <QString>
 #include <QStringList>
@@ -68,7 +66,6 @@ private:
     QString m_popupRedirectionUrlPrefixPattern;
     QString m_localCookieStoreDbPath;
     QString m_userAgentOverride;
-    QScopedPointer<WebappContainerHelper> m_webappContainerHelper;
     QScopedPointer<IntentFilter> m_intentFilter;
 
     static const QString URL_PATTERN_SEPARATOR;

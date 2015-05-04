@@ -18,8 +18,10 @@
 
 #include "webapp-container-helper.h"
 
+#include <QDebug>
 #include <QMetaObject>
 #include <QMetaProperty>
+#include <QFile>
 
 
 WebappContainerHelper::WebappContainerHelper(QObject* parent)
@@ -47,6 +49,40 @@ void WebappContainerHelper::browseToUrl(QObject* webview, const QUrl& url)
     metaobject->property(urlPropIdx).write(webview, QVariant(url));
 }
 
+void WebappContainerHelper::updateSAMLUrlPatterns(
+        const QString& urlPatterns)
+{
+    QString path = generatedUrlPatternsSettingsDataPath();
+    QFile f(path);
+    if (! f.open(QIODevice::WriteOnly)) {
+        qWarning() << "Could not open generated url patterns settings file: '"
+                   << path << "'";
+        return;
+    }
+    f.write(urlPatterns.toUtf8());
+    f.close();
+}
 
+QString WebappContainerHelper::retrieveSavedUrlPatterns()
+{
+    QString path = generatedUrlPatternsSettingsDataPath();
+    QFile f(path);
+    if (! f.exists() || ! f.open(QIODevice::ReadOnly)) {
+        return QString();
+    }
+    return QString::fromUtf8(f.readAll());
+}
 
+QString WebappContainerHelper::generatedUrlPatternsSettingsDataPath() const
+{
+    return _urlPatternSettingsDataPath;
+}
 
+void WebappContainerHelper::setGeneratedUrlPatternsSettingsDataPath(const QString& path)
+{
+    if (_urlPatternSettingsDataPath == path) {
+        return;
+    }
+    _urlPatternSettingsDataPath = path;
+    Q_EMIT generatedUrlPatternsSettingsDataPathChanged();
+}

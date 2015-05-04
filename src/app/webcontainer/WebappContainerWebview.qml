@@ -39,11 +39,22 @@ Item {
     property url webviewOverrideFile: ""
     property bool blockOpenExternalUrls: false
     property bool runningLocalApplication: false
+    property var webappContainerHelper
+
+    signal samlRequestUrlPatternReceived(string urlPattern)
 
     Loader {
         id: webappContainerWebViewLoader
         objectName: "containerWebviewLoader"
         anchors.fill: parent
+        onLoaded: {
+            if (webappContainerWebViewLoader.status === Loader.Ready) {
+                webappContainerWebViewLoader.item
+                    .samlRequestUrlPatternReceived.connect(function(urlPattern) {
+                    samlRequestUrlPatternReceived(urlPattern)
+                })
+            }
+        }
     }
 
     onUrlChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.url = url
@@ -68,7 +79,8 @@ Item {
                     , developerExtrasEnabled: containerWebview.developerExtrasEnabled
                     , popupRedirectionUrlPrefixPattern: containerWebview.popupRedirectionUrlPrefixPattern
                     , blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
-                    , runningLocalApplication: containerWebview.runningLocalApplication})
+                    , runningLocalApplication: containerWebview.runningLocalApplication
+                    , webappContainerHelper: containerWebview.webappContainerHelper})
     }
 }
 

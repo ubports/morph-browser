@@ -121,6 +121,18 @@ window.onload = function() {{
         elif self.path == '/show-user-agent':
             self.send_response(200)
             self.serve_content(self.display_ua_content())
+        elif self.path.startswith('/redirect-to-saml/'):
+            locationTarget = '/'
+            args = self.path[len('/redirect-to-saml/'):]
+            if args.startswith('?loopcount='):
+                loopCount = int(args[len('?loopcount='):].split(';')[0])
+                if loopCount > 0:
+                    locationTarget += '?loopcount='
+                    + str(--loopCount)
+                    + '&&SAMLRequest=1'
+            self.send_response(301)
+            self.send_header("Location", locationTarget)
+            self.end_headers()
         else:
             self.send_error(404)
 
