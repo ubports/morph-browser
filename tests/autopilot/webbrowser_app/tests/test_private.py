@@ -55,3 +55,25 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.toggle_private_mode()
         self.cancel_leaving_private_mode()
         self.assertThat(new_private_tab_view.visible, Eventually(Equals(True)))
+
+    def test_usual_tabs_not_visible_in_private(self):
+        self.open_tabs_view()
+        self.open_new_tab()
+        new_tab_view = self.main_window.get_new_tab_view()
+        url = self.base_url + "/test1"
+        self.main_window.go_to_url(url)
+        new_tab_view.wait_until_destroyed()
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        previews = tabs_view.get_previews()
+        self.assertThat(len(previews), Equals(2))
+        tabs_view.get_previews()[1].select()
+        tabs_view.visible.wait_for(False)
+        self.assertThat(lambda: self.main_window.get_current_webview().url,
+                        Eventually(Equals(url)))
+
+        self.go_into_private_mode()
+        self.open_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        previews = tabs_view.get_previews()
+        self.assertThat(len(previews), Equals(1))
