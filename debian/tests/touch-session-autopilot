@@ -26,7 +26,7 @@ if ! pgrep -f unity-system-compositor ; then
 
    # FIXME: We won't need an X stack once Mir provides mirvfb or any other
    # mean to test consistently on all platforms -- vila 2015-04-22
-   sudo ADT_NORMAL_USER=${USER} sh -e /usr/share/autopkgtest/setup-commands/ubuntu-touch-session
+   sudo -A ADT_NORMAL_USER=${USER} sh -e /usr/share/autopkgtest/setup-commands/ubuntu-touch-session
    # Import the environment produced above in the current shell
    set -a
    . /etc/environment
