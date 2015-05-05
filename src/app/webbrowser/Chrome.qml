@@ -151,7 +151,7 @@ ChromeBase {
                 anchors.verticalCenter: parent.verticalCenter
 
                 visible: findInPageMode
-                enabled: webview && webview.findInPage && webview.findInPage.count > 0
+                enabled: webview && webview.findInPage && webview.findInPage.count > 1
                 onTriggered: webview.findInPage.previous()
             }
 
@@ -168,7 +168,7 @@ ChromeBase {
                 anchors.verticalCenter: parent.verticalCenter
 
                 visible: findInPageMode
-                enabled: webview && webview.findInPage && webview.findInPage.count > 0
+                enabled: webview && webview.findInPage && webview.findInPage.count > 1
                 onTriggered: webview.findInPage.next()
             }
 
