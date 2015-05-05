@@ -56,7 +56,7 @@ ChromeBase {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: chrome.findInPageMode || chrome.webview ? chrome.webview.canGoBack : false
+            enabled: chrome.findInPageMode || (chrome.webview ? chrome.webview.canGoBack : false)
             onTriggered: chrome.findInPageMode ? (chrome.findInPageMode = false) : chrome.webview.goBack()
         }
 
