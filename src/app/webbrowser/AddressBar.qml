@@ -180,6 +180,7 @@ FocusScope {
             height: textField.height
 
             Label {
+                objectName: "findInPageCounter"
                 anchors.verticalCenter: parent.verticalCenter
                 fontSize: "x-small"
                 color: "#5d5d5d"

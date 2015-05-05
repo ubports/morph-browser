@@ -130,6 +130,11 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += '<div style="height: 100%"></div>'
             html += '</a></body></html>'
             self.send_html(html)
+        elif self.path == "/findinpage":
+            # send a page with some searchable text
+            self.send_response(200)
+            html = '<html><body>hello this is text and more text</body></html>'
+            self.send_html(html)
         else:
             self.send_error(404)
 
