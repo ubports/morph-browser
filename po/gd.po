@@ -2,13 +2,13 @@
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the webbrowser-app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
-# GunChleoc <fios@foramnagaidhlig.net>, 2014.
+# GunChleoc <fios@foramnagaidhlig.net>, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-04-24 18:31+0200\n"
-"PO-Revision-Date: 2015-04-09 15:32+0000\n"
+"PO-Revision-Date: 2015-05-03 02:05+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2015-04-25 05:35+0000\n"
-"X-Generator: Launchpad (build 17430)\n"
+"X-Launchpad-Export-Date: 2015-05-04 05:31+0000\n"
+"X-Generator: Launchpad (build 17474)\n"
 "Language: gd\n"
 
 #: src/app/AlertDialog.qml:23
@@ -465,11 +465,11 @@ msgstr "Dèanta"
 
 #: src/app/webbrowser/Browser.qml:715
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Grad-shlaighd suas gus am modh làn-sgrìn fhàgail"
 
 #: src/app/webbrowser/Browser.qml:716
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Brùth air ESC gus am modh làn-sgrìn fhàgail"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
 #: src/app/webbrowser/HistoryView.qml:130
@@ -588,11 +588,11 @@ msgstr "Duilleag-dhachaigh"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "Aisig an seisean mu dheireadh leis an tòiseachadh"
 
 #: src/app/webbrowser/SettingsPage.qml:118
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "Ceadaich fosgladh thabaichean ùra sa chùlaibh"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:224
@@ -605,11 +605,11 @@ msgstr "Ath-shuidhich roghainnean a' bhrabhsair"
 
 #: src/app/webbrowser/SettingsPage.qml:245
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "Glan eachdraidh a' bhrabhsaidh"
 
 #: src/app/webbrowser/SettingsPage.qml:252
 msgid "Clear Cache"
-msgstr ""
+msgstr "Glan an tasgadan"
 
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Save"

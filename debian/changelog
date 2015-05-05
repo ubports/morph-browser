@@ -1,3 +1,17 @@
+webbrowser-app (0.23+15.04.20150430.1-0ubuntu1) vivid; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Add multi-window support for webapps (LP: #1411722)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 30 Apr 2015 16:34:54 +0000
+
 webbrowser-app (0.23+15.04.20150422.1-0ubuntu1) vivid; urgency=medium
 
   [ Alexandre Abreu ]
