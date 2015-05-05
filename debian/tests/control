@@ -12,17 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-# FIXME: Specifying python3-evdev as a dep shouldn't be needed. It's a
-# Recommends in both autopilot-touch and autopilot-desktop. No idea why it's
-# not installed on the phone -- vila 2015-04-23
-
 # autopkgtest is a test dependency so we don't need to copy
 # ubuntu-touch-session to the testbed but can use it from autopkgtest instead
 
 Test-Command: debian/tests/touch-session-autopilot webbrowser_app
 Restrictions: allow-stderr
+Classes: ubuntu-touch
 Depends: webbrowser-app-autopilot, autopkgtest, python3-evdev
 
 Test-Command: debian/tests/touch-session-autopilot webapp_container
 Restrictions: allow-stderr
+Classes: ubuntu-touch
 Depends: webapp-container-autopilot, autopkgtest, python3-evdev
