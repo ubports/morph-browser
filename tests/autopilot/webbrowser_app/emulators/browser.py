@@ -105,7 +105,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.wait_select_single("NewTabView", visible=True)
 
     def get_new_private_tab_view(self):
-        return self.wait_select_single("NewPrivateTabView", visible=True)
+        return self.wait_select_single("QQuickItem",
+                                       objectName="newPrivateTabView",
+                                       visible=True)
 
     def get_leave_private_mode_dialog(self):
         return self.wait_select_single("Dialog",

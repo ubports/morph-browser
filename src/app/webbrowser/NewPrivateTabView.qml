@@ -21,12 +21,7 @@ import Ubuntu.Components 1.1
 
 Item {
     id: newPrivateTabView
-
-    // Define an unused property to workaround an issue found on
-    // autopilot. Otherwise this component is not properly named
-    // on autopilot tests. 
-    // FIXME BUG_LINK  
-    property bool dummy
+    objectName: "newPrivateTabView"
 
     Icon {
         anchors {
