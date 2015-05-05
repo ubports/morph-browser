@@ -36,6 +36,8 @@ FocusScope {
     signal requestReload()
     signal requestStop()
     property string searchUrl
+    property bool findInPageMode
+    property var findInPage
 
     property var securityStatus: null
 
@@ -46,6 +48,13 @@ FocusScope {
     readonly property Item __bookmarkToggle: bookmarkToggle
 
     height: textField.height
+
+    Binding {
+        target: findInPage
+        property: "text"
+        value: textField.text.length > 1 ? textField.text : ""
+        when: findInPageMode && findInPage
+    }
 
     TextField {
         id: textField
@@ -58,6 +67,7 @@ FocusScope {
 
             width: iconsRow.width + units.gu(1)
             height: units.gu(2)
+            visible: !findInPageMode
 
             Row {
                 id: iconsRow
@@ -74,6 +84,7 @@ FocusScope {
                     anchors.verticalCenter: parent.verticalCenter
                     visible: internal.idle && addressbar.actualUrl.toString() &&
                              !internal.securityWarning && !internal.securityError
+                             && !findInPageMode
                 }
 
                 Icon {
@@ -91,7 +102,7 @@ FocusScope {
                                                    (addressbar.text == addressbar.actualUrl)
                     readonly property bool looksLikeAUrl: UrlManagement.looksLikeAUrl(addressbar.text.trim())
 
-                    name: addressbar.loading ? "stop" :
+                    name: findInPageMode || addressbar.loading ? "stop" :
                           reload ? "reload" :
                           looksLikeAUrl ? "stock_website" : "search"
 
@@ -165,35 +176,49 @@ FocusScope {
             }
         }
 
-        secondaryItem: Item {
-            id: bookmarkToggle
-            objectName: "bookmarkToggle"
-
+        secondaryItem: Row {
             height: textField.height
-            width: visible ? height : 0
 
-            visible: internal.idle && addressbar.actualUrl.toString()
-
-            Icon {
-                height: parent.height - units.gu(2)
-                width: height
-                anchors.centerIn: parent
-
-                name: addressbar.bookmarked ? "starred" : "non-starred"
-                color: addressbar.bookmarked ? UbuntuColors.orange : keyColor
+            Label {
+                anchors.verticalCenter: parent.verticalCenter
+                fontSize: "x-small"
+                color: "#5d5d5d"
+                opacity: findInPage && findInPage.count > 0 ? 1.0 : 0.6
+                text: findInPage ? (findInPage.current + "/" + findInPage.count) : "0/0"
+                visible: findInPageMode
             }
 
-            MouseArea {
-                id: bookmarkButton
-                anchors.fill: parent
-                onClicked: addressbar.bookmarked = !addressbar.bookmarked
+            Item {
+                id: bookmarkToggle
+                objectName: "bookmarkToggle"
+
+                height: parent.height
+                width: visible ? height : 0
+
+                visible: !findInPageMode && internal.idle && addressbar.actualUrl.toString()
+
+                Icon {
+                    height: parent.height - units.gu(2)
+                    width: height
+                    anchors.centerIn: parent
+
+                    name: addressbar.bookmarked ? "starred" : "non-starred"
+                    color: addressbar.bookmarked ? UbuntuColors.orange : keyColor
+                }
+
+                MouseArea {
+                    id: bookmarkButton
+                    anchors.fill: parent
+                    onClicked: addressbar.bookmarked = !addressbar.bookmarked
+                }
             }
         }
 
         font.pixelSize: FontUtils.sizeToPixels("small")
         inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
 
-        placeholderText: i18n.tr("search or enter an address")
+        placeholderText: findInPageMode ? i18n.tr("find in page")
+                                        : i18n.tr("search or enter an address")
 
         // Work around the "fix" for http://pad.lv/1089370 which
         // unsets focus on the TextField when it becomes invisible
@@ -290,10 +315,12 @@ FocusScope {
     }
 
     onActiveFocusChanged: {
-        if (activeFocus) {
-            text = actualUrl
-        } else if (!loading && actualUrl.toString()) {
-            text = internal.simplifyUrl(actualUrl)
+        if (!findInPageMode) {
+            if (activeFocus) {
+                text = actualUrl
+            } else if (!loading && actualUrl.toString()) {
+                text = internal.simplifyUrl(actualUrl)
+            }
         }
     }
 

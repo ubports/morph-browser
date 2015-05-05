@@ -72,6 +72,13 @@ BrowserView {
         Actions.ClearHistory {
             enabled: browser.historyModel
             onTriggered: browser.historyModel.clearAll()
+        },
+        Actions.FindInPage {
+            enabled: !chrome.findInPageMode
+            onTriggered: {
+                chrome.findInPageMode = true
+                chrome.focus = true
+            }
         }
     ]
 
@@ -252,13 +259,20 @@ BrowserView {
                     text: i18n.tr("Settings")
                     iconName: "settings"
                     onTriggered: settingsComponent.createObject(settingsContainer)
+                },
+                Action {
+                    objectName: "findinpage"
+                    text: i18n.tr("Find in page")
+                    iconName: "search"
+                    onTriggered: { chrome.findInPageMode = true; chrome.forceActiveFocus() }
                 }
             ]
         }
 
         Suggestions {
             id: suggestionsList
-            opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
+            opacity: ((chrome.state == "shown") && chrome.activeFocus &&
+                      (count > 0) && !chrome.drawerOpen && !chrome.findInPageMode) ? 1.0 : 0.0
             Behavior on opacity {
                 UbuntuNumberAnimation {}
             }

@@ -29,6 +29,9 @@ ChromeBase {
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
+    property bool findInPageMode
+
+    onFindInPageModeChanged: if (findInPageMode) addressbar.text = ""
 
     FocusScope {
         anchors {
@@ -53,8 +56,8 @@ ChromeBase {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: chrome.webview ? chrome.webview.canGoBack : false
-            onTriggered: chrome.webview.goBack()
+            enabled: chrome.findInPageMode || chrome.webview ? chrome.webview.canGoBack : false
+            onTriggered: chrome.findInPageMode ? (chrome.findInPageMode = false) : chrome.webview.goBack()
         }
 
         ChromeButton {
@@ -73,7 +76,8 @@ ChromeBase {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: chrome.webview ? chrome.webview.canGoForward : false
+            enabled: chrome.findInPageMode ? false :
+                     (chrome.webview ? chrome.webview.canGoForward : false)
             onTriggered: chrome.webview.goForward()
         }
 
@@ -81,11 +85,13 @@ ChromeBase {
             id: addressbar
 
             focus: true
+            findInPageMode: chrome.findInPageMode
+            findInPage: chrome.webview ? chrome.webview.findInPage : null
 
             anchors {
                 left: forwardButton.right
                 leftMargin: units.gu(1)
-                right: drawerButton.left
+                right: rightButtonsBar.left
                 rightMargin: units.gu(1)
                 verticalCenter: parent.verticalCenter
             }
@@ -95,8 +101,10 @@ ChromeBase {
             loading: chrome.webview ? chrome.webview.loading : false
 
             onValidated: {
-                chrome.webview.forceActiveFocus()
-                chrome.webview.url = requestedUrl
+                if (!findInPageMode) {
+                    chrome.webview.forceActiveFocus()
+                    chrome.webview.url = requestedUrl
+                }
             }
             onRequestReload: {
                 chrome.webview.forceActiveFocus()
@@ -122,25 +130,65 @@ ChromeBase {
             }
         }
 
-        ChromeButton {
-            id: drawerButton
-            objectName: "drawerButton"
-
-            iconName: "contextual-menu"
-            iconSize: 0.75 * height
-
-            height: parent.height
-            width: height
-
+        Row {
+            id: rightButtonsBar
             anchors {
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
+            height: parent.height
 
-            onTriggered: {
-                if (!internal.openDrawer) {
-                    internal.openDrawer = drawerComponent.createObject(chrome)
-                    internal.openDrawer.opened = true
+            ChromeButton {
+                id: findPreviousButton
+                objectName: "findPreviousButton"
+
+                iconName: "up"
+                iconSize: 0.6 * height
+
+                height: parent.height
+                width: height
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                visible: findInPageMode
+                enabled: webview && webview.findInPage && webview.findInPage.count > 0
+                onTriggered: webview.findInPage.previous()
+            }
+
+            ChromeButton {
+                id: findNextButton
+                objectName: "findNextButton"
+
+                iconName: "down"
+                iconSize: 0.6 * height
+
+                height: parent.height
+                width: height
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                visible: findInPageMode
+                enabled: webview && webview.findInPage && webview.findInPage.count > 0
+                onTriggered: webview.findInPage.next()
+            }
+
+            ChromeButton {
+                id: drawerButton
+                objectName: "drawerButton"
+
+                iconName: "contextual-menu"
+                iconSize: 0.75 * height
+
+                height: parent.height
+                width: height
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                onTriggered: {
+                    if (!internal.openDrawer) {
+                        internal.openDrawer = drawerComponent.createObject(chrome)
+                        internal.openDrawer.opened = true
+                    }
                 }
             }
         }
