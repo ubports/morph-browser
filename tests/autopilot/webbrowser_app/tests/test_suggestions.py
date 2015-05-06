@@ -219,10 +219,9 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(suggestions.count, Eventually(Equals(5)))
         entries = suggestions.get_ordered_entries()
         self.assertThat(len(entries), Equals(5))
-        self.assertThat(entries[1].icon, Equals("search"))
-        self.assertThat(entries[2].icon, Equals("history"))
-        self.assertThat(entries[3].icon, Equals("non-starred"))
-        self.assertThat(entries[4].icon, Equals("search"))
+        self.assertThat(entries[0].icon, Equals("history"))
+        self.assertThat(entries[1].icon, Equals("non-starred"))
+        self.assertThat(entries[2].icon, Equals("search"))
 
     def test_clear_address_bar_dismisses_suggestions(self):
         self.address_bar.focus()

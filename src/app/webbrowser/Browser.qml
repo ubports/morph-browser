@@ -274,10 +274,9 @@ BrowserView {
 
             searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
 
-            models: [searchSuggestions.limit(0, 2),
-                     historySuggestions,
+            models: [historySuggestions,
                      bookmarksSuggestions,
-                     searchSuggestions.limit(2, 2)]
+                     searchSuggestions.limit(4)]
 
             LimitProxyModel {
                 id: historySuggestions
@@ -310,8 +309,8 @@ BrowserView {
                 enabled: chrome.activeFocus &&
                          !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
-                function limit(from, number) {
-                    var slice = results.slice(from, from + number)
+                function limit(number) {
+                    var slice = results.slice(0, number)
                     slice.icon = 'search'
                     slice.displayUrl = false
                     return slice
