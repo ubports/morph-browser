@@ -1,26 +1,26 @@
-# English (United Kingdom) translation for webbrowser-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Interlingua translation for webbrowser-app
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
 # This file is distributed under the same license as the webbrowser-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-04-24 18:31+0200\n"
-"PO-Revision-Date: 2015-04-29 11:00+0000\n"
-"Last-Translator: Andi Chandler <Unknown>\n"
-"Language-Team: English (United Kingdom) <en_GB@li.org>\n"
+"PO-Revision-Date: 2015-05-04 16:59+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Interlingua <ia@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-04-30 05:28+0000\n"
-"X-Generator: Launchpad (build 17453)\n"
+"X-Launchpad-Export-Date: 2015-05-06 05:43+0000\n"
+"X-Generator: Launchpad (build 17474)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
-msgstr "JavaScript Alert"
+msgstr ""
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
@@ -29,43 +29,43 @@ msgstr "OK"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr "Authentication required."
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "The website %1 requires authentication."
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr "Username"
+msgstr "Nomine del usator"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr "Password"
+msgstr "Contrasigno"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
 #: src/app/webbrowser/SettingsPage.qml:294
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Cancellar"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr "Confirm Navigation"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr "Leave"
+msgstr "Lassa (abandonar)"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr "Stay"
+msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "This connection is untrusted"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -74,70 +74,67 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"You are trying to securely reach %1, but the security certificate of this "
-"website is not trusted."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
-msgstr "Proceed anyway"
+msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
-msgstr "Back to safety"
+msgstr ""
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr "JavaScript Confirmation"
+msgstr ""
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr "Network Error"
+msgstr "Error de rete"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "It appears you are having trouble viewing: %1."
+msgstr ""
 
 #: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"Ubuntu suggests you check your network settings and try refreshing the page."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "Refresh page"
+msgstr ""
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr "Please choose a file"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "Permission Request"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr "This page wants to know your device’s location."
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
-msgstr "Deny"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:43
 msgid "Allow"
-msgstr "Allow"
+msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr "This site security certificate is not trusted.\n"
+msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr "Learn more"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:87
@@ -146,8 +143,6 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
-"Serial number:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:94
@@ -156,8 +151,6 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
-"Subject:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:102
@@ -166,8 +159,6 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
-"Subject address:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:113
@@ -176,8 +167,6 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
-"Issuer:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:121
@@ -186,8 +175,6 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
-"Issuer address:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:132
@@ -196,8 +183,6 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
-"Valid from:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:139
@@ -206,8 +191,6 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
-"Valid until:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:146
@@ -216,16 +199,12 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
-"Fingerprint (SHA1):\n"
-"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
-"You should not proceed, especially if you have never seen this warning "
-"before for this site."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:187
@@ -234,8 +213,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
-"You attempted to reach %1 but the server presented a security certificate "
-"which does not match the identity of the site."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -244,8 +221,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
-"You attempted to reach %1 but the server presented a security certificate "
-"which has expired."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -254,8 +229,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
-"You attempted to reach %1 but the server presented a security certificate "
-"which contains invalid dates."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -264,8 +237,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
-"You attempted to reach %1 but the server presented a security certificate "
-"issued by an entity that is not trusted."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -274,8 +245,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
-"You attempted to reach %1 but the server presented a security certificate "
-"that has been revoked."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -284,8 +253,6 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
-"You attempted to reach %1 but the server presented an invalid security "
-"certificate."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -294,8 +261,6 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
-"You attempted to reach %1 but the server presented an insecure security "
-"certificate."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -305,362 +270,344 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
-"This site security certificate is not trusted\n"
-"You attempted to reach %1 but the server presented a security certificate "
-"which failed our security checks for an unknown reason."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
-msgstr "JavaScript Prompt"
+msgstr ""
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "Proxy authentication required."
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "The website %1:%2 requires authentication."
+msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "Back"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Older Page"
+msgstr ""
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr "Bookmark"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Add This Page to Bookmarks"
+msgstr ""
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "Bookmark link"
+msgstr ""
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "Clear History"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Clear Navigation History"
+msgstr ""
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr "Copy"
+msgstr ""
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr "Copy image"
+msgstr ""
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr "Copy link"
+msgstr ""
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Forward"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Newer Page"
+msgstr ""
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr "Goto"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Address;URL;www"
+msgstr ""
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
 msgid "New Tab"
-msgstr "New Tab"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Open a New Tab"
+msgstr ""
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "Open image in new tab"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr "Open link in new background tab"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "Open link in new tab"
+msgstr ""
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr "Reload"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "Leave Page"
+msgstr ""
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr "Save image"
+msgstr ""
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr "Share…"
+msgstr ""
 
 #: src/app/webbrowser/AddressBar.qml:196
 msgid "search or enter an address"
-msgstr "search or enter an address"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:221
 msgid "Share"
-msgstr "Share"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:228
 msgid "History"
-msgstr "History"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:235
 msgid "Open tabs"
-msgstr "Open tabs"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
-msgstr "New tab"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
 msgid "Settings"
-msgstr "Settings"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
-msgstr "Done"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:715
 msgid "Swipe Up To Exit Full Screen"
-msgstr "Swipe Up To Exit Full Screen"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:716
 msgid "Press ESC To Exit Full Screen"
-msgstr "Press ESC To Exit Full Screen"
+msgstr ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
 #: src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
 msgid "Delete"
-msgstr "Delete"
+msgstr ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] "%1 page"
-msgstr[1] "%1 pages"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:194
 msgid "Less"
-msgstr "Less"
+msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
-msgstr "Last Visited"
+msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
-msgstr "Yesterday"
+msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
-msgstr "Select all"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
-msgstr "Bookmarks"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
-msgstr "Top sites"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:145
 msgid "see less"
-msgstr "see less"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:145
 msgid "see more"
-msgstr "see more"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr "This site has insecure content"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr "Identity Not Verified"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr "The identity of this website has not been verified."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr "Server certificate does not match the identity of the site."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr "Server certificate has expired."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr "Server certificate contains invalid dates."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr "Server certificate is issued by an entity that is not trusted."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr "Server certificate has been revoked."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr "Server certificate is invalid."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr "Server certificate is insecure."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
-msgstr "Server certificate failed our security checks for an unknown reason."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr "You are connected to"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr "Which is run by"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
-msgstr "Search engine"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:271
 msgid "Homepage"
-msgstr "Homepage"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr "Restore previous session at startup"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:118
 msgid "Allow opening new tabs in background"
-msgstr "Allow opening new tabs in background"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:224
 msgid "Privacy"
-msgstr "Privacy"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr "Reset browser settings"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:245
 msgid "Clear Browsing History"
-msgstr "Clear Browsing History"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:252
 msgid "Clear Cache"
-msgstr "Clear Cache"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Save"
-msgstr "Save"
+msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
-msgstr "Tap to view"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:34
 #: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Ubuntu Web Browser"
+msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:36
 #: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
-msgstr "Ubuntu Web Browser"
+msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
-msgstr "No local account found for "
+msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
-msgstr "Skip account creation step"
+msgstr ""
 
 #: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
-msgstr "Add account"
+msgstr ""
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr "Select an account"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
-msgstr "Browser"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr "Web Browser"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
-msgstr "Browse the World Wide Web"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr "Internet;WWW;Browser;Web;Explorer"
-
-#~ msgid "Clear"
-#~ msgstr "Clear"
-
-#~ msgid "No"
-#~ msgstr "No"
-
-#~ msgid "Add"
-#~ msgstr "Add"
-
-#~ msgid "Yes"
-#~ msgstr "Yes"
-
-#~ msgid "Delete all history?"
-#~ msgstr "Delete all history?"
+msgstr ""
