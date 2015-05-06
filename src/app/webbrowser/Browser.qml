@@ -927,6 +927,18 @@ BrowserView {
             return tabComponent.createObject(tabContainer, properties)
         }
     }
+    Timer {
+        id: delayedSessionSaver
+        interval: 500
+        onTriggered: session.save()
+    }
+    Timer {
+        // Save session periodically to mitigate state loss when the application crashes
+        interval: 60000 // every minute
+        repeat: true
+        running: true
+        onTriggered: delayedSessionSaver.restart()
+    }
     Connections {
         target: Qt.application
         onStateChanged: {
@@ -938,6 +950,11 @@ BrowserView {
             }
         }
         onAboutToQuit: session.save()
+    }
+    Connections {
+        target: tabsModel
+        onCurrentTabChanged: delayedSessionSaver.restart()
+        onCountChanged: delayedSessionSaver.restart()
     }
 
     // Delay instantiation of the first webview by 1 msec to allow initial
