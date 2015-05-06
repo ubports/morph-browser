@@ -257,6 +257,9 @@ FocusScope {
 
         function simplifyUrl(url) {
             var urlString = url.toString()
+            if (urlString == "about:blank") {
+                return url
+            }
             var hasProtocol = urlString.indexOf("://") != -1
             var domain
             if (hasProtocol) {

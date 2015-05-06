@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-08 20:37+0200\n"
-"PO-Revision-Date: 2015-04-09 16:30+0000\n"
-"Last-Translator: Sasa Batistic <Unknown>\n"
+"POT-Creation-Date: 2015-04-24 18:31+0200\n"
+"PO-Revision-Date: 2015-04-28 10:47+0000\n"
+"Last-Translator: Damir Jerovšek <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2015-04-10 05:12+0000\n"
-"X-Generator: Launchpad (build 17413)\n"
+"X-Launchpad-Export-Date: 2015-04-29 05:26+0000\n"
+"X-Generator: Launchpad (build 17453)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -48,6 +48,7 @@ msgstr "Geslo"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
+#: src/app/webbrowser/SettingsPage.qml:294
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -116,22 +117,18 @@ msgid "Please choose a file"
 msgstr "Izberite datoteko"
 
 #: src/app/GeolocationPermissionRequest.qml:28
-#: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr "Zahteva za dovoljenje"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:70
 msgid "This page wants to know your device’s location."
 msgstr "Ta stran želi izvedeti položaj vaše naprave."
 
 #: src/app/GeolocationPermissionRequest.qml:33
-#: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr "Zavrni"
 
 #: src/app/GeolocationPermissionRequest.qml:43
-#: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "Dovoli"
 
@@ -394,7 +391,7 @@ msgstr "Pojdi na"
 msgid "Address;URL;www"
 msgstr "Naslov;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
 msgid "New Tab"
 msgstr "Nov zavihek"
 
@@ -434,30 +431,23 @@ msgstr "Shrani sliko"
 msgid "Share…"
 msgstr "Deli ..."
 
-#: src/app/webbrowser/AddressBar.qml:195
+#: src/app/webbrowser/AddressBar.qml:196
 msgid "search or enter an address"
 msgstr "poiščite ali vnesite naslov"
 
-#: src/app/webbrowser/BookmarksList.qml:67
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321
-msgid "Delete"
-msgstr "Izbriši"
-
-#: src/app/webbrowser/Browser.qml:178
+#: src/app/webbrowser/Browser.qml:221
 msgid "Share"
 msgstr "Deli"
 
-#: src/app/webbrowser/Browser.qml:192
+#: src/app/webbrowser/Browser.qml:228
 msgid "History"
 msgstr "Zgodovina"
 
-#: src/app/webbrowser/Browser.qml:199
+#: src/app/webbrowser/Browser.qml:235
 msgid "Open tabs"
 msgstr "Odpri zavihke"
 
-#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
 #: src/app/webbrowser/TabsList.qml:84
 msgid "New tab"
 msgstr "Nov zavihek"
@@ -466,9 +456,23 @@ msgstr "Nov zavihek"
 msgid "Settings"
 msgstr "Nastavitve"
 
-#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
 msgstr "Končano"
+
+#: src/app/webbrowser/Browser.qml:715
+msgid "Swipe Up To Exit Full Screen"
+msgstr "Potegnite navzgor za izhod iz celozaslonskega načina"
+
+#: src/app/webbrowser/Browser.qml:716
+msgid "Press ESC To Exit Full Screen"
+msgstr "Pritisnite ESC za izhod iz celozaslonskega načina"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:79
+#: src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
+msgid "Delete"
+msgstr "Izbriši"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
@@ -503,11 +507,11 @@ msgstr "Zaznamki"
 msgid "Top sites"
 msgstr "Najboljše strani"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:145
 msgid "see less"
 msgstr "oglejte si manj"
 
-#: src/app/webbrowser/NewTabView.qml:143
+#: src/app/webbrowser/NewTabView.qml:145
 msgid "see more"
 msgstr "oglejte si več"
 
@@ -600,7 +604,7 @@ msgstr "Izbriši zgodovino brskanja"
 msgid "Clear Cache"
 msgstr "Počisti predpomnilnik"
 
-#: src/app/webbrowser/SettingsPage.qml:295
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Save"
 msgstr "Shrani"
 
@@ -609,14 +613,14 @@ msgid "Tap to view"
 msgstr "Tapnite za pogled"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:38
-#: src/app/webcontainer/webapp-container.qml:66
+#: src/app/webbrowser/webbrowser-app.qml:34
+#: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Spletni brskalnik Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:40
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "Spletni brskalnik Ubuntu"
 

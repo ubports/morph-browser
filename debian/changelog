@@ -1,3 +1,58 @@
+webbrowser-app (0.23+15.04.20150430.1-0ubuntu1) vivid; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Add multi-window support for webapps (LP: #1411722)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 30 Apr 2015 16:34:54 +0000
+
+webbrowser-app (0.23+15.04.20150422.1-0ubuntu1) vivid; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Add missing reload button from the webapp container as specified in
+    the design document.
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Ken VanDine ]
+  * added ShareLink to contextualActions
+
+  [ Leo Arias ]
+  * In the autopilot tests, removed the extra focus step to write a URL.
+    (LP: #1441551)
+
+  [ Olivier Tilloy ]
+  * Always exit fullscreen mode when the application becomes inactive.
+    (LP: #1331475)
+  * Recognize about:blank as a valid URL. (LP: #1444139)
+  * Save the updated homepage when pressing return. (LP: #1441874)
+
+  [ Ugo Riboni ]
+  * Include bookmark results in the suggestions list (LP: #1351177)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 22 Apr 2015 10:26:03 +0000
+
+webbrowser-app (0.23+15.04.20150416-0ubuntu1) vivid; urgency=medium
+
+  [ Arthur Mello ]
+  * Add model support to control which history entries will be displayed
+    based on a blacklist database
+  * Make Top Sites format equal to Bookmarks on the New Tab view
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 16 Apr 2015 16:33:37 +0000
+
 webbrowser-app (0.23+15.04.20150410-0ubuntu1) vivid; urgency=medium
 
   [ Alexandre Abreu ]
