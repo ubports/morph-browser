@@ -77,12 +77,6 @@ public:
         }
     }
 
-    Q_INVOKABLE bool writeEmptySearchEngineDescription(const QString& path, const QString& filename)
-    {
-        QFile file(QDir(path).absoluteFilePath(QString("%1.xml").arg(filename)));
-        return file.open(QIODevice::WriteOnly | QIODevice::Text);
-    }
-
     Q_INVOKABLE bool writeInvalidSearchEngineDescription(const QString& path, const QString& filename)
     {
         QFile file(QDir(path).absoluteFilePath(QString("%1.xml").arg(filename)));
