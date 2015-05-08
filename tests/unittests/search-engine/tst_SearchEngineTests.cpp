@@ -177,6 +177,46 @@ private Q_SLOTS:
         QVERIFY(validSpy->isEmpty());
         QVERIFY(!engine->isValid());
     }
+
+    void shouldOverrideExistingDescription()
+    {
+        QFile file(QDir(dir1->path()).absoluteFilePath("engine2.xml"));
+        QVERIFY(file.open(QIODevice::WriteOnly | QIODevice::Text));
+        QTextStream out(&file);
+        out << "<OpenSearchDescription xmlns=\"http://a9.com/-/spec/opensearch/1.1/\">";
+        out << "<ShortName>engine2-overridden</ShortName>";
+        out << "<Description>engine2 overridden search</Description>";
+        out << "<Url type=\"text/html\" template=\"https://example.org/search2overridden?q={searchTerms}\"/>";
+        out << "</OpenSearchDescription>";
+        file.close();
+
+        engine->setFilename("engine2");
+        QCOMPARE(nameSpy->count(), 1);
+        QCOMPARE(engine->name(), QString("engine2-overridden"));
+        QCOMPARE(descriptionSpy->count(), 1);
+        QCOMPARE(engine->description(), QString("engine2 overridden search"));
+        QCOMPARE(urlTemplateSpy->count(), 1);
+        QCOMPARE(engine->urlTemplate(), QString("https://example.org/search2overridden?q={searchTerms}"));
+        QCOMPARE(validSpy->count(), 1);
+        QVERIFY(engine->isValid());
+    }
+
+    void shouldOverrideAndInvalidateDescription()
+    {
+        QFile file(QDir(dir1->path()).absoluteFilePath("engine2.xml"));
+        QVERIFY(file.open(QIODevice::WriteOnly | QIODevice::Text));
+        file.close();
+
+        engine->setFilename("engine2");
+        QVERIFY(nameSpy->isEmpty());
+        QCOMPARE(engine->name(), QString());
+        QVERIFY(descriptionSpy->isEmpty());
+        QCOMPARE(engine->description(), QString());
+        QVERIFY(urlTemplateSpy->isEmpty());
+        QCOMPARE(engine->urlTemplate(), QString());
+        QVERIFY(validSpy->isEmpty());
+        QVERIFY(!engine->isValid());
+    }
 };
 
 QTEST_MAIN(SearchEngineTests)
