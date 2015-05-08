@@ -81,7 +81,7 @@ Item {
                 text: i18n.tr("Search engine")
                 subText: currentSearchEngine.name
 
-                visible: searchEngines.engines.length > 1
+                visible: searchEngines.engines.count > 1
 
                 onClicked: searchEngineComponent.createObject(subpageContainer);
             }
@@ -191,7 +191,7 @@ Item {
                         SearchEngine {
                             id: searchEngineDelegate
                             searchPaths: searchEngines.searchPaths
-                            filename: searchEngines.engines[index]
+                            filename: model.filename
                         }
                         text: searchEngineDelegate.name
 

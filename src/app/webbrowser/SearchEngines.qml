@@ -24,41 +24,61 @@ Item {
     id: searchEngines
 
     property var searchPaths: []
+    readonly property var engines: ListModel {}
+
+    Repeater {
+        id: repeater
+        model: searchEngines.searchPaths
+        delegate: Item {
+            property var folder: FolderListModel {
+                folder: modelData
+                showDirs: false
+                nameFilters: ["*.xml"]
+                sortField: FolderListModel.Name
+                onCountChanged: delayedPopulation.restart()
+            }
+        }
+        onItemRemoved: delayedPopulation.restart()
+    }
 
     QtObject {
         id: internal
-        property var folderListModels: searchPaths.map(function(folder) {
-            return folderModelComponent.createObject(null, {folder: folder})
-        })
-    }
 
-    property var engines: {
-        var r = []
-        for (var i = searchPaths.length - 1; i >= 0; --i) {
-            var folder = internal.folderListModels[i]
-            for (var j = 0; j < folder.count; ++j) {
-                var name = folder.get(j, "fileBaseName")
-                var engine = searchEngineComponent.createObject(null, {filename: name})
-                var found = r.indexOf(name)
-                if (engine.valid && (found == -1)) {
-                    r.push(name)
-                } else if (!engine.valid && (found > -1)) {
-                    r.splice(found, 1)
+        function populateModel() {
+            engines.clear()
+            for (var i = repeater.count - 1; i >= 0; --i) {
+                var folder = repeater.itemAt(i).folder
+                for (var j = 0; j < folder.count; ++j) {
+                    var name = folder.get(j, "fileBaseName")
+                    var engine = searchEngineComponent.createObject(null, {filename: name})
+                    var found = -1
+                    for (var k = 0; k < engines.count; ++k) {
+                        if (engines.get(k).filename == name) {
+                            found = k
+                            break
+                        }
+                    }
+                    if (engine.valid && (found == -1)) {
+                        var insertIndex = 0
+                        for (var k = 0; k < engines.count; ++k) {
+                            if (engines.get(k).filename > name) {
+                                insertIndex = k
+                                break
+                            }
+                        }
+                        engines.insert(k, {"filename": name})
+                    } else if (!engine.valid && (found > -1)) {
+                        engines.remove(found)
+                    }
                 }
             }
         }
-        r.sort()
-        return r
     }
 
-    Component {
-        id: folderModelComponent
-
-        FolderListModel {
-            showDirs: false
-            nameFilters: ["*.xml"]
-            sortField: FolderListModel.Name
-        }
+    Timer {
+        id: delayedPopulation
+        interval: 50
+        onTriggered: internal.populateModel()
     }
 
     Component {
