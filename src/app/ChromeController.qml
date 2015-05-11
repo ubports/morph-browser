@@ -60,5 +60,15 @@ Item {
                 webview.locationBarController.show(true)
             }
         }
+        onLoadEvent: {
+            // When loading, force ModeShown until the load is committed or stopped,
+            // to work around https://launchpad.net/bugs/1453908.
+            if (event.type == Oxide.LoadEvent.TypeStarted) {
+                webview.locationBarController.mode = Oxide.LocationBarController.ModeShown
+            } else if ((event.type == Oxide.LoadEvent.TypeCommitted) ||
+                       (event.type == Oxide.LoadEvent.TypeStopped)) {
+                webview.locationBarController.mode = defaultMode
+            }
+        }
     }
 }
