@@ -256,6 +256,11 @@ BrowserView {
             ]
         }
 
+        ChromeController {
+            webview: browser.currentWebview
+            forceHide: recentView.visible
+        }
+
         Suggestions {
             opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
             Behavior on opacity {
@@ -545,11 +550,6 @@ BrowserView {
                 focus: true
 
                 enabled: visible && !bottomEdgeHandle.dragging && !recentView.visible
-
-                ChromeController {
-                    webview: webviewimpl
-                    forceHide: recentView.visible
-                }
 
                 locationBarController {
                     height: webviewimpl.visible ? chrome.height : 0
