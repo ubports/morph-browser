@@ -30,7 +30,6 @@ ChromeBase {
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
     property bool useDarkTheme: false
-    property string buttonIconColor: useDarkTheme ? "#ffffff" : "#808080"
 
     backgroundColor: useDarkTheme ? "#5d5d5d" : Theme.palette.normal.background
 
@@ -48,7 +47,7 @@ ChromeBase {
 
             iconName: "previous"
             iconSize: 0.4 * height
-            iconColor: chrome.buttonIconColor
+            iconColor: chrome.useDarkTheme ? "#ffffff" : "#808080"
 
             height: chrome.height
             width: height * 0.8
@@ -68,7 +67,7 @@ ChromeBase {
 
             iconName: "next"
             iconSize: 0.4 * height
-            iconColor: chrome.buttonIconColor
+            iconColor: chrome.useDarkTheme ? "#ffffff" : "#808080"
 
             height: chrome.height
             visible: enabled
@@ -134,7 +133,7 @@ ChromeBase {
 
             iconName: "contextual-menu"
             iconSize: 0.5 * height
-            iconColor: chrome.buttonIconColor
+            iconColor: chrome.useDarkTheme ? "#ffffff" : "#808080"
 
             height: chrome.height
             width: height * 0.8
