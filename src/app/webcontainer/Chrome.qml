@@ -136,7 +136,7 @@ ChromeBase {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: accountSwitcher
+            visible: accountSwitcher
             onTriggered: chrome.chooseAccount()
         }
     }
