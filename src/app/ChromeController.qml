@@ -24,6 +24,7 @@ Item {
 
     property var webview
     property bool forceHide: false
+    property int defaultMode: Oxide.LocationBarController.ModeAuto
 
     onForceHideChanged: {
         if (!webview) {
@@ -33,8 +34,10 @@ Item {
         if (forceHide) {
             webview.locationBarController.mode = Oxide.LocationBarController.ModeHidden
         } else if (!webview.fullscreen) {
-            webview.locationBarController.mode = Oxide.LocationBarController.ModeAuto
-            webview.locationBarController.show(false)
+            webview.locationBarController.mode = defaultMode
+            if (webview.locationBarController.mode == Oxide.LocationBarController.ModeAuto) {
+                webview.locationBarController.show(false)
+            }
         }
         webview.locationBarController.animated = true
     }
@@ -45,12 +48,15 @@ Item {
             if (webview.fullscreen) {
                 webview.locationBarController.mode = Oxide.LocationBarController.ModeHidden
             } else if (!forceHide) {
-                webview.locationBarController.mode = Oxide.LocationBarController.ModeAuto
-                webview.locationBarController.show(true)
+                webview.locationBarController.mode = defaultMode
+                if (webview.locationBarController.mode == Oxide.LocationBarController.ModeAuto) {
+                    webview.locationBarController.show(true)
+                }
             }
         }
         onLoadingChanged: {
-            if (webview.loading && !webview.fullscreen && !forceHide) {
+            if (webview.loading && !webview.fullscreen && !forceHide &&
+                (webview.locationBarController.mode == Oxide.LocationBarController.ModeAuto)) {
                 webview.locationBarController.show(true)
             }
         }

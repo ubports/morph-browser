@@ -257,8 +257,11 @@ BrowserView {
         }
 
         ChromeController {
+            id: chromeController
             webview: browser.currentWebview
             forceHide: recentView.visible
+            defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
+                                                   : Oxide.LocationBarController.ModeAuto
         }
 
         Suggestions {
@@ -553,6 +556,7 @@ BrowserView {
 
                 locationBarController {
                     height: webviewimpl.visible ? chrome.height : 0
+                    mode: chromeController.defaultMode
                 }
 
                 //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
