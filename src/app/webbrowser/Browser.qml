@@ -53,8 +53,9 @@ BrowserView {
         if (tabsModel == privateTabsModel && privateTabsModel != null) {
             if (privateTabsModelLoader.status == Loader.Ready) {
                 browser.openUrlInNewTab("", true)
-                if (formFactor == "desktop")
+                if (formFactor == "desktop") {
                     internal.focusAddressBar()
+                }
             }
         }
     }
@@ -285,10 +286,11 @@ BrowserView {
                     text: browser.state == "private" ? i18n.tr("Leave Private") : i18n.tr("Private Mode")
                     iconName: "private-browsing"
                     onTriggered: {
-                        if (browser.state == "private")
+                        if (browser.state == "private") {
                             PopupUtils.open(leavePrivateModeDialog)
-                        else
+                        } else {
                             browser.state = "private"
+                        }
                     }
                 }
             ]
@@ -601,10 +603,11 @@ BrowserView {
         Connections {
             target: browser
             onStateChanged: {
-                if (browser.state == "private")
+                if (browser.state == "private") {
                     privateTabsModelLoader.sourceComponent = privateTabsModelComponent
-                else
+                } else {
                     privateTabsModelLoader.sourceComponent = null
+                }
             }
         }
 
@@ -835,8 +838,9 @@ BrowserView {
                     Connections {
                         target: browser
                         onStateChanged: {
-                            if (browser.state == "private")
+                            if (browser.state == "private") {
                                 newPrivateTabViewLoader.sourceComponent = null
+                            }
                         }
                     }
 
@@ -886,8 +890,9 @@ BrowserView {
                     Connections {
                         target: browser
                         onStateChanged: {
-                            if (browser.state != "private")
+                            if (browser.state != "private") {
                                 newPrivateTabViewLoader.sourceComponent = null
+                            }
                         }
                     }
 
