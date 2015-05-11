@@ -20,20 +20,16 @@
 #include "cache-deleter.h"
 #include "config.h"
 #include "file-operations.h"
-#include "history-model.h"
-#include "history-matches-model.h"
-#include "history-timeframe-model.h"
-#include "history-byvisits-model.h"
-#include "history-domainlist-model.h"
 #include "history-domainlist-chronological-model.h"
+#include "history-domainlist-model.h"
+#include "history-model.h"
+#include "history-timeframe-model.h"
 #include "limit-proxy-model.h"
 #include "searchengine.h"
+#include "suggestions-filter-model.h"
 #include "tabs-model.h"
+#include "top-sites-model.h"
 #include "webbrowser-app.h"
-
-// system
-#include <string.h>
-#include <unistd.h>
 
 // Qt
 #include <QtCore/QCoreApplication>
@@ -67,32 +63,10 @@ static QObject* CacheDeleter_singleton_factory(QQmlEngine* engine, QJSEngine* sc
 
 bool WebbrowserApp::initialize()
 {
-    // Re-direct webapps to the dedicated container for backward compatibility
-    // with 13.10
-    Q_FOREACH(const QString& argument, m_arguments) {
-        if (argument.startsWith("--webapp")) {
-            qWarning() << "Deprecated webapp options: use the webapp-container program instead";
-
-            int size = m_arguments.size();
-            char* argv[size + 2];
-            argv[0] = (char*) "webapp-container";
-            for (int i = 0; i < size; ++i) {
-                QByteArray bytes = m_arguments.at(i).toLocal8Bit();
-                argv[i + 1] = new char[bytes.size() + 1];
-                strcpy(argv[i + 1], bytes.constData());
-            }
-            argv[size + 1] = NULL;
-
-            QCoreApplication::exit(execvp(argv[0], argv));
-            return false;
-        }
-    }
-
     const char* uri = "webbrowserapp.private";
     qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
-    qmlRegisterType<HistoryMatchesModel>(uri, 0, 1, "HistoryMatchesModel");
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
-    qmlRegisterType<HistoryByVisitsModel>(uri, 0 , 1, "HistoryByVisitsModel");
+    qmlRegisterType<TopSitesModel>(uri, 0 , 1, "TopSitesModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
@@ -101,6 +75,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
     qmlRegisterType<SearchEngine>(uri, 0, 1, "SearchEngine");
     qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
+    qmlRegisterType<SuggestionsFilterModel>(uri, 0, 1, "SuggestionsFilterModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         m_window->setProperty("newSession", m_arguments.contains("--new-session"));

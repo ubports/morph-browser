@@ -25,14 +25,18 @@ from autopilot.matchers import Eventually
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
-class PrepopulatedHistoryDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
+class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
 
-    """Helper test class that pre-populates the history database."""
+    """Helper test class that pre-populates history and bookmarks databases."""
 
     def setUp(self):
-        self.clear_datadir()
-        db_path = os.path.join(os.path.expanduser("~"), ".local", "share",
-                               "webbrowser-app", "history.sqlite")
+        self.create_temporary_profile()
+        self.populate_history()
+        self.populate_bookmarks()
+        super(PrepopulatedDatabaseTestCaseBase, self).setUp()
+
+    def populate_history(self):
+        db_path = os.path.join(self.data_location, "history.sqlite")
         connection = sqlite3.connect(db_path)
         connection.execute("""CREATE TABLE IF NOT EXISTS history
                               (url VARCHAR, domain VARCHAR, title VARCHAR,
@@ -54,7 +58,9 @@ class PrepopulatedHistoryDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
              "example - Google Search"),
             ("http://example.iana.org/", "iana.org", "Example Domain"),
             ("http://www.iana.org/domains/special", "iana.org",
-             "IANA — Special Use Domains")
+             "IANA — Special Use Domains"),
+            ("http://doc.qt.io/qt-5/qtqml-index.html", "qt.io",
+             "Qt QML 5.4 - Qt Documentation")
         ]
         for i, row in enumerate(rows):
             visits = random.randint(1, 5)
@@ -65,15 +71,49 @@ class PrepopulatedHistoryDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
             connection.execute(query)
         connection.commit()
         connection.close()
-        super(PrepopulatedHistoryDatabaseTestCaseBase, self).setUp()
+
+    def populate_bookmarks(self):
+        db_path = os.path.join(self.data_location, "bookmarks.sqlite")
+        connection = sqlite3.connect(db_path)
+        connection.execute("""CREATE TABLE IF NOT EXISTS bookmarks
+                              (url VARCHAR, title VARCHAR, icon VARCHAR,
+                              created INTEGER);""")
+        rows = [
+            ("http://www.rsc.org/periodic-table/element/24/chromium",
+             "Chromium - Element Information"),
+            ("http://www.rsc.org/periodic-table/element/77/iridium",
+             "Iridium - Element Information"),
+            ("http://www.rsc.org/periodic-table/element/31/gallium",
+             "Gallium - Element Information"),
+            ("http://www.rsc.org/periodic-table/element/116/livermorium",
+             "Livermorium - Element Information"),
+            ("http://www.rsc.org/periodic-table/element/62/samarium",
+             "Samarium - Element Information"),
+            ("http://en.wikipedia.org/wiki/Linux",
+             "Linux - Wikipedia, the free encyclopedia"),
+            ("https://www.linux.com/",
+             "Linux.com | The source for Linux information"),
+            ("http://doc.qt.io/qt-5/qtqml-index.html",
+             "Qt QML 5.4 - Qt Documentation")
+        ]
+
+        for i, row in enumerate(rows):
+            timestamp = int(time.time()) - i * 10
+            query = "INSERT INTO bookmarks \
+                     VALUES ('{}', '{}', '', {});"
+            query = query.format(row[0], row[1], timestamp)
+            connection.execute(query)
+
+        connection.commit()
+        connection.close()
 
 
-class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
+class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
 
-    """Test the address bar suggestions based on navigation history."""
+    """Test the address bar suggestions (based on history and bookmarks)."""
 
     def setUp(self):
-        super().setUp()
+        super(TestSuggestions, self).setUp()
         self.address_bar = self.main_window.address_bar
 
     def assert_suggestions_eventually_shown(self):
@@ -85,24 +125,49 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.assertThat(suggestions.opacity, Eventually(Equals(0)))
 
     def test_show_list_of_suggestions(self):
-        listview = self.main_window.get_suggestions().get_list()
+        suggestions = self.main_window.get_suggestions()
         self.assert_suggestions_eventually_hidden()
         self.assert_suggestions_eventually_hidden()
         self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
-        self.assertThat(listview.count, Eventually(Equals(1)))
+        self.assertThat(suggestions.count, Eventually(Equals(1)))
         self.address_bar.clear()
         self.assert_suggestions_eventually_hidden()
-        self.address_bar.write('u')
-        self.assert_suggestions_eventually_shown()
-        self.assertThat(listview.count, Eventually(Equals(6)))
-        self.address_bar.write('b', clear=False)
-        self.assertThat(listview.count, Eventually(Equals(5)))
-        self.address_bar.write('leh', clear=False)
-        self.assertThat(listview.count, Eventually(Equals(0)))
-        self.address_bar.clear()
+
+    def test_list_of_suggestions_case_insensitive(self):
+        suggestions = self.main_window.get_suggestions()
         self.address_bar.write('xaMPL')
-        self.assertThat(listview.count, Eventually(Equals(2)))
+        self.assertThat(suggestions.count, Eventually(Equals(2)))
+
+    def test_list_of_suggestions_history_limits(self):
+        suggestions = self.main_window.get_suggestions()
+        self.address_bar.write('ubuntu')
+        self.assert_suggestions_eventually_shown()
+        self.assertThat(suggestions.count, Eventually(Equals(4)))
+        self.address_bar.write('bleh', clear=False)
+        self.assertThat(suggestions.count, Eventually(Equals(0)))
+        self.address_bar.write('iana')
+        self.assertThat(suggestions.count, Eventually(Equals(2)))
+
+    def test_list_of_suggestions_bookmark_limits(self):
+        suggestions = self.main_window.get_suggestions()
+        self.address_bar.write('element')
+        self.assert_suggestions_eventually_shown()
+        self.assertThat(suggestions.count, Eventually(Equals(4)))
+        self.address_bar.write('bleh', clear=False)
+        self.assertThat(suggestions.count, Eventually(Equals(0)))
+        self.address_bar.write('linux')
+        self.assertThat(suggestions.count, Eventually(Equals(2)))
+
+    def test_list_of_suggestions_order(self):
+        suggestions = self.main_window.get_suggestions()
+        self.address_bar.write('QML')
+        self.assert_suggestions_eventually_shown()
+        self.assertThat(suggestions.count, Eventually(Equals(2)))
+        entries = suggestions.get_ordered_entries()
+        self.assertThat(len(entries), Equals(2))
+        self.assertThat(entries[0].icon, Equals("history"))
+        self.assertThat(entries[1].icon, Equals("non-starred"))
 
     def test_clear_address_bar_dismisses_suggestions(self):
         self.address_bar.focus()
@@ -140,18 +205,17 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
 
     def test_select_suggestion(self):
         suggestions = self.main_window.get_suggestions()
-        listview = suggestions.get_list()
         self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
         self.address_bar.clear()
         self.address_bar.write('ubuntu')
         self.assert_suggestions_eventually_shown()
-        self.assertThat(listview.count, Eventually(Equals(5)))
-        entries = suggestions.get_entries()
+        self.assertThat(suggestions.count, Eventually(Equals(4)))
+        entries = suggestions.get_ordered_entries()
         highlight = '<b><font color="#dd4814">Ubuntu</font></b>'
         url = "http://en.wikipedia.org/wiki/{}_(operating_system)"
         url = url.format(highlight)
-        entries = [entry for entry in entries if url in entry.subText]
+        entries = [entry for entry in entries if url in entry.subtitle]
         entry = entries[0] if len(entries) == 1 else None
         self.assertIsNotNone(entry)
         self.pointing_device.click_object(entry)
@@ -165,9 +229,8 @@ class TestHistorySuggestions(PrepopulatedHistoryDatabaseTestCaseBase):
         self.address_bar.write('(phil')
         self.assert_suggestions_eventually_shown()
         suggestions = self.main_window.get_suggestions()
-        listview = suggestions.get_list()
-        self.assertThat(listview.count, Eventually(Equals(1)))
-        entry = suggestions.get_entries()[0]
+        self.assertThat(suggestions.count, Eventually(Equals(1)))
+        entry = suggestions.get_ordered_entries()[0]
         highlight = '<b><font color="#dd4814">(phil</font></b>'
         url = "http://en.wikipedia.org/wiki/Ubuntu_{}osophy)".format(highlight)
-        self.assertThat(entry.subText, Contains(url))
+        self.assertThat(entry.subtitle, Contains(url))

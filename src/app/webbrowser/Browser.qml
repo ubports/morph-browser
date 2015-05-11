@@ -129,6 +129,13 @@ BrowserView {
                 top: recentView.visible ? invisibleTabChrome.bottom : parent.top
             }
             height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : 0)
+
+            Keys.onEscapePressed: {
+                if (browser.currentWebview && browser.currentWebview.fullscreen) {
+                    event.accepted = true
+                    browser.currentWebview.fullscreen = false
+                }
+            }
         }
 
         Loader {
@@ -214,14 +221,7 @@ BrowserView {
                     text: i18n.tr("Share")
                     iconName: "share"
                     enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
-                    onTriggered: {
-                        var component = Qt.createComponent("../Share.qml")
-                        if (component.status == Component.Ready) {
-                            var share = component.createObject(browser)
-                            share.onDone.connect(share.destroy)
-                            share.shareLink(browser.currentWebview.url, browser.currentWebview.title)
-                        }
-                    }
+                    onTriggered: internal.shareLink(browser.currentWebview.url, browser.currentWebview.title)
                 },
                 Action {
                     objectName: "history"
@@ -265,6 +265,7 @@ BrowserView {
         }
 
         Suggestions {
+            id: suggestionsList
             opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
             Behavior on opacity {
                 UbuntuNumberAnimation {}
@@ -275,11 +276,34 @@ BrowserView {
                 horizontalCenter: parent.horizontalCenter
             }
             width: chrome.width - units.gu(5)
-            height: enabled ? Math.min(contentHeight, tabContainer.height - units.gu(2)) : 0
-            model: HistoryMatchesModel {
-                sourceModel: browser.historyModel
-                query: chrome.text
+            height: enabled ? Math.min(contentHeight, tabContainer.height - chrome.height - units.gu(2)) : 0
+
+            searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
+
+            models: [historySuggestions, bookmarksSuggestions]
+
+            LimitProxyModel {
+                id: historySuggestions
+                limit: 4
+                property string icon: "history"
+                sourceModel: SuggestionsFilterModel {
+                    sourceModel: browser.historyModel
+                    terms: suggestionsList.searchTerms
+                    searchFields: ["url", "title"]
+                }
             }
+
+            LimitProxyModel {
+                id: bookmarksSuggestions
+                limit: 4
+                property string icon: "non-starred"
+                sourceModel: SuggestionsFilterModel {
+                    sourceModel: browser.bookmarksModel
+                    terms: suggestionsList.searchTerms
+                    searchFields: ["url", "title"]
+                }
+            }
+
             onSelected: {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
@@ -407,10 +431,14 @@ BrowserView {
 
         enabled: (formFactor == "mobile") && (recentView.state == "") &&
                  (Screen.orientation == Screen.primaryOrientation) &&
-                 browser.currentWebview && !browser.currentWebview.fullscreen
+                 browser.currentWebview
 
         onDraggingChanged: {
-            if (!dragging) {
+            if (dragging) {
+                if (browser.currentWebview) {
+                    browser.currentWebview.fullscreen = false
+                }
+            } else {
                 if (stage == 1) {
                     if (tabsModel.count > 1) {
                         tabslist.selectAndAnimateTab(1)
@@ -430,12 +458,14 @@ BrowserView {
     }
 
     Image {
+        id: bottomEdgeHint
         objectName: "bottomEdgeHint"
         source: (formFactor == "mobile") ? "assets/bottom_edge_hint.png" : ""
+        property bool forceShow: false
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
-            bottomMargin: (chrome.state == "shown") ? 0 : -height
+            bottomMargin: (((chrome.state == "shown") && browser.currentWebview && !browser.currentWebview.fullscreen) || forceShow) ? 0 : -height
             Behavior on bottomMargin {
                 UbuntuNumberAnimation {}
             }
@@ -444,6 +474,18 @@ BrowserView {
         opacity: 1 - recentView.opacity
         Behavior on opacity {
             UbuntuNumberAnimation {}
+        }
+
+        Label {
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                verticalCenter: parent.verticalCenter
+                verticalCenterOffset: units.dp(2)
+            }
+
+            fontSize: "small"
+            // TRANSLATORS: %1 refers to the current number of tabs opened
+            text: i18n.tr("(%1)").arg(tabsModel.count)
         }
     }
 
@@ -581,6 +623,10 @@ BrowserView {
                         enabled: contextualData.href.toString()
                         onTriggered: Clipboard.push([contextualData.href])
                     }
+                    Actions.ShareLink {
+                        enabled: (formFactor == "mobile") && contextualData.href.toString()
+                        onTriggered: internal.shareLink(contextualData.href.toString(), contextualData.title)
+                    }
                     Actions.OpenImageInNewTab {
                         enabled: contextualData.img.toString()
                         onTriggered: browser.openUrlInNewTab(contextualData.img, true)
@@ -645,6 +691,65 @@ BrowserView {
                     }
                 }
 
+                onFullscreenChanged: {
+                    if (fullscreen) {
+                        fullscreenExitHintComponent.createObject(webviewimpl)
+                    }
+                }
+                Component {
+                    id: fullscreenExitHintComponent
+
+                    Rectangle {
+                        id: fullscreenExitHint
+                        objectName: "fullscreenExitHint"
+
+                        anchors.centerIn: parent
+                        height: units.gu(6)
+                        width: Math.min(units.gu(50), parent.width - units.gu(12))
+                        radius: units.gu(1)
+                        color: "#3e3b39"
+                        opacity: 0.85
+
+                        Behavior on opacity {
+                            UbuntuNumberAnimation {
+                                duration: UbuntuAnimation.SlowDuration
+                            }
+                        }
+                        onOpacityChanged: {
+                            if (opacity == 0.0) {
+                                fullscreenExitHint.destroy()
+                            }
+                        }
+
+                        Label {
+                            color: "white"
+                            font.weight: Font.Light
+                            anchors.centerIn: parent
+                            text: (formFactor == "mobile") ?
+                                      i18n.tr("Swipe Up To Exit Full Screen") :
+                                      i18n.tr("Press ESC To Exit Full Screen")
+                        }
+
+                        Timer {
+                            running: true
+                            interval: 2000
+                            onTriggered: fullscreenExitHint.opacity = 0
+                        }
+
+                        Connections {
+                            target: webviewimpl
+                            onFullscreenChanged: {
+                                if (!webviewimpl.fullscreen) {
+                                    fullscreenExitHint.destroy()
+                                }
+                            }
+                        }
+
+                        Component.onCompleted: bottomEdgeHint.forceShow = true
+                        Component.onDestruction: bottomEdgeHint.forceShow = false
+                    }
+                }
+
                 Loader {
                     id: newTabViewLoader
                     anchors.fill: parent
@@ -699,6 +804,15 @@ BrowserView {
 
     QtObject {
         id: internal
+
+        function shareLink(url, title) {
+            var component = Qt.createComponent("../Share.qml")
+            if (component.status == Component.Ready) {
+                var share = component.createObject(browser)
+                share.onDone.connect(share.destroy)
+                share.shareLink(url, title)
+            }
+        }
 
         function addTab(tab, setCurrent) {
             var index = tabsModel.add(tab)
@@ -815,14 +929,34 @@ BrowserView {
             return tabComponent.createObject(tabContainer, properties)
         }
     }
+    Timer {
+        id: delayedSessionSaver
+        interval: 500
+        onTriggered: session.save()
+    }
+    Timer {
+        // Save session periodically to mitigate state loss when the application crashes
+        interval: 60000 // every minute
+        repeat: true
+        running: true
+        onTriggered: delayedSessionSaver.restart()
+    }
     Connections {
         target: Qt.application
         onStateChanged: {
             if (Qt.application.state != Qt.ApplicationActive) {
                 session.save()
+                if (browser.currentWebview) {
+                    browser.currentWebview.fullscreen = false
+                }
             }
         }
         onAboutToQuit: session.save()
+    }
+    Connections {
+        target: tabsModel
+        onCurrentTabChanged: delayedSessionSaver.restart()
+        onCountChanged: delayedSessionSaver.restart()
     }
 
     // Delay instantiation of the first webview by 1 msec to allow initial

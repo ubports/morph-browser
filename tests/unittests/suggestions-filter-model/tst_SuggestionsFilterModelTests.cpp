@@ -22,24 +22,23 @@
 
 // local
 #include "history-model.h"
-#include "history-matches-model.h"
+#include "suggestions-filter-model.h"
 
-
-class HistoryMatchesModelTests : public QObject
+class SuggestionsFilterModelTests : public QObject
 {
     Q_OBJECT
 
 private:
     HistoryModel* model;
-    HistoryMatchesModel* matches;
+    SuggestionsFilterModel* matches;
 
 private Q_SLOTS:
     void init()
     {
         model = new HistoryModel;
         model->setDatabasePath(":memory:");
-        matches = new HistoryMatchesModel;
-        matches->setSourceModel(model);
+        matches = new SuggestionsFilterModel;
+        matches->setSourceModel(QVariant::fromValue(model));
     }
 
     void cleanup()
@@ -56,45 +55,58 @@ private Q_SLOTS:
     void shouldNotifyWhenChangingSourceModel()
     {
         QSignalSpy spy(matches, SIGNAL(sourceModelChanged()));
-        matches->setSourceModel(model);
+        matches->setSourceModel(QVariant::fromValue(model));
         QVERIFY(spy.isEmpty());
         HistoryModel* model2 = new HistoryModel;
-        matches->setSourceModel(model2);
+        matches->setSourceModel(QVariant::fromValue(model2));
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(matches->sourceModel(), model2);
-        matches->setSourceModel(0);
+        QCOMPARE(matches->sourceModel(), QVariant::fromValue(model2));
+        matches->setSourceModel(QVariant());
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(matches->sourceModel(), (HistoryModel*) 0);
+        QVERIFY(matches->sourceModel().isNull());
         delete model2;
     }
 
-    void shouldBeEmptyWhenQueryIsEmpty()
+    void shouldBeEmptyWhileTermsAndFieldsEmpty()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
         QCOMPARE(matches->rowCount(), 0);
     }
 
-    void shouldRecordQuery()
+    void shouldRecordTerms()
     {
-        QVERIFY(matches->query().isEmpty());
-        matches->setQuery("example");
-        QCOMPARE(matches->query(), QString("example"));
+        QVERIFY(matches->terms().isEmpty());
+        QStringList terms;
+        terms.append("example");
+        matches->setTerms(terms);
+        QCOMPARE(matches->terms(), terms);
     }
 
-    void shouldMatchUrl()
+    void shouldRecordSearchFields()
+    {
+        QVERIFY(matches->searchFields().isEmpty());
+        QStringList fields;
+        fields.append("url");
+        matches->setSearchFields(fields);
+        QCOMPARE(matches->searchFields(), fields);
+    }
+
+    void shouldMatch()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
-        matches->setQuery("example");
+        matches->setTerms(QStringList({"example"}));
+        matches->setSearchFields(QStringList({"url", "title"}));
         QCOMPARE(matches->rowCount(), 2);
     }
 
-    void shouldMatchTitle()
+    void shouldMatchSecondField()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
-        matches->setQuery("domain");
+        matches->setTerms(QStringList({"domain"}));
+        matches->setSearchFields(QStringList({"url", "title"}));
         QCOMPARE(matches->rowCount(), 2);
     }
 
@@ -104,58 +116,73 @@ private Q_SLOTS:
         model->add(QUrl("http://ubuntu.com"), "Home | Ubuntu", QUrl());
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
         model->add(QUrl("http://wikipedia.org"), "Wikipedia", QUrl());
-        matches->setQuery("example");
+        matches->setTerms(QStringList({"domain"}));
+        matches->setSearchFields(QStringList({"url", "title"}));
         QCOMPARE(matches->rowCount(), 2);
     }
 
-    void shouldUpdateResultsWhenQueryChanges()
+    void shouldUpdateResultsWhenTermsChange()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         model->add(QUrl("http://ubuntu.com"), "Home | Ubuntu", QUrl());
         model->add(QUrl("http://wikipedia.org"), "Wikipedia", QUrl());
         model->add(QUrl("http://ubuntu.com/download"), "Download Ubuntu | Ubuntu", QUrl());
-        matches->setQuery("ubuntu");
+        matches->setSearchFields(QStringList({"url", "title"}));
+        matches->setTerms(QStringList({"ubuntu"}));
         QCOMPARE(matches->rowCount(), 2);
-        matches->setQuery("wiki");
+        matches->setTerms(QStringList({"wiki"}));
         QCOMPARE(matches->rowCount(), 1);
-        matches->setQuery("");
+        matches->setTerms(QStringList());
         QCOMPARE(matches->rowCount(), 0);
     }
 
-    void shouldUpdateResultsWhenHistoryChanges()
+    void shouldUpdateResultsWhenSourceModelUpdates()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         model->add(QUrl("http://wikipedia.org"), "Wikipedia", QUrl());
-        matches->setQuery("ubuntu");
+        matches->setTerms(QStringList({"ubuntu"}));
+        matches->setSearchFields(QStringList({"url"}));
         QCOMPARE(matches->rowCount(), 0);
         model->add(QUrl("http://ubuntu.com"), "Home | Ubuntu", QUrl());
         QCOMPARE(matches->rowCount(), 1);
-    }
-
-    void shouldExtractTermsFromQuery()
-    {
-        matches->setQuery("ubuntu");
-        QCOMPARE(matches->terms(), QStringList() << "ubuntu");
-        matches->setQuery("download ubuntu");
-        QCOMPARE(matches->terms(), QStringList() << "download" << "ubuntu");
-        matches->setQuery("   ubuntu    touch  ");
-        QCOMPARE(matches->terms(), QStringList() << "ubuntu" << "touch");
-        matches->setQuery("ubuntu+touch");
-        QCOMPARE(matches->terms(), QStringList() << "ubuntu+touch");
     }
 
     void shouldMatchAllTerms()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
-        model->add(QUrl("http://ubuntu.com"), "Home | Ubuntu", QUrl());
-        model->add(QUrl("http://wikipedia.org"), "Wikipedia", QUrl());
-        model->add(QUrl("http://ubuntu.com/download"), "Download Ubuntu | Ubuntu", QUrl());
-        matches->setQuery("ubuntu home");
+        model->add(QUrl("http://example.com"), "Example Domain", QUrl());
+        matches->setTerms(QStringList({"example", "org"}));
+        matches->setSearchFields(QStringList({"url", "title"}));
         QCOMPARE(matches->rowCount(), 1);
-        matches->setQuery("ubuntu wiki");
-        QCOMPARE(matches->rowCount(), 0);
+    }
+
+    void shouldMatchTermsInDifferentFields()
+    {
+        model->add(QUrl("http://example.org"), "Example Domain", QUrl());
+        model->add(QUrl("http://example.com"), "Example Domain", QUrl());
+        matches->setTerms(QStringList({"org", "domain"}));
+        matches->setSearchFields(QStringList({"url", "title"}));
+        QCOMPARE(matches->rowCount(), 1);
+    }
+
+    void shouldMatchDuplicateTerms()
+    {
+        model->add(QUrl("http://example.org"), "Example Domain", QUrl());
+        model->add(QUrl("http://example.com"), "Example Domain", QUrl());
+        matches->setTerms(QStringList({"org", "org", "org", "org"}));
+        matches->setSearchFields(QStringList({"url", "title"}));
+        QCOMPARE(matches->rowCount(), 1);
+    }
+
+    void shouldWarnOnInvalidFields()
+    {
+        QTest::ignoreMessage(QtWarningMsg, "Source model does not have role matching field: \"foo\"");
+        model->add(QUrl("http://example.org"), "Example Domain", QUrl());
+        matches->setTerms(QStringList({"org"}));
+        matches->setSearchFields(QStringList({"url", "foo"}));
+        QCOMPARE(matches->count(), 1);
     }
 };
 
-QTEST_MAIN(HistoryMatchesModelTests)
-#include "tst_HistoryMatchesModelTests.moc"
+QTEST_MAIN(SuggestionsFilterModelTests)
+#include "tst_SuggestionsFilterModelTests.moc"

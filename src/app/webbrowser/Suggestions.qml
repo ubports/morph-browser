@@ -18,14 +18,14 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
 
 Rectangle {
     id: suggestions
 
-    property alias model: listview.model
-    property alias count: listview.count
-    property alias contentHeight: listview.contentHeight
+    property var searchTerms
+    property var models
+    property int count: models.reduce(countItems, 0)
+    property alias contentHeight: suggestionsList.contentHeight
 
     signal selected(url url)
 
@@ -38,92 +38,64 @@ Rectangle {
     clip: true
 
     ListView {
-        id: listview
+        id: suggestionsList
+        anchors.fill: parent
 
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        height: parent.height
+        model: suggestions.models
+        delegate: Column {
+            width: suggestionsList.width
+            height: childrenRect.height
 
-        delegate: ListItem.Base {
-            // Not using ListItem.Subtitled because it’s not themable,
-            // and we want the subText to be on one line only.
+            Repeater {
+                id: suggestionsSource
+                model: modelData
+                property int firstItemIndex: models.slice(0, index).reduce(countItems, 0)
 
-            property alias text: label.text
-            property alias subText: subLabel.text
+                delegate: Suggestion {
+                    width: suggestionsList.width
+                    showDivider: suggestionsSource.firstItemIndex + index <
+                                 suggestions.count - 1
 
-            showDivider: index < (listview.count - 1)
+                    title: highlightTerms(model.title)
+                    subtitle: highlightTerms(model.url)
+                    url: model.url
+                    icon: suggestionsSource.model.icon
 
-            __height: Math.max(middleVisuals.height, units.gu(6))
-            // disable focus handling
-            activeFocusOnPress: false
-
-            Item  {
-                id: middleVisuals
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    verticalCenter: parent.verticalCenter
+                    onSelected: suggestions.selected(url)
                 }
-                height: childrenRect.height + label.anchors.topMargin + subLabel.anchors.bottomMargin
-
-                Label {
-                    id: label
-                    anchors {
-                        top: parent.top
-                        left: parent.left
-                        right: parent.right
-                    }
-                    elide: Text.ElideRight
-                    text: highlightTerms(title, suggestions.model.terms)
-                }
-
-                Label {
-                    id: subLabel
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        top: label.bottom
-                    }
-                    fontSize: "small"
-                    elide: Text.ElideRight
-                    text: highlightTerms(url, suggestions.model.terms)
-                }
-            }
-
-            onClicked: suggestions.selected(url)
-
-            function escapeTerm(term) {
-                // Build a regular expression suitable for highlighting a term
-                // in a case-insensitive manner and globally, by escaping
-                // special characters (a simpler version of preg_quote).
-                var escaped = term.replace(/[().?]/g, '\\$&')
-                return new RegExp(escaped, 'ig')
-            }
-
-            function highlightTerms(text, terms) {
-                // Highlight the matching terms (bold and Ubuntu orange)
-                if (text === undefined) {
-                    return ''
-                }
-                var highlighted = text.toString()
-                var count = terms.length
-                var highlight = '<b><font color="%1">$&</font></b>'.arg(UbuntuColors.orange)
-                for (var i = 0; i < count; ++i) {
-                    var term = terms[i]
-                    highlighted = highlighted.replace(escapeTerm(term), highlight)
-                }
-                highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
-                highlighted = '<html>' + highlighted + '</html>'
-                return highlighted
             }
         }
     }
 
     Scrollbar {
-        flickableItem: listview
+        flickableItem: suggestionsList
         align: Qt.AlignTrailing
     }
+
+    function escapeTerm(term) {
+        // Build a regular expression suitable for highlighting a term
+        // in a case-insensitive manner and globally, by escaping
+        // special characters (a simpler version of preg_quote).
+        var escaped = term.replace(/[().?]/g, '\\$&')
+        return new RegExp(escaped, 'ig')
+    }
+
+    function highlightTerms(text) {
+        // Highlight the matching terms (bold and Ubuntu orange)
+        if (text === undefined) {
+            return ''
+        }
+        var highlighted = text.toString()
+        var count = searchTerms.length
+        var highlight = '<b><font color="%1">$&</font></b>'.arg(UbuntuColors.orange)
+        for (var i = 0; i < count; ++i) {
+            var term = searchTerms[i]
+            highlighted = highlighted.replace(escapeTerm(term), highlight)
+        }
+        highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
+        highlighted = '<html>' + highlighted + '</html>'
+        return highlighted
+    }
+
+    function countItems(total, model) { return total + model.count }
 }
