@@ -669,8 +669,6 @@ BrowserView {
                 preferences.localStorageEnabled: true
                 preferences.appCacheEnabled: true
 
-                incognito: browser.state == "private"
-
                 contextualActions: ActionList {
                     Actions.OpenLinkInNewTab {
                         enabled: contextualData.href.toString()
@@ -708,7 +706,7 @@ BrowserView {
                 }
 
                 onNewViewRequested: {
-                    var tab = tabComponent.createObject(tabContainer, {"request": request})
+                    var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.state == "private"})
                     var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                     internal.addTab(tab, setCurrent)
                 }
@@ -967,7 +965,7 @@ BrowserView {
 
     function openUrlInNewTab(url, setCurrent, load) {
         load = typeof load !== 'undefined' ? load : true
-        var tab = tabComponent.createObject(tabContainer, {"initialUrl": url})
+        var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.state == "private"})
         internal.addTab(tab, setCurrent)
         if (load) {
             tabsModel.currentTab.load()
@@ -1027,7 +1025,7 @@ BrowserView {
         }
 
         function createTabFromState(state) {
-            var properties = {'initialUrl': state.url, 'initialTitle': state.title}
+            var properties = {'initialUrl': state.url, 'initialTitle': state.title, 'incognito': browser.state == "private"}
             if ('uniqueId' in state) {
                 properties["uniqueId"] = state.uniqueId
             }

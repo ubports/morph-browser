@@ -36,6 +36,7 @@ FocusScope {
     readonly property string title: webview ? webview.title : initialTitle
     readonly property url icon: webview ? webview.icon : ""
     property url preview
+    property bool incognito
 
     FocusScope {
         id: webviewContainer
@@ -46,7 +47,7 @@ FocusScope {
 
     function load() {
         if (!webview) {
-            var properties = {'tab': tab}
+            var properties = {'tab': tab, 'incognito': incognito}
             if (restoreState) {
                 properties['restoreState'] = restoreState
                 properties['restoreType'] = restoreType
@@ -105,7 +106,7 @@ FocusScope {
         if (request) {
             // Instantiating the webview cannot be delayed because the request
             // object is destroyed after exiting the newViewRequested signal handler.
-            webviewComponent.incubateObject(webviewContainer, {"tab": tab, "request": request})
+            webviewComponent.incubateObject(webviewContainer, {"tab": tab, "request": request, 'incognito': incognito})
         }
     }
 }
