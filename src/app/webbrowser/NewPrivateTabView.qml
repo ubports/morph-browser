@@ -43,31 +43,18 @@ Item {
         fontSize: "medium"
     }
 
-    Column {
+    Label {
         anchors {
             horizontalCenter: parent.horizontalCenter
             top: titleLabel.bottom
             topMargin: units.gu(5)
         }
 
-        Label {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: units.gu(25)
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
-            text: i18n.tr("Pages that you view in this tab won't appear in your browser history.")
-            color: "#5d5d5d"
-            fontSize: "x-small"
-        }
-
-        Label {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: units.gu(20)
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
-            text: i18n.tr("Bookmarks you create will be preserved, however.")
-            color: "#5d5d5d"
-            fontSize: "x-small"
-        }
+        width: units.gu(25)
+        wrapMode: Text.WordWrap
+        horizontalAlignment: Text.AlignHCenter
+        text: i18n.tr("Pages that you view in this tab won't appear in your browser history.\n\nBookmarks you create will be preserved, however.")
+        color: "#5d5d5d"
+        fontSize: "x-small"
     }
 }
