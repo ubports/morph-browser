@@ -39,6 +39,7 @@ BrowserWindow {
     property string webappModelSearchPath: ""
     property var webappUrlPatterns
     property string accountProvider: ""
+    property bool accountSwitcher: false
     property string popupRedirectionUrlPrefixPattern: ""
     property url webviewOverrideFile: ""
     property var __webappCookieStore: null
@@ -77,7 +78,7 @@ BrowserWindow {
 
             url: accountProvider.length !== 0 ? "" : root.url
 
-            accountSwitcher: accountProvider.length !== 0
+            accountSwitcher: root.accountSwitcher
 
             dataPath: webappDataLocation
             webappName: root.webappName
@@ -174,6 +175,7 @@ BrowserWindow {
         z: -1 // This is needed to have the dialogs shown; see above comment about bug 1398046
         providerId: accountProvider
         applicationId: unversionedAppId
+        accountSwitcher: root.accountSwitcher
         webappName: getWebappName()
         webappIcon: root.webappIcon
 

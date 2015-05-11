@@ -26,6 +26,7 @@ Item {
 
     property alias providerId: accountsLogic.providerId
     property alias applicationId: accountsLogic.applicationId
+    property alias accountSwitcher: accountsLogic.accountSwitcher
     property string webappName: ""
     property url webappIcon
 
@@ -44,6 +45,7 @@ Item {
         onSplashScreenRequested: showSplashScreen()
         onAccountSelected: root.__emitAccountSelected(credentialsId, willMoveCookies)
         onContextReady: root.contextReady()
+        onQuitRequested: root.quitRequested()
     }
 
     AccountsSplashScreen {

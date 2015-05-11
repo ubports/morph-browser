@@ -26,12 +26,14 @@ Item {
 
     property alias providerId: accountsModelObject.provider
     property alias applicationId: accountsModelObject.applicationId
+    property bool accountSwitcher: false
     property var accountsModel: accountsModelObject
 
     signal splashScreenRequested()
     signal errorScreenRequested(string message)
     signal accountSelected(int credentialsId, bool willMoveCookies)
     signal contextReady()
+    signal quitRequested()
 
     property var __account: null
     property int __credentialsId: __account ? __account.authData.credentialsId : 0
@@ -46,6 +48,20 @@ Item {
 
     AccountServiceModel {
         id: accountsModelObject
+    }
+
+    // This is only used if accountSwitcher is false
+    Setup {
+        id: setup
+        applicationId: root.applicationId
+        providerId: root.providerId
+        onFinished: {
+            if ("accountId" in reply) {
+                root.checkAccounts()
+            } else {
+                root.quitRequested()
+            }
+        }
     }
 
     Settings {
@@ -72,6 +88,19 @@ Item {
     function checkAccounts() {
         checkTimer.stop()
         console.log("Accounts: " + accountsModel.count)
+
+        /* If account switching is not supported, we just pick the first
+         * account here. */
+        if (!accountSwitcher) {
+            if (accountsModel.count === 0) {
+                setup.exec()
+            } else {
+                settings.selectedAccount = accountsModel.get(0, "accountId")
+                setupAccount(settings.selectedAccount)
+            }
+            return
+        }
+
         if (accountsModel.count === 0) {
             settings.selectedAccount = -1
         } else if (settings.selectedAccount > 0) {

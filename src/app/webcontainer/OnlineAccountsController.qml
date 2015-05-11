@@ -23,6 +23,7 @@ Loader {
 
     property string providerId: ""
     property string applicationId: ""
+    property bool accountSwitcher: false
     property string webappName: ""
     property url webappIcon
 
@@ -49,6 +50,7 @@ Loader {
             setSource("AccountsPage.qml", {
                 "providerId": providerId,
                 "applicationId": applicationId,
+                "accountSwitcher": accountSwitcher,
                 "webappName": webappName,
                 "webappIcon": webappIcon,
             })

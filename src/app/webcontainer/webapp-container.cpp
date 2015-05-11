@@ -83,6 +83,7 @@ const QString WebappContainer::LOCAL_INTENT_FILTER_FILENAME = "local-intent-filt
 
 WebappContainer::WebappContainer(int& argc, char** argv):
     BrowserApplication(argc, argv),
+    m_accountSwitcher(false),
     m_storeSessionCookies(false),
     m_backForwardButtonsVisible(false),
     m_addressBarVisible(false),
@@ -125,6 +126,7 @@ bool WebappContainer::initialize()
         m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
         m_window->setProperty("chromeVisible", m_addressBarVisible);
         m_window->setProperty("accountProvider", m_accountProvider);
+        m_window->setProperty("accountSwitcher", m_accountSwitcher);
 
         m_window->setProperty("webappUrlPatterns", m_webappUrlPatterns);
         QQmlContext* context = m_engine->rootContext();
@@ -262,6 +264,7 @@ void WebappContainer::printUsage() const
        " [--webappModelSearchPath=PATH]"
        " [--webappUrlPatterns=URL_PATTERNS]"
        " [--accountProvider=PROVIDER_NAME]"
+       " [--accountSwitcher]"
        " [--enable-back-forward]"
        " [--enable-addressbar]"
        " [--store-session-cookies]"
@@ -281,6 +284,7 @@ void WebappContainer::printUsage() const
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
+    out << "  --accountSwitcher                   enable switching between different Online Accounts identities" << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "  --enable-media-hub-audio            enable media-hub for audio playback" << endl;
     out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
@@ -320,6 +324,8 @@ void WebappContainer::parseCommandLine()
             }
         } else if (argument.startsWith("--accountProvider=")) {
             m_accountProvider = argument.split("--accountProvider=")[1];
+        } else if (argument == "--accountSwitcher") {
+            m_accountSwitcher = true;
         } else if (argument == "--clear-cookies") {
             qWarning() << argument << " is an unsupported option: it can be removed without notice..." << endl;
             clearCookiesHack(m_accountProvider);
