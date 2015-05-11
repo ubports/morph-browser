@@ -18,6 +18,7 @@
 
 import os
 import shutil
+import tempfile
 import urllib.request
 
 import fixtures
@@ -46,7 +47,34 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
     ARGS = ["--new-session"]
 
+    def create_temporary_profile(self):
+        # This method is meant to be called exactly once, in setUp().
+        # Tests that need to pre-populate the profile may call it earlier.
+        if hasattr(self, '_temp_xdg_dir'):
+            return
+        self._temp_xdg_dir = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self._temp_xdg_dir)
+
+        appname = 'webbrowser-app'
+
+        xdg_data = os.path.join(self._temp_xdg_dir, 'data')
+        self.useFixture(fixtures.EnvironmentVariable(
+            'XDG_DATA_HOME',
+            xdg_data))
+        self.data_location = os.path.join(xdg_data, appname)
+        if not os.path.exists(self.data_location):
+            os.makedirs(self.data_location)
+
+        xdg_cache = os.path.join(self._temp_xdg_dir, 'cache')
+        self.useFixture(fixtures.EnvironmentVariable(
+            'XDG_CACHE_HOME',
+            xdg_cache))
+        self.cache_location = os.path.join(xdg_cache, appname)
+        if not os.path.exists(self.cache_location):
+            os.makedirs(self.cache_location)
+
     def setUp(self):
+        self.create_temporary_profile()
         self.pointing_device = uitk.get_pointing_device()
         super(BrowserTestCaseBase, self).setUp()
         self.app = self.launch_app()
@@ -77,12 +105,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
                 *self.ARGS,
                 app_type='qt',
                 emulator_base=browser.Webbrowser)
-
-    def clear_datadir(self):
-        datadir = os.path.join(os.path.expanduser("~"), ".local", "share",
-                               "webbrowser-app")
-        shutil.rmtree(datadir, True)
-        os.makedirs(datadir)
 
     @property
     def main_window(self):

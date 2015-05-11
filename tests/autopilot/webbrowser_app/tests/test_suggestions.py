@@ -30,14 +30,13 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
     """Helper test class that pre-populates history and bookmarks databases."""
 
     def setUp(self):
-        self.clear_datadir()
+        self.create_temporary_profile()
         self.populate_history()
         self.populate_bookmarks()
         super(PrepopulatedDatabaseTestCaseBase, self).setUp()
 
     def populate_history(self):
-        db_path = os.path.join(os.path.expanduser("~"), ".local", "share",
-                               "webbrowser-app", "history.sqlite")
+        db_path = os.path.join(self.data_location, "history.sqlite")
         connection = sqlite3.connect(db_path)
         connection.execute("""CREATE TABLE IF NOT EXISTS history
                               (url VARCHAR, domain VARCHAR, title VARCHAR,
@@ -74,8 +73,7 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
         connection.close()
 
     def populate_bookmarks(self):
-        db_path = os.path.join(os.path.expanduser("~"), ".local", "share",
-                               "webbrowser-app", "bookmarks.sqlite")
+        db_path = os.path.join(self.data_location, "bookmarks.sqlite")
         connection = sqlite3.connect(db_path)
         connection.execute("""CREATE TABLE IF NOT EXISTS bookmarks
                               (url VARCHAR, title VARCHAR, icon VARCHAR,
@@ -115,7 +113,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
     """Test the address bar suggestions (based on history and bookmarks)."""
 
     def setUp(self):
-        super().setUp()
+        super(TestSuggestions, self).setUp()
         self.address_bar = self.main_window.address_bar
 
     def assert_suggestions_eventually_shown(self):

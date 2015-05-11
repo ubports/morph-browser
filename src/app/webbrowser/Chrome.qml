@@ -47,11 +47,11 @@ ChromeBase {
             objectName: "backButton"
 
             iconName: "previous"
-            iconSize: 0.6 * height
+            iconSize: 0.4 * height
             iconColor: chrome.buttonIconColor
 
-            height: parent.height
-            width: height
+            height: chrome.height
+            width: height * 0.8
 
             anchors {
                 left: parent.left
@@ -67,12 +67,12 @@ ChromeBase {
             objectName: "forwardButton"
 
             iconName: "next"
-            iconSize: 0.6 * height
+            iconSize: 0.4 * height
             iconColor: chrome.buttonIconColor
 
-            height: parent.height
+            height: chrome.height
             visible: enabled
-            width: visible ? height : 0
+            width: visible ? height * 0.8 : 0
 
             anchors {
                 left: backButton.right
@@ -133,11 +133,11 @@ ChromeBase {
             objectName: "drawerButton"
 
             iconName: "contextual-menu"
-            iconSize: 0.75 * height
+            iconSize: 0.5 * height
             iconColor: chrome.buttonIconColor
 
-            height: parent.height
-            width: height
+            height: chrome.height
+            width: height * 0.8
 
             anchors {
                 right: parent.right
@@ -250,6 +250,12 @@ ChromeBase {
 
                         action: modelData
                         onClicked: drawer.opened = false
+
+                        Rectangle {
+                            anchors.fill: parent
+                            color: Theme.palette.selected.background
+                            visible: parent.pressed
+                        }
 
                         Icon {
                             id: actionIcon
