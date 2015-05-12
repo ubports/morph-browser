@@ -297,7 +297,6 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
 
     def test_search_suggestions(self):
         self.address_bar.write('high')
-        time.sleep(0.5)  # wait for search suggestion query rate limiter
         suggestions = self.main_window.get_suggestions()
         self.assertThat(suggestions.count, Eventually(Equals(1)))
         entries = suggestions.get_ordered_entries()
