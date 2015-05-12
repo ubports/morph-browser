@@ -228,11 +228,11 @@ Item {
                 limit: 10
                 spacing: 0
 
-                model: newTabView.topSitesModel
+                model: topSitesModel
 
                 onUrlClicked: newTabView.historyEntryClicked(url)
                 onUrlRemoved: {
-                    newTabView.topSitesModel.hide(url)
+                    newTabView.historyModel.hide(url)
                     limit++;
                 }
             }
