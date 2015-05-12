@@ -281,8 +281,8 @@ BrowserView {
             LimitProxyModel {
                 id: historySuggestions
                 limit: 2
-                property string icon: "history"
-                property bool displayUrl: true
+                readonly property string icon: "history"
+                readonly property bool displayUrl: true
                 sourceModel: SuggestionsFilterModel {
                     sourceModel: browser.historyModel
                     terms: suggestionsList.searchTerms
@@ -293,8 +293,8 @@ BrowserView {
             LimitProxyModel {
                 id: bookmarksSuggestions
                 limit: 2
-                property string icon: "non-starred"
-                property bool displayUrl: true
+                readonly property string icon: "non-starred"
+                readonly property bool displayUrl: true
                 sourceModel: SuggestionsFilterModel {
                     sourceModel: browser.bookmarksModel
                     terms: suggestionsList.searchTerms

@@ -24,8 +24,8 @@ Rectangle {
 
     property var searchTerms
     property var models
-    property int count: models.reduce(countItems, 0)
-    property alias contentHeight: suggestionsList.contentHeight
+    readonly property int count: models.reduce(countItems, 0)
+    readonly property alias contentHeight: suggestionsList.contentHeight
 
     signal selected(url url)
 
