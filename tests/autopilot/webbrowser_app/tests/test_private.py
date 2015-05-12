@@ -14,6 +14,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import os
+import sqlite3
+
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
@@ -21,6 +24,15 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
 class TestPrivateView(StartOpenRemotePageTestCaseBase):
+
+    def get_url_list_from_history(self):
+        db_path = os.path.join(self.data_location, "history.sqlite")
+        connection = sqlite3.connect(db_path)
+        cur = connection.cursor()
+        cur.execute("""SELECT url FROM history;""")
+        ret = [row[0] for row in cur]
+        connection.close()
+        return ret
 
     def test_going_in_and_out_private_mode(self):
         self.go_into_private_mode()
@@ -32,6 +44,17 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         new_private_tab_view = self.main_window.get_new_private_tab_view()
         self.leave_private_mode_and_cancel()
         self.assertThat(new_private_tab_view.visible, Eventually(Equals(True)))
+
+    def test_url_not_stored_in_private_mode(self):
+        history = self.get_url_list_from_history()
+        url = self.base_url + "/test2"
+        self.assertThat(url not in history, Equals(True))
+        self.go_into_private_mode()
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.leave_private_mode_and_confirm()
+        history = self.get_url_list_from_history()
+        self.assertThat(url not in history, Equals(True))
 
     def test_usual_tabs_not_visible_in_private(self):
         self.open_tabs_view()
