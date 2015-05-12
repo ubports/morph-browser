@@ -166,8 +166,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
                         Eventually(Equals(count)))
 
-    def ping_server(self):
-        url = "http://localhost:{}/ping".format(self.server.port)
+    def ping_server(self, server):
+        url = "http://localhost:{}/ping".format(server.port)
         ping = urllib.request.urlopen(url)
         self.assertThat(ping.read(), Equals(b"pong"))
 
@@ -185,12 +185,12 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
     """
 
     def setUp(self):
-        self.server = http_server.HTTPServerInAThread()
-        self.ping_server()
-        self.addCleanup(self.server.cleanup)
+        server = http_server.HTTPServerInAThread()
+        self.ping_server(server)
+        self.addCleanup(server.cleanup)
         self.useFixture(fixtures.EnvironmentVariable(
             'UBUNTU_WEBVIEW_HOST_MAPPING_RULES',
-            "MAP test:80 localhost:{}".format(self.server.port)))
+            "MAP test:80 localhost:{}".format(server.port)))
         self.base_url = "http://test"
         self.url = self.base_url + "/test1"
         self.ARGS = self.ARGS + [self.url]

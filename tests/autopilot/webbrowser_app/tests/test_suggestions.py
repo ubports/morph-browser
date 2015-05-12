@@ -137,12 +137,12 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         })
 
     def setUp(self):
-        self.server = http_server.HTTPServerInAThread()
-        self.ping_server()
-        self.addCleanup(self.server.cleanup)
+        server = http_server.HTTPServerInAThread()
+        self.ping_server(server)
+        self.addCleanup(server.cleanup)
 
         self.create_temporary_profile()
-        self.setup_suggestions_source(self.server)
+        self.setup_suggestions_source(server)
 
         super(TestSuggestions, self).setUp()
 
