@@ -154,21 +154,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.click_object(settings_action)
         return self.main_window.get_settings_page()
 
-    def toggle_private_mode(self):
-        chrome = self.main_window.chrome
-        drawer_button = chrome.get_drawer_button()
-        self.pointing_device.click_object(drawer_button)
-        chrome.get_drawer()
-        privatemode_action = chrome.get_drawer_action("privatemode")
-        self.pointing_device.click_object(privatemode_action)
-
-    def go_into_private_mode(self):
-        self.assertThat(self.main_window.get_current_webview().incognito,
-                        Eventually(Equals(False)))
-        self.toggle_private_mode()
-        self.assertThat(self.main_window.get_current_webview().incognito,
-                        Eventually(Equals(True)))
-
     def leave_private_mode_and_confirm(self):
         self.assertThat(self.main_window.get_current_webview().incognito,
                         Eventually(Equals(True)))

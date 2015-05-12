@@ -18,7 +18,10 @@ import logging
 
 import autopilot.logging
 import ubuntuuitoolkit as uitk
-from autopilot import introspection
+from autopilot import (
+    exceptions,
+    introspection
+)
 
 
 class Webbrowser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -66,6 +69,45 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def go_forward(self):
         self.chrome.go_forward()
 
+    @autopilot.logging.log_action(logger.info)
+    def enter_private_mode(self):
+        if not self.is_in_private_mode():
+            self.chrome.toggle_private_mode()
+        else:
+            logger.warning('The browser is already in private mode.')
+
+    def is_in_private_mode(self):
+        return self.get_current_webview().incognito
+
+    @autopilot.logging.log_action(logger.info)
+    def leave_private_mode(self, confirm=True):
+        if self.is_in_private_mode():
+            self.chrome.toggle_private_mode()
+            dialog = self._get_leave_private_mode_dialog()
+            if confirm:
+                dialog.confirm()
+                dialog.wait_until_destroyed()
+            else:
+                dialog.cancel()
+                dialog.wait_until_destroyed()
+        else:
+            logger.warning('The browser is not in private mode.')
+
+    def _get_leave_private_mode_dialog(self):
+        return self.wait_select_single(LeavePrivateModeDialog, visible=True)
+
+    # Since the NewPrivateTabView does not define any new QML property in its
+    # extended file, it does not report itself to autopilot with the same name
+    # as the extended file. (See http://pad.lv/1454394)
+    def is_new_private_tab_view_visible(self):
+        try:
+            self.wait_select_single("QQuickItem",
+                                    objectName="newPrivateTabView",
+                                    visible=True)
+            return True
+        except exceptions.StateNotFoundError:
+            return False
+
     def get_window(self):
         return self.get_parent()
 
@@ -103,17 +145,6 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_new_tab_view(self):
         return self.wait_select_single("NewTabView", visible=True)
-
-    # Since the NewPrivateTabView does not define any new QML property in its
-    # extended file, it does not report itself to autopilot with the same name
-    # as the extended file. (See http://pad.lv/1454394)
-    def get_new_private_tab_view(self):
-        return self.wait_select_single("QQuickItem",
-                                       objectName="newPrivateTabView",
-                                       visible=True)
-
-    def get_leave_private_mode_dialog(self):
-        return self.wait_select_single(LeavePrivateModeDialog, visible=True)
 
     def get_settings_page(self):
         return self.wait_select_single(SettingsPage, visible=True)
@@ -161,6 +192,13 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def is_forward_button_enabled(self):
         forward_button = self._get_forward_button()
         return forward_button.enabled
+
+    def toggle_private_mode(self):
+        drawer_button = self.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        self.get_drawer()
+        private_mode_action = self.get_drawer_action("privatemode")
+        self.pointing_device.click_object(private_mode_action)
 
     def get_drawer_button(self):
         return self.select_single("ChromeButton", objectName="drawerButton")
@@ -306,13 +344,15 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
 
-class LeavePrivateModeDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class LeavePrivateModeDialog(uitk.Dialog):
 
+    @autopilot.logging.log_action(logger.info)
     def confirm(self):
         confirm_button = self.select_single(
             "Button", objectName="leavePrivateModeDialog.okButton")
         self.pointing_device.click_object(confirm_button)
 
+    @autopilot.logging.log_action(logger.info)
     def cancel(self):
         cancel_button = self.select_single(
             "Button", objectName="leavePrivateModeDialog.cancelButton")

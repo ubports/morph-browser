@@ -35,9 +35,11 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         return ret
 
     def test_going_in_and_out_private_mode(self):
-        self.go_into_private_mode()
-        self.main_window.get_new_private_tab_view()
-        self.leave_private_mode_and_confirm()
+        self.main_window.enter_private_mode()
+        self.assertTrue(self.main_window.is_in_private_mode())
+        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
+        self.main_window.leave_private_mode()
+        self.assertFalse(self.main_window.is_in_private_mode())
 
     def test_cancel_leaving_private_mode(self):
         self.go_into_private_mode()
