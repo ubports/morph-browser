@@ -577,14 +577,6 @@ BrowserView {
 
     TabsModel {
         id: browserTabsModel
-
-        // Ensure that at most n webviews are instantiated at all times,
-        // to reduce memory consumption (see http://pad.lv/1376418).
-        onCurrentTabChanged: {
-            if (count > browser.maxLiveWebviews) {
-                get(browser.maxLiveWebviews).unload()
-            }
-        }
     }
 
     Loader {
@@ -604,15 +596,7 @@ BrowserView {
         Component {
             id: privateTabsModelComponent
 
-            TabsModel {
-                // Ensure that at most n webviews are instantiated at all times,
-                // to reduce memory consumption (see http://pad.lv/1376418).
-                onCurrentTabChanged: {
-                    if (count > browser.maxLiveWebviews) {
-                        get(browser.maxLiveWebviews).unload()
-                    }
-                }
-            }
+            TabsModel {}
         }
     }
 
@@ -1097,6 +1081,17 @@ BrowserView {
             tabsModel.currentTab.load()
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
                 internal.focusAddressBar()
+            }
+        }
+    }
+
+    // Ensure that at most n webviews are instantiated at all times,
+    // to reduce memory consumption (see http://pad.lv/1376418).
+    Connections {
+        target: tabsModel
+        onCurrentTabChanged: {
+            if (tabsModel.count > browser.maxLiveWebviews) {
+                tabsModel.get(browser.maxLiveWebviews).unload()
             }
         }
     }
