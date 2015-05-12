@@ -1098,29 +1098,15 @@ BrowserView {
 
     Component {
         id: leavePrivateModeDialog
-
-        Dialog {
+        
+        LeavePrivateModeDialog {
             id: dialogue
             objectName: "leavePrivateModeDialog"
 
-            title: i18n.tr("Going to public mode will close all private tabs")
-
-            Button {
-                objectName: "leavePrivateModeDialog.cancelButton"
-                anchors { left: parent.left; right: parent.right }
-                text: i18n.tr("Cancel")
-                onClicked: PopupUtils.close(dialogue);
-            }
-
-            Button {
-                objectName: "leavePrivateModeDialog.okButton"
-                anchors { left: parent.left; right: parent.right }
-                text: i18n.tr("Ok")
-                color: "#3fb24f"
-                onClicked: {
-                    PopupUtils.close(dialogue)
-                    browser.incognito = false
-                }
+            onCancelButtonClicked: PopupUtils.close(dialogue)
+            onOkButtonClicked: {
+                PopupUtils.close(dialogue)
+                browser.incognito = false
             }
         }
     }
