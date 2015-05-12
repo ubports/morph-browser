@@ -112,8 +112,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
     """Test the address bar suggestions (based on history and bookmarks)."""
 
     def setup_suggestions_source(self, server):
-        search_engines_path = os.path.join(self.cache_location, "share",
-                                           "webbrowser-app", "searchengines")
+        search_engines_path = os.path.join(self.data_location, "searchengines")
         os.makedirs(search_engines_path, exist_ok=True)
         with open(os.path.join(search_engines_path, "test.xml"), "w") as f:
             f.write("""
@@ -125,9 +124,8 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
             </OpenSearchDescription>
             """.replace("{}", str(server.port)))
 
-        config_path = os.path.join(os.path.expanduser("~"), ".config",
-                                   "webbrowser-app")
-        with open(os.path.join(config_path, "webbrowser-app.conf"), "w") as f:
+        with open(os.path.join(self.config_location, "webbrowser-app.conf"),
+                  "w") as f:
             f.write("""
             [General]
             searchEngine=test
@@ -143,8 +141,10 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.ping_server()
         self.addCleanup(self.server.cleanup)
 
-        super(TestSuggestions, self).setUp()
+        self.create_temporary_profile()
         self.setup_suggestions_source(self.server)
+
+        super(TestSuggestions, self).setUp()
 
         self.address_bar = self.main_window.address_bar
 
