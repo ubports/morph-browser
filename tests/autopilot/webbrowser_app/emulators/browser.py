@@ -104,6 +104,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_new_tab_view(self):
         return self.wait_select_single("NewTabView", visible=True)
 
+    # Since the NewPrivateTabView does not define any new QML property in its
+    # extended file, it does not report itself to autopilot with the same name
+    # as the extended file. (See http://pad.lv/1454394)
     def get_new_private_tab_view(self):
         return self.wait_select_single("QQuickItem",
                                        objectName="newPrivateTabView",
