@@ -258,6 +258,14 @@ BrowserView {
             ]
         }
 
+        ChromeController {
+            id: chromeController
+            webview: browser.currentWebview
+            forceHide: recentView.visible
+            defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
+                                                   : Oxide.LocationBarController.ModeAuto
+        }
+
         Suggestions {
             id: suggestionsList
             opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
@@ -609,15 +617,9 @@ BrowserView {
 
                 enabled: visible && !bottomEdgeHandle.dragging && !recentView.visible
 
-                ChromeController {
-                    id: chromeController
-                    webview: webviewimpl
-                    forceHide: recentView.visible
-                }
-
                 locationBarController {
                     height: webviewimpl.visible ? chrome.height : 0
-                    mode: chromeController.mode
+                    mode: chromeController.defaultMode
                 }
 
                 //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
