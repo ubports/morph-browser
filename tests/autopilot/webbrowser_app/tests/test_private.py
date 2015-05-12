@@ -36,21 +36,15 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(cancel_button)
         dialog.wait_until_destroyed()
 
-    def go_into_private_mode(self):
+    def test_going_in_and_out_private_mode(self):
         self.toggle_private_mode()
-
-    def leave_private_mode(self):
+        new_private_tab_view = self.main_window.get_new_private_tab_view()
         self.toggle_private_mode()
         self.confirm_leaving_private_mode()
-
-    def test_going_in_and_out_private_mode(self):
-        self.go_into_private_mode()
-        new_private_tab_view = self.main_window.get_new_private_tab_view()
-        self.leave_private_mode()
         new_private_tab_view.wait_until_destroyed()
 
     def test_cancel_leaving_private_mode(self):
-        self.go_into_private_mode()
+        self.toggle_private_mode()
         new_private_tab_view = self.main_window.get_new_private_tab_view()
         self.toggle_private_mode()
         self.cancel_leaving_private_mode()
@@ -72,7 +66,7 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: self.main_window.get_current_webview().url,
                         Eventually(Equals(url)))
 
-        self.go_into_private_mode()
+        self.toggle_private_mode()
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_previews()
