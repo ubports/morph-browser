@@ -30,6 +30,7 @@ SearchEngine::SearchEngine(QObject* parent)
     , m_name(DEFAULT_SEARCH_NAME)
     , m_description(DEFAULT_SEARCH_DESC)
     , m_template(DEFAULT_SEARCH_TEMPLATE)
+    , m_suggestionsTemplate(DEFAULT_SEARCH_SUGGESTIONS_TEMPLATE)
 {
 }
 
@@ -47,6 +48,7 @@ void SearchEngine::setFilename(const QString& filename)
         m_name = DEFAULT_SEARCH_NAME;
         m_description = DEFAULT_SEARCH_DESC;
         m_template = DEFAULT_SEARCH_TEMPLATE;
+        m_suggestionsTemplate = DEFAULT_SEARCH_SUGGESTIONS_TEMPLATE;
 
         if (!filename.isEmpty()) {
             QString filepath = QStandardPaths::locate(QStandardPaths::DataLocation,
@@ -66,9 +68,13 @@ void SearchEngine::setFilename(const QString& filename)
                             } else if (name == "Description") {
                                 m_description = parser.readElementText();
                             } else if (name == "Url") {
-                                if (parser.attributes().value("type") == "text/html") {
+                                QStringRef type = parser.attributes().value("type");
+                                if (type == "text/html") {
                                     m_template = parser.attributes().value("template").toString();
+                                } else if (type == "application/x-suggestions+json") {
+                                    m_suggestionsTemplate = parser.attributes().value("template").toString();
                                 }
+
                             }
                         }
                     }
@@ -79,6 +85,7 @@ void SearchEngine::setFilename(const QString& filename)
         Q_EMIT nameChanged();
         Q_EMIT descriptionChanged();
         Q_EMIT urlTemplateChanged();
+        Q_EMIT suggestionsUrlTemplateChanged();
     }
 }
 
@@ -95,4 +102,9 @@ const QString& SearchEngine::description() const
 const QString& SearchEngine::urlTemplate() const
 {
     return m_template;
+}
+
+const QString& SearchEngine::suggestionsUrlTemplate() const
+{
+    return m_suggestionsTemplate;
 }

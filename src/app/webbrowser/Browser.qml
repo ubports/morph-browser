@@ -26,6 +26,8 @@ import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 import "../UrlUtils.js" as UrlUtils
+import "urlManagement.js" as UrlManagement
+
 
 BrowserView {
     id: browser
@@ -272,12 +274,15 @@ BrowserView {
 
             searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
 
-            models: [historySuggestions, bookmarksSuggestions]
+            models: [historySuggestions,
+                     bookmarksSuggestions,
+                     searchSuggestions.limit(4)]
 
             LimitProxyModel {
                 id: historySuggestions
-                limit: 4
-                property string icon: "history"
+                limit: 2
+                readonly property string icon: "history"
+                readonly property bool displayUrl: true
                 sourceModel: SuggestionsFilterModel {
                     sourceModel: browser.historyModel
                     terms: suggestionsList.searchTerms
@@ -287,12 +292,28 @@ BrowserView {
 
             LimitProxyModel {
                 id: bookmarksSuggestions
-                limit: 4
-                property string icon: "non-starred"
+                limit: 2
+                readonly property string icon: "non-starred"
+                readonly property bool displayUrl: true
                 sourceModel: SuggestionsFilterModel {
                     sourceModel: browser.bookmarksModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
+                }
+            }
+
+            SearchSuggestions {
+                id: searchSuggestions
+                terms: suggestionsList.searchTerms
+                searchEngine: currentSearchEngine
+                active: chrome.activeFocus &&
+                         !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
+
+                function limit(number) {
+                    var slice = results.slice(0, number)
+                    slice.icon = 'search'
+                    slice.displayUrl = false
+                    return slice
                 }
             }
 

@@ -41,7 +41,7 @@ ListItem.Base {
             right: parent.right
             verticalCenter: parent.verticalCenter
         }
-        height: label.height + subLabel.height
+        height: subLabel.visible ? label.height + subLabel.height : icon.height
 
         Icon {
             id: icon
@@ -56,11 +56,13 @@ ListItem.Base {
         Label {
             id: label
             anchors {
-                top: parent.top
+                top: subLabel.visible ? parent.top : undefined
+                verticalCenter: subLabel.visible ? undefined : parent.verticalCenter
                 left: icon.right
                 leftMargin: units.gu(2)
                 right: parent.right
             }
+
             elide: Text.ElideRight
         }
 
@@ -74,6 +76,7 @@ ListItem.Base {
             }
             fontSize: "small"
             elide: Text.ElideRight
+            visible: text !== ""
         }
     }
 

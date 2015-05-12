@@ -31,6 +31,7 @@ class SearchEngine : public QObject
     Q_PROPERTY(QString name READ name NOTIFY nameChanged)
     Q_PROPERTY(QString description READ description NOTIFY descriptionChanged)
     Q_PROPERTY(QString urlTemplate READ urlTemplate NOTIFY urlTemplateChanged)
+    Q_PROPERTY(QString suggestionsUrlTemplate READ suggestionsUrlTemplate NOTIFY suggestionsUrlTemplateChanged)
 
 public:
     SearchEngine(QObject* parent=0);
@@ -41,18 +42,21 @@ public:
     const QString& name() const;
     const QString& description() const;
     const QString& urlTemplate() const;
+    const QString& suggestionsUrlTemplate() const;
 
 Q_SIGNALS:
     void filenameChanged() const;
     void nameChanged() const;
     void descriptionChanged() const;
     void urlTemplateChanged() const;
+    void suggestionsUrlTemplateChanged() const;
 
 private:
     QString m_filename;
     QString m_name;
     QString m_description;
     QString m_template;
+    QString m_suggestionsTemplate;
 };
 
 #endif // __SEARCH_ENGINE_H__
