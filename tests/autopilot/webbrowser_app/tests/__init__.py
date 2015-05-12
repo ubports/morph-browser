@@ -185,12 +185,12 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
     """
 
     def setUp(self):
-        server = http_server.HTTPServerInAThread()
-        self.ping_server(server)
-        self.addCleanup(server.cleanup)
+        self.server = http_server.HTTPServerInAThread()
+        self.ping_server(self.server)
+        self.addCleanup(self.server.cleanup)
         self.useFixture(fixtures.EnvironmentVariable(
             'UBUNTU_WEBVIEW_HOST_MAPPING_RULES',
-            "MAP test:80 localhost:{}".format(server.port)))
+            "MAP test:80 localhost:{}".format(self.server.port)))
         self.base_url = "http://test"
         self.url = self.base_url + "/test1"
         self.ARGS = self.ARGS + [self.url]
