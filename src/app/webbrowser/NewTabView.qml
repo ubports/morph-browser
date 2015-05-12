@@ -26,11 +26,18 @@ Item {
     id: newTabView
 
     property QtObject bookmarksModel
-    property QtObject historyModel
+    property alias historyModel: historyTimeframeModel.sourceModel
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
     signal historyEntryClicked(url url)
+
+    TopSitesModel {
+        id: topSitesModel
+        sourceModel: HistoryTimeframeModel {
+            id: historyTimeframeModel
+        }
+    }
 
     QtObject {
         id: internal
@@ -51,7 +58,10 @@ Item {
 
     Flickable {
         anchors.fill: parent
-        contentHeight: contentColumn.height
+        contentHeight: internal.seeMoreBookmarksView ?
+                                          bookmarksColumn.height + units.gu(6) :
+                                          contentColumn.height
+
         Column {
             id: contentColumn
             anchors {
@@ -63,7 +73,7 @@ Item {
             height: childrenRect.height
 
             Row {
-                height: units.gu(4)
+                height: units.gu(6)
                 anchors { left: parent.left; right: parent.right }
                 spacing: units.gu(1.5)
 
@@ -72,27 +82,29 @@ Item {
                     color: "#dd4814"
                     name: "starred"
 
-                    height: units.gu(3)
+                    height: units.gu(2)
                     width: height
 
                     anchors {
                         leftMargin: units.gu(1)
+                        topMargin: units.gu(1)
                         verticalCenter: moreButton.verticalCenter
                     }
                 }
 
-                Text {
+                Label {
                     width: parent.width - starredIcon.width - moreButton.width - units.gu(3)
                     anchors.verticalCenter: moreButton.verticalCenter
 
                     text: i18n.tr("Bookmarks")
+                    fontSize: "small"
                 }
 
                 Button {
                     id: moreButton
-                    height: parent.height - units.gu(0.5)
+                    height: parent.height - units.gu(2)
 
-                    anchors { top: parent.top; topMargin: units.gu(0.25) }
+                    anchors { top: parent.top; topMargin: units.gu(1) }
 
                     strokeColor: "#5d5d5d"
 
@@ -112,10 +124,11 @@ Item {
             Rectangle {
                 height: units.gu(0.1)
                 anchors { left: parent.left; right: parent.right }
-                color: "#acacac"
+                color: "#d3d3d3"
             }
 
             Column {
+                id: bookmarksColumn
                 anchors {
                     left: parent.left
                     leftMargin: units.gu(-1.5)
@@ -156,22 +169,34 @@ Item {
                 }
             }
 
-            Text {
+            Rectangle {
+                height: units.gu(6)
                 anchors {
-                    left: parent.left;
-                    right: parent.right;
+                    left: parent.left
+                    right: parent.right
                 }
+                color: "#f6f6f6"
 
-                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
-                Behavior on opacity { UbuntuNumberAnimation {} }
+                Label {
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                        bottomMargin: units.gu(1)
+                    }
 
-                text: i18n.tr("Top sites")
+                    opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                    Behavior on opacity { UbuntuNumberAnimation {} }
+
+                    text: i18n.tr("Top sites")
+                    fontSize: "small"
+                }
             }
 
             Rectangle {
                 height: units.gu(0.1)
                 anchors { left: parent.left; right: parent.right }
-                color: "#acacac"
+                color: "#d3d3d3"
 
                 opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
                 Behavior on opacity { UbuntuNumberAnimation {} }
@@ -203,11 +228,11 @@ Item {
                 limit: 10
                 spacing: 0
 
-                model: newTabView.historyModel
+                model: newTabView.topSitesModel
 
                 onUrlClicked: newTabView.historyEntryClicked(url)
                 onUrlRemoved: {
-                    newTabView.historyModel.hide(url)
+                    newTabView.topSitesModel.hide(url)
                     limit++;
                 }
             }

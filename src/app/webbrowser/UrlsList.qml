@@ -48,13 +48,6 @@ Column {
                     title: model.title ? model.title : model.url
                     url: model.url
 
-                    Component.onCompleted: {
-                        if (model.hidden !== undefined && model.hidden) {
-                            height = 0;
-                            limit++;
-                        }
-                    }
-
                     onItemClicked: urlClicked(model.url)
 
                     property var removalAnimation
