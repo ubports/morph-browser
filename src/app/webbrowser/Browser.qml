@@ -31,7 +31,7 @@ import "../UrlUtils.js" as UrlUtils
 BrowserView {
     id: browser
 
-    property var tabsModel: browserTabsModel
+    property var tabsModel: incognito ? privateTabsModel : browserTabsModel
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var privateTabsModel: (privateTabsModelLoader.status == Loader.Ready) ? privateTabsModelLoader.item : null
@@ -39,6 +39,8 @@ BrowserView {
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
     property bool newSession: false
+
+    property bool incognito: false
 
     // XXX: we might want to tweak this value depending
     // on the form factor and/or the available memory
@@ -86,20 +88,6 @@ BrowserView {
         Actions.ClearHistory {
             enabled: browser.historyModel
             onTriggered: browser.historyModel.clearAll()
-        }
-    ]
-
-    states: [
-        State {
-            name: "private"
-            PropertyChanges {
-                target: chrome
-                useDarkTheme: true 
-            }
-            PropertyChanges {
-                target: browser
-                tabsModel: privateTabsModel
-            }
         }
     ]
 
@@ -213,6 +201,8 @@ BrowserView {
             webview: browser.currentWebview
             searchUrl: currentSearchEngine.urlTemplate
 
+            useDarkTheme: browser.incognito;
+
             y: webview ? webview.locationBarController.offset : 0
 
             function isCurrentUrlBookmarked() {
@@ -283,13 +273,13 @@ BrowserView {
                 },
                 Action {
                     objectName: "privatemode"
-                    text: browser.state == "private" ? i18n.tr("Leave Private") : i18n.tr("Private Mode")
+                    text: browser.incognito ? i18n.tr("Leave Private") : i18n.tr("Private Mode")
                     iconName: "private-browsing"
                     onTriggered: {
-                        if (browser.state == "private") {
+                        if (browser.incognito) {
                             PopupUtils.open(leavePrivateModeDialog)
                         } else {
-                            browser.state = "private"
+                            browser.incognito = true
                         }
                     }
                 }
@@ -517,7 +507,7 @@ BrowserView {
 
             fontSize: "small"
             // TRANSLATORS: %1 refers to the current number of tabs opened
-            text: i18n.tr("(%1)").arg(tabsModel.count)
+            text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
         }
     }
 
@@ -602,8 +592,8 @@ BrowserView {
 
         Connections {
             target: browser
-            onStateChanged: {
-                if (browser.state == "private") {
+            onIncognitoChanged: {
+                if (browser.incognito) {
                     privateTabsModelLoader.sourceComponent = privateTabsModelComponent
                 } else {
                     privateTabsModelLoader.sourceComponent = null
@@ -709,7 +699,7 @@ BrowserView {
                 }
 
                 onNewViewRequested: {
-                    var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.state == "private"})
+                    var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
                     var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                     internal.addTab(tab, setCurrent)
                 }
@@ -733,7 +723,7 @@ BrowserView {
                 }
 
                 onLoadEvent: {
-                    if (browser.state == "private") {
+                    if (browser.incognito) {
                         return
                     }
 
@@ -829,7 +819,11 @@ BrowserView {
                     // content. Since WebView.restoreState is not a notifyable property,
                     // this can’t be achieved with a simple property binding.
                     Component.onCompleted: {
-                        if (!parent.url.toString() && !parent.restoreState && browser.state != "private") {
+                        if (browser.incognito) {
+                            return
+                        }
+ 
+                        if (!parent.url.toString() && !parent.restoreState) {
                             sourceComponent = newTabViewComponent
                         }
                     }
@@ -841,8 +835,8 @@ BrowserView {
 
                     Connections {
                         target: browser
-                        onStateChanged: {
-                            if (browser.state == "private") {
+                        onIncognitoChanged: {
+                            if (browser.incognito) {
                                 newPrivateTabViewLoader.sourceComponent = null
                             }
                         }
@@ -882,7 +876,11 @@ BrowserView {
                     // load content. Since WebView.restoreState is not a notifyable property,
                     // this can’t be achieved with a simple property binding.
                     Component.onCompleted: {
-                        if (!parent.url.toString() && !parent.restoreState && browser.state == "private") {
+                        if (!browser.incognito) {
+                            return
+                        }
+
+                        if (!parent.url.toString() && !parent.restoreState) {
                             sourceComponent = newPrivateTabViewComponent
                         }
                     }
@@ -893,8 +891,8 @@ BrowserView {
 
                     Connections {
                         target: browser
-                        onStateChanged: {
-                            if (browser.state != "private") {
+                        onIncognitoChanged: {
+                            if (!browser.incognito) {
                                 newPrivateTabViewLoader.sourceComponent = null
                             }
                         }
@@ -974,7 +972,7 @@ BrowserView {
 
     function openUrlInNewTab(url, setCurrent, load) {
         load = typeof load !== 'undefined' ? load : true
-        var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.state == "private"})
+        var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
         internal.addTab(tab, setCurrent)
         if (load) {
             tabsModel.currentTab.load()
@@ -1034,7 +1032,7 @@ BrowserView {
         }
 
         function createTabFromState(state) {
-            var properties = {'initialUrl': state.url, 'initialTitle': state.title, 'incognito': browser.state == "private"}
+            var properties = {'initialUrl': state.url, 'initialTitle': state.title, 'incognito': browser.incognito}
             if ('uniqueId' in state) {
                 properties["uniqueId"] = state.uniqueId
             }
@@ -1126,7 +1124,7 @@ BrowserView {
                 color: "#3fb24f"
                 onClicked: {
                     PopupUtils.close(dialogue)
-                    browser.state = ""
+                    browser.incognito = false
                 }
             }
         }
