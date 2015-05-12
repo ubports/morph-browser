@@ -31,13 +31,14 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
     """Helper test class that pre-populates history and bookmarks databases."""
 
     def setUp(self):
+        self.create_temporary_profile()
+
         self.populate_history()
         self.populate_bookmarks()
         super(PrepopulatedDatabaseTestCaseBase, self).setUp()
 
     def populate_history(self):
-        db_path = os.path.join(os.path.expanduser("~"), ".local", "share",
-                               "webbrowser-app", "history.sqlite")
+        db_path = os.path.join(self.data_location, "history.sqlite")
         connection = sqlite3.connect(db_path)
         connection.execute("""CREATE TABLE IF NOT EXISTS history
                               (url VARCHAR, domain VARCHAR, title VARCHAR,
@@ -73,8 +74,7 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
         connection.close()
 
     def populate_bookmarks(self):
-        db_path = os.path.join(os.path.expanduser("~"), ".local", "share",
-                               "webbrowser-app", "bookmarks.sqlite")
+        db_path = os.path.join(self.data_location, "bookmarks.sqlite")
         connection = sqlite3.connect(db_path)
         connection.execute("""CREATE TABLE IF NOT EXISTS bookmarks
                               (url VARCHAR, title VARCHAR, icon VARCHAR,
@@ -112,9 +112,8 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
     """Test the address bar suggestions (based on history and bookmarks)."""
 
     def setup_suggestions_source(self, server):
-        search_engines_path = os.path.join(os.path.expanduser("~"),
-                                           ".local", "share", "webbrowser-app",
-                                           "searchengines")
+        search_engines_path = os.path.join(self.cache_location, "share",
+                                           "webbrowser-app", "searchengines")
         os.makedirs(search_engines_path, exist_ok=True)
         with open(os.path.join(search_engines_path, "test.xml"), "w") as f:
             f.write("""
@@ -140,14 +139,13 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         })
 
     def setUp(self):
-        self.clear_datadir()
-
         self.server = http_server.HTTPServerInAThread()
         self.ping_server()
         self.addCleanup(self.server.cleanup)
+
+        super(TestSuggestions, self).setUp()
         self.setup_suggestions_source(self.server)
 
-        super().setUp()
         self.address_bar = self.main_window.address_bar
 
     def highlight_term(self, text, term):

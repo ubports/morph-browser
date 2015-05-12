@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-24 18:31+0200\n"
+"POT-Creation-Date: 2015-05-11 18:56+0200\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-04-25 05:35+0000\n"
-"X-Generator: Launchpad (build 17430)\n"
+"X-Launchpad-Export-Date: 2015-05-12 05:30+0000\n"
+"X-Generator: Launchpad (build 17487)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -457,17 +457,23 @@ msgstr "ផ្ទាំង​ថ្មី"
 
 #: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
 msgid "Settings"
-msgstr ""
+msgstr "ការ​កំណត់"
 
 #: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
 msgstr "ធ្វើរួច"
 
-#: src/app/webbrowser/Browser.qml:715
+#. TRANSLATORS: %1 refers to the current number of tabs opened
+#: src/app/webbrowser/Browser.qml:480
+#, qt-format
+msgid "(%1)"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:727
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:716
+#: src/app/webbrowser/Browser.qml:728
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
@@ -578,7 +584,7 @@ msgstr ""
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:271
 msgid "Homepage"
-msgstr ""
+msgstr "គេហទំព័រ"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
@@ -591,7 +597,7 @@ msgstr ""
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:224
 msgid "Privacy"
-msgstr ""
+msgstr "ភាពឯកជន"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
@@ -607,7 +613,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Save"
-msgstr ""
+msgstr "រក្សា​ទុក"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"

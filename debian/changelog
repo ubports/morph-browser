@@ -1,3 +1,30 @@
+webbrowser-app (0.23+15.04.20150506-0ubuntu1) vivid; urgency=medium
+
+  [ Arthur Mello ]
+  * Change asset for the bottom edge hint. Add text with open tabs
+    count.
+
+  [ CI Train Bot ]
+  * Resync trunk. added: po/ia.po
+
+  [ Leo Arias ]
+  * Fixed flake8 error. (LP: #1444170)
+
+  [ Leonardo Arias Fonseca ]
+  * Fixed flake8 error. (LP: #1444170)
+
+  [ Olivier Tilloy ]
+  * Remove deprecated compatibility code.
+  * Run autopilot tests in a temporary profile directory, to avoid
+    polluting the current user’s profile. (LP: #1448838)
+  * Save the session periodically to mitigate the situation where
+    multiple new tabs had been created when the browser crashes. (LP:
+    #1449761)
+  * Visual feedback for pressed state of chrome buttons and drawer menu
+    entries. (LP: #1448336)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 06 May 2015 21:51:37 +0000
+
 webbrowser-app (0.23+15.04.20150430.1-0ubuntu1) vivid; urgency=medium
 
   [ Alexandre Abreu ]
