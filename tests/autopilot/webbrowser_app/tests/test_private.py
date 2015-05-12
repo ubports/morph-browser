@@ -49,16 +49,15 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assertTrue(self.main_window.is_in_private_mode())
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
 
-    def test_url_not_stored_in_private_mode(self):
+    def test_url_must_not_be_stored_in_private_mode(self):
         history = self.get_url_list_from_history()
         url = self.base_url + "/test2"
-        self.assertThat(url not in history, Equals(True))
-        self.go_into_private_mode()
+        self.assertNotIn(url, history)
+        self.main_window.enter_private_mode()
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
-        self.leave_private_mode_and_confirm()
         history = self.get_url_list_from_history()
-        self.assertThat(url not in history, Equals(True))
+        self.assertNotIn(url, history)
 
     def test_usual_tabs_not_visible_in_private(self):
         self.open_tabs_view()
