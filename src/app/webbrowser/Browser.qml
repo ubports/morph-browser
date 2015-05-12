@@ -803,12 +803,12 @@ BrowserView {
                     // content. Since WebView.restoreState is not a notifyable property,
                     // this can’t be achieved with a simple property binding.
                     Component.onCompleted: {
-                        if (browser.incognito) {
-                            return
-                        }
- 
                         if (!parent.url.toString() && !parent.restoreState) {
-                            sourceComponent = newTabViewComponent
+                            if (!browser.incognito) {
+                                sourceComponent = newTabViewComponent
+                            } else {
+                                sourceComponent = newPrivateTabViewComponent
+                            }
                         }
                     }
 
@@ -820,8 +820,10 @@ BrowserView {
                     Connections {
                         target: browser
                         onIncognitoChanged: {
-                            if (browser.incognito) {
-                                newPrivateTabViewLoader.sourceComponent = null
+                            if (!browser.incognito) {
+                                newTabViewLoader.sourceComponent = newTabViewComponent
+                            } else {
+                                newTabViewLoader.sourceComponent = newPrivateTabViewComponent
                             }
                         }
                     }
@@ -847,37 +849,6 @@ BrowserView {
                                 chrome.requestedUrl = url
                                 currentWebview.url = url
                                 currentWebview.forceActiveFocus()
-                            }
-                        }
-                    }
-                }
-
-                Loader {
-                    id: newPrivateTabViewLoader
-                    anchors.fill: parent
-
-                    // Avoid loading the new private tab view if the webview is about to
-                    // load content. Since WebView.restoreState is not a notifyable property,
-                    // this can’t be achieved with a simple property binding.
-                    Component.onCompleted: {
-                        if (!browser.incognito) {
-                            return
-                        }
-
-                        if (!parent.url.toString() && !parent.restoreState) {
-                            sourceComponent = newPrivateTabViewComponent
-                        }
-                    }
-                    Connections {
-                        target: newPrivateTabViewLoader.parent
-                        onUrlChanged: newPrivateTabViewLoader.sourceComponent = null
-                    }
-
-                    Connections {
-                        target: browser
-                        onIncognitoChanged: {
-                            if (!browser.incognito) {
-                                newPrivateTabViewLoader.sourceComponent = null
                             }
                         }
                     }
