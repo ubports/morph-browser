@@ -302,14 +302,15 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         button = self.select_single("AbstractButton", objectName="backButton")
         self.pointing_device.click_object(button)
 
+
 class LeavePrivateModeDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def confirm(self):
-        confirm_button = self.select_single("Button",
-            objectName="leavePrivateModeDialog.okButton")
+        confirm_button = self.select_single(
+            "Button", objectName="leavePrivateModeDialog.okButton")
         self.pointing_device.click_object(confirm_button)
 
     def cancel(self):
-        cancel_button = self.select_single("Button",
-            objectName="leavePrivateModeDialog.cancelButton")
+        cancel_button = self.select_single(
+            "Button", objectName="leavePrivateModeDialog.cancelButton")
         self.pointing_device.click_object(cancel_button)
