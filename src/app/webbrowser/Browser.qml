@@ -719,6 +719,15 @@ BrowserView {
                             }
                         }
 
+                        // Delay showing the hint to prevent it from jumping up while the
+                        // webview is being resized (https://launchpad.net/bugs/1454097).
+                        visible: false
+                        Timer {
+                            running: true
+                            interval: 250
+                            onTriggered: fullscreenExitHint.visible = true
+                        }
+
                         Label {
                             color: "white"
                             font.weight: Font.Light
@@ -729,7 +738,7 @@ BrowserView {
                         }
 
                         Timer {
-                            running: true
+                            running: fullscreenExitHint.visible
                             interval: 2000
                             onTriggered: fullscreenExitHint.opacity = 0
                         }
