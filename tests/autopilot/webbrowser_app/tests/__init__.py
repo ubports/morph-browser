@@ -63,6 +63,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
         if not os.path.exists(self.data_location):
             os.makedirs(self.data_location)
 
+        xdg_config = os.path.join(self._temp_xdg_dir, 'config')
+        self.useFixture(fixtures.EnvironmentVariable(
+            'XDG_CONFIG_HOME',
+            xdg_config))
+        self.config_location = os.path.join(xdg_config, appname)
+        if not os.path.exists(self.config_location):
+            os.makedirs(self.config_location)
+
         xdg_cache = os.path.join(self._temp_xdg_dir, 'cache')
         self.useFixture(fixtures.EnvironmentVariable(
             'XDG_CACHE_HOME',
