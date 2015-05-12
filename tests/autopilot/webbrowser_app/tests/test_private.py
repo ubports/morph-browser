@@ -22,32 +22,15 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 class TestPrivateView(StartOpenRemotePageTestCaseBase):
 
-    def confirm_leaving_private_mode(self):
-        dialog = self.main_window.get_leave_private_mode_dialog()
-        ok_button = dialog.select_single(
-            "Button", objectName="leavePrivateModeDialog.okButton")
-        self.pointing_device.click_object(ok_button)
-        dialog.wait_until_destroyed()
-
-    def cancel_leaving_private_mode(self):
-        dialog = self.main_window.get_leave_private_mode_dialog()
-        cancel_button = dialog.select_single(
-            "Button", objectName="leavePrivateModeDialog.cancelButton")
-        self.pointing_device.click_object(cancel_button)
-        dialog.wait_until_destroyed()
-
     def test_going_in_and_out_private_mode(self):
-        self.toggle_private_mode()
+        self.go_into_private_mode()
         new_private_tab_view = self.main_window.get_new_private_tab_view()
-        self.toggle_private_mode()
-        self.confirm_leaving_private_mode()
-        new_private_tab_view.wait_until_destroyed()
+        self.leave_private_mode_and_confirm()
 
     def test_cancel_leaving_private_mode(self):
-        self.toggle_private_mode()
+        self.go_into_private_mode()
         new_private_tab_view = self.main_window.get_new_private_tab_view()
-        self.toggle_private_mode()
-        self.cancel_leaving_private_mode()
+        self.leave_private_mode_and_cancel()
         self.assertThat(new_private_tab_view.visible, Eventually(Equals(True)))
 
     def test_usual_tabs_not_visible_in_private(self):
@@ -66,7 +49,7 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: self.main_window.get_current_webview().url,
                         Eventually(Equals(url)))
 
-        self.toggle_private_mode()
+        self.go_into_private_mode()
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_previews()

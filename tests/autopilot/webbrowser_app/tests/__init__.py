@@ -159,11 +159,35 @@ class BrowserTestCaseBase(AutopilotTestCase):
         drawer_button = chrome.get_drawer_button()
         self.pointing_device.click_object(drawer_button)
         chrome.get_drawer()
-        incognito_state = self.main_window.get_current_webview().incognito
         privatemode_action = chrome.get_drawer_action("privatemode")
         self.pointing_device.click_object(privatemode_action)
+
+    def go_into_private_mode(self):
         self.assertThat(self.main_window.get_current_webview().incognito,
-                        Eventually(Equals(not incognito_state)))
+                        Eventually(Equals(False)))
+        self.toggle_private_mode()
+        self.assertThat(self.main_window.get_current_webview().incognito,
+                        Eventually(Equals(True)))
+
+    def leave_private_mode_and_confirm(self):
+        self.assertThat(self.main_window.get_current_webview().incognito,
+                        Eventually(Equals(True)))
+        self.toggle_private_mode()
+        dialog = self.main_window.get_leave_private_mode_dialog()
+        dialog.confirm()
+        dialog.wait_until_destroyed()
+        self.assertThat(self.main_window.get_current_webview().incognito,
+                        Eventually(Equals(False)))
+
+    def leave_private_mode_and_cancel(self):
+        self.assertThat(self.main_window.get_current_webview().incognito,
+                        Eventually(Equals(True)))
+        self.toggle_private_mode()
+        dialog = self.main_window.get_leave_private_mode_dialog()
+        dialog.cancel()
+        dialog.wait_until_destroyed()
+        self.assertThat(self.main_window.get_current_webview().incognito,
+                        Eventually(Equals(True)))
 
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),

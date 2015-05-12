@@ -110,8 +110,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        visible=True)
 
     def get_leave_private_mode_dialog(self):
-        return self.wait_select_single("Dialog",
-                                       objectName="leavePrivateModeDialog")
+        return self.wait_select_single(LeavePrivateModeDialog, visible=True)
 
     def get_settings_page(self):
         return self.wait_select_single(SettingsPage, visible=True)
@@ -302,3 +301,15 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def click_back_button(self):
         button = self.select_single("AbstractButton", objectName="backButton")
         self.pointing_device.click_object(button)
+
+class LeavePrivateModeDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def confirm(self):
+        confirm_button = self.select_single("Button",
+            objectName="leavePrivateModeDialog.okButton")
+        self.pointing_device.click_object(confirm_button)
+
+    def cancel(self):
+        cancel_button = self.select_single("Button",
+            objectName="leavePrivateModeDialog.cancelButton")
+        self.pointing_device.click_object(cancel_button)
