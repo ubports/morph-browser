@@ -49,6 +49,8 @@ FocusScope {
 
     height: textField.height
 
+    // Only start searches when the user types two or more characters, as
+    // defined in the design specification for the find in page feature.
     Binding {
         target: findInPage
         property: "text"
