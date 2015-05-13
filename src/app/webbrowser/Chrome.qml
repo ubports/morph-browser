@@ -33,12 +33,6 @@ ChromeBase {
 
     backgroundColor: useDarkTheme ? "#5d5d5d" : Theme.palette.normal.background
 
-    QtObject {
-        id: internal
-
-        readonly property color iconColor: chrome.useDarkTheme ? "#ffffff" : "#808080"
-    }
-
     FocusScope {
         anchors {
             fill: parent
@@ -161,6 +155,7 @@ ChromeBase {
     QtObject {
         id: internal
         property var openDrawer: null
+        readonly property color iconColor: chrome.useDarkTheme ? "#ffffff" : "#808080"
     }
 
     onWebviewChanged: {
