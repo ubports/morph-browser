@@ -201,7 +201,7 @@ BrowserView {
             webview: browser.currentWebview
             searchUrl: currentSearchEngine.urlTemplate
 
-            useDarkTheme: browser.incognito;
+            useDarkTheme: browser.incognito
 
             y: webview ? webview.locationBarController.offset : 0
 
