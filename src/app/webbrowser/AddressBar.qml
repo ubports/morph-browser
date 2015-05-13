@@ -36,7 +36,7 @@ FocusScope {
     signal requestReload()
     signal requestStop()
     property string searchUrl
-    property bool findInPageMode
+    property bool findInPageMode: false
     property var findInPage
 
     property var securityStatus: null
