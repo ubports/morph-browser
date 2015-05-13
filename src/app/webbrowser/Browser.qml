@@ -178,7 +178,7 @@ BrowserView {
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
 
-            sourceComponent: currentWebview && (currentWebview.webProcessStatus != Oxide.WebView.WebProcessRunning) ? sadTabComponent : undefined
+            sourceComponent: webProcessMonitor.crashed || (webProcessMonitor.killed && webProcessMonitor.triedReloadingKilledWebProcessOnce && !currentWebview.loading) ? sadTabComponent : undefined
 
             Component {
                 id: sadTabComponent
@@ -187,6 +187,11 @@ BrowserView {
                     webview: currentWebview
                     onCloseTabRequested: internal.closeTab(0)
                 }
+            }
+
+            WebProcessMonitor {
+                id: webProcessMonitor
+                webview: currentWebview
             }
         }
 

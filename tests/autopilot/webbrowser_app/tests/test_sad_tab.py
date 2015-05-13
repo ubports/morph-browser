@@ -15,36 +15,50 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import signal
+import time
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
 class TestSadTab(StartOpenRemotePageTestCaseBase):
 
-    def test_reload_web_process_killed(self):
+    def _kill_web_process(self):
         self.kill_web_processes()
-        sad_tab = self.main_window.get_sad_tab()
+        # The first time the web process is killed, the browser attempts to
+        # reload the page gracefully (after a short delay), hoping the process
+        # won’t be killed again.
+        time.sleep(1)
+        self.main_window.wait_until_page_loaded(self.url)
+
+        self.kill_web_processes()
+        # The second time around, the browser displays a sad tab.
+        return self.main_window.get_sad_tab()
+
+    def test_reload_web_process_killed(self):
+        sad_tab = self._kill_web_process()
         sad_tab.click_reload_button()
         sad_tab.wait_until_destroyed()
         self.assert_home_page_eventually_loaded()
 
     def test_close_tab_web_process_killed(self):
-        self.kill_web_processes()
-        sad_tab = self.main_window.get_sad_tab()
+        sad_tab = self._kill_web_process()
         sad_tab.click_close_tab_button()
         sad_tab.wait_until_destroyed()
         self.main_window.get_new_tab_view()
 
-    def test_reload_web_process_crashed(self):
+    def _crash_web_process(self):
         self.kill_web_processes(signal.SIGSEGV)
-        sad_tab = self.main_window.get_sad_tab()
+        # A crash of the web process displays the sad tab right away
+        return self.main_window.get_sad_tab()
+
+    def test_reload_web_process_crashed(self):
+        sad_tab = self._crash_web_process()
         sad_tab.click_reload_button()
         sad_tab.wait_until_destroyed()
         self.assert_home_page_eventually_loaded()
 
     def test_close_tab_web_process_crashed(self):
-        self.kill_web_processes(signal.SIGSEGV)
-        sad_tab = self.main_window.get_sad_tab()
+        sad_tab = self._crash_web_process()
         sad_tab.click_close_tab_button()
         sad_tab.wait_until_destroyed()
         self.main_window.get_new_tab_view()
