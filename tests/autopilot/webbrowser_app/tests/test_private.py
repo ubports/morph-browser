@@ -26,6 +26,11 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestPrivateView(StartOpenRemotePageTestCaseBase):
 
     def get_url_list_from_history(self):
+        self.open_tabs_view()
+        self.open_new_tab()
+        new_tab_view = self.main_window.get_new_tab_view()
+        top_sites = self.main_window.get_top_sites_list()
+
         db_path = os.path.join(self.data_location, "history.sqlite")
         connection = sqlite3.connect(db_path)
         cur = connection.cursor()

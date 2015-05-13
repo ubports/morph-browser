@@ -157,6 +157,14 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
 
+    def get_bookmarks_list(self):
+        return self.wait_select_single(UrlsList, objectname="bookmarksList",
+                                       visible=True)
+
+    def get_top_sites_list(self):
+        return self.wait_select_single(UrlsList, objectname="topSitesList",
+                                       visible=True)
+
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
@@ -357,3 +365,9 @@ class LeavePrivateModeDialog(uitk.Dialog):
         cancel_button = self.select_single(
             "Button", objectName="leavePrivateModeDialog.cancelButton")
         self.pointing_device.click_object(cancel_button)
+
+
+class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_urls(self):
+        return []
