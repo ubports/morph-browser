@@ -14,9 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import sqlite3
-
 from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 
@@ -25,19 +22,12 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 class TestPrivateView(StartOpenRemotePageTestCaseBase):
 
-    def get_url_list_from_history(self):
+    def get_url_list_from_top_sites(self):
         self.open_tabs_view()
         self.open_new_tab()
         new_tab_view = self.main_window.get_new_tab_view()
         top_sites = self.main_window.get_top_sites_list()
-
-        db_path = os.path.join(self.data_location, "history.sqlite")
-        connection = sqlite3.connect(db_path)
-        cur = connection.cursor()
-        cur.execute("""SELECT url FROM history;""")
-        ret = [row[0] for row in cur]
-        connection.close()
-        return ret
+        return top_sites.get_url_list()
 
     def test_going_in_and_out_private_mode(self):
         self.main_window.enter_private_mode()
@@ -54,30 +44,31 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assertTrue(self.main_window.is_in_private_mode())
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
 
-    def test_url_must_not_be_stored_in_history_in_private_mode(self):
-        history = self.get_url_list_from_history()
+    def test_url_must_not_be_shown_in_top_sites_in_private_mode(self):
+        top_sites = self.get_url_list_from_top_sites()
         url = self.base_url + "/test2"
-        self.assertNotIn(url, history)
+        self.assertNotIn(url, top_sites)
 
         self.main_window.enter_private_mode()
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
+        self.main_window.leave_private_mode()
 
-        history = self.get_url_list_from_history()
-        self.assertNotIn(url, history)
+        top_sites = self.get_url_list_from_top_sites()
+        self.assertNotIn(url, top_sites)
 
-    def test_url_must_be_stored_in_history_after_leaving_private_mode(self):
-        history = self.get_url_list_from_history()
+    def test_url_must_be_shown_in_top_sites_after_leaving_private_mode(self):
+        top_sites = self.get_url_list_from_top_sites()
         url = self.base_url + "/test2"
-        self.assertNotIn(url, history)
+        self.assertNotIn(url, top_sites)
 
         self.main_window.enter_private_mode()
         self.main_window.leave_private_mode()
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
 
-        history = self.get_url_list_from_history()
-        self.assertIn(url, history)
+        top_sites = self.get_url_list_from_top_sites()
+        self.assertIn(url, top_sites)
 
     def test_previews_tabs_must_not_be_visible_after_entering_private_mode(
             self):

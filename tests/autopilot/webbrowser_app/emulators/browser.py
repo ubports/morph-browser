@@ -157,12 +157,8 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
 
-    def get_bookmarks_list(self):
-        return self.wait_select_single(UrlsList, objectname="bookmarksList",
-                                       visible=True)
-
     def get_top_sites_list(self):
-        return self.wait_select_single(UrlsList, objectname="topSitesList",
+        return self.wait_select_single(UrlsList, objectName="topSitesList",
                                        visible=True)
 
 
@@ -369,5 +365,5 @@ class LeavePrivateModeDialog(uitk.Dialog):
 
 class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_urls(self):
-        return []
+    def get_url_list(self):
+        return [delegate.url for delegate in self.select_many("UrlDelegate")]
