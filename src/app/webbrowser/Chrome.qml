@@ -144,10 +144,10 @@ ChromeBase {
                 objectName: "findPreviousButton"
 
                 iconName: "up"
-                iconSize: 0.6 * height
+                iconSize: 0.5 * height
 
-                height: parent.height
-                width: height
+                height: chrome.height
+                width: height * 0.8
 
                 anchors.verticalCenter: parent.verticalCenter
 
@@ -161,10 +161,10 @@ ChromeBase {
                 objectName: "findNextButton"
 
                 iconName: "down"
-                iconSize: 0.6 * height
+                iconSize: 0.5 * height
 
-                height: parent.height
-                width: height
+                height: chrome.height
+                width: height * 0.8
 
                 anchors.verticalCenter: parent.verticalCenter
 
