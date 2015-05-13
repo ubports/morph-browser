@@ -101,13 +101,13 @@ Item {
                 text: i18n.tr("Restore previous session at startup")
                 highlightWhenPressed: false
 
-                control: Switch {
-                    id: restoreSessionSwitch
-                    onClicked: settingsObject.restoreSession = checked
+                control: CheckBox {
+                    id: restoreSessionCheckbox
+                    onTriggered: settingsObject.restoreSession = checked
                 }
 
                 Binding {
-                    target: restoreSessionSwitch
+                    target: restoreSessionCheckbox
                     property: "checked"
                     value: settingsObject.restoreSession
                 }
@@ -119,18 +119,16 @@ Item {
                 text: i18n.tr("Allow opening new tabs in background")
                 highlightWhenPressed: false
 
-                control: Switch {
-                    id: allowOpenInBackgroundTabSwitch
-
-                    onClicked: settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false'
+                control: CheckBox {
+                    id: allowOpenInBackgroundTabCheckbox
+                    onTriggered: settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false'
                 }
 
                 Binding {
-                    target: allowOpenInBackgroundTabSwitch
+                    target: allowOpenInBackgroundTabCheckbox
                     property: "checked"
                     value: settingsObject.allowOpenInBackgroundTab === 'true' ||
-                    (settingsObject.allowOpenInBackgroundTab === 'default' &&
-                        formFactor === "desktop")
+                           (settingsObject.allowOpenInBackgroundTab === 'default' && formFactor === "desktop")
                 }
             }
 
