@@ -72,6 +72,7 @@ Item {
     }
 
     onWebviewChanged: {
+        internal.triedOnce = false
         delayedReload.stop()
         monitorTimer.stop()
     }
