@@ -91,7 +91,7 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: self.main_window.get_current_webview().url,
                         Eventually(Equals(url)))
 
-        self.enter_private_mode()
+        self.main_window.enter_private_mode()
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_previews()
