@@ -130,6 +130,7 @@ Depends: ${misc:Depends},
          autopilot-qt5,
          python3-autopilot,
          python3-fixtures,
+         python3-psutil,
          ubuntu-ui-toolkit-autopilot,
          webbrowser-app (>= ${binary:Version}),
 Description: Ubuntu web browser autopilot tests

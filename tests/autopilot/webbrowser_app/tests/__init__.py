@@ -18,10 +18,12 @@
 
 import os
 import shutil
+import signal
 import tempfile
 import urllib.request
 
 import fixtures
+import psutil
 from testtools.matchers import Equals, NotEquals
 
 from autopilot.matchers import Eventually
@@ -162,6 +164,15 @@ class BrowserTestCaseBase(AutopilotTestCase):
         url = "http://localhost:{}/ping".format(self.server.port)
         ping = urllib.request.urlopen(url)
         self.assertThat(ping.read(), Equals(b"pong"))
+
+    def kill_web_processes(self, signal=signal.SIGKILL):
+        children = psutil.Process(self.app.pid).children(True)
+        for child in children:
+            if child.exe().endswith('oxide-renderer'):
+                for arg in child.cmdline():
+                    if '--type=renderer' in arg:
+                        os.kill(child.pid, signal)
+                        break
 
 
 class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):

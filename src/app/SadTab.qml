@@ -62,11 +62,13 @@ Rectangle {
             spacing: units.gu(3)
 
             Button {
+                objectName: "closeTabButton"
                 text: i18n.tr("Close tab")
                 onClicked: closeTabRequested()
             }
 
             Button {
+                objectName: "reloadButton"
                 text: i18n.tr("Reload")
                 onClicked: webview.reload()
             }

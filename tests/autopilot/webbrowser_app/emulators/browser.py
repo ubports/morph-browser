@@ -78,6 +78,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_error_sheet(self):
         return self.select_single("ErrorSheet")
 
+    def get_sad_tab(self):
+        return self.wait_select_single(SadTab)
+
     def get_suggestions(self):
         return self.select_single(Suggestions)
 
@@ -199,6 +202,19 @@ class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_ordered_entries(self):
         return sorted(self.select_many("Suggestion"),
                       key=lambda item: item.globalRect.y)
+
+
+class SadTab(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    @autopilot.logging.log_action(logger.info)
+    def click_close_tab_button(self):
+        button = self.select_single("Button", objectName="closeTabButton")
+        self.pointing_device.click_object(button)
+
+    @autopilot.logging.log_action(logger.info)
+    def click_reload_button(self):
+        button = self.select_single("Button", objectName="reloadButton")
+        self.pointing_device.click_object(button)
 
 
 class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
