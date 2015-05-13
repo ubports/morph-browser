@@ -35,28 +35,47 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         return ret
 
     def test_going_in_and_out_private_mode(self):
-        self.go_into_private_mode()
-        self.main_window.get_new_private_tab_view()
-        self.leave_private_mode_and_confirm()
+        self.main_window.enter_private_mode()
+        self.assertTrue(self.main_window.is_in_private_mode())
+        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
+        self.main_window.leave_private_mode()
+        self.assertFalse(self.main_window.is_in_private_mode())
 
     def test_cancel_leaving_private_mode(self):
-        self.go_into_private_mode()
-        new_private_tab_view = self.main_window.get_new_private_tab_view()
-        self.leave_private_mode_and_cancel()
-        self.assertThat(new_private_tab_view.visible, Eventually(Equals(True)))
+        self.main_window.enter_private_mode()
+        self.assertTrue(self.main_window.is_in_private_mode())
+        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
+        self.main_window.leave_private_mode(confirm=False)
+        self.assertTrue(self.main_window.is_in_private_mode())
+        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
 
-    def test_url_not_stored_in_private_mode(self):
+    def test_url_must_not_be_stored_in_history_in_private_mode(self):
         history = self.get_url_list_from_history()
         url = self.base_url + "/test2"
-        self.assertThat(url not in history, Equals(True))
-        self.go_into_private_mode()
+        self.assertNotIn(url, history)
+
+        self.main_window.enter_private_mode()
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
-        self.leave_private_mode_and_confirm()
-        history = self.get_url_list_from_history()
-        self.assertThat(url not in history, Equals(True))
 
-    def test_usual_tabs_not_visible_in_private(self):
+        history = self.get_url_list_from_history()
+        self.assertNotIn(url, history)
+
+    def test_url_must_be_stored_in_history_after_leaving_private_mode(self):
+        history = self.get_url_list_from_history()
+        url = self.base_url + "/test2"
+        self.assertNotIn(url, history)
+
+        self.main_window.enter_private_mode()
+        self.main_window.leave_private_mode()
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+
+        history = self.get_url_list_from_history()
+        self.assertIn(url, history)
+
+    def test_previews_tabs_must_not_be_visible_after_entering_private_mode(
+            self):
         self.open_tabs_view()
         self.open_new_tab()
         new_tab_view = self.main_window.get_new_tab_view()
@@ -72,7 +91,7 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: self.main_window.get_current_webview().url,
                         Eventually(Equals(url)))
 
-        self.go_into_private_mode()
+        self.main_window.enter_private_mode()
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_previews()
