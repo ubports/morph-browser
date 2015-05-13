@@ -154,26 +154,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.click_object(settings_action)
         return self.main_window.get_settings_page()
 
-    def leave_private_mode_and_confirm(self):
-        self.assertThat(self.main_window.get_current_webview().incognito,
-                        Eventually(Equals(True)))
-        self.toggle_private_mode()
-        dialog = self.main_window.get_leave_private_mode_dialog()
-        dialog.confirm()
-        dialog.wait_until_destroyed()
-        self.assertThat(self.main_window.get_current_webview().incognito,
-                        Eventually(Equals(False)))
-
-    def leave_private_mode_and_cancel(self):
-        self.assertThat(self.main_window.get_current_webview().incognito,
-                        Eventually(Equals(True)))
-        self.toggle_private_mode()
-        dialog = self.main_window.get_leave_private_mode_dialog()
-        dialog.cancel()
-        dialog.wait_until_destroyed()
-        self.assertThat(self.main_window.get_current_webview().incognito,
-                        Eventually(Equals(True)))
-
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
                         Eventually(Equals(count)))
