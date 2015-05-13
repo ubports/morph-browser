@@ -41,8 +41,8 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(action)
 
     def test_activation(self):
-        next = self.chrome.next_button()
-        prev = self.chrome.prev_button()
+        next = self.chrome.get_find_next_button()
+        prev = self.chrome.get_find_prev_button()
         bar = self.chrome.address_bar
         counter = bar.get_find_in_page_counter()
 
@@ -94,8 +94,8 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
     def test_navigation(self):
         bar = self.chrome.address_bar
         counter = bar.get_find_in_page_counter()
-        next = self.chrome.next_button()
-        prev = self.chrome.prev_button()
+        next = self.chrome.get_find_next_button()
+        prev = self.chrome.get_find_prev_button()
 
         self.activate_find_in_page()
         self.assertThat(next.enabled, Eventually(Equals(False)))

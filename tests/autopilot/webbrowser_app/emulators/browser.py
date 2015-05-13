@@ -160,11 +160,11 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return drawer.select_single("AbstractButton", objectName=actionName,
                                     visible=True)
 
-    def next_button(self):
+    def get_find_next_button(self):
         return self.select_single("ChromeButton",
                                   objectName="findNextButton")
 
-    def prev_button(self):
+    def get_find_prev_button(self):
         return self.select_single("ChromeButton",
                                   objectName="findPreviousButton")
 
