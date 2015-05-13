@@ -161,10 +161,12 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                     visible=True)
 
     def next_button(self):
-        return self.select_single("ChromeButton", objectName="findNextButton")
+        return self.select_single("ChromeButton",
+                                  objectName="findNextButton")
 
     def prev_button(self):
-        return self.select_single("ChromeButton", objectName="findPreviousButton")
+        return self.select_single("ChromeButton",
+                                  objectName="findPreviousButton")
 
 
 class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -201,6 +203,7 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_find_in_page_counter(self):
         return self.select_single("Label", objectName="findInPageCounter")
+
 
 class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
