@@ -33,6 +33,12 @@ ChromeBase {
 
     backgroundColor: useDarkTheme ? "#5d5d5d" : Theme.palette.normal.background
 
+    QtObject {
+        id: internal
+
+        readonly property color iconColor: chrome.useDarkTheme ? "#ffffff" : "#808080"
+    }
+
     FocusScope {
         anchors {
             fill: parent
@@ -47,7 +53,7 @@ ChromeBase {
 
             iconName: "previous"
             iconSize: 0.4 * height
-            iconColor: chrome.useDarkTheme ? "#ffffff" : "#808080"
+            iconColor: internal.iconColor
 
             height: chrome.height
             width: height * 0.8
@@ -67,7 +73,7 @@ ChromeBase {
 
             iconName: "next"
             iconSize: 0.4 * height
-            iconColor: chrome.useDarkTheme ? "#ffffff" : "#808080"
+            iconColor: internal.iconColor
 
             height: chrome.height
             visible: enabled
@@ -133,7 +139,7 @@ ChromeBase {
 
             iconName: "contextual-menu"
             iconSize: 0.5 * height
-            iconColor: chrome.useDarkTheme ? "#ffffff" : "#808080"
+            iconColor: internal.iconColor
 
             height: chrome.height
             width: height * 0.8
