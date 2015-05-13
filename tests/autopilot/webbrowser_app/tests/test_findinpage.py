@@ -72,13 +72,16 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
 
         self.activate_find_in_page()
         bar.write("text")
-        self.assertThat(counter.text, Eventually(Equals("1/2")))
+        self.assertThat(counter.current, Eventually(Equals(1)))
+        self.assertThat(counter.count, Eventually(Equals(2)))
 
         bar.write("hello")
-        self.assertThat(counter.text, Eventually(Equals("1/1")))
+        self.assertThat(counter.current, Eventually(Equals(1)))
+        self.assertThat(counter.count, Eventually(Equals(1)))
 
         bar.write("")
-        self.assertThat(counter.text, Eventually(Equals("0/0")))
+        self.assertThat(counter.current, Eventually(Equals(0)))
+        self.assertThat(counter.count, Eventually(Equals(0)))
 
     def test_minimum_two_characters(self):
         bar = self.chrome.address_bar
@@ -86,10 +89,12 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
 
         self.activate_find_in_page()
         bar.write("t")
-        self.assertThat(counter.text, Eventually(Equals("0/0")))
+        self.assertThat(counter.current, Eventually(Equals(0)))
+        self.assertThat(counter.count, Eventually(Equals(0)))
 
         bar.write("e", False)
-        self.assertThat(counter.text, Eventually(Equals("1/2")))
+        self.assertThat(counter.current, Eventually(Equals(1)))
+        self.assertThat(counter.count, Eventually(Equals(2)))
 
     def test_navigation(self):
         bar = self.chrome.address_bar
@@ -106,13 +111,17 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
         self.assertThat(prev.enabled, Eventually(Equals(True)))
 
         self.pointing_device.click_object(next)
-        self.assertThat(counter.text, Eventually(Equals("2/2")))
+        self.assertThat(counter.current, Eventually(Equals(2)))
+        self.assertThat(counter.count, Eventually(Equals(2)))
         self.pointing_device.click_object(next)
-        self.assertThat(counter.text, Eventually(Equals("1/2")))
+        self.assertThat(counter.current, Eventually(Equals(1)))
+        self.assertThat(counter.count, Eventually(Equals(2)))
         self.pointing_device.click_object(prev)
-        self.assertThat(counter.text, Eventually(Equals("2/2")))
+        self.assertThat(counter.current, Eventually(Equals(2)))
+        self.assertThat(counter.count, Eventually(Equals(2)))
         self.pointing_device.click_object(next)
-        self.assertThat(counter.text, Eventually(Equals("1/2")))
+        self.assertThat(counter.current, Eventually(Equals(1)))
+        self.assertThat(counter.count, Eventually(Equals(2)))
 
         bar.write("hello")
         self.assertThat(next.enabled, Eventually(Equals(False)))

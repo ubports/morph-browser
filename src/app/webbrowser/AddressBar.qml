@@ -187,8 +187,13 @@ FocusScope {
                 fontSize: "x-small"
                 color: "#5d5d5d"
                 opacity: findInPage && findInPage.count > 0 ? 1.0 : 0.6
-                text: findInPage ? (findInPage.current + "/" + findInPage.count) : "0/0"
+                text: findInPagePattern.arg(current).arg(count)
                 visible: findInPageMode
+
+                // TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
+                property string findInPagePattern: i18n.tr("%1/%2")
+                property int current: findInPage ? findInPage.current : 0
+                property int count: findInPage ? findInPage.count : 0
             }
 
             Item {
