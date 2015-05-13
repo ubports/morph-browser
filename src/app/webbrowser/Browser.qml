@@ -19,7 +19,7 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import Qt.labs.settings 1.0
-import com.canonical.Oxide 1.5 as Oxide
+import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Components 1.1
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
@@ -170,6 +170,24 @@ BrowserView {
                 }
             }
             asynchronous: true
+        }
+
+        Loader {
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
+
+            sourceComponent: currentWebview && (currentWebview.webProcessStatus != Oxide.WebView.WebProcessRunning) ? sadTabComponent : undefined
+
+            Component {
+                id: sadTabComponent
+
+                SadTab {
+                    webview: currentWebview
+                    onCloseTabRequested: internal.closeTab(0)
+                }
+            }
         }
 
         SearchEngine {
@@ -343,16 +361,7 @@ BrowserView {
                 }
                 recentView.reset()
             }
-            onTabClosed: {
-                var tab = tabsModel.remove(index)
-                if (tab) {
-                    tab.close()
-                }
-                if (tabsModel.count === 0) {
-                    browser.openUrlInNewTab("", true)
-                    recentView.reset()
-                }
-            }
+            onTabClosed: internal.closeTab(index)
         }
 
         Toolbar {
@@ -817,6 +826,17 @@ BrowserView {
             if (setCurrent) {
                 tabsModel.setCurrent(index)
                 chrome.requestedUrl = tab.initialUrl
+            }
+        }
+
+        function closeTab(index) {
+            var tab = tabsModel.remove(index)
+            if (tab) {
+                tab.close()
+            }
+            if (tabsModel.count === 0) {
+                browser.openUrlInNewTab("", true)
+                recentView.reset()
             }
         }
 

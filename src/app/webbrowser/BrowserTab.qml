@@ -69,7 +69,7 @@ FocusScope {
 
     function close() {
         unload()
-        if (preview) {
+        if (preview && preview.toString()) {
             FileOperations.remove(preview)
         }
         destroy()

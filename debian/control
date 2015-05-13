@@ -33,7 +33,7 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          fonts-liberation,
-         liboxideqt-qmlplugin (>= 1.5),
+         liboxideqt-qmlplugin (>= 1.8),
          libqt5sql5-sqlite,
          qml-module-qt-labs-folderlistmodel,
          qml-module-qt-labs-settings,
