@@ -79,6 +79,10 @@ FocusScope {
     Connections {
         target: webview
         onVisibleChanged: {
+            if (webview.incognito) {
+                return
+            }
+
             if (!webview.visible) {
                 webview.grabToImage(function(result) {
                     var capturesDir = cacheLocation + "/captures"
