@@ -46,6 +46,7 @@ Item {
         onAccountSelected: root.__emitAccountSelected(credentialsId, willMoveCookies)
         onContextReady: root.contextReady()
         onQuitRequested: root.quitRequested()
+        onErrorScreenRequested: showErrorScreen(message)
     }
 
     AccountsSplashScreen {
@@ -59,6 +60,14 @@ Item {
         onChooseAccount: root.showAccountSwitcher()
         onQuitRequested: root.quitRequested()
         onSkip: accountsLogic.proceedWithNoAccount()
+    }
+
+    // Only temporarily used for bug https://bugs.launchpad.net/bugs/1441873
+    AccountErrorScreen {
+        id: errorScreen
+
+        visible: false
+        onClosed: root.quitRequested()
     }
 
     Loader {
@@ -102,6 +111,11 @@ Item {
 
     Component.onCompleted: {
         __setupProviderData()
+    }
+
+    function showErrorScreen(message) {
+        errorScreen.message = message
+        errorScreen.visible = true
     }
 
     function showSplashScreen() {

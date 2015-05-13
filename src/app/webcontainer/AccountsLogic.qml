@@ -59,6 +59,8 @@ Item {
         onFinished: {
             if ("accountId" in reply) {
                 root.checkAccounts()
+            } else if ("errorName" in reply) {
+                root.errorScreenRequested(i18n.tr("Account window could not be opened; please close some running applications and try again."))
             } else {
                 root.quitRequested()
             }
