@@ -24,10 +24,8 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
 
     def get_url_list_from_top_sites(self):
         self.open_tabs_view()
-        self.open_new_tab()
-        new_tab_view = self.main_window.get_new_tab_view()
-        top_sites = self.main_window.get_top_sites_list()
-        return top_sites.get_url_list()
+        new_tab_view = self.open_new_tab()
+        return new_tab_view.get_top_sites()
 
     def test_going_in_and_out_private_mode(self):
         self.main_window.enter_private_mode()

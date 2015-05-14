@@ -139,11 +139,12 @@ class BrowserTestCaseBase(AutopilotTestCase):
         max_webviews = self.main_window.maxLiveWebviews
         new_count = (count + 1) if (count < max_webviews) else max_webviews
         self.assert_number_webviews_eventually(new_count)
-        self.main_window.get_new_tab_view()
+        new_tab_view = self.main_window.get_new_tab_view()
         if model() == 'Desktop':
             self.assertThat(
                 self.main_window.address_bar.activeFocus,
                 Eventually(Equals(True)))
+        return new_tab_view
 
     def open_settings(self):
         chrome = self.main_window.chrome
