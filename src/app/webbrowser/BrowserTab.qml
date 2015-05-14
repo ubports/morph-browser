@@ -77,12 +77,13 @@ FocusScope {
     }
 
     Connections {
-        target: webview
+        // We shall not save captures for the webviews that are in incognito
+        // mode, since that would expose the content visited by the user in
+        // private mode saving images to the disk. A downside for this is
+        // that in private mode the user will be not able to see the
+        // preview of open tabs. This should be fixed in a different MR
+        target: webview.incognito ? null : webview
         onVisibleChanged: {
-            if (webview.incognito) {
-                return
-            }
-
             if (!webview.visible) {
                 webview.grabToImage(function(result) {
                     var capturesDir = cacheLocation + "/captures"
