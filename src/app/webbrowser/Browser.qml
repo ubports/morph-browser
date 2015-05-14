@@ -820,10 +820,12 @@ BrowserView {
                     Connections {
                         target: browser
                         onIncognitoChanged: {
-                            if (!browser.incognito) {
-                                newTabViewLoader.sourceComponent = newTabViewComponent
-                            } else {
-                                newTabViewLoader.sourceComponent = newPrivateTabViewComponent
+                            if (parent.url && !parent.url.toString()) {
+                                if (!browser.incognito) {
+                                    newTabViewLoader.sourceComponent = newTabViewComponent
+                                } else {
+                                    newTabViewLoader.sourceComponent = newPrivateTabViewComponent
+                                }
                             }
                         }
                     }
