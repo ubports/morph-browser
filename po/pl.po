@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-24 18:31+0200\n"
-"PO-Revision-Date: 2015-04-20 12:38+0000\n"
-"Last-Translator: Bartosz Kosiorek <Unknown>\n"
+"POT-Creation-Date: 2015-05-11 18:56+0200\n"
+"PO-Revision-Date: 2015-04-29 14:06+0000\n"
+"Last-Translator: GTriderXC <gtriderxc@yahoo.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-04-25 05:36+0000\n"
-"X-Generator: Launchpad (build 17430)\n"
+"X-Launchpad-Export-Date: 2015-05-12 05:30+0000\n"
+"X-Generator: Launchpad (build 17487)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -94,7 +94,7 @@ msgstr "Potwierdzenie JavaScriptu"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr "Błąd sieci"
+msgstr "Brak połączenia"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
@@ -459,13 +459,19 @@ msgstr "Ustawienia"
 msgid "Done"
 msgstr "Gotowe"
 
-#: src/app/webbrowser/Browser.qml:715
-msgid "Swipe Up To Exit Full Screen"
+#. TRANSLATORS: %1 refers to the current number of tabs opened
+#: src/app/webbrowser/Browser.qml:480
+#, qt-format
+msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:716
+#: src/app/webbrowser/Browser.qml:727
+msgid "Swipe Up To Exit Full Screen"
+msgstr "Przeciągając w górę opuścisz tryb pelnoekranowy"
+
+#: src/app/webbrowser/Browser.qml:728
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Kliknij ESC, by opuścić tryb pełnoekranowy"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
 #: src/app/webbrowser/HistoryView.qml:130

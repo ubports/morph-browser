@@ -1,3 +1,75 @@
+webbrowser-app (0.23+15.04.20150512-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Leo Arias ]
+  * Fix the base class used when launching the app in autopilot tests.
+
+  [ Leonardo Arias Fonseca ]
+  * Fix the base class used when launching the app in autopilot tests.
+
+  [ Olivier Tilloy ]
+  * Also set XDG_CONFIG_HOME (needed for tests not to override user-
+    defined settings).
+  * Update translation template.
+  * Use the new Oxide APIs to better control visibility of the chrome.
+    This bumps the runtime dependency on liboxideqt-qmlplugin to 1.7.
+    (LP: #1441064, #1453908)
+
+  [ Riccardo Padovani ]
+  * Add support for data: URIs in the address bar, and remove length
+    limitation for TLDs. (LP: #1377953, #1441281, #1450154)
+  * Add support for data: URIs in the address bar, and remove length
+    limitation for TLDs. (LP: #1377953, #1441281, #1450154)
+
+  [ Ugo Riboni ]
+  * Add suggestions from search engines in the suggestions list. (LP:
+    #1351151)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 12 May 2015 15:19:40 +0000
+
+webbrowser-app (0.23+15.04.20150506-0ubuntu1) vivid; urgency=medium
+
+  [ Arthur Mello ]
+  * Change asset for the bottom edge hint. Add text with open tabs
+    count.
+
+  [ CI Train Bot ]
+  * Resync trunk. added: po/ia.po
+
+  [ Leo Arias ]
+  * Fixed flake8 error. (LP: #1444170)
+
+  [ Leonardo Arias Fonseca ]
+  * Fixed flake8 error. (LP: #1444170)
+
+  [ Olivier Tilloy ]
+  * Remove deprecated compatibility code.
+  * Run autopilot tests in a temporary profile directory, to avoid
+    polluting the current user’s profile. (LP: #1448838)
+  * Save the session periodically to mitigate the situation where
+    multiple new tabs had been created when the browser crashes. (LP:
+    #1449761)
+  * Visual feedback for pressed state of chrome buttons and drawer menu
+    entries. (LP: #1448336)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 06 May 2015 21:51:37 +0000
+
+webbrowser-app (0.23+15.04.20150430.1-0ubuntu1) vivid; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Add multi-window support for webapps (LP: #1411722)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 30 Apr 2015 16:34:54 +0000
+
 webbrowser-app (0.23+15.04.20150422.1-0ubuntu1) vivid; urgency=medium
 
   [ Alexandre Abreu ]

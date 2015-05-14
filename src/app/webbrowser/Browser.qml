@@ -26,6 +26,8 @@ import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 import "../UrlUtils.js" as UrlUtils
+import "urlManagement.js" as UrlManagement
+
 
 BrowserView {
     id: browser
@@ -257,6 +259,14 @@ BrowserView {
             ]
         }
 
+        ChromeController {
+            id: chromeController
+            webview: browser.currentWebview
+            forceHide: recentView.visible
+            defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
+                                                   : Oxide.LocationBarController.ModeAuto
+        }
+
         Suggestions {
             id: suggestionsList
             opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
@@ -273,12 +283,15 @@ BrowserView {
 
             searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
 
-            models: [historySuggestions, bookmarksSuggestions]
+            models: [historySuggestions,
+                     bookmarksSuggestions,
+                     searchSuggestions.limit(4)]
 
             LimitProxyModel {
                 id: historySuggestions
-                limit: 4
-                property string icon: "history"
+                limit: 2
+                readonly property string icon: "history"
+                readonly property bool displayUrl: true
                 sourceModel: SuggestionsFilterModel {
                     sourceModel: browser.historyModel
                     terms: suggestionsList.searchTerms
@@ -288,12 +301,28 @@ BrowserView {
 
             LimitProxyModel {
                 id: bookmarksSuggestions
-                limit: 4
-                property string icon: "non-starred"
+                limit: 2
+                readonly property string icon: "non-starred"
+                readonly property bool displayUrl: true
                 sourceModel: SuggestionsFilterModel {
                     sourceModel: browser.bookmarksModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
+                }
+            }
+
+            SearchSuggestions {
+                id: searchSuggestions
+                terms: suggestionsList.searchTerms
+                searchEngine: currentSearchEngine
+                active: chrome.activeFocus &&
+                         !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
+
+                function limit(number) {
+                    var slice = results.slice(0, number)
+                    slice.icon = 'search'
+                    slice.displayUrl = false
+                    return slice
                 }
             }
 
@@ -468,6 +497,18 @@ BrowserView {
         Behavior on opacity {
             UbuntuNumberAnimation {}
         }
+
+        Label {
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                verticalCenter: parent.verticalCenter
+                verticalCenterOffset: units.dp(2)
+            }
+
+            fontSize: "small"
+            // TRANSLATORS: %1 refers to the current number of tabs opened
+            text: i18n.tr("(%1)").arg(tabsModel.count)
+        }
     }
 
     Item {
@@ -577,15 +618,9 @@ BrowserView {
 
                 enabled: visible && !bottomEdgeHandle.dragging && !recentView.visible
 
-                ChromeController {
-                    id: chromeController
-                    webview: webviewimpl
-                    forceHide: recentView.visible
-                }
-
                 locationBarController {
                     height: webviewimpl.visible ? chrome.height : 0
-                    mode: chromeController.mode
+                    mode: chromeController.defaultMode
                 }
 
                 //experimental.preferences.developerExtrasEnabled: developerExtrasEnabled
@@ -916,6 +951,18 @@ BrowserView {
             return tabComponent.createObject(tabContainer, properties)
         }
     }
+    Timer {
+        id: delayedSessionSaver
+        interval: 500
+        onTriggered: session.save()
+    }
+    Timer {
+        // Save session periodically to mitigate state loss when the application crashes
+        interval: 60000 // every minute
+        repeat: true
+        running: true
+        onTriggered: delayedSessionSaver.restart()
+    }
     Connections {
         target: Qt.application
         onStateChanged: {
@@ -927,6 +974,11 @@ BrowserView {
             }
         }
         onAboutToQuit: session.save()
+    }
+    Connections {
+        target: tabsModel
+        onCurrentTabChanged: delayedSessionSaver.restart()
+        onCountChanged: delayedSessionSaver.restart()
     }
 
     // Delay instantiation of the first webview by 1 msec to allow initial

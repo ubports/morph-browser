@@ -71,6 +71,11 @@ const QString& SearchEngine::urlTemplate() const
     return m_template;
 }
 
+const QString& SearchEngine::suggestionsUrlTemplate() const
+{
+    return m_suggestionsTemplate;
+}
+
 bool SearchEngine::isValid() const
 {
     return !m_searchPaths.isEmpty() &&
@@ -99,6 +104,8 @@ void SearchEngine::locateAndParseDescription()
     m_description.clear();
     QString oldTemplate = m_template;
     m_template.clear();
+    QString oldSuggestionsTemplate = m_suggestionsTemplate;
+    m_suggestionsTemplate.clear();
     bool wasValid = isValid();
 
     if (!filepath.isEmpty()) {
@@ -116,8 +123,11 @@ void SearchEngine::locateAndParseDescription()
                     } else if (name == "Description") {
                         m_description = parser.readElementText();
                     } else if (name == "Url") {
-                        if (parser.attributes().value("type") == "text/html") {
+                        QStringRef type = parser.attributes().value("type");
+                        if (type == "text/html") {
                             m_template = parser.attributes().value("template").toString();
+                        } else if (type == "application/x-suggestions+json") {
+                            m_suggestionsTemplate = parser.attributes().value("template").toString();
                         }
                     }
                 }
@@ -132,6 +142,9 @@ void SearchEngine::locateAndParseDescription()
     }
     if (m_template != oldTemplate) {
         Q_EMIT urlTemplateChanged();
+    }
+    if (m_suggestionsTemplate != oldSuggestionsTemplate) {
+        Q_EMIT suggestionsUrlTemplateChanged();
     }
     if (isValid() != wasValid) {
         Q_EMIT validChanged();

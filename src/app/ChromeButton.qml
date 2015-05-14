@@ -23,6 +23,12 @@ AbstractButton {
     property real iconSize: width
     property alias iconName: icon.name
 
+    Rectangle {
+        anchors.fill: parent
+        color: Theme.palette.selected.background
+        visible: parent.pressed
+    }
+
     Icon {
         id: icon
         anchors.centerIn: parent
