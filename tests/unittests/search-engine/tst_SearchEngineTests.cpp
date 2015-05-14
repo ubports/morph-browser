@@ -128,7 +128,7 @@ private Q_SLOTS:
         QCOMPARE(engine->filename(), QString("engine1"));
         engine->setFilename("");
         QCOMPARE(filenameSpy->count(), 2);
-        QCOMPARE(engine->filename(), QString());
+        QVERIFY(engine->filename().isEmpty());
     }
 
     void shouldParseValidDescriptionWithDescription()
@@ -152,11 +152,11 @@ private Q_SLOTS:
         QCOMPARE(nameSpy->count(), 1);
         QCOMPARE(engine->name(), QString("engine2"));
         QVERIFY(descriptionSpy->isEmpty());
-        QCOMPARE(engine->description(), QString());
+        QVERIFY(engine->description().isEmpty());
         QCOMPARE(urlTemplateSpy->count(), 1);
         QCOMPARE(engine->urlTemplate(), QString("https://example.org/search2?q={searchTerms}"));
         QVERIFY(suggestionsUrlTemplateSpy->isEmpty());
-        QCOMPARE(engine->suggestionsUrlTemplate(), QString());
+        QVERIFY(engine->suggestionsUrlTemplate().isEmpty());
         QCOMPARE(validSpy->count(), 1);
         QVERIFY(engine->isValid());
     }
@@ -165,13 +165,13 @@ private Q_SLOTS:
     {
         engine->setFilename("invalid");
         QVERIFY(nameSpy->isEmpty());
-        QCOMPARE(engine->name(), QString());
+        QVERIFY(engine->name().isEmpty());
         QVERIFY(descriptionSpy->isEmpty());
-        QCOMPARE(engine->description(), QString());
+        QVERIFY(engine->description().isEmpty());
         QVERIFY(urlTemplateSpy->isEmpty());
-        QCOMPARE(engine->urlTemplate(), QString());
+        QVERIFY(engine->urlTemplate().isEmpty());
         QVERIFY(suggestionsUrlTemplateSpy->isEmpty());
-        QCOMPARE(engine->suggestionsUrlTemplate(), QString());
+        QVERIFY(engine->suggestionsUrlTemplate().isEmpty());
         QVERIFY(validSpy->isEmpty());
         QVERIFY(!engine->isValid());
     }
@@ -180,13 +180,13 @@ private Q_SLOTS:
     {
         engine->setFilename("nonexistent");
         QVERIFY(nameSpy->isEmpty());
-        QCOMPARE(engine->name(), QString());
+        QVERIFY(engine->name().isEmpty());
         QVERIFY(descriptionSpy->isEmpty());
-        QCOMPARE(engine->description(), QString());
+        QVERIFY(engine->description().isEmpty());
         QVERIFY(urlTemplateSpy->isEmpty());
-        QCOMPARE(engine->urlTemplate(), QString());
+        QVERIFY(engine->urlTemplate().isEmpty());
         QVERIFY(suggestionsUrlTemplateSpy->isEmpty());
-        QCOMPARE(engine->suggestionsUrlTemplate(), QString());
+        QVERIFY(engine->suggestionsUrlTemplate().isEmpty());
         QVERIFY(validSpy->isEmpty());
         QVERIFY(!engine->isValid());
     }
@@ -225,13 +225,13 @@ private Q_SLOTS:
 
         engine->setFilename("engine2");
         QVERIFY(nameSpy->isEmpty());
-        QCOMPARE(engine->name(), QString());
+        QVERIFY(engine->name().isEmpty());
         QVERIFY(descriptionSpy->isEmpty());
-        QCOMPARE(engine->description(), QString());
+        QVERIFY(engine->description().isEmpty());
         QVERIFY(urlTemplateSpy->isEmpty());
-        QCOMPARE(engine->urlTemplate(), QString());
+        QVERIFY(engine->urlTemplate().isEmpty());
         QVERIFY(suggestionsUrlTemplateSpy->isEmpty());
-        QCOMPARE(engine->suggestionsUrlTemplate(), QString());
+        QVERIFY(engine->suggestionsUrlTemplate().isEmpty());
         QVERIFY(validSpy->isEmpty());
         QVERIFY(!engine->isValid());
     }
