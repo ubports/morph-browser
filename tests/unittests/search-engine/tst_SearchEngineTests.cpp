@@ -40,6 +40,7 @@ private:
     QSignalSpy* nameSpy;
     QSignalSpy* descriptionSpy;
     QSignalSpy* urlTemplateSpy;
+    QSignalSpy* suggestionsUrlTemplateSpy;
     QSignalSpy* validSpy;
 
 private Q_SLOTS:
@@ -57,6 +58,7 @@ private Q_SLOTS:
         nameSpy = new QSignalSpy(engine, SIGNAL(nameChanged()));
         descriptionSpy = new QSignalSpy(engine, SIGNAL(descriptionChanged()));
         urlTemplateSpy = new QSignalSpy(engine, SIGNAL(urlTemplateChanged()));
+        suggestionsUrlTemplateSpy = new QSignalSpy(engine, SIGNAL(suggestionsUrlTemplateChanged()));
         validSpy = new QSignalSpy(engine, SIGNAL(validChanged()));
 
         QFile file(QDir(dir1->path()).absoluteFilePath("engine1.xml"));
@@ -66,6 +68,7 @@ private Q_SLOTS:
         out << "<ShortName>engine1</ShortName>";
         out << "<Description>engine1 search</Description>";
         out << "<Url type=\"text/html\" template=\"https://example.org/search1?q={searchTerms}\"/>";
+        out << "<Url type=\"application/x-suggestions+json\" template=\"https://example.org/suggest1?q={searchTerms}\"/>";
         out << "</OpenSearchDescription>";
         file.close();
 
@@ -90,6 +93,7 @@ private Q_SLOTS:
         nameSpy->clear();
         descriptionSpy->clear();
         urlTemplateSpy->clear();
+        suggestionsUrlTemplateSpy->clear();
         validSpy->clear();
         QVERIFY(!engine->isValid());
     }
@@ -97,6 +101,7 @@ private Q_SLOTS:
     void cleanup()
     {
         delete validSpy;
+        delete suggestionsUrlTemplateSpy;
         delete urlTemplateSpy;
         delete descriptionSpy;
         delete nameSpy;
@@ -135,11 +140,13 @@ private Q_SLOTS:
         QCOMPARE(engine->description(), QString("engine1 search"));
         QCOMPARE(urlTemplateSpy->count(), 1);
         QCOMPARE(engine->urlTemplate(), QString("https://example.org/search1?q={searchTerms}"));
+        QCOMPARE(suggestionsUrlTemplateSpy->count(), 1);
+        QCOMPARE(engine->suggestionsUrlTemplate(), QString("https://example.org/suggest1?q={searchTerms}"));
         QCOMPARE(validSpy->count(), 1);
         QVERIFY(engine->isValid());
     }
 
-    void shouldParseValidDescriptionWithoutDescription()
+    void shouldParseValidDescriptionWithoutDescriptionAndSuggestionsTemplate()
     {
         engine->setFilename("engine2");
         QCOMPARE(nameSpy->count(), 1);
@@ -148,6 +155,8 @@ private Q_SLOTS:
         QCOMPARE(engine->description(), QString());
         QCOMPARE(urlTemplateSpy->count(), 1);
         QCOMPARE(engine->urlTemplate(), QString("https://example.org/search2?q={searchTerms}"));
+        QVERIFY(suggestionsUrlTemplateSpy->isEmpty());
+        QCOMPARE(engine->suggestionsUrlTemplate(), QString());
         QCOMPARE(validSpy->count(), 1);
         QVERIFY(engine->isValid());
     }
@@ -161,6 +170,8 @@ private Q_SLOTS:
         QCOMPARE(engine->description(), QString());
         QVERIFY(urlTemplateSpy->isEmpty());
         QCOMPARE(engine->urlTemplate(), QString());
+        QVERIFY(suggestionsUrlTemplateSpy->isEmpty());
+        QCOMPARE(engine->suggestionsUrlTemplate(), QString());
         QVERIFY(validSpy->isEmpty());
         QVERIFY(!engine->isValid());
     }
@@ -174,6 +185,8 @@ private Q_SLOTS:
         QCOMPARE(engine->description(), QString());
         QVERIFY(urlTemplateSpy->isEmpty());
         QCOMPARE(engine->urlTemplate(), QString());
+        QVERIFY(suggestionsUrlTemplateSpy->isEmpty());
+        QCOMPARE(engine->suggestionsUrlTemplate(), QString());
         QVERIFY(validSpy->isEmpty());
         QVERIFY(!engine->isValid());
     }
@@ -187,6 +200,7 @@ private Q_SLOTS:
         out << "<ShortName>engine2-overridden</ShortName>";
         out << "<Description>engine2 overridden search</Description>";
         out << "<Url type=\"text/html\" template=\"https://example.org/search2overridden?q={searchTerms}\"/>";
+        out << "<Url type=\"application/x-suggestions+json\" template=\"https://example.org/suggest2?q={searchTerms}\"/>";
         out << "</OpenSearchDescription>";
         file.close();
 
@@ -197,6 +211,8 @@ private Q_SLOTS:
         QCOMPARE(engine->description(), QString("engine2 overridden search"));
         QCOMPARE(urlTemplateSpy->count(), 1);
         QCOMPARE(engine->urlTemplate(), QString("https://example.org/search2overridden?q={searchTerms}"));
+        QCOMPARE(suggestionsUrlTemplateSpy->count(), 1);
+        QCOMPARE(engine->suggestionsUrlTemplate(), QString("https://example.org/suggest2?q={searchTerms}"));
         QCOMPARE(validSpy->count(), 1);
         QVERIFY(engine->isValid());
     }
@@ -214,6 +230,8 @@ private Q_SLOTS:
         QCOMPARE(engine->description(), QString());
         QVERIFY(urlTemplateSpy->isEmpty());
         QCOMPARE(engine->urlTemplate(), QString());
+        QVERIFY(suggestionsUrlTemplateSpy->isEmpty());
+        QCOMPARE(engine->suggestionsUrlTemplate(), QString());
         QVERIFY(validSpy->isEmpty());
         QVERIFY(!engine->isValid());
     }
