@@ -34,8 +34,6 @@ from . import http_server
 
 import ubuntuuitoolkit as uitk
 
-from webbrowser_app.emulators import browser
-
 
 class BrowserTestCaseBase(AutopilotTestCase):
 
@@ -67,6 +65,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
         if not os.path.exists(self.data_location):
             os.makedirs(self.data_location)
 
+        xdg_config = os.path.join(self._temp_xdg_dir, 'config')
+        self.useFixture(fixtures.EnvironmentVariable(
+            'XDG_CONFIG_HOME',
+            xdg_config))
+        self.config_location = os.path.join(xdg_config, appname)
+        if not os.path.exists(self.config_location):
+            os.makedirs(self.config_location)
+
         xdg_cache = os.path.join(self._temp_xdg_dir, 'cache')
         self.useFixture(fixtures.EnvironmentVariable(
             'XDG_CACHE_HOME',
@@ -92,21 +98,21 @@ class BrowserTestCaseBase(AutopilotTestCase):
         return self.launch_test_application(
             self.local_location,
             *self.ARGS,
-            emulator_base=browser.Webbrowser)
+            emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
 
     def launch_test_installed(self):
         if model() == 'Desktop':
             return self.launch_test_application(
                 "webbrowser-app",
                 *self.ARGS,
-                emulator_base=browser.Webbrowser)
+                emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
         else:
             return self.launch_test_application(
                 "webbrowser-app",
                 self.d_f,
                 *self.ARGS,
                 app_type='qt',
-                emulator_base=browser.Webbrowser)
+                emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
 
     @property
     def main_window(self):
@@ -160,8 +166,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
                         Eventually(Equals(count)))
 
-    def ping_server(self):
-        url = "http://localhost:{}/ping".format(self.server.port)
+    def ping_server(self, server):
+        url = "http://localhost:{}/ping".format(server.port)
         ping = urllib.request.urlopen(url)
         self.assertThat(ping.read(), Equals(b"pong"))
 
@@ -188,12 +194,12 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
     """
 
     def setUp(self):
-        self.server = http_server.HTTPServerInAThread()
-        self.ping_server()
-        self.addCleanup(self.server.cleanup)
+        self.http_server = http_server.HTTPServerInAThread()
+        self.ping_server(self.http_server)
+        self.addCleanup(self.http_server.cleanup)
         self.useFixture(fixtures.EnvironmentVariable(
             'UBUNTU_WEBVIEW_HOST_MAPPING_RULES',
-            "MAP test:80 localhost:{}".format(self.server.port)))
+            "MAP test:80 localhost:{}".format(self.http_server.port)))
         self.base_url = "http://test"
         self.url = self.base_url + "/test1"
         self.ARGS = self.ARGS + [self.url]

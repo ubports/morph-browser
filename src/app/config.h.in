@@ -30,6 +30,11 @@
 #define DEFAULT_SEARCH_DESC "Use google.com to search the Web"
 #define DEFAULT_SEARCH_TEMPLATE "https://google.com/search?client=ubuntu&q={searchTerms}&ie=utf-8&oe=utf-8"
 
+// This API is not official, but it is what Google products and everyone else
+// use to implement search suggestions. The "client=firefox" is there to request
+// JSON output.
+#define DEFAULT_SEARCH_SUGGESTIONS_TEMPLATE "http://suggestqueries.google.com/complete/search?client=firefox&q={searchTerms}"
+
 inline bool isRunningInstalled()
 {
     static bool installed = (QCoreApplication::applicationDirPath() == QDir("@CMAKE_INSTALL_FULL_BINDIR@").canonicalPath());
