@@ -178,7 +178,7 @@ BrowserView {
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
             }
 
-            sourceComponent: webProcessMonitor.crashed || (webProcessMonitor.killed && webProcessMonitor.triedReloadingKilledWebProcessOnce && !currentWebview.loading) ? sadTabComponent : undefined
+            sourceComponent: webProcessMonitor.crashed || (webProcessMonitor.killed && (webProcessMonitor.killedRetries > 0) && !currentWebview.loading) ? sadTabComponent : undefined
 
             Component {
                 id: sadTabComponent

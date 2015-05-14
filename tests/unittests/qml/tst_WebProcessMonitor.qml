@@ -46,61 +46,61 @@ WebProcessMonitor {
 
         function test_no_webview() {
             monitor.webview = null
-            verify(!monitor.triedReloadingKilledWebProcessOnce)
+            compare(monitor.killedRetries, 0)
             verify(!monitor.killed)
             verify(!monitor.crashed)
         }
 
         function test_killed() {
             monitor.webview = webviewMock
-            verify(!monitor.triedReloadingKilledWebProcessOnce)
+            compare(monitor.killedRetries, 0)
 
             webviewMock.webProcessStatus = Oxide.WebView.WebProcessKilled
             verify(monitor.killed)
             verify(!monitor.crashed)
-            tryCompare(monitor, "triedReloadingKilledWebProcessOnce", true)
+            tryCompare(monitor, "killedRetries", 1)
             tryCompare(webviewMock, "reloadCalled", 1)
             verify(!monitor.killed)
             verify(!monitor.crashed)
-            verify(monitor.triedReloadingKilledWebProcessOnce)
+            compare(monitor.killedRetries, 1)
 
             webviewMock.webProcessStatus = Oxide.WebView.WebProcessKilled
             verify(monitor.killed)
             verify(!monitor.crashed)
-            verify(monitor.triedReloadingKilledWebProcessOnce)
+            compare(monitor.killedRetries, 1)
             compare(webviewMock.reloadCalled, 1)
         }
 
         function test_crashed() {
             monitor.webview = webviewMock
-            verify(!monitor.triedReloadingKilledWebProcessOnce)
+            compare(monitor.killedRetries, 0)
 
             webviewMock.webProcessStatus = Oxide.WebView.WebProcessCrashed
             verify(!monitor.killed)
             verify(monitor.crashed)
-            verify(!monitor.triedReloadingKilledWebProcessOnce)
+            compare(monitor.killedRetries, 0)
             compare(webviewMock.reloadCalled, 0)
 
             webviewMock.webProcessStatus = Oxide.WebView.WebProcessRunning
             verify(!monitor.killed)
             verify(!monitor.crashed)
-            verify(!monitor.triedReloadingKilledWebProcessOnce)
+            compare(monitor.killedRetries, 0)
             compare(webviewMock.reloadCalled, 0)
         }
 
         function test_change_webview() {
             monitor.webview = webviewMock
-            verify(!monitor.triedReloadingKilledWebProcessOnce)
+            compare(monitor.killedRetries, 0)
             verify(!monitor.killed)
             verify(!monitor.crashed)
 
             webviewMock.webProcessStatus = Oxide.WebView.WebProcessKilled
             verify(monitor.killed)
             verify(!monitor.crashed)
-            tryCompare(monitor, "triedReloadingKilledWebProcessOnce", true)
+            tryCompare(monitor, "killedRetries", 1)
 
             monitor.webview = null
-            verify(!monitor.triedReloadingKilledWebProcessOnce)
+            compare(monitor.killedRetries, 0)
             verify(!monitor.killed)
             verify(!monitor.crashed)
         }

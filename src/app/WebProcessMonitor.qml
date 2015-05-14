@@ -24,7 +24,7 @@ Item {
 
     visible: false
 
-    property var webview
+    property var webview: null
 
     readonly property bool killed: webview &&
                                    (webview.webProcessStatus == Oxide.WebView.WebProcessKilled)
@@ -36,18 +36,18 @@ Item {
     // the process being killed again within one minute, then display
     // the sad tab.
 
-    readonly property bool triedReloadingKilledWebProcessOnce: internal.triedOnce
+    readonly property int killedRetries: internal.killedRetries
 
     QtObject {
         id: internal
-        property bool triedOnce: false
+        property int killedRetries: 0
     }
 
     Connections {
         target: webview
         onWebProcessStatusChanged: {
             if (webview.webProcessStatus == Oxide.WebView.WebProcessKilled) {
-                if (!internal.triedOnce) {
+                if (internal.killedRetries == 0) {
                     // Do not attempt reloading right away, this would result in a crash
                     delayedReload.restart()
                 }
@@ -61,18 +61,18 @@ Item {
         onTriggered: {
             monitorTimer.restart()
             monitor.webview.reload()
-            internal.triedOnce = true
+            internal.killedRetries++
         }
     }
 
     Timer {
         id: monitorTimer
         interval: 60000 // 1 minute
-        onTriggered: internal.triedOnce = false
+        onTriggered: internal.killedRetries = 0
     }
 
     onWebviewChanged: {
-        internal.triedOnce = false
+        internal.killedRetries = 0
         delayedReload.stop()
         monitorTimer.stop()
     }
