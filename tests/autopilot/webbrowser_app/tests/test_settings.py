@@ -64,7 +64,7 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
                                          objectName="homepageDialog.text")
         self.assertThat(textField.text, Eventually(Equals(old)))
         textField.activeFocus.wait_for(True)
-        new = "http://example.org/{}".format(int(datetime.now().timestamp()))
+        new = "http://test/{}".format(int(datetime.now().timestamp()))
         textField.write(new, True)
         save_button = dialog.select_single(
             "Button",
