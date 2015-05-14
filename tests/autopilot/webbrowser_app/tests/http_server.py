@@ -7,6 +7,7 @@
 # by the Free Software Foundation.
 
 import http.server as http
+import json
 import logging
 import threading
 import time
@@ -19,6 +20,7 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
     """
     A custom HTTP request handler that serves GET resources.
     """
+    suggestions_data = {}
 
     def make_html(self, title, body):
         html = "<html><title>{}</title><body>{}</body></html>"
@@ -130,6 +132,14 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += '<div style="height: 100%"></div>'
             html += '</a></body></html>'
             self.send_html(html)
+        elif self.path.startswith("/suggest"):
+            self.send_response(200)
+            self.send_header("Content-Type", "text/x-suggestions+json")
+            self.end_headers()
+            query = self.path[len("/suggest?q="):]
+            if query in self.suggestions_data:
+                suggestions = self.suggestions_data[query]
+                self.wfile.write(json.dumps(suggestions).encode())
         else:
             self.send_error(404)
 
@@ -145,10 +155,13 @@ class HTTPServerInAThread(object):
     """
     A simple custom HTTP server run in a separate thread.
     """
+    def set_suggestions_data(self, data):
+        self.handler.suggestions_data = data
 
     def __init__(self):
         # port == 0 will assign a random free port
-        self.server = http.HTTPServer(("", 0), HTTPRequestHandler)
+        self.handler = HTTPRequestHandler
+        self.server = http.HTTPServer(("", 0), self.handler)
         self.server.allow_reuse_address = True
         self.server_thread = threading.Thread(target=self.server.serve_forever)
         self.server_thread.start()
