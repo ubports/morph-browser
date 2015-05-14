@@ -63,7 +63,6 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         textField = dialog.select_single(uitk.TextField,
                                          objectName="homepageDialog.text")
         self.assertThat(textField.text, Eventually(Equals(old)))
-        self.pointing_device.click_object(textField)
         textField.activeFocus.wait_for(True)
         new = "http://example.org/{}".format(int(datetime.now().timestamp()))
         textField.write(new, True)
