@@ -165,10 +165,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
                         Eventually(Equals(count)))
 
-    def assert_number_incognito_webviews_eventually(self, count):
-        self.assertThat(lambda: len(self.main_window.get_incognito_webviews()),
-                        Eventually(Equals(count)))
-
     def ping_server(self, server):
         url = "http://localhost:{}/ping".format(server.port)
         ping = urllib.request.urlopen(url)
