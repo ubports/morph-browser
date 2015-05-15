@@ -82,7 +82,7 @@ FocusScope {
         // private mode saving images to the disk. A downside for this is
         // that in private mode the user will be not able to see the
         // preview of open tabs. This should be fixed in a different MR
-        target: webview.incognito ? null : webview
+        target: webview && webview.incognito ? null : webview
         onVisibleChanged: {
             if (!webview.visible) {
                 webview.grabToImage(function(result) {
