@@ -17,7 +17,6 @@
  */
 
 import QtQuick 2.0
-import Qt.labs.folderlistmodel 2.1
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
@@ -40,12 +39,9 @@ Item {
         color: "#f6f6f6"
     }
 
-    FolderListModel {
-        id: searchEngineFolder
-        folder: dataLocation +"/searchengines"
-        showDirs: false
-        nameFilters: ["*.xml"]
-        sortField: FolderListModel.Name
+    SearchEngines {
+        id: searchEngines
+        searchPaths: searchEnginesSearchPaths
     }
 
     SettingsPageHeader {
@@ -74,14 +70,18 @@ Item {
             width: parent.width
 
             ListItem.Subtitled {
+                objectName: "searchengine"
+
                 SearchEngine {
                     id: currentSearchEngine
+                    searchPaths: searchEngines.searchPaths
                     filename: settingsObject.searchEngine
                 }
+
                 text: i18n.tr("Search engine")
                 subText: currentSearchEngine.name
 
-                visible: searchEngineFolder.count > 1
+                visible: searchEngines.engines.count > 1
 
                 onClicked: searchEngineComponent.createObject(subpageContainer);
             }
@@ -161,6 +161,7 @@ Item {
 
             Item {
                 id: searchEngineItem
+                objectName: "searchEnginePage"
                 anchors.fill: parent
 
                 Rectangle {
@@ -183,12 +184,14 @@ Item {
                         bottom: parent.bottom
                     }
 
-                    model: searchEngineFolder
+                    model: searchEngines.engines
 
                     delegate: ListItem.Standard {
+                        objectName: "searchEngineDelegate_" + index
                         SearchEngine {
                             id: searchEngineDelegate
-                            filename: model.fileBaseName
+                            searchPaths: searchEngines.searchPaths
+                            filename: model.filename
                         }
                         text: searchEngineDelegate.name
 

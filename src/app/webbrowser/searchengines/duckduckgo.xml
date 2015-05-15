@@ -1,0 +1,6 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>DuckDuckGo</ShortName>
+  <Description>Search DuckDuckGo</Description>
+  <Url type="text/html" template="https://duckduckgo.com/?q={searchTerms}"/>
+  <Url type="application/x-suggestions+json" template="https://ac.duckduckgo.com/ac/?q={searchTerms}&amp;type=list"/>
+</OpenSearchDescription>

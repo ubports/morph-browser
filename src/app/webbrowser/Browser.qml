@@ -176,6 +176,7 @@ BrowserView {
 
         SearchEngine {
             id: currentSearchEngine
+            searchPaths: searchEnginesSearchPaths
             filename: settings.searchEngine
         }
 
