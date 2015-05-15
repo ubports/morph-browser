@@ -143,16 +143,10 @@ BrowserView {
         }
 
         ChromeController {
-            id: oxideChromeController
             webview: webapp.currentWebview
             forceHide: webapp.chromeless
-        }
-
-        Binding {
-            when: webapp.currentWebview
-            target: webapp.currentWebview ? webapp.currentWebview.locationBarController : null
-            property: 'mode'
-            value: oxideChromeController.mode
+            defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
+                                                   : Oxide.LocationBarController.ModeAuto
         }
     }
 
