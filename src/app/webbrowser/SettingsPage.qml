@@ -83,7 +83,7 @@ Item {
 
                 visible: searchEngines.engines.count > 1
 
-                onClicked: searchEngineComponent.createObject(subpageContainer);
+                onClicked: searchEngineComponent.createObject(subpageContainer)
             }
 
             ListItem.Subtitled {
@@ -101,13 +101,14 @@ Item {
                 text: i18n.tr("Restore previous session at startup")
                 highlightWhenPressed: false
 
-                control: Switch {
-                    id: restoreSessionSwitch
-                    onClicked: settingsObject.restoreSession = checked;
+                control: CheckBox {
+                    id: restoreSessionCheckbox
+                    onTriggered: settingsObject.restoreSession = checked
                 }
 
                 Binding {
-                    target: restoreSessionSwitch; property: "checked";
+                    target: restoreSessionCheckbox
+                    property: "checked"
                     value: settingsObject.restoreSession
                 }
             }
@@ -118,17 +119,16 @@ Item {
                 text: i18n.tr("Allow opening new tabs in background")
                 highlightWhenPressed: false
 
-                control: Switch {
-                    id: allowOpenInBackgroundTabSwitch
-
-                    onClicked: settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false';
+                control: CheckBox {
+                    id: allowOpenInBackgroundTabCheckbox
+                    onTriggered: settingsObject.allowOpenInBackgroundTab = checked ? 'true' : 'false'
                 }
 
                 Binding {
-                    target: allowOpenInBackgroundTabSwitch; property: "checked";
+                    target: allowOpenInBackgroundTabCheckbox
+                    property: "checked"
                     value: settingsObject.allowOpenInBackgroundTab === 'true' ||
-                    (settingsObject.allowOpenInBackgroundTab === 'default' &&
-                        formFactor === "desktop")
+                           (settingsObject.allowOpenInBackgroundTab === 'default' && formFactor === "desktop")
                 }
             }
 
@@ -137,7 +137,7 @@ Item {
 
                 text: i18n.tr("Privacy")
 
-                onClicked: privacyComponent.createObject(subpageContainer);
+                onClicked: privacyComponent.createObject(subpageContainer)
             }
 
             ListItem.Standard {
@@ -145,7 +145,7 @@ Item {
 
                 text: i18n.tr("Reset browser settings")
 
-                onClicked: settingsObject.restoreDefaults();
+                onClicked: settingsObject.restoreDefaults()
             }
         }
     }
@@ -172,7 +172,7 @@ Item {
                 SettingsPageHeader {
                     id: searchEngineTitle
 
-                    onBack: searchEngineItem.destroy();
+                    onBack: searchEngineItem.destroy()
                     text: i18n.tr("Search engine")
                 }
 
@@ -196,10 +196,10 @@ Item {
                         text: searchEngineDelegate.name
 
                         control: CheckBox {
-                            checked: settingsObject.searchEngine == searchEngineDelegate.filename;
+                            checked: settingsObject.searchEngine == searchEngineDelegate.filename
                             onClicked: {
-                                settingsObject.searchEngine = searchEngineDelegate.filename;
-                                searchEngineItem.destroy();
+                                settingsObject.searchEngine = searchEngineDelegate.filename
+                                searchEngineItem.destroy()
                             }
                         }
                     }
@@ -223,7 +223,7 @@ Item {
 
                 SettingsPageHeader {
                     id: privacyTitle
-                    onBack: privacyItem.destroy();
+                    onBack: privacyItem.destroy()
                     text: i18n.tr("Privacy")
                 }
 
@@ -246,7 +246,7 @@ Item {
                         ListItem.Standard {
                             objectName: "privacy.clearHistory"
                             text: i18n.tr("Clear Browsing History")
-                            onClicked: historyModel.clearAll();
+                            onClicked: historyModel.clearAll()
                             enabled: historyModel.count > 0
                         }
 
@@ -274,7 +274,7 @@ Item {
             title: i18n.tr("Homepage")
 
             Component.onCompleted: {
-                homepageTextField.forceActiveFocus();
+                homepageTextField.forceActiveFocus()
                 homepageTextField.cursorPosition = homepageTextField.text.length
             }
 
@@ -293,20 +293,26 @@ Item {
 
             Button {
                 objectName: "homepageDialog.cancelButton"
-                anchors { left: parent.left; right: parent.right }
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
                 text: i18n.tr("Cancel")
-                onClicked: PopupUtils.close(dialogue);
+                onClicked: PopupUtils.close(dialogue)
             }
 
             Button {
                 objectName: "homepageDialog.saveButton"
-                anchors { left: parent.left; right: parent.right }
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
                 text: i18n.tr("Save")
                 enabled: UrlManagement.looksLikeAUrl(homepageTextField.text.trim())
                 color: "#3fb24f"
                 onClicked: {
-                    settingsObject.homepage = UrlManagement.fixUrl(homepageTextField.text);
-                    PopupUtils.close(dialogue);
+                    settingsObject.homepage = UrlManagement.fixUrl(homepageTextField.text)
+                    PopupUtils.close(dialogue)
                 }
             }
         }
