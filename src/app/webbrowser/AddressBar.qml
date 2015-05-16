@@ -305,6 +305,8 @@ FocusScope {
     onRequestedUrlChanged: {
         if (!activeFocus) {
             text = internal.simplifyUrl(requestedUrl)
+        } else {
+            text = requestedUrl
         }
     }
 
