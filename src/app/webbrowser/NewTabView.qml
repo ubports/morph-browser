@@ -44,11 +44,19 @@ Item {
 
         property bool seeMoreBookmarksView: bookmarksCountLimit > 4
         property int bookmarksCountLimit: Math.min(4, numberOfBookmarks)
-        property int numberOfBookmarks: bookmarksModel.count !== undefined ?
-                                            bookmarksModel.count : 0
+        property int numberOfBookmarks: bookmarksModel &&
+          bookmarksModel.count !== undefined ? bookmarksModel.count : 0
+        property int numberOfTopSites: historyModel &&
+          historyModel.count !== undefined ? historyModel.count : 0
 
-        property int numberOfTopSites: historyModel.count !== undefined ?
-                                            historyModel.count : 0
+        // Force the topsites section to reappear when remove a bookmark while
+        // the bookmarks list is expanded and there aren't anymore > 5
+        // bookmarks
+        onNumberOfBookmarksChanged: {
+            if (numberOfBookmarks === 4 && seeMoreBookmarksView) {
+                seeMoreBookmarksView = false;
+            }
+        }
     }
 
     Rectangle {
@@ -135,7 +143,9 @@ Item {
                     right: parent.right
                 }
 
-                height: units.gu(5) * (internal.bookmarksCountLimit + 1)
+                // Force the height to be updated when bookmarks are removed
+                // in another new tab
+                height: units.gu(5) * (Math.min(internal.bookmarksCountLimit, internal.numberOfBookmarks) + 1)
                 spacing: 0
 
                 UrlDelegate {
@@ -202,17 +212,27 @@ Item {
                 Behavior on opacity { UbuntuNumberAnimation {} }
             }
 
-            Text {
-                height: units.gu(6)
+            Rectangle {
                 anchors {
-                    left: parent.left
-                    right: parent.right
+                  left: parent.left;
+                  right: parent.right;
                 }
-                horizontalAlignment: Text.AlignHCenter
 
                 visible: internal.numberOfTopSites === 0
+                height: units.gu(11)
 
-                text: i18n.tr("You haven't visited any site yet")
+                Text {
+                    height: units.gu(6)
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                    }
+                    horizontalAlignment: Text.AlignHCenter
+
+                    text: i18n.tr("You haven't visited any site yet")
+                    color: "#5d5d5d"
+                }
             }
 
             UrlsList {
@@ -231,10 +251,7 @@ Item {
                 model: topSitesModel
 
                 onUrlClicked: newTabView.historyEntryClicked(url)
-                onUrlRemoved: {
-                    newTabView.historyModel.hide(url)
-                    limit++;
-                }
+                onUrlRemoved: newTabView.historyModel.hide(url)
             }
         }
     }
