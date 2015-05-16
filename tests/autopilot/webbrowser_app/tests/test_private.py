@@ -68,6 +68,25 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         top_sites = self.get_url_list_from_top_sites()
         self.assertIn(url, top_sites)
 
+    def test_address_bar_should_be_empty_after_going_in_private_mode(self):
+        address_bar = self.main_window.address_bar
+        address_bar.focus()
+        self.main_window.enter_private_mode()
+        self.assertTrue(self.main_window.is_in_private_mode())
+        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        self.assertFalse(address_bar.text)
+
+    def test_address_bar_shouldnt_have_focus_when_leaving_private_mode(self):
+        self.main_window.enter_private_mode()
+        self.assertTrue(self.main_window.is_in_private_mode())
+        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
+        address_bar = self.main_window.address_bar
+        address_bar.focus()
+        self.main_window.leave_private_mode()
+        self.assertTrue(address_bar.text)
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+
     def test_previews_tabs_must_not_be_visible_after_entering_private_mode(
             self):
         self.open_tabs_view()
