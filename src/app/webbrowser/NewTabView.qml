@@ -44,17 +44,15 @@ Item {
 
         property bool seeMoreBookmarksView: bookmarksCountLimit > 4
         property int bookmarksCountLimit: Math.min(4, numberOfBookmarks)
-        property int numberOfBookmarks: bookmarksModel &&
-          bookmarksModel.count !== undefined ? bookmarksModel.count : 0
-        property int numberOfTopSites: historyModel &&
-          historyModel.count !== undefined ? historyModel.count : 0
+        property int numberOfBookmarks: bookmarksModel ? bookmarksModel.count : 0
+        property int numberOfTopSites: historyModel ? historyModel.count : 0
 
         // Force the topsites section to reappear when remove a bookmark while
         // the bookmarks list is expanded and there aren't anymore > 5
         // bookmarks
         onNumberOfBookmarksChanged: {
-            if (numberOfBookmarks === 4 && seeMoreBookmarksView) {
-                seeMoreBookmarksView = false;
+            if (numberOfBookmarks <= 4) {
+                seeMoreBookmarksView = false
             }
         }
     }
@@ -124,7 +122,7 @@ Item {
                     onClicked: {
                         internal.numberOfBookmarks > internal.bookmarksCountLimit ?
                         internal.bookmarksCountLimit += 5:
-                        internal.bookmarksCountLimit = 4;
+                        internal.bookmarksCountLimit = 4
                     }
                 }
             }
@@ -212,27 +210,19 @@ Item {
                 Behavior on opacity { UbuntuNumberAnimation {} }
             }
 
-            Rectangle {
-                anchors {
-                  left: parent.left;
-                  right: parent.right;
-                }
-
-                visible: internal.numberOfTopSites === 0
+            Text {
                 height: units.gu(11)
-
-                Text {
-                    height: units.gu(6)
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        bottom: parent.bottom
-                    }
-                    horizontalAlignment: Text.AlignHCenter
-
-                    text: i18n.tr("You haven't visited any site yet")
-                    color: "#5d5d5d"
+                anchors {
+                    left: parent.left
+                    right: parent.right
                 }
+                visible: internal.numberOfTopSites === 0
+
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+
+                text: i18n.tr("You haven't visited any site yet")
+                color: "#5d5d5d"
             }
 
             UrlsList {
