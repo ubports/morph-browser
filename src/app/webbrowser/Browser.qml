@@ -191,16 +191,20 @@ BrowserView {
                 }
             }
 
-            sourceComponent: currentWebview && !currentWebview.url.toString() && !currentWebview.restoreState ?
-                newTabViewComponent : null
+            Connections {
+                target: browser
+                onCurrentWebviewChanged: {
+                    if (currentWebview &&
+                      !currentWebview.url.toString() &&
+                      !currentWebview.restoreState) {
+                        newTabViewLoader.sourceComponent = newTabViewComponent
+                    }
+                }
+            }
 
             Component {
                 id: newTabViewComponent
                 NewTabView {
-                    anchors {
-                        fill: parent
-                    }
-
                     historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
                     onBookmarkClicked: {
