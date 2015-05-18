@@ -87,6 +87,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_settings_page(self):
         return self.wait_select_single(SettingsPage, visible=True)
 
+    def get_history_view(self):
+        return self.wait_select_single("HistoryView", visible=True)
+
     def get_content_picker_dialog(self):
         # only on devices
         return self.wait_select_single("PopupBase",
@@ -273,3 +276,8 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def click_back_button(self):
         button = self.select_single("AbstractButton", objectName="backButton")
         self.pointing_device.click_object(button)
+
+class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_history_urls(self):
+        return self.select_many("UrlDelegate")
