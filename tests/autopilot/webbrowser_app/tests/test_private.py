@@ -29,14 +29,16 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
 
     def test_going_in_and_out_private_mode(self):
         self.main_window.enter_private_mode()
-        self.assertTrue(self.main_window.is_in_private_mode())
+        self.assertThat(self.main_window.is_in_private_mode(),
+                        Eventually(Equals(True)))
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
         self.main_window.leave_private_mode()
         self.assertFalse(self.main_window.is_in_private_mode())
 
     def test_cancel_leaving_private_mode(self):
         self.main_window.enter_private_mode()
-        self.assertTrue(self.main_window.is_in_private_mode())
+        self.assertThat(self.main_window.is_in_private_mode(),
+                        Eventually(Equals(True)))
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
         self.main_window.leave_private_mode(confirm=False)
         self.assertTrue(self.main_window.is_in_private_mode())
@@ -72,14 +74,16 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         address_bar = self.main_window.address_bar
         address_bar.focus()
         self.main_window.enter_private_mode()
-        self.assertTrue(self.main_window.is_in_private_mode())
+        self.assertThat(self.main_window.is_in_private_mode(),
+                        Eventually(Equals(True)))
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
-        self.assertFalse(address_bar.text)
+        self.assertThat(address_bar.text, Eventually(Equals("")))
 
     def test_address_bar_shouldnt_have_focus_when_leaving_private_mode(self):
         self.main_window.enter_private_mode()
-        self.assertTrue(self.main_window.is_in_private_mode())
+        self.assertThat(self.main_window.is_in_private_mode(),
+                        Eventually(Equals(True)))
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
         address_bar = self.main_window.address_bar
         address_bar.focus()
@@ -105,6 +109,9 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
                         Eventually(Equals(url)))
 
         self.main_window.enter_private_mode()
+        self.assertThat(self.main_window.is_in_private_mode(),
+                        Eventually(Equals(True)))
+        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_previews()
