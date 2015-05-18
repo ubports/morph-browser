@@ -210,7 +210,7 @@ Item {
                 Behavior on opacity { UbuntuNumberAnimation {} }
             }
 
-            Text {
+            Label {
                 height: units.gu(11)
                 anchors {
                     left: parent.left

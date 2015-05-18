@@ -176,30 +176,47 @@ BrowserView {
 
         Loader {
             id: newTabViewLoader
-            anchors.fill: parent
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
 
-            sourceComponent: NewTabView {
-                anchors {
-                    fill: parent
-                    topMargin: (chrome.state == "shown") ? chrome.height : 0
-                }
-
-                visible: !currentWebview || !currentWebview.url.toString()
-
-                historyModel: browser.historyModel
-                bookmarksModel: browser.bookmarksModel
-                onBookmarkClicked: {
-                    chrome.requestedUrl = url
-                    currentWebview.url = url
-                    currentWebview.forceActiveFocus()
-                }
-                onBookmarkRemoved: browser.bookmarksModel.remove(url)
-                onHistoryEntryClicked: {
-                    chrome.requestedUrl = url
-                    currentWebview.url = url
-                    currentWebview.forceActiveFocus()
+            // Avoid loading the new tab view if the webview is about to load
+            // content. Since WebView.restoreState is not a notifyable property,
+            // this can’t be achieved with a simple property binding.
+            Connections {
+                target: currentWebview
+                onUrlChanged: {
+                    newTabViewLoader.sourceComponent = null
                 }
             }
+
+            sourceComponent: currentWebview && !currentWebview.url.toString() && !currentWebview.restoreState ?
+                newTabViewComponent : null
+
+            Component {
+                id: newTabViewComponent
+                NewTabView {
+                    anchors {
+                        fill: parent
+                    }
+
+                    historyModel: browser.historyModel
+                    bookmarksModel: browser.bookmarksModel
+                    onBookmarkClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        currentWebview.forceActiveFocus()
+                    }
+                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onHistoryEntryClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        currentWebview.forceActiveFocus()
+                    }
+                }
+            }
+            asynchronous: true
         }
 
         SearchEngine {
