@@ -89,16 +89,12 @@ You can find more information with:
 
 == Run dep8 tests ==
 
-.. FIXME: This shouldn't be part of a specific package but instead be part
-   of the wiki
-   https://wiki.ubuntu.com/Touch/Testing#Running_tests_with_autopkgtest or
-   of autopkgtest README.running-tests -- vila 2015-05-05
-
-To run the tests in a qemu virtual machine, first you will have to create
-it. We output the image to ~/ rather than the current directory, so it will
-be in a safer place to avoid rebuilding images every time. You can store it
-in any directory you wish. This image is better consumed "fresh", building
-it daily will avoid long updates/upgrades when running the tests.
+To run the tests in a qemu virtual machine, you will first have to create it
+(see /usr/share/doc/autopkgtest/README.running-tests.rst.gz). We output the
+image to ~/ rather than the current directory, so it will be in a safer
+place to avoid rebuilding images every time. You can store it in any
+directory you wish. This image is better consumed "fresh", building it daily
+will avoid long updates/upgrades when running the tests.
 
     $ adt-buildvm-ubuntu-cloud -r vivid -a amd64 -o ~/
 
@@ -106,12 +102,6 @@ Then run the tests using adt-run with the qemu virtualization host against
 the current archive.
 
     $ adt-run -B -U --unbuilt-tree . \
-      -o ~/adt-browser-test/$(date +%Y-%m-%d-%H-%M) \
-      --- qemu ~/adt-vivid-amd64-cloud.img
-
-To run the tests as in proposed-migration.
-
-   $ adt-run -B -U --unbuilt-tree . --apt-pocket proposed\
       -o ~/adt-browser-test/$(date +%Y-%m-%d-%H-%M) \
       --- qemu ~/adt-vivid-amd64-cloud.img
 
