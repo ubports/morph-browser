@@ -60,7 +60,7 @@ public:
     const QString databasePath() const;
     void setDatabasePath(const QString& path);
 
-    Q_INVOKABLE int add(const QUrl& url, const QString& title=QString(), const QUrl& icon=QUrl());
+    Q_INVOKABLE int add(const QUrl& url, const QString& title, const QUrl& icon);
     Q_INVOKABLE void removeEntryByUrl(const QUrl& url);
     Q_INVOKABLE void removeEntriesByDomain(const QString& domain);
     Q_INVOKABLE void clearAll();

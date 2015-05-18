@@ -690,19 +690,20 @@ BrowserView {
                     id: webviewInternal
                     property url storedUrl: ""
                     property string storedTitle: ""
-                    property url storedIcon: ""
                 }
                 onUrlChanged: {
-                    webviewInternal.storedUrl = ""
-                    webviewInternal.storedTitle = ""
-                    webviewInternal.storedIcon = ""
+                    if (url.toString() != webviewInternal.storedUrl.toString()) {
+                        webviewInternal.storedUrl = ""
+                        webviewInternal.storedTitle = ""
+                    }
                 }
                 onLoadEvent: {
                     if ((event.type == Oxide.LoadEvent.TypeCommitted) &&
                         !event.isError &&
-                        browser.historyModel) {
+                        browser.historyModel &&
+                        !webviewInternal.storedUrl.toString()) {
                         webviewInternal.storedUrl = event.url
-                        browser.historyModel.add(event.url)
+                        browser.historyModel.add(event.url, title, icon)
                     }
                 }
                 onTitleChanged: {
@@ -710,18 +711,17 @@ BrowserView {
                         return
                     }
                     if (!webviewInternal.storedTitle) {
+                        // Record the title to avoid updating the history database
+                        // every time the page dynamically updates the title.
                         webviewInternal.storedTitle = title
-                        browser.historyModel.add(webviewInternal.storedUrl, title)
+                        browser.historyModel.add(webviewInternal.storedUrl, title, icon)
                     }
                 }
                 onIconChanged: {
                     if (!webviewInternal.storedUrl.toString()) {
                         return
                     }
-                    if (!webviewInternal.storedIcon.toString()) {
-                        webviewInternal.storedIcon = icon
-                        browser.historyModel.add(webviewInternal.storedUrl, webviewInternal.storedTitle, icon)
-                    }
+                    browser.historyModel.add(webviewInternal.storedUrl, webviewInternal.storedTitle, icon)
                 }
 
                 onGeolocationPermissionRequested: requestGeolocationPermission(request)
