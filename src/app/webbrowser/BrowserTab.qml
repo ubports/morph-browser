@@ -75,29 +75,48 @@ FocusScope {
         destroy()
     }
 
-    Connections {
-        target: webview
-        onVisibleChanged: {
-            if (!webview.visible) {
-                webview.grabToImage(function(result) {
-                    var capturesDir = cacheLocation + "/captures"
-                    if (!FileOperations.exists(Qt.resolvedUrl(capturesDir))) {
-                        FileOperations.mkpath(Qt.resolvedUrl(capturesDir))
-                    }
-                    var filepath = capturesDir + "/" + uniqueId + ".jpg"
-                    if (result.saveToFile(filepath)) {
-                        var previewUrl = Qt.resolvedUrl(filepath)
-                        if (preview == previewUrl) {
-                            // Ensure that the preview URL actually changes,
-                            // for the image to be reloaded
-                            preview = ""
-                        }
-                        preview = previewUrl
-                    } else {
+    QtObject {
+        id: internal
+        property bool hiding: false
+    }
+
+    // When enabled is set to false, delay hiding the tab contents to give it
+    // an opportunity to grab an up-to-date capture. This works well only if
+    // and only if embedders do not set the 'visible' property directly or
+    // indirectly on instances of a BrowserTab.
+    onEnabledChanged: {
+        if (enabled) {
+            internal.hiding = false
+            visible = true
+        } else if (visible && !internal.hiding) {
+            if (!webview) {
+                visible = false
+                return
+            }
+            internal.hiding = true
+            webview.grabToImage(function(result) {
+                if (!internal.hiding) {
+                    return
+                }
+                internal.hiding = false
+                visible = false
+                var capturesDir = cacheLocation + "/captures"
+                if (!FileOperations.exists(Qt.resolvedUrl(capturesDir))) {
+                    FileOperations.mkpath(Qt.resolvedUrl(capturesDir))
+                }
+                var filepath = capturesDir + "/" + uniqueId + ".jpg"
+                if (result.saveToFile(filepath)) {
+                    var previewUrl = Qt.resolvedUrl(filepath)
+                    if (preview == previewUrl) {
+                        // Ensure that the preview URL actually changes,
+                        // for the image to be reloaded
                         preview = ""
                     }
-                })
-            }
+                    preview = previewUrl
+                } else {
+                    preview = ""
+                }
+            })
         }
     }
 

@@ -603,7 +603,7 @@ BrowserView {
 
         BrowserTab {
             anchors.fill: parent
-            visible: tabsModel.currentTab === this
+            enabled: tabsModel.currentTab === this
 
             webviewComponent: WebViewImpl {
                 id: webviewimpl
@@ -615,7 +615,7 @@ BrowserView {
                 anchors.fill: parent
                 focus: true
 
-                enabled: visible && !bottomEdgeHandle.dragging && !recentView.visible
+                enabled: !bottomEdgeHandle.dragging && !recentView.visible
 
                 locationBarController {
                     height: webviewimpl.visible ? chrome.height : 0
