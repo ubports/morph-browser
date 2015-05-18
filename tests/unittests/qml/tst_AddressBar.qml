@@ -266,6 +266,19 @@ Item {
             compare(addressBar.text, data.actualUrl)
         }
 
+        function test_shouldBeClearedWhenFocusedIfActualUrlIsCleared() {
+            // https://launchpad.net/bugs/1456199
+            var text = "http://example.org"
+            typeString(text)
+            compare(addressBar.text, text)
+            verify(addressBar.activeFocus)
+            addressBar.actualUrl = text
+            verify(addressBar.activeFocus)
+            addressBar.actualUrl = ""
+            verify(addressBar.activeFocus)
+            compare(addressBar.text, "")
+        }
+
         function test_actionButtonShouldBeDisabledWhenEmpty() {
             verify(!addressBar.__actionButton.enabled)
             keyClick(Qt.Key_U)
