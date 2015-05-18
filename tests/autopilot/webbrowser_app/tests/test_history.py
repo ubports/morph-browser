@@ -15,9 +15,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from testtools.matchers import Equals
-from autopilot.matchers import Eventually
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
+
 
 class TestHistory(StartOpenRemotePageTestCaseBase):
 

@@ -277,6 +277,7 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         button = self.select_single("AbstractButton", objectName="backButton")
         self.pointing_device.click_object(button)
 
+
 class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_history_urls(self):
