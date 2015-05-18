@@ -23,8 +23,6 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestHistory(StartOpenRemotePageTestCaseBase):
 
     def test_history_not_save_404(self):
-        self.open_tabs_view()
-        self.open_new_tab()
         url = self.base_url + "/404page"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
