@@ -686,11 +686,41 @@ BrowserView {
                     }
                 }
 
+                QtObject {
+                    id: webviewInternal
+                    property url storedUrl: ""
+                    property string storedTitle: ""
+                    property url storedIcon: ""
+                }
+                onUrlChanged: {
+                    webviewInternal.storedUrl = ""
+                    webviewInternal.storedTitle = ""
+                    webviewInternal.storedIcon = ""
+                }
                 onLoadEvent: {
                     if ((event.type == Oxide.LoadEvent.TypeCommitted) &&
                         !event.isError &&
                         browser.historyModel) {
-                        browser.historyModel.add(event.url, title, icon)
+                        webviewInternal.storedUrl = event.url
+                        browser.historyModel.add(event.url)
+                    }
+                }
+                onTitleChanged: {
+                    if (!webviewInternal.storedUrl.toString()) {
+                        return
+                    }
+                    if (!webviewInternal.storedTitle) {
+                        webviewInternal.storedTitle = title
+                        browser.historyModel.add(webviewInternal.storedUrl, title)
+                    }
+                }
+                onIconChanged: {
+                    if (!webviewInternal.storedUrl.toString()) {
+                        return
+                    }
+                    if (!webviewInternal.storedIcon.toString()) {
+                        webviewInternal.storedIcon = icon
+                        browser.historyModel.add(webviewInternal.storedUrl, webviewInternal.storedTitle, icon)
                     }
                 }
 
