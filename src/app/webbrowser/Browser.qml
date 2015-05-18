@@ -1099,9 +1099,31 @@ BrowserView {
             id: dialogue
             objectName: "leavePrivateModeDialog"
 
+            property bool leavePrivateModeRequested: false
+
+            // This dialog inherits from PopupBase, which has a restoreActiveFocus
+            // function that is called when the dialog is hidden. That keeps the
+            // focus in the address bar/webview when we leave private mode. So any
+            // change on the active focus should be done after the run of such
+            // function
+            Component.onDestruction: {
+                if (leavePrivateModeRequested) {
+                    if (browser.tabsModel == browserTabsModel && browser.currentWebview) {
+                        var url = browser.currentWebview.url
+
+                        if (!url.toString() && (formFactor == "desktop")) {
+                            internal.focusAddressBar()
+                        } else {
+                            browser.currentWebview.forceActiveFocus()
+                        }
+                    }
+                }
+            }
+
             onCancelButtonClicked: PopupUtils.close(dialogue)
             onOkButtonClicked: {
                 PopupUtils.close(dialogue)
+                leavePrivateModeRequested = true
                 browser.incognito = false
             }
         }
