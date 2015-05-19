@@ -86,7 +86,7 @@ ChromeBase {
 
             focus: true
             findInPageMode: chrome.findInPageMode
-            findInPage: chrome.webview ? chrome.webview.findInPage : null
+            findController: chrome.webview ? chrome.webview.findController : null
 
             anchors {
                 left: forwardButton.right
@@ -152,8 +152,8 @@ ChromeBase {
                 anchors.verticalCenter: parent.verticalCenter
 
                 visible: findInPageMode
-                enabled: webview && webview.findInPage && webview.findInPage.count > 1
-                onTriggered: webview.findInPage.previous()
+                enabled: webview && webview.findController && webview.findController.count > 1
+                onTriggered: webview.findController.previous()
             }
 
             ChromeButton {
@@ -169,8 +169,8 @@ ChromeBase {
                 anchors.verticalCenter: parent.verticalCenter
 
                 visible: findInPageMode
-                enabled: webview && webview.findInPage && webview.findInPage.count > 1
-                onTriggered: webview.findInPage.next()
+                enabled: webview && webview.findController && webview.findController.count > 1
+                onTriggered: webview.findController.next()
             }
 
             ChromeButton {

@@ -37,7 +37,7 @@ FocusScope {
     signal requestStop()
     property string searchUrl
     property bool findInPageMode: false
-    property var findInPage
+    property var findController
 
     property var securityStatus: null
 
@@ -52,10 +52,10 @@ FocusScope {
     // Only start searches when the user types two or more characters, as
     // defined in the design specification for the find in page feature.
     Binding {
-        target: findInPage
+        target: findController
         property: "text"
         value: textField.text.length > 1 ? textField.text : ""
-        when: findInPageMode && findInPage
+        when: findInPageMode && findController
     }
 
     TextField {
@@ -186,14 +186,14 @@ FocusScope {
                 anchors.verticalCenter: parent.verticalCenter
                 fontSize: "x-small"
                 color: "#5d5d5d"
-                opacity: findInPage && findInPage.count > 0 ? 1.0 : 0.6
+                opacity: findController && findController.count > 0 ? 1.0 : 0.6
                 text: findInPagePattern.arg(current).arg(count)
                 visible: findInPageMode
 
                 // TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
                 property string findInPagePattern: i18n.tr("%1/%2")
-                property int current: findInPage ? findInPage.current : 0
-                property int count: findInPage ? findInPage.count : 0
+                property int current: findController ? findController.current : 0
+                property int count: findController ? findController.count : 0
             }
 
             Item {
