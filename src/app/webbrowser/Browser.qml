@@ -33,16 +33,17 @@ import "urlManagement.js" as UrlManagement
 BrowserView {
     id: browser
 
-    property var tabsModel: incognito ? privateTabsModel : browserTabsModel
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
-    property var privateTabsModel: (privateTabsModelLoader.status == Loader.Ready) ? privateTabsModelLoader.item : null
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
     property bool newSession: false
 
     property bool incognito: false
+
+    readonly property var tabsModel: incognito ? privateTabsModel : browserTabsModel
+    readonly property var privateTabsModel: (privateTabsModelLoader.status == Loader.Ready) ? privateTabsModelLoader.item : null
 
     // XXX: we might want to tweak this value depending
     // on the form factor and/or the available memory
@@ -54,12 +55,10 @@ BrowserView {
     readonly property int maxTabsToRestore: 10
 
     onTabsModelChanged: {
-        if (tabsModel == privateTabsModel && privateTabsModel != null) {
-            if (privateTabsModelLoader.status == Loader.Ready) {
-                browser.openUrlInNewTab("", true)
-                if (formFactor == "desktop") {
-                    internal.focusAddressBar()
-                }
+        if (incognito && privateTabsModel) {
+            browser.openUrlInNewTab("", true)
+            if (formFactor == "desktop") {
+                internal.focusAddressBar()
             }
         }
     }
@@ -611,16 +610,7 @@ BrowserView {
     Loader {
         id: privateTabsModelLoader
 
-        Connections {
-            target: browser
-            onIncognitoChanged: {
-                if (browser.incognito) {
-                    privateTabsModelLoader.sourceComponent = privateTabsModelComponent
-                } else {
-                    privateTabsModelLoader.sourceComponent = null
-                }
-            }
-        }
+        sourceComponent: browser.incognito ? privateTabsModelComponent : null
 
         Component {
             id: privateTabsModelComponent
@@ -730,7 +720,7 @@ BrowserView {
                 }
 
                 onLoadEvent: {
-                    if (browser.incognito) {
+                    if (webviewimpl.incognito) {
                         return
                     }
 
@@ -827,7 +817,7 @@ BrowserView {
                     // this can’t be achieved with a simple property binding.
                     Component.onCompleted: {
                         if (!parent.url.toString() && !parent.restoreState) {
-                            if (!browser.incognito) {
+                            if (!webviewimpl.incognito) {
                                 sourceComponent = newTabViewComponent
                             } else {
                                 sourceComponent = newPrivateTabViewComponent
@@ -838,19 +828,6 @@ BrowserView {
                     Connections {
                         target: newTabViewLoader.parent
                         onUrlChanged: newTabViewLoader.sourceComponent = null
-                    }
-
-                    Connections {
-                        target: browser
-                        onIncognitoChanged: {
-                            if (parent.url && !parent.url.toString()) {
-                                if (!browser.incognito) {
-                                    newTabViewLoader.sourceComponent = newTabViewComponent
-                                } else {
-                                    newTabViewLoader.sourceComponent = newPrivateTabViewComponent
-                                }
-                            }
-                        }
                     }
 
                     Component {
@@ -1012,7 +989,7 @@ BrowserView {
         }
 
         function createTabFromState(state) {
-            var properties = {'initialUrl': state.url, 'initialTitle': state.title, 'incognito': browser.incognito}
+            var properties = {'initialUrl': state.url, 'initialTitle': state.title}
             if ('uniqueId' in state) {
                 properties["uniqueId"] = state.uniqueId
             }
