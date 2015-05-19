@@ -53,7 +53,7 @@ Item {
         width: units.gu(25)
         wrapMode: Text.WordWrap
         horizontalAlignment: Text.AlignHCenter
-        text: i18n.tr("Pages that you view in this tab won't appear in your browser history.\n\nBookmarks you create will be preserved, however.")
+        text: i18n.tr("Pages that you view in this tab won't appear in your browser history.\nBookmarks you create will be preserved, however.")
         color: UbuntuColors.darkGrey
         fontSize: "x-small"
     }
