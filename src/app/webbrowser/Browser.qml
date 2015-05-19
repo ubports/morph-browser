@@ -824,7 +824,6 @@ BrowserView {
                             }
                         }
                     }
-
                     Connections {
                         target: newTabViewLoader.parent
                         onUrlChanged: newTabViewLoader.sourceComponent = null
