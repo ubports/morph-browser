@@ -187,7 +187,7 @@ ChromeBase {
                 top: parent.bottom
                 right: parent.right
             }
-            width: units.gu(20)
+            width: units.gu(22)
             height: actionsColumn.height
             clip: actionsColumn.y != 0
 

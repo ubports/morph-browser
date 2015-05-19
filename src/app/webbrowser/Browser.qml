@@ -57,9 +57,6 @@ BrowserView {
     onTabsModelChanged: {
         if (incognito && privateTabsModel) {
             browser.openUrlInNewTab("", true)
-            if (formFactor == "desktop") {
-                internal.focusAddressBar()
-            }
         }
     }
 
@@ -262,7 +259,7 @@ BrowserView {
                 Action {
                     objectName: "newtab"
                     text: i18n.tr("New tab")
-                    iconName: "tab-new"
+                    iconName: browser.incognito ? "private-tab-new" : "tab-new"
                     enabled: formFactor != "mobile"
                     onTriggered: browser.openUrlInNewTab("", true)
                 },
@@ -274,7 +271,7 @@ BrowserView {
                 },
                 Action {
                     objectName: "privatemode"
-                    text: browser.incognito ? i18n.tr("Leave Private") : i18n.tr("Private Mode")
+                    text: browser.incognito ? i18n.tr("Leave Private Mode") : i18n.tr("Private Mode")
                     iconName: "private-browsing"
                     onTriggered: {
                         if (browser.incognito) {
