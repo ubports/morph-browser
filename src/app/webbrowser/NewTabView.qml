@@ -137,7 +137,6 @@ Item {
 
         UrlsList {
             id: bookmarksList
-            objectName: "bookmarksList"
 
             width: parent.width
 
@@ -156,6 +155,8 @@ Item {
         id: topSitesComponent
 
         UrlsList {
+            objectName: "topSitesList"
+
             width: parent.width
             opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
 
