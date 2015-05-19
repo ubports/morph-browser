@@ -81,8 +81,8 @@ FocusScope {
     }
 
     // When enabled is set to false, delay hiding the tab contents to give it
-    // an opportunity to grab an up-to-date capture. This works well only if
-    // and only if embedders do not set the 'visible' property directly or
+    // an opportunity to grab an up-to-date capture. This works well if and
+    // only if embedders do not set the 'visible' property directly or
     // indirectly on instances of a BrowserTab.
     onEnabledChanged: {
         if (enabled) {
