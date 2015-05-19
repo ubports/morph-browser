@@ -155,7 +155,7 @@ ChromeBase {
     QtObject {
         id: internal
         property var openDrawer: null
-        readonly property color iconColor: chrome.useDarkTheme ? "#ffffff" : "#808080"
+        readonly property color iconColor: chrome.useDarkTheme ? "white" : "grey"
     }
 
     onWebviewChanged: {
