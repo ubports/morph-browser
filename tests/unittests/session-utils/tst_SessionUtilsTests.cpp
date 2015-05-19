@@ -64,10 +64,6 @@ void SessionUtilsTests::clearXdgRuntimeDir()
 
 void SessionUtilsTests::startNewSession()
 {
-    /* Wait for some time, because the times on the files are only as
-     * accurate as a second. */
-    QTest::qWait(1100);
-
     QDir upstartSessionDir(QString(m_xdgRuntimeDir + "/upstart/sessions"));
     upstartSessionDir.mkpath(".");
 
@@ -76,7 +72,9 @@ void SessionUtilsTests::startNewSession()
     file.open(QIODevice::WriteOnly);
     file.close();
 
-    QTest::qWait(1100);
+    /* Wait for some time, because the times on the files are only as
+     * accurate as a second. */
+    QTest::qWait(1001);
 }
 
 void SessionUtilsTests::initTestCase()
@@ -118,6 +116,7 @@ void SessionUtilsTests::testSessionRestart()
     QVERIFY(firstRun("myapp"));
     QVERIFY(!firstRun("myapp"));
 
+    QTest::qWait(1001);
     startNewSession();
     QVERIFY(firstRun("myapp"));
     QVERIFY(firstRun("yourapp"));
