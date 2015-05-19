@@ -42,7 +42,7 @@ BrowserView {
 
     property bool incognito: false
 
-    readonly property var tabsModel: incognito ? privateTabsModel : browserTabsModel
+    readonly property var tabsModel: incognito ? privateTabsModel : publicTabsModel
     readonly property var privateTabsModel: (privateTabsModelLoader.status == Loader.Ready) ? privateTabsModelLoader.item : null
 
     // XXX: we might want to tweak this value depending
@@ -604,7 +604,7 @@ BrowserView {
     }
 
     TabsModel {
-        id: browserTabsModel
+        id: publicTabsModel
     }
 
     Loader {
@@ -949,8 +949,8 @@ BrowserView {
                 return
             }
             var tabs = []
-            for (var i = 0; i < browserTabsModel.count; ++i) {
-                var tab = browserTabsModel.get(i)
+            for (var i = 0; i < publicTabsModel.count; ++i) {
+                var tab = publicTabsModel.get(i)
                 tabs.push(serializeTabState(tab))
             }
             store(JSON.stringify({tabs: tabs}))
