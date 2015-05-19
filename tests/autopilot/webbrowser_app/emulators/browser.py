@@ -61,7 +61,14 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.get_current_webview().incognito
 
     @autopilot.logging.log_action(logger.info)
-    def leave_private_mode(self, confirm=True):
+    def leave_private_mode(self):
+        if self.is_in_private_mode():
+            self.chrome.toggle_private_mode()
+        else:
+            logger.warning('The browser is not in private mode.')
+
+    @autopilot.logging.log_action(logger.info)
+    def leave_private_mode_with_confirmation(self, confirm=True):
         if self.is_in_private_mode():
             self.chrome.toggle_private_mode()
             dialog = self._get_leave_private_mode_dialog()
@@ -81,9 +88,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     # as the extended file. (See http://pad.lv/1454394)
     def is_new_private_tab_view_visible(self):
         try:
-            self.wait_select_single("QQuickItem",
-                                    objectName="newPrivateTabView",
-                                    visible=True)
+            self.get_new_private_tab_view()
             return True
         except exceptions.StateNotFoundError:
             return False
@@ -125,6 +130,14 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_new_tab_view(self):
         return self.wait_select_single("NewTabView", visible=True)
+
+    # Since the NewPrivateTabView does not define any new QML property in its
+    # extended file, it does not report itself to autopilot with the same name
+    # as the extended file. (See http://pad.lv/1454394)
+    def get_new_private_tab_view(self):
+        return self.wait_select_single("QQuickItem",
+                                       objectName="newPrivateTabView",
+                                       visible=True)
 
     def get_settings_page(self):
         return self.wait_select_single(SettingsPage, visible=True)

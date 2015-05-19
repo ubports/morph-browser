@@ -43,12 +43,25 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assertThat(address_bar.text, Eventually(NotEquals("")))
         self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
 
+    def test_leaving_private_mode_with_multiples_tabs_ask_confirmation(self):
+        self.main_window.enter_private_mode()
+        self.assertThat(self.main_window.is_in_private_mode,
+                        Eventually(Equals(True)))
+        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
+        self.open_tabs_view()
+        self.open_new_tab(incognito=True)
+        self.main_window.leave_private_mode_with_confirmation()
+        self.assertThat(self.main_window.is_in_private_mode,
+                        Eventually(Equals(False)))
+
     def test_cancel_leaving_private_mode(self):
         self.main_window.enter_private_mode()
         self.assertThat(self.main_window.is_in_private_mode,
                         Eventually(Equals(True)))
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
-        self.main_window.leave_private_mode(confirm=False)
+        self.open_tabs_view()
+        self.open_new_tab(incognito=True)
+        self.main_window.leave_private_mode_with_confirmation(confirm=False)
         self.assertThat(self.main_window.is_in_private_mode,
                         Eventually(Equals(True)))
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())

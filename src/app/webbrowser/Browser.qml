@@ -278,7 +278,12 @@ BrowserView {
                     iconName: "private-browsing"
                     onTriggered: {
                         if (browser.incognito) {
-                            PopupUtils.open(leavePrivateModeDialog)
+                            if (tabsModel.count > 1) {
+                                PopupUtils.open(leavePrivateModeDialog)
+                            } else {
+                                browser.incognito = false
+                                internal.setFocusAfterIncognitoMode()
+                            }
                         } else {
                             browser.incognito = true
                         }
@@ -900,6 +905,16 @@ BrowserView {
             Qt.inputMethod.show() // work around http://pad.lv/1316057
         }
 
+        function setFocusAfterIncognitoMode() {
+            if (browser.currentWebview) {
+                if (!browser.currentWebview.url.toString() && (formFactor == "desktop")) {
+                    internal.focusAddressBar()
+                } else {
+                    browser.currentWebview.forceActiveFocus()
+                }
+            }
+        }
+
         // Invalid certificates the user has explicitly allowed for this session
         property var allowedCertificateErrors: []
 
@@ -1081,12 +1096,8 @@ BrowserView {
             // change on the active focus should be done after the run of such
             // function
             Component.onDestruction: {
-                if (!browser.incognito && browser.currentWebview) {
-                    if (!browser.currentWebview.url.toString() && (formFactor == "desktop")) {
-                        internal.focusAddressBar()
-                    } else {
-                        browser.currentWebview.forceActiveFocus()
-                    }
+                if (!browser.incognito) {
+                    internal.setFocusAfterIncognitoMode()
                 }
             }
 
