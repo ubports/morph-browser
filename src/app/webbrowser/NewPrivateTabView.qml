@@ -39,7 +39,7 @@ Item {
         id: titleLabel
         anchors.centerIn: parent
         text: i18n.tr("This is a private tab")
-        color: "#5d5d5d"
+        color: UbuntuColors.darkGrey
         fontSize: "medium"
     }
 
@@ -54,7 +54,7 @@ Item {
         wrapMode: Text.WordWrap
         horizontalAlignment: Text.AlignHCenter
         text: i18n.tr("Pages that you view in this tab won't appear in your browser history.\n\nBookmarks you create will be preserved, however.")
-        color: "#5d5d5d"
+        color: UbuntuColors.darkGrey
         fontSize: "x-small"
     }
 }

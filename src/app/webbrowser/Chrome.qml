@@ -31,7 +31,7 @@ ChromeBase {
     property alias requestedUrl: addressbar.requestedUrl
     property bool useDarkTheme: false
 
-    backgroundColor: useDarkTheme ? "#5d5d5d" : Theme.palette.normal.background
+    backgroundColor: useDarkTheme ? UbuntuColors.darkGrey : Theme.palette.normal.background
 
     FocusScope {
         anchors {

@@ -156,7 +156,6 @@ Item {
         id: topSitesComponent
 
         UrlsList {
-            id: topSitesList
             objectName: "topSitesList"
 
             width: parent.width
