@@ -67,10 +67,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
             dialog = self._get_leave_private_mode_dialog()
             if confirm:
                 dialog.confirm()
-                dialog.wait_until_destroyed()
             else:
                 dialog.cancel()
-                dialog.wait_until_destroyed()
+            dialog.wait_until_destroyed()
         else:
             logger.warning('The browser is not in private mode.')
 

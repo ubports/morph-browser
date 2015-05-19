@@ -28,88 +28,63 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         return new_tab_view.get_top_sites()
 
     def test_going_in_and_out_private_mode(self):
-        self.main_window.enter_private_mode()
-        self.assertThat(self.main_window.is_in_private_mode(),
-                        Eventually(Equals(True)))
-        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
-        self.main_window.leave_private_mode()
-        self.assertFalse(self.main_window.is_in_private_mode())
-
-    def test_cancel_leaving_private_mode(self):
-        self.main_window.enter_private_mode()
-        self.assertThat(self.main_window.is_in_private_mode(),
-                        Eventually(Equals(True)))
-        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
-        self.main_window.leave_private_mode(confirm=False)
-        self.assertTrue(self.main_window.is_in_private_mode())
-        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
-
-    def test_url_must_not_be_shown_in_top_sites_in_private_mode(self):
-        top_sites = self.get_url_list_from_top_sites()
-        url = self.base_url + "/test2"
-        self.assertNotIn(url, top_sites)
-
-        self.main_window.enter_private_mode()
-        self.main_window.go_to_url(url)
-        self.main_window.wait_until_page_loaded(url)
-        self.main_window.leave_private_mode()
-
-        top_sites = self.get_url_list_from_top_sites()
-        self.assertNotIn(url, top_sites)
-
-    def test_url_must_be_shown_in_top_sites_after_leaving_private_mode(self):
-        top_sites = self.get_url_list_from_top_sites()
-        url = self.base_url + "/test2"
-        self.assertNotIn(url, top_sites)
-
-        self.main_window.enter_private_mode()
-        self.main_window.leave_private_mode()
-        self.main_window.go_to_url(url)
-        self.main_window.wait_until_page_loaded(url)
-
-        top_sites = self.get_url_list_from_top_sites()
-        self.assertIn(url, top_sites)
-
-    def test_address_bar_should_be_empty_after_going_in_private_mode(self):
         address_bar = self.main_window.address_bar
         address_bar.focus()
         self.main_window.enter_private_mode()
-        self.assertThat(self.main_window.is_in_private_mode(),
+        self.assertThat(self.main_window.is_in_private_mode,
                         Eventually(Equals(True)))
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
         self.assertThat(address_bar.text, Eventually(Equals("")))
 
-    def test_address_bar_shouldnt_have_focus_when_leaving_private_mode(self):
-        self.main_window.enter_private_mode()
-        self.assertThat(self.main_window.is_in_private_mode(),
-                        Eventually(Equals(True)))
-        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
-        address_bar = self.main_window.address_bar
-        address_bar.focus()
         self.main_window.leave_private_mode()
-        self.assertTrue(address_bar.text)
+        self.assertThat(self.main_window.is_in_private_mode,
+                        Eventually(Equals(False)))
+        self.assertThat(address_bar.text, Eventually(NotEquals("")))
         self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
 
-    def test_previews_tabs_must_not_be_visible_after_entering_private_mode(
-            self):
+    def test_cancel_leaving_private_mode(self):
+        self.main_window.enter_private_mode()
+        self.assertThat(self.main_window.is_in_private_mode,
+                        Eventually(Equals(True)))
+        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
+        self.main_window.leave_private_mode(confirm=False)
+        self.assertThat(self.main_window.is_in_private_mode,
+                        Eventually(Equals(True)))
+        self.assertTrue(self.main_window.is_new_private_tab_view_visible())
+
+    def test_url_showing_in_top_sites_in_and_out_private_mode(self):
+        top_sites = self.get_url_list_from_top_sites()
+        self.assertIn(self.url, top_sites)
+
+        self.main_window.enter_private_mode()
+        self.assertThat(self.main_window.is_in_private_mode,
+                        Eventually(Equals(True)))
+        url = self.base_url + "/test2"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.main_window.leave_private_mode()
+        self.assertThat(self.main_window.is_in_private_mode,
+                        Eventually(Equals(False)))
+        top_sites = self.get_url_list_from_top_sites()
+        self.assertNotIn(url, top_sites)
+
+    def test_public_tabs_should_not_be_visible_in_private_mode(self):
         self.open_tabs_view()
         self.open_new_tab()
         new_tab_view = self.main_window.get_new_tab_view()
-        url = self.base_url + "/test1"
+        url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
         new_tab_view.wait_until_destroyed()
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         previews = tabs_view.get_previews()
         self.assertThat(len(previews), Equals(2))
-        tabs_view.get_previews()[1].select()
+        self.main_window.get_recent_view_toolbar().click_button("doneButton")
         tabs_view.visible.wait_for(False)
-        self.assertThat(lambda: self.main_window.get_current_webview().url,
-                        Eventually(Equals(url)))
 
         self.main_window.enter_private_mode()
-        self.assertThat(self.main_window.is_in_private_mode(),
+        self.assertThat(self.main_window.is_in_private_mode,
                         Eventually(Equals(True)))
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
         self.open_tabs_view()
