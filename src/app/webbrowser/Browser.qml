@@ -955,7 +955,9 @@ BrowserView {
         if (load) {
             tabsModel.currentTab.load()
         }
-        internal.resetFocus()
+        if (!url.toString() && (formFactor == "desktop")) {
+            internal.focusAddressBar()
+        }
     }
 
     SessionStorage {
