@@ -58,45 +58,45 @@ SplashScreen {
         anchors { left: parent.left; right: parent.right }
         spacing: units.gu(1)
 
-    ListItem.Caption {
-        text: i18n.tr("No accounts have been linked to this webapp; press the item below to add an account.")
-        visible: accountsModel.count === 0
-    }
+        ListItem.Caption {
+            text: i18n.tr("No accounts have been linked to this webapp; press the item below to add an account.")
+            visible: accountsModel.count === 0
+        }
 
-    Repeater {
-        model: accountsModel
-        AccountItem {
-            providerName: model.providerName
-            accountName: model.displayName
-            selected: model.accountId === root.__selectedAccount
-            onClicked: root.onConfirmed(model.accountId)
+        Repeater {
+            model: accountsModel
+            AccountItem {
+                providerName: model.providerName
+                accountName: model.displayName
+                selected: model.accountId === root.__selectedAccount
+                onClicked: root.onConfirmed(model.accountId)
+            }
+        }
+
+        ListItem.Standard {
+            id: addAccountButton
+            text: i18n.tr("Add account")
+            iconName: "add"
+            selected: root.__selectedAccount === -1
+            onClicked: root.onConfirmed(-1)
+        }
+
+        ListItem.Standard {
+            id: skipButton
+            visible: !root.accountMandatory
+            text: i18n.tr("Don't use an account")
+            selected: root.__selectedAccount === -2
+            onClicked: root.onConfirmed(-2)
+        }
+
+        Button {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: units.gu(1)
+            text: i18n.tr("Cancel")
+            onClicked: root.cancel()
         }
     }
-
-    ListItem.Standard {
-        id: addAccountButton
-        text: i18n.tr("Add account")
-        iconName: "add"
-        selected: root.__selectedAccount === -1
-        onClicked: root.onConfirmed(-1)
-    }
-
-    ListItem.Standard {
-        id: skipButton
-        visible: !root.accountMandatory
-        text: i18n.tr("Don't use an account")
-        selected: root.__selectedAccount === -2
-        onClicked: root.onConfirmed(-2)
-    }
-
-    Button {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.margins: units.gu(1)
-        text: i18n.tr("Cancel")
-        onClicked: root.cancel()
-    }
-}
 
     function chooseAccount(accountId) {
         for (var i = 0; i < accountsModel.count; i++) {
