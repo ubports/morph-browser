@@ -309,6 +309,13 @@ class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_header(self):
         return self.select_single(SettingsPageHeader)
 
+    def get_searchengine_entry(self):
+        return self.select_single("Subtitled", objectName="searchengine")
+
+    def get_searchengine_page(self):
+        return self.wait_select_single("QQuickItem",
+                                       objectName="searchEnginePage")
+
     def get_homepage_entry(self):
         return self.select_single("Subtitled", objectName="homepage")
 
