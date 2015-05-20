@@ -361,6 +361,7 @@ BrowserView {
                     return delegateMinHeight
                 }
             }
+            chromeOffset: chrome.height - invisibleTabChrome.height
             onTabSelected: {
                 var tab = tabsModel.get(index)
                 if (tab) {
