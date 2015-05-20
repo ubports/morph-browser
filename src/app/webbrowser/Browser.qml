@@ -280,7 +280,7 @@ BrowserView {
                                 PopupUtils.open(leavePrivateModeDialog)
                             } else {
                                 browser.incognito = false
-                                internal.setFocusAfterIncognitoMode()
+                                internal.resetFocus()
                             }
                         } else {
                             browser.incognito = true
@@ -912,7 +912,7 @@ BrowserView {
             Qt.inputMethod.show() // work around http://pad.lv/1316057
         }
 
-        function setFocusAfterIncognitoMode() {
+        function resetFocus() {
             if (browser.currentWebview) {
                 if (!browser.currentWebview.url.toString() && (formFactor == "desktop")) {
                     internal.focusAddressBar()
@@ -955,9 +955,7 @@ BrowserView {
         if (load) {
             tabsModel.currentTab.load()
         }
-        if (!url.toString() && (formFactor == "desktop")) {
-            internal.focusAddressBar()
-        }
+        internal.resetFocus()
     }
 
     SessionStorage {
@@ -1104,7 +1102,7 @@ BrowserView {
             // function
             Component.onDestruction: {
                 if (!browser.incognito) {
-                    internal.setFocusAfterIncognitoMode()
+                    internal.resetFocus()
                 }
             }
 
