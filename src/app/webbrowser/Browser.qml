@@ -42,8 +42,7 @@ BrowserView {
 
     property bool incognito: false
 
-    readonly property var tabsModel: incognito ? privateTabsModel : publicTabsModel
-    readonly property var privateTabsModel: (privateTabsModelLoader.status == Loader.Ready) ? privateTabsModelLoader.item : null
+    readonly property var tabsModel: incognito ? privateTabsModelLoader.item : publicTabsModel
 
     // XXX: we might want to tweak this value depending
     // on the form factor and/or the available memory
@@ -55,7 +54,7 @@ BrowserView {
     readonly property int maxTabsToRestore: 10
 
     onTabsModelChanged: {
-        if (incognito && privateTabsModel) {
+        if (incognito && privateTabsModelLoader.item) {
             browser.openUrlInNewTab("", true)
         }
     }
@@ -613,7 +612,7 @@ BrowserView {
     Loader {
         id: privateTabsModelLoader
 
-        sourceComponent: browser.incognito ? privateTabsModelComponent : null
+        sourceComponent: browser.incognito ? privateTabsModelComponent : undefined
 
         Component {
             id: privateTabsModelComponent
