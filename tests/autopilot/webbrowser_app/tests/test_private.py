@@ -49,7 +49,7 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
                         Eventually(Equals(True)))
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
         self.open_tabs_view()
-        self.open_new_tab(incognito=True)
+        self.open_new_tab()
         self.main_window.leave_private_mode_with_confirmation()
         self.assertThat(self.main_window.is_in_private_mode,
                         Eventually(Equals(False)))
@@ -60,7 +60,7 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
                         Eventually(Equals(True)))
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
         self.open_tabs_view()
-        self.open_new_tab(incognito=True)
+        self.open_new_tab()
         self.main_window.leave_private_mode_with_confirmation(confirm=False)
         self.assertThat(self.main_window.is_in_private_mode,
                         Eventually(Equals(True)))

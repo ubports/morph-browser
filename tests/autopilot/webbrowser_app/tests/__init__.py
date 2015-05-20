@@ -136,8 +136,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.drag_bottom_edge_upwards(0.75)
         self.main_window.get_tabs_view()
 
-    def open_new_tab(self, incognito=False):
-        if (incognito):
+    def open_new_tab(self):
+        if (self.main_window.incognito):
             count = len(self.main_window.get_incognito_webviews())
         else:
             count = len(self.main_window.get_webviews())
@@ -148,7 +148,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         tabs_view.visible.wait_for(False)
         max_webviews = self.main_window.maxLiveWebviews
         new_count = (count + 1) if (count < max_webviews) else max_webviews
-        if (incognito):
+        if (self.main_window.incognito):
             self.assert_number_incognito_webviews_eventually(new_count)
             new_tab_view = self.main_window.get_new_private_tab_view()
         else:
