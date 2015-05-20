@@ -56,34 +56,35 @@ private Q_SLOTS:
         QVERIFY(roleNames.contains("title"));
         QVERIFY(roleNames.contains("icon"));
         QVERIFY(roleNames.contains("created"));
+        QVERIFY(roleNames.contains("folder"));
     }
 
     void shouldAddNewEntries()
     {
         QSignalSpy spy(model, SIGNAL(rowsInserted(QModelIndex, int, int)));
 
-        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");
         QCOMPARE(model->rowCount(), 1);
         QCOMPARE(spy.count(), 1);
         QVariantList args = spy.takeFirst();
         QCOMPARE(args.at(1).toInt(), 0);
         QCOMPARE(args.at(2).toInt(), 0);
 
-        model->add(QUrl("http://wikipedia.org/"), "Wikipedia", QUrl());
+        model->add(QUrl("http://wikipedia.org/"), "Wikipedia", QUrl(), "");
         QCOMPARE(model->rowCount(), 2);
         QCOMPARE(spy.count(), 1);
         args = spy.takeFirst();
         QCOMPARE(args.at(1).toInt(), 0);
         QCOMPARE(args.at(2).toInt(), 0);
 
-        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
+        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl(), "");
         QCOMPARE(model->rowCount(), 3);
         QCOMPARE(spy.count(), 1);
         args = spy.takeFirst();
         QCOMPARE(args.at(1).toInt(), 0);
         QCOMPARE(args.at(2).toInt(), 0);
 
-        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");
         QCOMPARE(model->rowCount(), 3);
         QVERIFY(spy.isEmpty());
     }
@@ -91,9 +92,9 @@ private Q_SLOTS:
     void shouldRemoveEntries()
     {
         QSignalSpy spy(model, SIGNAL(rowsRemoved(QModelIndex, int, int)));
-        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
-        model->add(QUrl("http://wikipedia.org/"), "Wikipedia", QUrl());
-        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");
+        model->add(QUrl("http://wikipedia.org/"), "Wikipedia", QUrl(), "");
+        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl(), "");
         QCOMPARE(model->rowCount(), 3);
         QVERIFY(spy.isEmpty());
 
@@ -113,8 +114,8 @@ private Q_SLOTS:
 
     void shouldContainEntries()
     {
-        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
-        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");
+        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl(), "");
 
         QVERIFY(model->contains(QUrl("http://ubuntu.com/")));
         QVERIFY(!model->contains(QUrl("http://wikipedia.org/")));
@@ -122,9 +123,9 @@ private Q_SLOTS:
 
     void shouldKeepEntriesSortedChronologically()
     {
-        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
-        model->add(QUrl("http://wikipedia.org/"), "Wikipedia", QUrl());
-        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl(), "");
+        model->add(QUrl("http://wikipedia.org/"), "Wikipedia", QUrl(), "");
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");
 
         QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Url).toUrl(), QUrl("http://example.org/"));
         QCOMPARE(model->data(model->index(1, 0), BookmarksModel::Url).toUrl(), QUrl("http://wikipedia.org/"));
@@ -133,7 +134,7 @@ private Q_SLOTS:
 
     void shouldReturnData()
     {
-        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl("image://webicon/123"));
+        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl("image://webicon/123"), "SampleFolder");
         QVERIFY(!model->data(QModelIndex(), BookmarksModel::Url).isValid());
         QVERIFY(!model->data(model->index(-1, 0), BookmarksModel::Url).isValid());
         QVERIFY(!model->data(model->index(3, 0), BookmarksModel::Url).isValid());
@@ -141,7 +142,8 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Title).toString(), QString("Ubuntu"));
         QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Icon).toUrl(), QUrl("image://webicon/123"));
         QVERIFY(model->data(model->index(0, 0), BookmarksModel::Created).toDateTime() <= QDateTime::currentDateTime());
-        QVERIFY(!model->data(model->index(0, 0), BookmarksModel::Created + 1).isValid());
+        QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Folder).toString(), QString("SampleFolder"));
+        QVERIFY(!model->data(model->index(0, 0), BookmarksModel::Folder + 1).isValid());
     }
 
     void shouldReturnDatabasePath()
@@ -172,8 +174,8 @@ private Q_SLOTS:
         delete model;
         model = new BookmarksModel;
         model->setDatabasePath(fileName);
-        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
-        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl());
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");
+        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl(), "");
         delete model;
         model = new BookmarksModel;
         model->setDatabasePath(fileName);

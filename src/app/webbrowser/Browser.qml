@@ -66,7 +66,7 @@ BrowserView {
         },
         Actions.Bookmark {
             enabled: currentWebview && browser.bookmarksModel
-            onTriggered: browser.bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
+            onTriggered: browser.bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon, "")
         },
         Actions.NewTab {
             onTriggered: browser.openUrlInNewTab("", true)
@@ -196,7 +196,7 @@ BrowserView {
             bookmarked: isCurrentUrlBookmarked()
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
-                    browser.bookmarksModel.add(webview.url, webview.title, webview.icon)
+                    browser.bookmarksModel.add(webview.url, webview.title, webview.icon, "")
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.remove(webview.url)
                 }
@@ -639,7 +639,7 @@ BrowserView {
                     }
                     Actions.BookmarkLink {
                         enabled: contextualData.href.toString() && browser.bookmarksModel
-                        onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "")
+                        onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "", "")
                     }
                     Actions.CopyLink {
                         enabled: contextualData.href.toString()

@@ -69,21 +69,33 @@ void BookmarksModel::createOrAlterDatabaseSchema()
 {
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS bookmarks "
-                                  "(url VARCHAR, title VARCHAR, icon VARCHAR, created INTEGER);");
+                                  "(url VARCHAR, title VARCHAR, icon VARCHAR, "
+                                  "created INTEGER, folder VARCHAR);");
     createQuery.prepare(query);
     createQuery.exec();
 
-    // The first version of the database schema didn’t have a 'created' column
+    // Older version of the database schema didn’t have 'created' and/or
+    // 'folder' columns
     QSqlQuery tableInfoQuery(m_database);
     query = QLatin1String("PRAGMA TABLE_INFO(bookmarks);");
     tableInfoQuery.prepare(query);
     tableInfoQuery.exec();
+
+    bool missingCreatedColumn = true;
+    bool missingFolderColumn = true;
+
     while (tableInfoQuery.next()) {
         if (tableInfoQuery.value("name").toString() == "created") {
+            missingCreatedColumn = false;
+        }
+        if (tableInfoQuery.value("name").toString() == "folder") {
+            missingFolderColumn = false;
+        }
+        if (!missingCreatedColumn && !missingFolderColumn) {
             break;
         }
     }
-    if (!tableInfoQuery.isValid()) {
+    if (missingCreatedColumn) {
         QSqlQuery addCreatedColumnQuery(m_database);
         query = QLatin1String("ALTER TABLE bookmarks ADD COLUMN created INTEGER;");
         addCreatedColumnQuery.prepare(query);
@@ -92,12 +104,18 @@ void BookmarksModel::createOrAlterDatabaseSchema()
         // when converted to a number. Zero represents a date far in the past, so
         // any newly created bookmark will correctly be represented as more recent than any other
     }
+    if (missingFolderColumn) {
+        QSqlQuery addFolderColumnQuery(m_database);
+        query = QLatin1String("ALTER TABLE bookmarks ADD COLUMN folder INTEGER;");
+        addFolderColumnQuery.prepare(query);
+        addFolderColumnQuery.exec();
+    }
 }
 
 void BookmarksModel::populateFromDatabase()
 {
     QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT url, title, icon, created "
+    QString query = QLatin1String("SELECT url, title, icon, created, folder "
                                   "FROM bookmarks ORDER BY created DESC;");
     populateQuery.prepare(query);
     populateQuery.exec();
@@ -108,6 +126,7 @@ void BookmarksModel::populateFromDatabase()
         entry.title = populateQuery.value(1).toString();
         entry.icon = populateQuery.value(2).toUrl();
         entry.created = QDateTime::fromMSecsSinceEpoch(populateQuery.value(3).toULongLong());
+        entry.folder = populateQuery.value(4).toString();
         beginInsertRows(QModelIndex(), count, count);
         m_urls.insert(entry.url);
         m_orderedEntries.append(entry);
@@ -124,6 +143,7 @@ QHash<int, QByteArray> BookmarksModel::roleNames() const
         roles[Title] = "title";
         roles[Icon] = "icon";
         roles[Created] = "created";
+        roles[Folder] = "folder";
     }
     return roles;
 }
@@ -149,6 +169,8 @@ QVariant BookmarksModel::data(const QModelIndex& index, int role) const
         return entry.icon;
     case Created:
         return entry.created;
+    case Folder:
+        return entry.folder;
     default:
         return QVariant();
     }
@@ -187,7 +209,7 @@ bool BookmarksModel::contains(const QUrl& url) const
 
     If the URL was previously bookmarked, do nothing.
 */
-void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon)
+void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon, const QString& folder)
 {
     if (m_urls.contains(url)) {
         qWarning() << "URL already bookmarked:" << url;
@@ -198,6 +220,7 @@ void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon
         entry.title = title;
         entry.icon = icon;
         entry.created = QDateTime::currentDateTime();
+        entry.folder = folder;
         m_urls.insert(url);
         m_orderedEntries.prepend(entry);
         endInsertRows();
@@ -210,12 +233,14 @@ void BookmarksModel::insertNewEntryInDatabase(const BookmarkEntry& entry)
 {
     QSqlQuery query(m_database);
     static QString insertStatement = QLatin1String("INSERT INTO bookmarks (url, "
-                                                   "title, icon, created) VALUES (?, ?, ?, ?);");
+                                                   "title, icon, created, folder) "
+                                                   "VALUES (?, ?, ?, ?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(entry.url.toString());
     query.addBindValue(entry.title);
     query.addBindValue(entry.icon.toString());
     query.addBindValue(entry.created.toMSecsSinceEpoch());
+    query.addBindValue(entry.folder);
     query.exec();
 }
 
