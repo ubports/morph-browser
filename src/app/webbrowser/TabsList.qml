@@ -101,13 +101,6 @@ Item {
                         onClosed: tabslist.tabClosed(index)
                     }
                 }
-
-                Binding {
-                    target: model.tab
-                    property: "visible"
-                    when: tabslist.visible && (index == 0)
-                    value: delegate.visible
-                }
             }
         }
 
