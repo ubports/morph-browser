@@ -41,6 +41,7 @@ SplashScreen {
             anchors.right: parent.right
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
+            // TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
             text: i18n.tr("<b>%1</b> needs to access your %2 online account.").arg(root.applicationName).arg(root.providerName)
             visible: root.accountMandatory
         }
@@ -50,6 +51,7 @@ SplashScreen {
             anchors.right: parent.right
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
+            // TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
             text: i18n.tr("<b>%1</b> would like to access your %2 online account.").arg(root.applicationName).arg(root.providerName)
             visible: !root.accountMandatory
         }
