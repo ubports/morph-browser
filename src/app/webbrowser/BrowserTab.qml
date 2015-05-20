@@ -36,6 +36,7 @@ FocusScope {
     readonly property string title: webview ? webview.title : initialTitle
     readonly property url icon: webview ? webview.icon : ""
     property url preview
+    property bool current: false
 
     FocusScope {
         id: webviewContainer
@@ -80,12 +81,12 @@ FocusScope {
         property bool hiding: false
     }
 
-    // When enabled is set to false, delay hiding the tab contents to give it
+    // When current is set to false, delay hiding the tab contents to give it
     // an opportunity to grab an up-to-date capture. This works well if and
     // only if embedders do not set the 'visible' property directly or
     // indirectly on instances of a BrowserTab.
-    onEnabledChanged: {
-        if (enabled) {
+    onCurrentChanged: {
+        if (current) {
             internal.hiding = false
             visible = true
         } else if (visible && !internal.hiding) {
