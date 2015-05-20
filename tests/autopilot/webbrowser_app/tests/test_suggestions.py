@@ -90,7 +90,7 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
              "Livermorium - Element Information"),
             ("http://www.rsc.org/periodic-table/element/62/samarium",
              "Samarium - Element Information"),
-            ("http://en.wikipedia.org/wiki/Linux",
+            ("http://test/wiki/Linux",
              "Linux - Wikipedia, the free encyclopedia"),
             ("http://doc.qt.io/qt-5/qtqml-index.html",
              "Qt QML 5.4 - Qt Documentation")
@@ -264,7 +264,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.assert_suggestions_eventually_shown()
         self.assertThat(suggestions.count, Eventually(Equals(1)))
         entries = suggestions.get_ordered_entries()
-        url = "http://en.wikipedia.org/wiki/Linux"
+        url = "http://test/wiki/Linux"
         self.pointing_device.click_object(entries[0])
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Eventually(Equals(url)))
