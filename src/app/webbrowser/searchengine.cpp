@@ -17,21 +17,29 @@
  */
 
 // local
-#include "config.h"
 #include "searchengine.h"
 
 // Qt
+#include <QtCore/QDir>
 #include <QtCore/QFile>
-#include <QtCore/QStandardPaths>
 #include <QtCore/QXmlStreamReader>
 
 SearchEngine::SearchEngine(QObject* parent)
     : QObject(parent)
-    , m_name(DEFAULT_SEARCH_NAME)
-    , m_description(DEFAULT_SEARCH_DESC)
-    , m_template(DEFAULT_SEARCH_TEMPLATE)
-    , m_suggestionsTemplate(DEFAULT_SEARCH_SUGGESTIONS_TEMPLATE)
+{}
+
+const QStringList& SearchEngine::searchPaths() const
 {
+    return m_searchPaths;
+}
+
+void SearchEngine::setSearchPaths(const QStringList& searchPaths)
+{
+    if (searchPaths != m_searchPaths) {
+        m_searchPaths = searchPaths;
+        Q_EMIT searchPathsChanged();
+        locateAndParseDescription();
+    }
 }
 
 const QString& SearchEngine::filename() const
@@ -44,48 +52,7 @@ void SearchEngine::setFilename(const QString& filename)
     if (filename != m_filename) {
         m_filename = filename;
         Q_EMIT filenameChanged();
-
-        m_name = DEFAULT_SEARCH_NAME;
-        m_description = DEFAULT_SEARCH_DESC;
-        m_template = DEFAULT_SEARCH_TEMPLATE;
-        m_suggestionsTemplate = DEFAULT_SEARCH_SUGGESTIONS_TEMPLATE;
-
-        if (!filename.isEmpty()) {
-            QString filepath = QStandardPaths::locate(QStandardPaths::DataLocation,
-                                                      "searchengines/" + filename + ".xml");
-            if (!filepath.isEmpty()) {
-                QFile file(filepath);
-                if (file.open(QIODevice::ReadOnly)) {
-                    // Parse OpenSearch description file
-                    // (http://www.opensearch.org/Specifications/OpenSearch/1.1)
-                    QXmlStreamReader parser(&file);
-                    while (!parser.atEnd()) {
-                        parser.readNext();
-                        if (parser.isStartElement()) {
-                            QStringRef name = parser.name();
-                            if (name == "ShortName") {
-                                m_name = parser.readElementText();
-                            } else if (name == "Description") {
-                                m_description = parser.readElementText();
-                            } else if (name == "Url") {
-                                QStringRef type = parser.attributes().value("type");
-                                if (type == "text/html") {
-                                    m_template = parser.attributes().value("template").toString();
-                                } else if (type == "application/x-suggestions+json") {
-                                    m_suggestionsTemplate = parser.attributes().value("template").toString();
-                                }
-
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        Q_EMIT nameChanged();
-        Q_EMIT descriptionChanged();
-        Q_EMIT urlTemplateChanged();
-        Q_EMIT suggestionsUrlTemplateChanged();
+        locateAndParseDescription();
     }
 }
 
@@ -107,4 +74,79 @@ const QString& SearchEngine::urlTemplate() const
 const QString& SearchEngine::suggestionsUrlTemplate() const
 {
     return m_suggestionsTemplate;
+}
+
+bool SearchEngine::isValid() const
+{
+    return !m_searchPaths.isEmpty() &&
+           !m_filename.isEmpty() &&
+           !m_name.isEmpty() &&
+           !m_template.isEmpty();
+}
+
+void SearchEngine::locateAndParseDescription()
+{
+    QString filepath;
+    if (!m_filename.isEmpty()) {
+        Q_FOREACH(const QString& path, m_searchPaths) {
+            QDir dir(path);
+            QString filename = m_filename + ".xml";
+            if (dir.exists(filename)) {
+                filepath = dir.filePath(filename);
+                break;
+            }
+        }
+    }
+
+    QString oldName = m_name;
+    m_name.clear();
+    QString oldDescription = m_description;
+    m_description.clear();
+    QString oldTemplate = m_template;
+    m_template.clear();
+    QString oldSuggestionsTemplate = m_suggestionsTemplate;
+    m_suggestionsTemplate.clear();
+    bool wasValid = isValid();
+
+    if (!filepath.isEmpty()) {
+        QFile file(filepath);
+        if (file.open(QIODevice::ReadOnly)) {
+            // Parse OpenSearch description file
+            // (http://www.opensearch.org/Specifications/OpenSearch/1.1)
+            QXmlStreamReader parser(&file);
+            while (!parser.atEnd()) {
+                parser.readNext();
+                if (parser.isStartElement()) {
+                    QStringRef name = parser.name();
+                    if (name == "ShortName") {
+                        m_name = parser.readElementText();
+                    } else if (name == "Description") {
+                        m_description = parser.readElementText();
+                    } else if (name == "Url") {
+                        QStringRef type = parser.attributes().value("type");
+                        if (type == "text/html") {
+                            m_template = parser.attributes().value("template").toString();
+                        } else if (type == "application/x-suggestions+json") {
+                            m_suggestionsTemplate = parser.attributes().value("template").toString();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (m_name != oldName) {
+        Q_EMIT nameChanged();
+    }
+    if (m_description != oldDescription) {
+        Q_EMIT descriptionChanged();
+    }
+    if (m_template != oldTemplate) {
+        Q_EMIT urlTemplateChanged();
+    }
+    if (m_suggestionsTemplate != oldSuggestionsTemplate) {
+        Q_EMIT suggestionsUrlTemplateChanged();
+    }
+    if (isValid() != wasValid) {
+        Q_EMIT validChanged();
+    }
 }

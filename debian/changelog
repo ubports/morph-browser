@@ -1,3 +1,23 @@
+webbrowser-app (0.23+15.04.20150515-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Change the homepage in tests so that the domain name doesn’t contain
+    a dot, to work around https://launchpad.net/bugs/1108742. (LP:
+    #1108742)
+  * Delay showing the fullscreen hint to prevent it from jumping up
+    while the webview is being resized. (LP: #1454097)
+  * Look for custom search engines description files in several
+    locations. This adds a build dependency on qml-module-qt-labs-
+    folderlistmodel, to run unit tests at package construction time.
+    (LP: #1455207)
+  * Use checkboxes instead of switches for verb phrases, per design
+    guidance. (LP: #1442851)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 15 May 2015 07:04:34 +0000
+
 webbrowser-app (0.23+15.04.20150512-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]

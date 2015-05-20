@@ -37,6 +37,7 @@ FocusScope {
     readonly property url icon: webview ? webview.icon : ""
     property url preview
     property bool current: false
+    property bool incognito
 
     FocusScope {
         id: webviewContainer
@@ -47,7 +48,7 @@ FocusScope {
 
     function load() {
         if (!webview) {
-            var properties = {'tab': tab}
+            var properties = {'tab': tab, 'incognito': incognito}
             if (restoreState) {
                 properties['restoreState'] = restoreState
                 properties['restoreType'] = restoreType
@@ -90,7 +91,12 @@ FocusScope {
             internal.hiding = false
             visible = true
         } else if (visible && !internal.hiding) {
-            if (!webview) {
+            if (!webview || webview.incognito) {
+                // XXX: Do not grab a capture in incognito mode, as we don’t
+                // want to write anything to disk. This means tab previews won’t
+                // be available. In the future, we’ll want to grab a capture
+                // and cache it in memory, but QQuickItem::grabToImage doesn’t
+                // allow that.
                 visible = false
                 return
             }
@@ -125,7 +131,7 @@ FocusScope {
         if (request) {
             // Instantiating the webview cannot be delayed because the request
             // object is destroyed after exiting the newViewRequested signal handler.
-            webviewComponent.incubateObject(webviewContainer, {"tab": tab, "request": request})
+            webviewComponent.incubateObject(webviewContainer, {"tab": tab, "request": request, 'incognito': incognito})
         }
     }
 }

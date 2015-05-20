@@ -54,6 +54,10 @@ install(DIRECTORY upstreamcomponents
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
         FILES_MATCHING PATTERN *.qml)
 
+install(DIRECTORY searchengines
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
+        FILES_MATCHING PATTERN *.xml)
+
 configure_file(${DESKTOP_FILE}.in.in ${DESKTOP_FILE}.in @ONLY)
 add_custom_target(${DESKTOP_FILE} ALL
                   COMMENT "Merging translations into ${DESKTOP_FILE}"
