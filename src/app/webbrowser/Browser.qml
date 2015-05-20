@@ -337,9 +337,7 @@ BrowserView {
         id: recentView
 
         anchors.fill: parent
-        opacity: (bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")) ? 1 : 0
-        Behavior on opacity { UbuntuNumberAnimation {} }
-        visible: opacity > 0
+        visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
 
         states: State {
             name: "shown"
