@@ -522,7 +522,7 @@ BrowserView {
             }
         }
         visible: bottomEdgeHandle.enabled
-        opacity: 1 - recentView.opacity
+        opacity: recentView.visible ? 0 : 1
         Behavior on opacity {
             UbuntuNumberAnimation {}
         }
