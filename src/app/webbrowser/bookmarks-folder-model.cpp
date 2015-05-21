@@ -75,9 +75,9 @@ void BookmarksFolderModel::setFolder(const QString& folder)
     }
 }
 
-const QDateTime& BookmarksFolderModel::created() const
+const QDateTime& BookmarksFolderModel::lastAddition() const
 {
-    return m_created;
+    return m_lastAddition;
 }
 
 bool BookmarksFolderModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
@@ -95,8 +95,8 @@ void BookmarksFolderModel::onModelChanged()
     // on any sort proxy model that uses this model as source, while removing an
     // entry.
     if (rowCount() > 0) {
-        m_created = data(index(0, 0), BookmarksModel::Created).toDateTime();
+        m_lastAddition = data(index(0, 0), BookmarksModel::Created).toDateTime();
 
-        Q_EMIT createdChanged();
+        Q_EMIT lastAdditionChanged();
     }
 }
