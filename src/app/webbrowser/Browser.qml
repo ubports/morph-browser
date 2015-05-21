@@ -986,12 +986,9 @@ BrowserView {
     // Delay instantiation of the first webview by 1 msec to allow initial
     // rendering to happen. Clumsy workaround for http://pad.lv/1359911.
     Timer {
-        id: startupTimer
         running: true
         interval: 1
 
-        // To avoid rendering of new tab view when restoring old session
-        property bool finished: false
         onTriggered: {
             if (!browser.newSession && settings.restoreSession) {
                 session.restore()
@@ -1009,8 +1006,6 @@ BrowserView {
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
                 internal.focusAddressBar()
             }
-
-            finished: true
         }
     }
 }
