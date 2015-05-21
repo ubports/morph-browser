@@ -33,6 +33,7 @@ class BookmarksModel : public QAbstractListModel
     Q_OBJECT
 
     Q_PROPERTY(QString databasePath READ databasePath WRITE setDatabasePath NOTIFY databasePathChanged)
+    Q_PROPERTY(int count READ rowCount NOTIFY rowCountChanged)
 
     Q_ENUMS(Roles)
 
@@ -58,8 +59,6 @@ public:
     Q_INVOKABLE bool contains(const QUrl& url) const;
     Q_INVOKABLE void add(const QUrl& url, const QString& title, const QUrl& icon);
     Q_INVOKABLE void remove(const QUrl& url);
-
-    Q_PROPERTY(int count READ rowCount NOTIFY rowCountChanged)
 
 Q_SIGNALS:
     void databasePathChanged() const;
