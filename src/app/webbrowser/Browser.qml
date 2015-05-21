@@ -187,37 +187,34 @@ BrowserView {
             Connections {
                 target: currentWebview
                 onUrlChanged: {
-                    newTabViewLoader.sourceComponent = null
+                    newTabViewLoader.active = false
                 }
             }
+            active: false
 
             Connections {
                 target: browser
                 onCurrentWebviewChanged: {
-                    if (currentWebview &&
-                      !currentWebview.url.toString() &&
-                      !currentWebview.restoreState) {
-                        newTabViewLoader.sourceComponent = newTabViewComponent
+                    if (currentWebview) {
+                        var tab = tabsModel.currentTab
+                        newTabViewLoader.active = !tab.url.toString() && !tab.restoreState
                     }
                 }
             }
 
-            Component {
-                id: newTabViewComponent
-                NewTabView {
-                    historyModel: browser.historyModel
-                    bookmarksModel: browser.bookmarksModel
-                    onBookmarkClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        currentWebview.forceActiveFocus()
-                    }
-                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
-                    onHistoryEntryClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        currentWebview.forceActiveFocus()
-                    }
+            sourceComponent: NewTabView {
+                historyModel: browser.historyModel
+                bookmarksModel: browser.bookmarksModel
+                onBookmarkClicked: {
+                    chrome.requestedUrl = url
+                    currentWebview.url = url
+                    currentWebview.forceActiveFocus()
+                }
+                onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                onHistoryEntryClicked: {
+                    chrome.requestedUrl = url
+                    currentWebview.url = url
+                    currentWebview.forceActiveFocus()
                 }
             }
             asynchronous: true
@@ -989,8 +986,12 @@ BrowserView {
     // Delay instantiation of the first webview by 1 msec to allow initial
     // rendering to happen. Clumsy workaround for http://pad.lv/1359911.
     Timer {
+        id: startupTimer
         running: true
         interval: 1
+
+        // To avoid rendering of new tab view when restoring old session
+        property bool finished: false
         onTriggered: {
             if (!browser.newSession && settings.restoreSession) {
                 session.restore()
@@ -1008,6 +1009,8 @@ BrowserView {
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
                 internal.focusAddressBar()
             }
+
+            finished: true
         }
     }
 }
