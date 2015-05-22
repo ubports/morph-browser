@@ -346,6 +346,7 @@ BrowserView {
                 terms: suggestionsList.searchTerms
                 searchEngine: currentSearchEngine
                 active: chrome.activeFocus &&
+                         !browser.incognito &&
                          !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
                 function limit(number) {
