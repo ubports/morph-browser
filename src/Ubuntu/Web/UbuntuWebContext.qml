@@ -28,7 +28,9 @@ Oxide.WebContext {
 
     networkRequestDelegate: Oxide.WebContextDelegateWorker {
         source: Qt.resolvedUrl("ua-override-worker.js")
-        onMessage: console.log("Overriden UA for", message.url, ":", message.override)
+        // Disable this log message since it outputs sensitive content when
+        // in private mode. (See  http://pad.lv/1457925)
+        //onMessage: console.log("Overriden UA for", message.url, ":", message.override)
         Component.onCompleted: {
             var script = "ua-overrides-%1.js".arg(formFactor)
             var temp = null
