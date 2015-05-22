@@ -1,0 +1,6 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Google</ShortName>
+  <Description>Google Search</Description>
+  <Url type="text/html" template="https://google.com/search?client=ubuntu&amp;q={searchTerms}&amp;ie=utf-8&amp;oe=utf-8"/>
+  <Url type="application/x-suggestions+json" template="https://www.google.com/complete/search?client=firefox&amp;q={searchTerms}"/>
+</OpenSearchDescription>

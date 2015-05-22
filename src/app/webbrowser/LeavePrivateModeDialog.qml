@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -18,28 +18,26 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
+import Ubuntu.Components.Popups 1.0
 
-AbstractButton {
-    property real iconSize: width
-    property alias iconName: icon.name
-    property alias iconColor: icon.color
+Dialog {
+    title: i18n.tr("Going to public mode will close all private tabs")
 
-    Rectangle {
-        anchors.fill: parent
-        color: Theme.palette.selected.background
-        visible: parent.pressed
+    signal cancelButtonClicked()
+    signal okButtonClicked()
+
+    Button {
+        objectName: "leavePrivateModeDialog.cancelButton"
+        anchors { left: parent.left; right: parent.right }
+        text: i18n.tr("Cancel")
+        onClicked: cancelButtonClicked()
     }
 
-    Icon {
-        id: icon
-        anchors.centerIn: parent
-        width: parent.iconSize
-        height: width
-    }
-
-    opacity: enabled ? 1.0 : 0.3
-
-    Behavior on width {
-        UbuntuNumberAnimation {}
+    Button {
+        objectName: "leavePrivateModeDialog.okButton"
+        anchors { left: parent.left; right: parent.right }
+        text: i18n.tr("Ok")
+        color: UbuntuColors.green
+        onClicked: okButtonClicked()
     }
 }

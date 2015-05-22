@@ -22,19 +22,25 @@
 // Qt
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 
 class SearchEngine : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QStringList searchPaths READ searchPaths WRITE setSearchPaths NOTIFY searchPathsChanged)
     Q_PROPERTY(QString filename READ filename WRITE setFilename NOTIFY filenameChanged)
     Q_PROPERTY(QString name READ name NOTIFY nameChanged)
     Q_PROPERTY(QString description READ description NOTIFY descriptionChanged)
     Q_PROPERTY(QString urlTemplate READ urlTemplate NOTIFY urlTemplateChanged)
     Q_PROPERTY(QString suggestionsUrlTemplate READ suggestionsUrlTemplate NOTIFY suggestionsUrlTemplateChanged)
+    Q_PROPERTY(bool valid READ isValid NOTIFY validChanged)
 
 public:
     SearchEngine(QObject* parent=0);
+
+    const QStringList& searchPaths() const;
+    void setSearchPaths(const QStringList& searchPaths);
 
     const QString& filename() const;
     void setFilename(const QString& filename);
@@ -44,14 +50,21 @@ public:
     const QString& urlTemplate() const;
     const QString& suggestionsUrlTemplate() const;
 
+    bool isValid() const;
+
 Q_SIGNALS:
+    void searchPathsChanged() const;
     void filenameChanged() const;
     void nameChanged() const;
     void descriptionChanged() const;
     void urlTemplateChanged() const;
     void suggestionsUrlTemplateChanged() const;
+    void validChanged() const;
 
 private:
+    void locateAndParseDescription();
+
+    QStringList m_searchPaths;
     QString m_filename;
     QString m_name;
     QString m_description;
