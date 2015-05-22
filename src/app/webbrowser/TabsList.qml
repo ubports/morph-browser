@@ -44,7 +44,7 @@ Item {
         boundsBehavior: Flickable.StopAtBounds
 
         contentWidth: width
-        contentHeight: (model.count - 1) * delegateHeight + height
+        contentHeight: model ? (model.count - 1) * delegateHeight + height : 0
 
         Repeater {
             id: repeater
