@@ -17,13 +17,16 @@
  */
 
 import QtQuick 2.0
-import com.canonical.Oxide 1.3 as Oxide
+import com.canonical.Oxide 1.6 as Oxide
 
 Oxide.WebContext {
     readonly property string defaultUserAgent: __ua.defaultUA
 
-    cachePath: cacheLocation
     dataPath: dataLocation
+
+    cachePath: cacheLocation
+    maxCacheSizeHint: cacheSizeHint
+
     userAgent: defaultUserAgent
 
     networkRequestDelegate: Oxide.WebContextDelegateWorker {
