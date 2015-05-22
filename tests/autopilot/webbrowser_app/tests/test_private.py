@@ -33,6 +33,7 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.main_window.enter_private_mode()
         self.assertThat(self.main_window.is_in_private_mode,
                         Eventually(Equals(True)))
+        self.assert_number_incognito_webviews_eventually(1)
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
         self.assertThat(address_bar.text, Eventually(Equals("")))
@@ -40,6 +41,7 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.main_window.leave_private_mode()
         self.assertThat(self.main_window.is_in_private_mode,
                         Eventually(Equals(False)))
+        self.assert_number_incognito_webviews_eventually(0)
         self.assertThat(address_bar.text, Eventually(NotEquals("")))
         self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
 
