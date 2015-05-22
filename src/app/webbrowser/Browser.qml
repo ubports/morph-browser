@@ -618,7 +618,16 @@ BrowserView {
         Component {
             id: privateTabsModelComponent
 
-            TabsModel {}
+            TabsModel {
+                Component.onDestruction: {
+                    while (count > 0) {
+                        var tab = remove(count - 1)
+                        if (tab) {
+                            tab.close()
+                        }
+                    }
+                }
+            }
         }
     }
 
