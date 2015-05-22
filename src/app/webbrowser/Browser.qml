@@ -369,9 +369,7 @@ BrowserView {
         id: recentView
 
         anchors.fill: parent
-        opacity: (bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")) ? 1 : 0
-        Behavior on opacity { UbuntuNumberAnimation {} }
-        visible: opacity > 0
+        visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
 
         states: State {
             name: "shown"
@@ -395,6 +393,7 @@ BrowserView {
                     return delegateMinHeight
                 }
             }
+            chromeOffset: chrome.height - invisibleTabChrome.height
             onTabSelected: {
                 var tab = tabsModel.get(index)
                 if (tab) {
@@ -524,7 +523,7 @@ BrowserView {
             }
         }
         visible: bottomEdgeHandle.enabled
-        opacity: 1 - recentView.opacity
+        opacity: recentView.visible ? 0 : 1
         Behavior on opacity {
             UbuntuNumberAnimation {}
         }
@@ -648,7 +647,7 @@ BrowserView {
 
         BrowserTab {
             anchors.fill: parent
-            visible: tabsModel && tabsModel.currentTab === this
+            current: tabsModel && tabsModel.currentTab === this
 
             webviewComponent: WebViewImpl {
                 id: webviewimpl
@@ -660,7 +659,7 @@ BrowserView {
                 anchors.fill: parent
                 focus: true
 
-                enabled: visible && !bottomEdgeHandle.dragging && !recentView.visible
+                enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
 
                 locationBarController {
                     height: webviewimpl.visible ? chrome.height : 0
