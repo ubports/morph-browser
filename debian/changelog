@@ -1,3 +1,57 @@
+webbrowser-app (0.23+15.04.20150522.1-0ubuntu1) vivid; urgency=medium
+
+  [ Arthur Mello ]
+  * Implement private browsing mode per design specification. (LP:
+    #1351179, #1457925, #1457958)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add Qwant to the default list of search engines. added:
+    src/app/webbrowser/searchengines/qwant.xml
+  * Add missing import statement. (LP: #1457060)
+  * Delay hiding the tab contents to give it an opportunity to grab an
+    up-to-date capture. Improve the tab switching animation to not
+    flicker and jump around that much. (LP: #1452998)
+  * Ensure the search engine delegates do not overlap with the settings
+    header. (LP: #1455399)
+  * Fix a flaky autopilot test. On a mobile device with network access,
+    the URL (http://en.wikipedia.org/wiki/Linux) might be rewritten to
+    https://en.m.wikipedia.org/wiki/Linux, thus making the test racy
+    depending on when the check on the webview’s URL is performed. (LP:
+    #1456885)
+  * Make use of the WebContext.maxCacheSizeHint property, introduced in
+    Oxide 1.6. This bumps the dependency of qtdeclarative5-ubuntu-web-
+    plugin on liboxideqt-qmlplugin to 1.6. (LP: #1277659)
+  * Remove a number of useless calls to QTest::qWait() in unit tests,
+    thus making them significantly faster to run.
+  * When opening a new blank tab, always clear the address bar. (LP:
+    #1456199)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 22 May 2015 19:21:17 +0000
+
+webbrowser-app (0.23+15.04.20150515-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Change the homepage in tests so that the domain name doesn’t contain
+    a dot, to work around https://launchpad.net/bugs/1108742. (LP:
+    #1108742)
+  * Delay showing the fullscreen hint to prevent it from jumping up
+    while the webview is being resized. (LP: #1454097)
+  * Look for custom search engines description files in several
+    locations. This adds a build dependency on qml-module-qt-labs-
+    folderlistmodel, to run unit tests at package construction time.
+    (LP: #1455207)
+  * Use checkboxes instead of switches for verb phrases, per design
+    guidance. (LP: #1442851)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 15 May 2015 07:04:34 +0000
+
 webbrowser-app (0.23+15.04.20150512-0ubuntu1) vivid; urgency=medium
 
   [ CI Train Bot ]
