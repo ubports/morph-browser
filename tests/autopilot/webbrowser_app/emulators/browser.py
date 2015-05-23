@@ -18,6 +18,7 @@ import logging
 
 import autopilot.logging
 import ubuntuuitoolkit as uitk
+from autopilot import exceptions
 
 
 logger = logging.getLogger(__name__)
@@ -49,6 +50,49 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def go_forward(self):
         self.chrome.go_forward()
 
+    @autopilot.logging.log_action(logger.info)
+    def enter_private_mode(self):
+        if not self.is_in_private_mode():
+            self.chrome.toggle_private_mode()
+        else:
+            logger.warning('The browser is already in private mode.')
+
+    def is_in_private_mode(self):
+        return self.get_current_webview().incognito
+
+    @autopilot.logging.log_action(logger.info)
+    def leave_private_mode(self):
+        if self.is_in_private_mode():
+            self.chrome.toggle_private_mode()
+        else:
+            logger.warning('The browser is not in private mode.')
+
+    @autopilot.logging.log_action(logger.info)
+    def leave_private_mode_with_confirmation(self, confirm=True):
+        if self.is_in_private_mode():
+            self.chrome.toggle_private_mode()
+            dialog = self._get_leave_private_mode_dialog()
+            if confirm:
+                dialog.confirm()
+            else:
+                dialog.cancel()
+            dialog.wait_until_destroyed()
+        else:
+            logger.warning('The browser is not in private mode.')
+
+    def _get_leave_private_mode_dialog(self):
+        return self.wait_select_single(LeavePrivateModeDialog, visible=True)
+
+    # Since the NewPrivateTabView does not define any new QML property in its
+    # extended file, it does not report itself to autopilot with the same name
+    # as the extended file. (See http://pad.lv/1454394)
+    def is_new_private_tab_view_visible(self):
+        try:
+            self.get_new_private_tab_view()
+            return True
+        except exceptions.StateNotFoundError:
+            return False
+
     def get_window(self):
         return self.get_parent()
 
@@ -56,7 +100,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("WebViewImpl", visible=True)
 
     def get_webviews(self):
-        return self.select_many("WebViewImpl")
+        return self.select_many("WebViewImpl", incognito=False)
+
+    def get_incognito_webviews(self):
+        return self.select_many("WebViewImpl", incognito=True)
 
     def get_error_sheet(self):
         return self.select_single("ErrorSheet")
@@ -83,6 +130,14 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_new_tab_view(self):
         return self.wait_select_single("NewTabView", visible=True)
+
+    # Since the NewPrivateTabView does not define any new QML property in its
+    # extended file, it does not report itself to autopilot with the same name
+    # as the extended file. (See http://pad.lv/1454394)
+    def get_new_private_tab_view(self):
+        return self.wait_select_single("QQuickItem",
+                                       objectName="newPrivateTabView",
+                                       visible=True)
 
     def get_settings_page(self):
         return self.wait_select_single(SettingsPage, visible=True)
@@ -133,6 +188,13 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def is_forward_button_enabled(self):
         forward_button = self._get_forward_button()
         return forward_button.enabled
+
+    def toggle_private_mode(self):
+        drawer_button = self.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        self.get_drawer()
+        private_mode_action = self.get_drawer_action("privatemode")
+        self.pointing_device.click_object(private_mode_action)
 
     def get_drawer_button(self):
         return self.select_single("ChromeButton", objectName="drawerButton")
@@ -250,6 +312,13 @@ class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_header(self):
         return self.select_single(SettingsPageHeader)
 
+    def get_searchengine_entry(self):
+        return self.select_single("Subtitled", objectName="searchengine")
+
+    def get_searchengine_page(self):
+        return self.wait_select_single("QQuickItem",
+                                       objectName="searchEnginePage")
+
     def get_homepage_entry(self):
         return self.select_single("Subtitled", objectName="homepage")
 
@@ -282,3 +351,33 @@ class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_history_urls(self):
         return self.select_many("UrlDelegate")
+
+
+class LeavePrivateModeDialog(uitk.Dialog):
+
+    @autopilot.logging.log_action(logger.info)
+    def confirm(self):
+        confirm_button = self.select_single(
+            "Button", objectName="leavePrivateModeDialog.okButton")
+        self.pointing_device.click_object(confirm_button)
+
+    @autopilot.logging.log_action(logger.info)
+    def cancel(self):
+        cancel_button = self.select_single(
+            "Button", objectName="leavePrivateModeDialog.cancelButton")
+        self.pointing_device.click_object(cancel_button)
+
+
+class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_top_sites(self):
+        """Return a list of the top sites URLs."""
+        top_sites_list = self.wait_select_single(
+            UrlsList, objectName="topSitesList", visible=True)
+        return top_sites_list.get_url_list()
+
+
+class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_url_list(self):
+        return [delegate.url for delegate in self.select_many("UrlDelegate")]

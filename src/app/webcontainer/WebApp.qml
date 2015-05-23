@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.1
 import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
