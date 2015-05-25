@@ -32,8 +32,6 @@ from . import http_server
 
 import ubuntuuitoolkit as uitk
 
-from webbrowser_app.emulators import browser
-
 
 class BrowserTestCaseBase(AutopilotTestCase):
 
@@ -65,6 +63,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
         if not os.path.exists(self.data_location):
             os.makedirs(self.data_location)
 
+        xdg_config = os.path.join(self._temp_xdg_dir, 'config')
+        self.useFixture(fixtures.EnvironmentVariable(
+            'XDG_CONFIG_HOME',
+            xdg_config))
+        self.config_location = os.path.join(xdg_config, appname)
+        if not os.path.exists(self.config_location):
+            os.makedirs(self.config_location)
+
         xdg_cache = os.path.join(self._temp_xdg_dir, 'cache')
         self.useFixture(fixtures.EnvironmentVariable(
             'XDG_CACHE_HOME',
@@ -90,21 +96,21 @@ class BrowserTestCaseBase(AutopilotTestCase):
         return self.launch_test_application(
             self.local_location,
             *self.ARGS,
-            emulator_base=browser.Webbrowser)
+            emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
 
     def launch_test_installed(self):
         if model() == 'Desktop':
             return self.launch_test_application(
                 "webbrowser-app",
                 *self.ARGS,
-                emulator_base=browser.Webbrowser)
+                emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
         else:
             return self.launch_test_application(
                 "webbrowser-app",
                 self.d_f,
                 *self.ARGS,
                 app_type='qt',
-                emulator_base=browser.Webbrowser)
+                emulator_base=uitk.UbuntuUIToolkitCustomProxyObjectBase)
 
     @property
     def main_window(self):
@@ -131,19 +137,28 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.main_window.get_tabs_view()
 
     def open_new_tab(self):
-        count = len(self.main_window.get_webviews())
+        if (self.main_window.incognito):
+            count = len(self.main_window.get_incognito_webviews())
+        else:
+            count = len(self.main_window.get_webviews())
+
         # assumes the tabs view is already open
         tabs_view = self.main_window.get_tabs_view()
         self.main_window.get_recent_view_toolbar().click_action("newTabButton")
         tabs_view.visible.wait_for(False)
         max_webviews = self.main_window.maxLiveWebviews
         new_count = (count + 1) if (count < max_webviews) else max_webviews
-        self.assert_number_webviews_eventually(new_count)
-        self.main_window.get_new_tab_view()
+        if (self.main_window.incognito):
+            self.assert_number_incognito_webviews_eventually(new_count)
+            new_tab_view = self.main_window.get_new_private_tab_view()
+        else:
+            self.assert_number_webviews_eventually(new_count)
+            new_tab_view = self.main_window.get_new_tab_view()
         if model() == 'Desktop':
             self.assertThat(
                 self.main_window.address_bar.activeFocus,
                 Eventually(Equals(True)))
+        return new_tab_view
 
     def open_settings(self):
         chrome = self.main_window.chrome
@@ -158,8 +173,12 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
                         Eventually(Equals(count)))
 
-    def ping_server(self):
-        url = "http://localhost:{}/ping".format(self.server.port)
+    def assert_number_incognito_webviews_eventually(self, count):
+        self.assertThat(lambda: len(self.main_window.get_incognito_webviews()),
+                        Eventually(Equals(count)))
+
+    def ping_server(self, server):
+        url = "http://localhost:{}/ping".format(server.port)
         ping = urllib.request.urlopen(url)
         self.assertThat(ping.read(), Equals(b"pong"))
 
@@ -177,12 +196,12 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
     """
 
     def setUp(self):
-        self.server = http_server.HTTPServerInAThread()
-        self.ping_server()
-        self.addCleanup(self.server.cleanup)
+        self.http_server = http_server.HTTPServerInAThread()
+        self.ping_server(self.http_server)
+        self.addCleanup(self.http_server.cleanup)
         self.useFixture(fixtures.EnvironmentVariable(
             'UBUNTU_WEBVIEW_HOST_MAPPING_RULES',
-            "MAP test:80 localhost:{}".format(self.server.port)))
+            "MAP test:80 localhost:{}".format(self.http_server.port)))
         self.base_url = "http://test"
         self.url = self.base_url + "/test1"
         self.ARGS = self.ARGS + [self.url]

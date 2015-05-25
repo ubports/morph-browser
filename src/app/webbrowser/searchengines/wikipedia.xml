@@ -1,0 +1,6 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Wikipedia</ShortName>
+  <Description>Wikipedia, the Free Encyclopedia</Description>
+  <Url type="text/html" template="https://wikipedia.org/wiki/Special:Search?search={searchTerms}"/>
+  <Url type="application/x-suggestions+json" template="https://wikipedia.org/w/api.php?action=opensearch&amp;search={searchTerms}"/>
+</OpenSearchDescription>

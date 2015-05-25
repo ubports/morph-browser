@@ -24,6 +24,7 @@ StyledItem {
     id: chrome
 
     property var webview
+    property alias backgroundColor: backgroundRect.color
 
     states: [
         State {
@@ -33,6 +34,8 @@ StyledItem {
     ]
 
     Rectangle {
+        id: backgroundRect
+
         anchors.fill: parent
         color: Theme.palette.normal.background
 

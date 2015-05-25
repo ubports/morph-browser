@@ -78,12 +78,19 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<SuggestionsFilterModel>(uri, 0, 1, "SuggestionsFilterModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
+        QStringList searchEnginesSearchPaths;
+        searchEnginesSearchPaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/searchengines";
+        searchEnginesSearchPaths << UbuntuBrowserDirectory() + "/webbrowser/searchengines";
+        m_engine->rootContext()->setContextProperty("searchEnginesSearchPaths", searchEnginesSearchPaths);
+
         m_window->setProperty("newSession", m_arguments.contains("--new-session"));
+
         QVariantList urls;
         Q_FOREACH(const QUrl& url, this->urls()) {
             urls.append(url);
         }
         m_window->setProperty("urls", urls);
+
         m_component->completeCreate();
         return true;
     } else {
