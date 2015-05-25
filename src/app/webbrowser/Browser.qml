@@ -271,10 +271,10 @@ BrowserView {
                     onTriggered: browser.openUrlInNewTab("", true)
                 },
                 Action {
-                    objectName: "settings"
-                    text: i18n.tr("Settings")
-                    iconName: "settings"
-                    onTriggered: settingsComponent.createObject(settingsContainer)
+                    objectName: "findinpage"
+                    text: i18n.tr("Find in page")
+                    iconName: "search"
+                    onTriggered: { chrome.findInPageMode = true; chrome.forceActiveFocus() }
                 },
                 Action {
                     objectName: "privatemode"
@@ -294,10 +294,10 @@ BrowserView {
                     }
                 },
                 Action {
-                    objectName: "findinpage"
-                    text: i18n.tr("Find in page")
-                    iconName: "search"
-                    onTriggered: { chrome.findInPageMode = true; chrome.forceActiveFocus() }
+                    objectName: "settings"
+                    text: i18n.tr("Settings")
+                    iconName: "settings"
+                    onTriggered: settingsComponent.createObject(settingsContainer)
                 }
             ]
         }
