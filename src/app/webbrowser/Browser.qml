@@ -1123,4 +1123,116 @@ BrowserView {
             }
         }
     }
+
+    Keys.onPressed: {
+        if (event.modifiers & Qt.ControlModifier) {
+            switch(event.key) {
+            case Qt.Key_L:
+                // Ctrl + l: Select the content in the address bar
+                internal.focusAddressBar();
+                event.accepted = true;
+                break;
+
+            case Qt.Key_T:
+                // Ctrl + t: Open a new Tab
+                openUrlInNewTab("", true);
+                event.accepted = true;
+                break;
+
+            case Qt.Key_W:
+            case Qt.Key_F4:
+                // Ctrl + w: Close the current Tab
+                if (tabsModel.count >= 0) {
+                    var tab = tabsModel.remove(0);
+                    if (tab) {
+                        tab.close()
+                    }
+
+                    if (tabsModel.count === 0) {
+                        browser.openUrlInNewTab("", true)
+                    }
+                    event.accepted = true;
+                }
+                break;
+
+            case Qt.Key_Tab:
+                // Ctrl + Tab: Navigate between tabs
+                var tab = tabsModel.get(tabsModel.count - 1)
+                if (tab) {
+                    tab.forceActiveFocus()
+                    tab.load()
+                    tabslist.model.setCurrent(tabsModel.count - 1)
+                }
+                recentView.reset()
+                event.accepted = true;
+                break;
+
+            case Qt.Key_R:
+                // Ctrl + R: Reload current Tab
+                if (currentWebview) {
+                    currentWebview.reload()
+                    event.accepted = true;
+                }
+                break;
+
+            case Qt.Key_D:
+                // Ctrl + D: Bookmark current Tab
+                if (currentWebview) {
+                    if (bookmarksModel.contains(currentWebview.url)) {
+                         bookmarksModel.remove(currentWebview.url)
+                    }
+                    bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.title)
+                    event.accepted = true;
+                }
+                break;
+
+            case Qt.Key_H:
+                // Ctrl + H: Show History
+                historyViewComponent.createObject(historyViewContainer);
+                event.accepted = true;
+                break;
+            }
+        } else if (event.modifiers & Qt.AltModifier) {
+            switch(event.key) {
+            case Qt.Key_Left:
+                // Alt + Left Arrow: Goes to the previous page in history
+                if (currentWebview && currentWebview.canGoBack) {
+                    currentWebview.goBack();
+                    event.accepted = true;
+                }
+                break;
+
+            case Qt.Key_Right:
+                // Alt + Right Arrow: Goes to the previous page in history
+                if (currentWebview && currentWebview.canGoForward) {
+                    currentWebview.goForward();
+                    event.accepted = true;
+                }
+                break;
+
+            case Qt.Key_D:
+                // Alt + d: Select the content in the address bar
+                internal.focusAddressBar();
+                event.accepted = true;
+                break;
+            }
+
+        } else if (event.modifiers & Qt.ShiftModifier) {
+            switch(event.key) {
+            case Qt.Key_Backspace:
+                // Shift + Backspace: Goes to the next page in history
+                if (currentWebview && currentWebview.canGoForward) {
+                    currentWebview.goForward();
+                    event.accepted = true;
+                }
+                break;
+            }
+        } else if (event.key & Qt.Key_Backspace) {
+            // Backspace: Goes to the previous page in history
+            if (currentWebview && currentWebview.canGoBack) {
+                currentWebview.goBack();
+                event.accepted = true;
+            }
+        }
+    }
 }
