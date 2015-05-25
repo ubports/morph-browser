@@ -915,6 +915,15 @@ BrowserView {
             }
         }
 
+        function switchToTab(index) {
+            var tab = tabsModel.get(index)
+            if (tab) {
+                tab.forceActiveFocus()
+                tab.load()
+                tabslist.model.setCurrent(index)
+            }
+        }
+
         function focusAddressBar(selectContent) {
             chrome.forceActiveFocus()
             Qt.inputMethod.show() // work around http://pad.lv/1316057
@@ -1151,19 +1160,16 @@ BrowserView {
 
                     if (tabsModel.count === 0) {
                         browser.openUrlInNewTab("", true)
+                    } else {
+                        internal.switchToTab(0)
                     }
                     event.accepted = true;
                 }
                 break;
 
             case Qt.Key_Tab:
-                // Ctrl + Tab: Navigate between tabs
-                var tab = tabsModel.get(tabsModel.count - 1)
-                if (tab) {
-                    tab.forceActiveFocus()
-                    tab.load()
-                    tabslist.model.setCurrent(tabsModel.count - 1)
-                }
+                // Ctrl + Tab: navigate to next tab
+                internal.switchToTab(tabsModel.count - 1)
                 recentView.reset()
                 event.accepted = true;
                 break;
