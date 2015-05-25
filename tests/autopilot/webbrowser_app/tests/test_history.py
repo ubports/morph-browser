@@ -30,3 +30,12 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         history = self.open_history()
         self.assertThat(lambda: len(history.get_history_urls()),
                         Eventually(Equals(1)))
+
+    def test_history_save_200(self):
+        url = self.base_url + "/test2"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+
+        history = self.open_history()
+        self.assertThat(lambda: len(history.get_history_urls()),
+                        Eventually(Equals(2)))
