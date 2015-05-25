@@ -1184,12 +1184,13 @@ BrowserView {
                 break;
 
             case Qt.Key_D:
-                // Ctrl + D: Bookmark current Tab
+                // Ctrl + D: Toggle bookmarked state on current Tab
                 if (currentWebview) {
                     if (bookmarksModel.contains(currentWebview.url)) {
                          bookmarksModel.remove(currentWebview.url)
+                    } else {
+                        bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.title)
                     }
-                    bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.title)
                     event.accepted = true;
                 }
                 break;
