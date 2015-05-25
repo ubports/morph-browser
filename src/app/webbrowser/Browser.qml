@@ -918,9 +918,10 @@ BrowserView {
         function switchToTab(index) {
             var tab = tabsModel.get(index)
             if (tab) {
-                tab.forceActiveFocus()
                 tab.load()
                 tabslist.model.setCurrent(index)
+                if (tab.initialUrl == "") focusAddressBar()
+                else tab.forceActiveFocus()
             }
         }
 
