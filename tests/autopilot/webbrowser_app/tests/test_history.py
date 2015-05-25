@@ -28,14 +28,14 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         self.main_window.wait_until_page_loaded(url)
 
         history = self.open_history()
-        self.assertThat(lambda: len(history.get_history_urls()),
+        domain_entries = history.get_domain_entries()
+        self.assertThat(lambda: history.get_domain_entries(),
                         Eventually(Equals(1)))
 
-    def test_history_save_200(self):
-        url = self.base_url + "/test2"
-        self.main_window.go_to_url(url)
-        self.main_window.wait_until_page_loaded(url)
+        self.pointing_device.click_object(domain_entries[0])
+        expanded_history = history.get_expanded_view()
 
-        history = self.open_history()
-        self.assertThat(lambda: len(history.get_history_urls()),
-                        Eventually(Equals(2)))
+        delegates = expanded_history.select_many("UrlDelegate")
+        self.assertThat(lambda: len(delegates), Eventually(Equals(1)))
+
+        self.assertThat(delegates[0].url, Equals(self.url))

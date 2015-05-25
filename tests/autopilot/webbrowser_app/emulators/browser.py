@@ -349,8 +349,12 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_history_urls(self):
+    def get_domain_entries(self):
         return self.select_many("UrlDelegate")
+
+    def get_expanded_view(self):
+        return self.wait_select_single("QQuickItem",
+                                       objectName="expandedHistoryView")
 
 
 class LeavePrivateModeDialog(uitk.Dialog):
