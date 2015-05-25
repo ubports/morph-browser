@@ -30,6 +30,9 @@ ChromeBase {
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
     property alias addressBarTextLocked: addressbar.textLocked
+    property bool useDarkTheme: false
+
+    backgroundColor: useDarkTheme ? UbuntuColors.darkGrey : Theme.palette.normal.background
 
     FocusScope {
         anchors {
@@ -44,10 +47,11 @@ ChromeBase {
             objectName: "backButton"
 
             iconName: "previous"
-            iconSize: 0.6 * height
+            iconSize: 0.4 * height
+            iconColor: internal.iconColor
 
-            height: parent.height
-            width: height
+            height: chrome.height
+            width: height * 0.8
 
             anchors {
                 left: parent.left
@@ -63,11 +67,12 @@ ChromeBase {
             objectName: "forwardButton"
 
             iconName: "next"
-            iconSize: 0.6 * height
+            iconSize: 0.4 * height
+            iconColor: internal.iconColor
 
-            height: parent.height
+            height: chrome.height
             visible: enabled
-            width: visible ? height : 0
+            width: visible ? height * 0.8 : 0
 
             anchors {
                 left: backButton.right
@@ -128,10 +133,11 @@ ChromeBase {
             objectName: "drawerButton"
 
             iconName: "contextual-menu"
-            iconSize: 0.75 * height
+            iconSize: 0.5 * height
+            iconColor: internal.iconColor
 
-            height: parent.height
-            width: height
+            height: chrome.height
+            width: height * 0.8
 
             anchors {
                 right: parent.right
@@ -150,6 +156,7 @@ ChromeBase {
     QtObject {
         id: internal
         property var openDrawer: null
+        readonly property color iconColor: chrome.useDarkTheme ? "white" : "grey"
     }
 
     onWebviewChanged: {
@@ -181,7 +188,7 @@ ChromeBase {
                 top: parent.bottom
                 right: parent.right
             }
-            width: units.gu(20)
+            width: units.gu(22)
             height: actionsColumn.height
             clip: actionsColumn.y != 0
 
@@ -244,6 +251,12 @@ ChromeBase {
 
                         action: modelData
                         onClicked: drawer.opened = false
+
+                        Rectangle {
+                            anchors.fill: parent
+                            color: Theme.palette.selected.background
+                            visible: parent.pressed
+                        }
 
                         Icon {
                             id: actionIcon

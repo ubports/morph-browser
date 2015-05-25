@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-24 18:31+0200\n"
+"POT-Creation-Date: 2015-05-23 00:27+0200\n"
 "PO-Revision-Date: 2015-04-20 06:55+0000\n"
 "Last-Translator: Rūdolfs Mazurs <Unknown>\n"
 "Language-Team: Latvian <lv@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-04-25 05:36+0000\n"
-"X-Generator: Launchpad (build 17430)\n"
+"X-Launchpad-Export-Date: 2015-05-23 05:24+0000\n"
+"X-Generator: Launchpad (build 17514)\n"
 "Language: lv\n"
 
 #: src/app/AlertDialog.qml:23
@@ -49,7 +49,8 @@ msgstr "Parole"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
-#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -390,7 +391,7 @@ msgstr "Iet uz"
 msgid "Address;URL;www"
 msgstr "Adrese;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:456
 msgid "New Tab"
 msgstr "Jauna cilne"
 
@@ -434,36 +435,50 @@ msgstr "Dalīties…"
 msgid "search or enter an address"
 msgstr "meklējiet vai ievadiet adresi"
 
-#: src/app/webbrowser/Browser.qml:221
+#: src/app/webbrowser/Browser.qml:237
 msgid "Share"
 msgstr "Dalīties"
 
-#: src/app/webbrowser/Browser.qml:228
+#: src/app/webbrowser/Browser.qml:244
 msgid "History"
 msgstr "Vēsture"
 
-#: src/app/webbrowser/Browser.qml:235
+#: src/app/webbrowser/Browser.qml:251
 msgid "Open tabs"
 msgstr "Atvērt cilnes"
 
-#: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsList.qml:84
+#: src/app/webbrowser/Browser.qml:261 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
 msgstr "Jauna cilne"
 
-#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
+#: src/app/webbrowser/Browser.qml:268 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Iestatījumi"
 
-#: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:274
+msgid "Leave Private Mode"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:274
+msgid "Private Mode"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:439 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
 msgstr "Pabeigts"
 
-#: src/app/webbrowser/Browser.qml:715
+#. TRANSLATORS: %1 refers to the current number of tabs opened
+#: src/app/webbrowser/Browser.qml:540
+#, qt-format
+msgid "(%1)"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:807
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:716
+#: src/app/webbrowser/Browser.qml:808
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
@@ -496,6 +511,24 @@ msgstr "Vakar"
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
 msgstr "Izvēlēties visu"
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
+msgid "Going to public mode will close all private tabs"
+msgstr ""
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
+msgid "Ok"
+msgstr ""
+
+#: src/app/webbrowser/NewPrivateTabView.qml:41
+msgid "This is a private tab"
+msgstr ""
+
+#: src/app/webbrowser/NewPrivateTabView.qml:56
+msgid ""
+"Pages that you view in this tab won't appear in your browser history.\n"
+"Bookmarks you create will be preserved, however."
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -567,12 +600,12 @@ msgid "Which is run by"
 msgstr "Ko darbina"
 
 #: src/app/webbrowser/SettingsPage.qml:81
-#: src/app/webbrowser/SettingsPage.qml:175
+#: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
 msgstr "Meklēšanas dzinis"
 
 #: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:271
+#: src/app/webbrowser/SettingsPage.qml:275
 msgid "Homepage"
 msgstr "Mājas lapa"
 
@@ -580,12 +613,12 @@ msgstr "Mājas lapa"
 msgid "Restore previous session at startup"
 msgstr "Palaižot atjaunot iepriekšējo sesiju"
 
-#: src/app/webbrowser/SettingsPage.qml:118
+#: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
 msgstr "Atļaut fonā atvērt jaunas cilnes"
 
 #: src/app/webbrowser/SettingsPage.qml:138
-#: src/app/webbrowser/SettingsPage.qml:224
+#: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
 msgstr "Privātums"
 
@@ -593,15 +626,15 @@ msgstr "Privātums"
 msgid "Reset browser settings"
 msgstr "Atstatīt pārlūka iestatījumus"
 
-#: src/app/webbrowser/SettingsPage.qml:245
+#: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
 msgstr "Attīrīt pārlūka vēsturi"
 
-#: src/app/webbrowser/SettingsPage.qml:252
+#: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
 msgstr "Attīrīt kešatmiņu"
 
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:311
 msgid "Save"
 msgstr "Saglabāt"
 

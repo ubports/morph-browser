@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.9)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+project("webbrowser")
+
 find_program(INTLTOOL_MERGE intltool-merge)
 if(NOT INTLTOOL_MERGE)
     message(FATAL_ERROR "Could not find intltool-merge, please install the intltool package")

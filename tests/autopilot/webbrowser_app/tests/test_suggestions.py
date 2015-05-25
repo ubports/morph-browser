@@ -33,13 +33,14 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
     """Helper test class that pre-populates history and bookmarks databases."""
 
     def setUp(self):
+        self.create_temporary_profile()
+
         self.populate_history()
         self.populate_bookmarks()
         super(PrepopulatedDatabaseTestCaseBase, self).setUp()
 
     def populate_history(self):
-        db_path = os.path.join(os.path.expanduser("~"), ".local", "share",
-                               "webbrowser-app", "history.sqlite")
+        db_path = os.path.join(self.data_location, "history.sqlite")
         connection = sqlite3.connect(db_path)
         connection.execute("""CREATE TABLE IF NOT EXISTS history
                               (url VARCHAR, domain VARCHAR, title VARCHAR,
@@ -75,8 +76,7 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
         connection.close()
 
     def populate_bookmarks(self):
-        db_path = os.path.join(os.path.expanduser("~"), ".local", "share",
-                               "webbrowser-app", "bookmarks.sqlite")
+        db_path = os.path.join(self.data_location, "bookmarks.sqlite")
         connection = sqlite3.connect(db_path)
         connection.execute("""CREATE TABLE IF NOT EXISTS bookmarks
                               (url VARCHAR, title VARCHAR, icon VARCHAR,
@@ -92,7 +92,7 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
              "Livermorium - Element Information"),
             ("http://www.rsc.org/periodic-table/element/62/samarium",
              "Samarium - Element Information"),
-            ("http://en.wikipedia.org/wiki/Linux",
+            ("http://test/wiki/Linux",
              "Linux - Wikipedia, the free encyclopedia"),
             ("http://doc.qt.io/qt-5/qtqml-index.html",
              "Qt QML 5.4 - Qt Documentation")
@@ -114,9 +114,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
     """Test the address bar suggestions (based on history and bookmarks)."""
 
     def setup_suggestions_source(self, server):
-        search_engines_path = os.path.join(os.path.expanduser("~"),
-                                           ".local", "share", "webbrowser-app",
-                                           "searchengines")
+        search_engines_path = os.path.join(self.data_location, "searchengines")
         os.makedirs(search_engines_path, exist_ok=True)
         with open(os.path.join(search_engines_path, "test.xml"), "w") as f:
             f.write("""
@@ -128,9 +126,8 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
             </OpenSearchDescription>
             """.replace("{}", str(server.port)))
 
-        config_path = os.path.join(os.path.expanduser("~"), ".config",
-                                   "webbrowser-app")
-        with open(os.path.join(config_path, "webbrowser-app.conf"), "w") as f:
+        with open(os.path.join(self.config_location, "webbrowser-app.conf"),
+                  "w") as f:
             f.write("""
             [General]
             searchEngine=test
@@ -142,14 +139,15 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         })
 
     def setUp(self):
-        self.clear_datadir()
+        self.suggest_http_server = http_server.HTTPServerInAThread()
+        self.ping_server(self.suggest_http_server)
+        self.addCleanup(self.suggest_http_server.cleanup)
 
-        self.server = http_server.HTTPServerInAThread()
-        self.ping_server()
-        self.addCleanup(self.server.cleanup)
-        self.setup_suggestions_source(self.server)
+        self.create_temporary_profile()
+        self.setup_suggestions_source(self.suggest_http_server)
 
-        super().setUp()
+        super(TestSuggestions, self).setUp()
+
         self.address_bar = self.main_window.address_bar
 
     def highlight_term(self, text, term):
@@ -221,10 +219,9 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(suggestions.count, Eventually(Equals(5)))
         entries = suggestions.get_ordered_entries()
         self.assertThat(len(entries), Equals(5))
-        self.assertThat(entries[1].icon, Equals("search"))
-        self.assertThat(entries[2].icon, Equals("history"))
-        self.assertThat(entries[3].icon, Equals("non-starred"))
-        self.assertThat(entries[4].icon, Equals("search"))
+        self.assertThat(entries[0].icon, Equals("history"))
+        self.assertThat(entries[1].icon, Equals("non-starred"))
+        self.assertThat(entries[2].icon, Equals("search"))
 
     def test_clear_address_bar_dismisses_suggestions(self):
         self.address_bar.focus()
@@ -269,7 +266,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.assert_suggestions_eventually_shown()
         self.assertThat(suggestions.count, Eventually(Equals(1)))
         entries = suggestions.get_ordered_entries()
-        url = "http://en.wikipedia.org/wiki/Linux"
+        url = "http://test/wiki/Linux"
         self.pointing_device.click_object(entries[0])
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Eventually(Equals(url)))
@@ -302,7 +299,6 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
 
     def test_search_suggestions(self):
         self.address_bar.write('high')
-        time.sleep(0.5)  # wait for search suggestion query rate limiter
         suggestions = self.main_window.get_suggestions()
         self.assertThat(suggestions.count, Eventually(Equals(1)))
         entries = suggestions.get_ordered_entries()

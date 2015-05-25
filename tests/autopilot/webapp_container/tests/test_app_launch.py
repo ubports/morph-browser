@@ -1,5 +1,5 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-# Copyright 2014 Canonical
+# Copyright 2014-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -88,11 +88,12 @@ class WebappContainerAppLaunchTestCase(
         args = ["--webapp='dGVzdA=='"]
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
         with generate_temp_webapp() as webapp_install_path:
-            self.launch_webcontainer_app(
-                args,
-                {'UBUNTU_WEBVIEW_HOST_MAPPING_RULES': rule,
-                 'WEBAPP_QML_DEFAULT_WEBAPPS_INSTALL_FOLDER':
-                     webapp_install_path})
+            env_vars = {
+                'UBUNTU_WEBVIEW_HOST_MAPPING_RULES': rule,
+                'WEBAPP_QML_DEFAULT_WEBAPPS_INSTALL_FOLDER': (
+                    webapp_install_path)
+            }
+            self.launch_webcontainer_app(args, env_vars)
             webview = self.get_oxide_webview()
             webapp_url = 'http://www.test.com/'
             self.assertThat(webview.url, Eventually(Equals(webapp_url)))

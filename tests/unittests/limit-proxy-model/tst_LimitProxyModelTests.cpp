@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -88,9 +88,7 @@ private Q_SLOTS:
         model->setLimit(2);
 
         history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
 
         QCOMPARE(model->rowCount(), 2);
@@ -100,9 +98,7 @@ private Q_SLOTS:
     void shouldLimitEntriesWithLimitSetAfterPopulating()
     {
         history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
 
         model->setLimit(2);
@@ -116,9 +112,7 @@ private Q_SLOTS:
         model->setLimit(-1);
 
         history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
 
         QCOMPARE(model->unlimitedRowCount(), 3);
@@ -130,9 +124,7 @@ private Q_SLOTS:
         model->setLimit(4);
 
         history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
 
         QCOMPARE(model->unlimitedRowCount(), 3);
@@ -148,7 +140,6 @@ private Q_SLOTS:
         QSignalSpy spyRemoved(model, SIGNAL(rowsRemoved(QModelIndex, int, int)));
 
         history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
         QTest::qWait(1001);
         history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
