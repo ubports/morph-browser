@@ -599,7 +599,7 @@ BrowserView {
         }
     }
 
-    Item {
+    FocusScope {
         id: historyViewContainer
 
         visible: children.length > 0
@@ -611,6 +611,9 @@ BrowserView {
             HistoryView {
                 anchors.fill: parent
                 visible: historyViewContainer.children.length == 1
+                focus: true
+
+                Keys.onEscapePressed: destroy()
 
                 Timer {
                     // Set the model asynchronously to ensure
@@ -1198,6 +1201,7 @@ BrowserView {
             case Qt.Key_H:
                 // Ctrl + H: Show History
                 historyViewComponent.createObject(historyViewContainer);
+                historyViewContainer.focus = true;
                 event.accepted = true;
                 break;
             }
