@@ -238,12 +238,7 @@ BrowserView {
             Component {
                 id: newPrivateTabViewComponent
 
-                NewPrivateTabView {
-                    anchors {
-                        fill: parent
-                        topMargin: (chrome.state == "shown") ? chrome.height : 0
-                    }
-                }
+                NewPrivateTabView { }
             }
             asynchronous: true
         }
