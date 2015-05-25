@@ -21,6 +21,7 @@ import QtQuick.Window 2.0
 import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.1
+import Ubuntu.Components.Popups 1.0
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
@@ -212,11 +213,11 @@ BrowserView {
                 }
             }
 
-            sourceComponent: webviewimpl.incognito ? newPrivateTabViewComponent : newTabViewComponent
-            
+            sourceComponent: browser.incognito ? newPrivateTabViewComponent : newTabViewComponent
+
             Component {
                 id: newTabViewComponent
-                
+
                 NewTabView {
                     historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
@@ -233,7 +234,7 @@ BrowserView {
                     }
                 }
             }
-            
+
             Component {
                 id: newPrivateTabViewComponent
 
@@ -924,6 +925,16 @@ BrowserView {
             Qt.inputMethod.show() // work around http://pad.lv/1316057
         }
 
+        function resetFocus() {
+            if (browser.currentWebview) {
+                if (!browser.currentWebview.url.toString() && (formFactor == "desktop")) {
+                    internal.focusAddressBar()
+                } else {
+                    browser.currentWebview.forceActiveFocus()
+                }
+            }
+        }
+
         // Invalid certificates the user has explicitly allowed for this session
         property var allowedCertificateErrors: []
 
@@ -952,7 +963,7 @@ BrowserView {
 
     function openUrlInNewTab(url, setCurrent, load) {
         load = typeof load !== 'undefined' ? load : true
-        var tab = tabComponent.createObject(tabContainer, {"initialUrl": url})
+        var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
         internal.addTab(tab, setCurrent)
         if (load) {
             tabsModel.currentTab.load()
@@ -972,8 +983,8 @@ BrowserView {
                 return
             }
             var tabs = []
-            for (var i = 0; i < tabsModel.count; ++i) {
-                var tab = tabsModel.get(i)
+            for (var i = 0; i < publicTabsModel.count; ++i) {
+                var tab = publicTabsModel.get(i)
                 tabs.push(serializeTabState(tab))
             }
             store(JSON.stringify({tabs: tabs}))
@@ -1094,7 +1105,7 @@ BrowserView {
 
     Component {
         id: leavePrivateModeDialog
-        
+
         LeavePrivateModeDialog {
             id: dialogue
             objectName: "leavePrivateModeDialog"
