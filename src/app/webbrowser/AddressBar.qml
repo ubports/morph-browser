@@ -47,6 +47,8 @@ FocusScope {
 
     height: textField.height
 
+    function selectAll() { textField.selectAll() }
+
     TextField {
         id: textField
         objectName: "addressBarTextField"

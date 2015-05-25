@@ -33,6 +33,8 @@ ChromeBase {
 
     backgroundColor: useDarkTheme ? UbuntuColors.darkGrey : Theme.palette.normal.background
 
+    function addressBarSelectAll() { addressbar.selectAll() }
+
     FocusScope {
         anchors {
             fill: parent

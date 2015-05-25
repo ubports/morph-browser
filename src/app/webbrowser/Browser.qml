@@ -915,9 +915,10 @@ BrowserView {
             }
         }
 
-        function focusAddressBar() {
+        function focusAddressBar(selectContent) {
             chrome.forceActiveFocus()
             Qt.inputMethod.show() // work around http://pad.lv/1316057
+            if (selectContent) chrome.addressBarSelectAll()
         }
 
         function resetFocus() {
@@ -1129,7 +1130,7 @@ BrowserView {
             switch(event.key) {
             case Qt.Key_L:
                 // Ctrl + l: Select the content in the address bar
-                internal.focusAddressBar();
+                internal.focusAddressBar(true);
                 event.accepted = true;
                 break;
 
@@ -1212,7 +1213,7 @@ BrowserView {
 
             case Qt.Key_D:
                 // Alt + d: Select the content in the address bar
-                internal.focusAddressBar();
+                internal.focusAddressBar(true);
                 event.accepted = true;
                 break;
             }
