@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import Qt.labs.settings 1.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import webbrowserapp.private 0.1
@@ -27,6 +28,7 @@ Item {
 
     property QtObject bookmarksModel
     property alias historyModel: historyTimeframeModel.sourceModel
+    property Settings settingsObject
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
@@ -147,7 +149,7 @@ Item {
                 spacing: 0
 
                 UrlDelegate {
-                    id: homepageBookmark
+                    objectName: "homepageBookmark"
                     anchors {
                         left: parent.left
                         right: parent.right
@@ -156,7 +158,7 @@ Item {
 
                     title: i18n.tr('Homepage')
 
-                    url: settings.homepage
+                    url: newTabView.settingsObject.homepage
                     onItemClicked: newTabView.bookmarkClicked(url)
                 }
 

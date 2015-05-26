@@ -221,6 +221,7 @@ BrowserView {
                 NewTabView {
                     historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
+                    settingsObject: settings
                     onBookmarkClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
