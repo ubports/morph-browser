@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import os.path
+
 from testtools.matchers import Equals
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
@@ -112,3 +114,24 @@ class TestNewPrivateTabViewLifetime(StartOpenRemotePageTestCaseBase):
         tabs_view.get_previews()[0].close()
         self.main_window.get_recent_view_toolbar().click_button("doneButton")
         new_private_tab_view.wait_until_destroyed()
+
+
+class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
+
+    def setUp(self):
+        self.create_temporary_profile()
+        self.homepage = "http://test/test2"
+        config_file = os.path.join(self.config_location, "webbrowser-app.conf")
+        with open(config_file, "w") as f:
+            f.write("[General]\n")
+            f.write("homepage={}".format(self.homepage))
+        super(TestNewTabViewContents, self).setUp()
+
+    def test_default_home_bookmark(self):
+        self.open_tabs_view()
+        new_tab_view = self.open_new_tab()
+        homepage_bookmark = new_tab_view.get_homepage_bookmark()
+        self.assertThat(homepage_bookmark.url, Equals(self.homepage))
+        self.pointing_device.click_object(homepage_bookmark)
+        new_tab_view.wait_until_destroyed()
+        self.main_window.wait_until_page_loaded(self.homepage)

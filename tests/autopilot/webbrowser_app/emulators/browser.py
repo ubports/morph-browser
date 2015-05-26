@@ -361,6 +361,10 @@ class LeavePrivateModeDialog(uitk.Dialog):
 
 class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
+    def get_homepage_bookmark(self):
+        return self.wait_select_single("UrlDelegate",
+                                       objectName="homepageBookmark")
+
     def get_top_sites(self):
         """Return a list of the top sites URLs."""
         top_sites_list = self.wait_select_single(
