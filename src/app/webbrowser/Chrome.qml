@@ -29,6 +29,7 @@ ChromeBase {
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
+    property alias addressBarTextLocked: addressbar.textLocked
     property bool useDarkTheme: false
 
     backgroundColor: useDarkTheme ? UbuntuColors.darkGrey : Theme.palette.normal.background

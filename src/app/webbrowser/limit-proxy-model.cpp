@@ -266,3 +266,20 @@ void LimitProxyModel::sourceRowsRemoved(const QModelIndex & /*parent*/, int /*st
         m_dataChangedEnd = -1;
     }
 }
+
+QVariantMap LimitProxyModel::get(int i) const
+{
+    QVariantMap item;
+    QHash<int, QByteArray> roles = roleNames();
+
+    QModelIndex modelIndex = index(i, 0);
+    if (modelIndex.isValid()) {
+        Q_FOREACH(int role, roles.keys()) {
+            QString roleName = QString::fromUtf8(roles.value(role));
+            item.insert(roleName, data(modelIndex, role));
+
+        }
+    }
+    return item;
+}
+

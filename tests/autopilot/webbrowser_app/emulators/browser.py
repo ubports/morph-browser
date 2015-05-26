@@ -20,7 +20,6 @@ import autopilot.logging
 import ubuntuuitoolkit as uitk
 from autopilot import exceptions
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -150,6 +149,13 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
 
+    def press_key(self, key):
+        try:
+            keyboard = input.Keyboard.create()
+            keyboard.press_and_release(key)
+        except RuntimeError:
+            pass
+
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
@@ -224,10 +230,13 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     @autopilot.logging.log_action(logger.info)
     def go_to_url(self, url):
         self.write(url)
-        self.text_field.keyboard.press_and_release('Enter')
+        self.press_key('Enter')
 
     def write(self, text, clear=True):
         self.text_field.write(text, clear)
+
+    def press_key(self, key):
+        self.text_field.keyboard.press_and_release(key)
 
     @autopilot.logging.log_action(logger.info)
     def click_action_button(self):

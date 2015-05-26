@@ -345,6 +345,12 @@ BrowserView {
                     }
                 }
             ]
+
+            Keys.onDownPressed: {
+                chrome.addressBarTextLocked = true
+                suggestionsList.focus = true
+            }
+            Keys.onEscapePressed: focus = false
         }
 
         ChromeController {
@@ -357,7 +363,7 @@ BrowserView {
 
         Suggestions {
             id: suggestionsList
-            opacity: ((chrome.state == "shown") && chrome.activeFocus && (count > 0) && !chrome.drawerOpen) ? 1.0 : 0.0
+            opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) && count > 0 && !chrome.drawerOpen) ? 1.0 : 0.0
             Behavior on opacity {
                 UbuntuNumberAnimation {}
             }
@@ -370,6 +376,9 @@ BrowserView {
             height: enabled ? Math.min(contentHeight, tabContainer.height - chrome.height - units.gu(2)) : 0
 
             searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
+
+            Keys.onUpPressed: chrome.focus = true
+            Keys.onEscapePressed: focus = false
 
             models: [historySuggestions,
                      bookmarksSuggestions,
@@ -415,10 +424,14 @@ BrowserView {
                 }
             }
 
-            onSelected: {
+            onActivated: {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
                 chrome.requestedUrl = url
+            }
+
+            onActiveFocusChanged: if (!activeFocus && !chrome.activeFocus) {
+                chrome.addressBarTextLocked = false
             }
         }
     }
