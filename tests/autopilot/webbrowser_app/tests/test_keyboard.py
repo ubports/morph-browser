@@ -87,6 +87,26 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
                         Eventually(Equals(url)))
 
     @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_new_tab(self):
+        self.main_window.press_key('Ctrl+T')
+
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.url, Equals(""))
+        new_tab_view = self.main_window.get_new_tab_view()
+        self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_switch_tabs(self):
+        self.open_tabs(2)
+        self.check_tab_number(2)
+        self.main_window.press_key('Ctrl+Tab')
+        self.check_tab_number(0)
+        self.main_window.press_key('Ctrl+Tab')
+        self.check_tab_number(1)
+        self.main_window.press_key('Ctrl+Tab')
+        self.check_tab_number(2)
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_can_switch_tabs_after_suggestions_escape(self):
         self.open_tabs(1)
         self.check_tab_number(1)
@@ -104,15 +124,14 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.check_tab_number(0)
 
     @unittest.skipIf(model() != "Desktop", "on desktop only")
-    def test_tabs_navigation(self):
-        self.open_tabs(2)
-        self.check_tab_number(2)
-        self.main_window.press_key('Ctrl+Tab')
-        self.check_tab_number(0)
-        self.main_window.press_key('Ctrl+Tab')
+    def test_close_tabs_ctrl_f4(self):
+        self.open_tabs(1)
         self.check_tab_number(1)
-        self.main_window.press_key('Ctrl+Tab')
-        self.check_tab_number(2)
+        self.main_window.press_key('Ctrl+F4')
+        self.check_tab_number(0)
+        self.main_window.press_key('Ctrl+F4')
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.url, Equals(""))
 
     @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_close_tabs_ctrl_w(self):
@@ -121,16 +140,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+w')
         self.check_tab_number(0)
         self.main_window.press_key('Ctrl+w')
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.url, Equals(""))
-
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
-    def test_close_tabs_ctrl_f4(self):
-        self.open_tabs(1)
-        self.check_tab_number(1)
-        self.main_window.press_key('Ctrl+F4')
-        self.check_tab_number(0)
-        self.main_window.press_key('Ctrl+F4')
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Equals(""))
 
