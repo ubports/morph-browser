@@ -133,3 +133,32 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+F4')
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Equals(""))
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_select_address_bar_ctrl_l(self):
+        self.main_window.press_key('Ctrl+L')
+        self.assertThat(self.address_bar.text_field.selectedText,
+                        Eventually(Equals(self.address_bar.text_field.text)))
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_select_address_bar_ctrl_l(self):
+        self.main_window.press_key('Ctrl+L')
+        self.assertThat(self.address_bar.text_field.selectedText,
+                        Eventually(Equals(self.address_bar.text_field.text)))
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_select_address_bar_alt_d(self):
+        self.main_window.press_key('Alt+D')
+        self.assertThat(self.address_bar.text_field.selectedText,
+                        Eventually(Equals(self.address_bar.text_field.text)))
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_escape_from_address_bar(self):
+        self.main_window.press_key('Alt+D')
+        self.assertThat(self.address_bar.text_field.selectedText,
+                        Eventually(Equals(self.address_bar.text_field.text)))
+        self.main_window.press_key('Escape')
+        self.assertThat(self.address_bar.text_field.selectedText,
+                        Eventually(Equals("")))
+        self.assertThat(self.address_bar.activeFocus, Eventually(Equals(False)))
+
