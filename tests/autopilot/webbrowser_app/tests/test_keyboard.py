@@ -194,3 +194,34 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
         self.main_window.press_key('Ctrl+D')
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_history_navigation_with_alt_arrows(self):
+        previous = self.main_window.get_current_webview().url
+        url = self.base_url + "/test2"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+
+        self.main_window.press_key('Alt+Left')
+        self.assertThat(lambda: self.main_window.get_current_webview().url,
+                        Eventually(Equals(previous)))
+
+        self.main_window.press_key('Alt+Right')
+        self.assertThat(lambda: self.main_window.get_current_webview().url,
+                        Eventually(Equals(url)))
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_history_navigation_with_backspace(self):
+        previous = self.main_window.get_current_webview().url
+        url = self.base_url + "/test2"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+
+        self.main_window.press_key('Backspace')
+        self.assertThat(lambda: self.main_window.get_current_webview().url,
+                        Eventually(Equals(previous)))
+
+        self.main_window.press_key('Shift+Backspace')
+        self.assertThat(lambda: self.main_window.get_current_webview().url,
+                        Eventually(Equals(url)))
+
