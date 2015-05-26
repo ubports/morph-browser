@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-05-23 00:27+0200\n"
-"PO-Revision-Date: 2015-05-15 09:11+0000\n"
+"PO-Revision-Date: 2015-05-25 14:51+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-05-23 05:24+0000\n"
+"X-Launchpad-Export-Date: 2015-05-26 05:51+0000\n"
 "X-Generator: Launchpad (build 17514)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -455,11 +455,11 @@ msgstr "Asetukset"
 
 #: src/app/webbrowser/Browser.qml:274
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Poistu yksityisestä tilasta"
 
 #: src/app/webbrowser/Browser.qml:274
 msgid "Private Mode"
-msgstr ""
+msgstr "Yksityinen tila"
 
 #: src/app/webbrowser/Browser.qml:439 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
@@ -510,21 +510,23 @@ msgstr "Valitse kaikki"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Julkiseen tilaan siirtyminen sulkee kaikki yksityiset välilehdet"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "Ok"
-msgstr ""
+msgstr "OK"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Tämä on yksityinen välilehti"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Tässä välilehdessä avaamasi sivut eivät näy selaushistoriassa.\n"
+"Lisäämäsi kirjanmerkit kuitenkin säilyvät."
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
