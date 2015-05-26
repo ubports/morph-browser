@@ -15,7 +15,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import os.path
+import sqlite3
+import time
 
+from autopilot.matchers import Eventually
 from testtools.matchers import Equals
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
@@ -120,12 +123,45 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
         self.create_temporary_profile()
+        self.populate_config()
+        self.populate_bookmarks()
+        super(TestNewTabViewContents, self).setUp()
+
+    def populate_config(self):
         self.homepage = "http://test/test2"
         config_file = os.path.join(self.config_location, "webbrowser-app.conf")
         with open(config_file, "w") as f:
             f.write("[General]\n")
             f.write("homepage={}".format(self.homepage))
-        super(TestNewTabViewContents, self).setUp()
+
+    def populate_bookmarks(self):
+        db_path = os.path.join(self.data_location, "bookmarks.sqlite")
+        connection = sqlite3.connect(db_path)
+        connection.execute("""CREATE TABLE IF NOT EXISTS bookmarks
+                              (url VARCHAR, title VARCHAR, icon VARCHAR,
+                              created INTEGER);""")
+        rows = [
+            ("http://www.rsc.org/periodic-table/element/24/chromium",
+             "Chromium - Element Information"),
+            ("http://www.rsc.org/periodic-table/element/77/iridium",
+             "Iridium - Element Information"),
+            ("http://www.rsc.org/periodic-table/element/31/gallium",
+             "Gallium - Element Information"),
+            ("http://www.rsc.org/periodic-table/element/116/livermorium",
+             "Livermorium - Element Information"),
+            ("http://www.rsc.org/periodic-table/element/62/samarium",
+             "Samarium - Element Information"),
+            ("http://www.rsc.org/periodic-table/element/63/europium",
+             "Europium - Element Information"),
+        ]
+        for i, row in enumerate(rows):
+            timestamp = int(time.time()) - i * 10
+            query = "INSERT INTO bookmarks \
+                     VALUES ('{}', '{}', '', {});"
+            query = query.format(row[0], row[1], timestamp)
+            connection.execute(query)
+        connection.commit()
+        connection.close()
 
     def test_default_home_bookmark(self):
         self.open_tabs_view()
@@ -135,3 +171,21 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(homepage_bookmark)
         new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(self.homepage)
+
+    def test_bookmarks_section_expands_and_collapses(self):
+        self.open_tabs_view()
+        new_tab_view = self.open_new_tab()
+        bookmarks = new_tab_view.get_bookmarks_list()
+        # When the bookmarks list is collapsed, it shows a maximum of 4 entries
+        self.assertThat(lambda: len(bookmarks.get_delegates()),
+                        Eventually(Equals(4)))
+        # When expanded, it shows all entries
+        new_tab_view.expand_collapse_bookmarks()
+        self.assertThat(lambda: len(bookmarks.get_delegates()),
+                        Eventually(Equals(6)))
+        # Collapse again
+        new_tab_view.expand_collapse_bookmarks()
+        self.assertThat(lambda: len(bookmarks.get_delegates()),
+                        Eventually(Equals(4)))
+
+

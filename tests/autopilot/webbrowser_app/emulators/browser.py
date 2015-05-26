@@ -361,18 +361,31 @@ class LeavePrivateModeDialog(uitk.Dialog):
 
 class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
+    @autopilot.logging.log_action(logger.info)
+    def expand_collapse_bookmarks(self):
+        button = self.select_single("Button",
+                                    objectName="bookmarks.moreButton")
+        self.pointing_device.click_object(button)
+
     def get_homepage_bookmark(self):
         return self.wait_select_single("UrlDelegate",
                                        objectName="homepageBookmark")
+
+    def get_bookmarks_list(self):
+        return self.wait_select_single(UrlsList, objectName="bookmarksList")
 
     def get_top_sites(self):
         """Return a list of the top sites URLs."""
         top_sites_list = self.wait_select_single(
             UrlsList, objectName="topSitesList", visible=True)
-        return top_sites_list.get_url_list()
+        return top_sites_list.get_urls()
 
 
 class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_url_list(self):
-        return [delegate.url for delegate in self.select_many("UrlDelegate")]
+    def get_delegates(self):
+        return sorted(self.select_many("UrlDelegate"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_urls(self):
+        return [delegate.url for delegate in self.get_delegates()]

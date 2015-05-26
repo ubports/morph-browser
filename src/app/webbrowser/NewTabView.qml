@@ -110,6 +110,7 @@ Item {
 
                 Button {
                     id: moreButton
+                    objectName: "bookmarks.moreButton"
                     height: parent.height - units.gu(2)
 
                     anchors { top: parent.top; topMargin: units.gu(1) }
@@ -163,7 +164,7 @@ Item {
                 }
 
                 UrlsList {
-                    id: bookmarksList
+                    objectName: "bookmarksList"
                     anchors {
                         left: parent.left
                         right: parent.right
