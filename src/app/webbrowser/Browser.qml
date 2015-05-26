@@ -350,7 +350,7 @@ BrowserView {
                 chrome.addressBarTextLocked = true
                 suggestionsList.focus = true
             }
-            Keys.onEscapePressed: focus = false
+            Keys.onEscapePressed: internal.resetFocus()
         }
 
         ChromeController {
@@ -378,7 +378,7 @@ BrowserView {
             searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
 
             Keys.onUpPressed: chrome.focus = true
-            Keys.onEscapePressed: focus = false
+            Keys.onEscapePressed: internal.resetFocus()
 
             models: [historySuggestions,
                      bookmarksSuggestions,
