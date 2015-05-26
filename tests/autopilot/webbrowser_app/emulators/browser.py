@@ -19,6 +19,7 @@ import logging
 import autopilot.logging
 import ubuntuuitoolkit as uitk
 from autopilot import exceptions
+from autopilot import input
 
 logger = logging.getLogger(__name__)
 
