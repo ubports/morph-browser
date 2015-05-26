@@ -19,7 +19,7 @@ import sqlite3
 import time
 import unittest
 
-from testtools.matchers import Contains, Equals
+from testtools.matchers import Contains, Equals, GreaterThan
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
@@ -171,3 +171,26 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
                         Eventually(Equals("")))
         self.assertThat(self.address_bar.activeFocus, Eventually(Equals(False)))
 
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_reload(self):
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.loading, Eventually(Equals(False)))
+
+        watcher = webview.watch_signal('loadingStateChanged()')
+        previous = watcher.num_emissions
+
+        self.main_window.press_key('Ctrl+R')
+        self.assertThat(
+            lambda: watcher.num_emissions,
+            Eventually(GreaterThan(previous)))
+
+        self.assertThat(webview.loading, Eventually(Equals(False)))
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_bookmark(self):
+        chrome = self.main_window.chrome
+        self.assertThat(chrome.bookmarked, Equals(False))
+        self.main_window.press_key('Ctrl+D')
+        self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
+        self.main_window.press_key('Ctrl+D')
+        self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
