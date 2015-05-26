@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -23,6 +23,7 @@ import webbrowsercommon.private 0.1
 Item {
     property alias source: fetcher.url
     property bool fallbackIcon: true
+    property alias shouldCache: fetcher.shouldCache
 
     width: units.dp(16)
     height: units.dp(16)
