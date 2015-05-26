@@ -1213,9 +1213,11 @@ BrowserView {
 
             case Qt.Key_H:
                 // Ctrl + H: Show History
-                historyViewComponent.createObject(historyViewContainer);
-                historyViewContainer.focus = true;
-                event.accepted = true;
+                if (historyViewContainer.children.length === 0) {
+                    historyViewComponent.createObject(historyViewContainer);
+                    historyViewContainer.focus = true;
+                    event.accepted = true;
+                }
                 break;
             }
         } else if (event.modifiers & Qt.AltModifier) {
