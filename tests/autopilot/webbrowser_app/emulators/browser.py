@@ -150,6 +150,14 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
 
+    # The history view is dynamically created, so it might or might not be
+    # available
+    def get_history_view(self):
+        try:
+            return self.select_single("HistoryView")
+        except exceptions.StateNotFoundError:
+            return None
+
     def press_key(self, key):
         try:
             keyboard = input.Keyboard.create()

@@ -19,7 +19,7 @@ import sqlite3
 import time
 import unittest
 
-from testtools.matchers import Contains, Equals, GreaterThan
+from testtools.matchers import Contains, Equals, NotEquals, GreaterThan
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
@@ -225,3 +225,13 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(lambda: self.main_window.get_current_webview().url,
                         Eventually(Equals(url)))
 
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_toggle_history(self):
+        self.assertThat(self.main_window.get_history_view(), Equals(None))
+        self.main_window.press_key('Ctrl+H')
+        self.assertThat(lambda: self.main_window.get_history_view(),
+                        Eventually(NotEquals(None)))
+        history_view = self.main_window.get_history_view()
+
+        self.main_window.press_key('Escape')
+        history_view.wait_until_destroyed()
