@@ -232,6 +232,8 @@ BrowserView {
                 onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
             }
 
+            onFindInPageModeChanged: if (!chrome.findInPageMode) internal.resetFocus()
+
             anchors {
                 left: parent.left
                 right: parent.right
@@ -360,7 +362,7 @@ BrowserView {
                 terms: suggestionsList.searchTerms
                 searchEngine: currentSearchEngine
                 active: chrome.activeFocus &&
-                         !browser.incognito &&
+                         !browser.incognito && !chrome.findInPageMode &&
                          !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
                 function limit(number) {
