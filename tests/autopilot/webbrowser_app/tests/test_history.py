@@ -27,15 +27,23 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
 
+        # A valid url to be sure the fact the 404 page isn't present in the
+        # history view isn't a timing issue.
+        url = self.base_url + "/test2"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+
         history = self.open_history()
         domain_entries = history.get_domain_entries()
+        # 1 domain: the local one
         self.assertThat(lambda: history.get_domain_entries(),
                         Eventually(Equals(1)))
 
         self.pointing_device.click_object(domain_entries[0])
         expanded_history = history.get_expanded_view()
 
-        delegates = expanded_history.select_many("UrlDelegate")
-        self.assertThat(lambda: len(delegates), Eventually(Equals(1)))
+        delegates = expanded_history.select_many("entriesDelegate")
+        # 2 addresses: /test1 and /test2
+        self.assertThat(lambda: len(delegates), Eventually(Equals(2)))
 
         self.assertThat(delegates[0].url, Equals(self.url))

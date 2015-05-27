@@ -350,7 +350,8 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_domain_entries(self):
-        return self.select_many("UrlDelegate")
+        return sorted(self.select_many("UrlDelegate"),
+                      key=lambda item: item.globalRect.y)
 
     def get_expanded_view(self):
         return self.wait_select_single("QQuickItem",

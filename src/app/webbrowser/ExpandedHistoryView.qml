@@ -54,6 +54,7 @@ Item {
 
         delegate: UrlDelegate {
             id: entriesDelegate
+            objectName: "entriesDelegate"
             width: parent.width
             height: units.gu(5)
 
