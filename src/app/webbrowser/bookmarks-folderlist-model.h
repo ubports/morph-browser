@@ -54,6 +54,8 @@ public:
     BookmarksModel* sourceModel() const;
     void setSourceModel(BookmarksModel* sourceModel);
 
+    Q_INVOKABLE QVariantMap get(int row) const;
+
 Q_SIGNALS:
     void sourceModelChanged() const;
 
@@ -68,11 +70,12 @@ private:
     BookmarksModel* m_sourceModel;
     QMap<QString, BookmarksFolderModel*> m_folders;
 
+    bool checkValidFolderIndex(int row) const;
     void clearFolders();
     void populateModel();
     void insertNewFolder(const QString& folder);
     QString getFolderFromSourceModel(const QModelIndex& index) const;
-    void emitDataChanged(const QString& domain);
+    void emitDataChanged(const QString& folder);
 };
 
 #endif // __BOOKMARKS_FOLDERLIST_MODEL_H__

@@ -21,6 +21,7 @@
 #include "bookmarks-model.h"
 
 // Qt
+#include <QtCore/QDebug>
 #include <QtCore/QStringList>
 
 /*!
@@ -109,6 +110,35 @@ void BookmarksFolderListModel::setSourceModel(BookmarksModel* sourceModel)
         endResetModel();
         Q_EMIT sourceModelChanged();
     }
+}
+
+QVariantMap BookmarksFolderListModel::get(int row) const
+{
+    if (!checkValidFolderIndex(row)) {
+        return QVariantMap();
+    }
+
+    QVariantMap res;
+    QHash<int,QByteArray> names = roleNames();
+    QHashIterator<int, QByteArray> i(names);
+
+    while (i.hasNext()) {
+        i.next();
+        QModelIndex idx = index(row, 0);
+        QVariant data = idx.data(i.key());
+        res[i.value()] = data;
+    }
+
+    return res;
+}
+
+bool BookmarksFolderListModel::checkValidFolderIndex(int index) const
+{
+    if ((index < 0) || (index >= m_folders.count())) {
+        qWarning() << "Invalid folder index:" << index;
+        return false;
+    }
+    return true;
 }
 
 void BookmarksFolderListModel::clearFolders()
