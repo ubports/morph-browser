@@ -42,8 +42,16 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(domain_entries[0])
         expanded_history = history.get_expanded_view()
 
-        delegates = expanded_history.select_many("entriesDelegate")
+        delegates = expanded_history.select_many("UrlDelegate",
+                                                 objectName="entriesDelegate")
         # 2 addresses: /test1 and /test2
-        self.assertThat(lambda: len(delegates), Eventually(Equals(2)))
+        self.assertThat(lambda: len(expanded_history
+                                    .select_many("UrlDelegate",
+                                                 objectName="entriesDelegate")
+                                    ),
+                        Eventually(Equals(2)))
 
         self.assertThat(delegates[0].url, Equals(self.url))
+
+        self.assertThat(sorted([delegate.url for delegate in delegates]),
+                        Equals(sorted([self.url, url])))
