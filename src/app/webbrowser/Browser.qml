@@ -21,6 +21,7 @@ import QtQuick.Window 2.0
 import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.1
+import Ubuntu.Components.Popups 1.0
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
@@ -196,7 +197,7 @@ BrowserView {
             bookmarked: isCurrentUrlBookmarked()
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
-                    browser.bookmarksModel.add(webview.url, webview.title, webview.icon, "")
+                    PopupUtils.open(bookmarkOptionsDialog)
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.remove(webview.url)
                 }
@@ -330,6 +331,23 @@ BrowserView {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
                 chrome.requestedUrl = url
+            }
+        }
+
+        Component {
+            id: bookmarkOptionsDialog
+
+            BookmarkOptionsDialog {
+                id: dialogue
+                bookmarkTitle: browser.currentWebview.title
+                folderModel: BookmarksFolderListModel {
+                    sourceModel: bookmarksModel
+                }
+
+                onOkButtonClicked: {
+                    browser.bookmarksModel.add(browser.currentWebview.url, bookmarkTitle, browser.currentWebview.icon, selectedFolder)
+                    PopupUtils.close(dialogue)
+                }
             }
         }
     }
