@@ -363,5 +363,16 @@ Item {
             clickItem(addressBar)
             compare(addressBar.text, url)
         }
+
+        function test_exitingFindInPageRestoresUrl() {
+            var url = "http://example.org/"
+            addressBar.actualUrl = url
+            addressBar.findInPageMode = true
+            verify(addressBar.activeFocus)
+            compare(addressBar.text, "")
+            typeString("hello")
+            addressBar.findInPageMode = false
+            compare(addressBar.text, url)
+        }
     }
 }

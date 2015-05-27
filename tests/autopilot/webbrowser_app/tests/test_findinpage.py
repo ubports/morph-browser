@@ -50,12 +50,16 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
         self.assertThat(next.visible, Equals(False))
         self.assertThat(prev.visible, Equals(False))
         self.assertThat(counter.visible, Equals(False))
+        self.assertThat(bar.activeFocus, Equals(False))
+
+        previous_text = bar.text
 
         self.activate_find_in_page(False)
         self.assertThat(bar.findInPageMode, Eventually(Equals(True)))
         self.assertThat(next.visible, Eventually(Equals(True)))
         self.assertThat(prev.visible, Eventually(Equals(True)))
         self.assertThat(counter.visible, Eventually(Equals(True)))
+        self.assertThat(bar.activeFocus, Eventually(Equals(True)))
 
         self.assertThat(self.chrome.is_back_button_enabled(), Equals(True))
         self.assertThat(self.chrome.is_forward_button_enabled(), Equals(False))
@@ -65,6 +69,8 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
         self.assertThat(next.visible, Eventually(Equals(False)))
         self.assertThat(prev.visible, Eventually(Equals(False)))
         self.assertThat(counter.visible, Eventually(Equals(False)))
+        self.assertThat(bar.activeFocus, Eventually(Equals(False)))
+        self.assertThat(bar.text, Eventually(Equals(previous_text)))
 
     def test_counter(self):
         bar = self.chrome.address_bar
