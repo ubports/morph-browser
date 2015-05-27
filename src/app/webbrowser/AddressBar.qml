@@ -322,15 +322,18 @@ FocusScope {
         }
     }
 
-    onActiveFocusChanged: {
-        if (!findInPageMode) {
-            if (activeFocus) {
-                text = actualUrl
-            } else if (!loading && actualUrl.toString()) {
-                text = internal.simplifyUrl(actualUrl)
-            }
+    function checkSimplifyUrl() {
+        if (findInPageMode) return;
+        if (activeFocus) {
+            text = actualUrl
+        } else if (!loading && actualUrl.toString()) {
+            text = internal.simplifyUrl(actualUrl)
         }
     }
+
+
+    onActiveFocusChanged: checkSimplifyUrl()
+    onFindInPageModeChanged: checkSimplifyUrl()
 
     onActualUrlChanged: {
         if (!activeFocus || !actualUrl.toString()) {
