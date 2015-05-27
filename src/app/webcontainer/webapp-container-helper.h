@@ -27,21 +27,9 @@ class WebappContainerHelper : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString generatedUrlPatternsSettingsDataPath
-               READ generatedUrlPatternsSettingsDataPath
-               WRITE setGeneratedUrlPatternsSettingsDataPath
-               NOTIFY generatedUrlPatternsSettingsDataPathChanged)
-
 public:
     WebappContainerHelper(QObject* parent = 0);
     ~WebappContainerHelper();
-
-    QString generatedUrlPatternsSettingsDataPath() const;
-    void setGeneratedUrlPatternsSettingsDataPath(const QString&);
-
-    Q_INVOKABLE void updateSAMLUrlPatterns(const QString& urlPatterns);
-    Q_INVOKABLE QString retrieveSavedUrlPatterns();
-
 
 private Q_SLOTS:
 
@@ -50,11 +38,6 @@ private Q_SLOTS:
 Q_SIGNALS:
 
     void browseToUrlRequested(QObject* webview, const QUrl& url);
-    void generatedUrlPatternsSettingsDataPathChanged();
-
-private:
-
-    QString _urlPatternSettingsDataPath;
 };
 
 #endif // WEBAPPCONTAINERHELPER_H

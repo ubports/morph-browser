@@ -21,6 +21,7 @@ import Ubuntu.Components 1.1
 import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import webcontainer.private 0.1
+import Qt.labs.settings 1.0
 import "../actions" as Actions
 import ".."
 
@@ -47,7 +48,7 @@ BrowserView {
     property bool chromeVisible: false
     readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible
 
-    signal generatedUrlPatternsFileUpdated(string path)
+    signal generatedUrlPatternsFileUpdated(string patterns)
 
     actions: [
         Actions.Back {
@@ -63,35 +64,33 @@ BrowserView {
         }
     ]
 
-    ContainerHelper {
-        id: containerHelper
+    Settings {
+        id: generatedUrlPatternSettings
+        property string generatedUrlPatterns
+    }
 
-        generatedUrlPatternsSettingsDataPath: dataLocation + "/generated-url-patterns.json"
+    function getGeneratedUrlPatterns() {
+        return generatedUrlPatternSettings.generatedUrlPatterns
+    }
 
-        function getGeneratedUrlPatterns() {
-            return containerHelper.retrieveSavedUrlPatterns()
+    function addGeneratedUrlPattern(urlPattern) {
+        var patterns;
+        try {
+            patterns = JSON.parse(generatedUrlPatternSettings.generatedUrlPatterns)
+        } catch(e) {
+            console.error("Invalid JSON content found in url patterns file")
         }
-
-        function addGeneratedUrlPattern(urlPattern) {
-            var patterns;
-            try {
-                patterns = JSON.parse(
-                            containerHelper.retrieveSavedUrlPatterns())
-            } catch(e) {
-                console.error("Invalid JSON content found in url patterns file")
-            }
-            if (! (patterns instanceof Array)) {
-                console.error("Invalid JSON content type found in url patterns file (not an array)")
-                patterns = []
-            }
-            if (patterns.indexOf(urlPattern) < 0) {
-                patterns.push(urlPattern)
-            }
-            containerHelper.updateSAMLUrlPatterns(
-                        JSON.stringify(patterns))
-
-            generatedUrlPatternsFileUpdated(generatedUrlPatternsSettingsDataPath)
+        if (! (patterns instanceof Array)) {
+            console.error("Invalid JSON content type found in url patterns file (not an array)")
+            patterns = []
         }
+        if (patterns.indexOf(urlPattern) < 0) {
+            patterns.push(urlPattern)
+        }
+        generatedUrlPatternSettings.generatedUrlPatterns = JSON.stringify(patterns)
+
+        generatedUrlPatternsFileUpdated(
+                    generatedUrlPatternSettings.generatedUrlPatterns)
     }
 
     function mergeUrlPatternSets(p1, p2) {
@@ -131,10 +130,9 @@ BrowserView {
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
             onSamlRequestUrlPatternReceived: {
-                containerHelper.addGeneratedUrlPattern(urlPattern)
+                addGeneratedUrlPattern(urlPattern)
             }
-            webappUrlPatterns: mergeUrlPatternSets(
-                                   containerHelper.getGeneratedUrlPatterns(),
+            webappUrlPatterns: mergeUrlPatternSets(getGeneratedUrlPatterns(),
                                    webappUrlPatterns)
         }
 
