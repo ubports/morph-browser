@@ -44,6 +44,8 @@ WebViewImpl {
     //  (if any) or navigations resulting in new windows being created.
     property bool blockOpenExternalUrls: false
 
+    signal samlRequestUrlPatternReceived(string urlPattern)
+
     // Those signals are used for testing purposes to externally
     //  track down the various internal logic & steps of a popup lifecycle.
     signal openExternalUrlTriggered(string url)
@@ -77,6 +79,12 @@ WebViewImpl {
 
     StateSaver.properties: "url"
     StateSaver.enabled: !runningLocalApplication
+
+    function handleSAMLRequestPattern(urlPattern) {
+        webappUrlPatterns.push(urlPattern)
+
+        samlRequestUrlPatternReceived(urlPattern)
+    }
 
     function shouldOpenPopupsInDefaultBrowser() {
         return formFactor !== "desktop";
@@ -163,9 +171,12 @@ WebViewImpl {
             var match = urlRegExp.exec(url)
             var host = match[1]
             var escapeDotsRegExp = new RegExp("\\.", "g")
-            var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/"
+            var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/*"
+
             console.log("SAML request detected. Adding host pattern: " + hostPattern)
-            webappUrlPatterns.push(hostPattern)
+
+            handleSAMLRequestPattern(hostPattern)
+
             request.action = Oxide.NavigationRequest.ActionAccept
         }
 

@@ -40,6 +40,8 @@ Item {
     property bool blockOpenExternalUrls: false
     property bool runningLocalApplication: false
 
+    signal samlRequestUrlPatternReceived(string urlPattern)
+
     PopupWindowController {
         id: popupController
         objectName: "popupController"
@@ -52,6 +54,14 @@ Item {
         id: webappContainerWebViewLoader
         objectName: "containerWebviewLoader"
         anchors.fill: parent
+        onLoaded: {
+            if (webappContainerWebViewLoader.status === Loader.Ready) {
+                webappContainerWebViewLoader.item
+                    .samlRequestUrlPatternReceived.connect(function(urlPattern) {
+                    samlRequestUrlPatternReceived(urlPattern)
+                })
+            }
+        }
     }
 
     onUrlChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.url = url
