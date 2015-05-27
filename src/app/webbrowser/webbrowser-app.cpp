@@ -17,6 +17,8 @@
  */
 
 #include "bookmarks-model.h"
+#include "bookmarks-folderlist-model.h"
+#include "bookmarks-folderlist-chronological-model.h"
 #include "cache-deleter.h"
 #include "config.h"
 #include "file-operations.h"
