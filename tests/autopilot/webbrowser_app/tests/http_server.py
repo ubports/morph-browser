@@ -138,6 +138,7 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html = '<html><body>hello this is text and more text</body></html>'
             self.send_html(html)
         elif self.path.startswith("/suggest"):
+            self.send_response(200)
             self.send_header("Content-Type", "text/x-suggestions+json")
             self.end_headers()
             query = self.path[len("/suggest?q="):]
