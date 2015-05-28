@@ -19,7 +19,7 @@ import sqlite3
 import time
 
 from autopilot.matchers import Eventually
-from testtools.matchers import Equals
+from testtools.matchers import Equals, NotEquals
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
@@ -180,12 +180,31 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: len(bookmarks.get_delegates()),
                         Eventually(Equals(4)))
         # When expanded, it shows all entries
-        new_tab_view.expand_collapse_bookmarks()
+        more_button = new_tab_view.get_bookmarks_more_button()
+        self.assertThat(more_button.visible, Equals(True))
+        self.pointing_device.click_object(more_button)
         self.assertThat(lambda: len(bookmarks.get_delegates()),
                         Eventually(Equals(6)))
         # Collapse again
-        new_tab_view.expand_collapse_bookmarks()
+        self.assertThat(more_button.visible, Equals(True))
+        self.pointing_device.click_object(more_button)
         self.assertThat(lambda: len(bookmarks.get_delegates()),
                         Eventually(Equals(4)))
 
-
+    def test_removing_bookmarks_when_collapsed(self):
+        self.open_tabs_view()
+        new_tab_view = self.open_new_tab()
+        bookmarks = new_tab_view.get_bookmarks_list()
+        self.assertThat(lambda: len(bookmarks.get_delegates()),
+                        Eventually(Equals(4)))
+        for i in range(3):
+            delegate = bookmarks.get_delegates()[0]
+            first_url = delegate.url
+            delegate.trigger_leading_action("leadingAction.delete",
+                                            delegate.wait_until_destroyed)
+            self.assertThat(lambda: bookmarks.get_urls()[0],
+                            Eventually(NotEquals(first_url)))
+            self.assertThat(new_tab_view.get_bookmarks_more_button().visible,
+                            Eventually(Equals(i < 1)))
+            self.assertThat(len(bookmarks.get_delegates()),
+                            Equals(4 if (i < 2) else 3))
