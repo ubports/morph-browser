@@ -365,14 +365,16 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("Button", objectName="bookmarks.moreButton")
 
     def get_homepage_bookmark(self):
-        return self.wait_select_single(UrlDelegate,
-                                       objectName="homepageBookmark")
+        return self.select_single(UrlDelegate, objectName="homepageBookmark")
 
     def get_bookmarks_list(self):
-        return self.wait_select_single(UrlsList, objectName="bookmarksList")
+        return self.select_single(UrlsList, objectName="bookmarksList")
 
     def get_top_sites_list(self):
-        return self.wait_select_single(UrlsList, objectName="topSitesList")
+        return self.select_single(UrlsList, objectName="topSitesList")
+
+    def get_notopsites_label(self):
+        return self.select_single("Label", objectName="notopsites")
 
 
 class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):

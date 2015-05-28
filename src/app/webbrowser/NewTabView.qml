@@ -46,7 +46,6 @@ Item {
         property bool seeMoreBookmarksView: bookmarksCountLimit > 4
         property int bookmarksCountLimit: Math.min(4, numberOfBookmarks)
         property int numberOfBookmarks: bookmarksModel ? bookmarksModel.count : 0
-        property int numberOfTopSites: historyModel ? historyModel.count : 0
 
         // Force the topsites section to reappear when remove a bookmark while
         // the bookmarks list is expanded and there aren't anymore > 5
@@ -225,12 +224,14 @@ Item {
             }
 
             Label {
+                objectName: "notopsites"
+
                 height: units.gu(11)
                 anchors {
                     left: parent.left
                     right: parent.right
                 }
-                visible: internal.numberOfTopSites === 0
+                visible: topSitesModel.count == 0
 
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

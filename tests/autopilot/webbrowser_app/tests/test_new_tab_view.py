@@ -141,17 +141,17 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
                               (url VARCHAR, title VARCHAR, icon VARCHAR,
                               created INTEGER);""")
         rows = [
-            ("http://www.rsc.org/periodic-table/element/24/chromium",
+            ("http://test/periodic-table/element/24/chromium",
              "Chromium - Element Information"),
-            ("http://www.rsc.org/periodic-table/element/77/iridium",
+            ("http://test/periodic-table/element/77/iridium",
              "Iridium - Element Information"),
-            ("http://www.rsc.org/periodic-table/element/31/gallium",
+            ("http://test/periodic-table/element/31/gallium",
              "Gallium - Element Information"),
-            ("http://www.rsc.org/periodic-table/element/116/livermorium",
+            ("http://test/periodic-table/element/116/livermorium",
              "Livermorium - Element Information"),
-            ("http://www.rsc.org/periodic-table/element/62/samarium",
+            ("http://test/periodic-table/element/62/samarium",
              "Samarium - Element Information"),
-            ("http://www.rsc.org/periodic-table/element/63/europium",
+            ("http://test/periodic-table/element/63/europium",
              "Europium - Element Information"),
         ]
         for i, row in enumerate(rows):
@@ -171,6 +171,18 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(homepage_bookmark)
         new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(self.homepage)
+
+    def test_open_bookmark(self):
+        self.open_tabs_view()
+        new_tab_view = self.open_new_tab()
+        bookmarks = new_tab_view.get_bookmarks_list()
+        self.assertThat(lambda: len(bookmarks.get_delegates()),
+                        Eventually(Equals(4)))
+        bookmark = bookmarks.get_delegates()[1]
+        url = bookmark.url
+        self.pointing_device.click_object(bookmark)
+        new_tab_view.wait_until_destroyed()
+        self.main_window.wait_until_page_loaded(url)
 
     def test_bookmarks_section_expands_and_collapses(self):
         self.open_tabs_view()
@@ -204,7 +216,7 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: bookmarks.get_urls()[0],
                         Eventually(NotEquals(url)))
 
-    def test_removing_bookmarks_when_collapsed(self):
+    def test_remove_bookmarks_when_collapsed(self):
         self.open_tabs_view()
         new_tab_view = self.open_new_tab()
         bookmarks = new_tab_view.get_bookmarks_list()
@@ -217,7 +229,7 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
             self.assertThat(len(bookmarks.get_delegates()),
                             Equals(4 if (i < 2) else 3))
 
-    def test_removing_bookmarks_when_expanded(self):
+    def test_remove_bookmarks_when_expanded(self):
         self.open_tabs_view()
         new_tab_view = self.open_new_tab()
         bookmarks = new_tab_view.get_bookmarks_list()
@@ -233,3 +245,30 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
             self.assertThat(len(bookmarks.get_delegates()), Equals(5 - i))
             self.assertThat(more_button.visible, Eventually(Equals(i < 1)))
             self.assertThat(top_sites.visible, Eventually(Equals(i > 0)))
+
+    def test_open_top_site(self):
+        self.open_tabs_view()
+        new_tab_view = self.open_new_tab()
+        top_sites = new_tab_view.get_top_sites_list()
+        self.assertThat(lambda: len(top_sites.get_delegates()),
+                        Eventually(Equals(1)))
+        top_site = top_sites.get_delegates()[0]
+        url = top_site.url
+        self.pointing_device.click_object(top_site)
+        new_tab_view.wait_until_destroyed()
+        self.main_window.wait_until_page_loaded(url)
+
+    def test_remove_top_sites(self):
+        self.open_tabs_view()
+        new_tab_view = self.open_new_tab()
+        top_sites = new_tab_view.get_top_sites_list()
+        self.assertThat(lambda: len(top_sites.get_delegates()),
+                        Eventually(Equals(1)))
+        notopsites_label = new_tab_view.get_notopsites_label()
+        self.assertThat(notopsites_label.visible, Eventually(Equals(False)))
+        delegate = top_sites.get_delegates()[0]
+        delegate.trigger_leading_action("leadingAction.delete",
+                                        delegate.wait_until_destroyed)
+        self.assertThat(lambda: len(top_sites.get_delegates()),
+                        Eventually(Equals(0)))
+        self.assertThat(notopsites_label.visible, Eventually(Equals(True)))

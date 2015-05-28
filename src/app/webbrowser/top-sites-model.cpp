@@ -34,6 +34,8 @@ TopSitesModel::TopSitesModel(QObject* parent)
     setDynamicSortFilter(true);
     setSortRole(HistoryModel::Visits);
     sort(0, Qt::DescendingOrder);
+    connect(this, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SIGNAL(countChanged()));
+    connect(this, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SIGNAL(countChanged()));
 }
 
 HistoryTimeframeModel* TopSitesModel::sourceModel() const
@@ -46,6 +48,7 @@ void TopSitesModel::setSourceModel(HistoryTimeframeModel* sourceModel)
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);
         Q_EMIT sourceModelChanged();
+        Q_EMIT countChanged();
     }
 }
 
