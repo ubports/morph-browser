@@ -22,6 +22,7 @@ import ".."
 
 Item {
     id: expandedHistoryView
+    objectName: "expandedHistoryView"
 
     property alias model: entriesListView.model
 
