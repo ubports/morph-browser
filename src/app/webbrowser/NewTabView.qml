@@ -226,6 +226,8 @@ Item {
         id: topSitesComponent
 
         UrlsList {
+            objectName: "topSitesList"
+
             width: newTabListView.width
             opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
 

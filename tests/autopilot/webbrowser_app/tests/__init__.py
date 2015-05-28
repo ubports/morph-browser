@@ -137,19 +137,28 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.main_window.get_tabs_view()
 
     def open_new_tab(self):
-        count = len(self.main_window.get_webviews())
+        if (self.main_window.incognito):
+            count = len(self.main_window.get_incognito_webviews())
+        else:
+            count = len(self.main_window.get_webviews())
+
         # assumes the tabs view is already open
         tabs_view = self.main_window.get_tabs_view()
         self.main_window.get_recent_view_toolbar().click_action("newTabButton")
         tabs_view.visible.wait_for(False)
         max_webviews = self.main_window.maxLiveWebviews
         new_count = (count + 1) if (count < max_webviews) else max_webviews
-        self.assert_number_webviews_eventually(new_count)
-        self.main_window.get_new_tab_view()
+        if (self.main_window.incognito):
+            self.assert_number_incognito_webviews_eventually(new_count)
+            new_tab_view = self.main_window.get_new_private_tab_view()
+        else:
+            self.assert_number_webviews_eventually(new_count)
+            new_tab_view = self.main_window.get_new_tab_view()
         if model() == 'Desktop':
             self.assertThat(
                 self.main_window.address_bar.activeFocus,
                 Eventually(Equals(True)))
+        return new_tab_view
 
     def open_settings(self):
         chrome = self.main_window.chrome
@@ -162,6 +171,10 @@ class BrowserTestCaseBase(AutopilotTestCase):
 
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
+                        Eventually(Equals(count)))
+
+    def assert_number_incognito_webviews_eventually(self, count):
+        self.assertThat(lambda: len(self.main_window.get_incognito_webviews()),
                         Eventually(Equals(count)))
 
     def ping_server(self, server):

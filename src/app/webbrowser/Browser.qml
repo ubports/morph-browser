@@ -33,12 +33,16 @@ import "urlManagement.js" as UrlManagement
 BrowserView {
     id: browser
 
-    currentWebview: tabsModel.currentTab ? tabsModel.currentTab.webview : null
+    currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
     property bool newSession: false
+
+    property bool incognito: false
+
+    readonly property var tabsModel: incognito ? privateTabsModelLoader.item : publicTabsModel
 
     // XXX: we might want to tweak this value depending
     // on the form factor and/or the available memory
@@ -48,6 +52,12 @@ BrowserView {
     // to limit the overhead of instantiating too many
     // tab objects (see http://pad.lv/1376433).
     readonly property int maxTabsToRestore: 10
+
+    onTabsModelChanged: {
+        if (incognito && privateTabsModelLoader.item) {
+            browser.openUrlInNewTab("", true)
+        }
+    }
 
     actions: [
         Actions.GoTo {
@@ -189,6 +199,8 @@ BrowserView {
             webview: browser.currentWebview
             searchUrl: currentSearchEngine.urlTemplate
 
+            useDarkTheme: browser.incognito
+
             y: webview ? webview.locationBarController.offset : 0
 
             function isCurrentUrlBookmarked() {
@@ -247,7 +259,7 @@ BrowserView {
                 Action {
                     objectName: "newtab"
                     text: i18n.tr("New tab")
-                    iconName: "tab-new"
+                    iconName: browser.incognito ? "private-tab-new" : "tab-new"
                     enabled: formFactor != "mobile"
                     onTriggered: browser.openUrlInNewTab("", true)
                 },
@@ -256,6 +268,23 @@ BrowserView {
                     text: i18n.tr("Settings")
                     iconName: "settings"
                     onTriggered: settingsComponent.createObject(settingsContainer)
+                },
+                Action {
+                    objectName: "privatemode"
+                    text: browser.incognito ? i18n.tr("Leave Private Mode") : i18n.tr("Private Mode")
+                    iconName: "private-browsing"
+                    onTriggered: {
+                        if (browser.incognito) {
+                            if (tabsModel.count > 1) {
+                                PopupUtils.open(leavePrivateModeDialog)
+                            } else {
+                                browser.incognito = false
+                                internal.resetFocus()
+                            }
+                        } else {
+                            browser.incognito = true
+                        }
+                    }
                 }
             ]
         }
@@ -317,6 +346,7 @@ BrowserView {
                 terms: suggestionsList.searchTerms
                 searchEngine: currentSearchEngine
                 active: chrome.activeFocus &&
+                         !browser.incognito &&
                          !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
                 function limit(number) {
@@ -378,9 +408,7 @@ BrowserView {
         id: recentView
 
         anchors.fill: parent
-        opacity: (bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")) ? 1 : 0
-        Behavior on opacity { UbuntuNumberAnimation {} }
-        visible: opacity > 0
+        visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
 
         states: State {
             name: "shown"
@@ -404,6 +432,7 @@ BrowserView {
                     return delegateMinHeight
                 }
             }
+            chromeOffset: chrome.height - invisibleTabChrome.height
             onTabSelected: {
                 var tab = tabsModel.get(index)
                 if (tab) {
@@ -533,7 +562,7 @@ BrowserView {
             }
         }
         visible: bottomEdgeHandle.enabled
-        opacity: 1 - recentView.opacity
+        opacity: recentView.visible ? 0 : 1
         Behavior on opacity {
             UbuntuNumberAnimation {}
         }
@@ -547,7 +576,7 @@ BrowserView {
 
             fontSize: "small"
             // TRANSLATORS: %1 refers to the current number of tabs opened
-            text: i18n.tr("(%1)").arg(tabsModel.count)
+            text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
         }
     }
 
@@ -616,13 +645,26 @@ BrowserView {
     }
 
     TabsModel {
-        id: tabsModel
+        id: publicTabsModel
+    }
 
-        // Ensure that at most n webviews are instantiated at all times,
-        // to reduce memory consumption (see http://pad.lv/1376418).
-        onCurrentTabChanged: {
-            if (count > browser.maxLiveWebviews) {
-                get(browser.maxLiveWebviews).unload()
+    Loader {
+        id: privateTabsModelLoader
+
+        sourceComponent: browser.incognito ? privateTabsModelComponent : undefined
+
+        Component {
+            id: privateTabsModelComponent
+
+            TabsModel {
+                Component.onDestruction: {
+                    while (count > 0) {
+                        var tab = remove(count - 1)
+                        if (tab) {
+                            tab.close()
+                        }
+                    }
+                }
             }
         }
     }
@@ -644,7 +686,7 @@ BrowserView {
 
         BrowserTab {
             anchors.fill: parent
-            visible: tabsModel.currentTab === this
+            current: tabsModel && tabsModel.currentTab === this
 
             webviewComponent: WebViewImpl {
                 id: webviewimpl
@@ -656,7 +698,7 @@ BrowserView {
                 anchors.fill: parent
                 focus: true
 
-                enabled: visible && !bottomEdgeHandle.dragging && !recentView.visible
+                enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
 
                 locationBarController {
                     height: webviewimpl.visible ? chrome.height : 0
@@ -704,7 +746,7 @@ BrowserView {
                 }
 
                 onNewViewRequested: {
-                    var tab = tabComponent.createObject(tabContainer, {"request": request})
+                    var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
                     var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                     internal.addTab(tab, setCurrent)
                 }
@@ -728,6 +770,10 @@ BrowserView {
                 }
 
                 onLoadEvent: {
+                    if (webviewimpl.incognito) {
+                        return
+                    }
+
                     if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel) {
                         browser.historyModel.add(event.url, title, icon)
                     }
@@ -830,7 +876,11 @@ BrowserView {
                     // this can’t be achieved with a simple property binding.
                     Component.onCompleted: {
                         if (!parent.url.toString() && !parent.restoreState) {
-                            sourceComponent = newTabViewComponent
+                            if (!webviewimpl.incognito) {
+                                sourceComponent = newTabViewComponent
+                            } else {
+                                sourceComponent = newPrivateTabViewComponent
+                            }
                         }
                     }
                     Connections {
@@ -859,6 +909,17 @@ BrowserView {
                                 chrome.requestedUrl = url
                                 currentWebview.url = url
                                 currentWebview.forceActiveFocus()
+                            }
+                        }
+                    }
+
+                    Component {
+                        id: newPrivateTabViewComponent
+
+                        NewPrivateTabView {
+                            anchors {
+                                fill: parent
+                                topMargin: (chrome.state == "shown") ? chrome.height : 0
                             }
                         }
                     }
@@ -898,6 +959,16 @@ BrowserView {
             Qt.inputMethod.show() // work around http://pad.lv/1316057
         }
 
+        function resetFocus() {
+            if (browser.currentWebview) {
+                if (!browser.currentWebview.url.toString() && (formFactor == "desktop")) {
+                    internal.focusAddressBar()
+                } else {
+                    browser.currentWebview.forceActiveFocus()
+                }
+            }
+        }
+
         // Invalid certificates the user has explicitly allowed for this session
         property var allowedCertificateErrors: []
 
@@ -926,7 +997,7 @@ BrowserView {
 
     function openUrlInNewTab(url, setCurrent, load) {
         load = typeof load !== 'undefined' ? load : true
-        var tab = tabComponent.createObject(tabContainer, {"initialUrl": url})
+        var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
         internal.addTab(tab, setCurrent)
         if (load) {
             tabsModel.currentTab.load()
@@ -946,8 +1017,8 @@ BrowserView {
                 return
             }
             var tabs = []
-            for (var i = 0; i < tabsModel.count; ++i) {
-                var tab = tabsModel.get(i)
+            for (var i = 0; i < publicTabsModel.count; ++i) {
+                var tab = publicTabsModel.get(i)
                 tabs.push(serializeTabState(tab))
             }
             store(JSON.stringify({tabs: tabs}))
@@ -1051,6 +1122,43 @@ BrowserView {
             tabsModel.currentTab.load()
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
                 internal.focusAddressBar()
+            }
+        }
+    }
+
+    // Ensure that at most n webviews are instantiated at all times,
+    // to reduce memory consumption (see http://pad.lv/1376418).
+    Connections {
+        target: tabsModel
+        onCurrentTabChanged: {
+            if (tabsModel.count > browser.maxLiveWebviews) {
+                tabsModel.get(browser.maxLiveWebviews).unload()
+            }
+        }
+    }
+
+    Component {
+        id: leavePrivateModeDialog
+        
+        LeavePrivateModeDialog {
+            id: dialogue
+            objectName: "leavePrivateModeDialog"
+
+            // This dialog inherits from PopupBase, which has a restoreActiveFocus
+            // function that is called when the dialog is hidden. That keeps the
+            // focus in the address bar/webview when we leave private mode. So any
+            // change on the active focus should be done after the run of such
+            // function
+            Component.onDestruction: {
+                if (!browser.incognito) {
+                    internal.resetFocus()
+                }
+            }
+
+            onCancelButtonClicked: PopupUtils.close(dialogue)
+            onOkButtonClicked: {
+                PopupUtils.close(dialogue)
+                browser.incognito = false
             }
         }
     }

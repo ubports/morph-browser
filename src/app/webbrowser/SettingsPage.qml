@@ -183,6 +183,7 @@ Item {
                         right: parent.right
                         bottom: parent.bottom
                     }
+                    clip: true
 
                     model: searchEngines.engines
 
