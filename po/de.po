@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-05-23 00:27+0200\n"
-"PO-Revision-Date: 2015-05-16 16:59+0000\n"
-"Last-Translator: Tobias Bannert <Unknown>\n"
+"PO-Revision-Date: 2015-05-27 13:22+0000\n"
+"Last-Translator: Niklas Wenzel <nikwen.developer@gmail.com>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-05-23 05:24+0000\n"
-"X-Generator: Launchpad (build 17514)\n"
+"X-Launchpad-Export-Date: 2015-05-28 05:32+0000\n"
+"X-Generator: Launchpad (build 17528)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -460,11 +460,11 @@ msgstr "Einstellungen"
 
 #: src/app/webbrowser/Browser.qml:274
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Privaten Modus verlassen"
 
 #: src/app/webbrowser/Browser.qml:274
 msgid "Private Mode"
-msgstr ""
+msgstr "Privater Modus"
 
 #: src/app/webbrowser/Browser.qml:439 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
@@ -515,21 +515,24 @@ msgstr "Alle auswählen"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Das Wechseln zum öffentlichen Modus schließt alle privaten Reiter"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "Ok"
-msgstr ""
+msgstr "OK"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Dies ist ein privater Reiter"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Seiten, die Sie in diesem Reiter ansehen, erscheinen nicht in Ihrem Browser-"
+"Verlauf.\n"
+"Lesezeichen, die Sie anlegen, werden jedoch beibehalten."
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
