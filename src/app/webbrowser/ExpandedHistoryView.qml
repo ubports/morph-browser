@@ -70,7 +70,7 @@ Item {
         }
     }
 
-    Rectangle {
+    Item {
         id: header
 
         anchors {
@@ -79,8 +79,6 @@ Item {
             right: parent.right
         }
         height: units.gu(8)
-
-        color: "#f6f6f6"
 
         Rectangle {
             anchors {
