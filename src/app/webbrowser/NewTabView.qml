@@ -98,7 +98,17 @@ Item {
             width: parent.width
             height: children.height
 
-            sourceComponent: modelData == "bookmarks" ? bookmarksComponent : topSitesComponent
+            sourceComponent: { 
+                if (modelData == "bookmarks") {
+                    if (internal.seeMoreBookmarksView) {
+                        return bookmarksFolderComponent
+                    } else {
+                        return bookmarksComponent
+                    }
+                }
+
+                return topSitesComponent
+            }
         }
 
         section.property: "section"
@@ -108,9 +118,9 @@ Item {
                 right: parent.right
             }
 
-            height: sectionHeader.height + units.gu(1)
+            height: opacity > 0.0 ? sectionHeader.height + units.gu(1) : 0
 
-            opacity: section == "topsites" && internal.seeMoreBookmarksView ? 0.0 : 1.0
+            opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
 
             color: newTabBackground.color
 
@@ -138,16 +148,77 @@ Item {
         UrlsList {
             id: bookmarksList
 
-            width: parent.width
+            width: newTabListView.width
+            opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
 
+            height: opacity == 0.0 ? 0 : childrenRect.height
             model: bookmarksListModel
 
-            footerLabelText: internal.seeMoreBookmarksView ? i18n.tr("see less") : i18n.tr("see more")
+            footerLabelText: i18n.tr("see more")
             footerLabelVisible: bookmarksListModel.unlimitedCount > internal.bookmarksCountLimit
 
             onUrlClicked: newTabView.bookmarkClicked(url)
             onUrlRemoved: newTabView.bookmarkRemoved(url)
-            onFooterLabelClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
+            onFooterLabelClicked: internal.seeMoreBookmarksView = true
+        }
+    }
+
+    Component {
+        id: bookmarksFolderComponent
+
+        ListView {
+            width: newTabListView.width
+            opacity: internal.seeMoreBookmarksView ? 1.0 : 0.0
+
+            height: opacity == 0.0 ? 0 : childrenRect.height
+            model: BookmarksFolderListModel {
+                sourceModel: bookmarksModel
+            }
+
+            section.property: "folder"
+            section.delegate: Rectangle {
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+
+                height: folderHeader.height
+                color: newTabBackground.color
+
+                ListItem.Header {
+                    id: folderHeader
+                    text: section ? section : i18n.tr("All Bookmarks")
+                }
+            }
+
+            delegate: UrlsList {
+                width: parent.width
+                model: entries
+                footerLabelVisible: false
+                onUrlClicked: newTabView.bookmarkClicked(url)
+                onUrlRemoved: newTabView.bookmarkRemoved(url)
+            }
+
+            footer: Item {
+                width: parent.width
+                height: seeLessLabel.height + units.gu(6)
+
+                MouseArea {
+                    anchors.centerIn: seeLessLabel
+
+                    width: seeLessLabel.width + units.gu(4)
+                    height: seeLessLabel.height + units.gu(4)
+                    onClicked: internal.seeMoreBookmarksView = false
+
+                }
+
+                Label {
+                    id: seeLessLabel
+                    anchors.centerIn: parent
+                    font.bold: true
+                    text: i18n.tr("see less")
+                }
+            }
         }
     }
 
@@ -155,7 +226,7 @@ Item {
         id: topSitesComponent
 
         UrlsList {
-            width: parent.width
+            width: newTabListView.width
             opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
 
             height: opacity == 0.0 ? 0 : childrenRect.height
