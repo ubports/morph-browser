@@ -197,7 +197,7 @@ BrowserView {
             bookmarked: isCurrentUrlBookmarked()
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
-                    PopupUtils.open(bookmarkOptionsDialog)
+                    bookmarkOptionsLoader.show()
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.remove(webview.url)
                 }
@@ -334,19 +334,41 @@ BrowserView {
             }
         }
 
-        Component {
-            id: bookmarkOptionsDialog
+        Loader {
+            id: bookmarkOptionsLoader
 
-            BookmarkOptionsDialog {
-                id: dialogue
-                bookmarkTitle: browser.currentWebview.title
-                folderModel: BookmarksFolderListModel {
-                    sourceModel: bookmarksModel
+            anchors {
+                top: chrome.bottom
+                horizontalCenter: parent.horizontalCenter
+            }
+
+            width: chrome.width - units.gu(5)
+            height: bookmarkOptionsLoader.item ? bookmarkOptionsLoader.item.height : 0
+
+            Connections {
+                target: bookmarkOptionsLoader.item
+                onDismiss: {
+                    browser.bookmarksModel.add(browser.currentWebview.url,
+                                               bookmarkOptionsLoader.item.bookmarkTitle,
+                                               browser.currentWebview.icon,
+                                               bookmarkOptionsLoader.item.bookmarkFolder)
+                    bookmarkOptionsLoader.sourceComponent = null
                 }
+            }
 
-                onOkButtonClicked: {
-                    browser.bookmarksModel.add(browser.currentWebview.url, bookmarkTitle, browser.currentWebview.icon, selectedFolder)
-                    PopupUtils.close(dialogue)
+            function show() {
+                sourceComponent = bookmarkOptionsDialog
+            }
+
+            Component {
+                id: bookmarkOptionsDialog
+                BookmarkOptions {
+                    width: parent.width
+
+                    bookmarkTitle: browser.currentWebview.title
+                    folderModel: BookmarksFolderListModel {
+                        sourceModel: bookmarksModel
+                    }
                 }
             }
         }
