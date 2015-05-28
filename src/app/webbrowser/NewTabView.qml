@@ -240,6 +240,7 @@ Item {
             }
 
             UrlsList {
+                objectName: "topSitesList"
                 anchors {
                     left: parent.left
                     right: parent.right
@@ -247,6 +248,7 @@ Item {
 
                 opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
                 Behavior on opacity { UbuntuNumberAnimation {} }
+                visible: opacity > 0
 
                 limit: 10
                 spacing: 0

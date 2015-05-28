@@ -371,11 +371,8 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_bookmarks_list(self):
         return self.wait_select_single(UrlsList, objectName="bookmarksList")
 
-    def get_top_sites(self):
-        """Return a list of the top sites URLs."""
-        top_sites_list = self.wait_select_single(
-            UrlsList, objectName="topSitesList", visible=True)
-        return top_sites_list.get_urls()
+    def get_top_sites_list(self):
+        return self.wait_select_single(UrlsList, objectName="topSitesList")
 
 
 class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
