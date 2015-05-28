@@ -37,7 +37,6 @@
     When no folder name is set (null or empty string), all entries that 
     are not stored in any folder match.
 */
-
 BookmarksFolderModel::BookmarksFolderModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
