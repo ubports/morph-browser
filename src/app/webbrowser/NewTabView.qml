@@ -18,8 +18,7 @@
 
 import QtQuick 2.0
 import Qt.labs.settings 1.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
+import Ubuntu.Components 1.2
 import webbrowserapp.private 0.1
 import ".."
 
@@ -74,7 +73,6 @@ Item {
             id: contentColumn
             anchors {
                 left: parent.left
-                leftMargin: units.gu(1.5)
                 right: parent.right
                 rightMargin: units.gu(1.5)
             }
@@ -82,7 +80,11 @@ Item {
 
             Row {
                 height: units.gu(6)
-                anchors { left: parent.left; right: parent.right }
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1.5)
+                    right: parent.right
+                }
                 spacing: units.gu(1.5)
 
                 Icon {
@@ -132,7 +134,11 @@ Item {
 
             Rectangle {
                 height: units.gu(0.1)
-                anchors { left: parent.left; right: parent.right }
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1.5)
+                    right: parent.right
+                }
                 color: "#d3d3d3"
             }
 
@@ -140,7 +146,6 @@ Item {
                 id: bookmarksColumn
                 anchors {
                     left: parent.left
-                    leftMargin: units.gu(-1.5)
                     right: parent.right
                 }
 
@@ -159,8 +164,10 @@ Item {
 
                     title: i18n.tr('Homepage')
 
+                    leadingActions: null
+
                     url: newTabView.settingsObject.homepage
-                    onItemClicked: newTabView.bookmarkClicked(url)
+                    onClicked: newTabView.bookmarkClicked(url)
                 }
 
                 UrlsList {
@@ -180,13 +187,13 @@ Item {
                 }
             }
 
-            Rectangle {
+            Item {
                 height: units.gu(6)
                 anchors {
                     left: parent.left
+                    leftMargin: units.gu(1.5)
                     right: parent.right
                 }
-                color: "#f6f6f6"
 
                 Label {
                     anchors {
@@ -206,7 +213,11 @@ Item {
 
             Rectangle {
                 height: units.gu(0.1)
-                anchors { left: parent.left; right: parent.right }
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1.5)
+                    right: parent.right
+                }
                 color: "#d3d3d3"
 
                 opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
@@ -231,7 +242,6 @@ Item {
             UrlsList {
                 anchors {
                     left: parent.left
-                    leftMargin: units.gu(-1.5)
                     right: parent.right
                 }
 
