@@ -143,7 +143,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.wait_select_single(SettingsPage, visible=True)
 
     def get_history_view(self):
-        return self.wait_select_single("HistoryView", visible=True)
+        return self.wait_select_single(HistoryView, visible=True)
+
+    def get_expanded_history_view(self):
+        return self.wait_select_single(ExpandedHistoryView, visible=True)
 
     def get_content_picker_dialog(self):
         # only on devices
@@ -353,9 +356,13 @@ class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return sorted(self.select_many("UrlDelegate"),
                       key=lambda item: item.globalRect.y)
 
-    def get_expanded_view(self):
-        return self.wait_select_single("QQuickItem",
-                                       objectName="expandedHistoryView")
+
+class ExpandedHistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_entries(self):
+        return sorted(self.select_many("UrlDelegate",
+                                       objectName="entriesDelegate"),
+                      key=lambda item: item.globalRect.y)
 
 
 class LeavePrivateModeDialog(uitk.Dialog):
