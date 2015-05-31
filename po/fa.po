@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-05-23 00:27+0200\n"
-"PO-Revision-Date: 2015-05-14 22:11+0000\n"
+"PO-Revision-Date: 2015-05-30 22:23+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-05-23 05:24+0000\n"
-"X-Generator: Launchpad (build 17514)\n"
+"X-Launchpad-Export-Date: 2015-05-31 05:30+0000\n"
+"X-Generator: Launchpad (build 17532)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -458,11 +458,11 @@ msgstr "تنظیمات"
 
 #: src/app/webbrowser/Browser.qml:274
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "ترک حالت خصوصی"
 
 #: src/app/webbrowser/Browser.qml:274
 msgid "Private Mode"
-msgstr ""
+msgstr "حالت خصوصی"
 
 #: src/app/webbrowser/Browser.qml:439 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
@@ -512,21 +512,23 @@ msgstr "گزینش همه"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "رفتن به حالت عمومی، تمام زبانه‌های خصوصی را خواهد بست"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "Ok"
-msgstr ""
+msgstr "تأیید"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "این یک زبانه‌ی خصوصی است"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"صفحه‌هایی که در این زبانه می‌بینید، در تاریخچه‌ی مرور شما ظاهر نمی شوند.\n"
+"با این خال، نشانک‌هایی که می‌سازید، ذخیره خواهند شد."
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
