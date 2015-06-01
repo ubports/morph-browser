@@ -347,8 +347,10 @@ BrowserView {
             ]
 
             Keys.onDownPressed: {
-                chrome.addressBarTextLocked = true
-                suggestionsList.focus = true
+                if (suggestionsList.count > 0) {
+                    chrome.addressBarTextLocked = true
+                    suggestionsList.focus = true
+                }
             }
             Keys.onEscapePressed: internal.resetFocus()
         }
