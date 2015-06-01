@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-24 18:31+0200\n"
+"POT-Creation-Date: 2015-05-23 00:27+0200\n"
 "PO-Revision-Date: 2015-04-29 14:06+0000\n"
 "Last-Translator: GTriderXC <gtriderxc@yahoo.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-04-30 05:28+0000\n"
-"X-Generator: Launchpad (build 17453)\n"
+"X-Launchpad-Export-Date: 2015-05-23 05:24+0000\n"
+"X-Generator: Launchpad (build 17514)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -48,7 +48,8 @@ msgstr "Hasło"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
-#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Cancel"
 msgstr "Anuluj"
 
@@ -390,7 +391,7 @@ msgstr "Idź do"
 msgid "Address;URL;www"
 msgstr "Adres;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:456
 msgid "New Tab"
 msgstr "Nowa karta"
 
@@ -434,36 +435,50 @@ msgstr "Udostępnij..."
 msgid "search or enter an address"
 msgstr "wyszukaj lub wprowadź adres"
 
-#: src/app/webbrowser/Browser.qml:221
+#: src/app/webbrowser/Browser.qml:237
 msgid "Share"
 msgstr "Udostępnij"
 
-#: src/app/webbrowser/Browser.qml:228
+#: src/app/webbrowser/Browser.qml:244
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:235
+#: src/app/webbrowser/Browser.qml:251
 msgid "Open tabs"
 msgstr "Otwarte karty"
 
-#: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsList.qml:84
+#: src/app/webbrowser/Browser.qml:261 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
 msgstr "Nowa karta"
 
-#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
+#: src/app/webbrowser/Browser.qml:268 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:274
+msgid "Leave Private Mode"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:274
+msgid "Private Mode"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:439 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
 msgstr "Gotowe"
 
-#: src/app/webbrowser/Browser.qml:715
+#. TRANSLATORS: %1 refers to the current number of tabs opened
+#: src/app/webbrowser/Browser.qml:540
+#, qt-format
+msgid "(%1)"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:807
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Przeciągając w górę opuścisz tryb pelnoekranowy"
 
-#: src/app/webbrowser/Browser.qml:716
+#: src/app/webbrowser/Browser.qml:808
 msgid "Press ESC To Exit Full Screen"
 msgstr "Kliknij ESC, by opuścić tryb pełnoekranowy"
 
@@ -496,6 +511,24 @@ msgstr "Wczoraj"
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
 msgstr "Zaznacz wszystko"
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
+msgid "Going to public mode will close all private tabs"
+msgstr ""
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
+msgid "Ok"
+msgstr ""
+
+#: src/app/webbrowser/NewPrivateTabView.qml:41
+msgid "This is a private tab"
+msgstr ""
+
+#: src/app/webbrowser/NewPrivateTabView.qml:56
+msgid ""
+"Pages that you view in this tab won't appear in your browser history.\n"
+"Bookmarks you create will be preserved, however."
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -568,12 +601,12 @@ msgid "Which is run by"
 msgstr "Która just uruchomiona przez"
 
 #: src/app/webbrowser/SettingsPage.qml:81
-#: src/app/webbrowser/SettingsPage.qml:175
+#: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
 msgstr "Wyszukiwarka"
 
 #: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:271
+#: src/app/webbrowser/SettingsPage.qml:275
 msgid "Homepage"
 msgstr "Strona domowa"
 
@@ -581,12 +614,12 @@ msgstr "Strona domowa"
 msgid "Restore previous session at startup"
 msgstr "Przywróć poprzednią sesję przy starcie"
 
-#: src/app/webbrowser/SettingsPage.qml:118
+#: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
 msgstr "Pozwala otwierać nowe zakładki w tle"
 
 #: src/app/webbrowser/SettingsPage.qml:138
-#: src/app/webbrowser/SettingsPage.qml:224
+#: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
 msgstr "Prywatność"
 
@@ -594,15 +627,15 @@ msgstr "Prywatność"
 msgid "Reset browser settings"
 msgstr "Zresetuj ustawienia przeglądarki"
 
-#: src/app/webbrowser/SettingsPage.qml:245
+#: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
 msgstr "Wyczyść historię przeglądania"
 
-#: src/app/webbrowser/SettingsPage.qml:252
+#: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
 msgstr "Wyczyść pamięć podręczną"
 
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:311
 msgid "Save"
 msgstr "Zapisz"
 

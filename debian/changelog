@@ -1,3 +1,115 @@
+webbrowser-app (0.23+15.04.20150522.1-0ubuntu1) vivid; urgency=medium
+
+  [ Arthur Mello ]
+  * Implement private browsing mode per design specification. (LP:
+    #1351179, #1457925, #1457958)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add Qwant to the default list of search engines. added:
+    src/app/webbrowser/searchengines/qwant.xml
+  * Add missing import statement. (LP: #1457060)
+  * Delay hiding the tab contents to give it an opportunity to grab an
+    up-to-date capture. Improve the tab switching animation to not
+    flicker and jump around that much. (LP: #1452998)
+  * Ensure the search engine delegates do not overlap with the settings
+    header. (LP: #1455399)
+  * Fix a flaky autopilot test. On a mobile device with network access,
+    the URL (http://en.wikipedia.org/wiki/Linux) might be rewritten to
+    https://en.m.wikipedia.org/wiki/Linux, thus making the test racy
+    depending on when the check on the webview’s URL is performed. (LP:
+    #1456885)
+  * Make use of the WebContext.maxCacheSizeHint property, introduced in
+    Oxide 1.6. This bumps the dependency of qtdeclarative5-ubuntu-web-
+    plugin on liboxideqt-qmlplugin to 1.6. (LP: #1277659)
+  * Remove a number of useless calls to QTest::qWait() in unit tests,
+    thus making them significantly faster to run.
+  * When opening a new blank tab, always clear the address bar. (LP:
+    #1456199)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 22 May 2015 19:21:17 +0000
+
+webbrowser-app (0.23+15.04.20150515-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Change the homepage in tests so that the domain name doesn’t contain
+    a dot, to work around https://launchpad.net/bugs/1108742. (LP:
+    #1108742)
+  * Delay showing the fullscreen hint to prevent it from jumping up
+    while the webview is being resized. (LP: #1454097)
+  * Look for custom search engines description files in several
+    locations. This adds a build dependency on qml-module-qt-labs-
+    folderlistmodel, to run unit tests at package construction time.
+    (LP: #1455207)
+  * Use checkboxes instead of switches for verb phrases, per design
+    guidance. (LP: #1442851)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 15 May 2015 07:04:34 +0000
+
+webbrowser-app (0.23+15.04.20150512-0ubuntu1) vivid; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Leo Arias ]
+  * Fix the base class used when launching the app in autopilot tests.
+
+  [ Leonardo Arias Fonseca ]
+  * Fix the base class used when launching the app in autopilot tests.
+
+  [ Olivier Tilloy ]
+  * Also set XDG_CONFIG_HOME (needed for tests not to override user-
+    defined settings).
+  * Update translation template.
+  * Use the new Oxide APIs to better control visibility of the chrome.
+    This bumps the runtime dependency on liboxideqt-qmlplugin to 1.7.
+    (LP: #1441064, #1453908)
+
+  [ Riccardo Padovani ]
+  * Add support for data: URIs in the address bar, and remove length
+    limitation for TLDs. (LP: #1377953, #1441281, #1450154)
+  * Add support for data: URIs in the address bar, and remove length
+    limitation for TLDs. (LP: #1377953, #1441281, #1450154)
+
+  [ Ugo Riboni ]
+  * Add suggestions from search engines in the suggestions list. (LP:
+    #1351151)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 12 May 2015 15:19:40 +0000
+
+webbrowser-app (0.23+15.04.20150506-0ubuntu1) vivid; urgency=medium
+
+  [ Arthur Mello ]
+  * Change asset for the bottom edge hint. Add text with open tabs
+    count.
+
+  [ CI Train Bot ]
+  * Resync trunk. added: po/ia.po
+
+  [ Leo Arias ]
+  * Fixed flake8 error. (LP: #1444170)
+
+  [ Leonardo Arias Fonseca ]
+  * Fixed flake8 error. (LP: #1444170)
+
+  [ Olivier Tilloy ]
+  * Remove deprecated compatibility code.
+  * Run autopilot tests in a temporary profile directory, to avoid
+    polluting the current user’s profile. (LP: #1448838)
+  * Save the session periodically to mitigate the situation where
+    multiple new tabs had been created when the browser crashes. (LP:
+    #1449761)
+  * Visual feedback for pressed state of chrome buttons and drawer menu
+    entries. (LP: #1448336)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 06 May 2015 21:51:37 +0000
+
 webbrowser-app (0.23+15.04.20150430.1-0ubuntu1) vivid; urgency=medium
 
   [ Alexandre Abreu ]

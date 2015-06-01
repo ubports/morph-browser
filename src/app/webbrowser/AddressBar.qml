@@ -257,7 +257,7 @@ FocusScope {
 
         function simplifyUrl(url) {
             var urlString = url.toString()
-            if (urlString == "about:blank") {
+            if (urlString == "about:blank" || urlString.match(/^data:/i)) {
                 return url
             }
             var hasProtocol = urlString.indexOf("://") != -1
@@ -298,7 +298,7 @@ FocusScope {
     }
 
     onActualUrlChanged: {
-        if (!activeFocus) {
+        if (!activeFocus || !actualUrl.toString()) {
             text = internal.simplifyUrl(actualUrl)
         }
     }

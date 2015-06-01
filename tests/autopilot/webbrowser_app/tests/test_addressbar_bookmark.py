@@ -22,10 +22,6 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
 
-    def setUp(self):
-        self.clear_datadir()
-        super(TestAddressBarBookmark, self).setUp()
-
     def test_switching_tabs_updates_bookmark_toggle(self):
         chrome = self.main_window.chrome
         address_bar = self.main_window.address_bar

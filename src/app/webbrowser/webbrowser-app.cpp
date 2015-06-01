@@ -31,10 +31,6 @@
 #include "top-sites-model.h"
 #include "webbrowser-app.h"
 
-// system
-#include <string.h>
-#include <unistd.h>
-
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
@@ -67,27 +63,6 @@ static QObject* CacheDeleter_singleton_factory(QQmlEngine* engine, QJSEngine* sc
 
 bool WebbrowserApp::initialize()
 {
-    // Re-direct webapps to the dedicated container for backward compatibility
-    // with 13.10
-    Q_FOREACH(const QString& argument, m_arguments) {
-        if (argument.startsWith("--webapp")) {
-            qWarning() << "Deprecated webapp options: use the webapp-container program instead";
-
-            int size = m_arguments.size();
-            char* argv[size + 2];
-            argv[0] = (char*) "webapp-container";
-            for (int i = 0; i < size; ++i) {
-                QByteArray bytes = m_arguments.at(i).toLocal8Bit();
-                argv[i + 1] = new char[bytes.size() + 1];
-                strcpy(argv[i + 1], bytes.constData());
-            }
-            argv[size + 1] = NULL;
-
-            QCoreApplication::exit(execvp(argv[0], argv));
-            return false;
-        }
-    }
-
     const char* uri = "webbrowserapp.private";
     qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
@@ -103,12 +78,19 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<SuggestionsFilterModel>(uri, 0, 1, "SuggestionsFilterModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
+        QStringList searchEnginesSearchPaths;
+        searchEnginesSearchPaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/searchengines";
+        searchEnginesSearchPaths << UbuntuBrowserDirectory() + "/webbrowser/searchengines";
+        m_engine->rootContext()->setContextProperty("searchEnginesSearchPaths", searchEnginesSearchPaths);
+
         m_window->setProperty("newSession", m_arguments.contains("--new-session"));
+
         QVariantList urls;
         Q_FOREACH(const QUrl& url, this->urls()) {
             urls.append(url);
         }
         m_window->setProperty("urls", urls);
+
         m_component->completeCreate();
         return true;
     } else {

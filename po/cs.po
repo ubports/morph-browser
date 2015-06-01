@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-24 18:31+0200\n"
-"PO-Revision-Date: 2014-01-08 10:01+0000\n"
-"Last-Translator: Tadeáš Pařík <tadeas.parik@gmail.com>\n"
+"POT-Creation-Date: 2015-05-23 00:27+0200\n"
+"PO-Revision-Date: 2015-05-25 08:37+0000\n"
+"Last-Translator: Vojtěch Daněk <vdanek@outlook.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-04-25 05:35+0000\n"
-"X-Generator: Launchpad (build 17430)\n"
+"X-Launchpad-Export-Date: 2015-05-26 05:51+0000\n"
+"X-Generator: Launchpad (build 17514)\n"
+"Language: cs\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -47,21 +48,22 @@ msgstr "Heslo"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
-#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Cancel"
 msgstr "Zrušit"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "Potvrdit navigaci"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr ""
+msgstr "Opustit"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr ""
+msgstr "Zůstat"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
@@ -112,7 +114,7 @@ msgstr "Obnovit stránku"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "Prosím, zvolte soubor"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -120,7 +122,7 @@ msgstr "Je požadováno povolení"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr ""
+msgstr "Tato stránka chce znát polohu vašeho zařízení."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
@@ -132,11 +134,11 @@ msgstr "Povolit"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "Tento certifikát zabezpečení webu není důvěryhodný.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr ""
+msgstr "Zjistěte více"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:87
@@ -145,6 +147,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"Sériové číslo:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:94
@@ -153,6 +157,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"Osoba:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:102
@@ -161,6 +167,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"Adresa osoby:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:113
@@ -169,6 +177,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"Vydavatel:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:121
@@ -177,6 +187,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"Adresa vydavatele:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:132
@@ -185,6 +197,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"Platná od:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:139
@@ -193,6 +207,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"Platná do:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:146
@@ -201,12 +217,16 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"Otisk prstu (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"Neměli byste pokračovat, a to zejména pokud jste nikdy neviděli podobné "
+"varování pro tuto stránku."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:187
@@ -215,6 +235,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"Snažili jste se připojit k %1, avšak server předložil bezpečnostní "
+"certifikát, který neodpovídá totožnosti internetové stránky."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -223,6 +245,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
+"Snažili jste se připojit k %1, avšak server předložil bezpečnostní "
+"certifikát, který vypršel."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -231,6 +255,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"Snažili jste se připojit k %1, avšak server předložil bezpečnostní "
+"certifikát, který obsahuje nesprávná data."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -239,6 +265,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"Snažili jste se připojit k %1, avšak server předložil bezpečnostní "
+"certifikát, který byl vydán nedůvěryhodným subjektem."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -247,6 +275,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
+"Snažili jste se připojit k %1, avšak server předložil bezpečnostní "
+"certifikát, který byl zrušen."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -255,6 +285,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
+"Snažili jste se připojit k %1, avšak server předložil bezpečnostní "
+"certifikát, který není platný."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -263,6 +295,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
+"Snažili jste se připojit k %1, avšak server předložil bezpečnostní "
+"certifikát je nedůvěryhodný."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -272,6 +306,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"Bezpečnostní certifikát této stránky není důvěryhodný\n"
+"Snažili jste se připojit k %1, avšak server předložil bezpečnostní "
+"certifikát, který neprošel bezpečnostní kontrolou z neznámého důvodu."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -353,7 +390,7 @@ msgstr "Přejít na"
 msgid "Address;URL;www"
 msgstr "Adresa;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:456
 msgid "New Tab"
 msgstr "Nový panel"
 
@@ -369,7 +406,7 @@ msgstr "Otevřít obrázek v novém panelu"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Otevřít odkaz v novém panelu na pozadí"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -387,69 +424,84 @@ msgstr "Opustit stránku"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "Uložit obrázek"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr ""
+msgstr "Sdílet..."
 
 #: src/app/webbrowser/AddressBar.qml:196
 msgid "search or enter an address"
-msgstr ""
+msgstr "hledat nebo zadat adresu"
 
-#: src/app/webbrowser/Browser.qml:221
+#: src/app/webbrowser/Browser.qml:237
 msgid "Share"
-msgstr ""
+msgstr "Sdílet"
 
-#: src/app/webbrowser/Browser.qml:228
+#: src/app/webbrowser/Browser.qml:244
 msgid "History"
-msgstr ""
+msgstr "Historie"
 
-#: src/app/webbrowser/Browser.qml:235
+#: src/app/webbrowser/Browser.qml:251
 msgid "Open tabs"
-msgstr ""
+msgstr "Otevřené panely"
 
-#: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsList.qml:84
+#: src/app/webbrowser/Browser.qml:261 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
-msgstr ""
+msgstr "Nový panel"
 
-#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
+#: src/app/webbrowser/Browser.qml:268 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
-msgstr ""
+msgstr "Nastavení"
 
-#: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:274
+msgid "Leave Private Mode"
+msgstr "Opustit anonymní režim"
+
+#: src/app/webbrowser/Browser.qml:274
+msgid "Private Mode"
+msgstr "Anonymní režim"
+
+#: src/app/webbrowser/Browser.qml:439 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
-msgstr ""
+msgstr "Hotovo"
 
-#: src/app/webbrowser/Browser.qml:715
+#. TRANSLATORS: %1 refers to the current number of tabs opened
+#: src/app/webbrowser/Browser.qml:540
+#, qt-format
+msgid "(%1)"
+msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:807
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Přejeďte prstem nahoru pro ukončení módu celé obrazovky"
 
-#: src/app/webbrowser/Browser.qml:716
+#: src/app/webbrowser/Browser.qml:808
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Stiskněte ESC pro ukončení módu celé obrazovky"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:79
 #: src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
 msgid "Delete"
-msgstr ""
+msgstr "Smazat"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:180
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 stránka"
+msgstr[1] "%1 stránky"
+msgstr[2] "%1 stránek"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:194
 msgid "Less"
-msgstr ""
+msgstr "Méně"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
-msgstr ""
+msgstr "Poslední navštívené"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
@@ -457,7 +509,27 @@ msgstr "Včera"
 
 #: src/app/webbrowser/HistoryView.qml:295
 msgid "Select all"
+msgstr "Zvolit vše"
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
+msgid "Going to public mode will close all private tabs"
+msgstr "Přechodem do veřejného režimu zavřete všechna anonymní okna."
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
+msgid "Ok"
+msgstr "Ok"
+
+#: src/app/webbrowser/NewPrivateTabView.qml:41
+msgid "This is a private tab"
+msgstr "Toto je anonymní záložka"
+
+#: src/app/webbrowser/NewPrivateTabView.qml:56
+msgid ""
+"Pages that you view in this tab won't appear in your browser history.\n"
+"Bookmarks you create will be preserved, however."
 msgstr ""
+"Stránky, které budete prohlížet se neobjeví v historii prohlížení.\n"
+"Ovšem záložky, které vytvoříte, zůstanou zachovány."
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
@@ -465,110 +537,111 @@ msgstr "Záložky"
 
 #: src/app/webbrowser/NewTabView.qml:126
 msgid "Top sites"
-msgstr ""
+msgstr "Nejnavštěvovanější stránky"
 
 #: src/app/webbrowser/NewTabView.qml:145
 msgid "see less"
-msgstr ""
+msgstr "zobrazit méně"
 
 #: src/app/webbrowser/NewTabView.qml:145
 msgid "see more"
-msgstr ""
+msgstr "zobrazit více"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr ""
+msgstr "Tato stránka má nezabezpečený obsah"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "Totožnost neověřena"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "Totožnost této internetové stránky nebyla ověřena."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "Server certifikát nesouhlasí s totožností internetové stránky."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Server certifikát vypršel."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "Server certifikát obsahuje neplatná data."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "Server certifikát je vydán nedůvěryhodným subjektem."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Server certifikát byl zrušen."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Server certifikát je neplatný."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "Server certifikát je nedůvěryhodný."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"Certifikát serveru neprošel bezpečnostní kontrolou z neznámého důvodu."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr ""
+msgstr "Jste připojeni k"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr ""
+msgstr "Který spravuje"
 
 #: src/app/webbrowser/SettingsPage.qml:81
-#: src/app/webbrowser/SettingsPage.qml:175
+#: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr ""
+msgstr "Vyhledávač"
 
 #: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:271
+#: src/app/webbrowser/SettingsPage.qml:275
 msgid "Homepage"
-msgstr ""
+msgstr "Domovská stránka"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "Obnovit předchozí relaci při startu"
 
-#: src/app/webbrowser/SettingsPage.qml:118
+#: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "Povolit otevírání nových panelů v pozadí"
 
 #: src/app/webbrowser/SettingsPage.qml:138
-#: src/app/webbrowser/SettingsPage.qml:224
+#: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
-msgstr ""
+msgstr "Soukromí"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr ""
+msgstr "Obnovit nastavení prohlížeče"
 
-#: src/app/webbrowser/SettingsPage.qml:245
+#: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "Smazat historii procházení"
 
-#: src/app/webbrowser/SettingsPage.qml:252
+#: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
-msgstr ""
+msgstr "Vymazat Cache"
 
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:311
 msgid "Save"
-msgstr ""
+msgstr "Uložit"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
-msgstr ""
+msgstr "Klepnout pro zobrazení"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:34
@@ -584,19 +657,19 @@ msgstr "Internetový prohlížeč Ubuntu"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
-msgstr ""
+msgstr "Nebyl nalezel místní účet pro "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
-msgstr ""
+msgstr "Přeskočit vytváření účtu"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:145
 msgid "Add account"
-msgstr ""
+msgstr "Přidat účet"
 
 #: src/app/webcontainer/AccountsView.qml:38
 msgid "Select an account"
-msgstr ""
+msgstr "Zvolit účet"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
@@ -612,4 +685,4 @@ msgstr "Prohlížeč World Wide Webu"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr ""
+msgstr "Internet;WWW;Prohlížeč;Web;Explorer"
