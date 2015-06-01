@@ -86,7 +86,6 @@ FocusScope {
                     anchors.verticalCenter: parent.verticalCenter
                     visible: internal.idle && addressbar.actualUrl.toString() &&
                              !internal.securityWarning && !internal.securityError
-                             && !findInPageMode
                 }
 
                 Icon {
@@ -104,7 +103,7 @@ FocusScope {
                                                    (addressbar.text == addressbar.actualUrl)
                     readonly property bool looksLikeAUrl: UrlManagement.looksLikeAUrl(addressbar.text.trim())
 
-                    name: findInPageMode || addressbar.loading ? "stop" :
+                    name: addressbar.loading ? "stop" :
                           reload ? "reload" :
                           looksLikeAUrl ? "stock_website" : "search"
 
