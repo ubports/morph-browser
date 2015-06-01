@@ -39,6 +39,10 @@ Item {
             height: parent.height / 2
 
             searchUrl: "http://www.ubuntu.com/search?q={searchTerms}"
+            findController: QtObject {
+                property int current
+                property int count
+            }
         }
 
         // only exists to steal focus from the address bar
