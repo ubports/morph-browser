@@ -373,7 +373,6 @@ BrowserView {
                 UbuntuNumberAnimation {}
             }
             enabled: opacity > 0
-
             anchors {
                 top: chrome.bottom
                 horizontalCenter: parent.horizontalCenter
