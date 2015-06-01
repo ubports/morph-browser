@@ -186,11 +186,10 @@ FocusScope {
                 fontSize: "x-small"
                 color: UbuntuColors.darkGrey
                 opacity: findController && findController.count > 0 ? 1.0 : 0.6
-                text: findInPagePattern.arg(current).arg(count)
                 visible: findInPageMode
 
                 // TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-                property string findInPagePattern: i18n.tr("%1/%2")
+                text: i18n.tr("%1/%2").arg(current).arg(count)
                 property int current: findController ? findController.current : 0
                 property int count: findController ? findController.count : 0
             }
