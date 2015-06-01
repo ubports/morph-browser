@@ -184,7 +184,7 @@ FocusScope {
                 objectName: "findInPageCounter"
                 anchors.verticalCenter: parent.verticalCenter
                 fontSize: "x-small"
-                color: "#5d5d5d"
+                color: UbuntuColors.darkGrey
                 opacity: findController && findController.count > 0 ? 1.0 : 0.6
                 text: findInPagePattern.arg(current).arg(count)
                 visible: findInPageMode
