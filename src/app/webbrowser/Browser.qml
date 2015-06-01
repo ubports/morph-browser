@@ -276,6 +276,7 @@ BrowserView {
                     objectName: "findinpage"
                     text: i18n.tr("Find in page")
                     iconName: "search"
+                    enabled: !chrome.findInPageMode
                     onTriggered: { chrome.findInPageMode = true; chrome.forceActiveFocus() }
                 },
                 Action {
