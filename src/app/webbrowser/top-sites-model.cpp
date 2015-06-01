@@ -36,6 +36,7 @@ TopSitesModel::TopSitesModel(QObject* parent)
     sort(0, Qt::DescendingOrder);
     connect(this, SIGNAL(rowsInserted(const QModelIndex&, int, int)), SIGNAL(countChanged()));
     connect(this, SIGNAL(rowsRemoved(const QModelIndex&, int, int)), SIGNAL(countChanged()));
+    connect(this, SIGNAL(modelReset()), SIGNAL(countChanged()));
 }
 
 HistoryTimeframeModel* TopSitesModel::sourceModel() const
