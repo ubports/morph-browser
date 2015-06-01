@@ -302,7 +302,10 @@ BrowserView {
                     text: i18n.tr("History")
                     iconName: "history"
                     enabled: browser.historyModel
-                    onTriggered: historyViewComponent.createObject(historyViewContainer)
+                    onTriggered: {
+                        historyViewComponent.createObject(historyViewContainer)
+                        historyViewContainer.focus = true
+                    }
                 },
                 Action {
                     objectName: "tabs"
