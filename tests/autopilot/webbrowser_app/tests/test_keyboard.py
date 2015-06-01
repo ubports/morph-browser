@@ -150,12 +150,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
                         Eventually(Equals(self.address_bar.text_field.text)))
 
     @unittest.skipIf(model() != "Desktop", "on desktop only")
-    def test_select_address_bar_ctrl_l(self):
-        self.main_window.press_key('Ctrl+L')
-        self.assertThat(self.address_bar.text_field.selectedText,
-                        Eventually(Equals(self.address_bar.text_field.text)))
-
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_select_address_bar_alt_d(self):
         self.main_window.press_key('Alt+D')
         self.assertThat(self.address_bar.text_field.selectedText,
