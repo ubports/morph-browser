@@ -203,7 +203,7 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
     are executed, thus making them more robust.
     """
 
-    def setUp(self, url = "/test1"):
+    def setUp(self, url="/test1"):
         self.http_server = http_server.HTTPServerInAThread()
         self.ping_server(self.http_server)
         self.addCleanup(self.http_server.cleanup)

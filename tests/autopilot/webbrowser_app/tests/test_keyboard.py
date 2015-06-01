@@ -19,12 +19,12 @@ import sqlite3
 import time
 import unittest
 
-from testtools.matchers import Contains, Equals, NotEquals, GreaterThan
+from testtools.matchers import Equals, NotEquals, GreaterThan
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
-from . import http_server
+
 
 class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
 
@@ -163,7 +163,8 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Escape')
         self.assertThat(self.address_bar.text_field.selectedText,
                         Eventually(Equals("")))
-        self.assertThat(self.address_bar.activeFocus, Eventually(Equals(False)))
+        self.assertThat(self.address_bar.activeFocus,
+                        Eventually(Equals(False)))
 
     @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_reload(self):
