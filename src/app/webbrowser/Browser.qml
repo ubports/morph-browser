@@ -370,6 +370,7 @@ BrowserView {
                 UbuntuNumberAnimation {}
             }
             enabled: opacity > 0
+
             anchors {
                 top: chrome.bottom
                 horizontalCenter: parent.horizontalCenter
@@ -414,7 +415,7 @@ BrowserView {
                 id: searchSuggestions
                 terms: suggestionsList.searchTerms
                 searchEngine: currentSearchEngine
-                active: chrome.activeFocus &&
+                active: (chrome.activeFocus || suggestionsList.activeFocus) &&
                          !browser.incognito &&
                          !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
