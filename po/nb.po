@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-05-23 00:27+0200\n"
-"PO-Revision-Date: 2015-04-27 06:13+0000\n"
+"PO-Revision-Date: 2015-05-28 03:36+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-05-23 05:24+0000\n"
-"X-Generator: Launchpad (build 17514)\n"
+"X-Launchpad-Export-Date: 2015-05-29 05:34+0000\n"
+"X-Generator: Launchpad (build 17532)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -346,7 +346,7 @@ msgstr "Legg til i bokmerker"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "Bokmerk lenke"
+msgstr "Legg til lenke som bokmerke"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
@@ -457,11 +457,11 @@ msgstr "Innstillinger"
 
 #: src/app/webbrowser/Browser.qml:274
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Gå ut av privatmodus"
 
 #: src/app/webbrowser/Browser.qml:274
 msgid "Private Mode"
-msgstr ""
+msgstr "Privatmodus"
 
 #: src/app/webbrowser/Browser.qml:439 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
@@ -471,7 +471,7 @@ msgstr "Ferdig"
 #: src/app/webbrowser/Browser.qml:540
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:807
 msgid "Swipe Up To Exit Full Screen"
@@ -512,21 +512,23 @@ msgstr "Velg alle"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Hvis du går i offentlig modus, blir alle private faner lukket"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "Ok"
-msgstr ""
+msgstr "OK"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Dette er en privat fane"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Sider du ser på i denne fanen lagres ikke i nettleser-historikken.\n"
+"Bokmerker du lager blir for øvrig lagret."
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"

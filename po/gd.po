@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-05-23 00:27+0200\n"
-"PO-Revision-Date: 2015-05-03 02:05+0000\n"
+"PO-Revision-Date: 2015-05-28 18:26+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2015-05-23 05:24+0000\n"
-"X-Generator: Launchpad (build 17514)\n"
+"X-Launchpad-Export-Date: 2015-05-29 05:34+0000\n"
+"X-Generator: Launchpad (build 17532)\n"
 "Language: gd\n"
 
 #: src/app/AlertDialog.qml:23
@@ -462,11 +462,11 @@ msgstr "Roghainnean"
 
 #: src/app/webbrowser/Browser.qml:274
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Fàg am modh prìobhaideach"
 
 #: src/app/webbrowser/Browser.qml:274
 msgid "Private Mode"
-msgstr ""
+msgstr "Am modh prìobhaideach"
 
 #: src/app/webbrowser/Browser.qml:439 src/app/webbrowser/HistoryView.qml:231
 msgid "Done"
@@ -476,7 +476,7 @@ msgstr "Dèanta"
 #: src/app/webbrowser/Browser.qml:540
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:807
 msgid "Swipe Up To Exit Full Screen"
@@ -520,20 +520,23 @@ msgstr "Tagh na h-uile"
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr ""
+"Ma thèid thu gun mhodh phoblach, thèid gach taba prìobhaideach a dhùnadh"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "Ok"
-msgstr ""
+msgstr "Ceart ma-thà"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Seo taba prìobhaideach"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Cha nochd na duilleagan air an seall thu ann an eachdraidh a' bhrabhsair.\n"
+"Cumaidh sinn na comharran-lìn a chruthaicheas tu co-dhiù."
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "Bookmarks"
