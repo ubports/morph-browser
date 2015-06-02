@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2014 Canonical
+# Copyright 2014-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -26,11 +26,12 @@ import unittest
 
 class TestContentPick(StartOpenRemotePageTestCaseBase):
 
+    def setUp(self):
+        self.url = self.base_url + "/uploadform"
+        super(TestContentPick, self).setUp()
+
     @unittest.skipIf(model() == "Desktop", "on devices only")
     def test_picker_dialog_shows_up(self):
-        url = self.base_url + "/uploadform"
-        self.main_window.go_to_url(url)
-        self.main_window.wait_until_page_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         dialog = self.main_window.get_content_picker_dialog()

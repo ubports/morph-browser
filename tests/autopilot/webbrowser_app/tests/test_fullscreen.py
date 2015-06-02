@@ -26,6 +26,10 @@ class TestFullscreen(StartOpenRemotePageTestCaseBase):
     # Ref: http://doc.qt.io/qt-5/qwindow.html#Visibility-enum
     QWINDOW_FULLSCREEN = 5
 
+    def setUp(self):
+        self.url = self.base_url + "/fullscreen"
+        super(TestFullscreen, self).setUp()
+
     def assert_eventually_windowed(self):
         self.assertThat(self.main_window.get_current_webview().fullscreen,
                         Eventually(Equals(False)))
@@ -40,10 +44,6 @@ class TestFullscreen(StartOpenRemotePageTestCaseBase):
 
     def test_toggle_fullscreen(self):
         self.assert_eventually_windowed()
-        url = self.base_url + "/fullscreen"
-        self.main_window.go_to_url(url)
-        self.main_window.wait_until_page_loaded(url)
-        self.assert_eventually_windowed()
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         self.assert_eventually_fullscreen()
@@ -53,9 +53,6 @@ class TestFullscreen(StartOpenRemotePageTestCaseBase):
         hint.wait_until_destroyed()
 
     def test_exit_fullscreen(self):
-        url = self.base_url + "/fullscreen"
-        self.main_window.go_to_url(url)
-        self.main_window.wait_until_page_loaded(url)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         self.assert_eventually_fullscreen()

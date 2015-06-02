@@ -195,6 +195,9 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
     are executed, thus making them more robust.
     """
 
+    base_url = "http://test"
+    url = base_url + "/test1"
+
     def setUp(self):
         self.http_server = http_server.HTTPServerInAThread()
         self.ping_server(self.http_server)
@@ -202,8 +205,6 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
         self.useFixture(fixtures.EnvironmentVariable(
             'UBUNTU_WEBVIEW_HOST_MAPPING_RULES',
             "MAP test:80 localhost:{}".format(self.http_server.port)))
-        self.base_url = "http://test"
-        self.url = self.base_url + "/test1"
         self.ARGS = self.ARGS + [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()
         self.assert_home_page_eventually_loaded()
