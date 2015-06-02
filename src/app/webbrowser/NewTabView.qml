@@ -17,8 +17,8 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
+import Qt.labs.settings 1.0
+import Ubuntu.Components 1.2
 import webbrowserapp.private 0.1
 import ".."
 
@@ -27,6 +27,7 @@ Item {
 
     property QtObject bookmarksModel
     property alias historyModel: historyTimeframeModel.sourceModel
+    property Settings settingsObject
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
@@ -45,7 +46,6 @@ Item {
         property bool seeMoreBookmarksView: bookmarksCountLimit > 4
         property int bookmarksCountLimit: Math.min(4, numberOfBookmarks)
         property int numberOfBookmarks: bookmarksModel ? bookmarksModel.count : 0
-        property int numberOfTopSites: historyModel ? historyModel.count : 0
 
         // Force the topsites section to reappear when remove a bookmark while
         // the bookmarks list is expanded and there aren't anymore > 5
@@ -72,7 +72,6 @@ Item {
             id: contentColumn
             anchors {
                 left: parent.left
-                leftMargin: units.gu(1.5)
                 right: parent.right
                 rightMargin: units.gu(1.5)
             }
@@ -80,7 +79,11 @@ Item {
 
             Row {
                 height: units.gu(6)
-                anchors { left: parent.left; right: parent.right }
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1.5)
+                    right: parent.right
+                }
                 spacing: units.gu(1.5)
 
                 Icon {
@@ -108,6 +111,7 @@ Item {
 
                 Button {
                     id: moreButton
+                    objectName: "bookmarks.moreButton"
                     height: parent.height - units.gu(2)
 
                     anchors { top: parent.top; topMargin: units.gu(1) }
@@ -129,7 +133,11 @@ Item {
 
             Rectangle {
                 height: units.gu(0.1)
-                anchors { left: parent.left; right: parent.right }
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1.5)
+                    right: parent.right
+                }
                 color: "#d3d3d3"
             }
 
@@ -137,7 +145,6 @@ Item {
                 id: bookmarksColumn
                 anchors {
                     left: parent.left
-                    leftMargin: units.gu(-1.5)
                     right: parent.right
                 }
 
@@ -147,7 +154,7 @@ Item {
                 spacing: 0
 
                 UrlDelegate {
-                    id: homepageBookmark
+                    objectName: "homepageBookmark"
                     anchors {
                         left: parent.left
                         right: parent.right
@@ -156,12 +163,14 @@ Item {
 
                     title: i18n.tr('Homepage')
 
-                    url: settings.homepage
-                    onItemClicked: newTabView.bookmarkClicked(url)
+                    leadingActions: null
+
+                    url: newTabView.settingsObject.homepage
+                    onClicked: newTabView.bookmarkClicked(url)
                 }
 
                 UrlsList {
-                    id: bookmarksList
+                    objectName: "bookmarksList"
                     anchors {
                         left: parent.left
                         right: parent.right
@@ -177,13 +186,13 @@ Item {
                 }
             }
 
-            Rectangle {
+            Item {
                 height: units.gu(6)
                 anchors {
                     left: parent.left
+                    leftMargin: units.gu(1.5)
                     right: parent.right
                 }
-                color: "#f6f6f6"
 
                 Label {
                     anchors {
@@ -203,7 +212,11 @@ Item {
 
             Rectangle {
                 height: units.gu(0.1)
-                anchors { left: parent.left; right: parent.right }
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1.5)
+                    right: parent.right
+                }
                 color: "#d3d3d3"
 
                 opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
@@ -211,12 +224,14 @@ Item {
             }
 
             Label {
+                objectName: "notopsites"
+
                 height: units.gu(11)
                 anchors {
                     left: parent.left
                     right: parent.right
                 }
-                visible: internal.numberOfTopSites === 0
+                visible: topSitesModel.count == 0
 
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -226,14 +241,15 @@ Item {
             }
 
             UrlsList {
+                objectName: "topSitesList"
                 anchors {
                     left: parent.left
-                    leftMargin: units.gu(-1.5)
                     right: parent.right
                 }
 
                 opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
                 Behavior on opacity { UbuntuNumberAnimation {} }
+                visible: opacity > 0
 
                 limit: 10
                 spacing: 0
