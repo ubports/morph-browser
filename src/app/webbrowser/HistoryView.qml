@@ -68,7 +68,13 @@ Item {
             url: lastVisitedTitle
             icon: model.lastVisitedIcon
 
-            onClicked: historyView.seeMoreEntriesClicked(model.entries)
+            onClicked: {
+                if (selectMode) {
+                    selected = !selected
+                } else {
+                    historyView.seeMoreEntriesClicked(model.entries)
+                }
+            }
             onRemoved: historyView.historyModel.removeEntriesByDomain(model.domain)
             onPressAndHold: {
                 selectMode = !selectMode
