@@ -207,9 +207,10 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
+                        var indices = domainsListView.ViewItems.selectedIndices
                         var domains = []
-                        for (var i in domainsListView.ViewItems.selectedIndices) {
-                            domains.push(domainsListView.model.get(i))
+                        for (var i in indices) {
+                            domains.push(domainsListView.model.get(indices[i]))
                         }
                         domainsListView.ViewItems.selectMode = false
                         for (var j in domains) {
