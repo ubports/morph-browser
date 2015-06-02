@@ -179,6 +179,21 @@ private Q_SLOTS:
         model->setDatabasePath(fileName);
         QCOMPARE(model->rowCount(), 2);
     }
+
+    void shouldCountNumberOfEntries()
+    {
+        QSignalSpy spyCount(model, SIGNAL(rowCountChanged()));
+        QCOMPARE(model->property("count").toInt(), 0);
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        QCOMPARE(model->property("count").toInt(), 1);
+        QCOMPARE(spyCount.count(), 1);
+        model->add(QUrl("http://example.com/"), "Example Domain", QUrl());
+        QCOMPARE(model->property("count").toInt(), 2);
+        QCOMPARE(spyCount.count(), 2);
+        model->remove(QUrl("http://example.com/"));
+        QCOMPARE(model->property("count").toInt(), 1);
+        QCOMPARE(spyCount.count(), 3);
+    }
 };
 
 QTEST_MAIN(BookmarksModelTests)
