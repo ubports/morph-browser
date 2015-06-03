@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -20,7 +20,11 @@ var overrides = [];
 
 oxide.onMessage = function(msg) {
     if ("overrides" in msg) {
-        overrides = msg["overrides"];
+        var o = msg["overrides"];
+        for (var i in o) {
+            var r = o[i];
+            overrides.push([new RegExp(r[0]), r[1]]);
+        }
     }
 }
 

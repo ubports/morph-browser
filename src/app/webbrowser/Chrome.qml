@@ -30,9 +30,9 @@ ChromeBase {
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
     property alias addressBarTextLocked: addressbar.textLocked
-    property bool useDarkTheme: false
+    property alias incognito: addressbar.incognito
 
-    backgroundColor: useDarkTheme ? UbuntuColors.darkGrey : Theme.palette.normal.background
+    backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
 
     function addressBarSelectAll() { addressbar.selectAll() }
 
@@ -158,7 +158,7 @@ ChromeBase {
     QtObject {
         id: internal
         property var openDrawer: null
-        readonly property color iconColor: chrome.useDarkTheme ? "white" : "grey"
+        readonly property color iconColor: chrome.incognito ? "white" : "grey"
     }
 
     onWebviewChanged: {

@@ -134,7 +134,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.pointing_device.click_object(tabs_action)
         else:
             self.drag_bottom_edge_upwards(0.75)
-        self.main_window.get_tabs_view()
+        return self.main_window.get_tabs_view()
 
     def open_new_tab(self):
         if (self.main_window.incognito):

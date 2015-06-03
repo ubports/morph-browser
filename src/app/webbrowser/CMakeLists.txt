@@ -50,10 +50,6 @@ install(DIRECTORY assets
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
         FILES_MATCHING PATTERN *.png)
 
-install(DIRECTORY upstreamcomponents
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
-        FILES_MATCHING PATTERN *.qml)
-
 install(DIRECTORY searchengines
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
         FILES_MATCHING PATTERN *.xml)

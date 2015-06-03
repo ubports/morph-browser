@@ -27,6 +27,7 @@ FocusScope {
     id: addressbar
 
     property alias icon: favicon.source
+    property bool incognito: false
     property alias text: textField.text
     property bool bookmarked: false
     property url requestedUrl
@@ -74,6 +75,7 @@ FocusScope {
 
                 Favicon {
                     id: favicon
+                    shouldCache: !addressbar.incognito
                     anchors.verticalCenter: parent.verticalCenter
                     visible: internal.idle && addressbar.actualUrl.toString() &&
                              !internal.securityWarning && !internal.securityError
