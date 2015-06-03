@@ -38,9 +38,9 @@ loopcount={}'.format(str(samlRequestRedirectsCount))
         self.get_webcontainer_window().visible.wait_for(True)
         self.assert_page_eventually_loaded(self.base_url+target_path)
 
-        container_webview = self.get_webcontainer_webview()
-        url_patterns_file_updated_watcher = container_webview.watch_signal(
-            'generatedUrlPatternsFileUpdated(QString)')
+        webcontainer_webview = self.get_webcontainer_webview()
+        url_patterns_settings_watcher = webcontainer_webview.watch_signal(
+            'generatedUrlPatternsChanged()')
 
         webview = self.get_oxide_webview()
 
@@ -51,14 +51,13 @@ loopcount={}'.format(str(samlRequestRedirectsCount))
         self.pointing_device.click()
 
         self.assertThat(
-            lambda: url_patterns_file_updated_watcher.was_emitted,
+            lambda: url_patterns_settings_watcher.was_emitted,
             Eventually(Equals(True)))
         self.assertThat(
-            lambda: url_patterns_file_updated_watcher.num_emissions,
+            lambda: url_patterns_settings_watcher.num_emissions,
             Eventually(Equals(samlRequestRedirectsCount)))
 
-        saved_patterns = container_webview.get_signal_emissions(
-            'generatedUrlPatternsFileUpdated(QString)')[0][0]
+        saved_patterns = webcontainer_webview.generatedUrlPatterns
 
         self.assertThat(
             saved_patterns,

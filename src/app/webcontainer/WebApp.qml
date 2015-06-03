@@ -48,7 +48,10 @@ BrowserView {
     property bool chromeVisible: false
     readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible
 
-    signal generatedUrlPatternsFileUpdated(string patterns)
+    // Used for testing. There is a bug that currently prevents non visual Qt objects
+    // to be introspectable from AP which makes directly accessing the settings object
+    // not possible https://bugs.launchpad.net/autopilot-qt/+bug/1273956
+    property alias generatedUrlPatterns: urlPatternSettings.generatedUrlPatterns
 
     actions: [
         Actions.Back {
@@ -65,18 +68,14 @@ BrowserView {
     ]
 
     Settings {
-        id: generatedUrlPatternSettings
+        id: urlPatternSettings
         property string generatedUrlPatterns
     }
 
-    function getGeneratedUrlPatterns() {
-        return generatedUrlPatternSettings.generatedUrlPatterns
-    }
-
     function addGeneratedUrlPattern(urlPattern) {
-        var patterns;
+        var patterns
         try {
-            patterns = JSON.parse(generatedUrlPatternSettings.generatedUrlPatterns)
+            patterns = JSON.parse(urlPatternSettings.generatedUrlPatterns)
         } catch(e) {
             console.error("Invalid JSON content found in url patterns file")
         }
@@ -86,11 +85,9 @@ BrowserView {
         }
         if (patterns.indexOf(urlPattern) < 0) {
             patterns.push(urlPattern)
-        }
-        generatedUrlPatternSettings.generatedUrlPatterns = JSON.stringify(patterns)
 
-        generatedUrlPatternsFileUpdated(
-                    generatedUrlPatternSettings.generatedUrlPatterns)
+            urlPatternSettings.generatedUrlPatterns = JSON.stringify(patterns)
+        }
     }
 
     function mergeUrlPatternSets(p1, p2) {
@@ -132,7 +129,7 @@ BrowserView {
             onSamlRequestUrlPatternReceived: {
                 addGeneratedUrlPattern(urlPattern)
             }
-            webappUrlPatterns: mergeUrlPatternSets(getGeneratedUrlPatterns(),
+            webappUrlPatterns: mergeUrlPatternSets(urlPatternSettings.generatedUrlPatterns,
                                    webapp.webappUrlPatterns)
         }
 

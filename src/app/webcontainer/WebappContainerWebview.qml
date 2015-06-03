@@ -50,18 +50,17 @@ Item {
         blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
     }
 
+    Connections {
+        target: webappContainerWebViewLoader.item
+        onSamlRequestUrlPatternReceived: {
+            samlRequestUrlPatternReceived(urlPattern)
+        }
+    }
+
     Loader {
         id: webappContainerWebViewLoader
         objectName: "containerWebviewLoader"
         anchors.fill: parent
-        onLoaded: {
-            if (webappContainerWebViewLoader.status === Loader.Ready) {
-                webappContainerWebViewLoader.item
-                    .samlRequestUrlPatternReceived.connect(function(urlPattern) {
-                    samlRequestUrlPatternReceived(urlPattern)
-                })
-            }
-        }
     }
 
     onUrlChanged: if (webappContainerWebViewLoader.item) webappContainerWebViewLoader.item.url = url
