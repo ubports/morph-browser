@@ -268,7 +268,7 @@ BrowserView {
             bookmarked: isCurrentUrlBookmarked()
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
-                    bookmarkOptionsLoader.show()
+                    bookmarkOptionsLoader.active = true
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.remove(webview.url)
                 }
@@ -434,6 +434,9 @@ BrowserView {
             width: chrome.width - units.gu(5)
             height: bookmarkOptionsLoader.item ? bookmarkOptionsLoader.item.height : 0
 
+            sourceComponent: bookmarkOptionsDialog
+            active: false
+
             Connections {
                 target: bookmarkOptionsLoader.item
                 onDismiss: {
@@ -441,12 +444,8 @@ BrowserView {
                                                bookmarkOptionsLoader.item.bookmarkTitle,
                                                browser.currentWebview.icon,
                                                bookmarkOptionsLoader.item.bookmarkFolder)
-                    bookmarkOptionsLoader.sourceComponent = null
+                    bookmarkOptionsLoader.active = false
                 }
-            }
-
-            function show() {
-                sourceComponent = bookmarkOptionsDialog
             }
 
             Component {
