@@ -43,7 +43,8 @@ public:
         Folder = Qt::UserRole + 1,
         LastAddition,
         LastAdditionDate,
-        Entries
+        Entries,
+        Empty
     };
 
     // reimplemented from QAbstractListModel
@@ -60,10 +61,9 @@ Q_SIGNALS:
     void sourceModelChanged() const;
 
 private Q_SLOTS:
-    void onRowsInserted(const QModelIndex& parent, int start, int end);
+    void onFolderInserted(const QString& folder);
     void onModelReset();
 
-    void onFolderRowsRemoved(const QModelIndex& parent, int start, int end);
     void onFolderDataChanged();
 
 private:

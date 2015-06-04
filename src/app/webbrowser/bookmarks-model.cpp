@@ -127,6 +127,7 @@ void BookmarksModel::populateFromDatabase()
     populateFolderQuery.exec();
     while (populateFolderQuery.next()) {
         m_folders.insert(populateFolderQuery.value(0).toInt(), populateFolderQuery.value(1).toString());
+        emit folderInserted(populateFolderQuery.value(1).toString());
     }
 
     QSqlQuery populateQuery(m_database);
@@ -214,6 +215,11 @@ void BookmarksModel::setDatabasePath(const QString& path)
         }
         Q_EMIT databasePathChanged();
     }
+}
+
+QStringList BookmarksModel::folders() const
+{
+    return m_folders.values();
 }
 
 /*!
@@ -344,6 +350,7 @@ int BookmarksModel::getFolderId(const QString& folder) {
     int newFolderId = insertNewFolderInDatabase(folder);
     if (newFolderId) {
         m_folders.insert(newFolderId, folder);
+        emit folderInserted(folder);
         return newFolderId;
     }
 

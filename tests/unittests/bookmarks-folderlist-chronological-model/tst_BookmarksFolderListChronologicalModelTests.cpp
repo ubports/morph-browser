@@ -82,16 +82,13 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(1, 0), BookmarksFolderListModel::Folder).toString(), QString("SampleFolder"));
     }
 
-    void shouldRemoveDomain() {
+    void shouldNotRemoveFolder() {
         bookmarks->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "SampleFolder");
         QTest::qWait(1001);
         bookmarks->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl(), "AnotherFolder");
         QSignalSpy spy(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)));
         bookmarks->remove(QUrl("http://ubuntu.com/"));
-        QCOMPARE(spy.count(), 1);
-        QList<QVariant> args = spy.takeFirst();
-        QCOMPARE(args.at(1).toInt(), 0);
-        QCOMPARE(args.at(2).toInt(), 0);
+        QVERIFY(spy.isEmpty());
     }
 };
 

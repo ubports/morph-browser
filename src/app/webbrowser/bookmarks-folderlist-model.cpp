@@ -53,6 +53,7 @@ QHash<int, QByteArray> BookmarksFolderListModel::roleNames() const
         roles[LastAddition] = "lastAddition";
         roles[LastAdditionDate] = "lastAdditionDate";
         roles[Entries] = "entries";
+        roles[Empty] = "empty";
     }
     return roles;
 }
@@ -80,6 +81,8 @@ QVariant BookmarksFolderListModel::data(const QModelIndex& index, int role) cons
         return entries->lastAddition().toLocalTime().date();
     case Entries:
         return QVariant::fromValue(entries);
+    case Empty:
+        return entries->rowCount() == 0;
     default:
         return QVariant();
     }
@@ -101,8 +104,7 @@ void BookmarksFolderListModel::setSourceModel(BookmarksModel* sourceModel)
         m_sourceModel = sourceModel;
         populateModel();
         if (m_sourceModel != 0) {
-            connect(m_sourceModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)),
-                    SLOT(onRowsInserted(const QModelIndex&, int, int)));
+            connect(m_sourceModel, SIGNAL(folderInserted(const QString&)), SLOT(onFolderInserted(const QString&)));
             connect(m_sourceModel, SIGNAL(modelReset()), SLOT(onModelReset()));
             connect(m_sourceModel, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)),
                     SLOT(onModelReset()));
@@ -151,9 +153,7 @@ void BookmarksFolderListModel::clearFolders()
 void BookmarksFolderListModel::populateModel()
 {
     if (m_sourceModel != 0) {
-        int count = m_sourceModel->rowCount();
-        for (int i = 0; i < count; ++i) {
-            QString folder = getFolderFromSourceModel(m_sourceModel->index(i, 0));
+        Q_FOREACH(const QString& folder, m_sourceModel->folders()) {
             if (!m_folders.contains(folder)) {
                 insertNewFolder(folder);
             }
@@ -161,23 +161,20 @@ void BookmarksFolderListModel::populateModel()
     }
 }
 
-void BookmarksFolderListModel::onRowsInserted(const QModelIndex& parent, int start, int end)
+void BookmarksFolderListModel::onFolderInserted(const QString& folder)
 {
-    for (int i = start; i <= end; ++i) {
-        QString folder = getFolderFromSourceModel(m_sourceModel->index(i, 0, parent));
-        if (!m_folders.contains(folder)) {
-            QStringList folders = m_folders.keys();
-            int insertAt = 0;
-            while (insertAt < folders.count()) {
-                if (folder.compare(folders.at(insertAt)) < 0) {
-                    break;
-                }
-                ++insertAt;
+    if (!m_folders.contains(folder)) {
+        QStringList folders = m_folders.keys();
+        int insertAt = 0;
+        while (insertAt < folders.count()) {
+            if (folder.compare(folders.at(insertAt)) < 0) {
+                break;
             }
-            beginInsertRows(QModelIndex(), insertAt, insertAt);
-            insertNewFolder(folder);
-            endInsertRows();
+            ++insertAt;
         }
+        beginInsertRows(QModelIndex(), insertAt, insertAt);
+        insertNewFolder(folder);
+        endInsertRows();
     }
 }
 
@@ -195,7 +192,7 @@ void BookmarksFolderListModel::insertNewFolder(const QString& folder)
     model->setSourceModel(m_sourceModel);
     model->setFolder(folder);
     connect(model, SIGNAL(rowsInserted(QModelIndex, int, int)), SLOT(onFolderDataChanged()));
-    connect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)), SLOT(onFolderRowsRemoved(QModelIndex, int, int)));
+    connect(model, SIGNAL(rowsRemoved(QModelIndex, int, int)), SLOT(onFolderDataChanged()));
     connect(model, SIGNAL(rowsMoved(QModelIndex, int, int, QModelIndex, int)), SLOT(onFolderDataChanged()));
     connect(model, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)), SLOT(onFolderDataChanged()));
     connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), SLOT(onFolderDataChanged()));
@@ -207,25 +204,6 @@ void BookmarksFolderListModel::insertNewFolder(const QString& folder)
 QString BookmarksFolderListModel::getFolderFromSourceModel(const QModelIndex& index) const
 {
     return m_sourceModel->data(index, BookmarksModel::Folder).toString();
-}
-
-void BookmarksFolderListModel::onFolderRowsRemoved(const QModelIndex& parent, int start, int end)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(start);
-    Q_UNUSED(end);
-    BookmarksFolderModel* model = qobject_cast<BookmarksFolderModel*>(sender());
-    if (model != 0) {
-        const QString& folder = model->folder();
-        if (model->rowCount() == 0) {
-            int removeAt = m_folders.keys().indexOf(folder);
-            beginRemoveRows(QModelIndex(), removeAt, removeAt);
-            delete m_folders.take(folder);
-            endRemoveRows();
-        } else {
-            emitDataChanged(folder);
-        }
-    }
 }
 
 void BookmarksFolderListModel::onFolderDataChanged()
@@ -241,6 +219,6 @@ void BookmarksFolderListModel::emitDataChanged(const QString& folder)
     int i = m_folders.keys().indexOf(folder);
     if (i != -1) {
         QModelIndex index = this->index(i, 0);
-        Q_EMIT dataChanged(index, index, QVector<int>() << LastAddition << LastAdditionDate << Entries);
+        Q_EMIT dataChanged(index, index, QVector<int>() << LastAddition << LastAdditionDate << Entries << Empty);
     }
 }
