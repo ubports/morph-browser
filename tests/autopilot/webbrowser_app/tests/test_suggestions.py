@@ -369,4 +369,3 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Escape')
         self.assert_suggestions_eventually_hidden()
         self.assertThat(self.address_bar.text, Equals(previous_text))
-
