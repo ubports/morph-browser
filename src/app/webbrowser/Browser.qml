@@ -1265,7 +1265,7 @@ BrowserView {
                 }
                 break;
             }
-        } else if (event.key & Qt.Key_Backspace) {
+        } else if (event.key === Qt.Key_Backspace) {
             // Backspace: Goes to the previous page in history
             if (currentWebview && currentWebview.canGoBack) {
                 currentWebview.goBack();
