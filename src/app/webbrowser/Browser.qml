@@ -1227,6 +1227,7 @@ BrowserView {
             case Qt.Key_Left:
                 // Alt + Left Arrow: Goes to the previous page in history
                 if (currentWebview && currentWebview.canGoBack) {
+                    internal.resetFocus();
                     currentWebview.goBack();
                     event.accepted = true;
                 }
@@ -1235,6 +1236,7 @@ BrowserView {
             case Qt.Key_Right:
                 // Alt + Right Arrow: Goes to the previous page in history
                 if (currentWebview && currentWebview.canGoForward) {
+                    internal.resetFocus();
                     currentWebview.goForward();
                     event.accepted = true;
                 }
@@ -1252,6 +1254,7 @@ BrowserView {
             case Qt.Key_Backspace:
                 // Shift + Backspace: Goes to the next page in history
                 if (currentWebview && currentWebview.canGoForward) {
+                    internal.resetFocus();
                     currentWebview.goForward();
                     event.accepted = true;
                 }
@@ -1260,6 +1263,7 @@ BrowserView {
         } else if (event.key === Qt.Key_Backspace) {
             // Backspace: Goes to the previous page in history
             if (currentWebview && currentWebview.canGoBack) {
+                internal.resetFocus();
                 currentWebview.goBack();
                 event.accepted = true;
             }
