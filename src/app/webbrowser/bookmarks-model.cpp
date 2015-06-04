@@ -77,7 +77,7 @@ void BookmarksModel::createOrAlterDatabaseSchema()
     createQuery.exec();
 
     QSqlQuery createFolderQuery(m_database);
-    query = QLatin1String("CREATE TABLE IF NOT EXISTS bookmarks_folders "
+    query = QLatin1String("CREATE TABLE IF NOT EXISTS folders "
                           "(folderId INTEGER PRIMARY KEY, folder VARCHAR);");
     createFolderQuery.prepare(query);
     createFolderQuery.exec();
@@ -127,7 +127,7 @@ void BookmarksModel::populateFromDatabase()
     emit folderInserted("");
 
     QSqlQuery populateFolderQuery(m_database);
-    QString query = QLatin1String("SELECT folderId, folder FROM bookmarks_folders;");
+    QString query = QLatin1String("SELECT folderId, folder FROM folders;");
     populateFolderQuery.prepare(query);
     populateFolderQuery.exec();
     while (populateFolderQuery.next()) {
@@ -362,13 +362,13 @@ int BookmarksModel::getFolderId(const QString& folder) {
 int BookmarksModel::insertNewFolderInDatabase(const QString& folder)
 {
     QSqlQuery insertQuery(m_database);
-    QString query = QLatin1String("INSERT INTO bookmarks_folders (folder) VALUES (?);");
+    QString query = QLatin1String("INSERT INTO folders (folder) VALUES (?);");
     insertQuery.prepare(query);
     insertQuery.addBindValue(folder);
     insertQuery.exec();
 
     QSqlQuery selectQuery(m_database);
-    query = QLatin1String("SELECT folderId FROM bookmarks_folders WHERE folder=?;");
+    query = QLatin1String("SELECT folderId FROM folders WHERE folder=?;");
     selectQuery.prepare(query);
     selectQuery.addBindValue(folder);
     selectQuery.exec();
