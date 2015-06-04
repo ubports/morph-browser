@@ -61,7 +61,7 @@ Item {
     LimitProxyModel {
         id: historyListModel
 
-        sourceModel: TopSitesModel {
+        sourceModel: HistoryByVisitsModel {
             sourceModel: HistoryTimeframeModel {
                 sourceModel: newTabView.historyModel
                 // We only show sites visited on the last 60 days
@@ -98,17 +98,7 @@ Item {
             width: parent.width
             height: children.height
 
-            sourceComponent: { 
-                if (modelData == "bookmarks") {
-                    if (internal.seeMoreBookmarksView) {
-                        return bookmarksFolderComponent
-                    } else {
-                        return bookmarksComponent
-                    }
-                }
-
-                return topSitesComponent
-            }
+            sourceComponent: modelData == "bookmarks" ? bookmarksComponent : topSitesComponent
         }
 
         section.property: "section"
@@ -118,9 +108,9 @@ Item {
                 right: parent.right
             }
 
-            height: opacity > 0.0 ? sectionHeader.height + units.gu(1) : 0
+            height: sectionHeader.height + units.gu(1)
 
-            opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+            opacity: section == "topsites" && internal.seeMoreBookmarksView ? 0.0 : 1.0
 
             color: newTabBackground.color
 
@@ -145,101 +135,115 @@ Item {
     Component {
         id: bookmarksComponent
 
-        UrlsList {
-            id: bookmarksList
+        BookmarksList {
+            width: parent.width
 
-            width: newTabListView.width
-            opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
-
-            height: opacity == 0.0 ? 0 : childrenRect.height
             model: bookmarksListModel
 
-            footerLabelText: i18n.tr("see more")
+            footerLabelText: internal.seeMoreBookmarksView ? i18n.tr("see less") : i18n.tr("see more")
             footerLabelVisible: bookmarksListModel.unlimitedCount > internal.bookmarksCountLimit
 
-            onUrlClicked: newTabView.bookmarkClicked(url)
-            onUrlRemoved: newTabView.bookmarkRemoved(url)
-            onFooterLabelClicked: internal.seeMoreBookmarksView = true
-        }
-    }
-
-    Component {
-        id: bookmarksFolderComponent
-
-        ListView {
-            width: newTabListView.width
-            opacity: internal.seeMoreBookmarksView ? 1.0 : 0.0
-
-            height: opacity == 0.0 ? 0 : childrenRect.height
-            model: BookmarksFolderListModel {
-                sourceModel: bookmarksModel
-            }
-
-            section.property: "folder"
-            section.delegate: Rectangle {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-
-                height: folderHeader.height
-                color: newTabBackground.color
-
-                ListItem.Header {
-                    id: folderHeader
-                    text: section ? section : i18n.tr("All Bookmarks")
-                }
-            }
-
-            delegate: UrlsList {
-                width: parent.width
-                model: entries
-                footerLabelVisible: false
-                onUrlClicked: newTabView.bookmarkClicked(url)
-                onUrlRemoved: newTabView.bookmarkRemoved(url)
-            }
-
-            footer: Item {
-                width: parent.width
-                height: seeLessLabel.height + units.gu(6)
-
-                MouseArea {
-                    anchors.centerIn: seeLessLabel
-
-                    width: seeLessLabel.width + units.gu(4)
-                    height: seeLessLabel.height + units.gu(4)
-                    onClicked: internal.seeMoreBookmarksView = false
-
-                }
-
-                Label {
-                    id: seeLessLabel
-                    anchors.centerIn: parent
-                    font.bold: true
-                    text: i18n.tr("see less")
-                }
-            }
+            onBookmarkClicked: newTabView.bookmarkClicked(url)
+            onBookmarkRemoved: newTabView.bookmarkRemoved(url)
+            onFooterLabelClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
         }
     }
 
     Component {
         id: topSitesComponent
 
-        UrlsList {
-            objectName: "topSitesList"
+        Flow {
+            width: parent.width
 
-            width: newTabListView.width
+            spacing: units.gu(1)
+
             opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
 
-            height: opacity == 0.0 ? 0 : childrenRect.height
-            model: historyListModel
-
-            footerLabelVisible: false
-
-            onUrlClicked: newTabView.historyEntryClicked(url)
-            onUrlRemoved: newTabView.historyModel.hide(url)
-
             Behavior on opacity { UbuntuNumberAnimation {} }
+
+            Repeater {
+                model: parent.opacity == 0.0 ? "" : historyListModel
+
+                delegate: MouseArea {
+                    width: units.gu(18)
+                    height: childrenRect.height
+
+                    Column {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+                        //height: childrenRect.height
+
+                        spacing: units.gu(1)
+
+                        Label {
+                            width: parent.width
+                            height: units.gu(2)
+
+                            fontSize: "small"
+                            wrapMode: Text.Wrap
+                            elide: Text.ElideRight
+
+                            text: model.title ? model.title : model.url
+                        }
+
+                        UbuntuShape {
+                            width: parent.width
+                            height: units.gu(10)
+
+                            // we need that to clip the background image
+                            clip: true
+
+                            Image {
+                                source: Qt.resolvedUrl("assets/tab-artwork.png")
+                                asynchronous: true
+                                width: parent.height
+                                height: width
+                                opacity: 0.6
+                                anchors {
+                                    right: parent.right
+                                    bottom: parent.bottom
+                                    margins: units.gu(-3)
+                                }
+                            }
+                            Column {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                    bottom: parent.bottom
+                                    margins: units.gu(1)
+                                }
+
+                                Favicon {
+                                    source: model.icon
+                                }
+
+                                Label {
+                                    anchors {
+                                        left: parent.left
+                                        right: parent.right
+                                    }
+                                    elide: Text.ElideRight
+                                    text: model.domain
+                                    fontSize: "small"
+                                }
+                                Label {
+                                    anchors {
+                                        left: parent.left
+                                        right: parent.right
+                                    }
+                                    elide: Text.ElideRight
+                                    text: model.title
+                                    fontSize: "small"
+                                }
+                            }
+                        }
+                    }
+
+                    onClicked: historyEntryClicked(model.url)
+                }
+            }
         }
     }
 }
