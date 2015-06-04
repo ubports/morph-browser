@@ -26,29 +26,7 @@ Popover {
     property alias bookmarkTitle: titleTextField.text
     property alias folderModel: folderOptionSelector.model
 
-    readonly property string bookmarkFolder: {
-        if (state == "existingFolder") {
-            return folderModel.get(folderOptionSelector.selectedIndex).folder
-        } else if (state == "newFolder") {
-            return newFolderTextField.text
-        }
-    }
-
-    state: "existingFolder"
-    states: [
-        State {
-            name: "newFolder"
-            PropertyChanges { target: folderOptionSelector; visible: false}
-            PropertyChanges { target: newFolderTextField; visible: true}
-            PropertyChanges { target: changeFolderStateButton; text: i18n.tr("Choose Folder")}
-        },
-        State {
-            name: "existingFolder"
-            PropertyChanges { target: folderOptionSelector; visible: true}
-            PropertyChanges { target: newFolderTextField; visible: false}
-            PropertyChanges { target: changeFolderStateButton; text: i18n.tr("New Folder")}
-        }
-    ]
+    readonly property string bookmarkFolder: folderModel.get(folderOptionSelector.selectedIndex).folder
 
     Column {
         id: bookmarkOptionsColumn
@@ -90,33 +68,57 @@ Popover {
             OptionSelectorDelegate { text: folder === "" ? i18n.tr("All Bookmarks") : folder }
         }
 
-        Label {
-            id: newFolderLabel
-
-            visible: newFolderTextField.visible
-            text: i18n.tr("Save in")
+        Button {
+            text: i18n.tr("New Folder")
+            onClicked: PopupUtils.open(newFolderDialog)
         }
+    }
 
-        TextField {
-            id: newFolderTextField
+    Component {
+        id: newFolderDialog
 
-            width: parent.width
-            placeholderText: i18n.tr("New Folder")
+        Dialog {
+            id: dialogue
+            objectName: "newFolderDialog"
 
-            onVisibleChanged: {
-                if (visible) {
-                    forceActiveFocus()
+            title: i18n.tr("Create new folder")
+
+            Component.onCompleted: {
+                folderTextField.forceActiveFocus()
+            }
+
+            TextField {
+                id: folderTextField
+                objectName: "newFolderDialog.text"
+                placeholderText: i18n.tr("New Folder")
+                onAccepted: {
+                    //FIXME create new folder
+                    PopupUtils.close(dialogue)
                 }
             }
-        }
 
-        Button {
-            id: changeFolderStateButton
-            onClicked: {
-                if (bookmarkOptions.state == "existingFolder") {
-                    bookmarkOptions.state = "newFolder"
-                } else if (bookmarkOptions.state == "newFolder") {
-                    bookmarkOptions.state = "existingFolder"
+            Button {
+                objectName: "newFolderDialog.cancelButton"
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialogue)
+            }
+
+            Button {
+                objectName: "newFolderDialog.saveButton"
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                text: i18n.tr("Save")
+                enabled: folderTextField.text
+                color: "#3fb24f"
+                onClicked: {
+                    //FIXME create new folder
+                    PopupUtils.close(dialogue)
                 }
             }
         }
