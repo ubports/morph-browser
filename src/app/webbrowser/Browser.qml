@@ -1154,6 +1154,7 @@ BrowserView {
     }
 
     Keys.onPressed: {
+        if (!chrome.visible) return;
         if (event.modifiers & Qt.ControlModifier) {
             switch(event.key) {
             case Qt.Key_L:
