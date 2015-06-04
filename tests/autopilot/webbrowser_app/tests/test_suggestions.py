@@ -344,10 +344,29 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
     @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_suggestions_escape(self):
         suggestions = self.main_window.get_suggestions()
+        previous_text = self.address_bar.text
         self.address_bar.write('element')
         self.assert_suggestions_eventually_shown()
         self.main_window.press_key('Down')
         self.assertThat(suggestions.activeFocus, Eventually(Equals(True)))
+        self.assertThat(self.address_bar.text, Equals("element"))
 
         self.main_window.press_key('Escape')
         self.assert_suggestions_eventually_hidden()
+        self.assertThat(self.address_bar.text, Equals(previous_text))
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_suggestions_escape_on_addressbar(self):
+        suggestions = self.main_window.get_suggestions()
+        previous_text = self.address_bar.text
+        self.address_bar.write('element')
+        self.assert_suggestions_eventually_shown()
+        self.main_window.press_key('Down')
+        self.assertThat(suggestions.activeFocus, Eventually(Equals(True)))
+        self.main_window.press_key('Up')
+        self.assertThat(suggestions.activeFocus, Eventually(Equals(False)))
+
+        self.main_window.press_key('Escape')
+        self.assert_suggestions_eventually_hidden()
+        self.assertThat(self.address_bar.text, Equals(previous_text))
+

@@ -350,12 +350,8 @@ BrowserView {
                 }
             ]
 
-            Keys.onDownPressed: {
-                if (suggestionsList.count > 0) {
-                    chrome.addressBarTextLocked = true
-                    suggestionsList.focus = true
-                }
-            }
+            addressBarTextLocked: activeFocus || suggestionsList.activeFocus
+            Keys.onDownPressed: if (suggestionsList.count) suggestionsList.focus = true
             Keys.onEscapePressed: internal.resetFocus()
         }
 
@@ -434,10 +430,6 @@ BrowserView {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
                 chrome.requestedUrl = url
-            }
-
-            onActiveFocusChanged: if (!activeFocus && !chrome.activeFocus) {
-                chrome.addressBarTextLocked = false
             }
         }
     }
