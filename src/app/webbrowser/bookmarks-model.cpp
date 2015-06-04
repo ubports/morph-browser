@@ -55,6 +55,7 @@ BookmarksModel::~BookmarksModel()
 void BookmarksModel::resetDatabase(const QString& databaseName)
 {
     beginResetModel();
+    m_folders.clear();
     m_urls.clear();
     m_orderedEntries.clear();
     m_database.close();
@@ -70,28 +71,34 @@ void BookmarksModel::createOrAlterDatabaseSchema()
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS bookmarks "
                                   "(url VARCHAR, title VARCHAR, icon VARCHAR, "
-                                  "created INTEGER, folder VARCHAR);");
+                                  "created INTEGER, folderId INTEGER);");
     createQuery.prepare(query);
     createQuery.exec();
 
+    QSqlQuery createFolderQuery(m_database);
+    query = QLatin1String("CREATE TABLE IF NOT EXISTS bookmarks_folders "
+                          "(folderId INTEGER PRIMARY KEY, folder VARCHAR);");
+    createFolderQuery.prepare(query);
+    createFolderQuery.exec();
+
     // Older version of the database schema didn’t have 'created' and/or
-    // 'folder' columns
+    // 'folderId' columns
     QSqlQuery tableInfoQuery(m_database);
     query = QLatin1String("PRAGMA TABLE_INFO(bookmarks);");
     tableInfoQuery.prepare(query);
     tableInfoQuery.exec();
 
     bool missingCreatedColumn = true;
-    bool missingFolderColumn = true;
+    bool missingFolderIdColumn = true;
 
     while (tableInfoQuery.next()) {
         if (tableInfoQuery.value("name").toString() == "created") {
             missingCreatedColumn = false;
         }
-        if (tableInfoQuery.value("name").toString() == "folder") {
-            missingFolderColumn = false;
+        if (tableInfoQuery.value("name").toString() == "folderId") {
+            missingFolderIdColumn = false;
         }
-        if (!missingCreatedColumn && !missingFolderColumn) {
+        if (!missingCreatedColumn && !missingFolderIdColumn) {
             break;
         }
     }
@@ -104,9 +111,9 @@ void BookmarksModel::createOrAlterDatabaseSchema()
         // when converted to a number. Zero represents a date far in the past, so
         // any newly created bookmark will correctly be represented as more recent than any other
     }
-    if (missingFolderColumn) {
+    if (missingFolderIdColumn) {
         QSqlQuery addFolderColumnQuery(m_database);
-        query = QLatin1String("ALTER TABLE bookmarks ADD COLUMN folder INTEGER;");
+        query = QLatin1String("ALTER TABLE bookmarks ADD COLUMN folderId INTEGER;");
         addFolderColumnQuery.prepare(query);
         addFolderColumnQuery.exec();
     }
@@ -114,9 +121,17 @@ void BookmarksModel::createOrAlterDatabaseSchema()
 
 void BookmarksModel::populateFromDatabase()
 {
+    QSqlQuery populateFolderQuery(m_database);
+    QString query = QLatin1String("SELECT folderId, folder FROM bookmarks_folders;");
+    populateFolderQuery.prepare(query);
+    populateFolderQuery.exec();
+    while (populateFolderQuery.next()) {
+        m_folders.insert(populateFolderQuery.value(0).toInt(), populateFolderQuery.value(1).toString());
+    }
+
     QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT url, title, icon, created, folder "
-                                  "FROM bookmarks ORDER BY created DESC;");
+    query = QLatin1String("SELECT url, title, icon, created, folderId "
+                          "FROM bookmarks ORDER BY created DESC;");
     populateQuery.prepare(query);
     populateQuery.exec();
     int count = 0;
@@ -126,7 +141,15 @@ void BookmarksModel::populateFromDatabase()
         entry.title = populateQuery.value(1).toString();
         entry.icon = populateQuery.value(2).toUrl();
         entry.created = QDateTime::fromMSecsSinceEpoch(populateQuery.value(3).toULongLong());
-        entry.folder = populateQuery.value(4).toString();
+        entry.folderId = populateQuery.value(4).toInt();
+
+        if (m_folders.contains(entry.folderId)) {
+            entry.folder = m_folders.value(entry.folderId);
+        } else {
+            entry.folderId = 0;
+            updateExistingEntryInDatabase(entry);
+        }
+
         beginInsertRows(QModelIndex(), count, count);
         m_urls.insert(entry.url);
         m_orderedEntries.append(entry);
@@ -221,6 +244,7 @@ void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon
         entry.icon = icon;
         entry.created = QDateTime::currentDateTime();
         entry.folder = folder;
+        entry.folderId = getFolderId(entry.folder);
         m_urls.insert(url);
         m_orderedEntries.prepend(entry);
         endInsertRows();
@@ -233,14 +257,18 @@ void BookmarksModel::insertNewEntryInDatabase(const BookmarkEntry& entry)
 {
     QSqlQuery query(m_database);
     static QString insertStatement = QLatin1String("INSERT INTO bookmarks (url, "
-                                                   "title, icon, created, folder) "
+                                                   "title, icon, created, folderId) "
                                                    "VALUES (?, ?, ?, ?, ?);");
     query.prepare(insertStatement);
     query.addBindValue(entry.url.toString());
     query.addBindValue(entry.title);
     query.addBindValue(entry.icon.toString());
     query.addBindValue(entry.created.toMSecsSinceEpoch());
-    query.addBindValue(entry.folder);
+    if (!entry.folderId) {
+        query.addBindValue(QVariant());
+    } else {
+        query.addBindValue(entry.folderId);
+    }
     query.exec();
 }
 
@@ -279,4 +307,65 @@ void BookmarksModel::removeExistingEntryFromDatabase(const QUrl& url)
     query.prepare(deleteStatement);
     query.addBindValue(url.toString());
     query.exec();
+}
+
+void BookmarksModel::updateExistingEntryInDatabase(const BookmarkEntry& entry)
+{
+    QSqlQuery query(m_database);
+    static QString updateStatement = QLatin1String("UPDATE bookmarks SET title=?, "
+                                                   "icon=?, created=?, folderId=? "
+                                                   "WHERE url=?;");
+    query.prepare(updateStatement);
+    query.addBindValue(entry.title);
+    query.addBindValue(entry.icon.toString());
+    query.addBindValue(entry.created.toMSecsSinceEpoch());
+    if (!entry.folderId) {
+        query.addBindValue(QVariant());
+    } else {
+        query.addBindValue(entry.folderId);
+    }
+    query.addBindValue(entry.url.toString());
+    query.exec();
+}
+
+int BookmarksModel::getFolderId(const QString& folder) {
+    if (folder.isEmpty()) {
+        return 0;
+    }
+
+    QHashIterator<int, QString> i(m_folders);
+    while (i.hasNext()) {
+        i.next();
+        if (i.value() == folder) {
+            return i.key();
+        }
+    }
+
+    int newFolderId = insertNewFolderInDatabase(folder);
+    if (newFolderId) {
+        m_folders.insert(newFolderId, folder);
+        return newFolderId;
+    }
+
+    return 0;
+}
+
+int BookmarksModel::insertNewFolderInDatabase(const QString& folder)
+{
+    QSqlQuery insertQuery(m_database);
+    QString query = QLatin1String("INSERT INTO bookmarks_folders (folder) VALUES (?);");
+    insertQuery.prepare(query);
+    insertQuery.addBindValue(folder);
+    insertQuery.exec();
+
+    QSqlQuery selectQuery(m_database);
+    query = QLatin1String("SELECT folderId FROM bookmarks_folders WHERE folder=?;");
+    selectQuery.prepare(query);
+    selectQuery.addBindValue(folder);
+    selectQuery.exec();
+    if (selectQuery.next()) {
+        return selectQuery.value(0).toInt();
+    }
+
+    return 0;
 }

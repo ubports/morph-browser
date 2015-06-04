@@ -73,8 +73,10 @@ private:
         QString title;
         QUrl icon;
         QDateTime created;
+        int folderId;
         QString folder;
     };
+    QHash<int, QString> m_folders;
     QSet<QUrl> m_urls;
     QList<BookmarkEntry> m_orderedEntries;
 
@@ -83,6 +85,9 @@ private:
     void populateFromDatabase();
     void insertNewEntryInDatabase(const BookmarkEntry& entry);
     void removeExistingEntryFromDatabase(const QUrl& url);
+    void updateExistingEntryInDatabase(const BookmarkEntry& entry);
+    int getFolderId(const QString& folder);
+    int insertNewFolderInDatabase(const QString& folder);
 };
 
 #endif // __BOOKMARKS_MODEL_H__
