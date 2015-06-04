@@ -64,6 +64,7 @@ void BookmarksModel::resetDatabase(const QString& databaseName)
     createOrAlterDatabaseSchema();
     endResetModel();
     populateFromDatabase();
+    Q_EMIT rowCountChanged();
 }
 
 void BookmarksModel::createOrAlterDatabaseSchema()
@@ -260,6 +261,7 @@ void BookmarksModel::add(const QUrl& url, const QString& title, const QUrl& icon
         endInsertRows();
         Q_EMIT added(url);
         insertNewEntryInDatabase(entry);
+        Q_EMIT rowCountChanged();
     }
 }
 
@@ -299,7 +301,7 @@ void BookmarksModel::remove(const QUrl& url)
                 endRemoveRows();
                 Q_EMIT removed(url);
                 removeExistingEntryFromDatabase(url);
-
+                Q_EMIT rowCountChanged();
                 return;
             } else {
                 index++;

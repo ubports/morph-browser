@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-05-23 00:27+0200\n"
+"POT-Creation-Date: 2015-06-02 23:12+0200\n"
 "PO-Revision-Date: 2015-05-28 03:36+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-05-29 05:34+0000\n"
+"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
 "X-Generator: Launchpad (build 17532)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -46,7 +46,7 @@ msgid "Password"
 msgstr "Passord"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Cancel"
@@ -390,7 +390,7 @@ msgstr "Gå til"
 msgid "Address;URL;www"
 msgstr "Adresse;Nettadresse;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:456
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:515
 msgid "New Tab"
 msgstr "Ny fane"
 
@@ -430,71 +430,66 @@ msgstr "Lagre bilde"
 msgid "Share…"
 msgstr "Del …"
 
-#: src/app/webbrowser/AddressBar.qml:196
+#: src/app/webbrowser/AddressBar.qml:198
 msgid "search or enter an address"
 msgstr "søk eller oppgi en adresse"
 
-#: src/app/webbrowser/Browser.qml:237
+#: src/app/webbrowser/Browser.qml:296
 msgid "Share"
 msgstr "Del"
 
-#: src/app/webbrowser/Browser.qml:244
+#: src/app/webbrowser/Browser.qml:303
 msgid "History"
 msgstr "Historikk"
 
-#: src/app/webbrowser/Browser.qml:251
+#: src/app/webbrowser/Browser.qml:310
 msgid "Open tabs"
 msgstr "Åpne faner"
 
-#: src/app/webbrowser/Browser.qml:261 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
 msgstr "Ny fane"
 
-#: src/app/webbrowser/Browser.qml:268 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Innstillinger"
 
-#: src/app/webbrowser/Browser.qml:274
+#: src/app/webbrowser/Browser.qml:333
 msgid "Leave Private Mode"
 msgstr "Gå ut av privatmodus"
 
-#: src/app/webbrowser/Browser.qml:274
+#: src/app/webbrowser/Browser.qml:333
 msgid "Private Mode"
 msgstr "Privatmodus"
 
-#: src/app/webbrowser/Browser.qml:439 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "Ferdig"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:540
+#: src/app/webbrowser/Browser.qml:599
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:807
+#: src/app/webbrowser/Browser.qml:870
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Dra opp for å gå ut av fullskjerm"
 
-#: src/app/webbrowser/Browser.qml:808
+#: src/app/webbrowser/Browser.qml:871
 msgid "Press ESC To Exit Full Screen"
 msgstr "Trykk ESC for å gå ut av fullskjerm"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
-msgid "Delete"
-msgstr "Slett"
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:180
+#: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 side"
 msgstr[1] "%1 sider"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:194
+#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Less"
 msgstr "Færre"
 
@@ -506,9 +501,13 @@ msgstr "Sist besøkt"
 msgid "Yesterday"
 msgstr "I går"
 
-#: src/app/webbrowser/HistoryView.qml:295
+#: src/app/webbrowser/HistoryView.qml:180
 msgid "Select all"
 msgstr "Velg alle"
+
+#: src/app/webbrowser/HistoryView.qml:210
+msgid "Delete"
+msgstr "Slett"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -530,21 +529,21 @@ msgstr ""
 "Sider du ser på i denne fanen lagres ikke i nettleser-historikken.\n"
 "Bokmerker du lager blir for øvrig lagret."
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
 msgstr "Bokmerker"
 
-#: src/app/webbrowser/NewTabView.qml:126
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "More"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
 msgstr "Mest populære sider"
 
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see less"
-msgstr "vis færre"
-
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see more"
-msgstr "vis flere"
+#: src/app/webbrowser/NewTabView.qml:239
+msgid "You haven't visited any site yet"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -684,6 +683,12 @@ msgstr "Surf på nettet"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internett;WWW;Nettleser;Web;Utforsker"
+
+#~ msgid "see less"
+#~ msgstr "vis færre"
+
+#~ msgid "see more"
+#~ msgstr "vis flere"
 
 #~ msgid "Clear"
 #~ msgstr "Tøm"

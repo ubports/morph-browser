@@ -1,3 +1,31 @@
+webbrowser-app (0.23+15.10.20150602-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Actually clear the network cache by deleting the correct set of
+    files in the correct directory. (LP: #1459956)
+  * Bump build dependency on liboxideqt-qmlplugin to 1.6 to fix unit
+    tests.
+  * Do not cache favicons on disk when browsing in private mode. (LP:
+    #1458963)
+  * Do not try to remove a file that doesn’t exist.
+  * Pass plain strings to the worker script instead of RegExps. (LP:
+    #1445673)
+  * Remove the upstreamcomponents folder, and use components from the
+    UITK instead. Add autopilot tests for the new tab view.
+  * Update translation template.
+  * Updated icon. (LP: #1457424)
+
+  [ Riccardo Padovani ]
+  * New tab view refactoring. (LP: #1371248, #1444023, #1351157,
+    #1389605, #1442190)
+  * New tab view refactoring. (LP: #1371248, #1444023, #1351157,
+    #1389605, #1442190)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 02 Jun 2015 14:26:50 +0000
+
 webbrowser-app (0.23+15.04.20150522.1-0ubuntu1) vivid; urgency=medium
 
   [ Arthur Mello ]

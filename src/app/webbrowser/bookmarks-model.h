@@ -33,6 +33,7 @@ class BookmarksModel : public QAbstractListModel
     Q_OBJECT
 
     Q_PROPERTY(QString databasePath READ databasePath WRITE setDatabasePath NOTIFY databasePathChanged)
+    Q_PROPERTY(int count READ rowCount NOTIFY rowCountChanged)
 
     Q_ENUMS(Roles)
 
@@ -67,6 +68,7 @@ Q_SIGNALS:
     void folderInserted(const QString& folder) const;
     void added(const QUrl& url) const;
     void removed(const QUrl& url) const;
+    void rowCountChanged();
 
 private:
     QSqlDatabase m_database;

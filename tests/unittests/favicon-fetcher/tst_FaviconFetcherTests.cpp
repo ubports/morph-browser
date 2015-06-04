@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -218,6 +218,20 @@ private Q_SLOTS:
         fetcher->setUrl(url);
         QCOMPARE(fetcher->localUrl(), localUrl);
         QVERIFY(serverSpy->isEmpty());
+    }
+
+    void shouldNotCacheIcon()
+    {
+        fetcher->setShouldCache(false);
+        QUrl url(server->baseURL() + "/favicon1.ico");
+        fetcher->setUrl(url);
+        QCOMPARE(fetcher->url(), url);
+        QVERIFY(fetcherSpy->wait());
+        QCOMPARE(serverSpy->count(), 1);
+        QUrl icon = fetcher->localUrl();
+        QVERIFY(!icon.isLocalFile());
+        QCOMPARE(icon.scheme(), QString("data"));
+        QVERIFY(icon.path().startsWith("image/png;base64,"));
     }
 
     void shouldHandleRedirections()
