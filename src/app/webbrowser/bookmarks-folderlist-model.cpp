@@ -94,7 +94,7 @@ void BookmarksFolderListModel::setSourceModel(BookmarksModel* sourceModel)
         m_sourceModel = sourceModel;
         populateModel();
         if (m_sourceModel != 0) {
-            connect(m_sourceModel, SIGNAL(folderInserted(const QString&)), SLOT(onFolderInserted(const QString&)));
+            connect(m_sourceModel, SIGNAL(folderAdded(const QString&)), SLOT(onFolderAdded(const QString&)));
             connect(m_sourceModel, SIGNAL(modelReset()), SLOT(onModelReset()));
             connect(m_sourceModel, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)),
                     SLOT(onModelReset()));
@@ -145,13 +145,13 @@ void BookmarksFolderListModel::populateModel()
     if (m_sourceModel != 0) {
         Q_FOREACH(const QString& folder, m_sourceModel->folders()) {
             if (!m_folders.contains(folder)) {
-                insertNewFolder(folder);
+                addFolder(folder);
             }
         }
     }
 }
 
-void BookmarksFolderListModel::onFolderInserted(const QString& folder)
+void BookmarksFolderListModel::onFolderAdded(const QString& folder)
 {
     if (!m_folders.contains(folder)) {
         QStringList folders = m_folders.keys();
@@ -163,7 +163,7 @@ void BookmarksFolderListModel::onFolderInserted(const QString& folder)
             ++insertAt;
         }
         beginInsertRows(QModelIndex(), insertAt, insertAt);
-        insertNewFolder(folder);
+        addFolder(folder);
         endInsertRows();
     }
 }
@@ -176,7 +176,7 @@ void BookmarksFolderListModel::onModelReset()
     endResetModel();
 }
 
-void BookmarksFolderListModel::insertNewFolder(const QString& folder)
+void BookmarksFolderListModel::addFolder(const QString& folder)
 {
     BookmarksFolderModel* model = new BookmarksFolderModel(this);
     model->setSourceModel(m_sourceModel);

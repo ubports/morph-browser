@@ -65,7 +65,7 @@ public:
 
 Q_SIGNALS:
     void databasePathChanged() const;
-    void folderInserted(const QString& folder) const;
+    void folderAdded(const QString& folder) const;
     void added(const QUrl& url) const;
     void removed(const QUrl& url) const;
     void rowCountChanged();

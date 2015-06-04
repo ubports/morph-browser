@@ -58,7 +58,7 @@ Q_SIGNALS:
     void sourceModelChanged() const;
 
 private Q_SLOTS:
-    void onFolderInserted(const QString& folder);
+    void onFolderAdded(const QString& folder);
     void onModelReset();
 
     void onFolderDataChanged();
@@ -70,7 +70,7 @@ private:
     bool checkValidFolderIndex(int row) const;
     void clearFolders();
     void populateModel();
-    void insertNewFolder(const QString& folder);
+    void addFolder(const QString& folder);
     QString getFolderFromSourceModel(const QModelIndex& index) const;
     void emitDataChanged(const QString& folder);
 };

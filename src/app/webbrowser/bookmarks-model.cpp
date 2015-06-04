@@ -124,7 +124,7 @@ void BookmarksModel::populateFromDatabase()
 {
     //Add default empty folder
     m_folders.insert(0, "");
-    emit folderInserted("");
+    Q_EMIT folderAdded("");
 
     QSqlQuery populateFolderQuery(m_database);
     QString query = QLatin1String("SELECT folderId, folder FROM folders;");
@@ -132,7 +132,7 @@ void BookmarksModel::populateFromDatabase()
     populateFolderQuery.exec();
     while (populateFolderQuery.next()) {
         m_folders.insert(populateFolderQuery.value(0).toInt(), populateFolderQuery.value(1).toString());
-        emit folderInserted(populateFolderQuery.value(1).toString());
+        Q_EMIT folderAdded(populateFolderQuery.value(1).toString());
     }
 
     QSqlQuery populateQuery(m_database);
@@ -352,7 +352,7 @@ int BookmarksModel::getFolderId(const QString& folder) {
     int newFolderId = insertNewFolderInDatabase(folder);
     if (newFolderId) {
         m_folders.insert(newFolderId, folder);
-        emit folderInserted(folder);
+        Q_EMIT folderAdded(folder);
         return newFolderId;
     }
 
