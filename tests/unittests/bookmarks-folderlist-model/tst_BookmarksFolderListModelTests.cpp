@@ -97,6 +97,16 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 3);
     }
 
+    void shouldCreateNewEmptyFolder()
+    {
+        model->createNewFolder("SampleFolder");
+        QCOMPARE(model->rowCount(), 2);
+        QModelIndex index = model->index(1, 0);
+        QCOMPARE(model->data(index, BookmarksFolderListModel::Folder).toString(), QString("SampleFolder"));
+        BookmarksFolderModel* entries = model->data(index, BookmarksFolderListModel::Entries).value<BookmarksFolderModel*>();
+        QCOMPARE(entries->rowCount(), 0);
+    }
+
     void shouldNotUpdateFolderListWhenRemovingEntries()
     {
         bookmarks->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "SampleFolder");
