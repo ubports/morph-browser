@@ -41,8 +41,7 @@ public:
 
     enum Roles {
         Folder = Qt::UserRole + 1,
-        Entries,
-        Empty
+        Entries
     };
 
     // reimplemented from QAbstractListModel

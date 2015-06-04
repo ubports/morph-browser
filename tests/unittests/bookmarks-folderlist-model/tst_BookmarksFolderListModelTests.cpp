@@ -112,7 +112,9 @@ private Q_SLOTS:
         QModelIndex index = model->index(2, 0);
         QString folder = model->data(index, BookmarksFolderListModel::Folder).toString();
         QCOMPARE(folder, QString("SampleFolder"));
-        QVERIFY(model->data(index, BookmarksFolderListModel::Empty).toBool());
+        BookmarksFolderModel* entries = model->data(index, BookmarksFolderListModel::Entries).value<BookmarksFolderModel*>();
+        QVERIFY(entries != 0);
+        QCOMPARE(entries->rowCount(), 0);
     }
 
     void shouldUpdateDataWhenMovingEntries()
@@ -231,9 +233,8 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(1, 0), BookmarksFolderListModel::Folder).toString(), QString("SampleFolder"));
         BookmarksFolderModel* entries = model->data(model->index(1, 0), BookmarksFolderListModel::Entries).value<BookmarksFolderModel*>();
         QVERIFY(entries != 0);
-        QVERIFY(!model->data(model->index(1, 0), BookmarksFolderListModel::Empty).toBool());
         QCOMPARE(entries->rowCount(), 1);
-        QVERIFY(!model->data(model->index(1, 0), BookmarksFolderListModel::Empty + 1).isValid());
+        QVERIFY(!model->data(model->index(1, 0), BookmarksFolderListModel::Entries + 1).isValid());
     }
 };
 

@@ -50,7 +50,6 @@ QHash<int, QByteArray> BookmarksFolderListModel::roleNames() const
     if (roles.isEmpty()) {
         roles[Folder] = "folder";
         roles[Entries] = "entries";
-        roles[Empty] = "empty";
     }
     return roles;
 }
@@ -74,8 +73,6 @@ QVariant BookmarksFolderListModel::data(const QModelIndex& index, int role) cons
         return folder;
     case Entries:
         return QVariant::fromValue(entries);
-    case Empty:
-        return entries->rowCount() == 0;
     default:
         return QVariant();
     }
@@ -211,6 +208,6 @@ void BookmarksFolderListModel::emitDataChanged(const QString& folder)
     int i = m_folders.keys().indexOf(folder);
     if (i != -1) {
         QModelIndex index = this->index(i, 0);
-        Q_EMIT dataChanged(index, index, QVector<int>() << Entries << Empty);
+        Q_EMIT dataChanged(index, index, QVector<int>() << Entries);
     }
 }
