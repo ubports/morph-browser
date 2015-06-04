@@ -61,9 +61,10 @@ private Q_SLOTS:
         delete bookmarks;
     }
 
-    void shouldBeInitiallyEmpty()
+    void shouldHaveInitiallyOnlyDefaultFolder()
     {
-        QCOMPARE(model->rowCount(), 0);
+        QCOMPARE(model->rowCount(), 1);
+        QCOMPARE(model->data(model->index(0, 0), BookmarksFolderListModel::Folder).toString(), QString(""));
     }
 
     void shouldUpdateFolderListWhenInsertingEntries()
@@ -76,24 +77,24 @@ private Q_SLOTS:
         QVERIFY(!spyDataChanged.isEmpty());
         QCOMPARE(spyRowsInserted.count(), 1);
         QList<QVariant> args = spyRowsInserted.takeFirst();
-        QCOMPARE(args.at(1).toInt(), 0);
-        QCOMPARE(args.at(2).toInt(), 0);
-        QCOMPARE(model->rowCount(), 1);
-        QCOMPARE(model->data(model->index(0, 0), BookmarksFolderListModel::Folder).toString(), QString("SampleFolder"));
+        QCOMPARE(args.at(1).toInt(), 1);
+        QCOMPARE(args.at(2).toInt(), 1);
+        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->data(model->index(1, 0), BookmarksFolderListModel::Folder).toString(), QString("SampleFolder"));
 
         bookmarks->add(QUrl("http://example.com/"), "Example Domain", QUrl(), "AnotherFolder");
         QVERIFY(!spyDataChanged.isEmpty());
         QCOMPARE(spyRowsInserted.count(), 1);
         args = spyRowsInserted.takeFirst();
-        QCOMPARE(args.at(1).toInt(), 0);
-        QCOMPARE(args.at(2).toInt(), 0);
-        QCOMPARE(model->rowCount(), 2);
-        QCOMPARE(model->data(model->index(0, 0), BookmarksFolderListModel::Folder).toString(), QString("AnotherFolder"));
+        QCOMPARE(args.at(1).toInt(), 1);
+        QCOMPARE(args.at(2).toInt(), 1);
+        QCOMPARE(model->rowCount(), 3);
+        QCOMPARE(model->data(model->index(1, 0), BookmarksFolderListModel::Folder).toString(), QString("AnotherFolder"));
 
         bookmarks->add(QUrl("http://example.org/test.html"), "Test page", QUrl(), "SampleFolder");
         QVERIFY(spyRowsInserted.isEmpty());
         QVERIFY(!spyDataChanged.isEmpty());
-        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->rowCount(), 3);
     }
 
     void shouldNotUpdateFolderListWhenRemovingEntries()
@@ -101,14 +102,14 @@ private Q_SLOTS:
         bookmarks->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "SampleFolder");
         bookmarks->add(QUrl("http://example.com/"), "Example Domain", QUrl(), "AnotherFolder");
         bookmarks->add(QUrl("http://example.org/test"), "Example Domain", QUrl(), "SampleFolder");
-        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->rowCount(), 3);
 
         bookmarks->remove(QUrl("http://example.org/test"));
-        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->rowCount(), 3);
 
         bookmarks->remove(QUrl("http://example.org/"));
-        QCOMPARE(model->rowCount(), 2);
-        QModelIndex index = model->index(1, 0);
+        QCOMPARE(model->rowCount(), 3);
+        QModelIndex index = model->index(2, 0);
         QString folder = model->data(index, BookmarksFolderListModel::Folder).toString();
         QCOMPARE(folder, QString("SampleFolder"));
         QVERIFY(model->data(index, BookmarksFolderListModel::Empty).toBool());
@@ -140,7 +141,7 @@ private Q_SLOTS:
         bookmarks->add(QUrl("http://example.org/foobar"), "Example Domain", QUrl(), "SampleFolder");
         QVERIFY(spyRowsMoved.isEmpty());
         QVERIFY(!spyDataChanged.isEmpty());
-        verifyDataChanged(spyDataChanged, 1);
+        verifyDataChanged(spyDataChanged, 2);
     }
 
     void shouldUpdateWhenChangingSourceModel()
@@ -149,11 +150,11 @@ private Q_SLOTS:
         bookmarks->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "SampleFolder");
         bookmarks->add(QUrl("http://example.com/"), "Example Domain", QUrl(), "AnotherFolder");
         bookmarks->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl(), "");
-        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->rowCount(), 3);
 
         model->setSourceModel(bookmarks);
         QVERIFY(spy.isEmpty());
-        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->rowCount(), 3);
 
         model->setSourceModel(0);
         QCOMPARE(spy.count(), 1);
@@ -175,15 +176,14 @@ private Q_SLOTS:
         bookmarks->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl(), "Folder04");
         bookmarks->add(QUrl("http://www.gogle.com/mail"), "Gogle Mail", QUrl(), "Folder03");
         bookmarks->add(QUrl("https://mail.gogle.com/"), "Gogle Mail", QUrl(), "Folder03");
-        QCOMPARE(model->rowCount(), 4);
+        QCOMPARE(model->rowCount(), 5);
         QStringList folders;
-        folders << "Folder01" << "Folder02" << "Folder03" << "Folder04";
+        folders << "" << "Folder01" << "Folder02" << "Folder03" << "Folder04";
         for (int i = 0; i < folders.count(); ++i) {
             QModelIndex index = model->index(i, 0);
             QString folder = model->data(index, BookmarksFolderListModel::Folder).toString();
             BookmarksFolderModel* entries = model->data(index, BookmarksFolderListModel::Entries).value<BookmarksFolderModel*>();
             QVERIFY(!folder.isNull());
-            QVERIFY(!entries->folder().isNull());
             QCOMPARE(folder, folders.at(i));
             QCOMPARE(entries->folder(), folder);
         }
@@ -196,17 +196,24 @@ private Q_SLOTS:
         QTest::qWait(100);
         bookmarks->add(QUrl("http://example.org/test.html"), "Test Page", QUrl(), "AnotherFolder");
         bookmarks->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl(), "");
-        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->rowCount(), 3);
 
         QModelIndex index = model->index(0, 0);
         QString folder = model->data(index, BookmarksFolderListModel::Folder).toString();
-        QCOMPARE(folder, QString("AnotherFolder"));
+        QCOMPARE(folder, QString(""));
         BookmarksFolderModel* entries = model->data(index, BookmarksFolderListModel::Entries).value<BookmarksFolderModel*>();
+        QCOMPARE(entries->rowCount(), 1);
+        QCOMPARE(entries->data(entries->index(0, 0), BookmarksModel::Url).toUrl(), QUrl("http://ubuntu.com/"));
+
+        index = model->index(1, 0);
+        folder = model->data(index, BookmarksFolderListModel::Folder).toString();
+        QCOMPARE(folder, QString("AnotherFolder"));
+        entries = model->data(index, BookmarksFolderListModel::Entries).value<BookmarksFolderModel*>();
         QCOMPARE(entries->rowCount(), 2);
         QCOMPARE(entries->data(entries->index(0, 0), BookmarksModel::Url).toUrl(), QUrl("http://example.org/test.html"));
         QCOMPARE(entries->data(entries->index(1, 0), BookmarksModel::Url).toUrl(), QUrl("http://example.org/"));
 
-        index = model->index(1, 0);
+        index = model->index(2, 0);
         folder = model->data(index, BookmarksFolderListModel::Folder).toString();
         QCOMPARE(folder, QString("SampleFolder"));
         entries = model->data(index, BookmarksFolderListModel::Entries).value<BookmarksFolderModel*>();
@@ -221,13 +228,13 @@ private Q_SLOTS:
         QVERIFY(!model->data(QModelIndex(), BookmarksFolderListModel::Folder).isValid());
         QVERIFY(!model->data(model->index(-1, 0), BookmarksFolderListModel::Folder).isValid());
         QVERIFY(!model->data(model->index(3, 0), BookmarksFolderListModel::Folder).isValid());
-        QCOMPARE(model->data(model->index(0, 0), BookmarksFolderListModel::Folder).toString(), QString("SampleFolder"));
-        QVERIFY(model->data(model->index(0, 0), BookmarksFolderListModel::LastAddition).toDateTime() >= now);
-        BookmarksFolderModel* entries = model->data(model->index(0, 0), BookmarksFolderListModel::Entries).value<BookmarksFolderModel*>();
+        QCOMPARE(model->data(model->index(1, 0), BookmarksFolderListModel::Folder).toString(), QString("SampleFolder"));
+        QVERIFY(model->data(model->index(1, 0), BookmarksFolderListModel::LastAddition).toDateTime() >= now);
+        BookmarksFolderModel* entries = model->data(model->index(1, 0), BookmarksFolderListModel::Entries).value<BookmarksFolderModel*>();
         QVERIFY(entries != 0);
-        QVERIFY(!model->data(model->index(0, 0), BookmarksFolderListModel::Empty).toBool());
+        QVERIFY(!model->data(model->index(1, 0), BookmarksFolderListModel::Empty).toBool());
         QCOMPARE(entries->rowCount(), 1);
-        QVERIFY(!model->data(model->index(0, 0), BookmarksFolderListModel::Empty + 1).isValid());
+        QVERIFY(!model->data(model->index(1, 0), BookmarksFolderListModel::Empty + 1).isValid());
     }
 };
 

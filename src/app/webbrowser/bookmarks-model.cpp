@@ -121,6 +121,10 @@ void BookmarksModel::createOrAlterDatabaseSchema()
 
 void BookmarksModel::populateFromDatabase()
 {
+    //Add default empty folder
+    m_folders.insert(0, "");
+    emit folderInserted("");
+
     QSqlQuery populateFolderQuery(m_database);
     QString query = QLatin1String("SELECT folderId, folder FROM bookmarks_folders;");
     populateFolderQuery.prepare(query);
@@ -335,10 +339,6 @@ void BookmarksModel::updateExistingEntryInDatabase(const BookmarkEntry& entry)
 }
 
 int BookmarksModel::getFolderId(const QString& folder) {
-    if (folder.isEmpty()) {
-        return 0;
-    }
-
     QHashIterator<int, QString> i(m_folders);
     while (i.hasNext()) {
         i.next();

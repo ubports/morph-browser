@@ -53,9 +53,10 @@ private Q_SLOTS:
         delete bookmarks;
     }
 
-    void shouldBeInitiallyEmpty()
+    void shouldHaveInitiallyOnlyDefaultFolder()
     {
-        QCOMPARE(model->rowCount(), 0);
+        QCOMPARE(model->rowCount(), 1);
+        QCOMPARE(model->data(model->index(0, 0), BookmarksFolderListModel::Folder).toString(), QString(""));
     }
 
     void shouldNotifyWhenChangingSourceModel()
