@@ -31,6 +31,7 @@ Rectangle {
         } else if (state == "newFolder") {
             return newFolderTextField.text
         }
+        return ""
     }
 
     signal dismiss()

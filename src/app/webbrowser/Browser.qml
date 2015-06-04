@@ -393,7 +393,7 @@ BrowserView {
             Component {
                 id: bookmarkOptionsDialog
                 BookmarkOptions {
-                    width: parent.width
+                    width: bookmarkOptionsLoader.width
 
                     bookmarkTitle: browser.currentWebview.title
                     folderModel: BookmarksFolderListModel {
