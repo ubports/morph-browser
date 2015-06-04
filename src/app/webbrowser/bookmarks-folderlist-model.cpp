@@ -30,8 +30,7 @@
 
     BookmarksFolderListModel is a list model that exposes bookmarks entries
     from a BookmarksModel grouped by folder name. Each item in the list has
-    three roles: 'folder' for the folder name, 'lastAddition' for the timestamp
-    of the last page bookmarked in this folder, and 'entries' for the
+    three roles: 'folder' for the folder name and 'entries' for the
     corresponding BookmarksFolderModel that contains all entries in this group.
 */
 BookmarksFolderListModel::BookmarksFolderListModel(QObject* parent)
@@ -50,8 +49,6 @@ QHash<int, QByteArray> BookmarksFolderListModel::roleNames() const
     static QHash<int, QByteArray> roles;
     if (roles.isEmpty()) {
         roles[Folder] = "folder";
-        roles[LastAddition] = "lastAddition";
-        roles[LastAdditionDate] = "lastAdditionDate";
         roles[Entries] = "entries";
         roles[Empty] = "empty";
     }
@@ -75,10 +72,6 @@ QVariant BookmarksFolderListModel::data(const QModelIndex& index, int role) cons
     switch (role) {
     case Folder:
         return folder;
-    case LastAddition:
-        return entries->lastAddition();
-    case LastAdditionDate:
-        return entries->lastAddition().toLocalTime().date();
     case Entries:
         return QVariant::fromValue(entries);
     case Empty:
@@ -197,7 +190,6 @@ void BookmarksFolderListModel::insertNewFolder(const QString& folder)
     connect(model, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)), SLOT(onFolderDataChanged()));
     connect(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)), SLOT(onFolderDataChanged()));
     connect(model, SIGNAL(modelReset()), SLOT(onFolderDataChanged()));
-    connect(model, SIGNAL(lastAdditionChanged()), SLOT(onFolderDataChanged()));
     m_folders.insert(folder, model);
 }
 
@@ -219,6 +211,6 @@ void BookmarksFolderListModel::emitDataChanged(const QString& folder)
     int i = m_folders.keys().indexOf(folder);
     if (i != -1) {
         QModelIndex index = this->index(i, 0);
-        Q_EMIT dataChanged(index, index, QVector<int>() << LastAddition << LastAdditionDate << Entries << Empty);
+        Q_EMIT dataChanged(index, index, QVector<int>() << Entries << Empty);
     }
 }

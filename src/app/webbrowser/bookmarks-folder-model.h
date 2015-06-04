@@ -32,7 +32,6 @@ class BookmarksFolderModel : public QSortFilterProxyModel
 
     Q_PROPERTY(BookmarksModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(QString folder READ folder WRITE setFolder NOTIFY folderChanged)
-    Q_PROPERTY(QDateTime lastAddition READ lastAddition NOTIFY lastAdditionChanged)
 
 public:
     BookmarksFolderModel(QObject* parent=0);
@@ -43,12 +42,9 @@ public:
     const QString& folder() const;
     void setFolder(const QString& domain);
 
-    const QDateTime& lastAddition() const;
-
 Q_SIGNALS:
     void sourceModelChanged() const;
     void folderChanged() const;
-    void lastAdditionChanged() const;
 
 protected:
     // reimplemented from QSortFilterProxyModel
@@ -56,10 +52,6 @@ protected:
 
 private:
     QString m_folder;
-    QDateTime m_lastAddition;
-
-private Q_SLOTS:
-    void onModelChanged();
 };
 
 #endif // __BOOKMARKS_FOLDER_MODEL_H__

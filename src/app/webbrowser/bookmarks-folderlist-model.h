@@ -41,8 +41,6 @@ public:
 
     enum Roles {
         Folder = Qt::UserRole + 1,
-        LastAddition,
-        LastAdditionDate,
         Entries,
         Empty
     };

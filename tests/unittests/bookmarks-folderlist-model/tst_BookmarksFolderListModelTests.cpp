@@ -229,7 +229,6 @@ private Q_SLOTS:
         QVERIFY(!model->data(model->index(-1, 0), BookmarksFolderListModel::Folder).isValid());
         QVERIFY(!model->data(model->index(3, 0), BookmarksFolderListModel::Folder).isValid());
         QCOMPARE(model->data(model->index(1, 0), BookmarksFolderListModel::Folder).toString(), QString("SampleFolder"));
-        QVERIFY(model->data(model->index(1, 0), BookmarksFolderListModel::LastAddition).toDateTime() >= now);
         BookmarksFolderModel* entries = model->data(model->index(1, 0), BookmarksFolderListModel::Entries).value<BookmarksFolderModel*>();
         QVERIFY(entries != 0);
         QVERIFY(!model->data(model->index(1, 0), BookmarksFolderListModel::Empty).toBool());

@@ -40,11 +40,6 @@
 BookmarksFolderModel::BookmarksFolderModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
-    connect(this, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)), SLOT(onModelChanged()));
-    connect(this, SIGNAL(modelReset()), SLOT(onModelChanged()));
-    connect(this, SIGNAL(rowsInserted(QModelIndex, int, int)), SLOT(onModelChanged()));
-    connect(this, SIGNAL(rowsRemoved(QModelIndex, int, int)), SLOT(onModelChanged()));
-    connect(this, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)), SLOT(onModelChanged()));
 }
 
 BookmarksModel* BookmarksFolderModel::sourceModel() const
@@ -74,28 +69,9 @@ void BookmarksFolderModel::setFolder(const QString& folder)
     }
 }
 
-const QDateTime& BookmarksFolderModel::lastAddition() const
-{
-    return m_lastAddition;
-}
-
 bool BookmarksFolderModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
     QString folder = sourceModel()->data(index, BookmarksModel::Folder).toString();
     return (folder.compare(m_folder, Qt::CaseSensitive) == 0);
-}
-
-void BookmarksFolderModel::onModelChanged()
-{
-    // If the rowCount is zero all the bookmarks entries of this model were
-    // removed. If that happens this folder will be removed from the list, so
-    // we shouldn’t update its properties lest the update triggers a re-ordering
-    // on any sort proxy model that uses this model as source, while removing an
-    // entry.
-    if (rowCount() > 0) {
-        m_lastAddition = data(index(0, 0), BookmarksModel::Created).toDateTime();
-
-        Q_EMIT lastAdditionChanged();
-    }
 }
