@@ -87,7 +87,7 @@ FocusScope {
                     height: parent.height
                     width: height
 
-                    visible: addressbar.activeFocus || addressbar.loading || !addressbar.text
+                    visible: addressbar.activeFocus || addressbar.loading || !addressbar.text || textLocked
 
                     enabled: addressbar.text
                     opacity: enabled ? 1.0 : 0.3
@@ -232,7 +232,7 @@ FocusScope {
     QtObject {
         id: internal
 
-        readonly property bool idle: !addressbar.loading && !addressbar.activeFocus
+        readonly property bool idle: !addressbar.loading && !addressbar.activeFocus && !addressbar.textLocked
 
         readonly property int securityLevel: addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
         readonly property bool secureConnection: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
