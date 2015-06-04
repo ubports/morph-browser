@@ -26,7 +26,7 @@ Rectangle {
     property alias folderModel: folderOptionSelector.model
 
     readonly property string bookmarkFolder: {
-        if (state == "exisitngFolder") {
+        if (state == "existingFolder") {
             return folderModel.get(folderOptionSelector.selectedIndex).folder
         } else if (state == "newFolder") {
             return newFolderTextField.text
