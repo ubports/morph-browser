@@ -227,6 +227,16 @@ QStringList BookmarksModel::folders() const
     return m_folders.values();
 }
 
+int BookmarksModel::addFolder(const QString& folder)
+{
+    int newFolderId = insertNewFolderInDatabase(folder);
+    if (newFolderId) {
+        m_folders.insert(newFolderId, folder);
+        Q_EMIT folderAdded(folder);
+        return newFolderId;
+    }
+}
+
 /*!
     Test if a given URL is already bookmarked.
 
@@ -349,14 +359,7 @@ int BookmarksModel::getFolderId(const QString& folder) {
         }
     }
 
-    int newFolderId = insertNewFolderInDatabase(folder);
-    if (newFolderId) {
-        m_folders.insert(newFolderId, folder);
-        Q_EMIT folderAdded(folder);
-        return newFolderId;
-    }
-
-    return 0;
+    return addFolder(folder);
 }
 
 int BookmarksModel::insertNewFolderInDatabase(const QString& folder)

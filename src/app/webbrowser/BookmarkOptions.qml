@@ -92,7 +92,7 @@ Popover {
                 objectName: "newFolderDialog.text"
                 placeholderText: i18n.tr("New Folder")
                 onAccepted: {
-                    //FIXME create new folder
+                    folderModel.createNewFolder(text)
                     PopupUtils.close(dialogue)
                 }
             }
@@ -117,7 +117,7 @@ Popover {
                 enabled: folderTextField.text
                 color: "#3fb24f"
                 onClicked: {
-                    //FIXME create new folder
+                    folderModel.createNewFolder(folderTextField.text)
                     PopupUtils.close(dialogue)
                 }
             }

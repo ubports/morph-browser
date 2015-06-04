@@ -124,6 +124,11 @@ QVariantMap BookmarksFolderListModel::get(int row) const
     return res;
 }
 
+void BookmarksFolderListModel::createNewFolder(const QString& folder)
+{
+    m_sourceModel->addFolder(folder);
+}
+
 bool BookmarksFolderListModel::checkValidFolderIndex(int index) const
 {
     if ((index < 0) || (index >= m_folders.count())) {

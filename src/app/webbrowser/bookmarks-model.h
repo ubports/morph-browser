@@ -58,6 +58,7 @@ public:
     void setDatabasePath(const QString& path);
 
     QStringList folders() const;
+    int addFolder(const QString& folder);
 
     Q_INVOKABLE bool contains(const QUrl& url) const;
     Q_INVOKABLE void add(const QUrl& url, const QString& title, const QUrl& icon, const QString& folder);
