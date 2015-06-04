@@ -18,8 +18,9 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
+import Ubuntu.Components.Popups 1.0
 
-Rectangle {
+Popover {
     id: bookmarkOptions
 
     property alias bookmarkTitle: titleTextField.text
@@ -31,13 +32,7 @@ Rectangle {
         } else if (state == "newFolder") {
             return newFolderTextField.text
         }
-        return ""
     }
-
-    signal dismiss()
-
-    height: bookmarkOptionsColumn.height + units.gu(4)
-    border.color: UbuntuColors.darkGrey
 
     state: "existingFolder"
     states: [
@@ -55,23 +50,17 @@ Rectangle {
         }
     ]
 
-    InverseMouseArea {
-        anchors.fill: parent
-        onPressed: {
-            bookmarkOptions.dismiss()
-            mouse.accepted = false
-        }
-    }
-
-    MouseArea {
-        anchors.fill: parent
-    }
-
     Column {
         id: bookmarkOptionsColumn
 
-        anchors.centerIn: parent
-        width: parent.width - units.gu(2)
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+            leftMargin: units.gu(3)
+            rightMargin: units.gu(3)
+        }
+
         spacing: units.gu(2)
 
         Label {

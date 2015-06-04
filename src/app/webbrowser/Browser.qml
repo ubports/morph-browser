@@ -268,7 +268,7 @@ BrowserView {
             bookmarked: isCurrentUrlBookmarked()
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
-                    bookmarkOptionsLoader.active = true
+                    PopupUtils.open(bookmarkOptionsComponent, chrome) 
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.remove(webview.url)
                 }
@@ -423,40 +423,19 @@ BrowserView {
             }
         }
 
-        Loader {
-            id: bookmarkOptionsLoader
-
-            anchors {
-                top: chrome.bottom
-                horizontalCenter: parent.horizontalCenter
-            }
-
-            width: chrome.width - units.gu(5)
-            height: bookmarkOptionsLoader.item ? bookmarkOptionsLoader.item.height : 0
-
-            sourceComponent: bookmarkOptionsDialog
-            active: false
-
-            Connections {
-                target: bookmarkOptionsLoader.item
-                onDismiss: {
-                    browser.bookmarksModel.add(browser.currentWebview.url,
-                                               bookmarkOptionsLoader.item.bookmarkTitle,
-                                               browser.currentWebview.icon,
-                                               bookmarkOptionsLoader.item.bookmarkFolder)
-                    bookmarkOptionsLoader.active = false
+        Component {
+            id: bookmarkOptionsComponent
+            BookmarkOptions {
+                bookmarkTitle: browser.currentWebview.title
+                folderModel: BookmarksFolderListModel {
+                    sourceModel: bookmarksModel
                 }
-            }
 
-            Component {
-                id: bookmarkOptionsDialog
-                BookmarkOptions {
-                    width: bookmarkOptionsLoader.width
-
-                    bookmarkTitle: browser.currentWebview.title
-                    folderModel: BookmarksFolderListModel {
-                        sourceModel: bookmarksModel
-                    }
+                Component.onDestruction: {
+                    browser.bookmarksModel.add(browser.currentWebview.url,
+                                               bookmarkTitle,
+                                               browser.currentWebview.icon,
+                                               bookmarkFolder)
                 }
             }
         }
