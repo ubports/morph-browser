@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-06-02 23:12+0200\n"
-"PO-Revision-Date: 2015-04-28 10:47+0000\n"
+"PO-Revision-Date: 2015-06-05 06:14+0000\n"
 "Last-Translator: Damir Jerovšek <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-06-06 05:28+0000\n"
+"X-Generator: Launchpad (build 17540)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -459,11 +459,11 @@ msgstr "Nastavitve"
 
 #: src/app/webbrowser/Browser.qml:333
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Zapusti Zasebni način"
 
 #: src/app/webbrowser/Browser.qml:333
 msgid "Private Mode"
-msgstr ""
+msgstr "Zasebni način"
 
 #: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
@@ -473,7 +473,7 @@ msgstr "Končano"
 #: src/app/webbrowser/Browser.qml:599
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:870
 msgid "Swipe Up To Exit Full Screen"
@@ -515,21 +515,24 @@ msgstr "Izbriši"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Preklop na javni način bo zaprl vse zasebne zavihke"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "Ok"
-msgstr ""
+msgstr "V redu"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "To je zasebni zavihek"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Strani, ki jih vidite v tem zavihku, se ne bodo pojavile v zgodovini vašega "
+"brskalnika.\n"
+"Zaznamki, ki jih ustvarite, pa se bodo ohranili."
 
 #: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
@@ -537,7 +540,7 @@ msgstr "Zaznamki"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
-msgstr ""
+msgstr "Več"
 
 #: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
@@ -545,7 +548,7 @@ msgstr "Najboljše strani"
 
 #: src/app/webbrowser/NewTabView.qml:239
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Obiskali še niste nobene strani"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
