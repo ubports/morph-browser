@@ -213,12 +213,37 @@ BrowserView {
                 }
             }
 
-            sourceComponent: browser.incognito ? newPrivateTabViewComponent : newTabViewComponent
+            sourceComponent: browser.incognito ?
+                                newPrivateTabViewComponent :
+                                Screen.orientation == Screen.primaryOrientation ?
+                                    newTabViewComponent :
+                                    newTabLandscapeViewComponent
 
             Component {
                 id: newTabViewComponent
 
                 NewTabView {
+                    historyModel: browser.historyModel
+                    bookmarksModel: browser.bookmarksModel
+                    settingsObject: settings
+                    onBookmarkClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        currentWebview.forceActiveFocus()
+                    }
+                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onHistoryEntryClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        currentWebview.forceActiveFocus()
+                    }
+                }
+            }
+
+            Component {
+                id: newTabLandscapeViewComponent
+
+                NewTabLandscapeView {
                     historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
