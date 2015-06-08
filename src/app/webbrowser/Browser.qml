@@ -268,7 +268,7 @@ BrowserView {
             bookmarked: isCurrentUrlBookmarked()
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
-                    PopupUtils.open(bookmarkOptionsComponent, chrome) 
+                    PopupUtils.open(bookmarkOptionsComponent, chrome.__bookmarkToggle) 
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.remove(webview.url)
                 }

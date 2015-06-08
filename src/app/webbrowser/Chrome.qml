@@ -31,6 +31,8 @@ ChromeBase {
     property alias requestedUrl: addressbar.requestedUrl
     property alias incognito: addressbar.incognito
 
+    readonly property Item __bookmarkToggle: addressbar.__bookmarkToggle
+
     backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
 
     FocusScope {
