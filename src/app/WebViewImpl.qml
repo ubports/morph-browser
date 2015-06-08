@@ -63,6 +63,11 @@ WebView {
         }
     }
 
+    onBasicAuthenticationRequested: {
+        PopupUtils.open(Qt.resolvedUrl("BasicAuthenticationDialog.qml"),
+                        webview.currentWebview, {"request": request})
+    }
+
     Loader {
         id: filePickerLoader
         source: formFactor == "desktop" ? "FilePickerDialog.qml" : "ContentPickerDialog.qml"
