@@ -87,14 +87,17 @@ Popover {
                 folderTextField.forceActiveFocus()
             }
 
+            function createNewFolder(folder) {
+                folderModel.createNewFolder(folder)
+                folderOptionSelector.selectedIndex = folderModel.getIndex(folder) 
+                PopupUtils.close(dialogue)
+            }
+
             TextField {
                 id: folderTextField
                 objectName: "newFolderDialog.text"
                 placeholderText: i18n.tr("New Folder")
-                onAccepted: {
-                    folderModel.createNewFolder(text)
-                    PopupUtils.close(dialogue)
-                }
+                onAccepted: createNewFolder(text)
             }
 
             Button {
@@ -116,10 +119,7 @@ Popover {
                 text: i18n.tr("Save")
                 enabled: folderTextField.text
                 color: "#3fb24f"
-                onClicked: {
-                    folderModel.createNewFolder(folderTextField.text)
-                    PopupUtils.close(dialogue)
-                }
+                onClicked: createNewFolder(folderTextField.text)
             }
         }
     }

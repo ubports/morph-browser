@@ -124,6 +124,12 @@ QVariantMap BookmarksFolderListModel::get(int row) const
     return res;
 }
 
+int BookmarksFolderListModel::getIndex(const QString& folder) const
+{
+    QStringList folders = m_folders.keys();
+    return folders.indexOf(folder);
+}
+
 void BookmarksFolderListModel::createNewFolder(const QString& folder)
 {
     m_sourceModel->addFolder(folder);
