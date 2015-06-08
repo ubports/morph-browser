@@ -20,7 +20,6 @@
 #define __BOOKMARKS_FOLDER_MODEL_H__
 
 // Qt
-#include <QtCore/QDateTime>
 #include <QtCore/QSortFilterProxyModel>
 #include <QtCore/QString>
 
