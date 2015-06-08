@@ -28,6 +28,8 @@ Popover {
 
     readonly property string bookmarkFolder: folderModel.get(folderOptionSelector.selectedIndex).folder
 
+    contentHeight: bookmarkOptionsColumn.childrenRect.height + units.gu(6)
+
     Column {
         id: bookmarkOptionsColumn
 
@@ -35,8 +37,7 @@ Popover {
             top: parent.top
             left: parent.left
             right: parent.right
-            leftMargin: units.gu(3)
-            rightMargin: units.gu(3)
+            margins: units.gu(3)
         }
 
         spacing: units.gu(2)
