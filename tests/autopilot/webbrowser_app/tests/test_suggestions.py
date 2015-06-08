@@ -20,7 +20,7 @@ import sqlite3
 import time
 import unittest
 
-from testtools.matchers import Contains, Equals
+from testtools.matchers import Contains, Equals, NotEquals
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
@@ -172,10 +172,9 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
     def test_show_list_of_suggestions(self):
         suggestions = self.main_window.get_suggestions()
         self.assert_suggestions_eventually_hidden()
-        self.assert_suggestions_eventually_hidden()
         self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
-        self.assertThat(suggestions.count, Eventually(Equals(1)))
+        self.assertThat(suggestions.count, Eventually(NotEquals(0)))
         self.address_bar.clear()
         self.assert_suggestions_eventually_hidden()
 
