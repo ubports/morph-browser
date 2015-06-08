@@ -96,8 +96,6 @@ void BookmarksFolderListModel::setSourceModel(BookmarksModel* sourceModel)
         if (m_sourceModel != 0) {
             connect(m_sourceModel, SIGNAL(folderAdded(const QString&)), SLOT(onFolderAdded(const QString&)));
             connect(m_sourceModel, SIGNAL(modelReset()), SLOT(onModelReset()));
-            connect(m_sourceModel, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)),
-                    SLOT(onModelReset()));
         }
         endResetModel();
         Q_EMIT sourceModelChanged();
