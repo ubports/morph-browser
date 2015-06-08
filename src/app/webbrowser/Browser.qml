@@ -268,6 +268,7 @@ BrowserView {
             bookmarked: isCurrentUrlBookmarked()
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
+                    browser.bookmarksModel.add(webview.url, webview.title, webview.icon, "")
                     PopupUtils.open(bookmarkOptionsComponent, chrome.__bookmarkToggle) 
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.remove(webview.url)
@@ -432,10 +433,10 @@ BrowserView {
                 }
 
                 Component.onDestruction: {
-                    browser.bookmarksModel.add(browser.currentWebview.url,
-                                               bookmarkTitle,
-                                               browser.currentWebview.icon,
-                                               bookmarkFolder)
+                    browser.bookmarksModel.update(browser.currentWebview.url,
+                                                  bookmarkTitle,
+                                                  browser.currentWebview.icon,
+                                                  bookmarkFolder)
                 }
             }
         }

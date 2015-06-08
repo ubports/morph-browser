@@ -112,6 +112,23 @@ private Q_SLOTS:
         QVERIFY(spy.isEmpty());
     }
 
+    void shouldUpdateEntries()
+    {
+        model->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");
+        model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl(), "");
+        QCOMPARE(model->rowCount(), 2);
+
+        model->update(QUrl("http://example.org/"), "New Domain Title", QUrl(), "SampleFolder");
+        QCOMPARE(model->rowCount(), 2);
+
+        QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Url).toUrl(), QUrl("http://example.org/"));
+        QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Title).toString(), QString("New Domain Title"));
+        QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Icon).toUrl(), QUrl(""));
+        QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Folder).toString(), QString("SampleFolder"));
+
+        QCOMPARE(model->data(model->index(1, 0), BookmarksModel::Url).toUrl(), QUrl("http://ubuntu.com/"));
+    }
+
     void shouldContainEntries()
     {
         model->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");

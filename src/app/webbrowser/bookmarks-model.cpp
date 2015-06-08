@@ -331,6 +331,36 @@ void BookmarksModel::removeExistingEntryFromDatabase(const QUrl& url)
     query.exec();
 }
 
+void BookmarksModel::update(const QUrl& url, const QString& title, const QUrl& icon, const QString& folder)
+{
+    if (m_urls.contains(url)) {
+        int index = 0;
+        Q_FOREACH(BookmarkEntry entry, m_orderedEntries) {
+            if (entry.url == url) {
+                beginRemoveRows(QModelIndex(), index, index);
+                BookmarkEntry updatedEntry = m_orderedEntries.takeAt(index);
+                endRemoveRows();
+ 
+                beginInsertRows(QModelIndex(), 0, 0);
+                updatedEntry.title = title;
+                updatedEntry.icon = icon;
+                updatedEntry.created = QDateTime::currentDateTime();
+                updatedEntry.folder = folder;
+                updatedEntry.folderId = getFolderId(updatedEntry.folder);
+                m_orderedEntries.prepend(updatedEntry);
+                endInsertRows();
+
+                updateExistingEntryInDatabase(updatedEntry);
+                return;
+            } else {
+                index++;
+            }
+        };
+    } else {
+        qWarning() << "Invalid bookmark:" << url;
+    }
+}
+
 void BookmarksModel::updateExistingEntryInDatabase(const BookmarkEntry& entry)
 {
     QSqlQuery query(m_database);
