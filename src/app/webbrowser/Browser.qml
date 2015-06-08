@@ -185,6 +185,65 @@ BrowserView {
             asynchronous: true
         }
 
+        Loader {
+            id: newTabViewLoader
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
+
+            // Avoid loading the new tab view if the webview is about to load
+            // content. Since WebView.restoreState is not a notifyable property,
+            // this can’t be achieved with a simple property binding.
+            Connections {
+                target: currentWebview
+                onUrlChanged: {
+                    newTabViewLoader.active = false
+                }
+            }
+            active: false
+
+            Connections {
+                target: browser
+                onCurrentWebviewChanged: {
+                    if (currentWebview) {
+                        var tab = tabsModel.currentTab
+                        newTabViewLoader.active = !tab.url.toString() && !tab.restoreState
+                    }
+                }
+            }
+
+            sourceComponent: browser.incognito ? newPrivateTabViewComponent : newTabViewComponent
+
+            Component {
+                id: newTabViewComponent
+
+                NewTabView {
+                    historyModel: browser.historyModel
+                    bookmarksModel: browser.bookmarksModel
+                    settingsObject: settings
+                    onBookmarkClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        currentWebview.forceActiveFocus()
+                    }
+                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onHistoryEntryClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        currentWebview.forceActiveFocus()
+                    }
+                }
+            }
+
+            Component {
+                id: newPrivateTabViewComponent
+
+                NewPrivateTabView { }
+            }
+            asynchronous: true
+        }
+
         SearchEngine {
             id: currentSearchEngine
             searchPaths: searchEnginesSearchPaths
@@ -199,7 +258,7 @@ BrowserView {
             webview: browser.currentWebview
             searchUrl: currentSearchEngine.urlTemplate
 
-            useDarkTheme: browser.incognito
+            incognito: browser.incognito
 
             y: webview ? webview.locationBarController.offset : 0
 
@@ -566,7 +625,6 @@ BrowserView {
                     var view = expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
                     view.onHistoryEntryClicked.connect(destroy)
                 }
-                onHistoryDomainRemoved: browser.historyModel.removeEntriesByDomain(domain)
                 onDone: destroy()
             }
         }
@@ -581,7 +639,12 @@ BrowserView {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
-                onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
+                onHistoryEntryRemoved: {
+                    if (count == 1) {
+                        done()
+                    }
+                    browser.historyModel.removeEntryByUrl(url)
+                }
                 onDone: destroy()
             }
         }
@@ -827,64 +890,6 @@ BrowserView {
                         Component.onDestruction: bottomEdgeHint.forceShow = false
                     }
                 }
-
-                Loader {
-                    id: newTabViewLoader
-                    anchors.fill: parent
-
-                    // Avoid loading the new tab view if the webview is about to load
-                    // content. Since WebView.restoreState is not a notifyable property,
-                    // this can’t be achieved with a simple property binding.
-                    Component.onCompleted: {
-                        if (!parent.url.toString() && !parent.restoreState) {
-                            if (!webviewimpl.incognito) {
-                                sourceComponent = newTabViewComponent
-                            } else {
-                                sourceComponent = newPrivateTabViewComponent
-                            }
-                        }
-                    }
-                    Connections {
-                        target: newTabViewLoader.parent
-                        onUrlChanged: newTabViewLoader.sourceComponent = null
-                    }
-
-                    Component {
-                        id: newTabViewComponent
-
-                        NewTabView {
-                            anchors {
-                                fill: parent
-                                topMargin: (chrome.state == "shown") ? chrome.height : 0
-                            }
-
-                            historyModel: browser.historyModel
-                            bookmarksModel: browser.bookmarksModel
-                            onBookmarkClicked: {
-                                chrome.requestedUrl = url
-                                currentWebview.url = url
-                                currentWebview.forceActiveFocus()
-                            }
-                            onBookmarkRemoved: browser.bookmarksModel.remove(url)
-                            onHistoryEntryClicked: {
-                                chrome.requestedUrl = url
-                                currentWebview.url = url
-                                currentWebview.forceActiveFocus()
-                            }
-                        }
-                    }
-
-                    Component {
-                        id: newPrivateTabViewComponent
-
-                        NewPrivateTabView {
-                            anchors {
-                                fill: parent
-                                topMargin: (chrome.state == "shown") ? chrome.height : 0
-                            }
-                        }
-                    }
-                }
             }
         }
     }
@@ -1100,7 +1105,7 @@ BrowserView {
 
     Component {
         id: leavePrivateModeDialog
-        
+
         LeavePrivateModeDialog {
             id: dialogue
             objectName: "leavePrivateModeDialog"

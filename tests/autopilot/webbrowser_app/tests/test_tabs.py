@@ -71,8 +71,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.main_window.go_to_url(url)
         new_tab_view.wait_until_destroyed()
         self.assert_number_webviews_eventually(2)
-        self.open_tabs_view()
-        tabs_view = self.main_window.get_tabs_view()
+        tabs_view = self.open_tabs_view()
         previews = tabs_view.get_previews()
         self.assertThat(len(previews), Equals(2))
         previews[0].close()
@@ -150,8 +149,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(2)
 
     def test_selecting_tab_focuses_webview(self):
-        self.open_tabs_view()
-        tabs_view = self.main_window.get_tabs_view()
+        tabs_view = self.open_tabs_view()
         tabs_view.get_previews()[0].select()
         tabs_view.visible.wait_for(False)
         webview = self.main_window.get_current_webview()
@@ -170,8 +168,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(1)
 
     def test_last_webview_requests_close(self):
-        self.open_tabs_view()
-        tabs_view = self.main_window.get_tabs_view()
+        tabs_view = self.open_tabs_view()
         tabs_view.get_previews()[0].close()
         tabs_view.visible.wait_for(False)
         url = self.base_url + "/closeself"

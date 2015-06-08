@@ -74,17 +74,22 @@ private Q_SLOTS:
 
     void shouldMatchAllWhenNothingIsHidden()
     {
+        QSignalSpy spy(topsites, SIGNAL(countChanged()));
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
+        QCOMPARE(spy.count(), 2);
         QCOMPARE(topsites->rowCount(), 2);
     }
 
     void shouldFilterOutHiddenUrls()
     {
+        QSignalSpy spy(topsites, SIGNAL(countChanged()));
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
+        QCOMPARE(spy.count(), 2);
         QCOMPARE(topsites->rowCount(), 2);
         model->hide(QUrl("http://example.org"));
+        QCOMPARE(spy.count(), 3);
         QCOMPARE(topsites->rowCount(), 1);
         QCOMPARE(topsites->data(topsites->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.com"));
     }
