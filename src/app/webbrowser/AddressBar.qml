@@ -40,6 +40,8 @@ FocusScope {
 
     property var securityStatus: null
 
+    readonly property Item bookmarkTogglePlaceHolder: bookmarkTogglePlaceHolderItem
+
     // XXX: for testing purposes only, do not use to modify the
     // contents/behaviour of the internals of the component.
     readonly property Item __textField: textField
@@ -189,6 +191,11 @@ FocusScope {
                 id: bookmarkButton
                 anchors.fill: parent
                 onClicked: addressbar.bookmarked = !addressbar.bookmarked
+            }
+
+            Item {
+                id: bookmarkTogglePlaceHolderItem
+                anchors.fill: parent
             }
         }
 

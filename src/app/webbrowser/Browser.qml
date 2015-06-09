@@ -269,7 +269,7 @@ BrowserView {
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.add(webview.url, webview.title, webview.icon, "")
-                    PopupUtils.open(bookmarkOptionsComponent, chrome.__bookmarkToggle) 
+                    PopupUtils.open(bookmarkOptionsComponent, chrome.bookmarkTogglePlaceHolder) 
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.remove(webview.url)
                 }
