@@ -329,7 +329,10 @@ BrowserView {
                     objectName: "settings"
                     text: i18n.tr("Settings")
                     iconName: "settings"
-                    onTriggered: settingsComponent.createObject(settingsContainer)
+                    onTriggered: {
+                        settingsComponent.createObject(settingsContainer)
+                        settingsContainer.focus = true
+                    }
                 },
                 Action {
                     objectName: "privatemode"
@@ -663,7 +666,7 @@ BrowserView {
         }
     }
 
-    Item {
+    FocusScope {
         id: settingsContainer
 
         visible: children.length > 0
@@ -674,9 +677,11 @@ BrowserView {
 
             SettingsPage {
                 anchors.fill: parent
+                focus: true
                 historyModel: browser.historyModel
                 settingsObject: settings
                 onDone: destroy()
+                Keys.onEscapePressed: destroy()
             }
         }
     }

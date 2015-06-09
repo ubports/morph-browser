@@ -240,3 +240,9 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
 
         self.main_window.press_key('Escape')
         history_view.wait_until_destroyed()
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_escape_settings(self):
+        settings = self.open_settings()
+        self.main_window.press_key('Escape')
+        settings.wait_until_destroyed()
