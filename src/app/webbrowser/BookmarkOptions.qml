@@ -91,6 +91,7 @@ Popover {
             function createNewFolder(folder) {
                 folderModel.createNewFolder(folder)
                 folderOptionSelector.selectedIndex = folderModel.indexOf(folder) 
+                folderOptionSelector.currentlyExpanded = false
                 PopupUtils.close(dialogue)
             }
 
