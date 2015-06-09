@@ -1159,13 +1159,34 @@ BrowserView {
     }
 
     Keys.onPressed: {
-        if (!chrome.visible) return;
+        if (!chrome.visible && !recentView.visible) return;
+
         if (event.modifiers & Qt.ControlModifier) {
-            switch(event.key) {
-            case Qt.Key_L:
-                // Ctrl + l: Select the content in the address bar
-                internal.focusAddressBar(true);
+            switch (event.key) {
+            case Qt.Key_Tab:
+                // Ctrl + Tab: pull the tab from the bottom of the stack to the
+                // top (i.e. make it current)
+                internal.switchToTab(tabsModel.count - 1)
+                if (chrome.visible) recentView.reset()
                 event.accepted = true;
+                break;
+
+            case Qt.Key_W:
+            case Qt.Key_F4:
+                // Ctrl + w or Ctrl+F4: Close the current tab
+                if (tabsModel.count >= 0) {
+                   var tab = tabsModel.remove(0);
+                   if (tab) {
+                       tab.close()
+                   }
+
+                   if (tabsModel.count === 0) {
+                       browser.openUrlInNewTab("", true)
+                   } else {
+                       internal.switchToTab(0)
+                   }
+                   event.accepted = true;
+                }
                 break;
 
             case Qt.Key_T:
@@ -1173,29 +1194,16 @@ BrowserView {
                 openUrlInNewTab("", true);
                 event.accepted = true;
                 break;
+           }
+        }
 
-            case Qt.Key_W:
-            case Qt.Key_F4:
-                // Ctrl + w: Close the current Tab
-                if (tabsModel.count >= 0) {
-                    var tab = tabsModel.remove(0);
-                    if (tab) {
-                        tab.close()
-                    }
+        if (!chrome.visible) return;
 
-                    if (tabsModel.count === 0) {
-                        browser.openUrlInNewTab("", true)
-                    } else {
-                        internal.switchToTab(0)
-                    }
-                    event.accepted = true;
-                }
-                break;
-
-            case Qt.Key_Tab:
-                // Ctrl + Tab: navigate to next tab
-                internal.switchToTab(tabsModel.count - 1)
-                recentView.reset()
+        if (event.modifiers & Qt.ControlModifier) {
+            switch(event.key) {
+            case Qt.Key_L:
+                // Ctrl + l: Select the content in the address bar
+                internal.focusAddressBar(true);
                 event.accepted = true;
                 break;
 
