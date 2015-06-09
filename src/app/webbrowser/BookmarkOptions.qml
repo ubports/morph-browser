@@ -49,6 +49,7 @@ Popover {
 
         Label {
             text: i18n.tr("Name")
+            fontSize: "small"
         }
 
         TextField {
@@ -57,10 +58,14 @@ Popover {
             width: parent.width
         }
 
+        Label {
+            text: i18n.tr("Save in")
+            fontSize: "small"
+        }
+
         OptionSelector {
             id: folderOptionSelector
 
-            text: i18n.tr("Save in")
             delegate: selectorDelegate
         }
 
