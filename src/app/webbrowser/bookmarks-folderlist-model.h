@@ -53,7 +53,7 @@ public:
     void setSourceModel(BookmarksModel* sourceModel);
 
     Q_INVOKABLE QVariantMap get(int row) const;
-    Q_INVOKABLE int getIndex(const QString& folder) const;
+    Q_INVOKABLE int indexOf(const QString& folder) const;
     Q_INVOKABLE void createNewFolder(const QString& folder);
 
 Q_SIGNALS:

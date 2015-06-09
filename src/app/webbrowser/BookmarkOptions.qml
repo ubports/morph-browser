@@ -90,7 +90,7 @@ Popover {
 
             function createNewFolder(folder) {
                 folderModel.createNewFolder(folder)
-                folderOptionSelector.selectedIndex = folderModel.getIndex(folder) 
+                folderOptionSelector.selectedIndex = folderModel.indexOf(folder) 
                 PopupUtils.close(dialogue)
             }
 
