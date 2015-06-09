@@ -35,6 +35,7 @@ Popups.Dialog {
 
     TextField {
         id: usernameInput
+        objectName: "username"
         placeholderText: i18n.tr("Username")
         onAccepted: {
             request.allow(usernameInput.text, passwordInput.text)
@@ -44,6 +45,7 @@ Popups.Dialog {
 
     TextField {
         id: passwordInput
+        objectName: "password"
         placeholderText: i18n.tr("Password")
         echoMode: TextInput.Password
         onAccepted: {
@@ -53,6 +55,7 @@ Popups.Dialog {
     }
 
     Button {
+        objectName: "allow"
         text: i18n.tr("OK")
         color: "green"
         onClicked: {
@@ -62,6 +65,7 @@ Popups.Dialog {
     }
 
     Button {
+        objectName: "deny"
         text: i18n.tr("Cancel")
         color: UbuntuColors.coolGrey
         onClicked: {
