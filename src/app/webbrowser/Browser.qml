@@ -435,7 +435,6 @@ BrowserView {
                 Component.onDestruction: {
                     browser.bookmarksModel.update(browser.currentWebview.url,
                                                   bookmarkTitle,
-                                                  browser.currentWebview.icon,
                                                   bookmarkFolder)
                 }
             }

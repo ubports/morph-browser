@@ -114,19 +114,29 @@ private Q_SLOTS:
 
     void shouldUpdateEntries()
     {
+        QSignalSpy spy(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
         model->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");
         model->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl(), "");
         QCOMPARE(model->rowCount(), 2);
+        QVERIFY(spy.isEmpty());
 
-        model->update(QUrl("http://example.org/"), "New Domain Title", QUrl(), "SampleFolder");
+        model->update(QUrl("http://example.org/"), "New Domain Title", "SampleFolder");
         QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(spy.count(), 1);
+        QList<QVariant> args = spy.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 1);
+        QCOMPARE(args.at(1).toModelIndex().row(), 1);
+        QVector<int> roles = args.at(2).value<QVector<int> >();
+        QVERIFY(roles.size() >= 2);
+        QVERIFY(roles.contains(BookmarksModel::Title));
+        QVERIFY(roles.contains(BookmarksModel::Folder));
 
-        QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Url).toUrl(), QUrl("http://example.org/"));
-        QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Title).toString(), QString("New Domain Title"));
-        QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Icon).toUrl(), QUrl(""));
-        QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Folder).toString(), QString("SampleFolder"));
+        QCOMPARE(model->data(model->index(1, 0), BookmarksModel::Url).toUrl(), QUrl("http://example.org/"));
+        QCOMPARE(model->data(model->index(1, 0), BookmarksModel::Title).toString(), QString("New Domain Title"));
+        QCOMPARE(model->data(model->index(1, 0), BookmarksModel::Icon).toUrl(), QUrl(""));
+        QCOMPARE(model->data(model->index(1, 0), BookmarksModel::Folder).toString(), QString("SampleFolder"));
 
-        QCOMPARE(model->data(model->index(1, 0), BookmarksModel::Url).toUrl(), QUrl("http://ubuntu.com/"));
+        QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Url).toUrl(), QUrl("http://ubuntu.com/"));
     }
 
     void shouldContainEntries()
