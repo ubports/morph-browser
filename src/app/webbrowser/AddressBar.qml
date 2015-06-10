@@ -37,7 +37,7 @@ FocusScope {
     signal requestReload()
     signal requestStop()
     property string searchUrl
-    property bool textLocked: false
+    property bool preventSimplifyText: false
 
     property var securityStatus: null
 
@@ -87,7 +87,7 @@ FocusScope {
                     height: parent.height
                     width: height
 
-                    visible: addressbar.activeFocus || addressbar.loading || !addressbar.text || textLocked
+                    visible: addressbar.activeFocus || addressbar.loading || !addressbar.text || preventSimplifyText
 
                     enabled: addressbar.text
                     opacity: enabled ? 1.0 : 0.3
@@ -232,7 +232,7 @@ FocusScope {
     QtObject {
         id: internal
 
-        readonly property bool idle: !addressbar.loading && !addressbar.activeFocus && !addressbar.textLocked
+        readonly property bool idle: !addressbar.loading && !addressbar.activeFocus && !addressbar.preventSimplifyText
 
         readonly property int securityLevel: addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
         readonly property bool secureConnection: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
@@ -302,8 +302,8 @@ FocusScope {
         }
     }
 
-    onActiveFocusChanged: if (!textLocked) updateUrlFromFocus()
-    onTextLockedChanged: if (!textLocked) updateUrlFromFocus()
+    onActiveFocusChanged: if (!preventSimplifyText) updateUrlFromFocus()
+    onPreventSimplifyTextChanged: if (!preventSimplifyText) updateUrlFromFocus()
 
     onActualUrlChanged: {
         if (!activeFocus || !actualUrl.toString()) {
