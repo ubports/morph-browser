@@ -59,6 +59,7 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
 
 # Use PrepopulatedDatabaseTestCaseBase to ensure that at least one suggestion
 # will appear in the suggestions menu by creating a bookmark we can search for
+@unittest.skipIf(model() != "Desktop", "on desktop only")
 class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
 
     """Test keyboard interaction"""
@@ -86,7 +87,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(lambda: self.main_window.get_current_webview().url,
                         Eventually(Equals(url)))
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_new_tab(self):
         self.main_window.press_key('Ctrl+T')
 
@@ -95,7 +95,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         new_tab_view = self.main_window.get_new_tab_view()
         self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_switch_tabs(self):
         self.open_tabs(2)
         self.check_tab_number(2)
@@ -106,7 +105,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+Tab')
         self.check_tab_number(2)
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_can_switch_tabs_after_suggestions_escape(self):
         self.open_tabs(1)
         self.check_tab_number(1)
@@ -123,7 +121,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+Tab')
         self.check_tab_number(0)
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_close_tabs_ctrl_f4(self):
         self.open_tabs(1)
         self.check_tab_number(1)
@@ -133,7 +130,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Equals(""))
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_close_tabs_ctrl_w(self):
         self.open_tabs(1)
         self.check_tab_number(1)
@@ -143,19 +139,16 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Equals(""))
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_select_address_bar_ctrl_l(self):
         self.main_window.press_key('Ctrl+L')
         self.assertThat(self.address_bar.text_field.selectedText,
                         Eventually(Equals(self.address_bar.text_field.text)))
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_select_address_bar_alt_d(self):
         self.main_window.press_key('Alt+D')
         self.assertThat(self.address_bar.text_field.selectedText,
                         Eventually(Equals(self.address_bar.text_field.text)))
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_escape_from_address_bar(self):
         self.main_window.press_key('Alt+D')
         self.assertThat(self.address_bar.text_field.selectedText,
@@ -166,7 +159,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(self.address_bar.activeFocus,
                         Eventually(Equals(False)))
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_reload(self):
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.loading, Eventually(Equals(False)))
@@ -181,7 +173,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
 
         self.assertThat(webview.loading, Eventually(Equals(False)))
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_bookmark(self):
         chrome = self.main_window.chrome
         self.assertThat(chrome.bookmarked, Equals(False))
@@ -190,7 +181,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+D')
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_history_navigation_with_alt_arrows(self):
         previous = self.main_window.get_current_webview().url
         url = self.base_url + "/test2"
@@ -205,7 +195,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(lambda: self.main_window.get_current_webview().url,
                         Eventually(Equals(url)))
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_history_navigation_with_backspace(self):
         previous = self.main_window.get_current_webview().url
         url = self.base_url + "/test2"
@@ -220,7 +209,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(lambda: self.main_window.get_current_webview().url,
                         Eventually(Equals(url)))
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_toggle_history(self):
         self.assertThat(self.main_window.get_history_view(), Equals(None))
         self.main_window.press_key('Ctrl+H')
@@ -231,7 +219,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Escape')
         history_view.wait_until_destroyed()
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_toggle_history_from_menu(self):
         self.assertThat(self.main_window.get_history_view(), Equals(None))
         self.open_history()
@@ -241,7 +228,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Escape')
         history_view.wait_until_destroyed()
 
-    @unittest.skipIf(model() != "Desktop", "on desktop only")
     def test_escape_settings(self):
         settings = self.open_settings()
         self.main_window.press_key('Escape')
