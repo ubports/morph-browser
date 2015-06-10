@@ -30,6 +30,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         super().__init__(*args)
         self.chrome = self._get_chrome()
         self.address_bar = self.chrome.address_bar
+        self.keyboard = input.Keyboard.create()
 
     def _get_chrome(self):
         return self.select_single(Chrome)
@@ -159,11 +160,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
             return None
 
     def press_key(self, key):
-        try:
-            keyboard = input.Keyboard.create()
-            keyboard.press_and_release(key)
-        except RuntimeError:
-            pass
+        self.keyboard.press_and_release(key)
 
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
