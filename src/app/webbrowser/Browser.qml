@@ -942,7 +942,7 @@ BrowserView {
             if (tab) {
                 tab.load()
                 tabslist.model.setCurrent(index)
-                if (tab.initialUrl == "") focusAddressBar()
+                if (tab.initialUrl == "" && formFactor == "desktop") focusAddressBar()
                 else tab.forceActiveFocus()
             }
         }
