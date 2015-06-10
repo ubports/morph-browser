@@ -277,7 +277,6 @@ QVariantMap LimitProxyModel::get(int i) const
         Q_FOREACH(int role, roles.keys()) {
             QString roleName = QString::fromUtf8(roles.value(role));
             item.insert(roleName, data(modelIndex, role));
-
         }
     }
     return item;
