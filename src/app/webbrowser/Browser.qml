@@ -316,6 +316,7 @@ BrowserView {
                     onTriggered: {
                         recentView.state = "shown"
                         recentToolbar.state = "shown"
+                        recentView.focus = true
                     }
                 },
                 Action {
@@ -439,6 +440,7 @@ BrowserView {
 
     FocusScope {
         id: recentView
+        objectName: "recentView"
 
         anchors.fill: parent
         visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
@@ -446,6 +448,13 @@ BrowserView {
         states: State {
             name: "shown"
         }
+
+        function closeAndSwitchToTab(index) {
+            recentView.reset()
+            internal.switchToTab(index)
+        }
+
+        Keys.onEscapePressed: closeAndSwitchToTab(0)
 
         TabsList {
             id: tabslist
@@ -466,15 +475,7 @@ BrowserView {
                 }
             }
             chromeOffset: chrome.height - invisibleTabChrome.height
-            onTabSelected: {
-                var tab = tabsModel.get(index)
-                if (tab) {
-                    tab.load()
-                    tab.forceActiveFocus()
-                    tabslist.model.setCurrent(index)
-                }
-                recentView.reset()
-            }
+            onTabSelected: recentView.closeAndSwitchToTab(index)
             onTabClosed: {
                 var tab = tabsModel.remove(index)
                 if (tab) {
@@ -510,10 +511,7 @@ BrowserView {
 
                 text: i18n.tr("Done")
 
-                onClicked: {
-                    recentView.reset()
-                    tabsModel.currentTab.load()
-                }
+                onClicked: recentView.closeAndSwitchToTab(0)
             }
 
             ToolbarAction {
@@ -615,6 +613,7 @@ BrowserView {
 
     FocusScope {
         id: historyViewContainer
+        objectName: "historyView"
 
         visible: children.length > 0
         anchors.fill: parent
@@ -1168,6 +1167,7 @@ BrowserView {
                 // top (i.e. make it current)
                 internal.switchToTab(tabsModel.count - 1)
                 if (chrome.visible) recentView.reset()
+                else if (recentView.visible) recentView.focus = true;
                 event.accepted = true;
                 break;
 
@@ -1192,6 +1192,7 @@ BrowserView {
             case Qt.Key_T:
                 // Ctrl + t: Open a new Tab
                 openUrlInNewTab("", true);
+                if (recentView.visible) recentView.focus = true
                 event.accepted = true;
                 break;
            }
