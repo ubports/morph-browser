@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -47,4 +47,9 @@ void HistoryDomainListChronologicalModel::setSourceModel(HistoryDomainListModel*
         QSortFilterProxyModel::setSourceModel(sourceModel);
         Q_EMIT sourceModelChanged();
     }
+}
+
+QString HistoryDomainListChronologicalModel::get(int index) const
+{
+    return data(this->index(index, 0), HistoryDomainListModel::Domain).toString();
 }

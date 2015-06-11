@@ -30,10 +30,10 @@ ChromeBase {
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
     property bool findInPageMode
-    property bool useDarkTheme: false
+    property alias incognito: addressbar.incognito
 
     onFindInPageModeChanged: if (findInPageMode) addressbar.text = ""
-    backgroundColor: useDarkTheme ? UbuntuColors.darkGrey : Theme.palette.normal.background
+    backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
 
     FocusScope {
         anchors {
@@ -203,7 +203,7 @@ ChromeBase {
     QtObject {
         id: internal
         property var openDrawer: null
-        readonly property color iconColor: chrome.useDarkTheme ? "white" : "grey"
+        readonly property color iconColor: chrome.incognito ? "white" : "grey"
     }
 
     onWebviewChanged: {

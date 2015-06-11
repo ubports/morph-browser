@@ -19,6 +19,8 @@
 #include "favicon-fetcher.h"
 
 // Qt
+#include <QtCore/QBuffer>
+#include <QtCore/QByteArray>
 #include <QtCore/QCryptographicHash>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
@@ -35,6 +37,7 @@
 
 FaviconFetcher::FaviconFetcher(QObject* parent)
     : QObject(parent)
+    , m_shouldCache(true)
     , m_reply(0)
     , m_redirections(0)
 {
@@ -114,6 +117,19 @@ void FaviconFetcher::setLocalUrl(const QUrl& url)
     }
 }
 
+bool FaviconFetcher::shouldCache() const
+{
+    return m_shouldCache;
+}
+
+void FaviconFetcher::setShouldCache(bool shouldCache)
+{
+    if (shouldCache != m_shouldCache) {
+        m_shouldCache = shouldCache;
+        Q_EMIT shouldCacheChanged();
+    }
+}
+
 const QString& FaviconFetcher::cacheLocation() const
 {
     return m_cacheLocation;
@@ -144,8 +160,16 @@ void FaviconFetcher::downloadFinished(QNetworkReply* reply)
     if (url.isEmpty()) {
         if (reply->error() == QNetworkReply::NoError) {
             QByteArray data = reply->readAll();
-            if (QImage::fromData(data).save(m_filepath)) {
+            QImage image = QImage::fromData(data);
+            if (m_shouldCache && image.save(m_filepath)) {
                 setLocalUrl(QUrl::fromLocalFile(m_filepath));
+            } else {
+                QByteArray ba;
+                QBuffer buffer(&ba);
+                buffer.open(QIODevice::WriteOnly);
+                if (image.save(&buffer, "PNG")) {
+                    setLocalUrl(QUrl("data:image/png;base64," + ba.toBase64()));
+                }
             }
         } else {
             qWarning() << "Failed to download" << reply->url()

@@ -25,7 +25,7 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
     def get_url_list_from_top_sites(self):
         self.open_tabs_view()
         new_tab_view = self.open_new_tab()
-        return new_tab_view.get_top_sites()
+        return new_tab_view.get_top_sites_list().get_urls()
 
     def test_going_in_and_out_private_mode(self):
         address_bar = self.main_window.address_bar

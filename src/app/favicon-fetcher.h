@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -35,6 +35,7 @@ class FaviconFetcher : public QObject
 
     Q_PROPERTY(QUrl url READ url WRITE setUrl NOTIFY urlChanged)
     Q_PROPERTY(QUrl localUrl READ localUrl NOTIFY localUrlChanged)
+    Q_PROPERTY(bool shouldCache READ shouldCache WRITE setShouldCache NOTIFY shouldCacheChanged)
 
 public:
     FaviconFetcher(QObject* parent=0);
@@ -45,11 +46,15 @@ public:
 
     const QUrl& localUrl() const;
 
+    bool shouldCache() const;
+    void setShouldCache(bool shouldCache);
+
     const QString& cacheLocation() const;
 
 Q_SIGNALS:
     void urlChanged() const;
     void localUrlChanged() const;
+    void shouldCacheChanged() const;
 
 private Q_SLOTS:
     void download(const QUrl& url);
@@ -58,6 +63,7 @@ private Q_SLOTS:
 private:
     void setLocalUrl(const QUrl& url);
 
+    bool m_shouldCache;
     QString m_cacheLocation;
     QScopedPointer<QNetworkAccessManager> m_manager;
     QNetworkReply* m_reply;
