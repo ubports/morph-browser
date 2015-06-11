@@ -149,6 +149,11 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(self.address_bar.text_field.selectedText,
                         Eventually(Equals(self.address_bar.text_field.text)))
 
+    def test_select_address_bar_f6(self):
+        self.main_window.press_key('F6')
+        self.assertThat(self.address_bar.text_field.selectedText,
+                        Eventually(Equals(self.address_bar.text_field.text)))
+
     def test_escape_from_address_bar(self):
         self.main_window.press_key('Alt+D')
         self.assertThat(self.address_bar.text_field.selectedText,

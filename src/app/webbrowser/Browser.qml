@@ -1294,6 +1294,11 @@ BrowserView {
                     event.accepted = true
                 }
                 break
+            case Qt.Key_F6:
+                // F6: Select the content in the address bar
+                internal.focusAddressBar(true)
+                event.accepted = true
+                break
             }
         }
     }
