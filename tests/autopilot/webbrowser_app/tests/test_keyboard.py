@@ -173,6 +173,15 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
 
         self.assertThat(webview.loading, Eventually(Equals(False)))
 
+        previous = watcher.num_emissions
+
+        self.main_window.press_key('F5')
+        self.assertThat(
+            lambda: watcher.num_emissions,
+            Eventually(GreaterThan(previous)))
+
+        self.assertThat(webview.loading, Eventually(Equals(False)))
+
     def test_bookmark(self):
         chrome = self.main_window.chrome
         self.assertThat(chrome.bookmarked, Equals(False))

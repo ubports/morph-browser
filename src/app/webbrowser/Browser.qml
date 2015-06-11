@@ -1275,12 +1275,23 @@ BrowserView {
                 }
                 break;
             }
-        } else if (event.key === Qt.Key_Backspace) {
-            // Backspace: Goes to the previous page in history
-            if (currentWebview && currentWebview.canGoBack) {
-                internal.resetFocus();
-                currentWebview.goBack();
-                event.accepted = true;
+        } else if (event.modifiers == Qt.NoModifier) {
+            switch (event.key) {
+            case Qt.Key_Backspace:
+                // Backspace: Goes to the previous page in history
+                if (currentWebview && currentWebview.canGoBack) {
+                    internal.resetFocus();
+                    currentWebview.goBack();
+                    event.accepted = true;
+                }
+                break;
+            case Qt.Key_F5:
+                // F5: Reload current Tab
+                if (currentWebview) {
+                    currentWebview.reload();
+                    event.accepted = true;
+                }
+                break;
             }
         }
     }
