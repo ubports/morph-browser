@@ -121,6 +121,20 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+Tab')
         self.check_tab_number(0)
 
+    def test_switch_tabs_from_tabs_view(self):
+        self.open_tabs(1)
+        self.check_tab_number(1)
+        tabs = self.open_tabs_view()
+        self.main_window.press_key('Ctrl+Tab')
+        self.check_tab_number(0)
+        self.main_window.press_key('Ctrl+Tab')
+        self.check_tab_number(1)
+        self.main_window.press_key('Ctrl+Tab')
+        self.check_tab_number(0)
+        self.main_window.press_key('Escape')
+        self.assertThat(tabs.visible, Eventually(Equals(False)))
+        self.check_tab_number(0)
+
     def test_close_tabs_ctrl_f4(self):
         self.open_tabs(1)
         self.check_tab_number(1)
