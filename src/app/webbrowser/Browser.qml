@@ -1158,7 +1158,7 @@ BrowserView {
     }
 
     Keys.onPressed: {
-        if (!chrome.visible && !recentView.visible) return;
+        if (!chrome.visible && !recentView.visible) return
 
         if (event.modifiers & Qt.ControlModifier) {
             switch (event.key) {
@@ -1167,15 +1167,15 @@ BrowserView {
                 // top (i.e. make it current)
                 internal.switchToTab(tabsModel.count - 1)
                 if (chrome.visible) recentView.reset()
-                else if (recentView.visible) recentView.focus = true;
-                event.accepted = true;
-                break;
+                else if (recentView.visible) recentView.focus = true
+                event.accepted = true
+                break
 
             case Qt.Key_W:
             case Qt.Key_F4:
                 // Ctrl + w or Ctrl+F4: Close the current tab
                 if (tabsModel.count >= 0) {
-                   var tab = tabsModel.remove(0);
+                   var tab = tabsModel.remove(0)
                    if (tab) {
                        tab.close()
                    }
@@ -1185,38 +1185,38 @@ BrowserView {
                    } else {
                        internal.switchToTab(0)
                    }
-                   event.accepted = true;
+                   event.accepted = true
                 }
                 break;
 
             case Qt.Key_T:
                 // Ctrl + t: Open a new Tab
-                openUrlInNewTab("", true);
+                openUrlInNewTab("", true)
                 if (recentView.visible) {
                     recentView.reset()
                 }
-                event.accepted = true;
-                break;
+                event.accepted = true
+                break
            }
         }
 
-        if (!chrome.visible) return;
+        if (!chrome.visible) return
 
         if (event.modifiers & Qt.ControlModifier) {
             switch(event.key) {
             case Qt.Key_L:
                 // Ctrl + l: Select the content in the address bar
-                internal.focusAddressBar(true);
-                event.accepted = true;
-                break;
+                internal.focusAddressBar(true)
+                event.accepted = true
+                break
 
             case Qt.Key_R:
                 // Ctrl + R: Reload current Tab
                 if (currentWebview) {
                     currentWebview.reload()
-                    event.accepted = true;
+                    event.accepted = true
                 }
-                break;
+                break
 
             case Qt.Key_D:
                 // Ctrl + D: Toggle bookmarked state on current Tab
@@ -1226,44 +1226,44 @@ BrowserView {
                     } else {
                         bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.title)
                     }
-                    event.accepted = true;
+                    event.accepted = true
                 }
-                break;
+                break
 
             case Qt.Key_H:
                 // Ctrl + H: Show History
                 if (historyViewContainer.children.length === 0) {
-                    historyViewComponent.createObject(historyViewContainer);
-                    historyViewContainer.focus = true;
-                    event.accepted = true;
+                    historyViewComponent.createObject(historyViewContainer)
+                    historyViewContainer.focus = true
+                    event.accepted = true
                 }
-                break;
+                break
             }
         } else if (event.modifiers & Qt.AltModifier) {
             switch(event.key) {
             case Qt.Key_Left:
                 // Alt + Left Arrow: Goes to the previous page in history
                 if (currentWebview && currentWebview.canGoBack) {
-                    internal.resetFocus();
-                    currentWebview.goBack();
-                    event.accepted = true;
+                    internal.resetFocus()
+                    currentWebview.goBack()
+                    event.accepted = true
                 }
-                break;
+                break
 
             case Qt.Key_Right:
                 // Alt + Right Arrow: Goes to the previous page in history
                 if (currentWebview && currentWebview.canGoForward) {
-                    internal.resetFocus();
-                    currentWebview.goForward();
-                    event.accepted = true;
+                    internal.resetFocus()
+                    currentWebview.goForward()
+                    event.accepted = true
                 }
-                break;
+                break
 
             case Qt.Key_D:
                 // Alt + d: Select the content in the address bar
                 internal.focusAddressBar(true);
-                event.accepted = true;
-                break;
+                event.accepted = true
+                break
             }
 
         } else if (event.modifiers & Qt.ShiftModifier) {
@@ -1271,29 +1271,29 @@ BrowserView {
             case Qt.Key_Backspace:
                 // Shift + Backspace: Goes to the next page in history
                 if (currentWebview && currentWebview.canGoForward) {
-                    internal.resetFocus();
-                    currentWebview.goForward();
-                    event.accepted = true;
+                    internal.resetFocus()
+                    currentWebview.goForward()
+                    event.accepted = true
                 }
-                break;
+                break
             }
         } else if (event.modifiers == Qt.NoModifier) {
             switch (event.key) {
             case Qt.Key_Backspace:
                 // Backspace: Goes to the previous page in history
                 if (currentWebview && currentWebview.canGoBack) {
-                    internal.resetFocus();
-                    currentWebview.goBack();
-                    event.accepted = true;
+                    internal.resetFocus()
+                    currentWebview.goBack()
+                    event.accepted = true
                 }
-                break;
+                break
             case Qt.Key_F5:
                 // F5: Reload current Tab
                 if (currentWebview) {
-                    currentWebview.reload();
-                    event.accepted = true;
+                    currentWebview.reload()
+                    event.accepted = true
                 }
-                break;
+                break
             }
         }
     }
