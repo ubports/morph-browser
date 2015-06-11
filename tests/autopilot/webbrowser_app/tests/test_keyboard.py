@@ -156,7 +156,6 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
     def test_close_tabs_tabs_view(self):
         self.open_tabs(1)
         self.check_tab_number(1)
-        tabs = self.open_tabs_view()
         self.main_window.press_key('Ctrl+w')
         self.check_tab_number(0)
         self.main_window.press_key('Ctrl+F4')
