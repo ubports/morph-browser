@@ -33,6 +33,8 @@ ChromeBase {
     property alias incognito: addressbar.incognito
 
     onFindInPageModeChanged: if (findInPageMode) addressbar.text = ""
+    onIncognitoChanged: findInPageMode = false
+
     backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
 
     FocusScope {
