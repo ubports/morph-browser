@@ -1192,7 +1192,9 @@ BrowserView {
             case Qt.Key_T:
                 // Ctrl + t: Open a new Tab
                 openUrlInNewTab("", true);
-                if (recentView.visible) recentView.focus = true
+                if (recentView.visible) {
+                    recentView.reset()
+                }
                 event.accepted = true;
                 break;
            }
