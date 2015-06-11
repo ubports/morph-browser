@@ -354,7 +354,7 @@ BrowserView {
                 }
             ]
 
-            addressBarPreventSimplifyText: activeFocus || suggestionsList.activeFocus
+            addressBarCanSimplifyText: !(activeFocus || suggestionsList.activeFocus)
             Keys.onDownPressed: if (suggestionsList.count) suggestionsList.focus = true
             Keys.onEscapePressed: internal.resetFocus()
         }
