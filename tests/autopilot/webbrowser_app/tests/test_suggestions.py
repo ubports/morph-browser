@@ -20,7 +20,7 @@ import sqlite3
 import time
 import unittest
 
-from testtools.matchers import Contains, Equals, NotEquals
+from testtools.matchers import Contains, Equals, GreaterThan
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
@@ -174,7 +174,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.assert_suggestions_eventually_hidden()
         self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
-        self.assertThat(suggestions.count, Eventually(NotEquals(0)))
+        self.assertThat(suggestions.count, Eventually(GreaterThan(0)))
         self.address_bar.clear()
         self.assert_suggestions_eventually_hidden()
 
@@ -306,7 +306,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(entries[0].subtitle, Equals(''))
 
     @unittest.skipIf(model() != "Desktop", "on desktop only")
-    def test_keyboard_movement(self):
+    def test_keyboard_navigation(self):
         suggestions = self.main_window.get_suggestions()
         address_bar = self.address_bar
         address_bar.write('element')

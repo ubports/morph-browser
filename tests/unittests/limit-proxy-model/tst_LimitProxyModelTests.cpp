@@ -176,7 +176,7 @@ private Q_SLOTS:
     void shouldReturnEmptyItemIfGetOutOfBounds()
     {
         QVariantMap item = model->get(1);
-        QCOMPARE(item.count(), 0);
+        QVERIFY(item.isEmpty());
     }
 
 };

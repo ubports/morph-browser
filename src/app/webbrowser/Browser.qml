@@ -1174,7 +1174,7 @@ BrowserView {
             case Qt.Key_W:
             case Qt.Key_F4:
                 // Ctrl + w or Ctrl+F4: Close the current tab
-                if (tabsModel.count >= 0) {
+                if (tabsModel.count > 0) {
                    var tab = tabsModel.remove(0)
                    if (tab) {
                        tab.close()
