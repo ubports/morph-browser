@@ -139,6 +139,16 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Equals(""))
 
+    def test_close_tabs_tabs_view(self):
+        self.open_tabs(1)
+        self.check_tab_number(1)
+        tabs = self.open_tabs_view()
+        self.main_window.press_key('Ctrl+w')
+        self.check_tab_number(0)
+        self.main_window.press_key('Ctrl+F4')
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.url, Equals(""))
+
     def test_select_address_bar_ctrl_l(self):
         self.main_window.press_key('Ctrl+L')
         self.assertThat(self.address_bar.text_field.selectedText,
