@@ -67,6 +67,7 @@ Popover {
             id: folderOptionSelector
 
             delegate: selectorDelegate
+            containerHeight: itemHeight * 4
         }
 
         Component {
