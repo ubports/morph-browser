@@ -292,18 +292,18 @@ FocusScope {
                 return url
             }
         }
-    }
 
-    function updateUrlFromFocus() {
-        if (activeFocus) {
-            text = actualUrl
-        } else if (!loading && actualUrl.toString()) {
-            text = internal.simplifyUrl(actualUrl)
+        function updateUrlFromFocus() {
+            if (addressbar.activeFocus) {
+                text = actualUrl
+            } else if (!loading && actualUrl.toString()) {
+                text = internal.simplifyUrl(actualUrl)
+            }
         }
     }
 
-    onActiveFocusChanged: if (canSimplifyText) updateUrlFromFocus()
-    onCanSimplifyTextChanged: if (canSimplifyText) updateUrlFromFocus()
+    onActiveFocusChanged: if (canSimplifyText) internal.updateUrlFromFocus()
+    onCanSimplifyTextChanged: if (canSimplifyText) internal.updateUrlFromFocus()
 
     onActualUrlChanged: {
         if (!activeFocus || !actualUrl.toString()) {
