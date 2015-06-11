@@ -732,13 +732,19 @@ BrowserView {
 
                 QtObject {
                     id: webviewInternal
+
                     property url storedUrl: ""
                     property string storedTitle: ""
+                    property url storedIcon: ""
+
+                    readonly property string title: storedTitle ? storedTitle : webviewimpl.title
+                    readonly property url icon: storedIcon.toString() ? storedIcon : webviewimpl.icon
                 }
                 onUrlChanged: {
                     if (url.toString() != webviewInternal.storedUrl.toString()) {
                         webviewInternal.storedUrl = ""
                         webviewInternal.storedTitle = ""
+                        webviewInternal.storedIcon = ""
                     }
                 }
                 onLoadEvent: {
@@ -750,7 +756,7 @@ BrowserView {
                         browser.historyModel &&
                         !webviewInternal.storedUrl.toString()) {
                         webviewInternal.storedUrl = event.url
-                        browser.historyModel.add(event.url, title, icon)
+                        browser.historyModel.add(event.url, webviewInternal.title, webviewInternal.icon)
                     }
                 }
                 onTitleChanged: {
@@ -759,16 +765,25 @@ BrowserView {
                     }
                     if (!webviewInternal.storedTitle) {
                         // Record the title to avoid updating the history database
-                        // every time the page dynamically updates the title.
+                        // every time the page dynamically updates its title.
+                        // We don’t want pages that update their title every second
+                        // to achieve an ugly "scrolling title" effect to flood the
+                        // history database with updates.
                         webviewInternal.storedTitle = title
-                        browser.historyModel.add(webviewInternal.storedUrl, title, icon)
+                        browser.historyModel.add(webviewInternal.storedUrl, title, webviewInternal.icon)
                     }
                 }
                 onIconChanged: {
                     if (!webviewInternal.storedUrl.toString()) {
                         return
                     }
-                    browser.historyModel.add(webviewInternal.storedUrl, webviewInternal.storedTitle, icon)
+                    if (!webviewInternal.storedIcon.toString()) {
+                        // Record the icon to avoid updating the history database
+                        // every time the page dynamically updates its icon
+                        // (see e.g. http://www.p01.org/releases/DEFENDER_of_the_favicon/).
+                        webviewInternal.storedIcon = icon
+                        browser.historyModel.add(webviewInternal.storedUrl, webviewInternal.title, icon)
+                    }
                 }
 
                 onGeolocationPermissionRequested: requestGeolocationPermission(request)
