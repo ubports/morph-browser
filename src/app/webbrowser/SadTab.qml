@@ -30,7 +30,12 @@ Rectangle {
             fill: parent
             margins: units.gu(4)
         }
-        spacing: units.gu(3)
+        spacing: units.gu(4)
+
+        Image {
+            anchors.horizontalCenter: parent.horizontalCenter
+            source: "assets/tab-error.png"
+        }
 
         Label {
             anchors {
@@ -38,66 +43,30 @@ Rectangle {
                 right: parent.right
             }
 
-            fontSize: "large"
             wrapMode: Text.Wrap
-            text: {
-                if (!webview) {
-                    return ""
-                } else if (webview.webProcessStatus == Oxide.WebView.WebProcessCrashed) {
-                    return i18n.tr("The rendering process has closed unexpectedly for this tab")
-                } else if (webview.webProcessStatus == Oxide.WebView.WebProcessKilled) {
-                    return i18n.tr("The rendering process has been closed for this tab")
-                } else {
-                    return ""
-                }
-            }
+            horizontalAlignment: Text.AlignHCenter
+            text: webview ? i18n.tr("The rendering process has been closed for this tab.") : ""
         }
 
-        Column {
+        Label {
             anchors {
                 left: parent.left
                 right: parent.right
             }
-            spacing: units.gu(1)
 
-            Label {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-
-                wrapMode: Text.Wrap
-                text: {
-                    if (!webview) {
-                        return ""
-                    } else if (webview.webProcessStatus == Oxide.WebView.WebProcessCrashed) {
-                        return i18n.tr("Something went wrong while displaying this web page")
-                    } else if (webview.webProcessStatus == Oxide.WebView.WebProcessKilled) {
-                        return i18n.tr("The system is low on memory and can't display this web page.")
-                    } else {
-                        return ""
-                    }
-                }
-            }
-
-            Label {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-
-                wrapMode: Text.Wrap
-                text: {
-                    if (!webview) {
-                        return ""
-                    } else if (webview.webProcessStatus == Oxide.WebView.WebProcessCrashed) {
-                        // TRANSLATORS: %1 is the URL of the page that crashed the renderer process
-                        return i18n.tr("%1").arg(webview.url)
-                    } else if (webview.webProcessStatus == Oxide.WebView.WebProcessKilled) {
-                        return i18n.tr("Try closing unneeded tabs and reloading.")
-                    } else {
-                        return ""
-                    }
+            wrapMode: Text.Wrap
+            horizontalAlignment: Text.AlignHCenter
+            font.weight: Font.Light
+            text: {
+                if (!webview) {
+                    return ""
+                } else if (webview.webProcessStatus == Oxide.WebView.WebProcessCrashed) {
+                    // TRANSLATORS: %1 is the URL of the page that crashed the renderer process
+                    return i18n.tr("Something went wrong while displaying %1.").arg(webview.url)
+                } else if (webview.webProcessStatus == Oxide.WebView.WebProcessKilled) {
+                    return i18n.tr("The system is low on memory and can't display this webpage. Try closing unneeded tabs and reloading.")
+                } else {
+                    return ""
                 }
             }
         }
@@ -115,6 +84,7 @@ Rectangle {
             Button {
                 objectName: "reloadButton"
                 text: i18n.tr("Reload")
+                color: UbuntuColors.green
                 onClicked: webview.reload()
             }
         }
