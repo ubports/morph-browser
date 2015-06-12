@@ -18,7 +18,7 @@ from datetime import datetime
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
-from testtools.matchers import Equals, NotEquals
+from testtools.matchers import Equals, GreaterThan, NotEquals
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
@@ -37,6 +37,44 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         settings = self.open_settings()
         settings.get_header().click_back_button()
         settings.wait_until_destroyed()
+
+    def test_open_close_searchengine_page(self):
+        settings = self.open_settings()
+        searchengine = settings.get_searchengine_entry()
+        old_engine = searchengine.subText
+        self.assertThat(old_engine, NotEquals(""))
+        self.pointing_device.click_object(searchengine)
+        searchengine_page = settings.get_searchengine_page()
+        searchengine_header = searchengine_page.select_single(
+            browser.SettingsPageHeader)
+        searchengine_header.click_back_button()
+        searchengine_page.wait_until_destroyed()
+        self.assertThat(searchengine.subText, Equals(old_engine))
+
+    def test_change_searchengine(self):
+        settings = self.open_settings()
+        searchengine = settings.get_searchengine_entry()
+        old_engine = searchengine.subText
+        self.assertThat(old_engine, NotEquals(""))
+        self.pointing_device.click_object(searchengine)
+        searchengine_page = settings.get_searchengine_page()
+        self.assertThat(lambda: len(searchengine_page.select_many("Standard")),
+                        Eventually(GreaterThan(1)))
+        delegates = searchengine_page.select_many("Standard")
+        delegates.sort(key=lambda delegate: delegate.objectName)
+        new_index = -1
+        for (i, delegate) in enumerate(delegates):
+            checkbox = delegate.select_single(uitk.CheckBox)
+            if (new_index == -1) and not checkbox.checked:
+                new_index = i
+            self.assertThat(checkbox.checked,
+                            Equals(delegate.text == old_engine))
+        new_engine = delegates[new_index].text
+        self.assertThat(new_engine, NotEquals(old_engine))
+        self.pointing_device.click_object(
+            delegates[new_index].select_single(uitk.CheckBox))
+        searchengine_page.wait_until_destroyed()
+        self.assertThat(searchengine.subText, Eventually(Equals(new_engine)))
 
     def test_change_homepage(self):
         settings = self.open_settings()
@@ -63,9 +101,8 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         textField = dialog.select_single(uitk.TextField,
                                          objectName="homepageDialog.text")
         self.assertThat(textField.text, Eventually(Equals(old)))
-        self.pointing_device.click_object(textField)
         textField.activeFocus.wait_for(True)
-        new = "http://example.org/{}".format(int(datetime.now().timestamp()))
+        new = "http://test/{}".format(int(datetime.now().timestamp()))
         textField.write(new, True)
         save_button = dialog.select_single(
             "Button",
@@ -111,6 +148,10 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         settings = self.open_settings()
         reset = settings.get_reset_settings_entry()
         self.pointing_device.click_object(reset)
+
+        searchengine = settings.get_searchengine_entry()
+        self.assertThat(searchengine.subText,
+                        Eventually(Equals("Google")))
 
         homepage = settings.get_homepage_entry()
         self.assertThat(homepage.subText,

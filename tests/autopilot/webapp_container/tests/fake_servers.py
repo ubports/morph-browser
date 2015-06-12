@@ -99,6 +99,24 @@ window.onload = function() {{
 </html>
         """.format("'"+self.headers['user-agent']+"'")
 
+    def saml(self, loopcount):
+        return """
+    <html>
+    <head>
+    <title>open-close</title>
+    <script>
+    </script>
+    </head>
+    <body>
+    <a href="/redirect-to-saml/?loopcount={}&SAMLRequest=1">
+        <div style="height: 100%; width: 100%; background-color: red">
+            target blank link
+        </div>
+    </a>
+    </body>
+    </html>
+        """.format(loopcount)
+
     def open_close_content(self):
         return """
 <html>
@@ -142,6 +160,27 @@ window.onload = function() {{
         elif self.path == '/open-close-content':
             self.send_response(200)
             self.serve_content(self.open_close_content())
+        elif self.path.startswith('/saml/'):
+            args = self.path[len('/saml/'):]
+            loopCount = 0
+            if args.startswith('?loopcount='):
+                loopCount = int(args[len('?loopcount='):].split(';')[0])
+            self.send_response(200)
+            self.serve_content(self.saml(loopCount))
+        elif self.path.startswith('/redirect-to-saml/'):
+            locationTarget = '/'
+            args = self.path[len('/redirect-to-saml/'):]
+            if args.startswith('?loopcount='):
+                header_size = len('?loopcount=')
+                loopCount = int(
+                    args[header_size:args.index('&')].split(';')[0])
+                if loopCount > 0:
+                    loopCount = loopCount - 1
+                    locationTarget += 'redirect-to-saml\
+/?loopcount=' + str(loopCount) + '&SAMLRequest=1'
+            self.send_response(302)
+            self.send_header("Location", locationTarget)
+            self.end_headers()
         else:
             self.send_error(404)
 

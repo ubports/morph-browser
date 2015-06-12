@@ -22,6 +22,7 @@ import Ubuntu.Components 1.1
 AbstractButton {
     property real iconSize: width
     property alias iconName: icon.name
+    property alias iconColor: icon.color
 
     Rectangle {
         anchors.fill: parent

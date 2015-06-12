@@ -29,6 +29,9 @@ ChromeBase {
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
+    property alias incognito: addressbar.incognito
+
+    backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
 
     FocusScope {
         anchors {
@@ -44,6 +47,7 @@ ChromeBase {
 
             iconName: "previous"
             iconSize: 0.4 * height
+            iconColor: internal.iconColor
 
             height: chrome.height
             width: height * 0.8
@@ -63,6 +67,7 @@ ChromeBase {
 
             iconName: "next"
             iconSize: 0.4 * height
+            iconColor: internal.iconColor
 
             height: chrome.height
             visible: enabled
@@ -128,6 +133,7 @@ ChromeBase {
 
             iconName: "contextual-menu"
             iconSize: 0.5 * height
+            iconColor: internal.iconColor
 
             height: chrome.height
             width: height * 0.8
@@ -149,6 +155,7 @@ ChromeBase {
     QtObject {
         id: internal
         property var openDrawer: null
+        readonly property color iconColor: chrome.incognito ? "white" : "grey"
     }
 
     onWebviewChanged: {
@@ -180,7 +187,7 @@ ChromeBase {
                 top: parent.bottom
                 right: parent.right
             }
-            width: units.gu(20)
+            width: units.gu(22)
             height: actionsColumn.height
             clip: actionsColumn.y != 0
 

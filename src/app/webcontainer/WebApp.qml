@@ -17,9 +17,11 @@
  */
 
 import QtQuick 2.0
+import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.1
 import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
+import Qt.labs.settings 1.0
 import "../actions" as Actions
 import ".."
 
@@ -34,7 +36,7 @@ BrowserView {
     property string webappModelSearchPath: ""
 
     property alias webappName: webview.webappName
-    property alias webappUrlPatterns: webview.webappUrlPatterns
+    property var webappUrlPatterns
     property alias popupRedirectionUrlPrefixPattern: webview.popupRedirectionUrlPrefixPattern
     property alias webviewOverrideFile: webview.webviewOverrideFile
     property alias blockOpenExternalUrls: webview.blockOpenExternalUrls
@@ -45,6 +47,11 @@ BrowserView {
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
     readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible
+
+    // Used for testing. There is a bug that currently prevents non visual Qt objects
+    // to be introspectable from AP which makes directly accessing the settings object
+    // not possible https://bugs.launchpad.net/autopilot-qt/+bug/1273956
+    property alias generatedUrlPatterns: urlPatternSettings.generatedUrlPatterns
 
     actions: [
         Actions.Back {
@@ -59,6 +66,50 @@ BrowserView {
             onTriggered: webview.currentWebview.reload()
         }
     ]
+
+    Settings {
+        id: urlPatternSettings
+        property string generatedUrlPatterns
+    }
+
+    function addGeneratedUrlPattern(urlPattern) {
+        var patterns
+        try {
+            patterns = JSON.parse(urlPatternSettings.generatedUrlPatterns)
+        } catch(e) {
+            console.error("Invalid JSON content found in url patterns file")
+        }
+        if (! (patterns instanceof Array)) {
+            console.error("Invalid JSON content type found in url patterns file (not an array)")
+            patterns = []
+        }
+        if (patterns.indexOf(urlPattern) < 0) {
+            patterns.push(urlPattern)
+
+            urlPatternSettings.generatedUrlPatterns = JSON.stringify(patterns)
+        }
+    }
+
+    function mergeUrlPatternSets(p1, p2) {
+        if ( ! (p1 instanceof Array)) {
+            return (p2 instanceof Array) ? p2 : []
+        }
+        if ( ! (p2 instanceof Array)) {
+            return (p1 instanceof Array) ? p1 : []
+        }
+        var p1hash = {}
+        var result = []
+        for (var i1 in p1) {
+            p1hash[p1[i1]] = 1
+            result.push(p1[i1])
+        }
+        for (var i2 in p2) {
+            if (! (p2[i2] in p1hash)) {
+                result.push(p2[i2])
+            }
+        }
+        return result
+    }
 
     Item {
         id: webviewContainer
@@ -75,6 +126,11 @@ BrowserView {
             }
             height: parent.height - osk.height
             developerExtrasEnabled: webapp.developerExtrasEnabled
+            onSamlRequestUrlPatternReceived: {
+                addGeneratedUrlPattern(urlPattern)
+            }
+            webappUrlPatterns: mergeUrlPatternSets(urlPatternSettings.generatedUrlPatterns,
+                                   webapp.webappUrlPatterns)
         }
 
         Loader {

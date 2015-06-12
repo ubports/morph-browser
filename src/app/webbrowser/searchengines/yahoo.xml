@@ -1,0 +1,6 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Yahoo</ShortName>
+  <Description>Yahoo Search</Description>
+  <Url type="text/html" template="https://search.yahoo.com/yhs/search?ei=UTF-8&amp;p={searchTerms}"/>
+  <Url type="application/x-suggestions+json" template="https://search.yahoo.com/sugg/ff?output=fxjson&amp;command={searchTerms}"/>
+</OpenSearchDescription>

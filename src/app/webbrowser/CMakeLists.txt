@@ -50,9 +50,9 @@ install(DIRECTORY assets
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
         FILES_MATCHING PATTERN *.png)
 
-install(DIRECTORY upstreamcomponents
+install(DIRECTORY searchengines
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
-        FILES_MATCHING PATTERN *.qml)
+        FILES_MATCHING PATTERN *.xml)
 
 configure_file(${DESKTOP_FILE}.in.in ${DESKTOP_FILE}.in @ONLY)
 add_custom_target(${DESKTOP_FILE} ALL
