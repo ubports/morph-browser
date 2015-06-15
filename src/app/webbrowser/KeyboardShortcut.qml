@@ -21,5 +21,5 @@ import Ubuntu.Components 1.1
 
 Action {
     property int key
-    property int modifiers
+    property int modifiers: Qt.NoModifier
 }
