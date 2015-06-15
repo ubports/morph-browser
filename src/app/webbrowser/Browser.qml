@@ -1232,7 +1232,7 @@ BrowserView {
             }
         }
 
-        // Ctrl + L or Alt + D: Select the content in the address bar
+        // F6 or Ctrl + L or Alt + D: Select the content in the address bar
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_L
@@ -1243,15 +1243,12 @@ BrowserView {
             modifiers: Qt.AltModifier
             key: Qt.Key_D
             enabled: chrome.visible
-            onTriggered: internal.focusAddressBar(true);
+            onTriggered: internal.focusAddressBar(true)
         }
-
-        // Ctrl + R: Reload current Tab
         KeyboardShortcut {
-            modifiers: Qt.ControlModifier
-            key: Qt.Key_R
+            key: Qt.Key_F6
             enabled: chrome.visible
-            onTriggered: if (currentWebview) currentWebview.reload()
+            onTriggered: internal.focusAddressBar(true)
         }
 
         // Ctrl + D: Toggle bookmarked state on current Tab
@@ -1310,18 +1307,17 @@ BrowserView {
             onTriggered: internal.historyGoForward()
         }
 
-        // F5: Reload current Tab
+        // F5 or Ctrl + R: Reload current Tab
         KeyboardShortcut {
             key: Qt.Key_F5
             enabled: chrome.visible
             onTriggered: if (currentWebview) currentWebview.reload()
         }
-
-        // F6: Select the content in the address bar
         KeyboardShortcut {
-            key: Qt.Key_F6
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_R
             enabled: chrome.visible
-            onTriggered: internal.focusAddressBar(true)
+            onTriggered: if (currentWebview) currentWebview.reload()
         }
     }
 }
