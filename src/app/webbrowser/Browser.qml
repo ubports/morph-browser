@@ -947,6 +947,19 @@ BrowserView {
             }
         }
 
+        function closeCurrentTab() {
+            if (tabsModel.count > 0) {
+                var tab = tabsModel.remove(0)
+                if (tab) tab.close()
+
+                if (tabsModel.count === 0) {
+                    browser.openUrlInNewTab("", true)
+                } else {
+                    internal.switchToTab(0)
+                }
+             }
+        }
+
         function focusAddressBar(selectContent) {
             chrome.forceActiveFocus()
             Qt.inputMethod.show() // work around http://pad.lv/1316057
@@ -986,6 +999,20 @@ BrowserView {
                 }
             }
             return false
+        }
+
+        function historyGoBack() {
+            if (currentWebview && currentWebview.canGoBack) {
+                internal.resetFocus()
+                currentWebview.goBack()
+            }
+        }
+
+        function historyGoForward() {
+            if (currentWebview && currentWebview.canGoForward) {
+                internal.resetFocus()
+                currentWebview.goForward()
+            }
         }
     }
 
@@ -1157,149 +1184,138 @@ BrowserView {
         }
     }
 
-    Keys.onPressed: {
-        if (!chrome.visible && !recentView.visible) return
+    Keys.onPressed: if (shortcuts.processKey(event.key, event.modifiers)) event.accepted = true
+    KeyboardShortcuts {
+        id: shortcuts
 
-        if (event.modifiers & Qt.ControlModifier) {
-            switch (event.key) {
-            case Qt.Key_Tab:
-                // Ctrl + Tab: pull the tab from the bottom of the stack to the
-                // top (i.e. make it current)
+        // Ctrl + Tab: pull the tab from the bottom of the stack to the
+        // top (i.e. make it current)
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_Tab
+            enabled: chrome.visible || recentView.visible
+            onTriggered: {
                 internal.switchToTab(tabsModel.count - 1)
                 if (chrome.visible) recentView.reset()
                 else if (recentView.visible) recentView.focus = true
-                event.accepted = true
-                break
-
-            case Qt.Key_W:
-            case Qt.Key_F4:
-                // Ctrl + w or Ctrl+F4: Close the current tab
-                if (tabsModel.count > 0) {
-                   var tab = tabsModel.remove(0)
-                   if (tab) {
-                       tab.close()
-                   }
-
-                   if (tabsModel.count === 0) {
-                       browser.openUrlInNewTab("", true)
-                   } else {
-                       internal.switchToTab(0)
-                   }
-                   event.accepted = true
-                }
-                break;
-
-            case Qt.Key_T:
-                // Ctrl + t: Open a new Tab
-                openUrlInNewTab("", true)
-                if (recentView.visible) {
-                    recentView.reset()
-                }
-                event.accepted = true
-                break
-           }
+            }
         }
 
-        if (!chrome.visible) return
+        // Ctrl + w or Ctrl+F4: Close the current tab
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_W
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.closeCurrentTab()
+        }
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_F4
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.closeCurrentTab()
+        }
 
-        if (event.modifiers & Qt.ControlModifier) {
-            switch(event.key) {
-            case Qt.Key_L:
-                // Ctrl + l: Select the content in the address bar
-                internal.focusAddressBar(true)
-                event.accepted = true
-                break
+        // Ctrl + t: Open a new Tab
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_T
+            enabled: chrome.visible || recentView.visible
+            onTriggered: {
+                openUrlInNewTab("", true)
+                if (recentView.visible) recentView.reset()
+            }
+        }
 
-            case Qt.Key_R:
-                // Ctrl + R: Reload current Tab
-                if (currentWebview) {
-                    currentWebview.reload()
-                    event.accepted = true
-                }
-                break
+        // Ctrl + L or Alt + D: Select the content in the address bar
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_L
+            enabled: chrome.visible
+            onTriggered: internal.focusAddressBar(true)
+        }
+        KeyboardShortcut {
+            modifiers: Qt.AltModifier
+            key: Qt.Key_D
+            enabled: chrome.visible
+            onTriggered: internal.focusAddressBar(true);
+        }
 
-            case Qt.Key_D:
-                // Ctrl + D: Toggle bookmarked state on current Tab
+        // Ctrl + R: Reload current Tab
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_R
+            enabled: chrome.visible
+            onTriggered: if (currentWebview) currentWebview.reload()
+        }
+
+        // Ctrl + D: Toggle bookmarked state on current Tab
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_D
+            enabled: chrome.visible
+            onTriggered: {
                 if (currentWebview) {
                     if (bookmarksModel.contains(currentWebview.url)) {
                          bookmarksModel.remove(currentWebview.url)
                     } else {
                         bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.title)
                     }
-                    event.accepted = true
                 }
-                break
+            }
+        }
 
-            case Qt.Key_H:
-                // Ctrl + H: Show History
+        // Ctrl + H: Show History
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_H
+            enabled: chrome.visible
+            onTriggered: {
                 if (historyViewContainer.children.length === 0) {
                     historyViewComponent.createObject(historyViewContainer)
                     historyViewContainer.focus = true
-                    event.accepted = true
                 }
-                break
             }
-        } else if (event.modifiers & Qt.AltModifier) {
-            switch(event.key) {
-            case Qt.Key_Left:
-                // Alt + Left Arrow: Goes to the previous page in history
-                if (currentWebview && currentWebview.canGoBack) {
-                    internal.resetFocus()
-                    currentWebview.goBack()
-                    event.accepted = true
-                }
-                break
+        }
 
-            case Qt.Key_Right:
-                // Alt + Right Arrow: Goes to the previous page in history
-                if (currentWebview && currentWebview.canGoForward) {
-                    internal.resetFocus()
-                    currentWebview.goForward()
-                    event.accepted = true
-                }
-                break
+        // Alt + Left Arrow or Backspace: Goes to the previous page in history
+        KeyboardShortcut {
+            modifiers: Qt.AltModifier
+            key: Qt.Key_Left
+            enabled: chrome.visible
+            onTriggered: internal.historyGoBack()
+        }
+        KeyboardShortcut {
+            key: Qt.Key_Backspace
+            enabled: chrome.visible
+            onTriggered: internal.historyGoBack()
+        }
 
-            case Qt.Key_D:
-                // Alt + d: Select the content in the address bar
-                internal.focusAddressBar(true);
-                event.accepted = true
-                break
-            }
+        // Alt + Right Arrow or Shift + Backspace: Goes to the next page in history
+        KeyboardShortcut {
+            modifiers: Qt.AltModifier
+            key: Qt.Key_Right
+            enabled: chrome.visible
+            onTriggered: internal.historyGoForward()
+        }
+        KeyboardShortcut {
+            modifiers: Qt.ShiftModifier
+            key: Qt.Key_Backspace
+            enabled: chrome.visible
+            onTriggered: internal.historyGoForward()
+        }
 
-        } else if (event.modifiers & Qt.ShiftModifier) {
-            switch(event.key) {
-            case Qt.Key_Backspace:
-                // Shift + Backspace: Goes to the next page in history
-                if (currentWebview && currentWebview.canGoForward) {
-                    internal.resetFocus()
-                    currentWebview.goForward()
-                    event.accepted = true
-                }
-                break
-            }
-        } else if (event.modifiers == Qt.NoModifier) {
-            switch (event.key) {
-            case Qt.Key_Backspace:
-                // Backspace: Goes to the previous page in history
-                if (currentWebview && currentWebview.canGoBack) {
-                    internal.resetFocus()
-                    currentWebview.goBack()
-                    event.accepted = true
-                }
-                break
-            case Qt.Key_F5:
-                // F5: Reload current Tab
-                if (currentWebview) {
-                    currentWebview.reload()
-                    event.accepted = true
-                }
-                break
-            case Qt.Key_F6:
-                // F6: Select the content in the address bar
-                internal.focusAddressBar(true)
-                event.accepted = true
-                break
-            }
+        // F5: Reload current Tab
+        KeyboardShortcut {
+            key: Qt.Key_F5
+            enabled: chrome.visible
+            onTriggered: if (currentWebview) currentWebview.reload()
+        }
+
+        // F6: Select the content in the address bar
+        KeyboardShortcut {
+            key: Qt.Key_F6
+            enabled: chrome.visible
+            onTriggered: internal.focusAddressBar(true)
         }
     }
 }
