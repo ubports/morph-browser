@@ -626,7 +626,10 @@ BrowserView {
                 visible: historyViewContainer.children.length == 1
                 focus: true
 
-                Keys.onEscapePressed: destroy()
+                Keys.onEscapePressed: {
+                    destroy()
+                    internal.resetFocus()
+                }
 
                 Timer {
                     // Set the model asynchronously to ensure
@@ -680,7 +683,10 @@ BrowserView {
                 historyModel: browser.historyModel
                 settingsObject: settings
                 onDone: destroy()
-                Keys.onEscapePressed: destroy()
+                Keys.onEscapePressed: {
+                    destroy()
+                    internal.resetFocus()
+                }
             }
         }
     }

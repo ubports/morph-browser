@@ -187,6 +187,8 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
                         Eventually(Equals("")))
         self.assertThat(self.address_bar.activeFocus,
                         Eventually(Equals(False)))
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
 
     def test_reload(self):
         webview = self.main_window.get_current_webview()
@@ -256,6 +258,8 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
 
         self.main_window.press_key('Escape')
         history_view.wait_until_destroyed()
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
 
     def test_toggle_history_from_menu(self):
         self.assertThat(self.main_window.get_history_view(), Equals(None))
@@ -270,3 +274,5 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         settings = self.open_settings()
         self.main_window.press_key('Escape')
         settings.wait_until_destroyed()
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
