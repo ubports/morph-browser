@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-06-02 23:12+0200\n"
-"PO-Revision-Date: 2015-03-15 22:28+0000\n"
-"Last-Translator: Aggelos Arnaoutis <angelosarn@hotmail.com>\n"
+"PO-Revision-Date: 2015-06-10 07:17+0000\n"
+"Last-Translator: Simos Xenitellis <Unknown>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-06-12 05:28+0000\n"
+"X-Generator: Launchpad (build 17557)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -459,11 +459,11 @@ msgstr "Ρυθμίσεις"
 
 #: src/app/webbrowser/Browser.qml:333
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Επιστροφή από Ιδιωτική περιήγηση"
 
 #: src/app/webbrowser/Browser.qml:333
 msgid "Private Mode"
-msgstr ""
+msgstr "Ιδιωτική περιήγηση"
 
 #: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
@@ -473,15 +473,15 @@ msgstr "Ολοκληρώθηκε"
 #: src/app/webbrowser/Browser.qml:599
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:870
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Σύρτε προς τα πάνω για Έξοδο από Πλήρη οθόνη"
 
 #: src/app/webbrowser/Browser.qml:871
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Πατήστε ESC για έξοδο από Πλήρη οθόνη"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
@@ -514,20 +514,24 @@ msgstr "Διαγραφή"
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr ""
+"Η μετάβαση προς δημόσια περιήγηση θα κλείσει όλες τις ιδιωτικές καρτέλες"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "Ok"
-msgstr ""
+msgstr "Εντάξει"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Αυτή είναι μια ιδιωτική καρτέλα"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Οι σελίδες που βλέπετε σε αυτή την καρτέλα δεν εμφανίζονται στο ιστορικό της "
+"πλοήγησής σας.\n"
+"Ωστόσο, οι σελιδοδείκτες που θα δημιουργήσετε, θα διατηρηθούν."
 
 #: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
@@ -535,7 +539,7 @@ msgstr "Σελιδοδείκτες"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
-msgstr ""
+msgstr "Περισσότερα"
 
 #: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
@@ -543,7 +547,7 @@ msgstr "Συχνά επισκεπτόμενες ιστοσελίδες"
 
 #: src/app/webbrowser/NewTabView.qml:239
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Δεν έχετε επισκεφτεί ακόμα κάποιο δικτυακό τόπο"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"

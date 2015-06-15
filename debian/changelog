@@ -1,3 +1,17 @@
+webbrowser-app (0.23+15.10.20150610-0ubuntu1) wily; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Ensure SAML requests are followed even if the app is interrupted and
+    restarted. (LP: #1451432, #1452142)
+  * Handle desktop download by forwarding to the default browser (LP:
+    #1309657)
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+  * Updated bzr ignore rules.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 10 Jun 2015 12:36:43 +0000
+
 webbrowser-app (0.23+15.10.20150602-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

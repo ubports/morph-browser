@@ -60,6 +60,9 @@ WebView {
             }
             headers["User-Agent"] = webview.context.userAgent
             downloadLoader.item.downloadMimeType(request.url, request.mimeType, headers, request.suggestedFilename)
+        } else {
+            // Desktop form factor case
+            Qt.openUrlExternally(request.url)
         }
     }
 
