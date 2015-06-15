@@ -1259,7 +1259,7 @@ BrowserView {
             onTriggered: {
                 if (currentWebview) {
                     if (bookmarksModel.contains(currentWebview.url)) {
-                         bookmarksModel.remove(currentWebview.url)
+                        bookmarksModel.remove(currentWebview.url)
                     } else {
                         bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
                     }
