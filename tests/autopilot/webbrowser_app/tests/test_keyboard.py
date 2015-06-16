@@ -18,7 +18,6 @@ import os
 import sqlite3
 import time
 import testtools
-import unittest
 
 from testtools.matchers import Equals, NotEquals, GreaterThan
 from autopilot.matchers import Eventually
