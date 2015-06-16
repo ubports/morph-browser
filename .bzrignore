@@ -1,10 +1,12 @@
 *.qmlproject.user
+*.cbp
 .excludes
 manifest.json
 webbrowser-app.json
 
 CMakeCache.txt
 CMakeFiles/
+CMakeLists.txt.user
 cmake_install.cmake
 cmake_uninstall.cmake
 Makefile

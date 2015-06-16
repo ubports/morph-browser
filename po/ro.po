@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-24 18:31+0200\n"
+"POT-Creation-Date: 2015-06-02 23:12+0200\n"
 "PO-Revision-Date: 2015-04-18 18:58+0000\n"
 "Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2015-04-25 05:36+0000\n"
-"X-Generator: Launchpad (build 17430)\n"
+"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
+"X-Generator: Launchpad (build 17532)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -47,8 +47,9 @@ msgid "Password"
 msgstr "Parolă"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
-#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Cancel"
 msgstr "Anulează"
 
@@ -392,7 +393,7 @@ msgstr "Mergi la"
 msgid "Address;URL;www"
 msgstr "Adresă;URL:www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:515
 msgid "New Tab"
 msgstr "Filă nouă"
 
@@ -432,50 +433,58 @@ msgstr "Salvează imaginea"
 msgid "Share…"
 msgstr "Partajează..."
 
-#: src/app/webbrowser/AddressBar.qml:196
+#: src/app/webbrowser/AddressBar.qml:198
 msgid "search or enter an address"
 msgstr "căutați sau introduceți o adresă"
 
-#: src/app/webbrowser/Browser.qml:221
+#: src/app/webbrowser/Browser.qml:296
 msgid "Share"
 msgstr "Partajare"
 
-#: src/app/webbrowser/Browser.qml:228
+#: src/app/webbrowser/Browser.qml:303
 msgid "History"
 msgstr "Istoric"
 
-#: src/app/webbrowser/Browser.qml:235
+#: src/app/webbrowser/Browser.qml:310
 msgid "Open tabs"
 msgstr "File deschise"
 
-#: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsList.qml:84
+#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
 msgstr "Filă nouă"
 
-#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
+#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Configurări"
 
-#: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:333
+msgid "Leave Private Mode"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:333
+msgid "Private Mode"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "Finalizat"
 
-#: src/app/webbrowser/Browser.qml:715
+#. TRANSLATORS: %1 refers to the current number of tabs opened
+#: src/app/webbrowser/Browser.qml:599
+#, qt-format
+msgid "(%1)"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:870
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:716
+#: src/app/webbrowser/Browser.qml:871
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
-msgid "Delete"
-msgstr "Ştergeţi"
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:180
+#: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -483,7 +492,8 @@ msgstr[0] "%1 pagină"
 msgstr[1] "%1 pagini"
 msgstr[2] "%1 de pagini"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:194
+#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Less"
 msgstr "Mai puțin"
 
@@ -495,25 +505,47 @@ msgstr "Ultima vizită"
 msgid "Yesterday"
 msgstr "Ieri"
 
-#: src/app/webbrowser/HistoryView.qml:295
+#: src/app/webbrowser/HistoryView.qml:180
 msgid "Select all"
 msgstr "Selectați tot"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/HistoryView.qml:210
+msgid "Delete"
+msgstr "Ştergeţi"
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
+msgid "Going to public mode will close all private tabs"
+msgstr ""
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
+msgid "Ok"
+msgstr ""
+
+#: src/app/webbrowser/NewPrivateTabView.qml:41
+msgid "This is a private tab"
+msgstr ""
+
+#: src/app/webbrowser/NewPrivateTabView.qml:56
+msgid ""
+"Pages that you view in this tab won't appear in your browser history.\n"
+"Bookmarks you create will be preserved, however."
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
 msgstr "Semne de carte"
 
-#: src/app/webbrowser/NewTabView.qml:126
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "More"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
 msgstr "Site-uri de top"
 
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see less"
-msgstr "arată mai puțin"
-
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see more"
-msgstr "arată mai mult"
+#: src/app/webbrowser/NewTabView.qml:239
+msgid "You haven't visited any site yet"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -572,12 +604,12 @@ msgid "Which is run by"
 msgstr "Care este rulat de"
 
 #: src/app/webbrowser/SettingsPage.qml:81
-#: src/app/webbrowser/SettingsPage.qml:175
+#: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
 msgstr "Motor de căutare"
 
 #: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:271
+#: src/app/webbrowser/SettingsPage.qml:275
 msgid "Homepage"
 msgstr "Pagina de start"
 
@@ -585,12 +617,12 @@ msgstr "Pagina de start"
 msgid "Restore previous session at startup"
 msgstr "Restabiliți sesiunea anterioară la pornire"
 
-#: src/app/webbrowser/SettingsPage.qml:118
+#: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
 msgstr "Permiteți deschiderea noilor file în fundal"
 
 #: src/app/webbrowser/SettingsPage.qml:138
-#: src/app/webbrowser/SettingsPage.qml:224
+#: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
 msgstr "Confidențialitate"
 
@@ -598,15 +630,15 @@ msgstr "Confidențialitate"
 msgid "Reset browser settings"
 msgstr "Resetați setările navigatorului"
 
-#: src/app/webbrowser/SettingsPage.qml:245
+#: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
 msgstr "Curățați istoricul de navigare"
 
-#: src/app/webbrowser/SettingsPage.qml:252
+#: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
 msgstr "Curățați cache-ul"
 
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:311
 msgid "Save"
 msgstr "Salvați"
 
@@ -666,6 +698,12 @@ msgstr "Internet;WWW;Browser;Web;Explorer;Navigator"
 
 #~ msgid "Yes"
 #~ msgstr "Da"
+
+#~ msgid "see more"
+#~ msgstr "arată mai mult"
+
+#~ msgid "see less"
+#~ msgstr "arată mai puțin"
 
 #~ msgid "Add"
 #~ msgstr "Adaugă"

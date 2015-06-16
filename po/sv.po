@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-24 18:31+0200\n"
+"POT-Creation-Date: 2015-06-02 23:12+0200\n"
 "PO-Revision-Date: 2015-04-12 10:16+0000\n"
 "Last-Translator: Josef Andersson <Unknown>\n"
 "Language-Team: Swedish\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-04-25 05:36+0000\n"
-"X-Generator: Launchpad (build 17430)\n"
+"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
+"X-Generator: Launchpad (build 17532)\n"
 "Language: sv\n"
 
 #: src/app/AlertDialog.qml:23
@@ -47,8 +47,9 @@ msgid "Password"
 msgstr "Lösenord"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
-#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -387,7 +388,7 @@ msgstr "Gå till"
 msgid "Address;URL;www"
 msgstr "Adress;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:515
 msgid "New Tab"
 msgstr "Ny flik"
 
@@ -427,57 +428,66 @@ msgstr "Spara bild"
 msgid "Share…"
 msgstr "Dela…"
 
-#: src/app/webbrowser/AddressBar.qml:196
+#: src/app/webbrowser/AddressBar.qml:198
 msgid "search or enter an address"
 msgstr "sök eller ange en adress"
 
-#: src/app/webbrowser/Browser.qml:221
+#: src/app/webbrowser/Browser.qml:296
 msgid "Share"
 msgstr "Dela"
 
-#: src/app/webbrowser/Browser.qml:228
+#: src/app/webbrowser/Browser.qml:303
 msgid "History"
 msgstr "Historik"
 
-#: src/app/webbrowser/Browser.qml:235
+#: src/app/webbrowser/Browser.qml:310
 msgid "Open tabs"
 msgstr "Öppna flikar"
 
-#: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsList.qml:84
+#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
 msgstr "Ny flik"
 
-#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
+#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Inställningar"
 
-#: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:333
+msgid "Leave Private Mode"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:333
+msgid "Private Mode"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "Klar"
 
-#: src/app/webbrowser/Browser.qml:715
+#. TRANSLATORS: %1 refers to the current number of tabs opened
+#: src/app/webbrowser/Browser.qml:599
+#, qt-format
+msgid "(%1)"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:870
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:716
+#: src/app/webbrowser/Browser.qml:871
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
-msgid "Delete"
-msgstr "Ta bort"
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:180
+#: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 sida"
 msgstr[1] "%1 sidor"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:194
+#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Less"
 msgstr "Färre"
 
@@ -489,25 +499,47 @@ msgstr "Senast besökt"
 msgid "Yesterday"
 msgstr "Igår"
 
-#: src/app/webbrowser/HistoryView.qml:295
+#: src/app/webbrowser/HistoryView.qml:180
 msgid "Select all"
 msgstr "Markera alla"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/HistoryView.qml:210
+msgid "Delete"
+msgstr "Ta bort"
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
+msgid "Going to public mode will close all private tabs"
+msgstr ""
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
+msgid "Ok"
+msgstr ""
+
+#: src/app/webbrowser/NewPrivateTabView.qml:41
+msgid "This is a private tab"
+msgstr ""
+
+#: src/app/webbrowser/NewPrivateTabView.qml:56
+msgid ""
+"Pages that you view in this tab won't appear in your browser history.\n"
+"Bookmarks you create will be preserved, however."
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
 msgstr "Bokmärken"
 
-#: src/app/webbrowser/NewTabView.qml:126
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "More"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
 msgstr "Favoritsidor"
 
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see less"
-msgstr "se mindre"
-
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see more"
-msgstr "se mer"
+#: src/app/webbrowser/NewTabView.qml:239
+msgid "You haven't visited any site yet"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -565,12 +597,12 @@ msgid "Which is run by"
 msgstr "Som drivs av"
 
 #: src/app/webbrowser/SettingsPage.qml:81
-#: src/app/webbrowser/SettingsPage.qml:175
+#: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
 msgstr "Sökmotor"
 
 #: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:271
+#: src/app/webbrowser/SettingsPage.qml:275
 msgid "Homepage"
 msgstr "Hemsida"
 
@@ -578,12 +610,12 @@ msgstr "Hemsida"
 msgid "Restore previous session at startup"
 msgstr "Återställ tidigare session vid uppstart"
 
-#: src/app/webbrowser/SettingsPage.qml:118
+#: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
 msgstr "Tillåt att öppna nya flikar i bakgrunden"
 
 #: src/app/webbrowser/SettingsPage.qml:138
-#: src/app/webbrowser/SettingsPage.qml:224
+#: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
 msgstr "Sekretess"
 
@@ -591,15 +623,15 @@ msgstr "Sekretess"
 msgid "Reset browser settings"
 msgstr "Återställ webbläsarinställningarna"
 
-#: src/app/webbrowser/SettingsPage.qml:245
+#: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
 msgstr "Rensa webbläsarhistorik"
 
-#: src/app/webbrowser/SettingsPage.qml:252
+#: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
 msgstr "Rensa cache"
 
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:311
 msgid "Save"
 msgstr "Spara"
 
@@ -650,6 +682,12 @@ msgstr "Surfa på nätet"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Webbläsare;Webb;Explorer"
+
+#~ msgid "see more"
+#~ msgstr "se mer"
+
+#~ msgid "see less"
+#~ msgstr "se mindre"
 
 #~ msgid "Clear"
 #~ msgstr "Töm"

@@ -99,6 +99,11 @@ private Q_SLOTS:
         QCOMPARE(args.at(1).toInt(), 0);
         QCOMPARE(args.at(2).toInt(), 0);
     }
+
+    void shouldReturnDomain() {
+        history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
+        QCOMPARE(model->get(0), QString("example.org"));
+    }
 };
 
 QTEST_MAIN(HistoryDomainListChronologicalModelTests)
