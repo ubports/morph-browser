@@ -48,6 +48,8 @@ function fixUrl(address) {
     var url = address
     if (address.toLowerCase() == "about:blank") {
         return address.toLowerCase()
+    } else if (address.match(/^data:/i)) {
+        return "data:" + address.substr(5)
     } else if (address.substr(0, 1) == "/") {
         url = "file://" + address
     } else if (address.indexOf("://") == -1) {
@@ -57,6 +59,9 @@ function fixUrl(address) {
 }
 
 function looksLikeAUrl(address) {
+    if (address.match(/^data:/i)) {
+        return true;
+    }
     var terms = address.split(/\s/)
     if (terms.length > 1) {
         return false
@@ -72,7 +77,7 @@ function looksLikeAUrl(address) {
         address.match(/^[a-z]+:\/\//i)) {
         return true
     }
-    if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,4}$/)) {
+    if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,}$/)) {
         return true
     }
     if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
