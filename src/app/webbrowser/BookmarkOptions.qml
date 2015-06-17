@@ -104,6 +104,7 @@ Popover {
             TextField {
                 id: folderTextField
                 objectName: "newFolderDialog.text"
+                inputMethodHints: Qt.ImhNoPredictiveText
                 placeholderText: i18n.tr("New Folder")
                 onAccepted: createNewFolder(text)
             }
