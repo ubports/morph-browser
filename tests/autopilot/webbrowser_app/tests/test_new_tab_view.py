@@ -217,6 +217,18 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: bookmarks.get_urls()[0],
                         Eventually(NotEquals(url)))
 
+    def _remove_first_bookmark_from_folder(self, folder):
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        delegate = folders.get_folder_url_delegates(folder)[0]
+        url = delegate.url
+        count = len(folders.get_folder_url_delegates(folder))
+        delegate.trigger_leading_action("leadingAction.delete",
+                                        delegate.wait_until_destroyed)
+        if ((count - 1) > 4):
+            self.assertThat(
+                lambda: folders.get_folder_url_delegates(folder)[0],
+                Eventually(NotEquals(url)))
+
     def test_remove_bookmarks_when_collapsed(self):
         self.open_tabs_view()
         new_tab_view = self.open_new_tab()
@@ -233,19 +245,18 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
     def test_remove_bookmarks_when_expanded(self):
         self.open_tabs_view()
         new_tab_view = self.open_new_tab()
-        bookmarks = new_tab_view.get_bookmarks_list()
         more_button = new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        self.assertThat(lambda: len(bookmarks.get_delegates()),
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        self.assertThat(lambda: len(folders.get_folder_url_delegates("")),
                         Eventually(Equals(6)))
         more_button = new_tab_view.get_bookmarks_more_button()
         top_sites = new_tab_view.get_top_sites_list()
-        for i in range(3):
-            self._remove_first_bookmark()
-            self.assertThat(len(bookmarks.get_delegates()), Equals(5 - i))
-            self.assertThat(more_button.visible, Eventually(Equals(i < 1)))
-            self.assertThat(top_sites.visible, Eventually(Equals(i > 0)))
+        for i in range(2):
+            self._remove_first_bookmark_from_folder("")
+        self.assertThat(more_button.visible, Eventually(Equals(False)))
+        self.assertThat(top_sites.visible, Eventually(Equals(True)))
 
     def test_open_top_site(self):
         self.open_tabs_view()
