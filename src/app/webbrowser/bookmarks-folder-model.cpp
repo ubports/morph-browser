@@ -52,6 +52,7 @@ void BookmarksFolderModel::setSourceModel(BookmarksModel* sourceModel)
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);
         Q_EMIT sourceModelChanged();
+        Q_EMIT countChanged();
     }
 }
 
@@ -66,7 +67,13 @@ void BookmarksFolderModel::setFolder(const QString& folder)
         m_folder = folder;
         invalidate();
         Q_EMIT folderChanged();
+        Q_EMIT countChanged();
     }
+}
+
+int BookmarksFolderModel::count() const
+{
+    return rowCount();
 }
 
 bool BookmarksFolderModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const

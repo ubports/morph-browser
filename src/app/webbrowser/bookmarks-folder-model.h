@@ -31,6 +31,7 @@ class BookmarksFolderModel : public QSortFilterProxyModel
 
     Q_PROPERTY(BookmarksModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(QString folder READ folder WRITE setFolder NOTIFY folderChanged)
+    Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
     BookmarksFolderModel(QObject* parent=0);
@@ -41,9 +42,12 @@ public:
     const QString& folder() const;
     void setFolder(const QString& domain);
 
+    int count() const;
+
 Q_SIGNALS:
     void sourceModelChanged() const;
     void folderChanged() const;
+    void countChanged() const;
 
 protected:
     // reimplemented from QSortFilterProxyModel
