@@ -53,6 +53,5 @@ class TestBasicAuthentication(StartOpenRemotePageTestCaseBase):
         password.write("x")
         self.pointing_device.click_object(dialog.get_allow_button())
         dialog.wait_until_destroyed()
-        new_dialog = self.main_window.get_basic_auth_dialog()
-
-
+        # verify that a new dialog has been displayed
+        self.main_window.get_basic_auth_dialog()
