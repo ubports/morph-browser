@@ -28,8 +28,6 @@ Popover {
 
     readonly property string bookmarkFolder: folderModel.get(folderOptionSelector.selectedIndex).folder
 
-    contentHeight: bookmarkOptionsColumn.childrenRect.height + units.gu(6)
-
     Column {
         id: bookmarkOptionsColumn
 
@@ -37,10 +35,19 @@ Popover {
             top: parent.top
             left: parent.left
             right: parent.right
-            margins: units.gu(3)
+            leftMargin: units.gu(3)
+            rightMargin: units.gu(3)
         }
 
         spacing: units.gu(2)
+
+        // Used to add a top margin to the collumn. Changing the contentHeight
+        // of the Popover to take account of topMargin add position issues when
+        // increasing the size of it (i.e. expanding the OptionSelector)
+        Item {
+            width: parent.width
+            height: units.gu(1)
+        }
 
         Label {
             font.bold: true
@@ -95,6 +102,14 @@ Popover {
                 color: "#3fb24f"
                 onClicked: hide()
             }
+        }
+
+        // Used to add a bottom margin to the collumn. Changing the contentHeight
+        // of the Popover to take account of bottomMargin add position issues when
+        // increasing the size of it (i.e. expanding the OptionSelector)
+        Item {
+            width: parent.width
+            height: units.gu(1)
         }
     }
 
