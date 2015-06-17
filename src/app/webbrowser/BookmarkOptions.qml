@@ -75,9 +75,26 @@ Popover {
             OptionSelectorDelegate { text: folder === "" ? i18n.tr("All Bookmarks") : folder }
         }
 
-        Button {
-            text: i18n.tr("New Folder")
-            onClicked: PopupUtils.open(newFolderDialog)
+        Row {
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+
+            spacing: parent.width - newFolderButton.width - okButton.width
+
+            Button {
+                id: newFolderButton
+                text: i18n.tr("New Folder")
+                onClicked: PopupUtils.open(newFolderDialog)
+            }
+
+            Button {
+                id: okButton
+                text: i18n.tr("Ok")
+                color: "#3fb24f"
+                onClicked: hide()
+            }
         }
     }
 
