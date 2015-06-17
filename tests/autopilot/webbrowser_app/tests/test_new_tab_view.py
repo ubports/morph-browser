@@ -197,7 +197,8 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         more_button = new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        self.assertThat(lambda: len(bookmarks.get_delegates()),
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        self.assertThat(lambda: len(folders.get_folder_url_delegates("")),
                         Eventually(Equals(6)))
         self.assertThat(top_sites.visible, Eventually(Equals(False)))
         # Collapse again

@@ -153,6 +153,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_bookmark_options(self):
         return self.select_single(BookmarkOptions)
 
+    def get_bookmarks_folder_list_view(self):
+        return self.select_single(BookmarksFolderListView)
+
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
@@ -400,3 +403,12 @@ class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_dismiss_button(self):
         return self.select_single("Button",
                                   objectName="bookmarkOptions.okButton")
+
+
+class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_folder_url_delegates(self, folder):
+        folder_delegate = self.select_single(
+            "QQuickColumn", objectName="bookmarkFolderDelegate_" + folder)
+        return sorted(folder_delegate.select_many(UrlDelegate),
+                      key=lambda delegate: delegate.globalRect.y)

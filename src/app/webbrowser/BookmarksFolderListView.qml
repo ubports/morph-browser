@@ -55,6 +55,7 @@ Item {
 
                 Column {
                     id: delegateColumn
+                    objectName: "bookmarkFolderDelegate_" + folder
         
                     property bool expanded: true
         
