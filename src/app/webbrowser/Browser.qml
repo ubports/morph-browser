@@ -145,13 +145,6 @@ BrowserView {
                 top: recentView.visible ? invisibleTabChrome.bottom : parent.top
             }
             height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : 0)
-
-            Keys.onEscapePressed: {
-                if (browser.currentWebview && browser.currentWebview.fullscreen) {
-                    event.accepted = true
-                    browser.currentWebview.fullscreen = false
-                }
-            }
         }
 
         Loader {

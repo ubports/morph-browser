@@ -52,10 +52,16 @@ BrowserWindow {
             if ((event.key === Qt.Key_F11) && (event.modifiers === Qt.NoModifier)) {
                 // F11 to toggle application-level fullscreen
                 window.setFullscreen(window.visibility !== Window.FullScreen)
-                if (window.visibility !== Window.FullScreen) {
+                if (currentWebview.fullscreen) {
                     currentWebview.fullscreen = false
                 }
             }
+        }
+        Keys.onEscapePressed: {
+            // ESC to exit fullscreen, regardless of whether it was requested
+            // by the page or toggled on by the user.
+            window.setFullscreen(false)
+            currentWebview.fullscreen = false
         }
     }
 
