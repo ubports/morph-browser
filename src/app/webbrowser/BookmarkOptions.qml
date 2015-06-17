@@ -113,6 +113,7 @@ Popover {
             }
 
             function createNewFolder(folder) {
+                Qt.inputMethod.hide()
                 folderModel.createNewFolder(folder)
                 folderOptionSelector.selectedIndex = folderModel.indexOf(folder) 
                 folderOptionSelector.currentlyExpanded = false
@@ -146,6 +147,11 @@ Popover {
                 text: i18n.tr("Save")
                 enabled: folderTextField.text
                 color: "#3fb24f"
+                // Button took focus on press what makes the keyboard be
+                // dismissed and that could make the Button moves between the
+                // press and the release. Button onClicked is not triggered
+                // if the release event happens outside of the button.
+                activeFocusOnPress: false
                 onClicked: createNewFolder(folderTextField.text)
             }
         }
