@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Window 2.1
 import Ubuntu.Components 1.1
 import ".."
 
@@ -43,7 +44,19 @@ BrowserWindow {
         webbrowserWindow: webbrowserWindowProxy
         developerExtrasEnabled: window.developerExtrasEnabled
 
+        fullscreen: window.visibility === Window.FullScreen
+
         Component.onCompleted: i18n.domain = "webbrowser-app"
+
+        Keys.onPressed: {
+            if ((event.key === Qt.Key_F11) && (event.modifiers === Qt.NoModifier)) {
+                // F11 to toggle application-level fullscreen
+                window.setFullscreen(window.visibility !== Window.FullScreen)
+                if (window.visibility !== Window.FullScreen) {
+                    currentWebview.fullscreen = false
+                }
+            }
+        }
     }
 
     // Handle runtime requests to open urls as defined
