@@ -91,6 +91,7 @@ Popover {
 
             Button {
                 id: okButton
+                objectName: "bookmarkOptions.okButton"
                 text: i18n.tr("Ok")
                 color: "#3fb24f"
                 onClicked: hide()

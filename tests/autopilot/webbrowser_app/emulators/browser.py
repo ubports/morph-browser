@@ -150,6 +150,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
 
+    def get_bookmark_options(self):
+        return self.select_single(BookmarkOptions)
+
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
@@ -390,3 +393,10 @@ class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class UrlDelegate(uitk.UCListItem):
 
     pass
+
+
+class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_dismiss_button(self):
+        return self.select_single("Button",
+                                  objectName="bookmarkOptions.okButton")

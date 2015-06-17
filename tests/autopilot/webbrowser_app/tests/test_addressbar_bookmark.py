@@ -27,6 +27,9 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         address_bar = self.main_window.address_bar
         bookmark_toggle = address_bar.get_bookmark_toggle()
         self.pointing_device.click_object(bookmark_toggle)
+        bookmark_options = self.main_window.get_bookmark_options()
+        dismiss_button = bookmark_options.get_dismiss_button()
+        self.pointing_device.click_object(dismiss_button)
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
         self.open_tabs_view()
