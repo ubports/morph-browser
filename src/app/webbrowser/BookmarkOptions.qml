@@ -40,7 +40,7 @@ Popover {
             margins: units.gu(1)
         }
 
-        spacing: units.gu(1.5)
+        spacing: units.gu(1)
 
         Label {
             font.bold: true
