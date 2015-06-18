@@ -39,6 +39,8 @@ ChromeBase {
     FocusScope {
         anchors.fill: parent
 
+        focus: true
+
         Loader {
             id: tabsBar
 
