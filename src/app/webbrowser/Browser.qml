@@ -768,7 +768,7 @@ BrowserView {
                     }
                     Actions.CopyLink {
                         enabled: contextualData.href.toString()
-                        onTriggered: Clipboard.push([contextualData.href])
+                        onTriggered: Clipboard.push(["text/plain", contextualData.href.toString()])
                     }
                     Actions.ShareLink {
                         enabled: (formFactor == "mobile") && contextualData.href.toString()
@@ -780,7 +780,7 @@ BrowserView {
                     }
                     Actions.CopyImage {
                         enabled: contextualData.img.toString()
-                        onTriggered: Clipboard.push([contextualData.img])
+                        onTriggered: Clipboard.push(["text/plain", contextualData.img.toString()])
                     }
                     Actions.SaveImage {
                         enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
