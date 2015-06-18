@@ -21,19 +21,19 @@
 #include <QtTest/QtTest>
 
 // local
+#include "history-lastvisitdate-model.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
-#include "history-lastvisit-model.h"
 
 
-class HistoryLastVisitModelTests : public QObject
+class HistoryLastVisitDateModelTests : public QObject
 {
     Q_OBJECT
 
 private:
     HistoryModel* history;
     HistoryTimeframeModel* timeframe;
-    HistoryLastVisitModel* model;
+    HistoryLastVisitDateModel* model;
 
 private Q_SLOTS:
     void init()
@@ -42,7 +42,7 @@ private Q_SLOTS:
         history->setDatabasePath(":memory:");
         timeframe = new HistoryTimeframeModel;
         timeframe->setSourceModel(history);
-        model = new HistoryLastVisitModel;
+        model = new HistoryLastVisitDateModel;
         model->setSourceModel(timeframe);
     }
 
@@ -72,39 +72,33 @@ private Q_SLOTS:
         QCOMPARE(model->sourceModel(), (HistoryTimeframeModel*) 0);
     }
 
-    void shouldNotifyWhenChangingLastVisit()
+    void shouldNotifyWhenChangingLastVisitDate()
     {
-        QSignalSpy spy(model, SIGNAL(lastVisitChanged()));
-        model->setLastVisit(QDateTime());
+        QSignalSpy spy(model, SIGNAL(lastVisitDateChanged()));
+        model->setLastVisitDate(QDate());
         QVERIFY(spy.isEmpty());
-        model->setLastVisit(QDateTime::currentDateTime());
+        model->setLastVisitDate(QDate::currentDate());
         QCOMPARE(spy.count(), 1);
     }
 
-    void shouldMatchAllWhenNoLastVisitSet()
+    void shouldMatchAllWhenNoLastVisitDateSet()
     {
         history->add(QUrl("http://example.org"), "Example Domain", QUrl());
         history->add(QUrl("http://example.com"), "Example Domain", QUrl());
         QCOMPARE(model->rowCount(), 2);
     }
 
-    void shouldFilterOutNonMatchingLastVisits()
+    void shouldFilterOutNonMatchingLastVisitDate()
     {
         history->add(QUrl("http://example.org/"), "Example Domain", QUrl());
         QTest::qWait(1001);
         history->add(QUrl("http://example.com/"), "Example Domain", QUrl());
-        model->setLastVisit(history->data(history->index(0, 0), HistoryModel::LastVisit).toDateTime());
-        QCOMPARE(model->rowCount(), 1);
-        QCOMPARE(model->data(model->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.com/"));
-        model->setLastVisit(history->data(history->index(1, 0), HistoryModel::LastVisit).toDateTime());
-        QCOMPARE(model->rowCount(), 1);
-        QCOMPARE(model->data(model->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.org/"));
-        model->setLastVisit(QDateTime::currentDateTime());
-        QCOMPARE(model->rowCount(), 0);
-        model->setLastVisit(QDateTime());
+        model->setLastVisitDate(QDate::currentDate());
         QCOMPARE(model->rowCount(), 2);
+        model->setLastVisitDate(QDate(1970, 1, 1));
+        QCOMPARE(model->rowCount(), 0);
     }
 };
 
-QTEST_MAIN(HistoryLastVisitModelTests)
-#include "tst_HistoryLastVisitModelTests.moc"
+QTEST_MAIN(HistoryLastVisitDateModelTests)
+#include "tst_HistoryLastVisitDateModelTests.moc"

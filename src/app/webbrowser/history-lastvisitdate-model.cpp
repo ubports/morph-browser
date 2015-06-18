@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "history-lastvisit-model.h"
+#include "history-lastvisitdate-model.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
 
@@ -24,29 +24,29 @@
 #include <QtCore/QUrl>
 
 /*!
-    \class HistoryLastVisitModel
+    \class HistoryLastVisitDateModel
     \brief Proxy model that filters the contents of a history model
            based on last visit date
 
-    HistoryLastVisitModel is a proxy model that filters the contents of a
-    history model based on a visit date.
+    HistoryLastVisitDateModel is a proxy model that filters the contents
+    of a history model based on the last visit date.
 
     An entry in the history model matches if the last visit date equals
     the filter visit date.
 
     When no visit date is set, all entries match.
 */
-HistoryLastVisitModel::HistoryLastVisitModel(QObject* parent)
+HistoryLastVisitDateModel::HistoryLastVisitDateModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
 }
 
-HistoryTimeframeModel* HistoryLastVisitModel::sourceModel() const
+HistoryTimeframeModel* HistoryLastVisitDateModel::sourceModel() const
 {
     return qobject_cast<HistoryTimeframeModel*>(QSortFilterProxyModel::sourceModel());
 }
 
-void HistoryLastVisitModel::setSourceModel(HistoryTimeframeModel* sourceModel)
+void HistoryLastVisitDateModel::setSourceModel(HistoryTimeframeModel* sourceModel)
 {
     if (sourceModel != this->sourceModel()) {
         QSortFilterProxyModel::setSourceModel(sourceModel);
@@ -54,25 +54,25 @@ void HistoryLastVisitModel::setSourceModel(HistoryTimeframeModel* sourceModel)
     }
 }
 
-const QDateTime& HistoryLastVisitModel::lastVisit() const
+const QDate& HistoryLastVisitDateModel::lastVisitDate() const
 {
-    return m_lastVisit;
+    return m_lastVisitDate;
 }
 
-void HistoryLastVisitModel::setLastVisit(const QDateTime& lastVisit)
+void HistoryLastVisitDateModel::setLastVisitDate(const QDate& lastVisitDate)
 {
-    if (lastVisit != m_lastVisit) {
-        m_lastVisit = lastVisit;
+    if (lastVisitDate != m_lastVisitDate) {
+        m_lastVisitDate = lastVisitDate;
         invalidate();
-        Q_EMIT lastVisitChanged();
+        Q_EMIT lastVisitDateChanged();
     }
 }
 
-bool HistoryLastVisitModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+bool HistoryLastVisitDateModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
-    if (m_lastVisit.isNull()) {
+    if (m_lastVisitDate.isNull()) {
         return true;
     }
     QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
-    return m_lastVisit == sourceModel()->data(index, HistoryModel::LastVisit).toDateTime();
+    return m_lastVisitDate == sourceModel()->data(index, HistoryModel::LastVisitDate).toDate();
 }

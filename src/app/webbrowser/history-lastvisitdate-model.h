@@ -16,43 +16,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __HISTORY_LASTVISIT_MODEL_H__
-#define __HISTORY_LASTVISIT_MODEL_H__
+#ifndef __HISTORY_LASTVISITDATE_MODEL_H__
+#define __HISTORY_LASTVISITDATE_MODEL_H__
 
 // Qt
-#include <QtCore/QDateTime>
+#include <QtCore/QDate>
 #include <QtCore/QSortFilterProxyModel>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 
 class HistoryTimeframeModel;
 
-class HistoryLastVisitModel : public QSortFilterProxyModel
+class HistoryLastVisitDateModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
     Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
-    Q_PROPERTY(QDateTime lastVisit READ lastVisit WRITE setLastVisit NOTIFY lastVisitChanged)
+    Q_PROPERTY(QDate lastVisitDate READ lastVisitDate WRITE setLastVisitDate NOTIFY lastVisitDateChanged)
 
 public:
-    HistoryLastVisitModel(QObject* parent=0);
+    HistoryLastVisitDateModel(QObject* parent=0);
 
     HistoryTimeframeModel* sourceModel() const;
     void setSourceModel(HistoryTimeframeModel* sourceModel);
 
-    const QDateTime& lastVisit() const;
-    void setLastVisit(const QDateTime& lastVisit);
+    const QDate& lastVisitDate() const;
+    void setLastVisitDate(const QDate& lastVisitDate);
 
 Q_SIGNALS:
     void sourceModelChanged() const;
-    void lastVisitChanged() const;
+    void lastVisitDateChanged() const;
 
 protected:
     // reimplemented from QSortFilterProxyModel
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 
 private:
-    QDateTime m_lastVisit;
+    QDate m_lastVisitDate;
 };
 
-#endif // __HISTORY_LASTVISIT_MODEL_H__
+#endif // __HISTORY_LASTVISITDATE_MODEL_H__

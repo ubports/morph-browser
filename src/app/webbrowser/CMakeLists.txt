@@ -11,7 +11,7 @@ set(WEBBROWSER_APP_MODELS_SRC
     history-domain-model.cpp
     history-domainlist-chronological-model.cpp
     history-domainlist-model.cpp
-    history-lastvisit-model.cpp
+    history-lastvisitdate-model.cpp
     history-model.cpp
     history-timeframe-model.cpp
     limit-proxy-model.cpp
