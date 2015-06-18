@@ -1012,6 +1012,7 @@ BrowserView {
             state.uniqueId = tab.uniqueId
             state.url = tab.url.toString()
             state.title = tab.title
+            state.icon = tab.icon.toString()
             state.preview = tab.preview.toString()
             state.savedState = tab.webview ? tab.webview.currentState : tab.restoreState
             return state
@@ -1021,6 +1022,9 @@ BrowserView {
             var properties = {'initialUrl': state.url, 'initialTitle': state.title}
             if ('uniqueId' in state) {
                 properties["uniqueId"] = state.uniqueId
+            }
+            if ('icon' in state) {
+                properties["initialIcon"] = state.icon
             }
             if ('preview' in state) {
                 properties["preview"] = state.preview
