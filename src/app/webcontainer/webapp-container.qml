@@ -43,6 +43,7 @@ BrowserWindow {
     property string popupRedirectionUrlPrefixPattern: ""
     property url webviewOverrideFile: ""
     property var __webappCookieStore: null
+    property alias webContextSessionCookieMode: webappViewLoader.webContextSessionCookieMode
     property string localUserAgentOverride: ""
     property bool blockOpenExternalUrls: false
 

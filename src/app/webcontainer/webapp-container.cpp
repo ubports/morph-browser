@@ -134,7 +134,7 @@ bool WebappContainer::initialize()
             QString sessionCookieMode = SessionUtils::firstRun(m_webappName) ?
                 QStringLiteral("persistent") : QStringLiteral("restored");
             qDebug() << "Setting session cookie mode to" << sessionCookieMode;
-            context->setContextProperty("webContextSessionCookieMode", sessionCookieMode);
+            m_window->setProperty("webContextSessionCookieMode", sessionCookieMode);
         }
 
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
