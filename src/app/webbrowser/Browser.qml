@@ -256,6 +256,7 @@ BrowserView {
             visible: !recentView.visible
 
             webview: browser.currentWebview
+            tabsModel: browser.tabsModel
             searchUrl: currentSearchEngine.urlTemplate
 
             incognito: browser.incognito
@@ -288,7 +289,6 @@ BrowserView {
                 left: parent.left
                 right: parent.right
             }
-            height: units.gu(6)
 
             drawerActions: [
                 Action {
@@ -454,11 +454,13 @@ BrowserView {
             }
             chromeOffset: chrome.height - invisibleTabChrome.height
             onTabSelected: {
-                var tab = tabsModel.get(index)
+                tabsModel.currentIndex = index
+                if (formFactor == "mobile") {
+                    tabsModel.move(index, 0)
+                }
+                var tab = tabsModel.currentTab
                 if (tab) {
-                    tab.load()
                     tab.forceActiveFocus()
-                    tabslist.model.setCurrent(index)
                 }
                 recentView.reset()
             }
@@ -915,7 +917,10 @@ BrowserView {
         function addTab(tab, setCurrent) {
             var index = tabsModel.add(tab)
             if (setCurrent) {
-                tabsModel.setCurrent(index)
+                tabsModel.currentIndex = index
+                if (formFactor == "mobile") {
+                    tabsModel.move(index, 0)
+                }
                 chrome.requestedUrl = tab.initialUrl
             }
         }
@@ -1092,13 +1097,23 @@ BrowserView {
         }
     }
 
-    // Ensure that at most n webviews are instantiated at all times,
-    // to reduce memory consumption (see http://pad.lv/1376418).
     Connections {
-        target: tabsModel
+        // On mobile, ensure that at most n webviews are instantiated at all
+        // times, to reduce memory consumption (see http://pad.lv/1376418).
+        target: (formFactor == "mobile") ? tabsModel : null
         onCurrentTabChanged: {
             if (tabsModel.count > browser.maxLiveWebviews) {
                 tabsModel.get(browser.maxLiveWebviews).unload()
+            }
+        }
+    }
+
+    Connections {
+        target: tabsModel
+        onCurrentTabChanged: {
+            var tab = tabsModel.currentTab
+            if (tab) {
+                tab.load()
             }
         }
     }
