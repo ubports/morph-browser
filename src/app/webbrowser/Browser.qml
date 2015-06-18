@@ -982,7 +982,7 @@ BrowserView {
                 var tab = publicTabsModel.get(i)
                 tabs.push(serializeTabState(tab))
             }
-            store(JSON.stringify({tabs: tabs}))
+            store(JSON.stringify({tabs: tabs, currentIndex: publicTabsModel.currentIndex}))
         }
 
         function restore() {
@@ -1002,6 +1002,9 @@ BrowserView {
                         var tab = createTabFromState(tabs[i])
                         internal.addTab(tab, i == 0)
                     }
+                }
+                if ('currentIndex' in state) {
+                    publicTabsModel.currentIndex = state.currentIndex
                 }
             }
         }
