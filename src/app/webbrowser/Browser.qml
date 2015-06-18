@@ -306,16 +306,6 @@ BrowserView {
                     onTriggered: historyViewComponent.createObject(historyViewContainer)
                 },
                 Action {
-                    objectName: "tabs"
-                    text: i18n.tr("Open tabs")
-                    iconName: "browser-tabs"
-                    enabled: formFactor != "mobile"
-                    onTriggered: {
-                        recentView.state = "shown"
-                        recentToolbar.state = "shown"
-                    }
-                },
-                Action {
                     objectName: "newtab"
                     text: i18n.tr("New tab")
                     iconName: browser.incognito ? "private-tab-new" : "tab-new"
