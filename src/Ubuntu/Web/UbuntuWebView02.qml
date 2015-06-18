@@ -267,8 +267,6 @@ Oxide.WebView {
         internal.dismissCurrentSelection()
     }
 
-    onFullscreenRequested: _webview.fullscreen = fullscreen
-
     onJavaScriptConsoleMessage: {
         if (_webview.incognito) {
             return
