@@ -1106,6 +1106,15 @@ BrowserView {
                 tab.load()
             }
         }
+        onCountChanged: {
+            if (tabsModel.count == 0) {
+                if (browser.incognito) {
+                    browser.incognito = false
+                } else if (formFactor == "desktop") {
+                    Qt.quit()
+                }
+            }
+        }
     }
 
     Component {

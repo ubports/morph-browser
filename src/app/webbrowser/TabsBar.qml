@@ -159,9 +159,6 @@ Item {
 
         function closeTab(index) {
             root.model.remove(index)
-            if (root.model.count == 0) {
-                Qt.quit()
-            }
         }
     }
 }
