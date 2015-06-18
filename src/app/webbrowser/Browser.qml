@@ -33,6 +33,9 @@ import "urlManagement.js" as UrlManagement
 BrowserView {
     id: browser
 
+    // Should be true when the containing window is fullscreen.
+    property bool fullscreen: false
+
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
@@ -142,13 +145,6 @@ BrowserView {
                 top: recentView.visible ? invisibleTabChrome.bottom : parent.top
             }
             height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : 0)
-
-            Keys.onEscapePressed: {
-                if (browser.currentWebview && browser.currentWebview.fullscreen) {
-                    event.accepted = true
-                    browser.currentWebview.fullscreen = false
-                }
-            }
         }
 
         Loader {
@@ -362,7 +358,7 @@ BrowserView {
         ChromeController {
             id: chromeController
             webview: browser.currentWebview
-            forceHide: recentView.visible
+            forceHide: recentView.visible || browser.fullscreen
             defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
                                                    : Oxide.LocationBarController.ModeAuto
         }
