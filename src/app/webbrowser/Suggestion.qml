@@ -28,7 +28,7 @@ ListItem.Base {
     property alias icon: icon.name
     property url url
 
-    signal selected(url url)
+    signal activated(url url)
 
     __height: Math.max(middleVisuals.height, units.gu(6))
     // disable focus handling
@@ -77,8 +77,9 @@ ListItem.Base {
             fontSize: "small"
             elide: Text.ElideRight
             visible: text !== ""
+            color: selected ? "#DB4923" : "black"
         }
     }
 
-    onClicked: selected(url)
+    onClicked: activated(url)
 }

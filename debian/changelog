@@ -1,3 +1,29 @@
+webbrowser-app (0.23+15.10.20150618-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Michael Terry ]
+  * Fix spelling of OK in private browsing dialog.
+
+  [ Olivier Tilloy ]
+  * Actually push URLs to the clipboard. For some reason setting the
+    "text/url-list" mime type doesn’t seem to work (or other
+    applications do not implement pasting this kind of data), but
+    "text/plain" works well enough for this purpose. (LP: #1463435)
+  * Do not honour fullscreen requests silently at the Ubuntu WebView
+    level. Instead delegate that behaviour to the webview implementation
+    used by the browser and the webapp container. (LP: #1464249)
+  * Toggle application-level fullscreen when pressing F11. (LP:
+    #1464333)
+
+  [ Ugo Riboni ]
+  * Make the browser chrome usable on desktop by implementing common
+    keyboard shortcuts and behaviors that users normally expect in such
+    an app (LP: #1287361)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 18 Jun 2015 08:12:37 +0000
+
 webbrowser-app (0.23+15.10.20150610-0ubuntu2) wily; urgency=medium
 
   * No-change rebuild against Qt 5.4.2.

@@ -29,11 +29,14 @@ ChromeBase {
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
+    property alias addressBarCanSimplifyText: addressbar.canSimplifyText
     property alias incognito: addressbar.incognito
 
     readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
 
     backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
+
+    function addressBarSelectAll() { addressbar.selectAll() }
 
     FocusScope {
         anchors {
