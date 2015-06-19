@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-06-02 23:12+0200\n"
-"PO-Revision-Date: 2015-05-30 22:23+0000\n"
+"PO-Revision-Date: 2015-06-18 23:10+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-06-19 04:58+0000\n"
+"X-Generator: Launchpad (build 17570)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -535,7 +535,7 @@ msgstr "نشانک‌ها"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
-msgstr ""
+msgstr "بیش‌تر"
 
 #: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
@@ -543,7 +543,7 @@ msgstr "پایگاه‌های برتر"
 
 #: src/app/webbrowser/NewTabView.qml:239
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "هنوز از هیچ پایگاهی دیدن نکرده‌اید"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"

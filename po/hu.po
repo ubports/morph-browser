@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-06-02 23:12+0200\n"
-"PO-Revision-Date: 2015-06-06 09:31+0000\n"
+"PO-Revision-Date: 2015-06-18 19:14+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-06-07 05:27+0000\n"
-"X-Generator: Launchpad (build 17540)\n"
+"X-Launchpad-Export-Date: 2015-06-19 04:58+0000\n"
+"X-Generator: Launchpad (build 17570)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -609,11 +609,11 @@ msgstr "Kezdőlap"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr "Előző munkamenet visszaállítása induláskor"
+msgstr "Előző munkamenet betöltése induláskor"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr "Új lap háttérben megnyitásának engedélyezése"
+msgstr "Új lap háttérben megnyitása"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
