@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import Qt.labs.settings 1.0
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 import webbrowserapp.private 0.1
 import ".."
 
@@ -28,7 +28,7 @@ Item {
     property QtObject bookmarksModel
     property alias historyModel: historyTimeframeModel.sourceModel
     property Settings settingsObject
-    property int selectedIndex: 0
+    property int selectedIndex: sectionsRectangle.selectedIndex
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
@@ -46,68 +46,18 @@ Item {
         color: "#f6f6f6"
     }
 
-    Rectangle {
+    Sections {
         id: sectionsRectangle
-        height: units.gu(3)
-        color: "#E8E8E8"
-
-        clip: true
 
         anchors {
-          left: parent.left
-          right: parent.right
+            horizontalCenter: parent.horizontalCenter
+            top: parent.top
         }
 
-        Row {
-            id: sectionsRow
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: childrenRect.width
-
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-            }
-
-            Repeater {
-                id: sectionsRepeater
-                model: [i18n.tr("Top sites"), i18n.tr("Bookmarks")]
-
-                AbstractButton {
-                    id: sectionButton
-                    anchors {
-                        top: parent ? parent.top : undefined
-                        bottom: parent ? parent.bottom : undefined
-                    }
-                    width: label.width + units.gu(4)
-                    height: sectionsRow.height + units.gu(2)
-                    property bool selected: index === newTabViewLandscape.selectedIndex
-                    onClicked: newTabViewLandscape.selectedIndex = index;
-
-                    Label {
-                        id: label
-                        text: modelData
-                        fontSize: "small"
-                        anchors.centerIn: sectionButton
-                        horizontalAlignment: Text.AlignHCenter
-                        color: sectionButton.selected ? "#dd4814" : "#5d5d5d"
-                    }
-
-                    // vertical divider line
-                    Rectangle {
-                        id: verticalDividerLine
-                        anchors {
-                            verticalCenter: parent.verticalCenter
-                            right: parent.right
-                        }
-                        height: units.dp(10)
-                        width: units.dp(1)
-                        visible: index === 0
-                        color: "#5d5d5d"
-                        opacity: 0.2
-                    }
-                }
-            }
-        }
+        actions: [
+            Action { text: i18n.tr("Top Sites") },
+            Action { text: i18n.tr("Bookmarks") }
+        ]
     }
 
     Flickable {
