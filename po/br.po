@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-06-02 23:12+0200\n"
-"PO-Revision-Date: 2015-05-19 07:07+0000\n"
+"PO-Revision-Date: 2015-06-05 06:13+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-06-06 05:28+0000\n"
+"X-Generator: Launchpad (build 17540)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -459,11 +459,11 @@ msgstr "Arventennoù"
 
 #: src/app/webbrowser/Browser.qml:333
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Kuitaat ar mod prevez"
 
 #: src/app/webbrowser/Browser.qml:333
 msgid "Private Mode"
-msgstr ""
+msgstr "Mod prevez"
 
 #: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
@@ -513,21 +513,24 @@ msgstr "Diverkañ"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Ma'z it d'ar mod e vo serret an holl ivinelloù prevez"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "Ok"
-msgstr ""
+msgstr "Mat eo"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Un ivinell brevez eo homañ"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Ar pajennoù a welit en ivinell-mañ ne zeuont ket war-wel en istor ho "
+"merdeer.\n"
+"Koulskoude e vo miret ar sinedoù ho po krouet."
 
 #: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
@@ -535,7 +538,7 @@ msgstr "Sinedoù"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
-msgstr ""
+msgstr "Muioc'h"
 
 #: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
@@ -543,7 +546,7 @@ msgstr "Lec'hiennoù gwellañ"
 
 #: src/app/webbrowser/NewTabView.qml:239
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "N'oc'h bet e lec'hienn ebet c'hoazh"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-06-02 23:12+0200\n"
-"PO-Revision-Date: 2015-05-16 22:10+0000\n"
-"Last-Translator: António Miranda <Unknown>\n"
+"PO-Revision-Date: 2015-06-15 09:24+0000\n"
+"Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-06-16 11:17+0000\n"
+"X-Generator: Launchpad (build 17557)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -226,8 +226,8 @@ msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
-"Não deve continuar , especialmente se você nunca tiver visto esse aviso "
-"antes neste site ."
+"Não deve continuar, especialmente se você nunca tiver visto esse aviso antes "
+"neste site ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:187
@@ -458,11 +458,11 @@ msgstr "Definições"
 
 #: src/app/webbrowser/Browser.qml:333
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Sair de modo privado"
 
 #: src/app/webbrowser/Browser.qml:333
 msgid "Private Mode"
-msgstr ""
+msgstr "Modo privado"
 
 #: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
@@ -512,21 +512,23 @@ msgstr "Eliminar"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Ir para o modo público vai fechar todos os separadores privados"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Este é um separador privado"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"As páginas que visualizar neste separador não aparecem no histórico\n"
+"No entanto, os marcadores criados serão mantidos."
 
 #: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
@@ -534,7 +536,7 @@ msgstr "Marcadores"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
-msgstr ""
+msgstr "Mais"
 
 #: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
@@ -542,7 +544,7 @@ msgstr "Top sites"
 
 #: src/app/webbrowser/NewTabView.qml:239
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Ainda não visitou nenhuma página"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"

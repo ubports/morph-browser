@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-06-02 23:12+0200\n"
-"PO-Revision-Date: 2015-05-23 11:10+0000\n"
+"PO-Revision-Date: 2015-06-18 19:14+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-06-20 05:31+0000\n"
+"X-Generator: Launchpad (build 17572)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -533,7 +533,7 @@ msgstr "Könyvjelzők"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
-msgstr ""
+msgstr "Több"
 
 #: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
@@ -541,7 +541,7 @@ msgstr "Leglátogatottabb oldalak"
 
 #: src/app/webbrowser/NewTabView.qml:239
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Még nem látogatott meg egyetlen oldalt sem"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -609,11 +609,11 @@ msgstr "Kezdőlap"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr "Előző munkamenet visszaállítása induláskor"
+msgstr "Előző munkamenet betöltése induláskor"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr "Új lap háttérben megnyitásának engedélyezése"
+msgstr "Új lap háttérben megnyitása"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
