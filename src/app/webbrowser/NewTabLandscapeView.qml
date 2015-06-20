@@ -165,6 +165,7 @@ Item {
                     }
 
                     spacing: 0
+                    limit: 10
 
                     model: newTabViewLandscape.bookmarksModel
 
