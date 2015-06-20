@@ -20,6 +20,7 @@ import QtQuick 2.0
 import QtQuick.Window 2.0
 import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.5 as Oxide
+import Ubuntu.Layouts 1.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import webbrowserapp.private 0.1
@@ -209,60 +210,70 @@ BrowserView {
                 }
             }
 
-            sourceComponent: browser.incognito ?
-                                newPrivateTabViewComponent :
-                                Screen.orientation == Screen.primaryOrientation ?
-                                    newTabViewComponent :
-                                    newTabLandscapeViewComponent
+            sourceComponent: newTabViewComponent
 
             Component {
                 id: newTabViewComponent
 
-                NewTabView {
-                    historyModel: browser.historyModel
-                    bookmarksModel: browser.bookmarksModel
-                    settingsObject: settings
-                    onBookmarkClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        currentWebview.forceActiveFocus()
-                    }
-                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
-                    onHistoryEntryClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        currentWebview.forceActiveFocus()
-                    }
+                Layouts {
+                    id: newTabViewLayouts
+
+                    anchors.fill: parent
+
+                    layouts: [
+                        ConditionalLayout {
+                            name: "newTabView"
+                            when: !browser.incognito && Screen.orientation == Screen.primaryOrientation
+
+                            NewTabView {
+                                anchors.fill: parent
+                                historyModel: browser.historyModel
+                                bookmarksModel: browser.bookmarksModel
+                                settingsObject: settings
+                                onBookmarkClicked: {
+                                    chrome.requestedUrl = url
+                                    currentWebview.url = url
+                                    currentWebview.forceActiveFocus()
+                                }
+                                onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                                onHistoryEntryClicked: {
+                                    chrome.requestedUrl = url
+                                    currentWebview.url = url
+                                    currentWebview.forceActiveFocus()
+                                }
+                            }
+                        },
+                        ConditionalLayout {
+                            name: "newTabLandscapeView"
+                            when: !browser.incognito && Screen.orientation != Screen.primaryOrientation
+
+                            NewTabLandscapeView {
+                                anchors.fill: parent
+                                historyModel: browser.historyModel
+                                bookmarksModel: browser.bookmarksModel
+                                settingsObject: settings
+                                onBookmarkClicked: {
+                                    chrome.requestedUrl = url
+                                    currentWebview.url = url
+                                    currentWebview.forceActiveFocus()
+                                }
+                                onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                                onHistoryEntryClicked: {
+                                    chrome.requestedUrl = url
+                                    currentWebview.url = url
+                                    currentWebview.forceActiveFocus()
+                                }
+                            }
+                        },
+                        ConditionalLayout {
+                            name: "newPrivateTabView"
+                            when: browser.incognito
+
+                            NewPrivateTabView { anchors.fill: parent }
+                        }
+                    ]
                 }
             }
-
-            Component {
-                id: newTabLandscapeViewComponent
-
-                NewTabLandscapeView {
-                    historyModel: browser.historyModel
-                    bookmarksModel: browser.bookmarksModel
-                    settingsObject: settings
-                    onBookmarkClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        currentWebview.forceActiveFocus()
-                    }
-                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
-                    onHistoryEntryClicked: {
-                        chrome.requestedUrl = url
-                        currentWebview.url = url
-                        currentWebview.forceActiveFocus()
-                    }
-                }
-            }
-
-            Component {
-                id: newPrivateTabViewComponent
-
-                NewPrivateTabView { }
-            }
-            asynchronous: true
         }
 
         SearchEngine {
