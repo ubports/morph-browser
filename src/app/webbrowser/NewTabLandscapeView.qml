@@ -28,7 +28,7 @@ Item {
     property QtObject bookmarksModel
     property alias historyModel: historyTimeframeModel.sourceModel
     property Settings settingsObject
-    property int selectedIndex: sectionsRectangle.selectedIndex
+    property alias selectedIndex: sections.selectedIndex
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
@@ -47,7 +47,7 @@ Item {
     }
 
     Sections {
-        id: sectionsRectangle
+        id: sections
 
         anchors {
             horizontalCenter: parent.horizontalCenter
@@ -60,9 +60,15 @@ Item {
         ]
     }
 
+    Binding {
+        target: sections
+        property: "selectedIndex"
+        value: settingsObject.selectedIndexNewTabViewLandscape
+    }
+
     Flickable {
         anchors {
-            top: sectionsRectangle.bottom
+            top: sections.bottom
             bottom: parent.bottom
             left: parent.left
             right: parent.right
