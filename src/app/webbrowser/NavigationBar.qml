@@ -30,7 +30,12 @@ FocusScope {
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
+    property alias canSimplifyText: addressbar.canSimplifyText
     property alias incognito: addressbar.incognito
+
+    function selectAll() {
+        addressbar.selectAll()
+    }
 
     FocusScope {
         anchors {

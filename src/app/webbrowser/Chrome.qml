@@ -30,11 +30,16 @@ ChromeBase {
     property alias drawerActions: navigationBar.drawerActions
     property alias drawerOpen: navigationBar.drawerOpen
     property alias requestedUrl: navigationBar.requestedUrl
+    property alias canSimplifyText: navigationBar.canSimplifyText
     property alias incognito: navigationBar.incognito
 
     backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
 
     implicitHeight: tabsBar.height + navigationBar.height
+
+    function selectAll() {
+        navigationBar.selectAll()
+    }
 
     FocusScope {
         anchors.fill: parent

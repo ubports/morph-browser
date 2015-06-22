@@ -39,14 +39,16 @@ Window {
 
     Connections {
         target: window.currentWebview
-        onFullscreenChanged: {
-            if (!window.forceFullscreen) {
-                if (window.currentWebview.fullscreen) {
-                    internal.currentWindowState = window.visibility
-                    window.visibility = Window.FullScreen
-                } else {
-                    window.visibility = internal.currentWindowState
-                }
+        onFullscreenChanged: window.setFullscreen(window.currentWebview.fullscreen)
+    }
+
+    function setFullscreen(fullscreen) {
+        if (!window.forceFullscreen) {
+            if (fullscreen) {
+                internal.currentWindowState = window.visibility
+                window.visibility = Window.FullScreen
+            } else {
+                window.visibility = internal.currentWindowState
             }
         }
     }

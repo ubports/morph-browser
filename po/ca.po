@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-06-02 23:12+0200\n"
-"PO-Revision-Date: 2015-03-03 11:00+0000\n"
+"PO-Revision-Date: 2015-06-18 08:57+0000\n"
 "Last-Translator: David Planella <david.planella@ubuntu.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-06-20 05:31+0000\n"
+"X-Generator: Launchpad (build 17572)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -453,15 +453,15 @@ msgstr "Pestanya nova"
 
 #: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
-msgstr ""
+msgstr "Paràmetres"
 
 #: src/app/webbrowser/Browser.qml:333
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Surt del mode privat"
 
 #: src/app/webbrowser/Browser.qml:333
 msgid "Private Mode"
-msgstr ""
+msgstr "Mode privat"
 
 #: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
@@ -471,15 +471,15 @@ msgstr "Fet"
 #: src/app/webbrowser/Browser.qml:599
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:870
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Llisqueu el dit per sortir de la pantalla completa"
 
 #: src/app/webbrowser/Browser.qml:871
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Premeu la tecla Esc per sortir de la pantalla completa"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
@@ -511,21 +511,24 @@ msgstr "Suprimeix"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Si inicieu el mode públic es tancaran totes les pestanyes privades"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "Ok"
-msgstr ""
+msgstr "D'acord"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Esteu en una pestanya privada"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Les pàgines que visiteu en aquesta pestanya no apareixeran a l'historial de "
+"navegació.\n"
+"Les adreces d'interès que creeu es mantindran."
 
 #: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
@@ -533,7 +536,7 @@ msgstr "Adreces d'interès"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
-msgstr ""
+msgstr "Més"
 
 #: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
@@ -541,7 +544,7 @@ msgstr "Llocs destacats"
 
 #: src/app/webbrowser/NewTabView.qml:239
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Encara no heu visitat cap pàgina web"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -602,41 +605,41 @@ msgstr "Que s'execute per"
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr ""
+msgstr "Motor de cerca"
 
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:275
 msgid "Homepage"
-msgstr ""
+msgstr "Pàgina d'inici"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "Recupera la sessió anterior a l'inici"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "Permet l'obertura de pestanyes noves en segon pla"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
-msgstr ""
+msgstr "Privadesa"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr ""
+msgstr "Restableix la configuració del navegador"
 
 #: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "Neteja l'historial de navegació"
 
 #: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
-msgstr ""
+msgstr "Neteja la memòria cau"
 
 #: src/app/webbrowser/SettingsPage.qml:311
 msgid "Save"
-msgstr ""
+msgstr "Desa"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
