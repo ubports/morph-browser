@@ -1,5 +1,8 @@
 project(webapp-container)
 
+find_package(Qt5DBus REQUIRED)
+find_package(Qt5Sql REQUIRED)
+
 include_directories(
     ${CMAKE_BINARY_DIR}
     ${webbrowser-common_SOURCE_DIR}
@@ -23,9 +26,15 @@ set(WEBAPP_CONTAINER_SRC
 
 add_executable(${WEBAPP_CONTAINER} ${WEBAPP_CONTAINER_SRC})
 
-target_link_libraries(${WEBAPP_CONTAINER} ${COMMONLIB})
-
-qt5_use_modules(${WEBAPP_CONTAINER} Core Widgets Quick Qml Sql DBus)
+target_link_libraries(${WEBAPP_CONTAINER}
+    Qt5::Core
+    Qt5::DBus
+    Qt5::Qml
+    Qt5::Quick
+    Qt5::Sql
+    Qt5::Widgets
+    ${COMMONLIB}
+)
 
 install(TARGETS ${WEBAPP_CONTAINER}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
