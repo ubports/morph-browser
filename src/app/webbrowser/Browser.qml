@@ -519,9 +519,9 @@ BrowserView {
                 }
                 height: parent.height - units.gu(2)
 
-                text: i18n.tr("New Tab")
+                text: browser.incognito ? i18n.tr("New private tab") : i18n.tr("New Tab")
 
-                iconName: "add"
+                iconName: browser.incognito ? "private-tab-new" : "add"
 
                 onClicked: {
                     recentView.reset()
