@@ -40,7 +40,7 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
         connection = sqlite3.connect(db_path)
         connection.execute("""CREATE TABLE IF NOT EXISTS bookmarks
                               (url VARCHAR, title VARCHAR, icon VARCHAR,
-                              created INTEGER);""")
+                              created INTEGER, folderId INTEGER);""")
         rows = [
             ("http://www.rsc.org/periodic-table/element/77/iridium",
              "Iridium - Element Information")
@@ -49,7 +49,7 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
         for i, row in enumerate(rows):
             timestamp = int(time.time()) - i * 10
             query = "INSERT INTO bookmarks \
-                     VALUES ('{}', '{}', '', {});"
+                     VALUES ('{}', '{}', '', {}, '');"
             query = query.format(row[0], row[1], timestamp)
             connection.execute(query)
 
