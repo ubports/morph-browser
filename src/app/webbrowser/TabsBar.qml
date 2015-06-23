@@ -27,7 +27,7 @@ Item {
 
     property real minTabWidth: 0 //units.gu(6)
     property real maxTabWidth: units.gu(20)
-    property real tabWidth: model ? Math.max(Math.min(width / model.count, maxTabWidth), minTabWidth) : 0
+    property real tabWidth: model ? Math.max(Math.min(tabsContainer.maxWidth / model.count, maxTabWidth), minTabWidth) : 0
 
     property bool incognito: false
 
@@ -42,6 +42,7 @@ Item {
             left: parent.left
         }
         width: childrenRect.width
+        readonly property real maxWidth: root.width - newTabButton.width - units.gu(2)
 
         Repeater {
             id: repeater
@@ -176,6 +177,8 @@ Item {
     }
 
     MouseArea {
+        id: newTabButton
+
         anchors {
             left: tabsContainer.right
             leftMargin: units.gu(1)
