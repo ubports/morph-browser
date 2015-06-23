@@ -160,7 +160,7 @@ BrowserWindow {
         id: webappViewLoader
         anchors.fill: parent
 
-        property var webContextSessionCookieMode: null
+        property var webContextSessionCookieMode: ""
         property var webappDataLocation
 
         onLoaded: {
