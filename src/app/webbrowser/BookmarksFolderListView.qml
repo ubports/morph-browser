@@ -18,7 +18,6 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
 import webbrowserapp.private 0.1
 
 Item {
@@ -53,92 +52,14 @@ Item {
             sourceComponent: Component {
                 id: delegate
 
-                Column {
-                    id: delegateColumn
-                    objectName: "bookmarkFolderDelegate_" + folder
-        
-                    property bool expanded: true
-        
+                BookmarksFolderDelegate {
                     anchors {
                         left: parent ? parent.left : undefined 
                         right: parent ? parent.right : undefined
                     }
-         
-                    Item {
-                        anchors {
-                            left: parent.left
-                            leftMargin: units.gu(2)
-                        }
-         
-                        width: parent.width - units.gu(2)
-                        height: units.gu(6.5)
 
-                        Row {
-                            anchors {
-                                left: parent.left
-                                leftMargin: units.gu(1.5)
-                                right: parent.right
-                            }
-
-                            height: units.gu(6)
-                            spacing: units.gu(1.5)
-
-                            Icon {
-                                id: expandedIcon
-                                name: delegateColumn.expanded ? "go-down" : "go-next"
-
-                                height: units.gu(2)
-                                width: height
-
-                                anchors {
-                                    leftMargin: units.gu(1)
-                                    topMargin: units.gu(2)
-                                    top: parent.top
-                                }
-                            }
-
-                            Label {
-                                width: parent.width - expandedIcon.width - units.gu(3)
-                                anchors.verticalCenter: expandedIcon.verticalCenter
-
-                                text: folder ? folder : i18n.tr("All Bookmarks")
-                                fontSize: "small"
-                            }
-                        }
-        
-                        ListItem.ThinDivider {
-                            anchors {
-                                left: parent.left
-                                right: parent.right
-                                bottom: parent.bottom
-                                bottomMargin: units.gu(1)
-                            }
-                        }
-        
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: delegateColumn.expanded = !delegateColumn.expanded
-                        }
-                    }
-        
-                    Loader {
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                        }
-        
-                        visible: status == Loader.Ready
-        
-                        active: delegateColumn.expanded
-                        sourceComponent: UrlsList {
-                            spacing: 0
-        
-                            model: entries
-        
-                            onUrlClicked: bookmarksFolderListViewItem.bookmarkClicked(url)
-                            onUrlRemoved: bookmarksFolderListViewItem.bookmarkRemoved(url)
-                        }
-                    }
+                    folderName: folder
+                    folderEntries: entries
                 }
             }
         }
