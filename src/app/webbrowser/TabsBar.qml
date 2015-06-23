@@ -211,6 +211,7 @@ Item {
             bottom: parent.bottom
         }
         width: height
+        z: tabsContainer.z - 1
 
         visible: !repeater.reordering
 
