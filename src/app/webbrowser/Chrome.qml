@@ -66,6 +66,11 @@ ChromeBase {
             height: active ? units.gu(4) : 0
         }
 
+        Rectangle {
+            anchors.fill: navigationBar
+            color: "#dedede"
+        }
+
         NavigationBar {
             id: navigationBar
 
