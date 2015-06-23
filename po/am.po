@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-02 23:12+0200\n"
+"POT-Creation-Date: 2015-06-22 12:30+0200\n"
 "PO-Revision-Date: 2015-06-03 13:21+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-06-04 05:32+0000\n"
-"X-Generator: Launchpad (build 17540)\n"
+"X-Launchpad-Export-Date: 2015-06-23 05:29+0000\n"
+"X-Generator: Launchpad (build 17572)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,6 +24,7 @@ msgstr "የ JavaScript ማስጠንቀቂያ"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "እሺ"
 
@@ -379,7 +380,7 @@ msgstr "መሄጃ ወደ"
 msgid "Address;URL;www"
 msgstr "አድራሻ;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:515
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
 msgid "New Tab"
 msgstr "አዲስ ንዑስ መስኮት"
 
@@ -419,19 +420,19 @@ msgstr "ምስል ማስቀመጫ"
 msgid "Share…"
 msgstr "ማካፈያ…"
 
-#: src/app/webbrowser/AddressBar.qml:198
+#: src/app/webbrowser/AddressBar.qml:201
 msgid "search or enter an address"
 msgstr "አድራሻ ያስገቡ ወይንም ይፈልጉ"
 
-#: src/app/webbrowser/Browser.qml:296
+#: src/app/webbrowser/Browser.qml:292
 msgid "Share"
 msgstr "ማካፈያ"
 
-#: src/app/webbrowser/Browser.qml:303
+#: src/app/webbrowser/Browser.qml:299
 msgid "History"
 msgstr "ታሪክ"
 
-#: src/app/webbrowser/Browser.qml:310
+#: src/app/webbrowser/Browser.qml:309
 msgid "Open tabs"
 msgstr "ንዑስ መስኮት መክፈቻ"
 
@@ -444,29 +445,29 @@ msgstr "አዲስ ንዑስ መስኮት መክፈቻ"
 msgid "Settings"
 msgstr "ማሰናጃዎች"
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
 msgstr "ከ ግል ዘዴ መውጫ"
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
 msgstr "የ ግል ዘዴ"
 
-#: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "ጨርሷል"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:599
+#: src/app/webbrowser/Browser.qml:606
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:870
+#: src/app/webbrowser/Browser.qml:889
 msgid "Swipe Up To Exit Full Screen"
 msgstr "ወደ ላይ ይጥረጉ ከ ሙሉ መመልከቻ ዘዴ ለመውጣት"
 
-#: src/app/webbrowser/Browser.qml:871
+#: src/app/webbrowser/Browser.qml:890
 msgid "Press ESC To Exit Full Screen"
 msgstr "ይጫኑ መዝለያውን ከ ሙሉ መመልከቻ ዘዴ ለመውጣት"
 
@@ -501,10 +502,6 @@ msgstr "ማጥፊያ"
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr "ወደ ሕዝብ ዘዴ ሲቀይሩ የ ግል ዘዴ በሙሉ ይዘጋል"
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
-msgid "Ok"
-msgstr "እሺ"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -630,13 +627,13 @@ msgid "Tap to view"
 msgstr "ለመመልከት መታ ያድርጉ"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:34
+#: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - የ ኡቡንቱ ዌብ መቃኛ"
 
-#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "የ ኡቡንቱ ዌብ መቃኛ"
