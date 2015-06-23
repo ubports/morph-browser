@@ -31,134 +31,177 @@ Item {
 
     property bool incognito: false
 
-    Repeater {
-        id: repeater
+    signal requestNewTab()
 
-        delegate: Item {
-            id: tabDelegate
-            anchors {
-                top: parent ? parent.top : undefined
-                bottom: parent ? parent.bottom : undefined
-            }
-            width: tabWidth
+    Item {
+        id: tabsContainer
 
-            MouseArea {
-                id: mouseArea
-                anchors.fill: parent
-                acceptedButtons: Qt.LeftButton | Qt.MiddleButton
-                onPressed: {
-                    if (mouse.button === Qt.LeftButton) {
-                        root.model.currentIndex = index
-                    }
-                }
-                onReleased: {
-                    if (mouse.button === Qt.MiddleButton) {
-                        internal.closeTab(index)
-                    }
-                }
-                // XXX: should not start a drag when middle button was pressed
-                drag {
-                    target: tabDelegate
-                    axis: Drag.XAxis
-                    minimumX: 0
-                    maximumX: root.width - tabDelegate.width
-                }
-            }
-
-            readonly property string assetPrefix: (index == root.model.currentIndex) ? "assets/tab-active" : "assets/tab-inactive"
-
-            Image {
-                id: tabBackgroundLeft
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    left: parent.left
-                }
-                source: "%1-left.png".arg(assetPrefix)
-            }
-
-            Image {
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    left: tabBackgroundLeft.right
-                    right: tabBackgroundRight.left
-                }
-                source: "%1-center.png".arg(assetPrefix)
-                fillMode: Image.TileHorizontally
-            }
-
-            Image {
-                id: tabBackgroundRight
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    right: parent.right
-                }
-                source: "%1-right.png".arg(assetPrefix)
-            }
-
-            Row {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    margins: units.gu(1.5)
-                    verticalCenter: parent.verticalCenter
-                }
-                spacing: units.gu(1)
-
-                Favicon {
-                    id: favicon
-                    source: model.icon
-                    shouldCache: !incognito
-                }
-
-                Label {
-                    fontSize: "small"
-                    text: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
-                    elide: Text.ElideRight
-                    width: parent.width - favicon.width - closeIcon.width - parent.spacing * 2
-                }
-
-                Icon {
-                    id: closeIcon
-                    name: "close"
-                    width: units.gu(1.5)
-                    height: units.gu(1.5)
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: internal.closeTab(index)
-                    }
-                }
-            }
-
-            Binding on x {
-                when: !mouseArea.drag.active
-                value: index * width
-            }
-
-            Behavior on x { NumberAnimation { duration: 250 } }
-
-            onXChanged: {
-                if (!mouseArea.drag.active) return
-                if (x < (index * width - width / 2)) {
-                    root.model.move(index, index - 1)
-                } else if ((x > (index * width + width / 2)) && (index < (root.model.count - 1))) {
-                    root.model.move(index + 1, index)
-                }
-            }
-
-            z: (root.model.currentIndex == index) ? 2 : 1 - index / root.model.count
+        anchors {
+            top: parent.top
+            bottom: parent.bottom
+            left: parent.left
         }
+        width: childrenRect.width
+
+        Repeater {
+            id: repeater
+
+            property bool reordering: false
+
+            delegate: Item {
+                id: tabDelegate
+                anchors {
+                    top: tabsContainer.top
+                    bottom: tabsContainer.bottom
+                }
+                width: tabWidth
+
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: parent
+                    acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+                    onPressed: {
+                        if (mouse.button === Qt.LeftButton) {
+                            root.model.currentIndex = index
+                        }
+                    }
+                    onReleased: {
+                        if (mouse.button === Qt.MiddleButton) {
+                            internal.closeTab(index)
+                        }
+                    }
+                    // XXX: should not start a drag when middle button was pressed
+                    drag {
+                        target: tabDelegate
+                        axis: Drag.XAxis
+                        minimumX: 0
+                        maximumX: root.width - tabDelegate.width
+                    }
+                }
+
+                Binding {
+                    target: repeater
+                    property: "reordering"
+                    value: mouseArea.drag.active
+                }
+
+                readonly property string assetPrefix: (index == root.model.currentIndex) ? "assets/tab-active" : "assets/tab-inactive"
+
+                Image {
+                    id: tabBackgroundLeft
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                        left: parent.left
+                    }
+                    source: "%1-left.png".arg(assetPrefix)
+                }
+
+                Image {
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                        left: tabBackgroundLeft.right
+                        right: tabBackgroundRight.left
+                    }
+                    source: "%1-center.png".arg(assetPrefix)
+                    fillMode: Image.TileHorizontally
+                }
+
+                Image {
+                    id: tabBackgroundRight
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                        right: parent.right
+                    }
+                    source: "%1-right.png".arg(assetPrefix)
+                }
+
+                Row {
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        margins: units.gu(1.5)
+                        verticalCenter: parent.verticalCenter
+                    }
+                    spacing: units.gu(1)
+
+                    Favicon {
+                        id: favicon
+                        source: model.icon
+                        shouldCache: !incognito
+                    }
+
+                    Label {
+                        fontSize: "small"
+                        text: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
+                        elide: Text.ElideRight
+                        width: parent.width - favicon.width - closeIcon.width - parent.spacing * 2
+                    }
+
+                    Icon {
+                        id: closeIcon
+                        name: "close"
+                        width: units.gu(1.5)
+                        height: units.gu(1.5)
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: internal.closeTab(index)
+                        }
+                    }
+                }
+
+                Binding on x {
+                    when: !mouseArea.drag.active
+                    value: index * width
+                }
+
+                Behavior on x { NumberAnimation { duration: 250 } }
+
+                onXChanged: {
+                    if (!mouseArea.drag.active) return
+                    if (x < (index * width - width / 2)) {
+                        root.model.move(index, index - 1)
+                    } else if ((x > (index * width + width / 2)) && (index < (root.model.count - 1))) {
+                        root.model.move(index + 1, index)
+                    }
+                }
+
+                z: (root.model.currentIndex == index) ? 2 : 1 - index / root.model.count
+            }
+        }
+    }
+
+    MouseArea {
+        anchors {
+            left: tabsContainer.right
+            leftMargin: units.gu(1)
+            top: parent.top
+            bottom: parent.bottom
+        }
+        width: height
+
+        visible: !repeater.reordering
+
+        Icon {
+            width: units.gu(2)
+            height: units.gu(2)
+            anchors.centerIn: parent
+            name: "add"
+        }
+
+        onClicked: root.requestNewTab()
     }
 
     QtObject {
         id: internal
 
         function closeTab(index) {
-            root.model.remove(index)
+            var tab = root.model.remove(index)
+            if (tab) tab.close()
         }
     }
 }

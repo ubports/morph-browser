@@ -33,6 +33,8 @@ ChromeBase {
     property alias canSimplifyText: navigationBar.canSimplifyText
     property alias incognito: navigationBar.incognito
 
+    signal requestNewTab()
+
     backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
 
     implicitHeight: tabsBar.height + navigationBar.height
@@ -53,6 +55,7 @@ ChromeBase {
             sourceComponent: TabsBar {
                 model: tabsModel
                 incognito: chrome.incognito
+                onRequestNewTab: chrome.requestNewTab()
             }
 
             anchors {

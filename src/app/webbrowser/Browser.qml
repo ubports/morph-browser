@@ -281,6 +281,8 @@ BrowserView {
                 onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
             }
 
+            onRequestNewTab: browser.openUrlInNewTab("", true)
+
             anchors {
                 left: parent.left
                 right: parent.right
@@ -303,13 +305,6 @@ BrowserView {
                         historyViewComponent.createObject(historyViewContainer)
                         historyViewContainer.focus = true
                     }
-                },
-                Action {
-                    objectName: "newtab"
-                    text: i18n.tr("New tab")
-                    iconName: browser.incognito ? "private-tab-new" : "tab-new"
-                    enabled: formFactor != "mobile"
-                    onTriggered: browser.openUrlInNewTab("", true)
                 },
                 Action {
                     objectName: "settings"
