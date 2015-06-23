@@ -61,6 +61,7 @@ Item {
                     id: mouseArea
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+                    hoverEnabled: true
                     onPressed: {
                         if (mouse.button === Qt.LeftButton) {
                             root.model.currentIndex = index
@@ -86,7 +87,7 @@ Item {
                     value: mouseArea.drag.active
                 }
 
-                readonly property string assetPrefix: (index == root.model.currentIndex) ? "assets/tab-active" : "assets/tab-inactive"
+                readonly property string assetPrefix: (index == root.model.currentIndex) ? "assets/tab-active" : (mouseArea.containsMouse ? "assets/tab-hovered" : "assets/tab-inactive")
 
                 Image {
                     id: tabBackgroundLeft
