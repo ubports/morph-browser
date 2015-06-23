@@ -60,7 +60,7 @@ Item {
             if ("accountId" in reply) {
                 root.checkAccounts()
             } else if ("errorName" in reply) {
-                root.errorScreenRequested(i18n.tr("Account window could not be opened; please close some running applications and try again."))
+                root.errorScreenRequested(i18n.tr("Account window could not be opened. You can only create one account at a time; please try again after closing all other account windows."))
             } else {
                 root.quitRequested()
             }
