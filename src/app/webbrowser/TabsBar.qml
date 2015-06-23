@@ -41,7 +41,7 @@ Item {
             bottom: parent.bottom
             left: parent.left
         }
-        width: childrenRect.width
+        width: tabWidth * root.model.count
         readonly property real maxWidth: root.width - newTabButton.width - units.gu(2)
 
         Repeater {
