@@ -1,3 +1,18 @@
+webbrowser-app (0.23+15.10.20150624-0ubuntu1) wily; urgency=medium
+
+  [ Alberto Mardegan ]
+  * Show an error screen if the trust session could not be opened. (LP:
+    #1441873)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 24 Jun 2015 13:37:10 +0000
+
 webbrowser-app (0.23+15.10.20150618-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
