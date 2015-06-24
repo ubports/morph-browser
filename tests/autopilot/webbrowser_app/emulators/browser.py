@@ -154,6 +154,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_bookmark_options(self):
         return self.select_single(BookmarkOptions)
 
+    def get_new_bookmarks_folder_dialog(self):
+        return self.wait_select_single("Dialog",
+                                       objectName="newFolderDialog")
+
     # The history view is dynamically created, so it might or might not be
     # available
     def get_history_view(self):
@@ -414,6 +418,16 @@ class UrlDelegate(uitk.UCListItem):
 
 
 class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_title_text_field(self):
+        return self.select_single(uitk.TextField, objectName="titleTextField")
+
+    def get_save_in_option_selector(self):
+        return self.select_single("OptionSelector", currentlyExpanded=False)
+
+    def get_new_folder_button(self):
+        return self.select_single("Button",
+                                  objectName="bookmarkOptions.newButton")
 
     def get_dismiss_button(self):
         return self.select_single("Button",

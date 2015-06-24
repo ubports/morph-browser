@@ -54,6 +54,7 @@ Popover {
 
         TextField {
             id: titleTextField
+            objectName: "titleTextField"
 
             width: parent.width
         }
@@ -85,6 +86,7 @@ Popover {
 
             Button {
                 id: newFolderButton
+                objectName: "bookmarkOptions.newButton"
                 text: i18n.tr("New Folder")
                 onClicked: PopupUtils.open(newFolderDialog)
             }
