@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-06-22 12:30+0200\n"
-"PO-Revision-Date: 2015-04-18 18:58+0000\n"
+"PO-Revision-Date: 2015-06-23 17:28+0000\n"
 "Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2015-06-23 05:30+0000\n"
+"X-Launchpad-Export-Date: 2015-06-24 05:32+0000\n"
 "X-Generator: Launchpad (build 17572)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -461,11 +461,11 @@ msgstr "Configurări"
 
 #: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Părasiți modul privat"
 
 #: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
-msgstr ""
+msgstr "Mod privat"
 
 #: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
@@ -475,15 +475,15 @@ msgstr "Finalizat"
 #: src/app/webbrowser/Browser.qml:606
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:889
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Glisați în sus pentru a ieși din ecranul complet"
 
 #: src/app/webbrowser/Browser.qml:890
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Apăsați ESC pentru a ieși din ecranul complet"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
@@ -516,17 +516,20 @@ msgstr "Ştergeţi"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Trecerea la modul publlic va închide toate ferestrele private"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Aceasta este o fereastră privată"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Paginile pe care le veți vizualiza în această fereastră nu vor apărea în "
+"istoricul navigatorului dumneavoastră.\n"
+"Semnele de carte pe care le creați vor fi păstrate, oricum."
 
 #: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
@@ -534,7 +537,7 @@ msgstr "Semne de carte"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
-msgstr ""
+msgstr "Mai mult"
 
 #: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
@@ -542,7 +545,7 @@ msgstr "Site-uri de top"
 
 #: src/app/webbrowser/NewTabView.qml:239
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Nu aveți  vizitat încă niciun site."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
