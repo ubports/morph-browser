@@ -20,14 +20,26 @@ import QtQuick 2.0
 import QtTest 1.0
 import Ubuntu.Test 1.0
 import "../../../src/app/webbrowser"
+import webbrowserapp.private 0.1
 
 Item {
+    id: root
+
     width: 600
     height: 50
 
-    ListModel {
+    TabsModel {
         id: tabsModel
-        property int currentIndex: -1
+    }
+
+    Component {
+        id: tabComponent
+        QtObject {
+            property url url
+            property string title
+            property url icon
+            function close() { destroy() }
+        }
     }
 
     TabsBar {
@@ -36,7 +48,8 @@ Item {
         model: tabsModel
         onRequestNewTab: appendTab("", "", "")
         function appendTab(url, title, icon) {
-            model.append({"url": url, "title": title, "icon": icon})
+            var tab = tabComponent.createObject(root, {"url": url, "title": title, "icon": icon})
+            model.add(tab)
             model.currentIndex = model.count - 1
         }
     }
@@ -61,8 +74,17 @@ Item {
         }
 
         function cleanup() {
-            tabsModel.clear()
+            while (tabsModel.count > 0) {
+                tabsModel.remove(0).destroy()
+            }
             newTabRequestSpy.clear()
+        }
+
+        function populateTabs() {
+            for (var i = 0; i < 3; ++i) {
+                tabs.appendTab()
+            }
+            compare(tabsModel.currentIndex, 2)
         }
 
         function test_create_new_tab() {
@@ -76,10 +98,7 @@ Item {
 
         function test_mouse_left_click() {
             // Left click makes the tab current
-            tabs.appendTab()
-            tabs.appendTab()
-            tabs.appendTab()
-            compare(tabsModel.currentIndex, 2)
+            populateTabs()
             for (var i = 2; i >= 0; --i) {
                 clickItem(getTabDelegate(i))
                 compare(tabsModel.currentIndex, i)
@@ -88,10 +107,7 @@ Item {
 
         function test_mouse_middle_click() {
             // Middle click closes the tab
-            tabs.appendTab()
-            tabs.appendTab()
-            tabs.appendTab()
-            compare(tabsModel.currentIndex, 2)
+            populateTabs()
             for (var i = 2; i >= 0; --i) {
                 var tab0 = getTabDelegate(0)
                 mouseClick(tab0, centerOf(tab0).x, centerOf(tab0).y, Qt.MiddleButton)
@@ -101,10 +117,7 @@ Item {
 
         function test_mouse_wheel() {
             // Wheel events cycle through open tabs
-            tabs.appendTab()
-            tabs.appendTab()
-            tabs.appendTab()
-            compare(tabsModel.currentIndex, 2)
+            populateTabs()
             var tab0 = getTabDelegate(0)
             var c = centerOf(tab0)
             function wheelUp() { mouseWheel(tab0, c.x, c.y, 0, 120) }
