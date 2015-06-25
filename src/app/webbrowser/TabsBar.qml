@@ -47,6 +47,7 @@ Item {
 
     MouseArea {
         id: newTabButton
+        objectName: "newTabButton"
 
         anchors {
             left: tabsContainer.right
@@ -86,6 +87,8 @@ Item {
 
             delegate: Item {
                 id: tabDelegate
+                objectName: "tabDelegate_" + index
+
                 anchors {
                     top: tabsContainer.top
                     bottom: tabsContainer.bottom
