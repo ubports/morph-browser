@@ -79,6 +79,16 @@ Item {
         width: tabWidth * root.model.count
         readonly property real maxWidth: root.width - newTabButton.width - units.gu(2)
 
+        Rectangle {
+            anchors {
+                left: parent.left
+                bottom: parent.bottom
+            }
+            width: root.width
+            height: units.dp(1)
+            color: "#cacaca"
+        }
+
         Repeater {
             id: repeater
 
@@ -124,36 +134,40 @@ Item {
 
                 readonly property string assetPrefix: (index == root.model.currentIndex) ? "assets/tab-active" : (mouseArea.containsMouse ? "assets/tab-hovered" : "assets/tab-inactive")
 
-                Image {
-                    id: tabBackgroundLeft
-                    anchors {
-                        top: parent.top
-                        bottom: parent.bottom
-                        left: parent.left
-                    }
-                    source: "%1-left.png".arg(assetPrefix)
-                }
+                Item {
+                    anchors.fill: parent
 
-                Image {
-                    anchors {
-                        top: parent.top
-                        bottom: parent.bottom
-                        left: tabBackgroundLeft.right
-                        right: tabBackgroundRight.left
+                    Image {
+                        id: tabBackgroundLeft
+                        anchors {
+                            top: parent.top
+                            bottom: parent.bottom
+                            left: parent.left
+                        }
+                        source: "%1-left.png".arg(assetPrefix)
                     }
-                    source: "%1-center.png".arg(assetPrefix)
-                    fillMode: Image.TileHorizontally
-                }
 
-                Image {
-                    id: tabBackgroundRight
-                    anchors {
-                        top: parent.top
-                        bottom: parent.bottom
-                        right: parent.right
-                        rightMargin: units.gu(-1.5)
+                    Image {
+                        id: tabBackgroundRight
+                        anchors {
+                            top: parent.top
+                            bottom: parent.bottom
+                            right: parent.right
+                            rightMargin: units.gu(-1.5)
+                        }
+                        source: "%1-right.png".arg(assetPrefix)
                     }
-                    source: "%1-right.png".arg(assetPrefix)
+
+                    Image {
+                        anchors {
+                            top: parent.top
+                            bottom: parent.bottom
+                            left: tabBackgroundLeft.right
+                            right: tabBackgroundRight.left
+                        }
+                        source: "%1-center.png".arg(assetPrefix)
+                        fillMode: Image.TileHorizontally
+                    }
                 }
 
                 Row {
@@ -208,19 +222,8 @@ Item {
                     }
                 }
 
-                z: (root.model.currentIndex == index) ? 3 : 1 - index / root.model.count
+                z: (root.model.currentIndex == index) ? 2 : 1 - index / root.model.count
             }
-        }
-
-        Rectangle {
-            anchors {
-                left: parent.left
-                bottom: parent.bottom
-            }
-            width: root.width
-            height: units.dp(1)
-            color: "#cacaca"
-            z: 2
         }
     }
 
