@@ -37,9 +37,9 @@ Item {
         anchors.fill: parent
         onWheel: {
             var angle = (wheel.angleDelta.x != 0) ? wheel.angleDelta.x : wheel.angleDelta.y
-            if ((angle > 0) && (root.model.currentIndex < (root.model.count - 1))) {
+            if ((angle < 0) && (root.model.currentIndex < (root.model.count - 1))) {
                 root.model.currentIndex++
-            } else if ((angle < 0) && (root.model.currentIndex > 0)) {
+            } else if ((angle > 0) && (root.model.currentIndex > 0)) {
                 root.model.currentIndex--
             }
         }
