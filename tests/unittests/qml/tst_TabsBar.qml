@@ -82,7 +82,7 @@ Item {
 
         function populateTabs() {
             for (var i = 0; i < 3; ++i) {
-                tabs.appendTab()
+                tabs.appendTab("", "tab " + i, "")
             }
             compare(tabsModel.currentIndex, 2)
         }
@@ -132,6 +132,35 @@ Item {
             compare(tabsModel.currentIndex, 0)
             wheelDown()
             compare(tabsModel.currentIndex, 1)
+        }
+
+        function test_drag_tab() {
+            populateTabs()
+
+            function dragTab(tab, dx, index) {
+                var c = centerOf(tab)
+                mouseDrag(tab, c.x, c.y, dx, 0)
+                compare(getTabDelegate(index), tab)
+                compare(tabsModel.currentIndex, index)
+                wait(250)
+            }
+
+            // Move the first tab to the right
+            var tab = getTabDelegate(0)
+            dragTab(tab, tab.width * 0.8, 1)
+
+            // Start a move to the right and release too early
+            dragTab(tab, tab.width * 0.3, 1)
+
+            // Start a move to the left and release too early
+            dragTab(tab, -tab.width * 0.4, 1)
+
+            // Move the tab all the way to the right and overshoot
+            dragTab(tab, tab.width * 3, 2)
+
+            // Move another tab all the way to the left and overshoot
+            tab = getTabDelegate(1)
+            dragTab(tab, -tab.width * 2, 0)
         }
     }
 }
