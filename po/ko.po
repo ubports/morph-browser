@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-02 23:12+0200\n"
+"POT-Creation-Date: 2015-06-22 12:30+0200\n"
 "PO-Revision-Date: 2015-05-19 19:42+0000\n"
 "Last-Translator: B. W. Knight <kbd0651@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-06-23 05:30+0000\n"
+"X-Generator: Launchpad (build 17572)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,6 +24,7 @@ msgstr "자바스크립트 알림"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "확인"
 
@@ -371,7 +372,7 @@ msgstr "가기"
 msgid "Address;URL;www"
 msgstr "주소"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:515
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
 msgid "New Tab"
 msgstr "새 탭"
 
@@ -411,19 +412,19 @@ msgstr "이미지 저장"
 msgid "Share…"
 msgstr "공유..."
 
-#: src/app/webbrowser/AddressBar.qml:198
+#: src/app/webbrowser/AddressBar.qml:201
 msgid "search or enter an address"
 msgstr "검색할 단어나 주소를 입력하십시오."
 
-#: src/app/webbrowser/Browser.qml:296
+#: src/app/webbrowser/Browser.qml:292
 msgid "Share"
 msgstr "공유"
 
-#: src/app/webbrowser/Browser.qml:303
+#: src/app/webbrowser/Browser.qml:299
 msgid "History"
 msgstr "기록"
 
-#: src/app/webbrowser/Browser.qml:310
+#: src/app/webbrowser/Browser.qml:309
 msgid "Open tabs"
 msgstr "탭 열기"
 
@@ -436,29 +437,29 @@ msgstr "새 탭"
 msgid "Settings"
 msgstr "설정"
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "완료"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:599
+#: src/app/webbrowser/Browser.qml:606
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:870
+#: src/app/webbrowser/Browser.qml:889
 msgid "Swipe Up To Exit Full Screen"
 msgstr "위로 쓸어 올리셔서 전체 화면을 종료하십시오"
 
-#: src/app/webbrowser/Browser.qml:871
+#: src/app/webbrowser/Browser.qml:890
 msgid "Press ESC To Exit Full Screen"
 msgstr "ESC 키를 누르셔서 전체 화면을 종료하십시오"
 
@@ -491,10 +492,6 @@ msgstr "삭제"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
-msgid "Ok"
 msgstr ""
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
@@ -619,13 +616,13 @@ msgid "Tap to view"
 msgstr "볼 탭"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:34
+#: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - 우분투 웹 브라우저"
 
-#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "우분투 웹 브라우저"
