@@ -45,6 +45,29 @@ Item {
         }
     }
 
+    MouseArea {
+        id: newTabButton
+
+        anchors {
+            left: tabsContainer.right
+            leftMargin: units.gu(1)
+            top: parent.top
+            bottom: parent.bottom
+        }
+        width: height
+
+        visible: !repeater.reordering
+
+        Icon {
+            width: units.gu(2)
+            height: units.gu(2)
+            anchors.centerIn: parent
+            name: "add"
+        }
+
+        onClicked: root.requestNewTab()
+    }
+
     Item {
         id: tabsContainer
 
@@ -199,30 +222,6 @@ Item {
             color: "#cacaca"
             z: 2
         }
-    }
-
-    MouseArea {
-        id: newTabButton
-
-        anchors {
-            left: tabsContainer.right
-            leftMargin: units.gu(1)
-            top: parent.top
-            bottom: parent.bottom
-        }
-        width: height
-        z: tabsContainer.z - 1
-
-        visible: !repeater.reordering
-
-        Icon {
-            width: units.gu(2)
-            height: units.gu(2)
-            anchors.centerIn: parent
-            name: "add"
-        }
-
-        onClicked: root.requestNewTab()
     }
 
     QtObject {
