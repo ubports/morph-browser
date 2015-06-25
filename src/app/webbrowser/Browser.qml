@@ -951,15 +951,11 @@ BrowserView {
 
         function closeCurrentTab() {
             if (tabsModel.count > 0) {
-                var tab = tabsModel.remove(0)
-                if (tab) tab.close()
-
-                if (tabsModel.count === 0) {
-                    browser.openUrlInNewTab("", true)
-                } else {
-                    internal.switchToTab(0)
+                var tab = tabsModel.remove(tabsModel.currentIndex)
+                if (tab) {
+                    tab.close()
                 }
-             }
+            }
         }
 
         function focusAddressBar(selectContent) {
