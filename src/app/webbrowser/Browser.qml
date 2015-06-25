@@ -62,6 +62,13 @@ BrowserView {
         }
     }
 
+    Connections {
+        // Remove focus from the address bar when the current tab
+        // changes to ensure that its contents are updated.
+        target: tabsModel
+        onCurrentIndexChanged: tabContainer.forceActiveFocus()
+    }
+
     actions: [
         Actions.GoTo {
             onTriggered: currentWebview.url = value
@@ -116,7 +123,7 @@ BrowserView {
         readonly property bool restoreSession: true
     }
 
-    Item {
+    FocusScope {
         anchors.fill: parent
         visible: !settingsContainer.visible && !historyViewContainer.visible
 
@@ -221,13 +228,13 @@ BrowserView {
                     onBookmarkClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
-                        currentWebview.forceActiveFocus()
+                        tabContainer.forceActiveFocus()
                     }
                     onBookmarkRemoved: browser.bookmarksModel.remove(url)
                     onHistoryEntryClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
-                        currentWebview.forceActiveFocus()
+                        tabContainer.forceActiveFocus()
                     }
                 }
             }
@@ -412,7 +419,7 @@ BrowserView {
 
             onActivated: {
                 browser.currentWebview.url = url
-                browser.currentWebview.forceActiveFocus()
+                tabContainer.forceActiveFocus()
                 chrome.requestedUrl = url
             }
         }
@@ -714,6 +721,7 @@ BrowserView {
         BrowserTab {
             anchors.fill: parent
             current: tabsModel && tabsModel.currentTab === this
+            focus: current
 
             webviewComponent: WebViewImpl {
                 id: webviewimpl
@@ -936,7 +944,7 @@ BrowserView {
                 if (tab.initialUrl == "" && formFactor == "desktop") {
                     focusAddressBar()
                 } else {
-                    tab.forceActiveFocus()
+                    tabContainer.forceActiveFocus()
                 }
             }
         }
@@ -965,7 +973,7 @@ BrowserView {
                 if (!browser.currentWebview.url.toString() && (formFactor == "desktop")) {
                     internal.focusAddressBar()
                 } else {
-                    browser.currentWebview.forceActiveFocus()
+                    tabContainer.forceActiveFocus()
                 }
             }
         }
