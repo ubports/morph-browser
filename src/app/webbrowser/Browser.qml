@@ -264,6 +264,8 @@ BrowserView {
 
             incognito: browser.incognito
 
+            showTabsBar: browser.wide
+
             y: webview ? webview.locationBarController.offset : 0
 
             function isCurrentUrlBookmarked() {
@@ -312,6 +314,23 @@ BrowserView {
                         historyViewComponent.createObject(historyViewContainer)
                         historyViewContainer.focus = true
                     }
+                },
+                Action {
+                    objectName: "tabs"
+                    text: i18n.tr("Open tabs")
+                    iconName: "browser-tabs"
+                    enabled: (formFactor != "mobile") && !browser.wide
+                    onTriggered: {
+                        recentView.state = "shown"
+                        recentToolbar.state = "shown"
+                    }
+                },
+                Action {
+                    objectName: "newtab"
+                    text: i18n.tr("New tab")
+                    iconName: browser.incognito ? "private-tab-new" : "tab-new"
+                    enabled: (formFactor != "mobile") && !browser.wide
+                    onTriggered: browser.openUrlInNewTab("", true)
                 },
                 Action {
                     objectName: "settings"

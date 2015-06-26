@@ -32,6 +32,7 @@ ChromeBase {
     property alias requestedUrl: navigationBar.requestedUrl
     property alias canSimplifyText: navigationBar.canSimplifyText
     property alias incognito: navigationBar.incognito
+    property alias showTabsBar: tabsBar.active
 
     signal requestNewTab()
 
@@ -51,7 +52,6 @@ ChromeBase {
         Loader {
             id: tabsBar
 
-            active: formFactor == "desktop"
             sourceComponent: TabsBar {
                 model: tabsModel
                 incognito: chrome.incognito
