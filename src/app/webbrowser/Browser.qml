@@ -546,9 +546,13 @@ BrowserView {
             tabslist.reset()
         }
     }
+
     onWideChanged: {
         if (wide) {
             recentView.reset()
+        } else {
+            // In narrow mode, the tabslist is a stack: the current tab is always at the top.
+            tabsModel.move(tabsModel.currentIndex, 0)
         }
     }
 
