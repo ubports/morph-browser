@@ -63,10 +63,18 @@ BrowserView {
     }
 
     Connections {
-        // Remove focus from the address bar when the current tab
-        // changes to ensure that its contents are updated.
         target: tabsModel
-        onCurrentIndexChanged: tabContainer.forceActiveFocus()
+        onCurrentIndexChanged: {
+            // Remove focus from the address bar when the current tab
+            // changes to ensure that its contents are updated.
+            tabContainer.forceActiveFocus()
+
+            // In narrow mode, the tabslist is a stack:
+            // the current tab is always at the top.
+            if (!browser.wide) {
+                tabsModel.move(tabsModel.currentIndex, 0)
+            }
+        }
     }
 
     actions: [
@@ -955,18 +963,12 @@ BrowserView {
             var index = tabsModel.add(tab)
             if (setCurrent) {
                 tabsModel.currentIndex = index
-                if (formFactor == "mobile") {
-                    tabsModel.move(index, 0)
-                }
                 chrome.requestedUrl = tab.initialUrl
             }
         }
 
         function switchToTab(index) {
             tabsModel.currentIndex = index
-            if (formFactor == "mobile") {
-                tabsModel.move(index, 0)
-            }
             var tab = tabsModel.currentTab
             if (tab) {
                 if (tab.initialUrl == "" && formFactor == "desktop") {
@@ -1180,6 +1182,7 @@ BrowserView {
         }
     }
 
+    // FIXME: this works only in narrow mode, where the list of tabs is always a stack
     Connections {
         // On mobile, ensure that at most n webviews are instantiated at all
         // times, to reduce memory consumption (see http://pad.lv/1376418).
@@ -1240,20 +1243,22 @@ BrowserView {
     KeyboardShortcuts {
         id: shortcuts
 
-        // Ctrl + Tab: pull the tab from the bottom of the stack to the
-        // top (i.e. make it current)
+        // Ctrl+Tab: cycle through open tabs
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Tab
             enabled: chrome.visible || recentView.visible
             onTriggered: {
-                internal.switchToTab(tabsModel.count - 1)
-                if (chrome.visible) recentView.reset()
-                else if (recentView.visible) recentView.focus = true
+                if (browser.wide) {
+                    internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count)
+                } else {
+                    internal.switchToTab(tabsModel.count - 1)
+                }
+                if (recentView.visible) recentView.focus = true
             }
         }
 
-        // Ctrl + w or Ctrl+F4: Close the current tab
+        // Ctrl+W or Ctrl+F4: Close the current tab
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_W
@@ -1267,7 +1272,7 @@ BrowserView {
             onTriggered: internal.closeCurrentTab()
         }
 
-        // Ctrl + t: Open a new Tab
+        // Ctrl+T: Open a new Tab
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_T
@@ -1278,7 +1283,7 @@ BrowserView {
             }
         }
 
-        // F6 or Ctrl + L or Alt + D: Select the content in the address bar
+        // F6 or Ctrl+L or Alt+D: Select the content in the address bar
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_L
@@ -1297,7 +1302,7 @@ BrowserView {
             onTriggered: internal.focusAddressBar(true)
         }
 
-        // Ctrl + D: Toggle bookmarked state on current Tab
+        // Ctrl+D: Toggle bookmarked state on current Tab
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_D
@@ -1313,7 +1318,7 @@ BrowserView {
             }
         }
 
-        // Ctrl + H: Show History
+        // Ctrl+H: Show History
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_H
@@ -1326,7 +1331,7 @@ BrowserView {
             }
         }
 
-        // Alt + Left Arrow or Backspace: Goes to the previous page in history
+        // Alt+← or Backspace: Goes to the previous page in history
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Left
@@ -1339,7 +1344,7 @@ BrowserView {
             onTriggered: internal.historyGoBack()
         }
 
-        // Alt + Right Arrow or Shift + Backspace: Goes to the next page in history
+        // Alt+→ or Shift+Backspace: Goes to the next page in history
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Right
@@ -1353,7 +1358,7 @@ BrowserView {
             onTriggered: internal.historyGoForward()
         }
 
-        // F5 or Ctrl + R: Reload current Tab
+        // F5 or Ctrl+R: Reload current Tab
         KeyboardShortcut {
             key: Qt.Key_F5
             enabled: chrome.visible
