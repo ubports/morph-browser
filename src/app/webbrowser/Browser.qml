@@ -115,7 +115,7 @@ BrowserView {
 
     Item {
         anchors.fill: parent
-        visible: !settingsContainer.visible && !historyViewContainer.visible
+        visible: !settingsContainer.visible && !historyViewLoader.active
 
         TabChrome {
             id: invisibleTabChrome
@@ -303,7 +303,7 @@ BrowserView {
                     text: i18n.tr("History")
                     iconName: "history"
                     enabled: browser.historyModel
-                    onTriggered: historyViewComponent.createObject(historyViewContainer)
+                    onTriggered: historyViewLoader.active = true 
                 },
                 Action {
                     objectName: "tabs"
@@ -600,18 +600,18 @@ BrowserView {
         }
     }
 
-    Item {
-        id: historyViewContainer
+    Loader {
+        id: historyViewLoader
 
-        visible: children.length > 0
         anchors.fill: parent
+        active: false
+        sourceComponent: browser.width < units.gu(90) ? historyViewComponent : historyViewLandscapeComponent
 
         Component {
             id: historyViewComponent
 
             HistoryView {
                 anchors.fill: parent
-                visible: historyViewContainer.children.length == 1
 
                 Timer {
                     // Set the model asynchronously to ensure
@@ -623,29 +623,66 @@ BrowserView {
 
                 onSeeMoreEntriesClicked: {
                     var view = expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
-                    view.onHistoryEntryClicked.connect(destroy)
+                    view.onHistoryEntryClicked.connect(done)
                 }
-                onDone: destroy()
+                onDone: historyViewLoader.active = false
+
+                FocusScope {
+                    id: historyViewContainer
+
+                    visible: children.length > 0
+                    anchors.fill: parent
+
+                    Component {
+                        id: expandedHistoryViewComponent
+
+                        ExpandedHistoryView {
+                            anchors.fill: parent
+
+                            onHistoryEntryClicked: {
+                                browser.openUrlInNewTab(url, true)
+                                done()
+                            }
+                            onHistoryEntryRemoved: {
+                                if (count == 1) {
+                                    done()
+                                }
+                                browser.historyModel.removeEntryByUrl(url)
+                            }
+                            onDone: destroy()
+                        }
+                    }
+                }
             }
         }
 
         Component {
-            id: expandedHistoryViewComponent
+            id: historyViewLandscapeComponent
 
-            ExpandedHistoryView {
+            HistoryViewLandscape {
                 anchors.fill: parent
+
+                Timer {
+                    // Set the model asynchronously to ensure
+                    // the view is displayed as early as possible.
+                    running: true
+                    interval: 1
+                    onTriggered: historyModel = browser.historyModel
+                }
 
                 onHistoryEntryClicked: {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
+
                 onHistoryEntryRemoved: {
                     if (count == 1) {
                         done()
                     }
                     browser.historyModel.removeEntryByUrl(url)
                 }
-                onDone: destroy()
+
+                onDone: historyViewLoader.active = false
             }
         }
     }
