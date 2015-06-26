@@ -546,6 +546,11 @@ BrowserView {
             tabslist.reset()
         }
     }
+    onWideChanged: {
+        if (wide) {
+            recentView.reset()
+        }
+    }
 
     BottomEdgeHandle {
         id: bottomEdgeHandle
