@@ -1182,11 +1182,13 @@ BrowserView {
         }
     }
 
-    // FIXME: this works only in narrow mode, where the list of tabs is always a stack
     Connections {
         // On mobile, ensure that at most n webviews are instantiated at all
         // times, to reduce memory consumption (see http://pad.lv/1376418).
-        target: (formFactor == "mobile") ? tabsModel : null
+        // Note: this works only in narrow mode, where the list of tabs is a
+        // stack. Switching from wide mode to narrow mode will result in
+        // undefined behaviour (tabs previously loaded won’t be unloaded).
+        target: ((formFactor == "mobile") && !browser.wide) ? tabsModel : null
         onCurrentTabChanged: {
             if (tabsModel.count > browser.maxLiveWebviews) {
                 tabsModel.get(browser.maxLiveWebviews).unload()
