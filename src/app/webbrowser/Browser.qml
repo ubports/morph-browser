@@ -1258,6 +1258,21 @@ BrowserView {
             }
         }
 
+        // Ctrl+Shift+Tab: cycle through open tabs in reverse order
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_Backtab
+            enabled: chrome.visible || recentView.visible
+            onTriggered: {
+                if (browser.wide) {
+                    internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count)
+                } else {
+                    internal.switchToTab(tabsModel.count - 1)
+                }
+                if (recentView.visible) recentView.focus = true
+            }
+        }
+
         // Ctrl+W or Ctrl+F4: Close the current tab
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
