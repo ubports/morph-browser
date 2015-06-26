@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -43,6 +43,8 @@ WebView {
             "application/x-shockwave-flash", // http://launchpad.net/bugs/1379806
         ]
     }
+
+    onFullscreenRequested: webview.fullscreen = fullscreen
 
     onDownloadRequested: {
         if (!request.suggestedFilename && request.mimeType &&

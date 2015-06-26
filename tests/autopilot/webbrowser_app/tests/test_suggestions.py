@@ -18,9 +18,11 @@ import os
 import random
 import sqlite3
 import time
+import unittest
 
-from testtools.matchers import Contains, Equals
+from testtools.matchers import Contains, Equals, GreaterThan
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 from . import http_server
@@ -170,10 +172,9 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
     def test_show_list_of_suggestions(self):
         suggestions = self.main_window.get_suggestions()
         self.assert_suggestions_eventually_hidden()
-        self.assert_suggestions_eventually_hidden()
         self.address_bar.focus()
         self.assert_suggestions_eventually_shown()
-        self.assertThat(suggestions.count, Eventually(Equals(1)))
+        self.assertThat(suggestions.count, Eventually(GreaterThan(0)))
         self.address_bar.clear()
         self.assert_suggestions_eventually_hidden()
 
@@ -303,3 +304,67 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
         highlighted = self.highlight_term("highlight", "high")
         self.assertThat(entries[0].title, Equals(highlighted))
         self.assertThat(entries[0].subtitle, Equals(''))
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_keyboard_navigation(self):
+        suggestions = self.main_window.get_suggestions()
+        address_bar = self.address_bar
+        address_bar.write('element')
+        self.assert_suggestions_eventually_shown()
+        self.assertThat(suggestions.count, Eventually(Equals(2)))
+        entries = suggestions.get_ordered_entries()
+        self.assertThat(entries[0].selected, Equals(False))
+        self.assertThat(entries[1].selected, Equals(False))
+
+        address_bar.press_key('Down')
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+        self.assertThat(suggestions.activeFocus, Eventually(Equals(True)))
+        self.assertThat(entries[0].selected, Equals(True))
+
+        self.main_window.press_key('Down')
+        self.assertThat(entries[0].selected, Equals(False))
+        self.assertThat(entries[1].selected, Equals(True))
+
+        # verify that selection does not wrap around
+        self.main_window.press_key('Down')
+        self.assertThat(entries[0].selected, Equals(False))
+        self.assertThat(entries[1].selected, Equals(True))
+
+        self.main_window.press_key('Up')
+        self.assertThat(entries[0].selected, Equals(True))
+        self.assertThat(entries[1].selected, Equals(False))
+
+        self.main_window.press_key('Up')
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        self.assertThat(suggestions.activeFocus, Eventually(Equals(False)))
+        self.assertThat(entries[0].selected, Equals(False))
+        self.assertThat(entries[1].selected, Equals(False))
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_suggestions_escape(self):
+        suggestions = self.main_window.get_suggestions()
+        previous_text = self.address_bar.text
+        self.address_bar.write('element')
+        self.assert_suggestions_eventually_shown()
+        self.main_window.press_key('Down')
+        self.assertThat(suggestions.activeFocus, Eventually(Equals(True)))
+        self.assertThat(self.address_bar.text, Equals("element"))
+
+        self.main_window.press_key('Escape')
+        self.assert_suggestions_eventually_hidden()
+        self.assertThat(self.address_bar.text, Equals(previous_text))
+
+    @unittest.skipIf(model() != "Desktop", "on desktop only")
+    def test_suggestions_escape_on_addressbar(self):
+        suggestions = self.main_window.get_suggestions()
+        previous_text = self.address_bar.text
+        self.address_bar.write('element')
+        self.assert_suggestions_eventually_shown()
+        self.main_window.press_key('Down')
+        self.assertThat(suggestions.activeFocus, Eventually(Equals(True)))
+        self.main_window.press_key('Up')
+        self.assertThat(suggestions.activeFocus, Eventually(Equals(False)))
+
+        self.main_window.press_key('Escape')
+        self.assert_suggestions_eventually_hidden()
+        self.assertThat(self.address_bar.text, Equals(previous_text))

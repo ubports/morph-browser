@@ -18,26 +18,8 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
 
-Dialog {
-    title: i18n.tr("Going to public mode will close all private tabs")
-
-    signal cancelButtonClicked()
-    signal okButtonClicked()
-
-    Button {
-        objectName: "leavePrivateModeDialog.cancelButton"
-        anchors { left: parent.left; right: parent.right }
-        text: i18n.tr("Cancel")
-        onClicked: cancelButtonClicked()
-    }
-
-    Button {
-        objectName: "leavePrivateModeDialog.okButton"
-        anchors { left: parent.left; right: parent.right }
-        text: i18n.tr("OK")
-        color: UbuntuColors.green
-        onClicked: okButtonClicked()
-    }
+Action {
+    property int key
+    property int modifiers: Qt.NoModifier
 }
