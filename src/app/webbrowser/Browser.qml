@@ -1103,25 +1103,38 @@ BrowserView {
         // Save session periodically to mitigate state loss when the application crashes
         interval: 60000 // every minute
         repeat: true
-        running: true
+        running: !browser.incognito
         onTriggered: delayedSessionSaver.restart()
     }
     Connections {
         target: Qt.application
         onStateChanged: {
             if (Qt.application.state != Qt.ApplicationActive) {
-                session.save()
+                if (!browser.incognito) {
+                    session.save()
+                }
                 if (browser.currentWebview) {
                     browser.currentWebview.fullscreen = false
                 }
             }
         }
-        onAboutToQuit: session.save()
+        onAboutToQuit: {
+            if (!browser.incognito) {
+                session.save()
+            }
+        }
     }
     Connections {
-        target: tabsModel
+        target: browser.incognito ? null : publicTabsModel
         onCurrentTabChanged: delayedSessionSaver.restart()
         onCountChanged: delayedSessionSaver.restart()
+    }
+    onIncognitoChanged: {
+        if (incognito) {
+            // When going incognito, save the current session right
+            // away, as periodic session saving is disabled.
+            session.save()
+        }
     }
 
     // Delay instantiation of the first webview by 1 msec to allow initial
