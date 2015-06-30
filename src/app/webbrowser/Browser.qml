@@ -1275,6 +1275,7 @@ BrowserView {
                         bookmarksModel.remove(currentWebview.url)
                     } else {
                         bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon, "")
+                        PopupUtils.open(bookmarkOptionsComponent, chrome.bookmarkTogglePlaceHolder) 
                     }
                 }
             }
