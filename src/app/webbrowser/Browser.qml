@@ -442,10 +442,21 @@ BrowserView {
                     sourceModel: bookmarksModel
                 }
 
+                Component.onCompleted: {
+                    forceActiveFocus()
+                }
+
                 Component.onDestruction: {
-                    browser.bookmarksModel.update(browser.currentWebview.url,
-                                                  bookmarkTitle,
-                                                  bookmarkFolder)
+                    if (browser.bookmarksModel.contains(browser.currentWebview.url)) {
+                        browser.bookmarksModel.update(browser.currentWebview.url,
+                                                      bookmarkTitle,
+                                                      bookmarkFolder)
+                    }
+                }
+
+                Keys.onEscapePressed: {
+                    browser.bookmarksModel.remove(browser.currentWebview.url)
+                    hide()
                 }
             }
         }
