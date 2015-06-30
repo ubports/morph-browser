@@ -199,11 +199,6 @@ void BookmarksFolderListModel::addFolder(const QString& folder)
     m_folders.insert(folder, model);
 }
 
-QString BookmarksFolderListModel::getFolderFromSourceModel(const QModelIndex& index) const
-{
-    return m_sourceModel->data(index, BookmarksModel::Folder).toString();
-}
-
 void BookmarksFolderListModel::onFolderDataChanged()
 {
     BookmarksFolderModel* model = qobject_cast<BookmarksFolderModel*>(sender());

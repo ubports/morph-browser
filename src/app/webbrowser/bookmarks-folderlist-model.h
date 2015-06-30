@@ -73,7 +73,6 @@ private:
     void clearFolders();
     void populateModel();
     void addFolder(const QString& folder);
-    QString getFolderFromSourceModel(const QModelIndex& index) const;
     void emitDataChanged(const QString& folder);
 };
 

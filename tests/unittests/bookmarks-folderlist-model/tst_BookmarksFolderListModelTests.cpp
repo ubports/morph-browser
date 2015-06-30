@@ -246,6 +246,22 @@ private Q_SLOTS:
         QCOMPARE(entries->rowCount(), 1);
         QVERIFY(!model->data(model->index(1, 0), BookmarksFolderListModel::Entries + 1).isValid());
     }
+
+    void shouldReturnDataByIndex()
+    {
+        bookmarks->add(QUrl("http://example.com/"), "Example Domain", QUrl(), "SampleFolder");
+        bookmarks->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "AnotherFolder");
+        bookmarks->add(QUrl("http://ubuntu.com/"), "Ubuntu", QUrl(), "");
+        QCOMPARE(model->rowCount(), 3);
+        QCOMPARE(model->indexOf("AnotherFolder"), 1);
+        QVariantMap folderMap = model->get(3);
+        QVERIFY(folderMap.isEmpty());
+        folderMap = model->get(1);
+        QCOMPARE(folderMap.value("folder").toString(), QString("AnotherFolder"));
+        BookmarksFolderModel* entries = folderMap.value("entries").value<BookmarksFolderModel*>();
+        QCOMPARE(entries->rowCount(), 1);
+        QCOMPARE(entries->data(entries->index(0, 0), BookmarksModel::Url).toUrl(), QUrl("http://example.org/"));
+    }
 };
 
 QTEST_MAIN(BookmarksFolderListModelTests)
