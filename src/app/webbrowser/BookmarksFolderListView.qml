@@ -47,110 +47,104 @@ Item {
                 right: parent.right
             }
  
-            height: active ? delegate.height : 0
             active: entries.count > 0
 
-            sourceComponent: Component {
-                id: delegate
+            sourceComponent: Item {
+                objectName: "bookmarkFolderDelegate"
 
-                Item {
-                    objectName: "bookmarkFolderDelegate"
+                anchors {
+                    left: parent ? parent.left : undefined 
+                    right: parent ? parent.right : undefined
+                }
+
+                height: delegateColumn.height
+
+                Column {
+                    id: delegateColumn
+
+                    property bool expanded: true
 
                     anchors {
-                        left: parent ? parent.left : undefined 
-                        right: parent ? parent.right : undefined
+                        left: parent.left
+                        right: parent.right
                     }
 
-                    height: delegateColumn.height
+                    Item {
+                        objectName: "bookmarkFolderHeader"
 
-                    Column {
-                        id: delegateColumn
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            leftMargin: units.gu(2)
+                            rightMargin: units.gu(2)
+                        }
 
-                        property bool expanded: true
+                        height: units.gu(6.5)
 
+                        Row {
+                            anchors {
+                                left: parent.left
+                                leftMargin: units.gu(1.5)
+                                right: parent.right
+                            }
+
+                            height: units.gu(6)
+                            spacing: units.gu(1.5)
+
+                            Icon {
+                                id: expandedIcon
+                                name: delegateColumn.expanded ? "go-down" : "go-next"
+
+                                height: units.gu(2)
+                                width: height
+
+                                anchors {
+                                    leftMargin: units.gu(1)
+                                    topMargin: units.gu(2)
+                                    top: parent.top
+                                }
+                            }
+
+                            Label {
+                                width: parent.width - expandedIcon.width - units.gu(3)
+                                anchors.verticalCenter: expandedIcon.verticalCenter
+
+                                text: folder ? folder : i18n.tr("All Bookmarks")
+                                fontSize: "small"
+                            }
+                        }
+
+                        ListItem.ThinDivider {
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                                bottom: parent.bottom
+                                bottomMargin: units.gu(1)
+                            }
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: delegateColumn.expanded = !delegateColumn.expanded
+                        }
+                    }
+
+                    Loader {
                         anchors {
                             left: parent.left
                             right: parent.right
                         }
 
-                        Item {
-                            objectName: "bookmarkFolderHeader"
+                        visible: status == Loader.Ready
 
-                            anchors {
-                                left: parent.left
-                                right: parent.right
-                                leftMargin: units.gu(2)
-                                rightMargin: units.gu(2)
-                            }
+                        active: delegateColumn.expanded
+                        sourceComponent: UrlsList {
+                            spacing: 0
 
-                            //width: parent.width - units.gu(2)
-                            height: units.gu(6.5)
+                            model: entries
 
-                            Row {
-                                anchors {
-                                    left: parent.left
-                                    leftMargin: units.gu(1.5)
-                                    right: parent.right
-                                }
-
-                                height: units.gu(6)
-                                spacing: units.gu(1.5)
-
-                                Icon {
-                                    id: expandedIcon
-                                    name: delegateColumn.expanded ? "go-down" : "go-next"
-
-                                    height: units.gu(2)
-                                    width: height
-
-                                    anchors {
-                                        leftMargin: units.gu(1)
-                                        topMargin: units.gu(2)
-                                        top: parent.top
-                                    }
-                                }
-
-                                Label {
-                                    width: parent.width - expandedIcon.width - units.gu(3)
-                                    anchors.verticalCenter: expandedIcon.verticalCenter
-
-                                    text: folder ? folder : i18n.tr("All Bookmarks")
-                                    fontSize: "small"
-                                }
-                            }
-
-                            ListItem.ThinDivider {
-                                anchors {
-                                    left: parent.left
-                                    right: parent.right
-                                    bottom: parent.bottom
-                                    bottomMargin: units.gu(1)
-                                }
-                            }
-
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: delegateColumn.expanded = !delegateColumn.expanded
-                            }
-                        }
-
-                        Loader {
-                            anchors {
-                                left: parent.left
-                                right: parent.right
-                            }
-
-                            visible: status == Loader.Ready
-
-                            active: delegateColumn.expanded
-                            sourceComponent: UrlsList {
-                                spacing: 0
- 
-                                model: entries
- 
-                                onUrlClicked: bookmarksFolderListViewItem.bookmarkClicked(url)
-                                onUrlRemoved: bookmarksFolderListViewItem.bookmarkRemoved(url)
-                            }
+                            onUrlClicked: bookmarksFolderListViewItem.bookmarkClicked(url)
+                            onUrlRemoved: bookmarksFolderListViewItem.bookmarkRemoved(url)
                         }
                     }
                 }
