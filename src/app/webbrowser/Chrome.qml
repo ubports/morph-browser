@@ -29,13 +29,16 @@ ChromeBase {
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
-    property bool findInPageMode
+    property alias addressBarCanSimplifyText: addressbar.canSimplifyText
+    property bool findInPageMode: false
     property alias incognito: addressbar.incognito
 
     onFindInPageModeChanged: if (findInPageMode) addressbar.text = ""
     onIncognitoChanged: findInPageMode = false
 
     backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
+
+    function addressBarSelectAll() { addressbar.selectAll() }
 
     FocusScope {
         anchors {

@@ -19,7 +19,7 @@ import logging
 import autopilot.logging
 import ubuntuuitoolkit as uitk
 from autopilot import exceptions
-
+from autopilot import input
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +30,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         super().__init__(*args)
         self.chrome = self._get_chrome()
         self.address_bar = self.chrome.address_bar
+        self.keyboard = input.Keyboard.create()
 
     def _get_chrome(self):
         return self.select_single(Chrome)
@@ -150,6 +151,17 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
 
+    # The history view is dynamically created, so it might or might not be
+    # available
+    def get_history_view(self):
+        try:
+            return self.select_single("HistoryView")
+        except exceptions.StateNotFoundError:
+            return None
+
+    def press_key(self, key):
+        self.keyboard.press_and_release(key)
+
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
@@ -232,10 +244,13 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     @autopilot.logging.log_action(logger.info)
     def go_to_url(self, url):
         self.write(url)
-        self.text_field.keyboard.press_and_release('Enter')
+        self.press_key('Enter')
 
     def write(self, text, clear=True):
         self.text_field.write(text, clear)
+
+    def press_key(self, key):
+        self.text_field.keyboard.press_and_release(key)
 
     @autopilot.logging.log_action(logger.info)
     def click_action_button(self):

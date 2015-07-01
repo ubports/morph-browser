@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-02 23:12+0200\n"
-"PO-Revision-Date: 2015-04-18 18:58+0000\n"
+"POT-Creation-Date: 2015-06-22 12:30+0200\n"
+"PO-Revision-Date: 2015-06-23 17:28+0000\n"
 "Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-06-24 05:32+0000\n"
+"X-Generator: Launchpad (build 17572)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -25,6 +25,7 @@ msgstr "Alertă JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "În regulă"
 
@@ -393,7 +394,7 @@ msgstr "Mergi la"
 msgid "Address;URL;www"
 msgstr "Adresă;URL:www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:515
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
 msgid "New Tab"
 msgstr "Filă nouă"
 
@@ -433,19 +434,19 @@ msgstr "Salvează imaginea"
 msgid "Share…"
 msgstr "Partajează..."
 
-#: src/app/webbrowser/AddressBar.qml:198
+#: src/app/webbrowser/AddressBar.qml:201
 msgid "search or enter an address"
 msgstr "căutați sau introduceți o adresă"
 
-#: src/app/webbrowser/Browser.qml:296
+#: src/app/webbrowser/Browser.qml:292
 msgid "Share"
 msgstr "Partajare"
 
-#: src/app/webbrowser/Browser.qml:303
+#: src/app/webbrowser/Browser.qml:299
 msgid "History"
 msgstr "Istoric"
 
-#: src/app/webbrowser/Browser.qml:310
+#: src/app/webbrowser/Browser.qml:309
 msgid "Open tabs"
 msgstr "File deschise"
 
@@ -458,31 +459,31 @@ msgstr "Filă nouă"
 msgid "Settings"
 msgstr "Configurări"
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Părasiți modul privat"
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
-msgstr ""
+msgstr "Mod privat"
 
-#: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "Finalizat"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:599
+#: src/app/webbrowser/Browser.qml:606
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:870
+#: src/app/webbrowser/Browser.qml:889
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Glisați în sus pentru a ieși din ecranul complet"
 
-#: src/app/webbrowser/Browser.qml:871
+#: src/app/webbrowser/Browser.qml:890
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Apăsați ESC pentru a ieși din ecranul complet"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
@@ -515,21 +516,20 @@ msgstr "Ştergeţi"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
-msgid "Ok"
-msgstr ""
+msgstr "Trecerea la modul publlic va închide toate ferestrele private"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Aceasta este o fereastră privată"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Paginile pe care le veți vizualiza în această fereastră nu vor apărea în "
+"istoricul navigatorului dumneavoastră.\n"
+"Semnele de carte pe care le creați vor fi păstrate, oricum."
 
 #: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
@@ -537,7 +537,7 @@ msgstr "Semne de carte"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
-msgstr ""
+msgstr "Mai mult"
 
 #: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
@@ -545,7 +545,7 @@ msgstr "Site-uri de top"
 
 #: src/app/webbrowser/NewTabView.qml:239
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Nu aveți  vizitat încă niciun site."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -647,13 +647,13 @@ msgid "Tap to view"
 msgstr "Apăsați pentru vizualizare"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:34
+#: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navigatorul web Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "Navigatorul web Ubuntu"

@@ -145,6 +145,10 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             if query in self.suggestions_data:
                 suggestions = self.suggestions_data[query]
                 self.wfile.write(json.dumps(suggestions).encode())
+        elif self.path.startswith("/tab/"):
+            self.send_response(200)
+            name = self.path[len("/tab/"):]
+            self.send_html('<html><body>' + name + '</body></html>')
         else:
             self.send_error(404)
 

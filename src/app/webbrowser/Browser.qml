@@ -33,6 +33,9 @@ import "urlManagement.js" as UrlManagement
 BrowserView {
     id: browser
 
+    // Should be true when the containing window is fullscreen.
+    property bool fullscreen: false
+
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
@@ -149,13 +152,6 @@ BrowserView {
                 top: recentView.visible ? invisibleTabChrome.bottom : parent.top
             }
             height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : 0)
-
-            Keys.onEscapePressed: {
-                if (browser.currentWebview && browser.currentWebview.fullscreen) {
-                    event.accepted = true
-                    browser.currentWebview.fullscreen = false
-                }
-            }
         }
 
         Loader {
@@ -312,7 +308,10 @@ BrowserView {
                     text: i18n.tr("History")
                     iconName: "history"
                     enabled: browser.historyModel
-                    onTriggered: historyViewComponent.createObject(historyViewContainer)
+                    onTriggered: {
+                        historyViewComponent.createObject(historyViewContainer)
+                        historyViewContainer.focus = true
+                    }
                 },
                 Action {
                     objectName: "tabs"
@@ -322,6 +321,7 @@ BrowserView {
                     onTriggered: {
                         recentView.state = "shown"
                         recentToolbar.state = "shown"
+                        recentView.focus = true
                     }
                 },
                 Action {
@@ -336,7 +336,10 @@ BrowserView {
                     text: i18n.tr("Find in page")
                     iconName: "search"
                     enabled: !chrome.findInPageMode
-                    onTriggered: { chrome.findInPageMode = true; chrome.forceActiveFocus() }
+                    onTriggered: {
+                        chrome.findInPageMode = true
+                        chrome.forceActiveFocus()
+                    }
                 },
                 Action {
                     objectName: "privatemode"
@@ -359,22 +362,29 @@ BrowserView {
                     objectName: "settings"
                     text: i18n.tr("Settings")
                     iconName: "settings"
-                    onTriggered: settingsComponent.createObject(settingsContainer)
+                    onTriggered: {
+                        settingsComponent.createObject(settingsContainer)
+                        settingsContainer.focus = true
+                    }
                 }
             ]
+
+            addressBarCanSimplifyText: !(activeFocus || suggestionsList.activeFocus)
+            Keys.onDownPressed: if (suggestionsList.count) suggestionsList.focus = true
+            Keys.onEscapePressed: internal.resetFocus()
         }
 
         ChromeController {
             id: chromeController
             webview: browser.currentWebview
-            forceHide: recentView.visible
+            forceHide: recentView.visible || browser.fullscreen
             defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
                                                    : Oxide.LocationBarController.ModeAuto
         }
 
         Suggestions {
             id: suggestionsList
-            opacity: ((chrome.state == "shown") && chrome.activeFocus &&
+            opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) &&
                       (count > 0) && !chrome.drawerOpen && !chrome.findInPageMode) ? 1.0 : 0.0
             Behavior on opacity {
                 UbuntuNumberAnimation {}
@@ -388,6 +398,9 @@ BrowserView {
             height: enabled ? Math.min(contentHeight, tabContainer.height - chrome.height - units.gu(2)) : 0
 
             searchTerms: chrome.text.split(/\s+/g).filter(function(term) { return term.length > 0 })
+
+            Keys.onUpPressed: chrome.focus = true
+            Keys.onEscapePressed: internal.resetFocus()
 
             models: [historySuggestions,
                      bookmarksSuggestions,
@@ -421,7 +434,7 @@ BrowserView {
                 id: searchSuggestions
                 terms: suggestionsList.searchTerms
                 searchEngine: currentSearchEngine
-                active: chrome.activeFocus &&
+                active: (chrome.activeFocus || suggestionsList.activeFocus) &&
                          !browser.incognito && !chrome.findInPageMode &&
                          !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
@@ -433,7 +446,7 @@ BrowserView {
                 }
             }
 
-            onSelected: {
+            onActivated: {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
                 chrome.requestedUrl = url
@@ -443,6 +456,7 @@ BrowserView {
 
     FocusScope {
         id: recentView
+        objectName: "recentView"
 
         anchors.fill: parent
         visible: bottomEdgeHandle.dragging || tabslist.animating || (state == "shown")
@@ -450,6 +464,13 @@ BrowserView {
         states: State {
             name: "shown"
         }
+
+        function closeAndSwitchToTab(index) {
+            recentView.reset()
+            internal.switchToTab(index)
+        }
+
+        Keys.onEscapePressed: closeAndSwitchToTab(0)
 
         TabsList {
             id: tabslist
@@ -470,15 +491,7 @@ BrowserView {
                 }
             }
             chromeOffset: chrome.height - invisibleTabChrome.height
-            onTabSelected: {
-                var tab = tabsModel.get(index)
-                if (tab) {
-                    tab.load()
-                    tab.forceActiveFocus()
-                    tabslist.model.setCurrent(index)
-                }
-                recentView.reset()
-            }
+            onTabSelected: recentView.closeAndSwitchToTab(index)
             onTabClosed: {
                 var tab = tabsModel.remove(index)
                 if (tab) {
@@ -514,10 +527,7 @@ BrowserView {
 
                 text: i18n.tr("Done")
 
-                onClicked: {
-                    recentView.reset()
-                    tabsModel.currentTab.load()
-                }
+                onClicked: recentView.closeAndSwitchToTab(0)
             }
 
             ToolbarAction {
@@ -617,8 +627,9 @@ BrowserView {
         }
     }
 
-    Item {
+    FocusScope {
         id: historyViewContainer
+        objectName: "historyView"
 
         visible: children.length > 0
         anchors.fill: parent
@@ -629,6 +640,12 @@ BrowserView {
             HistoryView {
                 anchors.fill: parent
                 visible: historyViewContainer.children.length == 1
+                focus: true
+
+                Keys.onEscapePressed: {
+                    destroy()
+                    internal.resetFocus()
+                }
 
                 Timer {
                     // Set the model asynchronously to ensure
@@ -667,7 +684,7 @@ BrowserView {
         }
     }
 
-    Item {
+    FocusScope {
         id: settingsContainer
 
         visible: children.length > 0
@@ -678,9 +695,14 @@ BrowserView {
 
             SettingsPage {
                 anchors.fill: parent
+                focus: true
                 historyModel: browser.historyModel
                 settingsObject: settings
                 onDone: destroy()
+                Keys.onEscapePressed: {
+                    destroy()
+                    internal.resetFocus()
+                }
             }
         }
     }
@@ -766,7 +788,7 @@ BrowserView {
                     }
                     Actions.CopyLink {
                         enabled: contextualData.href.toString()
-                        onTriggered: Clipboard.push([contextualData.href])
+                        onTriggered: Clipboard.push(["text/plain", contextualData.href.toString()])
                     }
                     Actions.ShareLink {
                         enabled: (formFactor == "mobile") && contextualData.href.toString()
@@ -778,7 +800,7 @@ BrowserView {
                     }
                     Actions.CopyImage {
                         enabled: contextualData.img.toString()
-                        onTriggered: Clipboard.push([contextualData.img])
+                        onTriggered: Clipboard.push(["text/plain", contextualData.img.toString()])
                     }
                     Actions.SaveImage {
                         enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
@@ -937,9 +959,33 @@ BrowserView {
             }
         }
 
-        function focusAddressBar() {
+        function switchToTab(index) {
+            var tab = tabsModel.get(index)
+            if (tab) {
+                tab.load()
+                tabslist.model.setCurrent(index)
+                if (tab.initialUrl == "" && formFactor == "desktop") focusAddressBar()
+                else tab.forceActiveFocus()
+            }
+        }
+
+        function closeCurrentTab() {
+            if (tabsModel.count > 0) {
+                var tab = tabsModel.remove(0)
+                if (tab) tab.close()
+
+                if (tabsModel.count === 0) {
+                    browser.openUrlInNewTab("", true)
+                } else {
+                    internal.switchToTab(0)
+                }
+             }
+        }
+
+        function focusAddressBar(selectContent) {
             chrome.forceActiveFocus()
             Qt.inputMethod.show() // work around http://pad.lv/1316057
+            if (selectContent) chrome.addressBarSelectAll()
         }
 
         function resetFocus() {
@@ -975,6 +1021,20 @@ BrowserView {
                 }
             }
             return false
+        }
+
+        function historyGoBack() {
+            if (currentWebview && currentWebview.canGoBack) {
+                internal.resetFocus()
+                currentWebview.goBack()
+            }
+        }
+
+        function historyGoForward() {
+            if (currentWebview && currentWebview.canGoForward) {
+                internal.resetFocus()
+                currentWebview.goForward()
+            }
         }
     }
 
@@ -1143,6 +1203,137 @@ BrowserView {
                 PopupUtils.close(dialogue)
                 browser.incognito = false
             }
+        }
+    }
+
+    Keys.onPressed: if (shortcuts.processKey(event.key, event.modifiers)) event.accepted = true
+    KeyboardShortcuts {
+        id: shortcuts
+
+        // Ctrl + Tab: pull the tab from the bottom of the stack to the
+        // top (i.e. make it current)
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_Tab
+            enabled: chrome.visible || recentView.visible
+            onTriggered: {
+                internal.switchToTab(tabsModel.count - 1)
+                if (chrome.visible) recentView.reset()
+                else if (recentView.visible) recentView.focus = true
+            }
+        }
+
+        // Ctrl + w or Ctrl+F4: Close the current tab
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_W
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.closeCurrentTab()
+        }
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_F4
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.closeCurrentTab()
+        }
+
+        // Ctrl + t: Open a new Tab
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_T
+            enabled: chrome.visible || recentView.visible
+            onTriggered: {
+                openUrlInNewTab("", true)
+                if (recentView.visible) recentView.reset()
+            }
+        }
+
+        // F6 or Ctrl + L or Alt + D: Select the content in the address bar
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_L
+            enabled: chrome.visible
+            onTriggered: internal.focusAddressBar(true)
+        }
+        KeyboardShortcut {
+            modifiers: Qt.AltModifier
+            key: Qt.Key_D
+            enabled: chrome.visible
+            onTriggered: internal.focusAddressBar(true)
+        }
+        KeyboardShortcut {
+            key: Qt.Key_F6
+            enabled: chrome.visible
+            onTriggered: internal.focusAddressBar(true)
+        }
+
+        // Ctrl + D: Toggle bookmarked state on current Tab
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_D
+            enabled: chrome.visible
+            onTriggered: {
+                if (currentWebview) {
+                    if (bookmarksModel.contains(currentWebview.url)) {
+                        bookmarksModel.remove(currentWebview.url)
+                    } else {
+                        bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
+                    }
+                }
+            }
+        }
+
+        // Ctrl + H: Show History
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_H
+            enabled: chrome.visible
+            onTriggered: {
+                if (historyViewContainer.children.length === 0) {
+                    historyViewComponent.createObject(historyViewContainer)
+                    historyViewContainer.focus = true
+                }
+            }
+        }
+
+        // Alt + Left Arrow or Backspace: Goes to the previous page in history
+        KeyboardShortcut {
+            modifiers: Qt.AltModifier
+            key: Qt.Key_Left
+            enabled: chrome.visible
+            onTriggered: internal.historyGoBack()
+        }
+        KeyboardShortcut {
+            key: Qt.Key_Backspace
+            enabled: chrome.visible
+            onTriggered: internal.historyGoBack()
+        }
+
+        // Alt + Right Arrow or Shift + Backspace: Goes to the next page in history
+        KeyboardShortcut {
+            modifiers: Qt.AltModifier
+            key: Qt.Key_Right
+            enabled: chrome.visible
+            onTriggered: internal.historyGoForward()
+        }
+        KeyboardShortcut {
+            modifiers: Qt.ShiftModifier
+            key: Qt.Key_Backspace
+            enabled: chrome.visible
+            onTriggered: internal.historyGoForward()
+        }
+
+        // F5 or Ctrl + R: Reload current Tab
+        KeyboardShortcut {
+            key: Qt.Key_F5
+            enabled: chrome.visible
+            onTriggered: if (currentWebview) currentWebview.reload()
+        }
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_R
+            enabled: chrome.visible
+            onTriggered: if (currentWebview) currentWebview.reload()
         }
     }
 }
