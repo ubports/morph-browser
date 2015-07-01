@@ -30,8 +30,8 @@
 
     BookmarksFolderListModel is a list model that exposes bookmarks entries
     from a BookmarksModel grouped by folder name. Each item in the list has
-    three roles: 'folder' for the folder name and 'entries' for the
-    corresponding BookmarksFolderModel that contains all entries in this group.
+    two roles: 'folder' for the folder name and 'entries' for the corresponding
+    BookmarksFolderModel that contains all entries in this group.
 */
 BookmarksFolderListModel::BookmarksFolderListModel(QObject* parent)
     : QAbstractListModel(parent)
