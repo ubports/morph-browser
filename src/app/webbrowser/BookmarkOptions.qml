@@ -67,13 +67,8 @@ Popover {
         OptionSelector {
             id: folderOptionSelector
 
-            delegate: selectorDelegate
+            delegate: OptionSelectorDelegate { text: folder === "" ? i18n.tr("All Bookmarks") : folder }
             containerHeight: itemHeight * 3
-        }
-
-        Component {
-            id: selectorDelegate
-            OptionSelectorDelegate { text: folder === "" ? i18n.tr("All Bookmarks") : folder }
         }
 
         Row {
