@@ -21,7 +21,7 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 
 Item {
-    objectName: "bookmarkFolderDelegate_" + folderName
+    objectName: "bookmarkFolderDelegate"
 
     height: delegateColumn.height
 
