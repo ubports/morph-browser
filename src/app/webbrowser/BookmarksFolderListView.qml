@@ -47,10 +47,13 @@ Item {
                 right: parent.right
             }
  
+            height: active ? item.height : 0
             active: entries.count > 0
 
             sourceComponent: Item {
                 objectName: "bookmarkFolderDelegate"
+
+                property string folderName: folder
 
                 anchors {
                     left: parent ? parent.left : undefined 
@@ -109,7 +112,7 @@ Item {
                                 width: parent.width - expandedIcon.width - units.gu(3)
                                 anchors.verticalCenter: expandedIcon.verticalCenter
 
-                                text: folder ? folder : i18n.tr("All Bookmarks")
+                                text: folderName ? folderName : i18n.tr("All Bookmarks")
                                 fontSize: "small"
                             }
                         }

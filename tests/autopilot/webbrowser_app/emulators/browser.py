@@ -437,21 +437,19 @@ class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_delegates(self):
-        return sorted(self.select_many(BookmarksFolderDelegate),
+        return sorted(self.select_many("QQuickItem",
+                                       objectName="bookmarkFolderDelegate"),
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_folder_delegate(self, folder):
-        return self.select_single(BookmarksFolderDelegate,
-                                  objectName="bookmarkFolderDelegate_" +
-                                  folder)
+        return self.select_single("QQuickItem",
+                                  objectName="bookmarkFolderDelegate",
+                                  folderName=folder)
 
-
-class BookmarksFolderDelegate(uitk.UCListItem):
-
-    def get_delegate_header(self):
-        return self.wait_select_single("QQuickItem",
-                                       objectName="bookmarkFolderHeader")
-
-    def get_url_delegates(self):
-        return sorted(self.select_many(UrlDelegate),
+    def get_urls_from_folder(self, folder):
+        return sorted(folder.select_many(UrlDelegate),
                       key=lambda delegate: delegate.globalRect.y)
+
+    def get_header_from_folder(self, folder):
+        return folder.wait_select_single("QQuickItem",
+                                         objectName="bookmarkFolderHeader")

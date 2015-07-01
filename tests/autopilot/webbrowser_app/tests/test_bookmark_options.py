@@ -110,7 +110,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
     def test_save_bookmarked_url_in_default_folder(self):
         folders = self._get_bookmarks_folders_list_view()
         folder_delegate = folders.get_folder_delegate("")
-        self.assertThat(lambda: len(folder_delegate.get_url_delegates()),
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
                         Eventually(Equals(4)))
 
         url = self.base_url + "/test2"
@@ -128,7 +129,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         folders = self._get_bookmarks_folders_list_view()
         folder_delegate = folders.get_folder_delegate("")
-        self.assertThat(lambda: len(folder_delegate.get_url_delegates()),
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
                         Eventually(Equals(5)))
 
     def test_save_bookmarked_url_in_existing_folder(self):
@@ -136,7 +138,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: len(folders.get_delegates()),
                         Eventually(Equals(3)))
         folder_delegate = folders.get_folder_delegate("Actinide")
-        self.assertThat(lambda: len(folder_delegate.get_url_delegates()),
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
                         Eventually(Equals(1)))
 
         url = self.base_url + "/test2"
@@ -165,7 +168,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: len(folders.get_delegates()),
                         Eventually(Equals(3)))
         folder_delegate = folders.get_folder_delegate("Actinide")
-        self.assertThat(lambda: len(folder_delegate.get_url_delegates()),
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
                         Eventually(Equals(2)))
 
     def test_save_bookmarked_url_in_new_folder(self):
@@ -213,7 +217,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: len(folders.get_delegates()),
                         Eventually(Equals(4)))
         folder_delegate = folders.get_folder_delegate("NewFolder")
-        self.assertThat(lambda: len(folder_delegate.get_url_delegates()),
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
                         Eventually(Equals(1)))
 
     def test_set_bookmark_title(self):
@@ -238,7 +243,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         folders = self._get_bookmarks_folders_list_view()
         folder_delegate = folders.get_folder_delegate("")
-        self.assertThat(lambda: len(folder_delegate.get_url_delegates()),
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
                         Eventually(Equals(5)))
-        delegate = folder_delegate.get_url_delegates()[0]
+        delegate = folders.get_urls_from_folder(folder_delegate)[0]
         self.assertThat(delegate.title, Equals("NewTitle"))
