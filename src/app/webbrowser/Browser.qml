@@ -463,9 +463,32 @@ BrowserView {
                     }
                 }
 
-                Keys.onEscapePressed: {
-                    browser.bookmarksModel.remove(bookmarkUrl)
-                    hide()
+                Keys.onPressed: {
+                    if (bookmarkOptionsShortcuts.processKey(event.key, event.modifiers)) {
+                        event.accepted = true
+                    }
+                }
+
+                KeyboardShortcuts {
+                    id: bookmarkOptionsShortcuts
+                    KeyboardShortcut {
+                        key: Qt.Key_Escape
+                        enabled: visible
+                        onTriggered: {
+                            browser.bookmarksModel.remove(bookmarkUrl)
+                            hide()
+                        }
+                    }
+
+                    KeyboardShortcut {
+                        modifiers: Qt.ControlModifier
+                        key: Qt.Key_D
+                        enabled: visible
+                        onTriggered: {
+                            browser.bookmarksModel.remove(bookmarkUrl)
+                            hide()
+                        }
+                    }
                 }
             }
         }
