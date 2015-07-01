@@ -1348,7 +1348,7 @@ BrowserView {
             key: Qt.Key_F
             onTriggered: {
                 chrome.findInPageMode = true
-                chrome.forceActiveFocus()
+                chrome.focus = true
             }
         }
     }
