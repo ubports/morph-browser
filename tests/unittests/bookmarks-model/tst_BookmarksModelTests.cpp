@@ -223,6 +223,28 @@ private Q_SLOTS:
         QCOMPARE(model->property("count").toInt(), 1);
         QCOMPARE(spyCount.count(), 3);
     }
+
+    void shouldPopulateModelWithExistingFolders()
+    {
+        QTemporaryFile tempFile;
+        tempFile.open();
+        QString fileName = tempFile.fileName();
+        delete model;
+        model = new BookmarksModel;
+        QSignalSpy spy(model, SIGNAL(folderAdded(QString)));
+        model->setDatabasePath(fileName);
+        model->addFolder("SampleFolder");
+        model->addFolder("AnotherFolder");
+        // The empty folder is added by default
+        QCOMPARE(spy.count(), 3);
+        QCOMPARE(model->folders().count(), 3);
+        delete model;
+        model = new BookmarksModel;
+        QSignalSpy spyPopulate(model, SIGNAL(folderAdded(QString)));
+        model->setDatabasePath(fileName);
+        QCOMPARE(spyPopulate.count(), 3);
+        QCOMPARE(model->folders().count(), 3);
+    }
 };
 
 QTEST_MAIN(BookmarksModelTests)
