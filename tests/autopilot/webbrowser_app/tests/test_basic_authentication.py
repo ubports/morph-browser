@@ -27,13 +27,13 @@ class TestBasicAuthentication(StartOpenRemotePageTestCaseBase):
 
     def test_cancel(self):
         self.main_window.go_to_url(self.url)
-        dialog = self.main_window.get_basic_auth_dialog()
+        dialog = self.main_window.get_http_auth_dialog()
         self.pointing_device.click_object(dialog.get_deny_button())
         dialog.wait_until_destroyed()
 
     def test_right_credentials(self):
         self.main_window.go_to_url(self.url)
-        dialog = self.main_window.get_basic_auth_dialog()
+        dialog = self.main_window.get_http_auth_dialog()
         username = dialog.get_username_field()
         username.write(self.username)
         password = dialog.get_password_field()
@@ -43,7 +43,7 @@ class TestBasicAuthentication(StartOpenRemotePageTestCaseBase):
 
     def test_wrong_credentials(self):
         self.main_window.go_to_url(self.url)
-        dialog = self.main_window.get_basic_auth_dialog()
+        dialog = self.main_window.get_http_auth_dialog()
         username = dialog.get_username_field()
         username.write("x")
         password = dialog.get_password_field()
@@ -51,4 +51,4 @@ class TestBasicAuthentication(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(dialog.get_allow_button())
         dialog.wait_until_destroyed()
         # verify that a new dialog has been displayed
-        self.main_window.get_basic_auth_dialog()
+        self.main_window.get_http_auth_dialog()
