@@ -48,6 +48,7 @@ Popover {
         }
 
         Label {
+            // TRANSLATORS: Field where the title of bookmarked URL can be changed
             text: i18n.tr("Name")
             fontSize: "small"
         }
@@ -60,6 +61,7 @@ Popover {
         }
 
         Label {
+            // TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
             text: i18n.tr("Save in")
             fontSize: "small"
         }
