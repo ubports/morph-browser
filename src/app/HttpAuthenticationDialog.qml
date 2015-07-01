@@ -57,7 +57,7 @@ Popups.Dialog {
     Button {
         objectName: "allow"
         text: i18n.tr("OK")
-        color: "green"
+        color: UbuntuColors.green
         onClicked: {
             request.allow(usernameInput.text, passwordInput.text)
             PopupUtils.close(dialog)
