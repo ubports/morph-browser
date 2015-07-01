@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -44,6 +44,8 @@ WebView {
         ]
     }
 
+    onFullscreenRequested: webview.fullscreen = fullscreen
+
     onDownloadRequested: {
         if (!request.suggestedFilename && request.mimeType &&
             internal.downloadMimeTypesBlacklist.indexOf(request.mimeType) > -1) {
@@ -60,6 +62,9 @@ WebView {
             }
             headers["User-Agent"] = webview.context.userAgent
             downloadLoader.item.downloadMimeType(request.url, request.mimeType, headers, request.suggestedFilename)
+        } else {
+            // Desktop form factor case
+            Qt.openUrlExternally(request.url)
         }
     }
 

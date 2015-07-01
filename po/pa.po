@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-02 23:12+0200\n"
-"PO-Revision-Date: 2015-05-24 03:56+0000\n"
+"POT-Creation-Date: 2015-06-22 12:30+0200\n"
+"PO-Revision-Date: 2015-06-17 14:25+0000\n"
 "Last-Translator: Gursharnjit_Singh <ubuntuser13@gmail.com>\n"
 "Language-Team: Punjabi <pa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-06-23 05:30+0000\n"
+"X-Generator: Launchpad (build 17572)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,6 +24,7 @@ msgstr "JavaScript ਚੇਤਾਵਨੀ"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "ਠੀਕ ਹੈ"
 
@@ -391,7 +392,7 @@ msgstr "ਜਾਓ"
 msgid "Address;URL;www"
 msgstr "ਸਿਰਨਾਵਾਂ;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:515
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
 msgid "New Tab"
 msgstr "ਨਵੀਂ ਟੈਬ"
 
@@ -431,19 +432,19 @@ msgstr "ਚਿੱਤਰ ਸੰਭਾਲੋ"
 msgid "Share…"
 msgstr "...ਸਾਂਝਾ ਕਰੋ"
 
-#: src/app/webbrowser/AddressBar.qml:198
+#: src/app/webbrowser/AddressBar.qml:201
 msgid "search or enter an address"
 msgstr "ਖੋਜੋ ਜਾਂ ਸਿਰਨਾਵਾਂ ਦਿਓ"
 
-#: src/app/webbrowser/Browser.qml:296
+#: src/app/webbrowser/Browser.qml:292
 msgid "Share"
 msgstr "ਸਾਂਝਾ ਕਰੋ"
 
-#: src/app/webbrowser/Browser.qml:303
+#: src/app/webbrowser/Browser.qml:299
 msgid "History"
 msgstr "ਅਤੀਤ"
 
-#: src/app/webbrowser/Browser.qml:310
+#: src/app/webbrowser/Browser.qml:309
 msgid "Open tabs"
 msgstr "ਟੈਬਾਂ ਖੋਲ੍ਹੋ"
 
@@ -456,29 +457,29 @@ msgstr "ਨਵੀਂ ਟੈਬ"
 msgid "Settings"
 msgstr "ਸੈਟਿੰਗ"
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
 msgstr "ਨਿੱਜੀ ਮੋਡ ਤੋਂ ਵਿਦਾ ਲਓ"
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
 msgstr "ਨਿੱਜੀ ਮੋਡ"
 
-#: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "ਮੁਕੰਮਲ"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:599
+#: src/app/webbrowser/Browser.qml:606
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:870
+#: src/app/webbrowser/Browser.qml:889
 msgid "Swipe Up To Exit Full Screen"
 msgstr "ਪੂਰੀ ਸਕਰੀਨ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ ਉੱਪਰ ਖਿੱਚੋ"
 
-#: src/app/webbrowser/Browser.qml:871
+#: src/app/webbrowser/Browser.qml:890
 msgid "Press ESC To Exit Full Screen"
 msgstr "ਪੂਰੀ ਸਕਰੀਨ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ ESC ਦੱਬੋ"
 
@@ -514,10 +515,6 @@ msgstr "ਹਟਾਓ"
 msgid "Going to public mode will close all private tabs"
 msgstr "ਜਨਤਕ ਮੋਡ ਵਿੱਚ ਜਾਣਾ ਸਾਰੇ ਨਿੱਜੀ ਟੈਬ ਬੰਦ ਕਰ ਦੇਵੇਗਾ"
 
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
-msgid "Ok"
-msgstr "ਠੀਕ"
-
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
 msgstr "ਇਹ ਇੱਕ ਨਿੱਜੀ ਟੈਬ ਹੈ"
@@ -537,7 +534,7 @@ msgstr "ਬੁੱਕਮਾਰਕ"
 
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
-msgstr ""
+msgstr "ਹੋਰ"
 
 #: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
@@ -545,7 +542,7 @@ msgstr "ਚੋਟੀ ਦੀਆਂ ਸਾਈਟਾਂ"
 
 #: src/app/webbrowser/NewTabView.qml:239
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "ਤੁਸੀਂ ਹੁਣ ਤੱਕ ਕਿਸੇ ਵੀ ਸਾਈਟ ਤੇ ਨਹੀਂ ਗਏ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -644,13 +641,13 @@ msgid "Tap to view"
 msgstr "ਵੇਖਣ ਲਈ ਛੂਹੋ"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:34
+#: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - ਉਬੰਤੂ ਵੈੱਬ ਬਰਾਊਜ਼ਰ"
 
-#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "ਉਬੰਤੂ ਵੈੱਬ ਬਰਾਉਜ਼ਰ"

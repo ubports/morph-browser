@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -44,6 +44,8 @@ WebViewImpl {
     //  (if any) or navigations resulting in new windows being created.
     property bool blockOpenExternalUrls: false
 
+    signal samlRequestUrlPatternReceived(string urlPattern)
+
     // Those signals are used for testing purposes to externally
     //  track down the various internal logic & steps of a popup lifecycle.
     signal openExternalUrlTriggered(string url)
@@ -67,16 +69,22 @@ WebViewImpl {
     contextualActions: ActionList {
         Actions.CopyLink {
             enabled: webview.contextualData.href.toString()
-            onTriggered: Clipboard.push([webview.contextualData.href])
+            onTriggered: Clipboard.push(["text/plain", webview.contextualData.href.toString()])
         }
         Actions.CopyImage {
             enabled: webview.contextualData.img.toString()
-            onTriggered: Clipboard.push([webview.contextualData.img])
+            onTriggered: Clipboard.push(["text/plain", webview.contextualData.img.toString()])
         }
     }
 
     StateSaver.properties: "url"
     StateSaver.enabled: !runningLocalApplication
+
+    function handleSAMLRequestPattern(urlPattern) {
+        webappUrlPatterns.push(urlPattern)
+
+        samlRequestUrlPatternReceived(urlPattern)
+    }
 
     function shouldOpenPopupsInDefaultBrowser() {
         return formFactor !== "desktop";
@@ -163,9 +171,12 @@ WebViewImpl {
             var match = urlRegExp.exec(url)
             var host = match[1]
             var escapeDotsRegExp = new RegExp("\\.", "g")
-            var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/"
+            var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/*"
+
             console.log("SAML request detected. Adding host pattern: " + hostPattern)
-            webappUrlPatterns.push(hostPattern)
+
+            handleSAMLRequestPattern(hostPattern)
+
             request.action = Oxide.NavigationRequest.ActionAccept
         }
 
