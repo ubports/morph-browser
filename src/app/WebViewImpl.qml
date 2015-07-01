@@ -68,7 +68,7 @@ WebView {
     }
 
     onHttpAuthenticationRequested: {
-        PopupUtils.open(Qt.resolvedUrl("BasicAuthenticationDialog.qml"),
+        PopupUtils.open(Qt.resolvedUrl("HttpAuthenticationDialog.qml"),
                         webview.currentWebview, {"request": request})
     }
 
