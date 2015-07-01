@@ -437,12 +437,12 @@ BrowserView {
         Component {
             id: bookmarkOptionsComponent
             BookmarkOptions {
-                bookmarkTitle: browser.currentWebview.title
                 folderModel: BookmarksFolderListModel {
                     sourceModel: bookmarksModel
                 }
 
                 Component.onCompleted: {
+                    bookmarkTitle = browser.currentWebview.title
                     forceActiveFocus()
                 }
 
