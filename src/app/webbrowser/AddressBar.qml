@@ -246,8 +246,13 @@ FocusScope {
         onAccepted: if (!internal.idle) internal.validate()
 
         Keys.onReturnPressed: {
-            if (event.modifiers & Qt.ShiftModifier) findController.previous()
-            else findController.next()
+            if (!findInPageMode) {
+                accepted()
+            } else if (event.modifiers & Qt.ShiftModifier) {
+                findController.previous()
+            } else {
+                findController.next()
+            }
         }
 
         // Make sure that all the text is selected at the first click
