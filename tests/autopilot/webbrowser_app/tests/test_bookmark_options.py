@@ -17,6 +17,7 @@
 import os.path
 import sqlite3
 import time
+import testtools
 
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals
@@ -221,6 +222,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
                                     folder_delegate)),
                         Eventually(Equals(1)))
 
+    @testtools.skip("popover out of view with OSK http://pad.lv/1466222")
     def test_set_bookmark_title(self):
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
