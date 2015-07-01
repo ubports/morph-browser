@@ -76,13 +76,13 @@ Popover {
             containerHeight: itemHeight * 3
         }
 
-        Row {
+        Item {
             anchors {
                 left: parent.left
                 right: parent.right
             }
 
-            spacing: parent.width - newFolderButton.width - okButton.width
+            height: newFolderButton.height
 
             Button {
                 id: newFolderButton
@@ -94,6 +94,7 @@ Popover {
             Button {
                 id: okButton
                 objectName: "bookmarkOptions.okButton"
+                anchors.right: parent.right
                 text: i18n.tr("OK")
                 color: "#3fb24f"
                 onClicked: hide()
