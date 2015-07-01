@@ -473,7 +473,6 @@ BrowserView {
                     id: bookmarkOptionsShortcuts
                     KeyboardShortcut {
                         key: Qt.Key_Escape
-                        enabled: visible
                         onTriggered: {
                             browser.bookmarksModel.remove(bookmarkUrl)
                             hide()
@@ -483,7 +482,6 @@ BrowserView {
                     KeyboardShortcut {
                         modifiers: Qt.ControlModifier
                         key: Qt.Key_D
-                        enabled: visible
                         onTriggered: {
                             browser.bookmarksModel.remove(bookmarkUrl)
                             hide()
