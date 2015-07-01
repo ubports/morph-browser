@@ -80,7 +80,10 @@ BrowserView {
         },
         Actions.Bookmark {
             enabled: currentWebview && browser.bookmarksModel
-            onTriggered: browser.bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon, "")
+            onTriggered: {
+                browser.bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon, "")
+                PopupUtils.open(bookmarkOptionsComponent, chrome.bookmarkTogglePlaceHolder) 
+            }
         },
         Actions.NewTab {
             onTriggered: browser.openUrlInNewTab("", true)
@@ -792,7 +795,10 @@ BrowserView {
                     }
                     Actions.BookmarkLink {
                         enabled: contextualData.href.toString() && browser.bookmarksModel
-                        onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "", "")
+                        onTriggered: {
+                            browser.bookmarksModel.add(contextualData.href, contextualData.title, "", "")
+                            PopupUtils.open(bookmarkOptionsComponent, chrome.bookmarkTogglePlaceHolder) 
+                        }
                     }
                     Actions.CopyLink {
                         enabled: contextualData.href.toString()
