@@ -811,9 +811,7 @@ BrowserView {
                     }
                     Actions.BookmarkLink {
                         enabled: contextualData.href.toString() && browser.bookmarksModel
-                        onTriggered: {
-                            internal.addBookmark(contextualData.href, contextualData.title, "")
-                        }
+                        onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "")
                     }
                     Actions.CopyLink {
                         enabled: contextualData.href.toString()
