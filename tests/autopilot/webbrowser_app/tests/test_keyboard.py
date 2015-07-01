@@ -216,6 +216,10 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(chrome.bookmarked, Equals(False))
         self.main_window.press_key('Ctrl+D')
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
+        self.main_window.press_key('Escape')
+        self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
+        self.main_window.press_key('Ctrl+D')
+        self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
         self.main_window.press_key('Ctrl+D')
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
 
