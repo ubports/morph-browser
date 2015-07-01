@@ -62,6 +62,8 @@ Popover {
                 left: parent.left
                 right: parent.right
             }
+
+            inputMethodHints: Qt.ImhNoPredictiveText
         }
 
         Label {
