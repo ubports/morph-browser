@@ -23,6 +23,7 @@ import Ubuntu.Components.Popups 1.0
 Popover {
     id: bookmarkOptions
 
+    property url bookmarkUrl
     property alias bookmarkTitle: titleTextField.text
     property alias folderModel: folderOptionSelector.model
 

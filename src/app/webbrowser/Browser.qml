@@ -82,7 +82,10 @@ BrowserView {
             enabled: currentWebview && browser.bookmarksModel
             onTriggered: {
                 browser.bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon, "")
-                PopupUtils.open(bookmarkOptionsComponent, chrome.bookmarkTogglePlaceHolder) 
+                PopupUtils.open(bookmarkOptionsComponent,
+                                chrome.bookmarkTogglePlaceHolder,
+                                {"bookmarkUrl": currentWebview.url,
+                                 "bookmarkTitle": currentWebview.title}) 
             }
         },
         Actions.NewTab {
@@ -268,7 +271,11 @@ BrowserView {
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.add(webview.url, webview.title, webview.icon, "")
-                    PopupUtils.open(bookmarkOptionsComponent, chrome.bookmarkTogglePlaceHolder) 
+                    PopupUtils.open(bookmarkOptionsComponent,
+                                    chrome.bookmarkTogglePlaceHolder,
+                                    {"bookmarkUrl": webview.url,
+                                     "bookmarkTitle": webview.title}) 
+ 
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.remove(webview.url)
                 }
@@ -445,20 +452,19 @@ BrowserView {
                 }
 
                 Component.onCompleted: {
-                    bookmarkTitle = browser.currentWebview.title
                     forceActiveFocus()
                 }
 
                 Component.onDestruction: {
-                    if (browser.bookmarksModel.contains(browser.currentWebview.url)) {
-                        browser.bookmarksModel.update(browser.currentWebview.url,
+                    if (browser.bookmarksModel.contains(bookmarkUrl)) {
+                        browser.bookmarksModel.update(bookmarkUrl,
                                                       bookmarkTitle,
                                                       bookmarkFolder)
                     }
                 }
 
                 Keys.onEscapePressed: {
-                    browser.bookmarksModel.remove(browser.currentWebview.url)
+                    browser.bookmarksModel.remove(bookmarkUrl)
                     hide()
                 }
             }
@@ -797,7 +803,10 @@ BrowserView {
                         enabled: contextualData.href.toString() && browser.bookmarksModel
                         onTriggered: {
                             browser.bookmarksModel.add(contextualData.href, contextualData.title, "", "")
-                            PopupUtils.open(bookmarkOptionsComponent, chrome.bookmarkTogglePlaceHolder) 
+                            PopupUtils.open(bookmarkOptionsComponent,
+                                            chrome.bookmarkTogglePlaceHolder,
+                                            {"bookmarkUrl": contextualData.href,
+                                             "bookmarkTitle": contextualData.title}) 
                         }
                     }
                     Actions.CopyLink {
@@ -1292,7 +1301,10 @@ BrowserView {
                         bookmarksModel.remove(currentWebview.url)
                     } else {
                         bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon, "")
-                        PopupUtils.open(bookmarkOptionsComponent, chrome.bookmarkTogglePlaceHolder) 
+                        PopupUtils.open(bookmarkOptionsComponent,
+                                        chrome.bookmarkTogglePlaceHolder,
+                                        {"bookmarkUrl": currentWebview.url,
+                                         "bookmarkTitle": currentWebview.title}) 
                     }
                 }
             }
