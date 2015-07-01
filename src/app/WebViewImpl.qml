@@ -28,7 +28,6 @@ WebView {
     property var currentWebview: webview
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
-    experimental.authenticationDialog: AuthenticationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
     alertDialog: AlertDialog {}
     confirmDialog: ConfirmDialog {}
@@ -68,7 +67,7 @@ WebView {
         }
     }
 
-    onBasicAuthenticationRequested: {
+    onHttpAuthenticationRequested: {
         PopupUtils.open(Qt.resolvedUrl("BasicAuthenticationDialog.qml"),
                         webview.currentWebview, {"request": request})
     }
