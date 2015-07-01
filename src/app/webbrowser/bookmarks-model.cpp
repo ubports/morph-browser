@@ -131,8 +131,9 @@ void BookmarksModel::populateFromDatabase()
     populateFolderQuery.prepare(query);
     populateFolderQuery.exec();
     while (populateFolderQuery.next()) {
-        m_folders.insert(populateFolderQuery.value(0).toInt(), populateFolderQuery.value(1).toString());
-        Q_EMIT folderAdded(populateFolderQuery.value(1).toString());
+        QString folder = populateFolderQuery.value(1).toString();
+        m_folders.insert(populateFolderQuery.value(0).toInt(), folder);
+        Q_EMIT folderAdded(folder);
     }
 
     QSqlQuery populateQuery(m_database);
