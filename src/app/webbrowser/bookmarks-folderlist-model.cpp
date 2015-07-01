@@ -62,7 +62,7 @@ int BookmarksFolderListModel::rowCount(const QModelIndex& parent) const
 
 QVariant BookmarksFolderListModel::data(const QModelIndex& index, int role) const
 {
-    if (!index.isValid()) {
+    if (!index.isValid() || !checkValidFolderIndex(index.row())) {
         return QVariant();
     }
     const QString folder = m_folders.keys().at(index.row());
