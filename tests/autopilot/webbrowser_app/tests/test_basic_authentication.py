@@ -25,9 +25,6 @@ class TestBasicAuthentication(StartOpenRemotePageTestCaseBase):
         self.password = "pass"
         self.url = self.base_url + "/basic_auth"
 
-    def tearDown(self):
-        super(TestBasicAuthentication, self).tearDown()
-
     def test_cancel(self):
         self.main_window.go_to_url(self.url)
         dialog = self.main_window.get_basic_auth_dialog()
