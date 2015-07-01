@@ -373,7 +373,7 @@ void BookmarksModel::updateExistingEntryInDatabase(const BookmarkEntry& entry)
     query.addBindValue(entry.title);
     query.addBindValue(entry.icon.toString());
     query.addBindValue(entry.created.toMSecsSinceEpoch());
-    if (!entry.folderId) {
+    if (entry.folderId == 0) {
         query.addBindValue(QVariant());
     } else {
         query.addBindValue(entry.folderId);
