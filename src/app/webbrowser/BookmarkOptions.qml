@@ -57,7 +57,10 @@ Popover {
             id: titleTextField
             objectName: "titleTextField"
 
-            width: parent.width
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
         }
 
         Label {
