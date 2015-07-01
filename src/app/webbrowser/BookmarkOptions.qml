@@ -154,6 +154,7 @@ Popover {
                 // dismissed and that could make the Button moves between the
                 // press and the release. Button onClicked is not triggered
                 // if the release event happens outside of the button.
+                // See: http://pad.lv/1415023
                 activeFocusOnPress: false
                 onClicked: createNewFolder(folderTextField.text)
             }
