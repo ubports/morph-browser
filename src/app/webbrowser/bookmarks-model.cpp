@@ -231,7 +231,7 @@ QStringList BookmarksModel::folders() const
 int BookmarksModel::addFolder(const QString& folder)
 {
     int newFolderId = insertNewFolderInDatabase(folder);
-    if (newFolderId) {
+    if (newFolderId != 0) {
         m_folders.insert(newFolderId, folder);
         Q_EMIT folderAdded(folder);
         return newFolderId;
