@@ -338,7 +338,7 @@ BrowserView {
                     enabled: !chrome.findInPageMode
                     onTriggered: {
                         chrome.findInPageMode = true
-                        chrome.forceActiveFocus()
+                        chrome.focus = true
                     }
                 },
                 Action {
