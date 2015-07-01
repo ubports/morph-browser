@@ -371,7 +371,12 @@ BrowserView {
 
             addressBarCanSimplifyText: !(activeFocus || suggestionsList.activeFocus)
             Keys.onDownPressed: if (suggestionsList.count) suggestionsList.focus = true
-            Keys.onEscapePressed: internal.resetFocus()
+            Keys.onEscapePressed: {
+                if (chrome.findInPageMode) {
+                    chrome.findInPageMode = false
+                }
+                internal.resetFocus()
+            }
         }
 
         ChromeController {
@@ -1334,6 +1339,16 @@ BrowserView {
             key: Qt.Key_R
             enabled: chrome.visible
             onTriggered: if (currentWebview) currentWebview.reload()
+        }
+
+        // Ctrl + F: Find in Page
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_F
+            onTriggered: {
+                chrome.findInPageMode = true
+                chrome.forceActiveFocus()
+            }
         }
     }
 }
