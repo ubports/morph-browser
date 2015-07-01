@@ -80,13 +80,7 @@ BrowserView {
         },
         Actions.Bookmark {
             enabled: currentWebview && browser.bookmarksModel
-            onTriggered: {
-                browser.bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon, "")
-                PopupUtils.open(bookmarkOptionsComponent,
-                                chrome.bookmarkTogglePlaceHolder,
-                                {"bookmarkUrl": currentWebview.url,
-                                 "bookmarkTitle": currentWebview.title}) 
-            }
+            onTriggered: internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
             onTriggered: browser.openUrlInNewTab("", true)
@@ -270,12 +264,7 @@ BrowserView {
             bookmarked: isCurrentUrlBookmarked()
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
-                    browser.bookmarksModel.add(webview.url, webview.title, webview.icon, "")
-                    PopupUtils.open(bookmarkOptionsComponent,
-                                    chrome.bookmarkTogglePlaceHolder,
-                                    {"bookmarkUrl": webview.url,
-                                     "bookmarkTitle": webview.title}) 
- 
+                    internal.addBookmark(webview.url, webview.title, webview.icon)
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.remove(webview.url)
                 }
@@ -823,11 +812,7 @@ BrowserView {
                     Actions.BookmarkLink {
                         enabled: contextualData.href.toString() && browser.bookmarksModel
                         onTriggered: {
-                            browser.bookmarksModel.add(contextualData.href, contextualData.title, "", "")
-                            PopupUtils.open(bookmarkOptionsComponent,
-                                            chrome.bookmarkTogglePlaceHolder,
-                                            {"bookmarkUrl": contextualData.href,
-                                             "bookmarkTitle": contextualData.title}) 
+                            internal.addBookmark(contextualData.href, contextualData.title, "")
                         }
                     }
                     Actions.CopyLink {
@@ -1080,6 +1065,14 @@ BrowserView {
                 currentWebview.goForward()
             }
         }
+
+        function addBookmark(url, title, icon) {
+            bookmarksModel.add(url, title, icon, "")
+            PopupUtils.open(bookmarkOptionsComponent,
+                            chrome.bookmarkTogglePlaceHolder,
+                            {"bookmarkUrl": url,
+                             "bookmarkTitle": title}) 
+        }
     }
 
     function openUrlInNewTab(url, setCurrent, load) {
@@ -1321,11 +1314,7 @@ BrowserView {
                     if (bookmarksModel.contains(currentWebview.url)) {
                         bookmarksModel.remove(currentWebview.url)
                     } else {
-                        bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon, "")
-                        PopupUtils.open(bookmarkOptionsComponent,
-                                        chrome.bookmarkTogglePlaceHolder,
-                                        {"bookmarkUrl": currentWebview.url,
-                                         "bookmarkTitle": currentWebview.title}) 
+                        internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
                     }
                 }
             }
