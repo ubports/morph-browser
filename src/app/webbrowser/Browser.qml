@@ -374,8 +374,9 @@ BrowserView {
             Keys.onEscapePressed: {
                 if (chrome.findInPageMode) {
                     chrome.findInPageMode = false
+                } else {
+                    internal.resetFocus()
                 }
-                internal.resetFocus()
             }
         }
 
