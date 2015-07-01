@@ -151,7 +151,7 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             self.send_response(200)
             name = self.path[len("/tab/"):]
             self.send_html('<html><body>' + name + '</body></html>')
-        elif self.path.startswith("/basic_auth"):
+        elif self.path.startswith("/basicauth"):
             login = "user"
             password = "pass"
             if "Authorization" in self.headers:

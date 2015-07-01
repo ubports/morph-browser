@@ -23,7 +23,7 @@ class TestBasicAuthentication(StartOpenRemotePageTestCaseBase):
         super(TestBasicAuthentication, self).setUp()
         self.username = "user"
         self.password = "pass"
-        self.url = self.base_url + "/basic_auth"
+        self.url = self.base_url + "/basicauth"
 
     def test_cancel(self):
         self.main_window.go_to_url(self.url)
