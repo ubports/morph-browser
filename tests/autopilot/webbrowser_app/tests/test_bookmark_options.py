@@ -222,7 +222,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
                                     folder_delegate)),
                         Eventually(Equals(1)))
 
-    @testtools.skip("popover out of view with OSK http://pad.lv/1466222")
+    @testtools.skip("Temporarily skipped until popover going out of view with"
+                    " OSK is fixed http://pad.lv/1466222")
     def test_set_bookmark_title(self):
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
