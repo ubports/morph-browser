@@ -29,7 +29,6 @@ import ".."
 import "../UrlUtils.js" as UrlUtils
 import "urlManagement.js" as UrlManagement
 
-
 BrowserView {
     id: browser
 
@@ -839,6 +838,10 @@ BrowserView {
                 }
 
                 onLoadEvent: {
+                    if (event.type == Oxide.LoadEvent.TypeCommitted) {
+                        chrome.findInPageMode = false
+                    }
+
                     if (webviewimpl.incognito) {
                         return
                     }

@@ -132,3 +132,14 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
         bar.write("hello")
         self.assertThat(next.enabled, Eventually(Equals(False)))
         self.assertThat(prev.enabled, Eventually(Equals(False)))
+
+    def test_navigation_exits_findinpage_mode(self):
+        url = self.base_url + "/testlink"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.activate_find_in_page(False)
+        bar = self.chrome.address_bar
+        self.assertThat(bar.findInPageMode, Eventually(Equals(True)))
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        self.assertThat(bar.findInPageMode, Eventually(Equals(False)))
