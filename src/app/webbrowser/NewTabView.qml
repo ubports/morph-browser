@@ -43,7 +43,7 @@ Item {
     QtObject {
         id: internal
 
-        property bool seeMoreBookmarksView: bookmarksCountLimit > 4
+        property bool seeMoreBookmarksView: false
         property int bookmarksCountLimit: Math.min(4, numberOfBookmarks)
         property int numberOfBookmarks: bookmarksModel ? bookmarksModel.count : 0
 
@@ -65,7 +65,7 @@ Item {
     Flickable {
         anchors.fill: parent
         contentHeight: internal.seeMoreBookmarksView ?
-                                          bookmarksColumn.height + units.gu(6) :
+                                          bookmarksFolderListViewLoader.height + units.gu(6) :
                                           contentColumn.height
 
         Column {
@@ -120,14 +120,9 @@ Item {
 
                     visible: internal.numberOfBookmarks > 4
 
-                    text: internal.bookmarksCountLimit >= internal.numberOfBookmarks
-                    ? i18n.tr("Less") : i18n.tr("More")
+                    text: internal.seeMoreBookmarksView ? i18n.tr("Less") : i18n.tr("More")
 
-                    onClicked: {
-                        internal.numberOfBookmarks > internal.bookmarksCountLimit ?
-                        internal.bookmarksCountLimit += 5:
-                        internal.bookmarksCountLimit = 4
-                    }
+                    onClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
                 }
             }
 
@@ -141,12 +136,35 @@ Item {
                 color: "#d3d3d3"
             }
 
+            Loader {
+                id: bookmarksFolderListViewLoader
+
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+
+                height: status == Loader.Ready ? item.height : 0
+
+                active: internal.seeMoreBookmarksView
+                sourceComponent: BookmarksFolderListView {
+                    model: newTabView.bookmarksModel 
+
+                    onBookmarkClicked: newTabView.bookmarkClicked(url)
+                    onBookmarkRemoved: newTabView.bookmarkRemoved(url)
+                }
+            }
+
             Column {
                 id: bookmarksColumn
                 anchors {
                     left: parent.left
                     right: parent.right
                 }
+
+                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                Behavior on opacity { UbuntuNumberAnimation {} }
+                visible: opacity > 0
 
                 // Force the height to be updated when bookmarks are removed
                 // in another new tab

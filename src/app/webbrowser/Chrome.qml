@@ -32,6 +32,8 @@ ChromeBase {
     property alias addressBarCanSimplifyText: addressbar.canSimplifyText
     property alias incognito: addressbar.incognito
 
+    readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
+
     backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
 
     function addressBarSelectAll() { addressbar.selectAll() }
