@@ -71,6 +71,7 @@ Item {
 
     Item {
         id: tabsContainer
+        objectName: "tabsContainer"
 
         anchors {
             top: parent.top

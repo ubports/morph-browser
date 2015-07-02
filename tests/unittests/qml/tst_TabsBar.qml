@@ -70,7 +70,14 @@ Item {
         }
 
         function getTabDelegate(index) {
-            return findChild(tabs, "tabDelegate_" + index)
+            var container = findChild(tabs, "tabsContainer")
+            for (var i = 0; i < container.children.length; ++i) {
+                var child = container.children[i]
+                if ((child.objectName == "tabDelegate") && (child.tabIndex == index)) {
+                    return child
+                }
+            }
+            return null
         }
 
         function cleanup() {
