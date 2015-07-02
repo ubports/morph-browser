@@ -17,6 +17,7 @@
  */
 
 // Qt
+#include <QtCore/QObject>
 #include <QtTest/QSignalSpy>
 #include <QtTest/QtTest>
 
