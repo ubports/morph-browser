@@ -99,7 +99,7 @@ Popover {
                 objectName: "bookmarkOptions.okButton"
                 anchors.right: parent.right
                 text: i18n.tr("OK")
-                color: "#3fb24f"
+                color: UbuntuColors.green
                 onClicked: hide()
             }
         }
@@ -152,7 +152,7 @@ Popover {
                 }
                 text: i18n.tr("Save")
                 enabled: folderTextField.text
-                color: "#3fb24f"
+                color: UbuntuColors.green
                 // Button took focus on press what makes the keyboard be
                 // dismissed and that could make the Button moves between the
                 // press and the release. Button onClicked is not triggered
