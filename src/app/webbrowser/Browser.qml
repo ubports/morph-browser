@@ -1149,7 +1149,10 @@ BrowserView {
     }
     Connections {
         target: tabsModel
-        onCurrentTabChanged: delayedSessionSaver.restart()
+        onCurrentTabChanged: {
+            chrome.findInPageMode = false
+            delayedSessionSaver.restart()
+        }
         onCountChanged: delayedSessionSaver.restart()
     }
 

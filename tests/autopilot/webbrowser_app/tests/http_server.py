@@ -49,7 +49,7 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             body = "<p>test page 2</p>"
             html = self.make_html(title, body)
             self.send_html(html)
-        elif self.path == "/testlink":
+        elif self.path == "/link":
             self.send_response(200)
             html = '<html><body style="margin: 0">'
             html += '<a href="/test1"><div style="height: 100%"></div></a>'
