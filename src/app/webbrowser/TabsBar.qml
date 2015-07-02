@@ -87,7 +87,8 @@ Item {
 
             delegate: Item {
                 id: tabDelegate
-                objectName: "tabDelegate_" + index
+                objectName: "tabDelegate"
+                readonly property int tabIndex: index
 
                 anchors {
                     top: tabsContainer.top
@@ -187,6 +188,7 @@ Item {
 
                     Icon {
                         id: closeIcon
+                        objectName: "closeButton"
                         name: "close"
                         width: units.gu(1.5)
                         height: units.gu(1.5)
