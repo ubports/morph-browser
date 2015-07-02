@@ -31,16 +31,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
         self.create_temporary_profile()
-        self.populate_config()
         self.populate_bookmarks()
         super(TestBookmarkOptions, self).setUp()
-
-    def populate_config(self):
-        self.homepage = "http://test/test2"
-        config_file = os.path.join(self.config_location, "webbrowser-app.conf")
-        with open(config_file, "w") as f:
-            f.write("[General]\n")
-            f.write("homepage={}".format(self.homepage))
 
     def populate_bookmarks(self):
         db_path = os.path.join(self.data_location, "bookmarks.sqlite")
