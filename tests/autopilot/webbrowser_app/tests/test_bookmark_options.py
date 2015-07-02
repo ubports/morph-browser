@@ -125,6 +125,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         bookmark_options = self._get_bookmark_options()
         dismiss_button = bookmark_options.get_dismiss_button()
         self.pointing_device.click_object(dismiss_button)
+        bookmark_options.wait_until_destroyed()
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
@@ -162,6 +163,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         dismiss_button = bookmark_options.get_dismiss_button()
         self.pointing_device.click_object(dismiss_button)
+        bookmark_options.wait_until_destroyed()
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
@@ -211,6 +213,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         dismiss_button = bookmark_options.get_dismiss_button()
         self.pointing_device.click_object(dismiss_button)
+        bookmark_options.wait_until_destroyed()
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
@@ -241,6 +244,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         dismiss_button = bookmark_options.get_dismiss_button()
         self.pointing_device.click_object(dismiss_button)
+        bookmark_options.wait_until_destroyed()
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
