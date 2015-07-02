@@ -123,8 +123,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
 
         bookmark_options = self._get_bookmark_options()
-        dismiss_button = bookmark_options.get_dismiss_button()
-        self.pointing_device.click_object(dismiss_button)
+        bookmark_options.click_dismiss_button()
         bookmark_options.wait_until_destroyed()
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
@@ -161,8 +160,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(option_selector_delegate)
         option_selector.currentlyExpanded.wait_for(False)
 
-        dismiss_button = bookmark_options.get_dismiss_button()
-        self.pointing_device.click_object(dismiss_button)
+        bookmark_options.click_dismiss_button()
         bookmark_options.wait_until_destroyed()
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
@@ -190,8 +188,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         bookmark_options = self._get_bookmark_options()
 
         # First test cancelling the creation of a new folder
-        new_folder_button = bookmark_options.get_new_folder_button()
-        self.pointing_device.click_object(new_folder_button)
+        bookmark_options.click_new_folder_button()
         dialog = self.main_window.get_new_bookmarks_folder_dialog()
         cancel_button = dialog.select_single(
             "Button", objectName="newFolderDialog.cancelButton")
@@ -199,8 +196,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         dialog.wait_until_destroyed()
 
         # Then test actually creating a new folder
-        new_folder_button = bookmark_options.get_new_folder_button()
-        self.pointing_device.click_object(new_folder_button)
+        bookmark_options.click_new_folder_button()
         dialog = self.main_window.get_new_bookmarks_folder_dialog()
         text_field = dialog.select_single(uitk.TextField,
                                           objectName="newFolderDialog.text")
@@ -211,8 +207,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(save_button)
         dialog.wait_until_destroyed()
 
-        dismiss_button = bookmark_options.get_dismiss_button()
-        self.pointing_device.click_object(dismiss_button)
+        bookmark_options.click_dismiss_button()
         bookmark_options.wait_until_destroyed()
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
@@ -242,8 +237,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         title_text_field.activeFocus.wait_for(True)
         title_text_field.write("NewTitle", True)
 
-        dismiss_button = bookmark_options.get_dismiss_button()
-        self.pointing_device.click_object(dismiss_button)
+        bookmark_options.click_dismiss_button()
         bookmark_options.wait_until_destroyed()
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))

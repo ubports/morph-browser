@@ -425,13 +425,17 @@ class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_save_in_option_selector(self):
         return self.select_single("OptionSelector", currentlyExpanded=False)
 
-    def get_new_folder_button(self):
-        return self.select_single("Button",
-                                  objectName="bookmarkOptions.newButton")
+    @autopilot.logging.log_action(logger.info)
+    def click_new_folder_button(self):
+        button = self.select_single("Button",
+                                    objectName="bookmarkOptions.newButton")
+        self.pointing_device.click_object(button)
 
-    def get_dismiss_button(self):
-        return self.select_single("Button",
-                                  objectName="bookmarkOptions.okButton")
+    @autopilot.logging.log_action(logger.info)
+    def click_dismiss_button(self):
+        button = self.select_single("Button",
+                                    objectName="bookmarkOptions.okButton")
+        self.pointing_device.click_object(button)
 
 
 class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
