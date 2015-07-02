@@ -461,6 +461,11 @@ BrowserView {
                 KeyboardShortcuts {
                     id: bookmarkOptionsShortcuts
                     KeyboardShortcut {
+                        key: Qt.Key_Return
+                        onTriggered: hide()
+                    }
+
+                    KeyboardShortcut {
                         key: Qt.Key_Escape
                         onTriggered: {
                             browser.bookmarksModel.remove(bookmarkUrl)
