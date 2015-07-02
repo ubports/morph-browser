@@ -971,7 +971,7 @@ BrowserView {
             tabsModel.currentIndex = index
             var tab = tabsModel.currentTab
             if (tab) {
-                if (tab.initialUrl == "" && formFactor == "desktop") {
+                if (tab.url == "" && formFactor == "desktop") {
                     focusAddressBar()
                 } else {
                     tabContainer.forceActiveFocus()
