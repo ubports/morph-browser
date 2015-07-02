@@ -1,3 +1,14 @@
+webbrowser-app (0.23+15.10.20150702.1-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Implement bookmark folders (LP: #1351147, #1259247)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 02 Jul 2015 20:09:10 +0000
+
 webbrowser-app (0.23+15.10.20150624-0ubuntu1) wily; urgency=medium
 
   [ Alberto Mardegan ]
