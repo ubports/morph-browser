@@ -39,7 +39,7 @@ FocusScope {
     property string searchUrl
     property bool canSimplifyText: true
     property bool findInPageMode: false
-    property var findController
+    property var findController: null
 
     property var securityStatus: null
 
@@ -53,13 +53,10 @@ FocusScope {
 
     function selectAll() { textField.selectAll() }
 
-    // Only start searches when the user types two or more characters, as
-    // defined in the design specification for the find in page feature.
     Binding {
         target: findController
         property: "text"
-        value: textField.text.length > 1 ? textField.text : ""
-        when: findInPageMode && findController
+        value: findInPageMode ? textField.text : ""
     }
 
     TextField {

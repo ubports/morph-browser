@@ -89,19 +89,6 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
         self.assertThat(counter.current, Eventually(Equals(0)))
         self.assertThat(counter.count, Eventually(Equals(0)))
 
-    def test_minimum_two_characters(self):
-        bar = self.chrome.address_bar
-        counter = bar.get_find_in_page_counter()
-
-        self.activate_find_in_page()
-        bar.write("t")
-        self.assertThat(counter.current, Eventually(Equals(0)))
-        self.assertThat(counter.count, Eventually(Equals(0)))
-
-        bar.write("e", False)
-        self.assertThat(counter.current, Eventually(Equals(1)))
-        self.assertThat(counter.count, Eventually(Equals(2)))
-
     def test_navigation(self):
         bar = self.chrome.address_bar
         counter = bar.get_find_in_page_counter()
