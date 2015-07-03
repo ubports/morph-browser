@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-05-23 00:27+0200\n"
-"PO-Revision-Date: 2015-05-10 04:09+0000\n"
+"POT-Creation-Date: 2015-06-22 12:30+0200\n"
+"PO-Revision-Date: 2015-06-17 14:25+0000\n"
 "Last-Translator: Gursharnjit_Singh <ubuntuser13@gmail.com>\n"
 "Language-Team: Punjabi <pa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-05-23 05:24+0000\n"
-"X-Generator: Launchpad (build 17514)\n"
+"X-Launchpad-Export-Date: 2015-07-03 05:47+0000\n"
+"X-Generator: Launchpad (build 17597)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,6 +24,7 @@ msgstr "JavaScript ਚੇਤਾਵਨੀ"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "ਠੀਕ ਹੈ"
 
@@ -46,7 +47,7 @@ msgid "Password"
 msgstr "ਪਾਸਵਰਡ"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Cancel"
@@ -391,7 +392,7 @@ msgstr "ਜਾਓ"
 msgid "Address;URL;www"
 msgstr "ਸਿਰਨਾਵਾਂ;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:456
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
 msgid "New Tab"
 msgstr "ਨਵੀਂ ਟੈਬ"
 
@@ -431,71 +432,66 @@ msgstr "ਚਿੱਤਰ ਸੰਭਾਲੋ"
 msgid "Share…"
 msgstr "...ਸਾਂਝਾ ਕਰੋ"
 
-#: src/app/webbrowser/AddressBar.qml:196
+#: src/app/webbrowser/AddressBar.qml:201
 msgid "search or enter an address"
 msgstr "ਖੋਜੋ ਜਾਂ ਸਿਰਨਾਵਾਂ ਦਿਓ"
 
-#: src/app/webbrowser/Browser.qml:237
+#: src/app/webbrowser/Browser.qml:292
 msgid "Share"
 msgstr "ਸਾਂਝਾ ਕਰੋ"
 
-#: src/app/webbrowser/Browser.qml:244
+#: src/app/webbrowser/Browser.qml:299
 msgid "History"
 msgstr "ਅਤੀਤ"
 
-#: src/app/webbrowser/Browser.qml:251
+#: src/app/webbrowser/Browser.qml:309
 msgid "Open tabs"
 msgstr "ਟੈਬਾਂ ਖੋਲ੍ਹੋ"
 
-#: src/app/webbrowser/Browser.qml:261 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
 msgstr "ਨਵੀਂ ਟੈਬ"
 
-#: src/app/webbrowser/Browser.qml:268 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "ਸੈਟਿੰਗ"
 
-#: src/app/webbrowser/Browser.qml:274
+#: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "ਨਿੱਜੀ ਮੋਡ ਤੋਂ ਵਿਦਾ ਲਓ"
 
-#: src/app/webbrowser/Browser.qml:274
+#: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
-msgstr ""
+msgstr "ਨਿੱਜੀ ਮੋਡ"
 
-#: src/app/webbrowser/Browser.qml:439 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "ਮੁਕੰਮਲ"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:540
+#: src/app/webbrowser/Browser.qml:606
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:807
+#: src/app/webbrowser/Browser.qml:889
 msgid "Swipe Up To Exit Full Screen"
 msgstr "ਪੂਰੀ ਸਕਰੀਨ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ ਉੱਪਰ ਖਿੱਚੋ"
 
-#: src/app/webbrowser/Browser.qml:808
+#: src/app/webbrowser/Browser.qml:890
 msgid "Press ESC To Exit Full Screen"
 msgstr "ਪੂਰੀ ਸਕਰੀਨ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ ESC ਦੱਬੋ"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
-msgid "Delete"
-msgstr "ਹਟਾਓ"
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:180
+#: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 ਸਫ਼ਾ"
 msgstr[1] "%1 ਸਫ਼ੇ"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:194
+#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Less"
 msgstr "ਘੱਟ"
 
@@ -507,43 +503,46 @@ msgstr "ਆਖਰੀ ਵਾਰ ਖੋਲ੍ਹੇ"
 msgid "Yesterday"
 msgstr "ਕੱਲ੍ਹ"
 
-#: src/app/webbrowser/HistoryView.qml:295
+#: src/app/webbrowser/HistoryView.qml:180
 msgid "Select all"
 msgstr "ਸਾਰੇ ਚੁਣੋ"
 
+#: src/app/webbrowser/HistoryView.qml:210
+msgid "Delete"
+msgstr "ਹਟਾਓ"
+
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
-msgid "Ok"
-msgstr ""
+msgstr "ਜਨਤਕ ਮੋਡ ਵਿੱਚ ਜਾਣਾ ਸਾਰੇ ਨਿੱਜੀ ਟੈਬ ਬੰਦ ਕਰ ਦੇਵੇਗਾ"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "ਇਹ ਇੱਕ ਨਿੱਜੀ ਟੈਬ ਹੈ"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"ਸਫ਼ੇ ਜਿਹੜੇ ਤੁਸੀਂ ਇਸ ਟੈਬ ਵਿੱਚ ਵੇਖੇ ਹਨ ਤੁਹਾਡੇ ਬਰਾਊਜ਼ਰ ਇਤਿਹਾਸ ਵਿੱਚ ਵਿਖਾਈ ਨਹੀਂ "
+"ਦੇਣਗੇ।\n"
+"ਫਿਰ ਵੀ, ਤੁਹਾਡੇ ਵੱਲੋਂ ਰਚੇ ਬੁੱਕਮਾਰਕ ਸੰਭਾਲੇ ਜਾਣਗੇ।"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
 msgstr "ਬੁੱਕਮਾਰਕ"
 
-#: src/app/webbrowser/NewTabView.qml:126
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "More"
+msgstr "ਹੋਰ"
+
+#: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
 msgstr "ਚੋਟੀ ਦੀਆਂ ਸਾਈਟਾਂ"
 
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see less"
-msgstr "ਘੱਟ ਵੇਖੋ"
-
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see more"
-msgstr "ਵੱਧ ਵੇਖੋ"
+#: src/app/webbrowser/NewTabView.qml:239
+msgid "You haven't visited any site yet"
+msgstr "ਤੁਸੀਂ ਹੁਣ ਤੱਕ ਕਿਸੇ ਵੀ ਸਾਈਟ ਤੇ ਨਹੀਂ ਗਏ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -642,13 +641,13 @@ msgid "Tap to view"
 msgstr "ਵੇਖਣ ਲਈ ਛੂਹੋ"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:34
+#: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - ਉਬੰਤੂ ਵੈੱਬ ਬਰਾਊਜ਼ਰ"
 
-#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "ਉਬੰਤੂ ਵੈੱਬ ਬਰਾਉਜ਼ਰ"
@@ -688,6 +687,9 @@ msgstr "ਇੰਟਰਨੈੱਟ;WWW;ਬਰਾਊਜ਼ਰ;ਵੈੱਬ;ਅੈ�
 #~ msgid "Clear"
 #~ msgstr "ਸਾਫ਼ ਕਰੋ"
 
+#~ msgid "see less"
+#~ msgstr "ਘੱਟ ਵੇਖੋ"
+
 #~ msgid "Add"
 #~ msgstr "ਸ਼ਾਮਿਲ"
 
@@ -699,3 +701,6 @@ msgstr "ਇੰਟਰਨੈੱਟ;WWW;ਬਰਾਊਜ਼ਰ;ਵੈੱਬ;ਅੈ�
 
 #~ msgid "Delete all history?"
 #~ msgstr "ਸਭ ਅਤੀਤ ਹਟਾਉਣਾ ਹੈ?"
+
+#~ msgid "see more"
+#~ msgstr "ਵੱਧ ਵੇਖੋ"

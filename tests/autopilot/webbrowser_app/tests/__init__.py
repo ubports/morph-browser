@@ -134,7 +134,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.pointing_device.click_object(tabs_action)
         else:
             self.drag_bottom_edge_upwards(0.75)
-        self.main_window.get_tabs_view()
+        return self.main_window.get_tabs_view()
 
     def open_new_tab(self):
         if (self.main_window.incognito):
@@ -204,7 +204,7 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
     are executed, thus making them more robust.
     """
 
-    def setUp(self):
+    def setUp(self, path="/test1"):
         self.http_server = http_server.HTTPServerInAThread()
         self.ping_server(self.http_server)
         self.addCleanup(self.http_server.cleanup)
@@ -212,7 +212,7 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
             'UBUNTU_WEBVIEW_HOST_MAPPING_RULES',
             "MAP test:80 localhost:{}".format(self.http_server.port)))
         self.base_url = "http://test"
-        self.url = self.base_url + "/test1"
+        self.url = self.base_url + path
         self.ARGS = self.ARGS + [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()
         self.assert_home_page_eventually_loaded()

@@ -8,6 +8,8 @@ include_directories(
 
 set(WEBBROWSER_APP_MODELS_SRC
     bookmarks-model.cpp
+    bookmarks-folder-model.cpp
+    bookmarks-folderlist-model.cpp
     history-domain-model.cpp
     history-domainlist-chronological-model.cpp
     history-domainlist-model.cpp
@@ -49,10 +51,6 @@ install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/w
 install(DIRECTORY assets
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
         FILES_MATCHING PATTERN *.png)
-
-install(DIRECTORY upstreamcomponents
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
-        FILES_MATCHING PATTERN *.qml)
 
 install(DIRECTORY searchengines
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser

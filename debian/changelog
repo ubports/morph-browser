@@ -1,3 +1,103 @@
+webbrowser-app (0.23+15.10.20150702.1-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Implement bookmark folders (LP: #1351147, #1259247)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 02 Jul 2015 20:09:10 +0000
+
+webbrowser-app (0.23+15.10.20150624-0ubuntu1) wily; urgency=medium
+
+  [ Alberto Mardegan ]
+  * Show an error screen if the trust session could not be opened. (LP:
+    #1441873)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 24 Jun 2015 13:37:10 +0000
+
+webbrowser-app (0.23+15.10.20150618-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Michael Terry ]
+  * Fix spelling of OK in private browsing dialog.
+
+  [ Olivier Tilloy ]
+  * Actually push URLs to the clipboard. For some reason setting the
+    "text/url-list" mime type doesn’t seem to work (or other
+    applications do not implement pasting this kind of data), but
+    "text/plain" works well enough for this purpose. (LP: #1463435)
+  * Do not honour fullscreen requests silently at the Ubuntu WebView
+    level. Instead delegate that behaviour to the webview implementation
+    used by the browser and the webapp container. (LP: #1464249)
+  * Toggle application-level fullscreen when pressing F11. (LP:
+    #1464333)
+
+  [ Ugo Riboni ]
+  * Make the browser chrome usable on desktop by implementing common
+    keyboard shortcuts and behaviors that users normally expect in such
+    an app (LP: #1287361)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 18 Jun 2015 08:12:37 +0000
+
+webbrowser-app (0.23+15.10.20150610-0ubuntu2) wily; urgency=medium
+
+  * No-change rebuild against Qt 5.4.2.
+
+ -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Fri, 12 Jun 2015 09:55:00 +0300
+
+webbrowser-app (0.23+15.10.20150610-0ubuntu1) wily; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Ensure SAML requests are followed even if the app is interrupted and
+    restarted. (LP: #1451432, #1452142)
+  * Handle desktop download by forwarding to the default browser (LP:
+    #1309657)
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+  * Updated bzr ignore rules.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 10 Jun 2015 12:36:43 +0000
+
+webbrowser-app (0.23+15.10.20150602-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Actually clear the network cache by deleting the correct set of
+    files in the correct directory. (LP: #1459956)
+  * Bump build dependency on liboxideqt-qmlplugin to 1.6 to fix unit
+    tests.
+  * Do not cache favicons on disk when browsing in private mode. (LP:
+    #1458963)
+  * Do not try to remove a file that doesn’t exist.
+  * Pass plain strings to the worker script instead of RegExps. (LP:
+    #1445673)
+  * Remove the upstreamcomponents folder, and use components from the
+    UITK instead. Add autopilot tests for the new tab view.
+  * Update translation template.
+  * Updated icon. (LP: #1457424)
+
+  [ Riccardo Padovani ]
+  * New tab view refactoring. (LP: #1371248, #1444023, #1351157,
+    #1389605, #1442190)
+  * New tab view refactoring. (LP: #1371248, #1444023, #1351157,
+    #1389605, #1442190)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 02 Jun 2015 14:26:50 +0000
+
 webbrowser-app (0.23+15.04.20150522.1-0ubuntu1) vivid; urgency=medium
 
   [ Arthur Mello ]

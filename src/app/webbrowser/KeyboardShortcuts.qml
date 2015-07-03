@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,17 +17,25 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
 
-ListItem.Standard {
-    id: root
+Item {
+    function processKey(key, modifiers) {
+        for (var i = 0; i < data.length; i++) {
+            var shortcut = data[i];
 
-    property string accountName
+            if (!shortcut.enabled) continue
+            if (key !== shortcut.key) continue
 
-    text: accountName
-
-    iconSource: Qt.resolvedUrl("/usr/share/icons/ubuntu-mobile/actions/scalable/contact.svg")
+            if (shortcut.modifiers === Qt.NoModifier) {
+                if (modifiers === Qt.NoModifier) {
+                    shortcut.trigger()
+                    return true
+                }
+            } else if ((modifiers & shortcut.modifiers) === shortcut.modifiers) {
+                shortcut.trigger()
+                return true
+            }
+        }
+        return false
+    }
 }
-
-

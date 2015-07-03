@@ -1,11 +1,13 @@
 /*
- * Copyright (C) 2012-2014 Canonical, Ltd.
+ * Copyright 2013-2014 Canonical Ltd.
  *
- * This program is free software; you can redistribute it and/or modify
+ * This file is part of webbrowser-app.
+ *
+ * webbrowser-app is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * This program is distributed in the hope that it will be useful,
+ * webbrowser-app is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -16,10 +18,14 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
+import Ubuntu.Components.ListItems 1.0 as ListItem
 
-CheckBox {
-    checked: root.selected
-    width: implicitWidth
-    // disable item mouse area to avoid conflicts with parent mouse area
-    __mouseArea.enabled: false
+ListItem.Subtitled {
+    id: root
+
+    property string providerName
+    property string accountName
+
+    text: providerName
+    subText: accountName
 }

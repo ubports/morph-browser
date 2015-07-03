@@ -256,7 +256,7 @@ Item {
                             text: i18n.tr("Clear Cache")
                             onClicked: {
                                 enabled = false
-                                CacheDeleter.clear(cacheLocation + "/Cache", function() { enabled = true })
+                                CacheDeleter.clear(cacheLocation + "/Cache2", function() { enabled = true })
                             }
                         }
                     }

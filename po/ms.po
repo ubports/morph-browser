@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-05-23 00:27+0200\n"
+"POT-Creation-Date: 2015-06-22 12:30+0200\n"
 "PO-Revision-Date: 2013-12-14 06:00+0000\n"
 "Last-Translator: abuyop <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-05-23 05:24+0000\n"
-"X-Generator: Launchpad (build 17514)\n"
+"X-Launchpad-Export-Date: 2015-07-03 05:47+0000\n"
+"X-Generator: Launchpad (build 17597)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,6 +24,7 @@ msgstr "Makluman Skrip Java"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "OK"
 
@@ -46,7 +47,7 @@ msgid "Password"
 msgstr "Kata laluan"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Cancel"
@@ -389,7 +390,7 @@ msgstr "Pergi ke"
 msgid "Address;URL;www"
 msgstr "Alamat;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:456
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
 msgid "New Tab"
 msgstr "Tab Baharu"
 
@@ -429,71 +430,66 @@ msgstr "Simpan imej"
 msgid "Share…"
 msgstr "Kongsi..."
 
-#: src/app/webbrowser/AddressBar.qml:196
+#: src/app/webbrowser/AddressBar.qml:201
 msgid "search or enter an address"
 msgstr "gelintar atau masukkan alamat"
 
-#: src/app/webbrowser/Browser.qml:237
+#: src/app/webbrowser/Browser.qml:292
 msgid "Share"
 msgstr "Kongsi"
 
-#: src/app/webbrowser/Browser.qml:244
+#: src/app/webbrowser/Browser.qml:299
 msgid "History"
 msgstr "Sejarah"
 
-#: src/app/webbrowser/Browser.qml:251
+#: src/app/webbrowser/Browser.qml:309
 msgid "Open tabs"
 msgstr "Buka tab"
 
-#: src/app/webbrowser/Browser.qml:261 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
 msgstr "Tab baharu"
 
-#: src/app/webbrowser/Browser.qml:268 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Tetapan"
 
-#: src/app/webbrowser/Browser.qml:274
+#: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:274
+#: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:439 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "Selesai"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:540
+#: src/app/webbrowser/Browser.qml:606
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:807
+#: src/app/webbrowser/Browser.qml:889
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:808
+#: src/app/webbrowser/Browser.qml:890
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
-msgid "Delete"
-msgstr "Hapus"
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:180
+#: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 halaman"
 msgstr[1] "%1 halaman"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:194
+#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Less"
 msgstr "Kurang"
 
@@ -505,16 +501,16 @@ msgstr "Terakhir Dilawati"
 msgid "Yesterday"
 msgstr "Semalam"
 
-#: src/app/webbrowser/HistoryView.qml:295
+#: src/app/webbrowser/HistoryView.qml:180
 msgid "Select all"
 msgstr "Pilih semua"
 
+#: src/app/webbrowser/HistoryView.qml:210
+msgid "Delete"
+msgstr "Hapus"
+
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
-msgid "Ok"
 msgstr ""
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
@@ -527,21 +523,21 @@ msgid ""
 "Bookmarks you create will be preserved, however."
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
 msgstr "Tanda Buku"
 
-#: src/app/webbrowser/NewTabView.qml:126
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "More"
+msgstr ""
+
+#: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
 msgstr "Laman terbaik"
 
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see less"
-msgstr "kurang"
-
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see more"
-msgstr "lagi"
+#: src/app/webbrowser/NewTabView.qml:239
+msgid "You haven't visited any site yet"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -641,13 +637,13 @@ msgid "Tap to view"
 msgstr "Ketuk untuk lihat"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:34
+#: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Pelayar Sesawang Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "Pelayar Sesawang Ubuntu"
@@ -683,6 +679,12 @@ msgstr "Layari Dunia Internet"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Pelayar;Sesawang;Explorer"
+
+#~ msgid "see more"
+#~ msgstr "lagi"
+
+#~ msgid "see less"
+#~ msgstr "kurang"
 
 #~ msgid "Clear"
 #~ msgstr "Kosongkan"

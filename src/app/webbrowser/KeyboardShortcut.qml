@@ -1,11 +1,13 @@
 /*
- * Copyright (C) 2012-2013 Canonical, Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
- * This program is free software; you can redistribute it and/or modify
+ * This file is part of webbrowser-app.
+ *
+ * webbrowser-app is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 3.
  *
- * This program is distributed in the hope that it will be useful,
+ * webbrowser-app is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -15,17 +17,9 @@
  */
 
 import QtQuick 2.0
+import Ubuntu.Components 1.1
 
-VisualDataModel {
-    id: contactVisualModel
-
-    property alias selectedItems: selectedGroup
-
-    groups: [
-        VisualDataGroup {
-            id: selectedGroup
-
-            name: "selected"
-        }
-    ]
+Action {
+    property int key
+    property int modifiers: Qt.NoModifier
 }

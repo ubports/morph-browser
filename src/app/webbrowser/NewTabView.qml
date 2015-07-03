@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -17,8 +17,8 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
+import Qt.labs.settings 1.0
+import Ubuntu.Components 1.2
 import webbrowserapp.private 0.1
 import ".."
 
@@ -26,149 +26,257 @@ Item {
     id: newTabView
 
     property QtObject bookmarksModel
-    property QtObject historyModel
+    property alias historyModel: historyTimeframeModel.sourceModel
+    property Settings settingsObject
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
     signal historyEntryClicked(url url)
 
+    TopSitesModel {
+        id: topSitesModel
+        sourceModel: HistoryTimeframeModel {
+            id: historyTimeframeModel
+        }
+    }
+
     QtObject {
         id: internal
 
-        property int bookmarksCountLimit: 5
         property bool seeMoreBookmarksView: false
-    }
+        property int bookmarksCountLimit: Math.min(4, numberOfBookmarks)
+        property int numberOfBookmarks: bookmarksModel ? bookmarksModel.count : 0
 
-    ListModel {
-        id: sectionsModel
-
-        Component.onCompleted: {
-            if (bookmarksListModel && bookmarksListModel.count !== 0)
-                sectionsModel.append({ section: "bookmarks" });
-            if (historyListModel && historyListModel.count !== 0 && !internal.seeMoreBookmarksView )
-                sectionsModel.append({ section: "topsites" });
-        }
-    }
-
-    LimitProxyModel {
-        id: bookmarksListModel
-
-        sourceModel: newTabView.bookmarksModel
-
-        limit: internal.seeMoreBookmarksView ? -1 : internal.bookmarksCountLimit
-    }
-
-    LimitProxyModel {
-        id: historyListModel
-
-        sourceModel: TopSitesModel {
-            sourceModel: HistoryTimeframeModel {
-                sourceModel: newTabView.historyModel
-                // We only show sites visited on the last 60 days
-                start: {
-                    var date = new Date()
-                    date.setDate(date.getDate() - 60)
-                    return date
-                }
+        // Force the topsites section to reappear when remove a bookmark while
+        // the bookmarks list is expanded and there aren't anymore > 5
+        // bookmarks
+        onNumberOfBookmarksChanged: {
+            if (numberOfBookmarks <= 4) {
+                seeMoreBookmarksView = false
             }
         }
-
-        limit: 10
     }
 
     Rectangle {
-        id: newTabBackground
         anchors.fill: parent
         color: "#f6f6f6"
     }
 
-    ListView {
-        id: newTabListView
+    Flickable {
         anchors.fill: parent
+        contentHeight: internal.seeMoreBookmarksView ?
+                                          bookmarksFolderListViewLoader.height + units.gu(6) :
+                                          contentColumn.height
 
-        model: sectionsModel
-
-        delegate: Loader {
+        Column {
+            id: contentColumn
             anchors {
                 left: parent.left
                 right: parent.right
-                margins: units.gu(2)
+                rightMargin: units.gu(1.5)
             }
+            height: childrenRect.height
 
-            width: parent.width
-            height: children.height
+            Row {
+                height: units.gu(6)
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1.5)
+                    right: parent.right
+                }
+                spacing: units.gu(1.5)
 
-            sourceComponent: modelData == "bookmarks" ? bookmarksComponent : topSitesComponent
-        }
+                Icon {
+                    id: starredIcon
+                    color: "#dd4814"
+                    name: "starred"
 
-        section.property: "section"
-        section.delegate: Rectangle {
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
+                    height: units.gu(2)
+                    width: height
 
-            height: sectionHeader.height + units.gu(1)
-
-            opacity: section == "topsites" && internal.seeMoreBookmarksView ? 0.0 : 1.0
-
-            color: newTabBackground.color
-
-            Behavior on opacity { UbuntuNumberAnimation {} }
-
-            ListItem.Header {
-                id: sectionHeader
-
-                text: {
-                    if (section == "bookmarks") {
-                        return i18n.tr("Bookmarks")
-                    } else if (section == "topsites") {
-                        return i18n.tr("Top sites")
+                    anchors {
+                        leftMargin: units.gu(1)
+                        topMargin: units.gu(1)
+                        verticalCenter: moreButton.verticalCenter
                     }
                 }
+
+                Label {
+                    width: parent.width - starredIcon.width - moreButton.width - units.gu(3)
+                    anchors.verticalCenter: moreButton.verticalCenter
+
+                    text: i18n.tr("Bookmarks")
+                    fontSize: "small"
+                }
+
+                Button {
+                    id: moreButton
+                    objectName: "bookmarks.moreButton"
+                    height: parent.height - units.gu(2)
+
+                    anchors { top: parent.top; topMargin: units.gu(1) }
+
+                    strokeColor: "#5d5d5d"
+
+                    visible: internal.numberOfBookmarks > 4
+
+                    text: internal.seeMoreBookmarksView ? i18n.tr("Less") : i18n.tr("More")
+
+                    onClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
+                }
             }
-        }
 
-        section.labelPositioning: ViewSection.InlineLabels | ViewSection.CurrentLabelAtStart
-    }
+            Rectangle {
+                height: units.gu(0.1)
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1.5)
+                    right: parent.right
+                }
+                color: "#d3d3d3"
+            }
 
-    Component {
-        id: bookmarksComponent
+            Loader {
+                id: bookmarksFolderListViewLoader
 
-        UrlsList {
-            id: bookmarksList
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
 
-            width: parent.width
+                height: status == Loader.Ready ? item.height : 0
 
-            model: bookmarksListModel
+                active: internal.seeMoreBookmarksView
+                sourceComponent: BookmarksFolderListView {
+                    model: newTabView.bookmarksModel 
 
-            footerLabelText: internal.seeMoreBookmarksView ? i18n.tr("see less") : i18n.tr("see more")
-            footerLabelVisible: bookmarksListModel.unlimitedCount > internal.bookmarksCountLimit
+                    onBookmarkClicked: newTabView.bookmarkClicked(url)
+                    onBookmarkRemoved: newTabView.bookmarkRemoved(url)
+                }
+            }
 
-            onUrlClicked: newTabView.bookmarkClicked(url)
-            onUrlRemoved: newTabView.bookmarkRemoved(url)
-            onFooterLabelClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
-        }
-    }
+            Column {
+                id: bookmarksColumn
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
 
-    Component {
-        id: topSitesComponent
+                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                Behavior on opacity { UbuntuNumberAnimation {} }
+                visible: opacity > 0
 
-        UrlsList {
-            objectName: "topSitesList"
+                // Force the height to be updated when bookmarks are removed
+                // in another new tab
+                height: units.gu(5) * (Math.min(internal.bookmarksCountLimit, internal.numberOfBookmarks) + 1)
+                spacing: 0
 
-            width: parent.width
-            opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                UrlDelegate {
+                    objectName: "homepageBookmark"
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: units.gu(5)
 
-            height: opacity == 0.0 ? 0 : childrenRect.height
-            model: historyListModel
+                    title: i18n.tr('Homepage')
 
-            footerLabelVisible: false
+                    leadingActions: null
 
-            onUrlClicked: newTabView.historyEntryClicked(url)
-            onUrlRemoved: newTabView.historyModel.hide(url)
+                    url: newTabView.settingsObject.homepage
+                    onClicked: newTabView.bookmarkClicked(url)
+                }
 
-            Behavior on opacity { UbuntuNumberAnimation {} }
+                UrlsList {
+                    objectName: "bookmarksList"
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+
+                    spacing: 0
+                    limit: internal.bookmarksCountLimit
+
+                    model: newTabView.bookmarksModel
+
+                    onUrlClicked: newTabView.bookmarkClicked(url)
+                    onUrlRemoved: newTabView.bookmarkRemoved(url)
+                }
+            }
+
+            Item {
+                height: units.gu(6)
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1.5)
+                    right: parent.right
+                }
+
+                Label {
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                        bottomMargin: units.gu(1)
+                    }
+
+                    opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                    Behavior on opacity { UbuntuNumberAnimation {} }
+
+                    text: i18n.tr("Top sites")
+                    fontSize: "small"
+                }
+            }
+
+            Rectangle {
+                height: units.gu(0.1)
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1.5)
+                    right: parent.right
+                }
+                color: "#d3d3d3"
+
+                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                Behavior on opacity { UbuntuNumberAnimation {} }
+            }
+
+            Label {
+                objectName: "notopsites"
+
+                height: units.gu(11)
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+                visible: topSitesModel.count == 0
+
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+
+                text: i18n.tr("You haven't visited any site yet")
+                color: "#5d5d5d"
+            }
+
+            UrlsList {
+                objectName: "topSitesList"
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+
+                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                Behavior on opacity { UbuntuNumberAnimation {} }
+                visible: opacity > 0
+
+                limit: 10
+                spacing: 0
+
+                model: topSitesModel
+
+                onUrlClicked: newTabView.historyEntryClicked(url)
+                onUrlRemoved: newTabView.historyModel.hide(url)
+            }
         }
     }
 }
