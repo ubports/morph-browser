@@ -27,6 +27,9 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         address_bar = self.main_window.address_bar
         bookmark_toggle = address_bar.get_bookmark_toggle()
         self.pointing_device.click_object(bookmark_toggle)
+        bookmark_options = self.main_window.get_bookmark_options()
+        bookmark_options.click_dismiss_button()
+        bookmark_options.wait_until_destroyed()
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
         self.open_tabs_view()
@@ -60,12 +63,10 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(webview)
         address_bar = self.main_window.address_bar
         bookmark_toggle = address_bar.get_bookmark_toggle()
-        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
         self.assertThat(bookmark_toggle.visible, Eventually(Equals(True)))
 
         self.open_tabs_view()
         tabs_view = self.main_window.get_tabs_view()
         self.main_window.get_tabs_view().get_previews()[1].select()
         tabs_view.visible.wait_for(False)
-        self.assertThat(address_bar.activeFocus, Equals(False))
         self.assertThat(bookmark_toggle.visible, Eventually(Equals(False)))

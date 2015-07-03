@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -69,11 +69,11 @@ WebViewImpl {
     contextualActions: ActionList {
         Actions.CopyLink {
             enabled: webview.contextualData.href.toString()
-            onTriggered: Clipboard.push([webview.contextualData.href])
+            onTriggered: Clipboard.push(["text/plain", webview.contextualData.href.toString()])
         }
         Actions.CopyImage {
             enabled: webview.contextualData.img.toString()
-            onTriggered: Clipboard.push([webview.contextualData.img])
+            onTriggered: Clipboard.push(["text/plain", webview.contextualData.img.toString()])
         }
     }
 

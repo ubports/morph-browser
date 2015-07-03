@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-02 23:12+0200\n"
+"POT-Creation-Date: 2015-06-22 12:30+0200\n"
 "PO-Revision-Date: 2015-05-25 08:37+0000\n"
 "Last-Translator: Vojtěch Daněk <vdanek@outlook.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-07-03 05:47+0000\n"
+"X-Generator: Launchpad (build 17597)\n"
 "Language: cs\n"
 
 #: src/app/AlertDialog.qml:23
@@ -25,6 +25,7 @@ msgstr "Varování JavaScriptu"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "OK"
 
@@ -390,7 +391,7 @@ msgstr "Přejít na"
 msgid "Address;URL;www"
 msgstr "Adresa;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:515
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
 msgid "New Tab"
 msgstr "Nový panel"
 
@@ -430,19 +431,19 @@ msgstr "Uložit obrázek"
 msgid "Share…"
 msgstr "Sdílet..."
 
-#: src/app/webbrowser/AddressBar.qml:198
+#: src/app/webbrowser/AddressBar.qml:201
 msgid "search or enter an address"
 msgstr "hledat nebo zadat adresu"
 
-#: src/app/webbrowser/Browser.qml:296
+#: src/app/webbrowser/Browser.qml:292
 msgid "Share"
 msgstr "Sdílet"
 
-#: src/app/webbrowser/Browser.qml:303
+#: src/app/webbrowser/Browser.qml:299
 msgid "History"
 msgstr "Historie"
 
-#: src/app/webbrowser/Browser.qml:310
+#: src/app/webbrowser/Browser.qml:309
 msgid "Open tabs"
 msgstr "Otevřené panely"
 
@@ -455,29 +456,29 @@ msgstr "Nový panel"
 msgid "Settings"
 msgstr "Nastavení"
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
 msgstr "Opustit anonymní režim"
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
 msgstr "Anonymní režim"
 
-#: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "Hotovo"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:599
+#: src/app/webbrowser/Browser.qml:606
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:870
+#: src/app/webbrowser/Browser.qml:889
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Přejeďte prstem nahoru pro ukončení módu celé obrazovky"
 
-#: src/app/webbrowser/Browser.qml:871
+#: src/app/webbrowser/Browser.qml:890
 msgid "Press ESC To Exit Full Screen"
 msgstr "Stiskněte ESC pro ukončení módu celé obrazovky"
 
@@ -513,10 +514,6 @@ msgstr "Smazat"
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr "Přechodem do veřejného režimu zavřete všechna anonymní okna."
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
-msgid "Ok"
-msgstr "Ok"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -643,13 +640,13 @@ msgid "Tap to view"
 msgstr "Klepnout pro zobrazení"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:34
+#: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Internetový prohlížeč Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "Internetový prohlížeč Ubuntu"

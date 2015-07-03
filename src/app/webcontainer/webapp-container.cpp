@@ -83,6 +83,7 @@ const QString WebappContainer::LOCAL_INTENT_FILTER_FILENAME = "local-intent-filt
 
 WebappContainer::WebappContainer(int& argc, char** argv):
     BrowserApplication(argc, argv),
+    m_accountSwitcher(false),
     m_storeSessionCookies(false),
     m_backForwardButtonsVisible(false),
     m_addressBarVisible(false),
@@ -116,9 +117,16 @@ bool WebappContainer::initialize()
         }
 
         m_window->setProperty("webappName", m_webappName);
+        QFileInfo iconInfo(m_webappIcon);
+        QUrl iconUrl;
+        if (iconInfo.isReadable()) {
+            iconUrl = QUrl::fromLocalFile(iconInfo.absoluteFilePath());
+        }
+        m_window->setProperty("webappIcon", iconUrl);
         m_window->setProperty("backForwardButtonsVisible", m_backForwardButtonsVisible);
         m_window->setProperty("chromeVisible", m_addressBarVisible);
         m_window->setProperty("accountProvider", m_accountProvider);
+        m_window->setProperty("accountSwitcher", m_accountSwitcher);
 
         m_window->setProperty("webappUrlPatterns", m_webappUrlPatterns);
         QQmlContext* context = m_engine->rootContext();
@@ -126,7 +134,7 @@ bool WebappContainer::initialize()
             QString sessionCookieMode = SessionUtils::firstRun(m_webappName) ?
                 QStringLiteral("persistent") : QStringLiteral("restored");
             qDebug() << "Setting session cookie mode to" << sessionCookieMode;
-            context->setContextProperty("webContextSessionCookieMode", sessionCookieMode);
+            m_window->setProperty("webContextSessionCookieMode", sessionCookieMode);
         }
 
         context->setContextProperty("webappContainerHelper", m_webappContainerHelper.data());
@@ -251,9 +259,12 @@ void WebappContainer::printUsage() const
        " [--app-id=APP_ID]"
        " [--homepage=URL]"
        " [--webapp=name]"
+       " [--name=NAME]"
+       " [--icon=PATH]"
        " [--webappModelSearchPath=PATH]"
        " [--webappUrlPatterns=URL_PATTERNS]"
        " [--accountProvider=PROVIDER_NAME]"
+       " [--accountSwitcher]"
        " [--enable-back-forward]"
        " [--enable-addressbar]"
        " [--store-session-cookies]"
@@ -268,9 +279,12 @@ void WebappContainer::printUsage() const
     out << "  --app-id=APP_ID                     run the application with a specific APP_ID" << endl;
     out << "  --homepage=URL                      override any URL passed as an argument" << endl;
     out << "  --webapp=name                       try to match the webapp by name with an installed integration script" << endl;
+    out << "  --name=NAME                         display name of the webapp, shown in the splash screen" << endl;
+    out << "  --icon=PATH                         Icon to be shown in the splash screen. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappModelSearchPath=PATH        alter the search path for installed webapps and set it to PATH. PATH can be an absolute or path relative to CWD" << endl;
     out << "  --webappUrlPatterns=URL_PATTERNS    list of comma-separated url patterns (wildcard based) that the webapp is allowed to navigate to" << endl;
     out << "  --accountProvider=PROVIDER_NAME     Online account provider for the application if the application is to reuse a local account." << endl;
+    out << "  --accountSwitcher                   enable switching between different Online Accounts identities" << endl;
     out << "  --store-session-cookies             store session cookies on disk" << endl;
     out << "  --enable-media-hub-audio            enable media-hub for audio playback" << endl;
     out << "  --user-agent-string=USER_AGENT      overrides the default User Agent with the provided one." << endl;
@@ -298,6 +312,10 @@ void WebappContainer::parseCommandLine()
             // TODO: validate that it is fine in all cases (country dependent, etc…).
             QString name = argument.split("--webapp=")[1];
             m_webappName = QByteArray::fromBase64(name.toUtf8()).trimmed();
+        } else if (argument.startsWith("--name=")) {
+            m_webappName = argument.split("--name=")[1];
+        } else if (argument.startsWith("--icon=")) {
+            m_webappIcon = argument.split("--icon=")[1];
         } else if (argument.startsWith("--webappUrlPatterns=")) {
             QString tail = argument.split("--webappUrlPatterns=")[1];
             if (!tail.isEmpty()) {
@@ -306,6 +324,8 @@ void WebappContainer::parseCommandLine()
             }
         } else if (argument.startsWith("--accountProvider=")) {
             m_accountProvider = argument.split("--accountProvider=")[1];
+        } else if (argument == "--accountSwitcher") {
+            m_accountSwitcher = true;
         } else if (argument == "--clear-cookies") {
             qWarning() << argument << " is an unsupported option: it can be removed without notice..." << endl;
             clearCookiesHack(m_accountProvider);

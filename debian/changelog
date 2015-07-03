@@ -1,3 +1,61 @@
+webbrowser-app (0.23+15.10.20150702.1-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Implement bookmark folders (LP: #1351147, #1259247)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 02 Jul 2015 20:09:10 +0000
+
+webbrowser-app (0.23+15.10.20150624-0ubuntu1) wily; urgency=medium
+
+  [ Alberto Mardegan ]
+  * Show an error screen if the trust session could not be opened. (LP:
+    #1441873)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 24 Jun 2015 13:37:10 +0000
+
+webbrowser-app (0.23+15.10.20150618-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Michael Terry ]
+  * Fix spelling of OK in private browsing dialog.
+
+  [ Olivier Tilloy ]
+  * Actually push URLs to the clipboard. For some reason setting the
+    "text/url-list" mime type doesn’t seem to work (or other
+    applications do not implement pasting this kind of data), but
+    "text/plain" works well enough for this purpose. (LP: #1463435)
+  * Do not honour fullscreen requests silently at the Ubuntu WebView
+    level. Instead delegate that behaviour to the webview implementation
+    used by the browser and the webapp container. (LP: #1464249)
+  * Toggle application-level fullscreen when pressing F11. (LP:
+    #1464333)
+
+  [ Ugo Riboni ]
+  * Make the browser chrome usable on desktop by implementing common
+    keyboard shortcuts and behaviors that users normally expect in such
+    an app (LP: #1287361)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 18 Jun 2015 08:12:37 +0000
+
+webbrowser-app (0.23+15.10.20150610-0ubuntu2) wily; urgency=medium
+
+  * No-change rebuild against Qt 5.4.2.
+
+ -- Timo Jyrinki <timo-jyrinki@ubuntu.com>  Fri, 12 Jun 2015 09:55:00 +0300
+
 webbrowser-app (0.23+15.10.20150610-0ubuntu1) wily; urgency=medium
 
   [ Alexandre Abreu ]
