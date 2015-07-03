@@ -177,28 +177,51 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
     def populate_bookmarks(self):
         db_path = os.path.join(self.data_location, "bookmarks.sqlite")
         connection = sqlite3.connect(db_path)
+
+        connection.execute("""CREATE TABLE IF NOT EXISTS folders
+                              (folderId INTEGER PRIMARY KEY,
+                              folder VARCHAR);""")
+        rows = [
+            "Actinide",
+            "NobleGas",
+        ]
+
+        for row in rows:
+            query = "INSERT INTO folders (folder) VALUES ('{}');"
+            query = query.format(row)
+            connection.execute(query)
+
+        foldersId = dict(connection.execute("""SELECT folder, folderId
+                                               FROM folders;"""))
+
         connection.execute("""CREATE TABLE IF NOT EXISTS bookmarks
                               (url VARCHAR, title VARCHAR, icon VARCHAR,
-                              created INTEGER);""")
+                              created INTEGER, folderId INTEGER);""")
         rows = [
             ("http://test/periodic-table/element/24/chromium",
-             "Chromium - Element Information"),
+             "Chromium - Element Information",
+             0),
             ("http://test/periodic-table/element/77/iridium",
-             "Iridium - Element Information"),
+             "Iridium - Element Information",
+             0),
             ("http://test/periodic-table/element/31/gallium",
-             "Gallium - Element Information"),
+             "Gallium - Element Information",
+             0),
             ("http://test/periodic-table/element/116/livermorium",
-             "Livermorium - Element Information"),
-            ("http://test/periodic-table/element/62/samarium",
-             "Samarium - Element Information"),
-            ("http://test/periodic-table/element/63/europium",
-             "Europium - Element Information"),
+             "Livermorium - Element Information",
+             0),
+            ("http://test/periodic-table/element/89/actinium",
+             "Actinium - Element Information",
+             foldersId['Actinide']),
+            ("http://test/periodic-table/element/2/helium",
+             "Helium - Element Information",
+             foldersId['NobleGas']),
         ]
         for i, row in enumerate(rows):
             timestamp = int(time.time()) - i * 10
             query = "INSERT INTO bookmarks \
-                     VALUES ('{}', '{}', '', {});"
-            query = query.format(row[0], row[1], timestamp)
+                     VALUES ('{}', '{}', '', {}, {});"
+            query = query.format(row[0], row[1], timestamp, row[2])
             connection.execute(query)
         connection.commit()
         connection.close()
@@ -210,11 +233,26 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(self.homepage)
 
-    def test_open_bookmark(self):
+    def test_open_bookmark_when_collapsed(self):
         bookmarks = self.new_tab_view.get_bookmarks_list()
         self.assertThat(lambda: len(bookmarks.get_delegates()),
                         Eventually(Equals(4)))
         bookmark = bookmarks.get_delegates()[1]
+        url = bookmark.url
+        self.pointing_device.click_object(bookmark)
+        self.new_tab_view.wait_until_destroyed()
+        self.main_window.wait_until_page_loaded(url)
+
+    def test_open_bookmark_when_expanded(self):
+        more_button = self.new_tab_view.get_bookmarks_more_button()
+        self.assertThat(more_button.visible, Equals(True))
+        self.pointing_device.click_object(more_button)
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
+        bookmark = folders.get_urls_from_folder(folder_delegate)[0]
         url = bookmark.url
         self.pointing_device.click_object(bookmark)
         self.new_tab_view.wait_until_destroyed()
@@ -231,8 +269,11 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        self.assertThat(lambda: len(bookmarks.get_delegates()),
-                        Eventually(Equals(6)))
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
         self.assertThat(top_sites.visible, Eventually(Equals(False)))
         # Collapse again
         self.assertThat(more_button.visible, Equals(True))
@@ -250,6 +291,19 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: bookmarks.get_urls()[0],
                         Eventually(NotEquals(url)))
 
+    def _remove_first_bookmark_from_folder(self, folder):
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate(folder)
+        delegate = folders.get_urls_from_folder(folder_delegate)[0]
+        url = delegate.url
+        count = len(folders.get_urls_from_folder(folder_delegate))
+        delegate.trigger_leading_action("leadingAction.delete",
+                                        delegate.wait_until_destroyed)
+        if ((count - 1) > 4):
+            self.assertThat(
+                lambda: folders.get_urls_from_folder(folder_delegate)[0],
+                Eventually(NotEquals(url)))
+
     def test_remove_bookmarks_when_collapsed(self):
         bookmarks = self.new_tab_view.get_bookmarks_list()
         self.assertThat(lambda: len(bookmarks.get_delegates()),
@@ -262,18 +316,85 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
                             Equals(4 if (i < 2) else 3))
 
     def test_remove_bookmarks_when_expanded(self):
-        bookmarks = self.new_tab_view.get_bookmarks_list()
         more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        self.assertThat(lambda: len(bookmarks.get_delegates()),
-                        Eventually(Equals(6)))
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
+        more_button = self.new_tab_view.get_bookmarks_more_button()
         top_sites = self.new_tab_view.get_top_sites_list()
-        for i in range(3):
-            self._remove_first_bookmark()
-            self.assertThat(len(bookmarks.get_delegates()), Equals(5 - i))
-            self.assertThat(more_button.visible, Eventually(Equals(i < 1)))
-            self.assertThat(top_sites.visible, Eventually(Equals(i > 0)))
+        self._remove_first_bookmark_from_folder("Actinide")
+        self._remove_first_bookmark_from_folder("NobleGas")
+        self.assertThat(more_button.visible, Eventually(Equals(False)))
+        self.assertThat(top_sites.visible, Eventually(Equals(True)))
+
+    def test_show_bookmarks_folders_when_expanded(self):
+        more_button = self.new_tab_view.get_bookmarks_more_button()
+        self.assertThat(more_button.visible, Equals(True))
+        self.pointing_device.click_object(more_button)
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        self.assertThat(lambda: len(folders.get_delegates()),
+                        Eventually(Equals(3)))
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
+        folder_delegate = folders.get_folder_delegate("Actinide")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(1)))
+        folder_delegate = folders.get_folder_delegate("NobleGas")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(1)))
+
+    def test_hide_empty_bookmarks_folders_when_expanded(self):
+        more_button = self.new_tab_view.get_bookmarks_more_button()
+        self.assertThat(more_button.visible, Equals(True))
+        self.pointing_device.click_object(more_button)
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        self.assertThat(lambda: len(folders.get_delegates()),
+                        Eventually(Equals(3)))
+        folder_delegate = folders.get_folder_delegate("Actinide")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(1)))
+        self._remove_first_bookmark_from_folder("Actinide")
+        self.assertThat(lambda: len(folders.get_delegates()),
+                        Eventually(Equals(2)))
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
+        folder_delegate = folders.get_folder_delegate("NobleGas")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(1)))
+
+    def test_bookmarks_folder_expands_and_collapses(self):
+        more_button = self.new_tab_view.get_bookmarks_more_button()
+        self.assertThat(more_button.visible, Equals(True))
+        self.pointing_device.click_object(more_button)
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        self.assertThat(lambda: len(folders.get_delegates()),
+                        Eventually(Equals(3)))
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
+        self.pointing_device.click_object(
+            folders.get_header_from_folder(folder_delegate))
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(0)))
+        self.pointing_device.click_object(
+            folders.get_header_from_folder(folder_delegate))
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
 
     def test_open_top_site(self):
         top_sites = self.new_tab_view.get_top_sites_list()

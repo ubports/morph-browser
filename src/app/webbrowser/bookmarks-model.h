@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -45,7 +45,8 @@ public:
         Url = Qt::UserRole + 1,
         Title,
         Icon,
-        Created
+        Created,
+        Folder
     };
 
     // reimplemented from QAbstractListModel
@@ -56,12 +57,17 @@ public:
     const QString databasePath() const;
     void setDatabasePath(const QString& path);
 
+    QStringList folders() const;
+    int addFolder(const QString& folder);
+
     Q_INVOKABLE bool contains(const QUrl& url) const;
-    Q_INVOKABLE void add(const QUrl& url, const QString& title, const QUrl& icon);
+    Q_INVOKABLE void add(const QUrl& url, const QString& title, const QUrl& icon, const QString& folder);
     Q_INVOKABLE void remove(const QUrl& url);
+    Q_INVOKABLE void update(const QUrl& url, const QString& title, const QString& folder);
 
 Q_SIGNALS:
     void databasePathChanged() const;
+    void folderAdded(const QString& folder) const;
     void added(const QUrl& url) const;
     void removed(const QUrl& url) const;
     void rowCountChanged();
@@ -74,7 +80,10 @@ private:
         QString title;
         QUrl icon;
         QDateTime created;
+        int folderId;
+        QString folder;
     };
+    QHash<int, QString> m_folders;
     QSet<QUrl> m_urls;
     QList<BookmarkEntry> m_orderedEntries;
 
@@ -83,6 +92,9 @@ private:
     void populateFromDatabase();
     void insertNewEntryInDatabase(const BookmarkEntry& entry);
     void removeExistingEntryFromDatabase(const QUrl& url);
+    void updateExistingEntryInDatabase(const BookmarkEntry& entry);
+    int getFolderId(const QString& folder);
+    int insertNewFolderInDatabase(const QString& folder);
 };
 
 #endif // __BOOKMARKS_MODEL_H__

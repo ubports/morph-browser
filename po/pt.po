@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-06-22 12:30+0200\n"
-"PO-Revision-Date: 2015-06-15 09:24+0000\n"
+"PO-Revision-Date: 2015-06-27 21:36+0000\n"
 "Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-06-23 05:30+0000\n"
-"X-Generator: Launchpad (build 17572)\n"
+"X-Launchpad-Export-Date: 2015-07-03 05:47+0000\n"
+"X-Generator: Launchpad (build 17597)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -505,7 +505,7 @@ msgstr "Ontem"
 
 #: src/app/webbrowser/HistoryView.qml:180
 msgid "Select all"
-msgstr "Selecionar tudo"
+msgstr "Marcar todos"
 
 #: src/app/webbrowser/HistoryView.qml:210
 msgid "Delete"

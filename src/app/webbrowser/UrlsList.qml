@@ -23,7 +23,7 @@ Column {
     id: urlsList
 
     property alias model: urlsListRepeater.model
-    property int limit
+    property int limit: -1
 
     signal urlClicked(url url)
     signal urlRemoved(url url)
@@ -34,7 +34,7 @@ Column {
         id: urlsListRepeater
 
         delegate: Loader {
-            active: index < limit
+            active: limit < 0 || index < limit
             sourceComponent: UrlDelegate{
                 id: urlDelegate
                 width: urlsList.width
