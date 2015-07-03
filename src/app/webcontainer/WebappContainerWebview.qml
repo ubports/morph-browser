@@ -40,12 +40,21 @@ Item {
     property bool blockOpenExternalUrls: false
     property bool runningLocalApplication: false
 
+    signal samlRequestUrlPatternReceived(string urlPattern)
+
     PopupWindowController {
         id: popupController
         objectName: "popupController"
         webappUrlPatterns: containerWebview.webappUrlPatterns
         mainWebappView: containerWebview.currentWebview
         blockOpenExternalUrls: containerWebview.blockOpenExternalUrls
+    }
+
+    Connections {
+        target: webappContainerWebViewLoader.item
+        onSamlRequestUrlPatternReceived: {
+            samlRequestUrlPatternReceived(urlPattern)
+        }
     }
 
     Loader {

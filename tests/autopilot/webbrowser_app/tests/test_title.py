@@ -23,8 +23,7 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestWindowTitle(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
-        self.url = self.base_url + "/test2"
-        super(TestWindowTitle, self).setUp()
+        super(TestWindowTitle, self).setUp(path="/test2")
 
     def test_window_title(self):
         self.assertThat(self.main_window.get_window().title,

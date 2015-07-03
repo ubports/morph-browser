@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-05-23 00:27+0200\n"
-"PO-Revision-Date: 2015-04-29 14:06+0000\n"
-"Last-Translator: GTriderXC <gtriderxc@yahoo.com>\n"
+"POT-Creation-Date: 2015-06-22 12:30+0200\n"
+"PO-Revision-Date: 2015-06-17 21:59+0000\n"
+"Last-Translator: Bartosz Kosiorek <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-05-23 05:24+0000\n"
-"X-Generator: Launchpad (build 17514)\n"
+"X-Launchpad-Export-Date: 2015-07-03 05:47+0000\n"
+"X-Generator: Launchpad (build 17597)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -25,6 +25,7 @@ msgstr "Ostrzeżenie JavaScriptu"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "OK"
 
@@ -47,7 +48,7 @@ msgid "Password"
 msgstr "Hasło"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Cancel"
@@ -107,11 +108,12 @@ msgstr "Wystąpił problem z wyświetleniem: %1."
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"Zalecane jest sprawdzenie połączenia sieciowego oraz ponowne wczytanie strony"
+"Zalecane jest sprawdzenie połączenia sieciowego oraz ponowne wczytanie "
+"strony."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "Wczytaj ponownie stronę"
+msgstr "Odśwież stronę"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
@@ -123,7 +125,7 @@ msgstr "Wymagane zezwolenie"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr "Ta strona prosi o informacje dotyczące lokalizacji urządznia"
+msgstr "Ta strona prosi o informacje dotyczące lokalizacji urządzenia."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
@@ -218,7 +220,7 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
-"Fingerprint (SHA1):\n"
+"Odcisk (SHA1):\n"
 "%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:153
@@ -391,7 +393,7 @@ msgstr "Idź do"
 msgid "Address;URL;www"
 msgstr "Adres;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:456
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
 msgid "New Tab"
 msgstr "Nowa karta"
 
@@ -403,11 +405,11 @@ msgstr "Otwarcie nowej karty"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "Otwórz obraz w nowje karcie"
+msgstr "Otwórz obraz w nowej karcie"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr "Otwórz link w zakładce w tle"
+msgstr "Otwórz link w karcie w tle"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -415,7 +417,7 @@ msgstr "Otwórz odnośnik w nowej karcie"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr "Wczytaj ponownie"
+msgstr "Odśwież"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -431,64 +433,58 @@ msgstr "Zapisz obraz"
 msgid "Share…"
 msgstr "Udostępnij..."
 
-#: src/app/webbrowser/AddressBar.qml:196
+#: src/app/webbrowser/AddressBar.qml:201
 msgid "search or enter an address"
 msgstr "wyszukaj lub wprowadź adres"
 
-#: src/app/webbrowser/Browser.qml:237
+#: src/app/webbrowser/Browser.qml:292
 msgid "Share"
 msgstr "Udostępnij"
 
-#: src/app/webbrowser/Browser.qml:244
+#: src/app/webbrowser/Browser.qml:299
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:251
+#: src/app/webbrowser/Browser.qml:309
 msgid "Open tabs"
 msgstr "Otwarte karty"
 
-#: src/app/webbrowser/Browser.qml:261 src/app/webbrowser/HistoryView.qml:244
+#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
 msgstr "Nowa karta"
 
-#: src/app/webbrowser/Browser.qml:268 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: src/app/webbrowser/Browser.qml:274
+#: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Opuść tryb prywatny"
 
-#: src/app/webbrowser/Browser.qml:274
+#: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
-msgstr ""
+msgstr "Tryb prywatny"
 
-#: src/app/webbrowser/Browser.qml:439 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "Gotowe"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:540
+#: src/app/webbrowser/Browser.qml:606
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:807
+#: src/app/webbrowser/Browser.qml:889
 msgid "Swipe Up To Exit Full Screen"
-msgstr "Przeciągając w górę opuścisz tryb pelnoekranowy"
+msgstr "Przeciągnij w górę, aby opuścić tryb pełnoekranowy"
 
-#: src/app/webbrowser/Browser.qml:808
+#: src/app/webbrowser/Browser.qml:890
 msgid "Press ESC To Exit Full Screen"
-msgstr "Kliknij ESC, by opuścić tryb pełnoekranowy"
+msgstr "Naciśnij ESC, by opuścić tryb pełnoekranowy"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
-msgid "Delete"
-msgstr "Kasuj"
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:180
+#: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -496,7 +492,8 @@ msgstr[0] "%1 strona"
 msgstr[1] "%1 strony"
 msgstr[2] "%1 stron"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:194
+#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Less"
 msgstr "Mniej"
 
@@ -508,43 +505,48 @@ msgstr "Ostatnio odwiedzone"
 msgid "Yesterday"
 msgstr "Wczoraj"
 
-#: src/app/webbrowser/HistoryView.qml:295
+#: src/app/webbrowser/HistoryView.qml:180
 msgid "Select all"
 msgstr "Zaznacz wszystko"
+
+#: src/app/webbrowser/HistoryView.qml:210
+msgid "Delete"
+msgstr "Kasuj"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr ""
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
-msgid "Ok"
-msgstr ""
+"Przejście do trybu publicznego, spowoduje zamknięcie wszystkich prywatnych "
+"kart"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "To jest karta prywatna"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Strony które obejrzysz w tej karcie nie pojawią się w historii "
+"przeglądarki.\n"
+"Zakładki, które stworzysz zostaną jednak zachowane."
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
 msgstr "Zakładki"
 
-#: src/app/webbrowser/NewTabView.qml:126
+#: src/app/webbrowser/NewTabView.qml:124
+msgid "More"
+msgstr "Więcej"
+
+#: src/app/webbrowser/NewTabView.qml:208
 msgid "Top sites"
 msgstr "Najczęściej odwiedzane"
 
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see less"
-msgstr "pokaż mniej"
-
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see more"
-msgstr "pokaż więcej"
+#: src/app/webbrowser/NewTabView.qml:239
+msgid "You haven't visited any site yet"
+msgstr "Nie odwiedziłeś jeszcze żadnych stron"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -616,7 +618,7 @@ msgstr "Przywróć poprzednią sesję przy starcie"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr "Pozwala otwierać nowe zakładki w tle"
+msgstr "Pozwala otwierać nowe karty w tle"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
@@ -644,20 +646,20 @@ msgid "Tap to view"
 msgstr "Dotknij, by wyświetlić"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:34
+#: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:65
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Przeglądarka internetowa Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:36
+#: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:67
 msgid "Ubuntu Web Browser"
 msgstr "Przeglądarka internetowa Ubuntu"
 
 #: src/app/webcontainer/AccountsLoginPage.qml:91
 msgid "No local account found for "
-msgstr "Nie odnaleziono konta "
+msgstr "Nie odnaleziono konta dla "
 
 #: src/app/webcontainer/AccountsLoginPage.qml:96
 msgid "Skip account creation step"
@@ -686,6 +688,12 @@ msgstr "Przeglądaj Internet"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Przeglądarka;Sieć"
+
+#~ msgid "see more"
+#~ msgstr "pokaż więcej"
+
+#~ msgid "see less"
+#~ msgstr "pokaż mniej"
 
 #~ msgid "Clear"
 #~ msgstr "Wyczyść"

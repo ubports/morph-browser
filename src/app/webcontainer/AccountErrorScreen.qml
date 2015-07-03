@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -18,36 +18,37 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
 
-Item {
+Rectangle {
     id: root
 
-    property var model
+    property alias message: messageLabel.text
+    signal closed()
 
-    signal accountSelected(QtObject accountServiceHandle)
+    anchors.fill: parent
 
-    ListView {
-        id: accounts
-
+    Column {
         anchors.fill: parent
+        anchors.margins: units.gu(4)
 
-        model: root.model
+        spacing: units.gu(3)
 
-        header: ListItem.Header {
-            text: i18n.tr("Select an account");
+        Label {
+            width: parent.width
+            fontSize: "x-large"
+            text: i18n.tr("Account error")
         }
 
-        delegate: AccountItemView {
-            visible: enabled
+        Label {
+            id: messageLabel
+            width: parent.width
+            wrapMode: Text.Wrap
+        }
 
-            accountName: providerName + ": " + displayName
-
-            onClicked: {
-                root.accountSelected(accountServiceHandle)
-            }
+        Button {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: i18n.tr("Close")
+            onClicked: root.closed()
         }
     }
 }
-
-

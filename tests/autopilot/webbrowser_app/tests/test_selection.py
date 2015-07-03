@@ -25,8 +25,7 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestSelection(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
-        self.url = self.base_url + "/selection"
-        super(TestSelection, self).setUp()
+        super(TestSelection, self).setUp(path="/selection")
         webview = self.main_window.get_current_webview()
         self.pointing_device.move_to_object(webview)
         if model() == 'Desktop':

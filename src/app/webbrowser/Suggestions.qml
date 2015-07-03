@@ -19,20 +19,24 @@
 import QtQuick 2.0
 import Ubuntu.Components 1.1
 
-Rectangle {
+FocusScope {
     id: suggestions
 
     property var searchTerms
     property var models
+
     readonly property int count: models.reduce(countItems, 0)
     readonly property alias contentHeight: suggestionsList.contentHeight
 
-    signal selected(url url)
+    signal activated(url url)
 
-    radius: units.gu(0.5)
-    border {
-        color: "#dedede"
-        width: 1
+    Rectangle {
+        anchors.fill: parent
+        radius: units.gu(0.5)
+        border {
+            color: "#dedede"
+            width: 1
+        }
     }
 
     clip: true
@@ -40,39 +44,37 @@ Rectangle {
     ListView {
         id: suggestionsList
         anchors.fill: parent
+        focus: true
 
-        model: suggestions.models
-        delegate: Column {
-            id: suggestionsSection
-            width: suggestionsList.width
-            height: childrenRect.height
+        model: models.reduce(function(list, model) {
+            var modelItems = [];
 
-            property string icon: models[index].icon
-            property bool displayUrl: models[index].displayUrl
-            property int firstItemIndex: models.slice(0, index).reduce(countItems, 0)
-
-            Repeater {
-                id: suggestionsSource
-                model: modelData
-
-                delegate: Suggestion {
-                    id: suggestion
-                    width: suggestionsList.width
-                    showDivider: suggestionsSection.firstItemIndex + index <
-                                 suggestions.count - 1
-
-                    // Necessary to support both using objects inheriting from
-                    // QAbstractItemModel and JS arrays as models, since they
-                    // expose their data differently
-                    property var item: (model.modelData) ? model.modelData : model
-
-                    title: highlightTerms(item.title)
-                    subtitle: suggestionsSection.displayUrl ? highlightTerms(item.url) : ""
-                    icon: suggestionsSection.icon
-
-                    onSelected: suggestions.selected(item.url)
-                }
+            // Models inheriting from QAbstractItemModel and JS arrays expose their
+            // data differently, so we need to collect their items differently
+            if (model.forEach) {
+                model.forEach(function(item) { modelItems.push(item) })
+            } else {
+                for (var i = 0; i < model.count; i++) modelItems.push(model.get(i))
             }
+
+            modelItems.forEach(function(item) {
+                item["icon"] = model.icon
+                item["displayUrl"] = model.displayUrl
+                list.push(item);
+            })
+            return list;
+        }, [])
+
+        delegate: Suggestion {
+            width: suggestionsList.width
+            showDivider: index < model.length - 1
+
+            title: highlightTerms(modelData.title)
+            subtitle: modelData.displayUrl ? highlightTerms(modelData.url) : ""
+            icon: modelData.icon
+            selected: suggestionsList.activeFocus && ListView.isCurrentItem
+
+            onActivated: suggestions.activated(modelData.url)
         }
     }
 

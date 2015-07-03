@@ -20,8 +20,7 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestGeolocation(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
-        self.url = self.base_url + "/geolocation"
-        super(TestGeolocation, self).setUp()
+        super(TestGeolocation, self).setUp(path="/geolocation")
         self.dialog = self.main_window.get_geolocation_dialog()
 
     def tearDown(self):

@@ -27,8 +27,7 @@ import unittest
 class TestContentPick(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
-        self.url = self.base_url + "/uploadform"
-        super(TestContentPick, self).setUp()
+        super(TestContentPick, self).setUp(path="/uploadform")
 
     @unittest.skipIf(model() == "Desktop", "on devices only")
     def test_picker_dialog_shows_up(self):

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -21,6 +21,7 @@
 
 // Qt
 #include <QtCore/QSortFilterProxyModel>
+#include <QtCore/QString>
 
 class HistoryDomainListModel;
 
@@ -35,6 +36,8 @@ public:
 
     HistoryDomainListModel* sourceModel() const;
     void setSourceModel(HistoryDomainListModel* sourceModel);
+
+    Q_INVOKABLE QString get(int index) const;
 
 Q_SIGNALS:
     void sourceModelChanged() const;

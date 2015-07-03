@@ -29,9 +29,14 @@ ChromeBase {
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
-    property bool useDarkTheme: false
+    property alias addressBarCanSimplifyText: addressbar.canSimplifyText
+    property alias incognito: addressbar.incognito
 
-    backgroundColor: useDarkTheme ? UbuntuColors.darkGrey : Theme.palette.normal.background
+    readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
+
+    backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
+
+    function addressBarSelectAll() { addressbar.selectAll() }
 
     FocusScope {
         anchors {
@@ -155,7 +160,7 @@ ChromeBase {
     QtObject {
         id: internal
         property var openDrawer: null
-        readonly property color iconColor: chrome.useDarkTheme ? "white" : "grey"
+        readonly property color iconColor: chrome.incognito ? "white" : "grey"
     }
 
     onWebviewChanged: {

@@ -45,6 +45,8 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int unlimitedRowCount(const QModelIndex &parent = QModelIndex()) const;
 
+    Q_INVOKABLE QVariantMap get(int index) const;
+
 Q_SIGNALS:
     void sourceModelChanged() const;
     void limitChanged() const;
