@@ -221,11 +221,11 @@ FocusScope {
                     anchors.fill: parent
                     onClicked: addressbar.bookmarked = !addressbar.bookmarked
                 }
-            }
 
-            Item {
-                id: bookmarkTogglePlaceHolderItem
-                anchors.fill: parent
+                Item {
+                    id: bookmarkTogglePlaceHolderItem
+                    anchors.fill: parent
+                }
             }
         }
 
