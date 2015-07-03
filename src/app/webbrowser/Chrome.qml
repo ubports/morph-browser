@@ -32,6 +32,7 @@ ChromeBase {
     property alias addressBarCanSimplifyText: addressbar.canSimplifyText
     property bool findInPageMode: false
     property alias incognito: addressbar.incognito
+    readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
 
     onFindInPageModeChanged: if (findInPageMode) addressbar.text = ""
     onIncognitoChanged: findInPageMode = false
