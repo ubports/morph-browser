@@ -38,6 +38,7 @@ FocusScope {
     signal requestStop()
     property string searchUrl
     property bool canSimplifyText: true
+    property bool showFavicon: true
 
     property var securityStatus: null
 
@@ -81,7 +82,7 @@ FocusScope {
                     id: favicon
                     shouldCache: !addressbar.incognito
                     anchors.verticalCenter: parent.verticalCenter
-                    visible: internal.idle && addressbar.actualUrl.toString() &&
+                    visible: showFavicon && internal.idle && addressbar.actualUrl.toString() &&
                              !internal.securityWarning && !internal.securityError
                 }
 

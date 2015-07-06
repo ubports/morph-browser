@@ -273,6 +273,7 @@ BrowserView {
             incognito: browser.incognito
 
             showTabsBar: browser.wide
+            showFaviconInAddressBar: !browser.wide
 
             y: webview ? webview.locationBarController.offset : 0
 

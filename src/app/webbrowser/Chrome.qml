@@ -33,6 +33,7 @@ ChromeBase {
     property alias canSimplifyText: navigationBar.canSimplifyText
     property alias incognito: navigationBar.incognito
     property alias showTabsBar: tabsBar.active
+    property alias showFaviconInAddressBar: navigationBar.showFaviconInAddressBar
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
 
     signal requestNewTab()
