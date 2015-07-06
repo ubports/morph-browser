@@ -33,6 +33,10 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
         return self.main_window.wait_select_single("Dialog",
                                                    objectName="homepageDialog")
 
+    def get_privacy_confirm_dialog(self):
+        return self.main_window.wait_select_single(
+            "Dialog", objectName="privacyConfirmDialog")
+
     def test_open_close_settings_page(self):
         settings = self.open_settings()
         settings.get_header().click_back_button()
@@ -129,7 +133,23 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
             "Standard",
             objectName="privacy.clearHistory")
         self.assertThat(clear_history.enabled, Equals(True))
+
+        # First test cancelling the action
         self.pointing_device.click_object(clear_history)
+        dialog = self.get_privacy_confirm_dialog()
+        cancel_button = dialog.select_single(
+            "Button", objectName="privacyConfirmDialog.cancelButton")
+        self.pointing_device.click_object(cancel_button)
+        dialog.wait_until_destroyed()
+        self.assertThat(clear_history.enabled, Equals(True))
+
+        # Then confirm the action
+        self.pointing_device.click_object(clear_history)
+        dialog = self.get_privacy_confirm_dialog()
+        confirm_button = dialog.select_single(
+            "Button", objectName="privacyConfirmDialog.confirmButton")
+        self.pointing_device.click_object(confirm_button)
+        dialog.wait_until_destroyed()
         self.assertThat(clear_history.enabled, Eventually(Equals(False)))
 
     def test_clear_cache(self):
@@ -141,7 +161,23 @@ class TestSettings(StartOpenRemotePageTestCaseBase):
             "Standard",
             objectName="privacy.clearCache")
         self.assertThat(clear_cache.enabled, Equals(True))
+
+        # First test cancelling the action
         self.pointing_device.click_object(clear_cache)
+        dialog = self.get_privacy_confirm_dialog()
+        cancel_button = dialog.select_single(
+            "Button", objectName="privacyConfirmDialog.cancelButton")
+        self.pointing_device.click_object(cancel_button)
+        dialog.wait_until_destroyed()
+        self.assertThat(clear_cache.enabled, Equals(True))
+
+        # Then confirm the action
+        self.pointing_device.click_object(clear_cache)
+        dialog = self.get_privacy_confirm_dialog()
+        confirm_button = dialog.select_single(
+            "Button", objectName="privacyConfirmDialog.confirmButton")
+        self.pointing_device.click_object(confirm_button)
+        dialog.wait_until_destroyed()
         self.assertThat(clear_cache.enabled, Eventually(Equals(True)))
 
     def test_reset_browser_settings(self):
