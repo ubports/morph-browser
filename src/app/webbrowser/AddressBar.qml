@@ -303,28 +303,32 @@ FocusScope {
             }
         }
 
-        function updateUrlFromFocus() {
-            if (canSimplifyText)  {
-                if (addressbar.activeFocus) {
-                    text = actualUrl
-                } else if (!loading && actualUrl.toString()) {
-                    text = internal.simplifyUrl(actualUrl)
-                }
+        // has the URL in the address bar been simplified?
+        property bool simplified: false
+    }
+
+    onCanSimplifyTextChanged: {
+        if (canSimplifyText) {
+            if (!loading && actualUrl.toString()) {
+                text = internal.simplifyUrl(actualUrl)
+                internal.simplified = true
             }
+        } else if (internal.simplified) {
+            text = actualUrl
+            internal.simplified = false
         }
     }
 
-    onActiveFocusChanged: internal.updateUrlFromFocus()
-    onCanSimplifyTextChanged: internal.updateUrlFromFocus()
-
     onActualUrlChanged: {
-        if (!activeFocus || !actualUrl.toString()) {
+        if (canSimplifyText || !actualUrl.toString()) {
             text = internal.simplifyUrl(actualUrl)
+            internal.simplified = true
         }
     }
     onRequestedUrlChanged: {
-        if (!activeFocus) {
+        if (canSimplifyText) {
             text = internal.simplifyUrl(requestedUrl)
+            internal.simplified = true
         }
     }
 
