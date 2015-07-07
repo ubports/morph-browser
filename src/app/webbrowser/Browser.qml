@@ -80,7 +80,7 @@ BrowserView {
         },
         Actions.Bookmark {
             enabled: currentWebview && browser.bookmarksModel
-            onTriggered: browser.bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
+            onTriggered: internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
             onTriggered: browser.openUrlInNewTab("", true)
@@ -264,7 +264,7 @@ BrowserView {
             bookmarked: isCurrentUrlBookmarked()
             onBookmarkedChanged: {
                 if (bookmarked && !isCurrentUrlBookmarked()) {
-                    browser.bookmarksModel.add(webview.url, webview.title, webview.icon)
+                    internal.addBookmark(webview.url, webview.title, webview.icon)
                 } else if (!bookmarked && isCurrentUrlBookmarked()) {
                     browser.bookmarksModel.remove(webview.url)
                 }
@@ -427,6 +427,58 @@ BrowserView {
                 browser.currentWebview.url = url
                 browser.currentWebview.forceActiveFocus()
                 chrome.requestedUrl = url
+            }
+        }
+
+        Component {
+            id: bookmarkOptionsComponent
+            BookmarkOptions {
+                folderModel: BookmarksFolderListModel {
+                    sourceModel: bookmarksModel
+                }
+
+                Component.onCompleted: {
+                    forceActiveFocus()
+                }
+
+                Component.onDestruction: {
+                    if (browser.bookmarksModel.contains(bookmarkUrl)) {
+                        browser.bookmarksModel.update(bookmarkUrl,
+                                                      bookmarkTitle,
+                                                      bookmarkFolder)
+                    }
+                }
+
+                Keys.onPressed: {
+                    if (bookmarkOptionsShortcuts.processKey(event.key, event.modifiers)) {
+                        event.accepted = true
+                    }
+                }
+
+                KeyboardShortcuts {
+                    id: bookmarkOptionsShortcuts
+                    KeyboardShortcut {
+                        key: Qt.Key_Return
+                        onTriggered: hide()
+                    }
+
+                    KeyboardShortcut {
+                        key: Qt.Key_Escape
+                        onTriggered: {
+                            browser.bookmarksModel.remove(bookmarkUrl)
+                            hide()
+                        }
+                    }
+
+                    KeyboardShortcut {
+                        modifiers: Qt.ControlModifier
+                        key: Qt.Key_D
+                        onTriggered: {
+                            browser.bookmarksModel.remove(bookmarkUrl)
+                            hide()
+                        }
+                    }
+                }
             }
         }
     }
@@ -796,7 +848,7 @@ BrowserView {
                     }
                     Actions.BookmarkLink {
                         enabled: contextualData.href.toString() && browser.bookmarksModel
-                        onTriggered: browser.bookmarksModel.add(contextualData.href, contextualData.title, "")
+                        onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "", "")
                     }
                     Actions.CopyLink {
                         enabled: contextualData.href.toString()
@@ -1048,6 +1100,14 @@ BrowserView {
                 currentWebview.goForward()
             }
         }
+
+        function addBookmark(url, title, icon) {
+            bookmarksModel.add(url, title, icon, "")
+            PopupUtils.open(bookmarkOptionsComponent,
+                            chrome.bookmarkTogglePlaceHolder,
+                            {"bookmarkUrl": url,
+                             "bookmarkTitle": title}) 
+        }
     }
 
     function openUrlInNewTab(url, setCurrent, load) {
@@ -1289,7 +1349,7 @@ BrowserView {
                     if (bookmarksModel.contains(currentWebview.url)) {
                         bookmarksModel.remove(currentWebview.url)
                     } else {
-                        bookmarksModel.add(currentWebview.url, currentWebview.title, currentWebview.icon)
+                        internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
                     }
                 }
             }

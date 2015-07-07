@@ -37,6 +37,15 @@ static void createTimestampFile(const QFileInfo &timestampFile) {
 bool SessionUtils::firstRun(const QString &webappName) {
     /* Return true if this is the first time that the webapp "webappName" is
      * run in the current user's session. */
+
+    /* If the application is running confined, the heuristics below won't work,
+     * as the application hasn't access to the upstart session data. In that
+     * case, let's skip all the checks and just return false.
+     */
+    if (!qEnvironmentVariableIsEmpty("APP_ID")) {
+        return false;
+    }
+
     if (Q_UNLIKELY(webappName.isEmpty())) {
         /* Assume first run */
         return true;
