@@ -149,7 +149,7 @@ Item {
                 mouseDrag(tab, c.x, c.y, dx, 0)
                 compare(getTabDelegate(index), tab)
                 compare(tabsModel.currentIndex, index)
-                wait(250)
+                wait(500)
             }
 
             // Move the first tab to the right
