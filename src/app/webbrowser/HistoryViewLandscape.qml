@@ -79,16 +79,20 @@ Item {
 
                     text: {
                         var today = new Date()
+                        today.setHours(0, 0, 0, 0)
+
                         var yesterday = new Date()
                         yesterday.setDate(yesterday.getDate() - 1)
-                        if ((lastVisitDate.getUTCFullYear() == today.getFullYear()) &&
-                            (lastVisitDate.getUTCMonth() == today.getMonth())) {
-                            var dayDifference = lastVisitDate.getUTCDate() - today.getDate()
-                            if (dayDifference == 0) {
-                                return i18n.tr("Today")
-                            } else if (dayDifference == -1) {
-                                return i18n.tr("Yesterday")
-                            }
+                        yesterday.setHours(0, 0, 0, 0)
+
+                        var entryDate = new Date()
+                        entryDate.setDate(lastVisitDate.getDate())
+                        entryDate.setHours(0, 0, 0, 0)
+                         
+                        if (entryDate.getTime() == today.getTime()) {
+                            return i18n.tr("Today")
+                        } else if (entryDate.getTime() == yesterday.getTime()) {
+                            return i18n.tr("Yesterday")
                         }
                         return Qt.formatDate(lastVisitDate, Qt.DefaultLocaleLongDate)
                     }
