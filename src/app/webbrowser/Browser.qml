@@ -369,7 +369,9 @@ BrowserView {
                 }
             ]
 
-            canSimplifyText: !(activeFocus || suggestionsList.activeFocus)
+            canSimplifyText: !browser.wide
+            editing: activeFocus || suggestionsList.activeFocus
+
             Keys.onDownPressed: if (suggestionsList.count) suggestionsList.focus = true
             Keys.onEscapePressed: internal.resetFocus()
         }

@@ -38,6 +38,7 @@ FocusScope {
     signal requestStop()
     property string searchUrl
     property bool canSimplifyText: true
+    property bool editing: false
     property bool showFavicon: true
 
     property var securityStatus: null
@@ -92,7 +93,7 @@ FocusScope {
                     height: parent.height
                     width: height
 
-                    visible: addressbar.activeFocus || addressbar.loading || !addressbar.text || !canSimplifyText
+                    visible: addressbar.editing || addressbar.loading || !addressbar.text
 
                     enabled: addressbar.text
                     opacity: enabled ? 1.0 : 0.3
@@ -242,7 +243,7 @@ FocusScope {
     QtObject {
         id: internal
 
-        readonly property bool idle: !addressbar.loading && !addressbar.activeFocus && addressbar.canSimplifyText
+        readonly property bool idle: !addressbar.loading && !addressbar.editing
 
         readonly property int securityLevel: addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
         readonly property bool secureConnection: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
@@ -307,28 +308,51 @@ FocusScope {
         property bool simplified: false
     }
 
-    onCanSimplifyTextChanged: {
-        if (canSimplifyText) {
-            if (!loading && actualUrl.toString()) {
+    onEditingChanged: {
+        if (editing && internal.simplified) {
+            text = actualUrl
+            internal.simplified = false
+        } else if (!editing) {
+            if (canSimplifyText && !loading && actualUrl.toString()) {
                 text = internal.simplifyUrl(actualUrl)
                 internal.simplified = true
+            } else {
+                text = actualUrl
+                internal.simplified = false
             }
-        } else if (internal.simplified) {
+        }
+    }
+
+    onCanSimplifyTextChanged: {
+        if (editing) return
+        if (canSimplifyText && !loading && actualUrl.toString()) {
+            text = internal.simplifyUrl(actualUrl)
+            internal.simplified = true
+        } else if (!canSimplifyText && internal.simplified) {
             text = actualUrl
             internal.simplified = false
         }
     }
 
     onActualUrlChanged: {
-        if (canSimplifyText || !actualUrl.toString()) {
+        if (editing && actualUrl.toString()) return
+        if (canSimplifyText) {
             text = internal.simplifyUrl(actualUrl)
             internal.simplified = true
+        } else {
+            text = actualUrl
+            internal.simplified = false
         }
     }
+
     onRequestedUrlChanged: {
+        if (editing) return
         if (canSimplifyText) {
             text = internal.simplifyUrl(requestedUrl)
             internal.simplified = true
+        } else {
+            text = requestedUrl
+            internal.simplified = false
         }
     }
 

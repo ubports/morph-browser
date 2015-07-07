@@ -31,6 +31,7 @@ FocusScope {
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
     property alias canSimplifyText: addressbar.canSimplifyText
+    property alias editing: addressbar.editing
     property alias incognito: addressbar.incognito
     property alias showFaviconInAddressBar: addressbar.showFavicon
     readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
