@@ -672,7 +672,7 @@ BrowserView {
                 Keys.onEscapePressed: {
                     historyViewLoader.active = false
                     internal.resetFocus()
-                 }
+                }
 
                 Timer {
                     // Set the model asynchronously to ensure
