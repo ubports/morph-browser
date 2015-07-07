@@ -1272,6 +1272,7 @@ BrowserView {
             if (tabsModel.count == 0) {
                 if (browser.incognito) {
                     browser.incognito = false
+                    internal.resetFocus()
                 } else if (formFactor == "desktop") {
                     Qt.quit()
                 }
