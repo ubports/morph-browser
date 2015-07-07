@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-07-03 14:57+0200\n"
-"PO-Revision-Date: 2015-07-05 13:27+0000\n"
-"Last-Translator: Phillip Sz <Unknown>\n"
+"PO-Revision-Date: 2015-07-06 15:45+0000\n"
+"Last-Translator: Tobias Bannert <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-07-06 05:34+0000\n"
+"X-Launchpad-Export-Date: 2015-07-07 05:38+0000\n"
 "X-Generator: Launchpad (build 17597)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -695,6 +695,8 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"Kein Konto wurde mit diesem »Webapp« verbunden; bitte unten auf den Knopf "
+"drücken, um ein Konto hinzuzufügen."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -706,7 +708,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr "Konto-Fehler"
+msgstr "Kontofehler"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
@@ -717,27 +719,32 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"Das Kontofenster konnte nicht geöffnet werden. Sie können nur ein Konto "
+"gleichzeitig erstellen; bitte versuchen Sie es erneut, nachdem Sie alle "
+"anderen Kontofenster geschlossen haben."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> muss auf Ihre %2-Internetkonto zugreifen."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> möchte auf Ihre %2-Internetkonto zugreifen."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"Bitte jetzt ein Konto auswählen oder diesen Schritt überspringen und später "
+"ein Internetkonto auswählen."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "Anwendung schließen"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
