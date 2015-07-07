@@ -708,7 +708,7 @@ BrowserView {
                                 if (count == 1) {
                                     done()
                                 }
-                               browser.historyModel.removeEntryByUrl(url)
+                                browser.historyModel.removeEntryByUrl(url)
                             }
                             onDone: destroy()
                         }
