@@ -71,11 +71,13 @@ ChromeBase {
 
         Rectangle {
             anchors.fill: navigationBar
-            color: "#dedede"
+            color: (showTabsBar || !incognito) ? "#dedede" : UbuntuColors.darkGrey
         }
 
         NavigationBar {
             id: navigationBar
+
+            iconColor: (incognito && !showTabsBar) ? "white" : UbuntuColors.darkGrey
 
             webview: chrome.webview
 

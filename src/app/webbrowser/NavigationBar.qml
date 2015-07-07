@@ -35,6 +35,7 @@ FocusScope {
     property alias incognito: addressbar.incognito
     property alias showFaviconInAddressBar: addressbar.showFavicon
     readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
+    property color iconColor: UbuntuColors.darkGrey
 
     function selectAll() {
         addressbar.selectAll()
@@ -54,7 +55,7 @@ FocusScope {
 
             iconName: "previous"
             iconSize: 0.4 * height
-            iconColor: internal.iconColor
+            iconColor: root.iconColor
 
             height: root.height
             width: height * 0.8
@@ -74,7 +75,7 @@ FocusScope {
 
             iconName: "next"
             iconSize: 0.4 * height
-            iconColor: internal.iconColor
+            iconColor: root.iconColor
 
             height: root.height
             visible: enabled
@@ -135,7 +136,7 @@ FocusScope {
 
             iconName: "contextual-menu"
             iconSize: 0.5 * height
-            iconColor: internal.iconColor
+            iconColor: root.iconColor
 
             height: root.height
             width: height * 0.8
@@ -157,7 +158,6 @@ FocusScope {
     QtObject {
         id: internal
         property var openDrawer: null
-        readonly property color iconColor: incognito ? "white" : "grey"
     }
 
     onWebviewChanged: {
