@@ -49,6 +49,8 @@ Item {
         ListView {
             id: lastVisitDateListView
 
+            property int selectedIndex: -1
+
             width: units.gu(40)
             height: parent.height
 
@@ -98,11 +100,12 @@ Item {
                     }
 
                     fontSize: "small"
+                    font.bold: lastVisitDateListView.selectedIndex == index
                 }
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: urlsListView.model = entries
+                onClicked: {
+                    lastVisitDateListView.selectedIndex = index
+                    urlsListView.model = entries
                 }
             }
         }
@@ -147,6 +150,7 @@ Item {
                         onRemoved: {
                             if (urlsListView.count == 1) {
                                 historyViewLandscape.historyEntryRemoved(model.url)
+                                lastVisitDateListView.selectedIndex = -1
                                 urlsListView.model = historyViewLandscape.historyModel
                             } else {
                                 historyViewLandscape.historyEntryRemoved(model.url)
