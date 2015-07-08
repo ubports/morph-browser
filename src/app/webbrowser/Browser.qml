@@ -663,6 +663,12 @@ BrowserView {
         active: false
         sourceComponent: browser.width < units.gu(90) ? historyViewComponent : historyViewLandscapeComponent
 
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                historyViewLoader.item.forceActiveFocus()
+            }
+        }
+
         Component {
             id: historyViewComponent
 
@@ -722,6 +728,11 @@ BrowserView {
 
             HistoryViewLandscape {
                 anchors.fill: parent
+
+                Keys.onEscapePressed: {
+                    historyViewLoader.active = false
+                    internal.resetFocus()
+                }
 
                 Timer {
                     // Set the model asynchronously to ensure
