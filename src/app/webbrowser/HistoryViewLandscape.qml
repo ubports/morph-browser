@@ -60,6 +60,37 @@ Item {
                 }
             }
 
+            header: ListItem {
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+
+                width: parent.width
+                height: units.gu(4)
+
+                color: lastVisitDateListView.selectedIndex == -1 ? highlightColor : "transparent"
+
+                Label {
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        topMargin: units.gu(1)
+                        leftMargin: units.gu(2)
+                    }
+
+                    height: parent.height
+
+                    text: i18n.tr("All days")
+                    fontSize: "small"
+                }
+
+                onClicked: {
+                    lastVisitDateListView.selectedIndex = -1
+                    urlsListView.model = historyViewLandscape.historyModel
+                }
+            }
+
             delegate: ListItem {
                 anchors {
                     left: parent.left
