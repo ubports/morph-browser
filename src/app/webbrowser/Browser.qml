@@ -354,6 +354,7 @@ BrowserView {
                     objectName: "privatemode"
                     text: browser.incognito ? i18n.tr("Leave Private Mode") : i18n.tr("Private Mode")
                     iconName: "private-browsing"
+                    iconSource: browser.incognito ? Qt.resolvedUrl("assets/private-browsing-exit.svg") : ""
                     onTriggered: {
                         if (browser.incognito) {
                             if (tabsModel.count > 1) {
