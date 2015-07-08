@@ -69,6 +69,8 @@ Item {
                 width: parent.width
                 height: units.gu(4)
 
+                color: lastVisitDateListView.selectedIndex == index ? highlightColor : "transparent"
+
                 Label {
                     anchors {
                         top: parent.top
@@ -100,7 +102,6 @@ Item {
                     }
 
                     fontSize: "small"
-                    font.bold: lastVisitDateListView.selectedIndex == index
                 }
 
                 onClicked: {
