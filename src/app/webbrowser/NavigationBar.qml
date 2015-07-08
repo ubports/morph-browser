@@ -274,6 +274,7 @@ FocusScope {
                                 when: model.iconSource.toString()
                                 value: model.iconSource
                             }
+                            color: UbuntuColors.darkGrey
                         }
 
                         Label {
@@ -286,6 +287,7 @@ FocusScope {
                             }
                             text: model.text
                             fontSize: "small"
+                            color: UbuntuColors.darkGrey
                             elide: Text.ElideRight
                         }
                     }

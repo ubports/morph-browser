@@ -105,6 +105,7 @@ FocusScope {
                     name: addressbar.loading ? "stop" :
                           reload ? "reload" :
                           looksLikeAUrl ? "stock_website" : "search"
+                    color: UbuntuColors.darkGrey
 
                     MouseArea {
                         objectName: "actionButton"
@@ -128,6 +129,7 @@ FocusScope {
 
                 Icon {
                     name: "network-secure"
+                    color: UbuntuColors.darkGrey
                     height: parent.height
                     width: height
                     visible: internal.idle && internal.secureConnection
@@ -142,6 +144,7 @@ FocusScope {
 
                 Icon {
                     name: "security-alert"
+                    color: UbuntuColors.darkGrey
                     height: parent.height
                     width: height
                     visible: internal.idle && internal.securityWarning
@@ -191,7 +194,7 @@ FocusScope {
                 anchors.centerIn: parent
 
                 name: addressbar.bookmarked ? "starred" : "non-starred"
-                color: addressbar.bookmarked ? UbuntuColors.orange : keyColor
+                color: addressbar.bookmarked ? UbuntuColors.orange : UbuntuColors.darkGrey
             }
 
             MouseArea {
@@ -207,6 +210,7 @@ FocusScope {
         }
 
         font.pixelSize: FontUtils.sizeToPixels("small")
+        color: UbuntuColors.darkGrey
         inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
 
         placeholderText: i18n.tr("search or enter an address")

@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.0
-import Ubuntu.Components 1.0
+import Ubuntu.Components 1.1
 import ".."
 
 Item {
@@ -64,6 +64,7 @@ Item {
             height: units.gu(2)
             anchors.centerIn: parent
             name: "add"
+            color: UbuntuColors.darkGrey
         }
 
         onClicked: root.requestNewTab()
@@ -182,6 +183,7 @@ Item {
 
                     Label {
                         fontSize: "small"
+                        color: UbuntuColors.darkGrey
                         text: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
                         elide: Text.ElideRight
                         width: parent.width - favicon.width - closeIcon.width - parent.spacing * 2
@@ -191,6 +193,7 @@ Item {
                         id: closeIcon
                         objectName: "closeButton"
                         name: "close"
+                        color: UbuntuColors.darkGrey
                         width: units.gu(1.5)
                         height: units.gu(1.5)
                         anchors.verticalCenter: parent.verticalCenter
