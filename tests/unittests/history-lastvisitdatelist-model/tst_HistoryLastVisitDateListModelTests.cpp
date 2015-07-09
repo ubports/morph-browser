@@ -82,6 +82,22 @@ public:
         endInsertRows();
     }
 
+    void removeEntryByUrl(const QUrl& url)
+    {
+        if (url.isEmpty()) {
+            return;
+        }
+
+        for (int i = 0; i < m_entries.count(); ++i) {
+            if (m_entries.at(i).url == url) {
+                beginRemoveRows(QModelIndex(), i, i);
+                m_entries.removeAt(i);
+                endRemoveRows();
+                Q_EMIT rowCountChanged();
+            }   
+        }
+    }
+
 private:
     struct HistoryEntry {
         QUrl url;
@@ -176,7 +192,7 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 2);
     }
 
-    void shouldUpdateLastVisitDateListWhenRemovingEntries()
+    void shouldUpdateLastVisitDateListWhenChangingTimeFrame()
     {
         QDateTime dt1 = QDateTime(QDate(1970, 1, 1), QTime(6, 0, 0));
         QDateTime dt2 = QDateTime(QDate(1970, 1, 2), QTime(6, 0, 0));
@@ -193,6 +209,33 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 2);
 
         timeframe->setStart(t0);
+        QCOMPARE(model->rowCount(), 1);
+    }
+
+    void shouldUpdateLastVisitDateListWhenRemovingEntries()
+    {
+        QSignalSpy spyRowsRemoved(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)));
+        QDateTime dt1 = QDateTime(QDate(1970, 1, 1), QTime(6, 0, 0));
+        QDateTime dt2 = QDateTime(QDate(1970, 1, 2), QTime(6, 0, 0));
+        QDateTime dt3 = QDateTime(QDate(1970, 1, 3), QTime(6, 0, 0));
+
+        mockHistory->add(QUrl("http://example.com/"), "Example Domain", "example.com", QUrl(), dt1);
+        mockHistory->add(QUrl("http://example.info/"), "Example Domain", "example.info", QUrl(), dt1);
+        mockHistory->add(QUrl("http://example.org/"), "Example Domain", "example.org", QUrl(), dt2);
+        mockHistory->add(QUrl("http://example.net/"), "Example Domain", "example.net", QUrl(), dt3);
+        QVERIFY(spyRowsRemoved.isEmpty());
+        QCOMPARE(model->rowCount(), 3);
+
+        mockHistory->removeEntryByUrl(QUrl("http://example.com/"));
+        QVERIFY(spyRowsRemoved.isEmpty());
+        QCOMPARE(model->rowCount(), 3);
+
+        mockHistory->removeEntryByUrl(QUrl("http://example.info/"));
+        QCOMPARE(spyRowsRemoved.count(), 1);
+        QCOMPARE(model->rowCount(), 2);
+
+        mockHistory->removeEntryByUrl(QUrl("http://example.org/"));
+        QCOMPARE(spyRowsRemoved.count(), 2);
         QCOMPARE(model->rowCount(), 1);
     }
 
