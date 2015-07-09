@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-07 17:59-0300\n"
+"POT-Creation-Date: 2015-07-03 14:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -356,7 +356,7 @@ msgstr ""
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:571
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:574
 msgid "New Tab"
 msgstr ""
 
@@ -441,44 +441,42 @@ msgstr ""
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:306
+#: src/app/webbrowser/Browser.qml:309
 msgid "Open tabs"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:317 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/HistoryViewLandscape.qml:217
+#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:324 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:557 src/app/webbrowser/HistoryView.qml:108
-#: src/app/webbrowser/HistoryViewLandscape.qml:204
+#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:655
+#: src/app/webbrowser/Browser.qml:658
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:973
+#: src/app/webbrowser/Browser.qml:941
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:974
+#: src/app/webbrowser/Browser.qml:942
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
@@ -495,12 +493,10 @@ msgid "Less"
 msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:44
-#: src/app/webbrowser/HistoryViewLandscape.qml:171
 msgid "Last Visited"
 msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:46
-#: src/app/webbrowser/HistoryViewLandscape.qml:90
 msgid "Yesterday"
 msgstr ""
 
@@ -510,10 +506,6 @@ msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:210
 msgid "Delete"
-msgstr ""
-
-#: src/app/webbrowser/HistoryViewLandscape.qml:88
-msgid "Today"
 msgstr ""
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
