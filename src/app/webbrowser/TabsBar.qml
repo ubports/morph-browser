@@ -64,7 +64,7 @@ Item {
             height: units.gu(2)
             anchors.centerIn: parent
             name: "add"
-            color: UbuntuColors.darkGrey
+            color: incognito ? "white" : UbuntuColors.darkGrey
         }
 
         onClicked: root.requestNewTab()
