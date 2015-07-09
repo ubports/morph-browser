@@ -689,13 +689,13 @@ BrowserView {
                 }
 
                 onSeeMoreEntriesClicked: {
-                    var view = expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
+                    var view = expandedHistoryViewComponent.createObject(expandedHistoryViewContainer, {model: model})
                     view.onHistoryEntryClicked.connect(done)
                 }
                 onDone: historyViewLoader.active = false
 
                 FocusScope {
-                    id: historyViewContainer
+                    id: expandedHistoryViewContainer
     
                     visible: children.length > 0
                     anchors.fill: parent
@@ -1372,9 +1372,8 @@ BrowserView {
             key: Qt.Key_H
             enabled: chrome.visible
             onTriggered: {
-                if (historyViewContainer.children.length === 0) {
-                    historyViewComponent.createObject(historyViewContainer)
-                    historyViewContainer.focus = true
+                if (!historyViewLoader.active) {
+                    historyViewLoader.active = true 
                 }
             }
         }
