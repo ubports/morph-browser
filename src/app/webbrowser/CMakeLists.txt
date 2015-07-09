@@ -1,5 +1,8 @@
 project(webbrowser-app)
 
+find_package(Qt5Concurrent REQUIRED)
+find_package(Qt5Sql REQUIRED)
+
 include_directories(
     ${CMAKE_BINARY_DIR}
     ${webbrowser-common_SOURCE_DIR}
@@ -24,8 +27,10 @@ set(WEBBROWSER_APP_MODELS_SRC
 set(WEBBROWSER_APP_MODELS webbrowser-app-models)
 
 add_library(${WEBBROWSER_APP_MODELS} STATIC ${WEBBROWSER_APP_MODELS_SRC})
-
-qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Sql)
+target_link_libraries(${WEBBROWSER_APP_MODELS}
+    Qt5::Core
+    Qt5::Sql
+)
 
 set(WEBBROWSER_APP_SRC
     cache-deleter.cpp
@@ -37,10 +42,14 @@ set(WEBBROWSER_APP_SRC
 set(WEBBROWSER_APP webbrowser-app)
 
 add_executable(${WEBBROWSER_APP} ${WEBBROWSER_APP_SRC})
-
-target_link_libraries(${WEBBROWSER_APP} ${COMMONLIB} ${WEBBROWSER_APP_MODELS})
-
-qt5_use_modules(${WEBBROWSER_APP} Concurrent Core Qml Quick)
+target_link_libraries(${WEBBROWSER_APP}
+    Qt5::Concurrent
+    Qt5::Core
+    Qt5::Qml
+    Qt5::Quick
+    ${COMMONLIB}
+    ${WEBBROWSER_APP_MODELS}
+)
 
 install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

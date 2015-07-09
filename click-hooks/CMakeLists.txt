@@ -1,5 +1,7 @@
 project(webapp-container-hook)
 
+find_package(Qt5Core REQUIRED)
+
 include_directories(
     ${CMAKE_BINARY_DIR}
     ${webbrowser-common_SOURCE_DIR}
@@ -19,8 +21,9 @@ set(WEBAPP_CONTAINER_HOOK_SRC
 )
 
 add_executable(${WEBAPP_CONTAINER_HOOK} ${WEBAPP_CONTAINER_HOOK_SRC})
-
-qt5_use_modules(${WEBAPP_CONTAINER_HOOK} Core)
+target_link_libraries(${WEBAPP_CONTAINER_HOOK}
+    Qt5::Core
+)
 
 install(TARGETS ${WEBAPP_CONTAINER_HOOK}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
