@@ -39,6 +39,8 @@ Item {
             height: parent.height / 2
 
             searchUrl: "http://www.ubuntu.com/search?q={searchTerms}"
+
+            canSimplifyText: !activeFocus
         }
 
         // only exists to steal focus from the address bar
