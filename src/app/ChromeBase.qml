@@ -58,5 +58,7 @@ StyledItem {
             right: parent.right
             bottom: parent.bottom
         }
+
+        z: 2
     }
 }

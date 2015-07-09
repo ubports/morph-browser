@@ -40,7 +40,8 @@ Item {
 
             searchUrl: "http://www.ubuntu.com/search?q={searchTerms}"
 
-            canSimplifyText: !activeFocus
+            editing: activeFocus
+            canSimplifyText: true
         }
 
         // only exists to steal focus from the address bar

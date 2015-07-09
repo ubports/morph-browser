@@ -116,7 +116,7 @@ Item {
 
                     anchors { top: parent.top; topMargin: units.gu(1) }
 
-                    strokeColor: "#5d5d5d"
+                    strokeColor: UbuntuColors.darkGrey
 
                     visible: internal.numberOfBookmarks > 4
 
@@ -255,7 +255,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
 
                 text: i18n.tr("You haven't visited any site yet")
-                color: "#5d5d5d"
+                color: UbuntuColors.darkGrey
             }
 
             UrlsList {
