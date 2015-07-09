@@ -1274,7 +1274,7 @@ BrowserView {
                 if (browser.incognito) {
                     browser.incognito = false
                     internal.resetFocus()
-                } else if (formFactor == "desktop") {
+                } else if ((formFactor == "desktop") || browser.wide) {
                     Qt.quit()
                 }
             }
