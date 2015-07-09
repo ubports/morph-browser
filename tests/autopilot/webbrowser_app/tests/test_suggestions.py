@@ -159,7 +159,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
             return pattern.format(parts[0], self.highlight(term), parts[1])
 
     def highlight(self, text):
-        return '<b><font color="#dd4814">{}</font></b>'.format(text)
+        return '<font color="#752571">{}</font>'.format(text)
 
     def assert_suggestions_eventually_shown(self):
         suggestions = self.main_window.get_suggestions()
