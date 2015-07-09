@@ -1,3 +1,19 @@
+webbrowser-app (0.23+15.10.20150709.4-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Disable periodic session saving while incognito. The public session
+    is unlikely to change significantly while browsing incognito.
+  * Prefer target_link_libraries(…) with Qt5:: prefixed modules over
+    qt5_use_modules, per documentation at http://doc.qt.io/qt-5/cmake-
+    manual.html.
+  * Speed up a bunch of autopilot tests by not requiring to input and
+    validate a URL in the address bar.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 09 Jul 2015 20:27:13 +0000
+
 webbrowser-app (0.23+15.10.20150709.3-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
