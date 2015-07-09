@@ -33,8 +33,6 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
     """Helper test class that pre-populates history and bookmarks databases."""
 
     def setUp(self):
-        self.create_temporary_profile()
-
         self.populate_history()
         self.populate_bookmarks()
         super(PrepopulatedDatabaseTestCaseBase, self).setUp()
