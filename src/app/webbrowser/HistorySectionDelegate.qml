@@ -21,14 +21,14 @@ import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 
 Item {
-    height: units.gu(6.5)
+    height: units.gu(5.5)
 
     Label {
         anchors {
             left: parent.left
             right: parent.right
             top: parent.top
-            topMargin: units.gu(2.5)
+            topMargin: units.gu(1.5)
         }
         height: units.gu(2)
 
@@ -46,7 +46,7 @@ Item {
                     return i18n.tr("Yesterday")
                 }
             }
-            return Qt.formatDate(sectionDate, Qt.DefaultLocaleLongDate)
+            return Qt.formatDate(section, Qt.DefaultLocaleLongDate)
         }
 
         fontSize: "small"

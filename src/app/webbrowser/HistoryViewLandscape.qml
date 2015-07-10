@@ -120,8 +120,7 @@ Item {
                         yesterday.setDate(yesterday.getDate() - 1)
                         yesterday.setHours(0, 0, 0, 0)
 
-                        var entryDate = new Date()
-                        entryDate.setDate(lastVisitDate.getDate())
+                        var entryDate = new Date(lastVisitDate)
                         entryDate.setHours(0, 0, 0, 0)
                          
                         if (entryDate.getTime() == today.getTime()) {
@@ -148,6 +147,13 @@ Item {
             height: parent.height
 
             model: historyViewLandscape.historyModel
+
+            section.property: "lastVisitDate"
+            section.delegate: HistorySectionDelegate {
+                width: parent.width - units.gu(2)
+                anchors.left: parent.left
+                anchors.leftMargin: units.gu(2)
+            }
 
             delegate: Row {
                 width: parent.width
