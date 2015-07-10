@@ -11,6 +11,7 @@ set(SOURCES
     ${webbrowser-common_SOURCE_DIR}/favicon-fetcher.cpp
     ${webbrowser-app_SOURCE_DIR}/file-operations.cpp
     ${webbrowser-app_SOURCE_DIR}/searchengine.cpp
+    ${webbrowser-app_SOURCE_DIR}/tabs-model.cpp
     tst_QmlTests.cpp
 )
 add_executable(${TEST} ${SOURCES})

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -36,6 +36,7 @@
 */
 TabsModel::TabsModel(QObject* parent)
     : QAbstractListModel(parent)
+    , m_currentIndex(-1)
 {
 }
 
@@ -81,12 +82,29 @@ QVariant TabsModel::data(const QModelIndex& index, int role) const
     }
 }
 
+int TabsModel::currentIndex() const
+{
+    return m_currentIndex;
+}
+
+void TabsModel::setCurrentIndex(int index)
+{
+    if (!checkValidTabIndex(index)) {
+        return;
+    }
+    if (index != m_currentIndex) {
+        m_currentIndex = index;
+        Q_EMIT currentIndexChanged();
+        Q_EMIT currentTabChanged();
+    }
+}
+
 QObject* TabsModel::currentTab() const
 {
     if (m_tabs.isEmpty()) {
-        return 0;
+        return nullptr;
     }
-    return m_tabs.first();
+    return m_tabs.at(m_currentIndex);
 }
 
 /*!
@@ -97,7 +115,7 @@ QObject* TabsModel::currentTab() const
 */
 int TabsModel::add(QObject* tab)
 {
-    if (tab == 0) {
+    if (tab == nullptr) {
         qWarning() << "Invalid Tab";
         return -1;
     }
@@ -110,7 +128,7 @@ int TabsModel::add(QObject* tab)
     endInsertRows();
     Q_EMIT countChanged();
     if (index == 0) {
-        Q_EMIT currentTabChanged();
+        setCurrentIndex(0);
     }
     return index;
 }
@@ -125,39 +143,51 @@ int TabsModel::add(QObject* tab)
 QObject* TabsModel::remove(int index)
 {
     if (!checkValidTabIndex(index)) {
-        return 0;
+        return nullptr;
     }
     beginRemoveRows(QModelIndex(), index, index);
     QObject* tab = m_tabs.takeAt(index);
     tab->disconnect(this);
     endRemoveRows();
     Q_EMIT countChanged();
-    if (index == 0) {
-        Q_EMIT currentTabChanged();
+    if (index == m_currentIndex) {
+        if (!checkValidTabIndex(index)) {
+            m_currentIndex = m_tabs.count() - 1;
+            Q_EMIT currentIndexChanged();
+            Q_EMIT currentTabChanged();
+        } else {
+            Q_EMIT currentTabChanged();
+        }
     }
     return tab;
-}
-
-void TabsModel::setCurrent(int index)
-{
-    if (index == 0) {
-        return;
-    }
-    if (!checkValidTabIndex(index)) {
-        return;
-    }
-    beginMoveRows(QModelIndex(), index, index, QModelIndex(), 0);
-    m_tabs.prepend(m_tabs.takeAt(index));
-    endMoveRows();
-    Q_EMIT currentTabChanged();
 }
 
 QObject* TabsModel::get(int index) const
 {
     if (!checkValidTabIndex(index)) {
-        return 0;
+        return nullptr;
     }
     return m_tabs.at(index);
+}
+
+void TabsModel::move(int from, int to)
+{
+    if ((from == to) || !checkValidTabIndex(from) || !checkValidTabIndex(to)) {
+        return;
+    }
+    beginMoveRows(QModelIndex(), from, from, QModelIndex(), to);
+    m_tabs.move(from, to);
+    endMoveRows();
+    if (m_currentIndex == from) {
+        m_currentIndex = to;
+        Q_EMIT currentIndexChanged();
+    } else if ((m_currentIndex >= to) && (m_currentIndex < from)) {
+        m_currentIndex++;
+        Q_EMIT currentIndexChanged();
+    } else if ((m_currentIndex > from) && (m_currentIndex <= to)) {
+        m_currentIndex--;
+        Q_EMIT currentIndexChanged();
+    }
 }
 
 bool TabsModel::checkValidTabIndex(int index) const

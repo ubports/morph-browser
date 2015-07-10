@@ -1,3 +1,25 @@
+webbrowser-app (0.23+15.10.20150709.3-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Desktop tabs for convergence. added:
+    src/app/webbrowser/NavigationBar.qml src/app/webbrowser/TabsBar.qml
+    src/app/webbrowser/assets/private-browsing-exit.svg
+    src/app/webbrowser/assets/tab-active-center@18.png
+    src/app/webbrowser/assets/tab-active-left@18.png
+    src/app/webbrowser/assets/tab-active-right@18.png
+    src/app/webbrowser/assets/tab-hovered-center@18.png
+    src/app/webbrowser/assets/tab-hovered-left@18.png
+    src/app/webbrowser/assets/tab-hovered-right@18.png
+    src/app/webbrowser/assets/tab-inactive-center@18.png
+    src/app/webbrowser/assets/tab-inactive-left@18.png
+    src/app/webbrowser/assets/tab-inactive-right@18.png
+    tests/unittests/qml/tst_TabsBar.qml
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 09 Jul 2015 14:02:38 +0000
+
 webbrowser-app (0.23+15.10.20150708-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

@@ -52,7 +52,7 @@ install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/w
 
 install(DIRECTORY assets
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
-        FILES_MATCHING PATTERN *.png)
+        FILES_MATCHING PATTERN *.png PATTERN *.svg)
 
 install(DIRECTORY searchengines
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser

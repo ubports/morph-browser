@@ -87,7 +87,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         connection.close()
 
     def _get_bookmarks_folders_list_view(self):
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_tab_view = self.open_new_tab()
         more_button = new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
