@@ -495,6 +495,8 @@ BrowserView {
             height: units.gu(7)
             state: "hidden"
 
+            color: browser.incognito ? "#5d5d5d" : "#f6f6f6"
+
             Button {
                 objectName: "doneButton"
                 anchors {
@@ -519,7 +521,7 @@ BrowserView {
                 }
                 height: parent.height - units.gu(2)
 
-                text: browser.incognito ? i18n.tr("New private tab") : i18n.tr("New Tab")
+                text: i18n.tr("New Tab")
 
                 iconName: browser.incognito ? "private-tab-new" : "add"
 
