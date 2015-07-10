@@ -34,7 +34,6 @@ BrowserView {
     property string webappModelSearchPath: ""
 
     property alias oxide: webview.withOxide
-    property alias webappName: webview.webappName
     property alias webappUrlPatterns: webview.webappUrlPatterns
     property alias popupRedirectionUrlPrefixPattern: webview.popupRedirectionUrlPrefixPattern
     property alias webviewOverrideFile: webview.webviewOverrideFile
@@ -42,6 +41,8 @@ BrowserView {
     property alias localUserAgentOverride: webview.localUserAgentOverride
     property alias dataPath: webview.dataPath
     property alias runningLocalApplication: webview.runningLocalApplication
+
+    property string webappName: ""
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
@@ -77,6 +78,12 @@ BrowserView {
             }
             height: parent.height - osk.height - (webapp.chromeless ? 0 : chromeLoader.item.visibleHeight)
             developerExtrasEnabled: webapp.developerExtrasEnabled
+            /**
+             * Use the --webapp parameter value w/ precedence, but also take into account
+             * the fact that a webapp 'name' can come from a webapp-properties.json file w/o
+             * being explictly defined here.
+             */
+            webappName: webapp.webappName === "" ? unityWebapps.name : webapp.webappName
         }
 
         Loader {
