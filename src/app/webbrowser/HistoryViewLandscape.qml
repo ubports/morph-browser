@@ -37,7 +37,7 @@ Item {
 
     Row {
         anchors {
-            top: lastVisitedHeader.bottom
+            top: topBar.bottom
             left: parent.left
             bottom: bottomToolbar.top
             leftMargin: units.gu(2)
@@ -177,7 +177,13 @@ Item {
                     }
                 }
 
-                onClicked: historyViewLandscape.historyEntryClicked(model.url)
+                onClicked: 
+                if (selectMode) {
+                    selected = !selected
+                } else {
+                    historyViewLandscape.historyEntryClicked(model.url)
+                }
+ 
                 onRemoved: {
                     if (urlsListView.count == 1) {
                         historyViewLandscape.historyEntryRemoved(model.url)
@@ -187,17 +193,31 @@ Item {
                         historyViewLandscape.historyEntryRemoved(model.url)
                     }
                 }
+
+                onPressAndHold: {
+                    selectMode = !selectMode
+                    if (selectMode) {
+                        urlsListView.ViewItems.selectedIndices = [index]
+                    }
+                }
             }
         }
     }
 
-    Rectangle {
-        id: lastVisitedHeader
+    Toolbar {
+        id: topBar
 
-        width: parent.width
         height: units.gu(7)
 
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
+
         Label {
+            visible: !urlsListView.ViewItems.selectMode
+
             anchors {
                 top: parent.top
                 left: parent.left
@@ -206,6 +226,76 @@ Item {
             }
 
             text: i18n.tr("Last Visited")    
+        }
+
+        ToolbarAction {
+            visible: urlsListView.ViewItems.selectMode 
+
+            anchors {
+                top: parent.top
+                left: parent.left
+                leftMargin: units.gu(2)
+            }
+            height: parent.height - units.gu(2)
+ 
+            iconName: "back"
+            text: i18n.tr("Cancel")
+
+            onClicked: urlsListView.ViewItems.selectMode = false
+        }
+
+        ToolbarAction {
+            visible: urlsListView.ViewItems.selectMode
+
+            anchors {
+                top: parent.top
+                right: deleteButton.left
+                rightMargin: units.gu(2)
+            }
+            height: parent.height - units.gu(2)
+ 
+            iconName: "select"
+            text: i18n.tr("Select all")
+
+            onClicked: {
+                if (urlsListView.ViewItems.selectedIndices.length === urlsListView.count) {
+                    urlsListView.ViewItems.selectedIndices = []
+                } else {
+                    var indices = []
+                    for (var i = 0; i < urlsListView.count; ++i) {
+                        indices.push(i)
+                    }
+                    urlsListView.ViewItems.selectedIndices = indices
+                }
+            }
+        }
+
+        ToolbarAction {
+            id: deleteButton
+
+            visible: urlsListView.ViewItems.selectMode
+
+            anchors {
+                top: parent.top
+                right: parent.right
+                rightMargin: units.gu(2)
+            }
+            height: parent.height - units.gu(2)
+
+            iconName: "delete"
+            text: i18n.tr("Delete")
+            enabled: urlsListView.ViewItems.selectedIndices.length > 0
+            onClicked: {
+                var indices = urlsListView.ViewItems.selectedIndices
+                var urls = []
+                for (var i in indices) {
+                    urls.push(urlsListView.model.get(indices[i]))
+                }
+                urlsListView.ViewItems.selectMode = false
+                for (var j in urls) {
+                    historyModel.removeEntriesByDomain(urls[j])
+                }
+            }
         }
 
         ListItems.ThinDivider {
