@@ -290,11 +290,11 @@ Item {
                 var indices = urlsListView.ViewItems.selectedIndices
                 var urls = []
                 for (var i in indices) {
-                    urls.push(urlsListView.model.get(indices[i]))
+                    urls.push(urlsListView.model.get(indices[i])["url"])
                 }
                 urlsListView.ViewItems.selectMode = false
                 for (var j in urls) {
-                    historyModel.removeEntriesByDomain(urls[j])
+                    historyModel.removeEntryByUrl(urls[j])
                 }
             }
         }

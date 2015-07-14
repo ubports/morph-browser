@@ -43,6 +43,8 @@ public:
     const QDate& lastVisitDate() const;
     void setLastVisitDate(const QDate& lastVisitDate);
 
+    Q_INVOKABLE QVariantMap get(int index) const;
+
 Q_SIGNALS:
     void sourceModelChanged() const;
     void lastVisitDateChanged() const;

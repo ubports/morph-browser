@@ -68,6 +68,21 @@ void HistoryLastVisitDateModel::setLastVisitDate(const QDate& lastVisitDate)
     }
 }
 
+QVariantMap HistoryLastVisitDateModel::get(int i) const
+{
+    QVariantMap item;
+    QHash<int, QByteArray> roles = roleNames();
+
+    QModelIndex modelIndex = index(i, 0);
+    if (modelIndex.isValid()) {
+        Q_FOREACH(int role, roles.keys()) {
+            QString roleName = QString::fromUtf8(roles.value(role));
+            item.insert(roleName, data(modelIndex, role));
+        }
+    }
+    return item;
+}
+
 bool HistoryLastVisitDateModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     if (m_lastVisitDate.isNull()) {
