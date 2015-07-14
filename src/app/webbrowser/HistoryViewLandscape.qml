@@ -137,6 +137,7 @@ Item {
                 onClicked: {
                     lastVisitDateListView.selectedIndex = index
                     urlsListView.model = entries
+                    urlsListView.ViewItems.selectedIndices = []
                 }
             }
         }
