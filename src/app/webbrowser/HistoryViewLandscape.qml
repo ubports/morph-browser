@@ -155,45 +155,36 @@ Item {
                 anchors.leftMargin: units.gu(2)
             }
 
-            delegate: Row {
+            delegate: UrlDelegate{
                 width: parent.width
                 height: units.gu(5)
+   
+                icon: model.icon
+                title: model.title ? model.title : model.url
+                url: model.url
 
-                spacing: units.gu(1)
+                headerComponent: Component {
+                    Item {
+                        height: units.gu(3)
+                        width: timeLabel.width
 
-                Item {
-                    height: parent.height
-                    width: timeLabel.width
-                
-                    Label {
-                        id: timeLabel
-                        anchors.centerIn: parent
-                        text: Qt.formatDateTime(model.lastVisit, "hh:mm AP")
-                        fontSize: "xx-small"
+                        Label {
+                            id: timeLabel
+                            anchors.centerIn: parent
+                            text: Qt.formatDateTime(model.lastVisit, "hh:mm AP")
+                            fontSize: "xx-small"
+                        }
                     }
                 }
 
-                Item {
-                    width: parent.width - timeLabel.width - units.gu(1)
-                    height: parent.height
- 
-                    UrlDelegate{
-                        anchors.fill: parent
-   
-                        icon: model.icon
-                        title: model.title ? model.title : model.url
-                        url: model.url
-
-                        onClicked: historyViewLandscape.historyEntryClicked(model.url)
-                        onRemoved: {
-                            if (urlsListView.count == 1) {
-                                historyViewLandscape.historyEntryRemoved(model.url)
-                                lastVisitDateListView.selectedIndex = -1
-                                urlsListView.model = historyViewLandscape.historyModel
-                            } else {
-                                historyViewLandscape.historyEntryRemoved(model.url)
-                            }
-                        }
+                onClicked: historyViewLandscape.historyEntryClicked(model.url)
+                onRemoved: {
+                    if (urlsListView.count == 1) {
+                        historyViewLandscape.historyEntryRemoved(model.url)
+                        lastVisitDateListView.selectedIndex = -1
+                        urlsListView.model = historyViewLandscape.historyModel
+                    } else {
+                        historyViewLandscape.historyEntryRemoved(model.url)
                     }
                 }
             }

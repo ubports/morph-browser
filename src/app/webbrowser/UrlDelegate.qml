@@ -27,6 +27,8 @@ ListItem {
     property alias title: title.text
     property alias url: url.text
 
+    property alias headerComponent: headerComponentLoader.sourceComponent
+
     divider.visible: false
 
     signal removed()
@@ -38,6 +40,11 @@ ListItem {
             leftMargin: units.gu(1.5)
         }
         spacing: units.gu(1)
+
+        Loader {
+            id: headerComponentLoader
+            sourceComponent: undefined
+        }
 
         UbuntuShape {
             id: iconContainer
@@ -51,7 +58,7 @@ ListItem {
         }
 
         Column {
-            width: parent.width - iconContainer.width - parent.spacing
+            width: urlDelegate.width - headerComponentLoader.width - iconContainer.width - parent.spacing
             height: parent.height
 
             Label {
