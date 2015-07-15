@@ -154,6 +154,7 @@ Item {
                 width: parent.width - units.gu(2)
                 anchors.left: parent.left
                 anchors.leftMargin: units.gu(2)
+                todaySectionTitle: i18n.tr("Today")
             }
 
             delegate: UrlDelegate{

@@ -23,6 +23,8 @@ import Ubuntu.Components.ListItems 1.0 as ListItem
 Item {
     height: units.gu(5.5)
 
+    property string todaySectionTitle: i18n.tr("Last Visited") 
+
     Label {
         anchors {
             left: parent.left
@@ -41,7 +43,7 @@ Item {
                 (sectionDate.getUTCMonth() == today.getMonth())) {
                 var dayDifference = sectionDate.getUTCDate() - today.getDate()
                 if (dayDifference == 0) {
-                    return i18n.tr("Last Visited")
+                    return todaySectionTitle
                 } else if (dayDifference == -1) {
                     return i18n.tr("Yesterday")
                 }
