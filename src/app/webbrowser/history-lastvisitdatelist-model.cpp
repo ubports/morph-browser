@@ -110,6 +110,7 @@ void HistoryLastVisitDateListModel::clearLastVisitDates()
 {
     m_orderedDates.clear();
     Q_FOREACH(const QDate& lastVisitDate, m_lastVisitDates.keys()) {
+        m_orderedDates.removeOne(lastVisitDate);        
         delete m_lastVisitDates.take(lastVisitDate);
     }
 }
@@ -194,6 +195,7 @@ void HistoryLastVisitDateListModel::onLastVisitDateRowsRemoved(const QModelIndex
         if (model->rowCount() == 0) {
             int removeAt = m_orderedDates.indexOf(lastVisitDate);
             beginRemoveRows(QModelIndex(), removeAt, removeAt);
+            m_orderedDates.removeOne(lastVisitDate);
             delete m_lastVisitDates.take(lastVisitDate);
             endRemoveRows();
         } else {

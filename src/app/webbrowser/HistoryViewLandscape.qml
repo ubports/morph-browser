@@ -49,8 +49,6 @@ Item {
         ListView {
             id: lastVisitDateListView
 
-            property int selectedIndex: -1
-
             width: units.gu(40)
             height: parent.height
 
@@ -58,6 +56,15 @@ Item {
                 sourceModel: HistoryTimeframeModel {
                     id: historyTimeframeModel
                 }
+            }
+
+            onCurrentIndexChanged: {
+                if (currentIndex == -1) {
+                    urlsListView.model = historyViewLandscape.historyModel
+                } else {
+                    urlsListView.model = currentItem.entries
+                }
+                urlsListView.ViewItems.selectedIndices = []
             }
 
             header: ListItem {
@@ -69,7 +76,7 @@ Item {
                 width: parent.width
                 height: units.gu(4)
 
-                color: lastVisitDateListView.selectedIndex == -1 ? highlightColor : "transparent"
+                color: lastVisitDateListView.currentIndex == -1 ? highlightColor : "transparent"
 
                 Label {
                     anchors {
@@ -85,13 +92,12 @@ Item {
                     fontSize: "small"
                 }
 
-                onClicked: {
-                    lastVisitDateListView.selectedIndex = -1
-                    urlsListView.model = historyViewLandscape.historyModel
-                }
+                onClicked: lastVisitDateListView.currentIndex = -1
             }
 
             delegate: ListItem {
+                property var entries: model.entries
+
                 anchors {
                     left: parent.left
                     right: parent.right
@@ -100,7 +106,7 @@ Item {
                 width: parent.width
                 height: units.gu(4)
 
-                color: lastVisitDateListView.selectedIndex == index ? highlightColor : "transparent"
+                color: lastVisitDateListView.currentIndex == index ? highlightColor : "transparent"
 
                 Label {
                     anchors {
@@ -134,11 +140,7 @@ Item {
                     fontSize: "small"
                 }
 
-                onClicked: {
-                    lastVisitDateListView.selectedIndex = index
-                    urlsListView.model = entries
-                    urlsListView.ViewItems.selectedIndices = []
-                }
+                onClicked: lastVisitDateListView.currentIndex = index
             }
         }
 
@@ -189,7 +191,7 @@ Item {
                 onRemoved: {
                     if (urlsListView.count == 1) {
                         historyViewLandscape.historyEntryRemoved(model.url)
-                        lastVisitDateListView.selectedIndex = -1
+                        lastVisitDateListView.currentIndex = -1
                         urlsListView.model = historyViewLandscape.historyModel
                     } else {
                         historyViewLandscape.historyEntryRemoved(model.url)
@@ -227,7 +229,7 @@ Item {
                 leftMargin: units.gu(2)
             }
 
-            text: i18n.tr("Last Visited")    
+            text: i18n.tr("History")    
         }
 
         ToolbarAction {
@@ -293,6 +295,11 @@ Item {
                 for (var i in indices) {
                     urls.push(urlsListView.model.get(indices[i])["url"])
                 }
+
+                if (urlsListView.count == urls.length) {
+                    lastVisitDateListView.currentIndex = -1                    
+                }
+
                 urlsListView.ViewItems.selectMode = false
                 for (var j in urls) {
                     historyModel.removeEntryByUrl(urls[j])
