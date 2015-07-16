@@ -36,7 +36,7 @@ Item {
 
     Timer {
         interval: 1; running: true;
-        onTriggered:urlsListView.forceActiveFocus()
+        onTriggered: urlsListView.forceActiveFocus()
     }
 
     Rectangle {
