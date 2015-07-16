@@ -1,3 +1,10 @@
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Gui REQUIRED)
+find_package(Qt5Network REQUIRED)
+find_package(Qt5Qml REQUIRED)
+find_package(Qt5Quick REQUIRED)
+find_package(Qt5QuickTest REQUIRED)
+
 set(XVFB_COMMAND)
 find_program(XVFBRUN xvfb-run)
 if(XVFBRUN)
@@ -15,10 +22,17 @@ set(SOURCES
     tst_QmlTests.cpp
 )
 add_executable(${TEST} ${SOURCES})
-qt5_use_modules(${TEST} Core Gui Network Qml Quick QuickTest)
 include_directories(
     ${webbrowser-common_SOURCE_DIR}
     ${webbrowser-app_SOURCE_DIR}
+)
+target_link_libraries(${TEST}
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Network
+    Qt5::Qml
+    Qt5::Quick
+    Qt5::QuickTest
 )
 add_test(${TEST} ${XVFB_COMMAND} ${CMAKE_CURRENT_BINARY_DIR}/${TEST}
          -input ${CMAKE_CURRENT_SOURCE_DIR}
