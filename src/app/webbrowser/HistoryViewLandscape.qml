@@ -31,6 +31,9 @@ Item {
     signal historyEntryRemoved(url url)
     signal done()
 
+    Keys.onLeftPressed: lastVisitDateListView.forceActiveFocus()
+    Keys.onRightPressed: urlsListView.forceActiveFocus()
+
     Rectangle {
         anchors.fill: parent
     }
@@ -45,17 +48,24 @@ Item {
         }
 
         spacing: units.gu(2)
-
+        
         ListView {
             id: lastVisitDateListView
 
             width: units.gu(40)
             height: parent.height
 
-            model: HistoryLastVisitDateListModel {
-                sourceModel: HistoryTimeframeModel {
-                    id: historyTimeframeModel
+            Keys.onUpPressed: {
+                if (currentIndex > -1) {
+                    currentIndex--
                 }
+                event.accepted = true
+            }
+            Keys.onDownPressed: {
+                if (currentIndex < (count - 1)) {
+                    currentIndex++
+                }
+                event.accepted = true
             }
 
             onCurrentIndexChanged: {
@@ -65,6 +75,12 @@ Item {
                     urlsListView.model = currentItem.entries
                 }
                 urlsListView.ViewItems.selectedIndices = []
+            }
+
+            model: HistoryLastVisitDateListModel {
+                sourceModel: HistoryTimeframeModel {
+                    id: historyTimeframeModel
+                }
             }
 
             header: ListItem {
@@ -162,6 +178,8 @@ Item {
             delegate: UrlDelegate{
                 width: parent.width
                 height: units.gu(5)
+
+                color: urlsListView.currentIndex == index ? highlightColor : "transparent"
    
                 icon: model.icon
                 title: model.title ? model.title : model.url
