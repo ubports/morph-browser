@@ -34,6 +34,11 @@ Item {
     Keys.onLeftPressed: lastVisitDateListView.forceActiveFocus()
     Keys.onRightPressed: urlsListView.forceActiveFocus()
 
+    Timer {
+        interval: 1; running: true;
+        onTriggered:urlsListView.forceActiveFocus()
+    }
+
     Rectangle {
         anchors.fill: parent
     }
@@ -97,7 +102,7 @@ Item {
                     height: units.gu(4)
     
                     color: lastVisitDateListView.currentIndex == -1 ? highlightColor : "transparent"
-    
+
                     Label {
                         anchors {
                             top: parent.top
