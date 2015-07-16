@@ -39,6 +39,7 @@ Item {
     }
 
     Row {
+        id: historyViewLandscapeRow
         anchors {
             top: topBar.bottom
             left: parent.left
@@ -47,181 +48,200 @@ Item {
             rightMargin: units.gu(2)
         }
 
-        spacing: units.gu(2)
+        spacing: units.gu(1)
         
-        ListView {
-            id: lastVisitDateListView
-
+        Item {
             width: units.gu(40)
             height: parent.height
 
-            Keys.onUpPressed: {
-                if (currentIndex > -1) {
-                    currentIndex--
-                }
-                event.accepted = true
-            }
-            Keys.onDownPressed: {
-                if (currentIndex < (count - 1)) {
-                    currentIndex++
-                }
-                event.accepted = true
-            }
-
-            onCurrentIndexChanged: {
-                if (currentIndex == -1) {
-                    urlsListView.model = historyViewLandscape.historyModel
-                } else {
-                    urlsListView.model = currentItem.entries
-                }
-                urlsListView.ViewItems.selectedIndices = []
-            }
-
-            model: HistoryLastVisitDateListModel {
-                sourceModel: HistoryTimeframeModel {
-                    id: historyTimeframeModel
-                }
-            }
-
-            header: ListItem {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-
-                width: parent.width
-                height: units.gu(4)
-
-                color: lastVisitDateListView.currentIndex == -1 ? highlightColor : "transparent"
-
-                Label {
-                    anchors {
-                        top: parent.top
-                        left: parent.left
-                        topMargin: units.gu(1)
-                        leftMargin: units.gu(2)
+            ListView {
+                id: lastVisitDateListView
+                anchors.fill: parent
+    
+                Keys.onUpPressed: {
+                    if (currentIndex > -1) {
+                        currentIndex--
                     }
-
-                    height: parent.height
-
-                    text: i18n.tr("All days")
-                    fontSize: "small"
+                    event.accepted = true
                 }
-
-                onClicked: lastVisitDateListView.currentIndex = -1
-            }
-
-            delegate: ListItem {
-                property var entries: model.entries
-
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-
-                width: parent.width
-                height: units.gu(4)
-
-                color: lastVisitDateListView.currentIndex == index ? highlightColor : "transparent"
-
-                Label {
-                    anchors {
-                        top: parent.top
-                        left: parent.left
-                        topMargin: units.gu(1)
-                        leftMargin: units.gu(2)
+                Keys.onDownPressed: {
+                    if (currentIndex < (count - 1)) {
+                        currentIndex++
                     }
-
-                    height: parent.height
-
-                    text: {
-                        var today = new Date()
-                        today.setHours(0, 0, 0, 0)
-
-                        var yesterday = new Date()
-                        yesterday.setDate(yesterday.getDate() - 1)
-                        yesterday.setHours(0, 0, 0, 0)
-
-                        var entryDate = new Date(lastVisitDate)
-                        entryDate.setHours(0, 0, 0, 0)
-                         
-                        if (entryDate.getTime() == today.getTime()) {
-                            return i18n.tr("Today")
-                        } else if (entryDate.getTime() == yesterday.getTime()) {
-                            return i18n.tr("Yesterday")
+                    event.accepted = true
+                }
+    
+                onCurrentIndexChanged: {
+                    if (currentIndex == -1) {
+                        urlsListView.model = historyViewLandscape.historyModel
+                    } else {
+                        urlsListView.model = currentItem.entries
+                    }
+                    urlsListView.ViewItems.selectedIndices = []
+                }
+    
+                model: HistoryLastVisitDateListModel {
+                    sourceModel: HistoryTimeframeModel {
+                        id: historyTimeframeModel
+                    }
+                }
+    
+                header: ListItem {
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        rightMargin: units.gu(1)
+                    }
+    
+                    width: parent.width
+                    height: units.gu(4)
+    
+                    color: lastVisitDateListView.currentIndex == -1 ? highlightColor : "transparent"
+    
+                    Label {
+                        anchors {
+                            top: parent.top
+                            left: parent.left
+                            topMargin: units.gu(1)
+                            leftMargin: units.gu(2)
                         }
-                        return Qt.formatDate(lastVisitDate, Qt.DefaultLocaleLongDate)
+    
+                        height: parent.height
+    
+                        text: i18n.tr("All days")
+                        fontSize: "small"
                     }
-
-                    fontSize: "small"
+    
+                    onClicked: lastVisitDateListView.currentIndex = -1
                 }
+    
+                delegate: ListItem {
+                    property var entries: model.entries
+    
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        rightMargin: units.gu(1)
+                    }
+    
+                    width: parent.width
+                    height: units.gu(4)
+    
+                    color: lastVisitDateListView.currentIndex == index ? highlightColor : "transparent"
+    
+                    Label {
+                        anchors {
+                            top: parent.top
+                            left: parent.left
+                            topMargin: units.gu(1)
+                            leftMargin: units.gu(2)
+                        }
+    
+                        height: parent.height
+    
+                        text: {
+                            var today = new Date()
+                            today.setHours(0, 0, 0, 0)
+    
+                            var yesterday = new Date()
+                            yesterday.setDate(yesterday.getDate() - 1)
+                            yesterday.setHours(0, 0, 0, 0)
+    
+                            var entryDate = new Date(lastVisitDate)
+                            entryDate.setHours(0, 0, 0, 0)
+                             
+                            if (entryDate.getTime() == today.getTime()) {
+                                return i18n.tr("Today")
+                            } else if (entryDate.getTime() == yesterday.getTime()) {
+                                return i18n.tr("Yesterday")
+                            }
+                            return Qt.formatDate(lastVisitDate, Qt.DefaultLocaleLongDate)
+                        }
+    
+                        fontSize: "small"
+                    }
+    
+                    onClicked: lastVisitDateListView.currentIndex = index
+                }
+            }
 
-                onClicked: lastVisitDateListView.currentIndex = index
+            Scrollbar {
+                flickableItem: lastVisitDateListView
+                align: Qt.AlignTrailing
             }
         }
 
-        ListView {
-            id: urlsListView
-            width: historyViewLandscape.width - lastVisitDateListView.width
+        Item {
+            width: historyViewLandscape.width - lastVisitDateListView.width - historyViewLandscapeRow.spacing - units.gu(4)
             height: parent.height
 
-            model: historyViewLandscape.historyModel
-
-            section.property: "lastVisitDate"
-            section.delegate: HistorySectionDelegate {
-                width: parent.width - units.gu(2)
-                anchors.left: parent.left
-                anchors.leftMargin: units.gu(2)
-                todaySectionTitle: i18n.tr("Today")
-            }
-
-            delegate: UrlDelegate{
-                width: parent.width
-                height: units.gu(5)
-
-                color: urlsListView.currentIndex == index ? highlightColor : "transparent"
-   
-                icon: model.icon
-                title: model.title ? model.title : model.url
-                url: model.url
-
-                headerComponent: Component {
-                    Item {
-                        height: units.gu(3)
-                        width: timeLabel.width
-
-                        Label {
-                            id: timeLabel
-                            anchors.centerIn: parent
-                            text: Qt.formatDateTime(model.lastVisit, "hh:mm AP")
-                            fontSize: "xx-small"
+            ListView {
+                id: urlsListView
+                anchors.fill: parent
+    
+                model: historyViewLandscape.historyModel
+    
+                section.property: "lastVisitDate"
+                section.delegate: HistorySectionDelegate {
+                    width: parent.width - units.gu(3)
+                    anchors.left: parent.left
+                    anchors.leftMargin: units.gu(2)
+                    todaySectionTitle: i18n.tr("Today")
+                }
+    
+                delegate: UrlDelegate{
+                    width: parent.width - units.gu(1)
+                    height: units.gu(5)
+    
+                    color: urlsListView.currentIndex == index ? highlightColor : "transparent"
+       
+                    icon: model.icon
+                    title: model.title ? model.title : model.url
+                    url: model.url
+    
+                    headerComponent: Component {
+                        Item {
+                            height: units.gu(3)
+                            width: timeLabel.width
+    
+                            Label {
+                                id: timeLabel
+                                anchors.centerIn: parent
+                                text: Qt.formatDateTime(model.lastVisit, "hh:mm AP")
+                                fontSize: "xx-small"
+                            }
+                        }
+                    }
+    
+                    onClicked: 
+                    if (selectMode) {
+                        selected = !selected
+                    } else {
+                        historyViewLandscape.historyEntryClicked(model.url)
+                    }
+     
+                    onRemoved: {
+                        if (urlsListView.count == 1) {
+                            historyViewLandscape.historyEntryRemoved(model.url)
+                            lastVisitDateListView.currentIndex = -1
+                            urlsListView.model = historyViewLandscape.historyModel
+                        } else {
+                            historyViewLandscape.historyEntryRemoved(model.url)
+                        }
+                    }
+    
+                    onPressAndHold: {
+                        selectMode = !selectMode
+                        if (selectMode) {
+                            urlsListView.ViewItems.selectedIndices = [index]
                         }
                     }
                 }
+            }
 
-                onClicked: 
-                if (selectMode) {
-                    selected = !selected
-                } else {
-                    historyViewLandscape.historyEntryClicked(model.url)
-                }
- 
-                onRemoved: {
-                    if (urlsListView.count == 1) {
-                        historyViewLandscape.historyEntryRemoved(model.url)
-                        lastVisitDateListView.currentIndex = -1
-                        urlsListView.model = historyViewLandscape.historyModel
-                    } else {
-                        historyViewLandscape.historyEntryRemoved(model.url)
-                    }
-                }
-
-                onPressAndHold: {
-                    selectMode = !selectMode
-                    if (selectMode) {
-                        urlsListView.ViewItems.selectedIndices = [index]
-                    }
-                }
+            Scrollbar {
+                flickableItem: urlsListView
+                align: Qt.AlignTrailing
             }
         }
     }
