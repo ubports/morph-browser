@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-07-03 14:57+0200\n"
-"PO-Revision-Date: 2015-07-03 21:54+0000\n"
+"PO-Revision-Date: 2015-07-14 19:21+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-07-04 05:33+0000\n"
-"X-Generator: Launchpad (build 17597)\n"
+"X-Launchpad-Export-Date: 2015-07-16 05:38+0000\n"
+"X-Generator: Launchpad (build 17628)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -646,7 +646,7 @@ msgstr "Előző munkamenet induláskor"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr "Új lap nyitása a háttérben"
+msgstr "Új lap megnyitása a háttérben"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-07-03 14:57+0200\n"
-"PO-Revision-Date: 2015-07-03 21:45+0000\n"
-"Last-Translator: Tiago Hillebrandt <tiagohillebrandt@gmail.com>\n"
+"PO-Revision-Date: 2015-07-14 17:30+0000\n"
+"Last-Translator: Julio Alexander Sieg <julio.sieg@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-07-04 05:34+0000\n"
-"X-Generator: Launchpad (build 17597)\n"
+"X-Launchpad-Export-Date: 2015-07-16 05:38+0000\n"
+"X-Generator: Launchpad (build 17628)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -549,7 +549,7 @@ msgstr "Deletar"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Ir ao modo público irá fechar todas as abas privadas"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -575,7 +575,7 @@ msgstr "Sites mais visitados"
 
 #: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Você não visitou nenhum site ainda"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -695,11 +695,11 @@ msgstr "Adicionar conta"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "Não usar uma conta"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "Erro de conta"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
