@@ -179,6 +179,17 @@ Item {
                 id: urlsListView
                 anchors.fill: parent
     
+                function historyEntrySelected() {
+                    if (urlsListView.ViewItems.selectMode) {
+                        currentItem.selected = !currentItem.selected
+                    } else {
+                        historyViewLandscape.historyEntryClicked(currentItem.url)
+                    }
+                }
+
+                Keys.onReturnPressed: historyEntrySelected()
+                Keys.onEnterPressed: historyEntrySelected()
+
                 model: historyViewLandscape.historyModel
     
                 section.property: "lastVisitDate"
@@ -213,11 +224,12 @@ Item {
                         }
                     }
     
-                    onClicked: 
-                    if (selectMode) {
-                        selected = !selected
-                    } else {
-                        historyViewLandscape.historyEntryClicked(model.url)
+                    onClicked: { 
+                        if (selectMode) {
+                            selected = !selected
+                        } else {
+                            historyViewLandscape.historyEntryClicked(model.url)
+                        }
                     }
      
                     onRemoved: {
@@ -229,7 +241,7 @@ Item {
                             historyViewLandscape.historyEntryRemoved(model.url)
                         }
                     }
-    
+
                     onPressAndHold: {
                         selectMode = !selectMode
                         if (selectMode) {
