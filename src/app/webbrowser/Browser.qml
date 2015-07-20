@@ -241,7 +241,7 @@ BrowserView {
                     layouts: [
                         ConditionalLayout {
                             name: "newTabView"
-                            when: !browser.incognito && Screen.orientation == Screen.primaryOrientation
+                            when: !browser.incognito && !browser.wide
 
                             NewTabView {
                                 anchors.fill: parent
@@ -263,7 +263,7 @@ BrowserView {
                         },
                         ConditionalLayout {
                             name: "newTabLandscapeView"
-                            when: !browser.incognito && Screen.orientation != Screen.primaryOrientation
+                            when: !browser.incognito && browser.wide
 
                             NewTabLandscapeView {
                                 anchors.fill: parent
