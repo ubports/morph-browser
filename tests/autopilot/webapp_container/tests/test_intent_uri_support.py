@@ -39,7 +39,7 @@ def generate_temp_webapp_with_intent(intent_filter_content=""):
     with open(manifest_file, "w+") as f:
         f.write(manifest_content)
     if len(intent_filter_content) != 0:
-        intent_filter_file = "{}/local-intent-filter.js".format(tmpdir)
+        intent_filter_file = "{}/local-scheme-translate.js".format(tmpdir)
         with open(intent_filter_file, "w+") as f:
             f.write(intent_filter_content)
     old_cwd = os.getcwd()
@@ -95,11 +95,11 @@ class WebappContainerIntentUriSupportTestCase(
 
     def test_with_valid_default_local_intent(self):
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
-        filter = "(function(r) { \
+        filter = "{ \"intent\": \"(function(r) { \
             return { \
                 'scheme': 'https', \
                 'host': 'maps.test.com', \
-                'uri': r.uri }; })"
+                'path': r.path }; })\" }"
         with generate_temp_webapp_with_intent(filter) as webapp_install_path:
             args = ['--webappModelSearchPath='+webapp_install_path]
             self.launch_webcontainer_app(
