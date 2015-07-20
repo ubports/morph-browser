@@ -18,6 +18,9 @@ import os.path
 import sqlite3
 import time
 
+import testtools
+
+from autopilot.platform import model
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals, NotEquals
 
@@ -27,52 +30,76 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestNewTabViewLifetime(StartOpenRemotePageTestCaseBase):
 
     def test_new_tab_view_destroyed_when_browsing(self):
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_tab_view = self.open_new_tab()
         self.main_window.go_to_url(self.base_url + "/test2")
         new_tab_view.wait_until_destroyed()
 
     def test_new_tab_view_destroyed_when_closing_tab(self):
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_tab_view = self.open_new_tab()
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        self.main_window.get_recent_view_toolbar().click_button("doneButton")
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(1)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            toolbar = self.main_window.get_recent_view_toolbar()
+            toolbar.click_button("doneButton")
         new_tab_view.wait_until_destroyed()
 
     def test_new_tab_view_is_shared_between_tabs(self):
         # Open one new tab
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_tab_view = self.open_new_tab()
         # Open a second new tab
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_tab_view_2 = self.open_new_tab()
         # Verify that they share the same NewTabView instance
         self.assertThat(new_tab_view_2.id, Equals(new_tab_view.id))
         # Close the second new tab, and verify that the NewTabView instance
         # is still there
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        self.main_window.get_recent_view_toolbar().click_button("doneButton")
-        tabs_view.visible.wait_for(False)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(2)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            toolbar = self.main_window.get_recent_view_toolbar()
+            toolbar.click_button("doneButton")
+            tabs_view.visible.wait_for(False)
         self.assertThat(new_tab_view.visible, Equals(True))
         # Close the first new tab, and verify that the NewTabView instance
         # is destroyed
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        self.main_window.get_recent_view_toolbar().click_button("doneButton")
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(1)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            toolbar = self.main_window.get_recent_view_toolbar()
+            toolbar.click_button("doneButton")
         new_tab_view.wait_until_destroyed()
 
+    @testtools.skipIf(model() == "Desktop",
+                      "Closing the last open tab on desktop quits the app")
     def test_new_tab_view_not_destroyed_when_closing_last_open_tab(self):
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        tabs_view.visible.wait_for(False)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(0)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            tabs_view.visible.wait_for(False)
         new_tab_view = self.main_window.get_new_tab_view()
         # Verify that the new tab view is not destroyed and then re-created
         # when closing the last open tab if it was a blank one
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        tabs_view.visible.wait_for(False)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(0)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            tabs_view.visible.wait_for(False)
         self.assertThat(new_tab_view.visible, Equals(True))
 
 
@@ -96,26 +123,36 @@ class TestNewPrivateTabViewLifetime(StartOpenRemotePageTestCaseBase):
         self.main_window.go_to_url(self.base_url + "/test2")
         new_private_tab_view.wait_until_destroyed()
         # Open one new private tab
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_private_tab_view = self.open_new_tab()
         # Open a second new private tab
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_private_tab_view_2 = self.open_new_tab()
         # Verify that they share the same NewPrivateTabView instance
         self.assertThat(new_private_tab_view_2.id,
                         Equals(new_private_tab_view.id))
         # Close the second new private tab, and verify that the
         # NewPrivateTabView instance is still there
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        self.main_window.get_recent_view_toolbar().click_button("doneButton")
-        tabs_view.visible.wait_for(False)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(2)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            toolbar = self.main_window.get_recent_view_toolbar()
+            toolbar.click_button("doneButton")
+            tabs_view.visible.wait_for(False)
         self.assertThat(new_private_tab_view.visible, Equals(True))
         # Close the first new private tab, and verify that the
         # NewPrivateTabView instance is destroyed
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        self.main_window.get_recent_view_toolbar().click_button("doneButton")
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(1)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            toolbar = self.main_window.get_recent_view_toolbar()
+            toolbar.click_button("doneButton")
         new_private_tab_view.wait_until_destroyed()
 
 
@@ -126,6 +163,9 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.populate_config()
         self.populate_bookmarks()
         super(TestNewTabViewContents, self).setUp()
+        if not self.main_window.wide:
+            self.open_tabs_view()
+        self.new_tab_view = self.open_new_tab()
 
     def populate_config(self):
         self.homepage = "http://test/test2"
@@ -137,68 +177,103 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
     def populate_bookmarks(self):
         db_path = os.path.join(self.data_location, "bookmarks.sqlite")
         connection = sqlite3.connect(db_path)
+
+        connection.execute("""CREATE TABLE IF NOT EXISTS folders
+                              (folderId INTEGER PRIMARY KEY,
+                              folder VARCHAR);""")
+        rows = [
+            "Actinide",
+            "NobleGas",
+        ]
+
+        for row in rows:
+            query = "INSERT INTO folders (folder) VALUES ('{}');"
+            query = query.format(row)
+            connection.execute(query)
+
+        foldersId = dict(connection.execute("""SELECT folder, folderId
+                                               FROM folders;"""))
+
         connection.execute("""CREATE TABLE IF NOT EXISTS bookmarks
                               (url VARCHAR, title VARCHAR, icon VARCHAR,
-                              created INTEGER);""")
+                              created INTEGER, folderId INTEGER);""")
         rows = [
             ("http://test/periodic-table/element/24/chromium",
-             "Chromium - Element Information"),
+             "Chromium - Element Information",
+             0),
             ("http://test/periodic-table/element/77/iridium",
-             "Iridium - Element Information"),
+             "Iridium - Element Information",
+             0),
             ("http://test/periodic-table/element/31/gallium",
-             "Gallium - Element Information"),
+             "Gallium - Element Information",
+             0),
             ("http://test/periodic-table/element/116/livermorium",
-             "Livermorium - Element Information"),
-            ("http://test/periodic-table/element/62/samarium",
-             "Samarium - Element Information"),
-            ("http://test/periodic-table/element/63/europium",
-             "Europium - Element Information"),
+             "Livermorium - Element Information",
+             0),
+            ("http://test/periodic-table/element/89/actinium",
+             "Actinium - Element Information",
+             foldersId['Actinide']),
+            ("http://test/periodic-table/element/2/helium",
+             "Helium - Element Information",
+             foldersId['NobleGas']),
         ]
         for i, row in enumerate(rows):
             timestamp = int(time.time()) - i * 10
             query = "INSERT INTO bookmarks \
-                     VALUES ('{}', '{}', '', {});"
-            query = query.format(row[0], row[1], timestamp)
+                     VALUES ('{}', '{}', '', {}, {});"
+            query = query.format(row[0], row[1], timestamp, row[2])
             connection.execute(query)
         connection.commit()
         connection.close()
 
     def test_default_home_bookmark(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        homepage_bookmark = new_tab_view.get_homepage_bookmark()
+        homepage_bookmark = self.new_tab_view.get_homepage_bookmark()
         self.assertThat(homepage_bookmark.url, Equals(self.homepage))
         self.pointing_device.click_object(homepage_bookmark)
-        new_tab_view.wait_until_destroyed()
+        self.new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(self.homepage)
 
-    def test_open_bookmark(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        bookmarks = new_tab_view.get_bookmarks_list()
+    def test_open_bookmark_when_collapsed(self):
+        bookmarks = self.new_tab_view.get_bookmarks_list()
         self.assertThat(lambda: len(bookmarks.get_delegates()),
                         Eventually(Equals(4)))
         bookmark = bookmarks.get_delegates()[1]
         url = bookmark.url
         self.pointing_device.click_object(bookmark)
-        new_tab_view.wait_until_destroyed()
+        self.new_tab_view.wait_until_destroyed()
+        self.main_window.wait_until_page_loaded(url)
+
+    def test_open_bookmark_when_expanded(self):
+        more_button = self.new_tab_view.get_bookmarks_more_button()
+        self.assertThat(more_button.visible, Equals(True))
+        self.pointing_device.click_object(more_button)
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
+        bookmark = folders.get_urls_from_folder(folder_delegate)[0]
+        url = bookmark.url
+        self.pointing_device.click_object(bookmark)
+        self.new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(url)
 
     def test_bookmarks_section_expands_and_collapses(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        bookmarks = new_tab_view.get_bookmarks_list()
-        top_sites = new_tab_view.get_top_sites_list()
+        bookmarks = self.new_tab_view.get_bookmarks_list()
+        top_sites = self.new_tab_view.get_top_sites_list()
         self.assertThat(top_sites.visible, Equals(True))
         # When the bookmarks list is collapsed, it shows a maximum of 4 entries
         self.assertThat(lambda: len(bookmarks.get_delegates()),
                         Eventually(Equals(4)))
         # When expanded, it shows all entries
-        more_button = new_tab_view.get_bookmarks_more_button()
+        more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        self.assertThat(lambda: len(bookmarks.get_delegates()),
-                        Eventually(Equals(6)))
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
         self.assertThat(top_sites.visible, Eventually(Equals(False)))
         # Collapse again
         self.assertThat(more_button.visible, Equals(True))
@@ -208,7 +283,7 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.assertThat(top_sites.visible, Eventually(Equals(True)))
 
     def _remove_first_bookmark(self):
-        bookmarks = self.main_window.get_new_tab_view().get_bookmarks_list()
+        bookmarks = self.new_tab_view.get_bookmarks_list()
         delegate = bookmarks.get_delegates()[0]
         url = delegate.url
         delegate.trigger_leading_action("leadingAction.delete",
@@ -216,13 +291,24 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: bookmarks.get_urls()[0],
                         Eventually(NotEquals(url)))
 
+    def _remove_first_bookmark_from_folder(self, folder):
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate(folder)
+        delegate = folders.get_urls_from_folder(folder_delegate)[0]
+        url = delegate.url
+        count = len(folders.get_urls_from_folder(folder_delegate))
+        delegate.trigger_leading_action("leadingAction.delete",
+                                        delegate.wait_until_destroyed)
+        if ((count - 1) > 4):
+            self.assertThat(
+                lambda: folders.get_urls_from_folder(folder_delegate)[0],
+                Eventually(NotEquals(url)))
+
     def test_remove_bookmarks_when_collapsed(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        bookmarks = new_tab_view.get_bookmarks_list()
+        bookmarks = self.new_tab_view.get_bookmarks_list()
         self.assertThat(lambda: len(bookmarks.get_delegates()),
                         Eventually(Equals(4)))
-        more_button = new_tab_view.get_bookmarks_more_button()
+        more_button = self.new_tab_view.get_bookmarks_more_button()
         for i in range(3):
             self._remove_first_bookmark()
             self.assertThat(more_button.visible, Eventually(Equals(i < 1)))
@@ -230,41 +316,101 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
                             Equals(4 if (i < 2) else 3))
 
     def test_remove_bookmarks_when_expanded(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        bookmarks = new_tab_view.get_bookmarks_list()
-        more_button = new_tab_view.get_bookmarks_more_button()
+        more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        self.assertThat(lambda: len(bookmarks.get_delegates()),
-                        Eventually(Equals(6)))
-        more_button = new_tab_view.get_bookmarks_more_button()
-        top_sites = new_tab_view.get_top_sites_list()
-        for i in range(3):
-            self._remove_first_bookmark()
-            self.assertThat(len(bookmarks.get_delegates()), Equals(5 - i))
-            self.assertThat(more_button.visible, Eventually(Equals(i < 1)))
-            self.assertThat(top_sites.visible, Eventually(Equals(i > 0)))
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
+        more_button = self.new_tab_view.get_bookmarks_more_button()
+        top_sites = self.new_tab_view.get_top_sites_list()
+        self._remove_first_bookmark_from_folder("Actinide")
+        self._remove_first_bookmark_from_folder("NobleGas")
+        self.assertThat(more_button.visible, Eventually(Equals(False)))
+        self.assertThat(top_sites.visible, Eventually(Equals(True)))
+
+    def test_show_bookmarks_folders_when_expanded(self):
+        more_button = self.new_tab_view.get_bookmarks_more_button()
+        self.assertThat(more_button.visible, Equals(True))
+        self.pointing_device.click_object(more_button)
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        self.assertThat(lambda: len(folders.get_delegates()),
+                        Eventually(Equals(3)))
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
+        folder_delegate = folders.get_folder_delegate("Actinide")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(1)))
+        folder_delegate = folders.get_folder_delegate("NobleGas")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(1)))
+
+    def test_hide_empty_bookmarks_folders_when_expanded(self):
+        more_button = self.new_tab_view.get_bookmarks_more_button()
+        self.assertThat(more_button.visible, Equals(True))
+        self.pointing_device.click_object(more_button)
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        self.assertThat(lambda: len(folders.get_delegates()),
+                        Eventually(Equals(3)))
+        folder_delegate = folders.get_folder_delegate("Actinide")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(1)))
+        self._remove_first_bookmark_from_folder("Actinide")
+        self.assertThat(lambda: len(folders.get_delegates()),
+                        Eventually(Equals(2)))
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
+        folder_delegate = folders.get_folder_delegate("NobleGas")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(1)))
+
+    def test_bookmarks_folder_expands_and_collapses(self):
+        more_button = self.new_tab_view.get_bookmarks_more_button()
+        self.assertThat(more_button.visible, Equals(True))
+        self.pointing_device.click_object(more_button)
+        folders = self.main_window.get_bookmarks_folder_list_view()
+        self.assertThat(lambda: len(folders.get_delegates()),
+                        Eventually(Equals(3)))
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
+        self.pointing_device.click_object(
+            folders.get_header_from_folder(folder_delegate))
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(0)))
+        self.pointing_device.click_object(
+            folders.get_header_from_folder(folder_delegate))
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
 
     def test_open_top_site(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        top_sites = new_tab_view.get_top_sites_list()
+        top_sites = self.new_tab_view.get_top_sites_list()
         self.assertThat(lambda: len(top_sites.get_delegates()),
                         Eventually(Equals(1)))
         top_site = top_sites.get_delegates()[0]
         url = top_site.url
         self.pointing_device.click_object(top_site)
-        new_tab_view.wait_until_destroyed()
+        self.new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(url)
 
     def test_remove_top_sites(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        top_sites = new_tab_view.get_top_sites_list()
+        top_sites = self.new_tab_view.get_top_sites_list()
         self.assertThat(lambda: len(top_sites.get_delegates()),
                         Eventually(Equals(1)))
-        notopsites_label = new_tab_view.get_notopsites_label()
+        notopsites_label = self.new_tab_view.get_notopsites_label()
         self.assertThat(notopsites_label.visible, Eventually(Equals(False)))
         delegate = top_sites.get_delegates()[0]
         delegate.trigger_leading_action("leadingAction.delete",

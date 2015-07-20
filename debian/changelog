@@ -1,3 +1,79 @@
+webbrowser-app (0.23+15.10.20150709.4-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Disable periodic session saving while incognito. The public session
+    is unlikely to change significantly while browsing incognito.
+  * Prefer target_link_libraries(…) with Qt5:: prefixed modules over
+    qt5_use_modules, per documentation at http://doc.qt.io/qt-5/cmake-
+    manual.html.
+  * Speed up a bunch of autopilot tests by not requiring to input and
+    validate a URL in the address bar.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 09 Jul 2015 20:27:13 +0000
+
+webbrowser-app (0.23+15.10.20150709.3-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Desktop tabs for convergence. added:
+    src/app/webbrowser/NavigationBar.qml src/app/webbrowser/TabsBar.qml
+    src/app/webbrowser/assets/private-browsing-exit.svg
+    src/app/webbrowser/assets/tab-active-center@18.png
+    src/app/webbrowser/assets/tab-active-left@18.png
+    src/app/webbrowser/assets/tab-active-right@18.png
+    src/app/webbrowser/assets/tab-hovered-center@18.png
+    src/app/webbrowser/assets/tab-hovered-left@18.png
+    src/app/webbrowser/assets/tab-hovered-right@18.png
+    src/app/webbrowser/assets/tab-inactive-center@18.png
+    src/app/webbrowser/assets/tab-inactive-left@18.png
+    src/app/webbrowser/assets/tab-inactive-right@18.png
+    tests/unittests/qml/tst_TabsBar.qml
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 09 Jul 2015 14:02:38 +0000
+
+webbrowser-app (0.23+15.10.20150708-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Display the full URL when focusing the address bar. (LP: #1472161)
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 08 Jul 2015 07:01:24 +0000
+
+webbrowser-app (0.23+15.10.20150702.1-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Implement bookmark folders (LP: #1351147, #1259247)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 02 Jul 2015 20:09:10 +0000
+
+webbrowser-app (0.23+15.10.20150624-0ubuntu1) wily; urgency=medium
+
+  [ Alberto Mardegan ]
+  * Show an error screen if the trust session could not be opened. (LP:
+    #1441873)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 24 Jun 2015 13:37:10 +0000
+
 webbrowser-app (0.23+15.10.20150618-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

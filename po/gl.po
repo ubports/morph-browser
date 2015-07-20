@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-02 23:12+0200\n"
-"PO-Revision-Date: 2015-06-16 09:26+0000\n"
+"POT-Creation-Date: 2015-07-03 14:57+0200\n"
+"PO-Revision-Date: 2015-07-03 18:49+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-06-17 05:26+0000\n"
-"X-Generator: Launchpad (build 17557)\n"
+"X-Launchpad-Export-Date: 2015-07-04 05:33+0000\n"
+"X-Generator: Launchpad (build 17597)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,6 +24,8 @@ msgstr "Alerta de JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "Aceptar"
 
@@ -46,9 +48,11 @@ msgid "Password"
 msgstr "Contrasinal"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -391,7 +395,7 @@ msgstr "Ir a"
 msgid "Address;URL;www"
 msgstr "Enderezo;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:515
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:574
 msgid "New Tab"
 msgstr "Nova lapela"
 
@@ -431,19 +435,52 @@ msgstr "Gardar a imaxe"
 msgid "Share…"
 msgstr "Compartir..."
 
-#: src/app/webbrowser/AddressBar.qml:198
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "Buscar ou introducir un enderezo"
 
-#: src/app/webbrowser/Browser.qml:296
+#: src/app/webbrowser/BookmarkOptions.qml:48
+msgid "Bookmark Added"
+msgstr "Marcador engadido"
+
+#. TRANSLATORS: Field where the title of bookmarked URL can be changed
+#: src/app/webbrowser/BookmarkOptions.qml:53
+msgid "Name"
+msgstr "Nome"
+
+#. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
+#: src/app/webbrowser/BookmarkOptions.qml:71
+msgid "Save in"
+msgstr "Gardar en"
+
+#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarksFolderListView.qml:115
+msgid "All Bookmarks"
+msgstr "Todos os marcadores"
+
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
+msgid "New Folder"
+msgstr "Novo cartafol"
+
+#: src/app/webbrowser/BookmarkOptions.qml:115
+msgid "Create new folder"
+msgstr "Crear un novo cartafol"
+
+#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/SettingsPage.qml:311
+msgid "Save"
+msgstr "Gardar"
+
+#: src/app/webbrowser/Browser.qml:292
 msgid "Share"
 msgstr "Compartir"
 
-#: src/app/webbrowser/Browser.qml:303
+#: src/app/webbrowser/Browser.qml:299
 msgid "History"
 msgstr "Historial"
 
-#: src/app/webbrowser/Browser.qml:310
+#: src/app/webbrowser/Browser.qml:309
 msgid "Open tabs"
 msgstr "Abrir lapelas"
 
@@ -456,29 +493,29 @@ msgstr "Nova lapela"
 msgid "Settings"
 msgstr "Axustes"
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
 msgstr "Saír do modo privado"
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
 msgstr "Modo privado"
 
-#: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "Feito"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:599
+#: src/app/webbrowser/Browser.qml:658
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:870
+#: src/app/webbrowser/Browser.qml:941
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Esvare cara a arriba e saia da pantalla completa"
 
-#: src/app/webbrowser/Browser.qml:871
+#: src/app/webbrowser/Browser.qml:942
 msgid "Press ESC To Exit Full Screen"
 msgstr "Prema ESC e saia da pantalla completa"
 
@@ -490,7 +527,7 @@ msgstr[0] "%1 páxina"
 msgstr[1] "%1 páxinas"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:118
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Menos"
 
@@ -514,10 +551,6 @@ msgstr "Eliminar"
 msgid "Going to public mode will close all private tabs"
 msgstr "Ir ao modo público pechará todas as lapelas privadas"
 
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
-msgid "Ok"
-msgstr "Aceptar"
-
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
 msgstr "Esta é unha lapela privada"
@@ -534,15 +567,15 @@ msgstr ""
 msgid "Bookmarks"
 msgstr "Marcadores"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
 msgstr "Máis"
 
-#: src/app/webbrowser/NewTabView.qml:208
+#: src/app/webbrowser/NewTabView.qml:226
 msgid "Top sites"
 msgstr "Sitios destacados"
 
-#: src/app/webbrowser/NewTabView.qml:239
+#: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
 msgstr "Aínda non visitou ningunha páxina"
 
@@ -635,40 +668,83 @@ msgstr "Borrar historial de navegación"
 msgid "Clear Cache"
 msgstr "Limpar a caché"
 
-#: src/app/webbrowser/SettingsPage.qml:311
-msgid "Save"
-msgstr "Gardar"
-
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Toque para ver"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:34
-#: src/app/webcontainer/webapp-container.qml:65
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Navegador web de Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:36
-#: src/app/webcontainer/webapp-container.qml:67
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
 msgstr "Navegador web de Ubuntu"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
-msgid "No local account found for "
-msgstr "Non se atopou unha conta local de "
+#: src/app/webcontainer/AccountChooserDialog.qml:62
+msgid ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
+msgstr ""
+"Non hai contas ligadas a este aplicativo web, prema no elemento de debaixo "
+"para engadir unha."
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
-msgid "Skip account creation step"
-msgstr "Saltar o paso para crear unha conta"
-
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
 msgstr "Engadir conta"
 
-#: src/app/webcontainer/AccountsView.qml:38
-msgid "Select an account"
+#: src/app/webcontainer/AccountChooserDialog.qml:87
+msgid "Don't use an account"
+msgstr "Non usar unha conta"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:39
+msgid "Account error"
+msgstr "Erro de conta"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:50
+msgid "Close"
+msgstr "Pechar"
+
+#: src/app/webcontainer/AccountsLogic.qml:63
+msgid ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
+msgstr ""
+"Non foi posíbel abrir a xanela porque só se pode crear unha conta ao mesmo "
+"tempo. Ténteo de novo despois de pechar as demais xanelas de contas."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:45
+#, qt-format
+msgid "<b>%1</b> needs to access your %2 online account."
+msgstr "<b>%1</b> precisa acceder á súa conta en liña de %2."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:55
+#, qt-format
+msgid "<b>%1</b> would like to access your %2 online account."
+msgstr "A <b>%1</b> gustaríalle acceder á súa conta en liña de %2."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:64
+msgid ""
+"Choose an account now, or skip this step and choose an online account later."
+msgstr ""
+"Seleccione unha conta ou salte este paso e escolla unha conta en liña noutro "
+"momento."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Close the app"
+msgstr "Pechar o aplicativo"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Skip"
+msgstr "Saltar"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:84
+msgid "Choose account"
 msgstr "Seleccionar unha conta"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
@@ -687,11 +763,20 @@ msgstr "Navegue pola World Wide Web"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;www;Navegador;Web;Explorador"
 
+#~ msgid "No local account found for "
+#~ msgstr "Non se atopou unha conta local de "
+
+#~ msgid "Select an account"
+#~ msgstr "Seleccionar unha conta"
+
 #~ msgid "see more"
 #~ msgstr "ver máis"
 
 #~ msgid "see less"
 #~ msgstr "ver menos"
+
+#~ msgid "Skip account creation step"
+#~ msgstr "Saltar o paso para crear unha conta"
 
 #~ msgid "Clear"
 #~ msgstr "Borrar"

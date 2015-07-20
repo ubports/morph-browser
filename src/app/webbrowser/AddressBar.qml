@@ -38,8 +38,12 @@ FocusScope {
     signal requestStop()
     property string searchUrl
     property bool canSimplifyText: true
+    property bool editing: false
+    property bool showFavicon: true
 
     property var securityStatus: null
+
+    readonly property Item bookmarkTogglePlaceHolder: bookmarkTogglePlaceHolderItem
 
     // XXX: for testing purposes only, do not use to modify the
     // contents/behaviour of the internals of the component.
@@ -49,7 +53,9 @@ FocusScope {
 
     height: textField.height
 
-    function selectAll() { textField.selectAll() }
+    function selectAll() {
+        textField.selectAll()
+    }
 
     TextField {
         id: textField
@@ -77,7 +83,7 @@ FocusScope {
                     id: favicon
                     shouldCache: !addressbar.incognito
                     anchors.verticalCenter: parent.verticalCenter
-                    visible: internal.idle && addressbar.actualUrl.toString() &&
+                    visible: showFavicon && internal.idle && addressbar.actualUrl.toString() &&
                              !internal.securityWarning && !internal.securityError
                 }
 
@@ -87,7 +93,7 @@ FocusScope {
                     height: parent.height
                     width: height
 
-                    visible: addressbar.activeFocus || addressbar.loading || !addressbar.text || !canSimplifyText
+                    visible: addressbar.editing || addressbar.loading || !addressbar.text
 
                     enabled: addressbar.text
                     opacity: enabled ? 1.0 : 0.3
@@ -99,6 +105,7 @@ FocusScope {
                     name: addressbar.loading ? "stop" :
                           reload ? "reload" :
                           looksLikeAUrl ? "stock_website" : "search"
+                    color: UbuntuColors.darkGrey
 
                     MouseArea {
                         objectName: "actionButton"
@@ -122,6 +129,7 @@ FocusScope {
 
                 Icon {
                     name: "network-secure"
+                    color: UbuntuColors.darkGrey
                     height: parent.height
                     width: height
                     visible: internal.idle && internal.secureConnection
@@ -136,6 +144,7 @@ FocusScope {
 
                 Icon {
                     name: "security-alert"
+                    color: UbuntuColors.darkGrey
                     height: parent.height
                     width: height
                     visible: internal.idle && internal.securityWarning
@@ -185,7 +194,7 @@ FocusScope {
                 anchors.centerIn: parent
 
                 name: addressbar.bookmarked ? "starred" : "non-starred"
-                color: addressbar.bookmarked ? UbuntuColors.orange : keyColor
+                color: addressbar.bookmarked ? UbuntuColors.orange : UbuntuColors.darkGrey
             }
 
             MouseArea {
@@ -193,9 +202,15 @@ FocusScope {
                 anchors.fill: parent
                 onClicked: addressbar.bookmarked = !addressbar.bookmarked
             }
+
+            Item {
+                id: bookmarkTogglePlaceHolderItem
+                anchors.fill: parent
+            }
         }
 
         font.pixelSize: FontUtils.sizeToPixels("small")
+        color: UbuntuColors.darkGrey
         inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
 
         placeholderText: i18n.tr("search or enter an address")
@@ -232,7 +247,7 @@ FocusScope {
     QtObject {
         id: internal
 
-        readonly property bool idle: !addressbar.loading && !addressbar.activeFocus && addressbar.canSimplifyText
+        readonly property bool idle: !addressbar.loading && !addressbar.editing
 
         readonly property int securityLevel: addressbar.securityStatus ? addressbar.securityStatus.securityLevel : Oxide.SecurityStatus.SecurityLevelNone
         readonly property bool secureConnection: addressbar.securityStatus ? (securityLevel == Oxide.SecurityStatus.SecurityLevelSecure || securityLevel == Oxide.SecurityStatus.SecurityLevelSecureEV || securityLevel == Oxide.SecurityStatus.SecurityLevelWarning) : false
@@ -293,28 +308,55 @@ FocusScope {
             }
         }
 
-        function updateUrlFromFocus() {
-            if (canSimplifyText)  {
-                if (addressbar.activeFocus) {
-                    text = actualUrl
-                } else if (!loading && actualUrl.toString()) {
-                    text = internal.simplifyUrl(actualUrl)
-                }
+        // has the URL in the address bar been simplified?
+        property bool simplified: false
+    }
+
+    onEditingChanged: {
+        if (editing && internal.simplified) {
+            text = actualUrl
+            internal.simplified = false
+        } else if (!editing) {
+            if (canSimplifyText && !loading && actualUrl.toString()) {
+                text = internal.simplifyUrl(actualUrl)
+                internal.simplified = true
+            } else {
+                text = actualUrl
+                internal.simplified = false
             }
         }
     }
 
-    onActiveFocusChanged: internal.updateUrlFromFocus()
-    onCanSimplifyTextChanged: internal.updateUrlFromFocus()
-
-    onActualUrlChanged: {
-        if (!activeFocus || !actualUrl.toString()) {
+    onCanSimplifyTextChanged: {
+        if (editing) return
+        if (canSimplifyText && !loading && actualUrl.toString()) {
             text = internal.simplifyUrl(actualUrl)
+            internal.simplified = true
+        } else if (!canSimplifyText && internal.simplified) {
+            text = actualUrl
+            internal.simplified = false
         }
     }
+
+    onActualUrlChanged: {
+        if (editing && actualUrl.toString()) return
+        if (canSimplifyText) {
+            text = internal.simplifyUrl(actualUrl)
+            internal.simplified = true
+        } else {
+            text = actualUrl
+            internal.simplified = false
+        }
+    }
+
     onRequestedUrlChanged: {
-        if (!activeFocus) {
+        if (editing) return
+        if (canSimplifyText) {
             text = internal.simplifyUrl(requestedUrl)
+            internal.simplified = true
+        } else {
+            text = requestedUrl
+            internal.simplified = false
         }
     }
 

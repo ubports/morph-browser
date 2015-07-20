@@ -51,6 +51,7 @@ ListItem.Base {
             }
             width: units.gu(2)
             height: units.gu(2)
+            color: UbuntuColors.darkGrey
         }
 
         Label {
@@ -62,7 +63,7 @@ ListItem.Base {
                 leftMargin: units.gu(2)
                 right: parent.right
             }
-
+            color: selected ? "#DB4923" : UbuntuColors.darkGrey
             elide: Text.ElideRight
         }
 
@@ -77,7 +78,7 @@ ListItem.Base {
             fontSize: "small"
             elide: Text.ElideRight
             visible: text !== ""
-            color: selected ? "#DB4923" : "black"
+            color: selected ? "#DB4923" : UbuntuColors.darkGrey
         }
     }
 

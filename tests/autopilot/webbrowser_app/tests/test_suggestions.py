@@ -33,8 +33,6 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
     """Helper test class that pre-populates history and bookmarks databases."""
 
     def setUp(self):
-        self.create_temporary_profile()
-
         self.populate_history()
         self.populate_bookmarks()
         super(PrepopulatedDatabaseTestCaseBase, self).setUp()
@@ -80,7 +78,7 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
         connection = sqlite3.connect(db_path)
         connection.execute("""CREATE TABLE IF NOT EXISTS bookmarks
                               (url VARCHAR, title VARCHAR, icon VARCHAR,
-                              created INTEGER);""")
+                              created INTEGER, folderId INTEGER);""")
         rows = [
             ("http://www.rsc.org/periodic-table/element/24/chromium",
              "Chromium - Element Information"),
@@ -101,7 +99,7 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
         for i, row in enumerate(rows):
             timestamp = int(time.time()) - i * 10
             query = "INSERT INTO bookmarks \
-                     VALUES ('{}', '{}', '', {});"
+                     VALUES ('{}', '{}', '', {}, '');"
             query = query.format(row[0], row[1], timestamp)
             connection.execute(query)
 
@@ -159,7 +157,7 @@ class TestSuggestions(PrepopulatedDatabaseTestCaseBase):
             return pattern.format(parts[0], self.highlight(term), parts[1])
 
     def highlight(self, text):
-        return '<b><font color="#dd4814">{}</font></b>'.format(text)
+        return '<font color="#752571">{}</font>'.format(text)
 
     def assert_suggestions_eventually_shown(self):
         suggestions = self.main_window.get_suggestions()

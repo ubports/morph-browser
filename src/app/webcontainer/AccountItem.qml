@@ -20,14 +20,12 @@ import QtQuick 2.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.ListItems 1.0 as ListItem
 
-ListItem.Standard {
+ListItem.Subtitled {
     id: root
 
+    property string providerName
     property string accountName
 
-    text: accountName
-
-    iconSource: Qt.resolvedUrl("/usr/share/icons/ubuntu-mobile/actions/scalable/contact.svg")
+    text: providerName
+    subText: accountName
 }
-
-
