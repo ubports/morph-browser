@@ -49,6 +49,9 @@ Item {
     Sections {
         id: sections
 
+        selectedIndex: settingsObject.selectedIndexNewTabViewLandscape
+        onSelectedIndexChanged: settingsObject.selectedIndexNewTabViewLandscape = selectedIndex
+
         anchors {
             horizontalCenter: parent.horizontalCenter
             top: parent.top
@@ -58,12 +61,6 @@ Item {
             Action { text: i18n.tr("Top Sites") },
             Action { text: i18n.tr("Bookmarks") }
         ]
-    }
-
-    Binding {
-        target: sections
-        property: "selectedIndex"
-        value: settingsObject.selectedIndexNewTabViewLandscape
     }
 
     Flickable {
