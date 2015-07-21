@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-07-03 14:57+0200\n"
-"PO-Revision-Date: 2015-07-16 10:43+0000\n"
+"PO-Revision-Date: 2015-07-20 15:03+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2015-07-17 05:35+0000\n"
+"X-Launchpad-Export-Date: 2015-07-21 05:32+0000\n"
 "X-Generator: Launchpad (build 17628)\n"
 "Language: gd\n"
 
@@ -445,7 +445,7 @@ msgstr "lorg no cuir a-steach seòladh-lìn"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr ""
+msgstr "Chaidh comharra-lìn a chur ris"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
@@ -455,12 +455,12 @@ msgstr "Ainm"
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr ""
+msgstr "Sàbhail ann an"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
 msgid "All Bookmarks"
-msgstr ""
+msgstr "A h-uile comharra-lìn"
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
@@ -469,7 +469,7 @@ msgstr "Pasgan ùr"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr ""
+msgstr "Cruthaich pasgan ùr"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:311
@@ -584,7 +584,7 @@ msgstr "Gràinnean-mullaich nan làrach"
 
 #: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Cha do thadhail thu air làrach sam bith fhathast"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -700,6 +700,8 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"Cha deach cunntas a cho-cheangal ris an aplacaid-lìn seo fhathast; brùth air "
+"an nì gu h-ìosal gus cunntas a chur ris."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -707,11 +709,11 @@ msgstr "Cuir cunntas ris"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "Na chleachd cunntas"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "Mearachd cunntais"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
@@ -722,27 +724,32 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"Cha b' urrainn dhuinn uinneag a' chunntais fhosgladh. Chan urrainn dhut ach "
+"aon chunntas a chruthachadh aig an aon àm; feuch ris a-rithist nuair a bhios "
+"tu air a h-uile uinneag cunntais eile a dhùnadh."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "Feumaidh <b>%1</b> an cunntas %2 air loidhne agad inntrigeadh."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "Bu toil le <b>%1</b> an cunntas %2 air loidhne agad inntrigeadh."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"Tagh cunntas an-dràsta no gearr leum thar a' cheuma seo is tagh cunntas air "
+"loidhne uaireigin eile."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "Dùin an aplacaid"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
@@ -750,7 +757,7 @@ msgstr "Gearr leum thairis air"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "Tagh cunntas"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
