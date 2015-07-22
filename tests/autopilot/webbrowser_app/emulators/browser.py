@@ -130,7 +130,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        state="shown")
 
     def get_new_tab_view(self):
-        return self.wait_select_single("NewTabView", visible=True)
+        if self.wide:
+            return self.wait_select_single("NewTabLandscapeView", visible=True)
+        else:
+            return self.wait_select_single("NewTabView", visible=True)
 
     # Since the NewPrivateTabView does not define any new QML property in its
     # extended file, it does not report itself to autopilot with the same name
@@ -428,6 +431,29 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single(UrlsList, objectName="topSitesList")
 
     def get_notopsites_label(self):
+        return self.select_single("Label", objectName="notopsites")
+
+
+class NewTabLandscapeView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_homepage_bookmark(self):
+        sections = self.select_single(uitk.Sections)
+        sections.click_section_button(1)
+        return self.select_single(UrlDelegate, objectName="homepageBookmark")
+
+    def get_bookmarks_list(self):
+        sections = self.select_single(uitk.Sections)
+        sections.click_section_button(1)
+        return self.select_single(UrlsList, objectName="bookmarksList")
+
+    def get_top_sites_list(self):
+        sections = self.select_single(uitk.Sections)
+        sections.click_section_button(0)
+        return self.select_single(UrlsList, objectName="topSitesList")
+
+    def get_notopsites_label(self):
+        sections = self.select_single(uitk.Sections)
+        sections.click_section_button(0)
         return self.select_single("Label", objectName="notopsites")
 
 

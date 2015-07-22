@@ -156,13 +156,13 @@ class TestNewPrivateTabViewLifetime(StartOpenRemotePageTestCaseBase):
         new_private_tab_view.wait_until_destroyed()
 
 
-class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
+class TestNewTabViewContentsBase(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
         self.create_temporary_profile()
         self.populate_config()
         self.populate_bookmarks()
-        super(TestNewTabViewContents, self).setUp()
+        super(TestNewTabViewContentsBase, self).setUp()
         if not self.main_window.wide:
             self.open_tabs_view()
         self.new_tab_view = self.open_new_tab()
@@ -226,6 +226,9 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         connection.commit()
         connection.close()
 
+
+class TestNewTabViewContents(TestNewTabViewContentsBase):
+
     def test_default_home_bookmark(self):
         homepage_bookmark = self.new_tab_view.get_homepage_bookmark()
         self.assertThat(homepage_bookmark.url, Equals(self.homepage))
@@ -233,15 +236,31 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(self.homepage)
 
-    def test_open_bookmark_when_collapsed(self):
+    def test_open_top_site(self):
+        top_sites = self.new_tab_view.get_top_sites_list()
+        self.assertThat(lambda: len(top_sites.get_delegates()),
+                        Eventually(Equals(1)))
+        top_site = top_sites.get_delegates()[0]
+        url = top_site.url
+        self.pointing_device.click_object(top_site)
+        self.new_tab_view.wait_until_destroyed()
+        self.main_window.wait_until_page_loaded(url)
+
+    def test_open_bookmark(self):
         bookmarks = self.new_tab_view.get_bookmarks_list()
-        self.assertThat(lambda: len(bookmarks.get_delegates()),
-                        Eventually(Equals(4)))
         bookmark = bookmarks.get_delegates()[1]
         url = bookmark.url
         self.pointing_device.click_object(bookmark)
         self.new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(url)
+
+
+class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
+
+    def setUp(self):
+        super(TestNewTabViewContentsNarrow, self).setUp()
+        if self.main_window.wide:
+            self.skipTest("Only on narrow form factors")
 
     def test_open_bookmark_when_expanded(self):
         more_button = self.new_tab_view.get_bookmarks_more_button()
@@ -396,16 +415,6 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
                                     folder_delegate)),
                         Eventually(Equals(4)))
 
-    def test_open_top_site(self):
-        top_sites = self.new_tab_view.get_top_sites_list()
-        self.assertThat(lambda: len(top_sites.get_delegates()),
-                        Eventually(Equals(1)))
-        top_site = top_sites.get_delegates()[0]
-        url = top_site.url
-        self.pointing_device.click_object(top_site)
-        self.new_tab_view.wait_until_destroyed()
-        self.main_window.wait_until_page_loaded(url)
-
     def test_remove_top_sites(self):
         top_sites = self.new_tab_view.get_top_sites_list()
         self.assertThat(lambda: len(top_sites.get_delegates()),
@@ -418,3 +427,11 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: len(top_sites.get_delegates()),
                         Eventually(Equals(0)))
         self.assertThat(notopsites_label.visible, Eventually(Equals(True)))
+
+
+class TestNewTabViewContentsWide(TestNewTabViewContentsBase):
+
+    def setUp(self):
+        super(TestNewTabViewContentsWide, self).setUp()
+        if not self.main_window.wide:
+            self.skipTest("Only on wide form factors")
