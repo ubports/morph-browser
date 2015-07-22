@@ -228,69 +228,57 @@ BrowserView {
                 }
             }
 
-            sourceComponent: newTabViewComponent
+            sourceComponent: browser.incognito ? newPrivateTabView :
+                             (browser.wide ? newTabLandscapeView : newTabView)
 
             Component {
-                id: newTabViewComponent
+                id: newTabView
 
-                Layouts {
-                    id: newTabViewLayouts
-
+                NewTabView {
                     anchors.fill: parent
-
-                    layouts: [
-                        ConditionalLayout {
-                            name: "newTabView"
-                            when: !browser.incognito && !browser.wide
-
-                            NewTabView {
-                                anchors.fill: parent
-                                historyModel: browser.historyModel
-                                bookmarksModel: browser.bookmarksModel
-                                settingsObject: settings
-                                onBookmarkClicked: {
-                                    chrome.requestedUrl = url
-                                    currentWebview.url = url
-                                    tabContainer.forceActiveFocus()
-                                }
-                                onBookmarkRemoved: browser.bookmarksModel.remove(url)
-                                onHistoryEntryClicked: {
-                                    chrome.requestedUrl = url
-                                    currentWebview.url = url
-                                    tabContainer.forceActiveFocus()
-                                }
-                            }
-                        },
-                        ConditionalLayout {
-                            name: "newTabLandscapeView"
-                            when: !browser.incognito && browser.wide
-
-                            NewTabLandscapeView {
-                                anchors.fill: parent
-                                historyModel: browser.historyModel
-                                bookmarksModel: browser.bookmarksModel
-                                settingsObject: settings
-                                onBookmarkClicked: {
-                                    chrome.requestedUrl = url
-                                    currentWebview.url = url
-                                    tabContainer.forceActiveFocus()
-                                }
-                                onBookmarkRemoved: browser.bookmarksModel.remove(url)
-                                onHistoryEntryClicked: {
-                                    chrome.requestedUrl = url
-                                    currentWebview.url = url
-                                    tabContainer.forceActiveFocus()
-                                }
-                            }
-                        },
-                        ConditionalLayout {
-                            name: "newPrivateTabView"
-                            when: browser.incognito
-
-                            NewPrivateTabView { anchors.fill: parent }
-                        }
-                    ]
+                    historyModel: browser.historyModel
+                    bookmarksModel: browser.bookmarksModel
+                    settingsObject: settings
+                    onBookmarkClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        tabContainer.forceActiveFocus()
+                    }
+                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onHistoryEntryClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        tabContainer.forceActiveFocus()
+                    }
                 }
+            }
+
+            Component {
+                id: newTabLandscapeView
+
+                NewTabLandscapeView {
+                    anchors.fill: parent
+                    historyModel: browser.historyModel
+                    bookmarksModel: browser.bookmarksModel
+                    settingsObject: settings
+                    onBookmarkClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        tabContainer.forceActiveFocus()
+                    }
+                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onHistoryEntryClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        tabContainer.forceActiveFocus()
+                    }
+                }
+            }
+
+            Component {
+                id: newPrivateTabView
+
+                NewPrivateTabView { anchors.fill: parent }
             }
         }
 
