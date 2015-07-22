@@ -63,11 +63,45 @@ Item {
         ]
     }
 
-    Flickable {
+    ListView {
+        id: folders
         anchors {
             top: sections.bottom
             bottom: parent.bottom
             left: parent.left
+        }
+        width: units.gu(25)
+
+        model: BookmarksFolderListModel {
+            sourceModel: newTabViewLandscape.bookmarksModel
+        }
+
+        delegate: ListItem {
+            property var bookmarkEntries: entries
+            property bool isCurrent: ListView.isCurrentItem
+            property bool isEverything: folder.length === 0
+
+            Label {
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: units.gu(2)
+                anchors.rightMargin: units.gu(2)
+
+                fontSize: "small"
+                text: isEverything ? i18n.tr("All Bookmarks") : folder
+                color: isCurrent ? UbuntuColors.orange : "black"
+            }
+
+            onClicked: folders.currentIndex = index
+        }
+    }
+
+    Flickable {
+        anchors {
+            top: sections.bottom
+            bottom: parent.bottom
+            left: folders.right
             right: parent.right
         }
         contentHeight: contentColumn.height
@@ -108,9 +142,11 @@ Item {
 
                     url: newTabViewLandscape.settingsObject.homepage
                     onClicked: newTabViewLandscape.bookmarkClicked(url)
+                    visible: folders.currentItem.isEverything
                 }
 
                 UrlsList {
+                    id: bookmarksList
                     objectName: "bookmarksList"
                     anchors {
                         left: parent.left
@@ -120,7 +156,7 @@ Item {
                     spacing: 0
                     limit: 10
 
-                    model: newTabViewLandscape.bookmarksModel
+                    model: folders.currentItem.bookmarkEntries
 
                     onUrlClicked: newTabViewLandscape.bookmarkClicked(url)
                     onUrlRemoved: newTabViewLandscape.bookmarkRemoved(url)
