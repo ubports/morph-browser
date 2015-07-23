@@ -218,6 +218,8 @@ BrowserView {
             }
             active: false
 
+            Binding { target: newTabViewLoader.item; property: "focus"; value: newTabViewLoader.focus }
+
             Connections {
                 target: browser
                 onCurrentWebviewChanged: {
@@ -239,6 +241,7 @@ BrowserView {
                     historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
+                    focus: true
                     onBookmarkClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
@@ -261,6 +264,7 @@ BrowserView {
                     historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
+                    focus: true
                     onBookmarkClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
@@ -272,6 +276,7 @@ BrowserView {
                         currentWebview.url = url
                         tabContainer.forceActiveFocus()
                     }
+                    onReleasingKeyboardFocus: chrome.focus = true
                 }
             }
 
@@ -400,7 +405,12 @@ BrowserView {
             canSimplifyText: !browser.wide
             editing: activeFocus || suggestionsList.activeFocus
 
-            Keys.onDownPressed: if (suggestionsList.count) suggestionsList.focus = true
+            Keys.onDownPressed: {
+                if (suggestionsList.count) suggestionsList.focus = true
+                else if (newTabViewLoader.status == Loader.Ready) {
+                    newTabViewLoader.focus = true
+                }
+            }
             Keys.onEscapePressed: internal.resetFocus()
         }
 

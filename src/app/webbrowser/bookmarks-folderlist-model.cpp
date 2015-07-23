@@ -83,6 +83,11 @@ BookmarksModel* BookmarksFolderListModel::sourceModel() const
     return m_sourceModel;
 }
 
+int BookmarksFolderListModel::count() const
+{
+    return rowCount();
+}
+
 void BookmarksFolderListModel::setSourceModel(BookmarksModel* sourceModel)
 {
     if (sourceModel != m_sourceModel) {

@@ -26,6 +26,8 @@ ListItem {
     property alias icon: icon.source
     property alias title: title.text
     property alias url: url.text
+    property bool highlighted: false
+    color: highlighted ? Qt.rgba(0, 0, 0, 0.05) : "transparent"
 
     divider.visible: false
 
@@ -58,7 +60,7 @@ ListItem {
                 id: title
 
                 fontSize: "x-small"
-                color: UbuntuColors.darkGrey
+                color: highlighted ? UbuntuColors.orange : UbuntuColors.darkGrey
                 wrapMode: Text.Wrap
                 elide: Text.ElideRight
                 maximumLineCount: 1
@@ -68,7 +70,7 @@ ListItem {
                 id: url
 
                 fontSize: "xx-small"
-                color: UbuntuColors.darkGrey
+                color: highlighted ? UbuntuColors.orange : UbuntuColors.darkGrey
                 wrapMode: Text.Wrap
                 elide: Text.ElideRight
                 maximumLineCount: 1
