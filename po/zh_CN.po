@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-07-03 14:57+0200\n"
-"PO-Revision-Date: 2015-06-29 03:20+0000\n"
+"PO-Revision-Date: 2015-07-23 03:56+0000\n"
 "Last-Translator: Ian Li <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-07-04 05:34+0000\n"
-"X-Generator: Launchpad (build 17597)\n"
+"X-Launchpad-Export-Date: 2015-07-23 05:41+0000\n"
+"X-Generator: Launchpad (build 17628)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -420,31 +420,31 @@ msgstr "搜索或输入一个地址"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr ""
+msgstr "已添加书签"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr ""
+msgstr "保存在"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
 msgid "All Bookmarks"
-msgstr ""
+msgstr "全部书签"
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr ""
+msgstr "新建文件夹"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr ""
+msgstr "创建新文件夹"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:311
@@ -664,7 +664,7 @@ msgstr "Ubuntu 浏览器"
 msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
-msgstr ""
+msgstr "这个Web应用没有关联帐号；点击下方项目来添加帐号。"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -672,50 +672,50 @@ msgstr "添加帐户"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "不使用帐号"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "帐号错误"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "关闭"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
-msgstr ""
+msgstr "帐号窗口无法打开。您只能一次创建一个帐号；请关闭所有其他帐号窗口后重试。"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> 需要访问您的 %2 在线帐号。"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> 想要访问您的 %2 在线帐号。"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
-msgstr ""
+msgstr "现在选择一个帐号，或者跳过稍后选择一个在线帐号。"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "关闭应用"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "跳过"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "选择一个帐号"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
