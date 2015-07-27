@@ -54,29 +54,40 @@ FocusScope {
 
     Rectangle {
         anchors.fill: parent
-        color: "#f6f6f6"
+        color: "#fbfbfb"
     }
 
-    Sections {
-        id: sections
-
-        selectedIndex: settingsObject.selectedIndexNewTabViewLandscape
-        onSelectedIndexChanged: {
-            settingsObject.selectedIndexNewTabViewLandscape = selectedIndex
-            if (selectedIndex === 1) lastFocusedBookmarksColumn.focus = true
-            else topSitesList.focus = true
-        }
-        property var lastFocusedBookmarksColumn: folders
-
+    Rectangle {
+        id: sectionsGroup
         anchors {
-            horizontalCenter: parent.horizontalCenter
             top: parent.top
+            left: parent.left
+            right: parent.right
         }
+        color: "#dedede"
+        height: sections.height
 
-        actions: [
-            Action { text: i18n.tr("Top Sites") },
-            Action { text: i18n.tr("Bookmarks") }
-        ]
+        Sections {
+            id: sections
+            anchors {
+                left: parent.left
+                top: parent.top
+                leftMargin: units.gu(1)
+            }
+
+            selectedIndex: settingsObject.selectedIndexNewTabViewLandscape
+            onSelectedIndexChanged: {
+                settingsObject.selectedIndexNewTabViewLandscape = selectedIndex
+                if (selectedIndex === 1) lastFocusedBookmarksColumn.focus = true
+                else topSitesList.focus = true
+            }
+            property var lastFocusedBookmarksColumn: folders
+
+            actions: [
+                Action { text: i18n.tr("Top Sites") },
+                Action { text: i18n.tr("Bookmarks") }
+            ]
+        }
     }
 
     ListView {
@@ -86,7 +97,7 @@ FocusScope {
 
         currentIndex: 0
         Keys.onReturnPressed: folders.activeFolder = currentItem
-        Keys.onRightPressed: bookmarksColumn.focus = true
+        Keys.onRightPressed: bookmarksList.focus = true
         Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, folders.model.count - 1)
         Keys.onUpPressed: {
             if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
@@ -95,9 +106,10 @@ FocusScope {
         onActiveFocusChanged: if (activeFocus) sections.lastFocusedBookmarksColumn = folders
 
         anchors {
-            top: sections.bottom
+            top: sectionsGroup.bottom
             bottom: parent.bottom
             left: parent.left
+            topMargin: units.gu(2)
         }
         width: units.gu(25)
 
@@ -111,6 +123,7 @@ FocusScope {
             property bool isActiveFolder: folders.activeFolder === folderItem
             property bool isCurrentItem: ListView.isCurrentItem
             property bool isAllBookmarksFolder: folder.length === 0
+            divider.visible: false
 
             color: folders.activeFocus && ListView.isCurrentItem ? Qt.rgba(0, 0, 0, 0.05) : "transparent"
 
@@ -125,7 +138,7 @@ FocusScope {
                 anchors.leftMargin: units.gu(2)
                 anchors.rightMargin: units.gu(2)
 
-                fontSize: "small"
+                fontSize: isAllBookmarksFolder ? "medium" : "small"
                 text: isAllBookmarksFolder ? i18n.tr("All Bookmarks") : folder
                 color: isCurrentItem || isActiveFolder ? UbuntuColors.orange : "black"
             }
@@ -134,133 +147,106 @@ FocusScope {
         }
     }
 
-    Flickable {
+    ListView {
+        id: bookmarksList
+        objectName: "bookmarksList"
         anchors {
-            top: sections.bottom
+            top: sectionsGroup.bottom
             bottom: parent.bottom
-            left: inBookmarksView ? folders.right : parent.left
+            left: folders.right
             right: parent.right
+            topMargin: units.gu(2)
         }
-        contentHeight: contentColumn.height
+        visible: inBookmarksView
+        onActiveFocusChanged: if (activeFocus) sections.lastFocusedBookmarksColumn = bookmarksList
 
-        clip: true
+        // Build a temporary model for the bookmarks list that includes, when
+        // necessary, the homepage bookmark as a fixed first item in the list
+        model: {
+            if (!folders.activeFolder) return null
 
-        Column {
-            id: contentColumn
-            anchors {
-                left: parent.left
-                right: parent.right
+            var items = []
+            if (folders.activeFolder.isAllBookmarksFolder) items.push({
+                title: i18n.tr("Homepage"),
+                url: newTabViewLandscape.settingsObject.homepage
+            })
+            for (var i = 0; i < folders.activeFolder.model.count; i++) {
+                items.push(folders.activeFolder.model.get(i))
             }
-            height: childrenRect.height
+            return items
+        }
 
-            Column {
-                id: bookmarksColumn
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
+        currentIndex: 0
 
-                property int cursorIndex: 0
-                Keys.onLeftPressed: folders.focus = true
-                Keys.onDownPressed: cursorIndex = Math.min(cursorIndex + 1, bookmarksList.model.count)
-                Keys.onUpPressed: {
-                    if (cursorIndex > 0) cursorIndex = Math.max(cursorIndex - 1, 0)
-                    else newTabViewLandscape.releasingKeyboardFocus()
-                }
-                onActiveFocusChanged: if (activeFocus) sections.lastFocusedBookmarksColumn = bookmarksColumn
-                Keys.onReturnPressed: {
-                    if (cursorIndex === 0) newTabViewLandscape.bookmarkClicked(homePageBookmark.url)
-                    else newTabViewLandscape.bookmarkClicked(bookmarksList.highlightedUrl)
-                }
+        delegate: UrlDelegateLandscape {
+            title: modelData.title
+            icon: modelData.icon
+            url: modelData.url
+            removable: !folders.activeFolder.isAllBookmarksFolder || index > 0
+            highlighted: bookmarksList.activeFocus && ListView.isCurrentItem
 
-                visible: inBookmarksView
+            onClicked: newTabViewLandscape.bookmarkClicked(url)
+            onRemoved: newTabViewLandscape.bookmarkRemoved(url)
+        }
 
-                height: childrenRect.height
-                spacing: 0
+        Keys.onReturnPressed: newTabViewLandscape.bookmarkClicked(currentItem.url)
+        Keys.onLeftPressed: folders.focus = true
+        Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, model.length - 1)
+        Keys.onUpPressed: {
+            if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
+            else newTabViewLandscape.releasingKeyboardFocus()
+        }
+    }
 
-                UrlDelegate {
-                    id: homePageBookmark
-                    objectName: "homepageBookmark"
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
-                    height: units.gu(5)
+    Label {
+        objectName: "notopsites"
 
-                    title: i18n.tr('Homepage')
+        height: units.gu(11)
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: sectionsGroup.bottom
+            topMargin: units.gu(2)
+        }
+        visible: !inBookmarksView && topSitesModel.count === 0
 
-                    leadingActions: null
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
 
-                    url: newTabViewLandscape.settingsObject.homepage
-                    onClicked: newTabViewLandscape.bookmarkClicked(url)
-                    visible: folders.activeFolder ? folders.activeFolder.isAllBookmarksFolder : false
-                    highlighted: bookmarksColumn.activeFocus && bookmarksColumn.cursorIndex == 0
-                }
+        text: i18n.tr("You haven't visited any site yet")
+        color: "#5d5d5d"
+    }
 
-                UrlsList {
-                    id: bookmarksList
-                    objectName: "bookmarksList"
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                    }
+    ListView {
+        id: topSitesList
+        objectName: "topSitesList"
+        anchors {
+            top: sectionsGroup.bottom
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+            topMargin: units.gu(2)
+        }
 
-                    spacing: 0
-                    limit: 10
-                    highlightedIndex: bookmarksColumn.activeFocus ? bookmarksColumn.cursorIndex - 1 : -1
+        visible: !inBookmarksView
+        currentIndex: 0
 
-                    model: folders.activeFolder ? folders.activeFolder.model : null
+        model: topSitesModel
+        delegate: UrlDelegateLandscape {
+            title: model.title
+            icon: model.icon
+            url: model.url
+            highlighted: topSitesList.activeFocus && ListView.isCurrentItem
 
-                    onUrlClicked: newTabViewLandscape.bookmarkClicked(url)
-                    onUrlRemoved: newTabViewLandscape.bookmarkRemoved(url)
-                }
-            }
+            onClicked: newTabViewLandscape.historyEntryClicked(url)
+            onRemoved: newTabViewLandscape.historyModel.hide(url)
+        }
 
-            Label {
-                objectName: "notopsites"
-
-                height: units.gu(11)
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-                visible: !inBookmarksView && topSitesModel.count == 0
-
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-
-                text: i18n.tr("You haven't visited any site yet")
-                color: "#5d5d5d"
-            }
-
-            UrlsList {
-                id: topSitesList
-                objectName: "topSitesList"
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-
-                property int cursorIndex: 0
-                highlightedIndex: activeFocus ? cursorIndex : -1
-                Keys.onReturnPressed: newTabViewLandscape.historyEntryClicked(highlightedUrl)
-                Keys.onDownPressed: cursorIndex = Math.min(cursorIndex + 1, topSitesList.model.count - 1)
-                Keys.onUpPressed: {
-                    if (cursorIndex > 0) cursorIndex = Math.max(cursorIndex - 1, 0)
-                    else newTabViewLandscape.releasingKeyboardFocus()
-                }
-
-                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
-                Behavior on opacity { UbuntuNumberAnimation {} }
-                visible: !inBookmarksView
-
-                spacing: 0
-
-                model: topSitesModel
-
-                onUrlClicked: newTabViewLandscape.historyEntryClicked(url)
-                onUrlRemoved: newTabViewLandscape.historyModel.hide(url)
-            }
+        Keys.onReturnPressed: newTabViewLandscape.historyEntryClicked(currentItem.url)
+        Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, model.count - 1)
+        Keys.onUpPressed: {
+            if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
+            else newTabViewLandscape.releasingKeyboardFocus()
         }
     }
 }
