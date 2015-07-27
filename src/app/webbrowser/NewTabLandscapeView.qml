@@ -78,8 +78,12 @@ FocusScope {
             selectedIndex: settingsObject.selectedIndexNewTabViewLandscape
             onSelectedIndexChanged: {
                 settingsObject.selectedIndexNewTabViewLandscape = selectedIndex
-                if (selectedIndex === 1) lastFocusedBookmarksColumn.focus = true
-                else topSitesList.focus = true
+                if (selectedIndex === 0) topSitesList.focus = true
+                else {
+                    if (lastFocusedBookmarksColumn) lastFocusedBookmarksColumn.focus = true
+                    else folders.focus = true
+                }
+
             }
             property var lastFocusedBookmarksColumn: folders
 
@@ -93,17 +97,19 @@ FocusScope {
     ListView {
         id: folders
         visible: inBookmarksView
-        property var activeFolder: null
 
-        currentIndex: 0
-        Keys.onReturnPressed: folders.activeFolder = currentItem
-        Keys.onRightPressed: bookmarksList.focus = true
+        Keys.onRightPressed: if (bookmarksList.model.length > 0) bookmarksList.focus = true
         Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, folders.model.count - 1)
         Keys.onUpPressed: {
             if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
             else newTabViewLandscape.releasingKeyboardFocus()
         }
-        onActiveFocusChanged: if (activeFocus) sections.lastFocusedBookmarksColumn = folders
+        onActiveFocusChanged: {
+            if (activeFocus) {
+                sections.lastFocusedBookmarksColumn = folders
+                if (currentIndex < 0) currentIndex = 0
+            }
+        }
 
         anchors {
             top: sectionsGroup.bottom
@@ -113,6 +119,7 @@ FocusScope {
         }
         width: units.gu(25)
 
+        currentIndex: 0
         model: BookmarksFolderListModel {
             sourceModel: newTabViewLandscape.bookmarksModel
         }
@@ -120,16 +127,12 @@ FocusScope {
         delegate: ListItem {
             id: folderItem
             property var model: entries
-            property bool isActiveFolder: folders.activeFolder === folderItem
+            property bool isActiveFolder: ListView.isCurrentItem
             property bool isCurrentItem: ListView.isCurrentItem
             property bool isAllBookmarksFolder: folder.length === 0
             divider.visible: false
 
-            color: folders.activeFocus && ListView.isCurrentItem ? Qt.rgba(0, 0, 0, 0.05) : "transparent"
-
-            Component.onCompleted: {
-                if (isAllBookmarksFolder && !folders.activeFolder) folders.activeFolder = folderItem
-            }
+            color: (folders.activeFocus && isActiveFolder) ? Qt.rgba(0, 0, 0, 0.05) : "transparent"
 
             Label {
                 anchors.verticalCenter: parent.verticalCenter
@@ -143,7 +146,7 @@ FocusScope {
                 color: isCurrentItem || isActiveFolder ? UbuntuColors.orange : "black"
             }
 
-            onClicked: folders.activeFolder = folderItem
+            onClicked: folders.currentIndex = index
         }
     }
 
@@ -163,15 +166,15 @@ FocusScope {
         // Build a temporary model for the bookmarks list that includes, when
         // necessary, the homepage bookmark as a fixed first item in the list
         model: {
-            if (!folders.activeFolder) return null
+            if (!folders.currentIndex < 0) return null
 
             var items = []
-            if (folders.activeFolder.isAllBookmarksFolder) items.push({
+            if (folders.currentItem.isAllBookmarksFolder) items.push({
                 title: i18n.tr("Homepage"),
                 url: newTabViewLandscape.settingsObject.homepage
             })
-            for (var i = 0; i < folders.activeFolder.model.count; i++) {
-                items.push(folders.activeFolder.model.get(i))
+            for (var i = 0; i < folders.currentItem.model.count; i++) {
+                items.push(folders.currentItem.model.get(i))
             }
             return items
         }
@@ -180,9 +183,9 @@ FocusScope {
 
         delegate: UrlDelegateLandscape {
             title: modelData.title
-            icon: modelData.icon
+            icon: modelData.icon ? modelData.icon : ""
             url: modelData.url
-            removable: !folders.activeFolder.isAllBookmarksFolder || index > 0
+            removable: !folders.currentItem.isAllBookmarksFolder || index > 0
             highlighted: bookmarksList.activeFocus && ListView.isCurrentItem
 
             onClicked: newTabViewLandscape.bookmarkClicked(url)
