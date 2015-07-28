@@ -16,66 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _INTENT_FILTER_H_
-#define _INTENT_FILTER_H_
+#ifndef _INTENT_PARSER_H_
+#define _INTENT_PARSER_H_
 
 #include <QObject>
 #include <QString>
+#include <QUrl>
 #include <QVariantMap>
-
-
-class QUrl;
-class IntentFilterPrivate;
-struct IntentUriDescription;
-
-/**
- * @brief The IntentFilter class
- */
-class IntentFilter : public QObject
-{
-    Q_OBJECT
-
-public:
-    IntentFilter(const QString& content,
-            QObject *parent = 0);
-    ~IntentFilter();
-
-    /**
-     * @brief isValidLocalIntentFilterFile
-     * @return
-     */
-    static bool isValidLocalIntentFilterFile(const QString& filename);
-
-    /**
-     * @brief isValidIntentDescription
-     * @return
-     */
-    static bool isValidIntentDescription(const IntentUriDescription& );
-
-    /**
-     * @brief isValidIntentFilterResult
-     * @return
-     */
-    static bool isValidIntentFilterResult(const QVariantMap& );
-
-    /**
-     * @brief apply
-     * @return
-     */
-    Q_INVOKABLE QVariantMap applyFilter(const QString& intentUri);
-
-    /**
-     * @brief isValidIntentUri
-     * @return
-     */
-    Q_INVOKABLE bool isValidIntentUri(const QString& intentUri) const;
-
-
-private:
-
-    IntentFilterPrivate* d_ptr;
-    Q_DECLARE_PRIVATE(IntentFilter)
-};
 
 
 struct IntentUriDescription
@@ -102,4 +49,4 @@ struct IntentUriDescription
  */
 IntentUriDescription parseIntentUri(const QUrl& intentUri);
 
-#endif // _INTENT_FILTER_H_
+#endif // _INTENT_PARSER_H_
