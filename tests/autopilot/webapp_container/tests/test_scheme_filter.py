@@ -25,7 +25,7 @@ from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 
 
 @contextmanager
-def generate_temp_webapp_with_intent(intent_filter_content=""):
+def generate_temp_webapp_with_scheme_filter(scheme_filter_content=""):
     tmpdir = tempfile.mkdtemp()
     manifest_content = """
     {
@@ -38,10 +38,10 @@ def generate_temp_webapp_with_intent(intent_filter_content=""):
     manifest_file = "{}/webapp-properties.json".format(tmpdir)
     with open(manifest_file, "w+") as f:
         f.write(manifest_content)
-    if len(intent_filter_content) != 0:
-        intent_filter_file = "{}/local-scheme-translate.js".format(tmpdir)
-        with open(intent_filter_file, "w+") as f:
-            f.write(intent_filter_content)
+    if len(scheme_filter_content) != 0:
+        scheme_filter_file = "{}/local-scheme-filter.js".format(tmpdir)
+        with open(scheme_filter_file, "w+") as f:
+            f.write(scheme_filter_content)
     old_cwd = os.getcwd()
     try:
         os.chdir(tmpdir)
@@ -51,16 +51,16 @@ def generate_temp_webapp_with_intent(intent_filter_content=""):
         shutil.rmtree(tmpdir)
 
 
-# Those tests rely on get_intent_filtered_uri() which
+# Those tests rely on get_scheme_filtered_uri() which
 # relies on implementation detail to trigger part of the intent handling
 # code. This comes from the fact that the url-dispatcher is not easily
 # instrumentable , so a full feature flow coverage is quite tricky to get.
 # Those tests are not really functional in that sense.
-class WebappContainerIntentUriSupportTestCase(
+class WebappContainerSchemeFilterTestCase(
         WebappContainerTestCaseWithLocalContentBase):
     def test_basic_intent_parsing(self):
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
-        with generate_temp_webapp_with_intent() as webapp_install_path:
+        with generate_temp_webapp_with_scheme_filter() as webapp_install_path:
             args = ['--webappModelSearchPath='+webapp_install_path]
             self.launch_webcontainer_app(
                 args,
@@ -73,12 +73,12 @@ class WebappContainerIntentUriSupportTestCase(
 #Intent;scheme=http;package=com.google.android.apps.maps;end'
             self.assertThat(
                 'http://maps.google.es/maps?ie=utf-8&gl=es',
-                Equals(self.get_intent_filtered_uri(intent_uri)))
+                Equals(self.get_scheme_filtered_uri(intent_uri)))
 
     def test_webapp_with_invalid_default_local_intent(self):
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
-        filter = "1"
-        with generate_temp_webapp_with_intent(filter) as webapp_install_path:
+        filter = "{ \"intent\": 1 }"
+        with generate_temp_webapp_with_scheme_filter(filter) as webapp_install_path:
             args = ['--webappModelSearchPath='+webapp_install_path]
             self.launch_webcontainer_app(
                 args,
@@ -91,7 +91,7 @@ class WebappContainerIntentUriSupportTestCase(
 #Intent;scheme=http;package=com.google.android.apps.maps;end'
             self.assertThat(
                 'http://www.test.com/maps?ie=utf-8&gl=es',
-                Equals(self.get_intent_filtered_uri(intent_uri)))
+                Equals(self.get_scheme_filtered_uri(intent_uri)))
 
     def test_with_valid_default_local_intent(self):
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
@@ -100,7 +100,7 @@ class WebappContainerIntentUriSupportTestCase(
                 'scheme': 'https', \
                 'host': 'maps.test.com', \
                 'path': r.path }; })\" }"
-        with generate_temp_webapp_with_intent(filter) as webapp_install_path:
+        with generate_temp_webapp_with_scheme_filter(filter) as webapp_install_path:
             args = ['--webappModelSearchPath='+webapp_install_path]
             self.launch_webcontainer_app(
                 args,
@@ -113,4 +113,47 @@ class WebappContainerIntentUriSupportTestCase(
 #Intent;scheme=http;package=com.google.android.apps.maps;end'
             self.assertThat(
                 'https://maps.test.com/maps?ie=utf-8&gl=es',
-                Equals(self.get_intent_filtered_uri(intent_uri)))
+                Equals(self.get_scheme_filtered_uri(intent_uri)))
+
+    def test_no_filter_for_http(self):
+        rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
+        filter = "{ \"http\": \"(function(r) { \
+            return { \
+                'scheme': 'https', \
+                'host': 'maps.test.com', \
+                'path': r.path }; })\" }"
+        with generate_temp_webapp_with_scheme_filter(filter) as webapp_install_path:
+            args = ['--webappModelSearchPath='+webapp_install_path]
+            self.launch_webcontainer_app(
+                args,
+                {'UBUNTU_WEBVIEW_HOST_MAPPING_RULES': rule})
+
+            webview = self.get_oxide_webview()
+            webapp_url = 'http://www.test.com/'
+            self.assertThat(webview.url, Eventually(Equals(webapp_url)))
+
+            new_uri = 'http://www.test.com/maps?ie=utf-8&gl=es'
+            self.assertThat(
+                'http://www.test.com/maps?ie=utf-8&gl=es',
+                Equals(self.get_scheme_filtered_uri(new_uri)))
+
+    def test_default_scheme_filter(self):
+        rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
+        filter = "{ \"mailto\": \"(function(r) { \
+            return { \
+                'scheme': 'https', \
+                'host': 'mail.google.com', \
+                'path': '?to='+r.path.replace('@', '%40') }; })\" }"
+        with generate_temp_webapp_with_scheme_filter(filter) as webapp_install_path:
+            args = ['--webappModelSearchPath='+webapp_install_path]
+            self.launch_webcontainer_app(
+                args,
+                {'UBUNTU_WEBVIEW_HOST_MAPPING_RULES': rule})
+            webview = self.get_oxide_webview()
+            webapp_url = 'http://www.test.com/'
+            self.assertThat(webview.url, Eventually(Equals(webapp_url)))
+
+            scheme_uri = 'mailto:blabla@ubuntu.com'
+            self.assertThat(
+                'https://mail.google.com/?to=blabla%40ubuntu.com',
+                Equals(self.get_scheme_filtered_uri(scheme_uri)))

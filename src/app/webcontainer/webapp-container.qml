@@ -242,6 +242,7 @@ BrowserWindow {
                 hostname = matchHostname[1]
             }
         }
+
         if (result.scheme
                 && result.scheme.length !== 0) {
             scheme = result.scheme
@@ -267,14 +268,12 @@ BrowserWindow {
         //
         var scheme = uri.substr(0, uri.indexOf(":"))
         if (scheme.indexOf("http") === 0) {
+            schemeUriHandleFilterResult(uri)
             return uri
         }
 
         var result = webappSchemeFilter.applyFilter(uri)
-console.log(JSON.stringify(result))
         var mapped_uri = makeUrlFromResult(result)
-
-        console.log("URI '" + uri + "' was mapped to '" + mapped_uri + "'")
 
         uri = mapped_uri
 

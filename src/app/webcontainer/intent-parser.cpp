@@ -48,43 +48,41 @@ parseIntentUri(const QUrl& intentUri)
     IntentUriDescription result;
     if (intentUri.scheme() != INTENT_SCHEME_STRING
             || !intentUri.fragment().startsWith(INTENT_START_FRAGMENT_TAG)
-            || !intentUri.fragment().endsWith(INTENT_END_FRAGMENT_TAG))
-    {
+            || !intentUri.fragment().endsWith(INTENT_END_FRAGMENT_TAG)) {
         return result;
     }
+
     QString host = intentUri.host();
     trimUriSeparator(host);
+
     QString path = intentUri.path();
-    if (intentUri.hasQuery())
-    {
+
+    if (intentUri.hasQuery()) {
         path += "?" + intentUri.query();
         trimUriSeparator(path);
     }
+
     result.host = host;
     result.uriPath = path;
+
     QStringList infos = intentUri.fragment().split(";");
-    Q_FOREACH(const QString& info, infos)
-    {
-        if (info.startsWith(INTENT_URI_PACKAGE_PREFIX))
-        {
+    Q_FOREACH(const QString& info, infos) {
+        if (info.startsWith(INTENT_URI_PACKAGE_PREFIX)) {
             result.package = info.split(INTENT_URI_PACKAGE_PREFIX)[1];
         }
-        else if (info.startsWith(INTENT_URI_ACTION_PREFIX))
-        {
+        else if (info.startsWith(INTENT_URI_ACTION_PREFIX)) {
             result.action = info.split(INTENT_URI_ACTION_PREFIX)[1];
         }
-        else if (info.startsWith(INTENT_URI_CATEGORY_PREFIX))
-        {
+        else if (info.startsWith(INTENT_URI_CATEGORY_PREFIX)) {
             result.category = info.split(INTENT_URI_CATEGORY_PREFIX)[1];
         }
-        else if (info.startsWith(INTENT_URI_COMPONENT_PREFIX))
-        {
+        else if (info.startsWith(INTENT_URI_COMPONENT_PREFIX)) {
             result.component = info.split(INTENT_URI_COMPONENT_PREFIX)[1];
         }
-        else if (info.startsWith(INTENT_URI_SCHEME_PREFIX))
-        {
+        else if (info.startsWith(INTENT_URI_SCHEME_PREFIX)) {
             result.scheme = info.split(INTENT_URI_SCHEME_PREFIX)[1];
         }
     }
+
     return result;
 }

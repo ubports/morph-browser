@@ -78,7 +78,7 @@ static void clearCookiesHack(const QString &provider)
 }
 
 const QString WebappContainer::URL_PATTERN_SEPARATOR = ",";
-const QString WebappContainer::LOCAL_SCHEME_TRANSLATE_FILENAME = "local-scheme-translate.js";
+const QString WebappContainer::LOCAL_SCHEME_FILTER_FILENAME = "local-scheme-filter.js";
 
 
 WebappContainer::WebappContainer(int& argc, char** argv):
@@ -206,30 +206,28 @@ bool WebappContainer::initialize()
 
 void WebappContainer::setupLocalSchemeFilterIfAny(QQmlContext* context, const QString& webappSearchPath)
 {
-    if(!context)
-    {
+    if(!context) {
         return;
     }
 
-    QDir searchPath(
-                webappSearchPath.isEmpty()
-                ? QDir::currentPath()
-                : webappSearchPath);
+    QDir searchPath(webappSearchPath.isEmpty()
+                    ? QDir::currentPath()
+                    : webappSearchPath);
 
-    bool isValidLocalSchemeFilterFile = false;
+    bool hasValidLocalSchemeFilterFile = false;
 
     QMap<QString, QString> content =
             SchemeFilter::parseValidLocalSchemeFilterFile(
-                isValidLocalSchemeFilterFile,
-                searchPath.filePath(LOCAL_SCHEME_TRANSLATE_FILENAME));
+                hasValidLocalSchemeFilterFile,
+                searchPath.filePath(LOCAL_SCHEME_FILTER_FILENAME));
 
-    if (isValidLocalSchemeFilterFile)
-    {
+    if (hasValidLocalSchemeFilterFile) {
         qDebug() << "Using local scheme filter file:"
-                 << LOCAL_SCHEME_TRANSLATE_FILENAME;
+                 << LOCAL_SCHEME_FILTER_FILENAME;
     }
 
     m_schemeFilter.reset(new SchemeFilter(content));
+
     context->setContextProperty("webappSchemeFilter", m_schemeFilter.data());
 }
 

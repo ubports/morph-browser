@@ -74,7 +74,7 @@ private:
     QScopedPointer<SchemeFilter> m_schemeFilter;
 
     static const QString URL_PATTERN_SEPARATOR;
-    static const QString LOCAL_SCHEME_TRANSLATE_FILENAME;
+    static const QString LOCAL_SCHEME_FILTER_FILENAME;
 };
 
 #endif // __WEBAPP_CONTAINER_H__

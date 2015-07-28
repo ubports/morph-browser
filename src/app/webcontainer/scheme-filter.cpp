@@ -86,8 +86,7 @@ QJSValue SchemeFilterPrivate::callFunction(QJSValue & function
                                            , const QString& path
                                            , const QString& host)
 {
-    if (!function.isCallable())
-    {
+    if (!function.isCallable()) {
         qCritical() << "Invalid intent filter function (not callable)";
         return QJSValue();
     }
@@ -120,16 +119,14 @@ QJSValue SchemeFilterPrivate::evaluate(QJSValue & function, const QUrl& uri)
     QString path;
     QString host;
 
-    if (uri.scheme() == "intent")
-    {
+    if (uri.scheme() == "intent") {
         IntentUriDescription intent = parseIntentUri(uri);
 
         scheme = intent.scheme;
         path = intent.uriPath;
         host = intent.host;
     }
-    else
-    {
+    else {
         scheme = uri.scheme();
         path = uri.path();
         host = uri.host();
@@ -149,8 +146,7 @@ SchemeFilter::parseValidLocalSchemeFilterFile(
             const QString& filename)
 {
     QFile f(filename);
-    if (!f.exists() || !f.open(QIODevice::ReadOnly))
-    {
+    if (!f.exists() || !f.open(QIODevice::ReadOnly)) {
         isValid = false;
         return QMap<QString, QString>();
     }
@@ -158,8 +154,7 @@ SchemeFilter::parseValidLocalSchemeFilterFile(
     QString content = f.readAll();
 
     QJsonDocument document(QJsonDocument::fromJson(content.toUtf8()));
-    if (document.isNull() || document.isEmpty() || !document.isObject())
-    {
+    if (document.isNull() || document.isEmpty() || !document.isObject()) {
         isValid = false;
         return QMap<QString, QString>();
     }
@@ -167,15 +162,14 @@ SchemeFilter::parseValidLocalSchemeFilterFile(
     QMap<QString, QString> parsedContent;
 
     QJsonObject root = document.object();
-    Q_FOREACH(const QString& k, root.keys())
-    {
+    Q_FOREACH(const QString& k, root.keys()) {
         QJsonValue v = root.value(k);
-        if (v.isString())
-        {
+
+        if (v.isString()) {
             QJSEngine engine;
             QJSValue result = engine.evaluate(v.toString(), filename);
-            if (result.isNull() || !result.isCallable())
-            {
+
+            if (result.isNull() || !result.isCallable()) {
                 isValid = false;
                 return QMap<QString, QString>();
             }
@@ -208,8 +202,7 @@ QVariantMap SchemeFilter::applyFilter(const QUrl& uri)
 {
     Q_D(SchemeFilter);
 
-    if (! hasFilterFor(uri))
-    {
+    if (! hasFilterFor(uri)) {
         return d->evaluate(
                     SchemeFilterPrivate::DEFAULT_PASS_THROUGH_FILTER, uri)
                 .toVariant().toMap();
@@ -221,8 +214,7 @@ QVariantMap SchemeFilter::applyFilter(const QUrl& uri)
     value = d->evaluate(uri);
 
     QVariantMap result;
-    if (value.isObject() && value.toVariant().canConvert(QVariant::Map))
-    {
+    if (value.isObject() && value.toVariant().canConvert(QVariant::Map)) {
         result = value.toVariant().toMap();
     }
 
