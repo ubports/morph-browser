@@ -115,6 +115,7 @@ Item {
     
                         text: i18n.tr("All days")
                         fontSize: "small"
+                        color: lastVisitDateListView.currentIndex == -1 ? UbuntuColors.orange : "black"
                     }
     
                     onClicked: lastVisitDateListView.currentIndex = -1
@@ -164,6 +165,7 @@ Item {
                         }
     
                         fontSize: "small"
+                        color: lastVisitDateListView.currentIndex == index ? UbuntuColors.orange : "black"
                     }
     
                     onClicked: lastVisitDateListView.currentIndex = index
