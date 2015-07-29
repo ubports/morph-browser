@@ -27,7 +27,7 @@ FocusScope {
 
     property QtObject bookmarksModel
     property alias historyModel: historyTimeframeModel.sourceModel
-    property Settings settingsObject
+    property QtObject settingsObject
     property alias selectedIndex: sections.selectedIndex
     property bool inBookmarksView: newTabViewLandscape.selectedIndex === 1
 
@@ -69,6 +69,7 @@ FocusScope {
 
         Sections {
             id: sections
+            objectName: "sections"
             anchors {
                 left: parent.left
                 top: parent.top
@@ -96,6 +97,7 @@ FocusScope {
 
     ListView {
         id: folders
+        objectName: "foldersList"
         visible: inBookmarksView
 
         Keys.onRightPressed: if (bookmarksList.model.length > 0) bookmarksList.focus = true
@@ -126,6 +128,7 @@ FocusScope {
 
         delegate: ListItem {
             id: folderItem
+            objectName: "folderItem"
             property var model: entries
             property bool isActiveFolder: ListView.isCurrentItem
             property bool isCurrentItem: ListView.isCurrentItem
@@ -166,13 +169,15 @@ FocusScope {
         // Build a temporary model for the bookmarks list that includes, when
         // necessary, the homepage bookmark as a fixed first item in the list
         model: {
-            if (!folders.currentIndex < 0) return null
+            if (!folders.currentItem) return null
 
             var items = []
             if (folders.currentItem.isAllBookmarksFolder) items.push({
                 title: i18n.tr("Homepage"),
                 url: newTabViewLandscape.settingsObject.homepage
             })
+
+            if (!folders.currentItem.model) return null
             for (var i = 0; i < folders.currentItem.model.count; i++) {
                 items.push(folders.currentItem.model.get(i))
             }
@@ -182,6 +187,7 @@ FocusScope {
         currentIndex: 0
 
         delegate: UrlDelegateLandscape {
+            objectName: "bookmarkItem"
             title: modelData.title
             icon: modelData.icon ? modelData.icon : ""
             url: modelData.url
@@ -236,6 +242,7 @@ FocusScope {
 
         model: topSitesModel
         delegate: UrlDelegateLandscape {
+            objectName: "topSiteItem"
             title: model.title
             icon: model.icon
             url: model.url
