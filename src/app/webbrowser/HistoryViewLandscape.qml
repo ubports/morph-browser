@@ -224,7 +224,7 @@ Item {
                             Label {
                                 id: timeLabel
                                 anchors.centerIn: parent
-                                text: Qt.formatDateTime(model.lastVisit, "hh:mm AP")
+                                text: Qt.formatDateTime(model.lastVisit, "hh:mm")
                                 fontSize: "xx-small"
                             }
                         }
