@@ -25,7 +25,7 @@ from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 
 
 @contextmanager
-def generate_temp_webapp_with_scheme_filter(scheme_filter_content=""):
+def generate_webapp_with_scheme_filter(scheme_filter_content=""):
     tmpdir = tempfile.mkdtemp()
     manifest_content = """
     {
@@ -60,7 +60,7 @@ class WebappContainerSchemeFilterTestCase(
         WebappContainerTestCaseWithLocalContentBase):
     def test_basic_intent_parsing(self):
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
-        with generate_temp_webapp_with_scheme_filter() as webapp_install_path:
+        with generate_webapp_with_scheme_filter() as webapp_install_path:
             args = ['--webappModelSearchPath='+webapp_install_path]
             self.launch_webcontainer_app(
                 args,
@@ -78,7 +78,7 @@ class WebappContainerSchemeFilterTestCase(
     def test_webapp_with_invalid_default_local_intent(self):
         rule = 'MAP *.test.com:80 ' + self.get_base_url_hostname()
         filter = "{ \"intent\": 1 }"
-        with generate_temp_webapp_with_scheme_filter(filter) as webapp_install_path:
+        with generate_webapp_with_scheme_filter(filter) as webapp_install_path:
             args = ['--webappModelSearchPath='+webapp_install_path]
             self.launch_webcontainer_app(
                 args,
@@ -100,7 +100,7 @@ class WebappContainerSchemeFilterTestCase(
                 'scheme': 'https', \
                 'host': 'maps.test.com', \
                 'path': r.path }; })\" }"
-        with generate_temp_webapp_with_scheme_filter(filter) as webapp_install_path:
+        with generate_webapp_with_scheme_filter(filter) as webapp_install_path:
             args = ['--webappModelSearchPath='+webapp_install_path]
             self.launch_webcontainer_app(
                 args,
@@ -122,7 +122,7 @@ class WebappContainerSchemeFilterTestCase(
                 'scheme': 'https', \
                 'host': 'maps.test.com', \
                 'path': r.path }; })\" }"
-        with generate_temp_webapp_with_scheme_filter(filter) as webapp_install_path:
+        with generate_webapp_with_scheme_filter(filter) as webapp_install_path:
             args = ['--webappModelSearchPath='+webapp_install_path]
             self.launch_webcontainer_app(
                 args,
@@ -144,7 +144,7 @@ class WebappContainerSchemeFilterTestCase(
                 'scheme': 'https', \
                 'host': 'mail.google.com', \
                 'path': '?to='+r.path.replace('@', '%40') }; })\" }"
-        with generate_temp_webapp_with_scheme_filter(filter) as webapp_install_path:
+        with generate_webapp_with_scheme_filter(filter) as webapp_install_path:
             args = ['--webappModelSearchPath='+webapp_install_path]
             self.launch_webcontainer_app(
                 args,
