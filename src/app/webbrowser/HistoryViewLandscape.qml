@@ -197,7 +197,8 @@ Item {
 
                 model: historyViewLandscape.historyModel
     
-                section.property: "lastVisitDate"
+                // Only use sections for "All days" history list
+                section.property: lastVisitDateListView.currentIndex == -1 ? "lastVisitDate" : ""
                 section.delegate: HistorySectionDelegate {
                     width: parent.width - units.gu(3)
                     anchors.left: parent.left
