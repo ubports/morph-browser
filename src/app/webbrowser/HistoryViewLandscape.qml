@@ -198,6 +198,7 @@ Item {
                 Keys.onEnterPressed: historyEntrySelected()
 
                 model: historyViewLandscape.historyModel
+                clip: true
     
                 // Only use sections for "All days" history list
                 section.property: lastVisitDateListView.currentIndex == -1 ? "lastVisitDate" : ""
