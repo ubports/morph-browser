@@ -304,7 +304,10 @@ Item {
             iconName: "back"
             text: i18n.tr("Cancel")
 
-            onClicked: urlsListView.ViewItems.selectMode = false
+            onClicked: {
+                urlsListView.ViewItems.selectMode = false
+                lastVisitDateListView.forceActiveFocus()
+            }
         }
 
         ToolbarAction {
@@ -330,6 +333,8 @@ Item {
                     }
                     urlsListView.ViewItems.selectedIndices = indices
                 }
+
+                urlsListView.forceActiveFocus()
             }
         }
 
@@ -363,6 +368,8 @@ Item {
                 for (var j in urls) {
                     historyModel.removeEntryByUrl(urls[j])
                 }
+
+                lastVisitDateListView.forceActiveFocus()
             }
         }
 
