@@ -42,42 +42,36 @@ Item {
         }
     }
 
+    property NewTabLandscapeView view
     property var bookmarks
     property var history
+    property string homepage: "http://example.com/homepage"
 
-    QtObject {
-        id: settings
-        property url homepage: "http://example.com/homepage"
-        property int selectedIndexNewTabViewLandscape: 0
-    }
-
-    NewTabLandscapeView {
-        id: view
-        anchors.fill: parent
-        settingsObject: settings
-        bookmarksModel: bookmarks
-        historyModel: history
-        // -- onBookmarkClicked
-        // -- onBookmarkRemoved
-        // -- onHistoryEntryClicked
-        // -- onReleasingKeyboardFocus
+    Component {
+        id: viewComponent
+        NewTabLandscapeView {
+            anchors.fill: parent
+            settingsObject: QtObject {
+                property url homepage: root.homepage
+                property int selectedIndexNewTabViewLandscape: 0
+            }
+            bookmarksModel: bookmarks
+            historyModel: history
+        }
     }
 
     SignalSpy {
         id: releasingKeyboardFocusSpy
-        target: view
         signalName: "releasingKeyboardFocus"
     }
 
     SignalSpy {
         id: historyEntryClickedSpy
-        target: view
         signalName: "historyEntryClicked"
     }
 
     SignalSpy {
         id: bookmarkClickedSpy
-        target: view
         signalName: "bookmarkClicked"
     }
 
@@ -88,13 +82,17 @@ Item {
         function init() {
             bookmarks = bookmarksModel.createObject()
             history = historyModel.createObject()
+            view = viewComponent.createObject(root)
             populate()
+
+            view.focus = true
+
+            releasingKeyboardFocusSpy.target = view
             releasingKeyboardFocusSpy.clear()
+            historyEntryClickedSpy.target = view
             historyEntryClickedSpy.clear()
+            bookmarkClickedSpy.target = view
             bookmarkClickedSpy.clear()
-            view.forceActiveFocus()
-            settings.selectedIndexNewTabViewLandscape = 0
-            findChild(view, "sections").selectedIndex = 0
         }
 
         function populate() {
@@ -113,6 +111,9 @@ Item {
             history = null
             bookmarks.destroy()
             bookmarks = null
+
+            view.destroy()
+            view = null
         }
 
         function clickItem(item) {
@@ -126,7 +127,6 @@ Item {
             if (list) {
                 // ensure all the delegates are created
                 list.cacheBuffer = list.count * 1000
-                waitForRendering(list)
 
                 // In some cases the ListView might add other children to the
                 // contentItem, so we filter the list of children to include
@@ -166,11 +166,11 @@ Item {
         function test_all_bookmarks_list() {
             var items = getListItems("bookmarksList", "bookmarkItem")
             compare(items.length, 2)
-            compare(items[0].url, settings.homepage)
+            compare(items[0].url, homepage)
             compare(items[1].title, "Example Com")
         }
 
-        function test_switch_sections_keyboard() {
+        function test_switch_sections_by_keyboard() {
             var sections = findChild(view, "sections")
             var folders = findChild(view, "foldersList")
             var bookmarks = findChild(view, "bookmarksList")
@@ -190,7 +190,7 @@ Item {
             compare(sections.selectedIndex, 0)
         }
 
-        function test_keyboard_topsites() {
+        function test_navigate_topsites_by_keyboard() {
             var items = getListItems("topSitesList", "topSiteItem")
             findChild(view, "topSitesList").currentIndex = 0
             verify(items[0].highlighted)
@@ -210,7 +210,7 @@ Item {
             compare(releasingKeyboardFocusSpy.count, 1)
         }
 
-        function test_keyboard_select_topsites() {
+        function test_activate_topsites_by_keyboard() {
             var items = getListItems("topSitesList", "topSiteItem")
             keyClick(Qt.Key_Return)
             compare(historyEntryClickedSpy.count, 1)
@@ -221,7 +221,7 @@ Item {
             compare(historyEntryClickedSpy.signalArguments[1][0], "http://example.org")
         }
 
-        function test_keyboard_folders() {
+        function test_navigate_folders_by_keyboard() {
             goToBookmarks()
 
             var foldersList = getListItems(view, "foldersList")
@@ -258,7 +258,7 @@ Item {
             compare(releasingKeyboardFocusSpy.count, 1)
         }
 
-        function test_keyboard_switch_folder_bookmarks() {
+        function test_switch_between_folder_and_bookmarks_by_keyboard() {
             goToBookmarks()
 
             var folders = findChild(view, "foldersList")
@@ -275,19 +275,31 @@ Item {
             verify(folders.activeFocus) // verify no circular scrolling
         }
 
-        function test_keyboard_select_bookmarks() {
+        function test_activate_bookmarks_by_keyboard() {
             goToBookmarks()
             keyClick(Qt.Key_Right)
 
             var items = getListItems("bookmarksList", "bookmarkItem")
             keyClick(Qt.Key_Return)
             compare(bookmarkClickedSpy.count, 1)
-            compare(bookmarkClickedSpy.signalArguments[0][0], settings.homepage)
+            compare(bookmarkClickedSpy.signalArguments[0][0], homepage)
 
             keyClick(Qt.Key_Down)
             keyClick(Qt.Key_Return)
             compare(bookmarkClickedSpy.count, 2)
             compare(bookmarkClickedSpy.signalArguments[1][0], "http://example.com")
+        }
+
+        function test_activate_topsites_by_click() {
+            var items = getListItems("topSitesList", "topSiteItem")
+            clickItem(items[0])
+            compare(historyEntryClickedSpy.count, 1)
+            compare(historyEntryClickedSpy.signalArguments[0][0], "http://example.com")
+
+            clickItem(items[1])
+            compare(historyEntryClickedSpy.count, 2)
+            compare(historyEntryClickedSpy.signalArguments[1][0], "http://example.org")
+
         }
 
     }
