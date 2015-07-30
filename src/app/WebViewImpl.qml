@@ -54,10 +54,10 @@ WebView {
 
         if (downloadLoader.status == Loader.Ready) {
             var headers = { }
-            if(request.cookies.length > 0) {
+            if (request.cookies.length > 0) {
                 headers["Cookie"] = request.cookies.join(";")
             }
-            if(request.referrer) {
+            if (request.referrer) {
                 headers["Referer"] = request.referrer
             }
             headers["User-Agent"] = webview.context.userAgent
@@ -76,6 +76,7 @@ WebView {
 
     Loader {
         id: downloadLoader
+        // TODO: implement downloading on desktop as well (https://launchpad.net/bugs/1477310)
         source: formFactor == "desktop" ? "" : "Downloader.qml"
         asynchronous: true
     }

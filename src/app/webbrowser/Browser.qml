@@ -838,37 +838,46 @@ BrowserView {
 
                 contextualActions: ActionList {
                     Actions.OpenLinkInNewTab {
-                        enabled: contextualData.href.toString()
-                        onTriggered: browser.openUrlInNewTab(contextualData.href, true)
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
-                        enabled: contextualData.href.toString() && ((settings.allowOpenInBackgroundTab === "true") ||
-                                 ((settings.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
-                        onTriggered: browser.openUrlInNewTab(contextualData.href, false)
+                        enabled: contextModel && contextModel.linkUrl.toString() &&
+                                 ((settings.allowOpenInBackgroundTab === "true") ||
+                                  ((settings.allowOpenInBackgroundTab === "default") &&
+                                   (formFactor === "desktop")))
+                        onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, false)
                     }
                     Actions.BookmarkLink {
-                        enabled: contextualData.href.toString() && browser.bookmarksModel
-                        onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "", "")
+                        enabled: contextModel && contextModel.linkUrl.toString() &&
+                                 browser.bookmarksModel
+                        onTriggered: bookmarksModel.add(contextModel.linkUrl, contextModel.linkText, "", "")
                     }
                     Actions.CopyLink {
-                        enabled: contextualData.href.toString()
-                        onTriggered: Clipboard.push(["text/plain", contextualData.href.toString()])
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
                     }
                     Actions.ShareLink {
-                        enabled: (formFactor == "mobile") && contextualData.href.toString()
-                        onTriggered: internal.shareLink(contextualData.href.toString(), contextualData.title)
+                        enabled: (formFactor == "mobile") &&
+                                 contextModel && contextModel.linkUrl.toString()
+                        onTriggered: internal.shareLink(contextModel.linkUrl.toString(), contextModel.linkText)
                     }
                     Actions.OpenImageInNewTab {
-                        enabled: contextualData.img.toString()
-                        onTriggered: browser.openUrlInNewTab(contextualData.img, true)
+                        enabled: contextModel && contextModel.srcUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
                     }
                     Actions.CopyImage {
-                        enabled: contextualData.img.toString()
-                        onTriggered: Clipboard.push(["text/plain", contextualData.img.toString()])
+                        enabled: contextModel &&
+                                 (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
+                                 contextModel.srcUrl.toString()
+                        onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
                     }
                     Actions.SaveImage {
-                        enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
-                        onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
+                        enabled: contextModel &&
+                                 ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                                  (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
+                                 contextModel.srcUrl.toString()
+                        onTriggered: contextModel.saveMedia()
                     }
                 }
 
@@ -995,12 +1004,6 @@ BrowserView {
                 }
             }
         }
-    }
-
-    Loader {
-        id: downloadLoader
-        source: formFactor == "desktop" ? "" : "../Downloader.qml"
-        asynchronous: true
     }
 
     QtObject {

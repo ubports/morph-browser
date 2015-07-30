@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -119,21 +119,24 @@ function adjustSelection(selection) {
     return getSelectedData(element);
 }
 
-document.documentElement.addEventListener('contextmenu', function(event) {
-    var element = document.elementFromPoint(event.clientX, event.clientY);
-    var data = getSelectedData(element);
-    var w = document.defaultView;
-    data['scaleX'] = w.outerWidth / w.innerWidth * w.devicePixelRatio;
-    data['scaleY'] = w.outerHeight / w.innerHeight * w.devicePixelRatio;
-    if (('img' in data) || ('href' in data)) {
-        oxide.sendMessage('contextmenu', data);
-    } else {
-        oxide.sendMessage('selection', data);
-    }
-});
-
 document.defaultView.addEventListener('scroll', function(event) {
     oxide.sendMessage('scroll', {});
+});
+
+function setScaleParameters(data) {
+    var w = document.defaultView;
+    data['dpr'] = w.devicePixelRatio;
+    data['innerWidth'] = w.innerWidth;
+    data['outerWidth'] = w.outerWidth;
+    data['innerHeight'] = w.innerHeight;
+    data['outerHeight'] = w.outerHeight;
+}
+
+oxide.addMessageHandler("createselection", function(msg) {
+    var element = document.elementFromPoint(msg.args.x, msg.args.y);
+    var data = getSelectedData(element);
+    setScaleParameters(data);
+    msg.reply(data);
 });
 
 oxide.addMessageHandler("adjustselection", function (msg) {
@@ -146,7 +149,6 @@ oxide.addMessageHandler("adjustselection", function (msg) {
     selection.top = msg.args.y / scaleY;
     selection.bottom = selection.top + msg.args.height / scaleY;
     var adjusted = adjustSelection(selection);
-    adjusted['scaleX'] = scaleX;
-    adjusted['scaleY'] = scaleY;
+    setScaleParameters(adjusted);
     msg.reply(adjusted);
 });

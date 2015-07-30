@@ -18,7 +18,7 @@
 
 import QtQuick 2.0
 import QtQuick.Window 2.0
-import com.canonical.Oxide 1.5 as Oxide
+import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import "." // QTBUG-34418
@@ -37,43 +37,6 @@ Oxide.WebView {
     context: SharedWebContext.sharedContext
 
     messageHandlers: [
-        Oxide.ScriptMessageHandler {
-            msgId: "contextmenu"
-            contexts: ["oxide://selection/"]
-            callback: function(msg, frame) {
-                internal.dismissCurrentContextualMenu()
-                internal.dismissCurrentSelection()
-                internal.fillContextualData(msg.args)
-                if (contextualActions != null) {
-                    for (var i = 0; i < contextualActions.actions.length; ++i) {
-                        if (contextualActions.actions[i].enabled) {
-                            contextualRectangle.position(msg.args)
-                            internal.currentContextualMenu = PopupUtils.open(contextualPopover, contextualRectangle)
-                            break
-                        }
-                    }
-                }
-            }
-        },
-        Oxide.ScriptMessageHandler {
-            msgId: "selection"
-            contexts: ["oxide://selection/"]
-            callback: function(msg, frame) {
-                internal.dismissCurrentSelection()
-                internal.dismissCurrentContextualMenu()
-                if (selectionActions != null) {
-                    for (var i = 0; i < selectionActions.actions.length; ++i) {
-                        if (selectionActions.actions[i].enabled) {
-                            var mimedata = internal.buildMimedata(msg.args)
-                            var bounds = internal.computeBounds(msg.args)
-                            internal.currentSelection = selection.createObject(_webview, {mimedata: mimedata, bounds: bounds})
-                            internal.currentSelection.showActions()
-                            break
-                        }
-                    }
-                }
-            }
-        },
         Oxide.ScriptMessageHandler {
             msgId: "scroll"
             contexts: ["oxide://selection/"]
@@ -100,14 +63,14 @@ Oxide.WebView {
 
         visible: false
 
-        function position(data) {
-            x = data.left * data.scaleX
-            y = data.top * data.scaleY
-            width = data.width * data.scaleX
-            height = data.height * data.scaleY
+        function position(point) {
+            // XXX: is the scale factor taken into account?
+            x = point.x
+            y = point.y
         }
     }
     property QtObject contextualData: QtObject {
+        // TODO: mark deprecated
         property url href
         property string title
         property url img
@@ -120,10 +83,45 @@ Oxide.WebView {
     }
 
     property ActionList contextualActions
-    Component {
-        id: contextualPopover
-        ActionSelectionPopover {
-            actions: contextualActions
+    property QtObject contextModel: null
+    contextMenu: ActionSelectionPopover {
+        actions: contextualActions
+        Component.onCompleted: {
+            internal.dismissCurrentContextualMenu()
+            internal.dismissCurrentSelection()
+            internal.currentContextualMenu = this
+            contextModel = model
+            var empty = true
+            if (actions != null) {
+                for (var i = 0; i < actions.actions.length; ++i) {
+                    if (actions.actions[i].enabled) {
+                        empty = false
+                        break
+                    }
+                }
+            }
+            if (empty) {
+                if (internal.hasSelectionActions()) {
+                    internal.createSelection(model.position)
+                }
+                internal.dismissCurrentContextualMenu()
+            } else {
+                contextualRectangle.position(model.position)
+                contextualData.clear()
+                contextualData.href = model.linkUrl
+                contextualData.title = model.linkText
+                if ((model.mediaType == Oxide.WebView.MediaTypeImage) && model.hasImageContents) {
+                    contextualData.img = model.srcUrl
+                }
+                // FIXME: position where the contextualRectangle is
+                // (https://launchpad.net/bugs/1477315)
+                show()
+            }
+        }
+        onVisibleChanged: {
+            if (!visible) {
+                internal.dismissCurrentContextualMenu()
+            }
         }
     }
 
@@ -170,7 +168,9 @@ Oxide.WebView {
                 }
             }
             onResized: {
-                var args = {x: rect.x, y: rect.y, width: rect.width, height: rect.height}
+                var locationBarOffset = _webview.locationBarController.height + _webview.locationBarController.offset
+                var args = {x: rect.x, y: rect.y - locationBarOffset,
+                            width: rect.width, height: rect.height}
                 var msg = _webview.rootFrame.sendMessage("oxide://selection/", "adjustselection", args)
                 msg.onreply = function(response) {
                     internal.currentSelection.mimedata = internal.buildMimedata(response)
@@ -200,15 +200,15 @@ Oxide.WebView {
         property Item currentContextualMenu: null
         property Item currentSelection: null
 
-        function fillContextualData(data) {
-            contextualData.clear()
-            if ('img' in data) {
-                contextualData.img = data.img
+        function hasSelectionActions() {
+            if (selectionActions != null) {
+                for (var i = 0; i < selectionActions.actions.length; ++i) {
+                    if (selectionActions.actions[i].enabled) {
+                        return true
+                    }
+                }
             }
-            if ('href' in data) {
-                contextualData.href = data.href
-                contextualData.title = data.title
-            }
+            return false
         }
 
         function buildMimedata(data) {
@@ -231,14 +231,29 @@ Oxide.WebView {
         }
 
         function computeBounds(data) {
-            return Qt.rect(data.left * data.scaleX, data.top * data.scaleY,
-                           data.width * data.scaleX, data.height * data.scaleY)
+            var locationBarOffset = _webview.locationBarController.height + _webview.locationBarController.offset
+            var scaleX = data.outerWidth / data.innerWidth * data.dpr
+            var scaleY = data.outerHeight / (data.innerHeight + locationBarOffset) * data.dpr
+            return Qt.rect(data.left * scaleX, data.top * scaleY + locationBarOffset,
+                           data.width * scaleX, data.height * scaleY)
+        }
+
+        function createSelection(position) {
+            var msg = _webview.rootFrame.sendMessage("oxide://selection/", "createselection",
+                                                     {x: position.x, y: position.y})
+            msg.onreply = function(response) {
+                var mimedata = internal.buildMimedata(response)
+                var bounds = internal.computeBounds(response)
+                internal.currentSelection = selection.createObject(_webview, {mimedata: mimedata, bounds: bounds})
+                internal.currentSelection.showActions()
+            }
         }
 
         function dismissCurrentContextualMenu() {
             if (currentContextualMenu != null) {
-                PopupUtils.close(currentContextualMenu)
+                contextModel.close()
             }
+            contextualData.clear()
         }
 
         function dismissCurrentSelection() {
