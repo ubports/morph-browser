@@ -209,61 +209,52 @@ Item {
                     todaySectionTitle: i18n.tr("Today")
                 }
     
-                delegate: Row {
-                    width: parent.width
+                delegate: UrlDelegate{
+                    width: parent.width - units.gu(1)
                     height: units.gu(5)
-
-                    spacing: units.gu(1)
-
-                    Item {
-                        height: parent.height
-                        width: timeLabel.width
-                     
-                        Label {
-                            id: timeLabel
-                            anchors.centerIn: parent
-                            text: Qt.formatTime(model.lastVisit)
-                            fontSize: "xx-small"
+    
+                    color: urlsListView.currentIndex == index ? highlightColor : "transparent"
+       
+                    icon: model.icon
+                    title: model.title ? model.title : model.url
+                    url: model.url
+    
+                    headerComponent: Component {
+                        Item {
+                            height: units.gu(3)
+                            width: timeLabel.width
+    
+                            Label {
+                                id: timeLabel
+                                anchors.centerIn: parent
+                                text: Qt.formatTime(model.lastVisit)
+                                fontSize: "xx-small"
+                            }
                         }
                     }
-                    
-                    Item {
-                        width: parent.width - timeLabel.width - units.gu(1)
-                        height: parent.height
-                    
-                        UrlDelegate{
-                            anchors.fill: parent
     
-                            color: urlsListView.currentIndex == index ? highlightColor : "transparent"
-       
-                            icon: model.icon
-                            title: model.title ? model.title : model.url
-                            url: model.url
-    
-                            onClicked: { 
-                                if (selectMode) {
-                                    selected = !selected
-                                } else {
-                                    historyViewLandscape.historyEntryClicked(model.url)
-                                }
-                            }
+                    onClicked: { 
+                        if (selectMode) {
+                            selected = !selected
+                        } else {
+                            historyViewLandscape.historyEntryClicked(model.url)
+                        }
+                    }
      
-                            onRemoved: {
-                                if (urlsListView.count == 1) {
-                                    historyViewLandscape.historyEntryRemoved(model.url)
-                                    lastVisitDateListView.currentIndex = -1
-                                    urlsListView.model = historyViewLandscape.historyModel
-                                } else {
-                                    historyViewLandscape.historyEntryRemoved(model.url)
-                                }
-                            }
+                    onRemoved: {
+                        if (urlsListView.count == 1) {
+                            historyViewLandscape.historyEntryRemoved(model.url)
+                            lastVisitDateListView.currentIndex = -1
+                            urlsListView.model = historyViewLandscape.historyModel
+                        } else {
+                            historyViewLandscape.historyEntryRemoved(model.url)
+                        }
+                    }
 
-                            onPressAndHold: {
-                                selectMode = !selectMode
-                                if (selectMode) {
-                                    urlsListView.ViewItems.selectedIndices = [index]
-                                }
-                            }
+                    onPressAndHold: {
+                        selectMode = !selectMode
+                        if (selectMode) {
+                            urlsListView.ViewItems.selectedIndices = [index]
                         }
                     }
                 }
