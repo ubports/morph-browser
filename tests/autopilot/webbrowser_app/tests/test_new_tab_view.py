@@ -28,6 +28,7 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 from ubuntuuitoolkit import ToolkitException
 
+
 class TestNewTabViewLifetime(StartOpenRemotePageTestCaseBase):
 
     def test_new_tab_view_destroyed_when_browsing(self):
@@ -462,6 +463,6 @@ class TestNewTabViewContentsWide(TestNewTabViewContentsBase):
         topsites = view.get_top_sites_list()
         previous_count = len(topsites)
         topsites[0].trigger_leading_action("leadingAction.delete",
-                                            topsites[0].wait_until_destroyed)
+                                           topsites[0].wait_until_destroyed)
         self.assertThat(len(view.get_top_sites_list()),
                         Equals(previous_count - 1))

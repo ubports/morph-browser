@@ -440,16 +440,20 @@ class NewTabLandscapeView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         sections = self.select_single(uitk.Sections)
         if not sections.selectedIndex == 1:
             sections.click_section_button(1)
-        list = self.select_single(uitk.QQuickListView, objectName="bookmarksList")
-        return sorted(list.select_many("UrlDelegateLandscape", objectName="bookmarkItem"),
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="bookmarksList")
+        return sorted(list.select_many("UrlDelegateLandscape",
+                      objectName="bookmarkItem"),
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_top_sites_list(self):
         sections = self.select_single(uitk.Sections)
         if not sections.selectedIndex == 0:
             sections.click_section_button(0)
-        list = self.select_single(uitk.QQuickListView, objectName="topSitesList")
-        return sorted(list.select_many("UrlDelegateLandscape", objectName="topSiteItem"),
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="topSitesList")
+        return sorted(list.select_many("UrlDelegateLandscape",
+                      objectName="topSiteItem"),
                       key=lambda delegate: delegate.globalRect.y)
 
 
@@ -466,6 +470,7 @@ class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class UrlDelegate(uitk.UCListItem):
 
     pass
+
 
 class UrlDelegateLandscape(uitk.UCListItem):
 
