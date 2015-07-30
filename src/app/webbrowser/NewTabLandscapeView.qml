@@ -208,25 +208,6 @@ FocusScope {
         }
     }
 
-    Label {
-        objectName: "notopsites"
-
-        height: units.gu(11)
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: sectionsGroup.bottom
-            topMargin: units.gu(2)
-        }
-        visible: !inBookmarksView && topSitesModel.count === 0
-
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-
-        text: i18n.tr("You haven't visited any site yet")
-        color: "#5d5d5d"
-    }
-
     ListView {
         id: topSitesList
         objectName: "topSitesList"
