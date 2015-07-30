@@ -692,7 +692,7 @@ BrowserView {
 
         anchors.fill: parent
         active: false
-        sourceComponent: browser.wide ? historyViewLandscapeComponent : historyViewComponent
+        sourceComponent: browser.wide ? historyViewWideComponent : historyViewComponent
 
         onStatusChanged: {
             if (status == Loader.Ready) {
@@ -755,9 +755,9 @@ BrowserView {
         }
 
         Component {
-            id: historyViewLandscapeComponent
+            id: historyViewWideComponent
 
-            HistoryViewLandscape {
+            HistoryViewWide {
                 anchors.fill: parent
 
                 Keys.onEscapePressed: {
