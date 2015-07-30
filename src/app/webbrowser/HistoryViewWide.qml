@@ -22,7 +22,7 @@ import Ubuntu.Components.ListItems 1.0 as ListItems
 import webbrowserapp.private 0.1
 
 Item {
-    id: historyViewLandscape
+    id: historyViewWide
 
     property alias historyModel: historyTimeframeModel.sourceModel
     property alias count: lastVisitDateListView.count
@@ -44,7 +44,7 @@ Item {
     }
 
     Row {
-        id: historyViewLandscapeRow
+        id: historyViewWideRow
         anchors {
             top: topBar.bottom
             left: parent.left
@@ -80,7 +80,7 @@ Item {
     
                 onCurrentIndexChanged: {
                     if (currentIndex == -1) {
-                        urlsListView.model = historyViewLandscape.historyModel
+                        urlsListView.model = historyViewWide.historyModel
                     } else {
                         urlsListView.model = currentItem.entries
                     }
@@ -181,7 +181,7 @@ Item {
         }
 
         Item {
-            width: historyViewLandscape.width - lastVisitDateListView.width - historyViewLandscapeRow.spacing - units.gu(4)
+            width: historyViewWide.width - lastVisitDateListView.width - historyViewWideRow.spacing - units.gu(4)
             height: parent.height
 
             ListView {
@@ -191,7 +191,7 @@ Item {
                 Keys.onReturnPressed: historyEntrySelected()
                 Keys.onEnterPressed: historyEntrySelected()
 
-                model: historyViewLandscape.historyModel
+                model: historyViewWide.historyModel
                 clip: true
 
                 onModelChanged: urlsListView.currentIndex = -1
@@ -208,7 +208,7 @@ Item {
                     if (urlsListView.ViewItems.selectMode) {
                         currentItem.selected = !currentItem.selected
                     } else {
-                        historyViewLandscape.historyEntryClicked(currentItem.url)
+                        historyViewWide.historyEntryClicked(currentItem.url)
                     }
                 }
    
@@ -249,17 +249,17 @@ Item {
                         if (selectMode) {
                             selected = !selected
                         } else {
-                            historyViewLandscape.historyEntryClicked(model.url)
+                            historyViewWide.historyEntryClicked(model.url)
                         }
                     }
      
                     onRemoved: {
                         if (urlsListView.count == 1) {
-                            historyViewLandscape.historyEntryRemoved(model.url)
+                            historyViewWide.historyEntryRemoved(model.url)
                             lastVisitDateListView.currentIndex = -1
-                            urlsListView.model = historyViewLandscape.historyModel
+                            urlsListView.model = historyViewWide.historyModel
                         } else {
-                            historyViewLandscape.historyEntryRemoved(model.url)
+                            historyViewWide.historyEntryRemoved(model.url)
                         }
                     }
 
@@ -417,10 +417,11 @@ Item {
 
             text: i18n.tr("Done")
 
-            onClicked: historyViewLandscape.done()
+            onClicked: historyViewWide.done()
         }
 
         ToolbarAction {
+            objectName: "newTabButton"
             anchors {
                 right: parent.right
                 rightMargin: units.gu(2)
@@ -433,7 +434,7 @@ Item {
 
             onClicked: {
                 browser.openUrlInNewTab("", true)
-                historyViewLandscape.done()
+                historyViewWide.done()
             }
         }
     }
