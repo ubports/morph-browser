@@ -1,52 +1,52 @@
-# Polish translation for webbrowser-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Welsh translation for webbrowser-app
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
 # This file is distributed under the same license as the webbrowser-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-07-03 14:57+0200\n"
-"PO-Revision-Date: 2015-07-25 17:40+0000\n"
-"Last-Translator: GTriderXC <gtriderxc@yahoo.com>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"PO-Revision-Date: 2015-07-27 14:09+0000\n"
+"Last-Translator: Owen Llywelyn <owen.llywelyn@gmail.com>\n"
+"Language-Team: Welsh <cy@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-07-26 05:32+0000\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : (n != 8 && n != 11) ? "
+"2 : 3;\n"
+"X-Launchpad-Export-Date: 2015-07-28 05:38+0000\n"
 "X-Generator: Launchpad (build 17628)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
-msgstr "Ostrzeżenie JavaScriptu"
+msgstr "Rhybudd JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
 #: src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
-msgstr "OK"
+msgstr "Iawn"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr "Wymagane uwierzytelnienie."
+msgstr "Angen dilysiad."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Strona %1 wymaga uwierzytelnienia."
+msgstr "Mae angen dilysiad ar wefan  %1"
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr "Użytkownik"
+msgstr "Enw Defnyddiwr"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr "Hasło"
+msgstr "Cyfrinair"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
@@ -55,23 +55,23 @@ msgstr "Hasło"
 #: src/app/webbrowser/SettingsPage.qml:301
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
-msgstr "Anuluj"
+msgstr "Diddymu"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr "Potwierdź nawigację"
+msgstr "Cadarnhau Llywio"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr "Opuść"
+msgstr "Gadael"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr "Pozostań"
+msgstr "Aros"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "To połączenie nie jest zaufane"
+msgstr "Mae'r cysylltiad hwn yn annibynadwy"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -80,71 +80,71 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Bezpieczne połączenie ze stroną %1 nie jest możliwe. Wystąpił problem "
-"certyfikatu bezpieczeństwa."
+"Rydych yn ceisio cyrraedd %1 yn ddiogel ond mae tystysgrif diogelwch y wefan "
+"yn annibynadwy."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
-msgstr "Kontynuuj mimo wszystko"
+msgstr "Parhau beth bynnag"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
-msgstr "Powrót do trybu bezpiecznego"
+msgstr "Nôl i le diogel"
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr "Potwierdzenie JavaScriptu"
+msgstr "Cadarnhad JavaScript"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr "Brak połączenia"
+msgstr "Gwall Rhwydwaith"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Wystąpił problem z wyświetleniem: %1."
+msgstr "Mae'n debyg eich bod yn cael trafferth gweld: %1."
 
 #: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"Zalecane jest sprawdzenie połączenia sieciowego oraz ponowne wczytanie "
-"strony."
+"Mae Ubuntu yn awgrymu y dylech wirio'ch cysylltiad rhwydwaith ac adnewyddu'r "
+"dudalen."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "Odśwież stronę"
+msgstr "Adnewyddu tudalen"
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr "Proszę wybrać plik"
+msgstr "Dewiswch ffeil"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "Wymagane zezwolenie"
+msgstr "Cais Caniatâd"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr "Ta strona prosi o informacje dotyczące lokalizacji urządzenia."
+msgstr "Mae'r dudalen hon eisiau gwybod lleoliad eich dyfais."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
-msgstr "Odmów"
+msgstr "Gwrthod"
 
 #: src/app/GeolocationPermissionRequest.qml:43
 msgid "Allow"
-msgstr "Zezwól"
+msgstr "Caniatáu"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr "Certyfikat bezpieczeństwa tej strony nie jest zaufany.\n"
+msgstr "Nid yw tystysgrif diogelwch y dudalen hon yn ddibynadwy.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr "Dowiedz się więcej"
+msgstr "Dysgu rhagor"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:87
@@ -153,7 +153,7 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
-"Numer seryjny SSL:\n"
+"Rhif cyfresol:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
@@ -163,7 +163,7 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
-"Podmiot:\n"
+"Goddrych:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
@@ -173,7 +173,7 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
-"Adres właściciela:\n"
+"Cyfeiriad goddrych:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
@@ -183,7 +183,7 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
-"Wydawca:\n"
+"Cyhoeddwr:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
@@ -193,7 +193,7 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
-"Adres wydawcy:\n"
+"Cyfeiriad cyhoeddwr:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
@@ -203,7 +203,7 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
-"Ważny od:\n"
+"Yn ddilys o:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
@@ -213,7 +213,7 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
-"Ważny do:\n"
+"Yn ddilys tan:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
@@ -223,7 +223,7 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
-"Odcisk (SHA1):\n"
+"Ôl bys (SHA1):\n"
 "%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:153
@@ -231,8 +231,8 @@ msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
-"Nie przechodź dalej zwłaszcza jeśli widzisz to ostrzeżenie dla tej strony po "
-"raz pierwszy."
+"Ni ddyliech barhau, yn enwedig os nad ydych wedi gweld y rhybudd hwn o'r "
+"blaen ar gyfer y safle hon."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:187
@@ -241,8 +241,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
-"Wywołano stronę %1 lecz jej serwer odpowiedział certyfikatem bezpieczeństwa "
-"niezgodnym ze znanym dla tej strony."
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"sydd ddim yn cydweddu â hunaniaeth y safle."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -251,8 +251,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
-"Wywołano stronę %1 lecz jej serwer odpowiedział wygasłym certyfikatem "
-"bezpieczeństwa."
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"sydd wedi dod i ben."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -261,8 +261,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
-"Wywołano stronę %1 lecz jej serwer odpowiedział certyfikatem bezpieczeństwa "
-"zawierającym niezgodne dane."
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"sy'n cynnwys dyddiadau annilys."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -271,8 +271,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
-"Wywołano stronę %1 lecz jej serwer odpowiedział certyfikatem bezpieczeństwa "
-"wydanym przez niezaufaną instytucję."
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"gan endid nad oes modd ymddiried ynddo."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -281,8 +281,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
-"Wywołano stronę %1 lecz jej serwer odpowiedział unieważnionym certyfikatem "
-"bezpieczeństwa."
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"sydd wedi ei dirymu."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -291,8 +291,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
-"Wywołano stronę %1 lecz jej serwer odpowiedział przestarzałym certyfikatem "
-"bezpieczeństwa."
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"annilys."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -301,8 +301,8 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
-"Wywołano stronę %1 lecz jej serwer odpowiedział źle zabezpieczonym "
-"certyfikatem bezpieczeństwa."
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"anniogel."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -312,199 +312,199 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
-"Certyfikat bezpieczeństwa tej witryny nie jest zaufany\n"
-"Próbujesz wejść na %1, ale serwer przedstawił certyfikat bezpieczeństwa, "
-"który z nieznanej przyczyny nie przeszedł kontroli bezpieczeństwa."
+"Does dim modd ymddiried yn nhystysgrif diogelwch y safle.\n"
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"fethodd ein gwiriad diogelwch am reswm anhysbys."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
-msgstr "Powiadomienie JavaScript"
+msgstr "Proc JavaScript"
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "Wymagana autoryzacja proxy."
+msgstr "Angen dilysiad dirprwy"
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "Strona %1:%2 wymaga autoryzacji."
+msgstr "Mae angen dilysiad ar wefan  %1:%2"
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "Powrót"
+msgstr "Nôl"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Starsza strona"
+msgstr "Tudalen Hŷn"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr "Zakładka"
+msgstr "Nod Tudalen"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Dodaj tę stronę do zakładek"
+msgstr "Ychwanegu Nod Tudalen i'r dudalen hon"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "Odnośnik zakładki"
+msgstr "Dolen Nod Tudalen"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "Wyczyść historię"
+msgstr "Clirio Hanes"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Wyczyść historię nawigacji"
+msgstr "Clirio Hanes Llywio"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr "Kopiuj"
+msgstr "Copïo"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr "Kopiuj obraz"
+msgstr "Copïo delwedd"
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr "Kopiuj odnośnik"
+msgstr "Copïo dolen"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Do przodu"
+msgstr "Ymlaen"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Nowsza strona"
+msgstr "Tudalen Mwy Newydd"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr "Idź do"
+msgstr "Mynd i"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Adres;URL;www"
+msgstr "Cyfeiriad;URL;www"
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:574
 msgid "New Tab"
-msgstr "Nowa karta"
+msgstr "Tab Newydd"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Otwarcie nowej karty"
+msgstr "Agor Tab Newydd"
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "Otwórz obraz w nowej karcie"
+msgstr "Agor delwedd mewn tab newydd"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr "Otwórz link w karcie w tle"
+msgstr "Agor dolen mewn tab cefndir newydd"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "Otwórz odnośnik w nowej karcie"
+msgstr "Agor dolen mewn tab newydd"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
-msgstr "Odśwież"
+msgstr "Ail-lwytho"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "Opuść stronę"
+msgstr "Gadael tudalen"
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr "Zapisz obraz"
+msgstr "Cadw delwedd"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr "Udostępnij..."
+msgstr "Rhannu..."
 
 #: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
-msgstr "wyszukaj lub wprowadź adres"
+msgstr "chwiliwch neu rowch gyfeiriad"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr "Dodano zakładkę"
+msgstr "Ychwanegwyd Nod Tudalen"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
-msgstr "Etykieta"
+msgstr "Enw"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr "Zapisz w"
+msgstr "Cadw yn"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
 msgid "All Bookmarks"
-msgstr "Wszystkie zakładki"
+msgstr "Pob Nod Tudalen"
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr "Nowy katalog"
+msgstr "Plygell Newydd"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr "Utwórz nowy katalog"
+msgstr "Creu plygell newydd"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:311
 msgid "Save"
-msgstr "Zapisz"
+msgstr "Cadw"
 
 #: src/app/webbrowser/Browser.qml:292
 msgid "Share"
-msgstr "Udostępnij"
+msgstr "Rhannu"
 
 #: src/app/webbrowser/Browser.qml:299
 msgid "History"
-msgstr "Historia"
+msgstr "Hanes"
 
 #: src/app/webbrowser/Browser.qml:309
 msgid "Open tabs"
-msgstr "Otwarte karty"
+msgstr "Agor tabiau"
 
 #: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
-msgstr "Nowa karta"
+msgstr "Tab newydd"
 
 #: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
-msgstr "Ustawienia"
+msgstr "Gosodiadau"
 
 #: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
-msgstr "Opuść tryb prywatny"
+msgstr "Gadael Modd Preifat"
 
 #: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
-msgstr "Tryb prywatny"
+msgstr "Modd Preifat"
 
 #: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
-msgstr "Gotowe"
+msgstr "Cwblhawyd"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:658
@@ -514,284 +514,253 @@ msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:941
 msgid "Swipe Up To Exit Full Screen"
-msgstr "Przeciągnij w górę, aby opuścić tryb pełnoekranowy"
+msgstr "Traw i Fyny i Adael Sgrîn Lawn"
 
 #: src/app/webbrowser/Browser.qml:942
 msgid "Press ESC To Exit Full Screen"
-msgstr "Naciśnij ESC, by opuścić tryb pełnoekranowy"
+msgstr "Pwyswch ESC i Adael Sgrîn Lawn"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] "%1 strona"
-msgstr[1] "%1 strony"
-msgstr[2] "%1 stron"
+msgstr[0] "%1 tudalen"
+msgstr[1] "%1 tudalen"
+msgstr[2] "%1 tudalen"
+msgstr[3] "%1 tudalen"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:118
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
-msgstr "Mniej"
+msgstr "Llai"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
-msgstr "Ostatnio odwiedzone"
+msgstr "Ymwelwyd Ddiwethaf"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
-msgstr "Wczoraj"
+msgstr "Ddoe"
 
 #: src/app/webbrowser/HistoryView.qml:180
 msgid "Select all"
-msgstr "Zaznacz wszystko"
+msgstr "Dewis popeth"
 
 #: src/app/webbrowser/HistoryView.qml:210
 msgid "Delete"
-msgstr "Kasuj"
+msgstr "Dileu"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
-"Przejście do trybu publicznego, spowoduje zamknięcie wszystkich prywatnych "
-"kart"
+msgstr "Bydd symud i modd cyhoeddus yn cau pob tab preifat"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr "To jest karta prywatna"
+msgstr "Tab preifat yw hwn"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
-"Strony które obejrzysz w tej karcie nie pojawią się w historii "
-"przeglądarki.\n"
-"Zakładki, które stworzysz zostaną jednak zachowane."
+"Ni fydd tudalennau y porwch chi yn y tab hwn yn ymddangos yn hanes eich "
+"porwr.\n"
+"Bydd nodau tudalen yr ydych yn eu creu yn cael eu cadw serch hynny."
 
 #: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
-msgstr "Zakładki"
+msgstr "Nodau Tudalen"
 
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr "Więcej"
+msgstr "Mwy"
 
 #: src/app/webbrowser/NewTabView.qml:226
 msgid "Top sites"
-msgstr "Najczęściej odwiedzane"
+msgstr "Prif safleoedd"
 
 #: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
-msgstr "Nie odwiedziłeś jeszcze żadnych stron"
+msgstr "Nid ydych wedi ymweld â safle eto"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr "Ta strona posiada niebezpieczną zawartość"
+msgstr "Mae cynnwys y safle hwn yn anniogel"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr "Niepotwierdzona tożsamość strony"
+msgstr "Heb Ddilysu Hunaniaeth"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr "Tożsamość witryny nie została zweryfikowana."
+msgstr "Nid yw hunaniaeth y wefan hon wedi'i dilysu."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr "Certyfikat serwera nie zgadza się z tożsamością strony."
+msgstr "Nid yw tystysgrif y gweinydd yn cydweddu â'r safle."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr "Certyfikat serwera wygasł."
+msgstr "Tystysgrif y gweinydd wedi dod i ben."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr "Certyfikat serwera zawiera niepoprawne daty."
+msgstr "Tystysgrif y gweinydd yn cynnwys dyddiadau annilys."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr "Certyfikat serwera wydany przez niezaufaną jednostkę."
+msgstr "Darparwyd tystysgrif y gweinydd gan endid annibynadwy."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr "Certyfikat serwera został unieważniony."
+msgstr "Tystysgrif y gweinydd wedi'i ddirymu."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr "Nieważny certyfikat serwera."
+msgstr "Tystysgrif y gweinydd yn annilys."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr "Niepoprawnie zabezpieczony certyfikat serwera."
+msgstr "Tystysgrif y gweinydd yn anniogel."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
-"Certyfikat serwera nie przeszedł pomyślnie testu bezpieczeństwa. Powód "
-"nieznany."
+"Methodd tystysgrif y gweinydd ein gwiriad diogelwch am reswm anhysbys."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr "Połączono z"
+msgstr "Rydych wedi cysylltu â"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr "Która just uruchomiona przez"
+msgstr "Sy'n cael ei redeg gan"
 
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr "Wyszukiwarka"
+msgstr "Peiriant chwilio"
 
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:275
 msgid "Homepage"
-msgstr "Strona domowa"
+msgstr "Tudalen Gartref"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr "Przywróć poprzednią sesję przy starcie"
+msgstr "Adfer y sesiwn flaenorol wrth gychwyn"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr "Pozwala otwierać nowe karty w tle"
+msgstr "Caniatáu agor tabiau newydd yn y cefndir"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
-msgstr "Prywatność"
+msgstr "Preifatrwydd"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr "Zresetuj ustawienia przeglądarki"
+msgstr "Ailosod gosodiadau porwr"
 
 #: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
-msgstr "Wyczyść historię przeglądania"
+msgstr "Clirio Hanes Pori"
 
 #: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
-msgstr "Wyczyść pamięć podręczną"
+msgstr "Gwagio'r Celc"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
-msgstr "Dotknij, by wyświetlić"
+msgstr "Tapiwch i weld"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Przeglądarka internetowa Ubuntu"
+msgstr "%1 - Porwr Gwe Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
-msgstr "Przeglądarka internetowa Ubuntu"
+msgstr "Porwr Gwe Ubuntu"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
-"Do tej aplikacji nie zostały dodane żadne konta. Kliknij poniżej, by je "
-"dodać."
+"Does dim cyfrifon wedi'u cysylltu â'r ap hwn; gwasgwch yr eitem isod i "
+"ychwanegu cyfrif."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
-msgstr "Dodaj konto"
+msgstr "Ychwanegu cyfrif"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr "Nie używaj tego konta"
+msgstr "Peidio defnyddio cyfrif"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr "Błąd legitymacji konta"
+msgstr "Gwall cyfrif"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr "Zamknij"
+msgstr "Cau"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
-"Okno tego konta nie mogło zostać otwarte. Można dodać tylko jedno konto na "
-"raz. Spróbuj ponownie po zamknięciu innych okien."
+"Methwyd agor ffenestr cyfrif. Dim ond un cyfrif allwch chi greu ar y tro; "
+"ceisiwch eto ar ôl cau pob ffenestr cyfrif arall."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr "<b>%1</b> żąda dostępu do twojego konta %2."
+msgstr "Mae <b>%1</b> angen mynediad at eich cyfrif arlein %2"
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr "<b>%1</b> chce uzyskać dostęp do twojego konta %2."
+msgstr "Mae <b>%1</b> eisiau mynediad at eich cyfrif arlein %2"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
-msgstr "Wybierz konto lub pomiń ten krok, by zrobić to później."
+msgstr ""
+"Dewiswch gyfrif nawr, neu neidio'r cam hwn a dewis cyfrif arlein wedyn."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr "Zamknij aplikację"
+msgstr "Cau'r ap"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr "Pomiń"
+msgstr "Neidio"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr "Wybierz konto"
+msgstr "Dewiswch gyfrif"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
-msgstr "Przeglądarka"
+msgstr "Porwr"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr "Przeglądarka internetowa"
+msgstr "Porwr Gwe"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
-msgstr "Przeglądaj Internet"
+msgstr "Pori'r We Fyd Eang"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr "Internet;WWW;Przeglądarka;Sieć"
-
-#~ msgid "Skip account creation step"
-#~ msgstr "Pomiń tworzenie konta"
-
-#~ msgid "Select an account"
-#~ msgstr "Wybierz konto"
-
-#~ msgid "see more"
-#~ msgstr "pokaż więcej"
-
-#~ msgid "see less"
-#~ msgstr "pokaż mniej"
-
-#~ msgid "Clear"
-#~ msgstr "Wyczyść"
-
-#~ msgid "Add"
-#~ msgstr "Dodaj"
-
-#~ msgid "No"
-#~ msgstr "Nie"
-
-#~ msgid "Yes"
-#~ msgstr "Tak"
-
-#~ msgid "Delete all history?"
-#~ msgstr "Wyczyścić historię?"
-
-#~ msgid "No local account found for "
-#~ msgstr "Nie odnaleziono konta dla "
+msgstr "Rhyngrwyd;WWW;Porwr;Gwe;Fforiwr"
