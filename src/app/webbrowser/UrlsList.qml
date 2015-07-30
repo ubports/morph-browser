@@ -24,8 +24,6 @@ Column {
 
     property alias model: urlsListRepeater.model
     property int limit: -1
-    property int highlightedIndex: -1
-    property url highlightedUrl
 
     signal urlClicked(url url)
     signal urlRemoved(url url)
@@ -45,8 +43,6 @@ Column {
                 icon: model.icon
                 title: model.title ? model.title : model.url
                 url: model.url
-                highlighted: index === highlightedIndex
-                onHighlightedChanged: if (highlighted) urlsList.highlightedUrl = model.url
 
                 onClicked: urlsList.urlClicked(model.url)
                 onRemoved: urlsList.urlRemoved(model.url)
