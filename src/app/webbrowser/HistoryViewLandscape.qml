@@ -186,6 +186,22 @@ Item {
                 id: urlsListView
                 anchors.fill: parent
     
+                Keys.onReturnPressed: historyEntrySelected()
+                Keys.onEnterPressed: historyEntrySelected()
+
+                model: historyViewLandscape.historyModel
+                clip: true
+
+                onModelChanged: urlsListView.currentIndex = -1
+
+                onActiveFocusChanged: {
+                    if (!activeFocus) {
+                        urlsListView.currentIndex = -1
+                    } else {
+                        urlsListView.currentIndex = 0
+                    }
+                }
+
                 function historyEntrySelected() {
                     if (urlsListView.ViewItems.selectMode) {
                         currentItem.selected = !currentItem.selected
@@ -193,13 +209,7 @@ Item {
                         historyViewLandscape.historyEntryClicked(currentItem.url)
                     }
                 }
-
-                Keys.onReturnPressed: historyEntrySelected()
-                Keys.onEnterPressed: historyEntrySelected()
-
-                model: historyViewLandscape.historyModel
-                clip: true
-    
+   
                 // Only use sections for "All History" history list
                 section.property: lastVisitDateListView.currentIndex == -1 ? "lastVisitDate" : ""
                 section.delegate: HistorySectionDelegate {
