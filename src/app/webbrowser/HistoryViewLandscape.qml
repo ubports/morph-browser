@@ -113,7 +113,7 @@ Item {
     
                         height: parent.height
     
-                        text: i18n.tr("All days")
+                        text: i18n.tr("All History")
                         fontSize: "small"
                         color: lastVisitDateListView.currentIndex == -1 ? UbuntuColors.orange : UbuntuColors.darkGrey
                     }
@@ -200,7 +200,7 @@ Item {
                 model: historyViewLandscape.historyModel
                 clip: true
     
-                // Only use sections for "All days" history list
+                // Only use sections for "All History" history list
                 section.property: lastVisitDateListView.currentIndex == -1 ? "lastVisitDate" : ""
                 section.delegate: HistorySectionDelegate {
                     width: parent.width - units.gu(3)
