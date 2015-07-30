@@ -66,6 +66,8 @@ Item {
                 Keys.onUpPressed: {
                     if (currentIndex > -1) {
                         currentIndex--
+                    } else if (currentIndex == -1) {
+                        contentY = units.gu(4) * -1
                     }
                     event.accepted = true
                 }
