@@ -692,7 +692,7 @@ BrowserView {
 
         anchors.fill: parent
         active: false
-        sourceComponent: browser.width < units.gu(90) ? historyViewComponent : historyViewLandscapeComponent
+        sourceComponent: browser.wide ? historyViewLandscapeComponent : historyViewComponent
 
         onStatusChanged: {
             if (status == Loader.Ready) {
