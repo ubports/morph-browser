@@ -26,6 +26,7 @@ from testtools.matchers import Equals, NotEquals
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
+from ubuntuuitoolkit import ToolkitException
 
 class TestNewTabViewLifetime(StartOpenRemotePageTestCaseBase):
 
@@ -435,3 +436,32 @@ class TestNewTabViewContentsWide(TestNewTabViewContentsBase):
         super(TestNewTabViewContentsWide, self).setUp()
         if not self.main_window.wide:
             self.skipTest("Only on wide form factors")
+
+    def test_remove_bookmarks(self):
+        view = self.new_tab_view
+        bookmarks = view.get_bookmarks_list()
+        previous_count = len(bookmarks)
+        bookmarks[1].trigger_leading_action("leadingAction.delete",
+                                            bookmarks[1].wait_until_destroyed)
+        bookmarks = view.get_bookmarks_list()
+        self.assertThat(len(bookmarks), Equals(previous_count - 1))
+        previous_count = len(bookmarks)
+
+        # verify that trying to delete the homepage bookmark is not going to
+        # do anything because there is no delete action on the delegate
+        no_delete_action = False
+        try:
+            bookmarks[0].trigger_leading_action("leadingAction.delete")
+        except ToolkitException:
+            no_delete_action = True
+        self.assertThat(no_delete_action, Equals(True))
+        self.assertThat(len(view.get_bookmarks_list()), Equals(previous_count))
+
+    def test_remove_top_sites(self):
+        view = self.new_tab_view
+        topsites = view.get_top_sites_list()
+        previous_count = len(topsites)
+        topsites[0].trigger_leading_action("leadingAction.delete",
+                                            topsites[0].wait_until_destroyed)
+        self.assertThat(len(view.get_top_sites_list()),
+                        Equals(previous_count - 1))

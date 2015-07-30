@@ -436,25 +436,21 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class NewTabLandscapeView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_homepage_bookmark(self):
-        sections = self.select_single(uitk.Sections)
-        sections.click_section_button(1)
-        return self.select_single(UrlDelegate, objectName="homepageBookmark")
-
     def get_bookmarks_list(self):
         sections = self.select_single(uitk.Sections)
-        sections.click_section_button(1)
-        return self.select_single(UrlsList, objectName="bookmarksList")
+        if not sections.selectedIndex == 1:
+            sections.click_section_button(1)
+        list = self.select_single(uitk.QQuickListView, objectName="bookmarksList")
+        return sorted(list.select_many("UrlDelegateLandscape", objectName="bookmarkItem"),
+                      key=lambda delegate: delegate.globalRect.y)
 
     def get_top_sites_list(self):
         sections = self.select_single(uitk.Sections)
-        sections.click_section_button(0)
-        return self.select_single(UrlsList, objectName="topSitesList")
-
-    def get_notopsites_label(self):
-        sections = self.select_single(uitk.Sections)
-        sections.click_section_button(0)
-        return self.select_single("Label", objectName="notopsites")
+        if not sections.selectedIndex == 0:
+            sections.click_section_button(0)
+        list = self.select_single(uitk.QQuickListView, objectName="topSitesList")
+        return sorted(list.select_many("UrlDelegateLandscape", objectName="topSiteItem"),
+                      key=lambda delegate: delegate.globalRect.y)
 
 
 class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -468,6 +464,10 @@ class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 
 class UrlDelegate(uitk.UCListItem):
+
+    pass
+
+class UrlDelegateLandscape(uitk.UCListItem):
 
     pass
 
