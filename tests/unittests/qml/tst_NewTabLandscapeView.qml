@@ -75,6 +75,11 @@ Item {
         signalName: "bookmarkClicked"
     }
 
+    SignalSpy {
+        id: bookmarkRemovedSpy
+        signalName: "bookmarkRemoved"
+    }
+
     UbuntuTestCase {
         name: "NewTabLandscapeView"
         when: windowShown
@@ -93,6 +98,8 @@ Item {
             historyEntryClickedSpy.clear()
             bookmarkClickedSpy.target = view
             bookmarkClickedSpy.clear()
+            bookmarkRemovedSpy.target = view
+            bookmarkRemovedSpy.clear()
         }
 
         function populate() {
@@ -290,7 +297,7 @@ Item {
             compare(bookmarkClickedSpy.signalArguments[1][0], "http://example.com")
         }
 
-        function test_activate_topsites_by_click() {
+        function test_activate_topsites_by_mouse() {
             var items = getListItems("topSitesList", "topSiteItem")
             clickItem(items[0])
             compare(historyEntryClickedSpy.count, 1)
@@ -302,5 +309,55 @@ Item {
 
         }
 
+        function test_activate_bookmarks_by_mouse() {
+            goToBookmarks()
+            var items = getListItems("bookmarksList", "bookmarkItem")
+            clickItem(items[0])
+            compare(bookmarkClickedSpy.count, 1)
+            compare(bookmarkClickedSpy.signalArguments[0][0], homepage)
+
+            clickItem(items[1])
+            compare(bookmarkClickedSpy.count, 2)
+            compare(bookmarkClickedSpy.signalArguments[1][0], "http://example.com")
+        }
+
+        function test_switch_folders_by_mouse() {
+            goToBookmarks()
+            var folders = getListItems("foldersList", "folderItem")
+
+            clickItem(folders[1])
+            var items = getListItems("bookmarksList", "bookmarkItem")
+            compare(items[0].title, "Example Net B")
+            compare(items[1].title, "Example Net A")
+            compare(items.length, 2)
+
+            clickItem(folders[0])
+            items = getListItems("bookmarksList", "bookmarkItem")
+            compare(items[0].url, homepage)
+            compare(items[1].title, "Example Com")
+            compare(items.length, 2)
+        }
+
+        function test_remove_bookmarks_by_keyboard() {
+            goToBookmarks()
+            keyClick(Qt.Key_Right)
+            var items = getListItems("bookmarksList", "bookmarkItem")
+
+            // verify that trying to delete the homepage bookmark does not work
+            keyClick(Qt.Key_Delete)
+            compare(bookmarkRemovedSpy.count, 0)
+
+            keyClick(Qt.Key_Down)
+            keyClick(Qt.Key_Delete)
+            compare(bookmarkRemovedSpy.count, 1)
+            compare(bookmarkRemovedSpy.signalArguments[0][0], items[1].url)
+        }
+
+        function test_remove_top_sites_by_keyboard() {
+            var previous = getListItems("topSitesList", "topSiteItem")
+            keyClick(Qt.Key_Delete)
+            var items = getListItems("topSitesList", "topSiteItem")
+            compare(previous.length - 1, items.length)
+        }
     }
 }

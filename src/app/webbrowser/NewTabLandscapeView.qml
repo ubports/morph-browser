@@ -199,6 +199,7 @@ FocusScope {
         }
 
         Keys.onReturnPressed: newTabViewLandscape.bookmarkClicked(currentItem.url)
+        Keys.onDeletePressed: if (currentItem.removable) newTabViewLandscape.bookmarkRemoved(currentItem.url)
         Keys.onLeftPressed: folders.focus = true
         Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, model.length - 1)
         Keys.onUpPressed: {
@@ -253,6 +254,7 @@ FocusScope {
         }
 
         Keys.onReturnPressed: newTabViewLandscape.historyEntryClicked(currentItem.url)
+        Keys.onDeletePressed: newTabViewLandscape.historyModel.hide(currentItem.url)
         Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, model.count - 1)
         Keys.onUpPressed: {
             if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
