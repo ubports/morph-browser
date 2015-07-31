@@ -785,6 +785,10 @@ BrowserView {
                     browser.historyModel.removeEntryByUrl(url)
                 }
 
+                onNewTabRequested: {
+                    browser.openUrlInNewTab("", true)
+                }
+
                 onDone: historyViewLoader.active = false
             }
         }

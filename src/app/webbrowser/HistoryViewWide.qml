@@ -27,9 +27,10 @@ Item {
     property alias historyModel: historyTimeframeModel.sourceModel
     property alias count: lastVisitDateListView.count
 
+    signal done()
     signal historyEntryClicked(url url)
     signal historyEntryRemoved(url url)
-    signal done()
+    signal newTabRequested()
 
     Keys.onLeftPressed: lastVisitDateListView.forceActiveFocus()
     Keys.onRightPressed: urlsListView.forceActiveFocus()
@@ -433,7 +434,7 @@ Item {
             iconName: "tab-new"
 
             onClicked: {
-                browser.openUrlInNewTab("", true)
+                historyViewWide.newTabRequested()
                 historyViewWide.done()
             }
         }
