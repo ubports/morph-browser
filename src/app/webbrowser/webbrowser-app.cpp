@@ -78,6 +78,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<SearchEngine>(uri, 0, 1, "SearchEngine");
     qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
     qmlRegisterType<SuggestionsFilterModel>(uri, 0, 1, "SuggestionsFilterModel");
+    qmlRegisterType<HistoryModel>(uri, 0, 1, "DownloadsModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         QStringList searchEnginesSearchPaths;
