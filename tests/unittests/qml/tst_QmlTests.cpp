@@ -27,6 +27,9 @@
 // local
 #include "favicon-fetcher.h"
 #include "file-operations.h"
+#include "history-model.h"
+#include "history-timeframe-model.h"
+#include "history-lastvisitdatelist-model.h"
 #include "searchengine.h"
 #include "tabs-model.h"
 
@@ -116,6 +119,9 @@ int main(int argc, char** argv)
     const char* browserUri = "webbrowserapp.private";
     qmlRegisterType<SearchEngine>(browserUri, 0, 1, "SearchEngine");
     qmlRegisterType<TabsModel>(browserUri, 0, 1, "TabsModel");
+    qmlRegisterType<HistoryModel>(browserUri, 0, 1, "HistoryModel");
+    qmlRegisterType<HistoryTimeframeModel>(browserUri, 0, 1, "HistoryTimeframeModel");
+    qmlRegisterType<HistoryLastVisitDateListModel>(browserUri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
 
     qmlRegisterSingletonType<TestContext>("webbrowsertest.private", 0, 1, "TestContext", TestContext_singleton_factory);

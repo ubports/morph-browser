@@ -62,6 +62,8 @@ Item {
 
             ListView {
                 id: lastVisitDateListView
+                objectName: "lastVisitDateListView"
+
                 anchors.fill: parent
     
                 Keys.onUpPressed: {
