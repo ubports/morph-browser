@@ -135,7 +135,8 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
         self.activate_find_in_page(False)
         bar = self.chrome.address_bar
         self.assertThat(bar.findInPageMode, Eventually(Equals(True)))
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         self.open_new_tab()
         self.assertThat(bar.findInPageMode, Eventually(Equals(False)))
 

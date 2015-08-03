@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-22 12:30+0200\n"
-"PO-Revision-Date: 2014-05-18 18:25+0000\n"
+"POT-Creation-Date: 2015-07-03 14:57+0200\n"
+"PO-Revision-Date: 2015-07-14 12:27+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2015-07-03 05:46+0000\n"
-"X-Generator: Launchpad (build 17597)\n"
+"X-Launchpad-Export-Date: 2015-07-16 05:38+0000\n"
+"X-Generator: Launchpad (build 17628)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -25,6 +25,7 @@ msgstr "تنبيه جافا سكريبت"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "حسنا"
@@ -48,15 +49,17 @@ msgid "Password"
 msgstr "كلمة السر"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "إلغاء"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr ""
+msgstr "تأكيد الأنتقال"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
@@ -135,11 +138,11 @@ msgstr "اسمح"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "شهادة الأمان لهذا الموقع غير موثوق بها.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr ""
+msgstr "اعرف المزيد"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:87
@@ -148,6 +151,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"الرقم التسلسلي:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:94
@@ -156,6 +161,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"الموضوع:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:102
@@ -164,6 +171,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"عنوان الموضوع:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:113
@@ -172,6 +181,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"المصدر:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:121
@@ -180,6 +191,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"عنوان المصدر:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:132
@@ -188,6 +201,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"صالح من:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:139
@@ -196,6 +211,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"صالح حتى:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:146
@@ -204,12 +221,15 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"البصمة (SHA1):\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
+"يجب عليك عدم المتابعة، خصوصا إذا لم تر هذا التحذير من قبل على هذا الموقع."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:187
@@ -218,6 +238,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
+"لقد حاولت الوصول إلى %1 لكن الخادم قدم شهادة أمان لا تتطابق مع هوية هذا "
+"الموقع."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -225,7 +247,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
-msgstr ""
+msgstr "لقد حاولت الوصول إلى %1 لكن الخادم قدم شهادة أمان منتهية الصلاحية."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -234,6 +256,7 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
+"لقد حاولت الوصول إلى %1 لكن الخادم قدم شهادة أمان تحتوي على تواريخ غير صالحة."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -242,6 +265,7 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
+"لقد حاولت الوصول إلى %1 لكن الخادم قدم شهادة أمان مصدرة من كيان غير موثوق به."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -249,7 +273,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
-msgstr ""
+msgstr "لقد حاولت الوصول إلى %1 لكن الخادم قدم شهادة أمان قد تم إبطالها."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -257,7 +281,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
-msgstr ""
+msgstr "لقد حاولت الوصول إلى %1 لكن الخادم قدم شهادة أمان غير صالحة."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -265,7 +289,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
-msgstr ""
+msgstr "لقد حاولت الوصول إلى %1 لكن الخادم قدم شهادة أمان غير أمنة."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -275,6 +299,9 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"شهادة هذا الموقع غير موثوق بها\n"
+"لقد حاولت الوصول إلى %1 لكن الخادم قدم شهادة أمان فشلت في فحوصنا الأمنية "
+"لأسباب غير معروفة."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -356,7 +383,7 @@ msgstr "اذهب إلى"
 msgid "Address;URL;www"
 msgstr "عنوان;رابط;انترنت;إنترنت;شبكة"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:574
 msgid "New Tab"
 msgstr "لسان جديد"
 
@@ -372,7 +399,7 @@ msgstr "افتح الصورة في لسان جديد"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "فتح الرابط في لسان جديد في الخلفية"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -394,74 +421,111 @@ msgstr "حفظ الصورة"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
-msgstr ""
+msgstr "مشاركة..."
 
-#: src/app/webbrowser/AddressBar.qml:201
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
-msgstr ""
+msgstr "ابحث أو أدخِل عنوانا"
+
+#: src/app/webbrowser/BookmarkOptions.qml:48
+msgid "Bookmark Added"
+msgstr "تمت إضافة العلامة"
+
+#. TRANSLATORS: Field where the title of bookmarked URL can be changed
+#: src/app/webbrowser/BookmarkOptions.qml:53
+msgid "Name"
+msgstr "الاسم"
+
+#. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
+#: src/app/webbrowser/BookmarkOptions.qml:71
+msgid "Save in"
+msgstr "حفظ في"
+
+#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarksFolderListView.qml:115
+msgid "All Bookmarks"
+msgstr "كل العلامات"
+
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
+msgid "New Folder"
+msgstr "مجلد جديد"
+
+#: src/app/webbrowser/BookmarkOptions.qml:115
+msgid "Create new folder"
+msgstr "إنشاء مجلد جديد"
+
+#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/SettingsPage.qml:311
+msgid "Save"
+msgstr "حفظ"
 
 #: src/app/webbrowser/Browser.qml:292
 msgid "Share"
-msgstr ""
+msgstr "مشاركة"
 
 #: src/app/webbrowser/Browser.qml:299
 msgid "History"
-msgstr ""
+msgstr "التأريخ"
 
 #: src/app/webbrowser/Browser.qml:309
 msgid "Open tabs"
-msgstr ""
+msgstr "فتح الألسنة"
 
 #: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
-msgstr ""
+msgstr "لسان جديد"
 
 #: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
-msgstr ""
+msgstr "الإعدادات"
 
 #: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "مغادرة وضع التصفح الخاص"
 
 #: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
-msgstr ""
+msgstr "وضع التصفح الخاص"
 
-#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
-msgstr ""
+msgstr "تم"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:606
+#: src/app/webbrowser/Browser.qml:658
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:889
+#: src/app/webbrowser/Browser.qml:941
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "اسحب لأعلى لإنهاء وضع ملء الشاشة"
 
-#: src/app/webbrowser/Browser.qml:890
+#: src/app/webbrowser/Browser.qml:942
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "اضغط مفتاح \"ESC\" لإنهاء وضع ملء الشاشة"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "صفحة واحدة %1"
+msgstr[1] "صفحة واحدة %1"
+msgstr[2] "صفحتان %1"
+msgstr[3] "%1 صفحات"
+msgstr[4] "%1 صفحة"
+msgstr[5] "%1 صفحة"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:118
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
-msgstr ""
+msgstr "أقل"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:44
 msgid "Last Visited"
-msgstr ""
+msgstr "آخر زيارة"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:46
 msgid "Yesterday"
@@ -469,164 +533,205 @@ msgstr "أمس"
 
 #: src/app/webbrowser/HistoryView.qml:180
 msgid "Select all"
-msgstr ""
+msgstr "اختيار الكل"
 
 #: src/app/webbrowser/HistoryView.qml:210
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "الانتقال للوضع العام سيؤدي لإغلاق جميع الألسنة الخاصة"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "هذا لسان خاص"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"الصفحات التي ستعرضها على هذا اللسان لن تظهر في التأريخ.\n"
+"العلامات التي ستأخذها سيتم حفظها على كل حال."
 
 #: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
 msgstr "العلامات"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr ""
+msgstr "المزيد"
 
-#: src/app/webbrowser/NewTabView.qml:208
+#: src/app/webbrowser/NewTabView.qml:226
 msgid "Top sites"
-msgstr ""
+msgstr "المواقع الأكثر زيارة"
 
-#: src/app/webbrowser/NewTabView.qml:239
+#: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "أنت لم تقم بزيارة أي مواقع بعد"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr ""
+msgstr "هذا الموقع يشتمل على محتوى غير آمن"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "لم يتم التحقق من الهوية"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "لم  يتمّ التحقق من هوية هذا الموقع."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "شهادة الخادوم لا تتطابق مع هوية هذا الموقع."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "شهادة الخادوم منتهية."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "شهادة الخادوم تحتوي تواريخ غير صحيحة."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "شهادة الخادوم صدرت من خلال كيان غير موثوق به."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "شهادة الخادوم تم إلغائها."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "شهادة الخادوم غير صالحة."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "شهادة الخادوم غير آمنة."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
-msgstr ""
+msgstr "فشلت شهادة الخادوم في فحوصات الأمان خاصتنا لأسباب غير معروفة."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr ""
+msgstr "انت متصل بـ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr ""
+msgstr "الذي يعمل من"
 
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr ""
+msgstr "محرك البحث"
 
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:275
 msgid "Homepage"
-msgstr ""
+msgstr "الصفحة الرئيسية"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "استعادة الجلسة السابقة عند البدء"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "السماح بفتح الألسنة الجديدة في الخلفية"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
-msgstr ""
+msgstr "الخصوصية"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr ""
+msgstr "إعادة تعيين إعدادات المتصفح"
 
 #: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "مسح تأريخ التصفح"
 
 #: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
-msgstr ""
-
-#: src/app/webbrowser/SettingsPage.qml:311
-msgid "Save"
-msgstr ""
+msgstr "مسح الذاكرة المخبئية"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
-msgstr ""
+msgstr "انقر للعرض"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:65
+#: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - متصفح ويب أبونتو"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:67
+#: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
 msgstr "متصفح ويب أبونتو"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
-msgid "No local account found for "
-msgstr ""
+#: src/app/webcontainer/AccountChooserDialog.qml:62
+msgid ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
+msgstr "لا حسابات مرتبطة بتطبيق الويب هذا، اضغط على البند أدناه لإضافة حساب."
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
-msgid "Skip account creation step"
-msgstr ""
-
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
 msgstr "إضافة حساب"
 
-#: src/app/webcontainer/AccountsView.qml:38
-msgid "Select an account"
-msgstr "اختر حسابًا"
+#: src/app/webcontainer/AccountChooserDialog.qml:87
+msgid "Don't use an account"
+msgstr "لا تستخدم حسابا"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:39
+msgid "Account error"
+msgstr "خطأ في الحساب"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:50
+msgid "Close"
+msgstr "إغلاق"
+
+#: src/app/webcontainer/AccountsLogic.qml:63
+msgid ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
+msgstr ""
+"نافذة الحساب قد لا تفتح. يمكنك إنشاء حساب واحد فقط في المرة، برجاء المحاولة "
+"مجددا بعد إغلاق جميع نوافذ الحساب الأخرى."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:45
+#, qt-format
+msgid "<b>%1</b> needs to access your %2 online account."
+msgstr "<b>%1</b> يرغب بالوصول إلى حساب %2 على الإنترنت."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:55
+#, qt-format
+msgid "<b>%1</b> would like to access your %2 online account."
+msgstr "<b>%1</b> يرغب بالوصول إلى حساب %2 على الإنترنت."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:64
+msgid ""
+"Choose an account now, or skip this step and choose an online account later."
+msgstr "اختر تطبيقا الآن، أو تخط هذه الخطوة واختر حساب إنترنت في وقت لاحق."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Close the app"
+msgstr "إغلاق التطبيق"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Skip"
+msgstr "تخطّي"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:84
+msgid "Choose account"
+msgstr "اختر حساب"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
@@ -642,4 +747,7 @@ msgstr "تصفح الشبكة العنكبوتية العالمية"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr ""
+msgstr "إنترنت;انترنت;تصفح;متصفح;وب;ويب;مستعرض;مستكشف"
+
+#~ msgid "Select an account"
+#~ msgstr "اختر حسابًا"

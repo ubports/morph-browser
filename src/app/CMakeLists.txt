@@ -1,5 +1,12 @@
 project(webbrowser-common)
 
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Gui REQUIRED)
+find_package(Qt5Network REQUIRED)
+find_package(Qt5Qml REQUIRED)
+find_package(Qt5Quick REQUIRED)
+find_package(Qt5Widgets REQUIRED)
+
 add_subdirectory(unity8)
 
 configure_file(
@@ -18,11 +25,17 @@ set(COMMONLIB_SRC
 
 add_library(${COMMONLIB} STATIC ${COMMONLIB_SRC})
 
-qt5_use_modules(${COMMONLIB} Core Gui Network Qml Quick Widgets)
-
 include_directories(${unity8_SOURCE_DIR}/libs/UbuntuGestures
                     ${unity8_SOURCE_DIR}/plugins)
-target_link_libraries(${COMMONLIB} UbuntuGesturesQml)
+target_link_libraries(${COMMONLIB}
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Network
+    Qt5::Qml
+    Qt5::Quick
+    Qt5::Widgets
+    UbuntuGesturesQml
+)
 
 file(GLOB QML_FILES *.qml)
 install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app)

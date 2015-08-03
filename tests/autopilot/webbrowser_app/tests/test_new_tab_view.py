@@ -18,6 +18,9 @@ import os.path
 import sqlite3
 import time
 
+import testtools
+
+from autopilot.platform import model
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals, NotEquals
 
@@ -27,52 +30,76 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestNewTabViewLifetime(StartOpenRemotePageTestCaseBase):
 
     def test_new_tab_view_destroyed_when_browsing(self):
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_tab_view = self.open_new_tab()
         self.main_window.go_to_url(self.base_url + "/test2")
         new_tab_view.wait_until_destroyed()
 
     def test_new_tab_view_destroyed_when_closing_tab(self):
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_tab_view = self.open_new_tab()
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        self.main_window.get_recent_view_toolbar().click_button("doneButton")
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(1)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            toolbar = self.main_window.get_recent_view_toolbar()
+            toolbar.click_button("doneButton")
         new_tab_view.wait_until_destroyed()
 
     def test_new_tab_view_is_shared_between_tabs(self):
         # Open one new tab
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_tab_view = self.open_new_tab()
         # Open a second new tab
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_tab_view_2 = self.open_new_tab()
         # Verify that they share the same NewTabView instance
         self.assertThat(new_tab_view_2.id, Equals(new_tab_view.id))
         # Close the second new tab, and verify that the NewTabView instance
         # is still there
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        self.main_window.get_recent_view_toolbar().click_button("doneButton")
-        tabs_view.visible.wait_for(False)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(2)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            toolbar = self.main_window.get_recent_view_toolbar()
+            toolbar.click_button("doneButton")
+            tabs_view.visible.wait_for(False)
         self.assertThat(new_tab_view.visible, Equals(True))
         # Close the first new tab, and verify that the NewTabView instance
         # is destroyed
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        self.main_window.get_recent_view_toolbar().click_button("doneButton")
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(1)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            toolbar = self.main_window.get_recent_view_toolbar()
+            toolbar.click_button("doneButton")
         new_tab_view.wait_until_destroyed()
 
+    @testtools.skipIf(model() == "Desktop",
+                      "Closing the last open tab on desktop quits the app")
     def test_new_tab_view_not_destroyed_when_closing_last_open_tab(self):
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        tabs_view.visible.wait_for(False)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(0)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            tabs_view.visible.wait_for(False)
         new_tab_view = self.main_window.get_new_tab_view()
         # Verify that the new tab view is not destroyed and then re-created
         # when closing the last open tab if it was a blank one
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        tabs_view.visible.wait_for(False)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(0)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            tabs_view.visible.wait_for(False)
         self.assertThat(new_tab_view.visible, Equals(True))
 
 
@@ -96,26 +123,36 @@ class TestNewPrivateTabViewLifetime(StartOpenRemotePageTestCaseBase):
         self.main_window.go_to_url(self.base_url + "/test2")
         new_private_tab_view.wait_until_destroyed()
         # Open one new private tab
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_private_tab_view = self.open_new_tab()
         # Open a second new private tab
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         new_private_tab_view_2 = self.open_new_tab()
         # Verify that they share the same NewPrivateTabView instance
         self.assertThat(new_private_tab_view_2.id,
                         Equals(new_private_tab_view.id))
         # Close the second new private tab, and verify that the
         # NewPrivateTabView instance is still there
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        self.main_window.get_recent_view_toolbar().click_button("doneButton")
-        tabs_view.visible.wait_for(False)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(2)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            toolbar = self.main_window.get_recent_view_toolbar()
+            toolbar.click_button("doneButton")
+            tabs_view.visible.wait_for(False)
         self.assertThat(new_private_tab_view.visible, Equals(True))
         # Close the first new private tab, and verify that the
         # NewPrivateTabView instance is destroyed
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        self.main_window.get_recent_view_toolbar().click_button("doneButton")
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(1)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[0].close()
+            toolbar = self.main_window.get_recent_view_toolbar()
+            toolbar.click_button("doneButton")
         new_private_tab_view.wait_until_destroyed()
 
 
@@ -126,6 +163,9 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.populate_config()
         self.populate_bookmarks()
         super(TestNewTabViewContents, self).setUp()
+        if not self.main_window.wide:
+            self.open_tabs_view()
+        self.new_tab_view = self.open_new_tab()
 
     def populate_config(self):
         self.homepage = "http://test/test2"
@@ -187,30 +227,24 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         connection.close()
 
     def test_default_home_bookmark(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        homepage_bookmark = new_tab_view.get_homepage_bookmark()
+        homepage_bookmark = self.new_tab_view.get_homepage_bookmark()
         self.assertThat(homepage_bookmark.url, Equals(self.homepage))
         self.pointing_device.click_object(homepage_bookmark)
-        new_tab_view.wait_until_destroyed()
+        self.new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(self.homepage)
 
     def test_open_bookmark_when_collapsed(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        bookmarks = new_tab_view.get_bookmarks_list()
+        bookmarks = self.new_tab_view.get_bookmarks_list()
         self.assertThat(lambda: len(bookmarks.get_delegates()),
                         Eventually(Equals(4)))
         bookmark = bookmarks.get_delegates()[1]
         url = bookmark.url
         self.pointing_device.click_object(bookmark)
-        new_tab_view.wait_until_destroyed()
+        self.new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(url)
 
     def test_open_bookmark_when_expanded(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        more_button = new_tab_view.get_bookmarks_more_button()
+        more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
         folders = self.main_window.get_bookmarks_folder_list_view()
@@ -221,20 +255,18 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         bookmark = folders.get_urls_from_folder(folder_delegate)[0]
         url = bookmark.url
         self.pointing_device.click_object(bookmark)
-        new_tab_view.wait_until_destroyed()
+        self.new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(url)
 
     def test_bookmarks_section_expands_and_collapses(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        bookmarks = new_tab_view.get_bookmarks_list()
-        top_sites = new_tab_view.get_top_sites_list()
+        bookmarks = self.new_tab_view.get_bookmarks_list()
+        top_sites = self.new_tab_view.get_top_sites_list()
         self.assertThat(top_sites.visible, Equals(True))
         # When the bookmarks list is collapsed, it shows a maximum of 4 entries
         self.assertThat(lambda: len(bookmarks.get_delegates()),
                         Eventually(Equals(4)))
         # When expanded, it shows all entries
-        more_button = new_tab_view.get_bookmarks_more_button()
+        more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
         folders = self.main_window.get_bookmarks_folder_list_view()
@@ -251,7 +283,7 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.assertThat(top_sites.visible, Eventually(Equals(True)))
 
     def _remove_first_bookmark(self):
-        bookmarks = self.main_window.get_new_tab_view().get_bookmarks_list()
+        bookmarks = self.new_tab_view.get_bookmarks_list()
         delegate = bookmarks.get_delegates()[0]
         url = delegate.url
         delegate.trigger_leading_action("leadingAction.delete",
@@ -273,12 +305,10 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
                 Eventually(NotEquals(url)))
 
     def test_remove_bookmarks_when_collapsed(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        bookmarks = new_tab_view.get_bookmarks_list()
+        bookmarks = self.new_tab_view.get_bookmarks_list()
         self.assertThat(lambda: len(bookmarks.get_delegates()),
                         Eventually(Equals(4)))
-        more_button = new_tab_view.get_bookmarks_more_button()
+        more_button = self.new_tab_view.get_bookmarks_more_button()
         for i in range(3):
             self._remove_first_bookmark()
             self.assertThat(more_button.visible, Eventually(Equals(i < 1)))
@@ -286,9 +316,7 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
                             Equals(4 if (i < 2) else 3))
 
     def test_remove_bookmarks_when_expanded(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        more_button = new_tab_view.get_bookmarks_more_button()
+        more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
         folders = self.main_window.get_bookmarks_folder_list_view()
@@ -296,17 +324,15 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
                         Eventually(Equals(4)))
-        more_button = new_tab_view.get_bookmarks_more_button()
-        top_sites = new_tab_view.get_top_sites_list()
+        more_button = self.new_tab_view.get_bookmarks_more_button()
+        top_sites = self.new_tab_view.get_top_sites_list()
         self._remove_first_bookmark_from_folder("Actinide")
         self._remove_first_bookmark_from_folder("NobleGas")
         self.assertThat(more_button.visible, Eventually(Equals(False)))
         self.assertThat(top_sites.visible, Eventually(Equals(True)))
 
     def test_show_bookmarks_folders_when_expanded(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        more_button = new_tab_view.get_bookmarks_more_button()
+        more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
         folders = self.main_window.get_bookmarks_folder_list_view()
@@ -326,9 +352,7 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
                         Eventually(Equals(1)))
 
     def test_hide_empty_bookmarks_folders_when_expanded(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        more_button = new_tab_view.get_bookmarks_more_button()
+        more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
         folders = self.main_window.get_bookmarks_folder_list_view()
@@ -351,9 +375,7 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
                         Eventually(Equals(1)))
 
     def test_bookmarks_folder_expands_and_collapses(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        more_button = new_tab_view.get_bookmarks_more_button()
+        more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
         folders = self.main_window.get_bookmarks_folder_list_view()
@@ -375,24 +397,20 @@ class TestNewTabViewContents(StartOpenRemotePageTestCaseBase):
                         Eventually(Equals(4)))
 
     def test_open_top_site(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        top_sites = new_tab_view.get_top_sites_list()
+        top_sites = self.new_tab_view.get_top_sites_list()
         self.assertThat(lambda: len(top_sites.get_delegates()),
                         Eventually(Equals(1)))
         top_site = top_sites.get_delegates()[0]
         url = top_site.url
         self.pointing_device.click_object(top_site)
-        new_tab_view.wait_until_destroyed()
+        self.new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(url)
 
     def test_remove_top_sites(self):
-        self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        top_sites = new_tab_view.get_top_sites_list()
+        top_sites = self.new_tab_view.get_top_sites_list()
         self.assertThat(lambda: len(top_sites.get_delegates()),
                         Eventually(Equals(1)))
-        notopsites_label = new_tab_view.get_notopsites_label()
+        notopsites_label = self.new_tab_view.get_notopsites_label()
         self.assertThat(notopsites_label.visible, Eventually(Equals(False)))
         delegate = top_sites.get_delegates()[0]
         delegate.trigger_leading_action("leadingAction.delete",

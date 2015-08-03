@@ -39,6 +39,10 @@ Item {
             height: parent.height / 2
 
             searchUrl: "http://www.ubuntu.com/search?q={searchTerms}"
+
+            editing: activeFocus
+            canSimplifyText: true
+
             findController: QtObject {
                 property int current
                 property int count
@@ -369,14 +373,13 @@ Item {
         }
 
         function test_exitingFindInPageRestoresUrl() {
-            var url = "http://example.org/"
-            addressBar.actualUrl = url
+            addressBar.actualUrl = "http://example.org/"
             addressBar.findInPageMode = true
             verify(addressBar.activeFocus)
             compare(addressBar.text, "")
             typeString("hello")
             addressBar.findInPageMode = false
-            compare(addressBar.text, url)
+            compare(addressBar.text, "example.org")
         }
     }
 }

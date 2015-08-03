@@ -50,15 +50,12 @@ Item {
         Repeater {
             id: repeater
 
-            width: flickable.contentWidth
-            height: flickable.contentHeight
-
             delegate: Loader {
                 id: delegate
 
                 asynchronous: true
 
-                width: repeater.width
+                width: flickable.contentWidth
 
                 height: (index == (repeater.model.count - 1)) ? flickable.height : delegateHeight
                 Behavior on height {

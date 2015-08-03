@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-22 12:30+0200\n"
-"PO-Revision-Date: 2014-11-08 14:47+0000\n"
+"POT-Creation-Date: 2015-07-03 14:57+0200\n"
+"PO-Revision-Date: 2015-07-11 16:20+0000\n"
 "Last-Translator: Ibai Oihanguren Sala <Unknown>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-07-03 05:46+0000\n"
-"X-Generator: Launchpad (build 17597)\n"
+"X-Launchpad-Export-Date: 2015-07-16 05:38+0000\n"
+"X-Generator: Launchpad (build 17628)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,6 +24,7 @@ msgstr "JavaScript alerta"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "Ados"
@@ -47,9 +48,11 @@ msgid "Password"
 msgstr "Pasahitza"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "Utzi"
 
@@ -392,7 +395,7 @@ msgstr "Joan hona"
 msgid "Address;URL;www"
 msgstr "Helbidea;URLa;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:574
 msgid "New Tab"
 msgstr "Fitxa berria"
 
@@ -408,7 +411,7 @@ msgstr "Ireki irudia fitxa berrian"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Ireki lotura atzeko planoko fitxa berrian"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -432,9 +435,42 @@ msgstr "Gorde irudia"
 msgid "Share…"
 msgstr "Partekatu..."
 
-#: src/app/webbrowser/AddressBar.qml:201
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "bilatu edo idatzi helbide bat"
+
+#: src/app/webbrowser/BookmarkOptions.qml:48
+msgid "Bookmark Added"
+msgstr "Laster-marka gehituta"
+
+#. TRANSLATORS: Field where the title of bookmarked URL can be changed
+#: src/app/webbrowser/BookmarkOptions.qml:53
+msgid "Name"
+msgstr "Izena"
+
+#. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
+#: src/app/webbrowser/BookmarkOptions.qml:71
+msgid "Save in"
+msgstr "Gorde hemen"
+
+#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarksFolderListView.qml:115
+msgid "All Bookmarks"
+msgstr "Laster-marka guztiak"
+
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
+msgid "New Folder"
+msgstr "Karpeta berria"
+
+#: src/app/webbrowser/BookmarkOptions.qml:115
+msgid "Create new folder"
+msgstr "Sortu karpeta berria"
+
+#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/SettingsPage.qml:311
+msgid "Save"
+msgstr "Gorde"
 
 #: src/app/webbrowser/Browser.qml:292
 msgid "Share"
@@ -459,29 +495,29 @@ msgstr "Ezarpenak"
 
 #: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Utzi modu pribatua"
 
 #: src/app/webbrowser/Browser.qml:336
 msgid "Private Mode"
-msgstr ""
+msgstr "Modu pribatua"
 
-#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "Eginda"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:606
+#: src/app/webbrowser/Browser.qml:658
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:889
+#: src/app/webbrowser/Browser.qml:941
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Pasa hatza gorantz pantaila osotik irteteko"
 
-#: src/app/webbrowser/Browser.qml:890
+#: src/app/webbrowser/Browser.qml:942
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Sakatu IHES tekla pantaila osotik irteteko"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
@@ -491,7 +527,7 @@ msgstr[0] "orri %1"
 msgstr[1] "%1 orri"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:118
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Gutxiago"
 
@@ -513,11 +549,11 @@ msgstr "Ezabatu"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Modu publikora joanez gero fitxa pribatu guztiak itxiko dira"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Hau fitxa pribatu bat da"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
@@ -529,15 +565,15 @@ msgstr ""
 msgid "Bookmarks"
 msgstr "Laster-markak"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr ""
+msgstr "Gehiago"
 
-#: src/app/webbrowser/NewTabView.qml:208
+#: src/app/webbrowser/NewTabView.qml:226
 msgid "Top sites"
 msgstr "Gune nagusiak"
 
-#: src/app/webbrowser/NewTabView.qml:239
+#: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
 msgstr ""
 
@@ -596,12 +632,12 @@ msgstr "Honek kudeatuta:"
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr ""
+msgstr "Bilaketa-motorra"
 
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:275
 msgid "Homepage"
-msgstr ""
+msgstr "Hasiera-orria"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
@@ -609,28 +645,24 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "Baimendu fitxa berriak atzeko planoan irekitzea"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
-msgstr ""
+msgstr "Pribatutasuna"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr ""
+msgstr "Berrezarri nabigatzailearen ezarpenak"
 
 #: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "Garbitu nabigatze-historia"
 
 #: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
-msgstr ""
-
-#: src/app/webbrowser/SettingsPage.qml:311
-msgid "Save"
-msgstr ""
+msgstr "Garbitu cache-a"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
@@ -638,30 +670,71 @@ msgstr "Sakatu ikusteko"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:65
+#: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubunturen web-nabigatzailea"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:67
+#: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
 msgstr "Ubunturen web-nabigatzailea"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
-msgid "No local account found for "
-msgstr "Ez da kontu lokalik aurkitu honako: "
+#: src/app/webcontainer/AccountChooserDialog.qml:62
+msgid ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
+msgstr ""
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
-msgid "Skip account creation step"
-msgstr "Saltatu kontua sortzeko urratsa"
-
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
 msgstr "Gehitu kontua"
 
-#: src/app/webcontainer/AccountsView.qml:38
-msgid "Select an account"
+#: src/app/webcontainer/AccountChooserDialog.qml:87
+msgid "Don't use an account"
+msgstr "Ez erabili konturik"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:39
+msgid "Account error"
+msgstr "Kontuaren errorea"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:50
+msgid "Close"
+msgstr "Itxi"
+
+#: src/app/webcontainer/AccountsLogic.qml:63
+msgid ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:45
+#, qt-format
+msgid "<b>%1</b> needs to access your %2 online account."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:55
+#, qt-format
+msgid "<b>%1</b> would like to access your %2 online account."
+msgstr ""
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:64
+msgid ""
+"Choose an account now, or skip this step and choose an online account later."
+msgstr ""
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Close the app"
+msgstr "Itxi aplikazioa"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Skip"
+msgstr "Saltatu"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:84
+msgid "Choose account"
 msgstr "Hautatu kontua"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
@@ -685,6 +758,15 @@ msgstr "Internet;WWW;Nabigatzailea;Weba;Arakatzailea"
 
 #~ msgid "see less"
 #~ msgstr "gutxiago ikusi"
+
+#~ msgid "No local account found for "
+#~ msgstr "Ez da kontu lokalik aurkitu honako: "
+
+#~ msgid "Select an account"
+#~ msgstr "Hautatu kontua"
+
+#~ msgid "Skip account creation step"
+#~ msgstr "Saltatu kontua sortzeko urratsa"
 
 #~ msgid "Clear"
 #~ msgstr "Garbitu"

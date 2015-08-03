@@ -161,7 +161,7 @@ Item {
             }
 
             ToolbarAction {
-                iconName: "back"
+                iconName: "close"
                 text: i18n.tr("Cancel")
 
                 MouseArea {
