@@ -57,44 +57,6 @@ FocusScope {
         color: "#fbfbfb"
     }
 
-    Rectangle {
-        id: sectionsGroup
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-        color: "#dedede"
-        height: sections.height
-
-        Sections {
-            id: sections
-            objectName: "sections"
-            anchors {
-                left: parent.left
-                top: parent.top
-                leftMargin: units.gu(1)
-            }
-
-            selectedIndex: settingsObject.selectedIndexNewTabViewLandscape
-            onSelectedIndexChanged: {
-                settingsObject.selectedIndexNewTabViewLandscape = selectedIndex
-                if (selectedIndex === 0) topSitesList.focus = true
-                else {
-                    if (lastFocusedBookmarksColumn) lastFocusedBookmarksColumn.focus = true
-                    else folders.focus = true
-                }
-
-            }
-            property var lastFocusedBookmarksColumn: folders
-
-            actions: [
-                Action { text: i18n.tr("Top Sites") },
-                Action { text: i18n.tr("Bookmarks") }
-            ]
-        }
-    }
-
     ListView {
         id: folders
         objectName: "foldersList"
@@ -240,6 +202,44 @@ FocusScope {
         Keys.onUpPressed: {
             if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
             else newTabViewLandscape.releasingKeyboardFocus()
+        }
+    }
+
+    Rectangle {
+        id: sectionsGroup
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        color: "#dedede"
+        height: sections.height
+
+        Sections {
+            id: sections
+            objectName: "sections"
+            anchors {
+                left: parent.left
+                top: parent.top
+                leftMargin: units.gu(1)
+            }
+
+            selectedIndex: settingsObject.selectedIndexNewTabViewLandscape
+            onSelectedIndexChanged: {
+                settingsObject.selectedIndexNewTabViewLandscape = selectedIndex
+                if (selectedIndex === 0) topSitesList.focus = true
+                else {
+                    if (lastFocusedBookmarksColumn) lastFocusedBookmarksColumn.focus = true
+                    else folders.focus = true
+                }
+
+            }
+            property var lastFocusedBookmarksColumn: folders
+
+            actions: [
+                Action { text: i18n.tr("Top Sites") },
+                Action { text: i18n.tr("Bookmarks") }
+            ]
         }
     }
 }
