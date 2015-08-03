@@ -17,6 +17,8 @@
 import signal
 import time
 
+from autopilot.platform import model
+
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
@@ -43,6 +45,10 @@ class TestSadTab(StartOpenRemotePageTestCaseBase):
     def test_close_tab_web_process_killed(self):
         sad_tab = self._kill_web_process()
         sad_tab.click_close_tab_button()
+        if model() == 'Desktop':
+            # On desktop, closing the last open tab exits the application
+            self.app.process.wait()
+            return
         sad_tab.wait_until_destroyed()
         self.main_window.get_new_tab_view()
 
@@ -60,5 +66,9 @@ class TestSadTab(StartOpenRemotePageTestCaseBase):
     def test_close_tab_web_process_crashed(self):
         sad_tab = self._crash_web_process()
         sad_tab.click_close_tab_button()
+        if model() == 'Desktop':
+            # On desktop, closing the last open tab exits the application
+            self.app.process.wait()
+            return
         sad_tab.wait_until_destroyed()
         self.main_window.get_new_tab_view()
