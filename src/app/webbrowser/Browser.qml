@@ -113,14 +113,14 @@ BrowserView {
         property string searchEngine: settingsDefaults.searchEngine
         property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
         property bool restoreSession: settingsDefaults.restoreSession
-        property int selectedIndexNewTabViewLandscape: settingsDefaults.selectedIndexNewTabViewLandscape
+        property int selectedIndexNewTabViewWide: settingsDefaults.selectedIndexNewTabViewWide
 
         function restoreDefaults() {
             homepage  = settingsDefaults.homepage
             searchEngine = settingsDefaults.searchEngine
             allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
             restoreSession = settingsDefaults.restoreSession
-            selectedIndexNewTabViewLandscape = settingsDefaults.selectedIndexNewTabViewLandscape
+            selectedIndexNewTabViewWide = settingsDefaults.selectedIndexNewTabViewWide
         }
     }
 
@@ -131,7 +131,7 @@ BrowserView {
         readonly property string searchEngine: "google"
         readonly property string allowOpenInBackgroundTab: "default"
         readonly property bool restoreSession: true
-        readonly property int selectedIndexNewTabViewLandscape: 0
+        readonly property int selectedIndexNewTabViewWide: 0
     }
 
     FocusScope {
@@ -230,7 +230,7 @@ BrowserView {
             }
 
             sourceComponent: browser.incognito ? newPrivateTabView :
-                             (browser.wide ? newTabLandscapeView : newTabView)
+                             (browser.wide ? newTabViewWide : newTabView)
 
             Component {
                 id: newTabView
@@ -256,9 +256,9 @@ BrowserView {
             }
 
             Component {
-                id: newTabLandscapeView
+                id: newTabViewWide
 
-                NewTabLandscapeView {
+                NewTabViewWide {
                     anchors.fill: parent
                     historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel

@@ -23,13 +23,13 @@ import webbrowserapp.private 0.1
 import ".."
 
 FocusScope {
-    id: newTabViewLandscape
+    id: newTabViewWide
 
     property QtObject bookmarksModel
     property alias historyModel: historyTimeframeModel.sourceModel
     property QtObject settingsObject
     property alias selectedIndex: sections.selectedIndex
-    property bool inBookmarksView: newTabViewLandscape.selectedIndex === 1
+    property bool inBookmarksView: newTabViewWide.selectedIndex === 1
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
@@ -66,7 +66,7 @@ FocusScope {
         Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, folders.model.count - 1)
         Keys.onUpPressed: {
             if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
-            else newTabViewLandscape.releasingKeyboardFocus()
+            else newTabViewWide.releasingKeyboardFocus()
         }
         onActiveFocusChanged: {
             if (activeFocus) {
@@ -85,7 +85,7 @@ FocusScope {
 
         currentIndex: 0
         model: BookmarksFolderListModel {
-            sourceModel: newTabViewLandscape.bookmarksModel
+            sourceModel: newTabViewWide.bookmarksModel
         }
 
         delegate: ListItem {
@@ -136,7 +136,7 @@ FocusScope {
             var items = []
             if (folders.currentItem.isAllBookmarksFolder) items.push({
                 title: i18n.tr("Homepage"),
-                url: newTabViewLandscape.settingsObject.homepage
+                url: newTabViewWide.settingsObject.homepage
             })
 
             if (!folders.currentItem.model) return null
@@ -148,7 +148,7 @@ FocusScope {
 
         currentIndex: 0
 
-        delegate: UrlDelegateLandscape {
+        delegate: UrlDelegateWide {
             objectName: "bookmarkItem"
             title: modelData.title
             icon: modelData.icon ? modelData.icon : ""
@@ -156,17 +156,17 @@ FocusScope {
             removable: !folders.currentItem.isAllBookmarksFolder || index > 0
             highlighted: bookmarksList.activeFocus && ListView.isCurrentItem
 
-            onClicked: newTabViewLandscape.bookmarkClicked(url)
-            onRemoved: newTabViewLandscape.bookmarkRemoved(url)
+            onClicked: newTabViewWide.bookmarkClicked(url)
+            onRemoved: newTabViewWide.bookmarkRemoved(url)
         }
 
-        Keys.onReturnPressed: newTabViewLandscape.bookmarkClicked(currentItem.url)
-        Keys.onDeletePressed: if (currentItem.removable) newTabViewLandscape.bookmarkRemoved(currentItem.url)
+        Keys.onReturnPressed: newTabViewWide.bookmarkClicked(currentItem.url)
+        Keys.onDeletePressed: if (currentItem.removable) newTabViewWide.bookmarkRemoved(currentItem.url)
         Keys.onLeftPressed: folders.focus = true
         Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, model.length - 1)
         Keys.onUpPressed: {
             if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
-            else newTabViewLandscape.releasingKeyboardFocus()
+            else newTabViewWide.releasingKeyboardFocus()
         }
     }
 
@@ -185,23 +185,23 @@ FocusScope {
         currentIndex: 0
 
         model: topSitesModel
-        delegate: UrlDelegateLandscape {
+        delegate: UrlDelegateWide {
             objectName: "topSiteItem"
             title: model.title
             icon: model.icon
             url: model.url
             highlighted: topSitesList.activeFocus && ListView.isCurrentItem
 
-            onClicked: newTabViewLandscape.historyEntryClicked(url)
-            onRemoved: newTabViewLandscape.historyModel.hide(url)
+            onClicked: newTabViewWide.historyEntryClicked(url)
+            onRemoved: newTabViewWide.historyModel.hide(url)
         }
 
-        Keys.onReturnPressed: newTabViewLandscape.historyEntryClicked(currentItem.url)
-        Keys.onDeletePressed: newTabViewLandscape.historyModel.hide(currentItem.url)
+        Keys.onReturnPressed: newTabViewWide.historyEntryClicked(currentItem.url)
+        Keys.onDeletePressed: newTabViewWide.historyModel.hide(currentItem.url)
         Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, model.count - 1)
         Keys.onUpPressed: {
             if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
-            else newTabViewLandscape.releasingKeyboardFocus()
+            else newTabViewWide.releasingKeyboardFocus()
         }
     }
 
@@ -224,9 +224,9 @@ FocusScope {
                 leftMargin: units.gu(1)
             }
 
-            selectedIndex: settingsObject.selectedIndexNewTabViewLandscape
+            selectedIndex: settingsObject.selectedIndexNewTabViewWide
             onSelectedIndexChanged: {
-                settingsObject.selectedIndexNewTabViewLandscape = selectedIndex
+                settingsObject.selectedIndexNewTabViewWide = selectedIndex
                 if (selectedIndex === 0) topSitesList.focus = true
                 else {
                     if (lastFocusedBookmarksColumn) lastFocusedBookmarksColumn.focus = true

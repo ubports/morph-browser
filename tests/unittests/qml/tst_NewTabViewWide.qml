@@ -42,18 +42,18 @@ Item {
         }
     }
 
-    property NewTabLandscapeView view
+    property NewTabViewWide view
     property var bookmarks
     property var history
     property string homepage: "http://example.com/homepage"
 
     Component {
         id: viewComponent
-        NewTabLandscapeView {
+        NewTabViewWide {
             anchors.fill: parent
             settingsObject: QtObject {
                 property url homepage: root.homepage
-                property int selectedIndexNewTabViewLandscape: 0
+                property int selectedIndexNewTabViewWide: 0
             }
             bookmarksModel: bookmarks
             historyModel: history
@@ -81,7 +81,7 @@ Item {
     }
 
     UbuntuTestCase {
-        name: "NewTabLandscapeView"
+        name: "NewTabViewWide"
         when: windowShown
 
         function init() {

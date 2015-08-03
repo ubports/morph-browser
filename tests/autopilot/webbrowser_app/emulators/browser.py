@@ -131,7 +131,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_new_tab_view(self):
         if self.wide:
-            return self.wait_select_single("NewTabLandscapeView", visible=True)
+            return self.wait_select_single("NewTabViewWide", visible=True)
         else:
             return self.wait_select_single("NewTabView", visible=True)
 
@@ -434,7 +434,7 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("Label", objectName="notopsites")
 
 
-class NewTabLandscapeView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_bookmarks_list(self):
         sections = self.select_single(uitk.Sections)
@@ -442,7 +442,7 @@ class NewTabLandscapeView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
             sections.click_section_button(1)
         list = self.select_single(uitk.QQuickListView,
                                   objectName="bookmarksList")
-        return sorted(list.select_many("UrlDelegateLandscape",
+        return sorted(list.select_many("UrlDelegateWide",
                       objectName="bookmarkItem"),
                       key=lambda delegate: delegate.globalRect.y)
 
@@ -452,7 +452,7 @@ class NewTabLandscapeView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
             sections.click_section_button(0)
         list = self.select_single(uitk.QQuickListView,
                                   objectName="topSitesList")
-        return sorted(list.select_many("UrlDelegateLandscape",
+        return sorted(list.select_many("UrlDelegateWide",
                       objectName="topSiteItem"),
                       key=lambda delegate: delegate.globalRect.y)
 
@@ -472,7 +472,7 @@ class UrlDelegate(uitk.UCListItem):
     pass
 
 
-class UrlDelegateLandscape(uitk.UCListItem):
+class UrlDelegateWide(uitk.UCListItem):
 
     pass
 
