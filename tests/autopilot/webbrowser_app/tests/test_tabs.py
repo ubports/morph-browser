@@ -34,6 +34,8 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     def setUp(self):
         super(TestTabsView, self).setUp()
+        if self.main_window.wide:
+            self.skipTest("Only on narrow form factors")
         self.open_tabs_view()
 
     def test_tabs_model(self):
@@ -55,6 +57,10 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
     def test_close_last_open_tab(self):
         tabs_view = self.main_window.get_tabs_view()
         tabs_view.get_previews()[0].close()
+        if model() == 'Desktop':
+            # On desktop, closing the last open tab exits the application
+            self.app.process.wait()
+            return
         tabs_view.visible.wait_for(False)
         self.assert_number_webviews_eventually(1)
         self.main_window.get_new_tab_view()
@@ -92,14 +98,12 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         new_tab_view.wait_until_destroyed()
         self.check_current_tab(url)
 
-        self.open_tabs_view()
-        tabs_view = self.main_window.get_tabs_view()
+        tabs_view = self.open_tabs_view()
         tabs_view.get_previews()[1].select()
         tabs_view.visible.wait_for(False)
         self.check_current_tab(self.url)
 
-        self.open_tabs_view()
-        tabs_view = self.main_window.get_tabs_view()
+        tabs_view = self.open_tabs_view()
         tabs_view.get_previews()[1].select()
         tabs_view.visible.wait_for(False)
         self.check_current_tab(url)
@@ -110,8 +114,7 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         error = self.main_window.get_error_sheet()
         self.assertThat(error.visible, Eventually(Equals(True)))
 
-        self.open_tabs_view()
-        tabs_view = self.main_window.get_tabs_view()
+        tabs_view = self.open_tabs_view()
         tabs_view.get_previews()[1].select()
         tabs_view.visible.wait_for(False)
         self.assertThat(error.visible, Eventually(Equals(False)))
@@ -149,6 +152,8 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(2)
 
     def test_selecting_tab_focuses_webview(self):
+        if self.main_window.wide:
+            self.skipTest("Only on narrow form factors")
         tabs_view = self.open_tabs_view()
         tabs_view.get_previews()[0].select()
         tabs_view.visible.wait_for(False)
@@ -156,7 +161,8 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         webview.activeFocus.wait_for(True)
 
     def test_webview_requests_close(self):
-        self.open_tabs_view()
+        if not self.main_window.wide:
+            self.open_tabs_view()
         self.open_new_tab()
         url = self.base_url + "/closeself"
         self.main_window.go_to_url(url)
@@ -168,14 +174,26 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(1)
 
     def test_last_webview_requests_close(self):
-        tabs_view = self.open_tabs_view()
-        tabs_view.get_previews()[0].close()
-        tabs_view.visible.wait_for(False)
+        if not self.main_window.wide:
+            self.open_tabs_view()
+        self.open_new_tab()
         url = self.base_url + "/closeself"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().close_tab(0)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[1].close()
+            toolbar = self.main_window.get_recent_view_toolbar()
+            toolbar.click_button("doneButton")
+            tabs_view.visible.wait_for(False)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
+        if model() == 'Desktop':
+            # On desktop, closing the last open tab exits the application
+            self.app.process.wait()
+            return
         webview.wait_until_destroyed()
         self.assert_number_webviews_eventually(1)
         self.main_window.get_new_tab_view()

@@ -29,8 +29,8 @@ Window {
 
     contentOrientation: Screen.orientation
 
-    width: 800
-    height: 600
+    width: units.gu(100)
+    height: units.gu(75)
 
     QtObject {
         id: internal

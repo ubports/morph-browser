@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2014 Canonical
+# Copyright 2014-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -20,10 +20,7 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestGeolocation(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
-        super(TestGeolocation, self).setUp()
-        url = self.base_url + "/geolocation"
-        self.main_window.go_to_url(url)
-        self.main_window.wait_until_page_loaded(url)
+        super(TestGeolocation, self).setUp(path="/geolocation")
         self.dialog = self.main_window.get_geolocation_dialog()
 
     def tearDown(self):

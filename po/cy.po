@@ -1,0 +1,778 @@
+# Welsh translation for webbrowser-app
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
+# This file is distributed under the same license as the webbrowser-app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webbrowser-app\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2015-07-31 09:47+0200\n"
+"PO-Revision-Date: 2015-07-27 14:09+0000\n"
+"Last-Translator: Owen Llywelyn <owen.llywelyn@gmail.com>\n"
+"Language-Team: Welsh <cy@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : (n != 8 && n != 11) ? "
+"2 : 3;\n"
+"X-Launchpad-Export-Date: 2015-08-01 05:43+0000\n"
+"X-Generator: Launchpad (build 17656)\n"
+
+#: src/app/AlertDialog.qml:23
+msgid "JavaScript Alert"
+msgstr "Rhybudd JavaScript"
+
+#: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
+#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
+msgid "OK"
+msgstr "Iawn"
+
+#: src/app/AuthenticationDialog.qml:24
+msgid "Authentication required."
+msgstr "Angen dilysiad."
+
+#. TRANSLATORS: %1 refers to the URL of the current website
+#: src/app/AuthenticationDialog.qml:26
+#, qt-format
+msgid "The website %1 requires authentication."
+msgstr "Mae angen dilysiad ar wefan  %1"
+
+#: src/app/AuthenticationDialog.qml:34
+msgid "Username"
+msgstr "Enw Defnyddiwr"
+
+#: src/app/AuthenticationDialog.qml:41
+msgid "Password"
+msgstr "Cyfrinair"
+
+#: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/HistoryView.qml:165
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
+#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webcontainer/AccountChooserDialog.qml:96
+msgid "Cancel"
+msgstr "Diddymu"
+
+#: src/app/BeforeUnloadDialog.qml:23
+msgid "Confirm Navigation"
+msgstr "Cadarnhau Llywio"
+
+#: src/app/BeforeUnloadDialog.qml:26
+msgid "Leave"
+msgstr "Gadael"
+
+#: src/app/BeforeUnloadDialog.qml:31
+msgid "Stay"
+msgstr "Aros"
+
+#: src/app/CertificateVerificationDialog.qml:24
+msgid "This connection is untrusted"
+msgstr "Mae'r cysylltiad hwn yn annibynadwy"
+
+#. TRANSLATORS: %1 refers to the hostname
+#: src/app/CertificateVerificationDialog.qml:26
+#, qt-format
+msgid ""
+"You are trying to securely reach %1, but the security certificate of this "
+"website is not trusted."
+msgstr ""
+"Rydych yn ceisio cyrraedd %1 yn ddiogel ond mae tystysgrif diogelwch y wefan "
+"yn annibynadwy."
+
+#: src/app/CertificateVerificationDialog.qml:29
+#: src/app/InvalidCertificateErrorSheet.qml:160
+msgid "Proceed anyway"
+msgstr "Parhau beth bynnag"
+
+#: src/app/CertificateVerificationDialog.qml:35
+#: src/app/InvalidCertificateErrorSheet.qml:173
+msgid "Back to safety"
+msgstr "Nôl i le diogel"
+
+#: src/app/ConfirmDialog.qml:23
+msgid "JavaScript Confirmation"
+msgstr "Cadarnhad JavaScript"
+
+#: src/app/ErrorSheet.qml:36
+msgid "Network Error"
+msgstr "Gwall Rhwydwaith"
+
+#. TRANSLATORS: %1 refers to the URL of the current page
+#: src/app/ErrorSheet.qml:42
+#, qt-format
+msgid "It appears you are having trouble viewing: %1."
+msgstr "Mae'n debyg eich bod yn cael trafferth gweld: %1."
+
+#: src/app/ErrorSheet.qml:48
+msgid ""
+"Ubuntu suggests you check your network settings and try refreshing the page."
+msgstr ""
+"Mae Ubuntu yn awgrymu y dylech wirio'ch cysylltiad rhwydwaith ac adnewyddu'r "
+"dudalen."
+
+#: src/app/ErrorSheet.qml:53
+msgid "Refresh page"
+msgstr "Adnewyddu tudalen"
+
+#: src/app/FilePickerDialog.qml:28
+msgid "Please choose a file"
+msgstr "Dewiswch ffeil"
+
+#: src/app/GeolocationPermissionRequest.qml:28
+msgid "Permission Request"
+msgstr "Cais Caniatâd"
+
+#: src/app/GeolocationPermissionRequest.qml:29
+msgid "This page wants to know your device’s location."
+msgstr "Mae'r dudalen hon eisiau gwybod lleoliad eich dyfais."
+
+#: src/app/GeolocationPermissionRequest.qml:33
+msgid "Deny"
+msgstr "Gwrthod"
+
+#: src/app/GeolocationPermissionRequest.qml:43
+msgid "Allow"
+msgstr "Caniatáu"
+
+#: src/app/InvalidCertificateErrorSheet.qml:55
+msgid "This site security certificate is not trusted.\n"
+msgstr "Nid yw tystysgrif diogelwch y dudalen hon yn ddibynadwy.\n"
+
+#: src/app/InvalidCertificateErrorSheet.qml:63
+msgid "Learn more"
+msgstr "Dysgu rhagor"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's serial number
+#: src/app/InvalidCertificateErrorSheet.qml:87
+#, qt-format
+msgid ""
+"Serial number:\n"
+"%1"
+msgstr ""
+"Rhif cyfresol:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject display name
+#: src/app/InvalidCertificateErrorSheet.qml:94
+#, qt-format
+msgid ""
+"Subject:\n"
+"%1"
+msgstr ""
+"Goddrych:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's subject's address
+#: src/app/InvalidCertificateErrorSheet.qml:102
+#, qt-format
+msgid ""
+"Subject address:\n"
+"%1"
+msgstr ""
+"Cyfeiriad goddrych:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
+#: src/app/InvalidCertificateErrorSheet.qml:113
+#, qt-format
+msgid ""
+"Issuer:\n"
+"%1"
+msgstr ""
+"Cyhoeddwr:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
+#: src/app/InvalidCertificateErrorSheet.qml:121
+#, qt-format
+msgid ""
+"Issuer address:\n"
+"%1"
+msgstr ""
+"Cyfeiriad cyhoeddwr:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's start date
+#: src/app/InvalidCertificateErrorSheet.qml:132
+#, qt-format
+msgid ""
+"Valid from:\n"
+"%1"
+msgstr ""
+"Yn ddilys o:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's expiry date
+#: src/app/InvalidCertificateErrorSheet.qml:139
+#, qt-format
+msgid ""
+"Valid until:\n"
+"%1"
+msgstr ""
+"Yn ddilys tan:\n"
+"%1"
+
+#. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
+#: src/app/InvalidCertificateErrorSheet.qml:146
+#, qt-format
+msgid ""
+"Fingerprint (SHA1):\n"
+"%1"
+msgstr ""
+"Ôl bys (SHA1):\n"
+"%1"
+
+#: src/app/InvalidCertificateErrorSheet.qml:153
+msgid ""
+"You should not proceed, especially if you have never seen this warning "
+"before for this site."
+msgstr ""
+"Ni ddyliech barhau, yn enwedig os nad ydych wedi gweld y rhybudd hwn o'r "
+"blaen ar gyfer y safle hon."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:187
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which does not match the identity of the site."
+msgstr ""
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"sydd ddim yn cydweddu â hunaniaeth y safle."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:190
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which has expired."
+msgstr ""
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"sydd wedi dod i ben."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:193
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"which contains invalid dates."
+msgstr ""
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"sy'n cynnwys dyddiadau annilys."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:196
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"issued by an entity that is not trusted."
+msgstr ""
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"gan endid nad oes modd ymddiried ynddo."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:199
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented a security certificate "
+"that has been revoked."
+msgstr ""
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"sydd wedi ei dirymu."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:202
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an invalid security "
+"certificate."
+msgstr ""
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"annilys."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:205
+#, qt-format
+msgid ""
+"You attempted to reach %1 but the server presented an insecure security "
+"certificate."
+msgstr ""
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"anniogel."
+
+#. TRANSLATORS: %1 refers to the domain name of the SSL certificate
+#: src/app/InvalidCertificateErrorSheet.qml:208
+#, qt-format
+msgid ""
+"This site security certificate is not trusted\n"
+"You attempted to reach %1 but the server presented a security certificate "
+"which failed our security checks for an unknown reason."
+msgstr ""
+"Does dim modd ymddiried yn nhystysgrif diogelwch y safle.\n"
+"Fe geisioch chi gyrraedd %1 ond cyflwynodd y gweinydd dystystrif diogelwch "
+"fethodd ein gwiriad diogelwch am reswm anhysbys."
+
+#: src/app/PromptDialog.qml:23
+msgid "JavaScript Prompt"
+msgstr "Proc JavaScript"
+
+#: src/app/ProxyAuthenticationDialog.qml:22
+msgid "Proxy authentication required."
+msgstr "Angen dilysiad dirprwy"
+
+#. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
+#: src/app/ProxyAuthenticationDialog.qml:24
+#, qt-format
+msgid "The website %1:%2 requires authentication."
+msgstr "Mae angen dilysiad ar wefan  %1:%2"
+
+#: src/app/actions/Back.qml:23
+msgid "Back"
+msgstr "Nôl"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Back.qml:26
+msgid "Older Page"
+msgstr "Tudalen Hŷn"
+
+#: src/app/actions/Bookmark.qml:23
+msgid "Bookmark"
+msgstr "Nod Tudalen"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Bookmark.qml:26
+msgid "Add This Page to Bookmarks"
+msgstr "Ychwanegu Nod Tudalen i'r dudalen hon"
+
+#: src/app/actions/BookmarkLink.qml:22
+msgid "Bookmark link"
+msgstr "Dolen Nod Tudalen"
+
+#: src/app/actions/ClearHistory.qml:23
+msgid "Clear History"
+msgstr "Clirio Hanes"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/ClearHistory.qml:26
+msgid "Clear Navigation History"
+msgstr "Clirio Hanes Llywio"
+
+#: src/app/actions/Copy.qml:22
+msgid "Copy"
+msgstr "Copïo"
+
+#: src/app/actions/CopyImage.qml:22
+msgid "Copy image"
+msgstr "Copïo delwedd"
+
+#: src/app/actions/CopyLink.qml:22
+msgid "Copy link"
+msgstr "Copïo dolen"
+
+#: src/app/actions/Forward.qml:23
+msgid "Forward"
+msgstr "Ymlaen"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Forward.qml:26
+msgid "Newer Page"
+msgstr "Tudalen Mwy Newydd"
+
+#: src/app/actions/GoTo.qml:23
+msgid "Goto"
+msgstr "Mynd i"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/GoTo.qml:26
+msgid "Address;URL;www"
+msgstr "Cyfeiriad;URL;www"
+
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:574
+msgid "New Tab"
+msgstr "Tab Newydd"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/NewTab.qml:26
+msgid "Open a New Tab"
+msgstr "Agor Tab Newydd"
+
+#: src/app/actions/OpenImageInNewTab.qml:22
+msgid "Open image in new tab"
+msgstr "Agor delwedd mewn tab newydd"
+
+#: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
+msgid "Open link in new background tab"
+msgstr "Agor dolen mewn tab cefndir newydd"
+
+#: src/app/actions/OpenLinkInNewTab.qml:22
+msgid "Open link in new tab"
+msgstr "Agor dolen mewn tab newydd"
+
+#: src/app/actions/Reload.qml:23
+msgid "Reload"
+msgstr "Ail-lwytho"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/Reload.qml:26
+msgid "Leave Page"
+msgstr "Gadael tudalen"
+
+#: src/app/actions/SaveImage.qml:22
+msgid "Save image"
+msgstr "Cadw delwedd"
+
+#: src/app/actions/ShareLink.qml:22
+msgid "Share…"
+msgstr "Rhannu..."
+
+#: src/app/webbrowser/AddressBar.qml:208
+msgid "search or enter an address"
+msgstr "chwiliwch neu rowch gyfeiriad"
+
+#: src/app/webbrowser/BookmarkOptions.qml:48
+msgid "Bookmark Added"
+msgstr "Ychwanegwyd Nod Tudalen"
+
+#. TRANSLATORS: Field where the title of bookmarked URL can be changed
+#: src/app/webbrowser/BookmarkOptions.qml:53
+msgid "Name"
+msgstr "Enw"
+
+#. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
+#: src/app/webbrowser/BookmarkOptions.qml:71
+msgid "Save in"
+msgstr "Cadw yn"
+
+#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarksFolderListView.qml:115
+msgid "All Bookmarks"
+msgstr "Pob Nod Tudalen"
+
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
+msgid "New Folder"
+msgstr "Plygell Newydd"
+
+#: src/app/webbrowser/BookmarkOptions.qml:115
+msgid "Create new folder"
+msgstr "Creu plygell newydd"
+
+#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/SettingsPage.qml:311
+msgid "Save"
+msgstr "Cadw"
+
+#: src/app/webbrowser/Browser.qml:292
+msgid "Share"
+msgstr "Rhannu"
+
+#: src/app/webbrowser/Browser.qml:299
+msgid "History"
+msgstr "Hanes"
+
+#: src/app/webbrowser/Browser.qml:309
+msgid "Open tabs"
+msgstr "Agor tabiau"
+
+#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/TabsList.qml:85
+msgid "New tab"
+msgstr "Tab newydd"
+
+#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
+msgid "Settings"
+msgstr "Gosodiadau"
+
+#: src/app/webbrowser/Browser.qml:336
+msgid "Leave Private Mode"
+msgstr "Gadael Modd Preifat"
+
+#: src/app/webbrowser/Browser.qml:336
+msgid "Private Mode"
+msgstr "Modd Preifat"
+
+#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/HistoryView.qml:108
+msgid "Done"
+msgstr "Cwblhawyd"
+
+#. TRANSLATORS: %1 refers to the current number of tabs opened
+#: src/app/webbrowser/Browser.qml:658
+#, qt-format
+msgid "(%1)"
+msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:941
+msgid "Swipe Up To Exit Full Screen"
+msgstr "Traw i Fyny i Adael Sgrîn Lawn"
+
+#: src/app/webbrowser/Browser.qml:942
+msgid "Press ESC To Exit Full Screen"
+msgstr "Pwyswch ESC i Adael Sgrîn Lawn"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:103
+#, qt-format
+msgid "%1 page"
+msgid_plural "%1 pages"
+msgstr[0] "%1 tudalen"
+msgstr[1] "%1 tudalen"
+msgstr[2] "%1 tudalen"
+msgstr[3] "%1 tudalen"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/NewTabView.qml:123
+msgid "Less"
+msgstr "Llai"
+
+#: src/app/webbrowser/HistorySectionDelegate.qml:44
+msgid "Last Visited"
+msgstr "Ymwelwyd Ddiwethaf"
+
+#: src/app/webbrowser/HistorySectionDelegate.qml:46
+msgid "Yesterday"
+msgstr "Ddoe"
+
+#: src/app/webbrowser/HistoryView.qml:180
+msgid "Select all"
+msgstr "Dewis popeth"
+
+#: src/app/webbrowser/HistoryView.qml:210
+msgid "Delete"
+msgstr "Dileu"
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
+msgid "Going to public mode will close all private tabs"
+msgstr "Bydd symud i modd cyhoeddus yn cau pob tab preifat"
+
+#: src/app/webbrowser/NewPrivateTabView.qml:41
+msgid "This is a private tab"
+msgstr "Tab preifat yw hwn"
+
+#: src/app/webbrowser/NewPrivateTabView.qml:56
+msgid ""
+"Pages that you view in this tab won't appear in your browser history.\n"
+"Bookmarks you create will be preserved, however."
+msgstr ""
+"Ni fydd tudalennau y porwch chi yn y tab hwn yn ymddangos yn hanes eich "
+"porwr.\n"
+"Bydd nodau tudalen yr ydych yn eu creu yn cael eu cadw serch hynny."
+
+#: src/app/webbrowser/NewTabView.qml:108
+msgid "Bookmarks"
+msgstr "Nodau Tudalen"
+
+#: src/app/webbrowser/NewTabView.qml:123
+msgid "More"
+msgstr "Mwy"
+
+#: src/app/webbrowser/NewTabView.qml:226
+msgid "Top sites"
+msgstr "Prif safleoedd"
+
+#: src/app/webbrowser/NewTabView.qml:257
+msgid "You haven't visited any site yet"
+msgstr "Nid ydych wedi ymweld â safle eto"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:69
+msgid "This site has insecure content"
+msgstr "Mae cynnwys y safle hwn yn anniogel"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:70
+msgid "Identity Not Verified"
+msgstr "Heb Ddilysu Hunaniaeth"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:78
+msgid "The identity of this website has not been verified."
+msgstr "Nid yw hunaniaeth y wefan hon wedi'i dilysu."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:89
+msgid "Server certificate does not match the identity of the site."
+msgstr "Nid yw tystysgrif y gweinydd yn cydweddu â'r safle."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:91
+msgid "Server certificate has expired."
+msgstr "Tystysgrif y gweinydd wedi dod i ben."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:93
+msgid "Server certificate contains invalid dates."
+msgstr "Tystysgrif y gweinydd yn cynnwys dyddiadau annilys."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:95
+msgid "Server certificate is issued by an entity that is not trusted."
+msgstr "Darparwyd tystysgrif y gweinydd gan endid annibynadwy."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:97
+msgid "Server certificate has been revoked."
+msgstr "Tystysgrif y gweinydd wedi'i ddirymu."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:99
+msgid "Server certificate is invalid."
+msgstr "Tystysgrif y gweinydd yn annilys."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:101
+msgid "Server certificate is insecure."
+msgstr "Tystysgrif y gweinydd yn anniogel."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:103
+msgid "Server certificate failed our security checks for an unknown reason."
+msgstr ""
+"Methodd tystysgrif y gweinydd ein gwiriad diogelwch am reswm anhysbys."
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:126
+msgid "You are connected to"
+msgstr "Rydych wedi cysylltu â"
+
+#: src/app/webbrowser/SecurityCertificatePopover.qml:148
+msgid "Which is run by"
+msgstr "Sy'n cael ei redeg gan"
+
+#: src/app/webbrowser/SettingsPage.qml:81
+#: src/app/webbrowser/SettingsPage.qml:176
+msgid "Search engine"
+msgstr "Peiriant chwilio"
+
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:275
+msgid "Homepage"
+msgstr "Tudalen Gartref"
+
+#: src/app/webbrowser/SettingsPage.qml:101
+msgid "Restore previous session at startup"
+msgstr "Adfer y sesiwn flaenorol wrth gychwyn"
+
+#: src/app/webbrowser/SettingsPage.qml:119
+msgid "Allow opening new tabs in background"
+msgstr "Caniatáu agor tabiau newydd yn y cefndir"
+
+#: src/app/webbrowser/SettingsPage.qml:138
+#: src/app/webbrowser/SettingsPage.qml:228
+msgid "Privacy"
+msgstr "Preifatrwydd"
+
+#: src/app/webbrowser/SettingsPage.qml:146
+msgid "Reset browser settings"
+msgstr "Ailosod gosodiadau porwr"
+
+#: src/app/webbrowser/SettingsPage.qml:249
+msgid "Clear Browsing History"
+msgstr "Clirio Hanes Pori"
+
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:256
+msgid "Clear Cache"
+msgstr "Gwagio'r Celc"
+
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr ""
+
+#: src/app/webbrowser/TabPreview.qml:99
+msgid "Tap to view"
+msgstr "Tapiwch i weld"
+
+#. TRANSLATORS: %1 refers to the current page’s title
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:68
+#, qt-format
+msgid "%1 - Ubuntu Web Browser"
+msgstr "%1 - Porwr Gwe Ubuntu"
+
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:70
+msgid "Ubuntu Web Browser"
+msgstr "Porwr Gwe Ubuntu"
+
+#: src/app/webcontainer/AccountChooserDialog.qml:62
+msgid ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
+msgstr ""
+"Does dim cyfrifon wedi'u cysylltu â'r ap hwn; gwasgwch yr eitem isod i "
+"ychwanegu cyfrif."
+
+#: src/app/webcontainer/AccountChooserDialog.qml:78
+msgid "Add account"
+msgstr "Ychwanegu cyfrif"
+
+#: src/app/webcontainer/AccountChooserDialog.qml:87
+msgid "Don't use an account"
+msgstr "Peidio defnyddio cyfrif"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:39
+msgid "Account error"
+msgstr "Gwall cyfrif"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:50
+msgid "Close"
+msgstr "Cau"
+
+#: src/app/webcontainer/AccountsLogic.qml:63
+msgid ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
+msgstr ""
+"Methwyd agor ffenestr cyfrif. Dim ond un cyfrif allwch chi greu ar y tro; "
+"ceisiwch eto ar ôl cau pob ffenestr cyfrif arall."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:45
+#, qt-format
+msgid "<b>%1</b> needs to access your %2 online account."
+msgstr "Mae <b>%1</b> angen mynediad at eich cyfrif arlein %2"
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:55
+#, qt-format
+msgid "<b>%1</b> would like to access your %2 online account."
+msgstr "Mae <b>%1</b> eisiau mynediad at eich cyfrif arlein %2"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:64
+msgid ""
+"Choose an account now, or skip this step and choose an online account later."
+msgstr ""
+"Dewiswch gyfrif nawr, neu neidio'r cam hwn a dewis cyfrif arlein wedyn."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Close the app"
+msgstr "Cau'r ap"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Skip"
+msgstr "Neidio"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:84
+msgid "Choose account"
+msgstr "Dewiswch gyfrif"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
+msgid "Browser"
+msgstr "Porwr"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
+msgid "Web Browser"
+msgstr "Porwr Gwe"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
+msgid "Browse the World Wide Web"
+msgstr "Pori'r We Fyd Eang"
+
+#: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
+msgid "Internet;WWW;Browser;Web;Explorer"
+msgstr "Rhyngrwyd;WWW;Porwr;Gwe;Fforiwr"

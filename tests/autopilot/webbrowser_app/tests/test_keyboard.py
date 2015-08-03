@@ -120,6 +120,8 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.check_tab_number(0)
 
     def test_switch_tabs_from_tabs_view(self):
+        if self.main_window.wide:
+            self.skipTest("Only on narrow form factors")
         self.open_tabs(1)
         self.check_tab_number(1)
         tabs = self.open_tabs_view()
@@ -139,8 +141,12 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+F4')
         self.check_tab_number(0)
         self.main_window.press_key('Ctrl+F4')
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.url, Equals(""))
+        if model() == 'Desktop':
+            # On desktop, closing the last open tab exits the application
+            self.app.process.wait()
+        else:
+            webview = self.main_window.get_current_webview()
+            self.assertThat(webview.url, Equals(""))
 
     def test_close_tabs_ctrl_w(self):
         self.open_tabs(1)
@@ -148,18 +154,28 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+w')
         self.check_tab_number(0)
         self.main_window.press_key('Ctrl+w')
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.url, Equals(""))
+        if model() == 'Desktop':
+            # On desktop, closing the last open tab exits the application
+            self.app.process.wait()
+        else:
+            webview = self.main_window.get_current_webview()
+            self.assertThat(webview.url, Equals(""))
 
     def test_close_tabs_tabs_view(self):
+        if self.main_window.wide:
+            self.skipTest("Only on narrow form factors")
         self.open_tabs(1)
         self.check_tab_number(1)
         self.open_tabs_view()
         self.main_window.press_key('Ctrl+w')
         self.check_tab_number(0)
         self.main_window.press_key('Ctrl+F4')
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.url, Equals(""))
+        if model() == 'Desktop':
+            # On desktop, closing the last open tab exits the application
+            self.app.process.wait()
+        else:
+            webview = self.main_window.get_current_webview()
+            self.assertThat(webview.url, Equals(""))
 
     def test_select_address_bar_ctrl_l(self):
         self.main_window.press_key('Ctrl+L')

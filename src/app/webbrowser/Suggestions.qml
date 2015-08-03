@@ -69,8 +69,8 @@ FocusScope {
             width: suggestionsList.width
             showDivider: index < model.length - 1
 
-            title: highlightTerms(modelData.title)
-            subtitle: modelData.displayUrl ? highlightTerms(modelData.url) : ""
+            title: selected ? modelData.title : highlightTerms(modelData.title)
+            subtitle: modelData.displayUrl ? (selected ? modelData.url : highlightTerms(modelData.url)) : ""
             icon: modelData.icon
             selected: suggestionsList.activeFocus && ListView.isCurrentItem
 
@@ -98,7 +98,7 @@ FocusScope {
         }
         var highlighted = text.toString()
         var count = searchTerms.length
-        var highlight = '<b><font color="%1">$&</font></b>'.arg(UbuntuColors.orange)
+        var highlight = '<font color="%1">$&</font>'.arg("#752571")
         for (var i = 0; i < count; ++i) {
             var term = searchTerms[i]
             highlighted = highlighted.replace(escapeTerm(term), highlight)
