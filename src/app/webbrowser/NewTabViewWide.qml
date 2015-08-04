@@ -115,6 +115,10 @@ FocusScope {
         }
     }
 
+    Scrollbar {
+        flickableItem: folders
+    }
+
     ListView {
         id: bookmarksList
         objectName: "bookmarksList"
@@ -170,6 +174,10 @@ FocusScope {
         }
     }
 
+    Scrollbar {
+        flickableItem: bookmarksList
+    }
+
     ListView {
         id: topSitesList
         objectName: "topSitesList"
@@ -203,6 +211,10 @@ FocusScope {
             if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
             else newTabViewWide.releasingKeyboardFocus()
         }
+    }
+
+    Scrollbar {
+        flickableItem: topSitesList
     }
 
     Rectangle {
