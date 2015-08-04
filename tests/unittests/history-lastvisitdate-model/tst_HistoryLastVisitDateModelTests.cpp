@@ -98,6 +98,18 @@ private Q_SLOTS:
         model->setLastVisitDate(QDate(1970, 1, 1));
         QCOMPARE(model->rowCount(), 0);
     }
+
+    void shouldReturnDataByIndex()
+    {
+        history->add(QUrl("http://example.org"), "Example Domain", QUrl());
+        QTest::qWait(1001);
+        history->add(QUrl("http://example.com"), "Example Domain", QUrl());
+        QCOMPARE(model->rowCount(), 2);
+        QVariantMap entry = model->get(2);
+        QVERIFY(entry.isEmpty());
+        entry = model->get(1);
+        QCOMPARE(entry.value("url").toUrl(), QUrl("http://example.org"));
+    }
 };
 
 QTEST_MAIN(HistoryLastVisitDateModelTests)
