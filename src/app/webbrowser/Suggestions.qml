@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -47,7 +47,7 @@ FocusScope {
         focus: true
 
         model: models.reduce(function(list, model) {
-            var modelItems = [];
+            var modelItems = []
 
             // Models inheriting from QAbstractItemModel and JS arrays expose their
             // data differently, so we need to collect their items differently
@@ -60,9 +60,9 @@ FocusScope {
             modelItems.forEach(function(item) {
                 item["icon"] = model.icon
                 item["displayUrl"] = model.displayUrl
-                list.push(item);
+                list.push(item)
             })
-            return list;
+            return list
         }, [])
 
         delegate: Suggestion {
@@ -84,31 +84,25 @@ FocusScope {
     }
 
     function escapeTerm(term) {
-        // Build a regular expression suitable for highlighting a term
-        // in a case-insensitive manner and globally, by escaping
-        // special characters (a simpler version of preg_quote).
-        var escaped = term.replace(/[().?]/g, '\\$&')
-        return new RegExp(escaped, 'ig')
+        // Escape special characters in a search term
+        // (a simpler version of preg_quote).
+        return term.replace(/[().?+|*]/g, '\\$&')
     }
 
     function highlightTerms(text) {
-        // Highlight the matching terms (bold and Ubuntu orange)
+        // Highlight the matching terms in a case-insensitive manner
         if (text === undefined) {
             return ''
         }
-        var highlighted = text.toString()
-        var count = searchTerms.length
+        var termsRe = new RegExp(searchTerms.map(escapeTerm).join('|'), 'ig')
         var highlight = '<font color="%1">$&</font>'.arg("#752571")
-        for (var i = 0; i < count; ++i) {
-            var term = searchTerms[i]
-            highlighted = highlighted.replace(escapeTerm(term), highlight)
-        }
+        var highlighted = text.toString().replace(termsRe, highlight)
         highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
         highlighted = '<html>' + highlighted + '</html>'
         return highlighted
     }
 
     function countItems(total, model) {
-        return total + (model.hasOwnProperty("length") ? model.length : model.count);
+        return total + (model.hasOwnProperty("length") ? model.length : model.count)
     }
 }
