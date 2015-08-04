@@ -69,8 +69,6 @@ Item {
                 Keys.onUpPressed: {
                     if (currentIndex > -1) {
                         currentIndex--
-                    } else if (currentIndex == -1) {
-                        contentY = units.gu(4) * -1
                     }
                     event.accepted = true
                 }
@@ -84,6 +82,7 @@ Item {
                 onCurrentIndexChanged: {
                     if (currentIndex == -1) {
                         urlsListView.model = historyViewWide.historyModel
+                        contentY = units.gu(4) * -1
                     } else {
                         urlsListView.model = currentItem.entries
                     }
@@ -260,7 +259,6 @@ Item {
                         if (urlsListView.count == 1) {
                             historyViewWide.historyEntryRemoved(model.url)
                             lastVisitDateListView.currentIndex = -1
-                            urlsListView.model = historyViewWide.historyModel
                         } else {
                             historyViewWide.historyEntryRemoved(model.url)
                         }
