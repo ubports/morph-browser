@@ -18,21 +18,45 @@
 
 import QtQuick 2.0
 import QtTest 1.0
+import Ubuntu.Components 1.2
 import Ubuntu.Test 1.0
 import "../../../src/app/webbrowser"
 
 Item {
     id: root
 
-    width: 400
-    height: 400
+    width: 700
+    height: 500
 
     HistoryViewWide {
         id: historyViewWide
+        
+        property bool populatedModel: false
+
+        anchors.fill: parent
 
         historyModel: HistoryModel {
             id: historyModel
         }
+
+        Timer {
+            id: populateTimer
+
+            property int count: 0
+
+            interval: 1001
+            repeat: true
+            onTriggered: {
+                if (count == 4) {
+                    historyViewWide.populatedModel = true
+                    stop()
+                }
+                historyModel.add("http://example.org/" + count, "URL " + count, "")
+                count++
+            }
+        }
+
+        Component.onCompleted: populateTimer.start()
     }
 
     SignalSpy {
@@ -47,24 +71,25 @@ Item {
         signalName: "newTabRequested"
     }
 
+    SignalSpy {
+        id: historyEntryClickedSpy
+        target: historyViewWide
+        signalName: "historyEntryClicked"
+    }
+
     UbuntuTestCase {
         name: "HistoryViewWide"
-        when: windowShown
+        when: historyViewWide.populatedModel
 
         function clickItem(item) {
             var center = centerOf(item)
             mouseClick(item, center.x, center.y)
         }
 
-        function populateHistory() {
-            for (var i = 0; i < 5; ++i) {
-                historyModel.add("http://example.org/" + i, "URL " + i, "")
-            }
-            compare(historyModel.count, 5)
-        }
-
-        function init() {
-            populateHistory()
+        function longPressItem(item) {
+            var center = centerOf(item)
+            mousePress(item, center.x, center.y)
+            mouseRelease(item, center.x, center.y, Qt.LeftButton, Qt.NoModifier, 2000)
         }
 
         function test_done_button() {
@@ -86,6 +111,43 @@ Item {
             clickItem(newTabButton)
             compare(newTabRequestedSpy.count, 1)
             compare(doneSpy.count, 1)
+        }
+
+        function test_keyboard_navigation_between_lists() {
+            var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            verify(!lastVisitDateList.activeFocus)        
+            keyClick(Qt.Key_Left)
+            verify(lastVisitDateList.activeFocus)        
+            verify(!urlsList.activeFocus)        
+            keyClick(Qt.Key_Right)
+            verify(urlsList.activeFocus)        
+        }
+
+        function test_urls_list_click() {
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            compare(urlsList.count, 5)
+            var entry = urlsList.children[0]
+            historyEntryClickedSpy.clear()
+            compare(historyEntryClickedSpy.count, 0)
+            clickItem(entry)
+            compare(historyEntryClickedSpy.count, 1)
+        }
+
+        function test_urls_list_long_press() {
+            var backButton = findChild(historyViewWide, "backButton")
+            var selectButton = findChild(historyViewWide, "selectButton")
+            var deleteButton = findChild(historyViewWide, "deleteButton")
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            compare(urlsList.count, 5)
+            verify(!backButton.visible)
+            verify(!selectButton.visible)
+            verify(!deleteButton.visible)
+            var entry = urlsList.children[0]
+            longPressItem(entry)
+            verify(backButton.visible)
+            verify(selectButton.visible)
+            verify(deleteButton.visible)
         }
     }
 }

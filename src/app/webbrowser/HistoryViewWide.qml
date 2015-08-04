@@ -126,6 +126,8 @@ Item {
                 }
     
                 delegate: ListItem {
+                    objectName: "lastVisitDateDelegate"
+
                     property var entries: model.entries
     
                     anchors {
@@ -140,6 +142,8 @@ Item {
                     color: lastVisitDateListView.currentIndex == index ? highlightColor : "transparent"
     
                     Label {
+                        objectName: "lastVisitDateDelegateLabel"
+
                         anchors {
                             top: parent.top
                             left: parent.left
@@ -188,6 +192,8 @@ Item {
 
             ListView {
                 id: urlsListView
+                objectName: "urlsListView"
+
                 anchors.fill: parent
     
                 Keys.onReturnPressed: historyEntrySelected()
@@ -305,6 +311,8 @@ Item {
         }
 
         ToolbarAction {
+            objectName: "backButton"
+
             visible: urlsListView.ViewItems.selectMode 
 
             anchors {
@@ -324,6 +332,8 @@ Item {
         }
 
         ToolbarAction {
+            objectName: "selectButton"
+
             visible: urlsListView.ViewItems.selectMode
 
             anchors {
@@ -353,6 +363,7 @@ Item {
 
         ToolbarAction {
             id: deleteButton
+            objectName: "deleteButton"
 
             visible: urlsListView.ViewItems.selectMode
 
