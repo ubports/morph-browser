@@ -92,7 +92,7 @@ FocusScope {
         function escapeTerm(term) {
             // Escape special characters in a search term
             // (a simpler version of preg_quote).
-            return term.replace(/[().?+|*]/g, '\\$&')
+            return term.replace(/[().?+|*^]/g, '\\$&')
         }
 
         function highlightTerms(text) {
