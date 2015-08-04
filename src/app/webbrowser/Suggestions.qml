@@ -25,7 +25,7 @@ FocusScope {
     property var searchTerms
     property var models
 
-    readonly property int count: models.reduce(countItems, 0)
+    readonly property int count: models.reduce(internal.countItems, 0)
     readonly property alias contentHeight: suggestionsList.contentHeight
 
     signal activated(url url)
@@ -69,8 +69,8 @@ FocusScope {
             width: suggestionsList.width
             showDivider: index < model.length - 1
 
-            title: selected ? modelData.title : highlightTerms(modelData.title)
-            subtitle: modelData.displayUrl ? (selected ? modelData.url : highlightTerms(modelData.url)) : ""
+            title: selected ? modelData.title : internal.highlightTerms(modelData.title)
+            subtitle: modelData.displayUrl ? (selected ? modelData.url : internal.highlightTerms(modelData.url)) : ""
             icon: modelData.icon
             selected: suggestionsList.activeFocus && ListView.isCurrentItem
 
@@ -83,26 +83,31 @@ FocusScope {
         align: Qt.AlignTrailing
     }
 
-    function escapeTerm(term) {
-        // Escape special characters in a search term
-        // (a simpler version of preg_quote).
-        return term.replace(/[().?+|*]/g, '\\$&')
-    }
+    QtObject {
+        id: internal
 
-    function highlightTerms(text) {
-        // Highlight the matching terms in a case-insensitive manner
-        if (text === undefined) {
-            return ''
+        readonly property var termsRe: new RegExp(searchTerms.map(escapeTerm).join('|'), 'ig')
+        readonly property string highlight: '<font color="%1">$&</font>'.arg("#752571")
+
+        function escapeTerm(term) {
+            // Escape special characters in a search term
+            // (a simpler version of preg_quote).
+            return term.replace(/[().?+|*]/g, '\\$&')
         }
-        var termsRe = new RegExp(searchTerms.map(escapeTerm).join('|'), 'ig')
-        var highlight = '<font color="%1">$&</font>'.arg("#752571")
-        var highlighted = text.toString().replace(termsRe, highlight)
-        highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
-        highlighted = '<html>' + highlighted + '</html>'
-        return highlighted
-    }
 
-    function countItems(total, model) {
-        return total + (model.hasOwnProperty("length") ? model.length : model.count)
+        function highlightTerms(text) {
+            // Highlight the matching terms in a case-insensitive manner
+            if (text === undefined) {
+                return ''
+            }
+            var highlighted = text.toString().replace(termsRe, highlight)
+            highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
+            highlighted = '<html>' + highlighted + '</html>'
+            return highlighted
+        }
+
+        function countItems(total, model) {
+            return total + (model.hasOwnProperty("length") ? model.length : model.count)
+        }
     }
 }
