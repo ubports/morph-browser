@@ -45,10 +45,13 @@ FocusScope {
         }
     }
 
-    TopSitesModel {
+    LimitProxyModel {
         id: topSitesModel
-        sourceModel: HistoryTimeframeModel {
-            id: historyTimeframeModel
+        limit: 10
+        sourceModel: TopSitesModel {
+            sourceModel: HistoryTimeframeModel {
+                id: historyTimeframeModel
+            }
         }
     }
 

@@ -31,6 +31,7 @@
 #include "file-operations.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
+#include "limit-proxy-model.h"
 #include "searchengine.h"
 #include "tabs-model.h"
 #include "top-sites-model.h"
@@ -125,6 +126,7 @@ int main(int argc, char** argv)
     qmlRegisterType<BookmarksFolderListModel>(browserUri, 0, 1, "BookmarksFolderListModel");
     qmlRegisterType<HistoryModel>(browserUri, 0, 1, "HistoryModel");
     qmlRegisterType<HistoryTimeframeModel>(browserUri, 0, 1, "HistoryTimeframeModel");
+    qmlRegisterType<LimitProxyModel>(browserUri, 0, 1, "LimitProxyModel");
     qmlRegisterType<TopSitesModel>(browserUri, 0, 1, "TopSitesModel");
     qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
 

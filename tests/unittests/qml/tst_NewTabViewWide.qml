@@ -153,11 +153,19 @@ Item {
         }
 
         function test_topsites_list() {
+            // add 8 more top sites so that we are beyond the limit of 10
+            for (var i = 0; i < 8; i++) {
+                history.add("http://example.com/" + i, "Example Com " + i, "")
+            }
+
             var items = getListItems("topSitesList", "topSiteItem")
-            compare(items.length, 3)
+            compare(items.length, 10)
             compare(items[0].title, "Example Com")
             compare(items[1].title, "Example Org")
             compare(items[2].title, "Example Net")
+            for (var i = 0; i < 7; i++) {
+                compare(items[i + 3].title, "Example Com " + i)
+            }
         }
 
         function test_folder_list() {
