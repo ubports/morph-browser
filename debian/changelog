@@ -1,3 +1,13 @@
+webbrowser-app (0.23+15.10.20150729-0ubuntu1) wily; urgency=medium
+
+  [ Olivier Tilloy ]
+  * Ensure a value is always returned by BookmarksModel::addFolder(…).
+  * Update icon, per UI specification. (LP: #1412732)
+  * When clearing browsing data, confirm action with a dialog, to give
+    the user a chance to cancel it. (LP: #1471747)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 29 Jul 2015 13:58:34 +0000
+
 webbrowser-app (0.23+15.10.20150728-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

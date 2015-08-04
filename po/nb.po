@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-07-03 14:57+0200\n"
+"POT-Creation-Date: 2015-07-31 09:47+0200\n"
 "PO-Revision-Date: 2015-07-06 07:48+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-07-07 05:38+0000\n"
-"X-Generator: Launchpad (build 17597)\n"
+"X-Launchpad-Export-Date: 2015-08-01 05:43+0000\n"
+"X-Generator: Launchpad (build 17656)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -661,9 +661,21 @@ msgstr "Tilbakestill nettleseroppsett"
 msgid "Clear Browsing History"
 msgstr "Tøm nettleser-historikk"
 
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
+msgstr ""
+
 #: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
 msgstr "Tøm hurtiglager"
+
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr "Tøm"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
@@ -774,9 +786,6 @@ msgstr "Internett;WWW;Nettleser;Web;Utforsker"
 
 #~ msgid "see more"
 #~ msgstr "vis flere"
-
-#~ msgid "Clear"
-#~ msgstr "Tøm"
 
 #~ msgid "Add"
 #~ msgstr "Legg til"

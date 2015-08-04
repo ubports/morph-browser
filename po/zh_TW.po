@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-07-03 14:57+0200\n"
+"POT-Creation-Date: 2015-07-31 09:47+0200\n"
 "PO-Revision-Date: 2015-03-01 11:27+0000\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-07-04 05:34+0000\n"
-"X-Generator: Launchpad (build 17597)\n"
+"X-Launchpad-Export-Date: 2015-08-01 05:43+0000\n"
+"X-Generator: Launchpad (build 17656)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -619,11 +619,11 @@ msgstr "首頁"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "啟動時回復之前工作階段"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "允許在背景開啟新分頁"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
@@ -638,9 +638,21 @@ msgstr "重設瀏覽器設定"
 msgid "Clear Browsing History"
 msgstr "清除瀏覽歷史"
 
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
+msgstr ""
+
 #: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
 msgstr "清除快取"
+
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr "清除"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
@@ -745,9 +757,6 @@ msgstr "Internet;WWW;Browser;Web;Explorer;網際網路;瀏覽器;網頁;"
 
 #~ msgid "Select an account"
 #~ msgstr "選取帳號"
-
-#~ msgid "Clear"
-#~ msgstr "清除"
 
 #~ msgid "Add"
 #~ msgstr "加入"
