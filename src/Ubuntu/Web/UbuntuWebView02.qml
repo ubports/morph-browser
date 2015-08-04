@@ -80,6 +80,8 @@ Oxide.WebView {
             title = ''
             img = ''
         }
+
+        readonly property var cleaner: _webview.contextModel ? 0 : clear()
     }
 
     property ActionList contextualActions
@@ -89,7 +91,6 @@ Oxide.WebView {
         Component.onCompleted: {
             internal.dismissCurrentContextualMenu()
             internal.dismissCurrentSelection()
-            internal.currentContextualMenu = this
             contextModel = model
             var empty = true
             if (actions != null) {
@@ -197,7 +198,6 @@ Oxide.WebView {
     QtObject {
         id: internal
         property int lastLoadRequestStatus: -1
-        property Item currentContextualMenu: null
         property Item currentSelection: null
 
         function hasSelectionActions() {
@@ -250,10 +250,9 @@ Oxide.WebView {
         }
 
         function dismissCurrentContextualMenu() {
-            if (currentContextualMenu != null) {
+            if (contextModel) {
                 contextModel.close()
             }
-            contextualData.clear()
         }
 
         function dismissCurrentSelection() {
