@@ -291,7 +291,7 @@ FocusScope {
             property var lastFocusedBookmarksColumn: folders
 
             actions: [
-                Action { text: i18n.tr("Top Sites") },
+                Action { text: i18n.tr("Top sites") },
                 Action { text: i18n.tr("Bookmarks") }
             ]
         }
