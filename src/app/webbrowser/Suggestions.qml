@@ -43,6 +43,7 @@ FocusScope {
 
     ListView {
         id: suggestionsList
+        objectName: "suggestionsList"
         anchors.fill: parent
         focus: true
 
@@ -66,6 +67,7 @@ FocusScope {
         }, [])
 
         delegate: Suggestion {
+            objectName: "suggestionDelegate_" + index
             width: suggestionsList.width
             showDivider: index < model.length - 1
 
@@ -92,13 +94,16 @@ FocusScope {
         function escapeTerm(term) {
             // Escape special characters in a search term
             // (a simpler version of preg_quote).
-            return term.replace(/[().?+|*^]/g, '\\$&')
+            return term.replace(/[().?+|*^$]/g, '\\$&')
         }
 
         function highlightTerms(text) {
             // Highlight the matching terms in a case-insensitive manner
             if (text === undefined) {
                 return ''
+            }
+            if (searchTerms.length == 0) {
+                return text
             }
             var highlighted = text.toString().replace(termsRe, highlight)
             highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
