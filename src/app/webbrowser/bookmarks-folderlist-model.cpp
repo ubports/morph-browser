@@ -83,11 +83,6 @@ BookmarksModel* BookmarksFolderListModel::sourceModel() const
     return m_sourceModel;
 }
 
-int BookmarksFolderListModel::count() const
-{
-    return rowCount();
-}
-
 void BookmarksFolderListModel::setSourceModel(BookmarksModel* sourceModel)
 {
     if (sourceModel != m_sourceModel) {
@@ -104,6 +99,7 @@ void BookmarksFolderListModel::setSourceModel(BookmarksModel* sourceModel)
         }
         endResetModel();
         Q_EMIT sourceModelChanged();
+        Q_EMIT countChanged();
     }
 }
 
@@ -179,6 +175,8 @@ void BookmarksFolderListModel::onFolderAdded(const QString& folder)
         beginInsertRows(QModelIndex(), insertAt, insertAt);
         addFolder(folder);
         endInsertRows();
+
+        Q_EMIT countChanged();
     }
 }
 
@@ -188,6 +186,8 @@ void BookmarksFolderListModel::onModelReset()
     clearFolders();
     populateModel();
     endResetModel();
+
+    Q_EMIT countChanged();
 }
 
 void BookmarksFolderListModel::addFolder(const QString& folder)
