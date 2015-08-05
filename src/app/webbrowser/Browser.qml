@@ -217,8 +217,6 @@ BrowserView {
             }
             active: false
 
-            Binding { target: newTabViewLoader.item; property: "focus"; value: newTabViewLoader.focus }
-
             Connections {
                 target: browser
                 onCurrentWebviewChanged: {
