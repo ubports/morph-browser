@@ -57,7 +57,7 @@ UrlDelegateWide {
         height: width
         name: "view-grid-symbolic"
 
-        opacity: hoverArea.containsMouse ? 1.0 : 0.0
+        opacity: item.draggable && hoverArea.containsMouse ? 1.0 : 0.0
         Behavior on opacity {
             NumberAnimation {
                 duration: UbuntuAnimation.SnapDuration
@@ -68,7 +68,7 @@ UrlDelegateWide {
         MouseArea {
             id: gripArea
             anchors.fill: parent
-            drag.target: item
+            drag.target: item.draggable ? item : null
             onReleased: {
                 var result = { success: false }
 
