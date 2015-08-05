@@ -216,6 +216,7 @@ BrowserView {
                 }
             }
             active: false
+            asynchronous: true
 
             Connections {
                 target: browser
