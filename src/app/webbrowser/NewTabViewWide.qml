@@ -113,7 +113,7 @@ FocusScope {
 
                 fontSize: isAllBookmarksFolder ? "medium" : "small"
                 text: isAllBookmarksFolder ? i18n.tr("All Bookmarks") : folder
-                color: isActiveFolder ? UbuntuColors.orange : "black"
+                color: isActiveFolder ? UbuntuColors.orange : UbuntuColors.darkGrey
             }
 
             onClicked: folders.currentIndex = index
