@@ -73,7 +73,7 @@ UrlDelegateWide {
                 var result = { success: false }
 
                 // Fail the drag and drop action if dropped outside of targets
-                if (Drag.target) item.dragEnded(result)
+                if (item.Drag.target) item.dragEnded(result)
 
                 if (result.success) item.Drag.drop()
                 else {
