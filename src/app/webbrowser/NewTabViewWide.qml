@@ -100,7 +100,9 @@ FocusScope {
             property bool isAllBookmarksFolder: folder.length === 0
             divider.visible: false
 
-            color: (folders.activeFocus && isActiveFolder) ? Qt.rgba(0, 0, 0, 0.05) : "transparent"
+            property bool isCurrentDropTarget: dropArea.containsDrag && dropArea.drag.source.folder !== folder
+            color: isCurrentDropTarget ? "green" :
+                   ((folders.activeFocus && isActiveFolder) ? Qt.rgba(0, 0, 0, 0.05) : "transparent")
 
             Label {
                 anchors.verticalCenter: parent.verticalCenter
@@ -115,6 +117,12 @@ FocusScope {
             }
 
             onClicked: folders.currentIndex = index
+
+            DropArea {
+                id: dropArea
+                anchors.fill: parent
+                property string folderName: folder
+            }
         }
     }
 
@@ -143,7 +151,8 @@ FocusScope {
             var items = []
             if (folders.currentItem.isAllBookmarksFolder) items.push({
                 title: i18n.tr("Homepage"),
-                url: newTabViewWide.settingsObject.homepage
+                url: newTabViewWide.settingsObject.homepage,
+                folder: ""
             })
 
             if (!folders.currentItem.model) return null
@@ -155,16 +164,44 @@ FocusScope {
 
         currentIndex: 0
 
-        delegate: UrlDelegateWide {
+        delegate: DraggableUrlDelegateWide {
             objectName: "bookmarkItem"
             title: modelData.title
             icon: modelData.icon ? modelData.icon : ""
             url: modelData.url
-            removable: !folders.currentItem.isAllBookmarksFolder || index > 0
+
+            property string folder: modelData.folder
+            property bool isHomeBookmark: folder === "" && index === 0
+
+            removable: !isHomeBookmark
+            draggable: !isHomeBookmark
             highlighted: bookmarksList.activeFocus && ListView.isCurrentItem
 
             onClicked: newTabViewWide.bookmarkClicked(url)
             onRemoved: newTabViewWide.bookmarkRemoved(url)
+
+            // Larger margin to prevent interference from Scrollbar hovering area
+            gripMargin: units.gu(4)
+            Drag.onActiveChanged: {
+                // Remove interactivity to prevent the list from scrolling
+                // while dragging near its margins. This ensures we can correctly
+                // return the item to its original position on a failed drop.
+                bookmarksList.interactive = false
+
+                // Relinquish focus as the presses and releases that compose the
+                // drag will move the keyboard focus in a location unexpected
+                // for the user. This way it will go back to the address bar and
+                // the user can predictably resume keyboard interaction from there.
+                newTabViewWide.releasingKeyboardFocus()
+            }
+            onDragEnded: {
+                bookmarksList.interactive = true
+                if (Drag.target.folderName !== folder) {
+                    bookmarksModel.update(modelData.url, modelData.title,
+                                          Drag.target.folderName)
+                    drag.success = true
+                }
+            }
         }
 
         Keys.onReturnPressed: newTabViewWide.bookmarkClicked(currentItem.url)
