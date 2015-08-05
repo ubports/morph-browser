@@ -142,6 +142,7 @@ FocusScope {
         }
         visible: inBookmarksView
         onActiveFocusChanged: if (activeFocus) sections.lastFocusedBookmarksColumn = bookmarksList
+        clip: true
 
         // Build a temporary model for the bookmarks list that includes, when
         // necessary, the homepage bookmark as a fixed first item in the list
@@ -231,6 +232,7 @@ FocusScope {
 
         visible: !inBookmarksView
         currentIndex: 0
+        clip: true
 
         model: topSitesModel
         delegate: UrlDelegateWide {
