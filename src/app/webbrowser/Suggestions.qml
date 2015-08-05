@@ -99,16 +99,17 @@ FocusScope {
 
         function highlightTerms(text) {
             // Highlight the matching terms in a case-insensitive manner
-            if (text === undefined) {
-                return ''
+            if (text && text.toString()) {
+                if (searchTerms.length == 0) {
+                    return text
+                }
+                var highlighted = text.toString().replace(termsRe, highlight)
+                highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
+                highlighted = '<html>' + highlighted + '</html>'
+                return highlighted
+            } else {
+                return ""
             }
-            if (searchTerms.length == 0) {
-                return text
-            }
-            var highlighted = text.toString().replace(termsRe, highlight)
-            highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
-            highlighted = '<html>' + highlighted + '</html>'
-            return highlighted
         }
 
         function countItems(total, model) {
