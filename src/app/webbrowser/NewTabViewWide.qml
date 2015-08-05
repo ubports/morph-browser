@@ -199,7 +199,7 @@ FocusScope {
                 if (Drag.target.folderName !== folder) {
                     bookmarksModel.update(modelData.url, modelData.title,
                                           Drag.target.folderName)
-                    drag.success = true
+                    dragAndDrop.success = true
                 }
             }
         }
