@@ -38,8 +38,6 @@ ListItem {
 
     Favicon {
         id: icon
-        width: units.gu(3)
-        height: width
         anchors {
             verticalCenter: parent.verticalCenter
             left: parent.left
