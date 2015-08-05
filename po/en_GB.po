@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-07-03 14:57+0200\n"
+"POT-Creation-Date: 2015-07-31 09:47+0200\n"
 "PO-Revision-Date: 2015-06-30 14:11+0000\n"
 "Last-Translator: Andi Chandler <Unknown>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-07-04 05:34+0000\n"
-"X-Generator: Launchpad (build 17597)\n"
+"X-Launchpad-Export-Date: 2015-08-01 05:43+0000\n"
+"X-Generator: Launchpad (build 17656)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -440,31 +440,31 @@ msgstr "search or enter an address"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr ""
+msgstr "Bookmark Added"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr ""
+msgstr "Save in"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
 msgid "All Bookmarks"
-msgstr ""
+msgstr "All Bookmarks"
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr ""
+msgstr "New Folder"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr ""
+msgstr "Create new folder"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:311
@@ -661,9 +661,21 @@ msgstr "Reset browser settings"
 msgid "Clear Browsing History"
 msgstr "Clear Browsing History"
 
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
+msgstr ""
+
 #: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
 msgstr "Clear Cache"
+
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr "Clear"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
@@ -686,6 +698,8 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -693,50 +707,53 @@ msgstr "Add account"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "Do not use an account"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "Account error"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "Close"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> needs to access your %2 online account."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> would like to access your %2 online account."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"Choose an account now, or skip this step and choose an online account later."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "Close the app"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "Skip"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "Choose account"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
@@ -768,9 +785,6 @@ msgstr "Internet;WWW;Browser;Web;Explorer"
 
 #~ msgid "see more"
 #~ msgstr "see more"
-
-#~ msgid "Clear"
-#~ msgstr "Clear"
 
 #~ msgid "No"
 #~ msgstr "No"

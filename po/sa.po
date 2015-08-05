@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-07-03 14:57+0200\n"
+"POT-Creation-Date: 2015-07-31 09:47+0200\n"
 "PO-Revision-Date: 2014-07-16 12:19+0000\n"
 "Last-Translator: उज्ज्वल राजपूत <ujjwal@ug.iisc.in>\n"
 "Language-Team: Sanskrit <sa@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-07-04 05:34+0000\n"
-"X-Generator: Launchpad (build 17597)\n"
+"X-Launchpad-Export-Date: 2015-08-01 05:43+0000\n"
+"X-Generator: Launchpad (build 17656)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -621,8 +621,20 @@ msgstr ""
 msgid "Clear Browsing History"
 msgstr ""
 
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
+msgstr ""
+
 #: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
 msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:99
