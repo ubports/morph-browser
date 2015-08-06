@@ -186,6 +186,7 @@ Item {
         }
 
         function test_switch_sections_by_keyboard() {
+            skip("Would fail due to UITK bug: http://pad.lv/1481233")
             var sections = findChild(view, "sections")
             var folders = findChild(view, "foldersList")
             var bookmarks = findChild(view, "bookmarksList")
