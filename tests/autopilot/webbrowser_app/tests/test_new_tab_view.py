@@ -466,3 +466,50 @@ class TestNewTabViewContentsWide(TestNewTabViewContentsBase):
                                            topsites[0].wait_until_destroyed)
         self.assertThat(len(view.get_top_sites_list()),
                         Equals(previous_count - 1))
+
+    def test_drag_bookmarks(self):
+        view = self.new_tab_view
+        folders = view.get_folders_list()
+        bookmarks = view.get_bookmarks_list()
+        previous_count = len(bookmarks)
+        bookmark = bookmarks[1]
+        title = bookmark.title
+        grip = bookmark.get_grip()
+        original_x = grip.globalRect.x
+        original_y = grip.globalRect.y
+
+        # Test that when hovering normal bookmarks item the grip appears
+        self.assertThat(grip.opacity, Equals(0))
+        self.pointing_device.move_to_object(bookmark)
+        self.assertThat(grip.opacity, Eventually(Equals(1.0)))
+
+        # Test that an item bounces back when dragged within the list itself
+        self.pointing_device.drag(original_x, original_y,
+                                  original_x, original_y + 200)
+
+        # Test that an item bounces back when dragged to the same folder
+        folder = folders[0]
+        folder_cx = folder.globalRect.x + folder.width / 2
+        folder_cy = folder.globalRect.y + folder.height / 2
+        self.pointing_device.drag(original_x, original_y,
+                                  folder_cx, folder_cy)
+
+        self.assertThat(lambda: (grip.globalRect.x, grip.globalRect.y),
+                        Eventually(Equals((original_x, original_y))))
+
+        # Test that dragging an item to another folder removes it from this one
+        # and adds it to the target folder
+        folder = folders[2]
+        folder_cx = folder.globalRect.x + folder.width / 2
+        folder_cy = folder.globalRect.y + folder.height / 2
+        self.pointing_device.drag(original_x, original_y,
+                                  folder_cx, folder_cy)
+
+        self.assertThat(lambda: len(view.get_bookmarks_list()),
+                        Eventually(NotEquals(previous_count)))
+
+        # Verify that the item has been added to the top of the target folder
+        self.pointing_device.click_object(folder)
+        self.assertThat(lambda: len(view.get_bookmarks_list()),
+                        Eventually(Equals(2)))
+        self.assertThat(view.get_bookmarks_list()[0].title, Equals(title))
