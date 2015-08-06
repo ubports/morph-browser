@@ -53,7 +53,7 @@ Item {
             anchors.fill: parent
             settingsObject: QtObject {
                 property url homepage: root.homepage
-                property int selectedIndexNewTabViewWide: 0
+                property int newTabDefaultSection: 0
             }
             bookmarksModel: bookmarks
             historyModel: history
