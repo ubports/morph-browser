@@ -278,9 +278,9 @@ FocusScope {
                 leftMargin: units.gu(1)
             }
 
-            selectedIndex: settingsObject.selectedIndexNewTabViewWide
+            selectedIndex: settingsObject.newTabDefaultSection
             onSelectedIndexChanged: {
-                settingsObject.selectedIndexNewTabViewWide = selectedIndex
+                settingsObject.newTabDefaultSection = selectedIndex
                 if (selectedIndex === 0) topSitesList.focus = true
                 else {
                     if (lastFocusedBookmarksColumn) lastFocusedBookmarksColumn.focus = true

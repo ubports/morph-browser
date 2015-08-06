@@ -113,14 +113,14 @@ BrowserView {
         property string searchEngine: settingsDefaults.searchEngine
         property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
         property bool restoreSession: settingsDefaults.restoreSession
-        property int selectedIndexNewTabViewWide: settingsDefaults.selectedIndexNewTabViewWide
+        property int newTabDefaultSection: settingsDefaults.newTabDefaultSection
 
         function restoreDefaults() {
             homepage  = settingsDefaults.homepage
             searchEngine = settingsDefaults.searchEngine
             allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
             restoreSession = settingsDefaults.restoreSession
-            selectedIndexNewTabViewWide = settingsDefaults.selectedIndexNewTabViewWide
+            newTabDefaultSection = settingsDefaults.newTabDefaultSection
         }
     }
 
@@ -131,7 +131,7 @@ BrowserView {
         readonly property string searchEngine: "google"
         readonly property string allowOpenInBackgroundTab: "default"
         readonly property bool restoreSession: true
-        readonly property int selectedIndexNewTabViewWide: 0
+        readonly property int newTabDefaultSection: 0
     }
 
     FocusScope {
