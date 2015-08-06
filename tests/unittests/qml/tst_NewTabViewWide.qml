@@ -368,5 +368,25 @@ Item {
             var items = getListItems("topSitesList", "topSiteItem")
             compare(previous.length - 1, items.length)
         }
+
+        function test_drag() {
+            goToBookmarks()
+
+            wait(1000)
+
+            var items = getListItems("bookmarksList", "bookmarkItem")
+            var item = items[1]
+            var grip = findChild(item, "dragGrip")
+            compare(grip.opacity, 0)
+            mouseMove(item, 0, 0)
+            tryCompare(grip, "opacity", 1, 1000)
+
+            var previousPos = Qt.point(item.x, item.y)
+            var c = centerOf(grip)
+            mouseMove(grip, c.x, c.y)
+            mouseDrag(grip, c.x, c.y + 600)
+            wait(1000)
+            verify(item.y != previousPos.y)
+        }
     }
 }

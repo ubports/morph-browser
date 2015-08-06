@@ -27,7 +27,7 @@ UrlDelegateWide {
     Drag.hotSpot.x: grip.x
     Drag.hotSpot.y: grip.y
     Drag.onActiveChanged: {
-        if (active) {
+        if (item.Drag.active) {
             internal.positionBeforeDrag = Qt.point(x, y)
             item.dragStarted()
         }
@@ -48,6 +48,7 @@ UrlDelegateWide {
 
     Icon {
         id: grip
+        objectName: "dragGrip"
 
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
