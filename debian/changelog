@@ -1,3 +1,9 @@
+webbrowser-app (0.23+15.10.20150729-0ubuntu2~gcc5.1) wily; urgency=medium
+
+  * No-change test rebuild for g++5 ABI transition
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Thu, 30 Jul 2015 19:28:11 +0000
+
 webbrowser-app (0.23+15.10.20150729-0ubuntu1) wily; urgency=medium
 
   [ Olivier Tilloy ]
