@@ -18,9 +18,9 @@
 
 import QtQuick 2.0
 import Qt.labs.settings 1.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0 as ListItem
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
+import Ubuntu.Components.ListItems 1.3 as ListItem
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 

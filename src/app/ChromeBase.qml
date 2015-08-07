@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.2
-import Ubuntu.Components 1.1
+import Ubuntu.Components 1.3
 
 // use styled item otherwise Drawer button will steal focus from the AddressBar
 StyledItem {

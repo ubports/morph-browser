@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -19,7 +19,7 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import com.canonical.Oxide 1.4 as Oxide
-import Ubuntu.Components 1.1
+import Ubuntu.Components 1.3
 import ".."
 
 Item {
