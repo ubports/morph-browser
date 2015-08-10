@@ -235,8 +235,8 @@ FocusScope {
         }
         enabled: !addressbar.activeFocus
         onClicked: {
-            forceActiveFocus()
-            selectAll()
+            textField.forceActiveFocus()
+            textField.selectAll()
         }
     }
 
