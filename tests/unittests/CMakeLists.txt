@@ -1,5 +1,5 @@
 add_subdirectory(sanity)
-#add_subdirectory(qml)
+add_subdirectory(qml)
 add_subdirectory(domain-utils)
 add_subdirectory(history-model)
 add_subdirectory(history-timeframe-model)
