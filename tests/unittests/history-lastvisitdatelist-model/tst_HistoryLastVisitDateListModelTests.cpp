@@ -179,8 +179,11 @@ private Q_SLOTS:
         QDateTime dt2 = QDateTime(QDate(1970, 1, 2), QTime(6, 0, 0));
 
         mockHistory->add(QUrl("http://example.org/"), "Example Domain", "example.org", QUrl(), dt1);
-        QCOMPARE(spyRowsInserted.count(), 1);
+        QCOMPARE(spyRowsInserted.count(), 2);
         QList<QVariant> args = spyRowsInserted.takeFirst();
+        QCOMPARE(args.at(1).toInt(), 0);
+        QCOMPARE(args.at(2).toInt(), 0);
+        args = spyRowsInserted.takeFirst();
         QCOMPARE(args.at(1).toInt(), 1);
         QCOMPARE(args.at(2).toInt(), 1);
         QCOMPARE(model->rowCount(), 2);

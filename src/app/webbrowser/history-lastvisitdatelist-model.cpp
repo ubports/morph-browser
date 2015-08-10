@@ -174,7 +174,13 @@ void HistoryLastVisitDateListModel::insertNewHistoryEntry(QPersistentModelIndex*
     if (!m_lastVisitDates.contains(lastVisitDate)) {
         if (m_orderedDates.isEmpty()) {
             // Add default entry to represent all dates
+            if (notify) {
+                beginInsertRows(QModelIndex(), 0, 0);
+            }
             m_orderedDates.append(QDate());
+            if (notify) {
+                endInsertRows();
+            }
         }
 
         int insertAt = 1;
