@@ -229,7 +229,12 @@ class TestNewTabViewContentsBase(StartOpenRemotePageTestCaseBase):
         connection.close()
 
 
-class TestNewTabViewContents(TestNewTabViewContentsBase):
+class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
+
+    def setUp(self):
+        super(TestNewTabViewContentsNarrow, self).setUp()
+        if self.main_window.wide:
+            self.skipTest("Only on narrow form factors")
 
     def test_default_home_bookmark(self):
         homepage_bookmark = self.new_tab_view.get_homepage_bookmark()
@@ -255,14 +260,6 @@ class TestNewTabViewContents(TestNewTabViewContentsBase):
         self.pointing_device.click_object(bookmark)
         self.new_tab_view.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(url)
-
-
-class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
-
-    def setUp(self):
-        super(TestNewTabViewContentsNarrow, self).setUp()
-        if self.main_window.wide:
-            self.skipTest("Only on narrow form factors")
 
     def test_open_bookmark_when_expanded(self):
         more_button = self.new_tab_view.get_bookmarks_more_button()
