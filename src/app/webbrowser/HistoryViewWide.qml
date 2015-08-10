@@ -69,6 +69,11 @@ Item {
                 objectName: "lastVisitDateListView"
 
                 anchors.fill: parent
+
+                onCurrentIndexChanged: {
+                    historyLastVisitDateModel.setLastVisitDate(currentItem.lastVisitDate)
+                    urlsListView.ViewItems.selectedIndices = []
+                }
     
                 model: HistoryLastVisitDateListModel {
                     sourceModel: historyTimeframeModel
@@ -77,7 +82,7 @@ Item {
                 delegate: ListItem {
                     objectName: "lastVisitDateDelegate"
 
-                    property var entries: model.entries
+                    property var lastVisitDate: model.lastVisitDate
     
                     anchors {
                         left: parent.left
@@ -129,12 +134,8 @@ Item {
                         color: lastVisitDateListView.currentIndex == index ? UbuntuColors.orange : UbuntuColors.darkGrey
                     }
     
-                    onClicked: {
-                        lastVisitDateListView.currentIndex = index
-                        historyLastVisitDateModel.setLastVisitDate(lastVisitDate)
-                        urlsListView.ViewItems.selectedIndices = []
-                    }
-                }
+                    onClicked: lastVisitDateListView.currentIndex = index
+               }
             }
 
             Scrollbar {
@@ -182,7 +183,7 @@ Item {
                 }
    
                 // Only use sections for "All History" history list
-                section.property: lastVisitDateListView.currentIndex == -1 ? "lastVisitDate" : ""
+                section.property: historyLastVisitDateModel.lastVisitDate.isValid() ? "" : "lastVisitDate"
                 section.delegate: HistorySectionDelegate {
                     width: parent.width - units.gu(3)
                     anchors.left: parent.left
@@ -225,7 +226,7 @@ Item {
                     onRemoved: {
                         if (urlsListView.count == 1) {
                             historyViewWide.historyEntryRemoved(model.url)
-                            lastVisitDateListView.currentIndex = -1
+                            lastVisitDateListView.currentIndex = 0
                         } else {
                             historyViewWide.historyEntryRemoved(model.url)
                         }
@@ -346,12 +347,12 @@ Item {
                 }
 
                 if (urlsListView.count == urls.length) {
-                    lastVisitDateListView.currentIndex = -1                    
+                    lastVisitDateListView.currentIndex = 0                   
                 }
 
                 urlsListView.ViewItems.selectMode = false
                 for (var j in urls) {
-                    historyModel.removeEntryByUrl(urls[j])
+                    historyViewWide.historyEntryRemoved(urls[j])
                 }
 
                 lastVisitDateListView.forceActiveFocus()
