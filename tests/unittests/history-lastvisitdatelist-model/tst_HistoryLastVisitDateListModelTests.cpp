@@ -22,7 +22,6 @@
 
 // local
 #include "domain-utils.h"
-#include "history-lastvisitdate-model.h"
 #include "history-lastvisitdatelist-model.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
@@ -69,17 +68,34 @@ public:
 
     void add(const QUrl& url, const QString& title, const QString& domain, const QUrl& icon, const QDateTime& lastVisit)
     {
-        HistoryEntry entry;
-        entry.url = url;
-        entry.domain = domain;
-        entry.title = title;
-        entry.icon = icon;
-        entry.visits = 1;
-        entry.lastVisit = lastVisit;
-        entry.hidden = false;
-        beginInsertRows(QModelIndex(), 0, 0);
-        m_entries.prepend(entry);
-        endInsertRows();
+        int index = getEntryIndex(url);
+        if (index == -1) {
+            HistoryEntry entry;
+            entry.url = url;
+            entry.domain = domain;
+            entry.title = title;
+            entry.icon = icon;
+            entry.visits = 1;
+            entry.lastVisit = lastVisit;
+            entry.hidden = false;
+            beginInsertRows(QModelIndex(), 0, 0);
+            m_entries.prepend(entry);
+            endInsertRows();
+        } else {
+            QVector<int> roles;
+            roles << LastVisit;
+            if (index == 0) {
+                HistoryEntry& entry = m_entries.first();
+                entry.lastVisit = lastVisit;
+            } else {
+                beginMoveRows(QModelIndex(), index, index, QModelIndex(), 0);
+                HistoryEntry entry = m_entries.takeAt(index);
+                entry.lastVisit = lastVisit;
+                m_entries.prepend(entry);
+                endMoveRows();
+            }
+            Q_EMIT dataChanged(this->index(0, 0), this->index(0, 0), roles);
+        }
     }
 
     void removeEntryByUrl(const QUrl& url)
@@ -108,6 +124,17 @@ private:
         QDateTime lastVisit;
         bool hidden;
     };
+
+    int getEntryIndex(const QUrl& url) const
+    {
+        for (int i = 0; i < m_entries.count(); ++i) {
+                if (m_entries.at(i).url == url) {
+                            return i;
+                        }
+            }
+        return -1;
+    }
+
     QList<HistoryEntry> m_entries;
 };
 
@@ -119,19 +146,6 @@ private:
     MockHistoryModel* mockHistory;
     HistoryTimeframeModel* timeframe;
     HistoryLastVisitDateListModel* model;
-
-    void verifyDataChanged(QSignalSpy& spy, int row)
-    {
-        QList<QVariant> args;
-        bool changed = false;
-        while(!changed && !spy.isEmpty()) {
-            args = spy.takeFirst();
-            int start = args.at(0).toModelIndex().row();
-            int end = args.at(1).toModelIndex().row();
-            changed = (start <= row) && (row <= end);
-        }
-        QVERIFY(changed);
-    }
 
 private Q_SLOTS:
     void init()
@@ -160,36 +174,29 @@ private Q_SLOTS:
     {
         QSignalSpy spyRowsInserted(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)));
         qRegisterMetaType<QVector<int> >();
-        QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
 
         QDateTime dt1 = QDateTime(QDate(1970, 1, 1), QTime(6, 0, 0));
         QDateTime dt2 = QDateTime(QDate(1970, 1, 2), QTime(6, 0, 0));
 
         mockHistory->add(QUrl("http://example.org/"), "Example Domain", "example.org", QUrl(), dt1);
-        QVERIFY(spyDataChanged.isEmpty());
         QCOMPARE(spyRowsInserted.count(), 1);
         QList<QVariant> args = spyRowsInserted.takeFirst();
-        QCOMPARE(args.at(1).toInt(), 0);
-        QCOMPARE(args.at(2).toInt(), 0);
-        QCOMPARE(model->rowCount(), 1);
-        QCOMPARE(model->data(model->index(0, 0), HistoryLastVisitDateListModel::LastVisitDate).toDate(), dt1.date());
+        QCOMPARE(args.at(1).toInt(), 1);
+        QCOMPARE(args.at(2).toInt(), 1);
+        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->data(model->index(1, 0), HistoryLastVisitDateListModel::LastVisitDate).toDate(), dt1.date());
 
         mockHistory->add(QUrl("http://example.com/"), "Example Domain", "example.com", QUrl(), dt2);
-        QVERIFY(spyDataChanged.isEmpty());
         QCOMPARE(spyRowsInserted.count(), 1);
         args = spyRowsInserted.takeFirst();
-        QCOMPARE(args.at(1).toInt(), 0);
-        QCOMPARE(args.at(2).toInt(), 0);
-        QCOMPARE(model->rowCount(), 2);
-        QCOMPARE(model->data(model->index(0, 0), HistoryLastVisitDateListModel::LastVisitDate).toDate(), dt2.date());
+        QCOMPARE(args.at(1).toInt(), 1);
+        QCOMPARE(args.at(2).toInt(), 1);
+        QCOMPARE(model->rowCount(), 3);
+        QCOMPARE(model->data(model->index(1, 0), HistoryLastVisitDateListModel::LastVisitDate).toDate(), dt2.date());
 
         mockHistory->add(QUrl("http://example.net/"), "Example Domain", "example.net", QUrl(), dt1);
         QVERIFY(spyRowsInserted.isEmpty());
-        QVERIFY(!spyDataChanged.isEmpty());
-        args = spyDataChanged.takeFirst();
-        QCOMPARE(args.at(0).toModelIndex().row(), 1);
-        QCOMPARE(args.at(1).toModelIndex().row(), 1);
-        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->rowCount(), 3);
     }
 
     void shouldUpdateLastVisitDateListWhenChangingTimeFrame()
@@ -203,13 +210,13 @@ private Q_SLOTS:
         mockHistory->add(QUrl("http://example.net/"), "Example Domain", "example.net", QUrl(), dt3);
         QDateTime t0 = QDateTime(QDate(1970, 1, 1), QTime(7, 0, 0));
         QDateTime t1 = QDateTime(QDate(1970, 1, 2), QTime(7, 0, 0));
-        QCOMPARE(model->rowCount(), 3);
+        QCOMPARE(model->rowCount(), 4);
 
         timeframe->setEnd(t1);
-        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->rowCount(), 3);
 
         timeframe->setStart(t0);
-        QCOMPARE(model->rowCount(), 1);
+        QCOMPARE(model->rowCount(), 2);
     }
 
     void shouldUpdateLastVisitDateListWhenRemovingEntries()
@@ -224,19 +231,19 @@ private Q_SLOTS:
         mockHistory->add(QUrl("http://example.org/"), "Example Domain", "example.org", QUrl(), dt2);
         mockHistory->add(QUrl("http://example.net/"), "Example Domain", "example.net", QUrl(), dt3);
         QVERIFY(spyRowsRemoved.isEmpty());
-        QCOMPARE(model->rowCount(), 3);
+        QCOMPARE(model->rowCount(), 4);
 
         mockHistory->removeEntryByUrl(QUrl("http://example.com/"));
         QVERIFY(spyRowsRemoved.isEmpty());
-        QCOMPARE(model->rowCount(), 3);
+        QCOMPARE(model->rowCount(), 4);
 
         mockHistory->removeEntryByUrl(QUrl("http://example.info/"));
         QCOMPARE(spyRowsRemoved.count(), 1);
-        QCOMPARE(model->rowCount(), 2);
+        QCOMPARE(model->rowCount(), 3);
 
         mockHistory->removeEntryByUrl(QUrl("http://example.org/"));
         QCOMPARE(spyRowsRemoved.count(), 2);
-        QCOMPARE(model->rowCount(), 1);
+        QCOMPARE(model->rowCount(), 2);
     }
 
     void shouldUpdateDataWhenMovingEntries()
@@ -258,20 +265,15 @@ private Q_SLOTS:
 
     void shouldUpdateDataWhenDataChanges()
     {
+        QSignalSpy spyRowsRemoved(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)));
         QDateTime dt1 = QDateTime(QDate(1970, 1, 1), QTime(6, 0, 0));
         QDateTime dt2 = QDateTime(QDate(1970, 1, 2), QTime(6, 0, 0));
  
         mockHistory->add(QUrl("http://example.com/"), "Example Domain", "example.com", QUrl(), dt1);
         mockHistory->add(QUrl("http://example.org/"), "Example Domain", "example.org", QUrl(), dt2);
-
-        QSignalSpy spyRowsMoved(model, SIGNAL(rowsMoved(const QModelIndex&, int, int, const QModelIndex&, int)));
-        qRegisterMetaType<QVector<int> >();
-        QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
-
+        QCOMPARE(model->rowCount(), 3);
         mockHistory->add(QUrl("http://example.com/"), "Example Domain", "example.com", QUrl(), dt2);
-        QVERIFY(spyRowsMoved.isEmpty());
-        QVERIFY(!spyDataChanged.isEmpty());
-        verifyDataChanged(spyDataChanged, 0);
+        QCOMPARE(model->rowCount(), 2);
     }
 
     void shouldUpdateWhenChangingSourceModel()
@@ -284,11 +286,11 @@ private Q_SLOTS:
         mockHistory->add(QUrl("http://example.com/"), "Example Domain", "example.com", QUrl(), dt1);
         mockHistory->add(QUrl("http://example.org/"), "Example Domain", "example.org", QUrl(), dt2);
         mockHistory->add(QUrl("http://example.net/"), "Example Domain", "example.net", QUrl(), dt3);
-        QCOMPARE(model->rowCount(), 3);
+        QCOMPARE(model->rowCount(), 4);
 
         model->setSourceModel(timeframe);
         QVERIFY(spy.isEmpty());
-        QCOMPARE(model->rowCount(), 3);
+        QCOMPARE(model->rowCount(), 4);
 
         model->setSourceModel(0);
         QCOMPARE(spy.count(), 1);
@@ -300,7 +302,7 @@ private Q_SLOTS:
         model->setSourceModel(timeframe2);
         QCOMPARE(spy.count(), 2);
         QCOMPARE(model->sourceModel(), timeframe2);
-        QCOMPARE(model->rowCount(), 3);
+        QCOMPARE(model->rowCount(), 4);
     }
 
     void shouldKeepLastVisitDatesSorted()
@@ -318,53 +320,18 @@ private Q_SLOTS:
         mockHistory->add(QUrl("http://example.com/"), "Example Domain", "example.com", QUrl(), dt1);
         mockHistory->add(QUrl("http://example.web/"), "Example Domain", "example.web", QUrl(), dt6);
         mockHistory->add(QUrl("http://example.org/"), "Example Domain", "example.org", QUrl(), dt2);
-        QCOMPARE(model->rowCount(), 6);
+        QCOMPARE(model->rowCount(), 7);
         QList<QDate> lastVisitDates;
         lastVisitDates << dt6.date() << dt5.date() << dt4.date() << dt3.date() << dt2.date() << dt1.date();
-        for (int i = 0; i < lastVisitDates.count(); ++i) {
+        QModelIndex defaultIndex = model->index(0, 0);
+        QDate defaultDate = model->data(defaultIndex, HistoryLastVisitDateListModel::LastVisitDate).toDate();
+        QVERIFY(defaultDate.isNull());
+        for (int i = 1; i < lastVisitDates.count(); ++i) {
             QModelIndex index = model->index(i, 0);
             QDate lastVisitDate = model->data(index, HistoryLastVisitDateListModel::LastVisitDate).toDate();
-            HistoryLastVisitDateModel* entries = model->data(index, HistoryLastVisitDateListModel::Entries).value<HistoryLastVisitDateModel*>();
             QVERIFY(!lastVisitDate.isNull());
-            QVERIFY(!entries->lastVisitDate().isNull());
-            QCOMPARE(lastVisitDate, lastVisitDates.at(i));
-            QCOMPARE(entries->lastVisitDate(), lastVisitDate);
+            QCOMPARE(lastVisitDate, lastVisitDates.at(i-1));
         }
-    }
-
-    void shouldExposeLastVisitDateModels()
-    {
-        QDateTime dt1 = QDateTime(QDate(1970, 1, 1), QTime(6, 0, 0));
-        QDateTime dt2 = QDateTime(QDate(1970, 1, 2), QTime(6, 0, 0));
-        QDateTime dt3 = QDateTime(QDate(1970, 1, 3), QTime(6, 0, 0));
-
-        mockHistory->add(QUrl("http://example.com/"), "Example Domain", "example.com", QUrl(), dt1);
-        mockHistory->add(QUrl("http://example.org/"), "Example Domain", "example.org", QUrl(), dt2);
-        mockHistory->add(QUrl("http://example.net/"), "Example Domain", "example.net", QUrl(), dt2);
-        mockHistory->add(QUrl("http://example.gov/"), "Example Domain", "example.gov", QUrl(), dt3);
-        QCOMPARE(model->rowCount(), 3);
-
-        QModelIndex index = model->index(0, 0);
-        QDate lastVisitDate = model->data(index, HistoryLastVisitDateListModel::LastVisitDate).toDate();
-        QCOMPARE(lastVisitDate, dt3.date());
-        HistoryLastVisitDateModel* entries = model->data(index, HistoryLastVisitDateListModel::Entries).value<HistoryLastVisitDateModel*>();
-        QCOMPARE(entries->rowCount(), 1);
-        QCOMPARE(entries->data(entries->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.gov/"));
-
-        index = model->index(1, 0);
-        lastVisitDate = model->data(index, HistoryLastVisitDateListModel::LastVisitDate).toDate();
-        QCOMPARE(lastVisitDate, dt2.date());
-        entries = model->data(index, HistoryLastVisitDateListModel::Entries).value<HistoryLastVisitDateModel*>();
-        QCOMPARE(entries->rowCount(), 2);
-        QCOMPARE(entries->data(entries->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.net/"));
-        QCOMPARE(entries->data(entries->index(1, 0), HistoryModel::Url).toUrl(), QUrl("http://example.org/"));
-
-        index = model->index(2, 0);
-        lastVisitDate = model->data(index, HistoryLastVisitDateListModel::LastVisitDate).toDate();
-        QCOMPARE(lastVisitDate, dt1.date());
-        entries = model->data(index, HistoryLastVisitDateListModel::Entries).value<HistoryLastVisitDateModel*>();
-        QCOMPARE(entries->rowCount(), 1);
-        QCOMPARE(entries->data(entries->index(0, 0), HistoryModel::Url).toUrl(), QUrl("http://example.com/"));
     }
 
     void shouldReturnData()
@@ -374,12 +341,9 @@ private Q_SLOTS:
         QVERIFY(!model->data(QModelIndex(), HistoryLastVisitDateListModel::LastVisitDate).isValid());
         QVERIFY(!model->data(model->index(-1, 0), HistoryLastVisitDateListModel::LastVisitDate).isValid());
         QVERIFY(!model->data(model->index(3, 0), HistoryLastVisitDateListModel::LastVisitDate).isValid());
-        QCOMPARE(model->data(model->index(0, 0), HistoryLastVisitDateListModel::LastVisitDate).toDate(), dt1.date());
-        HistoryLastVisitDateModel* entries = model->data(model->index(0,0),
-                                                 HistoryLastVisitDateListModel::Entries).value<HistoryLastVisitDateModel*>();
-        QVERIFY(entries != 0);
-        QCOMPARE(entries->rowCount(), 1);
-        QVERIFY(!model->data(model->index(0, 0), HistoryLastVisitDateListModel::Entries + 1).isValid());
+        QCOMPARE(model->data(model->index(0, 0), HistoryLastVisitDateListModel::LastVisitDate).toDate(), QDate());
+        QCOMPARE(model->data(model->index(1, 0), HistoryLastVisitDateListModel::LastVisitDate).toDate(), dt1.date());
+        QVERIFY(!model->data(model->index(1, 0), HistoryLastVisitDateListModel::LastVisitDate + 1).isValid());
     }
 };
 

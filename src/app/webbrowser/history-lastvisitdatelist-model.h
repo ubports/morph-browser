@@ -40,8 +40,7 @@ public:
     ~HistoryLastVisitDateListModel();
 
     enum Roles {
-        LastVisitDate = Qt::UserRole + 1,
-        Entries
+        LastVisitDate = Qt::UserRole + 1
     };
 
     // reimplemented from QAbstractListModel
@@ -57,21 +56,17 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void onRowsInserted(const QModelIndex& parent, int start, int end);
+    void onRowsRemoved(const QModelIndex& parent, int start, int end);
     void onModelReset();
-
-    void onLastVisitDateRowsRemoved(const QModelIndex& parent, int start, int end);
-    void onLastVisitDateDataChanged();
 
 private:
     HistoryTimeframeModel* m_sourceModel;
-    QMap<QDate, HistoryLastVisitDateModel*> m_lastVisitDates;
+    QMap<QDate, QList<QPersistentModelIndex*>*> m_lastVisitDates;
     QList<QDate> m_orderedDates;
 
     void clearLastVisitDates();
     void populateModel();
-    void insertNewLastVisitDate(const QDate& lastVisitDate);
-    QDate getLastVisitDateFromSourceModel(const QModelIndex& index) const;
-    void emitDataChanged(const QDate& lastVisitDate);
+    void insertNewHistoryEntry(QPersistentModelIndex* index, bool notify);
 };
 
 #endif // __HISTORY_LASTVISITDATELIST_MODEL_H__
