@@ -35,9 +35,10 @@ Item {
     Keys.onLeftPressed: lastVisitDateListView.forceActiveFocus()
     Keys.onRightPressed: urlsListView.forceActiveFocus()
 
-    Timer {
-        interval: 1; running: true;
-        onTriggered: urlsListView.forceActiveFocus()
+    onActiveFocusChanged: {
+        if (activeFocus) {
+            urlsListView.forceActiveFocus()
+        }
     }
 
     Rectangle {
@@ -70,6 +71,7 @@ Item {
 
                 anchors.fill: parent
 
+                currentIndex: 0
                 onCurrentIndexChanged: {
                     historyLastVisitDateModel.setLastVisitDate(currentItem.lastVisitDate)
                     urlsListView.ViewItems.selectedIndices = []
