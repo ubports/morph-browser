@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.4
-import QtQuick.Window 2.0
+import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.5 as Oxide
 import Ubuntu.Components 1.3
