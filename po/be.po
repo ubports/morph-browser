@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-07-03 14:57+0200\n"
-"PO-Revision-Date: 2014-09-24 09:01+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2015-07-31 09:47+0200\n"
+"PO-Revision-Date: 2015-08-01 22:05+0000\n"
+"Last-Translator: Arsień Šachalevič <semen.shah@gmail.com>\n"
 "Language-Team: Belarusian <be@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Launchpad-Export-Date: 2015-07-04 05:33+0000\n"
-"X-Generator: Launchpad (build 17597)\n"
+"X-Launchpad-Export-Date: 2015-08-02 05:33+0000\n"
+"X-Generator: Launchpad (build 17656)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -42,7 +42,7 @@ msgstr "Сайт %1 патрабуе праверкі сапраўднасці."
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr "Імя карыстальніка"
+msgstr "Карыстальнік"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
@@ -59,7 +59,7 @@ msgstr "Скасаваць"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr "Пацвердзіць навігацыю"
+msgstr "Пацвердзіць пераход"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
@@ -381,7 +381,7 @@ msgstr "Далей"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr ""
+msgstr "Наступная старонка"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
@@ -409,7 +409,7 @@ msgstr "Адчыніць выяву ў новай картцы"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Адкрыць спасылку ў новай ўкладцы ў фоне"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -468,7 +468,7 @@ msgstr ""
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:311
 msgid "Save"
-msgstr ""
+msgstr "Захаваць"
 
 #: src/app/webbrowser/Browser.qml:292
 msgid "Share"
@@ -489,7 +489,7 @@ msgstr "Новая картка"
 
 #: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
-msgstr ""
+msgstr "Наладкі"
 
 #: src/app/webbrowser/Browser.qml:336
 msgid "Leave Private Mode"
@@ -540,7 +540,7 @@ msgstr "Учора"
 
 #: src/app/webbrowser/HistoryView.qml:180
 msgid "Select all"
-msgstr ""
+msgstr "Пазначыць усё"
 
 #: src/app/webbrowser/HistoryView.qml:210
 msgid "Delete"
@@ -582,43 +582,44 @@ msgstr "Гэты сайт мае небяспечныя элементы"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "Немагчыма праверыць профіль"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "Ідэнтыфікацыйныя дадзеныя гэтага сайта не правераныя."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "Сертыфікат не адпавядае профілю сайта."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Тэрмін дзеяння сертыфіката сервера мінуў."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "У сертыфікаце сервера ўтрымліваюцца некарэктныя даты."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "Сертыфікат сервера выпушчаны выдаўцом, не лічыцца надзейным."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Сертыфікат сервера адкліканы."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Сертыфікат сервера ё некарэктным."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "Сертыфікат сервера не ё бяспечным."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"Сертыфікату сервера не ўдалося прайсці праверкі абароны па невядомай прычыне."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
@@ -631,37 +632,49 @@ msgstr "Які знаходзіцца ў веданні"
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr ""
+msgstr "Рухавік пошуку"
 
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:275
 msgid "Homepage"
-msgstr ""
+msgstr "Хатняя старонка"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "Аднаўляць папярэдні сеанс пры запуску"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "Дазволіць адкрыццё новых укладак ў фоне"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
-msgstr ""
+msgstr "Прыватнасць"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr ""
+msgstr "Скінуць налады браўзэра"
 
 #: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
+msgstr "Спустошыць часопіс прагляду"
+
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
 msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
+msgstr "Спустоўшыць кэш"
+
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
 msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr "Ачысціць"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
