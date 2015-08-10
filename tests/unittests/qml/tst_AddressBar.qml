@@ -342,6 +342,7 @@ Item {
         }
 
         function test_togglingIndicatorShouldBookmark() {
+            skip("Skipped due to what seems to be a bug in the UITK: https://launchpad.net/bugs/1483279")
             addressBar.actualUrl = "http://example.org"
             clickItem(textInput)
             verify(!addressBar.bookmarked)
