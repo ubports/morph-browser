@@ -143,9 +143,6 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_settings_page(self):
         return self.wait_select_single(SettingsPage, visible=True)
 
-    def get_history_view(self):
-        return self.wait_select_single(HistoryView, visible=True)
-
     def get_expanded_history_view(self):
         return self.wait_select_single(ExpandedHistoryView, visible=True)
 
