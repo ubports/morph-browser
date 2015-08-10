@@ -305,12 +305,9 @@ Item {
             typeString(url)
             compare(addressBar.text, url)
             addressBar.actualUrl = url
-            wait(2000)
             clickItem(textInput)
             verify(!addressBar.activeFocus)
-            wait(5000)
             clickItem(addressBar)
-            wait(2000)
             compare(addressBar.__textField.selectedText, url)
             clickItem(addressBar)
             compare(addressBar.__textField.selectedText, "")
