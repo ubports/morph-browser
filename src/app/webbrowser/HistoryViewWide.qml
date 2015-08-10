@@ -44,6 +44,10 @@ Item {
         anchors.fill: parent
     }
 
+    HistoryTimeframeModel {
+        id: historyTimeframeModel
+    }
+ 
     Row {
         id: historyViewWideRow
         anchors {
@@ -66,63 +70,8 @@ Item {
 
                 anchors.fill: parent
     
-                Keys.onUpPressed: {
-                    if (currentIndex > -1) {
-                        currentIndex--
-                    }
-                    event.accepted = true
-                }
-                Keys.onDownPressed: {
-                    if (currentIndex < (count - 1)) {
-                        currentIndex++
-                    }
-                    event.accepted = true
-                }
-    
-                onCurrentIndexChanged: {
-                    if (currentIndex == -1) {
-                        urlsListView.model = historyViewWide.historyModel
-                        contentY = units.gu(4) * -1
-                    } else {
-                        urlsListView.model = currentItem.entries
-                    }
-                    urlsListView.ViewItems.selectedIndices = []
-                }
-    
                 model: HistoryLastVisitDateListModel {
-                    sourceModel: HistoryTimeframeModel {
-                        id: historyTimeframeModel
-                    }
-                }
-    
-                header: ListItem {
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        rightMargin: units.gu(1)
-                    }
-    
-                    width: parent.width
-                    height: units.gu(4)
-    
-                    color: lastVisitDateListView.currentIndex == -1 ? highlightColor : "transparent"
-
-                    Label {
-                        anchors {
-                            top: parent.top
-                            left: parent.left
-                            topMargin: units.gu(1)
-                            leftMargin: units.gu(2)
-                        }
-    
-                        height: parent.height
-    
-                        text: i18n.tr("All History")
-                        fontSize: "small"
-                        color: lastVisitDateListView.currentIndex == -1 ? UbuntuColors.orange : UbuntuColors.darkGrey
-                    }
-    
-                    onClicked: lastVisitDateListView.currentIndex = -1
+                    sourceModel: historyTimeframeModel
                 }
     
                 delegate: ListItem {
@@ -154,6 +103,10 @@ Item {
                         height: parent.height
     
                         text: {
+                            if (!lastVisitDate.isValid()) {
+                                return i18n.tr("All History")
+                            }
+
                             var today = new Date()
                             today.setHours(0, 0, 0, 0)
     
@@ -176,7 +129,11 @@ Item {
                         color: lastVisitDateListView.currentIndex == index ? UbuntuColors.orange : UbuntuColors.darkGrey
                     }
     
-                    onClicked: lastVisitDateListView.currentIndex = index
+                    onClicked: {
+                        lastVisitDateListView.currentIndex = index
+                        historyLastVisitDateModel.setLastVisitDate(lastVisitDate)
+                        urlsListView.ViewItems.selectedIndices = []
+                    }
                 }
             }
 
@@ -199,7 +156,11 @@ Item {
                 Keys.onReturnPressed: historyEntrySelected()
                 Keys.onEnterPressed: historyEntrySelected()
 
-                model: historyViewWide.historyModel
+                model: HistoryLastVisitDateModel {
+                    id: historyLastVisitDateModel
+                    sourceModel: historyTimeframeModel
+                }
+ 
                 clip: true
 
                 onModelChanged: urlsListView.currentIndex = -1

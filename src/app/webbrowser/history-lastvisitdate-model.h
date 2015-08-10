@@ -41,7 +41,7 @@ public:
     void setSourceModel(HistoryTimeframeModel* sourceModel);
 
     const QDate& lastVisitDate() const;
-    void setLastVisitDate(const QDate& lastVisitDate);
+    Q_INVOKABLE void setLastVisitDate(const QDate& lastVisitDate);
 
     Q_INVOKABLE QVariantMap get(int index) const;
 
