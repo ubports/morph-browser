@@ -176,7 +176,7 @@ FocusScope {
             property bool isHomeBookmark: folder === "" && index === 0
 
             removable: !isHomeBookmark
-            draggable: !isHomeBookmark
+            draggable: !isHomeBookmark && contentItem.x === 0
             highlighted: bookmarksList.activeFocus && ListView.isCurrentItem
 
             onClicked: newTabViewWide.bookmarkClicked(url)
