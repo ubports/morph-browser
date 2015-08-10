@@ -40,6 +40,7 @@ BrowserView {
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
+    property var downloadsModel: (downloadsModelLoader.status == Loader.Ready) ? downloadsModelLoader.item : null
 
     property bool newSession: false
 
@@ -348,6 +349,15 @@ BrowserView {
                     onTriggered: {
                         settingsComponent.createObject(settingsContainer)
                         settingsContainer.focus = true
+                    }
+                },
+                Action {
+                    objectName: "downloads"
+                    text: i18n.tr("Downloads")
+                    iconName: "save"
+                    onTriggered: {
+                        downloadsComponent.createObject(downloadsContainer)
+                        downloadsContainer.focus = true
                     }
                 },
                 Action {
@@ -770,6 +780,28 @@ BrowserView {
         }
     }
 
+    FocusScope {
+        id: downloadsContainer
+
+        visible: children.length > 0
+        anchors.fill: parent
+
+        Component {
+            id: downloadsComponent
+
+            DownloadsPage {
+                anchors.fill: parent
+                focus: true
+                downloadsModel: browser.downloadsModel
+                onDone: destroy()
+                Keys.onEscapePressed: {
+                    destroy()
+                    internal.resetFocus()
+                }
+            }
+        }
+    }
+
     TabsModel {
         id: publicTabsModel
     }
@@ -804,6 +836,12 @@ BrowserView {
     Loader {
         id: bookmarksModelLoader
         source: "BookmarksModel.qml"
+        asynchronous: true
+    }
+
+    Loader {
+        id: downloadsModelLoader
+        source: "DownloadsModel.qml"
         asynchronous: true
     }
 

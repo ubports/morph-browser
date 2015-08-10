@@ -19,9 +19,11 @@
 #include "downloads-model.h"
 
 #include <QtCore/QDebug>
+#include <QtCore/QDir>
 #include <QtSql/QSqlQuery>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
+#include <QtCore/QStandardPaths>
 
 #define CONNECTION_NAME "webbrowser-app-downloads"
 
@@ -75,8 +77,10 @@ void DownloadsModel::createOrAlterDatabaseSchema()
 {
     QSqlQuery createQuery(m_database);
     QString query = QLatin1String("CREATE TABLE IF NOT EXISTS downloads "
-                                  "(url VARCHAR, path VARCHAR, mimetype VARCHAR, "
-                                  "created DATETIME DEFAULT CURRENT_TIMESTAMP);");
+                                  "(downloadId VARCHAR, url VARCHAR, path VARCHAR, "
+                                  "mimetype VARCHAR, progress INT, complete BOOL, "
+                                  "error VARCHAR, created DATETIME DEFAULT "
+                                  "CURRENT_TIMESTAMP);");
     createQuery.prepare(query);
     createQuery.exec();
 }
@@ -84,17 +88,22 @@ void DownloadsModel::createOrAlterDatabaseSchema()
 void DownloadsModel::populateFromDatabase()
 {
     QSqlQuery populateQuery(m_database);
-    QString query = QLatin1String("SELECT url, path, mimetype, created "
+    QString query = QLatin1String("SELECT downloadId, url, path, mimetype, "
+                                  "progress, complete, error, created "
                                   "FROM downloads ORDER BY created DESC;");
     populateQuery.prepare(query);
     populateQuery.exec();
     int count = 0;
     while (populateQuery.next()) {
         DownloadEntry entry;
-        entry.url = populateQuery.value(0).toUrl();
-        entry.path = populateQuery.value(1).toString();
-        entry.mimetype = populateQuery.value(2).toString();
-        entry.created = QDateTime::fromTime_t(populateQuery.value(3).toInt());
+        entry.downloadId = populateQuery.value(0).toString();
+        entry.url = populateQuery.value(1).toUrl();
+        entry.path = populateQuery.value(2).toString();
+        entry.mimetype = populateQuery.value(3).toString();
+        entry.progress = populateQuery.value(4).toInt();
+        entry.complete = populateQuery.value(5).toBool();
+        entry.error = populateQuery.value(6).toString();
+        entry.created = QDateTime::fromTime_t(populateQuery.value(7).toInt());
 
         // Only list an entry if its file exists, however we don't remove
         // the entry if the file is missing as it may be stored on a removable
@@ -113,9 +122,13 @@ QHash<int, QByteArray> DownloadsModel::roleNames() const
 {
     static QHash<int, QByteArray> roles;
     if (roles.isEmpty()) {
+        roles[DownloadId] = "downloadId";
         roles[Url] = "url";
         roles[Path] = "path";
         roles[Mimetype] = "mimetype";
+        roles[Progress] = "progress";
+        roles[Complete] = "complete";
+        roles[Error] = "error";
         roles[Created] = "created";
     }
     return roles;
@@ -134,12 +147,20 @@ QVariant DownloadsModel::data(const QModelIndex& index, int role) const
     }
     const DownloadEntry& entry = m_orderedEntries.at(index.row());
     switch (role) {
+    case DownloadId:
+        return entry.downloadId;
     case Url:
         return entry.url;
     case Path:
         return entry.path;
     case Mimetype:
         return entry.mimetype;
+    case Progress:
+        return entry.progress;
+    case Complete:
+        return entry.complete;
+    case Error:
+        return entry.error;
     case Created:
         return entry.created;
     default:
@@ -165,35 +186,110 @@ void DownloadsModel::setDatabasePath(const QString& path)
 }
 
 /*!
-    Add a download to the database. This should be called after the download
-    has completed successfully and been moved to its final location. Reporting
-    of transfer progress prior to the download finishing is handled by the 
-    ubuntu download manager and the transfer indicator.
+    Add a download to the database. This should happen as soon as the download
+    is started, it's progress will then be updated as the download happens.
 */
-void DownloadsModel::add(const QUrl& url, const QString& path, const QString& mimetype)
+void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QString& mimetype)
 {
     beginInsertRows(QModelIndex(), 0, 0);
     DownloadEntry entry;
+    entry.downloadId = downloadId;
     entry.url = url;
-    entry.path = path;
     entry.mimetype = mimetype;
-    entry.created = QDateTime::currentDateTime();
     m_orderedEntries.prepend(entry);
     endInsertRows();
-    Q_EMIT added(url, path, mimetype);
+    Q_EMIT added(downloadId, url, mimetype);
     insertNewEntryInDatabase(entry);
     Q_EMIT rowCountChanged();
+}
+
+void DownloadsModel::setPath(const QString& downloadId, const QString& path)
+{
+
+    QSqlQuery query(m_database);
+    static QString updateStatement = QLatin1String("UPDATE downloads SET path = ? "
+                                                   "WHERE downloadId = ?");
+    query.prepare(updateStatement);
+    query.addBindValue(path);
+    query.addBindValue(downloadId);
+    query.exec();
+    Q_EMIT pathChanged(downloadId, path);
+}
+
+void DownloadsModel::setProgress(const QString& downloadId, const int progress)
+{
+    QSqlQuery query(m_database);
+    static QString updateStatement = QLatin1String("UPDATE downloads SET progress = ? "
+                                                   "WHERE downloadId = ?");
+    query.prepare(updateStatement);
+    query.addBindValue(progress);
+    query.addBindValue(downloadId);
+    query.exec();
+    Q_EMIT progressChanged(downloadId, progress);
+}
+
+void DownloadsModel::setComplete(const QString& downloadId, const bool complete)
+{
+    QSqlQuery query(m_database);
+    static QString updateStatement = QLatin1String("UPDATE downloads SET complete = ? "
+                                                   "WHERE downloadId = ?");
+    query.prepare(updateStatement);
+    query.addBindValue(complete);
+    query.addBindValue(downloadId);
+    query.exec();
+    Q_EMIT completeChanged(downloadId, complete);
+}
+
+void DownloadsModel::setError(const QString& downloadId, const QString& error)
+{
+    QSqlQuery query(m_database);
+    static QString updateStatement = QLatin1String("UPDATE downloads SET error = ? "
+                                                   "WHERE downloadId = ?");
+    query.prepare(updateStatement);
+    query.addBindValue(error);
+    query.addBindValue(downloadId);
+    query.exec();
+    Q_EMIT errorChanged(downloadId, error);
+}
+
+void DownloadsModel::moveToDownloads(const QString& downloadId, const QString& path)
+{
+    QFile file(path);
+    if (file.exists()) {
+        QFileInfo fi(path);
+        QString suffix = fi.completeSuffix();
+        QString filename = fi.fileName();
+        QString filenameWithoutSuffix = filename.left(filename.size() - suffix.size());
+        QString dir = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
+        QString destination = dir + QDir::separator() + filenameWithoutSuffix + suffix;
+        // Avoid filename collision by automatically inserting an incremented
+        // number into the filename if the original name already exists.
+        if (QFile::exists(destination)) {
+            int append = 1;
+            do {
+                destination = QString("%1%2.%3").arg(dir + QDir::separator() + filenameWithoutSuffix, QString::number(append), suffix);
+                append++;
+            } while (QFile::exists(destination));
+        }
+        if (file.rename(destination)) {
+            setPath(downloadId, destination);
+        } else {
+            qWarning() << "Failed moving file from " << path << " to " << destination;
+        }
+    } else {
+        qWarning() << "Download not found: " << path;
+    }
 }
 
 void DownloadsModel::insertNewEntryInDatabase(const DownloadEntry& entry)
 {
     QSqlQuery query(m_database);
-    static QString insertStatement = QLatin1String("INSERT INTO downloads (url, "
-                                                   "path, mimetype) "
+    static QString insertStatement = QLatin1String("INSERT INTO downloads (downloadId, url, "
+                                                   "mimetype) "
                                                    "VALUES (?, ?, ?);");
     query.prepare(insertStatement);
-    query.addBindValue(entry.url.toString());
-    query.addBindValue(entry.path);
+    query.addBindValue(entry.downloadId);
+    query.addBindValue(entry.url);
     query.addBindValue(entry.mimetype);
     query.exec();
 }

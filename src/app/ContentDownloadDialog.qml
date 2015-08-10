@@ -26,10 +26,52 @@ PopupBase {
     anchors.fill: parent
     property var activeTransfer
     property var downloadId
+    property var singleDownload
     property alias contentType: peerPicker.contentType
 
     Rectangle {
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        height: units.gu(50)
+
+        Column {
+
+            anchors.fill: parent
+            spacing: units.gu(2)
+
+            Icon {
+                id: mimetypeIcon
+                height: units.gu(4.5)
+                width: height
+            }
+
+            Button {
+                text: "Choose an application"
+                onClicked: pickerRect.visible = true
+            }
+
+            Button {
+                text: "Download file"
+                onClicked: {
+                    downloadDialog.singleDownload.moveToDownloads = true
+                    downloadDialog.singleDownload.start()
+                    PopupUtils.close(downloadDialog)
+                }
+            }
+
+            Button {
+                text: "Cancel"
+                onClicked: PopupUtils.close(downloadDialog)
+            }
+
+        }
+    }
+
+    Rectangle {
+        id: pickerRect
         anchors.fill: parent
+        visible: false
         ContentPeerPicker {
             id: peerPicker
             handler: ContentHandler.Destination

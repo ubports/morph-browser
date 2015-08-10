@@ -27,6 +27,8 @@ import "FileExtensionMapper.js" as FileExtensionMapper
 Item {
     id: downloadItem
 
+    property string mimeType;
+
     Component {
         id: downloadDialog
         ContentDownloadDialog { }
@@ -42,13 +44,35 @@ Item {
     Component {
         id: downloadComponent
         SingleDownload {
+            id: downloader
             autoStart: false
             property var contentType
+            property string url
+            property bool moveToDownloads: false
+            // DownloadId gets cleared when finished, but we still need a
+            // copy to identify the download we've just finished in the database
+            property string currentDownloadId
             onDownloadIdChanged: {
-                PopupUtils.open(downloadDialog, downloadItem, {"contentType" : contentType, "downloadId" : downloadId})
+                currentDownloadId = downloadId;
+                browser.downloadsModel.add(downloadId, url, downloadItem.mimeType)
+                PopupUtils.open(downloadDialog, downloadItem, {"contentType" : contentType, "downloadId" : downloadId, "singleDownload" : downloader})
+            }
+
+            onProgressChanged: {
+                browser.downloadsModel.setProgress(downloadId, progress)
+            }
+
+            onErrorChanged: {
+                browser.downloadsModel.setError(downloadId, error)
             }
 
             onFinished: {
+                if (moveToDownloads) {
+                    browser.downloadsModel.moveToDownloads(currentDownloadId, path)
+                } else {
+                    browser.downloadsModel.setPath(currentDownloadId, path)
+                }
+                browser.downloadsModel.setComplete(currentDownloadId, true)
                 metadata.destroy()
                 destroy()
             }
@@ -62,11 +86,13 @@ Item {
             singleDownload.headers = headers
         }
         singleDownload.metadata = metadata
+        singleDownload.url = url
         singleDownload.download(url)
     }
 
     function downloadPicture(url, headers) {
         var metadata = metadataComponent.createObject(downloadItem)
+        downloadItem.mimeType = "image/*"
         download(url, ContentType.Pictures, headers, metadata)
     }
 
@@ -87,6 +113,7 @@ Item {
             metadata.extract = true
         }
         metadata.title = filename
+        downloadItem.mimeType = mimeType
         download(url, contentType, headers, metadata)
     }
 
