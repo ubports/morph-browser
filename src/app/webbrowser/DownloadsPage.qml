@@ -21,10 +21,12 @@ import Qt.labs.settings 1.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
+import Ubuntu.Content 1.0
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 
 import "urlManagement.js" as UrlManagement
+import "../MimeTypeMapper.js" as MimeTypeMapper
 
 Item {
     id: downloadsItem
@@ -62,8 +64,38 @@ Item {
         delegate: DownloadDelegate {
             title: model.path
             url: model.url
+
+            onClicked: {
+                exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
+                exportPeerPicker.visible = true
+                exportPeerPicker.path = model.path
+            }
         }
 
+    }
+
+    Component {
+        id: contentItemComponent
+        ContentItem {}
+    }
+
+    ContentPeerPicker {
+        id: exportPeerPicker
+        visible: false
+        anchors.fill: parent
+        handler: ContentHandler.Destination
+        property string path
+        onPeerSelected: {
+            var transfer = peer.request();
+            if (transfer.state === ContentTransfer.InProgress) {
+                transfer.items = [contentItemComponent.createObject(downloadsItem, {"url": path})];
+                transfer.state = ContentTransfer.Charged;
+            }
+            visible = false
+        }
+        onCancelPressed: {
+            visible = false
+        }
     }
 
 }
