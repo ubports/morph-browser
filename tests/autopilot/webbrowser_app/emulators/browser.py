@@ -264,7 +264,8 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
     def get_bookmark_toggle(self):
-        return self.select_single("QQuickItem", objectName="bookmarkToggle")
+        return self.select_single("QQuickMouseArea",
+                                  objectName="bookmarkToggle")
 
 
 class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
