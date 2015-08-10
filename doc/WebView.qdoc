@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -24,7 +24,7 @@
 
     Here is a very simple example of how to use a WebView to render a web page:
     \qml
-        import QtQuick 2.0
+        import QtQuick 2.4
         import Ubuntu.Web 0.2
 
         WebView {
