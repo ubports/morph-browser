@@ -62,6 +62,21 @@ BrowserView {
         }
     }
 
+    Connections {
+        target: tabsModel
+        onCurrentIndexChanged: {
+            // Remove focus from the address bar when the current tab
+            // changes to ensure that its contents are updated.
+            tabContainer.forceActiveFocus()
+
+            // In narrow mode, the tabslist is a stack:
+            // the current tab is always at the top.
+            if (!browser.wide) {
+                tabsModel.move(tabsModel.currentIndex, 0)
+            }
+        }
+    }
+
     actions: [
         Actions.GoTo {
             onTriggered: currentWebview.url = value
@@ -116,7 +131,7 @@ BrowserView {
         readonly property bool restoreSession: true
     }
 
-    Item {
+    FocusScope {
         anchors.fill: parent
         visible: !settingsContainer.visible && !historyViewContainer.visible
 
@@ -221,13 +236,13 @@ BrowserView {
                     onBookmarkClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
-                        currentWebview.forceActiveFocus()
+                        tabContainer.forceActiveFocus()
                     }
                     onBookmarkRemoved: browser.bookmarksModel.remove(url)
                     onHistoryEntryClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
-                        currentWebview.forceActiveFocus()
+                        tabContainer.forceActiveFocus()
                     }
                 }
             }
@@ -252,9 +267,13 @@ BrowserView {
             visible: !recentView.visible
 
             webview: browser.currentWebview
+            tabsModel: browser.tabsModel
             searchUrl: currentSearchEngine.urlTemplate
 
             incognito: browser.incognito
+
+            showTabsBar: browser.wide
+            showFaviconInAddressBar: !browser.wide
 
             y: webview ? webview.locationBarController.offset : 0
 
@@ -280,11 +299,12 @@ BrowserView {
                 onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
             }
 
+            onRequestNewTab: browser.openUrlInNewTab("", true)
+
             anchors {
                 left: parent.left
                 right: parent.right
             }
-            height: units.gu(6)
 
             drawerActions: [
                 Action {
@@ -308,18 +328,17 @@ BrowserView {
                     objectName: "tabs"
                     text: i18n.tr("Open tabs")
                     iconName: "browser-tabs"
-                    enabled: formFactor != "mobile"
+                    enabled: (formFactor != "mobile") && !browser.wide
                     onTriggered: {
                         recentView.state = "shown"
                         recentToolbar.state = "shown"
-                        recentView.focus = true
                     }
                 },
                 Action {
                     objectName: "newtab"
                     text: i18n.tr("New tab")
                     iconName: browser.incognito ? "private-tab-new" : "tab-new"
-                    enabled: formFactor != "mobile"
+                    enabled: (formFactor != "mobile") && !browser.wide
                     onTriggered: browser.openUrlInNewTab("", true)
                 },
                 Action {
@@ -335,6 +354,7 @@ BrowserView {
                     objectName: "privatemode"
                     text: browser.incognito ? i18n.tr("Leave Private Mode") : i18n.tr("Private Mode")
                     iconName: "private-browsing"
+                    iconSource: browser.incognito ? Qt.resolvedUrl("assets/private-browsing-exit.svg") : ""
                     onTriggered: {
                         if (browser.incognito) {
                             if (tabsModel.count > 1) {
@@ -350,7 +370,9 @@ BrowserView {
                 }
             ]
 
-            addressBarCanSimplifyText: !(activeFocus || suggestionsList.activeFocus)
+            canSimplifyText: !browser.wide
+            editing: activeFocus || suggestionsList.activeFocus
+
             Keys.onDownPressed: if (suggestionsList.count) suggestionsList.focus = true
             Keys.onEscapePressed: internal.resetFocus()
         }
@@ -428,7 +450,7 @@ BrowserView {
 
             onActivated: {
                 browser.currentWebview.url = url
-                browser.currentWebview.forceActiveFocus()
+                tabContainer.forceActiveFocus()
                 chrome.requestedUrl = url
             }
         }
@@ -586,6 +608,15 @@ BrowserView {
             state = ""
             recentToolbar.state = "hidden"
             tabslist.reset()
+        }
+    }
+
+    onWideChanged: {
+        if (wide) {
+            recentView.reset()
+        } else {
+            // In narrow mode, the tabslist is a stack: the current tab is always at the top.
+            tabsModel.move(tabsModel.currentIndex, 0)
         }
     }
 
@@ -782,6 +813,7 @@ BrowserView {
         BrowserTab {
             anchors.fill: parent
             current: tabsModel && tabsModel.currentTab === this
+            focus: current
 
             webviewComponent: WebViewImpl {
                 id: webviewimpl
@@ -986,38 +1018,37 @@ BrowserView {
         function addTab(tab, setCurrent) {
             var index = tabsModel.add(tab)
             if (setCurrent) {
-                tabsModel.setCurrent(index)
+                tabsModel.currentIndex = index
                 chrome.requestedUrl = tab.initialUrl
             }
         }
 
         function switchToTab(index) {
-            var tab = tabsModel.get(index)
+            tabsModel.currentIndex = index
+            var tab = tabsModel.currentTab
             if (tab) {
-                tab.load()
-                tabslist.model.setCurrent(index)
-                if (tab.initialUrl == "" && formFactor == "desktop") focusAddressBar()
-                else tab.forceActiveFocus()
+                if (!tab.url.toString() && !tab.initialUrl.toString() &&
+                    (formFactor == "desktop")) {
+                    focusAddressBar()
+                } else {
+                    tabContainer.forceActiveFocus()
+                }
             }
         }
 
         function closeCurrentTab() {
             if (tabsModel.count > 0) {
-                var tab = tabsModel.remove(0)
-                if (tab) tab.close()
-
-                if (tabsModel.count === 0) {
-                    browser.openUrlInNewTab("", true)
-                } else {
-                    internal.switchToTab(0)
+                var tab = tabsModel.remove(tabsModel.currentIndex)
+                if (tab) {
+                    tab.close()
                 }
-             }
+            }
         }
 
         function focusAddressBar(selectContent) {
             chrome.forceActiveFocus()
             Qt.inputMethod.show() // work around http://pad.lv/1316057
-            if (selectContent) chrome.addressBarSelectAll()
+            if (selectContent) chrome.selectAll()
         }
 
         function resetFocus() {
@@ -1025,7 +1056,7 @@ BrowserView {
                 if (!browser.currentWebview.url.toString() && (formFactor == "desktop")) {
                     internal.focusAddressBar()
                 } else {
-                    browser.currentWebview.forceActiveFocus()
+                    tabContainer.forceActiveFocus()
                 }
             }
         }
@@ -1104,7 +1135,7 @@ BrowserView {
                 var tab = publicTabsModel.get(i)
                 tabs.push(serializeTabState(tab))
             }
-            store(JSON.stringify({tabs: tabs}))
+            store(JSON.stringify({tabs: tabs, currentIndex: publicTabsModel.currentIndex}))
         }
 
         function restore() {
@@ -1125,6 +1156,9 @@ BrowserView {
                         internal.addTab(tab, i == 0)
                     }
                 }
+                if ('currentIndex' in state) {
+                    publicTabsModel.currentIndex = state.currentIndex
+                }
             }
         }
 
@@ -1134,6 +1168,7 @@ BrowserView {
             state.uniqueId = tab.uniqueId
             state.url = tab.url.toString()
             state.title = tab.title
+            state.icon = tab.icon.toString()
             state.preview = tab.preview.toString()
             state.savedState = tab.webview ? tab.webview.currentState : tab.restoreState
             return state
@@ -1143,6 +1178,9 @@ BrowserView {
             var properties = {'initialUrl': state.url, 'initialTitle': state.title}
             if ('uniqueId' in state) {
                 properties["uniqueId"] = state.uniqueId
+            }
+            if ('icon' in state) {
+                properties["initialIcon"] = state.icon
             }
             if ('preview' in state) {
                 properties["preview"] = state.preview
@@ -1163,25 +1201,38 @@ BrowserView {
         // Save session periodically to mitigate state loss when the application crashes
         interval: 60000 // every minute
         repeat: true
-        running: true
+        running: !browser.incognito
         onTriggered: delayedSessionSaver.restart()
     }
     Connections {
         target: Qt.application
         onStateChanged: {
             if (Qt.application.state != Qt.ApplicationActive) {
-                session.save()
+                if (!browser.incognito) {
+                    session.save()
+                }
                 if (browser.currentWebview) {
                     browser.currentWebview.fullscreen = false
                 }
             }
         }
-        onAboutToQuit: session.save()
+        onAboutToQuit: {
+            if (!browser.incognito) {
+                session.save()
+            }
+        }
     }
     Connections {
-        target: tabsModel
+        target: browser.incognito ? null : publicTabsModel
         onCurrentTabChanged: delayedSessionSaver.restart()
         onCountChanged: delayedSessionSaver.restart()
+    }
+    onIncognitoChanged: {
+        if (incognito) {
+            // When going incognito, save the current session right
+            // away, as periodic session saving is disabled.
+            session.save()
+        }
     }
 
     // Delay instantiation of the first webview by 1 msec to allow initial
@@ -1209,13 +1260,36 @@ BrowserView {
         }
     }
 
-    // Ensure that at most n webviews are instantiated at all times,
-    // to reduce memory consumption (see http://pad.lv/1376418).
     Connections {
-        target: tabsModel
+        // On mobile, ensure that at most n webviews are instantiated at all
+        // times, to reduce memory consumption (see http://pad.lv/1376418).
+        // Note: this works only in narrow mode, where the list of tabs is a
+        // stack. Switching from wide mode to narrow mode will result in
+        // undefined behaviour (tabs previously loaded won’t be unloaded).
+        target: ((formFactor == "mobile") && !browser.wide) ? tabsModel : null
         onCurrentTabChanged: {
             if (tabsModel.count > browser.maxLiveWebviews) {
                 tabsModel.get(browser.maxLiveWebviews).unload()
+            }
+        }
+    }
+
+    Connections {
+        target: tabsModel
+        onCurrentTabChanged: {
+            var tab = tabsModel.currentTab
+            if (tab) {
+                tab.load()
+            }
+        }
+        onCountChanged: {
+            if (tabsModel.count == 0) {
+                if (browser.incognito) {
+                    browser.incognito = false
+                    internal.resetFocus()
+                } else if ((formFactor == "desktop") || browser.wide) {
+                    Qt.quit()
+                }
             }
         }
     }
@@ -1250,20 +1324,37 @@ BrowserView {
     KeyboardShortcuts {
         id: shortcuts
 
-        // Ctrl + Tab: pull the tab from the bottom of the stack to the
-        // top (i.e. make it current)
+        // Ctrl+Tab: cycle through open tabs
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Tab
             enabled: chrome.visible || recentView.visible
             onTriggered: {
-                internal.switchToTab(tabsModel.count - 1)
-                if (chrome.visible) recentView.reset()
-                else if (recentView.visible) recentView.focus = true
+                if (browser.wide) {
+                    internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count)
+                } else {
+                    internal.switchToTab(tabsModel.count - 1)
+                }
+                if (recentView.visible) recentView.focus = true
             }
         }
 
-        // Ctrl + w or Ctrl+F4: Close the current tab
+        // Ctrl+Shift+Tab: cycle through open tabs in reverse order
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_Backtab
+            enabled: chrome.visible || recentView.visible
+            onTriggered: {
+                if (browser.wide) {
+                    internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count)
+                } else {
+                    internal.switchToTab(tabsModel.count - 1)
+                }
+                if (recentView.visible) recentView.focus = true
+            }
+        }
+
+        // Ctrl+W or Ctrl+F4: Close the current tab
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_W
@@ -1277,7 +1368,7 @@ BrowserView {
             onTriggered: internal.closeCurrentTab()
         }
 
-        // Ctrl + t: Open a new Tab
+        // Ctrl+T: Open a new Tab
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_T
@@ -1288,7 +1379,7 @@ BrowserView {
             }
         }
 
-        // F6 or Ctrl + L or Alt + D: Select the content in the address bar
+        // F6 or Ctrl+L or Alt+D: Select the content in the address bar
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_L
@@ -1307,7 +1398,7 @@ BrowserView {
             onTriggered: internal.focusAddressBar(true)
         }
 
-        // Ctrl + D: Toggle bookmarked state on current Tab
+        // Ctrl+D: Toggle bookmarked state on current Tab
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_D
@@ -1323,7 +1414,7 @@ BrowserView {
             }
         }
 
-        // Ctrl + H: Show History
+        // Ctrl+H: Show History
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_H
@@ -1336,7 +1427,7 @@ BrowserView {
             }
         }
 
-        // Alt + Left Arrow or Backspace: Goes to the previous page in history
+        // Alt+← or Backspace: Goes to the previous page in history
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Left
@@ -1349,7 +1440,7 @@ BrowserView {
             onTriggered: internal.historyGoBack()
         }
 
-        // Alt + Right Arrow or Shift + Backspace: Goes to the next page in history
+        // Alt+→ or Shift+Backspace: Goes to the next page in history
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Right
@@ -1363,7 +1454,7 @@ BrowserView {
             onTriggered: internal.historyGoForward()
         }
 
-        // F5 or Ctrl + R: Reload current Tab
+        // F5 or Ctrl+R: Reload current Tab
         KeyboardShortcut {
             key: Qt.Key_F5
             enabled: chrome.visible

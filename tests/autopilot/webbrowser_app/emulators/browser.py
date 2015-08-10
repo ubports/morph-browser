@@ -233,6 +233,9 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return drawer.select_single("AbstractButton", objectName=actionName,
                                     visible=True)
 
+    def get_tabs_bar(self):
+        return self.select_single(TabsBar)
+
 
 class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
@@ -268,6 +271,32 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_bookmark_toggle(self):
         return self.select_single("QQuickItem", objectName="bookmarkToggle")
+
+
+class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    @autopilot.logging.log_action(logger.info)
+    def click_new_tab_button(self):
+        button = self.select_single("QQuickMouseArea",
+                                    objectName="newTabButton")
+        self.pointing_device.click_object(button)
+
+    def get_tabs(self):
+        return self.select_many("QQuickItem", objectName="tabDelegate")
+
+    def get_tab(self, index):
+        return self.select_single("QQuickItem", objectName="tabDelegate",
+                                  tabIndex=index)
+
+    @autopilot.logging.log_action(logger.info)
+    def select_tab(self, index):
+        self.pointing_device.click_object(self.get_tab(index))
+
+    @autopilot.logging.log_action(logger.info)
+    def close_tab(self, index):
+        tab = self.get_tab(index)
+        close_button = tab.select_single("Icon11", objectName="closeButton")
+        self.pointing_device.click_object(close_button)
 
 
 class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):

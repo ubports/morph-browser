@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-22 12:30+0200\n"
-"PO-Revision-Date: 2015-06-18 23:10+0000\n"
+"POT-Creation-Date: 2015-07-31 09:47+0200\n"
+"PO-Revision-Date: 2015-07-11 15:39+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-07-03 05:47+0000\n"
-"X-Generator: Launchpad (build 17597)\n"
+"X-Launchpad-Export-Date: 2015-08-01 05:43+0000\n"
+"X-Generator: Launchpad (build 17656)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,6 +24,7 @@ msgstr "هشدار جاوا اسکریپت"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "قبول"
@@ -47,9 +48,11 @@ msgid "Password"
 msgstr "گذرواژه"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "لغو"
 
@@ -392,7 +395,7 @@ msgstr "برو به"
 msgid "Address;URL;www"
 msgstr "آدرس;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:574
 msgid "New Tab"
 msgstr "زبانه تازه"
 
@@ -432,9 +435,42 @@ msgstr "ذخیره‌ی تصویر"
 msgid "Share…"
 msgstr "به اشترام گذاری…"
 
-#: src/app/webbrowser/AddressBar.qml:201
+#: src/app/webbrowser/AddressBar.qml:208
 msgid "search or enter an address"
 msgstr "جست‌وجو کرده یا یک نشانی را وارد کنید"
+
+#: src/app/webbrowser/BookmarkOptions.qml:48
+msgid "Bookmark Added"
+msgstr "نشانک افزوده شد"
+
+#. TRANSLATORS: Field where the title of bookmarked URL can be changed
+#: src/app/webbrowser/BookmarkOptions.qml:53
+msgid "Name"
+msgstr "نام"
+
+#. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
+#: src/app/webbrowser/BookmarkOptions.qml:71
+msgid "Save in"
+msgstr "ذخیره در"
+
+#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarksFolderListView.qml:115
+msgid "All Bookmarks"
+msgstr "تمام نشانک‌ها"
+
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
+msgid "New Folder"
+msgstr "پوشهٔ جدید"
+
+#: src/app/webbrowser/BookmarkOptions.qml:115
+msgid "Create new folder"
+msgstr "ایجاد پوشهٔ جدید"
+
+#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/SettingsPage.qml:311
+msgid "Save"
+msgstr "ذخیره"
 
 #: src/app/webbrowser/Browser.qml:292
 msgid "Share"
@@ -465,21 +501,21 @@ msgstr "ترک حالت خصوصی"
 msgid "Private Mode"
 msgstr "حالت خصوصی"
 
-#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "انجام شد"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:606
+#: src/app/webbrowser/Browser.qml:658
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:889
+#: src/app/webbrowser/Browser.qml:941
 msgid "Swipe Up To Exit Full Screen"
 msgstr "برای خروج از حالت تمام‌صفحه، به سمت بالا بکشید"
 
-#: src/app/webbrowser/Browser.qml:890
+#: src/app/webbrowser/Browser.qml:942
 msgid "Press ESC To Exit Full Screen"
 msgstr "برای خروج از حالت تمام‌صفحه، ecs را فشار دهید"
 
@@ -490,7 +526,7 @@ msgid_plural "%1 pages"
 msgstr[0] "%1 صفحه"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:118
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "کم‌تر"
 
@@ -530,15 +566,15 @@ msgstr ""
 msgid "Bookmarks"
 msgstr "نشانک‌ها"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
 msgstr "بیش‌تر"
 
-#: src/app/webbrowser/NewTabView.qml:208
+#: src/app/webbrowser/NewTabView.qml:226
 msgid "Top sites"
 msgstr "پایگاه‌های برتر"
 
-#: src/app/webbrowser/NewTabView.qml:239
+#: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
 msgstr "هنوز از هیچ پایگاهی دیدن نکرده‌اید"
 
@@ -626,13 +662,21 @@ msgstr "بازنشانی تنظیمات مرورگر"
 msgid "Clear Browsing History"
 msgstr "پاک‌سازی تاریخچه‌ی جست‌وجو"
 
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
+msgstr ""
+
 #: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
 msgstr "پاک‌سازی انباره"
 
-#: src/app/webbrowser/SettingsPage.qml:311
-msgid "Save"
-msgstr "ذخیره"
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr "پاک‌کردن"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
@@ -640,31 +684,78 @@ msgstr "برای دیدن فشار دهید"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:65
+#: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - مرورگر وب اوبونتو"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:67
+#: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
 msgstr "مرورگر وب اوبونتو"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
-msgid "No local account found for "
-msgstr "حساب محلی‌ای پیدا نشد برای "
+#: src/app/webcontainer/AccountChooserDialog.qml:62
+msgid ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
+msgstr ""
+"هیچ  حسابی به این کارهٔ وب پیوند نخورده است؛ برای افزودن یک حساب، دکمهٔ زیر "
+"را فشار دهید."
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
-msgid "Skip account creation step"
-msgstr "پرش از گام ایجاد حساب کاربری"
-
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
 msgstr "افزودن حساب کاربری"
 
-#: src/app/webcontainer/AccountsView.qml:38
-msgid "Select an account"
-msgstr "انتخاب یک حساب کاربری"
+#: src/app/webcontainer/AccountChooserDialog.qml:87
+msgid "Don't use an account"
+msgstr "از هیچ حسابی استفاده نکن"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:39
+msgid "Account error"
+msgstr "خطای حساب کاربری"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:50
+msgid "Close"
+msgstr "بستن"
+
+#: src/app/webcontainer/AccountsLogic.qml:63
+msgid ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
+msgstr ""
+"پنجرهٔ جساب نتوانست گشوده شود. در هر لحظه تنها می‌توانید یک حساب ایجاد کنید؛ "
+"لطفاً پس از بستن تمام پنجره‌های جساب دیگر، دوباره تلاش کنید."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:45
+#, qt-format
+msgid "<b>%1</b> needs to access your %2 online account."
+msgstr "<b>%1</b> نیاز دارد به حساب برخط %2 شما دسترسی پیدا کند."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:55
+#, qt-format
+msgid "<b>%1</b> would like to access your %2 online account."
+msgstr "<b>%1</b> می‌خواهد به حساب برخط %2 شما دسترسی پیدا کند."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:64
+msgid ""
+"Choose an account now, or skip this step and choose an online account later."
+msgstr ""
+"حالا یک حساب کاربری برگزینید، با از این گام پریده و بعداً یک حساب برخط "
+"برگزینید."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Close the app"
+msgstr "بستن کاره"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Skip"
+msgstr "پرش"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:84
+msgid "Choose account"
+msgstr "گزینش حساب"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
@@ -685,9 +776,6 @@ msgstr "اینترنت;وب‌جهان‌گستر;مرورگر;وب;کاوشگر
 #~ msgid "Delete all history?"
 #~ msgstr "تمامی تاریخجه پاک شود؟"
 
-#~ msgid "Clear"
-#~ msgstr "پاک‌کردن"
-
 #~ msgid "see more"
 #~ msgstr "مشاهده‌ی بیش‌تر"
 
@@ -700,5 +788,14 @@ msgstr "اینترنت;وب‌جهان‌گستر;مرورگر;وب;کاوشگر
 #~ msgid "Yes"
 #~ msgstr "بله"
 
+#~ msgid "No local account found for "
+#~ msgstr "حساب محلی‌ای پیدا نشد برای "
+
 #~ msgid "Add"
 #~ msgstr "افزودن"
+
+#~ msgid "Select an account"
+#~ msgstr "انتخاب یک حساب کاربری"
+
+#~ msgid "Skip account creation step"
+#~ msgstr "پرش از گام ایجاد حساب کاربری"
