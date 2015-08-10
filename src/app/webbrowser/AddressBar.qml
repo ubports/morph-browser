@@ -179,7 +179,7 @@ FocusScope {
             }
         }
 
-        secondaryItem: Item {
+        secondaryItem: MouseArea {
             id: bookmarkToggle
             objectName: "bookmarkToggle"
 
@@ -197,11 +197,7 @@ FocusScope {
                 color: addressbar.bookmarked ? UbuntuColors.orange : UbuntuColors.darkGrey
             }
 
-            MouseArea {
-                id: bookmarkButton
-                anchors.fill: parent
-                onClicked: addressbar.bookmarked = !addressbar.bookmarked
-            }
+            onClicked: addressbar.bookmarked = !addressbar.bookmarked
 
             Item {
                 id: bookmarkTogglePlaceHolderItem
