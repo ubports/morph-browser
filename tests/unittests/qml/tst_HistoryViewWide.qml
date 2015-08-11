@@ -19,6 +19,7 @@
 import QtQuick 2.0
 import QtTest 1.0
 import Ubuntu.Components 1.2
+import Ubuntu.Components.ListItems 1.0 as ListItems
 import Ubuntu.Test 1.0
 import "../../../src/app/webbrowser"
 
@@ -30,33 +31,11 @@ Item {
 
     HistoryViewWide {
         id: historyViewWide
-        
-        property bool populatedModel: false
-
         anchors.fill: parent
-
         historyModel: HistoryModel {
-            id: historyModel
+            id: historyMockModel
+            databasePath: ":memory:"
         }
-
-        Timer {
-            id: populateTimer
-
-            property int count: 0
-
-            interval: 1001
-            repeat: true
-            onTriggered: {
-                if (count == 4) {
-                    historyViewWide.populatedModel = true
-                    stop()
-                }
-                historyModel.add("http://example.org/" + count, "URL " + count, "")
-                count++
-            }
-        }
-
-        Component.onCompleted: populateTimer.start()
     }
 
     SignalSpy {
@@ -77,9 +56,15 @@ Item {
         signalName: "historyEntryClicked"
     }
 
+    SignalSpy {
+        id: historyEntryRemovedSpy
+        target: historyViewWide
+        signalName: "historyEntryRemoved"
+    }
+
     UbuntuTestCase {
         name: "HistoryViewWide"
-        when: historyViewWide.populatedModel
+        when: windowShown
 
         function clickItem(item) {
             var center = centerOf(item)
@@ -90,6 +75,20 @@ Item {
             var center = centerOf(item)
             mousePress(item, center.x, center.y)
             mouseRelease(item, center.x, center.y, Qt.LeftButton, Qt.NoModifier, 2000)
+        }
+
+        function swipeItemRight(item) {
+            var center = centerOf(item)
+            mousePress(item, center.x, center.y)
+            mouseRelease(item, center.x + 100, center.y, Qt.LeftButton, Qt.NoModifier, 2000)
+        }
+
+        function init() {
+            for (var i = 0; i < 3; ++i) {
+                historyMockModel.add("http://example.org/" + i, "Example Domain " + i, "")
+            }
+            // Wait for the models to be updated
+            wait(1001)
         }
 
         function test_done_button() {
@@ -113,6 +112,63 @@ Item {
             compare(doneSpy.count, 1)
         }
 
+        function test_history_entry_clicked() {
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            compare(urlsList.count, 3)
+            compare(historyEntryClickedSpy.count, 0)
+            clickItem(urlsList.children[0])
+            compare(historyEntryClickedSpy.count, 1)
+            var args = historyEntryClickedSpy.signalArguments[0]
+            var entry = urlsList.model.get(0)
+            compare(args[0], entry.url)
+        }
+
+        function test_selection_mode() {
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            compare(urlsList.count, 3)
+            var backButton = findChild(historyViewWide, "backButton")
+            var selectButton = findChild(historyViewWide, "selectButton")
+            var deleteButton = findChild(historyViewWide, "deleteButton")
+            verify(!backButton.visible)
+            verify(!selectButton.visible)
+            verify(!deleteButton.visible)
+            longPressItem(urlsList.children[0])
+            verify(backButton.visible)
+            verify(selectButton.visible)
+            verify(deleteButton.visible)
+            clickItem(backButton)
+            verify(!backButton.visible)
+            verify(!selectButton.visible)
+            verify(!deleteButton.visible)
+        }
+
+        function test_toggle_select_button() {
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            compare(urlsList.count, 3)
+            longPressItem(urlsList.children[0])
+            var selectedIndices = urlsList.ViewItems.selectedIndices
+            compare(selectedIndices.length, 1)
+            var selectButton = findChild(historyViewWide, "selectButton")
+            clickItem(selectButton)
+            compare(selectedIndices.length, urlsList.count)
+            clickItem(selectButton)
+            var backButton = findChild(historyViewWide, "backButton")
+            clickItem(backButton)
+        }
+
+        function test_delete_button() {
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            compare(urlsList.count, 3)
+            longPressItem(urlsList.children[0])
+            var deleteButton = findChild(historyViewWide, "deleteButton")
+            compare(historyEntryRemovedSpy.count, 0)
+            clickItem(deleteButton)
+            compare(historyEntryRemovedSpy.count, 1)
+            var args = historyEntryRemovedSpy.signalArguments[0]
+            var entry = urlsList.model.get(0)
+            compare(args[0], entry.url)
+        }
+
         function test_keyboard_navigation_between_lists() {
             var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
             var urlsList = findChild(historyViewWide, "urlsListView")
@@ -122,32 +178,6 @@ Item {
             verify(!urlsList.activeFocus)        
             keyClick(Qt.Key_Right)
             verify(urlsList.activeFocus)        
-        }
-
-        function test_urls_list_click() {
-            var urlsList = findChild(historyViewWide, "urlsListView")
-            compare(urlsList.count, 5)
-            var entry = urlsList.children[0]
-            historyEntryClickedSpy.clear()
-            compare(historyEntryClickedSpy.count, 0)
-            clickItem(entry)
-            compare(historyEntryClickedSpy.count, 1)
-        }
-
-        function test_urls_list_long_press() {
-            var backButton = findChild(historyViewWide, "backButton")
-            var selectButton = findChild(historyViewWide, "selectButton")
-            var deleteButton = findChild(historyViewWide, "deleteButton")
-            var urlsList = findChild(historyViewWide, "urlsListView")
-            compare(urlsList.count, 5)
-            verify(!backButton.visible)
-            verify(!selectButton.visible)
-            verify(!deleteButton.visible)
-            var entry = urlsList.children[0]
-            longPressItem(entry)
-            verify(backButton.visible)
-            verify(selectButton.visible)
-            verify(deleteButton.visible)
         }
     }
 }
