@@ -77,3 +77,8 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
 
 install(FILES "webbrowser-app.url-dispatcher"
         DESTINATION ${CMAKE_INSTALL_DATADIR}/url-dispatcher/urls)
+
+install(FILES "webbrowser-app-content-hub.json"
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/content-hub/peers
+    RENAME webbrowser-app
+    )
