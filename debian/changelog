@@ -1,3 +1,25 @@
+webbrowser-app (0.23+15.10.20150811-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Drop old names for QML dependencies. Original patch by Robert
+    Ancell.
+  * Highlight matching terms in one pass. (LP: #1481206)
+  * Implement the "Find in Page" feature. This bumps the runtime
+    dependency on liboxideqt-qmlplugin to 1.8. (LP: #1312260)
+
+  [ Robert Ancell ]
+  * Drop old names for QML dependencies. Original patch by Robert
+    Ancell.
+
+  [ Ugo Riboni ]
+  * Implement the "Find in Page" feature. This bumps the runtime
+    dependency on liboxideqt-qmlplugin to 1.8. (LP: #1312260)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 11 Aug 2015 11:18:48 +0000
+
 webbrowser-app (0.23+15.10.20150810-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
