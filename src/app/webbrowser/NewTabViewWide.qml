@@ -184,7 +184,7 @@ FocusScope {
 
             // Larger margin to prevent interference from Scrollbar hovering area
             gripMargin: units.gu(4)
-            Drag.onActiveChanged: {
+            onDragStarted: {
                 // Remove interactivity to prevent the list from scrolling
                 // while dragging near its margins. This ensures we can correctly
                 // return the item to its original position on a failed drop.
