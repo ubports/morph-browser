@@ -162,7 +162,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     # available
     def get_history_view(self):
         try:
-            return self.select_single("HistoryView")
+            if self.wide:
+                return self.select_single("HistoryViewWide")
+            else:
+                return self.select_single("HistoryView")
         except exceptions.StateNotFoundError:
             return None
 
