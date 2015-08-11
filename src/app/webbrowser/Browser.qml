@@ -20,6 +20,7 @@ import QtQuick 2.0
 import QtQuick.Window 2.0
 import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.5 as Oxide
+import Ubuntu.Content 1.0
 import Ubuntu.Components 1.1
 import Ubuntu.Components.Popups 1.0
 import webbrowserapp.private 0.1
@@ -1503,6 +1504,16 @@ BrowserView {
             key: Qt.Key_R
             enabled: chrome.visible
             onTriggered: if (currentWebview) currentWebview.reload()
+        }
+    }
+
+    Connections {
+        target: ContentHub
+        onExportRequested: {
+            var downloadPage = downloadsComponent.createObject(downloadsContainer)
+            downloadsContainer.focus = true
+            downloadPage.activeTransfer = transfer
+            downloadPage.selectionMode = true
         }
     }
 }

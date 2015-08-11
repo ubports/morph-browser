@@ -33,6 +33,8 @@ Item {
 
     property QtObject downloadsModel
     property Settings settingsObject
+    property var activeTransfer
+    property bool selectionMode: false
 
     signal done()
 
