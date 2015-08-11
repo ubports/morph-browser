@@ -29,7 +29,7 @@ FocusScope {
     property alias historyModel: historyTimeframeModel.sourceModel
     property QtObject settingsObject
     property alias selectedIndex: sections.selectedIndex
-    property bool inBookmarksView: newTabViewWide.selectedIndex === 1
+    readonly property bool inBookmarksView: newTabViewWide.selectedIndex === 1
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
