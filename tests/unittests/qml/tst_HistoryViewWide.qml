@@ -83,12 +83,13 @@ Item {
             mouseRelease(item, center.x + 100, center.y, Qt.LeftButton, Qt.NoModifier, 2000)
         }
 
-        function init() {
+        function initTestCase() {
             for (var i = 0; i < 3; ++i) {
                 historyMockModel.add("http://example.org/" + i, "Example Domain " + i, "")
             }
-            // Wait for the models to be updated
-            wait(1001)
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            tryCompare(urlsList, "count", 3)
+            waitForRendering(urlsList)
         }
 
         function test_done_button() {
