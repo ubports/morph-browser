@@ -25,7 +25,6 @@ Item {
     id: historyViewWide
 
     property alias historyModel: historyTimeframeModel.sourceModel
-    property alias count: urlsListView.count
 
     signal done()
     signal historyEntryClicked(url url)

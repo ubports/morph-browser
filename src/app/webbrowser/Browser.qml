@@ -779,7 +779,7 @@ BrowserView {
                 }
 
                 onHistoryEntryRemoved: {
-                    if (count == 1) {
+                    if (browser.historyModel.count == 1) {
                         done()
                     }
                     browser.historyModel.removeEntryByUrl(url)
