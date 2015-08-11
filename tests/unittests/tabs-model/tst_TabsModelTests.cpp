@@ -38,7 +38,7 @@ private:
     {
         QQmlEngine engine;
         QQmlComponent component(&engine);
-        QByteArray data("import QtQuick 2.0\nItem {\nproperty url url\n"
+        QByteArray data("import QtQuick 2.4\nItem {\nproperty url url\n"
                         "property string title\nproperty url icon\n}");
         component.setData(data, QUrl());
         QObject* object = component.create();
