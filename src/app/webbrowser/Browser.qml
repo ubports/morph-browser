@@ -142,7 +142,7 @@ BrowserView {
 
     FocusScope {
         anchors.fill: parent
-        visible: !settingsContainer.visible && !historyViewContainer.visible
+        visible: !settingsContainer.visible && !historyViewLoader.active
 
         TabChrome {
             id: invisibleTabChrome
@@ -357,10 +357,7 @@ BrowserView {
                     text: i18n.tr("History")
                     iconName: "history"
                     enabled: browser.historyModel
-                    onTriggered: {
-                        historyViewComponent.createObject(historyViewContainer)
-                        historyViewContainer.focus = true
-                    }
+                    onTriggered: historyViewLoader.active = true 
                 },
                 Action {
                     objectName: "tabs"
@@ -751,23 +748,27 @@ BrowserView {
         }
     }
 
-    FocusScope {
-        id: historyViewContainer
-        objectName: "historyView"
+    Loader {
+        id: historyViewLoader
 
-        visible: children.length > 0
         anchors.fill: parent
+        active: false
+        sourceComponent: browser.wide ? historyViewWideComponent : historyViewComponent
+
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                historyViewLoader.item.forceActiveFocus()
+            }
+        }
 
         Component {
             id: historyViewComponent
 
             HistoryView {
                 anchors.fill: parent
-                visible: historyViewContainer.children.length == 1
-                focus: true
 
                 Keys.onEscapePressed: {
-                    destroy()
+                    historyViewLoader.active = false
                     internal.resetFocus()
                 }
 
@@ -780,30 +781,67 @@ BrowserView {
                 }
 
                 onSeeMoreEntriesClicked: {
-                    var view = expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
-                    view.onHistoryEntryClicked.connect(destroy)
+                    var view = expandedHistoryViewComponent.createObject(expandedHistoryViewContainer, {model: model})
+                    view.onHistoryEntryClicked.connect(done)
                 }
-                onDone: destroy()
+                onDone: historyViewLoader.active = false
+
+                FocusScope {
+                    id: expandedHistoryViewContainer
+    
+                    visible: children.length > 0
+                    anchors.fill: parent
+
+                    Component {
+                        id: expandedHistoryViewComponent
+
+                        ExpandedHistoryView {
+                            anchors.fill: parent
+
+                            onHistoryEntryClicked: {
+                                browser.openUrlInNewTab(url, true)
+                                done()
+                            }
+                            onHistoryEntryRemoved: {
+                                if (count == 1) {
+                                    done()
+                                }
+                                browser.historyModel.removeEntryByUrl(url)
+                            }
+                            onDone: destroy()
+                        }
+                    }
+                }
             }
         }
 
         Component {
-            id: expandedHistoryViewComponent
+            id: historyViewWideComponent
 
-            ExpandedHistoryView {
+            HistoryViewWide {
                 anchors.fill: parent
+
+                Keys.onEscapePressed: {
+                    historyViewLoader.active = false
+                    internal.resetFocus()
+                }
+
+                Timer {
+                    // Set the model asynchronously to ensure
+                    // the view is displayed as early as possible.
+                    running: true
+                    interval: 1
+                    onTriggered: historyModel = browser.historyModel
+                }
 
                 onHistoryEntryClicked: {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
-                onHistoryEntryRemoved: {
-                    if (count == 1) {
-                        done()
-                    }
-                    browser.historyModel.removeEntryByUrl(url)
-                }
-                onDone: destroy()
+
+                onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
+                onNewTabRequested: browser.openUrlInNewTab("", true)
+                onDone: historyViewLoader.active = false
             }
         }
     }
@@ -1486,9 +1524,8 @@ BrowserView {
             key: Qt.Key_H
             enabled: chrome.visible
             onTriggered: {
-                if (historyViewContainer.children.length === 0) {
-                    historyViewComponent.createObject(historyViewContainer)
-                    historyViewContainer.focus = true
+                if (!historyViewLoader.active) {
+                    historyViewLoader.active = true 
                 }
             }
         }

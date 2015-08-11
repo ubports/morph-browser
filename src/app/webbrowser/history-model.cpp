@@ -487,3 +487,18 @@ void HistoryModel::unHide(const QUrl& url)
 
     removeEntryFromHiddenDatabaseByUrl(url);
 }
+
+QVariantMap HistoryModel::get(int i) const
+{
+    QVariantMap item;
+    QHash<int, QByteArray> roles = roleNames();
+
+    QModelIndex modelIndex = index(i, 0);
+    if (modelIndex.isValid()) {
+        Q_FOREACH(int role, roles.keys()) {
+            QString roleName = QString::fromUtf8(roles.value(role));
+            item.insert(roleName, data(modelIndex, role));
+        }
+    }
+    return item;
+}
