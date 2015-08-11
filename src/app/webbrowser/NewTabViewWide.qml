@@ -40,7 +40,13 @@ FocusScope {
     Keys.onBacktabPressed: selectedIndex = Math.abs((selectedIndex - 1) % 2)
     onActiveFocusChanged: {
         if (activeFocus) {
-            if (inBookmarksView) sections.lastFocusedBookmarksColumn.focus = true
+            if (inBookmarksView) {
+                if (sections.lastFocusedBookmarksColumn === bookmarksList &&
+                    bookmarksList.model.length === 0) {
+                    sections.lastFocusedBookmarksColumn = folders
+                }
+                sections.lastFocusedBookmarksColumn.focus = true
+            }
             else topSitesList.focus = true
         }
     }
@@ -208,7 +214,12 @@ FocusScope {
         }
 
         Keys.onReturnPressed: newTabViewWide.bookmarkClicked(currentItem.url)
-        Keys.onDeletePressed: if (currentItem.removable) newTabViewWide.bookmarkRemoved(currentItem.url)
+        Keys.onDeletePressed: {
+            if (currentItem.removable) {
+                newTabViewWide.bookmarkRemoved(currentItem.url)
+                if (bookmarksList.model.length === 0) folders.focus = true
+            }
+        }
         Keys.onLeftPressed: folders.focus = true
         Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, model.length - 1)
         Keys.onUpPressed: {
@@ -250,7 +261,10 @@ FocusScope {
         }
 
         Keys.onReturnPressed: newTabViewWide.historyEntryClicked(currentItem.url)
-        Keys.onDeletePressed: newTabViewWide.historyModel.hide(currentItem.url)
+        Keys.onDeletePressed: {
+            newTabViewWide.historyModel.hide(currentItem.url)
+            if (topSitesList.model.count === 0) newTabViewWide.releasingKeyboardFocus()
+        }
         Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, model.count - 1)
         Keys.onUpPressed: {
             if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
