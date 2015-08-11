@@ -71,11 +71,8 @@ UrlDelegateWide {
             anchors.fill: parent
             drag.target: item.draggable ? item : null
             onReleased: {
-                var result = { success: false }
-
-                // Fail the drag and drop action if dropped outside of targets
-                if (item.Drag.target) item.dragEnded(result)
-
+                var result = { success: false, target: item.Drag.target }
+                item.dragEnded(result)
                 if (result.success) item.Drag.drop()
                 else {
                     item.x = internal.positionBeforeDrag.x

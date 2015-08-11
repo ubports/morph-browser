@@ -198,9 +198,10 @@ FocusScope {
             }
             onDragEnded: {
                 bookmarksList.interactive = true
-                if (Drag.target.folderName !== folder) {
+
+                if (dragAndDrop.target && dragAndDrop.target.folderName !== folder) {
                     bookmarksModel.update(modelData.url, modelData.title,
-                                          Drag.target.folderName)
+                                          dragAndDrop.target.folderName)
                     dragAndDrop.success = true
                 }
             }
