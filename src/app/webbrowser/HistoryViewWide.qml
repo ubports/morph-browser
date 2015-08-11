@@ -21,7 +21,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
 
-Item {
+FocusScope {
     id: historyViewWide
 
     property alias historyModel: historyTimeframeModel.sourceModel

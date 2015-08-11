@@ -283,9 +283,7 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(self.main_window.get_history_view(), Equals(None))
         self.open_history()
         history_view = self.main_window.get_history_view()
-
-        if not self.main_window.wide:
-            self.assertThat(history_view.activeFocus, Eventually(Equals(True)))
+        self.assertThat(history_view.activeFocus, Eventually(Equals(True)))
 
         self.main_window.press_key('Escape')
         history_view.wait_until_destroyed()

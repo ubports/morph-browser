@@ -238,8 +238,8 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def __init__(self, *args):
         super().__init__(*args)
-        #self.text_field = self.select_single(
-        #    uitk.TextField, objectName='addressBarTextField')
+        self.text_field = self.select_single(
+            uitk.TextField, objectName='addressBarTextField')
 
     @autopilot.logging.log_action(logger.debug)
     def focus(self):
