@@ -272,7 +272,8 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
     def get_bookmark_toggle(self):
-        return self.select_single("QQuickItem", objectName="bookmarkToggle")
+        return self.select_single("QQuickMouseArea",
+                                  objectName="bookmarkToggle")
 
     def get_find_in_page_counter(self):
         return self.select_single("Label", objectName="findInPageCounter")
@@ -300,7 +301,7 @@ class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     @autopilot.logging.log_action(logger.info)
     def close_tab(self, index):
         tab = self.get_tab(index)
-        close_button = tab.select_single("Icon11", objectName="closeButton")
+        close_button = tab.select_single("Icon", objectName="closeButton")
         self.pointing_device.click_object(close_button)
 
 

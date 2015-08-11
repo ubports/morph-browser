@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
+import QtQuick 2.4
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import com.canonical.Oxide 1.8 as Oxide
 import ".."
 import "urlManagement.js" as UrlManagement
@@ -205,7 +205,7 @@ FocusScope {
                 property int count: findController ? findController.count : 0
             }
 
-            Item {
+            MouseArea {
                 id: bookmarkToggle
                 objectName: "bookmarkToggle"
 
@@ -223,11 +223,7 @@ FocusScope {
                     color: addressbar.bookmarked ? UbuntuColors.orange : UbuntuColors.darkGrey
                 }
 
-                MouseArea {
-                    id: bookmarkButton
-                    anchors.fill: parent
-                    onClicked: addressbar.bookmarked = !addressbar.bookmarked
-                }
+                onClicked: addressbar.bookmarked = !addressbar.bookmarked
 
                 Item {
                     id: bookmarkTogglePlaceHolderItem
@@ -266,19 +262,20 @@ FocusScope {
                 findController.next()
             }
         }
+    }
 
-        // Make sure that all the text is selected at the first click
-        MouseArea {
-            anchors {
-                fill: parent
-                leftMargin: icons.width
-                rightMargin: bookmarkToggle.width
-            }
-            visible: !textField.activeFocus
-            onClicked: {
-                textField.forceActiveFocus()
-                textField.selectAll()
-            }
+    // Make sure that all the text is selected at the first click
+    MouseArea {
+        anchors {
+            fill: parent
+            leftMargin: icons.width
+            rightMargin: bookmarkToggle.width
+        }
+
+        enabled: !addressbar.activeFocus
+        onClicked: {
+            textField.forceActiveFocus()
+            textField.selectAll()
         }
     }
 

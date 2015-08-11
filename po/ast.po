@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-07-03 14:57+0200\n"
+"POT-Creation-Date: 2015-07-31 09:47+0200\n"
 "PO-Revision-Date: 2015-02-11 21:13+0000\n"
 "Last-Translator: ivarela <ivarela@ubuntu.com>\n"
 "Language-Team: Asturian <ast@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-07-04 05:33+0000\n"
-"X-Generator: Launchpad (build 17597)\n"
+"X-Launchpad-Export-Date: 2015-08-01 05:43+0000\n"
+"X-Generator: Launchpad (build 17656)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -661,9 +661,21 @@ msgstr ""
 msgid "Clear Browsing History"
 msgstr ""
 
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
+msgstr ""
+
 #: src/app/webbrowser/SettingsPage.qml:256
 msgid "Clear Cache"
 msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr "Llimpiar"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
@@ -768,9 +780,6 @@ msgstr "Internet;WWW;Restolador;Web;Esplorador"
 
 #~ msgid "see less"
 #~ msgstr "ver menos"
-
-#~ msgid "Clear"
-#~ msgstr "Llimpiar"
 
 #~ msgid "Add"
 #~ msgstr "Amestar"
