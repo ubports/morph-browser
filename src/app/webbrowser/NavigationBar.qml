@@ -27,6 +27,7 @@ FocusScope {
     property alias searchUrl: addressbar.searchUrl
     readonly property string text: addressbar.text
     property alias bookmarked: addressbar.bookmarked
+    signal toggleBookmark()
     property list<Action> drawerActions
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
@@ -116,6 +117,7 @@ FocusScope {
                 webview.reload()
             }
             onRequestStop: webview.stop()
+            onToggleBookmark: root.toggleBookmark()
 
             Connections {
                 target: webview

@@ -281,12 +281,9 @@ BrowserView {
                 return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
             }
             bookmarked: isCurrentUrlBookmarked()
-            onBookmarkedChanged: {
-                if (bookmarked && !isCurrentUrlBookmarked()) {
-                    internal.addBookmark(webview.url, webview.title, webview.icon)
-                } else if (!bookmarked && isCurrentUrlBookmarked()) {
-                    browser.bookmarksModel.remove(webview.url)
-                }
+            onToggleBookmark: {
+                if (isCurrentUrlBookmarked()) browser.bookmarksModel.remove(webview.url)
+                else internal.addBookmark(webview.url, webview.title, webview.icon)
             }
             onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
             Connections {

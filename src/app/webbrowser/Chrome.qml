@@ -27,6 +27,7 @@ ChromeBase {
     property alias searchUrl: navigationBar.searchUrl
     property alias text: navigationBar.text
     property alias bookmarked: navigationBar.bookmarked
+    signal toggleBookmark()
     property alias drawerActions: navigationBar.drawerActions
     property alias drawerOpen: navigationBar.drawerOpen
     property alias requestedUrl: navigationBar.requestedUrl
@@ -89,6 +90,8 @@ ChromeBase {
                 right: parent.right
             }
             height: units.gu(6)
+
+            onToggleBookmark: chrome.toggleBookmark()
         }
     }
 }
