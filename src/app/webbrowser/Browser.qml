@@ -778,17 +778,8 @@ BrowserView {
                     done()
                 }
 
-                onHistoryEntryRemoved: {
-                    if (browser.historyModel.count == 1) {
-                        done()
-                    }
-                    browser.historyModel.removeEntryByUrl(url)
-                }
-
-                onNewTabRequested: {
-                    browser.openUrlInNewTab("", true)
-                }
-
+                onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
+                onNewTabRequested: browser.openUrlInNewTab("", true)
                 onDone: historyViewLoader.active = false
             }
         }
