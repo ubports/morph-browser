@@ -48,6 +48,8 @@ Oxide.WebView {
                     for (var i = 0; i < contextualActions.actions.length; ++i) {
                         if (contextualActions.actions[i].enabled) {
                             contextualRectangle.position(msg.args)
+                            contextualData.sourceArea = Qt.rect(contextualRectangle.x, contextualRectangle.y,
+                                                                contextualRectangle.width, contextualRectangle.height)
                             internal.currentContextualMenu = PopupUtils.open(contextualPopover, contextualRectangle)
                             break
                         }
@@ -112,10 +114,13 @@ Oxide.WebView {
         property string title
         property url img
 
+        property rect sourceArea
+
         function clear() {
             href = ''
             title = ''
             img = ''
+            sourceArea = Qt.rect(-1, -1, -1, -1)
         }
     }
 

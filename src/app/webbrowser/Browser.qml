@@ -815,6 +815,8 @@ BrowserView {
             current: tabsModel && tabsModel.currentTab === this
             focus: current
 
+            Item { id: contextualMenuTarget }
+
             webviewComponent: WebViewImpl {
                 id: webviewimpl
 
@@ -848,7 +850,18 @@ BrowserView {
                     }
                     Actions.BookmarkLink {
                         enabled: contextualData.href.toString() && browser.bookmarksModel
-                        onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "", "")
+                        onTriggered: {
+                            contextualMenuTarget.x = contextualData.sourceArea.x
+                            contextualMenuTarget.y = contextualData.sourceArea.y
+                            contextualMenuTarget.width = contextualData.sourceArea.width
+                            contextualMenuTarget.height = contextualData.sourceArea.height
+
+                            bookmarksModel.add(contextualData.href,
+                                               contextualData.title, "", "")
+                            PopupUtils.open(bookmarkOptionsComponent, contextualMenuTarget,
+                                            {"bookmarkUrl": contextualData.href,
+                                             "bookmarkTitle": contextualData.title})
+                        }
                     }
                     Actions.CopyLink {
                         enabled: contextualData.href.toString()
@@ -1105,7 +1118,7 @@ BrowserView {
             PopupUtils.open(bookmarkOptionsComponent,
                             chrome.bookmarkTogglePlaceHolder,
                             {"bookmarkUrl": url,
-                             "bookmarkTitle": title}) 
+                             "bookmarkTitle": title})
         }
     }
 
