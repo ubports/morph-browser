@@ -42,6 +42,11 @@ Item {
 
             editing: activeFocus
             canSimplifyText: true
+
+            findController: QtObject {
+                property int current
+                property int count
+            }
         }
 
         // only exists to steal focus from the address bar
@@ -366,6 +371,16 @@ Item {
             compare(addressBar.text, "example.org")
             clickItem(addressBar)
             compare(addressBar.text, url)
+        }
+
+        function test_exitingFindInPageRestoresUrl() {
+            addressBar.actualUrl = "http://example.org/"
+            addressBar.findInPageMode = true
+            verify(addressBar.activeFocus)
+            compare(addressBar.text, "")
+            typeString("hello")
+            addressBar.findInPageMode = false
+            compare(addressBar.text, "example.org")
         }
     }
 }
