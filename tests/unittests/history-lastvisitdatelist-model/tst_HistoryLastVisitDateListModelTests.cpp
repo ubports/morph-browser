@@ -202,6 +202,23 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 3);
     }
 
+    void shouldBeEmptyAfterRemovingAllEntries() {
+        QSignalSpy spyRowsInserted(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)));
+        QSignalSpy spyRowsRemoved(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)));
+        QDateTime dt1 = QDateTime(QDate(1970, 1, 1), QTime(6, 0, 0));
+        QDateTime dt2 = QDateTime(QDate(1970, 1, 2), QTime(6, 0, 0));
+
+        mockHistory->add(QUrl("http://example.com/"), "Example Domain", "example.com", QUrl(), dt1);
+        mockHistory->add(QUrl("http://example.org/"), "Example Domain", "example.org", QUrl(), dt2);
+        QCOMPARE(spyRowsInserted.count(), 3);
+        QCOMPARE(model->rowCount(), 3);
+
+        mockHistory->removeEntryByUrl(QUrl("http://example.com/"));
+        mockHistory->removeEntryByUrl(QUrl("http://example.org/"));
+        QCOMPARE(spyRowsRemoved.count(), 3);
+        QCOMPARE(model->rowCount(), 0);
+    }
+
     void shouldUpdateLastVisitDateListWhenChangingTimeFrame()
     {
         QDateTime dt1 = QDateTime(QDate(1970, 1, 1), QTime(6, 0, 0));

@@ -72,7 +72,9 @@ Item {
 
                 currentIndex: 0
                 onCurrentIndexChanged: {
-                    historyLastVisitDateModel.setLastVisitDate(currentItem.lastVisitDate)
+                    if (currentItem) {
+                        historyLastVisitDateModel.setLastVisitDate(currentItem.lastVisitDate)
+                    }
                     urlsListView.ViewItems.selectedIndices = []
                 }
     

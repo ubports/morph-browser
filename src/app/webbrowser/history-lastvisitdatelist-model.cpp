@@ -156,7 +156,9 @@ void HistoryLastVisitDateListModel::onRowsRemoved(const QModelIndex& parent, int
 
     if (m_lastVisitDates.isEmpty()) {
         // Remove the default entry if model is empty
+        beginRemoveRows(QModelIndex(), 0, 0);
         m_orderedDates.clear(); 
+        endRemoveRows();
     }
 }
 
