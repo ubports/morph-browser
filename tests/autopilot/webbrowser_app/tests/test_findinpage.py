@@ -136,6 +136,10 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
         bar = self.chrome.address_bar
         self.assertThat(bar.findInPageMode, Eventually(Equals(True)))
         if not self.main_window.wide:
+            # Remove focus from the address bar to hide the OSK
+            # (that would otherwise prevent a bottom edge swipe gesture)
+            webview = self.main_window.get_current_webview()
+            self.pointing_device.click_object(webview)
             self.open_tabs_view()
         self.open_new_tab()
         self.assertThat(bar.findInPageMode, Eventually(Equals(False)))
