@@ -119,12 +119,14 @@ BrowserView {
         property string searchEngine: settingsDefaults.searchEngine
         property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
         property bool restoreSession: settingsDefaults.restoreSession
+        property int newTabDefaultSection: settingsDefaults.newTabDefaultSection
 
         function restoreDefaults() {
             homepage  = settingsDefaults.homepage
             searchEngine = settingsDefaults.searchEngine
             allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
             restoreSession = settingsDefaults.restoreSession
+            newTabDefaultSection = settingsDefaults.newTabDefaultSection
         }
     }
 
@@ -135,6 +137,7 @@ BrowserView {
         readonly property string searchEngine: "google"
         readonly property string allowOpenInBackgroundTab: "default"
         readonly property bool restoreSession: true
+        readonly property int newTabDefaultSection: 0
     }
 
     FocusScope {
@@ -219,6 +222,7 @@ BrowserView {
                 }
             }
             active: false
+            asynchronous: true
 
             Connections {
                 target: browser
@@ -230,15 +234,18 @@ BrowserView {
                 }
             }
 
-            sourceComponent: browser.incognito ? newPrivateTabViewComponent : newTabViewComponent
+            sourceComponent: browser.incognito ? newPrivateTabView :
+                             (browser.wide ? newTabViewWide : newTabView)
 
             Component {
-                id: newTabViewComponent
+                id: newTabView
 
                 NewTabView {
+                    anchors.fill: parent
                     historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
+                    focus: true
                     onBookmarkClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
@@ -254,11 +261,34 @@ BrowserView {
             }
 
             Component {
-                id: newPrivateTabViewComponent
+                id: newTabViewWide
 
-                NewPrivateTabView { }
+                NewTabViewWide {
+                    anchors.fill: parent
+                    historyModel: browser.historyModel
+                    bookmarksModel: browser.bookmarksModel
+                    settingsObject: settings
+                    focus: true
+                    onBookmarkClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        tabContainer.forceActiveFocus()
+                    }
+                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onHistoryEntryClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        tabContainer.forceActiveFocus()
+                    }
+                    onReleasingKeyboardFocus: chrome.focus = true
+                }
             }
-            asynchronous: true
+
+            Component {
+                id: newPrivateTabView
+
+                NewPrivateTabView { anchors.fill: parent }
+            }
         }
 
         SearchEngine {
@@ -391,7 +421,13 @@ BrowserView {
             canSimplifyText: !browser.wide
             editing: activeFocus || suggestionsList.activeFocus
 
-            Keys.onDownPressed: if (suggestionsList.count) suggestionsList.focus = true
+            Keys.onDownPressed: {
+                if (suggestionsList.count) suggestionsList.focus = true
+                else if (newTabViewLoader.status == Loader.Ready) {
+                    newTabViewLoader.focus = true
+                }
+            }
+
             Keys.onEscapePressed: {
                 if (chrome.findInPageMode) {
                     chrome.findInPageMode = false
@@ -1134,7 +1170,7 @@ BrowserView {
             PopupUtils.open(bookmarkOptionsComponent,
                             chrome.bookmarkTogglePlaceHolder,
                             {"bookmarkUrl": url,
-                             "bookmarkTitle": title}) 
+                             "bookmarkTitle": title})
         }
     }
 

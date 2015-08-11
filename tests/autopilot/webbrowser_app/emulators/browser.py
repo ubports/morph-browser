@@ -130,7 +130,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        state="shown")
 
     def get_new_tab_view(self):
-        return self.wait_select_single("NewTabView", visible=True)
+        if self.wide:
+            return self.wait_select_single("NewTabViewWide", visible=True)
+        else:
+            return self.wait_select_single("NewTabView", visible=True)
 
     # Since the NewPrivateTabView does not define any new QML property in its
     # extended file, it does not report itself to autopilot with the same name
@@ -443,6 +446,39 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("Label", objectName="notopsites")
 
 
+class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_bookmarks_list(self):
+        sections = self.select_single(uitk.Sections)
+        if not sections.selectedIndex == 1:
+            sections.click_section_button(1)
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="bookmarksList")
+        return sorted(list.select_many("DraggableUrlDelegateWide",
+                      objectName="bookmarkItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def go_to_bookmarks(self):
+        sections = self.select_single(uitk.Sections)
+        if not sections.selectedIndex == 0:
+            sections.click_section_button(0)
+
+    def get_top_sites_list(self):
+        self.go_to_bookmarks()
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="topSitesList")
+        return sorted(list.select_many("UrlDelegateWide",
+                      objectName="topSiteItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_folders_list(self):
+        self.go_to_bookmarks()
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="foldersList")
+        return sorted(list.select_many(objectName="folderItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+
 class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_delegates(self):
@@ -456,6 +492,17 @@ class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class UrlDelegate(uitk.UCListItem):
 
     pass
+
+
+class UrlDelegateWide(uitk.UCListItem):
+
+    pass
+
+
+class DraggableUrlDelegateWide(UrlDelegateWide):
+
+    def get_grip(self):
+        return self.select_single("Icon", objectName="dragGrip")
 
 
 class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
