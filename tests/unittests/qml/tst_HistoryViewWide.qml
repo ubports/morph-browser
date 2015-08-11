@@ -19,8 +19,8 @@
 import QtQuick 2.4
 import QtTest 1.0
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.0 as ListItems
-import Ubuntu.Test 1.0
+import Ubuntu.Components.ListItems 1.3 as ListItems
+import Ubuntu.Test 1.3
 import "../../../src/app/webbrowser"
 
 Item {
