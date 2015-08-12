@@ -327,7 +327,7 @@ BrowserView {
                     text: i18n.tr("History")
                     iconName: "history"
                     enabled: browser.historyModel
-                    onTriggered: historyViewLoader.active = true 
+                    onTriggered: historyViewLoader.active = true
                 },
                 Action {
                     objectName: "tabs"
