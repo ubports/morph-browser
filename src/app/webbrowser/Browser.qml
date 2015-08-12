@@ -104,7 +104,7 @@ BrowserView {
             onTriggered: browser.historyModel.clearAll()
         },
         Actions.FindInPage {
-            enabled: !chrome.findInPageMode
+            enabled: !chrome.findInPageMode && !newTabViewLoader.active
             onTriggered: {
                 chrome.findInPageMode = true
                 chrome.focus = true
@@ -353,7 +353,7 @@ BrowserView {
                     objectName: "findinpage"
                     text: i18n.tr("Find in page")
                     iconName: "search"
-                    enabled: !chrome.findInPageMode
+                    enabled: !chrome.findInPageMode && !newTabViewLoader.active
                     onTriggered: {
                         chrome.findInPageMode = true
                         chrome.focus = true
@@ -1134,7 +1134,7 @@ BrowserView {
             PopupUtils.open(bookmarkOptionsComponent,
                             chrome.bookmarkTogglePlaceHolder,
                             {"bookmarkUrl": url,
-                             "bookmarkTitle": title}) 
+                             "bookmarkTitle": title})
         }
     }
 
@@ -1502,8 +1502,10 @@ BrowserView {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
             onTriggered: {
-                chrome.findInPageMode = true
-                chrome.focus = true
+                if (!newTabViewLoader.active) {
+                    chrome.findInPageMode = true
+                    chrome.focus = true
+                }
             }
         }
     }
