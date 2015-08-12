@@ -85,7 +85,7 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assertNotIn(url, urls)
 
     def test_public_tabs_should_not_be_visible_in_private_mode(self):
-        self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self.open_new_tab(open_tabs_view=True)
         new_tab_view = self.main_window.get_new_tab_view()
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
