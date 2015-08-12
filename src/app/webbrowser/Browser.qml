@@ -727,6 +727,8 @@ BrowserView {
             }
         }
 
+        Keys.onEscapePressed: historyViewLoader.active = false
+
         Timer {
             // Set the model asynchronously to ensure
             // the view is displayed as early as possible.
@@ -741,13 +743,10 @@ BrowserView {
             HistoryView {
                 anchors.fill: parent
 
-                Keys.onEscapePressed: historyViewLoader.active = false
-
                 onSeeMoreEntriesClicked: {
                     var view = expandedHistoryViewComponent.createObject(expandedHistoryViewContainer, {model: model})
                     view.onHistoryEntryClicked.connect(done)
                 }
-
                 onDone: historyViewLoader.active = false
 
                 FocusScope {
@@ -785,13 +784,10 @@ BrowserView {
             HistoryViewWide {
                 anchors.fill: parent
 
-                Keys.onEscapePressed: historyViewLoader.active = false
-
                 onHistoryEntryClicked: {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
-
                 onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
                 onNewTabRequested: browser.openUrlInNewTab("", true)
                 onDone: historyViewLoader.active = false
