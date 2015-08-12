@@ -21,14 +21,16 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItem
 
 Item {
-    height: units.gu(6.5)
+    height: units.gu(5.5)
+
+    property string todaySectionTitle: i18n.tr("Last Visited") 
 
     Label {
         anchors {
             left: parent.left
             right: parent.right
             top: parent.top
-            topMargin: units.gu(2.5)
+            topMargin: units.gu(1.5)
         }
         height: units.gu(2)
 
@@ -41,12 +43,12 @@ Item {
                 (sectionDate.getUTCMonth() == today.getMonth())) {
                 var dayDifference = sectionDate.getUTCDate() - today.getDate()
                 if (dayDifference == 0) {
-                    return i18n.tr("Last Visited")
+                    return todaySectionTitle
                 } else if (dayDifference == -1) {
                     return i18n.tr("Yesterday")
                 }
             }
-            return Qt.formatDate(sectionDate, Qt.DefaultLocaleLongDate)
+            return Qt.formatDate(section, Qt.DefaultLocaleLongDate)
         }
 
         fontSize: "small"

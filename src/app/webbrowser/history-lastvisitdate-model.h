@@ -16,46 +16,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __BOOKMARKS_FOLDER_MODEL_H__
-#define __BOOKMARKS_FOLDER_MODEL_H__
+#ifndef __HISTORY_LASTVISITDATE_MODEL_H__
+#define __HISTORY_LASTVISITDATE_MODEL_H__
 
 // Qt
+#include <QtCore/QDate>
 #include <QtCore/QSortFilterProxyModel>
 #include <QtCore/QString>
+#include <QtCore/QUrl>
 
-class BookmarksModel;
+class HistoryTimeframeModel;
 
-class BookmarksFolderModel : public QSortFilterProxyModel
+class HistoryLastVisitDateModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(BookmarksModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
-    Q_PROPERTY(QString folder READ folder WRITE setFolder NOTIFY folderChanged)
-    Q_PROPERTY(int count READ count NOTIFY countChanged)
+    Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
+    Q_PROPERTY(QDate lastVisitDate READ lastVisitDate WRITE setLastVisitDate NOTIFY lastVisitDateChanged)
 
 public:
-    BookmarksFolderModel(QObject* parent=0);
+    HistoryLastVisitDateModel(QObject* parent=0);
 
-    BookmarksModel* sourceModel() const;
-    void setSourceModel(BookmarksModel* sourceModel);
+    HistoryTimeframeModel* sourceModel() const;
+    void setSourceModel(HistoryTimeframeModel* sourceModel);
 
-    const QString& folder() const;
-    void setFolder(const QString& domain);
+    const QDate& lastVisitDate() const;
+    Q_INVOKABLE void setLastVisitDate(const QDate& lastVisitDate);
 
-    int count() const;
-    Q_INVOKABLE QVariantMap get(int row) const;
+    Q_INVOKABLE QVariantMap get(int index) const;
 
 Q_SIGNALS:
     void sourceModelChanged() const;
-    void folderChanged() const;
-    void countChanged() const;
+    void lastVisitDateChanged() const;
 
 protected:
     // reimplemented from QSortFilterProxyModel
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 
 private:
-    QString m_folder;
+    QDate m_lastVisitDate;
 };
 
-#endif // __BOOKMARKS_FOLDER_MODEL_H__
+#endif // __HISTORY_LASTVISITDATE_MODEL_H__

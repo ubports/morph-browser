@@ -16,33 +16,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __BOOKMARKS_FOLDERLIST_MODEL_H__
-#define __BOOKMARKS_FOLDERLIST_MODEL_H__
+#ifndef __HISTORY_LASTVISITDATELIST_MODEL_H__
+#define __HISTORY_LASTVISITDATELIST_MODEL_H__
 
 // Qt
 #include <QtCore/QAbstractListModel>
 #include <QtCore/QMap>
 #include <QtCore/QString>
 
-class BookmarksFolderModel;
-class BookmarksModel;
+class HistoryLastVisitDateModel;
+class HistoryTimeframeModel;
 
-class BookmarksFolderListModel : public QAbstractListModel
+class HistoryLastVisitDateListModel : public QAbstractListModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(BookmarksModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
-    Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
+    Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
 
     Q_ENUMS(Roles)
 
 public:
-    BookmarksFolderListModel(QObject* parent=0);
-    ~BookmarksFolderListModel();
+    HistoryLastVisitDateListModel(QObject* parent=0);
+    ~HistoryLastVisitDateListModel();
 
     enum Roles {
-        Folder = Qt::UserRole + 1,
-        Entries
+        LastVisitDate = Qt::UserRole + 1
     };
 
     // reimplemented from QAbstractListModel
@@ -50,32 +48,25 @@ public:
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex& index, int role) const;
 
-    BookmarksModel* sourceModel() const;
-    void setSourceModel(BookmarksModel* sourceModel);
-
-    Q_INVOKABLE QVariantMap get(int row) const;
-    Q_INVOKABLE int indexOf(const QString& folder) const;
-    Q_INVOKABLE void createNewFolder(const QString& folder);
+    HistoryTimeframeModel* sourceModel() const;
+    void setSourceModel(HistoryTimeframeModel* sourceModel);
 
 Q_SIGNALS:
     void sourceModelChanged() const;
-    void countChanged() const;
 
 private Q_SLOTS:
-    void onFolderAdded(const QString& folder);
+    void onRowsInserted(const QModelIndex& parent, int start, int end);
+    void onRowsRemoved(const QModelIndex& parent, int start, int end);
     void onModelReset();
 
-    void onFolderDataChanged();
-
 private:
-    BookmarksModel* m_sourceModel;
-    QMap<QString, BookmarksFolderModel*> m_folders;
+    HistoryTimeframeModel* m_sourceModel;
+    QMap<QDate, QList<QPersistentModelIndex*>*> m_lastVisitDates;
+    QList<QDate> m_orderedDates;
 
-    bool checkValidFolderIndex(int row) const;
-    void clearFolders();
+    void clearLastVisitDates();
     void populateModel();
-    void addFolder(const QString& folder);
-    void emitDataChanged(const QString& folder);
+    void insertNewHistoryEntry(QPersistentModelIndex* index, bool notify);
 };
 
-#endif // __BOOKMARKS_FOLDERLIST_MODEL_H__
+#endif // __HISTORY_LASTVISITDATELIST_MODEL_H__

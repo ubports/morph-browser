@@ -86,27 +86,24 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         connection.commit()
         connection.close()
 
-    def _get_bookmarks_folders_list_view(self):
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        more_button = new_tab_view.get_bookmarks_more_button()
-        self.assertThat(more_button.visible, Equals(True))
-        self.pointing_device.click_object(more_button)
-        return self.main_window.get_bookmarks_folder_list_view()
-
     def _get_bookmark_options(self):
         address_bar = self.main_window.address_bar
         bookmark_toggle = address_bar.get_bookmark_toggle()
         self.pointing_device.click_object(bookmark_toggle)
         return self.main_window.get_bookmark_options()
 
+    def _assert_bookmark_count_in_folder(self, tab, folder_name, count):
+        # in wide mode the list of urls in the default folder has the homepage
+        # bookmark in it, but it does not in narrow mode
+        if self.main_window.wide and folder_name == "":
+            count += 1
+
+        urls = tab.get_bookmarks(folder_name)
+        self.assertThat(lambda: len(urls), Eventually(Equals(count)))
+
     def test_save_bookmarked_url_in_default_folder(self):
-        folders = self._get_bookmarks_folders_list_view()
-        folder_delegate = folders.get_folder_delegate("")
-        self.assertThat(lambda: len(folders.get_urls_from_folder(
-                                    folder_delegate)),
-                        Eventually(Equals(4)))
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self._assert_bookmark_count_in_folder(new_tab, "", 4)
 
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
@@ -121,20 +118,14 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        folders = self._get_bookmarks_folders_list_view()
-        folder_delegate = folders.get_folder_delegate("")
-        self.assertThat(lambda: len(folders.get_urls_from_folder(
-                                    folder_delegate)),
-                        Eventually(Equals(5)))
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self._assert_bookmark_count_in_folder(new_tab, "", 5)
 
     def test_save_bookmarked_url_in_existing_folder(self):
-        folders = self._get_bookmarks_folders_list_view()
-        self.assertThat(lambda: len(folders.get_delegates()),
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
-        folder_delegate = folders.get_folder_delegate("Actinide")
-        self.assertThat(lambda: len(folders.get_urls_from_folder(
-                                    folder_delegate)),
-                        Eventually(Equals(1)))
+        self._assert_bookmark_count_in_folder(new_tab, "Actinide", 1)
 
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
@@ -158,17 +149,14 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        folders = self._get_bookmarks_folders_list_view()
-        self.assertThat(lambda: len(folders.get_delegates()),
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
-        folder_delegate = folders.get_folder_delegate("Actinide")
-        self.assertThat(lambda: len(folders.get_urls_from_folder(
-                                    folder_delegate)),
-                        Eventually(Equals(2)))
+        self._assert_bookmark_count_in_folder(new_tab, "Actinide", 2)
 
     def test_save_bookmarked_url_in_new_folder(self):
-        folders = self._get_bookmarks_folders_list_view()
-        self.assertThat(lambda: len(folders.get_delegates()),
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
 
         url = self.base_url + "/test2"
@@ -205,13 +193,10 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        folders = self._get_bookmarks_folders_list_view()
-        self.assertThat(lambda: len(folders.get_delegates()),
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(4)))
-        folder_delegate = folders.get_folder_delegate("NewFolder")
-        self.assertThat(lambda: len(folders.get_urls_from_folder(
-                                    folder_delegate)),
-                        Eventually(Equals(1)))
+        self._assert_bookmark_count_in_folder(new_tab, "NewFolder", 1)
 
     @testtools.skip("Temporarily skipped until popover going out of view with"
                     " OSK is fixed http://pad.lv/1466222")
@@ -235,10 +220,11 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        folders = self._get_bookmarks_folders_list_view()
-        folder_delegate = folders.get_folder_delegate("")
-        self.assertThat(lambda: len(folders.get_urls_from_folder(
-                                    folder_delegate)),
-                        Eventually(Equals(5)))
-        delegate = folders.get_urls_from_folder(folder_delegate)[0]
-        self.assertThat(delegate.title, Equals("NewTitle"))
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
+        self._assert_bookmark_count_in_folder(new_tab, "", 5)
+
+        index = 0
+        if self.main_view.wide:
+            index += 1
+        bookmark = new_tab.get_bookmarks("")[index]
+        self.assertThat(bookmark.title, Equals("NewTitle"))

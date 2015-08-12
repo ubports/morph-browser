@@ -40,9 +40,9 @@ Column {
                 width: urlsList.width
                 height: units.gu(5)
 
-                icon: model.icon
+                icon: model ? model.icon : ""
                 title: model.title ? model.title : model.url
-                url: model.url
+                url: model ? model.url : ""
 
                 onClicked: urlsList.urlClicked(model.url)
                 onRemoved: urlsList.urlRemoved(model.url)
