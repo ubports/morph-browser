@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-07-31 09:47+0200\n"
+"POT-Creation-Date: 2015-08-11 20:00+0200\n"
 "PO-Revision-Date: 2015-05-19 19:42+0000\n"
 "Last-Translator: B. W. Knight <kbd0651@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-08-01 05:43+0000\n"
-"X-Generator: Launchpad (build 17656)\n"
+"X-Launchpad-Export-Date: 2015-08-12 06:27+0000\n"
+"X-Generator: Launchpad (build 17686)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -51,7 +51,8 @@ msgstr "비밀번호"
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:289
+#: src/app/webbrowser/SettingsPage.qml:343
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "취소"
@@ -355,6 +356,16 @@ msgstr "이미지 복사"
 msgid "Copy link"
 msgstr "링크 복사"
 
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:354
+msgid "Find in page"
+msgstr ""
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/FindInPage.qml:26
+msgid "Search in Page"
+msgstr ""
+
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "앞으로"
@@ -375,7 +386,7 @@ msgstr "가기"
 msgid "Address;URL;www"
 msgstr "주소"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:574
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:596
 msgid "New Tab"
 msgstr "새 탭"
 
@@ -415,7 +426,17 @@ msgstr "이미지 저장"
 msgid "Share…"
 msgstr "공유..."
 
-#: src/app/webbrowser/AddressBar.qml:208
+#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
+#: src/app/webbrowser/AddressBar.qml:203
+#, qt-format
+msgid "%1/%2"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:239
+msgid "find in page"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:216
 msgid "search or enter an address"
 msgstr "검색할 단어나 주소를 입력하십시오."
 
@@ -448,54 +469,54 @@ msgid "Create new folder"
 msgstr "새 폴더 만들기"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:311
+#: src/app/webbrowser/SettingsPage.qml:353
 msgid "Save"
 msgstr "저장하기"
 
-#: src/app/webbrowser/Browser.qml:292
+#: src/app/webbrowser/Browser.qml:312
 msgid "Share"
 msgstr "공유"
 
-#: src/app/webbrowser/Browser.qml:299
+#: src/app/webbrowser/Browser.qml:319
 msgid "History"
 msgstr "기록"
 
-#: src/app/webbrowser/Browser.qml:309
+#: src/app/webbrowser/Browser.qml:329
 msgid "Open tabs"
 msgstr "탭 열기"
 
-#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/TabsList.qml:85
+#: src/app/webbrowser/Browser.qml:339 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "새 탭"
 
-#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
-msgid "Settings"
-msgstr "설정"
-
-#: src/app/webbrowser/Browser.qml:336
+#: src/app/webbrowser/Browser.qml:355
 msgid "Leave Private Mode"
 msgstr "사생활 보호 모드 떠나기"
 
-#: src/app/webbrowser/Browser.qml:336
+#: src/app/webbrowser/Browser.qml:355
 msgid "Private Mode"
 msgstr "사생활 보호 모드"
 
-#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:346 src/app/webbrowser/SettingsPage.qml:51
+msgid "Settings"
+msgstr "설정"
+
+#: src/app/webbrowser/Browser.qml:582 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "완료"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:658
+#: src/app/webbrowser/Browser.qml:689
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:941
+#: src/app/webbrowser/Browser.qml:973
 msgid "Swipe Up To Exit Full Screen"
 msgstr "위로 쓸어 올리셔서 전체 화면을 종료하십시오"
 
-#: src/app/webbrowser/Browser.qml:942
+#: src/app/webbrowser/Browser.qml:974
 msgid "Press ESC To Exit Full Screen"
 msgstr "ESC 키를 누르셔서 전체 화면을 종료하십시오"
 
@@ -614,7 +635,7 @@ msgid "Search engine"
 msgstr "검색 엔진"
 
 #: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:275
+#: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
 msgstr "홈페이지"
 
@@ -643,7 +664,7 @@ msgstr "검색 기록 삭제하기"
 msgid "Clear Browsing History?"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:256
+#: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
 msgstr "캐시 삭제하기"
 

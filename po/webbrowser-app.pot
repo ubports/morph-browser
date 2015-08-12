@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-31 09:47+0200\n"
+"POT-Creation-Date: 2015-08-11 20:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -337,6 +337,16 @@ msgstr ""
 msgid "Copy link"
 msgstr ""
 
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:354
+msgid "Find in page"
+msgstr ""
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/FindInPage.qml:26
+msgid "Search in Page"
+msgstr ""
+
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr ""
@@ -357,7 +367,7 @@ msgstr ""
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:596
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:621
 msgid "New Tab"
 msgstr ""
 
@@ -397,7 +407,17 @@ msgstr ""
 msgid "Share…"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:216
+#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
+#: src/app/webbrowser/AddressBar.qml:203
+#, qt-format
+msgid "%1/%2"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:239
+msgid "find in page"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "search or enter an address"
 msgstr ""
 
@@ -434,50 +454,50 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:312
+#: src/app/webbrowser/Browser.qml:320
 msgid "Share"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:319
+#: src/app/webbrowser/Browser.qml:327
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:329
+#: src/app/webbrowser/Browser.qml:337
 msgid "Open tabs"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:339 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/Browser.qml:347 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:346 src/app/webbrowser/SettingsPage.qml:51
-msgid "Settings"
-msgstr ""
-
-#: src/app/webbrowser/Browser.qml:355
+#: src/app/webbrowser/Browser.qml:364
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:355
+#: src/app/webbrowser/Browser.qml:364
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:582 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:382 src/app/webbrowser/SettingsPage.qml:51
+msgid "Settings"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:607 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:689
+#: src/app/webbrowser/Browser.qml:714
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:973
+#: src/app/webbrowser/Browser.qml:1002
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:974
+#: src/app/webbrowser/Browser.qml:1003
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 

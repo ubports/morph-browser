@@ -1,3 +1,43 @@
+webbrowser-app (0.23+15.10.20150811-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Drop old names for QML dependencies. Original patch by Robert
+    Ancell.
+  * Highlight matching terms in one pass. (LP: #1481206)
+  * Implement the "Find in Page" feature. This bumps the runtime
+    dependency on liboxideqt-qmlplugin to 1.8. (LP: #1312260)
+
+  [ Robert Ancell ]
+  * Drop old names for QML dependencies. Original patch by Robert
+    Ancell.
+
+  [ Ugo Riboni ]
+  * Implement the "Find in Page" feature. This bumps the runtime
+    dependency on liboxideqt-qmlplugin to 1.8. (LP: #1312260)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Tue, 11 Aug 2015 11:18:48 +0000
+
+webbrowser-app (0.23+15.10.20150810-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update all imports of:  - Ubuntu.Components to 1.3  - QtQuick to 2.4
+     - QtQuick.Window to 2.2 (LP: #1483279)
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 10 Aug 2015 16:30:53 +0000
+
+webbrowser-app (0.23+15.10.20150729-0ubuntu2~gcc5.1) wily; urgency=medium
+
+  * No-change test rebuild for g++5 ABI transition
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Thu, 30 Jul 2015 19:28:11 +0000
+
 webbrowser-app (0.23+15.10.20150729-0ubuntu1) wily; urgency=medium
 
   [ Olivier Tilloy ]

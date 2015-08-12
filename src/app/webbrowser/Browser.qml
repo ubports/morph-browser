@@ -16,19 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import QtQuick.Window 2.0
+import QtQuick 2.4
+import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.5 as Oxide
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 import "../UrlUtils.js" as UrlUtils
 import "urlManagement.js" as UrlManagement
-
 
 BrowserView {
     id: browser
@@ -103,6 +102,13 @@ BrowserView {
         Actions.ClearHistory {
             enabled: browser.historyModel
             onTriggered: browser.historyModel.clearAll()
+        },
+        Actions.FindInPage {
+            enabled: !chrome.findInPageMode
+            onTriggered: {
+                chrome.findInPageMode = true
+                chrome.focus = true
+            }
         }
     ]
 
@@ -323,6 +329,8 @@ BrowserView {
 
             onRequestNewTab: browser.openUrlInNewTab("", true)
 
+            onFindInPageModeChanged: if (!chrome.findInPageMode) internal.resetFocus()
+
             anchors {
                 left: parent.left
                 right: parent.right
@@ -364,12 +372,13 @@ BrowserView {
                     onTriggered: browser.openUrlInNewTab("", true)
                 },
                 Action {
-                    objectName: "settings"
-                    text: i18n.tr("Settings")
-                    iconName: "settings"
+                    objectName: "findinpage"
+                    text: i18n.tr("Find in page")
+                    iconName: "search"
+                    enabled: !chrome.findInPageMode
                     onTriggered: {
-                        settingsComponent.createObject(settingsContainer)
-                        settingsContainer.focus = true
+                        chrome.findInPageMode = true
+                        chrome.focus = true
                     }
                 },
                 Action {
@@ -389,6 +398,15 @@ BrowserView {
                             browser.incognito = true
                         }
                     }
+                },
+                Action {
+                    objectName: "settings"
+                    text: i18n.tr("Settings")
+                    iconName: "settings"
+                    onTriggered: {
+                        settingsComponent.createObject(settingsContainer)
+                        settingsContainer.focus = true
+                    }
                 }
             ]
 
@@ -396,7 +414,13 @@ BrowserView {
             editing: activeFocus || suggestionsList.activeFocus
 
             Keys.onDownPressed: if (suggestionsList.count) suggestionsList.focus = true
-            Keys.onEscapePressed: internal.resetFocus()
+            Keys.onEscapePressed: {
+                if (chrome.findInPageMode) {
+                    chrome.findInPageMode = false
+                } else {
+                    internal.resetFocus()
+                }
+            }
         }
 
         ChromeController {
@@ -409,7 +433,8 @@ BrowserView {
 
         Suggestions {
             id: suggestionsList
-            opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) && count > 0 && !chrome.drawerOpen) ? 1.0 : 0.0
+            opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) &&
+                      (count > 0) && !chrome.drawerOpen && !chrome.findInPageMode) ? 1.0 : 0.0
             Behavior on opacity {
                 UbuntuNumberAnimation {}
             }
@@ -459,7 +484,7 @@ BrowserView {
                 terms: suggestionsList.searchTerms
                 searchEngine: currentSearchEngine
                 active: (chrome.activeFocus || suggestionsList.activeFocus) &&
-                         !browser.incognito &&
+                         !browser.incognito && !chrome.findInPageMode &&
                          !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
                 function limit(number) {
@@ -910,6 +935,10 @@ BrowserView {
                 }
 
                 onLoadEvent: {
+                    if (event.type == Oxide.LoadEvent.TypeCommitted) {
+                        chrome.findInPageMode = false
+                    }
+
                     if (webviewimpl.incognito) {
                         return
                     }
@@ -1300,6 +1329,7 @@ BrowserView {
     Connections {
         target: tabsModel
         onCurrentTabChanged: {
+            chrome.findInPageMode = false
             var tab = tabsModel.currentTab
             if (tab) {
                 tab.load()
@@ -1488,6 +1518,16 @@ BrowserView {
             key: Qt.Key_R
             enabled: chrome.visible
             onTriggered: if (currentWebview) currentWebview.reload()
+        }
+
+        // Ctrl + F: Find in Page
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_F
+            onTriggered: {
+                chrome.findInPageMode = true
+                chrome.focus = true
+            }
         }
     }
 }

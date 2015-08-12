@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
-import com.canonical.Oxide 1.0 as Oxide
+import QtQuick 2.4
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
+import com.canonical.Oxide 1.8 as Oxide
 import ".."
 import "urlManagement.js" as UrlManagement
 
@@ -40,6 +40,8 @@ FocusScope {
     property bool canSimplifyText: true
     property bool editing: false
     property bool showFavicon: true
+    property bool findInPageMode: false
+    property var findController: null
 
     property var securityStatus: null
 
@@ -57,6 +59,12 @@ FocusScope {
         textField.selectAll()
     }
 
+    Binding {
+        target: findController
+        property: "text"
+        value: findInPageMode ? textField.text : ""
+    }
+
     TextField {
         id: textField
         objectName: "addressBarTextField"
@@ -68,6 +76,7 @@ FocusScope {
 
             width: iconsRow.width + units.gu(1)
             height: units.gu(2)
+            visible: !findInPageMode
 
             Row {
                 id: iconsRow
@@ -179,33 +188,47 @@ FocusScope {
             }
         }
 
-        secondaryItem: Item {
-            id: bookmarkToggle
-            objectName: "bookmarkToggle"
-
+        secondaryItem: Row {
             height: textField.height
-            width: visible ? height : 0
 
-            visible: internal.idle && addressbar.actualUrl.toString()
+            Label {
+                objectName: "findInPageCounter"
+                anchors.verticalCenter: parent.verticalCenter
+                fontSize: "x-small"
+                color: UbuntuColors.darkGrey
+                opacity: findController && findController.count > 0 ? 1.0 : 0.6
+                visible: findInPageMode
 
-            Icon {
-                height: parent.height - units.gu(2)
-                width: height
-                anchors.centerIn: parent
-
-                name: addressbar.bookmarked ? "starred" : "non-starred"
-                color: addressbar.bookmarked ? UbuntuColors.orange : UbuntuColors.darkGrey
+                // TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
+                text: i18n.tr("%1/%2").arg(current).arg(count)
+                property int current: findController ? findController.current : 0
+                property int count: findController ? findController.count : 0
             }
 
             MouseArea {
-                id: bookmarkButton
-                anchors.fill: parent
-                onClicked: addressbar.bookmarked = !addressbar.bookmarked
-            }
+                id: bookmarkToggle
+                objectName: "bookmarkToggle"
 
-            Item {
-                id: bookmarkTogglePlaceHolderItem
-                anchors.fill: parent
+                height: parent.height
+                width: visible ? height : 0
+
+                visible: !findInPageMode && internal.idle && addressbar.actualUrl.toString()
+
+                Icon {
+                    height: parent.height - units.gu(2)
+                    width: height
+                    anchors.centerIn: parent
+
+                    name: addressbar.bookmarked ? "starred" : "non-starred"
+                    color: addressbar.bookmarked ? UbuntuColors.orange : UbuntuColors.darkGrey
+                }
+
+                onClicked: addressbar.bookmarked = !addressbar.bookmarked
+
+                Item {
+                    id: bookmarkTogglePlaceHolderItem
+                    anchors.fill: parent
+                }
             }
         }
 
@@ -213,7 +236,8 @@ FocusScope {
         color: UbuntuColors.darkGrey
         inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
 
-        placeholderText: i18n.tr("search or enter an address")
+        placeholderText: findInPageMode ? i18n.tr("find in page")
+                                        : i18n.tr("search or enter an address")
 
         // Work around the "fix" for http://pad.lv/1089370 which
         // unsets focus on the TextField when it becomes invisible
@@ -229,18 +253,29 @@ FocusScope {
 
         onAccepted: if (!internal.idle) internal.validate()
 
-        // Make sure that all the text is selected at the first click
-        MouseArea {
-            anchors {
-                fill: parent
-                leftMargin: icons.width
-                rightMargin: bookmarkToggle.width
+        Keys.onReturnPressed: {
+            if (!findInPageMode) {
+                accepted()
+            } else if (event.modifiers & Qt.ShiftModifier) {
+                findController.previous()
+            } else {
+                findController.next()
             }
-            visible: !textField.activeFocus
-            onClicked: {
-                textField.forceActiveFocus()
-                textField.selectAll()
-            }
+        }
+    }
+
+    // Make sure that all the text is selected at the first click
+    MouseArea {
+        anchors {
+            fill: parent
+            leftMargin: icons.width
+            rightMargin: bookmarkToggle.width
+        }
+
+        enabled: !addressbar.activeFocus
+        onClicked: {
+            textField.forceActiveFocus()
+            textField.selectAll()
         }
     }
 
@@ -313,6 +348,7 @@ FocusScope {
     }
 
     onEditingChanged: {
+        if (findInPageMode) return
         if (editing && internal.simplified) {
             text = actualUrl
             internal.simplified = false
@@ -328,7 +364,7 @@ FocusScope {
     }
 
     onCanSimplifyTextChanged: {
-        if (editing) return
+        if (editing || findInPageMode) return
         if (canSimplifyText && !loading && actualUrl.toString()) {
             text = internal.simplifyUrl(actualUrl)
             internal.simplified = true
@@ -339,7 +375,7 @@ FocusScope {
     }
 
     onActualUrlChanged: {
-        if (editing && actualUrl.toString()) return
+        if ((editing && actualUrl.toString()) || findInPageMode) return
         if (canSimplifyText) {
             text = internal.simplifyUrl(actualUrl)
             internal.simplified = true
@@ -350,12 +386,23 @@ FocusScope {
     }
 
     onRequestedUrlChanged: {
-        if (editing) return
+        if (editing || findInPageMode) return
         if (canSimplifyText) {
             text = internal.simplifyUrl(requestedUrl)
             internal.simplified = true
         } else {
             text = requestedUrl
+            internal.simplified = false
+        }
+    }
+
+    onFindInPageModeChanged: {
+        if (findInPageMode) return
+        if (canSimplifyText) {
+            text = internal.simplifyUrl(actualUrl)
+            internal.simplified = true
+        } else {
+            text = actualUrl
             internal.simplified = false
         }
     }
