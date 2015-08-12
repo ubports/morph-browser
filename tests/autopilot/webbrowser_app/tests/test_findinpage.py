@@ -157,6 +157,8 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
         self.assertThat(bar.findInPageMode, Eventually(Equals(False)))
 
     def test_find_in_page_not_in_menu_in_new_tab(self):
+        if not self.main_window.wide:
+            self.open_tabs_view()
         self.open_new_tab()
 
         drawer_button = self.chrome.get_drawer_button()
