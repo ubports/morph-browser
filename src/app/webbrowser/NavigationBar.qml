@@ -31,11 +31,15 @@ FocusScope {
     readonly property bool drawerOpen: internal.openDrawer
     property alias requestedUrl: addressbar.requestedUrl
     property alias canSimplifyText: addressbar.canSimplifyText
+    property alias findInPageMode: addressbar.findInPageMode
     property alias editing: addressbar.editing
     property alias incognito: addressbar.incognito
     property alias showFaviconInAddressBar: addressbar.showFavicon
     readonly property alias bookmarkTogglePlaceHolder: addressbar.bookmarkTogglePlaceHolder
     property color iconColor: UbuntuColors.darkGrey
+
+    onFindInPageModeChanged: if (findInPageMode) addressbar.text = ""
+    onIncognitoChanged: findInPageMode = false
 
     function selectAll() {
         addressbar.selectAll()
@@ -65,8 +69,8 @@ FocusScope {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: webview ? webview.canGoBack : false
-            onTriggered: webview.goBack()
+            enabled: findInPageMode || (webview ? webview.canGoBack : false)
+            onTriggered: findInPageMode ? (findInPageMode = false) : webview.goBack()
         }
 
         ChromeButton {
@@ -86,7 +90,8 @@ FocusScope {
                 verticalCenter: parent.verticalCenter
             }
 
-            enabled: webview ? webview.canGoForward : false
+            enabled: findInPageMode ? false :
+                     (webview ? webview.canGoForward : false)
             onTriggered: webview.goForward()
         }
 
@@ -95,10 +100,13 @@ FocusScope {
 
             focus: true
 
+            findInPageMode: findInPageMode
+            findController: webview ? webview.findController : null
+
             anchors {
                 left: forwardButton.right
                 leftMargin: units.gu(1)
-                right: drawerButton.left
+                right: rightButtonsBar.left
                 rightMargin: units.gu(1)
                 verticalCenter: parent.verticalCenter
             }
@@ -108,8 +116,10 @@ FocusScope {
             loading: webview ? webview.loading : false
 
             onValidated: {
-                webview.forceActiveFocus()
-                webview.url = requestedUrl
+                if (!findInPageMode) {
+                    webview.forceActiveFocus()
+                    webview.url = requestedUrl
+                }
             }
             onRequestReload: {
                 webview.forceActiveFocus()
@@ -130,26 +140,67 @@ FocusScope {
             }
         }
 
-        ChromeButton {
-            id: drawerButton
-            objectName: "drawerButton"
-
-            iconName: "contextual-menu"
-            iconSize: 0.5 * height
-            iconColor: root.iconColor
-
-            height: root.height
-            width: height * 0.8
+        Row {
+            id: rightButtonsBar
 
             anchors {
                 right: parent.right
-                verticalCenter: parent.verticalCenter
+                top: parent.top
+                bottom: parent.bottom
             }
 
-            onTriggered: {
-                if (!internal.openDrawer) {
-                    internal.openDrawer = drawerComponent.createObject(chrome)
-                    internal.openDrawer.opened = true
+            ChromeButton {
+                id: findPreviousButton
+                objectName: "findPreviousButton"
+
+                iconName: "up"
+                iconSize: 0.5 * height
+
+                height: root.height
+                width: height * 0.8
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                visible: findInPageMode
+                enabled: webview && webview.findController && webview.findController.count > 1
+                onTriggered: webview.findController.previous()
+            }
+
+            ChromeButton {
+                id: findNextButton
+                objectName: "findNextButton"
+
+                iconName: "down"
+                iconSize: 0.5 * height
+
+                height: root.height
+                width: height * 0.8
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                visible: findInPageMode
+                enabled: webview && webview.findController && webview.findController.count > 1
+                onTriggered: webview.findController.next()
+            }
+
+            ChromeButton {
+                id: drawerButton
+                objectName: "drawerButton"
+
+                iconName: "contextual-menu"
+                iconSize: 0.5 * height
+                iconColor: root.iconColor
+
+                height: root.height
+                width: height * 0.8
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                onTriggered: {
+                    if (!internal.openDrawer) {
+                        internal.openDrawer = drawerComponent.createObject(chrome)
+                        internal.openDrawer.opened = true
+                    }
                 }
             }
         }

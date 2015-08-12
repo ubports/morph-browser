@@ -25,7 +25,7 @@ FocusScope {
     property var searchTerms
     property var models
 
-    readonly property int count: models.reduce(countItems, 0)
+    readonly property int count: models.reduce(internal.countItems, 0)
     readonly property alias contentHeight: suggestionsList.contentHeight
 
     signal activated(url url)
@@ -43,11 +43,12 @@ FocusScope {
 
     ListView {
         id: suggestionsList
+        objectName: "suggestionsList"
         anchors.fill: parent
         focus: true
 
         model: models.reduce(function(list, model) {
-            var modelItems = [];
+            var modelItems = []
 
             // Models inheriting from QAbstractItemModel and JS arrays expose their
             // data differently, so we need to collect their items differently
@@ -60,17 +61,18 @@ FocusScope {
             modelItems.forEach(function(item) {
                 item["icon"] = model.icon
                 item["displayUrl"] = model.displayUrl
-                list.push(item);
+                list.push(item)
             })
-            return list;
+            return list
         }, [])
 
         delegate: Suggestion {
+            objectName: "suggestionDelegate_" + index
             width: suggestionsList.width
             showDivider: index < model.length - 1
 
-            title: selected ? modelData.title : highlightTerms(modelData.title)
-            subtitle: modelData.displayUrl ? (selected ? modelData.url : highlightTerms(modelData.url)) : ""
+            title: selected ? modelData.title : internal.highlightTerms(modelData.title)
+            subtitle: modelData.displayUrl ? (selected ? modelData.url : internal.highlightTerms(modelData.url)) : ""
             icon: modelData.icon
             selected: suggestionsList.activeFocus && ListView.isCurrentItem
 
@@ -83,32 +85,35 @@ FocusScope {
         align: Qt.AlignTrailing
     }
 
-    function escapeTerm(term) {
-        // Build a regular expression suitable for highlighting a term
-        // in a case-insensitive manner and globally, by escaping
-        // special characters (a simpler version of preg_quote).
-        var escaped = term.replace(/[().?]/g, '\\$&')
-        return new RegExp(escaped, 'ig')
-    }
+    QtObject {
+        id: internal
 
-    function highlightTerms(text) {
-        // Highlight the matching terms (bold and Ubuntu orange)
-        if (text === undefined) {
-            return ''
-        }
-        var highlighted = text.toString()
-        var count = searchTerms.length
-        var highlight = '<font color="%1">$&</font>'.arg("#752571")
-        for (var i = 0; i < count; ++i) {
-            var term = searchTerms[i]
-            highlighted = highlighted.replace(escapeTerm(term), highlight)
-        }
-        highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
-        highlighted = '<html>' + highlighted + '</html>'
-        return highlighted
-    }
+        readonly property var termsRe: new RegExp(searchTerms.map(escapeTerm).join('|'), 'ig')
+        readonly property string highlight: '<font color="%1">$&</font>'.arg("#752571")
 
-    function countItems(total, model) {
-        return total + (model.hasOwnProperty("length") ? model.length : model.count);
+        function escapeTerm(term) {
+            // Escape special characters in a search term
+            // (a simpler version of preg_quote).
+            return term.replace(/[().?+|*^$]/g, '\\$&')
+        }
+
+        function highlightTerms(text) {
+            // Highlight the matching terms in a case-insensitive manner
+            if (text && text.toString()) {
+                if (searchTerms.length == 0) {
+                    return text
+                }
+                var highlighted = text.toString().replace(termsRe, highlight)
+                highlighted = highlighted.replace(new RegExp('&', 'g'), '&amp;')
+                highlighted = '<html>' + highlighted + '</html>'
+                return highlighted
+            } else {
+                return ""
+            }
+        }
+
+        function countItems(total, model) {
+            return total + (model.hasOwnProperty("length") ? model.length : model.count)
+        }
     }
 }
