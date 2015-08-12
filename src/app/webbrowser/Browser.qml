@@ -722,6 +722,8 @@ BrowserView {
         onStatusChanged: {
             if (status == Loader.Ready) {
                 historyViewLoader.item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
             }
         }
 
@@ -731,10 +733,7 @@ BrowserView {
             HistoryView {
                 anchors.fill: parent
 
-                Keys.onEscapePressed: {
-                    historyViewLoader.active = false
-                    internal.resetFocus()
-                }
+                Keys.onEscapePressed: historyViewLoader.active = false
 
                 Timer {
                     // Set the model asynchronously to ensure
@@ -785,10 +784,7 @@ BrowserView {
             HistoryViewWide {
                 anchors.fill: parent
 
-                Keys.onEscapePressed: {
-                    historyViewLoader.active = false
-                    internal.resetFocus()
-                }
+                Keys.onEscapePressed: historyViewLoader.active = false
 
                 Timer {
                     // Set the model asynchronously to ensure
