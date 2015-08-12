@@ -143,7 +143,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         time.sleep(1)
         return tabs_view
 
-    def open_new_tab(self):
+    def open_new_tab(self, open_tabs_view = False, expand_view = False):
         if (self.main_window.incognito):
             count = len(self.main_window.get_incognito_webviews())
         else:
@@ -152,7 +152,8 @@ class BrowserTestCaseBase(AutopilotTestCase):
         if self.main_window.wide:
             self.main_window.chrome.get_tabs_bar().click_new_tab_button()
         else:
-            # assumes the tabs view is already open
+            if open_tabs_view:
+                self.open_tabs_view()
             tabs_view = self.main_window.get_tabs_view()
             toolbar = self.main_window.get_recent_view_toolbar()
             toolbar.click_action("newTabButton")
@@ -174,6 +175,11 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.assertThat(
                 self.main_window.address_bar.activeFocus,
                 Eventually(Equals(True)))
+
+        if not self.main_window.wide and expand_view:
+            more_button = new_tab_view.get_bookmarks_more_button()
+            self.assertThat(more_button.visible, Equals(True))
+            self.pointing_device.click_object(more_button)
 
         return new_tab_view
 

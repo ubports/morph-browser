@@ -161,9 +161,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         webview.activeFocus.wait_for(True)
 
     def test_webview_requests_close(self):
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view = True)
         url = self.base_url + "/closeself"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
@@ -174,9 +172,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(1)
 
     def test_last_webview_requests_close(self):
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view = True)
         url = self.base_url + "/closeself"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)

@@ -22,12 +22,6 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 class TestPrivateView(StartOpenRemotePageTestCaseBase):
 
-    def get_url_list_from_top_sites(self):
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
-        return new_tab_view.get_top_sites_list().get_urls()
-
     def test_going_in_and_out_private_mode(self):
         address_bar = self.main_window.address_bar
         address_bar.focus()
@@ -72,8 +66,8 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
 
     def test_url_showing_in_top_sites_in_and_out_private_mode(self):
-        top_sites = self.get_url_list_from_top_sites()
-        self.assertIn(self.url, top_sites)
+        new_tab = self.open_new_tab()
+        self.assertIn(self.url, new_tab.get_top_sites_urls())
 
         self.main_window.enter_private_mode()
         self.assertThat(self.main_window.is_in_private_mode,
@@ -84,8 +78,9 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.main_window.leave_private_mode()
         self.assertThat(self.main_window.is_in_private_mode,
                         Eventually(Equals(False)))
-        top_sites = self.get_url_list_from_top_sites()
-        self.assertNotIn(url, top_sites)
+
+        new_tab = self.open_new_tab()
+        self.assertNotIn(url, new_tab.get_top_sites_urls())
 
     def test_public_tabs_should_not_be_visible_in_private_mode(self):
         if not self.main_window.wide:

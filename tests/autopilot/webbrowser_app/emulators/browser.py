@@ -169,6 +169,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         except exceptions.StateNotFoundError:
             return None
 
+    # FIXME: remove this and leave only the copy in NewTabView
     def get_bookmarks_folder_list_view(self):
         return self.select_single(BookmarksFolderListView)
 
@@ -445,23 +446,37 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_notopsites_label(self):
         return self.select_single("Label", objectName="notopsites")
 
+    def get_top_sites_urls(self):
+        return self.get_top_sites_list().get_urls()
+
+    def get_bookmarks_folder_list_view(self):
+        return self.select_single(BookmarksFolderListView)
+
+    def get_bookmarks(self, folder_name):
+        # assumes that the "more" button has been clicked
+        folders = self.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate(folder_name)
+        return folders.get_urls_from_folder(folder_delegate)
+
+    def get_folder_names(self):
+        folders = self.get_bookmarks_folder_list_view().get_delegates()
+        return [folder.folderName for folder in folders]
+
 
 class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_bookmarks_list(self):
+    def go_to_bookmarks(self):
         sections = self.select_single(uitk.Sections)
         if not sections.selectedIndex == 1:
             sections.click_section_button(1)
+
+    def get_bookmarks_list(self):
+        self.go_to_bookmarks()
         list = self.select_single(uitk.QQuickListView,
                                   objectName="bookmarksList")
         return sorted(list.select_many("DraggableUrlDelegateWide",
                       objectName="bookmarkItem"),
                       key=lambda delegate: delegate.globalRect.y)
-
-    def go_to_bookmarks(self):
-        sections = self.select_single(uitk.Sections)
-        if not sections.selectedIndex == 0:
-            sections.click_section_button(0)
 
     def get_top_sites_list(self):
         self.go_to_bookmarks()
@@ -477,6 +492,20 @@ class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                   objectName="foldersList")
         return sorted(list.select_many(objectName="folderItem"),
                       key=lambda delegate: delegate.globalRect.y)
+
+    def get_top_sites_urls(self):
+        return [{url: site.url, title: site.title} for site in self.get_top_sites_list()]
+
+    def get_bookmarks(self, folder_name):
+        folders = self.get_folders_list()
+        matches = [folder for folder in folders if folder.name == folder_name]
+        if not len(matches) == 1:
+            return []
+        self.pointing_device.click_object(matches[0])
+        return self.get_bookmarks_list()
+
+    def get_folder_names(self):
+        return [folder.name for folder in self.get_folders_list()]
 
 
 class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):

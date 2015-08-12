@@ -104,6 +104,7 @@ FocusScope {
             property bool isActiveFolder: ListView.isCurrentItem
             property bool isCurrentItem: ListView.isCurrentItem
             property bool isAllBookmarksFolder: folder.length === 0
+            property alias name: dropArea.folderName
             divider.visible: false
 
             property bool isCurrentDropTarget: dropArea.containsDrag && dropArea.drag.source.folder !== folder
@@ -118,7 +119,7 @@ FocusScope {
                 anchors.rightMargin: units.gu(2)
 
                 fontSize: isAllBookmarksFolder ? "medium" : "small"
-                text: isAllBookmarksFolder ? i18n.tr("All Bookmarks") : folder
+                text: isAllBookmarksFolder ? i18n.tr("All Bookmarks") : folderItem.name
                 color: isActiveFolder ? UbuntuColors.orange : UbuntuColors.darkGrey
             }
 

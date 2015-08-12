@@ -32,16 +32,12 @@ from ubuntuuitoolkit import ToolkitException
 class TestNewTabViewLifetime(StartOpenRemotePageTestCaseBase):
 
     def test_new_tab_view_destroyed_when_browsing(self):
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
+        new_tab_view = self.open_new_tab(open_tabs_view = True)
         self.main_window.go_to_url(self.base_url + "/test2")
         new_tab_view.wait_until_destroyed()
 
     def test_new_tab_view_destroyed_when_closing_tab(self):
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
+        new_tab_view = self.open_new_tab(open_tabs_view = True)
         if self.main_window.wide:
             self.main_window.chrome.get_tabs_bar().close_tab(1)
         else:
@@ -53,13 +49,9 @@ class TestNewTabViewLifetime(StartOpenRemotePageTestCaseBase):
 
     def test_new_tab_view_is_shared_between_tabs(self):
         # Open one new tab
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        new_tab_view = self.open_new_tab()
+        new_tab_view = self.open_new_tab(open_tabs_view = True)
         # Open a second new tab
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        new_tab_view_2 = self.open_new_tab()
+        new_tab_view_2 = self.open_new_tab(open_tabs_view = True)
         # Verify that they share the same NewTabView instance
         self.assertThat(new_tab_view_2.id, Equals(new_tab_view.id))
         # Close the second new tab, and verify that the NewTabView instance
@@ -125,13 +117,9 @@ class TestNewPrivateTabViewLifetime(StartOpenRemotePageTestCaseBase):
         self.main_window.go_to_url(self.base_url + "/test2")
         new_private_tab_view.wait_until_destroyed()
         # Open one new private tab
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        new_private_tab_view = self.open_new_tab()
+        new_private_tab_view = self.open_new_tab(open_tabs_view = True)
         # Open a second new private tab
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        new_private_tab_view_2 = self.open_new_tab()
+        new_private_tab_view_2 = self.open_new_tab(open_tabs_view = True)
         # Verify that they share the same NewPrivateTabView instance
         self.assertThat(new_private_tab_view_2.id,
                         Equals(new_private_tab_view.id))
@@ -165,9 +153,7 @@ class TestNewTabViewContentsBase(StartOpenRemotePageTestCaseBase):
         self.populate_config()
         self.populate_bookmarks()
         super(TestNewTabViewContentsBase, self).setUp()
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        self.new_tab_view = self.open_new_tab()
+        self.new_tab_view = self.open_new_tab(open_tabs_view = True)
 
     def populate_config(self):
         self.homepage = "http://test/test2"
