@@ -461,13 +461,13 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def go_to_bookmarks(self):
+    def go_to_section(self, section_index):
         sections = self.select_single(uitk.Sections)
-        if not sections.selectedIndex == 1:
-            sections.click_section_button(1)
+        if not sections.selectedIndex == section_index:
+            sections.click_section_button(section_index)
 
     def get_bookmarks_list(self):
-        self.go_to_bookmarks()
+        self.go_to_section(1)
         list = self.select_single(uitk.QQuickListView,
                                   objectName="bookmarksList")
         return sorted(list.select_many("DraggableUrlDelegateWide",
@@ -475,7 +475,7 @@ class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_top_sites_list(self):
-        self.go_to_bookmarks()
+        self.go_to_section(0)
         list = self.select_single(uitk.QQuickListView,
                                   objectName="topSitesList")
         return sorted(list.select_many("UrlDelegateWide",
@@ -483,13 +483,14 @@ class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_folders_list(self):
-        self.go_to_bookmarks()
+        self.go_to_section(1)
         list = self.select_single(uitk.QQuickListView,
                                   objectName="foldersList")
         return sorted(list.select_many(objectName="folderItem"),
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_top_site_items(self):
+        self.go_to_section(0)
         return self.get_top_sites_list()
 
     def get_bookmarks(self, folder_name):
