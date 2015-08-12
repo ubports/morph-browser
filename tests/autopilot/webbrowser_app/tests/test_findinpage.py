@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+from autopilot.exceptions import StateNotFoundError
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals
 
@@ -154,3 +155,17 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         self.assertThat(bar.findInPageMode, Eventually(Equals(False)))
+
+    def test_find_in_page_not_in_menu_in_new_tab(self):
+        self.open_new_tab()
+
+        drawer_button = self.chrome.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        self.chrome.get_drawer()
+        action_missing = False
+        try:
+            self.chrome.get_drawer_action("findinpage")
+        except StateNotFoundError:
+            action_missing = True
+
+        self.assertThat(action_missing, Equals(True))
