@@ -40,7 +40,7 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
         connection = sqlite3.connect(db_path)
         connection.execute("""CREATE TABLE IF NOT EXISTS bookmarks
                               (url VARCHAR, title VARCHAR, icon VARCHAR,
-                              created INTEGER);""")
+                              created INTEGER, folderId INTEGER);""")
         rows = [
             ("http://www.rsc.org/periodic-table/element/77/iridium",
              "Iridium - Element Information")
@@ -49,7 +49,7 @@ class PrepopulatedDatabaseTestCaseBase(StartOpenRemotePageTestCaseBase):
         for i, row in enumerate(rows):
             timestamp = int(time.time()) - i * 10
             query = "INSERT INTO bookmarks \
-                     VALUES ('{}', '{}', '', {});"
+                     VALUES ('{}', '{}', '', {}, '');"
             query = query.format(row[0], row[1], timestamp)
             connection.execute(query)
 
@@ -120,6 +120,8 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.check_tab_number(0)
 
     def test_switch_tabs_from_tabs_view(self):
+        if self.main_window.wide:
+            self.skipTest("Only on narrow form factors")
         self.open_tabs(1)
         self.check_tab_number(1)
         tabs = self.open_tabs_view()
@@ -139,8 +141,12 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+F4')
         self.check_tab_number(0)
         self.main_window.press_key('Ctrl+F4')
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.url, Equals(""))
+        if model() == 'Desktop':
+            # On desktop, closing the last open tab exits the application
+            self.app.process.wait()
+        else:
+            webview = self.main_window.get_current_webview()
+            self.assertThat(webview.url, Equals(""))
 
     def test_close_tabs_ctrl_w(self):
         self.open_tabs(1)
@@ -148,18 +154,28 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+w')
         self.check_tab_number(0)
         self.main_window.press_key('Ctrl+w')
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.url, Equals(""))
+        if model() == 'Desktop':
+            # On desktop, closing the last open tab exits the application
+            self.app.process.wait()
+        else:
+            webview = self.main_window.get_current_webview()
+            self.assertThat(webview.url, Equals(""))
 
     def test_close_tabs_tabs_view(self):
+        if self.main_window.wide:
+            self.skipTest("Only on narrow form factors")
         self.open_tabs(1)
         self.check_tab_number(1)
         self.open_tabs_view()
         self.main_window.press_key('Ctrl+w')
         self.check_tab_number(0)
         self.main_window.press_key('Ctrl+F4')
-        webview = self.main_window.get_current_webview()
-        self.assertThat(webview.url, Equals(""))
+        if model() == 'Desktop':
+            # On desktop, closing the last open tab exits the application
+            self.app.process.wait()
+        else:
+            webview = self.main_window.get_current_webview()
+            self.assertThat(webview.url, Equals(""))
 
     def test_select_address_bar_ctrl_l(self):
         self.main_window.press_key('Ctrl+L')
@@ -214,6 +230,10 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
     def test_bookmark(self):
         chrome = self.main_window.chrome
         self.assertThat(chrome.bookmarked, Equals(False))
+        self.main_window.press_key('Ctrl+D')
+        self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
+        self.main_window.press_key('Escape')
+        self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
         self.main_window.press_key('Ctrl+D')
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
         self.main_window.press_key('Ctrl+D')
@@ -274,3 +294,11 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         settings.wait_until_destroyed()
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
+    def test_find_in_page_ctrl_f(self):
+        address_bar = self.main_window.chrome.address_bar
+        self.assertThat(address_bar.findInPageMode, Equals(False))
+        self.main_window.press_key('Ctrl+F')
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(True)))
+        self.main_window.press_key('Escape')
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(False)))

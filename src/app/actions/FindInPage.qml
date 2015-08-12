@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,18 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
+import Ubuntu.Components 1.3
+import Ubuntu.Unity.Action 1.1 as UnityActions
 
-ListItem.Standard {
-    id: root
-
-    property string accountName
-
-    text: accountName
-
-    iconSource: Qt.resolvedUrl("/usr/share/icons/ubuntu-mobile/actions/scalable/contact.svg")
+UnityActions.Action {
+    text: i18n.tr("Find in page")
+    // TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
+    // Keywords may actually be sentences, and must be separated by semi-colons.
+    keywords: i18n.tr("Search in Page")
 }
-
-

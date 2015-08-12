@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.3
 
 Column {
     id: urlsList
 
     property alias model: urlsListRepeater.model
-    property int limit
+    property int limit: -1
 
     signal urlClicked(url url)
     signal urlRemoved(url url)
@@ -34,7 +34,7 @@ Column {
         id: urlsListRepeater
 
         delegate: Loader {
-            active: index < limit
+            active: limit < 0 || index < limit
             sourceComponent: UrlDelegate{
                 id: urlDelegate
                 width: urlsList.width

@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-22 12:30+0200\n"
-"PO-Revision-Date: 2015-06-04 06:21+0000\n"
+"POT-Creation-Date: 2015-08-11 20:00+0200\n"
+"PO-Revision-Date: 2015-08-08 13:59+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-06-23 05:30+0000\n"
-"X-Generator: Launchpad (build 17572)\n"
+"X-Launchpad-Export-Date: 2015-08-12 06:27+0000\n"
+"X-Generator: Launchpad (build 17686)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,6 +24,7 @@ msgstr "JavaScript-ilmoitus"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "OK"
@@ -47,9 +48,12 @@ msgid "Password"
 msgstr "Salasana"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:289
+#: src/app/webbrowser/SettingsPage.qml:343
+#: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "Peru"
 
@@ -369,6 +373,16 @@ msgstr "Kopioi kuva"
 msgid "Copy link"
 msgstr "Kopioi linkki"
 
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:354
+msgid "Find in page"
+msgstr ""
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/FindInPage.qml:26
+msgid "Search in Page"
+msgstr ""
+
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "Seuraava"
@@ -389,7 +403,7 @@ msgstr "Siirry"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;osoite;internet;webbi;netti"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:596
 msgid "New Tab"
 msgstr "Uusi välilehti"
 
@@ -429,54 +443,97 @@ msgstr "Tallenna kuva"
 msgid "Share…"
 msgstr "Jaa…"
 
-#: src/app/webbrowser/AddressBar.qml:201
+#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
+#: src/app/webbrowser/AddressBar.qml:203
+#, qt-format
+msgid "%1/%2"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:239
+msgid "find in page"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:216
 msgid "search or enter an address"
 msgstr "etsi tai kirjoita osoite"
 
-#: src/app/webbrowser/Browser.qml:292
+#: src/app/webbrowser/BookmarkOptions.qml:48
+msgid "Bookmark Added"
+msgstr "Kirjanmerkki lisätty"
+
+#. TRANSLATORS: Field where the title of bookmarked URL can be changed
+#: src/app/webbrowser/BookmarkOptions.qml:53
+msgid "Name"
+msgstr "Nimi"
+
+#. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
+#: src/app/webbrowser/BookmarkOptions.qml:71
+msgid "Save in"
+msgstr "Tallennuskohde"
+
+#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarksFolderListView.qml:115
+msgid "All Bookmarks"
+msgstr "Kaikki kirjanmerkit"
+
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
+msgid "New Folder"
+msgstr "Uusi kansio"
+
+#: src/app/webbrowser/BookmarkOptions.qml:115
+msgid "Create new folder"
+msgstr "Luo uusi kansio"
+
+#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/SettingsPage.qml:353
+msgid "Save"
+msgstr "Tallenna"
+
+#: src/app/webbrowser/Browser.qml:312
 msgid "Share"
 msgstr "Jaa"
 
-#: src/app/webbrowser/Browser.qml:299
+#: src/app/webbrowser/Browser.qml:319
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:309
+#: src/app/webbrowser/Browser.qml:329
 msgid "Open tabs"
 msgstr "Avoimet välilehdet"
 
-#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/TabsList.qml:85
+#: src/app/webbrowser/Browser.qml:339 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Uusi välilehti"
 
-#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
-msgid "Settings"
-msgstr "Asetukset"
-
-#: src/app/webbrowser/Browser.qml:336
+#: src/app/webbrowser/Browser.qml:355
 msgid "Leave Private Mode"
 msgstr "Poistu yksityisestä tilasta"
 
-#: src/app/webbrowser/Browser.qml:336
+#: src/app/webbrowser/Browser.qml:355
 msgid "Private Mode"
 msgstr "Yksityinen tila"
 
-#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:346 src/app/webbrowser/SettingsPage.qml:51
+msgid "Settings"
+msgstr "Asetukset"
+
+#: src/app/webbrowser/Browser.qml:582 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "Valmis"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:606
+#: src/app/webbrowser/Browser.qml:689
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:889
+#: src/app/webbrowser/Browser.qml:973
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Vedä ylös poistuaksesi koko näytön tilasta"
 
-#: src/app/webbrowser/Browser.qml:890
+#: src/app/webbrowser/Browser.qml:974
 msgid "Press ESC To Exit Full Screen"
 msgstr "Paina Esc poistuaksesi koko näytön tilasta"
 
@@ -488,7 +545,7 @@ msgstr[0] "%1 sivu"
 msgstr[1] "%1 sivua"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:118
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Vähemmän"
 
@@ -528,15 +585,15 @@ msgstr ""
 msgid "Bookmarks"
 msgstr "Kirjanmerkit"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
 msgstr "Lisää"
 
-#: src/app/webbrowser/NewTabView.qml:208
+#: src/app/webbrowser/NewTabView.qml:226
 msgid "Top sites"
 msgstr "Suosituimmat sivustot"
 
-#: src/app/webbrowser/NewTabView.qml:239
+#: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
 msgstr "Et ole vieraillut millään sivustolla vielä"
 
@@ -570,7 +627,7 @@ msgstr "Palvelinvarmenteen myöntäjä ei ole luotettu taho."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr "Palvelinvarmenne on kumottu,"
+msgstr "Palvelinvarmenne on kumottu."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
@@ -599,7 +656,7 @@ msgid "Search engine"
 msgstr "Hakukone"
 
 #: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:275
+#: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
 msgstr "Kotisivu"
 
@@ -624,13 +681,21 @@ msgstr "Palauta selaimen oletusasetukset"
 msgid "Clear Browsing History"
 msgstr "Tyhjennä selailuhistoria"
 
-#: src/app/webbrowser/SettingsPage.qml:256
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
+msgstr "Tyhjennetäänkö selaushistoria?"
+
+#: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
 msgstr "Tyhjennä välimuisti"
 
-#: src/app/webbrowser/SettingsPage.qml:311
-msgid "Save"
-msgstr "Tallenna"
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
+msgstr "Tyhjennetäänkö välimuisti?"
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr "Tyhjennä"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
@@ -638,30 +703,76 @@ msgstr "Kosketa näyttääksesi"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:65
+#: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntun verkkoselain"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:67
+#: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntun verkkoselain"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
-msgid "No local account found for "
-msgstr "Paikallista tiliä ei löytynyt - "
+#: src/app/webcontainer/AccountChooserDialog.qml:62
+msgid ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
+msgstr ""
+"Tähän web-sovellukseen ei ole linkitetty tiliä. Lisää tili painamalla alla "
+"olevaa kohdetta."
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
-msgid "Skip account creation step"
-msgstr "Ohita tilin luomisvaihe"
-
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
 msgstr "Lisää tili"
 
-#: src/app/webcontainer/AccountsView.qml:38
-msgid "Select an account"
+#: src/app/webcontainer/AccountChooserDialog.qml:87
+msgid "Don't use an account"
+msgstr "Älä käytä tiliä"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:39
+msgid "Account error"
+msgstr "Tilivirhe"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:50
+msgid "Close"
+msgstr "Sulje"
+
+#: src/app/webcontainer/AccountsLogic.qml:63
+msgid ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
+msgstr ""
+"Tili-ikkunaa ei voitu avata. Voit luoda yhden tilin kerrallaan. Sulje kaikki "
+"muut tili-ikkunat ja yritä sitten uudelleen."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:45
+#, qt-format
+msgid "<b>%1</b> needs to access your %2 online account."
+msgstr "<b>%1</b> tarvitsee käyttöönsä \"%2-verkkotilisi\"."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:55
+#, qt-format
+msgid "<b>%1</b> would like to access your %2 online account."
+msgstr "<b>%1</b> haluaa käyttää \"%2-verkkotiliäsi\"."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:64
+msgid ""
+"Choose an account now, or skip this step and choose an online account later."
+msgstr ""
+"Valitse tili nyt, tai ohita tämä vaihe ja valitse verkkotili myöhemmin."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Close the app"
+msgstr "Sulje sovellus"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Skip"
+msgstr "Ohita"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:84
+msgid "Choose account"
 msgstr "Valitse tili"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
@@ -680,14 +791,20 @@ msgstr "Selaa Internetin WWW-sivuja"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Browser;Web;Explorer;netti;selain;verkko"
 
+#~ msgid "Select an account"
+#~ msgstr "Valitse tili"
+
+#~ msgid "Skip account creation step"
+#~ msgstr "Ohita tilin luomisvaihe"
+
+#~ msgid "No local account found for "
+#~ msgstr "Paikallista tiliä ei löytynyt - "
+
 #~ msgid "see less"
 #~ msgstr "näytä vähemmän"
 
 #~ msgid "see more"
 #~ msgstr "näytä enemmän"
-
-#~ msgid "Clear"
-#~ msgstr "Tyhjennä"
 
 #~ msgid "Add"
 #~ msgstr "LIsää"

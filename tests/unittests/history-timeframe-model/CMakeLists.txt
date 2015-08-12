@@ -1,6 +1,13 @@
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Sql REQUIRED)
+find_package(Qt5Test REQUIRED)
 set(TEST tst_HistoryTimeframeModelTests)
 add_executable(${TEST} tst_HistoryTimeframeModelTests.cpp)
 include_directories(${webbrowser-app_SOURCE_DIR})
-qt5_use_modules(${TEST} Test)
-target_link_libraries(${TEST} webbrowser-app-models)
+target_link_libraries(${TEST}
+    Qt5::Core
+    Qt5::Sql
+    Qt5::Test
+    webbrowser-app-models
+)
 add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST})

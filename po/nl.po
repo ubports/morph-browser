@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-22 12:30+0200\n"
-"PO-Revision-Date: 2015-04-25 19:55+0000\n"
-"Last-Translator: rob <linuxned@gmail.com>\n"
+"POT-Creation-Date: 2015-08-11 20:00+0200\n"
+"PO-Revision-Date: 2015-07-07 07:29+0000\n"
+"Last-Translator: Hannie Dumoleyn <Unknown>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-06-23 05:30+0000\n"
-"X-Generator: Launchpad (build 17572)\n"
+"X-Launchpad-Export-Date: 2015-08-12 06:27+0000\n"
+"X-Generator: Launchpad (build 17686)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,6 +24,7 @@ msgstr "JavaScript-melding"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "Ok"
@@ -47,9 +48,12 @@ msgid "Password"
 msgstr "Wachtwoord"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:289
+#: src/app/webbrowser/SettingsPage.qml:343
+#: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -375,6 +379,16 @@ msgstr "Afbeelding kopiëren"
 msgid "Copy link"
 msgstr "Koppeling kopiëren"
 
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:354
+msgid "Find in page"
+msgstr ""
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/FindInPage.qml:26
+msgid "Search in Page"
+msgstr ""
+
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "Volgende"
@@ -395,7 +409,7 @@ msgstr "Ga naar"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;Adres"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:522
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:596
 msgid "New Tab"
 msgstr "Nieuw tabblad"
 
@@ -435,54 +449,97 @@ msgstr "Afbeelding opslaan"
 msgid "Share…"
 msgstr "Delen…"
 
-#: src/app/webbrowser/AddressBar.qml:201
+#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
+#: src/app/webbrowser/AddressBar.qml:203
+#, qt-format
+msgid "%1/%2"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:239
+msgid "find in page"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:216
 msgid "search or enter an address"
 msgstr "Voer zoekterm of adres in"
 
-#: src/app/webbrowser/Browser.qml:292
+#: src/app/webbrowser/BookmarkOptions.qml:48
+msgid "Bookmark Added"
+msgstr "Bladwijzer toegevoegd"
+
+#. TRANSLATORS: Field where the title of bookmarked URL can be changed
+#: src/app/webbrowser/BookmarkOptions.qml:53
+msgid "Name"
+msgstr "Naam"
+
+#. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
+#: src/app/webbrowser/BookmarkOptions.qml:71
+msgid "Save in"
+msgstr "Opslaan in"
+
+#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarksFolderListView.qml:115
+msgid "All Bookmarks"
+msgstr "Alle bladwijzers"
+
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
+msgid "New Folder"
+msgstr "Nieuwe map"
+
+#: src/app/webbrowser/BookmarkOptions.qml:115
+msgid "Create new folder"
+msgstr "Nieuwe map aanmaken"
+
+#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/SettingsPage.qml:353
+msgid "Save"
+msgstr "Opslaan"
+
+#: src/app/webbrowser/Browser.qml:312
 msgid "Share"
 msgstr "Delen"
 
-#: src/app/webbrowser/Browser.qml:299
+#: src/app/webbrowser/Browser.qml:319
 msgid "History"
 msgstr "Geschiedenis"
 
-#: src/app/webbrowser/Browser.qml:309
+#: src/app/webbrowser/Browser.qml:329
 msgid "Open tabs"
 msgstr "Tabbladen openen"
 
-#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/TabsList.qml:85
+#: src/app/webbrowser/Browser.qml:339 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Nieuw tabblad"
 
-#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:355
+msgid "Leave Private Mode"
+msgstr "Privémodus verlaten"
+
+#: src/app/webbrowser/Browser.qml:355
+msgid "Private Mode"
+msgstr "Privémodus"
+
+#: src/app/webbrowser/Browser.qml:346 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Instellingen"
 
-#: src/app/webbrowser/Browser.qml:336
-msgid "Leave Private Mode"
-msgstr ""
-
-#: src/app/webbrowser/Browser.qml:336
-msgid "Private Mode"
-msgstr ""
-
-#: src/app/webbrowser/Browser.qml:508 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:582 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "Klaar"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:606
+#: src/app/webbrowser/Browser.qml:689
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:889
+#: src/app/webbrowser/Browser.qml:973
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Veeg omhoog om de modus Schermvullend te sluiten"
 
-#: src/app/webbrowser/Browser.qml:890
+#: src/app/webbrowser/Browser.qml:974
 msgid "Press ESC To Exit Full Screen"
 msgstr "Druk op ESC om de modus Schermvullend te sluiten"
 
@@ -494,7 +551,7 @@ msgstr[0] "%1 pagina"
 msgstr[1] "%1 pagina's"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:118
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Minder"
 
@@ -517,32 +574,37 @@ msgstr "Wissen"
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr ""
+"Door over te gaan naar openbare modus, zullen alle privétabbladen gesloten "
+"worden"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Dit is een privétabblad"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Pagina's die u in dit tabblad bekijkt zullen niet in uw bladergeschiedenis "
+"opgenomen worden.\n"
+"Maar bladwijzers die u maakt worden wel bewaard."
 
 #: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
 msgstr "Bladwijzers"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr ""
+msgstr "Meer"
 
-#: src/app/webbrowser/NewTabView.qml:208
+#: src/app/webbrowser/NewTabView.qml:226
 msgid "Top sites"
 msgstr "Topwebsites"
 
-#: src/app/webbrowser/NewTabView.qml:239
+#: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "U heeft nog geen site bezocht"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -605,7 +667,7 @@ msgid "Search engine"
 msgstr "Zoekmachine"
 
 #: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:275
+#: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
 msgstr "Startpagina"
 
@@ -630,13 +692,21 @@ msgstr "Browserinstellingen herstellen"
 msgid "Clear Browsing History"
 msgstr "Browsegeschiedenis wissen"
 
-#: src/app/webbrowser/SettingsPage.qml:256
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
 msgstr "Buffergeheugen wissen"
 
-#: src/app/webbrowser/SettingsPage.qml:311
-msgid "Save"
-msgstr "Opslaan"
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr "Wissen"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
@@ -644,31 +714,77 @@ msgstr "Tik om te bekijken"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:65
+#: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu-webbrowser"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:67
+#: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu-webbrowser"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
-msgid "No local account found for "
-msgstr "Geen lokaal account gevonden voor "
+#: src/app/webcontainer/AccountChooserDialog.qml:62
+msgid ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
+msgstr ""
+"Er zijn geen accounts gekoppeld aan deze webapp; druk op onderstaand "
+"onderdeel om een account toe te voegen."
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
-msgid "Skip account creation step"
-msgstr "Account aanmaken overslaan"
-
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
 msgstr "Account toevoegen"
 
-#: src/app/webcontainer/AccountsView.qml:38
-msgid "Select an account"
-msgstr "Selecteer een account"
+#: src/app/webcontainer/AccountChooserDialog.qml:87
+msgid "Don't use an account"
+msgstr "Geen account gebruiken"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:39
+msgid "Account error"
+msgstr "Accountfout"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:50
+msgid "Close"
+msgstr "Sluiten"
+
+#: src/app/webcontainer/AccountsLogic.qml:63
+msgid ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
+msgstr ""
+"Accountvenster kon niet worden geopend. U kunt slechts één account tegelijk "
+"maken; probeer het nogmaals na sluiting van alle andere accountvensters."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:45
+#, qt-format
+msgid "<b>%1</b> needs to access your %2 online account."
+msgstr "<b>%1</b> moet toegang hebben tot uw %2 online-account."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:55
+#, qt-format
+msgid "<b>%1</b> would like to access your %2 online account."
+msgstr "<b>%1</b> wil toegang hebben tot uw %2 online-account."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:64
+msgid ""
+"Choose an account now, or skip this step and choose an online account later."
+msgstr ""
+"Kies nu een account, of sla deze stap over en kies later een online-account."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Close the app"
+msgstr "De app sluiten"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Skip"
+msgstr "Overslaan"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:84
+msgid "Choose account"
+msgstr "Account kiezen"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
@@ -685,6 +801,15 @@ msgstr "Surfen op internet"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Browser;Web;Explorer"
+
+#~ msgid "Select an account"
+#~ msgstr "Selecteer een account"
+
+#~ msgid "No local account found for "
+#~ msgstr "Geen lokaal account gevonden voor "
+
+#~ msgid "Skip account creation step"
+#~ msgstr "Account aanmaken overslaan"
 
 #~ msgid "see more"
 #~ msgstr "meer zien"
@@ -703,6 +828,3 @@ msgstr "Internet;WWW;Browser;Web;Explorer"
 
 #~ msgid "Yes"
 #~ msgstr "Ja"
-
-#~ msgid "Clear"
-#~ msgstr "Wissen"

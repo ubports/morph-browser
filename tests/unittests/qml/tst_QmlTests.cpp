@@ -28,6 +28,7 @@
 #include "favicon-fetcher.h"
 #include "file-operations.h"
 #include "searchengine.h"
+#include "tabs-model.h"
 
 static QObject* FileOperations_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
 {
@@ -114,11 +115,12 @@ int main(int argc, char** argv)
 
     const char* browserUri = "webbrowserapp.private";
     qmlRegisterType<SearchEngine>(browserUri, 0, 1, "SearchEngine");
+    qmlRegisterType<TabsModel>(browserUri, 0, 1, "TabsModel");
     qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
 
     qmlRegisterSingletonType<TestContext>("webbrowsertest.private", 0, 1, "TestContext", TestContext_singleton_factory);
 
-    return quick_test_main(argc, argv, "QmlTests", 0);
+    return quick_test_main(argc, argv, "QmlTests", nullptr);
 }
 
 #include "tst_QmlTests.moc"

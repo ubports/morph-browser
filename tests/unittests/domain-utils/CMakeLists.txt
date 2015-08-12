@@ -1,5 +1,10 @@
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Test REQUIRED)
 set(TEST tst_DomainUtilsTests)
 add_executable(${TEST} tst_DomainUtilsTests.cpp)
 include_directories(${webbrowser-app_SOURCE_DIR} ${webbrowser-plugin_SOURCE_DIR})
-qt5_use_modules(${TEST} Core Test)
+target_link_libraries(${TEST}
+    Qt5::Core
+    Qt5::Test
+)
 add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -xunitxml -o ${TEST}.xml)
