@@ -490,7 +490,8 @@ class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_top_sites_urls(self):
-        return [{url: site.url, title: site.title} for site in self.get_top_sites_list()]
+        return [{"url": site.url, "title": site.title}
+                for site in self.get_top_sites_list()]
 
     def get_bookmarks(self, folder_name):
         folders = self.get_folders_list()

@@ -140,7 +140,7 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
             # (that would otherwise prevent a bottom edge swipe gesture)
             webview = self.main_window.get_current_webview()
             self.pointing_device.click_object(webview)
-        self.open_new_tab(open_tabs_view = True)
+        self.open_new_tab(open_tabs_view=True)
         self.assertThat(bar.findInPageMode, Eventually(Equals(False)))
 
     def test_navigation_in_new_tab_exits_findinpage_mode(self):

@@ -102,7 +102,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self.assertThat(lambda: len(urls), Eventually(Equals(count)))
 
     def test_save_bookmarked_url_in_default_folder(self):
-        new_tab = self.open_new_tab(open_tabs_view = True, expand_view = True)
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self._assert_bookmark_count_in_folder(new_tab, "", 4)
 
         url = self.base_url + "/test2"
@@ -118,11 +118,11 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        new_tab = self.open_new_tab(open_tabs_view = True, expand_view = True)
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self._assert_bookmark_count_in_folder(new_tab, "", 5)
 
     def test_save_bookmarked_url_in_existing_folder(self):
-        new_tab = self.open_new_tab(open_tabs_view = True, expand_view = True)
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
         self._assert_bookmark_count_in_folder(new_tab, "Actinide", 1)
@@ -149,13 +149,13 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        new_tab = self.open_new_tab(open_tabs_view = True, expand_view = True)
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
         self._assert_bookmark_count_in_folder(new_tab, "Actinide", 2)
 
     def test_save_bookmarked_url_in_new_folder(self):
-        new_tab = self.open_new_tab(open_tabs_view = True, expand_view = True)
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
 
@@ -193,7 +193,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        new_tab = self.open_new_tab(open_tabs_view = True, expand_view = True)
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(4)))
         self._assert_bookmark_count_in_folder(new_tab, "NewFolder", 1)
@@ -220,7 +220,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        new_tab = self.open_new_tab(open_tabs_view = True, expand_view = True)
+        new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self._assert_bookmark_count_in_folder(new_tab, "", 5)
 
         index = 0

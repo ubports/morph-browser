@@ -32,7 +32,7 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         bookmark_options.wait_until_destroyed()
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        self.open_new_tab(open_tabs_view = True)
+        self.open_new_tab(open_tabs_view=True)
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
@@ -55,7 +55,7 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
 
     def test_cannot_bookmark_empty_page(self):
-        self.open_new_tab(open_tabs_view = True)
+        self.open_new_tab(open_tabs_view=True)
 
         if self.main_window.wide:
             self.main_window.chrome.get_tabs_bar().select_tab(0)

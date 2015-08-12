@@ -143,7 +143,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         time.sleep(1)
         return tabs_view
 
-    def open_new_tab(self, open_tabs_view = False, expand_view = False):
+    def open_new_tab(self, open_tabs_view=False, expand_view=False):
         if (self.main_window.incognito):
             count = len(self.main_window.get_incognito_webviews())
         else:
