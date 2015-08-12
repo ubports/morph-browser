@@ -357,7 +357,7 @@ BrowserView {
                     text: i18n.tr("History")
                     iconName: "history"
                     enabled: browser.historyModel
-                    onTriggered: historyViewLoader.active = true 
+                    onTriggered: historyViewLoader.active = true
                 },
                 Action {
                     objectName: "tabs"
@@ -758,7 +758,19 @@ BrowserView {
         onStatusChanged: {
             if (status == Loader.Ready) {
                 historyViewLoader.item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
             }
+        }
+
+        Keys.onEscapePressed: historyViewLoader.active = false
+
+        Timer {
+            // Set the model asynchronously to ensure
+            // the view is displayed as early as possible.
+            running: historyViewLoader.active
+            interval: 1
+            onTriggered: historyViewLoader.item.historyModel = browser.historyModel
         }
 
         Component {
@@ -766,19 +778,6 @@ BrowserView {
 
             HistoryView {
                 anchors.fill: parent
-
-                Keys.onEscapePressed: {
-                    historyViewLoader.active = false
-                    internal.resetFocus()
-                }
-
-                Timer {
-                    // Set the model asynchronously to ensure
-                    // the view is displayed as early as possible.
-                    running: true
-                    interval: 1
-                    onTriggered: historyModel = browser.historyModel
-                }
 
                 onSeeMoreEntriesClicked: {
                     var view = expandedHistoryViewComponent.createObject(expandedHistoryViewContainer, {model: model})
@@ -838,7 +837,6 @@ BrowserView {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
-
                 onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
                 onNewTabRequested: browser.openUrlInNewTab("", true)
                 onDone: historyViewLoader.active = false
@@ -1523,11 +1521,7 @@ BrowserView {
             modifiers: Qt.ControlModifier
             key: Qt.Key_H
             enabled: chrome.visible
-            onTriggered: {
-                if (!historyViewLoader.active) {
-                    historyViewLoader.active = true 
-                }
-            }
+            onTriggered: historyViewLoader.active = true
         }
 
         // Alt+← or Backspace: Goes to the previous page in history
