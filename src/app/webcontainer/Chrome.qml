@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014-2015 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,14 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.3
 import ".."
 
 ChromeBase {
     id: chrome
 
     property bool navigationButtonsVisible: false
+    property bool accountSwitcher: false
+
+    signal chooseAccount()
 
     FocusScope {
         anchors {
@@ -110,12 +113,31 @@ ChromeBase {
             width: visible ? height : 0
 
             anchors {
-                right: parent.right
+                right: accountsButton.left
                 verticalCenter: parent.verticalCenter
             }
 
             enabled: chrome.webview.url && chrome.webview.url !== ""
             onTriggered: chrome.webview.reload()
+        }
+
+        ChromeButton {
+            id: accountsButton
+            objectName: "accountsButton"
+
+            iconName: "contact"
+            iconSize: 0.6 * height
+
+            height: parent.height
+            width: visible ? height : 0
+
+            anchors {
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+            }
+
+            visible: accountSwitcher
+            onTriggered: chrome.chooseAccount()
         }
     }
 }

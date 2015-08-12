@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-05-11 18:56+0200\n"
-"PO-Revision-Date: 2015-02-06 07:48+0000\n"
+"POT-Creation-Date: 2015-08-11 20:00+0200\n"
+"PO-Revision-Date: 2015-07-06 09:31+0000\n"
 "Last-Translator: ☠Jay ZDLin☠ <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-05-12 05:30+0000\n"
-"X-Generator: Launchpad (build 17487)\n"
+"X-Launchpad-Export-Date: 2015-08-12 06:27+0000\n"
+"X-Generator: Launchpad (build 17686)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -25,6 +25,8 @@ msgstr "Оповещение JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "OK"
 
@@ -47,8 +49,12 @@ msgid "Password"
 msgstr "Пароль"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
-#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/HistoryView.qml:165
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
+#: src/app/webbrowser/SettingsPage.qml:289
+#: src/app/webbrowser/SettingsPage.qml:343
+#: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "Отменить"
 
@@ -368,6 +374,16 @@ msgstr "Копировать изображение"
 msgid "Copy link"
 msgstr "Копировать ссылку"
 
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:354
+msgid "Find in page"
+msgstr ""
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/FindInPage.qml:26
+msgid "Search in Page"
+msgstr ""
+
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "Вперед"
@@ -388,7 +404,7 @@ msgstr "Перейти к"
 msgid "Address;URL;www"
 msgstr "Адрес;URL;www;ссылка"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:396
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:596
 msgid "New Tab"
 msgstr "Новая вкладка"
 
@@ -428,56 +444,101 @@ msgstr "Сохранить изображение"
 msgid "Share…"
 msgstr "Поделиться..."
 
-#: src/app/webbrowser/AddressBar.qml:196
+#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
+#: src/app/webbrowser/AddressBar.qml:203
+#, qt-format
+msgid "%1/%2"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:239
+msgid "find in page"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:216
 msgid "search or enter an address"
 msgstr "Введите поисковый запрос или адрес"
 
-#: src/app/webbrowser/Browser.qml:221
+#: src/app/webbrowser/BookmarkOptions.qml:48
+msgid "Bookmark Added"
+msgstr "Закладка добавлена"
+
+#. TRANSLATORS: Field where the title of bookmarked URL can be changed
+#: src/app/webbrowser/BookmarkOptions.qml:53
+msgid "Name"
+msgstr "Название"
+
+#. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
+#: src/app/webbrowser/BookmarkOptions.qml:71
+msgid "Save in"
+msgstr "Сохранить в"
+
+#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarksFolderListView.qml:115
+msgid "All Bookmarks"
+msgstr "Все закладки"
+
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
+msgid "New Folder"
+msgstr "Новая папка"
+
+#: src/app/webbrowser/BookmarkOptions.qml:115
+msgid "Create new folder"
+msgstr "Создать новую папку"
+
+#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/SettingsPage.qml:353
+msgid "Save"
+msgstr "Сохранить"
+
+#: src/app/webbrowser/Browser.qml:312
 msgid "Share"
 msgstr "Поделиться"
 
-#: src/app/webbrowser/Browser.qml:228
+#: src/app/webbrowser/Browser.qml:319
 msgid "History"
 msgstr "История"
 
-#: src/app/webbrowser/Browser.qml:235
+#: src/app/webbrowser/Browser.qml:329
 msgid "Open tabs"
 msgstr "Открытые вкладки"
 
-#: src/app/webbrowser/Browser.qml:245 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsList.qml:84
+#: src/app/webbrowser/Browser.qml:339 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Новая вкладка"
 
-#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
+#: src/app/webbrowser/Browser.qml:355
+msgid "Leave Private Mode"
+msgstr "Выйти из режима инкогнито"
+
+#: src/app/webbrowser/Browser.qml:355
+msgid "Private Mode"
+msgstr "Режим инкогнито"
+
+#: src/app/webbrowser/Browser.qml:346 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Настройки"
 
-#: src/app/webbrowser/Browser.qml:379 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:582 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr "Готово"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:480
+#: src/app/webbrowser/Browser.qml:689
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:727
+#: src/app/webbrowser/Browser.qml:973
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Смахните вверх для выхода из полноэкранного режима"
 
-#: src/app/webbrowser/Browser.qml:728
+#: src/app/webbrowser/Browser.qml:974
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Нажмите ESC для выхода из полноэкранного режима"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321 src/app/webbrowser/UrlsList.qml:66
-msgid "Delete"
-msgstr "Удалить"
-
-#: src/app/webbrowser/ExpandedHistoryView.qml:180
+#: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -485,7 +546,8 @@ msgstr[0] "%1 страница"
 msgstr[1] "%1 страницы"
 msgstr[2] "%1 страниц"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:194
+#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Свернуть"
 
@@ -497,25 +559,48 @@ msgstr "Последние посещённые"
 msgid "Yesterday"
 msgstr "Вчера"
 
-#: src/app/webbrowser/HistoryView.qml:295
+#: src/app/webbrowser/HistoryView.qml:180
 msgid "Select all"
-msgstr ""
+msgstr "Выделить всё"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/HistoryView.qml:210
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
+msgid "Going to public mode will close all private tabs"
+msgstr ""
+"При переключении в обычный режим все вкладки, открытые в режиме инкогнито, "
+"будут закрыты."
+
+#: src/app/webbrowser/NewPrivateTabView.qml:41
+msgid "This is a private tab"
+msgstr "Данная вкладка открыта в режиме инкогнито."
+
+#: src/app/webbrowser/NewPrivateTabView.qml:56
+msgid ""
+"Pages that you view in this tab won't appear in your browser history.\n"
+"Bookmarks you create will be preserved, however."
+msgstr ""
+"Страницы, просматриваемые на данной вкладке, не будут отображаться в истории "
+"браузера.\n"
+"Однако созданные закладки будут сохранены."
+
+#: src/app/webbrowser/NewTabView.qml:108
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: src/app/webbrowser/NewTabView.qml:126
+#: src/app/webbrowser/NewTabView.qml:123
+msgid "More"
+msgstr "Ещё"
+
+#: src/app/webbrowser/NewTabView.qml:226
 msgid "Top sites"
 msgstr "Популярные сайты"
 
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see less"
-msgstr "показать меньше"
-
-#: src/app/webbrowser/NewTabView.qml:145
-msgid "see more"
-msgstr "показать больше"
+#: src/app/webbrowser/NewTabView.qml:257
+msgid "You haven't visited any site yet"
+msgstr "Посещённые веб-сайты отсутствуют"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -571,12 +656,12 @@ msgid "Which is run by"
 msgstr "Обслуживается"
 
 #: src/app/webbrowser/SettingsPage.qml:81
-#: src/app/webbrowser/SettingsPage.qml:175
+#: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
 msgstr "Поисковая система"
 
 #: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:271
+#: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
 msgstr "Домашняя страница"
 
@@ -584,12 +669,12 @@ msgstr "Домашняя страница"
 msgid "Restore previous session at startup"
 msgstr "Восстановить предыдущий сеанс при запуске"
 
-#: src/app/webbrowser/SettingsPage.qml:118
+#: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "Открывать новые вкладки в фоне"
 
 #: src/app/webbrowser/SettingsPage.qml:138
-#: src/app/webbrowser/SettingsPage.qml:224
+#: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
 msgstr "Конфиденциальность"
 
@@ -597,48 +682,104 @@ msgstr "Конфиденциальность"
 msgid "Reset browser settings"
 msgstr "Сбросить настройки браузера"
 
-#: src/app/webbrowser/SettingsPage.qml:245
+#: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
 msgstr "Очистить историю"
 
 #: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
 msgstr "Очистить кэш"
 
-#: src/app/webbrowser/SettingsPage.qml:301
-msgid "Save"
-msgstr "Сохранить"
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr "Очистить"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Нажать для просмотра"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:34
-#: src/app/webcontainer/webapp-container.qml:65
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu Веб-Браузер"
 
-#: src/app/webbrowser/webbrowser-app.qml:36
-#: src/app/webcontainer/webapp-container.qml:67
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu Веб-Браузер"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
-msgid "No local account found for "
-msgstr "Не найдены локальные учётные записи для "
+#: src/app/webcontainer/AccountChooserDialog.qml:62
+msgid ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
+msgstr ""
+"Отсутствуют учётные записи, связанные с данным приложением; выберите учётную "
+"запись для добавления."
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
-msgid "Skip account creation step"
-msgstr "Пропустить процедуру создания учётной записи"
-
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
 msgstr "Добавить учётную запись"
 
-#: src/app/webcontainer/AccountsView.qml:38
-msgid "Select an account"
+#: src/app/webcontainer/AccountChooserDialog.qml:87
+msgid "Don't use an account"
+msgstr "Не использовать учётную запись"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:39
+msgid "Account error"
+msgstr "Ошибка учётной записи"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:50
+msgid "Close"
+msgstr "Закрыть"
+
+#: src/app/webcontainer/AccountsLogic.qml:63
+msgid ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
+msgstr ""
+"Не удалось открыть окно учётной записи. Одновременное создание нескольких "
+"учётных записей невозможно. Закройте все окна учётных записей и повторите "
+"попытку."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:45
+#, qt-format
+msgid "<b>%1</b> needs to access your %2 online account."
+msgstr "<b>%1</b> требуется доступ к вашей учётной записи %2."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:55
+#, qt-format
+msgid "<b>%1</b> would like to access your %2 online account."
+msgstr "<b>%1</b> хочет получить доступ к вашей учётной записи %2."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:64
+msgid ""
+"Choose an account now, or skip this step and choose an online account later."
+msgstr ""
+"Выбрать учётную запись или пропустить данный шаг и выбрать учётную запись "
+"позже."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Close the app"
+msgstr "Закрыть приложение"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Skip"
+msgstr "Пропустить"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:84
+msgid "Choose account"
 msgstr "Выберите учётную запись"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
@@ -657,8 +798,20 @@ msgstr "Навигация по сети Интернет"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Интернет;WWW;Браузер;Веб;Обозреватель"
 
-#~ msgid "Clear"
-#~ msgstr "Очистить"
+#~ msgid "Select an account"
+#~ msgstr "Выберите учётную запись"
+
+#~ msgid "No local account found for "
+#~ msgstr "Не найдены локальные учётные записи для "
+
+#~ msgid "Skip account creation step"
+#~ msgstr "Пропустить процедуру создания учётной записи"
+
+#~ msgid "see less"
+#~ msgstr "показать меньше"
+
+#~ msgid "see more"
+#~ msgstr "показать больше"
 
 #~ msgid "No"
 #~ msgstr "Нет"

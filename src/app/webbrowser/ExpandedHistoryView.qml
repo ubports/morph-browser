@@ -16,14 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.3
 import ".."
 
 Item {
     id: expandedHistoryView
 
     property alias model: entriesListView.model
+    property alias count: entriesListView.count
 
     signal historyEntryClicked(url url)
     signal historyEntryRemoved(url url)
@@ -37,19 +38,22 @@ Item {
     ListView {
         id: entriesListView
 
-        property var _currentSwipedItem: null
-
         anchors {
             top: header.bottom
             bottom: parent.bottom
             left: parent.left
             right: parent.right
-            margins: units.gu(2)
+            margins: units.gu(1.5)
+            leftMargin: 0
         }
 
         section.property: "lastVisitDate"
         section.delegate: HistorySectionDelegate {
-            width: parent.width
+            anchors {
+                left: parent.left
+                leftMargin: units.gu(1.5)
+                right: parent.right
+            }
         }
 
         delegate: UrlDelegate {
@@ -61,91 +65,12 @@ Item {
             title: model.title
             icon: model.icon
 
-            property var removalAnimation
-            function remove() {
-                removalAnimation.start()
-            }
-
-            onSwippingChanged: {
-                entriesListView._updateSwipeState(entriesDelegate)
-            }
-
-            onSwipeStateChanged: {
-                entriesListView._updateSwipeState(entriesDelegate)
-            }
-
-            leftSideAction: Action {
-                iconName: "delete"
-                text: i18n.tr("Delete")
-                onTriggered: {
-                    entriesDelegate.remove()
-                }
-            }
-
-            ListView.onRemove: ScriptAction {
-                script: {
-                    if (entriesListView._currentSwipedItem === entriesDelegate) {
-                        entriesListView._currentSwipedItem = null
-                    }
-                }
-            }
-
-            removalAnimation: SequentialAnimation {
-                alwaysRunToEnd: true
-
-                PropertyAction {
-                    target: entriesDelegate
-                    property: "ListView.delayRemove"
-                    value: true
-                }
-
-                UbuntuNumberAnimation {
-                    target: entriesDelegate
-                    property: "height"
-                    to: 0
-                }
-
-                PropertyAction {
-                    target: entriesDelegate
-                    property: "ListView.delayRemove"
-                    value: false
-                }
-
-                ScriptAction {
-                    script: {
-                        if(entriesListView.count === 1) {
-                            expandedHistoryView.done()
-                        }
-                        historyEntryRemoved(model.url)
-                    }
-                }
-            }
-
-            onItemClicked: {
-                historyEntryClicked(model.url)
-            }
-        }
-
-        function _updateSwipeState(item) {
-            if (item.swipping) {
-                return
-            }
-
-            if (item.swipeState !== "Normal") {
-                if (entriesListView._currentSwipedItem !== item) {
-                    if (entriesListView._currentSwipedItem) {
-                        entriesListView._currentSwipedItem.resetSwipe()
-                    }
-                    entriesListView._currentSwipedItem = item
-                }
-            } else if (item.swipeState !== "Normal"
-            && entriesListView._currentSwipedItem === item) {
-                entriesListView._currentSwipedItem = null
-            }
+            onClicked: expandedHistoryView.historyEntryClicked(model.url)
+            onRemoved: expandedHistoryView.historyEntryRemoved(model.url)
         }
     }
 
-    Rectangle {
+    Item {
         id: header
 
         anchors {
@@ -154,8 +79,6 @@ Item {
             right: parent.right
         }
         height: units.gu(8)
-
-        color: "#f6f6f6"
 
         Rectangle {
             anchors {
@@ -178,6 +101,7 @@ Item {
             icon: expandedHistoryView.model.lastVisitedIcon
             title: expandedHistoryView.model.domain
             url: i18n.tr("%1 page", "%1 pages", entriesListView.count).arg(entriesListView.count)
+            enabled: false
         }
 
         Button {

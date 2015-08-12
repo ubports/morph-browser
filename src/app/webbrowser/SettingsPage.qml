@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.4
 import Qt.labs.settings 1.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0 as ListItem
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
+import Ubuntu.Components.ListItems 1.3 as ListItem
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 
@@ -247,16 +247,58 @@ Item {
                         ListItem.Standard {
                             objectName: "privacy.clearHistory"
                             text: i18n.tr("Clear Browsing History")
-                            onClicked: historyModel.clearAll()
                             enabled: historyModel.count > 0
+                            onClicked: {
+                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Browsing History?")})
+                                dialog.confirmed.connect(historyModel.clearAll)
+                            }
                         }
 
                         ListItem.Standard {
                             objectName: "privacy.clearCache"
                             text: i18n.tr("Clear Cache")
                             onClicked: {
-                                enabled = false
-                                CacheDeleter.clear(cacheLocation + "/Cache", function() { enabled = true })
+                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Cache?")})
+                                dialog.confirmed.connect(function() {
+                                    enabled = false;
+                                    CacheDeleter.clear(cacheLocation + "/Cache2", function() { enabled = true });
+                                })
+                            }
+                        }
+                    }
+                }
+
+                Component {
+                    id: privacyConfirmDialogComponent
+
+                    Dialog {
+                        id: privacyConfirmDialog
+                        objectName: "privacyConfirmDialog"
+                        signal confirmed()
+
+                        Row {
+                            spacing: units.gu(2)
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                            }
+
+                            Button {
+                                objectName: "privacyConfirmDialog.cancelButton"
+                                width: (parent.width - parent.spacing) / 2
+                                text: i18n.tr("Cancel")
+                                onClicked: PopupUtils.close(privacyConfirmDialog)
+                            }
+
+                            Button {
+                                objectName: "privacyConfirmDialog.confirmButton"
+                                width: (parent.width - parent.spacing) / 2
+                                text: i18n.tr("Clear")
+                                color: UbuntuColors.green
+                                onClicked: {
+                                    confirmed()
+                                    PopupUtils.close(privacyConfirmDialog)
+                                }
                             }
                         }
                     }

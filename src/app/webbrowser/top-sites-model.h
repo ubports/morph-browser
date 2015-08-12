@@ -29,6 +29,7 @@ class TopSitesModel : public QSortFilterProxyModel
     Q_OBJECT
 
     Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
+    Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
 
 public:
     TopSitesModel(QObject* parent=0);
@@ -38,6 +39,7 @@ public:
 
 Q_SIGNALS:
     void sourceModelChanged() const;
+    void countChanged() const;
 
 protected:
     // reimplemented from QSortFilterProxyModel

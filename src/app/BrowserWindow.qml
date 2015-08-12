@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import QtQuick.Window 2.1
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import QtQuick.Window 2.2
+import Ubuntu.Components 1.3
 
 Window {
     id: window
@@ -29,8 +29,8 @@ Window {
 
     contentOrientation: Screen.orientation
 
-    width: 800
-    height: 600
+    width: units.gu(100)
+    height: units.gu(75)
 
     QtObject {
         id: internal
@@ -39,14 +39,16 @@ Window {
 
     Connections {
         target: window.currentWebview
-        onFullscreenChanged: {
-            if (!window.forceFullscreen) {
-                if (window.currentWebview.fullscreen) {
-                    internal.currentWindowState = window.visibility
-                    window.visibility = Window.FullScreen
-                } else {
-                    window.visibility = internal.currentWindowState
-                }
+        onFullscreenChanged: window.setFullscreen(window.currentWebview.fullscreen)
+    }
+
+    function setFullscreen(fullscreen) {
+        if (!window.forceFullscreen) {
+            if (fullscreen) {
+                internal.currentWindowState = window.visibility
+                window.visibility = Window.FullScreen
+            } else {
+                window.visibility = internal.currentWindowState
             }
         }
     }

@@ -19,7 +19,7 @@
 .pragma library
 
 var overrides = [
-      [/^https?:\/\/(www\.)?google\.com\/calendar/, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chromium/35.0.1870.2 Chrome/35.0.1870.2 Safari/537.36"],
-      [/^http:\/\/chrome\.angrybirds\.com\//, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/35.0.1870.2 Safari/537.36"], // http://pad.lv/1284158
-      [/^https?:\/\/(www\.)?youtube\.com\//, "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/35.0.1870.2 Safari/537.36"], // http://pad.lv/1412880
+      ["^https?:\/\/(www\.)?google\.com\/calendar", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chromium/35.0.1870.2 Chrome/35.0.1870.2 Safari/537.36"],
+      ["^http:\/\/chrome\.angrybirds\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/35.0.1870.2 Safari/537.36"], // http://pad.lv/1284158
+      ["^https?:\/\/(www\.)?youtube\.com\/", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/35.0.1870.2 Safari/537.36"], // http://pad.lv/1412880
 ];

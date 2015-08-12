@@ -19,6 +19,7 @@
 import os
 import shutil
 import tempfile
+import time
 import urllib.request
 
 import fixtures
@@ -125,6 +126,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.drag(x, y0, x, y1)
 
     def open_tabs_view(self):
+        self.assertFalse(self.main_window.wide)
         if model() == 'Desktop':
             chrome = self.main_window.chrome
             drawer_button = chrome.get_drawer_button()
@@ -134,7 +136,12 @@ class BrowserTestCaseBase(AutopilotTestCase):
             self.pointing_device.click_object(tabs_action)
         else:
             self.drag_bottom_edge_upwards(0.75)
-        self.main_window.get_tabs_view()
+        tabs_view = self.main_window.get_tabs_view()
+        # Give some time for the view to settle so that all previews reached
+        # their initial position (the animation has a duration of
+        # UbuntuAnimation.BriskDuration, i.e. 333ms, so 1s should be plenty).
+        time.sleep(1)
+        return tabs_view
 
     def open_new_tab(self):
         if (self.main_window.incognito):
@@ -142,22 +149,32 @@ class BrowserTestCaseBase(AutopilotTestCase):
         else:
             count = len(self.main_window.get_webviews())
 
-        # assumes the tabs view is already open
-        tabs_view = self.main_window.get_tabs_view()
-        self.main_window.get_recent_view_toolbar().click_action("newTabButton")
-        tabs_view.visible.wait_for(False)
-        max_webviews = self.main_window.maxLiveWebviews
-        new_count = (count + 1) if (count < max_webviews) else max_webviews
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().click_new_tab_button()
+        else:
+            # assumes the tabs view is already open
+            tabs_view = self.main_window.get_tabs_view()
+            toolbar = self.main_window.get_recent_view_toolbar()
+            toolbar.click_action("newTabButton")
+            tabs_view.visible.wait_for(False)
+
+        if self.main_window.wide or (model() == 'Desktop'):
+            new_count = count + 1
+        else:
+            max_webviews = self.main_window.maxLiveWebviews
+            new_count = (count + 1) if (count < max_webviews) else max_webviews
         if (self.main_window.incognito):
             self.assert_number_incognito_webviews_eventually(new_count)
             new_tab_view = self.main_window.get_new_private_tab_view()
         else:
             self.assert_number_webviews_eventually(new_count)
             new_tab_view = self.main_window.get_new_tab_view()
+
         if model() == 'Desktop':
             self.assertThat(
                 self.main_window.address_bar.activeFocus,
                 Eventually(Equals(True)))
+
         return new_tab_view
 
     def open_settings(self):
@@ -168,6 +185,14 @@ class BrowserTestCaseBase(AutopilotTestCase):
         settings_action = chrome.get_drawer_action("settings")
         self.pointing_device.click_object(settings_action)
         return self.main_window.get_settings_page()
+
+    def open_history(self):
+        chrome = self.main_window.chrome
+        drawer_button = chrome.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        chrome.get_drawer()
+        settings_action = chrome.get_drawer_action("history")
+        self.pointing_device.click_object(settings_action)
 
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
@@ -195,7 +220,7 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
     are executed, thus making them more robust.
     """
 
-    def setUp(self):
+    def setUp(self, path="/test1"):
         self.http_server = http_server.HTTPServerInAThread()
         self.ping_server(self.http_server)
         self.addCleanup(self.http_server.cleanup)
@@ -203,7 +228,7 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
             'UBUNTU_WEBVIEW_HOST_MAPPING_RULES',
             "MAP test:80 localhost:{}".format(self.http_server.port)))
         self.base_url = "http://test"
-        self.url = self.base_url + "/test1"
+        self.url = self.base_url + path
         self.ARGS = self.ARGS + [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()
         self.assert_home_page_eventually_loaded()

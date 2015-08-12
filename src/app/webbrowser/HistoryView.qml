@@ -16,10 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.3
 import webbrowserapp.private 0.1
-import "upstreamcomponents"
 
 Item {
     id: historyView
@@ -27,7 +26,6 @@ Item {
     property alias historyModel: historyTimeframeModel.sourceModel
 
     signal seeMoreEntriesClicked(var model)
-    signal historyDomainRemoved(var domain)
     signal done()
 
     Rectangle {
@@ -35,37 +33,18 @@ Item {
         color: "#f6f6f6"
     }
 
-    UbuntuNumberAnimation {
-        id: topBarOpenAnimation
-        target: topBar
-        property: "height"
-        to: units.gu(5)
-        alwaysRunToEnd: true
-    }
-
-    UbuntuNumberAnimation {
-        id: topBarCloseAnimation
-        target: topBar
-        property: "height"
-        to: 0
-        alwaysRunToEnd: true
-    }
-
-    MultipleSelectionListView {
+    ListView {
         id: domainsListView
-
-        property var _currentSwipedItem: null
 
         anchors {
             top: topBar.bottom
             left: parent.left
             right: parent.right
             bottom: toolbar.top
-            topMargin: units.gu(-0.5) // topMargin 2 - firstSection.topMargin 2.5
             rightMargin: units.gu(2)
         }
 
-        listModel: HistoryDomainListChronologicalModel {
+        model: HistoryDomainListChronologicalModel {
             sourceModel: HistoryDomainListModel {
                 sourceModel: HistoryTimeframeModel {
                     id: historyTimeframeModel
@@ -80,17 +59,7 @@ Item {
             anchors.leftMargin: units.gu(2)
         }
 
-        onSelectionDone: {
-            var domains = new Array();
-            for (var i=0; i < items.count; i++) {
-                domains[i] = items.get(i).model.domain
-            }
-            for (var i=0; i < domains.length; i++) {
-                historyView.historyDomainRemoved(domains[i])
-            }
-        }
-
-        listDelegate: UrlDelegate {
+        delegate: UrlDelegate {
             id: urlDelegate
             width: parent.width
             height: units.gu(5)
@@ -99,111 +68,19 @@ Item {
             url: lastVisitedTitle
             icon: model.lastVisitedIcon
 
-            property var removalAnimation
-            function remove() {
-                removalAnimation.start()
-            }
-
-            anchors {
-                left: parent.left
-                // we need to move left the favicon to align the favicon to
-                // other elements. Favicon has a container bigger than it.
-                // units.gu(3) it's the size of the favicon container
-                // units.dp(16) it's the size of the favicon
-                // the favicon is hCentered in the container
-                leftMargin: selectionMode ? - (units.gu(3) - units.dp(16)) / 2 : 0
-            }
-
-            selectionMode: domainsListView.isInSelectionMode
-            selected: domainsListView.isSelected(urlDelegate)
-
-            onSwippingChanged: {
-                domainsListView._updateSwipeState(urlDelegate)
-            }
-
-            onSwipeStateChanged: {
-                domainsListView._updateSwipeState(urlDelegate)
-            }
-
-            leftSideAction: Action {
-                iconName: "delete"
-                text: i18n.tr("Delete")
-                onTriggered: {
-                    urlDelegate.remove()
-                }
-            }
-
-            ListView.onRemove: ScriptAction {
-                script: {
-                    if (domainsListView._currentSwipedItem === urlDelegate) {
-                        domainsListView._currentSwipedItem = null
-                    }
-                }
-            }
-
-            removalAnimation: SequentialAnimation {
-                alwaysRunToEnd: true
-
-                PropertyAction {
-                    target: urlDelegate
-                    property: "ListView.delayRemove"
-                    value: true
-                }
-
-                UbuntuNumberAnimation {
-                    target: urlDelegate
-                    property: "height"
-                    to: 0
-                }
-
-                PropertyAction {
-                    target: urlDelegate
-                    property: "ListView.delayRemove"
-                    value: false
-                }
-
-                ScriptAction {
-                    script: {
-                        historyView.historyDomainRemoved(model.domain)
-                    }
-                }
-            }
-
-            onItemClicked: {
-                if (domainsListView.isInSelectionMode) {
-                    if (!domainsListView.selectItem(urlDelegate)) {
-                        domainsListView.deselectItem(urlDelegate)
-                    }
-                }
-                else {
+            onClicked: {
+                if (selectMode) {
+                    selected = !selected
+                } else {
                     historyView.seeMoreEntriesClicked(model.entries)
                 }
             }
-            onItemPressAndHold: {
-                domainsListView.startSelection()
-                domainsListView.selectItem(urlDelegate)
-            }
-        }
-
-        /*
-         * Functions for manage swype and multiple selection together
-         * Developed upstream
-         */
-        function _updateSwipeState(item) {
-            if (item.swipping) {
-                return
-            }
-
-            if (item.swipeState !== "Normal") {
-                if (domainsListView._currentSwipedItem !== item) {
-                    if (domainsListView._currentSwipedItem) {
-                        domainsListView._currentSwipedItem.resetSwipe()
-                    }
-                    domainsListView._currentSwipedItem = item
+            onRemoved: historyView.historyModel.removeEntriesByDomain(model.domain)
+            onPressAndHold: {
+                selectMode = !selectMode
+                if (selectMode) {
+                    domainsListView.ViewItems.selectedIndices = [index]
                 }
-            } else if (item.swipeState !== "Normal"
-            && domainsListView._currentSwipedItem === item) {
-                domainsListView._currentSwipedItem = null
             }
         }
     }
@@ -253,11 +130,19 @@ Item {
 
     Item {
         id: topBar
-        visible: domainsListView.isInSelectionMode
 
-        onVisibleChanged: visible ? topBarOpenAnimation.start() : topBarCloseAnimation.start()
+        visible: domainsListView.ViewItems.selectMode
+        height: visible ? units.gu(5) : 0
 
-        anchors { left: parent.left; right: parent.right; top: parent.top }
+        Behavior on height {
+            UbuntuNumberAnimation {}
+        }
+
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
 
         Rectangle {
             width: parent.width
@@ -276,12 +161,12 @@ Item {
             }
 
             ToolbarAction {
-                iconName: "back"
+                iconName: "close"
                 text: i18n.tr("Cancel")
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: domainsListView.cancelSelection()
+                    onClicked: domainsListView.ViewItems.selectMode = false
                 }
 
                 anchors.left: parent.left
@@ -297,10 +182,14 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        if (domainsListView.selectedItems.count === domainsListView.count) {
-                            domainsListView.clearSelection()
+                        if (domainsListView.ViewItems.selectedIndices.length === domainsListView.count) {
+                            domainsListView.ViewItems.selectedIndices = []
                         } else {
-                            domainsListView.selectAll()
+                            var indices = []
+                            for (var i = 0; i < domainsListView.count; ++i) {
+                                indices.push(i)
+                            }
+                            domainsListView.ViewItems.selectedIndices = indices
                         }
                     }
                 }
@@ -319,11 +208,21 @@ Item {
 
                 iconName: "delete"
                 text: i18n.tr("Delete")
-                enabled: domainsListView.selectedItems.count > 0
+                enabled: domainsListView.ViewItems.selectedIndices.length > 0
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: domainsListView.endSelection()
+                    onClicked: {
+                        var indices = domainsListView.ViewItems.selectedIndices
+                        var domains = []
+                        for (var i in indices) {
+                            domains.push(domainsListView.model.get(indices[i]))
+                        }
+                        domainsListView.ViewItems.selectMode = false
+                        for (var j in domains) {
+                            historyModel.removeEntriesByDomain(domains[j])
+                        }
+                    }
                 }
 
                 anchors.right: parent.right

@@ -27,6 +27,7 @@ FocusScope {
     property string uniqueId: this.toString() + "-" + Date.now()
     property url initialUrl
     property string initialTitle
+    property url initialIcon
     property string restoreState
     property int restoreType
     property var request
@@ -34,7 +35,7 @@ FocusScope {
     readonly property var webview: webviewContainer.webview
     readonly property url url: webview ? webview.url : initialUrl
     readonly property string title: webview ? webview.title : initialTitle
-    readonly property url icon: webview ? webview.icon : ""
+    readonly property url icon: webview ? webview.icon : initialIcon
     property url preview
     property bool current: false
     property bool incognito
@@ -63,6 +64,7 @@ FocusScope {
         if (webview) {
             initialUrl = webview.url
             initialTitle = webview.title
+            initialIcon = webview.icon
             restoreState = webview.currentState
             restoreType = Oxide.WebView.RestoreCurrentSession
             webview.destroy()
@@ -71,7 +73,7 @@ FocusScope {
 
     function close() {
         unload()
-        if (preview) {
+        if (preview && preview.toString()) {
             FileOperations.remove(preview)
         }
         destroy()
