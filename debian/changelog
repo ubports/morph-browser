@@ -1,3 +1,26 @@
+webbrowser-app (0.23+15.10.20150812.1-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Wide screen versions of the history view and new tab view, per
+    design specification. This adds a build dependency on qml-module-qt-
+    labs-settings (for unit tests). (LP: #1351157, #1481647)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+  * Wide screen versions of the history view and new tab view, per
+    design specification. This adds a build dependency on qml-module-qt-
+    labs-settings (for unit tests). (LP: #1351157, #1481647)
+
+  [ Ugo Riboni ]
+  * Wide screen versions of the history view and new tab view, per
+    design specification. This adds a build dependency on qml-module-qt-
+    labs-settings (for unit tests). (LP: #1351157, #1481647)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 12 Aug 2015 19:53:17 +0000
+
 webbrowser-app (0.23+15.10.20150811-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
