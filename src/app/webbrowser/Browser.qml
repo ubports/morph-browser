@@ -1501,11 +1501,10 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
+            enabled: !newTabViewLoader.active
             onTriggered: {
-                if (!newTabViewLoader.active) {
-                    chrome.findInPageMode = true
-                    chrome.focus = true
-                }
+                chrome.findInPageMode = true
+                chrome.focus = true
             }
         }
     }
