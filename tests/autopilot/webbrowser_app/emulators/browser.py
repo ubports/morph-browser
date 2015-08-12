@@ -442,8 +442,8 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_notopsites_label(self):
         return self.select_single("Label", objectName="notopsites")
 
-    def get_top_sites_urls(self):
-        return self.get_top_sites_list().get_urls()
+    def get_top_site_items(self):
+        return self.get_top_sites_list().get_delegates()
 
     def get_bookmarks_folder_list_view(self):
         return self.select_single(BookmarksFolderListView)
@@ -489,9 +489,8 @@ class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return sorted(list.select_many(objectName="folderItem"),
                       key=lambda delegate: delegate.globalRect.y)
 
-    def get_top_sites_urls(self):
-        return [{"url": site.url, "title": site.title}
-                for site in self.get_top_sites_list()]
+    def get_top_site_items(self):
+        return self.get_top_sites_list()
 
     def get_bookmarks(self, folder_name):
         folders = self.get_folders_list()

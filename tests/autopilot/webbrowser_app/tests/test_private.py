@@ -66,8 +66,9 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assertTrue(self.main_window.is_new_private_tab_view_visible())
 
     def test_url_showing_in_top_sites_in_and_out_private_mode(self):
-        new_tab = self.open_new_tab()
-        self.assertIn(self.url, new_tab.get_top_sites_urls())
+        new_tab = self.open_new_tab(open_tabs_view=True)
+        urls = [site.url for site in new_tab.get_top_site_items()]
+        self.assertIn(self.url, urls)
 
         self.main_window.enter_private_mode()
         self.assertThat(self.main_window.is_in_private_mode,
@@ -79,13 +80,12 @@ class TestPrivateView(StartOpenRemotePageTestCaseBase):
         self.assertThat(self.main_window.is_in_private_mode,
                         Eventually(Equals(False)))
 
-        new_tab = self.open_new_tab()
-        self.assertNotIn(url, new_tab.get_top_sites_urls())
+        new_tab = self.open_new_tab(open_tabs_view=True)
+        urls = [site.url for site in new_tab.get_top_site_items()]
+        self.assertNotIn(url, urls)
 
     def test_public_tabs_should_not_be_visible_in_private_mode(self):
-        if not self.main_window.wide:
-            self.open_tabs_view()
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view=True, expand_view=True)
         new_tab_view = self.main_window.get_new_tab_view()
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
