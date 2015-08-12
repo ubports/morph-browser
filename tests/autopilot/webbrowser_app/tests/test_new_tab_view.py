@@ -251,7 +251,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        folders = self.main_window.get_bookmarks_folder_list_view()
+        folders = self.new_tab_view.get_bookmarks_folder_list_view()
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
@@ -273,7 +273,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        folders = self.main_window.get_bookmarks_folder_list_view()
+        folders = self.new_tab_view.get_bookmarks_folder_list_view()
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
@@ -296,7 +296,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
                         Eventually(NotEquals(url)))
 
     def _remove_first_bookmark_from_folder(self, folder):
-        folders = self.main_window.get_bookmarks_folder_list_view()
+        folders = self.new_tab_view.get_bookmarks_folder_list_view()
         folder_delegate = folders.get_folder_delegate(folder)
         delegate = folders.get_urls_from_folder(folder_delegate)[0]
         url = delegate.url
@@ -323,7 +323,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        folders = self.main_window.get_bookmarks_folder_list_view()
+        folders = self.new_tab_view.get_bookmarks_folder_list_view()
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
@@ -339,7 +339,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        folders = self.main_window.get_bookmarks_folder_list_view()
+        folders = self.new_tab_view.get_bookmarks_folder_list_view()
         self.assertThat(lambda: len(folders.get_delegates()),
                         Eventually(Equals(3)))
         folder_delegate = folders.get_folder_delegate("")
@@ -359,7 +359,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        folders = self.main_window.get_bookmarks_folder_list_view()
+        folders = self.new_tab_view.get_bookmarks_folder_list_view()
         self.assertThat(lambda: len(folders.get_delegates()),
                         Eventually(Equals(3)))
         folder_delegate = folders.get_folder_delegate("Actinide")
@@ -382,7 +382,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
-        folders = self.main_window.get_bookmarks_folder_list_view()
+        folders = self.new_tab_view.get_bookmarks_folder_list_view()
         self.assertThat(lambda: len(folders.get_delegates()),
                         Eventually(Equals(3)))
         folder_delegate = folders.get_folder_delegate("")

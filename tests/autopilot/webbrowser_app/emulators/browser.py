@@ -169,10 +169,6 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         except exceptions.StateNotFoundError:
             return None
 
-    # FIXME: remove this and leave only the copy in NewTabView
-    def get_bookmarks_folder_list_view(self):
-        return self.select_single(BookmarksFolderListView)
-
     def press_key(self, key):
         self.keyboard.press_and_release(key)
 
