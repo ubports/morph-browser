@@ -727,6 +727,14 @@ BrowserView {
             }
         }
 
+        Timer {
+            // Set the model asynchronously to ensure
+            // the view is displayed as early as possible.
+            running: historyViewLoader.active
+            interval: 1
+            onTriggered: historyViewLoader.item.historyModel = browser.historyModel
+        }
+
         Component {
             id: historyViewComponent
 
@@ -735,18 +743,11 @@ BrowserView {
 
                 Keys.onEscapePressed: historyViewLoader.active = false
 
-                Timer {
-                    // Set the model asynchronously to ensure
-                    // the view is displayed as early as possible.
-                    running: true
-                    interval: 1
-                    onTriggered: historyModel = browser.historyModel
-                }
-
                 onSeeMoreEntriesClicked: {
                     var view = expandedHistoryViewComponent.createObject(expandedHistoryViewContainer, {model: model})
                     view.onHistoryEntryClicked.connect(done)
                 }
+
                 onDone: historyViewLoader.active = false
 
                 FocusScope {
@@ -785,14 +786,6 @@ BrowserView {
                 anchors.fill: parent
 
                 Keys.onEscapePressed: historyViewLoader.active = false
-
-                Timer {
-                    // Set the model asynchronously to ensure
-                    // the view is displayed as early as possible.
-                    running: true
-                    interval: 1
-                    onTriggered: historyModel = browser.historyModel
-                }
 
                 onHistoryEntryClicked: {
                     browser.openUrlInNewTab(url, true)
