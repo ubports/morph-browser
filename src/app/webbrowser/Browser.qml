@@ -1472,11 +1472,7 @@ BrowserView {
             modifiers: Qt.ControlModifier
             key: Qt.Key_H
             enabled: chrome.visible
-            onTriggered: {
-                if (!historyViewLoader.active) {
-                    historyViewLoader.active = true 
-                }
-            }
+            onTriggered: historyViewLoader.active = true
         }
 
         // Alt+← or Backspace: Goes to the previous page in history
