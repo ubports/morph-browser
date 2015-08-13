@@ -43,6 +43,7 @@ public:
     void setFolder(const QString& domain);
 
     int count() const;
+    Q_INVOKABLE QVariantMap get(int row) const;
 
 Q_SIGNALS:
     void sourceModelChanged() const;
