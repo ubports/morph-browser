@@ -16,19 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import QtQuick.Window 2.0
+import QtQuick 2.4
+import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 import com.canonical.Oxide 1.8 as Oxide
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 import "../UrlUtils.js" as UrlUtils
 import "urlManagement.js" as UrlManagement
-
 
 BrowserView {
     id: browser
@@ -103,6 +102,13 @@ BrowserView {
         Actions.ClearHistory {
             enabled: browser.historyModel
             onTriggered: browser.historyModel.clearAll()
+        },
+        Actions.FindInPage {
+            enabled: !chrome.findInPageMode
+            onTriggered: {
+                chrome.findInPageMode = true
+                chrome.focus = true
+            }
         }
     ]
 
@@ -113,12 +119,14 @@ BrowserView {
         property string searchEngine: settingsDefaults.searchEngine
         property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
         property bool restoreSession: settingsDefaults.restoreSession
+        property int newTabDefaultSection: settingsDefaults.newTabDefaultSection
 
         function restoreDefaults() {
             homepage  = settingsDefaults.homepage
             searchEngine = settingsDefaults.searchEngine
             allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
             restoreSession = settingsDefaults.restoreSession
+            newTabDefaultSection = settingsDefaults.newTabDefaultSection
         }
     }
 
@@ -129,11 +137,12 @@ BrowserView {
         readonly property string searchEngine: "google"
         readonly property string allowOpenInBackgroundTab: "default"
         readonly property bool restoreSession: true
+        readonly property int newTabDefaultSection: 0
     }
 
     FocusScope {
         anchors.fill: parent
-        visible: !settingsContainer.visible && !historyViewContainer.visible
+        visible: !settingsContainer.visible && !historyViewLoader.active
 
         TabChrome {
             id: invisibleTabChrome
@@ -213,6 +222,7 @@ BrowserView {
                 }
             }
             active: false
+            asynchronous: true
 
             Connections {
                 target: browser
@@ -224,15 +234,18 @@ BrowserView {
                 }
             }
 
-            sourceComponent: browser.incognito ? newPrivateTabViewComponent : newTabViewComponent
+            sourceComponent: browser.incognito ? newPrivateTabView :
+                             (browser.wide ? newTabViewWide : newTabView)
 
             Component {
-                id: newTabViewComponent
+                id: newTabView
 
                 NewTabView {
+                    anchors.fill: parent
                     historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
+                    focus: true
                     onBookmarkClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
@@ -248,11 +261,34 @@ BrowserView {
             }
 
             Component {
-                id: newPrivateTabViewComponent
+                id: newTabViewWide
 
-                NewPrivateTabView { }
+                NewTabViewWide {
+                    anchors.fill: parent
+                    historyModel: browser.historyModel
+                    bookmarksModel: browser.bookmarksModel
+                    settingsObject: settings
+                    focus: true
+                    onBookmarkClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        tabContainer.forceActiveFocus()
+                    }
+                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onHistoryEntryClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        tabContainer.forceActiveFocus()
+                    }
+                    onReleasingKeyboardFocus: chrome.focus = true
+                }
             }
-            asynchronous: true
+
+            Component {
+                id: newPrivateTabView
+
+                NewPrivateTabView { anchors.fill: parent }
+            }
         }
 
         SearchEngine {
@@ -301,6 +337,8 @@ BrowserView {
 
             onRequestNewTab: browser.openUrlInNewTab("", true)
 
+            onFindInPageModeChanged: if (!chrome.findInPageMode) internal.resetFocus()
+
             anchors {
                 left: parent.left
                 right: parent.right
@@ -319,10 +357,7 @@ BrowserView {
                     text: i18n.tr("History")
                     iconName: "history"
                     enabled: browser.historyModel
-                    onTriggered: {
-                        historyViewComponent.createObject(historyViewContainer)
-                        historyViewContainer.focus = true
-                    }
+                    onTriggered: historyViewLoader.active = true
                 },
                 Action {
                     objectName: "tabs"
@@ -342,12 +377,13 @@ BrowserView {
                     onTriggered: browser.openUrlInNewTab("", true)
                 },
                 Action {
-                    objectName: "settings"
-                    text: i18n.tr("Settings")
-                    iconName: "settings"
+                    objectName: "findinpage"
+                    text: i18n.tr("Find in page")
+                    iconName: "search"
+                    enabled: !chrome.findInPageMode
                     onTriggered: {
-                        settingsComponent.createObject(settingsContainer)
-                        settingsContainer.focus = true
+                        chrome.findInPageMode = true
+                        chrome.focus = true
                     }
                 },
                 Action {
@@ -367,14 +403,35 @@ BrowserView {
                             browser.incognito = true
                         }
                     }
+                },
+                Action {
+                    objectName: "settings"
+                    text: i18n.tr("Settings")
+                    iconName: "settings"
+                    onTriggered: {
+                        settingsComponent.createObject(settingsContainer)
+                        settingsContainer.focus = true
+                    }
                 }
             ]
 
             canSimplifyText: !browser.wide
             editing: activeFocus || suggestionsList.activeFocus
 
-            Keys.onDownPressed: if (suggestionsList.count) suggestionsList.focus = true
-            Keys.onEscapePressed: internal.resetFocus()
+            Keys.onDownPressed: {
+                if (suggestionsList.count) suggestionsList.focus = true
+                else if (newTabViewLoader.status == Loader.Ready) {
+                    newTabViewLoader.focus = true
+                }
+            }
+
+            Keys.onEscapePressed: {
+                if (chrome.findInPageMode) {
+                    chrome.findInPageMode = false
+                } else {
+                    internal.resetFocus()
+                }
+            }
         }
 
         ChromeController {
@@ -387,7 +444,8 @@ BrowserView {
 
         Suggestions {
             id: suggestionsList
-            opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) && count > 0 && !chrome.drawerOpen) ? 1.0 : 0.0
+            opacity: ((chrome.state == "shown") && (activeFocus || chrome.activeFocus) &&
+                      (count > 0) && !chrome.drawerOpen && !chrome.findInPageMode) ? 1.0 : 0.0
             Behavior on opacity {
                 UbuntuNumberAnimation {}
             }
@@ -437,7 +495,7 @@ BrowserView {
                 terms: suggestionsList.searchTerms
                 searchEngine: currentSearchEngine
                 active: (chrome.activeFocus || suggestionsList.activeFocus) &&
-                         !browser.incognito &&
+                         !browser.incognito && !chrome.findInPageMode &&
                          !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
                 function limit(number) {
@@ -690,23 +748,80 @@ BrowserView {
         }
     }
 
-    FocusScope {
-        id: historyViewContainer
-        objectName: "historyView"
+    Loader {
+        id: historyViewLoader
 
-        visible: children.length > 0
         anchors.fill: parent
+        active: false
+        sourceComponent: browser.wide ? historyViewWideComponent : historyViewComponent
+
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                historyViewLoader.item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
+            }
+        }
+
+        Keys.onEscapePressed: historyViewLoader.active = false
+
+        Timer {
+            // Set the model asynchronously to ensure
+            // the view is displayed as early as possible.
+            running: historyViewLoader.active
+            interval: 1
+            onTriggered: historyViewLoader.item.historyModel = browser.historyModel
+        }
 
         Component {
             id: historyViewComponent
 
             HistoryView {
                 anchors.fill: parent
-                visible: historyViewContainer.children.length == 1
-                focus: true
+
+                onSeeMoreEntriesClicked: {
+                    var view = expandedHistoryViewComponent.createObject(expandedHistoryViewContainer, {model: model})
+                    view.onHistoryEntryClicked.connect(done)
+                }
+                onDone: historyViewLoader.active = false
+
+                FocusScope {
+                    id: expandedHistoryViewContainer
+
+                    visible: children.length > 0
+                    anchors.fill: parent
+
+                    Component {
+                        id: expandedHistoryViewComponent
+
+                        ExpandedHistoryView {
+                            anchors.fill: parent
+
+                            onHistoryEntryClicked: {
+                                browser.openUrlInNewTab(url, true)
+                                done()
+                            }
+                            onHistoryEntryRemoved: {
+                                if (count == 1) {
+                                    done()
+                                }
+                                browser.historyModel.removeEntryByUrl(url)
+                            }
+                            onDone: destroy()
+                        }
+                    }
+                }
+            }
+        }
+
+        Component {
+            id: historyViewWideComponent
+
+            HistoryViewWide {
+                anchors.fill: parent
 
                 Keys.onEscapePressed: {
-                    destroy()
+                    historyViewLoader.active = false
                     internal.resetFocus()
                 }
 
@@ -718,31 +833,13 @@ BrowserView {
                     onTriggered: historyModel = browser.historyModel
                 }
 
-                onSeeMoreEntriesClicked: {
-                    var view = expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
-                    view.onHistoryEntryClicked.connect(destroy)
-                }
-                onDone: destroy()
-            }
-        }
-
-        Component {
-            id: expandedHistoryViewComponent
-
-            ExpandedHistoryView {
-                anchors.fill: parent
-
                 onHistoryEntryClicked: {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
-                onHistoryEntryRemoved: {
-                    if (count == 1) {
-                        done()
-                    }
-                    browser.historyModel.removeEntryByUrl(url)
-                }
-                onDone: destroy()
+                onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
+                onNewTabRequested: browser.openUrlInNewTab("", true)
+                onDone: historyViewLoader.active = false
             }
         }
     }
@@ -897,6 +994,10 @@ BrowserView {
                 }
 
                 onLoadEvent: {
+                    if (event.type == Oxide.LoadEvent.TypeCommitted) {
+                        chrome.findInPageMode = false
+                    }
+
                     if (webviewimpl.incognito) {
                         return
                     }
@@ -1105,7 +1206,7 @@ BrowserView {
             PopupUtils.open(bookmarkOptionsComponent,
                             chrome.bookmarkTogglePlaceHolder,
                             {"bookmarkUrl": url,
-                             "bookmarkTitle": title}) 
+                             "bookmarkTitle": title})
         }
     }
 
@@ -1277,6 +1378,7 @@ BrowserView {
     Connections {
         target: tabsModel
         onCurrentTabChanged: {
+            chrome.findInPageMode = false
             var tab = tabsModel.currentTab
             if (tab) {
                 tab.load()
@@ -1419,12 +1521,7 @@ BrowserView {
             modifiers: Qt.ControlModifier
             key: Qt.Key_H
             enabled: chrome.visible
-            onTriggered: {
-                if (historyViewContainer.children.length === 0) {
-                    historyViewComponent.createObject(historyViewContainer)
-                    historyViewContainer.focus = true
-                }
-            }
+            onTriggered: historyViewLoader.active = true
         }
 
         // Alt+← or Backspace: Goes to the previous page in history
@@ -1465,6 +1562,16 @@ BrowserView {
             key: Qt.Key_R
             enabled: chrome.visible
             onTriggered: if (currentWebview) currentWebview.reload()
+        }
+
+        // Ctrl + F: Find in Page
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_F
+            onTriggered: {
+                chrome.findInPageMode = true
+                chrome.focus = true
+            }
         }
     }
 }
