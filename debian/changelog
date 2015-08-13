@@ -1,3 +1,18 @@
+webbrowser-app (0.23+15.10.20150813.1-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Remove strong typing of the contextualActions and selectionActions
+    properties. This would cause issues if an app imported Ubuntu.Web
+    along with Ubuntu.Components < 1.3 and overrode one of these
+    properties, because the webview expected an ActionList 1.3, and
+    would get an earlier version. (LP: #1484437)
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 13 Aug 2015 21:39:06 +0000
+
 webbrowser-app (0.23+15.10.20150812.1-0ubuntu1) wily; urgency=medium
 
   [ Arthur Mello ]
