@@ -243,11 +243,13 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         delegate = folders.get_urls_from_folder(folder_delegate)[0]
         self.assertThat(delegate.title, Equals("NewTitle"))
 
-    def test_contextual_menu_bookmark_shows_options(self):
+    def test_bookmark_options_from_contextual_menu(self):
         url = self.base_url + "/blanktargetlink"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
         webview = self.main_window.get_current_webview()
+
+        # invoke the context menu over the link, which covers the entire page
         self.pointing_device.click_object(webview, button=3)
         actions = self.main_window.select_single("ActionSelectionPopover")
         actions.click_button_by_text("Bookmark link")
@@ -256,10 +258,21 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         bookmark_options.click_dismiss_button()
         bookmark_options.wait_until_destroyed()
 
+        # reopen the context menu and verify that the bookmark options is
+        # disabled as we have already bookmarked this link
+        self.pointing_device.click_object(webview, button=3)
+        actions = self.main_window.select_single("ActionSelectionPopover")
+        bookmark_button = actions._get_button("Bookmark link")
+        self.assertThat(bookmark_button.enabled, Equals(False))
+
+        # dismiss the dialog
+        chrome = self.main_window.chrome
+        self.pointing_device.click_object(chrome)
+
+        # click on the link and verify that the bookmark star is lit on the
+        # target page
         self.pointing_device.click_object(webview)
         self.main_window.wait_until_page_loaded(self.base_url + "/test2")
 
-        chrome = self.main_window.chrome
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        #import time; time.sleep(10)

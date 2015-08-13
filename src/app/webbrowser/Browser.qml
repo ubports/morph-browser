@@ -846,7 +846,8 @@ BrowserView {
                         onTriggered: browser.openUrlInNewTab(contextualData.href, false)
                     }
                     Actions.BookmarkLink {
-                        enabled: contextualData.href.toString() && browser.bookmarksModel
+                        enabled: contextualData.href.toString() && browser.bookmarksModel &&
+                                 !bookmarksModel.contains(contextualData.href)
                         onTriggered: {
                             contextualMenuTarget.x = contextualData.sourceArea.x
                             contextualMenuTarget.y = contextualData.sourceArea.y
