@@ -242,3 +242,24 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
                         Eventually(Equals(5)))
         delegate = folders.get_urls_from_folder(folder_delegate)[0]
         self.assertThat(delegate.title, Equals("NewTitle"))
+
+    def test_contextual_menu_bookmark_shows_options(self):
+        url = self.base_url + "/blanktargetlink"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview, button=3)
+        actions = self.main_window.select_single("ActionSelectionPopover")
+        actions.click_button_by_text("Bookmark link")
+
+        bookmark_options = self.main_window.get_bookmark_options()
+        bookmark_options.click_dismiss_button()
+        bookmark_options.wait_until_destroyed()
+
+        self.pointing_device.click_object(webview)
+        self.main_window.wait_until_page_loaded(self.base_url + "/test2")
+
+        chrome = self.main_window.chrome
+        self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
+
+        #import time; time.sleep(10)
