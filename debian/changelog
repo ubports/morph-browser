@@ -1,3 +1,16 @@
+webbrowser-app (0.23+15.10.20150814-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Ugo Riboni ]
+  * Delay the exit from fullscreen mode until focus remains lost for a
+    certain amount of time. (LP: #1477308)
+  * Disable find in page when the new tab view is active. (LP: #1483847)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 14 Aug 2015 09:25:42 +0000
+
 webbrowser-app (0.23+15.10.20150813.1-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
