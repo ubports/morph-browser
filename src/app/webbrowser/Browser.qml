@@ -104,7 +104,7 @@ BrowserView {
             onTriggered: browser.historyModel.clearAll()
         },
         Actions.FindInPage {
-            enabled: !chrome.findInPageMode
+            enabled: !chrome.findInPageMode && !newTabViewLoader.active
             onTriggered: {
                 chrome.findInPageMode = true
                 chrome.focus = true
@@ -380,7 +380,7 @@ BrowserView {
                     objectName: "findinpage"
                     text: i18n.tr("Find in page")
                     iconName: "search"
-                    enabled: !chrome.findInPageMode
+                    enabled: !chrome.findInPageMode && !newTabViewLoader.active
                     onTriggered: {
                         chrome.findInPageMode = true
                         chrome.focus = true
@@ -1580,6 +1580,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
+            enabled: !newTabViewLoader.active
             onTriggered: {
                 chrome.findInPageMode = true
                 chrome.focus = true
