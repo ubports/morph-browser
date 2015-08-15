@@ -116,6 +116,7 @@ Item {
         function test_history_entry_clicked() {
             var urlsList = findChild(historyViewWide, "urlsListView")
             compare(urlsList.count, 3)
+            historyEntryClickedSpy.clear()
             compare(historyEntryClickedSpy.count, 0)
             clickItem(urlsList.children[0])
             compare(historyEntryClickedSpy.count, 1)
@@ -162,6 +163,7 @@ Item {
             compare(urlsList.count, 3)
             longPressItem(urlsList.children[0])
             var deleteButton = findChild(historyViewWide, "deleteButton")
+            historyEntryRemovedSpy.clear()
             compare(historyEntryRemovedSpy.count, 0)
             clickItem(deleteButton)
             compare(historyEntryRemovedSpy.count, 1)
@@ -179,6 +181,28 @@ Item {
             verify(!urlsList.activeFocus)        
             keyClick(Qt.Key_Right)
             verify(urlsList.activeFocus)        
+        }
+
+        function test_delete_key_at_urls_list_view() {
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            keyClick(Qt.Key_Right)
+            verify(urlsList.activeFocus)        
+            historyEntryRemovedSpy.clear()
+            compare(historyEntryRemovedSpy.count, 0)
+            keyClick(Qt.Key_Delete)
+            compare(historyEntryRemovedSpy.count, 1)
+            var args = historyEntryRemovedSpy.signalArguments[0]
+            var entry = urlsList.model.get(0)
+        }
+
+        function test_delete_key_at_last_visit_date_list_view() {
+            var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
+            keyClick(Qt.Key_Left)
+            verify(lastVisitDateList.activeFocus)        
+            historyEntryRemovedSpy.clear()
+            compare(historyEntryRemovedSpy.count, 0)
+            keyClick(Qt.Key_Delete)
+            compare(historyEntryRemovedSpy.count, 3)
         }
     }
 }
