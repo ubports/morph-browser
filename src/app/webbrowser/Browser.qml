@@ -766,11 +766,21 @@ BrowserView {
         Keys.onEscapePressed: historyViewLoader.active = false
 
         Timer {
+            id: historyViewTimer
             // Set the model asynchronously to ensure
             // the view is displayed as early as possible.
             running: historyViewLoader.active
             interval: 1
             onTriggered: historyViewLoader.item.historyModel = browser.historyModel
+        }
+
+        Connections {
+            target: browser
+            onWideChanged: {
+                if (historyViewLoader.active) {
+                    historyViewTimer.restart()
+                }
+            }
         }
 
         Component {
@@ -823,14 +833,6 @@ BrowserView {
                 Keys.onEscapePressed: {
                     historyViewLoader.active = false
                     internal.resetFocus()
-                }
-
-                Timer {
-                    // Set the model asynchronously to ensure
-                    // the view is displayed as early as possible.
-                    running: true
-                    interval: 1
-                    onTriggered: historyModel = browser.historyModel
                 }
 
                 onHistoryEntryClicked: {
