@@ -70,6 +70,8 @@ FocusScope {
 
                 anchors.fill: parent
 
+                Keys.onDeletePressed: console.log("[DEBUG] Delete all on right")
+
                 currentIndex: 0
                 onCurrentIndexChanged: {
                     if (currentItem) {
@@ -159,6 +161,13 @@ FocusScope {
     
                 Keys.onReturnPressed: historyEntrySelected()
                 Keys.onEnterPressed: historyEntrySelected()
+                Keys.onDeletePressed: {
+                    if (urlsListView.ViewItems.selectMode) {
+                        internal.removeSelected()
+                    } else {
+                        historyViewWide.historyEntryRemoved(currentItem.url)
+                    }
+                }
 
                 model: HistoryLastVisitDateModel {
                     id: historyLastVisitDateModel
@@ -311,19 +320,7 @@ FocusScope {
             iconName: "select"
             text: i18n.tr("Select all")
 
-            onClicked: {
-                if (urlsListView.ViewItems.selectedIndices.length === urlsListView.count) {
-                    urlsListView.ViewItems.selectedIndices = []
-                } else {
-                    var indices = []
-                    for (var i = 0; i < urlsListView.count; ++i) {
-                        indices.push(i)
-                    }
-                    urlsListView.ViewItems.selectedIndices = indices
-                }
-
-                urlsListView.forceActiveFocus()
-            }
+            onClicked: internal.toggleSelectAll()
         }
 
         ToolbarAction {
@@ -342,24 +339,7 @@ FocusScope {
             iconName: "delete"
             text: i18n.tr("Delete")
             enabled: urlsListView.ViewItems.selectedIndices.length > 0
-            onClicked: {
-                var indices = urlsListView.ViewItems.selectedIndices
-                var urls = []
-                for (var i in indices) {
-                    urls.push(urlsListView.model.get(indices[i])["url"])
-                }
-
-                if (urlsListView.count == urls.length) {
-                    lastVisitDateListView.currentIndex = 0                   
-                }
-
-                urlsListView.ViewItems.selectMode = false
-                for (var j in urls) {
-                    historyViewWide.historyEntryRemoved(urls[j])
-                }
-
-                lastVisitDateListView.forceActiveFocus()
-            }
+            onClicked: internal.removeSelected()
         }
 
         ListItems.ThinDivider {
@@ -413,6 +393,43 @@ FocusScope {
                 historyViewWide.newTabRequested()
                 historyViewWide.done()
             }
+        }
+    }
+
+    QtObject {
+        id: internal
+
+        function toggleSelectAll() {
+            if (urlsListView.ViewItems.selectedIndices.length === urlsListView.count) {
+                urlsListView.ViewItems.selectedIndices = []
+            } else {
+                var indices = []
+                for (var i = 0; i < urlsListView.count; ++i) {
+                    indices.push(i)
+                }
+                urlsListView.ViewItems.selectedIndices = indices
+            }
+
+            urlsListView.forceActiveFocus()
+        }
+
+        function removeSelected() {
+            var indices = urlsListView.ViewItems.selectedIndices
+            var urls = []
+            for (var i in indices) {
+                urls.push(urlsListView.model.get(indices[i])["url"])
+            }
+
+            if (urlsListView.count == urls.length) {
+                lastVisitDateListView.currentIndex = 0                   
+            }
+
+            urlsListView.ViewItems.selectMode = false
+            for (var j in urls) {
+                historyViewWide.historyEntryRemoved(urls[j])
+            }
+
+            lastVisitDateListView.forceActiveFocus()
         }
     }
 }
