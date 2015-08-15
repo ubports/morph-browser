@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-08-14 06:04+0000\n"
+"X-Launchpad-Export-Date: 2015-08-15 05:32+0000\n"
 "X-Generator: Launchpad (build 17686)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -50,6 +50,7 @@ msgstr "Contraseña"
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/HistoryView.qml:165
+#: src/app/webbrowser/HistoryViewWide.qml:291
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:289
 #: src/app/webbrowser/SettingsPage.qml:343
@@ -375,9 +376,9 @@ msgstr "Copiar imagen"
 msgid "Copy link"
 msgstr "Copiar enlace"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:354
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:381
 msgid "Find in page"
-msgstr ""
+msgstr "Buscar en la página"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -405,7 +406,7 @@ msgstr "Ir a"
 msgid "Address;URL;www"
 msgstr "Dirección;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:621
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:654
 msgid "New Tab"
 msgstr "Pestaña nueva"
 
@@ -449,7 +450,7 @@ msgstr "Compartir..."
 #: src/app/webbrowser/AddressBar.qml:203
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:239
 msgid "find in page"
@@ -475,6 +476,7 @@ msgstr "Guardar en"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
+#: src/app/webbrowser/NewTabViewWide.qml:122
 msgid "All Bookmarks"
 msgstr "Todos los marcadores"
 
@@ -492,50 +494,53 @@ msgstr "Crear carpeta"
 msgid "Save"
 msgstr "Guardar"
 
-#: src/app/webbrowser/Browser.qml:320
+#: src/app/webbrowser/Browser.qml:350
 msgid "Share"
 msgstr "Compartir"
 
-#: src/app/webbrowser/Browser.qml:327
+#: src/app/webbrowser/Browser.qml:357
+#: src/app/webbrowser/HistoryViewWide.qml:275
 msgid "History"
 msgstr "Historial"
 
-#: src/app/webbrowser/Browser.qml:337
+#: src/app/webbrowser/Browser.qml:364
 msgid "Open tabs"
 msgstr "Pestañas abiertas"
 
-#: src/app/webbrowser/Browser.qml:347 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/Browser.qml:374 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:409
 #: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Pestaña nueva"
 
-#: src/app/webbrowser/Browser.qml:364
+#: src/app/webbrowser/Browser.qml:391
 msgid "Leave Private Mode"
 msgstr "Salir del modo privado"
 
-#: src/app/webbrowser/Browser.qml:364
+#: src/app/webbrowser/Browser.qml:391
 msgid "Private Mode"
 msgstr "Modo privado"
 
-#: src/app/webbrowser/Browser.qml:382 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:409 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Configuración"
 
-#: src/app/webbrowser/Browser.qml:607 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:640 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:395
 msgid "Done"
 msgstr "Hecho"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:714
+#: src/app/webbrowser/Browser.qml:747
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1002
+#: src/app/webbrowser/Browser.qml:1074
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Deslice hacia arriba para salir de pantalla completa"
 
-#: src/app/webbrowser/Browser.qml:1003
+#: src/app/webbrowser/Browser.qml:1075
 msgid "Press ESC To Exit Full Screen"
 msgstr "Presione Esc para salir de pantalla completa"
 
@@ -551,30 +556,33 @@ msgstr[1] "%1 páginas"
 msgid "Less"
 msgstr "Menos"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:44
+#: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
 msgstr "Últimas visitas"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:46
+#: src/app/webbrowser/HistorySectionDelegate.qml:48
+#: src/app/webbrowser/HistoryViewWide.qml:131
 msgid "Yesterday"
 msgstr "Ayer"
 
 #: src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:312
 msgid "Select all"
 msgstr "Seleccionar todo"
 
 #: src/app/webbrowser/HistoryView.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:343
 msgid "Delete"
 msgstr "Eliminar"
 
 #: src/app/webbrowser/HistoryViewWide.qml:115
 msgid "All History"
-msgstr ""
+msgstr "Todo el historial"
 
 #: src/app/webbrowser/HistoryViewWide.qml:129
 #: src/app/webbrowser/HistoryViewWide.qml:194
 msgid "Today"
-msgstr ""
+msgstr "Hoy"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -593,6 +601,7 @@ msgstr ""
 "Sin embargo, se conservará cualquier marcador que cree."
 
 #: src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:313
 msgid "Bookmarks"
 msgstr "Marcadores"
 
@@ -601,6 +610,7 @@ msgid "More"
 msgstr "Más"
 
 #: src/app/webbrowser/NewTabView.qml:226
+#: src/app/webbrowser/NewTabViewWide.qml:312
 msgid "Top sites"
 msgstr "Sitios populares"
 
@@ -608,6 +618,7 @@ msgstr "Sitios populares"
 msgid "You haven't visited any site yet"
 msgstr "Aún no ha visitado ningún sitio"
 
+#: src/app/webbrowser/NewTabViewWide.qml:160
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
@@ -696,7 +707,7 @@ msgstr "Vaciar historial de navegación"
 
 #: src/app/webbrowser/SettingsPage.qml:252
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "¿Vaciar el historial de navegación?"
 
 #: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
@@ -704,7 +715,7 @@ msgstr "Vaciar caché"
 
 #: src/app/webbrowser/SettingsPage.qml:261
 msgid "Clear Cache?"
-msgstr ""
+msgstr "¿Vaciar la caché?"
 
 #: src/app/webbrowser/SettingsPage.qml:296
 msgid "Clear"
