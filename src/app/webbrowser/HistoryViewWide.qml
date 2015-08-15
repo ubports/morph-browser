@@ -33,6 +33,26 @@ FocusScope {
 
     Keys.onLeftPressed: lastVisitDateListView.forceActiveFocus()
     Keys.onRightPressed: urlsListView.forceActiveFocus()
+    Keys.onDeletePressed: {
+        if (urlsListView.ViewItems.selectMode) {
+            internal.removeSelected()
+        } else {
+            if (urlsListView.activeFocus) {
+                historyViewWide.historyEntryRemoved(urlsListView.currentItem.url)
+            } else {
+                var urls = []
+                for (var i = 0; i < urlsListView.count; i++) {
+                    urls.push(urlsListView.model.get(i)["url"])
+                }
+
+                lastVisitDateListView.currentIndex = 0                   
+
+                for (var j in urls) {
+                    historyViewWide.historyEntryRemoved(urls[j])
+                }
+            }
+        }
+    }
 
     onActiveFocusChanged: {
         if (activeFocus) {
@@ -69,8 +89,6 @@ FocusScope {
                 objectName: "lastVisitDateListView"
 
                 anchors.fill: parent
-
-                Keys.onDeletePressed: console.log("[DEBUG] Delete all on right")
 
                 currentIndex: 0
                 onCurrentIndexChanged: {
@@ -161,13 +179,6 @@ FocusScope {
     
                 Keys.onReturnPressed: historyEntrySelected()
                 Keys.onEnterPressed: historyEntrySelected()
-                Keys.onDeletePressed: {
-                    if (urlsListView.ViewItems.selectMode) {
-                        internal.removeSelected()
-                    } else {
-                        historyViewWide.historyEntryRemoved(currentItem.url)
-                    }
-                }
 
                 model: HistoryLastVisitDateModel {
                     id: historyLastVisitDateModel
