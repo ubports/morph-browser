@@ -193,16 +193,23 @@ Item {
             compare(historyEntryRemovedSpy.count, 1)
             var args = historyEntryRemovedSpy.signalArguments[0]
             var entry = urlsList.model.get(0)
+            compare(args[0], entry.url)
         }
 
         function test_delete_key_at_last_visit_date_list_view() {
             var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
+            var urlsList = findChild(historyViewWide, "urlsListView")
             keyClick(Qt.Key_Left)
             verify(lastVisitDateList.activeFocus)        
             historyEntryRemovedSpy.clear()
             compare(historyEntryRemovedSpy.count, 0)
             keyClick(Qt.Key_Delete)
             compare(historyEntryRemovedSpy.count, 3)
+            for (var i = 0; i < 3; ++i) {
+                var args = historyEntryRemovedSpy.signalArguments[i]
+                var entry = urlsList.model.get(i)
+                compare(args[0], entry.url)
+            }
         }
     }
 }
