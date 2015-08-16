@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-08-14 06:04+0000\n"
+"X-Launchpad-Export-Date: 2015-08-15 05:32+0000\n"
 "X-Generator: Launchpad (build 17686)\n"
 "Language: is\n"
 
@@ -52,6 +52,7 @@ msgstr "Lykilorð"
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/HistoryView.qml:165
+#: src/app/webbrowser/HistoryViewWide.qml:291
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:289
 #: src/app/webbrowser/SettingsPage.qml:343
@@ -339,7 +340,7 @@ msgstr "Afrita mynd"
 msgid "Copy link"
 msgstr "Afrita tengil"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:354
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:381
 msgid "Find in page"
 msgstr ""
 
@@ -369,7 +370,7 @@ msgstr "Fara á"
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:621
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:654
 msgid "New Tab"
 msgstr "Nýr flipi"
 
@@ -439,6 +440,7 @@ msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
+#: src/app/webbrowser/NewTabViewWide.qml:122
 msgid "All Bookmarks"
 msgstr ""
 
@@ -456,50 +458,53 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:320
+#: src/app/webbrowser/Browser.qml:350
 msgid "Share"
 msgstr "Deila"
 
-#: src/app/webbrowser/Browser.qml:327
+#: src/app/webbrowser/Browser.qml:357
+#: src/app/webbrowser/HistoryViewWide.qml:275
 msgid "History"
 msgstr "Ferill"
 
-#: src/app/webbrowser/Browser.qml:337
+#: src/app/webbrowser/Browser.qml:364
 msgid "Open tabs"
 msgstr "Opna flipa"
 
-#: src/app/webbrowser/Browser.qml:347 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/Browser.qml:374 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:409
 #: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Nýr flipi"
 
-#: src/app/webbrowser/Browser.qml:364
+#: src/app/webbrowser/Browser.qml:391
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:364
+#: src/app/webbrowser/Browser.qml:391
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:382 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:409 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:607 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:640 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:395
 msgid "Done"
 msgstr "Lokið"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:714
+#: src/app/webbrowser/Browser.qml:747
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1002
+#: src/app/webbrowser/Browser.qml:1074
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1003
+#: src/app/webbrowser/Browser.qml:1075
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
@@ -515,19 +520,22 @@ msgstr[1] "%1 síður"
 msgid "Less"
 msgstr "Minna"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:44
+#: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
 msgstr "Síðast heimsótt"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:46
+#: src/app/webbrowser/HistorySectionDelegate.qml:48
+#: src/app/webbrowser/HistoryViewWide.qml:131
 msgid "Yesterday"
 msgstr "Í gær"
 
 #: src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:312
 msgid "Select all"
 msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:343
 msgid "Delete"
 msgstr ""
 
@@ -555,6 +563,7 @@ msgid ""
 msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:313
 msgid "Bookmarks"
 msgstr "Bókamerki"
 
@@ -563,6 +572,7 @@ msgid "More"
 msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:226
+#: src/app/webbrowser/NewTabViewWide.qml:312
 msgid "Top sites"
 msgstr "Efstu vefir"
 
@@ -570,6 +580,7 @@ msgstr "Efstu vefir"
 msgid "You haven't visited any site yet"
 msgstr ""
 
+#: src/app/webbrowser/NewTabViewWide.qml:160
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
