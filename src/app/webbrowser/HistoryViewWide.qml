@@ -46,16 +46,8 @@ FocusScope {
                 if (lastVisitDateListView.currentIndex == 0) {
                     historyModel.clearAll()
                 } else {
-                    var urls = []
-                    for (var i = 0; i < urlsListView.count; i++) {
-                        urls.push(urlsListView.model.get(i)["url"])
-                    }
-
-                    lastVisitDateListView.currentIndex = 0                   
-
-                    for (var j in urls) {
-                        historyViewWide.historyEntryRemoved(urls[j])
-                    }
+                    historyModel.removeEntriesByDate(lastVisitDateListView.currentItem.lastVisitDate)
+                    lastVisitDateListView.currentIndex = 0
                 }
             }
         }
