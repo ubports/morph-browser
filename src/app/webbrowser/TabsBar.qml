@@ -75,6 +75,7 @@ Item {
         id: contextualOptionsComponent
         ActionSelectionPopover {
             id: menu
+            objectName: "tabContextualActions"
             property int targetIndex
 
             actions: ActionList {
@@ -276,7 +277,6 @@ Item {
         id: internal
 
         function closeTab(index) {
-            console.log(index, root.model.count)
             var tab = root.model.remove(index)
             if (tab) tab.close()
         }
