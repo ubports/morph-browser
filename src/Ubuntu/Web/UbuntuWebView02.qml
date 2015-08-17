@@ -124,7 +124,7 @@ Oxide.WebView {
         }
     }
 
-    property ActionList contextualActions
+    property var contextualActions // type: ActionList
     Component {
         id: contextualPopover
         ActionSelectionPopover {
@@ -132,7 +132,7 @@ Oxide.WebView {
         }
     }
 
-    property ActionList selectionActions
+    property var selectionActions // type: ActionList
     onSelectionActionsChanged: {
         for (var i in selectionActions.actions) {
             selectionActions.actions[i].onTriggered.connect(function () {

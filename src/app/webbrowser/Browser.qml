@@ -104,7 +104,7 @@ BrowserView {
             onTriggered: browser.historyModel.clearAll()
         },
         Actions.FindInPage {
-            enabled: !chrome.findInPageMode
+            enabled: !chrome.findInPageMode && !newTabViewLoader.active
             onTriggered: {
                 chrome.findInPageMode = true
                 chrome.focus = true
@@ -377,7 +377,7 @@ BrowserView {
                     objectName: "findinpage"
                     text: i18n.tr("Find in page")
                     iconName: "search"
-                    enabled: !chrome.findInPageMode
+                    enabled: !chrome.findInPageMode && !newTabViewLoader.active
                     onTriggered: {
                         chrome.findInPageMode = true
                         chrome.focus = true
@@ -1316,6 +1316,13 @@ BrowserView {
         running: !browser.incognito
         onTriggered: delayedSessionSaver.restart()
     }
+    Timer {
+        id: exitFullscreenOnLostFocus
+        interval: 500
+        onTriggered: {
+            if (browser.currentWebview) browser.currentWebview.fullscreen = false
+        }
+    }
     Connections {
         target: Qt.application
         onStateChanged: {
@@ -1324,9 +1331,14 @@ BrowserView {
                     session.save()
                 }
                 if (browser.currentWebview) {
-                    browser.currentWebview.fullscreen = false
+                    // Workaround for a desktop bug where changing volume causes the app to
+                    // briefly lose focus to notify-osd, and therefore exit fullscreen mode.
+                    // We prevent this by exiting fullscreen only if the focus remains lost
+                    // for longer than a certain threshold. See: http://pad.lv/1477308
+                    if (formFactor == "desktop") exitFullscreenOnLostFocus.start()
+                    else browser.currentWebview.fullscreen = false
                 }
-            }
+            } else exitFullscreenOnLostFocus.stop()
         }
         onAboutToQuit: {
             if (!browser.incognito) {
@@ -1579,6 +1591,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
+            enabled: !newTabViewLoader.active
             onTriggered: {
                 chrome.findInPageMode = true
                 chrome.focus = true
