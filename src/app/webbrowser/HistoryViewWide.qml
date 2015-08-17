@@ -39,6 +39,9 @@ FocusScope {
         } else {
             if (urlsListView.activeFocus) {
                 historyViewWide.historyEntryRemoved(urlsListView.currentItem.url)
+                if (urlsListView.count == 0) {
+                    lastVisitDateListView.currentIndex = 0
+                }
             } else {
                 var urls = []
                 for (var i = 0; i < urlsListView.count; i++) {
@@ -247,11 +250,9 @@ FocusScope {
                     }
      
                     onRemoved: {
-                        if (urlsListView.count == 1) {
-                            historyViewWide.historyEntryRemoved(model.url)
+                        historyViewWide.historyEntryRemoved(model.url)
+                        if (urlsListView.count == 0) {
                             lastVisitDateListView.currentIndex = 0
-                        } else {
-                            historyViewWide.historyEntryRemoved(model.url)
                         }
                     }
 
