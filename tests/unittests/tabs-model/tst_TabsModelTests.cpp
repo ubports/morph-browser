@@ -17,6 +17,7 @@
  */
 
 // Qt
+#include <QtCore/QStringList>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlEngine>
 #include <QtQml/QQmlProperty>
@@ -45,6 +46,22 @@ private:
         object->setParent(this);
         QQuickItem* item = qobject_cast<QQuickItem*>(object);
         return item;
+    }
+
+    QQuickItem* createTabWithTitle(const QString& title) {
+        QQuickItem* tab = createTab();
+        tab->setProperty("title", title);
+        return tab;
+    }
+
+    void verifyTabsOrder(QStringList orderedTitles) {
+      QCOMPARE(model->rowCount(), orderedTitles.count());
+
+      int i = 0;
+      Q_FOREACH(QString title, orderedTitles) {
+        QCOMPARE(model->get(i)->property("title").toString(), title);
+        i++;
+      }
     }
 
 private Q_SLOTS:
@@ -111,6 +128,51 @@ private Q_SLOTS:
         model->add(createTab());
         QCOMPARE(spy.count(), 1);
         QCOMPARE(model->rowCount(), 1);
+    }
+
+    void shouldNotInsertNullTab()
+    {
+        QCOMPARE(model->insert(0, 0), -1);
+        QCOMPARE(model->rowCount(), 0);
+    }
+
+    void shouldReturnIndexWhenInsertingTab()
+    {
+        for(int i = 0; i < 3; ++i) {
+          model->add(createTab());
+        }
+        for(int i = 2; i >= 0; --i) {
+            QCOMPARE(model->insert(createTab(), i), i);
+        }
+    }
+
+    void shouldUpdateCountWhenInsertingTab()
+    {
+        QSignalSpy spy(model, SIGNAL(countChanged()));
+        model->insert(createTab(), 0);
+        QCOMPARE(spy.count(), 1);
+        QCOMPARE(model->rowCount(), 1);
+    }
+
+    void shouldInsertAtCorrectIndex()
+    {
+      model->insert(createTabWithTitle("B"), 0);
+      model->insert(createTabWithTitle("A"), 0);
+      verifyTabsOrder(QStringList({"A", "B"}));
+      model->insert(createTabWithTitle("X"), 1);
+      verifyTabsOrder(QStringList({"A", "X", "B"}));
+      model->insert(createTabWithTitle("C"), 3);
+      verifyTabsOrder(QStringList({"A", "X", "B", "C"}));
+    }
+
+    void shouldClampIndexWhenInsertingTabOutOfBounds()
+    {
+        model->add(createTabWithTitle("A"));
+        model->add(createTabWithTitle("B"));
+        model->insert(createTabWithTitle("C"), 3);
+        verifyTabsOrder(QStringList({"A", "B", "C"}));
+        model->insert(createTabWithTitle("X"), -1);
+        verifyTabsOrder(QStringList({"X", "A", "B", "C"}));
     }
 
     void shouldUpdateCountWhenRemovingTab()
