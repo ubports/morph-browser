@@ -96,7 +96,6 @@ Item {
             var doneButton = findChild(historyViewWide, "doneButton")
             verify(doneButton != null)
             doneSpy.clear()
-            compare(doneSpy.count, 0)
             clickItem(doneButton)
             compare(doneSpy.count, 1)
         }
@@ -106,8 +105,6 @@ Item {
             verify(newTabButton != null)
             doneSpy.clear()
             newTabRequestedSpy.clear()
-            compare(doneSpy.count, 0)
-            compare(newTabRequestedSpy.count, 0)
             clickItem(newTabButton)
             compare(newTabRequestedSpy.count, 1)
             compare(doneSpy.count, 1)
@@ -117,7 +114,6 @@ Item {
             var urlsList = findChild(historyViewWide, "urlsListView")
             compare(urlsList.count, 3)
             historyEntryClickedSpy.clear()
-            compare(historyEntryClickedSpy.count, 0)
             clickItem(urlsList.children[0])
             compare(historyEntryClickedSpy.count, 1)
             var args = historyEntryClickedSpy.signalArguments[0]
@@ -164,7 +160,6 @@ Item {
             longPressItem(urlsList.children[0])
             var deleteButton = findChild(historyViewWide, "deleteButton")
             historyEntryRemovedSpy.clear()
-            compare(historyEntryRemovedSpy.count, 0)
             clickItem(deleteButton)
             compare(historyEntryRemovedSpy.count, 1)
             var args = historyEntryRemovedSpy.signalArguments[0]
@@ -188,7 +183,6 @@ Item {
             keyClick(Qt.Key_Right)
             verify(urlsList.activeFocus)        
             historyEntryRemovedSpy.clear()
-            compare(historyEntryRemovedSpy.count, 0)
             keyClick(Qt.Key_Delete)
             compare(historyEntryRemovedSpy.count, 1)
             var args = historyEntryRemovedSpy.signalArguments[0]
@@ -202,7 +196,6 @@ Item {
             keyClick(Qt.Key_Left)
             verify(lastVisitDateList.activeFocus)        
             historyEntryRemovedSpy.clear()
-            compare(historyEntryRemovedSpy.count, 0)
             keyClick(Qt.Key_Delete)
             compare(historyEntryRemovedSpy.count, 3)
             for (var i = 0; i < 3; ++i) {
