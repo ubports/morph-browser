@@ -784,7 +784,7 @@ BrowserView {
 
                 FocusScope {
                     id: expandedHistoryViewContainer
-    
+
                     visible: children.length > 0
                     anchors.fill: parent
 
@@ -909,7 +909,14 @@ BrowserView {
             current: tabsModel && tabsModel.currentTab === this
             focus: current
 
-            Item { id: contextualMenuTarget }
+            Item {
+                id: contextualMenuTarget
+                visible: false
+                x: webview ? webview.contextualData.sourceArea.x : 0
+                y: webview ? webview.contextualData.sourceArea.y : 0
+                width: webview ? webview.contextualData.sourceArea.width : 0
+                height: webview ? webview.contextualData.sourceArea.height : 0
+            }
 
             webviewComponent: WebViewImpl {
                 id: webviewimpl
@@ -946,11 +953,6 @@ BrowserView {
                         enabled: contextualData.href.toString() && browser.bookmarksModel &&
                                  !bookmarksModel.contains(contextualData.href)
                         onTriggered: {
-                            contextualMenuTarget.x = contextualData.sourceArea.x
-                            contextualMenuTarget.y = contextualData.sourceArea.y
-                            contextualMenuTarget.width = contextualData.sourceArea.width
-                            contextualMenuTarget.height = contextualData.sourceArea.height
-
                             bookmarksModel.add(contextualData.href,
                                                contextualData.title, "", "")
                             PopupUtils.open(bookmarkOptionsComponent, contextualMenuTarget,
