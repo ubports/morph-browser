@@ -838,6 +838,8 @@ BrowserView {
                     done()
                 }
                 onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
+                onHistoryEntriesRemovedByDate: browser.historyModel.removeEntriesByDate(date)
+                onAllHistoryEntriesRemoved: browser.historyModel.clearAll()
                 onNewTabRequested: browser.openUrlInNewTab("", true)
                 onDone: historyViewLoader.active = false
             }

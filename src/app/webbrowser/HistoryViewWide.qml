@@ -29,6 +29,8 @@ FocusScope {
     signal done()
     signal historyEntryClicked(url url)
     signal historyEntryRemoved(url url)
+    signal historyEntriesRemovedByDate(var date)
+    signal allHistoryEntriesRemoved()
     signal newTabRequested()
 
     Keys.onLeftPressed: lastVisitDateListView.forceActiveFocus()
@@ -44,9 +46,9 @@ FocusScope {
                 }
             } else {
                 if (lastVisitDateListView.currentIndex == 0) {
-                    historyModel.clearAll()
+                    historyViewWide.allHistoryEntriesRemoved()
                 } else {
-                    historyModel.removeEntriesByDate(lastVisitDateListView.currentItem.lastVisitDate)
+                    historyViewWide.historyEntriesRemovedByDate(lastVisitDateListView.currentItem.lastVisitDate)
                     lastVisitDateListView.currentIndex = 0
                 }
             }
