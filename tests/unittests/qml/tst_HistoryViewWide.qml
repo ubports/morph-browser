@@ -62,6 +62,18 @@ Item {
         signalName: "historyEntryRemoved"
     }
 
+    SignalSpy {
+        id: historyEntriesRemovedByDateSpy
+        target: historyViewWide
+        signalName: "historyEntriesRemovedByDate"
+    }
+
+    SignalSpy {
+        id: allHistoryEntriesRemovedSpy
+        target: historyViewWide
+        signalName: "allHistoryEntriesRemoved"
+    }
+
     UbuntuTestCase {
         name: "HistoryViewWide"
         when: windowShown
@@ -192,17 +204,20 @@ Item {
 
         function test_delete_key_at_last_visit_date_list_view() {
             var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
-            var urlsList = findChild(historyViewWide, "urlsListView")
             keyClick(Qt.Key_Left)
             verify(lastVisitDateList.activeFocus)        
-            historyEntryRemovedSpy.clear()
+            compare(lastVisitDateList.currentIndex, 0)
+            keyClick(Qt.Key_Down)
+            compare(lastVisitDateList.currentIndex, 1)
+
+            historyEntriesRemovedByDateSpy.clear()
             keyClick(Qt.Key_Delete)
-            compare(historyEntryRemovedSpy.count, 3)
-            for (var i = 0; i < 3; ++i) {
-                var args = historyEntryRemovedSpy.signalArguments[i]
-                var entry = urlsList.model.get(i)
-                compare(args[0], entry.url)
-            }
+            compare(historyEntriesRemovedByDateSpy.count, 1)
+            compare(lastVisitDateList.currentIndex, 0)
+
+            allHistoryEntriesRemovedSpy.clear()
+            keyClick(Qt.Key_Delete)
+            compare(allHistoryEntriesRemovedSpy.count, 1)
         }
     }
 }
