@@ -21,7 +21,6 @@
 #include "cache-deleter.h"
 #include "config.h"
 #include "file-operations.h"
-#include "history-domainlist-chronological-model.h"
 #include "history-domainlist-model.h"
 #include "history-lastvisitdatelist-model.h"
 #include "history-lastvisitdate-model.h"
@@ -71,7 +70,6 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<TopSitesModel>(uri, 0 , 1, "TopSitesModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
-    qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
     qmlRegisterType<HistoryLastVisitDateListModel>(uri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<HistoryLastVisitDateModel>(uri, 0, 1, "HistoryLastVisitDateModel");
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");

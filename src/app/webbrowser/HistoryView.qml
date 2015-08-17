@@ -44,12 +44,14 @@ Item {
             rightMargin: units.gu(2)
         }
 
-        model: HistoryDomainListChronologicalModel {
-            sourceModel: HistoryDomainListModel {
+        model: SortFilterModel {
+            model: HistoryDomainListModel {
                 sourceModel: HistoryTimeframeModel {
                     id: historyTimeframeModel
                 }
             }
+            sort.property: "lastVisit"
+            sort.order: Qt.DescendingOrder
         }
 
         section.property: "lastVisitDate"

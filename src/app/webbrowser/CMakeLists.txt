@@ -14,7 +14,6 @@ set(WEBBROWSER_APP_MODELS_SRC
     bookmarks-folder-model.cpp
     bookmarks-folderlist-model.cpp
     history-domain-model.cpp
-    history-domainlist-chronological-model.cpp
     history-domainlist-model.cpp
     history-lastvisitdate-model.cpp
     history-lastvisitdatelist-model.cpp
