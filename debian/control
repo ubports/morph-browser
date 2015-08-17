@@ -97,7 +97,7 @@ Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         liboxideqt-qmlplugin (>= 1.6),
+         liboxideqt-qmlplugin (>= 1.9),
          qml-module-qtquick2 (>= 5.4),
          qml-module-qtquick-window2 (>= 5.3),
          qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3),
