@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import ".."
 
 Item {
@@ -31,7 +32,7 @@ Item {
 
     property bool incognito: false
 
-    signal requestNewTab()
+    signal requestNewTab(int index, bool makeCurrent)
 
     MouseArea {
         anchors.fill: parent
@@ -67,7 +68,34 @@ Item {
             color: incognito ? "white" : UbuntuColors.darkGrey
         }
 
-        onClicked: root.requestNewTab()
+        onClicked: root.requestNewTab(root.model.count, true)
+    }
+
+    Component {
+        id: contextualOptionsComponent
+        ActionSelectionPopover {
+            id: menu
+            property int targetIndex
+
+            actions: ActionList {
+                Action {
+                    text: i18n.tr("New Tab")
+                    onTriggered: root.requestNewTab(menu.targetIndex + 1, false)
+                }
+                Action {
+                    text: i18n.tr("Reload")
+                    enabled: root.model.get(menu.targetIndex).url.toString().length > 0
+                    onTriggered: {
+                        var tab = root.model.get(menu.targetIndex)
+                        if (tab.url.toString().length > 0) tab.webview.reload()
+                    }
+                }
+                Action {
+                    text: i18n.tr("Close Tab")
+                    onTriggered: internal.closeTab(menu.targetIndex)
+                }
+            }
+        }
     }
 
     Item {
@@ -101,7 +129,7 @@ Item {
                 MouseArea {
                     id: mouseArea
                     anchors.fill: parent
-                    acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+                    acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                     hoverEnabled: true
                     onPressed: {
                         if (mouse.button === Qt.LeftButton) {
@@ -113,6 +141,13 @@ Item {
                             internal.closeTab(index)
                         }
                     }
+                    onClicked: {
+                        if (mouse.button === Qt.RightButton) {
+                            var menu = PopupUtils.open(contextualOptionsComponent, tabDelegate)
+                            menu.targetIndex = index
+                        }
+                    }
+
                     // XXX: should not start a drag when middle button was pressed
                     drag {
                         target: tabDelegate
@@ -241,6 +276,7 @@ Item {
         id: internal
 
         function closeTab(index) {
+            console.log(index, root.model.count)
             var tab = root.model.remove(index)
             if (tab) tab.close()
         }

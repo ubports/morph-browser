@@ -108,20 +108,33 @@ QObject* TabsModel::currentTab() const
 }
 
 /*!
-    Add a tab to the model and return the corresponding index in the model.
+    Append a tab to the model and return the corresponding index in the model.
 
     It is the responsibility of the caller to instantiate the corresponding
     Tab beforehand.
 */
 int TabsModel::add(QObject* tab)
 {
+    return insert(tab, m_tabs.count());
+}
+
+/*!
+    Add a tab to the model at the specified index, and return the index itself,
+    or -1 if the operation failed.
+
+    It is the responsibility of the caller to instantiate the corresponding
+    Tab beforehand.
+*/
+int TabsModel::insert(QObject* tab, int index)
+{
     if (tab == nullptr) {
         qWarning() << "Invalid Tab";
         return -1;
     }
-    int index = m_tabs.count();
+    if (index < 0) index == 0;
+    else if (index > m_tabs.count()) index = m_tabs.count();
     beginInsertRows(QModelIndex(), index, index);
-    m_tabs.append(tab);
+    m_tabs.insert(index, tab);
     connect(tab, SIGNAL(urlChanged()), SLOT(onUrlChanged()));
     connect(tab, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
     connect(tab, SIGNAL(iconChanged()), SLOT(onIconChanged()));
