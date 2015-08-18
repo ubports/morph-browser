@@ -143,7 +143,7 @@ class WebappContainerSchemeFilterTestCase(
             return { \
                 'scheme': 'https', \
                 'host': 'mail.google.com', \
-                'path': '?to='+r.path.replace('@', '%40') }; })\" }"
+                'path': '?to='+encodeURIComponent(r.path) }; })\" }"
         with generate_webapp_with_scheme_filter(filter) as webapp_install_path:
             args = ['--webappModelSearchPath='+webapp_install_path]
             self.launch_webcontainer_app(
