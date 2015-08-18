@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-16 15:31+0200\n"
+"POT-Creation-Date: 2015-06-02 23:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -352,7 +352,7 @@ msgstr ""
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:513
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:515
 msgid "New Tab"
 msgstr ""
 
@@ -396,50 +396,50 @@ msgstr ""
 msgid "search or enter an address"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:294
+#: src/app/webbrowser/Browser.qml:296
 msgid "Share"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:301
+#: src/app/webbrowser/Browser.qml:303
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:308
+#: src/app/webbrowser/Browser.qml:310
 msgid "Open tabs"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:318 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/TabsList.qml:85
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:325 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:331
+#: src/app/webbrowser/Browser.qml:333
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:331
+#: src/app/webbrowser/Browser.qml:333
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:496 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
 msgid "Done"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:597
+#: src/app/webbrowser/Browser.qml:599
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:868
+#: src/app/webbrowser/Browser.qml:870
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:869
+#: src/app/webbrowser/Browser.qml:871
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
