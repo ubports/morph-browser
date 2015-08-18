@@ -102,17 +102,17 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
                         Eventually(Equals(100), timeout=20))
         self.assertThat(webview.loading, Eventually(Equals(False)))
 
-    def get_intent_filtered_uri(self, uri):
+    def get_scheme_filtered_uri(self, uri):
         webviewContainer = self.get_webcontainer_window()
         watcher = webviewContainer.watch_signal(
-            'intentUriHandleResult(QString)')
+            'schemeUriHandleFilterResult(QString)')
         previous = watcher.num_emissions
-        webviewContainer.slots.handleIntentUri(uri)
+        webviewContainer.slots.translateHandlerUri(uri)
         self.assertThat(
             lambda: watcher.num_emissions,
             Eventually(GreaterThan(previous)))
         result = webviewContainer.get_signal_emissions(
-            'intentUriHandleResult(QString)')[-1][0]
+            'schemeUriHandleFilterResult(QString)')[-1][0]
         return result
 
     def browse_to(self, url):
