@@ -422,7 +422,7 @@ void HistoryModel::removeEntriesFromDatabaseByDate(const QDate& date)
     query.prepare(deleteStatement);
     QDateTime dateTime = QDateTime(date);
     query.addBindValue(dateTime.toTime_t());
-    dateTime.setTime(QTime(23, 59, 59));
+    dateTime.setTime(QTime(23, 59, 59, 999));
     query.addBindValue(dateTime.toTime_t());
     query.exec();
 }
