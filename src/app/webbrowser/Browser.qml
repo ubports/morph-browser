@@ -945,13 +945,8 @@ BrowserView {
                     Actions.BookmarkLink {
                         enabled: contextualData.href.toString() && browser.bookmarksModel &&
                                  !bookmarksModel.contains(contextualData.href)
-                        onTriggered: {
-                            bookmarksModel.add(contextualData.href,
-                                               contextualData.title, "", "")
-                            PopupUtils.open(bookmarkOptionsComponent, contextualMenuTarget,
-                                            {"bookmarkUrl": contextualData.href,
-                                             "bookmarkTitle": contextualData.title})
-                        }
+                        onTriggered: internal.addBookmark(contextualData.href, contextualData.title,
+                                                          "", contextualMenuTarget)
                     }
                     Actions.CopyLink {
                         enabled: contextualData.href.toString()
@@ -1207,10 +1202,12 @@ BrowserView {
             }
         }
 
-        function addBookmark(url, title, icon) {
+        function addBookmark(url, title, icon, location) {
+            if (title == "") title = UrlUtils.removeScheme(url)
             bookmarksModel.add(url, title, icon, "")
+            if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             PopupUtils.open(bookmarkOptionsComponent,
-                            chrome.bookmarkTogglePlaceHolder,
+                            location,
                             {"bookmarkUrl": url,
                              "bookmarkTitle": title})
         }

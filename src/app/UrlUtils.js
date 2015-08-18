@@ -16,12 +16,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-function extractAuthority(url) {
+function removeScheme(url) {
     var authority = url.toString()
     var indexOfScheme = authority.indexOf("://")
     if (indexOfScheme !== -1) {
         authority = authority.slice(indexOfScheme + 3)
     }
+    return authority
+}
+
+function extractAuthority(url) {
+    var authority = removeScheme(url)
     var indexOfPath = authority.indexOf("/")
     if (indexOfPath !== -1) {
         authority = authority.slice(0, indexOfPath)
