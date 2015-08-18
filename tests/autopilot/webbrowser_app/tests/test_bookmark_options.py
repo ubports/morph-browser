@@ -242,6 +242,10 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self.assertThat(bookmark.title, Equals("NewTitle"))
 
     def test_bookmark_options_from_contextual_menu(self):
+        # FIXME: When http://pad.lv/1205144 replace accessing the contextual
+        # menu items by text with accessing them by objectName (from
+        # their Action)
+        self.skipTest("Skipped due to http://pad.lv/1205144")
         url = self.base_url + "/blanktargetlink"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
