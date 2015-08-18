@@ -233,7 +233,8 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
         self.useFixture(fixtures.EnvironmentVariable(
             'UBUNTU_WEBVIEW_HOST_MAPPING_RULES',
             "MAP test:80 localhost:{}".format(self.http_server.port)))
-        self.base_url = "http://test"
+        self.base_domain = "test"
+        self.base_url = "http://" + self.base_domain
         self.url = self.base_url + path
         self.ARGS = self.ARGS + [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()

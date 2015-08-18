@@ -201,10 +201,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
                         Eventually(Equals(4)))
         self._assert_bookmark_count_in_folder(new_tab, "NewFolder", 1)
 
-    @testtools.skip("Temporarily skipped until popover going out of view with"
-                    " OSK is fixed http://pad.lv/1466222")
     def test_set_bookmark_title(self):
-        url = self.base_url + "/test2"
+        url = self.base_url + "/blanktargetlink"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
 
@@ -214,6 +212,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         bookmark_options = self._get_bookmark_options()
 
         title_text_field = bookmark_options.get_title_text_field()
+        self.assertThat(title_text_field.text,
+                        Equals(self.base_domain + "/blanktargetlink"))
         self.pointing_device.click_object(title_text_field)
         title_text_field.activeFocus.wait_for(True)
         title_text_field.write("NewTitle", True)
@@ -227,7 +227,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self._assert_bookmark_count_in_folder(new_tab, "", 5)
 
         index = 0
-        if self.main_view.wide:
+        if self.main_window.wide:
             index += 1
         bookmark = new_tab.get_bookmarks("")[index]
         self.assertThat(bookmark.title, Equals("NewTitle"))
