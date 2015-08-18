@@ -56,24 +56,6 @@ Item {
         signalName: "historyEntryClicked"
     }
 
-    SignalSpy {
-        id: historyEntryRemovedSpy
-        target: historyViewWide
-        signalName: "historyEntryRemoved"
-    }
-
-    SignalSpy {
-        id: historyEntriesRemovedByDateSpy
-        target: historyViewWide
-        signalName: "historyEntriesRemovedByDate"
-    }
-
-    SignalSpy {
-        id: allHistoryEntriesRemovedSpy
-        target: historyViewWide
-        signalName: "allHistoryEntriesRemoved"
-    }
-
     UbuntuTestCase {
         name: "HistoryViewWide"
         when: windowShown
@@ -95,7 +77,7 @@ Item {
             mouseRelease(item, center.x + 100, center.y, Qt.LeftButton, Qt.NoModifier, 2000)
         }
 
-        function initTestCase() {
+        function init() {
             for (var i = 0; i < 3; ++i) {
                 historyMockModel.add("http://example.org/" + i, "Example Domain " + i, "")
             }
@@ -169,14 +151,14 @@ Item {
         function test_delete_button() {
             var urlsList = findChild(historyViewWide, "urlsListView")
             compare(urlsList.count, 3)
+            var deletedUrl = urlsList.model.get(0).url
             longPressItem(urlsList.children[0])
             var deleteButton = findChild(historyViewWide, "deleteButton")
-            historyEntryRemovedSpy.clear()
             clickItem(deleteButton)
-            compare(historyEntryRemovedSpy.count, 1)
-            var args = historyEntryRemovedSpy.signalArguments[0]
-            var entry = urlsList.model.get(0)
-            compare(args[0], entry.url)
+            compare(urlsList.count, 2)
+            for (var i = 0; i < urlsList.count; ++i) {
+                verify(urlsList.model.get(i).url != deletedUrl)
+            }
         }
 
         function test_keyboard_navigation_between_lists() {
@@ -194,30 +176,33 @@ Item {
             var urlsList = findChild(historyViewWide, "urlsListView")
             keyClick(Qt.Key_Right)
             verify(urlsList.activeFocus)        
-            historyEntryRemovedSpy.clear()
+            compare(urlsList.count, 3)
             keyClick(Qt.Key_Delete)
-            compare(historyEntryRemovedSpy.count, 1)
-            var args = historyEntryRemovedSpy.signalArguments[0]
-            var entry = urlsList.model.get(0)
-            compare(args[0], entry.url)
+            compare(urlsList.count, 2)
         }
 
-        function test_delete_key_at_last_visit_date_list_view() {
+        function test_delete_key_at_last_visit_date() {
             var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
+            var urlsList = findChild(historyViewWide, "urlsListView")
             keyClick(Qt.Key_Left)
             verify(lastVisitDateList.activeFocus)        
             compare(lastVisitDateList.currentIndex, 0)
             keyClick(Qt.Key_Down)
             compare(lastVisitDateList.currentIndex, 1)
-
-            historyEntriesRemovedByDateSpy.clear()
+            compare(urlsList.count, 3)
             keyClick(Qt.Key_Delete)
-            compare(historyEntriesRemovedByDateSpy.count, 1)
+            compare(urlsList.count, 0)
+        }
+
+        function test_delete_key_at_all_history() {
+            var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            keyClick(Qt.Key_Left)
+            verify(lastVisitDateList.activeFocus)        
             compare(lastVisitDateList.currentIndex, 0)
-
-            allHistoryEntriesRemovedSpy.clear()
+            compare(urlsList.count, 3)
             keyClick(Qt.Key_Delete)
-            compare(allHistoryEntriesRemovedSpy.count, 1)
+            compare(urlsList.count, 0)
         }
     }
 }
