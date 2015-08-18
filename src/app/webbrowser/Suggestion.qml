@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
+import QtQuick 2.4
+import Ubuntu.Components 1.3
+import Ubuntu.Components.ListItems 1.3 as ListItem
 
 // Not using ListItem.Subtitled because it’s not themable,
 // and we want the subText to be on one line only.
@@ -28,7 +28,7 @@ ListItem.Base {
     property alias icon: icon.name
     property url url
 
-    signal selected(url url)
+    signal activated(url url)
 
     __height: Math.max(middleVisuals.height, units.gu(6))
     // disable focus handling
@@ -51,6 +51,7 @@ ListItem.Base {
             }
             width: units.gu(2)
             height: units.gu(2)
+            color: UbuntuColors.darkGrey
         }
 
         Label {
@@ -62,7 +63,7 @@ ListItem.Base {
                 leftMargin: units.gu(2)
                 right: parent.right
             }
-
+            color: selected ? "#DB4923" : UbuntuColors.darkGrey
             elide: Text.ElideRight
         }
 
@@ -77,8 +78,9 @@ ListItem.Base {
             fontSize: "small"
             elide: Text.ElideRight
             visible: text !== ""
+            color: selected ? "#DB4923" : UbuntuColors.darkGrey
         }
     }
 
-    onClicked: selected(url)
+    onClicked: activated(url)
 }

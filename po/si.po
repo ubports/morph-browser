@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-02 23:12+0200\n"
+"POT-Creation-Date: 2015-08-13 07:04+0200\n"
 "PO-Revision-Date: 2015-02-21 05:30+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Sinhalese <si@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-08-15 05:32+0000\n"
+"X-Generator: Launchpad (build 17686)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,12 +24,14 @@ msgstr ""
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
-msgstr ""
+msgstr "හරි"
 
 #: src/app/AuthenticationDialog.qml:24
 msgid "Authentication required."
-msgstr ""
+msgstr "තහවුරු කිරීම අවශ්‍යයි"
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
@@ -39,18 +41,22 @@ msgstr ""
 
 #: src/app/AuthenticationDialog.qml:34
 msgid "Username"
-msgstr ""
+msgstr "පරිශීලක නාමය"
 
 #: src/app/AuthenticationDialog.qml:41
 msgid "Password"
-msgstr ""
+msgstr "මුරපදය"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/HistoryView.qml:165
+#: src/app/webbrowser/HistoryViewWide.qml:291
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:289
+#: src/app/webbrowser/SettingsPage.qml:343
+#: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
-msgstr ""
+msgstr "අවලංගු කරන්න"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
@@ -58,15 +64,15 @@ msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr ""
+msgstr "පිටවෙන්න"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr ""
+msgstr "රැදී සිටින්න"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr ""
+msgstr "මෙම සබැඳුම විශ්වාස කළ නොහැක"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -92,7 +98,7 @@ msgstr ""
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr ""
+msgstr "ජාලයේ දෝෂය"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
@@ -111,7 +117,7 @@ msgstr ""
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr ""
+msgstr "කරුණාකර ගොනුවක් තෝරන්න"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
@@ -123,11 +129,11 @@ msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
-msgstr ""
+msgstr "ප්‍රතික්ෂේප කරන්න"
 
 #: src/app/GeolocationPermissionRequest.qml:43
 msgid "Allow"
-msgstr ""
+msgstr "ඉඩ දෙන්න"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
@@ -135,7 +141,7 @@ msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr ""
+msgstr "වැඩිමනත් තොරතුරු"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:87
@@ -144,6 +150,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"අනුක්‍රමික අංකය:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:94
@@ -168,6 +176,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"නිකුත් කරන්නා:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:121
@@ -176,6 +186,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"නිකුත් කරන්නාගේ ලිපිනය:\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:132
@@ -288,7 +300,7 @@ msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr ""
+msgstr "පසුපසට"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -322,7 +334,7 @@ msgstr ""
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr ""
+msgstr "පිටපත් කරන්න"
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
@@ -332,9 +344,19 @@ msgstr ""
 msgid "Copy link"
 msgstr ""
 
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:381
+msgid "Find in page"
+msgstr ""
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/FindInPage.qml:26
+msgid "Search in Page"
+msgstr ""
+
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr ""
+msgstr "ඉදිරියට"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
@@ -352,7 +374,7 @@ msgstr ""
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:515
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:654
 msgid "New Tab"
 msgstr ""
 
@@ -386,60 +408,107 @@ msgstr ""
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr ""
+msgstr "ඡායාරුව සුරකින්න"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:198
+#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
+#: src/app/webbrowser/AddressBar.qml:203
+#, qt-format
+msgid "%1/%2"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:239
+msgid "find in page"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "search or enter an address"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:296
+#: src/app/webbrowser/BookmarkOptions.qml:48
+msgid "Bookmark Added"
+msgstr ""
+
+#. TRANSLATORS: Field where the title of bookmarked URL can be changed
+#: src/app/webbrowser/BookmarkOptions.qml:53
+msgid "Name"
+msgstr ""
+
+#. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
+#: src/app/webbrowser/BookmarkOptions.qml:71
+msgid "Save in"
+msgstr ""
+
+#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarksFolderListView.qml:115
+#: src/app/webbrowser/NewTabViewWide.qml:122
+msgid "All Bookmarks"
+msgstr ""
+
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
+msgid "New Folder"
+msgstr ""
+
+#: src/app/webbrowser/BookmarkOptions.qml:115
+msgid "Create new folder"
+msgstr ""
+
+#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/SettingsPage.qml:353
+msgid "Save"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:350
 msgid "Share"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:303
+#: src/app/webbrowser/Browser.qml:357
+#: src/app/webbrowser/HistoryViewWide.qml:275
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:310
+#: src/app/webbrowser/Browser.qml:364
 msgid "Open tabs"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/TabsList.qml:85
+#: src/app/webbrowser/Browser.qml:374 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:409
+#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
-msgid "Settings"
-msgstr ""
-
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:391
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:391
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
-msgid "Done"
+#: src/app/webbrowser/Browser.qml:409 src/app/webbrowser/SettingsPage.qml:51
+msgid "Settings"
 msgstr ""
 
+#: src/app/webbrowser/Browser.qml:640 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:395
+msgid "Done"
+msgstr "අවසානයි"
+
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:599
+#: src/app/webbrowser/Browser.qml:747
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:870
+#: src/app/webbrowser/Browser.qml:1074
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:871
+#: src/app/webbrowser/Browser.qml:1075
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
@@ -451,32 +520,40 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:118
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr ""
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:44
+#: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
 msgstr ""
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:46
+#: src/app/webbrowser/HistorySectionDelegate.qml:48
+#: src/app/webbrowser/HistoryViewWide.qml:131
 msgid "Yesterday"
-msgstr ""
+msgstr "ඊයේ"
 
 #: src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:312
 msgid "Select all"
 msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:343
 msgid "Delete"
+msgstr "මකන්න"
+
+#: src/app/webbrowser/HistoryViewWide.qml:115
+msgid "All History"
+msgstr ""
+
+#: src/app/webbrowser/HistoryViewWide.qml:129
+#: src/app/webbrowser/HistoryViewWide.qml:194
+msgid "Today"
 msgstr ""
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
-msgid "Ok"
 msgstr ""
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
@@ -490,19 +567,27 @@ msgid ""
 msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:313
 msgid "Bookmarks"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:208
+#: src/app/webbrowser/NewTabView.qml:226
+#: src/app/webbrowser/NewTabViewWide.qml:312
 msgid "Top sites"
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:239
+#: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
+msgstr ""
+
+#: src/app/webbrowser/NewTabViewWide.qml:160
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:317
+msgid "Homepage"
 msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
@@ -551,7 +636,7 @@ msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr ""
+msgstr "ඔබ සම්බන්ධව ඇත්තේ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
@@ -560,11 +645,6 @@ msgstr ""
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr ""
-
-#: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:275
-msgid "Homepage"
 msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:101
@@ -588,12 +668,20 @@ msgstr ""
 msgid "Clear Browsing History"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:256
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:311
-msgid "Save"
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
 msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:99
@@ -601,31 +689,72 @@ msgid "Tap to view"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:34
-#: src/app/webcontainer/webapp-container.qml:65
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
-#: src/app/webbrowser/webbrowser-app.qml:36
-#: src/app/webcontainer/webapp-container.qml:67
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
 msgstr ""
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
-msgid "No local account found for "
+#: src/app/webcontainer/AccountChooserDialog.qml:62
+msgid ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
 msgstr ""
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
-msgid "Skip account creation step"
-msgstr ""
-
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
+msgstr "ගිණුම එක් කරන්න"
+
+#: src/app/webcontainer/AccountChooserDialog.qml:87
+msgid "Don't use an account"
 msgstr ""
 
-#: src/app/webcontainer/AccountsView.qml:38
-msgid "Select an account"
+#: src/app/webcontainer/AccountErrorScreen.qml:39
+msgid "Account error"
+msgstr ""
+
+#: src/app/webcontainer/AccountErrorScreen.qml:50
+msgid "Close"
+msgstr ""
+
+#: src/app/webcontainer/AccountsLogic.qml:63
+msgid ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:45
+#, qt-format
+msgid "<b>%1</b> needs to access your %2 online account."
+msgstr ""
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:55
+#, qt-format
+msgid "<b>%1</b> would like to access your %2 online account."
+msgstr ""
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:64
+msgid ""
+"Choose an account now, or skip this step and choose an online account later."
+msgstr ""
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Close the app"
+msgstr ""
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Skip"
+msgstr ""
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:84
+msgid "Choose account"
 msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
@@ -643,3 +772,6 @@ msgstr ""
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr ""
+
+#~ msgid "Select an account"
+#~ msgstr "ගිණුමක් තෝරන්න"

@@ -25,10 +25,7 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestSelection(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
-        super(TestSelection, self).setUp()
-        url = self.base_url + "/selection"
-        self.main_window.go_to_url(url)
-        self.main_window.wait_until_page_loaded(url)
+        super(TestSelection, self).setUp(path="/selection")
         webview = self.main_window.get_current_webview()
         self.pointing_device.move_to_object(webview)
         if model() == 'Desktop':
@@ -91,5 +88,5 @@ class TestSelection(StartOpenRemotePageTestCaseBase):
         self.actions = self.main_window.get_selection_actions()
 
     def test_navigating_discards_selection(self):
-        self.main_window.go_back()
+        self.main_window.go_to_url(self.base_url + "/test1")
         self.assert_selection_eventually_dismissed()

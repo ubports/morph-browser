@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-06-02 23:12+0200\n"
-"PO-Revision-Date: 2014-08-12 14:07+0000\n"
-"Last-Translator: Anthony Wong <anthony.wong@ubuntu.com>\n"
+"POT-Creation-Date: 2015-08-13 07:04+0200\n"
+"PO-Revision-Date: 2015-07-23 03:56+0000\n"
+"Last-Translator: Ian Li <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-06-03 05:48+0000\n"
-"X-Generator: Launchpad (build 17532)\n"
+"X-Launchpad-Export-Date: 2015-08-15 05:32+0000\n"
+"X-Generator: Launchpad (build 17686)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,6 +24,8 @@ msgstr "JavaScript 警告"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "确定"
 
@@ -46,9 +48,13 @@ msgid "Password"
 msgstr "密码"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:165
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/HistoryView.qml:165
+#: src/app/webbrowser/HistoryViewWide.qml:291
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:289
+#: src/app/webbrowser/SettingsPage.qml:343
+#: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "取消"
 
@@ -131,11 +137,11 @@ msgstr "允许"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr ""
+msgstr "此网站的安全证书不被信任。\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr ""
+msgstr "了解详情"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:87
@@ -144,6 +150,8 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
+"序列号：\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:94
@@ -152,6 +160,8 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
+"主体：\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:102
@@ -160,6 +170,8 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
+"主体地址：\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:113
@@ -168,6 +180,8 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
+"签发者：\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:121
@@ -176,6 +190,8 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
+"签发者地址：\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:132
@@ -184,6 +200,8 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
+"有效期从：\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:139
@@ -192,6 +210,8 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
+"有效期至：\n"
+"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:146
@@ -200,12 +220,14 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
+"指纹（SHA1）：\n"
+"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
-msgstr ""
+msgstr "您应该停止操作，特别是当您从未在此网站看到过此警告。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:187
@@ -213,7 +235,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
-msgstr ""
+msgstr "您尝试访问 %1，但服务器提供的安全证书不符合网站的身份。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -221,7 +243,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
-msgstr ""
+msgstr "您尝试访问 %1，但服务器出示的安全证书已过期。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -229,7 +251,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
-msgstr ""
+msgstr "您尝试访问 %1，但服务器出示了包含无效日期的安全证书。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -237,7 +259,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
-msgstr ""
+msgstr "您尝试访问 %1，但服务器出示由不受信任的机构颁发的安全证书。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -245,7 +267,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
-msgstr ""
+msgstr "您尝试访问 %1，但服务器出示的安全证书已被吊销。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -253,7 +275,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
-msgstr ""
+msgstr "您尝试访问 %1，但服务器提供了无效的安全证书。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -261,7 +283,7 @@ msgstr ""
 msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
-msgstr ""
+msgstr "您尝试访问 %1，但服务器提供了一个不安全的安全证书。"
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -271,6 +293,8 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
+"此网站的安全证书不被信任 \n"
+"您尝试访问 %1 ，但服务器出示了因未知原因无法通过我们安全检查的证书。"
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
@@ -332,6 +356,16 @@ msgstr "复制图像"
 msgid "Copy link"
 msgstr "复制链接"
 
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:381
+msgid "Find in page"
+msgstr ""
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/FindInPage.qml:26
+msgid "Search in Page"
+msgstr ""
+
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "前进"
@@ -352,7 +386,7 @@ msgstr "转到"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;地址"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:515
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:654
 msgid "New Tab"
 msgstr "新标签"
 
@@ -368,7 +402,7 @@ msgstr "在新标签打开图像"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "在新后台标签打开链接"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -392,241 +426,349 @@ msgstr "保存图像"
 msgid "Share…"
 msgstr "分享..."
 
-#: src/app/webbrowser/AddressBar.qml:198
+#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
+#: src/app/webbrowser/AddressBar.qml:203
+#, qt-format
+msgid "%1/%2"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:239
+msgid "find in page"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "search or enter an address"
 msgstr "搜索或输入一个地址"
 
-#: src/app/webbrowser/Browser.qml:296
+#: src/app/webbrowser/BookmarkOptions.qml:48
+msgid "Bookmark Added"
+msgstr "已添加书签"
+
+#. TRANSLATORS: Field where the title of bookmarked URL can be changed
+#: src/app/webbrowser/BookmarkOptions.qml:53
+msgid "Name"
+msgstr "名称"
+
+#. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
+#: src/app/webbrowser/BookmarkOptions.qml:71
+msgid "Save in"
+msgstr "保存在"
+
+#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarksFolderListView.qml:115
+#: src/app/webbrowser/NewTabViewWide.qml:122
+msgid "All Bookmarks"
+msgstr "全部书签"
+
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
+msgid "New Folder"
+msgstr "新建文件夹"
+
+#: src/app/webbrowser/BookmarkOptions.qml:115
+msgid "Create new folder"
+msgstr "创建新文件夹"
+
+#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/SettingsPage.qml:353
+msgid "Save"
+msgstr "保存"
+
+#: src/app/webbrowser/Browser.qml:350
 msgid "Share"
 msgstr "分享"
 
-#: src/app/webbrowser/Browser.qml:303
+#: src/app/webbrowser/Browser.qml:357
+#: src/app/webbrowser/HistoryViewWide.qml:275
 msgid "History"
 msgstr "历史"
 
-#: src/app/webbrowser/Browser.qml:310
+#: src/app/webbrowser/Browser.qml:364
 msgid "Open tabs"
-msgstr ""
+msgstr "打开的标签"
 
-#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/TabsList.qml:85
+#: src/app/webbrowser/Browser.qml:374 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:409
+#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "新建标签"
 
-#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
-msgid "Settings"
-msgstr ""
-
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:391
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "退出匿名模式"
 
-#: src/app/webbrowser/Browser.qml:333
+#: src/app/webbrowser/Browser.qml:391
 msgid "Private Mode"
-msgstr ""
+msgstr "匿名模式"
 
-#: src/app/webbrowser/Browser.qml:498 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:409 src/app/webbrowser/SettingsPage.qml:51
+msgid "Settings"
+msgstr "设置"
+
+#: src/app/webbrowser/Browser.qml:640 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:395
 msgid "Done"
 msgstr "完成"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:599
+#: src/app/webbrowser/Browser.qml:747
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:870
+#: src/app/webbrowser/Browser.qml:1074
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "上划以退出全屏"
 
-#: src/app/webbrowser/Browser.qml:871
+#: src/app/webbrowser/Browser.qml:1075
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "按ESC退出全屏"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "第 %1 页"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:118
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
-msgstr ""
+msgstr "收起"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:44
+#: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
-msgstr ""
+msgstr "最近访问"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:46
+#: src/app/webbrowser/HistorySectionDelegate.qml:48
+#: src/app/webbrowser/HistoryViewWide.qml:131
 msgid "Yesterday"
 msgstr "昨天"
 
 #: src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:312
 msgid "Select all"
-msgstr ""
+msgstr "全选"
 
 #: src/app/webbrowser/HistoryView.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:343
 msgid "Delete"
+msgstr "删除"
+
+#: src/app/webbrowser/HistoryViewWide.qml:115
+msgid "All History"
+msgstr ""
+
+#: src/app/webbrowser/HistoryViewWide.qml:129
+#: src/app/webbrowser/HistoryViewWide.qml:194
+msgid "Today"
 msgstr ""
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
-
-#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
-msgid "Ok"
-msgstr ""
+msgstr "使用公开模式将关闭所有匿名标签"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "这是一个匿名标签"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"您在本标签内访问的页面将不会出现在浏览器历史中。\n"
+"但在这里创建的书签将会被保留。"
 
 #: src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:313
 msgid "Bookmarks"
 msgstr "书签"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr ""
+msgstr "更多"
 
-#: src/app/webbrowser/NewTabView.qml:208
+#: src/app/webbrowser/NewTabView.qml:226
+#: src/app/webbrowser/NewTabViewWide.qml:312
 msgid "Top sites"
 msgstr "热门网站"
 
-#: src/app/webbrowser/NewTabView.qml:239
+#: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "您尚未访问任何站点"
+
+#: src/app/webbrowser/NewTabViewWide.qml:160
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:317
+msgid "Homepage"
+msgstr "主页"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr ""
+msgstr "这个网站含有不安全的内容"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "身份未验证"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "此网站的身份尚未得到验证。"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "服务器证书与此网站的身份不匹配。"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "服务器证书已过期。"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "服务器证书包含无效日期。"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "服务器证书由未信任的机构发行。"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "服务器证书已被吊销。"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "服务器证书无效。"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "服务器证书不安全。"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
-msgstr ""
+msgstr "服务器证书由于未知原因未通过我们的安全检查。"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr ""
+msgstr "您连接到"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr ""
+msgstr "运营方："
 
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr ""
-
-#: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:275
-msgid "Homepage"
-msgstr ""
+msgstr "搜索引擎"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "在启动时恢复上次会话"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "允许在后台打开新标签页"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
-msgstr ""
+msgstr "隐私设置"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr ""
+msgstr "重置浏览器设置"
 
 #: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
+msgstr "清除浏览历史"
+
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:256
+#: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
+msgstr "清除缓存"
+
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:311
-msgid "Save"
-msgstr ""
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr "清除"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
-msgstr ""
+msgstr "点击查看"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:34
-#: src/app/webcontainer/webapp-container.qml:65
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntu 浏览器"
 
-#: src/app/webbrowser/webbrowser-app.qml:36
-#: src/app/webcontainer/webapp-container.qml:67
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu 浏览器"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
-msgid "No local account found for "
-msgstr "无本地帐户： "
+#: src/app/webcontainer/AccountChooserDialog.qml:62
+msgid ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
+msgstr "这个Web应用没有关联帐号；点击下方项目来添加帐号。"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
-msgid "Skip account creation step"
-msgstr "跳过创建帐户"
-
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
 msgstr "添加帐户"
 
-#: src/app/webcontainer/AccountsView.qml:38
-msgid "Select an account"
-msgstr "选择一个帐户"
+#: src/app/webcontainer/AccountChooserDialog.qml:87
+msgid "Don't use an account"
+msgstr "不使用帐号"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:39
+msgid "Account error"
+msgstr "帐号错误"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:50
+msgid "Close"
+msgstr "关闭"
+
+#: src/app/webcontainer/AccountsLogic.qml:63
+msgid ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
+msgstr "帐号窗口无法打开。您只能一次创建一个帐号；请关闭所有其他帐号窗口后重试。"
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:45
+#, qt-format
+msgid "<b>%1</b> needs to access your %2 online account."
+msgstr "<b>%1</b> 需要访问您的 %2 在线帐号。"
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:55
+#, qt-format
+msgid "<b>%1</b> would like to access your %2 online account."
+msgstr "<b>%1</b> 想要访问您的 %2 在线帐号。"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:64
+msgid ""
+"Choose an account now, or skip this step and choose an online account later."
+msgstr "现在选择一个帐号，或者跳过稍后选择一个在线帐号。"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Close the app"
+msgstr "关闭应用"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Skip"
+msgstr "跳过"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:84
+msgid "Choose account"
+msgstr "选择一个帐号"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
@@ -642,10 +784,16 @@ msgstr "浏览互联网"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr ""
+msgstr "互联网；WWW；浏览器；"
 
-#~ msgid "Clear"
-#~ msgstr "清除"
+#~ msgid "Select an account"
+#~ msgstr "选择一个帐户"
+
+#~ msgid "Skip account creation step"
+#~ msgstr "跳过创建帐户"
+
+#~ msgid "No local account found for "
+#~ msgstr "无本地帐户： "
 
 #~ msgid "No"
 #~ msgstr "否"

@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.3
 
 Item {
     id: tabslist
@@ -50,15 +50,12 @@ Item {
         Repeater {
             id: repeater
 
-            width: flickable.contentWidth
-            height: flickable.contentHeight
-
             delegate: Loader {
                 id: delegate
 
                 asynchronous: true
 
-                width: repeater.width
+                width: flickable.contentWidth
 
                 height: (index == (repeater.model.count - 1)) ? flickable.height : delegateHeight
                 Behavior on height {

@@ -49,6 +49,12 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             body = "<p>test page 2</p>"
             html = self.make_html(title, body)
             self.send_html(html)
+        elif self.path == "/link":
+            self.send_response(200)
+            html = '<html><body style="margin: 0">'
+            html += '<a href="/test1"><div style="height: 100%"></div></a>'
+            html += '</body></html>'
+            self.send_html(html)
         elif self.path.startswith("/wait/"):
             delay = int(self.path[6:])
             self.send_response(200)
@@ -132,6 +138,11 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += '<div style="height: 100%"></div>'
             html += '</a></body></html>'
             self.send_html(html)
+        elif self.path == "/findinpage":
+            # send a page with some searchable text
+            self.send_response(200)
+            html = '<html><body>hello this is text and more text</body></html>'
+            self.send_html(html)
         elif self.path.startswith("/suggest"):
             self.send_response(200)
             self.send_header("Content-Type", "text/x-suggestions+json")
@@ -140,6 +151,10 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             if query in self.suggestions_data:
                 suggestions = self.suggestions_data[query]
                 self.wfile.write(json.dumps(suggestions).encode())
+        elif self.path.startswith("/tab/"):
+            self.send_response(200)
+            name = self.path[len("/tab/"):]
+            self.send_html('<html><body>' + name + '</body></html>')
         else:
             self.send_error(404)
 

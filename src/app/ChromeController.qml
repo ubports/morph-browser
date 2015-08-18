@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.4
 import com.canonical.Oxide 1.7 as Oxide
 
 Item {
@@ -26,20 +26,27 @@ Item {
     property bool forceHide: false
     property int defaultMode: Oxide.LocationBarController.ModeAuto
 
-    onForceHideChanged: {
-        if (!webview) {
-            return
-        }
-        webview.locationBarController.animated = false
-        if (forceHide) {
-            webview.locationBarController.mode = Oxide.LocationBarController.ModeHidden
-        } else if (!webview.fullscreen) {
-            webview.locationBarController.mode = defaultMode
-            if (webview.locationBarController.mode == Oxide.LocationBarController.ModeAuto) {
-                webview.locationBarController.show(false)
+    onWebviewChanged: internal.updateVisibility()
+    onForceHideChanged: internal.updateVisibility()
+
+    QtObject {
+        id: internal
+
+        function updateVisibility() {
+            if (!webview) {
+                return
             }
+            webview.locationBarController.animated = false
+            if (forceHide) {
+                webview.locationBarController.mode = Oxide.LocationBarController.ModeHidden
+            } else if (!webview.fullscreen) {
+                webview.locationBarController.mode = defaultMode
+                if (webview.locationBarController.mode == Oxide.LocationBarController.ModeAuto) {
+                    webview.locationBarController.show(false)
+                }
+            }
+            webview.locationBarController.animated = true
         }
-        webview.locationBarController.animated = true
     }
 
     Connections {
@@ -63,6 +70,7 @@ Item {
         onLoadEvent: {
             // When loading, force ModeShown until the load is committed or stopped,
             // to work around https://launchpad.net/bugs/1453908.
+            if (forceHide) return
             if (event.type == Oxide.LoadEvent.TypeStarted) {
                 webview.locationBarController.mode = Oxide.LocationBarController.ModeShown
             } else if ((event.type == Oxide.LoadEvent.TypeCommitted) ||

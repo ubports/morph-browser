@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.4
 import com.canonical.Oxide 1.5 as Oxide
-import Ubuntu.Components 1.1
+import Ubuntu.Components 1.3
 import Ubuntu.Unity.Action 1.1 as UnityActions
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import Qt.labs.settings 1.0
@@ -33,6 +33,8 @@ BrowserView {
 
     property alias url: webview.url
 
+    property bool accountSwitcher
+
     property string webappModelSearchPath: ""
 
     property alias webappName: webview.webappName
@@ -46,7 +48,9 @@ BrowserView {
 
     property bool backForwardButtonsVisible: false
     property bool chromeVisible: false
-    readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible
+    readonly property bool chromeless: !chromeVisible && !backForwardButtonsVisible && !accountSwitcher
+
+    signal chooseAccount()
 
     // Used for testing. There is a bug that currently prevents non visual Qt objects
     // to be introspectable from AP which makes directly accessing the settings object
@@ -166,6 +170,7 @@ BrowserView {
                 Chrome {
                     webview: webapp.currentWebview
                     navigationButtonsVisible: webapp.backForwardButtonsVisible
+                    accountSwitcher: webapp.accountSwitcher
 
                     anchors {
                         left: parent.left
@@ -173,6 +178,8 @@ BrowserView {
                     }
                     height: units.gu(6)
                     y: webapp.currentWebview ? webview.currentWebview.locationBarController.offset : 0
+
+                    onChooseAccount: webapp.chooseAccount()
                 }
             }
 

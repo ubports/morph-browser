@@ -51,6 +51,7 @@ CookieStore::CookieStore(QObject* parent):
     QObject(parent)
 {
     qRegisterMetaType<QNetworkCookie>();
+    qRegisterMetaType<QList<QNetworkCookie> >("QList<QNetworkCookie>");
     qRegisterMetaType<Cookies>("Cookies");
 }
 

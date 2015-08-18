@@ -1,5 +1,8 @@
 project(webbrowser-app)
 
+find_package(Qt5Concurrent REQUIRED)
+find_package(Qt5Sql REQUIRED)
+
 include_directories(
     ${CMAKE_BINARY_DIR}
     ${webbrowser-common_SOURCE_DIR}
@@ -8,9 +11,13 @@ include_directories(
 
 set(WEBBROWSER_APP_MODELS_SRC
     bookmarks-model.cpp
+    bookmarks-folder-model.cpp
+    bookmarks-folderlist-model.cpp
     history-domain-model.cpp
     history-domainlist-chronological-model.cpp
     history-domainlist-model.cpp
+    history-lastvisitdate-model.cpp
+    history-lastvisitdatelist-model.cpp
     history-model.cpp
     history-timeframe-model.cpp
     limit-proxy-model.cpp
@@ -22,8 +29,10 @@ set(WEBBROWSER_APP_MODELS_SRC
 set(WEBBROWSER_APP_MODELS webbrowser-app-models)
 
 add_library(${WEBBROWSER_APP_MODELS} STATIC ${WEBBROWSER_APP_MODELS_SRC})
-
-qt5_use_modules(${WEBBROWSER_APP_MODELS} Core Sql)
+target_link_libraries(${WEBBROWSER_APP_MODELS}
+    Qt5::Core
+    Qt5::Sql
+)
 
 set(WEBBROWSER_APP_SRC
     cache-deleter.cpp
@@ -35,10 +44,14 @@ set(WEBBROWSER_APP_SRC
 set(WEBBROWSER_APP webbrowser-app)
 
 add_executable(${WEBBROWSER_APP} ${WEBBROWSER_APP_SRC})
-
-target_link_libraries(${WEBBROWSER_APP} ${COMMONLIB} ${WEBBROWSER_APP_MODELS})
-
-qt5_use_modules(${WEBBROWSER_APP} Concurrent Core Qml Quick)
+target_link_libraries(${WEBBROWSER_APP}
+    Qt5::Concurrent
+    Qt5::Core
+    Qt5::Qml
+    Qt5::Quick
+    ${COMMONLIB}
+    ${WEBBROWSER_APP_MODELS}
+)
 
 install(TARGETS ${WEBBROWSER_APP}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
@@ -48,7 +61,7 @@ install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/w
 
 install(DIRECTORY assets
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
-        FILES_MATCHING PATTERN *.png)
+        FILES_MATCHING PATTERN *.png PATTERN *.svg)
 
 install(DIRECTORY searchengines
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
