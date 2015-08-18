@@ -17,7 +17,6 @@
 import os.path
 import sqlite3
 import time
-import testtools
 
 from autopilot.matchers import Eventually
 from autopilot.platform import model
