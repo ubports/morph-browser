@@ -28,9 +28,6 @@ FocusScope {
 
     signal done()
     signal historyEntryClicked(url url)
-    signal historyEntryRemoved(url url)
-    signal historyEntriesRemovedByDate(var date)
-    signal allHistoryEntriesRemoved()
     signal newTabRequested()
 
     Keys.onLeftPressed: lastVisitDateListView.forceActiveFocus()
@@ -40,15 +37,15 @@ FocusScope {
             internal.removeSelected()
         } else {
             if (urlsListView.activeFocus) {
-                historyViewWide.historyEntryRemoved(urlsListView.currentItem.url)
+                historyViewWide.historyModel.removeEntryByUrl(urlsListView.currentItem.url)
                 if (urlsListView.count == 0) {
                     lastVisitDateListView.currentIndex = 0
                 }
             } else {
                 if (lastVisitDateListView.currentIndex == 0) {
-                    historyViewWide.allHistoryEntriesRemoved()
+                    historyViewWide.historyModel.clearAll()
                 } else {
-                    historyViewWide.historyEntriesRemovedByDate(lastVisitDateListView.currentItem.lastVisitDate)
+                    historyViewWide.historyModel.removeEntriesByDate(lastVisitDateListView.currentItem.lastVisitDate)
                     lastVisitDateListView.currentIndex = 0
                 }
             }
@@ -248,7 +245,7 @@ FocusScope {
                     }
      
                     onRemoved: {
-                        historyViewWide.historyEntryRemoved(model.url)
+                        historyViewWide.historyModel.removeEntryByUrl(model.url)
                         if (urlsListView.count == 0) {
                             lastVisitDateListView.currentIndex = 0
                         }
@@ -436,7 +433,7 @@ FocusScope {
 
             urlsListView.ViewItems.selectMode = false
             for (var j in urls) {
-                historyViewWide.historyEntryRemoved(urls[j])
+                historyViewWide.historyModel.removeEntryByUrl(urls[j])
             }
 
             lastVisitDateListView.forceActiveFocus()
