@@ -80,10 +80,12 @@ Item {
 
             actions: ActionList {
                 Action {
+                    objectName: "tab_action_new_tab"
                     text: i18n.tr("New Tab")
                     onTriggered: root.requestNewTab(menu.targetIndex + 1, false)
                 }
                 Action {
+                    objectName: "tab_action_reload"
                     text: i18n.tr("Reload")
                     enabled: root.model.get(menu.targetIndex).url.toString().length > 0
                     onTriggered: {
@@ -92,6 +94,7 @@ Item {
                     }
                 }
                 Action {
+                    objectName: "tab_action_close_tab"
                     text: i18n.tr("Close Tab")
                     onTriggered: internal.closeTab(menu.targetIndex)
                 }

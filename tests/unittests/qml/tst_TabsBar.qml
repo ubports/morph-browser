@@ -86,9 +86,22 @@ Item {
     // Ideally we would get menu items by their objectName, however they are
     // created dynamically by the ActionSelectionPopover and the objectName
     // of the source action is not copied to the generated item.
-    // So we need to get them by their text. The AP emulator does the same.
+    // So we first select the source Action by objectName then look for an item
+    // with the same text as the action. This is not ideal but it will work
+    // since we don't have items with the same text.
     // See this bug report for a request to fix this: http://pad.lv/1205144
-    function getMenuItemWithText(menu, text) {
+    function getMenuItemForAction(menu, actionName) {
+        actionName = "tab_action_" + actionName
+        var text = ""
+        var actions = menu.actions.actions
+        for (var i = 0; i < actions.length; i++) {
+            if (actions[i].objectName === actionName) {
+                text = actions[i].text
+                break
+            }
+        }
+        if (text === "") return null
+
         var menuItems = Tree.findChildrenByType(menu, "Label")
         var matching = menuItems.filter(function(item) { return item.text === text })
         if (matching.length === 0) return null
@@ -231,29 +244,29 @@ Item {
         function test_menu_states_on_new_tab() {
             populateTabs()
             var menu = popupMenuOnTab(0)
-            var item = getMenuItemWithText(menu, "New Tab")
+            var item = getMenuItemForAction(menu, "new_tab")
             verify(item.enabled)
-            item = getMenuItemWithText(menu, "Reload")
+            item = getMenuItemForAction(menu, "reload")
             verify(!item.enabled)
-            item = getMenuItemWithText(menu, "Close Tab")
+            item = getMenuItemForAction(menu, "close_tab")
             verify(item.enabled)
         }
 
         function test_menu_states_on_page() {
             tabs.appendTab("http://localhost/", "tab", "")
             var menu = popupMenuOnTab(0)
-            var item = getMenuItemWithText(menu, "New Tab")
+            var item = getMenuItemForAction(menu, "new_tab")
             verify(item.enabled)
-            item = getMenuItemWithText(menu, "Reload")
+            item = getMenuItemForAction(menu, "reload")
             verify(item.enabled)
-            item = getMenuItemWithText(menu, "Close Tab")
+            item = getMenuItemForAction(menu, "close_tab")
             verify(item.enabled)
         }
 
         function test_context_menu_close() {
             populateTabs()
             var menu = popupMenuOnTab(1)
-            var item = getMenuItemWithText(menu, "Close Tab")
+            var item = getMenuItemForAction(menu, "close_tab")
             clickItem(item)
             compare(tabsModel.count, 2)
             compare(tabsModel.get(0).title, "tab 0")
@@ -265,7 +278,7 @@ Item {
             tabs.appendTab(baseUrl + "1", "tab 1", "")
             tabs.appendTab(baseUrl + "2", "tab 2", "")
             var menu = popupMenuOnTab(1)
-            var item = getMenuItemWithText(menu, "Reload")
+            var item = getMenuItemForAction(menu, "reload")
             clickItem(item)
             compare(reloadSpy.count, 1)
             compare(reloadSpy.signalArguments[0][0], baseUrl + "2")
@@ -276,7 +289,7 @@ Item {
             tabs.appendTab(baseUrl + "1", "tab 1", "")
             tabs.appendTab(baseUrl + "2", "tab 2", "")
             var menu = popupMenuOnTab(0)
-            var item = getMenuItemWithText(menu, "New Tab")
+            var item = getMenuItemForAction(menu, "new_tab")
             clickItem(item)
             compare(newTabRequestSpy.count, 1)
             compare(newTabRequestSpy.signalArguments[0][0], 1)
