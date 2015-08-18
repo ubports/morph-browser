@@ -234,8 +234,8 @@ int BookmarksModel::addFolder(const QString& folder)
     if (newFolderId != 0) {
         m_folders.insert(newFolderId, folder);
         Q_EMIT folderAdded(folder);
-        return newFolderId;
     }
+    return newFolderId;
 }
 
 /*!

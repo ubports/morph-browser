@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-07-03 14:57+0200\n"
-"PO-Revision-Date: 2015-07-14 19:21+0000\n"
+"POT-Creation-Date: 2015-08-13 07:04+0200\n"
+"PO-Revision-Date: 2015-08-14 09:42+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-07-16 05:38+0000\n"
-"X-Generator: Launchpad (build 17628)\n"
+"X-Launchpad-Export-Date: 2015-08-15 05:32+0000\n"
+"X-Generator: Launchpad (build 17686)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -50,8 +50,10 @@ msgstr "Jelszó"
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/HistoryView.qml:165
+#: src/app/webbrowser/HistoryViewWide.qml:291
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:301
+#: src/app/webbrowser/SettingsPage.qml:289
+#: src/app/webbrowser/SettingsPage.qml:343
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "Mégse"
@@ -371,6 +373,16 @@ msgstr "Kép másolása"
 msgid "Copy link"
 msgstr "Hivatkozás másolása"
 
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:381
+msgid "Find in page"
+msgstr "Keresés"
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/FindInPage.qml:26
+msgid "Search in Page"
+msgstr "Keresés az oldalon"
+
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "Előre"
@@ -391,7 +403,7 @@ msgstr "Ugrás"
 msgid "Address;URL;www"
 msgstr "Cím;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:574
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:654
 msgid "New Tab"
 msgstr "Új lap"
 
@@ -431,7 +443,17 @@ msgstr "Kép mentése"
 msgid "Share…"
 msgstr "Megosztás…"
 
-#: src/app/webbrowser/AddressBar.qml:208
+#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
+#: src/app/webbrowser/AddressBar.qml:203
+#, qt-format
+msgid "%1/%2"
+msgstr "%1/%2"
+
+#: src/app/webbrowser/AddressBar.qml:239
+msgid "find in page"
+msgstr "keresés"
+
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "search or enter an address"
 msgstr "keresés vagy cím megadása"
 
@@ -451,6 +473,7 @@ msgstr "Mentés ide"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
+#: src/app/webbrowser/NewTabViewWide.qml:122
 msgid "All Bookmarks"
 msgstr "Minden könyvjelző"
 
@@ -464,54 +487,57 @@ msgid "Create new folder"
 msgstr "Új mappa létrehozása"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:311
+#: src/app/webbrowser/SettingsPage.qml:353
 msgid "Save"
 msgstr "Mentés"
 
-#: src/app/webbrowser/Browser.qml:292
+#: src/app/webbrowser/Browser.qml:350
 msgid "Share"
 msgstr "Megosztás"
 
-#: src/app/webbrowser/Browser.qml:299
+#: src/app/webbrowser/Browser.qml:357
+#: src/app/webbrowser/HistoryViewWide.qml:275
 msgid "History"
 msgstr "Előzmények"
 
-#: src/app/webbrowser/Browser.qml:309
+#: src/app/webbrowser/Browser.qml:364
 msgid "Open tabs"
 msgstr "Nyitott lapok"
 
-#: src/app/webbrowser/Browser.qml:320 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/TabsList.qml:85
+#: src/app/webbrowser/Browser.qml:374 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:409
+#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Új lap"
 
-#: src/app/webbrowser/Browser.qml:327 src/app/webbrowser/SettingsPage.qml:51
-msgid "Settings"
-msgstr "Beállítások"
-
-#: src/app/webbrowser/Browser.qml:336
+#: src/app/webbrowser/Browser.qml:391
 msgid "Leave Private Mode"
 msgstr "Privát mód bezárása"
 
-#: src/app/webbrowser/Browser.qml:336
+#: src/app/webbrowser/Browser.qml:391
 msgid "Private Mode"
 msgstr "Privát mód"
 
-#: src/app/webbrowser/Browser.qml:560 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:409 src/app/webbrowser/SettingsPage.qml:51
+msgid "Settings"
+msgstr "Beállítások"
+
+#: src/app/webbrowser/Browser.qml:640 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:395
 msgid "Done"
 msgstr "Kész"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:658
+#: src/app/webbrowser/Browser.qml:747
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:941
+#: src/app/webbrowser/Browser.qml:1074
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Húzza felfelé az ujját a teljes képernyős mód elhagyásához"
 
-#: src/app/webbrowser/Browser.qml:942
+#: src/app/webbrowser/Browser.qml:1075
 msgid "Press ESC To Exit Full Screen"
 msgstr "Nyomja meg az ESC billentyűt a teljes képernyős mód elhagyásához"
 
@@ -527,21 +553,33 @@ msgstr[1] "%1 oldal"
 msgid "Less"
 msgstr "Kevesebb"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:44
+#: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
 msgstr "Utoljára meglátogatott"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:46
+#: src/app/webbrowser/HistorySectionDelegate.qml:48
+#: src/app/webbrowser/HistoryViewWide.qml:131
 msgid "Yesterday"
 msgstr "Tegnap"
 
 #: src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:312
 msgid "Select all"
 msgstr "Összes kijelölése"
 
 #: src/app/webbrowser/HistoryView.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:343
 msgid "Delete"
 msgstr "Törlés"
+
+#: src/app/webbrowser/HistoryViewWide.qml:115
+msgid "All History"
+msgstr "Minden előzmény"
+
+#: src/app/webbrowser/HistoryViewWide.qml:129
+#: src/app/webbrowser/HistoryViewWide.qml:194
+msgid "Today"
+msgstr "Ma"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -561,6 +599,7 @@ msgstr ""
 "A létrehozott könyvjelzők azonban megmaradnak."
 
 #: src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:313
 msgid "Bookmarks"
 msgstr "Könyvjelzők"
 
@@ -569,12 +608,19 @@ msgid "More"
 msgstr "Több"
 
 #: src/app/webbrowser/NewTabView.qml:226
+#: src/app/webbrowser/NewTabViewWide.qml:312
 msgid "Top sites"
 msgstr "Leglátogatottabb oldalak"
 
 #: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
 msgstr "Még nem látogatott meg egyetlen oldalt sem"
+
+#: src/app/webbrowser/NewTabViewWide.qml:160
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:317
+msgid "Homepage"
+msgstr "Kezdőlap"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -602,7 +648,7 @@ msgstr "A kiszolgáló tanúsítványa érvénytelen dátumokat tartalmaz."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr "A kiszolgáló tanúsítványa egy nem megbízható fél állította ki."
+msgstr "A kiszolgáló tanúsítványát egy nem megbízható fél állította ki."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
@@ -635,11 +681,6 @@ msgstr "Kezeli:"
 msgid "Search engine"
 msgstr "Keresőmotor"
 
-#: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:275
-msgid "Homepage"
-msgstr "Kezdőlap"
-
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
 msgstr "Előző munkamenet induláskor"
@@ -661,9 +702,21 @@ msgstr "Böngészőbeállítások visszaállítása"
 msgid "Clear Browsing History"
 msgstr "Böngészési előzmények törlése"
 
-#: src/app/webbrowser/SettingsPage.qml:256
+#: src/app/webbrowser/SettingsPage.qml:252
+msgid "Clear Browsing History?"
+msgstr "Törli az előzményeket?"
+
+#: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
 msgstr "Gyorsítótár törlése"
+
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
+msgstr "Törli a gyorsítótárat?"
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr "Törlés"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
@@ -729,7 +782,8 @@ msgstr "<b>%1</b> hozzá szeretne férni a(z) %2 online fiókhoz."
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
-"Válasszon most egy fiókot, vagy hagyja ki ezt a lépést és adjon hozzá később."
+"Válasszon most egy fiókot, vagy hagyja ki ezt a lépést és adjon hozzá egyet "
+"később."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
@@ -773,9 +827,6 @@ msgstr "Internet;WWW;Böngésző;Web"
 
 #~ msgid "Skip account creation step"
 #~ msgstr "A fióklétrehozási lépés kihagyása"
-
-#~ msgid "Clear"
-#~ msgstr "Törlés"
 
 #~ msgid "Add"
 #~ msgstr "Hozzáadás"
