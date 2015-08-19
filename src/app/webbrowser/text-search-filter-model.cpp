@@ -16,37 +16,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "suggestions-filter-model.h"
+#include "text-search-filter-model.h"
 
 #include <QtCore/QDebug>
 #include <QtCore/QSet>
 
 /*!
-    \class SuggestionsFilterModel
+    \class TextSearchFilterModel
     \brief Proxy model that filters the contents of a model based on a list of
            keywords applied to multiple fields.
 
-    SuggestionsFilterModel is a proxy model that filters the contents of a
+    TextSearchFilterModel is a proxy model that filters the contents of a
     model based on a list of terms string that is applied to multiple user
     defined fields (matching role names in the source model).
 
     An item in the source model is returned by this model if all the search
-    terms are contained across all of the item's fields (i.e. given two search
+    terms are contained in any of the item's fields (i.e. given two search
     terms, if one is found in a field and the other in a different field, then
-    the item will be returned)
+    the item will be returned, but it will not be returned if only one is found)
 */
-SuggestionsFilterModel::SuggestionsFilterModel(QObject* parent)
+TextSearchFilterModel::TextSearchFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
 }
 
-QVariant SuggestionsFilterModel::sourceModel() const
+QVariant TextSearchFilterModel::sourceModel() const
 {
     QAbstractItemModel* source = QSortFilterProxyModel::sourceModel();
     return (source) ? QVariant::fromValue(source) : QVariant();
 }
 
-void SuggestionsFilterModel::setSourceModel(QVariant sourceModel)
+void TextSearchFilterModel::setSourceModel(QVariant sourceModel)
 {
     QAbstractItemModel* currentSource = QSortFilterProxyModel::sourceModel();
     QAbstractItemModel* newSource = qvariant_cast<QAbstractItemModel*>(sourceModel);
@@ -58,7 +58,7 @@ void SuggestionsFilterModel::setSourceModel(QVariant sourceModel)
     }
 }
 
-void SuggestionsFilterModel::setTerms(const QStringList& terms)
+void TextSearchFilterModel::setTerms(const QStringList& terms)
 {
     if (terms != m_terms) {
         m_terms = terms;
@@ -68,12 +68,12 @@ void SuggestionsFilterModel::setTerms(const QStringList& terms)
     }
 }
 
-const QStringList& SuggestionsFilterModel::terms() const
+const QStringList& TextSearchFilterModel::terms() const
 {
     return m_terms;
 }
 
-void SuggestionsFilterModel::setSearchFields(const QStringList& searchFields)
+void TextSearchFilterModel::setSearchFields(const QStringList& searchFields)
 {
     if (searchFields != m_searchFields) {
         m_searchFields = searchFields;
@@ -84,12 +84,12 @@ void SuggestionsFilterModel::setSearchFields(const QStringList& searchFields)
     }
 }
 
-const QStringList& SuggestionsFilterModel::searchFields() const
+const QStringList& TextSearchFilterModel::searchFields() const
 {
     return m_searchFields;
 }
 
-void SuggestionsFilterModel::updateSearchRoles(const QAbstractItemModel* model) {
+void TextSearchFilterModel::updateSearchRoles(const QAbstractItemModel* model) {
     m_searchRoles.clear();
     if (model) {
         Q_FOREACH(const QString& field, m_searchFields) {
@@ -103,7 +103,7 @@ void SuggestionsFilterModel::updateSearchRoles(const QAbstractItemModel* model) 
     }
 }
 
-bool SuggestionsFilterModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
+bool TextSearchFilterModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     if (m_terms.isEmpty() || m_searchFields.isEmpty()) {
         return false;
@@ -129,7 +129,7 @@ bool SuggestionsFilterModel::filterAcceptsRow(int source_row, const QModelIndex&
     return false;
 }
 
-int SuggestionsFilterModel::count() const
+int TextSearchFilterModel::count() const
 {
     return rowCount();
 }

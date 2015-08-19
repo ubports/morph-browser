@@ -1,5 +1,5 @@
-set(TEST tst_SuggestionsFilterModelTests)
-add_executable(${TEST} tst_SuggestionsFilterModelTests.cpp)
+set(TEST tst_TextSearchFilterModelTests)
+add_executable(${TEST} tst_TextSearchFilterModelTests.cpp)
 include_directories(${webbrowser-app_SOURCE_DIR})
 qt5_use_modules(${TEST} Test)
 target_link_libraries(${TEST} webbrowser-app-models)

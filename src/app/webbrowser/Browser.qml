@@ -278,7 +278,7 @@ BrowserView {
                 id: historySuggestions
                 limit: 4
                 property string icon: "history"
-                sourceModel: SuggestionsFilterModel {
+                sourceModel: TextSearchFilterModel {
                     sourceModel: browser.historyModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
@@ -289,7 +289,7 @@ BrowserView {
                 id: bookmarksSuggestions
                 limit: 4
                 property string icon: "non-starred"
-                sourceModel: SuggestionsFilterModel {
+                sourceModel: TextSearchFilterModel {
                     sourceModel: browser.bookmarksModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
