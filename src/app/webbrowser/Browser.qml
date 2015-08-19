@@ -836,6 +836,7 @@ BrowserView {
                 preferences.localStorageEnabled: true
                 preferences.appCacheEnabled: true
 
+                property QtObject contextModel: null
                 contextualActions: ActionList {
                     Actions.OpenLinkInNewTab {
                         enabled: contextModel && contextModel.linkUrl.toString()
@@ -880,6 +881,50 @@ BrowserView {
                         onTriggered: contextModel.saveMedia()
                     }
                 }
+
+                function hasContextActions() {
+                    if (contextualActions) {
+                        for (var i in contextualActions.actions) {
+                            if (contextualActions.actions[i].enabled) {
+                                return true
+                            }
+                        }
+                    }
+                    return false
+                }
+
+                function hasSelectionActions() {
+                    if (selectionActions) {
+                        for (var i in selectionActions.actions) {
+                            if (selectionActions.actions[i].enabled) {
+                                return true
+                            }
+                        }
+                    }
+                    return false
+                }
+
+                function setUpContextMenuComponent(model) {
+                    contextModel = model
+                    if (!webviewimpl.hasContextActions() && webviewimpl.hasSelectionActions()) {
+                        webviewimpl.createSelection(model.position)
+                    }
+                }
+                Component {
+                    id: contextMenuNarrowComponent
+                    ContextMenuMobile {
+                        actions: contextualActions
+                        Component.onCompleted: webviewimpl.setUpContextMenuComponent(contextModel)
+                    }
+                }
+                Component {
+                    id: contextMenuWideComponent
+                    ContextMenuWide {
+                        actions: contextualActions
+                        Component.onCompleted: webviewimpl.setUpContextMenuComponent(contextModel)
+                    }
+                }
+                contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
                 onNewViewRequested: {
                     var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})

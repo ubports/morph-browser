@@ -60,15 +60,13 @@ Oxide.WebView {
 
     Item {
         id: contextualRectangle
-
         visible: false
-
-        function position(point) {
-            // XXX: is the scale factor taken into account?
-            x = point.x
-            y = point.y
-        }
+        readonly property real locationBarOffset: _webview.locationBarController.height + _webview.locationBarController.offset
+        // XXX: does this take the scale factor into account?
+        x: internal.contextModel ? internal.contextModel.position.x : 0
+        y: internal.contextModel ? internal.contextModel.position.y + locationBarOffset : 0
     }
+
     property QtObject contextualData: QtObject {
         // TODO: mark deprecated
         property url href
@@ -80,21 +78,19 @@ Oxide.WebView {
             title = ''
             img = ''
         }
-
-        readonly property var cleaner: _webview.contextModel ? 0 : clear()
     }
 
     property ActionList contextualActions
-    property QtObject contextModel: null
     contextMenu: ActionSelectionPopover {
         actions: contextualActions
+        caller: contextualRectangle
         Component.onCompleted: {
             internal.dismissCurrentContextualMenu()
             internal.dismissCurrentSelection()
-            contextModel = model
+            internal.contextModel = model
             var empty = true
-            if (actions != null) {
-                for (var i = 0; i < actions.actions.length; ++i) {
+            if (actions) {
+                for (var i in actions.actions) {
                     if (actions.actions[i].enabled) {
                         empty = false
                         break
@@ -107,15 +103,12 @@ Oxide.WebView {
                 }
                 internal.dismissCurrentContextualMenu()
             } else {
-                contextualRectangle.position(model.position)
                 contextualData.clear()
                 contextualData.href = model.linkUrl
                 contextualData.title = model.linkText
                 if ((model.mediaType == Oxide.WebView.MediaTypeImage) && model.hasImageContents) {
                     contextualData.img = model.srcUrl
                 }
-                // FIXME: position where the contextualRectangle is
-                // (https://launchpad.net/bugs/1477315)
                 show()
             }
         }
@@ -194,15 +187,19 @@ Oxide.WebView {
             console.warn("No current selection")
         }
     }
+    function createSelection(position) {
+        internal.createSelection(position)
+    }
 
     QtObject {
         id: internal
         property int lastLoadRequestStatus: -1
         property Item currentSelection: null
+        property QtObject contextModel: null
 
         function hasSelectionActions() {
-            if (selectionActions != null) {
-                for (var i = 0; i < selectionActions.actions.length; ++i) {
+            if (selectionActions) {
+                for (var i in selectionActions.actions) {
                     if (selectionActions.actions[i].enabled) {
                         return true
                     }
@@ -262,6 +259,9 @@ Oxide.WebView {
                 currentSelection.destroy(1)
             }
         }
+
+        // Automatically clear the contextual data when the context model is destroyed
+        readonly property var contextualDataCleaner: contextModel ? 0 : _webview.contextualData.clear()
     }
 
     readonly property bool lastLoadSucceeded: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeSucceeded
