@@ -16,19 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import com.canonical.Oxide 1.3 as Oxide
+import QtQuick 2.4
+import com.canonical.Oxide 1.6 as Oxide
 
 Oxide.WebContext {
     readonly property string defaultUserAgent: __ua.defaultUA
 
-    cachePath: cacheLocation
     dataPath: dataLocation
+
+    cachePath: cacheLocation
+    maxCacheSizeHint: cacheSizeHint
+
     userAgent: defaultUserAgent
 
     networkRequestDelegate: Oxide.WebContextDelegateWorker {
         source: Qt.resolvedUrl("ua-override-worker.js")
-        onMessage: console.log("Overriden UA for", message.url, ":", message.override)
+        // Disable this log message since it outputs sensitive content when
+        // in private mode. (See  http://pad.lv/1457925)
+        //onMessage: console.log("Overriden UA for", message.url, ":", message.override)
         Component.onCompleted: {
             var script = "ua-overrides-%1.js".arg(formFactor)
             var temp = null

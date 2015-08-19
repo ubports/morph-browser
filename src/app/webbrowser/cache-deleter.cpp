@@ -60,13 +60,19 @@ void CacheDeleter::clear(const QString& cachePath, const QJSValue& callback)
  */
 void CacheDeleter::doClear(const QString& cachePath)
 {
-    // This assumes the cache is using chromium’s blockfile backend
-    // TODO: if oxide switches to using the simple backend
-    //  (https://launchpad.net/bugs/1430349), this will need updating
-    //  to remove a different set of files.
-    QStringList nameFilters = QStringList() << "data_*" << "f_*";
+    // This assumes the cache is using chromium’s simple cache backend.
+    QStringList nameFilters = QStringList()
+            << "0*" << "1*" << "2*" << "3*" << "4*" << "5*" << "6*" << "7*"
+            << "8*" << "9*" << "a*" << "b*" << "c*" << "d*" << "e*" << "f*"
+            << "index";
     QDir::Filters filters = QDir::Files | QDir::NoDotAndDotDot;
     QFileInfoList files = QDir(cachePath).entryInfoList(nameFilters, filters);
+    Q_FOREACH(const QFileInfo& file, files) {
+        QFile::remove(file.absoluteFilePath());
+    }
+
+    nameFilters = QStringList() << "the-real-index";
+    files = QDir(cachePath + "/index-dir").entryInfoList(nameFilters, filters);
     Q_FOREACH(const QFileInfo& file, files) {
         QFile::remove(file.absoluteFilePath());
     }

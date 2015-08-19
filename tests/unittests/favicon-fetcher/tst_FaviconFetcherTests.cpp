@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -34,7 +34,7 @@
 // local
 #include "favicon-fetcher.h"
 
-const char icon_data[] = {
+const unsigned char icon_data[] = {
     0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x01, 0x02, 0x00, 0x01, 0x00,
     0x01, 0x00, 0x38, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00, 0x28, 0x00,
     0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x01, 0x00,
@@ -98,7 +98,7 @@ private Q_SLOTS:
             response << "HTTP/1.0 200 OK\r\n"
                      << "Content-Length: " << icon_data_size << "\r\n"
                      << "Content-Type: image/x-icon\r\n\r\n"
-                     << QString::fromLocal8Bit(icon_data, icon_data_size) << "\n";
+                     << QString::fromLocal8Bit((const char*) icon_data, icon_data_size) << "\n";
         } else if (redirection.exactMatch(path)) {
             int n = redirection.cap(1).toInt();
             response << "HTTP/1.0 303 See Other\r\n"
@@ -218,6 +218,20 @@ private Q_SLOTS:
         fetcher->setUrl(url);
         QCOMPARE(fetcher->localUrl(), localUrl);
         QVERIFY(serverSpy->isEmpty());
+    }
+
+    void shouldNotCacheIcon()
+    {
+        fetcher->setShouldCache(false);
+        QUrl url(server->baseURL() + "/favicon1.ico");
+        fetcher->setUrl(url);
+        QCOMPARE(fetcher->url(), url);
+        QVERIFY(fetcherSpy->wait());
+        QCOMPARE(serverSpy->count(), 1);
+        QUrl icon = fetcher->localUrl();
+        QVERIFY(!icon.isLocalFile());
+        QCOMPARE(icon.scheme(), QString("data"));
+        QVERIFY(icon.path().startsWith("image/png;base64,"));
     }
 
     void shouldHandleRedirections()

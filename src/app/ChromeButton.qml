@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,12 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.3
 
 AbstractButton {
     property real iconSize: width
     property alias iconName: icon.name
+    property alias iconColor: icon.color
+
+    Rectangle {
+        anchors.fill: parent
+        color: Theme.palette.selected.background
+        visible: parent.pressed
+    }
 
     Icon {
         id: icon

@@ -1,0 +1,6 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Bing</ShortName>
+  <Description>Bing. Search by Microsoft.</Description>
+  <Url type="text/html" template="https://www.bing.com/search?q={searchTerms}"/>
+  <Url type="application/x-suggestions+json" template="https://www.bing.com/osjson.aspx?query={searchTerms}"/>
+</OpenSearchDescription>

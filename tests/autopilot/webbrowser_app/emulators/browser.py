@@ -18,24 +18,8 @@ import logging
 
 import autopilot.logging
 import ubuntuuitoolkit as uitk
-from autopilot import introspection
-
-
-class Webbrowser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-
-    """Autopilot custom proxy object for the webbrowser app."""
-
-    @classmethod
-    def validate_dbus_object(cls, path, state):
-        name = introspection.get_classname_from_path(path)
-        if name == b'webbrowser-app':
-            if state['applicationName'][1] == 'webbrowser-app':
-                return True
-        return False
-
-    @property
-    def main_window(self):
-        return self.select_single(Browser)
+from autopilot import exceptions
+from autopilot import input
 
 logger = logging.getLogger(__name__)
 
@@ -46,6 +30,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         super().__init__(*args)
         self.chrome = self._get_chrome()
         self.address_bar = self.chrome.address_bar
+        self.keyboard = input.Keyboard.create()
 
     def _get_chrome(self):
         return self.select_single(Chrome)
@@ -66,6 +51,49 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def go_forward(self):
         self.chrome.go_forward()
 
+    @autopilot.logging.log_action(logger.info)
+    def enter_private_mode(self):
+        if not self.is_in_private_mode():
+            self.chrome.toggle_private_mode()
+        else:
+            logger.warning('The browser is already in private mode.')
+
+    def is_in_private_mode(self):
+        return self.get_current_webview().incognito
+
+    @autopilot.logging.log_action(logger.info)
+    def leave_private_mode(self):
+        if self.is_in_private_mode():
+            self.chrome.toggle_private_mode()
+        else:
+            logger.warning('The browser is not in private mode.')
+
+    @autopilot.logging.log_action(logger.info)
+    def leave_private_mode_with_confirmation(self, confirm=True):
+        if self.is_in_private_mode():
+            self.chrome.toggle_private_mode()
+            dialog = self._get_leave_private_mode_dialog()
+            if confirm:
+                dialog.confirm()
+            else:
+                dialog.cancel()
+            dialog.wait_until_destroyed()
+        else:
+            logger.warning('The browser is not in private mode.')
+
+    def _get_leave_private_mode_dialog(self):
+        return self.wait_select_single(LeavePrivateModeDialog, visible=True)
+
+    # Since the NewPrivateTabView does not define any new QML property in its
+    # extended file, it does not report itself to autopilot with the same name
+    # as the extended file. (See http://pad.lv/1454394)
+    def is_new_private_tab_view_visible(self):
+        try:
+            self.get_new_private_tab_view()
+            return True
+        except exceptions.StateNotFoundError:
+            return False
+
     def get_window(self):
         return self.get_parent()
 
@@ -73,7 +101,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("WebViewImpl", visible=True)
 
     def get_webviews(self):
-        return self.select_many("WebViewImpl")
+        return self.select_many("WebViewImpl", incognito=False)
+
+    def get_incognito_webviews(self):
+        return self.select_many("WebViewImpl", incognito=True)
 
     def get_error_sheet(self):
         return self.select_single("ErrorSheet")
@@ -99,7 +130,18 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        state="shown")
 
     def get_new_tab_view(self):
-        return self.wait_select_single("NewTabView", visible=True)
+        if self.wide:
+            return self.wait_select_single("NewTabViewWide", visible=True)
+        else:
+            return self.wait_select_single("NewTabView", visible=True)
+
+    # Since the NewPrivateTabView does not define any new QML property in its
+    # extended file, it does not report itself to autopilot with the same name
+    # as the extended file. (See http://pad.lv/1454394)
+    def get_new_private_tab_view(self):
+        return self.wait_select_single("QQuickItem",
+                                       objectName="newPrivateTabView",
+                                       visible=True)
 
     def get_settings_page(self):
         return self.wait_select_single(SettingsPage, visible=True)
@@ -111,6 +153,27 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
+
+    def get_bookmark_options(self):
+        return self.select_single(BookmarkOptions)
+
+    def get_new_bookmarks_folder_dialog(self):
+        return self.wait_select_single("Dialog",
+                                       objectName="newFolderDialog")
+
+    # The history view is dynamically created, so it might or might not be
+    # available
+    def get_history_view(self):
+        try:
+            if self.wide:
+                return self.select_single("HistoryViewWide")
+            else:
+                return self.select_single("HistoryView")
+        except exceptions.StateNotFoundError:
+            return None
+
+    def press_key(self, key):
+        self.keyboard.press_and_release(key)
 
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -148,6 +211,13 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         forward_button = self._get_forward_button()
         return forward_button.enabled
 
+    def toggle_private_mode(self):
+        drawer_button = self.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        self.get_drawer()
+        private_mode_action = self.get_drawer_action("privatemode")
+        self.pointing_device.click_object(private_mode_action)
+
     def get_drawer_button(self):
         return self.select_single("ChromeButton", objectName="drawerButton")
 
@@ -159,6 +229,17 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         drawer = self.get_drawer()
         return drawer.select_single("AbstractButton", objectName=actionName,
                                     visible=True)
+
+    def get_tabs_bar(self):
+        return self.select_single(TabsBar)
+
+    def get_find_next_button(self):
+        return self.select_single("ChromeButton",
+                                  objectName="findNextButton")
+
+    def get_find_prev_button(self):
+        return self.select_single("ChromeButton",
+                                  objectName="findPreviousButton")
 
 
 class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -178,12 +259,14 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def go_to_url(self, url):
-        self.focus()
         self.write(url)
-        self.text_field.keyboard.press_and_release('Enter')
+        self.press_key('Enter')
 
     def write(self, text, clear=True):
         self.text_field.write(text, clear)
+
+    def press_key(self, key):
+        self.text_field.keyboard.press_and_release(key)
 
     @autopilot.logging.log_action(logger.info)
     def click_action_button(self):
@@ -192,7 +275,37 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
     def get_bookmark_toggle(self):
-        return self.select_single("QQuickItem", objectName="bookmarkToggle")
+        return self.select_single("QQuickMouseArea",
+                                  objectName="bookmarkToggle")
+
+    def get_find_in_page_counter(self):
+        return self.select_single("Label", objectName="findInPageCounter")
+
+
+class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    @autopilot.logging.log_action(logger.info)
+    def click_new_tab_button(self):
+        button = self.select_single("QQuickMouseArea",
+                                    objectName="newTabButton")
+        self.pointing_device.click_object(button)
+
+    def get_tabs(self):
+        return self.select_many("QQuickItem", objectName="tabDelegate")
+
+    def get_tab(self, index):
+        return self.select_single("QQuickItem", objectName="tabDelegate",
+                                  tabIndex=index)
+
+    @autopilot.logging.log_action(logger.info)
+    def select_tab(self, index):
+        self.pointing_device.click_object(self.get_tab(index))
+
+    @autopilot.logging.log_action(logger.info)
+    def close_tab(self, index):
+        tab = self.get_tab(index)
+        close_button = tab.select_single("Icon", objectName="closeButton")
+        self.pointing_device.click_object(close_button)
 
 
 class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -265,6 +378,13 @@ class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_header(self):
         return self.select_single(SettingsPageHeader)
 
+    def get_searchengine_entry(self):
+        return self.select_single("Subtitled", objectName="searchengine")
+
+    def get_searchengine_page(self):
+        return self.wait_select_single("QQuickItem",
+                                       objectName="searchEnginePage")
+
     def get_homepage_entry(self):
         return self.select_single("Subtitled", objectName="homepage")
 
@@ -291,3 +411,166 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def click_back_button(self):
         button = self.select_single("AbstractButton", objectName="backButton")
         self.pointing_device.click_object(button)
+
+
+class LeavePrivateModeDialog(uitk.Dialog):
+
+    @autopilot.logging.log_action(logger.info)
+    def confirm(self):
+        confirm_button = self.select_single(
+            "Button", objectName="leavePrivateModeDialog.okButton")
+        self.pointing_device.click_object(confirm_button)
+
+    @autopilot.logging.log_action(logger.info)
+    def cancel(self):
+        cancel_button = self.select_single(
+            "Button", objectName="leavePrivateModeDialog.cancelButton")
+        self.pointing_device.click_object(cancel_button)
+
+
+class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_bookmarks_more_button(self):
+        return self.select_single("Button", objectName="bookmarks.moreButton")
+
+    def get_homepage_bookmark(self):
+        return self.select_single(UrlDelegate, objectName="homepageBookmark")
+
+    def get_bookmarks_list(self):
+        return self.select_single(UrlsList, objectName="bookmarksList")
+
+    def get_top_sites_list(self):
+        return self.select_single(UrlsList, objectName="topSitesList")
+
+    def get_notopsites_label(self):
+        return self.select_single("Label", objectName="notopsites")
+
+    def get_top_site_items(self):
+        return self.get_top_sites_list().get_delegates()
+
+    def get_bookmarks_folder_list_view(self):
+        return self.select_single(BookmarksFolderListView)
+
+    def get_bookmarks(self, folder_name):
+        # assumes that the "more" button has been clicked
+        folders = self.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate(folder_name)
+        return folders.get_urls_from_folder(folder_delegate)
+
+    def get_folder_names(self):
+        folders = self.get_bookmarks_folder_list_view().get_delegates()
+        return [folder.folderName for folder in folders]
+
+
+class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def go_to_section(self, section_index):
+        sections = self.select_single(uitk.Sections)
+        if not sections.selectedIndex == section_index:
+            sections.click_section_button(section_index)
+
+    def get_bookmarks_list(self):
+        self.go_to_section(1)
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="bookmarksList")
+        return sorted(list.select_many("DraggableUrlDelegateWide",
+                      objectName="bookmarkItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_top_sites_list(self):
+        self.go_to_section(0)
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="topSitesList")
+        return sorted(list.select_many("UrlDelegateWide",
+                      objectName="topSiteItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_folders_list(self):
+        self.go_to_section(1)
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="foldersList")
+        return sorted(list.select_many(objectName="folderItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_top_site_items(self):
+        self.go_to_section(0)
+        return self.get_top_sites_list()
+
+    def get_bookmarks(self, folder_name):
+        folders = self.get_folders_list()
+        matches = [folder for folder in folders if folder.name == folder_name]
+        if not len(matches) == 1:
+            return []
+        self.pointing_device.click_object(matches[0])
+        return self.get_bookmarks_list()
+
+    def get_folder_names(self):
+        return [folder.name for folder in self.get_folders_list()]
+
+
+class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_delegates(self):
+        return sorted(self.select_many(UrlDelegate),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_urls(self):
+        return [delegate.url for delegate in self.get_delegates()]
+
+
+class UrlDelegate(uitk.UCListItem):
+
+    pass
+
+
+class UrlDelegateWide(uitk.UCListItem):
+
+    pass
+
+
+class DraggableUrlDelegateWide(UrlDelegateWide):
+
+    def get_grip(self):
+        return self.select_single("Icon", objectName="dragGrip")
+
+
+class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_title_text_field(self):
+        return self.select_single(uitk.TextField, objectName="titleTextField")
+
+    def get_save_in_option_selector(self):
+        return self.select_single("OptionSelector", currentlyExpanded=False)
+
+    @autopilot.logging.log_action(logger.info)
+    def click_new_folder_button(self):
+        button = self.select_single("Button",
+                                    objectName="bookmarkOptions.newButton")
+        self.pointing_device.click_object(button)
+
+    @autopilot.logging.log_action(logger.info)
+    def click_dismiss_button(self):
+        button = self.select_single("Button",
+                                    objectName="bookmarkOptions.okButton")
+        self.pointing_device.click_object(button)
+
+
+class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_delegates(self):
+        return sorted(self.select_many("QQuickItem",
+                                       objectName="bookmarkFolderDelegate"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_folder_delegate(self, folder):
+        return self.select_single("QQuickItem",
+                                  objectName="bookmarkFolderDelegate",
+                                  folderName=folder)
+
+    def get_urls_from_folder(self, folder):
+        return sorted(folder.select_many(UrlDelegate),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_header_from_folder(self, folder):
+        return folder.wait_select_single("QQuickItem",
+                                         objectName="bookmarkFolderHeader")

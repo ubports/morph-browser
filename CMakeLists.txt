@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.9)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+project("webbrowser")
+
 find_program(INTLTOOL_MERGE intltool-merge)
 if(NOT INTLTOOL_MERGE)
     message(FATAL_ERROR "Could not find intltool-merge, please install the intltool package")
@@ -41,10 +43,6 @@ if(CMAKE_BUILD_TYPE MATCHES DEBUG OR CMAKE_BUILD_TYPE MATCHES "Debug")
 endif()
 
 include(qt5)
-find_package(Qt5Gui REQUIRED)
-find_package(Qt5Sql REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Quick REQUIRED)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)

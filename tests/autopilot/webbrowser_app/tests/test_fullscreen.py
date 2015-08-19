@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2014 Canonical
+# Copyright 2014-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -16,36 +16,139 @@
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
+import testtools
 from testtools.matchers import Equals, LessThan
 from autopilot.matchers import Eventually
+from autopilot.platform import model
 
 
-class TestFullscreen(StartOpenRemotePageTestCaseBase):
+class TestFullscreenBase(StartOpenRemotePageTestCaseBase):
 
-    # Ref: http://qt-project.org/doc/qt-5/qwindow.html#Visibility-enum
+    # Ref: http://doc.qt.io/qt-5/qwindow.html#Visibility-enum
     QWINDOW_FULLSCREEN = 5
 
-    def assert_eventually_windowed(self):
+    def assert_webview_fullscreen(self, fullscreen):
         self.assertThat(self.main_window.get_current_webview().fullscreen,
-                        Eventually(Equals(False)))
-        self.assertThat(self.main_window.get_window().visibility,
-                        Eventually(LessThan(self.QWINDOW_FULLSCREEN)))
+                        Eventually(Equals(fullscreen)))
 
-    def assert_eventually_fullscreen(self):
-        self.assertThat(self.main_window.get_current_webview().fullscreen,
-                        Eventually(Equals(True)))
-        self.assertThat(self.main_window.get_window().visibility,
-                        Eventually(Equals(self.QWINDOW_FULLSCREEN)))
+    def assert_window_fullscreen(self, fullscreen):
+        if fullscreen:
+            self.assertThat(self.main_window.get_window().visibility,
+                            Eventually(Equals(self.QWINDOW_FULLSCREEN)))
+        else:
+            self.assertThat(self.main_window.get_window().visibility,
+                            Eventually(LessThan(self.QWINDOW_FULLSCREEN)))
 
-    def test_toggle_fullscreen(self):
-        self.assert_eventually_windowed()
-        url = self.base_url + "/fullscreen"
-        self.main_window.go_to_url(url)
-        self.main_window.wait_until_page_loaded(url)
-        self.assert_eventually_windowed()
+
+class TestPageInitiatedFullscreen(TestFullscreenBase):
+
+    def setUp(self):
+        super(TestPageInitiatedFullscreen, self).setUp(path="/fullscreen")
+        self.assert_webview_fullscreen(False)
+        self.assert_window_fullscreen(False)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
-        self.assert_eventually_fullscreen()
+        self.assert_webview_fullscreen(True)
+        self.assert_window_fullscreen(True)
+
+    def test_page_initiated_exit(self):
+        webview = self.main_window.get_current_webview()
+        hint = webview.wait_select_single(objectName="fullscreenExitHint")
+        self.pointing_device.click_object(webview)
+        self.assert_webview_fullscreen(False)
+        self.assert_window_fullscreen(False)
+        hint.wait_until_destroyed()
+
+    @testtools.skipIf(model() == "Desktop", "on touch devices only")
+    def test_user_exit_swipe_up(self):
+        self.open_tabs_view()
+        self.assert_webview_fullscreen(False)
+        self.assert_window_fullscreen(False)
+
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_user_exit_ESC(self):
+        self.main_window.press_key('Escape')
+        self.assert_webview_fullscreen(False)
+        self.assert_window_fullscreen(False)
+
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_user_exit_F11(self):
+        self.main_window.press_key('F11')
+        self.assert_webview_fullscreen(False)
+        self.assert_window_fullscreen(False)
+
+
+@testtools.skipIf(model() != "Desktop", "on desktop only")
+class TestUserInitiatedFullscreen(TestFullscreenBase):
+
+    def setUp(self):
+        super(TestUserInitiatedFullscreen, self).setUp()
+        self.assert_webview_fullscreen(False)
+        self.assert_window_fullscreen(False)
+        self.main_window.press_key('F11')
+        self.assert_window_fullscreen(True)
+        self.assert_webview_fullscreen(False)
+
+    def test_user_exit_ESC(self):
+        self.main_window.press_key('Escape')
+        self.assert_window_fullscreen(False)
+        self.assert_webview_fullscreen(False)
+
+    def test_user_exit_F11(self):
+        self.main_window.press_key('F11')
+        self.assert_window_fullscreen(False)
+        self.assert_webview_fullscreen(False)
+
+
+class TestForcedFullscreen(TestFullscreenBase):
+
+    def setUp(self):
+        self.ARGS = self.ARGS + ["--fullscreen"]
+        super(TestForcedFullscreen, self).setUp(path="/fullscreen")
+        self.assert_window_fullscreen(True)
+        self.assert_webview_fullscreen(False)
+
+    def tearDown(self):
+        super(TestForcedFullscreen, self).tearDown()
+        self.assert_window_fullscreen(True)
+
+    @testtools.skipIf(model() == "Desktop", "on touch devices only")
+    def test_disabled_user_exit_swipe_up(self):
+        self.open_tabs_view()
+
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_disabled_user_exit_ESC(self):
+        self.main_window.press_key('Escape')
+
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_disabled_user_exit_F11(self):
+        self.main_window.press_key('F11')
+
+    def trigger_page_fullscreen(self):
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
-        self.assert_eventually_windowed()
+        self.assert_webview_fullscreen(True)
+
+    def test_page_exit(self):
+        self.trigger_page_fullscreen()
+        webview = self.main_window.get_current_webview()
+        self.pointing_device.click_object(webview)
+        self.assert_webview_fullscreen(False)
+
+    @testtools.skipIf(model() == "Desktop", "on touch devices only")
+    def test_user_exit_swipe_up(self):
+        self.trigger_page_fullscreen()
+        self.open_tabs_view()
+        self.assert_webview_fullscreen(False)
+
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_user_exit_ESC(self):
+        self.trigger_page_fullscreen()
+        self.main_window.press_key('Escape')
+        self.assert_webview_fullscreen(False)
+
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_user_exit_F11(self):
+        self.trigger_page_fullscreen()
+        self.main_window.press_key('F11')
+        self.assert_webview_fullscreen(False)

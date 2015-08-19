@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -88,9 +88,7 @@ private Q_SLOTS:
         model->setLimit(2);
 
         history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
 
         QCOMPARE(model->rowCount(), 2);
@@ -100,9 +98,7 @@ private Q_SLOTS:
     void shouldLimitEntriesWithLimitSetAfterPopulating()
     {
         history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
 
         model->setLimit(2);
@@ -116,9 +112,7 @@ private Q_SLOTS:
         model->setLimit(-1);
 
         history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
 
         QCOMPARE(model->unlimitedRowCount(), 3);
@@ -130,9 +124,7 @@ private Q_SLOTS:
         model->setLimit(4);
 
         history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
 
         QCOMPARE(model->unlimitedRowCount(), 3);
@@ -148,7 +140,6 @@ private Q_SLOTS:
         QSignalSpy spyRemoved(model, SIGNAL(rowsRemoved(QModelIndex, int, int)));
 
         history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
-        QTest::qWait(1001);
         history->add(QUrl("http://example2.org/"), "Example 2 Domain", QUrl());
         QTest::qWait(1001);
         history->add(QUrl("http://example3.org/"), "Example 3 Domain", QUrl());
@@ -166,6 +157,28 @@ private Q_SLOTS:
         QCOMPARE(model->unlimitedRowCount(), 3);
         QCOMPARE(model->rowCount(), 2);
     }
+
+    void shouldGetItemWithCorrectValues()
+    {
+        history->add(QUrl("http://example1.org/"), "Example 1 Domain", QUrl());
+
+        QVariantMap item = model->get(0);
+        QHash<int, QByteArray> roles = model->roleNames();
+
+        QCOMPARE(roles.count(), item.count());
+
+        Q_FOREACH(int role, roles.keys()) {
+            QString roleName = QString::fromUtf8(roles.value(role));
+            QCOMPARE(model->data(model->index(0, 0), role), item.value(roleName));
+        }
+    }
+
+    void shouldReturnEmptyItemIfGetOutOfBounds()
+    {
+        QVariantMap item = model->get(1);
+        QVERIFY(item.isEmpty());
+    }
+
 };
 
 QTEST_MAIN(LimitProxyModelTests)

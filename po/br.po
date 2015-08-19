@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-08 20:37+0200\n"
-"PO-Revision-Date: 2015-03-13 12:34+0000\n"
+"POT-Creation-Date: 2015-08-13 07:04+0200\n"
+"PO-Revision-Date: 2015-07-06 06:16+0000\n"
 "Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-04-09 05:41+0000\n"
-"X-Generator: Launchpad (build 17413)\n"
+"X-Launchpad-Export-Date: 2015-08-15 05:32+0000\n"
+"X-Generator: Launchpad (build 17686)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -24,6 +24,8 @@ msgstr "Kemenn JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
+#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "Mat eo"
 
@@ -46,7 +48,13 @@ msgid "Password"
 msgstr "Ger-tremen"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/HistoryView.qml:280
+#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/HistoryView.qml:165
+#: src/app/webbrowser/HistoryViewWide.qml:291
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:32
+#: src/app/webbrowser/SettingsPage.qml:289
+#: src/app/webbrowser/SettingsPage.qml:343
+#: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "Nullañ"
 
@@ -64,7 +72,7 @@ msgstr "Chom"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "Ne c'haller ket fiziout er c'hevreadur-mañ"
+msgstr "Ne c'haller ket fiziout er c'hennask-mañ"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -116,22 +124,18 @@ msgid "Please choose a file"
 msgstr "Dibabit ur restr, mar plij"
 
 #: src/app/GeolocationPermissionRequest.qml:28
-#: src/app/PermissionRequest.qml:28
 msgid "Permission Request"
 msgstr "Goulenn aotre"
 
 #: src/app/GeolocationPermissionRequest.qml:29
-#: src/app/webcontainer/WebViewImplWebkit.qml:70
 msgid "This page wants to know your device’s location."
-msgstr "Fellout a ra d'ar bajenn-mañ gouzout pelec'h emañ ho penveg."
+msgstr "Fellout a ra d'ar bajenn-mañ gouzout pelec'h emañ ho trobarzhell."
 
 #: src/app/GeolocationPermissionRequest.qml:33
-#: src/app/PermissionRequest.qml:31
 msgid "Deny"
 msgstr "Nac'h"
 
 #: src/app/GeolocationPermissionRequest.qml:43
-#: src/app/PermissionRequest.qml:40
 msgid "Allow"
 msgstr "Aotren"
 
@@ -374,6 +378,16 @@ msgstr "Eilañ ar skeudenn"
 msgid "Copy link"
 msgstr "Eilañ al liamm"
 
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:381
+msgid "Find in page"
+msgstr ""
+
+#. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
+#. Keywords may actually be sentences, and must be separated by semi-colons.
+#: src/app/actions/FindInPage.qml:26
+msgid "Search in Page"
+msgstr ""
+
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
 msgstr "War-raok"
@@ -394,7 +408,7 @@ msgstr "Mont da"
 msgid "Address;URL;www"
 msgstr "Chomlec'h;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:355
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:654
 msgid "New Tab"
 msgstr "Ivinell nevez"
 
@@ -434,80 +448,184 @@ msgstr "Enrollañ ar skeudenn"
 msgid "Share…"
 msgstr "Rannañ..."
 
-#: src/app/webbrowser/AddressBar.qml:195
+#. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
+#: src/app/webbrowser/AddressBar.qml:203
+#, qt-format
+msgid "%1/%2"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:239
+msgid "find in page"
+msgstr ""
+
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "search or enter an address"
 msgstr "klask pe ebarzhiñ ur chomlec'h"
 
-#: src/app/webbrowser/BookmarksList.qml:67
-#: src/app/webbrowser/ExpandedHistoryView.qml:79
-#: src/app/webbrowser/HistoryView.qml:130
-#: src/app/webbrowser/HistoryView.qml:321
-msgid "Delete"
-msgstr "Diverkañ"
+#: src/app/webbrowser/BookmarkOptions.qml:48
+msgid "Bookmark Added"
+msgstr "sined ouzhpenned"
 
-#: src/app/webbrowser/Browser.qml:178
+#. TRANSLATORS: Field where the title of bookmarked URL can be changed
+#: src/app/webbrowser/BookmarkOptions.qml:53
+msgid "Name"
+msgstr "Anv"
+
+#. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
+#: src/app/webbrowser/BookmarkOptions.qml:71
+msgid "Save in"
+msgstr "enrollañ dindan"
+
+#: src/app/webbrowser/BookmarkOptions.qml:78
+#: src/app/webbrowser/BookmarksFolderListView.qml:115
+#: src/app/webbrowser/NewTabViewWide.qml:122
+msgid "All Bookmarks"
+msgstr "an holl sinedoù"
+
+#: src/app/webbrowser/BookmarkOptions.qml:93
+#: src/app/webbrowser/BookmarkOptions.qml:133
+msgid "New Folder"
+msgstr "Renkell nevez"
+
+#: src/app/webbrowser/BookmarkOptions.qml:115
+msgid "Create new folder"
+msgstr "Krouiñ ur renkell nevez"
+
+#: src/app/webbrowser/BookmarkOptions.qml:153
+#: src/app/webbrowser/SettingsPage.qml:353
+msgid "Save"
+msgstr "Enrollañ"
+
+#: src/app/webbrowser/Browser.qml:350
 msgid "Share"
 msgstr "Rannañ"
 
-#: src/app/webbrowser/Browser.qml:192
+#: src/app/webbrowser/Browser.qml:357
+#: src/app/webbrowser/HistoryViewWide.qml:275
 msgid "History"
 msgstr "Istor"
 
-#: src/app/webbrowser/Browser.qml:199
+#: src/app/webbrowser/Browser.qml:364
 msgid "Open tabs"
 msgstr "Ivinelloù digor"
 
-#: src/app/webbrowser/Browser.qml:209 src/app/webbrowser/HistoryView.qml:244
-#: src/app/webbrowser/TabsList.qml:84
+#: src/app/webbrowser/Browser.qml:374 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:409
+#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Ivinell nevez"
 
-#: src/app/webbrowser/Browser.qml:252 src/app/webbrowser/SettingsPage.qml:55
-msgid "Settings"
-msgstr ""
+#: src/app/webbrowser/Browser.qml:391
+msgid "Leave Private Mode"
+msgstr "Kuitaat ar mod prevez"
 
-#: src/app/webbrowser/Browser.qml:338 src/app/webbrowser/HistoryView.qml:231
+#: src/app/webbrowser/Browser.qml:391
+msgid "Private Mode"
+msgstr "Mod prevez"
+
+#: src/app/webbrowser/Browser.qml:409 src/app/webbrowser/SettingsPage.qml:51
+msgid "Settings"
+msgstr "Arventennoù"
+
+#: src/app/webbrowser/Browser.qml:640 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:395
 msgid "Done"
 msgstr "Graet eo"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:180
+#. TRANSLATORS: %1 refers to the current number of tabs opened
+#: src/app/webbrowser/Browser.qml:747
+#, qt-format
+msgid "(%1)"
+msgstr "(%1)"
+
+#: src/app/webbrowser/Browser.qml:1074
+msgid "Swipe Up To Exit Full Screen"
+msgstr "Riklañ d'an nec'h evit kuitaat ar skramm leun"
+
+#: src/app/webbrowser/Browser.qml:1075
+msgid "Press ESC To Exit Full Screen"
+msgstr "Pouezañ war ESC evit kuitatt ar skramm leun"
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:103
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 bajenn"
 msgstr[1] "%1 a bajennoù"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:194
+#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Nebeutoc'h"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:44
+#: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
 msgstr "Gweladennet da ziwezhañ"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:46
+#: src/app/webbrowser/HistorySectionDelegate.qml:48
+#: src/app/webbrowser/HistoryViewWide.qml:131
 msgid "Yesterday"
 msgstr "Dec'h"
 
-#: src/app/webbrowser/HistoryView.qml:295
+#: src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:312
 msgid "Select all"
 msgstr "Diuzañ pep tra"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/HistoryView.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:343
+msgid "Delete"
+msgstr "Diverkañ"
+
+#: src/app/webbrowser/HistoryViewWide.qml:115
+msgid "All History"
+msgstr ""
+
+#: src/app/webbrowser/HistoryViewWide.qml:129
+#: src/app/webbrowser/HistoryViewWide.qml:194
+msgid "Today"
+msgstr ""
+
+#: src/app/webbrowser/LeavePrivateModeDialog.qml:24
+msgid "Going to public mode will close all private tabs"
+msgstr "Ma'z it d'ar mod e vo serret an holl ivinelloù prevez"
+
+#: src/app/webbrowser/NewPrivateTabView.qml:41
+msgid "This is a private tab"
+msgstr "Un ivinell brevez eo homañ"
+
+#: src/app/webbrowser/NewPrivateTabView.qml:56
+msgid ""
+"Pages that you view in this tab won't appear in your browser history.\n"
+"Bookmarks you create will be preserved, however."
+msgstr ""
+"Ar pajennoù a welit en ivinell-mañ ne zeuont ket war-wel en istor ho "
+"merdeer.\n"
+"Koulskoude e vo miret ar sinedoù ho po krouet."
+
+#: src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:313
 msgid "Bookmarks"
 msgstr "Sinedoù"
 
-#: src/app/webbrowser/NewTabView.qml:126
+#: src/app/webbrowser/NewTabView.qml:123
+msgid "More"
+msgstr "Muioc'h"
+
+#: src/app/webbrowser/NewTabView.qml:226
+#: src/app/webbrowser/NewTabViewWide.qml:312
 msgid "Top sites"
 msgstr "Lec'hiennoù gwellañ"
 
-#: src/app/webbrowser/NewTabView.qml:143
-msgid "see less"
-msgstr "gwelet nebeutoc'h"
+#: src/app/webbrowser/NewTabView.qml:257
+msgid "You haven't visited any site yet"
+msgstr "N'oc'h bet e lec'hienn ebet c'hoazh"
 
-#: src/app/webbrowser/NewTabView.qml:143
-msgid "see more"
-msgstr "gwelet muioc'h"
+#: src/app/webbrowser/NewTabViewWide.qml:160
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:317
+msgid "Homepage"
+msgstr "Degemer"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -559,82 +677,133 @@ msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr "Kevreet oc'h ouzh"
+msgstr "Kennasket oc'h ouzh"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
 msgstr "Hag a zo kaset en-dro gant"
 
 #: src/app/webbrowser/SettingsPage.qml:81
-#: src/app/webbrowser/SettingsPage.qml:175
+#: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr ""
-
-#: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:271
-msgid "Homepage"
-msgstr ""
+msgstr "Keflusker enklask"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "Assevel an dalc'h kent pa loc'her"
 
-#: src/app/webbrowser/SettingsPage.qml:118
+#: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "Aotren digeriñ ivinelloù nevez en drekleur"
 
 #: src/app/webbrowser/SettingsPage.qml:138
-#: src/app/webbrowser/SettingsPage.qml:224
+#: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
-msgstr ""
+msgstr "Prevezded"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr ""
+msgstr "Adderaouekaat arventennoù ar merdeer"
 
-#: src/app/webbrowser/SettingsPage.qml:245
+#: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "Diverkañ istor ar merdeiñ"
 
 #: src/app/webbrowser/SettingsPage.qml:252
-msgid "Clear Cache"
+msgid "Clear Browsing History?"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:295
-msgid "Save"
+#: src/app/webbrowser/SettingsPage.qml:259
+msgid "Clear Cache"
+msgstr "Goulloiñ ar grubuilh"
+
+#: src/app/webbrowser/SettingsPage.qml:261
+msgid "Clear Cache?"
 msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:296
+msgid "Clear"
+msgstr "Naetaat"
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "Touch da welet"
 
 #. TRANSLATORS: %1 refers to the current page’s title
-#: src/app/webbrowser/webbrowser-app.qml:38
-#: src/app/webcontainer/webapp-container.qml:66
+#: src/app/webbrowser/webbrowser-app.qml:35
+#: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Merdeer Web Ubuntu"
 
-#: src/app/webbrowser/webbrowser-app.qml:40
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webbrowser/webbrowser-app.qml:37
+#: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
 msgstr "Merdeer Web Ubuntu"
 
-#: src/app/webcontainer/AccountsLoginPage.qml:91
-msgid "No local account found for "
-msgstr "N'eus bet kavet kont lec'hel ebet evit "
+#: src/app/webcontainer/AccountChooserDialog.qml:62
+msgid ""
+"No accounts have been linked to this webapp; press the item below to add an "
+"account."
+msgstr ""
+"N'eus bet liammet kont ebet ouzh an aroload web-mañ ; klikit amañ dindan "
+"evit ouzhpennañ ur gont."
 
-#: src/app/webcontainer/AccountsLoginPage.qml:96
-msgid "Skip account creation step"
-msgstr "Mont dreist ar bazenn krouiñ ur gont"
-
-#: src/app/webcontainer/AccountsLoginPage.qml:145
+#: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
 msgstr "Ouzhpennañ ur gont"
 
-#: src/app/webcontainer/AccountsView.qml:38
-msgid "Select an account"
-msgstr "Diuzañ ur gont"
+#: src/app/webcontainer/AccountChooserDialog.qml:87
+msgid "Don't use an account"
+msgstr "Chom hep implijout ur gont"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:39
+msgid "Account error"
+msgstr "Fazi kont"
+
+#: src/app/webcontainer/AccountErrorScreen.qml:50
+msgid "Close"
+msgstr "Serriñ"
+
+#: src/app/webcontainer/AccountsLogic.qml:63
+msgid ""
+"Account window could not be opened. You can only create one account at a "
+"time; please try again after closing all other account windows."
+msgstr ""
+"N'eus ket bet gallet digeriñ prenestr ar c'hontoù. Gallout a rit krouiñ ur "
+"gont hepken war un dro ; esaeit en-dro goude serriñ ar prenestroù kont all, "
+"mar plij."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:45
+#, qt-format
+msgid "<b>%1</b> needs to access your %2 online account."
+msgstr "<b>%1</b> en deus ezhomm da vont d'ho kont %2."
+
+#. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
+#: src/app/webcontainer/AccountsSplashScreen.qml:55
+#, qt-format
+msgid "<b>%1</b> would like to access your %2 online account."
+msgstr "<b>%1</b> a garfe mont d'ho kont %2."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:64
+msgid ""
+"Choose an account now, or skip this step and choose an online account later."
+msgstr ""
+"Choazit ur gont bremañ, pe lezit ar bazenn-mañ a-gostez ha choazit ur gont "
+"diwezhatoc'h."
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Close the app"
+msgstr "Serrit an arloadoù"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:77
+msgid "Skip"
+msgstr "Lammat"
+
+#: src/app/webcontainer/AccountsSplashScreen.qml:84
+msgid "Choose account"
+msgstr "Dibab ur gont"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
@@ -652,8 +821,20 @@ msgstr "Merdeiñ war ar Web"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Merdeer;Web;Ergerzher"
 
-#~ msgid "Clear"
-#~ msgstr "Naetaat"
+#~ msgid "Select an account"
+#~ msgstr "Diuzañ ur gont"
+
+#~ msgid "No local account found for "
+#~ msgstr "N'eus bet kavet kont lec'hel ebet evit "
+
+#~ msgid "Skip account creation step"
+#~ msgstr "Mont dreist ar bazenn krouiñ ur gont"
+
+#~ msgid "see less"
+#~ msgstr "gwelet nebeutoc'h"
+
+#~ msgid "see more"
+#~ msgstr "gwelet muioc'h"
 
 #~ msgid "Add"
 #~ msgstr "Ouzhpennañ"

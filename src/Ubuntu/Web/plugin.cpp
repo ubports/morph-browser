@@ -23,6 +23,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QObject>
 #include <QtCore/QStandardPaths>
+#include <QtCore/QStorageInfo>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QtGlobal>
@@ -37,6 +38,7 @@ class UbuntuWebPluginContext : public QObject
     Q_PROPERTY(QString cacheLocation READ cacheLocation NOTIFY cacheLocationChanged)
     Q_PROPERTY(QString dataLocation READ dataLocation NOTIFY dataLocationChanged)
     Q_PROPERTY(QString formFactor READ formFactor CONSTANT)
+    Q_PROPERTY(int cacheSizeHint READ cacheSizeHint NOTIFY cacheSizeHintChanged)
     Q_PROPERTY(QString webviewDevtoolsDebugHost READ devtoolsHost CONSTANT)
     Q_PROPERTY(int webviewDevtoolsDebugPort READ devtoolsPort CONSTANT)
     Q_PROPERTY(QStringList webviewHostMappingRules READ hostMappingRules CONSTANT)
@@ -47,6 +49,7 @@ public:
     QString cacheLocation() const;
     QString dataLocation() const;
     QString formFactor();
+    int cacheSizeHint() const;
     QString devtoolsHost();
     int devtoolsPort();
     QStringList hostMappingRules();
@@ -54,6 +57,7 @@ public:
 Q_SIGNALS:
     void cacheLocationChanged() const;
     void dataLocationChanged() const;
+    void cacheSizeHintChanged() const;
 
 private:
     QString m_formFactor;
@@ -72,6 +76,8 @@ UbuntuWebPluginContext::UbuntuWebPluginContext(QObject* parent)
             this, SIGNAL(cacheLocationChanged()));
     connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
             this, SIGNAL(dataLocationChanged()));
+    connect(QCoreApplication::instance(), SIGNAL(applicationNameChanged()),
+            this, SIGNAL(cacheSizeHintChanged()));
 }
 
 QString UbuntuWebPluginContext::cacheLocation() const
@@ -128,6 +134,29 @@ QString UbuntuWebPluginContext::formFactor()
         }
     }
     return m_formFactor;
+}
+
+int UbuntuWebPluginContext::cacheSizeHint() const
+{
+    if (QCoreApplication::applicationName() == "webbrowser-app") {
+        // Let chromium decide the optimum cache size based on available disk space
+        return 0;
+    } else {
+        // For webapps and other embedders, determine the cache size hint
+        // using heuristics based on the disk space (total, and available).
+        QStorageInfo storageInfo(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+        const int MB = 1024 * 1024;
+        // The total cache size for all apps should not exceed 10% of the total disk space
+        int maxSharedCache = storageInfo.bytesTotal() / MB * 0.1;
+        // One given app is allowed to use up to 5% o the total cache size
+        int maxAppCacheAllowance = maxSharedCache * 0.05;
+        // Ensure it never exceeds 200 MB though
+        int maxAppCacheAbsolute = qMin(maxAppCacheAllowance, 200);
+        // Never use more than 20% of the available disk space
+        int maxAppCacheRelative = storageInfo.bytesAvailable() / MB * 0.2;
+        // Never set a size hint below 5 MB, as that would result in a very inefficient cache
+        return qMax(5, qMin(maxAppCacheAbsolute, maxAppCacheRelative));
+    }
 }
 
 QStringList UbuntuWebPluginContext::hostMappingRules()

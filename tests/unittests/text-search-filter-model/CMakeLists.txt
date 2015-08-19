@@ -1,6 +1,13 @@
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Sql REQUIRED)
+find_package(Qt5Test REQUIRED)
 set(TEST tst_TextSearchFilterModelTests)
 add_executable(${TEST} tst_TextSearchFilterModelTests.cpp)
 include_directories(${webbrowser-app_SOURCE_DIR})
-qt5_use_modules(${TEST} Test)
-target_link_libraries(${TEST} webbrowser-app-models)
+target_link_libraries(${TEST}
+    Qt5::Core
+    Qt5::Sql
+    Qt5::Test
+    webbrowser-app-models
+)
 add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} -xunitxml -o ${TEST}.xml)

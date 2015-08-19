@@ -1,6 +1,6 @@
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
 #
-# Copyright 2013 Canonical
+# Copyright 2013-2015 Canonical
 #
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License version 3, as published
@@ -22,9 +22,9 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 class TestWindowTitle(StartOpenRemotePageTestCaseBase):
 
-    """Tests that the window’s title reflects the page title."""
+    def setUp(self):
+        super(TestWindowTitle, self).setUp(path="/test2")
 
     def test_window_title(self):
-        self.main_window.go_to_url(self.base_url + "/test2")
         self.assertThat(self.main_window.get_window().title,
                         Eventually(Contains("test page 2")))

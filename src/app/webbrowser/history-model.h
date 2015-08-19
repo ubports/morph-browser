@@ -66,6 +66,7 @@ public:
     Q_INVOKABLE void clearAll();
     Q_INVOKABLE void hide(const QUrl& url);
     Q_INVOKABLE void unHide(const QUrl& url);
+    Q_INVOKABLE QVariantMap get(int index) const;
 
 Q_SIGNALS:
     void databasePathChanged() const;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.4
 import QtTest 1.0
 import Ubuntu.Test 1.0
 import "../../../src/app/webbrowser"
 
 Item {
     width: 300
-    height: 100
+    height: 60
 
     FocusScope {
         anchors.fill: parent
@@ -39,6 +39,14 @@ Item {
             height: parent.height / 2
 
             searchUrl: "http://www.ubuntu.com/search?q={searchTerms}"
+
+            editing: activeFocus
+            canSimplifyText: true
+
+            findController: QtObject {
+                property int current
+                property int count
+            }
         }
 
         // only exists to steal focus from the address bar
@@ -90,6 +98,9 @@ Item {
                 {url: "http://ubuntu.com"},
                 {url: "https://google.com"},
                 {url: "ftp://ubuntu.com"},
+                {url: "about:blank"},
+                {url: "data:,A brief note"},
+                {url: "http://com.google"}
             ]
         }
 
@@ -192,6 +203,9 @@ Item {
                 {text: "HTTPS://www.ubuntu.com", requestedUrl: "https://www.ubuntu.com"},
                 {text: "FILE:///usr/share/doc/ubuntu-online-tour/index.html", requestedUrl: "file:///usr/share/doc/ubuntu-online-tour/index.html"},
                 {text: "FTP://ubuntu.com", requestedUrl: "ftp://ubuntu.com"},
+                {text: "ABOUT:BLANK", requestedUrl: "about:blank"},
+                {text: "DATA:,A brief note", requestedUrl: "data:,A brief note"},
+                {text: "HTTP://com.GOOGLE", requestedUrl: "http://com.google"}
             ]
         }
 
@@ -240,7 +254,10 @@ Item {
                  actualUrl: "http://en.wikipedia.org"},
                 {input: "en.wikipedia.org/wiki/Foo",
                  simplified: "en.wikipedia.org",
-                 actualUrl: "http://en.wikipedia.org/wiki/Foo"}
+                 actualUrl: "http://en.wikipedia.org/wiki/Foo"},
+                {input: "http://com.google",
+                 simplified: "com.google",
+                 actualUrl: "http://com.google"},
             ]
         }
 
@@ -255,6 +272,19 @@ Item {
             compare(addressBar.text, data.simplified)
             clickItem(addressBar)
             compare(addressBar.text, data.actualUrl)
+        }
+
+        function test_shouldBeClearedWhenFocusedIfActualUrlIsCleared() {
+            // https://launchpad.net/bugs/1456199
+            var text = "http://example.org"
+            typeString(text)
+            compare(addressBar.text, text)
+            verify(addressBar.activeFocus)
+            addressBar.actualUrl = text
+            verify(addressBar.activeFocus)
+            addressBar.actualUrl = ""
+            verify(addressBar.activeFocus)
+            compare(addressBar.text, "")
         }
 
         function test_actionButtonShouldBeDisabledWhenEmpty() {
@@ -317,6 +347,7 @@ Item {
         }
 
         function test_togglingIndicatorShouldBookmark() {
+            skip("Skipped due to what seems to be a bug in the UITK: https://launchpad.net/bugs/1483279")
             addressBar.actualUrl = "http://example.org"
             clickItem(textInput)
             verify(!addressBar.bookmarked)
@@ -340,6 +371,16 @@ Item {
             compare(addressBar.text, "example.org")
             clickItem(addressBar)
             compare(addressBar.text, url)
+        }
+
+        function test_exitingFindInPageRestoresUrl() {
+            addressBar.actualUrl = "http://example.org/"
+            addressBar.findInPageMode = true
+            verify(addressBar.activeFocus)
+            compare(addressBar.text, "")
+            typeString("hello")
+            addressBar.findInPageMode = false
+            compare(addressBar.text, "example.org")
         }
     }
 }

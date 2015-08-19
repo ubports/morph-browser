@@ -16,8 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import QtQuick.Window 2.2
+import Ubuntu.Components 1.3
 import ".."
 
 BrowserWindow {
@@ -43,7 +44,25 @@ BrowserWindow {
         webbrowserWindow: webbrowserWindowProxy
         developerExtrasEnabled: window.developerExtrasEnabled
 
+        fullscreen: window.visibility === Window.FullScreen
+
         Component.onCompleted: i18n.domain = "webbrowser-app"
+
+        Keys.onPressed: {
+            if ((event.key === Qt.Key_F11) && (event.modifiers === Qt.NoModifier)) {
+                // F11 to toggle application-level fullscreen
+                window.setFullscreen(window.visibility !== Window.FullScreen)
+                if (currentWebview.fullscreen) {
+                    currentWebview.fullscreen = false
+                }
+            }
+        }
+        Keys.onEscapePressed: {
+            // ESC to exit fullscreen, regardless of whether it was requested
+            // by the page or toggled on by the user.
+            window.setFullscreen(false)
+            currentWebview.fullscreen = false
+        }
     }
 
     // Handle runtime requests to open urls as defined

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,38 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.ListItems 1.0 as ListItem
+import QtQuick 2.4
+import Ubuntu.Components 1.3
+import Ubuntu.Components.ListItems 1.3 as ListItem
 
-Item {
+ListItem.Subtitled {
     id: root
 
-    property var model
+    property string providerName
+    property string accountName
 
-    signal accountSelected(QtObject accountServiceHandle)
-
-    ListView {
-        id: accounts
-
-        anchors.fill: parent
-
-        model: root.model
-
-        header: ListItem.Header {
-            text: i18n.tr("Select an account");
-        }
-
-        delegate: AccountItemView {
-            visible: enabled
-
-            accountName: providerName + ": " + displayName
-
-            onClicked: {
-                root.accountSelected(accountServiceHandle)
-            }
-        }
-    }
+    text: providerName
+    subText: accountName
 }
-
-

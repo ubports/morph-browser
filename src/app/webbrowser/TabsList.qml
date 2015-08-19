@@ -16,13 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.3
 
 Item {
     id: tabslist
 
     property real delegateHeight
+    property real chromeOffset
     property alias model: repeater.model
     readonly property int count: repeater.count
 
@@ -44,20 +45,17 @@ Item {
         boundsBehavior: Flickable.StopAtBounds
 
         contentWidth: width
-        contentHeight: (model.count - 1) * delegateHeight + height
+        contentHeight: model ? (model.count - 1) * delegateHeight + height : 0
 
         Repeater {
             id: repeater
-
-            width: flickable.contentWidth
-            height: flickable.contentHeight
 
             delegate: Loader {
                 id: delegate
 
                 asynchronous: true
 
-                width: repeater.width
+                width: flickable.contentWidth
 
                 height: (index == (repeater.model.count - 1)) ? flickable.height : delegateHeight
                 Behavior on height {
@@ -101,13 +99,6 @@ Item {
                         onClosed: tabslist.tabClosed(index)
                     }
                 }
-
-                Binding {
-                    target: model.tab
-                    property: "visible"
-                    when: tabslist.visible && (index == 0)
-                    value: delegate.visible
-                }
             }
         }
 
@@ -116,7 +107,7 @@ Item {
             property int index: 0
             target: flickable
             property: "contentY"
-            to: index * delegateHeight
+            to: index * delegateHeight - chromeOffset
             duration: UbuntuAnimation.FastDuration
             onStopped: tabslist.tabSelected(index)
         }

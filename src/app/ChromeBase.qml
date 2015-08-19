@@ -16,14 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.2
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.3
 
 // use styled item otherwise Drawer button will steal focus from the AddressBar
 StyledItem {
     id: chrome
 
     property var webview
+    property alias backgroundColor: backgroundRect.color
 
     states: [
         State {
@@ -33,6 +34,8 @@ StyledItem {
     ]
 
     Rectangle {
+        id: backgroundRect
+
         anchors.fill: parent
         color: Theme.palette.normal.background
 
@@ -55,5 +58,7 @@ StyledItem {
             right: parent.right
             bottom: parent.bottom
         }
+
+        z: 2
     }
 }

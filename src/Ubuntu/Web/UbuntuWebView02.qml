@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import QtQuick.Window 2.0
+import QtQuick 2.4
+import QtQuick.Window 2.2
 import com.canonical.Oxide 1.5 as Oxide
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import "." // QTBUG-34418
 
 Oxide.WebView {
@@ -119,7 +119,7 @@ Oxide.WebView {
         }
     }
 
-    property ActionList contextualActions
+    property var contextualActions // type: ActionList
     Component {
         id: contextualPopover
         ActionSelectionPopover {
@@ -127,7 +127,7 @@ Oxide.WebView {
         }
     }
 
-    property ActionList selectionActions
+    property var selectionActions // type: ActionList
     onSelectionActionsChanged: {
         for (var i in selectionActions.actions) {
             selectionActions.actions[i].onTriggered.connect(function () {
@@ -267,9 +267,11 @@ Oxide.WebView {
         internal.dismissCurrentSelection()
     }
 
-    onFullscreenRequested: _webview.fullscreen = fullscreen
-
     onJavaScriptConsoleMessage: {
+        if (_webview.incognito) {
+            return
+        }
+
         var msg = "[JS] (%1:%2) %3".arg(sourceId).arg(lineNumber).arg(message)
         if (level === Oxide.WebView.LogSeverityVerbose) {
             console.log(msg)

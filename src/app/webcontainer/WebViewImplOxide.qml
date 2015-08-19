@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import QtQuick.Window 2.0
+import QtQuick 2.4
+import QtQuick.Window 2.2
 import com.canonical.Oxide 1.3 as Oxide
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
 import Ubuntu.Web 0.2
 import "../actions" as Actions
@@ -35,10 +35,16 @@ WebViewImpl {
     property var webappUrlPatterns: null
     property string popupRedirectionUrlPrefixPattern: ""
     property url dataPath
+    property var popupController
+    property var overlayViewsParent: webview.parent
 
     // Mostly used for testing & avoid external urls to
-    //  "leak" in the default browser
+    //  "leak" in the default browser. External URLs corresponds
+    //  to URLs that are not included in the set defined by the url patterns
+    //  (if any) or navigations resulting in new windows being created.
     property bool blockOpenExternalUrls: false
+
+    signal samlRequestUrlPatternReceived(string urlPattern)
 
     // Those signals are used for testing purposes to externally
     //  track down the various internal logic & steps of a popup lifecycle.
@@ -55,20 +61,30 @@ WebViewImpl {
 
     preferences.allowFileAccessFromFileUrls: runningLocalApplication
     preferences.allowUniversalAccessFromFileUrls: runningLocalApplication
+    preferences.localStorageEnabled: true
+    preferences.appCacheEnabled: true
+
+    onNewViewRequested: popupController.createPopupView(overlayViewsParent, request, true, context)
 
     contextualActions: ActionList {
         Actions.CopyLink {
             enabled: webview.contextualData.href.toString()
-            onTriggered: Clipboard.push([webview.contextualData.href])
+            onTriggered: Clipboard.push(["text/plain", webview.contextualData.href.toString()])
         }
         Actions.CopyImage {
             enabled: webview.contextualData.img.toString()
-            onTriggered: Clipboard.push([webview.contextualData.img])
+            onTriggered: Clipboard.push(["text/plain", webview.contextualData.img.toString()])
         }
     }
 
     StateSaver.properties: "url"
     StateSaver.enabled: !runningLocalApplication
+
+    function handleSAMLRequestPattern(urlPattern) {
+        webappUrlPatterns.push(urlPattern)
+
+        samlRequestUrlPatternReceived(urlPattern)
+    }
 
     function shouldOpenPopupsInDefaultBrowser() {
         return formFactor !== "desktop";
@@ -119,77 +135,17 @@ WebViewImpl {
     }
 
     function navigationRequestedDelegate(request) {
-        var newForegroundPageRequest = isNewForegroundWebViewDisposition(request.disposition)
         var url = request.url.toString()
-
-        console.log("navigationRequestedDelegate - newForegroundPageRequest: "
-                    + newForegroundPageRequest
-                    + ', url: ' + url)
-
         if (runningLocalApplication && url.indexOf("file://") !== 0) {
             request.action = Oxide.NavigationRequest.ActionReject
             openUrlExternally(url)
             return
         }
 
-        // Covers some edge cases corresponding to the default window.open() behavior.
-        // When it is being called, the targetted URL will not load right away but
-        // will first round trip to an "about:blank".
-        // See https://developer.mozilla.org/en-US/docs/Web/API/Window.open
-        if (newForegroundPageRequest) {
-            if (url == 'about:blank') {
-                console.log('Accepting a new window request to navigate to "about:blank"')
-                request.action = Oxide.NavigationRequest.ActionAccept
-                return
-            }
-
-            var isRedirectionUrl = false;
-            var targetUrl = url;
-            if (popupRedirectionUrlPrefixPattern) {
-                // NOTE: very nasty workaround to be backward compatibility, will be deleted as soon
-                // as the FB webapp is updated.
-                if (popupRedirectionUrlPrefixPattern.indexOf('(') === -1) {
-                    isRedirectionUrl = (url.indexOf(popupRedirectionUrlPrefixPattern) === 0);
-                    targetUrl = isRedirectionUrl ?
-                                url.slice(popupRedirectionUrlPrefixPattern.length) : url;
-
-                    // Quick fix for http://pad.lv/1358622 (trim trailing parameters).
-                    var extraParams = targetUrl.indexOf("&");
-                    if (extraParams !== -1) {
-                        targetUrl = targetUrl.slice(0, extraParams);
-                    }
-                } else {
-                    var redirectionPatternMatch = url.match(popupRedirectionUrlPrefixPattern);
-                    isRedirectionUrl =
-                        popupRedirectionUrlPrefixPattern
-                        && redirectionPatternMatch
-                        && redirectionPatternMatch.length >= 2;
-
-                    // Assume that the first group is the matching one
-                    targetUrl = isRedirectionUrl ?
-                                redirectionPatternMatch[1] : url;
-                }
-            }
-
-            if (isRedirectionUrl) {
-                console.debug("Got a redirection URL with target URL: " + targetUrl)
-                targetUrl = decodeURIComponent(targetUrl)
-                gotRedirectionUrl(targetUrl)
-            }
-
-            if (webview.shouldAllowNavigationTo(targetUrl)) {
-                console.debug('Redirecting popup browsing ' + targetUrl + ' in the current container window.')
-                request.action = Oxide.NavigationRequest.ActionReject
-                webappContainerHelper.browseToUrlRequested(webview, targetUrl)
-                return
-            }
-
-            if (shouldOpenPopupsInDefaultBrowser()) {
-                console.debug('Opening popup window ' + targetUrl + ' in the browser window.')
-                request.action = Oxide.NavigationRequest.ActionReject
-                openUrlExternally(targetUrl)
-                return;
-            }
+        request.action = Oxide.NavigationRequest.ActionReject
+        if (isNewForegroundWebViewDisposition(request.disposition)) {
+            request.action = Oxide.NavigationRequest.ActionAccept
+            popupController.handleNewForegroundNavigationRequest(url, request, true)
             return
         }
 
@@ -201,7 +157,6 @@ WebViewImpl {
             return
         }
 
-        request.action = Oxide.NavigationRequest.ActionReject
         if (webview.shouldAllowNavigationTo(url))
             request.action = Oxide.NavigationRequest.ActionAccept
 
@@ -216,9 +171,12 @@ WebViewImpl {
             var match = urlRegExp.exec(url)
             var host = match[1]
             var escapeDotsRegExp = new RegExp("\\.", "g")
-            var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/"
+            var hostPattern = "https?://" + host.replace(escapeDotsRegExp, "\\.") + "/*"
+
             console.log("SAML request detected. Adding host pattern: " + hostPattern)
-            webappUrlPatterns.push(hostPattern)
+
+            handleSAMLRequestPattern(hostPattern)
+
             request.action = Oxide.NavigationRequest.ActionAccept
         }
 
@@ -227,70 +185,6 @@ WebViewImpl {
             openUrlExternally(url)
         }
     }
-
-    function createPopupWindow(request) {
-        popupWebViewFactory.createObject(webview, { request: request, width: 500, height: 800 });
-    }
-
-    Component {
-        id: popupWebViewFactory
-        Window {
-            id: popup
-            property alias request: popupBrowser.request
-            WebView {
-                id: popupBrowser
-                anchors.fill: parent
-
-                function navigationRequestedDelegate(request) {
-                    var url = request.url.toString()
-
-                    // If we are to browse in the popup to a place where we are not allows
-                    if ( ! isNewForegroundWebViewDisposition(request.disposition) &&
-                            ! webview.shouldAllowNavigationTo(url)) {
-                        request.action = Oxide.NavigationRequest.ActionReject
-                        openUrlExternally(url);
-                        popup.close()
-                        return;
-                    }
-
-                    // Fallback to regulat checks (there is a bit of overlap)
-                    webview.navigationRequestedDelegate(request)
-                }
-
-                onNewViewRequested: webview.createPopupWindow(request)
-
-                // Oxide (and Chromium) does not inform of non user
-                // driven navigations (or more specifically redirects that
-                // would be part of an popup/webview load (after its been
-                // granted). Quite a few sites (e.g. Youtube),
-                // create popups when clicking on links (or following a window.open())
-                // with proper youtube.com address but w/ redirection
-                // params, e.g.:
-                // http://www.youtube.com/redirect?q=http%3A%2F%2Fgodzillamovie.com%2F&redir_token=b8WPI1pq9FHXeHm2bN3KVLAJSfp8MTM5NzI2NDg3NEAxMzk3MTc4NDc0
-                // In this instance the popup & navigation is granted, but then
-                // a redirect happens inside the popup to the real target url (here http://godzillamovie.com)
-                // which is not trapped by a navigation requested and therefore not filtered.
-                // The only way to do it atm is to listen to url changed in popups & also
-                // filter there.
-                onUrlChanged: {
-                    var _url = url.toString();
-                    if (_url.trim().length === 0)
-                        return;
-
-                    if (_url != 'about:blank' && ! webview.shouldAllowNavigationTo(_url)) {
-                        openUrlExternally(_url);
-                        popup.close()
-                    }
-                }
-            }
-            Component.onCompleted: popup.show()
-        }
-    }
-
-    onNewViewRequested: createPopupWindow(request)
-
-    preferences.localStorageEnabled: true
-    preferences.appCacheEnabled: true
 
     // Small shim needed when running as a webapp to wire-up connections
     // with the webview (message received, etc…).

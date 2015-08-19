@@ -16,22 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.3
 import ".."
-import "upstreamcomponents"
 
-ListItemWithActions {
+ListItem {
     id: urlDelegate
 
     property alias icon: icon.source
     property alias title: title.text
     property alias url: url.text
-    color: "#f6f6f6"
+
+    property alias headerComponent: headerComponentLoader.sourceComponent
+
+    divider.visible: false
+
+    signal removed()
 
     Row {
-        anchors.verticalCenter: parent.verticalCenter
+        anchors {
+            verticalCenter: parent.verticalCenter
+            left: parent.left
+            leftMargin: units.gu(1.5)
+        }
         spacing: units.gu(1)
+
+        Loader {
+            id: headerComponentLoader
+            sourceComponent: undefined
+        }
 
         UbuntuShape {
             id: iconContainer
@@ -45,7 +58,7 @@ ListItemWithActions {
         }
 
         Column {
-            width: parent.width - iconContainer.width - parent.spacing
+            width: urlDelegate.width - headerComponentLoader.width - iconContainer.width - parent.spacing
             height: parent.height
 
             Label {
@@ -68,5 +81,15 @@ ListItemWithActions {
                 maximumLineCount: 1
             }
         }
+    }
+
+    leadingActions: ListItemActions {
+        actions: [
+            Action {
+                objectName: "leadingAction.delete"
+                iconName: "delete"
+                onTriggered: urlDelegate.removed()
+            }
+        ]
     }
 }
