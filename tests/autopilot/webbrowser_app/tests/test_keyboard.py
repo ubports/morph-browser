@@ -294,3 +294,15 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         settings.wait_until_destroyed()
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
+    def test_find_in_page_ctrl_f(self):
+        address_bar = self.main_window.chrome.address_bar
+        self.assertThat(address_bar.findInPageMode, Equals(False))
+        self.main_window.press_key('Ctrl+F')
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(True)))
+        self.main_window.press_key('Escape')
+        self.assertThat(address_bar.findInPageMode, Eventually(Equals(False)))
+
+        self.open_new_tab()
+        self.main_window.press_key('Ctrl+F')
+        self.assertThat(address_bar.findInPageMode, Equals(False))

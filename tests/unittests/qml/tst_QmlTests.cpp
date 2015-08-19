@@ -25,10 +25,18 @@
 #include <QtQuickTest/QtQuickTest>
 
 // local
+#include "bookmarks-model.h"
+#include "bookmarks-folderlist-model.h"
 #include "favicon-fetcher.h"
 #include "file-operations.h"
+#include "history-model.h"
+#include "history-timeframe-model.h"
+#include "history-lastvisitdate-model.h"
+#include "history-lastvisitdatelist-model.h"
+#include "limit-proxy-model.h"
 #include "searchengine.h"
 #include "tabs-model.h"
+#include "top-sites-model.h"
 
 static QObject* FileOperations_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
 {
@@ -116,6 +124,14 @@ int main(int argc, char** argv)
     const char* browserUri = "webbrowserapp.private";
     qmlRegisterType<SearchEngine>(browserUri, 0, 1, "SearchEngine");
     qmlRegisterType<TabsModel>(browserUri, 0, 1, "TabsModel");
+    qmlRegisterType<BookmarksModel>(browserUri, 0, 1, "BookmarksModel");
+    qmlRegisterType<BookmarksFolderListModel>(browserUri, 0, 1, "BookmarksFolderListModel");
+    qmlRegisterType<HistoryModel>(browserUri, 0, 1, "HistoryModel");
+    qmlRegisterType<HistoryTimeframeModel>(browserUri, 0, 1, "HistoryTimeframeModel");
+    qmlRegisterType<HistoryLastVisitDateListModel>(browserUri, 0, 1, "HistoryLastVisitDateListModel");
+    qmlRegisterType<HistoryLastVisitDateModel>(browserUri, 0, 1, "HistoryLastVisitDateModel");
+    qmlRegisterType<LimitProxyModel>(browserUri, 0, 1, "LimitProxyModel");
+    qmlRegisterType<TopSitesModel>(browserUri, 0, 1, "TopSitesModel");
     qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
 
     qmlRegisterSingletonType<TestContext>("webbrowsertest.private", 0, 1, "TestContext", TestContext_singleton_factory);

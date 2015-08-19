@@ -23,6 +23,8 @@
 #include "file-operations.h"
 #include "history-domainlist-chronological-model.h"
 #include "history-domainlist-model.h"
+#include "history-lastvisitdatelist-model.h"
+#include "history-lastvisitdate-model.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
 #include "limit-proxy-model.h"
@@ -70,6 +72,8 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<TopSitesModel>(uri, 0 , 1, "TopSitesModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryDomainListChronologicalModel>(uri, 0, 1, "HistoryDomainListChronologicalModel");
+    qmlRegisterType<HistoryLastVisitDateListModel>(uri, 0, 1, "HistoryLastVisitDateListModel");
+    qmlRegisterType<HistoryLastVisitDateModel>(uri, 0, 1, "HistoryLastVisitDateModel");
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
