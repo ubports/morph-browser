@@ -1052,7 +1052,7 @@ BrowserView {
                     id: contextMenuWideComponent
                     ContextMenuWide {
                         webview: webviewimpl
-                        parent: webviewimpl.parent
+                        parent: browser
                         actions: contextualActions
                         Component.onCompleted: webviewimpl.setUpContextMenuComponent(contextModel)
                     }

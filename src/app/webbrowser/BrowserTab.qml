@@ -44,7 +44,7 @@ FocusScope {
         id: webviewContainer
         anchors.fill: parent
         focus: true
-        readonly property var webview: (children.length >= 1) ? children[0] : null
+        readonly property var webview: (children.length == 1) ? children[0] : null
     }
 
     function load() {
