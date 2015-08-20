@@ -21,6 +21,7 @@
 #include <QtTest/QtTest>
 
 // local
+#include "bookmarks-model.h"
 #include "domain-utils.h"
 #include "history-lastvisitdatelist-model.h"
 #include "history-model.h"
@@ -110,7 +111,7 @@ public:
                 m_entries.removeAt(i);
                 endRemoveRows();
                 Q_EMIT rowCountChanged();
-            }   
+            }
         }
     }
 
@@ -146,6 +147,7 @@ private:
     MockHistoryModel* mockHistory;
     HistoryTimeframeModel* timeframe;
     HistoryLastVisitDateListModel* model;
+    BookmarksModel* bookmarks;
 
 private Q_SLOTS:
     void init()
@@ -155,7 +157,9 @@ private Q_SLOTS:
         timeframe = new HistoryTimeframeModel;
         timeframe->setSourceModel(mockHistory);
         model = new HistoryLastVisitDateListModel;
-        model->setSourceModel(timeframe);
+        model->setSourceModel(QVariant::fromValue(timeframe));
+        bookmarks = new BookmarksModel;
+        bookmarks->setDatabasePath(":memory:");
     }
 
     void cleanup()
@@ -163,6 +167,7 @@ private Q_SLOTS:
         delete model;
         delete timeframe;
         delete mockHistory;
+        delete bookmarks;
     }
 
     void shouldBeInitiallyEmpty()
@@ -270,7 +275,7 @@ private Q_SLOTS:
     {
         QDateTime dt1 = QDateTime(QDate(1970, 1, 1), QTime(6, 0, 0));
         QDateTime dt2 = QDateTime(QDate(1970, 1, 2), QTime(6, 0, 0));
- 
+
         mockHistory->add(QUrl("http://example.com/"), "Example Domain", "example.com", QUrl(), dt1);
         mockHistory->add(QUrl("http://example.org/"), "Example Domain", "example.org", QUrl(), dt2);
         QTest::qWait(100);
@@ -288,7 +293,7 @@ private Q_SLOTS:
         QSignalSpy spyRowsRemoved(model, SIGNAL(rowsRemoved(const QModelIndex&, int, int)));
         QDateTime dt1 = QDateTime(QDate(1970, 1, 1), QTime(6, 0, 0));
         QDateTime dt2 = QDateTime(QDate(1970, 1, 2), QTime(6, 0, 0));
- 
+
         mockHistory->add(QUrl("http://example.com/"), "Example Domain", "example.com", QUrl(), dt1);
         mockHistory->add(QUrl("http://example.org/"), "Example Domain", "example.org", QUrl(), dt2);
         QCOMPARE(model->rowCount(), 3);
@@ -308,21 +313,33 @@ private Q_SLOTS:
         mockHistory->add(QUrl("http://example.net/"), "Example Domain", "example.net", QUrl(), dt3);
         QCOMPARE(model->rowCount(), 4);
 
-        model->setSourceModel(timeframe);
+        model->setSourceModel(QVariant::fromValue(timeframe));
         QVERIFY(spy.isEmpty());
         QCOMPARE(model->rowCount(), 4);
 
+        QTest::ignoreMessage(QtWarningMsg, "Only QAbstractItemModel-derived instances are allowed as source models");
         model->setSourceModel(0);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->sourceModel(), (HistoryTimeframeModel*) 0);
+        QVERIFY(!model->sourceModel().isValid());
         QCOMPARE(model->rowCount(), 0);
 
         HistoryTimeframeModel* timeframe2 = new HistoryTimeframeModel(mockHistory);
         timeframe2->setSourceModel(mockHistory);
-        model->setSourceModel(timeframe2);
+        model->setSourceModel(QVariant::fromValue(timeframe2));
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(model->sourceModel(), timeframe2);
+        QCOMPARE(model->sourceModel(), QVariant::fromValue(timeframe2));
         QCOMPARE(model->rowCount(), 4);
+
+        QTest::ignoreMessage(QtWarningMsg, "Only QAbstractItemModel-derived instances are allowed as source models");
+        model->setSourceModel(QVariant::fromValue(QString("not a model")));
+        QCOMPARE(spy.count(), 3);
+        QVERIFY(!model->sourceModel().isValid());
+        QCOMPARE(model->rowCount(), 0);
+
+        QTest::ignoreMessage(QtWarningMsg, "No results will be returned because the sourceModel does not have a role named \"lastVisitDate\"");
+        bookmarks->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");
+        model->setSourceModel(QVariant::fromValue(bookmarks));
+        QCOMPARE(model->rowCount(), 0);
     }
 
     void shouldKeepLastVisitDatesSorted()

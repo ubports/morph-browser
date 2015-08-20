@@ -23,15 +23,13 @@
 #include <QtCore/QAbstractListModel>
 #include <QtCore/QMap>
 #include <QtCore/QString>
-
-class HistoryLastVisitDateModel;
-class HistoryTimeframeModel;
+#include <QtCore/QSortFilterProxyModel>
 
 class HistoryLastVisitDateListModel : public QAbstractListModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
+    Q_PROPERTY(QVariant sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
 
     Q_ENUMS(Roles)
 
@@ -48,8 +46,8 @@ public:
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex& index, int role) const;
 
-    HistoryTimeframeModel* sourceModel() const;
-    void setSourceModel(HistoryTimeframeModel* sourceModel);
+    QVariant sourceModel() const;
+    void setSourceModel(QVariant sourceModel);
 
 Q_SIGNALS:
     void sourceModelChanged() const;
@@ -60,13 +58,15 @@ private Q_SLOTS:
     void onModelReset();
 
 private:
-    HistoryTimeframeModel* m_sourceModel;
+    QAbstractItemModel* m_sourceModel;
+    int m_sourceModelRole;
     QMap<QDate, QList<QPersistentModelIndex*>*> m_lastVisitDates;
     QList<QDate> m_orderedDates;
 
     void clearLastVisitDates();
     void populateModel();
     void insertNewHistoryEntry(QPersistentModelIndex* index, bool notify);
+    void updateSourceModelRole();
 };
 
 #endif // __HISTORY_LASTVISITDATELIST_MODEL_H__
