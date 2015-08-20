@@ -949,7 +949,9 @@ BrowserView {
                         onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
                     }
                     Actions.SaveLink {
-                        enabled: contextModel && contextModel.linkUrl.toString()
+                        //enabled: contextModel && contextModel.linkUrl.toString()
+                        // XXX: temporarily disabled until https://launchpad.net/bugs/1487090 is fixed
+                        enabled: false
                         onTriggered: contextModel.saveLink()
                     }
                     Actions.ShareLink {
@@ -968,10 +970,12 @@ BrowserView {
                         onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
                     }
                     Actions.SaveImage {
-                        enabled: contextModel &&
+                        /*enabled: contextModel &&
                                  ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
                                   (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
-                                 contextModel.srcUrl.toString()
+                                 contextModel.srcUrl.toString()*/
+                        // XXX: temporarily disabled until https://launchpad.net/bugs/1487090 is fixed
+                        enabled: false
                         onTriggered: contextModel.saveMedia()
                     }
                     Actions.Undo {
