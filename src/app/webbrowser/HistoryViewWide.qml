@@ -26,6 +26,7 @@ FocusScope {
 
     property alias historyModel: historySearchModel.sourceModel
     property bool searchMode: false
+    onSearchModeChanged: searchQuery.text = ""
 
     signal done()
     signal historyEntryClicked(url url)
@@ -243,6 +244,7 @@ FocusScope {
                     }
 
                     onPressAndHold: {
+                        if (historyViewWide.searchMode) historyViewWide.searchMode = false
                         selectMode = !selectMode
                         if (selectMode) {
                             urlsListView.ViewItems.selectedIndices = [index]
@@ -270,7 +272,8 @@ FocusScope {
         }
 
         Label {
-            visible: !urlsListView.ViewItems.selectMode
+            visible: !urlsListView.ViewItems.selectMode &&
+                     !historyViewWide.searchMode
 
             anchors {
                 top: parent.top
@@ -285,7 +288,8 @@ FocusScope {
         ToolbarAction {
             objectName: "backButton"
 
-            visible: urlsListView.ViewItems.selectMode
+            visible: urlsListView.ViewItems.selectMode ||
+                     historyViewWide.searchMode
 
             anchors {
                 top: parent.top
@@ -298,7 +302,11 @@ FocusScope {
             text: i18n.tr("Cancel")
 
             onClicked: {
-                urlsListView.ViewItems.selectMode = false
+                if (historyViewWide.searchMode) {
+                    historyViewWide.searchMode = false
+                } else {
+                    urlsListView.ViewItems.selectMode = false
+                }
                 lastVisitDateListView.forceActiveFocus()
             }
         }
@@ -382,7 +390,6 @@ FocusScope {
             placeholderText: i18n.tr("search history")
             visible: historyViewWide.searchMode
             property var terms: text.split(/\s+/g).filter(function(term) { return term.length > 0 })
-            onTermsChanged: console.log(terms)
         }
 
         ToolbarAction {

@@ -196,6 +196,17 @@ Item {
             compare(urlsList.count, 3)
             typeString("2")
             compare(urlsList.count, 1)
+
+            var backButton = findChild(historyViewWide, "backButton")
+            verify(backButton.visible)
+            clickItem(backButton)
+            verify(!backButton.visible)
+            verify(!searchQuery.visible)
+            verify(searchButton.visible)
+            compare(urlsList.count, 3)
+
+            clickItem(searchButton)
+            compare(searchQuery.text, "")
         }
     }
 }
