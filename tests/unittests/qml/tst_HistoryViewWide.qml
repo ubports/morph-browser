@@ -29,12 +29,19 @@ Item {
     width: 700
     height: 500
 
-    HistoryViewWide {
-        id: historyViewWide
+    property var historyViewWide: historyViewWideLoader.item
+
+    Loader {
+        id: historyViewWideLoader
         anchors.fill: parent
-        historyModel: HistoryModel {
-            id: historyMockModel
-            databasePath: ":memory:"
+        active: false
+        sourceComponent: HistoryViewWide {
+            id: historyViewWideComponent
+            anchors.fill: parent
+            historyModel: HistoryModel {
+                id: historyMockModel
+                databasePath: ":memory:"
+            }
         }
     }
 
@@ -83,13 +90,21 @@ Item {
             mouseRelease(item, center.x + 100, center.y, Qt.LeftButton, Qt.NoModifier, 2000)
         }
 
-        function initTestCase() {
+        function init() {
+            historyViewWideLoader.active = true
+            waitForRendering(historyViewWideLoader.item)
+
             for (var i = 0; i < 3; ++i) {
-                historyMockModel.add("http://example.org/" + i, "Example Domain " + i, "")
+                historyViewWide.historyModel.add("http://example.org/" + i, "Example Domain " + i, "")
             }
             var urlsList = findChild(historyViewWide, "urlsListView")
             waitForRendering(urlsList)
             tryCompare(urlsList, "count", 3)
+            historyViewWide.forceActiveFocus()
+        }
+
+        function cleanup() {
+            historyViewWideLoader.active = false
         }
 
         function test_done_button() {
@@ -173,7 +188,7 @@ Item {
         function test_keyboard_navigation_between_lists() {
             var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
             var urlsList = findChild(historyViewWide, "urlsListView")
-            verify(!lastVisitDateList.activeFocus)
+            verify(urlsList.activeFocus)
             keyClick(Qt.Key_Left)
             verify(lastVisitDateList.activeFocus)
             verify(!urlsList.activeFocus)
@@ -207,6 +222,29 @@ Item {
 
             clickItem(searchButton)
             compare(searchQuery.text, "")
+        }
+
+        function test_keyboard_navigation_for_search() {
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            verify(urlsList.activeFocus)
+            keyClick(Qt.Key_F, Qt.ControlModifier)
+
+            var searchQuery = findChild(historyViewWide, "searchQuery")
+            verify(searchQuery.activeFocus)
+
+            keyClick(Qt.Key_Escape)
+            verify(urlsList.activeFocus)
+
+            keyClick(Qt.Key_F, Qt.ControlModifier)
+            keyClick(Qt.Key_Down)
+            verify(urlsList.activeFocus)
+            keyClick(Qt.Key_Up)
+            verify(searchQuery.activeFocus)
+
+            keyClick(Qt.Key_Down)
+            keyClick(Qt.Key_Left)
+            keyClick(Qt.Key_Up)
+            verify(searchQuery.activeFocus)
         }
     }
 }
