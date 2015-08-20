@@ -65,7 +65,6 @@ private Q_SLOTS:
         model->setSourceModel(QVariant::fromValue(timeframe));
         QVERIFY(spy.isEmpty());
 
-        QTest::ignoreMessage(QtWarningMsg, "No results will be returned because the sourceModel does not have a role named \"lastVisitDate\"");
         HistoryTimeframeModel* timeframe2 = new HistoryTimeframeModel(model);
         model->setSourceModel(QVariant::fromValue(timeframe2));
         QCOMPARE(spy.count(), 1);

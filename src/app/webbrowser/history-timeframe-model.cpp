@@ -44,7 +44,9 @@ HistoryModel* HistoryTimeframeModel::sourceModel() const
 void HistoryTimeframeModel::setSourceModel(HistoryModel* sourceModel)
 {
     if (sourceModel != this->sourceModel()) {
+        beginResetModel();
         QSortFilterProxyModel::setSourceModel(sourceModel);
+        endResetModel();
         Q_EMIT sourceModelChanged();
     }
 }
@@ -88,4 +90,9 @@ bool HistoryTimeframeModel::filterAcceptsRow(int source_row, const QModelIndex& 
         return false;
     }
     return true;
+}
+
+QHash<int, QByteArray> HistoryTimeframeModel::roleNames() const
+{
+    return (sourceModel()) ? sourceModel()->roleNames() : QHash<int, QByteArray>();
 }

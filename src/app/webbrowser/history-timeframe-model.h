@@ -53,6 +53,7 @@ Q_SIGNALS:
 protected:
     // reimplemented from QSortFilterProxyModel
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
+    QHash<int, QByteArray> roleNames() const;
 
 private:
     QDateTime m_start;
