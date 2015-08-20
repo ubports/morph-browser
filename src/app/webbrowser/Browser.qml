@@ -27,7 +27,6 @@ import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 import "../UrlUtils.js" as UrlUtils
-import "urlManagement.js" as UrlManagement
 
 BrowserView {
     id: browser
@@ -496,7 +495,7 @@ BrowserView {
                 searchEngine: currentSearchEngine
                 active: (chrome.activeFocus || suggestionsList.activeFocus) &&
                          !browser.incognito && !chrome.findInPageMode &&
-                         !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
+                         !UrlUtils.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
                 function limit(number) {
                     var slice = results.slice(0, number)
@@ -788,7 +787,7 @@ BrowserView {
 
                 FocusScope {
                     id: expandedHistoryViewContainer
-    
+
                     visible: children.length > 0
                     anchors.fill: parent
 
