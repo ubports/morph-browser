@@ -915,7 +915,8 @@ BrowserView {
                 anchors.fill: parent
                 focus: true
 
-                enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
+                enabled: current && !bottomEdgeHandle.dragging &&
+                         !recentView.visible && !contextModel
 
                 locationBarController {
                     height: webviewimpl.visible ? chrome.height : 0
@@ -1010,6 +1011,8 @@ BrowserView {
                 Component {
                     id: contextMenuWideComponent
                     ContextMenuWide {
+                        webview: webviewimpl
+                        parent: webviewimpl.parent
                         actions: contextualActions
                         Component.onCompleted: webviewimpl.setUpContextMenuComponent(contextModel)
                     }

@@ -27,11 +27,10 @@ Popups.Popover {
 
     property QtObject contextModel: model
     property ActionList actions: null
+    property var webview: null
 
     QtObject {
         id: internal
-
-        readonly property var webview: contextMenu.parent
 
         readonly property bool isImage: ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
                                          (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
@@ -47,7 +46,7 @@ Popups.Popover {
             return last
         }
 
-        readonly property real locationBarOffset: webview.locationBarController.height + webview.locationBarController.offset
+        readonly property real locationBarOffset: contextMenu.webview.locationBarController.height + contextMenu.webview.locationBarController.offset
     }
 
     Rectangle {
@@ -128,7 +127,7 @@ Popups.Popover {
     Item {
         id: positioner
         visible: false
-        parent: internal.webview
+        parent: contextMenu.webview
         x: contextModel.position.x
         y: contextModel.position.y + internal.locationBarOffset
     }
@@ -138,6 +137,12 @@ Popups.Popover {
         if (contextModel.linkUrl.toString() || contextModel.srcUrl.toString()) {
             show()
         } else {
+            contextModel.close()
+        }
+    }
+
+    onVisibleChanged: {
+        if (!visible) {
             contextModel.close()
         }
     }
