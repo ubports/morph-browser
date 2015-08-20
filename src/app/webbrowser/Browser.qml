@@ -915,8 +915,7 @@ BrowserView {
                 anchors.fill: parent
                 focus: true
 
-                enabled: current && !bottomEdgeHandle.dragging &&
-                         !recentView.visible && !contextModel
+                enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
 
                 locationBarController {
                     height: webviewimpl.visible ? chrome.height : 0
