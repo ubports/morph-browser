@@ -996,6 +996,7 @@ BrowserView {
                 }
 
                 function setUpContextMenuComponent(model) {
+                    webviewimpl.dismissSelection()
                     contextModel = model
                     if (!webviewimpl.hasContextActions() && webviewimpl.hasSelectionActions()) {
                         webviewimpl.createSelection(model.position)

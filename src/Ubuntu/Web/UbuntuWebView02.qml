@@ -193,6 +193,9 @@ Oxide.WebView {
     function createSelection(position) {
         internal.createSelection(position)
     }
+    function dismissSelection() {
+        internal.dismissCurrentSelection()
+    }
 
     QtObject {
         id: internal
