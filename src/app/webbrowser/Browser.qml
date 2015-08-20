@@ -975,6 +975,41 @@ BrowserView {
                                  contextModel.srcUrl.toString()
                         onTriggered: contextModel.saveMedia()
                     }
+                    Actions.Undo {
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.UndoCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandUndo)
+                    }
+                    Actions.Redo {
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.RedoCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandRedo)
+                    }
+                    Actions.Cut {
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.CutCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+                    }
+                    Actions.Copy {
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.CopyCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+                    }
+                    Actions.Paste {
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.PasteCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
+                    }
+                    Actions.Erase {
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.EraseCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandErase)
+                    }
+                    Actions.SelectAll {
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.SelectAllCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
+                    }
                 }
 
                 function hasContextActions() {

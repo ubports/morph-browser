@@ -42,6 +42,7 @@ Popups.Dialog {
             rightMargin: units.gu(2)
         }
         height: units.gu(2 * title.lineCount + 3)
+        visible: !contextModel.isEditable
 
         Icon {
             width: units.gu(2)
@@ -82,6 +83,7 @@ Popups.Dialog {
             right: parent.right
             rightMargin: units.gu(2)
         }
+        visible: !contextModel.isEditable
     }
 
     Repeater {
@@ -140,7 +142,9 @@ Popups.Dialog {
     }
 
     Component.onCompleted: {
-        if (contextModel.linkUrl.toString() || contextModel.srcUrl.toString()) {
+        if (contextModel.linkUrl.toString() ||
+            contextModel.srcUrl.toString() ||
+            (contextModel.isEditable && contextModel.editFlags)) {
             show()
         } else {
             contextModel.close()
