@@ -44,6 +44,8 @@ public:
         DownloadId = Qt::UserRole + 1,
         Url,
         Path,
+        Filename,
+        Extension,
         Mimetype,
         Progress,
         Complete,
@@ -66,6 +68,7 @@ public:
     Q_INVOKABLE void setComplete(const QString& downloadId, const bool complete);
     Q_INVOKABLE void setError(const QString& downloadId, const QString& error);
     Q_INVOKABLE void deleteDownload(const QString& path);
+    Q_INVOKABLE QString iconForMimetype(const QString& mimetypeString);
 
 Q_SIGNALS:
     void databasePathChanged() const;
@@ -84,6 +87,8 @@ private:
         QString downloadId;
         QUrl url;
         QString path;
+        QString filename;
+        QString extension;
         QString mimetype;
         int progress;
         bool complete;

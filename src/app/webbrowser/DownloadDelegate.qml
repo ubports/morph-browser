@@ -23,7 +23,9 @@ import ".."
 ListItem {
     id: downloadDelegate
 
-    property alias icon: icon.source
+    property alias icon: mimeicon.name
+    property alias image: thumbimage.source
+    property alias extension: extensiontext.text
     property alias title: title.text
     property alias url: url.text
 
@@ -43,10 +45,25 @@ ListItem {
             id: iconContainer
             width: units.gu(3)
             height: width
+            sourceFillMode: UbuntuShape.PreserveAspectCrop
+            source: Image {
+                id: thumbimage
+                sourceSize.width: parent.width
+                sourceSize.height: parent.height
+            }
 
-            Favicon {
-                id: icon
+            Icon {
+                id: mimeicon
+                anchors.fill: parent
+                anchors.margins: units.gu(0.2)
+                visible: thumbimage.status !== Image.Ready
+            }
+
+            Text {
+                id: extensiontext
+                font.pointSize: 12
                 anchors.centerIn: parent
+                visible: text !== "" && thumbimage.status !== Image.Ready
             }
         }
 

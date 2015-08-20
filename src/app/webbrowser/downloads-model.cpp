@@ -24,6 +24,8 @@
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QStandardPaths>
+#include <QtCore/QMimeDatabase>
+#include <QtCore/QMimeType>
 
 #define CONNECTION_NAME "webbrowser-app-downloads"
 
@@ -108,8 +110,10 @@ void DownloadsModel::populateFromDatabase()
         // Only list an entry if its file exists, however we don't remove
         // the entry if the file is missing as it may be stored on a removable
         // medium like an SD card in the future, so could reappear.
-        QFileInfo checkPath(entry.path);
-        if (checkPath.exists()) {
+        QFileInfo fileInfo(entry.path);
+        if (fileInfo.exists()) {
+            entry.filename = fileInfo.fileName();
+            entry.extension = fileInfo.suffix();
             beginInsertRows(QModelIndex(), count, count);
             m_orderedEntries.append(entry);
             endInsertRows();
@@ -125,6 +129,8 @@ QHash<int, QByteArray> DownloadsModel::roleNames() const
         roles[DownloadId] = "downloadId";
         roles[Url] = "url";
         roles[Path] = "path";
+        roles[Filename] = "filename";
+        roles[Extension] = "extension";
         roles[Mimetype] = "mimetype";
         roles[Progress] = "progress";
         roles[Complete] = "complete";
@@ -153,6 +159,10 @@ QVariant DownloadsModel::data(const QModelIndex& index, int role) const
         return entry.url;
     case Path:
         return entry.path;
+    case Filename:
+        return entry.filename;
+    case Extension:
+        return entry.extension;
     case Mimetype:
         return entry.mimetype;
     case Progress:
@@ -324,4 +334,18 @@ void DownloadsModel::removeExistingEntryFromDatabase(const QString& path)
     query.prepare(deleteStatement);
     query.addBindValue(path);
     query.exec();
+}
+
+/*!
+    Provide the system icon name for a given mimetype
+*/
+QString DownloadsModel::iconForMimetype(const QString& mimetypeString)
+{
+    QMimeDatabase mimedb;
+    QMimeType mimetype = mimedb.mimeTypeForName(mimetypeString);
+    if (mimetype.iconName().isEmpty()) {
+        return mimetype.genericIconName();
+    } else {
+        return mimetype.iconName();
+    }
 }
