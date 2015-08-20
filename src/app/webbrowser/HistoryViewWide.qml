@@ -26,7 +26,13 @@ FocusScope {
 
     property alias historyModel: historySearchModel.sourceModel
     property bool searchMode: false
-    onSearchModeChanged: searchQuery.text = ""
+    onSearchModeChanged: {
+        if (searchMode) searchQuery.focus = true
+        else {
+            searchQuery.text = ""
+            urlsListView.focus = true
+        }
+    }
 
     signal done()
     signal historyEntryClicked(url url)
@@ -35,6 +41,12 @@ FocusScope {
 
     Keys.onLeftPressed: lastVisitDateListView.forceActiveFocus()
     Keys.onRightPressed: urlsListView.forceActiveFocus()
+    Keys.onUpPressed: if (searchMode) searchQuery.focus = true
+    Keys.onPressed: {
+        if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_F) {
+            searchMode = true
+        }
+    }
 
     onActiveFocusChanged: {
         if (activeFocus) {
@@ -390,6 +402,9 @@ FocusScope {
             placeholderText: i18n.tr("search history")
             visible: historyViewWide.searchMode
             property var terms: text.split(/\s+/g).filter(function(term) { return term.length > 0 })
+
+            Keys.onEscapePressed: historyViewWide.searchMode = false
+            Keys.onDownPressed: urlsListView.focus = true
         }
 
         ToolbarAction {
