@@ -21,6 +21,7 @@
 #include <QtTest/QtTest>
 
 // local
+#include "bookmarks-model.h"
 #include "history-lastvisitdate-model.h"
 #include "history-model.h"
 #include "history-timeframe-model.h"
@@ -43,7 +44,7 @@ private Q_SLOTS:
         timeframe = new HistoryTimeframeModel;
         timeframe->setSourceModel(history);
         model = new HistoryLastVisitDateModel;
-        model->setSourceModel(timeframe);
+        model->setSourceModel(QVariant::fromValue(timeframe));
     }
 
     void cleanup()
@@ -61,15 +62,37 @@ private Q_SLOTS:
     void shouldNotifyWhenChangingSourceModel()
     {
         QSignalSpy spy(model, SIGNAL(sourceModelChanged()));
-        model->setSourceModel(timeframe);
+        model->setSourceModel(QVariant::fromValue(timeframe));
         QVERIFY(spy.isEmpty());
+
+        QTest::ignoreMessage(QtWarningMsg, "No results will be returned because the sourceModel does not have a role named \"lastVisitDate\"");
         HistoryTimeframeModel* timeframe2 = new HistoryTimeframeModel(model);
-        model->setSourceModel(timeframe2);
+        model->setSourceModel(QVariant::fromValue(timeframe2));
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->sourceModel(), timeframe2);
-        model->setSourceModel(0);
+        QCOMPARE(model->sourceModel(), QVariant::fromValue(timeframe2));
+
+        model->setSourceModel(QVariant());
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(model->sourceModel(), (HistoryTimeframeModel*) 0);
+        QVERIFY(!model->sourceModel().isValid());
+
+        QTest::ignoreMessage(QtWarningMsg, "Only QAbstractItemModel-derived instances are allowed as source models");
+        model->setSourceModel(QVariant::fromValue(QString("not a model")));
+        QVERIFY(!model->sourceModel().isValid());
+        QCOMPARE(model->rowCount(), 0);
+        QCOMPARE(spy.count(), 2); // model is still invalid internally so no signal emitted
+
+        QTest::ignoreMessage(QtWarningMsg, "No results will be returned because the sourceModel does not have a role named \"lastVisitDate\"");
+        BookmarksModel bookmarks;
+        bookmarks.setDatabasePath(":memory:");
+        bookmarks.add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");
+        model->setSourceModel(QVariant::fromValue(&bookmarks));
+        QCOMPARE(spy.count(), 3);
+        // with no filter, all entries match even if the model doesn't have the lastVisitDate role
+        QCOMPARE(model->rowCount(), 1);
+        model->setLastVisitDate(QDate::currentDate());
+        QCOMPARE(model->rowCount(), 0);
+
+        delete timeframe2;
     }
 
     void shouldNotifyWhenChangingLastVisitDate()
