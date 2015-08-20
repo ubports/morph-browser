@@ -36,6 +36,7 @@
 #include "limit-proxy-model.h"
 #include "searchengine.h"
 #include "tabs-model.h"
+#include "text-search-filter-model.h"
 #include "top-sites-model.h"
 
 static QObject* FileOperations_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
@@ -131,6 +132,7 @@ int main(int argc, char** argv)
     qmlRegisterType<HistoryLastVisitDateListModel>(browserUri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<HistoryLastVisitDateModel>(browserUri, 0, 1, "HistoryLastVisitDateModel");
     qmlRegisterType<LimitProxyModel>(browserUri, 0, 1, "LimitProxyModel");
+    qmlRegisterType<TextSearchFilterModel>(browserUri, 0, 1, "TextSearchFilterModel");
     qmlRegisterType<TopSitesModel>(browserUri, 0, 1, "TopSitesModel");
     qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
 

@@ -24,7 +24,8 @@ import webbrowserapp.private 0.1
 FocusScope {
     id: historyViewWide
 
-    property alias historyModel: historyTimeframeModel.sourceModel
+    property alias historyModel: historySearchModel.sourceModel
+    property bool searchMode: false
 
     signal done()
     signal historyEntryClicked(url url)
@@ -44,10 +45,12 @@ FocusScope {
         anchors.fill: parent
     }
 
-    HistoryTimeframeModel {
-        id: historyTimeframeModel
+    TextSearchFilterModel {
+        id: historySearchModel
+        searchFields: ["title", "url"]
+        terms: searchQuery.terms
     }
- 
+
     Row {
         id: historyViewWideRow
         anchors {
@@ -59,7 +62,7 @@ FocusScope {
         }
 
         spacing: units.gu(1)
-        
+
         Item {
             width: units.gu(40)
             height: parent.height
@@ -77,27 +80,27 @@ FocusScope {
                     }
                     urlsListView.ViewItems.selectedIndices = []
                 }
-    
+
                 model: HistoryLastVisitDateListModel {
-                    sourceModel: historyTimeframeModel
+                    sourceModel: historyLastVisitDateModel.sourceModel
                 }
-    
+
                 delegate: ListItem {
                     objectName: "lastVisitDateDelegate"
 
                     property var lastVisitDate: model.lastVisitDate
-    
+
                     anchors {
                         left: parent.left
                         right: parent.right
                         rightMargin: units.gu(1)
                     }
-    
+
                     width: parent.width
                     height: units.gu(4)
-    
+
                     color: lastVisitDateListView.currentIndex == index ? highlightColor : "transparent"
-    
+
                     Label {
                         objectName: "lastVisitDateDelegateLabel"
 
@@ -107,9 +110,9 @@ FocusScope {
                             topMargin: units.gu(1)
                             leftMargin: units.gu(2)
                         }
-    
+
                         height: parent.height
-    
+
                         text: {
                             if (!lastVisitDate.isValid()) {
                                 return i18n.tr("All History")
@@ -117,14 +120,14 @@ FocusScope {
 
                             var today = new Date()
                             today.setHours(0, 0, 0, 0)
-    
+
                             var yesterday = new Date()
                             yesterday.setDate(yesterday.getDate() - 1)
                             yesterday.setHours(0, 0, 0, 0)
-    
+
                             var entryDate = new Date(lastVisitDate)
                             entryDate.setHours(0, 0, 0, 0)
-                             
+
                             if (entryDate.getTime() == today.getTime()) {
                                 return i18n.tr("Today")
                             } else if (entryDate.getTime() == yesterday.getTime()) {
@@ -132,11 +135,11 @@ FocusScope {
                             }
                             return Qt.formatDate(lastVisitDate, Qt.DefaultLocaleLongDate)
                         }
-    
+
                         fontSize: "small"
                         color: lastVisitDateListView.currentIndex == index ? UbuntuColors.orange : UbuntuColors.darkGrey
                     }
-    
+
                     onClicked: lastVisitDateListView.currentIndex = index
                }
             }
@@ -156,15 +159,19 @@ FocusScope {
                 objectName: "urlsListView"
 
                 anchors.fill: parent
-    
+
                 Keys.onReturnPressed: historyEntrySelected()
                 Keys.onEnterPressed: historyEntrySelected()
 
                 model: HistoryLastVisitDateModel {
                     id: historyLastVisitDateModel
-                    sourceModel: historyTimeframeModel
+                    // Until a valid HistoryModel is assigned the TestSearchFilterModel
+                    // will not report role names, and the HistoryLastVisit*Models will emit warnings
+                    // since they need a dateLastVisit role to be present.
+                    // We avoid this by assigning the sourceModel only when HistoryModel is ready.
+                    sourceModel: historyModel ? historySearchModel : undefined
                 }
- 
+
                 clip: true
 
                 onModelChanged: urlsListView.currentIndex = -1
@@ -184,7 +191,7 @@ FocusScope {
                         historyViewWide.historyEntryClicked(currentItem.url)
                     }
                 }
-   
+
                 // Only use sections for "All History" history list
                 section.property: historyLastVisitDateModel.lastVisitDate.isValid() ? "" : "lastVisitDate"
                 section.delegate: HistorySectionDelegate {
@@ -193,22 +200,22 @@ FocusScope {
                     anchors.leftMargin: units.gu(2)
                     todaySectionTitle: i18n.tr("Today")
                 }
-    
+
                 delegate: UrlDelegate{
                     width: parent.width - units.gu(1)
                     height: units.gu(5)
-    
+
                     color: urlsListView.currentIndex == index ? highlightColor : "transparent"
-       
+
                     icon: model.icon
                     title: model.title ? model.title : model.url
                     url: model.url
-    
+
                     headerComponent: Component {
                         Item {
                             height: units.gu(3)
                             width: timeLabel.width
-    
+
                             Label {
                                 id: timeLabel
                                 anchors.centerIn: parent
@@ -217,15 +224,15 @@ FocusScope {
                             }
                         }
                     }
-    
-                    onClicked: { 
+
+                    onClicked: {
                         if (selectMode) {
                             selected = !selected
                         } else {
                             historyViewWide.historyEntryClicked(model.url)
                         }
                     }
-     
+
                     onRemoved: {
                         if (urlsListView.count == 1) {
                             historyViewWide.historyEntryRemoved(model.url)
@@ -272,13 +279,13 @@ FocusScope {
                 leftMargin: units.gu(2)
             }
 
-            text: i18n.tr("History")    
+            text: i18n.tr("History")
         }
 
         ToolbarAction {
             objectName: "backButton"
 
-            visible: urlsListView.ViewItems.selectMode 
+            visible: urlsListView.ViewItems.selectMode
 
             anchors {
                 top: parent.top
@@ -286,7 +293,7 @@ FocusScope {
                 leftMargin: units.gu(2)
             }
             height: parent.height - units.gu(2)
- 
+
             iconName: "back"
             text: i18n.tr("Cancel")
 
@@ -307,7 +314,7 @@ FocusScope {
                 rightMargin: units.gu(2)
             }
             height: parent.height - units.gu(2)
- 
+
             iconName: "select"
             text: i18n.tr("Select all")
 
@@ -350,7 +357,7 @@ FocusScope {
                 }
 
                 if (urlsListView.count == urls.length) {
-                    lastVisitDateListView.currentIndex = 0                   
+                    lastVisitDateListView.currentIndex = 0
                 }
 
                 urlsListView.ViewItems.selectMode = false
@@ -362,12 +369,45 @@ FocusScope {
             }
         }
 
+        TextField {
+            id: searchQuery
+            objectName: "searchQuery"
+            anchors {
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+                rightMargin: units.gu(2)
+            }
+            width: units.gu(40)
+            hasClearButton: true
+            placeholderText: i18n.tr("search history")
+            visible: historyViewWide.searchMode
+            property var terms: text.split(/\s+/g).filter(function(term) { return term.length > 0 })
+            onTermsChanged: console.log(terms)
+        }
+
+        ToolbarAction {
+            id: searchButton
+            iconName: "search"
+            objectName: "searchButton"
+            visible: !urlsListView.ViewItems.selectMode &&
+                     !historyViewWide.searchMode
+            anchors {
+                verticalCenter: parent.verticalCenter
+                right: parent.right
+                rightMargin: units.gu(3.5)
+            }
+            height: parent.height - units.gu(2)
+            onClicked: {
+                historyViewWide.searchMode = true
+                searchQuery.forceActiveFocus()
+            }
+        }
+
         ListItems.ThinDivider {
             anchors {
                 left: parent.left
                 right: parent.right
                 bottom: parent.bottom
-                bottomMargin: units.gu(1)
             }
         }
     }

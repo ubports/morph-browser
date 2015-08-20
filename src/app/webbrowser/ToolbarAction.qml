@@ -24,7 +24,7 @@ AbstractButton {
     property alias text: label.text
 
     opacity: enabled ? 1.0 : 0.3
-    width: label.paintedWidth
+    width: Math.max(label.paintedWidth, icon.width)
 
     Item {
         anchors {

@@ -88,8 +88,8 @@ Item {
                 historyMockModel.add("http://example.org/" + i, "Example Domain " + i, "")
             }
             var urlsList = findChild(historyViewWide, "urlsListView")
-            tryCompare(urlsList, "count", 3)
             waitForRendering(urlsList)
+            tryCompare(urlsList, "count", 3)
         }
 
         function test_done_button() {
@@ -173,12 +173,29 @@ Item {
         function test_keyboard_navigation_between_lists() {
             var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
             var urlsList = findChild(historyViewWide, "urlsListView")
-            verify(!lastVisitDateList.activeFocus)        
+            verify(!lastVisitDateList.activeFocus)
             keyClick(Qt.Key_Left)
-            verify(lastVisitDateList.activeFocus)        
-            verify(!urlsList.activeFocus)        
+            verify(lastVisitDateList.activeFocus)
+            verify(!urlsList.activeFocus)
             keyClick(Qt.Key_Right)
-            verify(urlsList.activeFocus)        
+            verify(urlsList.activeFocus)
+        }
+
+        function test_search_button() {
+            var searchButton = findChild(historyViewWide, "searchButton")
+            verify(searchButton.visible)
+            clickItem(searchButton)
+            verify(!searchButton.visible)
+
+            var searchQuery = findChild(historyViewWide, "searchQuery")
+            verify(searchQuery.visible)
+            verify(searchQuery.activeFocus)
+            compare(searchQuery.text, "")
+
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            compare(urlsList.count, 3)
+            typeString("2")
+            compare(urlsList.count, 1)
         }
     }
 }
