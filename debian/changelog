@@ -1,3 +1,27 @@
+webbrowser-app (0.23+15.10.20150820-0ubuntu1) wily; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix webapp name logic (LP: #1473472)
+
+  [ Arthur Mello ]
+  * Add support for removing history entries with delete key in
+    HistoryViewWide (LP: #1484562)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Remove an old workaround for an issue that was fixed since then in
+    the content hub and that caused the file picker to accept the
+    selected file twice.
+
+  [ Ugo Riboni ]
+  * Merge two url utility files into one, since they had no reason for
+    being separate. Add unit tests for some of the functions that had
+    none.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 20 Aug 2015 08:58:20 +0000
+
 webbrowser-app (0.23+15.10.20150817-0ubuntu1) wily; urgency=medium
 
   [ Arthur Mello ]
