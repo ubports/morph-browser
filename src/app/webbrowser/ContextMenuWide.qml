@@ -118,7 +118,7 @@ Popups.Popover {
 
                 onTriggered: {
                     action.trigger()
-                    contextModel.close()
+                    contextMenu.hide()
                 }
             }
         }
