@@ -125,7 +125,6 @@ document.defaultView.addEventListener('scroll', function(event) {
 
 function setScaleParameters(data) {
     var w = document.defaultView;
-    data['dpr'] = w.devicePixelRatio;
     data['innerWidth'] = w.innerWidth;
     data['outerWidth'] = w.outerWidth;
     data['innerHeight'] = w.innerHeight;
@@ -152,3 +151,5 @@ oxide.addMessageHandler("adjustselection", function (msg) {
     setScaleParameters(adjusted);
     msg.reply(adjusted);
 });
+
+oxide.sendMessage('dpr', {dpr: document.defaultView.devicePixelRatio});

@@ -130,8 +130,11 @@ Popups.Popover {
         id: positioner
         visible: false
         parent: contextMenu.webview
-        x: contextModel.position.x
-        y: contextModel.position.y + internal.locationBarOffset
+        // XXX: Because the context model’s position is incorrectly reported in
+        // device-independent pixels (see https://launchpad.net/bugs/1471181),
+        // it needs to be multiplied by the device pixel ratio to get physical pixels.
+        x: contextModel.position.x * contextMenu.webview.devicePixelRatio
+        y: contextModel.position.y * contextMenu.webview.devicePixelRatio + internal.locationBarOffset
     }
     caller: positioner
 
