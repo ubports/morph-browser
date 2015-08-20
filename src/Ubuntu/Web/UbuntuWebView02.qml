@@ -121,6 +121,7 @@ Oxide.WebView {
             }
         }
     }
+    readonly property QtObject contextModel: internal.contextModel
 
     property var selectionActions // type: ActionList
     onSelectionActionsChanged: {
