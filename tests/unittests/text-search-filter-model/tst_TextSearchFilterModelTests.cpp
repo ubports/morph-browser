@@ -67,11 +67,17 @@ private Q_SLOTS:
         delete model2;
     }
 
-    void shouldBeEmptyWhileTermsAndFieldsEmpty()
+    void shouldReturnAllWhileTermsAndOrFieldsEmpty()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
-        QCOMPARE(matches->rowCount(), 0);
+        QCOMPARE(matches->rowCount(), 2);
+        matches->setTerms(QStringList({"org"}));
+        QCOMPARE(matches->rowCount(), 2);
+        matches->setSearchFields(QStringList({"url"}));
+        QCOMPARE(matches->rowCount(), 1);
+        matches->setTerms(QStringList());
+        QCOMPARE(matches->rowCount(), 2);
     }
 
     void shouldRecordTerms()
@@ -132,8 +138,6 @@ private Q_SLOTS:
         QCOMPARE(matches->rowCount(), 2);
         matches->setTerms(QStringList({"wiki"}));
         QCOMPARE(matches->rowCount(), 1);
-        matches->setTerms(QStringList());
-        QCOMPARE(matches->rowCount(), 0);
     }
 
     void shouldUpdateResultsWhenSourceModelUpdates()

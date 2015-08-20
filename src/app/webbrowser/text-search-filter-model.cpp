@@ -34,6 +34,9 @@
     terms are contained in any of the item's fields (i.e. given two search
     terms, if one is found in a field and the other in a different field, then
     the item will be returned, but it will not be returned if only one is found)
+
+    If no searchTerms and/or no searchFields are present, all entries from the
+    source model are returned.
 */
 TextSearchFilterModel::TextSearchFilterModel(QObject* parent)
     : QSortFilterProxyModel(parent)
@@ -106,7 +109,7 @@ void TextSearchFilterModel::updateSearchRoles(const QAbstractItemModel* model) {
 bool TextSearchFilterModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const
 {
     if (m_terms.isEmpty() || m_searchFields.isEmpty()) {
-        return false;
+        return true;
     }
 
     QAbstractItemModel* source = QSortFilterProxyModel::sourceModel();

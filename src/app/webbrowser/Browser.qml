@@ -462,9 +462,10 @@ BrowserView {
             Keys.onUpPressed: chrome.focus = true
             Keys.onEscapePressed: internal.resetFocus()
 
-            models: [historySuggestions,
+            models: searchTerms && searchTerms.length > 0 ?
+                    [historySuggestions,
                      bookmarksSuggestions,
-                     searchSuggestions.limit(4)]
+                     searchSuggestions.limit(4)] : []
 
             LimitProxyModel {
                 id: historySuggestions
