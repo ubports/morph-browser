@@ -829,7 +829,6 @@ BrowserView {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
-                onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
                 onNewTabRequested: browser.openUrlInNewTab("", true)
                 onDone: historyViewLoader.active = false
             }
