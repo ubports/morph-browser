@@ -949,6 +949,10 @@ BrowserView {
                         enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
                     }
+                    Actions.SaveLink {
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: contextModel.saveLink()
+                    }
                     Actions.ShareLink {
                         enabled: (formFactor == "mobile") &&
                                  contextModel && contextModel.linkUrl.toString()
