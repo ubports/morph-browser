@@ -27,7 +27,7 @@ import "FileExtensionMapper.js" as FileExtensionMapper
 Item {
     id: downloadItem
 
-    property string mimeType;
+    property string mimeType
 
     Component {
         id: downloadDialog
@@ -53,9 +53,12 @@ Item {
             // copy to identify the download we've just finished in the database
             property string currentDownloadId
             onDownloadIdChanged: {
-                currentDownloadId = downloadId;
+                currentDownloadId = downloadId
                 browser.downloadsModel.add(downloadId, url, downloadItem.mimeType)
-                PopupUtils.open(downloadDialog, downloadItem, {"contentType" : contentType, "downloadId" : downloadId, "singleDownload" : downloader})
+                PopupUtils.open(downloadDialog, downloadItem, {"contentType" : contentType,
+                                                               "downloadId" : downloadId,
+                                                               "singleDownload" : downloader,
+                                                               "mimeType" : downloadItem.mimeType})
             }
 
             onProgressChanged: {

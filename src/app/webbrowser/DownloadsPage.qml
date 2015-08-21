@@ -92,10 +92,10 @@ Item {
         handler: ContentHandler.Destination
         property string path
         onPeerSelected: {
-            var transfer = peer.request();
+            var transfer = peer.request()
             if (transfer.state === ContentTransfer.InProgress) {
-                transfer.items = [contentItemComponent.createObject(downloadsItem, {"url": path})];
-                transfer.state = ContentTransfer.Charged;
+                transfer.items = [contentItemComponent.createObject(downloadsItem, {"url": path})]
+                transfer.state = ContentTransfer.Charged
             }
             visible = false
         }

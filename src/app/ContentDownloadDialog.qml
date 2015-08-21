@@ -27,45 +27,55 @@ PopupBase {
     property var activeTransfer
     property var downloadId
     property var singleDownload
+    property var mimeType
     property alias contentType: peerPicker.contentType
 
-    Rectangle {
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        height: units.gu(50)
+    Component {
+        id: downloadOptionsComponent
+        Dialog {
+            id: downloadOptionsDialog
+            Column {
+                spacing: units.gu(2)
 
-        Column {
-
-            anchors.fill: parent
-            spacing: units.gu(2)
-
-            Icon {
-                id: mimetypeIcon
-                height: units.gu(4.5)
-                width: height
-            }
-
-            Button {
-                text: "Choose an application"
-                onClicked: pickerRect.visible = true
-            }
-
-            Button {
-                text: "Download file"
-                onClicked: {
-                    downloadDialog.singleDownload.moveToDownloads = true
-                    downloadDialog.singleDownload.start()
-                    PopupUtils.close(downloadDialog)
+                Icon {
+                    id: mimetypeIcon
+                    name: browser.downloadsModel.iconForMimetype(downloadDialog.mimeType)
+                    height: units.gu(4.5)
+                    width: height
                 }
-            }
 
-            Button {
-                text: "Cancel"
-                onClicked: PopupUtils.close(downloadDialog)
-            }
+                Button {
+                    text: i18n.tr("Choose an application")
+                    color: UbuntuColors.green
+                    width: parent.width
+                    height: units.gu(4)
+                    onClicked: {
+                        PopupUtils.close(downloadOptionsDialog)
+                        pickerRect.visible = true
+                    }
+                }
 
+                Button {
+                    text: i18n.tr("Download file")
+                    width: parent.width
+                    height: units.gu(4)
+                    onClicked: {
+                        downloadDialog.singleDownload.moveToDownloads = true
+                        downloadDialog.singleDownload.start()
+                        PopupUtils.close(downloadDialog)
+                    }
+                }
+
+                Button {
+                    text: i18n.tr("Cancel")
+                    width: parent.width
+                    height: units.gu(4)
+                    onClicked: PopupUtils.close(downloadDialog)
+                }
+
+            }
         }
+
     }
 
     Rectangle {
@@ -88,5 +98,9 @@ PopupBase {
                 PopupUtils.close(downloadDialog)
             }
         }
+    }
+
+    Component.onCompleted: {
+        PopupUtils.open(downloadOptionsComponent, downloadDialog)
     }
 }
