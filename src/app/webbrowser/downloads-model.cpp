@@ -371,3 +371,14 @@ QString DownloadsModel::iconForMimetype(const QString& mimetypeString)
         return mimetype.iconName();
     }
 }
+
+/*!
+    Provide the user friendly name for a given mimetype
+*/
+QString DownloadsModel::nameForMimetype(const QString& mimetypeString)
+{
+    QMimeDatabase mimedb;
+    QMimeType mimetype = mimedb.mimeTypeForName(mimetypeString);
+    return mimetype.comment();
+}
+

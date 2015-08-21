@@ -37,12 +37,23 @@ PopupBase {
             Column {
                 spacing: units.gu(2)
 
-                Icon {
-                    id: mimetypeIcon
-                    name: browser.downloadsModel.iconForMimetype(downloadDialog.mimeType)
-                    height: units.gu(4.5)
-                    width: height
-                }
+                Row {
+                    spacing: units.gu(2)
+
+                    Icon {
+                        id: mimetypeIcon
+                        name: browser.downloadsModel.iconForMimetype(downloadDialog.mimeType)
+                        height: units.gu(4.5)
+                        width: height
+                    }
+
+                    Label {
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        height: units.gu(4.5)
+                        text: browser.downloadsModel.nameForMimetype(downloadDialog.mimeType)
+                    }
+                }   
 
                 Button {
                     text: i18n.tr("Choose an application")
