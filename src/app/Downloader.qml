@@ -61,10 +61,6 @@ Item {
                                                                "mimeType" : downloadItem.mimeType})
             }
 
-            onProgressChanged: {
-                browser.downloadsModel.setProgress(downloadId, progress)
-            }
-
             onErrorChanged: {
                 browser.downloadsModel.setError(downloadId, error)
             }

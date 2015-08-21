@@ -228,7 +228,7 @@ void DownloadsModel::setPath(const QString& downloadId, const QString& path)
     }
 
     // If not determine the mimetype from the downloaded file
-    if (mimetype.isEmpty()) {
+    if (mimetype.isEmpty() || mimetype == "image/*") {
         QMimeDatabase mimeDatabase;
         mimetype = mimeDatabase.mimeTypeForFile(path).name();
         static QString updateMimeStatement = QLatin1String("UPDATE downloads SET mimetype = ? "
@@ -363,6 +363,11 @@ void DownloadsModel::removeExistingEntryFromDatabase(const QString& path)
 */
 QString DownloadsModel::iconForMimetype(const QString& mimetypeString)
 {
+    // Qt's mimetype handler doesn't support wildcards and we don't know
+    // what sort of image this is yet.
+    if (mimetypeString == "image/*") {
+        return "gallery-app";
+    }
     QMimeDatabase mimedb;
     QMimeType mimetype = mimedb.mimeTypeForName(mimetypeString);
     if (mimetype.iconName().isEmpty()) {
@@ -377,6 +382,11 @@ QString DownloadsModel::iconForMimetype(const QString& mimetypeString)
 */
 QString DownloadsModel::nameForMimetype(const QString& mimetypeString)
 {
+    // Qt's mimetype handler doesn't support wildcards and we don't know
+    // what sort of image this is yet.
+    if (mimetypeString == "image/*") {
+        return "Image";
+    }
     QMimeDatabase mimedb;
     QMimeType mimetype = mimedb.mimeTypeForName(mimetypeString);
     return mimetype.comment();
