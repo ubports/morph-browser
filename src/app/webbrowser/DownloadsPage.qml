@@ -53,6 +53,7 @@ Item {
 
     ListView {
         id: downloadsListView
+        clip: true
 
         anchors {
             top: title.bottom
