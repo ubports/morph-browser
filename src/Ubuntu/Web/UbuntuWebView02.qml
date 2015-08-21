@@ -91,7 +91,6 @@ Oxide.WebView {
 
     property var contextualActions // type: ActionList
     contextMenu: ActionSelectionPopover {
-        parent: _webview.parent // to avoid disabling the menu when the webview is disabled
         actions: contextualActions
         caller: contextualRectangle
         Component.onCompleted: {
