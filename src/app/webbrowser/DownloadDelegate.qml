@@ -105,6 +105,7 @@ ListItem {
             Action {
                 objectName: "leadingAction.delete"
                 iconName: "delete"
+                enabled: !downloadDelegate.incomplete
                 onTriggered: downloadDelegate.removed()
             }
         ]

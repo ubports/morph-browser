@@ -79,6 +79,12 @@ Item {
                     exportPeerPicker.path = model.path
                 }
             }
+
+            onRemoved: {
+                if (model.complete) {
+                    downloadsModel.deleteDownload(model.path)
+                }
+            }
         }
 
     }
