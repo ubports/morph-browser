@@ -91,6 +91,7 @@ Oxide.WebView {
 
     property var contextualActions // type: ActionList
     contextMenu: ActionSelectionPopover {
+        objectName: "contextMenu"
         actions: contextualActions
         caller: contextualRectangle
         Component.onCompleted: {
