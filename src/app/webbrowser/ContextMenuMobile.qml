@@ -90,6 +90,7 @@ Popups.Dialog {
         model: actions.actions
         delegate: ListItems.Empty {
             readonly property var action: actions.actions[index]
+            objectName: action.objectName + "_item"
             visible: action.enabled
             showDivider: false
 
@@ -125,6 +126,7 @@ Popups.Dialog {
     }
 
     ListItems.Empty {
+        objectName: "cancelAction"
         height: units.gu(5)
         showDivider: false
         Label {

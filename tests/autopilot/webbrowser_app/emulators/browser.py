@@ -175,6 +175,12 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def press_key(self, key):
         self.keyboard.press_and_release(key)
 
+    def get_context_menu(self):
+        if self.wide:
+            return self.wait_select_single(ContextMenuWide)
+        else:
+            return self.wait_select_single(ContextMenuMobile)
+
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
@@ -574,3 +580,27 @@ class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_header_from_folder(self, folder):
         return folder.wait_select_single("QQuickItem",
                                          objectName="bookmarkFolderHeader")
+
+
+class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_visible_actions(self):
+        return self.select_many("Empty", visible=True)
+
+    def click_action(self, objectName):
+        name = objectName + "_item"
+        action = self.select_single("Empty", visible=True,
+                                    enabled=True, objectName=name)
+        self.pointing_device.click_object(action)
+
+
+class ContextMenuWide(ContextMenuBase):
+
+    pass
+
+
+class ContextMenuMobile(ContextMenuBase):
+
+    def click_cancel_action(self):
+        action = self.select_single("Empty", objectName="cancelAction")
+        self.pointing_device.click_object(action)

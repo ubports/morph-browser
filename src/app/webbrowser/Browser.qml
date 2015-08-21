@@ -929,10 +929,12 @@ BrowserView {
                 property QtObject contextModel: null
                 contextualActions: ActionList {
                     Actions.OpenLinkInNewTab {
+                        objectName: "openLinkInNewTabContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
+                        objectName: "openLinkInNewBackgroundTabContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString() &&
                                  ((settings.allowOpenInBackgroundTab === "true") ||
                                   ((settings.allowOpenInBackgroundTab === "default") &&
@@ -940,36 +942,43 @@ BrowserView {
                         onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, false)
                     }
                     Actions.BookmarkLink {
+                        objectName: "bookmarkLinkContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString() &&
                                  browser.bookmarksModel
                         onTriggered: bookmarksModel.add(contextModel.linkUrl, contextModel.linkText, "", "")
                     }
                     Actions.CopyLink {
+                        objectName: "copyLinkContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
                     }
                     Actions.SaveLink {
+                        objectName: "SaveLinkContextualAction"
                         //enabled: contextModel && contextModel.linkUrl.toString()
                         // XXX: temporarily disabled until https://launchpad.net/bugs/1487090 is fixed
                         enabled: false
                         onTriggered: contextModel.saveLink()
                     }
                     Actions.ShareLink {
+                        objectName: "ShareLinkContextualAction"
                         enabled: (formFactor == "mobile") &&
                                  contextModel && contextModel.linkUrl.toString()
                         onTriggered: internal.shareLink(contextModel.linkUrl.toString(), contextModel.linkText)
                     }
                     Actions.OpenImageInNewTab {
+                        objectName: "OpenImageInNewTabContextualAction"
                         enabled: contextModel && contextModel.srcUrl.toString()
                         onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
                     }
                     Actions.CopyImage {
+                        objectName: "CopyImageContextualAction"
                         enabled: contextModel &&
                                  (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
                                  contextModel.srcUrl.toString()
                         onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
                     }
                     Actions.SaveImage {
+                        objectName: "SaveImageContextualAction"
                         /*enabled: contextModel &&
                                  ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
                                   (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
@@ -979,36 +988,43 @@ BrowserView {
                         onTriggered: contextModel.saveMedia()
                     }
                     Actions.Undo {
+                        objectName: "UndoContextualAction"
                         enabled: contextModel && contextModel.isEditable &&
                                  (contextModel.editFlags & Oxide.WebView.UndoCapability)
                         onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandUndo)
                     }
                     Actions.Redo {
+                        objectName: "RedoContextualAction"
                         enabled: contextModel && contextModel.isEditable &&
                                  (contextModel.editFlags & Oxide.WebView.RedoCapability)
                         onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandRedo)
                     }
                     Actions.Cut {
+                        objectName: "CutContextualAction"
                         enabled: contextModel && contextModel.isEditable &&
                                  (contextModel.editFlags & Oxide.WebView.CutCapability)
                         onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCut)
                     }
                     Actions.Copy {
+                        objectName: "CopyContextualAction"
                         enabled: contextModel && contextModel.isEditable &&
                                  (contextModel.editFlags & Oxide.WebView.CopyCapability)
                         onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
                     }
                     Actions.Paste {
+                        objectName: "PasteContextualAction"
                         enabled: contextModel && contextModel.isEditable &&
                                  (contextModel.editFlags & Oxide.WebView.PasteCapability)
                         onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
                     }
                     Actions.Erase {
+                        objectName: "EraseContextualAction"
                         enabled: contextModel && contextModel.isEditable &&
                                  (contextModel.editFlags & Oxide.WebView.EraseCapability)
                         onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandErase)
                     }
                     Actions.SelectAll {
+                        objectName: "SelectAllContextualAction"
                         enabled: contextModel && contextModel.isEditable &&
                                  (contextModel.editFlags & Oxide.WebView.SelectAllCapability)
                         onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)

@@ -90,6 +90,7 @@ Popups.Popover {
             model: actions.actions
             delegate: ListItems.Empty {
                 readonly property var action: actions.actions[index]
+                objectName: action.objectName + "_item"
                 visible: action.enabled
                 showDivider: false
 
