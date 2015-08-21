@@ -28,6 +28,7 @@ ListItem {
     property alias extension: extensiontext.text
     property alias title: title.text
     property alias url: url.text
+    property alias incomplete: progress.running
 
     divider.visible: false
 
@@ -64,6 +65,12 @@ ListItem {
                 font.pointSize: 12
                 anchors.centerIn: parent
                 visible: text !== "" && thumbimage.status !== Image.Ready
+            }
+
+            ActivityIndicator {
+                id: progress
+                running: false
+                visible: running
             }
         }
 

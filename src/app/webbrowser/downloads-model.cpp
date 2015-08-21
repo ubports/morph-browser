@@ -270,6 +270,12 @@ void DownloadsModel::setComplete(const QString& downloadId, const bool complete)
     query.addBindValue(downloadId);
     query.exec();
     Q_EMIT completeChanged(downloadId, complete);
+
+    beginResetModel();
+    m_orderedEntries.clear();
+    endResetModel();
+    populateFromDatabase();
+    Q_EMIT rowCountChanged();
 }
 
 void DownloadsModel::setError(const QString& downloadId, const QString& error)

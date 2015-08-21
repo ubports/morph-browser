@@ -70,11 +70,14 @@ Item {
             image: model.mimetype.indexOf("image") === 0 || model.mimetype.indexOf("video") === 0 ? "image://thumbnailer/file://" + model.path : ""
             extension: downloadsModel.iconForMimetype(model.mimetype) === "-x-generic" ? model.extension : ""
             icon: downloadsModel.iconForMimetype(model.mimetype) !== "-x-generic" ? downloadsModel.iconForMimetype(model.mimetype) : ""
+            incomplete: !model.complete
 
             onClicked: {
-                exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
-                exportPeerPicker.visible = true
-                exportPeerPicker.path = model.path
+                if (model.complete) {
+                    exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
+                    exportPeerPicker.visible = true
+                    exportPeerPicker.path = model.path
+                }
             }
         }
 
