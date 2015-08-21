@@ -584,6 +584,9 @@ class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
+    def get_title_label(self):
+        return self.select_single("Label", objectName="titleLabel")
+
     def get_visible_actions(self):
         return self.select_many("Empty", visible=True)
 

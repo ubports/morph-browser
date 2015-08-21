@@ -25,6 +25,8 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 class TestContextMenuBase(StartOpenRemotePageTestCaseBase):
 
+    data_uri_prefix = "data:image/png;base64,"
+
     def setUp(self, path):
         super(TestContextMenuBase, self).setUp(path)
         self.menu = self.open_context_menu()
@@ -63,14 +65,16 @@ class TestContextMenuBase(StartOpenRemotePageTestCaseBase):
     def verify_image_opened_in_a_new_tab(self):
         self.assert_number_webviews_eventually(2)
         webview = self.main_window.get_current_webview()
-        data_uri_prefix = "data:image/png;base64,"
-        self.assertThat(webview.url, Eventually(StartsWith(data_uri_prefix)))
+        self.assertThat(webview.url,
+                        Eventually(StartsWith(self.data_uri_prefix)))
 
 
 class TestContextMenuLink(TestContextMenuBase):
 
     def setUp(self):
         super(TestContextMenuLink, self).setUp(path="/link")
+        self.assertThat(self.menu.get_title_label().text,
+                        Equals(self.base_url + "/test1"))
 
     def test_dismiss_menu(self):
         if self.main_window.wide:
@@ -111,6 +115,8 @@ class TestContextMenuImage(TestContextMenuBase):
 
     def setUp(self):
         super(TestContextMenuImage, self).setUp(path="/image")
+        self.assertThat(self.menu.get_title_label().text,
+                        StartsWith(self.data_uri_prefix))
 
     def test_open_image_in_new_tab(self):
         self.click_action("OpenImageInNewTabContextualAction")
@@ -126,6 +132,8 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
 
     def setUp(self):
         super(TestContextMenuImageAndLink, self).setUp(path="/imagelink")
+        self.assertThat(self.menu.get_title_label().text,
+                        StartsWith(self.data_uri_prefix))
 
     def test_open_link_in_new_tab(self):
         self.click_action("openLinkInNewTabContextualAction")
@@ -159,6 +167,7 @@ class TestContextMenuTextArea(TestContextMenuBase):
 
     def setUp(self):
         super(TestContextMenuTextArea, self).setUp(path="/textarea")
+        self.assertThat(self.menu.get_title_label().visible, Equals(False))
 
     def test_actions(self):
         actions = ["SelectAll", "Cut", "Undo", "Redo",

@@ -62,6 +62,7 @@ Popups.Dialog {
 
         Label {
             id: title
+            objectName: "titleLabel"
             text: internal.isImage ? contextModel.srcUrl : contextModel.linkUrl
             width: parent.width - units.gu(4)
             anchors {

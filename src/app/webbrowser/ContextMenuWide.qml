@@ -61,6 +61,7 @@ Popups.Popover {
         }
 
         Label {
+            objectName: "titleLabel"
             text: internal.isImage ? contextModel.srcUrl : contextModel.linkUrl
             anchors {
                 left: parent.left
