@@ -217,6 +217,7 @@ FocusScope {
                 }
 
                 delegate: UrlDelegate{
+                    objectName: "historyDelegate"
                     width: parent.width - units.gu(1)
                     height: units.gu(5)
 
@@ -228,6 +229,7 @@ FocusScope {
 
                     headerComponent: Component {
                         Item {
+                            objectName: "historySectionDelegate"
                             height: units.gu(3)
                             width: timeLabel.width
 

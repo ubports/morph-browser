@@ -107,6 +107,26 @@ Item {
             historyViewWideLoader.active = false
         }
 
+        function getListItems(name, itemName) {
+            var list = findChild(historyViewWide, name)
+            var items = []
+            if (list) {
+                // ensure all the delegates are created
+                list.cacheBuffer = list.count * 1000
+
+                // In some cases the ListView might add other children to the
+                // contentItem, so we filter the list of children to include
+                // only actual delegates
+                var children = list.contentItem.children
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].objectName === itemName) {
+                        items.push(children[i])
+                    }
+                }
+            }
+            return items
+        }
+
         function test_done_button() {
             var doneButton = findChild(historyViewWide, "doneButton")
             verify(doneButton != null)
@@ -245,6 +265,37 @@ Item {
             keyClick(Qt.Key_Left)
             keyClick(Qt.Key_Up)
             verify(searchQuery.activeFocus)
+        }
+
+        function test_search_highlight() {
+            function wraphtml(text) { return "<html>%1</html>".arg(text) }
+            function highlight(term) {
+                return "<font color=\"%1\">%2</font>".arg("#752571").arg(term)
+            }
+
+            var searchButton = findChild(historyViewWide, "searchButton")
+            var searchQuery = findChild(historyViewWide, "searchQuery")
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            clickItem(searchButton)
+
+            var term = "2"
+            typeString(term)
+            var items = getListItems("urlsListView", "historyDelegate")
+            compare(items.length, 1)
+            compare(items[0].title, wraphtml("Example Domain " + highlight(term)))
+
+            var backButton = findChild(historyViewWide, "backButton")
+            clickItem(backButton)
+            clickItem(searchButton)
+
+            var terms = ["1", "Example"]
+            typeString(terms.join(" "))
+            items = getListItems("urlsListView", "historyDelegate")
+            compare(items.length, 1)
+            compare(items[0].title, wraphtml("%1 Domain %0"
+                                             .arg(highlight(terms[0]))
+                                             .arg(highlight(terms[1]))))
+
         }
     }
 }
