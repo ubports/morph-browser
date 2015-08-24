@@ -20,12 +20,14 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
+import "Highlight.js" as Highlight
 
 FocusScope {
     id: historyViewWide
 
     property alias historyModel: historySearchModel.sourceModel
     property bool searchMode: false
+    readonly property bool selectMode: urlsListView.ViewItems.selectMode
     onSearchModeChanged: {
         if (searchMode) searchQuery.focus = true
         else {
@@ -44,7 +46,7 @@ FocusScope {
     Keys.onUpPressed: if (searchMode) searchQuery.focus = true
     Keys.onPressed: {
         if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_F) {
-            searchMode = true
+            if (!selectMode) searchMode = true
         }
     }
 
@@ -221,8 +223,8 @@ FocusScope {
                     color: urlsListView.currentIndex == index ? highlightColor : "transparent"
 
                     icon: model.icon
-                    title: model.title ? model.title : model.url
-                    url: model.url
+                    title: Highlight.highlightTerms(model.title ? model.title : model.url, searchQuery.terms)
+                    url: Highlight.highlightTerms(model.url, searchQuery.terms)
 
                     headerComponent: Component {
                         Item {
@@ -256,7 +258,7 @@ FocusScope {
                     }
 
                     onPressAndHold: {
-                        if (historyViewWide.searchMode) historyViewWide.searchMode = false
+                        if (historyViewWide.searchMode) return
                         selectMode = !selectMode
                         if (selectMode) {
                             urlsListView.ViewItems.selectedIndices = [index]
