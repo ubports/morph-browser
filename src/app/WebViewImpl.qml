@@ -21,6 +21,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Web 0.2
 import "actions" as Actions
+import "FileExtensionMapper.js" as FileExtensionMapper
 
 WebView {
     id: webview
@@ -61,7 +62,16 @@ WebView {
                 headers["Referer"] = request.referrer
             }
             headers["User-Agent"] = webview.context.userAgent
-            downloadLoader.item.downloadMimeType(request.url, request.mimeType, headers, request.suggestedFilename)
+            // Work around https://launchpad.net/bugs/1487090 by guessing the mime type
+            // from the suggested filename or URL if oxide hasn’t provided one.
+            var mimeType = request.mimeType
+            if (!mimeType) {
+                mimeType = FileExtensionMapper.filenameToMimeType(request.suggestedFilename)
+            }
+            if (!mimeType) {
+                mimeType = FileExtensionMapper.filenameToMimeType(request.url.toString())
+            }
+            downloadLoader.item.downloadMimeType(request.url, mimeType, headers, request.suggestedFilename)
         } else {
             // Desktop form factor case
             Qt.openUrlExternally(request.url)

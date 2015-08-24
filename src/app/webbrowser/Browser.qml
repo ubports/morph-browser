@@ -954,9 +954,7 @@ BrowserView {
                     }
                     Actions.SaveLink {
                         objectName: "SaveLinkContextualAction"
-                        //enabled: contextModel && contextModel.linkUrl.toString()
-                        // XXX: temporarily disabled until https://launchpad.net/bugs/1487090 is fixed
-                        enabled: false
+                        enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: contextModel.saveLink()
                     }
                     Actions.ShareLink {
@@ -979,12 +977,10 @@ BrowserView {
                     }
                     Actions.SaveImage {
                         objectName: "SaveImageContextualAction"
-                        /*enabled: contextModel &&
+                        enabled: contextModel &&
                                  ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
                                   (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
-                                 contextModel.srcUrl.toString()*/
-                        // XXX: temporarily disabled until https://launchpad.net/bugs/1487090 is fixed
-                        enabled: false
+                                 contextModel.srcUrl.toString()
                         onTriggered: contextModel.saveMedia()
                     }
                     Actions.Undo {
