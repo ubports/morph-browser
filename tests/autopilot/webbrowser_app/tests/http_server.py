@@ -105,11 +105,9 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             self.send_html(html)
         elif self.path == "/textarea":
             self.send_response(200)
-            html = '<html><body>'
-            html += '<textarea rows="5" cols="20" '
-            html += 'style="position: fixed; top: 50%; left: 50%; '
-            html += 'transform: translate(-50%, -50%)">some text</textarea>'
-            html += '</body></html>'
+            html = '<html><body style="margin: 0">'
+            html += '<textarea style="width: 100%; height: 100%">some text'
+            html += '</textarea></body></html>'
             self.send_html(html)
         elif self.path == "/uploadform":
             # craft a page that accepts clicks anywhere inside its window
