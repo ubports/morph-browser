@@ -75,8 +75,8 @@ Oxide.WebView {
         y: internal.contextModel ? internal.contextModel.position.y * internal.devicePixelRatio + locationBarOffset : 0
     }
 
+    // XXX: This property is deprecated in favour of contextModel.
     property QtObject contextualData: QtObject {
-        // TODO: mark deprecated
         property url href
         property string title
         property url img
