@@ -36,4 +36,34 @@ TestCase {
     function test_getExtension(data) {
         compare(FileExtensionMapper.getExtension(data.in), data.ext)
     }
+
+    // Test filenameToMimeType for a few selected extensions
+    // (there is no point in testing every single extension).
+    function test_filenameToMimeType_data() {
+        return [
+            {filename: "document.pdf", mimetype: "application/pdf"},
+            {filename: "document.ps", mimetype: "application/postscript"},
+            {filename: "image.jpg", mimetype: "image/jpeg"},
+            {filename: "image.jpeg", mimetype: "image/jpeg"},
+            {filename: "image.png", mimetype: "image/png"},
+            {filename: "audio.mp3", mimetype: "audio/mpeg"},
+            {filename: "playlist.m3u", mimetype: "audio/mpegurl"},
+            {filename: "video.avi", mimetype: "video/x-msvideo"},
+            {filename: "video.mp4", mimetype: "video/mp4"},
+            {filename: "video.mpg", mimetype: "video/mpeg"},
+            {filename: "video.mpeg", mimetype: "video/mpeg"},
+            {filename: "contact.vcf", mimetype: "text/vcard"},
+            {filename: "contact.vcard", mimetype: "text/vcard"},
+            {filename: "text.txt", mimetype: "text/plain"},
+            {filename: "subtitles.srt", mimetype: "text/plain"},
+            {filename: "compressed.zip", mimetype: "application/zip"},
+            {filename: "compressed.tar.gz", mimetype: "application/gzip"},
+            {filename: "compressed.tgz", mimetype: "application/x-gtar-compressed"},
+            {filename: "shared.torrent", mimetype: "application/x-bittorrent"}
+        ]
+    }
+
+    function test_filenameToMimeType(data) {
+        compare(FileExtensionMapper.filenameToMimeType(data.filename), data.mimetype)
+    }
 }

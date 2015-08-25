@@ -688,12 +688,6 @@ function filenameToMimeType(filename) {
         case "m3g":
             return "application/m3g";
         case "m3u":
-            return "audio/x-mpegurl";
-        case "m3u":
-            return "audio/mpegurl";
-        case "m3u":
-            return "audio/x-mpegurl";
-        case "m3u":
             return "audio/mpegurl";
         case "m3u8":
             return "application/x-mpegURL";
