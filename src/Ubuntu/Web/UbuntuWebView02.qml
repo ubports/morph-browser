@@ -49,7 +49,6 @@ Oxide.WebView {
             contexts: ["oxide://selection/"]
             callback: function(msg, frame) {
                 internal.dismissCurrentContextualMenu()
-                internal.dismissCurrentSelection()
             }
         }
     ]
@@ -96,7 +95,6 @@ Oxide.WebView {
         caller: contextualRectangle
         Component.onCompleted: {
             internal.dismissCurrentContextualMenu()
-            internal.dismissCurrentSelection()
             internal.contextModel = model
             var empty = true
             if (actions) {
@@ -108,9 +106,6 @@ Oxide.WebView {
                 }
             }
             if (empty) {
-                if (internal.hasSelectionActions()) {
-                    internal.createSelection(model.position)
-                }
                 internal.dismissCurrentContextualMenu()
             } else {
                 contextualData.clear()
@@ -131,78 +126,9 @@ Oxide.WebView {
     readonly property QtObject contextModel: internal.contextModel
 
     property var selectionActions // type: ActionList
-    onSelectionActionsChanged: {
-        for (var i in selectionActions.actions) {
-            selectionActions.actions[i].onTriggered.connect(function () {
-                internal.dismissCurrentSelection()
-            })
-        }
-    }
-    Component {
-        id: selection
-        Selection {
-            anchors.fill: parent
-            property var mimedata: null
-            property rect bounds
-            onBoundsChanged: {
-                rect.x = bounds.x
-                rect.y = bounds.y
-                rect.width = bounds.width
-                rect.height = bounds.height
-            }
-            property Item actions: null
-            Component {
-                id: selectionPopover
-                ActionSelectionPopover {
-                    objectName: "selectionActions"
-                    autoClose: false
-                    actions: selectionActions
-                }
-            }
-            function showActions() {
-                if (actions != null) {
-                    actions.destroy()
-                }
-                actions = PopupUtils.open(selectionPopover, rect)
-            }
-            onResizingChanged: {
-                if (resizing) {
-                    if (actions != null) {
-                        actions.destroy()
-                    }
-                }
-            }
-            onResized: {
-                var locationBarOffset = _webview.locationBarController.height + _webview.locationBarController.offset
-                var args = {x: rect.x, y: rect.y - locationBarOffset,
-                            width: rect.width, height: rect.height}
-                var msg = _webview.rootFrame.sendMessage("oxide://selection/", "adjustselection", args)
-                msg.onreply = function(response) {
-                    internal.currentSelection.mimedata = internal.buildMimedata(response)
-                    // Ensure that the bounds are updated
-                    internal.currentSelection.bounds = Qt.rect(0, 0, 0, 0)
-                    internal.currentSelection.bounds = internal.computeBounds(response)
-                    internal.currentSelection.showActions()
-                }
-                msg.onerror = function(error) {
-                    internal.dismissCurrentSelection()
-                }
-            }
-            onDismissed: internal.dismissCurrentSelection()
-        }
-    }
+    onSelectionActionsChanged: console.warn("WARNING: the 'selectionActions' property is deprecated and ignored.")
     function copy() {
-        if (internal.currentSelection != null) {
-            Clipboard.push(internal.currentSelection.mimedata)
-        } else {
-            console.warn("No current selection")
-        }
-    }
-    function createSelection(position) {
-        internal.createSelection(position)
-    }
-    function dismissSelection() {
-        internal.dismissCurrentSelection()
+        console.warn("WARNING: the copy() function is deprecated and does nothing.")
     }
 
     readonly property real devicePixelRatio: internal.devicePixelRatio
@@ -210,39 +136,8 @@ Oxide.WebView {
     QtObject {
         id: internal
         property int lastLoadRequestStatus: -1
-        property Item currentSelection: null
         property QtObject contextModel: null
         property real devicePixelRatio: 1.0
-
-        function hasSelectionActions() {
-            if (selectionActions) {
-                for (var i in selectionActions.actions) {
-                    if (selectionActions.actions[i].enabled) {
-                        return true
-                    }
-                }
-            }
-            return false
-        }
-
-        function buildMimedata(data) {
-            var mimedata = Clipboard.newData()
-            if ('html' in data) {
-                mimedata.html = data.html
-            }
-            // FIXME: push the text and image data in the order
-            // they appear in the selected block.
-            if ('text' in data) {
-                mimedata.text = data.text
-            }
-            if ('images' in data) {
-                // TODO: download and cache the images locally
-                // (grab them from the webview’s cache, if possible),
-                // and forward local URLs.
-                mimedata.urls = data.images
-            }
-            return mimedata
-        }
 
         function computeBounds(data) {
             var locationBarOffset = _webview.locationBarController.height + _webview.locationBarController.offset
@@ -252,28 +147,9 @@ Oxide.WebView {
                            data.width * scaleX, data.height * scaleY)
         }
 
-        function createSelection(position) {
-            var msg = _webview.rootFrame.sendMessage("oxide://selection/", "createselection",
-                                                     {x: position.x, y: position.y})
-            msg.onreply = function(response) {
-                var mimedata = internal.buildMimedata(response)
-                var bounds = internal.computeBounds(response)
-                internal.currentSelection = selection.createObject(_webview, {mimedata: mimedata, bounds: bounds})
-                internal.currentSelection.showActions()
-            }
-        }
-
         function dismissCurrentContextualMenu() {
             if (contextModel) {
                 contextModel.close()
-            }
-        }
-
-        function dismissCurrentSelection() {
-            if (currentSelection != null) {
-                // For some reason a 0 delay fails to destroy the selection
-                // when it was requested upon a screen orientation change…
-                currentSelection.destroy(1)
             }
         }
 
@@ -289,13 +165,11 @@ Oxide.WebView {
             internal.lastLoadRequestStatus = event.type
         }
         internal.dismissCurrentContextualMenu()
-        internal.dismissCurrentSelection()
     }
 
     readonly property int screenOrientation: Screen.orientation
     onScreenOrientationChanged: {
         internal.dismissCurrentContextualMenu()
-        internal.dismissCurrentSelection()
     }
 
     onJavaScriptConsoleMessage: {

@@ -93,12 +93,6 @@ WebView {
         asynchronous: true
     }
 
-    selectionActions: ActionList {
-        Actions.Copy {
-            onTriggered: copy()
-        }
-    }
-
     function requestGeolocationPermission(request) {
         PopupUtils.open(Qt.resolvedUrl("GeolocationPermissionRequest.qml"),
                         webview.currentWebview, {"request": request})

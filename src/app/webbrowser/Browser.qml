@@ -1038,29 +1038,11 @@ BrowserView {
                     return false
                 }
 
-                function hasSelectionActions() {
-                    if (selectionActions) {
-                        for (var i in selectionActions.actions) {
-                            if (selectionActions.actions[i].enabled) {
-                                return true
-                            }
-                        }
-                    }
-                    return false
-                }
-
-                function setUpContextMenuComponent(model) {
-                    webviewimpl.dismissSelection()
-                    contextModel = model
-                    if (!webviewimpl.hasContextActions() && webviewimpl.hasSelectionActions()) {
-                        webviewimpl.createSelection(model.position)
-                    }
-                }
                 Component {
                     id: contextMenuNarrowComponent
                     ContextMenuMobile {
                         actions: contextualActions
-                        Component.onCompleted: webviewimpl.setUpContextMenuComponent(contextModel)
+                        Component.onCompleted: webviewimpl.contextModel = contextModel
                     }
                 }
                 Component {
@@ -1069,7 +1051,7 @@ BrowserView {
                         webview: webviewimpl
                         parent: browser
                         actions: contextualActions
-                        Component.onCompleted: webviewimpl.setUpContextMenuComponent(contextModel)
+                        Component.onCompleted: webviewimpl.contextModel = contextModel
                     }
                 }
                 contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent

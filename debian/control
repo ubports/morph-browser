@@ -101,19 +101,9 @@ Depends: ${misc:Depends},
          qml-module-qtquick2 (>= 5.4),
          qml-module-qtquick-window2 (>= 5.3),
          qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
-         qtdeclarative5-ubuntu-web-plugin-assets (>= ${source:Version}),
 Description: Ubuntu web QML plugin
  A standalone QML plugin that contains the WebView component,
  in the Ubuntu.Web module.
-
-Package: qtdeclarative5-ubuntu-web-plugin-assets
-Architecture: all
-Multi-Arch: foreign
-Depends: ${misc:Depends},
-Description: Ubuntu web QML plugin assets
- A standalone QML plugin that contains the WebView component,
- in the Ubuntu.Web module. This package contains the PNGs used
- as UI elements by the plugin.
 
 Package: qtdeclarative5-ubuntu-web-plugin-doc
 Section: doc

@@ -115,13 +115,6 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_geolocation_dialog(self):
         return self.wait_select_single(GeolocationPermissionRequest)
 
-    def get_selection(self):
-        return self.wait_select_single(Selection)
-
-    def get_selection_actions(self):
-        return self.wait_select_single("ActionSelectionPopover",
-                                       objectName="selectionActions")
-
     def get_tabs_view(self):
         return self.wait_select_single(TabsList, visible=True)
 
@@ -328,15 +321,6 @@ class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_allow_button(self):
         return self.select_single("Button", objectName="allow")
-
-
-class Selection(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-
-    def get_rectangle(self):
-        return self.select_single("QQuickItem", objectName="rectangle")
-
-    def get_handle(self, name):
-        return self.select_single("SelectionHandle", objectName=name)
 
 
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
