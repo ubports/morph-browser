@@ -788,7 +788,7 @@ BrowserView {
 
                 FocusScope {
                     id: expandedHistoryViewContainer
-    
+
                     visible: children.length > 0
                     anchors.fill: parent
 
@@ -1388,6 +1388,7 @@ BrowserView {
             if (tab) {
                 tab.load()
             }
+            internal.resetFocus()
         }
         onCountChanged: {
             if (tabsModel.count == 0) {
