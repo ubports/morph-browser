@@ -1027,17 +1027,6 @@ BrowserView {
                     }
                 }
 
-                function hasContextActions() {
-                    if (contextualActions) {
-                        for (var i in contextualActions.actions) {
-                            if (contextualActions.actions[i].enabled) {
-                                return true
-                            }
-                        }
-                    }
-                    return false
-                }
-
                 Component {
                     id: contextMenuNarrowComponent
                     ContextMenuMobile {
