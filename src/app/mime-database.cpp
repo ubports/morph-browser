@@ -16,24 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtTest 1.0
-import "../../../src/app/FileExtensionMapper.js" as FileExtensionMapper
+#include "mime-database.h"
 
-TestCase {
-    name: "FileExtensionMapper"
+MimeDatabase::MimeDatabase(QObject* parent)
+    : QObject(parent)
+{
+}
 
-    function test_getExtension_data() {
-        return [
-            {in: "", ext: ""},
-            {in: "pdf", ext: ""},
-            {in: ".vimrc", ext: ""},
-            {in: "example.pdf", ext: "pdf"},
-            {in: "http://example.org/path/example.pdf", ext: "pdf"},
-            {in: "EXAMPLE.PDF", ext: "pdf"}
-        ]
+QString MimeDatabase::filenameToMimeType(const QString& filename) const
+{
+    QMimeType type = m_database.mimeTypeForFile(filename, QMimeDatabase::MatchExtension);
+    if (!type.isDefault()) {
+        return type.name();
     }
-
-    function test_getExtension(data) {
-        compare(FileExtensionMapper.getExtension(data.in), data.ext)
-    }
+    return QString();
 }

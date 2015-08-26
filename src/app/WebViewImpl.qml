@@ -20,8 +20,8 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Web 0.2
+import webbrowsercommon.private 0.1
 import "actions" as Actions
-import "FileExtensionMapper.js" as FileExtensionMapper
 
 WebView {
     id: webview
@@ -66,10 +66,14 @@ WebView {
             // from the suggested filename or URL if oxide hasn’t provided one.
             var mimeType = request.mimeType
             if (!mimeType) {
-                mimeType = FileExtensionMapper.filenameToMimeType(request.suggestedFilename)
+                mimeType = MimeDatabase.filenameToMimeType(request.suggestedFilename)
             }
             if (!mimeType) {
-                mimeType = FileExtensionMapper.filenameToMimeType(request.url.toString())
+                var scheme = request.url.toString().split('://').shift().toLowerCase()
+                var filename = request.url.toString().split('/').pop()
+                if ((scheme == "file") || (filename.indexOf('.') > -1)) {
+                    mimeType = MimeDatabase.filenameToMimeType(filename)
+                }
             }
             downloadLoader.item.downloadMimeType(request.url, mimeType, headers, request.suggestedFilename)
         } else {
