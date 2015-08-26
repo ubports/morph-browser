@@ -45,7 +45,7 @@ Item {
         }
     }
 
-    readonly property string htmlWithHyperlink: '<html><body style="margin: 0"><a href="http://example.org"><div style="height: 100%"></div></a></body></html>'
+    readonly property string htmlWithHyperlink: '<html><body style="margin: 0"><a href="http://example.org/"><div style="height: 100%"></div></a></body></html>'
 
     UbuntuTestCase {
         name: "UbuntuWebView02"
@@ -98,7 +98,9 @@ Item {
             tryCompare(webview, "loading", false)
             rightClickWebview()
             compare(getContextMenu().actions, actionList)
+            compare(webview.contextualData.href, "http://example.org/")
             dismissContextMenu()
+            compare(webview.contextualData.href, "")
         }
 
         function test_contextual_actions_all_disabled() {
