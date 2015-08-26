@@ -153,8 +153,7 @@ Oxide.WebView {
             }
         }
 
-        // Automatically clear the contextual data when the context model is destroyed
-        readonly property var contextualDataCleaner: contextModel ? 0 : _webview.contextualData.clear()
+        onContextModelChanged: if (!contextModel) _webview.contextualData.clear()
     }
 
     readonly property bool lastLoadSucceeded: internal.lastLoadRequestStatus === Oxide.LoadEvent.TypeSucceeded
