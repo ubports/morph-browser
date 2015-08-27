@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-document.defaultView.addEventListener('scroll', function(event) {
-    oxide.sendMessage('scroll', {});
-});
+import Ubuntu.Components 1.3
 
-oxide.sendMessage('dpr', {dpr: document.defaultView.devicePixelRatio});
+Action {
+    text: i18n.tr("Cut")
+}

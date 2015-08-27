@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,8 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-document.defaultView.addEventListener('scroll', function(event) {
-    oxide.sendMessage('scroll', {});
-});
+#include "mime-database.h"
 
-oxide.sendMessage('dpr', {dpr: document.defaultView.devicePixelRatio});
+MimeDatabase::MimeDatabase(QObject* parent)
+    : QObject(parent)
+{
+}
+
+QString MimeDatabase::filenameToMimeType(const QString& filename) const
+{
+    QMimeType type = m_database.mimeTypeForFile(filename, QMimeDatabase::MatchExtension);
+    if (!type.isDefault()) {
+        return type.name();
+    }
+    return QString();
+}

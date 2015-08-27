@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,8 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-document.defaultView.addEventListener('scroll', function(event) {
-    oxide.sendMessage('scroll', {});
-});
+import QtTest 1.0
+import "../../../src/app/FileExtensionMapper.js" as FileExtensionMapper
 
-oxide.sendMessage('dpr', {dpr: document.defaultView.devicePixelRatio});
+TestCase {
+    name: "FileExtensionMapper"
+
+    function test_getExtension_data() {
+        return [
+            {in: "", ext: ""},
+            {in: "pdf", ext: ""},
+            {in: ".vimrc", ext: ""},
+            {in: "example.pdf", ext: "pdf"},
+            {in: "http://example.org/path/example.pdf", ext: "pdf"},
+            {in: "EXAMPLE.PDF", ext: "pdf"}
+        ]
+    }
+
+    function test_getExtension(data) {
+        compare(FileExtensionMapper.getExtension(data.in), data.ext)
+    }
+}
