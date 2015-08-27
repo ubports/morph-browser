@@ -41,7 +41,7 @@ Oxide.WebView {
             msgId: "dpr"
             contexts: ["oxide://selection/"]
             callback: function(msg, frame) {
-                internal.devicePixelRatio = msg.payload.dpr
+                internal.devicePixelRatio = msg.args.dpr
             }
         },
         Oxide.ScriptMessageHandler {
