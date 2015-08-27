@@ -70,7 +70,7 @@ WebView {
             }
             if (!mimeType) {
                 var scheme = request.url.toString().split('://').shift().toLowerCase()
-                var filename = request.url.toString().split('/').pop()
+                var filename = request.url.toString().split('/').pop().split('?').shift()
                 if ((scheme == "file") || (filename.indexOf('.') > -1)) {
                     mimeType = MimeDatabase.filenameToMimeType(filename)
                 }
