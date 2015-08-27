@@ -1,3 +1,23 @@
+webbrowser-app (0.23+15.10.20150827.3-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Use the contextMenu API new in oxide 1.8. Update the visuals for the
+    context menu in narrow and wide form factors. Add text editing
+    commands to the context menu. Add unit and autopilot tests for the
+    context menu features. This bumps the runtime dependency of webapp-
+    container and qtdeclarative5-ubuntu-web-plugin on liboxideqt-
+    qmlplugin to 1.8. This also removes the qtdeclarative5-ubuntu-web-
+    plugin-assets binary package, which contained only one PNG asset
+    which is not used anywhere any longer. (LP: #1477310, #1477315,
+    #1471181, #1264493, #1487090, #1326070, #1477309, #1450430,
+    #1438046)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 27 Aug 2015 14:02:08 +0000
+
 webbrowser-app (0.23+15.10.20150820-0ubuntu1) wily; urgency=medium
 
   [ Alexandre Abreu ]
