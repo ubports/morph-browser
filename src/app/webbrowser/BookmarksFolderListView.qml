@@ -25,6 +25,7 @@ Item {
     id: bookmarksFolderListViewItem
 
     property alias model: bookmarksFolderListModel.sourceModel 
+    property alias interactive: bookmarksFolderListView.interactive
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)

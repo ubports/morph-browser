@@ -352,6 +352,13 @@ BrowserView {
                     onTriggered: internal.shareLink(browser.currentWebview.url, browser.currentWebview.title)
                 },
                 Action {
+                    objectName: "bookmarks"
+                    text: i18n.tr("Bookmarks")
+                    iconName: "bookmark"
+                    enabled: browser.bookmarksModel
+                    onTriggered: bookmarksViewLoader.active = true
+                },
+                Action {
                     objectName: "history"
                     text: i18n.tr("History")
                     iconName: "history"
@@ -744,6 +751,53 @@ BrowserView {
             fontSize: "small"
             // TRANSLATORS: %1 refers to the current number of tabs opened
             text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
+        }
+    }
+
+    Loader {
+        id: bookmarksViewLoader
+
+        anchors.fill: parent
+        active: false
+        sourceComponent: bookmarksViewComponent
+
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                bookmarksViewTimer.restart()
+                bookmarksViewLoader.item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
+            }
+        }
+
+        Keys.onEscapePressed: bookmarksViewLoader.active = false
+
+        Timer {
+            id: bookmarksViewTimer
+            // Set the model asynchronously to ensure
+            // the view is displayed as early as possible.
+            interval: 1
+            onTriggered: bookmarksViewLoader.item.bookmarksModel = browser.bookmarksModel
+        }
+
+        Component {
+            id: bookmarksViewComponent
+
+            BookmarksView {
+                anchors.fill: parent
+
+                 onBookmarkEntryClicked: {
+                    browser.openUrlInNewTab(url, true)
+                    done()
+                }
+                onBookmarkEntryRemoved: {
+                    if (bookmarksModel.count == 1) {
+                        done()
+                    }
+                    browser.bookmarksModel.remove(url)
+                }
+                onDone: bookmarksViewLoader.active = false
+            }
         }
     }
 
