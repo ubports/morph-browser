@@ -71,7 +71,7 @@ Item {
             var center = centerOf(webview)
             mouseClick(webview, center.x, center.y, Qt.RightButton)
             // give the context menu a chance to appear before carrying on
-            wait(250)
+            wait(500)
         }
 
         function getContextMenu() {
@@ -81,7 +81,7 @@ Item {
         function dismissContextMenu() {
             var center = centerOf(webview)
             mouseClick(webview, center.x, center.y)
-            wait(250)
+            wait(500)
             compare(getContextMenu(), null)
         }
 
