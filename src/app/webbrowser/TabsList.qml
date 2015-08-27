@@ -26,6 +26,7 @@ Item {
     property real chromeOffset
     property alias model: repeater.model
     readonly property int count: repeater.count
+    property bool incognito
 
     signal tabSelected(int index)
     signal tabClosed(int index)
@@ -80,6 +81,7 @@ Item {
                 }
 
                 readonly property string title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
+                readonly property string icon: model.icon
 
                 readonly property bool needsInstance: (index >= 0) && ((flickable.contentY + flickable.height + delegateHeight / 2) >= (index * delegateHeight))
                 sourceComponent: needsInstance ? tabPreviewComponent : undefined
@@ -91,6 +93,9 @@ Item {
 
                     TabPreview {
                         title: delegate.title
+                        icon: delegate.icon
+                        incognito: tabslist.incognito
+                        active: index === 0 // active tab is always on top of the stack
                         tab: model.tab
                         showContent: (index > 0) || (delegate.y > flickable.contentY) ||
                                      !(tab.webview && tab.webview.visible)

@@ -614,6 +614,7 @@ BrowserView {
                     recentView.reset()
                 }
             }
+            incognito: browser.incognito
         }
 
         Toolbar {
@@ -788,7 +789,7 @@ BrowserView {
 
                 FocusScope {
                     id: expandedHistoryViewContainer
-    
+
                     visible: children.length > 0
                     anchors.fill: parent
 

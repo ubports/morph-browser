@@ -128,41 +128,16 @@ Item {
                     value: mouseArea.drag.active
                 }
 
-                readonly property string assetPrefix: (index == root.model.currentIndex) ? "assets/tab-active" : (mouseArea.containsMouse ? "assets/tab-hovered" : "assets/tab-inactive")
+                readonly property string assetPrefix: (index == root.model.currentIndex) ? "active" :
+                                                      (mouseArea.containsMouse ? "hover" : "non-active")
 
                 Item {
                     anchors.fill: parent
 
-                    Image {
-                        id: tabBackgroundLeft
-                        anchors {
-                            top: parent.top
-                            bottom: parent.bottom
-                            left: parent.left
-                        }
-                        source: "%1-left.png".arg(assetPrefix)
-                    }
-
-                    Image {
-                        id: tabBackgroundRight
-                        anchors {
-                            top: parent.top
-                            bottom: parent.bottom
-                            right: parent.right
-                            rightMargin: units.gu(-1.5)
-                        }
-                        source: "%1-right.png".arg(assetPrefix)
-                    }
-
-                    Image {
-                        anchors {
-                            top: parent.top
-                            bottom: parent.bottom
-                            left: tabBackgroundLeft.right
-                            right: tabBackgroundRight.left
-                        }
-                        source: "%1-center.png".arg(assetPrefix)
-                        fillMode: Image.TileHorizontally
+                    BorderImage {
+                        anchors.fill: parent
+                        source: "assets/tab-%1.sci".arg(assetPrefix)
+                        horizontalTileMode: BorderImage.Repeat
                     }
                 }
 
