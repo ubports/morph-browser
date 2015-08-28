@@ -39,6 +39,7 @@ FocusScope {
     property url preview
     property bool current: false
     property bool incognito
+    property LimitProxyModel topSites
 
     FocusScope {
         id: webviewContainer
@@ -73,7 +74,8 @@ FocusScope {
 
     function close() {
         unload()
-        if (preview && preview.toString()) {
+        if (preview && preview.toString() &&
+            (!topSites || !topSites.contains(url))) {
             FileOperations.remove(preview)
         }
         destroy()
@@ -102,6 +104,12 @@ FocusScope {
                 visible = false
                 return
             }
+
+            if (url.toString().length === 0) {
+                visible = false;
+                return;
+            }
+
             internal.hiding = true
             webview.grabToImage(function(result) {
                 if (!internal.hiding) {
@@ -113,7 +121,7 @@ FocusScope {
                 if (!FileOperations.exists(Qt.resolvedUrl(capturesDir))) {
                     FileOperations.mkpath(Qt.resolvedUrl(capturesDir))
                 }
-                var filepath = capturesDir + "/" + uniqueId + ".jpg"
+                var filepath = capturesDir + "/" + Qt.md5(url) + ".jpg"
                 if (result.saveToFile(filepath)) {
                     var previewUrl = Qt.resolvedUrl(filepath)
                     if (preview == previewUrl) {

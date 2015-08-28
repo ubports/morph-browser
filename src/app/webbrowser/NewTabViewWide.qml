@@ -233,7 +233,7 @@ FocusScope {
         flickableItem: bookmarksList
     }
 
-    ListView {
+    GridView {
         id: topSitesList
         objectName: "topSitesList"
         anchors {
@@ -241,21 +241,26 @@ FocusScope {
             bottom: parent.bottom
             left: parent.left
             right: parent.right
-            topMargin: units.gu(2)
+            rightMargin: units.gu(4)
+            leftMargin: units.gu(4)
         }
 
         visible: !inBookmarksView
         currentIndex: 0
 
-        model: topSitesModel
-        delegate: UrlDelegateWide {
-            objectName: "topSiteItem"
-            clip: true
+        cellWidth: units.gu(17) + units.gu(4)
+        cellHeight: units.gu(13) + units.gu(4)
 
-            title: model.title
+        model: topSitesModel
+        delegate: UrlPreviewDelegate {
+            objectName: "topSiteItem"
+            width: topSitesList.cellWidth
+            height: topSitesList.cellHeight
+
+            title: "[%1] %2".arg(model.visits).arg(model.title)
             icon: model.icon
             url: model.url
-            highlighted: topSitesList.activeFocus && ListView.isCurrentItem
+            highlighted: topSitesList.activeFocus && GridView.isCurrentItem
 
             onClicked: newTabViewWide.historyEntryClicked(url)
             onRemoved: newTabViewWide.historyModel.hide(url)
@@ -266,10 +271,14 @@ FocusScope {
             newTabViewWide.historyModel.hide(currentItem.url)
             if (topSitesList.model.count === 0) newTabViewWide.releasingKeyboardFocus()
         }
-        Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, model.count - 1)
+
+        Keys.onLeftPressed: topSitesList.moveCurrentIndexLeft()
+        Keys.onRightPressed: topSitesList.moveCurrentIndexRight()
+        Keys.onDownPressed: topSitesList.moveCurrentIndexDown()
         Keys.onUpPressed: {
-            if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
-            else newTabViewWide.releasingKeyboardFocus()
+            var i = topSitesList.currentIndex
+            topSitesList.moveCurrentIndexUp()
+            if (i === topSitesList.currentIndex) newTabViewWide.releasingKeyboardFocus()
         }
     }
 
