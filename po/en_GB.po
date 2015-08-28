@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-08-15 05:32+0000\n"
-"X-Generator: Launchpad (build 17686)\n"
+"X-Launchpad-Export-Date: 2015-08-28 05:45+0000\n"
+"X-Generator: Launchpad (build 17690)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -577,12 +577,12 @@ msgstr "Delete"
 
 #: src/app/webbrowser/HistoryViewWide.qml:115
 msgid "All History"
-msgstr ""
+msgstr "All History"
 
 #: src/app/webbrowser/HistoryViewWide.qml:129
 #: src/app/webbrowser/HistoryViewWide.qml:194
 msgid "Today"
-msgstr ""
+msgstr "Today"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
