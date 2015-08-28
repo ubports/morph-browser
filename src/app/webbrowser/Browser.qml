@@ -759,7 +759,7 @@ BrowserView {
 
         anchors.fill: parent
         active: false
-        sourceComponent: bookmarksViewComponent
+        sourceComponent: browser.wide ? bookmarksViewWideComponent : bookmarksViewComponent
 
         onStatusChanged: {
             if (status == Loader.Ready) {
@@ -786,7 +786,27 @@ BrowserView {
             BookmarksView {
                 anchors.fill: parent
 
-                 onBookmarkEntryClicked: {
+                onBookmarkEntryClicked: {
+                    browser.openUrlInNewTab(url, true)
+                    done()
+                }
+                onBookmarkEntryRemoved: {
+                    if (bookmarksModel.count == 1) {
+                        done()
+                    }
+                    browser.bookmarksModel.remove(url)
+                }
+                onDone: bookmarksViewLoader.active = false
+            }
+        }
+
+        Component {
+            id: bookmarksViewWideComponent
+
+            BookmarksViewWide {
+                anchors.fill: parent
+
+                onBookmarkEntryClicked: {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
