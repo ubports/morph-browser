@@ -27,7 +27,6 @@ import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 import "../UrlUtils.js" as UrlUtils
-import "urlManagement.js" as UrlManagement
 
 BrowserView {
     id: browser
@@ -104,7 +103,7 @@ BrowserView {
             onTriggered: browser.historyModel.clearAll()
         },
         Actions.FindInPage {
-            enabled: !chrome.findInPageMode
+            enabled: !chrome.findInPageMode && !newTabViewLoader.active
             onTriggered: {
                 chrome.findInPageMode = true
                 chrome.focus = true
@@ -380,7 +379,7 @@ BrowserView {
                     objectName: "findinpage"
                     text: i18n.tr("Find in page")
                     iconName: "search"
-                    enabled: !chrome.findInPageMode
+                    enabled: !chrome.findInPageMode && !newTabViewLoader.active
                     onTriggered: {
                         chrome.findInPageMode = true
                         chrome.focus = true
@@ -496,7 +495,7 @@ BrowserView {
                 searchEngine: currentSearchEngine
                 active: (chrome.activeFocus || suggestionsList.activeFocus) &&
                          !browser.incognito && !chrome.findInPageMode &&
-                         !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
+                         !UrlUtils.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
                 function limit(number) {
                     var slice = results.slice(0, number)
@@ -757,6 +756,7 @@ BrowserView {
 
         onStatusChanged: {
             if (status == Loader.Ready) {
+                historyViewTimer.restart()
                 historyViewLoader.item.forceActiveFocus()
             } else {
                 internal.resetFocus()
@@ -766,9 +766,9 @@ BrowserView {
         Keys.onEscapePressed: historyViewLoader.active = false
 
         Timer {
+            id: historyViewTimer
             // Set the model asynchronously to ensure
             // the view is displayed as early as possible.
-            running: historyViewLoader.active
             interval: 1
             onTriggered: historyViewLoader.item.historyModel = browser.historyModel
         }
@@ -825,19 +825,10 @@ BrowserView {
                     internal.resetFocus()
                 }
 
-                Timer {
-                    // Set the model asynchronously to ensure
-                    // the view is displayed as early as possible.
-                    running: true
-                    interval: 1
-                    onTriggered: historyModel = browser.historyModel
-                }
-
                 onHistoryEntryClicked: {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
-                onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
                 onNewTabRequested: browser.openUrlInNewTab("", true)
                 onDone: historyViewLoader.active = false
             }
@@ -1305,6 +1296,13 @@ BrowserView {
         running: !browser.incognito
         onTriggered: delayedSessionSaver.restart()
     }
+    Timer {
+        id: exitFullscreenOnLostFocus
+        interval: 500
+        onTriggered: {
+            if (browser.currentWebview) browser.currentWebview.fullscreen = false
+        }
+    }
     Connections {
         target: Qt.application
         onStateChanged: {
@@ -1313,9 +1311,14 @@ BrowserView {
                     session.save()
                 }
                 if (browser.currentWebview) {
-                    browser.currentWebview.fullscreen = false
+                    // Workaround for a desktop bug where changing volume causes the app to
+                    // briefly lose focus to notify-osd, and therefore exit fullscreen mode.
+                    // We prevent this by exiting fullscreen only if the focus remains lost
+                    // for longer than a certain threshold. See: http://pad.lv/1477308
+                    if (formFactor == "desktop") exitFullscreenOnLostFocus.start()
+                    else browser.currentWebview.fullscreen = false
                 }
-            }
+            } else exitFullscreenOnLostFocus.stop()
         }
         onAboutToQuit: {
             if (!browser.incognito) {
@@ -1568,6 +1571,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
+            enabled: !newTabViewLoader.active
             onTriggered: {
                 chrome.findInPageMode = true
                 chrome.focus = true
