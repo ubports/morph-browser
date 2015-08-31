@@ -21,6 +21,7 @@ import QtTest 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Test 1.0
+import webbrowserapp.private 0.1
 import "../../../src/app/webbrowser"
 
 Item {
@@ -32,10 +33,6 @@ Item {
     HistoryViewWide {
         id: historyViewWide
         anchors.fill: parent
-        historyModel: HistoryModel {
-            id: historyMockModel
-            databasePath: ":memory:"
-        }
     }
 
     SignalSpy {
@@ -84,12 +81,21 @@ Item {
         }
 
         function initTestCase() {
+            HistoryModel.databasePath = ":memory:"
+        }
+
+        function init() {
             for (var i = 0; i < 3; ++i) {
-                historyMockModel.add("http://example.org/" + i, "Example Domain " + i, "")
+                HistoryModel.add("http://example.org/" + i, "Example Domain " + i, "")
             }
+            historyViewWide.loadModel()
             var urlsList = findChild(historyViewWide, "urlsListView")
             tryCompare(urlsList, "count", 3)
             waitForRendering(urlsList)
+        }
+
+        function cleanup() {
+            HistoryModel.clearAll()
         }
 
         function test_done_button() {
@@ -173,12 +179,12 @@ Item {
         function test_keyboard_navigation_between_lists() {
             var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
             var urlsList = findChild(historyViewWide, "urlsListView")
-            verify(!lastVisitDateList.activeFocus)        
+            verify(!lastVisitDateList.activeFocus)
             keyClick(Qt.Key_Left)
-            verify(lastVisitDateList.activeFocus)        
-            verify(!urlsList.activeFocus)        
+            verify(lastVisitDateList.activeFocus)
+            verify(!urlsList.activeFocus)
             keyClick(Qt.Key_Right)
-            verify(urlsList.activeFocus)        
+            verify(urlsList.activeFocus)
         }
     }
 }

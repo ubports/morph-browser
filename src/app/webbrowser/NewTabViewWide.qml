@@ -26,7 +26,6 @@ FocusScope {
     id: newTabViewWide
 
     property QtObject bookmarksModel
-    property alias historyModel: historyTimeframeModel.sourceModel
     property QtObject settingsObject
     property alias selectedIndex: sections.selectedIndex
     readonly property bool inBookmarksView: newTabViewWide.selectedIndex === 1
@@ -57,6 +56,7 @@ FocusScope {
         sourceModel: TopSitesModel {
             sourceModel: HistoryTimeframeModel {
                 id: historyTimeframeModel
+                sourceModel: HistoryModel
             }
         }
     }
@@ -257,18 +257,18 @@ FocusScope {
             width: topSitesList.cellWidth
             height: topSitesList.cellHeight
 
-            title: "[%1] %2".arg(model.visits).arg(model.title)
+            title: model.title
             icon: model.icon
             url: model.url
             highlighted: topSitesList.activeFocus && GridView.isCurrentItem
 
             onClicked: newTabViewWide.historyEntryClicked(url)
-            onRemoved: newTabViewWide.historyModel.hide(url)
+            onRemoved: HistoryModel.hide(url)
         }
 
         Keys.onReturnPressed: newTabViewWide.historyEntryClicked(currentItem.url)
         Keys.onDeletePressed: {
-            newTabViewWide.historyModel.hide(currentItem.url)
+            HistoryModel.hide(currentItem.url)
             if (topSitesList.model.count === 0) newTabViewWide.releasingKeyboardFocus()
         }
 

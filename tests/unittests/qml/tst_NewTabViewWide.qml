@@ -29,13 +29,6 @@ Item {
     height: 600
 
     Component {
-        id: historyModel
-        HistoryModel {
-            databasePath: ":memory:"
-        }
-    }
-
-    Component {
         id: bookmarksModel
         BookmarksModel {
             databasePath: ":memory:"
@@ -44,7 +37,6 @@ Item {
 
     property NewTabViewWide view
     property var bookmarks
-    property var history
     property string homepage: "http://example.com/homepage"
 
     Component {
@@ -56,7 +48,6 @@ Item {
                 property int newTabDefaultSection: 0
             }
             bookmarksModel: bookmarks
-            historyModel: history
         }
     }
 
@@ -84,9 +75,12 @@ Item {
         name: "NewTabViewWide"
         when: windowShown
 
+        function initTestCase() {
+            HistoryModel.databasePath = ":memory:"
+        }
+
         function init() {
             bookmarks = bookmarksModel.createObject()
-            history = historyModel.createObject()
             view = viewComponent.createObject(root)
             populate()
 
@@ -103,9 +97,9 @@ Item {
         }
 
         function populate() {
-            history.add("http://example.com", "Example Com", "")
-            history.add("http://example.org", "Example Org", "")
-            history.add("http://example.net", "Example Net", "")
+            HistoryModel.add("http://example.com", "Example Com", "")
+            HistoryModel.add("http://example.org", "Example Org", "")
+            HistoryModel.add("http://example.net", "Example Net", "")
             bookmarks.add("http://example.com", "Example Com", "", "")
             bookmarks.add("http://example.org/bar", "Example Org Bar", "", "Folder B")
             bookmarks.add("http://example.org/foo", "Example Org Foo", "", "Folder B")
@@ -114,8 +108,7 @@ Item {
         }
 
         function cleanup() {
-            history.destroy()
-            history = null
+            HistoryModel.clearAll()
             bookmarks.destroy()
             bookmarks = null
 
@@ -155,7 +148,7 @@ Item {
         function test_topsites_list() {
             // add 8 more top sites so that we are beyond the limit of 10
             for (var i = 0; i < 8; i++) {
-                history.add("http://example.com/" + i, "Example Com " + i, "")
+                HistoryModel.add("http://example.com/" + i, "Example Com " + i, "")
             }
 
             var items = getListItems("topSitesList", "topSiteItem")

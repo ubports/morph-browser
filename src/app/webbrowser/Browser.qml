@@ -37,7 +37,6 @@ BrowserView {
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
-    property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
     property bool newSession: false
@@ -54,6 +53,10 @@ BrowserView {
     // to limit the overhead of instantiating too many
     // tab objects (see http://pad.lv/1376433).
     readonly property int maxTabsToRestore: 10
+
+    Component.onCompleted: {
+        HistoryModel.databasePath = dataLocation + "/history.sqlite"
+    }
 
     onTabsModelChanged: {
         if (incognito && privateTabsModelLoader.item) {
@@ -100,8 +103,7 @@ BrowserView {
             onTriggered: browser.openUrlInNewTab("", true)
         },
         Actions.ClearHistory {
-            enabled: browser.historyModel
-            onTriggered: browser.historyModel.clearAll()
+            onTriggered: HistoryModel.clearAll()
         },
         Actions.FindInPage {
             enabled: !chrome.findInPageMode && !newTabViewLoader.active
@@ -242,7 +244,6 @@ BrowserView {
 
                 NewTabView {
                     anchors.fill: parent
-                    historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
                     focus: true
@@ -265,7 +266,6 @@ BrowserView {
 
                 NewTabViewWide {
                     anchors.fill: parent
-                    historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
                     focus: true
@@ -356,7 +356,6 @@ BrowserView {
                     objectName: "history"
                     text: i18n.tr("History")
                     iconName: "history"
-                    enabled: browser.historyModel
                     onTriggered: historyViewLoader.active = true
                 },
                 Action {
@@ -472,7 +471,7 @@ BrowserView {
                 readonly property string icon: "history"
                 readonly property bool displayUrl: true
                 sourceModel: SuggestionsFilterModel {
-                    sourceModel: browser.historyModel
+                    sourceModel: HistoryModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
                 }
@@ -757,7 +756,7 @@ BrowserView {
 
         onStatusChanged: {
             if (status == Loader.Ready) {
-                historyViewTimer.restart()
+                historyViewLoader.item.loadModel()
                 historyViewLoader.item.forceActiveFocus()
             } else {
                 internal.resetFocus()
@@ -765,14 +764,6 @@ BrowserView {
         }
 
         Keys.onEscapePressed: historyViewLoader.active = false
-
-        Timer {
-            id: historyViewTimer
-            // Set the model asynchronously to ensure
-            // the view is displayed as early as possible.
-            interval: 1
-            onTriggered: historyViewLoader.item.historyModel = browser.historyModel
-        }
 
         Component {
             id: historyViewComponent
@@ -788,7 +779,7 @@ BrowserView {
 
                 FocusScope {
                     id: expandedHistoryViewContainer
-    
+
                     visible: children.length > 0
                     anchors.fill: parent
 
@@ -806,7 +797,7 @@ BrowserView {
                                 if (count == 1) {
                                     done()
                                 }
-                                browser.historyModel.removeEntryByUrl(url)
+                                HistoryModel.removeEntryByUrl(url)
                             }
                             onDone: destroy()
                         }
@@ -830,7 +821,7 @@ BrowserView {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
-                onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
+                onHistoryEntryRemoved: HistoryModel.removeEntryByUrl(url)
                 onNewTabRequested: browser.openUrlInNewTab("", true)
                 onDone: historyViewLoader.active = false
             }
@@ -849,7 +840,6 @@ BrowserView {
             SettingsPage {
                 anchors.fill: parent
                 focus: true
-                historyModel: browser.historyModel
                 settingsObject: settings
                 onDone: destroy()
                 Keys.onEscapePressed: {
@@ -883,12 +873,6 @@ BrowserView {
                 }
             }
         }
-    }
-
-    Loader {
-        id: historyModelLoader
-        source: "HistoryModel.qml"
-        asynchronous: true
     }
 
     Loader {
@@ -995,8 +979,8 @@ BrowserView {
                         return
                     }
 
-                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel) {
-                        browser.historyModel.add(event.url, title, icon)
+                    if (event.type == Oxide.LoadEvent.TypeSucceeded) {
+                        HistoryModel.add(event.url, title, icon)
                     }
                 }
 

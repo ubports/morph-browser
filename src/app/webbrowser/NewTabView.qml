@@ -26,7 +26,6 @@ Item {
     id: newTabView
 
     property QtObject bookmarksModel
-    property alias historyModel: historyTimeframeModel.sourceModel
     property Settings settingsObject
 
     signal bookmarkClicked(url url)
@@ -37,6 +36,7 @@ Item {
         id: topSitesModel
         sourceModel: HistoryTimeframeModel {
             id: historyTimeframeModel
+            sourceModel: HistoryModel
         }
     }
 
@@ -148,7 +148,7 @@ Item {
 
                 active: internal.seeMoreBookmarksView
                 sourceComponent: BookmarksFolderListView {
-                    model: newTabView.bookmarksModel 
+                    model: newTabView.bookmarksModel
 
                     onBookmarkClicked: newTabView.bookmarkClicked(url)
                     onBookmarkRemoved: newTabView.bookmarkRemoved(url)
@@ -275,7 +275,7 @@ Item {
                 model: topSitesModel
 
                 onUrlClicked: newTabView.historyEntryClicked(url)
-                onUrlRemoved: newTabView.historyModel.hide(url)
+                onUrlRemoved: HistoryModel.hide(url)
             }
         }
     }

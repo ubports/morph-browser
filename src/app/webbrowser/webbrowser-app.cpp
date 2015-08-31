@@ -64,10 +64,17 @@ static QObject* CacheDeleter_singleton_factory(QQmlEngine* engine, QJSEngine* sc
     return new CacheDeleter();
 }
 
+static QObject* HistoryModel_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new HistoryModel();
+}
+
 bool WebbrowserApp::initialize()
 {
     const char* uri = "webbrowserapp.private";
-    qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
+    qmlRegisterSingletonType<HistoryModel>(uri, 0, 1, "HistoryModel", HistoryModel_singleton_factory);
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<TopSitesModel>(uri, 0 , 1, "TopSitesModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
