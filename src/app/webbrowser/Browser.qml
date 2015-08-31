@@ -626,7 +626,7 @@ BrowserView {
             height: units.gu(7)
             state: "hidden"
 
-            color: browser.incognito ? "#5d5d5d" : "#f6f6f6"
+            color: browser.incognito ? UbuntuColors.darkGrey : "#f6f6f6"
 
             Button {
                 objectName: "doneButton"
