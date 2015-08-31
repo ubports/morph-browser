@@ -130,7 +130,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        state="shown")
 
     def get_new_tab_view(self):
-        return self.wait_select_single("NewTabView", visible=True)
+        if self.wide:
+            return self.wait_select_single("NewTabViewWide", visible=True)
+        else:
+            return self.wait_select_single("NewTabView", visible=True)
 
     # Since the NewPrivateTabView does not define any new QML property in its
     # extended file, it does not report itself to autopilot with the same name
@@ -151,11 +154,21 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
 
+    def get_bookmark_options(self):
+        return self.select_single(BookmarkOptions)
+
+    def get_new_bookmarks_folder_dialog(self):
+        return self.wait_select_single("Dialog",
+                                       objectName="newFolderDialog")
+
     # The history view is dynamically created, so it might or might not be
     # available
     def get_history_view(self):
         try:
-            return self.select_single("HistoryView")
+            if self.wide:
+                return self.select_single("HistoryViewWide")
+            else:
+                return self.select_single("HistoryView")
         except exceptions.StateNotFoundError:
             return None
 
@@ -217,6 +230,17 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return drawer.select_single("AbstractButton", objectName=actionName,
                                     visible=True)
 
+    def get_tabs_bar(self):
+        return self.select_single(TabsBar)
+
+    def get_find_next_button(self):
+        return self.select_single("ChromeButton",
+                                  objectName="findNextButton")
+
+    def get_find_prev_button(self):
+        return self.select_single("ChromeButton",
+                                  objectName="findPreviousButton")
+
 
 class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
@@ -251,7 +275,37 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
     def get_bookmark_toggle(self):
-        return self.select_single("QQuickItem", objectName="bookmarkToggle")
+        return self.select_single("QQuickMouseArea",
+                                  objectName="bookmarkToggle")
+
+    def get_find_in_page_counter(self):
+        return self.select_single("Label", objectName="findInPageCounter")
+
+
+class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    @autopilot.logging.log_action(logger.info)
+    def click_new_tab_button(self):
+        button = self.select_single("QQuickMouseArea",
+                                    objectName="newTabButton")
+        self.pointing_device.click_object(button)
+
+    def get_tabs(self):
+        return self.select_many("QQuickItem", objectName="tabDelegate")
+
+    def get_tab(self, index):
+        return self.select_single("QQuickItem", objectName="tabDelegate",
+                                  tabIndex=index)
+
+    @autopilot.logging.log_action(logger.info)
+    def select_tab(self, index):
+        self.pointing_device.click_object(self.get_tab(index))
+
+    @autopilot.logging.log_action(logger.info)
+    def close_tab(self, index):
+        tab = self.get_tab(index)
+        close_button = tab.select_single("Icon", objectName="closeButton")
+        self.pointing_device.click_object(close_button)
 
 
 class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -391,6 +445,68 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_notopsites_label(self):
         return self.select_single("Label", objectName="notopsites")
 
+    def get_top_site_items(self):
+        return self.get_top_sites_list().get_delegates()
+
+    def get_bookmarks_folder_list_view(self):
+        return self.select_single(BookmarksFolderListView)
+
+    def get_bookmarks(self, folder_name):
+        # assumes that the "more" button has been clicked
+        folders = self.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate(folder_name)
+        return folders.get_urls_from_folder(folder_delegate)
+
+    def get_folder_names(self):
+        folders = self.get_bookmarks_folder_list_view().get_delegates()
+        return [folder.folderName for folder in folders]
+
+
+class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def go_to_section(self, section_index):
+        sections = self.select_single(uitk.Sections)
+        if not sections.selectedIndex == section_index:
+            sections.click_section_button(section_index)
+
+    def get_bookmarks_list(self):
+        self.go_to_section(1)
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="bookmarksList")
+        return sorted(list.select_many("DraggableUrlDelegateWide",
+                      objectName="bookmarkItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_top_sites_list(self):
+        self.go_to_section(0)
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="topSitesList")
+        return sorted(list.select_many("UrlDelegateWide",
+                      objectName="topSiteItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_folders_list(self):
+        self.go_to_section(1)
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="foldersList")
+        return sorted(list.select_many(objectName="folderItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_top_site_items(self):
+        self.go_to_section(0)
+        return self.get_top_sites_list()
+
+    def get_bookmarks(self, folder_name):
+        folders = self.get_folders_list()
+        matches = [folder for folder in folders if folder.name == folder_name]
+        if not len(matches) == 1:
+            return []
+        self.pointing_device.click_object(matches[0])
+        return self.get_bookmarks_list()
+
+    def get_folder_names(self):
+        return [folder.name for folder in self.get_folders_list()]
+
 
 class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
@@ -405,3 +521,56 @@ class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class UrlDelegate(uitk.UCListItem):
 
     pass
+
+
+class UrlDelegateWide(uitk.UCListItem):
+
+    pass
+
+
+class DraggableUrlDelegateWide(UrlDelegateWide):
+
+    def get_grip(self):
+        return self.select_single("Icon", objectName="dragGrip")
+
+
+class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_title_text_field(self):
+        return self.select_single(uitk.TextField, objectName="titleTextField")
+
+    def get_save_in_option_selector(self):
+        return self.select_single("OptionSelector", currentlyExpanded=False)
+
+    @autopilot.logging.log_action(logger.info)
+    def click_new_folder_button(self):
+        button = self.select_single("Button",
+                                    objectName="bookmarkOptions.newButton")
+        self.pointing_device.click_object(button)
+
+    @autopilot.logging.log_action(logger.info)
+    def click_dismiss_button(self):
+        button = self.select_single("Button",
+                                    objectName="bookmarkOptions.okButton")
+        self.pointing_device.click_object(button)
+
+
+class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_delegates(self):
+        return sorted(self.select_many("QQuickItem",
+                                       objectName="bookmarkFolderDelegate"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_folder_delegate(self, folder):
+        return self.select_single("QQuickItem",
+                                  objectName="bookmarkFolderDelegate",
+                                  folderName=folder)
+
+    def get_urls_from_folder(self, folder):
+        return sorted(folder.select_many(UrlDelegate),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_header_from_folder(self, folder):
+        return folder.wait_select_single("QQuickItem",
+                                         objectName="bookmarkFolderHeader")

@@ -16,15 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.4
 import Qt.labs.settings 1.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0 as ListItem
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
+import Ubuntu.Components.ListItems 1.3 as ListItem
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 
-import "urlManagement.js" as UrlManagement
+import "../UrlUtils.js" as UrlUtils
 
 Item {
     id: settingsItem
@@ -247,16 +247,58 @@ Item {
                         ListItem.Standard {
                             objectName: "privacy.clearHistory"
                             text: i18n.tr("Clear Browsing History")
-                            onClicked: historyModel.clearAll()
                             enabled: historyModel.count > 0
+                            onClicked: {
+                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Browsing History?")})
+                                dialog.confirmed.connect(historyModel.clearAll)
+                            }
                         }
 
                         ListItem.Standard {
                             objectName: "privacy.clearCache"
                             text: i18n.tr("Clear Cache")
                             onClicked: {
-                                enabled = false
-                                CacheDeleter.clear(cacheLocation + "/Cache2", function() { enabled = true })
+                                var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Cache?")})
+                                dialog.confirmed.connect(function() {
+                                    enabled = false;
+                                    CacheDeleter.clear(cacheLocation + "/Cache2", function() { enabled = true });
+                                })
+                            }
+                        }
+                    }
+                }
+
+                Component {
+                    id: privacyConfirmDialogComponent
+
+                    Dialog {
+                        id: privacyConfirmDialog
+                        objectName: "privacyConfirmDialog"
+                        signal confirmed()
+
+                        Row {
+                            spacing: units.gu(2)
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                            }
+
+                            Button {
+                                objectName: "privacyConfirmDialog.cancelButton"
+                                width: (parent.width - parent.spacing) / 2
+                                text: i18n.tr("Cancel")
+                                onClicked: PopupUtils.close(privacyConfirmDialog)
+                            }
+
+                            Button {
+                                objectName: "privacyConfirmDialog.confirmButton"
+                                width: (parent.width - parent.spacing) / 2
+                                text: i18n.tr("Clear")
+                                color: UbuntuColors.green
+                                onClicked: {
+                                    confirmed()
+                                    PopupUtils.close(privacyConfirmDialog)
+                                }
                             }
                         }
                     }
@@ -285,8 +327,8 @@ Item {
                 text: settingsObject.homepage
                 inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText | Qt.ImhUrlCharactersOnly
                 onAccepted: {
-                    if (UrlManagement.looksLikeAUrl(text)) {
-                        settingsObject.homepage = UrlManagement.fixUrl(text)
+                    if (UrlUtils.looksLikeAUrl(text)) {
+                        settingsObject.homepage = UrlUtils.fixUrl(text)
                         PopupUtils.close(dialogue)
                     }
                 }
@@ -309,10 +351,10 @@ Item {
                     right: parent.right
                 }
                 text: i18n.tr("Save")
-                enabled: UrlManagement.looksLikeAUrl(homepageTextField.text.trim())
+                enabled: UrlUtils.looksLikeAUrl(homepageTextField.text.trim())
                 color: "#3fb24f"
                 onClicked: {
-                    settingsObject.homepage = UrlManagement.fixUrl(homepageTextField.text)
+                    settingsObject.homepage = UrlUtils.fixUrl(homepageTextField.text)
                     PopupUtils.close(dialogue)
                 }
             }

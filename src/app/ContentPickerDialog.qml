@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.1
-import Ubuntu.Components.Popups 1.0 as Popups
+import QtQuick 2.4
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3 as Popups
 import Ubuntu.Content 0.1
 import "MimeTypeMapper.js" as MimeTypeMapper
 
@@ -33,7 +33,6 @@ Component {
         parent: QuickUtils.rootItem(this)
 
         property var activeTransfer
-        property var selectedItems
 
         Rectangle {
             anchors.fill: parent
@@ -69,30 +68,13 @@ Component {
 
         Connections {
             id: stateChangeConnection
+            target: null
             onStateChanged: {
                 if (picker.activeTransfer.state === ContentTransfer.Charged) {
-                    selectedItems = []
+                    var selectedItems = []
                     for(var i in picker.activeTransfer.items) {
                         selectedItems.push(String(picker.activeTransfer.items[i].url).replace("file://", ""))
                     }
-                    acceptTimer.running = true
-                }
-            }
-        }
-
-        // FIXME: Work around for browser becoming insensitive to touch events
-        // if the dialog is dismissed while the application is inactive.
-        // Just listening for changes to Qt.application.active doesn't appear
-        // to be enough to resolve this, so it seems that something else needs
-        // to be happening first. As such there's a potential for a race
-        // condition here, although as yet no problem has been encountered.
-        Timer {
-            id: acceptTimer
-            interval: 100
-            repeat: true
-            onTriggered: {
-                if(Qt.application.active) {
-                    webview.focus = true
                     model.accept(selectedItems)
                 }
             }

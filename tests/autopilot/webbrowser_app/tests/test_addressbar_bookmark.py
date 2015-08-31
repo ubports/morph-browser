@@ -27,43 +27,52 @@ class TestAddressBarBookmark(StartOpenRemotePageTestCaseBase):
         address_bar = self.main_window.address_bar
         bookmark_toggle = address_bar.get_bookmark_toggle()
         self.pointing_device.click_object(bookmark_toggle)
+        bookmark_options = self.main_window.get_bookmark_options()
+        bookmark_options.click_dismiss_button()
+        bookmark_options.wait_until_destroyed()
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        self.open_tabs_view()
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view=True)
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
 
-        self.open_tabs_view()
-        tabs_view = self.main_window.get_tabs_view()
-        self.main_window.get_tabs_view().get_previews()[1].select()
-        tabs_view.visible.wait_for(False)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().select_tab(0)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[1].select()
+            tabs_view.visible.wait_for(False)
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
-        self.open_tabs_view()
-        tabs_view = self.main_window.get_tabs_view()
-        self.main_window.get_tabs_view().get_previews()[1].select()
-        tabs_view.visible.wait_for(False)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().select_tab(1)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[1].select()
+            tabs_view.visible.wait_for(False)
         self.assertThat(chrome.bookmarked, Eventually(Equals(False)))
 
     def test_cannot_bookmark_empty_page(self):
-        self.open_tabs_view()
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view=True)
 
-        self.open_tabs_view()
-        tabs_view = self.main_window.get_tabs_view()
-        self.main_window.get_tabs_view().get_previews()[1].select()
-        tabs_view.visible.wait_for(False)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().select_tab(0)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[1].select()
+            tabs_view.visible.wait_for(False)
         webview = self.main_window.get_current_webview()
         self.pointing_device.click_object(webview)
         address_bar = self.main_window.address_bar
         bookmark_toggle = address_bar.get_bookmark_toggle()
         self.assertThat(bookmark_toggle.visible, Eventually(Equals(True)))
 
-        self.open_tabs_view()
-        tabs_view = self.main_window.get_tabs_view()
-        self.main_window.get_tabs_view().get_previews()[1].select()
-        tabs_view.visible.wait_for(False)
+        if self.main_window.wide:
+            self.main_window.chrome.get_tabs_bar().select_tab(1)
+        else:
+            tabs_view = self.open_tabs_view()
+            tabs_view.get_previews()[1].select()
+            tabs_view.visible.wait_for(False)
         self.assertThat(bookmark_toggle.visible, Eventually(Equals(False)))

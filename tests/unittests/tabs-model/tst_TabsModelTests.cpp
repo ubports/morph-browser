@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -38,7 +38,7 @@ private:
     {
         QQmlEngine engine;
         QQmlComponent component(&engine);
-        QByteArray data("import QtQuick 2.0\nItem {\nproperty url url\n"
+        QByteArray data("import QtQuick 2.4\nItem {\nproperty url url\n"
                         "property string title\nproperty url icon\n}");
         component.setData(data, QUrl());
         QObject* object = component.create();
@@ -64,7 +64,7 @@ private Q_SLOTS:
     void shouldBeInitiallyEmpty()
     {
         QCOMPARE(model->rowCount(), 0);
-        QCOMPARE(model->currentTab(), (QObject*) 0);
+        QCOMPARE(model->currentTab(), (QObject*) nullptr);
     }
 
     void shouldExposeRoleNames()
@@ -76,14 +76,20 @@ private Q_SLOTS:
         QVERIFY(roleNames.contains("tab"));
     }
 
+    void shouldNotAllowSettingTheIndexToAnInvalidValue_data()
+    {
+        QTest::addColumn<int>("index");
+        QTest::newRow("zero") << 0;
+        QTest::newRow("too high") << 2;
+        QTest::newRow("too low") << -2;
+    }
+
     void shouldNotAllowSettingTheIndexToAnInvalidValue()
     {
-        model->setCurrent(0);
-        QCOMPARE(model->currentTab(), (QObject*) 0);
-        model->setCurrent(2);
-        QCOMPARE(model->currentTab(), (QObject*) 0);
-        model->setCurrent(-2);
-        QCOMPARE(model->currentTab(), (QObject*) 0);
+        QFETCH(int, index);
+        model->setCurrentIndex(index);
+        QCOMPARE(model->currentIndex(), -1);
+        QCOMPARE(model->currentTab(), (QObject*) nullptr);
     }
 
     void shouldNotAddNullTab()
@@ -118,9 +124,9 @@ private Q_SLOTS:
 
     void shouldNotAllowRemovingAtInvalidIndex()
     {
-        QCOMPARE(model->remove(0), (QObject*) 0);
-        QCOMPARE(model->remove(2), (QObject*) 0);
-        QCOMPARE(model->remove(-2), (QObject*) 0);
+        QCOMPARE(model->remove(0), (QObject*) nullptr);
+        QCOMPARE(model->remove(2), (QObject*) nullptr);
+        QCOMPARE(model->remove(-2), (QObject*) nullptr);
     }
 
     void shouldReturnTabWhenRemoving()
@@ -221,17 +227,19 @@ private Q_SLOTS:
         QVERIFY(roles.contains(TabsModel::Icon));
     }
 
-    void shouldUpdateCurrentTabWhenSettingCurrent()
+    void shouldUpdateCurrentTabWhenSettingCurrentIndex()
     {
         QQuickItem* tab1 = createTab();
         model->add(tab1);
         QSignalSpy spy(model, SIGNAL(currentTabChanged()));
-        model->setCurrent(0);
+        model->setCurrentIndex(0);
+        QCOMPARE(model->currentIndex(), 0);
         QVERIFY(spy.isEmpty());
         QCOMPARE(model->currentTab(), tab1);
         QQuickItem* tab2 = createTab();
         model->add(tab2);
-        model->setCurrent(1);
+        model->setCurrentIndex(1);
+        QCOMPARE(model->currentIndex(), 1);
         QCOMPARE(spy.count(), 1);
         QCOMPARE(model->currentTab(), tab2);
     }
@@ -270,7 +278,7 @@ private Q_SLOTS:
         spy.clear();
         delete model->remove(0);
         QCOMPARE(spy.count(), 1);
-        QCOMPARE(model->currentTab(), (QObject*) 0);
+        QCOMPARE(model->currentTab(), (QObject*) nullptr);
     }
 
     void shouldReturnData()
@@ -288,6 +296,62 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(0, 0), TabsModel::Icon).toUrl(), QUrl("image://webicon/123"));
         QCOMPARE(model->data(model->index(0, 0), TabsModel::Tab).value<QQuickItem*>(), tab);
         QVERIFY(!model->data(model->index(0, 0), TabsModel::Tab + 3).isValid());
+    }
+
+    void shouldReturnTabAtIndex()
+    {
+        // valid indexes
+        QQuickItem* tab1 = createTab();
+        model->add(tab1);
+        QQuickItem* tab2 = createTab();
+        model->add(tab2);
+        QQuickItem* tab3 = createTab();
+        model->add(tab3);
+        QCOMPARE(model->get(0), tab1);
+        QCOMPARE(model->get(1), tab2);
+        QCOMPARE(model->get(2), tab3);
+
+        // invalid indexes
+        QCOMPARE(model->get(-1), (QObject*) nullptr);
+        QCOMPARE(model->get(3), (QObject*) nullptr);
+    }
+
+private:
+    void moveTabs(int from, int to, bool moved, bool indexChanged, int newIndex)
+    {
+        QSignalSpy spyMoved(model, SIGNAL(rowsMoved(const QModelIndex&, int, int, const QModelIndex&, int)));
+        QSignalSpy spyIndex(model, SIGNAL(currentIndexChanged()));
+        QSignalSpy spyTab(model, SIGNAL(currentTabChanged()));
+
+        model->move(from, to);
+        QCOMPARE(spyMoved.count(), moved ? 1 : 0);
+        if (moved) {
+            QList<QVariant> args = spyMoved.takeFirst();
+            QCOMPARE(args.at(1).toInt(), from);
+            QCOMPARE(args.at(2).toInt(), from);
+            QCOMPARE(args.at(4).toInt(), to);
+        }
+        QCOMPARE(spyIndex.count(), indexChanged ? 1 : 0);
+        QCOMPARE(model->currentIndex(), newIndex);
+        QVERIFY(spyTab.isEmpty());
+    }
+
+private Q_SLOTS:
+    void shouldNotifyWhenMovingTabs()
+    {
+        for (int i = 0; i < 3; ++i) {
+            model->add(createTab());
+        }
+
+        moveTabs(1, 1, false, false, 0);
+        moveTabs(4, 1, false, false, 0);
+        moveTabs(1, 4, false, false, 0);
+        moveTabs(0, 2, true, true, 2);
+        moveTabs(1, 0, true, false, 2);
+        moveTabs(2, 1, true, true, 1);
+        moveTabs(2, 0, true, true, 2);
+        moveTabs(2, 1, true, true, 1);
+        moveTabs(0, 2, true, true, 0);
     }
 };
 

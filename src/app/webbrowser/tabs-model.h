@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -31,6 +31,7 @@ class TabsModel : public QAbstractListModel
 
     Q_ENUMS(Roles)
 
+    Q_PROPERTY(int currentIndex READ currentIndex WRITE setCurrentIndex NOTIFY currentIndexChanged)
     Q_PROPERTY(QObject* currentTab READ currentTab NOTIFY currentTabChanged)
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
 
@@ -50,14 +51,18 @@ public:
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex& index, int role) const;
 
+    int currentIndex() const;
+    void setCurrentIndex(int index);
+
     QObject* currentTab() const;
 
     Q_INVOKABLE int add(QObject* tab);
     Q_INVOKABLE QObject* remove(int index);
-    Q_INVOKABLE void setCurrent(int index);
     Q_INVOKABLE QObject* get(int index) const;
+    Q_INVOKABLE void move(int from, int to);
 
 Q_SIGNALS:
+    void currentIndexChanged() const;
     void currentTabChanged() const;
     void countChanged() const;
 
@@ -68,6 +73,7 @@ private Q_SLOTS:
 
 private:
     QList<QObject*> m_tabs;
+    int m_currentIndex;
 
     bool checkValidTabIndex(int index) const;
     void onDataChanged(QObject* tab, int role);

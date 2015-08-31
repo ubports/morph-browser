@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import QtQuick 2.4
 import Qt.labs.settings 1.0
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 import webbrowserapp.private 0.1
 import ".."
 
@@ -43,7 +43,7 @@ Item {
     QtObject {
         id: internal
 
-        property bool seeMoreBookmarksView: bookmarksCountLimit > 4
+        property bool seeMoreBookmarksView: false
         property int bookmarksCountLimit: Math.min(4, numberOfBookmarks)
         property int numberOfBookmarks: bookmarksModel ? bookmarksModel.count : 0
 
@@ -65,7 +65,7 @@ Item {
     Flickable {
         anchors.fill: parent
         contentHeight: internal.seeMoreBookmarksView ?
-                                          bookmarksColumn.height + units.gu(6) :
+                                          bookmarksFolderListViewLoader.height + units.gu(6) :
                                           contentColumn.height
 
         Column {
@@ -116,18 +116,13 @@ Item {
 
                     anchors { top: parent.top; topMargin: units.gu(1) }
 
-                    strokeColor: "#5d5d5d"
+                    strokeColor: UbuntuColors.darkGrey
 
                     visible: internal.numberOfBookmarks > 4
 
-                    text: internal.bookmarksCountLimit >= internal.numberOfBookmarks
-                    ? i18n.tr("Less") : i18n.tr("More")
+                    text: internal.seeMoreBookmarksView ? i18n.tr("Less") : i18n.tr("More")
 
-                    onClicked: {
-                        internal.numberOfBookmarks > internal.bookmarksCountLimit ?
-                        internal.bookmarksCountLimit += 5:
-                        internal.bookmarksCountLimit = 4
-                    }
+                    onClicked: internal.seeMoreBookmarksView = !internal.seeMoreBookmarksView
                 }
             }
 
@@ -141,12 +136,35 @@ Item {
                 color: "#d3d3d3"
             }
 
+            Loader {
+                id: bookmarksFolderListViewLoader
+
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+
+                height: status == Loader.Ready ? item.height : 0
+
+                active: internal.seeMoreBookmarksView
+                sourceComponent: BookmarksFolderListView {
+                    model: newTabView.bookmarksModel 
+
+                    onBookmarkClicked: newTabView.bookmarkClicked(url)
+                    onBookmarkRemoved: newTabView.bookmarkRemoved(url)
+                }
+            }
+
             Column {
                 id: bookmarksColumn
                 anchors {
                     left: parent.left
                     right: parent.right
                 }
+
+                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                Behavior on opacity { UbuntuNumberAnimation {} }
+                visible: opacity > 0
 
                 // Force the height to be updated when bookmarks are removed
                 // in another new tab
@@ -237,7 +255,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
 
                 text: i18n.tr("You haven't visited any site yet")
-                color: "#5d5d5d"
+                color: UbuntuColors.darkGrey
             }
 
             UrlsList {
