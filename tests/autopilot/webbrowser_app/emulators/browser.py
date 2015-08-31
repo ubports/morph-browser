@@ -423,6 +423,13 @@ class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                       key=lambda item: item.globalRect.y)
 
 
+class HistoryViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_entries(self):
+        return sorted(self.select_many("UrlDelegate"),
+                      key=lambda item: item.globalRect.y)
+
+
 class ExpandedHistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_entries(self):

@@ -34,18 +34,30 @@ class TestHistory(StartOpenRemotePageTestCaseBase):
         self.main_window.wait_until_page_loaded(url)
 
         history = self.open_history()
-        domain_entries = history.get_domain_entries()
-        # 1 domain: the local one
-        self.assertThat(lambda: len(history.get_domain_entries()),
-                        Eventually(Equals(1)))
 
-        self.pointing_device.click_object(domain_entries[0])
-        expanded_history = self.main_window.get_expanded_history_view()
+        # We have domains with subsections only on mobiles.
+        # On wide we take all the entries directly
+        if self.main_window.wide:
+            delegates = history.get_entries()
 
-        # 2 addresses: /test1 and /test2
-        self.assertThat(lambda: len(expanded_history.get_entries()),
-                        Eventually(Equals(2)))
+            # 2 addresses: /test1 and /test2
+            self.assertThat(lambda: len(history.get_entries()),
+                            Eventually(Equals(2)))
+            self.assertThat(sorted([delegate.url for delegate in delegates]),
+                            Equals(sorted([self.url, url])))
+        else:
+            # 1 domain: the local one
+            domain_entries = history.get_domain_entries()
+            self.assertThat(lambda: len(history.get_domain_entries()),
+                            Eventually(Equals(1)))
 
-        delegates = expanded_history.get_entries()
-        self.assertThat(sorted([delegate.url for delegate in delegates]),
-                        Equals(sorted([self.url, url])))
+            self.pointing_device.click_object(domain_entries[0])
+            expanded_history = self.main_window.get_expanded_history_view()
+
+            # 2 addresses: /test1 and /test2
+            self.assertThat(lambda: len(expanded_history.get_entries()),
+                            Eventually(Equals(2)))
+
+            delegates = expanded_history.get_entries()
+            self.assertThat(sorted([delegate.url for delegate in delegates]),
+                            Equals(sorted([self.url, url])))
