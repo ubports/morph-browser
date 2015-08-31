@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-08-15 05:32+0000\n"
-"X-Generator: Launchpad (build 17686)\n"
+"X-Launchpad-Export-Date: 2015-08-28 05:44+0000\n"
+"X-Generator: Launchpad (build 17690)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -380,13 +380,13 @@ msgstr "Αντιγραφή συνδέσμου"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:381
 msgid "Find in page"
-msgstr ""
+msgstr "Εύρεση στη σελίδα"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Αναζήτηση στη σελίδα"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -452,11 +452,11 @@ msgstr "Διαμοιρασμός..."
 #: src/app/webbrowser/AddressBar.qml:203
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:239
 msgid "find in page"
-msgstr ""
+msgstr "εύρεση στη σελίδα"
 
 #: src/app/webbrowser/AddressBar.qml:240
 msgid "search or enter an address"
@@ -579,12 +579,12 @@ msgstr "Διαγραφή"
 
 #: src/app/webbrowser/HistoryViewWide.qml:115
 msgid "All History"
-msgstr ""
+msgstr "Όλο το ιστορικό"
 
 #: src/app/webbrowser/HistoryViewWide.qml:129
 #: src/app/webbrowser/HistoryViewWide.qml:194
 msgid "Today"
-msgstr ""
+msgstr "Σήμερα"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -714,7 +714,7 @@ msgstr "Εκκαθάριση ιστορικού περιήγησης"
 
 #: src/app/webbrowser/SettingsPage.qml:252
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Καθαρισμός ιστορικού περιήγησης;"
 
 #: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
