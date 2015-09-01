@@ -68,4 +68,33 @@ TestCase {
     function test_removeScheme(data) {
         compare(UrlUtils.removeScheme(data.url), data.removed)
     }
+
+    function test_looksLikeAUrl_data() {
+        return [
+            {url: "", looksLike: false},
+            {url: "http://example.org/", looksLike: true},
+            {url: "example.org", looksLike: true},
+            {url: "http://www.example.org?q=foo bar", looksLike: false},
+            {url: "about:blank", looksLike: true},
+            {url: "file:///usr/foo/bar", looksLike: true},
+            {url: "hello://my/name/is/", looksLike: true},
+            {url: "192.168.1.0", looksLike: true}
+        ]
+    }
+
+    function test_looksLikeAUrl(data) {
+        compare(UrlUtils.looksLikeAUrl(data.url), data.looksLike)
+    }
+
+    function test_fixUrl_data() {
+        return [
+            {url: "About:BLANK", fixed: "about:blank"},
+            {url: "/usr/bin/", fixed: "file:///usr/bin/"},
+            {url: "example.org", fixed: "http://example.org"}
+        ]
+    }
+
+    function test_fixUrl(data) {
+        compare(UrlUtils.fixUrl(data.url), data.fixed)
+    }
 }

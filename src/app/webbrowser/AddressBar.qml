@@ -21,7 +21,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import com.canonical.Oxide 1.8 as Oxide
 import ".."
-import "urlManagement.js" as UrlManagement
+import "../UrlUtils.js" as UrlUtils
 
 FocusScope {
     id: addressbar
@@ -110,7 +110,7 @@ FocusScope {
 
                     readonly property bool reload: addressbar.activeFocus && addressbar.text &&
                                                    (addressbar.text == addressbar.actualUrl)
-                    readonly property bool looksLikeAUrl: UrlManagement.looksLikeAUrl(addressbar.text.trim())
+                    readonly property bool looksLikeAUrl: UrlUtils.looksLikeAUrl(addressbar.text.trim())
 
                     name: addressbar.loading ? "stop" :
                           reload ? "reload" :
@@ -303,8 +303,8 @@ FocusScope {
 
         function validate() {
             var query = text.trim()
-            if (UrlManagement.looksLikeAUrl(query)) {
-                requestedUrl = UrlManagement.fixUrl(query)
+            if (UrlUtils.looksLikeAUrl(query)) {
+                requestedUrl = UrlUtils.fixUrl(query)
             } else {
                 requestedUrl = internal.buildSearchUrl(query)
             }
