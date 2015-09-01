@@ -20,6 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Web 0.2
+import webbrowsercommon.private 0.1
 import "actions" as Actions
 
 WebView {
@@ -54,14 +55,27 @@ WebView {
 
         if (downloadLoader.status == Loader.Ready) {
             var headers = { }
-            if(request.cookies.length > 0) {
+            if (request.cookies.length > 0) {
                 headers["Cookie"] = request.cookies.join(";")
             }
-            if(request.referrer) {
+            if (request.referrer) {
                 headers["Referer"] = request.referrer
             }
             headers["User-Agent"] = webview.context.userAgent
-            downloadLoader.item.downloadMimeType(request.url, request.mimeType, headers, request.suggestedFilename)
+            // Work around https://launchpad.net/bugs/1487090 by guessing the mime type
+            // from the suggested filename or URL if oxide hasn’t provided one.
+            var mimeType = request.mimeType
+            if (!mimeType) {
+                mimeType = MimeDatabase.filenameToMimeType(request.suggestedFilename)
+            }
+            if (!mimeType) {
+                var scheme = request.url.toString().split('://').shift().toLowerCase()
+                var filename = request.url.toString().split('/').pop().split('?').shift()
+                if ((scheme == "file") || (filename.indexOf('.') > -1)) {
+                    mimeType = MimeDatabase.filenameToMimeType(filename)
+                }
+            }
+            downloadLoader.item.downloadMimeType(request.url, mimeType, headers, request.suggestedFilename)
         } else {
             // Desktop form factor case
             Qt.openUrlExternally(request.url)
@@ -76,14 +90,11 @@ WebView {
 
     Loader {
         id: downloadLoader
+        // TODO: Use the ubuntu download manager on desktop as well
+        //  (https://launchpad.net/bugs/1477310). This will require to have
+        //  ubuntu-download-manager in main (https://launchpad.net/bugs/1488425).
         source: formFactor == "desktop" ? "" : "Downloader.qml"
         asynchronous: true
-    }
-
-    selectionActions: ActionList {
-        Actions.Copy {
-            onTriggered: copy()
-        }
     }
 
     function requestGeolocationPermission(request) {

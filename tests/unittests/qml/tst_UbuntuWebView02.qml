@@ -18,20 +18,101 @@
 
 import QtQuick 2.4
 import QtTest 1.0
+import Ubuntu.Test 1.0
+import Ubuntu.Components 1.3
 import Ubuntu.Web 0.2
 
-TestCase {
-    name: "WebView"
+Item {
+    id: root
 
-    function test_context_singleton() {
-        compare(webview1.context, webview2.context)
+    width: 200
+    height: 200
+
+    Component {
+        id: webviewComponent
+        WebView {
+            anchors.fill: parent
+        }
     }
 
-    WebView {
-        id: webview1
+    ActionList {
+        id: actionList
+        Action {
+            id: action1
+        }
+        Action {
+            id: action2
+        }
     }
 
-    WebView {
-        id: webview2
+    readonly property string htmlWithHyperlink: '<html><body style="margin: 0"><a href="http://example.org/"><div style="height: 100%"></div></a></body></html>'
+
+    UbuntuTestCase {
+        name: "UbuntuWebView02"
+        when: windowShown
+
+        property var webview: null
+
+        function init() {
+            webview = webviewComponent.createObject(root)
+        }
+
+        function cleanup() {
+            webview.destroy()
+        }
+
+        function test_context_singleton() {
+            var other = webviewComponent.createObject(root)
+            compare(other.context, webview.context)
+            other.destroy()
+        }
+
+        function rightClickWebview() {
+            var center = centerOf(webview)
+            mouseClick(webview, center.x, center.y, Qt.RightButton)
+            // give the context menu a chance to appear before carrying on
+            wait(500)
+        }
+
+        function getContextMenu() {
+            return findChild(webview, "contextMenu")
+        }
+
+        function dismissContextMenu() {
+            var center = centerOf(webview)
+            mouseClick(webview, center.x, center.y)
+            wait(500)
+            compare(getContextMenu(), null)
+        }
+
+        function test_no_contextual_actions() {
+            webview.loadHtml(root.htmlWithHyperlink, "file:///")
+            tryCompare(webview, "loading", false)
+            rightClickWebview()
+            compare(getContextMenu(), null)
+        }
+
+        function test_contextual_actions() {
+            webview.contextualActions = actionList
+            webview.loadHtml(root.htmlWithHyperlink, "file:///")
+            tryCompare(webview, "loading", false)
+            rightClickWebview()
+            compare(getContextMenu().actions, actionList)
+            compare(webview.contextualData.href, "http://example.org/")
+            dismissContextMenu()
+            compare(webview.contextualData.href, "")
+        }
+
+        function test_contextual_actions_all_disabled() {
+            webview.contextualActions = actionList
+            action1.enabled = false
+            action2.enabled = false
+            webview.loadHtml(root.htmlWithHyperlink, "file:///")
+            tryCompare(webview, "loading", false)
+            rightClickWebview()
+            compare(getContextMenu(), null)
+            action1.enabled = true
+            action2.enabled = true
+        }
     }
 }

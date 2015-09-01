@@ -19,6 +19,7 @@ set(COMMONLIB webbrowser-common)
 set(COMMONLIB_SRC
     browserapplication.cpp
     favicon-fetcher.cpp
+    mime-database.cpp
     session-storage.cpp
     webbrowser-window.cpp
 )

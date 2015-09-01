@@ -21,7 +21,7 @@ Build-Depends: cmake (>= 2.8.9),
                qtbase5-private-dev,
                qtdeclarative5-dev,
                qtdeclarative5-private-dev,
-               qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3),
+               qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
                xvfb,
 Standards-Version: 3.9.5
 Homepage: https://launchpad.net/webbrowser-app
@@ -42,7 +42,7 @@ Depends: ${misc:Depends},
          qml-module-qtquick2 (>= 5.4),
          qml-module-qtquick-dialogs,
          qml-module-qtquick-window2 (>= 5.3),
-         qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3),
+         qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
          qtdeclarative5-ubuntu-web-plugin (= ${binary:Version}),
          qtdeclarative5-unity-action-plugin,
 Replaces: webbrowser-app-assets,
@@ -60,12 +60,12 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          fonts-liberation,
-         liboxideqt-qmlplugin (>= 1.5),
+         liboxideqt-qmlplugin (>= 1.8),
          libqt5sql5-sqlite,
          qml-module-qtquick2 (>= 5.4),
          qml-module-qtquick-window2 (>= 5.3),
          qtdeclarative5-accounts-plugin,
-         qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3),
+         qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
          qtdeclarative5-ubuntu-web-plugin (= ${binary:Version}),
          qtdeclarative5-unity-action-plugin,
          unity-webapps-qml,
@@ -83,7 +83,7 @@ Depends: ${misc:Depends},
          ${shlibs:Depends},
          qml-module-qtquick2 (>= 5.4),
          qml-module-qtquick-window2 (>= 5.3),
-         qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3),
+         qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
          qtdeclarative5-ubuntu-web-plugin (= ${binary:Version}),
 Replaces: webbrowser-app (<< 0.21)
 Breaks: webbrowser-app (<< 0.21)
@@ -100,20 +100,10 @@ Depends: ${misc:Depends},
          liboxideqt-qmlplugin (>= 1.9),
          qml-module-qtquick2 (>= 5.4),
          qml-module-qtquick-window2 (>= 5.3),
-         qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3),
-         qtdeclarative5-ubuntu-web-plugin-assets (>= ${source:Version}),
+         qtdeclarative5-ubuntu-ui-toolkit-plugin (>= 1.3) | qtdeclarative5-ubuntu-ui-toolkit-plugin-gles (>= 1.3),
 Description: Ubuntu web QML plugin
  A standalone QML plugin that contains the WebView component,
  in the Ubuntu.Web module.
-
-Package: qtdeclarative5-ubuntu-web-plugin-assets
-Architecture: all
-Multi-Arch: foreign
-Depends: ${misc:Depends},
-Description: Ubuntu web QML plugin assets
- A standalone QML plugin that contains the WebView component,
- in the Ubuntu.Web module. This package contains the PNGs used
- as UI elements by the plugin.
 
 Package: qtdeclarative5-ubuntu-web-plugin-doc
 Section: doc
