@@ -172,29 +172,32 @@
     context menu (by way of a right click on desktop, or a long press on a
     touch-enabled device, on an image or a hyperlink).
     By default the list is empty, and no menu is shown.
-    User-defined actions can access the \l {contextualData} {contextual data}.
+    User-defined actions can access the \l {contextModel} {context model}.
 
     Example of user-defined actions:
     \code
-        import Ubuntu.Components 1.1
+        import Ubuntu.Components 1.3
         import Ubuntu.Web 0.2
 
         WebView {
             contextualActions: ActionList {
                 Action {
                     text: i18n.tr("Open link in browser")
-                    enabled: contextualData.href.toString()
-                    onTriggered: Qt.openUrlExternally(contextualData.href)
+                    enabled: contextModel && contextModel.linkUrl.toString()
+                    onTriggered: Qt.openUrlExternally(contextModel.linkUrl)
                 }
             }
         }
     \endcode
 
-    \sa contextualData
+    \sa contextModel
  */
 
 /*!
+    \deprecated
     \qmlproperty QtObject WebView::contextualData
+
+    This property is deprecated, use the \l {contextModel} property instead.
 
     An object that holds the contextual data associated with the current context
     menu. User-defined \l {contextualActions} {contextual actions} can use this
@@ -210,6 +213,42 @@
     Note that in the case of an image enclosed inside a hyperlink, both \c href
     and \c img will be available, allowing a user-defined contextual action to
     operate on both elements.
+
+    \sa contextualActions, contextModel
+ */
+
+/*!
+    \qmlproperty QtObject WebView::contextModel
+
+    An object that holds the contextual data associated with the current context
+    menu, as well as methods to interact with this data. User-defined
+    \l {contextualActions} {contextual actions} can use this data to process it
+    when triggered.
+
+    It has the following properties:
+    \list
+        \li linkUrl (url): the full URI of the hyperlink, if any
+        \li srcUrl (url): the full URI of the image/media, if any
+        \li mediaType (int): the type of media (one of Oxide.WebView.MediaTypeNone,
+            Oxide.WebView.MediaTypeImage, Oxide.WebView.MediaTypeCanvas,
+            Oxide.WebView.MediaTypeAudio, Oxide.WebView.MediaTypeVideo)
+        \li isEditable (bool): whether the current element is editable
+        \li editFlags (int): for editable elements, an OR-combined list of flags that
+            define the current editing capabilities (Oxide.WebView.UndoCapability,
+            Oxide.WebView.RedoCapability, Oxide.WebView.CutCapability,
+            Oxide.WebView.CopyCapability, Oxide.WebView.PasteCapability,
+            Oxide.WebView.EraseCapability, Oxide.WebView.SelectAllCapability)
+    \endlist
+
+    It has the following methods:
+    \list
+        \li saveLink(): initiates a download request for the resource pointed
+            to by the hyperlink, if any
+        \li saveMedia(): initiates a download request for the media
+            (image, canvas, audio, video), if any
+    \endlist
+
+    When there is no active context menu, \c contextModel is null.
 
     \sa contextualActions
  */

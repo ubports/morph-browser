@@ -53,12 +53,6 @@ Item {
         signalName: "historyEntryClicked"
     }
 
-    SignalSpy {
-        id: historyEntryRemovedSpy
-        target: historyViewWide
-        signalName: "historyEntryRemoved"
-    }
-
     UbuntuTestCase {
         name: "HistoryViewWide"
         when: windowShown
@@ -102,7 +96,6 @@ Item {
             var doneButton = findChild(historyViewWide, "doneButton")
             verify(doneButton != null)
             doneSpy.clear()
-            compare(doneSpy.count, 0)
             clickItem(doneButton)
             compare(doneSpy.count, 1)
         }
@@ -112,8 +105,6 @@ Item {
             verify(newTabButton != null)
             doneSpy.clear()
             newTabRequestedSpy.clear()
-            compare(doneSpy.count, 0)
-            compare(newTabRequestedSpy.count, 0)
             clickItem(newTabButton)
             compare(newTabRequestedSpy.count, 1)
             compare(doneSpy.count, 1)
@@ -122,7 +113,7 @@ Item {
         function test_history_entry_clicked() {
             var urlsList = findChild(historyViewWide, "urlsListView")
             compare(urlsList.count, 3)
-            compare(historyEntryClickedSpy.count, 0)
+            historyEntryClickedSpy.clear()
             clickItem(urlsList.children[0])
             compare(historyEntryClickedSpy.count, 1)
             var args = historyEntryClickedSpy.signalArguments[0]
@@ -166,14 +157,14 @@ Item {
         function test_delete_button() {
             var urlsList = findChild(historyViewWide, "urlsListView")
             compare(urlsList.count, 3)
+            var deletedUrl = urlsList.model.get(0).url
             longPressItem(urlsList.children[0])
             var deleteButton = findChild(historyViewWide, "deleteButton")
-            compare(historyEntryRemovedSpy.count, 0)
             clickItem(deleteButton)
-            compare(historyEntryRemovedSpy.count, 1)
-            var args = historyEntryRemovedSpy.signalArguments[0]
-            var entry = urlsList.model.get(0)
-            compare(args[0], entry.url)
+            compare(urlsList.count, 2)
+            for (var i = 0; i < urlsList.count; ++i) {
+                verify(urlsList.model.get(i).url != deletedUrl)
+            }
         }
 
         function test_keyboard_navigation_between_lists() {
@@ -185,6 +176,39 @@ Item {
             verify(!urlsList.activeFocus)
             keyClick(Qt.Key_Right)
             verify(urlsList.activeFocus)
+        }
+
+        function test_delete_key_at_urls_list_view() {
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            keyClick(Qt.Key_Right)
+            verify(urlsList.activeFocus)
+            compare(urlsList.count, 3)
+            keyClick(Qt.Key_Delete)
+            compare(urlsList.count, 2)
+        }
+
+        function test_delete_key_at_last_visit_date() {
+            var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            keyClick(Qt.Key_Left)
+            verify(lastVisitDateList.activeFocus)
+            compare(lastVisitDateList.currentIndex, 0)
+            keyClick(Qt.Key_Down)
+            compare(lastVisitDateList.currentIndex, 1)
+            compare(urlsList.count, 3)
+            keyClick(Qt.Key_Delete)
+            compare(urlsList.count, 0)
+        }
+
+        function test_delete_key_at_all_history() {
+            var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            keyClick(Qt.Key_Left)
+            verify(lastVisitDateList.activeFocus)
+            compare(lastVisitDateList.currentIndex, 0)
+            compare(urlsList.count, 3)
+            keyClick(Qt.Key_Delete)
+            compare(urlsList.count, 0)
         }
     }
 }
