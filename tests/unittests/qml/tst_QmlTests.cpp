@@ -104,6 +104,22 @@ public:
         return QFile(QDir(path).absoluteFilePath(QString("%1.xml").arg(filename))).remove();
     }
 
+    Q_INVOKABLE bool createFile(const QString& filePath) {
+        // create all the directories necessary for the file to be created
+        QFileInfo fileInfo(filePath);
+        if (!QFileInfo::exists(fileInfo.path())) {
+          QDir::root().mkpath(fileInfo.path());
+        }
+
+        QFile file(fileInfo.absoluteFilePath());
+        return file.open(QIODevice::WriteOnly | QIODevice::Text);
+    }
+
+    Q_INVOKABLE bool removeDirectory(const QString& path) {
+        QDir dir(path);
+        return dir.removeRecursively();
+    }
+
 private:
     QTemporaryDir m_testDir1;
     QTemporaryDir m_testDir2;
