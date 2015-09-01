@@ -61,6 +61,7 @@ Popups.Popover {
         }
 
         Label {
+            id: titleLabel
             objectName: "titleLabel"
             text: internal.isImage ? contextModel.srcUrl : contextModel.linkUrl
             anchors {
@@ -84,7 +85,7 @@ Popups.Popover {
                 right: parent.right
                 rightMargin: units.gu(2)
             }
-            visible: !contextModel.isEditable
+            visible: titleLabel.visible
         }
 
         Repeater {
