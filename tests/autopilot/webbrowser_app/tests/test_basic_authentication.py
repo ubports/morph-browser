@@ -21,34 +21,29 @@ class TestBasicAuthentication(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
         super(TestBasicAuthentication, self).setUp()
+        self.main_window.go_to_url(self.base_url + "/basicauth")
+        self.dialog = self.main_window.get_http_auth_dialog()
         self.username = "user"
         self.password = "pass"
-        self.url = self.base_url + "/basicauth"
 
     def test_cancel(self):
-        self.main_window.go_to_url(self.url)
-        dialog = self.main_window.get_http_auth_dialog()
-        self.pointing_device.click_object(dialog.get_deny_button())
-        dialog.wait_until_destroyed()
+        self.pointing_device.click_object(self.dialog.get_deny_button())
+        self.dialog.wait_until_destroyed()
 
     def test_right_credentials(self):
-        self.main_window.go_to_url(self.url)
-        dialog = self.main_window.get_http_auth_dialog()
-        username = dialog.get_username_field()
+        username = self.dialog.get_username_field()
         username.write(self.username)
-        password = dialog.get_password_field()
+        password = self.dialog.get_password_field()
         password.write(self.password)
-        self.pointing_device.click_object(dialog.get_allow_button())
-        dialog.wait_until_destroyed()
+        self.pointing_device.click_object(self.dialog.get_allow_button())
+        self.dialog.wait_until_destroyed()
 
     def test_wrong_credentials(self):
-        self.main_window.go_to_url(self.url)
-        dialog = self.main_window.get_http_auth_dialog()
-        username = dialog.get_username_field()
+        username = self.dialog.get_username_field()
         username.write("x")
-        password = dialog.get_password_field()
+        password = self.dialog.get_password_field()
         password.write("x")
-        self.pointing_device.click_object(dialog.get_allow_button())
-        dialog.wait_until_destroyed()
+        self.pointing_device.click_object(self.dialog.get_allow_button())
+        self.dialog.wait_until_destroyed()
         # verify that a new dialog has been displayed
         self.main_window.get_http_auth_dialog()
