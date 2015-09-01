@@ -18,6 +18,7 @@ from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
+import testtools
 import unittest
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
@@ -131,12 +132,8 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.check_current_tab(url)
 
 
+@testtools.skipIf(model() != "Desktop", "on desktop only")
 class TestTabsFocus(StartOpenRemotePageTestCaseBase, TestTabsMixin):
-
-    def setUp(self):
-        super(TestTabsFocus, self).setUp()
-        if not self.main_window.wide:
-            self.skipTest("Only on wide form factors")
 
     def test_focus_on_switch(self):
         """Test that switching between tabs correctly resets focus to the
