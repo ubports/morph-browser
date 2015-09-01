@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-11 20:00+0200\n"
+"POT-Creation-Date: 2015-09-01 06:56+0200\n"
 "PO-Revision-Date: 2014-08-15 12:42+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2015-08-12 06:27+0000\n"
-"X-Generator: Launchpad (build 17686)\n"
+"X-Launchpad-Export-Date: 2015-09-01 05:34+0000\n"
+"X-Generator: Launchpad (build 17690)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -49,7 +49,9 @@ msgstr ""
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContextMenuMobile.qml:142
 #: src/app/webbrowser/HistoryView.qml:165
+#: src/app/webbrowser/HistoryViewWide.qml:307
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:289
 #: src/app/webbrowser/SettingsPage.qml:343
@@ -337,7 +339,15 @@ msgstr ""
 msgid "Copy link"
 msgstr ""
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:354
+#: src/app/actions/Cut.qml:22
+msgid "Cut"
+msgstr ""
+
+#: src/app/actions/Erase.qml:22
+msgid "Erase"
+msgstr ""
+
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
 msgid "Find in page"
 msgstr ""
 
@@ -367,7 +377,7 @@ msgstr ""
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:596
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:653
 msgid "New Tab"
 msgstr ""
 
@@ -389,6 +399,14 @@ msgstr ""
 msgid "Open link in new tab"
 msgstr ""
 
+#: src/app/actions/Paste.qml:22
+msgid "Paste"
+msgstr ""
+
+#: src/app/actions/Redo.qml:22
+msgid "Redo"
+msgstr ""
+
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
 msgstr ""
@@ -403,8 +421,21 @@ msgstr ""
 msgid "Save image"
 msgstr ""
 
+#: src/app/actions/SaveLink.qml:22
+msgid "Save link"
+msgstr ""
+
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:328
+msgid "Select all"
+msgstr ""
+
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
+msgstr ""
+
+#: src/app/actions/Undo.qml:22
+msgid "Undo"
 msgstr ""
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
@@ -417,7 +448,7 @@ msgstr ""
 msgid "find in page"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:216
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "search or enter an address"
 msgstr ""
 
@@ -437,6 +468,7 @@ msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
+#: src/app/webbrowser/NewTabViewWide.qml:122
 msgid "All Bookmarks"
 msgstr ""
 
@@ -454,50 +486,53 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:312
+#: src/app/webbrowser/Browser.qml:349
 msgid "Share"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:319
+#: src/app/webbrowser/Browser.qml:356
+#: src/app/webbrowser/HistoryViewWide.qml:291
 msgid "History"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:329
+#: src/app/webbrowser/Browser.qml:363
 msgid "Open tabs"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:339 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/Browser.qml:373 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:396
 #: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:355
+#: src/app/webbrowser/Browser.qml:390
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:355
+#: src/app/webbrowser/Browser.qml:390
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:346 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:408 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:582 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:639 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:382
 msgid "Done"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:689
+#: src/app/webbrowser/Browser.qml:746
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:973
+#: src/app/webbrowser/Browser.qml:1148
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:974
+#: src/app/webbrowser/Browser.qml:1149
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
@@ -513,20 +548,27 @@ msgstr[1] ""
 msgid "Less"
 msgstr ""
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:44
+#: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
 msgstr ""
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:46
+#: src/app/webbrowser/HistorySectionDelegate.qml:48
+#: src/app/webbrowser/HistoryViewWide.qml:149
 msgid "Yesterday"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:180
-msgid "Select all"
+#: src/app/webbrowser/HistoryView.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:347
+msgid "Delete"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:210
-msgid "Delete"
+#: src/app/webbrowser/HistoryViewWide.qml:133
+msgid "All History"
+msgstr ""
+
+#: src/app/webbrowser/HistoryViewWide.qml:147
+#: src/app/webbrowser/HistoryViewWide.qml:212
+msgid "Today"
 msgstr ""
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
@@ -544,6 +586,7 @@ msgid ""
 msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:313
 msgid "Bookmarks"
 msgstr ""
 
@@ -552,11 +595,18 @@ msgid "More"
 msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:226
+#: src/app/webbrowser/NewTabViewWide.qml:312
 msgid "Top sites"
 msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
+msgstr ""
+
+#: src/app/webbrowser/NewTabViewWide.qml:160
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:317
+msgid "Homepage"
 msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
@@ -614,11 +664,6 @@ msgstr ""
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr ""
-
-#: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:317
-msgid "Homepage"
 msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:101

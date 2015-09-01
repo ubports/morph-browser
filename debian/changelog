@@ -1,3 +1,112 @@
+webbrowser-app (0.23+15.10.20150827.3-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Use the contextMenu API new in oxide 1.8. Update the visuals for the
+    context menu in narrow and wide form factors. Add text editing
+    commands to the context menu. Add unit and autopilot tests for the
+    context menu features. This bumps the runtime dependency of webapp-
+    container and qtdeclarative5-ubuntu-web-plugin on liboxideqt-
+    qmlplugin to 1.8. This also removes the qtdeclarative5-ubuntu-web-
+    plugin-assets binary package, which contained only one PNG asset
+    which is not used anywhere any longer. (LP: #1477310, #1477315,
+    #1471181, #1264493, #1487090, #1326070, #1477309, #1450430,
+    #1438046)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 27 Aug 2015 14:02:08 +0000
+
+webbrowser-app (0.23+15.10.20150820-0ubuntu1) wily; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix webapp name logic (LP: #1473472)
+
+  [ Arthur Mello ]
+  * Add support for removing history entries with delete key in
+    HistoryViewWide (LP: #1484562)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Remove an old workaround for an issue that was fixed since then in
+    the content hub and that caused the file picker to accept the
+    selected file twice.
+
+  [ Ugo Riboni ]
+  * Merge two url utility files into one, since they had no reason for
+    being separate. Add unit tests for some of the functions that had
+    none.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 20 Aug 2015 08:58:20 +0000
+
+webbrowser-app (0.23+15.10.20150817-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Make sure to set the historyModel to the HistoryView component when
+    browser wide property changes (LP: #1484555)
+  * Wait for OptionSelector's collapsing transition to finish (LP:
+    #1484175)
+
+  [ Colin Watson ]
+  * Fix versioned dependencies on qtdeclarative5-ubuntu-ui-toolkit-
+    plugin to allow qtdeclarative5-ubuntu-ui-toolkit-plugin-gles.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 17 Aug 2015 09:59:08 +0000
+
+webbrowser-app (0.23+15.10.20150814-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Ugo Riboni ]
+  * Delay the exit from fullscreen mode until focus remains lost for a
+    certain amount of time. (LP: #1477308)
+  * Disable find in page when the new tab view is active. (LP: #1483847)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Fri, 14 Aug 2015 09:25:42 +0000
+
+webbrowser-app (0.23+15.10.20150813.1-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Remove strong typing of the contextualActions and selectionActions
+    properties. This would cause issues if an app imported Ubuntu.Web
+    along with Ubuntu.Components < 1.3 and overrode one of these
+    properties, because the webview expected an ActionList 1.3, and
+    would get an earlier version. (LP: #1484437)
+  * Update translation template.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 13 Aug 2015 21:39:06 +0000
+
+webbrowser-app (0.23+15.10.20150812.1-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Wide screen versions of the history view and new tab view, per
+    design specification. This adds a build dependency on qml-module-qt-
+    labs-settings (for unit tests). (LP: #1351157, #1481647)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+  * Wide screen versions of the history view and new tab view, per
+    design specification. This adds a build dependency on qml-module-qt-
+    labs-settings (for unit tests). (LP: #1351157, #1481647)
+
+  [ Ugo Riboni ]
+  * Wide screen versions of the history view and new tab view, per
+    design specification. This adds a build dependency on qml-module-qt-
+    labs-settings (for unit tests). (LP: #1351157, #1481647)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 12 Aug 2015 19:53:17 +0000
+
 webbrowser-app (0.23+15.10.20150811-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

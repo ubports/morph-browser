@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-11 20:00+0200\n"
+"POT-Creation-Date: 2015-09-01 06:56+0200\n"
 "PO-Revision-Date: 2015-07-20 15:03+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2015-08-12 06:27+0000\n"
-"X-Generator: Launchpad (build 17686)\n"
+"X-Launchpad-Export-Date: 2015-09-01 05:34+0000\n"
+"X-Generator: Launchpad (build 17690)\n"
 "Language: gd\n"
 
 #: src/app/AlertDialog.qml:23
@@ -51,7 +51,9 @@ msgstr "Facal-faire"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContextMenuMobile.qml:142
 #: src/app/webbrowser/HistoryView.qml:165
+#: src/app/webbrowser/HistoryViewWide.qml:307
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:289
 #: src/app/webbrowser/SettingsPage.qml:343
@@ -380,7 +382,15 @@ msgstr "Dèan lethbhreac dhen dealbh"
 msgid "Copy link"
 msgstr "Dèan lethbhreac dhen cheangal"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:354
+#: src/app/actions/Cut.qml:22
+msgid "Cut"
+msgstr ""
+
+#: src/app/actions/Erase.qml:22
+msgid "Erase"
+msgstr ""
+
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
 msgid "Find in page"
 msgstr ""
 
@@ -410,7 +420,7 @@ msgstr "Rach gu"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;Seòladh"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:596
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:653
 msgid "New Tab"
 msgstr "Taba ùr"
 
@@ -432,6 +442,14 @@ msgstr "Fosgail an ceangal ann an taba ùr sa chùlaibh"
 msgid "Open link in new tab"
 msgstr "Fosgail an ceangal ann an taba ùr"
 
+#: src/app/actions/Paste.qml:22
+msgid "Paste"
+msgstr ""
+
+#: src/app/actions/Redo.qml:22
+msgid "Redo"
+msgstr ""
+
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
 msgstr "Ath-luchdaich"
@@ -446,9 +464,22 @@ msgstr "Fàg an duilleag"
 msgid "Save image"
 msgstr "Sàbhail an dealbh"
 
+#: src/app/actions/SaveLink.qml:22
+msgid "Save link"
+msgstr ""
+
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:328
+msgid "Select all"
+msgstr "Tagh na h-uile"
+
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
 msgstr "Co-roinn…"
+
+#: src/app/actions/Undo.qml:22
+msgid "Undo"
+msgstr ""
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:203
@@ -460,7 +491,7 @@ msgstr ""
 msgid "find in page"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:216
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "search or enter an address"
 msgstr "lorg no cuir a-steach seòladh-lìn"
 
@@ -480,6 +511,7 @@ msgstr "Sàbhail ann an"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
+#: src/app/webbrowser/NewTabViewWide.qml:122
 msgid "All Bookmarks"
 msgstr "A h-uile comharra-lìn"
 
@@ -497,50 +529,53 @@ msgstr "Cruthaich pasgan ùr"
 msgid "Save"
 msgstr "Sàbhail"
 
-#: src/app/webbrowser/Browser.qml:312
+#: src/app/webbrowser/Browser.qml:349
 msgid "Share"
 msgstr "Co-roinn"
 
-#: src/app/webbrowser/Browser.qml:319
+#: src/app/webbrowser/Browser.qml:356
+#: src/app/webbrowser/HistoryViewWide.qml:291
 msgid "History"
 msgstr "Eachdraidh"
 
-#: src/app/webbrowser/Browser.qml:329
+#: src/app/webbrowser/Browser.qml:363
 msgid "Open tabs"
 msgstr "Tabaichean fosgailte"
 
-#: src/app/webbrowser/Browser.qml:339 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/Browser.qml:373 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:396
 #: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Taba ùr"
 
-#: src/app/webbrowser/Browser.qml:355
+#: src/app/webbrowser/Browser.qml:390
 msgid "Leave Private Mode"
 msgstr "Fàg am modh prìobhaideach"
 
-#: src/app/webbrowser/Browser.qml:355
+#: src/app/webbrowser/Browser.qml:390
 msgid "Private Mode"
 msgstr "Am modh prìobhaideach"
 
-#: src/app/webbrowser/Browser.qml:346 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:408 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Roghainnean"
 
-#: src/app/webbrowser/Browser.qml:582 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:639 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:382
 msgid "Done"
 msgstr "Dèanta"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:689
+#: src/app/webbrowser/Browser.qml:746
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:973
+#: src/app/webbrowser/Browser.qml:1148
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Grad-shlaighd suas gus am modh làn-sgrìn fhàgail"
 
-#: src/app/webbrowser/Browser.qml:974
+#: src/app/webbrowser/Browser.qml:1149
 msgid "Press ESC To Exit Full Screen"
 msgstr "Brùth air ESC gus am modh làn-sgrìn fhàgail"
 
@@ -558,21 +593,28 @@ msgstr[3] "%1 duilleag"
 msgid "Less"
 msgstr "Nas lugha dheth"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:44
+#: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
 msgstr "Air a thadhal mu dheireadh"
 
-#: src/app/webbrowser/HistorySectionDelegate.qml:46
+#: src/app/webbrowser/HistorySectionDelegate.qml:48
+#: src/app/webbrowser/HistoryViewWide.qml:149
 msgid "Yesterday"
 msgstr "An-dè"
 
-#: src/app/webbrowser/HistoryView.qml:180
-msgid "Select all"
-msgstr "Tagh na h-uile"
-
 #: src/app/webbrowser/HistoryView.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:347
 msgid "Delete"
 msgstr "Sguab às"
+
+#: src/app/webbrowser/HistoryViewWide.qml:133
+msgid "All History"
+msgstr ""
+
+#: src/app/webbrowser/HistoryViewWide.qml:147
+#: src/app/webbrowser/HistoryViewWide.qml:212
+msgid "Today"
+msgstr ""
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -592,6 +634,7 @@ msgstr ""
 "Cumaidh sinn na comharran-lìn a chruthaicheas tu co-dhiù."
 
 #: src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:313
 msgid "Bookmarks"
 msgstr "Comharran-lìn"
 
@@ -600,12 +643,19 @@ msgid "More"
 msgstr "Barrachd"
 
 #: src/app/webbrowser/NewTabView.qml:226
+#: src/app/webbrowser/NewTabViewWide.qml:312
 msgid "Top sites"
 msgstr "Gràinnean-mullaich nan làrach"
 
 #: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
 msgstr "Cha do thadhail thu air làrach sam bith fhathast"
+
+#: src/app/webbrowser/NewTabViewWide.qml:160
+#: src/app/webbrowser/SettingsPage.qml:92
+#: src/app/webbrowser/SettingsPage.qml:317
+msgid "Homepage"
+msgstr "Duilleag-dhachaigh"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -669,11 +719,6 @@ msgstr "A tha 'ga ruith le"
 #: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
 msgstr "Inneal-luirg"
-
-#: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:317
-msgid "Homepage"
-msgstr "Duilleag-dhachaigh"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"

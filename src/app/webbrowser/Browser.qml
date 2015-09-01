@@ -19,7 +19,7 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
-import com.canonical.Oxide 1.5 as Oxide
+import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
@@ -27,7 +27,6 @@ import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 import "../UrlUtils.js" as UrlUtils
-import "urlManagement.js" as UrlManagement
 
 BrowserView {
     id: browser
@@ -104,7 +103,7 @@ BrowserView {
             onTriggered: browser.historyModel.clearAll()
         },
         Actions.FindInPage {
-            enabled: !chrome.findInPageMode
+            enabled: !chrome.findInPageMode && !newTabViewLoader.active
             onTriggered: {
                 chrome.findInPageMode = true
                 chrome.focus = true
@@ -119,12 +118,14 @@ BrowserView {
         property string searchEngine: settingsDefaults.searchEngine
         property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
         property bool restoreSession: settingsDefaults.restoreSession
+        property int newTabDefaultSection: settingsDefaults.newTabDefaultSection
 
         function restoreDefaults() {
             homepage  = settingsDefaults.homepage
             searchEngine = settingsDefaults.searchEngine
             allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
             restoreSession = settingsDefaults.restoreSession
+            newTabDefaultSection = settingsDefaults.newTabDefaultSection
         }
     }
 
@@ -135,11 +136,12 @@ BrowserView {
         readonly property string searchEngine: "google"
         readonly property string allowOpenInBackgroundTab: "default"
         readonly property bool restoreSession: true
+        readonly property int newTabDefaultSection: 0
     }
 
     FocusScope {
         anchors.fill: parent
-        visible: !settingsContainer.visible && !historyViewContainer.visible
+        visible: !settingsContainer.visible && !historyViewLoader.active
 
         TabChrome {
             id: invisibleTabChrome
@@ -219,6 +221,7 @@ BrowserView {
                 }
             }
             active: false
+            asynchronous: true
 
             Connections {
                 target: browser
@@ -230,15 +233,18 @@ BrowserView {
                 }
             }
 
-            sourceComponent: browser.incognito ? newPrivateTabViewComponent : newTabViewComponent
+            sourceComponent: browser.incognito ? newPrivateTabView :
+                             (browser.wide ? newTabViewWide : newTabView)
 
             Component {
-                id: newTabViewComponent
+                id: newTabView
 
                 NewTabView {
+                    anchors.fill: parent
                     historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
+                    focus: true
                     onBookmarkClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
@@ -254,11 +260,34 @@ BrowserView {
             }
 
             Component {
-                id: newPrivateTabViewComponent
+                id: newTabViewWide
 
-                NewPrivateTabView { }
+                NewTabViewWide {
+                    anchors.fill: parent
+                    historyModel: browser.historyModel
+                    bookmarksModel: browser.bookmarksModel
+                    settingsObject: settings
+                    focus: true
+                    onBookmarkClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        tabContainer.forceActiveFocus()
+                    }
+                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onHistoryEntryClicked: {
+                        chrome.requestedUrl = url
+                        currentWebview.url = url
+                        tabContainer.forceActiveFocus()
+                    }
+                    onReleasingKeyboardFocus: chrome.focus = true
+                }
             }
-            asynchronous: true
+
+            Component {
+                id: newPrivateTabView
+
+                NewPrivateTabView { anchors.fill: parent }
+            }
         }
 
         SearchEngine {
@@ -327,10 +356,7 @@ BrowserView {
                     text: i18n.tr("History")
                     iconName: "history"
                     enabled: browser.historyModel
-                    onTriggered: {
-                        historyViewComponent.createObject(historyViewContainer)
-                        historyViewContainer.focus = true
-                    }
+                    onTriggered: historyViewLoader.active = true
                 },
                 Action {
                     objectName: "tabs"
@@ -353,7 +379,7 @@ BrowserView {
                     objectName: "findinpage"
                     text: i18n.tr("Find in page")
                     iconName: "search"
-                    enabled: !chrome.findInPageMode
+                    enabled: !chrome.findInPageMode && !newTabViewLoader.active
                     onTriggered: {
                         chrome.findInPageMode = true
                         chrome.focus = true
@@ -391,7 +417,13 @@ BrowserView {
             canSimplifyText: !browser.wide
             editing: activeFocus || suggestionsList.activeFocus
 
-            Keys.onDownPressed: if (suggestionsList.count) suggestionsList.focus = true
+            Keys.onDownPressed: {
+                if (suggestionsList.count) suggestionsList.focus = true
+                else if (newTabViewLoader.status == Loader.Ready) {
+                    newTabViewLoader.focus = true
+                }
+            }
+
             Keys.onEscapePressed: {
                 if (chrome.findInPageMode) {
                     chrome.findInPageMode = false
@@ -463,7 +495,7 @@ BrowserView {
                 searchEngine: currentSearchEngine
                 active: (chrome.activeFocus || suggestionsList.activeFocus) &&
                          !browser.incognito && !chrome.findInPageMode &&
-                         !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
+                         !UrlUtils.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
                 function limit(number) {
                     var slice = results.slice(0, number)
@@ -715,59 +747,90 @@ BrowserView {
         }
     }
 
-    FocusScope {
-        id: historyViewContainer
-        objectName: "historyView"
+    Loader {
+        id: historyViewLoader
 
-        visible: children.length > 0
         anchors.fill: parent
+        active: false
+        sourceComponent: browser.wide ? historyViewWideComponent : historyViewComponent
+
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                historyViewTimer.restart()
+                historyViewLoader.item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
+            }
+        }
+
+        Keys.onEscapePressed: historyViewLoader.active = false
+
+        Timer {
+            id: historyViewTimer
+            // Set the model asynchronously to ensure
+            // the view is displayed as early as possible.
+            interval: 1
+            onTriggered: historyViewLoader.item.historyModel = browser.historyModel
+        }
 
         Component {
             id: historyViewComponent
 
             HistoryView {
                 anchors.fill: parent
-                visible: historyViewContainer.children.length == 1
-                focus: true
-
-                Keys.onEscapePressed: {
-                    destroy()
-                    internal.resetFocus()
-                }
-
-                Timer {
-                    // Set the model asynchronously to ensure
-                    // the view is displayed as early as possible.
-                    running: true
-                    interval: 1
-                    onTriggered: historyModel = browser.historyModel
-                }
 
                 onSeeMoreEntriesClicked: {
-                    var view = expandedHistoryViewComponent.createObject(historyViewContainer, {model: model})
-                    view.onHistoryEntryClicked.connect(destroy)
+                    var view = expandedHistoryViewComponent.createObject(expandedHistoryViewContainer, {model: model})
+                    view.onHistoryEntryClicked.connect(done)
                 }
-                onDone: destroy()
+                onDone: historyViewLoader.active = false
+
+                FocusScope {
+                    id: expandedHistoryViewContainer
+
+                    visible: children.length > 0
+                    anchors.fill: parent
+
+                    Component {
+                        id: expandedHistoryViewComponent
+
+                        ExpandedHistoryView {
+                            anchors.fill: parent
+
+                            onHistoryEntryClicked: {
+                                browser.openUrlInNewTab(url, true)
+                                done()
+                            }
+                            onHistoryEntryRemoved: {
+                                if (count == 1) {
+                                    done()
+                                }
+                                browser.historyModel.removeEntryByUrl(url)
+                            }
+                            onDone: destroy()
+                        }
+                    }
+                }
             }
         }
 
         Component {
-            id: expandedHistoryViewComponent
+            id: historyViewWideComponent
 
-            ExpandedHistoryView {
+            HistoryViewWide {
                 anchors.fill: parent
+
+                Keys.onEscapePressed: {
+                    historyViewLoader.active = false
+                    internal.resetFocus()
+                }
 
                 onHistoryEntryClicked: {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
-                onHistoryEntryRemoved: {
-                    if (count == 1) {
-                        done()
-                    }
-                    browser.historyModel.removeEntryByUrl(url)
-                }
-                onDone: destroy()
+                onNewTabRequested: browser.openUrlInNewTab("", true)
+                onDone: historyViewLoader.active = false
             }
         }
     }
@@ -861,41 +924,124 @@ BrowserView {
                 preferences.localStorageEnabled: true
                 preferences.appCacheEnabled: true
 
+                property QtObject contextModel: null
                 contextualActions: ActionList {
                     Actions.OpenLinkInNewTab {
-                        enabled: contextualData.href.toString()
-                        onTriggered: browser.openUrlInNewTab(contextualData.href, true)
+                        objectName: "openLinkInNewTabContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
-                        enabled: contextualData.href.toString() && ((settings.allowOpenInBackgroundTab === "true") ||
-                                 ((settings.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
-                        onTriggered: browser.openUrlInNewTab(contextualData.href, false)
+                        objectName: "openLinkInNewBackgroundTabContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString() &&
+                                 ((settings.allowOpenInBackgroundTab === "true") ||
+                                  ((settings.allowOpenInBackgroundTab === "default") &&
+                                   (formFactor === "desktop")))
+                        onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, false)
                     }
                     Actions.BookmarkLink {
-                        enabled: contextualData.href.toString() && browser.bookmarksModel
-                        onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "", "")
+                        objectName: "bookmarkLinkContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString() &&
+                                 browser.bookmarksModel
+                        onTriggered: bookmarksModel.add(contextModel.linkUrl, contextModel.linkText, "", "")
                     }
                     Actions.CopyLink {
-                        enabled: contextualData.href.toString()
-                        onTriggered: Clipboard.push(["text/plain", contextualData.href.toString()])
+                        objectName: "copyLinkContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
+                    }
+                    Actions.SaveLink {
+                        objectName: "SaveLinkContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: contextModel.saveLink()
                     }
                     Actions.ShareLink {
-                        enabled: (formFactor == "mobile") && contextualData.href.toString()
-                        onTriggered: internal.shareLink(contextualData.href.toString(), contextualData.title)
+                        objectName: "ShareLinkContextualAction"
+                        enabled: (formFactor == "mobile") &&
+                                 contextModel && contextModel.linkUrl.toString()
+                        onTriggered: internal.shareLink(contextModel.linkUrl.toString(), contextModel.linkText)
                     }
                     Actions.OpenImageInNewTab {
-                        enabled: contextualData.img.toString()
-                        onTriggered: browser.openUrlInNewTab(contextualData.img, true)
+                        objectName: "OpenImageInNewTabContextualAction"
+                        enabled: contextModel && contextModel.srcUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
                     }
                     Actions.CopyImage {
-                        enabled: contextualData.img.toString()
-                        onTriggered: Clipboard.push(["text/plain", contextualData.img.toString()])
+                        objectName: "CopyImageContextualAction"
+                        enabled: contextModel &&
+                                 (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
+                                 contextModel.srcUrl.toString()
+                        onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
                     }
                     Actions.SaveImage {
-                        enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
-                        onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
+                        objectName: "SaveImageContextualAction"
+                        enabled: contextModel &&
+                                 ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                                  (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
+                                 contextModel.srcUrl.toString()
+                        onTriggered: contextModel.saveMedia()
+                    }
+                    Actions.Undo {
+                        objectName: "UndoContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.UndoCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandUndo)
+                    }
+                    Actions.Redo {
+                        objectName: "RedoContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.RedoCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandRedo)
+                    }
+                    Actions.Cut {
+                        objectName: "CutContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.CutCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+                    }
+                    Actions.Copy {
+                        objectName: "CopyContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.CopyCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+                    }
+                    Actions.Paste {
+                        objectName: "PasteContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.PasteCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
+                    }
+                    Actions.Erase {
+                        objectName: "EraseContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.EraseCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandErase)
+                    }
+                    Actions.SelectAll {
+                        objectName: "SelectAllContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.SelectAllCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
                     }
                 }
+
+                Component {
+                    id: contextMenuNarrowComponent
+                    ContextMenuMobile {
+                        actions: contextualActions
+                        Component.onCompleted: webviewimpl.contextModel = contextModel
+                    }
+                }
+                Component {
+                    id: contextMenuWideComponent
+                    ContextMenuWide {
+                        webview: webviewimpl
+                        parent: browser
+                        actions: contextualActions
+                        Component.onCompleted: webviewimpl.contextModel = contextModel
+                    }
+                }
+                contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
                 onNewViewRequested: {
                     var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
@@ -1026,12 +1172,6 @@ BrowserView {
         }
     }
 
-    Loader {
-        id: downloadLoader
-        source: formFactor == "desktop" ? "" : "../Downloader.qml"
-        asynchronous: true
-    }
-
     QtObject {
         id: internal
 
@@ -1134,7 +1274,7 @@ BrowserView {
             PopupUtils.open(bookmarkOptionsComponent,
                             chrome.bookmarkTogglePlaceHolder,
                             {"bookmarkUrl": url,
-                             "bookmarkTitle": title}) 
+                             "bookmarkTitle": title})
         }
     }
 
@@ -1233,6 +1373,13 @@ BrowserView {
         running: !browser.incognito
         onTriggered: delayedSessionSaver.restart()
     }
+    Timer {
+        id: exitFullscreenOnLostFocus
+        interval: 500
+        onTriggered: {
+            if (browser.currentWebview) browser.currentWebview.fullscreen = false
+        }
+    }
     Connections {
         target: Qt.application
         onStateChanged: {
@@ -1241,9 +1388,14 @@ BrowserView {
                     session.save()
                 }
                 if (browser.currentWebview) {
-                    browser.currentWebview.fullscreen = false
+                    // Workaround for a desktop bug where changing volume causes the app to
+                    // briefly lose focus to notify-osd, and therefore exit fullscreen mode.
+                    // We prevent this by exiting fullscreen only if the focus remains lost
+                    // for longer than a certain threshold. See: http://pad.lv/1477308
+                    if (formFactor == "desktop") exitFullscreenOnLostFocus.start()
+                    else browser.currentWebview.fullscreen = false
                 }
-            }
+            } else exitFullscreenOnLostFocus.stop()
         }
         onAboutToQuit: {
             if (!browser.incognito) {
@@ -1449,12 +1601,7 @@ BrowserView {
             modifiers: Qt.ControlModifier
             key: Qt.Key_H
             enabled: chrome.visible
-            onTriggered: {
-                if (historyViewContainer.children.length === 0) {
-                    historyViewComponent.createObject(historyViewContainer)
-                    historyViewContainer.focus = true
-                }
-            }
+            onTriggered: historyViewLoader.active = true
         }
 
         // Alt+← or Backspace: Goes to the previous page in history
@@ -1501,6 +1648,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
+            enabled: !newTabViewLoader.active
             onTriggered: {
                 chrome.findInPageMode = true
                 chrome.focus = true

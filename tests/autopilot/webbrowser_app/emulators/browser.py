@@ -118,13 +118,6 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_http_auth_dialog(self):
         return self.wait_select_single(HttpAuthenticationDialog)
 
-    def get_selection(self):
-        return self.wait_select_single(Selection)
-
-    def get_selection_actions(self):
-        return self.wait_select_single("ActionSelectionPopover",
-                                       objectName="selectionActions")
-
     def get_tabs_view(self):
         return self.wait_select_single(TabsList, visible=True)
 
@@ -133,7 +126,10 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                        state="shown")
 
     def get_new_tab_view(self):
-        return self.wait_select_single("NewTabView", visible=True)
+        if self.wide:
+            return self.wait_select_single("NewTabViewWide", visible=True)
+        else:
+            return self.wait_select_single("NewTabView", visible=True)
 
     # Since the NewPrivateTabView does not define any new QML property in its
     # extended file, it does not report itself to autopilot with the same name
@@ -165,15 +161,21 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     # available
     def get_history_view(self):
         try:
-            return self.select_single("HistoryView")
+            if self.wide:
+                return self.select_single("HistoryViewWide")
+            else:
+                return self.select_single("HistoryView")
         except exceptions.StateNotFoundError:
             return None
 
-    def get_bookmarks_folder_list_view(self):
-        return self.select_single(BookmarksFolderListView)
-
     def press_key(self, key):
         self.keyboard.press_and_release(key)
+
+    def get_context_menu(self):
+        if self.wide:
+            return self.wait_select_single(ContextMenuWide)
+        else:
+            return self.wait_select_single(ContextMenuMobile)
 
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -339,15 +341,6 @@ class HttpAuthenticationDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("TextField", objectName="password")
 
 
-class Selection(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-
-    def get_rectangle(self):
-        return self.select_single("QQuickItem", objectName="rectangle")
-
-    def get_handle(self, name):
-        return self.select_single("SelectionHandle", objectName=name)
-
-
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
@@ -460,6 +453,68 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_notopsites_label(self):
         return self.select_single("Label", objectName="notopsites")
 
+    def get_top_site_items(self):
+        return self.get_top_sites_list().get_delegates()
+
+    def get_bookmarks_folder_list_view(self):
+        return self.select_single(BookmarksFolderListView)
+
+    def get_bookmarks(self, folder_name):
+        # assumes that the "more" button has been clicked
+        folders = self.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate(folder_name)
+        return folders.get_urls_from_folder(folder_delegate)
+
+    def get_folder_names(self):
+        folders = self.get_bookmarks_folder_list_view().get_delegates()
+        return [folder.folderName for folder in folders]
+
+
+class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def go_to_section(self, section_index):
+        sections = self.select_single(uitk.Sections)
+        if not sections.selectedIndex == section_index:
+            sections.click_section_button(section_index)
+
+    def get_bookmarks_list(self):
+        self.go_to_section(1)
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="bookmarksList")
+        return sorted(list.select_many("DraggableUrlDelegateWide",
+                      objectName="bookmarkItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_top_sites_list(self):
+        self.go_to_section(0)
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="topSitesList")
+        return sorted(list.select_many("UrlDelegateWide",
+                      objectName="topSiteItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_folders_list(self):
+        self.go_to_section(1)
+        list = self.select_single(uitk.QQuickListView,
+                                  objectName="foldersList")
+        return sorted(list.select_many(objectName="folderItem"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_top_site_items(self):
+        self.go_to_section(0)
+        return self.get_top_sites_list()
+
+    def get_bookmarks(self, folder_name):
+        folders = self.get_folders_list()
+        matches = [folder for folder in folders if folder.name == folder_name]
+        if not len(matches) == 1:
+            return []
+        self.pointing_device.click_object(matches[0])
+        return self.get_bookmarks_list()
+
+    def get_folder_names(self):
+        return [folder.name for folder in self.get_folders_list()]
+
 
 class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
@@ -474,6 +529,17 @@ class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class UrlDelegate(uitk.UCListItem):
 
     pass
+
+
+class UrlDelegateWide(uitk.UCListItem):
+
+    pass
+
+
+class DraggableUrlDelegateWide(UrlDelegateWide):
+
+    def get_grip(self):
+        return self.select_single("Icon", objectName="dragGrip")
 
 
 class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -516,3 +582,30 @@ class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_header_from_folder(self, folder):
         return folder.wait_select_single("QQuickItem",
                                          objectName="bookmarkFolderHeader")
+
+
+class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_title_label(self):
+        return self.select_single("Label", objectName="titleLabel")
+
+    def get_visible_actions(self):
+        return self.select_many("Empty", visible=True)
+
+    def click_action(self, objectName):
+        name = objectName + "_item"
+        action = self.select_single("Empty", visible=True,
+                                    enabled=True, objectName=name)
+        self.pointing_device.click_object(action)
+
+
+class ContextMenuWide(ContextMenuBase):
+
+    pass
+
+
+class ContextMenuMobile(ContextMenuBase):
+
+    def click_cancel_action(self):
+        action = self.select_single("Empty", objectName="cancelAction")
+        self.pointing_device.click_object(action)
