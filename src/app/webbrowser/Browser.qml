@@ -954,7 +954,7 @@ BrowserView {
                             contextualMenuTarget.y = contextModel.position.y * devicePixelRatio +
                                                      locationBarController.height + locationBarController.offset
                             internal.addBookmark(contextModel.linkUrl, contextModel.linkText,
-                                                          "", contextualMenuTarget)
+                                                 "", contextualMenuTarget)
                         }
                     }
                     Actions.CopyLink {
@@ -1047,13 +1047,10 @@ BrowserView {
                 Component {
                     id: contextMenuWideComponent
                     ContextMenuWide {
-                        id: widemenu
                         webview: webviewimpl
                         parent: browser
                         actions: contextualActions
-                        Component.onCompleted: {
-                            webviewimpl.contextModel = contextModel
-                        }
+                        Component.onCompleted: webviewimpl.contextModel = contextModel
                     }
                 }
                 contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
