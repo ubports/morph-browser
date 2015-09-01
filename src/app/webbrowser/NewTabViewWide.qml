@@ -272,7 +272,11 @@ FocusScope {
             if (topSitesList.model.count === 0) newTabViewWide.releasingKeyboardFocus()
         }
 
-        Keys.onLeftPressed: topSitesList.moveCurrentIndexLeft()
+        Keys.onLeftPressed: {
+            var i = topSitesList.currentIndex
+            topSitesList.moveCurrentIndexLeft()
+            if (i === topSitesList.currentIndex) newTabViewWide.releasingKeyboardFocus()
+        }
         Keys.onRightPressed: topSitesList.moveCurrentIndexRight()
         Keys.onDownPressed: topSitesList.moveCurrentIndexDown()
         Keys.onUpPressed: {
