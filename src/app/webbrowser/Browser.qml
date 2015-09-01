@@ -955,11 +955,17 @@ BrowserView {
                         enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: contextModel.saveLink()
                     }
-                    Actions.ShareLink {
-                        objectName: "ShareLinkContextualAction"
-                        enabled: (formFactor == "mobile") &&
-                                 contextModel && contextModel.linkUrl.toString()
-                        onTriggered: internal.shareLink(contextModel.linkUrl.toString(), contextModel.linkText)
+                    Actions.Share {
+                        objectName: "ShareContextualAction"
+                        enabled: (formFactor == "mobile") && contextModel &&
+                                 (contextModel.linkUrl.toString() || contextModel.selectionText)
+                        onTriggered: {
+                            if (contextModel.linkUrl.toString()) {
+                                internal.shareLink(contextModel.linkUrl.toString(), contextModel.linkText)
+                            } else if (contextModel.selectionText) {
+                                internal.shareText(contextModel.selectionText)
+                            }
+                        }
                     }
                     Actions.OpenImageInNewTab {
                         objectName: "OpenImageInNewTabContextualAction"
@@ -1001,8 +1007,9 @@ BrowserView {
                     }
                     Actions.Copy {
                         objectName: "CopyContextualAction"
-                        enabled: contextModel && contextModel.isEditable &&
-                                 (contextModel.editFlags & Oxide.WebView.CopyCapability)
+                        enabled: contextModel && (contextModel.selectionText ||
+                                 (contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.CopyCapability)))
                         onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
                     }
                     Actions.Paste {
@@ -1175,13 +1182,24 @@ BrowserView {
     QtObject {
         id: internal
 
-        function shareLink(url, title) {
+        function instantiateShareComponent() {
             var component = Qt.createComponent("../Share.qml")
             if (component.status == Component.Ready) {
                 var share = component.createObject(browser)
                 share.onDone.connect(share.destroy)
-                share.shareLink(url, title)
+                return share
             }
+            return null
+        }
+
+        function shareLink(url, title) {
+            var share = instantiateShareComponent()
+            if (share) share.shareLink(url, title)
+        }
+
+        function shareText(text) {
+            var share = instantiateShareComponent()
+            if (share) share.shareText(text)
         }
 
         function addTab(tab, setCurrent) {

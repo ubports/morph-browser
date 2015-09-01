@@ -70,7 +70,7 @@ Popups.Popover {
                 rightMargin: units.gu(2)
             }
             height: units.gu(5)
-            visible: !contextModel.isEditable
+            visible: contextModel.srcUrl.toString() || contextModel.linkUrl.toString()
             fontSize: "x-small"
             color: "#888888"
             elide: Text.ElideRight
@@ -143,6 +143,7 @@ Popups.Popover {
     Component.onCompleted: {
         if (contextModel.linkUrl.toString() ||
             contextModel.srcUrl.toString() ||
+            contextModel.selectionText ||
             (contextModel.isEditable && contextModel.editFlags)) {
             show()
         } else {

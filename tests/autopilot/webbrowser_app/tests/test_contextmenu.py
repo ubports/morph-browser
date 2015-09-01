@@ -107,7 +107,7 @@ class TestContextMenuLink(TestContextMenuBase):
 
     @testtools.skipIf(model() == "Desktop", "on devices only")
     def test_share_link(self):
-        self.click_action("ShareLinkContextualAction")
+        self.click_action("ShareContextualAction")
         self.main_window.wait_select_single("ContentShareDialog")
 
 
@@ -150,7 +150,7 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
 
     @testtools.skipIf(model() == "Desktop", "on devices only")
     def test_share_link(self):
-        self.click_action("ShareLinkContextualAction")
+        self.click_action("ShareContextualAction")
         self.main_window.wait_select_single("ContentShareDialog")
 
     def test_open_image_in_new_tab(self):

@@ -42,7 +42,7 @@ Popups.Dialog {
             rightMargin: units.gu(2)
         }
         height: units.gu(2 * title.lineCount + 3)
-        visible: !contextModel.isEditable
+        visible: contextModel.srcUrl.toString() || contextModel.linkUrl.toString()
 
         Icon {
             width: units.gu(2)
@@ -147,6 +147,7 @@ Popups.Dialog {
     Component.onCompleted: {
         if (contextModel.linkUrl.toString() ||
             contextModel.srcUrl.toString() ||
+            contextModel.selectionText ||
             (contextModel.isEditable && contextModel.editFlags)) {
             show()
         } else {
