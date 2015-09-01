@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-13 07:04+0200\n"
+"POT-Creation-Date: 2015-09-01 06:56+0200\n"
 "PO-Revision-Date: 2015-07-07 10:46+0000\n"
 "Last-Translator: Vojtěch Daněk <vdanek@outlook.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-08-28 05:44+0000\n"
+"X-Launchpad-Export-Date: 2015-09-01 05:34+0000\n"
 "X-Generator: Launchpad (build 17690)\n"
 "Language: cs\n"
 
@@ -50,8 +50,9 @@ msgstr "Heslo"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContextMenuMobile.qml:142
 #: src/app/webbrowser/HistoryView.qml:165
-#: src/app/webbrowser/HistoryViewWide.qml:291
+#: src/app/webbrowser/HistoryViewWide.qml:307
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:289
 #: src/app/webbrowser/SettingsPage.qml:343
@@ -376,7 +377,15 @@ msgstr "Kopírovat obrázek"
 msgid "Copy link"
 msgstr "Kopírovat odkaz"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:381
+#: src/app/actions/Cut.qml:22
+msgid "Cut"
+msgstr ""
+
+#: src/app/actions/Erase.qml:22
+msgid "Erase"
+msgstr ""
+
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
 msgid "Find in page"
 msgstr ""
 
@@ -406,7 +415,7 @@ msgstr "Přejít na"
 msgid "Address;URL;www"
 msgstr "Adresa;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:654
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:653
 msgid "New Tab"
 msgstr "Nový panel"
 
@@ -428,6 +437,14 @@ msgstr "Otevřít odkaz v novém panelu na pozadí"
 msgid "Open link in new tab"
 msgstr "Otevřít odkaz v novém panelu"
 
+#: src/app/actions/Paste.qml:22
+msgid "Paste"
+msgstr ""
+
+#: src/app/actions/Redo.qml:22
+msgid "Redo"
+msgstr ""
+
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
 msgstr "Obnovit"
@@ -442,9 +459,22 @@ msgstr "Opustit stránku"
 msgid "Save image"
 msgstr "Uložit obrázek"
 
+#: src/app/actions/SaveLink.qml:22
+msgid "Save link"
+msgstr ""
+
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:328
+msgid "Select all"
+msgstr "Zvolit vše"
+
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
 msgstr "Sdílet..."
+
+#: src/app/actions/Undo.qml:22
+msgid "Undo"
+msgstr ""
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:203
@@ -494,53 +524,53 @@ msgstr "Vytvořit nový adresář"
 msgid "Save"
 msgstr "Uložit"
 
-#: src/app/webbrowser/Browser.qml:350
+#: src/app/webbrowser/Browser.qml:349
 msgid "Share"
 msgstr "Sdílet"
 
-#: src/app/webbrowser/Browser.qml:357
-#: src/app/webbrowser/HistoryViewWide.qml:275
+#: src/app/webbrowser/Browser.qml:356
+#: src/app/webbrowser/HistoryViewWide.qml:291
 msgid "History"
 msgstr "Historie"
 
-#: src/app/webbrowser/Browser.qml:364
+#: src/app/webbrowser/Browser.qml:363
 msgid "Open tabs"
 msgstr "Otevřené panely"
 
-#: src/app/webbrowser/Browser.qml:374 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/HistoryViewWide.qml:409
+#: src/app/webbrowser/Browser.qml:373 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:396
 #: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Nový panel"
 
-#: src/app/webbrowser/Browser.qml:391
+#: src/app/webbrowser/Browser.qml:390
 msgid "Leave Private Mode"
 msgstr "Opustit anonymní režim"
 
-#: src/app/webbrowser/Browser.qml:391
+#: src/app/webbrowser/Browser.qml:390
 msgid "Private Mode"
 msgstr "Anonymní režim"
 
-#: src/app/webbrowser/Browser.qml:409 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:408 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Nastavení"
 
-#: src/app/webbrowser/Browser.qml:640 src/app/webbrowser/HistoryView.qml:108
-#: src/app/webbrowser/HistoryViewWide.qml:395
+#: src/app/webbrowser/Browser.qml:639 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:382
 msgid "Done"
 msgstr "Hotovo"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:747
+#: src/app/webbrowser/Browser.qml:746
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1074
+#: src/app/webbrowser/Browser.qml:1148
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Přejeďte prstem nahoru pro ukončení módu celé obrazovky"
 
-#: src/app/webbrowser/Browser.qml:1075
+#: src/app/webbrowser/Browser.qml:1149
 msgid "Press ESC To Exit Full Screen"
 msgstr "Stiskněte ESC pro ukončení módu celé obrazovky"
 
@@ -562,26 +592,21 @@ msgid "Last Visited"
 msgstr "Poslední navštívené"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:149
 msgid "Yesterday"
 msgstr "Včera"
 
-#: src/app/webbrowser/HistoryView.qml:180
-#: src/app/webbrowser/HistoryViewWide.qml:312
-msgid "Select all"
-msgstr "Zvolit vše"
-
 #: src/app/webbrowser/HistoryView.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:343
+#: src/app/webbrowser/HistoryViewWide.qml:347
 msgid "Delete"
 msgstr "Smazat"
 
-#: src/app/webbrowser/HistoryViewWide.qml:115
+#: src/app/webbrowser/HistoryViewWide.qml:133
 msgid "All History"
 msgstr ""
 
-#: src/app/webbrowser/HistoryViewWide.qml:129
-#: src/app/webbrowser/HistoryViewWide.qml:194
+#: src/app/webbrowser/HistoryViewWide.qml:147
+#: src/app/webbrowser/HistoryViewWide.qml:212
 msgid "Today"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-13 07:04+0200\n"
+"POT-Creation-Date: 2015-09-01 06:56+0200\n"
 "PO-Revision-Date: 2015-05-04 16:59+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Interlingua <ia@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-08-28 05:44+0000\n"
+"X-Launchpad-Export-Date: 2015-09-01 05:34+0000\n"
 "X-Generator: Launchpad (build 17690)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -49,8 +49,9 @@ msgstr "Contrasigno"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContextMenuMobile.qml:142
 #: src/app/webbrowser/HistoryView.qml:165
-#: src/app/webbrowser/HistoryViewWide.qml:291
+#: src/app/webbrowser/HistoryViewWide.qml:307
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:289
 #: src/app/webbrowser/SettingsPage.qml:343
@@ -378,7 +379,15 @@ msgstr "Copiar le imagine"
 msgid "Copy link"
 msgstr "Copiar le ligamine"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:381
+#: src/app/actions/Cut.qml:22
+msgid "Cut"
+msgstr ""
+
+#: src/app/actions/Erase.qml:22
+msgid "Erase"
+msgstr ""
+
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
 msgid "Find in page"
 msgstr ""
 
@@ -408,7 +417,7 @@ msgstr "Vade a"
 msgid "Address;URL;www"
 msgstr "Adresse;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:654
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:653
 msgid "New Tab"
 msgstr "Nove scheda"
 
@@ -424,11 +433,19 @@ msgstr "Aperir le imagine in un nove scheda"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Aperir le ligamine in un tabella de fundo"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
 msgstr "Aperir le ligamine in un nove scheda"
+
+#: src/app/actions/Paste.qml:22
+msgid "Paste"
+msgstr ""
+
+#: src/app/actions/Redo.qml:22
+msgid "Redo"
+msgstr ""
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -444,9 +461,22 @@ msgstr "Lassar le pagina"
 msgid "Save image"
 msgstr "Salvar le imagine"
 
+#: src/app/actions/SaveLink.qml:22
+msgid "Save link"
+msgstr ""
+
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:328
+msgid "Select all"
+msgstr "Selige tote"
+
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
 msgstr "Compartir..."
+
+#: src/app/actions/Undo.qml:22
+msgid "Undo"
+msgstr ""
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:203
@@ -494,55 +524,55 @@ msgstr ""
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:353
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
-#: src/app/webbrowser/Browser.qml:350
+#: src/app/webbrowser/Browser.qml:349
 msgid "Share"
 msgstr "Compartir"
 
-#: src/app/webbrowser/Browser.qml:357
-#: src/app/webbrowser/HistoryViewWide.qml:275
+#: src/app/webbrowser/Browser.qml:356
+#: src/app/webbrowser/HistoryViewWide.qml:291
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:364
+#: src/app/webbrowser/Browser.qml:363
 msgid "Open tabs"
 msgstr "Aperir le schedas"
 
-#: src/app/webbrowser/Browser.qml:374 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/HistoryViewWide.qml:409
+#: src/app/webbrowser/Browser.qml:373 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:396
 #: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Nove scheda"
 
-#: src/app/webbrowser/Browser.qml:391
+#: src/app/webbrowser/Browser.qml:390
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:391
+#: src/app/webbrowser/Browser.qml:390
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:409 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:408 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Configurationes"
 
-#: src/app/webbrowser/Browser.qml:640 src/app/webbrowser/HistoryView.qml:108
-#: src/app/webbrowser/HistoryViewWide.qml:395
+#: src/app/webbrowser/Browser.qml:639 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:382
 msgid "Done"
 msgstr "Facite"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:747
+#: src/app/webbrowser/Browser.qml:746
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1074
+#: src/app/webbrowser/Browser.qml:1148
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1075
+#: src/app/webbrowser/Browser.qml:1149
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
@@ -563,26 +593,21 @@ msgid "Last Visited"
 msgstr "Visitate ultimemente"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:149
 msgid "Yesterday"
 msgstr "Heri"
 
-#: src/app/webbrowser/HistoryView.qml:180
-#: src/app/webbrowser/HistoryViewWide.qml:312
-msgid "Select all"
-msgstr "Selige tote"
-
 #: src/app/webbrowser/HistoryView.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:343
+#: src/app/webbrowser/HistoryViewWide.qml:347
 msgid "Delete"
 msgstr "Deler"
 
-#: src/app/webbrowser/HistoryViewWide.qml:115
+#: src/app/webbrowser/HistoryViewWide.qml:133
 msgid "All History"
 msgstr ""
 
-#: src/app/webbrowser/HistoryViewWide.qml:129
-#: src/app/webbrowser/HistoryViewWide.qml:194
+#: src/app/webbrowser/HistoryViewWide.qml:147
+#: src/app/webbrowser/HistoryViewWide.qml:212
 msgid "Today"
 msgstr ""
 
@@ -630,43 +655,47 @@ msgstr "Iste sito ha un contento non secur"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "Identitate non verificate"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "Le identitate de iste sito Web non ha essite verificate."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "Le certificate del servitor non concorda con le identitate del sito."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Le certificate del servitor es expirate."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "Le certificate del servitor contine datas invalide."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
 msgstr ""
+"Le certificate del servitor es mittite per un entitate que non es digne de "
+"fide."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Le certificate del servitor ha essite revocate."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Le certificate del servitor es invalide."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "Le certificate del servitor es insecur."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"Le certificate del servitor a fallite nostre controlos de securitate per un "
+"ration incognite"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
@@ -679,15 +708,15 @@ msgstr "Que es facite fluer per"
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr ""
+msgstr "Motor de recerca"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "Restaurar le session previe al initio"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "Permitter aperir nove tabellas in fundo"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
@@ -696,11 +725,11 @@ msgstr "Privacy"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr ""
+msgstr "Restaurar al configurationes base le navigator"
 
 #: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "Cancellar le historia del navigator"
 
 #: src/app/webbrowser/SettingsPage.qml:252
 msgid "Clear Browsing History?"
@@ -708,7 +737,7 @@ msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
-msgstr ""
+msgstr "Cancellar le memoria tampon"
 
 #: src/app/webbrowser/SettingsPage.qml:261
 msgid "Clear Cache?"
