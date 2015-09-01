@@ -75,7 +75,7 @@ AbstractButton {
             anchors.left: parent.left
             source: Image {
                 id: previewImage
-                source: previewShape.previewUrl
+                source: FileOperations.exists(previewShape.previewUrl) ? previewShape.previewUrl : ""
                 sourceSize.height: previewShape.height
                 cache: false
             }
