@@ -18,7 +18,7 @@ import time
 from autopilot.platform import model
 from autopilot.matchers import Eventually
 import testtools
-from testtools.matchers import Equals, GreaterThan, StartsWith
+from testtools.matchers import Contains, Equals, GreaterThan, StartsWith
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
@@ -26,10 +26,6 @@ from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 class TestContextMenuBase(StartOpenRemotePageTestCaseBase):
 
     data_uri_prefix = "data:image/png;base64,"
-
-    def setUp(self, path):
-        super(TestContextMenuBase, self).setUp(path)
-        self.menu = self.open_context_menu()
 
     def open_context_menu(self):
         webview = self.main_window.get_current_webview()
@@ -73,6 +69,7 @@ class TestContextMenuLink(TestContextMenuBase):
 
     def setUp(self):
         super(TestContextMenuLink, self).setUp(path="/link")
+        self.menu = self.open_context_menu()
         self.assertThat(self.menu.get_title_label().text,
                         Equals(self.base_url + "/test1"))
 
@@ -93,17 +90,17 @@ class TestContextMenuLink(TestContextMenuBase):
         self.menu.wait_until_destroyed()
 
     def test_open_link_in_new_tab(self):
-        self.click_action("openLinkInNewTabContextualAction")
+        self.click_action("OpenLinkInNewTabContextualAction")
         self.verify_link_opened_in_a_new_tab()
 
     def test_bookmark_link(self):
-        self.click_action("bookmarkLinkContextualAction")
+        self.click_action("BookmarkLinkContextualAction")
         self.verify_link_bookmarked()
 
     def test_copy_link(self):
         # There is no easy way to test the contents of the clipboard,
         # but we can at least verify that the context menu was dismissed.
-        self.click_action("copyLinkContextualAction")
+        self.click_action("CopyLinkContextualAction")
 
     @testtools.skipIf(model() == "Desktop", "on devices only")
     def test_share_link(self):
@@ -115,6 +112,7 @@ class TestContextMenuImage(TestContextMenuBase):
 
     def setUp(self):
         super(TestContextMenuImage, self).setUp(path="/image")
+        self.menu = self.open_context_menu()
         self.assertThat(self.menu.get_title_label().text,
                         StartsWith(self.data_uri_prefix))
 
@@ -132,21 +130,22 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
 
     def setUp(self):
         super(TestContextMenuImageAndLink, self).setUp(path="/imagelink")
+        self.menu = self.open_context_menu()
         self.assertThat(self.menu.get_title_label().text,
                         StartsWith(self.data_uri_prefix))
 
     def test_open_link_in_new_tab(self):
-        self.click_action("openLinkInNewTabContextualAction")
+        self.click_action("OpenLinkInNewTabContextualAction")
         self.verify_link_opened_in_a_new_tab()
 
     def test_bookmark_link(self):
-        self.click_action("bookmarkLinkContextualAction")
+        self.click_action("BookmarkLinkContextualAction")
         self.verify_link_bookmarked()
 
     def test_copy_link(self):
         # There is no easy way to test the contents of the clipboard,
         # but we can at least verify that the context menu was dismissed.
-        self.click_action("copyLinkContextualAction")
+        self.click_action("CopyLinkContextualAction")
 
     @testtools.skipIf(model() == "Desktop", "on devices only")
     def test_share_link(self):
@@ -167,6 +166,7 @@ class TestContextMenuTextArea(TestContextMenuBase):
 
     def setUp(self):
         super(TestContextMenuTextArea, self).setUp(path="/textarea")
+        self.menu = self.open_context_menu()
         self.assertThat(self.menu.get_title_label().visible, Equals(False))
 
     def test_actions(self):
@@ -175,3 +175,26 @@ class TestContextMenuTextArea(TestContextMenuBase):
         for action in actions:
             self.click_action("{}ContextualAction".format(action))
             self.menu = self.open_context_menu()
+
+
+@testtools.skipIf(model() != "Desktop", "on desktop only")
+class TestContextMenuTextSelection(TestContextMenuBase):
+
+    def setUp(self):
+        super(TestContextMenuTextSelection, self).setUp(path="/test1")
+        # This test is not meant to be run without a mouse.
+        self.assertThat(str(self.pointing_device._device), Contains("Mouse"))
+        # Click and drag with the mouse to select the text in the page.
+        rect = self.main_window.get_current_webview().globalRect
+        x0 = rect.x + 5
+        y0 = rect.y + self.main_window.chrome.height + 5
+        x1 = rect.x + rect.width - 5
+        y1 = rect.y + rect.height - 5
+        self.pointing_device.drag(x0, y0, x1, y1)
+        # Open the context menu.
+        self.menu = self.open_context_menu()
+
+    def test_copy_text(self):
+        # There is no easy way to test the contents of the clipboard,
+        # but we can at least verify that the context menu was dismissed.
+        self.click_action("CopyContextualAction")

@@ -927,12 +927,12 @@ BrowserView {
                 property QtObject contextModel: null
                 contextualActions: ActionList {
                     Actions.OpenLinkInNewTab {
-                        objectName: "openLinkInNewTabContextualAction"
+                        objectName: "OpenLinkInNewTabContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
-                        objectName: "openLinkInNewBackgroundTabContextualAction"
+                        objectName: "OpenLinkInNewBackgroundTabContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString() &&
                                  ((settings.allowOpenInBackgroundTab === "true") ||
                                   ((settings.allowOpenInBackgroundTab === "default") &&
@@ -940,13 +940,13 @@ BrowserView {
                         onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, false)
                     }
                     Actions.BookmarkLink {
-                        objectName: "bookmarkLinkContextualAction"
+                        objectName: "BookmarkLinkContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString() &&
                                  browser.bookmarksModel
                         onTriggered: bookmarksModel.add(contextModel.linkUrl, contextModel.linkText, "", "")
                     }
                     Actions.CopyLink {
-                        objectName: "copyLinkContextualAction"
+                        objectName: "CopyLinkContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
                     }
