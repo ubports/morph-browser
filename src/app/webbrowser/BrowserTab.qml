@@ -20,6 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
+import "."
 
 FocusScope {
     id: tab
@@ -40,6 +41,20 @@ FocusScope {
     property bool current: false
     property bool incognito
     property LimitProxyModel topSites
+    signal cachedPreviewUpdated(url url)
+
+    Connections {
+        target: PreviewManager
+        onPreviewSaved: {
+            if (pageUrl !== url) return
+            if (preview == previewUrl) {
+                // Ensure that the preview URL actually changes,
+                // for the image to be reloaded
+                preview = ""
+            }
+            preview = previewUrl
+        }
+    }
 
     FocusScope {
         id: webviewContainer
@@ -74,10 +89,7 @@ FocusScope {
 
     function close() {
         unload()
-        if (preview && preview.toString() &&
-            (!topSites || !topSites.contains(url))) {
-            FileOperations.remove(preview)
-        }
+        PreviewManager.checkDelete(url)
         destroy()
     }
 
@@ -117,22 +129,8 @@ FocusScope {
                 }
                 internal.hiding = false
                 visible = false
-                var capturesDir = cacheLocation + "/captures"
-                if (!FileOperations.exists(Qt.resolvedUrl(capturesDir))) {
-                    FileOperations.mkpath(Qt.resolvedUrl(capturesDir))
-                }
-                var filepath = capturesDir + "/" + Qt.md5(url) + ".jpg"
-                if (result.saveToFile(filepath)) {
-                    var previewUrl = Qt.resolvedUrl(filepath)
-                    if (preview == previewUrl) {
-                        // Ensure that the preview URL actually changes,
-                        // for the image to be reloaded
-                        preview = ""
-                    }
-                    preview = previewUrl
-                } else {
-                    preview = ""
-                }
+
+                PreviewManager.saveToDisk(result, url)
             })
         }
     }
