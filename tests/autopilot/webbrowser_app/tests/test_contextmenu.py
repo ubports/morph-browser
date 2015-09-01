@@ -177,7 +177,9 @@ class TestContextMenuTextArea(TestContextMenuBase):
             self.menu = self.open_context_menu()
 
 
-@testtools.skipIf(model() != "Desktop", "on desktop only")
+#@testtools.skipIf(model() != "Desktop", "on desktop only")
+@testtools.skip("Skipped until mouse text selection works in oxide "
+                "(1.9), see https://launchpad.net/bugs/1459392.")
 class TestContextMenuTextSelection(TestContextMenuBase):
 
     def setUp(self):
