@@ -22,6 +22,7 @@ import QtQuick 2.4
 import webbrowserapp.private 0.1
 
 Item {
+    property string capturesDir: cacheLocation + "/captures"
     signal previewSaved(url pageUrl, url previewUrl)
 
     LimitProxyModel {
@@ -41,18 +42,18 @@ Item {
     }
 
     function previewPathFromUrl(url) {
-        return "%1/%2.jpg".arg(internal.capturesDir).arg(Qt.md5(url))
+        return "%1/%2.jpg".arg(capturesDir).arg(Qt.md5(url))
     }
 
     function saveToDisk(data, url) {
-        if (!FileOperations.exists(Qt.resolvedUrl(internal.capturesDir))) {
-            FileOperations.mkpath(Qt.resolvedUrl(internal.capturesDir))
+        if (!FileOperations.exists(Qt.resolvedUrl(capturesDir))) {
+            FileOperations.mkpath(Qt.resolvedUrl(capturesDir))
         }
 
         var filepath = previewPathFromUrl(url)
         var previewUrl = ""
         if (data.saveToFile(filepath)) previewUrl = Qt.resolvedUrl(filepath)
-        else console.log("Failed to save preview to disk for %1 (path is %2)".arg(url).arg(filepath))
+        else console.warn("Failed to save preview to disk for %1 (path is %2)".arg(url).arg(filepath))
 
         previewSaved(url, previewUrl)
     }
@@ -62,10 +63,5 @@ Item {
         if (!topSites.contains(url)) {
             FileOperations.remove(Qt.resolvedUrl(previewPathFromUrl(url)))
         }
-    }
-
-    QtObject {
-        id: internal
-        property string capturesDir: cacheLocation + "/captures"
     }
 }
