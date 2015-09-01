@@ -20,9 +20,6 @@ target_link_libraries(${PLUGIN}
 file(GLOB QML_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.qml qmldir *.js)
 install(TARGETS ${PLUGIN} DESTINATION ${UBUNTU_WEB_IMPORTS_DIR})
 install(FILES ${QML_FILES} DESTINATION ${UBUNTU_WEB_IMPORTS_DIR})
-install(DIRECTORY assets
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/qtdeclarative5-ubuntu-web-plugin
-        FILES_MATCHING PATTERN *.png)
 
 if(NOT ${CMAKE_CURRENT_BINARY_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
   # copy qml files over to build dir to be able to import them uninstalled
