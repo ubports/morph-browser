@@ -19,7 +19,7 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
-import com.canonical.Oxide 1.5 as Oxide
+import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
@@ -998,41 +998,124 @@ BrowserView {
                 preferences.localStorageEnabled: true
                 preferences.appCacheEnabled: true
 
+                property QtObject contextModel: null
                 contextualActions: ActionList {
                     Actions.OpenLinkInNewTab {
-                        enabled: contextualData.href.toString()
-                        onTriggered: browser.openUrlInNewTab(contextualData.href, true)
+                        objectName: "openLinkInNewTabContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
-                        enabled: contextualData.href.toString() && ((settings.allowOpenInBackgroundTab === "true") ||
-                                 ((settings.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
-                        onTriggered: browser.openUrlInNewTab(contextualData.href, false)
+                        objectName: "openLinkInNewBackgroundTabContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString() &&
+                                 ((settings.allowOpenInBackgroundTab === "true") ||
+                                  ((settings.allowOpenInBackgroundTab === "default") &&
+                                   (formFactor === "desktop")))
+                        onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, false)
                     }
                     Actions.BookmarkLink {
-                        enabled: contextualData.href.toString() && browser.bookmarksModel
-                        onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "", "")
+                        objectName: "bookmarkLinkContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString() &&
+                                 browser.bookmarksModel
+                        onTriggered: bookmarksModel.add(contextModel.linkUrl, contextModel.linkText, "", "")
                     }
                     Actions.CopyLink {
-                        enabled: contextualData.href.toString()
-                        onTriggered: Clipboard.push(["text/plain", contextualData.href.toString()])
+                        objectName: "copyLinkContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
+                    }
+                    Actions.SaveLink {
+                        objectName: "SaveLinkContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: contextModel.saveLink()
                     }
                     Actions.ShareLink {
-                        enabled: (formFactor == "mobile") && contextualData.href.toString()
-                        onTriggered: internal.shareLink(contextualData.href.toString(), contextualData.title)
+                        objectName: "ShareLinkContextualAction"
+                        enabled: (formFactor == "mobile") &&
+                                 contextModel && contextModel.linkUrl.toString()
+                        onTriggered: internal.shareLink(contextModel.linkUrl.toString(), contextModel.linkText)
                     }
                     Actions.OpenImageInNewTab {
-                        enabled: contextualData.img.toString()
-                        onTriggered: browser.openUrlInNewTab(contextualData.img, true)
+                        objectName: "OpenImageInNewTabContextualAction"
+                        enabled: contextModel && contextModel.srcUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
                     }
                     Actions.CopyImage {
-                        enabled: contextualData.img.toString()
-                        onTriggered: Clipboard.push(["text/plain", contextualData.img.toString()])
+                        objectName: "CopyImageContextualAction"
+                        enabled: contextModel &&
+                                 (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
+                                 contextModel.srcUrl.toString()
+                        onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
                     }
                     Actions.SaveImage {
-                        enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
-                        onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
+                        objectName: "SaveImageContextualAction"
+                        enabled: contextModel &&
+                                 ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                                  (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
+                                 contextModel.srcUrl.toString()
+                        onTriggered: contextModel.saveMedia()
+                    }
+                    Actions.Undo {
+                        objectName: "UndoContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.UndoCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandUndo)
+                    }
+                    Actions.Redo {
+                        objectName: "RedoContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.RedoCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandRedo)
+                    }
+                    Actions.Cut {
+                        objectName: "CutContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.CutCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+                    }
+                    Actions.Copy {
+                        objectName: "CopyContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.CopyCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+                    }
+                    Actions.Paste {
+                        objectName: "PasteContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.PasteCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
+                    }
+                    Actions.Erase {
+                        objectName: "EraseContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.EraseCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandErase)
+                    }
+                    Actions.SelectAll {
+                        objectName: "SelectAllContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.SelectAllCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
                     }
                 }
+
+                Component {
+                    id: contextMenuNarrowComponent
+                    ContextMenuMobile {
+                        actions: contextualActions
+                        Component.onCompleted: webviewimpl.contextModel = contextModel
+                    }
+                }
+                Component {
+                    id: contextMenuWideComponent
+                    ContextMenuWide {
+                        webview: webviewimpl
+                        parent: browser
+                        actions: contextualActions
+                        Component.onCompleted: webviewimpl.contextModel = contextModel
+                    }
+                }
+                contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
                 onNewViewRequested: {
                     var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
@@ -1161,12 +1244,6 @@ BrowserView {
                 }
             }
         }
-    }
-
-    Loader {
-        id: downloadLoader
-        source: formFactor == "desktop" ? "" : "../Downloader.qml"
-        asynchronous: true
     }
 
     QtObject {

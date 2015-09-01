@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-13 07:04+0200\n"
+"POT-Creation-Date: 2015-09-01 06:56+0200\n"
 "PO-Revision-Date: 2015-08-26 11:30+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-08-27 05:43+0000\n"
+"X-Launchpad-Export-Date: 2015-09-01 05:34+0000\n"
 "X-Generator: Launchpad (build 17690)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -49,6 +49,7 @@ msgstr "Passord"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContextMenuMobile.qml:142
 #: src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/HistoryViewWide.qml:307
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
@@ -376,6 +377,14 @@ msgstr "Kopier bilde"
 msgid "Copy link"
 msgstr "Kopier lenke"
 
+#: src/app/actions/Cut.qml:22
+msgid "Cut"
+msgstr ""
+
+#: src/app/actions/Erase.qml:22
+msgid "Erase"
+msgstr ""
+
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
 msgid "Find in page"
 msgstr "Søk på siden"
@@ -428,6 +437,14 @@ msgstr "Åpne lenke i ny bakgrunnsfane"
 msgid "Open link in new tab"
 msgstr "Åpne lenke i ny fane"
 
+#: src/app/actions/Paste.qml:22
+msgid "Paste"
+msgstr ""
+
+#: src/app/actions/Redo.qml:22
+msgid "Redo"
+msgstr ""
+
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
 msgstr "Last på nytt"
@@ -442,9 +459,22 @@ msgstr "Forlat side"
 msgid "Save image"
 msgstr "Lagre bilde"
 
+#: src/app/actions/SaveLink.qml:22
+msgid "Save link"
+msgstr ""
+
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:328
+msgid "Select all"
+msgstr "Velg alle"
+
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
 msgstr "Del …"
+
+#: src/app/actions/Undo.qml:22
+msgid "Undo"
+msgstr ""
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:203
@@ -536,11 +566,11 @@ msgstr "Ferdig"
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1065
+#: src/app/webbrowser/Browser.qml:1148
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Dra opp for å gå ut av fullskjerm"
 
-#: src/app/webbrowser/Browser.qml:1066
+#: src/app/webbrowser/Browser.qml:1149
 msgid "Press ESC To Exit Full Screen"
 msgstr "Trykk ESC for å gå ut av fullskjerm"
 
@@ -564,11 +594,6 @@ msgstr "Sist besøkt"
 #: src/app/webbrowser/HistoryViewWide.qml:149
 msgid "Yesterday"
 msgstr "I går"
-
-#: src/app/webbrowser/HistoryView.qml:180
-#: src/app/webbrowser/HistoryViewWide.qml:328
-msgid "Select all"
-msgstr "Velg alle"
 
 #: src/app/webbrowser/HistoryView.qml:210
 #: src/app/webbrowser/HistoryViewWide.qml:347
