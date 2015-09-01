@@ -60,6 +60,7 @@ PopupBase {
                     color: UbuntuColors.green
                     width: parent.width
                     height: units.gu(4)
+                    visible: peerModel.peers.length > 0
                     onClicked: {
                         PopupUtils.close(downloadOptionsDialog)
                         pickerRect.visible = true
@@ -70,6 +71,7 @@ PopupBase {
                     text: i18n.tr("Download file")
                     width: parent.width
                     height: units.gu(4)
+                    color: peerModel.peers.length == 0 ? UbuntuColors.green : UbuntuColors.warmGrey
                     onClicked: {
                         downloadDialog.singleDownload.moveToDownloads = true
                         downloadDialog.singleDownload.start()
@@ -87,6 +89,12 @@ PopupBase {
             }
         }
 
+    }
+
+    ContentPeerModel {
+        id: peerModel
+        handler: ContentHandler.Destination
+        contentType: downloadDialog.contentType
     }
 
     Rectangle {
