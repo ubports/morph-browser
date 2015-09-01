@@ -146,9 +146,6 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_settings_page(self):
         return self.wait_select_single(SettingsPage, visible=True)
 
-    def get_expanded_history_view(self):
-        return self.wait_select_single(ExpandedHistoryView, visible=True)
-
     def get_content_picker_dialog(self):
         # only on devices
         return self.wait_select_single("PopupBase",
@@ -169,11 +166,14 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_history_view(self):
         try:
             if self.wide:
-                return self.select_single("HistoryViewWide")
+                return self.select_single(HistoryViewWide)
             else:
-                return self.select_single("HistoryView")
+                return self.select_single(HistoryView)
         except exceptions.StateNotFoundError:
             return None
+
+    def get_expanded_history_view(self):
+        return self.wait_select_single(ExpandedHistoryView, visible=True)
 
     def press_key(self, key):
         self.keyboard.press_and_release(key)
