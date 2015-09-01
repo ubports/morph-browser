@@ -203,20 +203,23 @@ Item {
             var items = getListItems("topSitesList", "topSiteItem")
             findChild(view, "topSitesList").currentIndex = 0
             verify(items[0].highlighted)
-            keyClick(Qt.Key_Down)
+            keyClick(Qt.Key_Right)
             verify(!items[0].highlighted)
             verify(items[1].highlighted)
-            keyClick(Qt.Key_Down)
+            keyClick(Qt.Key_Right)
             verify(items[2].highlighted)
-            keyClick(Qt.Key_Down) // ensure no scrolling past bottom boundary
+            keyClick(Qt.Key_Right) // ensure no scrolling past bottom boundary
             verify(items[2].highlighted)
-            keyClick(Qt.Key_Up)
+            keyClick(Qt.Key_Left)
             verify(items[1].highlighted)
-            keyClick(Qt.Key_Up)
+            keyClick(Qt.Key_Left)
             verify(items[0].highlighted)
             keyClick(Qt.Key_Up)
             verify(items[0].highlighted)
             compare(releasingKeyboardFocusSpy.count, 1)
+            keyClick(Qt.Key_Left)
+            verify(items[0].highlighted)
+            compare(releasingKeyboardFocusSpy.count, 2)
         }
 
         function test_activate_topsites_by_keyboard() {
@@ -224,7 +227,7 @@ Item {
             keyClick(Qt.Key_Return)
             compare(historyEntryClickedSpy.count, 1)
             compare(historyEntryClickedSpy.signalArguments[0][0], "http://example.com")
-            keyClick(Qt.Key_Down)
+            keyClick(Qt.Key_Right)
             keyClick(Qt.Key_Return)
             compare(historyEntryClickedSpy.count, 2)
             compare(historyEntryClickedSpy.signalArguments[1][0], "http://example.org")
