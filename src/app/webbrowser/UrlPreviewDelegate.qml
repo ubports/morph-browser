@@ -20,6 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import webbrowserapp.private 0.1
 import ".."
+import "."
 
 AbstractButton {
     id: item
@@ -73,12 +74,23 @@ AbstractButton {
             width: units.gu(17)
             anchors.left: parent.left
             source: Image {
-                property url previewUrl: Qt.resolvedUrl(cacheLocation + "/captures/" + Qt.md5(item.url) + ".jpg")
-                source: FileOperations.exists(previewUrl) ? previewUrl : ""
+                id: previewImage
+                source: previewShape.previewUrl
                 sourceSize.height: previewShape.height
                 cache: false
             }
             sourceFillMode: UbuntuShape.PreserveAspectCrop
+
+            property url previewUrl: Qt.resolvedUrl(PreviewManager.previewPathFromUrl(item.url))
+
+            Connections {
+                target: PreviewManager
+                onPreviewSaved: {
+                    if (pageUrl !== item.url) return
+                    previewImage.source = ""
+                    previewImage.source = previewShape.previewUrl
+                }
+            }
         }
     }
 }
