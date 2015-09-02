@@ -98,6 +98,8 @@ class TestContextMenuLink(TestContextMenuBase):
 
     def test_bookmark_link(self):
         self.click_action("bookmarkLinkContextualAction")
+        bookmark_options = self.main_window.get_bookmark_options()
+        bookmark_options.click_dismiss_button()
         self.verify_link_bookmarked()
 
     def test_copy_link(self):
@@ -141,6 +143,8 @@ class TestContextMenuImageAndLink(TestContextMenuBase):
 
     def test_bookmark_link(self):
         self.click_action("bookmarkLinkContextualAction")
+        bookmark_options = self.main_window.get_bookmark_options()
+        bookmark_options.click_dismiss_button()
         self.verify_link_bookmarked()
 
     def test_copy_link(self):
