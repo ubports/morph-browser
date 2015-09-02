@@ -26,7 +26,6 @@ import Ubuntu.Content 1.0
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 
-import "urlManagement.js" as UrlManagement
 import "../MimeTypeMapper.js" as MimeTypeMapper
 
 Item {
