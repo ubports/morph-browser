@@ -1213,8 +1213,6 @@ BrowserView {
             if (tabsModel.count === 0) {
                 browser.openUrlInNewTab("", true)
                 recentView.reset()
-            } else {
-                internal.switchToTab(0)
             }
         }
 
