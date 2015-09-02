@@ -1220,7 +1220,7 @@ BrowserView {
 
         function closeCurrentTab() {
             if (tabsModel.count > 0) {
-                closeTab(0)
+                closeTab(tabsModel.currentIndex)
             }
         }
 
