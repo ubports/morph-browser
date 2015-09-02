@@ -19,12 +19,12 @@
 'use strict';
 
 function removeScheme(url) {
-    var authority = url.toString()
-    var indexOfScheme = authority.indexOf("://")
+    var rest = url.toString()
+    var indexOfScheme = rest.indexOf("://")
     if (indexOfScheme !== -1) {
-        authority = authority.slice(indexOfScheme + 3)
+        rest = rest.slice(indexOfScheme + 3)
     }
-    return authority
+    return rest
 }
 
 function extractAuthority(url) {
