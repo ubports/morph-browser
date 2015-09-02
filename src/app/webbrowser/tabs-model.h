@@ -77,6 +77,7 @@ private:
     int m_currentIndex;
 
     bool checkValidTabIndex(int index) const;
+    void setCurrentIndexNoCheck(int index);
     void onDataChanged(QObject* tab, int role);
 };
 

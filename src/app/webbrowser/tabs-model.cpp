@@ -87,21 +87,25 @@ int TabsModel::currentIndex() const
     return m_currentIndex;
 }
 
+void TabsModel::setCurrentIndexNoCheck(int index)
+{
+  if (index != m_currentIndex) {
+      m_currentIndex = index;
+      Q_EMIT currentIndexChanged();
+      Q_EMIT currentTabChanged();
+  }
+}
+
 void TabsModel::setCurrentIndex(int index)
 {
-    if (!checkValidTabIndex(index)) {
-        return;
-    }
-    if (index != m_currentIndex) {
-        m_currentIndex = index;
-        Q_EMIT currentIndexChanged();
-        Q_EMIT currentTabChanged();
+    if (checkValidTabIndex(index)) {
+        setCurrentIndexNoCheck(index);
     }
 }
 
 QObject* TabsModel::currentTab() const
 {
-    if (m_tabs.isEmpty()) {
+    if (m_tabs.isEmpty() || !checkValidTabIndex(m_currentIndex)) {
         return nullptr;
     }
     return m_tabs.at(m_currentIndex);
@@ -140,9 +144,18 @@ int TabsModel::insert(QObject* tab, int index)
     connect(tab, SIGNAL(iconChanged()), SLOT(onIconChanged()));
     endInsertRows();
     Q_EMIT countChanged();
-    if (index == 0) {
-        setCurrentIndex(0);
+
+    if (m_currentIndex == -1) {
+        // set the index to zero if this is the first item that gets added to the
+        // model, as it should not be possible to have items in the model but no
+        // current tab.
+        setCurrentIndexNoCheck(0);
+    } else if (index <= m_currentIndex) {
+        // increment the index if we are inserting items before the
+        // current index
+        setCurrentIndexNoCheck(m_currentIndex + 1);
     }
+
     return index;
 }
 
@@ -163,11 +176,18 @@ QObject* TabsModel::remove(int index)
     tab->disconnect(this);
     endRemoveRows();
     Q_EMIT countChanged();
-    if (index == m_currentIndex) {
-        if (!checkValidTabIndex(index)) {
-            m_currentIndex = m_tabs.count() - 1;
-            Q_EMIT currentIndexChanged();
-            Q_EMIT currentTabChanged();
+
+    if (index < m_currentIndex) {
+        // If we removed any tab before the current one, decrease the
+        // currentIndex to match (which will trigger a currentTab change too)
+        setCurrentIndexNoCheck(m_currentIndex - 1);
+    } else if (index == m_currentIndex) {
+        // If we removed the current tab, then select the following one, if any.
+        // This will only trigger a currentTab change since the index remains
+        // the same.
+        // Otherwise select the previous tab, which will trigger both changes.
+        if (m_currentIndex == m_tabs.count()) {
+            setCurrentIndexNoCheck(m_currentIndex - 1);
         } else {
             Q_EMIT currentTabChanged();
         }
