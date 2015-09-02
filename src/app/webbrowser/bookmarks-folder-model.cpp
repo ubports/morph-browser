@@ -34,7 +34,7 @@
     with the same name that the filter folder name (case-sensitive
     comparison).
 
-    When no folder name is set (null or empty string), all entries that 
+    When no folder name is set (null or empty string), all entries that
     are not stored in any folder match.
 */
 BookmarksFolderModel::BookmarksFolderModel(QObject* parent)
@@ -74,6 +74,26 @@ void BookmarksFolderModel::setFolder(const QString& folder)
 int BookmarksFolderModel::count() const
 {
     return rowCount();
+}
+
+QVariantMap BookmarksFolderModel::get(int row) const
+{
+    if (row < 0 || row >= rowCount()) {
+        return QVariantMap();
+    }
+
+    QVariantMap res;
+    QHash<int,QByteArray> names = roleNames();
+    QHashIterator<int, QByteArray> i(names);
+
+    while (i.hasNext()) {
+        i.next();
+        QModelIndex idx = index(row, 0);
+        QVariant data = idx.data(i.key());
+        res[i.value()] = data;
+    }
+
+    return res;
 }
 
 bool BookmarksFolderModel::filterAcceptsRow(int source_row, const QModelIndex& source_parent) const

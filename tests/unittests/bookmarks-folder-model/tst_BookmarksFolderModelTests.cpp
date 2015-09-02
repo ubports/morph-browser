@@ -88,18 +88,21 @@ private Q_SLOTS:
 
     void shouldFilterOutNonMatchingFolders()
     {
-        bookmarks->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");
-        bookmarks->add(QUrl("http://example.com/"), "Example Domain", QUrl(), "SampleFolder01");
-        bookmarks->add(QUrl("http://example.net/"), "Example Domain", QUrl(), "SampleFolder02");
+        bookmarks->add(QUrl("http://example.org/"), "Example Domain Org", QUrl(), "");
+        bookmarks->add(QUrl("http://example.com/"), "Example Domain Com", QUrl(), "SampleFolder01");
+        bookmarks->add(QUrl("http://example.net/"), "Example Domain Net", QUrl("http://example.net/icon.png"), "SampleFolder02");
         model->setFolder("");
         QCOMPARE(model->rowCount(), 1);
         QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Url).toUrl(), QUrl("http://example.org/"));
+        QCOMPARE(model->get(0).value("url").toUrl(), QUrl("http://example.org/"));
         model->setFolder("SampleFolder01");
         QCOMPARE(model->rowCount(), 1);
         QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Url).toUrl(), QUrl("http://example.com/"));
+        QCOMPARE(model->get(0).value("title").toString(), QString("Example Domain Com"));
         model->setFolder("SampleFolder02");
         QCOMPARE(model->rowCount(), 1);
         QCOMPARE(model->data(model->index(0, 0), BookmarksModel::Url).toUrl(), QUrl("http://example.net/"));
+        QCOMPARE(model->get(0).value("icon").toUrl(), QUrl("http://example.net/icon.png"));
         model->setFolder("AnotherFolder");
         QCOMPARE(model->rowCount(), 0);
     }

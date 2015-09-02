@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Canonical Ltd.
+ * Copyright 2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -16,32 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.4
 import Ubuntu.Components 1.3
 
-Image {
-    property int axis
-    property real minimum
-    property real maximum
-    property bool dragging: __mousearea.drag.active
-
-    width: units.gu(3)
-    height: units.gu(3)
-
-    source: "assets/multi_selection_handle.png"
-
-    MouseArea {
-        id: __mousearea
-
-        anchors.fill: parent
-
-        drag {
-            target: parent
-            axis: parent.axis
-            minimumX: parent.minimum
-            maximumX: parent.maximum
-            minimumY: parent.minimum
-            maximumY: parent.maximum
-        }
-    }
+Action {
+    text: i18n.tr("Select all")
 }

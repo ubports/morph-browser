@@ -309,6 +309,24 @@ void HistoryModel::removeEntryByUrl(const QUrl& url)
 }
 
 /*!
+    Remove all urls last visited in a given DATE from the history model.
+*/
+void HistoryModel::removeEntriesByDate(const QDate& date)
+{
+    if (!date.isValid()) {
+        return;
+    }
+
+    for (int i = m_entries.count() - 1; i >= 0; --i) {
+        if (m_entries.at(i).lastVisit.toLocalTime().date() == date) {
+            removeByIndex(i);
+        }
+    }
+    removeEntriesFromDatabaseByDate(date);
+    Q_EMIT rowCountChanged();
+}
+
+/*!
     Remove all urls from a given DOMAIN from the history model.
 */
 void HistoryModel::removeEntriesByDomain(const QString& domain)
@@ -393,6 +411,19 @@ void HistoryModel::removeEntryFromHiddenDatabaseByUrl(const QUrl& url)
     static QString deleteStatement = QLatin1String("DELETE FROM history_hidden WHERE url=?;");
     query.prepare(deleteStatement);
     query.addBindValue(url.toString());
+    query.exec();
+}
+
+void HistoryModel::removeEntriesFromDatabaseByDate(const QDate& date)
+{
+    QMutexLocker ml(&m_dbMutex);
+    QSqlQuery query(m_database);
+    static QString deleteStatement = QLatin1String("DELETE FROM history WHERE lastVisit BETWEEN ? AND ?;");
+    query.prepare(deleteStatement);
+    QDateTime dateTime = QDateTime(date);
+    query.addBindValue(dateTime.toTime_t());
+    dateTime.setTime(QTime(23, 59, 59, 999));
+    query.addBindValue(dateTime.toTime_t());
     query.exec();
 }
 
@@ -486,4 +517,19 @@ void HistoryModel::unHide(const QUrl& url)
     }                                                                   
 
     removeEntryFromHiddenDatabaseByUrl(url);
+}
+
+QVariantMap HistoryModel::get(int i) const
+{
+    QVariantMap item;
+    QHash<int, QByteArray> roles = roleNames();
+
+    QModelIndex modelIndex = index(i, 0);
+    if (modelIndex.isValid()) {
+        Q_FOREACH(int role, roles.keys()) {
+            QString roleName = QString::fromUtf8(roles.value(role));
+            item.insert(roleName, data(modelIndex, role));
+        }
+    }
+    return item;
 }

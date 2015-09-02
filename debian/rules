@@ -11,10 +11,6 @@ export DPKG_GENSYMBOLS_CHECK_LEVEL=4
 	dh $@ --parallel --with translations
 
 override_dh_install:
-	ln -sf /usr/share/qtdeclarative5-ubuntu-web-plugin/assets \
-	$(CURDIR)/debian/tmp/usr/lib/*/qt5/qml/Ubuntu/Web
-	ln -sf /usr/share/qtdeclarative5-ubuntu-web-plugin/assets \
-	$(CURDIR)/debian/tmp/usr/lib/*/qt5/qml/Ubuntu/Components/Extras/Browser
 	dh_install --fail-missing
 
 override_dh_translations:

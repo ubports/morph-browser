@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Canonical Ltd.
+ * Copyright 2014-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -15,15 +15,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+'use strict';
+
+function getExtension(filename) {
+    var filenameParts = filename.split(".");
+    if (filenameParts.length === 1 || (filenameParts[0] === "" && filenameParts.length === 2)) {
+        return ""
+    }
+    return filenameParts.pop().toLowerCase();
+}
 
 // Constructed from /etc/mime.types
 function filenameToContentType(filename) {
-    var filenameParts = filename.split(".");
-    if(filenameParts.length === 1 || (filenameParts[0] === "" && filenameParts.length === 2)) {
-        return ContentType.Unknown;
-    }
-    var ext = filenameParts.pop().toLowerCase();
-    switch(ext) {
+    switch(getExtension(filename)) {
         case "art":
         case "bmp":
         case "cdr":
