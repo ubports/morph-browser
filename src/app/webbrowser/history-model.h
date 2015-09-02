@@ -62,6 +62,7 @@ public:
 
     Q_INVOKABLE int add(const QUrl& url, const QString& title, const QUrl& icon);
     Q_INVOKABLE void removeEntryByUrl(const QUrl& url);
+    Q_INVOKABLE void removeEntriesByDate(const QDate& date);
     Q_INVOKABLE void removeEntriesByDomain(const QString& domain);
     Q_INVOKABLE void clearAll();
     Q_INVOKABLE void hide(const QUrl& url);
@@ -99,6 +100,7 @@ private:
     void updateExistingEntryInDatabase(const HistoryEntry& entry);
     void removeEntryFromDatabaseByUrl(const QUrl& url);
     void removeEntryFromHiddenDatabaseByUrl(const QUrl& url);
+    void removeEntriesFromDatabaseByDate(const QDate& date);
     void removeEntriesFromDatabaseByDomain(const QString& domain);
     void clearDatabase();
 };

@@ -20,7 +20,13 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
     """
     A custom HTTP request handler that serves GET resources.
     """
+
     suggestions_data = {}
+
+    base64_png_data = \
+        "iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwE" \
+        "AmpwYAAAAOUlEQVRYw+3OAQ0AAAgDoGv/zlpDN0hATS7qaGlpaWlpaWlpaWlpaWlpaW" \
+        "lpaWlpaWlpaWlpab1qLUGqAWNyFWTYAAAAAElFTkSuQmCC"
 
     def make_html(self, title, body):
         html = "<html><title>{}</title><body>{}</body></html>"
@@ -80,6 +86,28 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             html += '<iframe height="100%" width="100%" '
             html += 'src="/blanktargetlink" />'
             html += '</body></html>'
+            self.send_html(html)
+        elif self.path == "/image":
+            self.send_response(200)
+            html = '<html><body>'
+            html += '<img src="data:image/png;base64,' + self.base64_png_data
+            html += '" style="position: fixed; top: 50%; left: 50%; '
+            html += 'transform: translate(-50%, -50%)" />'
+            html += '</body></html>'
+            self.send_html(html)
+        elif self.path == "/imagelink":
+            self.send_response(200)
+            html = '<html><body><a href="/test1">'
+            html += '<img src="data:image/png;base64,' + self.base64_png_data
+            html += '" style="position: fixed; top: 50%; left: 50%; '
+            html += 'transform: translate(-50%, -50%)" />'
+            html += '</a></body></html>'
+            self.send_html(html)
+        elif self.path == "/textarea":
+            self.send_response(200)
+            html = '<html><body style="margin: 0">'
+            html += '<textarea style="width: 100%; height: 100%">some text'
+            html += '</textarea></body></html>'
             self.send_html(html)
         elif self.path == "/uploadform":
             # craft a page that accepts clicks anywhere inside its window

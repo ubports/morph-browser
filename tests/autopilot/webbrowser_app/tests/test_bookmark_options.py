@@ -143,6 +143,9 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
             "OptionSelectorDelegate", text="Actinide")
         self.pointing_device.click_object(option_selector_delegate)
         option_selector.currentlyExpanded.wait_for(False)
+        # Wait for collapsing animation to finish
+        self.assertThat(option_selector.height,
+                        Eventually(Equals(option_selector.itemHeight)))
 
         bookmark_options.click_dismiss_button()
         bookmark_options.wait_until_destroyed()
