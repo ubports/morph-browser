@@ -242,19 +242,14 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self.assertThat(bookmark.title, Equals("NewTitle"))
 
     def test_bookmark_options_from_contextual_menu(self):
-        # FIXME: When http://pad.lv/1205144 replace accessing the contextual
-        # menu items by text with accessing them by objectName (from
-        # their Action)
-        self.skipTest("Skipped due to http://pad.lv/1205144")
         url = self.base_url + "/blanktargetlink"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
         webview = self.main_window.get_current_webview()
 
         # invoke the context menu over the link, which covers the entire page
-        self._invoke_contextual_menu_on_item(webview)
-        actions = self.main_window.select_single("ActionSelectionPopover")
-        actions.click_button_by_text("Bookmark link")
+        menu = self.main_window.open_context_menu()
+        menu.click_action("bookmarkLinkContextualAction")
 
         bookmark_options = self.main_window.get_bookmark_options()
         bookmark_options.click_dismiss_button()
@@ -262,18 +257,17 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         # reopen the context menu and verify that the bookmark options is
         # disabled as we have already bookmarked this link
-        self._invoke_contextual_menu_on_item(webview)
-        actions = self.main_window.select_single("ActionSelectionPopover")
-        bookmark_button = actions._get_button("Bookmark link")
-        self.assertThat(bookmark_button.enabled, Equals(False))
+        menu = self.main_window.open_context_menu()
+        bookmark_action = menu.get_action("bookmarkLinkContextualAction")
+        self.assertThat(bookmark_action.visible, Equals(False))
 
         # dismiss the dialog
-        chrome = self.main_window.chrome
-        self.pointing_device.click_object(chrome)
+        self.main_window.dismiss_context_menu(menu)
 
         # click on the link and verify that the bookmark star is lit on the
         # target page
         self.pointing_device.click_object(webview)
         self.main_window.wait_until_page_loaded(self.base_url + "/test2")
 
+        chrome = self.main_window.chrome
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
