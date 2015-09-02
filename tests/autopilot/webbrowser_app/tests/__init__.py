@@ -218,7 +218,7 @@ class BrowserTestCaseBase(AutopilotTestCase):
     def kill_web_processes(self, signal=signal.SIGKILL):
         children = psutil.Process(self.app.pid).children(True)
         for child in children:
-            if child.exe().endswith('oxide-renderer'):
+            if child.name() == 'oxide-renderer':
                 for arg in child.cmdline():
                     if '--type=renderer' in arg:
                         os.kill(child.pid, signal)
