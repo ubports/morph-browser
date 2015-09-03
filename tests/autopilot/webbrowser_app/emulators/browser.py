@@ -366,7 +366,7 @@ class Toolbar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_header(self):
-        return self.select_single(SettingsPageHeader)
+        return self.select_single(BrowserPageHeader)
 
     def get_searchengine_entry(self):
         return self.select_single("Subtitled", objectName="searchengine")
@@ -395,7 +395,7 @@ class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("Standard", objectName="reset")
 
 
-class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class BrowserPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def click_back_button(self):
