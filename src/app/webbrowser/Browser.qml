@@ -1484,6 +1484,7 @@ BrowserView {
             if (tab) {
                 tab.load()
             }
+            internal.resetFocus()
         }
         onCountChanged: {
             if (tabsModel.count == 0) {
