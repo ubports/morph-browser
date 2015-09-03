@@ -37,6 +37,17 @@ Item {
 
     readonly property bool animating: selectedAnimation.running
 
+    Rectangle {
+        id: firstItemChromeBackground
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        height: units.gu(4)
+        color: "#fbfbfb"
+    }
+
     Flickable {
         id: flickable
 
@@ -97,6 +108,7 @@ Item {
                         incognito: tabslist.incognito
                         active: index === 0 // active tab is always on top of the stack
                         tab: model.tab
+                        chromeHeight: firstItemChromeBackground.height
                         showContent: (index > 0) || (delegate.y > flickable.contentY) ||
                                      !(tab.webview && tab.webview.visible)
 

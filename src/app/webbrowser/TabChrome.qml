@@ -26,16 +26,32 @@ Item {
     property alias icon: favicon.source
     property bool incognito: false
     property bool active: false
+    property alias tabWidth: tabItem.width
 
     signal selected()
     signal closed()
 
-    implicitHeight: units.gu(4)
+    Item {
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        height: units.gu(5)
+        clip: true
+
+        Image {
+            anchors.fill: parent
+            anchors.bottomMargin: - units.gu(3)
+            height: units.gu(8)
+            source: "assets/tab-shadow-narrow.png"
+        }
+    }
 
     BorderImage {
+        id: tabItem
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        width: parent.width * 0.5
         source: 'assets/tab-%1.sci'.arg(hoverArea.containsMouse ? 'hover' :
                                         (active ? 'active' : 'non-active'))
 
