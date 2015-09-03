@@ -206,6 +206,7 @@ BrowserView {
 
         Loader {
             id: newTabViewLoader
+
             anchors {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
@@ -288,6 +289,27 @@ BrowserView {
 
                 NewPrivateTabView { anchors.fill: parent }
             }
+        }
+
+        Loader {
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
+
+            active: webProcessMonitor.crashed || (webProcessMonitor.killed && !currentWebview.loading)
+
+            sourceComponent: SadTab {
+                webview: currentWebview
+                onCloseTabRequested: internal.closeCurrentTab()
+            }
+
+            WebProcessMonitor {
+                id: webProcessMonitor
+                webview: currentWebview
+            }
+
+            asynchronous: true
         }
 
         SearchEngine {
@@ -603,16 +625,7 @@ BrowserView {
             }
             chromeOffset: chrome.height - invisibleTabChrome.height
             onTabSelected: recentView.closeAndSwitchToTab(index)
-            onTabClosed: {
-                var tab = tabsModel.remove(index)
-                if (tab) {
-                    tab.close()
-                }
-                if (tabsModel.count === 0) {
-                    browser.openUrlInNewTab("", true)
-                    recentView.reset()
-                }
-            }
+            onTabClosed: internal.closeTab(index)
         }
 
         Toolbar {
@@ -1192,6 +1205,23 @@ BrowserView {
             }
         }
 
+        function closeTab(index) {
+            var tab = tabsModel.remove(index)
+            if (tab) {
+                tab.close()
+            }
+            if (tabsModel.count === 0) {
+                browser.openUrlInNewTab("", true)
+                recentView.reset()
+            }
+        }
+
+        function closeCurrentTab() {
+            if (tabsModel.count > 0) {
+                closeTab(tabsModel.currentIndex)
+            }
+        }
+
         function switchToTab(index) {
             tabsModel.currentIndex = index
             var tab = tabsModel.currentTab
@@ -1201,15 +1231,6 @@ BrowserView {
                     focusAddressBar()
                 } else {
                     tabContainer.forceActiveFocus()
-                }
-            }
-        }
-
-        function closeCurrentTab() {
-            if (tabsModel.count > 0) {
-                var tab = tabsModel.remove(tabsModel.currentIndex)
-                if (tab) {
-                    tab.close()
                 }
             }
         }
