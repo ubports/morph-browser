@@ -121,10 +121,6 @@ Item {
             return items
         }
 
-        function cleanup() {
-            historyMockModel.clearAll()
-        }
-
         function test_done_button() {
             var doneButton = findChild(historyViewWide, "doneButton")
             verify(doneButton != null)
