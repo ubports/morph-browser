@@ -15,11 +15,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+import time
 
 import autopilot.logging
 import ubuntuuitoolkit as uitk
 from autopilot import exceptions
 from autopilot import input
+from autopilot.platform import model
 
 logger = logging.getLogger(__name__)
 
@@ -179,6 +181,35 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
             return self.wait_select_single(ContextMenuWide)
         else:
             return self.wait_select_single(ContextMenuMobile)
+
+    def open_context_menu(self):
+        webview = self.get_current_webview()
+        chrome = self.chrome
+        x = webview.globalRect.x + webview.globalRect.width // 2
+        y = webview.globalRect.y + \
+            (webview.globalRect.height + chrome.height) // 2
+        self.pointing_device.move(x, y)
+        if model() == 'Desktop':
+            self.pointing_device.click(button=3)
+        else:
+            self.pointing_device.press()
+            time.sleep(1.5)
+            self.pointing_device.release()
+        return self.get_context_menu()
+
+    def dismiss_context_menu(self, menu):
+        if self.wide:
+            # Dismiss by clicking outside of the menu
+            webview_rect = self.get_current_webview().globalRect
+            actions = menu.get_visible_actions()
+            outside_x = (webview_rect.x + actions[0].globalRect.x) // 2
+            outside_y = webview_rect.y + webview_rect.height // 2
+            self.pointing_device.move(outside_x, outside_y)
+            self.pointing_device.click()
+        else:
+            # Dismiss by clicking the cancel action
+            menu.click_cancel_action()
+        menu.wait_until_destroyed()
 
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -615,11 +646,16 @@ class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_visible_actions(self):
         return self.select_many("Empty", visible=True)
 
+    def get_action(self, objectName):
+        name = objectName + "_item"
+        return self.select_single("Empty", objectName=name)
+
     def click_action(self, objectName):
         name = objectName + "_item"
         action = self.select_single("Empty", visible=True,
                                     enabled=True, objectName=name)
         self.pointing_device.click_object(action)
+        self.wait_until_destroyed()
 
 
 class ContextMenuWide(ContextMenuBase):

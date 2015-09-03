@@ -338,12 +338,9 @@ BrowserView {
                 return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
             }
             bookmarked: isCurrentUrlBookmarked()
-            onBookmarkedChanged: {
-                if (bookmarked && !isCurrentUrlBookmarked()) {
-                    internal.addBookmark(webview.url, webview.title, webview.icon)
-                } else if (!bookmarked && isCurrentUrlBookmarked()) {
-                    browser.bookmarksModel.remove(webview.url)
-                }
+            onToggleBookmark: {
+                if (isCurrentUrlBookmarked()) browser.bookmarksModel.remove(webview.url)
+                else internal.addBookmark(webview.url, webview.title, webview.icon)
             }
             onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
             Connections {
@@ -916,6 +913,11 @@ BrowserView {
             current: tabsModel && tabsModel.currentTab === this
             focus: current
 
+            Item {
+                id: contextualMenuTarget
+                visible: false
+            }
+
             webviewComponent: WebViewImpl {
                 id: webviewimpl
 
@@ -955,8 +957,17 @@ BrowserView {
                     Actions.BookmarkLink {
                         objectName: "bookmarkLinkContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString() &&
-                                 browser.bookmarksModel
-                        onTriggered: bookmarksModel.add(contextModel.linkUrl, contextModel.linkText, "", "")
+                                 browser.bookmarksModel && !bookmarksModel.contains(contextModel.linkUrl)
+                        onTriggered: {
+                            // position the menu target with a one-off assignement instead of a binding
+                            // since the contents of the contextModel have meaning only while the context
+                            // menu is active
+                            contextualMenuTarget.x = contextModel.position.x * devicePixelRatio
+                            contextualMenuTarget.y = contextModel.position.y * devicePixelRatio +
+                                                     locationBarController.height + locationBarController.offset
+                            internal.addBookmark(contextModel.linkUrl, contextModel.linkText,
+                                                 "", contextualMenuTarget)
+                        }
                     }
                     Actions.CopyLink {
                         objectName: "copyLinkContextualAction"
@@ -1290,10 +1301,12 @@ BrowserView {
             }
         }
 
-        function addBookmark(url, title, icon) {
+        function addBookmark(url, title, icon, location) {
+            if (title == "") title = UrlUtils.removeScheme(url)
             bookmarksModel.add(url, title, icon, "")
+            if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             PopupUtils.open(bookmarkOptionsComponent,
-                            chrome.bookmarkTogglePlaceHolder,
+                            location,
                             {"bookmarkUrl": url,
                              "bookmarkTitle": title})
         }
