@@ -21,6 +21,8 @@ import QtTest 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Test 1.0
+import webbrowsertest.private 0.1
+import webbrowserapp.private 0.1
 import "../../../src/app/webbrowser"
 
 Item {
@@ -38,7 +40,7 @@ Item {
         sourceComponent: HistoryViewWide {
             id: historyViewWideComponent
             anchors.fill: parent
-            historyModel: HistoryModel {
+            historyModel: HistoryModelTest {
                 id: historyMockModel
                 databasePath: ":memory:"
             }
@@ -286,7 +288,46 @@ Item {
             compare(items[0].title, wraphtml("%1 Domain %0"
                                              .arg(highlight(terms[0]))
                                              .arg(highlight(terms[1]))))
+        }
 
+        function test_search_updates_dates_list() {
+            var today = new Date()
+            today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+            function isToday(item) { return item.lastVisitDate.valueOf() === today.valueOf() }
+            var oldest = new Date(1903, 6, 14)
+            var model = historyViewWide.historyModel
+            model.addByDate("https://en.wikipedia.org/wiki/Alan_Turing", "Alan Turing", new Date(1912, 6, 23));
+            model.addByDate("https://en.wikipedia.org/wiki/Alonzo_Church", "Alonzo Church", oldest);
+
+            var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
+            var dates = getListItems("lastVisitDateListView", "lastVisitDateDelegate")
+            var urls = getListItems("urlsListView", "historyDelegate")
+            compare(dates.length, 4)
+            var todayItem = dates.filter(isToday)
+            compare(todayItem.length, 1)
+            todayItem = todayItem.pop()
+            compare(urls.length, 5)
+
+            // select an date that will not appear after the search
+            clickItem(todayItem)
+            verify(todayItem.activeFocus)
+            keyClick(Qt.Key_F, Qt.ControlModifier)
+            typeString("wiki")
+
+            dates = getListItems("lastVisitDateListView", "lastVisitDateDelegate")
+            urls = getListItems("urlsListView", "historyDelegate")
+            compare(dates.length, 3)
+            verify(!dates.some(isToday))
+            verify(!todayItem.activeFocus)
+
+            // verify that the last item in the date list is now selected
+            compare(dates[dates.length - 1].lastVisitDate.valueOf(), oldest.valueOf())
+            compare(urls.length, 1)
+
+            // click on "all dates" and verify that all two search results are present
+            clickItem(dates[0])
+            urls = getListItems("urlsListView", "historyDelegate")
+            compare(urls.length, 2)
         }
 
         function test_delete_key_at_urls_list_view() {

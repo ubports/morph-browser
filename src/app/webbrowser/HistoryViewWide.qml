@@ -205,6 +205,15 @@ FocusScope {
                     sourceModel: historyModel ? historySearchModel : undefined
                 }
 
+                onCountChanged: {
+                    // when the list becomes empty as a result of searching for
+                    // something that doesn't exist in the current date, we
+                    // switch to another date that has results
+                    if (count === 0) {
+                        lastVisitDateListView.currentIndex = lastVisitDateListView.count - 1
+                    }
+                }
+
                 clip: true
 
                 onModelChanged: urlsListView.currentIndex = -1

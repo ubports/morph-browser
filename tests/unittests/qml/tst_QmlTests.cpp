@@ -110,6 +110,39 @@ private:
     QTemporaryDir m_testDir2;
 };
 
+class HistoryModelTest : public HistoryModel {
+  Q_OBJECT
+
+public:
+  static bool compareHistoryEntries(const HistoryEntry& a, const HistoryEntry& b) {
+      return a.lastVisit < b.lastVisit;
+  }
+
+  Q_INVOKABLE int addByDate(const QUrl& url, const QString& title, const QDateTime& date)
+  {
+      int index = getEntryIndex(url);
+      if (index == -1) {
+          add(url, title, QString());
+          index = getEntryIndex(url);
+      }
+
+      // Since this is useful only for testing and efficiency is not important
+      // we reorder the model and reset it every time we add a new item by date
+      // to keep things simple.
+      beginResetModel();
+      HistoryEntry entry = m_entries.takeAt(index);
+      entry.lastVisit = date;
+      entry.visits = entry.visits + 1;
+      m_entries.append(entry);
+      std::sort(m_entries.begin(), m_entries.end(), compareHistoryEntries);
+      endResetModel();
+
+      updateExistingEntryInDatabase(entry);
+
+      return entry.visits;
+  }
+};
+
 static QObject* TestContext_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
 {
     Q_UNUSED(engine);
@@ -128,6 +161,7 @@ int main(int argc, char** argv)
     qmlRegisterType<BookmarksModel>(browserUri, 0, 1, "BookmarksModel");
     qmlRegisterType<BookmarksFolderListModel>(browserUri, 0, 1, "BookmarksFolderListModel");
     qmlRegisterType<HistoryModel>(browserUri, 0, 1, "HistoryModel");
+    qmlRegisterType<HistoryModelTest>(browserUri, 0, 1, "HistoryModelTest");
     qmlRegisterType<HistoryTimeframeModel>(browserUri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<HistoryLastVisitDateListModel>(browserUri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<HistoryLastVisitDateModel>(browserUri, 0, 1, "HistoryLastVisitDateModel");
