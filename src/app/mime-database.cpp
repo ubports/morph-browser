@@ -31,3 +31,29 @@ QString MimeDatabase::filenameToMimeType(const QString& filename) const
     }
     return QString();
 }
+
+/*!
+    Provide the system icon name for a given mimetype
+*/
+QString MimeDatabase::iconForMimetype(const QString& mimetypeString) const
+{
+    QMimeDatabase mimedb;
+    QMimeType mimetype = mimedb.mimeTypeForName(mimetypeString);
+    if (mimetype.iconName().isEmpty()) {
+        return mimetype.genericIconName();
+    } else {
+        return mimetype.iconName();
+    }
+}
+
+/*!
+    Provide the user friendly name for a given mimetype
+*/
+QString MimeDatabase::nameForMimetype(const QString& mimetypeString) const
+{
+    QMimeDatabase mimedb;
+    QMimeType mimetype = mimedb.mimeTypeForName(mimetypeString);
+    return mimetype.comment();
+}
+
+

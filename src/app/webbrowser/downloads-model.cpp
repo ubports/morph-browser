@@ -363,38 +363,3 @@ void DownloadsModel::removeExistingEntryFromDatabase(const QString& path)
     query.addBindValue(path);
     query.exec();
 }
-
-/*!
-    Provide the system icon name for a given mimetype
-*/
-QString DownloadsModel::iconForMimetype(const QString& mimetypeString)
-{
-    // Qt's mimetype handler doesn't support wildcards and we don't know
-    // what sort of image this is yet.
-    if (mimetypeString == "image/*") {
-        return "gallery-app";
-    }
-    QMimeDatabase mimedb;
-    QMimeType mimetype = mimedb.mimeTypeForName(mimetypeString);
-    if (mimetype.iconName().isEmpty()) {
-        return mimetype.genericIconName();
-    } else {
-        return mimetype.iconName();
-    }
-}
-
-/*!
-    Provide the user friendly name for a given mimetype
-*/
-QString DownloadsModel::nameForMimetype(const QString& mimetypeString)
-{
-    // Qt's mimetype handler doesn't support wildcards and we don't know
-    // what sort of image this is yet.
-    if (mimetypeString == "image/*") {
-        return "Image";
-    }
-    QMimeDatabase mimedb;
-    QMimeType mimetype = mimedb.mimeTypeForName(mimetypeString);
-    return mimetype.comment();
-}
-

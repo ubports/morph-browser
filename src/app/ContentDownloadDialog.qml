@@ -20,6 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Content 0.1
+import webbrowsercommon.private 0.1
 
 PopupBase {
     id: downloadDialog
@@ -42,7 +43,7 @@ PopupBase {
 
                     Icon {
                         id: mimetypeIcon
-                        name: browser.downloadsModel.iconForMimetype(downloadDialog.mimeType)
+                        name: MimeDatabase.iconForMimetype(downloadDialog.mimeType)
                         height: units.gu(4.5)
                         width: height
                     }
@@ -51,7 +52,7 @@ PopupBase {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         height: units.gu(4.5)
-                        text: browser.downloadsModel.nameForMimetype(downloadDialog.mimeType)
+                        text: MimeDatabase.nameForMimetype(downloadDialog.mimeType)
                     }
                 }   
 

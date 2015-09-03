@@ -68,8 +68,6 @@ public:
     Q_INVOKABLE void setComplete(const QString& downloadId, const bool complete);
     Q_INVOKABLE void setError(const QString& downloadId, const QString& error);
     Q_INVOKABLE void deleteDownload(const QString& path);
-    Q_INVOKABLE QString iconForMimetype(const QString& mimetypeString);
-    Q_INVOKABLE QString nameForMimetype(const QString& mimetypeString);
 
 Q_SIGNALS:
     void databasePathChanged() const;

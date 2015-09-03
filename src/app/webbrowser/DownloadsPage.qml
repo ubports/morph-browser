@@ -25,6 +25,7 @@ import Ubuntu.Thumbnailer 0.1
 import Ubuntu.Content 1.0
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
+import webbrowsercommon.private 0.1
 
 import "../MimeTypeMapper.js" as MimeTypeMapper
 
@@ -68,8 +69,8 @@ Item {
             title: model.filename
             url: model.url
             image: model.mimetype.indexOf("image") === 0 || model.mimetype.indexOf("video") === 0 ? "image://thumbnailer/file://" + model.path : ""
-            extension: downloadsModel.iconForMimetype(model.mimetype) === "-x-generic" ? model.extension : ""
-            icon: downloadsModel.iconForMimetype(model.mimetype) !== "-x-generic" ? downloadsModel.iconForMimetype(model.mimetype) : ""
+            extension: MimeDatabase.iconForMimetype(model.mimetype) === "-x-generic" ? model.extension : ""
+            icon: MimeDatabase.iconForMimetype(model.mimetype) !== "-x-generic" ? MimeDatabase.iconForMimetype(model.mimetype) : ""
             incomplete: !model.complete
 
             onClicked: {
