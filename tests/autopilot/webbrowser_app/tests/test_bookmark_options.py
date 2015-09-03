@@ -19,7 +19,6 @@ import sqlite3
 import time
 
 from autopilot.matchers import Eventually
-from autopilot.platform import model
 from testtools.matchers import Equals
 
 import ubuntuuitoolkit as uitk
