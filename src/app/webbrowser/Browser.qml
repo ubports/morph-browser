@@ -1089,7 +1089,7 @@ BrowserView {
                         return
                     }
 
-                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel) {
+                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel && 300 > event.httpStatusCode && event.httpStatusCode >= 200) {
                         browser.historyModel.add(event.url, title, icon)
                     }
                 }

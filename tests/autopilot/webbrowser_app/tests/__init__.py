@@ -199,8 +199,9 @@ class BrowserTestCaseBase(AutopilotTestCase):
         drawer_button = chrome.get_drawer_button()
         self.pointing_device.click_object(drawer_button)
         chrome.get_drawer()
-        settings_action = chrome.get_drawer_action("history")
-        self.pointing_device.click_object(settings_action)
+        history_action = chrome.get_drawer_action("history")
+        self.pointing_device.click_object(history_action)
+        return self.main_window.get_history_view()
 
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),

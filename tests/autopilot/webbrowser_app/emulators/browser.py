@@ -162,11 +162,14 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_history_view(self):
         try:
             if self.wide:
-                return self.select_single("HistoryViewWide")
+                return self.select_single(HistoryViewWide)
             else:
-                return self.select_single("HistoryView")
+                return self.select_single(HistoryView)
         except exceptions.StateNotFoundError:
             return None
+
+    def get_expanded_history_view(self):
+        return self.wait_select_single(ExpandedHistoryView, visible=True)
 
     def press_key(self, key):
         self.keyboard.press_and_release(key)
@@ -417,6 +420,28 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def click_back_button(self):
         button = self.select_single("AbstractButton", objectName="backButton")
         self.pointing_device.click_object(button)
+
+
+class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_domain_entries(self):
+        return sorted(self.select_many("UrlDelegate"),
+                      key=lambda item: item.globalRect.y)
+
+
+class HistoryViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_entries(self):
+        return sorted(self.select_many("UrlDelegate"),
+                      key=lambda item: item.globalRect.y)
+
+
+class ExpandedHistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_entries(self):
+        return sorted(self.select_many("UrlDelegate",
+                                       objectName="entriesDelegate"),
+                      key=lambda item: item.globalRect.y)
 
 
 class LeavePrivateModeDialog(uitk.Dialog):
