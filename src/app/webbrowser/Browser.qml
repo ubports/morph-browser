@@ -143,7 +143,7 @@ BrowserView {
 
     FocusScope {
         anchors.fill: parent
-        visible: !settingsContainer.visible && !historyViewLoader.active
+        visible: !settingsContainer.visible && !historyViewLoader.active && !downloadsContainer.visible
 
         TabChrome {
             id: invisibleTabChrome
