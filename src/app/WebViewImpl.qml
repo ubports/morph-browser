@@ -63,9 +63,10 @@ WebView {
             }
             headers["User-Agent"] = webview.context.userAgent
             // Work around https://launchpad.net/bugs/1487090 by guessing the mime type
-            // from the suggested filename or URL if oxide hasn’t provided one.
+            // from the suggested filename or URL if oxide hasn’t provided one, or if
+            // the server has provided the generic application/octet-stream mime type.
             var mimeType = request.mimeType
-            if (!mimeType) {
+            if (!mimeType || mimeType == "application/octet-stream") {
                 mimeType = MimeDatabase.filenameToMimeType(request.suggestedFilename)
             }
             if (!mimeType) {
