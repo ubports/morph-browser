@@ -101,15 +101,6 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         urls = tab.get_bookmarks(folder_name)
         self.assertThat(lambda: len(urls), Eventually(Equals(count)))
 
-    def _invoke_contextual_menu_on_item(self, item):
-        if model() == 'Desktop':
-            self.pointing_device.click_object(item, button=3)
-        else:
-            self.pointing_device.move_to_object(item)
-            self.pointing_device.press()
-            time.sleep(1.5)
-            self.pointing_device.release()
-
     def test_save_bookmarked_url_in_default_folder(self):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self._assert_bookmark_count_in_folder(new_tab, "", 4)

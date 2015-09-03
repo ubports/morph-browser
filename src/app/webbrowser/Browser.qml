@@ -896,7 +896,6 @@ BrowserView {
         id: tabComponent
 
         BrowserTab {
-            id: tab
             anchors.fill: parent
             current: tabsModel && tabsModel.currentTab === this
             focus: current
