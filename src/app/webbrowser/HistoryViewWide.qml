@@ -38,7 +38,6 @@ FocusScope {
 
     signal done()
     signal historyEntryClicked(url url)
-    signal historyEntryRemoved(url url)
     signal newTabRequested()
 
     Keys.onLeftPressed: lastVisitDateListView.forceActiveFocus()
@@ -47,6 +46,25 @@ FocusScope {
     Keys.onPressed: {
         if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_F) {
             if (!selectMode) searchMode = true
+        }
+    }
+    Keys.onDeletePressed: {
+        if (urlsListView.ViewItems.selectMode) {
+            internal.removeSelected()
+        } else {
+            if (urlsListView.activeFocus) {
+                historyViewWide.historyModel.removeEntryByUrl(urlsListView.currentItem.url)
+                if (urlsListView.count == 0) {
+                    lastVisitDateListView.currentIndex = 0
+                }
+            } else {
+                if (lastVisitDateListView.currentIndex == 0) {
+                    historyViewWide.historyModel.clearAll()
+                } else {
+                    historyViewWide.historyModel.removeEntriesByDate(lastVisitDateListView.currentItem.lastVisitDate)
+                    lastVisitDateListView.currentIndex = 0
+                }
+            }
         }
     }
 
@@ -251,11 +269,9 @@ FocusScope {
                     }
 
                     onRemoved: {
-                        if (urlsListView.count == 1) {
-                            historyViewWide.historyEntryRemoved(model.url)
+                        historyViewWide.historyModel.removeEntryByUrl(model.url)
+                        if (urlsListView.count == 0) {
                             lastVisitDateListView.currentIndex = 0
-                        } else {
-                            historyViewWide.historyEntryRemoved(model.url)
                         }
                     }
 
@@ -342,19 +358,7 @@ FocusScope {
             iconName: "select"
             text: i18n.tr("Select all")
 
-            onClicked: {
-                if (urlsListView.ViewItems.selectedIndices.length === urlsListView.count) {
-                    urlsListView.ViewItems.selectedIndices = []
-                } else {
-                    var indices = []
-                    for (var i = 0; i < urlsListView.count; ++i) {
-                        indices.push(i)
-                    }
-                    urlsListView.ViewItems.selectedIndices = indices
-                }
-
-                urlsListView.forceActiveFocus()
-            }
+            onClicked: internal.toggleSelectAll()
         }
 
         ToolbarAction {
@@ -373,24 +377,7 @@ FocusScope {
             iconName: "delete"
             text: i18n.tr("Delete")
             enabled: urlsListView.ViewItems.selectedIndices.length > 0
-            onClicked: {
-                var indices = urlsListView.ViewItems.selectedIndices
-                var urls = []
-                for (var i in indices) {
-                    urls.push(urlsListView.model.get(indices[i])["url"])
-                }
-
-                if (urlsListView.count == urls.length) {
-                    lastVisitDateListView.currentIndex = 0
-                }
-
-                urlsListView.ViewItems.selectMode = false
-                for (var j in urls) {
-                    historyViewWide.historyEntryRemoved(urls[j])
-                }
-
-                lastVisitDateListView.forceActiveFocus()
-            }
+            onClicked: internal.removeSelected()
         }
 
         TextField {
@@ -479,6 +466,43 @@ FocusScope {
                 historyViewWide.newTabRequested()
                 historyViewWide.done()
             }
+        }
+    }
+
+    QtObject {
+        id: internal
+
+        function toggleSelectAll() {
+            if (urlsListView.ViewItems.selectedIndices.length === urlsListView.count) {
+                urlsListView.ViewItems.selectedIndices = []
+            } else {
+                var indices = []
+                for (var i = 0; i < urlsListView.count; ++i) {
+                    indices.push(i)
+                }
+                urlsListView.ViewItems.selectedIndices = indices
+            }
+
+            urlsListView.forceActiveFocus()
+        }
+
+        function removeSelected() {
+            var indices = urlsListView.ViewItems.selectedIndices
+            var urls = []
+            for (var i in indices) {
+                urls.push(urlsListView.model.get(indices[i])["url"])
+            }
+
+            if (urlsListView.count == urls.length) {
+                lastVisitDateListView.currentIndex = 0
+            }
+
+            urlsListView.ViewItems.selectMode = false
+            for (var j in urls) {
+                historyViewWide.historyModel.removeEntryByUrl(urls[j])
+            }
+
+            lastVisitDateListView.forceActiveFocus()
         }
     }
 }

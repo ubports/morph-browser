@@ -115,13 +115,6 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_geolocation_dialog(self):
         return self.wait_select_single(GeolocationPermissionRequest)
 
-    def get_selection(self):
-        return self.wait_select_single(Selection)
-
-    def get_selection_actions(self):
-        return self.wait_select_single("ActionSelectionPopover",
-                                       objectName="selectionActions")
-
     def get_tabs_view(self):
         return self.wait_select_single(TabsList, visible=True)
 
@@ -174,6 +167,12 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def press_key(self, key):
         self.keyboard.press_and_release(key)
+
+    def get_context_menu(self):
+        if self.wide:
+            return self.wait_select_single(ContextMenuWide)
+        else:
+            return self.wait_select_single(ContextMenuMobile)
 
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -322,15 +321,6 @@ class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_allow_button(self):
         return self.select_single("Button", objectName="allow")
-
-
-class Selection(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-
-    def get_rectangle(self):
-        return self.select_single("QQuickItem", objectName="rectangle")
-
-    def get_handle(self, name):
-        return self.select_single("SelectionHandle", objectName=name)
 
 
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -574,3 +564,30 @@ class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_header_from_folder(self, folder):
         return folder.wait_select_single("QQuickItem",
                                          objectName="bookmarkFolderHeader")
+
+
+class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_title_label(self):
+        return self.select_single("Label", objectName="titleLabel")
+
+    def get_visible_actions(self):
+        return self.select_many("Empty", visible=True)
+
+    def click_action(self, objectName):
+        name = objectName + "_item"
+        action = self.select_single("Empty", visible=True,
+                                    enabled=True, objectName=name)
+        self.pointing_device.click_object(action)
+
+
+class ContextMenuWide(ContextMenuBase):
+
+    pass
+
+
+class ContextMenuMobile(ContextMenuBase):
+
+    def click_cancel_action(self):
+        action = self.select_single("Empty", objectName="cancelAction")
+        self.pointing_device.click_object(action)
