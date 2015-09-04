@@ -18,14 +18,12 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import ".."
 
 Item {
     id: tabChrome
-    property alias title: label.text
-    property alias icon: favicon.source
-    property bool incognito: false
-    property bool active: false
+    property alias title: tabItem.title
+    property alias icon: tabItem.icon
+    property alias incognito: tabItem.incognito
     property alias tabWidth: tabItem.width
 
     signal selected()
@@ -58,79 +56,13 @@ Item {
         }
     }
 
-    BorderImage {
+    TabItem {
         id: tabItem
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        source: 'assets/tab-non-active.sci'
 
-        Favicon {
-            id: favicon
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: units.gu(2)
-            width: units.gu(2)
-            height: width
-
-            shouldCache: !tabChrome.incognito
-        }
-
-        Item {
-            anchors.left: favicon.right
-            anchors.leftMargin: units.gu(1)
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.right: closeButton.left
-            anchors.rightMargin: units.gu(1)
-
-            Label {
-                id: label
-                anchors.fill: parent
-                verticalAlignment: Text.AlignVCenter
-                clip: true
-                fontSize: "small"
-            }
-
-            Rectangle {
-                anchors.centerIn: parent
-                width: label.paintedHeight
-                height: label.width + units.gu(0.25)
-                rotation: 90
-                gradient: Gradient {
-                    GradientStop {
-                        position: 0.0;
-                        color: "#ebebeb"
-                    }
-                    GradientStop { position: 0.33; color: "transparent" }
-                }
-            }
-        }
-
-        MouseArea {
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.right: closeButton.left
-            onClicked: selected()
-        }
-
-        AbstractButton {
-            id: closeButton
-            objectName: "closeButton"
-
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            width: units.gu(4)
-
-            Icon {
-                height: units.gu(1.5)
-                width: height
-                anchors.centerIn: parent
-                name: "close"
-            }
-
-            onTriggered: closed()
-        }
+        hoverable: false
+        onSelected: tabChrome.selected()
+        onClosed: tabChrome.closed()
     }
 }

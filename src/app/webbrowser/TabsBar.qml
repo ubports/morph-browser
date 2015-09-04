@@ -88,33 +88,28 @@ Item {
 
             property bool reordering: false
 
-            delegate: Item {
+            delegate: TabItem {
                 id: tabDelegate
                 objectName: "tabDelegate"
                 readonly property int tabIndex: index
-                readonly property int horizontalSpacing: units.dp(1)
-                readonly property bool active: index === root.model.currentIndex
+
+                active: index === root.model.currentIndex
+                hoverable: true
+                incognito: root.incognito
+                title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
+                icon: model.icon
 
                 anchors.top: tabsContainer.top
-                width: tabWidth + horizontalSpacing
+                width: tabWidth + rightMargin
                 height: tabsContainer.height
+                rightMargin: units.dp(1)
+
+                onClosed: internal.closeTab(index)
+                onSelected: root.model.currentIndex = index
 
                 MouseArea {
                     id: mouseArea
                     anchors.fill: parent
-                    anchors.rightMargin: spacing
-                    acceptedButtons: Qt.LeftButton | Qt.MiddleButton
-                    hoverEnabled: true
-                    onPressed: {
-                        if (mouse.button === Qt.LeftButton) {
-                            root.model.currentIndex = index
-                        }
-                    }
-                    onReleased: {
-                        if (mouse.button === Qt.MiddleButton) {
-                            internal.closeTab(index)
-                        }
-                    }
                     // XXX: should not start a drag when middle button was pressed
                     drag {
                         target: tabDelegate
@@ -122,65 +117,14 @@ Item {
                         minimumX: 0
                         maximumX: root.width - tabDelegate.width
                     }
+                    onReleased: root.model.currentIndex = index
+                    propagateComposedEvents: true
                 }
 
                 Binding {
                     target: repeater
                     property: "reordering"
                     value: mouseArea.drag.active
-                }
-
-                readonly property string assetPrefix: (active) ? "active" :
-                                                      (mouseArea.containsMouse ? "hover" : "non-active")
-
-                Item {
-                    anchors.fill: parent
-
-                    BorderImage {
-                        anchors.fill: parent
-                        anchors.rightMargin: tabDelegate.horizontalSpacing
-                        source: "assets/tab-%1.sci".arg(assetPrefix)
-                        horizontalTileMode: BorderImage.Repeat
-                    }
-                }
-
-                Row {
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        margins: units.gu(1.5)
-                        verticalCenter: parent.verticalCenter
-                    }
-                    spacing: units.gu(1)
-
-                    Favicon {
-                        id: favicon
-                        source: model.icon
-                        shouldCache: !incognito
-                    }
-
-                    Label {
-                        fontSize: "small"
-                        color: UbuntuColors.darkGrey
-                        text: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
-                        elide: Text.ElideRight
-                        width: parent.width - favicon.width - closeIcon.width - parent.spacing * 2
-                    }
-
-                    Icon {
-                        id: closeIcon
-                        objectName: "closeButton"
-                        name: "close"
-                        color: UbuntuColors.darkGrey
-                        width: units.gu(1.5)
-                        height: units.gu(1.5)
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: internal.closeTab(index)
-                        }
-                    }
                 }
 
                 Binding on x {

@@ -106,7 +106,6 @@ Item {
                         title: delegate.title
                         icon: delegate.icon
                         incognito: tabslist.incognito
-                        active: index === 0 // active tab is always on top of the stack
                         tab: model.tab
                         chromeHeight: firstItemChromeBackground.height
                         showContent: (index > 0) || (delegate.y > flickable.contentY) ||

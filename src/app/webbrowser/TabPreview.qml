@@ -25,7 +25,6 @@ Column {
     property alias title: chrome.title
     property alias icon: chrome.icon
     property alias incognito: chrome.incognito
-    property alias active: chrome.active
     property var tab
     readonly property url url: tab ? tab.url : ""
     property alias chromeHeight: chrome.height
