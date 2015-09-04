@@ -22,7 +22,7 @@ import Ubuntu.Components.ListItems 1.3 as ListItem
 import webbrowserapp.private 0.1
 
 Item {
-    id: bookmarksFolderListViewItem
+    id: bookmarksFoldersViewItem
 
     property alias model: bookmarksFolderListModel.sourceModel 
     property alias interactive: bookmarksFolderListView.interactive
@@ -147,8 +147,8 @@ Item {
 
                             model: entries
 
-                            onUrlClicked: bookmarksFolderListViewItem.bookmarkClicked(url)
-                            onUrlRemoved: bookmarksFolderListViewItem.bookmarkRemoved(url)
+                            onUrlClicked: bookmarksFoldersViewItem.bookmarkClicked(url)
+                            onUrlRemoved: bookmarksFoldersViewItem.bookmarkRemoved(url)
                         }
                     }
                 }
