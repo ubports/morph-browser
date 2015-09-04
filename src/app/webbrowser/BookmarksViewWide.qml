@@ -45,8 +45,8 @@ Item {
             rightMargin: units.gu(2)
         }
 
-        onBookmarkClicked: bookmarksView.bookmarkEntryClicked(url)
-        onBookmarkRemoved: bookmarksView.bookmarkEntryRemoved(url)
+        onBookmarkClicked: bookmarksViewWide.bookmarkEntryClicked(url)
+        onBookmarkRemoved: bookmarksViewWide.bookmarkEntryRemoved(url)
     }
 
     Toolbar {
