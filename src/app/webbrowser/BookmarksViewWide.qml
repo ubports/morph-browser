@@ -23,7 +23,7 @@ import webbrowserapp.private 0.1
 Item {
     id: bookmarksViewWide
 
-    property alias bookmarksModel: bookmarksFolderListViewWide.model
+    property alias bookmarksModel: bookmarksFoldersViewWide.model
 
     signal bookmarkEntryClicked(url url)
     signal bookmarkEntryRemoved(url url)
@@ -34,8 +34,8 @@ Item {
         color: "#f6f6f6"
     }
     
-    BookmarksFolderListViewWide {
-        id: bookmarksFolderListViewWide
+    BookmarksFoldersViewWide {
+        id: bookmarksFoldersViewWide
 
         anchors {
             top: parent.top

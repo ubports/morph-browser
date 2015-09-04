@@ -21,7 +21,7 @@ import Ubuntu.Components 1.3
 import webbrowserapp.private 0.1
 
 FocusScope {
-    id: bookmarksFolderListViewWideItem
+    id: bookmarksFoldersViewWideItem
 
     property alias model: bookmarksFolderListModel.sourceModel 
     property url homeBookmarkUrl
@@ -123,7 +123,7 @@ FocusScope {
             if (folders.currentItem.isAllBookmarksFolder) {
                 items.push({
                     title: i18n.tr("Homepage"),
-                    url: bookmarksFolderListViewWideItem.homeBookmarkUrl,
+                    url: bookmarksFoldersViewWideItem.homeBookmarkUrl,
                     folder: ""
                 })
             }
@@ -152,8 +152,8 @@ FocusScope {
             draggable: !isHomeBookmark && contentItem.x === 0
             highlighted: bookmarksList.activeFocus && ListView.isCurrentItem
 
-            onClicked: bookmarksFolderListViewWideItem.bookmarkClicked(url)
-            onRemoved: bookmarksFolderListViewWideItem.bookmarkRemoved(url)
+            onClicked: bookmarksFoldersViewWideItem.bookmarkClicked(url)
+            onRemoved: bookmarksFoldersViewWideItem.bookmarkRemoved(url)
 
             // Larger margin to prevent interference from Scrollbar hovering area
             gripMargin: units.gu(4)
@@ -167,17 +167,17 @@ FocusScope {
                 bookmarksList.interactive = true
 
                 if (dragAndDrop.target && dragAndDrop.target.folderName !== folder) {
-                    bookmarksFolderListViewWideItem.model.update(modelData.url, modelData.title,
+                    bookmarksFoldersViewWideItem.model.update(modelData.url, modelData.title,
                                                                  dragAndDrop.target.folderName)
                     dragAndDrop.success = true
                 }
             }
         }
 
-        Keys.onReturnPressed: bookmarksFolderListViewWideItem.bookmarkClicked(currentItem.url)
+        Keys.onReturnPressed: bookmarksFoldersViewWideItem.bookmarkClicked(currentItem.url)
         Keys.onDeletePressed: {
             if (currentItem.removable) {
-                bookmarksFolderListViewWideItem.bookmarkRemoved(currentItem.url)
+                bookmarksFoldersViewWideItem.bookmarkRemoved(currentItem.url)
                 if (bookmarksList.model.length === 0) {
                     folders.focus = true
                 }
