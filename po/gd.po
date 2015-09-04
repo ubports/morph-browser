@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-09-01 06:56+0200\n"
-"PO-Revision-Date: 2015-07-20 15:03+0000\n"
+"PO-Revision-Date: 2015-09-03 13:32+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Fòram na Gàidhlig\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2015-09-02 05:46+0000\n"
+"X-Launchpad-Export-Date: 2015-09-04 05:33+0000\n"
 "X-Generator: Launchpad (build 17706)\n"
 "Language: gd\n"
 
@@ -384,21 +384,21 @@ msgstr "Dèan lethbhreac dhen cheangal"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Gearr às"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Suath às"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
 msgid "Find in page"
-msgstr ""
+msgstr "Lorg san duilleag"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Lorg san duilleag"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -444,11 +444,11 @@ msgstr "Fosgail an ceangal ann an taba ùr"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Cuir ann"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Ath-dhèan"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -466,7 +466,7 @@ msgstr "Sàbhail an dealbh"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Sàbhail an ceangal"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
 #: src/app/webbrowser/HistoryViewWide.qml:328
@@ -479,17 +479,17 @@ msgstr "Co-roinn…"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Neo-dhèan"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:203
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:239
 msgid "find in page"
-msgstr ""
+msgstr "lorg san duilleag"
 
 #: src/app/webbrowser/AddressBar.qml:240
 msgid "search or enter an address"
@@ -609,12 +609,12 @@ msgstr "Sguab às"
 
 #: src/app/webbrowser/HistoryViewWide.qml:133
 msgid "All History"
-msgstr ""
+msgstr "An eachdraidh gu lèir"
 
 #: src/app/webbrowser/HistoryViewWide.qml:147
 #: src/app/webbrowser/HistoryViewWide.qml:212
 msgid "Today"
-msgstr ""
+msgstr "An-diugh"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -743,7 +743,7 @@ msgstr "Glan eachdraidh a' bhrabhsaidh"
 
 #: src/app/webbrowser/SettingsPage.qml:252
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "A bheil thu airson an eachdraidh brabhsaidh fhalamhachadh?"
 
 #: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
@@ -751,7 +751,7 @@ msgstr "Glan an tasgadan"
 
 #: src/app/webbrowser/SettingsPage.qml:261
 msgid "Clear Cache?"
-msgstr ""
+msgstr "A bheil thu airson an tasgadan fhalamhachadh?"
 
 #: src/app/webbrowser/SettingsPage.qml:296
 msgid "Clear"
