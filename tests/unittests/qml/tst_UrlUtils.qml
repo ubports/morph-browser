@@ -55,6 +55,20 @@ TestCase {
         compare(UrlUtils.extractHost(data.url), data.host)
     }
 
+    function test_removeScheme_data() {
+        return [
+            {url: "http://example.org/", removed: "example.org/"},
+            {url: "file://user:pwd@example.org:2442/", removed: "user:pwd@example.org:2442/"},
+            {url: "file:///home/foo/bar.txt", removed: "/home/foo/bar.txt"},
+            {url: "ht+tp://www.example.org/", removed: "www.example.org/"},
+            {url: "www.example.org", removed: "www.example.org"},
+        ]
+    }
+
+    function test_removeScheme(data) {
+        compare(UrlUtils.removeScheme(data.url), data.removed)
+    }
+
     function test_looksLikeAUrl_data() {
         return [
             {url: "", looksLike: false},
