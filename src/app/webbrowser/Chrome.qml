@@ -40,18 +40,25 @@ ChromeBase {
 
     signal requestNewTab()
 
-    backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
+    backgroundColor: incognito ? UbuntuColors.darkGrey : "#cecece"
 
-    implicitHeight: tabsBar.height + navigationBar.height
+    implicitHeight: tabsBar.height + navigationBar.height + content.anchors.topMargin
 
     function selectAll() {
         navigationBar.selectAll()
     }
 
     FocusScope {
+        id: content
         anchors.fill: parent
+        anchors.topMargin: showTabsBar ? units.gu(1) : 0
 
         focus: true
+
+        Rectangle {
+            anchors.fill: navigationBar
+            color: (showTabsBar || !incognito) ? "#f8f8f8" : UbuntuColors.darkGrey
+        }
 
         Loader {
             id: tabsBar
@@ -68,11 +75,6 @@ ChromeBase {
                 right: parent.right
             }
             height: active ? units.gu(4) : 0
-        }
-
-        Rectangle {
-            anchors.fill: navigationBar
-            color: (showTabsBar || !incognito) ? "#dedede" : UbuntuColors.darkGrey
         }
 
         NavigationBar {

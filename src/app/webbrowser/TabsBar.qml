@@ -77,6 +77,7 @@ Item {
         anchors {
             top: parent.top
             bottom: parent.bottom
+            bottomMargin: tabsContainer.verticalGap
             left: parent.left
         }
         width: tabWidth * root.model.count
@@ -91,16 +92,17 @@ Item {
                 id: tabDelegate
                 objectName: "tabDelegate"
                 readonly property int tabIndex: index
+                readonly property int horizontalSpacing: units.dp(1)
+                readonly property bool active: index === root.model.currentIndex
 
-                anchors {
-                    top: tabsContainer.top
-                    bottom: tabsContainer.bottom
-                }
-                width: tabWidth
+                anchors.top: tabsContainer.top
+                width: tabWidth + horizontalSpacing
+                height: tabsContainer.height
 
                 MouseArea {
                     id: mouseArea
                     anchors.fill: parent
+                    anchors.rightMargin: spacing
                     acceptedButtons: Qt.LeftButton | Qt.MiddleButton
                     hoverEnabled: true
                     onPressed: {
@@ -128,7 +130,7 @@ Item {
                     value: mouseArea.drag.active
                 }
 
-                readonly property string assetPrefix: (index == root.model.currentIndex) ? "active" :
+                readonly property string assetPrefix: (active) ? "active" :
                                                       (mouseArea.containsMouse ? "hover" : "non-active")
 
                 Item {
@@ -136,6 +138,7 @@ Item {
 
                     BorderImage {
                         anchors.fill: parent
+                        anchors.rightMargin: tabDelegate.horizontalSpacing
                         source: "assets/tab-%1.sci".arg(assetPrefix)
                         horizontalTileMode: BorderImage.Repeat
                     }
@@ -198,17 +201,6 @@ Item {
 
                 z: (root.model.currentIndex == index) ? 3 : 1 - index / root.model.count
             }
-        }
-
-        Rectangle {
-            anchors {
-                left: parent.left
-                bottom: parent.bottom
-            }
-            width: root.width
-            height: units.dp(1)
-            color: "#cacaca"
-            z: 2
         }
     }
 
