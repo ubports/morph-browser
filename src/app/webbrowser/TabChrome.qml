@@ -40,11 +40,21 @@ Item {
         height: units.gu(5)
         clip: true
 
-        Image {
+        BorderImage {
+            // We are basically splitting the shadow asset in two parts.
+            // The left side is never scaled and it stays fixed below the
+            // tab itself (with 4dp of the shadow poking out at the sides).
+            // The right side will scale across the remaining width of the
+            // component (which is empty and lets the previous preview show
+            // through)
+            border {
+                left: tabWidth + units.dp(4)
+            }
             anchors.fill: parent
             anchors.bottomMargin: - units.gu(3)
             height: units.gu(8)
             source: "assets/tab-shadow-narrow.png"
+            opacity: 0.5
         }
     }
 
@@ -52,8 +62,7 @@ Item {
         id: tabItem
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        source: 'assets/tab-%1.sci'.arg(hoverArea.containsMouse ? 'hover' :
-                                        (active ? 'active' : 'non-active'))
+        source: 'assets/tab-non-active.sci'
 
         Favicon {
             id: favicon
@@ -79,6 +88,7 @@ Item {
                 anchors.fill: parent
                 verticalAlignment: Text.AlignVCenter
                 clip: true
+                fontSize: "small"
             }
 
             Rectangle {
@@ -89,8 +99,7 @@ Item {
                 gradient: Gradient {
                     GradientStop {
                         position: 0.0;
-                        color: (hoverArea.containsMouse) ? "#f1f1f1" :
-                               ((active) ? "#f8f8f8" : "#ebebeb")
+                        color: "#ebebeb"
                     }
                     GradientStop { position: 0.33; color: "transparent" }
                 }
@@ -122,12 +131,6 @@ Item {
             }
 
             onTriggered: closed()
-        }
-
-        MouseArea {
-            id: hoverArea
-            anchors.fill: parent
-            hoverEnabled: true
         }
     }
 }
