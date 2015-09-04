@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-09-01 05:34+0000\n"
-"X-Generator: Launchpad (build 17690)\n"
+"X-Launchpad-Export-Date: 2015-09-02 05:47+0000\n"
+"X-Generator: Launchpad (build 17706)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -378,21 +378,21 @@ msgstr "Копировать ссылку"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Вырезать"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Удалить"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
 msgid "Find in page"
-msgstr ""
+msgstr "Найти на странице"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Искать на странице"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -438,11 +438,11 @@ msgstr "Открыть ссылку в новой вкладке"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Вставить"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Повторить"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -460,7 +460,7 @@ msgstr "Сохранить изображение"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Сохранить ссылку"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
 #: src/app/webbrowser/HistoryViewWide.qml:328
@@ -473,17 +473,17 @@ msgstr "Поделиться..."
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Отменить"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:203
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:239
 msgid "find in page"
-msgstr ""
+msgstr "найти на странице"
 
 #: src/app/webbrowser/AddressBar.qml:240
 msgid "search or enter an address"
@@ -602,12 +602,12 @@ msgstr "Удалить"
 
 #: src/app/webbrowser/HistoryViewWide.qml:133
 msgid "All History"
-msgstr ""
+msgstr "За всё время"
 
 #: src/app/webbrowser/HistoryViewWide.qml:147
 #: src/app/webbrowser/HistoryViewWide.qml:212
 msgid "Today"
-msgstr ""
+msgstr "Сегодня"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -733,7 +733,7 @@ msgstr "Очистить историю"
 
 #: src/app/webbrowser/SettingsPage.qml:252
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Очистить историю?"
 
 #: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
