@@ -18,9 +18,8 @@
 
 import QtQuick 2.0
 import Qt.labs.settings 1.0
-import Ubuntu.Components 1.1
+import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0 as ListItem
 import Ubuntu.Thumbnailer 0.1
 import Ubuntu.Content 1.0
 import Ubuntu.Web 0.2
@@ -35,7 +34,8 @@ Item {
     property QtObject downloadsModel
     property Settings settingsObject
     property var activeTransfer
-    property bool selectionMode: false
+    property bool selectMode
+    property bool multiSelect
 
     signal done()
 
@@ -46,9 +46,29 @@ Item {
 
     BrowserPageHeader {
         id: title
-
-        onBack: downloadsItem.done()
         text: i18n.tr("Downloads")
+        selectButtonVisible: downloadsItem.selectMode
+        selectButtonEnabled: downloadsListView.ViewItems.selectedIndices.length > 0
+        onBack: {
+            if (activeTransfer) {
+                activeTransfer.state = ContentTransfer.Aborted
+            }
+            downloadsItem.done()
+        }
+        onConfirmSelection: {
+            var results = []
+            for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
+                results.push(resultComponent.createObject(downloadsItem, {"url": "file://" + selectedDownload.path}))
+            }
+            activeTransfer.items = results
+            activeTransfer.state = ContentTransfer.Charged
+        }
+    }
+
+    Component {
+        id: resultComponent
+        ContentItem { }
     }
 
     ListView {
@@ -72,12 +92,23 @@ Item {
             extension: MimeDatabase.iconForMimetype(model.mimetype) === "-x-generic" ? model.extension : ""
             icon: MimeDatabase.iconForMimetype(model.mimetype) !== "-x-generic" ? MimeDatabase.iconForMimetype(model.mimetype) : ""
             incomplete: !model.complete
+            selectMode: downloadsItem.selectMode
+
+            onSelectedChanged: {
+                if (!multiSelect && selected) {
+                    downloadsListView.ViewItems.selectedIndices = [index]
+                }
+            }
 
             onClicked: {
                 if (model.complete) {
-                    exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
-                    exportPeerPicker.visible = true
-                    exportPeerPicker.path = model.path
+                    if (selectMode) {
+                        selected = !selected
+                    } else {
+                        exportPeerPicker.contentType = MimeTypeMapper.mimeTypeToContentType(model.mimetype)
+                        exportPeerPicker.visible = true
+                        exportPeerPicker.path = model.path
+                    }
                 }
             }
 

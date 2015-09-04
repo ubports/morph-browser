@@ -1701,7 +1701,8 @@ BrowserView {
             var downloadPage = downloadsComponent.createObject(downloadsContainer)
             downloadsContainer.focus = true
             downloadPage.activeTransfer = transfer
-            downloadPage.selectionMode = true
+            downloadPage.multiSelect = transfer.selectionType === ContentTransfer.Multiple
+            downloadPage.selectMode = true
         }
     }
 }

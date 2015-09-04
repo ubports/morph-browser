@@ -21,16 +21,23 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItem
 
 /*
- * Component to use as page header in settings page and subpages
+ * Component to use as page header in settings page, download page and 
+ * subpages
  *
- * It has a back() signal fired when back button is pressed and a text
- * property to set the page title
+ * It has a back() signal fired when back button is pressed, a text
+ * property to set the page title, a confirmSelection() signal fired
+ * when the select button is pressed and selectButtonVisible and
+ * selectButtonEnabled properties for controlling the visibility and
+ * state of the select button.
  */
 
 Column {
     id: root
     signal back()
+    signal confirmSelection()
     property string text
+    property alias selectButtonVisible: selectButton.visible
+    property alias selectButtonEnabled: selectButton.enabled
 
     height: childrenRect.height
 
@@ -89,6 +96,39 @@ Column {
             text: root.text
             fontSize: 'x-large'
         }
+
+        AbstractButton {
+            id: selectButton
+            objectName: "selectButton"
+
+            width: height
+
+            onTriggered: root.confirmSelection()
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+                right: parent.right
+            }
+
+            Rectangle {
+                anchors.fill: parent
+                anchors.leftMargin: units.gu(1)
+                anchors.rightMargin: units.gu(1)
+                color: "#E6E6E6"
+                visible: parent.pressed
+            }
+
+            Icon {
+                name: "tick"
+                anchors {
+                    fill: parent
+                    topMargin: units.gu(2)
+                    bottomMargin: units.gu(2)
+                }
+            }
+        }
+
+        
     }
 
     ListItem.Divider {
