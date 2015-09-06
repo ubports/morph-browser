@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-09-04 23:17+0200\n"
-"PO-Revision-Date: 2015-08-08 13:59+0000\n"
+"PO-Revision-Date: 2015-09-05 08:54+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-09-05 05:34+0000\n"
+"X-Launchpad-Export-Date: 2015-09-06 05:56+0000\n"
 "X-Generator: Launchpad (build 17706)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -649,23 +649,25 @@ msgstr "Kotisivu"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "Tämän välilehden renderöintiprosessi on suljettu."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Jokin meni pieleen sivua %1 esittäessä."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"Järjestelmän muisti on vähissä, eikä tätä sivua ole mahdollista näyttää. "
+"Sulje tarpeettomia välilehtiä ja yritä ladata sivu uudelleen."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Sulje välilehti"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
