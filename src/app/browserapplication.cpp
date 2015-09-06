@@ -31,6 +31,7 @@
 #include "browserapplication.h"
 #include "config.h"
 #include "favicon-fetcher.h"
+#include "mime-database.h"
 #include "session-storage.h"
 #include "webbrowser-window.h"
 
@@ -99,6 +100,13 @@ QString BrowserApplication::appId() const
     return QString();
 }
 
+static QObject* MimeDatabase_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new MimeDatabase();
+}
+
 static QObject* Direction_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
 {
     Q_UNUSED(engine);
@@ -143,6 +151,7 @@ bool BrowserApplication::initialize(const QString& qmlFileSubPath)
 
     const char* uri = "webbrowsercommon.private";
     qmlRegisterType<FaviconFetcher>(uri, 0, 1, "FaviconFetcher");
+    qmlRegisterSingletonType<MimeDatabase>(uri, 0, 1, "MimeDatabase", MimeDatabase_singleton_factory);
     qmlRegisterType<SessionStorage>(uri, 0, 1, "SessionStorage");
 
     const char* gesturesUri = "Ubuntu.Gestures";

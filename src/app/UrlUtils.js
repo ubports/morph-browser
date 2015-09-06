@@ -16,12 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-function extractAuthority(url) {
-    var authority = url.toString()
-    var indexOfScheme = authority.indexOf("://")
+'use strict';
+
+function removeScheme(url) {
+    var rest = url.toString()
+    var indexOfScheme = rest.indexOf("://")
     if (indexOfScheme !== -1) {
-        authority = authority.slice(indexOfScheme + 3)
+        rest = rest.slice(indexOfScheme + 3)
     }
+    return rest
+}
+
+function extractAuthority(url) {
+    var authority = removeScheme(url)
     var indexOfPath = authority.indexOf("/")
     if (indexOfPath !== -1) {
         authority = authority.slice(0, indexOfPath)
@@ -40,4 +47,46 @@ function extractHost(url) {
         host = host.slice(0, indexOfColon)
     }
     return host
+}
+
+function fixUrl(address) {
+    var url = address
+    if (address.toLowerCase() == "about:blank") {
+        return address.toLowerCase()
+    } else if (address.match(/^data:/i)) {
+        return "data:" + address.substr(5)
+    } else if (address.substr(0, 1) == "/") {
+        url = "file://" + address
+    } else if (address.indexOf("://") == -1) {
+        url = "http://" + address
+    }
+    return url
+}
+
+function looksLikeAUrl(address) {
+    if (address.match(/^data:/i)) {
+        return true;
+    }
+    var terms = address.split(/\s/)
+    if (terms.length > 1) {
+        return false
+    }
+    if (address.toLowerCase() == "about:blank") {
+        return true
+    }
+    if (address.substr(0, 1) == "/") {
+        return true
+    }
+    if (address.match(/^https?:\/\//i) ||
+        address.match(/^file:\/\//i) ||
+        address.match(/^[a-z]+:\/\//i)) {
+        return true
+    }
+    if (address.split('/', 1)[0].match(/\.[a-zA-Z]{2,}$/)) {
+        return true
+    }
+    if (address.split('/', 1)[0].match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}/)) {
+        return true
+    }
+    return false
 }

@@ -15,11 +15,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+import time
 
 import autopilot.logging
 import ubuntuuitoolkit as uitk
 from autopilot import exceptions
 from autopilot import input
+from autopilot.platform import model
 
 logger = logging.getLogger(__name__)
 
@@ -109,18 +111,14 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_error_sheet(self):
         return self.select_single("ErrorSheet")
 
+    def get_sad_tab(self):
+        return self.wait_select_single(SadTab)
+
     def get_suggestions(self):
         return self.select_single(Suggestions)
 
     def get_geolocation_dialog(self):
         return self.wait_select_single(GeolocationPermissionRequest)
-
-    def get_selection(self):
-        return self.wait_select_single(Selection)
-
-    def get_selection_actions(self):
-        return self.wait_select_single("ActionSelectionPopover",
-                                       objectName="selectionActions")
 
     def get_tabs_view(self):
         return self.wait_select_single(TabsList, visible=True)
@@ -166,14 +164,52 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_history_view(self):
         try:
             if self.wide:
-                return self.select_single("HistoryViewWide")
+                return self.select_single(HistoryViewWide)
             else:
-                return self.select_single("HistoryView")
+                return self.select_single(HistoryView)
         except exceptions.StateNotFoundError:
             return None
 
+    def get_expanded_history_view(self):
+        return self.wait_select_single(ExpandedHistoryView, visible=True)
+
     def press_key(self, key):
         self.keyboard.press_and_release(key)
+
+    def get_context_menu(self):
+        if self.wide:
+            return self.wait_select_single(ContextMenuWide)
+        else:
+            return self.wait_select_single(ContextMenuMobile)
+
+    def open_context_menu(self):
+        webview = self.get_current_webview()
+        chrome = self.chrome
+        x = webview.globalRect.x + webview.globalRect.width // 2
+        y = webview.globalRect.y + \
+            (webview.globalRect.height + chrome.height) // 2
+        self.pointing_device.move(x, y)
+        if model() == 'Desktop':
+            self.pointing_device.click(button=3)
+        else:
+            self.pointing_device.press()
+            time.sleep(1.5)
+            self.pointing_device.release()
+        return self.get_context_menu()
+
+    def dismiss_context_menu(self, menu):
+        if self.wide:
+            # Dismiss by clicking outside of the menu
+            webview_rect = self.get_current_webview().globalRect
+            actions = menu.get_visible_actions()
+            outside_x = (webview_rect.x + actions[0].globalRect.x) // 2
+            outside_y = webview_rect.y + webview_rect.height // 2
+            self.pointing_device.move(outside_x, outside_y)
+            self.pointing_device.click()
+        else:
+            # Dismiss by clicking the cancel action
+            menu.click_cancel_action()
+        menu.wait_until_destroyed()
 
 
 class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -315,6 +351,19 @@ class Suggestions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                       key=lambda item: item.globalRect.y)
 
 
+class SadTab(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    @autopilot.logging.log_action(logger.info)
+    def click_close_tab_button(self):
+        button = self.select_single("Button", objectName="closeTabButton")
+        self.pointing_device.click_object(button)
+
+    @autopilot.logging.log_action(logger.info)
+    def click_reload_button(self):
+        button = self.select_single("Button", objectName="reloadButton")
+        self.pointing_device.click_object(button)
+
+
 class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_deny_button(self):
@@ -322,15 +371,6 @@ class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_allow_button(self):
         return self.select_single("Button", objectName="allow")
-
-
-class Selection(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-
-    def get_rectangle(self):
-        return self.select_single("QQuickItem", objectName="rectangle")
-
-    def get_handle(self, name):
-        return self.select_single("SelectionHandle", objectName=name)
 
 
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -411,6 +451,28 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def click_back_button(self):
         button = self.select_single("AbstractButton", objectName="backButton")
         self.pointing_device.click_object(button)
+
+
+class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_domain_entries(self):
+        return sorted(self.select_many("UrlDelegate"),
+                      key=lambda item: item.globalRect.y)
+
+
+class HistoryViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_entries(self):
+        return sorted(self.select_many("UrlDelegate"),
+                      key=lambda item: item.globalRect.y)
+
+
+class ExpandedHistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_entries(self):
+        return sorted(self.select_many("UrlDelegate",
+                                       objectName="entriesDelegate"),
+                      key=lambda item: item.globalRect.y)
 
 
 class LeavePrivateModeDialog(uitk.Dialog):
@@ -574,3 +636,35 @@ class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_header_from_folder(self, folder):
         return folder.wait_select_single("QQuickItem",
                                          objectName="bookmarkFolderHeader")
+
+
+class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_title_label(self):
+        return self.select_single("Label", objectName="titleLabel")
+
+    def get_visible_actions(self):
+        return self.select_many("Empty", visible=True)
+
+    def get_action(self, objectName):
+        name = objectName + "_item"
+        return self.select_single("Empty", objectName=name)
+
+    def click_action(self, objectName):
+        name = objectName + "_item"
+        action = self.select_single("Empty", visible=True,
+                                    enabled=True, objectName=name)
+        self.pointing_device.click_object(action)
+        self.wait_until_destroyed()
+
+
+class ContextMenuWide(ContextMenuBase):
+
+    pass
+
+
+class ContextMenuMobile(ContextMenuBase):
+
+    def click_cancel_action(self):
+        action = self.select_single("Empty", objectName="cancelAction")
+        self.pointing_device.click_object(action)

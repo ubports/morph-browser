@@ -54,4 +54,47 @@ TestCase {
     function test_extractHost(data) {
         compare(UrlUtils.extractHost(data.url), data.host)
     }
+
+    function test_removeScheme_data() {
+        return [
+            {url: "http://example.org/", removed: "example.org/"},
+            {url: "file://user:pwd@example.org:2442/", removed: "user:pwd@example.org:2442/"},
+            {url: "file:///home/foo/bar.txt", removed: "/home/foo/bar.txt"},
+            {url: "ht+tp://www.example.org/", removed: "www.example.org/"},
+            {url: "www.example.org", removed: "www.example.org"},
+        ]
+    }
+
+    function test_removeScheme(data) {
+        compare(UrlUtils.removeScheme(data.url), data.removed)
+    }
+
+    function test_looksLikeAUrl_data() {
+        return [
+            {url: "", looksLike: false},
+            {url: "http://example.org/", looksLike: true},
+            {url: "example.org", looksLike: true},
+            {url: "http://www.example.org?q=foo bar", looksLike: false},
+            {url: "about:blank", looksLike: true},
+            {url: "file:///usr/foo/bar", looksLike: true},
+            {url: "hello://my/name/is/", looksLike: true},
+            {url: "192.168.1.0", looksLike: true}
+        ]
+    }
+
+    function test_looksLikeAUrl(data) {
+        compare(UrlUtils.looksLikeAUrl(data.url), data.looksLike)
+    }
+
+    function test_fixUrl_data() {
+        return [
+            {url: "About:BLANK", fixed: "about:blank"},
+            {url: "/usr/bin/", fixed: "file:///usr/bin/"},
+            {url: "example.org", fixed: "http://example.org"}
+        ]
+    }
+
+    function test_fixUrl(data) {
+        compare(UrlUtils.fixUrl(data.url), data.fixed)
+    }
 }
