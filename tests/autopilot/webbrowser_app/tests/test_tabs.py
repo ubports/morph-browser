@@ -18,6 +18,7 @@ from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
+import testtools
 import unittest
 
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
@@ -129,6 +130,61 @@ class TestTabsView(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.check_current_tab(self.url)
         self.drag_bottom_edge_upwards(0.1)
         self.check_current_tab(url)
+
+
+@testtools.skipIf(model() != "Desktop", "on desktop only")
+class TestTabsFocus(StartOpenRemotePageTestCaseBase, TestTabsMixin):
+
+    def test_focus_on_switch(self):
+        """Test that switching between tabs correctly resets focus to the
+           webview if a page is loaded, and to the address bar if we are in
+           the new page view"""
+        address_bar = self.main_window.address_bar
+
+        self.main_window.press_key('Ctrl+T')
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+Tab')
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(False)))
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+Tab')
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(False)))
+
+    def test_focus_on_close(self):
+        """Test that closing tabs correctly resets focus,
+           allowing keyboard shortcuts to work without interruption"""
+        address_bar = self.main_window.address_bar
+
+        self.main_window.press_key('Ctrl+T')
+        self.main_window.press_key('Ctrl+T')
+        url = self.base_url + "/test1"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+
+        self.main_window.press_key('Ctrl+T')
+        url = self.base_url + "/test2"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.main_window.press_key('Ctrl+T')
+        self.main_window.press_key('Ctrl+T')
+
+        self.main_window.press_key('Ctrl+W')
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+W')
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+W')
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+W')
+        self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
 
 class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):

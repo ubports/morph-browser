@@ -209,6 +209,7 @@ BrowserView {
 
         Loader {
             id: newTabViewLoader
+
             anchors {
                 fill: tabContainer
                 topMargin: (chrome.state == "shown") ? chrome.height : 0
@@ -293,6 +294,27 @@ BrowserView {
             }
         }
 
+        Loader {
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
+
+            active: webProcessMonitor.crashed || (webProcessMonitor.killed && !currentWebview.loading)
+
+            sourceComponent: SadTab {
+                webview: currentWebview
+                onCloseTabRequested: internal.closeCurrentTab()
+            }
+
+            WebProcessMonitor {
+                id: webProcessMonitor
+                webview: currentWebview
+            }
+
+            asynchronous: true
+        }
+
         SearchEngine {
             id: currentSearchEngine
             searchPaths: searchEnginesSearchPaths
@@ -319,12 +341,9 @@ BrowserView {
                 return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
             }
             bookmarked: isCurrentUrlBookmarked()
-            onBookmarkedChanged: {
-                if (bookmarked && !isCurrentUrlBookmarked()) {
-                    internal.addBookmark(webview.url, webview.title, webview.icon)
-                } else if (!bookmarked && isCurrentUrlBookmarked()) {
-                    browser.bookmarksModel.remove(webview.url)
-                }
+            onToggleBookmark: {
+                if (isCurrentUrlBookmarked()) browser.bookmarksModel.remove(webview.url)
+                else internal.addBookmark(webview.url, webview.title, webview.icon)
             }
             onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
             Connections {
@@ -615,16 +634,7 @@ BrowserView {
             }
             chromeOffset: chrome.height - invisibleTabChrome.height
             onTabSelected: recentView.closeAndSwitchToTab(index)
-            onTabClosed: {
-                var tab = tabsModel.remove(index)
-                if (tab) {
-                    tab.close()
-                }
-                if (tabsModel.count === 0) {
-                    browser.openUrlInNewTab("", true)
-                    recentView.reset()
-                }
-            }
+            onTabClosed: internal.closeTab(index)
         }
 
         Toolbar {
@@ -699,9 +709,9 @@ BrowserView {
         }
         height: units.gu(2)
 
-        enabled: (formFactor == "mobile") && (recentView.state == "") &&
-                 (Screen.orientation == Screen.primaryOrientation) &&
-                 browser.currentWebview
+        enabled: (formFactor == "mobile") && !browser.wide &&
+                 (recentView.state == "") && browser.currentWebview &&
+                 (Screen.orientation == Screen.primaryOrientation)
 
         onDraggingChanged: {
             if (dragging) {
@@ -943,6 +953,11 @@ BrowserView {
             current: tabsModel && tabsModel.currentTab === this
             focus: current
 
+            Item {
+                id: contextualMenuTarget
+                visible: false
+            }
+
             webviewComponent: WebViewImpl {
                 id: webviewimpl
 
@@ -982,8 +997,17 @@ BrowserView {
                     Actions.BookmarkLink {
                         objectName: "bookmarkLinkContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString() &&
-                                 browser.bookmarksModel
-                        onTriggered: bookmarksModel.add(contextModel.linkUrl, contextModel.linkText, "", "")
+                                 browser.bookmarksModel && !bookmarksModel.contains(contextModel.linkUrl)
+                        onTriggered: {
+                            // position the menu target with a one-off assignement instead of a binding
+                            // since the contents of the contextModel have meaning only while the context
+                            // menu is active
+                            contextualMenuTarget.x = contextModel.position.x * devicePixelRatio
+                            contextualMenuTarget.y = contextModel.position.y * devicePixelRatio +
+                                                     locationBarController.height + locationBarController.offset
+                            internal.addBookmark(contextModel.linkUrl, contextModel.linkText,
+                                                 "", contextualMenuTarget)
+                        }
                     }
                     Actions.CopyLink {
                         objectName: "copyLinkContextualAction"
@@ -1116,7 +1140,7 @@ BrowserView {
                         return
                     }
 
-                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel) {
+                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel && 300 > event.httpStatusCode && event.httpStatusCode >= 200) {
                         browser.historyModel.add(event.url, title, icon)
                     }
                 }
@@ -1232,6 +1256,23 @@ BrowserView {
             }
         }
 
+        function closeTab(index) {
+            var tab = tabsModel.remove(index)
+            if (tab) {
+                tab.close()
+            }
+            if (tabsModel.count === 0) {
+                browser.openUrlInNewTab("", true)
+                recentView.reset()
+            }
+        }
+
+        function closeCurrentTab() {
+            if (tabsModel.count > 0) {
+                closeTab(tabsModel.currentIndex)
+            }
+        }
+
         function switchToTab(index) {
             tabsModel.currentIndex = index
             var tab = tabsModel.currentTab
@@ -1241,15 +1282,6 @@ BrowserView {
                     focusAddressBar()
                 } else {
                     tabContainer.forceActiveFocus()
-                }
-            }
-        }
-
-        function closeCurrentTab() {
-            if (tabsModel.count > 0) {
-                var tab = tabsModel.remove(tabsModel.currentIndex)
-                if (tab) {
-                    tab.close()
                 }
             }
         }
@@ -1309,10 +1341,12 @@ BrowserView {
             }
         }
 
-        function addBookmark(url, title, icon) {
+        function addBookmark(url, title, icon, location) {
+            if (title == "") title = UrlUtils.removeScheme(url)
             bookmarksModel.add(url, title, icon, "")
+            if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             PopupUtils.open(bookmarkOptionsComponent,
-                            chrome.bookmarkTogglePlaceHolder,
+                            location,
                             {"bookmarkUrl": url,
                              "bookmarkTitle": title})
         }
@@ -1503,6 +1537,7 @@ BrowserView {
             if (tab) {
                 tab.load()
             }
+            internal.resetFocus()
         }
         onCountChanged: {
             if (tabsModel.count == 0) {

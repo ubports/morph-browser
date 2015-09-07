@@ -154,10 +154,11 @@ QObject* TabsModel::remove(int index)
         if (!checkValidTabIndex(index)) {
             m_currentIndex = m_tabs.count() - 1;
             Q_EMIT currentIndexChanged();
-            Q_EMIT currentTabChanged();
-        } else {
-            Q_EMIT currentTabChanged();
         }
+        Q_EMIT currentTabChanged();
+    } else if (m_currentIndex > index) {
+        m_currentIndex -= 1;
+        Q_EMIT currentIndexChanged();
     }
     return tab;
 }
