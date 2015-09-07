@@ -246,39 +246,62 @@ private Q_SLOTS:
 
     void shouldUpdateCurrentTabWhenRemoving()
     {
-        QSignalSpy spy(model, SIGNAL(currentTabChanged()));
+        QSignalSpy tabSpy(model, SIGNAL(currentTabChanged()));
+        QSignalSpy indexSpy(model, SIGNAL(currentIndexChanged()));
 
         // Adding a tab to an empty model should update the current tab.
         // Removing the last tab from the model should update it too.
         model->add(createTab());
+        tabSpy.clear();
+        indexSpy.clear();
         delete model->remove(0);
-        QCOMPARE(spy.count(), 2);
+        QCOMPARE(tabSpy.count(), 1);
+        QCOMPARE(indexSpy.count(), 1);
 
-        // When removing a tab after the current one,
-        // the current tab shouldn’t change.
+        // When removing a tab after the current one, neither the
+        // current tab nor the current index should change.
         QQuickItem* tab1 = createTab();
         model->add(tab1);
         model->add(createTab());
-        spy.clear();
+        tabSpy.clear();
+        indexSpy.clear();
         delete model->remove(1);
         QCOMPARE(model->currentTab(), tab1);
-        QVERIFY(spy.isEmpty());
+        QVERIFY(tabSpy.isEmpty());
+        QVERIFY(indexSpy.isEmpty());
 
-        // When removing the current tab, if there is a tab after it,
-        // it becomes the current one.
+        // When removing the current tab, if there is a tab after it, it
+        // becomes the current one, and thus the current index doesn’t change.
         QQuickItem* tab2 = createTab();
         model->add(tab2);
-        spy.clear();
+        tabSpy.clear();
+        indexSpy.clear();
         delete model->remove(0);
-        QCOMPARE(spy.count(), 1);
+        QCOMPARE(tabSpy.count(), 1);
+        QVERIFY(indexSpy.isEmpty());
         QCOMPARE(model->currentTab(), tab2);
+
+        // When removing a tab before the current one, the current
+        // tab doesn’t change but the current index is updated.
+        QQuickItem* tab3 = createTab();
+        model->add(tab3);
+        model->setCurrentIndex(1);
+        tabSpy.clear();
+        indexSpy.clear();
+        delete model->remove(0);
+        QVERIFY(tabSpy.isEmpty());
+        QCOMPARE(indexSpy.count(), 1);
+        QCOMPARE(model->currentIndex(), 0);
 
         // When removing the current tab, if it was the last one, the
         // current tab should be reset to 0.
-        spy.clear();
+        tabSpy.clear();
+        indexSpy.clear();
         delete model->remove(0);
-        QCOMPARE(spy.count(), 1);
+        QCOMPARE(tabSpy.count(), 1);
+        QCOMPARE(indexSpy.count(), 1);
         QCOMPARE(model->currentTab(), (QObject*) nullptr);
+        QCOMPARE(model->currentIndex(), -1);
     }
 
     void shouldReturnData()

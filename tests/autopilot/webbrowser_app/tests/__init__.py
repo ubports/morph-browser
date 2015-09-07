@@ -18,11 +18,13 @@
 
 import os
 import shutil
+import signal
 import tempfile
 import time
 import urllib.request
 
 import fixtures
+import psutil
 from testtools.matchers import Equals, NotEquals
 
 from autopilot.matchers import Eventually
@@ -197,8 +199,9 @@ class BrowserTestCaseBase(AutopilotTestCase):
         drawer_button = chrome.get_drawer_button()
         self.pointing_device.click_object(drawer_button)
         chrome.get_drawer()
-        settings_action = chrome.get_drawer_action("history")
-        self.pointing_device.click_object(settings_action)
+        history_action = chrome.get_drawer_action("history")
+        self.pointing_device.click_object(history_action)
+        return self.main_window.get_history_view()
 
     def assert_number_webviews_eventually(self, count):
         self.assertThat(lambda: len(self.main_window.get_webviews()),
@@ -212,6 +215,15 @@ class BrowserTestCaseBase(AutopilotTestCase):
         url = "http://localhost:{}/ping".format(server.port)
         ping = urllib.request.urlopen(url)
         self.assertThat(ping.read(), Equals(b"pong"))
+
+    def kill_web_processes(self, signal=signal.SIGKILL):
+        children = psutil.Process(self.app.pid).children(True)
+        for child in children:
+            if child.name() == 'oxide-renderer':
+                for arg in child.cmdline():
+                    if '--type=renderer' in arg:
+                        os.kill(child.pid, signal)
+                        break
 
 
 class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
@@ -233,7 +245,8 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
         self.useFixture(fixtures.EnvironmentVariable(
             'UBUNTU_WEBVIEW_HOST_MAPPING_RULES',
             "MAP test:80 localhost:{}".format(self.http_server.port)))
-        self.base_url = "http://test"
+        self.base_domain = "test"
+        self.base_url = "http://" + self.base_domain
         self.url = self.base_url + path
         self.ARGS = self.ARGS + [self.url]
         super(StartOpenRemotePageTestCaseBase, self).setUp()

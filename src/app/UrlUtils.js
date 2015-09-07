@@ -18,12 +18,17 @@
 
 'use strict';
 
-function extractAuthority(url) {
-    var authority = url.toString()
-    var indexOfScheme = authority.indexOf("://")
+function removeScheme(url) {
+    var rest = url.toString()
+    var indexOfScheme = rest.indexOf("://")
     if (indexOfScheme !== -1) {
-        authority = authority.slice(indexOfScheme + 3)
+        rest = rest.slice(indexOfScheme + 3)
     }
+    return rest
+}
+
+function extractAuthority(url) {
+    var authority = removeScheme(url)
     var indexOfPath = authority.indexOf("/")
     if (indexOfPath !== -1) {
         authority = authority.slice(0, indexOfPath)
