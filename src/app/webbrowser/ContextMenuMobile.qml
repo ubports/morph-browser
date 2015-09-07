@@ -119,10 +119,7 @@ Popups.Dialog {
                 }
             }
 
-            onTriggered: {
-                action.trigger()
-                contextModel.close()
-            }
+            onTriggered: contextModel.close()
         }
     }
 

@@ -120,10 +120,7 @@ Popups.Popover {
                     }
                 }
 
-                onTriggered: {
-                    action.trigger()
-                    contextMenu.hide()
-                }
+                onTriggered: contextMenu.hide()
             }
         }
     }
