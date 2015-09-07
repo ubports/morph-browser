@@ -28,6 +28,7 @@ import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 import "../UrlUtils.js" as UrlUtils
+import "../MimeTypeMapper.js" as MimeTypeMapper
 
 BrowserView {
     id: browser
@@ -1699,6 +1700,7 @@ BrowserView {
         target: ContentHub
         onExportRequested: {
             var downloadPage = downloadsComponent.createObject(downloadsContainer)
+            downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(transfer.contentType)
             downloadsContainer.focus = true
             downloadPage.activeTransfer = transfer
             downloadPage.multiSelect = transfer.selectionType === ContentTransfer.Multiple

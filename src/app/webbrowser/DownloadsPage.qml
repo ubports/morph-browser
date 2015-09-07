@@ -36,6 +36,7 @@ Item {
     property var activeTransfer
     property bool selectMode
     property bool multiSelect
+    property alias mimetypeFilter: downloadsMimetypeModel.mimetype
 
     signal done()
 
@@ -83,7 +84,10 @@ Item {
             rightMargin: units.gu(2)
         }
 
-        model: downloadsModel
+        model: DownloadsMimetypeModel {
+            id: downloadsMimetypeModel
+            sourceModel: downloadsModel
+        }
 
         delegate: DownloadDelegate {
             title: model.filename

@@ -21,6 +21,7 @@
 #include "cache-deleter.h"
 #include "config.h"
 #include "downloads-model.h"
+#include "downloads-mimetype-model.h"
 #include "file-operations.h"
 #include "history-domainlist-chronological-model.h"
 #include "history-domainlist-model.h"
@@ -84,6 +85,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
     qmlRegisterType<SuggestionsFilterModel>(uri, 0, 1, "SuggestionsFilterModel");
     qmlRegisterType<DownloadsModel>(uri, 0, 1, "DownloadsModel");
+    qmlRegisterType<DownloadsMimetypeModel>(uri, 0, 1, "DownloadsMimetypeModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         QStringList searchEnginesSearchPaths;

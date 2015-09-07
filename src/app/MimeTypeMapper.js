@@ -41,3 +41,23 @@ function mimeTypeToContentType(mimeType) {
         return ContentType.Unknown;
     }
 }
+
+function mimeTypeRegexForContentType(contentType) {
+    switch (contentType) {
+        case ContentType.Pictures:
+            return "image/.*";
+        case ContentType.Music:
+            return "audio/.*";
+        case ContentType.Videos:
+            return "video/.*";
+        case ContentType.Contacts:
+            return "text/x-vcard";
+        case ContentType.EBooks:
+            return "application/(epub.*|vnd.amazon.ebook|x-mobipocket-ebook|x-fictionbook+xml|x-ms-reader)";
+        case ContentType.Documents:
+            return "(text/.*|application/pdf|application/x-pdf|application/vnd.pdf)";
+        case ContentType.Unknown:
+        case ContentType.All:
+            return ".*";
+    }
+}
