@@ -28,12 +28,12 @@ Popups.Dialog {
 
     QtObject {
         id: internal
-        readonly property bool isImage: ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
-                                         (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
-                                        contextModel.srcUrl.toString()
+        readonly property bool isImage: (contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                                        (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)
     }
 
     Row {
+        id: header
         spacing: units.gu(2)
         anchors {
             left: parent.left
@@ -42,7 +42,7 @@ Popups.Dialog {
             rightMargin: units.gu(2)
         }
         height: units.gu(2 * title.lineCount + 3)
-        visible: !contextModel.isEditable
+        visible: title.text
 
         Icon {
             width: units.gu(2)
@@ -63,7 +63,7 @@ Popups.Dialog {
         Label {
             id: title
             objectName: "titleLabel"
-            text: internal.isImage ? contextModel.srcUrl : contextModel.linkUrl
+            text: contextModel.srcUrl.toString() ? contextModel.srcUrl : contextModel.linkUrl
             width: parent.width - units.gu(4)
             anchors {
                 top: parent.top
@@ -84,7 +84,7 @@ Popups.Dialog {
             right: parent.right
             rightMargin: units.gu(2)
         }
-        visible: !contextModel.isEditable
+        visible: header.visible
     }
 
     Repeater {
