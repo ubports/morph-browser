@@ -1002,7 +1002,7 @@ BrowserView {
                         enabled: contextModel &&
                                  ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
                                   (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
-                                 contextModel.srcUrl.toString()
+                                 contextModel.hasImageContents
                         onTriggered: contextModel.saveMedia()
                     }
                     Actions.Undo {
@@ -1053,7 +1053,10 @@ BrowserView {
                     contextModel = menu.contextModel
                     if (contextModel.linkUrl.toString() ||
                         contextModel.srcUrl.toString() ||
-                        (contextModel.isEditable && contextModel.editFlags)) {
+                        (contextModel.isEditable && contextModel.editFlags) ||
+                        (((contextModel.mediaType == Oxide.WebView.MediaTypeImage) ||
+                          (contextModel.mediaType == Oxide.WebView.MediaTypeCanvas)) &&
+                         contextModel.hasImageContents)) {
                         menu.show()
                     } else {
                         contextModel.close()
