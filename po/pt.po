@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-09-01 06:56+0200\n"
-"PO-Revision-Date: 2015-08-16 13:18+0000\n"
+"POT-Creation-Date: 2015-09-04 23:17+0200\n"
+"PO-Revision-Date: 2015-09-06 14:50+0000\n"
 "Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-09-02 05:47+0000\n"
+"X-Launchpad-Export-Date: 2015-09-07 05:57+0000\n"
 "X-Generator: Launchpad (build 17706)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -378,11 +378,11 @@ msgstr "Copiar link"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Cortar"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Apagar"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
 msgid "Find in page"
@@ -438,11 +438,11 @@ msgstr "Abrir link num novo separador"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Colar"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Refazer"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -460,7 +460,7 @@ msgstr "Guardar imagem"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Guardar link"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
 #: src/app/webbrowser/HistoryViewWide.qml:328
@@ -473,7 +473,7 @@ msgstr "Partilhar..."
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Desfazer"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:203
@@ -647,6 +647,28 @@ msgstr "Ainda não visitou nenhuma página"
 #: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
 msgstr "Página inicial"
+
+#: src/app/webbrowser/SadTab.qml:48
+msgid "The rendering process has been closed for this tab."
+msgstr "O processo de renderização foi fechado para este separador."
+
+#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
+#: src/app/webbrowser/SadTab.qml:65
+#, qt-format
+msgid "Something went wrong while displaying %1."
+msgstr "Algo correu mal ao mostrar %1."
+
+#: src/app/webbrowser/SadTab.qml:67
+msgid ""
+"The system is low on memory and can't display this webpage. Try closing "
+"unneeded tabs and reloading."
+msgstr ""
+"O sistema tem pouca memória e não pode mostrar a página. Tente fechar alguns "
+"separadores e volte a tentar."
+
+#: src/app/webbrowser/SadTab.qml:80
+msgid "Close tab"
+msgstr "Fechar separador"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
