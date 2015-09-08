@@ -1049,11 +1049,22 @@ BrowserView {
                     }
                 }
 
+                function contextMenuOnCompleted(menu) {
+                    contextModel = menu.contextModel
+                    if (contextModel.linkUrl.toString() ||
+                        contextModel.srcUrl.toString() ||
+                        (contextModel.isEditable && contextModel.editFlags)) {
+                        menu.show()
+                    } else {
+                        contextModel.close()
+                    }
+                }
+
                 Component {
                     id: contextMenuNarrowComponent
                     ContextMenuMobile {
                         actions: contextualActions
-                        Component.onCompleted: webviewimpl.contextModel = contextModel
+                        Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
                     }
                 }
                 Component {
@@ -1062,7 +1073,7 @@ BrowserView {
                         webview: webviewimpl
                         parent: browser
                         actions: contextualActions
-                        Component.onCompleted: webviewimpl.contextModel = contextModel
+                        Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
                     }
                 }
                 contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent

@@ -140,16 +140,6 @@ Popups.Popover {
     }
     caller: positioner
 
-    Component.onCompleted: {
-        if (contextModel.linkUrl.toString() ||
-            contextModel.srcUrl.toString() ||
-            (contextModel.isEditable && contextModel.editFlags)) {
-            show()
-        } else {
-            contextModel.close()
-        }
-    }
-
     onVisibleChanged: {
         if (!visible) {
             contextModel.close()

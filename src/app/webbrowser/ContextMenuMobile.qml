@@ -144,16 +144,6 @@ Popups.Dialog {
         onTriggered: contextModel.close()
     }
 
-    Component.onCompleted: {
-        if (contextModel.linkUrl.toString() ||
-            contextModel.srcUrl.toString() ||
-            (contextModel.isEditable && contextModel.editFlags)) {
-            show()
-        } else {
-            contextModel.close()
-        }
-    }
-
     // adjust default dialog visuals to custom requirements for the context menu
     Binding {
         target: __foreground
