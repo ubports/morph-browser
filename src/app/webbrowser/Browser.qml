@@ -209,7 +209,7 @@ BrowserView {
 
             anchors {
                 fill: tabContainer
-                topMargin: (chrome.state == "shown") ? chrome.height : 0
+                topMargin: (chrome.state == "shown" && chrome.visible) ? chrome.height : 0
             }
 
             // Avoid loading the new tab view if the webview is about to load
