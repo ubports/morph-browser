@@ -50,7 +50,7 @@ Component {
                 handler: ContentHandler.Source
 
                 onPeerSelected: {
-                    if (browser && peer.appId == "webbrowser-app") {
+                    if (typeof(webapp) == "undefined" && peer.appId == "webbrowser-app") {
                         // If we're inside the browser and the user has
                         // requested content from the browser then we
                         // need to handle the transfer internally
