@@ -29,6 +29,8 @@ Item {
     signal selected()
     signal closed()
 
+    height: units.gu(4)
+
     Item {
         anchors {
             left: parent.left
