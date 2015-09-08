@@ -32,8 +32,13 @@ Item {
     id: downloadsItem
 
     property QtObject downloadsModel
-    property Settings settingsObject
+
+    // We can get file picking requests either via content-hub (activeTransfer)
+    // Or via the internal oxide file picker (internalFilePicker) in the case
+    // where the user wishes to upload a file from their previous downloads.
     property var activeTransfer
+    property var internalFilePicker
+
     property bool selectMode
     property bool multiSelect
     property alias mimetypeFilter: downloadsMimetypeModel.mimetype
@@ -54,16 +59,28 @@ Item {
             if (activeTransfer) {
                 activeTransfer.state = ContentTransfer.Aborted
             }
+            if (internalFilePicker) {
+                internalFilePicker.reject()
+            }
             downloadsItem.done()
         }
         onConfirmSelection: {
             var results = []
-            for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
-                var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
-                results.push(resultComponent.createObject(downloadsItem, {"url": "file://" + selectedDownload.path}))
+            if (internalFilePicker) {
+                for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                    var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
+                    results.push(selectedDownload.path)
+                }
+                internalFilePicker.accept(results)
+            } else {
+                for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                    var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
+                    results.push(resultComponent.createObject(downloadsItem, {"url": "file://" + selectedDownload.path}))
+                }
+                activeTransfer.items = results
+                activeTransfer.state = ContentTransfer.Charged
             }
-            activeTransfer.items = results
-            activeTransfer.state = ContentTransfer.Charged
+            downloadsItem.done()
         }
     }
 

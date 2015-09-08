@@ -50,13 +50,25 @@ Component {
                 handler: ContentHandler.Source
 
                 onPeerSelected: {
-                    if (model.allowMultipleFiles) {
-                        peer.selectionType = ContentTransfer.Multiple
+                    if (browser && peer.appId == "webbrowser-app") {
+                        // If we're inside the browser and the user has
+                        // requested content from the browser then we
+                        // need to handle the transfer internally
+                        var downloadPage = browser.showDownloadsPage()
+                        downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(contentType)
+                        downloadPage.multiSelect = model.allowMultipleFiles
+                        downloadPage.selectMode = true
+                        downloadPage.internalFilePicker = model
+                        Popups.PopupUtils.close(picker)
                     } else {
-                        peer.selectionType = ContentTransfer.Single
+                        if (model.allowMultipleFiles) {
+                            peer.selectionType = ContentTransfer.Multiple
+                        } else {
+                            peer.selectionType = ContentTransfer.Single
+                        }
+                        picker.activeTransfer = peer.request()
+                        stateChangeConnection.target = picker.activeTransfer
                     }
-                    picker.activeTransfer = peer.request()
-                    stateChangeConnection.target = picker.activeTransfer
                 }
 
                 onCancelPressed: {

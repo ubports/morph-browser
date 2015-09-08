@@ -412,8 +412,7 @@ BrowserView {
                     text: i18n.tr("Downloads")
                     iconName: "save"
                     onTriggered: {
-                        downloadsComponent.createObject(downloadsContainer)
-                        downloadsContainer.focus = true
+                        showDownloadsPage()
                     }
                 },
                 Action {
@@ -1734,12 +1733,16 @@ BrowserView {
     Connections {
         target: ContentHub
         onExportRequested: {
-            var downloadPage = downloadsComponent.createObject(downloadsContainer)
+            var downloadPage = showDownloadsPage()
             downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(transfer.contentType)
-            downloadsContainer.focus = true
             downloadPage.activeTransfer = transfer
             downloadPage.multiSelect = transfer.selectionType === ContentTransfer.Multiple
             downloadPage.selectMode = true
         }
+    }
+
+    function showDownloadsPage() {
+        downloadsContainer.focus = true
+        return downloadsComponent.createObject(downloadsContainer)
     }
 }
