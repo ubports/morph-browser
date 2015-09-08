@@ -263,14 +263,8 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_drawer_action(self, actionName):
         drawer = self.get_drawer()
-        try:
-            return drawer.select_single('UCAbstractButton',
-                                        objectName=actionName,
-                                        visible=True)
-        except dbus.StateNotFoundError:
-            return drawer.select_single('AbstractButton',
-                                        objectName=actionName,
-                                        visible=True)
+        return drawer.select_single(objectName=actionName,
+                                    visible=True)
     def get_tabs_bar(self):
         return self.select_single(TabsBar)
 
@@ -391,12 +385,7 @@ class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def close(self):
-        try:
-            button = self.select_single('UCAbstractButton', 
-                                        objectName="closeButton")
-        except dbus.StateNotFoundError:
-            button = self.select_single('AbstractButton',
-                                        objectName="closeButton")
+        button = self.select_single(objectName="closeButton")
         self.pointing_device.click_object(button)
 
 
@@ -459,12 +448,7 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def click_back_button(self):
-        try:
-            button = self.select_single('UCAbstractButton',
-                                        objectName="backButton")
-        except dbus.StateNotFoundError:
-            button = self.select_single('AbstractButton',
-                                        objectName="backButton")
+        button = self.select_single(objectName="backButton")
         self.pointing_device.click_object(button)
 
 class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
