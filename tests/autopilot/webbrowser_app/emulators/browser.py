@@ -22,6 +22,7 @@ import ubuntuuitoolkit as uitk
 from autopilot import exceptions
 from autopilot import input
 from autopilot.platform import model
+
 logger = logging.getLogger(__name__)
 
 
