@@ -22,7 +22,6 @@ import ubuntuuitoolkit as uitk
 from autopilot import exceptions
 from autopilot import input
 from autopilot.platform import model
-from autopilot.introspection import dbus
 logger = logging.getLogger(__name__)
 
 
@@ -263,8 +262,8 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_drawer_action(self, actionName):
         drawer = self.get_drawer()
-        return drawer.select_single(objectName=actionName,
-                                    visible=True)
+        return drawer.select_single(objectName=actionName, visible=True)
+
     def get_tabs_bar(self):
         return self.select_single(TabsBar)
 
@@ -450,6 +449,7 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def click_back_button(self):
         button = self.select_single(objectName="backButton")
         self.pointing_device.click_object(button)
+
 
 class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
