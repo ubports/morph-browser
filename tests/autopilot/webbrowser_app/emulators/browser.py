@@ -22,7 +22,7 @@ import ubuntuuitoolkit as uitk
 from autopilot import exceptions
 from autopilot import input
 from autopilot.platform import model
-
+from autopilot.introspection import dbus
 logger = logging.getLogger(__name__)
 
 
@@ -263,9 +263,14 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_drawer_action(self, actionName):
         drawer = self.get_drawer()
-        return drawer.select_single("AbstractButton", objectName=actionName,
-                                    visible=True)
-
+        try:
+            return drawer.select_single('UCAbstractButton',
+                                        objectName=actionName,
+                                        visible=True)
+        except dbus.StateNotFoundError:
+            return drawer.select_single('AbstractButton',
+                                        objectName=actionName,
+                                        visible=True)
     def get_tabs_bar(self):
         return self.select_single(TabsBar)
 
@@ -386,7 +391,12 @@ class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def close(self):
-        button = self.select_single("AbstractButton", objectName="closeButton")
+        try:
+            button = self.select_single('UCAbstractButton', 
+                                        objectName="closeButton")
+        except dbus.StateNotFoundError:
+            button = self.select_single('AbstractButton',
+                                        objectName="closeButton")
         self.pointing_device.click_object(button)
 
 
@@ -449,9 +459,13 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def click_back_button(self):
-        button = self.select_single("AbstractButton", objectName="backButton")
+        try:
+            button = self.select_single('UCAbstractButton',
+                                        objectName="backButton")
+        except dbus.StateNotFoundError:
+            button = self.select_single('AbstractButton',
+                                        objectName="backButton")
         self.pointing_device.click_object(button)
-
 
 class HistoryView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
