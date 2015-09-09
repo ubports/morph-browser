@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
 import ".."
 import "."
@@ -31,6 +32,8 @@ AbstractButton {
     property bool highlighted: false
 
     signal removed()
+
+    onPressAndHold: PopupUtils.open(contextMenuComponent, previewShape)
 
     UbuntuShape {
         visible: item.highlighted
@@ -89,6 +92,18 @@ AbstractButton {
                     if (pageUrl !== item.url) return
                     previewImage.source = ""
                     previewImage.source = previewShape.previewUrl
+                }
+            }
+        }
+    }
+
+    Component {
+        id: contextMenuComponent
+        ActionSelectionPopover {
+            actions: ActionList {
+                Action {
+                    text: i18n.tr("Remove")
+                    onTriggered: item.removed()
                 }
             }
         }
