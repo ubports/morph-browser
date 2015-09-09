@@ -114,11 +114,14 @@ Item {
             icon: MimeDatabase.iconForMimetype(model.mimetype) !== "-x-generic" ? MimeDatabase.iconForMimetype(model.mimetype) : ""
             incomplete: !model.complete
             selectMode: downloadsItem.selectMode
+            // Work around bug #1493880
+            property bool lastSelected
 
             onSelectedChanged: {
-                if (!multiSelect && selected) {
+                If (!multiSelect && selected && lastSelected != selected) {
                     downloadsListView.ViewItems.selectedIndices = [index]
                 }
+                lastSelected = selected
             }
 
             onClicked: {
