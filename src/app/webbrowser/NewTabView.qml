@@ -258,7 +258,7 @@ Item {
                 color: UbuntuColors.darkGrey
             }
 
-            UrlsList {
+            UrlPreviewGrid {
                 objectName: "topSitesList"
                 anchors {
                     left: parent.left
@@ -269,13 +269,14 @@ Item {
                 Behavior on opacity { UbuntuNumberAnimation {} }
                 visible: opacity > 0
 
-                limit: 10
-                spacing: 0
+                model: LimitProxyModel {
+                    limit: 10
+                    sourceModel: topSitesModel
+                }
+                showFavicons: false
 
-                model: topSitesModel
-
-                onUrlClicked: newTabView.historyEntryClicked(url)
-                onUrlRemoved: HistoryModel.hide(url)
+                onActivated: newTabView.historyEntryClicked(url)
+                onRemoved: HistoryModel.hide(url)
             }
         }
     }

@@ -25,14 +25,22 @@ import ".."
 GridView {
     id: grid
 
+    property bool showFavicons: true
+    property int cellHorizontalMargin: units.gu(3)
+    property int cellVerticalMargin: units.gu(2.5)
+    property int previewWidth: units.gu(17)
+    property int previewHeight: units.gu(10)
+
     signal activated(url url)
     signal removed(url url)
     signal releasingKeyboardFocus()
 
     currentIndex: 0
 
-    cellWidth: units.gu(17) + units.gu(4)
-    cellHeight: units.gu(13) + units.gu(4)
+    cellWidth: previewWidth + cellHorizontalMargin * 2
+    cellHeight: previewHeight + cellVerticalMargin * 2 + units.gu(4) // height of text + favicon + margin in delegate
+
+    implicitHeight: contentItem.childrenRect.height
 
     delegate: UrlPreviewDelegate {
         objectName: "topSiteItem"
@@ -43,6 +51,10 @@ GridView {
         icon: model.icon
         url: model.url
         highlighted: grid.activeFocus && GridView.isCurrentItem
+        showFavicon: grid.showFavicons
+
+        previewHeight: grid.previewHeight
+        previewWidth: grid.previewWidth
 
         onClicked: grid.activated(model.url)
         onRemoved: grid.removed(model.url)

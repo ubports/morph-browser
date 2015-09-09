@@ -241,16 +241,14 @@ FocusScope {
             bottom: parent.bottom
             left: parent.left
             right: parent.right
-            rightMargin: units.gu(4)
-            leftMargin: units.gu(4)
+            rightMargin: units.gu(1)
+            leftMargin: units.gu(1)
         }
 
         visible: !inBookmarksView
 
-        cellWidth: units.gu(17) + units.gu(4)
-        cellHeight: units.gu(13) + units.gu(4)
-
         model: topSitesModel
+        showFavicons: true
 
         onActivated: newTabViewWide.historyEntryClicked(url)
         onRemoved: {
@@ -280,7 +278,7 @@ FocusScope {
             anchors {
                 left: parent.left
                 top: parent.top
-                leftMargin: units.gu(1)
+                leftMargin: units.gu(2)
             }
 
             selectedIndex: settingsObject.newTabDefaultSection

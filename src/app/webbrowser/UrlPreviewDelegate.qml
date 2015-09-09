@@ -24,19 +24,23 @@ import ".."
 import "."
 
 AbstractButton {
-    id: item
+    id: preview
 
-    property alias icon: favicon.source
+    property url icon
     property alias title: titleLabel.text
     property url url
     property bool highlighted: false
+    property bool showFavicon: true
+
+    property alias previewHeight: previewShape.height
+    property alias previewWidth: previewShape.width
 
     signal removed()
 
     onPressAndHold: PopupUtils.open(contextMenuComponent, previewShape)
 
     UbuntuShape {
-        visible: item.highlighted
+        visible: preview.highlighted
         anchors.fill: parent
         anchors.margins: units.gu(0.5)
         aspect: UbuntuShape.Flat
@@ -52,30 +56,36 @@ AbstractButton {
             anchors.right: parent.right
             height: titleLabel.height
 
-            Favicon {
+            Loader {
                 id: favicon
-                source: item.icon
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
+                sourceComponent: Favicon {
+                    source: preview.icon
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                active: preview.showFavicon
             }
 
             Label {
                 id: titleLabel
                 anchors.left: favicon.right
-                anchors.leftMargin: units.gu(1)
+                anchors.leftMargin: showFavicon ? units.gu(1) : 0
                 anchors.right: parent.right
                 anchors.top: parent.top
-                text: item.title
+                text: preview.title
                 elide: Text.ElideRight
-                fontSize: "x-small"
+                fontSize: "small"
             }
         }
 
         UbuntuShape {
             id: previewShape
-            height: units.gu(10)
-            width: units.gu(17)
             anchors.left: parent.left
+            width: units.gu(26)
+            height: units.gu(16)
+
             source: Image {
                 id: previewImage
                 source: FileOperations.exists(previewShape.previewUrl) ? previewShape.previewUrl : ""
@@ -84,12 +94,12 @@ AbstractButton {
             }
             sourceFillMode: UbuntuShape.PreserveAspectCrop
 
-            property url previewUrl: Qt.resolvedUrl(PreviewManager.previewPathFromUrl(item.url))
+            property url previewUrl: Qt.resolvedUrl(PreviewManager.previewPathFromUrl(preview.url))
 
             Connections {
                 target: PreviewManager
                 onPreviewSaved: {
-                    if (pageUrl !== item.url) return
+                    if (pageUrl !== preview.url) return
                     previewImage.source = ""
                     previewImage.source = previewShape.previewUrl
                 }
@@ -103,7 +113,7 @@ AbstractButton {
             actions: ActionList {
                 Action {
                     text: i18n.tr("Remove")
-                    onTriggered: item.removed()
+                    onTriggered: preview.removed()
                 }
             }
         }
