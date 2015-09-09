@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-09-04 23:17+0200\n"
-"PO-Revision-Date: 2015-09-01 09:16+0000\n"
+"PO-Revision-Date: 2015-09-07 06:21+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-09-05 05:34+0000\n"
+"X-Launchpad-Export-Date: 2015-09-08 06:09+0000\n"
 "X-Generator: Launchpad (build 17706)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -651,23 +651,25 @@ msgstr "Hjemmeside"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "Opptegningsprosessen er lukket for denne fanen."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Noe gikk galt under visning av %1."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"Systemet har lite tilgjengelig, og denne nettsiden kan ikke vises. Prøv å "
+"lukke unødvendige faner, og last deretter inn siden på nytt."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Lukk fane"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
