@@ -48,6 +48,7 @@ AbstractButton {
     }
 
     Column {
+        id: contentColumn
         anchors.left: parent.left
         anchors.top: parent.top
         spacing: units.gu(1)
@@ -106,6 +107,12 @@ AbstractButton {
                 }
             }
         }
+    }
+
+    MouseArea {
+        anchors.fill: contentColumn
+        acceptedButtons: Qt.RightButton
+        onClicked: PopupUtils.open(contextMenuComponent, previewShape)
     }
 
     Component {
