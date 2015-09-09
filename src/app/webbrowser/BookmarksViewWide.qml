@@ -33,6 +33,12 @@ Item {
         anchors.fill: parent
         color: "#f6f6f6"
     }
+
+    onActiveFocusChanged: {
+        if (activeFocus) {
+            bookmarksFoldersViewWide.forceActiveFocus()
+        }
+    }
     
     BookmarksFoldersViewWide {
         id: bookmarksFoldersViewWide

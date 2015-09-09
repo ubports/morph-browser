@@ -29,6 +29,12 @@ FocusScope {
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
 
+    onActiveFocusChanged: {
+        if (activeFocus) {
+            folders.forceActiveFocus()
+        }
+    }
+
     Rectangle {
         anchors.fill: parent
         color: "#fbfbfb"
@@ -38,7 +44,7 @@ FocusScope {
         id: folders
         objectName: "foldersList"
 
-       anchors {
+        anchors {
             top: parent.top
             bottom: parent.bottom
             left: parent.left
