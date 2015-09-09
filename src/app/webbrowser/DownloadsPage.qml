@@ -118,7 +118,7 @@ Item {
             property bool lastSelected
 
             onSelectedChanged: {
-                If (!multiSelect && selected && lastSelected != selected) {
+                if (!multiSelect && selected && lastSelected != selected) {
                     downloadsListView.ViewItems.selectedIndices = [index]
                 }
                 lastSelected = selected
