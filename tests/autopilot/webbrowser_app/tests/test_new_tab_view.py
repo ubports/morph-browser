@@ -407,8 +407,16 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         notopsites_label = self.new_tab_view.get_notopsites_label()
         self.assertThat(notopsites_label.visible, Eventually(Equals(False)))
         delegate = top_sites.get_delegates()[0]
-        delegate.trigger_leading_action("leadingAction.delete",
-                                        delegate.wait_until_destroyed)
+        menu = self.main_window.open_context_menu_on_item(delegate, "ActionSelectionPopover")
+
+        # Until bug http://pad.lv/1205144 gets fixed, we can't access context
+        # menu items by object name.
+        # This hack relies on the fact that for now we this context menu only
+        # has one item, so we just click it.
+        item = menu.wait_select_single("Empty")
+        self.pointing_device.click_object(item)
+        menu.wait_until_destroyed()
+
         self.assertThat(lambda: len(top_sites.get_delegates()),
                         Eventually(Equals(0)))
         self.assertThat(notopsites_label.visible, Eventually(Equals(True)))

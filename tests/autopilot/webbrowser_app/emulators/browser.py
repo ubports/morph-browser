@@ -182,6 +182,18 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         else:
             return self.wait_select_single(ContextMenuMobile)
 
+    def open_context_menu_on_item(self, item, menuClass):
+        cx = item.globalRect.x + item.globalRect.width // 2
+        cy = item.globalRect.y + item.globalRect.height // 2
+        self.pointing_device.move(cx, cy)
+        if model() == 'Desktop':
+            self.pointing_device.click(button=3)
+        else:
+            self.pointing_device.press()
+            time.sleep(1.5)
+            self.pointing_device.release()
+        return self.wait_select_single(menuClass)
+
     def open_context_menu(self):
         webview = self.get_current_webview()
         chrome = self.chrome
@@ -502,7 +514,7 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single(UrlsList, objectName="bookmarksList")
 
     def get_top_sites_list(self):
-        return self.select_single(UrlsList, objectName="topSitesList")
+        return self.select_single(UrlPreviewGrid, objectName="topSitesList")
 
     def get_notopsites_label(self):
         return self.select_single("Label", objectName="notopsites")
@@ -574,6 +586,15 @@ class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_delegates(self):
         return sorted(self.select_many(UrlDelegate),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_urls(self):
+        return [delegate.url for delegate in self.get_delegates()]
+
+class UrlPreviewGrid(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_delegates(self):
+        return sorted(self.select_many("UrlPreviewDelegate"),
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_urls(self):
