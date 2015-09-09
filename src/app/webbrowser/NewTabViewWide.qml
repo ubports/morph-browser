@@ -233,7 +233,7 @@ FocusScope {
         flickableItem: bookmarksList
     }
 
-    GridView {
+    UrlPreviewGrid {
         id: topSitesList
         objectName: "topSitesList"
         anchors {
@@ -246,44 +246,18 @@ FocusScope {
         }
 
         visible: !inBookmarksView
-        currentIndex: 0
 
         cellWidth: units.gu(17) + units.gu(4)
         cellHeight: units.gu(13) + units.gu(4)
 
         model: topSitesModel
-        delegate: UrlPreviewDelegate {
-            objectName: "topSiteItem"
-            width: topSitesList.cellWidth
-            height: topSitesList.cellHeight
 
-            title: model.title
-            icon: model.icon
-            url: model.url
-            highlighted: topSitesList.activeFocus && GridView.isCurrentItem
-
-            onClicked: newTabViewWide.historyEntryClicked(url)
-            onRemoved: HistoryModel.hide(url)
+        onActivated: newTabViewWide.historyEntryClicked(url)
+        onRemoved: {
+            HistoryModel.hide(url)
+            if (topSitesModel.count === 0) newTabViewWide.releasingKeyboardFocus()
         }
-
-        Keys.onReturnPressed: newTabViewWide.historyEntryClicked(currentItem.url)
-        Keys.onDeletePressed: {
-            HistoryModel.hide(currentItem.url)
-            if (topSitesList.model.count === 0) newTabViewWide.releasingKeyboardFocus()
-        }
-
-        Keys.onLeftPressed: {
-            var i = topSitesList.currentIndex
-            topSitesList.moveCurrentIndexLeft()
-            if (i === topSitesList.currentIndex) newTabViewWide.releasingKeyboardFocus()
-        }
-        Keys.onRightPressed: topSitesList.moveCurrentIndexRight()
-        Keys.onDownPressed: topSitesList.moveCurrentIndexDown()
-        Keys.onUpPressed: {
-            var i = topSitesList.currentIndex
-            topSitesList.moveCurrentIndexUp()
-            if (i === topSitesList.currentIndex) newTabViewWide.releasingKeyboardFocus()
-        }
+        onReleasingKeyboardFocus: newTabViewWide.releasingKeyboardFocus()
     }
 
     Scrollbar {
