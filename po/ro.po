@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-09-01 06:56+0200\n"
-"PO-Revision-Date: 2015-07-06 17:50+0000\n"
+"POT-Creation-Date: 2015-09-04 23:17+0200\n"
+"PO-Revision-Date: 2015-09-04 16:19+0000\n"
 "Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2015-09-02 05:47+0000\n"
+"X-Launchpad-Export-Date: 2015-09-05 05:34+0000\n"
 "X-Generator: Launchpad (build 17706)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -382,21 +382,21 @@ msgstr "Copiază legătura"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Decupare"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Șterge"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
 msgid "Find in page"
-msgstr ""
+msgstr "Găseşte în pagină"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Cautâ în pagină"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -442,11 +442,11 @@ msgstr "Deschide legătura într-o filă nouă"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Lipeşte"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Refă ultima acțiune"
 
 #: src/app/actions/Reload.qml:23
 msgid "Reload"
@@ -464,7 +464,7 @@ msgstr "Salvează imaginea"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Salvează legatura"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
 #: src/app/webbrowser/HistoryViewWide.qml:328
@@ -477,17 +477,17 @@ msgstr "Partajează..."
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Anulează"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:203
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:239
 msgid "find in page"
-msgstr ""
+msgstr "găseşte în pagină"
 
 #: src/app/webbrowser/AddressBar.qml:240
 msgid "search or enter an address"
@@ -606,12 +606,12 @@ msgstr "Ştergeţi"
 
 #: src/app/webbrowser/HistoryViewWide.qml:133
 msgid "All History"
-msgstr ""
+msgstr "Tot istoricul"
 
 #: src/app/webbrowser/HistoryViewWide.qml:147
 #: src/app/webbrowser/HistoryViewWide.qml:212
 msgid "Today"
-msgstr ""
+msgstr "Astăzi"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -653,6 +653,26 @@ msgstr "Nu aveți  vizitat încă niciun site."
 #: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
 msgstr "Pagina de start"
+
+#: src/app/webbrowser/SadTab.qml:48
+msgid "The rendering process has been closed for this tab."
+msgstr ""
+
+#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
+#: src/app/webbrowser/SadTab.qml:65
+#, qt-format
+msgid "Something went wrong while displaying %1."
+msgstr ""
+
+#: src/app/webbrowser/SadTab.qml:67
+msgid ""
+"The system is low on memory and can't display this webpage. Try closing "
+"unneeded tabs and reloading."
+msgstr ""
+
+#: src/app/webbrowser/SadTab.qml:80
+msgid "Close tab"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -738,7 +758,7 @@ msgstr "Curățați istoricul de navigare"
 
 #: src/app/webbrowser/SettingsPage.qml:252
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Ştergeţi istoricul de navigare?"
 
 #: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
@@ -746,7 +766,7 @@ msgstr "Curățați cache-ul"
 
 #: src/app/webbrowser/SettingsPage.qml:261
 msgid "Clear Cache?"
-msgstr ""
+msgstr "Goliţi memoria cache?"
 
 #: src/app/webbrowser/SettingsPage.qml:296
 msgid "Clear"
@@ -773,6 +793,8 @@ msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"Niciun cont nu a fost asociat cu această aplicaţie web; apăsaţi pe elementul "
+"de mai jos pentru a adăuga un cont."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -795,23 +817,27 @@ msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"Fereastra contului nu a putut fi deschisă. Puteţi crea doar un singur cont "
+"odată; încercaţi din nou după închiderea tuturor ferestrelor de cont."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> trebuie să acceseze contul dumneavostră online %2."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> doreşte să acceseze contul dumneavostră online %2."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"Alegeţi un cont acum, sau omiteţi aces pas şi alegeţi un cont online mai "
+"târziu."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
