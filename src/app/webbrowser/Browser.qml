@@ -962,9 +962,8 @@ BrowserView {
                             // position the menu target with a one-off assignement instead of a binding
                             // since the contents of the contextModel have meaning only while the context
                             // menu is active
-                            contextualMenuTarget.x = contextModel.position.x * devicePixelRatio
-                            contextualMenuTarget.y = contextModel.position.y * devicePixelRatio +
-                                                     locationBarController.height + locationBarController.offset
+                            contextualMenuTarget.x = contextModel.position.x
+                            contextualMenuTarget.y = contextModel.position.y + locationBarController.height + locationBarController.offset
                             internal.addBookmark(contextModel.linkUrl, contextModel.linkText,
                                                  "", contextualMenuTarget)
                         }
