@@ -29,7 +29,6 @@ AbstractButton {
     property url icon
     property alias title: titleLabel.text
     property url url
-    property bool highlighted: false
     property bool showFavicon: true
 
     property alias previewHeight: previewShape.height
@@ -38,14 +37,6 @@ AbstractButton {
     signal removed()
 
     onPressAndHold: PopupUtils.open(contextMenuComponent, previewShape)
-
-    UbuntuShape {
-        visible: preview.highlighted
-        anchors.fill: parent
-        anchors.margins: units.gu(0.5)
-        aspect: UbuntuShape.Flat
-        backgroundColor: Qt.rgba(0, 0, 0, 0.05)
-    }
 
     Column {
         id: contentColumn

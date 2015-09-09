@@ -50,7 +50,6 @@ GridView {
         title: model.title
         icon: model.icon
         url: model.url
-        highlighted: grid.activeFocus && GridView.isCurrentItem
         showFavicon: grid.showFavicons
 
         previewHeight: grid.previewHeight
@@ -58,6 +57,21 @@ GridView {
 
         onClicked: grid.activated(model.url)
         onRemoved: grid.removed(model.url)
+    }
+
+    highlight: Component {
+        Item {
+            visible: grid.activeFocus
+            UbuntuShape {
+                anchors.fill: parent
+                anchors.leftMargin: - grid.rightMargin * 0.5
+                anchors.rightMargin: grid.rightMargin * 0.5
+                anchors.topMargin: - grid.bottomMargin * 0.5
+                anchors.bottomMargin: grid.bottomMargin * 0.5
+                aspect: UbuntuShape.Flat
+                backgroundColor: Qt.rgba(0, 0, 0, 0.05)
+            }
+        }
     }
 
     Keys.onReturnPressed: activated(currentItem.url)
