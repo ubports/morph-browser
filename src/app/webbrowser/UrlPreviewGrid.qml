@@ -26,8 +26,8 @@ GridView {
     id: grid
 
     property bool showFavicons: true
-    property int cellHorizontalMargin: units.gu(3)
-    property int cellVerticalMargin: units.gu(2.5)
+    property int rightMargin: units.gu(6)
+    property int bottomMargin: units.gu(5)
     property int previewWidth: units.gu(17)
     property int previewHeight: units.gu(10)
 
@@ -37,8 +37,8 @@ GridView {
 
     currentIndex: 0
 
-    cellWidth: previewWidth + cellHorizontalMargin * 2
-    cellHeight: previewHeight + cellVerticalMargin * 2 + units.gu(4) // height of text + favicon + margin in delegate
+    cellWidth: previewWidth + rightMargin
+    cellHeight: previewHeight + bottomMargin + units.gu(4) // height of text + favicon + margin in delegate
 
     implicitHeight: contentItem.childrenRect.height
 

@@ -258,25 +258,46 @@ Item {
                 color: UbuntuColors.darkGrey
             }
 
-            UrlPreviewGrid {
-                objectName: "topSitesList"
+            Item {
                 anchors {
                     left: parent.left
                     right: parent.right
+                    leftMargin: units.gu(2)
+
+                    // the right margin should be 2gu, which is set on all cells
+                    // of the UrlPreviewGrid already. However the parent Column
+                    // has 1.5gu right margin, so we are compensating for that
+                    // here instead of removing it from the Column itself and
+                    // reassigning it to all Column children except this one.
+                    rightMargin: - units.gu(1.5)
                 }
+                height: childrenRect.height
 
-                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
-                Behavior on opacity { UbuntuNumberAnimation {} }
-                visible: opacity > 0
+                UrlPreviewGrid {
+                    objectName: "topSitesList"
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
+                        topMargin: units.gu(2)
+                    }
 
-                model: LimitProxyModel {
-                    limit: 10
-                    sourceModel: topSitesModel
+                    rightMargin: units.gu(2)
+                    bottomMargin: units.gu(2)
+
+                    opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                    Behavior on opacity { UbuntuNumberAnimation {} }
+                    visible: opacity > 0
+
+                    model: LimitProxyModel {
+                        limit: 10
+                        sourceModel: topSitesModel
+                    }
+                    showFavicons: false
+
+                    onActivated: newTabView.historyEntryClicked(url)
+                    onRemoved: HistoryModel.hide(url)
                 }
-                showFavicons: false
-
-                onActivated: newTabView.historyEntryClicked(url)
-                onRemoved: HistoryModel.hide(url)
             }
         }
     }

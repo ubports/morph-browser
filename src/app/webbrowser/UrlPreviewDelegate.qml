@@ -48,7 +48,8 @@ AbstractButton {
     }
 
     Column {
-        anchors.centerIn: parent
+        anchors.left: parent.left
+        anchors.top: parent.top
         spacing: units.gu(1)
 
         Item {

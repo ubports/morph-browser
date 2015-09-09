@@ -241,8 +241,8 @@ FocusScope {
             bottom: parent.bottom
             left: parent.left
             right: parent.right
-            rightMargin: units.gu(1)
-            leftMargin: units.gu(1)
+            topMargin: units.gu(3)
+            leftMargin: units.gu(4)
         }
 
         visible: !inBookmarksView
