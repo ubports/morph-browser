@@ -232,7 +232,7 @@ Item {
                 height: units.gu(0.1)
                 anchors {
                     left: parent.left
-                    leftMargin: units.gu(1.5)
+                    leftMargin: units.gu(2)
                     right: parent.right
                 }
                 color: "#d3d3d3"
