@@ -24,6 +24,8 @@ FocusScope {
     id: bookmarksFoldersViewWideItem
 
     property alias model: bookmarksFolderListModel.sourceModel 
+    property alias foldersListView: folders
+    property alias bookmarksListView: bookmarksList
     property url homeBookmarkUrl
 
     signal bookmarkClicked(url url)
