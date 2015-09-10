@@ -28,6 +28,7 @@ FocusScope {
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
+    signal dragStarted()
 
     function restoreLastFocusedColumn() {
         if (internal.lastFocusedColumn &&
@@ -191,6 +192,8 @@ FocusScope {
                 // while dragging near its margins. This ensures we can correctly
                 // return the item to its original position on a failed drop.
                 bookmarksList.interactive = false
+
+                bookmarksFoldersViewWideItem.dragStarted()
             }
             onDragEnded: {
                 bookmarksList.interactive = true

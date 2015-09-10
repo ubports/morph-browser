@@ -65,6 +65,12 @@ FocusScope {
         onBookmarkClicked: newTabViewWide.bookmarkClicked(url)
         onBookmarkRemoved: newTabViewWide.bookmarkRemoved(url)
  
+        // Relinquish focus as the presses and releases that compose the
+        // drag will move the keyboard focus in a location unexpected
+        // for the user. This way it will go back to the address bar and
+        // the user can predictably resume keyboard interaction from there.
+        onDragStarted: newTabViewWide.releasingKeyboardFocus()
+ 
         anchors {
             top: sectionsGroup.bottom
             left: parent.left
