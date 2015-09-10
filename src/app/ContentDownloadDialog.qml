@@ -52,6 +52,7 @@ PopupBase {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         height: units.gu(4.5)
+                        font.capitalization: Font.Capitalize
                         text: MimeDatabase.nameForMimetype(downloadDialog.mimeType)
                     }
                 }   
