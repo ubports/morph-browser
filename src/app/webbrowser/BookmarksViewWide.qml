@@ -24,6 +24,7 @@ Item {
     id: bookmarksViewWide
 
     property alias bookmarksModel: bookmarksFoldersViewWide.model
+    property QtObject settingsObject
 
     signal bookmarkEntryClicked(url url)
     signal bookmarkEntryRemoved(url url)
@@ -43,6 +44,9 @@ Item {
     BookmarksFoldersViewWide {
         id: bookmarksFoldersViewWide
 
+        onBookmarkClicked: bookmarksViewWide.bookmarkEntryClicked(url)
+        onBookmarkRemoved: bookmarksViewWide.bookmarkEntryRemoved(url)
+ 
         anchors {
             top: parent.top
             left: parent.left
@@ -51,8 +55,7 @@ Item {
             rightMargin: units.gu(2)
         }
 
-        onBookmarkClicked: bookmarksViewWide.bookmarkEntryClicked(url)
-        onBookmarkRemoved: bookmarksViewWide.bookmarkEntryRemoved(url)
+        homeBookmarkUrl: bookmarksViewWide.settingsObject.homepage
     }
 
     Toolbar {

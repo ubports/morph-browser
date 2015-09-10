@@ -62,6 +62,8 @@ FocusScope {
         id: bookmarksFoldersViewWide
 
         Keys.onUpPressed: newTabViewWide.releasingKeyboardFocus()
+        onBookmarkClicked: newTabViewWide.bookmarkClicked(url)
+        onBookmarkRemoved: newTabViewWide.bookmarkRemoved(url)
  
         anchors {
             top: sectionsGroup.bottom
@@ -73,9 +75,7 @@ FocusScope {
         }
 
         visible: inBookmarksView
-
-        onBookmarkClicked: newTabViewWide.bookmarkClicked(url)
-        onBookmarkRemoved: newTabViewWide.bookmarkRemoved(url)
+        homeBookmarkUrl: newTabViewWide.settingsObject.homepage
     }
 
     Rectangle {
