@@ -316,10 +316,9 @@ Item {
             var today = new Date()
             today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
             function isToday(item) { return item.lastVisitDate.valueOf() === today.valueOf() }
-            var oldest = new Date(1903, 6, 14)
             var model = historyViewWide.historyModel
             model.addByDate("https://en.wikipedia.org/wiki/Alan_Turing", "Alan Turing", new Date(1912, 6, 23));
-            model.addByDate("https://en.wikipedia.org/wiki/Alonzo_Church", "Alonzo Church", oldest);
+            model.addByDate("https://en.wikipedia.org/wiki/Alonzo_Church", "Alonzo Church", new Date(1903, 6, 14));
 
             var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
             var dates = getListItems("lastVisitDateListView", "lastVisitDateDelegate")
@@ -336,18 +335,15 @@ Item {
             keyClick(Qt.Key_F, Qt.ControlModifier)
             typeString("wiki")
 
+            var datesList = findChild(root, "lastVisitDateListView")
             dates = getListItems("lastVisitDateListView", "lastVisitDateDelegate")
             urls = getListItems("urlsListView", "historyDelegate")
             compare(dates.length, 3)
             verify(!dates.some(isToday))
             verify(!todayItem.activeFocus)
 
-            // verify that the last item in the date list is now selected
-            compare(dates[dates.length - 1].lastVisitDate.valueOf(), oldest.valueOf())
-            compare(urls.length, 1)
-
-            // click on "all dates" and verify that all two search results are present
-            clickItem(dates[0])
+            // verify that the "all dates" item in the date list is now selected
+            compare(datesList.currentIndex, 0)
             urls = getListItems("urlsListView", "historyDelegate")
             compare(urls.length, 2)
         }

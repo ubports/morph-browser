@@ -208,10 +208,8 @@ FocusScope {
                 onCountChanged: {
                     // when the list becomes empty as a result of searching for
                     // something that doesn't exist in the current date, we
-                    // switch to another date that has results
-                    if (count === 0) {
-                        lastVisitDateListView.currentIndex = lastVisitDateListView.count - 1
-                    }
+                    // switch to the "All dates" block
+                    if (count === 0) lastVisitDateListView.currentIndex = 0
                 }
 
                 clip: true
