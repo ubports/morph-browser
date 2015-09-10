@@ -260,6 +260,28 @@ Item {
             verify(searchQuery.activeFocus)
         }
 
+        function test_history_entry_activated_by_keyboard() {
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            compare(urlsList.count, 3)
+            historyEntryClickedSpy.clear()
+            keyClick(Qt.Key_Enter)
+            compare(historyEntryClickedSpy.count, 1)
+            var args = historyEntryClickedSpy.signalArguments[0]
+            var entry = urlsList.model.get(0)
+            compare(String(args[0]), String(entry.url))
+
+            // now try the same during a search
+            historyEntryClickedSpy.clear()
+            keyClick(Qt.Key_F, Qt.ControlModifier)
+            typeString("dom")
+            keyClick(Qt.Key_Down)
+            keyClick(Qt.Key_Enter)
+            compare(historyEntryClickedSpy.count, 1)
+            args = historyEntryClickedSpy.signalArguments[0]
+            entry = urlsList.model.get(0)
+            compare(String(args[0]), String(entry.url))
+        }
+
         function test_search_highlight() {
             function wraphtml(text) { return "<html>%1</html>".arg(text) }
             function highlight(term) {
@@ -337,6 +359,13 @@ Item {
             compare(urlsList.count, 3)
             keyClick(Qt.Key_Delete)
             compare(urlsList.count, 2)
+
+            // now try the same while in a search
+            keyClick(Qt.Key_F, Qt.ControlModifier)
+            typeString("dom")
+            keyClick(Qt.Key_Down)
+            keyClick(Qt.Key_Delete)
+            compare(urlsList.count, 1)
         }
 
         function test_delete_key_at_last_visit_date() {

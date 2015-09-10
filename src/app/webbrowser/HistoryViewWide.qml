@@ -53,7 +53,7 @@ FocusScope {
             internal.removeSelected()
         } else {
             if (urlsListView.activeFocus) {
-                historyViewWide.historyModel.removeEntryByUrl(urlsListView.currentItem.url)
+                historyViewWide.historyModel.removeEntryByUrl(urlsListView.currentItem.siteUrl)
                 if (urlsListView.count == 0) {
                     lastVisitDateListView.currentIndex = 0
                 }
@@ -230,7 +230,7 @@ FocusScope {
                     if (urlsListView.ViewItems.selectMode) {
                         currentItem.selected = !currentItem.selected
                     } else {
-                        historyViewWide.historyEntryClicked(currentItem.url)
+                        historyViewWide.historyEntryClicked(currentItem.siteUrl)
                     }
                 }
 
@@ -249,6 +249,8 @@ FocusScope {
                     height: units.gu(5)
 
                     color: urlsListView.currentIndex == index ? highlightColor : "transparent"
+
+                    property url siteUrl: model.url
 
                     icon: model.icon
                     title: Highlight.highlightTerms(model.title ? model.title : model.url, searchQuery.terms)
