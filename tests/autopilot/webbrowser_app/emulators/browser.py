@@ -182,7 +182,7 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         else:
             return self.wait_select_single(ContextMenuMobile)
 
-    def open_context_menu_on_item(self, item, menuClass):
+    def open_item_context_menu_on_item(self, item, menuClass):
         cx = item.globalRect.x + item.globalRect.width // 2
         cy = item.globalRect.y + item.globalRect.height // 2
         self.pointing_device.move(cx, cy)
@@ -590,6 +590,7 @@ class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_urls(self):
         return [delegate.url for delegate in self.get_delegates()]
+
 
 class UrlPreviewGrid(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
