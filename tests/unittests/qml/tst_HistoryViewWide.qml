@@ -342,8 +342,8 @@ Item {
             today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
             function isToday(item) { return item.lastVisitDate.valueOf() === today.valueOf() }
             var model = historyViewWide.historyModel
-            model.addByDate("https://en.wikipedia.org/wiki/Alan_Turing", "Alan Turing", new Date(1912, 6, 23));
-            model.addByDate("https://en.wikipedia.org/wiki/Alonzo_Church", "Alonzo Church", new Date(1903, 6, 14));
+            model.addByDate("https://en.wikipedia.org/wiki/Alan_Turing", "Alan Turing", new Date(1912, 6, 23))
+            model.addByDate("https://en.wikipedia.org/wiki/Alonzo_Church", "Alonzo Church", new Date(1903, 6, 14))
 
             var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
             var dates = getListItems("lastVisitDateListView", "lastVisitDateDelegate")
