@@ -360,7 +360,6 @@ Item {
             keyClick(Qt.Key_F, Qt.ControlModifier)
             typeString("wiki")
 
-            var datesList = findChild(root, "lastVisitDateListView")
             dates = getListItems("lastVisitDateListView", "lastVisitDateDelegate")
             urls = getListItems("urlsListView", "historyDelegate")
             compare(dates.length, 3)
@@ -368,7 +367,7 @@ Item {
             verify(!todayItem.activeFocus)
 
             // verify that the "all dates" item in the date list is now selected
-            compare(datesList.currentIndex, 0)
+            compare(lastVisitDateList.currentIndex, 0)
             urls = getListItems("urlsListView", "historyDelegate")
             compare(urls.length, 2)
         }
