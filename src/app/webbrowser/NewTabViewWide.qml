@@ -41,13 +41,10 @@ FocusScope {
     onActiveFocusChanged: {
         if (activeFocus) {
             if (inBookmarksView) {
-                if (sections.lastFocusedBookmarksColumn === bookmarksFoldersViewWide.bookmarksListView &&
-                    bookmarksFoldersViewWide.bookmarksListView.model.length === 0) {
-                    sections.lastFocusedBookmarksColumn = bookmarksFoldersViewWide.foldersListView
-                }
-                sections.lastFocusedBookmarksColumn.focus = true
+                bookmarksFoldersViewWide.restoreLastFocusedColumn()
+            } else {
+                topSitesList.focus = true
             }
-            else topSitesList.focus = true
         }
     }
 
@@ -66,16 +63,6 @@ FocusScope {
 
         Keys.onUpPressed: newTabViewWide.releasingKeyboardFocus()
  
-        Connections {
-            target: bookmarksFoldersViewWide.foldersListView
-            onActiveFocusChanged: sections.lastFocusedBookmarksColumn = bookmarksFoldersViewWide.foldersListView
-        }
-
-        Connections {
-            target: bookmarksFoldersViewWide.bookmarksListView
-            onActiveFocusChanged: sections.lastFocusedBookmarksColumn = bookmarksFoldersViewWide.bookmarksListView
-        }
-
         anchors {
             top: sectionsGroup.bottom
             left: parent.left
@@ -163,14 +150,12 @@ FocusScope {
             selectedIndex: settingsObject.newTabDefaultSection
             onSelectedIndexChanged: {
                 settingsObject.newTabDefaultSection = selectedIndex
-                if (selectedIndex === 0) topSitesList.focus = true
-                else {
-                    if (lastFocusedBookmarksColumn) lastFocusedBookmarksColumn.focus = true
-                    else bookmarksFoldersViewWide.foldersListView.focus = true
+                if (selectedIndex === 0) {
+                    topSitesList.focus = true
+                } else {
+                    bookmarksFoldersViewWide.restoreLastFocusedColumn()
                 }
-
             }
-            property var lastFocusedBookmarksColumn: bookmarksFoldersViewWide.foldersListView
 
             actions: [
                 Action { text: i18n.tr("Top sites") },

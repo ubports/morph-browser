@@ -24,16 +24,25 @@ FocusScope {
     id: bookmarksFoldersViewWideItem
 
     property alias model: bookmarksFolderListModel.sourceModel 
-    property alias foldersListView: folders
-    property alias bookmarksListView: bookmarksList
     property url homeBookmarkUrl
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
 
+    function restoreLastFocusedColumn() {
+        if (internal.lastFocusedColumn &&
+            internal.lastFocusedColumn == bookmarksList &&
+            model.count > 0) {
+
+            bookmarksList.forceActiveFocus()
+        } else {
+            folders.forceActiveFocus()
+        }
+    }
+
     onActiveFocusChanged: {
         if (activeFocus) {
-            folders.forceActiveFocus()
+            restoreLastFocusedColumn()
         }
     }
 
@@ -53,6 +62,12 @@ FocusScope {
         }
 
         width: units.gu(25)
+
+        onActiveFocusChanged: {
+            if (activeFocus) {
+                internal.lastFocusedColumn = folders
+            }
+        }
 
         model: BookmarksFolderListModel {
             id: bookmarksFolderListModel
@@ -118,6 +133,12 @@ FocusScope {
             bottom: parent.bottom
             left: folders.right
             right: parent.right
+        }
+
+        onActiveFocusChanged: {
+            if (activeFocus) {
+                internal.lastFocusedColumn = bookmarksList
+            }
         }
 
         // Build a temporary model for the bookmarks list that includes, when
@@ -196,5 +217,11 @@ FocusScope {
 
     Scrollbar {
         flickableItem: bookmarksList
+    }
+
+    QtObject {
+        id: internal
+
+        property var lastFocusedColumn: folders
     }
 }
