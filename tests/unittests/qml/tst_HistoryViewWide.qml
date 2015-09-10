@@ -260,6 +260,31 @@ Item {
             verify(searchQuery.activeFocus)
         }
 
+        function test_ctrl_f_during_search_returns_to_query() {
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            var datesList = findChild(historyViewWide, "lastVisitDateListView")
+            var searchQuery = findChild(historyViewWide, "searchQuery")
+
+            verify(urlsList.activeFocus)
+            verify(!historyViewWide.searchMode)
+            keyClick(Qt.Key_F, Qt.ControlModifier)
+            verify(searchQuery.activeFocus)
+            verify(historyViewWide.searchMode)
+
+            // CTRL+F jumps back to the search box from the urls list...
+            keyClick(Qt.Key_Down)
+            verify(urlsList.activeFocus)
+            keyClick(Qt.Key_F, Qt.ControlModifier)
+            verify(searchQuery.activeFocus)
+
+            // ...and from the dates list
+            keyClick(Qt.Key_Down)
+            keyClick(Qt.Key_Left)
+            verify(datesList.activeFocus)
+            keyClick(Qt.Key_F, Qt.ControlModifier)
+            verify(searchQuery.activeFocus)
+        }
+
         function test_history_entry_activated_by_keyboard() {
             var urlsList = findChild(historyViewWide, "urlsListView")
             compare(urlsList.count, 3)

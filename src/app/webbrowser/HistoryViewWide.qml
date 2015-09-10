@@ -45,7 +45,8 @@ FocusScope {
     Keys.onUpPressed: if (searchMode) searchQuery.focus = true
     Keys.onPressed: {
         if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_F) {
-            if (!selectMode) searchMode = true
+            if (searchMode) searchQuery.focus = true
+            else if (!selectMode) searchMode = true
         }
     }
     Keys.onDeletePressed: {
