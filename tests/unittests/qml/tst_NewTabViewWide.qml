@@ -201,24 +201,23 @@ Item {
 
         function test_navigate_topsites_by_keyboard() {
             var items = getListItems("topSitesList", "topSiteItem")
-            findChild(view, "topSitesList").currentIndex = 0
-            verify(items[0].highlighted)
+            var list = findChild(view, "topSitesList")
+            list.currentIndex = 0
             keyClick(Qt.Key_Right)
-            verify(!items[0].highlighted)
-            verify(items[1].highlighted)
+            compare(list.currentIndex, 1)
             keyClick(Qt.Key_Right)
-            verify(items[2].highlighted)
-            keyClick(Qt.Key_Right) // ensure no scrolling past bottom boundary
-            verify(items[2].highlighted)
+            compare(list.currentIndex, 2)
+            keyClick(Qt.Key_Right) // ensure list does not wrap around
+            compare(list.currentIndex, 2)
             keyClick(Qt.Key_Left)
-            verify(items[1].highlighted)
+            compare(list.currentIndex, 1)
             keyClick(Qt.Key_Left)
-            verify(items[0].highlighted)
+            compare(list.currentIndex, 0)
             keyClick(Qt.Key_Up)
-            verify(items[0].highlighted)
+            compare(list.currentIndex, 0)
             compare(releasingKeyboardFocusSpy.count, 1)
             keyClick(Qt.Key_Left)
-            verify(items[0].highlighted)
+            compare(list.currentIndex, 0)
             compare(releasingKeyboardFocusSpy.count, 2)
         }
 
