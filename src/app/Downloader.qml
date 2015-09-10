@@ -54,7 +54,9 @@ Item {
             property string currentDownloadId
             onDownloadIdChanged: {
                 currentDownloadId = downloadId
-                browser.downloadsModel.add(downloadId, url, downloadItem.mimeType)
+                if (typeof(webapp) == 'undefined') {
+                    browser.downloadsModel.add(downloadId, url, downloadItem.mimeType)
+                }
                 PopupUtils.open(downloadDialog, downloadItem, {"contentType" : contentType,
                                                                "downloadId" : downloadId,
                                                                "singleDownload" : downloader,
@@ -62,16 +64,20 @@ Item {
             }
 
             onErrorChanged: {
-                browser.downloadsModel.setError(downloadId, error)
+                if (typeof(webapp) == 'undefined') {
+                    browser.downloadsModel.setError(downloadId, error)
+                }
             }
 
             onFinished: {
-                if (moveToDownloads) {
-                    browser.downloadsModel.moveToDownloads(currentDownloadId, path)
-                } else {
-                    browser.downloadsModel.setPath(currentDownloadId, path)
+                if (typeof(webapp) == 'undefined') {
+                    if (moveToDownloads) {
+                        browser.downloadsModel.moveToDownloads(currentDownloadId, path)
+                    } else {
+                        browser.downloadsModel.setPath(currentDownloadId, path)
+                    }
+                    browser.downloadsModel.setComplete(currentDownloadId, true)
                 }
-                browser.downloadsModel.setComplete(currentDownloadId, true)
                 metadata.destroy()
                 destroy()
             }

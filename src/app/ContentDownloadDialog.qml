@@ -122,6 +122,10 @@ PopupBase {
     }
 
     Component.onCompleted: {
-        PopupUtils.open(downloadOptionsComponent, downloadDialog)
+        if (typeof(webapp) == 'undefined') {
+            PopupUtils.open(downloadOptionsComponent, downloadDialog)
+        } else {
+            pickerRect.visible = true 
+        }
     }
 }
