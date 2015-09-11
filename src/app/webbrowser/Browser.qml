@@ -646,7 +646,7 @@ BrowserView {
                     verticalCenter: parent.verticalCenter
                 }
 
-                strokeColor: UbuntuColors.darkGrey
+                strokeColor: browser.incognito? "#f6f6f6" : UbuntuColors.darkGrey
 
                 text: i18n.tr("Done")
 
@@ -665,6 +665,7 @@ BrowserView {
                 text: i18n.tr("New Tab")
 
                 iconName: browser.incognito ? "private-tab-new" : "add"
+                iconColor: browser.incognito ? "#f6f6f6" : "#808080"
 
                 onClicked: {
                     recentView.reset()
