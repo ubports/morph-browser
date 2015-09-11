@@ -48,7 +48,7 @@ Item {
         onBookmarkRemoved: bookmarksViewWide.bookmarkEntryRemoved(url)
  
         anchors {
-            top: parent.top
+            top: topBar.bottom
             left: parent.left
             right: parent.right
             bottom: toolbar.top
@@ -56,6 +56,29 @@ Item {
         }
 
         homeBookmarkUrl: bookmarksViewWide.settingsObject.homepage
+    }
+
+    Toolbar {
+        id: topBar
+
+        height: units.gu(7)
+
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
+
+        Label {
+            anchors {
+                top: parent.top
+                left: parent.left
+                topMargin: units.gu(2)
+                leftMargin: units.gu(2)
+            }
+
+            text: i18n.tr("Bookmarks")    
+        }
     }
 
     Toolbar {
