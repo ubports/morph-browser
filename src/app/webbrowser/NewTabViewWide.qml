@@ -21,6 +21,7 @@ import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import webbrowserapp.private 0.1
 import ".."
+import "."
 
 FocusScope {
     id: newTabViewWide
@@ -254,6 +255,7 @@ FocusScope {
         onRemoved: {
             HistoryModel.hide(url)
             if (topSitesModel.count === 0) newTabViewWide.releasingKeyboardFocus()
+            PreviewManager.checkDelete(url)
         }
         onReleasingKeyboardFocus: newTabViewWide.releasingKeyboardFocus()
     }

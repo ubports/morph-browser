@@ -21,6 +21,7 @@ import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import webbrowserapp.private 0.1
 import ".."
+import "."
 
 Item {
     id: newTabView
@@ -296,7 +297,10 @@ Item {
                     showFavicons: false
 
                     onActivated: newTabView.historyEntryClicked(url)
-                    onRemoved: HistoryModel.hide(url)
+                    onRemoved: {
+                        HistoryModel.hide(url)
+                        PreviewManager.checkDelete(url)
+                    }
                 }
             }
         }
