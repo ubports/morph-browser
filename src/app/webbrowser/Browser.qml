@@ -26,7 +26,7 @@ import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
-import "../UrlUtils.js" as UrlUtils
+import "."
 
 BrowserView {
     id: browser
@@ -1445,6 +1445,9 @@ BrowserView {
             if (!browser.newSession && settings.restoreSession) {
                 session.restore()
             }
+
+            PreviewManager.cleanUnusedPreviews(browser.initialUrls)
+
             // Sanity check
             console.assert(tabsModel.count <= browser.maxTabsToRestore,
                            "WARNING: too many tabs were restored")

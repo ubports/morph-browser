@@ -39,6 +39,12 @@ Item {
             }
             return false
         }
+        function containsHash(hash) {
+            for (var i = 0; i < topSites.count; i++) {
+                if (Qt.md5(topSites.get(i).url) == hash) return true
+            }
+            return false
+        }
     }
 
     function previewPathFromUrl(url) {
@@ -62,6 +68,23 @@ Item {
     function checkDelete(url) {
         if (!topSites.contains(url)) {
             FileOperations.remove(Qt.resolvedUrl(previewPathFromUrl(url)))
+        }
+    }
+
+    // Remove all previews stored on disk that are not part of the top sites
+    // and that are not for URLs in the doNotCleanUrls list
+    function cleanUnusedPreviews(doNotCleanUrls) {
+        var dir = Qt.resolvedUrl(capturesDir);
+        var previews = FileOperations.filesInDirectory(dir, ["*.jpg"])
+        var doNotCleanHashes = doNotCleanUrls.map(function(url) { return Qt.md5(url) })
+
+        for (var i = 0; i < previews.length; i++) {
+            var hash = previews[i].replace('.jpg', '')
+            if (!topSites.containsHash(hash) &&
+                doNotCleanHashes.indexOf(hash) === -1) {
+                var file = Qt.resolvedUrl("%1/%2.jpg".arg(capturesDir).arg(hash))
+                FileOperations.remove(file)
+            }
         }
     }
 }
