@@ -21,7 +21,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItem
 import webbrowserapp.private 0.1
 
-Item {
+FocusScope {
     id: bookmarksFoldersViewItem
 
     property alias model: bookmarksFolderListModel.sourceModel 
@@ -29,6 +29,12 @@ Item {
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
+
+    onActiveFocusChanged: {
+        if (activeFocus) {
+            bookmarksFolderListView.forceActiveFocus()
+        }
+    }
 
     height: bookmarksFolderListView.contentHeight
 
