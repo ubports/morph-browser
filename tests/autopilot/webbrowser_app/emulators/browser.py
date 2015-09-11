@@ -552,9 +552,9 @@ class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_top_sites_list(self):
         self.go_to_section(0)
-        list = self.select_single(uitk.QQuickListView,
+        list = self.select_single(UrlPreviewGrid,
                                   objectName="topSitesList")
-        return sorted(list.select_many("UrlDelegateWide",
+        return sorted(list.select_many("UrlPreviewDelegate",
                       objectName="topSiteItem"),
                       key=lambda delegate: delegate.globalRect.y)
 
@@ -609,6 +609,20 @@ class UrlDelegate(uitk.UCListItem):
 class UrlDelegateWide(uitk.UCListItem):
 
     pass
+
+
+class UrlPreviewDelegate(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def hide_from_history(self, root):
+        menu = root.open_item_context_menu_on_item(self,
+                                                   "ActionSelectionPopover")
+        # Until bug http://pad.lv/1205144 gets fixed, we can't access context
+        # menu items by object name.
+        # This hack relies on the fact that for now we this context menu only
+        # has one item, so we just click it.
+        item = menu.wait_select_single("Empty")
+        self.pointing_device.click_object(item)
+        menu.wait_until_destroyed()
 
 
 class DraggableUrlDelegateWide(UrlDelegateWide):
