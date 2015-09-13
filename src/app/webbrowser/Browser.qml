@@ -1002,7 +1002,7 @@ BrowserView {
                         enabled: contextModel &&
                                  ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
                                   (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
-                                 contextModel.srcUrl.toString()
+                                 contextModel.hasImageContents
                         onTriggered: contextModel.saveMedia()
                     }
                     Actions.Undo {
@@ -1049,11 +1049,25 @@ BrowserView {
                     }
                 }
 
+                function contextMenuOnCompleted(menu) {
+                    contextModel = menu.contextModel
+                    if (contextModel.linkUrl.toString() ||
+                        contextModel.srcUrl.toString() ||
+                        (contextModel.isEditable && contextModel.editFlags) ||
+                        (((contextModel.mediaType == Oxide.WebView.MediaTypeImage) ||
+                          (contextModel.mediaType == Oxide.WebView.MediaTypeCanvas)) &&
+                         contextModel.hasImageContents)) {
+                        menu.show()
+                    } else {
+                        contextModel.close()
+                    }
+                }
+
                 Component {
                     id: contextMenuNarrowComponent
                     ContextMenuMobile {
                         actions: contextualActions
-                        Component.onCompleted: webviewimpl.contextModel = contextModel
+                        Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
                     }
                 }
                 Component {
@@ -1062,7 +1076,7 @@ BrowserView {
                         webview: webviewimpl
                         parent: browser
                         actions: contextualActions
-                        Component.onCompleted: webviewimpl.contextModel = contextModel
+                        Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
                     }
                 }
                 contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
