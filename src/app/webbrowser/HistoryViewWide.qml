@@ -73,7 +73,7 @@ FocusScope {
                 currentIndex: 0
                 onCurrentIndexChanged: {
                     if (currentItem) {
-                        historyLastVisitDateModel.setLastVisitDate(currentItem.lastVisitDate)
+                        historyLastVisitDateModel.lastVisitDate = currentItem.lastVisitDate
                     }
                     urlsListView.ViewItems.selectedIndices = []
                 }
@@ -160,9 +160,15 @@ FocusScope {
                 Keys.onReturnPressed: historyEntrySelected()
                 Keys.onEnterPressed: historyEntrySelected()
 
-                model: HistoryLastVisitDateModel {
+                model: SortFilterModel {
                     id: historyLastVisitDateModel
-                    sourceModel: historyTimeframeModel
+                    property date lastVisitDate
+                    model: historyTimeframeModel
+                    filter {
+                        property: "lastVisitDate"
+                        pattern: new RegExp(Qt.formatDate(lastVisitDate, "yyyy-MM-dd"))
+                    }
+
                 }
  
                 clip: true
