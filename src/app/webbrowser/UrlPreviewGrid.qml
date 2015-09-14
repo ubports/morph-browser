@@ -74,7 +74,6 @@ GridView {
         }
     }
 
-    Keys.onReturnPressed: activated(currentItem.url)
     Keys.onDeletePressed: removed(currentItem.url)
 
     Keys.onLeftPressed: {
