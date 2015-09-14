@@ -32,7 +32,7 @@ ListItem {
     color: highlighted ? Qt.rgba(0, 0, 0, 0.05) : "transparent"
 
     divider.visible: false
-    height: units.gu(7)
+    height: units.gu(5)
 
     signal removed()
 
