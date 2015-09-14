@@ -30,6 +30,7 @@ FocusScope {
     property bool incognito: false
     property alias text: textField.text
     property bool bookmarked: false
+    signal toggleBookmark()
     property url requestedUrl
     property url actualUrl
     signal validated()
@@ -223,7 +224,7 @@ FocusScope {
                     color: addressbar.bookmarked ? UbuntuColors.orange : UbuntuColors.darkGrey
                 }
 
-                onClicked: addressbar.bookmarked = !addressbar.bookmarked
+                onClicked: addressbar.toggleBookmark()
 
                 Item {
                     id: bookmarkTogglePlaceHolderItem

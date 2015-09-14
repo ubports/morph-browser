@@ -1,3 +1,55 @@
+webbrowser-app (0.23+15.10.20150908.2-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Do not redefine the action property on context menu delegates, just
+    assign to the existing ListItems.Empty.action property instead.
+
+  [ Zoltán Balogh ]
+  * Use right name for AbstractButton when 1.3 UITK is used.
+
+ -- Zoltan Balogh <zoltan.balogh@canonical.com>  Tue, 08 Sep 2015 10:18:10 +0000
+
+webbrowser-app (0.23+15.10.20150903.1-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Michael Terry ]
+  * Use the Ubuntu/Canonical search tag when searching with DuckDuckGo.
+    (LP: #1490283)
+
+  [ Olivier Tilloy ]
+  * Display a friendly message when the renderer process crashes or is
+    killed. This adds a runtime dependency for webbrowser-app-autopilot
+    on python3-psutil. (LP: #1375272)
+  * Do not display the bottom edge hint on tablets in wide mode. (LP:
+    #1488995)
+  * Update translation template.
+
+  [ Riccardo Padovani ]
+  * Don't store urls with status different from 2xx in the history. (LP:
+    #1244335)
+  * Don't store urls with status different from 2xx in the history. (LP:
+    #1244335)
+
+  [ Ugo Riboni ]
+  * Allow choosing the bookmark folder when bookmarking a link from the
+    context menu. Disable the bookmark option when the link is already
+    bookmarked. Ensure the bookmark star state in the chrome is always
+    consistent with the bookmarked state of the current webview URL.
+    (LP: #1477314)
+  * Properly reset focus when the current tab changes (including as a
+    result of closing tabs). (LP: #1488470)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 03 Sep 2015 09:46:35 +0000
+
 webbrowser-app (0.23+15.10.20150827.3-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

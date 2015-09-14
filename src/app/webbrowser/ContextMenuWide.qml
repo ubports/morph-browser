@@ -90,7 +90,7 @@ Popups.Popover {
         Repeater {
             model: actions.actions
             delegate: ListItems.Empty {
-                readonly property var action: actions.actions[index]
+                action: actions.actions[index]
                 objectName: action.objectName + "_item"
                 visible: action.enabled
                 showDivider: false
@@ -120,10 +120,7 @@ Popups.Popover {
                     }
                 }
 
-                onTriggered: {
-                    action.trigger()
-                    contextMenu.hide()
-                }
+                onTriggered: contextMenu.hide()
             }
         }
     }
