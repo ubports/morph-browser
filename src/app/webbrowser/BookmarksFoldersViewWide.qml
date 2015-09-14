@@ -105,7 +105,7 @@ FocusScope {
                     rightMargin: units.gu(2)
                 }
 
-                fontSize: isAllBookmarksFolder ? "medium" : "small"
+                fontSize: "small"
                 text: isAllBookmarksFolder ? i18n.tr("All Bookmarks") : folderItem.name
                 color: isActiveFolder ? UbuntuColors.orange : UbuntuColors.darkGrey
             }
