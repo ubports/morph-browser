@@ -72,7 +72,7 @@ FocusScope {
                 Column {
                     id: delegateColumn
 
-                    property bool expanded: true
+                    property bool expanded: folderName ? false : true
 
                     anchors {
                         left: parent.left
