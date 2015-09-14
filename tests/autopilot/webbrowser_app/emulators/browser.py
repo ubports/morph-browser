@@ -263,8 +263,7 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_drawer_action(self, actionName):
         drawer = self.get_drawer()
-        return drawer.select_single("AbstractButton", objectName=actionName,
-                                    visible=True)
+        return drawer.select_single(objectName=actionName, visible=True)
 
     def get_tabs_bar(self):
         return self.select_single(TabsBar)
@@ -386,7 +385,7 @@ class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def close(self):
-        button = self.select_single("AbstractButton", objectName="closeButton")
+        button = self.select_single(objectName="closeButton")
         self.pointing_device.click_object(button)
 
 
@@ -449,7 +448,7 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def click_back_button(self):
-        button = self.select_single("AbstractButton", objectName="backButton")
+        button = self.select_single(objectName="backButton")
         self.pointing_device.click_object(button)
 
 
