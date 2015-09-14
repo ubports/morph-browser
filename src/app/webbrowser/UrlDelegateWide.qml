@@ -56,7 +56,7 @@ ListItem {
         Label {
             id: title
 
-            fontSize: "small"
+            fontSize: "x-small"
             color: highlighted ? UbuntuColors.orange : UbuntuColors.darkGrey
             wrapMode: Text.Wrap
             elide: Text.ElideRight
@@ -66,7 +66,7 @@ ListItem {
         Label {
             id: url
 
-            fontSize: "small"
+            fontSize: "xx-small"
             color: highlighted ? UbuntuColors.orange : UbuntuColors.darkGrey
             wrapMode: Text.Wrap
             elide: Text.ElideRight
