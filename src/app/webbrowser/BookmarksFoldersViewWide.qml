@@ -91,8 +91,6 @@ FocusScope {
             property bool isCurrentDropTarget: dropArea.containsDrag && dropArea.drag.source.folder !== folder
             property var model: entries
 
-            divider.visible: false
-
             color: isCurrentDropTarget ? "green" :
                    ((folders.activeFocus && isActiveFolder) ? Qt.rgba(0, 0, 0, 0.05) : "transparent")
 
