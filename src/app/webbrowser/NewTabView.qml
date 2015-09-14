@@ -20,7 +20,6 @@ import QtQuick 2.4
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import webbrowserapp.private 0.1
-import ".."
 
 Item {
     id: newTabView
