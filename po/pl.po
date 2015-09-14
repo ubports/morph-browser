@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-09-09 05:41+0000\n"
-"X-Generator: Launchpad (build 17706)\n"
+"X-Launchpad-Export-Date: 2015-09-11 06:00+0000\n"
+"X-Generator: Launchpad (build 17720)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -50,7 +50,7 @@ msgstr "Hasło"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
-#: src/app/webbrowser/ContextMenuMobile.qml:142
+#: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/HistoryViewWide.qml:307
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
@@ -387,7 +387,7 @@ msgstr "Wytnij"
 msgid "Erase"
 msgstr "Wyczyść"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
 msgid "Find in page"
 msgstr "Znajdź na stronie"
 
@@ -417,7 +417,7 @@ msgstr "Idź do"
 msgid "Address;URL;www"
 msgstr "Adres;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:653
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:663
 msgid "New Tab"
 msgstr "Nowa karta"
 
@@ -447,7 +447,7 @@ msgstr "Wklej"
 msgid "Redo"
 msgstr "Ponów"
 
-#: src/app/actions/Reload.qml:23
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 msgid "Reload"
 msgstr "Odśwież"
 
@@ -479,16 +479,16 @@ msgid "Undo"
 msgstr "Cofnij"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:203
+#: src/app/webbrowser/AddressBar.qml:204
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:239
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "find in page"
 msgstr "znajdź na stronie"
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:241
 msgid "search or enter an address"
 msgstr "wyszukaj lub wprowadź adres"
 
@@ -526,57 +526,57 @@ msgstr "Utwórz nowy katalog"
 msgid "Save"
 msgstr "Zapisz"
 
-#: src/app/webbrowser/Browser.qml:349
+#: src/app/webbrowser/Browser.qml:368
 msgid "Share"
 msgstr "Udostępnij"
 
-#: src/app/webbrowser/Browser.qml:356
+#: src/app/webbrowser/Browser.qml:375
 #: src/app/webbrowser/HistoryViewWide.qml:291
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:363
+#: src/app/webbrowser/Browser.qml:382
 msgid "Open tabs"
 msgstr "Otwarte karty"
 
-#: src/app/webbrowser/Browser.qml:373 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/HistoryViewWide.qml:396
 #: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Nowa karta"
 
-#: src/app/webbrowser/Browser.qml:390
+#: src/app/webbrowser/Browser.qml:409
 msgid "Leave Private Mode"
 msgstr "Opuść tryb prywatny"
 
-#: src/app/webbrowser/Browser.qml:390
+#: src/app/webbrowser/Browser.qml:409
 msgid "Private Mode"
 msgstr "Tryb prywatny"
 
-#: src/app/webbrowser/Browser.qml:408 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: src/app/webbrowser/Browser.qml:639 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:649 src/app/webbrowser/HistoryView.qml:108
 #: src/app/webbrowser/HistoryViewWide.qml:382
 msgid "Done"
 msgstr "Gotowe"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:746
+#: src/app/webbrowser/Browser.qml:756
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1148
+#: src/app/webbrowser/Browser.qml:1172
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Przeciągnij w górę, aby opuścić tryb pełnoekranowy"
 
-#: src/app/webbrowser/Browser.qml:1149
+#: src/app/webbrowser/Browser.qml:1173
 msgid "Press ESC To Exit Full Screen"
 msgstr "Naciśnij ESC, by opuścić tryb pełnoekranowy"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:103
+#: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -584,7 +584,7 @@ msgstr[0] "%1 strona"
 msgstr[1] "%1 strony"
 msgstr[2] "%1 stron"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Mniej"
