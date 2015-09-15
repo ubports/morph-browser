@@ -171,9 +171,6 @@ void FaviconFetcher::downloadFinished(QNetworkReply* reply)
                     setLocalUrl(QUrl("data:image/png;base64," + ba.toBase64()));
                 }
             }
-        } else {
-            qWarning() << "Failed to download" << reply->url()
-                       << ":" << reply->errorString();
         }
         reply->deleteLater();
         m_reply = 0;
