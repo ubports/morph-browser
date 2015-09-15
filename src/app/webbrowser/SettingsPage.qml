@@ -147,6 +147,14 @@ Item {
 
                 onClicked: settingsObject.restoreDefaults()
             }
+
+            ListItem.Standard {
+                objectName: "mediaAccess"
+
+                text: i18n.tr("Media Access")
+
+                onClicked: mediaAccessComponent.createObject(subpageContainer)
+            }
         }
     }
 
@@ -356,6 +364,54 @@ Item {
                 onClicked: {
                     settingsObject.homepage = UrlUtils.fixUrl(homepageTextField.text)
                     PopupUtils.close(dialogue)
+                }
+            }
+        }
+    }
+
+    Component {
+        id: mediaAccessComponent
+
+        Item {
+            id: mediaAccessItem
+            objectName: "mediaAccessPage"
+            anchors.fill: parent
+
+            Rectangle {
+                anchors.fill: parent
+                color: "#f6f6f6"
+            }
+
+            SettingsPageHeader {
+                id: mediaAccessTitle
+
+                onBack: mediaAccessItem.destroy()
+                text: i18n.tr("Allowed domains")
+            }
+
+            ListView {
+                anchors {
+                    top: mediaAccessTitle.bottom
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
+                }
+                clip: true
+
+                model: MediaAccessModel
+
+                delegate: ListItem.Standard {
+                    objectName: "mediaAccessDelegate_" + index
+                    text: model.origin
+
+                    // This prevents qml from incorrectly reporting a binding
+                    // loop if model.audio if assigned directy to CheckBox.checked
+                    property bool allow: model.audio
+
+                    control: CheckBox {
+                        checked: allow
+                        onCheckedChanged: MediaAccessModel.set(model.origin, checked, model.video)
+                    }
                 }
             }
         }

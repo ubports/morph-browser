@@ -21,6 +21,7 @@ set(WEBBROWSER_APP_MODELS_SRC
     history-model.cpp
     history-timeframe-model.cpp
     limit-proxy-model.cpp
+    media-access-model.cpp
     suggestions-filter-model.cpp
     tabs-model.cpp
     top-sites-model.cpp

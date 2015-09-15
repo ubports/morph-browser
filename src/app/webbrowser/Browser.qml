@@ -54,6 +54,8 @@ BrowserView {
     // tab objects (see http://pad.lv/1376433).
     readonly property int maxTabsToRestore: 10
 
+    Component.onCompleted: MediaAccessModel.databasePath = dataLocation + "/mediaAccess.sqlite"
+
     onTabsModelChanged: {
         if (incognito && privateTabsModelLoader.item) {
             browser.openUrlInNewTab("", true)
@@ -73,6 +75,33 @@ BrowserView {
                 tabsModel.move(tabsModel.currentIndex, 0)
             }
         }
+    }
+
+    Connections {
+        target: currentWebview
+        onMediaAccessPermissionRequested: {
+            var permissions = MediaAccessModel.get(request.origin)
+            if (request.isForAudio) {
+                if (permissions) {
+                    if (permissions.audio) request.allow()
+                    else request.deny()
+                } else {
+                    var dialog = PopupUtils.open(mediaAccessDialogComponent, null, {
+                        request: request
+                    });
+                    dialog.visibleChanged.connect(function() {
+                        if (dialog.allowed) dialog.request.allow()
+                        else dialog.request.deny()
+                        MediaAccessModel.set(dialog.request.origin, dialog.allowed, permissions ? permissions.video : false)
+                    })
+                }
+            }
+        }
+    }
+
+    Component {
+        id: mediaAccessDialogComponent
+        MediaAccessDialog { }
     }
 
     actions: [

@@ -28,6 +28,7 @@
 #include "history-model.h"
 #include "history-timeframe-model.h"
 #include "limit-proxy-model.h"
+#include "media-access-model.h"
 #include "searchengine.h"
 #include "suggestions-filter-model.h"
 #include "tabs-model.h"
@@ -64,6 +65,13 @@ static QObject* CacheDeleter_singleton_factory(QQmlEngine* engine, QJSEngine* sc
     return new CacheDeleter();
 }
 
+static QObject* MediaAccessModel_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new MediaAccessModel();
+}
+
 bool WebbrowserApp::initialize()
 {
     const char* uri = "webbrowserapp.private";
@@ -75,6 +83,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<HistoryLastVisitDateListModel>(uri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<HistoryLastVisitDateModel>(uri, 0, 1, "HistoryLastVisitDateModel");
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
+    qmlRegisterSingletonType<MediaAccessModel>(uri, 0, 1, "MediaAccessModel", MediaAccessModel_singleton_factory);
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
     qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
     qmlRegisterType<BookmarksFolderListModel>(uri, 0, 1, "BookmarksFolderListModel");
