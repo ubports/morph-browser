@@ -29,7 +29,6 @@
 #include "searchengine.h"
 #include "suggestions-filter-model.h"
 #include "tabs-model.h"
-#include "top-sites-model.h"
 #include "webbrowser-app.h"
 
 // Qt
@@ -67,7 +66,6 @@ bool WebbrowserApp::initialize()
     const char* uri = "webbrowserapp.private";
     qmlRegisterType<HistoryModel>(uri, 0, 1, "HistoryModel");
     qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
-    qmlRegisterType<TopSitesModel>(uri, 0 , 1, "TopSitesModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryLastVisitDateListModel>(uri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");

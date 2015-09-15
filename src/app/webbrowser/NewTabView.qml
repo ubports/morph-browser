@@ -32,11 +32,12 @@ Item {
     signal bookmarkRemoved(url url)
     signal historyEntryClicked(url url)
 
+    HistoryTimeframeModel {
+        id: historyTimeframeModel
+    }
     TopSitesModel {
         id: topSitesModel
-        sourceModel: HistoryTimeframeModel {
-            id: historyTimeframeModel
-        }
+        model: historyTimeframeModel
     }
 
     QtObject {

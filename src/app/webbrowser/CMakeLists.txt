@@ -21,7 +21,6 @@ set(WEBBROWSER_APP_MODELS_SRC
     limit-proxy-model.cpp
     suggestions-filter-model.cpp
     tabs-model.cpp
-    top-sites-model.cpp
 )
 
 set(WEBBROWSER_APP_MODELS webbrowser-app-models)
