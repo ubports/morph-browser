@@ -402,6 +402,7 @@ Item {
 
                 delegate: ListItem.Standard {
                     objectName: "mediaAccessDelegate_" + index
+                    removable: true
                     text: model.origin
 
                     // This prevents qml from incorrectly reporting a binding
@@ -412,6 +413,8 @@ Item {
                         checked: allow
                         onCheckedChanged: MediaAccessModel.set(model.origin, checked, model.video)
                     }
+
+                    onItemRemoved: MediaAccessModel.remove(model.origin)
                 }
             }
         }
