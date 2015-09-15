@@ -6,6 +6,7 @@
 # under the terms of the GNU General Public License version 3, as published
 # by the Free Software Foundation.
 
+from base64 import b64decode
 import http.server as http
 import json
 import logging
@@ -36,6 +37,12 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
         self.send_header("Content-Type", "text/html")
         self.end_headers()
         self.wfile.write(html.encode())
+
+    def send_auth_request(self):
+        self.send_response(401)
+        self.send_header("WWW-Authenticate", "Basic realm=\"Enter Password\"")
+        self.end_headers()
+        self.send_html("Not Authorized")
 
     def do_GET(self):
         if self.path == "/ping":
@@ -173,6 +180,19 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
             self.send_response(200)
             name = self.path[len("/tab/"):]
             self.send_html('<html><body>' + name + '</body></html>')
+        elif self.path.startswith("/basicauth"):
+            login = "user"
+            password = "pass"
+            if "Authorization" in self.headers:
+                header = self.headers.get("Authorization")
+                credentials = str(b64decode(header[len("Basic "):])).split(":")
+                if credentials[0] == login and credentials[1] == password:
+                    self.send_response(200)
+                    self.send_html("Authentication Successful !")
+                else:
+                    self.send_auth_request()
+            else:
+                self.send_auth_request()
         else:
             self.send_error(404)
 

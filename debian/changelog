@@ -1,3 +1,46 @@
+webbrowser-app (0.23+15.10.20150913-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk. added: po/mr.po
+
+  [ Olivier Tilloy ]
+  * Allow saving canvas images from the context menu.
+  * Handle HTTP authentication requests by showing an authentication
+    dialog. (LP: #1422534)
+  * Remove the workaround for bug #1471181 now that oxide 1.9 has been
+    released with a proper fix. (LP: #1471181)
+  * Set the 'visible' property of actions instead of 'enabled' to ensure
+    the visibility of the corresponding entries in the drawer menu
+    matches. (LP: #1495297)
+  * Use SIGABRT instead of SIGSEGV to crash a renderer process in tests.
+    (LP: #1493825)
+  * Use the new WebContext.userAgentOverrides API (new in Oxide 1.9).
+    (LP: #1410753)
+
+  [ Ugo Riboni ]
+  * Handle HTTP authentication requests by showing an authentication
+    dialog. (LP: #1422534)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Sun, 13 Sep 2015 21:25:02 +0000
+
+webbrowser-app (0.23+15.10.20150908.2-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Do not redefine the action property on context menu delegates, just
+    assign to the existing ListItems.Empty.action property instead.
+
+  [ Zoltán Balogh ]
+  * Use right name for AbstractButton when 1.3 UITK is used.
+
+ -- Zoltan Balogh <zoltan.balogh@canonical.com>  Tue, 08 Sep 2015 10:18:10 +0000
+
 webbrowser-app (0.23+15.10.20150903.1-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

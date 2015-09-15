@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-09-04 23:17+0200\n"
-"PO-Revision-Date: 2014-09-26 11:44+0000\n"
-"Last-Translator: Данило Шеган <Unknown>\n"
+"PO-Revision-Date: 2015-09-09 21:06+0000\n"
+"Last-Translator: Bojan Bogdanović <Unknown>\n"
 "Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-09-05 05:34+0000\n"
-"X-Generator: Launchpad (build 17706)\n"
+"X-Launchpad-Export-Date: 2015-09-11 06:00+0000\n"
+"X-Generator: Launchpad (build 17720)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -50,7 +50,7 @@ msgstr "Лозинка"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
-#: src/app/webbrowser/ContextMenuMobile.qml:142
+#: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/HistoryViewWide.qml:307
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
@@ -62,7 +62,7 @@ msgstr "Откажи"
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr "Потврда одласка"
+msgstr "Потврда навигације"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
@@ -341,7 +341,7 @@ msgstr "Назад"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Старија страна;Претходна страна;Претходна"
+msgstr "Старија страна"
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
@@ -355,7 +355,7 @@ msgstr "Додај ову страницу међу обележиваче"
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "Веза за обележавање"
+msgstr "Обележи везу"
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
@@ -365,7 +365,7 @@ msgstr "Очисти историјат"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Очисти историјат прегледања веб страница"
+msgstr "Очисти историјат прегледања"
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
@@ -381,31 +381,31 @@ msgstr "Умножи везу"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Исеци"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Обришите"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
 msgid "Find in page"
-msgstr ""
+msgstr "Пронађи на страни"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Претражи страницу"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Напред"
+msgstr "вија"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Новија страна;Следећа страна;Следећа"
+msgstr "Новија страна"
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
@@ -415,9 +415,9 @@ msgstr "Иди на"
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Адреса;УРЛ;URL;www;веб адреса;веб"
+msgstr "Адреса;УРЛ;веб"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:653
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:663
 msgid "New Tab"
 msgstr "Нови лист"
 
@@ -433,7 +433,7 @@ msgstr "Отвори слику у новом листу"
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr ""
+msgstr "Отвори везу у новом позадинском листу"
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
@@ -441,13 +441,13 @@ msgstr "Отвори везу у новом листу"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Налепи"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Врати"
 
-#: src/app/actions/Reload.qml:23
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 msgid "Reload"
 msgstr "Учитај поново"
 
@@ -463,12 +463,12 @@ msgstr "Сачувај слику"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Сачувај везу"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
 #: src/app/webbrowser/HistoryViewWide.qml:328
 msgid "Select all"
-msgstr ""
+msgstr "Означи све"
 
 #: src/app/actions/ShareLink.qml:22
 msgid "Share…"
@@ -476,107 +476,107 @@ msgstr "Подели..."
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Опозови"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:203
+#: src/app/webbrowser/AddressBar.qml:204
 #, qt-format
 msgid "%1/%2"
-msgstr ""
-
-#: src/app/webbrowser/AddressBar.qml:239
-msgid "find in page"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:240
+msgid "find in page"
+msgstr "пронађи на страни"
+
+#: src/app/webbrowser/AddressBar.qml:241
 msgid "search or enter an address"
 msgstr "тражи или унеси адресу"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr ""
+msgstr "Обележивач је додат"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
-msgstr ""
+msgstr "Назив"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr ""
+msgstr "Сачувај у"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
 #: src/app/webbrowser/NewTabViewWide.qml:122
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Сви обележивачи"
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr ""
+msgstr "Нова фасцикла"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr ""
+msgstr "Креирај нову фасциклу"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:353
 msgid "Save"
-msgstr ""
+msgstr "Сачувај"
 
-#: src/app/webbrowser/Browser.qml:349
+#: src/app/webbrowser/Browser.qml:368
 msgid "Share"
 msgstr "Подели"
 
-#: src/app/webbrowser/Browser.qml:356
+#: src/app/webbrowser/Browser.qml:375
 #: src/app/webbrowser/HistoryViewWide.qml:291
 msgid "History"
 msgstr "Историја"
 
-#: src/app/webbrowser/Browser.qml:363
+#: src/app/webbrowser/Browser.qml:382
 msgid "Open tabs"
 msgstr "Отворени листови"
 
-#: src/app/webbrowser/Browser.qml:373 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/HistoryViewWide.qml:396
 #: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Нови лист"
 
-#: src/app/webbrowser/Browser.qml:390
+#: src/app/webbrowser/Browser.qml:409
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Напустите приватни режим"
 
-#: src/app/webbrowser/Browser.qml:390
+#: src/app/webbrowser/Browser.qml:409
 msgid "Private Mode"
-msgstr ""
+msgstr "Приватни режим"
 
-#: src/app/webbrowser/Browser.qml:408 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
-msgstr ""
+msgstr "Подешавања"
 
-#: src/app/webbrowser/Browser.qml:639 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:649 src/app/webbrowser/HistoryView.qml:108
 #: src/app/webbrowser/HistoryViewWide.qml:382
 msgid "Done"
 msgstr "Готово"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:746
+#: src/app/webbrowser/Browser.qml:756
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1148
+#: src/app/webbrowser/Browser.qml:1172
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Превуците на горе да напустите пуни екран"
 
-#: src/app/webbrowser/Browser.qml:1149
+#: src/app/webbrowser/Browser.qml:1173
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Притисните ЕСЦ да напустите пуни екран"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:103
+#: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -584,7 +584,7 @@ msgstr[0] "%1 страница"
 msgstr[1] "%1 странице"
 msgstr[2] "%1 страница"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Сажетије"
@@ -601,30 +601,32 @@ msgstr "Јуче"
 #: src/app/webbrowser/HistoryView.qml:210
 #: src/app/webbrowser/HistoryViewWide.qml:347
 msgid "Delete"
-msgstr ""
+msgstr "Обриши"
 
 #: src/app/webbrowser/HistoryViewWide.qml:133
 msgid "All History"
-msgstr ""
+msgstr "Комплетна историја"
 
 #: src/app/webbrowser/HistoryViewWide.qml:147
 #: src/app/webbrowser/HistoryViewWide.qml:212
 msgid "Today"
-msgstr ""
+msgstr "Данас"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Прелазак на јавни режим ће затворити све приватне листове"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Ово је приватни лист"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Стране које посетите у овом листу неће се појавити у историји претраживача.\n"
+"Међутим, обележивачи које креирате биће сачувани."
 
 #: src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:313
@@ -633,7 +635,7 @@ msgstr "Обележивачи"
 
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr ""
+msgstr "Више"
 
 #: src/app/webbrowser/NewTabView.qml:226
 #: src/app/webbrowser/NewTabViewWide.qml:312
@@ -642,33 +644,35 @@ msgstr "Главне странице"
 
 #: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Нисте посетили ни једну старницу до сада"
 
 #: src/app/webbrowser/NewTabViewWide.qml:160
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
-msgstr ""
+msgstr "Почетна страна"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "Процес рендеровања је затворен за овај лист."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Нешто је пошло лоше при приказивању %1."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
+"Систем је на минимуму меморије и не може приказати ову страницу. Покушајте "
+"да затворите непотребне листове и освежите станицу."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Затворите лист"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -676,47 +680,49 @@ msgstr "Ова страница има небезбедног садржаја"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr ""
+msgstr "Идентитет није верификован"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr ""
+msgstr "Идентитет овог веб сајта није верификован."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr ""
+msgstr "Сертификат сервера се не поклапа са идентитетом странице."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr ""
+msgstr "Сртификат сервера је истекао."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr ""
+msgstr "Сертификат сервера садржи неисправне датуме."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr ""
+msgstr "Сертификат сервера је издат од стране којој се не може веровати."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr ""
+msgstr "Сертификат сервера је опозван."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr ""
+msgstr "Сертификат сервера није валидан."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr ""
+msgstr "Сертификат сервера не несигуран."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
+"Сертификат сервера је није прошао наше сигурносне провере из непознатог "
+"разлога."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr "Повезани сте н"
+msgstr "Повезани сте на"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
@@ -725,40 +731,40 @@ msgstr "За који је задужен"
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr ""
+msgstr "Претраживач"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "Обнови претходну сесију при покретању"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "Дозволи отварање нових листова у позадини"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
-msgstr ""
+msgstr "Приватност"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr ""
+msgstr "Враћање прегледача на почетна подешавања"
 
 #: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "Обриши историју претраге"
 
 #: src/app/webbrowser/SettingsPage.qml:252
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "Обриши историју претраге?"
 
 #: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
-msgstr ""
+msgstr "Очисти кеш"
 
 #: src/app/webbrowser/SettingsPage.qml:261
 msgid "Clear Cache?"
-msgstr ""
+msgstr "Очисти кеш?"
 
 #: src/app/webbrowser/SettingsPage.qml:296
 msgid "Clear"
@@ -773,18 +779,20 @@ msgstr "Тапни да погледаш"
 #: src/app/webcontainer/webapp-container.qml:68
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 — Прегледач веба за Убунту"
+msgstr "%1 — Убунту Прегледач веба"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:70
 msgid "Ubuntu Web Browser"
-msgstr "Прегледач веба за Убунту"
+msgstr "Убунту Прегледач веба"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
+"Ни један налог није повезан за ову веб апликацију; притисните ставку испод "
+"да додате налог."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
@@ -792,50 +800,54 @@ msgstr "Додај налог"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "Немојте користити налог"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "Грешка у налогу"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "Затвори"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
+"Прозор налога не може бити отворен. Можете креирати само један налог у исто "
+"време; молимо да покушате поново када затворите све друге прозоре са "
+"налозима."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> мора да приступи вашем %2 налогу."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> жели да приступи вашем %2 налогу."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
+"Изаберите сада налог, или прескочите овај корак и изаберите налог касније."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "Затворите апликацију"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "Прескочи"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "Изаберите налог"
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"

@@ -120,6 +120,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_geolocation_dialog(self):
         return self.wait_select_single(GeolocationPermissionRequest)
 
+    def get_http_auth_dialog(self):
+        return self.wait_select_single(HttpAuthenticationDialog)
+
     def get_tabs_view(self):
         return self.wait_select_single(TabsList, visible=True)
 
@@ -263,8 +266,7 @@ class Chrome(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_drawer_action(self, actionName):
         drawer = self.get_drawer()
-        return drawer.select_single("AbstractButton", objectName=actionName,
-                                    visible=True)
+        return drawer.select_single(objectName=actionName, visible=True)
 
     def get_tabs_bar(self):
         return self.select_single(TabsBar)
@@ -373,6 +375,21 @@ class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("Button", objectName="allow")
 
 
+class HttpAuthenticationDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_deny_button(self):
+        return self.select_single("Button", objectName="deny")
+
+    def get_allow_button(self):
+        return self.select_single("Button", objectName="allow")
+
+    def get_username_field(self):
+        return self.select_single("TextField", objectName="username")
+
+    def get_password_field(self):
+        return self.select_single("TextField", objectName="password")
+
+
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
@@ -386,7 +403,7 @@ class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def close(self):
-        button = self.select_single("AbstractButton", objectName="closeButton")
+        button = self.select_single(objectName="closeButton")
         self.pointing_device.click_object(button)
 
 
@@ -449,7 +466,7 @@ class SettingsPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     @autopilot.logging.log_action(logger.info)
     def click_back_button(self):
-        button = self.select_single("AbstractButton", objectName="backButton")
+        button = self.select_single(objectName="backButton")
         self.pointing_device.click_object(button)
 
 
