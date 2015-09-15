@@ -146,7 +146,7 @@ class TestContextMenuTextArea(TestContextMenuBase):
 
 
 @testtools.skipIf(model() != "Desktop", "on desktop only")
-class TestContextMenuTextSelection(TestContextMenuBase):
+class TestContextMenuTextSelection(StartOpenRemotePageTestCaseBase):
 
     def setUp(self):
         super(TestContextMenuTextSelection, self).setUp(path="/test1")
@@ -165,4 +165,4 @@ class TestContextMenuTextSelection(TestContextMenuBase):
     def test_copy_text(self):
         # There is no easy way to test the contents of the clipboard,
         # but we can at least verify that the context menu was dismissed.
-        self.click_action("CopyContextualAction")
+        self.menu.click_action("CopyContextualAction")
