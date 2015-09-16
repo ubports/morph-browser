@@ -389,32 +389,107 @@ Item {
                 text: i18n.tr("Allowed domains")
             }
 
-            ListView {
+            Flickable {
                 anchors {
                     top: mediaAccessTitle.bottom
                     left: parent.left
                     right: parent.right
                     bottom: parent.bottom
                 }
+
                 clip: true
 
-                model: MediaAccessModel
+                contentHeight: mediaAccessCol.height
+
+                Column {
+                    id: mediaAccessCol
+                    width: parent.width
+
+                    ListItem.Standard {
+                        text: i18n.tr("Microphone")
+                    }
+
+                    ListItem.Standard {
+                        objectName: "mediaAccess.audioOrigins"
+                        text: i18n.tr("Allowed domains")
+                        progression: true
+                        onClicked: {
+                            var list = mediaAccessOriginsComponent.createObject(subpageContainer, {isAudio: true})
+                        }
+                    }
+
+                    ListItem.Standard {
+                        text: i18n.tr("Camera")
+                    }
+
+                    ListItem.Standard {
+                        objectName: "mediaAccess.videoOrigins"
+                        text: i18n.tr("Allowed domains")
+                        progression: true
+                        onClicked: {
+                            var list = mediaAccessOriginsComponent.createObject(subpageContainer, {isAudio: false})
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Component {
+        id: mediaAccessOriginsComponent
+
+        Item {
+            id: mediaAccessOriginsItem
+            objectName: "mediaAccessOriginsPage"
+            anchors.fill: parent
+
+            property bool isAudio: true
+
+            Rectangle {
+                anchors.fill: parent
+                color: "#f6f6f6"
+            }
+
+            SettingsPageHeader {
+                id: mediaAccessOriginsTitle
+
+                onBack: mediaAccessOriginsItem.destroy()
+                text: isAudio ? i18n.tr("Microphone allowed domains")
+                              : i18n.tr("Camera allowed domains")
+            }
+
+            ListView {
+                anchors {
+                    top: mediaAccessOriginsTitle.bottom
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
+                }
+                clip: true
+
+                model: SortFilterModel {
+                    model: MediaAccessModel
+                    filter.property: "valuesSet"
+                    filter.pattern: isAudio ? /a/ : /v/
+                }
 
                 delegate: ListItem.Standard {
                     objectName: "mediaAccessDelegate_" + index
+
+                    text: "[%1,%2,%3] %4".arg(model.valuesSet).arg(model.audio).arg(model.video).arg(model.origin)
+
                     removable: true
-                    text: model.origin
+                    confirmRemoval: true
+                    onItemRemoved: MediaAccessModel.unset(model.origin, isAudio, !isAudio)
 
-                    // This prevents qml from incorrectly reporting a binding
-                    // loop if model.audio if assigned directy to CheckBox.checked
-                    property bool allow: model.audio
-
-                    control: CheckBox {
-                        checked: allow
-                        onCheckedChanged: MediaAccessModel.set(model.origin, checked, model.video)
+                    control: Switch {
+                        checked: isAudio ? model.audio : model.video
+                        function trigger() {
+                            if (isAudio) MediaAccessModel.set(model.origin, !checked, undefined)
+                            else MediaAccessModel.set(model.origin, undefined, !checked)
+                        }
                     }
 
-                    onItemRemoved: MediaAccessModel.remove(model.origin)
                 }
             }
         }

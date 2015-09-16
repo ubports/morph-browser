@@ -79,22 +79,37 @@ BrowserView {
 
     Connections {
         target: currentWebview
+
+        function askPermission(request) {
+            var dialog = PopupUtils.open(mediaAccessDialogComponent, null, {
+                request: request
+            });
+            dialog.visibleChanged.connect(function() {
+                if (dialog.request.isForAudio && dialog.allowAudio ||
+                    dialog.request.isForvideo && dialog.allowVideo) dialog.request.allow()
+                else dialog.request.deny()
+
+                MediaAccessModel.set(UrlUtils.removeScheme(dialog.request.origin),
+                                     (dialog.request.isForAudio) ? dialog.allowAudio : undefined,
+                                     (dialog.request.isForVideo) ? dialog.allowVideo : undefined)
+            })
+        }
         onMediaAccessPermissionRequested: {
-            var permissions = MediaAccessModel.get(request.origin)
-            if (request.isForAudio) {
-                if (permissions) {
-                    if (permissions.audio) request.allow()
-                    else request.deny()
-                } else {
-                    var dialog = PopupUtils.open(mediaAccessDialogComponent, null, {
-                        request: request
-                    });
-                    dialog.visibleChanged.connect(function() {
-                        if (dialog.allowed) dialog.request.allow()
-                        else dialog.request.deny()
-                        MediaAccessModel.set(dialog.request.origin, dialog.allowed, permissions ? permissions.video : false)
-                    })
-                }
+            var permissions = MediaAccessModel.get(UrlUtils.removeScheme(request.origin))
+            if (request.isForAudio && request.isForVideo) {
+                // When isForAudio and isForVideo are true in the same request, Oxide
+                // does not provide a way to allow or deny these requests separately, so
+                // allow both if we have both permissions, otherwise ask permission again
+                // (which will be for both at the same time, so the user will have to make
+                // the choice explicitly)
+                if (permissions.audio === true && permissions.video === true) request.allow()
+                else if (permissions.audio === false && permissions.video === false) request.deny()
+                else askPermission(request)
+            } else {
+                var permission = (request.isForAudio) ? permissions.audio : permissions.video
+                if (permission === true) request.allow()
+                else if (permission === false) request.deny()
+                else askPermission(request)
             }
         }
     }

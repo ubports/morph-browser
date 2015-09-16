@@ -19,12 +19,14 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import "../UrlUtils.js" as UrlUtils
 
 Popover {
     id: dialog
 
-    property bool allowed: false
     property var request
+    property var allowAudio
+    property var allowVideo
 
     contentHeight: bookmarkOptionsColumn.childrenRect.height + units.gu(2)
 
@@ -49,7 +51,7 @@ Popover {
         }
 
         Label {
-            text: request.origin
+            text: UrlUtils.removeScheme(request.origin)
         }
 
         Item {
@@ -62,11 +64,14 @@ Popover {
 
             Button {
                 id: allowButton
-                anchors.left: parent.left
                 objectName: "mediaAccessDialog.allowButton"
                 text: i18n.tr("Yes")
                 color: UbuntuColors.green
-                onClicked: { allowed = true; hide() }
+                onClicked: {
+                    if (request.isForAudio) allowAudio = true
+                    if (request.isForVideo) allowVideo = true
+                    hide()
+                }
             }
 
             Button {
@@ -75,7 +80,11 @@ Popover {
                 anchors.right: parent.right
                 text: i18n.tr("No")
                 color: UbuntuColors.red
-                onClicked: { allowed = false; hide() }
+                onClicked: {
+                    if (request.isForAudio) allowAudio = false
+                    if (request.isForVideo) allowVideo = false
+                    hide()
+                }
             }
         }
     }

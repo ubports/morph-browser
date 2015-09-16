@@ -28,7 +28,7 @@
 #include <QtCore/QUrl>
 #include <QtSql/QSqlDatabase>
 
-typedef QPair<bool, bool> QBoolPair;
+typedef QPair<QVariant, QVariant> QVariantPair;
 
 class MediaAccessModel : public QAbstractListModel
 {
@@ -46,7 +46,9 @@ public:
     enum Roles {
         Origin = Qt::UserRole + 1,
         Audio,
-        Video
+        Video,
+        Filter,
+        ValuesSet
     };
 
     // reimplemented from QAbstractListModel
@@ -58,8 +60,8 @@ public:
     void setDatabasePath(const QString& path);
 
     Q_INVOKABLE QVariant get(const QUrl& origin) const;
-    Q_INVOKABLE void set(const QUrl& origin, bool audio, bool video);
-    Q_INVOKABLE void remove(const QUrl& origin);
+    Q_INVOKABLE void set(const QUrl& origin, const QVariant& audio, const QVariant& video);
+    Q_INVOKABLE void unset(const QUrl& origin, bool unsetAudio, bool unsetVideo);
 
 Q_SIGNALS:
     void databasePathChanged() const;
@@ -68,20 +70,31 @@ Q_SIGNALS:
 private:
     QSqlDatabase m_database;
 
-    struct MediaAccessEntry {
-        QUrl origin;
-        bool audio;
-        bool video;
+    enum PermissionValue {
+        Unset = 0,
+        Allow = 1,
+        Deny = 2
     };
-    QHash<QUrl, QBoolPair> m_data;
+
+    enum PermissionType {
+        AudioPermission,
+        VideoPermission
+    };
+
+    struct Permissions {
+        PermissionValue audio;
+        PermissionValue video;
+    };
+
+    QHash<QUrl, Permissions> m_data;
     QList<QUrl> m_ordered;
 
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
     void populateFromDatabase();
-    void insertNewEntryInDatabase(const MediaAccessEntry& entry);
-    void removeExistingEntryFromDatabase(const QUrl& url);
-    void updateExistingEntryInDatabase(const MediaAccessEntry& entry);
+    void insertNewEntryInDatabase(const QUrl& origin, const Permissions& permissions);
+    void removeExistingEntryFromDatabase(const QUrl& origin);
+    void updateExistingEntryInDatabase(const QUrl& origin, PermissionType which, PermissionValue value);
 };
 
 #endif // __MEDIA_ACCESS_MODEL_H__

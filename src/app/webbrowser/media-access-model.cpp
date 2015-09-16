@@ -51,6 +51,35 @@ MediaAccessModel::~MediaAccessModel()
     QSqlDatabase::removeDatabase(CONNECTION_NAME);
 }
 
+QHash<int, QByteArray> MediaAccessModel::roleNames() const
+{
+    static QHash<int, QByteArray> roles;
+    if (roles.isEmpty()) {
+        roles[Origin] = "origin";
+        roles[Audio] = "audio";
+        roles[Video] = "video";
+        roles[ValuesSet] = "valuesSet";
+    }
+    return roles;
+}
+
+const QString MediaAccessModel::databasePath() const
+{
+    return m_database.databaseName();
+}
+
+void MediaAccessModel::setDatabasePath(const QString& path)
+{
+    if (path != databasePath()) {
+        if (path.isEmpty()) {
+            resetDatabase(":memory:");
+        } else {
+            resetDatabase(path);
+        }
+        Q_EMIT databasePathChanged();
+    }
+}
+
 void MediaAccessModel::resetDatabase(const QString& databaseName)
 {
     beginResetModel();
@@ -83,9 +112,9 @@ void MediaAccessModel::populateFromDatabase()
     int count = 0;
     while (populateQuery.next()) {
         QUrl origin = populateQuery.value(0).toUrl();
-        QBoolPair permissions;
-        permissions.first = populateQuery.value(1).toInt() == 1; // audio
-        permissions.second = populateQuery.value(2).toInt() == 1; // video
+        Permissions permissions;
+        permissions.audio = static_cast<PermissionValue>(qBound(0, populateQuery.value(1).toInt(), 2));
+        permissions.video = static_cast<PermissionValue>(qBound(0, populateQuery.value(2).toInt(), 2));
 
         beginInsertRows(QModelIndex(), count, count);
         m_data.insert(origin, permissions);
@@ -95,21 +124,10 @@ void MediaAccessModel::populateFromDatabase()
     }
 }
 
-QHash<int, QByteArray> MediaAccessModel::roleNames() const
-{
-    static QHash<int, QByteArray> roles;
-    if (roles.isEmpty()) {
-        roles[Origin] = "origin";
-        roles[Audio] = "audio";
-        roles[Video] = "video";
-    }
-    return roles;
-}
-
 int MediaAccessModel::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent);
-    return m_ordered.count();
+    return m_data.count();
 }
 
 QVariant MediaAccessModel::data(const QModelIndex& index, int role) const
@@ -121,108 +139,189 @@ QVariant MediaAccessModel::data(const QModelIndex& index, int role) const
     if (role == Origin) {
         return QVariant::fromValue(origin);
     }
-    else if (role == Audio || role == Video) {
-        QBoolPair permissions = m_data.value(origin);
-        return QVariant::fromValue(role == Audio ? permissions.first :
-                                                   permissions.second);
+    else if (role == ValuesSet) {
+        Permissions permissions = m_data.value(origin);
+        QString filter;
+        if (permissions.audio != Unset) filter.append('a');
+        if (permissions.video != Unset) filter.append('v');
+        return QVariant::fromValue(filter);
+    } else if (role == Audio || role == Video) {
+        Permissions permissions = m_data.value(origin);
+        int value = (role == Audio) ? permissions.audio : permissions.video;
+        if (value == PermissionValue::Unset) return QVariant();
+        else return QVariant::fromValue((bool)(value == PermissionValue::Allow));
     } else {
         return QVariant();
     }
 }
 
+/*!
+ * \qmlmethod void get(url origin)
+ * Retrieve access permissions for \a origin.
+ *
+ * An object is returned with "audio" and "video" properties set to the bool
+ * value of the corresponding media access permission.
+ * If the specified permission is currently unset for the \a origin then its
+ * value will be undefined.
+ */
 QVariant MediaAccessModel::get(const QUrl& origin) const
 {
-    qDebug() << origin << m_data.contains(origin);
+    QVariantMap result;
     if (m_data.contains(origin)) {
-        QBoolPair permissions = m_data.value(origin);
-        QVariantMap result;
-        result.insert("origin", QVariant::fromValue(origin));
-        result.insert("audio", QVariant::fromValue(permissions.first));
-        result.insert("video", QVariant::fromValue(permissions.second));
+        Permissions permissions = m_data.value(origin);
+        result.insert("audio", permissions.audio == PermissionValue::Unset ? QVariant() :
+                               QVariant::fromValue(permissions.audio == PermissionValue::Allow));
+        result.insert("video", permissions.video == PermissionValue::Unset ? QVariant() :
+                               QVariant::fromValue(permissions.video == PermissionValue::Allow));
         return result;
     } else {
-        return QVariant();
+        result.insert("audio", QVariant());
+        result.insert("video", QVariant());
     }
+    return result;
 }
 
-const QString MediaAccessModel::databasePath() const
+bool isNullOrUndefined(const QVariant& value)
 {
-    return m_database.databaseName();
+    return !value.isValid() || value.isNull() ||
+           (QMetaType::VoidStar == static_cast<QMetaType::Type>(value.type()) &&
+            value.toInt() == 0);
 }
 
-void MediaAccessModel::setDatabasePath(const QString& path)
+/*!
+ * \qmlmethod void set(url origin, var audio, var video)
+ * Set access permissions for \a origin.
+ *
+ * If \a audio or \a video are set to any value that can be converted to a bool,
+ * then the respective permission record is updated with the result of that
+ * conversion.
+ *
+ * If they are set to null or to undefined, then the respective permission
+ * record will not be modified at all and will retain its present value.
+ */
+void MediaAccessModel::set(const QUrl& origin, const QVariant& audio, const QVariant& video)
 {
-    if (path != databasePath()) {
-        if (path.isEmpty()) {
-            resetDatabase(":memory:");
-        } else {
-            resetDatabase(path);
-        }
-        Q_EMIT databasePathChanged();
+    if (isNullOrUndefined(audio) && isNullOrUndefined(video)) {
+        return;
     }
-}
 
-void MediaAccessModel::set(const QUrl& origin, bool audio, bool video)
-{
     if (m_data.contains(origin)) {
-        m_data.insert(origin, QBoolPair(audio, video));
+        QVector<int> rolesChanged;
+        rolesChanged << ValuesSet;
 
-        MediaAccessEntry entry;
-        entry.origin = origin;
-        entry.audio = audio;
-        entry.video = video;
-        updateExistingEntryInDatabase(entry);
+        Permissions permissions = m_data.value(origin);
+        if (!isNullOrUndefined(audio)) {
+            permissions.audio = audio.toBool() ? Allow : Deny;
+            updateExistingEntryInDatabase(origin, AudioPermission, permissions.audio);
+            rolesChanged << Audio;
+        }
+        if (!isNullOrUndefined(video)) {
+            permissions.video = video.toBool() ? Allow : Deny;
+            updateExistingEntryInDatabase(origin, VideoPermission, permissions.video);
+            rolesChanged << Video;
+        }
 
-        QVector<int> roles;
-        roles << Audio;
-        roles << Video;
+        m_data.insert(origin, permissions);
         int index = m_ordered.indexOf(origin);
-        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), roles);
+        Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), rolesChanged);
     } else {
         int end = m_ordered.count();
         beginInsertRows(QModelIndex(), end, end);
-        m_data.insert(origin, QBoolPair(audio, video));
+        Permissions permissions = m_data.value(origin);
+        permissions.audio = (isNullOrUndefined(audio)) ? Unset :
+                            (audio.toBool() ? Allow : Deny);
+        permissions.video = (isNullOrUndefined(video)) ? Unset :
+                            (video.toBool() ? Allow : Deny);
+
+        m_data.insert(origin, permissions);
         m_ordered.append(origin);
 
-        MediaAccessEntry entry;
-        entry.origin = origin;
-        entry.audio = audio;
-        entry.video = video;
-        insertNewEntryInDatabase(entry);
-
+        insertNewEntryInDatabase(origin, permissions);
         endInsertRows();
         Q_EMIT rowCountChanged();
     }
 }
 
-void MediaAccessModel::insertNewEntryInDatabase(const MediaAccessEntry& entry)
+/*!
+* \qmlmethod void set(url origin, bool unsetAudio, bool unsetVideo)
+* Unset access permissions for \a origin.
+*
+* If either \a unsetAudio or \a unsetVideo are true, the respective permission
+* record will be updated so that the permission will result unset (usually
+* causing the application to issue a new prompt to the user the next time access
+* is attempted to the media resource that was unset for \a origin)
+*/
+void MediaAccessModel::unset(const QUrl& origin, bool unsetAudio, bool unsetVideo)
+{
+    if (!(unsetAudio || unsetVideo)) {
+        return;
+    }
+
+    if (m_data.contains(origin)) {
+        Permissions permissions = m_data.value(origin);
+        if (unsetAudio && unsetVideo ||
+            unsetAudio && permissions.video == Unset ||
+            unsetVideo && permissions.audio == Unset) {
+            // if all permissions are going to be unset then remove the row from
+            // the database entirely
+            int index = m_ordered.indexOf(origin);
+            beginRemoveRows(QModelIndex(), index, index);
+            m_ordered.removeAt(index);
+            m_data.remove(origin);
+            removeExistingEntryFromDatabase(origin);
+            endRemoveRows();
+
+            Q_EMIT rowCountChanged();
+        } else {
+            QVector<int> rolesChanged;
+            rolesChanged << ValuesSet;
+            if (unsetAudio) {
+                permissions.audio = Unset;
+                updateExistingEntryInDatabase(origin, AudioPermission, Unset);
+                rolesChanged << Audio;
+            }
+            if (unsetVideo) {
+                permissions.video = Unset;
+                updateExistingEntryInDatabase(origin, VideoPermission, Unset);
+                rolesChanged << Video;
+            }
+
+            m_data.insert(origin, permissions);
+            int index = m_ordered.indexOf(origin);
+            Q_EMIT dataChanged(this->index(index, 0), this->index(index, 0), rolesChanged);
+        }
+    }
+}
+
+void MediaAccessModel::insertNewEntryInDatabase(const QUrl& origin,
+                                                const Permissions& permissions)
 {
     QSqlQuery query(m_database);
     static QString insertStatement = QLatin1String("INSERT INTO mediaAccess "
                                                    "(origin, audio, video) "
                                                    "VALUES (?, ?, ?);");
     query.prepare(insertStatement);
-    query.addBindValue(entry.origin.toString());
-    query.addBindValue(entry.audio ? 1 : 0);
-    query.addBindValue(entry.video ? 1 : 0);
+    query.addBindValue(origin.toString());
+    query.addBindValue((int) permissions.audio);
+    query.addBindValue((int) permissions.video);
     query.exec();
 }
 
-void MediaAccessModel::remove(const QUrl& origin)
+void MediaAccessModel::updateExistingEntryInDatabase(const QUrl& origin,
+                                                     PermissionType which, PermissionValue value)
 {
-    if (m_data.contains(origin)) {
-        int index = m_ordered.indexOf(origin);
+    QSqlQuery query(m_database);
+    static QString audioUpdateStatement = QLatin1String("UPDATE mediaAccess SET "
+                                                        "audio = ? WHERE origin=?;");
+    static QString videoUpdateStatement = QLatin1String("UPDATE mediaAccess SET "
+                                                        "video = ? WHERE origin=?;");
 
-        beginRemoveRows(QModelIndex(), index, index);
-        m_ordered.removeAt(index);
-        m_data.remove(origin);
-        removeExistingEntryFromDatabase(origin);
-        endRemoveRows();
-
-        Q_EMIT rowCountChanged();
-    } else {
-        qWarning() << "Cannot remove origin because it is not present:" << origin;
-    }
+    const QString& statement = (which == AudioPermission) ? audioUpdateStatement
+                                                          : videoUpdateStatement;
+    query.prepare(statement);
+    query.addBindValue(static_cast<int>(value));
+    query.addBindValue(origin.toString());
+    query.exec();
 }
 
 void MediaAccessModel::removeExistingEntryFromDatabase(const QUrl& origin)
@@ -234,15 +333,3 @@ void MediaAccessModel::removeExistingEntryFromDatabase(const QUrl& origin)
     query.exec();
 }
 
-void MediaAccessModel::updateExistingEntryInDatabase(const MediaAccessEntry& entry)
-{
-    QSqlQuery query(m_database);
-    static QString updateStatement = QLatin1String("UPDATE mediaAccess SET "
-                                                   "audio=?, video=? "
-                                                   "WHERE origin=?;");
-    query.prepare(updateStatement);
-    query.addBindValue(entry.audio ? 1 : 0);
-    query.addBindValue(entry.video ? 1 : 0);
-    query.addBindValue(entry.origin.toString());
-    query.exec();
-}
