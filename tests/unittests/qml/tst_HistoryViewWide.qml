@@ -311,7 +311,7 @@ Item {
             keyClick(Qt.Key_Enter)
             compare(historyEntryClickedSpy.count, 1)
             var args = historyEntryClickedSpy.signalArguments[0]
-            var entry = urlsList.model.get(0)
+            var entry = urlsList.model.get(2)
             compare(String(args[0]), String(entry.url))
 
             // now try the same during a search
