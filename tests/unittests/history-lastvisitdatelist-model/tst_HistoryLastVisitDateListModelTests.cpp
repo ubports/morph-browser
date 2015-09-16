@@ -323,11 +323,11 @@ private Q_SLOTS:
         QVERIFY(!model->sourceModel().isValid());
         QCOMPARE(model->rowCount(), 0);
 
-        HistoryTimeframeModel* timeframe2 = new HistoryTimeframeModel(mockHistory);
-        timeframe2->setSourceModel(mockHistory);
-        model->setSourceModel(QVariant::fromValue(timeframe2));
+        HistoryTimeframeModel timeframe2(mockHistory);
+        timeframe2.setSourceModel(mockHistory);
+        model->setSourceModel(QVariant::fromValue(&timeframe2));
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(model->sourceModel(), QVariant::fromValue(timeframe2));
+        QCOMPARE(model->sourceModel(), QVariant::fromValue(&timeframe2));
         QCOMPARE(model->rowCount(), 4);
 
         QTest::ignoreMessage(QtWarningMsg, "Only QAbstractItemModel-derived instances are allowed as source models");
