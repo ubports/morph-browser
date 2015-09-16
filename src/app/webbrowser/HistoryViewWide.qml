@@ -424,7 +424,12 @@ FocusScope {
                 right: parent.right
                 rightMargin: units.gu(2)
             }
-            width: units.gu(40)
+            width: urlsListView.width
+            primaryItem: Icon {
+               height: parent.height - units.gu(2)
+               width: height
+               name: "search"
+            }
             hasClearButton: true
             placeholderText: i18n.tr("search history")
             visible: historyViewWide.searchMode
