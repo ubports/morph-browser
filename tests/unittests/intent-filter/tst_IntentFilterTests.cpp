@@ -21,7 +21,8 @@
 #include <QtTest/QtTest>
 
 // local
-#include "intent-filter.h"
+#include "scheme-filter.h"
+#include "intent-parser.h"
 
 class IntentFilterTests : public QObject
 {
@@ -144,12 +145,6 @@ private Q_SLOTS:
         QCOMPARE(d.action, action);
         QCOMPARE(d.component, component);
         QCOMPARE(d.category, category);
-
-        QVERIFY(IntentFilter::isValidIntentDescription(d) == isValid);
-
-        QString emptyContent;
-        IntentFilter pf(emptyContent);
-        QVERIFY(pf.isValidIntentUri(intentUris) == isValid);
     }
 
     void applyFilters_data()
@@ -171,24 +166,17 @@ private Q_SLOTS:
 
         QTest::newRow("Valid intent - default filter function")
                 << "intent://scan/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
-                <<  "(function(result) {return {'scheme': result.scheme+'custom', 'uri': result.uri+'custom', 'host': result.host+'custom'}; })"
+                <<  "(function(result) {return {'scheme': result.scheme+'custom', 'path': result.path+'custom', 'host': result.host+'custom'}; })"
                 << "zxingcustom"
                 << "/custom"
                 << "scancustom";
 
         QTest::newRow("Valid intent - no (optional) host in filter result")
                 << "intent://host/my/long/path?a=1/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
-                <<  "(function(result) {return {'scheme': result.scheme+'custom', 'uri': result.uri+'custom' }; })"
+                <<  "(function(result) {return {'scheme': result.scheme+'custom', 'path': result.path+'custom' }; })"
                 << "zxingcustom"
                 << "my/long/path?a=1custom"
                 << "";
-
-        QTest::newRow("Valid intent - invalid filter fallback to default")
-                << "intent://host/my/long/path?a=1/#Intent;component=com;scheme=zxing;category=BROWSABLE;action=com;package=com.google.zxing.client.android;end"
-                <<  "(function(result) {return { 'uri': result.uri+'custom' }; })"
-                << "zxing"
-                << "my/long/path?a=1"
-                << "host";
     }
 
     void applyFilters()
@@ -201,16 +189,18 @@ private Q_SLOTS:
         QFETCH(QString, uri);
         QFETCH(QString, host);
 
-        IntentFilter pf(filterFunctionSource);
-        QVERIFY(pf.isValidIntentUri(intentUris));
+        QMap<QString, QString> filters;
+        filters["intent"] = filterFunctionSource;
 
-        QVariantMap r = pf.applyFilter(intentUris);
+        SchemeFilter sf(filters);
+
+        QVariantMap r = sf.applyFilter(intentUris);
         QVERIFY(r.contains("scheme"));
-        QVERIFY(r.contains("uri"));
+        QVERIFY(r.contains("path"));
 
         QCOMPARE(r.value("scheme").toString(), scheme);
         QCOMPARE(r.value("host").toString(), host);
-        QCOMPARE(r.value("uri").toString(), uri);
+        QCOMPARE(r.value("path").toString(), uri);
     }
 };
 
