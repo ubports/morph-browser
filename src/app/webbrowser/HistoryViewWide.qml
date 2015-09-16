@@ -137,7 +137,13 @@ FocusScope {
                 }
                 property bool explicitlySettingCurrentIndex: false
                 Keys.onDownPressed: explicitlyChangeCurrentIndex(incrementCurrentIndex)
-                Keys.onUpPressed: explicitlyChangeCurrentIndex(decrementCurrentIndex)
+                Keys.onUpPressed: explicitlyChangeCurrentIndex(function() {
+                    if (lastVisitDateListView.currentIndex == 0 && searchMode) {
+                        searchQuery.focus = true
+                    } else {
+                        lastVisitDateListView.decrementCurrentIndex()
+                    }
+                })
 
                 onCurrentItemChanged: {
                     if (explicitlySettingCurrentIndex) return;
