@@ -338,36 +338,78 @@ Item {
         }
 
         function test_search_updates_dates_list() {
+            function getDateItem(date) {
+                var dates = getListItems("lastVisitDateListView", "lastVisitDateDelegate")
+                var items = dates.filter(function(item) {
+                    return item.lastVisitDate.valueOf() === date.valueOf()
+                })
+                if (items.length > 0) return items.pop()
+                else return null
+            }
+            function returnToDatesList() {
+                keyClick(Qt.Key_Down)
+                keyClick(Qt.Key_Left)
+            }
+
+            var searchQuery = findChild(historyViewWide, "searchQuery")
             var today = new Date()
             today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-            function isToday(item) { return item.lastVisitDate.valueOf() === today.valueOf() }
+            var youngest = new Date(1912, 6, 23)
             var model = historyViewWide.historyModel
-            model.addByDate("https://en.wikipedia.org/wiki/Alan_Turing", "Alan Turing", new Date(1912, 6, 23))
+            model.addByDate("https://en.wikipedia.org/wiki/Alan_Turing", "Alan Turing", youngest)
             model.addByDate("https://en.wikipedia.org/wiki/Alonzo_Church", "Alonzo Church", new Date(1903, 6, 14))
 
             var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
             var dates = getListItems("lastVisitDateListView", "lastVisitDateDelegate")
             var urls = getListItems("urlsListView", "historyDelegate")
             compare(dates.length, 4)
-            var todayItem = dates.filter(isToday)
-            compare(todayItem.length, 1)
-            todayItem = todayItem.pop()
             compare(urls.length, 5)
 
-            // select an date that will not appear after the search
-            clickItem(todayItem)
-            verify(todayItem.activeFocus)
+            // select a date that has search results in it and verify it is
+            // still the currently selected one after the search.
+            var testItem = getDateItem(youngest)
+            clickItem(testItem)
+            verify(testItem.activeFocus)
             keyClick(Qt.Key_F, Qt.ControlModifier)
-            typeString("wiki")
-
-            dates = getListItems("lastVisitDateListView", "lastVisitDateDelegate")
+            typeString("Alan")
             urls = getListItems("urlsListView", "historyDelegate")
-            compare(dates.length, 3)
-            verify(!dates.some(isToday))
-            verify(!todayItem.activeFocus)
+            compare(urls.length, 1)
+            returnToDatesList()
+            verify(testItem.activeFocus)
 
-            // verify that the "all dates" item in the date list is now selected
+            // change the search terms so that it will display more items, but
+            // since we have a selected date, we will see only one
+            keyClick(Qt.Key_F, Qt.ControlModifier)
+            keyClick(Qt.Key_Backspace)
+            keyClick(Qt.Key_Backspace)
+            compare(searchQuery.text, "Al")
+            returnToDatesList()
+            verify(testItem.activeFocus)
+            urls = getListItems("urlsListView", "historyDelegate")
+            compare(urls.length, 1)
+
+            // change the search terms so that the current date will not be
+            // included in the results
+            keyClick(Qt.Key_F, Qt.ControlModifier)
+            typeString("onzo")
+            urls = getListItems("urlsListView", "historyDelegate")
+            compare(urls.length, 1)
+            compare(searchQuery.text, "Alonzo")
+            returnToDatesList()
+            testItem = getDateItem(youngest)
+            compare(testItem, null)
+
+            // verify that the current item has reverted to the first in the
+            // dates list ("all dates")
             compare(lastVisitDateList.currentIndex, 0)
+
+            // if widen the search again now, we should see both results again
+            keyClick(Qt.Key_F, Qt.ControlModifier)
+            keyClick(Qt.Key_Backspace)
+            keyClick(Qt.Key_Backspace)
+            keyClick(Qt.Key_Backspace)
+            keyClick(Qt.Key_Backspace)
+            compare(searchQuery.text, "Al")
             urls = getListItems("urlsListView", "historyDelegate")
             compare(urls.length, 2)
         }

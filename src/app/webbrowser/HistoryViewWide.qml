@@ -110,6 +110,34 @@ FocusScope {
                 currentIndex: 0
                 onCurrentIndexChanged: urlsListView.ViewItems.selectedIndices = []
 
+                // Manually track the current date, so that we can detect when
+                // the ListView automatically changes the currentItem as result
+                // of a change in the model that removes the currentItem.
+                // When this happens, we reset the currentItem to "all dates".
+                property date currentDate
+
+                // Ignore currentItemChanged signals while we are changing the
+                // currentIndex manually (as a result of either UP and DOWN key
+                // presses, or clicking on items)
+                // Any other emission of currentItemChanged will therefore be
+                // from ListView changing it automatically.
+                function explicitlyChangeCurrentIndex(changeAction) {
+                    explicitlySettingCurrentIndex = true
+                    changeAction()
+                    explicitlySettingCurrentIndex = false
+                    currentDate = currentItem.lastVisitDate
+                }
+                property bool explicitlySettingCurrentIndex: false
+                Keys.onDownPressed: explicitlyChangeCurrentIndex(incrementCurrentIndex)
+                Keys.onUpPressed: explicitlyChangeCurrentIndex(decrementCurrentIndex)
+
+                onCurrentItemChanged: {
+                    if (explicitlySettingCurrentIndex) return;
+                    if (currentItem.lastVisitDate.valueOf() !== currentDate.valueOf()) {
+                        currentIndex = 0
+                    }
+                }
+
                 model: HistoryLastVisitDateListModel {
                     sourceModel: historyLastVisitDateModel.sourceModel
                 }
@@ -169,7 +197,7 @@ FocusScope {
                         color: lastVisitDateListView.currentIndex == index ? UbuntuColors.orange : UbuntuColors.darkGrey
                     }
 
-                    onClicked: lastVisitDateListView.currentIndex = index
+                    onClicked: ListView.view.explicitlyChangeCurrentIndex(function() { ListView.view.currentIndex = index })
                }
             }
 
