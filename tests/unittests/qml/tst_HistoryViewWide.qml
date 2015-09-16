@@ -32,6 +32,12 @@ Item {
     height: 500
 
     property var historyViewWide: historyViewWideLoader.item
+    property int ctrlFCaptured: 0
+
+    Keys.onPressed: {
+        if (event.modifiers === Qt.ControlModifier && event.key === Qt.Key_F)
+            ctrlFCaptured++
+    }
 
     Loader {
         id: historyViewWideLoader
@@ -101,6 +107,7 @@ Item {
 
         function cleanup() {
             historyViewWideLoader.active = false
+            ctrlFCaptured = 0
         }
 
         function getListItems(name, itemName) {
@@ -283,6 +290,17 @@ Item {
             verify(datesList.activeFocus)
             keyClick(Qt.Key_F, Qt.ControlModifier)
             verify(searchQuery.activeFocus)
+        }
+
+        function test_ctrl_f_during_select_is_swallowed() {
+            var urlsList = findChild(historyViewWide, "urlsListView")
+            longPressItem(urlsList.children[0])
+            verify(historyViewWide.selectMode)
+
+            keyClick(Qt.Key_F, Qt.ControlModifier)
+            wait(50) // make sure event loop has processed
+            compare(ctrlFCaptured, 0)
+            verify(historyViewWide.selectMode)
         }
 
         function test_history_entry_activated_by_keyboard() {
