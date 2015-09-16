@@ -22,8 +22,8 @@
 // Qt
 #include <QtCore/QAbstractListModel>
 #include <QtCore/QMap>
-#include <QtCore/QString>
 #include <QtCore/QSortFilterProxyModel>
+#include <QtCore/QString>
 
 class HistoryLastVisitDateListModel : public QAbstractListModel
 {
