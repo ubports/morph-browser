@@ -43,11 +43,10 @@ Item {
         id: historyViewWideLoader
         anchors.fill: parent
         active: false
+        focus: true
         sourceComponent: HistoryViewWide {
-            id: historyViewWideComponent
-            anchors.fill: parent
+            focus: true
             historyModel: HistoryModelMock {
-                id: historyMockModel
                 databasePath: ":memory:"
             }
         }
@@ -102,7 +101,6 @@ Item {
             var urlsList = findChild(historyViewWide, "urlsListView")
             waitForRendering(urlsList)
             tryCompare(urlsList, "count", 3)
-            historyViewWide.forceActiveFocus()
         }
 
         function cleanup() {
