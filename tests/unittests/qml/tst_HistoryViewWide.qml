@@ -215,6 +215,9 @@ Item {
         }
 
         function test_search_button() {
+            var searchQuery = findChild(historyViewWide, "searchQuery")
+            verify(!searchQuery.visible)
+
             var searchButton = findChild(historyViewWide, "searchButton")
             verify(searchButton.visible)
             clickItem(searchButton)
