@@ -429,6 +429,7 @@ BrowserView {
                     onTriggered: {
                         settingsComponent.createObject(settingsContainer)
                         settingsContainer.focus = true
+                        chrome.findInPageMode = false
                     }
                 }
             ]
@@ -775,6 +776,8 @@ BrowserView {
         }
 
         Keys.onEscapePressed: historyViewLoader.active = false
+
+        onActiveChanged: if (active) chrome.findInPageMode = false
 
         Timer {
             id: historyViewTimer
