@@ -120,6 +120,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_geolocation_dialog(self):
         return self.wait_select_single(GeolocationPermissionRequest)
 
+    def get_http_auth_dialog(self):
+        return self.wait_select_single(HttpAuthenticationDialog)
+
     def get_tabs_view(self):
         return self.wait_select_single(TabsList, visible=True)
 
@@ -382,6 +385,21 @@ class GeolocationPermissionRequest(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_allow_button(self):
         return self.select_single("Button", objectName="allow")
+
+
+class HttpAuthenticationDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_deny_button(self):
+        return self.select_single("Button", objectName="deny")
+
+    def get_allow_button(self):
+        return self.select_single("Button", objectName="allow")
+
+    def get_username_field(self):
+        return self.select_single("TextField", objectName="username")
+
+    def get_password_field(self):
+        return self.select_single("TextField", objectName="password")
 
 
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):

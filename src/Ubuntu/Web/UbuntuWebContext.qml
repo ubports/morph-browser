@@ -17,7 +17,7 @@
  */
 
 import QtQuick 2.4
-import com.canonical.Oxide 1.6 as Oxide
+import com.canonical.Oxide 1.9 as Oxide
 
 Oxide.WebContext {
     readonly property string defaultUserAgent: __ua.defaultUA
@@ -29,27 +29,6 @@ Oxide.WebContext {
 
     userAgent: defaultUserAgent
 
-    networkRequestDelegate: Oxide.WebContextDelegateWorker {
-        source: Qt.resolvedUrl("ua-override-worker.js")
-        // Disable this log message since it outputs sensitive content when
-        // in private mode. (See  http://pad.lv/1457925)
-        //onMessage: console.log("Overriden UA for", message.url, ":", message.override)
-        Component.onCompleted: {
-            var script = "ua-overrides-%1.js".arg(formFactor)
-            var temp = null
-            try {
-                temp = Qt.createQmlObject('import QtQml 2.0; import "%1" as Overrides; QtObject { readonly property var overrides: Overrides.overrides }'.arg(script), this)
-            } catch (e) {
-                console.error("No overrides found for", formFactor)
-            }
-            if (temp !== null) {
-                console.log("Loaded %1 UA override(s) from %2".arg(temp.overrides.length).arg(Qt.resolvedUrl(script)))
-                sendMessage({overrides: temp.overrides})
-                temp.destroy()
-            }
-        }
-    }
-    userAgentOverrideDelegate: networkRequestDelegate
     sessionCookieMode: {
         if (typeof webContextSessionCookieMode !== 'undefined') {
             if (webContextSessionCookieMode === "persistent") {
@@ -60,6 +39,7 @@ Oxide.WebContext {
         }
         return Oxide.WebContext.SessionCookieModeEphemeral
     }
+
     userScripts: [
         Oxide.UserScript {
             context: "oxide://smartbanners/"
@@ -94,4 +74,19 @@ Oxide.WebContext {
     devtoolsIp: webviewDevtoolsDebugHost
 
     hostMappingRules: webviewHostMappingRules
+
+    Component.onCompleted: {
+        var script = "ua-overrides-%1.js".arg(formFactor)
+        var temp = null
+        try {
+            temp = Qt.createQmlObject('import QtQml 2.0; import "%1" as Overrides; QtObject { readonly property var overrides: Overrides.overrides }'.arg(script), this)
+        } catch (e) {
+            console.error("No overrides found for", formFactor)
+        }
+        if (temp !== null) {
+            console.log("Loaded %1 UA override(s) from %2".arg(temp.overrides.length).arg(Qt.resolvedUrl(script)))
+            userAgentOverrides = temp.overrides
+            temp.destroy()
+        }
+    }
 }
