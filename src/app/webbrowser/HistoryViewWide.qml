@@ -108,12 +108,7 @@ FocusScope {
                 anchors.fill: parent
 
                 currentIndex: 0
-                onCurrentIndexChanged: {
-                    if (currentItem) {
-                        historyLastVisitDateModel.setLastVisitDate(currentItem.lastVisitDate)
-                    }
-                    urlsListView.ViewItems.selectedIndices = []
-                }
+                onCurrentIndexChanged: urlsListView.ViewItems.selectedIndices = []
 
                 model: HistoryLastVisitDateListModel {
                     sourceModel: historyLastVisitDateModel.sourceModel
@@ -197,13 +192,13 @@ FocusScope {
                 Keys.onReturnPressed: historyEntrySelected()
                 Keys.onEnterPressed: historyEntrySelected()
 
-                model: HistoryLastVisitDateModel {
+                model: SortFilterModel {
                     id: historyLastVisitDateModel
-                    // Until a valid HistoryModel is assigned the TestSearchFilterModel
-                    // will not report role names, and the HistoryLastVisit*Models will emit warnings
-                    // since they need a dateLastVisit role to be present.
-                    // We avoid this by assigning the sourceModel only when HistoryModel is ready.
-                    sourceModel: historyModel ? historySearchModel : undefined
+                    sourceModel: historySearchModel
+                    filter.property: "lastVisitDate"
+                    filter.pattern: lastVisitDateListView.currentIndex > 0
+                                    ? new RegExp(Qt.formatDate(lastVisitDateListView.currentItem.lastVisitDate, "yyyy-MM-dd"))
+                                    : new RegExp()
                 }
 
                 onCountChanged: {
@@ -234,7 +229,7 @@ FocusScope {
                 }
 
                 // Only use sections for "All History" history list
-                section.property: historyLastVisitDateModel.lastVisitDate.isValid() ? "" : "lastVisitDate"
+                section.property: lastVisitDateListView.currentIndex == 0 ? "" : "lastVisitDate"
                 section.delegate: HistorySectionDelegate {
                     width: parent.width - units.gu(3)
                     anchors.left: parent.left
