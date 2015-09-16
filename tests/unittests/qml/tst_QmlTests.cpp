@@ -110,7 +110,7 @@ private:
     QTemporaryDir m_testDir2;
 };
 
-class HistoryModelTest : public HistoryModel {
+class HistoryModelMock : public HistoryModel {
   Q_OBJECT
 
 public:
@@ -161,7 +161,7 @@ int main(int argc, char** argv)
     qmlRegisterType<BookmarksModel>(browserUri, 0, 1, "BookmarksModel");
     qmlRegisterType<BookmarksFolderListModel>(browserUri, 0, 1, "BookmarksFolderListModel");
     qmlRegisterType<HistoryModel>(browserUri, 0, 1, "HistoryModel");
-    qmlRegisterType<HistoryModelTest>(browserUri, 0, 1, "HistoryModelTest");
+    qmlRegisterType<HistoryModelMock>(browserUri, 0, 1, "HistoryModelMock");
     qmlRegisterType<HistoryTimeframeModel>(browserUri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<HistoryLastVisitDateListModel>(browserUri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<HistoryLastVisitDateModel>(browserUri, 0, 1, "HistoryLastVisitDateModel");

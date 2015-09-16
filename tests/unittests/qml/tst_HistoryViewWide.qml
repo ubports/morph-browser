@@ -46,7 +46,7 @@ Item {
         sourceComponent: HistoryViewWide {
             id: historyViewWideComponent
             anchors.fill: parent
-            historyModel: HistoryModelTest {
+            historyModel: HistoryModelMock {
                 id: historyMockModel
                 databasePath: ":memory:"
             }
