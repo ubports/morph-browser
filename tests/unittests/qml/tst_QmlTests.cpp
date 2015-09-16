@@ -163,7 +163,6 @@ int main(int argc, char** argv)
     qmlRegisterType<BookmarksModel>(browserUri, 0, 1, "BookmarksModel");
     qmlRegisterType<BookmarksFolderListModel>(browserUri, 0, 1, "BookmarksFolderListModel");
     qmlRegisterType<HistoryModel>(browserUri, 0, 1, "HistoryModel");
-    qmlRegisterType<HistoryModelMock>(browserUri, 0, 1, "HistoryModelMock");
     qmlRegisterType<HistoryTimeframeModel>(browserUri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<HistoryLastVisitDateListModel>(browserUri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<HistoryLastVisitDateModel>(browserUri, 0, 1, "HistoryLastVisitDateModel");
@@ -172,7 +171,9 @@ int main(int argc, char** argv)
     qmlRegisterType<TopSitesModel>(browserUri, 0, 1, "TopSitesModel");
     qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
 
-    qmlRegisterSingletonType<TestContext>("webbrowsertest.private", 0, 1, "TestContext", TestContext_singleton_factory);
+    const char* testUri = "webbrowsertest.private";
+    qmlRegisterSingletonType<TestContext>(testUri, 0, 1, "TestContext", TestContext_singleton_factory);
+    qmlRegisterType<HistoryModelMock>(testUri, 0, 1, "HistoryModelMock");
 
     return quick_test_main(argc, argv, "QmlTests", nullptr);
 }
