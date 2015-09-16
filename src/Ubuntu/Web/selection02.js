@@ -19,5 +19,3 @@
 document.defaultView.addEventListener('scroll', function(event) {
     oxide.sendMessage('scroll', {});
 });
-
-oxide.sendMessage('dpr', {dpr: document.defaultView.devicePixelRatio});

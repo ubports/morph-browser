@@ -29,7 +29,6 @@ WebView {
     property var currentWebview: webview
 
     /*experimental.certificateVerificationDialog: CertificateVerificationDialog {}
-    experimental.authenticationDialog: AuthenticationDialog {}
     experimental.proxyAuthenticationDialog: ProxyAuthenticationDialog {}*/
     alertDialog: AlertDialog {}
     confirmDialog: ConfirmDialog {}
@@ -80,6 +79,11 @@ WebView {
             // Desktop form factor case
             Qt.openUrlExternally(request.url)
         }
+    }
+
+    onHttpAuthenticationRequested: {
+        PopupUtils.open(Qt.resolvedUrl("HttpAuthenticationDialog.qml"),
+                        webview.currentWebview, {"request": request})
     }
 
     Loader {
