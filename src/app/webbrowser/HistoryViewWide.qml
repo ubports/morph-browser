@@ -437,7 +437,7 @@ FocusScope {
             hasClearButton: true
             placeholderText: i18n.tr("search history")
             visible: historyViewWide.searchMode
-            property var terms: text.split(/\s+/g).filter(function(term) { return term.length > 0 })
+            readonly property var terms: text.split(/\s+/g).filter(function(term) { return term.length > 0 })
 
             Keys.onEscapePressed: historyViewWide.searchMode = false
             Keys.onDownPressed: urlsListView.focus = true
