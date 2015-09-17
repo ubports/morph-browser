@@ -236,7 +236,7 @@ FocusScope {
 
                 model: HistoryLastVisitDateModel {
                     id: historyLastVisitDateModel
-                    // Until a valid HistoryModel is assigned the TestSearchFilterModel
+                    // Until a valid HistoryModel is assigned the TextSearchFilterModel
                     // will not report role names, and the HistoryLastVisit*Models will emit warnings
                     // since they need a dateLastVisit role to be present.
                     // We avoid this by assigning the sourceModel only when HistoryModel is ready.

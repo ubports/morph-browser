@@ -223,7 +223,6 @@ Item {
             clickItem(searchButton)
             verify(!searchButton.visible)
 
-            var searchQuery = findChild(historyViewWide, "searchQuery")
             verify(searchQuery.visible)
             verify(searchQuery.activeFocus)
             compare(searchQuery.text, "")
