@@ -106,12 +106,14 @@ Item {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.right: parent.right
-            width: units.gu(4)
+            width: units.gu(2)
 
             Icon {
                 height: units.gu(1.5)
                 width: height
-                anchors.centerIn: parent
+                anchors.right: parent.right
+                anchors.rightMargin: units.gu(1)
+                anchors.verticalCenter: parent.verticalCenter
                 name: "close"
             }
 
