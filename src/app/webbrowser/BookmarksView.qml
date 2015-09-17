@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
 
 Item {
@@ -77,6 +78,15 @@ Item {
             }
 
             text: i18n.tr("Bookmarks")    
+        }
+
+        ListItems.ThinDivider {
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+                bottomMargin: units.gu(1)
+            }
         }
     }
 

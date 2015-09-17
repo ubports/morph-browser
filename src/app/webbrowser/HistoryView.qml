@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
 
 Item {
@@ -128,15 +129,10 @@ Item {
         }
     }
 
-    Item {
+    Toolbar {
         id: topBar
 
-        visible: domainsListView.ViewItems.selectMode
-        height: visible ? units.gu(5) : 0
-
-        Behavior on height {
-            UbuntuNumberAnimation {}
-        }
+        height: units.gu(7)
 
         anchors {
             left: parent.left
@@ -144,91 +140,96 @@ Item {
             top: parent.top
         }
 
-        Rectangle {
-            width: parent.width
-            height: parent.height + units.gu(1.5)
-            color: "white"
+        Label {
+            visible: !domainsListView.ViewItems.selectMode
+
+            anchors {
+                top: parent.top
+                left: parent.left
+                topMargin: units.gu(2)
+                leftMargin: units.gu(2)
+            }
+
+            text: i18n.tr("History")    
         }
 
-        Item {
+        ToolbarAction {
+            visible: domainsListView.ViewItems.selectMode
+
             anchors {
                 top: parent.top
                 left: parent.left
                 leftMargin: units.gu(2)
-                bottom: parent.bottom
+            }
+            height: parent.height - units.gu(2)
+
+            iconName: "close"
+            text: i18n.tr("Cancel")
+
+            onClicked: domainsListView.ViewItems.selectMode = false
+        }
+
+        ToolbarAction {
+            visible: domainsListView.ViewItems.selectMode
+
+            anchors {
+                top: parent.top
+                right: deleteButton.left
+                rightMargin: units.gu(2)
+            }
+            height: parent.height - units.gu(2)
+
+            iconName: "select"
+            text: i18n.tr("Select all")
+
+            onClicked: {
+                if (domainsListView.ViewItems.selectedIndices.length === domainsListView.count) {
+                    domainsListView.ViewItems.selectedIndices = []
+                } else {
+                    var indices = []
+                    for (var i = 0; i < domainsListView.count; ++i) {
+                        indices.push(i)
+                    }
+                    domainsListView.ViewItems.selectedIndices = indices
+                }
+            }
+        }
+
+        ToolbarAction {
+            id: deleteButton
+
+            visible: domainsListView.ViewItems.selectMode
+
+            anchors {
+                top: parent.top
                 right: parent.right
                 rightMargin: units.gu(2)
             }
+            height: parent.height - units.gu(2)
 
-            ToolbarAction {
-                iconName: "close"
-                text: i18n.tr("Cancel")
+            iconName: "delete"
+            text: i18n.tr("Delete")
+            enabled: domainsListView.ViewItems.selectedIndices.length > 0
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: domainsListView.ViewItems.selectMode = false
+            onClicked: {
+                var indices = domainsListView.ViewItems.selectedIndices
+                var domains = []
+                for (var i in indices) {
+                    domains.push(domainsListView.model.get(indices[i]))
                 }
-
-                anchors.left: parent.left
-
-                height: parent.height
-                width: height
+                domainsListView.ViewItems.selectMode = false
+                for (var j in domains) {
+                    historyModel.removeEntriesByDomain(domains[j])
+                }
             }
+        }
 
-            ToolbarAction {
-                iconName: "select"
-                text: i18n.tr("Select all")
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        if (domainsListView.ViewItems.selectedIndices.length === domainsListView.count) {
-                            domainsListView.ViewItems.selectedIndices = []
-                        } else {
-                            var indices = []
-                            for (var i = 0; i < domainsListView.count; ++i) {
-                                indices.push(i)
-                            }
-                            domainsListView.ViewItems.selectedIndices = indices
-                        }
-                    }
-                }
-
-                anchors {
-                    right: deleteButton.left
-                    rightMargin: units.gu(2)
-                }
-
-                height: parent.height
-                width: height
-            }
-
-            ToolbarAction {
-                id: deleteButton
-
-                iconName: "delete"
-                text: i18n.tr("Delete")
-                enabled: domainsListView.ViewItems.selectedIndices.length > 0
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        var indices = domainsListView.ViewItems.selectedIndices
-                        var domains = []
-                        for (var i in indices) {
-                            domains.push(domainsListView.model.get(indices[i]))
-                        }
-                        domainsListView.ViewItems.selectMode = false
-                        for (var j in domains) {
-                            historyModel.removeEntriesByDomain(domains[j])
-                        }
-                    }
-                }
-
-                anchors.right: parent.right
-
-                height: parent.height
-                width: height
+        ListItems.ThinDivider {
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+                bottomMargin: units.gu(1)
             }
         }
     }
