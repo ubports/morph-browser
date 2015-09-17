@@ -47,9 +47,6 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: units.gu(2)
-            width: units.gu(2)
-            height: width
-
             shouldCache: !incognito
         }
 
