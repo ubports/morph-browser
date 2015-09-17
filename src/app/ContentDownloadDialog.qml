@@ -24,6 +24,7 @@ import webbrowsercommon.private 0.1
 
 PopupBase {
     id: downloadDialog
+    objectName: "downloadDialog"
     anchors.fill: parent
     property var activeTransfer
     property var downloadId
@@ -59,6 +60,7 @@ PopupBase {
 
                 Button {
                     text: i18n.tr("Choose an application")
+                    objectName: "chooseAppButton"
                     color: UbuntuColors.green
                     width: parent.width
                     height: units.gu(4)
@@ -71,6 +73,7 @@ PopupBase {
 
                 Button {
                     text: i18n.tr("Download file")
+                    objectName: "downloadFileButton"
                     width: parent.width
                     height: units.gu(4)
                     color: peerModel.peers.length == 0 ? UbuntuColors.green : UbuntuColors.warmGrey
@@ -83,6 +86,7 @@ PopupBase {
 
                 Button {
                     text: i18n.tr("Cancel")
+                    objectName: "cancelDownloadButton"
                     width: parent.width
                     height: units.gu(4)
                     onClicked: PopupUtils.close(downloadDialog)

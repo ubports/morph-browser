@@ -144,10 +144,17 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_settings_page(self):
         return self.wait_select_single(SettingsPage, visible=True)
 
+    def get_downloads_page(self):
+        return self.wait_select_single(DownloadsPage, visible=True)
+
     def get_content_picker_dialog(self):
         # only on devices
         return self.wait_select_single("PopupBase",
                                        objectName="contentPickerDialog")
+
+    def get_download_dialog(self):
+        return self.wait_select_single(ContentDownloadDialog,
+                                       objectName="downloadDialog")
 
     def get_bottom_edge_hint(self):
         return self.select_single("QQuickImage", objectName="bottomEdgeHint")
@@ -444,6 +451,26 @@ class SettingsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_reset_settings_entry(self):
         return self.select_single("Standard", objectName="reset")
 
+
+class DownloadsPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_header(self):
+        return self.select_single(BrowserPageHeader)
+
+
+class ContentDownloadDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def click_choose_app_button(self):
+        button = self.select_single("Button", objectName="chooseAppButton")
+        self.pointing_device.click_object(button)
+
+    def click_download_button(self):
+        button = self.select_single("Button", objectName="downloadFileButton")
+        self.pointing_device.click_object(button)
+
+    def click_cancel_button(self):
+        button = self.select_single("Button", objectName="cancelDownloadButton")
+        self.pointing_device.click_object(button)
 
 class BrowserPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
