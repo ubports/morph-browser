@@ -36,8 +36,7 @@ Column {
     signal back()
     signal confirmSelection()
     property string text
-    property alias selectButtonVisible: selectButton.visible
-    property alias selectButtonEnabled: selectButton.enabled
+    property alias actions: actionBar.actions
 
     height: childrenRect.height
 
@@ -97,35 +96,10 @@ Column {
             fontSize: 'x-large'
         }
 
-        AbstractButton {
-            id: selectButton
-            objectName: "selectButton"
-
-            width: height
-
-            onTriggered: root.confirmSelection()
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-                right: parent.right
-            }
-
-            Rectangle {
-                anchors.fill: parent
-                anchors.leftMargin: units.gu(1)
-                anchors.rightMargin: units.gu(1)
-                color: "#E6E6E6"
-                visible: parent.pressed
-            }
-
-            Icon {
-                name: "tick"
-                anchors {
-                    fill: parent
-                    topMargin: units.gu(2)
-                    bottomMargin: units.gu(2)
-                }
-            }
+        ActionBar {
+            id: actionBar
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
         }
 
         

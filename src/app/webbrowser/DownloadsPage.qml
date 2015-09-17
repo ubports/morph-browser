@@ -40,6 +40,7 @@ Item {
     property var internalFilePicker
 
     property bool selectMode
+    property bool pickingMode
     property bool multiSelect
     property alias mimetypeFilter: downloadsMimetypeModel.mimetype
 
@@ -53,34 +54,77 @@ Item {
     BrowserPageHeader {
         id: title
         text: i18n.tr("Downloads")
-        selectButtonVisible: downloadsItem.selectMode
-        selectButtonEnabled: downloadsListView.ViewItems.selectedIndices.length > 0
+        actions: [
+            Action {
+                text: i18n.tr("Confirm selection")
+                iconName: "tick"
+                visible: pickingMode
+                enabled: downloadsListView.ViewItems.selectedIndices.length > 0
+                onTriggered: {
+                    var results = []
+                    if (internalFilePicker) {
+                        for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                            var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
+                            results.push(selectedDownload.path)
+                        }
+                        internalFilePicker.accept(results)
+                    } else {
+                        for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                            var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
+                            results.push(resultComponent.createObject(downloadsItem, {"url": "file://" + selectedDownload.path}))
+                        }
+                        activeTransfer.items = results
+                        activeTransfer.state = ContentTransfer.Charged
+                    }
+                    downloadsItem.done()
+                }
+            },
+            Action {
+                text: i18n.tr("Select all")
+                iconName: "select"
+                visible: selectMode
+                onTriggered: {
+                    if (downloadsListView.ViewItems.selectedIndices.length === downloadsListView.count) {
+                        downloadsListView.ViewItems.selectedIndices = []
+                    } else {
+                        var indices = []
+                        for (var i = 0; i < downloadsListView.count; ++i) {
+                            indices.push(i)
+                        }
+                        downloadsListView.ViewItems.selectedIndices = indices
+                    }
+                }
+            },
+            Action {
+                text: i18n.tr("Delete")
+                iconName: "delete"
+                visible: selectMode
+                onTriggered: {
+                    var toDelete = []
+                    for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
+                        var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
+                        toDelete.push(selectedDownload.path)
+                    }
+                    for (var i = 0; i < toDelete.length; i++) {
+                        downloadsModel.deleteDownload(toDelete[i])
+                    }
+                    downloadsListView.ViewItems.selectedIndices = []
+                    downloadsItem.selectMode = false
+                }
+            }
+        ]
         onBack: {
-            if (activeTransfer) {
-                activeTransfer.state = ContentTransfer.Aborted
-            }
-            if (internalFilePicker) {
-                internalFilePicker.reject()
-            }
-            downloadsItem.done()
-        }
-        onConfirmSelection: {
-            var results = []
-            if (internalFilePicker) {
-                for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
-                    var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
-                    results.push(selectedDownload.path)
-                }
-                internalFilePicker.accept(results)
+            if (selectMode) {
+                selectMode = false
             } else {
-                for (var i = 0; i < downloadsListView.ViewItems.selectedIndices.length; i++) {
-                    var selectedDownload = downloadsListView.model.get(downloadsListView.ViewItems.selectedIndices[i])
-                    results.push(resultComponent.createObject(downloadsItem, {"url": "file://" + selectedDownload.path}))
+                if (activeTransfer) {
+                    activeTransfer.state = ContentTransfer.Aborted
                 }
-                activeTransfer.items = results
-                activeTransfer.state = ContentTransfer.Charged
+                if (internalFilePicker) {
+                    internalFilePicker.reject()
+                }
+                downloadsItem.done()
             }
-            downloadsItem.done()
         }
     }
 
@@ -113,7 +157,7 @@ Item {
             extension: MimeDatabase.iconForMimetype(model.mimetype) === "-x-generic" ? model.extension : ""
             icon: MimeDatabase.iconForMimetype(model.mimetype) !== "-x-generic" ? MimeDatabase.iconForMimetype(model.mimetype) : ""
             incomplete: !model.complete
-            selectMode: downloadsItem.selectMode
+            selectMode: downloadsItem.selectMode || downloadsItem.pickingMode
             // Work around bug #1493880
             property bool lastSelected
 
@@ -133,6 +177,14 @@ Item {
                         exportPeerPicker.visible = true
                         exportPeerPicker.path = model.path
                     }
+                }
+            }
+
+            onPressAndHold: {
+                downloadsItem.selectMode = true
+                downloadsItem.multiSelect = true
+                if (downloadsItem.selectMode) {
+                    downloadsListView.ViewItems.selectedIndices = [index]
                 }
             }
 

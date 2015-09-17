@@ -1737,7 +1737,7 @@ BrowserView {
             downloadPage.mimetypeFilter = MimeTypeMapper.mimeTypeRegexForContentType(transfer.contentType)
             downloadPage.activeTransfer = transfer
             downloadPage.multiSelect = transfer.selectionType === ContentTransfer.Multiple
-            downloadPage.selectMode = true
+            downloadPage.pickingMode = true
         }
     }
 
