@@ -367,7 +367,7 @@ BrowserView {
                     objectName: "share"
                     text: i18n.tr("Share")
                     iconName: "share"
-                    enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
+                    visible: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
                     onTriggered: internal.shareLink(browser.currentWebview.url, browser.currentWebview.title)
                 },
                 Action {
@@ -381,14 +381,14 @@ BrowserView {
                     objectName: "history"
                     text: i18n.tr("History")
                     iconName: "history"
-                    enabled: browser.historyModel
+                    visible: browser.historyModel
                     onTriggered: historyViewLoader.active = true
                 },
                 Action {
                     objectName: "tabs"
                     text: i18n.tr("Open tabs")
                     iconName: "browser-tabs"
-                    enabled: (formFactor != "mobile") && !browser.wide
+                    visible: (formFactor != "mobile") && !browser.wide
                     onTriggered: {
                         recentView.state = "shown"
                         recentToolbar.state = "shown"
@@ -398,14 +398,14 @@ BrowserView {
                     objectName: "newtab"
                     text: i18n.tr("New tab")
                     iconName: browser.incognito ? "private-tab-new" : "tab-new"
-                    enabled: (formFactor != "mobile") && !browser.wide
+                    visible: (formFactor != "mobile") && !browser.wide
                     onTriggered: browser.openUrlInNewTab("", true)
                 },
                 Action {
                     objectName: "findinpage"
                     text: i18n.tr("Find in page")
                     iconName: "search"
-                    enabled: !chrome.findInPageMode && !newTabViewLoader.active
+                    visible: !chrome.findInPageMode && !newTabViewLoader.active
                     onTriggered: {
                         chrome.findInPageMode = true
                         chrome.focus = true
@@ -1038,9 +1038,8 @@ BrowserView {
                             // position the menu target with a one-off assignement instead of a binding
                             // since the contents of the contextModel have meaning only while the context
                             // menu is active
-                            contextualMenuTarget.x = contextModel.position.x * devicePixelRatio
-                            contextualMenuTarget.y = contextModel.position.y * devicePixelRatio +
-                                                     locationBarController.height + locationBarController.offset
+                            contextualMenuTarget.x = contextModel.position.x
+                            contextualMenuTarget.y = contextModel.position.y + locationBarController.height + locationBarController.offset
                             internal.addBookmark(contextModel.linkUrl, contextModel.linkText,
                                                  "", contextualMenuTarget)
                         }
@@ -1078,7 +1077,7 @@ BrowserView {
                         enabled: contextModel &&
                                  ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
                                   (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
-                                 contextModel.srcUrl.toString()
+                                 contextModel.hasImageContents
                         onTriggered: contextModel.saveMedia()
                     }
                     Actions.Undo {
@@ -1125,11 +1124,25 @@ BrowserView {
                     }
                 }
 
+                function contextMenuOnCompleted(menu) {
+                    contextModel = menu.contextModel
+                    if (contextModel.linkUrl.toString() ||
+                        contextModel.srcUrl.toString() ||
+                        (contextModel.isEditable && contextModel.editFlags) ||
+                        (((contextModel.mediaType == Oxide.WebView.MediaTypeImage) ||
+                          (contextModel.mediaType == Oxide.WebView.MediaTypeCanvas)) &&
+                         contextModel.hasImageContents)) {
+                        menu.show()
+                    } else {
+                        contextModel.close()
+                    }
+                }
+
                 Component {
                     id: contextMenuNarrowComponent
                     ContextMenuMobile {
                         actions: contextualActions
-                        Component.onCompleted: webviewimpl.contextModel = contextModel
+                        Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
                     }
                 }
                 Component {
@@ -1138,7 +1151,7 @@ BrowserView {
                         webview: webviewimpl
                         parent: browser
                         actions: contextualActions
-                        Component.onCompleted: webviewimpl.contextModel = contextModel
+                        Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
                     }
                 }
                 contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
