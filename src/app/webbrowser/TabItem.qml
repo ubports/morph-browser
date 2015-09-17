@@ -90,12 +90,6 @@ Item {
             onClicked: tabItem.selected()
         }
 
-        Timer {
-            id: closeTimer
-            interval: 1
-            onTriggered: tabItem.closed()
-        }
-
         AbstractButton {
             id: closeButton
             objectName: "closeButton"
