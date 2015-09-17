@@ -53,7 +53,7 @@ class TestSadTab(StartOpenRemotePageTestCaseBase):
         self.main_window.get_new_tab_view()
 
     def _crash_web_process(self):
-        self.kill_web_processes(signal.SIGSEGV)
+        self.kill_web_processes(signal.SIGABRT)
         # A crash of the web process displays the sad tab right away
         return self.main_window.get_sad_tab()
 

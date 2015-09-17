@@ -32,10 +32,6 @@ Popups.Popover {
     QtObject {
         id: internal
 
-        readonly property bool isImage: ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
-                                         (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
-                                        contextModel.srcUrl.toString()
-
         readonly property int lastEnabledActionIndex: {
             var last = -1
             for (var i in actions.actions) {
@@ -61,8 +57,9 @@ Popups.Popover {
         }
 
         Label {
+            id: titleLabel
             objectName: "titleLabel"
-            text: internal.isImage ? contextModel.srcUrl : contextModel.linkUrl
+            text: contextModel.srcUrl.toString() ? contextModel.srcUrl : contextModel.linkUrl
             anchors {
                 left: parent.left
                 leftMargin: units.gu(2)
@@ -70,7 +67,7 @@ Popups.Popover {
                 rightMargin: units.gu(2)
             }
             height: units.gu(5)
-            visible: !contextModel.isEditable
+            visible: text
             fontSize: "x-small"
             color: "#888888"
             elide: Text.ElideRight
@@ -84,13 +81,13 @@ Popups.Popover {
                 right: parent.right
                 rightMargin: units.gu(2)
             }
-            visible: !contextModel.isEditable
+            visible: titleLabel.visible
         }
 
         Repeater {
             model: actions.actions
             delegate: ListItems.Empty {
-                readonly property var action: actions.actions[index]
+                action: actions.actions[index]
                 objectName: action.objectName + "_item"
                 visible: action.enabled
                 showDivider: false
@@ -120,10 +117,7 @@ Popups.Popover {
                     }
                 }
 
-                onTriggered: {
-                    action.trigger()
-                    contextMenu.hide()
-                }
+                onTriggered: contextMenu.hide()
             }
         }
     }
@@ -132,23 +126,10 @@ Popups.Popover {
         id: positioner
         visible: false
         parent: contextMenu.webview
-        // XXX: Because the context model’s position is incorrectly reported in
-        // device-independent pixels (see https://launchpad.net/bugs/1471181),
-        // it needs to be multiplied by the device pixel ratio to get physical pixels.
-        x: contextModel.position.x * contextMenu.webview.devicePixelRatio
-        y: contextModel.position.y * contextMenu.webview.devicePixelRatio + internal.locationBarOffset
+        x: contextModel.position.x
+        y: contextModel.position.y + internal.locationBarOffset
     }
     caller: positioner
-
-    Component.onCompleted: {
-        if (contextModel.linkUrl.toString() ||
-            contextModel.srcUrl.toString() ||
-            (contextModel.isEditable && contextModel.editFlags)) {
-            show()
-        } else {
-            contextModel.close()
-        }
-    }
 
     onVisibleChanged: {
         if (!visible) {
