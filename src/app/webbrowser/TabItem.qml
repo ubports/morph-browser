@@ -77,8 +77,8 @@ Item {
                 gradient: Gradient {
                     GradientStop {
                         position: 0.0;
-                        color: (hoverArea.containsMouse) ? "#cecece" :
-                               ((active) ? "#f8f8f8" : "#dedede")
+                        color: active ? "#f8f8f8" :
+                               (hoverArea.containsMouse ? "#cecece" : "#dedede")
                     }
                     GradientStop { position: 0.33; color: "transparent" }
                 }
