@@ -22,7 +22,6 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Test 1.0
 import webbrowsertest.private 0.1
-import webbrowserapp.private 0.1
 import "../../../src/app/webbrowser"
 
 Item {
