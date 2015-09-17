@@ -41,7 +41,7 @@ ChromeBase {
 
     signal requestNewTab()
 
-    backgroundColor: incognito ? UbuntuColors.darkGrey : "#cecece"
+    backgroundColor: incognito ? UbuntuColors.darkGrey : "#bcbcbc"
 
     implicitHeight: tabsBar.height + navigationBar.height + content.anchors.topMargin
 
@@ -75,7 +75,7 @@ ChromeBase {
                 left: parent.left
                 right: parent.right
             }
-            height: active ? units.gu(4) : 0
+            height: active ? (formFactor == "desktop" ? units.gu(3) : units.gu(4)) : 0
         }
 
         NavigationBar {

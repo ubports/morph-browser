@@ -38,8 +38,9 @@ Item {
         id: tabImage
         anchors.fill: parent
         anchors.rightMargin: tabItem.rightMargin
-        source: "assets/tab-%1.sci".arg((active) ? "active" :
-                                        (hoverArea.containsMouse ? "hover" : "non-active"))
+        source: "assets/tab-%1%2.sci".arg((active) ? "active" :
+                                          (hoverArea.containsMouse ? "hover" : "non-active"))
+                                     .arg(formFactor == "desktop" ? "-desktop" : "")
 
         Favicon {
             id: favicon
@@ -76,8 +77,8 @@ Item {
                 gradient: Gradient {
                     GradientStop {
                         position: 0.0;
-                        color: (hoverArea.containsMouse) ? "#f1f1f1" :
-                               ((active) ? "#f8f8f8" : "#ebebeb")
+                        color: (hoverArea.containsMouse) ? "#cecece" :
+                               ((active) ? "#f8f8f8" : "#dedede")
                     }
                     GradientStop { position: 0.33; color: "transparent" }
                 }
