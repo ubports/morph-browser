@@ -17,11 +17,8 @@
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 from autopilot.matchers import Eventually
-from autopilot.platform import model
 
 from testtools.matchers import Equals
-
-import unittest
 
 
 class TestDownloads(StartOpenRemotePageTestCaseBase):
