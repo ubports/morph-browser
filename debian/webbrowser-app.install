@@ -4,7 +4,6 @@ usr/share/webbrowser-app/*.js
 usr/share/webbrowser-app/*.png
 usr/share/webbrowser-app/actions/*.qml
 usr/share/webbrowser-app/webbrowser/
-usr/share/webbrowser-app/webbrowser/assets/*.sci
 usr/share/applications/webbrowser-app.desktop
 usr/share/locale/*/LC_MESSAGES/webbrowser-app.mo
 usr/share/url-dispatcher/
