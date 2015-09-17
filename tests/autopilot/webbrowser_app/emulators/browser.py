@@ -469,8 +469,10 @@ class ContentDownloadDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
     def click_cancel_button(self):
-        button = self.select_single("Button", objectName="cancelDownloadButton")
+        button = self.select_single("Button",
+                                    objectName="cancelDownloadButton")
         self.pointing_device.click_object(button)
+
 
 class BrowserPageHeader(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 

@@ -186,12 +186,14 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
         elif self.path.startswith("/downloadpdfgenericmime"):
             self.send_response(200)
             self.send_header("Content-Type", "application/octet-stream")
-            self.send_header("Content-Disposition", "attachment; filename='test.pdf'")
+            self.send_header("Content-Disposition",
+                             "attachment; filename='test.pdf'")
             self.end_headers()
         elif self.path.startswith("/downloadpdf"):
             self.send_response(200)
             self.send_header("Content-Type", "application/pdf")
-            self.send_header("Content-Disposition", "attachment; filename='test.pdf'")
+            self.send_header("Content-Disposition",
+                             "attachment; filename='test.pdf'")
             self.end_headers()
         else:
             self.send_error(404)
