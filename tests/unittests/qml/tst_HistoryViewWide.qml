@@ -409,12 +409,12 @@ Item {
             // included in the results
             keyClick(Qt.Key_F, Qt.ControlModifier)
             typeString("onzo")
-            urls = getListItems("urlsListView", "historyDelegate")
-            compare(urls.length, 1)
             compare(searchQuery.text, "Alonzo")
             returnToDatesList()
             testItem = getDateItem(youngest)
             compare(testItem, null)
+            urls = getListItems("urlsListView", "historyDelegate")
+            compare(urls.length, 1)
 
             // verify that the current item has reverted to the first in the
             // dates list ("all dates")
