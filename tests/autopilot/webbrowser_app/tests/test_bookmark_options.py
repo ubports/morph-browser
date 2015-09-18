@@ -100,6 +100,12 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         urls = tab.get_bookmarks(folder_name)
         self.assertThat(lambda: len(urls), Eventually(Equals(count)))
 
+    def _toggle_bookmark_folder(self, tab, folder_name):
+        folders = tab.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate(folder_name)
+        self.pointing_device.click_object(
+            folders.get_header_from_folder(folder_delegate))
+
     def test_save_bookmarked_url_in_default_folder(self):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self._assert_bookmark_count_in_folder(new_tab, "", 4)
@@ -124,6 +130,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
+        self._toggle_bookmark_folder(new_tab, "Actinide")
         self._assert_bookmark_count_in_folder(new_tab, "Actinide", 1)
 
         url = self.base_url + "/test2"
@@ -154,6 +161,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
+        self._toggle_bookmark_folder(new_tab, "Actinide")
         self._assert_bookmark_count_in_folder(new_tab, "Actinide", 2)
 
     def test_save_bookmarked_url_in_new_folder(self):
@@ -198,6 +206,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(4)))
+        self._toggle_bookmark_folder(new_tab, "NewFolder")
         self._assert_bookmark_count_in_folder(new_tab, "NewFolder", 1)
 
     def test_set_bookmark_title(self):

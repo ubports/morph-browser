@@ -528,7 +528,7 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.get_top_sites_list().get_delegates()
 
     def get_bookmarks_folder_list_view(self):
-        return self.select_single(BookmarksFolderListView)
+        return self.select_single(BookmarksFoldersView)
 
     def get_bookmarks(self, folder_name):
         # assumes that the "more" button has been clicked
@@ -634,7 +634,7 @@ class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
 
-class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class BookmarksFoldersView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_delegates(self):
         return sorted(self.select_many("QQuickItem",
