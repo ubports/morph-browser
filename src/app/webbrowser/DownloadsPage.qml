@@ -197,6 +197,16 @@ Item {
 
     }
 
+    Label {
+        id: emptyLabel
+        anchors.centerIn: parent
+        visible: downloadsListView.count == 0
+        wrapMode: Text.Wrap
+        width: parent.width
+        horizontalAlignment: Text.AlignHCenter
+        text: i18n.tr("No downloads available")
+    }
+
     Component {
         id: contentItemComponent
         ContentItem {}
