@@ -25,16 +25,13 @@ import Ubuntu.Components.ListItems 1.3 as ListItem
  * subpages
  *
  * It has a back() signal fired when back button is pressed, a text
- * property to set the page title, a confirmSelection() signal fired
- * when the select button is pressed and selectButtonVisible and
- * selectButtonEnabled properties for controlling the visibility and
- * state of the select button.
+ * property to set the page title and an actions property which
+ * displays action icons on the right of header.
  */
 
 Column {
     id: root
     signal back()
-    signal confirmSelection()
     property string text
     property alias actions: actionBar.actions
 
