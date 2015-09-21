@@ -665,7 +665,7 @@ BrowserView {
                 text: i18n.tr("New Tab")
 
                 iconName: browser.incognito ? "private-tab-new" : "add"
-                iconColor: browser.incognito ? "#f6f6f6" : "#808080"
+                color: browser.incognito ? "#f6f6f6" : "#808080"
 
                 onClicked: {
                     recentView.reset()
