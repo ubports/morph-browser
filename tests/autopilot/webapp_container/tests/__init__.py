@@ -121,9 +121,6 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
         webview.url = url
         self.assert_page_eventually_loaded(url)
 
-    def get_sad_tab(self):
-        return self.wait_select_single(SadTab)
-
     def kill_web_processes(self, signal=signal.SIGKILL):
         children = psutil.Process(self.app.pid).children(True)
         for child in children:
@@ -134,12 +131,6 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
                         break
 
 class SadTab(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-
-    @autopilot.logging.log_action(logger.info)
-    def click_close_tab_button(self):
-        button = self.select_single("Button", objectName="closeTabButton")
-        self.pointing_device.click_object(button)
-
     @autopilot.logging.log_action(logger.info)
     def click_reload_button(self):
         button = self.select_single("Button", objectName="reloadButton")
