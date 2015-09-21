@@ -27,6 +27,7 @@ import "FileExtensionMapper.js" as FileExtensionMapper
 Item {
     id: downloadItem
 
+    property string filename
     property string mimeType
 
     Component {
@@ -57,9 +58,13 @@ Item {
                 if (typeof(webapp) == 'undefined') {
                     browser.downloadsModel.add(downloadId, url, downloadItem.mimeType)
                 }
+                if (!filename) {
+                    filename = url.split("/").pop();
+                }
                 PopupUtils.open(downloadDialog, downloadItem, {"contentType" : contentType,
                                                                "downloadId" : downloadId,
                                                                "singleDownload" : downloader,
+                                                               "filename" : downloadItem.filename,
                                                                "mimeType" : downloadItem.mimeType})
             }
 
@@ -118,6 +123,7 @@ Item {
             metadata.extract = true
         }
         metadata.title = filename
+        downloadItem.filename = filename
         downloadItem.mimeType = mimeType
         download(url, contentType, headers, metadata)
     }

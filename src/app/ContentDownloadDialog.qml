@@ -30,6 +30,7 @@ PopupBase {
     property var downloadId
     property var singleDownload
     property var mimeType
+    property var filename
     property alias contentType: peerPicker.contentType
 
     Component {
@@ -39,8 +40,9 @@ PopupBase {
             Column {
                 spacing: units.gu(2)
 
-                Row {
-                    spacing: units.gu(2)
+                Item {
+                    width: parent.width
+                    height: mimetypeIcon.height
 
                     Icon {
                         id: mimetypeIcon
@@ -50,9 +52,23 @@ PopupBase {
                     }
 
                     Label {
+                        id: filenameLabel
+                        anchors.top: mimetypeIcon.top
+                        anchors.left: mimetypeIcon.right
+                        anchors.leftMargin: units.gu(2)
+                        anchors.right: parent.right
+                        anchors.rightMargin: units.gu(2)
+                        horizontalAlignment: Text.AlignHCenterdd
+                        elide: Text.ElideMiddle
+                        text: downloadDialog.filename
+                    }
+
+                    Label {
+                        anchors.top: filenameLabel.bottom
+                        anchors.left: filenameLabel.left
+                        anchors.right: filenameLabel.right
                         horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        height: units.gu(4.5)
+                        elide: Text.ElideRight
                         font.capitalization: Font.Capitalize
                         text: MimeDatabase.nameForMimetype(downloadDialog.mimeType)
                     }
