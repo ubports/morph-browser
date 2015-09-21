@@ -3,7 +3,8 @@ find_package(Qt5Qml REQUIRED)
 find_package(Qt5Test REQUIRED)
 set(TEST tst_IntentFilterTests)
 set(SOURCES
-    ${webapp-container_SOURCE_DIR}/intent-filter.cpp
+    ${webapp-container_SOURCE_DIR}/intent-parser.cpp
+    ${webapp-container_SOURCE_DIR}/scheme-filter.cpp
     tst_IntentFilterTests.cpp
 )
 include_directories(${webapp-container_SOURCE_DIR})
