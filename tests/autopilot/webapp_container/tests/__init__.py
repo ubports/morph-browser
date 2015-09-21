@@ -16,6 +16,7 @@
 """ Autopilot tests for the webapp_container package """
 
 import os
+import signal
 import subprocess
 import psutil
 
@@ -130,11 +131,12 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
                         os.kill(child.pid, signal)
                         break
 
+
 class SadTab(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-    @autopilot.logging.log_action(logger.info)
     def click_reload_button(self):
         button = self.select_single("Button", objectName="reloadButton")
         self.pointing_device.click_object(button)
+
 
 class WebappContainerTestCaseWithLocalContentBase(WebappContainerTestCaseBase):
     BASE_URL_SCHEME = 'http://'

@@ -16,9 +16,11 @@
 import signal
 import time
 
-from autopilot.platform import model
-
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
+from webapp_container.tests import SadTab
+
+from testtools.matchers import Equals
+from autopilot.matchers import Eventually
 
 
 class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
@@ -38,7 +40,9 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
 
         self._kill_web_process()
 
-        sad_tab = self.wait_select_single(SadTab, objectName="mainWebviewSadTab")
+        sad_tab = self.wait_select_single(
+            SadTab,
+            objectName="mainWebviewSadTab")
         sad_tab.click_reload_button()
         sad_tab.wait_until_destroyed()
 
@@ -51,14 +55,10 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
             '/open-close-content')
         self.get_webcontainer_window().visible.wait_for(True)
 
-        views = self.get_popup_overlay_views()
         self.click_href_target_blank()
         self.assertThat(
             lambda: len(self.get_popup_overlay_views()),
             Eventually(Equals(1)))
-
-        views = self.get_popup_overlay_views()
-        overlay = views[0]
 
         self._kill_web_process()
 
@@ -81,7 +81,9 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
 
         self._crash_web_process()
 
-        sad_tab = self.wait_select_single(SadTab, objectName="mainWebviewSadTab")
+        sad_tab = self.wait_select_single(
+            SadTab,
+            objectName="mainWebviewSadTab")
         sad_tab.click_reload_button()
         sad_tab.wait_until_destroyed()
 
@@ -94,14 +96,10 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
             '/open-close-content')
         self.get_webcontainer_window().visible.wait_for(True)
 
-        views = self.get_popup_overlay_views()
         self.click_href_target_blank()
         self.assertThat(
             lambda: len(self.get_popup_overlay_views()),
             Eventually(Equals(1)))
-
-        views = self.get_popup_overlay_views()
-        overlay = views[0]
 
         self._crash_web_process()
 
