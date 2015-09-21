@@ -313,7 +313,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate(folder)
         self.pointing_device.click_object(
             folders.get_header_from_folder(folder_delegate))
- 
+
     def test_remove_bookmarks_when_collapsed(self):
         bookmarks = self.new_tab_view.get_bookmarks_list()
         self.assertThat(lambda: len(bookmarks.get_delegates()),
