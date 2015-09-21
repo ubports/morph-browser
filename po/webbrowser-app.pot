@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-21 16:02+0100\n"
+"POT-Creation-Date: 2015-09-21 19:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -392,7 +392,8 @@ msgstr ""
 msgid "Address;URL;www"
 msgstr ""
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:674
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:663
+#: src/app/webbrowser/TabsBar.qml:84
 msgid "New Tab"
 msgstr ""
 
@@ -423,6 +424,7 @@ msgid "Redo"
 msgstr ""
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/webbrowser/TabsBar.qml:89
 msgid "Reload"
 msgstr ""
 
@@ -754,6 +756,10 @@ msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
+msgstr ""
+
+#: src/app/webbrowser/TabsBar.qml:98
+msgid "Close Tab"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
