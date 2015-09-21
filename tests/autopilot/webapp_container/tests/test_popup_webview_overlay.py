@@ -49,7 +49,7 @@ class WebappContainerPopupWebViewOverlayTestCase(
 
         popup_controller = self.get_popup_controller()
         new_view_watcher = popup_controller.watch_signal(
-            'newViewCreated(QString)')
+            'newViewCreated(QString,QVariant)')
         animation_watcher = popup_controller.watch_signal(
             'windowOverlayOpenAnimationDone()')
         animation_signal_emission = animation_watcher.num_emissions

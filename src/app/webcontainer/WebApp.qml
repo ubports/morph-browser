@@ -144,6 +144,26 @@ BrowserView {
              * being explictly defined here.
              */
             webappName: webapp.webappName === "" ? unityWebapps.name : webapp.webappName
+
+            Loader {
+                anchors {
+                    fill: webview
+                    topMargin: (!webapp.chromeless && chromeLoader.item.state == "shown")
+                               ? chromeLoader.item.height
+                               : 0
+                }
+                active: webview.currentWebview &&
+                        (webProcessMonitor.crashed || (webProcessMonitor.killed && !webview.currentWebview.loading))
+                sourceComponent: SadTab {
+                    webview: webview.currentWebview
+                    showCloseTabButton: false
+                }
+                WebProcessMonitor {
+                    id: webProcessMonitor
+                    webview: webview.currentWebview
+                }
+                asynchronous: true
+            }
         }
 
         Loader {

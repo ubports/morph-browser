@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-04 23:17+0200\n"
+"POT-Creation-Date: 2015-09-21 14:45-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,13 +23,13 @@ msgid "JavaScript Alert"
 msgstr ""
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
-#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr ""
 
-#: src/app/AuthenticationDialog.qml:24
+#: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
 msgstr ""
 
@@ -39,17 +39,18 @@ msgstr ""
 msgid "The website %1 requires authentication."
 msgstr ""
 
-#: src/app/AuthenticationDialog.qml:34
+#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
 msgstr ""
 
-#: src/app/AuthenticationDialog.qml:41
+#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
 msgstr ""
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
-#: src/app/webbrowser/ContextMenuMobile.qml:142
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
+#: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/HistoryView.qml:165
 #: src/app/webbrowser/HistoryViewWide.qml:307
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
@@ -293,6 +294,30 @@ msgstr ""
 msgid "The website %1:%2 requires authentication."
 msgstr ""
 
+#: src/app/SadTab.qml:49
+msgid "The rendering process has been closed for this tab."
+msgstr ""
+
+#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
+#: src/app/SadTab.qml:66
+#, qt-format
+msgid "Something went wrong while displaying %1."
+msgstr ""
+
+#: src/app/SadTab.qml:68
+msgid ""
+"The system is low on memory and can't display this webpage. Try closing "
+"unneeded tabs and reloading."
+msgstr ""
+
+#: src/app/SadTab.qml:81
+msgid "Close tab"
+msgstr ""
+
+#: src/app/SadTab.qml:88 src/app/actions/Reload.qml:23
+msgid "Reload"
+msgstr ""
+
 #: src/app/actions/Back.qml:23
 msgid "Back"
 msgstr ""
@@ -405,10 +430,6 @@ msgstr ""
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
-
-#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-msgid "Reload"
 msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
@@ -528,11 +549,11 @@ msgstr ""
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1172
+#: src/app/webbrowser/Browser.qml:1185
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1173
+#: src/app/webbrowser/Browser.qml:1186
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
@@ -607,26 +628,6 @@ msgstr ""
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
-msgstr ""
-
-#: src/app/webbrowser/SadTab.qml:48
-msgid "The rendering process has been closed for this tab."
-msgstr ""
-
-#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
-#: src/app/webbrowser/SadTab.qml:65
-#, qt-format
-msgid "Something went wrong while displaying %1."
-msgstr ""
-
-#: src/app/webbrowser/SadTab.qml:67
-msgid ""
-"The system is low on memory and can't display this webpage. Try closing "
-"unneeded tabs and reloading."
-msgstr ""
-
-#: src/app/webbrowser/SadTab.qml:80
-msgid "Close tab"
 msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
