@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QIcon>
+
 #include "mime-database.h"
 
 MimeDatabase::MimeDatabase(QObject* parent)
@@ -39,7 +41,7 @@ QString MimeDatabase::iconForMimetype(const QString& mimetypeString) const
 {
     QMimeDatabase mimedb;
     QMimeType mimetype = mimedb.mimeTypeForName(mimetypeString);
-    if (mimetype.iconName().isEmpty()) {
+    if (mimetype.iconName().isEmpty() || !QIcon::hasThemeIcon(mimetype.iconName())) {
         return mimetype.genericIconName();
     } else {
         return mimetype.iconName();
