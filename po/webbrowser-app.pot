@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-21 12:53+0100\n"
+"POT-Creation-Date: 2015-09-21 16:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,7 +48,7 @@ msgid "Password"
 msgstr ""
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/ContentDownloadDialog.qml:89
+#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
@@ -99,12 +99,17 @@ msgstr ""
 msgid "JavaScript Confirmation"
 msgstr ""
 
-#: src/app/ContentDownloadDialog.qml:63
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
 msgstr ""
 
-#: src/app/ContentDownloadDialog.qml:76
-msgid "Download file"
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
 msgstr ""
 
 #: src/app/ErrorSheet.qml:36
@@ -753,13 +758,13 @@ msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webcontainer/webapp-container.qml:67
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webcontainer/webapp-container.qml:69
 msgid "Ubuntu Web Browser"
 msgstr ""
 
