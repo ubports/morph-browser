@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-09-06 05:56+0000\n"
-"X-Generator: Launchpad (build 17706)\n"
+"X-Launchpad-Export-Date: 2015-09-22 05:58+0000\n"
+"X-Generator: Launchpad (build 17749)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -383,7 +383,7 @@ msgstr "Leikkaa"
 msgid "Erase"
 msgstr "Poista"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
 msgid "Find in page"
 msgstr "Etsi sivulta"
 
@@ -413,7 +413,7 @@ msgstr "Siirry"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;osoite;internet;webbi;netti"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:653
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:663
 msgid "New Tab"
 msgstr "Uusi välilehti"
 
@@ -443,7 +443,7 @@ msgstr "Liitä"
 msgid "Redo"
 msgstr "Tee uudelleen"
 
-#: src/app/actions/Reload.qml:23
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 msgid "Reload"
 msgstr "Päivitä"
 
@@ -475,16 +475,16 @@ msgid "Undo"
 msgstr "Kumoa"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:203
+#: src/app/webbrowser/AddressBar.qml:204
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:239
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "find in page"
 msgstr "etsi sivulta"
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:241
 msgid "search or enter an address"
 msgstr "etsi tai kirjoita osoite"
 
@@ -522,64 +522,64 @@ msgstr "Luo uusi kansio"
 msgid "Save"
 msgstr "Tallenna"
 
-#: src/app/webbrowser/Browser.qml:349
+#: src/app/webbrowser/Browser.qml:368
 msgid "Share"
 msgstr "Jaa"
 
-#: src/app/webbrowser/Browser.qml:356
+#: src/app/webbrowser/Browser.qml:375
 #: src/app/webbrowser/HistoryViewWide.qml:291
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:363
+#: src/app/webbrowser/Browser.qml:382
 msgid "Open tabs"
 msgstr "Avoimet välilehdet"
 
-#: src/app/webbrowser/Browser.qml:373 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/HistoryViewWide.qml:396
 #: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Uusi välilehti"
 
-#: src/app/webbrowser/Browser.qml:390
+#: src/app/webbrowser/Browser.qml:409
 msgid "Leave Private Mode"
 msgstr "Poistu yksityisestä tilasta"
 
-#: src/app/webbrowser/Browser.qml:390
+#: src/app/webbrowser/Browser.qml:409
 msgid "Private Mode"
 msgstr "Yksityinen tila"
 
-#: src/app/webbrowser/Browser.qml:408 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Asetukset"
 
-#: src/app/webbrowser/Browser.qml:639 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:649 src/app/webbrowser/HistoryView.qml:108
 #: src/app/webbrowser/HistoryViewWide.qml:382
 msgid "Done"
 msgstr "Valmis"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:746
+#: src/app/webbrowser/Browser.qml:756
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1148
+#: src/app/webbrowser/Browser.qml:1172
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Vedä ylös poistuaksesi koko näytön tilasta"
 
-#: src/app/webbrowser/Browser.qml:1149
+#: src/app/webbrowser/Browser.qml:1173
 msgid "Press ESC To Exit Full Screen"
 msgstr "Paina Esc poistuaksesi koko näytön tilasta"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:103
+#: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 sivu"
 msgstr[1] "%1 sivua"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Vähemmän"
