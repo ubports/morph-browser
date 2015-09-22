@@ -19,7 +19,7 @@ import time
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
 from webapp_container.tests import SadTab
 
-from testtools.matchers import Equals
+from testtools.matchers import Equals, Contains
 from autopilot.matchers import Eventually
 
 
@@ -34,13 +34,22 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
 
         self.kill_web_processes()
 
+    def _click_href_target_blank(self):
+        webview = self.get_oxide_webview()
+        self.assertThat(webview.url, Contains('/open-close-content'))
+        gr = webview.globalRect
+        self.pointing_device.move(
+            gr.x + gr.width/4,
+            gr.y + gr.height/4)
+        self.pointing_device.click()
+
     def test_reload_main_webview_killed(self):
         self.launch_webcontainer_app_with_local_http_server([])
         self.get_webcontainer_window().visible.wait_for(True)
 
         self._kill_web_process()
 
-        sad_tab = self.wait_select_single(
+        sad_tab = self.app.wait_select_single(
             SadTab,
             objectName="mainWebviewSadTab")
         sad_tab.click_reload_button()
@@ -55,15 +64,14 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
             '/open-close-content')
         self.get_webcontainer_window().visible.wait_for(True)
 
-        self.click_href_target_blank()
+        self._click_href_target_blank()
         self.assertThat(
             lambda: len(self.get_popup_overlay_views()),
             Eventually(Equals(1)))
 
         self._kill_web_process()
 
-        sad_tabs = self.wait_select_many(SadTab, objectName="overlaySadTab")
-        sad_tab = sad_tabs[0]
+        sad_tab = self.app.wait_select_single(SadTab, objectName="overlaySadTab")
 
         sad_tab.click_reload_button()
         sad_tab.wait_until_destroyed()
@@ -72,8 +80,6 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
 
     def _crash_web_process(self):
         self.kill_web_processes(signal.SIGABRT)
-        # A crash of the web process displays the "sad tab" right away
-        return self.get_sad_tab()
 
     def test_reload_main_webview_crashed(self):
         self.launch_webcontainer_app_with_local_http_server([])
@@ -81,7 +87,7 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
 
         self._crash_web_process()
 
-        sad_tab = self.wait_select_single(
+        sad_tab = self.app.wait_select_single(
             SadTab,
             objectName="mainWebviewSadTab")
         sad_tab.click_reload_button()
@@ -96,17 +102,19 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
             '/open-close-content')
         self.get_webcontainer_window().visible.wait_for(True)
 
-        self.click_href_target_blank()
+        self._click_href_target_blank()
         self.assertThat(
             lambda: len(self.get_popup_overlay_views()),
             Eventually(Equals(1)))
 
+#        views = self.get_popup_overlay_views()
+#        overlay = views[0]
+
         self._crash_web_process()
 
-        sad_tabs = self.wait_select_many(SadTab, objectName="overlaySadTab")
-        sad_tab = sad_tabs[0]
+        sad_tab = self.app.wait_select_single(SadTab, objectName="overlaySadTab")
 
         sad_tab.click_reload_button()
         sad_tab.wait_until_destroyed()
 
-#       self.assertThat(lambda: overlay.url, Eventually(Equals()))
+#        self.assertThat(lambda: overlay.currentWebview.url, Eventually(Equals(self.url)))
