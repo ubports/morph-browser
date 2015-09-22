@@ -429,6 +429,7 @@ BrowserView {
                     onTriggered: {
                         settingsComponent.createObject(settingsContainer)
                         settingsContainer.focus = true
+                        chrome.findInPageMode = false
                     }
                 }
             ]
@@ -480,16 +481,17 @@ BrowserView {
             Keys.onUpPressed: chrome.focus = true
             Keys.onEscapePressed: internal.resetFocus()
 
-            models: [historySuggestions,
+            models: searchTerms && searchTerms.length > 0 ?
+                    [historySuggestions,
                      bookmarksSuggestions,
-                     searchSuggestions.limit(4)]
+                     searchSuggestions.limit(4)] : []
 
             LimitProxyModel {
                 id: historySuggestions
                 limit: 2
                 readonly property string icon: "history"
                 readonly property bool displayUrl: true
-                sourceModel: SuggestionsFilterModel {
+                sourceModel: TextSearchFilterModel {
                     sourceModel: browser.historyModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
@@ -501,7 +503,7 @@ BrowserView {
                 limit: 2
                 readonly property string icon: "non-starred"
                 readonly property bool displayUrl: true
-                sourceModel: SuggestionsFilterModel {
+                sourceModel: TextSearchFilterModel {
                     sourceModel: browser.bookmarksModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
@@ -777,6 +779,8 @@ BrowserView {
         }
 
         Keys.onEscapePressed: historyViewLoader.active = false
+
+        onActiveChanged: if (active) chrome.findInPageMode = false
 
         Timer {
             id: historyViewTimer

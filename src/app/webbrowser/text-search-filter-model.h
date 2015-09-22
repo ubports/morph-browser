@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SUGGESTIONSFILTERMODEL_H
-#define SUGGESTIONSFILTERMODEL_H
+#ifndef TEXTSEARCHFILTERMODEL_H
+#define TEXTSEARCHFILTERMODEL_H
 
 // Qt
 #include <QtCore/QAbstractItemModel>
@@ -27,7 +27,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QVariant>
 
-class SuggestionsFilterModel : public QSortFilterProxyModel
+class TextSearchFilterModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
@@ -37,7 +37,7 @@ class SuggestionsFilterModel : public QSortFilterProxyModel
     Q_PROPERTY(int count READ count NOTIFY countChanged)
 
 public:
-    SuggestionsFilterModel(QObject* parent=0);
+    TextSearchFilterModel(QObject* parent=0);
 
     QVariant sourceModel() const;
     void setSourceModel(QVariant sourceModel);
@@ -69,4 +69,4 @@ private:
 };
 
 
-#endif // SUGGESTIONSFILTERMODEL_H
+#endif // TEXTSEARCHFILTERMODEL_H

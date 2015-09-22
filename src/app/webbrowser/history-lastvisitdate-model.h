@@ -24,21 +24,20 @@
 #include <QtCore/QSortFilterProxyModel>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
-
-class HistoryTimeframeModel;
+#include <QtCore/QVariant>
 
 class HistoryLastVisitDateModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
+    Q_PROPERTY(QVariant sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
     Q_PROPERTY(QDate lastVisitDate READ lastVisitDate WRITE setLastVisitDate NOTIFY lastVisitDateChanged)
 
 public:
     HistoryLastVisitDateModel(QObject* parent=0);
 
-    HistoryTimeframeModel* sourceModel() const;
-    void setSourceModel(HistoryTimeframeModel* sourceModel);
+    QVariant sourceModel() const;
+    void setSourceModel(QVariant sourceModel);
 
     const QDate& lastVisitDate() const;
     Q_INVOKABLE void setLastVisitDate(const QDate& lastVisitDate);
@@ -53,8 +52,12 @@ protected:
     // reimplemented from QSortFilterProxyModel
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const;
 
+private Q_SLOTS:
+    void updateSourceModelRole();
+
 private:
     QDate m_lastVisitDate;
+    int m_sourceModelRole;
 };
 
 #endif // __HISTORY_LASTVISITDATE_MODEL_H__
