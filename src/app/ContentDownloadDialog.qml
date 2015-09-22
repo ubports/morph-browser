@@ -98,8 +98,7 @@ PopupBase {
                     width: units.gu(22)
                     height: units.gu(4)
                     onClicked: {
-                        downloadDialog.singleDownload.moveToDownloads = true
-                        downloadDialog.singleDownload.start()
+                        downloadDialog.singleDownload.startBrowserDownload()
                         PopupUtils.close(downloadDialog)
                     }
                 }

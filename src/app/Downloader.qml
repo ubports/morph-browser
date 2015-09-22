@@ -49,17 +49,14 @@ Item {
             autoStart: false
             property var contentType
             property string url
-            property bool moveToDownloads: false
+            property bool browserDownload: false
             // DownloadId gets cleared when finished, but we still need a
             // copy to identify the download we've just finished in the database
             property string currentDownloadId
             onDownloadIdChanged: {
                 currentDownloadId = downloadId
-                if (typeof(webapp) == 'undefined') {
-                    browser.downloadsModel.add(downloadId, url, downloadItem.mimeType)
-                }
                 if (!filename) {
-                    filename = url.split("/").pop();
+                    filename = url.split("/").pop()
                 }
                 PopupUtils.open(downloadDialog, downloadItem, {"contentType" : contentType,
                                                                "downloadId" : downloadId,
@@ -68,19 +65,21 @@ Item {
                                                                "mimeType" : downloadItem.mimeType})
             }
 
+            function startBrowserDownload() {
+                browser.downloadsModel.add(downloadId, url, downloadItem.mimeType)
+                browserDownload = true
+                start()
+            }
+
             onErrorChanged: {
-                if (typeof(webapp) == 'undefined') {
+                if (browserDownload) {
                     browser.downloadsModel.setError(downloadId, error)
                 }
             }
 
             onFinished: {
-                if (typeof(webapp) == 'undefined') {
-                    if (moveToDownloads) {
-                        browser.downloadsModel.moveToDownloads(currentDownloadId, path)
-                    } else {
-                        browser.downloadsModel.setPath(currentDownloadId, path)
-                    }
+                if (browserDownload) {
+                    browser.downloadsModel.moveToDownloads(currentDownloadId, path)
                     browser.downloadsModel.setComplete(currentDownloadId, true)
                 }
                 metadata.destroy()
