@@ -21,6 +21,7 @@ import Ubuntu.Components 1.3
 
 AbstractButton {
     property alias iconName: icon.name
+    property alias iconColor: icon.color
     property alias text: label.text
 
     opacity: enabled ? 1.0 : 0.3
@@ -57,5 +58,6 @@ AbstractButton {
         fontSize: "x-small"
         maximumLineCount: 1
         elide: Text.ElideMiddle
+        color: iconColor
     }
 }

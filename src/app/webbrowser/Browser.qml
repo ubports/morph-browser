@@ -636,6 +636,8 @@ BrowserView {
             height: units.gu(7)
             state: "hidden"
 
+            color: browser.incognito ? UbuntuColors.darkGrey : "#f6f6f6"
+
             Button {
                 objectName: "doneButton"
                 anchors {
@@ -644,7 +646,7 @@ BrowserView {
                     verticalCenter: parent.verticalCenter
                 }
 
-                strokeColor: UbuntuColors.darkGrey
+                strokeColor: browser.incognito? "#f6f6f6" : UbuntuColors.darkGrey
 
                 text: i18n.tr("Done")
 
@@ -662,7 +664,8 @@ BrowserView {
 
                 text: i18n.tr("New Tab")
 
-                iconName: "add"
+                iconName: browser.incognito ? "private-tab-new" : "add"
+                iconColor: browser.incognito ? "#f6f6f6" : "#808080"
 
                 onClicked: {
                     recentView.reset()
