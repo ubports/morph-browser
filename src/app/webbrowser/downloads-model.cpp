@@ -113,7 +113,6 @@ void DownloadsModel::populateFromDatabase()
         QFileInfo fileInfo(entry.path);
         if (fileInfo.exists()) {
             entry.filename = fileInfo.fileName();
-            entry.extension = fileInfo.suffix();
             beginInsertRows(QModelIndex(), count, count);
             m_orderedEntries.append(entry);
             endInsertRows();
@@ -130,7 +129,6 @@ QHash<int, QByteArray> DownloadsModel::roleNames() const
         roles[Url] = "url";
         roles[Path] = "path";
         roles[Filename] = "filename";
-        roles[Extension] = "extension";
         roles[Mimetype] = "mimetype";
         roles[Progress] = "progress";
         roles[Complete] = "complete";
@@ -161,8 +159,6 @@ QVariant DownloadsModel::data(const QModelIndex& index, int role) const
         return entry.path;
     case Filename:
         return entry.filename;
-    case Extension:
-        return entry.extension;
     case Mimetype:
         return entry.mimetype;
     case Progress:

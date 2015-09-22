@@ -45,7 +45,6 @@ public:
         Url,
         Path,
         Filename,
-        Extension,
         Mimetype,
         Progress,
         Complete,
@@ -87,7 +86,6 @@ private:
         QUrl url;
         QString path;
         QString filename;
-        QString extension;
         QString mimetype;
         int progress;
         bool complete;

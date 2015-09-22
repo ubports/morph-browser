@@ -25,7 +25,6 @@ ListItem {
 
     property alias icon: mimeicon.name
     property alias image: thumbimage.source
-    property alias extension: extensiontext.text
     property alias title: title.text
     property alias url: url.text
     property alias incomplete: progress.running
@@ -60,13 +59,6 @@ ListItem {
                 anchors.fill: parent
                 anchors.margins: units.gu(0.2)
                 visible: thumbimage.status !== Image.Ready
-            }
-
-            Text {
-                id: extensiontext
-                font.pointSize: 12
-                anchors.centerIn: parent
-                visible: text !== "" && thumbimage.status !== Image.Ready
             }
 
             ActivityIndicator {
