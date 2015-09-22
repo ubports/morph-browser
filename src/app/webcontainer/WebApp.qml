@@ -29,21 +29,21 @@ BrowserView {
     id: webapp
     objectName: "webappBrowserView"
 
-    currentWebview: webview.currentWebview
+    currentWebview: containerWebView.currentWebview
 
-    property alias url: webview.url
+    property alias url: containerWebView.url
 
     property bool accountSwitcher
 
     property string webappModelSearchPath: ""
 
     property var webappUrlPatterns
-    property alias popupRedirectionUrlPrefixPattern: webview.popupRedirectionUrlPrefixPattern
-    property alias webviewOverrideFile: webview.webviewOverrideFile
-    property alias blockOpenExternalUrls: webview.blockOpenExternalUrls
-    property alias localUserAgentOverride: webview.localUserAgentOverride
-    property alias dataPath: webview.dataPath
-    property alias runningLocalApplication: webview.runningLocalApplication
+    property alias popupRedirectionUrlPrefixPattern: containerWebView.popupRedirectionUrlPrefixPattern
+    property alias webviewOverrideFile: containerWebView.webviewOverrideFile
+    property alias blockOpenExternalUrls: containerWebView.blockOpenExternalUrls
+    property alias localUserAgentOverride: containerWebView.localUserAgentOverride
+    property alias dataPath: containerWebView.dataPath
+    property alias runningLocalApplication: containerWebView.runningLocalApplication
 
     property string webappName: ""
 
@@ -60,15 +60,15 @@ BrowserView {
 
     actions: [
         Actions.Back {
-            enabled: webapp.backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoBack
-            onTriggered: webview.currentWebview.goBack()
+            enabled: webapp.backForwardButtonsVisible && containerWebView.currentWebview && containerWebView.currentWebview.canGoBack
+            onTriggered: containerWebView.currentWebview.goBack()
         },
         Actions.Forward {
-            enabled: webapp.backForwardButtonsVisible && webview.currentWebview && webview.currentWebview.canGoForward
-            onTriggered: webview.currentWebview.goForward()
+            enabled: webapp.backForwardButtonsVisible && containerWebView.currentWebview && containerWebView.currentWebview.canGoForward
+            onTriggered: containerWebView.currentWebview.goForward()
         },
         Actions.Reload {
-            onTriggered: webview.currentWebview.reload()
+            onTriggered: containerWebView.currentWebview.reload()
         }
     ]
 
@@ -121,7 +121,7 @@ BrowserView {
         anchors.fill: parent
 
         WebappContainerWebview {
-            id: webview
+            id: containerWebView
             objectName: "webview"
 
             anchors {
@@ -144,19 +144,40 @@ BrowserView {
              * being explictly defined here.
              */
             webappName: webapp.webappName === "" ? unityWebapps.name : webapp.webappName
+
+            Loader {
+                anchors {
+                    fill: containerWebView
+                    topMargin: (!webapp.chromeless && chromeLoader.item.state == "shown")
+                               ? chromeLoader.item.height
+                               : 0
+                }
+                active: containerWebView.currentWebview &&
+                        (webProcessMonitor.crashed || (webProcessMonitor.killed && !containerWebView.currentWebview.loading))
+                sourceComponent: SadTab {
+                    webview: containerWebView.currentWebview
+                    objectName: "mainWebviewSadTab"
+                    showCloseTabButton: false
+                }
+                WebProcessMonitor {
+                    id: webProcessMonitor
+                    webview: containerWebView.currentWebview
+                }
+                asynchronous: true
+            }
         }
 
         Loader {
             anchors {
-                fill: webview
+                fill: containerWebView
                 topMargin: (!webapp.chromeless && chromeLoader.item.state == "shown") ? chromeLoader.item.height : 0
             }
             sourceComponent: ErrorSheet {
-                visible: webview.currentWebview && webview.currentWebview.lastLoadFailed
-                url: webview.currentWebview ? webview.currentWebview.url : ""
+                visible: containerWebView.currentWebview && containerWebView.currentWebview.lastLoadFailed
+                url: containerWebView.currentWebview ? containerWebView.currentWebview.url : ""
                 onRefreshClicked: {
-                    if (webview.currentWebview)
-                        webview.currentWebview.reload()
+                    if (containerWebView.currentWebview)
+                        containerWebView.currentWebview.reload()
                 }
             }
             asynchronous: true
@@ -186,7 +207,7 @@ BrowserView {
                         right: parent.right
                     }
                     height: units.gu(6)
-                    y: webapp.currentWebview ? webview.currentWebview.locationBarController.offset : 0
+                    y: webapp.currentWebview ? containerWebView.currentWebview.locationBarController.offset : 0
 
                     onChooseAccount: webapp.chooseAccount()
                 }
@@ -225,7 +246,7 @@ BrowserView {
     UnityWebApps.UnityWebApps {
         id: unityWebapps
         name: webappName
-        bindee: webview.currentWebview
+        bindee: containerWebView.currentWebview
         actionsContext: actionManager.globalContext
         model: UnityWebApps.UnityWebappsAppModel { searchPath: webappModelSearchPath }
         injectExtraUbuntuApis: runningLocalApplication

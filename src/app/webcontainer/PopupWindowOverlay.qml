@@ -27,6 +27,7 @@ Item {
 
     property var popupWindowController
     property var webContext
+    property alias currentWebview: popupWebview
     property alias request: popupWebview.request
     property alias url: popupWebview.url
     
@@ -194,6 +195,22 @@ Item {
                 popupWindowController.handleViewRemoved(popup)
             }
         }
-    }
 
+        Loader {
+            anchors {
+                fill: popupWebview
+            }
+            active: webProcessMonitor.crashed || (webProcessMonitor.killed && !popupWebview.currentWebview.loading)
+            sourceComponent: SadTab {
+                webview: popupWebview
+                objectName: "overlaySadTab"
+                showCloseTabButton: false
+            }
+            WebProcessMonitor {
+                id: webProcessMonitor
+                webview: popupWebview
+            }
+            asynchronous: true
+        }
+    }
 }

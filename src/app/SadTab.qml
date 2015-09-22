@@ -22,6 +22,7 @@ import com.canonical.Oxide 1.8 as Oxide
 
 Rectangle {
     property var webview
+    property bool showCloseTabButton: true
 
     signal closeTabRequested()
 
@@ -79,6 +80,7 @@ Rectangle {
                 objectName: "closeTabButton"
                 text: i18n.tr("Close tab")
                 onClicked: closeTabRequested()
+                visible: showCloseTabButton
             }
 
             Button {

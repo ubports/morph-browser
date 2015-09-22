@@ -16,7 +16,9 @@
 """ Autopilot tests for the webapp_container package """
 
 import os
+import signal
 import subprocess
+import psutil
 
 import fixtures
 from autopilot.testcase import AutopilotTestCase
@@ -119,6 +121,21 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
         webview = self.get_oxide_webview()
         webview.url = url
         self.assert_page_eventually_loaded(url)
+
+    def kill_web_processes(self, signal=signal.SIGKILL):
+        children = psutil.Process(self.app.pid).children(True)
+        for child in children:
+            if child.name() == 'oxide-renderer':
+                for arg in child.cmdline():
+                    if '--type=renderer' in arg:
+                        os.kill(child.pid, signal)
+                        break
+
+
+class SadTab(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+    def click_reload_button(self):
+        button = self.select_single("Button", objectName="reloadButton")
+        self.pointing_device.click_object(button)
 
 
 class WebappContainerTestCaseWithLocalContentBase(WebappContainerTestCaseBase):
