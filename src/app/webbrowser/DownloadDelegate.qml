@@ -42,15 +42,17 @@ ListItem {
         }
         spacing: units.gu(1)
 
-        UbuntuShape {
+        Item {
             id: iconContainer
             width: units.gu(3)
             height: width
-            sourceFillMode: UbuntuShape.PreserveAspectCrop
-            source: Image {
+
+            Image {
                 id: thumbimage
+                asynchronous: true
                 sourceSize.width: parent.width
                 sourceSize.height: parent.height
+                anchors.verticalCenter: parent.verticalCenter
             }
 
             Icon {
