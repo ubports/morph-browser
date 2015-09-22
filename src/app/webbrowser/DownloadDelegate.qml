@@ -54,11 +54,15 @@ ListItem {
                 anchors.verticalCenter: parent.verticalCenter
             }
 
-            Icon {
+            Image {
                 id: mimeicon
+                asynchronous: true
                 anchors.fill: parent
                 anchors.margins: units.gu(0.2)
+                source: "image://theme/%1".arg(name);
                 visible: thumbimage.status !== Image.Ready
+                cache: true
+                property string name
             }
 
             ActivityIndicator {
