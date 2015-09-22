@@ -429,6 +429,7 @@ FocusScope {
                 rightMargin: units.gu(2)
             }
             width: urlsListView.width
+            inputMethodHints: Qt.ImhNoPredictiveText
             primaryItem: Icon {
                height: parent.height - units.gu(2)
                width: height
