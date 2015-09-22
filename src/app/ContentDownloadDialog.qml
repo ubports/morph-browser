@@ -72,13 +72,19 @@ PopupBase {
                         font.capitalization: Font.Capitalize
                         text: MimeDatabase.nameForMimetype(downloadDialog.mimeType)
                     }
-                }   
+                }
+
+                Label {
+                    width: parent.width
+                    text: i18n.tr("Choose an application to open this file or add it to the downloads folder.")
+                    wrapMode: Text.Wrap
+                }
 
                 Button {
                     text: i18n.tr("Choose an application")
                     objectName: "chooseAppButton"
                     color: UbuntuColors.green
-                    width: parent.width
+                    width: units.gu(22)
                     height: units.gu(4)
                     visible: peerModel.peers.length > 0
                     onClicked: {
@@ -88,9 +94,9 @@ PopupBase {
                 }
 
                 Button {
-                    text: i18n.tr("Download file")
+                    text: i18n.tr("Download")
                     objectName: "downloadFileButton"
-                    width: parent.width
+                    width: units.gu(22)
                     height: units.gu(4)
                     color: peerModel.peers.length == 0 ? UbuntuColors.green : UbuntuColors.warmGrey
                     onClicked: {
@@ -103,7 +109,7 @@ PopupBase {
                 Button {
                     text: i18n.tr("Cancel")
                     objectName: "cancelDownloadButton"
-                    width: parent.width
+                    width: units.gu(22)
                     height: units.gu(4)
                     onClicked: PopupUtils.close(downloadDialog)
                 }
