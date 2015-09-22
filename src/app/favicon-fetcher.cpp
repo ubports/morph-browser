@@ -171,9 +171,6 @@ void FaviconFetcher::downloadFinished(QNetworkReply* reply)
                     setLocalUrl(QUrl("data:image/png;base64," + ba.toBase64()));
                 }
             }
-        } else {
-            qWarning() << "Failed to download" << reply->url()
-                       << ":" << reply->errorString();
         }
         reply->deleteLater();
         m_reply = 0;
@@ -185,7 +182,8 @@ void FaviconFetcher::downloadFinished(QNetworkReply* reply)
                                       Qt::QueuedConnection,
                                       Q_ARG(QUrl, url));
         } else {
-            qWarning() << "Failed to download" << m_url
+            qWarning() << "Failed to download"
+                       << m_url.toString().toUtf8().data()
                        << ": too many redirections";
         }
     }
