@@ -58,7 +58,6 @@ PopupBase {
                         anchors.leftMargin: units.gu(2)
                         anchors.right: parent.right
                         anchors.rightMargin: units.gu(2)
-                        horizontalAlignment: Text.AlignHCenterdd
                         elide: Text.ElideMiddle
                         text: downloadDialog.filename
                     }
@@ -67,7 +66,6 @@ PopupBase {
                         anchors.top: filenameLabel.bottom
                         anchors.left: filenameLabel.left
                         anchors.right: filenameLabel.right
-                        horizontalAlignment: Text.AlignHCenter
                         elide: Text.ElideRight
                         font.capitalization: Font.Capitalize
                         text: MimeDatabase.nameForMimetype(downloadDialog.mimeType)
@@ -83,7 +81,7 @@ PopupBase {
                 Button {
                     text: i18n.tr("Choose an application")
                     objectName: "chooseAppButton"
-                    color: UbuntuColors.green
+                    anchors.horizontalCenter: parent.horizontalCenter
                     width: units.gu(22)
                     height: units.gu(4)
                     visible: peerModel.peers.length > 0
@@ -96,9 +94,9 @@ PopupBase {
                 Button {
                     text: i18n.tr("Download")
                     objectName: "downloadFileButton"
+                    anchors.horizontalCenter: parent.horizontalCenter
                     width: units.gu(22)
                     height: units.gu(4)
-                    color: peerModel.peers.length == 0 ? UbuntuColors.green : UbuntuColors.warmGrey
                     onClicked: {
                         downloadDialog.singleDownload.moveToDownloads = true
                         downloadDialog.singleDownload.start()
@@ -109,6 +107,7 @@ PopupBase {
                 Button {
                     text: i18n.tr("Cancel")
                     objectName: "cancelDownloadButton"
+                    anchors.horizontalCenter: parent.horizontalCenter
                     width: units.gu(22)
                     height: units.gu(4)
                     onClicked: PopupUtils.close(downloadDialog)
