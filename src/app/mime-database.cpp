@@ -42,7 +42,11 @@ QString MimeDatabase::iconForMimetype(const QString& mimetypeString) const
     QMimeDatabase mimedb;
     QMimeType mimetype = mimedb.mimeTypeForName(mimetypeString);
     if (mimetype.iconName().isEmpty() || !QIcon::hasThemeIcon(mimetype.iconName())) {
-        return mimetype.genericIconName();
+        if (QIcon::hasThemeIcon(mimetype.genericIconName())) {
+            return mimetype.genericIconName();
+        } else {
+            return "save";
+        }
     } else {
         return mimetype.iconName();
     }
