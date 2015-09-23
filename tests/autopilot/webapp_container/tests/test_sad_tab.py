@@ -17,10 +17,17 @@ import signal
 import time
 
 from webapp_container.tests import WebappContainerTestCaseWithLocalContentBase
-from webapp_container.tests import SadTab
 
 from testtools.matchers import Equals, Contains, GreaterThan
 from autopilot.matchers import Eventually
+
+import ubuntuuitoolkit as uitk
+
+
+class SadTab(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+    def click_reload_button(self):
+        button = self.select_single("Button", objectName="reloadButton")
+        self.pointing_device.click_object(button)
 
 
 class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
