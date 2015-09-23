@@ -411,7 +411,7 @@ private Q_SLOTS:
         QSignalSpy spytab(model, SIGNAL(currentTabChanged()));
         QSignalSpy spyindex(model, SIGNAL(currentIndexChanged()));
         delete model->remove(1);
-        QCOMPARE(spytab.count(), 1);
+        QVERIFY(spytab.isEmpty());
         QCOMPARE(spyindex.count(), 1);
         QCOMPARE(model->currentIndex(), 1);
         QCOMPARE(model->currentTab(), tab);
