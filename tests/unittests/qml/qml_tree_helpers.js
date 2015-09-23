@@ -21,8 +21,7 @@
 // should be a safe way to remove the rest of the extra metatype
 // information produced by converting QML objects to strings.
 function qmlType(item) {
-    var itemType = String(item).split("_")
-    return itemType.length > 0 ? itemType[0] : String(item)
+    return String(item).split("_")[0]
 }
 
 function findChildrenByType(item, type, list) {
