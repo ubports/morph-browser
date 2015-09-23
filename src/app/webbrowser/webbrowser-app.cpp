@@ -31,7 +31,7 @@
 #include "history-timeframe-model.h"
 #include "limit-proxy-model.h"
 #include "searchengine.h"
-#include "suggestions-filter-model.h"
+#include "text-search-filter-model.h"
 #include "tabs-model.h"
 #include "top-sites-model.h"
 #include "webbrowser-app.h"
@@ -86,6 +86,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<SuggestionsFilterModel>(uri, 0, 1, "SuggestionsFilterModel");
     qmlRegisterType<DownloadsModel>(uri, 0, 1, "DownloadsModel");
     qmlRegisterType<DownloadsMimetypeModel>(uri, 0, 1, "DownloadsMimetypeModel");
+    qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         QStringList searchEnginesSearchPaths;

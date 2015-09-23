@@ -245,8 +245,9 @@ private Q_SLOTS:
     void shouldNotHandleTooManyRedirections()
     {
         QUrl url(server->baseURL() + "/redirect/8/favicon1.ico");
+        QString msg("Failed to download %1 : too many redirections");
+        QTest::ignoreMessage(QtWarningMsg, msg.arg(url.toString()).toUtf8());
         fetcher->setUrl(url);
-        for (int i = 0; i < 5; ++i)
         QVERIFY(!fetcherSpy->wait(500));
         QCOMPARE(serverSpy->count(), 5);
     }

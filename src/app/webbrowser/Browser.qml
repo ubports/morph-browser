@@ -212,7 +212,7 @@ BrowserView {
 
             anchors {
                 fill: tabContainer
-                topMargin: (chrome.state == "shown") ? chrome.height : 0
+                topMargin: (chrome.state == "shown" && chrome.visible) ? chrome.height : 0
             }
 
             // Avoid loading the new tab view if the webview is about to load
@@ -440,6 +440,7 @@ BrowserView {
                     onTriggered: {
                         settingsComponent.createObject(settingsContainer)
                         settingsContainer.focus = true
+                        chrome.findInPageMode = false
                     }
                 }
             ]
@@ -491,16 +492,17 @@ BrowserView {
             Keys.onUpPressed: chrome.focus = true
             Keys.onEscapePressed: internal.resetFocus()
 
-            models: [historySuggestions,
+            models: searchTerms && searchTerms.length > 0 ?
+                    [historySuggestions,
                      bookmarksSuggestions,
-                     searchSuggestions.limit(4)]
+                     searchSuggestions.limit(4)] : []
 
             LimitProxyModel {
                 id: historySuggestions
                 limit: 2
                 readonly property string icon: "history"
                 readonly property bool displayUrl: true
-                sourceModel: SuggestionsFilterModel {
+                sourceModel: TextSearchFilterModel {
                     sourceModel: browser.historyModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
@@ -512,7 +514,7 @@ BrowserView {
                 limit: 2
                 readonly property string icon: "non-starred"
                 readonly property bool displayUrl: true
-                sourceModel: SuggestionsFilterModel {
+                sourceModel: TextSearchFilterModel {
                     sourceModel: browser.bookmarksModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
@@ -647,6 +649,8 @@ BrowserView {
             height: units.gu(7)
             state: "hidden"
 
+            color: browser.incognito ? UbuntuColors.darkGrey : "#f6f6f6"
+
             Button {
                 objectName: "doneButton"
                 anchors {
@@ -655,7 +659,7 @@ BrowserView {
                     verticalCenter: parent.verticalCenter
                 }
 
-                strokeColor: UbuntuColors.darkGrey
+                strokeColor: browser.incognito? "#f6f6f6" : UbuntuColors.darkGrey
 
                 text: i18n.tr("Done")
 
@@ -673,7 +677,8 @@ BrowserView {
 
                 text: i18n.tr("New Tab")
 
-                iconName: "add"
+                iconName: browser.incognito ? "private-tab-new" : "add"
+                color: browser.incognito ? "#f6f6f6" : "#808080"
 
                 onClicked: {
                     recentView.reset()
@@ -785,6 +790,8 @@ BrowserView {
         }
 
         Keys.onEscapePressed: historyViewLoader.active = false
+
+        onActiveChanged: if (active) chrome.findInPageMode = false
 
         Timer {
             id: historyViewTimer
@@ -981,12 +988,12 @@ BrowserView {
                 property QtObject contextModel: null
                 contextualActions: ActionList {
                     Actions.OpenLinkInNewTab {
-                        objectName: "openLinkInNewTabContextualAction"
+                        objectName: "OpenLinkInNewTabContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
-                        objectName: "openLinkInNewBackgroundTabContextualAction"
+                        objectName: "OpenLinkInNewBackgroundTabContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString() &&
                                  ((settings.allowOpenInBackgroundTab === "true") ||
                                   ((settings.allowOpenInBackgroundTab === "default") &&
@@ -994,7 +1001,7 @@ BrowserView {
                         onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, false)
                     }
                     Actions.BookmarkLink {
-                        objectName: "bookmarkLinkContextualAction"
+                        objectName: "BookmarkLinkContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString() &&
                                  browser.bookmarksModel && !bookmarksModel.contains(contextModel.linkUrl)
                         onTriggered: {
@@ -1008,7 +1015,7 @@ BrowserView {
                         }
                     }
                     Actions.CopyLink {
-                        objectName: "copyLinkContextualAction"
+                        objectName: "CopyLinkContextualAction"
                         enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
                     }
@@ -1017,11 +1024,17 @@ BrowserView {
                         enabled: contextModel && contextModel.linkUrl.toString()
                         onTriggered: contextModel.saveLink()
                     }
-                    Actions.ShareLink {
-                        objectName: "ShareLinkContextualAction"
-                        enabled: (formFactor == "mobile") &&
-                                 contextModel && contextModel.linkUrl.toString()
-                        onTriggered: internal.shareLink(contextModel.linkUrl.toString(), contextModel.linkText)
+                    Actions.Share {
+                        objectName: "ShareContextualAction"
+                        enabled: (formFactor == "mobile") && contextModel &&
+                                 (contextModel.linkUrl.toString() || contextModel.selectionText)
+                        onTriggered: {
+                            if (contextModel.linkUrl.toString()) {
+                                internal.shareLink(contextModel.linkUrl.toString(), contextModel.linkText)
+                            } else if (contextModel.selectionText) {
+                                internal.shareText(contextModel.selectionText)
+                            }
+                        }
                     }
                     Actions.OpenImageInNewTab {
                         objectName: "OpenImageInNewTabContextualAction"
@@ -1063,8 +1076,9 @@ BrowserView {
                     }
                     Actions.Copy {
                         objectName: "CopyContextualAction"
-                        enabled: contextModel && contextModel.isEditable &&
-                                 (contextModel.editFlags & Oxide.WebView.CopyCapability)
+                        enabled: contextModel && (contextModel.selectionText ||
+                                 (contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.CopyCapability)))
                         onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
                     }
                     Actions.Paste {
@@ -1091,6 +1105,7 @@ BrowserView {
                     contextModel = menu.contextModel
                     if (contextModel.linkUrl.toString() ||
                         contextModel.srcUrl.toString() ||
+                        contextModel.selectionText ||
                         (contextModel.isEditable && contextModel.editFlags) ||
                         (((contextModel.mediaType == Oxide.WebView.MediaTypeImage) ||
                           (contextModel.mediaType == Oxide.WebView.MediaTypeCanvas)) &&
@@ -1251,13 +1266,24 @@ BrowserView {
     QtObject {
         id: internal
 
-        function shareLink(url, title) {
+        function instantiateShareComponent() {
             var component = Qt.createComponent("../Share.qml")
             if (component.status == Component.Ready) {
                 var share = component.createObject(browser)
                 share.onDone.connect(share.destroy)
-                share.shareLink(url, title)
+                return share
             }
+            return null
+        }
+
+        function shareLink(url, title) {
+            var share = instantiateShareComponent()
+            if (share) share.shareLink(url, title)
+        }
+
+        function shareText(text) {
+            var share = instantiateShareComponent()
+            if (share) share.shareText(text)
         }
 
         function addTab(tab, setCurrent) {

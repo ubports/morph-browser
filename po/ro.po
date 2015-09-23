@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2015-09-05 05:34+0000\n"
-"X-Generator: Launchpad (build 17706)\n"
+"X-Launchpad-Export-Date: 2015-09-22 05:58+0000\n"
+"X-Generator: Launchpad (build 17749)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -388,7 +388,7 @@ msgstr "Decupare"
 msgid "Erase"
 msgstr "Șterge"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
 msgid "Find in page"
 msgstr "Găseşte în pagină"
 
@@ -418,7 +418,7 @@ msgstr "Mergi la"
 msgid "Address;URL;www"
 msgstr "Adresă;URL:www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:653
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:663
 msgid "New Tab"
 msgstr "Filă nouă"
 
@@ -448,7 +448,7 @@ msgstr "Lipeşte"
 msgid "Redo"
 msgstr "Refă ultima acțiune"
 
-#: src/app/actions/Reload.qml:23
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 msgid "Reload"
 msgstr "Reîncarcă"
 
@@ -480,16 +480,16 @@ msgid "Undo"
 msgstr "Anulează"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:203
+#: src/app/webbrowser/AddressBar.qml:204
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:239
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "find in page"
 msgstr "găseşte în pagină"
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:241
 msgid "search or enter an address"
 msgstr "căutați sau introduceți o adresă"
 
@@ -527,57 +527,57 @@ msgstr "Creează dosar nou"
 msgid "Save"
 msgstr "Salvați"
 
-#: src/app/webbrowser/Browser.qml:349
+#: src/app/webbrowser/Browser.qml:368
 msgid "Share"
 msgstr "Partajare"
 
-#: src/app/webbrowser/Browser.qml:356
+#: src/app/webbrowser/Browser.qml:375
 #: src/app/webbrowser/HistoryViewWide.qml:291
 msgid "History"
 msgstr "Istoric"
 
-#: src/app/webbrowser/Browser.qml:363
+#: src/app/webbrowser/Browser.qml:382
 msgid "Open tabs"
 msgstr "File deschise"
 
-#: src/app/webbrowser/Browser.qml:373 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/HistoryViewWide.qml:396
 #: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "Filă nouă"
 
-#: src/app/webbrowser/Browser.qml:390
+#: src/app/webbrowser/Browser.qml:409
 msgid "Leave Private Mode"
 msgstr "Părasiți modul privat"
 
-#: src/app/webbrowser/Browser.qml:390
+#: src/app/webbrowser/Browser.qml:409
 msgid "Private Mode"
 msgstr "Mod privat"
 
-#: src/app/webbrowser/Browser.qml:408 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Configurări"
 
-#: src/app/webbrowser/Browser.qml:639 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/Browser.qml:649 src/app/webbrowser/HistoryView.qml:108
 #: src/app/webbrowser/HistoryViewWide.qml:382
 msgid "Done"
 msgstr "Finalizat"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:746
+#: src/app/webbrowser/Browser.qml:756
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1148
+#: src/app/webbrowser/Browser.qml:1172
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Glisați în sus pentru a ieși din ecranul complet"
 
-#: src/app/webbrowser/Browser.qml:1149
+#: src/app/webbrowser/Browser.qml:1173
 msgid "Press ESC To Exit Full Screen"
 msgstr "Apăsați ESC pentru a ieși din ecranul complet"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:103
+#: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -585,7 +585,7 @@ msgstr[0] "%1 pagină"
 msgstr[1] "%1 pagini"
 msgstr[2] "%1 de pagini"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Mai puțin"

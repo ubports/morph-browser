@@ -20,125 +20,50 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 
 Item {
-    property alias title: label.text
+    id: tabChrome
+    property alias title: tabItem.title
+    property alias icon: tabItem.icon
+    property alias incognito: tabItem.incognito
+    property alias tabWidth: tabItem.width
 
     signal selected()
     signal closed()
 
-    implicitHeight: units.gu(4)
+    height: units.gu(4)
 
-    Row {
-        anchors.fill: parent
-
-        AbstractButton {
-            id: closeButton
-            objectName: "closeButton"
-
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-            }
-            width: units.gu(5)
-
-            Rectangle {
-                anchors.fill: parent
-                color: closeButton.pressed ? Qt.rgba(1.0, 1.0, 1.0, 0.9) : "white"
-            }
-
-            Icon {
-                height: units.gu(2)
-                width: height
-                anchors.centerIn: parent
-                name: "close"
-            }
-
-            onTriggered: closed()
-
-            Rectangle {
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    right: parent.right
-                }
-                width: units.dp(1)
-
-                color: "#d9d9d9"
-            }
-        }
-
-        Item {
-            width: parent.width - closeButton.width
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-            }
-
-            Image {
-                id: tabBackgroundLeft
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    left: parent.left
-                    right: tabBackgroundCenter.left
-                }
-                source: "assets/tab-header-left.png"
-                fillMode: Image.TileHorizontally
-            }
-
-            Image {
-                id: tabBackgroundCenter
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    horizontalCenter: parent.horizontalCenter
-                }
-                source: "assets/tab-header-center.png"
-            }
-
-            Image {
-                id: tabBackgroundRight
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    left: tabBackgroundCenter.right
-                    right: parent.right
-                }
-                source: "assets/tab-header-right.png"
-                fillMode: Image.TileHorizontally
-            }
-
-            Label {
-                id: label
-                anchors {
-                    fill: tabBackgroundLeft
-                    leftMargin: units.gu(1)
-                }
-                verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideRight
-            }
-
-            MouseArea {
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    left: parent.left
-                }
-                // The activable part of the tab occupies its leftmost half
-                width: parent.width / 2
-
-                onClicked: selected()
-            }
-        }
-    }
-
-    Rectangle {
+    Item {
         anchors {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
         }
-        height: units.dp(1)
+        height: units.gu(5)
+        clip: true
 
-        color: "#d9d9d9"
+        BorderImage {
+            // We are basically splitting the shadow asset in two parts.
+            // The left side is never scaled and it stays fixed below the
+            // tab itself (with 4dp of the shadow poking out at the sides).
+            // The right side will scale across the remaining width of the
+            // component (which is empty and lets the previous preview show
+            // through)
+            border {
+                left: tabWidth + units.dp(4)
+            }
+            anchors.fill: parent
+            anchors.bottomMargin: - units.gu(3)
+            height: units.gu(8)
+            source: "assets/tab-shadow-narrow.png"
+        }
+    }
+
+    TabItem {
+        id: tabItem
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+
+        hoverable: false
+        onSelected: tabChrome.selected()
+        onClosed: tabChrome.closed()
     }
 }
