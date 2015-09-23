@@ -76,6 +76,7 @@ PopupBase {
                     width: parent.width
                     text: i18n.tr("Choose an application to open this file or add it to the downloads folder.")
                     wrapMode: Text.Wrap
+                    visible: peerModel.peers.length > 0
                 }
 
                 Button {
