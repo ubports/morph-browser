@@ -77,6 +77,7 @@ Item {
             id: menu
             objectName: "tabContextualActions"
             property int targetIndex
+            readonly property var tab: root.model.get(targetIndex)
 
             actions: ActionList {
                 Action {
@@ -87,11 +88,8 @@ Item {
                 Action {
                     objectName: "tab_action_reload"
                     text: i18n.tr("Reload")
-                    enabled: root.model.get(menu.targetIndex).url.toString().length > 0
-                    onTriggered: {
-                        var tab = root.model.get(menu.targetIndex)
-                        if (tab.url.toString().length > 0) tab.webview.reload()
-                    }
+                    enabled: menu.tab.url.toString().length > 0
+                    onTriggered: menu.tab.reload()
                 }
                 Action {
                     objectName: "tab_action_close_tab"

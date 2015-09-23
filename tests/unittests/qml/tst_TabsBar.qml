@@ -42,9 +42,7 @@ Item {
             property string title
             property url icon
             function close() { destroy() }
-            property QtObject webview: QtObject {
-                function reload() { root.reload(tab.url) }
-            }
+            function reload() { root.reload(tab.url) }
         }
     }
 
