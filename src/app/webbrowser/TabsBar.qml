@@ -147,8 +147,7 @@ Item {
                     }
                     onClicked: {
                         if (mouse.button === Qt.RightButton) {
-                            var menu = PopupUtils.open(contextualOptionsComponent, tabDelegate)
-                            menu.targetIndex = index
+                            PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
                         }
                     }
 
