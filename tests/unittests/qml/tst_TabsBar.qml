@@ -100,7 +100,7 @@ Item {
         }
         if (text === "") return null
 
-        var menuItems = Tree.findChildrenByType(menu, "Label")
+        var menuItems = Tree.findDescendantsByType(menu, "Label")
         var matching = menuItems.filter(function(item) { return item.text === text })
         if (matching.length === 0) return null
         else return Tree.findAncestorByType(matching[0], "Empty")

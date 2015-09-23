@@ -24,11 +24,11 @@ function qmlType(item) {
     return String(item).split("_")[0]
 }
 
-function findChildrenByType(item, type, list) {
+function findDescendantsByType(item, type, list) {
     list = list || []
     if (qmlType(item) === type) list.push(item)
     for (var i in item.children) {
-        findChildrenByType(item.children[i], type, list)
+        findDescendantsByType(item.children[i], type, list)
     }
     return list
 }
