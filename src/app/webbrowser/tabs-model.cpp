@@ -21,6 +21,7 @@
 // Qt
 #include <QtCore/QDebug>
 #include <QtCore/QObject>
+#include <QtCore/QtGlobal>
 
 /*!
     \class TabsModel
@@ -135,8 +136,7 @@ int TabsModel::insert(QObject* tab, int index)
         qWarning() << "Invalid Tab";
         return -1;
     }
-    if (index < 0) index == 0;
-    else if (index > m_tabs.count()) index = m_tabs.count();
+    index = qMax(qMin(index, m_tabs.count()), 0);
     beginInsertRows(QModelIndex(), index, index);
     m_tabs.insert(index, tab);
     connect(tab, SIGNAL(urlChanged()), SLOT(onUrlChanged()));
