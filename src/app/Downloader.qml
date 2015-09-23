@@ -55,9 +55,6 @@ Item {
             property string currentDownloadId
             onDownloadIdChanged: {
                 currentDownloadId = downloadId
-                if (!filename) {
-                    filename = url.split("/").pop()
-                }
                 PopupUtils.open(downloadDialog, downloadItem, {"contentType" : contentType,
                                                                "downloadId" : downloadId,
                                                                "singleDownload" : downloader,
@@ -120,6 +117,9 @@ Item {
             // on to the selected application via content-hub
             contentType = ContentType.Music
             metadata.extract = true
+        }
+        if (!filename) {
+            filename = url.toString().split("/").pop()
         }
         metadata.title = filename
         downloadItem.filename = filename
