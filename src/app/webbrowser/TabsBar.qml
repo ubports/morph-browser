@@ -107,6 +107,7 @@ Item {
         anchors {
             top: parent.top
             bottom: parent.bottom
+            bottomMargin: tabsContainer.verticalGap
             left: parent.left
         }
         width: tabWidth * root.model.count
@@ -117,16 +118,24 @@ Item {
 
             property bool reordering: false
 
-            delegate: Item {
+            delegate: TabItem {
                 id: tabDelegate
                 objectName: "tabDelegate"
                 readonly property int tabIndex: index
 
-                anchors {
-                    top: tabsContainer.top
-                    bottom: tabsContainer.bottom
-                }
-                width: tabWidth
+                active: index === root.model.currentIndex
+                hoverable: true
+                incognito: root.incognito
+                title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
+                icon: model.icon
+
+                anchors.top: tabsContainer.top
+                width: tabWidth + rightMargin
+                height: tabsContainer.height
+                rightMargin: units.dp(1)
+
+                onClosed: internal.closeTab(index)
+                onSelected: root.model.currentIndex = index
 
                 MouseArea {
                     id: mouseArea
@@ -148,7 +157,6 @@ Item {
                             PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
                         }
                     }
-
                     // XXX: should not start a drag when middle button was pressed
                     drag {
                         target: tabDelegate
@@ -156,89 +164,13 @@ Item {
                         minimumX: 0
                         maximumX: root.width - tabDelegate.width
                     }
+                    propagateComposedEvents: true
                 }
 
                 Binding {
                     target: repeater
                     property: "reordering"
                     value: mouseArea.drag.active
-                }
-
-                readonly property string assetPrefix: (index == root.model.currentIndex) ? "assets/tab-active" : (mouseArea.containsMouse ? "assets/tab-hovered" : "assets/tab-inactive")
-
-                Item {
-                    anchors.fill: parent
-
-                    Image {
-                        id: tabBackgroundLeft
-                        anchors {
-                            top: parent.top
-                            bottom: parent.bottom
-                            left: parent.left
-                        }
-                        source: "%1-left.png".arg(assetPrefix)
-                    }
-
-                    Image {
-                        id: tabBackgroundRight
-                        anchors {
-                            top: parent.top
-                            bottom: parent.bottom
-                            right: parent.right
-                            rightMargin: units.gu(-1.5)
-                        }
-                        source: "%1-right.png".arg(assetPrefix)
-                    }
-
-                    Image {
-                        anchors {
-                            top: parent.top
-                            bottom: parent.bottom
-                            left: tabBackgroundLeft.right
-                            right: tabBackgroundRight.left
-                        }
-                        source: "%1-center.png".arg(assetPrefix)
-                        fillMode: Image.TileHorizontally
-                    }
-                }
-
-                Row {
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        margins: units.gu(1.5)
-                        verticalCenter: parent.verticalCenter
-                    }
-                    spacing: units.gu(1)
-
-                    Favicon {
-                        id: favicon
-                        source: model.icon
-                        shouldCache: !incognito
-                    }
-
-                    Label {
-                        fontSize: "small"
-                        color: UbuntuColors.darkGrey
-                        text: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
-                        elide: Text.ElideRight
-                        width: parent.width - favicon.width - closeIcon.width - parent.spacing * 2
-                    }
-
-                    Icon {
-                        id: closeIcon
-                        objectName: "closeButton"
-                        name: "close"
-                        color: UbuntuColors.darkGrey
-                        width: units.gu(1.5)
-                        height: units.gu(1.5)
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: internal.closeTab(index)
-                        }
-                    }
                 }
 
                 Binding on x {
@@ -259,17 +191,6 @@ Item {
 
                 z: (root.model.currentIndex == index) ? 3 : 1 - index / root.model.count
             }
-        }
-
-        Rectangle {
-            anchors {
-                left: parent.left
-                bottom: parent.bottom
-            }
-            width: root.width
-            height: units.dp(1)
-            color: "#cacaca"
-            z: 2
         }
     }
 
