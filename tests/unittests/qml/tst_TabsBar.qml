@@ -87,7 +87,8 @@ Item {
     // So we first select the source Action by objectName then look for an item
     // with the same text as the action. This is not ideal but it will work
     // since we don't have items with the same text.
-    // See this bug report for a request to fix this: http://pad.lv/1205144
+    // https://launchpad.net/bugs/1205144 tracks the issue, and as of 2015-09-23
+    // is fixed in the vivid overlay PPA but not in wily yet.
     function getMenuItemForAction(menu, actionName) {
         actionName = "tab_action_" + actionName
         var text = ""
