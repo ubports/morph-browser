@@ -24,10 +24,13 @@ from autopilot.matchers import Eventually
 import ubuntuuitoolkit as uitk
 
 
-class SadTab(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class SadWebview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def click_reload_button(self):
-        button = self.select_single("Button", objectName="reloadButton")
-        self.pointing_device.click_object(button)
+        gr = self.globalRect
+        self.pointing_device.move(
+            gr.x + gr.width/4,
+            gr.y + gr.height/4)
+        self.pointing_device.click()
 
 
 class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
@@ -82,11 +85,11 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
 
         self._kill_web_process()
 
-        sad_tab = self.app.wait_select_single(
-            SadTab,
-            objectName="mainWebviewSadTab")
-        sad_tab.click_reload_button()
-        sad_tab.wait_until_destroyed()
+        sad_webview = self.app.wait_select_single(
+            SadWebview,
+            objectName="mainWebviewSadWebview")
+        sad_webview.click_reload_button()
+        sad_webview.wait_until_destroyed()
 
         self.assert_page_eventually_loaded(self.url)
 
@@ -101,12 +104,12 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
 
         self._kill_web_process()
 
-        sad_tab = self.app.wait_select_single(
-            SadTab,
-            objectName="overlaySadTab")
+        sad_webview = self.app.wait_select_single(
+            SadWebview,
+            objectName="overlaySadWebview")
 
-        sad_tab.click_reload_button()
-        sad_tab.wait_until_destroyed()
+        sad_webview.click_reload_button()
+        sad_webview.wait_until_destroyed()
 
         views = self.get_popup_overlay_views()
         overlay = views[0]
@@ -124,11 +127,12 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
 
         self._crash_web_process()
 
-        sad_tab = self.app.wait_select_single(
-            SadTab,
-            objectName="mainWebviewSadTab")
-        sad_tab.click_reload_button()
-        sad_tab.wait_until_destroyed()
+        sad_webview = self.app.wait_select_single(
+            SadWebview,
+            objectName="mainWebviewSadWebview")
+
+        sad_webview.click_reload_button()
+        sad_webview.wait_until_destroyed()
 
         self.assert_page_eventually_loaded(self.url)
 
@@ -146,12 +150,12 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
 
         self._crash_web_process()
 
-        sad_tab = self.app.wait_select_single(
-            SadTab,
-            objectName="overlaySadTab")
+        sad_webview = self.app.wait_select_single(
+            SadWebview,
+            objectName="overlaySadWebview")
 
-        sad_tab.click_reload_button()
-        sad_tab.wait_until_destroyed()
+        sad_webview.click_reload_button()
+        sad_webview.wait_until_destroyed()
 
         views = self.get_popup_overlay_views()
         overlay = views[0]

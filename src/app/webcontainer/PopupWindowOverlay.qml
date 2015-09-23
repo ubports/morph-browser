@@ -201,10 +201,9 @@ Item {
                 fill: popupWebview
             }
             active: webProcessMonitor.crashed || (webProcessMonitor.killed && !popupWebview.currentWebview.loading)
-            sourceComponent: SadTab {
+            sourceComponent: SadWebview {
                 webview: popupWebview
-                objectName: "overlaySadTab"
-                showCloseTabButton: false
+                objectName: "overlaySadWebview"
             }
             WebProcessMonitor {
                 id: webProcessMonitor

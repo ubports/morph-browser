@@ -154,10 +154,9 @@ BrowserView {
                 }
                 active: containerWebView.currentWebview &&
                         (webProcessMonitor.crashed || (webProcessMonitor.killed && !containerWebView.currentWebview.loading))
-                sourceComponent: SadTab {
+                sourceComponent: SadWebview {
                     webview: containerWebView.currentWebview
-                    objectName: "mainWebviewSadTab"
-                    showCloseTabButton: false
+                    objectName: "mainWebviewSadWebview"
                 }
                 WebProcessMonitor {
                     id: webProcessMonitor
