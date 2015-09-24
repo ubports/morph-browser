@@ -83,7 +83,6 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
     qmlRegisterType<SearchEngine>(uri, 0, 1, "SearchEngine");
     qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
-    qmlRegisterType<SuggestionsFilterModel>(uri, 0, 1, "SuggestionsFilterModel");
     qmlRegisterType<DownloadsModel>(uri, 0, 1, "DownloadsModel");
     qmlRegisterType<DownloadsMimetypeModel>(uri, 0, 1, "DownloadsMimetypeModel");
     qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
