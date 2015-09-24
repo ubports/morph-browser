@@ -31,8 +31,13 @@ Item {
     property alias title: label.text
     property alias icon: favicon.source
 
+    property real dragMin: 0
+    property real dragMax: 0
+    readonly property bool dragging: mouseArea.drag.active
+
     signal selected()
     signal closed()
+    signal contextMenu()
 
     BorderImage {
         id: tabImage
@@ -83,11 +88,33 @@ Item {
         }
 
         MouseArea {
+            id: mouseArea
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.right: closeButton.left
-            onClicked: tabItem.selected()
+            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+            onPressed: {
+                if (mouse.button === Qt.LeftButton) {
+                    tabItem.selected()
+                }
+            }
+            onReleased: {
+                if (mouse.button === Qt.MiddleButton) {
+                    tabItem.closed()
+                }
+            }
+            onClicked: {
+                if (mouse.button === Qt.RightButton) {
+                    tabItem.contextMenu()
+                }
+            }
+            drag {
+                target: tabItem
+                axis: Drag.XAxis
+                minimumX: tabItem.dragMin
+                maximumX: tabItem.dragMax
+            }
         }
 
         AbstractButton {

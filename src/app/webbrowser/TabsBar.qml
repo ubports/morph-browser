@@ -134,54 +134,28 @@ Item {
                 height: tabsContainer.height
                 rightMargin: units.dp(1)
 
+                dragMin: 0
+                dragMax: root.width - width
+
                 onClosed: internal.closeTab(index)
                 onSelected: root.model.currentIndex = index
-
-                MouseArea {
-                    id: mouseArea
-                    anchors.fill: parent
-                    acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-                    hoverEnabled: true
-                    onPressed: {
-                        if (mouse.button === Qt.LeftButton) {
-                            root.model.currentIndex = index
-                        }
-                    }
-                    onReleased: {
-                        if (mouse.button === Qt.MiddleButton) {
-                            internal.closeTab(index)
-                        }
-                    }
-                    onClicked: {
-                        if (mouse.button === Qt.RightButton) {
-                            PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
-                        }
-                    }
-                    // XXX: should not start a drag when middle button was pressed
-                    drag {
-                        target: tabDelegate
-                        axis: Drag.XAxis
-                        minimumX: 0
-                        maximumX: root.width - tabDelegate.width
-                    }
-                    propagateComposedEvents: true
-                }
+                onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
 
                 Binding {
                     target: repeater
                     property: "reordering"
-                    value: mouseArea.drag.active
+                    value: dragging
                 }
 
                 Binding on x {
-                    when: !mouseArea.drag.active
+                    when: !dragging
                     value: index * width
                 }
 
                 Behavior on x { NumberAnimation { duration: 250 } }
 
                 onXChanged: {
-                    if (!mouseArea.drag.active) return
+                    if (!dragging) return
                     if (x < (index * width - width / 2)) {
                         root.model.move(index, index - 1)
                     } else if ((x > (index * width + width / 2)) && (index < (root.model.count - 1))) {

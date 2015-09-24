@@ -211,6 +211,16 @@ Item {
             compare(tabsModel.currentIndex, 1)
         }
 
+        function test_close_tabs() {
+            populateTabs()
+            for (var i = 2; i >= 0; --i) {
+                var tab0 = getTabDelegate(0)
+                var closeButton = findChild(tab0, "closeButton")
+                clickItem(closeButton, Qt.LeftButton)
+                compare(tabsModel.count, i)
+            }
+        }
+
         function test_drag_tab() {
             populateTabs()
 
