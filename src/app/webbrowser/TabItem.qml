@@ -26,7 +26,7 @@ Item {
     property bool incognito: false
     property bool active: false
     property bool hoverable: true
-    property int rightMargin: tabImage.anchors.rightMargin
+    property real rightMargin: 0
 
     property alias title: label.text
     property alias icon: favicon.source
@@ -97,23 +97,14 @@ Item {
             onPressed: {
                 if (mouse.button === Qt.LeftButton) {
                     tabItem.selected()
-                }
-            }
-            onReleased: {
-                if (mouse.button === Qt.MiddleButton) {
-                    tabItem.closed()
-                }
-            }
-            onClicked: {
-                if (mouse.button === Qt.RightButton) {
+                } else if (mouse.button === Qt.RightButton) {
                     tabItem.contextMenu()
                 }
             }
-            drag {
-                target: tabItem
-                axis: Drag.XAxis
-                minimumX: tabItem.dragMin
-                maximumX: tabItem.dragMax
+            onClicked: {
+                if (mouse.button === Qt.MiddleButton) {
+                    tabItem.closed()
+                }
             }
         }
 
@@ -148,4 +139,3 @@ Item {
         }
     }
 }
-

@@ -118,28 +118,42 @@ Item {
 
             property bool reordering: false
 
-            delegate: TabItem {
+            delegate: MouseArea {
                 id: tabDelegate
                 objectName: "tabDelegate"
+
                 readonly property int tabIndex: index
 
-                active: index === root.model.currentIndex
-                hoverable: true
-                incognito: root.incognito
-                title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
-                icon: model.icon
-
                 anchors.top: tabsContainer.top
+                property real rightMargin: units.dp(1)
                 width: tabWidth + rightMargin
                 height: tabsContainer.height
-                rightMargin: units.dp(1)
 
-                dragMin: 0
-                dragMax: root.width - width
+                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+                readonly property bool dragging: drag.active
+                drag {
+                    target: (pressedButtons === Qt.LeftButton) ? tabDelegate : null
+                    axis: Drag.XAxis
+                    minimumX: 0
+                    maximumX: root.width - tabDelegate.width
+                    filterChildren: true
+                }
 
-                onClosed: internal.closeTab(index)
-                onSelected: root.model.currentIndex = index
-                onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
+                TabItem {
+                    anchors.fill: parent
+
+                    active: tabIndex === root.model.currentIndex
+                    hoverable: true
+                    incognito: root.incognito
+                    title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
+                    icon: model.icon
+
+                    rightMargin: tabDelegate.rightMargin
+
+                    onClosed: internal.closeTab(index)
+                    onSelected: root.model.currentIndex = index
+                    onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
+                }
 
                 Binding {
                     target: repeater

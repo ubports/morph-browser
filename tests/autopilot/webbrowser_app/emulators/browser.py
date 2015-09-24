@@ -329,10 +329,10 @@ class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
     def get_tabs(self):
-        return self.select_many("QQuickItem", objectName="tabDelegate")
+        return self.select_many("QQuickMouseArea", objectName="tabDelegate")
 
     def get_tab(self, index):
-        return self.select_single("QQuickItem", objectName="tabDelegate",
+        return self.select_single("QQuickMouseArea", objectName="tabDelegate",
                                   tabIndex=index)
 
     @autopilot.logging.log_action(logger.info)
@@ -342,7 +342,8 @@ class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     @autopilot.logging.log_action(logger.info)
     def close_tab(self, index):
         tab = self.get_tab(index)
-        close_button = tab.select_single("Icon", objectName="closeButton")
+        close_button = tab.select_single("UCAbstractButton",
+                                         objectName="closeButton")
         self.pointing_device.click_object(close_button)
 
 
