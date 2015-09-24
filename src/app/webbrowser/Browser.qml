@@ -367,21 +367,21 @@ BrowserView {
                     objectName: "share"
                     text: i18n.tr("Share")
                     iconName: "share"
-                    visible: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
+                    enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
                     onTriggered: internal.shareLink(browser.currentWebview.url, browser.currentWebview.title)
                 },
                 Action {
                     objectName: "history"
                     text: i18n.tr("History")
                     iconName: "history"
-                    visible: browser.historyModel
+                    enabled: browser.historyModel
                     onTriggered: historyViewLoader.active = true
                 },
                 Action {
                     objectName: "tabs"
                     text: i18n.tr("Open tabs")
                     iconName: "browser-tabs"
-                    visible: (formFactor != "mobile") && !browser.wide
+                    enabled: (formFactor != "mobile") && !browser.wide
                     onTriggered: {
                         recentView.state = "shown"
                         recentToolbar.state = "shown"
@@ -391,14 +391,14 @@ BrowserView {
                     objectName: "newtab"
                     text: i18n.tr("New tab")
                     iconName: browser.incognito ? "private-tab-new" : "tab-new"
-                    visible: (formFactor != "mobile") && !browser.wide
+                    enabled: (formFactor != "mobile") && !browser.wide
                     onTriggered: browser.openUrlInNewTab("", true)
                 },
                 Action {
                     objectName: "findinpage"
                     text: i18n.tr("Find in page")
                     iconName: "search"
-                    visible: !chrome.findInPageMode && !newTabViewLoader.active
+                    enabled: !chrome.findInPageMode && !newTabViewLoader.active
                     onTriggered: {
                         chrome.findInPageMode = true
                         chrome.focus = true
