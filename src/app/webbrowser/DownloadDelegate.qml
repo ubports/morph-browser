@@ -37,9 +37,10 @@ ListItem {
         anchors {
             verticalCenter: parent.verticalCenter
             left: parent.left
-            leftMargin: units.gu(1.5)
+            leftMargin: units.gu(2)
+            right: parent.right
         }
-        spacing: units.gu(1)
+        spacing: units.gu(2)
 
         Item {
             id: iconContainer
@@ -78,22 +79,18 @@ ListItem {
 
             Label {
                 id: title
-
                 fontSize: "x-small"
                 color: UbuntuColors.darkGrey
-                wrapMode: Text.Wrap
                 elide: Text.ElideRight
-                maximumLineCount: 1
+                width: parent.width
             }
 
             Label {
                 id: url
-
                 fontSize: "xx-small"
                 color: UbuntuColors.darkGrey
-                wrapMode: Text.Wrap
                 elide: Text.ElideRight
-                maximumLineCount: 1
+                width: parent.width
             }
         }
     }
