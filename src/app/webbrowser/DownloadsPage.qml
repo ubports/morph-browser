@@ -154,7 +154,7 @@ Item {
             title: model.filename
             url: model.url
             image: model.mimetype.indexOf("image") === 0 || model.mimetype.indexOf("video") === 0 ? "image://thumbnailer/file://" + model.path : ""
-            icon: MimeDatabase.iconForMimetype(model.mimetype) !== "-x-generic" ? MimeDatabase.iconForMimetype(model.mimetype) : ""
+            icon: MimeDatabase.iconForMimetype(model.mimetype)
             incomplete: !model.complete
             selectMode: downloadsItem.selectMode || downloadsItem.pickingMode
             // Work around bug #1493880
