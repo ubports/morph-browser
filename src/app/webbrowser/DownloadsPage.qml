@@ -111,6 +111,13 @@ Item {
                     downloadsListView.ViewItems.selectedIndices = []
                     downloadsItem.selectMode = false
                 }
+            },
+            Action {
+                iconName: "edit" 
+                visible: !selectMode
+                onTriggered: {
+                    selectMode = true
+                }
             }
         ]
         onBack: {
