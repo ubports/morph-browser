@@ -87,7 +87,7 @@ ListItem {
 
             Label {
                 id: url
-                fontSize: "xx-small"
+                fontSize: "x-small"
                 color: UbuntuColors.darkGrey
                 elide: Text.ElideRight
                 width: parent.width
