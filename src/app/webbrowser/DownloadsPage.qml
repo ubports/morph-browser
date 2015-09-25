@@ -115,9 +115,10 @@ Item {
             },
             Action {
                 iconName: "edit" 
-                visible: !selectMode
+                visible: !selectMode && !pickingMode
                 onTriggered: {
                     selectMode = true
+                    multiSelect = true
                 }
             }
         ]
