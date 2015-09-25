@@ -34,6 +34,7 @@ Column {
     signal back()
     property string text
     property alias actions: actionBar.actions
+    property alias color: title.color
 
     height: childrenRect.height
 
@@ -45,13 +46,9 @@ Column {
     Rectangle {
         id: title
 
-        height: units.gu(7) - divider.height
+        height: units.gu(6) - divider.height
         anchors { left: parent.left; right: parent.right }
-
-        Rectangle {
-            anchors.fill: parent
-            color: "#f6f6f6"
-        }
+        color: "#f6f6f6"
 
         AbstractButton {
             id: backButton
@@ -102,7 +99,14 @@ Column {
         
     }
 
-    ListItem.Divider {
+    Rectangle {
         id: divider
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        height: units.dp(1)
+        color: Qt.darker(title.color, 1.1)
     }
 }

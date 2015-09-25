@@ -48,12 +48,13 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: "#f6f6f6"
+        color: "#fbfbfb"
     }
 
     BrowserPageHeader {
         id: title
         text: i18n.tr("Downloads")
+        color: "#f7f7f7"
         actions: [
             Action {
                 text: i18n.tr("Confirm selection")

@@ -80,7 +80,7 @@ ListItem {
             Label {
                 id: title
                 fontSize: "x-small"
-                color: UbuntuColors.darkGrey
+                color: "#5d5d5d"
                 elide: Text.ElideRight
                 width: parent.width
             }
@@ -88,7 +88,7 @@ ListItem {
             Label {
                 id: url
                 fontSize: "x-small"
-                color: UbuntuColors.darkGrey
+                color: "#5d5d5d"
                 elide: Text.ElideRight
                 width: parent.width
             }
