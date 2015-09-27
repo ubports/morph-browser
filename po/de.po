@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-09-23 20:14+0200\n"
-"PO-Revision-Date: 2015-09-24 19:40+0000\n"
-"Last-Translator: Andreas Jung <docjuhnk@web.de>\n"
+"PO-Revision-Date: 2015-09-26 22:05+0000\n"
+"Last-Translator: Tobias Bannert <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-09-25 05:49+0000\n"
+"X-Launchpad-Export-Date: 2015-09-27 05:38+0000\n"
 "X-Generator: Launchpad (build 17754)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -108,11 +108,11 @@ msgstr ""
 
 #: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
-msgstr "Wählen Sie eine Anwendung"
+msgstr "Eine Anwendung auswählen"
 
 #: src/app/ContentDownloadDialog.qml:97
 msgid "Download"
-msgstr ""
+msgstr "Herunterladen"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -562,7 +562,7 @@ msgstr "Neuer Reiter"
 
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr ""
+msgstr "Übertragungen"
 
 #: src/app/webbrowser/Browser.qml:420
 msgid "Leave Private Mode"
@@ -641,7 +641,7 @@ msgstr "Heute"
 
 #: src/app/webbrowser/HistoryViewWide.qml:439
 msgid "search history"
-msgstr "Chronik durchsuchen"
+msgstr "Verlauf durchsuchen"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -812,7 +812,7 @@ msgstr "Tippen zum Betrachten"
 
 #: src/app/webbrowser/TabsBar.qml:98
 msgid "Close Tab"
-msgstr ""
+msgstr "Reiter schließen"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
