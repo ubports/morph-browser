@@ -29,6 +29,7 @@ Popover {
     property var allowVideo
 
     contentHeight: bookmarkOptionsColumn.childrenRect.height + units.gu(2)
+    contentWidth: bookmarkOptionsColumn.childrenRect.width + units.gu(2)
 
     Column {
         id: bookmarkOptionsColumn
@@ -43,6 +44,7 @@ Popover {
         spacing: units.gu(1)
 
         Label {
+            id: question
             font.bold: true
             text: request.isForAudio && request.isForVideo ?
                     i18n.tr("Allow this domain to use your camera and microphone ?") :
@@ -51,7 +53,9 @@ Popover {
         }
 
         Label {
+            width: question.width
             text: UrlUtils.removeScheme(request.origin)
+            elide: Text.ElideRight
         }
 
         Item {
