@@ -84,18 +84,19 @@ BrowserView {
             var dialog = PopupUtils.open(mediaAccessDialogComponent, null, {
                 request: request
             });
+
             dialog.visibleChanged.connect(function() {
                 if (dialog.request.isForAudio && dialog.allowAudio ||
                     dialog.request.isForvideo && dialog.allowVideo) dialog.request.allow()
                 else dialog.request.deny()
 
-                MediaAccessModel.set(UrlUtils.removeScheme(dialog.request.origin),
+                MediaAccessModel.set(UrlUtils.extractHost(dialog.request.origin),
                                      (dialog.request.isForAudio) ? dialog.allowAudio : undefined,
                                      (dialog.request.isForVideo) ? dialog.allowVideo : undefined)
             })
         }
         onMediaAccessPermissionRequested: {
-            var permissions = MediaAccessModel.get(UrlUtils.removeScheme(request.origin))
+            var permissions = MediaAccessModel.get(UrlUtils.extractHost(request.origin))
             if (request.isForAudio && request.isForVideo) {
                 // When isForAudio and isForVideo are true in the same request, Oxide
                 // does not provide a way to allow or deny these requests separately, so

@@ -54,7 +54,7 @@ Popover {
 
         Label {
             width: question.width
-            text: UrlUtils.removeScheme(request.origin)
+            text: UrlUtils.extractHost(request.origin)
             elide: Text.ElideRight
         }
 

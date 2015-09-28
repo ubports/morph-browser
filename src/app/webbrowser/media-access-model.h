@@ -25,7 +25,6 @@
 #include <QtCore/QList>
 #include <QtCore/QSet>
 #include <QtCore/QString>
-#include <QtCore/QUrl>
 #include <QtSql/QSqlDatabase>
 
 typedef QPair<QVariant, QVariant> QVariantPair;
@@ -59,9 +58,9 @@ public:
     const QString databasePath() const;
     void setDatabasePath(const QString& path);
 
-    Q_INVOKABLE QVariant get(const QUrl& origin) const;
-    Q_INVOKABLE void set(const QUrl& origin, const QVariant& audio, const QVariant& video);
-    Q_INVOKABLE void unset(const QUrl& origin, bool unsetAudio, bool unsetVideo);
+    Q_INVOKABLE QVariant get(const QString& origin) const;
+    Q_INVOKABLE void set(const QString& origin, const QVariant& audio, const QVariant& video);
+    Q_INVOKABLE void unset(const QString& origin, bool unsetAudio, bool unsetVideo);
 
 Q_SIGNALS:
     void databasePathChanged() const;
@@ -86,15 +85,15 @@ private:
         PermissionValue video;
     };
 
-    QHash<QUrl, Permissions> m_data;
-    QList<QUrl> m_ordered;
+    QHash<QString, Permissions> m_data;
+    QList<QString> m_ordered;
 
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
     void populateFromDatabase();
-    void insertNewEntryInDatabase(const QUrl& origin, const Permissions& permissions);
-    void removeExistingEntryFromDatabase(const QUrl& origin);
-    void updateExistingEntryInDatabase(const QUrl& origin, PermissionType which, PermissionValue value);
+    void insertNewEntryInDatabase(const QString& origin, const Permissions& permissions);
+    void removeExistingEntryFromDatabase(const QString& origin);
+    void updateExistingEntryInDatabase(const QString& origin, PermissionType which, PermissionValue value);
 };
 
 #endif // __MEDIA_ACCESS_MODEL_H__

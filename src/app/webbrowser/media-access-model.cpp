@@ -111,7 +111,7 @@ void MediaAccessModel::populateFromDatabase()
     populateQuery.exec();
     int count = 0;
     while (populateQuery.next()) {
-        QUrl origin = populateQuery.value(0).toUrl();
+        QString origin = populateQuery.value(0).toString();
         Permissions permissions;
         permissions.audio = static_cast<PermissionValue>(qBound(0, populateQuery.value(1).toInt(), 2));
         permissions.video = static_cast<PermissionValue>(qBound(0, populateQuery.value(2).toInt(), 2));
@@ -135,7 +135,7 @@ QVariant MediaAccessModel::data(const QModelIndex& index, int role) const
     if (!index.isValid()) {
         return QVariant();
     }
-    QUrl origin = m_ordered.at(index.row());
+    QString origin = m_ordered.at(index.row());
     if (role == Origin) {
         return QVariant::fromValue(origin);
     }
@@ -164,7 +164,7 @@ QVariant MediaAccessModel::data(const QModelIndex& index, int role) const
  * If the specified permission is currently unset for the \a origin then its
  * value will be undefined.
  */
-QVariant MediaAccessModel::get(const QUrl& origin) const
+QVariant MediaAccessModel::get(const QString& origin) const
 {
     QVariantMap result;
     if (m_data.contains(origin)) {
@@ -199,7 +199,7 @@ bool isNullOrUndefined(const QVariant& value)
  * If they are set to null or to undefined, then the respective permission
  * record will not be modified at all and will retain its present value.
  */
-void MediaAccessModel::set(const QUrl& origin, const QVariant& audio, const QVariant& video)
+void MediaAccessModel::set(const QString& origin, const QVariant& audio, const QVariant& video)
 {
     if (isNullOrUndefined(audio) && isNullOrUndefined(video)) {
         return;
@@ -251,7 +251,7 @@ void MediaAccessModel::set(const QUrl& origin, const QVariant& audio, const QVar
 * causing the application to issue a new prompt to the user the next time access
 * is attempted to the media resource that was unset for \a origin)
 */
-void MediaAccessModel::unset(const QUrl& origin, bool unsetAudio, bool unsetVideo)
+void MediaAccessModel::unset(const QString& origin, bool unsetAudio, bool unsetVideo)
 {
     if (!(unsetAudio || unsetVideo)) {
         return;
@@ -293,7 +293,7 @@ void MediaAccessModel::unset(const QUrl& origin, bool unsetAudio, bool unsetVide
     }
 }
 
-void MediaAccessModel::insertNewEntryInDatabase(const QUrl& origin,
+void MediaAccessModel::insertNewEntryInDatabase(const QString& origin,
                                                 const Permissions& permissions)
 {
     QSqlQuery query(m_database);
@@ -301,13 +301,13 @@ void MediaAccessModel::insertNewEntryInDatabase(const QUrl& origin,
                                                    "(origin, audio, video) "
                                                    "VALUES (?, ?, ?);");
     query.prepare(insertStatement);
-    query.addBindValue(origin.toString());
+    query.addBindValue(origin);
     query.addBindValue((int) permissions.audio);
     query.addBindValue((int) permissions.video);
     query.exec();
 }
 
-void MediaAccessModel::updateExistingEntryInDatabase(const QUrl& origin,
+void MediaAccessModel::updateExistingEntryInDatabase(const QString& origin,
                                                      PermissionType which, PermissionValue value)
 {
     QSqlQuery query(m_database);
@@ -320,16 +320,16 @@ void MediaAccessModel::updateExistingEntryInDatabase(const QUrl& origin,
                                                           : videoUpdateStatement;
     query.prepare(statement);
     query.addBindValue(static_cast<int>(value));
-    query.addBindValue(origin.toString());
+    query.addBindValue(origin);
     query.exec();
 }
 
-void MediaAccessModel::removeExistingEntryFromDatabase(const QUrl& origin)
+void MediaAccessModel::removeExistingEntryFromDatabase(const QString& origin)
 {
     QSqlQuery query(m_database);
     static QString deleteStatement = QLatin1String("DELETE FROM mediaAccess WHERE origin=?;");
     query.prepare(deleteStatement);
-    query.addBindValue(origin.toString());
+    query.addBindValue(origin);
     query.exec();
 }
 
