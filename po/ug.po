@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-09-23 20:14+0200\n"
-"PO-Revision-Date: 2014-11-06 07:42+0000\n"
-"Last-Translator: Gheyret T.Kenji <Unknown>\n"
+"PO-Revision-Date: 2015-09-27 10:49+0000\n"
+"Last-Translator: eltikin <eltikinuyghur@hotmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-09-24 05:53+0000\n"
-"X-Generator: Launchpad (build 17749)\n"
+"X-Launchpad-Export-Date: 2015-09-28 06:20+0000\n"
+"X-Generator: Launchpad (build 17754)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -48,11 +48,12 @@ msgid "Password"
 msgstr "ئىم"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
+#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/HistoryView.qml:165
-#: src/app/webbrowser/HistoryViewWide.qml:374
+#: src/app/webbrowser/HistoryViewWide.qml:307
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:289
 #: src/app/webbrowser/SettingsPage.qml:343
@@ -111,7 +112,7 @@ msgstr ""
 
 #: src/app/ContentDownloadDialog.qml:97
 msgid "Download"
-msgstr ""
+msgstr "چۈشۈر"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -394,13 +395,13 @@ msgstr "ئۇلانما كۆچۈر"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "كەس"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "ئۆچۈر"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:402
 msgid "Find in page"
 msgstr ""
 
@@ -430,7 +431,8 @@ msgstr "يۆتكەل"
 msgid "Address;URL;www"
 msgstr "ئادرېس;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:663
+#: src/app/webbrowser/TabsBar.qml:84
 msgid "New Tab"
 msgstr "يېڭى بەتكۈچ"
 
@@ -454,13 +456,14 @@ msgstr "ئۇلانمىنى يېڭى بەتكۈچتە ئاچ"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "چاپلا"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "قايتىلا"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/webbrowser/TabsBar.qml:89
 msgid "Reload"
 msgstr "قايتا يۈكلە"
 
@@ -478,24 +481,25 @@ msgstr "سۈرەت ساقلا"
 msgid "Save link"
 msgstr ""
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
-#: src/app/webbrowser/HistoryViewWide.qml:399
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
+#: src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:328
 msgid "Select all"
 msgstr "ھەممىنى تاللا"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:368
+#: src/app/webbrowser/Browser.qml:371
 msgid "Share"
 msgstr "ھەمبەھىر"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "يېنىۋال"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:204
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:240
 msgid "find in page"
@@ -512,7 +516,7 @@ msgstr ""
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
-msgstr ""
+msgstr "نامى"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
@@ -528,64 +532,64 @@ msgstr ""
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr ""
+msgstr "يېڭى قىسقۇچ"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr ""
+msgstr "يېڭى قىسقۇچ قۇر"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:353
 msgid "Save"
 msgstr "ساقلا"
 
-#: src/app/webbrowser/Browser.qml:375
-#: src/app/webbrowser/HistoryViewWide.qml:357
+#: src/app/webbrowser/Browser.qml:378
+#: src/app/webbrowser/HistoryViewWide.qml:291
 msgid "History"
 msgstr "ئىز"
 
-#: src/app/webbrowser/Browser.qml:382
+#: src/app/webbrowser/Browser.qml:385
 msgid "Open tabs"
 msgstr "بەتكۈچلەرنى ئاچ"
 
-#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/HistoryViewWide.qml:508
-#: src/app/webbrowser/TabsBar.qml:99 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:396
+#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
 msgid "New tab"
 msgstr "يېڭى بەتكۈچ"
 
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr ""
+msgstr "چۈشۈرۈلمىلەر"
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:420
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:420
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:438 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "تەڭشەكلەر"
 
-#: src/app/webbrowser/Browser.qml:653 src/app/webbrowser/HistoryView.qml:108
-#: src/app/webbrowser/HistoryViewWide.qml:494
+#: src/app/webbrowser/Browser.qml:660 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:382
 msgid "Done"
 msgstr "تامام"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:761
+#: src/app/webbrowser/Browser.qml:767
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1200
+#: src/app/webbrowser/Browser.qml:1224
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1201
+#: src/app/webbrowser/Browser.qml:1225
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
@@ -593,8 +597,9 @@ msgstr ""
 msgid "Confirm selection"
 msgstr ""
 
+#: src/app/webbrowser/DownloadsPage.qml:99
 #: src/app/webbrowser/HistoryView.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:418
+#: src/app/webbrowser/HistoryViewWide.qml:347
 msgid "Delete"
 msgstr "ئۆچۈر"
 
@@ -618,18 +623,18 @@ msgid "Last Visited"
 msgstr "ئەڭ ئاخىرقى قېتىم زىيارەت قىلغىنى"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:205
+#: src/app/webbrowser/HistoryViewWide.qml:149
 msgid "Yesterday"
 msgstr "تۈنۈگۈن"
 
-#: src/app/webbrowser/HistoryViewWide.qml:189
+#: src/app/webbrowser/HistoryViewWide.qml:133
 msgid "All History"
 msgstr ""
 
-#: src/app/webbrowser/HistoryViewWide.qml:203
-#: src/app/webbrowser/HistoryViewWide.qml:272
+#: src/app/webbrowser/HistoryViewWide.qml:147
+#: src/app/webbrowser/HistoryViewWide.qml:212
 msgid "Today"
-msgstr ""
+msgstr "بۈگۈن"
 
 #: src/app/webbrowser/HistoryViewWide.qml:439
 msgid "search history"
@@ -656,7 +661,7 @@ msgstr "خەتكۈچلەر"
 
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr ""
+msgstr "تېخىمۇ كۆپ"
 
 #: src/app/webbrowser/NewTabView.qml:226
 #: src/app/webbrowser/NewTabViewWide.qml:312
@@ -691,7 +696,7 @@ msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "بەتكۈچ ياپ"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -790,13 +795,13 @@ msgstr ""
 msgid "Clear"
 msgstr "تازىلا"
 
-#: src/app/webbrowser/TabPreview.qml:81
+#: src/app/webbrowser/TabPreview.qml:99
 msgid "Tap to view"
 msgstr "چەكسىڭىز كۆرەلەيسىز"
 
 #: src/app/webbrowser/TabsBar.qml:98
 msgid "Close Tab"
-msgstr ""
+msgstr "بەتكۈچ ياپ"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
@@ -830,7 +835,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "ياپ"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
@@ -861,7 +866,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "ئۆتكۈزۈۋەت"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
