@@ -86,7 +86,7 @@ Item {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            anchors.right: closeButton.left
+            anchors.right: formFactor != "mobile" ? parent.right : closeButton.left
             onClicked: tabItem.selected()
         }
 
@@ -94,21 +94,26 @@ Item {
             id: closeButton
             objectName: "closeButton"
 
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            width: formFactor == "mobile" ? units.gu(4) : units.gu(2)
-
-            Icon {
-                height: units.gu(1.5)
-                width: height
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(1)
-                anchors.verticalCenter: parent.verticalCenter
-                name: "close"
-            }
+            // On mobile the tap area to close the tab occupies the whole right
+            // hand side of the tab, while it covers only the close icon in
+            // other form factors
+            anchors.fill: formFactor != "mobile" ? closeIcon : undefined
+            anchors.top: formFactor == "mobile" ? parent.top : undefined
+            anchors.bottom: formFactor == "mobile" ? parent.bottom : undefined
+            anchors.right: formFactor == "mobile" ? parent.right : undefined
+            width: formFactor == "mobile" ? units.gu(4) : closeIcon.width
 
             onTriggered: closed()
+        }
+
+        Icon {
+            id: closeIcon
+            height: units.gu(1.5)
+            width: height
+            anchors.right: parent.right
+            anchors.rightMargin: units.gu(1)
+            anchors.verticalCenter: parent.verticalCenter
+            name: "close"
         }
 
         MouseArea {
