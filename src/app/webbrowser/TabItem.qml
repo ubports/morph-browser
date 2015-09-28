@@ -88,12 +88,18 @@ Item {
         }
 
         MouseArea {
+            id: hoverArea
+            anchors.fill: parent
+            hoverEnabled: !tabItem.active && tabItem.hoverable
+        }
+
+        MouseArea {
             id: mouseArea
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.right: closeButton.left
-            acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+            acceptedButtons: Qt.AllButtons
             onPressed: {
                 if (mouse.button === Qt.LeftButton) {
                     tabItem.selected()
@@ -108,7 +114,7 @@ Item {
             }
         }
 
-        AbstractButton {
+        MouseArea {
             id: closeButton
             objectName: "closeButton"
 
@@ -126,16 +132,7 @@ Item {
                 name: "close"
             }
 
-            onTriggered: closed()
-        }
-
-        MouseArea {
-            id: hoverArea
-            anchors.fill: parent
-            hoverEnabled: !tabItem.active && tabItem.hoverable
-            propagateComposedEvents: true
-            acceptedButtons: Qt.MiddleButton
-            onClicked: tabItem.closed()
+            onClicked: closed()
         }
     }
 }

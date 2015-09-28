@@ -342,8 +342,7 @@ class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     @autopilot.logging.log_action(logger.info)
     def close_tab(self, index):
         tab = self.get_tab(index)
-        close_button = tab.select_single("UCAbstractButton",
-                                         objectName="closeButton")
+        close_button = tab.select_single(objectName="closeButton")
         self.pointing_device.click_object(close_button)
 
 
