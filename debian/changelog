@@ -1,3 +1,79 @@
+webbrowser-app (0.23+15.10.20150922-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Jin Hsieh ]
+  * Add XML description for the Baidu Chinese search engine.
+
+  [ Michael Sheldon ]
+  * Add new strings to support internal download features
+
+  [ Olivier Tilloy ]
+  * Add contextual actions (copy & share) for text selection. (LP:
+    #1490922)
+  * Add contextual actions (copy & share) for text selection. (LP:
+    #1490922)
+  * Disable predictive text on the search field to ensure results are
+    filtered as the user types.
+  * Give ToolbarAction a default font color.
+  * Make a flaky unit test more robust by ensuring that the list view
+    has been updated before testing its contents.
+  * Silence the warnings issued by the favicon fetcher when the server
+    replies with an error. Those warnings can easily flood the console
+    when opening the history view, thus making it difficult to spot
+    legitimate console output.
+  * Updated translation template to include new strings for upcoming
+    branch that implements a context menu on tabs (wide mode).
+
+  [ Riccardo Padovani ]
+  * Use right icon in tab switcher to open a new tab when in private
+    mode
+
+  [ Ugo Riboni ]
+  * Implement search within the history view (only from the widescreen
+    version)
+  * Implement the visual refresh for the tabs in all screen modes.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 22 Sep 2015 01:27:50 +0000
+
+webbrowser-app (0.23+15.10.20150916.1-0ubuntu1) wily; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Add a general URI reformatting mechanism for webapp specific handled
+    schemes. (LP: #1475708)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Wed, 16 Sep 2015 15:33:11 +0000
+
+webbrowser-app (0.23+15.10.20150913-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk. added: po/mr.po
+
+  [ Olivier Tilloy ]
+  * Allow saving canvas images from the context menu.
+  * Handle HTTP authentication requests by showing an authentication
+    dialog. (LP: #1422534)
+  * Remove the workaround for bug #1471181 now that oxide 1.9 has been
+    released with a proper fix. (LP: #1471181)
+  * Set the 'visible' property of actions instead of 'enabled' to ensure
+    the visibility of the corresponding entries in the drawer menu
+    matches. (LP: #1495297)
+  * Use SIGABRT instead of SIGSEGV to crash a renderer process in tests.
+    (LP: #1493825)
+  * Use the new WebContext.userAgentOverrides API (new in Oxide 1.9).
+    (LP: #1410753)
+
+  [ Ugo Riboni ]
+  * Handle HTTP authentication requests by showing an authentication
+    dialog. (LP: #1422534)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Sun, 13 Sep 2015 21:25:02 +0000
+
 webbrowser-app (0.23+15.10.20150908.2-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

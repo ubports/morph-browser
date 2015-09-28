@@ -18,7 +18,7 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import com.canonical.Oxide 1.8 as Oxide
+import com.canonical.Oxide 1.9 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import "." // QTBUG-34418
@@ -37,13 +37,6 @@ Oxide.WebView {
     context: SharedWebContext.sharedContext
 
     messageHandlers: [
-        Oxide.ScriptMessageHandler {
-            msgId: "dpr"
-            contexts: ["oxide://selection/"]
-            callback: function(msg, frame) {
-                internal.devicePixelRatio = msg.args.dpr
-            }
-        },
         Oxide.ScriptMessageHandler {
             msgId: "scroll"
             contexts: ["oxide://selection/"]
@@ -68,11 +61,8 @@ Oxide.WebView {
         id: contextualRectangle
         visible: false
         readonly property real locationBarOffset: _webview.locationBarController.height + _webview.locationBarController.offset
-        // XXX: Because the context model’s position is incorrectly reported in
-        // device-independent pixels (see https://launchpad.net/bugs/1471181),
-        // it needs to be multiplied by the device pixel ratio to get physical pixels.
-        x: internal.contextModel ? internal.contextModel.position.x * internal.devicePixelRatio : 0
-        y: internal.contextModel ? internal.contextModel.position.y * internal.devicePixelRatio + locationBarOffset : 0
+        x: internal.contextModel ? internal.contextModel.position.x : 0
+        y: internal.contextModel ? internal.contextModel.position.y + locationBarOffset : 0
     }
 
     // XXX: This property is deprecated in favour of contextModel.
@@ -131,21 +121,10 @@ Oxide.WebView {
         console.warn("WARNING: the copy() function is deprecated and does nothing.")
     }
 
-    readonly property real devicePixelRatio: internal.devicePixelRatio
-
     QtObject {
         id: internal
         property int lastLoadRequestStatus: -1
         property QtObject contextModel: null
-        property real devicePixelRatio: 1.0
-
-        function computeBounds(data) {
-            var locationBarOffset = _webview.locationBarController.height + _webview.locationBarController.offset
-            var scaleX = data.outerWidth / data.innerWidth * internal.devicePixelRatio
-            var scaleY = data.outerHeight / (data.innerHeight + locationBarOffset) * internal.devicePixelRatio
-            return Qt.rect(data.left * scaleX, data.top * scaleY + locationBarOffset,
-                           data.width * scaleX, data.height * scaleY)
-        }
 
         function dismissCurrentContextualMenu() {
             if (contextModel) {

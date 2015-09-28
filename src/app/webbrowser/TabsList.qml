@@ -26,6 +26,7 @@ Item {
     property real chromeOffset
     property alias model: repeater.model
     readonly property int count: repeater.count
+    property bool incognito
 
     signal tabSelected(int index)
     signal tabClosed(int index)
@@ -35,6 +36,17 @@ Item {
     }
 
     readonly property bool animating: selectedAnimation.running
+
+    Rectangle {
+        id: firstItemChromeBackground
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        height: units.gu(4)
+        color: "#fbfbfb"
+    }
 
     Flickable {
         id: flickable
@@ -80,6 +92,7 @@ Item {
                 }
 
                 readonly property string title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
+                readonly property string icon: model.icon
 
                 readonly property bool needsInstance: (index >= 0) && ((flickable.contentY + flickable.height + delegateHeight / 2) >= (index * delegateHeight))
                 sourceComponent: needsInstance ? tabPreviewComponent : undefined
@@ -91,7 +104,10 @@ Item {
 
                     TabPreview {
                         title: delegate.title
+                        icon: delegate.icon
+                        incognito: tabslist.incognito
                         tab: model.tab
+                        chromeHeight: firstItemChromeBackground.height
                         showContent: (index > 0) || (delegate.y > flickable.contentY) ||
                                      !(tab.webview && tab.webview.visible)
 

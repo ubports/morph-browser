@@ -30,7 +30,7 @@
 #include "limit-proxy-model.h"
 #include "media-access-model.h"
 #include "searchengine.h"
-#include "suggestions-filter-model.h"
+#include "text-search-filter-model.h"
 #include "tabs-model.h"
 #include "top-sites-model.h"
 #include "webbrowser-app.h"
@@ -90,7 +90,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
     qmlRegisterType<SearchEngine>(uri, 0, 1, "SearchEngine");
     qmlRegisterSingletonType<CacheDeleter>(uri, 0, 1, "CacheDeleter", CacheDeleter_singleton_factory);
-    qmlRegisterType<SuggestionsFilterModel>(uri, 0, 1, "SuggestionsFilterModel");
+    qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
 
     if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml")) {
         QStringList searchEnginesSearchPaths;
