@@ -97,7 +97,7 @@ Item {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.right: parent.right
-            width: units.gu(2)
+            width: formFactor == "mobile" ? units.gu(4) : units.gu(2)
 
             Icon {
                 height: units.gu(1.5)
