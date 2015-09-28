@@ -18,6 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import ".."
 
 Item {
@@ -31,7 +32,7 @@ Item {
 
     property bool incognito: false
 
-    signal requestNewTab()
+    signal requestNewTab(int index, bool makeCurrent)
 
     MouseArea {
         anchors.fill: parent
@@ -67,7 +68,36 @@ Item {
             color: incognito ? "white" : UbuntuColors.darkGrey
         }
 
-        onClicked: root.requestNewTab()
+        onClicked: root.requestNewTab(root.model.count, true)
+    }
+
+    Component {
+        id: contextualOptionsComponent
+        ActionSelectionPopover {
+            id: menu
+            objectName: "tabContextualActions"
+            property int targetIndex
+            readonly property var tab: root.model.get(targetIndex)
+
+            actions: ActionList {
+                Action {
+                    objectName: "tab_action_new_tab"
+                    text: i18n.tr("New Tab")
+                    onTriggered: root.requestNewTab(menu.targetIndex + 1, false)
+                }
+                Action {
+                    objectName: "tab_action_reload"
+                    text: i18n.tr("Reload")
+                    enabled: menu.tab.url.toString().length > 0
+                    onTriggered: menu.tab.reload()
+                }
+                Action {
+                    objectName: "tab_action_close_tab"
+                    text: i18n.tr("Close Tab")
+                    onTriggered: internal.closeTab(menu.targetIndex)
+                }
+            }
+        }
     }
 
     Item {
@@ -88,54 +118,58 @@ Item {
 
             property bool reordering: false
 
-            delegate: TabItem {
+            delegate: MouseArea {
                 id: tabDelegate
                 objectName: "tabDelegate"
+
                 readonly property int tabIndex: index
 
-                active: index === root.model.currentIndex
-                hoverable: true
-                incognito: root.incognito
-                title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
-                icon: model.icon
-
                 anchors.top: tabsContainer.top
+                property real rightMargin: units.dp(1)
                 width: tabWidth + rightMargin
                 height: tabsContainer.height
-                rightMargin: units.dp(1)
 
-                onClosed: internal.closeTab(index)
-                onSelected: root.model.currentIndex = index
+                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+                readonly property bool dragging: drag.active
+                drag {
+                    target: (pressedButtons === Qt.LeftButton) ? tabDelegate : null
+                    axis: Drag.XAxis
+                    minimumX: 0
+                    maximumX: root.width - tabDelegate.width
+                    filterChildren: true
+                }
 
-                MouseArea {
-                    id: mouseArea
+                TabItem {
                     anchors.fill: parent
-                    // XXX: should not start a drag when middle button was pressed
-                    drag {
-                        target: tabDelegate
-                        axis: Drag.XAxis
-                        minimumX: 0
-                        maximumX: root.width - tabDelegate.width
-                    }
-                    onReleased: root.model.currentIndex = index
-                    propagateComposedEvents: true
+
+                    active: tabIndex === root.model.currentIndex
+                    hoverable: true
+                    incognito: root.incognito
+                    title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
+                    icon: model.icon
+
+                    rightMargin: tabDelegate.rightMargin
+
+                    onClosed: internal.closeTab(index)
+                    onSelected: root.model.currentIndex = index
+                    onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
                 }
 
                 Binding {
                     target: repeater
                     property: "reordering"
-                    value: mouseArea.drag.active
+                    value: dragging
                 }
 
                 Binding on x {
-                    when: !mouseArea.drag.active
+                    when: !dragging
                     value: index * width
                 }
 
                 Behavior on x { NumberAnimation { duration: 250 } }
 
                 onXChanged: {
-                    if (!mouseArea.drag.active) return
+                    if (!dragging) return
                     if (x < (index * width - width / 2)) {
                         root.model.move(index, index - 1)
                     } else if ((x > (index * width + width / 2)) && (index < (root.model.count - 1))) {

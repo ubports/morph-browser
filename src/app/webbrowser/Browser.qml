@@ -353,7 +353,7 @@ BrowserView {
                 onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
             }
 
-            onRequestNewTab: browser.openUrlInNewTab("", true)
+            onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
 
             onFindInPageModeChanged: if (!chrome.findInPageMode) internal.resetFocus()
 
@@ -1247,8 +1247,9 @@ BrowserView {
             if (share) share.shareText(text)
         }
 
-        function addTab(tab, setCurrent) {
-            var index = tabsModel.add(tab)
+        function addTab(tab, setCurrent, index) {
+            if (index === undefined) index = tabsModel.add(tab)
+            else index = tabsModel.insert(tab, index)
             if (setCurrent) {
                 tabsModel.currentIndex = index
                 chrome.requestedUrl = tab.initialUrl
@@ -1351,10 +1352,10 @@ BrowserView {
         }
     }
 
-    function openUrlInNewTab(url, setCurrent, load) {
+    function openUrlInNewTab(url, setCurrent, load, index) {
         load = typeof load !== 'undefined' ? load : true
         var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
-        internal.addTab(tab, setCurrent)
+        internal.addTab(tab, setCurrent, index)
         if (load) {
             tabsModel.currentTab.load()
         }

@@ -39,7 +39,7 @@ ChromeBase {
     property alias showFaviconInAddressBar: navigationBar.showFaviconInAddressBar
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
 
-    signal requestNewTab()
+    signal requestNewTab(int index, bool makeCurrent)
 
     backgroundColor: incognito ? UbuntuColors.darkGrey : "#bcbcbc"
 
@@ -67,7 +67,7 @@ ChromeBase {
             sourceComponent: TabsBar {
                 model: tabsModel
                 incognito: chrome.incognito
-                onRequestNewTab: chrome.requestNewTab()
+                onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
             }
 
             anchors {
