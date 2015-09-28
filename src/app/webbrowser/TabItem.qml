@@ -108,7 +108,7 @@ Item {
                 }
             }
             onClicked: {
-                if (mouse.button === Qt.MiddleButton) {
+                if ((mouse.buttons === 0) && (mouse.button === Qt.MiddleButton)) {
                     tabItem.closed()
                 }
             }
