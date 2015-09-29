@@ -51,6 +51,9 @@
 */
 DownloadsModel::DownloadsModel(QObject* parent)
     : QAbstractListModel(parent)
+    , m_numRows(0)
+    , m_fetchedCount(0)
+    , m_canFetchMore(true)
 {
     m_database = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"), CONNECTION_NAME);
 }
@@ -69,9 +72,11 @@ void DownloadsModel::resetDatabase(const QString& databaseName)
     m_database.close();
     m_database.setDatabaseName(databaseName);
     m_database.open();
+    m_numRows = 0;
+    m_fetchedCount = 0;
+    m_canFetchMore = true;
     createOrAlterDatabaseSchema();
     endResetModel();
-    populateFromDatabase();
     Q_EMIT rowCountChanged();
 }
 
@@ -87,15 +92,16 @@ void DownloadsModel::createOrAlterDatabaseSchema()
     createQuery.exec();
 }
 
-void DownloadsModel::populateFromDatabase()
+void DownloadsModel::fetchMore(const QModelIndex &parent)
 {
     QSqlQuery populateQuery(m_database);
     QString query = QLatin1String("SELECT downloadId, url, path, mimetype, "
                                   "progress, complete, error, created "
-                                  "FROM downloads ORDER BY created DESC;");
+                                  "FROM downloads ORDER BY created DESC LIMIT 100 OFFSET ?;");
     populateQuery.prepare(query);
+    populateQuery.addBindValue(m_fetchedCount);
     populateQuery.exec();
-    int count = 0;
+    int count = 0; // size() isn't supported on the sqlite backend
     while (populateQuery.next()) {
         DownloadEntry entry;
         entry.downloadId = populateQuery.value(0).toString();
@@ -113,11 +119,16 @@ void DownloadsModel::populateFromDatabase()
         QFileInfo fileInfo(entry.path);
         if (fileInfo.exists()) {
             entry.filename = fileInfo.fileName();
-            beginInsertRows(QModelIndex(), count, count);
+            beginInsertRows(QModelIndex(), m_numRows, m_numRows);
             m_orderedEntries.append(entry);
             endInsertRows();
-            ++count;
+            m_numRows++;
         }
+        count++;
+    }
+    m_fetchedCount += count;
+    if (count == 0) {
+        m_canFetchMore = false;
     }
 }
 
@@ -269,8 +280,11 @@ void DownloadsModel::setComplete(const QString& downloadId, const bool complete)
 
     beginResetModel();
     m_orderedEntries.clear();
+    m_canFetchMore = true;
+    m_fetchedCount = 0;
+    m_numRows = 0;
     endResetModel();
-    populateFromDatabase();
+    fetchMore();
     Q_EMIT rowCountChanged();
 }
 
@@ -358,4 +372,11 @@ void DownloadsModel::removeExistingEntryFromDatabase(const QString& path)
     query.prepare(deleteStatement);
     query.addBindValue(path);
     query.exec();
+}
+
+bool DownloadsModel::canFetchMore(const QModelIndex &parent) const
+{
+    Q_UNUSED(parent)
+
+    return m_canFetchMore;
 }

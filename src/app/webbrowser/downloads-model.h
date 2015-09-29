@@ -56,6 +56,8 @@ public:
     QHash<int, QByteArray> roleNames() const;
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex& index, int role) const;
+    bool canFetchMore(const QModelIndex &parent = QModelIndex()) const;
+    void fetchMore(const QModelIndex &parent = QModelIndex());
 
     const QString databasePath() const;
     void setDatabasePath(const QString& path);
@@ -80,6 +82,9 @@ Q_SIGNALS:
 
 private:
     QSqlDatabase m_database;
+    int m_numRows;
+    int m_fetchedCount;
+    bool m_canFetchMore;
 
     struct DownloadEntry {
         QString downloadId;
@@ -96,7 +101,6 @@ private:
 
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
-    void populateFromDatabase();
     void insertNewEntryInDatabase(const DownloadEntry& entry);
     void removeExistingEntryFromDatabase(const QString& path);
 };
