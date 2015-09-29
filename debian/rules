@@ -2,7 +2,7 @@
 # -*- makefile -*-
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
 
 export DEB_BUILD_HARDENING=1
 export DPKG_GENSYMBOLS_CHECK_LEVEL=4
@@ -10,8 +10,19 @@ export DPKG_GENSYMBOLS_CHECK_LEVEL=4
 %:
 	dh $@ --parallel --with translations
 
-override_dh_install:
+apparmor:
+	aa-easyprof -m ./debian/webbrowser-app-apparmor.manifest --no-verify | \
+	egrep -v '(# Click packages|CLICK_DIR)' | \
+	sed 's/@{APP_PKGNAME}_@{APP_APPNAME}_@{APP_VERSION}/@{APP_PKGNAME}/g' \
+	> ./debian/usr.bin.webbrowser-app
+	apparmor_parser -QTK ./debian/usr.bin.webbrowser-app
+
+override_dh_install: apparmor
 	dh_install --fail-missing
+
+override_dh_installdeb:
+	dh_apparmor --profile-name=usr.bin.webbrowser-app -pwebbrowser-app
+	dh_installdeb
 
 override_dh_translations:
 	# Override dh_translations to work around http://pad.lv/1183262.
