@@ -87,7 +87,7 @@ BrowserView {
 
             dialog.visibleChanged.connect(function() {
                 if (dialog.request.isForAudio && dialog.allowAudio ||
-                    dialog.request.isForvideo && dialog.allowVideo) dialog.request.allow()
+                    dialog.request.isForVideo && dialog.allowVideo) dialog.request.allow()
                 else dialog.request.deny()
 
                 MediaAccessModel.set(UrlUtils.extractHost(dialog.request.origin),
