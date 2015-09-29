@@ -192,12 +192,14 @@ bool isNullOrUndefined(const QVariant& value)
  * \qmlmethod void set(url origin, var audio, var video)
  * Set access permissions for \a origin.
  *
- * If \a audio or \a video are set to any value that can be converted to a bool,
- * then the respective permission record is updated with the result of that
- * conversion.
- *
- * If they are set to null or to undefined, then the respective permission
+ * If \a audio or \a video are set to any other than null or undefined,
+ * then the respective permission record is updated with the result of
+ * converting the value to a boolean.
+ * If either is set to null or to undefined, then the respective permission
  * record will not be modified at all and will retain its present value.
+ *
+ * If there is no record currently set for the \a origin, a new record is
+ * created, unless both \a audio and \a video are null or undefined.
  */
 void MediaAccessModel::set(const QString& origin, const QVariant& audio, const QVariant& video)
 {
