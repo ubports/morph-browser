@@ -118,6 +118,8 @@ Item {
             id: closeButton
             objectName: "closeButton"
 
+            acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.right: parent.right
