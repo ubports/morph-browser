@@ -1,3 +1,18 @@
+webbrowser-app (0.23+15.10.20150929-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Use the UA override for www.youtube.com on mobile too. (LP:
+    #1499394)
+
+  [ Ugo Riboni ]
+  * Extend the clickable area to close a tab on mobile, as taps are less
+    precise and often end up missing it. (LP: #1500339)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 29 Sep 2015 10:08:45 +0000
+
 webbrowser-app (0.23+15.10.20150928-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
