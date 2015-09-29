@@ -476,7 +476,7 @@ Item {
                 delegate: ListItem.Standard {
                     objectName: "mediaAccessDelegate_" + index
 
-                    text: "[%1,%2,%3] %4".arg(model.valuesSet).arg(model.audio).arg(model.video).arg(model.origin)
+                    text: model.origin
 
                     removable: true
                     confirmRemoval: true
