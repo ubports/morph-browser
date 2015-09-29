@@ -228,6 +228,31 @@ private Q_SLOTS:
         QVERIFY(roles.contains(MediaAccessModel::Video));
     }
 
+    void shouldGetPermissions_data()
+    {
+        QTest::addColumn<QVariant>("audio");
+        QTest::addColumn<QVariant>("video");
+        QTest::newRow("a:true,v:true")  << VTRUE << VTRUE;
+        QTest::newRow("a:true,v:false")  << VTRUE << VFALSE;
+        QTest::newRow("a:false,v:true")  << VFALSE << VFALSE;
+        QTest::newRow("a:false,v:false")  << VFALSE << VFALSE;
+        QTest::newRow("a:true")  << VTRUE << VNULL;
+        QTest::newRow("v:true")  << VNULL << VTRUE;
+        QTest::newRow("a:false")  << VFALSE << VNULL;
+        QTest::newRow("v:false")  << VNULL << VFALSE;
+        QTest::newRow("none")  << VNULL << VNULL;
+    }
+
+    void shouldGetPermissions()
+    {
+        QFETCH(QVariant, audio);
+        QFETCH(QVariant, video);
+        model->set("example.org", audio, video);
+        QVariantMap item = qvariant_cast<QVariantMap>(model->get("example.org"));
+        QCOMPARE(item.value("audio"), audio);
+        QCOMPARE(item.value("video"), video);
+    }
+
     void shouldReturnDatabasePath()
     {
         QCOMPARE(model->databasePath(), QString(":memory:"));
