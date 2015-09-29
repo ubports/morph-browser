@@ -34,7 +34,7 @@ Rectangle {
 
         Image {
             anchors.horizontalCenter: parent.horizontalCenter
-            source: "../assets/tab-error.png"
+            source: "assets/tab-error.png"
         }
 
         Label {
