@@ -22,8 +22,6 @@ import Ubuntu.Components 1.3
 Rectangle {
     property var webview
 
-    signal closeTabRequested()
-
     Column {
         anchors {
             fill: parent
