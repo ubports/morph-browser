@@ -252,6 +252,9 @@ void MediaAccessModel::set(const QString& origin, const QVariant& audio, const Q
 * record will be updated so that the permission will result unset (usually
 * causing the application to issue a new prompt to the user the next time access
 * is attempted to the media resource that was unset for \a origin)
+*
+* If this call causes both permissions to become unset, the record gets removed
+* entirely from the model.
 */
 void MediaAccessModel::unset(const QString& origin, bool unsetAudio, bool unsetVideo)
 {
@@ -261,9 +264,9 @@ void MediaAccessModel::unset(const QString& origin, bool unsetAudio, bool unsetV
 
     if (m_data.contains(origin)) {
         Permissions permissions = m_data.value(origin);
-        if (unsetAudio && unsetVideo ||
-            unsetAudio && permissions.video == Unset ||
-            unsetVideo && permissions.audio == Unset) {
+        if ((unsetAudio && unsetVideo) ||
+            (unsetAudio && permissions.video == Unset) ||
+            (unsetVideo && permissions.audio == Unset)) {
             // if all permissions are going to be unset then remove the row from
             // the database entirely
             int index = m_ordered.indexOf(origin);
