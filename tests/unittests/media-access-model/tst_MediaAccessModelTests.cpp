@@ -129,6 +129,71 @@ private Q_SLOTS:
         QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::Video), newVideo);
     }
 
+    void shouldModifyEntryAndNotifyChangedWhenUnsettingOnlyOnePermission()
+    {
+        QSignalSpy spyChanged(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&, const QVector<int>&)));
+        QList<QVariant> args;
+        QVector<int> roles;
+
+        model->set("example.com", QVariant(true), QVariant(true));
+        spyChanged.clear();
+
+        model->unset("example.com", true, false);
+        QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::Audio), QVariant());
+        QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::Video), QVariant(true));
+        QCOMPARE(spyChanged.count(), 1);
+        args = spyChanged.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 0);
+        QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        roles = args.at(2).value<QVector<int> >();
+        QVERIFY(roles.size() >= 2);
+        QVERIFY(roles.contains(MediaAccessModel::Audio));
+
+        model->set("example.com", QVariant(true), QVariant(true));
+        spyChanged.clear();
+
+        model->unset("example.com", false, true);
+        QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::Audio), QVariant(true));
+        QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::Video), QVariant());
+        QCOMPARE(spyChanged.count(), 1);
+        args = spyChanged.takeFirst();
+        QCOMPARE(args.at(0).toModelIndex().row(), 0);
+        QCOMPARE(args.at(1).toModelIndex().row(), 0);
+        roles = args.at(2).value<QVector<int> >();
+        QVERIFY(roles.size() >= 2);
+        QVERIFY(roles.contains(MediaAccessModel::Video));
+    }
+
+    void shouldRemoveEntryAndNotifyRemovalWhenUnsettingBothPermissions()
+    {
+        QSignalSpy spy(model, SIGNAL(rowsRemoved(QModelIndex,int,int)));
+        QList<QVariant> args;
+
+        model->set("example.com", QVariant(true), QVariant(true));
+        model->unset("example.com", true, true);
+        QCOMPARE(model->rowCount(), 0);
+        QCOMPARE(spy.count(), 1);
+        args = spy.takeFirst();
+        QCOMPARE(args.at(1).toInt(), 0);
+        QCOMPARE(args.at(2).toInt(), 0);
+
+        model->set("example.com", QVariant(), QVariant(true));
+        model->unset("example.com", false, true);
+        QCOMPARE(model->rowCount(), 0);
+        QCOMPARE(spy.count(), 1);
+        args = spy.takeFirst();
+        QCOMPARE(args.at(1).toInt(), 0);
+        QCOMPARE(args.at(2).toInt(), 0);
+
+        model->set("example.com", QVariant(true), QVariant());
+        model->unset("example.com", true, false);
+        QCOMPARE(model->rowCount(), 0);
+        QCOMPARE(spy.count(), 1);
+        args = spy.takeFirst();
+        QCOMPARE(args.at(1).toInt(), 0);
+        QCOMPARE(args.at(2).toInt(), 0);
+    }
+
     void shouldNotifyWhenUpdatingExistingEntry()
     {
         model->set("example.com", QVariant(true), QVariant(true));
