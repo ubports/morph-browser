@@ -123,6 +123,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_http_auth_dialog(self):
         return self.wait_select_single(HttpAuthenticationDialog)
 
+    def get_media_access_dialog(self):
+        return self.wait_select_single(MediaAccessDialog)
+
     def get_tabs_view(self):
         return self.wait_select_single(TabsList, visible=True)
 
@@ -388,6 +391,17 @@ class HttpAuthenticationDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_password_field(self):
         return self.select_single("TextField", objectName="password")
+
+
+class MediaAccessDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_deny_button(self):
+        return self.select_single("Button",
+                                  objectName="mediaAccessDialog.denyButton")
+
+    def get_allow_button(self):
+        return self.select_single("Button",
+                                  objectName="mediaAccessDialog.allowButton")
 
 
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
