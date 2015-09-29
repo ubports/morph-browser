@@ -469,7 +469,7 @@ Item {
 
                 model: SortFilterModel {
                     model: MediaAccessModel
-                    filter.property: "valuesSet"
+                    filter.property: "permissionsSet"
                     filter.pattern: isAudio ? /a/ : /v/
                 }
 

@@ -32,11 +32,24 @@
     already given, or denied, to websites for accessing audio or video input
     devices.
 
+    Each row in the model represents an origin domain for which at least one
+    permission has been set, represented by the roles \a MediaAccessModel::Audio
+    and \a MediaAccessModel::Video. These roles will contain true if permission
+    has been granted to the origin, false if it has been denied, and undefined
+    if no choice has been made by the user yet.
+
+    To simplify filtering using a QSortFilterProxyModel, an additional string
+    role is provided for each row: \a MediaAccessModel::PermissionsSet
+    This role will contain "a" if the audio permission has been set (i.e. either
+    granted or denied), "v" if the video permission has been set, and
+    "av" if both have been set.
+
     The information is persistently stored on disk in a SQLite database.
     The database is read at startup to populate the model, and whenever a new
     entry is added to the model or an entry is removed from the model
     the database is updated.
-    However the model doesn’t monitor the database for external changes.
+    However the model doesn’t monitor the database for external changes. For
+    this reason it is recommended to instantiate it as a singleton in the app.
 */
 MediaAccessModel::MediaAccessModel(QObject* parent)
     : QAbstractListModel(parent)
@@ -58,7 +71,7 @@ QHash<int, QByteArray> MediaAccessModel::roleNames() const
         roles[Origin] = "origin";
         roles[Audio] = "audio";
         roles[Video] = "video";
-        roles[ValuesSet] = "valuesSet";
+        roles[PermissionsSet] = "permissionsSet";
     }
     return roles;
 }
@@ -139,12 +152,12 @@ QVariant MediaAccessModel::data(const QModelIndex& index, int role) const
     if (role == Origin) {
         return QVariant::fromValue(origin);
     }
-    else if (role == ValuesSet) {
+    else if (role == PermissionsSet) {
         Permissions permissions = m_data.value(origin);
-        QString filter;
-        if (permissions.audio != Unset) filter.append('a');
-        if (permissions.video != Unset) filter.append('v');
-        return QVariant::fromValue(filter);
+        QString permissionsSet;
+        if (permissions.audio != Unset) permissionsSet.append('a');
+        if (permissions.video != Unset) permissionsSet.append('v');
+        return QVariant::fromValue(permissionsSet);
     } else if (role == Audio || role == Video) {
         Permissions permissions = m_data.value(origin);
         int value = (role == Audio) ? permissions.audio : permissions.video;
@@ -209,7 +222,7 @@ void MediaAccessModel::set(const QString& origin, const QVariant& audio, const Q
 
     if (m_data.contains(origin)) {
         QVector<int> rolesChanged;
-        rolesChanged << ValuesSet;
+        rolesChanged << PermissionsSet;
 
         Permissions permissions = m_data.value(origin);
         if (!isNullOrUndefined(audio)) {
@@ -279,7 +292,7 @@ void MediaAccessModel::unset(const QString& origin, bool unsetAudio, bool unsetV
             Q_EMIT rowCountChanged();
         } else {
             QVector<int> rolesChanged;
-            rolesChanged << ValuesSet;
+            rolesChanged << PermissionsSet;
             if (unsetAudio) {
                 permissions.audio = Unset;
                 updateExistingEntryInDatabase(origin, AudioPermission, Unset);

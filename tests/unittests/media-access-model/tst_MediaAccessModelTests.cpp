@@ -105,14 +105,15 @@ private Q_SLOTS:
         QTest::addColumn<QVariant>("video");
         QTest::addColumn<QVariant>("newAudio");
         QTest::addColumn<QVariant>("newVideo");
-        QTest::newRow("both true") << VFALSE << VFALSE << VTRUE << VTRUE << VTRUE << VTRUE;
-        QTest::newRow("only audio false") << VTRUE << VTRUE << VFALSE << VNULL << VFALSE << VTRUE;
-        QTest::newRow("only audio true") << VFALSE << VFALSE << VTRUE << VNULL << VTRUE << VFALSE;
-        QTest::newRow("only video false") << VTRUE << VTRUE << VNULL << VFALSE << VTRUE << VFALSE;
-        QTest::newRow("only video true") << VFALSE << VFALSE << VNULL << VTRUE << VFALSE << VTRUE;
-        QTest::newRow("both false") << VTRUE << VTRUE << VFALSE << VFALSE << VFALSE << VFALSE;
-        QTest::newRow("audio unset") << VNULL << VTRUE << VNULL << VFALSE << VNULL << VFALSE;
-        QTest::newRow("video unset") << VTRUE << VNULL << VFALSE << VNULL << VFALSE << VNULL;
+        QTest::addColumn<QString>("permissionsSet");
+        QTest::newRow("both true") << VFALSE << VFALSE << VTRUE << VTRUE << VTRUE << VTRUE << "av";
+        QTest::newRow("only audio false") << VTRUE << VTRUE << VFALSE << VNULL << VFALSE << VTRUE << "av";
+        QTest::newRow("only audio true") << VFALSE << VFALSE << VTRUE << VNULL << VTRUE << VFALSE << "av";
+        QTest::newRow("only video false") << VTRUE << VTRUE << VNULL << VFALSE << VTRUE << VFALSE << "av";
+        QTest::newRow("only video true") << VFALSE << VFALSE << VNULL << VTRUE << VFALSE << VTRUE << "av";
+        QTest::newRow("both false") << VTRUE << VTRUE << VFALSE << VFALSE << VFALSE << VFALSE << "av";
+        QTest::newRow("audio unset") << VNULL << VTRUE << VNULL << VFALSE << VNULL << VFALSE << "v";
+        QTest::newRow("video unset") << VTRUE << VNULL << VFALSE << VNULL << VFALSE << VNULL << "a";
     }
 
     void shouldUpdateExistingEntry()
@@ -123,10 +124,12 @@ private Q_SLOTS:
         QFETCH(QVariant, video);
         QFETCH(QVariant, newAudio);
         QFETCH(QVariant, newVideo);
+        QFETCH(QString, permissionsSet);
         model->set("example.org", baseAudio, baseVideo);
         model->set("example.org", audio, video);
         QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::Audio), newAudio);
         QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::Video), newVideo);
+        QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::PermissionsSet).toString(), permissionsSet);
     }
 
     void shouldModifyEntryAndNotifyChangedWhenUnsettingOnlyOnePermission()
@@ -141,6 +144,7 @@ private Q_SLOTS:
         model->unset("example.com", true, false);
         QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::Audio), QVariant());
         QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::Video), QVariant(true));
+        QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::PermissionsSet), QVariant("v"));
         QCOMPARE(spyChanged.count(), 1);
         args = spyChanged.takeFirst();
         QCOMPARE(args.at(0).toModelIndex().row(), 0);
@@ -148,6 +152,7 @@ private Q_SLOTS:
         roles = args.at(2).value<QVector<int> >();
         QVERIFY(roles.size() >= 2);
         QVERIFY(roles.contains(MediaAccessModel::Audio));
+        QVERIFY(roles.contains(MediaAccessModel::PermissionsSet));
 
         model->set("example.com", QVariant(true), QVariant(true));
         spyChanged.clear();
@@ -155,6 +160,7 @@ private Q_SLOTS:
         model->unset("example.com", false, true);
         QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::Audio), QVariant(true));
         QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::Video), QVariant());
+        QCOMPARE(model->data(model->index(0, 0), MediaAccessModel::PermissionsSet), QVariant("a"));
         QCOMPARE(spyChanged.count(), 1);
         args = spyChanged.takeFirst();
         QCOMPARE(args.at(0).toModelIndex().row(), 0);
@@ -162,6 +168,7 @@ private Q_SLOTS:
         roles = args.at(2).value<QVector<int> >();
         QVERIFY(roles.size() >= 2);
         QVERIFY(roles.contains(MediaAccessModel::Video));
+        QVERIFY(roles.contains(MediaAccessModel::PermissionsSet));
     }
 
     void shouldRemoveEntryAndNotifyRemovalWhenUnsettingBothPermissions()

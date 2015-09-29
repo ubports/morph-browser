@@ -46,8 +46,7 @@ public:
         Origin = Qt::UserRole + 1,
         Audio,
         Video,
-        Filter,
-        ValuesSet
+        PermissionsSet
     };
 
     // reimplemented from QAbstractListModel
