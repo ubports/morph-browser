@@ -98,7 +98,7 @@ Item {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            anchors.right: closeButton.left
+            anchors.right: parent.right
             acceptedButtons: Qt.AllButtons
             onPressed: {
                 if (mouse.button === Qt.LeftButton) {
@@ -118,21 +118,29 @@ Item {
             id: closeButton
             objectName: "closeButton"
 
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            width: units.gu(2)
+            acceptedButtons: Qt.LeftButton | Qt.MiddleButton
 
-            Icon {
-                height: units.gu(1.5)
-                width: height
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(1)
-                anchors.verticalCenter: parent.verticalCenter
-                name: "close"
-            }
+            // On mobile the tap area to close the tab occupies the whole right
+            // hand side of the tab, while it covers only the close icon in
+            // other form factors
+            readonly property bool mobile: formFactor == "mobile"
+            anchors.fill: mobile ? undefined : closeIcon
+            anchors.top: mobile ? parent.top : undefined
+            anchors.bottom: mobile ? parent.bottom : undefined
+            anchors.right: mobile ? parent.right : undefined
+            width: mobile ? units.gu(4) : closeIcon.width
 
             onClicked: closed()
+        }
+
+        Icon {
+            id: closeIcon
+            height: units.gu(1.5)
+            width: height
+            anchors.right: parent.right
+            anchors.rightMargin: units.gu(1)
+            anchors.verticalCenter: parent.verticalCenter
+            name: "close"
         }
     }
 }
