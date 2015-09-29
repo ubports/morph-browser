@@ -118,6 +118,8 @@ Item {
             id: closeButton
             objectName: "closeButton"
 
+            acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+
             // On mobile the tap area to close the tab occupies the whole right
             // hand side of the tab, while it covers only the close icon in
             // other form factors

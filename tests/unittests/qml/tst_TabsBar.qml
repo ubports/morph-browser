@@ -211,12 +211,19 @@ Item {
             compare(tabsModel.currentIndex, 1)
         }
 
-        function test_close_tabs() {
+        function test_close_tabs_data() {
+            return [
+                {button: Qt.LeftButton},
+                {button: Qt.MiddleButton}
+            ]
+        }
+
+        function test_close_tabs(data) {
             populateTabs()
             for (var i = 2; i >= 0; --i) {
                 var tab0 = getTabDelegate(0)
                 var closeButton = findChild(tab0, "closeButton")
-                clickItem(closeButton, Qt.LeftButton)
+                clickItem(closeButton, data.button)
                 compare(tabsModel.count, i)
             }
         }
