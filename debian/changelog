@@ -1,3 +1,26 @@
+webbrowser-app (0.23+15.10.20150928-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Michael Sheldon ]
+  * Add support for alternative mimetype header for vcards (LP:
+    #1498992)
+
+  [ Olivier Tilloy ]
+  * Add a context menu to each tab in the tab bar, allowing to insert a
+    new tab just after, close or reload the current tab.
+  * Fix a couple of autopilot test failures on desktop. (LP: #1495297,
+    #1499411)
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Add a context menu to each tab in the tab bar, allowing to insert a
+    new tab just after, close or reload the current tab.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 28 Sep 2015 08:15:15 +0000
+
 webbrowser-app (0.23+15.10.20150922-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

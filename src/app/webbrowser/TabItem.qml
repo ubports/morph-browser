@@ -26,13 +26,18 @@ Item {
     property bool incognito: false
     property bool active: false
     property bool hoverable: true
-    property int rightMargin: tabImage.anchors.rightMargin
+    property real rightMargin: 0
 
     property alias title: label.text
     property alias icon: favicon.source
 
+    property real dragMin: 0
+    property real dragMax: 0
+    readonly property bool dragging: mouseArea.drag.active
+
     signal selected()
     signal closed()
+    signal contextMenu()
 
     BorderImage {
         id: tabImage
@@ -83,14 +88,33 @@ Item {
         }
 
         MouseArea {
+            id: hoverArea
+            anchors.fill: parent
+            hoverEnabled: !tabItem.active && tabItem.hoverable
+        }
+
+        MouseArea {
+            id: mouseArea
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.right: formFactor != "mobile" ? parent.right : closeButton.left
-            onClicked: tabItem.selected()
+            acceptedButtons: Qt.AllButtons
+            onPressed: {
+                if (mouse.button === Qt.LeftButton) {
+                    tabItem.selected()
+                } else if (mouse.button === Qt.RightButton) {
+                    tabItem.contextMenu()
+                }
+            }
+            onClicked: {
+                if ((mouse.buttons === 0) && (mouse.button === Qt.MiddleButton)) {
+                    tabItem.closed()
+                }
+            }
         }
 
-        AbstractButton {
+        MouseArea {
             id: closeButton
             objectName: "closeButton"
 
@@ -103,7 +127,7 @@ Item {
             anchors.right: formFactor == "mobile" ? parent.right : undefined
             width: formFactor == "mobile" ? units.gu(4) : closeIcon.width
 
-            onTriggered: closed()
+            onClicked: closed()
         }
 
         Icon {
@@ -114,15 +138,6 @@ Item {
             anchors.rightMargin: units.gu(1)
             anchors.verticalCenter: parent.verticalCenter
             name: "close"
-        }
-
-        MouseArea {
-            id: hoverArea
-            anchors.fill: parent
-            hoverEnabled: !tabItem.active && tabItem.hoverable
-            propagateComposedEvents: true
-            acceptedButtons: Qt.MiddleButton
-            onClicked: tabItem.closed()
         }
     }
 }
