@@ -24,13 +24,10 @@ from autopilot.matchers import Eventually
 import ubuntuuitoolkit as uitk
 
 
-class SadWebview(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class SadPage(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def click_reload_button(self):
-        gr = self.globalRect
-        self.pointing_device.move(
-            gr.x + gr.width/4,
-            gr.y + gr.height/4)
-        self.pointing_device.click()
+        button = self.select_single("Button", objectName="reloadButton")
+        self.pointing_device.click_object(button)
 
 
 class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
@@ -86,8 +83,8 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
         self._kill_web_process()
 
         sad_webview = self.app.wait_select_single(
-            SadWebview,
-            objectName="mainWebviewSadWebview")
+            SadPage,
+            objectName="mainWebviewSadPage")
         sad_webview.click_reload_button()
         sad_webview.wait_until_destroyed()
 
@@ -105,8 +102,8 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
         self._kill_web_process()
 
         sad_webview = self.app.wait_select_single(
-            SadWebview,
-            objectName="overlaySadWebview")
+            SadPage,
+            objectName="overlaySadPage")
 
         sad_webview.click_reload_button()
         sad_webview.wait_until_destroyed()
@@ -128,8 +125,8 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
         self._crash_web_process()
 
         sad_webview = self.app.wait_select_single(
-            SadWebview,
-            objectName="mainWebviewSadWebview")
+            SadPage,
+            objectName="mainWebviewSadPage")
 
         sad_webview.click_reload_button()
         sad_webview.wait_until_destroyed()
@@ -151,8 +148,8 @@ class TestSadTab(WebappContainerTestCaseWithLocalContentBase):
         self._crash_web_process()
 
         sad_webview = self.app.wait_select_single(
-            SadWebview,
-            objectName="overlaySadWebview")
+            SadPage,
+            objectName="overlaySadPage")
 
         sad_webview.click_reload_button()
         sad_webview.wait_until_destroyed()

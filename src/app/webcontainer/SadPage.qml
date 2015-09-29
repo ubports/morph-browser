@@ -18,22 +18,11 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import com.canonical.Oxide 1.8 as Oxide
-import ".."
 
 Rectangle {
     property var webview
 
-    MouseArea {
-        anchors.fill: parent
-        acceptedButtons: Qt.LeftButton
-        onClicked: {
-            if (webview) {
-                spinner.running = true
-                webview.reload()
-            }
-        }
-    }
+    signal closeTabRequested()
 
     Column {
         anchors {
@@ -47,9 +36,23 @@ Rectangle {
             source: "../assets/tab-error.png"
         }
 
-        ActivityIndicator {
-            id: spinner
+        Label {
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+
+            wrapMode: Text.Wrap
+            horizontalAlignment: Text.AlignHCenter
+            text: webview ? i18n.tr("Oops, something wrong happened.") : ""
+        }
+
+        Button {
             anchors.horizontalCenter: parent.horizontalCenter
+            objectName: "reloadButton"
+            text: i18n.tr("Reload")
+            color: UbuntuColors.green
+            onClicked: webview.reload()
         }
     }
 }

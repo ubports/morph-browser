@@ -154,9 +154,9 @@ BrowserView {
                 }
                 active: containerWebView.currentWebview &&
                         (webProcessMonitor.crashed || (webProcessMonitor.killed && !containerWebView.currentWebview.loading))
-                sourceComponent: SadWebview {
+                sourceComponent: SadPage {
                     webview: containerWebView.currentWebview
-                    objectName: "mainWebviewSadWebview"
+                    objectName: "mainWebviewSadPage"
                 }
                 WebProcessMonitor {
                     id: webProcessMonitor
