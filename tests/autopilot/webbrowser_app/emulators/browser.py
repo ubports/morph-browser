@@ -317,7 +317,7 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                   objectName="bookmarkToggle")
 
     def get_find_in_page_counter(self):
-        return self.select_single("Label", objectName="findInPageCounter")
+        return self.select_single(objectName="findInPageCounter")
 
 
 class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -522,7 +522,7 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single(UrlsList, objectName="topSitesList")
 
     def get_notopsites_label(self):
-        return self.select_single("Label", objectName="notopsites")
+        return self.select_single(objectName="notopsites")
 
     def get_top_site_items(self):
         return self.get_top_sites_list().get_delegates()
@@ -658,7 +658,7 @@ class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_title_label(self):
-        return self.select_single("Label", objectName="titleLabel")
+        return self.select_single(objectName="titleLabel")
 
     def get_visible_actions(self):
         return self.select_many("Empty", visible=True)
