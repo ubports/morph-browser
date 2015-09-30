@@ -20,7 +20,7 @@ import QtQuick 2.4
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItem
+import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 
@@ -30,7 +30,7 @@ Item {
     id: settingsItem
 
     property QtObject historyModel
-    property Settings settingsObject
+    property QtObject settingsObject
 
     signal done()
 
@@ -69,7 +69,7 @@ Item {
 
             width: parent.width
 
-            ListItem.Subtitled {
+            ListItems.Subtitled {
                 objectName: "searchengine"
 
                 SearchEngine {
@@ -86,7 +86,7 @@ Item {
                 onClicked: searchEngineComponent.createObject(subpageContainer)
             }
 
-            ListItem.Subtitled {
+            ListItems.Subtitled {
                 objectName: "homepage"
 
                 text: i18n.tr("Homepage")
@@ -95,7 +95,7 @@ Item {
                 onClicked: PopupUtils.open(homepageDialog)
             }
 
-            ListItem.Standard {
+            ListItems.Standard {
                 objectName: "restoreSession"
 
                 text: i18n.tr("Restore previous session at startup")
@@ -113,7 +113,7 @@ Item {
                 }
             }
 
-            ListItem.Standard {
+            ListItems.Standard {
                 objectName: "backgroundTabs"
 
                 text: i18n.tr("Allow opening new tabs in background")
@@ -132,7 +132,7 @@ Item {
                 }
             }
 
-            ListItem.Standard {
+            ListItems.Standard {
                 objectName: "privacy"
 
                 text: i18n.tr("Privacy")
@@ -140,7 +140,7 @@ Item {
                 onClicked: privacyComponent.createObject(subpageContainer)
             }
 
-            ListItem.Standard {
+            ListItems.Standard {
                 objectName: "reset"
 
                 text: i18n.tr("Reset browser settings")
@@ -148,7 +148,7 @@ Item {
                 onClicked: settingsObject.restoreDefaults()
             }
 
-            ListItem.Standard {
+            ListItems.Standard {
                 objectName: "mediaAccess"
 
                 text: i18n.tr("Media Access")
@@ -195,7 +195,7 @@ Item {
 
                     model: searchEngines.engines
 
-                    delegate: ListItem.Standard {
+                    delegate: ListItems.Standard {
                         objectName: "searchEngineDelegate_" + index
                         SearchEngine {
                             id: searchEngineDelegate
@@ -252,7 +252,7 @@ Item {
                         id: privacyCol
                         width: parent.width
 
-                        ListItem.Standard {
+                        ListItems.Standard {
                             objectName: "privacy.clearHistory"
                             text: i18n.tr("Clear Browsing History")
                             enabled: historyModel.count > 0
@@ -262,7 +262,7 @@ Item {
                             }
                         }
 
-                        ListItem.Standard {
+                        ListItems.Standard {
                             objectName: "privacy.clearCache"
                             text: i18n.tr("Clear Cache")
                             onClicked: {
@@ -405,29 +405,29 @@ Item {
                     id: mediaAccessCol
                     width: parent.width
 
-                    ListItem.Standard {
+                    ListItems.Standard {
                         text: i18n.tr("Microphone")
                     }
 
-                    ListItem.Standard {
+                    ListItems.Standard {
                         objectName: "mediaAccess.audioOrigins"
                         text: i18n.tr("Allowed domains")
                         progression: true
                         onClicked: {
-                            var list = mediaAccessOriginsComponent.createObject(subpageContainer, {isAudio: true})
+                            mediaAccessOriginsComponent.createObject(subpageContainer, {isAudio: true})
                         }
                     }
 
-                    ListItem.Standard {
+                    ListItems.Standard {
                         text: i18n.tr("Camera")
                     }
 
-                    ListItem.Standard {
+                    ListItems.Standard {
                         objectName: "mediaAccess.videoOrigins"
                         text: i18n.tr("Allowed domains")
                         progression: true
                         onClicked: {
-                            var list = mediaAccessOriginsComponent.createObject(subpageContainer, {isAudio: false})
+                            mediaAccessOriginsComponent.createObject(subpageContainer, {isAudio: false})
                         }
                     }
                 }
@@ -459,6 +459,7 @@ Item {
             }
 
             ListView {
+                objectName: "mediaAccessList"
                 anchors {
                     top: mediaAccessOriginsTitle.bottom
                     left: parent.left
@@ -471,18 +472,33 @@ Item {
                     model: MediaAccessModel
                     filter.property: "permissionsSet"
                     filter.pattern: isAudio ? /a/ : /v/
+                    sort.property: "origin"
+                    sort.order: Qt.AscendingOrder
                 }
 
-                delegate: ListItem.Standard {
+                delegate: ListItem {
                     objectName: "mediaAccessDelegate_" + index
 
-                    text: model.origin
+                    contentItem.anchors {
+                        leftMargin: units.gu(1)
+                        rightMargin: units.gu(1)
+                    }
 
-                    removable: true
-                    confirmRemoval: true
-                    onItemRemoved: MediaAccessModel.unset(model.origin, isAudio, !isAudio)
+                    Label {
+                        objectName: "originLabel"
+                        text: model.origin
+                        anchors {
+                            left: parent.left
+                            verticalCenter: parent.verticalCenter
+                        }
+                    }
 
-                    control: Switch {
+                    Switch {
+                        objectName: "permissionSwitch"
+                        anchors {
+                            right: parent.right
+                            verticalCenter: parent.verticalCenter
+                        }
                         checked: isAudio ? model.audio : model.video
                         function trigger() {
                             if (isAudio) MediaAccessModel.set(model.origin, !checked, undefined)
@@ -490,6 +506,15 @@ Item {
                         }
                     }
 
+                    leadingActions: ListItemActions {
+                        actions: [
+                            Action {
+                                objectName: "leadingAction.delete"
+                                iconName: "delete"
+                                onTriggered: MediaAccessModel.unset(model.origin, isAudio, !isAudio)
+                            }
+                        ]
+                    }
                 }
             }
         }
