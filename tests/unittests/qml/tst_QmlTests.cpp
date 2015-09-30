@@ -34,6 +34,7 @@
 #include "history-lastvisitdate-model.h"
 #include "history-lastvisitdatelist-model.h"
 #include "limit-proxy-model.h"
+#include "media-access-model.h"
 #include "searchengine.h"
 #include "tabs-model.h"
 #include "text-search-filter-model.h"
@@ -152,6 +153,13 @@ static QObject* TestContext_singleton_factory(QQmlEngine* engine, QJSEngine* scr
     return new TestContext();
 }
 
+static QObject* MediaAccessModel_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new MediaAccessModel();
+}
+
 int main(int argc, char** argv)
 {
     const char* commonUri = "webbrowsercommon.private";
@@ -167,6 +175,7 @@ int main(int argc, char** argv)
     qmlRegisterType<HistoryLastVisitDateListModel>(browserUri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<HistoryLastVisitDateModel>(browserUri, 0, 1, "HistoryLastVisitDateModel");
     qmlRegisterType<LimitProxyModel>(browserUri, 0, 1, "LimitProxyModel");
+    qmlRegisterSingletonType<MediaAccessModel>(browserUri, 0, 1, "MediaAccessModel", MediaAccessModel_singleton_factory);
     qmlRegisterType<TextSearchFilterModel>(browserUri, 0, 1, "TextSearchFilterModel");
     qmlRegisterType<TopSitesModel>(browserUri, 0, 1, "TopSitesModel");
     qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
