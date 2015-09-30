@@ -66,6 +66,7 @@ Item {
                 browser.downloadsModel.add(downloadId, url, downloadItem.mimeType)
                 browserDownload = true
                 start()
+                browser.showDownloadsPage()
             }
 
             onErrorChanged: {
