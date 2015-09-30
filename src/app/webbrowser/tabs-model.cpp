@@ -21,6 +21,7 @@
 // Qt
 #include <QtCore/QDebug>
 #include <QtCore/QObject>
+#include <QtCore/QtGlobal>
 
 /*!
     \class TabsModel
@@ -101,35 +102,58 @@ void TabsModel::setCurrentIndex(int index)
 
 QObject* TabsModel::currentTab() const
 {
-    if (m_tabs.isEmpty()) {
+    if (m_tabs.isEmpty() || !checkValidTabIndex(m_currentIndex)) {
         return nullptr;
     }
     return m_tabs.at(m_currentIndex);
 }
 
 /*!
-    Add a tab to the model and return the corresponding index in the model.
+    Append a tab to the model and return the corresponding index in the model.
 
     It is the responsibility of the caller to instantiate the corresponding
     Tab beforehand.
 */
 int TabsModel::add(QObject* tab)
 {
+    return insert(tab, m_tabs.count());
+}
+
+/*!
+    Add a tab to the model at the specified index, and return the index itself,
+    or -1 if the operation failed.
+
+    It is the responsibility of the caller to instantiate the corresponding
+    Tab beforehand.
+*/
+int TabsModel::insert(QObject* tab, int index)
+{
     if (tab == nullptr) {
         qWarning() << "Invalid Tab";
         return -1;
     }
-    int index = m_tabs.count();
+    index = qMax(qMin(index, m_tabs.count()), 0);
     beginInsertRows(QModelIndex(), index, index);
-    m_tabs.append(tab);
+    m_tabs.insert(index, tab);
     connect(tab, SIGNAL(urlChanged()), SLOT(onUrlChanged()));
     connect(tab, SIGNAL(titleChanged()), SLOT(onTitleChanged()));
     connect(tab, SIGNAL(iconChanged()), SLOT(onIconChanged()));
     endInsertRows();
     Q_EMIT countChanged();
-    if (index == 0) {
-        setCurrentIndex(0);
+
+    if (m_currentIndex == -1) {
+        // Set the index to zero if this is the first item that gets added to the
+        // model, as it should not be possible to have items in the model but no
+        // current tab.
+        m_currentIndex = 0;
+        Q_EMIT currentIndexChanged();
+        Q_EMIT currentTabChanged();
+    } else if (index <= m_currentIndex) {
+        // Increment the index if we are inserting items before the current index.
+        m_currentIndex++;
+        Q_EMIT currentIndexChanged();
     }
+
     return index;
 }
 
@@ -150,15 +174,21 @@ QObject* TabsModel::remove(int index)
     tab->disconnect(this);
     endRemoveRows();
     Q_EMIT countChanged();
-    if (index == m_currentIndex) {
-        if (!checkValidTabIndex(index)) {
-            m_currentIndex = m_tabs.count() - 1;
+
+    if (index < m_currentIndex) {
+        // If we removed any tab before the current one, decrease the
+        // current index to match.
+        m_currentIndex--;
+        Q_EMIT currentIndexChanged();
+    } else if (index == m_currentIndex) {
+        // If the current tab was removed, the following one (if any) is made
+        // current. If it was the last tab in the model, the current index needs
+        // to be decreased.
+        if (m_currentIndex == m_tabs.count()) {
+            m_currentIndex--;
             Q_EMIT currentIndexChanged();
         }
         Q_EMIT currentTabChanged();
-    } else if (m_currentIndex > index) {
-        m_currentIndex -= 1;
-        Q_EMIT currentIndexChanged();
     }
     return tab;
 }

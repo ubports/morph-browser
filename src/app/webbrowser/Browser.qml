@@ -398,7 +398,7 @@ BrowserView {
                 onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
             }
 
-            onRequestNewTab: browser.openUrlInNewTab("", true)
+            onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
 
             onFindInPageModeChanged: if (!chrome.findInPageMode) internal.resetFocus()
 
@@ -412,21 +412,21 @@ BrowserView {
                     objectName: "share"
                     text: i18n.tr("Share")
                     iconName: "share"
-                    visible: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
+                    enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
                     onTriggered: internal.shareLink(browser.currentWebview.url, browser.currentWebview.title)
                 },
                 Action {
                     objectName: "history"
                     text: i18n.tr("History")
                     iconName: "history"
-                    visible: browser.historyModel
+                    enabled: browser.historyModel
                     onTriggered: historyViewLoader.active = true
                 },
                 Action {
                     objectName: "tabs"
                     text: i18n.tr("Open tabs")
                     iconName: "browser-tabs"
-                    visible: (formFactor != "mobile") && !browser.wide
+                    enabled: (formFactor != "mobile") && !browser.wide
                     onTriggered: {
                         recentView.state = "shown"
                         recentToolbar.state = "shown"
@@ -436,14 +436,14 @@ BrowserView {
                     objectName: "newtab"
                     text: i18n.tr("New tab")
                     iconName: browser.incognito ? "private-tab-new" : "tab-new"
-                    visible: (formFactor != "mobile") && !browser.wide
+                    enabled: (formFactor != "mobile") && !browser.wide
                     onTriggered: browser.openUrlInNewTab("", true)
                 },
                 Action {
                     objectName: "findinpage"
                     text: i18n.tr("Find in page")
                     iconName: "search"
-                    visible: !chrome.findInPageMode && !newTabViewLoader.active
+                    enabled: !chrome.findInPageMode && !newTabViewLoader.active
                     onTriggered: {
                         chrome.findInPageMode = true
                         chrome.focus = true
@@ -1292,8 +1292,9 @@ BrowserView {
             if (share) share.shareText(text)
         }
 
-        function addTab(tab, setCurrent) {
-            var index = tabsModel.add(tab)
+        function addTab(tab, setCurrent, index) {
+            if (index === undefined) index = tabsModel.add(tab)
+            else index = tabsModel.insert(tab, index)
             if (setCurrent) {
                 tabsModel.currentIndex = index
                 chrome.requestedUrl = tab.initialUrl
@@ -1396,10 +1397,10 @@ BrowserView {
         }
     }
 
-    function openUrlInNewTab(url, setCurrent, load) {
+    function openUrlInNewTab(url, setCurrent, load, index) {
         load = typeof load !== 'undefined' ? load : true
         var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
-        internal.addTab(tab, setCurrent)
+        internal.addTab(tab, setCurrent, index)
         if (load) {
             tabsModel.currentTab.load()
         }

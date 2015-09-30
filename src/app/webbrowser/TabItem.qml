@@ -26,13 +26,18 @@ Item {
     property bool incognito: false
     property bool active: false
     property bool hoverable: true
-    property int rightMargin: tabImage.anchors.rightMargin
+    property real rightMargin: 0
 
     property alias title: label.text
     property alias icon: favicon.source
 
+    property real dragMin: 0
+    property real dragMax: 0
+    readonly property bool dragging: mouseArea.drag.active
+
     signal selected()
     signal closed()
+    signal contextMenu()
 
     BorderImage {
         id: tabImage
@@ -83,42 +88,59 @@ Item {
         }
 
         MouseArea {
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.right: closeButton.left
-            onClicked: tabItem.selected()
-        }
-
-        AbstractButton {
-            id: closeButton
-            objectName: "closeButton"
-
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            width: units.gu(2)
-
-            Icon {
-                height: units.gu(1.5)
-                width: height
-                anchors.right: parent.right
-                anchors.rightMargin: units.gu(1)
-                anchors.verticalCenter: parent.verticalCenter
-                name: "close"
-            }
-
-            onTriggered: closed()
-        }
-
-        MouseArea {
             id: hoverArea
             anchors.fill: parent
             hoverEnabled: !tabItem.active && tabItem.hoverable
-            propagateComposedEvents: true
-            acceptedButtons: Qt.MiddleButton
-            onClicked: tabItem.closed()
+        }
+
+        MouseArea {
+            id: mouseArea
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            acceptedButtons: Qt.AllButtons
+            onPressed: {
+                if (mouse.button === Qt.LeftButton) {
+                    tabItem.selected()
+                } else if (mouse.button === Qt.RightButton) {
+                    tabItem.contextMenu()
+                }
+            }
+            onClicked: {
+                if ((mouse.buttons === 0) && (mouse.button === Qt.MiddleButton)) {
+                    tabItem.closed()
+                }
+            }
+        }
+
+        MouseArea {
+            id: closeButton
+            objectName: "closeButton"
+
+            acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+
+            // On mobile the tap area to close the tab occupies the whole right
+            // hand side of the tab, while it covers only the close icon in
+            // other form factors
+            readonly property bool mobile: formFactor == "mobile"
+            anchors.fill: mobile ? undefined : closeIcon
+            anchors.top: mobile ? parent.top : undefined
+            anchors.bottom: mobile ? parent.bottom : undefined
+            anchors.right: mobile ? parent.right : undefined
+            width: mobile ? units.gu(4) : closeIcon.width
+
+            onClicked: closed()
+        }
+
+        Icon {
+            id: closeIcon
+            height: units.gu(1.5)
+            width: height
+            anchors.right: parent.right
+            anchors.rightMargin: units.gu(1)
+            anchors.verticalCenter: parent.verticalCenter
+            name: "close"
         }
     }
 }
-
