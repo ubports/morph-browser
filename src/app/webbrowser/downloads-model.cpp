@@ -211,6 +211,7 @@ void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QStri
     beginInsertRows(QModelIndex(), 0, 0);
     DownloadEntry entry;
     entry.downloadId = downloadId;
+    entry.complete = false;
     entry.url = url;
     entry.mimetype = mimetype;
     m_orderedEntries.prepend(entry);
