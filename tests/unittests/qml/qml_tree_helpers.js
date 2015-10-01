@@ -21,7 +21,7 @@
 // should be a safe way to remove the rest of the extra metatype
 // information produced by converting QML objects to strings.
 function qmlType(item) {
-    return String(item).split("_")[0]
+    return String(item).split("_")[0].split("(")[0]
 }
 
 function findDescendantsByType(item, type, list) {
