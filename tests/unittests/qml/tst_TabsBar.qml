@@ -21,7 +21,6 @@ import QtTest 1.0
 import Ubuntu.Test 1.0
 import "../../../src/app/webbrowser"
 import webbrowserapp.private 0.1
-import "qml_tree_helpers.js" as Tree
 
 Item {
     id: root
@@ -81,14 +80,13 @@ Item {
         signalName: "reload"
     }
 
-    function getMenuItemForAction(menu, actionName) {
-        actionName = "tab_action_" + actionName + "_button"
-        return Tree.findDescendantByObjectName(menu, actionName)
-    }
-
     UbuntuTestCase {
         name: "TabsBar"
         when: windowShown
+
+        function getMenuItemForAction(menu, actionName) {
+            return findChild(menu, "tab_action_" + actionName + "_button")
+        }
 
         function clickItem(item, button) {
             if (button === undefined) button = Qt.LeftButton
