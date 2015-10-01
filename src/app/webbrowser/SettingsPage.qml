@@ -409,6 +409,21 @@ Item {
                         text: i18n.tr("Microphone")
                     }
 
+                    SettingsDeviceSelector {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        isAudio: true
+                        visible: devicesCount > 0
+                        enabled: devicesCount > 1
+
+                        defaultDevice: settings.defaultAudioDevice
+                        onDeviceSelected: {
+                            SharedWebContext.sharedContext.defaultAudioCaptureDeviceId = id
+                            settings.defaultAudioDevice = id
+                        }
+                    }
+
                     ListItems.Standard {
                         objectName: "mediaAccess.audioOrigins"
                         text: i18n.tr("Allowed domains")
@@ -420,6 +435,21 @@ Item {
 
                     ListItems.Standard {
                         text: i18n.tr("Camera")
+                    }
+
+                    SettingsDeviceSelector {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        isAudio: false
+                        visible: devicesCount > 0
+                        enabled: devicesCount > 1
+
+                        defaultDevice: settings.defaultVideoDevice
+                        onDeviceSelected: {
+                          SharedWebContext.sharedContext.defaultVideoCaptureDeviceId = id
+                          settings.defaultVideoDevice = id
+                        }
                     }
 
                     ListItems.Standard {

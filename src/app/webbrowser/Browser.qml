@@ -164,6 +164,8 @@ BrowserView {
         property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
         property bool restoreSession: settingsDefaults.restoreSession
         property int newTabDefaultSection: settingsDefaults.newTabDefaultSection
+        property string defaultAudioDevice
+        property string defaultVideoDevice
 
         function restoreDefaults() {
             homepage  = settingsDefaults.homepage
@@ -171,6 +173,8 @@ BrowserView {
             allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
             restoreSession = settingsDefaults.restoreSession
             newTabDefaultSection = settingsDefaults.newTabDefaultSection
+            defaultAudioDevice = settingsDefaults.defaultAudioDevice
+            defaultVideoDevice = settingsDefaults.defaultVideoDevice
         }
     }
 
@@ -182,6 +186,8 @@ BrowserView {
         readonly property string allowOpenInBackgroundTab: "default"
         readonly property bool restoreSession: true
         readonly property int newTabDefaultSection: 0
+        readonly property string defaultAudioDevice: ""
+        readonly property string defaultVideoDevice: ""
     }
 
     FocusScope {
