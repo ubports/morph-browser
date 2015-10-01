@@ -27,25 +27,30 @@ ListItem {
     property alias image: thumbimage.source
     property alias title: title.text
     property alias url: url.text
-    property alias incomplete: progress.running
+    property alias progress: progressBar.progress
+    property bool incomplete: false
 
     divider.visible: false
 
     signal removed()
 
-    Row {
+    height: incomplete ? units.gu(10) : units.gu(7)
+
+    Item {
+        
         anchors {
             verticalCenter: parent.verticalCenter
             left: parent.left
             leftMargin: units.gu(2)
             right: parent.right
         }
-        spacing: units.gu(2)
 
         Item {
             id: iconContainer
             width: units.gu(3)
             height: width
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.verticalCenterOffset: downloadDelegate.incomplete ? -units.gu(1) : 0
 
             Image {
                 id: thumbimage
@@ -65,33 +70,75 @@ ListItem {
                 cache: true
                 property string name
             }
-
-            ActivityIndicator {
-                id: progress
-                running: false
-                visible: running
-            }
         }
 
-        Column {
-            width: parent.width - iconContainer.width - parent.spacing
-            height: parent.height
+        Item {
+            anchors.top: iconContainer.top
+            anchors.left: iconContainer.right
+            anchors.leftMargin: units.gu(2)
+            anchors.right: parent.right
 
-            Label {
-                id: title
-                fontSize: "x-small"
-                color: "#5d5d5d"
-                elide: Text.ElideRight
-                width: parent.width
+            Column {
+                id: detailsColumn
+                width: parent.width - cancelColumn.width
+                height: parent.height
+
+                Label {
+                    id: title
+                    fontSize: "x-small"
+                    color: "#5d5d5d"
+                    elide: Text.ElideRight
+                    width: parent.width
+                }
+
+                Label {
+                    id: url
+                    fontSize: "x-small"
+                    color: "#5d5d5d"
+                    elide: Text.ElideRight
+                    width: parent.width
+                }
+
+                Item {
+                    height: units.gu(2)
+                    width: parent.width
+                    visible: downloadDelegate.incomplete
+                }
+
+                IndeterminateProgressBar {
+                    id: progressBar
+                    width: parent.width
+                    height: units.gu(0.5)
+                    visible: downloadDelegate.incomplete
+                    // Work around UDM bug #1450144
+                    indeterminateProgress: downloadDelegate.progress < 0 || downloadDelegate.progress > 100
+                }
             }
 
-            Label {
-                id: url
-                fontSize: "x-small"
-                color: "#5d5d5d"
-                elide: Text.ElideRight
-                width: parent.width
+            Column {
+                id: cancelColumn
+                spacing: units.gu(1)
+                anchors.top: detailsColumn.top
+                anchors.left: detailsColumn.right
+                anchors.leftMargin: units.gu(2)
+                width: downloadDelegate.incomplete ? cancelButton.width + units.gu(2) : 0
+
+                Button {
+                    visible: downloadDelegate.incomplete
+                    id: cancelButton
+                    text: i18n.tr("Cancel")
+                }
+
+                Label {
+                    visible: !progressBar.indeterminateProgress && downloadDelegate.incomplete
+                    width: cancelButton.width
+                    horizontalAlignment: Text.AlignHCenter
+                    fontSize: "x-small"
+                    text: progressBar.progress + "%"
+                }
+
             }
+
         }
     }
 
