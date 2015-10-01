@@ -16,27 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Given the naming convention in QML for class names, we should
-// never have a class name with underscores in it, so the following
-// should be a safe way to remove the rest of the extra metatype
-// information produced by converting QML objects to strings.
-function qmlType(item) {
-    return String(item).split("_")[0].split("(")[0]
-}
-
-function findDescendantsByType(item, type, list) {
-    list = list || []
-    if (qmlType(item) === type) list.push(item)
+function findDescendantByObjectName(item, name) {
+    if (item.objectName == name) return item
     for (var i in item.children) {
-        findDescendantsByType(item.children[i], type, list)
-    }
-    return list
-}
-
-function findAncestorByType(item, type) {
-    while (item.parent) {
-        if (qmlType(item.parent) === type) return item.parent
-        item = item.parent
+        var found = findDescendantByObjectName(item.children[i], name)
+        if (found) return found
     }
     return null
 }
