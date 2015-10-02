@@ -7,51 +7,53 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-13 07:04+0200\n"
+"POT-Creation-Date: 2015-09-23 20:14+0200\n"
 "PO-Revision-Date: 2015-08-01 22:05+0000\n"
-"Last-Translator: Arsień Šachalevič <semen.shah@gmail.com>\n"
+"Last-Translator: Siamion Šachalevič <semen.shah@gmail.com>\n"
 "Language-Team: Belarusian <be@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Launchpad-Export-Date: 2015-08-15 05:32+0000\n"
-"X-Generator: Launchpad (build 17686)\n"
+"X-Launchpad-Export-Date: 2015-09-24 05:53+0000\n"
+"X-Generator: Launchpad (build 17749)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr "Паведамленне JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
-#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "Добра"
 
-#: src/app/AuthenticationDialog.qml:24
+#: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
-msgstr "Патрабуецца аўтэнтыфікацыя."
+msgstr "Варта прайсці распазнанне."
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Сайт %1 патрабуе праверкі сапраўднасці."
+msgstr "Для доступу да сайта %1 варта прайсці распазнанне"
 
-#: src/app/AuthenticationDialog.qml:34
+#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
 msgstr "Карыстальнік"
 
-#: src/app/AuthenticationDialog.qml:41
+#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
 msgstr "Пароль"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
+#: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/HistoryView.qml:165
-#: src/app/webbrowser/HistoryViewWide.qml:291
+#: src/app/webbrowser/HistoryViewWide.qml:374
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:289
 #: src/app/webbrowser/SettingsPage.qml:343
@@ -65,7 +67,7 @@ msgstr "Пацвердзіць пераход"
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr "Пакінуць"
+msgstr "Выйсці"
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
@@ -73,7 +75,7 @@ msgstr "Застацца"
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "Гэта злучэнне з'яўляецца ненадзейным"
+msgstr "Гэта злучэнне не з'яўляецца давераным"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -82,22 +84,35 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Вы спрабуеце дасягнуць %1, але сертыфікат бяспекі гэтага вэб-сайта не "
-"з'яўляецца давераным."
+"Вы намагаецеся ўсталяваць бяспечнае злучэнне з %1, але сертыфікат бяспекі "
+"гэтага сайту не з'яўляецца давераным."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
-msgstr "Працягнуць усе роўна"
+msgstr "Працягнуць"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
-msgstr "Вярнуцца да бяспекі"
+msgstr "Вярнуцца да бяспечнага рэжыму"
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr "JavaScript пацверджаны"
+msgstr "Пацверджанне дзеянняў JavaScript"
+
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr ""
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -107,13 +122,14 @@ msgstr "Памылка сеткі"
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Мабыць ў вас з'явіліся цяжкасці з праглядваннем: %1."
+msgstr "Здаецца, з праглядам %1 паўсталі праблемы."
 
 #: src/app/ErrorSheet.qml:48
 msgid ""
 "Ubuntu suggests you check your network settings and try refreshing the page."
 msgstr ""
-"Ubuntu прапануе вам праверыць настройкі сеткі, паспрабуйце абнавіць старонку."
+"Ubuntu прапануе вам праверыць настройкі сеткі і  паспрабаваць абнавіць "
+"старонку."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -125,11 +141,11 @@ msgstr "Калі ласка, абярыце файл"
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "Дазвол Запросу"
+msgstr "Запыт правоў доступу"
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr "Гэта старонка хоча ведаць месцазнаходжанне вашага устройства."
+msgstr "Код гэтай старонкі спрабуе вызначыць ваша месцазнаходжанне."
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
@@ -141,7 +157,7 @@ msgstr "Дазволіць"
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr "Гэты сертыфікат бяспекі сайта не з'яўляецца давераным.\n"
+msgstr "Сертыфікат бяспекі гэтага сайта не з'яўляецца надзейным.\n"
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
@@ -164,7 +180,7 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
-"Тэма:\n"
+"Суб'ект:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
@@ -174,7 +190,7 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
-"Адрас:\n"
+"Адрас суб'екту:\n"
 "%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
@@ -375,7 +391,15 @@ msgstr "Капіраваць выяву"
 msgid "Copy link"
 msgstr "Капіраваць спасылку"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:381
+#: src/app/actions/Cut.qml:22
+msgid "Cut"
+msgstr ""
+
+#: src/app/actions/Erase.qml:22
+msgid "Erase"
+msgstr ""
+
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
 msgid "Find in page"
 msgstr ""
 
@@ -405,7 +429,7 @@ msgstr "Перайсці"
 msgid "Address;URL;www"
 msgstr "Адрас;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:654
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
 msgid "New Tab"
 msgstr "Новая картка"
 
@@ -427,7 +451,15 @@ msgstr "Адкрыць спасылку ў новай ўкладцы ў фоне
 msgid "Open link in new tab"
 msgstr "Адчыніць ссылку ў новай картцы"
 
-#: src/app/actions/Reload.qml:23
+#: src/app/actions/Paste.qml:22
+msgid "Paste"
+msgstr ""
+
+#: src/app/actions/Redo.qml:22
+msgid "Redo"
+msgstr ""
+
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 msgid "Reload"
 msgstr "Перазагрузіць"
 
@@ -441,21 +473,34 @@ msgstr "Пакінуць старонку"
 msgid "Save image"
 msgstr "Захаваць выяву"
 
-#: src/app/actions/ShareLink.qml:22
-msgid "Share…"
-msgstr "Падзяліцца..."
+#: src/app/actions/SaveLink.qml:22
+msgid "Save link"
+msgstr ""
+
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:399
+msgid "Select all"
+msgstr "Пазначыць усё"
+
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:368
+msgid "Share"
+msgstr "Падзяліцца"
+
+#: src/app/actions/Undo.qml:22
+msgid "Undo"
+msgstr ""
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:203
+#: src/app/webbrowser/AddressBar.qml:204
 #, qt-format
 msgid "%1/%2"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:239
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "find in page"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:241
 msgid "search or enter an address"
 msgstr "Шукайце або ўвядзіце адрас"
 
@@ -493,57 +538,70 @@ msgstr ""
 msgid "Save"
 msgstr "Захаваць"
 
-#: src/app/webbrowser/Browser.qml:350
-msgid "Share"
-msgstr "Падзяліцца"
-
-#: src/app/webbrowser/Browser.qml:357
-#: src/app/webbrowser/HistoryViewWide.qml:275
+#: src/app/webbrowser/Browser.qml:375
+#: src/app/webbrowser/HistoryViewWide.qml:357
 msgid "History"
 msgstr "Гісторыя"
 
-#: src/app/webbrowser/Browser.qml:364
+#: src/app/webbrowser/Browser.qml:382
 msgid "Open tabs"
 msgstr "Адчыненыя карткі"
 
-#: src/app/webbrowser/Browser.qml:374 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/HistoryViewWide.qml:409
-#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
+#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:508
+#: src/app/webbrowser/TabsBar.qml:99 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Новая картка"
 
-#: src/app/webbrowser/Browser.qml:391
+#: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
+msgid "Downloads"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:409
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:391
+#: src/app/webbrowser/Browser.qml:409
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:409 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Наладкі"
 
-#: src/app/webbrowser/Browser.qml:640 src/app/webbrowser/HistoryView.qml:108
-#: src/app/webbrowser/HistoryViewWide.qml:395
+#: src/app/webbrowser/Browser.qml:653 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:494
 msgid "Done"
 msgstr "Зроблена"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:747
+#: src/app/webbrowser/Browser.qml:761
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1074
+#: src/app/webbrowser/Browser.qml:1200
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1075
+#: src/app/webbrowser/Browser.qml:1201
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:103
+#: src/app/webbrowser/DownloadsPage.qml:59
+msgid "Confirm selection"
+msgstr ""
+
+#: src/app/webbrowser/HistoryView.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:418
+msgid "Delete"
+msgstr "Выдаліць"
+
+#: src/app/webbrowser/DownloadsPage.qml:207
+msgid "No downloads available"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -551,7 +609,7 @@ msgstr[0] "%1 старонка"
 msgstr[1] "%1 старонкі"
 msgstr[2] "%1 старонкаў"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Меней"
@@ -561,27 +619,21 @@ msgid "Last Visited"
 msgstr "Апошняе наведванне"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:205
 msgid "Yesterday"
 msgstr "Учора"
 
-#: src/app/webbrowser/HistoryView.qml:180
-#: src/app/webbrowser/HistoryViewWide.qml:312
-msgid "Select all"
-msgstr "Пазначыць усё"
-
-#: src/app/webbrowser/HistoryView.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:343
-msgid "Delete"
-msgstr "Выдаліць"
-
-#: src/app/webbrowser/HistoryViewWide.qml:115
+#: src/app/webbrowser/HistoryViewWide.qml:189
 msgid "All History"
 msgstr ""
 
-#: src/app/webbrowser/HistoryViewWide.qml:129
-#: src/app/webbrowser/HistoryViewWide.qml:194
+#: src/app/webbrowser/HistoryViewWide.qml:203
+#: src/app/webbrowser/HistoryViewWide.qml:272
 msgid "Today"
+msgstr ""
+
+#: src/app/webbrowser/HistoryViewWide.qml:439
+msgid "search history"
 msgstr ""
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
@@ -621,6 +673,26 @@ msgstr ""
 #: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
 msgstr "Хатняя старонка"
+
+#: src/app/webbrowser/SadTab.qml:48
+msgid "The rendering process has been closed for this tab."
+msgstr ""
+
+#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
+#: src/app/webbrowser/SadTab.qml:65
+#, qt-format
+msgid "Something went wrong while displaying %1."
+msgstr ""
+
+#: src/app/webbrowser/SadTab.qml:67
+msgid ""
+"The system is low on memory and can't display this webpage. Try closing "
+"unneeded tabs and reloading."
+msgstr ""
+
+#: src/app/webbrowser/SadTab.qml:80
+msgid "Close tab"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -717,19 +789,23 @@ msgstr ""
 msgid "Clear"
 msgstr "Ачысціць"
 
-#: src/app/webbrowser/TabPreview.qml:99
+#: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
 msgstr "Націсніце для прагляду"
 
+#: src/app/webbrowser/TabsBar.qml:98
+msgid "Close Tab"
+msgstr ""
+
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webcontainer/webapp-container.qml:67
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Браўзэр Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webcontainer/webapp-container.qml:69
 msgid "Ubuntu Web Browser"
 msgstr "Браўзэр Ubuntu"
 
@@ -820,6 +896,9 @@ msgstr "Інтэрнэт;WWW;Браўзер;Веб;Праваднік"
 
 #~ msgid "Add"
 #~ msgstr "Дадаць"
+
+#~ msgid "Share…"
+#~ msgstr "Падзяліцца..."
 
 #~ msgid "Select an account"
 #~ msgstr "Выберыце конт"

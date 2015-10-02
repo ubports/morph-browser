@@ -27,7 +27,7 @@ Component {
             id: fileDialog
             title: i18n.tr("Please choose a file")
             selectMultiple: model.allowMultipleFiles
-    
+
             onAccepted: {
                 var selectedFiles = []
                 for(var i in fileDialog.fileUrls) {
@@ -35,7 +35,7 @@ Component {
                 }
                 model.accept(selectedFiles)
             }
-    
+
             onRejected: {
                 model.reject()
             }

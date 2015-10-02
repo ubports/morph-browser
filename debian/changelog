@@ -1,3 +1,238 @@
+webbrowser-app (0.23+15.10.20151001-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Do not select labels by their class name, as this is changing in the
+    newest UITK.
+
+ -- Zoltan Balogh <zoltan.balogh@canonical.com>  Thu, 01 Oct 2015 19:53:17 +0000
+
+webbrowser-app (0.23+15.10.20150929-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Use the UA override for www.youtube.com on mobile too. (LP:
+    #1499394)
+
+  [ Ugo Riboni ]
+  * Extend the clickable area to close a tab on mobile, as taps are less
+    precise and often end up missing it. (LP: #1500339)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 29 Sep 2015 10:08:45 +0000
+
+webbrowser-app (0.23+15.10.20150928-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Michael Sheldon ]
+  * Add support for alternative mimetype header for vcards (LP:
+    #1498992)
+
+  [ Olivier Tilloy ]
+  * Add a context menu to each tab in the tab bar, allowing to insert a
+    new tab just after, close or reload the current tab.
+  * Fix a couple of autopilot test failures on desktop. (LP: #1495297,
+    #1499411)
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Add a context menu to each tab in the tab bar, allowing to insert a
+    new tab just after, close or reload the current tab.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 28 Sep 2015 08:15:15 +0000
+
+webbrowser-app (0.23+15.10.20150922-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Jin Hsieh ]
+  * Add XML description for the Baidu Chinese search engine.
+
+  [ Michael Sheldon ]
+  * Add new strings to support internal download features
+
+  [ Olivier Tilloy ]
+  * Add contextual actions (copy & share) for text selection. (LP:
+    #1490922)
+  * Add contextual actions (copy & share) for text selection. (LP:
+    #1490922)
+  * Disable predictive text on the search field to ensure results are
+    filtered as the user types.
+  * Give ToolbarAction a default font color.
+  * Make a flaky unit test more robust by ensuring that the list view
+    has been updated before testing its contents.
+  * Silence the warnings issued by the favicon fetcher when the server
+    replies with an error. Those warnings can easily flood the console
+    when opening the history view, thus making it difficult to spot
+    legitimate console output.
+  * Updated translation template to include new strings for upcoming
+    branch that implements a context menu on tabs (wide mode).
+
+  [ Riccardo Padovani ]
+  * Use right icon in tab switcher to open a new tab when in private
+    mode
+
+  [ Ugo Riboni ]
+  * Implement search within the history view (only from the widescreen
+    version)
+  * Implement the visual refresh for the tabs in all screen modes.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 22 Sep 2015 01:27:50 +0000
+
+webbrowser-app (0.23+15.10.20150916.1-0ubuntu1) wily; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Add a general URI reformatting mechanism for webapp specific handled
+    schemes. (LP: #1475708)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+ -- Alexandre Abreu <alexandre.abreu@canonical.com>  Wed, 16 Sep 2015 15:33:11 +0000
+
+webbrowser-app (0.23+15.10.20150913-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk. added: po/mr.po
+
+  [ Olivier Tilloy ]
+  * Allow saving canvas images from the context menu.
+  * Handle HTTP authentication requests by showing an authentication
+    dialog. (LP: #1422534)
+  * Remove the workaround for bug #1471181 now that oxide 1.9 has been
+    released with a proper fix. (LP: #1471181)
+  * Set the 'visible' property of actions instead of 'enabled' to ensure
+    the visibility of the corresponding entries in the drawer menu
+    matches. (LP: #1495297)
+  * Use SIGABRT instead of SIGSEGV to crash a renderer process in tests.
+    (LP: #1493825)
+  * Use the new WebContext.userAgentOverrides API (new in Oxide 1.9).
+    (LP: #1410753)
+
+  [ Ugo Riboni ]
+  * Handle HTTP authentication requests by showing an authentication
+    dialog. (LP: #1422534)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Sun, 13 Sep 2015 21:25:02 +0000
+
+webbrowser-app (0.23+15.10.20150908.2-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Do not redefine the action property on context menu delegates, just
+    assign to the existing ListItems.Empty.action property instead.
+
+  [ Zoltán Balogh ]
+  * Use right name for AbstractButton when 1.3 UITK is used.
+
+ -- Zoltan Balogh <zoltan.balogh@canonical.com>  Tue, 08 Sep 2015 10:18:10 +0000
+
+webbrowser-app (0.23+15.10.20150903.1-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Michael Terry ]
+  * Use the Ubuntu/Canonical search tag when searching with DuckDuckGo.
+    (LP: #1490283)
+
+  [ Olivier Tilloy ]
+  * Display a friendly message when the renderer process crashes or is
+    killed. This adds a runtime dependency for webbrowser-app-autopilot
+    on python3-psutil. (LP: #1375272)
+  * Do not display the bottom edge hint on tablets in wide mode. (LP:
+    #1488995)
+  * Update translation template.
+
+  [ Riccardo Padovani ]
+  * Don't store urls with status different from 2xx in the history. (LP:
+    #1244335)
+  * Don't store urls with status different from 2xx in the history. (LP:
+    #1244335)
+
+  [ Ugo Riboni ]
+  * Allow choosing the bookmark folder when bookmarking a link from the
+    context menu. Disable the bookmark option when the link is already
+    bookmarked. Ensure the bookmark star state in the chrome is always
+    consistent with the bookmarked state of the current webview URL.
+    (LP: #1477314)
+  * Properly reset focus when the current tab changes (including as a
+    result of closing tabs). (LP: #1488470)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 03 Sep 2015 09:46:35 +0000
+
+webbrowser-app (0.23+15.10.20150827.3-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Use the contextMenu API new in oxide 1.8. Update the visuals for the
+    context menu in narrow and wide form factors. Add text editing
+    commands to the context menu. Add unit and autopilot tests for the
+    context menu features. This bumps the runtime dependency of webapp-
+    container and qtdeclarative5-ubuntu-web-plugin on liboxideqt-
+    qmlplugin to 1.8. This also removes the qtdeclarative5-ubuntu-web-
+    plugin-assets binary package, which contained only one PNG asset
+    which is not used anywhere any longer. (LP: #1477310, #1477315,
+    #1471181, #1264493, #1487090, #1326070, #1477309, #1450430,
+    #1438046)
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 27 Aug 2015 14:02:08 +0000
+
+webbrowser-app (0.23+15.10.20150820-0ubuntu1) wily; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Fix webapp name logic (LP: #1473472)
+
+  [ Arthur Mello ]
+  * Add support for removing history entries with delete key in
+    HistoryViewWide (LP: #1484562)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Remove an old workaround for an issue that was fixed since then in
+    the content hub and that caused the file picker to accept the
+    selected file twice.
+
+  [ Ugo Riboni ]
+  * Merge two url utility files into one, since they had no reason for
+    being separate. Add unit tests for some of the functions that had
+    none.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Thu, 20 Aug 2015 08:58:20 +0000
+
+webbrowser-app (0.23+15.10.20150817-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Make sure to set the historyModel to the HistoryView component when
+    browser wide property changes (LP: #1484555)
+  * Wait for OptionSelector's collapsing transition to finish (LP:
+    #1484175)
+
+  [ Colin Watson ]
+  * Fix versioned dependencies on qtdeclarative5-ubuntu-ui-toolkit-
+    plugin to allow qtdeclarative5-ubuntu-ui-toolkit-plugin-gles.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Mon, 17 Aug 2015 09:59:08 +0000
+
 webbrowser-app (0.23+15.10.20150814-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

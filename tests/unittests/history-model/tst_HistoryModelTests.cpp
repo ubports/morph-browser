@@ -256,6 +256,17 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 0);
     }
 
+    void shouldRemoveByDate()
+    {
+        QCOMPARE(model->add(QUrl("http://example.org/"), "Example Domain", QUrl()), 1);
+        QCOMPARE(model->rowCount(), 1);
+        QCOMPARE(model->add(QUrl("http://example.com/"), "Example Domain", QUrl()), 1);
+        QCOMPARE(model->rowCount(), 2);
+
+        model->removeEntriesByDate(QDate::currentDate());
+        QCOMPARE(model->rowCount(), 0);
+    }
+
     void shouldRemoveByDomain()
     {
         QCOMPARE(model->add(QUrl("http://example.org/page1"), "Example Domain Page 1", QUrl()), 1);

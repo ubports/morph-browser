@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-13 07:04+0200\n"
+"POT-Creation-Date: 2015-09-23 20:14+0200\n"
 "PO-Revision-Date: 2014-08-03 02:48+0000\n"
 "Last-Translator: Ask Hjorth Larsen <asklarsen@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -16,21 +16,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-08-15 05:32+0000\n"
-"X-Generator: Launchpad (build 17686)\n"
+"X-Launchpad-Export-Date: 2015-09-24 05:53+0000\n"
+"X-Generator: Launchpad (build 17749)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr "JavaScript-advarsel"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
-#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "O.k."
 
-#: src/app/AuthenticationDialog.qml:24
+#: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
 msgstr "Godkendelse påkrævet."
 
@@ -40,18 +40,20 @@ msgstr "Godkendelse påkrævet."
 msgid "The website %1 requires authentication."
 msgstr "Websiden %1 kræver godkendelse."
 
-#: src/app/AuthenticationDialog.qml:34
+#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
 msgstr "Brugernavn"
 
-#: src/app/AuthenticationDialog.qml:41
+#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
 msgstr "Adgangskode"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
+#: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/HistoryView.qml:165
-#: src/app/webbrowser/HistoryViewWide.qml:291
+#: src/app/webbrowser/HistoryViewWide.qml:374
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:289
 #: src/app/webbrowser/SettingsPage.qml:343
@@ -98,6 +100,19 @@ msgstr "Tilbage i sikkerhed"
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
 msgstr "JavaScript-bekræftelse"
+
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr ""
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -380,7 +395,15 @@ msgstr "Kopiér billede"
 msgid "Copy link"
 msgstr "Kopiér link"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:381
+#: src/app/actions/Cut.qml:22
+msgid "Cut"
+msgstr ""
+
+#: src/app/actions/Erase.qml:22
+msgid "Erase"
+msgstr ""
+
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
 msgid "Find in page"
 msgstr ""
 
@@ -388,7 +411,7 @@ msgstr ""
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Søg i side"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -410,7 +433,7 @@ msgstr "Gå til"
 msgid "Address;URL;www"
 msgstr "Adresse;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:654
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
 msgid "New Tab"
 msgstr "Nyt faneblad"
 
@@ -432,7 +455,15 @@ msgstr "Åbn linket i ny baggrundsfaneblad"
 msgid "Open link in new tab"
 msgstr "Åbn link i nyt faneblad"
 
-#: src/app/actions/Reload.qml:23
+#: src/app/actions/Paste.qml:22
+msgid "Paste"
+msgstr ""
+
+#: src/app/actions/Redo.qml:22
+msgid "Redo"
+msgstr ""
+
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 msgid "Reload"
 msgstr "Genindlæs"
 
@@ -446,27 +477,40 @@ msgstr "Forlad side"
 msgid "Save image"
 msgstr "Gem billede"
 
-#: src/app/actions/ShareLink.qml:22
-msgid "Share…"
-msgstr "Del…"
+#: src/app/actions/SaveLink.qml:22
+msgid "Save link"
+msgstr ""
+
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:399
+msgid "Select all"
+msgstr "Vælg alt"
+
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:368
+msgid "Share"
+msgstr "Del"
+
+#: src/app/actions/Undo.qml:22
+msgid "Undo"
+msgstr ""
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:203
+#: src/app/webbrowser/AddressBar.qml:204
 #, qt-format
 msgid "%1/%2"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:239
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "find in page"
 msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:241
 msgid "search or enter an address"
 msgstr "søg eller indtast en adresse"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr ""
+msgstr "Bogmærke tiføjet"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
@@ -482,80 +526,93 @@ msgstr ""
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
 #: src/app/webbrowser/NewTabViewWide.qml:122
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Alle bogmærker"
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr ""
+msgstr "Ny mappe"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr ""
+msgstr "Opret ny mappe"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:353
 msgid "Save"
 msgstr "Gem"
 
-#: src/app/webbrowser/Browser.qml:350
-msgid "Share"
-msgstr "Del"
-
-#: src/app/webbrowser/Browser.qml:357
-#: src/app/webbrowser/HistoryViewWide.qml:275
+#: src/app/webbrowser/Browser.qml:375
+#: src/app/webbrowser/HistoryViewWide.qml:357
 msgid "History"
 msgstr "Historik"
 
-#: src/app/webbrowser/Browser.qml:364
+#: src/app/webbrowser/Browser.qml:382
 msgid "Open tabs"
 msgstr "Åbn faneblade"
 
-#: src/app/webbrowser/Browser.qml:374 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/HistoryViewWide.qml:409
-#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
+#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:508
+#: src/app/webbrowser/TabsBar.qml:99 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Nyt faneblad"
 
-#: src/app/webbrowser/Browser.qml:391
+#: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
+msgid "Downloads"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:409
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Forlad privat tilstand"
 
-#: src/app/webbrowser/Browser.qml:391
+#: src/app/webbrowser/Browser.qml:409
 msgid "Private Mode"
-msgstr ""
+msgstr "Privat tilstand"
 
-#: src/app/webbrowser/Browser.qml:409 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Indstillinger"
 
-#: src/app/webbrowser/Browser.qml:640 src/app/webbrowser/HistoryView.qml:108
-#: src/app/webbrowser/HistoryViewWide.qml:395
+#: src/app/webbrowser/Browser.qml:653 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:494
 msgid "Done"
 msgstr "Færdig"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:747
+#: src/app/webbrowser/Browser.qml:761
 #, qt-format
 msgid "(%1)"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1074
+#: src/app/webbrowser/Browser.qml:1200
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1075
+#: src/app/webbrowser/Browser.qml:1201
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:103
+#: src/app/webbrowser/DownloadsPage.qml:59
+msgid "Confirm selection"
+msgstr ""
+
+#: src/app/webbrowser/HistoryView.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:418
+msgid "Delete"
+msgstr "Slet"
+
+#: src/app/webbrowser/DownloadsPage.qml:207
+msgid "No downloads available"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 side"
 msgstr[1] "%1 sider"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Mindre"
@@ -565,27 +622,21 @@ msgid "Last Visited"
 msgstr "Sidst besøgt"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:205
 msgid "Yesterday"
 msgstr "I går"
 
-#: src/app/webbrowser/HistoryView.qml:180
-#: src/app/webbrowser/HistoryViewWide.qml:312
-msgid "Select all"
-msgstr "Vælg alt"
-
-#: src/app/webbrowser/HistoryView.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:343
-msgid "Delete"
-msgstr "Slet"
-
-#: src/app/webbrowser/HistoryViewWide.qml:115
+#: src/app/webbrowser/HistoryViewWide.qml:189
 msgid "All History"
 msgstr ""
 
-#: src/app/webbrowser/HistoryViewWide.qml:129
-#: src/app/webbrowser/HistoryViewWide.qml:194
+#: src/app/webbrowser/HistoryViewWide.qml:203
+#: src/app/webbrowser/HistoryViewWide.qml:272
 msgid "Today"
+msgstr ""
+
+#: src/app/webbrowser/HistoryViewWide.qml:439
+msgid "search history"
 msgstr ""
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
@@ -625,6 +676,26 @@ msgstr ""
 #: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
 msgstr "Hjemmeside"
+
+#: src/app/webbrowser/SadTab.qml:48
+msgid "The rendering process has been closed for this tab."
+msgstr ""
+
+#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
+#: src/app/webbrowser/SadTab.qml:65
+#, qt-format
+msgid "Something went wrong while displaying %1."
+msgstr ""
+
+#: src/app/webbrowser/SadTab.qml:67
+msgid ""
+"The system is low on memory and can't display this webpage. Try closing "
+"unneeded tabs and reloading."
+msgstr ""
+
+#: src/app/webbrowser/SadTab.qml:80
+msgid "Close tab"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -721,19 +792,23 @@ msgstr ""
 msgid "Clear"
 msgstr "Ryd"
 
-#: src/app/webbrowser/TabPreview.qml:99
+#: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
 msgstr "Tap for visning"
 
+#: src/app/webbrowser/TabsBar.qml:98
+msgid "Close Tab"
+msgstr ""
+
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webcontainer/webapp-container.qml:67
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Webbrowser til Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webcontainer/webapp-container.qml:69
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntu-webbrowser"
 
@@ -809,6 +884,9 @@ msgstr "Gå på internettet"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;nettet;WWW;Browser;netlæser;Web;Explorer;stifinder"
+
+#~ msgid "Share…"
+#~ msgstr "Del…"
 
 #~ msgid "see less"
 #~ msgstr "vis mindre"

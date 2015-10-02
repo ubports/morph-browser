@@ -19,8 +19,8 @@ set(WEBBROWSER_APP_MODELS_SRC
     history-model.cpp
     history-timeframe-model.cpp
     limit-proxy-model.cpp
-    suggestions-filter-model.cpp
     tabs-model.cpp
+    text-search-filter-model.cpp
 )
 
 set(WEBBROWSER_APP_MODELS webbrowser-app-models)
@@ -58,7 +58,7 @@ install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/w
 
 install(DIRECTORY assets
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser
-        FILES_MATCHING PATTERN *.png PATTERN *.svg)
+        FILES_MATCHING PATTERN *.png PATTERN *.svg PATTERN *.sci)
 
 install(DIRECTORY searchengines
         DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webbrowser

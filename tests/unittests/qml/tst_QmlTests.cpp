@@ -35,6 +35,7 @@
 #include "limit-proxy-model.h"
 #include "searchengine.h"
 #include "tabs-model.h"
+#include "text-search-filter-model.h"
 
 static QObject* FileOperations_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
 {
@@ -107,6 +108,41 @@ private:
     QTemporaryDir m_testDir2;
 };
 
+class HistoryModelMock : public HistoryModel {
+  Q_OBJECT
+
+public:
+  static bool compareHistoryEntries(const HistoryEntry& a, const HistoryEntry& b) {
+      return a.lastVisit < b.lastVisit;
+  }
+
+  Q_INVOKABLE int addByDate(const QUrl& url, const QString& title, const QDateTime& date)
+  {
+      int index = getEntryIndex(url);
+      int visitsToAdd = 1;
+      if (index == -1) {
+          add(url, title, QString());
+          index = getEntryIndex(url);
+          visitsToAdd = 0;
+      }
+
+      // Since this is useful only for testing and efficiency is not critical
+      // we reorder the model and reset it every time we add a new item by date
+      // to keep things simple.
+      beginResetModel();
+      HistoryEntry entry = m_entries.takeAt(index);
+      entry.lastVisit = date;
+      entry.visits = entry.visits + visitsToAdd;
+      m_entries.append(entry);
+      std::sort(m_entries.begin(), m_entries.end(), compareHistoryEntries);
+      endResetModel();
+
+      updateExistingEntryInDatabase(entry);
+
+      return entry.visits;
+  }
+};
+
 static QObject* TestContext_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
 {
     Q_UNUSED(engine);
@@ -128,9 +164,12 @@ int main(int argc, char** argv)
     qmlRegisterType<HistoryTimeframeModel>(browserUri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<HistoryLastVisitDateListModel>(browserUri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<LimitProxyModel>(browserUri, 0, 1, "LimitProxyModel");
+    qmlRegisterType<TextSearchFilterModel>(browserUri, 0, 1, "TextSearchFilterModel");
     qmlRegisterSingletonType<FileOperations>(browserUri, 0, 1, "FileOperations", FileOperations_singleton_factory);
 
-    qmlRegisterSingletonType<TestContext>("webbrowsertest.private", 0, 1, "TestContext", TestContext_singleton_factory);
+    const char* testUri = "webbrowsertest.private";
+    qmlRegisterSingletonType<TestContext>(testUri, 0, 1, "TestContext", TestContext_singleton_factory);
+    qmlRegisterType<HistoryModelMock>(testUri, 0, 1, "HistoryModelMock");
 
     return quick_test_main(argc, argv, "QmlTests", nullptr);
 }

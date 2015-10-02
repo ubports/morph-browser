@@ -36,6 +36,9 @@ Item {
                 property url icon
                 property var request
                 property string currentState
+
+                property int reloaded: 0
+                function reload() { reloaded++ }
             }
             readonly property bool webviewPresent: webview
         }
@@ -74,6 +77,20 @@ Item {
             compare(tab.restoreState, "foobar")
 
             tab.destroy()
+        }
+
+        function test_reload() {
+            var tab = tabComponent.createObject(root)
+            verify(!tab.webviewPresent)
+
+            tab.initialUrl = "http://example.org"
+            tab.reload()
+            tryCompare(tab, 'webviewPresent', true)
+            compare(tab.webview.reloaded, 0)
+
+            tab.reload()
+            verify(tab.webviewPresent)
+            compare(tab.webview.reloaded, 1)
         }
 
         function test_create_with_request() {

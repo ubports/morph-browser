@@ -18,7 +18,7 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import com.canonical.Oxide 1.3 as Oxide
+import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.UnityWebApps 0.1 as UnityWebApps
@@ -68,12 +68,49 @@ WebViewImpl {
 
     contextualActions: ActionList {
         Actions.CopyLink {
-            enabled: webview.contextualData.href.toString()
-            onTriggered: Clipboard.push(["text/plain", webview.contextualData.href.toString()])
+            enabled: webview.contextModel && webview.contextModel.linkUrl.toString()
+            onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
         }
         Actions.CopyImage {
-            enabled: webview.contextualData.img.toString()
-            onTriggered: Clipboard.push(["text/plain", webview.contextualData.img.toString()])
+            enabled: webview.contextModel &&
+                     (webview.contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
+                     webview.contextModel.srcUrl.toString()
+            onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
+        }
+        Actions.Undo {
+            enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.UndoCapability)
+            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandUndo)
+        }
+        Actions.Redo {
+            enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.RedoCapability)
+            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandRedo)
+        }
+        Actions.Cut {
+            enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.CutCapability)
+            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+        }
+        Actions.Copy {
+            enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.CopyCapability)
+            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+        }
+        Actions.Paste {
+            enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.PasteCapability)
+            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
+        }
+        Actions.Erase {
+            enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.EraseCapability)
+            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandErase)
+        }
+        Actions.SelectAll {
+            enabled: webview.contextModel && webview.contextModel.isEditable &&
+                     (webview.contextModel.editFlags & Oxide.WebView.SelectAllCapability)
+            onTriggered: webview.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
         }
     }
 

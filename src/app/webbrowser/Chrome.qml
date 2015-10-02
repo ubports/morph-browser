@@ -27,6 +27,7 @@ ChromeBase {
     property alias searchUrl: navigationBar.searchUrl
     property alias text: navigationBar.text
     property alias bookmarked: navigationBar.bookmarked
+    signal toggleBookmark()
     property alias drawerActions: navigationBar.drawerActions
     property alias drawerOpen: navigationBar.drawerOpen
     property alias requestedUrl: navigationBar.requestedUrl
@@ -38,20 +39,27 @@ ChromeBase {
     property alias showFaviconInAddressBar: navigationBar.showFaviconInAddressBar
     readonly property alias bookmarkTogglePlaceHolder: navigationBar.bookmarkTogglePlaceHolder
 
-    signal requestNewTab()
+    signal requestNewTab(int index, bool makeCurrent)
 
-    backgroundColor: incognito ? UbuntuColors.darkGrey : Theme.palette.normal.background
+    backgroundColor: incognito ? UbuntuColors.darkGrey : "#bcbcbc"
 
-    implicitHeight: tabsBar.height + navigationBar.height
+    implicitHeight: tabsBar.height + navigationBar.height + content.anchors.topMargin
 
     function selectAll() {
         navigationBar.selectAll()
     }
 
     FocusScope {
+        id: content
         anchors.fill: parent
+        anchors.topMargin: showTabsBar ? units.gu(1) : 0
 
         focus: true
+
+        Rectangle {
+            anchors.fill: navigationBar
+            color: (showTabsBar || !incognito) ? "#f8f8f8" : UbuntuColors.darkGrey
+        }
 
         Loader {
             id: tabsBar
@@ -59,7 +67,7 @@ ChromeBase {
             sourceComponent: TabsBar {
                 model: tabsModel
                 incognito: chrome.incognito
-                onRequestNewTab: chrome.requestNewTab()
+                onRequestNewTab: chrome.requestNewTab(index, makeCurrent)
             }
 
             anchors {
@@ -67,12 +75,7 @@ ChromeBase {
                 left: parent.left
                 right: parent.right
             }
-            height: active ? units.gu(4) : 0
-        }
-
-        Rectangle {
-            anchors.fill: navigationBar
-            color: (showTabsBar || !incognito) ? "#dedede" : UbuntuColors.darkGrey
+            height: active ? (formFactor == "desktop" ? units.gu(3) : units.gu(4)) : 0
         }
 
         NavigationBar {
@@ -90,6 +93,8 @@ ChromeBase {
                 right: parent.right
             }
             height: units.gu(6)
+
+            onToggleBookmark: chrome.toggleBookmark()
         }
     }
 }

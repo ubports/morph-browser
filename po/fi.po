@@ -7,29 +7,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-08-13 07:04+0200\n"
-"PO-Revision-Date: 2015-08-08 13:59+0000\n"
+"POT-Creation-Date: 2015-09-23 20:14+0200\n"
+"PO-Revision-Date: 2015-09-05 08:54+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-08-15 05:32+0000\n"
-"X-Generator: Launchpad (build 17686)\n"
+"X-Launchpad-Export-Date: 2015-09-24 05:53+0000\n"
+"X-Generator: Launchpad (build 17749)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr "JavaScript-ilmoitus"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
-#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "OK"
 
-#: src/app/AuthenticationDialog.qml:24
+#: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
 msgstr "Tunnistautuminen vaaditaan."
 
@@ -39,18 +39,20 @@ msgstr "Tunnistautuminen vaaditaan."
 msgid "The website %1 requires authentication."
 msgstr "Sivusto %1 vaatii tunnistautumisen."
 
-#: src/app/AuthenticationDialog.qml:34
+#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
 msgstr "Käyttäjätunnus"
 
-#: src/app/AuthenticationDialog.qml:41
+#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
 msgstr "Salasana"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
+#: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/HistoryView.qml:165
-#: src/app/webbrowser/HistoryViewWide.qml:291
+#: src/app/webbrowser/HistoryViewWide.qml:374
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:289
 #: src/app/webbrowser/SettingsPage.qml:343
@@ -97,6 +99,19 @@ msgstr "Älä yhdistä"
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
 msgstr "JavaScript-vahvistus"
+
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr ""
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -374,7 +389,15 @@ msgstr "Kopioi kuva"
 msgid "Copy link"
 msgstr "Kopioi linkki"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:381
+#: src/app/actions/Cut.qml:22
+msgid "Cut"
+msgstr "Leikkaa"
+
+#: src/app/actions/Erase.qml:22
+msgid "Erase"
+msgstr "Poista"
+
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
 msgid "Find in page"
 msgstr "Etsi sivulta"
 
@@ -404,7 +427,7 @@ msgstr "Siirry"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;osoite;internet;webbi;netti"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:654
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
 msgid "New Tab"
 msgstr "Uusi välilehti"
 
@@ -426,7 +449,15 @@ msgstr "Avaa linkki uudessa taustavälilehdessä"
 msgid "Open link in new tab"
 msgstr "Avaa linkki uuteen välilehteen"
 
-#: src/app/actions/Reload.qml:23
+#: src/app/actions/Paste.qml:22
+msgid "Paste"
+msgstr "Liitä"
+
+#: src/app/actions/Redo.qml:22
+msgid "Redo"
+msgstr "Tee uudelleen"
+
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 msgid "Reload"
 msgstr "Päivitä"
 
@@ -440,21 +471,34 @@ msgstr "Poistu sivulta"
 msgid "Save image"
 msgstr "Tallenna kuva"
 
-#: src/app/actions/ShareLink.qml:22
-msgid "Share…"
-msgstr "Jaa…"
+#: src/app/actions/SaveLink.qml:22
+msgid "Save link"
+msgstr "Tallenna linkki"
+
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:399
+msgid "Select all"
+msgstr "Valitse kaikki"
+
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:368
+msgid "Share"
+msgstr "Jaa"
+
+#: src/app/actions/Undo.qml:22
+msgid "Undo"
+msgstr "Kumoa"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:203
+#: src/app/webbrowser/AddressBar.qml:204
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:239
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "find in page"
 msgstr "etsi sivulta"
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:241
 msgid "search or enter an address"
 msgstr "etsi tai kirjoita osoite"
 
@@ -492,64 +536,77 @@ msgstr "Luo uusi kansio"
 msgid "Save"
 msgstr "Tallenna"
 
-#: src/app/webbrowser/Browser.qml:350
-msgid "Share"
-msgstr "Jaa"
-
-#: src/app/webbrowser/Browser.qml:357
-#: src/app/webbrowser/HistoryViewWide.qml:275
+#: src/app/webbrowser/Browser.qml:375
+#: src/app/webbrowser/HistoryViewWide.qml:357
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:364
+#: src/app/webbrowser/Browser.qml:382
 msgid "Open tabs"
 msgstr "Avoimet välilehdet"
 
-#: src/app/webbrowser/Browser.qml:374 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/HistoryViewWide.qml:409
-#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
+#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:508
+#: src/app/webbrowser/TabsBar.qml:99 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Uusi välilehti"
 
-#: src/app/webbrowser/Browser.qml:391
+#: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
+msgid "Downloads"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:409
 msgid "Leave Private Mode"
 msgstr "Poistu yksityisestä tilasta"
 
-#: src/app/webbrowser/Browser.qml:391
+#: src/app/webbrowser/Browser.qml:409
 msgid "Private Mode"
 msgstr "Yksityinen tila"
 
-#: src/app/webbrowser/Browser.qml:409 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Asetukset"
 
-#: src/app/webbrowser/Browser.qml:640 src/app/webbrowser/HistoryView.qml:108
-#: src/app/webbrowser/HistoryViewWide.qml:395
+#: src/app/webbrowser/Browser.qml:653 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:494
 msgid "Done"
 msgstr "Valmis"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:747
+#: src/app/webbrowser/Browser.qml:761
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1074
+#: src/app/webbrowser/Browser.qml:1200
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Vedä ylös poistuaksesi koko näytön tilasta"
 
-#: src/app/webbrowser/Browser.qml:1075
+#: src/app/webbrowser/Browser.qml:1201
 msgid "Press ESC To Exit Full Screen"
 msgstr "Paina Esc poistuaksesi koko näytön tilasta"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:103
+#: src/app/webbrowser/DownloadsPage.qml:59
+msgid "Confirm selection"
+msgstr ""
+
+#: src/app/webbrowser/HistoryView.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:418
+msgid "Delete"
+msgstr "Poista"
+
+#: src/app/webbrowser/DownloadsPage.qml:207
+msgid "No downloads available"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
 msgstr[0] "%1 sivu"
 msgstr[1] "%1 sivua"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Vähemmän"
@@ -559,28 +616,22 @@ msgid "Last Visited"
 msgstr "Viimeksi käyty"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:131
+#: src/app/webbrowser/HistoryViewWide.qml:205
 msgid "Yesterday"
 msgstr "Eilen"
 
-#: src/app/webbrowser/HistoryView.qml:180
-#: src/app/webbrowser/HistoryViewWide.qml:312
-msgid "Select all"
-msgstr "Valitse kaikki"
-
-#: src/app/webbrowser/HistoryView.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:343
-msgid "Delete"
-msgstr "Poista"
-
-#: src/app/webbrowser/HistoryViewWide.qml:115
+#: src/app/webbrowser/HistoryViewWide.qml:189
 msgid "All History"
 msgstr "Koko historia"
 
-#: src/app/webbrowser/HistoryViewWide.qml:129
-#: src/app/webbrowser/HistoryViewWide.qml:194
+#: src/app/webbrowser/HistoryViewWide.qml:203
+#: src/app/webbrowser/HistoryViewWide.qml:272
 msgid "Today"
 msgstr "Tänään"
+
+#: src/app/webbrowser/HistoryViewWide.qml:439
+msgid "search history"
+msgstr ""
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -621,6 +672,28 @@ msgstr "Et ole vieraillut millään sivustolla vielä"
 #: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
 msgstr "Kotisivu"
+
+#: src/app/webbrowser/SadTab.qml:48
+msgid "The rendering process has been closed for this tab."
+msgstr "Tämän välilehden renderöintiprosessi on suljettu."
+
+#. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
+#: src/app/webbrowser/SadTab.qml:65
+#, qt-format
+msgid "Something went wrong while displaying %1."
+msgstr "Jokin meni pieleen sivua %1 esittäessä."
+
+#: src/app/webbrowser/SadTab.qml:67
+msgid ""
+"The system is low on memory and can't display this webpage. Try closing "
+"unneeded tabs and reloading."
+msgstr ""
+"Järjestelmän muisti on vähissä, eikä tätä sivua ole mahdollista näyttää. "
+"Sulje tarpeettomia välilehtiä ja yritä ladata sivu uudelleen."
+
+#: src/app/webbrowser/SadTab.qml:80
+msgid "Close tab"
+msgstr "Sulje välilehti"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -717,19 +790,23 @@ msgstr "Tyhjennetäänkö välimuisti?"
 msgid "Clear"
 msgstr "Tyhjennä"
 
-#: src/app/webbrowser/TabPreview.qml:99
+#: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
 msgstr "Kosketa näyttääksesi"
 
+#: src/app/webbrowser/TabsBar.qml:98
+msgid "Close Tab"
+msgstr ""
+
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webcontainer/webapp-container.qml:67
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Ubuntun verkkoselain"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webcontainer/webapp-container.qml:69
 msgid "Ubuntu Web Browser"
 msgstr "Ubuntun verkkoselain"
 
@@ -819,6 +896,9 @@ msgstr "Internet;WWW;Browser;Web;Explorer;netti;selain;verkko"
 
 #~ msgid "No local account found for "
 #~ msgstr "Paikallista tiliä ei löytynyt - "
+
+#~ msgid "Share…"
+#~ msgstr "Jaa…"
 
 #~ msgid "see less"
 #~ msgstr "näytä vähemmän"

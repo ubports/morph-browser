@@ -21,7 +21,8 @@ set(WEBAPP_CONTAINER_SRC
     webapp-container-helper.cpp
     session-utils.cpp
     url-pattern-utils.cpp
-    intent-filter.cpp
+    scheme-filter.cpp
+    intent-parser.cpp
 )
 
 add_executable(${WEBAPP_CONTAINER} ${WEBAPP_CONTAINER_SRC})

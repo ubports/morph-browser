@@ -24,7 +24,8 @@ function mimeTypeToContentType(mimeType) {
         return ContentType.Music;
     } else if(mimeType.search("video/") === 0) {
         return ContentType.Videos;
-    } else if(mimeType.search("text/x-vcard") === 0) {
+    } else if(mimeType.search("text/x-vcard") === 0
+              || mimeType.search("text/vcard") === 0) {
         return ContentType.Contacts;
     } else if(mimeType.search("application/epub[+]zip") === 0
               || mimeType.search("application/vnd\.amazon\.ebook") === 0

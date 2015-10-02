@@ -62,6 +62,7 @@ public:
 
     Q_INVOKABLE int add(const QUrl& url, const QString& title, const QUrl& icon);
     Q_INVOKABLE void removeEntryByUrl(const QUrl& url);
+    Q_INVOKABLE void removeEntriesByDate(const QDate& date);
     Q_INVOKABLE void removeEntriesByDomain(const QString& domain);
     Q_INVOKABLE void clearAll();
     Q_INVOKABLE void hide(const QUrl& url);
@@ -72,12 +73,7 @@ Q_SIGNALS:
     void databasePathChanged() const;
     void rowCountChanged();
 
-private:
-    QMutex m_dbMutex;
-    QSqlDatabase m_database;
-
-    QList<QUrl> m_hiddenEntries;
-
+protected:
     struct HistoryEntry {
         QUrl url;
         QString domain;
@@ -89,6 +85,13 @@ private:
     };
     QList<HistoryEntry> m_entries;
     int getEntryIndex(const QUrl& url) const;
+    void updateExistingEntryInDatabase(const HistoryEntry& entry);
+
+private:
+    QMutex m_dbMutex;
+    QSqlDatabase m_database;
+
+    QList<QUrl> m_hiddenEntries;
 
     void resetDatabase(const QString& databaseName);
     void createOrAlterDatabaseSchema();
@@ -96,9 +99,9 @@ private:
     void removeByIndex(int index);
     void insertNewEntryInDatabase(const HistoryEntry& entry);
     void insertNewEntryInHiddenDatabase(const QUrl& url);
-    void updateExistingEntryInDatabase(const HistoryEntry& entry);
     void removeEntryFromDatabaseByUrl(const QUrl& url);
     void removeEntryFromHiddenDatabaseByUrl(const QUrl& url);
+    void removeEntriesFromDatabaseByDate(const QDate& date);
     void removeEntriesFromDatabaseByDomain(const QString& domain);
     void clearDatabase();
 };

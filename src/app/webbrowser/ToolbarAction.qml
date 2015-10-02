@@ -20,11 +20,14 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 
 AbstractButton {
+    id: toolbarAction
+
     property alias iconName: icon.name
+    property color color: Theme.palette.normal.baseText
     property alias text: label.text
 
     opacity: enabled ? 1.0 : 0.3
-    width: label.paintedWidth
+    width: Math.max(label.paintedWidth, icon.width)
 
     Item {
         anchors {
@@ -44,6 +47,7 @@ AbstractButton {
                 topMargin: units.gu(1)
                 horizontalCenter: parent.horizontalCenter
             }
+            color: toolbarAction.color
         }
     }
 
@@ -57,5 +61,6 @@ AbstractButton {
         fontSize: "x-small"
         maximumLineCount: 1
         elide: Text.ElideMiddle
+        color: toolbarAction.color
     }
 }

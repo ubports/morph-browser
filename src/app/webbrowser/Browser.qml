@@ -19,7 +19,7 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
-import com.canonical.Oxide 1.5 as Oxide
+import com.canonical.Oxide 1.8 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
@@ -27,7 +27,6 @@ import webbrowsercommon.private 0.1
 import "../actions" as Actions
 import ".."
 import "../UrlUtils.js" as UrlUtils
-import "urlManagement.js" as UrlManagement
 
 BrowserView {
     id: browser
@@ -207,9 +206,10 @@ BrowserView {
 
         Loader {
             id: newTabViewLoader
+
             anchors {
                 fill: tabContainer
-                topMargin: (chrome.state == "shown") ? chrome.height : 0
+                topMargin: (chrome.state == "shown" && chrome.visible) ? chrome.height : 0
             }
 
             // Avoid loading the new tab view if the webview is about to load
@@ -291,6 +291,27 @@ BrowserView {
             }
         }
 
+        Loader {
+            anchors {
+                fill: tabContainer
+                topMargin: (chrome.state == "shown") ? chrome.height : 0
+            }
+
+            active: webProcessMonitor.crashed || (webProcessMonitor.killed && !currentWebview.loading)
+
+            sourceComponent: SadTab {
+                webview: currentWebview
+                onCloseTabRequested: internal.closeCurrentTab()
+            }
+
+            WebProcessMonitor {
+                id: webProcessMonitor
+                webview: currentWebview
+            }
+
+            asynchronous: true
+        }
+
         SearchEngine {
             id: currentSearchEngine
             searchPaths: searchEnginesSearchPaths
@@ -317,12 +338,9 @@ BrowserView {
                 return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
             }
             bookmarked: isCurrentUrlBookmarked()
-            onBookmarkedChanged: {
-                if (bookmarked && !isCurrentUrlBookmarked()) {
-                    internal.addBookmark(webview.url, webview.title, webview.icon)
-                } else if (!bookmarked && isCurrentUrlBookmarked()) {
-                    browser.bookmarksModel.remove(webview.url)
-                }
+            onToggleBookmark: {
+                if (isCurrentUrlBookmarked()) browser.bookmarksModel.remove(webview.url)
+                else internal.addBookmark(webview.url, webview.title, webview.icon)
             }
             onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
             Connections {
@@ -335,7 +353,7 @@ BrowserView {
                 onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
             }
 
-            onRequestNewTab: browser.openUrlInNewTab("", true)
+            onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
 
             onFindInPageModeChanged: if (!chrome.findInPageMode) internal.resetFocus()
 
@@ -411,6 +429,7 @@ BrowserView {
                     onTriggered: {
                         settingsComponent.createObject(settingsContainer)
                         settingsContainer.focus = true
+                        chrome.findInPageMode = false
                     }
                 }
             ]
@@ -462,16 +481,17 @@ BrowserView {
             Keys.onUpPressed: chrome.focus = true
             Keys.onEscapePressed: internal.resetFocus()
 
-            models: [historySuggestions,
+            models: searchTerms && searchTerms.length > 0 ?
+                    [historySuggestions,
                      bookmarksSuggestions,
-                     searchSuggestions.limit(4)]
+                     searchSuggestions.limit(4)] : []
 
             LimitProxyModel {
                 id: historySuggestions
                 limit: 2
                 readonly property string icon: "history"
                 readonly property bool displayUrl: true
-                sourceModel: SuggestionsFilterModel {
+                sourceModel: TextSearchFilterModel {
                     sourceModel: browser.historyModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
@@ -483,7 +503,7 @@ BrowserView {
                 limit: 2
                 readonly property string icon: "non-starred"
                 readonly property bool displayUrl: true
-                sourceModel: SuggestionsFilterModel {
+                sourceModel: TextSearchFilterModel {
                     sourceModel: browser.bookmarksModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
@@ -496,7 +516,7 @@ BrowserView {
                 searchEngine: currentSearchEngine
                 active: (chrome.activeFocus || suggestionsList.activeFocus) &&
                          !browser.incognito && !chrome.findInPageMode &&
-                         !UrlManagement.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
+                         !UrlUtils.looksLikeAUrl(chrome.text.replace(/ /g, "+"))
 
                 function limit(number) {
                     var slice = results.slice(0, number)
@@ -604,16 +624,7 @@ BrowserView {
             }
             chromeOffset: chrome.height - invisibleTabChrome.height
             onTabSelected: recentView.closeAndSwitchToTab(index)
-            onTabClosed: {
-                var tab = tabsModel.remove(index)
-                if (tab) {
-                    tab.close()
-                }
-                if (tabsModel.count === 0) {
-                    browser.openUrlInNewTab("", true)
-                    recentView.reset()
-                }
-            }
+            onTabClosed: internal.closeTab(index)
         }
 
         Toolbar {
@@ -627,6 +638,8 @@ BrowserView {
             height: units.gu(7)
             state: "hidden"
 
+            color: browser.incognito ? UbuntuColors.darkGrey : "#f6f6f6"
+
             Button {
                 objectName: "doneButton"
                 anchors {
@@ -635,7 +648,7 @@ BrowserView {
                     verticalCenter: parent.verticalCenter
                 }
 
-                strokeColor: UbuntuColors.darkGrey
+                strokeColor: browser.incognito? "#f6f6f6" : UbuntuColors.darkGrey
 
                 text: i18n.tr("Done")
 
@@ -653,7 +666,8 @@ BrowserView {
 
                 text: i18n.tr("New Tab")
 
-                iconName: "add"
+                iconName: browser.incognito ? "private-tab-new" : "add"
+                color: browser.incognito ? "#f6f6f6" : "#808080"
 
                 onClicked: {
                     recentView.reset()
@@ -688,9 +702,9 @@ BrowserView {
         }
         height: units.gu(2)
 
-        enabled: (formFactor == "mobile") && (recentView.state == "") &&
-                 (Screen.orientation == Screen.primaryOrientation) &&
-                 browser.currentWebview
+        enabled: (formFactor == "mobile") && !browser.wide &&
+                 (recentView.state == "") && browser.currentWebview &&
+                 (Screen.orientation == Screen.primaryOrientation)
 
         onDraggingChanged: {
             if (dragging) {
@@ -757,6 +771,7 @@ BrowserView {
 
         onStatusChanged: {
             if (status == Loader.Ready) {
+                historyViewTimer.restart()
                 historyViewLoader.item.forceActiveFocus()
             } else {
                 internal.resetFocus()
@@ -765,10 +780,12 @@ BrowserView {
 
         Keys.onEscapePressed: historyViewLoader.active = false
 
+        onActiveChanged: if (active) chrome.findInPageMode = false
+
         Timer {
+            id: historyViewTimer
             // Set the model asynchronously to ensure
             // the view is displayed as early as possible.
-            running: historyViewLoader.active
             interval: 1
             onTriggered: historyViewLoader.item.historyModel = browser.historyModel
         }
@@ -787,7 +804,7 @@ BrowserView {
 
                 FocusScope {
                     id: expandedHistoryViewContainer
-    
+
                     visible: children.length > 0
                     anchors.fill: parent
 
@@ -825,19 +842,10 @@ BrowserView {
                     internal.resetFocus()
                 }
 
-                Timer {
-                    // Set the model asynchronously to ensure
-                    // the view is displayed as early as possible.
-                    running: true
-                    interval: 1
-                    onTriggered: historyModel = browser.historyModel
-                }
-
                 onHistoryEntryClicked: {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
-                onHistoryEntryRemoved: browser.historyModel.removeEntryByUrl(url)
                 onNewTabRequested: browser.openUrlInNewTab("", true)
                 onDone: historyViewLoader.active = false
             }
@@ -912,6 +920,11 @@ BrowserView {
             current: tabsModel && tabsModel.currentTab === this
             focus: current
 
+            Item {
+                id: contextualMenuTarget
+                visible: false
+            }
+
             webviewComponent: WebViewImpl {
                 id: webviewimpl
 
@@ -933,41 +946,154 @@ BrowserView {
                 preferences.localStorageEnabled: true
                 preferences.appCacheEnabled: true
 
+                property QtObject contextModel: null
                 contextualActions: ActionList {
                     Actions.OpenLinkInNewTab {
-                        enabled: contextualData.href.toString()
-                        onTriggered: browser.openUrlInNewTab(contextualData.href, true)
+                        objectName: "OpenLinkInNewTabContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, true)
                     }
                     Actions.OpenLinkInNewBackgroundTab {
-                        enabled: contextualData.href.toString() && ((settings.allowOpenInBackgroundTab === "true") ||
-                                 ((settings.allowOpenInBackgroundTab === "default") && (formFactor === "desktop")))
-                        onTriggered: browser.openUrlInNewTab(contextualData.href, false)
+                        objectName: "OpenLinkInNewBackgroundTabContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString() &&
+                                 ((settings.allowOpenInBackgroundTab === "true") ||
+                                  ((settings.allowOpenInBackgroundTab === "default") &&
+                                   (formFactor === "desktop")))
+                        onTriggered: browser.openUrlInNewTab(contextModel.linkUrl, false)
                     }
                     Actions.BookmarkLink {
-                        enabled: contextualData.href.toString() && browser.bookmarksModel
-                        onTriggered: bookmarksModel.add(contextualData.href, contextualData.title, "", "")
+                        objectName: "BookmarkLinkContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString() &&
+                                 browser.bookmarksModel && !bookmarksModel.contains(contextModel.linkUrl)
+                        onTriggered: {
+                            // position the menu target with a one-off assignement instead of a binding
+                            // since the contents of the contextModel have meaning only while the context
+                            // menu is active
+                            contextualMenuTarget.x = contextModel.position.x
+                            contextualMenuTarget.y = contextModel.position.y + locationBarController.height + locationBarController.offset
+                            internal.addBookmark(contextModel.linkUrl, contextModel.linkText,
+                                                 "", contextualMenuTarget)
+                        }
                     }
                     Actions.CopyLink {
-                        enabled: contextualData.href.toString()
-                        onTriggered: Clipboard.push(["text/plain", contextualData.href.toString()])
+                        objectName: "CopyLinkContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: Clipboard.push(["text/plain", contextModel.linkUrl.toString()])
                     }
-                    Actions.ShareLink {
-                        enabled: (formFactor == "mobile") && contextualData.href.toString()
-                        onTriggered: internal.shareLink(contextualData.href.toString(), contextualData.title)
+                    Actions.SaveLink {
+                        objectName: "SaveLinkContextualAction"
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                        onTriggered: contextModel.saveLink()
+                    }
+                    Actions.Share {
+                        objectName: "ShareContextualAction"
+                        enabled: (formFactor == "mobile") && contextModel &&
+                                 (contextModel.linkUrl.toString() || contextModel.selectionText)
+                        onTriggered: {
+                            if (contextModel.linkUrl.toString()) {
+                                internal.shareLink(contextModel.linkUrl.toString(), contextModel.linkText)
+                            } else if (contextModel.selectionText) {
+                                internal.shareText(contextModel.selectionText)
+                            }
+                        }
                     }
                     Actions.OpenImageInNewTab {
-                        enabled: contextualData.img.toString()
-                        onTriggered: browser.openUrlInNewTab(contextualData.img, true)
+                        objectName: "OpenImageInNewTabContextualAction"
+                        enabled: contextModel && contextModel.srcUrl.toString()
+                        onTriggered: browser.openUrlInNewTab(contextModel.srcUrl, true)
                     }
                     Actions.CopyImage {
-                        enabled: contextualData.img.toString()
-                        onTriggered: Clipboard.push(["text/plain", contextualData.img.toString()])
+                        objectName: "CopyImageContextualAction"
+                        enabled: contextModel &&
+                                 (contextModel.mediaType === Oxide.WebView.MediaTypeImage) &&
+                                 contextModel.srcUrl.toString()
+                        onTriggered: Clipboard.push(["text/plain", contextModel.srcUrl.toString()])
                     }
                     Actions.SaveImage {
-                        enabled: contextualData.img.toString() && downloadLoader.status == Loader.Ready
-                        onTriggered: downloadLoader.item.downloadPicture(contextualData.img)
+                        objectName: "SaveImageContextualAction"
+                        enabled: contextModel &&
+                                 ((contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                                  (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)) &&
+                                 contextModel.hasImageContents
+                        onTriggered: contextModel.saveMedia()
+                    }
+                    Actions.Undo {
+                        objectName: "UndoContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.UndoCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandUndo)
+                    }
+                    Actions.Redo {
+                        objectName: "RedoContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.RedoCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandRedo)
+                    }
+                    Actions.Cut {
+                        objectName: "CutContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.CutCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCut)
+                    }
+                    Actions.Copy {
+                        objectName: "CopyContextualAction"
+                        enabled: contextModel && (contextModel.selectionText ||
+                                 (contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.CopyCapability)))
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandCopy)
+                    }
+                    Actions.Paste {
+                        objectName: "PasteContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.PasteCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandPaste)
+                    }
+                    Actions.Erase {
+                        objectName: "EraseContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.EraseCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandErase)
+                    }
+                    Actions.SelectAll {
+                        objectName: "SelectAllContextualAction"
+                        enabled: contextModel && contextModel.isEditable &&
+                                 (contextModel.editFlags & Oxide.WebView.SelectAllCapability)
+                        onTriggered: webviewimpl.executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
                     }
                 }
+
+                function contextMenuOnCompleted(menu) {
+                    contextModel = menu.contextModel
+                    if (contextModel.linkUrl.toString() ||
+                        contextModel.srcUrl.toString() ||
+                        contextModel.selectionText ||
+                        (contextModel.isEditable && contextModel.editFlags) ||
+                        (((contextModel.mediaType == Oxide.WebView.MediaTypeImage) ||
+                          (contextModel.mediaType == Oxide.WebView.MediaTypeCanvas)) &&
+                         contextModel.hasImageContents)) {
+                        menu.show()
+                    } else {
+                        contextModel.close()
+                    }
+                }
+
+                Component {
+                    id: contextMenuNarrowComponent
+                    ContextMenuMobile {
+                        actions: contextualActions
+                        Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
+                    }
+                }
+                Component {
+                    id: contextMenuWideComponent
+                    ContextMenuWide {
+                        webview: webviewimpl
+                        parent: browser
+                        actions: contextualActions
+                        Component.onCompleted: webviewimpl.contextMenuOnCompleted(this)
+                    }
+                }
+                contextMenu: browser.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
                 onNewViewRequested: {
                     var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
@@ -1002,7 +1128,7 @@ BrowserView {
                         return
                     }
 
-                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel) {
+                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel && 300 > event.httpStatusCode && event.httpStatusCode >= 200) {
                         browser.historyModel.add(event.url, title, icon)
                     }
                 }
@@ -1098,29 +1224,52 @@ BrowserView {
         }
     }
 
-    Loader {
-        id: downloadLoader
-        source: formFactor == "desktop" ? "" : "../Downloader.qml"
-        asynchronous: true
-    }
-
     QtObject {
         id: internal
 
-        function shareLink(url, title) {
+        function instantiateShareComponent() {
             var component = Qt.createComponent("../Share.qml")
             if (component.status == Component.Ready) {
                 var share = component.createObject(browser)
                 share.onDone.connect(share.destroy)
-                share.shareLink(url, title)
+                return share
             }
+            return null
         }
 
-        function addTab(tab, setCurrent) {
-            var index = tabsModel.add(tab)
+        function shareLink(url, title) {
+            var share = instantiateShareComponent()
+            if (share) share.shareLink(url, title)
+        }
+
+        function shareText(text) {
+            var share = instantiateShareComponent()
+            if (share) share.shareText(text)
+        }
+
+        function addTab(tab, setCurrent, index) {
+            if (index === undefined) index = tabsModel.add(tab)
+            else index = tabsModel.insert(tab, index)
             if (setCurrent) {
                 tabsModel.currentIndex = index
                 chrome.requestedUrl = tab.initialUrl
+            }
+        }
+
+        function closeTab(index) {
+            var tab = tabsModel.remove(index)
+            if (tab) {
+                tab.close()
+            }
+            if (tabsModel.count === 0) {
+                browser.openUrlInNewTab("", true)
+                recentView.reset()
+            }
+        }
+
+        function closeCurrentTab() {
+            if (tabsModel.count > 0) {
+                closeTab(tabsModel.currentIndex)
             }
         }
 
@@ -1133,15 +1282,6 @@ BrowserView {
                     focusAddressBar()
                 } else {
                     tabContainer.forceActiveFocus()
-                }
-            }
-        }
-
-        function closeCurrentTab() {
-            if (tabsModel.count > 0) {
-                var tab = tabsModel.remove(tabsModel.currentIndex)
-                if (tab) {
-                    tab.close()
                 }
             }
         }
@@ -1201,19 +1341,21 @@ BrowserView {
             }
         }
 
-        function addBookmark(url, title, icon) {
+        function addBookmark(url, title, icon, location) {
+            if (title == "") title = UrlUtils.removeScheme(url)
             bookmarksModel.add(url, title, icon, "")
+            if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             PopupUtils.open(bookmarkOptionsComponent,
-                            chrome.bookmarkTogglePlaceHolder,
+                            location,
                             {"bookmarkUrl": url,
                              "bookmarkTitle": title})
         }
     }
 
-    function openUrlInNewTab(url, setCurrent, load) {
+    function openUrlInNewTab(url, setCurrent, load, index) {
         load = typeof load !== 'undefined' ? load : true
         var tab = tabComponent.createObject(tabContainer, {"initialUrl": url, 'incognito': browser.incognito})
-        internal.addTab(tab, setCurrent)
+        internal.addTab(tab, setCurrent, index)
         if (load) {
             tabsModel.currentTab.load()
         }
@@ -1395,6 +1537,7 @@ BrowserView {
             if (tab) {
                 tab.load()
             }
+            internal.resetFocus()
         }
         onCountChanged: {
             if (tabsModel.count == 0) {

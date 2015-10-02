@@ -17,7 +17,6 @@
 import os.path
 import sqlite3
 import time
-import testtools
 
 from autopilot.matchers import Eventually
 from testtools.matchers import Equals
@@ -143,6 +142,9 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
             "OptionSelectorDelegate", text="Actinide")
         self.pointing_device.click_object(option_selector_delegate)
         option_selector.currentlyExpanded.wait_for(False)
+        # Wait for collapsing animation to finish
+        self.assertThat(option_selector.height,
+                        Eventually(Equals(option_selector.itemHeight)))
 
         bookmark_options.click_dismiss_button()
         bookmark_options.wait_until_destroyed()
@@ -198,10 +200,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
                         Eventually(Equals(4)))
         self._assert_bookmark_count_in_folder(new_tab, "NewFolder", 1)
 
-    @testtools.skip("Temporarily skipped until popover going out of view with"
-                    " OSK is fixed http://pad.lv/1466222")
     def test_set_bookmark_title(self):
-        url = self.base_url + "/test2"
+        url = self.base_url + "/blanktargetlink"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
 
@@ -211,6 +211,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         bookmark_options = self._get_bookmark_options()
 
         title_text_field = bookmark_options.get_title_text_field()
+        self.assertThat(title_text_field.text,
+                        Equals(self.base_domain + "/blanktargetlink"))
         self.pointing_device.click_object(title_text_field)
         title_text_field.activeFocus.wait_for(True)
         title_text_field.write("NewTitle", True)
@@ -224,7 +226,38 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self._assert_bookmark_count_in_folder(new_tab, "", 5)
 
         index = 0
-        if self.main_view.wide:
+        if self.main_window.wide:
             index += 1
         bookmark = new_tab.get_bookmarks("")[index]
         self.assertThat(bookmark.title, Equals("NewTitle"))
+
+    def test_bookmark_options_from_contextual_menu(self):
+        url = self.base_url + "/blanktargetlink"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        webview = self.main_window.get_current_webview()
+
+        # invoke the context menu over the link, which covers the entire page
+        menu = self.main_window.open_context_menu()
+        menu.click_action("BookmarkLinkContextualAction")
+
+        bookmark_options = self.main_window.get_bookmark_options()
+        bookmark_options.click_dismiss_button()
+        bookmark_options.wait_until_destroyed()
+
+        # reopen the context menu and verify that the bookmark options is
+        # disabled as we have already bookmarked this link
+        menu = self.main_window.open_context_menu()
+        bookmark_action = menu.get_action("BookmarkLinkContextualAction")
+        self.assertThat(bookmark_action.visible, Equals(False))
+
+        # dismiss the dialog
+        self.main_window.dismiss_context_menu(menu)
+
+        # click on the link and verify that the bookmark star is lit on the
+        # target page
+        self.pointing_device.click_object(webview)
+        self.main_window.wait_until_page_loaded(self.base_url + "/test2")
+
+        chrome = self.main_window.chrome
+        self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
