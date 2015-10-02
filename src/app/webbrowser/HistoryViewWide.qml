@@ -153,7 +153,7 @@ FocusScope {
                 }
 
                 model: HistoryLastVisitDateListModel {
-                    sourceModel: historyLastVisitDateModel.sourceModel
+                    sourceModel: historyLastVisitDateModel.model
                 }
 
                 delegate: ListItem {
@@ -242,10 +242,10 @@ FocusScope {
                         pattern: new RegExp(Qt.formatDate(lastVisitDate, "yyyy-MM-dd"))
                     }
                     // Until a valid HistoryModel is assigned the TextSearchFilterModel
-                    // will not report role names, and the HistoryLastVisit*Models will emit warnings
-                    // since they need a dateLastVisit role to be present.
-                    // We avoid this by assigning the sourceModel only when HistoryModel is ready.
-                    sourceModel: historyModel ? historySearchModel : undefined
+                    // will not report role names, and the HistoryLastVisitDateListModel
+                    // will emit warnings since it needs a dateLastVisit role to be
+                    // present.
+                    model: historyModel ? historySearchModel : null
                 }
 
                 clip: true

@@ -175,7 +175,7 @@ private Q_SLOTS:
         QCOMPARE(model->rowCount(), 0);
     }
 
-    void shouldUpdateLastVsitDateListWhenInsertingEntries()
+    void shouldUpdateLastVisitDateListWhenInsertingEntries()
     {
         QSignalSpy spyRowsInserted(model, SIGNAL(rowsInserted(const QModelIndex&, int, int)));
         qRegisterMetaType<QVector<int> >();
@@ -340,6 +340,11 @@ private Q_SLOTS:
         bookmarks->add(QUrl("http://example.org/"), "Example Domain", QUrl(), "");
         model->setSourceModel(QVariant::fromValue(bookmarks));
         QCOMPARE(model->rowCount(), 0);
+
+        spy.clear();
+        model->setSourceModel(QVariant());
+        QCOMPARE(spy.count(), 1);
+        QVERIFY(model->sourceModel().isNull());
     }
 
     void shouldKeepLastVisitDatesSorted()
