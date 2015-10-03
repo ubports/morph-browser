@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-09-23 20:14+0200\n"
+"POT-Creation-Date: 2015-10-02 23:28+0200\n"
 "PO-Revision-Date: 2015-09-04 16:19+0000\n"
 "Last-Translator: Meriuță Cornel <meriutacornel@neacornel.eu>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2015-09-24 05:53+0000\n"
-"X-Generator: Launchpad (build 17749)\n"
+"X-Launchpad-Export-Date: 2015-10-03 05:37+0000\n"
+"X-Generator: Launchpad (build 17783)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -433,6 +433,7 @@ msgid "Address;URL;www"
 msgstr "Adresă;URL:www"
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
+#: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "Filă nouă"
 
@@ -463,6 +464,7 @@ msgid "Redo"
 msgstr "Refă ultima acțiune"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Reîncarcă"
 
@@ -552,7 +554,7 @@ msgstr "File deschise"
 
 #: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/HistoryViewWide.qml:508
-#: src/app/webbrowser/TabsBar.qml:99 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Filă nouă"
 
@@ -802,7 +804,7 @@ msgstr "Șterge"
 msgid "Tap to view"
 msgstr "Apăsați pentru vizualizare"
 
-#: src/app/webbrowser/TabsBar.qml:98
+#: src/app/webbrowser/TabsBar.qml:96
 msgid "Close Tab"
 msgstr ""
 
@@ -880,6 +882,10 @@ msgstr "Se omite"
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
 msgstr "Alege cont"
+
+#: src/app/webcontainer/SadPage.qml:45
+msgid "Oops, something went wrong."
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"

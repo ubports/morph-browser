@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-09-23 20:14+0200\n"
+"POT-Creation-Date: 2015-10-02 23:28+0200\n"
 "PO-Revision-Date: 2015-07-03 18:15+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-09-24 05:53+0000\n"
-"X-Generator: Launchpad (build 17749)\n"
+"X-Launchpad-Export-Date: 2015-10-03 05:37+0000\n"
+"X-Generator: Launchpad (build 17783)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -105,14 +105,16 @@ msgstr "Підтвердження дій JavaScript"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
+"Виберіть програму для відкриття цього файла або додайте його до теки "
+"отриманих файлів."
 
 #: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
-msgstr ""
+msgstr "Виберіть проґраму"
 
 #: src/app/ContentDownloadDialog.qml:97
 msgid "Download"
-msgstr ""
+msgstr "Отримати"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -432,6 +434,7 @@ msgid "Address;URL;www"
 msgstr "Address;URL;www;адрес;інтернет"
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
+#: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "Нова вкладка"
 
@@ -462,6 +465,7 @@ msgid "Redo"
 msgstr "Повторити"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Перезавантажити"
 
@@ -551,13 +555,13 @@ msgstr "Відкриті вкладки"
 
 #: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/HistoryViewWide.qml:508
-#: src/app/webbrowser/TabsBar.qml:99 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Нова вкладка"
 
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr ""
+msgstr "Отримані"
 
 #: src/app/webbrowser/Browser.qml:409
 msgid "Leave Private Mode"
@@ -592,7 +596,7 @@ msgstr "Натисніть клавішу Esc, щоб вийти з повное
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr ""
+msgstr "Підтвердьте вибір"
 
 #: src/app/webbrowser/HistoryView.qml:210
 #: src/app/webbrowser/HistoryViewWide.qml:418
@@ -601,7 +605,7 @@ msgstr "Вилучити"
 
 #: src/app/webbrowser/DownloadsPage.qml:207
 msgid "No downloads available"
-msgstr ""
+msgstr "Немає доступних завантажень"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
@@ -801,9 +805,9 @@ msgstr "Спорожнити"
 msgid "Tap to view"
 msgstr "Натисніть, щоб переглянути"
 
-#: src/app/webbrowser/TabsBar.qml:98
+#: src/app/webbrowser/TabsBar.qml:96
 msgid "Close Tab"
-msgstr ""
+msgstr "Закрити вкладку"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
@@ -882,6 +886,10 @@ msgstr "Пропустити"
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
 msgstr "Вибір облікового запису"
+
+#: src/app/webcontainer/SadPage.qml:45
+msgid "Oops, something went wrong."
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"

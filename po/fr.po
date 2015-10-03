@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-09-23 20:14+0200\n"
+"POT-Creation-Date: 2015-10-02 23:28+0200\n"
 "PO-Revision-Date: 2015-09-24 19:11+0000\n"
 "Last-Translator: Anne <anneonyme017@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-09-25 05:49+0000\n"
-"X-Generator: Launchpad (build 17754)\n"
+"X-Launchpad-Export-Date: 2015-10-03 05:37+0000\n"
+"X-Generator: Launchpad (build 17783)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -48,12 +48,11 @@ msgid "Password"
 msgstr "Mot de passe"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/ContentDownloadDialog.qml:110
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/HistoryView.qml:165
-#: src/app/webbrowser/HistoryViewWide.qml:307
+#: src/app/webbrowser/HistoryViewWide.qml:374
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:289
 #: src/app/webbrowser/SettingsPage.qml:343
@@ -403,7 +402,7 @@ msgstr "Couper"
 msgid "Erase"
 msgstr "Effacer"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:402
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
 msgid "Find in page"
 msgstr "Trouver dans la page"
 
@@ -433,8 +432,8 @@ msgstr "Aller à"
 msgid "Address;URL;www"
 msgstr "Adresse;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:663
-#: src/app/webbrowser/TabsBar.qml:84
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
+#: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "Nouvel onglet"
 
@@ -465,7 +464,7 @@ msgid "Redo"
 msgstr "Rétablir"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
-#: src/app/webbrowser/TabsBar.qml:89
+#: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Actualiser"
 
@@ -483,13 +482,12 @@ msgstr "Enregistrer l'image"
 msgid "Save link"
 msgstr "Enregistrer le lien"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/DownloadsPage.qml:83
-#: src/app/webbrowser/HistoryView.qml:180
-#: src/app/webbrowser/HistoryViewWide.qml:328
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
+#: src/app/webbrowser/HistoryViewWide.qml:399
 msgid "Select all"
 msgstr "Tout sélectionner"
 
-#: src/app/webbrowser/Browser.qml:371
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:368
 msgid "Share"
 msgstr "Partager"
 
@@ -545,18 +543,18 @@ msgstr "Créer un nouveau dossier"
 msgid "Save"
 msgstr "Enregistrer"
 
-#: src/app/webbrowser/Browser.qml:378
-#: src/app/webbrowser/HistoryViewWide.qml:291
+#: src/app/webbrowser/Browser.qml:375
+#: src/app/webbrowser/HistoryViewWide.qml:357
 msgid "History"
 msgstr "Historique"
 
-#: src/app/webbrowser/Browser.qml:385
+#: src/app/webbrowser/Browser.qml:382
 msgid "Open tabs"
 msgstr "Onglets ouverts"
 
-#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/HistoryViewWide.qml:396
-#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
+#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:508
+#: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Nouvel onglet"
 
@@ -564,34 +562,34 @@ msgstr "Nouvel onglet"
 msgid "Downloads"
 msgstr "Téléchargements"
 
-#: src/app/webbrowser/Browser.qml:420
+#: src/app/webbrowser/Browser.qml:409
 msgid "Leave Private Mode"
 msgstr "Quitter le mode privé"
 
-#: src/app/webbrowser/Browser.qml:420
+#: src/app/webbrowser/Browser.qml:409
 msgid "Private Mode"
 msgstr "Mode privé"
 
-#: src/app/webbrowser/Browser.qml:438 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Paramètres"
 
-#: src/app/webbrowser/Browser.qml:660 src/app/webbrowser/HistoryView.qml:108
-#: src/app/webbrowser/HistoryViewWide.qml:382
+#: src/app/webbrowser/Browser.qml:653 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:494
 msgid "Done"
 msgstr "Terminé"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:767
+#: src/app/webbrowser/Browser.qml:761
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1224
+#: src/app/webbrowser/Browser.qml:1200
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Faites glisser vers le haut pour sortir du plein écran"
 
-#: src/app/webbrowser/Browser.qml:1225
+#: src/app/webbrowser/Browser.qml:1201
 msgid "Press ESC To Exit Full Screen"
 msgstr "Appuyez sur Échap pour sortir du plein écran"
 
@@ -599,9 +597,8 @@ msgstr "Appuyez sur Échap pour sortir du plein écran"
 msgid "Confirm selection"
 msgstr "Confirmer la sélection"
 
-#: src/app/webbrowser/DownloadsPage.qml:99
 #: src/app/webbrowser/HistoryView.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:347
+#: src/app/webbrowser/HistoryViewWide.qml:418
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -626,16 +623,16 @@ msgid "Last Visited"
 msgstr "Visités récemment"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:149
+#: src/app/webbrowser/HistoryViewWide.qml:205
 msgid "Yesterday"
 msgstr "Hier"
 
-#: src/app/webbrowser/HistoryViewWide.qml:133
+#: src/app/webbrowser/HistoryViewWide.qml:189
 msgid "All History"
 msgstr "Tout l'historique"
 
-#: src/app/webbrowser/HistoryViewWide.qml:147
-#: src/app/webbrowser/HistoryViewWide.qml:212
+#: src/app/webbrowser/HistoryViewWide.qml:203
+#: src/app/webbrowser/HistoryViewWide.qml:272
 msgid "Today"
 msgstr "Aujourd'hui"
 
@@ -804,11 +801,11 @@ msgstr "Effacer le cache ?"
 msgid "Clear"
 msgstr "Effacer"
 
-#: src/app/webbrowser/TabPreview.qml:99
+#: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
 msgstr "Appuyez pour voir"
 
-#: src/app/webbrowser/TabsBar.qml:98
+#: src/app/webbrowser/TabsBar.qml:96
 msgid "Close Tab"
 msgstr "Fermer l'onglet"
 
@@ -887,6 +884,10 @@ msgstr "Ignorer"
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
 msgstr "Choisissez un compte"
+
+#: src/app/webcontainer/SadPage.qml:45
+msgid "Oops, something went wrong."
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
