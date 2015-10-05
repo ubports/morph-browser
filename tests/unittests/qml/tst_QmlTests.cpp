@@ -152,6 +152,13 @@ static QObject* TestContext_singleton_factory(QQmlEngine* engine, QJSEngine* scr
     return new TestContext();
 }
 
+static QObject* BookmarksModel_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new BookmarksModel();
+}
+
 int main(int argc, char** argv)
 {
     const char* commonUri = "webbrowsercommon.private";
@@ -160,7 +167,7 @@ int main(int argc, char** argv)
     const char* browserUri = "webbrowserapp.private";
     qmlRegisterType<SearchEngine>(browserUri, 0, 1, "SearchEngine");
     qmlRegisterType<TabsModel>(browserUri, 0, 1, "TabsModel");
-    qmlRegisterType<BookmarksModel>(browserUri, 0, 1, "BookmarksModel");
+    qmlRegisterSingletonType<BookmarksModel>(browserUri, 0, 1, "BookmarksModel", BookmarksModel_singleton_factory);
     qmlRegisterType<BookmarksFolderListModel>(browserUri, 0, 1, "BookmarksFolderListModel");
     qmlRegisterType<HistoryModel>(browserUri, 0, 1, "HistoryModel");
     qmlRegisterType<HistoryTimeframeModel>(browserUri, 0, 1, "HistoryTimeframeModel");

@@ -25,7 +25,6 @@ import ".."
 Item {
     id: newTabView
 
-    property QtObject bookmarksModel
     property alias historyModel: historyTimeframeModel.sourceModel
     property Settings settingsObject
 
@@ -45,7 +44,7 @@ Item {
 
         property bool seeMoreBookmarksView: false
         property int bookmarksCountLimit: Math.min(4, numberOfBookmarks)
-        property int numberOfBookmarks: bookmarksModel ? bookmarksModel.count : 0
+        property int numberOfBookmarks: BookmarksModel.count
 
         // Force the topsites section to reappear when remove a bookmark while
         // the bookmarks list is expanded and there aren't anymore > 5
@@ -148,7 +147,7 @@ Item {
 
                 active: internal.seeMoreBookmarksView
                 sourceComponent: BookmarksFolderListView {
-                    model: newTabView.bookmarksModel 
+                    model: BookmarksModel
 
                     onBookmarkClicked: newTabView.bookmarkClicked(url)
                     onBookmarkRemoved: newTabView.bookmarkRemoved(url)
@@ -197,7 +196,7 @@ Item {
                     spacing: 0
                     limit: internal.bookmarksCountLimit
 
-                    model: newTabView.bookmarksModel
+                    model: BookmarksModel
 
                     onUrlClicked: newTabView.bookmarkClicked(url)
                     onUrlRemoved: newTabView.bookmarkRemoved(url)

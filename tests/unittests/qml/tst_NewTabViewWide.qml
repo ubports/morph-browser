@@ -35,13 +35,6 @@ Item {
         }
     }
 
-    Component {
-        id: bookmarksModel
-        BookmarksModel {
-            databasePath: ":memory:"
-        }
-    }
-
     property NewTabViewWide view
     property var bookmarks
     property var history
@@ -55,7 +48,6 @@ Item {
                 property url homepage: root.homepage
                 property int newTabDefaultSection: 0
             }
-            bookmarksModel: bookmarks
             historyModel: history
         }
     }
@@ -85,7 +77,7 @@ Item {
         when: windowShown
 
         function init() {
-            bookmarks = bookmarksModel.createObject()
+            BookmarksModel.databasePath = ":memory:"
             history = historyModel.createObject()
             view = viewComponent.createObject(root)
             populate()
@@ -106,19 +98,17 @@ Item {
             history.add("http://example.com", "Example Com", "")
             history.add("http://example.org", "Example Org", "")
             history.add("http://example.net", "Example Net", "")
-            bookmarks.add("http://example.com", "Example Com", "", "")
-            bookmarks.add("http://example.org/bar", "Example Org Bar", "", "Folder B")
-            bookmarks.add("http://example.org/foo", "Example Org Foo", "", "Folder B")
-            bookmarks.add("http://example.net/a", "Example Net A", "", "Folder A")
-            bookmarks.add("http://example.net/b", "Example Net B", "", "Folder A")
+            BookmarksModel.add("http://example.com", "Example Com", "", "")
+            BookmarksModel.add("http://example.org/bar", "Example Org Bar", "", "Folder B")
+            BookmarksModel.add("http://example.org/foo", "Example Org Foo", "", "Folder B")
+            BookmarksModel.add("http://example.net/a", "Example Net A", "", "Folder A")
+            BookmarksModel.add("http://example.net/b", "Example Net B", "", "Folder A")
         }
 
         function cleanup() {
             history.destroy()
             history = null
-            bookmarks.destroy()
-            bookmarks = null
-
+            BookmarksModel.databasePath = ""
             view.destroy()
             view = null
         }

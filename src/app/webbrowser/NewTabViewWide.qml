@@ -25,7 +25,6 @@ import ".."
 FocusScope {
     id: newTabViewWide
 
-    property QtObject bookmarksModel
     property alias historyModel: historyTimeframeModel.sourceModel
     property QtObject settingsObject
     property alias selectedIndex: sections.selectedIndex
@@ -94,7 +93,7 @@ FocusScope {
 
         currentIndex: 0
         model: BookmarksFolderListModel {
-            sourceModel: newTabViewWide.bookmarksModel
+            sourceModel: BookmarksModel
         }
 
         delegate: ListItem {
@@ -207,7 +206,7 @@ FocusScope {
                 bookmarksList.interactive = true
 
                 if (dragAndDrop.target && dragAndDrop.target.folderName !== folder) {
-                    bookmarksModel.update(modelData.url, modelData.title,
+                    BookmarksModel.update(modelData.url, modelData.title,
                                           dragAndDrop.target.folderName)
                     dragAndDrop.success = true
                 }

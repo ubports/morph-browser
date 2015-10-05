@@ -37,7 +37,6 @@ BrowserView {
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
     property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
-    property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
     property bool newSession: false
 
@@ -53,6 +52,8 @@ BrowserView {
     // to limit the overhead of instantiating too many
     // tab objects (see http://pad.lv/1376433).
     readonly property int maxTabsToRestore: 10
+
+    Component.onCompleted: BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
 
     onTabsModelChanged: {
         if (incognito && privateTabsModelLoader.item) {
@@ -92,7 +93,7 @@ BrowserView {
             onTriggered: currentWebview.reload()
         },
         Actions.Bookmark {
-            enabled: currentWebview && browser.bookmarksModel
+            enabled: currentWebview
             onTriggered: internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
         },
         Actions.NewTab {
@@ -243,7 +244,6 @@ BrowserView {
                 NewTabView {
                     anchors.fill: parent
                     historyModel: browser.historyModel
-                    bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
                     focus: true
                     onBookmarkClicked: {
@@ -251,7 +251,7 @@ BrowserView {
                         currentWebview.url = url
                         tabContainer.forceActiveFocus()
                     }
-                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onBookmarkRemoved: BookmarksModel.remove(url)
                     onHistoryEntryClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
@@ -266,7 +266,6 @@ BrowserView {
                 NewTabViewWide {
                     anchors.fill: parent
                     historyModel: browser.historyModel
-                    bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
                     focus: true
                     onBookmarkClicked: {
@@ -274,7 +273,7 @@ BrowserView {
                         currentWebview.url = url
                         tabContainer.forceActiveFocus()
                     }
-                    onBookmarkRemoved: browser.bookmarksModel.remove(url)
+                    onBookmarkRemoved: BookmarksModel.remove(url)
                     onHistoryEntryClicked: {
                         chrome.requestedUrl = url
                         currentWebview.url = url
@@ -335,11 +334,11 @@ BrowserView {
             y: webview ? webview.locationBarController.offset : 0
 
             function isCurrentUrlBookmarked() {
-                return ((webview && browser.bookmarksModel) ? browser.bookmarksModel.contains(webview.url) : false)
+                return webview ? BookmarksModel.contains(webview.url) : false
             }
             bookmarked: isCurrentUrlBookmarked()
             onToggleBookmark: {
-                if (isCurrentUrlBookmarked()) browser.bookmarksModel.remove(webview.url)
+                if (isCurrentUrlBookmarked()) BookmarksModel.remove(webview.url)
                 else internal.addBookmark(webview.url, webview.title, webview.icon)
             }
             onWebviewChanged: bookmarked = isCurrentUrlBookmarked()
@@ -348,7 +347,7 @@ BrowserView {
                 onUrlChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
             }
             Connections {
-                target: browser.bookmarksModel
+                target: BookmarksModel
                 onAdded: if (!chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = true
                 onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
             }
@@ -504,7 +503,7 @@ BrowserView {
                 readonly property string icon: "non-starred"
                 readonly property bool displayUrl: true
                 sourceModel: TextSearchFilterModel {
-                    sourceModel: browser.bookmarksModel
+                    sourceModel: BookmarksModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
                 }
@@ -537,7 +536,7 @@ BrowserView {
             id: bookmarkOptionsComponent
             BookmarkOptions {
                 folderModel: BookmarksFolderListModel {
-                    sourceModel: bookmarksModel
+                    sourceModel: BookmarksModel
                 }
 
                 Component.onCompleted: {
@@ -545,10 +544,8 @@ BrowserView {
                 }
 
                 Component.onDestruction: {
-                    if (browser.bookmarksModel.contains(bookmarkUrl)) {
-                        browser.bookmarksModel.update(bookmarkUrl,
-                                                      bookmarkTitle,
-                                                      bookmarkFolder)
+                    if (BookmarksModel.contains(bookmarkUrl)) {
+                        BookmarksModel.update(bookmarkUrl, bookmarkTitle, bookmarkFolder)
                     }
                 }
 
@@ -568,7 +565,7 @@ BrowserView {
                     KeyboardShortcut {
                         key: Qt.Key_Escape
                         onTriggered: {
-                            browser.bookmarksModel.remove(bookmarkUrl)
+                            BookmarksModel.remove(bookmarkUrl)
                             hide()
                         }
                     }
@@ -577,7 +574,7 @@ BrowserView {
                         modifiers: Qt.ControlModifier
                         key: Qt.Key_D
                         onTriggered: {
-                            browser.bookmarksModel.remove(bookmarkUrl)
+                            BookmarksModel.remove(bookmarkUrl)
                             hide()
                         }
                     }
@@ -906,12 +903,6 @@ BrowserView {
         asynchronous: true
     }
 
-    Loader {
-        id: bookmarksModelLoader
-        source: "BookmarksModel.qml"
-        asynchronous: true
-    }
-
     Component {
         id: tabComponent
 
@@ -963,8 +954,8 @@ BrowserView {
                     }
                     Actions.BookmarkLink {
                         objectName: "BookmarkLinkContextualAction"
-                        enabled: contextModel && contextModel.linkUrl.toString() &&
-                                 browser.bookmarksModel && !bookmarksModel.contains(contextModel.linkUrl)
+                        enabled: contextModel && contextModel.linkUrl.toString()
+                                 && !BookmarksModel.contains(contextModel.linkUrl)
                         onTriggered: {
                             // position the menu target with a one-off assignement instead of a binding
                             // since the contents of the contextModel have meaning only while the context
@@ -1343,7 +1334,7 @@ BrowserView {
 
         function addBookmark(url, title, icon, location) {
             if (title == "") title = UrlUtils.removeScheme(url)
-            bookmarksModel.add(url, title, icon, "")
+            BookmarksModel.add(url, title, icon, "")
             if (location === undefined) location = chrome.bookmarkTogglePlaceHolder
             PopupUtils.open(bookmarkOptionsComponent,
                             location,
@@ -1662,8 +1653,8 @@ BrowserView {
             enabled: chrome.visible
             onTriggered: {
                 if (currentWebview) {
-                    if (bookmarksModel.contains(currentWebview.url)) {
-                        bookmarksModel.remove(currentWebview.url)
+                    if (BookmarksModel.contains(currentWebview.url)) {
+                        BookmarksModel.remove(currentWebview.url)
                     } else {
                         internal.addBookmark(currentWebview.url, currentWebview.title, currentWebview.icon)
                     }
