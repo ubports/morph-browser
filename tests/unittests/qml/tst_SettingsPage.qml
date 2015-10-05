@@ -112,12 +112,17 @@ Item {
             return items
         }
 
+        function activateSettingsItem(itemName, pageName) {
+            var item = findChild(settingsPage, itemName)
+            clickItem(item)
+            var page = findChild(settingsPage, pageName)
+            waitForRendering(page)
+            return page
+        }
+
         function goToMediaAccessPage() {
-            var mediaAccess = findChild(settingsPage, "mediaAccess")
-            clickItem(mediaAccess)
-            var mediaAccessPage = findChild(settingsPage, "mediaAccessPage")
-            waitForRendering(mediaAccessPage)
-            return mediaAccessPage
+            activateSettingsItem("privacy", "privacySettings")
+            return activateSettingsItem("privacy.mediaAccess", "mediaAccessSettings")
         }
 
         function test_permissions(data) {

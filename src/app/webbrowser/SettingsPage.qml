@@ -135,7 +135,7 @@ Item {
             ListItems.Standard {
                 objectName: "privacy"
 
-                text: i18n.tr("Privacy")
+                text: i18n.tr("Privacy & permissions")
 
                 onClicked: privacyComponent.createObject(subpageContainer)
             }
@@ -146,14 +146,6 @@ Item {
                 text: i18n.tr("Reset browser settings")
 
                 onClicked: settingsObject.restoreDefaults()
-            }
-
-            ListItems.Standard {
-                objectName: "mediaAccess"
-
-                text: i18n.tr("Media Access")
-
-                onClicked: mediaAccessComponent.createObject(subpageContainer)
             }
         }
     }
@@ -233,7 +225,7 @@ Item {
                 SettingsPageHeader {
                     id: privacyTitle
                     onBack: privacyItem.destroy()
-                    text: i18n.tr("Privacy")
+                    text: i18n.tr("Privacy & permissions")
                 }
 
                 Flickable {
@@ -251,6 +243,12 @@ Item {
                     Column {
                         id: privacyCol
                         width: parent.width
+
+                        ListItems.Standard {
+                            objectName: "privacy.mediaAccess"
+                            text: i18n.tr("Camera & microphone")
+                            onClicked: mediaAccessComponent.createObject(subpageContainer)
+                        }
 
                         ListItems.Standard {
                             objectName: "privacy.clearHistory"
@@ -374,7 +372,7 @@ Item {
 
         Item {
             id: mediaAccessItem
-            objectName: "mediaAccessPage"
+            objectName: "mediaAccessSettings"
             anchors.fill: parent
 
             Rectangle {
