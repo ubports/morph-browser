@@ -155,6 +155,20 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
         self.pointing_device.click_object(webview)
         self.assertThat(bar.findInPageMode, Eventually(Equals(False)))
 
+    def test_history_exits_findinpage_mode(self):
+        bar = self.chrome.address_bar
+        self.activate_find_in_page(False)
+        self.assertThat(bar.findInPageMode, Eventually(Equals(True)))
+        self.open_history()
+        self.assertThat(bar.findInPageMode, Eventually(Equals(False)))
+
+    def test_settings_exits_findinpage_mode(self):
+        bar = self.chrome.address_bar
+        self.activate_find_in_page(False)
+        self.assertThat(bar.findInPageMode, Eventually(Equals(True)))
+        self.open_settings()
+        self.assertThat(bar.findInPageMode, Eventually(Equals(False)))
+
     def test_find_in_page_not_in_menu_in_new_tab(self):
         if not self.main_window.wide:
             self.open_tabs_view()

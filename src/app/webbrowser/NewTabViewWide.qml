@@ -141,7 +141,7 @@ FocusScope {
             left: parent.left
             right: parent.right
         }
-        color: "#dedede"
+        color: "#f8f8f8"
         height: sections.height
 
         Sections {

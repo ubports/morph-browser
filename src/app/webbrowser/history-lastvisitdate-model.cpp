@@ -21,35 +21,61 @@
 #include "history-timeframe-model.h"
 
 // Qt
+#include <QtCore/QDebug>
 #include <QtCore/QUrl>
 
 /*!
     \class HistoryLastVisitDateModel
-    \brief Proxy model that filters the contents of a history model
-           based on last visit date
+    \brief Proxy model that filters the contents of a model based on last
+           visit date
 
     HistoryLastVisitDateModel is a proxy model that filters the contents
-    of a history model based on the last visit date.
+    of any QAbstractItemModel-derived model based on a role called
+    "lastVisitDate".
 
     An entry in the history model matches if the last visit date equals
     the filter visit date.
 
-    When no visit date is set, all entries match.
+    When no visit date is set, all entries match. If the model does not have
+    the "lastVisitDate" role, then no entries are returned if a filter visit
+    date is set, otherwise all entries match.
 */
 HistoryLastVisitDateModel::HistoryLastVisitDateModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
 }
 
-HistoryTimeframeModel* HistoryLastVisitDateModel::sourceModel() const
+QVariant HistoryLastVisitDateModel::sourceModel() const
 {
-    return qobject_cast<HistoryTimeframeModel*>(QSortFilterProxyModel::sourceModel());
+    QAbstractItemModel* model = QSortFilterProxyModel::sourceModel();
+    return (model) ? QVariant::fromValue(model) : QVariant();
 }
 
-void HistoryLastVisitDateModel::setSourceModel(HistoryTimeframeModel* sourceModel)
+void HistoryLastVisitDateModel::setSourceModel(QVariant sourceModel)
 {
-    if (sourceModel != this->sourceModel()) {
-        QSortFilterProxyModel::setSourceModel(sourceModel);
+    QAbstractItemModel* newSourceModel = qvariant_cast<QAbstractItemModel*>(sourceModel);
+    if (sourceModel.isValid() && newSourceModel == 0) {
+        qWarning() << "Only QAbstractItemModel-derived instances are allowed as"
+                   << "source models";
+    }
+
+    if (newSourceModel != QSortFilterProxyModel::sourceModel()) {
+        beginResetModel();
+
+        QAbstractItemModel* currentModel = QSortFilterProxyModel::sourceModel();
+        if (currentModel != 0) {
+            currentModel->disconnect(this);
+        }
+        QSortFilterProxyModel::setSourceModel(newSourceModel);
+        updateSourceModelRole();
+
+        if (newSourceModel != 0) {
+            connect(newSourceModel, SIGNAL(modelReset()), SLOT(updateSourceModelRole()));
+            connect(newSourceModel, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)),
+                    SLOT(updateSourceModelRole()));
+        }
+
+        endResetModel();
         Q_EMIT sourceModelChanged();
     }
 }
@@ -88,6 +114,28 @@ bool HistoryLastVisitDateModel::filterAcceptsRow(int source_row, const QModelInd
     if (m_lastVisitDate.isNull()) {
         return true;
     }
-    QModelIndex index = sourceModel()->index(source_row, 0, source_parent);
-    return m_lastVisitDate == sourceModel()->data(index, HistoryModel::LastVisitDate).toDate();
+
+    if (m_sourceModelRole == -1) {
+        return false;
+    }
+
+    QAbstractItemModel* model = QSortFilterProxyModel::sourceModel();
+    if (model) {
+        QModelIndex index = model->index(source_row, 0, source_parent);
+        return m_lastVisitDate == model->data(index, m_sourceModelRole).toDate();
+    } else {
+        return false;
+    }
+}
+
+void HistoryLastVisitDateModel::updateSourceModelRole()
+{
+    QAbstractItemModel* sourceModel = QSortFilterProxyModel::sourceModel();
+    if (sourceModel && sourceModel->roleNames().count() > 0) {
+        m_sourceModelRole = sourceModel->roleNames().key("lastVisitDate", -1);
+        if (m_sourceModelRole == -1) {
+            qWarning() << "No results will be returned because the sourceModel"
+                       << "does not have a role named \"lastVisitDate\"";
+        }
+    }
 }

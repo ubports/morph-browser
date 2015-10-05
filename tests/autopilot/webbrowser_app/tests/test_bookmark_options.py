@@ -248,7 +248,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
 
         # invoke the context menu over the link, which covers the entire page
         menu = self.main_window.open_context_menu()
-        menu.click_action("bookmarkLinkContextualAction")
+        menu.click_action("BookmarkLinkContextualAction")
 
         bookmark_options = self.main_window.get_bookmark_options()
         bookmark_options.click_dismiss_button()
@@ -257,7 +257,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         # reopen the context menu and verify that the bookmark options is
         # disabled as we have already bookmarked this link
         menu = self.main_window.open_context_menu()
-        bookmark_action = menu.get_action("bookmarkLinkContextualAction")
+        bookmark_action = menu.get_action("BookmarkLinkContextualAction")
         self.assertThat(bookmark_action.visible, Equals(False))
 
         # dismiss the dialog
