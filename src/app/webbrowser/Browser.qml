@@ -95,6 +95,20 @@ BrowserView {
                                      (dialog.request.isForVideo) ? dialog.allowVideo : undefined)
             })
         }
+
+        /* Note that we are connecting the mediaAccessPermissionRequested signal
+           on the current webview only because we want all the tabs that are not
+           visible to automatically deny the request but emit the signal again
+           if the same origin requests permissions (which is the default
+           behavior in oxide if we don't connect a signal handler).
+
+           Firefox and Chrome have a means to hold a pointer to the request and
+           allow or deny by asking the users as soon as they switch to the
+           requesting tab.
+           Oxide does not allow us to do this, since it denies the request as
+           soon as we return from the signal handler if we took no action
+           wihin it, and we have no acceptable way in QML to delay the return
+           from a signal handler. */
         onMediaAccessPermissionRequested: {
             var permissions = MediaAccessModel.get(UrlUtils.extractHost(request.origin))
             if (request.isForAudio && request.isForVideo) {
