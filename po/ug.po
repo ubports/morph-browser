@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-10-02 23:28+0200\n"
-"PO-Revision-Date: 2015-09-27 10:49+0000\n"
+"PO-Revision-Date: 2015-10-04 07:16+0000\n"
 "Last-Translator: eltikin <eltikinuyghur@hotmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-10-03 05:37+0000\n"
+"X-Launchpad-Export-Date: 2015-10-05 05:46+0000\n"
 "X-Generator: Launchpad (build 17783)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -408,7 +408,7 @@ msgstr ""
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "ئىزدەش بېتى"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -566,7 +566,7 @@ msgstr ""
 
 #: src/app/webbrowser/Browser.qml:409
 msgid "Private Mode"
-msgstr ""
+msgstr "شەخسى مودېل"
 
 #: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
@@ -581,19 +581,19 @@ msgstr "تامام"
 #: src/app/webbrowser/Browser.qml:761
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:1200
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Up بېسىپ تۇلۇق ئىكىران قىلىش"
 
 #: src/app/webbrowser/Browser.qml:1201
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "ESC بېسىپ تۇلۇق ئىكىراندىن چېكىنىش"
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr ""
+msgstr "مۇقۇمداش"
 
 #: src/app/webbrowser/HistoryView.qml:210
 #: src/app/webbrowser/HistoryViewWide.qml:418
@@ -602,7 +602,7 @@ msgstr "ئۆچۈر"
 
 #: src/app/webbrowser/DownloadsPage.qml:207
 msgid "No downloads available"
-msgstr ""
+msgstr "ئىشلىتشكە بۇلىدىغان چۈشۈرۈلمىلەر يوق"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
@@ -626,7 +626,7 @@ msgstr "تۈنۈگۈن"
 
 #: src/app/webbrowser/HistoryViewWide.qml:189
 msgid "All History"
-msgstr ""
+msgstr "تارىخ خاتىرىسى"
 
 #: src/app/webbrowser/HistoryViewWide.qml:203
 #: src/app/webbrowser/HistoryViewWide.qml:272
@@ -635,7 +635,7 @@ msgstr "بۈگۈن"
 
 #: src/app/webbrowser/HistoryViewWide.qml:439
 msgid "search history"
-msgstr ""
+msgstr "ئىزدەش تاىخى"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -643,7 +643,7 @@ msgstr ""
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "بۇ بىر شەخسى خەتكۈچ"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
@@ -828,7 +828,7 @@ msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "ھېساباتىڭىزدا خاتالىق بار"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
