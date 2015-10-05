@@ -46,9 +46,6 @@ Item {
         focus: true
         sourceComponent: HistoryViewWide {
             focus: true
-            historyModel: HistoryModelMock {
-                databasePath: ":memory:"
-            }
         }
     }
 
@@ -318,7 +315,7 @@ Item {
             keyClick(Qt.Key_Enter)
             compare(historyEntryClickedSpy.count, 1)
             var args = historyEntryClickedSpy.signalArguments[0]
-            var entry = urlsList.model.get(2)
+            var entry = urlsList.model.get(0)
             compare(String(args[0]), String(entry.url))
 
             // now try the same during a search
@@ -381,7 +378,7 @@ Item {
             var today = new Date()
             today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
             var youngest = new Date(1912, 6, 23)
-            var model = historyViewWide.historyModel
+            var model = HistoryModel
             model.addByDate("https://en.wikipedia.org/wiki/Alan_Turing", "Alan Turing", youngest)
             model.addByDate("https://en.wikipedia.org/wiki/Alonzo_Church", "Alonzo Church", new Date(1903, 6, 14))
 

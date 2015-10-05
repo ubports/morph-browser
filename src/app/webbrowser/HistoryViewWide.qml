@@ -56,7 +56,7 @@ FocusScope {
             internal.removeSelected()
         } else {
             if (urlsListView.activeFocus) {
-                HistoryModel.removeEntryByUrl(urlsListView.currentItem.url)
+                HistoryModel.removeEntryByUrl(urlsListView.currentItem.siteUrl)
 
                 if (urlsListView.count == 0) {
                     lastVisitDateListView.currentIndex = 0
@@ -250,8 +250,8 @@ FocusScope {
                     // Until a valid HistoryModel is assigned the TextSearchFilterModel
                     // will not report role names, and the HistoryLastVisit*Models will emit warnings
                     // since they need a dateLastVisit role to be present.
-                    // We avoid this by assigning the sourceModel only when HistoryModel is ready.
-                    sourceModel: historyModel ? historySearchModel : undefined
+                    // We avoid this by delaying assigning the source model until it is ready.
+                    sourceModel: historySearchModel.sourceModel ? historySearchModel : undefined
                 }
 
                 clip: true

@@ -172,7 +172,7 @@ static QObject* HistoryModel_singleton_factory(QQmlEngine* engine, QJSEngine* sc
 {
     Q_UNUSED(engine);
     Q_UNUSED(scriptEngine);
-    return new HistoryModel();
+    return new HistoryModelMock();
 }
 
 int main(int argc, char** argv)
@@ -196,7 +196,6 @@ int main(int argc, char** argv)
 
     const char* testUri = "webbrowsertest.private";
     qmlRegisterSingletonType<TestContext>(testUri, 0, 1, "TestContext", TestContext_singleton_factory);
-    qmlRegisterType<HistoryModelMock>(testUri, 0, 1, "HistoryModelMock");
 
     return quick_test_main(argc, argv, "QmlTests", nullptr);
 }
