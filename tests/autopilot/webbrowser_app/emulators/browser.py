@@ -329,7 +329,7 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                   objectName="bookmarkToggle")
 
     def get_find_in_page_counter(self):
-        return self.select_single("Label", objectName="findInPageCounter")
+        return self.select_single(objectName="findInPageCounter")
 
 
 class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -341,10 +341,10 @@ class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
     def get_tabs(self):
-        return self.select_many("QQuickItem", objectName="tabDelegate")
+        return self.select_many("QQuickMouseArea", objectName="tabDelegate")
 
     def get_tab(self, index):
-        return self.select_single("QQuickItem", objectName="tabDelegate",
+        return self.select_single("QQuickMouseArea", objectName="tabDelegate",
                                   tabIndex=index)
 
     @autopilot.logging.log_action(logger.info)
@@ -354,7 +354,7 @@ class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     @autopilot.logging.log_action(logger.info)
     def close_tab(self, index):
         tab = self.get_tab(index)
-        close_button = tab.select_single("Icon", objectName="closeButton")
+        close_button = tab.select_single(objectName="closeButton")
         self.pointing_device.click_object(close_button)
 
 
@@ -534,7 +534,7 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single(UrlPreviewGrid, objectName="topSitesList")
 
     def get_notopsites_label(self):
-        return self.select_single("Label", objectName="notopsites")
+        return self.select_single(objectName="notopsites")
 
     def get_top_site_items(self):
         return self.get_top_sites_list().get_delegates()
@@ -694,7 +694,7 @@ class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_title_label(self):
-        return self.select_single("Label", objectName="titleLabel")
+        return self.select_single(objectName="titleLabel")
 
     def get_visible_actions(self):
         return self.select_many("Empty", visible=True)

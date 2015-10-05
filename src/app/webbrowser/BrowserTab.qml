@@ -87,6 +87,14 @@ FocusScope {
         }
     }
 
+    function reload() {
+        if (webview) {
+            webview.reload()
+        } else {
+            load()
+        }
+    }
+
     function close() {
         unload()
         PreviewManager.checkDelete(url)

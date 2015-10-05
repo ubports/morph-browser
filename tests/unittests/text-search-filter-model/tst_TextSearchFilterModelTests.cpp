@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -22,22 +22,22 @@
 
 // local
 #include "history-model.h"
-#include "suggestions-filter-model.h"
+#include "text-search-filter-model.h"
 
-class SuggestionsFilterModelTests : public QObject
+class TextSearchFilterModelTests : public QObject
 {
     Q_OBJECT
 
 private:
     HistoryModel* model;
-    SuggestionsFilterModel* matches;
+    TextSearchFilterModel* matches;
 
 private Q_SLOTS:
     void init()
     {
         model = new HistoryModel;
         model->setDatabasePath(":memory:");
-        matches = new SuggestionsFilterModel;
+        matches = new TextSearchFilterModel;
         matches->setSourceModel(QVariant::fromValue(model));
     }
 
@@ -67,11 +67,17 @@ private Q_SLOTS:
         delete model2;
     }
 
-    void shouldBeEmptyWhileTermsAndFieldsEmpty()
+    void shouldReturnAllWhileTermsAndOrFieldsEmpty()
     {
         model->add(QUrl("http://example.org"), "Example Domain", QUrl());
         model->add(QUrl("http://example.com"), "Example Domain", QUrl());
-        QCOMPARE(matches->rowCount(), 0);
+        QCOMPARE(matches->rowCount(), 2);
+        matches->setTerms(QStringList({"org"}));
+        QCOMPARE(matches->rowCount(), 2);
+        matches->setSearchFields(QStringList({"url"}));
+        QCOMPARE(matches->rowCount(), 1);
+        matches->setTerms(QStringList());
+        QCOMPARE(matches->rowCount(), 2);
     }
 
     void shouldRecordTerms()
@@ -132,8 +138,6 @@ private Q_SLOTS:
         QCOMPARE(matches->rowCount(), 2);
         matches->setTerms(QStringList({"wiki"}));
         QCOMPARE(matches->rowCount(), 1);
-        matches->setTerms(QStringList());
-        QCOMPARE(matches->rowCount(), 0);
     }
 
     void shouldUpdateResultsWhenSourceModelUpdates()
@@ -184,5 +188,5 @@ private Q_SLOTS:
     }
 };
 
-QTEST_MAIN(SuggestionsFilterModelTests)
-#include "tst_SuggestionsFilterModelTests.moc"
+QTEST_MAIN(TextSearchFilterModelTests)
+#include "tst_TextSearchFilterModelTests.moc"

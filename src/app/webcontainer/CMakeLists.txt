@@ -21,7 +21,8 @@ set(WEBAPP_CONTAINER_SRC
     webapp-container-helper.cpp
     session-utils.cpp
     url-pattern-utils.cpp
-    intent-filter.cpp
+    scheme-filter.cpp
+    intent-parser.cpp
 )
 
 add_executable(${WEBAPP_CONTAINER} ${WEBAPP_CONTAINER_SRC})
@@ -43,3 +44,7 @@ file(GLOB QML_FILES *.qml)
 install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer)
 install(DIRECTORY actions DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer
         FILES_MATCHING PATTERN *.qml)
+
+install(DIRECTORY assets
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer
+        FILES_MATCHING PATTERN *.png)

@@ -21,6 +21,7 @@
 #include "history-timeframe-model.h"
 
 // Qt
+#include <QtCore/QDebug>
 #include <QtCore/QStringList>
 
 /*!
@@ -28,10 +29,13 @@
     \brief List model that exposes a list of all last visit dates from history
 
     HistoryLastVisitiDateListModel is a list model that exposes all last visit
-    dates from a HistoryTimeframeModel. Each item in the list has one single
-    role: 'lastVisitDate' for a date in which there is at least one url visited
-    on the source model. A special entry is added to the begining of the list
-    to represent all dates.
+    dates from the source model. Each item has one single role: 'lastVisitDate'
+    for a date in which there is at least one url visited on the source model.
+    A special entry is added to the begining of the list to represent all dates.
+
+    The source model needs to expose a role named 'lastVisitDate', from which
+    the input dates will be read. If such role is not present, this model will
+    not expose any dates.
 */
 HistoryLastVisitDateListModel::HistoryLastVisitDateListModel(QObject* parent)
     : QAbstractListModel(parent)
@@ -74,20 +78,29 @@ QVariant HistoryLastVisitDateListModel::data(const QModelIndex& index, int role)
     }
 }
 
-HistoryTimeframeModel* HistoryLastVisitDateListModel::sourceModel() const
+QVariant HistoryLastVisitDateListModel::sourceModel() const
 {
-    return m_sourceModel;
+    return (m_sourceModel) ? QVariant::fromValue(m_sourceModel) : QVariant();
 }
 
-void HistoryLastVisitDateListModel::setSourceModel(HistoryTimeframeModel* sourceModel)
+void HistoryLastVisitDateListModel::setSourceModel(QVariant sourceModel)
 {
-    if (sourceModel != m_sourceModel) {
+    QAbstractItemModel* newSourceModel = qvariant_cast<QAbstractItemModel*>(sourceModel);
+    if (sourceModel.isValid() && newSourceModel == 0) {
+       qWarning() << "Only QAbstractItemModel-derived instances are allowed as"
+                  << "source models";
+    }
+
+    if (newSourceModel != m_sourceModel) {
         beginResetModel();
         if (m_sourceModel != 0) {
             m_sourceModel->disconnect(this);
         }
         clearLastVisitDates();
-        m_sourceModel = sourceModel;
+
+        m_sourceModel = newSourceModel;
+        updateSourceModelRole();
+
         populateModel();
         if (m_sourceModel != 0) {
             connect(m_sourceModel, SIGNAL(rowsInserted(const QModelIndex&, int, int)),
@@ -157,14 +170,26 @@ void HistoryLastVisitDateListModel::onRowsRemoved(const QModelIndex& parent, int
     if (m_lastVisitDates.isEmpty()) {
         // Remove the default entry if model is empty
         beginRemoveRows(QModelIndex(), 0, 0);
-        m_orderedDates.clear(); 
+        m_orderedDates.clear();
         endRemoveRows();
     }
+}
+
+void HistoryLastVisitDateListModel::updateSourceModelRole()
+{
+  if (m_sourceModel && m_sourceModel->roleNames().count() > 0) {
+    m_sourceModelRole = m_sourceModel->roleNames().key("lastVisitDate", -1);
+    if (m_sourceModelRole == -1) {
+        qWarning() << "No results will be returned because the sourceModel"
+                   << "does not have a role named \"lastVisitDate\"";
+    }
+  }
 }
 
 void HistoryLastVisitDateListModel::onModelReset()
 {
     beginResetModel();
+    updateSourceModelRole();
     clearLastVisitDates();
     populateModel();
     endResetModel();
@@ -172,7 +197,11 @@ void HistoryLastVisitDateListModel::onModelReset()
 
 void HistoryLastVisitDateListModel::insertNewHistoryEntry(QPersistentModelIndex* index, bool notify)
 {
-    QDate lastVisitDate = index->data(HistoryModel::LastVisitDate).toDate();
+    if (m_sourceModelRole == -1) {
+      return;
+    }
+
+    QDate lastVisitDate = index->data(m_sourceModelRole).toDate();
     if (!m_lastVisitDates.contains(lastVisitDate)) {
         if (m_orderedDates.isEmpty()) {
             // Add default entry to represent all dates

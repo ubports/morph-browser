@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-09-04 23:17+0200\n"
+"POT-Creation-Date: 2015-10-02 23:28+0200\n"
 "PO-Revision-Date: 2015-08-19 17:11+0000\n"
 "Last-Translator: Sasa Batistic <Unknown>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -16,21 +16,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2015-09-05 05:34+0000\n"
-"X-Generator: Launchpad (build 17706)\n"
+"X-Launchpad-Export-Date: 2015-10-03 05:37+0000\n"
+"X-Generator: Launchpad (build 17783)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
 msgstr "Opozorilo JavaScript"
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
-#: src/app/ConfirmDialog.qml:26 src/app/PromptDialog.qml:32
-#: src/app/webbrowser/BookmarkOptions.qml:101
+#: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
+#: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
 msgstr "V redu"
 
-#: src/app/AuthenticationDialog.qml:24
+#: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
 msgstr "Zahtevana je overitev."
 
@@ -40,19 +40,20 @@ msgstr "Zahtevana je overitev."
 msgid "The website %1 requires authentication."
 msgstr "Spletna stran %1 zahteva overitev."
 
-#: src/app/AuthenticationDialog.qml:34
+#: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
 msgstr "Uporabniško ime"
 
-#: src/app/AuthenticationDialog.qml:41
+#: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
 msgstr "Geslo"
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
-#: src/app/PromptDialog.qml:38 src/app/webbrowser/BookmarkOptions.qml:143
-#: src/app/webbrowser/ContextMenuMobile.qml:142
+#: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
+#: src/app/webbrowser/BookmarkOptions.qml:143
+#: src/app/webbrowser/ContextMenuMobile.qml:139
 #: src/app/webbrowser/HistoryView.qml:165
-#: src/app/webbrowser/HistoryViewWide.qml:307
+#: src/app/webbrowser/HistoryViewWide.qml:374
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:289
 #: src/app/webbrowser/SettingsPage.qml:343
@@ -99,6 +100,19 @@ msgstr "Nazaj na varnost"
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
 msgstr "Potrditev JavaScript"
+
+#: src/app/ContentDownloadDialog.qml:79
+msgid ""
+"Choose an application to open this file or add it to the downloads folder."
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:84
+msgid "Choose an application"
+msgstr ""
+
+#: src/app/ContentDownloadDialog.qml:97
+msgid "Download"
+msgstr ""
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -387,7 +401,7 @@ msgstr ""
 msgid "Erase"
 msgstr ""
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:380
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
 msgid "Find in page"
 msgstr "Najdi na strani"
 
@@ -417,7 +431,8 @@ msgstr "Pojdi na"
 msgid "Address;URL;www"
 msgstr "Naslov;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:653
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
+#: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "Nov zavihek"
 
@@ -447,7 +462,8 @@ msgstr ""
 msgid "Redo"
 msgstr ""
 
-#: src/app/actions/Reload.qml:23
+#: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Ponovno naloži"
 
@@ -466,29 +482,29 @@ msgid "Save link"
 msgstr ""
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
-#: src/app/webbrowser/HistoryViewWide.qml:328
+#: src/app/webbrowser/HistoryViewWide.qml:399
 msgid "Select all"
 msgstr "Izberi vse"
 
-#: src/app/actions/ShareLink.qml:22
-msgid "Share…"
-msgstr "Deli ..."
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:368
+msgid "Share"
+msgstr "Deli"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
 msgstr ""
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:203
+#: src/app/webbrowser/AddressBar.qml:204
 #, qt-format
 msgid "%1/%2"
 msgstr "%1/%2"
 
-#: src/app/webbrowser/AddressBar.qml:239
+#: src/app/webbrowser/AddressBar.qml:240
 msgid "find in page"
 msgstr "najdi na strani"
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:241
 msgid "search or enter an address"
 msgstr "poiščite ali vnesite naslov"
 
@@ -526,57 +542,70 @@ msgstr "Ustvari novo mapo"
 msgid "Save"
 msgstr "Shrani"
 
-#: src/app/webbrowser/Browser.qml:349
-msgid "Share"
-msgstr "Deli"
-
-#: src/app/webbrowser/Browser.qml:356
-#: src/app/webbrowser/HistoryViewWide.qml:291
+#: src/app/webbrowser/Browser.qml:375
+#: src/app/webbrowser/HistoryViewWide.qml:357
 msgid "History"
 msgstr "Zgodovina"
 
-#: src/app/webbrowser/Browser.qml:363
+#: src/app/webbrowser/Browser.qml:382
 msgid "Open tabs"
 msgstr "Odpri zavihke"
 
-#: src/app/webbrowser/Browser.qml:373 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/HistoryViewWide.qml:396
-#: src/app/webbrowser/TabsBar.qml:187 src/app/webbrowser/TabsList.qml:82
+#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
+#: src/app/webbrowser/HistoryViewWide.qml:508
+#: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Nov zavihek"
 
-#: src/app/webbrowser/Browser.qml:390
+#: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
+msgid "Downloads"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:409
 msgid "Leave Private Mode"
 msgstr "Zapusti Zasebni način"
 
-#: src/app/webbrowser/Browser.qml:390
+#: src/app/webbrowser/Browser.qml:409
 msgid "Private Mode"
 msgstr "Zasebni način"
 
-#: src/app/webbrowser/Browser.qml:408 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
 msgstr "Nastavitve"
 
-#: src/app/webbrowser/Browser.qml:639 src/app/webbrowser/HistoryView.qml:108
-#: src/app/webbrowser/HistoryViewWide.qml:382
+#: src/app/webbrowser/Browser.qml:653 src/app/webbrowser/HistoryView.qml:108
+#: src/app/webbrowser/HistoryViewWide.qml:494
 msgid "Done"
 msgstr "Končano"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:746
+#: src/app/webbrowser/Browser.qml:761
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1148
+#: src/app/webbrowser/Browser.qml:1200
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Potegnite navzgor za izhod iz celozaslonskega načina"
 
-#: src/app/webbrowser/Browser.qml:1149
+#: src/app/webbrowser/Browser.qml:1201
 msgid "Press ESC To Exit Full Screen"
 msgstr "Pritisnite ESC za izhod iz celozaslonskega načina"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:103
+#: src/app/webbrowser/DownloadsPage.qml:59
+msgid "Confirm selection"
+msgstr ""
+
+#: src/app/webbrowser/HistoryView.qml:210
+#: src/app/webbrowser/HistoryViewWide.qml:418
+msgid "Delete"
+msgstr "Izbriši"
+
+#: src/app/webbrowser/DownloadsPage.qml:207
+msgid "No downloads available"
+msgstr ""
+
+#: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
@@ -585,7 +614,7 @@ msgstr[1] "%1 stran"
 msgstr[2] "%1 strani"
 msgstr[3] "%1 strani"
 
-#: src/app/webbrowser/ExpandedHistoryView.qml:118
+#: src/app/webbrowser/ExpandedHistoryView.qml:119
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Manj"
@@ -595,23 +624,22 @@ msgid "Last Visited"
 msgstr "Nazadnje obiskano"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:149
+#: src/app/webbrowser/HistoryViewWide.qml:205
 msgid "Yesterday"
 msgstr "Včeraj"
 
-#: src/app/webbrowser/HistoryView.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:347
-msgid "Delete"
-msgstr "Izbriši"
-
-#: src/app/webbrowser/HistoryViewWide.qml:133
+#: src/app/webbrowser/HistoryViewWide.qml:189
 msgid "All History"
 msgstr "Celotna zgodovina"
 
-#: src/app/webbrowser/HistoryViewWide.qml:147
-#: src/app/webbrowser/HistoryViewWide.qml:212
+#: src/app/webbrowser/HistoryViewWide.qml:203
+#: src/app/webbrowser/HistoryViewWide.qml:272
 msgid "Today"
 msgstr "Danes"
+
+#: src/app/webbrowser/HistoryViewWide.qml:439
+msgid "search history"
+msgstr ""
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
@@ -770,19 +798,23 @@ msgstr "Počisti predpomnilnik?"
 msgid "Clear"
 msgstr "Počisti"
 
-#: src/app/webbrowser/TabPreview.qml:99
+#: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
 msgstr "Tapnite za pogled"
 
+#: src/app/webbrowser/TabsBar.qml:96
+msgid "Close Tab"
+msgstr ""
+
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
-#: src/app/webcontainer/webapp-container.qml:68
+#: src/app/webcontainer/webapp-container.qml:67
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
 msgstr "%1 - Spletni brskalnik Ubuntu"
 
 #: src/app/webbrowser/webbrowser-app.qml:37
-#: src/app/webcontainer/webapp-container.qml:70
+#: src/app/webcontainer/webapp-container.qml:69
 msgid "Ubuntu Web Browser"
 msgstr "Spletni brskalnik Ubuntu"
 
@@ -849,6 +881,10 @@ msgstr "Preskoči"
 msgid "Choose account"
 msgstr "Izberite račun"
 
+#: src/app/webcontainer/SadPage.qml:45
+msgid "Oops, something went wrong."
+msgstr ""
+
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
 msgstr "Brskalnik"
@@ -870,6 +906,9 @@ msgstr "Internet;WWW;Brskalnik;Splet;Explorer"
 
 #~ msgid "see less"
 #~ msgstr "oglejte si manj"
+
+#~ msgid "Share…"
+#~ msgstr "Deli ..."
 
 #~ msgid "see more"
 #~ msgstr "oglejte si več"

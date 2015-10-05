@@ -16,9 +16,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Ubuntu.Components 1.3
+#ifndef _INTENT_PARSER_H_
+#define _INTENT_PARSER_H_
 
-Action {
-    text: i18n.tr("Share…")
-    iconName: "share"
-}
+#include <QString>
+
+
+class QUrl;
+
+struct IntentUriDescription
+{
+    QString uriPath;
+
+    // optional
+    QString host;
+
+    QString package;
+    QString action;
+    QString category;
+    QString component;
+    QString scheme;
+};
+
+/**
+ * @brief Parse a URI that is supposed to be an intent as defined here
+ *
+ * https://developer.chrome.com/multidevice/android/intents
+ *
+ * @param intentUri
+ * @return
+ */
+IntentUriDescription parseIntentUri(const QUrl& intentUri);
+
+#endif // _INTENT_PARSER_H_

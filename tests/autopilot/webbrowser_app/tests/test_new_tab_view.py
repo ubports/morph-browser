@@ -468,8 +468,7 @@ class TestNewTabViewContentsWide(TestNewTabViewContentsBase):
         bookmark = bookmarks[1]
         title = bookmark.title
         grip = bookmark.get_grip()
-        original_x = grip.globalRect.x
-        original_y = grip.globalRect.y
+        rect = grip.globalRect
 
         # Test that when hovering normal bookmarks item the grip appears
         self.assertThat(grip.opacity, Equals(0))
@@ -477,27 +476,39 @@ class TestNewTabViewContentsWide(TestNewTabViewContentsBase):
         self.assertThat(grip.opacity, Eventually(Equals(1.0)))
 
         # Test that an item bounces back when dragged within the list itself
-        self.pointing_device.drag(original_x, original_y,
-                                  original_x, original_y + 200)
+        self.pointing_device.drag(rect.x, rect.y,
+                                  rect.x, rect.y + 200)
+        self.assertThat(grip.globalRect, Eventually(Equals(rect)))
 
         # Test that an item bounces back when dragged to the same folder
         folder = folders[0]
         folder_cx = folder.globalRect.x + folder.width / 2
         folder_cy = folder.globalRect.y + folder.height / 2
-        self.pointing_device.drag(original_x, original_y,
-                                  folder_cx, folder_cy)
-
-        self.assertThat(lambda: (grip.globalRect.x, grip.globalRect.y),
-                        Eventually(Equals((original_x, original_y))))
+        # Work around https://launchpad.net/bugs/1499437 by dragging downwards
+        # a little bit first, then to the target folder.
+        self.pointing_device.move_to_object(grip)
+        pos = self.pointing_device.position()
+        self.pointing_device.press()
+        self.pointing_device.move(pos[0], pos[1] + 20)
+        self.pointing_device.move(folder_cx, folder_cy)
+        self.pointing_device.release()
+        self.assertThat(grip.globalRect, Eventually(Equals(rect)))
 
         # Test that dragging an item to another folder removes it from this one
         # and adds it to the target folder
         folder = folders[2]
         folder_cx = folder.globalRect.x + folder.width / 2
         folder_cy = folder.globalRect.y + folder.height / 2
-        self.pointing_device.drag(original_x, original_y,
-                                  folder_cx, folder_cy)
-
+        # Work around https://launchpad.net/bugs/1499437 by dragging downwards
+        # a little bit first, then to the target folder.
+        self.pointing_device.move_to_object(grip)
+        pos = self.pointing_device.position()
+        self.pointing_device.press()
+        self.pointing_device.move(pos[0], pos[1] + 20)
+        # Move the cursor to a few pixels below the vertical center of the
+        # folder to ensure that the folder above doesn’t get targetted instead.
+        self.pointing_device.move(folder_cx, folder_cy + 5)
+        self.pointing_device.release()
         self.assertThat(lambda: len(view.get_bookmarks_list()),
                         Eventually(NotEquals(previous_count)))
 

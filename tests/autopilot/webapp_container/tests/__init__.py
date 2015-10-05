@@ -16,7 +16,9 @@
 """ Autopilot tests for the webapp_container package """
 
 import os
+import signal
 import subprocess
+import psutil
 
 import fixtures
 from autopilot.testcase import AutopilotTestCase
@@ -102,23 +104,32 @@ class WebappContainerTestCaseBase(AutopilotTestCase):
                         Eventually(Equals(100), timeout=20))
         self.assertThat(webview.loading, Eventually(Equals(False)))
 
-    def get_intent_filtered_uri(self, uri):
+    def get_scheme_filtered_uri(self, uri):
         webviewContainer = self.get_webcontainer_window()
         watcher = webviewContainer.watch_signal(
-            'intentUriHandleResult(QString)')
+            'schemeUriHandleFilterResult(QString)')
         previous = watcher.num_emissions
-        webviewContainer.slots.handleIntentUri(uri)
+        webviewContainer.slots.translateHandlerUri(uri)
         self.assertThat(
             lambda: watcher.num_emissions,
             Eventually(GreaterThan(previous)))
         result = webviewContainer.get_signal_emissions(
-            'intentUriHandleResult(QString)')[-1][0]
+            'schemeUriHandleFilterResult(QString)')[-1][0]
         return result
 
     def browse_to(self, url):
         webview = self.get_oxide_webview()
         webview.url = url
         self.assert_page_eventually_loaded(url)
+
+    def kill_web_processes(self, signal=signal.SIGKILL):
+        children = psutil.Process(self.app.pid).children(True)
+        for child in children:
+            if child.name() == 'oxide-renderer':
+                for arg in child.cmdline():
+                    if '--type=renderer' in arg:
+                        os.kill(child.pid, signal)
+                        break
 
 
 class WebappContainerTestCaseWithLocalContentBase(WebappContainerTestCaseBase):
