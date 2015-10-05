@@ -86,7 +86,6 @@ Item {
                 left: parent.left
                 right: parent.right
                 bottom: parent.bottom
-                bottomMargin: units.gu(1)
             }
         }
     }
