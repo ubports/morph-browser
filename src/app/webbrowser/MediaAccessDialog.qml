@@ -21,74 +21,50 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import "../UrlUtils.js" as UrlUtils
 
-Popover {
+Dialog {
     id: dialog
 
     property var request
     property var allowAudio
     property var allowVideo
 
-    contentHeight: bookmarkOptionsColumn.childrenRect.height + units.gu(2)
-    contentWidth: bookmarkOptionsColumn.childrenRect.width + units.gu(2)
+    title: request.isForAudio && request.isForVideo ?
+           i18n.tr("Allow this domain to use your camera and microphone ?") :
+           (request.isForVideo ? i18n.tr("Allow this domain to use your camera ?")
+                               : i18n.tr("Allow this domain to use your microphone ?"))
 
-    Column {
-        id: bookmarkOptionsColumn
+    text: UrlUtils.extractHost(request.origin)
 
+    Item {
         anchors {
-            top: parent.top
             left: parent.left
             right: parent.right
-            margins: units.gu(1)
         }
 
-        spacing: units.gu(1)
+        height: allowButton.height
 
-        Label {
-            id: question
-            font.bold: true
-            text: request.isForAudio && request.isForVideo ?
-                    i18n.tr("Allow this domain to use your camera and microphone ?") :
-                    (request.isForVideo ? i18n.tr("Allow this domain to use your camera ?")
-                                        : i18n.tr("Allow this domain to use your microphone ?"))
-        }
-
-        Label {
-            width: question.width
-            text: UrlUtils.extractHost(request.origin)
-            elide: Text.ElideRight
-        }
-
-        Item {
-            anchors {
-                left: parent.left
-                right: parent.right
+        Button {
+            id: allowButton
+            objectName: "mediaAccessDialog.allowButton"
+            text: i18n.tr("Yes")
+            color: UbuntuColors.green
+            onClicked: {
+                if (request.isForAudio) allowAudio = true
+                if (request.isForVideo) allowVideo = true
+                hide()
             }
+        }
 
-            height: allowButton.height
-
-            Button {
-                id: allowButton
-                objectName: "mediaAccessDialog.allowButton"
-                text: i18n.tr("Yes")
-                color: UbuntuColors.green
-                onClicked: {
-                    if (request.isForAudio) allowAudio = true
-                    if (request.isForVideo) allowVideo = true
-                    hide()
-                }
-            }
-
-            Button {
-                id: denyButton
-                objectName: "mediaAccessDialog.denyButton"
-                anchors.right: parent.right
-                text: i18n.tr("No")
-                color: UbuntuColors.red
-                onClicked: {
-                    if (request.isForAudio) allowAudio = false
-                    if (request.isForVideo) allowVideo = false
-                    hide()
-                }
+        Button {
+            id: denyButton
+            objectName: "mediaAccessDialog.denyButton"
+            anchors.right: parent.right
+            text: i18n.tr("No")
+            color: UbuntuColors.red
+            onClicked: {
+                if (request.isForAudio) allowAudio = false
+                if (request.isForVideo) allowVideo = false
+                hide()
             }
         }
     }
