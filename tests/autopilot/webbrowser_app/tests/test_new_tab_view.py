@@ -365,6 +365,26 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
                                     folder_delegate)),
                         Eventually(Equals(1)))
 
+    def test_collapsed_bookmarks_folders_when_expanded(self):
+        more_button = self.new_tab_view.get_bookmarks_more_button()
+        self.assertThat(more_button.visible, Equals(True))
+        self.pointing_device.click_object(more_button)
+        folders = self.new_tab_view.get_bookmarks_folder_list_view()
+        self.assertThat(lambda: len(folders.get_delegates()),
+                        Eventually(Equals(3)))
+        folder_delegate = folders.get_folder_delegate("")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(4)))
+        folder_delegate = folders.get_folder_delegate("Actinide")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(0)))
+        folder_delegate = folders.get_folder_delegate("NobleGas")
+        self.assertThat(lambda: len(folders.get_urls_from_folder(
+                                    folder_delegate)),
+                        Eventually(Equals(0)))
+
     def test_hide_empty_bookmarks_folders_when_expanded(self):
         more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
