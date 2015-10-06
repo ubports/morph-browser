@@ -1278,6 +1278,7 @@ BrowserView {
             } else {
                 internal.switchToTab(tabsModel.count - 1)
             }
+            if (recentView.visible) recentView.focus = true
         }
 
         function switchToNextTab() {
@@ -1286,6 +1287,7 @@ BrowserView {
             } else {
                 internal.switchToTab(tabsModel.count - 1)
             }
+            if (recentView.visible) recentView.focus = true
         }
 
         function switchToTab(index) {
@@ -1298,9 +1300,6 @@ BrowserView {
                 } else {
                     tabContainer.forceActiveFocus()
                 }
-            }
-            if (recentView.visible) {
-                recentView.focus = true
             }
         }
 
