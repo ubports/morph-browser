@@ -486,10 +486,26 @@ Item {
                               : i18n.tr("Camera allowed domains")
             }
 
+            ListItem {
+                id: noteLabel
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(1)
+                    rightMargin: units.gu(1)
+                    right: parent.right
+                    top: mediaAccessOriginsTitle.bottom
+                }
+
+                Label {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "Note: you will need to restart the application for any changes you make in this page to be applied"
+                }
+            }
+
             ListView {
                 objectName: "mediaAccessList"
                 anchors {
-                    top: mediaAccessOriginsTitle.bottom
+                    top: noteLabel.bottom
                     left: parent.left
                     right: parent.right
                     bottom: parent.bottom
