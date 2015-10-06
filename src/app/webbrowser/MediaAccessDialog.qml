@@ -27,6 +27,7 @@ Dialog {
     property var request
     property var allowAudio
     property var allowVideo
+    modal: false
 
     title: request.isForAudio && request.isForVideo ?
            i18n.tr("Allow this domain to use your camera and microphone ?") :
@@ -49,8 +50,7 @@ Dialog {
             text: i18n.tr("Yes")
             color: UbuntuColors.green
             onClicked: {
-                if (request.isForAudio) allowAudio = true
-                if (request.isForVideo) allowVideo = true
+                request.allow()
                 hide()
             }
         }
@@ -62,8 +62,7 @@ Dialog {
             text: i18n.tr("No")
             color: UbuntuColors.red
             onClicked: {
-                if (request.isForAudio) allowAudio = false
-                if (request.isForVideo) allowVideo = false
+                request.deny()
                 hide()
             }
         }

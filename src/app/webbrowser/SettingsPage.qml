@@ -384,7 +384,7 @@ Item {
                 id: mediaAccessTitle
 
                 onBack: mediaAccessItem.destroy()
-                text: i18n.tr("Allowed domains")
+                text: i18n.tr("Camera & microphone")
             }
 
             Flickable {
@@ -423,15 +423,6 @@ Item {
                     }
 
                     ListItems.Standard {
-                        objectName: "mediaAccess.audioOrigins"
-                        text: i18n.tr("Allowed domains")
-                        progression: true
-                        onClicked: {
-                            mediaAccessOriginsComponent.createObject(subpageContainer, {isAudio: true})
-                        }
-                    }
-
-                    ListItems.Standard {
                         text: i18n.tr("Camera")
                     }
 
@@ -448,116 +439,6 @@ Item {
                           SharedWebContext.sharedContext.defaultVideoCaptureDeviceId = id
                           settings.defaultVideoDevice = id
                         }
-                    }
-
-                    ListItems.Standard {
-                        objectName: "mediaAccess.videoOrigins"
-                        text: i18n.tr("Allowed domains")
-                        progression: true
-                        onClicked: {
-                            mediaAccessOriginsComponent.createObject(subpageContainer, {isAudio: false})
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    Component {
-        id: mediaAccessOriginsComponent
-
-        Item {
-            id: mediaAccessOriginsItem
-            objectName: "mediaAccessOriginsPage"
-            anchors.fill: parent
-
-            property bool isAudio: true
-
-            Rectangle {
-                anchors.fill: parent
-                color: "#f6f6f6"
-            }
-
-            SettingsPageHeader {
-                id: mediaAccessOriginsTitle
-
-                onBack: mediaAccessOriginsItem.destroy()
-                text: isAudio ? i18n.tr("Microphone allowed domains")
-                              : i18n.tr("Camera allowed domains")
-            }
-
-            ListItem {
-                id: noteLabel
-                anchors {
-                    left: parent.left
-                    leftMargin: units.gu(1)
-                    rightMargin: units.gu(1)
-                    right: parent.right
-                    top: mediaAccessOriginsTitle.bottom
-                }
-
-                Label {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: "Restart to save changes"
-                }
-            }
-
-            ListView {
-                objectName: "mediaAccessList"
-                anchors {
-                    top: noteLabel.bottom
-                    left: parent.left
-                    right: parent.right
-                    bottom: parent.bottom
-                }
-                clip: true
-
-                model: SortFilterModel {
-                    model: MediaAccessModel
-                    filter.property: "permissionsSet"
-                    filter.pattern: isAudio ? /a/ : /v/
-                    sort.property: "origin"
-                    sort.order: Qt.AscendingOrder
-                }
-
-                delegate: ListItem {
-                    objectName: "mediaAccessDelegate_" + index
-
-                    contentItem.anchors {
-                        leftMargin: units.gu(1)
-                        rightMargin: units.gu(1)
-                    }
-
-                    Label {
-                        objectName: "originLabel"
-                        text: model.origin
-                        anchors {
-                            left: parent.left
-                            verticalCenter: parent.verticalCenter
-                        }
-                    }
-
-                    Switch {
-                        objectName: "permissionSwitch"
-                        anchors {
-                            right: parent.right
-                            verticalCenter: parent.verticalCenter
-                        }
-                        checked: isAudio ? model.audio : model.video
-                        function trigger() {
-                            if (isAudio) MediaAccessModel.set(model.origin, !checked, undefined)
-                            else MediaAccessModel.set(model.origin, undefined, !checked)
-                        }
-                    }
-
-                    leadingActions: ListItemActions {
-                        actions: [
-                            Action {
-                                objectName: "leadingAction.delete"
-                                iconName: "delete"
-                                onTriggered: MediaAccessModel.unset(model.origin, isAudio, !isAudio)
-                            }
-                        ]
                     }
                 }
             }

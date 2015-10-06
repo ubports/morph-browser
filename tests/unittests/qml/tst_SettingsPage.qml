@@ -29,8 +29,6 @@ Item {
 
     property var settingsPage: settingsPageLoader.item
 
-    Component.onCompleted: MediaAccessModel.databasePath = ":memory:"
-
     Loader {
         id: settingsPageLoader
         anchors.fill: parent
@@ -72,23 +70,13 @@ Item {
             mouseRelease(item, center.x + dx, center.y)
         }
 
-        function populate() {
-            MediaAccessModel.set("no.video.only", undefined, false)
-            MediaAccessModel.set("no.audio.only", false, undefined)
-            MediaAccessModel.set("audio.video.ok", true, true)
-        }
-
         function init() {
             settingsPageLoader.active = true
             waitForRendering(settingsPageLoader.item)
-            populate()
         }
 
         function cleanup() {
             settingsPageLoader.active = false
-            MediaAccessModel.databasePath = ""
-            MediaAccessModel.databasePath = ":memory:"
-            compare(MediaAccessModel.count, 0)
         }
 
         function getListItems(name, itemName) {
@@ -123,52 +111,6 @@ Item {
         function goToMediaAccessPage() {
             activateSettingsItem("privacy", "privacySettings")
             return activateSettingsItem("privacy.mediaAccess", "mediaAccessSettings")
-        }
-
-        function test_permissions(data) {
-            var mediaAccessPage = goToMediaAccessPage()
-            var button = findChild(mediaAccessPage, "mediaAccess.%1Origins".arg(data.section))
-            clickItem(button)
-            var permissionsPage = findChild(settingsPage, "mediaAccessOriginsPage")
-            compare(permissionsPage.isAudio, data.section == "audio")
-
-            var list = findChild(permissionsPage, "mediaAccessList")
-            var items = getListItems("mediaAccessList", "mediaAccessDelegate")
-            compare(items.length, data.items.length)
-
-            for (var i = data.items.length - 1; i >= 0; i--) {
-                var item = data.items[i]
-                var listItem = items[i]
-                compare(findChild(listItem, "originLabel").text, item.origin)
-
-                var switchItem = findChild(listItem, "permissionSwitch")
-                compare(switchItem.checked, item.value)
-                clickItem(switchItem)
-                var newPermission = MediaAccessModel.get(item.origin)
-                compare(data.section == "audio" ? newPermission.audio :
-                                                  newPermission.video, !item.value)
-
-                swipeItemRight(listItem)
-                var removeIcon = findChild(listItem, "actionbutton_leadingAction.delete")
-                clickItem(removeIcon)
-                tryCompareFunction(function() { return list.model.count }, i, 5000)
-                newPermission = MediaAccessModel.get(item.origin)
-                compare(data.section == "audio" ? newPermission.audio :
-                                                  newPermission.video, undefined)
-            }
-        }
-
-        function test_permissions_data() {
-            return [
-                { section: "audio", items: [
-                    { origin: "audio.video.ok", value: true },
-                    { origin: "no.audio.only", value: false }
-                ]},
-                { section: "audio", items: [
-                    { origin: "audio.video.ok", value: true },
-                    { origin: "no.audio.only", value: false }
-                ]}
-            ]
         }
     }
 }

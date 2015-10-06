@@ -54,8 +54,6 @@ BrowserView {
     // tab objects (see http://pad.lv/1376433).
     readonly property int maxTabsToRestore: 10
 
-    Component.onCompleted: MediaAccessModel.databasePath = dataLocation + "/mediaAccess.sqlite"
-
     onTabsModelChanged: {
         if (incognito && privateTabsModelLoader.item) {
             browser.openUrlInNewTab("", true)
@@ -80,22 +78,6 @@ BrowserView {
     Connections {
         target: currentWebview
 
-        function askPermission(request) {
-            var dialog = PopupUtils.open(mediaAccessDialogComponent, null, {
-                request: request
-            });
-
-            dialog.visibleChanged.connect(function() {
-                if (dialog.request.isForAudio && dialog.allowAudio ||
-                    dialog.request.isForVideo && dialog.allowVideo) dialog.request.allow()
-                else dialog.request.deny()
-
-                MediaAccessModel.set(UrlUtils.extractHost(dialog.request.origin),
-                                     (dialog.request.isForAudio) ? dialog.allowAudio : undefined,
-                                     (dialog.request.isForVideo) ? dialog.allowVideo : undefined)
-            })
-        }
-
         /* Note that we are connecting the mediaAccessPermissionRequested signal
            on the current webview only because we want all the tabs that are not
            visible to automatically deny the request but emit the signal again
@@ -108,25 +90,8 @@ BrowserView {
            Oxide does not allow us to do this, since it denies the request as
            soon as we return from the signal handler if we took no action
            wihin it, and we have no acceptable way in QML to delay the return
-           from a signal handler. */
-        onMediaAccessPermissionRequested: {
-            var permissions = MediaAccessModel.get(UrlUtils.extractHost(request.origin))
-            if (request.isForAudio && request.isForVideo) {
-                // When isForAudio and isForVideo are true in the same request, Oxide
-                // does not provide a way to allow or deny these requests separately, so
-                // allow both if we have both permissions, otherwise ask permission again
-                // (which will be for both at the same time, so the user will have to make
-                // the choice explicitly)
-                if (permissions.audio === true && permissions.video === true) request.allow()
-                else if (permissions.audio === false && permissions.video === false) request.deny()
-                else askPermission(request)
-            } else {
-                var permission = (request.isForAudio) ? permissions.audio : permissions.video
-                if (permission === true) request.allow()
-                else if (permission === false) request.deny()
-                else askPermission(request)
-            }
-        }
+           from a signal handler without completely blocking the UI. */
+        onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request });
     }
 
     Component {
