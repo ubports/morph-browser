@@ -38,6 +38,8 @@
     has been granted to the origin, false if it has been denied, and undefined
     if no choice has been made by the user yet.
 
+    The rows are returned in no specific order.
+
     To simplify filtering using a QSortFilterProxyModel, an additional string
     role is provided for each row: \a MediaAccessModel::PermissionsSet
     This role will contain "a" if the audio permission has been set (i.e. either
@@ -258,13 +260,14 @@ void MediaAccessModel::set(const QString& origin, const QVariant& audio, const Q
 }
 
 /*!
-* \qmlmethod void set(url origin, bool unsetAudio, bool unsetVideo)
+* \qmlmethod void unset(url origin, bool unsetAudio, bool unsetVideo)
 * Unset access permissions for \a origin.
 *
 * If either \a unsetAudio or \a unsetVideo are true, the respective permission
 * record will be updated so that the permission will result unset (usually
 * causing the application to issue a new prompt to the user the next time access
-* is attempted to the media resource that was unset for \a origin)
+* is attempted to the media input device which permission was unset for
+* the \a origin)
 *
 * If this call causes both permissions to become unset, the record gets removed
 * entirely from the model.
