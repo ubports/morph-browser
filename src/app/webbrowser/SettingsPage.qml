@@ -498,7 +498,7 @@ Item {
 
                 Label {
                     anchors.verticalCenter: parent.verticalCenter
-                    text: "Note: you will need to restart the application for any changes you make in this page to be applied"
+                    text: "Restart to save changes"
                 }
             }
 
