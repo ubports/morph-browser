@@ -82,7 +82,7 @@ AbstractButton {
             source: Image {
                 id: previewImage
                 source: FileOperations.exists(previewShape.previewUrl) ? previewShape.previewUrl : ""
-                sourceSize.height: previewShape.height
+                sourceSize.width: previewShape.width
                 cache: false
             }
             sourceFillMode: UbuntuShape.PreserveAspectCrop
