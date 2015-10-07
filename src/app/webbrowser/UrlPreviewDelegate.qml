@@ -111,6 +111,7 @@ AbstractButton {
         ActionSelectionPopover {
             actions: ActionList {
                 Action {
+                    objectName: "delete"
                     text: i18n.tr("Remove")
                     onTriggered: preview.removed()
                 }

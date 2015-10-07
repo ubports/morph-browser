@@ -634,12 +634,13 @@ class UrlPreviewDelegate(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def hide_from_history(self, root):
         menu = root.open_item_context_menu_on_item(self,
                                                    "ActionSelectionPopover")
-        # Until bug http://pad.lv/1205144 gets fixed, we can't access context
-        # menu items by object name.
-        # This hack relies on the fact that for now we this context menu only
-        # has one item, so we just click it.
-        item = menu.wait_select_single("Empty")
-        self.pointing_device.click_object(item)
+
+        # Note: we can't still use the click_action_button method of
+        # ActionSelectionPopover's CPO, because it will crash if we delete the
+        # menu as a reaction to the click (which is the case here).
+        # However at least we can select the action button by objectName now.
+        delete_item = menu.wait_select_single(objectName="delete_button")
+        self.pointing_device.click_object(delete_item)
         menu.wait_until_destroyed()
 
 
