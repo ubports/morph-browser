@@ -54,8 +54,13 @@ BrowserView {
     // tab objects (see http://pad.lv/1376433).
     readonly property int maxTabsToRestore: 10
 
-    Component.onCompleted: {
-        HistoryModel.databasePath = dataLocation + "/history.sqlite"
+    // Schedule the loading of the history database when all current events in
+    // the event loop queue have been processed. This is to avoid to delay the
+    // initialization and rendering tasks which are at the beginning of the queue.
+    Timer {
+        interval: 1
+        running: true
+        onTriggered: HistoryModel.databasePath = dataLocation + "/history.sqlite"
     }
 
     onTabsModelChanged: {
