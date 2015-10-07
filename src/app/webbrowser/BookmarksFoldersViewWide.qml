@@ -34,7 +34,6 @@ FocusScope {
         if (internal.lastFocusedColumn &&
             internal.lastFocusedColumn == bookmarksList &&
             model.count > 0) {
-
             bookmarksList.forceActiveFocus()
         } else {
             folders.forceActiveFocus()
