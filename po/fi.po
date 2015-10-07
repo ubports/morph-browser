@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-10-02 23:28+0200\n"
-"PO-Revision-Date: 2015-09-05 08:54+0000\n"
-"Last-Translator: Jiri Grönroos <Unknown>\n"
+"PO-Revision-Date: 2015-10-06 17:50+0000\n"
+"Last-Translator: Timo Jyrinki <timo.jyrinki@canonical.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-10-03 05:37+0000\n"
-"X-Generator: Launchpad (build 17783)\n"
+"X-Launchpad-Export-Date: 2015-10-07 06:04+0000\n"
+"X-Generator: Launchpad (build 17802)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -104,14 +104,15 @@ msgstr "JavaScript-vahvistus"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
+"Valitse sovellus tiedoston avaamiseen tai tallenna se latauskansioon."
 
 #: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
-msgstr ""
+msgstr "Valitse sovellus"
 
 #: src/app/ContentDownloadDialog.qml:97
 msgid "Download"
-msgstr ""
+msgstr "Lataa"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -555,7 +556,7 @@ msgstr "Uusi välilehti"
 
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr ""
+msgstr "Lataukset"
 
 #: src/app/webbrowser/Browser.qml:409
 msgid "Leave Private Mode"
@@ -590,7 +591,7 @@ msgstr "Paina Esc poistuaksesi koko näytön tilasta"
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr ""
+msgstr "Vahvista valinta"
 
 #: src/app/webbrowser/HistoryView.qml:210
 #: src/app/webbrowser/HistoryViewWide.qml:418
@@ -599,7 +600,7 @@ msgstr "Poista"
 
 #: src/app/webbrowser/DownloadsPage.qml:207
 msgid "No downloads available"
-msgstr ""
+msgstr "Ei latauksia"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
@@ -658,7 +659,7 @@ msgstr "Kirjanmerkit"
 
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr "Lisää"
+msgstr "Enemmän"
 
 #: src/app/webbrowser/NewTabView.qml:226
 #: src/app/webbrowser/NewTabViewWide.qml:312
@@ -876,7 +877,7 @@ msgstr "Valitse tili"
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr ""
+msgstr "Hups, jokin meni pieleen."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
