@@ -821,12 +821,6 @@ BrowserView {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
-                onBookmarkEntryRemoved: {
-                    if (bookmarksModel.count == 1) {
-                        done()
-                    }
-                    browser.bookmarksModel.remove(url)
-                }
                 onDone: bookmarksViewLoader.active = false
             }
         }

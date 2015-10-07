@@ -28,7 +28,6 @@ FocusScope {
     property QtObject settingsObject
 
     signal bookmarkEntryClicked(url url)
-    signal bookmarkEntryRemoved(url url)
     signal done()
 
     Rectangle {
@@ -39,10 +38,13 @@ FocusScope {
     BookmarksFoldersViewWide {
         id: bookmarksFoldersViewWide
 
-        focus: true
-
         onBookmarkClicked: bookmarksViewWide.bookmarkEntryClicked(url)
-        onBookmarkRemoved: bookmarksViewWide.bookmarkEntryRemoved(url)
+        onBookmarkRemoved: {
+            if (bookmarksModel.count == 1) {
+                done()
+            }
+            bookmarksModel.remove(url)
+        }
  
         anchors {
             top: topBar.bottom
@@ -50,6 +52,8 @@ FocusScope {
             right: parent.right
             bottom: toolbar.top
         }
+
+        focus: true
 
         homeBookmarkUrl: bookmarksViewWide.settingsObject.homepage
     }
