@@ -27,7 +27,6 @@ FocusScope {
     property alias bookmarksModel: bookmarksFoldersView.model
 
     signal bookmarkEntryClicked(url url)
-    signal bookmarkEntryRemoved(url url)
     signal done()
 
     Rectangle {
@@ -50,7 +49,12 @@ FocusScope {
         focus: true
 
         onBookmarkClicked: bookmarksView.bookmarkEntryClicked(url)
-        onBookmarkRemoved: bookmarksView.bookmarkEntryRemoved(url)
+        onBookmarkRemoved: {
+            if (bookmarksModel.count == 1) {
+                done()
+            }
+            bookmarksModel.remove(url)
+        }
     }
 
     Toolbar {
