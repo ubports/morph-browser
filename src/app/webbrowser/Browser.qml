@@ -356,8 +356,7 @@ BrowserView {
             }
             Connections {
                 target: BookmarksModel
-                onAdded: if (!chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = true
-                onRemoved: if (chrome.bookmarked && (url === chrome.webview.url)) chrome.bookmarked = false
+                onCountChanged: chrome.bookmarked = chrome.isCurrentUrlBookmarked()
             }
 
             onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
