@@ -30,12 +30,6 @@ FocusScope {
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
 
-    onActiveFocusChanged: {
-        if (activeFocus) {
-            bookmarksFolderListView.forceActiveFocus()
-        }
-    }
-
     height: bookmarksFolderListView.contentHeight
 
     BookmarksFolderListModel {
@@ -46,6 +40,7 @@ FocusScope {
         id: bookmarksFolderListView
         anchors.fill: parent
         interactive: false
+        focus: true
 
         model: bookmarksFolderListModel
         delegate: Loader {
