@@ -238,8 +238,8 @@ FocusScope {
                     id: historyLastVisitDateModel
                     property date lastVisitDate
                     filter {
-                        property: "lastVisitDate"
-                        pattern: new RegExp(Qt.formatDate(lastVisitDate, "yyyy-MM-dd"))
+                        property: "lastVisitDateString"
+                        pattern: new RegExp(lastVisitDate.isValid() ? "^%1$".arg(Qt.formatDate(lastVisitDate, "yyyy-MM-dd")) : "")
                     }
                     // Until a valid HistoryModel is assigned the TextSearchFilterModel
                     // will not report role names, and the HistoryLastVisitDateListModel
