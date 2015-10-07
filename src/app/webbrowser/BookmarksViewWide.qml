@@ -21,7 +21,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
 
-Item {
+FocusScope {
     id: bookmarksViewWide
 
     property alias bookmarksModel: bookmarksFoldersViewWide.model
@@ -36,14 +36,10 @@ Item {
         color: "#f6f6f6"
     }
 
-    onActiveFocusChanged: {
-        if (activeFocus) {
-            bookmarksFoldersViewWide.forceActiveFocus()
-        }
-    }
-    
     BookmarksFoldersViewWide {
         id: bookmarksFoldersViewWide
+
+        focus: true
 
         onBookmarkClicked: bookmarksViewWide.bookmarkEntryClicked(url)
         onBookmarkRemoved: bookmarksViewWide.bookmarkEntryRemoved(url)

@@ -21,7 +21,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import webbrowserapp.private 0.1
 
-Item {
+FocusScope {
     id: bookmarksView
 
     property alias bookmarksModel: bookmarksFoldersView.model
@@ -35,12 +35,6 @@ Item {
         color: "#f6f6f6"
     }
 
-    onActiveFocusChanged: {
-        if (activeFocus) {
-            bookmarksFoldersView.forceActiveFocus()
-        }
-    }
-    
     BookmarksFoldersView {
         id: bookmarksFoldersView
 
@@ -53,6 +47,7 @@ Item {
         }
 
         interactive: true
+        focus: true
 
         onBookmarkClicked: bookmarksView.bookmarkEntryClicked(url)
         onBookmarkRemoved: bookmarksView.bookmarkEntryRemoved(url)
