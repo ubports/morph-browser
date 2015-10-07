@@ -317,7 +317,7 @@ private Q_SLOTS:
         QVERIFY(spy.isEmpty());
         QCOMPARE(model->rowCount(), 4);
 
-        QTest::ignoreMessage(QtWarningMsg, "Only QAbstractItemModel-derived instances are allowed as source models");
+        QTest::ignoreMessage(QtWarningMsg, "Only QAbstractItemModel-derived instances and null are allowed as source models");
         model->setSourceModel(0);
         QCOMPARE(spy.count(), 1);
         QVERIFY(!model->sourceModel().isValid());
@@ -330,7 +330,7 @@ private Q_SLOTS:
         QCOMPARE(model->sourceModel(), QVariant::fromValue(&timeframe2));
         QCOMPARE(model->rowCount(), 4);
 
-        QTest::ignoreMessage(QtWarningMsg, "Only QAbstractItemModel-derived instances are allowed as source models");
+        QTest::ignoreMessage(QtWarningMsg, "Only QAbstractItemModel-derived instances and null are allowed as source models");
         model->setSourceModel(QVariant::fromValue(QString("not a model")));
         QCOMPARE(spy.count(), 3);
         QVERIFY(!model->sourceModel().isValid());

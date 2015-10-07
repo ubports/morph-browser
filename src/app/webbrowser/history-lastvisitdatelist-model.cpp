@@ -87,8 +87,8 @@ void HistoryLastVisitDateListModel::setSourceModel(QVariant sourceModel)
 {
     QAbstractItemModel* newSourceModel = qvariant_cast<QAbstractItemModel*>(sourceModel);
     if (sourceModel.isValid() && (newSourceModel == 0) && !sourceModel.canConvert<void*>()) {
-        qWarning() << "Only QAbstractItemModel-derived instances are allowed as"
-                   << "source models";
+        qWarning() << "Only QAbstractItemModel-derived instances and null are"
+                   << "allowed as source models";
     }
 
     if (newSourceModel != m_sourceModel) {
