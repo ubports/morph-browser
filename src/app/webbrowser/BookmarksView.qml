@@ -25,6 +25,7 @@ FocusScope {
     id: bookmarksView
 
     property alias bookmarksModel: bookmarksFoldersView.model
+    property QtObject settingsObject
 
     signal bookmarkEntryClicked(url url)
     signal done()
@@ -47,6 +48,8 @@ FocusScope {
 
         interactive: true
         focus: true
+
+        homeBookmarkUrl: bookmarksView.settingsObject.homepage
 
         onBookmarkClicked: bookmarksView.bookmarkEntryClicked(url)
         onBookmarkRemoved: {

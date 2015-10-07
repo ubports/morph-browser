@@ -38,14 +38,6 @@ FocusScope {
     BookmarksFoldersViewWide {
         id: bookmarksFoldersViewWide
 
-        onBookmarkClicked: bookmarksViewWide.bookmarkEntryClicked(url)
-        onBookmarkRemoved: {
-            if (bookmarksModel.count == 1) {
-                done()
-            }
-            bookmarksModel.remove(url)
-        }
- 
         anchors {
             top: topBar.bottom
             left: parent.left
@@ -56,6 +48,14 @@ FocusScope {
         focus: true
 
         homeBookmarkUrl: bookmarksViewWide.settingsObject.homepage
+
+        onBookmarkClicked: bookmarksViewWide.bookmarkEntryClicked(url)
+        onBookmarkRemoved: {
+            if (bookmarksModel.count == 1) {
+                done()
+            }
+            bookmarksModel.remove(url)
+        }
     }
 
     Toolbar {

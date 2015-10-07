@@ -23,12 +23,31 @@ Column {
     id: urlsList
 
     property alias model: urlsListRepeater.model
+    property url defaultUrl
+    property string defaultUrlTitle
     property int limit: -1
 
     signal urlClicked(url url)
     signal urlRemoved(url url)
 
     spacing: units.gu(1)
+
+    Loader {
+        active: urlsList.defaultUrl.toString() != "" 
+        sourceComponent: UrlDelegate{
+            objectName: "defaultUrlDelegate"
+            
+            width: urlsList.width
+            height: units.gu(5)
+
+            leadingActions: null
+
+            title: urlsList.defaultUrlTitle
+            url: urlsList.defaultUrl
+
+            onClicked: urlsList.urlClicked(urlsList.defaultUrl)
+        }
+    }
 
     Repeater {
         id: urlsListRepeater

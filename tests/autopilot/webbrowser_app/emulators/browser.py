@@ -513,7 +513,7 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single("Button", objectName="bookmarks.moreButton")
 
     def get_homepage_bookmark(self):
-        return self.select_single(UrlDelegate, objectName="homepageBookmark")
+        return self.select_single(UrlDelegate, objectName="defaultUrlDelegate")
 
     def get_bookmarks_list(self):
         return self.select_single(UrlsList, objectName="bookmarksList")
