@@ -53,7 +53,6 @@ Item {
             left: parent.left
             right: parent.right
             bottom: toolbar.top
-            rightMargin: units.gu(2)
         }
 
         homeBookmarkUrl: bookmarksViewWide.settingsObject.homepage
