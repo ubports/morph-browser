@@ -25,6 +25,7 @@ import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
+import "../UrlUtils.js" as UrlUtils
 import ".."
 import "."
 
@@ -374,7 +375,6 @@ BrowserView {
                     objectName: "history"
                     text: i18n.tr("History")
                     iconName: "history"
-                    enabled: browser.historyModel
                     onTriggered: historyViewLoader.active = true
                 },
                 Action {
