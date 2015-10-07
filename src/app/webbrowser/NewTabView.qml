@@ -273,6 +273,7 @@ Item {
                     rightMargin: - units.gu(1.5)
                 }
                 height: childrenRect.height
+                clip: true
 
                 UrlPreviewGrid {
                     objectName: "topSitesList"
