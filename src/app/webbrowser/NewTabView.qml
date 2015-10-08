@@ -265,12 +265,12 @@ Item {
                     right: parent.right
 
                     // The UrlPreviewGrid's highlight extends to the left of the
-                    // grid itself by a small margin.
+                    // grid itself by a margin.
                     // Since we are clipping the parent we need to prevent the
                     // highlight from being clipped away at the left edge.
                     // We do this by shifting the parent left and the contents right
                     // by an amount equal to the highlight's margin.
-                    leftMargin: units.gu(2) - grid.rightMargin * 0.5
+                    leftMargin: units.gu(2) - grid.horizontalMargin
 
                     // The right margin should be 2gu, which is set on all cells
                     // of the UrlPreviewGrid already. However the parent Column
@@ -287,14 +287,14 @@ Item {
                     objectName: "topSitesList"
                     anchors {
                         left: parent.left
-                        leftMargin: grid.rightMargin * 0.5
+                        leftMargin: grid.horizontalMargin
                         right: parent.right
                         top: parent.top
                         topMargin: units.gu(2)
                     }
 
-                    rightMargin: units.gu(2)
-                    bottomMargin: units.gu(2)
+                    horizontalMargin: units.gu(1)
+                    verticalMargin: units.gu(1)
 
                     opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
                     Behavior on opacity { UbuntuNumberAnimation {} }

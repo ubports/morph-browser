@@ -26,8 +26,8 @@ GridView {
     id: grid
 
     property bool showFavicons: true
-    property int rightMargin: units.gu(6)
-    property int bottomMargin: units.gu(5)
+    property int horizontalMargin: units.gu(3)
+    property int verticalMargin: units.gu(2.5)
     property int previewWidth: units.gu(17)
     property int previewHeight: units.gu(10)
 
@@ -37,8 +37,8 @@ GridView {
 
     currentIndex: 0
 
-    cellWidth: previewWidth + rightMargin
-    cellHeight: previewHeight + bottomMargin + units.gu(4) // height of text + favicon + margin in delegate
+    cellWidth: previewWidth + horizontalMargin * 2
+    cellHeight: previewHeight + verticalMargin * 2 + units.gu(4) // height of text + favicon + margins in delegate
 
     implicitHeight: contentItem.childrenRect.height
 
@@ -64,10 +64,10 @@ GridView {
             visible: grid.activeFocus
             UbuntuShape {
                 anchors.fill: parent
-                anchors.leftMargin: - grid.rightMargin * 0.5
-                anchors.rightMargin: grid.rightMargin * 0.5
-                anchors.topMargin: - grid.bottomMargin * 0.5
-                anchors.bottomMargin: grid.bottomMargin * 0.5
+                anchors.leftMargin: - grid.horizontalMargin
+                anchors.rightMargin: grid.horizontalMargin
+                anchors.topMargin: - grid.verticalMargin
+                anchors.bottomMargin: grid.verticalMargin
                 aspect: UbuntuShape.Flat
                 backgroundColor: Qt.rgba(0, 0, 0, 0.05)
             }
