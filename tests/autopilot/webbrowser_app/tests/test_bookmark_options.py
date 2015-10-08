@@ -124,7 +124,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
-        self._assert_bookmark_count_in_folder(new_tab, "", 5)
+        self._assert_bookmark_count_in_folder(new_tab, "", 6)
 
     def test_save_bookmarked_url_in_existing_folder(self):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
@@ -234,9 +234,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self._assert_bookmark_count_in_folder(new_tab, "", 6)
 
-        index = 0
-        if self.main_window.wide:
-            index += 1
+        index = 1
         bookmark = new_tab.get_bookmarks("")[index]
         self.assertThat(bookmark.title, Equals("NewTitle"))
 
