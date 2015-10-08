@@ -95,7 +95,6 @@ class BrowserTestCaseBase(AutopilotTestCase):
         else:
             self.app = self.launch_test_installed()
         self.main_window.visible.wait_for(True)
-        return self.app
 
     def launch_test_local(self):
         return self.launch_test_application(
