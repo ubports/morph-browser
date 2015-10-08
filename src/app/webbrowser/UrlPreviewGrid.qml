@@ -81,8 +81,7 @@ GridView {
         grid.moveCurrentIndexLeft()
         if (i === grid.currentIndex) grid.releasingKeyboardFocus()
     }
-    Keys.onRightPressed: grid.moveCurrentIndexRight()
-    Keys.onDownPressed: grid.moveCurrentIndexDown()
+
     Keys.onUpPressed: {
         var i = grid.currentIndex
         grid.moveCurrentIndexUp()
