@@ -270,7 +270,7 @@ Item {
                     // has 1.5gu right margin, so we are compensating for that
                     // here instead of removing it from the Column itself and
                     // reassigning it to all Column children except this one.
-                    rightMargin: - units.gu(1.5)
+                    rightMargin: - contentColumn.anchors.rightMargin
                 }
                 height: childrenRect.height
                 clip: true
