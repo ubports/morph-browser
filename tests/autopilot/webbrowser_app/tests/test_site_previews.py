@@ -123,7 +123,7 @@ class TestSitePreviews(TestSitePreviewsBase):
         return cap
 
     def remove_top_site(self, new_tab_view, url):
-        top_sites = new_tab_view.get_top_sites_list()
+        top_sites = new_tab_view.get_top_site_items()
         top_sites = [d for d in top_sites if d.url == url]
         self.assertThat(len(top_sites), Equals(1))
         delegate = top_sites[0]
@@ -133,7 +133,7 @@ class TestSitePreviews(TestSitePreviewsBase):
         previous = self.main_window.get_current_webview().url
 
         # switching away from tab should save a capture
-        self.open_new_tab()
+        self.open_new_tab(open_tabs_view=True)
         self.assertThat(self.captures_dir,
                         DirContains([self.capture_file(previous)]))
 
@@ -146,7 +146,7 @@ class TestSitePreviews(TestSitePreviewsBase):
 
     def test_save_on_switch_tab_and_delete_if_not_topsite(self):
         previous = self.main_window.get_current_webview().url
-        new_tab_view = self.open_new_tab()
+        new_tab_view = self.open_new_tab(open_tabs_view=True)
         self.remove_top_site(new_tab_view, previous)
         self.close_tab(0)
         self.assertThat(lambda: self.file_in_dir(self.capture_file(previous),
@@ -156,10 +156,13 @@ class TestSitePreviews(TestSitePreviewsBase):
     def test_delete_when_tab_closed_and_removed_from_topsites(self):
         previous = self.main_window.get_current_webview().url
         capture = self.capture_file(previous)
-        new_tab_view = self.open_new_tab()
+        new_tab_view = self.open_new_tab(open_tabs_view=True)
         self.close_tab(0)
         time.sleep(0.5)  # wait for file system to settle
         self.assertThat(self.captures_dir, DirContains([capture]))
+
+        if not self.main_window.wide:
+            new_tab_view = self.open_new_tab(open_tabs_view=True)
         self.remove_top_site(new_tab_view, previous)
         self.assertThat(lambda: self.file_in_dir(capture, self.captures_dir),
                         Eventually(Equals(False)))

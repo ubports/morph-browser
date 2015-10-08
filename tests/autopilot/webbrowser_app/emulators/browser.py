@@ -570,11 +570,7 @@ class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_top_sites_list(self):
         self.go_to_section(0)
-        list = self.select_single(UrlPreviewGrid,
-                                  objectName="topSitesList")
-        return sorted(list.select_many("UrlPreviewDelegate",
-                      objectName="topSiteItem"),
-                      key=lambda delegate: delegate.globalRect.y)
+        return self.select_single(UrlPreviewGrid, objectName="topSitesList")
 
     def get_folders_list(self):
         self.go_to_section(1)
@@ -584,8 +580,7 @@ class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_top_site_items(self):
-        self.go_to_section(0)
-        return self.get_top_sites_list()
+        return self.get_top_sites_list().get_delegates()
 
     def get_bookmarks(self, folder_name):
         folders = self.get_folders_list()
