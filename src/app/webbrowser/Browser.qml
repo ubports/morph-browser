@@ -53,7 +53,7 @@ BrowserView {
     // tab objects (see http://pad.lv/1376433).
     readonly property int maxTabsToRestore: 10
 
-    // Hack to delay loading of the data from the DB so that it is out of the
+    // Delay loading of the data from the DB so that it is out of the
     // critical path for initialization and rendering of the main window.
     // An interval of 1ms will simply queue the code to run the next time
     // the main event loop is free
