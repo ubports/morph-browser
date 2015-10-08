@@ -255,7 +255,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(5)))
+                        Eventually(Equals(4)))
         bookmark = folders.get_urls_from_folder(folder_delegate)[0]
         url = bookmark.url
         self.pointing_device.click_object(bookmark)
@@ -266,9 +266,9 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         bookmarks = self.new_tab_view.get_bookmarks_list()
         top_sites = self.new_tab_view.get_top_sites_list()
         self.assertThat(top_sites.visible, Equals(True))
-        # When the bookmarks list is collapsed, it shows a maximum of 5 entries
+        # When the bookmarks list is collapsed, it shows a maximum of 4 entries
         self.assertThat(lambda: len(bookmarks.get_delegates()),
-                        Eventually(Equals(5)))
+                        Eventually(Equals(4)))
         # When expanded, it shows all entries
         more_button = self.new_tab_view.get_bookmarks_more_button()
         self.assertThat(more_button.visible, Equals(True))
@@ -277,23 +277,22 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(5)))
+                        Eventually(Equals(4)))
         self.assertThat(top_sites.visible, Eventually(Equals(False)))
         # Collapse again
         self.assertThat(more_button.visible, Equals(True))
         self.pointing_device.click_object(more_button)
         self.assertThat(lambda: len(bookmarks.get_delegates()),
-                        Eventually(Equals(5)))
+                        Eventually(Equals(4)))
         self.assertThat(top_sites.visible, Eventually(Equals(True)))
 
     def _remove_first_bookmark(self):
         bookmarks = self.new_tab_view.get_bookmarks_list()
-        # Ignore first url used by Homepage default bookmark
-        delegate = bookmarks.get_delegates()[1]
+        delegate = bookmarks.get_delegates()[0]
         url = delegate.url
         delegate.trigger_leading_action("leadingAction.delete",
                                         delegate.wait_until_destroyed)
-        self.assertThat(lambda: bookmarks.get_urls()[1],
+        self.assertThat(lambda: bookmarks.get_urls()[0],
                         Eventually(NotEquals(url)))
 
     def _remove_first_bookmark_from_folder(self, folder):
@@ -318,13 +317,13 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
     def test_remove_bookmarks_when_collapsed(self):
         bookmarks = self.new_tab_view.get_bookmarks_list()
         self.assertThat(lambda: len(bookmarks.get_delegates()),
-                        Eventually(Equals(5)))
+                        Eventually(Equals(4)))
         more_button = self.new_tab_view.get_bookmarks_more_button()
         for i in range(3):
             self._remove_first_bookmark()
             self.assertThat(more_button.visible, Eventually(Equals(i < 1)))
             self.assertThat(len(bookmarks.get_delegates()),
-                            Equals(5 if (i < 2) else 4))
+                            Equals(4 if (i < 2) else 3))
 
     def test_remove_bookmarks_when_expanded(self):
         more_button = self.new_tab_view.get_bookmarks_more_button()
@@ -334,7 +333,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(5)))
+                        Eventually(Equals(4)))
         more_button = self.new_tab_view.get_bookmarks_more_button()
         top_sites = self.new_tab_view.get_top_sites_list()
         self._toggle_bookmark_folder("Actinide")
@@ -354,7 +353,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(5)))
+                        Eventually(Equals(4)))
         self._toggle_bookmark_folder("Actinide")
         folder_delegate = folders.get_folder_delegate("Actinide")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
@@ -376,7 +375,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(5)))
+                        Eventually(Equals(4)))
         folder_delegate = folders.get_folder_delegate("Actinide")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
@@ -404,7 +403,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(5)))
+                        Eventually(Equals(4)))
         self._toggle_bookmark_folder("NobleGas")
         folder_delegate = folders.get_folder_delegate("NobleGas")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
@@ -421,7 +420,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(5)))
+                        Eventually(Equals(4)))
         self.pointing_device.click_object(
             folders.get_header_from_folder(folder_delegate))
         self.assertThat(lambda: len(folders.get_urls_from_folder(
@@ -431,7 +430,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
             folders.get_header_from_folder(folder_delegate))
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(5)))
+                        Eventually(Equals(4)))
 
     def test_remove_top_sites(self):
         top_sites = self.new_tab_view.get_top_sites_list()

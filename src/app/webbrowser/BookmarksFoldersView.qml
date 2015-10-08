@@ -26,7 +26,6 @@ FocusScope {
 
     property alias model: bookmarksFolderListModel.sourceModel 
     property alias interactive: bookmarksFolderListView.interactive
-    property url homeBookmarkUrl
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
@@ -148,8 +147,6 @@ FocusScope {
                             spacing: 0
 
                             model: entries
-                            defaultUrl: folderName ? "" : bookmarksFoldersViewItem.homeBookmarkUrl 
-                            defaultUrlTitle: folderName ? "" : i18n.tr('Homepage')
 
                             onUrlClicked: bookmarksFoldersViewItem.bookmarkClicked(url)
                             onUrlRemoved: bookmarksFoldersViewItem.bookmarkRemoved(url)

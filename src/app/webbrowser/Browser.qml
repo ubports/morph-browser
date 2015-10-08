@@ -801,8 +801,6 @@ BrowserView {
             BookmarksView {
                 anchors.fill: parent
 
-                settingsObject: settings
-
                 onBookmarkEntryClicked: {
                     browser.openUrlInNewTab(url, true)
                     done()

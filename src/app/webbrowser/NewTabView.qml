@@ -150,8 +150,6 @@ Item {
                 sourceComponent: BookmarksFoldersView {
                     model: newTabView.bookmarksModel 
 
-                    homeBookmarkUrl: newTabView.settingsObject.homepage
-
                     onBookmarkClicked: newTabView.bookmarkClicked(url)
                     onBookmarkRemoved: newTabView.bookmarkRemoved(url)
                 }
@@ -173,6 +171,22 @@ Item {
                 height: units.gu(5) * (Math.min(internal.bookmarksCountLimit, internal.numberOfBookmarks) + 1)
                 spacing: 0
 
+                UrlDelegate {
+                    objectName: "homepageBookmark"
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: units.gu(5)
+
+                    title: i18n.tr('Homepage')
+
+                    leadingActions: null
+
+                    url: newTabView.settingsObject.homepage
+                    onClicked: newTabView.bookmarkClicked(url)
+                }
+
                 UrlsList {
                     objectName: "bookmarksList"
                     anchors {
@@ -184,8 +198,6 @@ Item {
                     limit: internal.bookmarksCountLimit
 
                     model: newTabView.bookmarksModel
-                    defaultUrl: newTabView.settingsObject.homepage
-                    defaultUrlTitle: i18n.tr('Homepage')
 
                     onUrlClicked: newTabView.bookmarkClicked(url)
                     onUrlRemoved: newTabView.bookmarkRemoved(url)
