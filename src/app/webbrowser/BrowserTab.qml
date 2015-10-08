@@ -40,8 +40,6 @@ FocusScope {
     property url preview
     property bool current: false
     property bool incognito
-    property LimitProxyModel topSites
-    signal cachedPreviewUpdated(url url)
 
     Connections {
         target: PreviewManager
