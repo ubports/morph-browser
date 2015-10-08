@@ -126,8 +126,8 @@ FocusScope {
             }
 
             if (url.toString().length === 0) {
-                visible = false;
-                return;
+                visible = false
+                return
             }
 
             internal.hiding = true
