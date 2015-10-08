@@ -255,7 +255,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(4)))
+                        Eventually(Equals(5)))
         bookmark = folders.get_urls_from_folder(folder_delegate)[0]
         url = bookmark.url
         self.pointing_device.click_object(bookmark)
@@ -277,7 +277,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(4)))
+                        Eventually(Equals(5)))
         self.assertThat(top_sites.visible, Eventually(Equals(False)))
         # Collapse again
         self.assertThat(more_button.visible, Equals(True))
@@ -333,7 +333,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(4)))
+                        Eventually(Equals(5)))
         more_button = self.new_tab_view.get_bookmarks_more_button()
         top_sites = self.new_tab_view.get_top_sites_list()
         self._toggle_bookmark_folder("Actinide")
@@ -353,7 +353,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(4)))
+                        Eventually(Equals(5)))
         self._toggle_bookmark_folder("Actinide")
         folder_delegate = folders.get_folder_delegate("Actinide")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
@@ -375,7 +375,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(4)))
+                        Eventually(Equals(5)))
         folder_delegate = folders.get_folder_delegate("Actinide")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
@@ -403,7 +403,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(4)))
+                        Eventually(Equals(5)))
         self._toggle_bookmark_folder("NobleGas")
         folder_delegate = folders.get_folder_delegate("NobleGas")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
@@ -420,7 +420,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         folder_delegate = folders.get_folder_delegate("")
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(4)))
+                        Eventually(Equals(5)))
         self.pointing_device.click_object(
             folders.get_header_from_folder(folder_delegate))
         self.assertThat(lambda: len(folders.get_urls_from_folder(
