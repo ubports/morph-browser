@@ -430,7 +430,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
             folders.get_header_from_folder(folder_delegate))
         self.assertThat(lambda: len(folders.get_urls_from_folder(
                                     folder_delegate)),
-                        Eventually(Equals(4)))
+                        Eventually(Equals(5)))
 
     def test_remove_top_sites(self):
         top_sites = self.new_tab_view.get_top_sites_list()
