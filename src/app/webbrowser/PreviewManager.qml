@@ -19,6 +19,7 @@
 pragma Singleton
 
 import QtQuick 2.4
+import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 
 Item {
