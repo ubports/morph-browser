@@ -288,11 +288,12 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
 
     def _remove_first_bookmark(self):
         bookmarks = self.new_tab_view.get_bookmarks_list()
-        delegate = bookmarks.get_delegates()[0]
+        # Ignore first url used by Homepage default bookmark
+        delegate = bookmarks.get_delegates()[1]
         url = delegate.url
         delegate.trigger_leading_action("leadingAction.delete",
                                         delegate.wait_until_destroyed)
-        self.assertThat(lambda: bookmarks.get_urls()[0],
+        self.assertThat(lambda: bookmarks.get_urls()[1],
                         Eventually(NotEquals(url)))
 
     def _remove_first_bookmark_from_folder(self, folder):
@@ -303,7 +304,7 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
         count = len(folders.get_urls_from_folder(folder_delegate))
         delegate.trigger_leading_action("leadingAction.delete",
                                         delegate.wait_until_destroyed)
-        if ((count - 1) > 5):
+        if ((count - 1) > 4):
             self.assertThat(
                 lambda: folders.get_urls_from_folder(folder_delegate)[0],
                 Eventually(NotEquals(url)))
