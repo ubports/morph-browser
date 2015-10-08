@@ -634,6 +634,7 @@ class UrlPreviewDelegate(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         # ActionSelectionPopover's CPO, because it will crash if we delete the
         # menu as a reaction to the click (which is the case here).
         # However at least we can select the action button by objectName now.
+        # See bug http://pad.lv/1504189
         delete_item = menu.wait_select_single(objectName="delete_button")
         self.pointing_device.click_object(delete_item)
         menu.wait_until_destroyed()
