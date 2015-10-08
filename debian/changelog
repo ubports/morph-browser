@@ -1,3 +1,14 @@
+webbrowser-app (0.23+15.10.20151005-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Add apparmor profile to run webbrowser-app confined. (LP: #1356516)
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 05 Oct 2015 09:49:24 +0000
+
 webbrowser-app (0.23+15.10.20151002.1-0ubuntu1) wily; urgency=medium
 
   [ Alexandre Abreu ]
