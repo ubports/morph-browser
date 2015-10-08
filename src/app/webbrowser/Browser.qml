@@ -60,7 +60,12 @@ BrowserView {
     Timer {
         interval: 1
         running: true
-        onTriggered: HistoryModel.databasePath = dataLocation + "/history.sqlite"
+        onTriggered: {
+            HistoryModel.databasePath = dataLocation + "/history.sqlite"
+            // Note that the property setter for databasePath won't return until
+            // the entire model has been loaded, so it is safe to call this here
+            internal.initialCapturesCleanup()
+        }
     }
 
     onTabsModelChanged: {
@@ -1219,6 +1224,24 @@ BrowserView {
     QtObject {
         id: internal
 
+        property bool sessionRestoreComplete: false
+        function initialCapturesCleanup() {
+            // We can only proceed with the cleanup of up the previews only when:
+            // - all the tabs that needed to be opened at startup have been opened
+            // - the history model has been loaded so we can access the top sites
+            if (HistoryModel.databasePath === "" || !sessionRestoreComplete) return;
+            PreviewManager.cleanUnusedPreviews(getOpenPages())
+        }
+
+        function getOpenPages() {
+            var urls = [];
+            for (var i = 0; i < tabsModel.count; i++) {
+                var url = tabsModel.get(i).url
+                if (url.length > 0) urls.push(url) // exclude "new tab" tabs
+            }
+            return urls;
+        }
+
         function instantiateShareComponent() {
             var component = Qt.createComponent("../Share.qml")
             if (component.status == Component.Ready) {
@@ -1492,8 +1515,6 @@ BrowserView {
                 session.restore()
             }
 
-            PreviewManager.cleanUnusedPreviews(browser.initialUrls)
-
             // Sanity check
             console.assert(tabsModel.count <= browser.maxTabsToRestore,
                            "WARNING: too many tabs were restored")
@@ -1507,6 +1528,9 @@ BrowserView {
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
                 internal.focusAddressBar()
             }
+
+            internal.sessionRestoreComplete = true
+            internal.initialCapturesCleanup()
         }
     }
 
