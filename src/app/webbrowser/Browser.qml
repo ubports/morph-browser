@@ -54,20 +54,6 @@ BrowserView {
     // tab objects (see http://pad.lv/1376433).
     readonly property int maxTabsToRestore: 10
 
-    // Schedule the loading of the history database when all current events in
-    // the event loop queue have been processed. This is to avoid to delay the
-    // initialization and rendering tasks which are at the beginning of the queue.
-    Timer {
-        interval: 1
-        running: true
-        onTriggered: {
-            HistoryModel.databasePath = dataLocation + "/history.sqlite"
-            // Note that the property setter for databasePath won't return until
-            // the entire model has been loaded, so it is safe to call this here
-            internal.initialCapturesCleanup()
-        }
-    }
-
     onTabsModelChanged: {
         if (incognito && privateTabsModelLoader.item) {
             browser.openUrlInNewTab("", true)
@@ -1224,15 +1210,6 @@ BrowserView {
     QtObject {
         id: internal
 
-        property bool sessionRestoreComplete: false
-        function initialCapturesCleanup() {
-            // We can only proceed with the cleanup of up the previews only when:
-            // - all the tabs that needed to be opened at startup have been opened
-            // - the history model has been loaded so we can access the top sites
-            if (HistoryModel.databasePath === "" || !sessionRestoreComplete) return;
-            PreviewManager.cleanUnusedPreviews(getOpenPages())
-        }
-
         function getOpenPages() {
             var urls = [];
             for (var i = 0; i < tabsModel.count; i++) {
@@ -1505,8 +1482,18 @@ BrowserView {
         }
     }
 
-    // Delay instantiation of the first webview by 1 msec to allow initial
-    // rendering to happen. Clumsy workaround for http://pad.lv/1359911.
+    // Schedule various expensive tasks to a point after the initialization and
+    // first rendering of the application have already happened.
+    //
+    // Scheduling a Timer with the shortest non-zero interval possible (1ms) will
+    // effectively queue its onTriggered function to run immediately after anything
+    // that is currently in the event loop queue at the moment the Timer starts.
+    //
+    // The tasks are:
+    // - creating the webviews for all initial tabs. This should ideally be done
+    //   asynchronously via object incubation, but http://pad.lv/1359911 prevents it
+    // - loading the HistoryModel from the database
+    // - deleting any page screenshots that are no longer needed
     Timer {
         running: true
         interval: 1
@@ -1529,8 +1516,10 @@ BrowserView {
                 internal.focusAddressBar()
             }
 
-            internal.sessionRestoreComplete = true
-            internal.initialCapturesCleanup()
+            HistoryModel.databasePath = dataLocation + "/history.sqlite"
+            // Note that the property setter for databasePath won't return until
+            // the entire model has been loaded, so it is safe to call this here
+            PreviewManager.cleanUnusedPreviews(internal.getOpenPages())
         }
     }
 
