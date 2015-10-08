@@ -26,6 +26,7 @@ FocusScope {
 
     property alias model: bookmarksFolderListModel.sourceModel 
     property alias interactive: bookmarksFolderListView.interactive
+    property url homeBookmarkUrl
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
@@ -140,16 +141,47 @@ FocusScope {
                             right: parent.right
                         }
 
+                        height: item ? item.contentHeight : 0
+
                         visible: status == Loader.Ready
 
                         active: delegateColumn.expanded
-                        sourceComponent: UrlsList {
-                            spacing: 0
+                        sourceComponent: ListView {
+                            property bool isAllBookmarksFolder: folder === ""
 
-                            model: entries
+                            interactive: false
 
-                            onUrlClicked: bookmarksFoldersViewItem.bookmarkClicked(url)
-                            onUrlRemoved: bookmarksFoldersViewItem.bookmarkRemoved(url)
+                            model: {
+                                var items = []
+                                if (isAllBookmarksFolder) {
+                                    items.push({
+                                        title: i18n.tr("Homepage"),
+                                        url: bookmarksFoldersViewItem.homeBookmarkUrl
+                                    })
+                                }
+                                for (var i = 0; i < entries.count; i++) {
+                                    items.push(entries.get(i))
+                                }
+                                return items
+                            }
+
+                            delegate: UrlDelegate{
+                                id: urlDelegate
+
+                                property bool isHomeBookmark: folder === "" && index === 0
+
+                                width: parent.width
+                                height: units.gu(5)
+
+                                removable: !isHomeBookmark
+
+                                icon: modelData.icon ? modelData.icon : ""
+                                title: modelData.title ? modelData.title : modelData.url
+                                url: modelData.url
+
+                                onClicked: bookmarksFoldersViewItem.bookmarkClicked(url)
+                                onRemoved: bookmarksFoldersViewItem.bookmarkRemoved(url)
+                            }
                         }
                     }
                 }

@@ -29,6 +29,8 @@ ListItem {
 
     property alias headerComponent: headerComponentLoader.sourceComponent
 
+    property bool removable: true
+
     divider.visible: false
 
     signal removed()
@@ -83,13 +85,19 @@ ListItem {
         }
     }
 
-    leadingActions: ListItemActions {
-        actions: [
-            Action {
-                objectName: "leadingAction.delete"
-                iconName: "delete"
-                onTriggered: urlDelegate.removed()
-            }
-        ]
+    QtObject {
+        id: internal
+
+        property var listActions: ListItemActions {
+            actions: [
+                Action {
+                    objectName: "leadingAction.delete"
+                    iconName: "delete"
+                    onTriggered: urlDelegate.removed()
+                }
+            ]
+        }
     }
+
+    leadingActions: removable ? internal.listActions : null
 }
