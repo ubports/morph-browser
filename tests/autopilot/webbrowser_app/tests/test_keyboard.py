@@ -321,6 +321,18 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Escape')
         history_view.wait_until_destroyed()
 
+    def test_new_tab_from_history_view(self):
+        self.assertThat(self.main_window.get_history_view(), Equals(None))
+        self.open_history()
+        history_view = self.main_window.get_history_view()
+        self.assertThat(history_view.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+T')
+        history_view.wait_until_destroyed()
+
+        new_tab_view = self.main_window.get_new_tab_view()
+        self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
+
     def test_escape_settings(self):
         settings = self.open_settings()
         self.main_window.press_key('Escape')

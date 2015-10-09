@@ -1693,13 +1693,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_T
-            enabled: chrome.visible || recentView.visible || bookmarksViewLoader.active
+            enabled: chrome.visible || recentView.visible || bookmarksViewLoader.active || historyViewLoader.active
             onTriggered: {
                 openUrlInNewTab("", true)
                 if (recentView.visible) recentView.reset()
-                if (bookmarksViewLoader.active) {
-                    bookmarksViewLoader.active = false
-                }
+
+                bookmarksViewLoader.active = false
+                historyViewLoader.active = false
             }
         }
 
