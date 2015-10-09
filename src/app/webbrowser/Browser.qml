@@ -1681,13 +1681,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_W
-            enabled: chrome.visible || recentView.visible
+            enabled: !bookmarksViewLoader.active && (chrome.visible || recentView.visible)
             onTriggered: internal.closeCurrentTab()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F4
-            enabled: chrome.visible || recentView.visible
+            enabled: !bookmarksViewLoader.active && (chrome.visible || recentView.visible)
             onTriggered: internal.closeCurrentTab()
         }
 
@@ -1695,7 +1695,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_T
-            enabled: chrome.visible || recentView.visible
+            enabled: !bookmarksViewLoader.active && (chrome.visible || recentView.visible)
             onTriggered: {
                 openUrlInNewTab("", true)
                 if (recentView.visible) recentView.reset()
