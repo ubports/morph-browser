@@ -1749,12 +1749,12 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Left
-            enabled: chrome.visible
+            enabled: chrome.visible && !bookmarksViewLoader.active
             onTriggered: internal.historyGoBack()
         }
         KeyboardShortcut {
             key: Qt.Key_Backspace
-            enabled: chrome.visible
+            enabled: chrome.visible && !bookmarksViewLoader.active
             onTriggered: internal.historyGoBack()
         }
 
@@ -1762,13 +1762,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Right
-            enabled: chrome.visible
+            enabled: chrome.visible && !bookmarksViewLoader.active
             onTriggered: internal.historyGoForward()
         }
         KeyboardShortcut {
             modifiers: Qt.ShiftModifier
             key: Qt.Key_Backspace
-            enabled: chrome.visible
+            enabled: chrome.visible && !bookmarksViewLoader.active
             onTriggered: internal.historyGoForward()
         }
 
