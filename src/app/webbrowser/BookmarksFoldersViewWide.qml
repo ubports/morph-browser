@@ -19,6 +19,7 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import webbrowserapp.private 0.1
+import "BookmarksModelUtils.js" as BookmarksModelUtils
 
 FocusScope {
     id: bookmarksFoldersViewWideItem
@@ -139,27 +140,20 @@ FocusScope {
             }
         }
 
-        // Build a temporary model for the bookmarks list that includes, when
-        // necessary, the homepage bookmark as a fixed first item in the list
         model: {
-            if (!folders.currentItem || !folders.currentItem.model) {
+            if (!folders.currentItem) {
                 return null
             }
 
-            var items = []
             if (folders.currentItem.isAllBookmarksFolder) {
-                items.push({
+                return BookmarksModelUtils.createUrlsListModel(folders.currentItem.model, {
                     title: i18n.tr("Homepage"),
                     url: bookmarksFoldersViewWideItem.homeBookmarkUrl,
                     folder: ""
                 })
             }
-
-            for (var i = 0; i < folders.currentItem.model.count; i++) {
-                items.push(folders.currentItem.model.get(i))
-            }
-
-            return items
+            
+            return BookmarksModelUtils.createUrlsListModel(folders.currentItem.model)
         }
 
         currentIndex: 0

@@ -20,6 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItem
 import webbrowserapp.private 0.1
+import "BookmarksModelUtils.js" as BookmarksModelUtils
 
 FocusScope {
     id: bookmarksFoldersViewItem
@@ -152,17 +153,14 @@ FocusScope {
                             interactive: false
 
                             model: {
-                                var items = []
                                 if (isAllBookmarksFolder) {
-                                    items.push({
+                                    return BookmarksModelUtils.createUrlsListModel(entries, {
                                         title: i18n.tr("Homepage"),
                                         url: bookmarksFoldersViewItem.homeBookmarkUrl
                                     })
                                 }
-                                for (var i = 0; i < entries.count; i++) {
-                                    items.push(entries.get(i))
-                                }
-                                return items
+
+                                return BookmarksModelUtils.createUrlsListModel(entries)
                             }
 
                             delegate: UrlDelegate{
