@@ -1651,7 +1651,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Tab
-            enabled: chrome.visible || recentView.visible
+            enabled: !bookmarksViewLoader.active && (chrome.visible || recentView.visible)
             onTriggered: {
                 if (browser.wide) {
                     internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count)
@@ -1666,7 +1666,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Backtab
-            enabled: chrome.visible || recentView.visible
+            enabled: !bookmarksViewLoader.active && (chrome.visible || recentView.visible)
             onTriggered: {
                 if (browser.wide) {
                     internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count)
