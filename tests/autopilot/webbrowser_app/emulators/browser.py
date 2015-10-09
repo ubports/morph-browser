@@ -167,9 +167,9 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_bookmarks_view(self):
         try:
             if self.wide:
-                return self.select_single(BookmarksViewWide)
+                return self.select_single("BookmarksViewWide")
             else:
-                return self.select_single(BookmarksView)
+                return self.select_single("BookmarksView")
         except exceptions.StateNotFoundError:
             return None
 
@@ -664,16 +664,6 @@ class BookmarksFoldersView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_header_from_folder(self, folder):
         return folder.wait_select_single("QQuickItem",
                                          objectName="bookmarkFolderHeader")
-
-
-class BookmarksView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-
-    pass
-
-
-class BookmarksViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
-
-    pass
 
 
 class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):
