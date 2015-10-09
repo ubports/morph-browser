@@ -1725,7 +1725,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_D
-            enabled: chrome.visible
+            enabled: chrome.visible && !bookmarksViewLoader.active
             onTriggered: {
                 if (currentWebview) {
                     if (bookmarksModel.contains(currentWebview.url)) {
