@@ -1745,6 +1745,14 @@ BrowserView {
             onTriggered: historyViewLoader.active = true
         }
 
+        // Ctrl+Shift+O: Show Bookmarks
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_O
+            enabled: chrome.visible
+            onTriggered: bookmarksViewLoader.active = true
+        }
+
         // Alt+← or Backspace: Goes to the previous page in history
         KeyboardShortcut {
             modifiers: Qt.AltModifier
