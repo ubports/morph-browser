@@ -234,8 +234,7 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self._assert_bookmark_count_in_folder(new_tab, "", 6)
 
-        index = 1
-        bookmark = new_tab.get_bookmarks("")[index]
+        bookmark = new_tab.get_bookmarks("")[1]
         self.assertThat(bookmark.title, Equals("NewTitle"))
 
     def test_bookmark_options_from_contextual_menu(self):
