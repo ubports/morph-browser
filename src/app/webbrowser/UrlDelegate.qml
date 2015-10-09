@@ -85,19 +85,16 @@ ListItem {
         }
     }
 
-    QtObject {
-        id: internal
-
-        property var listActions: ListItemActions {
-            actions: [
-                Action {
-                    objectName: "leadingAction.delete"
-                    iconName: "delete"
-                    onTriggered: urlDelegate.removed()
-                }
-            ]
-        }
+    ListItemActions {
+        id: listItemActions
+        actions: [
+            Action {
+                objectName: "leadingAction.delete"
+                iconName: "delete"
+                onTriggered: urlDelegate.removed()
+            }
+        ]
     }
 
-    leadingActions: removable ? internal.listActions : null
+    leadingActions: removable ? listItemActions : null
 }
