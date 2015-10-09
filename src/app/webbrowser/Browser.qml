@@ -141,7 +141,7 @@ BrowserView {
 
     FocusScope {
         anchors.fill: parent
-        visible: !settingsContainer.visible && !historyViewLoader.active
+        visible: !settingsContainer.visible && !historyViewLoader.active && !bookmarksViewLoader.active
 
         TabChrome {
             id: invisibleTabChrome
@@ -1651,7 +1651,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Tab
-            enabled: !bookmarksViewLoader.active && (chrome.visible || recentView.visible)
+            enabled: chrome.visible || recentView.visible
             onTriggered: {
                 if (browser.wide) {
                     internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count)
@@ -1666,7 +1666,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Backtab
-            enabled: !bookmarksViewLoader.active && (chrome.visible || recentView.visible)
+            enabled: chrome.visible || recentView.visible
             onTriggered: {
                 if (browser.wide) {
                     internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count)
@@ -1681,13 +1681,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_W
-            enabled: !bookmarksViewLoader.active && (chrome.visible || recentView.visible)
+            enabled: chrome.visible || recentView.visible
             onTriggered: internal.closeCurrentTab()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F4
-            enabled: !bookmarksViewLoader.active && (chrome.visible || recentView.visible)
+            enabled: chrome.visible || recentView.visible
             onTriggered: internal.closeCurrentTab()
         }
 
@@ -1695,7 +1695,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_T
-            enabled: !bookmarksViewLoader.active && (chrome.visible || recentView.visible)
+            enabled: chrome.visible || recentView.visible
             onTriggered: {
                 openUrlInNewTab("", true)
                 if (recentView.visible) recentView.reset()
@@ -1706,18 +1706,18 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_L
-            enabled: chrome.visible && !bookmarksViewLoader.active
+            enabled: chrome.visible
             onTriggered: internal.focusAddressBar(true)
         }
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_D
-            enabled: chrome.visible && !bookmarksViewLoader.active
+            enabled: chrome.visible
             onTriggered: internal.focusAddressBar(true)
         }
         KeyboardShortcut {
             key: Qt.Key_F6
-            enabled: chrome.visible && !bookmarksViewLoader.active
+            enabled: chrome.visible
             onTriggered: internal.focusAddressBar(true)
         }
 
@@ -1725,7 +1725,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_D
-            enabled: chrome.visible && !bookmarksViewLoader.active
+            enabled: chrome.visible
             onTriggered: {
                 if (currentWebview) {
                     if (bookmarksModel.contains(currentWebview.url)) {
@@ -1757,12 +1757,12 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Left
-            enabled: chrome.visible && !bookmarksViewLoader.active
+            enabled: chrome.visible
             onTriggered: internal.historyGoBack()
         }
         KeyboardShortcut {
             key: Qt.Key_Backspace
-            enabled: chrome.visible && !bookmarksViewLoader.active
+            enabled: chrome.visible
             onTriggered: internal.historyGoBack()
         }
 
@@ -1770,26 +1770,26 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_Right
-            enabled: chrome.visible && !bookmarksViewLoader.active
+            enabled: chrome.visible
             onTriggered: internal.historyGoForward()
         }
         KeyboardShortcut {
             modifiers: Qt.ShiftModifier
             key: Qt.Key_Backspace
-            enabled: chrome.visible && !bookmarksViewLoader.active
+            enabled: chrome.visible
             onTriggered: internal.historyGoForward()
         }
 
         // F5 or Ctrl+R: Reload current Tab
         KeyboardShortcut {
             key: Qt.Key_F5
-            enabled: chrome.visible && !bookmarksViewLoader.active
+            enabled: chrome.visible
             onTriggered: if (currentWebview) currentWebview.reload()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_R
-            enabled: chrome.visible && !bookmarksViewLoader.active
+            enabled: chrome.visible
             onTriggered: if (currentWebview) currentWebview.reload()
         }
 
