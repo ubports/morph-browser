@@ -85,10 +85,10 @@ FocusScope {
             objectName: "folderItem"
 
             property alias name: dropArea.folderName
-            property bool isActiveFolder: ListView.isCurrentItem
-            property bool isAllBookmarksFolder: folder.length === 0
-            property bool isCurrentDropTarget: dropArea.containsDrag && dropArea.drag.source.folder !== folder
             property var model: entries
+            readonly property bool isActiveFolder: ListView.isCurrentItem
+            readonly property bool isAllBookmarksFolder: folder.length === 0
+            readonly property bool isCurrentDropTarget: dropArea.containsDrag && dropArea.drag.source.folder !== folder
 
             color: isCurrentDropTarget ? "green" :
                    ((folders.activeFocus && isActiveFolder) ? Qt.rgba(0, 0, 0, 0.05) : "transparent")
@@ -168,7 +168,7 @@ FocusScope {
             objectName: "bookmarkItem"
 
             property string folder: modelData.folder
-            property bool isHomeBookmark: folder === "" && index === 0
+            readonly property bool isHomeBookmark: folder === "" && index === 0
 
             clip: true
             title: modelData.title

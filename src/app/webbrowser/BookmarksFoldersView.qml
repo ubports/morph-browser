@@ -147,7 +147,7 @@ FocusScope {
 
                         active: delegateColumn.expanded
                         sourceComponent: ListView {
-                            property bool isAllBookmarksFolder: folder === ""
+                            readonly property bool isAllBookmarksFolder: folder === ""
 
                             interactive: false
 
@@ -168,7 +168,7 @@ FocusScope {
                             delegate: UrlDelegate{
                                 id: urlDelegate
 
-                                property bool isHomeBookmark: isAllBookmarksFolder && index === 0
+                                readonly property bool isHomeBookmark: isAllBookmarksFolder && index === 0
 
                                 width: parent.width
                                 height: units.gu(5)
