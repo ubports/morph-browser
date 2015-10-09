@@ -171,7 +171,7 @@ FocusScope {
                                 width: parent.width
                                 height: units.gu(5)
 
-                                removable: isAllBookmarksFolder && index === 0
+                                removable: !isAllBookmarksFolder || index !== 0
 
                                 icon: modelData.icon ? modelData.icon : ""
                                 title: modelData.title ? modelData.title : modelData.url
