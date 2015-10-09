@@ -1789,7 +1789,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
-            enabled: !newTabViewLoader.active
+            enabled: !newTabViewLoader.active && !bookmarksViewLoader.active
             onTriggered: {
                 chrome.findInPageMode = true
                 chrome.focus = true
