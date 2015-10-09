@@ -25,7 +25,7 @@ FocusScope {
     id: bookmarksViewWide
 
     property alias bookmarksModel: bookmarksFoldersViewWide.model
-    property QtObject settingsObject
+    property alias homepageUrl: bookmarksFoldersViewWide.homeBookmarkUrl
 
     signal bookmarkEntryClicked(url url)
     signal done()
@@ -46,8 +46,6 @@ FocusScope {
         }
 
         focus: true
-
-        homeBookmarkUrl: bookmarksViewWide.settingsObject.homepage
 
         onBookmarkClicked: bookmarksViewWide.bookmarkEntryClicked(url)
         onBookmarkRemoved: {

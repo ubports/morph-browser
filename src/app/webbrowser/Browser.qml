@@ -801,7 +801,7 @@ BrowserView {
             BookmarksView {
                 anchors.fill: parent
 
-                settingsObject: settings
+                homepageUrl: settings.homepage
 
                 onBookmarkEntryClicked: {
                     browser.openUrlInNewTab(url, true)
@@ -817,7 +817,7 @@ BrowserView {
             BookmarksViewWide {
                 anchors.fill: parent
 
-                settingsObject: settings
+                homepageUrl: settings.homepage
 
                 onBookmarkEntryClicked: {
                     browser.openUrlInNewTab(url, true)
