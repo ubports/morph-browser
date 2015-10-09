@@ -162,6 +162,17 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.wait_select_single("Dialog",
                                        objectName="newFolderDialog")
 
+    # The bookmarks view is dynamically created, so it might or might not be
+    # available
+    def get_bookmarks_view(self):
+        try:
+            if self.wide:
+                return self.select_single(BookmarksViewWide)
+            else:
+                return self.select_single(BookmarksView)
+        except exceptions.StateNotFoundError:
+            return None
+
     # The history view is dynamically created, so it might or might not be
     # available
     def get_history_view(self):
@@ -653,6 +664,16 @@ class BookmarksFoldersView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     def get_header_from_folder(self, folder):
         return folder.wait_select_single("QQuickItem",
                                          objectName="bookmarkFolderHeader")
+
+
+class BookmarksView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    pass
+
+
+class BookmarksViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    pass
 
 
 class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):

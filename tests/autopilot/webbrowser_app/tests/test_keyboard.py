@@ -267,6 +267,39 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(lambda: self.main_window.get_current_webview().url,
                         Eventually(Equals(url)))
 
+    def test_toggle_bookmarks(self):
+        self.assertThat(self.main_window.get_bookmarks_view(), Equals(None))
+        self.main_window.press_key('Ctrl+Shift+O')
+        self.assertThat(lambda: self.main_window.get_bookmarks_view(),
+                        Eventually(NotEquals(None)))
+        bookmarks_view = self.main_window.get_bookmarks_view()
+
+        self.main_window.press_key('Escape')
+        bookmarks_view.wait_until_destroyed()
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
+    def test_toggle_bookmarks_from_menu(self):
+        self.assertThat(self.main_window.get_bookmarks_view(), Equals(None))
+        self.open_bookmarks()
+        bookmarks_view = self.main_window.get_bookmarks_view()
+        self.assertThat(bookmarks_view.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Escape')
+        bookmarks_view.wait_until_destroyed()
+
+    def test_new_tab_from_bookmarks_view(self):
+        self.assertThat(self.main_window.get_bookmarks_view(), Equals(None))
+        self.open_bookmarks()
+        bookmarks_view = self.main_window.get_bookmarks_view()
+        self.assertThat(bookmarks_view.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+T')
+        bookmarks_view.wait_until_destroyed()
+
+        new_tab_view = self.main_window.get_new_tab_view()
+        self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
+
     def test_toggle_history(self):
         self.assertThat(self.main_window.get_history_view(), Equals(None))
         self.main_window.press_key('Ctrl+H')

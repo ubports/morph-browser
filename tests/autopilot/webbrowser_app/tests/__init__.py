@@ -194,6 +194,15 @@ class BrowserTestCaseBase(AutopilotTestCase):
         self.pointing_device.click_object(settings_action)
         return self.main_window.get_settings_page()
 
+    def open_bookmarks(self):
+        chrome = self.main_window.chrome
+        drawer_button = chrome.get_drawer_button()
+        self.pointing_device.click_object(drawer_button)
+        chrome.get_drawer()
+        bookmarks_action = chrome.get_drawer_action("bookmarks")
+        self.pointing_device.click_object(bookmarks_action)
+        return self.main_window.get_bookmarks_view()
+
     def open_history(self):
         chrome = self.main_window.chrome
         drawer_button = chrome.get_drawer_button()
