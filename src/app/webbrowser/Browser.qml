@@ -1706,18 +1706,18 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_L
-            enabled: chrome.visible
+            enabled: chrome.visible && !bookmarksViewLoader.active
             onTriggered: internal.focusAddressBar(true)
         }
         KeyboardShortcut {
             modifiers: Qt.AltModifier
             key: Qt.Key_D
-            enabled: chrome.visible
+            enabled: chrome.visible && !bookmarksViewLoader.active
             onTriggered: internal.focusAddressBar(true)
         }
         KeyboardShortcut {
             key: Qt.Key_F6
-            enabled: chrome.visible
+            enabled: chrome.visible && !bookmarksViewLoader.active
             onTriggered: internal.focusAddressBar(true)
         }
 
