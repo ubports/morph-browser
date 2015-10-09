@@ -168,12 +168,10 @@ FocusScope {
                             delegate: UrlDelegate{
                                 id: urlDelegate
 
-                                readonly property bool isHomeBookmark: isAllBookmarksFolder && index === 0
-
                                 width: parent.width
                                 height: units.gu(5)
 
-                                removable: !isHomeBookmark
+                                removable: isAllBookmarksFolder && index === 0
 
                                 icon: modelData.icon ? modelData.icon : ""
                                 title: modelData.title ? modelData.title : modelData.url
