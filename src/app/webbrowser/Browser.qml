@@ -1775,13 +1775,13 @@ BrowserView {
         // F5 or Ctrl+R: Reload current Tab
         KeyboardShortcut {
             key: Qt.Key_F5
-            enabled: chrome.visible
+            enabled: chrome.visible && !bookmarksViewLoader.active
             onTriggered: if (currentWebview) currentWebview.reload()
         }
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_R
-            enabled: chrome.visible
+            enabled: chrome.visible && !bookmarksViewLoader.active
             onTriggered: if (currentWebview) currentWebview.reload()
         }
 
