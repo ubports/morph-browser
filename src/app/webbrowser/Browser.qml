@@ -787,6 +787,16 @@ BrowserView {
 
         Keys.onEscapePressed: bookmarksViewLoader.active = false
 
+        Connections {
+            target: bookmarksViewLoader.active ? bookmarksViewLoader.item : null
+
+            onBookmarkEntryClicked: {
+                browser.openUrlInNewTab(url, true)
+                bookmarksViewLoader.active = false
+            }
+            onDone: bookmarksViewLoader.active = false
+        }
+
         Timer {
             id: bookmarksViewTimer
             // Set the model asynchronously to ensure
@@ -802,12 +812,6 @@ BrowserView {
                 anchors.fill: parent
 
                 homepageUrl: settings.homepage
-
-                onBookmarkEntryClicked: {
-                    browser.openUrlInNewTab(url, true)
-                    done()
-                }
-                onDone: bookmarksViewLoader.active = false
             }
         }
 
@@ -818,12 +822,6 @@ BrowserView {
                 anchors.fill: parent
 
                 homepageUrl: settings.homepage
-
-                onBookmarkEntryClicked: {
-                    browser.openUrlInNewTab(url, true)
-                    done()
-                }
-                onDone: bookmarksViewLoader.active = false
             }
         }
     }
