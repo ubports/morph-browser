@@ -28,31 +28,29 @@ Dialog {
     modal: true
 
     title: request.isForAudio && request.isForVideo ?
-           i18n.tr("Allow this domain to use your camera and microphone?") :
-           (request.isForVideo ? i18n.tr("Allow this domain to use your camera?")
-                               : i18n.tr("Allow this domain to use your microphone?"))
+           i18n.tr("Allow this domain to access your camera and microphone?") :
+           (request.isForVideo ? i18n.tr("Allow this domain to access your camera?")
+                               : i18n.tr("Allow this domain to access your microphone?"))
 
     text: request.embedder.toString() !== request.origin.toString() ?
           internal.textWhenEmbedded : request.origin
 
-    Item {
+    Row {
         id: internal
 
         // TRANSLATORS: %1 refers to the origin requesting access and %2 refers to the origin that embeds it
         readonly property string textWhenEmbedded: i18n.tr("%1 (embedded in %2)")
                                                    .arg(request.origin).arg(request.embedder)
-        anchors {
-            left: parent.left
-            right: parent.right
-        }
-
-        height: allowButton.height
+        height: units.gu(4)
+        spacing: units.gu(2)
+        anchors.horizontalCenter: parent.horizontalCenter
 
         Button {
             id: allowButton
             objectName: "mediaAccessDialog.allowButton"
             text: i18n.tr("Yes")
             color: UbuntuColors.green
+            width: units.gu(14)
             onClicked: {
                 request.allow()
                 hide()
@@ -62,9 +60,9 @@ Dialog {
         Button {
             id: denyButton
             objectName: "mediaAccessDialog.denyButton"
-            anchors.right: parent.right
             text: i18n.tr("No")
             color: UbuntuColors.red
+            width: units.gu(14)
             onClicked: {
                 request.deny()
                 hide()
