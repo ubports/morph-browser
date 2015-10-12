@@ -27,7 +27,7 @@ Dialog {
     property var request
     property var allowAudio
     property var allowVideo
-    modal: false
+    modal: true
 
     title: request.isForAudio && request.isForVideo ?
            i18n.tr("Allow this domain to use your camera and microphone ?") :
