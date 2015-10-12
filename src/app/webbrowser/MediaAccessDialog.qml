@@ -25,14 +25,12 @@ Dialog {
     id: dialog
 
     property var request
-    property var allowAudio
-    property var allowVideo
     modal: true
 
     title: request.isForAudio && request.isForVideo ?
-           i18n.tr("Allow this domain to use your camera and microphone ?") :
-           (request.isForVideo ? i18n.tr("Allow this domain to use your camera ?")
-                               : i18n.tr("Allow this domain to use your microphone ?"))
+           i18n.tr("Allow this domain to use your camera and microphone?") :
+           (request.isForVideo ? i18n.tr("Allow this domain to use your camera?")
+                               : i18n.tr("Allow this domain to use your microphone?"))
 
     text: UrlUtils.extractHost(request.origin)
 
