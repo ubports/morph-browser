@@ -82,15 +82,15 @@ BrowserView {
            on the current webview only because we want all the tabs that are not
            visible to automatically deny the request but emit the signal again
            if the same origin requests permissions (which is the default
-           behavior in oxide if we don't connect a signal handler).
+           behavior in oxide if we don't connect a signal handler), so that we
+           can pop-up a dialog asking the user for permission.
 
-           Firefox and Chrome have a means to hold a pointer to the request and
-           allow or deny by asking the users as soon as they switch to the
-           requesting tab.
-           Oxide does not allow us to do this, since it denies the request as
-           soon as we return from the signal handler if we took no action
-           wihin it, and we have no acceptable way in QML to delay the return
-           from a signal handler without completely blocking the UI. */
+           Design is working on a new component that allows per-tab non-modal
+           dialogs that will allow asking permission to the user without blocking
+           interaction with the rest of the page or the window. When ready all
+           tabs will have their mediaAccessPermissionRequested signal handled by
+           creating one of these new dialogs.
+        */
         onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request });
     }
 
