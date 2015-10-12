@@ -86,6 +86,8 @@ AbstractButton {
                 cache: false
             }
             sourceFillMode: UbuntuShape.PreserveAspectCrop
+            sourceHorizontalAlignment: UbuntuShape.AlignLeft
+            sourceVerticalAlignment: UbuntuShape.AlignTop
 
             property url previewUrl: Qt.resolvedUrl(PreviewManager.previewPathFromUrl(preview.url))
 
