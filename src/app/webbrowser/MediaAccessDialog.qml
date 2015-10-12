@@ -32,9 +32,15 @@ Dialog {
            (request.isForVideo ? i18n.tr("Allow this domain to use your camera?")
                                : i18n.tr("Allow this domain to use your microphone?"))
 
-    text: UrlUtils.extractHost(request.origin)
+    text: request.embedder.toString() !== request.origin.toString() ?
+          internal.textWhenEmbedded : request.origin
 
     Item {
+        id: internal
+
+        // TRANSLATORS: %1 refers to the origin requesting access and %2 refers to the origin that embeds it
+        readonly property string textWhenEmbedded: i18n.tr("%1 (embedded in %2)")
+                                                   .arg(request.origin).arg(request.embedder)
         anchors {
             left: parent.left
             right: parent.right
