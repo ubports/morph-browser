@@ -21,7 +21,6 @@ import QtTest 1.0
 import Ubuntu.Test 1.0
 import "../../../src/app/webbrowser"
 import webbrowserapp.private 0.1
-import "qml_tree_helpers.js" as Tree
 
 Item {
     id: root
@@ -81,35 +80,13 @@ Item {
         signalName: "reload"
     }
 
-    // Ideally we would get menu items by their objectName, however they are
-    // created dynamically by the ActionSelectionPopover and the objectName
-    // of the source action is not copied to the generated item.
-    // So we first select the source Action by objectName then look for an item
-    // with the same text as the action. This is not ideal but it will work
-    // since we don't have items with the same text.
-    // https://launchpad.net/bugs/1205144 tracks the issue, and as of 2015-09-23
-    // is fixed in the vivid overlay PPA but not in wily yet.
-    function getMenuItemForAction(menu, actionName) {
-        actionName = "tab_action_" + actionName
-        var text = ""
-        var actions = menu.actions.actions
-        for (var i = 0; i < actions.length; i++) {
-            if (actions[i].objectName === actionName) {
-                text = actions[i].text
-                break
-            }
-        }
-        if (text === "") return null
-
-        var menuItems = Tree.findDescendantsByType(menu, "Label")
-        var matching = menuItems.filter(function(item) { return item.text === text })
-        if (matching.length === 0) return null
-        else return Tree.findAncestorByType(matching[0], "Empty")
-    }
-
     UbuntuTestCase {
         name: "TabsBar"
         when: windowShown
+
+        function getMenuItemForAction(menu, actionName) {
+            return findChild(menu, "tab_action_" + actionName + "_button")
+        }
 
         function clickItem(item, button) {
             if (button === undefined) button = Qt.LeftButton

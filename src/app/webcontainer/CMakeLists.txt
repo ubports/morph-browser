@@ -44,3 +44,7 @@ file(GLOB QML_FILES *.qml)
 install(FILES ${QML_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer)
 install(DIRECTORY actions DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer
         FILES_MATCHING PATTERN *.qml)
+
+install(DIRECTORY assets
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/webbrowser-app/webcontainer
+        FILES_MATCHING PATTERN *.png)

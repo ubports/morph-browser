@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-09-23 20:14+0200\n"
+"POT-Creation-Date: 2015-10-02 23:28+0200\n"
 "PO-Revision-Date: 2015-09-06 08:20+0000\n"
 "Last-Translator: j3lc <x_nikos@yahoo.gr>\n"
 "Language-Team: Greek <el@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-09-24 05:53+0000\n"
-"X-Generator: Launchpad (build 17749)\n"
+"X-Launchpad-Export-Date: 2015-10-03 05:37+0000\n"
+"X-Generator: Launchpad (build 17783)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -432,6 +432,7 @@ msgid "Address;URL;www"
 msgstr "Διεύθυνση;URL;www"
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
+#: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "Νέα καρτέλα"
 
@@ -462,6 +463,7 @@ msgid "Redo"
 msgstr "Επανάληψη"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Επαναφόρτωση"
 
@@ -551,7 +553,7 @@ msgstr "Ανοιχτές καρτέλες"
 
 #: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/HistoryViewWide.qml:508
-#: src/app/webbrowser/TabsBar.qml:99 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Νέα καρτέλα"
 
@@ -806,7 +808,7 @@ msgstr "Καθαρισμός"
 msgid "Tap to view"
 msgstr "Πατήστε για εμφάνιση"
 
-#: src/app/webbrowser/TabsBar.qml:98
+#: src/app/webbrowser/TabsBar.qml:96
 msgid "Close Tab"
 msgstr ""
 
@@ -887,6 +889,10 @@ msgstr "Παράκαμψη"
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
 msgstr "Επιλογή λογαριασμού"
+
+#: src/app/webcontainer/SadPage.qml:45
+msgid "Oops, something went wrong."
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"

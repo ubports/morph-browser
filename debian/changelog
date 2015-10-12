@@ -1,3 +1,35 @@
+webbrowser-app (0.23+15.10.20151005-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Add apparmor profile to run webbrowser-app confined. (LP: #1356516)
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 05 Oct 2015 09:49:24 +0000
+
+webbrowser-app (0.23+15.10.20151002.1-0ubuntu1) wily; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Handle webapp webview renderer crashes (LP: #1498091, #1375215)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+ -- David Barth <david.barth@canonical.com>  Fri, 02 Oct 2015 07:45:24 +0000
+
+webbrowser-app (0.23+15.10.20151001-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Do not select labels by their class name, as this is changing in the
+    newest UITK.
+
+ -- Zoltan Balogh <zoltan.balogh@canonical.com>  Thu, 01 Oct 2015 19:53:17 +0000
+
 webbrowser-app (0.23+15.10.20150929-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
