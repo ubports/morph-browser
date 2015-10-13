@@ -92,11 +92,6 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         return self.main_window.get_bookmark_options()
 
     def _assert_bookmark_count_in_folder(self, tab, folder_name, count):
-        # in wide mode the list of urls in the default folder has the homepage
-        # bookmark in it, but it does not in narrow mode
-        if self.main_window.wide and folder_name == "":
-            count += 1
-
         urls = tab.get_bookmarks(folder_name)
         self.assertThat(lambda: len(urls), Eventually(Equals(count)))
 
@@ -130,7 +125,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
-        self._toggle_bookmark_folder(new_tab, "Actinide")
+        if not self.main_window.wide:
+            self._toggle_bookmark_folder(new_tab, "Actinide")
         self._assert_bookmark_count_in_folder(new_tab, "Actinide", 1)
 
         url = self.base_url + "/test2"
@@ -161,7 +157,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
-        self._toggle_bookmark_folder(new_tab, "Actinide")
+        if not self.main_window.wide:
+            self._toggle_bookmark_folder(new_tab, "Actinide")
         self._assert_bookmark_count_in_folder(new_tab, "Actinide", 2)
 
     def test_save_bookmarked_url_in_new_folder(self):
@@ -206,7 +203,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(4)))
-        self._toggle_bookmark_folder(new_tab, "NewFolder")
+        if not self.main_window.wide:
+            self._toggle_bookmark_folder(new_tab, "NewFolder")
         self._assert_bookmark_count_in_folder(new_tab, "NewFolder", 1)
 
     def test_set_bookmark_title(self):
