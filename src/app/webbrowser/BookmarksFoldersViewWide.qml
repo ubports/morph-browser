@@ -146,14 +146,14 @@ FocusScope {
             }
 
             if (folders.currentItem.isAllBookmarksFolder) {
-                return BookmarksModelUtils.createUrlsListModel(folders.currentItem.model, {
+                return BookmarksModelUtils.prependHomepageToBookmarks(folders.currentItem.model, {
                     title: i18n.tr("Homepage"),
                     url: bookmarksFoldersViewWideItem.homeBookmarkUrl,
                     folder: ""
                 })
             }
             
-            return BookmarksModelUtils.createUrlsListModel(folders.currentItem.model)
+            return BookmarksModelUtils.prependHomepageToBookmarks(folders.currentItem.model)
         }
 
         currentIndex: 0

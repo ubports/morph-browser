@@ -154,13 +154,13 @@ FocusScope {
 
                             model: {
                                 if (isAllBookmarksFolder) {
-                                    return BookmarksModelUtils.createUrlsListModel(entries, {
+                                    return BookmarksModelUtils.prependHomepageToBookmarks(entries, {
                                         title: i18n.tr("Homepage"),
                                         url: bookmarksFoldersViewItem.homeBookmarkUrl
                                     })
                                 }
 
-                                return BookmarksModelUtils.createUrlsListModel(entries)
+                                return BookmarksModelUtils.prependHomepageToBookmarks(entries)
                             }
 
                             delegate: UrlDelegate{

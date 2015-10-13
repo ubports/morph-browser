@@ -16,10 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* Build a temporary model for the bookmarks list that includes, when necessary,
- * the homepage bookmark as a fixed first item in the list.
- */
-function createUrlsListModel(model, homeEntry) {
+/* Prepend the homepage bookmark item to bookmarks model */
+function prependHomepageToBookmarks(model, homeEntry) {
     var items = []
     if (homeEntry !== undefined) {
         items.push(homeEntry)
