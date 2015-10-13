@@ -443,10 +443,10 @@ class TestNewTabViewContentsWide(TestNewTabViewContentsBase):
 
     def test_remove_top_sites(self):
         view = self.new_tab_view
-        topsites = view.get_top_sites_list()
+        topsites = view.get_top_site_items()
         previous_count = len(topsites)
         topsites[0].hide_from_history(self.main_window)
-        self.assertThat(len(view.get_top_sites_list()),
+        self.assertThat(len(view.get_top_site_items()),
                         Equals(previous_count - 1))
 
     def test_drag_bookmarks(self):
