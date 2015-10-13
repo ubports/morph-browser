@@ -141,7 +141,7 @@ FocusScope {
         }
 
         model: {
-            if (!folders.currentItem) {
+            if (!folders.currentItem || !folders.currentItem.model) {
                 return null
             }
 

@@ -20,10 +20,6 @@
  * the homepage bookmark as a fixed first item in the list.
  */
 function createUrlsListModel(model, homeEntry) {
-    if (!model) {
-        return null
-    }
-
     var items = []
     if (homeEntry !== undefined) {
         items.push(homeEntry)
