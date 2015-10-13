@@ -52,7 +52,9 @@ class TestHTTPServer : public QTcpServer
 public:
     TestHTTPServer(QObject* parent = 0)
         : QTcpServer(parent)
-    {}
+    {
+        connect(this, SIGNAL(newConnection()), SLOT(onNewConnection()));
+    }
 
     QString baseURL() const
     {
@@ -61,17 +63,18 @@ public:
 
 Q_SIGNALS:
     void gotRequest(const QString& path) const;
-
-protected:
-    void incomingConnection(qintptr socketDescriptor)
-    {
-        QTcpSocket* socket = new QTcpSocket(this);
-        connect(socket, SIGNAL(readyRead()), SLOT(readClient()));
-        connect(socket, SIGNAL(disconnected()), SLOT(discardClient()));
-        socket->setSocketDescriptor(socketDescriptor);
-    }
+    void gotError() const;
 
 private Q_SLOTS:
+    void onNewConnection() {
+        if (hasPendingConnections()) {
+            QTcpSocket* socket = nextPendingConnection();
+            connect(socket, SIGNAL(readyRead()), SLOT(readClient()));
+            connect(socket, SIGNAL(disconnected()), SLOT(discardClient()));
+            connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), SIGNAL(gotError()));
+        }
+    }
+
     void readClient()
     {
         QTcpSocket* socket = qobject_cast<QTcpSocket*>(sender());
@@ -141,6 +144,7 @@ private:
     QSignalSpy* fetcherSpy;
     TestHTTPServer* server;
     QSignalSpy* serverSpy;
+    QSignalSpy* errorSpy;
 
 private Q_SLOTS:
     void init()
@@ -154,10 +158,12 @@ private Q_SLOTS:
         server = new TestHTTPServer;
         server->listen();
         serverSpy = new QSignalSpy(server, SIGNAL(gotRequest(const QString&)));
+        errorSpy = new QSignalSpy(server, SIGNAL(gotError()));
     }
 
     void cleanup()
     {
+        delete errorSpy;
         delete serverSpy;
         delete server;
         delete fetcherSpy;
@@ -278,14 +284,17 @@ private Q_SLOTS:
     void shouldCancelRequests()
     {
         // Issue several requests rapidly in succession, and verify that
-        // all the previous ones are discarded
-        for (int i = 1; i < 10; ++i) {
+        // all the previous ones are discarded. Take into account possible
+        // errors (see https://launchpad.net/bugs/1498539).
+        int requests = 100;
+        int errors = 0;
+        for (int i = 1; i <= requests; ++i) {
             QUrl url(server->baseURL() + "/favicon" + QString::number(i) + ".ico");
             fetcher->setUrl(url);
-            QVERIFY(serverSpy->wait());
+            QVERIFY(serverSpy->wait(500) || (errorSpy->count() == ++errors));
         }
         QVERIFY(fetcherSpy->wait());
-        QCOMPARE(serverSpy->count(), 9);
+        QCOMPARE(serverSpy->count() + errorSpy->count(), requests);
         QCOMPARE(fetcherSpy->count(), 1);
     }
 };
