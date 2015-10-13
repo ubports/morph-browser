@@ -25,16 +25,29 @@ Item {
     property var results: []
     property bool active: false
 
-    property var _request: new XMLHttpRequest()
     onSearchEngineChanged: resetSearch()
     onTermsChanged: resetSearch()
     onActiveChanged: resetSearch()
 
-    Component.onCompleted: {
-        _request.onreadystatechange = function() {
-            if (_request.readyState === XMLHttpRequest.DONE) {
-                results = parseResponse(_request.responseText)
+    QtObject {
+        id: request
+
+        property var xhr: null
+        function get(url) {
+            if (xhr === null) {
+                xhr = new XMLHttpRequest()
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        results = parseResponse(xhr.responseText)
+                    }
+                }
             }
+            xhr.open("GET", url);
+            xhr.send();
+        }
+
+        function abort() {
+            if (xhr) xhr.abort()
         }
     }
 
@@ -42,12 +55,10 @@ Item {
         id: limiter
         interval: 250
         onTriggered:  {
-            if (_request && terms.length > 0 && searchEngine) {
+            if (terms.length > 0 && searchEngine) {
                 var url = searchEngine.suggestionsUrlTemplate
                 url = url.replace("{searchTerms}", encodeURIComponent(terms.join(" ")))
-
-                _request.open("GET", url);
-                _request.send();
+                request.get(url)
             }
         }
     }
@@ -72,7 +83,7 @@ Item {
 
     function resetSearch() {
         results = []
-        if (_request) _request.abort()
+        request.abort()
         if (active) limiter.restart()
     }
 }
