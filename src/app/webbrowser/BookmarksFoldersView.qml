@@ -160,20 +160,22 @@ FocusScope {
                                     })
                                 }
 
-                                return BookmarksModelUtils.prependHomepageToBookmarks(entries)
+                                return entries
                             }
 
                             delegate: UrlDelegate{
                                 id: urlDelegate
+
+                                property var entry: isAllBookmarksFolder ? modelData : model
 
                                 width: parent.width
                                 height: units.gu(5)
 
                                 removable: !isAllBookmarksFolder || index !== 0
 
-                                icon: modelData.icon ? modelData.icon : ""
-                                title: modelData.title ? modelData.title : modelData.url
-                                url: modelData.url
+                                icon: entry.icon ? entry.icon : ""
+                                title: entry.title ? entry.title : entry.url
+                                url: entry.url
 
                                 onClicked: bookmarksFoldersViewItem.bookmarkClicked(url)
                                 onRemoved: bookmarksFoldersViewItem.bookmarkRemoved(url)

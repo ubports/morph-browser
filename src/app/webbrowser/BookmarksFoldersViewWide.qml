@@ -153,7 +153,7 @@ FocusScope {
                 })
             }
             
-            return BookmarksModelUtils.prependHomepageToBookmarks(folders.currentItem.model)
+            return folders.currentItem.model
         }
 
         currentIndex: 0
@@ -161,13 +161,14 @@ FocusScope {
         delegate: DraggableUrlDelegateWide {
             objectName: "bookmarkItem"
 
-            property string folder: modelData.folder
+            property var entry: folders.currentItem.isAllBookmarksFolder ? modelData : model
+            property string folder: entry.folder
             readonly property bool isHomeBookmark: folder === "" && index === 0
 
             clip: true
-            title: modelData.title
-            icon: modelData.icon ? modelData.icon : ""
-            url: modelData.url
+            title: entry.title
+            icon: entry.icon ? entry.icon : ""
+            url: entry.url
 
             removable: !isHomeBookmark
             draggable: !isHomeBookmark && contentItem.x === 0
@@ -190,7 +191,7 @@ FocusScope {
                 bookmarksList.interactive = true
 
                 if (dragAndDrop.target && dragAndDrop.target.folderName !== folder) {
-                    bookmarksFoldersViewWideItem.model.update(modelData.url, modelData.title,
+                    bookmarksFoldersViewWideItem.model.update(entry.url, entry.title,
                                                                  dragAndDrop.target.folderName)
                     dragAndDrop.success = true
                 }

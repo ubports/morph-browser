@@ -19,9 +19,6 @@
 /* Prepend the homepage bookmark item to bookmarks model */
 function prependHomepageToBookmarks(model, homeEntry) {
     var items = []
-    if (homeEntry !== undefined) {
-        items.push(homeEntry)
-    }
     for (var i = 0; i < model.count; i++) {
         items.push(model.get(i))
     }
