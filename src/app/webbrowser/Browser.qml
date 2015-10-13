@@ -1265,6 +1265,24 @@ BrowserView {
             }
         }
 
+        function switchToPreviousTab() {
+            if (browser.wide) {
+                internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count)
+            } else {
+                internal.switchToTab(tabsModel.count - 1)
+            }
+            if (recentView.visible) recentView.focus = true
+        }
+
+        function switchToNextTab() {
+            if (browser.wide) {
+                internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count)
+            } else {
+                internal.switchToTab(tabsModel.count - 1)
+            }
+            if (recentView.visible) recentView.focus = true
+        }
+
         function switchToTab(index) {
             tabsModel.currentIndex = index
             var tab = tabsModel.currentTab
@@ -1589,34 +1607,32 @@ BrowserView {
     KeyboardShortcuts {
         id: shortcuts
 
-        // Ctrl+Tab: cycle through open tabs
+        // Ctrl+Tab or Ctrl+PageDown: cycle through open tabs
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Tab
             enabled: chrome.visible || recentView.visible
-            onTriggered: {
-                if (browser.wide) {
-                    internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count)
-                } else {
-                    internal.switchToTab(tabsModel.count - 1)
-                }
-                if (recentView.visible) recentView.focus = true
-            }
+            onTriggered: internal.switchToNextTab()
+        }
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_PageDown
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.switchToNextTab()
         }
 
-        // Ctrl+Shift+Tab: cycle through open tabs in reverse order
+        // Ctrl+Shift+Tab or Ctrl+PageUp: cycle through open tabs in reverse order
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Backtab
             enabled: chrome.visible || recentView.visible
-            onTriggered: {
-                if (browser.wide) {
-                    internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count)
-                } else {
-                    internal.switchToTab(tabsModel.count - 1)
-                }
-                if (recentView.visible) recentView.focus = true
-            }
+            onTriggered: internal.switchToPreviousTab()
+        }
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_PageUp
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.switchToPreviousTab()
         }
 
         // Ctrl+W or Ctrl+F4: Close the current tab
