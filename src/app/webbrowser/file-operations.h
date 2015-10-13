@@ -20,6 +20,7 @@
 #define __FILE_OPERATIONS_H__
 
 #include <QtCore/QObject>
+#include <QtCore/QStringList>
 
 class QUrl;
 
@@ -33,6 +34,8 @@ public:
     Q_INVOKABLE bool exists(const QUrl& path) const;
     Q_INVOKABLE bool remove(const QUrl& file) const;
     Q_INVOKABLE bool mkpath(const QUrl& path) const;
+    Q_INVOKABLE QStringList filesInDirectory(const QUrl& directory,
+                                             const QStringList& filters) const;
 };
 
 #endif // __FILE_OPERATIONS_H__
