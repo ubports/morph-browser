@@ -539,7 +539,7 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.get_top_sites_list().get_delegates()
 
     def get_bookmarks_folder_list_view(self):
-        return self.select_single(BookmarksFoldersView)
+        return self.wait_select_single(BookmarksFoldersView)
 
     def get_bookmarks(self, folder_name):
         # assumes that the "more" button has been clicked
