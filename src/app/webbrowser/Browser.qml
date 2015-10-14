@@ -788,7 +788,7 @@ BrowserView {
         Keys.onEscapePressed: bookmarksViewLoader.active = false
 
         Connections {
-            target: bookmarksViewLoader.active ? bookmarksViewLoader.item : null
+            target: bookmarksViewLoader.item
 
             onBookmarkEntryClicked: {
                 browser.openUrlInNewTab(url, true)
