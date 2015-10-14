@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import testtools
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
@@ -25,9 +26,8 @@ class TestMediaAccessPermission(StartOpenRemotePageTestCaseBase):
         self.allowed_url = self.base_url + "/test1"
         self.denied_url = self.base_url + "/test2"
 
+    @testtools.skip("We can't guarantee/test that audio/video devices exist")
     def test_allow(self):
-        self.skip("We can't guarantee or test that audio/video devices exist")
-
         # verify that trying to access any media raises an authorization dialog
         url = self.url + "a"
         self.main_window.go_to_url(url)
@@ -80,9 +80,8 @@ class TestMediaAccessPermission(StartOpenRemotePageTestCaseBase):
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(self.denied_url)
 
+    @testtools.skip("Skipping due to oxide bug, see http://pad.lv/1501017")
     def test_deny_combined(self):
-        self.skip("Skipping due to oxide bug, see http://pad.lv/1501017")
-
         # deny first one input type, then try to ask both and verify that a
         # request is made for the media that was not asked for the fist time
         url = self.url + "a"
