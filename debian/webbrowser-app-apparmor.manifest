@@ -16,7 +16,9 @@
         "networking",
         "push-notification-client",
         "video",
-        "webview"
+        "webview",
+        "microphone",
+        "camera"
       ],
       "abstractions": [
         "user-tmp"
