@@ -18,7 +18,7 @@
 
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import "." // QTBUG-34418
+import com.canonical.Oxide 1.9
 
 Item {
     property bool isAudio
@@ -39,18 +39,19 @@ Item {
         containerHeight: itemHeight * model.length
 
         model: internal.devices
-        onDelegateClicked: deviceSelected(model[index])
+        delegate: OptionSelectorDelegate { text: modelData.id }
+        onDelegateClicked: deviceSelected(model[index].id)
     }
 
     QtObject {
         id: internal
 
-        property var devices: isAudio ? InputDevicesModel.audioDevices :
-                                        InputDevicesModel.videoDevices
+        property var devices: isAudio ? Oxide.availableAudioCaptureDevices :
+                                        Oxide.availableVideoCaptureDevices
 
         function updateDefaultDevice() {
             for (var i = 0; i < devices.length; i++) {
-                if (defaultDevice === devices[i]) {
+                if (defaultDevice === devices[i].id) {
                     selector.selectedIndex = i;
                     return;
                 }
@@ -60,9 +61,9 @@ Item {
 
     onDefaultDeviceChanged: internal.updateDefaultDevice()
     Connections {
-        target: InputDevicesModel
-        onAudioDevicesChanged: if (isAudio) internal.updateDefaultDevice()
-        onVideoDevicesChanged: if (!isAudio) internal.updateDefaultDevice()
+        target: Oxide
+        onAvailableAudioCaptureDevicesChanged: if (isAudio) internal.updateDefaultDevice()
+        onAvailableVideoCaptureDevicesChanged: if (!isAudio) internal.updateDefaultDevice()
     }
 }
 
