@@ -76,7 +76,11 @@ FocusScope {
         currentIndex: 0
 
         Keys.onRightPressed: {
-            if (bookmarksList.model.length > 0) {
+            if (!folders.currentItem) {
+                return
+            }
+
+            if ((folders.currentItem.isAllBookmarksFolder && bookmarksList.model.length > 0) || bookmarksList.model.count > 0) {
                 bookmarksList.focus = true
             }
         }
