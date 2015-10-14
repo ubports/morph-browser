@@ -168,8 +168,11 @@ Item {
         }
 
         function test_switch_between_folder_and_bookmarks_by_keyboard() {
-            var folders = findChild(view, "foldersList")
+            var foldersList = findChild(view, "foldersList")
             var bookmarks = findChild(view, "bookmarksList")
+            var folders = getListItems("foldersList", "folderItem")
+
+            verify(folders[0].isActiveFolder)
 
             keyClick(Qt.Key_Right)
             verify(bookmarks.activeFocus)
@@ -177,9 +180,23 @@ Item {
             verify(bookmarks.activeFocus) // verify no circular scrolling
 
             keyClick(Qt.Key_Left)
-            verify(folders.activeFocus)
+            verify(foldersList.activeFocus)
             keyClick(Qt.Key_Left)
-            verify(folders.activeFocus) // verify no circular scrolling
+            verify(foldersList.activeFocus) // verify no circular scrolling
+
+            keyClick(Qt.Key_Down)
+            verify(!folders[0].isActiveFolder)
+            verify(folders[1].isActiveFolder)
+
+            keyClick(Qt.Key_Right)
+            verify(bookmarks.activeFocus)
+            keyClick(Qt.Key_Right)
+            verify(bookmarks.activeFocus) // verify no circular scrolling
+
+            keyClick(Qt.Key_Left)
+            verify(foldersList.activeFocus)
+            keyClick(Qt.Key_Left)
+            verify(foldersList.activeFocus) // verify no circular scrolling
         }
 
         function test_activate_bookmarks_by_keyboard() {
