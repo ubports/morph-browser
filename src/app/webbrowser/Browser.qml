@@ -795,6 +795,10 @@ BrowserView {
                 bookmarksViewLoader.active = false
             }
             onDone: bookmarksViewLoader.active = false
+            onNewTabClicked: {
+                browser.openUrlInNewTab("", true)
+                bookmarksViewLoader.active = false
+            }
         }
 
         Timer {

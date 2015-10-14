@@ -28,6 +28,7 @@ FocusScope {
 
     signal bookmarkEntryClicked(url url)
     signal done()
+    signal newTabClicked()
 
     Rectangle {
         anchors.fill: parent
@@ -125,10 +126,7 @@ FocusScope {
             text: i18n.tr("New tab")
             iconName: "tab-new"
 
-            onClicked: {
-                browser.openUrlInNewTab("", true)
-                bookmarksView.done()
-            }
+            onClicked: bookmarksView.newTabClicked()
         }
     }
 }
