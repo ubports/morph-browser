@@ -19,20 +19,20 @@
 pragma Singleton
 
 import QtQuick 2.4
-import com.canonical.Oxide 1.9 as Oxide
+import com.canonical.Oxide 1.9
 
 QtObject {
     property var audioDevices: {
         var items = []
-        for (var i = 0; i < Oxide.Oxide.availableAudioCaptureDevices.length; i++) {
-            items.push(Oxide.Oxide.availableAudioCaptureDevices[i].id)
+        for (var i = 0; i < Oxide.availableAudioCaptureDevices.length; i++) {
+            items.push(Oxide.availableAudioCaptureDevices[i].id)
         }
         return items
     }
     property var videoDevices: {
         var items = []
-        for (var i = 0; i < Oxide.Oxide.availableVideoCaptureDevices.length; i++) {
-            items.push(Oxide.Oxide.availableVideoCaptureDevices[i].id)
+        for (var i = 0; i < Oxide.availableVideoCaptureDevices.length; i++) {
+            items.push(Oxide.availableVideoCaptureDevices[i].id)
         }
         return items
     }
