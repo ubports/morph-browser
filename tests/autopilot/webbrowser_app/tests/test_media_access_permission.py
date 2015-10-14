@@ -26,6 +26,8 @@ class TestMediaAccessPermission(StartOpenRemotePageTestCaseBase):
         self.denied_url = self.base_url + "/test2"
 
     def test_allow(self):
+        self.skip("We can't guarantee or test that audio/video devices exist")
+
         # verify that trying to access any media raises an authorization dialog
         url = self.url + "a"
         self.main_window.go_to_url(url)
