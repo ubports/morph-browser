@@ -82,17 +82,18 @@ class BrowserTestCaseBase(AutopilotTestCase):
         if not os.path.exists(self.cache_location):
             os.makedirs(self.cache_location)
 
-    def setUp(self):
+    def setUp(self, launch=True):
         self.create_temporary_profile()
         self.pointing_device = uitk.get_pointing_device()
         super(BrowserTestCaseBase, self).setUp()
-        self.app = self.launch_app()
+        if (launch):
+            self.launch_app()
 
     def launch_app(self):
         if os.path.exists(self.local_location):
-            return self.launch_test_local()
+            self.app = self.launch_test_local()
         else:
-            return self.launch_test_installed()
+            self.app = self.launch_test_installed()
         self.main_window.visible.wait_for(True)
 
     def launch_test_local(self):
@@ -247,7 +248,7 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
     are executed, thus making them more robust.
     """
 
-    def setUp(self, path="/test1"):
+    def setUp(self, path="/test1", launch=True):
         self.http_server = http_server.HTTPServerInAThread()
         self.ping_server(self.http_server)
         self.addCleanup(self.http_server.cleanup)
@@ -258,7 +259,12 @@ class StartOpenRemotePageTestCaseBase(BrowserTestCaseBase):
         self.base_url = "http://" + self.base_domain
         self.url = self.base_url + path
         self.ARGS = self.ARGS + [self.url]
-        super(StartOpenRemotePageTestCaseBase, self).setUp()
+        super(StartOpenRemotePageTestCaseBase, self).setUp(launch)
+        if (launch):
+            self.assert_home_page_eventually_loaded()
+
+    def launch_and_wait_for_page_loaded(self):
+        self.launch_app()
         self.assert_home_page_eventually_loaded()
 
     def assert_home_page_eventually_loaded(self):

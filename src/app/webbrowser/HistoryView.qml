@@ -24,8 +24,6 @@ import webbrowserapp.private 0.1
 Item {
     id: historyView
 
-    property alias historyModel: historyTimeframeModel.sourceModel
-
     signal seeMoreEntriesClicked(var model)
     signal done()
 
@@ -33,6 +31,16 @@ Item {
         anchors.fill: parent
         color: "#f6f6f6"
     }
+
+    Timer {
+        // Set the model asynchronously to ensure
+        // the view is displayed as early as possible.
+        id: loadModelTimer
+        interval: 1
+        onTriggered: historyTimeframeModel.sourceModel = HistoryModel
+    }
+
+    function loadModel() { loadModelTimer.restart() }
 
     ListView {
         id: domainsListView
@@ -76,7 +84,7 @@ Item {
                     historyView.seeMoreEntriesClicked(model.entries)
                 }
             }
-            onRemoved: historyView.historyModel.removeEntriesByDomain(model.domain)
+            onRemoved: HistoryModel.removeEntriesByDomain(model.domain)
             onPressAndHold: {
                 selectMode = !selectMode
                 if (selectMode) {
@@ -132,8 +140,13 @@ Item {
     Toolbar {
         id: topBar
 
-        height: units.gu(7)
+        visible: domainsListView.ViewItems.selectMode
+        height: visible ? units.gu(7) : 0
         color: "#f7f7f7"
+
+        Behavior on height {
+            UbuntuNumberAnimation {}
+        }
 
         anchors {
             left: parent.left
@@ -141,45 +154,21 @@ Item {
             top: parent.top
         }
 
-        Label {
-            visible: !domainsListView.ViewItems.selectMode
-
-            anchors {
-                top: parent.top
-                left: parent.left
-                topMargin: units.gu(2)
-                leftMargin: units.gu(2)
-            }
-
-            text: i18n.tr("History")    
-        }
-
         ToolbarAction {
-            visible: domainsListView.ViewItems.selectMode
-
-            anchors {
-                top: parent.top
-                left: parent.left
-                leftMargin: units.gu(2)
-            }
-            height: parent.height - units.gu(2)
-
             iconName: "close"
             text: i18n.tr("Cancel")
 
             onClicked: domainsListView.ViewItems.selectMode = false
+
+            anchors {
+                left: parent.left
+                leftMargin: units.gu(2)
+            }
+
+            height: parent.height - units.gu(2)
         }
 
         ToolbarAction {
-            visible: domainsListView.ViewItems.selectMode
-
-            anchors {
-                top: parent.top
-                right: deleteButton.left
-                rightMargin: units.gu(2)
-            }
-            height: parent.height - units.gu(2)
-
             iconName: "select"
             text: i18n.tr("Select all")
 
@@ -194,19 +183,17 @@ Item {
                     domainsListView.ViewItems.selectedIndices = indices
                 }
             }
+
+            anchors {
+                right: deleteButton.left
+                rightMargin: units.gu(2)
+            }
+
+            height: parent.height - units.gu(2)
         }
 
         ToolbarAction {
             id: deleteButton
-
-            visible: domainsListView.ViewItems.selectMode
-
-            anchors {
-                top: parent.top
-                right: parent.right
-                rightMargin: units.gu(2)
-            }
-            height: parent.height - units.gu(2)
 
             iconName: "delete"
             text: i18n.tr("Delete")
@@ -220,9 +207,16 @@ Item {
                 }
                 domainsListView.ViewItems.selectMode = false
                 for (var j in domains) {
-                    historyModel.removeEntriesByDomain(domains[j])
+                    HistoryModel.removeEntriesByDomain(domains[j])
                 }
             }
+
+            anchors {
+                right: parent.right
+                rightMargin: units.gu(2)
+            }
+
+            height: parent.height - units.gu(2)
         }
 
         ListItems.ThinDivider {

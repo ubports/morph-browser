@@ -25,8 +25,9 @@ import Ubuntu.Components.Popups 1.3
 import webbrowserapp.private 0.1
 import webbrowsercommon.private 0.1
 import "../actions" as Actions
-import ".."
 import "../UrlUtils.js" as UrlUtils
+import ".."
+import "."
 
 BrowserView {
     id: browser
@@ -36,7 +37,6 @@ BrowserView {
 
     currentWebview: tabsModel && tabsModel.currentTab ? tabsModel.currentTab.webview : null
 
-    property var historyModel: (historyModelLoader.status == Loader.Ready) ? historyModelLoader.item : null
     property var bookmarksModel: (bookmarksModelLoader.status == Loader.Ready) ? bookmarksModelLoader.item : null
 
     property bool newSession: false
@@ -99,8 +99,7 @@ BrowserView {
             onTriggered: browser.openUrlInNewTab("", true)
         },
         Actions.ClearHistory {
-            enabled: browser.historyModel
-            onTriggered: browser.historyModel.clearAll()
+            onTriggered: HistoryModel.clearAll()
         },
         Actions.FindInPage {
             enabled: !chrome.findInPageMode && !newTabViewLoader.active
@@ -242,7 +241,6 @@ BrowserView {
 
                 NewTabView {
                     anchors.fill: parent
-                    historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
                     focus: true
@@ -265,7 +263,6 @@ BrowserView {
 
                 NewTabViewWide {
                     anchors.fill: parent
-                    historyModel: browser.historyModel
                     bookmarksModel: browser.bookmarksModel
                     settingsObject: settings
                     focus: true
@@ -381,7 +378,6 @@ BrowserView {
                     objectName: "history"
                     text: i18n.tr("History")
                     iconName: "history"
-                    enabled: browser.historyModel
                     onTriggered: historyViewLoader.active = true
                 },
                 Action {
@@ -499,7 +495,7 @@ BrowserView {
                 readonly property string icon: "history"
                 readonly property bool displayUrl: true
                 sourceModel: TextSearchFilterModel {
-                    sourceModel: browser.historyModel
+                    sourceModel: HistoryModel
                     terms: suggestionsList.searchTerms
                     searchFields: ["url", "title"]
                 }
@@ -839,7 +835,7 @@ BrowserView {
 
         onStatusChanged: {
             if (status == Loader.Ready) {
-                historyViewTimer.restart()
+                historyViewLoader.item.loadModel()
                 historyViewLoader.item.forceActiveFocus()
             } else {
                 internal.resetFocus()
@@ -849,14 +845,6 @@ BrowserView {
         Keys.onEscapePressed: historyViewLoader.active = false
 
         onActiveChanged: if (active) chrome.findInPageMode = false
-
-        Timer {
-            id: historyViewTimer
-            // Set the model asynchronously to ensure
-            // the view is displayed as early as possible.
-            interval: 1
-            onTriggered: historyViewLoader.item.historyModel = browser.historyModel
-        }
 
         Component {
             id: historyViewComponent
@@ -890,7 +878,7 @@ BrowserView {
                                 if (count == 1) {
                                     done()
                                 }
-                                browser.historyModel.removeEntryByUrl(url)
+                                HistoryModel.removeEntryByUrl(url)
                             }
                             onDone: destroy()
                         }
@@ -914,6 +902,7 @@ BrowserView {
                     browser.openUrlInNewTab(url, true)
                     done()
                 }
+
                 onNewTabRequested: browser.openUrlInNewTab("", true)
                 onDone: historyViewLoader.active = false
             }
@@ -932,7 +921,6 @@ BrowserView {
             SettingsPage {
                 anchors.fill: parent
                 focus: true
-                historyModel: browser.historyModel
                 settingsObject: settings
                 onDone: destroy()
                 Keys.onEscapePressed: {
@@ -966,12 +954,6 @@ BrowserView {
                 }
             }
         }
-    }
-
-    Loader {
-        id: historyModelLoader
-        source: "HistoryModel.qml"
-        asynchronous: true
     }
 
     Loader {
@@ -1196,8 +1178,9 @@ BrowserView {
                         return
                     }
 
-                    if ((event.type == Oxide.LoadEvent.TypeSucceeded) && browser.historyModel && 300 > event.httpStatusCode && event.httpStatusCode >= 200) {
-                        browser.historyModel.add(event.url, title, icon)
+                    if (event.type == Oxide.LoadEvent.TypeSucceeded &&
+                        300 > event.httpStatusCode && event.httpStatusCode >= 200) {
+                        HistoryModel.add(event.url, title, icon)
                     }
                 }
 
@@ -1295,6 +1278,15 @@ BrowserView {
     QtObject {
         id: internal
 
+        function getOpenPages() {
+            var urls = [];
+            for (var i = 0; i < tabsModel.count; i++) {
+                var url = tabsModel.get(i).url
+                if (url.length > 0) urls.push(url) // exclude "new tab" tabs
+            }
+            return urls;
+        }
+
         function instantiateShareComponent() {
             var component = Qt.createComponent("../Share.qml")
             if (component.status == Component.Ready) {
@@ -1339,6 +1331,24 @@ BrowserView {
             if (tabsModel.count > 0) {
                 closeTab(tabsModel.currentIndex)
             }
+        }
+
+        function switchToPreviousTab() {
+            if (browser.wide) {
+                internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count)
+            } else {
+                internal.switchToTab(tabsModel.count - 1)
+            }
+            if (recentView.visible) recentView.focus = true
+        }
+
+        function switchToNextTab() {
+            if (browser.wide) {
+                internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count)
+            } else {
+                internal.switchToTab(tabsModel.count - 1)
+            }
+            if (recentView.visible) recentView.focus = true
         }
 
         function switchToTab(index) {
@@ -1558,8 +1568,18 @@ BrowserView {
         }
     }
 
-    // Delay instantiation of the first webview by 1 msec to allow initial
-    // rendering to happen. Clumsy workaround for http://pad.lv/1359911.
+    // Schedule various expensive tasks to a point after the initialization and
+    // first rendering of the application have already happened.
+    //
+    // Scheduling a Timer with the shortest non-zero interval possible (1ms) will
+    // effectively queue its onTriggered function to run immediately after anything
+    // that is currently in the event loop queue at the moment the Timer starts.
+    //
+    // The tasks are:
+    // - creating the webviews for all initial tabs. This should ideally be done
+    //   asynchronously via object incubation, but http://pad.lv/1359911 prevents it
+    // - loading the HistoryModel from the database
+    // - deleting any page screenshots that are no longer needed
     Timer {
         running: true
         interval: 1
@@ -1567,6 +1587,7 @@ BrowserView {
             if (!browser.newSession && settings.restoreSession) {
                 session.restore()
             }
+
             // Sanity check
             console.assert(tabsModel.count <= browser.maxTabsToRestore,
                            "WARNING: too many tabs were restored")
@@ -1580,6 +1601,11 @@ BrowserView {
             if (!tabsModel.currentTab.url.toString() && !tabsModel.currentTab.restoreState && (formFactor == "desktop")) {
                 internal.focusAddressBar()
             }
+
+            HistoryModel.databasePath = dataLocation + "/history.sqlite"
+            // Note that the property setter for databasePath won't return until
+            // the entire model has been loaded, so it is safe to call this here
+            PreviewManager.cleanUnusedPreviews(internal.getOpenPages())
         }
     }
 
@@ -1649,34 +1675,32 @@ BrowserView {
     KeyboardShortcuts {
         id: shortcuts
 
-        // Ctrl+Tab: cycle through open tabs
+        // Ctrl+Tab or Ctrl+PageDown: cycle through open tabs
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Tab
             enabled: chrome.visible || recentView.visible
-            onTriggered: {
-                if (browser.wide) {
-                    internal.switchToTab((tabsModel.currentIndex + 1) % tabsModel.count)
-                } else {
-                    internal.switchToTab(tabsModel.count - 1)
-                }
-                if (recentView.visible) recentView.focus = true
-            }
+            onTriggered: internal.switchToNextTab()
+        }
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_PageDown
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.switchToNextTab()
         }
 
-        // Ctrl+Shift+Tab: cycle through open tabs in reverse order
+        // Ctrl+Shift+Tab or Ctrl+PageUp: cycle through open tabs in reverse order
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_Backtab
             enabled: chrome.visible || recentView.visible
-            onTriggered: {
-                if (browser.wide) {
-                    internal.switchToTab((tabsModel.currentIndex - 1 + tabsModel.count) % tabsModel.count)
-                } else {
-                    internal.switchToTab(tabsModel.count - 1)
-                }
-                if (recentView.visible) recentView.focus = true
-            }
+            onTriggered: internal.switchToPreviousTab()
+        }
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier
+            key: Qt.Key_PageUp
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.switchToPreviousTab()
         }
 
         // Ctrl+W or Ctrl+F4: Close the current tab

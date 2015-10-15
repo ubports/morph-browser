@@ -43,3 +43,10 @@ bool FileOperations::mkpath(const QUrl& path) const
 {
     return QDir::root().mkpath(path.toLocalFile());
 }
+
+QStringList FileOperations::filesInDirectory(const QUrl& directory,
+                                             const QStringList& filters) const
+{
+    return QDir(directory.toLocalFile()).entryList(filters,
+                                                   QDir::Files, QDir::Unsorted);
+}

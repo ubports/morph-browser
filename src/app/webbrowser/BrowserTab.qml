@@ -20,6 +20,7 @@ import QtQuick 2.4
 import Ubuntu.Web 0.2
 import com.canonical.Oxide 1.4 as Oxide
 import webbrowserapp.private 0.1
+import "."
 
 FocusScope {
     id: tab
@@ -39,6 +40,19 @@ FocusScope {
     property url preview
     property bool current: false
     property bool incognito
+
+    Connections {
+        target: PreviewManager
+        onPreviewSaved: {
+            if (pageUrl !== url) return
+            if (preview == previewUrl) {
+                // Ensure that the preview URL actually changes,
+                // for the image to be reloaded
+                preview = ""
+            }
+            preview = previewUrl
+        }
+    }
 
     FocusScope {
         id: webviewContainer
@@ -81,9 +95,7 @@ FocusScope {
 
     function close() {
         unload()
-        if (preview && preview.toString()) {
-            FileOperations.remove(preview)
-        }
+        PreviewManager.checkDelete(url)
         destroy()
     }
 
@@ -110,6 +122,12 @@ FocusScope {
                 visible = false
                 return
             }
+
+            if (url.toString().length === 0) {
+                visible = false
+                return
+            }
+
             internal.hiding = true
             webview.grabToImage(function(result) {
                 if (!internal.hiding) {
@@ -117,22 +135,8 @@ FocusScope {
                 }
                 internal.hiding = false
                 visible = false
-                var capturesDir = cacheLocation + "/captures"
-                if (!FileOperations.exists(Qt.resolvedUrl(capturesDir))) {
-                    FileOperations.mkpath(Qt.resolvedUrl(capturesDir))
-                }
-                var filepath = capturesDir + "/" + uniqueId + ".jpg"
-                if (result.saveToFile(filepath)) {
-                    var previewUrl = Qt.resolvedUrl(filepath)
-                    if (preview == previewUrl) {
-                        // Ensure that the preview URL actually changes,
-                        // for the image to be reloaded
-                        preview = ""
-                    }
-                    preview = previewUrl
-                } else {
-                    preview = ""
-                }
+
+                PreviewManager.saveToDisk(result, url)
             })
         }
     }
