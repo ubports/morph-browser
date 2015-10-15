@@ -19,12 +19,12 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import webbrowserapp.private 0.1
+import "."
 
 FocusScope {
     id: newTabViewWide
 
     property QtObject bookmarksModel
-    property alias historyModel: historyTimeframeModel.sourceModel
     property QtObject settingsObject
     property alias selectedIndex: sections.selectedIndex
     readonly property bool inBookmarksView: newTabViewWide.selectedIndex === 1
@@ -49,14 +49,11 @@ FocusScope {
         }
     }
 
-    HistoryTimeframeModel {
-        id: historyTimeframeModel
-    }
     LimitProxyModel {
         id: topSitesModel
         limit: 10
         sourceModel: TopSitesModel {
-            model: historyTimeframeModel
+            model: HistoryModel
         }
     }
 
@@ -232,7 +229,7 @@ FocusScope {
         flickableItem: bookmarksList
     }
 
-    ListView {
+    UrlPreviewGrid {
         id: topSitesList
         objectName: "topSitesList"
         anchors {
@@ -240,36 +237,22 @@ FocusScope {
             bottom: parent.bottom
             left: parent.left
             right: parent.right
-            topMargin: units.gu(2)
+            topMargin: units.gu(3)
+            leftMargin: units.gu(4)
         }
 
         visible: !inBookmarksView
-        currentIndex: 0
 
         model: topSitesModel
-        delegate: UrlDelegateWide {
-            objectName: "topSiteItem"
-            clip: true
+        showFavicons: true
 
-            title: model.title
-            icon: model.icon
-            url: model.url
-            highlighted: topSitesList.activeFocus && ListView.isCurrentItem
-
-            onClicked: newTabViewWide.historyEntryClicked(url)
-            onRemoved: newTabViewWide.historyModel.hide(url)
+        onActivated: newTabViewWide.historyEntryClicked(url)
+        onRemoved: {
+            HistoryModel.hide(url)
+            if (topSitesModel.count === 0) newTabViewWide.releasingKeyboardFocus()
+            PreviewManager.checkDelete(url)
         }
-
-        Keys.onReturnPressed: newTabViewWide.historyEntryClicked(currentItem.url)
-        Keys.onDeletePressed: {
-            newTabViewWide.historyModel.hide(currentItem.url)
-            if (topSitesList.model.count === 0) newTabViewWide.releasingKeyboardFocus()
-        }
-        Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, model.count - 1)
-        Keys.onUpPressed: {
-            if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
-            else newTabViewWide.releasingKeyboardFocus()
-        }
+        onReleasingKeyboardFocus: newTabViewWide.releasingKeyboardFocus()
     }
 
     Scrollbar {
@@ -292,7 +275,7 @@ FocusScope {
             anchors {
                 left: parent.left
                 top: parent.top
-                leftMargin: units.gu(1)
+                leftMargin: units.gu(2)
             }
 
             selectedIndex: settingsObject.newTabDefaultSection

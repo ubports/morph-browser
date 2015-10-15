@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-09-23 20:14+0200\n"
-"PO-Revision-Date: 2015-02-11 21:13+0000\n"
-"Last-Translator: ivarela <ivarela@ubuntu.com>\n"
+"POT-Creation-Date: 2015-10-02 23:28+0200\n"
+"PO-Revision-Date: 2015-10-06 13:02+0000\n"
+"Last-Translator: Xuacu Saturio <xuacusk8@gmail.com>\n"
 "Language-Team: Asturian <ast@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-09-24 05:53+0000\n"
-"X-Generator: Launchpad (build 17749)\n"
+"X-Launchpad-Export-Date: 2015-10-07 06:04+0000\n"
+"X-Generator: Launchpad (build 17802)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -104,14 +104,16 @@ msgstr "Confirmación JavaScript"
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
+"Escueye una aplicación p'abrir esti ficheru o añádelu a la carpeta de "
+"descargues."
 
 #: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
-msgstr ""
+msgstr "Escueye una aplicación"
 
 #: src/app/ContentDownloadDialog.qml:97
 msgid "Download"
-msgstr ""
+msgstr "Descargar"
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
@@ -393,21 +395,21 @@ msgstr "Copiar enllaz"
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr ""
+msgstr "Cortar"
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr ""
+msgstr "Esborrar"
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
 msgid "Find in page"
-msgstr ""
+msgstr "Alcontrar na páxina"
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr ""
+msgstr "Testu a buscar na páxina"
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
@@ -430,6 +432,7 @@ msgid "Address;URL;www"
 msgstr "Direición;URL;www"
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
+#: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "Llingüeta nueva"
 
@@ -453,13 +456,14 @@ msgstr "Abrir enllaz en llingüeta nueva"
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr ""
+msgstr "Apegar"
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr ""
+msgstr "Refacer"
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
+#: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
 msgstr "Recargar"
 
@@ -475,7 +479,7 @@ msgstr "Guardar imaxe"
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr ""
+msgstr "Guardar enllaz"
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
 #: src/app/webbrowser/HistoryViewWide.qml:399
@@ -488,17 +492,17 @@ msgstr "Compartir"
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr ""
+msgstr "Desfacer"
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:204
 #, qt-format
 msgid "%1/%2"
-msgstr ""
+msgstr "%1/%2"
 
 #: src/app/webbrowser/AddressBar.qml:240
 msgid "find in page"
-msgstr ""
+msgstr "alcontrar na páxina"
 
 #: src/app/webbrowser/AddressBar.qml:241
 msgid "search or enter an address"
@@ -506,37 +510,37 @@ msgstr "guetar o introduz una direición"
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr ""
+msgstr "Añadíu marcador"
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr ""
+msgstr "Guardar en"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
 #: src/app/webbrowser/NewTabViewWide.qml:122
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Tolos marcadores"
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr ""
+msgstr "Carpeta nueva"
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr ""
+msgstr "Crear una carpeta nueva"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:353
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: src/app/webbrowser/Browser.qml:375
 #: src/app/webbrowser/HistoryViewWide.qml:357
@@ -549,25 +553,25 @@ msgstr "Abrir llingüetes"
 
 #: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
 #: src/app/webbrowser/HistoryViewWide.qml:508
-#: src/app/webbrowser/TabsBar.qml:99 src/app/webbrowser/TabsList.qml:94
+#: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Llingüeta nueva"
 
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr ""
+msgstr "Descargues"
 
 #: src/app/webbrowser/Browser.qml:409
 msgid "Leave Private Mode"
-msgstr ""
+msgstr "Dexar el mou priváu"
 
 #: src/app/webbrowser/Browser.qml:409
 msgid "Private Mode"
-msgstr ""
+msgstr "Mou priváu"
 
 #: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
 msgid "Settings"
-msgstr ""
+msgstr "Preferencies"
 
 #: src/app/webbrowser/Browser.qml:653 src/app/webbrowser/HistoryView.qml:108
 #: src/app/webbrowser/HistoryViewWide.qml:494
@@ -578,19 +582,19 @@ msgstr "Fecho"
 #: src/app/webbrowser/Browser.qml:761
 #, qt-format
 msgid "(%1)"
-msgstr ""
+msgstr "(%1)"
 
 #: src/app/webbrowser/Browser.qml:1200
 msgid "Swipe Up To Exit Full Screen"
-msgstr ""
+msgstr "Esliza arriba pa salir de pantalla completa"
 
 #: src/app/webbrowser/Browser.qml:1201
 msgid "Press ESC To Exit Full Screen"
-msgstr ""
+msgstr "Calca ESC pa salir de pantalla completa"
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr ""
+msgstr "Confirmar la esbilla"
 
 #: src/app/webbrowser/HistoryView.qml:210
 #: src/app/webbrowser/HistoryViewWide.qml:418
@@ -599,7 +603,7 @@ msgstr "Desaniciar"
 
 #: src/app/webbrowser/DownloadsPage.qml:207
 msgid "No downloads available"
-msgstr ""
+msgstr "Nun hai descargues disponibles"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
@@ -624,30 +628,33 @@ msgstr "Ayeri"
 
 #: src/app/webbrowser/HistoryViewWide.qml:189
 msgid "All History"
-msgstr ""
+msgstr "Tol historial"
 
 #: src/app/webbrowser/HistoryViewWide.qml:203
 #: src/app/webbrowser/HistoryViewWide.qml:272
 msgid "Today"
-msgstr ""
+msgstr "Güei"
 
 #: src/app/webbrowser/HistoryViewWide.qml:439
 msgid "search history"
-msgstr ""
+msgstr "historial de gueta"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr ""
+msgstr "Dir al mou públicu zarrará toles llingüetes privaes"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr ""
+msgstr "Esta ye una llingüeta privada"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
+"Les páxines que veas nesta llingüeta nun apaecerán nel historial del "
+"restolador.\n"
+"Sicasí, los marcadores que crees conservaránse."
 
 #: src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:313
@@ -656,7 +663,7 @@ msgstr "Marcadores"
 
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr ""
+msgstr "Más"
 
 #: src/app/webbrowser/NewTabView.qml:226
 #: src/app/webbrowser/NewTabViewWide.qml:312
@@ -665,23 +672,23 @@ msgstr "Meyores sitios"
 
 #: src/app/webbrowser/NewTabView.qml:257
 msgid "You haven't visited any site yet"
-msgstr ""
+msgstr "Inda nun visitasti nengún sitiu"
 
 #: src/app/webbrowser/NewTabViewWide.qml:160
 #: src/app/webbrowser/SettingsPage.qml:92
 #: src/app/webbrowser/SettingsPage.qml:317
 msgid "Homepage"
-msgstr ""
+msgstr "Sitiu web"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr ""
+msgstr "El procesu de dibuxáu zarróse pa esta llingüeta."
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr ""
+msgstr "Daqué salió mal al amosar %1."
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
@@ -691,7 +698,7 @@ msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr ""
+msgstr "Zarrar llingüeta"
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
@@ -750,40 +757,40 @@ msgstr "Que ta dirixíu por"
 #: src/app/webbrowser/SettingsPage.qml:81
 #: src/app/webbrowser/SettingsPage.qml:176
 msgid "Search engine"
-msgstr ""
+msgstr "Motor de gueta"
 
 #: src/app/webbrowser/SettingsPage.qml:101
 msgid "Restore previous session at startup"
-msgstr ""
+msgstr "Restaurar la sesión anterior nel aniciu"
 
 #: src/app/webbrowser/SettingsPage.qml:119
 msgid "Allow opening new tabs in background"
-msgstr ""
+msgstr "Permitir abrir llingüetes nueves nel fondu"
 
 #: src/app/webbrowser/SettingsPage.qml:138
 #: src/app/webbrowser/SettingsPage.qml:228
 msgid "Privacy"
-msgstr ""
+msgstr "Intimidá"
 
 #: src/app/webbrowser/SettingsPage.qml:146
 msgid "Reset browser settings"
-msgstr ""
+msgstr "Reaniciar les preferencies del restolador"
 
 #: src/app/webbrowser/SettingsPage.qml:249
 msgid "Clear Browsing History"
-msgstr ""
+msgstr "Llimpiar l'historial de navegación"
 
 #: src/app/webbrowser/SettingsPage.qml:252
 msgid "Clear Browsing History?"
-msgstr ""
+msgstr "¿Llimpiar l'historial de navegación?"
 
 #: src/app/webbrowser/SettingsPage.qml:259
 msgid "Clear Cache"
-msgstr ""
+msgstr "Llimpiar la caché"
 
 #: src/app/webbrowser/SettingsPage.qml:261
 msgid "Clear Cache?"
-msgstr ""
+msgstr "¿Llimpiar la caché?"
 
 #: src/app/webbrowser/SettingsPage.qml:296
 msgid "Clear"
@@ -793,9 +800,9 @@ msgstr "Llimpiar"
 msgid "Tap to view"
 msgstr "Toca pa ver"
 
-#: src/app/webbrowser/TabsBar.qml:98
+#: src/app/webbrowser/TabsBar.qml:96
 msgid "Close Tab"
-msgstr ""
+msgstr "Zarrar llingüeta"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
@@ -821,15 +828,15 @@ msgstr "Amestar cuenta"
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr ""
+msgstr "Nun usar una cuenta"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr ""
+msgstr "Error de cuenta"
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr ""
+msgstr "Zarrar"
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
@@ -841,13 +848,13 @@ msgstr ""
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> necesita accesu a la cuenta en llinia %2."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr ""
+msgstr "<b>%1</b> quier tener accesu a la cuenta en llinia %2."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
@@ -856,15 +863,19 @@ msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr ""
+msgstr "Zarrar la app"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr ""
+msgstr "Saltar"
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr ""
+msgstr "Escoyer cuenta"
+
+#: src/app/webcontainer/SadPage.qml:45
+msgid "Oops, something went wrong."
+msgstr "Ups, daqué salió mal."
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"

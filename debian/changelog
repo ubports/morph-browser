@@ -1,3 +1,49 @@
+webbrowser-app (0.23+15.10.20151013.1-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk. added: po/bn.po
+
+  [ Michael Terry ]
+  * Add Ctrl+PageUp and Ctrl+PageDown as alternate keyboard shortcuts
+    for cycling through tabs. (LP: #1499761)
+
+  [ Olivier Tilloy ]
+  * Handle RemoteHostClosedError in shouldCancelRequests(). (LP:
+    #1498539)
+  * Use the new oxide API to allow a geolocation permission request.
+    (LP: #1500862)
+
+  [ Ugo Riboni ]
+  * Delay the creation of the XMLHttpRequest used to retrieve the search
+    suggestions until the first request, to save memory and speed up
+    application startup.
+  * Reimplement the top sites list to use a grid of previews in all form
+    factors.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 13 Oct 2015 12:57:55 +0000
+
+webbrowser-app (0.23+15.10.20151005-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+  [ Olivier Tilloy ]
+  * Add apparmor profile to run webbrowser-app confined. (LP: #1356516)
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Mon, 05 Oct 2015 09:49:24 +0000
+
+webbrowser-app (0.23+15.10.20151002.1-0ubuntu1) wily; urgency=medium
+
+  [ Alexandre Abreu ]
+  * Handle webapp webview renderer crashes (LP: #1498091, #1375215)
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+
+ -- David Barth <david.barth@canonical.com>  Fri, 02 Oct 2015 07:45:24 +0000
+
 webbrowser-app (0.23+15.10.20151001-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]

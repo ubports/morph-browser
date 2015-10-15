@@ -20,24 +20,21 @@ import QtQuick 2.4
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import webbrowserapp.private 0.1
+import "."
 
 Item {
     id: newTabView
 
     property QtObject bookmarksModel
-    property alias historyModel: historyTimeframeModel.sourceModel
     property Settings settingsObject
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
     signal historyEntryClicked(url url)
 
-    HistoryTimeframeModel {
-        id: historyTimeframeModel
-    }
     TopSitesModel {
         id: topSitesModel
-        model: historyTimeframeModel
+        model: HistoryModel
     }
 
     QtObject {
@@ -148,7 +145,7 @@ Item {
 
                 active: internal.seeMoreBookmarksView
                 sourceComponent: BookmarksFolderListView {
-                    model: newTabView.bookmarksModel 
+                    model: newTabView.bookmarksModel
 
                     onBookmarkClicked: newTabView.bookmarkClicked(url)
                     onBookmarkRemoved: newTabView.bookmarkRemoved(url)
@@ -232,7 +229,7 @@ Item {
                 height: units.gu(0.1)
                 anchors {
                     left: parent.left
-                    leftMargin: units.gu(1.5)
+                    leftMargin: units.gu(2)
                     right: parent.right
                 }
                 color: "#d3d3d3"
@@ -258,24 +255,60 @@ Item {
                 color: UbuntuColors.darkGrey
             }
 
-            UrlsList {
-                objectName: "topSitesList"
+            Item {
                 anchors {
                     left: parent.left
                     right: parent.right
+
+                    // The UrlPreviewGrid's highlight extends to the left of the
+                    // grid itself by a margin.
+                    // Since we are clipping the parent we need to prevent the
+                    // highlight from being clipped away at the left edge.
+                    // We do this by shifting the parent left and the contents right
+                    // by an amount equal to the highlight's margin.
+                    leftMargin: units.gu(2) - grid.horizontalMargin
+
+                    // The right margin should be 2gu, which is set on all cells
+                    // of the UrlPreviewGrid already. However the parent Column
+                    // has 1.5gu right margin, so we are compensating for that
+                    // here instead of removing it from the Column itself and
+                    // reassigning it to all Column children except this one.
+                    rightMargin: - contentColumn.anchors.rightMargin
                 }
+                height: childrenRect.height
+                clip: true
 
-                opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
-                Behavior on opacity { UbuntuNumberAnimation {} }
-                visible: opacity > 0
+                UrlPreviewGrid {
+                    id: grid
+                    objectName: "topSitesList"
+                    anchors {
+                        left: parent.left
+                        leftMargin: grid.horizontalMargin
+                        right: parent.right
+                        top: parent.top
+                        topMargin: units.gu(2)
+                    }
 
-                limit: 10
-                spacing: 0
+                    horizontalMargin: units.gu(1)
+                    verticalMargin: units.gu(1)
 
-                model: topSitesModel
+                    opacity: internal.seeMoreBookmarksView ? 0.0 : 1.0
+                    Behavior on opacity { UbuntuNumberAnimation {} }
+                    visible: opacity > 0
+                    interactive: false
 
-                onUrlClicked: newTabView.historyEntryClicked(url)
-                onUrlRemoved: newTabView.historyModel.hide(url)
+                    model: LimitProxyModel {
+                        limit: 10
+                        sourceModel: topSitesModel
+                    }
+                    showFavicons: false
+
+                    onActivated: newTabView.historyEntryClicked(url)
+                    onRemoved: {
+                        HistoryModel.hide(url)
+                        PreviewManager.checkDelete(url)
+                    }
+                }
             }
         }
     }

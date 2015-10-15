@@ -25,7 +25,6 @@ import "Highlight.js" as Highlight
 FocusScope {
     id: historyViewWide
 
-    property alias historyModel: historySearchModel.sourceModel
     property bool searchMode: false
     readonly property bool selectMode: urlsListView.ViewItems.selectMode
     onSearchModeChanged: {
@@ -57,15 +56,16 @@ FocusScope {
             internal.removeSelected()
         } else {
             if (urlsListView.activeFocus) {
-                historyViewWide.historyModel.removeEntryByUrl(urlsListView.currentItem.siteUrl)
+                HistoryModel.removeEntryByUrl(urlsListView.currentItem.siteUrl)
+
                 if (urlsListView.count == 0) {
                     lastVisitDateListView.currentIndex = 0
                 }
             } else {
                 if (lastVisitDateListView.currentIndex == 0) {
-                    historyViewWide.historyModel.clearAll()
+                    HistoryModel.clearAll()
                 } else {
-                    historyViewWide.historyModel.removeEntriesByDate(lastVisitDateListView.currentItem.lastVisitDate)
+                    HistoryModel.removeEntriesByDate(lastVisitDateListView.currentItem.lastVisitDate)
                     lastVisitDateListView.currentIndex = 0
                 }
             }
@@ -81,6 +81,16 @@ FocusScope {
     Rectangle {
         anchors.fill: parent
     }
+
+    Timer {
+        // Set the model asynchronously to ensure
+        // the view is displayed as early as possible.
+        id: loadModelTimer
+        interval: 1
+        onTriggered: historySearchModel.sourceModel = HistoryModel
+    }
+
+    function loadModel() { loadModelTimer.restart() }
 
     TextSearchFilterModel {
         id: historySearchModel
@@ -245,7 +255,7 @@ FocusScope {
                     // will not report role names, and the HistoryLastVisitDateListModel
                     // will emit warnings since it needs a dateLastVisit role to be
                     // present.
-                    model: historyModel ? historySearchModel : null
+                    model: historySearchModel.sourceModel ? historySearchModel : null
                 }
 
                 clip: true
@@ -314,7 +324,7 @@ FocusScope {
                     }
 
                     onRemoved: {
-                        historyViewWide.historyModel.removeEntryByUrl(model.url)
+                        HistoryModel.removeEntryByUrl(model.url)
                         if (urlsListView.count == 0) {
                             lastVisitDateListView.currentIndex = 0
                         }
@@ -365,8 +375,7 @@ FocusScope {
         ToolbarAction {
             objectName: "backButton"
 
-            visible: urlsListView.ViewItems.selectMode ||
-                     historyViewWide.searchMode
+            visible: historyViewWide.selectMode || historyViewWide.searchMode
 
             anchors {
                 top: parent.top
@@ -550,7 +559,7 @@ FocusScope {
 
             urlsListView.ViewItems.selectMode = false
             for (var j in urls) {
-                historyViewWide.historyModel.removeEntryByUrl(urls[j])
+                HistoryModel.removeEntryByUrl(urls[j])
             }
 
             lastVisitDateListView.forceActiveFocus()
