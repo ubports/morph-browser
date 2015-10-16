@@ -314,7 +314,8 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(address_bar.findInPageMode, Eventually(Equals(True)))
         self.main_window.press_key('Escape')
         self.assertThat(address_bar.findInPageMode, Eventually(Equals(False)))
-
+        if not self.main_window.wide:
+            self.open_tabs_view()
         self.open_new_tab()
         self.main_window.press_key('Ctrl+F')
         self.assertThat(address_bar.findInPageMode, Equals(False))
