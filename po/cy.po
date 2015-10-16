@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-02 23:28+0200\n"
+"POT-Creation-Date: 2015-10-15 18:50+0200\n"
 "PO-Revision-Date: 2015-07-27 14:09+0000\n"
 "Last-Translator: Owen Llywelyn <owen.llywelyn@gmail.com>\n"
 "Language-Team: Welsh <cy@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : (n != 8 && n != 11) ? "
 "2 : 3;\n"
-"X-Launchpad-Export-Date: 2015-10-03 05:37+0000\n"
-"X-Generator: Launchpad (build 17783)\n"
+"X-Launchpad-Export-Date: 2015-10-16 05:55+0000\n"
+"X-Generator: Launchpad (build 17812)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
@@ -52,11 +52,11 @@ msgstr "Cyfrinair"
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/HistoryView.qml:165
-#: src/app/webbrowser/HistoryViewWide.qml:374
+#: src/app/webbrowser/HistoryView.qml:173
+#: src/app/webbrowser/HistoryViewWide.qml:383
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:289
-#: src/app/webbrowser/SettingsPage.qml:343
+#: src/app/webbrowser/SettingsPage.qml:288
+#: src/app/webbrowser/SettingsPage.qml:342
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "Diddymu"
@@ -401,7 +401,7 @@ msgstr ""
 msgid "Erase"
 msgstr ""
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:399
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:395
 msgid "Find in page"
 msgstr ""
 
@@ -431,7 +431,7 @@ msgstr "Mynd i"
 msgid "Address;URL;www"
 msgstr "Cyfeiriad;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:667
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:663
 #: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "Tab Newydd"
@@ -481,12 +481,12 @@ msgstr "Cadw delwedd"
 msgid "Save link"
 msgstr ""
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:180
-#: src/app/webbrowser/HistoryViewWide.qml:399
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:188
+#: src/app/webbrowser/HistoryViewWide.qml:408
 msgid "Select all"
 msgstr "Dewis popeth"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:368
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:365
 msgid "Share"
 msgstr "Rhannu"
 
@@ -524,7 +524,7 @@ msgstr "Cadw yn"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFolderListView.qml:115
-#: src/app/webbrowser/NewTabViewWide.qml:122
+#: src/app/webbrowser/NewTabViewWide.qml:123
 msgid "All Bookmarks"
 msgstr "Pob Nod Tudalen"
 
@@ -538,21 +538,21 @@ msgid "Create new folder"
 msgstr "Creu plygell newydd"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:353
+#: src/app/webbrowser/SettingsPage.qml:352
 msgid "Save"
 msgstr "Cadw"
 
-#: src/app/webbrowser/Browser.qml:375
-#: src/app/webbrowser/HistoryViewWide.qml:357
+#: src/app/webbrowser/Browser.qml:372
+#: src/app/webbrowser/HistoryViewWide.qml:367
 msgid "History"
 msgstr "Hanes"
 
-#: src/app/webbrowser/Browser.qml:382
+#: src/app/webbrowser/Browser.qml:378
 msgid "Open tabs"
 msgstr "Agor tabiau"
 
-#: src/app/webbrowser/Browser.qml:392 src/app/webbrowser/HistoryView.qml:121
-#: src/app/webbrowser/HistoryViewWide.qml:508
+#: src/app/webbrowser/Browser.qml:388 src/app/webbrowser/HistoryView.qml:129
+#: src/app/webbrowser/HistoryViewWide.qml:517
 #: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Tab newydd"
@@ -561,34 +561,34 @@ msgstr "Tab newydd"
 msgid "Downloads"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:405
 msgid "Leave Private Mode"
 msgstr "Gadael Modd Preifat"
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:405
 msgid "Private Mode"
 msgstr "Modd Preifat"
 
-#: src/app/webbrowser/Browser.qml:427 src/app/webbrowser/SettingsPage.qml:51
+#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Gosodiadau"
 
-#: src/app/webbrowser/Browser.qml:653 src/app/webbrowser/HistoryView.qml:108
-#: src/app/webbrowser/HistoryViewWide.qml:494
+#: src/app/webbrowser/Browser.qml:649 src/app/webbrowser/HistoryView.qml:116
+#: src/app/webbrowser/HistoryViewWide.qml:503
 msgid "Done"
 msgstr "Cwblhawyd"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:761
+#: src/app/webbrowser/Browser.qml:757
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1200
+#: src/app/webbrowser/Browser.qml:1183
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Traw i Fyny i Adael Sgrîn Lawn"
 
-#: src/app/webbrowser/Browser.qml:1201
+#: src/app/webbrowser/Browser.qml:1184
 msgid "Press ESC To Exit Full Screen"
 msgstr "Pwyswch ESC i Adael Sgrîn Lawn"
 
@@ -596,8 +596,8 @@ msgstr "Pwyswch ESC i Adael Sgrîn Lawn"
 msgid "Confirm selection"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:210
-#: src/app/webbrowser/HistoryViewWide.qml:418
+#: src/app/webbrowser/HistoryView.qml:218
+#: src/app/webbrowser/HistoryViewWide.qml:427
 msgid "Delete"
 msgstr "Dileu"
 
@@ -615,7 +615,7 @@ msgstr[2] "%1 tudalen"
 msgstr[3] "%1 tudalen"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:119
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "Less"
 msgstr "Llai"
 
@@ -624,20 +624,20 @@ msgid "Last Visited"
 msgstr "Ymwelwyd Ddiwethaf"
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
-#: src/app/webbrowser/HistoryViewWide.qml:205
+#: src/app/webbrowser/HistoryViewWide.qml:215
 msgid "Yesterday"
 msgstr "Ddoe"
 
-#: src/app/webbrowser/HistoryViewWide.qml:189
+#: src/app/webbrowser/HistoryViewWide.qml:199
 msgid "All History"
 msgstr ""
 
-#: src/app/webbrowser/HistoryViewWide.qml:203
-#: src/app/webbrowser/HistoryViewWide.qml:272
+#: src/app/webbrowser/HistoryViewWide.qml:213
+#: src/app/webbrowser/HistoryViewWide.qml:282
 msgid "Today"
 msgstr ""
 
-#: src/app/webbrowser/HistoryViewWide.qml:439
+#: src/app/webbrowser/HistoryViewWide.qml:448
 msgid "search history"
 msgstr ""
 
@@ -658,27 +658,27 @@ msgstr ""
 "porwr.\n"
 "Bydd nodau tudalen yr ydych yn eu creu yn cael eu cadw serch hynny."
 
-#: src/app/webbrowser/NewTabView.qml:108
-#: src/app/webbrowser/NewTabViewWide.qml:313
+#: src/app/webbrowser/NewTabView.qml:109
+#: src/app/webbrowser/NewTabViewWide.qml:300
 msgid "Bookmarks"
 msgstr "Nodau Tudalen"
 
-#: src/app/webbrowser/NewTabView.qml:123
+#: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
 msgstr "Mwy"
 
-#: src/app/webbrowser/NewTabView.qml:226
-#: src/app/webbrowser/NewTabViewWide.qml:312
+#: src/app/webbrowser/NewTabView.qml:227
+#: src/app/webbrowser/NewTabViewWide.qml:299
 msgid "Top sites"
 msgstr "Prif safleoedd"
 
-#: src/app/webbrowser/NewTabView.qml:257
+#: src/app/webbrowser/NewTabView.qml:258
 msgid "You haven't visited any site yet"
 msgstr "Nid ydych wedi ymweld â safle eto"
 
-#: src/app/webbrowser/NewTabViewWide.qml:160
-#: src/app/webbrowser/SettingsPage.qml:92
-#: src/app/webbrowser/SettingsPage.qml:317
+#: src/app/webbrowser/NewTabViewWide.qml:161
+#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:316
 msgid "Homepage"
 msgstr "Tudalen Gartref"
 
@@ -755,45 +755,45 @@ msgstr "Rydych wedi cysylltu â"
 msgid "Which is run by"
 msgstr "Sy'n cael ei redeg gan"
 
-#: src/app/webbrowser/SettingsPage.qml:81
-#: src/app/webbrowser/SettingsPage.qml:176
+#: src/app/webbrowser/SettingsPage.qml:80
+#: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
 msgstr "Peiriant chwilio"
 
-#: src/app/webbrowser/SettingsPage.qml:101
+#: src/app/webbrowser/SettingsPage.qml:100
 msgid "Restore previous session at startup"
 msgstr "Adfer y sesiwn flaenorol wrth gychwyn"
 
-#: src/app/webbrowser/SettingsPage.qml:119
+#: src/app/webbrowser/SettingsPage.qml:118
 msgid "Allow opening new tabs in background"
 msgstr "Caniatáu agor tabiau newydd yn y cefndir"
 
-#: src/app/webbrowser/SettingsPage.qml:138
-#: src/app/webbrowser/SettingsPage.qml:228
+#: src/app/webbrowser/SettingsPage.qml:137
+#: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy"
 msgstr "Preifatrwydd"
 
-#: src/app/webbrowser/SettingsPage.qml:146
+#: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
 msgstr "Ailosod gosodiadau porwr"
 
-#: src/app/webbrowser/SettingsPage.qml:249
+#: src/app/webbrowser/SettingsPage.qml:248
 msgid "Clear Browsing History"
 msgstr "Clirio Hanes Pori"
 
-#: src/app/webbrowser/SettingsPage.qml:252
+#: src/app/webbrowser/SettingsPage.qml:251
 msgid "Clear Browsing History?"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:259
+#: src/app/webbrowser/SettingsPage.qml:258
 msgid "Clear Cache"
 msgstr "Gwagio'r Celc"
 
-#: src/app/webbrowser/SettingsPage.qml:261
+#: src/app/webbrowser/SettingsPage.qml:260
 msgid "Clear Cache?"
 msgstr ""
 
-#: src/app/webbrowser/SettingsPage.qml:296
+#: src/app/webbrowser/SettingsPage.qml:295
 msgid "Clear"
 msgstr ""
 
@@ -803,6 +803,10 @@ msgstr "Tapiwch i weld"
 
 #: src/app/webbrowser/TabsBar.qml:96
 msgid "Close Tab"
+msgstr ""
+
+#: src/app/webbrowser/UrlPreviewDelegate.qml:117
+msgid "Remove"
 msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
