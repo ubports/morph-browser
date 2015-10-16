@@ -301,6 +301,9 @@ Item {
                     visible: opacity > 0
                     interactive: false
 
+                    // No highlight as this view doesn’t support keyboard navigation
+                    highlight: null
+
                     model: LimitProxyModel {
                         limit: 10
                         sourceModel: topSitesModel
