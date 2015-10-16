@@ -127,8 +127,10 @@ Oxide.WebView {
         property QtObject contextModel: null
 
         function dismissCurrentContextualMenu() {
-            if (contextModel) {
-                contextModel.close()
+            var model = contextModel
+            contextModel = null
+            if (model) {
+                model.close()
             }
         }
 
