@@ -117,6 +117,7 @@ AbstractButton {
     Component {
         id: contextMenuComponent
         ActionSelectionPopover {
+            grabDismissAreaEvents: true
             actions: ActionList {
                 Action {
                     objectName: "delete"
