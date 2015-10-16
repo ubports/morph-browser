@@ -34,9 +34,10 @@ AbstractButton {
     property alias previewHeight: previewShape.height
     property alias previewWidth: previewShape.width
 
+    signal setCurrent()
     signal removed()
 
-    onPressAndHold: PopupUtils.open(contextMenuComponent, previewShape)
+    onPressAndHold: previewShape.openContextMenu()
 
     Column {
         id: contentColumn
@@ -99,13 +100,18 @@ AbstractButton {
                     previewImage.source = previewShape.previewUrl
                 }
             }
+
+            function openContextMenu() {
+                preview.setCurrent()
+                PopupUtils.open(contextMenuComponent, previewShape)
+            }
         }
     }
 
     MouseArea {
         anchors.fill: contentColumn
         acceptedButtons: Qt.RightButton
-        onClicked: PopupUtils.open(contextMenuComponent, previewShape)
+        onClicked: previewShape.openContextMenu()
     }
 
     Component {
