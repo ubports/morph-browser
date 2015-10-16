@@ -45,7 +45,7 @@ Rectangle {
 
         Label {
             width: parent.width
-            text: i18n.tr("Ubuntu suggests you check your network settings and try refreshing the page.")
+            text: i18n.tr("Please check your network settings and try refreshing the page.")
             wrapMode: Text.Wrap
         }
 
