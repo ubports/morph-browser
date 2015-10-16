@@ -92,17 +92,18 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         return self.main_window.get_bookmark_options()
 
     def _assert_bookmark_count_in_folder(self, tab, folder_name, count):
-        # in wide mode the list of urls in the default folder has the homepage
-        # bookmark in it, but it does not in narrow mode
-        if self.main_window.wide and folder_name == "":
-            count += 1
-
         urls = tab.get_bookmarks(folder_name)
         self.assertThat(lambda: len(urls), Eventually(Equals(count)))
 
+    def _toggle_bookmark_folder(self, tab, folder_name):
+        folders = tab.get_bookmarks_folder_list_view()
+        folder_delegate = folders.get_folder_delegate(folder_name)
+        self.pointing_device.click_object(
+            folders.get_header_from_folder(folder_delegate))
+
     def test_save_bookmarked_url_in_default_folder(self):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
-        self._assert_bookmark_count_in_folder(new_tab, "", 4)
+        self._assert_bookmark_count_in_folder(new_tab, "", 5)
 
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
@@ -118,12 +119,14 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
-        self._assert_bookmark_count_in_folder(new_tab, "", 5)
+        self._assert_bookmark_count_in_folder(new_tab, "", 6)
 
     def test_save_bookmarked_url_in_existing_folder(self):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
+        if not self.main_window.wide:
+            self._toggle_bookmark_folder(new_tab, "Actinide")
         self._assert_bookmark_count_in_folder(new_tab, "Actinide", 1)
 
         url = self.base_url + "/test2"
@@ -154,6 +157,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(3)))
+        if not self.main_window.wide:
+            self._toggle_bookmark_folder(new_tab, "Actinide")
         self._assert_bookmark_count_in_folder(new_tab, "Actinide", 2)
 
     def test_save_bookmarked_url_in_new_folder(self):
@@ -198,6 +203,8 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
         self.assertThat(lambda: len(new_tab.get_folder_names()),
                         Eventually(Equals(4)))
+        if not self.main_window.wide:
+            self._toggle_bookmark_folder(new_tab, "NewFolder")
         self._assert_bookmark_count_in_folder(new_tab, "NewFolder", 1)
 
     def test_set_bookmark_title(self):
@@ -223,12 +230,9 @@ class TestBookmarkOptions(StartOpenRemotePageTestCaseBase):
         self.assertThat(chrome.bookmarked, Eventually(Equals(True)))
 
         new_tab = self.open_new_tab(open_tabs_view=True, expand_view=True)
-        self._assert_bookmark_count_in_folder(new_tab, "", 5)
+        self._assert_bookmark_count_in_folder(new_tab, "", 6)
 
-        index = 0
-        if self.main_window.wide:
-            index += 1
-        bookmark = new_tab.get_bookmarks("")[index]
+        bookmark = new_tab.get_bookmarks("")[1]
         self.assertThat(bookmark.title, Equals("NewTitle"))
 
     def test_bookmark_options_from_contextual_menu(self):

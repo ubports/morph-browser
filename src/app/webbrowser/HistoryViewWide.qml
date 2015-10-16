@@ -346,6 +346,7 @@ FocusScope {
         id: topBar
 
         height: units.gu(7)
+        color: "#f7f7f7"
 
         anchors {
             left: parent.left

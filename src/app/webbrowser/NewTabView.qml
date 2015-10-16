@@ -148,8 +148,11 @@ Item {
                 height: status == Loader.Ready ? item.height : 0
 
                 active: internal.seeMoreBookmarksView
-                sourceComponent: BookmarksFolderListView {
+
+                sourceComponent: BookmarksFoldersView {
                     model: newTabView.bookmarksModel
+
+                    homeBookmarkUrl: newTabView.settingsObject.homepage
 
                     onBookmarkClicked: newTabView.bookmarkClicked(url)
                     onBookmarkRemoved: newTabView.bookmarkRemoved(url)
