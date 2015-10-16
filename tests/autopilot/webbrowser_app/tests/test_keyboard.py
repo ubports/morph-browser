@@ -105,9 +105,15 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+Page_Down')
         self.check_tab_number(0)
         self.main_window.press_key('Shift+Ctrl+Tab')
-        self.check_tab_number(2)
+        if self.main_window.wide:
+            self.check_tab_number(2)
+        else:
+            self.check_tab_number(1)
         self.main_window.press_key('Ctrl+Page_Up')
-        self.check_tab_number(1)
+        if self.main_window.wide:
+            self.check_tab_number(1)
+        else:
+            self.check_tab_number(2)
 
     def test_can_switch_tabs_after_suggestions_escape(self):
         self.open_tabs(1)
