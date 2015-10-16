@@ -150,7 +150,7 @@ Item {
                 active: internal.seeMoreBookmarksView
 
                 sourceComponent: BookmarksFoldersView {
-                    model: newTabView.bookmarksModel 
+                    model: newTabView.bookmarksModel
 
                     homeBookmarkUrl: newTabView.settingsObject.homepage
 
