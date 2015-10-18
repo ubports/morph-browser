@@ -23,8 +23,6 @@ import webbrowserapp.private 0.1
 Item {
     id: historyView
 
-    property alias historyModel: historyTimeframeModel.sourceModel
-
     signal seeMoreEntriesClicked(var model)
     signal done()
 
@@ -32,6 +30,16 @@ Item {
         anchors.fill: parent
         color: "#f6f6f6"
     }
+
+    Timer {
+        // Set the model asynchronously to ensure
+        // the view is displayed as early as possible.
+        id: loadModelTimer
+        interval: 1
+        onTriggered: historyTimeframeModel.sourceModel = HistoryModel
+    }
+
+    function loadModel() { loadModelTimer.restart() }
 
     ListView {
         id: domainsListView
@@ -75,7 +83,7 @@ Item {
                     historyView.seeMoreEntriesClicked(model.entries)
                 }
             }
-            onRemoved: historyView.historyModel.removeEntriesByDomain(model.domain)
+            onRemoved: HistoryModel.removeEntriesByDomain(model.domain)
             onPressAndHold: {
                 selectMode = !selectMode
                 if (selectMode) {
@@ -220,7 +228,7 @@ Item {
                         }
                         domainsListView.ViewItems.selectMode = false
                         for (var j in domains) {
-                            historyModel.removeEntriesByDomain(domains[j])
+                            HistoryModel.removeEntriesByDomain(domains[j])
                         }
                     }
                 }

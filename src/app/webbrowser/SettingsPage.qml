@@ -29,7 +29,6 @@ import "../UrlUtils.js" as UrlUtils
 Item {
     id: settingsItem
 
-    property QtObject historyModel
     property QtObject settingsObject
 
     signal done()
@@ -253,10 +252,10 @@ Item {
                         ListItems.Standard {
                             objectName: "privacy.clearHistory"
                             text: i18n.tr("Clear Browsing History")
-                            enabled: historyModel.count > 0
+                            enabled: HistoryModel.count > 0
                             onClicked: {
                                 var dialog = PopupUtils.open(privacyConfirmDialogComponent, privacyItem, {"title": i18n.tr("Clear Browsing History?")})
-                                dialog.confirmed.connect(historyModel.clearAll)
+                                dialog.confirmed.connect(HistoryModel.clearAll)
                             }
                         }
 

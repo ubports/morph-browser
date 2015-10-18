@@ -42,9 +42,6 @@ Item {
             // Ideally either more tests that use them will be added or the code
             // in SettingsPage will be refactored to cope with the missing
             // settings.
-            historyModel: HistoryModelMock {
-                databasePath: ":memory:"
-            }
             settingsObject: QtObject {
                 property url homepage
                 property string searchEngine

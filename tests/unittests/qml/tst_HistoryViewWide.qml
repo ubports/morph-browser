@@ -21,6 +21,7 @@ import QtTest 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Test 1.0
+import webbrowserapp.private 0.1
 import webbrowsertest.private 0.1
 import "../../../src/app/webbrowser"
 
@@ -45,9 +46,6 @@ Item {
         focus: true
         sourceComponent: HistoryViewWide {
             focus: true
-            historyModel: HistoryModelMock {
-                databasePath: ":memory:"
-            }
         }
     }
 
@@ -90,19 +88,25 @@ Item {
             mouseRelease(item, center.x + 100, center.y, Qt.LeftButton, Qt.NoModifier, 2000)
         }
 
+        function initTestCase() {
+            HistoryModel.databasePath = ":memory:"
+        }
+
         function init() {
             historyViewWideLoader.active = true
             waitForRendering(historyViewWideLoader.item)
 
             for (var i = 0; i < 3; ++i) {
-                historyViewWide.historyModel.add("http://example.org/" + i, "Example Domain " + i, "")
+                HistoryModel.add("http://example.org/" + i, "Example Domain " + i, "")
             }
+            historyViewWide.loadModel()
             var urlsList = findChild(historyViewWide, "urlsListView")
             waitForRendering(urlsList)
             tryCompare(urlsList, "count", 3)
         }
 
         function cleanup() {
+            HistoryModel.clearAll()
             historyViewWideLoader.active = false
             ctrlFCaptured = 0
         }
@@ -205,7 +209,9 @@ Item {
         function test_keyboard_navigation_between_lists() {
             var lastVisitDateList = findChild(historyViewWide, "lastVisitDateListView")
             var urlsList = findChild(historyViewWide, "urlsListView")
+            verify(!lastVisitDateList.activeFocus)
             verify(urlsList.activeFocus)
+
             keyClick(Qt.Key_Left)
             verify(lastVisitDateList.activeFocus)
             verify(!urlsList.activeFocus)
@@ -309,7 +315,7 @@ Item {
             keyClick(Qt.Key_Enter)
             compare(historyEntryClickedSpy.count, 1)
             var args = historyEntryClickedSpy.signalArguments[0]
-            var entry = urlsList.model.get(2)
+            var entry = urlsList.model.get(0)
             compare(String(args[0]), String(entry.url))
 
             // now try the same during a search
@@ -372,7 +378,7 @@ Item {
             var today = new Date()
             today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
             var youngest = new Date(1912, 6, 23)
-            var model = historyViewWide.historyModel
+            var model = HistoryModel
             model.addByDate("https://en.wikipedia.org/wiki/Alan_Turing", "Alan Turing", youngest)
             model.addByDate("https://en.wikipedia.org/wiki/Alonzo_Church", "Alonzo Church", new Date(1903, 6, 14))
 
