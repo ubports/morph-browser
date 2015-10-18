@@ -28,16 +28,8 @@ Item {
     width: 800
     height: 600
 
-    Component {
-        id: historyModel
-        HistoryModel {
-            databasePath: ":memory:"
-        }
-    }
-
     property NewTabViewWide view
     property var bookmarks
-    property var history
     property string homepage: "http://example.com/homepage"
 
     Component {
@@ -48,7 +40,6 @@ Item {
                 property url homepage: root.homepage
                 property int newTabDefaultSection: 0
             }
-            historyModel: history
         }
     }
 
@@ -76,9 +67,11 @@ Item {
         name: "NewTabViewWide"
         when: windowShown
 
-        function init() {
+        function init()
+        {
             BookmarksModel.databasePath = ":memory:"
-            history = historyModel.createObject()
+            HistoryModel.databasePath = ":memory:"
+
             view = viewComponent.createObject(root)
             populate()
 
@@ -95,9 +88,10 @@ Item {
         }
 
         function populate() {
-            history.add("http://example.com", "Example Com", "")
-            history.add("http://example.org", "Example Org", "")
-            history.add("http://example.net", "Example Net", "")
+            HistoryModel.add("http://example.com", "Example Com", "")
+            HistoryModel.add("http://example.org", "Example Org", "")
+            HistoryModel.add("http://example.net", "Example Net", "")
+
             BookmarksModel.add("http://example.com", "Example Com", "", "")
             BookmarksModel.add("http://example.org/bar", "Example Org Bar", "", "Folder B")
             BookmarksModel.add("http://example.org/foo", "Example Org Foo", "", "Folder B")
@@ -106,9 +100,9 @@ Item {
         }
 
         function cleanup() {
-            history.destroy()
-            history = null
             BookmarksModel.databasePath = ""
+            HistoryModel.databasePath = ""
+
             view.destroy()
             view = null
         }
@@ -145,7 +139,7 @@ Item {
         function test_topsites_list() {
             // add 8 more top sites so that we are beyond the limit of 10
             for (var i = 0; i < 8; i++) {
-                history.add("http://example.com/" + i, "Example Com " + i, "")
+                HistoryModel.add("http://example.com/" + i, "Example Com " + i, "")
             }
 
             var items = getListItems("topSitesList", "topSiteItem")
@@ -198,22 +192,24 @@ Item {
 
         function test_navigate_topsites_by_keyboard() {
             var items = getListItems("topSitesList", "topSiteItem")
-            findChild(view, "topSitesList").currentIndex = 0
-            verify(items[0].highlighted)
-            keyClick(Qt.Key_Down)
-            verify(!items[0].highlighted)
-            verify(items[1].highlighted)
-            keyClick(Qt.Key_Down)
-            verify(items[2].highlighted)
-            keyClick(Qt.Key_Down) // ensure no scrolling past bottom boundary
-            verify(items[2].highlighted)
+            var list = findChild(view, "topSitesList")
+            list.currentIndex = 0
+            keyClick(Qt.Key_Right)
+            compare(list.currentIndex, 1)
+            keyClick(Qt.Key_Right)
+            compare(list.currentIndex, 2)
+            keyClick(Qt.Key_Right) // ensure list does not wrap around
+            compare(list.currentIndex, 2)
+            keyClick(Qt.Key_Left)
+            compare(list.currentIndex, 1)
+            keyClick(Qt.Key_Left)
+            compare(list.currentIndex, 0)
             keyClick(Qt.Key_Up)
-            verify(items[1].highlighted)
-            keyClick(Qt.Key_Up)
-            verify(items[0].highlighted)
-            keyClick(Qt.Key_Up)
-            verify(items[0].highlighted)
+            compare(list.currentIndex, 0)
             compare(releasingKeyboardFocusSpy.count, 1)
+            keyClick(Qt.Key_Left)
+            compare(list.currentIndex, 0)
+            compare(releasingKeyboardFocusSpy.count, 2)
         }
 
         function test_activate_topsites_by_keyboard() {
@@ -221,7 +217,7 @@ Item {
             keyClick(Qt.Key_Return)
             compare(historyEntryClickedSpy.count, 1)
             compare(historyEntryClickedSpy.signalArguments[0][0], "http://example.com")
-            keyClick(Qt.Key_Down)
+            keyClick(Qt.Key_Right)
             keyClick(Qt.Key_Return)
             compare(historyEntryClickedSpy.count, 2)
             compare(historyEntryClickedSpy.signalArguments[1][0], "http://example.org")

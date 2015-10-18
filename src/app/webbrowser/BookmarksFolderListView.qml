@@ -24,8 +24,6 @@ import webbrowserapp.private 0.1
 Item {
     id: bookmarksFolderListViewItem
 
-    property alias model: bookmarksFolderListModel.sourceModel 
-
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
 
@@ -33,6 +31,7 @@ Item {
 
     BookmarksFolderListModel {
         id: bookmarksFolderListModel
+        sourceModel: BookmarksModel
     }
 
     ListView {
@@ -46,7 +45,7 @@ Item {
                 left: parent.left
                 right: parent.right
             }
- 
+
             height: active ? item.height : 0
             active: entries.count > 0
 
@@ -56,7 +55,7 @@ Item {
                 property string folderName: folder
 
                 anchors {
-                    left: parent ? parent.left : undefined 
+                    left: parent ? parent.left : undefined
                     right: parent ? parent.right : undefined
                 }
 

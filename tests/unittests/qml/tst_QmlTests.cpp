@@ -105,6 +105,22 @@ public:
         return QFile(QDir(path).absoluteFilePath(QString("%1.xml").arg(filename))).remove();
     }
 
+    Q_INVOKABLE bool createFile(const QString& filePath) {
+        // create all the directories necessary for the file to be created
+        QFileInfo fileInfo(filePath);
+        if (!QFileInfo::exists(fileInfo.path())) {
+          QDir::root().mkpath(fileInfo.path());
+        }
+
+        QFile file(fileInfo.absoluteFilePath());
+        return file.open(QIODevice::WriteOnly | QIODevice::Text);
+    }
+
+    Q_INVOKABLE bool removeDirectory(const QString& path) {
+        QDir dir(path);
+        return dir.removeRecursively();
+    }
+
 private:
     QTemporaryDir m_testDir1;
     QTemporaryDir m_testDir2;
@@ -159,6 +175,13 @@ static QObject* BookmarksModel_singleton_factory(QQmlEngine* engine, QJSEngine* 
     return new BookmarksModel();
 }
 
+static QObject* HistoryModel_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new HistoryModelMock();
+}
+
 int main(int argc, char** argv)
 {
     const char* commonUri = "webbrowsercommon.private";
@@ -169,7 +192,7 @@ int main(int argc, char** argv)
     qmlRegisterType<TabsModel>(browserUri, 0, 1, "TabsModel");
     qmlRegisterSingletonType<BookmarksModel>(browserUri, 0, 1, "BookmarksModel", BookmarksModel_singleton_factory);
     qmlRegisterType<BookmarksFolderListModel>(browserUri, 0, 1, "BookmarksFolderListModel");
-    qmlRegisterType<HistoryModel>(browserUri, 0, 1, "HistoryModel");
+    qmlRegisterSingletonType<HistoryModel>(browserUri, 0, 1, "HistoryModel", HistoryModel_singleton_factory);
     qmlRegisterType<HistoryTimeframeModel>(browserUri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<HistoryLastVisitDateListModel>(browserUri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<HistoryLastVisitDateModel>(browserUri, 0, 1, "HistoryLastVisitDateModel");
@@ -180,7 +203,6 @@ int main(int argc, char** argv)
 
     const char* testUri = "webbrowsertest.private";
     qmlRegisterSingletonType<TestContext>(testUri, 0, 1, "TestContext", TestContext_singleton_factory);
-    qmlRegisterType<HistoryModelMock>(testUri, 0, 1, "HistoryModelMock");
 
     return quick_test_main(argc, argv, "QmlTests", nullptr);
 }

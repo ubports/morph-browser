@@ -406,9 +406,9 @@ class TestNewTabViewContentsNarrow(TestNewTabViewContentsBase):
                         Eventually(Equals(1)))
         notopsites_label = self.new_tab_view.get_notopsites_label()
         self.assertThat(notopsites_label.visible, Eventually(Equals(False)))
+
         delegate = top_sites.get_delegates()[0]
-        delegate.trigger_leading_action("leadingAction.delete",
-                                        delegate.wait_until_destroyed)
+        delegate.hide_from_history(self.main_window)
         self.assertThat(lambda: len(top_sites.get_delegates()),
                         Eventually(Equals(0)))
         self.assertThat(notopsites_label.visible, Eventually(Equals(True)))
@@ -443,11 +443,10 @@ class TestNewTabViewContentsWide(TestNewTabViewContentsBase):
 
     def test_remove_top_sites(self):
         view = self.new_tab_view
-        topsites = view.get_top_sites_list()
+        topsites = view.get_top_site_items()
         previous_count = len(topsites)
-        topsites[0].trigger_leading_action("leadingAction.delete",
-                                           topsites[0].wait_until_destroyed)
-        self.assertThat(len(view.get_top_sites_list()),
+        topsites[0].hide_from_history(self.main_window)
+        self.assertThat(len(view.get_top_site_items()),
                         Equals(previous_count - 1))
 
     def test_drag_bookmarks(self):
