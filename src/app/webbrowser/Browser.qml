@@ -91,7 +91,7 @@ BrowserView {
            tabs will have their mediaAccessPermissionRequested signal handled by
            creating one of these new dialogs.
         */
-        onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request });
+        onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
     }
 
     Component {
