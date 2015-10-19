@@ -407,13 +407,17 @@ class HttpAuthenticationDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
 class MediaAccessDialog(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
-    def get_deny_button(self):
-        return self.select_single("Button",
-                                  objectName="mediaAccessDialog.denyButton")
+    @autopilot.logging.log_action(logger.info)
+    def click_deny_button(self):
+        button = self.select_single("Button",
+                                    objectName="mediaAccessDialog.denyButton")
+        self.pointing_device.click_object(button)
 
-    def get_allow_button(self):
-        return self.select_single("Button",
-                                  objectName="mediaAccessDialog.allowButton")
+    @autopilot.logging.log_action(logger.info)
+    def click_allow_button(self):
+        button = self.select_single("Button",
+                                    objectName="mediaAccessDialog.allowButton")
+        self.pointing_device.click_object(button)
 
 
 class TabPreview(uitk.UbuntuUIToolkitCustomProxyObjectBase):

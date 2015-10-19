@@ -39,7 +39,7 @@ class TestMediaAccessPermission(StartOpenRemotePageTestCaseBase):
         # easily inspect the contents of the page from AP tests. the simplest
         # workaround I could find was to redirect the user to two different
         # pages upon permission granted or denied, and detect that instead
-        self.pointing_device.click_object(dialog.get_allow_button())
+        dialog.click_allow_button()
         dialog.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(self.allowed_url)
 
@@ -53,7 +53,7 @@ class TestMediaAccessPermission(StartOpenRemotePageTestCaseBase):
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
         dialog = self.main_window.get_media_access_dialog()
-        self.pointing_device.click_object(dialog.get_allow_button())
+        dialog.click_allow_button()
         dialog.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(self.allowed_url)
 
@@ -71,7 +71,7 @@ class TestMediaAccessPermission(StartOpenRemotePageTestCaseBase):
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
         dialog = self.main_window.get_media_access_dialog()
-        self.pointing_device.click_object(dialog.get_deny_button())
+        dialog.click_deny_button()
         dialog.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(self.denied_url)
 
@@ -88,7 +88,7 @@ class TestMediaAccessPermission(StartOpenRemotePageTestCaseBase):
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
         dialog = self.main_window.get_media_access_dialog()
-        self.pointing_device.click_object(dialog.get_deny_button())
+        dialog.click_deny_button()
         dialog.wait_until_destroyed()
         self.main_window.wait_until_page_loaded(self.denied_url)
 
