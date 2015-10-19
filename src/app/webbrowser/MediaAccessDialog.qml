@@ -19,11 +19,8 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import "../UrlUtils.js" as UrlUtils
 
 Dialog {
-    id: dialog
-
     property var request
     modal: true
 
