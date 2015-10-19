@@ -52,16 +52,6 @@ BrowserView {
     // tab objects (see http://pad.lv/1376433).
     readonly property int maxTabsToRestore: 10
 
-    // Delay loading of the data from the DB so that it is out of the
-    // critical path for initialization and rendering of the main window.
-    // An interval of 1ms will simply queue the code to run the next time
-    // the main event loop is free
-    Timer {
-        interval: 1
-        running: true
-        onTriggered: BookmarksModel.databasePath = dataLocation + "/bookmarks.sqlite"
-    }
-
     onTabsModelChanged: {
         if (incognito && privateTabsModelLoader.item) {
             browser.openUrlInNewTab("", true)
