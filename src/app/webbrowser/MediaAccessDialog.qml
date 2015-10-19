@@ -35,7 +35,7 @@ Dialog {
     Row {
         id: internal
 
-        // TRANSLATORS: %1 refers to the origin requesting access and %2 refers to the origin that embeds it
+        // TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
         readonly property string textWhenEmbedded: i18n.tr("%1 (embedded in %2)")
                                                    .arg(request.origin).arg(request.embedder)
         height: units.gu(4)
