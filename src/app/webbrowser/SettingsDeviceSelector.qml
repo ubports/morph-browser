@@ -65,5 +65,7 @@ Item {
         onAvailableAudioCaptureDevicesChanged: if (isAudio) internal.updateDefaultDevice()
         onAvailableVideoCaptureDevicesChanged: if (!isAudio) internal.updateDefaultDevice()
     }
+
+    onIsAudioChanged: internal.updateDefaultDevice()
 }
 
