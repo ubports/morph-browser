@@ -52,8 +52,8 @@ Item {
         function updateDefaultDevice() {
             for (var i = 0; i < devices.length; i++) {
                 if (defaultDevice === devices[i].id) {
-                    selector.selectedIndex = i;
-                    return;
+                    selector.selectedIndex = i
+                    return
                 }
             }
         }
