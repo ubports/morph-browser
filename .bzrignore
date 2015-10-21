@@ -31,11 +31,11 @@ click-hooks/webapp-container-hook
 click-hooks/webapp-container.hook
 
 obj-*
+debian/usr.bin.webbrowser-app
 debian/files
 debian/tmp/
 debian/qtdeclarative5-ubuntu-ui-extras-browser-plugin/
 debian/qtdeclarative5-ubuntu-web-plugin/
-debian/qtdeclarative5-ubuntu-web-plugin-assets/
 debian/qtdeclarative5-ubuntu-web-plugin-doc/
 debian/webapp-container/
 debian/webapp-container-autopilot/

@@ -192,6 +192,18 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         else:
             return self.wait_select_single(ContextMenuMobile)
 
+    def open_item_context_menu_on_item(self, item, menuClass):
+        cx = item.globalRect.x + item.globalRect.width // 2
+        cy = item.globalRect.y + item.globalRect.height // 2
+        self.pointing_device.move(cx, cy)
+        if model() == 'Desktop':
+            self.pointing_device.click(button=3)
+        else:
+            self.pointing_device.press()
+            time.sleep(1.5)
+            self.pointing_device.release()
+        return self.wait_select_single(menuClass)
+
     def open_context_menu(self):
         webview = self.get_current_webview()
         chrome = self.chrome
@@ -324,7 +336,7 @@ class AddressBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                                   objectName="bookmarkToggle")
 
     def get_find_in_page_counter(self):
-        return self.select_single("Label", objectName="findInPageCounter")
+        return self.select_single(objectName="findInPageCounter")
 
 
 class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
@@ -336,10 +348,10 @@ class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
     def get_tabs(self):
-        return self.select_many("QQuickItem", objectName="tabDelegate")
+        return self.select_many("QQuickMouseArea", objectName="tabDelegate")
 
     def get_tab(self, index):
-        return self.select_single("QQuickItem", objectName="tabDelegate",
+        return self.select_single("QQuickMouseArea", objectName="tabDelegate",
                                   tabIndex=index)
 
     @autopilot.logging.log_action(logger.info)
@@ -349,7 +361,7 @@ class TabsBar(uitk.UbuntuUIToolkitCustomProxyObjectBase):
     @autopilot.logging.log_action(logger.info)
     def close_tab(self, index):
         tab = self.get_tab(index)
-        close_button = tab.select_single("Icon", objectName="closeButton")
+        close_button = tab.select_single(objectName="closeButton")
         self.pointing_device.click_object(close_button)
 
 
@@ -548,10 +560,10 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.select_single(UrlsList, objectName="bookmarksList")
 
     def get_top_sites_list(self):
-        return self.select_single(UrlsList, objectName="topSitesList")
+        return self.select_single(UrlPreviewGrid, objectName="topSitesList")
 
     def get_notopsites_label(self):
-        return self.select_single("Label", objectName="notopsites")
+        return self.select_single(objectName="notopsites")
 
     def get_top_site_items(self):
         return self.get_top_sites_list().get_delegates()
@@ -587,11 +599,7 @@ class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_top_sites_list(self):
         self.go_to_section(0)
-        list = self.select_single(uitk.QQuickListView,
-                                  objectName="topSitesList")
-        return sorted(list.select_many("UrlDelegateWide",
-                      objectName="topSiteItem"),
-                      key=lambda delegate: delegate.globalRect.y)
+        return self.select_single(UrlPreviewGrid, objectName="topSitesList")
 
     def get_folders_list(self):
         self.go_to_section(1)
@@ -601,8 +609,7 @@ class NewTabViewWide(uitk.UbuntuUIToolkitCustomProxyObjectBase):
                       key=lambda delegate: delegate.globalRect.y)
 
     def get_top_site_items(self):
-        self.go_to_section(0)
-        return self.get_top_sites_list()
+        return self.get_top_sites_list().get_delegates()
 
     def get_bookmarks(self, folder_name):
         folders = self.get_folders_list()
@@ -626,6 +633,16 @@ class UrlsList(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return [delegate.url for delegate in self.get_delegates()]
 
 
+class UrlPreviewGrid(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def get_delegates(self):
+        return sorted(self.select_many("UrlPreviewDelegate"),
+                      key=lambda delegate: delegate.globalRect.y)
+
+    def get_urls(self):
+        return [delegate.url for delegate in self.get_delegates()]
+
+
 class UrlDelegate(uitk.UCListItem):
 
     pass
@@ -634,6 +651,22 @@ class UrlDelegate(uitk.UCListItem):
 class UrlDelegateWide(uitk.UCListItem):
 
     pass
+
+
+class UrlPreviewDelegate(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+
+    def hide_from_history(self, root):
+        menu = root.open_item_context_menu_on_item(self,
+                                                   "ActionSelectionPopover")
+
+        # Note: we can't still use the click_action_button method of
+        # ActionSelectionPopover's CPO, because it will crash if we delete the
+        # menu as a reaction to the click (which is the case here).
+        # However at least we can select the action button by objectName now.
+        # See bug http://pad.lv/1504189
+        delete_item = menu.wait_select_single(objectName="delete_button")
+        self.pointing_device.click_object(delete_item)
+        menu.wait_until_destroyed()
 
 
 class DraggableUrlDelegateWide(UrlDelegateWide):
@@ -687,7 +720,7 @@ class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 class ContextMenuBase(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_title_label(self):
-        return self.select_single("Label", objectName="titleLabel")
+        return self.select_single(objectName="titleLabel")
 
     def get_visible_actions(self):
         return self.select_many("Empty", visible=True)
