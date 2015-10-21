@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-10-15 18:50+0200\n"
-"PO-Revision-Date: 2015-10-05 06:36+0000\n"
+"PO-Revision-Date: 2015-10-16 08:32+0000\n"
 "Last-Translator: Åka Sikrom <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-10-16 05:55+0000\n"
+"X-Launchpad-Export-Date: 2015-10-17 05:45+0000\n"
 "X-Generator: Launchpad (build 17812)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -804,7 +804,7 @@ msgstr "Lukk fane"
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:117
 msgid "Remove"
-msgstr ""
+msgstr "Fjern"
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
