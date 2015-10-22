@@ -162,6 +162,17 @@ class Browser(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.wait_select_single("Dialog",
                                        objectName="newFolderDialog")
 
+    # The bookmarks view is dynamically created, so it might or might not be
+    # available
+    def get_bookmarks_view(self):
+        try:
+            if self.wide:
+                return self.select_single("BookmarksViewWide")
+            else:
+                return self.select_single("BookmarksView")
+        except exceptions.StateNotFoundError:
+            return None
+
     # The history view is dynamically created, so it might or might not be
     # available
     def get_history_view(self):
@@ -540,7 +551,7 @@ class NewTabView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         return self.get_top_sites_list().get_delegates()
 
     def get_bookmarks_folder_list_view(self):
-        return self.select_single(BookmarksFolderListView)
+        return self.wait_select_single(BookmarksFoldersView)
 
     def get_bookmarks(self, folder_name):
         # assumes that the "more" button has been clicked
@@ -667,7 +678,7 @@ class BookmarkOptions(uitk.UbuntuUIToolkitCustomProxyObjectBase):
         self.pointing_device.click_object(button)
 
 
-class BookmarksFolderListView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
+class BookmarksFoldersView(uitk.UbuntuUIToolkitCustomProxyObjectBase):
 
     def get_delegates(self):
         return sorted(self.select_many("QQuickItem",

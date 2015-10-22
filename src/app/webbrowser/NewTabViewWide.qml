@@ -40,13 +40,10 @@ FocusScope {
     onActiveFocusChanged: {
         if (activeFocus) {
             if (inBookmarksView) {
-                if (sections.lastFocusedBookmarksColumn === bookmarksList &&
-                    bookmarksList.model.length === 0) {
-                    sections.lastFocusedBookmarksColumn = folders
-                }
-                sections.lastFocusedBookmarksColumn.focus = true
+                bookmarksFoldersViewWide.restoreLastFocusedColumn()
+            } else {
+                topSitesList.focus = true
             }
-            else topSitesList.focus = true
         }
     }
 
@@ -61,176 +58,36 @@ FocusScope {
         }
     }
 
+    BookmarksFoldersViewWide {
+        id: bookmarksFoldersViewWide
+
+        Keys.onUpPressed: newTabViewWide.releasingKeyboardFocus()
+        onBookmarkClicked: newTabViewWide.bookmarkClicked(url)
+        onBookmarkRemoved: newTabViewWide.bookmarkRemoved(url)
+
+        // Relinquish focus as the presses and releases that compose the
+        // drag will move the keyboard focus in a location unexpected
+        // for the user. This way it will go back to the address bar and
+        // the user can predictably resume keyboard interaction from there.
+        onDragStarted: newTabViewWide.releasingKeyboardFocus()
+
+        anchors {
+            top: sectionsGroup.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+            topMargin: units.gu(2)
+            rightMargin: units.gu(2)
+        }
+
+        visible: inBookmarksView
+        homeBookmarkUrl: newTabViewWide.settingsObject.homepage
+    }
+
     Rectangle {
         anchors.fill: parent
+        visible: !inBookmarksView
         color: "#fbfbfb"
-    }
-
-    ListView {
-        id: folders
-        objectName: "foldersList"
-        visible: inBookmarksView
-
-        Keys.onRightPressed: if (bookmarksList.model.length > 0) bookmarksList.focus = true
-        Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, folders.model.count - 1)
-        Keys.onUpPressed: {
-            if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
-            else newTabViewWide.releasingKeyboardFocus()
-        }
-        onActiveFocusChanged: {
-            if (activeFocus) {
-                sections.lastFocusedBookmarksColumn = folders
-                if (currentIndex < 0) currentIndex = 0
-            }
-        }
-
-        anchors {
-            top: sectionsGroup.bottom
-            bottom: parent.bottom
-            left: parent.left
-            topMargin: units.gu(2)
-        }
-        width: units.gu(25)
-
-        currentIndex: 0
-        model: BookmarksFolderListModel {
-            sourceModel: BookmarksModel
-        }
-
-        delegate: ListItem {
-            id: folderItem
-            objectName: "folderItem"
-            property var model: entries
-            property bool isActiveFolder: ListView.isCurrentItem
-            property bool isCurrentItem: ListView.isCurrentItem
-            property bool isAllBookmarksFolder: folder.length === 0
-            property alias name: dropArea.folderName
-            divider.visible: false
-
-            property bool isCurrentDropTarget: dropArea.containsDrag && dropArea.drag.source.folder !== folder
-            color: isCurrentDropTarget ? "green" :
-                   ((folders.activeFocus && isActiveFolder) ? Qt.rgba(0, 0, 0, 0.05) : "transparent")
-
-            Label {
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: units.gu(2)
-                anchors.rightMargin: units.gu(2)
-
-                fontSize: isAllBookmarksFolder ? "medium" : "small"
-                text: isAllBookmarksFolder ? i18n.tr("All Bookmarks") : folderItem.name
-                color: isActiveFolder ? UbuntuColors.orange : UbuntuColors.darkGrey
-            }
-
-            onClicked: folders.currentIndex = index
-
-            DropArea {
-                id: dropArea
-                anchors.fill: parent
-                property string folderName: folder
-            }
-        }
-    }
-
-    Scrollbar {
-        flickableItem: folders
-    }
-
-    ListView {
-        id: bookmarksList
-        objectName: "bookmarksList"
-        anchors {
-            top: sectionsGroup.bottom
-            bottom: parent.bottom
-            left: folders.right
-            right: parent.right
-            topMargin: units.gu(2)
-        }
-        visible: inBookmarksView
-        onActiveFocusChanged: if (activeFocus) sections.lastFocusedBookmarksColumn = bookmarksList
-
-        // Build a temporary model for the bookmarks list that includes, when
-        // necessary, the homepage bookmark as a fixed first item in the list
-        model: {
-            if (!folders.currentItem) return null
-
-            var items = []
-            if (folders.currentItem.isAllBookmarksFolder) items.push({
-                title: i18n.tr("Homepage"),
-                url: newTabViewWide.settingsObject.homepage,
-                folder: ""
-            })
-
-            if (!folders.currentItem.model) return null
-            for (var i = 0; i < folders.currentItem.model.count; i++) {
-                items.push(folders.currentItem.model.get(i))
-            }
-            return items
-        }
-
-        currentIndex: 0
-
-        delegate: DraggableUrlDelegateWide {
-            objectName: "bookmarkItem"
-            clip: true
-
-            title: modelData.title
-            icon: modelData.icon ? modelData.icon : ""
-            url: modelData.url
-
-            property string folder: modelData.folder
-            property bool isHomeBookmark: folder === "" && index === 0
-
-            removable: !isHomeBookmark
-            draggable: !isHomeBookmark && contentItem.x === 0
-            highlighted: bookmarksList.activeFocus && ListView.isCurrentItem
-
-            onClicked: newTabViewWide.bookmarkClicked(url)
-            onRemoved: newTabViewWide.bookmarkRemoved(url)
-
-            // Larger margin to prevent interference from Scrollbar hovering area
-            gripMargin: units.gu(4)
-            onDragStarted: {
-                // Remove interactivity to prevent the list from scrolling
-                // while dragging near its margins. This ensures we can correctly
-                // return the item to its original position on a failed drop.
-                bookmarksList.interactive = false
-
-                // Relinquish focus as the presses and releases that compose the
-                // drag will move the keyboard focus in a location unexpected
-                // for the user. This way it will go back to the address bar and
-                // the user can predictably resume keyboard interaction from there.
-                newTabViewWide.releasingKeyboardFocus()
-            }
-            onDragEnded: {
-                bookmarksList.interactive = true
-
-                if (dragAndDrop.target && dragAndDrop.target.folderName !== folder) {
-                    BookmarksModel.update(modelData.url, modelData.title,
-                                          dragAndDrop.target.folderName)
-                    dragAndDrop.success = true
-                }
-            }
-        }
-
-        Keys.onReturnPressed: newTabViewWide.bookmarkClicked(currentItem.url)
-        Keys.onDeletePressed: {
-            if (currentItem.removable) {
-                newTabViewWide.bookmarkRemoved(currentItem.url)
-                if (bookmarksList.model.length === 0) folders.focus = true
-            }
-        }
-        Keys.onLeftPressed: folders.focus = true
-        Keys.onDownPressed: currentIndex = Math.min(currentIndex + 1, model.length - 1)
-        Keys.onUpPressed: {
-            if (currentIndex > 0) currentIndex = Math.max(currentIndex - 1, 0)
-            else newTabViewWide.releasingKeyboardFocus()
-        }
-    }
-
-    Scrollbar {
-        flickableItem: bookmarksList
     }
 
     UrlPreviewGrid {
@@ -285,14 +142,12 @@ FocusScope {
             selectedIndex: settingsObject.newTabDefaultSection
             onSelectedIndexChanged: {
                 settingsObject.newTabDefaultSection = selectedIndex
-                if (selectedIndex === 0) topSitesList.focus = true
-                else {
-                    if (lastFocusedBookmarksColumn) lastFocusedBookmarksColumn.focus = true
-                    else folders.focus = true
+                if (selectedIndex === 0) {
+                    topSitesList.focus = true
+                } else {
+                    bookmarksFoldersViewWide.restoreLastFocusedColumn()
                 }
-
             }
-            property var lastFocusedBookmarksColumn: folders
 
             actions: [
                 Action { text: i18n.tr("Top sites") },

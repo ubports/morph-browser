@@ -105,9 +105,15 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Ctrl+Page_Down')
         self.check_tab_number(0)
         self.main_window.press_key('Shift+Ctrl+Tab')
-        self.check_tab_number(2)
+        if self.main_window.wide:
+            self.check_tab_number(2)
+        else:
+            self.check_tab_number(1)
         self.main_window.press_key('Ctrl+Page_Up')
-        self.check_tab_number(1)
+        if self.main_window.wide:
+            self.check_tab_number(1)
+        else:
+            self.check_tab_number(2)
 
     def test_can_switch_tabs_after_suggestions_escape(self):
         self.open_tabs(1)
@@ -273,6 +279,39 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(lambda: self.main_window.get_current_webview().url,
                         Eventually(Equals(url)))
 
+    def test_toggle_bookmarks(self):
+        self.assertThat(self.main_window.get_bookmarks_view(), Equals(None))
+        self.main_window.press_key('Ctrl+Shift+O')
+        self.assertThat(lambda: self.main_window.get_bookmarks_view(),
+                        Eventually(NotEquals(None)))
+        bookmarks_view = self.main_window.get_bookmarks_view()
+
+        self.main_window.press_key('Escape')
+        bookmarks_view.wait_until_destroyed()
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
+    def test_toggle_bookmarks_from_menu(self):
+        self.assertThat(self.main_window.get_bookmarks_view(), Equals(None))
+        self.open_bookmarks()
+        bookmarks_view = self.main_window.get_bookmarks_view()
+        self.assertThat(bookmarks_view.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Escape')
+        bookmarks_view.wait_until_destroyed()
+
+    def test_new_tab_from_bookmarks_view(self):
+        self.assertThat(self.main_window.get_bookmarks_view(), Equals(None))
+        self.open_bookmarks()
+        bookmarks_view = self.main_window.get_bookmarks_view()
+        self.assertThat(bookmarks_view.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+T')
+        bookmarks_view.wait_until_destroyed()
+
+        new_tab_view = self.main_window.get_new_tab_view()
+        self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
+
     def test_toggle_history(self):
         self.assertThat(self.main_window.get_history_view(), Equals(None))
         self.main_window.press_key('Ctrl+H')
@@ -294,6 +333,18 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.main_window.press_key('Escape')
         history_view.wait_until_destroyed()
 
+    def test_new_tab_from_history_view(self):
+        self.assertThat(self.main_window.get_history_view(), Equals(None))
+        self.open_history()
+        history_view = self.main_window.get_history_view()
+        self.assertThat(history_view.activeFocus, Eventually(Equals(True)))
+
+        self.main_window.press_key('Ctrl+T')
+        history_view.wait_until_destroyed()
+
+        new_tab_view = self.main_window.get_new_tab_view()
+        self.assertThat(new_tab_view.visible, Eventually(Equals(True)))
+
     def test_escape_settings(self):
         settings = self.open_settings()
         self.main_window.press_key('Escape')
@@ -308,7 +359,8 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.assertThat(address_bar.findInPageMode, Eventually(Equals(True)))
         self.main_window.press_key('Escape')
         self.assertThat(address_bar.findInPageMode, Eventually(Equals(False)))
-
+        if not self.main_window.wide:
+            self.open_tabs_view()
         self.open_new_tab()
         self.main_window.press_key('Ctrl+F')
         self.assertThat(address_bar.findInPageMode, Equals(False))

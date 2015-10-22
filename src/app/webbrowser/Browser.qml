@@ -138,7 +138,7 @@ BrowserView {
 
     FocusScope {
         anchors.fill: parent
-        visible: !settingsContainer.visible && !historyViewLoader.active
+        visible: !settingsContainer.visible && !historyViewLoader.active && !bookmarksViewLoader.active
 
         TabChrome {
             id: invisibleTabChrome
@@ -361,6 +361,12 @@ BrowserView {
                     iconName: "share"
                     enabled: (formFactor == "mobile") && browser.currentWebview && browser.currentWebview.url.toString()
                     onTriggered: internal.shareLink(browser.currentWebview.url, browser.currentWebview.title)
+                },
+                Action {
+                    objectName: "bookmarks"
+                    text: i18n.tr("Bookmarks")
+                    iconName: "bookmark"
+                    onTriggered: bookmarksViewLoader.active = true
                 },
                 Action {
                     objectName: "history"
@@ -748,6 +754,58 @@ BrowserView {
             fontSize: "small"
             // TRANSLATORS: %1 refers to the current number of tabs opened
             text: i18n.tr("(%1)").arg(tabsModel ? tabsModel.count : 0)
+        }
+    }
+
+    Loader {
+        id: bookmarksViewLoader
+
+        anchors.fill: parent
+        active: false
+        sourceComponent: browser.wide ? bookmarksViewWideComponent : bookmarksViewComponent
+
+        onStatusChanged: {
+            if (status == Loader.Ready) {
+                bookmarksViewLoader.item.forceActiveFocus()
+            } else {
+                internal.resetFocus()
+            }
+        }
+
+        Keys.onEscapePressed: bookmarksViewLoader.active = false
+
+        Connections {
+            target: bookmarksViewLoader.item
+
+            onBookmarkEntryClicked: {
+                browser.openUrlInNewTab(url, true)
+                bookmarksViewLoader.active = false
+            }
+            onDone: bookmarksViewLoader.active = false
+            onNewTabClicked: {
+                browser.openUrlInNewTab("", true)
+                bookmarksViewLoader.active = false
+            }
+        }
+
+        Component {
+            id: bookmarksViewComponent
+
+            BookmarksView {
+                anchors.fill: parent
+
+                homepageUrl: settings.homepage
+            }
+        }
+
+        Component {
+            id: bookmarksViewWideComponent
+
+            BookmarksViewWide {
+                anchors.fill: parent
+
+                homepageUrl: settings.homepage
+            }
         }
     }
 
@@ -1642,10 +1700,13 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_T
-            enabled: chrome.visible || recentView.visible
+            enabled: chrome.visible || recentView.visible || bookmarksViewLoader.active || historyViewLoader.active
             onTriggered: {
                 openUrlInNewTab("", true)
                 if (recentView.visible) recentView.reset()
+
+                bookmarksViewLoader.active = false
+                historyViewLoader.active = false
             }
         }
 
@@ -1692,6 +1753,14 @@ BrowserView {
             onTriggered: historyViewLoader.active = true
         }
 
+        // Ctrl+Shift+O: Show Bookmarks
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_O
+            enabled: chrome.visible
+            onTriggered: bookmarksViewLoader.active = true
+        }
+
         // Alt+← or Backspace: Goes to the previous page in history
         KeyboardShortcut {
             modifiers: Qt.AltModifier
@@ -1736,7 +1805,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
-            enabled: !newTabViewLoader.active
+            enabled: !newTabViewLoader.active && !bookmarksViewLoader.active
             onTriggered: {
                 chrome.findInPageMode = true
                 chrome.focus = true
