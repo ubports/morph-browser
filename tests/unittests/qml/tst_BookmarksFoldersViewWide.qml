@@ -28,15 +28,7 @@ Item {
     width: 800
     height: 600
 
-    Component {
-        id: bookmarksModel
-        BookmarksModel {
-            databasePath: ":memory:"
-        }
-    }
-
     property BookmarksFoldersViewWide view
-    property var bookmarks
     property string homepage: "http://example.com/homepage"
 
     Component {
@@ -44,7 +36,6 @@ Item {
         BookmarksFoldersViewWide {
             anchors.fill: parent
             homeBookmarkUrl: homepage
-            model: bookmarks
         }
     }
 
@@ -63,7 +54,7 @@ Item {
         when: windowShown
 
         function init() {
-            bookmarks = bookmarksModel.createObject()
+            BookmarksModel.databasePath = ":memory:"
             view = viewComponent.createObject(root)
             populate()
 
@@ -76,16 +67,15 @@ Item {
         }
 
         function populate() {
-            bookmarks.add("http://example.com", "Example Com", "", "")
-            bookmarks.add("http://example.org/bar", "Example Org Bar", "", "Folder B")
-            bookmarks.add("http://example.org/foo", "Example Org Foo", "", "Folder B")
-            bookmarks.add("http://example.net/a", "Example Net A", "", "Folder A")
-            bookmarks.add("http://example.net/b", "Example Net B", "", "Folder A")
+            BookmarksModel.add("http://example.com", "Example Com", "", "")
+            BookmarksModel.add("http://example.org/bar", "Example Org Bar", "", "Folder B")
+            BookmarksModel.add("http://example.org/foo", "Example Org Foo", "", "Folder B")
+            BookmarksModel.add("http://example.net/a", "Example Net A", "", "Folder A")
+            BookmarksModel.add("http://example.net/b", "Example Net B", "", "Folder A")
         }
 
         function cleanup() {
-            bookmarks.destroy()
-            bookmarks = null
+            BookmarksModel.databasePath = ""
 
             view.destroy()
             view = null
