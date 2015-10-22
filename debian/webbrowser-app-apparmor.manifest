@@ -31,7 +31,8 @@
       },
       "read_path": [
         "/usr/share/applications/",
-        "@{HOME}/.local/share/applications/"
+        "@{HOME}/.local/share/applications/",
+        "/custom/vendor/here/location-provider/consent/*.html"
       ]
     }
   }
