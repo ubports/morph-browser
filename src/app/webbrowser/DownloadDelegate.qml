@@ -27,14 +27,28 @@ ListItem {
     property alias image: thumbimage.source
     property alias title: title.text
     property alias url: url.text
-    property alias progress: progressBar.progress
     property bool incomplete: false
+    property string downloadId
+    property var download
+    property int progress: download ? download.progress : 0
 
     divider.visible: false
 
     signal removed()
+    signal cancelled()
 
     height: incomplete ? units.gu(10) : units.gu(7)
+
+    Component.onCompleted: {
+        if (incomplete) {
+            // Connect to download object
+            for(var i = 0; i < downloadManager.downloads.length; i++) {
+                if (downloadManager.downloads[i].downloadId == downloadId) {
+                    download = downloadManager.downloads[i]
+                }
+            }
+        }
+    }
 
     Item {
         
@@ -65,7 +79,7 @@ ListItem {
                 asynchronous: true
                 anchors.fill: parent
                 anchors.margins: units.gu(0.2)
-                source: "image://theme/%1".arg(name);
+                source: "image://theme/%1".arg(name)
                 visible: thumbimage.status !== Image.Ready
                 cache: true
                 property string name
@@ -110,6 +124,7 @@ ListItem {
                     width: parent.width
                     height: units.gu(0.5)
                     visible: downloadDelegate.incomplete
+                    progress: downloadDelegate.progress
                     // Work around UDM bug #1450144
                     indeterminateProgress: downloadDelegate.progress < 0 || downloadDelegate.progress > 100
                 }
@@ -127,6 +142,12 @@ ListItem {
                     visible: downloadDelegate.incomplete
                     id: cancelButton
                     text: i18n.tr("Cancel")
+                    onClicked: {
+                        if (download) {
+                            download.cancel()
+                            cancelled()
+                        }
+                    }
                 }
 
                 Label {

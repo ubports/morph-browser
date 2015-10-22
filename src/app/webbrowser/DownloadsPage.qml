@@ -160,6 +160,7 @@ Item {
         }
 
         delegate: DownloadDelegate {
+            downloadId: model.downloadId
             title: model.filename ? model.filename : model.url.toString().split('/').pop().split('?').shift()
             url: model.url
             image: model.complete && (model.mimetype.indexOf("image") === 0 || model.mimetype.indexOf("video") === 0) ? "image://thumbnailer/file://" + model.path : ""
@@ -200,6 +201,10 @@ Item {
                 if (model.complete) {
                     downloadsModel.deleteDownload(model.path)
                 }
+            }
+
+            onCancelled: {
+                downloadsModel.cancelDownload(model.downloadId)
             }
         }
 

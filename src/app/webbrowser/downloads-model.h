@@ -69,6 +69,7 @@ public:
     Q_INVOKABLE void setComplete(const QString& downloadId, const bool complete);
     Q_INVOKABLE void setError(const QString& downloadId, const QString& error);
     Q_INVOKABLE void deleteDownload(const QString& path);
+    Q_INVOKABLE void cancelDownload(const QString& downloadId);
 
 Q_SIGNALS:
     void databasePathChanged() const;

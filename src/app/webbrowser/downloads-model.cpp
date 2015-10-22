@@ -363,7 +363,30 @@ void DownloadsModel::deleteDownload(const QString& path)
         } else {
             index++;
         }
-    };
+    }
+}
+
+/*!
+    Remove a cancelled download from the model and the database.
+*/
+void DownloadsModel::cancelDownload(const QString& downloadId)
+{
+    int index=0;
+    Q_FOREACH(DownloadEntry entry, m_orderedEntries) {
+        if (entry.downloadId == downloadId) {
+            beginRemoveRows(QModelIndex(), index, index);
+            m_orderedEntries.removeAt(index);
+            endRemoveRows();
+            QSqlQuery query(m_database);
+            static QString deleteStatement = QLatin1String("DELETE FROM downloads WHERE downloadId=?;");
+            query.prepare(deleteStatement);
+            query.addBindValue(downloadId);
+            query.exec();
+            return;
+        } else {
+            index++;
+        }
+    }
 }
 
 void DownloadsModel::removeExistingEntryFromDatabase(const QString& path)
