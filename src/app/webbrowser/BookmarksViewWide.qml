@@ -48,10 +48,10 @@ FocusScope {
 
         onBookmarkClicked: bookmarksViewWide.bookmarkEntryClicked(url)
         onBookmarkRemoved: {
-            if (bookmarksModel.count == 1) {
+            if (BookmarksModel.count == 1) {
                 done()
             }
-            bookmarksModel.remove(url)
+            BookmarksModel.remove(url)
         }
     }
 
