@@ -161,23 +161,6 @@ Item {
             }
         }
 
-        function test_folder_list() {
-            var items = getListItems("foldersList", "folderItem")
-            compare(items.length, 3)
-            verify(items[0].isAllBookmarksFolder)
-            compare(items[0].model.folder, "")
-            // named folder items should appear alphabetically sorted
-            compare(items[1].model.folder, "Folder A")
-            compare(items[2].model.folder, "Folder B")
-        }
-
-        function test_all_bookmarks_list() {
-            var items = getListItems("bookmarksList", "bookmarkItem")
-            compare(items.length, 2)
-            compare(items[0].url, homepage)
-            compare(items[1].title, "Example Com")
-        }
-
         function test_switch_sections_by_keyboard() {
             skip("Would fail due to UITK bug: http://pad.lv/1481233")
             var sections = findChild(view, "sections")
@@ -232,75 +215,6 @@ Item {
             compare(historyEntryClickedSpy.signalArguments[1][0], "http://example.org")
         }
 
-        function test_navigate_folders_by_keyboard() {
-            goToBookmarks()
-
-            var foldersList = getListItems(view, "foldersList")
-            var folders = getListItems("foldersList", "folderItem")
-            verify(folders[0].isActiveFolder)
-
-            keyClick(Qt.Key_Down)
-            verify(!folders[0].isActiveFolder)
-            verify(folders[1].isActiveFolder)
-
-            // bookmarks within a folder are sorted with the first bookmarked appearing last
-            var items = getListItems("bookmarksList", "bookmarkItem")
-            compare(items[0].title, "Example Net B")
-            compare(items[1].title, "Example Net A")
-            compare(items.length, 2)
-
-            keyClick(Qt.Key_Down)
-            verify(folders[2].isActiveFolder)
-            items = getListItems("bookmarksList", "bookmarkItem")
-            compare(items[0].title, "Example Org Foo")
-            compare(items[1].title, "Example Org Bar")
-            compare(items.length, 2)
-
-            // verify scrolling beyond bottom of list is not allowed
-            keyClick(Qt.Key_Down)
-            verify(folders[2].isActiveFolder)
-
-            keyClick(Qt.Key_Up)
-            verify(folders[1].isActiveFolder)
-            keyClick(Qt.Key_Up)
-            verify(folders[0].isActiveFolder)
-
-            keyClick(Qt.Key_Up)
-            compare(releasingKeyboardFocusSpy.count, 1)
-        }
-
-        function test_switch_between_folder_and_bookmarks_by_keyboard() {
-            goToBookmarks()
-
-            var folders = findChild(view, "foldersList")
-            var bookmarks = findChild(view, "bookmarksList")
-
-            keyClick(Qt.Key_Right)
-            verify(bookmarks.activeFocus)
-            keyClick(Qt.Key_Right)
-            verify(bookmarks.activeFocus) // verify no circular scrolling
-
-            keyClick(Qt.Key_Left)
-            verify(folders.activeFocus)
-            keyClick(Qt.Key_Left)
-            verify(folders.activeFocus) // verify no circular scrolling
-        }
-
-        function test_activate_bookmarks_by_keyboard() {
-            goToBookmarks()
-            keyClick(Qt.Key_Right)
-
-            var items = getListItems("bookmarksList", "bookmarkItem")
-            keyClick(Qt.Key_Return)
-            compare(bookmarkClickedSpy.count, 1)
-            compare(bookmarkClickedSpy.signalArguments[0][0], homepage)
-
-            keyClick(Qt.Key_Down)
-            keyClick(Qt.Key_Return)
-            compare(bookmarkClickedSpy.count, 2)
-            compare(bookmarkClickedSpy.signalArguments[1][0], "http://example.com")
-        }
-
         function test_activate_topsites_by_mouse() {
             var items = getListItems("topSitesList", "topSiteItem")
             clickItem(items[0])
@@ -311,50 +225,6 @@ Item {
             compare(historyEntryClickedSpy.count, 2)
             compare(historyEntryClickedSpy.signalArguments[1][0], "http://example.org")
 
-        }
-
-        function test_activate_bookmarks_by_mouse() {
-            goToBookmarks()
-            var items = getListItems("bookmarksList", "bookmarkItem")
-            clickItem(items[0])
-            compare(bookmarkClickedSpy.count, 1)
-            compare(bookmarkClickedSpy.signalArguments[0][0], homepage)
-
-            clickItem(items[1])
-            compare(bookmarkClickedSpy.count, 2)
-            compare(bookmarkClickedSpy.signalArguments[1][0], "http://example.com")
-        }
-
-        function test_switch_folders_by_mouse() {
-            goToBookmarks()
-            var folders = getListItems("foldersList", "folderItem")
-
-            clickItem(folders[1])
-            var items = getListItems("bookmarksList", "bookmarkItem")
-            compare(items[0].title, "Example Net B")
-            compare(items[1].title, "Example Net A")
-            compare(items.length, 2)
-
-            clickItem(folders[0])
-            items = getListItems("bookmarksList", "bookmarkItem")
-            compare(items[0].url, homepage)
-            compare(items[1].title, "Example Com")
-            compare(items.length, 2)
-        }
-
-        function test_remove_bookmarks_by_keyboard() {
-            goToBookmarks()
-            keyClick(Qt.Key_Right)
-            var items = getListItems("bookmarksList", "bookmarkItem")
-
-            // verify that trying to delete the homepage bookmark does not work
-            keyClick(Qt.Key_Delete)
-            compare(bookmarkRemovedSpy.count, 0)
-
-            keyClick(Qt.Key_Down)
-            keyClick(Qt.Key_Delete)
-            compare(bookmarkRemovedSpy.count, 1)
-            compare(bookmarkRemovedSpy.signalArguments[0][0], items[1].url)
         }
 
         function test_remove_top_sites_by_keyboard() {
