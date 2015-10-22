@@ -215,6 +215,8 @@ void DownloadsModel::add(const QString& downloadId, const QUrl& url, const QStri
     entry.url = url;
     entry.mimetype = mimetype;
     m_orderedEntries.prepend(entry);
+    m_numRows++;
+    m_fetchedCount++;
     endInsertRows();
     Q_EMIT added(downloadId, url, mimetype);
     insertNewEntryInDatabase(entry);
