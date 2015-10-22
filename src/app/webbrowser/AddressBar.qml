@@ -376,7 +376,7 @@ FocusScope {
     }
 
     onActualUrlChanged: {
-        if ((editing && actualUrl.toString()) || findInPageMode) return
+        if (editing || findInPageMode) return
         if (canSimplifyText) {
             text = internal.simplifyUrl(actualUrl)
             internal.simplified = true
