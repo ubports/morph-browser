@@ -9,10 +9,12 @@
       "policy_groups": [
         "accounts",
         "audio",
+        "camera",
         "content_exchange",
         "content_exchange_source",
         "keep-display-on",
         "location",
+        "microphone",
         "networking",
         "push-notification-client",
         "video",

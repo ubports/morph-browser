@@ -75,6 +75,30 @@ BrowserView {
         }
     }
 
+    Connections {
+        target: currentWebview
+
+        /* Note that we are connecting the mediaAccessPermissionRequested signal
+           on the current webview only because we want all the tabs that are not
+           visible to automatically deny the request but emit the signal again
+           if the same origin requests permissions (which is the default
+           behavior in oxide if we don't connect a signal handler), so that we
+           can pop-up a dialog asking the user for permission.
+
+           Design is working on a new component that allows per-tab non-modal
+           dialogs that will allow asking permission to the user without blocking
+           interaction with the rest of the page or the window. When ready all
+           tabs will have their mediaAccessPermissionRequested signal handled by
+           creating one of these new dialogs.
+        */
+        onMediaAccessPermissionRequested: PopupUtils.open(mediaAccessDialogComponent, null, { request: request })
+    }
+
+    Component {
+        id: mediaAccessDialogComponent
+        MediaAccessDialog { }
+    }
+
     actions: [
         Actions.GoTo {
             onTriggered: currentWebview.url = value
@@ -118,6 +142,8 @@ BrowserView {
         property string allowOpenInBackgroundTab: settingsDefaults.allowOpenInBackgroundTab
         property bool restoreSession: settingsDefaults.restoreSession
         property int newTabDefaultSection: settingsDefaults.newTabDefaultSection
+        property string defaultAudioDevice
+        property string defaultVideoDevice
 
         function restoreDefaults() {
             homepage  = settingsDefaults.homepage
@@ -125,6 +151,8 @@ BrowserView {
             allowOpenInBackgroundTab = settingsDefaults.allowOpenInBackgroundTab
             restoreSession = settingsDefaults.restoreSession
             newTabDefaultSection = settingsDefaults.newTabDefaultSection
+            defaultAudioDevice = settingsDefaults.defaultAudioDevice
+            defaultVideoDevice = settingsDefaults.defaultVideoDevice
         }
     }
 
@@ -136,6 +164,8 @@ BrowserView {
         readonly property string allowOpenInBackgroundTab: "default"
         readonly property bool restoreSession: true
         readonly property int newTabDefaultSection: 0
+        readonly property string defaultAudioDevice: ""
+        readonly property string defaultVideoDevice: ""
     }
 
     FocusScope {
