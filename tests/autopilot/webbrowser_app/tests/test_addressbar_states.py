@@ -14,6 +14,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+from testtools.matchers import Equals
+from autopilot.matchers import Eventually
+
 from webbrowser_app.tests import StartOpenRemotePageTestCaseBase
 
 
@@ -53,3 +56,14 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         address_bar.write(self.url)
         address_bar.click_action_button()
         address_bar.activeFocus.wait_for(False)
+
+    # http://pad.lv/1456199
+    def test_clears_when_actual_url_changed(self):
+        address_bar = self.main_window.address_bar
+        self.pointing_device.click_object(address_bar)
+        address_bar.activeFocus.wait_for(True)
+        url = self.base_url + "/test1"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.new_tab_view = self.open_new_tab(open_tabs_view=True)
+        self.assertThat(address_bar.text, Eventually(Equals("")))
