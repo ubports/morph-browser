@@ -24,7 +24,6 @@ import "BookmarksModelUtils.js" as BookmarksModelUtils
 FocusScope {
     id: bookmarksFoldersViewWideItem
 
-    property alias model: bookmarksFolderListModel.sourceModel 
     property url homeBookmarkUrl
 
     signal bookmarkClicked(url url)
@@ -72,6 +71,7 @@ FocusScope {
 
         model: BookmarksFolderListModel {
             id: bookmarksFolderListModel
+            sourceModel: BookmarksModel
         }
         currentIndex: 0
 
@@ -156,7 +156,7 @@ FocusScope {
                     folder: ""
                 })
             }
-            
+
             return folders.currentItem.model
         }
 
