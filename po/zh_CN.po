@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-15 18:50+0200\n"
+"POT-Creation-Date: 2015-10-21 21:06+0200\n"
 "PO-Revision-Date: 2015-07-23 03:56+0000\n"
 "Last-Translator: Ian Li <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-10-16 05:55+0000\n"
+"X-Launchpad-Export-Date: 2015-10-22 05:50+0000\n"
 "X-Generator: Launchpad (build 17812)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -51,8 +51,8 @@ msgstr "密码"
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/HistoryView.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:383
+#: src/app/webbrowser/HistoryView.qml:159
+#: src/app/webbrowser/HistoryViewWide.qml:384
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:288
 #: src/app/webbrowser/SettingsPage.qml:342
@@ -122,9 +122,8 @@ msgid "It appears you are having trouble viewing: %1."
 msgstr "浏览时可能遇到麻烦：%1。"
 
 #: src/app/ErrorSheet.qml:48
-msgid ""
-"Ubuntu suggests you check your network settings and try refreshing the page."
-msgstr "Ubuntu 建议您检查下网络设置并尝试刷新该页面。"
+msgid "Please check your network settings and try refreshing the page."
+msgstr ""
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -379,7 +378,7 @@ msgstr ""
 msgid "Erase"
 msgstr ""
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:395
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:402
 msgid "Find in page"
 msgstr ""
 
@@ -409,7 +408,7 @@ msgstr "转到"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;地址"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:663
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:670
 #: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "新标签"
@@ -459,8 +458,8 @@ msgstr "保存图像"
 msgid "Save link"
 msgstr ""
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:188
-#: src/app/webbrowser/HistoryViewWide.qml:408
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
+#: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr "全选"
 
@@ -501,8 +500,8 @@ msgid "Save in"
 msgstr "保存在"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFolderListView.qml:115
-#: src/app/webbrowser/NewTabViewWide.qml:123
+#: src/app/webbrowser/BookmarksFoldersView.qml:119
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
 msgstr "全部书签"
 
@@ -520,53 +519,71 @@ msgstr "创建新文件夹"
 msgid "Save"
 msgstr "保存"
 
-#: src/app/webbrowser/Browser.qml:372
-#: src/app/webbrowser/HistoryViewWide.qml:367
-msgid "History"
-msgstr "历史"
+#: src/app/webbrowser/BookmarksFoldersView.qml:158
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
+#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:316
+msgid "Homepage"
+msgstr "主页"
 
-#: src/app/webbrowser/Browser.qml:378
-msgid "Open tabs"
-msgstr "打开的标签"
+#: src/app/webbrowser/BookmarksView.qml:81
+#: src/app/webbrowser/BookmarksViewWide.qml:79
+#: src/app/webbrowser/Browser.qml:372 src/app/webbrowser/NewTabView.qml:109
+#: src/app/webbrowser/NewTabViewWide.qml:155
+msgid "Bookmarks"
+msgstr "书签"
 
-#: src/app/webbrowser/Browser.qml:388 src/app/webbrowser/HistoryView.qml:129
-#: src/app/webbrowser/HistoryViewWide.qml:517
+#: src/app/webbrowser/BookmarksView.qml:113
+#: src/app/webbrowser/BookmarksViewWide.qml:111
+#: src/app/webbrowser/Browser.qml:656 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/HistoryViewWide.qml:504
+msgid "Done"
+msgstr "完成"
+
+#: src/app/webbrowser/BookmarksView.qml:126
+#: src/app/webbrowser/BookmarksViewWide.qml:124
+#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryViewWide.qml:518
 #: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "新建标签"
+
+#: src/app/webbrowser/Browser.qml:379
+#: src/app/webbrowser/HistoryViewWide.qml:368
+msgid "History"
+msgstr "历史"
+
+#: src/app/webbrowser/Browser.qml:385
+msgid "Open tabs"
+msgstr "打开的标签"
 
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/Browser.qml:412
 msgid "Leave Private Mode"
 msgstr "退出匿名模式"
 
-#: src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/Browser.qml:412
 msgid "Private Mode"
 msgstr "匿名模式"
 
-#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:430 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "设置"
 
-#: src/app/webbrowser/Browser.qml:649 src/app/webbrowser/HistoryView.qml:116
-#: src/app/webbrowser/HistoryViewWide.qml:503
-msgid "Done"
-msgstr "完成"
-
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:757
+#: src/app/webbrowser/Browser.qml:764
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1183
+#: src/app/webbrowser/Browser.qml:1251
 msgid "Swipe Up To Exit Full Screen"
 msgstr "上划以退出全屏"
 
-#: src/app/webbrowser/Browser.qml:1184
+#: src/app/webbrowser/Browser.qml:1252
 msgid "Press ESC To Exit Full Screen"
 msgstr "按ESC退出全屏"
 
@@ -574,8 +591,8 @@ msgstr "按ESC退出全屏"
 msgid "Confirm selection"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:218
-#: src/app/webbrowser/HistoryViewWide.qml:427
+#: src/app/webbrowser/HistoryView.qml:199
+#: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
 msgstr "删除"
 
@@ -612,7 +629,7 @@ msgstr ""
 msgid "Today"
 msgstr ""
 
-#: src/app/webbrowser/HistoryViewWide.qml:448
+#: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
 msgstr ""
 
@@ -632,29 +649,18 @@ msgstr ""
 "您在本标签内访问的页面将不会出现在浏览器历史中。\n"
 "但在这里创建的书签将会被保留。"
 
-#: src/app/webbrowser/NewTabView.qml:109
-#: src/app/webbrowser/NewTabViewWide.qml:300
-msgid "Bookmarks"
-msgstr "书签"
-
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
 msgstr "更多"
 
-#: src/app/webbrowser/NewTabView.qml:227
-#: src/app/webbrowser/NewTabViewWide.qml:299
+#: src/app/webbrowser/NewTabView.qml:230
+#: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Top sites"
 msgstr "热门网站"
 
-#: src/app/webbrowser/NewTabView.qml:258
+#: src/app/webbrowser/NewTabView.qml:261
 msgid "You haven't visited any site yet"
 msgstr "您尚未访问任何站点"
-
-#: src/app/webbrowser/NewTabViewWide.qml:161
-#: src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:316
-msgid "Homepage"
-msgstr "主页"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
@@ -778,7 +784,7 @@ msgstr "点击查看"
 msgid "Close Tab"
 msgstr ""
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:117
+#: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
 msgstr ""
 
@@ -870,6 +876,10 @@ msgstr "浏览互联网"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "互联网；WWW；浏览器；"
+
+#~ msgid ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the page."
+#~ msgstr "Ubuntu 建议您检查下网络设置并尝试刷新该页面。"
 
 #~ msgid "Select an account"
 #~ msgstr "选择一个帐户"

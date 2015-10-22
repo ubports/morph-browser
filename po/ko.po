@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-15 18:50+0200\n"
+"POT-Creation-Date: 2015-10-21 21:06+0200\n"
 "PO-Revision-Date: 2015-05-19 19:42+0000\n"
 "Last-Translator: B. W. Knight <kbd0651@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-10-16 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-10-22 05:49+0000\n"
 "X-Generator: Launchpad (build 17812)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -51,8 +51,8 @@ msgstr "비밀번호"
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/HistoryView.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:383
+#: src/app/webbrowser/HistoryView.qml:159
+#: src/app/webbrowser/HistoryViewWide.qml:384
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:288
 #: src/app/webbrowser/SettingsPage.qml:342
@@ -122,10 +122,8 @@ msgid "It appears you are having trouble viewing: %1."
 msgstr "%1에 접속하는데 문제가 있는 것 같습니다."
 
 #: src/app/ErrorSheet.qml:48
-msgid ""
-"Ubuntu suggests you check your network settings and try refreshing the page."
+msgid "Please check your network settings and try refreshing the page."
 msgstr ""
-"Ubuntu suggests you check your network settings and try refreshing the page."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -380,7 +378,7 @@ msgstr "잘라내기"
 msgid "Erase"
 msgstr "지우기"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:395
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:402
 msgid "Find in page"
 msgstr "페이지에서 찾기"
 
@@ -410,7 +408,7 @@ msgstr "가기"
 msgid "Address;URL;www"
 msgstr "주소"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:663
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:670
 #: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "새 탭"
@@ -460,8 +458,8 @@ msgstr "이미지 저장"
 msgid "Save link"
 msgstr "링크 저장"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:188
-#: src/app/webbrowser/HistoryViewWide.qml:408
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
+#: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr "모두 선택"
 
@@ -502,8 +500,8 @@ msgid "Save in"
 msgstr "다음 위치에 저장"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFolderListView.qml:115
-#: src/app/webbrowser/NewTabViewWide.qml:123
+#: src/app/webbrowser/BookmarksFoldersView.qml:119
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
 msgstr "모든 책갈피"
 
@@ -521,53 +519,71 @@ msgstr "새 폴더 만들기"
 msgid "Save"
 msgstr "저장하기"
 
-#: src/app/webbrowser/Browser.qml:372
-#: src/app/webbrowser/HistoryViewWide.qml:367
-msgid "History"
-msgstr "기록"
+#: src/app/webbrowser/BookmarksFoldersView.qml:158
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
+#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:316
+msgid "Homepage"
+msgstr "홈페이지"
 
-#: src/app/webbrowser/Browser.qml:378
-msgid "Open tabs"
-msgstr "탭 열기"
+#: src/app/webbrowser/BookmarksView.qml:81
+#: src/app/webbrowser/BookmarksViewWide.qml:79
+#: src/app/webbrowser/Browser.qml:372 src/app/webbrowser/NewTabView.qml:109
+#: src/app/webbrowser/NewTabViewWide.qml:155
+msgid "Bookmarks"
+msgstr "책갈피"
 
-#: src/app/webbrowser/Browser.qml:388 src/app/webbrowser/HistoryView.qml:129
-#: src/app/webbrowser/HistoryViewWide.qml:517
+#: src/app/webbrowser/BookmarksView.qml:113
+#: src/app/webbrowser/BookmarksViewWide.qml:111
+#: src/app/webbrowser/Browser.qml:656 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/HistoryViewWide.qml:504
+msgid "Done"
+msgstr "완료"
+
+#: src/app/webbrowser/BookmarksView.qml:126
+#: src/app/webbrowser/BookmarksViewWide.qml:124
+#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryViewWide.qml:518
 #: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "새 탭"
+
+#: src/app/webbrowser/Browser.qml:379
+#: src/app/webbrowser/HistoryViewWide.qml:368
+msgid "History"
+msgstr "기록"
+
+#: src/app/webbrowser/Browser.qml:385
+msgid "Open tabs"
+msgstr "탭 열기"
 
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
 msgstr "다운로드"
 
-#: src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/Browser.qml:412
 msgid "Leave Private Mode"
 msgstr "사생활 보호 모드 떠나기"
 
-#: src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/Browser.qml:412
 msgid "Private Mode"
 msgstr "사생활 보호 모드"
 
-#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:430 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "설정"
 
-#: src/app/webbrowser/Browser.qml:649 src/app/webbrowser/HistoryView.qml:116
-#: src/app/webbrowser/HistoryViewWide.qml:503
-msgid "Done"
-msgstr "완료"
-
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:757
+#: src/app/webbrowser/Browser.qml:764
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1183
+#: src/app/webbrowser/Browser.qml:1251
 msgid "Swipe Up To Exit Full Screen"
 msgstr "위로 쓸어 올리셔서 전체 화면을 종료하십시오"
 
-#: src/app/webbrowser/Browser.qml:1184
+#: src/app/webbrowser/Browser.qml:1252
 msgid "Press ESC To Exit Full Screen"
 msgstr "ESC 키를 누르셔서 전체 화면을 종료하십시오"
 
@@ -575,8 +591,8 @@ msgstr "ESC 키를 누르셔서 전체 화면을 종료하십시오"
 msgid "Confirm selection"
 msgstr "선택 확인"
 
-#: src/app/webbrowser/HistoryView.qml:218
-#: src/app/webbrowser/HistoryViewWide.qml:427
+#: src/app/webbrowser/HistoryView.qml:199
+#: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
 msgstr "삭제"
 
@@ -613,7 +629,7 @@ msgstr "전체 기록"
 msgid "Today"
 msgstr "오늘"
 
-#: src/app/webbrowser/HistoryViewWide.qml:448
+#: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
 msgstr "검색 기록"
 
@@ -633,29 +649,18 @@ msgstr ""
 "이 탭에서 보는 페이지는 사용자의 브라우저 기록에 남지 않습니다.\n"
 "하지만 사용자가 만든 책갈피는 보존합니다."
 
-#: src/app/webbrowser/NewTabView.qml:109
-#: src/app/webbrowser/NewTabViewWide.qml:300
-msgid "Bookmarks"
-msgstr "책갈피"
-
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
 msgstr "더 보기"
 
-#: src/app/webbrowser/NewTabView.qml:227
-#: src/app/webbrowser/NewTabViewWide.qml:299
+#: src/app/webbrowser/NewTabView.qml:230
+#: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Top sites"
 msgstr "상위 사이트"
 
-#: src/app/webbrowser/NewTabView.qml:258
+#: src/app/webbrowser/NewTabView.qml:261
 msgid "You haven't visited any site yet"
 msgstr "아직 어떤 사이트도 방문하지 않았습니다."
-
-#: src/app/webbrowser/NewTabViewWide.qml:161
-#: src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:316
-msgid "Homepage"
-msgstr "홈페이지"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
@@ -779,7 +784,7 @@ msgstr "볼 탭"
 msgid "Close Tab"
 msgstr "탭 닫기"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:117
+#: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
 msgstr ""
 
@@ -872,6 +877,11 @@ msgstr "웹을 돌아다닙니다"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;인터넷;WWW;Browser;브라우저;Web;Explorer;익스플로러"
+
+#~ msgid ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the page."
+#~ msgstr ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the page."
 
 #~ msgid "Share…"
 #~ msgstr "공유..."

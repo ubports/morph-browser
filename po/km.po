@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-15 18:50+0200\n"
+"POT-Creation-Date: 2015-10-21 21:06+0200\n"
 "PO-Revision-Date: 2014-09-01 10:08+0000\n"
 "Last-Translator: Sophea Sok <sksophea@gmail.com>\n"
 "Language-Team: Khmer <km@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2015-10-16 05:54+0000\n"
+"X-Launchpad-Export-Date: 2015-10-22 05:49+0000\n"
 "X-Generator: Launchpad (build 17812)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -51,8 +51,8 @@ msgstr "ពាក្យសម្ងាត់"
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/HistoryView.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:383
+#: src/app/webbrowser/HistoryView.qml:159
+#: src/app/webbrowser/HistoryViewWide.qml:384
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
 #: src/app/webbrowser/SettingsPage.qml:288
 #: src/app/webbrowser/SettingsPage.qml:342
@@ -124,11 +124,8 @@ msgid "It appears you are having trouble viewing: %1."
 msgstr "វា​បង្ហាញ​ថា អ្នក​កំពុង​មាន​បញ្ហា​ក្នុង​ការ​មើល៖ %1 ។"
 
 #: src/app/ErrorSheet.qml:48
-msgid ""
-"Ubuntu suggests you check your network settings and try refreshing the page."
+msgid "Please check your network settings and try refreshing the page."
 msgstr ""
-"Ubuntu ស្នើ​ឲ្យ​អ្នក​ពិនិត្យ​ការ​កំណត់​បណ្ដាញ​របស់​អ្នក "
-"និង​ព្យាយាម​ផ្ទុក​ទំព័រ​ឡើងវិញ។"
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -404,7 +401,7 @@ msgstr "​កាត់"
 msgid "Erase"
 msgstr "លុប"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:395
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:402
 msgid "Find in page"
 msgstr ""
 
@@ -434,7 +431,7 @@ msgstr "ទៅ​កាន់"
 msgid "Address;URL;www"
 msgstr "អាសយដ្ឋាន;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:663
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:670
 #: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "ផ្ទាំង​ថ្មី"
@@ -484,8 +481,8 @@ msgstr "រក្សាទុក​រូបភាព"
 msgid "Save link"
 msgstr ""
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:188
-#: src/app/webbrowser/HistoryViewWide.qml:408
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
+#: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr "ជ្រើស​ទាំងអស់"
 
@@ -526,8 +523,8 @@ msgid "Save in"
 msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFolderListView.qml:115
-#: src/app/webbrowser/NewTabViewWide.qml:123
+#: src/app/webbrowser/BookmarksFoldersView.qml:119
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
 msgstr ""
 
@@ -545,53 +542,71 @@ msgstr "បង្កើតថតថ្មី"
 msgid "Save"
 msgstr "រក្សា​ទុក"
 
-#: src/app/webbrowser/Browser.qml:372
-#: src/app/webbrowser/HistoryViewWide.qml:367
-msgid "History"
-msgstr "ប្រវត្តិ"
+#: src/app/webbrowser/BookmarksFoldersView.qml:158
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
+#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:316
+msgid "Homepage"
+msgstr "គេហទំព័រ"
 
-#: src/app/webbrowser/Browser.qml:378
-msgid "Open tabs"
-msgstr "បើក​ផ្ទាំង"
+#: src/app/webbrowser/BookmarksView.qml:81
+#: src/app/webbrowser/BookmarksViewWide.qml:79
+#: src/app/webbrowser/Browser.qml:372 src/app/webbrowser/NewTabView.qml:109
+#: src/app/webbrowser/NewTabViewWide.qml:155
+msgid "Bookmarks"
+msgstr "ចំណាំ"
 
-#: src/app/webbrowser/Browser.qml:388 src/app/webbrowser/HistoryView.qml:129
-#: src/app/webbrowser/HistoryViewWide.qml:517
+#: src/app/webbrowser/BookmarksView.qml:113
+#: src/app/webbrowser/BookmarksViewWide.qml:111
+#: src/app/webbrowser/Browser.qml:656 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/HistoryViewWide.qml:504
+msgid "Done"
+msgstr "ធ្វើរួច"
+
+#: src/app/webbrowser/BookmarksView.qml:126
+#: src/app/webbrowser/BookmarksViewWide.qml:124
+#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryViewWide.qml:518
 #: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "ផ្ទាំង​ថ្មី"
+
+#: src/app/webbrowser/Browser.qml:379
+#: src/app/webbrowser/HistoryViewWide.qml:368
+msgid "History"
+msgstr "ប្រវត្តិ"
+
+#: src/app/webbrowser/Browser.qml:385
+msgid "Open tabs"
+msgstr "បើក​ផ្ទាំង"
 
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
 msgstr "ការ​ទាញយក"
 
-#: src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/Browser.qml:412
 msgid "Leave Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/Browser.qml:412
 msgid "Private Mode"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:430 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "ការ​កំណត់"
 
-#: src/app/webbrowser/Browser.qml:649 src/app/webbrowser/HistoryView.qml:116
-#: src/app/webbrowser/HistoryViewWide.qml:503
-msgid "Done"
-msgstr "ធ្វើរួច"
-
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:757
+#: src/app/webbrowser/Browser.qml:764
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1183
+#: src/app/webbrowser/Browser.qml:1251
 msgid "Swipe Up To Exit Full Screen"
 msgstr ""
 
-#: src/app/webbrowser/Browser.qml:1184
+#: src/app/webbrowser/Browser.qml:1252
 msgid "Press ESC To Exit Full Screen"
 msgstr ""
 
@@ -599,8 +614,8 @@ msgstr ""
 msgid "Confirm selection"
 msgstr ""
 
-#: src/app/webbrowser/HistoryView.qml:218
-#: src/app/webbrowser/HistoryViewWide.qml:427
+#: src/app/webbrowser/HistoryView.qml:199
+#: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
 msgstr "​លុប​"
 
@@ -637,7 +652,7 @@ msgstr ""
 msgid "Today"
 msgstr "ថ្ងៃនេះ"
 
-#: src/app/webbrowser/HistoryViewWide.qml:448
+#: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
 msgstr ""
 
@@ -655,29 +670,18 @@ msgid ""
 "Bookmarks you create will be preserved, however."
 msgstr ""
 
-#: src/app/webbrowser/NewTabView.qml:109
-#: src/app/webbrowser/NewTabViewWide.qml:300
-msgid "Bookmarks"
-msgstr "ចំណាំ"
-
 #: src/app/webbrowser/NewTabView.qml:124
 msgid "More"
 msgstr "ច្រើនទៀត"
 
-#: src/app/webbrowser/NewTabView.qml:227
-#: src/app/webbrowser/NewTabViewWide.qml:299
+#: src/app/webbrowser/NewTabView.qml:230
+#: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Top sites"
 msgstr "តំបន់បណ្ដាញ​ពេញនិយម"
 
-#: src/app/webbrowser/NewTabView.qml:258
+#: src/app/webbrowser/NewTabView.qml:261
 msgid "You haven't visited any site yet"
 msgstr ""
-
-#: src/app/webbrowser/NewTabViewWide.qml:161
-#: src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:316
-msgid "Homepage"
-msgstr "គេហទំព័រ"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
@@ -804,7 +808,7 @@ msgstr "ប៉ះ​ដើម្បី​មើល"
 msgid "Close Tab"
 msgstr "បិទ​ផ្ទាំង"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:117
+#: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
 msgstr ""
 
@@ -896,6 +900,12 @@ msgstr "រកមើល​វើលវ៉ាយវិប"
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Browser;Web;Explorer"
+
+#~ msgid ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the page."
+#~ msgstr ""
+#~ "Ubuntu ស្នើ​ឲ្យ​អ្នក​ពិនិត្យ​ការ​កំណត់​បណ្ដាញ​របស់​អ្នក "
+#~ "និង​ព្យាយាម​ផ្ទុក​ទំព័រ​ឡើងវិញ។"
 
 #~ msgid "Select an account"
 #~ msgstr "ជ្រើស​គណនី"
