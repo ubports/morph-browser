@@ -77,7 +77,6 @@ FocusScope {
 
             width: iconsRow.width + units.gu(1)
             height: units.gu(2)
-            visible: !findInPageMode
 
             Row {
                 id: iconsRow
@@ -93,7 +92,7 @@ FocusScope {
                     id: favicon
                     shouldCache: !addressbar.incognito
                     anchors.verticalCenter: parent.verticalCenter
-                    visible: showFavicon && internal.idle && addressbar.actualUrl.toString() &&
+                    visible: !findInPageMode && showFavicon && internal.idle && addressbar.actualUrl.toString() &&
                              !internal.securityWarning && !internal.securityError
                 }
 
@@ -103,7 +102,7 @@ FocusScope {
                     height: parent.height
                     width: height
 
-                    visible: addressbar.editing || addressbar.loading || !addressbar.text
+                    visible: !findInPageMode && (addressbar.editing || addressbar.loading || !addressbar.text)
 
                     enabled: addressbar.text
                     opacity: enabled ? 1.0 : 0.3
