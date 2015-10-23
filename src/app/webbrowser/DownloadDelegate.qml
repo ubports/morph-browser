@@ -47,6 +47,11 @@ ListItem {
                     download = downloadManager.downloads[i]
                 }
             }
+            if (!download) {
+                // This download is incomplete and is no longer in download
+                // manager, so must have been cancelled while we were closed
+                cancelled()
+            }
         }
     }
 
