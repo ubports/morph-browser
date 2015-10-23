@@ -184,3 +184,15 @@ class TestFindInPage(StartOpenRemotePageTestCaseBase):
             action_missing = True
 
         self.assertThat(action_missing, Equals(True))
+
+    # See http://pad.lv/1508130
+    def test_focus_on_enter(self):
+        bar = self.main_window.address_bar
+        self.activate_find_in_page(False)
+        self.assertThat(bar.findInPageMode, Eventually(Equals(True)))
+        self.assertThat(bar.activeFocus, Eventually(Equals(True)))
+        self.chrome.go_back()
+        self.assertThat(bar.findInPageMode, Eventually(Equals(False)))
+        self.activate_find_in_page(False)
+        self.assertThat(bar.findInPageMode, Eventually(Equals(True)))
+        self.assertThat(bar.activeFocus, Eventually(Equals(True)))
