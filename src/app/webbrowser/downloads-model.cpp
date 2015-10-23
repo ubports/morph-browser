@@ -112,13 +112,15 @@ void DownloadsModel::fetchMore(const QModelIndex &parent)
         entry.complete = populateQuery.value(5).toBool();
         entry.error = populateQuery.value(6).toString();
         entry.created = QDateTime::fromTime_t(populateQuery.value(7).toInt());
-
-        // Only list an entry if its file exists, however we don't remove
-        // the entry if the file is missing as it may be stored on a removable
-        // medium like an SD card in the future, so could reappear.
         QFileInfo fileInfo(entry.path);
         if (fileInfo.exists()) {
             entry.filename = fileInfo.fileName();
+        }
+
+        // Only list a completed entry if its file exists, however we don't
+        // remove the entry if the file is missing as it may be stored on a
+        // removable medium like an SD card in the future, so could reappear.
+        if (!entry.complete || fileInfo.exists()) {
             beginInsertRows(QModelIndex(), m_numRows, m_numRows);
             m_orderedEntries.append(entry);
             endInsertRows();
