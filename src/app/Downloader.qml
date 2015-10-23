@@ -76,10 +76,6 @@ Item {
             }
 
             onFinished: {
-                if (browserDownload) {
-                    browser.downloadsModel.moveToDownloads(currentDownloadId, path)
-                    browser.downloadsModel.setComplete(currentDownloadId, true)
-                }
                 metadata.destroy()
                 destroy()
             }

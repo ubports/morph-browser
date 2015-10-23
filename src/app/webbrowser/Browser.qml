@@ -144,6 +144,11 @@ BrowserView {
 
     DownloadManager {
         id: downloadManager
+
+        onDownloadFinished: {
+            downloadsModel.moveToDownloads(download.downloadId, path)
+            downloadsModel.setComplete(download.downloadId, true)
+        }
     }
 
     FocusScope {
