@@ -29,7 +29,11 @@
       },
       "read_path": [
         "/usr/share/applications/",
-        "@{HOME}/.local/share/applications/"
+        "@{HOME}/.local/share/applications/",
+        "@{HOME}/Downloads/"
+      ],
+      "write_path": [
+        "@{HOME}/Downloads/"
       ]
     }
   }
