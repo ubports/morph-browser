@@ -3,7 +3,6 @@
     "webbrowser-app": {
       "binary": "/usr/bin/webbrowser-app",
       "profile_name": "webbrowser-app",
-      "template": "ubuntu-webapp",
       "policy_vendor": "ubuntu",
       "policy_version": 1.3,
       "policy_groups": [
