@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-21 21:06+0200\n"
+"POT-Creation-Date: 2015-10-23 15:10+0200\n"
 "PO-Revision-Date: 2015-10-06 17:50+0000\n"
 "Last-Translator: Timo Jyrinki <timo.jyrinki@canonical.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-10-22 05:49+0000\n"
+"X-Launchpad-Export-Date: 2015-10-24 05:57+0000\n"
 "X-Generator: Launchpad (build 17812)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -54,8 +54,8 @@ msgstr "Salasana"
 #: src/app/webbrowser/HistoryView.qml:159
 #: src/app/webbrowser/HistoryViewWide.qml:384
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:288
-#: src/app/webbrowser/SettingsPage.qml:342
+#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/webbrowser/SettingsPage.qml:348
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "Peru"
@@ -126,7 +126,7 @@ msgstr "Ongelmia selatessa: %1."
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr ""
+msgstr "Tarkista verkkoyhteyden asetukset ja yritä ladata sivu uudelleen."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -397,7 +397,7 @@ msgstr "Leikkaa"
 msgid "Erase"
 msgstr "Poista"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:402
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:426
 msgid "Find in page"
 msgstr "Etsi sivulta"
 
@@ -427,7 +427,7 @@ msgstr "Siirry"
 msgid "Address;URL;www"
 msgstr "Address;URL;www;osoite;internet;webbi;netti"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:670
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:692
 #: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "Uusi välilehti"
@@ -482,7 +482,7 @@ msgstr "Tallenna linkki"
 msgid "Select all"
 msgstr "Valitse kaikki"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:365
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:390
 msgid "Share"
 msgstr "Jaa"
 
@@ -534,45 +534,45 @@ msgid "Create new folder"
 msgstr "Luo uusi kansio"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:352
+#: src/app/webbrowser/SettingsPage.qml:358
 msgid "Save"
 msgstr "Tallenna"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:158
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
 #: src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:316
+#: src/app/webbrowser/SettingsPage.qml:322
 msgid "Homepage"
 msgstr "Kotisivu"
 
-#: src/app/webbrowser/BookmarksView.qml:81
-#: src/app/webbrowser/BookmarksViewWide.qml:79
-#: src/app/webbrowser/Browser.qml:372 src/app/webbrowser/NewTabView.qml:109
-#: src/app/webbrowser/NewTabViewWide.qml:155
+#: src/app/webbrowser/BookmarksView.qml:80
+#: src/app/webbrowser/BookmarksViewWide.qml:78
+#: src/app/webbrowser/Browser.qml:397 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
 msgstr "Kirjanmerkit"
 
-#: src/app/webbrowser/BookmarksView.qml:113
-#: src/app/webbrowser/BookmarksViewWide.qml:111
-#: src/app/webbrowser/Browser.qml:656 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/BookmarksView.qml:112
+#: src/app/webbrowser/BookmarksViewWide.qml:110
+#: src/app/webbrowser/Browser.qml:678 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
 msgstr "Valmis"
 
-#: src/app/webbrowser/BookmarksView.qml:126
-#: src/app/webbrowser/BookmarksViewWide.qml:124
-#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/BookmarksView.qml:125
+#: src/app/webbrowser/BookmarksViewWide.qml:123
+#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
 #: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Uusi välilehti"
 
-#: src/app/webbrowser/Browser.qml:379
+#: src/app/webbrowser/Browser.qml:403
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
 msgstr "Historia"
 
-#: src/app/webbrowser/Browser.qml:385
+#: src/app/webbrowser/Browser.qml:409
 msgid "Open tabs"
 msgstr "Avoimet välilehdet"
 
@@ -580,29 +580,29 @@ msgstr "Avoimet välilehdet"
 msgid "Downloads"
 msgstr "Lataukset"
 
-#: src/app/webbrowser/Browser.qml:412
+#: src/app/webbrowser/Browser.qml:436
 msgid "Leave Private Mode"
 msgstr "Poistu yksityisestä tilasta"
 
-#: src/app/webbrowser/Browser.qml:412
+#: src/app/webbrowser/Browser.qml:436
 msgid "Private Mode"
 msgstr "Yksityinen tila"
 
-#: src/app/webbrowser/Browser.qml:430 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:454 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Asetukset"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:764
+#: src/app/webbrowser/Browser.qml:786
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1251
+#: src/app/webbrowser/Browser.qml:1258
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Vedä ylös poistuaksesi koko näytön tilasta"
 
-#: src/app/webbrowser/Browser.qml:1252
+#: src/app/webbrowser/Browser.qml:1259
 msgid "Press ESC To Exit Full Screen"
 msgstr "Paina Esc poistuaksesi koko näytön tilasta"
 
@@ -627,7 +627,7 @@ msgstr[0] "%1 sivu"
 msgstr[1] "%1 sivua"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:119
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Vähemmän"
 
@@ -657,6 +657,32 @@ msgstr "hakuhistoria"
 msgid "Going to public mode will close all private tabs"
 msgstr "Julkiseen tilaan siirtyminen sulkee kaikki yksityiset välilehdet"
 
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "Sallitko tämän sivuston käyttää kameraa ja mikrofonia?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "Sallitko tämän sivuston käyttää kameraa?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "Sallitko tämän sivuston käyttää mikrofonia?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 (upotettu sivulle %2)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "Kyllä"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "Ei"
+
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
 msgstr "Tämä on yksityinen välilehti"
@@ -669,16 +695,16 @@ msgstr ""
 "Tässä välilehdessä avaamasi sivut eivät näy selaushistoriassa.\n"
 "Lisäämäsi kirjanmerkit kuitenkin säilyvät."
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
 msgstr "Enemmän"
 
-#: src/app/webbrowser/NewTabView.qml:230
-#: src/app/webbrowser/NewTabViewWide.qml:154
+#: src/app/webbrowser/NewTabView.qml:227
+#: src/app/webbrowser/NewTabViewWide.qml:153
 msgid "Top sites"
 msgstr "Suosituimmat sivustot"
 
-#: src/app/webbrowser/NewTabView.qml:261
+#: src/app/webbrowser/NewTabView.qml:258
 msgid "You haven't visited any site yet"
 msgstr "Et ole vieraillut millään sivustolla vielä"
 
@@ -772,32 +798,45 @@ msgstr "Salli uusien välilehtien avaaminen taustalle"
 
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
-msgid "Privacy"
-msgstr "Yksityisyys"
+msgid "Privacy & permissions"
+msgstr "Yksityisyys ja oikeudet"
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
 msgstr "Palauta selaimen oletusasetukset"
 
 #: src/app/webbrowser/SettingsPage.qml:248
+#: src/app/webbrowser/SettingsPage.qml:386
+msgid "Camera & microphone"
+msgstr "Kamera ja mikrofoni"
+
+#: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
 msgstr "Tyhjennä selailuhistoria"
 
-#: src/app/webbrowser/SettingsPage.qml:251
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
 msgstr "Tyhjennetäänkö selaushistoria?"
 
-#: src/app/webbrowser/SettingsPage.qml:258
+#: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
 msgstr "Tyhjennä välimuisti"
 
-#: src/app/webbrowser/SettingsPage.qml:260
+#: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
 msgstr "Tyhjennetäänkö välimuisti?"
 
-#: src/app/webbrowser/SettingsPage.qml:295
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
 msgstr "Tyhjennä"
+
+#: src/app/webbrowser/SettingsPage.qml:406
+msgid "Microphone"
+msgstr "Mikrofoni"
+
+#: src/app/webbrowser/SettingsPage.qml:425
+msgid "Camera"
+msgstr "Kamera"
 
 #: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
@@ -930,11 +969,8 @@ msgstr "Internet;WWW;Browser;Web;Explorer;netti;selain;verkko"
 #~ msgid "Add"
 #~ msgstr "LIsää"
 
-#~ msgid "No"
-#~ msgstr "Ei"
-
-#~ msgid "Yes"
-#~ msgstr "Kyllä"
-
 #~ msgid "Delete all history?"
 #~ msgstr "Poistetaanko koko historia?"
+
+#~ msgid "Privacy"
+#~ msgstr "Yksityisyys"
