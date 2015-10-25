@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-10-23 15:10+0200\n"
-"PO-Revision-Date: 2015-10-22 11:58+0000\n"
+"PO-Revision-Date: 2015-10-24 09:05+0000\n"
 "Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-10-24 05:57+0000\n"
+"X-Launchpad-Export-Date: 2015-10-25 05:42+0000\n"
 "X-Generator: Launchpad (build 17812)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -660,20 +660,22 @@ msgstr "A publikus módba visszatérés bezárja az összes privát lapot"
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
 msgstr ""
+"Engedélyezi ennek a domainnévnek, hogy hozzáférjen a kamerához és "
+"mikrofonhoz?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr ""
+msgstr "Engedélyezi ennek a domainnévnek, hogy hozzáférjen a kamerához?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr ""
+msgstr "Engedélyezi ennek a domainnévnek, hogy hozzáférjen a mikrofonhoz?"
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr ""
+msgstr "%1 (beágyazva itt: %2)"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
@@ -801,7 +803,7 @@ msgstr "Új lap megnyitása a háttérben"
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
-msgstr ""
+msgstr "Adatvédelem és jogosultságok"
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
@@ -810,7 +812,7 @@ msgstr "Böngészőbeállítások visszaállítása"
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr ""
+msgstr "Kamera és mikrofon"
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
@@ -834,11 +836,11 @@ msgstr "Törlés"
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr ""
+msgstr "Mikrofon"
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr ""
+msgstr "Kamera"
 
 #: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
