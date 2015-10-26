@@ -348,6 +348,13 @@ FocusScope {
         property bool simplified: false
     }
 
+    onIncognitoChanged: {
+        if (incognito) {
+            text = ""
+            internal.simplified = false
+        }
+    }
+
     onEditingChanged: {
         if (findInPageMode) return
         if (editing && internal.simplified) {
