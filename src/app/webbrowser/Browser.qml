@@ -1156,6 +1156,7 @@ BrowserView {
                     var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
                     var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
                     internal.addTab(tab, setCurrent)
+                    if (setCurrent) tabContainer.forceActiveFocus()
                 }
 
                 onCloseRequested: prepareToClose()
