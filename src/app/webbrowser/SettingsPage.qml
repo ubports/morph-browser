@@ -379,7 +379,7 @@ Item {
                 color: "#f6f6f6"
             }
 
-            SettingsPageHeader {
+            BrowserPageHeader {
                 id: mediaAccessTitle
 
                 onBack: mediaAccessItem.destroy()
