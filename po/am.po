@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-21 21:06+0200\n"
-"PO-Revision-Date: 2015-10-16 13:49+0000\n"
+"POT-Creation-Date: 2015-10-23 15:10+0200\n"
+"PO-Revision-Date: 2015-10-24 13:48+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2015-10-22 05:49+0000\n"
+"X-Launchpad-Export-Date: 2015-10-25 05:42+0000\n"
 "X-Generator: Launchpad (build 17812)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -54,8 +54,8 @@ msgstr "የመግቢያ ቃል"
 #: src/app/webbrowser/HistoryView.qml:159
 #: src/app/webbrowser/HistoryViewWide.qml:384
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:288
-#: src/app/webbrowser/SettingsPage.qml:342
+#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/webbrowser/SettingsPage.qml:348
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "መሰረዣ"
@@ -125,7 +125,7 @@ msgstr "ለመመልከት ችግር የገጠሞት ይመስላል: %1."
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr ""
+msgstr "እባክዎን የ ኔትዎርክ ማሰናጃዎች ይመርምሩ እና ገጹን እንደገና ያነቃቁ"
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -387,7 +387,7 @@ msgstr "መቁረጫ"
 msgid "Erase"
 msgstr "መሰረዣ"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:402
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:426
 msgid "Find in page"
 msgstr "መፈለጊያ በ ገጽ"
 
@@ -417,7 +417,7 @@ msgstr "መሄጃ ወደ"
 msgid "Address;URL;www"
 msgstr "አድራሻ;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:670
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:692
 #: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "አዲስ ንዑስ መስኮት"
@@ -472,7 +472,7 @@ msgstr "አገናኝ ማስቀመጫ"
 msgid "Select all"
 msgstr "ሁሉንም መምረጫ"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:365
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:390
 msgid "Share"
 msgstr "ማካፈያ"
 
@@ -524,45 +524,45 @@ msgid "Create new folder"
 msgstr "አዲስ ፎልደር መፍጠሪያ"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:352
+#: src/app/webbrowser/SettingsPage.qml:358
 msgid "Save"
 msgstr "ማስቀመጫ"
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:158
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
 #: src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:316
+#: src/app/webbrowser/SettingsPage.qml:322
 msgid "Homepage"
 msgstr "የ ቤት ገጽ"
 
-#: src/app/webbrowser/BookmarksView.qml:81
-#: src/app/webbrowser/BookmarksViewWide.qml:79
-#: src/app/webbrowser/Browser.qml:372 src/app/webbrowser/NewTabView.qml:109
-#: src/app/webbrowser/NewTabViewWide.qml:155
+#: src/app/webbrowser/BookmarksView.qml:80
+#: src/app/webbrowser/BookmarksViewWide.qml:78
+#: src/app/webbrowser/Browser.qml:397 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
 msgstr "ምልክት ማድረጊያዎች"
 
-#: src/app/webbrowser/BookmarksView.qml:113
-#: src/app/webbrowser/BookmarksViewWide.qml:111
-#: src/app/webbrowser/Browser.qml:656 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/BookmarksView.qml:112
+#: src/app/webbrowser/BookmarksViewWide.qml:110
+#: src/app/webbrowser/Browser.qml:678 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
 msgstr "ጨርሷል"
 
-#: src/app/webbrowser/BookmarksView.qml:126
-#: src/app/webbrowser/BookmarksViewWide.qml:124
-#: src/app/webbrowser/Browser.qml:395 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/BookmarksView.qml:125
+#: src/app/webbrowser/BookmarksViewWide.qml:123
+#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
 #: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "አዲስ ንዑስ መስኮት መክፈቻ"
 
-#: src/app/webbrowser/Browser.qml:379
+#: src/app/webbrowser/Browser.qml:403
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
 msgstr "ታሪክ"
 
-#: src/app/webbrowser/Browser.qml:385
+#: src/app/webbrowser/Browser.qml:409
 msgid "Open tabs"
 msgstr "ንዑስ መስኮት መክፈቻ"
 
@@ -570,29 +570,29 @@ msgstr "ንዑስ መስኮት መክፈቻ"
 msgid "Downloads"
 msgstr "የወረዱ"
 
-#: src/app/webbrowser/Browser.qml:412
+#: src/app/webbrowser/Browser.qml:436
 msgid "Leave Private Mode"
 msgstr "ከ ግል ዘዴ መውጫ"
 
-#: src/app/webbrowser/Browser.qml:412
+#: src/app/webbrowser/Browser.qml:436
 msgid "Private Mode"
 msgstr "የ ግል ዘዴ"
 
-#: src/app/webbrowser/Browser.qml:430 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:454 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "ማሰናጃዎች"
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:764
+#: src/app/webbrowser/Browser.qml:786
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1251
+#: src/app/webbrowser/Browser.qml:1258
 msgid "Swipe Up To Exit Full Screen"
 msgstr "ወደ ላይ ይጥረጉ ከ ሙሉ መመልከቻ ዘዴ ለመውጣት"
 
-#: src/app/webbrowser/Browser.qml:1252
+#: src/app/webbrowser/Browser.qml:1259
 msgid "Press ESC To Exit Full Screen"
 msgstr "ይጫኑ መዝለያውን ከ ሙሉ መመልከቻ ዘዴ ለመውጣት"
 
@@ -617,7 +617,7 @@ msgstr[0] "%1 ገጽ"
 msgstr[1] "%1 ገጾች"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:119
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "ትንሽ"
 
@@ -647,6 +647,32 @@ msgstr "ታሪክ መፈለጊያ"
 msgid "Going to public mode will close all private tabs"
 msgstr "ወደ ሕዝብ ዘዴ ሲቀይሩ የ ግል ዘዴ በሙሉ ይዘጋል"
 
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr "ይህ ግዛት የ እርስዎን ካሜራ እና ማይክሮፎን ጋር እንዲደርስ ይፈቅዳሉ?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr "ይህ ግዛት የ እርስዎ ካሜራ ጋር እንዲደርስ ይፈቅዳሉ?"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr "ይህ ግዛት የ እርስዎ ማይክሮፎን ጋር እንዲደርስ ይፈቅዳሉ?"
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr "%1 (ተጣብቋል በ %2)"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "አዎ"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "አይ"
+
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
 msgstr "ይህ የ ግል ዘዴ ነው"
@@ -659,16 +685,16 @@ msgstr ""
 "በዚህ መስኮት ውስጥ የተመለከቱት በ እርስዎ የ መቃኛ ታሪክ ውስጥ አይታይም\n"
 "ነገር ግን ያስቀመጡዋቸው እልባቶች በሙሉ ይታያሉ"
 
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
 msgstr "ተጨማሪ"
 
-#: src/app/webbrowser/NewTabView.qml:230
-#: src/app/webbrowser/NewTabViewWide.qml:154
+#: src/app/webbrowser/NewTabView.qml:227
+#: src/app/webbrowser/NewTabViewWide.qml:153
 msgid "Top sites"
 msgstr "ከፍተኛ ድሕረ ገጾች"
 
-#: src/app/webbrowser/NewTabView.qml:261
+#: src/app/webbrowser/NewTabView.qml:258
 msgid "You haven't visited any site yet"
 msgstr "ምንም ድሕረ ገጽ አልጎበኙም"
 
@@ -761,32 +787,45 @@ msgstr "አዲስ ንዑስ መስኮት ከ መደቡ ጀርባ መክፈት �
 
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
-msgid "Privacy"
-msgstr "የ ግል"
+msgid "Privacy & permissions"
+msgstr "የ ግላዊነት መመሪያ & ፍቃዶች"
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
 msgstr "የ መቃኛ ማሰናጃዎችን እንደ ነበር መመለሻ"
 
 #: src/app/webbrowser/SettingsPage.qml:248
+#: src/app/webbrowser/SettingsPage.qml:386
+msgid "Camera & microphone"
+msgstr "ካሜራ እና ማይክሮፎን"
+
+#: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
 msgstr "የ መቃኛ ታሪክ ማጽጃ"
 
-#: src/app/webbrowser/SettingsPage.qml:251
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
 msgstr "የ መቃኛውን ታሪክ ላጽዳ?"
 
-#: src/app/webbrowser/SettingsPage.qml:258
+#: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
 msgstr "ካሽን ማጽጃ"
 
-#: src/app/webbrowser/SettingsPage.qml:260
+#: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
 msgstr "Cache ን ላጽዳ?"
 
-#: src/app/webbrowser/SettingsPage.qml:295
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
 msgstr "ማጽጃ"
+
+#: src/app/webbrowser/SettingsPage.qml:406
+msgid "Microphone"
+msgstr "ማይክሮፎን"
+
+#: src/app/webbrowser/SettingsPage.qml:425
+msgid "Camera"
+msgstr "ካሜራ"
 
 #: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
@@ -906,12 +945,6 @@ msgstr "ኢንተርኔት;WWW;መቃኛ;ዌብ;መቃኛ"
 #~ msgid "Add"
 #~ msgstr "መጨመሪያ"
 
-#~ msgid "No"
-#~ msgstr "አይ"
-
-#~ msgid "Yes"
-#~ msgstr "አዎ"
-
 #~ msgid "Select an account"
 #~ msgstr "መግለጫ ይምረጡ"
 
@@ -924,3 +957,6 @@ msgstr "ኢንተርኔት;WWW;መቃኛ;ዌብ;መቃኛ"
 #~ msgid ""
 #~ "Ubuntu suggests you check your network settings and try refreshing the page."
 #~ msgstr "ኡቡንቱ የ ኔትዎርክ ማሰናጃዎን እንዲመረምሩ ይመክራል እና ገጹን እንደገና ያነቃቁ"
+
+#~ msgid "Privacy"
+#~ msgstr "የ ግል"

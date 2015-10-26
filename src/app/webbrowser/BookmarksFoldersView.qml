@@ -25,7 +25,6 @@ import "BookmarksModelUtils.js" as BookmarksModelUtils
 FocusScope {
     id: bookmarksFoldersViewItem
 
-    property alias model: bookmarksFolderListModel.sourceModel 
     property alias interactive: bookmarksFolderListView.interactive
     property url homeBookmarkUrl
 
@@ -36,6 +35,7 @@ FocusScope {
 
     BookmarksFolderListModel {
         id: bookmarksFolderListModel
+        sourceModel: BookmarksModel
     }
 
     ListView {
@@ -50,7 +50,7 @@ FocusScope {
                 left: parent.left
                 right: parent.right
             }
- 
+
             height: active ? item.height : 0
             active: entries.count > 0
 
@@ -60,7 +60,7 @@ FocusScope {
                 property string folderName: folder
 
                 anchors {
-                    left: parent ? parent.left : undefined 
+                    left: parent ? parent.left : undefined
                     right: parent ? parent.right : undefined
                 }
 
