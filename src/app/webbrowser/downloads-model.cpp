@@ -361,6 +361,8 @@ void DownloadsModel::deleteDownload(const QString& path)
             endRemoveRows();
             Q_EMIT deleted(path);
             removeExistingEntryFromDatabase(path);
+            m_fetchedCount--;
+            m_numRows--;
             Q_EMIT rowCountChanged();
             QFile::remove(path);
             return;
@@ -380,12 +382,15 @@ void DownloadsModel::cancelDownload(const QString& downloadId)
         if (entry.downloadId == downloadId) {
             beginRemoveRows(QModelIndex(), index, index);
             m_orderedEntries.removeAt(index);
-            endRemoveRows();
             QSqlQuery query(m_database);
             static QString deleteStatement = QLatin1String("DELETE FROM downloads WHERE downloadId=?;");
             query.prepare(deleteStatement);
             query.addBindValue(downloadId);
             query.exec();
+            endRemoveRows();
+            m_fetchedCount--;
+            m_numRows--;
+            Q_EMIT rowCountChanged();
             return;
         } else {
             index++;
