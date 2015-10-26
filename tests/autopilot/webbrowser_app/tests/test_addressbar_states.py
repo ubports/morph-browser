@@ -65,6 +65,8 @@ class TestAddressBarStates(StartOpenRemotePageTestCaseBase):
         url = self.base_url + "/test1"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
+        self.pointing_device.click_object(address_bar)
+        address_bar.activeFocus.wait_for(True)
         self.new_tab_view = self.open_new_tab(open_tabs_view=True)
         self.assertThat(address_bar.text, Eventually(Equals("")))
 
