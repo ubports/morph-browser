@@ -20,7 +20,7 @@ import QtQuick 2.4
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.Components.ListItems 1.3 as ListItem
+import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Web 0.2
 import webbrowserapp.private 0.1
 
@@ -29,7 +29,7 @@ import "../UrlUtils.js" as UrlUtils
 Item {
     id: settingsItem
 
-    property Settings settingsObject
+    property QtObject settingsObject
 
     signal done()
 
@@ -68,7 +68,7 @@ Item {
 
             width: parent.width
 
-            ListItem.Subtitled {
+            ListItems.Subtitled {
                 objectName: "searchengine"
 
                 SearchEngine {
@@ -85,7 +85,7 @@ Item {
                 onClicked: searchEngineComponent.createObject(subpageContainer)
             }
 
-            ListItem.Subtitled {
+            ListItems.Subtitled {
                 objectName: "homepage"
 
                 text: i18n.tr("Homepage")
@@ -94,7 +94,7 @@ Item {
                 onClicked: PopupUtils.open(homepageDialog)
             }
 
-            ListItem.Standard {
+            ListItems.Standard {
                 objectName: "restoreSession"
 
                 text: i18n.tr("Restore previous session at startup")
@@ -112,7 +112,7 @@ Item {
                 }
             }
 
-            ListItem.Standard {
+            ListItems.Standard {
                 objectName: "backgroundTabs"
 
                 text: i18n.tr("Allow opening new tabs in background")
@@ -131,15 +131,15 @@ Item {
                 }
             }
 
-            ListItem.Standard {
+            ListItems.Standard {
                 objectName: "privacy"
 
-                text: i18n.tr("Privacy")
+                text: i18n.tr("Privacy & permissions")
 
                 onClicked: privacyComponent.createObject(subpageContainer)
             }
 
-            ListItem.Standard {
+            ListItems.Standard {
                 objectName: "reset"
 
                 text: i18n.tr("Reset browser settings")
@@ -186,7 +186,7 @@ Item {
 
                     model: searchEngines.engines
 
-                    delegate: ListItem.Standard {
+                    delegate: ListItems.Standard {
                         objectName: "searchEngineDelegate_" + index
                         SearchEngine {
                             id: searchEngineDelegate
@@ -224,7 +224,7 @@ Item {
                 BrowserPageHeader {
                     id: privacyTitle
                     onBack: privacyItem.destroy()
-                    text: i18n.tr("Privacy")
+                    text: i18n.tr("Privacy & permissions")
                 }
 
                 Flickable {
@@ -243,7 +243,13 @@ Item {
                         id: privacyCol
                         width: parent.width
 
-                        ListItem.Standard {
+                        ListItems.Standard {
+                            objectName: "privacy.mediaAccess"
+                            text: i18n.tr("Camera & microphone")
+                            onClicked: mediaAccessComponent.createObject(subpageContainer)
+                        }
+
+                        ListItems.Standard {
                             objectName: "privacy.clearHistory"
                             text: i18n.tr("Clear Browsing History")
                             enabled: HistoryModel.count > 0
@@ -253,7 +259,7 @@ Item {
                             }
                         }
 
-                        ListItem.Standard {
+                        ListItems.Standard {
                             objectName: "privacy.clearCache"
                             text: i18n.tr("Clear Cache")
                             onClicked: {
@@ -355,6 +361,84 @@ Item {
                 onClicked: {
                     settingsObject.homepage = UrlUtils.fixUrl(homepageTextField.text)
                     PopupUtils.close(dialogue)
+                }
+            }
+        }
+    }
+
+    Component {
+        id: mediaAccessComponent
+
+        Item {
+            id: mediaAccessItem
+            objectName: "mediaAccessSettings"
+            anchors.fill: parent
+
+            Rectangle {
+                anchors.fill: parent
+                color: "#f6f6f6"
+            }
+
+            SettingsPageHeader {
+                id: mediaAccessTitle
+
+                onBack: mediaAccessItem.destroy()
+                text: i18n.tr("Camera & microphone")
+            }
+
+            Flickable {
+                anchors {
+                    top: mediaAccessTitle.bottom
+                    left: parent.left
+                    right: parent.right
+                    bottom: parent.bottom
+                }
+
+                clip: true
+
+                contentHeight: mediaAccessCol.height
+
+                Column {
+                    id: mediaAccessCol
+                    width: parent.width
+
+                    ListItems.Standard {
+                        text: i18n.tr("Microphone")
+                    }
+
+                    SettingsDeviceSelector {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        isAudio: true
+                        visible: devicesCount > 0
+                        enabled: devicesCount > 1
+
+                        defaultDevice: settings.defaultAudioDevice
+                        onDeviceSelected: {
+                            SharedWebContext.sharedContext.defaultAudioCaptureDeviceId = id
+                            settings.defaultAudioDevice = id
+                        }
+                    }
+
+                    ListItems.Standard {
+                        text: i18n.tr("Camera")
+                    }
+
+                    SettingsDeviceSelector {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+
+                        isAudio: false
+                        visible: devicesCount > 0
+                        enabled: devicesCount > 1
+
+                        defaultDevice: settings.defaultVideoDevice
+                        onDeviceSelected: {
+                          SharedWebContext.sharedContext.defaultVideoCaptureDeviceId = id
+                          settings.defaultVideoDevice = id
+                        }
+                    }
                 }
             }
         }

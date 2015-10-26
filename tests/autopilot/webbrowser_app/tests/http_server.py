@@ -205,6 +205,16 @@ class HTTPRequestHandler(http.BaseHTTPRequestHandler):
                     self.send_auth_request()
             else:
                 self.send_auth_request()
+        elif self.path.startswith("/media/"):
+            self.send_response(200)
+            permissions = self.path[len("/media/"):]
+            self.send_html(
+                "<script>navigator.webkitGetUserMedia("
+                "{video: " + ("true" if "v" in permissions else "false") +
+                ", audio: " + ("true" if "a" in permissions else "false") +
+                "}, function() { location.href = '/test1' } " +
+                ", function() { location.href = '/test2' })</script>"
+            )
         else:
             self.send_error(404)
 

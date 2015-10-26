@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-10-15 18:50+0200\n"
+"POT-Creation-Date: 2015-10-23 15:10+0200\n"
 "PO-Revision-Date: 2015-10-05 15:35+0000\n"
 "Last-Translator: Víctor R. Ruiz <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-10-16 05:55+0000\n"
+"X-Launchpad-Export-Date: 2015-10-24 05:57+0000\n"
 "X-Generator: Launchpad (build 17812)\n"
 
 #: src/app/AlertDialog.qml:23
@@ -51,11 +51,11 @@ msgstr "Contraseña"
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
 #: src/app/webbrowser/BookmarkOptions.qml:143
 #: src/app/webbrowser/ContextMenuMobile.qml:139
-#: src/app/webbrowser/HistoryView.qml:173
-#: src/app/webbrowser/HistoryViewWide.qml:383
+#: src/app/webbrowser/HistoryView.qml:159
+#: src/app/webbrowser/HistoryViewWide.qml:384
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:32
-#: src/app/webbrowser/SettingsPage.qml:288
-#: src/app/webbrowser/SettingsPage.qml:342
+#: src/app/webbrowser/SettingsPage.qml:294
+#: src/app/webbrowser/SettingsPage.qml:348
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
 msgstr "Cancelar"
@@ -126,10 +126,8 @@ msgid "It appears you are having trouble viewing: %1."
 msgstr "Parece que hay problemas para ver: %1"
 
 #: src/app/ErrorSheet.qml:48
-msgid ""
-"Ubuntu suggests you check your network settings and try refreshing the page."
+msgid "Please check your network settings and try refreshing the page."
 msgstr ""
-"Ubuntu le sugiere comprobar su configuración de red y recargar la página."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
@@ -401,7 +399,7 @@ msgstr "Cortar"
 msgid "Erase"
 msgstr "Borrar"
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:395
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:426
 msgid "Find in page"
 msgstr "Buscar en la página"
 
@@ -431,7 +429,7 @@ msgstr "Ir a"
 msgid "Address;URL;www"
 msgstr "Dirección;URL;www"
 
-#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:663
+#: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:692
 #: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
 msgstr "Pestaña nueva"
@@ -481,12 +479,12 @@ msgstr "Guardar imagen"
 msgid "Save link"
 msgstr "Guardar el enlace"
 
-#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:188
-#: src/app/webbrowser/HistoryViewWide.qml:408
+#: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
+#: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
 msgstr "Todos"
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:365
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:390
 msgid "Share"
 msgstr "Compartir"
 
@@ -523,8 +521,8 @@ msgid "Save in"
 msgstr "Guardar en"
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
-#: src/app/webbrowser/BookmarksFolderListView.qml:115
-#: src/app/webbrowser/NewTabViewWide.qml:123
+#: src/app/webbrowser/BookmarksFoldersView.qml:119
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
 msgstr "Todos los marcadores"
 
@@ -538,57 +536,75 @@ msgid "Create new folder"
 msgstr "Crear carpeta"
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
-#: src/app/webbrowser/SettingsPage.qml:352
+#: src/app/webbrowser/SettingsPage.qml:358
 msgid "Save"
 msgstr "Guardar"
 
-#: src/app/webbrowser/Browser.qml:372
-#: src/app/webbrowser/HistoryViewWide.qml:367
-msgid "History"
-msgstr "Historial"
+#: src/app/webbrowser/BookmarksFoldersView.qml:158
+#: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
+#: src/app/webbrowser/SettingsPage.qml:91
+#: src/app/webbrowser/SettingsPage.qml:322
+msgid "Homepage"
+msgstr "Página de inicio"
 
-#: src/app/webbrowser/Browser.qml:378
-msgid "Open tabs"
-msgstr "Pestañas abiertas"
+#: src/app/webbrowser/BookmarksView.qml:80
+#: src/app/webbrowser/BookmarksViewWide.qml:78
+#: src/app/webbrowser/Browser.qml:397 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/NewTabViewWide.qml:154
+msgid "Bookmarks"
+msgstr "Marcadores"
 
-#: src/app/webbrowser/Browser.qml:388 src/app/webbrowser/HistoryView.qml:129
-#: src/app/webbrowser/HistoryViewWide.qml:517
+#: src/app/webbrowser/BookmarksView.qml:112
+#: src/app/webbrowser/BookmarksViewWide.qml:110
+#: src/app/webbrowser/Browser.qml:678 src/app/webbrowser/HistoryView.qml:117
+#: src/app/webbrowser/HistoryViewWide.qml:504
+msgid "Done"
+msgstr "Hecho"
+
+#: src/app/webbrowser/BookmarksView.qml:125
+#: src/app/webbrowser/BookmarksViewWide.qml:123
+#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/HistoryViewWide.qml:518
 #: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
 msgstr "Pestaña nueva"
+
+#: src/app/webbrowser/Browser.qml:403
+#: src/app/webbrowser/HistoryViewWide.qml:368
+msgid "History"
+msgstr "Historial"
+
+#: src/app/webbrowser/Browser.qml:409
+msgid "Open tabs"
+msgstr "Pestañas abiertas"
 
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
 msgstr "Descargas"
 
-#: src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/Browser.qml:436
 msgid "Leave Private Mode"
 msgstr "Salir del modo privado"
 
-#: src/app/webbrowser/Browser.qml:405
+#: src/app/webbrowser/Browser.qml:436
 msgid "Private Mode"
 msgstr "Modo privado"
 
-#: src/app/webbrowser/Browser.qml:423 src/app/webbrowser/SettingsPage.qml:50
+#: src/app/webbrowser/Browser.qml:454 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
 msgstr "Configuración"
 
-#: src/app/webbrowser/Browser.qml:649 src/app/webbrowser/HistoryView.qml:116
-#: src/app/webbrowser/HistoryViewWide.qml:503
-msgid "Done"
-msgstr "Hecho"
-
 #. TRANSLATORS: %1 refers to the current number of tabs opened
-#: src/app/webbrowser/Browser.qml:757
+#: src/app/webbrowser/Browser.qml:786
 #, qt-format
 msgid "(%1)"
 msgstr "(%1)"
 
-#: src/app/webbrowser/Browser.qml:1183
+#: src/app/webbrowser/Browser.qml:1258
 msgid "Swipe Up To Exit Full Screen"
 msgstr "Deslice hacia arriba para salir de pantalla completa"
 
-#: src/app/webbrowser/Browser.qml:1184
+#: src/app/webbrowser/Browser.qml:1259
 msgid "Press ESC To Exit Full Screen"
 msgstr "Presione Esc para salir de pantalla completa"
 
@@ -596,8 +612,8 @@ msgstr "Presione Esc para salir de pantalla completa"
 msgid "Confirm selection"
 msgstr "Confirmar la selección"
 
-#: src/app/webbrowser/HistoryView.qml:218
-#: src/app/webbrowser/HistoryViewWide.qml:427
+#: src/app/webbrowser/HistoryView.qml:199
+#: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -613,7 +629,7 @@ msgstr[0] "%1 página"
 msgstr[1] "%1 páginas"
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:119
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
 msgstr "Menos"
 
@@ -635,13 +651,39 @@ msgstr "Todo el historial"
 msgid "Today"
 msgstr "Hoy"
 
-#: src/app/webbrowser/HistoryViewWide.qml:448
+#: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
 msgstr "historial de búsquedas"
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
 msgstr "Al volver al modo público se cerrarán todas las pestañas privadas"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:28
+msgid "Allow this domain to access your camera and microphone?"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:29
+msgid "Allow this domain to access your camera?"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:30
+msgid "Allow this domain to access your microphone?"
+msgstr ""
+
+#. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
+#: src/app/webbrowser/MediaAccessDialog.qml:39
+#, qt-format
+msgid "%1 (embedded in %2)"
+msgstr ""
+
+#: src/app/webbrowser/MediaAccessDialog.qml:48
+msgid "Yes"
+msgstr "Sí"
+
+#: src/app/webbrowser/MediaAccessDialog.qml:60
+msgid "No"
+msgstr "No"
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
@@ -655,29 +697,18 @@ msgstr ""
 "Las páginas que visualice en esta pestaña no se añadirán al historial.\n"
 "Sin embargo, se conservará cualquier marcador que cree."
 
-#: src/app/webbrowser/NewTabView.qml:109
-#: src/app/webbrowser/NewTabViewWide.qml:300
-msgid "Bookmarks"
-msgstr "Marcadores"
-
-#: src/app/webbrowser/NewTabView.qml:124
+#: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
 msgstr "Más"
 
 #: src/app/webbrowser/NewTabView.qml:227
-#: src/app/webbrowser/NewTabViewWide.qml:299
+#: src/app/webbrowser/NewTabViewWide.qml:153
 msgid "Top sites"
 msgstr "Sitios populares"
 
 #: src/app/webbrowser/NewTabView.qml:258
 msgid "You haven't visited any site yet"
 msgstr "Aún no ha visitado ningún sitio"
-
-#: src/app/webbrowser/NewTabViewWide.qml:161
-#: src/app/webbrowser/SettingsPage.qml:91
-#: src/app/webbrowser/SettingsPage.qml:316
-msgid "Homepage"
-msgstr "Página de inicio"
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
@@ -771,32 +802,45 @@ msgstr "Permitir abrir pestañas nuevas en segundo plano"
 
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
-msgid "Privacy"
-msgstr "Privacidad"
+msgid "Privacy & permissions"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
 msgstr "Restablecer la configuración del navegador"
 
 #: src/app/webbrowser/SettingsPage.qml:248
+#: src/app/webbrowser/SettingsPage.qml:386
+msgid "Camera & microphone"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
 msgstr "Vaciar historial de navegación"
 
-#: src/app/webbrowser/SettingsPage.qml:251
+#: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
 msgstr "¿Vaciar el historial de navegación?"
 
-#: src/app/webbrowser/SettingsPage.qml:258
+#: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
 msgstr "Vaciar caché"
 
-#: src/app/webbrowser/SettingsPage.qml:260
+#: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
 msgstr "¿Vaciar la caché?"
 
-#: src/app/webbrowser/SettingsPage.qml:295
+#: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
 msgstr "Vaciar"
+
+#: src/app/webbrowser/SettingsPage.qml:406
+msgid "Microphone"
+msgstr ""
+
+#: src/app/webbrowser/SettingsPage.qml:425
+msgid "Camera"
+msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
@@ -806,7 +850,7 @@ msgstr "Toque para ver"
 msgid "Close Tab"
 msgstr "Cerrar pestaña"
 
-#: src/app/webbrowser/UrlPreviewDelegate.qml:117
+#: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
 msgstr ""
 
@@ -904,6 +948,11 @@ msgstr "Navegue por la World Wide Web"
 msgid "Internet;WWW;Browser;Web;Explorer"
 msgstr "Internet;WWW;Navegador;Web;Explorador"
 
+#~ msgid ""
+#~ "Ubuntu suggests you check your network settings and try refreshing the page."
+#~ msgstr ""
+#~ "Ubuntu le sugiere comprobar su configuración de red y recargar la página."
+
 #~ msgid "Select an account"
 #~ msgstr "Seleccione una cuenta"
 
@@ -925,11 +974,8 @@ msgstr "Internet;WWW;Navegador;Web;Explorador"
 #~ msgid "Add"
 #~ msgstr "Añadir"
 
-#~ msgid "No"
-#~ msgstr "No"
-
-#~ msgid "Yes"
-#~ msgstr "Sí"
-
 #~ msgid "Delete all history?"
 #~ msgstr "¿Vaciar el histórico?"
+
+#~ msgid "Privacy"
+#~ msgstr "Privacidad"

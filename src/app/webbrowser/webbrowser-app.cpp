@@ -66,6 +66,13 @@ static QObject* CacheDeleter_singleton_factory(QQmlEngine* engine, QJSEngine* sc
     return new CacheDeleter();
 }
 
+static QObject* BookmarksModel_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
+    return new BookmarksModel();
+}
+
 static QObject* HistoryModel_singleton_factory(QQmlEngine* engine, QJSEngine* scriptEngine)
 {
     Q_UNUSED(engine);
@@ -85,7 +92,7 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<HistoryLastVisitDateModel>(uri, 0, 1, "HistoryLastVisitDateModel");
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");
     qmlRegisterType<TabsModel>(uri, 0, 1, "TabsModel");
-    qmlRegisterType<BookmarksModel>(uri, 0, 1, "BookmarksModel");
+    qmlRegisterSingletonType<BookmarksModel>(uri, 0, 1, "BookmarksModel", BookmarksModel_singleton_factory);
     qmlRegisterType<BookmarksFolderListModel>(uri, 0, 1, "BookmarksFolderListModel");
     qmlRegisterSingletonType<FileOperations>(uri, 0, 1, "FileOperations", FileOperations_singleton_factory);
     qmlRegisterType<SearchEngine>(uri, 0, 1, "SearchEngine");

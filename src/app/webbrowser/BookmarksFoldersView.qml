@@ -20,11 +20,13 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItem
 import webbrowserapp.private 0.1
+import "BookmarksModelUtils.js" as BookmarksModelUtils
 
-Item {
-    id: bookmarksFolderListViewItem
+FocusScope {
+    id: bookmarksFoldersViewItem
 
-    property alias model: bookmarksFolderListModel.sourceModel 
+    property alias interactive: bookmarksFolderListView.interactive
+    property url homeBookmarkUrl
 
     signal bookmarkClicked(url url)
     signal bookmarkRemoved(url url)
@@ -33,12 +35,14 @@ Item {
 
     BookmarksFolderListModel {
         id: bookmarksFolderListModel
+        sourceModel: BookmarksModel
     }
 
     ListView {
         id: bookmarksFolderListView
         anchors.fill: parent
         interactive: false
+        focus: true
 
         model: bookmarksFolderListModel
         delegate: Loader {
@@ -46,7 +50,7 @@ Item {
                 left: parent.left
                 right: parent.right
             }
- 
+
             height: active ? item.height : 0
             active: entries.count > 0
 
@@ -56,7 +60,7 @@ Item {
                 property string folderName: folder
 
                 anchors {
-                    left: parent ? parent.left : undefined 
+                    left: parent ? parent.left : undefined
                     right: parent ? parent.right : undefined
                 }
 
@@ -65,7 +69,7 @@ Item {
                 Column {
                     id: delegateColumn
 
-                    property bool expanded: true
+                    property bool expanded: folderName ? false : true
 
                     anchors {
                         left: parent.left
@@ -138,16 +142,44 @@ Item {
                             right: parent.right
                         }
 
+                        height: item ? item.contentHeight : 0
+
                         visible: status == Loader.Ready
 
                         active: delegateColumn.expanded
-                        sourceComponent: UrlsList {
-                            spacing: 0
+                        sourceComponent: ListView {
+                            readonly property bool isAllBookmarksFolder: folder === ""
 
-                            model: entries
+                            interactive: false
 
-                            onUrlClicked: bookmarksFolderListViewItem.bookmarkClicked(url)
-                            onUrlRemoved: bookmarksFolderListViewItem.bookmarkRemoved(url)
+                            model: {
+                                if (isAllBookmarksFolder) {
+                                    return BookmarksModelUtils.prependHomepageToBookmarks(entries, {
+                                        title: i18n.tr("Homepage"),
+                                        url: bookmarksFoldersViewItem.homeBookmarkUrl
+                                    })
+                                }
+
+                                return entries
+                            }
+
+                            delegate: UrlDelegate{
+                                id: urlDelegate
+
+                                property var entry: isAllBookmarksFolder ? modelData : model
+
+                                width: parent.width
+                                height: units.gu(5)
+
+                                removable: !isAllBookmarksFolder || index !== 0
+
+                                icon: entry.icon ? entry.icon : ""
+                                title: entry.title ? entry.title : entry.url
+                                url: entry.url
+
+                                onClicked: bookmarksFoldersViewItem.bookmarkClicked(url)
+                                onRemoved: bookmarksFoldersViewItem.bookmarkRemoved(url)
+                            }
                         }
                     }
                 }

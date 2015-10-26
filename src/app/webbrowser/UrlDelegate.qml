@@ -29,6 +29,8 @@ ListItem {
 
     property alias headerComponent: headerComponentLoader.sourceComponent
 
+    property bool removable: true
+
     divider.visible: false
 
     signal removed()
@@ -83,7 +85,8 @@ ListItem {
         }
     }
 
-    leadingActions: ListItemActions {
+    ListItemActions {
+        id: listItemActions
         actions: [
             Action {
                 objectName: "leadingAction.delete"
@@ -92,4 +95,6 @@ ListItem {
             }
         ]
     }
+
+    leadingActions: removable ? listItemActions : null
 }

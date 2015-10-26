@@ -1,3 +1,51 @@
+webbrowser-app (0.23+15.10.20151022.1-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add an exception to the generated apparmor profile to allow reading
+    HERE’s TOS in the browser. (LP: #1507667)
+  * Modify the generated apparmor profile to allow rw access to
+    /dev/shm/.org.chromium.Chromium.* too. (LP: #1508054)
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Fix inability to drag the map to pan in Google maps, on desktop.
+    (LP: #1503506)
+  * Implement support for allowing or denying access to media input
+    devices and for setting default media input devices. (LP: #1410996)
+  * Refactor the BookmarksModel to be a singleton.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 22 Oct 2015 15:07:49 +0000
+
+webbrowser-app (0.23+15.10.20151016-0ubuntu1) wily; urgency=medium
+
+  [ Arthur Mello ]
+  * Add bookmarks view to top level menu
+
+  [ CI Train Bot ]
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Ensure that the default context menu cannot be dismissed several
+    times, causing a crash in oxide. The issue in oxide remains, it
+    should have a safeguard against this kind of behaviour. (LP:
+    #1501330)
+  * Fix a couple of autopilot failures on desktop in narrow mode. (LP:
+    #1506879)
+  * Fixes for minor UX issues with the preview grid: Make the highlight
+    follow the item selected for deletion in the preview grid. Do not
+    show a highlight in the narrow version of the new tab view, as it
+    doesn’t support keyboard navigation. Grab dismiss area events so
+    that they are not propagated to the view below when dismissing a
+    context menu. (LP: #1506579)
+  * Update a localized error string, per design. (LP: #1493466)
+  * Update translation template.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Fri, 16 Oct 2015 15:29:07 +0000
+
 webbrowser-app (0.23+15.10.20151013.1-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
