@@ -1326,7 +1326,9 @@ BrowserView {
         }
 
         function closeTab(index) {
-            closedTabHistory.push(tabsModel.get(index).url)
+            var closingUrl = tabsModel.get(index).url
+            if (closingUrl != "") closedTabHistory.push(closingUrl)
+
             var tab = tabsModel.remove(index)
             if (tab) {
                 tab.close()
