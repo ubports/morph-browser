@@ -1285,6 +1285,7 @@ BrowserView {
 
     QtObject {
         id: internal
+        property var closedTabHistory: []
 
         function getOpenPages() {
             var urls = [];
@@ -1325,6 +1326,7 @@ BrowserView {
         }
 
         function closeTab(index) {
+            closedTabHistory.push(tabsModel.get(index).url)
             var tab = tabsModel.remove(index)
             if (tab) {
                 tab.close()
@@ -1338,6 +1340,12 @@ BrowserView {
         function closeCurrentTab() {
             if (tabsModel.count > 0) {
                 closeTab(tabsModel.currentIndex)
+            }
+        }
+
+        function undoCloseTab() {
+            if (closedTabHistory.length > 0) {
+                browser.openUrlInNewTab(closedTabHistory.pop(), true)
             }
         }
 
@@ -1711,6 +1719,14 @@ BrowserView {
             key: Qt.Key_PageUp
             enabled: chrome.visible || recentView.visible
             onTriggered: internal.switchToPreviousTab()
+        }
+
+        // Ctrl+Shift+W: Undo close tab
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_W
+            enabled: chrome.visible
+            onTriggered: internal.undoCloseTab()
         }
 
         // Ctrl+W or Ctrl+F4: Close the current tab
