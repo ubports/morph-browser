@@ -376,6 +376,7 @@ BrowserView {
             }
 
             onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
+            onTabClosed: internal.closeTab(index)
 
             onFindInPageModeChanged: if (!chrome.findInPageMode) internal.resetFocus()
 
