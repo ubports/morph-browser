@@ -249,3 +249,19 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         webview.wait_until_destroyed()
         self.assert_number_webviews_eventually(1)
         self.main_window.get_new_tab_view()
+
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_undo_close_tab(self):
+        start_url = self.main_window.get_current_webview().url
+        self.open_new_tab()
+        url = self.base_url + "/test2"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+
+        self.main_window.press_key('Ctrl+w')
+        self.assert_number_webviews_eventually(1)
+        self.check_current_tab(start_url)
+
+        self.main_window.press_key('Ctrl+Shift+w')
+        self.assert_number_webviews_eventually(2)
+        self.check_current_tab(url)
