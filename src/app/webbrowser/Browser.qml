@@ -1328,7 +1328,7 @@ BrowserView {
         function closeTab(index) {
             var tab = tabsModel.remove(index)
             if (tab) {
-                if (tab.url.toString().length >= 0) {
+                if (!incognito && tab.url.toString().length >= 0) {
                     closedTabHistory.push(session.serializeTabState(tab))
                 }
                 tab.close()
@@ -1346,7 +1346,7 @@ BrowserView {
         }
 
         function undoCloseTab() {
-            if (closedTabHistory.length > 0) {
+            if (!incognito && closedTabHistory.length > 0) {
                 var tab = session.createTabFromState(closedTabHistory.pop())
                 internal.addTab(tab, true)
             }
