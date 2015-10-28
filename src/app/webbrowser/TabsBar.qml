@@ -151,7 +151,7 @@ Item {
 
                     rightMargin: tabDelegate.rightMargin
 
-                    onClosed: internal.closeTab(index)
+                    onClosed: root.tabClosed(index)
                     onSelected: root.model.currentIndex = index
                     onContextMenu: PopupUtils.open(contextualOptionsComponent, tabDelegate, {"targetIndex": index})
                 }

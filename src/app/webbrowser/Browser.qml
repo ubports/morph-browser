@@ -1727,7 +1727,7 @@ BrowserView {
         KeyboardShortcut {
             modifiers: Qt.ControlModifier | Qt.ShiftModifier
             key: Qt.Key_W
-            enabled: chrome.visible
+            enabled: chrome.visible || recentView.visible
             onTriggered: internal.undoCloseTab()
         }
 
