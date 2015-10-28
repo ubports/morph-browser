@@ -252,19 +252,34 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     @testtools.skipIf(model() != "Desktop", "on desktop only")
     def test_undo_close_tab(self):
-        start_url = self.main_window.get_current_webview().url
-        self.open_new_tab()
-        url = self.base_url + "/test2"
-        self.main_window.go_to_url(url)
-        self.main_window.wait_until_page_loaded(url)
+        tabs = self.main_window.chrome.get_tabs_bar()
+        url0 = self.main_window.get_current_webview().url
 
-        self.main_window.press_key('Ctrl+w')
+        self.open_new_tab()
+        url1 = self.base_url + "/tab/1"
+        self.main_window.go_to_url(url1)
+        self.main_window.wait_until_page_loaded(url1)
+        self.assert_number_webviews_eventually(2)
+
+        self.open_new_tab()
+        url2 = self.base_url + "/tab/2"
+        self.main_window.go_to_url(url2)
+        self.main_window.wait_until_page_loaded(url2)
+        self.assert_number_webviews_eventually(3)
+
+        tabs.close_tab(1)
+        self.assert_number_webviews_eventually(2)
+        tabs.close_tab(0)
         self.assert_number_webviews_eventually(1)
-        self.check_current_tab(start_url)
+        self.check_current_tab(url2)
 
         self.main_window.press_key('Ctrl+Shift+w')
         self.assert_number_webviews_eventually(2)
-        self.check_current_tab(url)
+        self.check_current_tab(url0)
+
+        self.main_window.press_key('Ctrl+Shift+w')
+        self.assert_number_webviews_eventually(3)
+        self.check_current_tab(url1)
 
     @testtools.skipIf(model() != "Desktop", "on desktop only")
     def test_undo_close_tab_incognito(self):

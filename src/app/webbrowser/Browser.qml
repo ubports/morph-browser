@@ -1329,7 +1329,10 @@ BrowserView {
             var tab = tabsModel.remove(index)
             if (tab) {
                 if (!incognito && tab.url.toString().length >= 0) {
-                    closedTabHistory.push(session.serializeTabState(tab))
+                    closedTabHistory.push({
+                        state: session.serializeTabState(tab),
+                        index: index
+                    })
                 }
                 tab.close()
             }
@@ -1347,8 +1350,9 @@ BrowserView {
 
         function undoCloseTab() {
             if (!incognito && closedTabHistory.length > 0) {
-                var tab = session.createTabFromState(closedTabHistory.pop())
-                internal.addTab(tab, true)
+                var tabInfo = closedTabHistory.pop()
+                var tab = session.createTabFromState(tabInfo.state)
+                internal.addTab(tab, true, tabInfo.index)
             }
         }
 
