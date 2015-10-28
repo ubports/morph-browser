@@ -30,7 +30,6 @@
 #include "favicon-fetcher.h"
 #include "file-operations.h"
 #include "history-model.h"
-#include "history-timeframe-model.h"
 #include "history-lastvisitdatelist-model.h"
 #include "limit-proxy-model.h"
 #include "searchengine.h"
@@ -184,7 +183,6 @@ int main(int argc, char** argv)
     qmlRegisterType<BookmarksModel>(browserUri, 0, 1, "BookmarksModel");
     qmlRegisterType<BookmarksFolderListModel>(browserUri, 0, 1, "BookmarksFolderListModel");
     qmlRegisterSingletonType<HistoryModel>(browserUri, 0, 1, "HistoryModel", HistoryModel_singleton_factory);
-    qmlRegisterType<HistoryTimeframeModel>(browserUri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<HistoryLastVisitDateListModel>(browserUri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<LimitProxyModel>(browserUri, 0, 1, "LimitProxyModel");
     qmlRegisterType<TextSearchFilterModel>(browserUri, 0, 1, "TextSearchFilterModel");

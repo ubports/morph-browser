@@ -18,7 +18,6 @@
 
 #include "history-lastvisitdatelist-model.h"
 #include "history-model.h"
-#include "history-timeframe-model.h"
 
 // Qt
 #include <QtCore/QDebug>
@@ -28,10 +27,10 @@
     \class HistoryLastVisitDateListModel
     \brief List model that exposes a list of all last visit dates from history
 
-    HistoryLastVisitiDateListModel is a list model that exposes all last visit
+    HistoryLastVisitDateListModel is a list model that exposes all last visit
     dates from the source model. Each item has one single role: 'lastVisitDate'
     for a date in which there is at least one url visited on the source model.
-    A special entry is added to the begining of the list to represent all dates.
+    A special entry is added to the beginning of the list to represent all dates.
 
     The source model needs to expose a role named 'lastVisitDate', from which
     the input dates will be read. If such role is not present, this model will
@@ -107,6 +106,9 @@ void HistoryLastVisitDateListModel::setSourceModel(QVariant sourceModel)
                     SLOT(onRowsInserted(const QModelIndex&, int, int)));
             connect(m_sourceModel, SIGNAL(rowsRemoved(const QModelIndex&, int, int)),
                     SLOT(onRowsRemoved(const QModelIndex&, int, int)));
+            connect(m_sourceModel,
+                    SIGNAL(rowsMoved(const QModelIndex&, int, int, const QModelIndex&, int)),
+                    SLOT(onRowsMoved(const QModelIndex&, int, int, const QModelIndex&, int)));
             connect(m_sourceModel, SIGNAL(modelReset()), SLOT(onModelReset()));
             connect(m_sourceModel, SIGNAL(layoutChanged(QList<QPersistentModelIndex>, QAbstractItemModel::LayoutChangeHint)),
                     SLOT(onModelReset()));
@@ -160,6 +162,7 @@ void HistoryLastVisitDateListModel::onRowsRemoved(const QModelIndex& parent, int
             int removeAt = m_orderedDates.indexOf(lastVisitDate.key());
             beginRemoveRows(QModelIndex(), removeAt, removeAt);
             m_orderedDates.removeAt(removeAt);
+            delete lastVisitDate.value();
             lastVisitDate = m_lastVisitDates.erase(lastVisitDate);
             endRemoveRows();
         } else {
@@ -172,6 +175,41 @@ void HistoryLastVisitDateListModel::onRowsRemoved(const QModelIndex& parent, int
         beginRemoveRows(QModelIndex(), 0, 0);
         m_orderedDates.clear();
         endRemoveRows();
+    }
+}
+
+void HistoryLastVisitDateListModel::onRowsMoved(const QModelIndex& parent, int start, int end, const QModelIndex& destination, int row)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(destination);
+
+    // Rows were moved in the source model, meaning that their last visit dates
+    // were potentially updated, so we remove all the dates corresponding to
+    // the rows before they were moved, and we add all the dates corresponding
+    // to the rows after they were moved.
+
+    // Determine a lower and upper bound for the dates that should be removed
+    // by looking at the indexes surrounding the rows before they were moved.
+    QDate lower = m_sourceModel->data(m_sourceModel->index((row < start) ? end + 1 : start, 0), m_sourceModelRole).toDate();
+    if (!lower.isValid()) {
+        // The last row was moved too, we don’t have a strict lower bound.
+        lower = m_orderedDates.last().addDays(-1);
+    }
+    QDate upper = m_sourceModel->data(m_sourceModel->index((row < start) ? end : start - 1, 0), m_sourceModelRole).toDate();
+    for (QDate i = upper.addDays(-1); i > lower; i = i.addDays(-1)) {
+        if (m_orderedDates.contains(i)) {
+            int removeAt = m_orderedDates.indexOf(i);
+            beginRemoveRows(QModelIndex(), removeAt, removeAt);
+            m_orderedDates.removeAt(removeAt);
+            delete m_lastVisitDates.take(i);
+            endRemoveRows();
+        }
+    }
+
+    // Now add back dates for all the rows after they were moved.
+    for (int i = 0; i <= (end - start); ++i) {
+        int index = i + row + ((row < start) ? 0 : start - end);
+        insertNewHistoryEntry(new QPersistentModelIndex(m_sourceModel->index(index, 0)), true);
     }
 }
 
@@ -198,7 +236,7 @@ void HistoryLastVisitDateListModel::onModelReset()
 void HistoryLastVisitDateListModel::insertNewHistoryEntry(QPersistentModelIndex* index, bool notify)
 {
     if (m_sourceModelRole == -1) {
-      return;
+        return;
     }
 
     QDate lastVisitDate = index->data(m_sourceModelRole).toDate();

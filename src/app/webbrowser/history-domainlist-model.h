@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Canonical Ltd.
+ * Copyright 2013-2015 Canonical Ltd.
  *
  * This file is part of webbrowser-app.
  *
@@ -25,13 +25,13 @@
 #include <QtCore/QString>
 
 class HistoryDomainModel;
-class HistoryTimeframeModel;
+class HistoryModel;
 
 class HistoryDomainListModel : public QAbstractListModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(HistoryTimeframeModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
+    Q_PROPERTY(HistoryModel* sourceModel READ sourceModel WRITE setSourceModel NOTIFY sourceModelChanged)
 
     Q_ENUMS(Roles)
 
@@ -53,8 +53,8 @@ public:
     int rowCount(const QModelIndex& parent=QModelIndex()) const;
     QVariant data(const QModelIndex& index, int role) const;
 
-    HistoryTimeframeModel* sourceModel() const;
-    void setSourceModel(HistoryTimeframeModel* sourceModel);
+    HistoryModel* sourceModel() const;
+    void setSourceModel(HistoryModel* sourceModel);
 
 Q_SIGNALS:
     void sourceModelChanged() const;
@@ -67,7 +67,7 @@ private Q_SLOTS:
     void onDomainDataChanged();
 
 private:
-    HistoryTimeframeModel* m_sourceModel;
+    HistoryModel* m_sourceModel;
     QMap<QString, HistoryDomainModel*> m_domains;
 
     void clearDomains();

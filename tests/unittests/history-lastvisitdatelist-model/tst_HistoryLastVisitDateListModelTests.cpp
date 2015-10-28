@@ -25,7 +25,6 @@
 #include "domain-utils.h"
 #include "history-lastvisitdatelist-model.h"
 #include "history-model.h"
-#include "history-timeframe-model.h"
 
 class MockHistoryModel : public HistoryModel
 {
@@ -145,7 +144,6 @@ class HistoryLastVisitDateListModelTests : public QObject
 
 private:
     MockHistoryModel* mockHistory;
-    HistoryTimeframeModel* timeframe;
     HistoryLastVisitDateListModel* model;
     BookmarksModel* bookmarks;
 
@@ -154,10 +152,8 @@ private Q_SLOTS:
     {
         mockHistory = new MockHistoryModel;
         mockHistory->setDatabasePath(":memory:");
-        timeframe = new HistoryTimeframeModel;
-        timeframe->setSourceModel(mockHistory);
         model = new HistoryLastVisitDateListModel;
-        model->setSourceModel(QVariant::fromValue(timeframe));
+        model->setSourceModel(QVariant::fromValue(mockHistory));
         bookmarks = new BookmarksModel;
         bookmarks->setDatabasePath(":memory:");
     }
@@ -165,7 +161,6 @@ private Q_SLOTS:
     void cleanup()
     {
         delete model;
-        delete timeframe;
         delete mockHistory;
         delete bookmarks;
     }
@@ -222,26 +217,6 @@ private Q_SLOTS:
         mockHistory->removeEntryByUrl(QUrl("http://example.org/"));
         QCOMPARE(spyRowsRemoved.count(), 3);
         QCOMPARE(model->rowCount(), 0);
-    }
-
-    void shouldUpdateLastVisitDateListWhenChangingTimeFrame()
-    {
-        QDateTime dt1 = QDateTime(QDate(1970, 1, 1), QTime(6, 0, 0));
-        QDateTime dt2 = QDateTime(QDate(1970, 1, 2), QTime(6, 0, 0));
-        QDateTime dt3 = QDateTime(QDate(1970, 1, 3), QTime(6, 0, 0));
-
-        mockHistory->add(QUrl("http://example.com/"), "Example Domain", "example.com", QUrl(), dt1);
-        mockHistory->add(QUrl("http://example.org/"), "Example Domain", "example.org", QUrl(), dt2);
-        mockHistory->add(QUrl("http://example.net/"), "Example Domain", "example.net", QUrl(), dt3);
-        QDateTime t0 = QDateTime(QDate(1970, 1, 1), QTime(7, 0, 0));
-        QDateTime t1 = QDateTime(QDate(1970, 1, 2), QTime(7, 0, 0));
-        QCOMPARE(model->rowCount(), 4);
-
-        timeframe->setEnd(t1);
-        QCOMPARE(model->rowCount(), 3);
-
-        timeframe->setStart(t0);
-        QCOMPARE(model->rowCount(), 2);
     }
 
     void shouldUpdateLastVisitDateListWhenRemovingEntries()
@@ -313,7 +288,7 @@ private Q_SLOTS:
         mockHistory->add(QUrl("http://example.net/"), "Example Domain", "example.net", QUrl(), dt3);
         QCOMPARE(model->rowCount(), 4);
 
-        model->setSourceModel(QVariant::fromValue(timeframe));
+        model->setSourceModel(QVariant::fromValue(mockHistory));
         QVERIFY(spy.isEmpty());
         QCOMPARE(model->rowCount(), 4);
 
@@ -323,12 +298,11 @@ private Q_SLOTS:
         QVERIFY(!model->sourceModel().isValid());
         QCOMPARE(model->rowCount(), 0);
 
-        HistoryTimeframeModel timeframe2(mockHistory);
-        timeframe2.setSourceModel(mockHistory);
-        model->setSourceModel(QVariant::fromValue(&timeframe2));
+        MockHistoryModel mockHistory2;
+        model->setSourceModel(QVariant::fromValue(&mockHistory2));
         QCOMPARE(spy.count(), 2);
-        QCOMPARE(model->sourceModel(), QVariant::fromValue(&timeframe2));
-        QCOMPARE(model->rowCount(), 4);
+        QCOMPARE(model->sourceModel().value<MockHistoryModel*>(), &mockHistory2);
+        QCOMPARE(model->rowCount(), 0);
 
         QTest::ignoreMessage(QtWarningMsg, "Only QAbstractItemModel-derived instances and null are allowed as source models");
         model->setSourceModel(QVariant::fromValue(QString("not a model")));

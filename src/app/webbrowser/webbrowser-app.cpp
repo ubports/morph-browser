@@ -24,7 +24,6 @@
 #include "history-domainlist-model.h"
 #include "history-lastvisitdatelist-model.h"
 #include "history-model.h"
-#include "history-timeframe-model.h"
 #include "limit-proxy-model.h"
 #include "searchengine.h"
 #include "text-search-filter-model.h"
@@ -72,7 +71,6 @@ bool WebbrowserApp::initialize()
 {
     const char* uri = "webbrowserapp.private";
     qmlRegisterSingletonType<HistoryModel>(uri, 0, 1, "HistoryModel", HistoryModel_singleton_factory);
-    qmlRegisterType<HistoryTimeframeModel>(uri, 0, 1, "HistoryTimeframeModel");
     qmlRegisterType<HistoryDomainListModel>(uri, 0, 1, "HistoryDomainListModel");
     qmlRegisterType<HistoryLastVisitDateListModel>(uri, 0, 1, "HistoryLastVisitDateListModel");
     qmlRegisterType<LimitProxyModel>(uri, 0 , 1, "LimitProxyModel");

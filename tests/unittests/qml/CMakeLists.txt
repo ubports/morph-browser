@@ -23,7 +23,6 @@ set(SOURCES
     ${webbrowser-app_SOURCE_DIR}/file-operations.cpp
     ${webbrowser-app_SOURCE_DIR}/history-model.cpp
     ${webbrowser-app_SOURCE_DIR}/history-lastvisitdatelist-model.cpp
-    ${webbrowser-app_SOURCE_DIR}/history-timeframe-model.cpp
     ${webbrowser-app_SOURCE_DIR}/limit-proxy-model.cpp
     ${webbrowser-app_SOURCE_DIR}/searchengine.cpp
     ${webbrowser-app_SOURCE_DIR}/tabs-model.cpp
