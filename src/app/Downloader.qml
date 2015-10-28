@@ -69,12 +69,6 @@ Item {
                 browser.showDownloadsPage()
             }
 
-            onErrorChanged: {
-                if (browserDownload) {
-                    browser.downloadsModel.setError(downloadId, error)
-                }
-            }
-
             onFinished: {
                 metadata.destroy()
                 destroy()

@@ -178,6 +178,10 @@ BrowserView {
             downloadsModel.moveToDownloads(download.downloadId, path)
             downloadsModel.setComplete(download.downloadId, true)
         }
+
+        onErrorFound: {
+            downloadsModel.setError(download.downloadId, download.errorMessage)
+        }
     }
 
     FocusScope {

@@ -167,6 +167,7 @@ Item {
             icon: MimeDatabase.iconForMimetype(model.mimetype)
             incomplete: !model.complete
             selectMode: downloadsItem.selectMode || downloadsItem.pickingMode
+            errorMessage: model.error
             // Work around bug #1493880
             property bool lastSelected
 

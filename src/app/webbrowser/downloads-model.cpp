@@ -282,15 +282,7 @@ void DownloadsModel::setComplete(const QString& downloadId, const bool complete)
     query.addBindValue(downloadId);
     query.exec();
     Q_EMIT completeChanged(downloadId, complete);
-
-    beginResetModel();
-    m_orderedEntries.clear();
-    m_canFetchMore = true;
-    m_fetchedCount = 0;
-    m_numRows = 0;
-    endResetModel();
-    fetchMore();
-    Q_EMIT rowCountChanged();
+    reload();
 }
 
 void DownloadsModel::setError(const QString& downloadId, const QString& error)
@@ -303,6 +295,7 @@ void DownloadsModel::setError(const QString& downloadId, const QString& error)
     query.addBindValue(downloadId);
     query.exec();
     Q_EMIT errorChanged(downloadId, error);
+    reload();
 }
 
 void DownloadsModel::moveToDownloads(const QString& downloadId, const QString& path)
@@ -412,4 +405,16 @@ bool DownloadsModel::canFetchMore(const QModelIndex &parent) const
     Q_UNUSED(parent)
 
     return m_canFetchMore;
+}
+
+void DownloadsModel::reload()
+{
+    beginResetModel();
+    m_orderedEntries.clear();
+    m_canFetchMore = true;
+    m_fetchedCount = 0;
+    m_numRows = 0;
+    endResetModel();
+    fetchMore();
+    Q_EMIT rowCountChanged();
 }

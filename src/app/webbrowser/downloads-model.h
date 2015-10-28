@@ -104,6 +104,7 @@ private:
     void createOrAlterDatabaseSchema();
     void insertNewEntryInDatabase(const DownloadEntry& entry);
     void removeExistingEntryFromDatabase(const QString& path);
+    void reload();
 };
 
 #endif // __DOWNLOADS_MODEL_H__

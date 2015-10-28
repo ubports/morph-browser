@@ -27,6 +27,7 @@ ListItem {
     property alias image: thumbimage.source
     property alias title: title.text
     property alias url: url.text
+    property string errorMessage
     property bool incomplete: false
     property string downloadId
     property var download
@@ -37,7 +38,7 @@ ListItem {
     signal removed()
     signal cancelled()
 
-    height: incomplete ? units.gu(10) : units.gu(7)
+    height: visible ? (incomplete ? units.gu(10) : units.gu(7)) : 0
 
     Component.onCompleted: {
         if (incomplete) {
@@ -46,11 +47,6 @@ ListItem {
                 if (downloadManager.downloads[i].downloadId == downloadId) {
                     download = downloadManager.downloads[i]
                 }
-            }
-            if (!download) {
-                // This download is incomplete and is no longer in download
-                // manager, so must have been cancelled while we were closed
-                cancelled()
             }
         }
     }
@@ -119,16 +115,29 @@ ListItem {
                 }
 
                 Item {
-                    height: units.gu(2)
+                    height: error.visible ? units.gu(1) : units.gu(2)
                     width: parent.width
                     visible: downloadDelegate.incomplete
+                }
+
+                Label {
+                    id: error
+                    visible: incomplete && download === undefined || errorMessage !== ""
+                    width: parent.width
+                    fontSize: "x-small"
+                    text: errorMessage !== "" ? errorMessage 
+                                              : (incomplete && download === undefined) ? i18n.tr("Download failed") 
+                                                                                       : ""
+                    maximumLineCount: 2
+                    wrapMode: Text.WordWrap
+                    elide: Text.ElideRight
                 }
 
                 IndeterminateProgressBar {
                     id: progressBar
                     width: parent.width
                     height: units.gu(0.5)
-                    visible: downloadDelegate.incomplete
+                    visible: downloadDelegate.incomplete && !error.visible
                     progress: downloadDelegate.progress
                     // Work around UDM bug #1450144
                     indeterminateProgress: downloadDelegate.progress < 0 || downloadDelegate.progress > 100
@@ -141,10 +150,10 @@ ListItem {
                 anchors.top: detailsColumn.top
                 anchors.left: detailsColumn.right
                 anchors.leftMargin: units.gu(2)
-                width: downloadDelegate.incomplete ? cancelButton.width + units.gu(2) : 0
+                width: downloadDelegate.incomplete && !error.visible ? cancelButton.width + units.gu(2) : 0
 
                 Button {
-                    visible: downloadDelegate.incomplete
+                    visible: downloadDelegate.incomplete && !error.visible
                     id: cancelButton
                     text: i18n.tr("Cancel")
                     onClicked: {
@@ -157,6 +166,7 @@ ListItem {
 
                 Label {
                     visible: !progressBar.indeterminateProgress && downloadDelegate.incomplete
+                                                                && !error.visible
                     width: cancelButton.width
                     horizontalAlignment: Text.AlignHCenter
                     fontSize: "x-small"
@@ -173,8 +183,9 @@ ListItem {
             Action {
                 objectName: "leadingAction.delete"
                 iconName: "delete"
-                enabled: !downloadDelegate.incomplete
-                onTriggered: downloadDelegate.removed()
+                enabled: error.visible || !downloadDelegate.incomplete
+                onTriggered: error.visible ? downloadDelegate.cancelled() 
+                                           : downloadDelegate.removed()
             }
         ]
     }
