@@ -1326,11 +1326,11 @@ BrowserView {
         }
 
         function closeTab(index) {
-            var closingUrl = tabsModel.get(index).url
-            if (closingUrl != "") closedTabHistory.push(closingUrl)
-
             var tab = tabsModel.remove(index)
             if (tab) {
+                if (tab.url.toString().length >= 0) {
+                    closedTabHistory.push(session.serializeTabState(tab))
+                }
                 tab.close()
             }
             if (tabsModel.count === 0) {
@@ -1347,7 +1347,8 @@ BrowserView {
 
         function undoCloseTab() {
             if (closedTabHistory.length > 0) {
-                browser.openUrlInNewTab(closedTabHistory.pop(), true)
+                var tab = session.createTabFromState(closedTabHistory.pop())
+                internal.addTab(tab, true)
             }
         }
 
