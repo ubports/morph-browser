@@ -75,6 +75,12 @@ Item {
     }
 
     SignalSpy {
+        id: tabClosedSpy
+        target: tabs
+        signalName: "tabClosed"
+    }
+
+    SignalSpy {
         id: reloadSpy
         target: root
         signalName: "reload"
@@ -121,13 +127,16 @@ Item {
             }
             newTabRequestSpy.clear()
             reloadSpy.clear()
+            tabClosedSpy.clear()
         }
 
         function populateTabs() {
-            for (var i = 0; i < 3; ++i) {
+            var count = 3
+            for (var i = 0; i < count; ++i) {
                 tabs.appendTab("", "tab " + i, "")
             }
-            compare(tabsModel.currentIndex, 2)
+            compare(tabsModel.currentIndex, count - 1)
+            return count;
         }
 
         function test_create_new_tab() {
@@ -153,11 +162,11 @@ Item {
 
         function test_mouse_middle_click() {
             // Middle click closes the tab
-            populateTabs()
-            for (var i = 2; i >= 0; --i) {
-                var tab0 = getTabDelegate(0)
-                clickItem(tab0, Qt.MiddleButton)
-                compare(tabsModel.count, i)
+            var count = populateTabs()
+            for (var i = 0; i < count; i++) {
+                var tab = getTabDelegate(i)
+                clickItem(tab, Qt.MiddleButton)
+                compare(tabClosedSpy.count, i + 1)
             }
         }
 
@@ -196,12 +205,13 @@ Item {
         }
 
         function test_close_tabs(data) {
-            populateTabs()
-            for (var i = 2; i >= 0; --i) {
-                var tab0 = getTabDelegate(0)
-                var closeButton = findChild(tab0, "closeButton")
+            var count = populateTabs()
+            for (var i = 0; i < count; i++) {
+                var tab = getTabDelegate(count - (i + 1))
+                var closeButton = findChild(tab, "closeButton")
                 clickItem(closeButton, data.button)
-                compare(tabsModel.count, i)
+                compare(tabClosedSpy.count, i + 1)
+                compare(tabClosedSpy.signalArguments[i][0], count - (i + 1))
             }
         }
 
@@ -261,9 +271,8 @@ Item {
             var menu = popupMenuOnTab(1)
             var item = getMenuItemForAction(menu, "close_tab")
             clickItem(item)
-            compare(tabsModel.count, 2)
-            compare(tabsModel.get(0).title, "tab 0")
-            compare(tabsModel.get(1).title, "tab 2")
+            compare(tabClosedSpy.count, 1)
+            compare(tabClosedSpy.signalArguments[0][0], 1)
         }
 
         function test_context_menu_reload() {
