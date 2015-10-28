@@ -265,3 +265,38 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.main_window.press_key('Ctrl+Shift+w')
         self.assert_number_webviews_eventually(2)
         self.check_current_tab(url)
+
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_undo_close_tab_incognito(self):
+        start_url = self.main_window.get_current_webview().url
+        self.open_new_tab()
+        url = self.base_url + "/test2"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+
+        self.main_window.press_key('Ctrl+w')
+        self.assert_number_webviews_eventually(1)
+        self.check_current_tab(start_url)
+
+        self.main_window.enter_private_mode()
+        self.assertThat(self.main_window.is_in_private_mode,
+                        Eventually(Equals(True)))
+
+        self.open_new_tab()
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        self.main_window.press_key('Ctrl+w')
+        self.assert_number_incognito_webviews_eventually(1)
+
+        # No tabs will be restored in incognito mode...
+        self.main_window.press_key('Ctrl+Shift+w')
+        self.assert_number_incognito_webviews_eventually(1)
+
+        self.main_window.leave_private_mode()
+        self.assertThat(self.main_window.is_in_private_mode,
+                        Eventually(Equals(False)))
+
+        # ... but tabs that we closed before going incognito will be restored
+        # when going back to default mode
+        self.main_window.press_key('Ctrl+Shift+w')
+        self.assert_number_webviews_eventually(2)
