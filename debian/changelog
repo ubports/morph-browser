@@ -1,3 +1,25 @@
+webbrowser-app (0.23+15.10.20151022.1-0ubuntu1) wily; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Add an exception to the generated apparmor profile to allow reading
+    HERE’s TOS in the browser. (LP: #1507667)
+  * Modify the generated apparmor profile to allow rw access to
+    /dev/shm/.org.chromium.Chromium.* too. (LP: #1508054)
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Fix inability to drag the map to pan in Google maps, on desktop.
+    (LP: #1503506)
+  * Implement support for allowing or denying access to media input
+    devices and for setting default media input devices. (LP: #1410996)
+  * Refactor the BookmarksModel to be a singleton.
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Thu, 22 Oct 2015 15:07:49 +0000
+
 webbrowser-app (0.23+15.10.20151016-0ubuntu1) wily; urgency=medium
 
   [ Arthur Mello ]

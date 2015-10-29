@@ -28,13 +28,6 @@ Item {
     width: 800
     height: 600
 
-    Component {
-        id: bookmarksModel
-        BookmarksModel {
-            databasePath: ":memory:"
-        }
-    }
-
     property NewTabViewWide view
     property var bookmarks
     property string homepage: "http://example.com/homepage"
@@ -47,7 +40,6 @@ Item {
                 property url homepage: root.homepage
                 property int newTabDefaultSection: 0
             }
-            bookmarksModel: bookmarks
         }
     }
 
@@ -75,12 +67,11 @@ Item {
         name: "NewTabViewWide"
         when: windowShown
 
-        function initTestCase() {
+        function init()
+        {
+            BookmarksModel.databasePath = ":memory:"
             HistoryModel.databasePath = ":memory:"
-        }
 
-        function init() {
-            bookmarks = bookmarksModel.createObject()
             view = viewComponent.createObject(root)
             populate()
 
@@ -100,17 +91,17 @@ Item {
             HistoryModel.add("http://example.com", "Example Com", "")
             HistoryModel.add("http://example.org", "Example Org", "")
             HistoryModel.add("http://example.net", "Example Net", "")
-            bookmarks.add("http://example.com", "Example Com", "", "")
-            bookmarks.add("http://example.org/bar", "Example Org Bar", "", "Folder B")
-            bookmarks.add("http://example.org/foo", "Example Org Foo", "", "Folder B")
-            bookmarks.add("http://example.net/a", "Example Net A", "", "Folder A")
-            bookmarks.add("http://example.net/b", "Example Net B", "", "Folder A")
+
+            BookmarksModel.add("http://example.com", "Example Com", "", "")
+            BookmarksModel.add("http://example.org/bar", "Example Org Bar", "", "Folder B")
+            BookmarksModel.add("http://example.org/foo", "Example Org Foo", "", "Folder B")
+            BookmarksModel.add("http://example.net/a", "Example Net A", "", "Folder A")
+            BookmarksModel.add("http://example.net/b", "Example Net B", "", "Folder A")
         }
 
         function cleanup() {
-            HistoryModel.clearAll()
-            bookmarks.destroy()
-            bookmarks = null
+            BookmarksModel.databasePath = ""
+            HistoryModel.databasePath = ""
 
             view.destroy()
             view = null

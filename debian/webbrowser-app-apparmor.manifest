@@ -9,10 +9,12 @@
       "policy_groups": [
         "accounts",
         "audio",
+        "camera",
         "content_exchange",
         "content_exchange_source",
         "keep-display-on",
         "location",
+        "microphone",
         "networking",
         "push-notification-client",
         "video",
@@ -29,7 +31,8 @@
       },
       "read_path": [
         "/usr/share/applications/",
-        "@{HOME}/.local/share/applications/"
+        "@{HOME}/.local/share/applications/",
+        "/custom/vendor/here/location-provider/consent/*.html"
       ]
     }
   }

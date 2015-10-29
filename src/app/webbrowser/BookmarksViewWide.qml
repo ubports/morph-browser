@@ -23,7 +23,6 @@ import Ubuntu.Components.ListItems 1.3 as ListItems
 FocusScope {
     id: bookmarksViewWide
 
-    property alias bookmarksModel: bookmarksFoldersViewWide.model
     property alias homepageUrl: bookmarksFoldersViewWide.homeBookmarkUrl
 
     signal bookmarkEntryClicked(url url)
@@ -49,10 +48,10 @@ FocusScope {
 
         onBookmarkClicked: bookmarksViewWide.bookmarkEntryClicked(url)
         onBookmarkRemoved: {
-            if (bookmarksModel.count == 1) {
+            if (BookmarksModel.count == 1) {
                 done()
             }
-            bookmarksModel.remove(url)
+            BookmarksModel.remove(url)
         }
     }
 
@@ -76,7 +75,7 @@ FocusScope {
                 leftMargin: units.gu(2)
             }
 
-            text: i18n.tr("Bookmarks")    
+            text: i18n.tr("Bookmarks")
         }
 
         ListItems.ThinDivider {
