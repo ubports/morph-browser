@@ -1728,10 +1728,17 @@ BrowserView {
             onTriggered: internal.switchToPreviousTab()
         }
 
-        // Ctrl+Shift+W: Undo close tab
+        // Ctrl+Shift+W or Ctrl+Shift+T: Undo close tab
         KeyboardShortcut {
             modifiers: Qt.ControlModifier | Qt.ShiftModifier
             key: Qt.Key_W
+            enabled: chrome.visible || recentView.visible
+            onTriggered: internal.undoCloseTab()
+        }
+
+        KeyboardShortcut {
+            modifiers: Qt.ControlModifier | Qt.ShiftModifier
+            key: Qt.Key_T
             enabled: chrome.visible || recentView.visible
             onTriggered: internal.undoCloseTab()
         }

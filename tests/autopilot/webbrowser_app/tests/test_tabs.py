@@ -277,7 +277,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(2)
         self.check_current_tab(url0)
 
-        self.main_window.press_key('Ctrl+Shift+w')
+        self.main_window.press_key('Ctrl+Shift+t')
         self.assert_number_webviews_eventually(3)
         self.check_current_tab(url1)
 
