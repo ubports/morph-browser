@@ -261,25 +261,36 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.main_window.wait_until_page_loaded(url1)
         self.assert_number_webviews_eventually(2)
 
+        # Insert a "new tab view" page in the middle, without any page loaded
+        # so that we can verify that it will not be restored
+        self.open_new_tab()
+
         self.open_new_tab()
         url2 = self.base_url + "/tab/2"
         self.main_window.go_to_url(url2)
         self.main_window.wait_until_page_loaded(url2)
+        self.assert_number_webviews_eventually(4)
+
+        tabs.close_tab(3)
         self.assert_number_webviews_eventually(3)
-
-        tabs.close_tab(1)
+        tabs.close_tab(2)
         self.assert_number_webviews_eventually(2)
-        tabs.close_tab(0)
+        tabs.close_tab(1)
         self.assert_number_webviews_eventually(1)
-        self.check_current_tab(url2)
+        self.check_current_tab(url0)
 
+        # Both ctrl+shift+w and ctrl+shift+t activate the undo, so test both
         self.main_window.press_key('Ctrl+Shift+w')
         self.assert_number_webviews_eventually(2)
-        self.check_current_tab(url0)
+        self.check_current_tab(url1)
 
         self.main_window.press_key('Ctrl+Shift+t')
         self.assert_number_webviews_eventually(3)
-        self.check_current_tab(url1)
+        self.check_current_tab(url2)
+
+        self.main_window.press_key('Ctrl+Shift+t')
+        self.assert_number_webviews_eventually(3)
+        self.check_current_tab(url2)
 
     @testtools.skipIf(model() != "Desktop", "on desktop only")
     def test_undo_close_tab_incognito(self):

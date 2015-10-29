@@ -1328,7 +1328,7 @@ BrowserView {
         function closeTab(index) {
             var tab = tabsModel.remove(index)
             if (tab) {
-                if (!incognito && tab.url.toString().length >= 0) {
+                if (!incognito && tab.url.toString().length > 0) {
                     closedTabHistory.push({
                         state: session.serializeTabState(tab),
                         index: index
