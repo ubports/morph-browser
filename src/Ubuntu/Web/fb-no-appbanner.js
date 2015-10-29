@@ -24,8 +24,14 @@
 // suggests installing a native Android/iOS application based on naïve
 // parsing of the UA string.
 
-var r = document.getElementsByClassName("appBanner");
-if (r.length === 1) {
-    var appbanner = r[0];
-    appbanner.parentNode.removeChild(appbanner);
+// The banner does not currently have any class or id that would make sure we
+// can identify it easily. But we know that it does always appear just before
+// the login form, so we find it that way.
+
+var login = document.getElementsByClassName("mobile-login-form");
+if (login.length === 1) {
+    var appbanner = login[0].previousSibling;
+    if (appbanner) {
+        appbanner.parentNode.removeChild(appbanner);
+    }
 }
