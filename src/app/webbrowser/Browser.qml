@@ -1326,9 +1326,14 @@ BrowserView {
         }
 
         function closeTab(index) {
+            // Save the incognito state before removing the tab, because
+            // removing the last tab in the model will switch out incognito
+            // mode, thus causing the check below to fail and save the tab
+            // into the undo stack when it should be forgotten instead.
+            var wasIncognito = incognito
             var tab = tabsModel.remove(index)
             if (tab) {
-                if (!incognito && tab.url.toString().length > 0) {
+                if (!wasIncognito && tab.url.toString().length > 0) {
                     closedTabHistory.push({
                         state: session.serializeTabState(tab),
                         index: index
