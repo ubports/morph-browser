@@ -120,17 +120,33 @@ ListItem {
                     visible: downloadDelegate.incomplete
                 }
 
-                Label {
+                Item {
                     id: error
                     visible: incomplete && download === undefined || errorMessage !== ""
+                    height: units.gu(3)
                     width: parent.width
-                    fontSize: "x-small"
-                    text: errorMessage !== "" ? errorMessage 
-                                              : (incomplete && download === undefined) ? i18n.tr("Download failed") 
-                                                                                       : ""
-                    maximumLineCount: 2
-                    wrapMode: Text.WordWrap
-                    elide: Text.ElideRight
+
+                    Icon {
+                        id: errorIcon
+                        width: units.gu(2)
+                        height: width
+                        anchors.verticalCenter: parent.verticalCenter
+                        name: "dialog-warning-symbolic"
+                        color: UbuntuColors.red
+                    }
+
+                    Label {
+                        width: parent.width - errorIcon.width
+                        anchors.left: errorIcon.right
+                        anchors.leftMargin: units.gu(1)
+                        anchors.verticalCenter: errorIcon.verticalCenter
+                        fontSize: "x-small"
+                        color: UbuntuColors.red
+                        text: errorMessage !== "" ? errorMessage 
+                                                  : (incomplete && download === undefined) ? i18n.tr("Download failed") 
+                                                                                           : ""
+                        elide: Text.ElideRight
+                    }
                 }
 
                 IndeterminateProgressBar {
