@@ -178,7 +178,10 @@ ListItem {
         }
     }
 
-    leadingActions: ListItemActions {
+    leadingActions: error.visible || !downloadDelegate.incomplete ? deleteActionList : null
+
+    ListItemActions {
+        id: deleteActionList
         actions: [
             Action {
                 objectName: "leadingAction.delete"
