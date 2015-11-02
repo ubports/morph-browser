@@ -75,7 +75,7 @@ FocusScope {
         primaryItem: Item {
             id: icons
 
-            width: (visible && iconsRow.anyIconVisible) ? iconsRow.width + units.gu(1) : 0
+            width: iconsRow.anyIconVisible ? iconsRow.width + units.gu(1) : 0
             height: units.gu(2)
             visible: !findInPageMode
 
