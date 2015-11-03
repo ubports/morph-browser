@@ -353,6 +353,13 @@ FocusScope {
         property bool simplified: false
     }
 
+    onIncognitoChanged: {
+        if (incognito) {
+            text = ""
+            internal.simplified = false
+        }
+    }
+
     onEditingChanged: {
         if (findInPageMode) return
         if (editing && internal.simplified) {
@@ -381,7 +388,7 @@ FocusScope {
     }
 
     onActualUrlChanged: {
-        if ((editing && actualUrl.toString()) || findInPageMode) return
+        if (editing || findInPageMode) return
         if (canSimplifyText) {
             text = internal.simplifyUrl(actualUrl)
             internal.simplified = true
