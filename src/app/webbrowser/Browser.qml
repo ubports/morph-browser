@@ -377,7 +377,10 @@ BrowserView {
 
             onRequestNewTab: browser.openUrlInNewTab("", makeCurrent, true, index)
 
-            onFindInPageModeChanged: if (!chrome.findInPageMode) internal.resetFocus()
+            onFindInPageModeChanged: {
+                if (!chrome.findInPageMode) internal.resetFocus()
+                else chrome.forceActiveFocus()
+            }
 
             anchors {
                 left: parent.left
@@ -426,10 +429,7 @@ BrowserView {
                     text: i18n.tr("Find in page")
                     iconName: "search"
                     enabled: !chrome.findInPageMode && !newTabViewLoader.active
-                    onTriggered: {
-                        chrome.findInPageMode = true
-                        chrome.focus = true
-                    }
+                    onTriggered: chrome.findInPageMode = true
                 },
                 Action {
                     objectName: "privatemode"
@@ -1837,10 +1837,7 @@ BrowserView {
             modifiers: Qt.ControlModifier
             key: Qt.Key_F
             enabled: !newTabViewLoader.active && !bookmarksViewLoader.active
-            onTriggered: {
-                chrome.findInPageMode = true
-                chrome.focus = true
-            }
+            onTriggered: chrome.findInPageMode = true
         }
     }
 }

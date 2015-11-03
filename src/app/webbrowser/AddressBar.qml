@@ -75,13 +75,15 @@ FocusScope {
         primaryItem: Item {
             id: icons
 
-            width: iconsRow.width + units.gu(1)
+            width: iconsRow.anyIconVisible ? iconsRow.width + units.gu(1) : 0
             height: units.gu(2)
             visible: !findInPageMode
 
             Row {
                 id: iconsRow
-
+                property bool anyIconVisible: favicon.visible || action.visible ||
+                                              secure.visible || insecure.visible ||
+                                              securityAlert.visible
                 spacing: units.gu(1)
                 anchors {
                     top: parent.top
@@ -138,6 +140,7 @@ FocusScope {
                 }
 
                 Icon {
+                    id: secure
                     name: "network-secure"
                     color: UbuntuColors.darkGrey
                     height: parent.height
@@ -146,6 +149,7 @@ FocusScope {
                 }
 
                 Image {
+                    id: insecure
                     source: "assets/broken_lock.png"
                     height: parent.height
                     fillMode: Image.PreserveAspectFit
@@ -153,6 +157,7 @@ FocusScope {
                 }
 
                 Icon {
+                    id: securityAlert
                     name: "security-alert"
                     color: UbuntuColors.darkGrey
                     height: parent.height
