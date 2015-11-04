@@ -648,6 +648,7 @@ BrowserView {
                     return delegateMinHeight
                 }
             }
+            chromeOffset: chrome.height - invisibleTabChrome.height
             onTabSelected: recentView.closeAndSwitchToTab(index)
             onTabClosed: internal.closeTab(index)
         }
