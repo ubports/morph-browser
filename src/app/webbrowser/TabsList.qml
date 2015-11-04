@@ -104,7 +104,7 @@ Item {
                     incognito: tabslist.incognito
                     tab: model.tab
                     chromeHeight: firstItemChromeBackground.height
-                    showContent: (index > 0) || (delegate.y > flickable.contentY) ||
+                    showContent: ((index > 0) && (delegate.y > flickable.contentY)) ||
                                  !(tab.webview && tab.webview.visible)
 
                     onSelected: tabslist.selectAndAnimateTab(index)
