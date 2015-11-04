@@ -198,6 +198,10 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.check_current_tab(self.base_url + "/test2")
         self.assert_number_webviews_eventually(2)
 
+        # http://pad.lv/1505724
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
         self.main_window.go_to_url(url)
@@ -206,6 +210,10 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.pointing_device.click_object(webview)
         self.check_current_tab(self.base_url + "/test2")
         self.assert_number_webviews_eventually(2)
+
+        # http://pad.lv/1505724
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
 
     def test_selecting_tab_focuses_webview(self):
         if self.main_window.wide:
