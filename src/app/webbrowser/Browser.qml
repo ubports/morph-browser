@@ -194,7 +194,7 @@ BrowserView {
                 right: parent.right
                 top: recentView.visible ? invisibleTabChrome.bottom : parent.top
             }
-            height: parent.height - osk.height - (recentView.visible ? invisibleTabChrome.height : 0)
+            height: parent.height - osk.height
         }
 
         Loader {
