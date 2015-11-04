@@ -61,7 +61,7 @@ FocusScope {
         readonly property var webview: (children.length == 1) ? children[0] : null
     }
 
-    function load() {
+    function load(showWebview) {
         if (!webview) {
             var properties = {'tab': tab, 'incognito': incognito}
             if (restoreState) {
@@ -70,7 +70,10 @@ FocusScope {
             } else {
                 properties['url'] = initialUrl
             }
+            if (showWebview) properties['visible'] = true
             webviewComponent.incubateObject(webviewContainer, properties)
+        } else {
+            if (showWebview) webview.visible = true
         }
     }
 

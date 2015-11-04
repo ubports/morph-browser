@@ -1155,6 +1155,9 @@ BrowserView {
                 onNewViewRequested: {
                     var tab = tabComponent.createObject(tabContainer, {"request": request, 'incognito': browser.incognito})
                     var setCurrent = (request.disposition == Oxide.NewViewRequest.DispositionNewForegroundTab)
+                    // Oxide will create the webview as initially visible, so we need to hide it
+                    // unless the intent is to display it in the current tab
+                    if (!setCurrent && tab.webview) tab.webview.visible = false
                     internal.addTab(tab, setCurrent)
                 }
 
@@ -1638,7 +1641,7 @@ BrowserView {
             chrome.findInPageMode = false
             var tab = tabsModel.currentTab
             if (tab) {
-                tab.load()
+                tab.load(true)
             }
             internal.resetFocus()
         }
