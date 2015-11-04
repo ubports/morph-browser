@@ -198,6 +198,26 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.check_current_tab(self.base_url + "/test2")
         self.assert_number_webviews_eventually(2)
 
+    # http://pad.lv/1464436
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_ctrl_open_target_blank_in_new_tab(self):
+        url = self.base_url + "/link"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        webview = self.main_window.get_current_webview()
+
+        self.keyboard.press('Ctrl')
+        self.pointing_device.click_object(webview)
+        self.keyboard.release('Ctrl')
+        self.check_current_tab(url)
+        self.assert_number_webviews_eventually(2)
+
+        # if the new webview is overlapping the current webview, as per bug
+        # http://pad.lv/1464436 then a normal click on the page won't
+        # actually navigate anywhere
+        self.pointing_device.click_object(webview)
+        self.check_current_tab(self.base_url + "/test1")
+
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
         self.main_window.go_to_url(url)
