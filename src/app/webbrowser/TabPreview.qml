@@ -91,6 +91,7 @@ Column {
             anchors {
                 left: parent.left
                 top: parent.top
+                topMargin: -chrome.height
             }
             height: sourceSize.height
             fillMode: Image.Pad
