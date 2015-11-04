@@ -192,7 +192,7 @@ BrowserView {
             anchors {
                 left: parent.left
                 right: parent.right
-                top: recentView.visible ? invisibleTabChrome.bottom : parent.top
+                top: parent.top
             }
             height: parent.height - osk.height
         }
@@ -483,7 +483,8 @@ BrowserView {
         ChromeController {
             id: chromeController
             webview: browser.currentWebview
-            forceHide: recentView.visible || browser.fullscreen
+            forceHide: browser.fullscreen
+            forceShow: recentView.visible
             defaultMode: (formFactor == "desktop") ? Oxide.LocationBarController.ModeShown
                                                    : Oxide.LocationBarController.ModeAuto
         }
@@ -647,7 +648,6 @@ BrowserView {
                     return delegateMinHeight
                 }
             }
-            chromeOffset: chrome.height - invisibleTabChrome.height
             onTabSelected: recentView.closeAndSwitchToTab(index)
             onTabClosed: internal.closeTab(index)
         }
@@ -995,7 +995,7 @@ BrowserView {
                 enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
 
                 locationBarController {
-                    height: webviewimpl.visible ? chrome.height : 0
+                    height: recentView.visible ? invisibleTabChrome.height : webviewimpl.visible ? chrome.height : 0
                     mode: chromeController.defaultMode
                 }
 

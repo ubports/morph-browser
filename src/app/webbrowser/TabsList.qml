@@ -23,7 +23,6 @@ Item {
     id: tabslist
 
     property real delegateHeight
-    property real chromeOffset
     property alias model: repeater.model
     readonly property int count: repeater.count
     property bool incognito
@@ -118,7 +117,7 @@ Item {
             property int index: 0
             target: flickable
             property: "contentY"
-            to: index * delegateHeight - chromeOffset
+            to: index * delegateHeight
             duration: UbuntuAnimation.FastDuration
             onStopped: tabslist.tabSelected(index)
         }
