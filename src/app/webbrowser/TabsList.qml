@@ -94,26 +94,21 @@ Item {
                 readonly property string title: model.title ? model.title : (model.url.toString() ? model.url : i18n.tr("New tab"))
                 readonly property string icon: model.icon
 
-                readonly property bool needsInstance: (index >= 0) && ((flickable.contentY + flickable.height + delegateHeight / 2) >= (index * delegateHeight))
-                sourceComponent: needsInstance ? tabPreviewComponent : undefined
+                active: (index >= 0) && ((flickable.contentY + flickable.height + delegateHeight / 2) >= (index * delegateHeight))
 
                 visible: flickable.contentY < ((index + 1) * delegateHeight)
 
-                Component {
-                    id: tabPreviewComponent
+                sourceComponent: TabPreview {
+                    title: delegate.title
+                    icon: delegate.icon
+                    incognito: tabslist.incognito
+                    tab: model.tab
+                    chromeHeight: firstItemChromeBackground.height
+                    showContent: (index > 0) || (delegate.y > flickable.contentY) ||
+                                 !(tab.webview && tab.webview.visible)
 
-                    TabPreview {
-                        title: delegate.title
-                        icon: delegate.icon
-                        incognito: tabslist.incognito
-                        tab: model.tab
-                        chromeHeight: firstItemChromeBackground.height
-                        showContent: (index > 0) || (delegate.y > flickable.contentY) ||
-                                     !(tab.webview && tab.webview.visible)
-
-                        onSelected: tabslist.selectAndAnimateTab(index)
-                        onClosed: tabslist.tabClosed(index)
-                    }
+                    onSelected: tabslist.selectAndAnimateTab(index)
+                    onClosed: tabslist.tabClosed(index)
                 }
             }
         }
