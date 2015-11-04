@@ -126,7 +126,11 @@ Item {
 
     function selectAndAnimateTab(index) {
         // Animate tab into full view
-        selectedAnimation.index = index
-        selectedAnimation.start()
+        if (index == 0) {
+            tabSelected(0)
+        } else {
+            selectedAnimation.index = index
+            selectedAnimation.start()
+        }
     }
 }
