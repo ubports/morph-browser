@@ -40,6 +40,7 @@ FocusScope {
     property url preview
     property bool current: false
     property bool incognito
+    visible: false
 
     Connections {
         target: PreviewManager
@@ -61,7 +62,7 @@ FocusScope {
         readonly property var webview: (children.length == 1) ? children[0] : null
     }
 
-    function load(showWebview) {
+    function load() {
         if (!webview) {
             var properties = {'tab': tab, 'incognito': incognito}
             if (restoreState) {
@@ -70,10 +71,7 @@ FocusScope {
             } else {
                 properties['url'] = initialUrl
             }
-            if (showWebview) properties['visible'] = true
             webviewComponent.incubateObject(webviewContainer, properties)
-        } else {
-            if (showWebview) webview.visible = true
         }
     }
 
