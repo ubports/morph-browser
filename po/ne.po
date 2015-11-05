@@ -1,51 +1,51 @@
-# Hungarian translation for webbrowser-app
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Nepali translation for webbrowser-app
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
 # This file is distributed under the same license as the webbrowser-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-10-23 15:10+0200\n"
-"PO-Revision-Date: 2015-10-28 13:50+0000\n"
-"Last-Translator: Richard Somlói <ricsipontaz@gmail.com>\n"
-"Language-Team: Hungarian <hu@li.org>\n"
+"PO-Revision-Date: 2015-11-04 14:10+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Nepali <ne@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-10-29 05:34+0000\n"
-"X-Generator: Launchpad (build 17837)\n"
+"X-Launchpad-Export-Date: 2015-11-05 05:43+0000\n"
+"X-Generator: Launchpad (build 17838)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
-msgstr "JavaScript figyelmeztetés"
+msgstr ""
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
 #: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
-msgstr "OK"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
-msgstr "Hitelesítés szükséges."
+msgstr "प्रमाणीकरण आवश्यक।"
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "A(z) %1  oldal hitelesítést igényel."
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
-msgstr "Felhasználónév"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
-msgstr "Jelszó"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
@@ -58,23 +58,23 @@ msgstr "Jelszó"
 #: src/app/webbrowser/SettingsPage.qml:348
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
-msgstr "Mégse"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr "Navigálás megerősítése"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr "Távozás"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr "Maradás"
+msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "A kapcsolat nem megbízható"
+msgstr "यो जडान अविश्वासिलो छ"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -82,82 +82,82 @@ msgstr "A kapcsolat nem megbízható"
 msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
-msgstr "A(z) %1 által használt biztonsági tanúsítvány nem megbízható."
+msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
-msgstr "Folytatás mindenképp"
+msgstr "जसरी अगाडि बढ्नुहोस्"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
-msgstr "Visszalépés"
+msgstr ""
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr "JavaScript futtatásának jóváhagyása"
+msgstr ""
 
 #: src/app/ContentDownloadDialog.qml:79
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
-"Adjon megy egy alkalmazást, amivel megnyitja ezt a fájlt, vagy válassza a "
-"letöltések mappát."
+"यो फाइल खोल्न एउटा अनुप्रयोग छनौट गर्नुहोस  वा यसलाई डाउनलोडस् फोल्डरमा "
+"थप्नुहोस।"
 
 #: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
-msgstr "Alkalmazás kiválasztása"
+msgstr ""
 
 #: src/app/ContentDownloadDialog.qml:97
 msgid "Download"
-msgstr "Letöltés"
+msgstr ""
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr "Hálózati hiba"
+msgstr "नेटवर्क त्रुटि"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "Hiba történt a megjelenítés során: %1."
+msgstr ""
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
-msgstr "Kérjük ellenőrizze a hálózati beállításait és frissítse az oldalt."
+msgstr ""
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "Oldal frissítése"
+msgstr ""
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr "Válasszon egy fájlt"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "Jogosultság igénylés"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr "Ez az oldal tudni szeretné az eszköze helyzetét."
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
-msgstr "Tiltás"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:43
 msgid "Allow"
-msgstr "Engedélyezés"
+msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr "Az oldal biztonsági tanúsítványa nem megbízható.\n"
+msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr "Tudjon meg többet"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:87
@@ -166,8 +166,6 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
-"Sorozatszám:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:94
@@ -176,8 +174,6 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
-"Tárgy:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:102
@@ -186,8 +182,6 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
-"Tárgy címe:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:113
@@ -196,8 +190,6 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
-"Kibocsátó:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:121
@@ -206,8 +198,6 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
-"Kibocsátó címe:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:132
@@ -216,8 +206,6 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
-"Érvényesség kezdete:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:139
@@ -226,8 +214,6 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
-"Érvényesség lejárta:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:146
@@ -236,16 +222,12 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
-"Ujjlenyomat (SHA1)?\n"
-"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
-"Nem kellene folytatnia, különösen akkor nem, ha még soha nem találkozott "
-"ezzel a figyelmeztetéssel ezen az oldalon."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:187
@@ -254,8 +236,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
-"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
-"tanúsítvány nem egyezik az oldal identitásával."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -264,8 +244,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
-"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
-"tanúsítvány lejárt."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -274,8 +252,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
-"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
-"tanúsítvány érvénytelen dátumokat tartalmaz."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -284,8 +260,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
-"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
-"tanúsítványt nem megbízható fél bocsátotta ki."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -294,8 +268,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
-"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
-"tanúsítványt visszavonták."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -304,8 +276,6 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
-"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
-"tanúsítvány érvénytelen."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -314,8 +284,6 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
-"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
-"tanúsítvány nem biztonságos."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -325,657 +293,608 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
-"Az oldal biztonsági tanúsítványa nem megbízható\n"
-"Az elérni kívánt %1 oldalnál a kiszolgáló által nyújtott biztonsági "
-"tanúsítvány ismeretlen okból nem ment át a biztonsági ellenőrzésen."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
-msgstr "JavaScript parancssor"
+msgstr ""
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "Proxy hitelesítés szükséges."
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "A %1:%2 proxy használatához hitelesítés szükséges."
+msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "Vissza"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Előző oldal"
+msgstr ""
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr "Könyvjelző"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Oldal hozzáadása a könyvjelzőkhöz"
+msgstr ""
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "Mentés könyvjelzőként"
+msgstr ""
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "Előzmények törlése"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Böngészési előzmények törlése"
+msgstr ""
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr "Másolás"
+msgstr ""
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr "Kép másolása"
+msgstr ""
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr "Hivatkozás másolása"
+msgstr ""
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr "Kivágás"
+msgstr ""
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr "Törlés"
+msgstr ""
 
-#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:426
+#: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:429
 msgid "Find in page"
-msgstr "Keresés"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr "Keresés az oldalon"
+msgstr ""
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "Előre"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Következő oldal"
+msgstr ""
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr "Ugrás"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Cím;URL;www"
+msgstr ""
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:692
 #: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
-msgstr "Új lap"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Megnyitás új lapon"
+msgstr ""
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "Kép megnyitása új lapon"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr "Hivatkozás megnyitása új lapon a háttérben"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "Hivatkozás megnyitása új lapon"
+msgstr ""
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr "Beillesztés"
+msgstr ""
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr "Újra"
+msgstr ""
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
-msgstr "Újratöltés"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "Oldal elhagyása"
+msgstr ""
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr "Kép mentése"
+msgstr ""
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr "Hivatkozás mentése"
+msgstr ""
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
 #: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
-msgstr "Összes kijelölése"
+msgstr ""
 
-#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:390
+#: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:393
 msgid "Share"
-msgstr "Megosztás"
+msgstr ""
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr "Visszavonás"
+msgstr ""
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
-#: src/app/webbrowser/AddressBar.qml:204
+#: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
-msgstr "%1/%2"
+msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:240
+#: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
-msgstr "keresés"
+msgstr ""
 
-#: src/app/webbrowser/AddressBar.qml:241
+#: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
-msgstr "keresés vagy cím megadása"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr "Könyvjelző hozzáadása"
+msgstr ""
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
-msgstr "Név"
+msgstr ""
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr "Mentés ide"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFoldersView.qml:119
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
-msgstr "Minden könyvjelző"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr "Új mappa"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr "Új mappa létrehozása"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:358
 msgid "Save"
-msgstr "Mentés"
+msgstr ""
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:158
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Homepage"
-msgstr "Kezdőlap"
+msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:80
 #: src/app/webbrowser/BookmarksViewWide.qml:78
-#: src/app/webbrowser/Browser.qml:397 src/app/webbrowser/NewTabView.qml:108
+#: src/app/webbrowser/Browser.qml:400 src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
-msgstr "Könyvjelzők"
+msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:112
 #: src/app/webbrowser/BookmarksViewWide.qml:110
 #: src/app/webbrowser/Browser.qml:678 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
-msgstr "Kész"
+msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:125
 #: src/app/webbrowser/BookmarksViewWide.qml:123
-#: src/app/webbrowser/Browser.qml:419 src/app/webbrowser/HistoryView.qml:130
+#: src/app/webbrowser/Browser.qml:422 src/app/webbrowser/HistoryView.qml:130
 #: src/app/webbrowser/HistoryViewWide.qml:518
 #: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
-msgstr "Új lap"
+msgstr ""
 
-#: src/app/webbrowser/Browser.qml:403
+#: src/app/webbrowser/Browser.qml:406
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
-msgstr "Előzmények"
+msgstr ""
 
-#: src/app/webbrowser/Browser.qml:409
+#: src/app/webbrowser/Browser.qml:412
 msgid "Open tabs"
-msgstr "Nyitott lapok"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr "Letöltések"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:436
 msgid "Leave Private Mode"
-msgstr "Privát mód bezárása"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:436
 msgid "Private Mode"
-msgstr "Privát mód"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:454 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
-msgstr "Beállítások"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:786
 #, qt-format
 msgid "(%1)"
-msgstr "(%1)"
-
-#: src/app/webbrowser/Browser.qml:1258
-msgid "Swipe Up To Exit Full Screen"
-msgstr "Húzza felfelé az ujját a teljes képernyős mód elhagyásához"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:1259
+msgid "Swipe Up To Exit Full Screen"
+msgstr ""
+
+#: src/app/webbrowser/Browser.qml:1260
 msgid "Press ESC To Exit Full Screen"
-msgstr "Nyomja meg az ESC billentyűt a teljes képernyős mód elhagyásához"
+msgstr ""
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr "Kiválasztás megerősítése"
+msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:199
 #: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
-msgstr "Törlés"
+msgstr ""
 
 #: src/app/webbrowser/DownloadsPage.qml:207
 msgid "No downloads available"
-msgstr "Nincsenek letöltések"
+msgstr ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] "%1 oldal"
-msgstr[1] "%1 oldal"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:119
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
-msgstr "Kevesebb"
+msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
-msgstr "Utoljára meglátogatott"
+msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
 #: src/app/webbrowser/HistoryViewWide.qml:215
 msgid "Yesterday"
-msgstr "Tegnap"
+msgstr ""
 
 #: src/app/webbrowser/HistoryViewWide.qml:199
 msgid "All History"
-msgstr "Minden előzmény"
+msgstr ""
 
 #: src/app/webbrowser/HistoryViewWide.qml:213
 #: src/app/webbrowser/HistoryViewWide.qml:282
 msgid "Today"
-msgstr "Ma"
+msgstr ""
 
 #: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
-msgstr "előzmények keresése"
+msgstr ""
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr "A publikus módba visszatérés bezárja az összes privát lapot"
+msgstr ""
 
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
 msgstr ""
-"Engedélyezi ennek a domainnévnek, hogy hozzáférjen a kamerához és "
-"mikrofonhoz?"
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr "Engedélyezi ennek a domainnévnek, hogy hozzáférjen a kamerához?"
+msgstr ""
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr "Engedélyezi ennek a domainnévnek, hogy hozzáférjen a mikrofonhoz?"
+msgstr ""
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr "%1 (beágyazva itt: %2)"
+msgstr ""
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
-msgstr "Igen"
+msgstr ""
 
 #: src/app/webbrowser/MediaAccessDialog.qml:60
 msgid "No"
-msgstr "Nem"
+msgstr ""
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr "Ez egy privát lap"
+msgstr ""
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
-"Az itt megtekintett oldalak nem kerülnek rögzítésre a böngésző "
-"előzményeinél.\n"
-"A létrehozott könyvjelzők azonban megmaradnak."
 
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr "Több"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:227
 #: src/app/webbrowser/NewTabViewWide.qml:153
 msgid "Top sites"
-msgstr "Leglátogatottabb oldalak"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:258
 msgid "You haven't visited any site yet"
-msgstr "Még nem látogatott meg egyetlen oldalt sem"
+msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr "Az ehhez a laphoz tartozó renderelő folyamat be lett zárva."
+msgstr ""
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr "Valami hiba történt a következő megjelenítése közben: %1"
+msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
-"A rendszer kevés memóriája miatt nem lehet megjeleníteni ezt a weboldalt. "
-"Próbálja bezárni a már nem szükséges lapokat."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr "Lap bezárása"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr "Ezen az oldalon nem megbízható a tartalom"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr "Az indentitás nem igazolt."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr "A webhely valódiságát nem ellenőriztük."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr "A kiszolgáló tanúsítványai nem egyeznek az oldal identitásával."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr "A kiszolgáló tanúsítványa lejárt."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr "A kiszolgáló tanúsítványa érvénytelen dátumokat tartalmaz."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
-msgstr "A kiszolgáló tanúsítványát egy nem megbízható fél állította ki."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr "A kiszolgáló tanúsítványa vissza lett vonva."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr "A kiszolgáló tanúsítványa érvénytelen."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr "A kiszolgáló tanúsítványa nem biztonságos."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
-"A kiszolgáló tanúsítványa ismeretlen okok miatt elbukott a biztonsági "
-"ellenőrzésen."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr "Kapcsolódva ide:"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr "Üzemeltető:"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
-msgstr "Keresőmotor"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:100
 msgid "Restore previous session at startup"
-msgstr "Előző munkamenet induláskor"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:118
 msgid "Allow opening new tabs in background"
-msgstr "Új lap megnyitása a háttérben"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
-msgstr "Adatvédelem és jogosultságok"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
-msgstr "Böngészőbeállítások visszaállítása"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr "Kamera és mikrofon"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
-msgstr "Böngészési előzmények törlése"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
-msgstr "Törli az előzményeket?"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
-msgstr "Gyorsítótár törlése"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
-msgstr "Törli a gyorsítótárat?"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
-msgstr "Törlés"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr "Mikrofon"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr "Kamera"
+msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
-msgstr "Koppintson a megtekintéshez"
+msgstr ""
 
 #: src/app/webbrowser/TabsBar.qml:96
 msgid "Close Tab"
-msgstr "Lap bezárása"
+msgstr ""
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
-msgstr "Eltávolítás"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:67
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Ubuntu webböngésző"
+msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:69
 msgid "Ubuntu Web Browser"
-msgstr "Ubuntu webböngésző"
+msgstr ""
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
-"Nincs fiók megadva ennél a webalkalmazásnál. Itt adhat hozzá új fiókot."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
-msgstr "Fiók hozzáadása"
+msgstr ""
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr "Ne használjon egy fiókot sem"
+msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr "Fiók hiba"
+msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr "Bezárás"
+msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
-"A fiók beállítóablak nem nyílott meg. Egyszerre csak egy fiókot adhat hozzá, "
-"zárjon be minden ablakot és próbálja újra."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
 msgstr ""
-"<b>%1</b> alkalmazásnak szüksége van hozzáférésre a(z) %2 online fiókhoz."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr "<b>%1</b> hozzá szeretne férni a(z) %2 online fiókhoz."
+msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
-"Válasszon most egy fiókot, vagy hagyja ki ezt a lépést és adjon hozzá egyet "
-"később."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr "Alkalmazás bezárása"
+msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr "Kihagyás"
+msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr "Fiók kiválasztása"
+msgstr ""
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr "Hoppá, valami hiba történt."
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
-msgstr "Böngésző"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr "Webböngésző"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
-msgstr "A világháló böngészése"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr "Internet;WWW;Böngésző;Web"
-
-#~ msgid ""
-#~ "Ubuntu suggests you check your network settings and try refreshing the page."
-#~ msgstr "Ellenőrizze a hálózati beállításait, és frissítse az oldalt."
-
-#~ msgid "see more"
-#~ msgstr "több megjelenítése"
-
-#~ msgid "see less"
-#~ msgstr "kevesebb megjelenítése"
-
-#~ msgid "Share…"
-#~ msgstr "Megosztás…"
-
-#~ msgid "Select an account"
-#~ msgstr "Válasszon egy fiókot"
-
-#~ msgid "No local account found for "
-#~ msgstr "Nem található helyi fiók ehhez: "
-
-#~ msgid "Skip account creation step"
-#~ msgstr "A fióklétrehozási lépés kihagyása"
-
-#~ msgid "Add"
-#~ msgstr "Hozzáadás"
-
-#~ msgid "Delete all history?"
-#~ msgstr "Összes előzmény törlése?"
-
-#~ msgid "Privacy"
-#~ msgstr "Adatvédelem"
+msgstr ""

@@ -114,11 +114,9 @@ Item {
             }
         }
 
-        MouseArea {
+        AbstractButton {
             id: closeButton
             objectName: "closeButton"
-
-            acceptedButtons: Qt.LeftButton | Qt.MiddleButton
 
             // On mobile the tap area to close the tab occupies the whole right
             // hand side of the tab, while it covers only the close icon in
@@ -131,6 +129,12 @@ Item {
             width: mobile ? units.gu(4) : closeIcon.width
 
             onClicked: closed()
+
+            MouseArea {
+                anchors.fill: parent
+                acceptedButtons: Qt.MiddleButton
+                onClicked: closed()
+            }
         }
 
         Icon {
