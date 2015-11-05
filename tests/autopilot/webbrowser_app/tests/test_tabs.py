@@ -18,6 +18,7 @@ from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
+import time
 import testtools
 import unittest
 
@@ -304,20 +305,24 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.assert_number_webviews_eventually(1)
         self.check_current_tab(start_url)
 
+        incognito_url = self.base_url + "/tab/2"
         self.main_window.enter_private_mode()
         self.assertThat(self.main_window.is_in_private_mode,
                         Eventually(Equals(True)))
-        self.main_window.go_to_url(url)
-        self.main_window.wait_until_page_loaded(url)
+        self.main_window.go_to_url(incognito_url)
+        self.main_window.wait_until_page_loaded(incognito_url)
 
         self.open_new_tab()
-        self.main_window.go_to_url(url)
-        self.main_window.wait_until_page_loaded(url)
+        self.main_window.go_to_url(incognito_url)
+        self.main_window.wait_until_page_loaded(incognito_url)
         self.main_window.press_key('Ctrl+w')
         self.assert_number_incognito_webviews_eventually(1)
 
-        # No tabs will be restored in incognito mode
+        # Test that no tabs will be restored in incognito mode.
+        # We sleep for a bit after the keypress to give more confidence that
+        # the tab still hasn't appeared within a reasonable amount of time.
         self.main_window.press_key('Ctrl+Shift+w')
+        time.sleep(1)
         self.assert_number_incognito_webviews_eventually(1)
 
         # Close the last incognito tab to exit the mode. This is done on
@@ -331,3 +336,4 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         # when going back to default mode
         self.main_window.press_key('Ctrl+Shift+w')
         self.assert_number_webviews_eventually(2)
+        self.check_current_tab(url)
