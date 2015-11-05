@@ -229,6 +229,10 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.check_current_tab(self.base_url + "/test2")
         self.assert_number_webviews_eventually(2)
 
+        # http://pad.lv/1505724
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
     def test_selecting_tab_focuses_webview(self):
         if self.main_window.wide:
             self.skipTest("Only on narrow form factors")

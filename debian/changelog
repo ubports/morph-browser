@@ -1,3 +1,27 @@
+webbrowser-app (0.23+16.04.20151103-0ubuntu1) xenial; urgency=medium
+
+  [ CI Train Bot ]
+  * New rebuild forced.
+  * Resync trunk.
+
+  [ Olivier Tilloy ]
+  * Update translation template.
+
+  [ Ugo Riboni ]
+  * Fix a bug preventing in some cases the address bar from getting
+    focus when entering find in page mode. Also correctly hide the left
+    hand side icons when in find in page mode. (LP: #1508130)
+  * Focus the page when opening links with target="_blank". (LP:
+    #1505724)
+  * Prevent the address bar from being cleared when the actual url
+    changes and the user has already started typing. (LP: #1487713)
+  * Update the user script to remove the Facebook app banner. (LP:
+    #1352783)
+  * Use AbstractButton to handle some tab interactions so that haptics
+    are used on touch. (LP: #1505725)
+
+ -- Olivier Tilloy <olivier.tilloy@canonical.com>  Tue, 03 Nov 2015 11:56:19 +0000
+
 webbrowser-app (0.23+15.10.20151022.1-0ubuntu1) wily; urgency=medium
 
   [ CI Train Bot ]
