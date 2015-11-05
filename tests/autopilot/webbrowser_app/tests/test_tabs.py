@@ -18,6 +18,7 @@ from testtools.matchers import Equals
 from autopilot.matchers import Eventually
 from autopilot.platform import model
 
+import time
 import testtools
 import unittest
 
@@ -209,14 +210,15 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.keyboard.press('Ctrl')
         self.pointing_device.click_object(webview)
         self.keyboard.release('Ctrl')
-        self.check_current_tab(url)
-        self.assert_number_webviews_eventually(2)
 
-        # if the new webview is overlapping the current webview, as per bug
-        # http://pad.lv/1464436 then a normal click on the page won't
-        # actually navigate anywhere
-        self.pointing_device.click_object(webview)
-        self.check_current_tab(self.base_url + "/test1")
+        # Eventually we should have two webviews but one should be hidden.
+        # Wait some time to increase confidence that webviews won't change
+        # their visibility state to an incorrect one before the check.
+        time.sleep(1)
+        self.assert_number_webviews_eventually(2)
+        views = self.main_window.select_many("WebViewImpl", visible=True)
+        self.assertThat(len(views), Equals(1))
+        self.check_current_tab(url)
 
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
