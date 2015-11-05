@@ -205,7 +205,7 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
 
     # http://pad.lv/1464436
     @testtools.skipIf(model() != "Desktop", "on desktop only")
-    def test_ctrl_click_open_link_in_new_tab(self):
+    def test_ctrl_click_open_link_in_new_background_tab(self):
         url = self.base_url + "/link"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
