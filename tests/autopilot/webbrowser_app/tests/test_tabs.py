@@ -199,6 +199,10 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         self.check_current_tab(self.base_url + "/test2")
         self.assert_number_webviews_eventually(2)
 
+        # http://pad.lv/1505724
+        webview = self.main_window.get_current_webview()
+        self.assertThat(webview.activeFocus, Eventually(Equals(True)))
+
     # http://pad.lv/1464436
     @testtools.skipIf(model() != "Desktop", "on desktop only")
     def test_ctrl_click_open_link_in_new_tab(self):
