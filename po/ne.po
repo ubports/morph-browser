@@ -1,51 +1,51 @@
-# Breton translation for webbrowser-app
-# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# Nepali translation for webbrowser-app
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
 # This file is distributed under the same license as the webbrowser-app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: webbrowser-app\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-10-23 15:10+0200\n"
-"PO-Revision-Date: 2015-11-03 07:08+0000\n"
-"Last-Translator: Fohanno Thierry <thierry.fohanno@ofis-bzh.org>\n"
-"Language-Team: Breton <br@li.org>\n"
+"PO-Revision-Date: 2015-11-04 14:10+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Nepali <ne@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2015-11-05 05:43+0000\n"
 "X-Generator: Launchpad (build 17838)\n"
 
 #: src/app/AlertDialog.qml:23
 msgid "JavaScript Alert"
-msgstr "Kemenn JavaScript"
+msgstr ""
 
 #: src/app/AlertDialog.qml:26 src/app/AuthenticationDialog.qml:47
 #: src/app/ConfirmDialog.qml:26 src/app/HttpAuthenticationDialog.qml:59
 #: src/app/PromptDialog.qml:32 src/app/webbrowser/BookmarkOptions.qml:101
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:39
 msgid "OK"
-msgstr "Mat eo"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:24 src/app/HttpAuthenticationDialog.qml:25
 msgid "Authentication required."
-msgstr "Dilesadur rekis."
+msgstr "प्रमाणीकरण आवश्यक।"
 
 #. TRANSLATORS: %1 refers to the URL of the current website
 #: src/app/AuthenticationDialog.qml:26
 #, qt-format
 msgid "The website %1 requires authentication."
-msgstr "Al lec'hienn web %1 a c'houlenn un dilesadur."
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:34 src/app/HttpAuthenticationDialog.qml:39
 msgid "Username"
-msgstr "Anv implijer"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:41 src/app/HttpAuthenticationDialog.qml:49
 msgid "Password"
-msgstr "Ger-tremen"
+msgstr ""
 
 #: src/app/AuthenticationDialog.qml:53 src/app/ConfirmDialog.qml:31
 #: src/app/HttpAuthenticationDialog.qml:69 src/app/PromptDialog.qml:38
@@ -58,23 +58,23 @@ msgstr "Ger-tremen"
 #: src/app/webbrowser/SettingsPage.qml:348
 #: src/app/webcontainer/AccountChooserDialog.qml:96
 msgid "Cancel"
-msgstr "Nullañ"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:23
 msgid "Confirm Navigation"
-msgstr "Kadarnaat ar merdeiñ"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:26
 msgid "Leave"
-msgstr "Mont kuit"
+msgstr ""
 
 #: src/app/BeforeUnloadDialog.qml:31
 msgid "Stay"
-msgstr "Chom"
+msgstr ""
 
 #: src/app/CertificateVerificationDialog.qml:24
 msgid "This connection is untrusted"
-msgstr "Ne c'haller ket fiziout er c'hennask-mañ"
+msgstr "यो जडान अविश्वासिलो छ"
 
 #. TRANSLATORS: %1 refers to the hostname
 #: src/app/CertificateVerificationDialog.qml:26
@@ -83,84 +83,81 @@ msgid ""
 "You are trying to securely reach %1, but the security certificate of this "
 "website is not trusted."
 msgstr ""
-"Emaoc'h o klask tizhout %1 en un doare suraet, met ne c'haller ket fiziout e "
-"testeni surentez al lec'hienn Web-mañ."
 
 #: src/app/CertificateVerificationDialog.qml:29
 #: src/app/InvalidCertificateErrorSheet.qml:160
 msgid "Proceed anyway"
-msgstr "Kenderc'hel memes tra"
+msgstr "जसरी अगाडि बढ्नुहोस्"
 
 #: src/app/CertificateVerificationDialog.qml:35
 #: src/app/InvalidCertificateErrorSheet.qml:173
 msgid "Back to safety"
-msgstr "Distro d'ar surentez"
+msgstr ""
 
 #: src/app/ConfirmDialog.qml:23
 msgid "JavaScript Confirmation"
-msgstr "Kadarnadur JavaScript"
+msgstr ""
 
 #: src/app/ContentDownloadDialog.qml:79
 msgid ""
 "Choose an application to open this file or add it to the downloads folder."
 msgstr ""
-"Choazit un arload da zigeriñ ar restr-mañ pe lakait anezhi er renkell "
-"pellgargañ."
+"यो फाइल खोल्न एउटा अनुप्रयोग छनौट गर्नुहोस  वा यसलाई डाउनलोडस् फोल्डरमा "
+"थप्नुहोस।"
 
 #: src/app/ContentDownloadDialog.qml:84
 msgid "Choose an application"
-msgstr "Choaz un arload"
+msgstr ""
 
 #: src/app/ContentDownloadDialog.qml:97
 msgid "Download"
-msgstr "Pellgargañ"
+msgstr ""
 
 #: src/app/ErrorSheet.qml:36
 msgid "Network Error"
-msgstr "Fazi gant ar rouedad"
+msgstr "नेटवर्क त्रुटि"
 
 #. TRANSLATORS: %1 refers to the URL of the current page
 #: src/app/ErrorSheet.qml:42
 #, qt-format
 msgid "It appears you are having trouble viewing: %1."
-msgstr "War a seblant ez oc'h lakaet diaes evit gwelet : %1."
+msgstr ""
 
 #: src/app/ErrorSheet.qml:48
 msgid "Please check your network settings and try refreshing the page."
 msgstr ""
-"Gwiriit arventennoù ho reizhiad ha klaskit freskaat ar bajenn, mar plij."
 
 #: src/app/ErrorSheet.qml:53
 msgid "Refresh page"
-msgstr "Freskaat ar bajenn"
+msgstr ""
 
 #: src/app/FilePickerDialog.qml:28
 msgid "Please choose a file"
-msgstr "Dibabit ur restr, mar plij"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:28
 msgid "Permission Request"
-msgstr "Goulenn aotre"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:29
 msgid "This page wants to know your device’s location."
-msgstr "Fellout a ra d'ar bajenn-mañ gouzout pelec'h emañ ho trobarzhell."
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:33
 msgid "Deny"
-msgstr "Nac'h"
+msgstr ""
 
 #: src/app/GeolocationPermissionRequest.qml:43
 msgid "Allow"
-msgstr "Aotren"
+msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:55
 msgid "This site security certificate is not trusted.\n"
-msgstr "Ne c'haller ket kaout fiziañs e testeni surentez al lec'hienn-mañ.\n"
+msgstr ""
 
 #: src/app/InvalidCertificateErrorSheet.qml:63
 msgid "Learn more"
-msgstr "Gouzout hiroc'h"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the SSL certificate's serial number
 #: src/app/InvalidCertificateErrorSheet.qml:87
@@ -169,8 +166,6 @@ msgid ""
 "Serial number:\n"
 "%1"
 msgstr ""
-"Niverenn rummad :\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject display name
 #: src/app/InvalidCertificateErrorSheet.qml:94
@@ -179,8 +174,6 @@ msgid ""
 "Subject:\n"
 "%1"
 msgstr ""
-"Sujed :\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's subject's address
 #: src/app/InvalidCertificateErrorSheet.qml:102
@@ -189,8 +182,6 @@ msgid ""
 "Subject address:\n"
 "%1"
 msgstr ""
-"Chomlec'h ar sujed :\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer display name
 #: src/app/InvalidCertificateErrorSheet.qml:113
@@ -199,8 +190,6 @@ msgid ""
 "Issuer:\n"
 "%1"
 msgstr ""
-"Kaser :\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's issuer's address
 #: src/app/InvalidCertificateErrorSheet.qml:121
@@ -209,8 +198,6 @@ msgid ""
 "Issuer address:\n"
 "%1"
 msgstr ""
-"Chomlec'h ar c'haser :\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's start date
 #: src/app/InvalidCertificateErrorSheet.qml:132
@@ -219,8 +206,6 @@ msgid ""
 "Valid from:\n"
 "%1"
 msgstr ""
-"Gwiriek adalek{nbsp]:\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's expiry date
 #: src/app/InvalidCertificateErrorSheet.qml:139
@@ -229,8 +214,6 @@ msgid ""
 "Valid until:\n"
 "%1"
 msgstr ""
-"Gwiriek betek :\n"
-"%1"
 
 #. TRANSLATORS: %1 refers to the SSL certificate's SHA1 fingerprint
 #: src/app/InvalidCertificateErrorSheet.qml:146
@@ -239,16 +222,12 @@ msgid ""
 "Fingerprint (SHA1):\n"
 "%1"
 msgstr ""
-"Roud biz (SHA1) :\n"
-"%1"
 
 #: src/app/InvalidCertificateErrorSheet.qml:153
 msgid ""
 "You should not proceed, especially if you have never seen this warning "
 "before for this site."
 msgstr ""
-"Ne dlefec'h ket mont a-raok, dreist-holl ma n'ho peus ket gwelet ar "
-"gemennadenn-mañ a-raok evit al lec'hienn-mañ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:187
@@ -257,8 +236,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which does not match the identity of the site."
 msgstr ""
-"Klasket ho peus mont da %1 met diskouezet ez eus bet gant ar servijer un "
-"testeni surentez ha ne glot ket gant identelezh al lec'hienn."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:190
@@ -267,8 +244,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which has expired."
 msgstr ""
-"Klasket ho peus mont da %1 met diskouezet ez eus bet un testeni surentez "
-"diamzeret gant ar servijer."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:193
@@ -277,8 +252,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which contains invalid dates."
 msgstr ""
-"Klasket ho peus mont da %1 met diskouezet ez eus bet gant ar servijer un "
-"testeni surentez ennañ deiziadoù direizh."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:196
@@ -287,8 +260,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "issued by an entity that is not trusted."
 msgstr ""
-"Klasket ho peus mont da %1 met diskouezet ez eus bet gant ar servijer un "
-"testeni surentez graet gant un ensavadur ne c'haller ket kaour fiziañs ennañ."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:199
@@ -297,8 +268,6 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "that has been revoked."
 msgstr ""
-"Klasket ho peus mont da %1 met diskouezet ez eus bet gant ar servijer un "
-"testeni surentez hag a zo bet torret."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:202
@@ -307,8 +276,6 @@ msgid ""
 "You attempted to reach %1 but the server presented an invalid security "
 "certificate."
 msgstr ""
-"Klasket ho peus mont da %1 met diskouezet ez eus bet un testeni surentez "
-"direizh gant ar servijer."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:205
@@ -317,8 +284,6 @@ msgid ""
 "You attempted to reach %1 but the server presented an insecure security "
 "certificate."
 msgstr ""
-"Klasket ho peus mont da %1 met diskouezet ez eus bet un testeni surentez "
-"diasur gant ar servijer."
 
 #. TRANSLATORS: %1 refers to the domain name of the SSL certificate
 #: src/app/InvalidCertificateErrorSheet.qml:208
@@ -328,240 +293,236 @@ msgid ""
 "You attempted to reach %1 but the server presented a security certificate "
 "which failed our security checks for an unknown reason."
 msgstr ""
-"Ne c'haller ket kaour fiziañs e testeni surentez al lec'hienn-mañ\n"
-"Klasket ho peus mont da %1 met diskouezet ez eus bet gant ar servijer un "
-"testeni surentez ha n'en deus ket gallet tremen hor gwiriadennoù surentez "
-"evit un abeg dianav."
 
 #: src/app/PromptDialog.qml:23
 msgid "JavaScript Prompt"
-msgstr "Ped JavaScript"
+msgstr ""
 
 #: src/app/ProxyAuthenticationDialog.qml:22
 msgid "Proxy authentication required."
-msgstr "Dilesadur proksi rekis."
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the proxy address, %2 refers to the proxy port
 #: src/app/ProxyAuthenticationDialog.qml:24
 #, qt-format
 msgid "The website %1:%2 requires authentication."
-msgstr "Al lec'hienn web %1:%2 a c'houlenn un dilesadur."
+msgstr ""
 
 #: src/app/actions/Back.qml:23
 msgid "Back"
-msgstr "Distreiñ"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Back' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Back.qml:26
 msgid "Older Page"
-msgstr "Pajenn goshoc'h"
+msgstr ""
 
 #: src/app/actions/Bookmark.qml:23
 msgid "Bookmark"
-msgstr "Sined"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Bookmark' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Bookmark.qml:26
 msgid "Add This Page to Bookmarks"
-msgstr "Ouzhpennañ ar bajenn-mañ d'ar sinedoù"
+msgstr ""
 
 #: src/app/actions/BookmarkLink.qml:22
 msgid "Bookmark link"
-msgstr "Ouzhpennañ al liamm d'ar sinedoù"
+msgstr ""
 
 #: src/app/actions/ClearHistory.qml:23
 msgid "Clear History"
-msgstr "Diverkañ an istor"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Clear History' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/ClearHistory.qml:26
 msgid "Clear Navigation History"
-msgstr "Diverkañ an istor merdeiñ"
+msgstr ""
 
 #: src/app/actions/Copy.qml:22
 msgid "Copy"
-msgstr "Eilañ"
+msgstr ""
 
 #: src/app/actions/CopyImage.qml:22
 msgid "Copy image"
-msgstr "Eilañ ar skeudenn"
+msgstr ""
 
 #: src/app/actions/CopyLink.qml:22
 msgid "Copy link"
-msgstr "Eilañ al liamm"
+msgstr ""
 
 #: src/app/actions/Cut.qml:22
 msgid "Cut"
-msgstr "Troc'hañ"
+msgstr ""
 
 #: src/app/actions/Erase.qml:22
 msgid "Erase"
-msgstr "Diverkañ"
+msgstr ""
 
 #: src/app/actions/FindInPage.qml:23 src/app/webbrowser/Browser.qml:429
 msgid "Find in page"
-msgstr "Kavout er bajenn"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Find in Page' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/FindInPage.qml:26
 msgid "Search in Page"
-msgstr "Klask er bajenn"
+msgstr ""
 
 #: src/app/actions/Forward.qml:23
 msgid "Forward"
-msgstr "War-raok"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Forward' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Forward.qml:26
 msgid "Newer Page"
-msgstr "Pajenn nevesoc'h"
+msgstr ""
 
 #: src/app/actions/GoTo.qml:23
 msgid "Goto"
-msgstr "Mont da"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Goto' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/GoTo.qml:26
 msgid "Address;URL;www"
-msgstr "Chomlec'h;URL;www"
+msgstr ""
 
 #: src/app/actions/NewTab.qml:23 src/app/webbrowser/Browser.qml:692
 #: src/app/webbrowser/TabsBar.qml:85
 msgid "New Tab"
-msgstr "Ivinell nevez"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'New Tab' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/NewTab.qml:26
 msgid "Open a New Tab"
-msgstr "Digeriñ un ivinell nevez"
+msgstr ""
 
 #: src/app/actions/OpenImageInNewTab.qml:22
 msgid "Open image in new tab"
-msgstr "Digeriñ ar skeudenn en un ivinell nevez"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewBackgroundTab.qml:22
 msgid "Open link in new background tab"
-msgstr "Digeriñ al liamm en un ivinell nevez en drekleur"
+msgstr ""
 
 #: src/app/actions/OpenLinkInNewTab.qml:22
 msgid "Open link in new tab"
-msgstr "Digeriñ al liamm en un ivinell nevez"
+msgstr ""
 
 #: src/app/actions/Paste.qml:22
 msgid "Paste"
-msgstr "Pegañ"
+msgstr ""
 
 #: src/app/actions/Redo.qml:22
 msgid "Redo"
-msgstr "Adober"
+msgstr ""
 
 #: src/app/actions/Reload.qml:23 src/app/webbrowser/SadTab.qml:86
 #: src/app/webbrowser/TabsBar.qml:90 src/app/webcontainer/SadPage.qml:51
 msgid "Reload"
-msgstr "Adkargañ"
+msgstr ""
 
 #. TRANSLATORS: This is a free-form list of keywords associated to the 'Reload' action.
 #. Keywords may actually be sentences, and must be separated by semi-colons.
 #: src/app/actions/Reload.qml:26
 msgid "Leave Page"
-msgstr "Kuitaat ar bajenn"
+msgstr ""
 
 #: src/app/actions/SaveImage.qml:22
 msgid "Save image"
-msgstr "Enrollañ ar skeudenn"
+msgstr ""
 
 #: src/app/actions/SaveLink.qml:22
 msgid "Save link"
-msgstr "enrollañ al liamm"
+msgstr ""
 
 #: src/app/actions/SelectAll.qml:22 src/app/webbrowser/HistoryView.qml:173
 #: src/app/webbrowser/HistoryViewWide.qml:409
 msgid "Select all"
-msgstr "Diuzañ pep tra"
+msgstr ""
 
 #: src/app/actions/Share.qml:22 src/app/webbrowser/Browser.qml:393
 msgid "Share"
-msgstr "Rannañ"
+msgstr ""
 
 #: src/app/actions/Undo.qml:22
 msgid "Undo"
-msgstr "Dizober"
+msgstr ""
 
 #. TRANSLATORS: %2 refers to the total number of find in page results and %1 to the highlighted result
 #: src/app/webbrowser/AddressBar.qml:209
 #, qt-format
 msgid "%1/%2"
-msgstr "%1/%2"
+msgstr ""
 
 #: src/app/webbrowser/AddressBar.qml:245
 msgid "find in page"
-msgstr "kavout er bajenn"
+msgstr ""
 
 #: src/app/webbrowser/AddressBar.qml:246
 msgid "search or enter an address"
-msgstr "klask pe ebarzhiñ ur chomlec'h"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:48
 msgid "Bookmark Added"
-msgstr "sined ouzhpenned"
+msgstr ""
 
 #. TRANSLATORS: Field where the title of bookmarked URL can be changed
 #: src/app/webbrowser/BookmarkOptions.qml:53
 msgid "Name"
-msgstr "Anv"
+msgstr ""
 
 #. TRANSLATORS: Field to choose the folder where bookmarked URL will be saved in
 #: src/app/webbrowser/BookmarkOptions.qml:71
 msgid "Save in"
-msgstr "enrollañ dindan"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:78
 #: src/app/webbrowser/BookmarksFoldersView.qml:119
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:111
 msgid "All Bookmarks"
-msgstr "an holl sinedoù"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:93
 #: src/app/webbrowser/BookmarkOptions.qml:133
 msgid "New Folder"
-msgstr "Renkell nevez"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:115
 msgid "Create new folder"
-msgstr "Krouiñ ur renkell nevez"
+msgstr ""
 
 #: src/app/webbrowser/BookmarkOptions.qml:153
 #: src/app/webbrowser/SettingsPage.qml:358
 msgid "Save"
-msgstr "Enrollañ"
+msgstr ""
 
 #: src/app/webbrowser/BookmarksFoldersView.qml:158
 #: src/app/webbrowser/BookmarksFoldersViewWide.qml:154
 #: src/app/webbrowser/SettingsPage.qml:91
 #: src/app/webbrowser/SettingsPage.qml:322
 msgid "Homepage"
-msgstr "Degemer"
+msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:80
 #: src/app/webbrowser/BookmarksViewWide.qml:78
 #: src/app/webbrowser/Browser.qml:400 src/app/webbrowser/NewTabView.qml:108
 #: src/app/webbrowser/NewTabViewWide.qml:154
 msgid "Bookmarks"
-msgstr "Sinedoù"
+msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:112
 #: src/app/webbrowser/BookmarksViewWide.qml:110
 #: src/app/webbrowser/Browser.qml:678 src/app/webbrowser/HistoryView.qml:117
 #: src/app/webbrowser/HistoryViewWide.qml:504
 msgid "Done"
-msgstr "Graet eo"
+msgstr ""
 
 #: src/app/webbrowser/BookmarksView.qml:125
 #: src/app/webbrowser/BookmarksViewWide.qml:123
@@ -569,420 +530,371 @@ msgstr "Graet eo"
 #: src/app/webbrowser/HistoryViewWide.qml:518
 #: src/app/webbrowser/TabsBar.qml:148 src/app/webbrowser/TabsList.qml:94
 msgid "New tab"
-msgstr "Ivinell nevez"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:406
 #: src/app/webbrowser/HistoryViewWide.qml:368
 msgid "History"
-msgstr "Istor"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:412
 msgid "Open tabs"
-msgstr "Ivinelloù digor"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:412 src/app/webbrowser/DownloadsPage.qml:56
 msgid "Downloads"
-msgstr "Pellgargadennoù"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:436
 msgid "Leave Private Mode"
-msgstr "Kuitaat ar mod prevez"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:436
 msgid "Private Mode"
-msgstr "Mod prevez"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:454 src/app/webbrowser/SettingsPage.qml:50
 msgid "Settings"
-msgstr "Arventennoù"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the current number of tabs opened
 #: src/app/webbrowser/Browser.qml:786
 #, qt-format
 msgid "(%1)"
-msgstr "(%1)"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:1259
 msgid "Swipe Up To Exit Full Screen"
-msgstr "Riklañ d'an nec'h evit kuitaat ar skramm leun"
+msgstr ""
 
 #: src/app/webbrowser/Browser.qml:1260
 msgid "Press ESC To Exit Full Screen"
-msgstr "Pouezañ war ESC evit kuitatt ar skramm leun"
+msgstr ""
 
 #: src/app/webbrowser/DownloadsPage.qml:59
 msgid "Confirm selection"
-msgstr "Kadarnaat an diuzadenn"
+msgstr ""
 
 #: src/app/webbrowser/HistoryView.qml:199
 #: src/app/webbrowser/HistoryViewWide.qml:428
 msgid "Delete"
-msgstr "Diverkañ"
+msgstr ""
 
 #: src/app/webbrowser/DownloadsPage.qml:207
 msgid "No downloads available"
-msgstr "N'eus ket pellgargadennoù da gaout"
+msgstr ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:104
 #, qt-format
 msgid "%1 page"
 msgid_plural "%1 pages"
-msgstr[0] "%1 bajenn"
-msgstr[1] "%1 a bajennoù"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/app/webbrowser/ExpandedHistoryView.qml:119
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "Less"
-msgstr "Nebeutoc'h"
+msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:26
 msgid "Last Visited"
-msgstr "Gweladennet da ziwezhañ"
+msgstr ""
 
 #: src/app/webbrowser/HistorySectionDelegate.qml:48
 #: src/app/webbrowser/HistoryViewWide.qml:215
 msgid "Yesterday"
-msgstr "Dec'h"
+msgstr ""
 
 #: src/app/webbrowser/HistoryViewWide.qml:199
 msgid "All History"
-msgstr "An holl istor"
+msgstr ""
 
 #: src/app/webbrowser/HistoryViewWide.qml:213
 #: src/app/webbrowser/HistoryViewWide.qml:282
 msgid "Today"
-msgstr "Hiziv"
+msgstr ""
 
 #: src/app/webbrowser/HistoryViewWide.qml:449
 msgid "search history"
-msgstr "furchal an istor"
+msgstr ""
 
 #: src/app/webbrowser/LeavePrivateModeDialog.qml:24
 msgid "Going to public mode will close all private tabs"
-msgstr "Ma'z it d'ar mod e vo serret an holl ivinelloù prevez"
+msgstr ""
 
 #: src/app/webbrowser/MediaAccessDialog.qml:28
 msgid "Allow this domain to access your camera and microphone?"
-msgstr "Aotren an domani-mañ da vont d'ho kamera ha d'ho mikro ?"
+msgstr ""
 
 #: src/app/webbrowser/MediaAccessDialog.qml:29
 msgid "Allow this domain to access your camera?"
-msgstr "Aotren an domani-mañ da vont d'ho kamera ?"
+msgstr ""
 
 #: src/app/webbrowser/MediaAccessDialog.qml:30
 msgid "Allow this domain to access your microphone?"
-msgstr "Aotren an domani-mañ da vont d'ho mikro ?"
+msgstr ""
 
 #. TRANSLATORS: %1 is the URL of the site requesting access to camera and/or microphone and %2 is the URL of the site that embeds it
 #: src/app/webbrowser/MediaAccessDialog.qml:39
 #, qt-format
 msgid "%1 (embedded in %2)"
-msgstr "%1 (e-barzh %2)"
+msgstr ""
 
 #: src/app/webbrowser/MediaAccessDialog.qml:48
 msgid "Yes"
-msgstr "Ya"
+msgstr ""
 
 #: src/app/webbrowser/MediaAccessDialog.qml:60
 msgid "No"
-msgstr "Arabat"
+msgstr ""
 
 #: src/app/webbrowser/NewPrivateTabView.qml:41
 msgid "This is a private tab"
-msgstr "Un ivinell brevez eo homañ"
+msgstr ""
 
 #: src/app/webbrowser/NewPrivateTabView.qml:56
 msgid ""
 "Pages that you view in this tab won't appear in your browser history.\n"
 "Bookmarks you create will be preserved, however."
 msgstr ""
-"Ar pajennoù a welit en ivinell-mañ ne zeuont ket war-wel en istor ho "
-"merdeer.\n"
-"Koulskoude e vo miret ar sinedoù ho po krouet."
 
 #: src/app/webbrowser/NewTabView.qml:123
 msgid "More"
-msgstr "Muioc'h"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:227
 #: src/app/webbrowser/NewTabViewWide.qml:153
 msgid "Top sites"
-msgstr "Lec'hiennoù gwellañ"
+msgstr ""
 
 #: src/app/webbrowser/NewTabView.qml:258
 msgid "You haven't visited any site yet"
-msgstr "N'oc'h bet e lec'hienn ebet c'hoazh"
+msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:48
 msgid "The rendering process has been closed for this tab."
-msgstr "Serret eo bet an argerzh deouez evit an ivinell-mañ."
+msgstr ""
 
 #. TRANSLATORS: %1 is the URL of the page that crashed the renderer process
 #: src/app/webbrowser/SadTab.qml:65
 #, qt-format
 msgid "Something went wrong while displaying %1."
-msgstr "Un dra bennak zo aet a-dreuz pa oad o tiskwel %1."
+msgstr ""
 
 #: src/app/webbrowser/SadTab.qml:67
 msgid ""
 "The system is low on memory and can't display this webpage. Try closing "
 "unneeded tabs and reloading."
 msgstr ""
-"Re verr eo ar memor gant ar reizhiad ha ne c'hall ket diskwel ar bajenn web-"
-"mañ. Esaeit serriñ ivinelloù diezhomm hag adkargañ."
 
 #: src/app/webbrowser/SadTab.qml:80
 msgid "Close tab"
-msgstr "Serriñ an ivinell"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:69
 msgid "This site has insecure content"
-msgstr "Al lec'hienn-mañ zo traoù diasur enni."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:70
 msgid "Identity Not Verified"
-msgstr "Identelezh n'eo ket bet gwiriet"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:78
 msgid "The identity of this website has not been verified."
-msgstr "N'eo ket bet gwiriet identelezh al lec'hienn web-mañ"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:89
 msgid "Server certificate does not match the identity of the site."
-msgstr "Ne glot ket testeni ar servijer gant identelezh al lec'hienn."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:91
 msgid "Server certificate has expired."
-msgstr "Diamzeret eo testeni ar servijer."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:93
 msgid "Server certificate contains invalid dates."
-msgstr "Deiziadoù direizh zo e testeni ar servijer."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:95
 msgid "Server certificate is issued by an entity that is not trusted."
 msgstr ""
-"Graet eo bet testeni ar servijer gant un aozadur ha ne c'haller ket kaout "
-"fiziañs ennañ."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:97
 msgid "Server certificate has been revoked."
-msgstr "Torret eo bet testeni ar servijer."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:99
 msgid "Server certificate is invalid."
-msgstr "Direizh eo testeni ar servijer."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:101
 msgid "Server certificate is insecure."
-msgstr "N'eo ket suraet testeni ar servijer."
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:103
 msgid "Server certificate failed our security checks for an unknown reason."
 msgstr ""
-"Testeni ar servijer n'en deus ket tremenet hor c'hontrolloù surentez evit un "
-"abeg dianav."
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:126
 msgid "You are connected to"
-msgstr "Kennasket oc'h ouzh"
+msgstr ""
 
 #: src/app/webbrowser/SecurityCertificatePopover.qml:148
 msgid "Which is run by"
-msgstr "Hag a zo kaset en-dro gant"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:80
 #: src/app/webbrowser/SettingsPage.qml:175
 msgid "Search engine"
-msgstr "Keflusker enklask"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:100
 msgid "Restore previous session at startup"
-msgstr "Assevel an dalc'h kent pa loc'her"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:118
 msgid "Allow opening new tabs in background"
-msgstr "Aotren digeriñ ivinelloù nevez en drekleur"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:137
 #: src/app/webbrowser/SettingsPage.qml:227
 msgid "Privacy & permissions"
-msgstr "Buhez prevez & aotreoù"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:145
 msgid "Reset browser settings"
-msgstr "Adderaouekaat arventennoù ar merdeer"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:248
 #: src/app/webbrowser/SettingsPage.qml:386
 msgid "Camera & microphone"
-msgstr "Kamera & mikro"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:254
 msgid "Clear Browsing History"
-msgstr "Diverkañ istor ar merdeiñ"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:257
 msgid "Clear Browsing History?"
-msgstr "Diverkañ istor ar merdeiñ ?"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:264
 msgid "Clear Cache"
-msgstr "Goulloiñ ar grubuilh"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:266
 msgid "Clear Cache?"
-msgstr "Diverkañ ar grubuilh ?"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:301
 msgid "Clear"
-msgstr "Naetaat"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:406
 msgid "Microphone"
-msgstr "Mikro"
+msgstr ""
 
 #: src/app/webbrowser/SettingsPage.qml:425
 msgid "Camera"
-msgstr "Kamera"
+msgstr ""
 
 #: src/app/webbrowser/TabPreview.qml:81
 msgid "Tap to view"
-msgstr "Touch da welet"
+msgstr ""
 
 #: src/app/webbrowser/TabsBar.qml:96
 msgid "Close Tab"
-msgstr "Serriñ an ivinell"
+msgstr ""
 
 #: src/app/webbrowser/UrlPreviewDelegate.qml:124
 msgid "Remove"
-msgstr "Lemel"
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the current page’s title
 #: src/app/webbrowser/webbrowser-app.qml:35
 #: src/app/webcontainer/webapp-container.qml:67
 #, qt-format
 msgid "%1 - Ubuntu Web Browser"
-msgstr "%1 - Merdeer Web Ubuntu"
+msgstr ""
 
 #: src/app/webbrowser/webbrowser-app.qml:37
 #: src/app/webcontainer/webapp-container.qml:69
 msgid "Ubuntu Web Browser"
-msgstr "Merdeer Web Ubuntu"
+msgstr ""
 
 #: src/app/webcontainer/AccountChooserDialog.qml:62
 msgid ""
 "No accounts have been linked to this webapp; press the item below to add an "
 "account."
 msgstr ""
-"N'eus bet liammet kont ebet ouzh an aroload web-mañ ; klikit amañ dindan "
-"evit ouzhpennañ ur gont."
 
 #: src/app/webcontainer/AccountChooserDialog.qml:78
 msgid "Add account"
-msgstr "Ouzhpennañ ur gont"
+msgstr ""
 
 #: src/app/webcontainer/AccountChooserDialog.qml:87
 msgid "Don't use an account"
-msgstr "Chom hep implijout ur gont"
+msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:39
 msgid "Account error"
-msgstr "Fazi kont"
+msgstr ""
 
 #: src/app/webcontainer/AccountErrorScreen.qml:50
 msgid "Close"
-msgstr "Serriñ"
+msgstr ""
 
 #: src/app/webcontainer/AccountsLogic.qml:63
 msgid ""
 "Account window could not be opened. You can only create one account at a "
 "time; please try again after closing all other account windows."
 msgstr ""
-"N'eus ket bet gallet digeriñ prenestr ar c'hontoù. Gallout a rit krouiñ ur "
-"gont hepken war un dro ; esaeit en-dro goude serriñ ar prenestroù kont all, "
-"mar plij."
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:45
 #, qt-format
 msgid "<b>%1</b> needs to access your %2 online account."
-msgstr "<b>%1</b> en deus ezhomm da vont d'ho kont %2."
+msgstr ""
 
 #. TRANSLATORS: %1 refers to the application name, %2 refers to the account provider
 #: src/app/webcontainer/AccountsSplashScreen.qml:55
 #, qt-format
 msgid "<b>%1</b> would like to access your %2 online account."
-msgstr "<b>%1</b> a garfe mont d'ho kont %2."
+msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:64
 msgid ""
 "Choose an account now, or skip this step and choose an online account later."
 msgstr ""
-"Choazit ur gont bremañ, pe lezit ar bazenn-mañ a-gostez ha choazit ur gont "
-"diwezhatoc'h."
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Close the app"
-msgstr "Serrit an arloadoù"
+msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:77
 msgid "Skip"
-msgstr "Lammat"
+msgstr ""
 
 #: src/app/webcontainer/AccountsSplashScreen.qml:84
 msgid "Choose account"
-msgstr "Dibab ur gont"
+msgstr ""
 
 #: src/app/webcontainer/SadPage.qml:45
 msgid "Oops, something went wrong."
-msgstr "Popop, un dra a-dreuz zo bet."
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:1
 msgid "Browser"
-msgstr "Merdeer"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:2
 msgid "Web Browser"
-msgstr "Merdeer web"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:3
 msgid "Browse the World Wide Web"
-msgstr "Merdeiñ war ar Web"
+msgstr ""
 
 #: po/src/app/webbrowser/webbrowser-app.desktop.in.in.h:4
 msgid "Internet;WWW;Browser;Web;Explorer"
-msgstr "Internet;WWW;Merdeer;Web;Ergerzher"
-
-#~ msgid ""
-#~ "Ubuntu suggests you check your network settings and try refreshing the page."
-#~ msgstr ""
-#~ "Ubuntu a ali ac'hanoc'h da wiriañ arventennoù ho rouedad ha da glask "
-#~ "freskaat ar bajenn."
-
-#~ msgid "Select an account"
-#~ msgstr "Diuzañ ur gont"
-
-#~ msgid "No local account found for "
-#~ msgstr "N'eus bet kavet kont lec'hel ebet evit "
-
-#~ msgid "Skip account creation step"
-#~ msgstr "Mont dreist ar bazenn krouiñ ur gont"
-
-#~ msgid "Share…"
-#~ msgstr "Rannañ..."
-
-#~ msgid "see less"
-#~ msgstr "gwelet nebeutoc'h"
-
-#~ msgid "see more"
-#~ msgstr "gwelet muioc'h"
-
-#~ msgid "Add"
-#~ msgstr "Ouzhpennañ"
-
-#~ msgid "Delete all history?"
-#~ msgstr "Diverkañ an istor a-bezh ?"
-
-#~ msgid "Privacy"
-#~ msgstr "Prevezded"
+msgstr ""
