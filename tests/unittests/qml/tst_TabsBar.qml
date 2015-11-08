@@ -136,7 +136,7 @@ Item {
                 tabs.appendTab("", "tab " + i, "")
             }
             compare(tabsModel.currentIndex, count - 1)
-            return count;
+            return count
         }
 
         function test_create_new_tab() {
