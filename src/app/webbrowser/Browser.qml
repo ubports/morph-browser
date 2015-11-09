@@ -996,7 +996,7 @@ BrowserView {
                 enabled: current && !bottomEdgeHandle.dragging && !recentView.visible
 
                 locationBarController {
-                    height: recentView.visible ? invisibleTabChrome.height : tab.current ? chrome.height : 0
+                    height: recentView.visible ? invisibleTabChrome.height : chrome.height
                     mode: chromeController.defaultMode
                 }
 
