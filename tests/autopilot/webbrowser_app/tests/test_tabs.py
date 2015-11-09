@@ -142,7 +142,7 @@ class TestTabsFocus(StartOpenRemotePageTestCaseBase, TestTabsMixin):
            the new page view"""
         address_bar = self.main_window.address_bar
 
-        self.main_window.press_key('Ctrl+T')
+        self.main_window.press_key('Ctrl+t')
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
         self.main_window.press_key('Ctrl+Tab')
@@ -160,31 +160,31 @@ class TestTabsFocus(StartOpenRemotePageTestCaseBase, TestTabsMixin):
            allowing keyboard shortcuts to work without interruption"""
         address_bar = self.main_window.address_bar
 
-        self.main_window.press_key('Ctrl+T')
-        self.main_window.press_key('Ctrl+T')
+        self.main_window.press_key('Ctrl+t')
+        self.main_window.press_key('Ctrl+t')
         url = self.base_url + "/test1"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
 
-        self.main_window.press_key('Ctrl+T')
+        self.main_window.press_key('Ctrl+t')
         url = self.base_url + "/test2"
         self.main_window.go_to_url(url)
         self.main_window.wait_until_page_loaded(url)
-        self.main_window.press_key('Ctrl+T')
-        self.main_window.press_key('Ctrl+T')
+        self.main_window.press_key('Ctrl+t')
+        self.main_window.press_key('Ctrl+t')
 
-        self.main_window.press_key('Ctrl+W')
+        self.main_window.press_key('Ctrl+w')
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
-        self.main_window.press_key('Ctrl+W')
+        self.main_window.press_key('Ctrl+w')
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.activeFocus, Eventually(Equals(True)))
 
-        self.main_window.press_key('Ctrl+W')
+        self.main_window.press_key('Ctrl+w')
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.activeFocus, Eventually(Equals(True)))
 
-        self.main_window.press_key('Ctrl+W')
+        self.main_window.press_key('Ctrl+w')
         self.assertThat(address_bar.activeFocus, Eventually(Equals(True)))
 
 

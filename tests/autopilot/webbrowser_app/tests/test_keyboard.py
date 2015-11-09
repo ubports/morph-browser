@@ -67,7 +67,7 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         self.address_bar = self.main_window.address_bar
 
     def open_tab(self, url):
-        self.main_window.press_key('Ctrl+T')
+        self.main_window.press_key('Ctrl+t')
         new_tab_view = self.main_window.get_new_tab_view()
         self.address_bar.go_to_url(url)
         new_tab_view.wait_until_destroyed()
@@ -86,7 +86,7 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
                         Eventually(Equals(url)))
 
     def test_new_tab(self):
-        self.main_window.press_key('Ctrl+T')
+        self.main_window.press_key('Ctrl+t')
 
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.url, Equals(""))
@@ -306,7 +306,7 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         bookmarks_view = self.main_window.get_bookmarks_view()
         self.assertThat(bookmarks_view.activeFocus, Eventually(Equals(True)))
 
-        self.main_window.press_key('Ctrl+T')
+        self.main_window.press_key('Ctrl+t')
         bookmarks_view.wait_until_destroyed()
 
         new_tab_view = self.main_window.get_new_tab_view()
@@ -339,7 +339,7 @@ class TestKeyboard(PrepopulatedDatabaseTestCaseBase):
         history_view = self.main_window.get_history_view()
         self.assertThat(history_view.activeFocus, Eventually(Equals(True)))
 
-        self.main_window.press_key('Ctrl+T')
+        self.main_window.press_key('Ctrl+t')
         history_view.wait_until_destroyed()
 
         new_tab_view = self.main_window.get_new_tab_view()
