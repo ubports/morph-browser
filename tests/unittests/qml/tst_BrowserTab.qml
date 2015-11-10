@@ -105,6 +105,8 @@ Item {
             tab.reload()
             verify(tab.webviewPresent)
             compare(tab.webview.reloaded, 1)
+
+            tab.destroy()
         }
 
         function test_create_with_request() {
@@ -162,6 +164,8 @@ Item {
             verify(FileOperations.exists(path))
             tab.close()
             verify(!FileOperations.exists(path))
+
+            tab.destroy()
         }
     }
 }
