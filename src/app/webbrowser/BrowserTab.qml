@@ -71,16 +71,16 @@ FocusScope {
                 properties['url'] = initialUrl
             }
 
-            var incubator = webviewComponent.incubateObject(webviewContainer, properties)
-            if (incubator === null) {
-                console.warn("Webview incubator failed to initialize")
-                return
-            }
-            if (incubator.status === Component.Ready) {
-                webviewContainer.webview = incubator.object
-                return
-            }
             if (internal.incubator === null) {
+                var incubator = webviewComponent.incubateObject(webviewContainer, properties)
+                if (incubator === null) {
+                    console.warn("Webview incubator failed to initialize")
+                    return
+                }
+                if (incubator.status === Component.Ready) {
+                    webviewContainer.webview = incubator.object
+                    return
+                }
                 internal.incubator = incubator
                 incubator.onStatusChanged = function(status) {
                     if (status === Component.Ready) {
