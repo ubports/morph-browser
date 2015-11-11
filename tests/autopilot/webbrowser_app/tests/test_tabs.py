@@ -203,6 +203,27 @@ class TestTabsManagement(StartOpenRemotePageTestCaseBase, TestTabsMixin):
         webview = self.main_window.get_current_webview()
         self.assertThat(webview.activeFocus, Eventually(Equals(True)))
 
+    # http://pad.lv/1464436
+    @testtools.skipIf(model() != "Desktop", "on desktop only")
+    def test_ctrl_click_open_link_in_new_background_tab(self):
+        url = self.base_url + "/link"
+        self.main_window.go_to_url(url)
+        self.main_window.wait_until_page_loaded(url)
+        webview = self.main_window.get_current_webview()
+
+        self.keyboard.press('Ctrl')
+        self.pointing_device.click_object(webview)
+        self.keyboard.release('Ctrl')
+
+        # Eventually we should have two webviews but one should be hidden.
+        # Wait some time to increase confidence that webviews won't change
+        # their visibility state to an incorrect one before the check.
+        time.sleep(1)
+        self.assert_number_webviews_eventually(2)
+        views = self.main_window.select_many("WebViewImpl", visible=True)
+        self.assertThat(len(views), Equals(1))
+        self.check_current_tab(url)
+
     def test_open_iframe_target_blank_in_new_tab(self):
         url = self.base_url + "/fulliframewithblanktargetlink"
         self.main_window.go_to_url(url)
