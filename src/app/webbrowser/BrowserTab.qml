@@ -165,7 +165,8 @@ FocusScope {
         if (request) {
             // Instantiating the webview cannot be delayed because the request
             // object is destroyed after exiting the newViewRequested signal handler.
-            webviewComponent.incubateObject(webviewContainer, {"tab": tab, "request": request, 'incognito': incognito})
+            var properties = {"tab": tab, "request": request, 'incognito': incognito}
+            webviewContainer.webview = webviewComponent.createObject(webviewContainer, properties)
         }
     }
 }
