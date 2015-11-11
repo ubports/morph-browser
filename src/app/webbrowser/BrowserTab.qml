@@ -58,7 +58,7 @@ FocusScope {
         id: webviewContainer
         anchors.fill: parent
         focus: true
-        readonly property var webview: (children.length == 1) ? children[0] : null
+        property var webview: null
     }
 
     function load() {
@@ -70,7 +70,26 @@ FocusScope {
             } else {
                 properties['url'] = initialUrl
             }
-            webviewComponent.incubateObject(webviewContainer, properties)
+
+            var incubator = webviewComponent.incubateObject(webviewContainer, properties)
+            if (incubator === null) {
+                console.warn("Webview incubator failed to initialize")
+                return
+            }
+            if (incubator.status === Component.Ready) {
+                webviewContainer.webview = incubator.object
+                return
+            }
+            internal.incubator = incubator
+            incubator.onStatusChanged = function(status) {
+                if (status === Component.Ready) {
+                    webviewContainer.webview = incubator.object
+                    internal.incubator = null
+                } else if (status === Component.Error) {
+                    console.warn("Webview failed to incubate")
+                    internal.incubator = null
+                }
+            }
         }
     }
 
@@ -102,6 +121,7 @@ FocusScope {
     QtObject {
         id: internal
         property bool hiding: false
+        property var incubator: null
     }
 
     // When current is set to false, delay hiding the tab contents to give it
