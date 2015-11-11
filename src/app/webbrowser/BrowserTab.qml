@@ -80,13 +80,14 @@ FocusScope {
                 webviewContainer.webview = incubator.object
                 return
             }
-            internal.incubator = incubator
-            incubator.onStatusChanged = function(status) {
-                if (status === Component.Ready) {
-                    webviewContainer.webview = incubator.object
-                    internal.incubator = null
-                } else if (status === Component.Error) {
-                    console.warn("Webview failed to incubate")
+            if (internal.incubator === null) {
+                internal.incubator = incubator
+                incubator.onStatusChanged = function(status) {
+                    if (status === Component.Ready) {
+                        webviewContainer.webview = incubator.object
+                    } else if (status === Component.Error) {
+                        console.warn("Webview failed to incubate")
+                    }
                     internal.incubator = null
                 }
             }
