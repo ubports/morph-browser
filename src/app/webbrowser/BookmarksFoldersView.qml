@@ -40,12 +40,14 @@ FocusScope {
 
     ListView {
         id: bookmarksFolderListView
+        objectName: "bookmarksFolderListView"
         anchors.fill: parent
         interactive: false
         focus: true
 
         model: bookmarksFolderListModel
         delegate: Loader {
+            objectName: "bookmarkFolderDelegateLoader"
             anchors {
                 left: parent.left
                 right: parent.right
@@ -165,6 +167,7 @@ FocusScope {
 
                             delegate: UrlDelegate{
                                 id: urlDelegate
+                                objectName: "urlDelegate_" + index
 
                                 property var entry: isAllBookmarksFolder ? modelData : model
 

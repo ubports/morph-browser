@@ -115,6 +115,7 @@ FocusScope {
         }
 
         ToolbarAction {
+            objectName: "newTabAction"
             anchors {
                 right: parent.right
                 rightMargin: units.gu(2)
