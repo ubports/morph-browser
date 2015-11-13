@@ -17,10 +17,8 @@
  */
 
 // Qt
-#include <QtCore/QLibrary>
 #include <QtCore/QtGlobal>
 #include <QtNetwork/QNetworkInterface>
-#include <QtGui/QOpenGLContext>
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlEngine>
